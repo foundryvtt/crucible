@@ -23,7 +23,7 @@ When creating your character, you make a number of key decisions - some of which
 
 Your Ancestry reflects your genetic heritage, where different races of the world innately possess different physical abilities, traditional skills, and innate talents. Each ancestry modifies your character attribute scores, provides two traditional skills, and two innate talents.
 
-The table below presents some common Ancestries which will be familiar for many fantasy RPG settings.
+The table below presents some example Ancestries which will be familiar for many fantasy RPG settings.
 
 | Ancestry  | Attributes                                 | Skills   | Talents   |
 | --------- | ------------------------------------------ | -------- | --------- |
@@ -92,4 +92,4 @@ Tips for strong backstories here.
 
 ### Optional Rule: Allegiances and Nemeses
 
-At the discretion of the Game Master, you may choose to employ an optional rule during the character creation process by which you identify several (the number is up to the Game Master, but 3 is a recommended maximum) significant allies or foes from your past. These connections can refer to an individual person, monster, or a collective organization. Each player's allegiances and nemeses become entries in the **World Progression** table. See section <TODO> for details.
+At the discretion of the Game Master, you may choose to employ an optional rule during the character creation process by which you identify several (the number is up to the Game Master, but 3 is a recommended maximum) significant allies or foes from your past. These connections can refer to an individual person, monster, or a collective organization. Each player's Allegiances and Nemeses become entries in the **World Progression** table. See section <TODO> for details.

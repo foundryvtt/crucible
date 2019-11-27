@@ -2,6 +2,14 @@
 
 "Crucible" (working title) is an innovative and modern tabletop roleplaying game system to empower rich storytelling with compelling mechanics on digital gaming platforms.
 
+## About this Document
+
+This document is organized into major sections which represent different components of the gameplay experience. The rules provided here are intended for both players and Game Masters to share an understanding of; none of the rules are secret.
+
+> Certain sections which are displayed as stylized quote provide advice to Game Masters for how to interpret or make the most out of the described rules.
+
+**Situation**: *Some italicized blocks of text tell a short narrative about a hypothetical gameplay situation and explain how the situation would be resolved using the mechanics.* 
+
 ----
 
 ## System Goals
@@ -21,25 +29,35 @@ This system provides relatively little rule-based guidance around narrative, per
 
 > This system does not include a canonical setting and could be used in any narrative setting of your choice, whether it be an existing realm or a purely homebrewed universe. As general advice, these rules will work best in gritty fantasy settings.
 
----
-
-## About this Document
-
-This document is organized into major sections which represent different components of the gameplay experience. The rules provided here are intended for both players and Game Masters to share an understanding of; none of the rules are secret.
-
-> Certain sections which are displayed as stylized quote provide advice to Game Masters for how to interpret or make the most out of the described rules.
-
-**Situation**: *Some italicized blocks of text tell a short narrative about a hypothetical gameplay situation and explain how the situation would be resolved using the mechanics.* 
-
 ----
 
 ## Table of Contents
 
+### General Gameplay
+
 * [Dice Mechanics](docs/Dice.md)
 * [Combat Mechanics](docs/Combat.md)
+
+### Character Development
+
 * [Character Creation](docs/Character/Creation.md)
 * [Character Attributes](docs/Character/Attributes.md)
 * [Character Skills](docs/Character/Skills.md)
-* [Character Abilities and Features](docs/Character/Abilities.md)
+* [Character Talents](docs/Character/Talents.md)
+
+### Items and Equipment
+
+* [Weaponry](Items/Weapons.md)
+* [Armor and Equipment](Items/Armor.md)
+* [Magical Items](Items/Magical.md)
+
+### Narrative Development
+
+* [World Progression](Narrative/Progression.md)
+* [Allegiances and Nemeses](Narrative/Allegiances.md)
+
+### Appendices and Miscellany
+
+* [Abbreviations and Acronyms](Acronyms.md)
 
 ---

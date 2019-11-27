@@ -58,6 +58,14 @@ Some situations in the game call for a check to see how the influence of some ef
 
 Accumulation Checks pertain to attributes or resources which are tracked for each player character, when rolling such a check the result of the rolled formula is added (or sometimes subtracted) from the prior value and the new total is recorded.
 
+## Passive Checks
+
+In some situations it is either not practical or not advisable to request that players roll dice to perform a test. From a narrative perspective, a Passive Check represents acting instinctively rather than deliberately. A Passive Check may is performed by assuming a result of 12 instead of rolling 3d8.
+
+> For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
+
+You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
+
 ## Additional Mechanics
 
 The following general rules are used for all dice rolling situations.
