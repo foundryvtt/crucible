@@ -27,13 +27,13 @@ The target value which must be surpassed in order for a standard check to be suc
 
 | Difficulty Tier | Recommended Target Value |
 | --------------- | ------------------------ |
-| Trivial         | 5                        |
-| Easy            | 10                       |
-| Moderate        | 15                       |
-| Challenging     | 20                       |
-| Difficult       | 25                       |
-| Formidable      | 30                       |
-| "Impossible"    | 40                       |
+| Trivial         | 10                       |
+| Easy            | 15                       |
+| Moderate        | 20                       |
+| Challenging     | 25                       |
+| Difficult       | 30                       |
+| Formidable      | 35                       |
+| "Impossible"    | 45                       |
 
 > Note that the values in the above table are recommendations only, as a Game Master use your own judgement about what a good target value would be - but discipline yourself to choose the value before your player places the roll - as this is important for player trust. 
 

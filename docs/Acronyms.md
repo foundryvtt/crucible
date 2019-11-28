@@ -4,6 +4,10 @@
 
 **PD** - Physical Defense
 
+**DR** - Damage Resistance
+
+**DV** - Damage Vulnerability
+
 **STR** - Strength
 
 **CON** - Constitution

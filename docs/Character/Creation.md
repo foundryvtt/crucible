@@ -44,52 +44,41 @@ Your Background reflects your upbringing, professional training, career to date,
 
 The table below presents some example Backgrounds which will be familiar for many fantasy RPG settings.
 
-| Background       | Skills   | Talents  | Wealth          | Allegiances | Nemeses |
-| ---------------- | -------- | -------- | --------------- | ----------- | ------- |
-| Aristocrat       | 2 skills | 1 talent | Wealthy (10d10) | 0           | 2       |
-| Scoundrel        | 2 skills | 1 talent | Average (8d8)   | 1           | 1       |
-| Trade Apprentice | 2 skills | 1 talent | Average (8d8)   | 1           | 1       |
-| Urchin           | 2 skills | 1 talent | Poor (6d6)      | 2           | 0       |
+| Background       | Skills   | Talents  | Wealth          | Max. Allegiances | Max. Nemeses |
+| ---------------- | -------- | -------- | --------------- | ---------------- | ------------ |
+| Aristocrat       | 2 skills | 1 talent | Wealthy (10d10) | 1                | 4            |
+| Scoundrel        | 2 skills | 1 talent | Average (8d8)   | 2                | 3            |
+| Trade Apprentice | 2 skills | 1 talent | Average (8d8)   | 3                | 2            |
+| Urchin           | 2 skills | 1 talent | Poor (6d6)      | 4                | 1            |
 
-> As a Game Master and storyteller, you should work with your players to create backgrounds which are suitable for their personal stories. Choose an evocative name, two skills which are representative of the background's past experience, one talent which would have been learned during that time, and a starting wealth level. Wealthy backgrounds begin with 0 Allegiances and 2 Nemeses. Average wealth backgrounds begin with 1 Allegiance and 1 Nemesis. Poor backgrounds begin with 2 Allegiances and no Nemeses.
+> As a Game Master and storyteller, you should work with your players to create backgrounds which are suitable for their personal stories. Choose an evocative name, two skills which are representative of the background's past experience, one talent which would have been learned during that time, and a starting wealth level. 
+
+#### Optional Rule: Allegiances and Nemeses
+
+At the discretion of the Game Master, you may employ the Allegiances and Nemeses optional rule which allows you to identify several significant allies or foes from your past. These connections must refer to individual characters or monsters, rather than collective organizations or forces.
+
+If you use this optional rule, you may choose up to the number of starting Allegiances and Nemeses which are allowed by your Background. The starting wealth level of your Background determines the maximum number of Allegiances and Nemeses which you may select at character creation. Each player's Allegiances and Nemeses become tracked entries in the [World Progression](../Narrative/Progression.md) table.
 
 ## Assign Attribute Scores
 
-Each Attribute score starts at 3. Begin by applying the modifications granted by your Ancestry. From there, you may spend up to XX points to develop your attributes further. Each attribute costs an amount of points equal to the level you wish to purchase. For example, to advance your Strength from 4 to 5 costs 5 points.
+Each Attribute score starts at 3. Begin by applying the modifications granted by your Ancestry. From there, you may spend up to 36 points to develop your attributes further. Each attribute costs an amount of points equal to the level you wish to purchase. For example, to advance your Strength from 4 to 5 costs 5 points. 
 
-36 points (feels pretty heroic)
+> You may reduce an attribute to a minimum of 1 should you wish, although be especially wary if you do so as it may place your character at a severe disadvantage.
 
-**Standard Array**
+Suppose your character begins with an Ancestry which provides +1 Strength, +1 Constitution, and -1 Charisma; some example legal allocations which are possible using this the allowed 36 points are:
 
-* 7 (22)
-* 5 (9)
-* 5 (5)
-* 4 (0)
-* 3 (0)
-* 2 (0)
-
-**Min/Max**
-
-* 8 (26)
-* 5 (5)
-* 4 (4)
-* 3
-* 3
-* 2
-
-**Balanced**
-
-* 5 (5)
-* 5 (5)
-* 5 (9)
-* 4 (4)
-* 4 (4)
-* 4 (9)
+| Attribute Value (Cost) | Starting | Standard | Min/Max | Balanced |
+| ---------------------- | -------- | -------- | ------- | -------- |
+| Strength               | 4        | 7 (18)   | 9 (35)  | 5 (5)    |
+| Constitution           | 4        | 5 (5)    | 4 (0)   | 5 (5)    |
+| Dexterity              | 3        | 5 (9)    | 4 (4)   | 5 (9)    |
+| Intelligence           | 3        | 4 (4)    | 3 (0)   | 4 (4)    |
+| Wisdom                 | 3        | 3 (0)    | 2 (-3)  | 4 (4)    |
+| Charisma               | 2        | 2 (0)    | 2 (0)   | 4 (7)    |
 
 ## Character Backstory
 
 Tips for strong backstories here.
 
-### Optional Rule: Allegiances and Nemeses
+### 
 
-At the discretion of the Game Master, you may choose to employ an optional rule during the character creation process by which you identify several (the number is up to the Game Master, but 3 is a recommended maximum) significant allies or foes from your past. These connections can refer to an individual person, monster, or a collective organization. Each player's Allegiances and Nemeses become entries in the **World Progression** table. See section <TODO> for details.
