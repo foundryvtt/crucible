@@ -1,0 +1,33 @@
+{
+  "Actor": {
+    "types": ["hero", "npc"],
+    "templates": {
+      "common": {
+        "attributes": {},
+        "details": {}
+      }
+    },
+    "hero": {
+      "templates": ["common"],
+      "attributes": {},
+      "details": {}
+    },
+    "npc": {
+      "templates": ["common"],
+      "attributes": {},
+      "details": {}
+    }
+  },
+  "Item": {
+    "types": ["skill", "talent"],
+    "templates": {},
+    "skill": {
+      "templates": [],
+      "rank": 0,
+      "bonus": 0,
+      "progression": 0,
+      "category": ""
+    },
+    "talent": {}
+  }
+}
