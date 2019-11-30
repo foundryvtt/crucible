@@ -1,11 +1,34 @@
 @import "./variables.less";
 
-@navHeight: 30px;
-@headerHeight: 100px;
-@detailsHeight: 40px;
 
 /* ----------------------------------------- */
-/*  All D&D5e Apps                           */
+/*  Element Styles                           */
+/* ----------------------------------------- */
+
+.crucible {
+  h1 {
+    font-family: @caslon;
+    font-size: 32px;
+  }
+
+  h2 {
+    font-family: @caslon;
+    font-size: 24px;
+  }
+
+  h3 {
+    font-family: @caslon;
+    font-size: 18px;
+  }
+
+  p {
+    margin: 0.25em 0;
+  }
+}
+
+
+/* ----------------------------------------- */
+/*  Application Windows                      */
 /* ----------------------------------------- */
 
 .crucible {
@@ -14,10 +37,6 @@
     font-size: 13px;
     color: @colorDark
   }
-
-  /* ----------------------------------------- */
-  /*  Element Styles                           */
-  /* ----------------------------------------- */
 
   // Item Sheet form fields
   input[type="text"], select {
@@ -93,15 +112,5 @@
       flex: auto;
       text-align: left;
     }
-  }
-
-  // Form Headers
-  .form-header {
-    margin: 0 0 0.25em 0;
-    padding: 0 2px;
-    .nodesto();
-    font-size: 24px;
-    border-top: @borderGroove;
-    border-bottom: @borderGroove;
   }
 }

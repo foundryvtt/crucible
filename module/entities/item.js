@@ -45,8 +45,21 @@ export class CrucibleItem extends Item {
   _prepareSkillConfig() {
     const skill = SYSTEM.skills.skills[this.data.data.skill];
     if ( !skill ) return {};
+
+    // Update skill data
     skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
-    skill.categoryName = SYSTEM.skills.categories[skill.category];
+    const category = SYSTEM.skills.categories[skill.category];
+    skill.categoryName = category.name;
+
+    // Skill ranks
+    const ranks = duplicate(SYSTEM.skills.ranks);
+    skill.ranks.forEach(r => mergeObject(ranks[r.rank], r));
+    skill.ranks = ranks;
+
+    // Skill progression paths
+    skill.paths.forEach(p => p.icon = `systems/${SYSTEM.id}/${p.icon}`);
+    skill.paths.unshift(SYSTEM.skills.noPath);
+    skill.paths[0].icon = `systems/${SYSTEM.id}/${category.noPathIcon}`;
     return skill;
   }
 
@@ -85,38 +98,26 @@ export class CrucibleItem extends Item {
     data.name = skill.name;
     data.img = skill.icon;
 
-    // Skill ranks
-    data.rank = SYSTEM.skills.ranks[data.data.rank || 0];
-    data.ranks = duplicate(skill.ranks || []).map(r => {
-      r.purchased = r.rank <= data.data.rank;
+    // Skill rank
+    let current = null;
+    let next = null;
+    data.ranks = skill.ranks.map(r => {
+      r.purchased = (r.rank > 0) && (r.rank <= data.data.rank);
+      if ( r.rank === data.data.rank ) current = r;
+      else if ( r.rank === data.data.rank + 1 ) next = r;
       return r;
     });
+    data.currentRank = current;
+    data.nextRank = next;
 
-    // Progression path
-    data.path = skill.paths.find(p => p.id === data.data.path) || null;
-    if ( data.path ) {
-      for ( let r of data.path.ranks ) {
-        data.ranks[r.rank-1].description = `<strong>${data.path.name}:</strong> ${r.description}`;
-      }
-    }
-    for ( let r of [2, 4, 5] ) {
-      if ( !data.ranks[r-1].description ) data.ranks[r-1].description = "<strong>No Path Chosen:</strong> Choose a progression path.";
-    }
-
-    // Compile current skill description
-    let current = data.ranks.reduce((desc, r) => {
-      if ( r.purchased ) desc.push(`<p>${r.description}</p>`);
-      return desc;
-    }, []);
-    current = data.data.rank > 0 ? current : [`<p>You are not trained in this skill.</p>`];
-    data.description = {current: current.join("\n")};
-
-    // Next progression rank
-    data.nextRank = data.data.rank < 5 ? data.ranks.find(r => r.rank > data.data.rank) : null;
-    if ( data.nextRank === null ) data.description.next = "Skill is at maximum rank.";
-    else if ( data.nextRank.description ) data.description.next = data.nextRank.description;
-    else if ( data.nextRank.progression ) data.description.next = "Choose a progression path.";
-    else data.description.next = "No benefit";
+    // Skill progression paths
+    let path = null;
+    data.paths = skill.paths.map(p => {
+      p.active = p.id === data.data.path;
+      if ( p.active ) path = p;
+      return p;
+    });
+    data.path = path;
     return data;
   }
 }

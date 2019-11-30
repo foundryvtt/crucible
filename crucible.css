@@ -3,12 +3,12 @@
 /*  Fonts                                    */
 /* ----------------------------------------- */
 @font-face {
-  font-family: "Nodesto";
-  src: url("fonts/NodestoCapsCondensed.otf");
+  font-family: "CaslonAntique";
+  src: url("fonts/CaslonAntique/CaslonAntique.ttf");
 }
-.nodesto {
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 20px;
+@font-face {
+  font-family: "Planewalker";
+  src: url("fonts/Planewalker/Planewalker.otf");
 }
 /* ----------------------------------------- */
 /*  Sheet Styles                             */
@@ -58,12 +58,27 @@
   flex: 4;
 }
 /* ----------------------------------------- */
-/*  All D&D5e Apps                           */
+/*  Element Styles                           */
+/* ----------------------------------------- */
+.crucible h1 {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 32px;
+}
+.crucible h2 {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 24px;
+}
+.crucible h3 {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 18px;
+}
+.crucible p {
+  margin: 0.25em 0;
+}
+/* ----------------------------------------- */
+/*  Application Windows                      */
 /* ----------------------------------------- */
 .crucible {
-  /* ----------------------------------------- */
-  /*  Element Styles                           */
-  /* ----------------------------------------- */
   /* Form Groups */
 }
 .crucible .window-content {
@@ -152,15 +167,6 @@
   flex: auto;
   text-align: left;
 }
-.crucible .form-header {
-  margin: 0 0 0.25em 0;
-  padding: 0 2px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 20px;
-  font-size: 24px;
-  border-top: 2px groove #eeede0;
-  border-bottom: 2px groove #eeede0;
-}
 .crucible.sheet.item .sheet-header {
   flex: 0 0 80px;
   border-bottom: 1px solid #b5b3a4;
@@ -169,17 +175,15 @@
 .crucible.sheet.item .sheet-header img.profile {
   flex: 0 0 80px;
   height: 80px;
-  margin: 0;
-  border: none;
+  margin: 0 5px 0 0;
+  border: 1px solid #000;
   border-radius: 0;
 }
 .crucible.sheet.item .sheet-header .header-content {
   flex: 1;
 }
 .crucible.sheet.item .sheet-header h1.title {
-  flex: 0 0 60px;
-  height: 5px;
-  margin: 10px 0 10px 10px;
+  margin: 0;
   border: none;
 }
 .crucible.sheet.item .window-content,
@@ -187,24 +191,50 @@
 .crucible.sheet.item .sheet-body {
   overflow: hidden;
 }
+.crucible.sheet.item.skill h1.title {
+  flex: 3;
+  height: 40px;
+  margin: 2px 0;
+}
+.crucible.sheet.item.skill h2.skill-rank {
+  flex: 2;
+  margin: 2px 0 2px 5px;
+  height: 38px;
+  text-align: center;
+  font-size: 20px;
+  color: #4b4a44;
+  line-height: 40px;
+  border: 1px dashed #b5b3a4;
+  border-radius: 5px;
+}
 .crucible.sheet.item.skill .skill-ranks {
-  height: 36px;
-  overflow: hidden;
-  line-height: 32px;
+  flex: 0 0 100%;
+  height: 26px;
+  margin: 5px 2px;
+  line-height: 24px;
   text-align: center;
   color: #4b4a44;
 }
-.crucible.sheet.item.skill .skill-ranks .rank-number {
-  flex: 0 0 36px;
-  height: 36px;
-  font-size: 24px;
-  border: 2px dashed #b5b3a4;
+.crucible.sheet.item.skill .skill-ranks .rank-detail {
+  flex: 0 0 70px;
+  font-size: 18px;
+  color: #4b4a44;
+}
+.crucible.sheet.item.skill .skill-ranks .rank-detail .rank-detail-label {
+  font-size: 16px;
+  color: #7a7971;
+}
+.crucible.sheet.item.skill .skill-ranks .rank-detail .rank-detail-value {
+  padding: 0 8px;
+  font-size: 20px;
+  color: #4b4a44;
+  border: 1px dashed #b5b3a4;
   border-radius: 5px;
 }
 .crucible.sheet.item.skill .skill-ranks .rank-control {
   flex: 0 0 36px;
-  height: 36px;
-  line-height: 36px;
+  height: 26px;
+  line-height: 26px;
   font-size: 20px;
   color: #b5b3a4;
 }
@@ -212,7 +242,7 @@
   color: #191813;
 }
 .crucible.sheet.item.skill .skill-ranks .rank-progress-bar {
-  height: 36px;
+  height: 26px;
   background: rgba(0, 0, 0, 0.1);
   border: 2px solid #b5b3a4;
   border-radius: 5px;
@@ -230,7 +260,7 @@
 }
 .crucible.sheet.item.skill .skill-ranks .rank-name {
   flex: 0 0 150px;
-  height: 36px;
+  height: 26px;
   font-size: 24px;
   border: 2px dashed #b5b3a4;
   border-radius: 5px;
@@ -238,22 +268,49 @@
 .crucible.sheet.item.skill .skill-header {
   margin: 0;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 28px;
   color: #4b4a44;
-}
-.crucible.sheet.item.skill .progression-path {
-  margin: 5px 0;
-}
-.crucible.sheet.item.skill .progression-path label,
-.crucible.sheet.item.skill .progression-path select {
-  height: 28px;
-  line-height: 28px;
+  text-align: center;
+  border-bottom: 1px solid #b5b3a4;
 }
 .crucible.sheet.item.skill .skill-benefits {
-  height: 290px;
-  overflow-y: scroll;
+  flex: 1;
+  height: 100%;
+  padding-right: 5px;
+  margin-right: 5px;
+  overflow-y: auto;
 }
-.crucible.sheet.item.skill .skill-benefits h3 {
-  border-top: 1px solid #b5b3a4;
+.crucible.sheet.item.skill .skill-benefits .skill-benefit {
+  margin: 0.25em 0;
+  line-height: 20px;
+}
+.crucible.sheet.item.skill .skill-benefits .benefit-rank {
+  display: inline-block;
+  padding: 2px 8px 0;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px dashed #7a7971;
+  border-radius: 3px;
+}
+.crucible.sheet.item.skill .skill-benefits .benefit-from {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 20px;
+  margin: 0 5px;
+}
+.crucible.sheet.item.skill .skill-benefits .benefit-desc {
+  display: inline;
+}
+.crucible.sheet.item.skill .progression-paths {
+  flex: 0 0 64px;
+}
+.crucible.sheet.item.skill .progression-paths img {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+.crucible.sheet.item.skill .progression-paths img.inactive {
+  filter: grayscale(100%);
 }
