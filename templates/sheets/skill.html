@@ -1,0 +1,46 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <div class="header-content flexcol">
+            <h1 class="title">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
+            </h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="skill-ranks flexrow">
+            <span class="rank-number">{{data.rank}}</span>
+            <a class="rank-control" data-action="minus"><i class="fas fa-minus"></i></a>
+            <div class="rank-progress-bar flexrow {{config.category}}">
+                {{#each item.ranks as |rank|}}
+                <div class="rank-progress {{#if rank.purchased}}purchased{{/if}}"></div>
+                {{/each}}
+            </div>
+            <a class="rank-control" data-action="plus"><i class="fas fa-plus"></i></a>
+            <h3 class="rank-name">{{item.rank.name}}</h3>
+        </div>
+
+        <div class="progression-path form-group">
+            <label class="skill-header">Progression Path</label>
+            <select name="data.path" {{#unless canSpecialize}}disabled{{/unless}}>
+                {{#select data.path}}
+                <option value="">No Path Chosen</option>
+                {{#each config.paths as |path|}}
+                <option value="{{path.id}}">{{path.name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+
+        <div class="skill-benefits">
+            <h3 class="skill-header">Current Benefits</h3>
+            {{{item.description.current}}}
+            <h3 class="skill-header">Next Rank</h3>
+            {{{item.description.next}}}
+        </div>
+    </section>
+</form>

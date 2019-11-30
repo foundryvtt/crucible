@@ -7,11 +7,11 @@ Skills represent the social, exploration, puzzle-solving, and crafting abilities
 | Rank | Rank Name   | Rank Description                                             | Rank Modifier | Point Cost |
 | ---- | ----------- | ------------------------------------------------------------ | ------------- | ---------- |
 | 0    | Untrained   | You have no formal training in this area, any success you have is due to luck. | -4            | 0          |
-| 1    | Novice      | You have been instructed in the basics of this skill.        | +2            | 1          |
+| 1    | Novice      | You have been provided basic instruction or acquired practical experience in the basics of this skill. | +2            | 1          |
 | 2    | Apprentice  | You have practiced and honed your skills to a strong functional degree. | +4            | 1          |
 | 3    | Journeyman  | You are a subject matter expert in this area.                | +6            | 2          |
 | 4    | Master      | You are a true master of this skill and its techniques.      | +10           | 3          |
-| 5    | Grandmaster | You are peerless in your mastery of this area.               | +12           | 4          |
+| 5    | Grandmaster | You are peerless in your mastery of this area.               | +12           | 5          |
 
 Each skill relies upon two Attribute scores which, in conjunction with your Skill rank modifier determine your **Skill Bonus** for that particular skill which is defined as:
 

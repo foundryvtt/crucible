@@ -1,0 +1,119 @@
+@import "variables.less";
+@headerHeight: 80px;
+
+.crucible.sheet.item {
+  .sheet-header {
+    flex: 0 0 @headerHeight;
+    border-bottom: 1px solid @colorBeige;
+    margin-bottom: 10px;
+
+    img.profile {
+      flex: 0 0 80px;
+      height: 80px;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .header-content {
+      flex: 1;
+    }
+
+    h1.title {
+      flex: 0 0 60px;
+      height: 5px;
+      margin: 10px 0 10px 10px;
+      border: none;
+    }
+  }
+
+  .window-content, form, .sheet-body {
+    overflow: hidden;
+  }
+}
+
+
+
+.crucible.sheet.item.skill {
+
+  .skill-ranks {
+    height: 36px;
+    overflow: hidden;
+    line-height: 32px;
+    text-align: center;
+    color: @colorOlive;
+
+    .rank-number {
+      flex: 0 0 36px;
+      height: 36px;
+      font-size: 24px;
+      border: 2px dashed @colorBeige;
+      border-radius: 5px;
+    }
+
+    .rank-control {
+      flex: 0 0 36px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 20px;
+      color: @colorBeige;
+      &:hover {
+        color: @colorDark;
+      }
+    }
+
+    .rank-progress-bar {
+      height: 36px;
+      background: rgba(0, 0, 0, 0.10);
+      border: 2px solid @colorBeige;
+      border-radius: 5px;
+
+      .rank-progress {
+        border: 1px solid @colorDark;
+        border-radius: 8px 4px 8px 4px;
+        background: rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0 3px #000 inset;
+        margin: 2px;
+      }
+
+      &.exp .rank-progress.purchased {
+        background: #23911d;
+        border: 1px solid #0a2b00;
+      }
+    }
+
+    .rank-name {
+      flex: 0 0 150px;
+      height: 36px;
+      font-size: 24px;
+      border: 2px dashed @colorBeige;
+      border-radius: 5px;
+    }
+  }
+
+  .skill-header {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 28px;
+    color: @colorOlive;
+  }
+
+  .progression-path {
+    margin: 5px 0;
+    label, select {
+      height: 28px;
+      line-height: 28px;
+    }
+  }
+
+  .skill-benefits {
+    height: 290px;
+    overflow-y: scroll;
+
+    h3 {
+      border-top: 1px solid @colorBeige;
+    }
+  }
+
+}

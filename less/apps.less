@@ -1,0 +1,107 @@
+@import "./variables.less";
+
+@navHeight: 30px;
+@headerHeight: 100px;
+@detailsHeight: 40px;
+
+/* ----------------------------------------- */
+/*  All D&D5e Apps                           */
+/* ----------------------------------------- */
+
+.crucible {
+  .window-content {
+    background: @sheetBackground;
+    font-size: 13px;
+    color: @colorDark
+  }
+
+  /* ----------------------------------------- */
+  /*  Element Styles                           */
+  /* ----------------------------------------- */
+
+  // Item Sheet form fields
+  input[type="text"], select {
+    height: calc(100% - 2px);
+    border: 1px solid @colorTan;
+    background: rgba(0, 0, 0, 0.05);
+    color: @colorDark;
+  }
+
+  // Hovered Fields
+  input[type="text"] {
+    &:hover,
+    &:focus {
+      border: 1px solid #111;
+      box-shadow: 0 0 8px red;
+    }
+  }
+
+  // Disabled Fields
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    color: @colorOlive;
+    &:hover,
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+
+  // Buttons
+  button {
+    background: rgba(0, 0, 0, 0.10);
+    border: @borderGroove;
+  }
+
+  // Checkbox Labels
+  label.checkbox {
+    flex: auto;
+    margin: 0;
+    line-height: 20px;
+    font-size: 11px;
+    text-align: right;
+    input[type="checkbox"] {
+      height: auto;
+      margin: 0 5px 0;
+      position: relative;
+      top: 3px;
+    }
+  }
+
+  /* Form Groups */
+  .form-group {
+    label {
+      flex: 2;
+      color: @colorOlive;
+      font-weight: bold;
+    }
+    .form-fields {
+      .flexrow();
+      > * {
+        margin: 0 3px 0 0;
+        &:last-child { margin-right: 0; }
+      }
+    }
+  }
+
+  // Stacked Groups
+  .form-group.stacked {
+    label {
+      flex: 0 0 100%;
+    }
+    label.checkbox {
+      flex: auto;
+      text-align: left;
+    }
+  }
+
+  // Form Headers
+  .form-header {
+    margin: 0 0 0.25em 0;
+    padding: 0 2px;
+    .nodesto();
+    font-size: 24px;
+    border-top: @borderGroove;
+    border-bottom: @borderGroove;
+  }
+}
