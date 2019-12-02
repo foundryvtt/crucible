@@ -22,11 +22,11 @@
     "types": ["skill", "talent"],
     "templates": {},
     "skill": {
-      "skill": null,
       "templates": [],
+      "skill": null,
       "rank": 0,
       "bonus": 0,
-      "path": 0
+      "path": ""
     },
     "talent": {}
   }

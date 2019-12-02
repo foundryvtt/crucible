@@ -41,6 +41,7 @@ This system provides relatively little rule-based guidance around narrative, per
 ### Character Development
 
 * [Character Creation](docs/Character/Creation.md)
+* [Character Advancement](docs/Character/Advancement.md)
 * [Character Attributes](docs/Character/Attributes.md)
 * [Character Skills](docs/Character/Skills.md)
 * [Character Talents](docs/Character/Talents.md)

@@ -258,6 +258,14 @@
   background: #23911d;
   border: 1px solid #0a2b00;
 }
+.crucible.sheet.item.skill .skill-ranks .rank-progress-bar.kno .rank-progress.purchased {
+  background: #91b1f5;
+  border: 1px solid #17182b;
+}
+.crucible.sheet.item.skill .skill-ranks .rank-progress-bar.soc .rank-progress.purchased {
+  background: #c154bd;
+  border: 1px solid #2b0425;
+}
 .crucible.sheet.item.skill .skill-ranks .rank-name {
   flex: 0 0 150px;
   height: 26px;

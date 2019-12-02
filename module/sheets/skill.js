@@ -8,7 +8,7 @@ export class SkillSheet extends ItemSheet {
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 600,
-      height: 520,
+      height: 450,
       classes: [SYSTEM.id, "sheet", "item", "skill"],
       template: `systems/${SYSTEM.id}/templates/sheets/skill.html`,
       resizable: false

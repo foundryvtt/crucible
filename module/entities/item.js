@@ -58,7 +58,7 @@ export class CrucibleItem extends Item {
 
     // Skill progression paths
     skill.paths.forEach(p => p.icon = `systems/${SYSTEM.id}/${p.icon}`);
-    skill.paths.unshift(SYSTEM.skills.noPath);
+    skill.paths.unshift(duplicate(SYSTEM.skills.noPath));
     skill.paths[0].icon = `systems/${SYSTEM.id}/${category.noPathIcon}`;
     return skill;
   }

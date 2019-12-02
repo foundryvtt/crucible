@@ -76,9 +76,15 @@ Suppose your character begins with an Ancestry which provides +1 Strength, +1 Co
 | Wisdom                 | 3        | 3 (0)    | 2 (-3)  | 4 (4)    |
 | Charisma               | 2        | 2 (0)    | 2 (0)   | 4 (7)    |
 
+## Invest Skill Points 
+
+Your character's starting skills are largely determined by your Ancestry and Background, however you have an additional 2 Skill Points which you may select where to invest at level 1. 
+
+
+
 ## Character Backstory
 
 Tips for strong backstories here.
 
-### 
+
 
