@@ -109,15 +109,22 @@ Physical Defense = 9 (Dodge) + 5 (Parry) + 0 (Block) + 4 (Armor) = 19
 
 The components of this formula define what happens when an attack roll is placed against a target. If the Attack Roll is less than or equal to the target’s Physical Defense the attack is defended and the manner of defense is determined by the range of each component. Alternatively, if the Attack Roll is greater than the Physical Defense score, the target is struck by the attack and suffers damage from the blow. Lastly, if the Attack Roll exceeds the Physical Defense score by more than 5, the attack counts as a Critical Hit.
 
-| Greater Than         | Less Than or Equal To | Result                                    |
-| -------------------- | --------------------- | ----------------------------------------- |
-|                      | Dodge                 | The attack is dodged.                     |
-| Dodge                | Dodge + Parry         | The attack is parried.                    |
-| Dodge + Parry        | Dodge + Parry + Armor | The attack is protected against by armor. |
-| Physical Defense     | Physical Defense + 5  | The attack scores a normal hit.           |
-| Physical Defense + 5 |                       | The attack scores a critical hit.         |
+| Greater Than          | Less Than or Equal To         | Result                            |
+| --------------------- | ----------------------------- | --------------------------------- |
+| 0                     | Dodge                         | The attack is dodged!             |
+| Dodge                 | Dodge + Parry                 | The attack is parried!            |
+| Dodge + Parry         | Dodge + Parry + Block         | The attack is blocked!            |
+| Dodge + Parry + Block | Dodge + Parry + Block + Armor | The attack is averted by armor.   |
+| Physical Defense      | Physical Defense + 5          | The attack scores a normal hit.   |
+| Physical Defense + 5  |                               | The attack scores a critical hit. |
 
 **Situation**: *Returning to our previous situation, the gang of four ruffians all strike at Silarn with their cudgels. The thugs' attack rolls are 6, 13, 19, and 22. Silarn dodges the first attack, parries the second blow, is protected from the third attack by his armor, but is struck by the fourth attack which would result in damage dealt to Silarn's current Wounds.*
+
+An alternative way to visualize the Physical Defense resolution data is with a PD table (which is how the data is displayed on a character sheet). In Silarn's case:
+
+| Dodge | Parry | Block | Armor | Hit   | Critical Hit |
+| ----- | ----- | ----- | ----- | ----- | ------------ |
+| 0-9   | 10-14 | -     | 15-19 | 20-24 | 25+          |
 
 ### Physical Defense Situational Bonuses
 
@@ -166,7 +173,7 @@ When a Spell or Talent targets a creature's Willpower it triggers a **Contest of
 Fortitude Defense = Constitution + (0.5 * Strength) + Situational Bonus
 ```
 
-When a Spell or Talent targets a creature's Fortitude it triggers a **Contest of Endurance** which is resolved as follows:
+When a Spell or Talent targets a creature's Fortitude it triggers a **Contest of Endurance** which is resolved as follows: <TODO>
 
 ## Reflex and Contests of Avoidance
 
@@ -176,7 +183,7 @@ When a Spell or Talent targets a creature's Fortitude it triggers a **Contest of
 Reflex Defense = Dexterity + (0.5 * Intellect) + Situational Bonus
 ```
 
-When a Spell or Talent targets a creature's Reflex it triggers a **Contest of Reflex** which is resolved as follows:
+When a Spell or Talent targets a creature's Reflex it triggers a **Contest of Reflex** which is resolved as follows: <TODO>
 
 ## Maintaining or Resisting Active Effects
 

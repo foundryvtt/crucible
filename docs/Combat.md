@@ -18,7 +18,7 @@ An overall combat encounter is divided into "Rounds", "Turns", and "Phases". A *
 
 | Phase             | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
-| Initiative Phase  | All participants in the combat roll Initiative for the Round which determines the order in which they act for the round. |
+| Initiative Phase  | All participants in the combat roll Initiative for the Round which determines the order in which they act for that round. |
 | Preparation Phase | Each participant who is able to react may choose to perform at most one Preparation Action, all of which are announced and occur simultaneously during the Preparation Phase. |
 | Action Phase      | Each combatant takes a turn in the order defined by the Initiative rolls for the round. |
 | Maintenance Phase | Any combatants using effects which must be maintained face checks to determine whether those effects are maintained during the Maintenance Phase. If these checks are failed, the effect ends at the end of the round and does not carry over into the next round. |
@@ -65,13 +65,15 @@ The exact set of Preparation Actions available to a character is defined by thei
 
 #### Standard Actions
 
+During the Action Phase, there are a wide variety of standard actions that can be taken, each at the cost of some number of Action Points. The most commonly used Standard Actions are listed in the table below, but your Game Master may allow other activities to be performed as standard actions by assigning them a reasonable AP cost.
+
 | Action            | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
-| Move              | Various movement actions represented by Stride, Climb, Burrow, Fly, Climb or other means of traversing the environment. |
+| Move              | Various movement actions represented by Stride, Climb, Burrow, Fly, or other means of traversing the environment. |
 | Strike            | Attack with the weapon or weapons you are carrying.          |
 | Use an Ability    | Use an ability provided through your purchased Talents.      |
 | Cast a Spell      | Cast a spell that is not channeled or performed as a reaction. |
-| Disengage         | Carefully move 5ft. away from an enemy without provoking an Attack of Opportunity. |
+| Disengage         | Carefully move 5 feet away from an enemy without provoking an Attack of Opportunity. |
 | Manipulate        | You may manipulate an item which requires one or both hands to operate. |
 | Use a Skill       | You may elect to use a Skill to acquire knowledge or influence the tide of battle. |
 | Hide              | You may attempt to evade detection by hiding following the rules for Stealth and Detection. |
@@ -80,6 +82,8 @@ The exact set of Preparation Actions available to a character is defined by thei
 | Escape Restraint  | You may attempt to escape restraint, engaging in a contest of Strength or Dexterity against the Strength of your captor or the difficulty of your bonds. |
 
 #### Reactions
+
+You may take at most one Reaction per Round (unless otherwise specified). Each possible Reaction incorporates an activation clause which specifies the conditions which must be met in order for the reaction to be taken. Some examples of reactions are listed in the table below.
 
 | Action                | Description                                                  |
 | --------------------- | ------------------------------------------------------------ |
@@ -90,12 +94,25 @@ The exact set of Preparation Actions available to a character is defined by thei
 
 #### Free Actions
 
+At most one free action can be performed per Round at a point of your choosing, even if it interrupts the Action Phase of another character.
+
 | Action            | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
 | Drop an Item      | Drop an item that you are carrying in your hands.            |
 | Say a Phrase      | Shout, speak, or whisper a short phrase no longer than 10 seconds in duration. |
 | Cancel Channeling | Stop casting of a channeled spell.                           |
 | Release a Spell   | Release the effects of a maintained spell.                   |
+
+#### Lengthy Actions
+
+Some actions are too lengthy to be used in Combat, and will have a time requirement greater than one round. Some examples of lengthy actions which are too complex or demanding to perform within a round of combat are:
+
+| Action            | Description                                              |
+| ----------------- | -------------------------------------------------------- |
+| Don Armor         | Equip or unequip a suit of armor.                        |
+| Perform a Ritual  | Undertake an ability which requires a Ritual to execute. |
+| Attune to an Item | Bond with a magical item which requires attunement.      |
+| Eat Food          | Eat a meal or have a snack.                              |
 
 ### Movement Actions
 
