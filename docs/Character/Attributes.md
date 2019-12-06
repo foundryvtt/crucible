@@ -66,6 +66,14 @@ Your parry value represents your ability to deflect an attack by countering it w
 Parry = (Strength / 2) + Parry Bonus + Situational Bonus
 ```
 
+#### Block
+
+Your Block value represents your ability to deflect an attack by using a physical or arcane shield. Your Block defense is calculated as:
+
+```
+Block = (Constitution / 2) + Block Bonus + Situational Bonus
+```
+
 #### Armor
 
 Your armor value represents your ability to withstand an attack that otherwise bypasses your dodge and parry. Your Armor defense is calculated as:
@@ -90,13 +98,13 @@ Furthermore, equipped items may grant bonuses to Dodge, Parry, or Armor values, 
 Your total Physical Defense score is the sum of your Dodge, Parry, and Armor values in that order.
 
 ```
-Physical Defense = Dodge + Parry + Armor
+Physical Defense = Dodge + Parry + Block + Armor
 ```
 
 **Situation**: *Suppose Silarn, our elusive rogue is beset by a gang of ruffians wielding clubs. Silarn has a Dexterity of 7 and a Strength of 4. He is wearing an enchanted suit of Leather Armor (light) which provides an Armor Value of 4, allows a maximum Dodge bonus up to 12, and provides a magical Dodge Bonus of +2. Furthermore, Silarn's trusty Rapier provides a Parry Bonus of +3. Without any additional situational bonuses, Silarn's Physical Defense is calculated as:*
 
 ```
-Physical Defense = 9 (Dodge) + 5 (Parry) + 4 (Armor) = 19
+Physical Defense = 9 (Dodge) + 5 (Parry) + 0 (Block) + 4 (Armor) = 19
 ```
 
 The components of this formula define what happens when an attack roll is placed against a target. If the Attack Roll is less than or equal to the target’s Physical Defense the attack is defended and the manner of defense is determined by the range of each component. Alternatively, if the Attack Roll is greater than the Physical Defense score, the target is struck by the attack and suffers damage from the blow. Lastly, if the Attack Roll exceeds the Physical Defense score by more than 5, the attack counts as a Critical Hit.
