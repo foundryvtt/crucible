@@ -1,0 +1,64 @@
+{{#*inline "resource"}}
+<h3 class="resource-name">{{label}}</h3>
+<div class="resource-values flexrow">
+    <input name="{{attr}}.value" type="text" value="{{lookup data 'value'}}" data-dtype="Number" placeholder="0"/>
+    <span class="sep">/</span>
+    <input name="{{attr}}.max" type="text" value="{{lookup data 'max'}}" data-dtype="Number" placeholder="0"/>
+</div>
+{{/inline}}
+
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+        <div class="header-content">
+
+            <div class="title flexrow">
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name"/>
+                </h1>
+
+                <h2 class="level">
+                    <label>Level</label>
+                    <input name="data.details.level" type="text" value="{{data.details.level}}" placeholder="1" data-dtype="Number"/>
+                </h2>
+            </div>
+
+            <div class="history flexrow">
+                <div class="ancestry">
+                    <label>Ancestry</label>
+                    <h2>Dwarven</h2>
+                </div>
+
+                <div class="background">
+                    <label>Background</label>
+                    <h2>Nomadic</h2>
+                </div>
+            </div>
+
+            {{!-- Character Resources --}}
+            <div class="resources flexrow">
+                <div class="resource">
+                    {{> resource label="Health" attr="data.attributes.health" data=data.attributes.health}}
+                    {{> resource label="Wounds" attr="data.attributes.wounds" data=data.attributes.wounds}}
+                </div>
+
+                <div class="resource">
+                    {{> resource label="Sanity" attr="data.attributes.sanity" data=data.attributes.sanity}}
+                    {{> resource label="Stress" attr="data.attributes.stress" data=data.attributes.stress}}
+                </div>
+
+                <div class="resource">
+                    {{> resource label="Action" attr="data.attributes.action" data=data.attributes.action}}
+                    {{> resource label="Focus" attr="data.attributes.spell" data=data.attributes.spell}}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body flexrow">
+        Hello
+    </section>
+</form>

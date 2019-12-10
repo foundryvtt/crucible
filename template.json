@@ -3,8 +3,64 @@
     "types": ["hero", "npc"],
     "templates": {
       "common": {
-        "attributes": {},
-        "details": {}
+        "attributes": {
+          "health": {
+            "min": 0,
+            "value": 10,
+            "max": 10
+          },
+          "wounds": {
+            "min": 0,
+            "value": 10,
+            "max": 10
+          },
+          "sanity": {
+            "min": 0,
+            "value": 10,
+            "max": 10
+          },
+          "stress": {
+            "min": 0,
+            "value": 10,
+            "max": 10
+          },
+          "action": {
+            "min": 0,
+            "value": 3,
+            "max": 3
+          },
+          "spell": {
+            "min": 0,
+            "value": 12,
+            "max": 12
+          }
+        },
+        "defenses": {
+          "armor": {
+            "bonus": 0
+          },
+          "block": {
+            "bonus": 0
+          },
+          "dodge": {
+            "bonus": 0
+          },
+          "parry": {
+            "bonus": 0
+          },
+          "fortitude": {
+            "bonus": 0
+          },
+          "reflex": {
+            "bonus": 0
+          },
+          "willpower": {
+            "bonus": 0
+          }
+        },
+        "details": {
+          "level": 1
+        }
       }
     },
     "hero": {

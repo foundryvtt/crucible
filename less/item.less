@@ -1,47 +1,15 @@
 @import "variables.less";
-@headerHeight: 80px;
 
 .crucible.sheet.item {
-  .sheet-header {
-    flex: 0 0 @headerHeight;
-    border-bottom: 1px solid @colorBeige;
-    margin-bottom: 10px;
-
-    img.profile {
-      flex: 0 0 80px;
-      height: 80px;
-      margin: 0 5px 0 0;
-      border: 1px solid #000;
-      border-radius: 0;
-    }
-
-    .header-content {
-      flex: 1;
-    }
-
-    h1.title {
-      margin: 0;
-      border: none;
-    }
-  }
-
-  .window-content, form, .sheet-body {
-    overflow: hidden;
-  }
+  --headerHeight: 80px;
+  --titleHeight: 40px;
 }
-
 
 @skillTitleHeight: 40px;
 @skillRanksHeight: 26px;
 
 
 .crucible.sheet.item.skill {
-
-  h1.title {
-    flex: 3;
-    height: @skillTitleHeight;
-    margin: 2px 0;
-  }
 
   h2.skill-rank {
     flex: 2;

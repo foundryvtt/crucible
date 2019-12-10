@@ -1,0 +1,105 @@
+@import "variables.less";
+
+.crucible.sheet.actor {
+  --headerHeight: 200px;
+  --titleHeight: 50px;
+
+  /* General Sheet Styles */
+  label {
+    font-family: @caslon;
+    color: @colorOlive;
+  }
+
+  input[type="text"] {
+    border: 1px solid @colorBeige;
+  }
+
+  .header-content {
+    label {
+      font-size: 24px;
+    }
+  }
+
+  h1.charname {
+    flex: 3;
+    margin: 0;
+    border-bottom: 1px solid @colorBeige;
+
+    input {
+      height: calc(var(--titleHeight) - 10px);
+      margin: 5px 0;
+      background: none;
+      border: none;
+    }
+  }
+
+  h2.level {
+    flex: 1;
+    text-align: right;
+    margin: 0;
+    border-bottom: 1px solid @colorBeige;
+
+    input {
+      height: 40px;
+      width: 40px;
+      margin: 5px;
+      font-size: 28px;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+
+  .ancestry,
+  .background {
+    flex: 1;
+    font-size: 24px;
+    line-height: 40px;
+    padding: 0 10px;
+    border-bottom: 1px solid @colorBeige;
+
+    label {
+      float: left;
+    }
+
+    h2 {
+      margin: 0;
+      border: none;
+      text-align: right;
+    }
+  }
+
+  .ancestry {
+    border-right: 1px solid @colorBeige;
+  }
+
+  .resource {
+    padding: 0 8px;
+    border-right: 1px solid @colorFaint;
+    &:last-child {
+      border-right: none;
+    }
+
+    .resource-name {
+      margin: 3px 10px 0;
+      font-size: 20px;
+      line-height: 20px;
+      text-align: center;
+      color: @colorOlive;
+      border-bottom: 1px solid @colorFaint;
+    }
+    .resource-values {
+      margin: 3px 0;
+      span.sep {
+        flex: 0 0 20px;
+        color: @colorFaint;
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+      }
+      input {
+        height: 24px;
+        text-align: center;
+      }
+    }
+  }
+}

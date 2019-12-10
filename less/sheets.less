@@ -1,0 +1,34 @@
+@import "variables.less";
+
+.crucible.sheet {
+  --headerHeight: 50px;
+
+  .sheet-header {
+    flex: 0 0 var(--headerHeight);
+    border-bottom: 1px solid @colorBeige;
+    margin-bottom: 10px;
+
+    img.profile {
+      flex: 0 0 var(--headerHeight);
+      height: var(--headerHeight);
+      margin: 0 5px 0 0;
+      border: 1px solid #000;
+      border-radius: 0;
+    }
+
+    .header-content {
+      flex: 1;
+    }
+
+    .title {
+      flex: 3;
+      height: var(--titleHeight);
+      margin: 2px 0;
+      border: none;
+    }
+  }
+
+  .window-content, form, .sheet-body {
+    overflow: hidden;
+  }
+}

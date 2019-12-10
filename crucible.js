@@ -7,7 +7,9 @@
 
 // Import Modules
 import { SYSTEM } from "./module/config/system.js";
+import { CrucibleActor } from "./module/entities/actor.js";
 import { CrucibleItem } from "./module/entities/item.js";
+import { HeroSheet } from "./module/sheets/hero.js";
 import { SkillSheet } from "./module/sheets/skill.js";
 
 
@@ -20,9 +22,12 @@ Hooks.once("init", async function() {
 
   // Record Configuration Values
   CONFIG.SYSTEM = SYSTEM;
+  CONFIG.Actor.entityClass = CrucibleActor;
   CONFIG.Item.entityClass = CrucibleItem;
 
   // Register sheet application classes
+  Actors.unregisterSheet("core", ActorSheet);
+  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, SkillSheet, {types: ["skill"], makeDefault: true});
 });
