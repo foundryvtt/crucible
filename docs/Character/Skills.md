@@ -52,7 +52,7 @@ If you advance an entire character level or one year of time without using a cer
 ...
 
 1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.  
-2. **Climber** - Specialists in rapidly scaling vertical obstacles whether they be natural or urban.
+2. **Traceur** - Specialists in rapidly traversing obstacles and scaling surfaces whether they be natural or urban.
 3. **Dancer** - Specialists in the art of dance, from the ballroom to the mesmerizing contortions of a street performer.
 
 ### Perception

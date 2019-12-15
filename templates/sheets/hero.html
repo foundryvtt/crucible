@@ -57,8 +57,86 @@
         </div>
     </header>
 
+    {{!-- Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+        <a class="item badge attributes" data-tab="attributes">Attributes</a>
+        <a class="item badge skills" data-tab="skills">Skills</a>
+        <a class="item badge talents" data-tab="talents">Talents</a>
+        <a class="item badge inventory" data-tab="inventory">Inventory</a>
+        <a class="item badge spells" data-tab="spells">Grimoire</a>
+        <a class="item badge biography" data-tab="biography">Biography</a>
+    </nav>
+
     {{!-- Sheet Body --}}
     <section class="sheet-body flexrow">
-        Hello
+        <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+
+            <div class="skill-points flexrow">
+                <h3 class="badge skills active">Skill Progression</h3>
+                <label>Total Points</label>
+                <span class="value highlight">{{actor.points.skill.total}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{actor.points.skill.spent}}</span>
+                <label>Available</label>
+                <span class="value highlight">{{actor.points.skill.available}}</span>
+            </div>
+
+            {{!-- Skills List --}}
+            {{#each skillCategories as |category catId|}}
+            <header class="skills-header flexrow highlight" data-category="{{catId}}">
+                <span class="skill-name">{{category.name}} Skills</span>
+                <div class="bonus">Bonus</div>
+                <div class="attributes">Attributes</div>
+                <span>Rank</span>
+                <span>Specialization</span>
+                <span class="points">Spent (Cost)</span>
+            </header>
+
+            <ol class="skills-list">
+                {{#each category.skills as |skill skillId|}}
+                <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
+                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
+                    <div class="skill-name flexrow">
+                        <h3><a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a></h3>
+                        <div class="skill-ranks">
+                            <a class="skill-control" title="Edit Skill" data-action="edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            {{#each skill.pips}}
+                            <span class="pip {{this}}"></span>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="bonus flexrow">
+                        <span class="active highlight tooltipped">
+                            {{numberFormat skill.value sign=true}}
+                            <span class="tooltip">{{skill.tooltips.value}}</span>
+                        </span>
+                        <span class="passive tooltipped">
+                            ({{skill.passive}})
+                            <span class="tooltip">{{skill.tooltips.passive}}</span>
+                        </span>
+                    </div>
+                    <div class="attributes">
+                        {{#each skill.attributes}}
+                        <span class="attribute highlight">{{this.abbreviation}}</span>
+                        {{/each}}
+                    </div>
+                    <span class="rank">{{skill.currentRank.name}}</span>
+                    <span class="path">{{skill.path.name}}</span>
+                    <div class="points">
+                        <a class="skill-control highlight" title="Decrease Rank" data-action="decrease">
+                            <i class="fas fa-minus fa-fw"></i>
+                        </a>
+                        <span class="cumulative">{{skill.currentRank.cumulative}}</span>
+                        <span class="next">{{#if skill.nextRank.cost}}({{skill.nextRank.cost}}){{else}}-{{/if}}</span>
+                        <a class="skill-control highlight" title="Increase Rank" data-action="increase">
+                            <i class="fas fa-plus fa-fw"></i>
+                        </a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            {{/each}}
     </section>
 </form>

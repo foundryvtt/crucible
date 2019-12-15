@@ -15,7 +15,7 @@
                     <span class="rank-detail-value">{{data.rank}}</span>
                 </div>
                 <a class="rank-control" data-action="minus"><i class="fas fa-minus"></i></a>
-                <div class="rank-progress-bar flexrow {{category}}">
+                <div class="rank-progress-bar flexrow {{item.category.id}}">
                     {{#each item.ranks as |rank|}}
                     {{#if rank.rank}}
                     <div class="rank-progress {{#if rank.purchased}}purchased{{/if}}"></div>
@@ -36,7 +36,6 @@
 
         <div class="skill-benefits">
             <h3 class="skill-header">Current Benefits ({{item.currentRank.name}})</h3>
-            {{log description}}
             {{#each description.current}}
             <div class="skill-benefit">
                 <span class="benefit-rank">{{this.rank}}</span>
@@ -58,7 +57,6 @@
         </div>
 
         <div class="progression-paths">
-            {{log this}}
             <h3 class="skill-header">Path</h3>
             {{#each item.paths as |path|}}
             <img class="progression-path {{#if path.active}}active{{else}}inactive{{/if}}" src="{{path.icon}}"

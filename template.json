@@ -33,6 +33,36 @@
             "min": 0,
             "value": 12,
             "max": 12
+          },
+          "strength": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
+          },
+          "dexterity": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
+          },
+          "constitution": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
+          },
+          "intellect": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
+          },
+          "wisdom": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
+          },
+          "charisma": {
+            "base": 3,
+            "increases": 0,
+            "bonus": 0
           }
         },
         "defenses": {

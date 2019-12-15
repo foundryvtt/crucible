@@ -25,7 +25,6 @@ export class SkillSheet extends ItemSheet {
 
   getData() {
     const data = super.getData();
-    data.category = this.item.config.category;
     data.system = SYSTEM;
     data.description = this._getSkillDescription(data);
     data.canSpecialize = data.data.rank >= 2;
@@ -99,7 +98,7 @@ export class SkillSheet extends ItemSheet {
     if ( a.dataset.action === "plus" ) {
       rank = Math.min(rank+1, 5);
       if ( rank > 2 && !this.item.data.data.path ) {
-        return ui.notifications.error("You must choose a progression path before advancing this skill further.");
+        return ui.notifications.error("Choose a progression path before advancing this skill further.");
       }
     }
     else if ( a.dataset.action === "minus" ) {
@@ -115,10 +114,6 @@ export class SkillSheet extends ItemSheet {
   _onClickProgressionPath(event) {
     event.preventDefault();
     const img = event.currentTarget;
-    const rank = this.item.data.data.rank;
-    if ( rank !== 2 ) {
-      return ui.notifications.error("You may only choose a progression path at the Apprentice rank.");
-    }
     this.item.update({"data.path": img.dataset.path});
   }
 }

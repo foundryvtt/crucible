@@ -2,11 +2,11 @@
 
 .crucible.sheet {
   --headerHeight: 50px;
+  --navHeight: 32px;
 
   .sheet-header {
     flex: 0 0 var(--headerHeight);
     border-bottom: 1px solid @colorBeige;
-    margin-bottom: 10px;
 
     img.profile {
       flex: 0 0 var(--headerHeight);
@@ -14,6 +14,8 @@
       margin: 0 5px 0 0;
       border: 1px solid #000;
       border-radius: 0;
+      object-fit: cover;
+      object-position: 0 10%;
     }
 
     .header-content {
@@ -31,4 +33,54 @@
   .window-content, form, .sheet-body {
     overflow: hidden;
   }
+
+  .sheet-navigation {
+    flex: 0 0 var(--navHeight);
+    line-height: var(--navHeight);
+    border-bottom: 1px solid @colorBeige;
+    font-size: 20px;
+    font-family: @caslon;
+    justify-content: flex-start;
+
+    .item {
+      flex: auto;
+      color: @colorOlive;
+    }
+
+    .item.active {
+      color: @colorDark;
+      font-weight: bold;
+      text-shadow: 0 0 5px #FFF;
+    }
+  }
+
+  /* Highlight Boxes */
+  .highlight {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid @colorFaint;
+    border-radius: 3px;
+  }
+
+  /* Tooltips */
+  .tooltipped {
+    position: relative;
+    .tooltip {
+      display: none;
+      line-height: 22px;
+      position: absolute;
+      white-space: nowrap;
+      left: 0;
+      top: 120%;
+      padding: 1px 5px;
+      background: rgba(0, 0, 0, 0.95);
+      font-size: 12px;
+      font-weight: normal;
+      color: @colorBeige;
+      border: 1px solid #000;
+      border-radius: 3px;
+      z-index: 999
+    }
+    &:hover > .tooltip { display: block; }
+  }
+
 }

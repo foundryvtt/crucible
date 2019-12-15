@@ -1,4 +1,5 @@
 import { SYSTEM } from "../config/system.js";
+import { CrucibleItem } from "./item.js";
 
 
 export class CrucibleActor extends Actor {
@@ -10,6 +11,9 @@ export class CrucibleActor extends Actor {
      * @type {Object}
      */
     this.config = this.prepareConfig();
+
+    // Re-prepare the Item data once the config is ready
+    this.prepareData();
   }
 
   /* -------------------------------------------- */
@@ -17,11 +21,11 @@ export class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the Configuration object for this Item type.
+   * Prepare the Configuration object for this Actor type.
    * This configuration does not change when the data changes
    */
   prepareConfig() {
-    this.prepareData();
+    return {};
   }
 
   /* -------------------------------------------- */
@@ -29,12 +33,114 @@ export class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the data object for this Item.
+   * Prepare the data object for this Actor.
    * The prepared data will change as the underlying source data is updated
    */
   prepareData() {
     if ( !this.config ) return; // Hack to avoid preparing data before the config is ready
+    const data = this.data;
+
+    // Classify the Actor's items into different categories
+    const [skills, talents, inventory, spells] = this._classifyItems(this.items);
+
+    // Prepare placeholder point totals
+    data.points = this._preparePoints(data.data.details.level);
+
+    // Prepare Attributes
+    this._prepareAttributes(data);
+
+    // Prepare Skills
+    this._prepareSkills(data, skills);
   }
 
   /* -------------------------------------------- */
+
+  _classifyItems(items) {
+    return items.reduce((categories, item) => {
+      if ( item.type === "skill" ) categories[0].push(item);
+      else if ( item.type === "talent" ) categories[1].push(item);
+      else if ( item.type === "item" ) categories[2].push(item);
+      else if ( item.type === "spell" ) categories[3].push(item);
+      return categories;
+    }, [[], [], [], []])
+  }
+
+  /* -------------------------------------------- */
+
+  _preparePoints(level) {
+    return {
+      attribute: { pool: 36, total: (level - 1) },
+      skill: { total: 6 + ((level-1) * 2) },
+      talent: { total: 3 + ((level - 1) * 3) }
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  _prepareAttributes(data) {
+    const attrs = data.data.attributes;
+
+    // Attribute Scores
+    let attributePointsBought = 0;
+    let attributePointsSpent = 0;
+    for ( let a of SYSTEM.attributeScores ) {
+      let attr = attrs[a];
+      attr.value = attr.base + attr.increases + attr.bonus;
+      attributePointsBought += Array.fromRange(attr.base + 1).reduce((a, v) => a + v);
+      attributePointsSpent += attr.increases;
+    }
+    data.points.attribute.bought = attributePointsBought;
+    data.points.attribute.spent = attributePointsSpent;
+
+    // Attribute Pools
+    for ( let a of SYSTEM.attributePools ) {
+      // pass
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Skills for the actor, translating the owned Items for skills and merging them with unowned skills.
+   * Validate the number of points spent on skills, and the number of skill points remaining to be spent.
+   * @private
+   */
+  _prepareSkills(data, items) {
+
+    // Map skill items to their skill name
+    items = items.reduce((items, i) => {
+      items[i.data.data.skill] = i;
+      return items;
+    }, {});
+
+    // Populate all the skills
+    const skillPointCosts = [0, 1, 2, 4, 7, 12];
+    let skillPointsSpent = 0;
+    data.skills = Object.entries(SYSTEM.skills.skills).reduce((skills, s) => {
+      let [id, skill] = s;
+      const item = items.hasOwnProperty(id) ? items[id] : new CrucibleItem({
+        name: skill.name,
+        type: "skill",
+        data: {skill: id, rank: 0, bonus: 0, path: ""}
+      });
+
+      // Compute the skill bonus
+      let attrs = item.data.attributes.map(a => data.data.attributes[a].value);
+      item.data.value = Math.ceil(0.5 * (attrs[0] + attrs[1])) + item.data.currentRank.modifier + item.data.data.bonus;
+      item.data.passive = SYSTEM.passiveCheck + item.data.value;
+
+      // Choose the icon to display
+      item.data.icon = !!item.data.path.id ? item.data.path.icon : item.data.img;
+
+      // Assign the skill item and it's cumulative point cost
+      skills[id] = item.data;
+      skillPointsSpent += skillPointCosts[item.data.data.rank];
+      return skills;
+    }, {});
+
+    // Update available skill points
+    const points = data.points;
+    points.skill.spent = skillPointsSpent;
+    points.skill.available = points.skill.total - points.skill.spent;
+  }
 }

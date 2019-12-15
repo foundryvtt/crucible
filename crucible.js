@@ -31,3 +31,14 @@ Hooks.once("init", async function() {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, SkillSheet, {types: ["skill"], makeDefault: true});
 });
+
+
+/* -------------------------------------------- */
+/*  Ready Hooks                                 */
+/* -------------------------------------------- */
+
+Hooks.once("ready", function() {
+
+  // Prevent the creation of Items with certain types
+  game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);
+});

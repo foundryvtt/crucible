@@ -3,6 +3,7 @@
 .crucible.sheet.actor {
   --headerHeight: 200px;
   --titleHeight: 50px;
+  --skillHeight: 30px;
 
   /* General Sheet Styles */
   label {
@@ -99,6 +100,239 @@
       input {
         height: 24px;
         text-align: center;
+      }
+    }
+  }
+
+  /* Badge Icons */
+  .badge {
+    text-align: left;
+    padding-left: 28px;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+  }
+  .badge.attributes {
+    background-image: url("ui/badges/attributes-inactive.png");
+    &.active {
+      background-image: url("ui/badges/attributes-active.png");
+    }
+  }
+  .badge.skills {
+    background-image: url("ui/badges/skills-inactive.png");
+    &.active {
+      background-image: url("ui/badges/skills-active.png");
+    }
+  }
+  .badge.talents {
+    background-image: url("ui/badges/talents-inactive.png");
+    &.active {
+      background-image: url("ui/badges/talents-active.png");
+    }
+  }
+  .badge.inventory {
+    background-image: url("ui/badges/inventory-inactive.png");
+    &.active {
+      background-image: url("ui/badges/inventory-active.png");
+    }
+  }
+  .badge.spells {
+    background-image: url("ui/badges/spells-inactive.png");
+    &.active {
+      background-image: url("ui/badges/spells-active.png");
+    }
+  }
+  .badge.biography {
+    background-image: url("ui/badges/biography-inactive.png");
+    &.active {
+      background-image: url("ui/badges/biography-active.png");
+    }
+  }
+
+  /* Skills Tab */
+  .tab.skills {
+    justify-content: flex-start;
+    height: 100%;
+    overflow-y: scroll;
+
+    .skill-points {
+      flex: 0 0 24px;
+      margin: 6px 0;
+      text-align: right;
+      font-size: 16px;
+      line-height: 24px;
+
+      h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      label {
+        flex: 0 0 80px;
+      }
+
+      span.value {
+        flex: 0 0 32px;
+        height: 24px;
+        margin: 0 12px 0 6px;
+        font-size: 16px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    .skills-header {
+      flex: 0 0 24px;
+      line-height: 24px;
+      font-weight: bold;
+      .skill-name {
+        margin: 0 24px 0 8px;
+      }
+    }
+
+    .skills-list {
+      flex: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .skill {
+      line-height: var(--skillHeight);
+      img {
+        flex: 0 0 var(--skillHeight);
+        height: var(--skillHeight);
+        margin-right: 4px;
+      }
+
+      .skill-ranks {
+        flex: 0 0 110px;
+        height: 24px;
+        padding: 3px 0;
+
+        a.skill-control {
+          display: block;
+          float: left;
+          font-size: 12px;
+          line-height: 24px;
+          margin-right: 4px;
+          color: @colorBeige;
+        }
+
+        .pip {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          margin: 0;
+          background: rgba(0, 0, 0, 0.05);
+          border: 1px solid @colorTan;
+          border-radius: 1px 2px;
+          &.trained {
+            background: rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 2px #FFF inset;
+            border: 1px solid @colorOlive;
+          }
+        }
+      }
+
+      .bonus {
+        padding: 3px;
+      }
+
+      .points, .bonus {
+        height: var(--skillHeight);
+      }
+    }
+
+    // Common components
+    .skill-name {
+      flex: 3;
+      h3 {
+        margin: 0;
+      }
+    }
+
+    .bonus {
+      flex: 0 0 64px;
+      text-align: center;
+
+      .active,
+      .passive {
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        margin: 0 2px;
+      }
+
+      .active {
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .passive {
+        color: @colorTan;
+      }
+    }
+
+    // Attribute scores
+    .attributes {
+      flex: 0 0 72px;
+      margin: 0 12px 0 6px;
+      text-align: center;
+      .attribute {
+        height: 20px;
+        line-height: 20px;
+        margin: 5px 2px;
+        width: 32px;
+        float: left;
+        color: @colorOlive;
+      }
+    }
+
+    .rank, .path {
+      font-family: @caslon;
+      font-size: 16px;
+    }
+
+    // Denote untrained skills
+    .unspecialized .path {
+      color: @colorTan;
+    }
+    .untrained .rank {
+      color: @colorTan;
+    }
+
+    .points {
+      flex: 0 0 100px;
+      text-align: center;
+
+      .skill-control {
+        display: inline-block;
+        line-height: 20px;
+        padding: 0 2px;
+        margin: 0 3px;
+        color: @colorTan;
+
+        &:hover {
+          border: 1px solid @colorTan;
+          box-shadow: 0 0 4px #FFF;
+          text-shadow: none;
+          color: @colorDark;
+        }
+      }
+
+      .cumulative, .next {
+        display: inline-block;
+        width: 16px;
+      }
+
+      .cumulative {
+        font-weight: bold;
+      }
+      .next {
+        color: @colorTan;
       }
     }
   }

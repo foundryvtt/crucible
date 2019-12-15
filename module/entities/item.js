@@ -11,11 +11,8 @@ export class CrucibleItem extends Item {
      */
     this.config = this.prepareConfig();
 
-    /**
-     * Prepare the data object for this Item
-     * @type {Object}
-     */
-    this.data = this.prepareData();
+    // Re-prepare the Item data once the config is ready
+    this.prepareData();
   }
 
   /* -------------------------------------------- */
@@ -29,38 +26,10 @@ export class CrucibleItem extends Item {
   prepareConfig() {
     switch ( this.data.type ) {
       case "skill":
-        return this._prepareSkillConfig();
+        return SYSTEM.skills.skills[this.data.data.skill] || {};
       case "talent":
         return "foo";
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare configuration data for Skill type items
-   * @return {Object}
-   * @private
-   */
-  _prepareSkillConfig() {
-    const skill = SYSTEM.skills.skills[this.data.data.skill];
-    if ( !skill ) return {};
-
-    // Update skill data
-    skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
-    const category = SYSTEM.skills.categories[skill.category];
-    skill.categoryName = category.name;
-
-    // Skill ranks
-    const ranks = duplicate(SYSTEM.skills.ranks);
-    skill.ranks.forEach(r => mergeObject(ranks[r.rank], r));
-    skill.ranks = ranks;
-
-    // Skill progression paths
-    skill.paths.forEach(p => p.icon = `systems/${SYSTEM.id}/${p.icon}`);
-    skill.paths.unshift(duplicate(SYSTEM.skills.noPath));
-    skill.paths[0].icon = `systems/${SYSTEM.id}/${category.noPathIcon}`;
-    return skill;
   }
 
   /* -------------------------------------------- */
@@ -91,17 +60,18 @@ export class CrucibleItem extends Item {
    * @private
    */
   _prepareSkillData(data) {
-    const skill = this.config;
-    if ( isObjectEmpty(skill) ) return data;
+    const skill = this.config || {};
 
-    // Override name and image
+    // Copy and merge skill data
     data.name = skill.name;
     data.img = skill.icon;
+    data.category = skill.category;
+    data.attributes = skill.attributes;
 
     // Skill rank
     let current = null;
     let next = null;
-    data.ranks = skill.ranks.map(r => {
+    data.ranks = duplicate(skill.ranks).map(r => {
       r.purchased = (r.rank > 0) && (r.rank <= data.data.rank);
       if ( r.rank === data.data.rank ) current = r;
       else if ( r.rank === data.data.rank + 1 ) next = r;
@@ -112,12 +82,37 @@ export class CrucibleItem extends Item {
 
     // Skill progression paths
     let path = null;
-    data.paths = skill.paths.map(p => {
+    data.paths = duplicate(skill.paths).map(p => {
       p.active = p.id === data.data.path;
       if ( p.active ) path = p;
       return p;
     });
     data.path = path;
     return data;
+  }
+
+  /* -------------------------------------------- */
+  /*  Dice Rolls                                  */
+  /* -------------------------------------------- */
+
+  roll({passive=false}={}) {
+    if ( !this.isOwned ) return false;
+    switch ( this.data.type ) {
+      case "skill":
+        this._rollSkillCheck({passive});
+        break;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  _rollSkillCheck({passive=false}={}) {
+    const formula = `${passive ? SYSTEM.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
+    const roll = new Roll(formula).roll();
+    const skillName = this.data.data.path ? `${this.name} (${this.data.path.name})` : this.name;
+    return roll.toMessage({
+      speaker: {actor: this.actor, user: game.user},
+      flavor: passive ? `Passive ${skillName}` : `${skillName} Skill Check`
+    });
   }
 }

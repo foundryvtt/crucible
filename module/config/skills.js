@@ -68,18 +68,22 @@ skills.ranks = [
  */
 skills.categories = {
   "exp": {
+    id: "exp",
     name: "Exploration",
     noPathIcon: "icons/skills/no-exp.jpg"
   },
   "kno": {
+    id: "kno",
     name: "Knowledge",
     noPathIcon: "icons/skills/no-kno.jpg"
   },
   "soc": {
+    id: "soc",
     name: "Social",
     noPathIcon: "icons/skills/no-soc.jpg"
   },
   "trd": {
+    id: "trd",
     name: "Tradecraft",
     noPathIcon: "icons/skills/no-trd.jpg"
   }
@@ -105,12 +109,289 @@ skills.noPath = {
 skills.skills = {
 
   /* -------------------------------------------- */
+  /*  Acrobatics
+  /* -------------------------------------------- */
+  "acrobatics": {
+    name: "Acrobatics",
+    category: "exp",
+    icon: "icons/skills/acrobatics.jpg",
+    attributes: ["strength", "dexterity"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "gymnast",
+        name: "Gymnast",
+        icon: "icons/skills/gymnast.jpg",
+        description: "Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "traceur",
+        name: "Traceur",
+        icon: "icons/skills/traceur.jpg",
+        description: "Specialists in rapidly traversing obstacles and scaling surfaces whether they be natural or urban.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "dancer",
+        name: "Dancer",
+        icon: "icons/skills/dancer.jpg",
+        description: "Specialists in the art of dance, from the ballroom to the mesmerizing contortions of a street performer.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Perception
+  /* -------------------------------------------- */
+  "perception": {
+    name: "Perception",
+    category: "exp",
+    icon: "icons/skills/perception.jpg",
+    attributes: ["intellect", "wisdom"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "scout",
+        name: "Scout",
+        icon: "icons/skills/scout.jpg",
+        description: "Specialists in discovering the path forward and hidden ways which were concealed.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "sentry",
+        name: "Sentry",
+        icon: "icons/skills/sentry.jpg",
+        description: "Specialists in the assessment of threats, an expert Sentry is never caught unaware.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "empath",
+        name: "Empath",
+        icon: "icons/skills/empath.jpg",
+        description: "Specialists in the understanding of people, reading their physical and emotional tells.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Stealth
+  /* -------------------------------------------- */
+  "stealth": {
+    name: "Stealth",
+    category: "exp",
+    icon: "icons/skills/stealth.jpg",
+    attributes: ["dexterity", "wisdom"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "infiltrator",
+        name: "Infiltrator",
+        icon: "icons/skills/infiltrator.jpg",
+        description: "Specialists in moving unseen and silent to bypass danger or approach it unaware.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "safecracker",
+        name: "Safecracker",
+        icon: "icons/skills/safecracker.jpg",
+        description: "Specialists in the cracking of mechanical locks and disarming mechanical traps.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "pickpocket",
+        name: "Pickpocket",
+        icon: "icons/skills/pickpocket.jpg",
+        description: "Specialists in the acquisition of property by removing it from the possession of the less deserving.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
   /*  Survival
   /* -------------------------------------------- */
   "survival": {
     name: "Survival",
     category: "exp",
     icon: "icons/skills/survival.jpg",
+    attributes: ["constitution", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -205,6 +486,7 @@ skills.skills = {
     name: "Arcana",
     category: "kno",
     icon: "icons/skills/arcana.jpg",
+    attributes: ["intellect", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -293,12 +575,381 @@ skills.skills = {
   },
 
   /* -------------------------------------------- */
+  /*  Religion
+  /* -------------------------------------------- */
+  "religion": {
+    name: "Religion",
+    category: "kno",
+    icon: "icons/skills/religion.jpg",
+    attributes: ["wisdom", "charisma"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "theologian",
+        name: "Theologian",
+        icon: "icons/skills/theologian.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "crusader",
+        name: "Crusader",
+        icon: "icons/skills/crusader.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "druid",
+        name: "Druid",
+        icon: "icons/skills/druid.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Investigation
+  /* -------------------------------------------- */
+  "investigation": {
+    name: "Investigation",
+    category: "kno",
+    icon: "icons/skills/investigation.jpg",
+    attributes: ["intellect", "charisma"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "detective",
+        name: "Detective",
+        icon: "icons/skills/detective.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "spy",
+        name: "Spy",
+        icon: "icons/skills/spy.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "tinkerer",
+        name: "Tinkerer",
+        icon: "icons/skills/tinkerer.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Lore
+  /* -------------------------------------------- */
+  "lore": {
+    name: "Lore",
+    category: "kno",
+    icon: "icons/skills/lore.jpg",
+    attributes: ["intellect", "wisdom"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "scholar",
+        name: "Scholar",
+        icon: "icons/skills/scholar.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "historian",
+        name: "Historian",
+        icon: "icons/skills/historian.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "storyteller",
+        name: "Storyteller",
+        icon: "icons/skills/storyteller.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Bartering
+  /* -------------------------------------------- */
+  "bartering": {
+    name: "Bartering",
+    category: "soc",
+    icon: "icons/skills/bartering.jpg",
+    attributes: ["intellect", "charisma"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "antiquarian",
+        name: "Antiquarian",
+        icon: "icons/skills/antiquarian.jpg",
+        description: "Specialists in the procurement and identification of ancient or eclectic items.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "caravaner",
+        name: "Caravaner",
+        icon: "icons/skills/caravaner.jpg",
+        description: "Specialists in mercantilism and the transportation of goods.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "negotiator",
+        name: "Negotiator",
+        icon: "icons/skills/negotiator.jpg",
+        description: "Specialists in haggling and compromise to arrange favorable terms in negotiation.",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
   /*  Deception
   /* -------------------------------------------- */
   "deception": {
     name: "Deception",
     category: "soc",
     icon: "icons/skills/deception.jpg",
+    attributes: ["intellect", "charisma"],
     ranks: [
       {
         rank: 1,
@@ -387,16 +1038,17 @@ skills.skills = {
   },
 
   /* -------------------------------------------- */
-  /*  Template
+  /*  Diplomacy
   /* -------------------------------------------- */
-  "template": {
-    name: "Template",
-    category: "cat",
-    icon: "icons/skills/template.jpg",
+  "diplomacy": {
+    name: "Diplomacy",
+    category: "soc",
+    icon: "icons/skills/diplomacy.jpg",
+    attributes: ["wisdom", "charisma"],
     ranks: [
       {
         rank: 1,
-        description: ""
+        description: "TODO"
       },
       {
         rank: 2,
@@ -404,7 +1056,7 @@ skills.skills = {
       },
       {
         rank: 3,
-        description: ""
+        description: "TODO"
       },
       {
         rank: 4,
@@ -412,72 +1064,528 @@ skills.skills = {
       },
       {
         rank: 5,
-        description: "",
+        description: "TODO",
         progression: true
       }
     ],
     paths: [
       {
         id: "p1",
-        name: "P1",
-        icon: "icons/skills/p1.jpg",
-        description: "",
+        name: "N1",
+        icon: "icons/skills/scholar.jpg",
+        description: "TODO",
         ranks: [
           {
             rank: 2,
-            description: ""
-          },
+            description: "TODO"},
           {
             rank: 4,
-            description: ""
+            description: "TODO"
           },
           {
             rank: 5,
-            description: ""
+            description: "TODO"
           }
         ]
       },
       {
         id: "p2",
-        name: "P2",
-        icon: "icons/skills/p2.jpg",
-        description: "",
+        name: "N2",
+        icon: "icons/skills/historian.jpg",
+        description: "TODO",
         ranks: [
           {
             rank: 2,
-            description: ""
-          },
+            description: "TODO"},
           {
             rank: 4,
-            description: ""
+            description: "TODO"
           },
           {
             rank: 5,
-            description: ""
+            description: "TODO"
           }
         ]
       },
       {
         id: "p3",
-        name: "P3",
-        icon: "icons/skills/p3.jpg",
-        description: "",
+        name: "N3",
+        icon: "icons/skills/storyteller.jpg",
+        description: "TODO",
         ranks: [
           {
             rank: 2,
-            description: ""
-          },
+            description: "TODO"},
           {
             rank: 4,
-            description: ""
+            description: "TODO"
           },
           {
             rank: 5,
-            description: ""
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Intimidation
+  /* -------------------------------------------- */
+  "intimidation": {
+    name: "Intimidation",
+    category: "soc",
+    icon: "icons/skills/intimidation.jpg",
+    attributes: ["strength", "charisma"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "p1",
+        name: "N1",
+        icon: "icons/skills/p1.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "p2",
+        name: "N2",
+        icon: "icons/skills/p2.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "p3",
+        name: "N3",
+        icon: "icons/skills/p3.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Animal Handling
+  /* -------------------------------------------- */
+  "animal": {
+    name: "Animal Handling",
+    category: "trd",
+    icon: "icons/skills/animal.jpg",
+    attributes: ["strength", "wisdom"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "knight",
+        name: "Knight",
+        icon: "icons/skills/knight.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "beastmaster",
+        name: "Beastmaster",
+        icon: "icons/skills/beastmaster.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "warden",
+        name: "Warden",
+        icon: "icons/skills/warden.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Craftsmanship
+  /* -------------------------------------------- */
+  "craftsmanship": {
+    name: "Craftsmanship",
+    category: "trd",
+    icon: "icons/skills/craftsmanship.jpg",
+    attributes: ["dexterity", "intellect"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "trademaster",
+        name: "Trademaster",
+        icon: "icons/skills/trademaster.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "artificer",
+        name: "Artificer",
+        icon: "icons/skills/artificer.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "runekeeper",
+        name: "Runekeeper",
+        icon: "icons/skills/runekeeper.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Medicine
+  /* -------------------------------------------- */
+  "medicine": {
+    name: "Medicine",
+    category: "trd",
+    icon: "icons/skills/medicine.jpg",
+    attributes: ["constitution", "intellect"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "apothecary",
+        name: "Apothecary",
+        icon: "icons/skills/apothecary.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "chirugeon",
+        name: "Chirugeon",
+        icon: "icons/skills/chirugeon.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "occultist",
+        name: "Occultist",
+        icon: "icons/skills/occultist.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      }
+    ]
+  },
+
+  /* -------------------------------------------- */
+  /*  Performance
+  /* -------------------------------------------- */
+  "performance": {
+    name: "Performance",
+    category: "trd",
+    icon: "icons/skills/performance.jpg",
+    attributes: ["dexterity", "charisma"],
+    ranks: [
+      {
+        rank: 1,
+        description: "TODO"
+      },
+      {
+        rank: 2,
+        progression: true
+      },
+      {
+        rank: 3,
+        description: "TODO"
+      },
+      {
+        rank: 4,
+        progression: true
+      },
+      {
+        rank: 5,
+        description: "TODO",
+        progression: true
+      }
+    ],
+    paths: [
+      {
+        id: "musician",
+        name: "Musician",
+        icon: "icons/skills/musician.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "artist",
+        name: "Artist",
+        icon: "icons/skills/artist.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
+          }
+        ]
+      },
+      {
+        id: "athlete",
+        name: "Athlete",
+        icon: "icons/skills/athlete.jpg",
+        description: "TODO",
+        ranks: [
+          {
+            rank: 2,
+            description: "TODO"},
+          {
+            rank: 4,
+            description: "TODO"
+          },
+          {
+            rank: 5,
+            description: "TODO"
           }
         ]
       }
     ]
   }
 };
-
