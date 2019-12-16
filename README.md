@@ -46,6 +46,11 @@ This system provides relatively little rule-based guidance around narrative, per
 * [Character Skills](docs/Character/Skills.md)
 * [Character Talents](docs/Character/Talents.md)
 
+### Spellcasting and Grimoire
+
+* [Spellcasting and Components](docs/Spells/Components.md)
+* [Arcane Grimoire](docs/Spells/Grimoire.md)
+
 ### Items and Equipment
 
 * [Weaponry](Items/Weapons.md)
