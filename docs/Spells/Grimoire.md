@@ -91,9 +91,48 @@ asd
 
 asd
 
-#### Rejuvenation
+---
 
-asd
+### Minor Rejuvenation (Arrow, Health)
+
+With a quick gesture, you imbue an ally whom you can see with restorative energy healing them for **1d8 Wounds** immediately and **1d4 Wounds** on the target's creature's turn.
+
+* Cost: 2AP, 1SP
+* Target: One visible creature
+* Range: 30 ft.
+* Duration: 1 Round
+
+#### Progression: Major Rejuvenation (Bolt, Health)
+
+The amount of healing increases to **2d8 Wounds** immediately and **2d4 Wounds** on the target's turn.
+
+* Cost: +1SP
+
+#### Progression: Immaculate Rejuvenation (Beacon, Health)
+
+The amount of healing increases to **3d8 Wounds** immediately and **3d4 Wounds** on the target's turn.
+
+* Cost +2SP
+
+#### Metamagic: Sustained Rejuvenation
+
+In addition to the spell's normal effects, the secondary healing effect from Rejuvenation applies a second time on the target's turn the following round.
+
+* Cost: +1SP
+
+#### Metamagic: Nullify Rejuvenation
+
+With a malign gesture, you curse a hostile creature you can see with cancerous energy absorbing the healing of Wounds from either magical or non-magical sources. Healing is absorbed up to twice the total amount allowed by the Rejuvenation spell, including both immediate and delayed effects. The curse lasts until the end of the target creature's next turn.
+
+* Cost: +2SP
+
+---
+
+
+
+
+
+
 
 #### Ward
 

@@ -17,7 +17,7 @@ The following table lists the available gestures which can be used to cast a spe
 |                      | Wave         | 3    |      |
 | Ranged Single Target | Arrow        | 1    |      |
 |                      | Bolt         | 2    |      |
-|                      | Nemesis      | 3    |      |
+|                      | Beacon       | 3    |      |
 | Ranged AoE           | Blast        | 2    |      |
 |                      | Storm        | 3    |      |
 | Self-Target          | Aspect       | 1    |      |
@@ -52,6 +52,7 @@ The following table lists the available runes which can be used when casting a s
 | Force      | Physical power and impact.        | 2    |
 | Mind       | Mentality and willpower.          | 2    |
 | Knowledge  | Understanding and comprehension.  | 2    |
+| Courage    | Bravery and fear.                 | 2    |
 | Divine     | Radiant power and energy.         | 2    |
 | Death      | Unholy power and corruption.      | 2    |
 
@@ -61,8 +62,7 @@ The following table lists the metamagic inflections which can be applied when ca
 
 | Metamagic Inflection | Tier | Cost |
 | -------------------- | ---- | ---- |
-| Pull                 | 1    |      |
-| Push                 | 1    |      |
+| Pull/Push            | 1    |      |
 | Negate               | 1    |      |
 | Sustain              | 2    |      |
 | Enlarge              | 2    |      |
