@@ -1,4 +1,4 @@
-Spells found in D&D that may be worth implementing in some fashion into the spell system. Many spells may be better to translate into the 
+Spells found in D&D that may be worth implementing in some fashion into the spell system. Many spells may be better off implemented in the talent tree, rather than as actual Crucible spells.
 
 ## Cantrips
 * Prestidigitation / Druidcraft / Thaumaturgy
