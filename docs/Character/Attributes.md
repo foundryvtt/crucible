@@ -283,7 +283,7 @@ A key design guideline for Game Masters in <SYSTEM> is that, outside of exceptio
 
 **Flanked (Surrounded).**
 
-**Grappled (Pinned)**.
+**Restrained (Pinned)**.
 
 **Entangled (Ensnared)**.
 
