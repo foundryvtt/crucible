@@ -12,6 +12,10 @@ export class CrucibleActor extends Actor {
      */
     this.config = this.prepareConfig();
 
+
+    this.points = {};
+    this.skills = {};
+
     // Re-prepare the Item data once the config is ready
     this.prepareData();
   }
@@ -44,7 +48,7 @@ export class CrucibleActor extends Actor {
     const [skills, talents, inventory, spells] = this._classifyItems(this.items);
 
     // Prepare placeholder point totals
-    data.points = this._preparePoints(data.data.details.level);
+    this._preparePoints(data.data.details.level);
 
     // Prepare Attributes
     this._prepareAttributes(data);
@@ -68,7 +72,7 @@ export class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   _preparePoints(level) {
-    return {
+    this.points = {
       attribute: { pool: 36, total: (level - 1) },
       skill: { total: 6 + ((level-1) * 2) },
       talent: { total: 3 + ((level - 1) * 3) }
@@ -88,9 +92,10 @@ export class CrucibleActor extends Actor {
       attr.value = attr.base + attr.increases + attr.bonus;
       attributePointsBought += Array.fromRange(attr.base + 1).reduce((a, v) => a + v);
       attributePointsSpent += attr.increases;
+      attr.cost = attr.base + 1;
     }
-    data.points.attribute.bought = attributePointsBought;
-    data.points.attribute.spent = attributePointsSpent;
+    this.points.attribute.bought = attributePointsBought;
+    this.points.attribute.spent = attributePointsSpent;
 
     // Attribute Pools
     for ( let a of SYSTEM.attributePools ) {
@@ -116,30 +121,31 @@ export class CrucibleActor extends Actor {
     // Populate all the skills
     const skillPointCosts = [0, 1, 2, 4, 7, 12];
     let skillPointsSpent = 0;
-    data.skills = Object.entries(SYSTEM.skills.skills).reduce((skills, s) => {
+    this.skills = Object.entries(SYSTEM.skills.skills).reduce((skills, s) => {
       let [id, skill] = s;
-      const item = items.hasOwnProperty(id) ? items[id] : new CrucibleItem({
+
+      // Retrieve the Item instance
+      const item = items[id] || new CrucibleItem({
         name: skill.name,
         type: "skill",
         data: {skill: id, rank: 0, bonus: 0, path: ""}
       });
 
       // Compute the skill bonus
-      let attrs = item.data.attributes.map(a => data.data.attributes[a].value);
-      item.data.value = Math.ceil(0.5 * (attrs[0] + attrs[1])) + item.data.currentRank.modifier + item.data.data.bonus;
-      item.data.passive = SYSTEM.passiveCheck + item.data.value;
+      const attrs = item.data.attributes.map(a => data.data.attributes[a].value);
+      const score = Math.ceil(0.5 * (attrs[0] + attrs[1])) + item.data.currentRank.modifier + item.data.data.bonus;
+      const passive = SYSTEM.passiveCheck + score;
 
-      // Choose the icon to display
-      item.data.icon = !!item.data.path.id ? item.data.path.icon : item.data.img;
-
-      // Assign the skill item and it's cumulative point cost
-      skills[id] = item.data;
+      // Track points spent
       skillPointsSpent += skillPointCosts[item.data.data.rank];
+
+      // Assign the skill
+      skills[id] = {score, passive, item};
       return skills;
     }, {});
 
     // Update available skill points
-    const points = data.points;
+    const points = this.points;
     points.skill.spent = skillPointsSpent;
     points.skill.available = points.skill.total - points.skill.spent;
   }

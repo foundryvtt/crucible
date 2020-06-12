@@ -4,6 +4,24 @@
 
 Spellcasting in <SYSTEM> uses a novel and flexible system of spellcasting. A wielder of arcane power creates a spell by making a certain **Gesture** while tracing a specific **Rune**. The resulting spell can be further modified using vocal **Metamagic** which alters the resulting effects.
 
+
+
+### Idea - Spell Components
+
+Each spell has certain tags which describe what type of interaction is required to execute it, possible tags might include;
+
+* Gesture - can be performed with one free hand
+* Weaving - requires both free hands
+* Whisper - requires a quietly spoken word or phrase
+* Command - requires a single loudly spoken vocal component
+* Incantation - requires a sustained vocal incantation
+* Transmutation - requires a simple material component which is consumed
+* Ritual - requires a complex combination of material reagents which are consumed
+
+The component tags which are used are suggestive of the casting time of a spell, but not strictly aligned.
+
+
+
 ## Spell Gestures
 
 The following table lists the available gestures which can be used to cast a spell.

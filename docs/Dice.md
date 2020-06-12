@@ -21,7 +21,7 @@ vs. Target Number
 
 **Situation**: *Suppose Silarn - a hero of lacking in scruples and fond of larceny - were to attempt to burgle the local apothecary by pocketing a potion while the shopkeep was not looking. The player, Andrew, would roll 3d8 and add Silarn's character bonuses for Dexterity and for Thievery to the result. Furthermore, a situational bonus might apply depending on whether the attempt were made in especially favorable or unfavorable conditions. In this case, the player rolls 4, 6, and 8, adding a +3 for Dexterity and a +2 for Thievery, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the shopkeeper is accustomed to keeping an eye out for thieves, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Silarn is successful, and the ill-gotten gains are pocketed with the apothecary none the wiser.*
 
-### Determining Difficulty
+#### Determining Difficulty
 
 The target value which must be surpassed in order for a standard check to be successful depends on the type of check being performed. In many cases specific rules for the type of action being used will specify how the target value is determined. In cases that no specific rule is provided, it is up to the Game Master to subjectively determine the difficulty level of the attempt. The following table provides rough guidance which may be helpful.
 
@@ -43,7 +43,7 @@ Trivial tasks are ones that almost anyone can reasonably perform without an undu
 
 Sometimes a character's attempted action is in direct opposition to that of another player or character. In such cases both players (or the Game Master) will simultaneously roll using the specified formula, adding any individual Ability Bonus, Skill Bonus, and Situational Bonus which they possess. The total of both rolls are compared against each other and the higher of the two is declared the victor. In some cases the margin of victory may be important for triggering additional effects.
 
-### Resolving Contest Ties
+#### Resolving Contest Ties
 
 When an opposed contest results in a tie, the contest is resolved by applying the following rules in order until a resolution is achieved.
 
@@ -51,6 +51,36 @@ When an opposed contest results in a tie, the contest is resolved by applying th
 2. If both parties are equal challengers in the contest, the player who has the higher bonus (excluding rolled dice) is the winner.
 3. If the situation may narratively end in a stalemate the contest concludes with neither party successful in their objective.
 4. If it is unreasonable for the contest to end in a stalemate, the contest is re-rolled immediately until a victor is identified.
+
+## Group Challenges
+
+Sometimes a situation will require the cooperation of every party member in order to overcome a non-combat obstacle. In such cases the Gamemaster may elect to conduct a Group Challenge in which every party member must employ a Skill which can assist in overcoming the challenge. 
+
+> Note that for some party challenges the Gamemaster may simply tell the players which Skill is being tested. For example if the group is trying to collectively negotiate a trade deal - the Gamemaster might require a test of **Bartering**, while if the party is attempting to scale a rugged cliff face, the players might be each offered a choice between **Acrobatics** and **Survival**. In open-ended cases, simply ask each player to choose a Skill and describe how they attempt to use it.
+
+For each player's nominated skill and before dice are rolled the Gamemaster secretly determines the Difficulty Rating of each test, following the **Determining Difficulty** section above. 
+
+> When determining difficulty, the Gamemaster may choose a different difficulty threshold for different skills - for example ascending the cliff using Survival might be somewhat easier than climbing using Acrobatics - but the difficulty threshold should be the same for all players for the same Skill (before situational modifiers).
+
+When the challenge begins, all players roll their Skill Checks privately, and do not reveal their rolled results until all players have rolled. After all checks have been rolled and results revealed, each player may activate any ability which allows them to force a reroll should they have such an ability available.
+
+> At the Gamemaster's discretion and if narratively appropriate, players should be allowed to expend limited-use abilities like Spells which could plausibly assist them during the challenge. Such abilities must be declared before the initial roll is made. Depending on the effectiveness of the abilities used, the Gamemaster may allow for situational bonuses to be added to the rolls for some or all players. 
+
+Once any re-rolls have been performed the Gamemaster determines the overall success of the challenge as follows: each check which surpassed its target Difficulty Rating counts as one success, a roll which exceeds the target by more than 5 counts as 2 successes, a roll which is more than 5 below the target counts as two failures. Count the total number of successes and compare that number to the following Group Challenge table:
+
+#### Group Challenge Difficulty Table
+
+| Challenge Difficulty | Number of Successes Required for Party of Size *N* |
+| -------------------- | -------------------------------------------------- |
+| Easy                 | (N / 2) - 1                                        |
+| Moderate             | (N / 2)                                            |
+| Challenging          | N - 1                                              |
+| Formidable           | N                                                  |
+| Impossible           | N + 1                                              |
+
+> Note that the group challenge difficulty does not have to mirror the Difficulty Rating of each individual Skill check that is part of the challenge. An elaborate heist plan which requires the simultaneous coordination of all party members might be collectively a Formidable challenge even if each individual's component of the plan is only Challenging.
+
+Once the outcome of the challenge has been determined it is final and cannot be modified by any further rolls or abilities. The Gamemaster describes the narrative implications of that outcome as well as any complications or serendipities which arise from challenge success or failure.
 
 ## Accumulation Checks
 
@@ -65,6 +95,33 @@ In some situations it is either not practical or not advisable to request that p
 > For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
 
 You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
+
+## Twists of Fate
+
+Sometimes there is no alternative suitable mechanic to use to determine an outcome, in such cases it is perfectly acceptable to use random chance to resolve the situation. This can be as simple as flipping a coin, but we recommend the following dice mechanics:
+
+#### Twists of Fate
+
+Roll a 1d100 and consult the following table of consequences. When possible, adjudicate the consequence of the twist of fate from the perspective of the protagonists. Complications result in unfortunate setbacks, while serendipities result in fortunate outcomes.
+
+| Rolled Result | Consequence                                                  |
+| ------------- | ------------------------------------------------------------ |
+| 1-5           | **A disastrous complication.** Within the realm of plausibility, the worst-case-scenario has occurred which thwarts the goals of the protagonists. |
+| 6-40          | **An unfortunate complication.** Determine a setback which is directly opposed to the goals of the protagonists. The lower the rolled number the more challenging the setback. |
+| 51-60         | **A side effect.** Determine a complication which is not immediately opposed to the goals of the protagonists, but changes the current scenario. |
+| 61-95         | **A serendipitous circumstance.** Determine a serendipity which is favorable towards the goals of the protagonists. The higher the rolled number, the more advantageous the boon. |
+| 96-100        | **A wondrous boon.** Within the realm of plausibility, the best-case scenario has occurred which furthers the goals of the protagonists. |
+
+#### Scatter Dice
+
+Sometimes you will need to figure out a random direction that a creature, group, or object moves in. Roll two dice where the first die (the "scatter die") represents the direction and the second die (the "distance die") represents the distance scattered.
+
+* If playing on a square grid, roll **1d10** for the direction where a result of 1 or 10 is a direct hit (no movement) and results 2 through 9 proceed clockwise from North.
+* If playing on a hexagonal grid, roll **1d8** for the direction where results of 1 and 8 are direct hits (no movement) and results 2 through 9 proceed clockwise from North.
+
+For the distance die, roll a **1d8** where a result of 8 results in a direct hit, a roll of 3 through 7 results in one space, and a roll of 1 or 2 results in 2 spaces scattered.
+
+> For example, suppose a trebuchet lobs a flaming boulder at our hero's squadron of fighters and we are playing on a square grid. The Gamemaster rolls **1d10, 1d8** and produces results of **5** and **2**. As a result the boulder lands two grid spaces southeast of the target.
 
 ## Additional Mechanics
 

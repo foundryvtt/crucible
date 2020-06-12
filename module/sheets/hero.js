@@ -38,7 +38,9 @@ export class HeroSheet extends ActorSheet {
 
   getData() {
     const data = super.getData();
-    data.skillCategories = this._getSkills(data);
+    data.attributes = SYSTEM.attributes;
+    data.points = this.actor.points;
+    data.skillCategories = this._formatSkills(this.actor.skills);
     return data;
   }
 
@@ -46,13 +48,13 @@ export class HeroSheet extends ActorSheet {
 
   /**
    * Organize skills by category in alphabetical order
-   * @param data
+   * @param {Object} skills
    * @return {*}
    * @private
    */
-  _getSkills(data) {
+  _formatSkills(skills) {
     const categories = duplicate(SYSTEM.skills.categories);
-    return Object.entries(data.actor.skills).reduce((categories, e) => {
+    return Object.entries(duplicate(skills)).reduce((categories, e) => {
       let [id, skill] = e;
       const cat = categories[skill.category.id];
       if ( !cat ) return categories;
@@ -104,14 +106,19 @@ export class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle click events on a Skill control
+   * @param {Event} event   The originating click event
+   * @private
+   */
   async _onClickSkillControl(event) {
     event.preventDefault();
 
     // Obtain the Skill item being controlled
     const ctrl = event.currentTarget;
     const li = ctrl.closest(".skill");
-    const skill = this.actor.data.skills[li.dataset.skill];
-    const item = skill.id ? this.actor.getOwnedItem(skill.id) : await this.actor.createOwnedItem(skill);
+    const skill = this.actor.skills[li.dataset.skill];
+    const item = skill._id ? this.actor.getOwnedItem(skill._id) : await this.actor.createOwnedItem(skill);
 
     // Delegate to different action handlers
     switch ( ctrl.dataset.action ) {
@@ -120,7 +127,7 @@ export class HeroSheet extends ActorSheet {
         break;
       case "increase":
         if ( skill.data.rank >= 5 ) return;
-        if ( skill.nextRank.cost > this.actor.data.points.skill.available ) {
+        if ( skill.nextRank.cost > this.actor.points.skill.available ) {
           return ui.notifications.error("You do not have sufficient Skill Points to advance this skill.");
         }
         if ( ( skill.data.rank >= 2) && !skill.data.path ) {

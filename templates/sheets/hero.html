@@ -69,16 +69,27 @@
 
     {{!-- Sheet Body --}}
     <section class="sheet-body flexrow">
+        <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+            <ol class="attribute-list">
+            {{#each attributes as |attr name|}}
+                <li class="attribute" data-attribute="{{name}}">
+                    <h4>{{attr.label}}</h4>
+                    <span class="attribute-value">{{lookup data.attributes }}</span>
+                </li>
+            {{/each}}
+            </ol>
+        </div>
+
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
 
             <div class="skill-points flexrow">
                 <h3 class="badge skills active">Skill Progression</h3>
                 <label>Total Points</label>
-                <span class="value highlight">{{actor.points.skill.total}}</span>
+                <span class="value highlight">{{points.skill.total}}</span>
                 <label>Spent</label>
-                <span class="value highlight">{{actor.points.skill.spent}}</span>
+                <span class="value highlight">{{points.skill.spent}}</span>
                 <label>Available</label>
-                <span class="value highlight">{{actor.points.skill.available}}</span>
+                <span class="value highlight">{{points.skill.available}}</span>
             </div>
 
             {{!-- Skills List --}}
@@ -138,5 +149,6 @@
                 {{/each}}
             </ol>
             {{/each}}
+        </div>
     </section>
 </form>

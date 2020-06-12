@@ -2,7 +2,7 @@
   "name": "crucible",
   "title": "Crucible (WIP)",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.1.1",
+  "version": 0,
   "author": "Atropos",
   "templateVersion": 2,
   "scripts": [],
@@ -13,7 +13,7 @@
       "name": "skills",
       "label": "Skills",
       "system": "crucible",
-      "path": "./packs/skills.db",
+      "path": "packs/skills.db",
       "entity": "Item"
     }
   ],
@@ -21,7 +21,8 @@
   "socket": true,
   "primaryTokenAttribute": "attributes.wounds",
   "secondaryTokenAttribute": "attributes.stress",
-  "minimumCoreVersion": "0.4.1",
+  "minimumCoreVersion": "0.4.4",
+  "compatibleCoreVersion": "0.4.4",
   "url": "https://gitlab.com/foundrynet/crucible",
   "manifest": "https://gitlab.com/foundrynet/crucible/raw/master/system.json",
   "download": "https://gitlab.com/foundrynet/crucible/-/archive/master/crucible-master.zip"
