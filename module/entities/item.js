@@ -1,7 +1,7 @@
 import { SYSTEM } from "../config/system.js";
 
 
-export class CrucibleItem extends Item {
+export default class CrucibleItem extends Item {
   constructor(...args) {
     super(...args);
 

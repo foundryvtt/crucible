@@ -7,10 +7,12 @@
 
 // Import Modules
 import { SYSTEM } from "./module/config/system.js";
-import { CrucibleActor } from "./module/entities/actor.js";
-import { CrucibleItem } from "./module/entities/item.js";
-import { HeroSheet } from "./module/sheets/hero.js";
-import { SkillSheet } from "./module/sheets/skill.js";
+import CrucibleActor from "./module/entities/actor.js";
+import CrucibleItem from "./module/entities/item.js";
+import HeroSheet from "./module/sheets/hero.js";
+import SkillSheet from "./module/sheets/skill.js";
+
+import { standardCheck } from "./module/dice.js";
 
 
 /* -------------------------------------------- */
@@ -24,6 +26,11 @@ Hooks.once("init", async function() {
   CONFIG.SYSTEM = SYSTEM;
   CONFIG.Actor.entityClass = CrucibleActor;
   CONFIG.Item.entityClass = CrucibleItem;
+
+  // Populate the system object
+  game.system.dice = {
+    standardCheck
+  };
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
@@ -39,6 +46,6 @@ Hooks.once("init", async function() {
 
 Hooks.once("ready", function() {
 
-  // Prevent the creation of Items with certain types
+  // TODO: Prevent the creation of Items with certain types
   game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);
 });

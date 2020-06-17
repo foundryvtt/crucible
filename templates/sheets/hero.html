@@ -106,7 +106,7 @@
             <ol class="skills-list">
                 {{#each category.skills as |skill skillId|}}
                 <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
-                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
+                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.img}}"/>
                     <div class="skill-name flexrow">
                         <h3><a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a></h3>
                         <div class="skill-ranks">
@@ -120,7 +120,7 @@
                     </div>
                     <div class="bonus flexrow">
                         <span class="active highlight tooltipped">
-                            {{numberFormat skill.value sign=true}}
+                            {{numberFormat skill.score sign=true}}
                             <span class="tooltip">{{skill.tooltips.value}}</span>
                         </span>
                         <span class="passive tooltipped">

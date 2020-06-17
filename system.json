@@ -4,7 +4,6 @@
   "description": "This is a work in progress, you shouldn't be using it (yet).",
   "version": 0,
   "author": "Atropos",
-  "templateVersion": 2,
   "scripts": [],
   "esmodules": ["crucible.js"],
   "styles": ["crucible.css"],
@@ -21,8 +20,8 @@
   "socket": true,
   "primaryTokenAttribute": "attributes.wounds",
   "secondaryTokenAttribute": "attributes.stress",
-  "minimumCoreVersion": "0.4.4",
-  "compatibleCoreVersion": "0.4.4",
+  "minimumCoreVersion": "0.6.0",
+  "compatibleCoreVersion": "1.0.0",
   "url": "https://gitlab.com/foundrynet/crucible",
   "manifest": "https://gitlab.com/foundrynet/crucible/raw/master/system.json",
   "download": "https://gitlab.com/foundrynet/crucible/-/archive/master/crucible-master.zip"

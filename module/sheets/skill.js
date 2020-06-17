@@ -4,7 +4,7 @@ import { SYSTEM } from "../config/system.js";
  * A sheet application for displaying Skills
  * @type {ItemSheet}
  */
-export class SkillSheet extends ItemSheet {
+export default class SkillSheet extends ItemSheet {
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 600,

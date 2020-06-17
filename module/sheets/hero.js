@@ -4,7 +4,7 @@ import { SYSTEM } from "../config/system.js";
  * A sheet application for displaying Skills
  * @type {Actor}
  */
-export class HeroSheet extends ActorSheet {
+export default class HeroSheet extends ActorSheet {
   constructor(actor, options) {
     super(actor, options);
 
@@ -55,7 +55,8 @@ export class HeroSheet extends ActorSheet {
   _formatSkills(skills) {
     const categories = duplicate(SYSTEM.skills.categories);
     return Object.entries(duplicate(skills)).reduce((categories, e) => {
-      let [id, skill] = e;
+      let [id, c] = e;
+      const skill = c.item;
       const cat = categories[skill.category.id];
       if ( !cat ) return categories;
 
@@ -66,6 +67,10 @@ export class HeroSheet extends ActorSheet {
         skill.data.rank > 0 ? "trained" : "untrained",
         skill.data.path ? "specialized" : "unspecialized"
       ].join(" ");
+
+      // Values and tooltips
+      skill.score = c.score;
+      skill.passive = c.passive;
       skill.tooltips = {
         value: `Skill Bonus = [0.5 * (${skill.attributes[0].label} + ${skill.attributes[1].label})] + Rank Modifier + Equipment Bonus`,
         passive: `Passive Bonus = ${SYSTEM.passiveCheck} + Skill Bonus`
