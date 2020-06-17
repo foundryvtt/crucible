@@ -6,7 +6,24 @@ While <SYSTEM> is designed specifically for virtual tabletop platforms, we use t
 
 > A tenet for the dice mechanics in this system is to, where possible, design first by considering the probability of events and then tailor the dice rolled to appropriately match the target probability distribution.
 
-When your character takes heroic actions within the world, whether they be feats of martial prowess or clever social maneuvers, the outcomes of the attempted action are discovered by rolling dice. There are three general types of dice rolls which are used.
+When your character takes heroic actions within the world, whether they be feats of martial prowess or clever social maneuvers, the outcomes of the attempted action are discovered by rolling dice.
+
+## The Dice Pool
+
+The majority of rolls to determine an outcome in <SYSTEM> use a **3d8** dice pool. Depending on the purpose of the roll, various bonus modifiers are then added to the dice pool to determine the final result of the roll.
+For player characters, rolls may involve adding attribute scores or skill bonuses as modifiers to a 3d8 roll. Such a roll is considered a Standard Check, and is the most common type of roll made by a character.
+
+## Boons & Banes
+
+Some circumstances may not directly add to a check, but still shift the odds in a character's favor. By the same token, other circumstances will hinder a character's chances of success. These situations may be represented as **boons** and **banes**, respectively. The number of boons and banes to be applied to a roll are both determined before a roll is made, as they directly affect the size of the dice rolled. A single dice pool roll can have no more than 6 boons and 6 banes affecting it.
+
+For each boon on a roll, increase the number of sides on the *first* die in the pool by 2, up to a maximum of 12. If a die is already a d12 due to boons, increase the size of the next die by 2 instead. In a sense, boons upgrade dice, starting from the first die, towards the last.
+
+For each bane on a roll, decrease the number of sides on the *last* die in the pool by 2, to a minimum of 4. If a die is already a d4 due to banes, decrease the size of the previous die by 2 instead. In this way, banes will downgrade dice, starting from the last die, progressing backwards toward the first.
+
+Because boons and banes start at opposite ends of the dice pool, they can both make visible changes in the same roll. However, with a great number of boons and banes, they can begin increasing/decreasing the same die.
+
+Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 1, and each each bane will decrease the average result by 1.
 
 ## Standard Checks
 
@@ -15,11 +32,13 @@ In a standard check, the character who takes an action rolls a set of dice, adds
 In <SYSTEM> the most commonly used dice formula for making a standard check is:
 
 ```
-3d8 + Ability Bonus + Skill Bonus + Situational Bonus 
-vs. Target Number 
+3d8 Dice Pool + Bonus Modifiers
+vs. Target Value
 ```
 
-**Situation**: *Suppose Silarn - a hero of lacking in scruples and fond of larceny - were to attempt to burgle the local apothecary by pocketing a potion while the shopkeep was not looking. The player, Andrew, would roll 3d8 and add Silarn's character bonuses for Dexterity and for Thievery to the result. Furthermore, a situational bonus might apply depending on whether the attempt were made in especially favorable or unfavorable conditions. In this case, the player rolls 4, 6, and 8, adding a +3 for Dexterity and a +2 for Thievery, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the shopkeeper is accustomed to keeping an eye out for thieves, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Silarn is successful, and the ill-gotten gains are pocketed with the apothecary none the wiser.*
+**Situation**: *Suppose Irzi - a bold ex-soldier hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +6 for Acrobatics, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the cliff was slippery and with few footholds, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
+
+In this example, the roll uses a bonus from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills and skill bonuses.
 
 #### Determining Difficulty
 
@@ -41,7 +60,9 @@ Trivial tasks are ones that almost anyone can reasonably perform without an undu
 
 ## Opposed Contests
 
-Sometimes a character's attempted action is in direct opposition to that of another player or character. In such cases both players (or the Game Master) will simultaneously roll using the specified formula, adding any individual Ability Bonus, Skill Bonus, and Situational Bonus which they possess. The total of both rolls are compared against each other and the higher of the two is declared the victor. In some cases the margin of victory may be important for triggering additional effects.
+Sometimes a character's attempted action is in direct opposition to that of another player or character. In such cases both players (or the Game Master) will simultaneously roll using the specified formula, adding any individual bonuses which they possess. The total of both rolls are compared against each other and the higher of the two is declared the victor. In some cases the margin of victory may be important for triggering additional effects.
+
+**Situation**: *Suppose Silarn - a hero of lacking in scruples and fond of larceny - were to attempt to burgle the local apothecary by pocketing a potion while the shopkeep was not looking. The player, Andrew, would roll 3d8 and add Silarn's character bonuses for Stealth to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in especially favorable or unfavorable conditions. In this case, the player rolls 5, 5, and 2, adding a +7 for Stealth, resulting in a total roll of 19. The Game Master may then roll for the shopkeeper, who is accustomed to keeping an eye out for thieves. The Game Master rolls 3d8 and adds the shopkeeper's Perception bonus to the result. Suppose the Game Master rolls a 4, 2, and 7, adding a +2 for Perception, resulting in a total roll of 15. In this situation, Silarn's 19 beats the shopkeep's 15; Silarn is successful, and the ill-gotten gains are pocketed with the apothecary none the wiser.*
 
 #### Resolving Contest Ties
 
@@ -96,7 +117,7 @@ In some situations it is either not practical or not advisable to request that p
 
 You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
 
-## Twists of Fate
+## Random Chance
 
 Sometimes there is no alternative suitable mechanic to use to determine an outcome, in such cases it is perfectly acceptable to use random chance to resolve the situation. This can be as simple as flipping a coin, but we recommend the following dice mechanics:
 
