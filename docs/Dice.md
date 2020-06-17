@@ -73,6 +73,16 @@ When an opposed contest results in a tie, the contest is resolved by applying th
 3. If the situation may narratively end in a stalemate the contest concludes with neither party successful in their objective.
 4. If it is unreasonable for the contest to end in a stalemate, the contest is re-rolled immediately until a victor is identified.
 
+## Passive Checks
+
+In some situations it is either not practical or not advisable to request that players roll dice to perform a test. From a narrative perspective, a Passive Check represents acting instinctively rather than deliberately. A Passive Check may is performed by assuming a result of 12 instead of rolling 3d8.
+
+> For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
+
+You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
+
+# ~ WIP BELOW THIS POINT ~
+
 ## Group Challenges
 
 Sometimes a situation will require the cooperation of every party member in order to overcome a non-combat obstacle. In such cases the Gamemaster may elect to conduct a Group Challenge in which every party member must employ a Skill which can assist in overcoming the challenge. 
@@ -108,14 +118,6 @@ Once the outcome of the challenge has been determined it is final and cannot be 
 Some situations in the game call for a check to see how the influence of some effect waxes or wanes over time. Such situations range from the psychological strain placed on heroes when exposed to otherworldly horrors or the collection of applied experience towards the development of a new skill.
 
 Accumulation Checks pertain to attributes or resources which are tracked for each player character, when rolling such a check the result of the rolled formula is added (or sometimes subtracted) from the prior value and the new total is recorded.
-
-## Passive Checks
-
-In some situations it is either not practical or not advisable to request that players roll dice to perform a test. From a narrative perspective, a Passive Check represents acting instinctively rather than deliberately. A Passive Check may is performed by assuming a result of 12 instead of rolling 3d8.
-
-> For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
-
-You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
 
 ## Random Chance
 
