@@ -11,7 +11,7 @@ When your character takes heroic actions within the world, whether they be feats
 ## The Dice Pool
 
 The majority of rolls to determine an outcome in <SYSTEM> use a **3d8** dice pool. Depending on the purpose of the roll, various bonus modifiers are then added to the dice pool to determine the final result of the roll.
-For player characters, rolls may involve adding attribute scores or skill bonuses as modifiers to a 3d8 roll. Such a roll is considered a Standard Check, and is the most common type of roll made by a character.
+For player characters, rolls may involve adding ability scores or skill bonuses as modifiers to a 3d8 roll. Such a roll is considered a Standard Check, and is the most common type of roll made by a character.
 
 ## Boons & Banes
 
@@ -38,7 +38,7 @@ vs. Target Value
 
 **Situation**: *Suppose Irzi - a bold ex-soldier hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +4 for her ability bonus (an average of her Strength and Dexterity scores), and a +2 for her Acrobatics skill, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the cliff was slippery and with few footholds, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
 
-In this example, the roll uses a bonus from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills, the attributes they use, and skill bonuses.
+In this example, the roll uses a bonus from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills checks, the ability scores they use, and skill bonuses.
 
 #### Determining Difficulty
 
