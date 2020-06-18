@@ -669,6 +669,75 @@
 .crucible.sheet.item.skill .progression-paths img.inactive {
   filter: grayscale(100%);
 }
+#chat-log .message .flavor-text {
+  font-size: 16px;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+}
+.dice-roll.standard-check .dice-pool {
+  justify-content: space-evenly;
+}
+.dice-roll.standard-check .die {
+  position: relative;
+  flex: 0 0 48px;
+  height: 48px;
+  margin: 0 0 5px;
+  line-height: 48px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 6px #EEE;
+  background-size: 48px 48px;
+  filter: drop-shadow(0px 0px 6px #EEE);
+}
+.dice-roll.standard-check .die .denom {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: -5px;
+  color: #4b4a44;
+  font-size: 12px;
+  line-height: 16px;
+}
+.dice-roll.standard-check .die.d4 {
+  background-image: url("/icons/svg/d4-grey.svg");
+}
+.dice-roll.standard-check .die.d6 {
+  background-image: url("/icons/svg/d6-grey.svg");
+}
+.dice-roll.standard-check .die.d8 {
+  background-image: url("/icons/svg/d8-grey.svg");
+}
+.dice-roll.standard-check .die.d10 {
+  background-image: url("/icons/svg/d10-grey.svg");
+}
+.dice-roll.standard-check .die.d12 {
+  background-image: url("/icons/svg/d12-grey.svg");
+}
+.dice-roll.standard-check .dice-tooltip {
+  border-top: 1px solid #b5b3a4;
+  margin: 5px 0 0;
+  padding: 5px 0 0;
+}
+.dice-roll.standard-check .dice-tooltip div.counter {
+  padding: 2px 0;
+}
+.dice-roll.standard-check .dice-tooltip div.counter label {
+  font-size: 16px;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+}
+.dice-roll.standard-check .dice-tooltip div.counter span {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+  text-align: center;
+}
+/**
+ * Roll Dialog
+ */
 .roll button {
   height: 32px;
 }
@@ -738,6 +807,7 @@
   font-size: 24px;
   font-weight: bold;
   text-shadow: 0 0 6px #EEE;
+  filter: drop-shadow(0px 0px 6px #EEE);
 }
 .roll .roller .pool .die.d4 {
   background-image: url("/icons/svg/d4-grey.svg");

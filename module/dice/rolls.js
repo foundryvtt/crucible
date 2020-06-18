@@ -15,27 +15,17 @@ import { StandardCheckDialog } from "./apps.js";
  * @param {number} skill        The skill bonus which modifies the roll, up to a maximum of 12
  * @param {number} enchantment  An enchantment bonus which modifies the roll, up to a maximum of 6
  */
-export class StandardCheck {
-  constructor(rollData={}) {
-    this.data = {
-      actorId: null,
-      type: "generic",
-      ability: 0,
-      banes: 0,
-      boons: 0,
-      dc: 15,
-      enchantment: 0,
-      skill: 0
-    };
-    this.initialize(rollData);
+export class StandardCheck extends Roll {
+  constructor(formula, data) {
+    super(StandardCheck.FORMULA, data || formula);
     this.app = new StandardCheckDialog(this);
   }
 
   /* -------------------------------------------- */
 
-  initialize(data) {
-    this.data = this._prepareData(data);
-    this.pool = this._getPool();
+  initialize(rollData) {
+    this.data = this._prepareData(rollData);
+    this._replaceData(this.constructor.FORMULA);
   }
 
   /* -------------------------------------------- */
@@ -45,8 +35,22 @@ export class StandardCheck {
    * @param {object} data
    * @private
    */
-  _prepareData(data) {
-    data = mergeObject(this.data, data);
+  _prepareData(data={}) {
+
+    // Merge provided data with current or default
+    const current = this.data || {
+      actorId: null,
+      type: "generic",
+      ability: 0,
+      banes: 0,
+      boons: 0,
+      dc: 15,
+      enchantment: 0,
+      skill: 0
+    };
+    data = mergeObject(current, data);
+
+    // Regulate and constrain data contents
     data.ability = Math.clamped(data.ability, 0, 12);
     data.banes = Math.clamped(data.banes, 0, SYSTEM.dice.MAX_BOONS);
     data.boons = Math.clamped(data.boons, 0, SYSTEM.dice.MAX_BOONS);
@@ -84,10 +88,12 @@ export class StandardCheck {
 
   /* -------------------------------------------- */
 
-  _getRoll() {
-    let parts = this.pool.map(p => `1d${p}`).concat(["@ability", "@skill"]);
-    if ( this.data.enchantment > 0 ) parts.push("@enchantment");
-    return new Roll(parts.join(" + "), this.data);
+  /** @override */
+  _replaceData(formula) {
+    this.pool = this._getPool();
+    let parts = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
+    if ( this.data.enchantment > 0 ) parts.push(this.data.enchantment);
+    return parts.join(" + ");
   }
 
   /* -------------------------------------------- */
@@ -98,24 +104,60 @@ export class StandardCheck {
 
   /* -------------------------------------------- */
 
-  render(...args) {
-    this.app.render(...args);
+  get dialog() {
+    return new StandardCheckDialog(this);
   }
 
   /* -------------------------------------------- */
 
-  async roll({chat=true, rollMode="roll"}={}) {
+  async render(chatOptions={}) {
+    const isPrivate = chatOptions.isPrivate;
+    const html = await renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
+      cssClass: [SYSTEM.id, "standard-check"].join(" "),
+      data: this.data,
+      isPrivate: isPrivate,
+      formula: this.formula,
+      pool: this.dice.map(d => {
+        return {
+          denom: "d"+d.faces,
+          result: isPrivate ? "?" : d.total
+        }
+      }),
+      total: isPrivate ? "?" : this.total
+    });
+    return html;
+  }
+
+  /* -------------------------------------------- */
+
+  toMessage() {
     const actor = this.actor;
-    const flavor = `${actor.name} makes a ${this.data.type} check`;
-    const roll = this._getRoll();
-    if ( chat ) {
-      await roll.toMessage({
-        speaker: ChatMessage.getSpeaker({actor}),
-        flavor: flavor
-      }, {
-        rollMode: rollMode
-      });
-    }
+    const messageData = {
+      flavor: `${actor.name} rolls a ${this.data.type} check`,
+      speaker: ChatMessage.getSpeaker({actor, user: game.user})
+    };
+    return super.toMessage(messageData, {rollMode: this.data.rollMode});
+  }
+
+  /* -------------------------------------------- */
+  /*  Saving and Loading                          */
+  /* -------------------------------------------- */
+
+  /** @override */
+  toJSON() {
+    const data = super.toJSON();
+    data.data = this.data;
+    return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  static fromData(data) {
+    data.formula = data.data;
+    const roll = super.fromData(data);
     return roll;
   }
 }
+
+StandardCheck.FORMULA = "3d8 + @ability + @skill + @enchantment";

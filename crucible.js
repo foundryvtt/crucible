@@ -13,6 +13,7 @@ import HeroSheet from "./module/sheets/hero.js";
 import SkillSheet from "./module/sheets/skill.js";
 
 import { StandardCheck } from "./module/dice/rolls.js";
+import { StandardCheckDialog } from "./module/dice/apps.js";
 
 
 /* -------------------------------------------- */
@@ -37,6 +38,9 @@ Hooks.once("init", async function() {
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, SkillSheet, {types: ["skill"], makeDefault: true});
+
+  // Register Dice mechanics
+  CONFIG.Dice.rolls["StandardCheck"] = StandardCheck;
 });
 
 
@@ -58,5 +62,19 @@ Hooks.once("ready", function() {
     skill: 4,
     rollMode: "blindroll"
   });
-  sc.render(true);
+  sc.dialog.render(true);
+});
+
+
+
+/* -------------------------------------------- */
+/*  Rendering Hooks                             */
+/* -------------------------------------------- */
+
+
+Hooks.on("renderChatMessage", (message, html, data) => {
+  if ( message.isRoll ) {
+    const rollType = message.getFlag(SYSTEM.id, "rollType");
+    html.find(".message-content");
+  }
 });

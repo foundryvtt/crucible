@@ -1,0 +1,39 @@
+<div class="dice-roll {{cssClass}}">
+    <div class="dice-result">
+        <div class="dice-formula">{{formula}}</div>
+        <div class="dice-pool flexrow">
+            {{#each pool}}
+            <div class="die {{this.denom}}">
+                <span class="denom">{{this.denom}}</span>
+                {{this.result}}
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="dice-tooltip">
+            <div class="counter">
+                <label>Boons</label>
+                <span>{{data.boons}}</span>
+            </div>
+            <div class="counter">
+                <label>Banes</label>
+                <span>{{data.banes}}</span>
+            </div>
+
+            <div class="counter">
+                <label>Ability</label>
+                <span>{{numberFormat data.ability sign=true}}</span>
+            </div>
+            <div class="counter">
+                <label>Skill</label>
+                <span>{{numberFormat data.skill sign=true}}</span>
+            </div>
+            <div class="counter">
+                <label>Enchantment</label>
+                <span>{{numberFormat data.enchantment sign=true}}</span>
+            </div>
+        </div>
+
+        <h4 class="dice-total">{{total}}</h4>
+    </div>
+</div>

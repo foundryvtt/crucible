@@ -22,6 +22,18 @@ export class StandardCheckDialog extends FormApplication {
   /* -------------------------------------------- */
 
   /** @override */
+  get title() {
+    const type = this.object.data.type;
+    if ( type in CONFIG.SYSTEM.skills.skills ) {
+      const skill = CONFIG.SYSTEM.skills.skills[type];
+      return `${skill.name} Skill Check`;
+    }
+    return "Generic Dice Check";
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   getData() {
     const data = duplicate(this.object.data);
     const dc = this._getDifficulty(data.dc);
@@ -109,20 +121,21 @@ export class StandardCheckDialog extends FormApplication {
     const check = this.object;
     switch ( action ) {
       case "boon":
-        if ( check.data.boons < SYSTEM.dice.MAX_BOONS ) {
-          const d = event.type === "contextmenu" ? -1 : 1;
-          this._updateObject(event, {boons: check.data.boons + d});
+        const nBoons = check.data.boons + (event.type === "contextmenu" ? -1 : 1);
+        if ( nBoons <= SYSTEM.dice.MAX_BOONS ) {
+          this._updateObject(event, {boons: nBoons});
         }
         break;
       case "bane":
-        if ( check.data.banes < SYSTEM.dice.MAX_BANES ) {
-          const d = event.type === "contextmenu" ? -1 : 1;
-          this._updateObject(event, {banes: check.data.banes + d});
+        const nBanes = check.data.banes + (event.type === "contextmenu" ? -1 : 1);
+        if ( nBanes <= SYSTEM.dice.MAX_BANES ) {
+          this._updateObject(event, {banes: nBanes});
         }
         break;
       case "roll":
         const rollMode = this.element.find('select[name="rollMode"]').val();
-        this.object.roll({rollMode});
+        const roll = this.object.reroll();
+        roll.toMessage();
         break;
     }
   }
