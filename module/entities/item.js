@@ -107,7 +107,7 @@ export default class CrucibleItem extends Item {
   /* -------------------------------------------- */
 
   _rollSkillCheck({passive=false}={}) {
-    const formula = `${passive ? SYSTEM.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
+    const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
     const roll = new Roll(formula).roll();
     const skillName = this.data.data.path ? `${this.name} (${this.data.path.name})` : this.name;
     return roll.toMessage({

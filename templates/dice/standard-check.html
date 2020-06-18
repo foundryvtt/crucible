@@ -1,0 +1,104 @@
+<form class="standard-check flexcol">
+    {{#if isGM}}
+    <header class="request form-group">
+        <div class="roller">
+            <select name="actorId">
+                {{#select actorId}}
+                <option value="">Select Character</option>
+                {{#each actors}}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="buttons">
+            <button class="dialog-button" data-action="request">
+                Request Roll <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </header>
+    {{/if}}
+
+    <section class="content flexrow">
+        <div class="roller flexcol">
+            <div class="form-group">
+                <select name="type">
+                    {{#select type}}
+                    {{#each types}}
+                    <optgroup label="{{this.label}}">
+                        {{#each this.options as |t id|}}
+                        <option value="{{id}}">{{t.name}}</option>
+                        {{/each}}
+                    </optgroup>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            <div class="form-group boons">
+                <label data-action="boon">
+                    <i class="fas fa-arrow-up"></i> Boons
+                </label>
+                <input type="text" name="boons" value="{{boons}}" data-dtype="Number"/>
+            </div>
+
+            <div class="pool flexrow">
+                {{#each dice}}
+                <div class="die {{this}}">{{this}}</div>
+                {{/each}}
+            </div>
+
+            <div class="form-group boons">
+                <label data-action="bane">
+                    <i class="fas fa-arrow-down"></i> Banes
+                </label>
+                <input type="text" name="banes" value="{{banes}}" data-dtype="Number"/>
+            </div>
+
+            <ol class="bonuses flexrow">
+                <li class="ability">
+                    <label>Ability</label>
+                    <input type="text" name="ability" value="{{ability}}" data-dtype="Number"/>
+                </li>
+                <li class="skill">
+                    <label>Skill</label>
+                    <input type="text" name="skill" value="{{skill}}" data-dtype="Number"/>
+                </li>
+                <li class="enchantment">
+                    <label>Enchantment</label>
+                    <input type="text" name="enchantment" value="{{enchantment}}" data-dtype="Number"/>
+                </li>
+            </ol>
+            </div>
+        </div>
+
+        <div class="target flexcol">
+            <select name="tier">
+                {{#select tier}}
+                <option value="">Assign Difficulty</option>
+                {{#each difficulties as |label dc|}}
+                <option value="{{dc}}">{{label}} (DC {{dc}})</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <input class="dc" type="text" name="dc" value="{{dc}}" data-dtype="Number"/>
+            <label class="difficulty">{{dcLabel}}</label>
+
+            <select name="rollMode">
+                {{#select rollMode}}
+                <option value="">Roll Mode</option>
+                {{#each rollModes as |label id|}}
+                <option value="{{id}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </section>
+
+    <footer class="buttons flexrow">
+        <button data-action="roll">
+            <i class="fas fa-dice"></i>
+            <label>Roll Check</label>
+        </button>
+    </footer>
+</form>

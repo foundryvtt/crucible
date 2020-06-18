@@ -1,5 +1,6 @@
 import {skills} from "./skills.js";
 import {attributes} from "./attributes.js";
+import * as dice from "./dice.js";
 
 const SYSTEM_ID = "crucible";
 
@@ -15,7 +16,7 @@ export const SYSTEM = {
   attributeScores: ["strength", "dexterity", "constitution", "intellect", "wisdom", "charisma"],
   attributePools: ["health", "wounds", "sanity", "stress", "action", "spell"],
   activeCheckFormula: "3d8",
-  passiveCheck: 10
+  dice: dice
 };
 
 

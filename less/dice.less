@@ -1,0 +1,142 @@
+
+.roll {
+
+  button {
+    height: 32px;
+  }
+
+  select {
+    height: 30px;
+    width: 100%;
+    background: none;
+    border: 1px solid @colorBeige;
+  }
+
+  input {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .form-group {
+    margin: 0;
+  }
+
+  // GM Request Roller
+  header.request {
+    flex: 0 0 32px;
+    padding: 0 0 5px;
+    border-bottom: 1px solid @colorBeige;
+    select {
+      flex: 2;
+    }
+    .buttons {
+      flex: 1;
+      margin: -1px 0 0 5px;
+    }
+  }
+
+  .content {
+    flex: 0 0 200px;
+    padding: 5px 0;
+  }
+
+  .roller {
+    flex: 2;
+    padding: 0 5px 0 0;
+    text-align: center;
+
+    .boons {
+      flex: 0 0 32px;
+      margin: 3px 0;
+      label {
+        font-family: @caslon;
+        font-weight: normal;
+        font-size: 20px;
+        padding-left: 32px;
+        line-height: 32px;
+        cursor: pointer;
+        &:hover {
+          text-shadow: 0 0 6px red;
+        }
+      }
+      input {
+        flex: 0 0 32px;
+        height: 32px;
+      }
+    }
+
+    .pool {
+      margin: 5px 0;
+      justify-content: space-evenly;
+      .die {
+        flex: 0 0 64px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 0 0 6px #EEE;
+      }
+
+      .die.d4 { background-image: url("/icons/svg/d4-grey.svg"); }
+      .die.d6 { background-image: url("/icons/svg/d6-grey.svg"); }
+      .die.d8 { background-image: url("/icons/svg/d8-grey.svg"); }
+      .die.d10 { background-image: url("/icons/svg/d10-grey.svg"); }
+      .die.d12 { background-image: url("/icons/svg/d12-grey.svg"); }
+    }
+
+    .bonuses {
+      list-style: none;
+      margin: 5px 0 0;
+      padding: 0;
+      li {
+        flex: 1;
+        height: 46px;
+        margin: 0 3px;
+        label, input {
+          display: block;
+          width: 100%;
+        }
+        label {
+          height: 16px;
+          color: @colorTan;
+          font-family: @caslon;
+          font-size: 16px;
+        }
+        input {
+          height: 30px;
+        }
+      }
+    }
+  }
+
+  .target {
+    justify-content: space-between;
+    border-left: 1px solid @colorBeige;
+    margin: 0;
+    padding: 0 0 0 5px;
+
+    select {
+      flex: 0 0 30px;
+    }
+
+    label.difficulty {
+      flex: 0 0 16px;
+      color: @colorOlive;
+      font-family: @caslon;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    input.dc {
+      flex: 0 0 64px;
+      width: 64px;
+      margin: 0 auto;
+    }
+  }
+
+  .buttons {
+    flex: 0 0 32px;
+  }
+}

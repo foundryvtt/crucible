@@ -73,7 +73,7 @@ export default class HeroSheet extends ActorSheet {
       skill.passive = c.passive;
       skill.tooltips = {
         value: `Skill Bonus = [0.5 * (${skill.attributes[0].label} + ${skill.attributes[1].label})] + Rank Modifier + Equipment Bonus`,
-        passive: `Passive Bonus = ${SYSTEM.passiveCheck} + Skill Bonus`
+        passive: `Passive Bonus = ${SYSTEM.dice.passiveCheck} + Skill Bonus`
       };
 
       // Add to category and return

@@ -134,7 +134,7 @@ export default class CrucibleActor extends Actor {
       // Compute the skill bonus
       const attrs = item.data.attributes.map(a => data.data.attributes[a].value);
       const score = Math.ceil(0.5 * (attrs[0] + attrs[1])) + item.data.currentRank.modifier + item.data.data.bonus;
-      const passive = SYSTEM.passiveCheck + score;
+      const passive = SYSTEM.dice.passiveCheck + score;
 
       // Track points spent
       skillPointsSpent += skillPointCosts[item.data.data.rank];

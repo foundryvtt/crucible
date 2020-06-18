@@ -85,10 +85,9 @@
   font-size: 13px;
   color: #191813;
 }
-.crucible input[type="text"],
+.crucible input,
 .crucible select {
-  height: calc(100% - 2px);
-  border: 1px solid #7a7971;
+  border: 1px solid #b5b3a4;
   background: rgba(0, 0, 0, 0.05);
   color: #191813;
 }
@@ -669,4 +668,137 @@
 }
 .crucible.sheet.item.skill .progression-paths img.inactive {
   filter: grayscale(100%);
+}
+.roll button {
+  height: 32px;
+}
+.roll select {
+  height: 30px;
+  width: 100%;
+  background: none;
+  border: 1px solid #b5b3a4;
+}
+.roll input {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+.roll .form-group {
+  margin: 0;
+}
+.roll header.request {
+  flex: 0 0 32px;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #b5b3a4;
+}
+.roll header.request select {
+  flex: 2;
+}
+.roll header.request .buttons {
+  flex: 1;
+  margin: -1px 0 0 5px;
+}
+.roll .content {
+  flex: 0 0 200px;
+  padding: 5px 0;
+}
+.roll .roller {
+  flex: 2;
+  padding: 0 5px 0 0;
+  text-align: center;
+}
+.roll .roller .boons {
+  flex: 0 0 32px;
+  margin: 3px 0;
+}
+.roll .roller .boons label {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-weight: normal;
+  font-size: 20px;
+  padding-left: 32px;
+  line-height: 32px;
+  cursor: pointer;
+}
+.roll .roller .boons label:hover {
+  text-shadow: 0 0 6px red;
+}
+.roll .roller .boons input {
+  flex: 0 0 32px;
+  height: 32px;
+}
+.roll .roller .pool {
+  margin: 5px 0;
+  justify-content: space-evenly;
+}
+.roll .roller .pool .die {
+  flex: 0 0 64px;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 6px #EEE;
+}
+.roll .roller .pool .die.d4 {
+  background-image: url("/icons/svg/d4-grey.svg");
+}
+.roll .roller .pool .die.d6 {
+  background-image: url("/icons/svg/d6-grey.svg");
+}
+.roll .roller .pool .die.d8 {
+  background-image: url("/icons/svg/d8-grey.svg");
+}
+.roll .roller .pool .die.d10 {
+  background-image: url("/icons/svg/d10-grey.svg");
+}
+.roll .roller .pool .die.d12 {
+  background-image: url("/icons/svg/d12-grey.svg");
+}
+.roll .roller .bonuses {
+  list-style: none;
+  margin: 5px 0 0;
+  padding: 0;
+}
+.roll .roller .bonuses li {
+  flex: 1;
+  height: 46px;
+  margin: 0 3px;
+}
+.roll .roller .bonuses li label,
+.roll .roller .bonuses li input {
+  display: block;
+  width: 100%;
+}
+.roll .roller .bonuses li label {
+  height: 16px;
+  color: #7a7971;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 16px;
+}
+.roll .roller .bonuses li input {
+  height: 30px;
+}
+.roll .target {
+  justify-content: space-between;
+  border-left: 1px solid #b5b3a4;
+  margin: 0;
+  padding: 0 0 0 5px;
+}
+.roll .target select {
+  flex: 0 0 30px;
+}
+.roll .target label.difficulty {
+  flex: 0 0 16px;
+  color: #4b4a44;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 20px;
+  text-align: center;
+}
+.roll .target input.dc {
+  flex: 0 0 64px;
+  width: 64px;
+  margin: 0 auto;
+}
+.roll .buttons {
+  flex: 0 0 32px;
 }
