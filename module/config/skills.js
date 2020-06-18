@@ -207,7 +207,7 @@ skills.skills = {
     name: "Perception",
     category: "exp",
     icon: "icons/skills/perception.jpg",
-    attributes: ["intellect", "wisdom"],
+    attributes: ["intellect", "willpower"],
     ranks: [
       {
         rank: 1,
@@ -299,7 +299,7 @@ skills.skills = {
     name: "Stealth",
     category: "exp",
     icon: "icons/skills/stealth.jpg",
-    attributes: ["dexterity", "wisdom"],
+    attributes: ["dexterity", "willpower"],
     ranks: [
       {
         rank: 1,
@@ -391,7 +391,7 @@ skills.skills = {
     name: "Survival",
     category: "exp",
     icon: "icons/skills/survival.jpg",
-    attributes: ["constitution", "wisdom"],
+    attributes: ["constitution", "willpower"],
     ranks: [
       {
         rank: 1,
@@ -486,7 +486,7 @@ skills.skills = {
     name: "Arcana",
     category: "kno",
     icon: "icons/skills/arcana.jpg",
-    attributes: ["intellect", "wisdom"],
+    attributes: ["intellect", "willpower"],
     ranks: [
       {
         rank: 1,
@@ -581,7 +581,7 @@ skills.skills = {
     name: "Religion",
     category: "kno",
     icon: "icons/skills/religion.jpg",
-    attributes: ["wisdom", "charisma"],
+    attributes: ["willpower", "charisma"],
     ranks: [
       {
         rank: 1,
@@ -765,7 +765,7 @@ skills.skills = {
     name: "Lore",
     category: "kno",
     icon: "icons/skills/lore.jpg",
-    attributes: ["intellect", "wisdom"],
+    attributes: ["intellect", "willpower"],
     ranks: [
       {
         rank: 1,
@@ -1044,7 +1044,7 @@ skills.skills = {
     name: "Diplomacy",
     category: "soc",
     icon: "icons/skills/diplomacy.jpg",
-    attributes: ["wisdom", "charisma"],
+    attributes: ["willpower", "charisma"],
     ranks: [
       {
         rank: 1,
@@ -1228,7 +1228,7 @@ skills.skills = {
     name: "Animal Handling",
     category: "trd",
     icon: "icons/skills/animal.jpg",
-    attributes: ["strength", "wisdom"],
+    attributes: ["strength", "willpower"],
     ranks: [
       {
         rank: 1,

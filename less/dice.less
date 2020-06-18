@@ -8,13 +8,13 @@
 
 .dice-roll.standard-check {
   .dice-pool {
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 5px 0;
   }
   .die {
     position: relative;
     flex: 0 0 48px;
     height: 48px;
-    margin: 0 0 5px;
     line-height: 48px;
     text-align: center;
     font-size: 24px;
@@ -40,9 +40,21 @@
   .die.d10 { background-image: url("/icons/svg/d10-grey.svg"); }
   .die.d12 { background-image: url("/icons/svg/d12-grey.svg"); }
 
+  .boons {
+    position: relative;
+    flex: 0 0 48px;
+    text-align: center;
+    padding: 8px 0;
+    i, span {
+      height: 16px;
+      line-height: 16px;
+      display: block;
+    }
+  }
+
   .dice-tooltip {
     border-top: 1px solid @colorBeige;
-    margin: 5px 0 0;
+    margin: 5px 0;
     padding: 5px 0 0;
     div.counter {
       padding: 2px 0;
@@ -61,6 +73,38 @@
         text-align: center;
       }
     }
+  }
+
+  .dice-total {
+    position: relative;
+    margin: 5px 0 0;
+    .outcome, .target {
+      position: absolute;
+      color: @colorOlive;
+      font-weight: normal;
+      font-size: 14px;
+    }
+    .outcome {
+      left: 5px;
+    }
+    .target {
+      right: 5px;
+    }
+  }
+
+  &.success .dice-total {
+    background: rgba(0,255,0,0.05);
+    border: 1px solid green;
+  }
+  &.success.critical .dice-total {
+    color: green;
+  }
+  &.failure .dice-total  {
+    background: rgba(255,0,0,0.05);
+    border: 1px solid red;
+  }
+  &.failure.critical .dice-total  {
+    color: red;
   }
 }
 

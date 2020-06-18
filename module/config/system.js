@@ -13,7 +13,7 @@ export const SYSTEM = {
   name: "Crucible (WIP)",
   attributes: attributes,
   skills: prepareSkillConfig(skills),
-  attributeScores: ["strength", "dexterity", "constitution", "intellect", "wisdom", "charisma"],
+  attributeScores: ["strength", "dexterity", "constitution", "intellect", "willpower", "charisma"],
   attributePools: ["health", "wounds", "sanity", "stress", "action", "spell"],
   activeCheckFormula: "3d8",
   dice: dice

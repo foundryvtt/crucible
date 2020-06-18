@@ -32,13 +32,22 @@ In a standard check, the character who takes an action rolls a set of dice, adds
 In <SYSTEM> the most commonly used dice formula for making a standard check is:
 
 ```
-3d8 Dice Pool + Ability Bonus + Skill Bonus + Situational Bonus 
+3d8 Dice Pool + Ability Bonus + Skill Bonus + Enchantment Bonus 
 vs. Target Value
 ```
 
-**Situation**: *Suppose Irzi - a bold ex-soldier hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +4 for her ability bonus (an average of her Strength and Dexterity scores), and a +2 for her Acrobatics skill, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the cliff was slippery and with few footholds, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
+## Bonuses
+The Ability Bonus, Skill Bonus, and Enchantment Bonus referenced in the above formula are separate concepts, which may each be taken into consideration when making a roll.
 
-In this example, the roll uses a bonus from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills checks, the ability scores they use, and skill bonuses.
+An **Ability Bonus** is derived from the ability scores related to that roll. It represents the character's natural ability to perform the desired action. In rolls where only one ability score is applicable, this bonus is simply the ability score itself. However, rolls may have an Ability Bonus that uses multiple ability scores, typically through averaging them together.
+
+A **Skill Bonus** represents a character's expertise and accumulated knowledge that could help them perform the action better. When performing an action that tests knowledge in a skill, the skill bonus is determined by how many ranks the character has in that particular skill. For weapon attacks, the skill bonus is from their training in using that particular type of weapon.
+
+Finally, the **Enchantment Bonus** reflects circumstantial, magical factors that can change the outcome of a roll. By default, the Enchantment Bonus is 0, but some talents, spells or magical items can grant an Enchantment bonus to certain rolls. If a character is affected by multiple sources of magic, the Enchantment Bonus is the sum of all bonuses from all magical effects that would apply to this roll.
+
+**Situation**: *Suppose Irzi - a bold ex-town guard hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +4 for her ability bonus (an average of her Strength and Dexterity scores), and a +2 for her Acrobatics skill, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the cliff was slippery and with few footholds, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
+
+In this example, the roll uses a bonuses from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills checks, the ability scores they use, and skill bonuses.
 
 #### Determining Difficulty
 

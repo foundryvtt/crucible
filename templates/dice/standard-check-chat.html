@@ -2,38 +2,47 @@
     <div class="dice-result">
         <div class="dice-formula">{{formula}}</div>
         <div class="dice-pool flexrow">
+            <div class="boons">
+                <i class="fas fa-arrow-up"></i>
+                <span>{{data.boons}}</span>
+            </div>
             {{#each pool}}
             <div class="die {{this.denom}}">
                 <span class="denom">{{this.denom}}</span>
                 {{this.result}}
             </div>
             {{/each}}
+            <div class="boons banes">
+                <i class="fas fa-arrow-down"></i>
+                <span>{{data.banes}}</span>
+            </div>
         </div>
 
         <div class="dice-tooltip">
             <div class="counter">
-                <label>Boons</label>
-                <span>{{data.boons}}</span>
+                <label>Dice Total</label>
+                <span>{{diceTotal}}</span>
             </div>
             <div class="counter">
-                <label>Banes</label>
-                <span>{{data.banes}}</span>
-            </div>
-
-            <div class="counter">
-                <label>Ability</label>
-                <span>{{numberFormat data.ability sign=true}}</span>
+                <label>Ability Bonus</label>
+                <span>{{data.ability}}</span>
             </div>
             <div class="counter">
-                <label>Skill</label>
-                <span>{{numberFormat data.skill sign=true}}</span>
+                <label>Skill Bonus</label>
+                <span>{{data.skill}}</span>
             </div>
             <div class="counter">
-                <label>Enchantment</label>
-                <span>{{numberFormat data.enchantment sign=true}}</span>
+                <label>Enchantment Bonus</label>
+                <span>{{data.enchantment}}</span>
             </div>
         </div>
 
-        <h4 class="dice-total">{{total}}</h4>
+        <h4 class="dice-total">
+            <span class="outcome">{{outcome}}</span>
+            <span>{{total}}</span>
+            {{#if isGM}}
+            <span class="target">vs. DC {{data.dc}}</span>
+            {{/if}}
+        </h4>
     </div>
 </div>

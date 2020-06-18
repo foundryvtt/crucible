@@ -30,7 +30,9 @@ export default class HeroSheet extends ActorSheet {
       height: 840,
       classes: [SYSTEM.id, "sheet", "actor"],
       template: `systems/${SYSTEM.id}/templates/sheets/hero.html`,
-      resizable: false
+      resizable: false,
+      tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "attributes"}],
+      scrollY: [".tab.attributes", ".tab.skills"]
     });
   }
 
@@ -38,10 +40,20 @@ export default class HeroSheet extends ActorSheet {
 
   getData() {
     const data = super.getData();
-    data.attributes = SYSTEM.attributes;
     data.points = this.actor.points;
+    data.abilityScores = this._formatAbilities(this.actor.data.data.attributes);
     data.skillCategories = this._formatSkills(this.actor.skills);
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  _formatAbilities(attributes) {
+    return SYSTEM.attributeScores.map(a => {
+      const attr = mergeObject(attributes[a], SYSTEM.attributes[a]);
+      attr.id = a;
+      return attr;
+    });
   }
 
   /* -------------------------------------------- */
@@ -93,18 +105,6 @@ export default class HeroSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Activate tabs
-    new Tabs(html.find(".tabs"), {
-      initial: this["_tab"],
-      callback: clicked => {
-        this["_tab"] = clicked.data("tab");
-      }
-    });
-    this._onInitScroll(html);
-
-    // Record scroll positions
-    html.find(".tab").scroll(this._onScrollTab.bind(this));
-
     // Skill Controls
     html.find(".skill-control").click(this._onClickSkillControl.bind(this));
   }
@@ -147,20 +147,5 @@ export default class HeroSheet extends ActorSheet {
         item.roll({passive: event.shiftKey});
         break;
     }
-  }
-
-  /* -------------------------------------------- */
-
-  _onInitScroll(html) {
-    for ( let [tab, scrollTop] of Object.entries(this._scroll) ) {
-      if ( scrollTop ) html[0].querySelector(`.tab[data-tab="${tab}"]`).scrollTop = scrollTop;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  _onScrollTab(event) {
-    const tab = event.currentTarget.dataset.tab;
-    this._scroll[tab] = event.currentTarget.scrollTop;
   }
 }

@@ -248,6 +248,9 @@
   --skillHeight: 30px;
   /* General Sheet Styles */
   /* Badge Icons */
+  /** --------------------------------------
+   * ATTRIBUTES TAB
+   * ------------------------------------- */
   /* Skills Tab */
 }
 .crucible.sheet.actor label {
@@ -377,6 +380,48 @@
 }
 .crucible.sheet.actor .badge.biography.active {
   background-image: url("ui/badges/biography-active.png");
+}
+.crucible.sheet.actor .badge.strength {
+  background-image: url("ui/badges/strength-active.png");
+}
+.crucible.sheet.actor .badge.dexterity {
+  background-image: url("ui/badges/dexterity-active.png");
+}
+.crucible.sheet.actor .badge.constitution {
+  background-image: url("ui/badges/constitution-active.png");
+}
+.crucible.sheet.actor .badge.intellect {
+  background-image: url("ui/badges/intellect-active.png");
+}
+.crucible.sheet.actor .badge.willpower {
+  background-image: url("ui/badges/willpower-active.png");
+}
+.crucible.sheet.actor .badge.charisma {
+  background-image: url("ui/badges/charisma-active.png");
+}
+.crucible.sheet.actor .tab.attributes .ability-scores {
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid #b5b3a4;
+}
+.crucible.sheet.actor .tab.attributes .ability-scores .attribute {
+  height: 36px;
+  align-items: center;
+  margin: 3px 5px 3px 0;
+}
+.crucible.sheet.actor .tab.attributes .ability-scores .attribute h4.label {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+}
+.crucible.sheet.actor .tab.attributes .ability-scores .attribute input {
+  flex: 0 0 36px;
+  height: 36px;
+  font-size: 24px;
+  text-align: center;
 }
 .crucible.sheet.actor .tab.skills {
   justify-content: flex-start;
@@ -674,13 +719,13 @@
   font-family: "CaslonAntique", "Palatino Linotype", serif;
 }
 .dice-roll.standard-check .dice-pool {
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin: 5px 0;
 }
 .dice-roll.standard-check .die {
   position: relative;
   flex: 0 0 48px;
   height: 48px;
-  margin: 0 0 5px;
   line-height: 48px;
   text-align: center;
   font-size: 24px;
@@ -713,9 +758,21 @@
 .dice-roll.standard-check .die.d12 {
   background-image: url("/icons/svg/d12-grey.svg");
 }
+.dice-roll.standard-check .boons {
+  position: relative;
+  flex: 0 0 48px;
+  text-align: center;
+  padding: 8px 0;
+}
+.dice-roll.standard-check .boons i,
+.dice-roll.standard-check .boons span {
+  height: 16px;
+  line-height: 16px;
+  display: block;
+}
 .dice-roll.standard-check .dice-tooltip {
   border-top: 1px solid #b5b3a4;
-  margin: 5px 0 0;
+  margin: 5px 0;
   padding: 5px 0 0;
 }
 .dice-roll.standard-check .dice-tooltip div.counter {
@@ -734,6 +791,37 @@
   border: 1px solid #7a7971;
   border-radius: 2px;
   text-align: center;
+}
+.dice-roll.standard-check .dice-total {
+  position: relative;
+  margin: 5px 0 0;
+}
+.dice-roll.standard-check .dice-total .outcome,
+.dice-roll.standard-check .dice-total .target {
+  position: absolute;
+  color: #4b4a44;
+  font-weight: normal;
+  font-size: 14px;
+}
+.dice-roll.standard-check .dice-total .outcome {
+  left: 5px;
+}
+.dice-roll.standard-check .dice-total .target {
+  right: 5px;
+}
+.dice-roll.standard-check.success .dice-total {
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid green;
+}
+.dice-roll.standard-check.success.critical .dice-total {
+  color: green;
+}
+.dice-roll.standard-check.failure .dice-total {
+  background: rgba(255, 0, 0, 0.05);
+  border: 1px solid red;
+}
+.dice-roll.standard-check.failure.critical .dice-total {
+  color: red;
 }
 /**
  * Roll Dialog

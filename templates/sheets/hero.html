@@ -69,17 +69,20 @@
 
     {{!-- Sheet Body --}}
     <section class="sheet-body flexrow">
+
+        {{!-- Attributes Tab --}}
         <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
-            <ol class="attribute-list">
-            {{#each attributes as |attr name|}}
-                <li class="attribute" data-attribute="{{name}}">
-                    <h4>{{attr.label}}</h4>
-                    <span class="attribute-value">{{lookup data.attributes }}</span>
+            <ol class="ability-scores">
+            {{#each abilityScores as |attr|}}
+                <li class="attribute flexrow" data-attribute="{{attr.id}}">
+                    <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
+                    <input type="text" name="data.attributes.{{attr.id}}.value" value="{{attr.value}}" data-dtype="Number"/>
                 </li>
             {{/each}}
             </ol>
         </div>
 
+        {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
 
             <div class="skill-points flexrow">

@@ -112,11 +112,37 @@ export class StandardCheck extends Roll {
 
   async render(chatOptions={}) {
     const isPrivate = chatOptions.isPrivate;
+    const total = this.total;
+    const css = [SYSTEM.id, "standard-check"];
+
+    // Determine outcome
+    let outcome = "";
+    if ( total >= this.data.dc ) {
+      css.push("success");
+      if ( total > this.data.dc + 5 ) {
+        css.push("critical");
+        outcome = "Critical ";
+      }
+      outcome += "Success";
+    }
+    else {
+      css.push("failure");
+      if ( total < this.data.dc - 5 ) {
+        css.push("critical");
+        outcome = "Critical ";
+      }
+      outcome += "Failure";
+    }
+
+    // Render chat card
     const html = await renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
-      cssClass: [SYSTEM.id, "standard-check"].join(" "),
+      cssClass: css.join(" "),
       data: this.data,
+      diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
+      isGM: game.user.isGM,
       isPrivate: isPrivate,
       formula: this.formula,
+      outcome: outcome,
       pool: this.dice.map(d => {
         return {
           denom: "d"+d.faces,

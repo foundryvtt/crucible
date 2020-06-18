@@ -15,9 +15,9 @@ export const attributes = {
     label: "Intellect",
     abbreviation: "Int"
   },
-  wisdom: {
-    label: "Wisdom",
-    abbreviation: "Wis"
+  willpower: {
+    label: "Willpower",
+    abbreviation: "Wil"
   },
   charisma: {
     label: "Charisma",

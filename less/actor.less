@@ -149,6 +149,49 @@
     }
   }
 
+  .badge.strength { background-image: url("ui/badges/strength-active.png"); }
+  .badge.dexterity { background-image: url("ui/badges/dexterity-active.png"); }
+  .badge.constitution { background-image: url("ui/badges/constitution-active.png"); }
+  .badge.intellect { background-image: url("ui/badges/intellect-active.png"); }
+  .badge.willpower { background-image: url("ui/badges/willpower-active.png"); }
+  .badge.charisma { background-image: url("ui/badges/charisma-active.png"); }
+
+  /** --------------------------------------
+   * ATTRIBUTES TAB
+   * ------------------------------------- */
+
+  .tab.attributes {
+    .ability-scores {
+      width: 250px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-right: 1px solid @colorBeige;
+
+      .attribute {
+        height: 36px;
+        align-items: center;
+        margin: 3px 5px 3px 0;
+
+        h4.label {
+          margin: 0;
+          font-size: 20px;
+          font-weight: bold;
+          font-family: @caslon;
+        }
+        input {
+          flex: 0 0 36px;
+          height: 36px;
+          font-size: 24px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+
+
+
   /* Skills Tab */
   .tab.skills {
     justify-content: flex-start;
