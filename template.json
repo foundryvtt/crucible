@@ -35,32 +35,32 @@
             "max": 12
           },
           "strength": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           },
           "dexterity": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           },
           "constitution": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           },
           "intellect": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           },
           "willpower": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           },
           "charisma": {
-            "base": 3,
+            "base": 1,
             "increases": 0,
             "bonus": 0
           }
@@ -89,7 +89,149 @@
           }
         },
         "details": {
+          "ancestry": "",
+          "background": "",
           "level": 1
+        },
+        "resistances": {
+          "bludgeoning": {
+            "base": 0,
+            "bonus": 0
+          },
+          "piercing": {
+            "base": 0,
+            "bonus": 0
+          },
+          "slashing": {
+            "base": 0,
+            "bonus": 0
+          },
+          "acid": {
+            "base": 0,
+            "bonus": 0
+          },
+          "fire": {
+            "base": 0,
+            "bonus": 0
+          },
+          "frost": {
+            "base": 0,
+            "bonus": 0
+          },
+          "lightning": {
+            "base": 0,
+            "bonus": 0
+          },
+          "psychic": {
+            "base": 0,
+            "bonus": 0
+          },
+          "radiant": {
+            "base": 0,
+            "bonus": 0
+          },
+          "unholy": {
+            "base": 0,
+            "bonus": 0
+          }
+        },
+        "skills": {
+          "acrobatics": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "animal": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "arcana": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "bartering": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "craftsmanship": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "deception": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "diplomacy": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "intimidation": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "investigation": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "lore": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "medicine": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "perception": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "performance": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "religion": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "stealth": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          },
+          "survival": {
+            "ancestry": 0,
+            "background": 0,
+            "rank": 0,
+            "path": null
+          }
         }
       }
     },
@@ -105,14 +247,14 @@
     }
   },
   "Item": {
-    "types": ["skill", "talent"],
+    "types": ["ancestry", "talent"],
     "templates": {},
-    "skill": {
-      "templates": [],
-      "skill": null,
-      "rank": 0,
-      "bonus": 0,
-      "path": ""
+    "ancestry": {
+      "primaryAbility": null,
+      "secondaryAbility": null,
+      "skills": [],
+      "resistance": null,
+      "vulnerability": null
     },
     "talent": {}
   }

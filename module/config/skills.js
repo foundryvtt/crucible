@@ -1,104 +1,73 @@
-export const skills = {};
+import {SYSTEM_ID} from "./system.js";
+
 
 /**
- * The rank tiers which can be progressed for Skills in the system
- * @type {Array<Object>}
+ * The cost in skill points to obtain the next skill rank
+ * @type {number[]}
  */
-skills.ranks = [
-  {
-    rank: 0,
-    name: "Untrained",
-    description: "Purchase ranks in this skill to unlock its benefits.",
-    rankDescription: "You have no formal training in this area. Any success you have is due to luck.",
-    modifier: -4,
+export const SKILL_RANKS = {
+  0: {
+    label: "SKILL.Untrained",
+    description: "You have no formal training in this area. Any success you have is due to luck.",
     cost: 0,
-    cumulative: 0,
+    bonus: -4,
     progression: 0
   },
-  {
-    rank: 1,
-    name: "Novice",
-    rankDescription: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
-    modifier: 2,
+  1: {
+    label: "SKILL.Novice",
+    description: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
     cost: 1,
-    cumulative: 1,
+    bonus: 0,
     progression: 0
   },
-  {
-    rank: 2,
-    name: "Apprentice",
-    rankDescription: "You have practiced and honed your skills to a strong functional degree.",
-    modifier: 4,
-    cost: 1,
-    cumulative: 2,
-    progression: 1
-  },
-  {
-    rank: 3,
-    name: "Journeyman",
-    rankDescription: "You are a subject matter expert in this area.",
-    modifier: 6,
+  2: {
+    label: "SKILL.Apprentice",
+    description: "You have practiced and honed your skills to a strong functional degree.",
     cost: 2,
-    cumulative: 4,
+    bonus: 2,
+    progression: 1,
+  },
+  3: {
+    label: "SKILL.Journeyman",
+    description: "You are a subject matter expert in this area.",
+    cost: 4,
+    bonus: 4,
     progression: 0
   },
-  {
-    rank: 4,
-    name: "Master",
-    rankDescription: "You are a true master of this skill and its techniques.",
-    modifier: 10,
-    cost: 3,
-    cumulative: 7,
+  4: {
+    label: "SKILL.Master",
+    description: "You are a true master of this skill and its techniques.",
+    cost: 7,
+    bonus: 8,
     progression: 2
   },
-  {
-    rank: 5,
-    name: "Grandmaster",
-    rankDescription: "You are peerless in your mastery of this area.",
-    modifier: 12,
-    cost: 5,
-    cumulative: 12,
+  5: {
+    label: "SKILL.Grandmaster",
+    description: "You are peerless in your mastery of this area.",
+    cost: 12,
+    bonus: 12,
     progression: 3
-  },
-];
-
-/**
- * The categories of skills which exist within the system
- * @type {Object}
- */
-skills.categories = {
-  "exp": {
-    id: "exp",
-    name: "Exploration",
-    noPathIcon: "icons/skills/no-exp.jpg"
-  },
-  "kno": {
-    id: "kno",
-    name: "Knowledge",
-    noPathIcon: "icons/skills/no-kno.jpg"
-  },
-  "soc": {
-    id: "soc",
-    name: "Social",
-    noPathIcon: "icons/skills/no-soc.jpg"
-  },
-  "trd": {
-    id: "trd",
-    name: "Tradecraft",
-    noPathIcon: "icons/skills/no-trd.jpg"
   }
 };
 
-/**
- * A template data structure to use for cases where a specialization path has not yet been chosen
- * @type {Object}
- */
-skills.noPath = {
-  id: "",
-  name: "No Path",
-  icon: "",
-  description: "You have not chosen a specialization path.",
-  ranks: []
+
+export const SKILL_CATEGORIES = {
+  "exp": {
+    label: "Exploration",
+    defaultIcon: "icons/skills/no-exp.jpg"
+  },
+  "kno": {
+    label: "Knowledge",
+    defaultIcon: "icons/skills/no-kno.jpg"
+  },
+  "soc": {
+    label: "Social",
+    defaultIcon: "icons/skills/no-soc.jpg"
+  },
+  "trd": {
+    label: "Tradecraft",
+    defaultIcon: "icons/skills/no-trd.jpg"
+  }
 };
 
 
@@ -106,7 +75,7 @@ skills.noPath = {
  * The available Skills which can be progressed within the system
  * @type {Array<Object>}
  */
-skills.skills = {
+export const SKILLS = {
 
   /* -------------------------------------------- */
   /*  Acrobatics
@@ -1589,3 +1558,34 @@ skills.skills = {
     ]
   }
 };
+
+
+/**
+ * Combine and configure Skills data to create an official record of skill progression throughout the system
+ * Freeze the resulting object so it cannot be modified downstream
+ * @param {Object} skills
+ * @return {Object}
+ */
+export function prepareSkillConfig(skills) {
+  for ( let [id, skill] of Object.entries(skills.skills) ) {
+
+    // Skill id, icon, and category
+    skill.skillId = id;
+    skill.icon = `systems/${SYSTEM_ID}/${skill.icon}`;
+    skill.category = skills.categories[skill.category];
+
+    // Skill ranks
+    const ranks = duplicate(skills.ranks);
+    skill.ranks.forEach(r => mergeObject(ranks[r.rank], r));
+    skill.ranks = ranks;
+
+    // Skill progression paths
+    skill.paths.forEach(p => p.icon = `systems/${SYSTEM_ID}/${p.icon}`);
+    skill.paths.unshift(duplicate(skills.noPath));
+    skill.paths[0].icon = `systems/${SYSTEM_ID}/${skill.category.noPathIcon}`;
+  }
+
+  // Freeze the skills config so it cannot be modified
+  Object.freeze(skills);
+  return skills;
+}

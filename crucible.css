@@ -170,6 +170,7 @@
   --navHeight: 32px;
   /* Highlight Boxes */
   /* Tooltips */
+  /* Form Group Labels */
 }
 .crucible.sheet .sheet-header {
   flex: 0 0 var(--headerHeight);
@@ -241,6 +242,15 @@
 }
 .crucible.sheet .tooltipped:hover > .tooltip {
   display: block;
+}
+.crucible.sheet .form-group label {
+  font-size: 16px;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+}
+.crucible.sheet label.checkbox {
+  font-size: 11px;
+  font-family: "Signika", sans-serif;
+  font-weight: normal;
 }
 .crucible.sheet.actor {
   --headerHeight: 200px;
@@ -713,6 +723,15 @@
 }
 .crucible.sheet.item.skill .progression-paths img.inactive {
   filter: grayscale(100%);
+}
+.crucible.item.ancestry .skills .form-fields label {
+  flex: 0 0 25%;
+  margin: 0;
+  padding: 0;
+}
+.crucible.item.ancestry .skills .form-fields label input {
+  width: 16px;
+  margin: 0;
 }
 #chat-log .message .flavor-text {
   font-size: 16px;

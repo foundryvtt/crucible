@@ -1,0 +1,82 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <div class="header-content flexrow">
+            <h1 class="title">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
+            </h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="form-group ability">
+            <label>{{localize "ANCESTRY.PrimaryAbility"}}</label>
+            <select name="data.primaryAbility">
+                {{#select data.primaryAbility}}
+                {{#each system.ABILITIES as |a id|}}
+                <option value="{{id}}">{{a.label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="hint">{{localize "ANCESTRY.PrimaryAbilityHint"}}</p>
+        </div>
+
+        <div class="form-group ability">
+            <label>{{localize "ANCESTRY.SecondaryAbility"}}</label>
+            <select name="data.secondaryAbility">
+                {{#select data.secondaryAbility}}
+                {{#each system.ABILITIES as |a id|}}
+                <option value="{{id}}">{{a.label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="hint">{{localize "ANCESTRY.SecondaryAbilityHint"}}</p>
+        </div>
+
+        <div class="form-group stacked skills">
+            <label>{{localize "ANCESTRY.Skills"}}</label>
+            <div class="form-fields">
+                {{#each skills}}
+                <label class="checkbox">
+                    <input type="checkbox" name="{{this.id}}" {{checked this.checked}}/>
+                    {{this.name}}
+                </label>
+                {{/each}}
+            </div>
+            <p class="hint">{{localize "ANCESTRY.SkillsHint"}}</p>
+        </div>
+
+        <div class="form-group ability">
+            <label>{{localize "ANCESTRY.Resistance"}}</label>
+            <select name="data.resistance">
+                {{#select data.resistance}}
+                <option value="">None</option>
+                {{#each system.DAMAGE_TYPES as |d id|}}
+                <option value="{{id}}">{{d.label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="hint">{{localize "ANCESTRY.ResistanceHint"}}</p>
+        </div>
+
+        <div class="form-group ability">
+            <label>{{localize "ANCESTRY.Vulnerability"}}</label>
+            <select name="data.vulnerability">
+                {{#select data.vulnerability}}
+                <option value="">None</option>
+                {{#each system.DAMAGE_TYPES as |d id|}}
+                <option value="{{id}}">{{d.label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <p class="hint">{{localize "ANCESTRY.VulnerabilityHint"}}</p>
+        </div>
+
+        <footer class="sheet-footer">
+            <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
+        </footer>
+    </section>
+</form>

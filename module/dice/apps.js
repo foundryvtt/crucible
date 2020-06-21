@@ -24,8 +24,8 @@ export class StandardCheckDialog extends FormApplication {
   /** @override */
   get title() {
     const type = this.object.data.type;
-    if ( type in CONFIG.SYSTEM.skills.skills ) {
-      const skill = CONFIG.SYSTEM.skills.skills[type];
+    if ( type in CONFIG.SYSTEM.SKILLS ) {
+      const skill = CONFIG.SYSTEM.SKILLS[type];
       return `${skill.name} Skill Check`;
     }
     return "Generic Dice Check";
@@ -64,7 +64,7 @@ export class StandardCheckDialog extends FormApplication {
         },
         {
           label: "Skills",
-          options: CONFIG.SYSTEM.skills.skills
+          options: CONFIG.SYSTEM.SKILLS
         }
       ]
     });

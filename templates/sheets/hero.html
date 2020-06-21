@@ -28,12 +28,12 @@
             <div class="history flexrow">
                 <div class="ancestry">
                     <label>Ancestry</label>
-                    <h2>Dwarven</h2>
+                    <h2>{{data.details.ancestry}}</h2>
                 </div>
 
                 <div class="background">
                     <label>Background</label>
-                    <h2>Nomadic</h2>
+                    <h2>{{data.details.background}}</h2>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
             <ol class="skills-list">
                 {{#each category.skills as |skill skillId|}}
                 <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
-                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.img}}"/>
+                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
                     <div class="skill-name flexrow">
                         <h3><a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a></h3>
                         <div class="skill-ranks">
@@ -136,14 +136,14 @@
                         <span class="attribute highlight">{{this.abbreviation}}</span>
                         {{/each}}
                     </div>
-                    <span class="rank">{{skill.currentRank.name}}</span>
-                    <span class="path">{{skill.path.name}}</span>
+                    <span class="rank">{{skill.rankName}}</span>
+                    <span class="path">{{skill.pathName}}</span>
                     <div class="points">
                         <a class="skill-control highlight" title="Decrease Rank" data-action="decrease">
                             <i class="fas fa-minus fa-fw"></i>
                         </a>
-                        <span class="cumulative">{{skill.currentRank.cumulative}}</span>
-                        <span class="next">{{#if skill.nextRank.cost}}({{skill.nextRank.cost}}){{else}}-{{/if}}</span>
+                        <span class="cumulative">{{skill.cost}}</span>
+                        <span class="next">{{#if skill.nextCost}}({{skill.nextCost}}){{else}}-{{/if}}</span>
                         <a class="skill-control highlight" title="Increase Rank" data-action="increase">
                             <i class="fas fa-plus fa-fw"></i>
                         </a>

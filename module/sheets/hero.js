@@ -42,15 +42,22 @@ export default class HeroSheet extends ActorSheet {
     const data = super.getData();
     data.points = this.actor.points;
     data.abilityScores = this._formatAbilities(this.actor.data.data.attributes);
-    data.skillCategories = this._formatSkills(this.actor.skills);
+    data.skillCategories = this._formatSkills(this.actor.data.data.skills);
     return data;
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Format ability scores for display on the Actor sheet.
+   * @param {object} attributes
+   * @return {object[]}
+   * @private
+   */
   _formatAbilities(attributes) {
-    return SYSTEM.attributeScores.map(a => {
-      const attr = mergeObject(attributes[a], SYSTEM.attributes[a]);
+    return Object.entries(SYSTEM.ABILITIES).map(e => {
+      let [a, ability] = e;
+      const attr = mergeObject(attributes[a], ability);
       attr.id = a;
       return attr;
     });
@@ -65,28 +72,30 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _formatSkills(skills) {
-    const categories = duplicate(SYSTEM.skills.categories);
+    const categories = duplicate(SYSTEM.SKILL_CATEGORIES);
     return Object.entries(duplicate(skills)).reduce((categories, e) => {
       let [id, c] = e;
-      const skill = c.item;
-      const cat = categories[skill.category.id];
+      const skill = mergeObject(c, SYSTEM.SKILLS[id]);
+      const cat = categories[skill.category];
       if ( !cat ) return categories;
 
       // Update skill data for rendering
-      skill.attributes = skill.attributes.map(a => SYSTEM.attributes[a]);
-      skill.pips = Array.fromRange(5).map((v, i) => i < skill.data.rank ? "trained" : "untrained");
+      skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
+      skill.attributes = skill.attributes.map(a => SYSTEM.ABILITIES[a]);
+      skill.pips = Array.fromRange(5).map((v, i) => i < c.rank ? "trained" : "untrained");
       skill.css = [
-        skill.data.rank > 0 ? "trained" : "untrained",
-        skill.data.path ? "specialized" : "unspecialized"
+        c.rank > 0 ? "trained" : "untrained",
+        c.path ? "specialized" : "unspecialized"
       ].join(" ");
-
-      // Values and tooltips
-      skill.score = c.score;
-      skill.passive = c.passive;
       skill.tooltips = {
-        value: `Skill Bonus = [0.5 * (${skill.attributes[0].label} + ${skill.attributes[1].label})] + Rank Modifier + Equipment Bonus`,
-        passive: `Passive Bonus = ${SYSTEM.dice.passiveCheck} + Skill Bonus`
+        value: `Roll Bonus = [0.5 * (${skill.attributes[0].label} + ${skill.attributes[1].label})] + Skill Bonus + Enchantment Bonus`,
+        passive: `Passive Bonus = ${SYSTEM.dice.passiveCheck} + Roll Bonus`
       };
+
+      // Specialization status
+      const path = skill.paths.find(p => p.id === skill.path);
+      skill.rankName = SYSTEM.SKILL_RANKS[skill.rank].label;
+      skill.pathName = path ? path.name : game.i18n.localize("SKILL.Unspecialized");
 
       // Add to category and return
       cat.skills = cat.skills || {};
@@ -147,5 +156,18 @@ export default class HeroSheet extends ActorSheet {
         item.roll({passive: event.shiftKey});
         break;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDropItemCreate(itemData) {
+    switch (itemData.type) {
+      case "ancestry":
+        return this.actor.applyAncestry(itemData);
+      case "skill":
+        // return this.actor.applySkill(itemData);
+    }
+    return super._onDropItemCreate(itemData);
   }
 }

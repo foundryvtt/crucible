@@ -1,8 +1,188 @@
-import {skills} from "./skills.js";
-import {attributes} from "./attributes.js";
+import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS, prepareSkillConfig} from "./skills.js";
 import * as dice from "./dice.js";
+export const SYSTEM_ID = "crucible";
 
-const SYSTEM_ID = "crucible";
+/* -------------------------------------------- */
+
+export const ABILITIES = {
+  strength: {
+    label: "Strength",
+    abbreviation: "Str"
+  },
+  dexterity: {
+    label: "Dexterity",
+    abbreviation: "Dex"
+  },
+  constitution: {
+    label: "Constitution",
+    abbreviation: "Con"
+  },
+  intellect: {
+    label: "Intellect",
+    abbreviation: "Int"
+  },
+  willpower: {
+    label: "Willpower",
+    abbreviation: "Wil"
+  },
+  charisma: {
+    label: "Charisma",
+    abbreviation: "Cha"
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Define the top level damage categories.
+ * @type {object}
+ */
+export const DAMAGE_CATEGORIES = {
+  "elemental": {
+    label: "DAMAGE.Elemental",
+    abbreviation: "DAMAGE.ElementalAbr",
+  },
+  "physical": {
+    label: "DAMAGE.Physical",
+    abbreviation: "DAMAGE.PhysicalAbr",
+  },
+  "spiritual": {
+    label: "DAMAGE.Spiritual",
+    abbreviation: "DAMAGE.SpiritualAbr",
+  }
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Define the individual damage types within each damage category.
+ * @type {object}
+ */
+export const DAMAGE_TYPES = {
+  "bludgeoning": {
+    label: "DAMAGE.Bludgeoning",
+    abbreviation: "DAMAGE.BludgeoningAbr",
+    type: "physical"
+  },
+  "piercing": {
+    label: "DAMAGE.Piercing",
+    abbreviation: "DAMAGE.PiercingAbr",
+    type: "physical"
+  },
+  "slashing": {
+    label: "DAMAGE.Slashing",
+    abbreviation: "DAMAGE.SlashingAbr",
+    type: "physical"
+  },
+  "acid": {
+    label: "DAMAGE.Acid",
+    abbreviation: "DAMAGE.AcidAbr",
+    type: "elemental"
+  },
+  "fire": {
+    label: "DAMAGE.Fire",
+    abbreviation: "DAMAGE.FireAbr",
+    type: "elemental"
+  },
+  "frost": {
+    label: "DAMAGE.Frost",
+    abbreviation: "DAMAGE.FrostAbr",
+    type: "elemental"
+  },
+  "lightning": {
+    label: "DAMAGE.Lightning",
+    abbreviation: "DAMAGE.LightningAbr",
+    type: "elemental"
+  },
+  "psychic": {
+    label: "DAMAGE.Psychic",
+    abbreviation: "DAMAGE.PsychicAbr",
+    type: "spiritual"
+  },
+  "radiant": {
+    label: "DAMAGE.Radiant",
+    abbreviation: "DAMAGE.RadiantAbr",
+    type: "spiritual"
+  },
+  "unholy": {
+    label: "DAMAGE.Unholy",
+    abbreviation: "DAMAGE.UnholyAbr",
+    type: "spiritual"
+  }
+};
+
+
+/* -------------------------------------------- */
+
+
+/**
+ * Define the resource pools which are tracked for each character
+ * @type{object}
+ */
+export const RESOURCES = {
+  "health": {
+    label: "ATTRIBUTES.Health",
+    abbreviation: "ATTRIBUTES.Health",
+    type: "burst"
+  },
+  "wounds": {
+    label: "ATTRIBUTES.Wounds",
+    abbreviation: "ATTRIBUTES.Wounds",
+    type: "sustain"
+  },
+  "morale": {
+    label: "ATTRIBUTES.Morale",
+    abbreviation: "ATTRIBUTES.Morale",
+    type: "burst"
+  },
+  "madness": {
+    label: "ATTRIBUTES.Madness",
+    abbreviation: "ATTRIBUTES.Madness",
+    type: "sustain"
+  },
+  "action": {
+    label: "ATTRIBUTES.Action",
+    abbreviation: "ATTRIBUTES.Action",
+    type: "burst"
+  },
+  "focus": {
+    label: "ATTRIBUTES.Focus",
+    abbreviation: "ATTRIBUTES.Focus",
+    type: "sustain"
+  }
+};
+
+
+/* -------------------------------------------- */
+
+
+/**
+ * Define the high level attribute categories tracked for each character
+ * @type{object}
+ */
+export const ATTRIBUTE_CATEGORIES = {
+  "abilities": {
+    label: "ATTRIBUTES.Abilities",
+    values: Object.keys(ABILITIES)
+  },
+  "pools": {
+    label: "ATTRIBUTES.Pools",
+    values: Object.keys(RESOURCES)
+  },
+  "resistances": {
+    label: "ATTRIBUTES.Resistances",
+    values: Object.keys(DAMAGE_TYPES)
+  }
+};
+
+
+
+/**
+ * The base threshold for passive checks onto which bonuses are added.
+ * @type {number}
+ */
+export const PASSIVE_BASE = 12;
+
 
 /**
  * Include all constant definitions within the SYSTEM global export
@@ -11,44 +191,17 @@ const SYSTEM_ID = "crucible";
 export const SYSTEM = {
   id: SYSTEM_ID,
   name: "Crucible (WIP)",
-  attributes: attributes,
-  skills: prepareSkillConfig(skills),
   attributeScores: ["strength", "dexterity", "constitution", "intellect", "willpower", "charisma"],
   attributePools: ["health", "wounds", "sanity", "stress", "action", "spell"],
   activeCheckFormula: "3d8",
-  dice: dice
+  dice: dice,
+  ABILITIES,
+  ATTRIBUTE_CATEGORIES,
+  DAMAGE_CATEGORIES,
+  DAMAGE_TYPES,
+  RESOURCES,
+  SKILL_CATEGORIES,
+  SKILL_RANKS,
+  SKILLS,
+  PASSIVE_BASE
 };
-
-
-/* -------------------------------------------- */
-
-
-/**
- * Combine and configure Skills data to create an official record of skill progression throughout the system
- * Freeze the resulting object so it cannot be modified downstream
- * @param {Object} skills
- * @return {Object}
- */
-function prepareSkillConfig(skills) {
-  for ( let [id, skill] of Object.entries(skills.skills) ) {
-
-    // Skill id, icon, and category
-    skill.skillId = id;
-    skill.icon = `systems/${SYSTEM_ID}/${skill.icon}`;
-    skill.category = skills.categories[skill.category];
-
-    // Skill ranks
-    const ranks = duplicate(skills.ranks);
-    skill.ranks.forEach(r => mergeObject(ranks[r.rank], r));
-    skill.ranks = ranks;
-
-    // Skill progression paths
-    skill.paths.forEach(p => p.icon = `systems/${SYSTEM_ID}/${p.icon}`);
-    skill.paths.unshift(duplicate(skills.noPath));
-    skill.paths[0].icon = `systems/${SYSTEM_ID}/${skill.category.noPathIcon}`;
-  }
-
-  // Freeze the skills config so it cannot be modified
-  Object.freeze(skills);
-  return skills;
-}
