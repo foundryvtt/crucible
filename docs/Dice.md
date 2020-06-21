@@ -23,7 +23,7 @@ For each bane on a roll, decrease the number of sides on the *last* die in the p
 
 Because boons and banes start at opposite ends of the dice pool, they can both make visible changes in the same roll. However, with a great number of boons and banes, they can begin increasing/decreasing the same die.
 
-Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 1, and each each bane will decrease the average result by 1.
+> Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 1, and each each bane will decrease the average result by 1.
 
 ## Standard Checks
 
@@ -43,9 +43,9 @@ An **Ability Bonus** is derived from the ability scores related to that roll. It
 
 A **Skill Bonus** represents a character's expertise and accumulated knowledge that could help them perform the action better. When performing an action that tests knowledge in a skill, the skill bonus is determined by how many ranks the character has in that particular skill. For weapon attacks, the skill bonus is from their training in using that particular type of weapon.
 
-Finally, the **Enchantment Bonus** reflects circumstantial, magical factors that can change the outcome of a roll. By default, the Enchantment Bonus is 0, but some talents, spells or magical items can grant an Enchantment bonus to certain rolls. If a character is affected by multiple sources of magic, the Enchantment Bonus is the sum of all bonuses from all magical effects that would apply to this roll.
+Finally, the **Enchantment Bonus** reflects circumstantial, magical factors that can change the outcome of a roll. By default, the Enchantment Bonus is 0, but some talents, spells or magical items can grant an Enchantment bonus on certain rolls. Similarly, a creature's chances of succeeding on a check can be hindered by applying a negative Enchantment bonus to a roll. If a character is affected by multiple sources of magic, the Enchantment Bonus is the sum of all bonuses from all magical effects that would apply to this roll. This bonus has a maximum of +6.
 
-**Situation**: *Suppose Irzi - a bold ex-town guard hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +4 for her ability bonus (an average of her Strength and Dexterity scores), and a +2 for her Acrobatics skill, resulting in a total roll of 23. The Game Master deems this was a difficult task, as the cliff was slippery and with few footholds, requiring a roll of 20 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
+**Situation**: *Suppose Irzi - a bold ex-town guard hoping to save a victim of an evil ogre's kidnapping - sought to climb a steep cliffside to follow the ogre's trail. The player, Melody, would roll 3d8 and add Irzi's character bonuses for Acrobatics to the result. Furthermore, a situational bonus might apply depending on whether the attempt was made in esepcially favorable or unfavorable conditions. Suppose Irzi had a recent, untreated ankle injury that hindered her ability to climb, adding 2 banes to her roll, reducing one of her dice pool's d8s to a d4. In this case, the player rolls two d8s and one d4, resulting in 6, 8, and 3, adding a +5 for her ability bonus (an average of her Strength and Dexterity scores), and a +4 for her Acrobatics skill, resulting in a total roll of 26. The Game Master deems this was a moderately difficult task, as the cliff was slippery and with few footholds, requiring a roll of 25 or higher to succeed in the attempt. In this situation, Irzi is successful, managing to safely scale the cliff and continuing her pursuit of the kidnapper.*
 
 In this example, the roll uses a bonuses from an applicable skill. Refer to the [Skills](./Character/Skills.md) article for information on skills checks, the ability scores they use, and skill bonuses.
 
@@ -55,17 +55,16 @@ The target value which must be surpassed in order for a standard check to be suc
 
 | Difficulty Tier | Recommended Target Value |
 | --------------- | ------------------------ |
-| Trivial         | 10                       |
-| Easy            | 15                       |
-| Moderate        | 20                       |
-| Challenging     | 25                       |
-| Difficult       | 30                       |
-| Formidable      | 35                       |
-| "Impossible"    | 45                       |
+| Trivial         | 1-12                     |
+| Easy            | 13-18                    |
+| Moderate        | 19-30                    |
+| Difficult       | 31-42                    |
+| Formidable      | 43-48                    |
+| "Impossible"    | 49+                      |
 
 > Note that the values in the above table are recommendations only, as a Game Master use your own judgement about what a good target value would be - but discipline yourself to choose the value before your player places the roll - as this is important for player trust. 
 
-Trivial tasks are ones that almost anyone can reasonably perform without an undue risk of failure, while even seemingly impossible tasks could still be overcome by powerful heroes with ample preparation and ideal circumstances.
+Trivial tasks are ones that almost anyone can reasonably perform with a marginal risk of failure, while even seemingly impossible tasks could still be overcome by powerful heroes with ample preparation and ideal circumstances.
 
 ## Opposed Contests
 
@@ -89,6 +88,32 @@ In some situations it is either not practical or not advisable to request that p
 > For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
 
 You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
+
+## Additional Mechanics
+
+The following general rules are used for all dice rolling situations.
+
+### Round Up
+
+Occasionally a rolled formula will produce a result that is not an integer. In such cases you should always round up unless otherwise stated.
+
+### Prior Declaration
+
+Certain abilities allow for characters to manipulate fate and chance by altering a dice roll formula. For example an ally could assist a hero with a difficult task - granting an additional die which can be included in the roll. Unless explicitly stated by the ability, any alterations to a roll must be declared before the roll occurs and you may not alter that choice upon seeing the rolled result.
+In particular, boons and banes should be declared before a roll, and should never be added to a roll after that roll was made.
+
+> A key design principle is to avoid mechanics where players can devalue the strategic risk in using certain powerful abilities by choosing whether to employ them after the rest of a roll result is known. This maintains a more tangible risk and reward profile for powerful abilities which can manipulate chance.
+
+### Let it Ride
+
+Heroes test their abilities against powerful foes and difficult challenges. Preparation for these obstacles is key and success is not assured. Even failure, however, can produce interesting and memorable moments. As such, it is important that when when a roll is made, the result of that roll is binding for the specific situation and the check cannot be repeated for the same situation unless the circumstances around the attempt meaningfully change. 
+
+**Situation**: *Suppose our roguish friend Silarn wishes to persuade the local magistrate of his innocence in a case of mistaken identity. Silarn may attempt deception to talk his way out of trouble - but if his dice check is unsuccessful, Silarn must live with that result and determine an alternative path forward. Silarn may not repeat a similar attempt at deception later in the same conversation or even the next day unless circumstances have meaningfully changed. Suppose Silarn or his allies were to plant evidence of the misdeed in the belongings of another suspect, another attempt to deceive the magistrate would be permitted since the conditions for the check have changed.*
+
+> It is left to the Game Master to arbitrate whether conditions have changed enough to permit a re-roll of the same test, however we encourage Game Masters to employ "fail forwards" design wherever possible in order to maximize the value of this rule.
+
+Some abilities explicitly provide an opportunity to re-roll a result; such specific cases are exceptions to this overall ruling.
+
 
 # ~ WIP BELOW THIS POINT ~
 
@@ -154,29 +179,5 @@ Sometimes you will need to figure out a random direction that a creature, group,
 For the distance die, roll a **1d8** where a result of 8 results in a direct hit, a roll of 3 through 7 results in one space, and a roll of 1 or 2 results in 2 spaces scattered.
 
 > For example, suppose a trebuchet lobs a flaming boulder at our hero's squadron of fighters and we are playing on a square grid. The Gamemaster rolls **1d10, 1d8** and produces results of **5** and **2**. As a result the boulder lands two grid spaces southeast of the target.
-
-## Additional Mechanics
-
-The following general rules are used for all dice rolling situations.
-
-### Round Up
-
-Occasionally a rolled formula will produce a result that is not an integer. In such cases you should always round up unless otherwise stated.
-
-### Prior Declaration
-
-Certain abilities allow for characters to manipulate fate and chance by altering a dice roll formula. For example an ally could assist a hero with a difficult task - granting an additional die which can be included in the roll. Unless explicitly stated by the ability, any alterations to a roll must be declared before the roll occurs and you may not alter that choice upon seeing the rolled result.
-
-> A key design principle is to avoid mechanics where players can devalue the strategic risk in using certain powerful abilities by choosing whether to employ them after the rest of a roll result is known. This maintains a more tangible risk and reward profile for powerful abilities which can manipulate chance.
-
-### Let it Ride
-
-Heroes test their abilities against powerful foes and difficult challenges. Preparation for these obstacles is key and success is not assured. Even failure, however, can produce interesting and memorable moments. As such, it is important that when when a roll is made, the result of that roll is binding for the specific situation and the check cannot be repeated for the same situation unless the circumstances around the attempt meaningfully change. 
-
-**Situation**: *Suppose our roguish friend Silarn wishes to persuade the local magistrate of his innocence in a case of mistaken identity. Silarn may attempt deception to talk his way out of trouble - but if his dice check is unsuccessful, Silarn must live with that result and determine an alternative path forward. Silarn may not repeat a similar attempt at deception later in the same conversation or even the next day unless circumstances have meaningfully changed. Suppose Silarn or his allies were to plant evidence of the misdeed in the belongings of another suspect, another attempt to deceive the magistrate would be permitted since the conditions for the check have changed.*
-
-> It is left to the Game Master to arbitrate whether conditions have changed enough to permit a re-roll of the same test, however we encourage Game Masters to employ "fail forwards" design wherever possible in order to maximize the value of this rule.
-
-Some abilities explicitly provide an opportunity to re-roll a result; such specific cases are exceptions to this overall ruling.
 
 ---
