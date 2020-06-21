@@ -151,6 +151,8 @@ The progression paths available to the Survival skill are listed below.
 
 ## Social Skills
 
+**Note:** *Social skills are called such because they involve social interactions between two or more characters - as such, when a check is made, it can often be a part of a contest, where each participant rolls the same type of check. For instance, if a character is suspected of lying (using Deception), another character hearing the lie may roll Deception as well, using their own knowledge of lying to determine if the first character is intentionally misleading them. In a similar vein, if a traveler is haggling with a merchant (through a Bartering check), the merchant's perception of the traveler's offer may be determined by contesting the traveler's roll with their own Bartering roll.*
+
 ### Diplomacy
 
 ### Intimidation
