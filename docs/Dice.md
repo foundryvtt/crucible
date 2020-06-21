@@ -85,9 +85,11 @@ When an opposed contest results in a tie, the contest is resolved by applying th
 
 In some situations it is either not practical or not advisable to request that players roll dice to perform a test. From a narrative perspective, a Passive Check represents acting instinctively rather than deliberately. A Passive Check may is performed by assuming a result of 12 instead of rolling 3d8.
 
-> For those who are statistically inclined "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
+> For those who are statistically inclined: "taking 12" represents a slightly below-average roll, at the 40th percentile of the probability distribution of 3d8. This corresponds to your passive abilities being somewhat less effective than your expected outcome when specifically focusing on a task.
 
-You may still apply situational bonuses or penalties, if applicable, to passive check outcomes.
+You may still apply situational bonuses or penalties, if applicable, to passive check outcomes. As no die are rolled for a passive check, boons each give +1 to a passive check, while banes each give -1 to a passive check.
+
+> In regards to statistics: A boon or bane's effect on a passive check reflects its average effect to a standard roll.
 
 ## Additional Mechanics
 
