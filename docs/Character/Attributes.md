@@ -2,21 +2,22 @@
 
 # Character Attributes
 
-## Primary Attributes
+## Abilities
 
-Each attribute score describes a facet of your character's physical and mental capabilities. Each attribute score ranges from 1 to 12 where the typical value of an attribute for the median Human is 3.
+Abilities describe facets of your character's physical and mental capabilities on a general level. Most checks made are modified, in one way or another, by at least one of your ability scores.
+Each ability has an ability score, which ranges from 1 to 12, where the typical value of an attribute for the median Human is 3. Humans can have scores that are as low as 1, but a score of 1 typically indicates an exceptional weakness compared to other humans. An ability score of 12 is reserved for supernatural entities, great monsters, or heroes who are nigh unparalleled in their power.
 
 #### Strength
 
 A character's level of brawn and physical might. Strength affects the use of melee weaponry, Parry defense, Fortitude defense, and carrying capacity.
 
-#### Constitution
-
-A character's level of hardiness and resilience. Constitution affects Health and Hit Points, and Fortitude defense.
-
 #### Dexterity
 
 A character's level of agility and precision. Dexterity affects the use of precision weapons, Dodge defense, Initiative in taking action, and Reflex defense.
+
+#### Constitution
+
+A character's level of hardiness and resilience. Constitution affects Health and Wounds, and Fortitude defense.
 
 #### Intellect
 
