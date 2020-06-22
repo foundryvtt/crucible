@@ -12,6 +12,7 @@ import CrucibleItem from "./module/entities/item.js";
 import HeroSheet from "./module/sheets/hero.js";
 
 import AncestrySheet from "./module/sheets/ancestry.js";
+import BackgroundSheet from "./module/sheets/background.js";
 
 import { StandardCheck } from "./module/dice/rolls.js";
 
@@ -38,6 +39,7 @@ Hooks.once("init", async function() {
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
 
   // Register Dice mechanics
   CONFIG.Dice.rolls["StandardCheck"] = StandardCheck;
@@ -52,7 +54,7 @@ Hooks.once("ready", function() {
 
   // Apply localizations
   const toLocalize = [SYSTEM.ABILITIES, SYSTEM.ATTRIBUTE_CATEGORIES, SYSTEM.DAMAGE_CATEGORIES, SYSTEM.DAMAGE_TYPES,
-    SYSTEM.RESOURCES, SYSTEM.SKILL_CATEGORIES, SYSTEM.SKILL_RANKS];
+    SYSTEM.RESOURCES, SYSTEM.SAVE_DEFENSES, SYSTEM.SKILL_CATEGORIES, SYSTEM.SKILL_RANKS];
   for ( let c of toLocalize ) {
     for ( let v of Object.values(c) ) {
       if ( v.label ) v.label = game.i18n.localize(v.label);

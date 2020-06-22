@@ -153,52 +153,23 @@
   .badge.dexterity { background-image: url("ui/badges/dexterity-active.png"); }
   .badge.constitution { background-image: url("ui/badges/constitution-active.png"); }
   .badge.intellect { background-image: url("ui/badges/intellect-active.png"); }
-  .badge.willpower { background-image: url("ui/badges/willpower-active.png"); }
+  .badge.wisdom { background-image: url("ui/badges/wisdom-active.png"); }
   .badge.charisma { background-image: url("ui/badges/charisma-active.png"); }
+
+  .badge.physical-defense { background-image: url("ui/badges/physical-defense.png"); }
+  .badge.saving-throws { background-image: url("ui/badges/saving-throws.png"); }
+  .badge.physical-resistance { background-image: url("ui/badges/physical-resistance.png"); }
+  .badge.elemental-resistance { background-image: url("ui/badges/elemental-resistance.png"); }
+  .badge.spiritual-resistance { background-image: url("ui/badges/spiritual-resistance.png"); }
 
   /** --------------------------------------
    * ATTRIBUTES TAB
    * ------------------------------------- */
 
-  .tab.attributes {
-    .ability-scores {
-      width: 250px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      border-right: 1px solid @colorBeige;
+  .tab {
 
-      .attribute {
-        height: 36px;
-        align-items: center;
-        margin: 3px 5px 3px 0;
-
-        h4.label {
-          margin: 0;
-          font-size: 20px;
-          font-weight: bold;
-          font-family: @caslon;
-        }
-        input {
-          flex: 0 0 36px;
-          height: 36px;
-          font-size: 24px;
-          text-align: center;
-        }
-      }
-    }
-  }
-
-
-
-
-  /* Skills Tab */
-  .tab.skills {
-    justify-content: flex-start;
-    height: 100%;
-    overflow-y: scroll;
-
-    .skill-points {
+    /* Point Pools */
+    .point-pools {
       flex: 0 0 24px;
       margin: 6px 0;
       text-align: right;
@@ -226,6 +197,159 @@
       }
     }
 
+    /* Control Buttons */
+    a.control {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
+      line-height: 24px;
+      padding: 0 2px;
+      margin: 0 3px;
+      color: @colorTan;
+      text-align: center;
+
+      &:hover {
+        border: 1px solid @colorTan;
+        box-shadow: 0 0 4px #FFF;
+        text-shadow: none;
+        color: @colorDark;
+      }
+    }
+  }
+
+  /* Attributes Tab */
+  .tab.attributes {
+
+    /* Ability Scores */
+    .ability-scores {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      grid-template-rows: repeat(2, 36px);
+      grid-gap: 5px;
+      flex: 0;
+      width: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 5px 0;
+      border-top: 1px solid @colorBeige;
+      border-bottom: 2px solid @colorTan;
+    }
+
+    .ability {
+      flex: 0 0 33.33%;
+      height: 36px;
+      align-items: center;
+
+      h4.label {
+        margin: 0;
+        font-weight: normal;
+        font-size: 18px;
+        font-family: @caslon;
+        line-height: 36px;
+      }
+
+      input {
+        flex: 0 0 36px;
+        height: 36px;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+
+    /* Physical Defenses */
+    .physical-defenses {
+      flex: 0 0 80px;
+      list-style: none;
+      padding: 5px 0;
+      margin: 0;
+      border-bottom: 2px solid @colorTan;
+
+      .defense {
+        height: 80px;
+        text-align: center;
+        &.physical {
+          flex: 0 0 150px;
+          h4 { font-weight: bold; }
+        }
+        h4 {
+          flex: 0 0 24px;
+          font-family: @caslon;
+          font-size: 18px;
+          margin: 0;
+        }
+        input {
+          flex: 0 0 36px;
+          width: 36px;
+          margin: 0 auto;
+          font-size: 20px;
+        }
+        .total {
+          flex: 0 0 36px;
+          line-height: 36px;
+          font-size: 24px;
+        }
+        .subtitle {
+          flex: 0 0 20px;
+          font-family: @caslon;
+          font-size: 18px;
+        }
+      }
+      .sep {
+        flex: 0 0 20px;
+        line-height: 80px;
+        font-size: 24px;
+      }
+    }
+
+    /* Saving Throws */
+    .other-defenses {
+      flex: 0;
+      padding: 5px 0;
+      border-bottom: 2px solid @colorTan;
+
+      h4 {
+        flex: 0 0 100px;
+        margin: 0;
+        font-family: @caslon;
+        font-size: 16px;
+      }
+      .base, .bonus, .total {
+        flex: 1;
+        margin: 0 3px;
+        text-align: center;
+      }
+      .total {
+        font-weight: 600;
+        border-left: 1px solid @colorBeige;
+      }
+    }
+
+    /* Resistances */
+    .resistances-category > h4,
+    .saves > h4 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .resistances {
+      list-style: none;
+      margin: 0;
+      padding: 0 3px;
+
+      .resistance {
+        align-items: center;
+        margin: 3px 0;
+      }
+    }
+  }
+
+  /* Skills Tab */
+  .tab.skills {
+    justify-content: flex-start;
+    height: 100%;
+    overflow-y: scroll;
+
     .skills-header {
       flex: 0 0 24px;
       line-height: 24px;
@@ -251,18 +375,9 @@
       }
 
       .skill-ranks {
-        flex: 0 0 110px;
+        flex: 0 0 92px;
         height: 24px;
         padding: 3px 0;
-
-        a.skill-control {
-          display: block;
-          float: left;
-          font-size: 12px;
-          line-height: 24px;
-          margin-right: 4px;
-          color: @colorBeige;
-        }
 
         .pip {
           display: inline-block;
@@ -350,21 +465,6 @@
     .points {
       flex: 0 0 100px;
       text-align: center;
-
-      .skill-control {
-        display: inline-block;
-        line-height: 20px;
-        padding: 0 2px;
-        margin: 0 3px;
-        color: @colorTan;
-
-        &:hover {
-          border: 1px solid @colorTan;
-          box-shadow: 0 0 4px #FFF;
-          text-shadow: none;
-          color: @colorDark;
-        }
-      }
 
       .cumulative, .next {
         display: inline-block;

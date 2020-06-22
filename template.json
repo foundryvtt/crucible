@@ -54,7 +54,7 @@
             "increases": 0,
             "bonus": 0
           },
-          "willpower": {
+          "wisdom": {
             "base": 1,
             "increases": 0,
             "bonus": 0
@@ -67,15 +67,19 @@
         },
         "defenses": {
           "armor": {
+            "base": 0,
             "bonus": 0
           },
           "block": {
+            "base": 0,
             "bonus": 0
           },
           "dodge": {
+            "base": 0,
             "bonus": 0
           },
           "parry": {
+            "base": 0,
             "bonus": 0
           },
           "fortitude": {
@@ -247,7 +251,7 @@
     }
   },
   "Item": {
-    "types": ["ancestry", "talent"],
+    "types": ["ancestry", "background", "talent"],
     "templates": {},
     "ancestry": {
       "primaryAbility": null,
@@ -255,6 +259,10 @@
       "skills": [],
       "resistance": null,
       "vulnerability": null
+    },
+    "background": {
+      "skills": [],
+      "talents": []
     },
     "talent": {}
   }

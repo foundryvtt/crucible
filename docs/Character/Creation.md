@@ -65,16 +65,16 @@ Each Attribute score starts at 3. Begin by applying the modifications granted by
 
 > You may reduce an attribute to a minimum of 1 should you wish, although be especially wary if you do so as it may place your character at a severe disadvantage.
 
-Suppose your character begins with an Ancestry which provides +1 Strength, +1 Constitution, and -1 Charisma; some example legal allocations which are possible using this the allowed 36 points are:
+Suppose your character begins with an Ancestry which provides +3 Constitution and +2 Wisdom; some example point-buy allocations which are possible using this the allowed 36 points are:
 
-| Attribute Value (Cost) | Starting | Standard | Min/Max | Balanced |
-| ---------------------- | -------- | -------- | ------- | -------- |
-| Strength               | 4        | 7 (18)   | 9 (35)  | 5 (5)    |
-| Constitution           | 4        | 5 (5)    | 4 (0)   | 5 (5)    |
-| Dexterity              | 3        | 5 (9)    | 4 (4)   | 5 (9)    |
-| Intelligence           | 3        | 4 (4)    | 3 (0)   | 4 (4)    |
-| Wisdom                 | 3        | 3 (0)    | 2 (-3)  | 4 (4)    |
-| Charisma               | 2        | 2 (0)    | 2 (0)   | 4 (7)    |
+| Attribute Value (Cost) | Starting | Standard | Optimized | Min/Max | Balanced |
+| ---------------------- | -------- | -------- | --------- |-------- | -------- |
+| Strength               | 1        | 5 (14)   | 6 (20)    | 7 (27)  | 4 (9)    |
+| Dexterity              | 3        | 3 (0)    | 3 (0)     | 3 (0)   | 4 (4)    |
+| Constitution           | 1        | 4 (9)    | 4 (9)     | 2 (2)   | 4 (9)    |
+| Intelligence           | 1        | 3 (5)    | 2 (2)     | 2 (2)   | 2 (2)    |
+| Wisdom                 | 2        | 3 (3)    | 3 (3)     | 3 (3)   | 4 (7)    |
+| Charisma               | 1        | 3 (5)    | 2 (2)     | 2 (2)   | 3 (5)    |
 
 ## Invest Skill Points 
 

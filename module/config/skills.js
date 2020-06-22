@@ -176,7 +176,7 @@ export const SKILLS = {
     name: "Perception",
     category: "exp",
     icon: "icons/skills/perception.jpg",
-    attributes: ["intellect", "willpower"],
+    attributes: ["intellect", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -268,7 +268,7 @@ export const SKILLS = {
     name: "Stealth",
     category: "exp",
     icon: "icons/skills/stealth.jpg",
-    attributes: ["dexterity", "willpower"],
+    attributes: ["dexterity", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -360,7 +360,7 @@ export const SKILLS = {
     name: "Survival",
     category: "exp",
     icon: "icons/skills/survival.jpg",
-    attributes: ["constitution", "willpower"],
+    attributes: ["constitution", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -455,7 +455,7 @@ export const SKILLS = {
     name: "Arcana",
     category: "kno",
     icon: "icons/skills/arcana.jpg",
-    attributes: ["intellect", "willpower"],
+    attributes: ["intellect", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -550,7 +550,7 @@ export const SKILLS = {
     name: "Religion",
     category: "kno",
     icon: "icons/skills/religion.jpg",
-    attributes: ["willpower", "charisma"],
+    attributes: ["wisdom", "charisma"],
     ranks: [
       {
         rank: 1,
@@ -734,7 +734,7 @@ export const SKILLS = {
     name: "Lore",
     category: "kno",
     icon: "icons/skills/lore.jpg",
-    attributes: ["intellect", "willpower"],
+    attributes: ["intellect", "wisdom"],
     ranks: [
       {
         rank: 1,
@@ -1013,7 +1013,7 @@ export const SKILLS = {
     name: "Diplomacy",
     category: "soc",
     icon: "icons/skills/diplomacy.jpg",
-    attributes: ["willpower", "charisma"],
+    attributes: ["wisdom", "charisma"],
     ranks: [
       {
         rank: 1,
@@ -1197,7 +1197,7 @@ export const SKILLS = {
     name: "Animal Handling",
     category: "trd",
     icon: "icons/skills/animal.jpg",
-    attributes: ["strength", "willpower"],
+    attributes: ["strength", "wisdom"],
     ranks: [
       {
         rank: 1,

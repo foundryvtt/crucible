@@ -52,6 +52,9 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Skills
     this._prepareSkills(data);
+
+    // Prepare Defenses
+    this._prepareDefenses(data);
   }
 
   /* -------------------------------------------- */
@@ -89,8 +92,13 @@ export default class CrucibleActor extends Actor {
       abilityPointsSpent += ability.increases;
       ability.cost = ability.value + 1;
     }
-    this.points.ability.bought = abilityPointsBought;
+
+    // Track spent ability points
+    const basePoints = this.data.data.details.ancestry ? 13 : 0;
+    this.points.ability.bought = abilityPointsBought - basePoints;
+    this.points.ability.pool = 36 - this.points.ability.bought;
     this.points.ability.spent = abilityPointsSpent;
+    this.points.ability.available = this.points.ability.total - abilityPointsSpent;
 
     // Resource Pools
     for ( let a in SYSTEM.RESOURCES ) {
@@ -142,6 +150,39 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare Defenses and Resistances data for the Actor
+   * @private
+   */
+  _prepareDefenses(data) {
+    const defenses = data.data.defenses;
+
+    // Total physical defense bonus
+    const physicalDefenses = ["dodge", "parry", "block", "armor"];
+    defenses["physical"] = 0;
+    for ( let pd of physicalDefenses ) {
+      let d = defenses[pd];
+      d.total = d.base + d.bonus;
+      defenses.physical += d.total;
+    }
+
+    // Saves
+    for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
+      let d = defenses[k];
+      const abilities = sd.abilities.map(a => data.data.attributes[a]);
+      d.base = Math.ceil(0.5 * (abilities[0].value + abilities[1].value));
+      d.total = d.base + d.bonus;
+    }
+
+    // Damage Resistances
+    for ( let r of Object.values(data.data.resistances) ) {
+      r.total = (r.base || 0) + (r.bonus || 0);
+    }
+  }
+
+
+  /* -------------------------------------------- */
   /*  Character Creation Methods                  */
   /* -------------------------------------------- */
 
@@ -188,4 +229,66 @@ export default class CrucibleActor extends Actor {
     return this;
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * When a Background item is dropped on an Actor, apply its contents to the data model
+   * @param {object} background   The background data to apply to the Actor.
+   * @return {CrucibleActor}      The updated Actor with the new Background applied.
+   */
+  async applyBackground(background) {
+    const updates = {
+      "data.details.background": background.name
+    };
+
+    // Only proceed if we are level 1 with no points already spent
+    if ( (this.data.data.details.level !== 1) || (this.points.skill.spent > 0) ) {
+      const err = game.i18n.localize("BACKGROUND.ApplyError");
+      ui.notifications.warn(err);
+      throw new Error(err);
+    }
+
+    // Apply skills
+    for ( let s in SYSTEM.SKILLS ) {
+      updates[`data.skills.${s}.rank`] = 0;
+      updates[`data.skills.${s}.background`] = background.data.skills.includes(s) ? 1 : 0;
+    }
+
+    // Update the Actor
+    await this.update(updates);
+    ui.notifications.info(game.i18n.format("BACKGROUND.Applied", {background: background.name, actor: this.name}));
+    return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Purchase an ability score increase or decrease for the Actor
+   * @param {string} ability      The ability id to increase
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @return {Promise}
+   */
+  async purchaseAbility(ability, delta=1) {
+    delta = Math.sign(delta);
+    const points = this.points.ability;
+    const isPointBuy = this.data.data.details.level === 1;
+    const attr = this.data.data.attributes[ability];
+    if ( !attr ) return;
+
+    // Case 1 - Point Buy
+    if ( isPointBuy ) {
+      const canAfford = (delta <= 0) || (attr.cost <= points.pool);
+      if ( !canAfford ) {
+        return ui.notifications.warn(game.i18n.format(`ABILITY.CantAfford`, {cost: attr.cost, points: points.pool}));
+      }
+      return this.update({[`data.attributes.${ability}.base`]: Math.clamped(attr.base + delta, 1, 12)});
+    }
+
+    // Case 2 - Regular Increase
+    else {
+      const canAfford = ((delta < 0) && (points.spent > 0)) || (points.available > 0);
+      if ( !canAfford ) return false;
+      return this.update({[`data.attributes.${ability}.increases`]: Math.clamped(attr.increases + delta, 0, 12 - attr.base)});
+    }
+  }
 }

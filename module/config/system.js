@@ -21,8 +21,8 @@ export const ABILITIES = {
     label: "Intellect",
     abbreviation: "Int"
   },
-  willpower: {
-    label: "Willpower",
+  wisdom: {
+    label: "Wisdom",
     abbreviation: "Wil"
   },
   charisma: {
@@ -38,13 +38,13 @@ export const ABILITIES = {
  * @type {object}
  */
 export const DAMAGE_CATEGORIES = {
-  "elemental": {
-    label: "DAMAGE.Elemental",
-    abbreviation: "DAMAGE.ElementalAbr",
-  },
   "physical": {
     label: "DAMAGE.Physical",
     abbreviation: "DAMAGE.PhysicalAbr",
+  },
+  "elemental": {
+    label: "DAMAGE.Elemental",
+    abbreviation: "DAMAGE.ElementalAbr",
   },
   "spiritual": {
     label: "DAMAGE.Spiritual",
@@ -175,6 +175,33 @@ export const ATTRIBUTE_CATEGORIES = {
   }
 };
 
+/* -------------------------------------------- */
+
+
+/**
+ * The magical defense saving throws which can be applied.
+ * @type {object}
+ */
+export const SAVE_DEFENSES = {
+  "fortitude": {
+    label: "DEFENSES.Fortitude",
+    abbreviation: "DEFENSES.FortitudeAbr",
+    abilities: ["strength", "constitution"]
+  },
+  "reflex": {
+    label: "DEFENSES.Reflex",
+    abbreviation: "DEFENSES.ReflexAbr",
+    abilities: ["dexterity", "intellect"]
+  },
+  "willpower": {
+    label: "DEFENSES.Willpower",
+    abbreviation: "DEFENSES.WillpowerAbr",
+    abilities: ["wisdom", "charisma"]
+  }
+};
+
+
+/* -------------------------------------------- */
 
 
 /**
@@ -191,8 +218,6 @@ export const PASSIVE_BASE = 12;
 export const SYSTEM = {
   id: SYSTEM_ID,
   name: "Crucible (WIP)",
-  attributeScores: ["strength", "dexterity", "constitution", "intellect", "willpower", "charisma"],
-  attributePools: ["health", "wounds", "sanity", "stress", "action", "spell"],
   activeCheckFormula: "3d8",
   dice: dice,
   ABILITIES,
@@ -200,6 +225,7 @@ export const SYSTEM = {
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
   RESOURCES,
+  SAVE_DEFENSES,
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,

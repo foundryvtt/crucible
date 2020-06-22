@@ -15,6 +15,8 @@
   "ANCESTRY.Vulnerability": "Damage Vulnerability",
   "ANCESTRY.VulnerabilityHint": "This ancestry may have vulnerability -3 to one type of damage. If a vulnerability is incurred, a resistance must also be granted.",
 
+  "ABILITY.CantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
+
   "ATTRIBUTES.Abilities": "Ability Scores",
   "ATTRIBUTES.Pools": "Resource Pools",
   "ATTRIBUTES.Resistances": "Damage Resistances",
@@ -31,6 +33,12 @@
   "ATTRIBUTES.ActionAbr": "Action",
   "ATTRIBUTES.Focus": "Focus",
   "ATTRIBUTES.FocusAbr": "Focus",
+
+  "BACKGROUND.Applied": "Applied the {background} background to {actor}.",
+  "BACKGROUND.ApplyError": "You may only apply a background to a level 1 character with no spent skill points.",
+  "BACKGROUND.Skills": "Acquired Skills",
+  "BACKGROUND.SkillsHint": "Choose two skills which were acquired as part of your background, each of which will begin with +1 rank.",
+  "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",
 
   "DAMAGE.Bludgeoning": "Bludgeoning",
   "DAMAGE.BludgeoningAbr": "Bldg",

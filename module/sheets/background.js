@@ -4,15 +4,15 @@ import { SYSTEM } from "../config/system.js";
  * A sheet application for displaying Skills
  * @type {ItemSheet}
  */
-export default class AncestrySheet extends ItemSheet {
+export default class BackgroundSheet extends ItemSheet {
 
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 480,
       height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "ancestry"],
-      template: `systems/${SYSTEM.id}/templates/sheets/ancestry.html`,
+      classes: [SYSTEM.id, "sheet", "item", "background"],
+      template: `systems/${SYSTEM.id}/templates/sheets/background.html`,
       resizable: false,
       submitOnChange: false,
       closeOnSubmit: true
@@ -23,7 +23,7 @@ export default class AncestrySheet extends ItemSheet {
 
   /** @override */
   get title() {
-    return `[Ancestry] ${this.item.name}`;
+    return `[Background] ${this.item.name}`;
   }
 
   /* -------------------------------------------- */
@@ -45,15 +45,38 @@ export default class AncestrySheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
+  activateListeners(html) {
+    super.activateListeners(html);
+    this._disableSkills();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Disable skill selection if 2 skills have already been chosen
+   * @private
+   */
+  _disableSkills() {
+    const skills = this.element.find(".skills input");
+    const checked = Array.from(skills).reduce((n, s) => n + (s.checked ? 1 : 0), 0);
+    for ( let s of skills ) {
+      s.disabled = ((checked === 2) && !s.checked);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onChangeInput(event) {
+    super._onChangeInput(event);
+    this._disableSkills();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _updateObject(event, formData) {
     event.preventDefault();
-
-    // Process abilities
-    if ( formData["data.primaryAbility"] === formData["data.secondaryAbility"] ) {
-      const err = game.i18n.localize("ANCESTRY.AbilityWarning");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
 
     // Process skills
     const skills = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
@@ -61,18 +84,11 @@ export default class AncestrySheet extends ItemSheet {
       return skills;
     }, []);
     if ( skills.length !== 2 ) {
-      const err = game.i18n.localize("ANCESTRY.SkillsWarning");
+      const err = game.i18n.localize("BACKGROUND.SkillsWarning");
       ui.notifications.warn(err);
       throw new Error(err);
     }
     formData["data.skills"] = skills;
-
-    // Process resistance and vulnerability
-    if ( !!formData["data.resistance"] !== !!formData["data.vulnerability"] ) {
-      const err = game.i18n.localize("ANCESTRY.ResistanceWarning")
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
 
     // Update the item
     return this.object.update(formData);

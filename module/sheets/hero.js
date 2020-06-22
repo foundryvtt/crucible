@@ -41,7 +41,9 @@ export default class HeroSheet extends ActorSheet {
   getData() {
     const data = super.getData();
     data.points = this.actor.points;
+    data.isL1 = this.actor.data.data.details.level === 1;
     data.abilityScores = this._formatAbilities(this.actor.data.data.attributes);
+    data.resistances = this._formatResistances(this.actor.data.data.resistances);
     data.skillCategories = this._formatSkills(this.actor.data.data.skills);
     return data;
   }
@@ -55,10 +57,13 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _formatAbilities(attributes) {
+    const points = this.actor.points.ability;
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
       const attr = mergeObject(attributes[a], ability);
       attr.id = a;
+      attr.canIncrease = (points.pool > 0) || (points.available > 0);
+      attr.canDecrease = (this.actor.data.data.details.level === 1) || (attr.increases > 0);
       return attr;
     });
   }
@@ -105,6 +110,30 @@ export default class HeroSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Organize resistances data for rendering
+   * @param {object} resistances    The Actor's resistances data
+   * @return {object}               Resistances data organized by category
+   * @private
+   */
+  _formatResistances(resistances) {
+    const categories = duplicate(SYSTEM.DAMAGE_CATEGORIES);
+    return Object.entries(duplicate(resistances)).reduce((categories, e) => {
+
+      // Merge resistance data for rendering
+      let [id, r] = e;
+      const resist = mergeObject(r, SYSTEM.DAMAGE_TYPES[id]);
+
+      // Add the resistance to its category
+      const cat = categories[resist.type];
+      cat.resists = cat.resists || {};
+      cat.resists[id] = resist;
+      return categories;
+    }, categories);
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
@@ -115,7 +144,7 @@ export default class HeroSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Skill Controls
-    html.find(".skill-control").click(this._onClickSkillControl.bind(this));
+    html.find("a.control").click(this._onClickControl.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -125,21 +154,16 @@ export default class HeroSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  async _onClickSkillControl(event) {
+  async _onClickControl(event) {
     event.preventDefault();
+    const a = event.currentTarget;
+    switch ( a.dataset.action ) {
+      case "abilityDecrease":
+        return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
+      case "abilityIncrease":
+        return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
 
-    // Obtain the Skill item being controlled
-    const ctrl = event.currentTarget;
-    const li = ctrl.closest(".skill");
-    const skill = this.actor.skills[li.dataset.skill];
-    const item = skill._id ? this.actor.getOwnedItem(skill._id) : await this.actor.createOwnedItem(skill);
-
-    // Delegate to different action handlers
-    switch ( ctrl.dataset.action ) {
-      case "edit":
-        item.sheet.render(true);
-        break;
-      case "increase":
+      case "skillIncrease":
         if ( skill.data.rank >= 5 ) return;
         if ( skill.nextRank.cost > this.actor.points.skill.available ) {
           return ui.notifications.error("You do not have sufficient Skill Points to advance this skill.");
@@ -149,13 +173,20 @@ export default class HeroSheet extends ActorSheet {
         }
         item.update({"data.rank": skill.data.rank + 1});
         break;
-      case "decrease":
+      case "skillDecrease":
         if ( skill.data.rank > 0 ) item.update({"data.rank": skill.data.rank - 1});
         break;
-      case "roll":
+      case "skillRoll":
         item.roll({passive: event.shiftKey});
         break;
     }
+
+
+    const li = ctrl.closest(".skill");
+    const skill = this.actor.skills[li.dataset.skill];
+    const item = skill._id ? this.actor.getOwnedItem(skill._id) : await this.actor.createOwnedItem(skill);
+
+
   }
 
   /* -------------------------------------------- */
@@ -165,6 +196,8 @@ export default class HeroSheet extends ActorSheet {
     switch (itemData.type) {
       case "ancestry":
         return this.actor.applyAncestry(itemData);
+      case "background":
+        return this.actor.applyBackground(itemData);
       case "skill":
         // return this.actor.applySkill(itemData);
     }

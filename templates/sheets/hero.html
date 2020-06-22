@@ -72,20 +72,124 @@
 
         {{!-- Attributes Tab --}}
         <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+
+            <div class="point-pools flexrow">
+                <h3 class="badge attributes active">Ability Scores</h3>
+                {{#if isL1}}
+                <label>Pool Size</label>
+                <span class="value highlight">36</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.ability.bought}}</span>
+                <label>Available</label>
+                <span class="value highlight">{{points.ability.pool}}</span>
+                {{else}}
+                <label>Total Points</label>
+                <span class="value highlight">{{points.ability.total}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.ability.spent}}</span>
+                <label>Available</label>
+                <span class="value highlight">{{points.ability.available}}</span>
+                {{/if}}
+            </div>
+
             <ol class="ability-scores">
             {{#each abilityScores as |attr|}}
-                <li class="attribute flexrow" data-attribute="{{attr.id}}">
+                <li class="ability flexrow" data-ability="{{attr.id}}">
                     <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
+                    {{#if attr.canDecrease}}
+                    <a class="control {{#if attr.canIncrease}}highlight{{/if}} decrease" title="Ability Decrease" data-action="abilityDecrease">
+                        <i class="fas fa-minus"></i>
+                    </a>
+                    {{/if}}
                     <input type="text" name="data.attributes.{{attr.id}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                    {{#if attr.canIncrease}}
+                    <a class="control highlight increase" title="Ability Increase" data-action="abilityIncrease">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    {{/if}}
                 </li>
             {{/each}}
             </ol>
+
+            <ol class="physical-defenses flexrow">
+                <li class="defense physical flexcol">
+                    <h4 class="badge physical-defense">Physical Defense</h4>
+                    <span class="total">{{data.defenses.physical}}</span>
+                    <span class="subtitle">Total Defense</span>
+                </li>
+                <li class="sep">=</li>
+                <li class="defense flexcol">
+                    <h4>Dodge</h4>
+                    <input type="text" name="data.defenses.dodge.base" value="{{data.defenses.dodge.base}}" data-dtype="Number"/>
+                    <span class="subtitle">Maximum 12</span>
+                </li>
+                <li class="sep">+</li>
+                <li class="defense flexcol">
+                    <h4>Parry</h4>
+                    <input type="text" name="data.defenses.parry.base" value="{{data.defenses.parry.base}}" data-dtype="Number"/>
+                    <span class="subtitle">Equipment Bonus</span>
+                </li>
+                <li class="sep">+</li>
+                <li class="defense flexcol">
+                    <h4>Block</h4>
+                    <input type="text" name="data.defenses.block.base" value="{{data.defenses.block.base}}" data-dtype="Number"/>
+                    <span class="subtitle">Equipment Bonus</span>
+                </li>
+                <li class="sep">+</li>
+                <li class="defense flexcol">
+                    <h4>Armor</h4>
+                    <input type="text" name="data.defenses.armor.base" value="{{data.defenses.armor.base}}" data-dtype="Number"/>
+                    <span class="subtitle">Heavy Armor</span>
+                </li>
+            </ol>
+
+            <div class="other-defenses flexrow">
+                <div class="saves">
+                    <h4 class="badge saving-throws">Save Defenses</h4>
+                    <ol class="resistances saves" data-resistance-type="saves">
+                        <li class="resistance flexrow" data-save="fortitude">
+                            <h4>Fortitude</h4>
+                            <span class="base">{{data.defenses.fortitude.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.fortitude.bonus" value="{{data.defenses.fortitude.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{data.defenses.fortitude.total}}</span>
+                        </li>
+                        <li class="resistance flexrow" data-save="reflex">
+                            <h4>Reflex</h4>
+                            <span class="base">{{data.defenses.reflex.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.reflex.bonus" value="{{data.defenses.reflex.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{data.defenses.reflex.total}}</span>
+                        </li>
+                        <li class="resistance flexrow" data-save="willpower">
+                            <h4>Willpower</h4>
+                            <span class="base">{{data.defenses.willpower.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.willpower.bonus" value="{{data.defenses.willpower.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{data.defenses.willpower.total}}</span>
+                        </li>
+                    </ol>
+                </div>
+
+                {{#each resistances as |res cat|}}
+                <div class="resistances-category">
+                    <h4 class="badge {{cat}}-resistance">{{res.label}} Resistance</h4>
+                    <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
+                        {{#each res.resists as |r id|}}
+                            <li class="resistance flexrow" data-resistance="{{id}}">
+                                <h4>{{r.label}}</h4>
+                                <span class="base">{{r.base}} +</span>
+                                <input class="bonus" type="text" name="data.resistances.{{id}}.bonus" value="{{r.bonus}}" data-dtype="Number"/>
+                                <span class="total">{{r.total}}</span>
+                            </li>
+                        {{/each}}
+                    </ol>
+                </div>
+                {{/each}}
+            </div>
         </div>
 
         {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
 
-            <div class="skill-points flexrow">
+            <div class="point-pools flexrow">
                 <h3 class="badge skills active">Skill Progression</h3>
                 <label>Total Points</label>
                 <span class="value highlight">{{points.skill.total}}</span>
@@ -111,11 +215,10 @@
                 <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
                     <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
                     <div class="skill-name flexrow">
-                        <h3><a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a></h3>
+                        <h3>
+                            <a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a>
+                        </h3>
                         <div class="skill-ranks">
-                            <a class="skill-control" title="Edit Skill" data-action="edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
                             {{#each skill.pips}}
                             <span class="pip {{this}}"></span>
                             {{/each}}
@@ -139,12 +242,12 @@
                     <span class="rank">{{skill.rankName}}</span>
                     <span class="path">{{skill.pathName}}</span>
                     <div class="points">
-                        <a class="skill-control highlight" title="Decrease Rank" data-action="decrease">
+                        <a class="control highlight" title="Decrease Rank" data-action="skillDecrease">
                             <i class="fas fa-minus fa-fw"></i>
                         </a>
                         <span class="cumulative">{{skill.cost}}</span>
                         <span class="next">{{#if skill.nextCost}}({{skill.nextCost}}){{else}}-{{/if}}</span>
-                        <a class="skill-control highlight" title="Increase Rank" data-action="increase">
+                        <a class="control highlight" title="Increase Rank" data-action="skillIncrease">
                             <i class="fas fa-plus fa-fw"></i>
                         </a>
                     </div>
