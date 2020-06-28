@@ -47,17 +47,19 @@ If you advance an entire character level or one year of time without using a cer
 
 ## Exploration Skills
 
+Exploration skills are used most often when dealing with the environment a character finds themselves in. The four skills in this category are Acrobatics, Perception, Stealth, and Survival.
+
 ### Acrobatics
 
-...
+Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.
 
-1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.  
+1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.
 2. **Traceur** - Specialists in rapidly traversing obstacles and scaling surfaces whether they be natural or urban.
 3. **Dancer** - Specialists in the art of dance, from the ballroom to the mesmerizing contortions of a street performer.
 
 ### Perception
 
-...
+Perception relates to general awareness, most often in relation to one's physical surroundings. To a lesser extent, it is used to observe people's social behavior as well. Those with training in Perception hone their senses and are expert observationists, noticing details others might miss.
 
 1. **Scout** - Specialists in discovering the path forward and hidden ways which were concealed.
 2. **Sentry** - Specialists in the assessment of threats, an expert Sentry is never caught unaware.
@@ -73,7 +75,7 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 
 ### Survival
 
-Survival represents your ability to operate as a self-sufficient explorer in challenging natural environments, understanding their terrain, flora, fauna, and hazards. Survival adepts can develop expertise in dealing with a subset of specific biomes, creature types, or natural resources. 
+Survival represents your ability to operate as a self-sufficient explorer in challenging natural environments, understanding their terrain, flora, fauna, and hazards. Survival adepts can develop expertise in dealing with a subset of specific biomes, creature types, or natural resources.
 
 | Rank | Survival Skill Progression                                   |
 | ---- | ------------------------------------------------------------ |
@@ -82,6 +84,13 @@ Survival represents your ability to operate as a self-sufficient explorer in cha
 | 3    | You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +2 situational bonus on any Skill Checks made by allies who accompany you. |
 | 4    | **Upgrade your progression path.**                           |
 | 5    | You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +5 situational bonus on any Skill Checks made by allies who accompany you.<br />**Complete your progression path.** |
+
+> Having no ranks in the Survival skill comes with limitations. Characters untrained in Survival generally fail attempts to:
+> - Determine the best route through difficult, natural environments
+> - Identify a specific creature by its tracks
+> - Follow tracks from a smaller, unrecognized creature
+> - Forage in an environment they have not personally lived in
+> - Determine if foraged food is safe to consume
 
 The progression paths available to the Survival skill are listed below.
 
@@ -114,7 +123,12 @@ Arcana deals with the properties and perception of the weave of magical energies
 | 4    | **Upgrade your progression path.**                           |
 | 5    | You are a among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You can immediately identify any spell that you can also cast or you may attempt a Skill Check to identify a spell you do not know yourself without consuming any Action. You are able to cast the most powerful tier of magical spell and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest.<br /> **Complete your progression path.** |
 
-The progression paths available to the Survival skill are listed below.
+> Having no ranks in the Arcana skill comes with limitations. Characters untrained in Arcana generally fail attempts to:
+> - Identify the nature of a spell
+> - Determine whether a witnessed action, effect, or event is magical in nature
+> - Determine which spell a creature is casting
+
+The progression paths available to the Arcana skill are listed below.
 
 | Path (Rank)      | Progression Path Benefits                                    |
 | ---------------- | ------------------------------------------------------------ |
@@ -155,7 +169,11 @@ The progression paths available to the Survival skill are listed below.
 
 ### Diplomacy
 
+Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
+
 ### Intimidation
+
+Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
 
 ### Deception
 
@@ -190,6 +208,8 @@ The progression paths available to the Deception skill are listed below.
 
 ### Bartering
 
+Bartering pertains to the art of trades and bargains. A well-trained barterer will be able to negotiate effectively with merchants or just about anyone they wish to conduct business with. Ranks in Bartering indicate insight into markets as a whole, but also into the social aspect of trading and haggling, persuading others to sweeten an offer, or make a compromise. Barterers can prioritize their training in either procuring obscure goods, transporting trade goods, or negotiating deals with others.
+
 1. **Antiquarian** - Specialists in the procurement and identification of ancient or eclectic items.
 2. **Caravaner** - Specialists in mercantilism and the transportation of goods.
 3. **Negotiator** - Specialists in haggling and compromise to arrange favorable terms in negotiation.
@@ -198,11 +218,23 @@ The progression paths available to the Deception skill are listed below.
 
 ### Animal Handling
 
+Animal Handling is used, quite simply, in the handling of animals. Skill in Animal Handling helps one understand the mindset and habits of beasts, how to coerce, calm, tame, or stave them off, or predict their next move. A well-trained animal handler knows much more general knowledge about animals, and will more easily have understanding of such creatures, to either develop bonds or manipulate.
+
+> Having no ranks in the Animal Handling skill comes with limitations. Characters untrained in Animal Handling generally fail attempts to:
+> - Tame, befriend, calm, or scare away an animal they are not familiar with
+> - Control or command an undomesticated animal
+
 1. Knight
 2. Beastmaster
 3. Warden
 
 ### Craftsmanship
+
+Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be fabled for their ability to make quality goods, and knows what they need to get the job done.
+
+> Having no ranks in the Craftsmanship skill comes with limitations. Characters untrained in Craftsmanship generally fail attempts to:
+> - Create goods that require knowledge in a particular set of tools
+> - Identify important details or flaws in trade goods
 
 1. Trademaster
 2. Artificer
@@ -210,17 +242,26 @@ The progression paths available to the Deception skill are listed below.
 
 ### Medicine
 
+Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.
+
+> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally fail attempts to:
+> - Diagnose illnesses or symptoms less common than a fever
+> - Effectively treat internal injuries
+> - Determine an organ's purpose, or diagnose problems in an organ which is not immediately obvious
+
 1. Apothecary
 2. Chirugeon
 3. Occultist
 
 ### Performance
 
+Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
+
+> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally fail attempts to:
+> - Make professional-quality works of art
+> - Perform a dance which hasn't yet been practiced
+> - Recall information about the finer details of a certain art form
+
 1. Musician
 2. Artist
 3. Athlete
-
-
-
-
-
