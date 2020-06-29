@@ -14,7 +14,7 @@ import HeroSheet from "./module/sheets/hero.js";
 import AncestrySheet from "./module/sheets/ancestry.js";
 import BackgroundSheet from "./module/sheets/background.js";
 
-import { StandardCheck } from "./module/dice/rolls.js";
+import StandardCheck from "./module/dice/standard-check.js";
 
 
 /* -------------------------------------------- */
@@ -64,19 +64,7 @@ Hooks.once("ready", function() {
 
   // TODO: Prevent the creation of Items with certain types
   game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);
-
-  // Testing the dice roll
-  let sc = new StandardCheck({
-    actorId: game.actors.size ? game.actors.entities[0].id : null,
-    type: "survival",
-    dc: 23,
-    ability: 7,
-    skill: 4,
-    rollMode: "blindroll"
-  });
-  sc.dialog.render(true);
 });
-
 
 
 /* -------------------------------------------- */

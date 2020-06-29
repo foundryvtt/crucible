@@ -5,25 +5,8 @@ import { SYSTEM } from "../config/system.js";
  * @type {Actor}
  */
 export default class HeroSheet extends ActorSheet {
-  constructor(actor, options) {
-    super(actor, options);
 
-    /**
-     * The initial tab viewed on the sheet
-     * @type {string}
-     * @private
-     */
-    this._tab = "skills";
-
-    /**
-     * Record the scroll positions of each sheet tab
-     * @type {Object}
-     */
-    this._scroll = {};
-  }
-
-  /* -------------------------------------------- */
-
+  /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 760,
@@ -38,6 +21,7 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  /** @override */
   getData() {
     const data = super.getData();
     data.points = this.actor.points;
@@ -162,31 +146,13 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
-
-      case "skillIncrease":
-        if ( skill.data.rank >= 5 ) return;
-        if ( skill.nextRank.cost > this.actor.points.skill.available ) {
-          return ui.notifications.error("You do not have sufficient Skill Points to advance this skill.");
-        }
-        if ( ( skill.data.rank >= 2) && !skill.data.path ) {
-          return ui.notifications.error("Choose a progression path before advancing this skill further.");
-        }
-        item.update({"data.rank": skill.data.rank + 1});
-        break;
       case "skillDecrease":
-        if ( skill.data.rank > 0 ) item.update({"data.rank": skill.data.rank - 1});
-        break;
+        return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, -1);
+      case "skillIncrease":
+        return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, 1);
       case "skillRoll":
-        item.roll({passive: event.shiftKey});
-        break;
+        return this.actor.rollSkill(a.closest(".skill").dataset.skill, {dialog: true});
     }
-
-
-    const li = ctrl.closest(".skill");
-    const skill = this.actor.skills[li.dataset.skill];
-    const item = skill._id ? this.actor.getOwnedItem(skill._id) : await this.actor.createOwnedItem(skill);
-
-
   }
 
   /* -------------------------------------------- */
@@ -198,8 +164,6 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.applyAncestry(itemData);
       case "background":
         return this.actor.applyBackground(itemData);
-      case "skill":
-        // return this.actor.applySkill(itemData);
     }
     return super._onDropItemCreate(itemData);
   }

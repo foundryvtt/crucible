@@ -23,6 +23,7 @@ export class StandardCheckDialog extends FormApplication {
 
   /** @override */
   get title() {
+    if ( this.options.title ) return this.options.title;
     const type = this.object.data.type;
     if ( type in CONFIG.SYSTEM.SKILLS ) {
       const skill = CONFIG.SYSTEM.SKILLS[type];
@@ -44,6 +45,7 @@ export class StandardCheckDialog extends FormApplication {
       dice: dice,
       difficulties: SYSTEM.dice.checkDifficulties,
       isGM: game.user.isGM,
+      rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
       tier: dc.tier,
       types: [
@@ -110,11 +112,16 @@ export class StandardCheckDialog extends FormApplication {
     html.find('[data-action]').click(this._onClickAction.bind(this));
     html.find('label[data-action]').contextmenu(this._onClickAction.bind(this));
     html.find('select[name="tier"]').change(this._onChangeDifficultyTier.bind(this));
+    html.find('select[name="rollMode"]').change(this._onChangeRollMode.bind(this));
     super.activateListeners(html);
   }
 
 	/* -------------------------------------------- */
 
+  /**
+   * Handle execution of one of the dialog roll actions
+   * @private
+   */
   _onClickAction(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
@@ -135,8 +142,8 @@ export class StandardCheckDialog extends FormApplication {
       case "roll":
         const rollMode = this.element.find('select[name="rollMode"]').val();
         const roll = this.object.reroll();
-        roll.toMessage();
-        break;
+        roll.toMessage({ flavor: this.options.flavor }, { rollMode });
+        return this.close();
     }
   }
 
@@ -146,6 +153,14 @@ export class StandardCheckDialog extends FormApplication {
     event.preventDefault();
     event.stopPropagation();
     return this._updateObject(event, {dc: parseInt(event.target.value)});
+  }
+
+	/* -------------------------------------------- */
+
+  _onChangeRollMode(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.options.rollMode = event.target.value;
   }
 
 	/* -------------------------------------------- */

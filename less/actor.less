@@ -196,26 +196,6 @@
         font-weight: bold;
       }
     }
-
-    /* Control Buttons */
-    a.control {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      flex: 0 0 24px;
-      line-height: 24px;
-      padding: 0 2px;
-      margin: 0 3px;
-      color: @colorTan;
-      text-align: center;
-
-      &:hover {
-        border: 1px solid @colorTan;
-        box-shadow: 0 0 4px #FFF;
-        text-shadow: none;
-        color: @colorDark;
-      }
-    }
   }
 
   /* Attributes Tab */
@@ -465,6 +445,10 @@
     .points {
       flex: 0 0 100px;
       text-align: center;
+
+      .control {
+        margin: 0;
+      }
 
       .cumulative, .next {
         display: inline-block;

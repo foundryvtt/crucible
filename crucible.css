@@ -169,6 +169,7 @@
   --headerHeight: 50px;
   --navHeight: 32px;
   /* Highlight Boxes */
+  /* Control Buttons */
   /* Tooltips */
   /* Form Group Labels */
 }
@@ -220,6 +221,25 @@
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #c9c7b8;
   border-radius: 3px;
+}
+.crucible.sheet a.button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  line-height: 24px;
+  padding: 0 2px;
+  margin: 0 3px;
+  color: #7a7971;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.crucible.sheet a.button:hover {
+  border: 1px solid #7a7971;
+  box-shadow: 0 0 4px #FFF;
+  text-shadow: none;
+  color: #191813;
 }
 .crucible.sheet .tooltipped {
   position: relative;
@@ -427,7 +447,6 @@
 }
 .crucible.sheet.actor .tab {
   /* Point Pools */
-  /* Control Buttons */
 }
 .crucible.sheet.actor .tab .point-pools {
   flex: 0 0 24px;
@@ -452,23 +471,6 @@
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-}
-.crucible.sheet.actor .tab a.control {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
-  line-height: 24px;
-  padding: 0 2px;
-  margin: 0 3px;
-  color: #7a7971;
-  text-align: center;
-}
-.crucible.sheet.actor .tab a.control:hover {
-  border: 1px solid #7a7971;
-  box-shadow: 0 0 4px #FFF;
-  text-shadow: none;
-  color: #191813;
 }
 .crucible.sheet.actor .tab.attributes {
   /* Ability Scores */
@@ -691,6 +693,9 @@
 .crucible.sheet.actor .tab.skills .points {
   flex: 0 0 100px;
   text-align: center;
+}
+.crucible.sheet.actor .tab.skills .points .control {
+  margin: 0;
 }
 .crucible.sheet.actor .tab.skills .points .cumulative,
 .crucible.sheet.actor .tab.skills .points .next {

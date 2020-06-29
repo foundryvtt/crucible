@@ -68,12 +68,15 @@
   "DAMAGE.Spiritual": "Spiritual",
   "DAMAGE.SpiritualAbr": "Sptl",
 
-
   "SKILL.Untrained": "Untrained",
   "SKILL.Unspecialized": "Unspecialized",
   "SKILL.Novice": "Novice",
   "SKILL.Apprentice": "Apprentice",
   "SKILL.Journeyman": "Journeyman",
   "SKILL.Master": "Master",
-  "SKILL.Grandmaster": "Grandmaster"
+  "SKILL.Grandmaster": "Grandmaster",
+
+  "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
+  "SKILL.RollFlavor": "{name} rolls a {skill} check",
+  "SKILL.RollTitle": "{skill} Skill Check"
 }

@@ -1,5 +1,5 @@
 import { SYSTEM } from "../config/system.js";
-import CrucibleItem from "./item.js";
+import StandardCheck from "../dice/standard-check.js"
 
 
 export default class CrucibleActor extends Actor {
@@ -45,7 +45,7 @@ export default class CrucibleActor extends Actor {
     const data = this.data;
 
     // Prepare placeholder point totals
-    this._preparePoints(data.data.details.level);
+    this._preparePoints(data);
 
     // Prepare Attributes
     this._prepareAttributes(data);
@@ -61,10 +61,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the available points which can be spent to advance this character
-   * @param {number} level      The character's current level
+   * @param {object} data       The actor data to prepare
    * @private
    */
-  _preparePoints(level) {
+  _preparePoints(data) {
+    const level = data.data.details.level;
     this.points = {
       ability: { pool: 36, total: (level - 1) },
       skill: { total: 2 + ((level-1) * 2) },
@@ -181,6 +182,50 @@ export default class CrucibleActor extends Actor {
     }
   }
 
+  /* -------------------------------------------- */
+  /*  Dice Rolling Methods                        */
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a skill check for a given skill ID.
+   *
+   * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
+   * @param {number} [banes]      A number of banes applied to the roll, default is 0
+   * @param {number} [boons]      A number of boons applied to the roll, default is 0
+   * @param {number} [dc]         A known target DC
+   * @param {string} [rollMode]   The roll visibility mode to use, default is the current dropdown choice
+   * @param {boolean} [dialog]    Display a dialog window to further configure the roll. Default is false.
+   *
+   * @return {StandardCheck}      The StandardCheck roll instance which was produced.
+   */
+  rollSkill(skillId, {banes=0, boons=0, dc=null, rollMode=null, dialog=false}={}) {
+    const skill = this.data.data.skills[skillId];
+    if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
+
+    // Create the check roll
+    const sc = new StandardCheck({
+      actorId: this.id,
+      type: skillId,
+      banes: banes,
+      boons: boons,
+      dc: dc,
+      ability: skill.abilityBonus,
+      skill: skill.skillBonus,
+      enchantment: skill.enchantmentBonus,
+      rollMode: rollMode
+    });
+
+    // Execute the roll
+    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
+    if ( dialog ){
+      const title = game.i18n.format("SKILL.RollTitle", {skill: CONFIG.SYSTEM.SKILLS[skillId].name});
+      sc.dialog({ title, flavor, rollMode }).render(true);
+    }
+    else {
+      sc.toMessage({ flavor }, { rollMode });
+    }
+    return sc;
+  }
 
   /* -------------------------------------------- */
   /*  Character Creation Methods                  */
@@ -289,6 +334,36 @@ export default class CrucibleActor extends Actor {
       const canAfford = ((delta < 0) && (points.spent > 0)) || (points.available > 0);
       if ( !canAfford ) return false;
       return this.update({[`data.attributes.${ability}.increases`]: Math.clamped(attr.increases + delta, 0, 12 - attr.base)});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Purchase a skill rank increase or decrease for the Actor
+   * @param {string} skillId      The skill id to increase
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @return {Promise}
+   */
+  async purchaseSkill(skillId, delta=1) {
+    delta = Math.sign(delta);
+    const points = this.points.skill;
+    const skill = this.data.data.skills[skillId];
+    if ( !skill ) return;
+
+    // Decrease
+    if ( delta < 0 ) {
+      if ( skill.rank === 0 ) return;
+      return this.update({[`data.skills.${skillId}.rank`]: skill.rank - 1});
+    }
+
+    // Increase
+    else if ( delta > 0 ) {
+      if ( skill.rank === 5 ) return;
+      if ( points.available < skill.cost ) {
+        return ui.notifications.warn(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: points.available}));
+      }
+      return this.update({[`data.skills.${skillId}.rank`]: skill.rank + 1});
     }
   }
 }

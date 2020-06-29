@@ -97,13 +97,13 @@
                 <li class="ability flexrow" data-ability="{{attr.id}}">
                     <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
                     {{#if attr.canDecrease}}
-                    <a class="control {{#if attr.canIncrease}}highlight{{/if}} decrease" title="Ability Decrease" data-action="abilityDecrease">
+                    <a class="button control {{#if attr.canIncrease}}highlight{{/if}} decrease" title="Ability Decrease" data-action="abilityDecrease">
                         <i class="fas fa-minus"></i>
                     </a>
                     {{/if}}
                     <input type="text" name="data.attributes.{{attr.id}}.value" value="{{attr.value}}" data-dtype="Number"/>
                     {{#if attr.canIncrease}}
-                    <a class="control highlight increase" title="Ability Increase" data-action="abilityIncrease">
+                    <a class="button control highlight increase" title="Ability Increase" data-action="abilityIncrease">
                         <i class="fas fa-plus"></i>
                     </a>
                     {{/if}}
@@ -216,7 +216,7 @@
                     <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
                     <div class="skill-name flexrow">
                         <h3>
-                            <a class="skill-control" title="Roll Check" data-action="roll">{{skill.name}}</a>
+                            <a class="control" title="Roll Check" data-action="skillRoll">{{skill.name}}</a>
                         </h3>
                         <div class="skill-ranks">
                             {{#each skill.pips}}
@@ -242,12 +242,12 @@
                     <span class="rank">{{skill.rankName}}</span>
                     <span class="path">{{skill.pathName}}</span>
                     <div class="points">
-                        <a class="control highlight" title="Decrease Rank" data-action="skillDecrease">
+                        <a class="button control highlight" title="Decrease Rank" data-action="skillDecrease">
                             <i class="fas fa-minus fa-fw"></i>
                         </a>
                         <span class="cumulative">{{skill.cost}}</span>
                         <span class="next">{{#if skill.nextCost}}({{skill.nextCost}}){{else}}-{{/if}}</span>
-                        <a class="control highlight" title="Increase Rank" data-action="skillIncrease">
+                        <a class="button control highlight" title="Increase Rank" data-action="skillIncrease">
                             <i class="fas fa-plus fa-fw"></i>
                         </a>
                     </div>

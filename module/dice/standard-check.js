@@ -15,7 +15,7 @@ import { StandardCheckDialog } from "./apps.js";
  * @param {number} skill        The skill bonus which modifies the roll, up to a maximum of 12
  * @param {number} enchantment  An enchantment bonus which modifies the roll, up to a maximum of 6
  */
-export class StandardCheck extends Roll {
+export default class StandardCheck extends Roll {
   constructor(formula, data) {
     super(StandardCheck.FORMULA, data || formula);
     this.app = new StandardCheckDialog(this);
@@ -56,7 +56,7 @@ export class StandardCheck extends Roll {
     data.boons = Math.clamped(data.boons, 0, SYSTEM.dice.MAX_BOONS);
     data.dc = Math.max(data.dc, 0);
     data.enchantment = Math.clamped(data.enchantment, 0, 6);
-    data.skill = Math.clamped(data.skill, 0, 12);
+    data.skill = Math.clamped(data.skill, -4, 12);
     return data;
   }
 
@@ -104,8 +104,8 @@ export class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
-  get dialog() {
-    return new StandardCheckDialog(this);
+  dialog(options) {
+    return new StandardCheckDialog(this, options);
   }
 
   /* -------------------------------------------- */
@@ -116,28 +116,30 @@ export class StandardCheck extends Roll {
     const css = [SYSTEM.id, "standard-check"];
 
     // Determine outcome
-    let outcome = "";
-    if ( total >= this.data.dc ) {
-      css.push("success");
-      if ( total > this.data.dc + 5 ) {
-        css.push("critical");
-        outcome = "Critical ";
+    let outcome = "Unknown";
+    if ( this.data.dc ) {
+      if (total >= this.data.dc) {
+        css.push("success");
+        if (total > this.data.dc + 5) {
+          css.push("critical");
+          outcome = "Critical ";
+        }
+        outcome += "Success";
+      } else {
+        css.push("failure");
+        if (total < this.data.dc - 5) {
+          css.push("critical");
+          outcome = "Critical ";
+        }
+        outcome += "Failure";
       }
-      outcome += "Success";
-    }
-    else {
-      css.push("failure");
-      if ( total < this.data.dc - 5 ) {
-        css.push("critical");
-        outcome = "Critical ";
-      }
-      outcome += "Failure";
     }
 
     // Render chat card
     const html = await renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
       cssClass: css.join(" "),
       data: this.data,
+      dc: this.data.dc || "?",
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
       isGM: game.user.isGM,
       isPrivate: isPrivate,
@@ -152,17 +154,6 @@ export class StandardCheck extends Roll {
       total: isPrivate ? "?" : this.total
     });
     return html;
-  }
-
-  /* -------------------------------------------- */
-
-  toMessage() {
-    const actor = this.actor;
-    const messageData = {
-      flavor: `${actor.name} rolls a ${this.data.type} check`,
-      speaker: ChatMessage.getSpeaker({actor, user: game.user})
-    };
-    return super.toMessage(messageData, {rollMode: this.data.rollMode});
   }
 
   /* -------------------------------------------- */
