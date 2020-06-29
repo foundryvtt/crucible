@@ -83,12 +83,17 @@ export const SKILLS = {
   "acrobatics": {
     name: "Acrobatics",
     category: "exp",
+    description: "SKILLS.AcrobaticsInfo",
     icon: "icons/skills/acrobatics.jpg",
     attributes: ["strength", "dexterity"],
     ranks: [
       {
+        rank: 0,
+        description: "SKILLS.AcrobaticsRank0"
+      },
+      {
         rank: 1,
-        description: "TODO"
+        description: "SKILLS.AcrobaticsRank1"
       },
       {
         rank: 2,
@@ -96,7 +101,7 @@ export const SKILLS = {
       },
       {
         rank: 3,
-        description: "TODO"
+        description: "SKILLS.AcrobaticsRank3"
       },
       {
         rank: 4,
@@ -104,7 +109,7 @@ export const SKILLS = {
       },
       {
         rank: 5,
-        description: "TODO",
+        description: "SKILLS.AcrobaticsRank5",
         progression: true
       }
     ],
@@ -175,12 +180,17 @@ export const SKILLS = {
   "perception": {
     name: "Perception",
     category: "exp",
+    description: "SKILLS.PerceptionInfo",
     icon: "icons/skills/perception.jpg",
     attributes: ["intellect", "wisdom"],
     ranks: [
       {
+        rank: 0,
+        description: "SKILLS.PerceptionRank0"
+      },
+      {
         rank: 1,
-        description: "TODO"
+        description: "SKILLS.PerceptionRank1"
       },
       {
         rank: 2,
@@ -188,7 +198,7 @@ export const SKILLS = {
       },
       {
         rank: 3,
-        description: "TODO"
+        description: "SKILLS.PerceptionRank3"
       },
       {
         rank: 4,
@@ -196,7 +206,7 @@ export const SKILLS = {
       },
       {
         rank: 5,
-        description: "TODO",
+        description: "SKILLS.PerceptionRank5",
         progression: true
       }
     ],
@@ -267,12 +277,17 @@ export const SKILLS = {
   "stealth": {
     name: "Stealth",
     category: "exp",
+    description: "SKILLS.StealthInfo",
     icon: "icons/skills/stealth.jpg",
     attributes: ["dexterity", "wisdom"],
     ranks: [
       {
+        rank: 0,
+        description: "SKILLS.StealthRank0"
+      },
+      {
         rank: 1,
-        description: "TODO"
+        description: "SKILLS.StealthRank1"
       },
       {
         rank: 2,
@@ -280,7 +295,7 @@ export const SKILLS = {
       },
       {
         rank: 3,
-        description: "TODO"
+        description: "SKILLS.StealthRank3"
       },
       {
         rank: 4,
@@ -288,7 +303,7 @@ export const SKILLS = {
       },
       {
         rank: 5,
-        description: "TODO",
+        description: "SKILLS.StealthRank5",
         progression: true
       }
     ],
@@ -359,12 +374,17 @@ export const SKILLS = {
   "survival": {
     name: "Survival",
     category: "exp",
+    description: "SKILLS.SurvivalInfo",
     icon: "icons/skills/survival.jpg",
     attributes: ["constitution", "wisdom"],
     ranks: [
       {
+        rank: 0,
+        description: "SKILLS.SurvivalRank0"
+      },
+      {
         rank: 1,
-        description: "You know basic survival skills. You are able to start fires with flint and tinder, you are able to spend time foraging for food and water in most environments, and you can recognize common environmental hazards. You are able to recognize and follow the tracks of creatures which you are familiar with if the tracks are discovered."
+        description: "SKILLS.SurvivalRank1"
       },
       {
         rank: 2,
@@ -372,7 +392,7 @@ export const SKILLS = {
       },
       {
         rank: 3,
-        description: "You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +2 situational bonus on any Skill Checks made by allies who accompany you."
+        description: "SKILLS.SurvivalRank3"
       },
       {
         rank: 4,
@@ -380,7 +400,7 @@ export const SKILLS = {
       },
       {
         rank: 5,
-        description: "You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +5 situational bonus on any Skill Checks made by allies who accompany you.",
+        description: "SKILLS.SurvivalRank5",
         progression: true
       }
     ],
@@ -454,12 +474,17 @@ export const SKILLS = {
   "arcana": {
     name: "Arcana",
     category: "kno",
+    description: "SKILLS.ArcanaInfo",
     icon: "icons/skills/arcana.jpg",
     attributes: ["intellect", "wisdom"],
     ranks: [
       {
+        rank: 0,
+        description: "SKILLS.ArcanaRank0"
+      },
+      {
         rank: 1,
-        description: "You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when another spellcaster is channeling magical energy."
+        description: "SKILLS.ArcanaRank1"
       },
       {
         rank: 2,
@@ -467,7 +492,7 @@ export const SKILLS = {
       },
       {
         rank: 3,
-        description: "You have an advanced comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and you can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied."
+        description: "SKILLS.ArcanaRank3"
       },
       {
         rank: 4,
@@ -475,7 +500,7 @@ export const SKILLS = {
       },
       {
         rank: 5,
-        description: "You are a among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You can immediately identify any spell that you can also cast or you may attempt a Skill Check to identify a spell you do not know yourself without consuming any Action. You are able to cast the most powerful tier of magical spell and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest.",
+        description: "SKILLS.ArcanaRank5",
         progression: true
       }
     ],
@@ -549,6 +574,7 @@ export const SKILLS = {
   "religion": {
     name: "Religion",
     category: "kno",
+    description: "SKILLS.ReligionInfo",
     icon: "icons/skills/religion.jpg",
     attributes: ["wisdom", "charisma"],
     ranks: [
@@ -641,6 +667,7 @@ export const SKILLS = {
   "investigation": {
     name: "Investigation",
     category: "kno",
+    description: "SKILLS.InvestigationInfo",
     icon: "icons/skills/investigation.jpg",
     attributes: ["intellect", "charisma"],
     ranks: [
@@ -733,6 +760,7 @@ export const SKILLS = {
   "lore": {
     name: "Lore",
     category: "kno",
+    description: "SKILLS.LoreInfo",
     icon: "icons/skills/lore.jpg",
     attributes: ["intellect", "wisdom"],
     ranks: [
@@ -825,6 +853,7 @@ export const SKILLS = {
   "bartering": {
     name: "Bartering",
     category: "soc",
+    description: "SKILLS.BarteringInfo",
     icon: "icons/skills/bartering.jpg",
     attributes: ["intellect", "charisma"],
     ranks: [
@@ -917,6 +946,7 @@ export const SKILLS = {
   "deception": {
     name: "Deception",
     category: "soc",
+    description: "SKILLS.DeceptionInfo",
     icon: "icons/skills/deception.jpg",
     attributes: ["intellect", "charisma"],
     ranks: [
@@ -1012,6 +1042,7 @@ export const SKILLS = {
   "diplomacy": {
     name: "Diplomacy",
     category: "soc",
+    description: "SKILLS.DiplomacyInfo",
     icon: "icons/skills/diplomacy.jpg",
     attributes: ["wisdom", "charisma"],
     ranks: [
@@ -1104,6 +1135,7 @@ export const SKILLS = {
   "intimidation": {
     name: "Intimidation",
     category: "soc",
+    description: "SKILLS.IntimidationInfo",
     icon: "icons/skills/intimidation.jpg",
     attributes: ["strength", "charisma"],
     ranks: [
@@ -1197,6 +1229,7 @@ export const SKILLS = {
     name: "Animal Handling",
     category: "trd",
     icon: "icons/skills/animal.jpg",
+    description: "SKILLS.AnimalHandlingInfo",
     attributes: ["strength", "wisdom"],
     ranks: [
       {
@@ -1288,6 +1321,7 @@ export const SKILLS = {
   "craftsmanship": {
     name: "Craftsmanship",
     category: "trd",
+    description: "SKILLS.CraftsmanshipInfo",
     icon: "icons/skills/craftsmanship.jpg",
     attributes: ["dexterity", "intellect"],
     ranks: [
@@ -1381,6 +1415,7 @@ export const SKILLS = {
     name: "Medicine",
     category: "trd",
     icon: "icons/skills/medicine.jpg",
+    description: "SKILLS.MedicineInfo",
     attributes: ["constitution", "intellect"],
     ranks: [
       {
@@ -1472,6 +1507,7 @@ export const SKILLS = {
   "performance": {
     name: "Performance",
     category: "trd",
+    description: "SKILLS.PerformanceInfo",
     icon: "icons/skills/performance.jpg",
     attributes: ["dexterity", "charisma"],
     ranks: [
