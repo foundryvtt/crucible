@@ -53,6 +53,16 @@ Exploration skills are used most often when dealing with the environment a chara
 
 Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.
 
+| Rank | Acrobatics Skill Progression       |
+| ---- | ---------------------------------- |
+| 0    | You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform skill checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope. |
+| 1    | You have accrued some experience in traversing your surroundings. You have Reliability on checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
+| 2    | **Choose a progression path.**     |
+| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have a +2 situational bonus on checks made to Tumble after a fall. |
+| 4    | **Upgrade your progression path.** |
+| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have a +5 situational bonus on checks made to Tumble after a fall. **Complete your progression path.** |
+
+> TODO: Redraft paths - Gymnast needs a replacement
 1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.
 2. **Traceur** - Specialists in rapidly traversing obstacles and scaling surfaces whether they be natural or urban.
 3. **Dancer** - Specialists in the art of dance, from the ballroom to the mesmerizing contortions of a street performer.
@@ -79,18 +89,12 @@ Survival represents your ability to operate as a self-sufficient explorer in cha
 
 | Rank | Survival Skill Progression                                   |
 | ---- | ------------------------------------------------------------ |
-| 1    | You know basic survival skills. You are able to start fires with flint and tinder, you are able to spend time foraging for food and water in most environments, and you can recognize common environmental hazards. You are able to recognize and follow the tracks of creatures which you are familiar with if the tracks are discovered. |
+| 0    | You have little or no experience in the wilderness. You cannot navigate through wilderness without clear directions or a guide. You do not know how to start fires with mundane materials, nor where nearby food or water may be. If you find food, you are unable to determine if it's safe to eat or drink. If you find tracks, you cannot determine what creature made them. |
+| 1    | You know basic survival skills. You are able to start fires with flint and tinder, you know where you can try foraging for food and water in environments you are familiar with, and you can recognize common environmental hazards. You are able to recognize the tracks of creatures which you are familiar with if the tracks are discovered. |
 | 2    | **Choose a progression path.**                               |
 | 3    | You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +2 situational bonus on any Skill Checks made by allies who accompany you. |
 | 4    | **Upgrade your progression path.**                           |
 | 5    | You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +5 situational bonus on any Skill Checks made by allies who accompany you.<br />**Complete your progression path.** |
-
-> Having no ranks in the Survival skill comes with limitations. Characters untrained in Survival generally fail attempts to:
-> - Determine the best route through difficult, natural environments
-> - Identify a specific creature by its tracks
-> - Follow tracks from a smaller, unrecognized creature
-> - Forage in an environment they have not personally lived in
-> - Determine if foraged food is safe to consume
 
 The progression paths available to the Survival skill are listed below.
 
@@ -117,13 +121,14 @@ Arcana deals with the properties and perception of the weave of magical energies
 
 | Rank | Arcana Skill Progression                                     |
 | ---- | ------------------------------------------------------------ |
+| 0    | You have next to no understanding of magic. If you witness the casting of a spell, or some other magic, you cannot determine the nature of the magic other than its immediately apparent effects. You cannot ascertain whether an object or creature bears magic. |
 | 1    | You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when another spellcaster is channeling magical energy. You may attempt a Skill Check to identify the nature of a spell. |
 | 2    | **Choose a progression path.**                               |
 | 3    | You have an advanced comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and you can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied. |
 | 4    | **Upgrade your progression path.**                           |
 | 5    | You are a among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You can immediately identify any spell that you can also cast or you may attempt a Skill Check to identify a spell you do not know yourself without consuming any Action. You are able to cast the most powerful tier of magical spell and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest.<br /> **Complete your progression path.** |
 
-> Having no ranks in the Arcana skill comes with limitations. Characters untrained in Arcana generally fail attempts to:
+> Having no ranks in the Arcana skill comes with limitations. Characters untrained in Arcana generally cannot attempt to:
 > - Identify the nature of a spell
 > - Determine whether a witnessed action, effect, or event is magical in nature
 > - Determine which spell a creature is casting
@@ -220,9 +225,8 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 
 Animal Handling is used, quite simply, in the handling of animals. Skill in Animal Handling helps one understand the mindset and habits of beasts, how to coerce, calm, tame, or stave them off, or predict their next move. A well-trained animal handler knows much more general knowledge about animals, and will more easily have understanding of such creatures, to either develop bonds or manipulate.
 
-> Having no ranks in the Animal Handling skill comes with limitations. Characters untrained in Animal Handling generally fail attempts to:
-> - Tame, befriend, calm, or scare away an animal they are not familiar with
-> - Control or command an undomesticated animal
+> Having no ranks in the Animal Handling skill comes with limitations. Characters untrained in Animal Handling generally cannot attempt to:
+> - Control a mount
 
 1. Knight
 2. Beastmaster
@@ -232,10 +236,6 @@ Animal Handling is used, quite simply, in the handling of animals. Skill in Anim
 
 Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be fabled for their ability to make quality goods, and knows what they need to get the job done.
 
-> Having no ranks in the Craftsmanship skill comes with limitations. Characters untrained in Craftsmanship generally fail attempts to:
-> - Create goods that require knowledge in a particular set of tools
-> - Identify important details or flaws in trade goods
-
 1. Trademaster
 2. Artificer
 3. Runekeeper
@@ -244,7 +244,7 @@ Craftsmanship involves knowledge and artisanship in a particular trade skill. Ea
 
 Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.
 
-> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally fail attempts to:
+> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally cannot attempt to:
 > - Diagnose illnesses or symptoms less common than a fever
 > - Effectively treat internal injuries
 > - Determine an organ's purpose, or diagnose problems in an organ which is not immediately obvious
@@ -257,9 +257,7 @@ Medicine is used to deal with the health of one's self and others, and to diagno
 
 Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
 
-> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally fail attempts to:
-> - Make professional-quality works of art
-> - Perform a dance which hasn't yet been practiced
+> Having no ranks in the Performance skill comes with limitations. Characters untrained in Performance generally cannot attempt to:
 > - Recall information about the finer details of a certain art form
 
 1. Musician
