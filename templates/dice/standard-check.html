@@ -72,6 +72,7 @@
             </div>
         </div>
 
+        {{#if isGM}}
         <div class="target flexcol">
             <select name="tier">
                 {{#select tier}}
@@ -93,9 +94,21 @@
                 {{/select}}
             </select>
         </div>
+        {{/if}}
     </section>
 
     <footer class="buttons flexrow">
+        {{#unless isGM}}
+        <select name="rollMode">
+            {{#select rollMode}}
+            <option value="">Roll Mode</option>
+            {{#each rollModes as |label id|}}
+            <option value="{{id}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        {{/unless}}
+
         <button data-action="roll">
             <i class="fas fa-dice"></i>
             <label>Roll Check</label>

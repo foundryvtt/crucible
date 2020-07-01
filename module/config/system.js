@@ -23,7 +23,7 @@ export const ABILITIES = {
   },
   wisdom: {
     label: "Wisdom",
-    abbreviation: "Wil"
+    abbreviation: "Wis"
   },
   charisma: {
     label: "Charisma",

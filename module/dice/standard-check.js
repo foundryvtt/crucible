@@ -1,5 +1,5 @@
 import { SYSTEM } from "../config/system.js";
-import { StandardCheckDialog } from "./apps.js";
+import { StandardCheckDialog } from "./standard-check-dialog.js";
 
 /**
  * The standard 3d8 dice pool check used by the system.
@@ -18,6 +18,7 @@ import { StandardCheckDialog } from "./apps.js";
 export default class StandardCheck extends Roll {
   constructor(formula, data) {
     super(StandardCheck.FORMULA, data || formula);
+    this.data.id = this.data.id || randomID(16);
     this.app = new StandardCheckDialog(this);
   }
 
@@ -119,19 +120,19 @@ export default class StandardCheck extends Roll {
     let outcome = "Unknown";
     if ( this.data.dc ) {
       if (total >= this.data.dc) {
+        outcome = "Success";
         css.push("success");
         if (total > this.data.dc + 5) {
           css.push("critical");
-          outcome = "Critical ";
+          outcome = "Critical " + outcome;
         }
-        outcome += "Success";
       } else {
+        outcome = "Failure";
         css.push("failure");
         if (total < this.data.dc - 5) {
           css.push("critical");
-          outcome = "Critical ";
+          outcome = "Critical " + outcome;
         }
-        outcome += "Failure";
       }
     }
 
@@ -174,6 +175,23 @@ export default class StandardCheck extends Roll {
     data.formula = data.data;
     const roll = super.fromData(data);
     return roll;
+  }
+
+  /* -------------------------------------------- */
+  /*  Socket Interactions                         */
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a request to roll a standard check
+   * @param data
+   */
+  static handle(data) {
+    const {title, flavor, rollMode, check} = data;
+    const actor = game.actors.get(check.actorId);
+    if ( actor.hasPerm(game.user, "OWNER", true) ) {
+      const sc = new this(check);
+      sc.dialog({ title, flavor, rollMode }).render(true);
+    }
   }
 }
 

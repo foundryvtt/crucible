@@ -1,10 +1,10 @@
+import StandardCheck from "./dice/standard-check.js";
 
 
-
-function handleSocketEvent({action=null, data={}}={}) {
+export function handleSocketEvent({action=null, data={}}={}) {
   switch (action) {
     case "diceCheck":
-      return;
+      return StandardCheck.handle(data);
     case "diceContest":
       return;
     case "diceGroupCheck":

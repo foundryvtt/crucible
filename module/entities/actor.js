@@ -218,7 +218,7 @@ export default class CrucibleActor extends Actor {
     // Execute the roll
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
     if ( dialog ){
-      const title = game.i18n.format("SKILL.RollTitle", {skill: CONFIG.SYSTEM.SKILLS[skillId].name});
+      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
       sc.dialog({ title, flavor, rollMode }).render(true);
     }
     else {

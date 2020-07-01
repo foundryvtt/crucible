@@ -16,6 +16,9 @@ import BackgroundSheet from "./module/sheets/background.js";
 
 import StandardCheck from "./module/dice/standard-check.js";
 
+import {handleSocketEvent} from "./module/socket.js";
+import {addChatMessageContextOptions} from "./module/chat.js";
+
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -43,6 +46,9 @@ Hooks.once("init", async function() {
 
   // Register Dice mechanics
   CONFIG.Dice.rolls["StandardCheck"] = StandardCheck;
+
+  // Activate socket handler
+  game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 });
 
 
@@ -78,3 +84,7 @@ Hooks.on("renderChatMessage", (message, html, data) => {
     html.find(".message-content");
   }
 });
+
+// Add chat log context hooks
+Hooks.on("getChatLogEntryContext", addChatMessageContextOptions);
+

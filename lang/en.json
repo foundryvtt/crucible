@@ -60,13 +60,14 @@
   "DAMAGE.RadiantAbr": "Rdnt",
   "DAMAGE.Unholy": "Unholy",
   "DAMAGE.UnholyAbr": "Unly",
-
   "DAMAGE.Elemental": "Elemental",
   "DAMAGE.ElementalAbr": "Elem",
   "DAMAGE.Physical": "Physical",
   "DAMAGE.PhysicalAbr": "Phys",
   "DAMAGE.Spiritual": "Spiritual",
   "DAMAGE.SpiritualAbr": "Sptl",
+
+  "DICE.SetDifficulty": "Set Difficulty",
 
   "SKILL.Untrained": "Untrained",
   "SKILL.Unspecialized": "Unspecialized",
@@ -78,7 +79,7 @@
 
   "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "SKILL.RollFlavor": "{name} rolls a {skill} check",
-  "SKILL.RollTitle": "{skill} Skill Check",
+  "SKILL.RollTitle": "[{name}] {skill} Skill Check",
 
   "SKILLS.AcrobaticsInfo": "Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.",
   "SKILLS.AcrobaticsRank0": "You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform skill checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope.",

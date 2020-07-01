@@ -2,18 +2,13 @@ import { SYSTEM } from "../config/system.js";
 
 
 export class StandardCheckDialog extends FormApplication {
-  constructor(object, options) {
-    super(object, options);
-  }
-
-	/* -------------------------------------------- */
 
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
 	    template: `systems/${SYSTEM.id}/templates/dice/standard-check.html`,
       classes: [SYSTEM.id, "roll"],
-      width: 520,
+      width: game.user.isGM ? 520 : 360,
       submitOnChange: true,
       closeOnSubmit: false
     });
@@ -139,6 +134,8 @@ export class StandardCheckDialog extends FormApplication {
           this._updateObject(event, {banes: nBanes});
         }
         break;
+      case "request":
+        return this.request();
       case "roll":
         const rollMode = this.element.find('select[name="rollMode"]').val();
         const roll = this.object.reroll();
@@ -168,5 +165,21 @@ export class StandardCheckDialog extends FormApplication {
   _updateObject(event, formData) {
     this.object.initialize(formData);
     this.render();
+  }
+
+  /* -------------------------------------------- */
+  /*  Socket Interactions                         */
+  /* -------------------------------------------- */
+
+  request() {
+    game.socket.emit(`system.${SYSTEM.id}`, {
+      action: "diceCheck",
+      data: {
+        title: this.options.title,
+        flavor: this.options.flavor,
+        rollMode: this.options.rollMode,
+        check: this.object.data
+      }
+    })
   }
 }
