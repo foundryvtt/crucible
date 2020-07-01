@@ -71,6 +71,12 @@ Acrobatics relates to one's training in agility and athletics. Ranks in this ski
 
 Perception relates to general awareness, most often in relation to one's physical surroundings. To a lesser extent, it is used to observe people's social behavior as well. Those with training in Perception hone their senses and are expert observationists, noticing details others might miss.
 
+| Rank | Perception Progression Ideas       |
+| ---- | ---------------------------------- |
+| 0    | You have spent no real effort in honing your observational skills. You can perform search checks using an action point. |
+| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform search checks using an action point. When you search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you've sensed before, you gain a +2 modifier to your roll. |
+| 5    | You can perform search checks as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have a +5 situational bonus to Spell Defense against illusion magic. |
+
 1. **Scout** - Specialists in discovering the path forward and hidden ways which were concealed.
 2. **Sentry** - Specialists in the assessment of threats, an expert Sentry is never caught unaware.
 3. **Empath** - Specialists in the understanding of people, reading their physical and emotional tells.
@@ -78,6 +84,12 @@ Perception relates to general awareness, most often in relation to one's physica
 ### Stealth
 
 Stealth is used to advance unnoticed and gain access to areas which are otherwise inaccessible. Stealth adepts can develop expertise in infiltration, lockpicking, or thievery. Stealth offers three choices of progression paths.
+
+| Rank | Stealth Skill Progression          |
+| ---- | ---------------------------------- |
+| 0    | You have next to no practice sneaking. You can perform checks to hide, but no longer hide once you move. When you sneak, you move at a quarter speed. |
+| 1    | You have a basic understanding of how to avoid being noticed, and how to move subtly and quietly. If you move while hiding, checks must be made to remain hidden. Light armor no longer imposes a penalty on your Stealth checks made to move silently. |
+| 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks (or CR for check is lower?). You can use your full stride while sneaking without penalty. Wearing light, medium, or heavy armor without a penalty to your Stealth checks. |
 
 1. **Infiltrator** - Specialists in moving unseen and silent to bypass danger or approach it unaware.
 2. **Safecracker** - Specialists in the cracking of mechanical locks and disarming mechanical traps.
@@ -150,23 +162,35 @@ The progression paths available to the Arcana skill are listed below.
 | Rank 4           | You know how to imbue major magical effects into both magical and nonmagical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. You may attempt to upgrade an existing magical item by adding a new effect if the item has available enchantment capacity. |
 | Rank 5           | You are a master of arcane infusion and you can imbue any spell which you can cast into an item. You are able to add new effects to an item if it has available enchantment capacity and you can remove existing magical effects from an item, freeing the item's enchantment capacity for further infusion. |
 
-### Religion
-
-1. Theologian
-2. Crusader
-3. Druid
-
-### Investigation
-
-1. Detective
-2. Spy
-3. Tinkerer
-
 ### Lore
 
-1. Scholar
-2. Historian
-3. Storyteller
+1. Historian - Specialists in keeping history, and knowing of the cultures of the world.
+2. Sage - Specialists in discovering the truth, wherever it may lie.
+3. Storyteller - Specialists in keeping and studying legendary tales.
+
+### Religion
+
+| Rank | Religion Progression Ideas         |
+| ---- | ---------------------------------- |
+| 0    | In the eyes of the faithful, you are unenlightened. You likely only know a few details about your own religion or some widely-known religions. |
+| 1    | You have acquired a basic understanding of your own religion, or a few others. Choose a faith: a religion or sect in your setting, with GM approval. You know of the symbols used to signify your faith, and, if valid, know of the symbols that are excluded from your faith. You know what is generally encouraged or forbidden by your faith. |
+| 5    | You are otherworldly in your understanding of religion. You are capable of effortlessly conducting, or writing anew, religious doctrine. Your knowledge and guidance transcend the boundaries of faith; you automatically succeed on checks to recall information about your own faith, and have a +5 situational bonus to checks made to recall information about other religions. |
+
+1. Occultist - Specialists in the practices of a certain faith, from its beliefs to its rites.
+2. Hierophant - Specialists in spreading the truth, and illuminating others through their faith.
+3. Druid - Specialists in understanding the wild forces of nature.
+
+### Science
+
+| Rank | Science Progression Ideas          |
+| ---- | ---------------------------------- |
+| 0    |  |
+| 1    |  |
+| 5    |  |
+
+1. Physiker - Specialists in the everpresent laws of the natural world.
+2. Alchemist - Specialists in harnessing substances to create miraculous effects.
+3. ???
 
 ## Social Skills
 
@@ -176,9 +200,29 @@ The progression paths available to the Arcana skill are listed below.
 
 Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
 
+| Rank | Diplomacy Progression Ideas        |
+| ---- | ---------------------------------- |
+| 0    |  |
+| 1    |  |
+| 5    |  |
+
+1. Ambassador - Specialists in understanding class, and codes of conduct, and social rules that govern others.
+2. Arbiter - Specialists in diffusing a situation and calming those around them.
+3. Firebrand - Specialists in amplifying the emotions around them, encouraging their allies and impassioning crowds of people.
+
 ### Intimidation
 
 Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
+
+| Rank | Intimidation Progression Ideas     |
+| ---- | ---------------------------------- |
+| 0    | You have no real understanding of what scares people. Your unassertive aura means thieves and cutpurses may see you as an easy target. You only know how to intimidate people through verbal or direct physical threats. |
+| 1    | You've developed a general understanding of what scares people. You have a look about you, one which discourages some from disturbing you. You are no longer seen as an "easy mark" by local thieves or cutpurses. Additionally, you can demonstrate your capacity for violence or misfortune without using words (such as adopting a menacing pose) which you can use to frighten off others. |
+| 5    | Your capacity to scare others is unmatched; you have become a veritable fortress of fear. The "look" you carry with you is enough to stave off almost any threat; only a complete fool would go out of their way to trouble you. Whether through words or actions, your social presence is overwhelming when you choose it to be. You can perform an Intimidation check as a free action once per round, targeting your choice of creatures who can see you, which the chosen creatures must contest with Willpower or become afraid of you. You gain 2 boons and Reliability on checks made to socially interact with creatures whose Morale is below half. |
+
+1. Interrogator - Specialists in the spoken word, knowing how to craft veiled threats to confuse and unsettle.
+2. Ruffian - Specialists in using physical force as a social implement, who can strongarm others into cooperation.
+3. Fearmonger - Specialists in drawing out the fears and anxieties of their targets, and exploiting that knowledge to torment them.
 
 ### Deception
 
@@ -190,7 +234,7 @@ Deception deals with using misinformation to subtly or overtly mislead others - 
 | 2    | **Choose a progression path.**                               |
 | 3    | You are an accomplished liar, able to invent plausible scenarios on the fly. You have an advanced understanding of manipulation and automatically succeed on any deception check with a DC of 15 or less. You are able to create false documents, including impersonating handwriting or an official seal if you have a sample to imitate. You are an accomplished disguise artist, and may attempt to conceal your identity by using an improvised costume using materials at hand. |
 | 4    | **Upgrade your progression path.**                           |
-| 5    | You are a master manipulator - it is near impossible to tell whether you are telling the truth. You have a comprehensive understanding of how to manipulate others. You automatically succeed on any deception check with a DC of 25 or less. You are a master forger, able to create false documents including handwriting or official seals which are indistinguishable from the original. You are a peerless disguise artist and are able to exactly imitate the appearance of a  different person if you have the time and materials needed to prepare a disguise. You have a +5 Situational Bonus to Deception Checks which use an improvised disguise. <br /> **Complete your progression path.** |
+| 5    | You are a master manipulator - it is near impossible to tell whether you are telling the truth. You have a comprehensive understanding of how to manipulate others. You automatically succeed on any deception check with a DC of 25 or less. You are a master forger, able to create false documents including handwriting or official seals which are indistinguishable from the original. You are a peerless disguise artist and are able to exactly imitate the appearance of a different person if you have the time and materials needed to prepare a disguise. You have a +5 Situational Bonus to Deception Checks which use an improvised disguise. <br /> **Complete your progression path.** |
 
 The progression paths available to the Deception skill are listed below.
 
@@ -263,3 +307,5 @@ Performance deals with the creative arts meant to impress, inspire, or evoke emo
 1. Musician
 2. Artist
 3. Athlete
+
+
