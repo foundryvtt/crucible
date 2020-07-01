@@ -73,12 +73,12 @@ Perception relates to general awareness, most often in relation to one's physica
 
 | Rank | Perception Progression Ideas       |
 | ---- | ---------------------------------- |
-| 0    | You have spent no real effort in honing your observational skills. You can perform search checks using an action point. |
-| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform search checks using an action point. When you search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you've sensed before, you gain a +2 modifier to your roll. |
+| 0    | You have spent no real effort in honing your observational skills. You can perform search checks as an action, but gain no bonus by searching for objects you've seen before. |
+| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform search checks as an action. When you search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you've sensed before, you gain a +2 modifier to your roll. |
 | 5    | You can perform search checks as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have a +5 situational bonus to Spell Defense against illusion magic. |
 
-1. **Scout** - Specialists in discovering the path forward and hidden ways which were concealed.
-2. **Sentry** - Specialists in the assessment of threats, an expert Sentry is never caught unaware.
+1. **Scout** - Specialists in discovering hidden paths and threats, a Scout is never caught unaware.
+2. **Detective** - Specialists in piecing their environment together, and making deductions from their surroundings.
 3. **Empath** - Specialists in the understanding of people, reading their physical and emotional tells.
 
 ### Stealth
@@ -182,11 +182,13 @@ The progression paths available to the Arcana skill are listed below.
 
 ### Science
 
+Knowledge of Science corresponds to knowledge of the natural world 
+
 | Rank | Science Progression Ideas          |
 | ---- | ---------------------------------- |
-| 0    |  |
-| 1    |  |
-| 5    |  |
+| 0    | ??? |
+| 1    | ??? |
+| 5    | ??? |
 
 1. Physiker - Specialists in the everpresent laws of the natural world.
 2. Alchemist - Specialists in harnessing substances to create miraculous effects.
@@ -196,33 +198,19 @@ The progression paths available to the Arcana skill are listed below.
 
 > Social skills are called such because they involve social interactions between two or more characters - as such, when a check is made, it can often be a part of a contest, where each participant rolls the same type of check. For instance, if a character is suspected of lying (using Deception), another character hearing the lie may roll Deception as well, using their own knowledge of lying to determine if the first character is intentionally misleading them. In a similar vein, if a traveler is haggling with a merchant (through a Bartering check), the merchant's perception of the traveler's offer may be determined by contesting the traveler's roll with their own Bartering roll.
 
-### Diplomacy
+### Bartering
 
-Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
+Bartering pertains to the art of trades and bargains. A well-trained barterer will be able to negotiate effectively with merchants or just about anyone they wish to conduct business with. Ranks in Bartering indicate insight into markets as a whole, but also into the social aspect of trading and haggling, persuading others to sweeten an offer, or make a compromise. Barterers can prioritize their training in either procuring obscure goods, transporting trade goods, or negotiating deals with others.
 
-| Rank | Diplomacy Progression Ideas        |
+| Rank | Bartering Progression Ideas        |
 | ---- | ---------------------------------- |
-| 0    |  |
-| 1    |  |
-| 5    |  |
+| 0    | You are untrained in the ways of the merchant; Any idea you have on the value of a good or service is down to an uneducated guess, or whatever price you've seen it sold at before. Critically failing a Bartering check to haggle a price will often offend those you are haggling with, causing them to either worsen their offer or refuse business entirely. |
+| 1    | You have learned the basics of trade. You can more easily ascertain the value of a common item or service in relation to others, even if you have not seen that specific item sold before. Haggling comes more naturally to you, whether through bartered goods or coin. On a bartering check, critical fails alone do not cause those you are trading with to worsen offers or withdraw from business, unless they have another reason to do so. |
+| 5    | You are almost omniscient in your ability to conduct trade or incite compromise from those around you. If a mundane item, or a magical item of lower rarity than Unique (Legendary?) has an inherent or unanimously-accepted value, you immediately deduce what that value is. If you spend a day examining a market, you have Reliability on checks made to determine the average value of any given item in that market. If you successfully discern that an offer given is too low or two high, you immediately discern whether the offer is insincere (the offer is a deliberate scam), or simply misguided (the offerer doesn't know any better). |
 
-1. Ambassador - Specialists in understanding class, and codes of conduct, and social rules that govern others.
-2. Arbiter - Specialists in diffusing a situation and calming those around them.
-3. Firebrand - Specialists in amplifying the emotions around them, encouraging their allies and impassioning crowds of people.
-
-### Intimidation
-
-Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
-
-| Rank | Intimidation Progression Ideas     |
-| ---- | ---------------------------------- |
-| 0    | You have no real understanding of what scares people. Your unassertive aura means thieves and cutpurses may see you as an easy target. You only know how to intimidate people through verbal or direct physical threats. |
-| 1    | You've developed a general understanding of what scares people. You have a look about you, one which discourages some from disturbing you. You are no longer seen as an "easy mark" by local thieves or cutpurses. Additionally, you can demonstrate your capacity for violence or misfortune without using words (such as adopting a menacing pose) which you can use to frighten off others. |
-| 5    | Your capacity to scare others is unmatched; you have become a veritable fortress of fear. The "look" you carry with you is enough to stave off almost any threat; only a complete fool would go out of their way to trouble you. Whether through words or actions, your social presence is overwhelming when you choose it to be. You can perform an Intimidation check as a free action once per round, targeting your choice of creatures who can see you, which the chosen creatures must contest with Willpower or become afraid of you. You gain 2 boons and Reliability on checks made to socially interact with creatures whose Morale is below half. |
-
-1. Interrogator - Specialists in the spoken word, knowing how to craft veiled threats to confuse and unsettle.
-2. Ruffian - Specialists in using physical force as a social implement, who can strongarm others into cooperation.
-3. Fearmonger - Specialists in drawing out the fears and anxieties of their targets, and exploiting that knowledge to torment them.
+1. **Antiquarian** - Specialists in the procurement and identification of ancient or eclectic items.
+2. **Caravaner** - Specialists in mercantilism and the transportation of goods.
+3. **Negotiator** - Specialists in haggling and compromise to arrange favorable terms in negotiation.
 
 ### Deception
 
@@ -243,7 +231,7 @@ The progression paths available to the Deception skill are listed below.
 | **Grifter**     | Specialists in distributing misleading information through subtlety and false confidence. |
 | Rank 2          | You have a knack for predicting which falsehoods could be believable. If you attempt a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach at most once per social encounter. |
 | Rank 4          | You have expertise in predicting which falsehoods could be believable. If you attempt a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach at most twice per social encounter. You are able to remember any lies you have told within the past month. |
-| Rank 5          | You have mastery in predicting which falsehoods could be believable. If you are ever face a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach. You are able to remember any lies you have told within the past year. You are able to correctly conjecture what an official document would look like even if you have not seen it. |
+| Rank 5          | You have mastery in predicting which falsehoods could be believable. If you ever face a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach. You are able to remember any lies you have told within the past year. You are able to correctly conjecture what an official document would look like even if you have not seen it. |
 | **Illusionist** | Specialists in sensory illusions, generally mundane but occasionally arcane in nature. |
 | Rank 2          | You are an expert in using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer a -2 situational penalty for Skill Checks to avoid being misled by the distraction. You have a +2 situational bonus to recognize illusory magic created by other spellcasters. |
 | Rank 4          | You are a master of using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer a -5 situational penalty for Skill Checks to avoid being misled by the distraction. You have a +5 situational bonus to recognize illusory magic created by other spellcasters. |
@@ -255,13 +243,33 @@ The progression paths available to the Deception skill are listed below.
 
 > NOTES: Illusionist and Mesmer require some further refinement.
 
-### Bartering
+### Diplomacy
 
-Bartering pertains to the art of trades and bargains. A well-trained barterer will be able to negotiate effectively with merchants or just about anyone they wish to conduct business with. Ranks in Bartering indicate insight into markets as a whole, but also into the social aspect of trading and haggling, persuading others to sweeten an offer, or make a compromise. Barterers can prioritize their training in either procuring obscure goods, transporting trade goods, or negotiating deals with others.
+Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
 
-1. **Antiquarian** - Specialists in the procurement and identification of ancient or eclectic items.
-2. **Caravaner** - Specialists in mercantilism and the transportation of goods.
-3. **Negotiator** - Specialists in haggling and compromise to arrange favorable terms in negotiation.
+| Rank | Diplomacy Progression Ideas        |
+| ---- | ---------------------------------- |
+| 0    | You have no diplomatic experience beyond what a typical commoner might have. Your conduct in social situations is heavily derived from your personal background, and is largely limited by those experiences. You may find trouble passing yourself off as a public speaker, diplomat, or spokesperson. |
+| 1    | You've developed something of an understanding for winning others over with words. Your social conduct is likely more universally friendly; you know what actions to avoid undertaking, lest you offend those who are foreign to you. If you attempt a Diplomacy check of Impossible difficulty, the GM must tell you before you roll and you may choose to alter your approach at most once per social encounter. |
+| 5    | You are miraculously persuasive, and can carry yourself through almost any social situation with unparalleled grace. Your social conduct is seen almost universally as civil and polite, if you desire it to be, even if you perform actions considered as "social taboo" in dealings with foreigners. If you ever face a Diplomacy check of Impossible difficulty, the GM must tell you before you roll and you may choose to alter your approach. |
+
+1. Ambassador - Specialists in understanding codes of conduct and the social rules that govern others.
+2. Arbiter - Specialists in diffusing a situation and calming those around them.
+3. Firebrand - Specialists in amplifying the emotions around them, encouraging their allies and impassioning crowds of people.
+
+### Intimidation
+
+Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
+
+| Rank | Intimidation Progression Ideas     |
+| ---- | ---------------------------------- |
+| 0    | You have no real understanding of what scares people. Your unassertive aura means thieves and cutpurses may see you as an easy target. You only know how to intimidate people through verbal or direct physical threats. |
+| 1    | You've developed a general understanding of what scares people. You have a look about you, one which discourages some from disturbing you. You are no longer seen as an "easy mark" by local thieves or cutpurses. Additionally, you can demonstrate your capacity for violence or misfortune without using words (such as adopting a menacing pose) which you can use to frighten off others. |
+| 5    | Your capacity to scare others is unmatched; you have become a veritable fortress of fear. The "look" you carry with you is enough to stave off almost any threat; only a complete fool would go out of their way to trouble you. Whether through words or actions, your social presence is overwhelming when you choose it to be. You can perform an Intimidation check as a free action once per round, targeting your choice of creatures who can see you, which the chosen creatures must contest with Willpower or become afraid of you. You gain 2 boons and Reliability on checks made to socially interact with creatures whose Morale is below half. |
+
+1. Interrogator - Specialists in the spoken word, knowing how to craft veiled threats to confuse and unsettle.
+2. Ruffian - Specialists in using physical force as a social implement, who can strongarm others into cooperation.
+3. Fearmonger - Specialists in drawing out the acute fears and anxieties of their targets, and exploiting that knowledge to torment them.
 
 ## Tradecraft Skills
 
@@ -269,8 +277,11 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 
 Animal Handling is used, quite simply, in the handling of animals. Skill in Animal Handling helps one understand the mindset and habits of beasts, how to coerce, calm, tame, or stave them off, or predict their next move. A well-trained animal handler knows much more general knowledge about animals, and will more easily have understanding of such creatures, to either develop bonds or manipulate.
 
-> Having no ranks in the Animal Handling skill comes with limitations. Characters untrained in Animal Handling generally cannot attempt to:
-> - Control a mount
+| Rank | Animal Handling Progression Ideas  |
+| ---- | ---------------------------------- |
+| 0    | You have no particular way with animals. Most wild beasts are discomforted by your presence and will often either attack or flee from you. You are able to ride a domesticated creature large enough to support you, but have trouble mounting it without supervision. You do not know how to command trained animals, and any attempts to control a mount cause them to try and buck you off on a critical fail. |
+| 1    | You have learned how to work with various domesticated animals. Wild beasts are still discomforted by your presence, but you can perform Animal Handling checks as an action to calm them or reduce their chance to flee. If a domesticated animal is willing, you can mount them without having to perform an Animal Handling check. You can attempt to calm any beast, but have a -5 situational bonus to do so if the creature is charmed or otherwise magically compelled to be hostile. |
+| 5    | You have endless empathy and understanding for beasts. You can attempt to give direct, simple orders to any beast, provided it is calm. Charm-like effects or other magical compulsions a creature is under do not hinder your attempts to calm or pacify it. |
 
 1. Knight
 2. Beastmaster
@@ -280,6 +291,12 @@ Animal Handling is used, quite simply, in the handling of animals. Skill in Anim
 
 Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be fabled for their ability to make quality goods, and knows what they need to get the job done.
 
+| Rank | Craftsmanship Progression Ideas    |
+| ---- | ---------------------------------- |
+| 0    | The knowledge you have in trade skills is largely insubstantial. You can perform checks to carry out the tasks of a profession, but checks are always required to do so. |
+| 1    | You are taught in the rudimentary ways of a certain trade skill. Choose one type of tool to become your Favored Tool; you gain a +2 situational bonus to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know if such an item was, or could be, made or repaired with your Favored Tool. Instead of rolling, you can choose to perform Passive Checks on simple tasks involving your Favored Tool. |
+| 5    | You are a world-class craftsman. You are an instant savant with any tool you can get your hands on, and can save time and costs drastically thanks to your ingenuity. All tools are considered Favored Tools to you; you gain a +5 situational bonus to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know what type of tools were used to make it, or could reasonably be used to repair it. You can craft any non-magical item at half the normal time and supply cost. |
+
 1. Trademaster
 2. Artificer
 3. Runekeeper
@@ -288,21 +305,25 @@ Craftsmanship involves knowledge and artisanship in a particular trade skill. Ea
 
 Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.
 
-> Having no ranks in the Medicine skill comes with limitations. Characters untrained in Medicine generally cannot attempt to:
-> - Diagnose illnesses or symptoms less common than a fever
-> - Effectively treat internal injuries
-> - Determine an organ's purpose, or diagnose problems in an organ which is not immediately obvious
+| Rank | Medicine Progression Ideas         |
+| ---- | ---------------------------------- |
+| 0    | You know little about the inner workings of the body, and can generally only guess what is causing a symptom, or how to treat it. You fail Medicine checks made to help determine an effective treatment to an internal injury or infection, but can still make a guess and carry out an impromptu procedure. You cannot determine an organ's purpose you have not dealt with before, or diagnose problems in an organ which are not immediately obvious. You can, however, analyze corpses to determine a cause of death. |
+| 1    | You have developed a basic understanding of the body, and general issues or problems related to illness. You can attempt Medicine checks to determine the underlying cause of a symptom, ascertain the purpose of a strange organ, diagnose medical problems, infer an effective treatment, and analyze corpses to determine cause of death. |
+| 5    | You are almost infinitely wise in your knowledge of health. When you are within 5 feet of a creature you can see, you can spend an action to instantly recognize which of the following conditions the creature is affected by: Afraid, Blinded, Bleeding, Bloodied, Confused, Diseased, Frozen, Paralyzed, Poisoned, Silenced, Stunned, or Unconscious. If you do so for an entire minute, you instantly know of any diseases or other medical conditions the creature is afflicted by. You can perform this check on corpses to automatically identify which conditions they were suffering as they died. You have a +5 situational bonus on checks made to resist contracting an infection or disease, and on checks made to recover from such a disease. |
 
 1. Apothecary
 2. Chirugeon
-3. Occultist
+3. ???
 
 ### Performance
 
 Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
 
-> Having no ranks in the Performance skill comes with limitations. Characters untrained in Performance generally cannot attempt to:
-> - Recall information about the finer details of a certain art form
+| Rank | Performance Progression Ideas      |
+| ---- | ---------------------------------- |
+| 0    | You have next to no experience in any public performance. You have not committed yourself to any particular art form, and cannot reliably recall finer details about any particular art form. You may be considered largely "uncultured" by those who are more familiar with an art form. |
+| 1    | You have learned the basics of an art form, and acquired a general understanding of what attracts onlookers to the spectacle of a good performance. You can recall basic information on most common art forms, and can reliably recite common pieces (such as songs, poems, or dances) as part of a performance. |
+| 5    | You are a quintessential crowdpleaser, and your performances can move almost anyone who bears witness to your craft. You can sing, dance, perform, and act in manners fit to entertain kings or even gods. Improvising during a performance does not increase the difficulty of the check. |
 
 1. Musician
 2. Artist
