@@ -18,6 +18,7 @@ import StandardCheck from "./module/dice/standard-check.js";
 
 import {handleSocketEvent} from "./module/socket.js";
 import {addChatMessageContextOptions} from "./module/chat.js";
+import {localizeSkillConfig} from "./module/config/skills.js";
 
 
 /* -------------------------------------------- */
@@ -66,7 +67,9 @@ Hooks.once("ready", function() {
       if ( v.label ) v.label = game.i18n.localize(v.label);
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
     }
+    Object.freeze(c);
   }
+  localizeSkillConfig(SYSTEM.SKILLS);
 
   // TODO: Prevent the creation of Items with certain types
   game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);

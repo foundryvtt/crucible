@@ -1,4 +1,4 @@
-import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS, prepareSkillConfig} from "./skills.js";
+import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
 import * as dice from "./dice.js";
 export const SYSTEM_ID = "crucible";
 
