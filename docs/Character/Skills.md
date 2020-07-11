@@ -55,7 +55,7 @@ The sixteen skills are listed below, with descriptions of the skill itself. Each
 
 
 #### Skill Tasks
-**Example Task A.** Example Task A description.
+**Example Task A.** Example Task A description.<br>
 **Example Task B.** Example Task B description.
 
 | Rank | Template Skill Progression       |
@@ -86,12 +86,12 @@ Acrobatics relates to one's training in agility and athletics. Ranks in this ski
 
 #### Acrobatics Tasks
 
-**Climb.** You can climb vertically ascending surfaces at 1/2 your normal Stride as a part of the Stride action. Difficult surfaces, or attempts to climb an easier surface more quickly, may require an Acrobatics check to scale successfully.
-**Leap.** You can perform an Acrobatics check to move farther during a leap than your base Horizontal or Vertical leap distances.
-**Tumble.** When you fall and are not restrained or otherwise immobilized, you can perform an Acrobatics check as Standard Action to land safely.
-**Escape.** If you are grappled or restrained, you can attempt to slip free. Breaking a source of the Grappled condition is a Standard Action, while freeing yourself from a source of the Restrained condition is a Lengthy Action.
-**Squeeze.** You can force your limbs or entire body into tight spaces by performing an Acrobatics check as an action. If you would move while remaining in this tight space, you move at half movement.
-**Balance.** When standing on narrow footholds, along edges, or upon slippery terrain, you may be required to perform an Acrobatics check to maintain balance.
+**Climb.** You can climb vertically ascending surfaces at 1/2 your normal Stride as a part of the Stride action. Difficult surfaces, or attempts to climb an easier surface more quickly, may require an Acrobatics check to scale successfully.<br>
+**Leap.** You can perform an Acrobatics check to move farther during a leap than your base Horizontal or Vertical leap distances.<br>
+**Tumble.** When you fall and are not restrained or otherwise immobilized, you can perform an Acrobatics check as Standard Action to land safely.<br>
+**Escape.** If you are grappled or restrained, you can attempt to slip free. Breaking a source of the Grappled condition is a Standard Action, while freeing yourself from a source of the Restrained condition is a Lengthy Action.<br>
+**Squeeze.** You can force your limbs or entire body into tight spaces by performing an Acrobatics check as an action. If you would move while remaining in this tight space, you move at half movement.<br>
+**Balance.** When standing on narrow footholds, along edges, or upon slippery terrain, you may be required to perform an Acrobatics check to maintain balance.<br>
 
 | Rank | Acrobatics Skill Progression       |
 | ---- | ---------------------------------- |
@@ -113,9 +113,9 @@ Perception relates to general awareness, most often in relation to one's physica
 
 #### Perception Tasks
 
-**Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object or some other physical phenomena.
-**Search.** You can perform a dedicated search for an object or some other physical phenomena, investigating your surroundings over a minute or more.
-**Sense Intent.** During social interactions, you can perform a Perception check to understand the motives of a creature, intuit its emotions, or determine if it is lying.
+**Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object or some other physical phenomena.<br>
+**Search.** You can perform a dedicated search for an object or some other physical phenomena, investigating your surroundings over a minute or more.<br>
+**Sense Intent.** During social interactions, you can perform a Perception check to understand the motives of a creature, intuit its emotions, or determine if it is lying.<br>
 
 | Rank | Perception Progression Ideas       |
 | ---- | ---------------------------------- |
@@ -133,9 +133,9 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 
 #### Stealth Tasks
 
-**Hide.** You can attempt to find a hiding spot nearby and remain hidden, performing a blind Stealth check for your GM.
-**Sneak.** You can pass through an area unnoticed, moving a quarter of your normal Stride.
-**Sleight of Hand.** You can perform Stealth checks to do a physical action with subtlety, such as removing an item unnoticed from a person or place, smuggle an object, or plant one on another person.
+**Hide.** You can attempt to find a hiding spot nearby and remain hidden, performing a blind Stealth check for your GM.<br>
+**Sneak.** You can pass through an area unnoticed, moving a quarter of your normal Stride.<br>
+**Sleight of Hand.** You can perform Stealth checks to do a physical action with subtlety, such as removing an item unnoticed from a person or place, smuggle an object, or plant one on another person.<br>
 
 | Rank | Stealth Skill Progression          |
 | ---- | ---------------------------------- |
@@ -153,10 +153,10 @@ Survival represents your ability to operate as a self-sufficient explorer in cha
 
 #### Survival Tasks
 
-**Navigate.** Outdoors, you can perform a Survival check to navigate through the use of the sun, clouds, stars, or other natural phenomena.
-**Track.** When finding tracks, you can attempt to follow the tracks, identify what might have left them, how many sets of tracks there are, or how long ago they were made.
-**Forage.** You can attempt to forage for food, catch small game, or field dress a hunted animal.
-**Identify.** You can determine if foraged plants are poisonous, or discern various environmental hazards, such as quicksand, or signs of the passage of a dangerous beast.
+**Navigate.** Outdoors, you can perform a Survival check to navigate through the use of the sun, clouds, stars, or other natural phenomena.<br>
+**Track.** When finding tracks, you can attempt to follow the tracks, identify what might have left them, how many sets of tracks there are, or how long ago they were made.<br>
+**Forage.** You can attempt to forage for food, catch small game, or field dress a hunted animal.<br>
+**Identify.** You can determine if foraged plants are poisonous, or discern various environmental hazards, such as quicksand, or signs of the passage of a dangerous beast.<br>
 
 | Rank | Survival Skill Progression                                   |
 | ---- | ------------------------------------------------------------ |
@@ -192,9 +192,9 @@ Arcana deals with the properties and perception of the weave of magical energies
 
 #### Arcana Tasks
 
-**Detect Magic.** You can perform an Arcana check to determine if an item bears magic, and what spell or enchantment the object is affected by, if any.
-**Identify Spell.** When you see a spell being cast, you can perform an Arcana check to determine what the spell is, learning which rune and/or gesture was used in its casting. You must have some insight on what components are used to cast a spell before you can properly counter it.
-**Recall.** You can attempt to recall general wisdom, or relevant information, about magic itself.
+**Detect Magic.** You can perform an Arcana check to determine if an item bears magic, and what spell or enchantment the object is affected by, if any.<br>
+**Identify Spell.** When you see a spell being cast, you can perform an Arcana check to determine what the spell is, learning which rune and/or gesture was used in its casting. You must have some insight on what components are used to cast a spell before you can properly counter it.<br>
+**Recall.** You can attempt to recall general wisdom, or relevant information, about magic itself.<br>
 
 | Rank | Arcana Skill Progression                                     |
 | ---- | ------------------------------------------------------------ |
@@ -233,8 +233,8 @@ Lore relates to the breadth of one's general knowledge, ranging from information
 
 #### Lore Tasks
 
-**Recall.** A character can attempt to recall general lore or history they may know about any particular subject. This is often retroactive - a character succeeding on such a Lore check could be seen as having always known the information, but remembering it just in time.
-**Deduce.** When information is already at hand, you may use your knowledge of the world to attempt to predict a future event, or deduce something that was previously unknown.
+**Recall.** A character can attempt to recall general lore or history they may know about any particular subject. This is often retroactive - a character succeeding on such a Lore check could be seen as having always known the information, but remembering it just in time.<br>
+**Deduce.** When information is already at hand, you may use your knowledge of the world to attempt to predict a future event, or deduce something that was previously unknown.<br>
 
 1. **Historian** - Specialists in keeping history, and knowing of the cultures of the world.
 2. **Sage** - Specialists in discovering the truth, wherever it may lie.
@@ -244,8 +244,8 @@ Lore relates to the breadth of one's general knowledge, ranging from information
 
 #### Religion Tasks
 
-**Recall.** You can attempt to recall information about a deity, religion, or those who follow a religion. This includes understanding symbology, cultural insight of a religion (or religions), or philosophical sentiments.
-**Intuit.** Religion checks can also be performed to understand the deeper meaning of a religious custom, comprehend the mandates of a deity, or divine the significance of a religious event or figure. Depending on the setting, this level of insight may, at times, literally be the result of divine intervention.
+**Recall.** You can attempt to recall information about a deity, religion, or those who follow a religion. This includes understanding symbology, cultural insight of a religion (or religions), or philosophical sentiments.<br>
+**Intuit.** Religion checks can also be performed to understand the deeper meaning of a religious custom, comprehend the mandates of a deity, or divine the significance of a religious event or figure. Depending on the setting, this level of insight may, at times, literally be the result of divine intervention.<br>
 
 | Rank | Religion Progression Ideas         |
 | ---- | ---------------------------------- |
@@ -263,8 +263,8 @@ Knowledge of Science corresponds to knowledge of the natural world.
 
 #### Science Tasks
 
-**Recall.** You can perform a Science check to remember details about a scientifically observed, theorized, or proven phenomenon.
-**Theorize.** You can come to new conclusions using information you've already acquired, in regards to natural sciences such as geology and chemistry. This includes predicting the properties or effects of a substance, or the purpose of a mechanical device.
+**Recall.** You can perform a Science check to remember details about a scientifically observed, theorized, or proven phenomenon.<br>
+**Theorize.** You can come to new conclusions using information you've already acquired, in regards to natural sciences such as geology and chemistry. This includes predicting the properties or effects of a substance, or the purpose of a mechanical device.<br>
 
 | Rank | Science Progression Ideas          |
 | ---- | ---------------------------------- |
@@ -286,9 +286,9 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 
 #### Bartering Tasks
 
-**Appraise.** You can perform a Bartering check to determine the approximate value of an item, as well as identify any factors that may cause an item to increase or decrease in value or demand.
-**Haggle.** When conducting a trade or other form of negotiation, you can attempt to convince those you deal with to make a more reasonable offer, or settle for a deal that may be less beneficial for them.
-**Sense Intent.** When a deal is proposed, a Bartering check can determine if the offer is sincere, a joke, or an attempt to swindle.
+**Appraise.** You can perform a Bartering check to determine the approximate value of an item, as well as identify any factors that may cause an item to increase or decrease in value or demand.<br>
+**Haggle.** When conducting a trade or other form of negotiation, you can attempt to convince those you deal with to make a more reasonable offer, or settle for a deal that may be less beneficial for them.<br>
+**Sense Intent.** When a deal is proposed, a Bartering check can determine if the offer is sincere, a joke, or an attempt to swindle.<br>
 
 | Rank | Bartering Progression Ideas        |
 | ---- | ---------------------------------- |
@@ -306,10 +306,10 @@ Deception deals with using misinformation to subtly or overtly mislead others - 
 
 #### Deception Tasks
 
-**Lie.** You can use the Deception skill for attempts to willfully mislead others, or convincingly omit the truth from your words.
-**Detect Lies.** You can use your own knowledge of Deception to determine if someone else may be lying.
-**Disguise.** You can attempt to create a disguise that may mask your identity. This includes both creating a costume or outfit for a disguise, and also imitating the behavior and speech of another individual.
-**Fabricate.** Attempts at forgery use Deception checks to create a seemingly-official document, or make some other physical object seem genuine.
+**Lie.** You can use the Deception skill for attempts to willfully mislead others, or convincingly omit the truth from your words.<br>
+**Detect Lies.** You can use your own knowledge of Deception to determine if someone else may be lying.<br>
+**Disguise.** You can attempt to create a disguise that may mask your identity. This includes both creating a costume or outfit for a disguise, and also imitating the behavior and speech of another individual.<br>
+**Fabricate.** Attempts at forgery use Deception checks to create a seemingly-official document, or make some other physical object seem genuine.<br>
 
 | Rank | Deception Skill Progression                                  |
 | ---- | ------------------------------------------------------------ |
@@ -344,9 +344,9 @@ Diplomacy involves the persuasion of others, awareness of customs, and general s
 
 #### Diplomacy Tasks
 
-**Persuade.** It may, at times, be possible to convince others to agree with you with a Diplomacy check.
-**Diffuse.** When encountering a creature who bears hostile intent towards you, you may attempt to negotiate for civility through performing a Diplomacy check.
-**Recall.** Diplomacy can be used to determine the obligatory social customs to follow with an individual or group you wish to interact with.
+**Persuade.** It may, at times, be possible to convince others to agree with you with a Diplomacy check.<br>
+**Diffuse.** When encountering a creature who bears hostile intent towards you, you may attempt to negotiate for civility through performing a Diplomacy check.<br>
+**Recall.** Diplomacy can be used to determine the obligatory social customs to follow with an individual or group you wish to interact with.<br>
 
 | Rank | Diplomacy Progression Ideas        |
 | ---- | ---------------------------------- |
@@ -364,9 +364,9 @@ Intimidation refers to harnessing one's social or physical presence, imposing on
 
 #### Intimidation Tasks
 
-**Scare.** The Intimidation skill may be used, first and foremost, to startle and violently coerce others to cooperate.
-**Instill.** Creating a more covert sense of doubt in an individual may require an Intimidation check.
-**Detect Intent.** You can use your own knowledge of Intimidation to determine if others are attempting to strong-arm you, or if their threats carry any real weight.
+**Scare.** The Intimidation skill may be used, first and foremost, to startle and violently coerce others to cooperate.<br>
+**Instill.** Creating a more covert sense of doubt in an individual may require an Intimidation check.<br>
+**Detect Intent.** You can use your own knowledge of Intimidation to determine if others are attempting to strong-arm you, or if their threats carry any real weight.<br>
 
 | Rank | Intimidation Progression Ideas     |
 | ---- | ---------------------------------- |
@@ -386,10 +386,10 @@ Animal Handling is used, quite simply, in the handling of animals. Skill in Anim
 
 #### Animal Handling Tasks
 
-**Tame.** Animal Handling is used in attempts to calm wild beasts, allowing them to be approached, examined, or fed. A hostile beast may be dissuaded from attacking you with a successful Animal Handling check.
-**Mount.** You may mount creatures at least one size larger than you, but doing so requires an Animal Handling check.
-**Command.** With creatures who are friendly or indifferent to your presence, you can attempt to command them through Animal Handling.
-**Recall.** You can try to remember information about a certain kind of animal, such as its usual habitat, appearance, and eating or mating habits.
+**Tame.** Animal Handling is used in attempts to calm wild beasts, allowing them to be approached, examined, or fed. A hostile beast may be dissuaded from attacking you with a successful Animal Handling check.<br>
+**Mount.** You may mount creatures at least one size larger than you, but doing so requires an Animal Handling check.<br>
+**Command.** With creatures who are friendly or indifferent to your presence, you can attempt to command them through Animal Handling.<br>
+**Recall.** You can try to remember information about a certain kind of animal, such as its usual habitat, appearance, and eating or mating habits.<br>
 
 | Rank | Animal Handling Progression Ideas  |
 | ---- | ---------------------------------- |
@@ -407,9 +407,9 @@ Craftsmanship involves knowledge and artisanship in a particular trade skill. Ea
 
 #### Craftsmanship Tasks
 
-**Appraise.** You may determine the quality of an item, its approximate value, or the cost to make it using a Craftsmanship check. You can also attempt to determine the defining features of a crafted item, its purpose, or its potential flaws (both functionally and aesthetically).
-**Craft.** Creating an item through a trade skill requires a Craftsmanship check, and often requires some prior knowledge to use tools to make such an item.
-**Use Tool.** Tools used by artisans will often employ the Craftsmanship skill in checks made to use the tools yourself, whether this is to create items, repair them, or perform any other task.
+**Appraise.** You may determine the quality of an item, its approximate value, or the cost to make it using a Craftsmanship check. You can also attempt to determine the defining features of a crafted item, its purpose, or its potential flaws (both functionally and aesthetically).<br>
+**Craft.** Creating an item through a trade skill requires a Craftsmanship check, and often requires some prior knowledge to use tools to make such an item.<br>
+**Use Tool.** Tools used by artisans will often employ the Craftsmanship skill in checks made to use the tools yourself, whether this is to create items, repair them, or perform any other task.<br>
 
 | Rank | Craftsmanship Progression Ideas    |
 | ---- | ---------------------------------- |
@@ -427,10 +427,10 @@ Medicine is used to deal with the health of one's self and others, and to diagno
 
 #### Medicine Tasks
 
-**Diagnose.** You can use a Medicine check to determine the state of a creature's health, and what ailments are affecting it.
-**Autopsy.** You can determine the cause of death in a creature with a successful Medicine check.
-**Treat.** If you are aware of a disease, injury, or other medical ailment affecting a creature, you can perform Medicine checks to attempt to treat or cure the condition.
-**Recall.** You can attempt to remember medical knowledge about an ailment, its treatment, the function of an organ in a creature. Medicine checks can also be used infer this information even if it is not yet known.
+**Diagnose.** You can use a Medicine check to determine the state of a creature's health, and what ailments are affecting it.<br>
+**Autopsy.** You can determine the cause of death in a creature with a successful Medicine check.<br>
+**Treat.** If you are aware of a disease, injury, or other medical ailment affecting a creature, you can perform Medicine checks to attempt to treat or cure the condition.<br>
+**Recall.** You can attempt to remember medical knowledge about an ailment, its treatment, the function of an organ in a creature. Medicine checks can also be used infer this information even if it is not yet known.<br>
 
 
 | Rank | Medicine Progression Ideas         |
@@ -453,9 +453,9 @@ Performance deals with the creative arts meant to impress, inspire, or evoke emo
 
 #### Performance Tasks
 
-**Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Performance checks.
-**Improvise.** You can envision or create a work of performance art on your own, which may require Performance checks to adequately execute.
-**Recall.** You may perform Performance checks to recall information about a particular work of art, or an individual performance of that work.
+**Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Performance checks.<br>
+**Improvise.** You can envision or create a work of performance art on your own, which may require Performance checks to adequately execute.<br>
+**Recall.** You may perform Performance checks to recall information about a particular work of art, or an individual performance of that work.<br>
 
 | Rank | Performance Progression Ideas      |
 | ---- | ---------------------------------- |
