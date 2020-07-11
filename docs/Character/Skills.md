@@ -45,6 +45,37 @@ An optional rule which your Game Master may elect to employ within your game is 
 
 If you advance an entire character level or one year of time without using a certain skill, you may choose to reduce your level of specialization in that skill by one tier, returning the corresponding number of skill points into your available pool. From a narrative perspective, this represents the process of atrophy by which certain skills might lose their sharpness over time. Mechanically, this offers players with a means of reshaping their skill allocation over time should they desire to do so.
 
+## Skill List
+
+The sixteen skills are listed below, with descriptions of the skill itself. Each skill also has examples of what sort of tasks a character could accomplish through the use of that skill. Upgrades are conferred when progressing to certain ranks in each skill, which are also listed below. Finally, the three specializations for each skill are described, with their own benefits at certain ranks.
+
+> The "tasks" listed under each skill are the proposed, typical usage of the skill, but should not be interpreted as a comprehensive list of the skill's applications. A skill maybe used to perform other tasks as well, at the Game Master's discretion.
+
+### Skill Template
+
+
+#### Skill Tasks
+**Example Task A.** Example Task A description.
+**Example Task B.** Example Task B description.
+
+| Rank | Template Skill Progression       |
+| ---- | ---------------------------------- |
+| 0    | You have no training in the skill. Some general tasks that require some knowledge or experience may automatically fail. |
+| 1    | You have some training in the skill. The aforementioned general tasks no longer automatically fail. |
+| 2    | You have substantial practice in the skill. Some checks to perform certain simple or straightforward tasks may be performed with Reliability, or be performed with +1 Boon. |
+| 3    | **Choose a progression path.** |
+| 4    | You have mastered the skill. Certain limitations or penalties incurred when performing certain tasks are nullified. Certain tasks that would normally automatically fail on principle may now allow for a check. Certain tasks may be performed with +3 Boons or Reliability. |
+| 5    | **Complete your progression path.** |
+
+| Path (Rank) | Path Skill Progression |
+| ----------- | ---------------------- |
+| **Path A**  | Path A description. |
+| Rank 3      | You have uncovered some special knowledge, or accrued specialized experience. Certain other actions may be possible, easier, quicker, or can be performed with Reliability, or +1/+2 Boons, or provide additional bonuses when the check is successful. |
+| Rank 5      | You have mastered your craft and uncovered knowledge and techniques that make you peerless. Some actions may no longer require a check, be performed incredibly quick, or provide additional bonuses when the check is successful. |
+| **Path B**  | Path B description. |
+| Rank 3      | " " " |
+| Rank 5      | " " " |
+
 ## Exploration Skills
 
 Exploration skills are used most often when dealing with the environment a character finds themselves in. The four skills in this category are Acrobatics, Perception, Stealth, and Survival.
@@ -53,14 +84,23 @@ Exploration skills are used most often when dealing with the environment a chara
 
 Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.
 
+#### Acrobatics Tasks
+
+**Climb.** You can climb vertically ascending surfaces at 1/2 your normal Stride as a part of the Stride action. Difficult surfaces, or attempts to climb an easier surface more quickly, may require an Acrobatics check to scale successfully.
+**Leap.** You can perform an Acrobatics check to move farther during a leap than your base Horizontal or Vertical leap distances.
+**Tumble.** When you fall and are not restrained or otherwise immobilized, you can perform an Acrobatics check as Standard Action to land safely.
+**Escape.** If you are grappled or restrained, you can attempt to slip free. Breaking a source of the Grappled condition is a Standard Action, while freeing yourself from a source of the Restrained condition is a Lengthy Action.
+**Squeeze.** You can force your limbs or entire body into tight spaces by performing an Acrobatics check as an action. If you would move while remaining in this tight space, you move at half movement.
+**Balance.** When standing on narrow footholds, along edges, or upon slippery terrain, you may be required to perform an Acrobatics check to maintain balance.
+
 | Rank | Acrobatics Skill Progression       |
 | ---- | ---------------------------------- |
 | 0    | You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform skill checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope. |
 | 1    | You have accrued some experience in traversing your surroundings. You have Reliability on checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
 | 2    | **Choose a progression path.**     |
-| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have a +2 situational bonus on checks made to Tumble after a fall. |
+| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have +1 boon on checks made to Tumble after a fall. |
 | 4    | **Upgrade your progression path.** |
-| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have a +5 situational bonus on checks made to Tumble after a fall. **Complete your progression path.** |
+| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have +3 boons on checks made to Tumble after a fall. **Complete your progression path.** |
 
 > TODO: Redraft paths - Gymnast needs a replacement
 1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.
@@ -71,11 +111,17 @@ Acrobatics relates to one's training in agility and athletics. Ranks in this ski
 
 Perception relates to general awareness, most often in relation to one's physical surroundings. To a lesser extent, it is used to observe people's social behavior as well. Those with training in Perception hone their senses and are expert observationists, noticing details others might miss.
 
+#### Perception Tasks
+
+**Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object or some other physical phenomena.
+**Search.** You can perform a dedicated search for an object or some other physical phenomena, investigating your surroundings over a minute or more.
+**Sense Intent.** During social interactions, you can perform a Perception check to understand the motives of a creature, intuit its emotions, or determine if it is lying.
+
 | Rank | Perception Progression Ideas       |
 | ---- | ---------------------------------- |
-| 0    | You have spent no real effort in honing your observational skills. You can perform search checks as an action, but gain no bonus by searching for objects you've seen before. |
-| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform search checks as an action. When you search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you've sensed before, you gain a +2 modifier to your roll. |
-| 5    | You can perform search checks as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have a +5 situational bonus to Spell Defense against illusion magic. |
+| 0    | You have spent no real effort in honing your observational skills. You can perform checks to detect threats as an action. |
+| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform checks to detect hidden threats as an action. When you perform a lengthy action to search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you know you have sensed before, you gain +1 boon to your roll. |
+| 5    | You can perform checks to detect hidden threats as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have +3 boons to Spell Defense against illusion magic. |
 
 1. **Scout** - Specialists in discovering hidden paths and threats, a Scout is never caught unaware.
 2. **Detective** - Specialists in piecing their environment together, and making deductions from their surroundings.
@@ -85,11 +131,17 @@ Perception relates to general awareness, most often in relation to one's physica
 
 Stealth is used to advance unnoticed and gain access to areas which are otherwise inaccessible. Stealth adepts can develop expertise in infiltration, lockpicking, or thievery. Stealth offers three choices of progression paths.
 
+#### Stealth Tasks
+
+**Hide.** You can attempt to find a hiding spot nearby and remain hidden, performing a blind Stealth check for your GM.
+**Sneak.** You can pass through an area unnoticed, moving a quarter of your normal Stride.
+**Sleight of Hand.** You can perform Stealth checks to do a physical action with subtlety, such as removing an item unnoticed from a person or place, smuggle an object, or plant one on another person.
+
 | Rank | Stealth Skill Progression          |
 | ---- | ---------------------------------- |
-| 0    | You have next to no practice sneaking. You can perform checks to hide, but no longer hide once you move. When you sneak, you move at a quarter speed. |
+| 0    | You have next to no practice sneaking. You can perform checks to hide, but no longer hide once you move. When you sneak, you move at a quarter of your normal Stride. |
 | 1    | You have a basic understanding of how to avoid being noticed, and how to move subtly and quietly. If you move while hiding, checks must be made to remain hidden. Light armor no longer imposes a penalty on your Stealth checks made to move silently. |
-| 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks (or CR for check is lower?). You can use your full stride while sneaking without penalty. Wearing light, medium, or heavy armor without a penalty to your Stealth checks. |
+| 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks (or CR for check is lower?). You can use your full stride while sneaking without penalty. Wearing light, medium, or heavy armor imposes no penalty to your Stealth checks. |
 
 1. **Infiltrator** - Specialists in moving unseen and silent to bypass danger or approach it unaware.
 2. **Safecracker** - Specialists in the cracking of mechanical locks and disarming mechanical traps.
@@ -99,37 +151,50 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 
 Survival represents your ability to operate as a self-sufficient explorer in challenging natural environments, understanding their terrain, flora, fauna, and hazards. Survival adepts can develop expertise in dealing with a subset of specific biomes, creature types, or natural resources.
 
+#### Survival Tasks
+
+**Navigate.** Outdoors, you can perform a Survival check to navigate through the use of the sun, clouds, stars, or other natural phenomena.
+**Track.** When finding tracks, you can attempt to follow the tracks, identify what might have left them, how many sets of tracks there are, or how long ago they were made.
+**Forage.** You can attempt to forage for food, catch small game, or field dress a hunted animal.
+**Identify.** You can determine if foraged plants are poisonous, or discern various environmental hazards, such as quicksand, or signs of the passage of a dangerous beast.
+
 | Rank | Survival Skill Progression                                   |
 | ---- | ------------------------------------------------------------ |
 | 0    | You have little or no experience in the wilderness. You cannot navigate through wilderness without clear directions or a guide. You do not know how to start fires with mundane materials, nor where nearby food or water may be. If you find food, you are unable to determine if it's safe to eat or drink. If you find tracks, you cannot determine what creature made them. |
 | 1    | You know basic survival skills. You are able to start fires with flint and tinder, you know where you can try foraging for food and water in environments you are familiar with, and you can recognize common environmental hazards. You are able to recognize the tracks of creatures which you are familiar with if the tracks are discovered. |
 | 2    | **Choose a progression path.**                               |
-| 3    | You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +2 situational bonus on any Skill Checks made by allies who accompany you. |
+| 3    | You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them +1 boon on any Skill Checks made by allies who accompany you. |
 | 4    | **Upgrade your progression path.**                           |
-| 5    | You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them a +5 situational bonus on any Skill Checks made by allies who accompany you.<br />**Complete your progression path.** |
+| 5    | You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting +3 boons on any Skill Checks made by allies who accompany you.<br />**Complete your progression path.** |
 
 The progression paths available to the Survival skill are listed below.
 
 | Path (Rank)   | Progression Path Benefits                                    |
 | ------------- | ------------------------------------------------------------ |
 | **Explorer**  | Specialists in exploration and navigation of challenging environmental obstacles. |
-| Rank 2        | Select one environmental biome as Favored Terrain, You gain a +2 situational bonus to Skill Checks regarding the exploration or knowledge of that environment. You can guide groups of allies through such obstacles, granting them a +2 situational bonus on any Skill Checks made by allies who accompany you. |
-| Rank 4        | Select two environmental biomes as Favored Terrain, You gain a +2 situational bonus to Skill Checks made regarding the exploration or knowledge of those environments. |
-| Rank 5        | Select three environmental biomes as Favored Terrain. You gain a +5 situational bonus to Skill Checks made regarding the exploration or knowledge of those environments and a +2 situational bonus for non-favored biomes. |
+| Rank 2        | Select one environmental biome as Favored Terrain, You gain +1 boon to Skill Checks regarding the exploration or knowledge of that environment. You can guide groups of allies through such obstacles, granting +1 boon on any Skill Checks made by allies who accompany you. |
+| Rank 4        | Select two environmental biomes as Favored Terrain, You gain +1 boon to Skill Checks made regarding the exploration or knowledge of those environments. |
+| Rank 5        | Select three environmental biomes as Favored Terrain. You gain +3 boons to Skill Checks made regarding the exploration or knowledge of those environments and +1 boon for non-favored biomes. |
 | **Hunter**    | Specialists in the tracking and hunting of creatures.        |
-| Rank 2        | Select one naturally occurring creature type as a Favored Prey. You gain a +2 situational bonus to Spell Power and Attack Rolls against this type of creature. |
-| Rank 4        | Select two naturally occurring creature types as Favored Prey. You gain a +2 situational bonus to Spell Power and Attack Rolls against creatures of those types. |
-| Rank 5        | Select three naturally occurring creature types as Favored Prey. You gain a +5 situational bonus to Spell Power and Attack Rolls against creatures of those types and you gain a situational bonus +2 when attacking non-favored naturally occurring creatures. |
+| Rank 2        | Select one naturally occurring creature type as a Favored Prey. You gain +1 boon to Spell Power and Attack Rolls against this type of creature. |
+| Rank 4        | Select two naturally occurring creature types as Favored Prey. You gain +1 boon to Spell Power and Attack Rolls against creatures of those types. |
+| Rank 5        | Select three naturally occurring creature types as Favored Prey. You gain +3 boons to Spell Power and Attack Rolls against creatures of those types and you gain +1 boon when attacking non-favored naturally occurring creatures. |
 | **Herbalist** | Specialists in the knowledge, identification, and usage of naturally growing plants and reagents. |
-| Rank 2        | You are knowledgeable in common herblore, are able to recognize useful herbs in the wild, and you may devote time during a rest to attempt a Potion Brewing crafting check with a +2 bonus using gathered ingredients. |
-| Rank 4        | You are knowledgeable in advanced herblore, are able to recognize both common and rare herbs in the wild. You are familiar with toxins and venom which can be extracted from plants and creatures. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with a +2 bonus. |
-| Rank 5        | You are a master of herblore and are able to recognize any useful herb, reagent, toxin, or venom in the wild. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with a +5 bonus. If successful, you produce double the normal quantity of output. You know forbidden arts of creating odorless and tasteless poisons using rare ingredients. |
+| Rank 2        | You are knowledgeable in common herblore, are able to recognize useful herbs in the wild, and you may devote time during a rest to attempt a Potion Brewing crafting check with +1 boon using gathered ingredients. |
+| Rank 4        | You are knowledgeable in advanced herblore, are able to recognize both common and rare herbs in the wild. You are familiar with toxins and venom which can be extracted from plants and creatures. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with +1 boon. |
+| Rank 5        | You are a master of herblore and are able to recognize any useful herb, reagent, toxin, or venom in the wild. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with +3 boons. If successful, you produce double the normal quantity of output. You know forbidden arts of creating odorless and tasteless poisons using rare ingredients. |
 
 ## Knowledge Skills
 
 ### Arcana
 
 Arcana deals with the properties and perception of the weave of magical energies. This current of arcane potentia can be studied, manipulated, and harnessed by those with sufficient knowledge and willpower. Skill in Arcana represents your understanding of the theory and application of magic. Learned arcanists can develop expertise in the reading the arcane weave, manipulating elemental energies, or infusing arcane potentia into physical objects.
+
+#### Arcana Tasks
+
+**Detect Magic.** You can perform an Arcana check to determine if an item bears magic, and what spell or enchantment the object is affected by, if any.
+**Identify Spell.** When you see a spell being cast, you can perform an Arcana check to determine what the spell is, learning which rune and/or gesture was used in its casting. You must have some insight on what components are used to cast a spell before you can properly counter it.
+**Recall.** You can attempt to recall general wisdom, or relevant information, about magic itself.
 
 | Rank | Arcana Skill Progression                                     |
 | ---- | ------------------------------------------------------------ |
@@ -150,9 +215,9 @@ The progression paths available to the Arcana skill are listed below.
 | Path (Rank)      | Progression Path Benefits                                    |
 | ---------------- | ------------------------------------------------------------ |
 | **Diviner**      | Specialists in understanding the nature of magic and reading the arcane aura of others. |
-| Rank 2           | You gain a +2 situational bonus on Skill Checks to identify the nature of a spell or a magically imbued item. |
-| Rank 4           | You gain a +5 situational bonus on Skill Checks to identify the nature of a spell or magically imbued item. You gain a +2 situational bonus to your Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster if you have identified the spell being used. |
-| Rank 5           | You can immediately and automatically identify the nature of a spell or a magically imbued item. You gain a +5 situational bonus to Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster. |
+| Rank 2           | You gain +1 boon on Skill Checks to identify the nature of a spell or a magically imbued item. |
+| Rank 4           | You gain +3 boons on Skill Checks to identify the nature of a spell or magically imbued item. You gain +1 boon to your Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster if you have identified the spell being used. |
+| Rank 5           | You can immediately and automatically identify the nature of a spell or a magically imbued item. You gain +1 boon to Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster. |
 | **Elementalist** | Specialists in manipulating elemental energies to harness or ward their power. |
 | Rank 2           | Select one elemental damage type as your Favored Element. You gain a Damage Resistance of 5 to that element and +2 to damage when rolling at least one damage die of this type. |
 | Rank 4           | Select a second elemental damage type as a Favored Element. You gain a Damage Resistance of 5 to both elements and +4 to damage when rolling at least one damage die of either type. |
@@ -164,25 +229,42 @@ The progression paths available to the Arcana skill are listed below.
 
 ### Lore
 
-1. Historian - Specialists in keeping history, and knowing of the cultures of the world.
-2. Sage - Specialists in discovering the truth, wherever it may lie.
-3. Storyteller - Specialists in keeping and studying legendary tales.
+Lore relates to the breadth of one's general knowledge, ranging from information on cultures, to world history, geography, politics, or even fables and myths.
+
+#### Lore Tasks
+
+**Recall.** A character can attempt to recall general lore or history they may know about any particular subject. This is often retroactive - a character succeeding on such a Lore check could be seen as having always known the information, but remembering it just in time.
+**Deduce.** When information is already at hand, you may use your knowledge of the world to attempt to predict a future event, or deduce something that was previously unknown.
+
+1. **Historian** - Specialists in keeping history, and knowing of the cultures of the world.
+2. **Sage** - Specialists in discovering the truth, wherever it may lie.
+3. **Storyteller** - Specialists in keeping and studying legendary tales.
 
 ### Religion
+
+#### Religion Tasks
+
+**Recall.** You can attempt to recall information about a deity, religion, or those who follow a religion. This includes understanding symbology, cultural insight of a religion (or religions), or philosophical sentiments.
+**Intuit.** Religion checks can also be performed to understand the deeper meaning of a religious custom, comprehend the mandates of a deity, or divine the significance of a religious event or figure. Depending on the setting, this level of insight may, at times, literally be the result of divine intervention.
 
 | Rank | Religion Progression Ideas         |
 | ---- | ---------------------------------- |
 | 0    | In the eyes of the faithful, you are unenlightened. You likely only know a few details about your own religion or some widely-known religions. |
 | 1    | You have acquired a basic understanding of your own religion, or a few others. Choose a faith: a religion or sect in your setting, with GM approval. You know of the symbols used to signify your faith, and, if valid, know of the symbols that are excluded from your faith. You know what is generally encouraged or forbidden by your faith. |
-| 5    | You are otherworldly in your understanding of religion. You are capable of effortlessly conducting, or writing anew, religious doctrine. Your knowledge and guidance transcend the boundaries of faith; you automatically succeed on checks to recall information about your own faith, and have a +5 situational bonus to checks made to recall information about other religions. |
+| 5    | You are otherworldly in your understanding of religion. You are capable of effortlessly conducting, or writing anew, religious doctrine. Your knowledge and guidance transcend the boundaries of faith; you automatically succeed on checks to recall information about your own faith, and have +3 boons to checks made to recall information about other religions. |
 
-1. Occultist - Specialists in the practices of a certain faith, from its beliefs to its rites.
-2. Hierophant - Specialists in spreading the truth, and illuminating others through their faith.
-3. Druid - Specialists in understanding the wild forces of nature.
+1. **Occultist** - Specialists in the practices of a certain faith, from its beliefs to its rites.
+2. **Hierophant** - Specialists in spreading the truth, and illuminating others through their faith.
+3. **Druid** - Specialists in understanding the wild forces of nature.
 
 ### Science
 
-Knowledge of Science corresponds to knowledge of the natural world 
+Knowledge of Science corresponds to knowledge of the natural world.
+
+#### Science Tasks
+
+**Recall.** You can perform a Science check to remember details about a scientifically observed, theorized, or proven phenomenon.
+**Theorize.** You can come to new conclusions using information you've already acquired, in regards to natural sciences such as geology and chemistry. This includes predicting the properties or effects of a substance, or the purpose of a mechanical device.
 
 | Rank | Science Progression Ideas          |
 | ---- | ---------------------------------- |
@@ -190,9 +272,9 @@ Knowledge of Science corresponds to knowledge of the natural world
 | 1    | ??? |
 | 5    | ??? |
 
-1. Physiker - Specialists in the everpresent laws of the natural world.
-2. Alchemist - Specialists in harnessing substances to create miraculous effects.
-3. ???
+1. **Physiker** - Specialists in the everpresent laws of the natural world.
+2. **Alchemist** - Specialists in harnessing substances to create miraculous effects.
+3. **Tinkerer** - Specialists in the workings of intricate, manufactured objects.
 
 ## Social Skills
 
@@ -201,6 +283,12 @@ Knowledge of Science corresponds to knowledge of the natural world
 ### Bartering
 
 Bartering pertains to the art of trades and bargains. A well-trained barterer will be able to negotiate effectively with merchants or just about anyone they wish to conduct business with. Ranks in Bartering indicate insight into markets as a whole, but also into the social aspect of trading and haggling, persuading others to sweeten an offer, or make a compromise. Barterers can prioritize their training in either procuring obscure goods, transporting trade goods, or negotiating deals with others.
+
+#### Bartering Tasks
+
+**Appraise.** You can perform a Bartering check to determine the approximate value of an item, as well as identify any factors that may cause an item to increase or decrease in value or demand.
+**Haggle.** When conducting a trade or other form of negotiation, you can attempt to convince those you deal with to make a more reasonable offer, or settle for a deal that may be less beneficial for them.
+**Sense Intent.** When a deal is proposed, a Bartering check can determine if the offer is sincere, a joke, or an attempt to swindle.
 
 | Rank | Bartering Progression Ideas        |
 | ---- | ---------------------------------- |
@@ -216,13 +304,20 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 
 Deception deals with using misinformation to subtly or overtly mislead others - causing them to make incorrect assumptions or draw erroneous conclusions. Skill in Deception represents your ability to lie, trick, manipulate, or otherwise act in a disingenuous way. Skilled deceivers can develop expertise in manipulating the flow of information, in tricking the senses through illusion, or in infiltrating the very minds of their enemies.
 
+#### Deception Tasks
+
+**Lie.** You can use the Deception skill for attempts to willfully mislead others, or convincingly omit the truth from your words.
+**Detect Lies.** You can use your own knowledge of Deception to determine if someone else may be lying.
+**Disguise.** You can attempt to create a disguise that may mask your identity. This includes both creating a costume or outfit for a disguise, and also imitating the behavior and speech of another individual.
+**Fabricate.** Attempts at forgery use Deception checks to create a seemingly-official document, or make some other physical object seem genuine.
+
 | Rank | Deception Skill Progression                                  |
 | ---- | ------------------------------------------------------------ |
 | 1    | You are able to lie with a straight face and without obvious tells. You have a basic understanding of manipulation and you understand what ploys or falsehoods are likely to be believed. You are able to craft false documents which do not rely upon specific handwriting or an identifying seal. You know the basics of disguise artistry, and are able to conceal your identity using a costume which you have prepared in advance. |
 | 2    | **Choose a progression path.**                               |
 | 3    | You are an accomplished liar, able to invent plausible scenarios on the fly. You have an advanced understanding of manipulation and automatically succeed on any deception check with a DC of 15 or less. You are able to create false documents, including impersonating handwriting or an official seal if you have a sample to imitate. You are an accomplished disguise artist, and may attempt to conceal your identity by using an improvised costume using materials at hand. |
 | 4    | **Upgrade your progression path.**                           |
-| 5    | You are a master manipulator - it is near impossible to tell whether you are telling the truth. You have a comprehensive understanding of how to manipulate others. You automatically succeed on any deception check with a DC of 25 or less. You are a master forger, able to create false documents including handwriting or official seals which are indistinguishable from the original. You are a peerless disguise artist and are able to exactly imitate the appearance of a different person if you have the time and materials needed to prepare a disguise. You have a +5 Situational Bonus to Deception Checks which use an improvised disguise. <br /> **Complete your progression path.** |
+| 5    | You are a master manipulator - it is near impossible to tell whether you are telling the truth. You have a comprehensive understanding of how to manipulate others. You automatically succeed on any deception check with a DC of 25 or less. You are a master forger, able to create false documents including handwriting or official seals which are indistinguishable from the original. You are a peerless disguise artist and are able to exactly imitate the appearance of a different person if you have the time and materials needed to prepare a disguise. You have +3 boons on Deception checks which use an improvised disguise. <br /> **Complete your progression path.** |
 
 The progression paths available to the Deception skill are listed below.
 
@@ -233,19 +328,25 @@ The progression paths available to the Deception skill are listed below.
 | Rank 4          | You have expertise in predicting which falsehoods could be believable. If you attempt a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach at most twice per social encounter. You are able to remember any lies you have told within the past month. |
 | Rank 5          | You have mastery in predicting which falsehoods could be believable. If you ever face a Deception Check of Impossible difficulty the Game Master must inform you before you roll and you may choose to alter your approach. You are able to remember any lies you have told within the past year. You are able to correctly conjecture what an official document would look like even if you have not seen it. |
 | **Illusionist** | Specialists in sensory illusions, generally mundane but occasionally arcane in nature. |
-| Rank 2          | You are an expert in using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer a -2 situational penalty for Skill Checks to avoid being misled by the distraction. You have a +2 situational bonus to recognize illusory magic created by other spellcasters. |
-| Rank 4          | You are a master of using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer a -5 situational penalty for Skill Checks to avoid being misled by the distraction. You have a +5 situational bonus to recognize illusory magic created by other spellcasters. |
-| Rank 5          | You are peerless in using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others automatically fail their first attempt to avoid being misled by your distraction and suffer a -5 situational penalty for subsequent Skill Checks. You can immediately recognize the presence of illusory magic created by other spellcasters. |
+| Rank 2          | You are an expert in using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer from +1 bane for Skill Checks to avoid being misled by the distraction. You have +1 boon on checks made to recognize illusory magic created by other spellcasters. |
+| Rank 4          | You are a master of using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others suffer from +3 banes for Skill Checks to avoid being misled by the distraction. You have +3 boons on checks made to recognize illusory magic created by other spellcasters. |
+| Rank 5          | You are peerless in using firecrackers, flash powders, smoke bombs, or illusory magic to cause distractions. Others automatically fail their first attempt to avoid being misled by your distraction and suffer from +3 banes for subsequent Skill Checks. You can immediately recognize the presence of illusory magic created by other spellcasters. |
 | **Mesmer**      | Specialists in mind-altering alchemy and magic to transform enemies into allies. |
-| Rank 2          | You have studied the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 1 minute of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. You have a +2 situational bonus to Willpower Defense against charm-like effects. |
-| Rank 4          | You have refined the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 3 rounds of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. Enemies suffer a -2 situational bonus to their Willpower Defense against charm-like effects. You have a +5 situational bonus to Willpower Defense against charm-like effects. |
-| Rank 5          | You have perfected the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 1 round of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. Enemies suffer a -5 situational bonus to their Willpower Defense against charm-like effects. You are immune to charm-like effects. |
+| Rank 2          | You have studied the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 1 minute of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. You have +1 boon to Willpower Defense against charm-like effects. |
+| Rank 4          | You have refined the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 3 rounds of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. Enemies suffer from +1 bane to their Willpower Defense against charm-like effects. You have +3 boons to Willpower Defense against charm-like effects. |
+| Rank 5          | You have perfected the arts of hypnosis and mesmerization and you can use these tools to entrance or deceive. You can spend 1 round of uninterrupted time to hypnotize a humanoid creature if it is willing or fails a Contest of Willpower against you. Enemies suffer from +3 banes to their Willpower Defense against your charm-like effects. You are immune to charm-like effects. |
 
-> NOTES: Illusionist and Mesmer require some further refinement.
+> NOTES: Illusionist and Mesmer require some further refinement. They may be combined, or one deleted to make room for a Spy specialization.
 
 ### Diplomacy
 
 Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
+
+#### Diplomacy Tasks
+
+**Persuade.** It may, at times, be possible to convince others to agree with you with a Diplomacy check.
+**Diffuse.** When encountering a creature who bears hostile intent towards you, you may attempt to negotiate for civility through performing a Diplomacy check.
+**Recall.** Diplomacy can be used to determine the obligatory social customs to follow with an individual or group you wish to interact with.
 
 | Rank | Diplomacy Progression Ideas        |
 | ---- | ---------------------------------- |
@@ -253,13 +354,19 @@ Diplomacy involves the persuasion of others, awareness of customs, and general s
 | 1    | You've developed something of an understanding for winning others over with words. Your social conduct is likely more universally friendly; you know what actions to avoid undertaking, lest you offend those who are foreign to you. If you attempt a Diplomacy check of Impossible difficulty, the GM must tell you before you roll and you may choose to alter your approach at most once per social encounter. |
 | 5    | You are miraculously persuasive, and can carry yourself through almost any social situation with unparalleled grace. Your social conduct is seen almost universally as civil and polite, if you desire it to be, even if you perform actions considered as "social taboo" in dealings with foreigners. If you ever face a Diplomacy check of Impossible difficulty, the GM must tell you before you roll and you may choose to alter your approach. |
 
-1. Ambassador - Specialists in understanding codes of conduct and the social rules that govern others.
-2. Arbiter - Specialists in diffusing a situation and calming those around them.
-3. Firebrand - Specialists in amplifying the emotions around them, encouraging their allies and impassioning crowds of people.
+1. **Ambassador** - Specialists in understanding social conduct and how to make the best first impression.
+2. **Arbiter** - Specialists in diffusing a situation, invoking law and order to bring peace to those around them.
+3. **Firebrand** - Specialists in amplifying the emotions around them, encouraging their allies and impassioning crowds of people.
 
 ### Intimidation
 
 Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
+
+#### Intimidation Tasks
+
+**Scare.** The Intimidation skill may be used, first and foremost, to startle and violently coerce others to cooperate.
+**Instill.** Creating a more covert sense of doubt in an individual may require an Intimidation check.
+**Detect Intent.** You can use your own knowledge of Intimidation to determine if others are attempting to strong-arm you, or if their threats carry any real weight.
 
 | Rank | Intimidation Progression Ideas     |
 | ---- | ---------------------------------- |
@@ -267,9 +374,9 @@ Intimidation refers to harnessing one's social or physical presence, imposing on
 | 1    | You've developed a general understanding of what scares people. You have a look about you, one which discourages some from disturbing you. You are no longer seen as an "easy mark" by local thieves or cutpurses. Additionally, you can demonstrate your capacity for violence or misfortune without using words (such as adopting a menacing pose) which you can use to frighten off others. |
 | 5    | Your capacity to scare others is unmatched; you have become a veritable fortress of fear. The "look" you carry with you is enough to stave off almost any threat; only a complete fool would go out of their way to trouble you. Whether through words or actions, your social presence is overwhelming when you choose it to be. You can perform an Intimidation check as a free action once per round, targeting your choice of creatures who can see you, which the chosen creatures must contest with Willpower or become afraid of you. You gain 2 boons and Reliability on checks made to socially interact with creatures whose Morale is below half. |
 
-1. Interrogator - Specialists in the spoken word, knowing how to craft veiled threats to confuse and unsettle.
-2. Ruffian - Specialists in using physical force as a social implement, who can strongarm others into cooperation.
-3. Fearmonger - Specialists in drawing out the acute fears and anxieties of their targets, and exploiting that knowledge to torment them.
+1. **Interrogator** - Specialists in the spoken word, knowing how to craft veiled threats to confuse and unsettle.
+2. **Ruffian** - Specialists in using physical force as a social implement, who can strongarm others into cooperation.
+3. **Fearmonger** - Specialists in drawing out the acute fears and anxieties of their targets, and exploiting that knowledge to torment them.
 
 ## Tradecraft Skills
 
@@ -277,56 +384,87 @@ Intimidation refers to harnessing one's social or physical presence, imposing on
 
 Animal Handling is used, quite simply, in the handling of animals. Skill in Animal Handling helps one understand the mindset and habits of beasts, how to coerce, calm, tame, or stave them off, or predict their next move. A well-trained animal handler knows much more general knowledge about animals, and will more easily have understanding of such creatures, to either develop bonds or manipulate.
 
+#### Animal Handling Tasks
+
+**Tame.** Animal Handling is used in attempts to calm wild beasts, allowing them to be approached, examined, or fed. A hostile beast may be dissuaded from attacking you with a successful Animal Handling check.
+**Mount.** You may mount creatures at least one size larger than you, but doing so requires an Animal Handling check.
+**Command.** With creatures who are friendly or indifferent to your presence, you can attempt to command them through Animal Handling.
+**Recall.** You can try to remember information about a certain kind of animal, such as its usual habitat, appearance, and eating or mating habits.
+
 | Rank | Animal Handling Progression Ideas  |
 | ---- | ---------------------------------- |
-| 0    | You have no particular way with animals. Most wild beasts are discomforted by your presence and will often either attack or flee from you. You are able to ride a domesticated creature large enough to support you, but have trouble mounting it without supervision. You do not know how to command trained animals, and any attempts to control a mount cause them to try and buck you off on a critical fail. |
-| 1    | You have learned how to work with various domesticated animals. Wild beasts are still discomforted by your presence, but you can perform Animal Handling checks as an action to calm them or reduce their chance to flee. If a domesticated animal is willing, you can mount them without having to perform an Animal Handling check. You can attempt to calm any beast, but have a -5 situational bonus to do so if the creature is charmed or otherwise magically compelled to be hostile. |
+| 0    | You have no particular way with animals. Most wild beasts are discomforted by your presence and will often either attack or flee from you. You have trouble mounting or controlling a domesticated creature without supervision. You do not know how to command trained animals, and any attempts to control a mount cause them to try and buck you off on a critical fail. |
+| 1    | You have learned how to work with various domesticated animals. Wild beasts are still discomforted by your presence, but you can perform Animal Handling checks as an action to calm them or reduce their chance to flee. If a domesticated animal is willing, you can mount them without having to perform an Animal Handling check. You can attempt to calm any beast, but have +3 banes on rolls to do so if the creature is charmed or otherwise magically compelled to be hostile. |
 | 5    | You have endless empathy and understanding for beasts. You can attempt to give direct, simple orders to any beast, provided it is calm. Charm-like effects or other magical compulsions a creature is under do not hinder your attempts to calm or pacify it. |
 
-1. Knight
-2. Beastmaster
-3. Warden
+1. **Knight** - Specialists in taming, caring for, and mounting large creatures.
+2. **Beastmaster** - Specialists in befriending many types of animals, to both work and fight alongside them.
+3. **Warden** - Specialists in animal treatment, and the secret lore of beasts.
 
 ### Craftsmanship
 
-Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be fabled for their ability to make quality goods, and knows what they need to get the job done.
+Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be acclaimed for their ability to make quality goods, and knows what they need to get the job done.
+
+#### Craftsmanship Tasks
+
+**Appraise.** You may determine the quality of an item, its approximate value, or the cost to make it using a Craftsmanship check. You can also attempt to determine the defining features of a crafted item, its purpose, or its potential flaws (both functionally and aesthetically).
+**Craft.** Creating an item through a trade skill requires a Craftsmanship check, and often requires some prior knowledge to use tools to make such an item.
+**Use Tool.** Tools used by artisans will often employ the Craftsmanship skill in checks made to use the tools yourself, whether this is to create items, repair them, or perform any other task.
 
 | Rank | Craftsmanship Progression Ideas    |
 | ---- | ---------------------------------- |
-| 0    | The knowledge you have in trade skills is largely insubstantial. You can perform checks to carry out the tasks of a profession, but checks are always required to do so. |
-| 1    | You are taught in the rudimentary ways of a certain trade skill. Choose one type of tool to become your Favored Tool; you gain a +2 situational bonus to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know if such an item was, or could be, made or repaired with your Favored Tool. Instead of rolling, you can choose to perform Passive Checks on simple tasks involving your Favored Tool. |
-| 5    | You are a world-class craftsman. You are an instant savant with any tool you can get your hands on, and can save time and costs drastically thanks to your ingenuity. All tools are considered Favored Tools to you; you gain a +5 situational bonus to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know what type of tools were used to make it, or could reasonably be used to repair it. You can craft any non-magical item at half the normal time and supply cost. |
+| 0    | The knowledge you have in trade skills is largely insubstantial. You may automatically fail tasks that require certain knowledge of a profession. |
+| 1    | You are taught in the rudimentary ways of a certain trade skill. Choose one type of tool to become your Favored Tool; you gain +1 boon to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know if such an item was, or could be, made or repaired with your Favored Tool. Instead of rolling, you can choose to perform Passive Checks on simple tasks involving your Favored Tool. |
+| 5    | You are a world-class craftsman. You are an instant savant with any tool you can get your hands on, and can save time and costs drastically thanks to your ingenuity. All tools are considered Favored Tools to you; you gain +3 boons to checks made to craft items or carry out other work using a Favored Tool. You can examine an item and automatically know what type of tools were used to make it, or could reasonably be used to repair it. You can craft any non-magical item at half the normal time and supply cost. |
 
-1. Trademaster
-2. Artificer
-3. Runekeeper
+1. **Trademaster** - Specialists in all aspects of a certain trade, from the creation of its goods, to the sale of those goods, to the instruction of others in that skill.
+2. **Artificer** - ???
+3. **Runekeeper** - ???
 
 ### Medicine
 
 Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.
 
+#### Medicine Tasks
+
+**Diagnose.** You can use a Medicine check to determine the state of a creature's health, and what ailments are affecting it.
+**Autopsy.** You can determine the cause of death in a creature with a successful Medicine check.
+**Treat.** If you are aware of a disease, injury, or other medical ailment affecting a creature, you can perform Medicine checks to attempt to treat or cure the condition.
+**Recall.** You can attempt to remember medical knowledge about an ailment, its treatment, the function of an organ in a creature. Medicine checks can also be used infer this information even if it is not yet known.
+
+
 | Rank | Medicine Progression Ideas         |
 | ---- | ---------------------------------- |
 | 0    | You know little about the inner workings of the body, and can generally only guess what is causing a symptom, or how to treat it. You fail Medicine checks made to help determine an effective treatment to an internal injury or infection, but can still make a guess and carry out an impromptu procedure. You cannot determine an organ's purpose you have not dealt with before, or diagnose problems in an organ which are not immediately obvious. You can, however, analyze corpses to determine a cause of death. |
 | 1    | You have developed a basic understanding of the body, and general issues or problems related to illness. You can attempt Medicine checks to determine the underlying cause of a symptom, ascertain the purpose of a strange organ, diagnose medical problems, infer an effective treatment, and analyze corpses to determine cause of death. |
-| 5    | You are almost infinitely wise in your knowledge of health. When you are within 5 feet of a creature you can see, you can spend an action to instantly recognize which of the following conditions the creature is affected by: Afraid, Blinded, Bleeding, Bloodied, Confused, Diseased, Frozen, Paralyzed, Poisoned, Silenced, Stunned, or Unconscious. If you do so for an entire minute, you instantly know of any diseases or other medical conditions the creature is afflicted by. You can perform this check on corpses to automatically identify which conditions they were suffering as they died. You have a +5 situational bonus on checks made to resist contracting an infection or disease, and on checks made to recover from such a disease. |
+| 5    | You are almost infinitely wise in your knowledge of health. When you are within 5 feet of a creature you can see, you can spend an action to instantly recognize which of the following conditions the creature is affected by: Afraid, Blinded, Bleeding, Bloodied, Confused, Diseased, Frozen, Paralyzed, Poisoned, Silenced, Stunned, or Unconscious. If you do so for an entire minute, you instantly know of any diseases or other medical conditions the creature is afflicted by. You can perform this check on corpses to automatically identify which conditions they were suffering as they died. You have +3 boons on checks made to resist contracting an infection or disease, and on checks made to recover from such a disease. |
 
-1. Apothecary
-2. Chirugeon
-3. ???
+1. **Apothecary** - Specialists in the identification and creation of curatives, preventatives, and poisons.
+2. **Chirugeon** - Specialists in surgery, bringing those back from death's door with life-saving blades, stitches, and bandages.
+3. **???**
+
+> NOTES: For third specialization, potentially: <br>
+> Thanatologist/Diener - specializing in autopsy, obscuring the age of a corpse, or perhaps confering a bonus to dealing with / creating undead creatures <br>
+> Thaumaturgist - specializing in using magic to diagnose or cure, removing disease or disease-like curses through the use of magic <br>
 
 ### Performance
 
 Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
 
+#### Performance Tasks
+
+**Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Performance checks.
+**Improvise.** You can envision or create a work of performance art on your own, which may require Performance checks to adequately execute.
+**Recall.** You may perform Performance checks to recall information about a particular work of art, or an individual performance of that work.
+
 | Rank | Performance Progression Ideas      |
 | ---- | ---------------------------------- |
 | 0    | You have next to no experience in any public performance. You have not committed yourself to any particular art form, and cannot reliably recall finer details about any particular art form. You may be considered largely "uncultured" by those who are more familiar with an art form. |
 | 1    | You have learned the basics of an art form, and acquired a general understanding of what attracts onlookers to the spectacle of a good performance. You can recall basic information on most common art forms, and can reliably recite common pieces (such as songs, poems, or dances) as part of a performance. |
-| 5    | You are a quintessential crowdpleaser, and your performances can move almost anyone who bears witness to your craft. You can sing, dance, perform, and act in manners fit to entertain kings or even gods. Improvising during a performance does not increase the difficulty of the check. |
+| 5    | You are a quintessential crowdpleaser, and your performances can move almost anyone who bears witness to your craft. You can sing, dance, perform, and act in manners fit to entertain kings or even gods. Improvising during a performance meant to entertain does not increase the difficulty of the check. |
 
-1. Musician
-2. Artist
-3. Athlete
+1. **Musician** - Specialists in performing music, understanding musical lore, and creating blissful harmonies with others.
+2. **Artist** - ???
+3. **Athlete** - ???
 
 
