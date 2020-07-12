@@ -15,15 +15,17 @@ For player characters, rolls may involve adding ability scores or skill bonuses 
 
 ## Boons & Banes
 
-Some circumstances may not directly add to a check, but still shift the odds in a character's favor. By the same token, other circumstances will hinder a character's chances of success. These situations may be represented as **boons** and **banes**, respectively. The number of boons and banes to be applied to a roll are both determined before a roll is made, as they directly affect the size of the dice rolled. A single dice pool roll can have no more than 6 boons and 6 banes affecting it.
+A goblin desperately thrusts at an armored human with a damaged, dull blade. An enchanter wishes to haggle with a merchant she has magically charmed. A soldier swings his hammer at the head of a dazed, concussed ogre. When performing a check, a character may find some circumstances shift the odds in their favor. By the same token, other circumstances will hinder a character's chances of success. These situations may be represented as **boons** and **banes**, respectively. The number of boons and banes to be applied to a roll are both determined before a roll is made, as they directly affect the size of the dice rolled. A single dice pool roll can have no more than 6 boons and 6 banes affecting it.
 
-For each boon on a roll, increase the number of sides on the *first* die in the pool by 2, up to a maximum of 12. If a die is already a d12 due to boons, increase the size of the next die by 2 instead. In a sense, boons upgrade dice, starting from the first die, towards the last.
+For each **boon** on a roll, add a **+1** modifier to the roll, and increase the number of sides on the *first* die in the pool by 2, up to a maximum of 12. If a die is already a d12 due to boons, increase the size of the next die by 2 instead. In a sense, boons upgrade dice, starting from the first die, towards the last.
 
-For each bane on a roll, decrease the number of sides on the *last* die in the pool by 2, to a minimum of 4. If a die is already a d4 due to banes, decrease the size of the previous die by 2 instead. In this way, banes will downgrade dice, starting from the last die, progressing backwards toward the first.
+For each **bane** on a roll, add a **-1** modifier to the roll, and decrease the number of sides on the *last* die in the pool by 2, to a minimum of 4. If a die is already a d4 due to banes, decrease the size of the previous die by 2 instead. In this way, banes will downgrade dice, starting from the last die, progressing backwards toward the first.
 
 Because boons and banes start at opposite ends of the dice pool, they can both make visible changes in the same roll. However, with a great number of boons and banes, they can begin increasing/decreasing the same die.
 
-> Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 1, and each each bane will decrease the average result by 1.
+**Situation:** *Suppose Albert, a naval captain, has had his ship boarded by pirates. By fortunate circumstance, the fierce rocking of the ship has toppled one of the invaders over on the deck of his ship. Advancing towards the sprawling pirate, he draws his blade and slashes down at the unwelcome guest. Attacking such a prone creature confers 2 boons to his attack roll. This upgrades the first die in his 3d8 dice pool twice, from an d8 to a d12, resulting in a dice pool of 1d12 + 2d8. Additionally, each boon gives him a flat +1 modifier to his roll, resulting in a +2 modifier to this attack roll. On top of his +5 Strength Ability Bonus and +6 Skill Bonus in using the sword, his attack roll becomes a 1d12 + 2d8 + 13.*
+
+> Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 2, and each each bane will decrease the average result by 2.
 
 ## Standard Checks
 
