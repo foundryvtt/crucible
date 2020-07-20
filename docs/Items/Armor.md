@@ -1,4 +1,4 @@
-**Armor Type:** The category this armor falls under. If you have neither Light, Medium, nor Heavy armor equipped, you are considered Unarmored. <br>
+**Armor Type:** The name of the armor, and the category this armor falls under. If you have neither Light, Medium, nor Heavy armor equipped, you are considered Unarmored. <br>
 **Base Armor:** The base Armor this adds to your PD while worn.<br>
 **Base Dodge:** The base Dodge this adds to your PD while worn.<br>
 **Max Dodge Bonus:** The maximum bonus to Dodge you can benefit from while wearing this armor. This maximum does not include the Base Dodge provided by the armor.<br>
