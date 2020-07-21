@@ -1,7 +1,7 @@
 **Armor Type:** The name of the armor, and the category this armor falls under. If you have neither Light, Medium, nor Heavy armor equipped, you are considered Unarmored. <br>
 **Base Armor:** The base Armor this adds to your PD while worn.<br>
 **Base Dodge:** The base Dodge this adds to your PD while worn.<br>
-**Max Dodge Bonus:** The maximum Dodge value you can benefit from while wearing this armor.<br>
+**Max Dodge:** The maximum Dodge value you can benefit from while wearing this armor.<br>
 **Starting PD:** The theoretical PD of an unarmed, unskilled armor user with +3 Dexterity.<br>
 
 | Armor Type       | Base Armor | Base Dodge | Max Dodge | Starting PD |
