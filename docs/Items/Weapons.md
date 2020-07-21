@@ -20,7 +20,7 @@ There are many different types of weapons which can be wielded.
 
 **Thrown.** This weapon is balanced for throwing in addition to being useful in melee combat.
 
-**Vicious**. This weapon can deal grievous wounds and critically hits on attacks that meet Physical Defense +5.
+**Vicious**. This weapon can deal grievous wounds and critically hits on attacks that meet Physical Defense + 5, instead of Physical Defense + 6.
 
 ## Weapons Table
 
