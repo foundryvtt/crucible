@@ -1,6 +1,5 @@
 import { SYSTEM } from "../config/system.js";
 
-
 export class StandardCheckDialog extends FormApplication {
 
   /** @override */
@@ -138,7 +137,7 @@ export class StandardCheckDialog extends FormApplication {
         return this.request();
       case "roll":
         const rollMode = this.element.find('select[name="rollMode"]').val();
-        const roll = this.object.reroll();
+        const roll = this.object.evaluate();
         roll.toMessage({ flavor: this.options.flavor }, { rollMode });
         return this.close();
     }

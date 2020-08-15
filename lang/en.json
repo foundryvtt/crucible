@@ -69,6 +69,7 @@
 
   "DICE.SetDifficulty": "Set Difficulty",
 
+  "SKILL.SheetTitle": "[{actor}] {skill} Skill",
   "SKILL.Untrained": "Untrained",
   "SKILL.Unspecialized": "Unspecialized",
   "SKILL.Novice": "Novice",

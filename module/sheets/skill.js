@@ -1,75 +1,55 @@
 import { SYSTEM } from "../config/system.js";
 
 /**
- * A sheet application for displaying Skills
- * @type {ItemSheet}
+ * An application for displaying skill progression paths and allowing an Actor to advance their skill progression.
+ * @type {FormApplication}
  */
-export default class SkillSheet extends ItemSheet {
+export default class SkillSheet extends FormApplication {
+  constructor(actor, skillId) {
+    super(actor);
+    this.skill = actor.skills[skillId];
+    this.config = CONFIG.SYSTEM.SKILLS[skillId];
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 600,
-      height: 450,
-      classes: [SYSTEM.id, "sheet", "item", "skill"],
+      height: 520,
+      classes: [SYSTEM.id, "sheet", "skill"],
       template: `systems/${SYSTEM.id}/templates/sheets/skill.html`,
-      resizable: false
+      resizable: true,
+      scrollY: [".sheet-body"]
     });
   }
 
   /* -------------------------------------------- */
 
+  /** @override */
   get title() {
-    return `[Skill] ${this.item.name}`;
+    return game.i18n.format("SKILL.SheetTitle", {actor: this.object.name, skill: this.config.name});
   }
 
   /* -------------------------------------------- */
 
+  /** @override */
   getData() {
     const data = super.getData();
-    data.system = SYSTEM;
-    data.description = this._getSkillDescription(data);
-    data.canSpecialize = data.data.rank >= 2;
+    data.skill = this.skill;
+    data.config = this.config;
+    data.trainedRanks = this.skill.rank ? this.config.ranks.slice(1, this.skill.rank+1) : [this.config.ranks[0]];
+    data.untrainedRanks = this.skill.rank ? this.config.ranks.slice(this.skill.rank+1) : this.config.ranks.slice(1);
+    data.path = this.skill.path ? this.config.paths[this.skill.path] : null;
+    if ( data.path ) {
+      for ( let [i, r] of data.path.ranks.entries() ) {
+        if ( !r ) continue;
+        if ( i <= this.skill.rank ) data.trainedRanks[i-1] = r;
+        if ( i > this.skill.rank ) data.untrainedRanks[i-1] = r;
+      }
+    }
     return data;
-  }
-
-  /* -------------------------------------------- */
-
-  _getSkillDescription(data) {
-    const {ranks, path, paths} = this.item.data;
-    const rank = data.data.rank;
-
-    // Rank descriptions
-    const description = ranks.reduce((desc, r) => {
-      if (( r.rank <= rank ) && r.description) desc.current[0] = {from: r.name, rank: r.rank, desc: r.description};
-      else if ( (r.rank === rank+1) && r.description) desc.next[0] = {from: r.name, rank: r.rank, desc: r.description};
-      return desc;
-    }, {current: [], next: []});
-
-    // Path descriptions
-    path.ranks.reduce((desc, r) => {
-      if (( r.rank <= rank ) && r.description) desc.current[1] = {from: path.name, rank: r.rank, desc: r.description};
-      else if ((r.rank === rank+1) && r.description) desc.next[1] = {from: path.name, rank: r.rank, desc: r.description};
-      return desc;
-    }, description);
-
-    // Choose a path
-    if ( (rank === 1) || (rank === 2 && !data.data.path) ) {
-      const pathChoices = paths.filter(p => p.id).map(p => {
-        return {from: p.name, rank: 2, desc: p.description}
-      });
-      const choosePath = {
-        from: ranks[2].name,
-        rank: 2,
-        desc: "Choose a specialization path from the available 3 options."
-      };
-      if ( rank === 1 ) description.next = [choosePath].concat(pathChoices);
-      else description.current = description.current.concat(choosePath);
-    }
-
-    // Return descriptions
-    return {
-      current: description.current.flat(),
-      next: description.next.flat()
-    }
   }
 
   /* -------------------------------------------- */
@@ -79,41 +59,5 @@ export default class SkillSheet extends ItemSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find(".rank-control").click(this._onClickRankControl.bind(this));
-    html.find(".progression-path").click(this._onClickProgressionPath.bind(this));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Increase or decrease ranks in a given skill
-   * @param {Event} event
-   * @private
-   */
-  _onClickRankControl(event) {
-    event.preventDefault();
-    const a = event.currentTarget;
-    let rank = this.item.data.data.rank;
-    let updateData = {};
-    if ( a.dataset.action === "plus" ) {
-      rank = Math.min(rank+1, 5);
-      if ( rank > 2 && !this.item.data.data.path ) {
-        return ui.notifications.error("Choose a progression path before advancing this skill further.");
-      }
-    }
-    else if ( a.dataset.action === "minus" ) {
-      rank = Math.max(rank - 1, 0);
-      if (rank < 2) updateData["data.path"] = "";
-    }
-    updateData["data.rank"] = rank;
-    this.item.update(updateData);
-  }
-
-  /* -------------------------------------------- */
-
-  _onClickProgressionPath(event) {
-    event.preventDefault();
-    const img = event.currentTarget;
-    this.item.update({"data.path": img.dataset.path});
   }
 }

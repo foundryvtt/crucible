@@ -46,7 +46,7 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
 
   // Register Dice mechanics
-  CONFIG.Dice.rolls["StandardCheck"] = StandardCheck;
+  CONFIG.Dice.rolls.push(StandardCheck);
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
@@ -69,7 +69,7 @@ Hooks.once("ready", function() {
     }
     Object.freeze(c);
   }
-  localizeSkillConfig(SYSTEM.SKILLS);
+  localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
 
   // TODO: Prevent the creation of Items with certain types
   game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);

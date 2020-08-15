@@ -16,17 +16,15 @@ import { StandardCheckDialog } from "./standard-check-dialog.js";
  * @param {number} enchantment  An enchantment bonus which modifies the roll, up to a maximum of 6
  */
 export default class StandardCheck extends Roll {
-  constructor(formula, data) {
-    super(StandardCheck.FORMULA, data || formula);
+  constructor(data, _unused) {
+    super(StandardCheck.FORMULA, data || _unused);
     this.data.id = this.data.id || randomID(16);
-    this.app = new StandardCheckDialog(this);
   }
 
   /* -------------------------------------------- */
 
-  initialize(rollData) {
-    this.data = this._prepareData(rollData);
-    this._replaceData(this.constructor.FORMULA);
+  dialog(options) {
+    return new StandardCheckDialog(this, options);
   }
 
   /* -------------------------------------------- */
@@ -60,55 +58,34 @@ export default class StandardCheck extends Roll {
     data.dc = Math.max(data.dc, 0);
     data.enchantment = Math.clamped(data.enchantment, 0, 6);
     data.skill = Math.clamped(data.skill, -4, 12);
+
+    // Structure the dice pool
+    const pool = [8, 8, 8];
+
+    // Apply boons from the left
+    let d = 0;
+    for (let i = 0; i < data.boons; i++) {
+      pool[d] = pool[d] + SYSTEM.dice.DIE_STEP;
+      if (pool[d] === SYSTEM.dice.MAX_DIE) d++;
+    }
+
+    // Apply banes from the right
+    d = 2;
+    for (let i = 0; i < data.banes; i++) {
+      pool[d] = pool[d] - SYSTEM.dice.DIE_STEP;
+      if (pool[d] === SYSTEM.dice.MIN_DIE) d--;
+    }
+    this.pool = pool;
     return data;
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * Get the number of faces for each die in the dice pool
-   * @return {number[]}
-   * @private
-   */
-  _getPool() {
-    const pool = [8, 8, 8];
-
-    // Apply boons from the left
-    let d = 0;
-    for ( let i=0; i < this.data.boons; i++ ) {
-      pool[d] = pool[d] + SYSTEM.dice.DIE_STEP;
-      if ( pool[d] === SYSTEM.dice.MAX_DIE ) d++;
-    }
-
-    // Apply banes from the right
-    d = 2;
-    for ( let i=0; i < this.data.banes; i++ ) {
-      pool[d] = pool[d] - SYSTEM.dice.DIE_STEP;
-      if ( pool[d] === SYSTEM.dice.MIN_DIE ) d--;
-    }
-    return pool;
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
-  _replaceData(formula) {
-    this.pool = this._getPool();
-    let parts = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
-    if ( this.data.enchantment > 0 ) parts.push(this.data.enchantment);
-    return parts.join(" + ");
-  }
-
-  /* -------------------------------------------- */
-
-  get actor() {
-    return this.data.actorId ? game.actors.get(this.data.actorId) : null;
-  }
-
-  /* -------------------------------------------- */
-
-  dialog(options) {
-    return new StandardCheckDialog(this, options);
+  _identifyTerms(formula) {
+    let terms = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
+    if ( this.data.enchantment > 0 ) terms.push(this.data.enchantment);
+    return super._identifyTerms(terms.join(" + "));
   }
 
   /* -------------------------------------------- */
@@ -157,6 +134,17 @@ export default class StandardCheck extends Roll {
       total: isPrivate ? "?" : this.total
     });
     return html;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Used to re-initialize the pool with different data
+   * @param rollData
+   */
+  initialize(rollData) {
+    this.data = this._prepareData(rollData);
+    this.terms = this._identifyTerms(this._formula);
   }
 
   /* -------------------------------------------- */

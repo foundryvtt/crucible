@@ -616,6 +616,11 @@
   height: var(--skillHeight);
   margin-right: 4px;
 }
+.crucible.sheet.actor .tab.skills .skill .skill-config {
+  flex: 0 0 20px;
+  text-align: center;
+  color: #7a7971;
+}
 .crucible.sheet.actor .tab.skills .skill .skill-ranks {
   flex: 0 0 92px;
   height: 24px;
@@ -712,132 +717,41 @@
   --headerHeight: 80px;
   --titleHeight: 40px;
 }
-.crucible.sheet.item.skill h2.skill-rank {
-  flex: 2;
-  margin: 2px 0 2px 5px;
-  height: 38px;
-  text-align: center;
-  font-size: 20px;
-  color: #4b4a44;
-  line-height: 40px;
-  border: 1px dashed #b5b3a4;
-  border-radius: 5px;
+.crucible.sheet.skill {
+  --headerHeight: 48px;
+  --titleHeight: 48px;
 }
-.crucible.sheet.item.skill .skill-ranks {
-  flex: 0 0 100%;
-  height: 26px;
-  margin: 5px 2px;
-  line-height: 24px;
-  text-align: center;
-  color: #4b4a44;
+.crucible.sheet.skill .sheet-header {
+  margin-bottom: 5px;
 }
-.crucible.sheet.item.skill .skill-ranks .rank-detail {
-  flex: 0 0 70px;
-  font-size: 18px;
-  color: #4b4a44;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-detail .rank-detail-label {
-  font-size: 16px;
-  color: #7a7971;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-detail .rank-detail-value {
-  padding: 0 8px;
-  font-size: 20px;
-  color: #4b4a44;
-  border: 1px dashed #b5b3a4;
-  border-radius: 5px;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-control {
-  flex: 0 0 36px;
-  height: 26px;
-  line-height: 26px;
-  font-size: 20px;
-  color: #b5b3a4;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-control:hover {
-  color: #191813;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-progress-bar {
-  height: 26px;
-  background: rgba(0, 0, 0, 0.1);
-  border: 2px solid #b5b3a4;
-  border-radius: 5px;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-progress-bar .rank-progress {
-  border: 1px solid #191813;
-  border-radius: 8px 4px 8px 4px;
-  background: rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 3px #000 inset;
-  margin: 2px;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-progress-bar.exp .rank-progress.purchased {
-  background: #23911d;
-  border: 1px solid #0a2b00;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-progress-bar.kno .rank-progress.purchased {
-  background: #91b1f5;
-  border: 1px solid #17182b;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-progress-bar.soc .rank-progress.purchased {
-  background: #c154bd;
-  border: 1px solid #2b0425;
-}
-.crucible.sheet.item.skill .skill-ranks .rank-name {
-  flex: 0 0 150px;
-  height: 26px;
-  font-size: 24px;
-  border: 2px dashed #b5b3a4;
-  border-radius: 5px;
-}
-.crucible.sheet.item.skill .skill-header {
-  margin: 0;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 28px;
-  color: #4b4a44;
-  text-align: center;
-  border-bottom: 1px solid #b5b3a4;
-}
-.crucible.sheet.item.skill .skill-benefits {
-  flex: 1;
-  height: 100%;
-  padding-right: 5px;
-  margin-right: 5px;
+.crucible.sheet.skill .sheet-body {
   overflow-y: auto;
 }
-.crucible.sheet.item.skill .skill-benefits .skill-benefit {
-  margin: 0.25em 0;
-  line-height: 20px;
-}
-.crucible.sheet.item.skill .skill-benefits .benefit-rank {
-  display: inline-block;
-  padding: 2px 8px 0;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-size: 24px;
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px dashed #7a7971;
+.crucible.sheet.skill blockquote.info {
+  margin: 0;
+  padding: 0.25em;
+  border: 1px solid #7a7971;
   border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
 }
-.crucible.sheet.item.skill .skill-benefits .benefit-from {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-size: 20px;
-  margin: 0 5px;
+.crucible.sheet.skill h3 {
+  margin: 5px 0 0;
+  font-weight: bold;
 }
-.crucible.sheet.item.skill .skill-benefits .benefit-desc {
+.crucible.sheet.skill .skill-ranks {
+  border-top: 1px solid #b5b3a4;
+}
+.crucible.sheet.skill .skill-ranks .skill-rank {
+  padding: 5px 0;
+  border-bottom: 1px solid #b5b3a4;
+}
+.crucible.sheet.skill .skill-ranks .skill-rank h4 {
   display: inline;
+  font-weight: bold;
 }
-.crucible.sheet.item.skill .progression-paths {
-  flex: 0 0 64px;
-}
-.crucible.sheet.item.skill .progression-paths img {
-  width: 64px;
-  height: 64px;
-  border: 1px solid #000;
-  border-radius: 3px;
-}
-.crucible.sheet.item.skill .progression-paths img.inactive {
-  filter: grayscale(100%);
-}
+/**
+ * Skill Group Selector
+ */
 .crucible.sheet .form-group.skills label {
   flex: 0 0 25%;
   margin: 0;

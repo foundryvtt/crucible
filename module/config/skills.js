@@ -8,48 +8,42 @@ export const SKILL_RANKS = {
     description: "You have no formal training in this area. Any success you have is due to luck.",
     cost: 0,
     bonus: -4,
-    progression: false,
-    threshold: true
+    progression: false
   },
   1: {
     label: "SKILL.Novice",
     description: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
     cost: 1,
     bonus: 0,
-    progression: false,
-    threshold: true
+    progression: false
   },
   2: {
     label: "SKILL.Apprentice",
     description: "You have practiced and honed your skills to a strong functional degree.",
     cost: 2,
     bonus: 2,
-    progression: false,
-    threshold: true
+    progression: true
   },
   3: {
     label: "SKILL.Journeyman",
     description: "You are a subject matter expert in this area.",
     cost: 4,
     bonus: 4,
-    progression: true,
-    threshold: false
+    progression: false
   },
   4: {
     label: "SKILL.Master",
     description: "You are a true master of this skill and its techniques.",
     cost: 7,
     bonus: 8,
-    progression: false,
-    threshold: true
+    progression: true
   },
   5: {
     label: "SKILL.Grandmaster",
     description: "You are peerless in your mastery of this area.",
     cost: 12,
     bonus: 12,
-    progression: true,
-    threshold: true
+    progression: true
   }
 };
 
@@ -198,31 +192,30 @@ function expandSkillConfig(skills) {
     skill.ranks = [];
 
     // Construct specialization paths
-    skill.paths = skill.paths.map(p => {
-      const lang = langPrefix + p.titleCase();
-      return {
-        id: p,
+    skill.paths = skill.paths.reduce((paths, id) => {
+      const lang = langPrefix + id.titleCase();
+      paths[id] = {
         name: lang,
-        icon: `icons/skills/${p}.jpg`,
+        icon: `icons/skills/${id}.jpg`,
         description: `${lang}Info`,
         ranks: []
-      }
-    });
+      };
+      return paths;
+    }, {});
 
     // Populate rank information
     for (let [i, rank] of Object.entries(SKILL_RANKS)) {
-      let rankDesc = rank.threshold ? `${langPrefix}Rank${i}` : "";
       skill.ranks[i] = {
         rank: i,
-        description: rankDesc,
+        description: `${langPrefix}Rank${i}`,
         progression: rank.progression
       };
       if (rank.progression) {
-        for (let p of skill.paths) {
-          p.ranks.push({
+        for (let path of Object.values(skill.paths)) {
+          path.ranks[i] = {
             rank: i,
-            description: `${langPrefix}${p.id.titleCase()}${i}`
-          });
+            description: `${path.name}${i}`
+          };
         }
       }
     }
@@ -236,20 +229,17 @@ expandSkillConfig(SKILLS);
  * Translate the SKILLS configuration object using localization strings
  * @param skills
  */
-export function localizeSkillConfig(skills) {
+export function localizeSkillConfig(skills, systemId) {
   for ( let skill of Object.values(skills) ) {
     skill.name = game.i18n.localize(skill.name);
-    skill.description = game.i18n.localize(skill.name);
-    for ( let p of skill.paths ) {
+    skill.icon = `systems/${systemId}/${skill.icon}`;
+    skill.description = game.i18n.localize(`SKILLS.${skill.name}Info`);
+    for ( let p of Object.values(skill.paths) ) {
       p.name = game.i18n.localize(p.name);
       p.description = game.i18n.localize(p.description);
-      for ( let r of p.ranks ) {
-        r.description = game.i18n.localize(r.description);
-      }
+      p.ranks.forEach(r => r.description = game.i18n.localize(r.description));
     }
-    for ( let r of skill.ranks ) {
-      r.description = game.i18n.localize(r.description);
-    }
+    skill.ranks.forEach(r => r.description = game.i18n.localize(r.description));
   }
   Object.freeze(skills);
 }

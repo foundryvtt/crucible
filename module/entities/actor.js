@@ -7,29 +7,27 @@ export default class CrucibleActor extends Actor {
     super(...args);
 
     /**
-     * Prepare the configuration entry for this Actor
-     * @type {Object}
+     * Track the progression points which are available and spent
+     * @type {{
+     *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
+     *   skill: {total: number, spent: number, available: number },
+     *   talent: {total: number, spent: number, available: number }
+     * }}
      */
-    this.config = this.prepareConfig();
-
-
     this.points = {};
-    this.skills = {};
 
     // Re-prepare the Item data once the config is ready
     this.prepareData();
   }
 
   /* -------------------------------------------- */
-  /*  Actor Configuration
-  /* -------------------------------------------- */
 
-  /**
-   * Prepare the Configuration object for this Actor type.
-   * This configuration does not change when the data changes
-   */
-  prepareConfig() {
-    return {};
+  get abilities() {
+    return this.data.data.abilities;
+  }
+
+  get skills() {
+    return this.data.data.skills;
   }
 
   /* -------------------------------------------- */
@@ -40,8 +38,7 @@ export default class CrucibleActor extends Actor {
    * Prepare the data object for this Actor.
    * The prepared data will change as the underlying source data is updated
    */
-  prepareData() {
-    if ( !this.config ) return; // Hack to avoid preparing data before the config is ready
+  prepareBaseData() {
     const data = this.data;
 
     // Prepare placeholder point totals
@@ -67,9 +64,9 @@ export default class CrucibleActor extends Actor {
   _preparePoints(data) {
     const level = data.data.details.level;
     this.points = {
-      ability: { pool: 36, total: (level - 1) },
-      skill: { total: 2 + ((level-1) * 2) },
-      talent: { total: 3 + ((level - 1) * 3) }
+      ability: { pool: 36, total: (level - 1), bought: null, spent: null, available: null },
+      skill: { total: 2 + ((level-1) * 2), spent: null, available: null },
+      talent: { total: 3 + ((level - 1) * 3), spent: null, available: null }
     };
   }
 

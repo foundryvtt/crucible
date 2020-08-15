@@ -2,65 +2,56 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <img class="profile" src="{{config.icon}}" title="{{config.name}}"/>
         <div class="header-content flexrow">
-            <h1 class="title">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
-            </h1>
-            <h2 class="skill-rank">{{item.path.name}} ({{item.currentRank.cumulative}} Points)</h2>
-
-            <div class="skill-ranks flexrow">
-                <div class="rank-detail">
-                    <span class="rank-detail-label">Rank</span>
-                    <span class="rank-detail-value">{{data.rank}}</span>
-                </div>
-                <a class="rank-control" data-action="minus"><i class="fas fa-minus"></i></a>
-                <div class="rank-progress-bar flexrow {{item.category.id}}">
-                    {{#each item.ranks as |rank|}}
-                    {{#if rank.rank}}
-                    <div class="rank-progress {{#if rank.purchased}}purchased{{/if}}"></div>
-                    {{/if}}
-                    {{/each}}
-                </div>
-                <a class="rank-control" data-action="plus"><i class="fas fa-plus"></i></a>
-                <div class="rank-detail">
-                    <span class="rank-detail-value">{{data.rank}}</span>
-                    <span class="rank-detail-label">Cost</span>
-                </div>
-            </div>
+            <h1 class="title">{{config.name}}</h1>
         </div>
     </header>
 
     {{!-- Sheet Body --}}
-    <section class="sheet-body flexrow">
+    <section class="sheet-body flexcol">
+        <blockquote class="info skill-description">
+            {{config.description}}
+        </blockquote>
 
-        <div class="skill-benefits">
-            <h3 class="skill-header">Current Benefits ({{item.currentRank.name}})</h3>
-            {{#each description.current}}
-            <div class="skill-benefit">
-                <span class="benefit-rank">{{this.rank}}</span>
-                <strong class="benefit-from">{{this.from}}</strong>
-                <p class="benefit-desc">{{this.desc}}</p>
+        {{#if skill.path}}
+        <h3>Specialization Path: {{path.name}}</h3>
+        <blockquote class="info path-description">
+            {{path.description}}
+        </blockquote>
+        {{else}}
+        <h3>Specialization Paths</h3>
+        <div class="skill-ranks current-ranks">
+            {{#each config.paths}}
+            <div class="skill-rank">
+                <h4>{{this.name}}</h4> {{this.description}}
             </div>
             {{/each}}
+        </div>
+        {{/if}}
 
-            {{#if item.nextRank}}
-            <h3 class="skill-header">Next Rank{{#if item.nextRank}} ({{item.nextRank.name}}){{/if}}</h3>
-            {{#each description.next}}
-            <div class="skill-benefit">
-                <span class="benefit-rank">{{this.rank}}</span>
-                <strong class="benefit-from">{{this.from}}</strong>
-                <p class="benefit-desc">{{this.desc}}</p>
+        <h3>Trained Ranks</h3>
+        <div class="skill-ranks current-ranks">
+            {{#each trainedRanks}}
+            <div class="skill-rank">
+                <h4>Rank {{this.rank}}.</h4> {{this.description}}
+            </div>
+            {{/each}}
+            {{#if skill.path}}
+            {{#each skill.path.ranks}}
+            <div class="skill-rank">
+                <h4>Rank {{this.rank}}.</h4> {{this.description}}
             </div>
             {{/each}}
             {{/if}}
         </div>
 
-        <div class="progression-paths">
-            <h3 class="skill-header">Path</h3>
-            {{#each item.paths as |path|}}
-            <img class="progression-path {{#if path.active}}active{{else}}inactive{{/if}}" src="{{path.icon}}"
-                 title="{{path.name}}" data-path="{{path.id}}"/>
+        <h3>Untrained Ranks</h3>
+        <div class="skill-ranks current-ranks">
+            {{#each untrainedRanks}}
+            <div class="skill-rank">
+                <h4>Rank {{this.rank}}.</h4> {{this.description}}
+            </div>
             {{/each}}
         </div>
     </section>

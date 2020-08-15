@@ -1,4 +1,5 @@
 import { SYSTEM } from "../config/system.js";
+import SkillSheet from "./skill.js";
 
 /**
  * A sheet application for displaying Skills
@@ -69,7 +70,6 @@ export default class HeroSheet extends ActorSheet {
       if ( !cat ) return categories;
 
       // Update skill data for rendering
-      skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
       skill.attributes = skill.attributes.map(a => SYSTEM.ABILITIES[a]);
       skill.pips = Array.fromRange(5).map((v, i) => i < c.rank ? "trained" : "untrained");
       skill.css = [
@@ -82,7 +82,7 @@ export default class HeroSheet extends ActorSheet {
       };
 
       // Specialization status
-      const path = skill.paths.find(p => p.id === skill.path);
+      const path = skill.paths[skill.path] || null;
       skill.rankName = SYSTEM.SKILL_RANKS[skill.rank].label;
       skill.pathName = path ? path.name : game.i18n.localize("SKILL.Unspecialized");
 
@@ -121,13 +121,9 @@ export default class HeroSheet extends ActorSheet {
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  /**
-   * Activate listeners for SkillSheet events
-   */
+  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-
-    // Skill Controls
     html.find("a.control").click(this._onClickControl.bind(this));
   }
 
@@ -146,6 +142,9 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
+      case "skillConfig":
+        const skillId = a.closest(".skill").dataset.skill;
+        return new SkillSheet(this.actor, skillId).render(true);
       case "skillDecrease":
         return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, -1);
       case "skillIncrease":

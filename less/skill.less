@@ -1,0 +1,52 @@
+.crucible.sheet.skill {
+  --headerHeight: 48px;
+  --titleHeight: 48px;
+
+  .sheet-header {
+    margin-bottom: 5px;
+  }
+
+  .sheet-body {
+    overflow-y: auto;
+  }
+
+  blockquote.info {
+    margin: 0;
+    padding: 0.25em;
+    border: 1px solid @colorTan;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  h3 {
+    margin: 5px 0 0;
+    font-weight: bold;
+  }
+  
+  .skill-ranks {
+    border-top: 1px solid @colorBeige;
+    .skill-rank {
+      padding: 5px 0;
+      border-bottom: 1px solid @colorBeige;
+      h4 {
+        display: inline;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+/**
+ * Skill Group Selector
+ */
+.crucible.sheet .form-group.skills {
+  label {
+    flex: 0 0 25%;
+    margin: 0;
+    padding: 0;
+    input {
+      width: 16px;
+      margin: 0;
+    }
+  }
+}
