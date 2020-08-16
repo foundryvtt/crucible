@@ -2,12 +2,12 @@ import { SYSTEM } from "../config/system.js";
 
 /**
  * An application for displaying skill progression paths and allowing an Actor to advance their skill progression.
- * @type {FormApplication}
+ * @type {BaseEntitySheet}
  */
-export default class SkillSheet extends FormApplication {
-  constructor(actor, skillId) {
-    super(actor);
-    this.skill = actor.skills[skillId];
+export default class SkillSheet extends BaseEntitySheet {
+  constructor(actor, skillId, options) {
+    super(actor, options);
+    this.skillId = skillId;
     this.config = CONFIG.SYSTEM.SKILLS[skillId];
   }
 
@@ -17,11 +17,13 @@ export default class SkillSheet extends FormApplication {
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
       width: 600,
-      height: 520,
+      height: "auto",
       classes: [SYSTEM.id, "sheet", "skill"],
       template: `systems/${SYSTEM.id}/templates/sheets/skill.html`,
       resizable: true,
-      scrollY: [".sheet-body"]
+      scrollY: [".sheet-body"],
+      submitOnChange: true,
+      closeOnSubmit: false
     });
   }
 
@@ -37,16 +39,30 @@ export default class SkillSheet extends FormApplication {
   /** @override */
   getData() {
     const data = super.getData();
-    data.skill = this.skill;
+    data.skill = this.object.skills[this.skillId];
     data.config = this.config;
-    data.trainedRanks = this.skill.rank ? this.config.ranks.slice(1, this.skill.rank+1) : [this.config.ranks[0]];
-    data.untrainedRanks = this.skill.rank ? this.config.ranks.slice(this.skill.rank+1) : this.config.ranks.slice(1);
-    data.path = this.skill.path ? this.config.paths[this.skill.path] : null;
+    data.choosePath = data.skill.rank === 3;
+    data.displayPath = data.skill.path && !data.choosePath;
+
+    // Categorize skill ranks
+    data.trainedRanks = [];
+    data.untrainedRanks = [];
+    for ( let [i, r] of this.config.ranks.entries() ) {
+      r.label = game.i18n.format("SKILL.RankLabel", {title: this.config.name, rank: i});
+      if ( data.skill.rank >= i ) {
+        if ( (data.skill.rank === 0) || (i !== 0) ) data.trainedRanks[i] = r;
+      }
+      else data.untrainedRanks[i] = r;
+    }
+
+    // Add path progression
+    data.path = data.skill.path ? this.config.paths[data.skill.path] : null;
     if ( data.path ) {
       for ( let [i, r] of data.path.ranks.entries() ) {
         if ( !r ) continue;
-        if ( i <= this.skill.rank ) data.trainedRanks[i-1] = r;
-        if ( i > this.skill.rank ) data.untrainedRanks[i-1] = r;
+        r.label = game.i18n.format("SKILL.RankLabel", {title: data.path.name, rank: i});
+        if ( data.skill.rank >= i ) data.trainedRanks[i] = r;
+        else data.untrainedRanks[i] = r;
       }
     }
     return data;
@@ -54,10 +70,35 @@ export default class SkillSheet extends FormApplication {
 
   /* -------------------------------------------- */
 
-  /**
-   * Activate listeners for SkillSheet events
-   */
+  /** @override */
+  _getFormData(form) {
+    const fd = new FormData();
+    fd.set(`data.skills.${this.skillId}.path`, form.path.value);
+    return fd
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    html.find("a.control").click(this._onClickControl.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events on buttons on the Skill sheet
+   * @param {MouseEvent} event    The left-click event
+   * @private
+   */
+  _onClickControl(event) {
+    const btn = event.currentTarget;
+    switch ( btn.dataset.action ) {
+      case "increase":
+        return this.object.purchaseSkill(this.skillId, 1);
+      case "decrease":
+        return this.object.purchaseSkill(this.skillId, -1);
+    }
   }
 }

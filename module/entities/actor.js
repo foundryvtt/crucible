@@ -351,12 +351,18 @@ export default class CrucibleActor extends Actor {
     // Decrease
     if ( delta < 0 ) {
       if ( skill.rank === 0 ) return;
-      return this.update({[`data.skills.${skillId}.rank`]: skill.rank - 1});
+      const update = {};
+      if ( skill.rank === 3 ) update[`data.skills.${skillId}.path`] = null;
+      update[`data.skills.${skillId}.rank`] = skill.rank - 1;
+      return this.update(update);
     }
 
     // Increase
     else if ( delta > 0 ) {
       if ( skill.rank === 5 ) return;
+      if ( (skill.rank === 3) && !skill.path ) {
+        return ui.notifications.warn(game.i18n.localize(`SKILL.ChoosePath`));
+      }
       if ( points.available < skill.cost ) {
         return ui.notifications.warn(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: points.available}));
       }

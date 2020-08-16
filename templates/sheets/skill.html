@@ -5,6 +5,11 @@
         <img class="profile" src="{{config.icon}}" title="{{config.name}}"/>
         <div class="header-content flexrow">
             <h1 class="title">{{config.name}}</h1>
+            <div class="purchase flexrow">
+                <a class="button control" data-action="decrease"><i class="fas fa-minus"></i></a>
+                <span class="rank">{{skill.rank}}</span>
+                <a class="button control" data-action="increase"><i class="fas fa-plus"></i></a>
+            </div>
         </div>
     </header>
 
@@ -14,17 +19,21 @@
             {{config.description}}
         </blockquote>
 
-        {{#if skill.path}}
+        {{#if displayPath}}
         <h3>Specialization Path: {{path.name}}</h3>
         <blockquote class="info path-description">
             {{path.description}}
         </blockquote>
-        {{else}}
+        {{/if}}
+
+        {{#if choosePath}}
         <h3>Specialization Paths</h3>
         <div class="skill-ranks current-ranks">
-            {{#each config.paths}}
+            {{#each config.paths as |path id|}}
             <div class="skill-rank">
-                <h4>{{this.name}}</h4> {{this.description}}
+                <input class="choose-path" type="radio" name="path" value="{{id}}" {{checked (eq ../skill.path id)}}/>
+                <h4>{{path.name}}</h4>
+                {{path.description}}
             </div>
             {{/each}}
         </div>
@@ -34,23 +43,16 @@
         <div class="skill-ranks current-ranks">
             {{#each trainedRanks}}
             <div class="skill-rank">
-                <h4>Rank {{this.rank}}.</h4> {{this.description}}
+                <h4>{{this.label}}.</h4> {{this.description}}
             </div>
             {{/each}}
-            {{#if skill.path}}
-            {{#each skill.path.ranks}}
-            <div class="skill-rank">
-                <h4>Rank {{this.rank}}.</h4> {{this.description}}
-            </div>
-            {{/each}}
-            {{/if}}
         </div>
 
         <h3>Untrained Ranks</h3>
         <div class="skill-ranks current-ranks">
             {{#each untrainedRanks}}
             <div class="skill-rank">
-                <h4>Rank {{this.rank}}.</h4> {{this.description}}
+                <h4>{{this.label}}.</h4> {{this.description}}
             </div>
             {{/each}}
         </div>

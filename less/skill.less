@@ -4,6 +4,20 @@
 
   .sheet-header {
     margin-bottom: 5px;
+
+    .purchase {
+      flex: 0 0 100px;
+      align-items: center;
+      justify-content: space-around;
+      .rank {
+        padding: 0 3px;
+        border: 1px solid @colorTan;
+        border-radius: 3px;
+        font-family: @caslon;
+        font-size: 28px;
+        text-align: center;
+      }
+    }
   }
 
   .sheet-body {
@@ -21,6 +35,13 @@
   h3 {
     margin: 5px 0 0;
     font-weight: bold;
+  }
+
+  input.choose-path {
+    margin: 0;
+    height: 16px;
+    position: relative;
+    top: 3px;
   }
   
   .skill-ranks {

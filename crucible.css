@@ -724,6 +724,19 @@
 .crucible.sheet.skill .sheet-header {
   margin-bottom: 5px;
 }
+.crucible.sheet.skill .sheet-header .purchase {
+  flex: 0 0 100px;
+  align-items: center;
+  justify-content: space-around;
+}
+.crucible.sheet.skill .sheet-header .purchase .rank {
+  padding: 0 3px;
+  border: 1px solid #7a7971;
+  border-radius: 3px;
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 28px;
+  text-align: center;
+}
 .crucible.sheet.skill .sheet-body {
   overflow-y: auto;
 }
@@ -737,6 +750,12 @@
 .crucible.sheet.skill h3 {
   margin: 5px 0 0;
   font-weight: bold;
+}
+.crucible.sheet.skill input.choose-path {
+  margin: 0;
+  height: 16px;
+  position: relative;
+  top: 3px;
 }
 .crucible.sheet.skill .skill-ranks {
   border-top: 1px solid #b5b3a4;

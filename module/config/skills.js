@@ -8,42 +8,42 @@ export const SKILL_RANKS = {
     description: "You have no formal training in this area. Any success you have is due to luck.",
     cost: 0,
     bonus: -4,
-    progression: false
+    path: false
   },
   1: {
     label: "SKILL.Novice",
     description: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
     cost: 1,
     bonus: 0,
-    progression: false
+    path: false
   },
   2: {
     label: "SKILL.Apprentice",
     description: "You have practiced and honed your skills to a strong functional degree.",
     cost: 2,
     bonus: 2,
-    progression: true
+    path: false
   },
   3: {
     label: "SKILL.Journeyman",
     description: "You are a subject matter expert in this area.",
     cost: 4,
     bonus: 4,
-    progression: false
+    path: true
   },
   4: {
     label: "SKILL.Master",
     description: "You are a true master of this skill and its techniques.",
     cost: 7,
     bonus: 8,
-    progression: true
+    path: false
   },
   5: {
     label: "SKILL.Grandmaster",
     description: "You are peerless in your mastery of this area.",
     cost: 12,
     bonus: 12,
-    progression: true
+    path: true
   }
 };
 
@@ -78,7 +78,7 @@ export const SKILLS = {
     name:"SKILLS.Acrobatics",
     category:"exp",
     attributes: ["strength", "dexterity"],
-    paths: ["gymnast", "traceur", "dancer"] // This specific array is not itself carried over to the new data structure
+    paths: ["gymnast", "traceur", "dancer"]
   },
   "perception": {
     name:"SKILLS.Perception",
@@ -207,10 +207,11 @@ function expandSkillConfig(skills) {
     for (let [i, rank] of Object.entries(SKILL_RANKS)) {
       skill.ranks[i] = {
         rank: i,
-        description: `${langPrefix}Rank${i}`,
-        progression: rank.progression
+        description: `${langPrefix}Rank${i}`
       };
-      if (rank.progression) {
+      if ( i === "3" ) skill.ranks[i].description = "SKILL.ChoosePath";
+      else if ( i === "5" ) skill.ranks[i].description = "SKILL.MasterPath";
+      if (rank.path) {
         for (let path of Object.values(skill.paths)) {
           path.ranks[i] = {
             rank: i,
