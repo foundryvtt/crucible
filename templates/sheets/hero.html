@@ -1,9 +1,12 @@
 {{#*inline "resource"}}
-<h3 class="resource-name">{{label}}</h3>
+<h3 class="resource-name tooltipped">
+    {{label}}
+    <span class="tooltip">{{data.tooltip}}</span>
+</h3>
 <div class="resource-values flexrow">
     <input name="{{attr}}.value" type="text" value="{{lookup data 'value'}}" data-dtype="Number" placeholder="0"/>
     <span class="sep">/</span>
-    <input name="{{attr}}.max" type="text" value="{{lookup data 'max'}}" data-dtype="Number" placeholder="0"/>
+    <span class="input resource-max">{{data.max}}</span>
 </div>
 {{/inline}}
 
@@ -45,13 +48,13 @@
                 </div>
 
                 <div class="resource">
-                    {{> resource label="Sanity" attr="data.attributes.sanity" data=data.attributes.sanity}}
-                    {{> resource label="Stress" attr="data.attributes.stress" data=data.attributes.stress}}
+                    {{> resource label="Morale" attr="data.attributes.morale" data=data.attributes.morale}}
+                    {{> resource label="Madness" attr="data.attributes.madness" data=data.attributes.madness}}
                 </div>
 
                 <div class="resource">
                     {{> resource label="Action" attr="data.attributes.action" data=data.attributes.action}}
-                    {{> resource label="Focus" attr="data.attributes.spell" data=data.attributes.spell}}
+                    {{> resource label="Focus" attr="data.attributes.focus" data=data.attributes.focus}}
                 </div>
             </div>
         </div>
@@ -101,7 +104,7 @@
                         <i class="fas fa-minus"></i>
                     </a>
                     {{/if}}
-                    <input type="text" name="data.attributes.{{attr.id}}.value" value="{{attr.value}}" data-dtype="Number"/>
+                    <span class="ability-score input">{{attr.value}}</span>
                     {{#if attr.canIncrease}}
                     <a class="button control highlight increase" title="Ability Increase" data-action="abilityIncrease">
                         <i class="fas fa-plus"></i>

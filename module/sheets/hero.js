@@ -26,10 +26,11 @@ export default class HeroSheet extends ActorSheet {
   getData() {
     const data = super.getData();
     data.points = this.actor.points;
-    data.isL1 = this.actor.data.data.details.level === 1;
-    data.abilityScores = this._formatAbilities(this.actor.data.data.attributes);
-    data.resistances = this._formatResistances(this.actor.data.data.resistances);
-    data.skillCategories = this._formatSkills(this.actor.data.data.skills);
+    data.isL1 = data.entity.data.details.level === 1;
+    data.abilityScores = this._formatAttributes(data.entity.data.attributes);
+    this._formatResources(data.entity.data.attributes);
+    data.resistances = this._formatResistances(data.entity.data.resistances);
+    data.skillCategories = this._formatSkills(data.entity.data.skills);
     return data;
   }
 
@@ -41,16 +42,24 @@ export default class HeroSheet extends ActorSheet {
    * @return {object[]}
    * @private
    */
-  _formatAbilities(attributes) {
+  _formatAttributes(attributes) {
     const points = this.actor.points.ability;
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
-      const attr = mergeObject(attributes[a], ability);
+      const attr = mergeObject(attributes[a], ability, {inplace: true});
       attr.id = a;
       attr.canIncrease = (points.pool > 0) || (points.available > 0);
       attr.canDecrease = (this.actor.data.data.details.level === 1) || (attr.increases > 0);
       return attr;
     });
+  }
+
+  /* -------------------------------------------- */
+
+  _formatResources(attributes) {
+    for ( let [id, r] of Object.entries(SYSTEM.RESOURCES) ) {
+      attributes[id].tooltip = r.tooltip;
+    }
   }
 
   /* -------------------------------------------- */
@@ -76,10 +85,6 @@ export default class HeroSheet extends ActorSheet {
         c.rank > 0 ? "trained" : "untrained",
         c.path ? "specialized" : "unspecialized"
       ].join(" ");
-      skill.tooltips = {
-        value: `Roll Bonus = [0.5 * (${skill.attributes[0].label} + ${skill.attributes[1].label})] + Skill Bonus + Enchantment Bonus`,
-        passive: `Passive Bonus = ${SYSTEM.dice.passiveCheck} + Roll Bonus`
-      };
 
       // Specialization status
       const path = skill.paths[skill.path] || null;

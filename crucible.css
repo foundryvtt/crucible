@@ -86,8 +86,10 @@
   color: #191813;
 }
 .crucible input,
-.crucible select {
+.crucible select,
+.crucible span.input {
   border: 1px solid #b5b3a4;
+  border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
   color: #191813;
 }
@@ -253,6 +255,7 @@
   top: 120%;
   padding: 1px 5px;
   background: rgba(0, 0, 0, 0.95);
+  font-family: "Signika";
   font-size: 12px;
   font-weight: normal;
   color: #b5b3a4;
@@ -365,8 +368,10 @@
   line-height: 24px;
   text-align: center;
 }
-.crucible.sheet.actor .resource .resource-values input {
+.crucible.sheet.actor .resource .resource-values input,
+.crucible.sheet.actor .resource .resource-values .resource-max {
   height: 24px;
+  line-height: 24px;
   text-align: center;
 }
 .crucible.sheet.actor .badge {
@@ -503,10 +508,11 @@
   font-family: "CaslonAntique", "Palatino Linotype", serif;
   line-height: 36px;
 }
-.crucible.sheet.actor .tab.attributes .ability input {
+.crucible.sheet.actor .tab.attributes .ability .ability-score {
   flex: 0 0 36px;
   height: 36px;
   font-size: 20px;
+  line-height: 34px;
   text-align: center;
 }
 .crucible.sheet.actor .tab.attributes .physical-defenses {

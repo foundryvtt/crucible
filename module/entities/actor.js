@@ -34,10 +34,7 @@ export default class CrucibleActor extends Actor {
   /*  Actor Preparation
   /* -------------------------------------------- */
 
-  /**
-   * Prepare the data object for this Actor.
-   * The prepared data will change as the underlying source data is updated
-   */
+  /** @override */
   prepareBaseData() {
     const data = this.data;
 
@@ -52,6 +49,13 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Defenses
     this._prepareDefenses(data);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  prepareDerivedData() {
+    this._prepareResources(this.data);
   }
 
   /* -------------------------------------------- */
@@ -97,11 +101,6 @@ export default class CrucibleActor extends Actor {
     this.points.ability.pool = 36 - this.points.ability.bought;
     this.points.ability.spent = abilityPointsSpent;
     this.points.ability.available = this.points.ability.total - abilityPointsSpent;
-
-    // Resource Pools
-    for ( let a in SYSTEM.RESOURCES ) {
-      // pass
-    }
   }
 
   /* -------------------------------------------- */
@@ -177,6 +176,44 @@ export default class CrucibleActor extends Actor {
     for ( let r of Object.values(data.data.resistances) ) {
       r.total = (r.base || 0) + (r.bonus || 0);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the values of resource pools for the Actor based on their attributes and resource rolls.
+   * @param {object} data
+   * @private
+   */
+  _prepareResources(data) {
+    const lvl = data.data.details.level;
+    const attrs = data.data.attributes;
+
+    // Health
+    const healthMod = ((2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value) / 4;
+    attrs.health.max = (12 * lvl) + Math.round(healthMod * lvl);
+    attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
+
+    // Wounds
+    attrs.wounds.max = 2 * attrs.health.max;
+    attrs.wounds.value = Math.clamped(attrs.wounds.value, 0, attrs.wounds.max);
+
+    // Morale
+    const moraleMod = ((2 * attrs.charisma.value) + attrs.intellect.value + attrs.wisdom.value) / 4;
+    attrs.morale.max = (12 * lvl) + Math.round(moraleMod * lvl);
+    attrs.morale.value = Math.clamped(attrs.morale.value, 0, attrs.morale.max);
+
+    // Madness
+    attrs.madness.max = 2 * attrs.morale.max;
+    attrs.madness.value = Math.clamped(attrs.madness.value, 0, attrs.madness.max);
+
+    // Action
+    attrs.action.max = 3;
+    attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
+
+    // Focus
+    attrs.focus.max = lvl * 3;
+    attrs.focus.value = Math.clamped(attrs.focus.value, 0, attrs.focus.max);
   }
 
   /* -------------------------------------------- */

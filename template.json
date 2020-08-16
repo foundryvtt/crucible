@@ -6,33 +6,35 @@
         "attributes": {
           "health": {
             "min": 0,
-            "value": 10,
-            "max": 10
+            "value": 0,
+            "max": 0,
+            "rolls": [12]
           },
           "wounds": {
             "min": 0,
-            "value": 10,
-            "max": 10
+            "value": 0,
+            "max": 0
           },
-          "sanity": {
+          "morale": {
             "min": 0,
-            "value": 10,
-            "max": 10
+            "value": 0,
+            "max": 0,
+            "rolls": [12]
           },
-          "stress": {
+          "madness": {
             "min": 0,
-            "value": 10,
-            "max": 10
+            "value": 0,
+            "max": 0
           },
           "action": {
             "min": 0,
-            "value": 3,
-            "max": 3
+            "value": 0,
+            "max": 0
           },
-          "spell": {
+          "focus": {
             "min": 0,
-            "value": 12,
-            "max": 12
+            "value": 0,
+            "max": 0
           },
           "strength": {
             "base": 1,

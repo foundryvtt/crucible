@@ -123,32 +123,38 @@ export const RESOURCES = {
   "health": {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
-    type: "burst"
+    type: "burst",
+    tooltip: "1d12 + (((2 * Constitution) + Strength + Dexterity) / 4)"
   },
   "wounds": {
     label: "ATTRIBUTES.Wounds",
     abbreviation: "ATTRIBUTES.Wounds",
-    type: "sustain"
+    type: "sustain",
+    tooltip: "Health * 2"
   },
   "morale": {
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
-    type: "burst"
+    type: "burst",
+    tooltip: "1d12 + (((2 * Charisma) + Intellect + Wisdom) / 4)"
   },
   "madness": {
     label: "ATTRIBUTES.Madness",
     abbreviation: "ATTRIBUTES.Madness",
-    type: "sustain"
+    type: "sustain",
+    tooltip: "Morale * 2"
   },
   "action": {
     label: "ATTRIBUTES.Action",
     abbreviation: "ATTRIBUTES.Action",
-    type: "burst"
+    type: "burst",
+    tooltip: "3 Points"
   },
   "focus": {
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
-    type: "sustain"
+    type: "sustain",
+    tooltip: "Level * 3"
   }
 };
 

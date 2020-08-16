@@ -235,6 +235,10 @@ export function localizeSkillConfig(skills, systemId) {
     skill.name = game.i18n.localize(skill.name);
     skill.icon = `systems/${systemId}/${skill.icon}`;
     skill.description = game.i18n.localize(`SKILLS.${skill.name}Info`);
+    skill.tooltips = {
+      value: game.i18n.format("SKILL.TooltipCheck", {a1: skill.attributes[0], a2: skill.attributes[1]}),
+      passive: game.i18n.localize("SKILL.TooltipPassive")
+    };
     for ( let p of Object.values(skill.paths) ) {
       p.name = game.i18n.localize(p.name);
       p.description = game.i18n.localize(p.description);
