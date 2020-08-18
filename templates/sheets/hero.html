@@ -99,17 +99,13 @@
             {{#each abilityScores as |attr|}}
                 <li class="ability flexrow" data-ability="{{attr.id}}">
                     <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
-                    {{#if attr.canDecrease}}
-                    <a class="button control {{#if attr.canIncrease}}highlight{{/if}} decrease" title="Ability Decrease" data-action="abilityDecrease">
+                    <a class="button control {{#unless attr.canDecrease}}inactive{{/unless}} decrease" title="Ability Decrease" data-action="abilityDecrease">
                         <i class="fas fa-minus"></i>
                     </a>
-                    {{/if}}
                     <span class="ability-score input">{{attr.value}}</span>
-                    {{#if attr.canIncrease}}
-                    <a class="button control highlight increase" title="Ability Increase" data-action="abilityIncrease">
+                    <a class="button control {{#unless attr.canIncrease}}inactive{{/unless}} increase" title="Ability Increase" data-action="abilityIncrease">
                         <i class="fas fa-plus"></i>
                     </a>
-                    {{/if}}
                 </li>
             {{/each}}
             </ol>

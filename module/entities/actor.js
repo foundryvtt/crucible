@@ -63,7 +63,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _preparePoints(data) {
-    const level = data.data.details.level;
+    const level = data.data.details.level = Math.clamped(data.data.details.level, 1, 24);
     this.points = {
       ability: { pool: 36, total: (level - 1), bought: null, spent: null, available: null },
       skill: { total: 2 + ((level-1) * 2), spent: null, available: null },
@@ -87,11 +87,11 @@ export default class CrucibleActor extends Actor {
     let abilityPointsSpent = 0;
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
       let ability = attrs[a];
-      let initial = 1;
-      if ( a === anc.primary ) initial = 3;
-      else if ( a === anc.secondary ) initial = 2;
-      ability.value = initial + ability.base + ability.increases + ability.bonus;
-      abilityPointsBought += Array.fromRange(initial + ability.base + 1).reduce((a, v) => a + v);
+      ability.initial = 1;
+      if ( a === anc.primary ) ability.initial = 3;
+      else if ( a === anc.secondary ) ability.initial = 2;
+      ability.value = ability.initial + ability.base + ability.increases + ability.bonus;
+      abilityPointsBought += Array.fromRange(ability.initial + ability.base + 1).reduce((a, v) => a + v);
       abilityPointsSpent += ability.increases;
       ability.cost = ability.value + 1;
     }
@@ -345,9 +345,10 @@ export default class CrucibleActor extends Actor {
 
     // Case 2 - Regular Increase
     else {
-      const canAfford = ((delta < 0) && (points.spent > 0)) || (points.available > 0);
-      if ( !canAfford ) return false;
-      return this.update({[`data.attributes.${ability}.increases`]: Math.clamped(attr.increases + delta, 0, 12 - attr.base)});
+      if (((delta < 0) && !points.spent) || ((delta > 0) && !points.available)) return false;
+      const base = attr.initial + attr.base;
+      const target = Math.clamped(attr.increases + delta, 0, 12 - base);
+      return this.update({[`data.attributes.${ability}.increases`]: target});
     }
   }
 

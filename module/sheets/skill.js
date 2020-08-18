@@ -48,7 +48,7 @@ export default class SkillSheet extends BaseEntitySheet {
     data.trainedRanks = [];
     data.untrainedRanks = [];
     for ( let [i, r] of this.config.ranks.entries() ) {
-      r.label = game.i18n.format("SKILL.RankLabel", {title: this.config.name, rank: i});
+        r.label = `${SYSTEM.SKILL_RANKS[i].label} ${this.config.name}`;
       if ( data.skill.rank >= i ) {
         if ( (data.skill.rank === 0) || (i !== 0) ) data.trainedRanks[i] = r;
       }
@@ -60,7 +60,7 @@ export default class SkillSheet extends BaseEntitySheet {
     if ( data.path ) {
       for ( let [i, r] of data.path.ranks.entries() ) {
         if ( !r ) continue;
-        r.label = game.i18n.format("SKILL.RankLabel", {title: data.path.name, rank: i});
+        r.label = `${SYSTEM.SKILL_RANKS[i].label} ${data.path.name}`;
         if ( data.skill.rank >= i ) data.trainedRanks[i] = r;
         else data.untrainedRanks[i] = r;
       }

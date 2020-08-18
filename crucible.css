@@ -243,6 +243,9 @@
   text-shadow: none;
   color: #191813;
 }
+.crucible.sheet a.button.inactive {
+  visibility: hidden;
+}
 .crucible.sheet .tooltipped {
   position: relative;
 }

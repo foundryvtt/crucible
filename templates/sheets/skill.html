@@ -39,7 +39,9 @@
         </div>
         {{/if}}
 
+        {{#if skill.rank}}
         <h3>Trained Ranks</h3>
+        {{/if}}
         <div class="skill-ranks current-ranks">
             {{#each trainedRanks}}
             <div class="skill-rank">
@@ -48,7 +50,7 @@
             {{/each}}
         </div>
 
-        <h3>Untrained Ranks</h3>
+        <h3>Unacquired Ranks</h3>
         <div class="skill-ranks current-ranks">
             {{#each untrainedRanks}}
             <div class="skill-rank">

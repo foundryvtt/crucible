@@ -78,7 +78,6 @@
   "SKILL.Master": "Master",
   "SKILL.Grandmaster": "Grandmaster",
   "SKILL.MasterPath": "Master the techniques of your specialization path - achieving the pinnacle of expertise with this skill.",
-  "SKILL.RankLabel": "{title} Rank {rank}",
 
   "SKILL.ChoosePath": "You must choose a specialization path before advancing this Skill further.",
   "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
