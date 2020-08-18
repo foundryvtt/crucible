@@ -14,10 +14,7 @@ export default class CrucibleActor extends Actor {
      *   talent: {total: number, spent: number, available: number }
      * }}
      */
-    this.points = {};
-
-    // Re-prepare the Item data once the config is ready
-    this.prepareData();
+    this.points;
   }
 
   /* -------------------------------------------- */
@@ -83,14 +80,18 @@ export default class CrucibleActor extends Actor {
    */
   _prepareAttributes(data) {
     const attrs = data.data.attributes;
+    const anc = data.data.details.ancestry;
 
     // Ability Scores
     let abilityPointsBought = 0;
     let abilityPointsSpent = 0;
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
       let ability = attrs[a];
-      ability.value = ability.base + ability.increases + ability.bonus;
-      abilityPointsBought += Array.fromRange(ability.base + 1).reduce((a, v) => a + v);
+      let initial = 1;
+      if ( a === anc.primary ) initial = 3;
+      else if ( a === anc.secondary ) initial = 2;
+      ability.value = initial + ability.base + ability.increases + ability.bonus;
+      abilityPointsBought += Array.fromRange(initial + ability.base + 1).reduce((a, v) => a + v);
       abilityPointsSpent += ability.increases;
       ability.cost = ability.value + 1;
     }
@@ -114,6 +115,8 @@ export default class CrucibleActor extends Actor {
 
     // Populate all the skills
     const ranks = SYSTEM.SKILL_RANKS;
+    const ancestry = data.data.details.ancestry;
+    const background = data.data.details.background;
     let pointsSpent = 0;
 
     // Iterate over skills
@@ -121,15 +124,17 @@ export default class CrucibleActor extends Actor {
       const config = SYSTEM.SKILLS[id];
 
       // Skill Rank
-      const base = (skill.ancestry || 0) + (skill.background || 0);
+      let base = 0;
+      if ( ancestry.skills.includes(id) ) base++;
+      if ( background.skills.includes(id) ) base++;
       skill.rank = Math.max(skill.rank || 0, base);
 
       // Point Cost
       const rank = ranks[skill.rank];
-      skill.cost = rank.cost;
-      pointsSpent += (skill.cost - base);
+      skill.spent = rank.spent - base;
+      pointsSpent += skill.spent;
       const next = ranks[skill.rank + 1] || {cost: null};
-      skill.nextCost = next.cost;
+      skill.cost = next.cost;
 
       // Bonuses
       const attrs = config.attributes.map(a => data.data.attributes[a].value);
@@ -173,8 +178,11 @@ export default class CrucibleActor extends Actor {
     }
 
     // Damage Resistances
-    for ( let r of Object.values(data.data.resistances) ) {
-      r.total = (r.base || 0) + (r.bonus || 0);
+    const ancestry = data.data.details.ancestry;
+    for ( let [id, r] of Object.entries(data.data.resistances) ) {
+      if ( id === ancestry.resistance ) r.base = 3;
+      else if ( id === ancestry.vulnerability ) r.base = -3;
+      r.total = r.base + r.bonus;
     }
   }
 
@@ -191,7 +199,7 @@ export default class CrucibleActor extends Actor {
 
     // Health
     const healthMod = ((2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value) / 4;
-    attrs.health.max = (12 * lvl) + Math.round(healthMod * lvl);
+    attrs.health.max = (8 * lvl) + Math.round(healthMod * lvl);
     attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
 
     // Wounds
@@ -200,7 +208,7 @@ export default class CrucibleActor extends Actor {
 
     // Morale
     const moraleMod = ((2 * attrs.charisma.value) + attrs.intellect.value + attrs.wisdom.value) / 4;
-    attrs.morale.max = (12 * lvl) + Math.round(moraleMod * lvl);
+    attrs.morale.max = (8 * lvl) + Math.round(moraleMod * lvl);
     attrs.morale.value = Math.clamped(attrs.morale.value, 0, attrs.morale.max);
 
     // Madness
@@ -267,13 +275,12 @@ export default class CrucibleActor extends Actor {
 
   /**
    * When an Ancestry item is dropped on an Actor, apply its contents to the data model
-   * @param {object} ancestry     The ancestry data to apply to the Actor.
+   * @param {object} itemData     The ancestry data to apply to the Actor.
    * @return {CrucibleActor}      The updated Actor with the new Ancestry applied.
    */
-  async applyAncestry(ancestry) {
-    const updates = {
-      "data.details.ancestry": ancestry.name
-    };
+  async applyAncestry(itemData) {
+    const ancestry = duplicate(itemData.data);
+    ancestry.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
     if ( (this.data.data.details.level !== 1) || (this.points.skill.spent > 0) || (this.points.ability.spent > 0) ) {
@@ -282,28 +289,8 @@ export default class CrucibleActor extends Actor {
       throw new Error(err);
     }
 
-    // Apply primary and secondary abilities
-    for ( let a in SYSTEM.ABILITIES ) {
-      if ( ancestry.data.primaryAbility === a ) updates[`data.attributes.${a}.base`] = 3;
-      else if ( ancestry.data.secondaryAbility === a ) updates[`data.attributes.${a}.base`] = 2;
-      else updates[`data.attributes.${a}.base`] = 1;
-    }
-
-    // Apply skills
-    for ( let s in SYSTEM.SKILLS ) {
-      updates[`data.skills.${s}.rank`] = 0;
-      updates[`data.skills.${s}.ancestry`] = ancestry.data.skills.includes(s) ? 1 : 0;
-    }
-
-    // Apply resistances and vulnerabilities
-    for ( let s in SYSTEM.DAMAGE_TYPES ) {
-      if ( ancestry.data.resistance ) updates[`data.resistances.${s}.base`] = 3;
-      else if ( ancestry.data.vulnerability ) updates[`data.resistances.${s}.base`] = -3;
-      else updates[`data.resistances.${s}.base`] = 0;
-    }
-
     // Update the Actor
-    await this.update(updates);
+    await this.update({"data.details.ancestry": ancestry});
     ui.notifications.info(game.i18n.format("ANCESTRY.Applied", {ancestry: ancestry.name, actor: this.name}));
     return this;
   }
@@ -312,13 +299,12 @@ export default class CrucibleActor extends Actor {
 
   /**
    * When a Background item is dropped on an Actor, apply its contents to the data model
-   * @param {object} background   The background data to apply to the Actor.
+   * @param {object} itemData     The background data to apply to the Actor.
    * @return {CrucibleActor}      The updated Actor with the new Background applied.
    */
-  async applyBackground(background) {
-    const updates = {
-      "data.details.background": background.name
-    };
+  async applyBackground(itemData) {
+    const background = duplicate(itemData.data);
+    background.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
     if ( (this.data.data.details.level !== 1) || (this.points.skill.spent > 0) ) {
@@ -327,14 +313,8 @@ export default class CrucibleActor extends Actor {
       throw new Error(err);
     }
 
-    // Apply skills
-    for ( let s in SYSTEM.SKILLS ) {
-      updates[`data.skills.${s}.rank`] = 0;
-      updates[`data.skills.${s}.background`] = background.data.skills.includes(s) ? 1 : 0;
-    }
-
     // Update the Actor
-    await this.update(updates);
+    await this.update({"data.details.background": background});
     ui.notifications.info(game.i18n.format("BACKGROUND.Applied", {background: background.name, actor: this.name}));
     return this;
   }
@@ -360,7 +340,7 @@ export default class CrucibleActor extends Actor {
       if ( !canAfford ) {
         return ui.notifications.warn(game.i18n.format(`ABILITY.CantAfford`, {cost: attr.cost, points: points.pool}));
       }
-      return this.update({[`data.attributes.${ability}.base`]: Math.clamped(attr.base + delta, 1, 12)});
+      return this.update({[`data.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
     }
 
     // Case 2 - Regular Increase

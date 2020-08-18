@@ -49,7 +49,7 @@ export default class AncestrySheet extends ItemSheet {
     event.preventDefault();
 
     // Process abilities
-    if ( formData["data.primaryAbility"] === formData["data.secondaryAbility"] ) {
+    if ( formData.data.primary === formData.data.secondary ) {
       const err = game.i18n.localize("ANCESTRY.AbilityWarning");
       ui.notifications.warn(err);
       throw new Error(err);
@@ -65,11 +65,11 @@ export default class AncestrySheet extends ItemSheet {
       ui.notifications.warn(err);
       throw new Error(err);
     }
-    formData["data.skills"] = skills;
+    formData.data.skills = skills;
 
     // Process resistance and vulnerability
-    if ( !!formData["data.resistance"] !== !!formData["data.vulnerability"] ) {
-      const err = game.i18n.localize("ANCESTRY.ResistanceWarning")
+    if ( (!!formData.data.resistance !== !!formData.data.vulnerability) ) {
+      const err = game.i18n.localize("ANCESTRY.ResistanceWarning");
       ui.notifications.warn(err);
       throw new Error(err);
     }

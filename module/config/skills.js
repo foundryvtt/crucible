@@ -7,6 +7,7 @@ export const SKILL_RANKS = {
     label: "SKILL.Untrained",
     description: "You have no formal training in this area. Any success you have is due to luck.",
     cost: 0,
+    spent: 0,
     bonus: -4,
     path: false
   },
@@ -14,34 +15,39 @@ export const SKILL_RANKS = {
     label: "SKILL.Novice",
     description: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
     cost: 1,
+    spent: 1,
     bonus: 0,
     path: false
   },
   2: {
     label: "SKILL.Apprentice",
     description: "You have practiced and honed your skills to a strong functional degree.",
-    cost: 2,
+    cost: 1,
+    spent: 2,
     bonus: 2,
     path: false
   },
   3: {
     label: "SKILL.Journeyman",
     description: "You are a subject matter expert in this area.",
-    cost: 4,
+    cost: 2,
+    spent: 4,
     bonus: 4,
     path: true
   },
   4: {
     label: "SKILL.Master",
     description: "You are a true master of this skill and its techniques.",
-    cost: 7,
+    cost: 4,
+    spent: 8,
     bonus: 8,
     path: false
   },
   5: {
     label: "SKILL.Grandmaster",
     description: "You are peerless in your mastery of this area.",
-    cost: 12,
+    cost: 4,
+    spent: 12,
     bonus: 12,
     path: true
   }

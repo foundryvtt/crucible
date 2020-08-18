@@ -31,12 +31,12 @@
             <div class="history flexrow">
                 <div class="ancestry">
                     <label>Ancestry</label>
-                    <h2>{{data.details.ancestry}}</h2>
+                    <h2>{{data.details.ancestry.name}}</h2>
                 </div>
 
                 <div class="background">
                     <label>Background</label>
-                    <h2>{{data.details.background}}</h2>
+                    <h2>{{data.details.background.name}}</h2>
                 </div>
             </div>
 
@@ -178,7 +178,7 @@
                         {{#each res.resists as |r id|}}
                             <li class="resistance flexrow" data-resistance="{{id}}">
                                 <h4>{{r.label}}</h4>
-                                <span class="base">{{r.base}} +</span>
+                                <span class="base">{{r.base}}</span>
                                 <input class="bonus" type="text" name="data.resistances.{{id}}.bonus" value="{{r.bonus}}" data-dtype="Number"/>
                                 <span class="total">{{r.total}}</span>
                             </li>
@@ -251,8 +251,8 @@
                         <a class="button control highlight" title="Decrease Rank" data-action="skillDecrease">
                             <i class="fas fa-minus fa-fw"></i>
                         </a>
-                        <span class="cumulative">{{skill.cost}}</span>
-                        <span class="next">{{#if skill.nextCost}}({{skill.nextCost}}){{else}}-{{/if}}</span>
+                        <span class="cumulative">{{skill.spent}}</span>
+                        <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
                         <a class="button control highlight" title="Increase Rank" data-action="skillIncrease">
                             <i class="fas fa-plus fa-fw"></i>
                         </a>

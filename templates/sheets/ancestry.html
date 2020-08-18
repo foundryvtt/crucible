@@ -14,8 +14,8 @@
     <section class="sheet-body">
         <div class="form-group ability">
             <label>{{localize "ANCESTRY.PrimaryAbility"}}</label>
-            <select name="data.primaryAbility">
-                {{#select data.primaryAbility}}
+            <select name="data.primary">
+                {{#select data.primary}}
                 {{#each system.ABILITIES as |a id|}}
                 <option value="{{id}}">{{a.label}}</option>
                 {{/each}}
@@ -26,8 +26,8 @@
 
         <div class="form-group ability">
             <label>{{localize "ANCESTRY.SecondaryAbility"}}</label>
-            <select name="data.secondaryAbility">
-                {{#select data.secondaryAbility}}
+            <select name="data.secondary">
+                {{#select data.secondary}}
                 {{#each system.ABILITIES as |a id|}}
                 <option value="{{id}}">{{a.label}}</option>
                 {{/each}}
