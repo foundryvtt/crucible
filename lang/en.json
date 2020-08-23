@@ -17,6 +17,16 @@
 
   "ABILITY.CantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
 
+  "ARMOR.Bulky": "Bulky",
+  "ARMOR.Impenetrable": "Impenetrable",
+  "ARMOR.Flexible": "Flexible",
+  "ARMOR.Magical": "Magical",
+  "ARMOR.Organic": "Organic",
+  "ARMOR.Unarmored": "Unarmored",
+  "ARMOR.Light": "Light Armor",
+  "ARMOR.Medium": "Medium Armor",
+  "ARMOR.Heavy": "Heavy Armor",
+
   "ATTRIBUTES.Abilities": "Ability Scores",
   "ATTRIBUTES.Pools": "Resource Pools",
   "ATTRIBUTES.Resistances": "Damage Resistances",

@@ -160,7 +160,7 @@
 .crucible .form-group .form-fields > *:last-child {
   margin-right: 0;
 }
-.crucible .form-group.stacked label {
+.crucible .form-group.stacked > label {
   flex: 0 0 100%;
 }
 .crucible .form-group.stacked label.checkbox {
@@ -725,6 +725,18 @@
 .crucible.sheet.item {
   --headerHeight: 80px;
   --titleHeight: 40px;
+}
+.crucible.sheet.armor .form-group.stacked > label {
+  text-decoration: underline;
+}
+.crucible.sheet.armor .resistance {
+  flex: 0 0 50%;
+  margin: 0 0 3px;
+  padding: 0 6px;
+}
+.crucible.sheet.armor .resistance > input {
+  flex: 0 0 64px;
+  text-align: center;
 }
 .crucible.sheet.skill {
   --headerHeight: 48px;

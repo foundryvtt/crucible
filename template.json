@@ -232,14 +232,33 @@
     }
   },
   "Item": {
-    "types": ["ancestry", "background", "talent"],
-    "templates": {},
+    "types": ["ancestry", "armor", "background", "talent"],
+    "templates": {
+      "physical": {
+        "quantity": 1,
+        "weight": 0,
+        "price": 0
+      }
+    },
     "ancestry": {
       "primary": null,
       "secondary": null,
       "skills": [],
       "resistance": null,
       "vulnerability": null
+    },
+    "armor": {
+      "category": null,
+      "armor": {
+        "base": 0,
+        "bonus": 0
+      },
+      "dodge": {
+        "base": 0,
+        "max": null
+      },
+      "properties": {},
+      "resistances": {}
     },
     "background": {
       "skills": [],

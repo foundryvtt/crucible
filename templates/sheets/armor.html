@@ -1,0 +1,69 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <div class="header-content flexrow">
+            <h1 class="title">
+                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
+            </h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="form-group">
+            <label>Category</label>
+            <div class="form-fields">
+                <select name="data.category">
+                    {{#select data.category}}
+                    {{#each categories}}
+                    <option value="{{this.id}}">{{this.label}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Armor (Base and Bonus)</label>
+            <div class="form-fields">
+                <input type="number" name="data.armor.base" value="{{data.armor.base}}"/>
+                <input type="number" name="data.armor.bonus" value="{{data.armor.bonus}}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Dodge (Base and Maximum)</label>
+            <div class="form-fields">
+                <input type="number" name="data.dodge.base" value="{{data.dodge.base}}"/>
+                <input type="number" name="data.dodge.max" value="{{data.dodge.max}}"/>
+            </div>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Armor Properties</label>
+            <div class="form-fields">
+                {{#each properties}}
+                <label class="checkbox">
+                    <input type="checkbox" name="{{this.name}}" {{checked this.checked}}/> {{this.label}}
+                </label>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Damage Resistances</label>
+            {{#each resistances}}
+            <div class="resistance flexrow">
+                <label>{{this.label}}</label>
+                <input type="number" name="{{this.name}}" value="{{this.value}}"/>
+            </div>
+            {{/each}}
+        </div>
+
+        <footer class="sheet-footer">
+            <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
+        </footer>
+    </section>
+</form>

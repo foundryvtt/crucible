@@ -12,6 +12,7 @@ import CrucibleItem from "./module/entities/item.js";
 import HeroSheet from "./module/sheets/hero.js";
 
 import AncestrySheet from "./module/sheets/ancestry.js";
+import ArmorSheet from "./module/sheets/armor.js";
 import BackgroundSheet from "./module/sheets/background.js";
 
 import StandardCheck from "./module/dice/standard-check.js";
@@ -43,6 +44,7 @@ Hooks.once("init", async function() {
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
 
   // Register Dice mechanics
@@ -60,12 +62,15 @@ Hooks.once("init", async function() {
 Hooks.once("ready", function() {
 
   // Apply localizations
-  const toLocalize = [SYSTEM.ABILITIES, SYSTEM.ATTRIBUTE_CATEGORIES, SYSTEM.DAMAGE_CATEGORIES, SYSTEM.DAMAGE_TYPES,
-    SYSTEM.RESOURCES, SYSTEM.SAVE_DEFENSES, SYSTEM.SKILL_CATEGORIES, SYSTEM.SKILL_RANKS];
+  const toLocalize = [
+    "ABILITIES", "ARMOR_CATEGORIES", "ARMOR_PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES", "DAMAGE_TYPES",
+    "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS"
+  ];
   for ( let c of toLocalize ) {
-    for ( let v of Object.values(c) ) {
+    for ( let [k, v] of Object.entries(SYSTEM[c]) ) {
       if ( v.label ) v.label = game.i18n.localize(v.label);
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
+      if ( typeof v === "string" ) SYSTEM[c][k] = game.i18n.localize(v);
     }
     Object.freeze(c);
   }
