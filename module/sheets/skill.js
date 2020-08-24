@@ -71,10 +71,8 @@ export default class SkillSheet extends BaseEntitySheet {
   /* -------------------------------------------- */
 
   /** @override */
-  _getFormData(form) {
-    const fd = new FormData();
-    fd.set(`data.skills.${this.skillId}.path`, form.path.value);
-    return fd
+  _getUpdateData(updateData={}) {
+    return mergeObject({[`data.skills.${this.skillId}.path`]: this.form.path.value}, updateData);
   }
 
   /* -------------------------------------------- */

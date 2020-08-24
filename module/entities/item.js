@@ -39,17 +39,41 @@ export default class CrucibleItem extends Item {
   /**
    * Prepare the data object for this Item.
    * The prepared data will change as the underlying source data is updated
-   * @param data
    */
-  prepareData(data) {
-    data = data || this.data;
-    if ( !this.config ) return data; // Hack to avoid preparing data before the config is ready
+  prepareData() {
+    const data = this.data;
     switch ( this.data.type ) {
+      case "armor":
+        return this._prepareArmorData(data);
       case "skill":
         return this._prepareSkillData(data);
       case "talent":
         return "foo";
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare base data for Armor type Items
+   * @param {object} data     The item data object
+   * @private
+   */
+  _prepareArmorData(data) {
+    const {armor, dodge} = data.data;
+    const category = SYSTEM.ARMOR_CATEGORIES[data.data.category] || "unarmored";
+
+    // Base Armor can be between zero and the maximum allowed for the category
+    armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);
+
+    // Base Dodge is defined as (18 - base_armor) / 2, to a maximum of 8
+    dodge.base = Math.min(Math.floor((18 - armor.base) / 2), 8);
+
+    // Dodge Start is defined as base armor / 3
+    dodge.start = Math.ceil(armor.base / 3);
+
+    // Armor can have an enchantment bonus up to a maximum of 6
+    armor.bonus = Math.clamped(armor.bonus, 0, 6);
   }
 
   /* -------------------------------------------- */

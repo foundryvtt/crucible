@@ -7,25 +7,23 @@
 export const ARMOR_CATEGORIES = {
   "unarmored": {
     label: "ARMOR.Unarmored",
-    maxDodge: null
+    minArmor: 0,
+    maxArmor: 0
   },
   "light": {
     label: "ARMOR.Light",
-    maxArmor: 8,
-    maxDodge: 24,
-    neutral: 18
+    minArmor: 1,
+    maxArmor: 6
   },
   "medium": {
     label: "ARMOR.Medium",
-    maxArmor: 18,
-    maxDodge: 12,
-    neutral: 20
+    minArmor: 7,
+    maxArmor: 12
   },
   "heavy": {
     label: "ARMOR.Heavy",
-    maxArmor: 24,
-    maxDodge: 6,
-    neutral: 22
+    minArmor: 13,
+    maxArmor: 18
   }
 };
 

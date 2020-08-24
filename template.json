@@ -255,7 +255,7 @@
       },
       "dodge": {
         "base": 0,
-        "max": null
+        "start": 0
       },
       "properties": {},
       "resistances": {}
