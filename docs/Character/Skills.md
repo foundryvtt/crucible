@@ -55,8 +55,8 @@ The sixteen skills are listed below, with descriptions of the skill itself. Each
 
 
 #### Skill Tasks
-**Example Task A.** Example Task A description.<br>
-**Example Task B.** Example Task B description.
+**Verb A.** Example situation which uses verb A.<br>
+**Verb B.** Example situation which uses verb A.
 
 | Rank | Template Skill Progression       |
 | ---- | ---------------------------------- |
@@ -84,7 +84,7 @@ Exploration skills are used most often when dealing with the environment a chara
 
 Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.
 
-#### Acrobatics Tasks
+#### Example Uses
 
 **Climb.** You can climb vertically ascending surfaces at 1/2 your normal Stride as a part of the Stride action. Difficult surfaces, or attempts to climb an easier surface more quickly, may require an Acrobatics check to scale successfully.<br>
 **Leap.** You can perform an Acrobatics check to move farther during a leap than your base Horizontal or Vertical leap distances.<br>
@@ -111,7 +111,7 @@ Acrobatics relates to one's training in agility and athletics. Ranks in this ski
 
 Perception relates to general awareness, most often in relation to one's physical surroundings. To a lesser extent, it is used to observe people's social behavior as well. Those with training in Perception hone their senses and are expert observationists, noticing details others might miss.
 
-#### Perception Tasks
+#### Example Uses
 
 **Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object or some other physical phenomena.<br>
 **Search.** You can perform a dedicated search for an object or some other physical phenomena, investigating your surroundings over a minute or more.<br>
@@ -131,7 +131,7 @@ Perception relates to general awareness, most often in relation to one's physica
 
 Stealth is used to advance unnoticed and gain access to areas which are otherwise inaccessible. Stealth adepts can develop expertise in infiltration, lockpicking, or thievery. Stealth offers three choices of progression paths.
 
-#### Stealth Tasks
+#### Example Uses
 
 **Hide.** You can attempt to find a hiding spot nearby and remain hidden, performing a blind Stealth check for your GM.<br>
 **Sneak.** You can pass through an area unnoticed, moving a quarter of your normal Stride.<br>
@@ -151,7 +151,7 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 
 Survival represents your ability to operate as a self-sufficient explorer in challenging natural environments, understanding their terrain, flora, fauna, and hazards. Survival adepts can develop expertise in dealing with a subset of specific biomes, creature types, or natural resources.
 
-#### Survival Tasks
+#### Example Uses
 
 **Navigate.** Outdoors, you can perform a Survival check to navigate through the use of the sun, clouds, stars, or other natural phenomena.<br>
 **Track.** When finding tracks, you can attempt to follow the tracks, identify what might have left them, how many sets of tracks there are, or how long ago they were made.<br>
@@ -190,7 +190,7 @@ The progression paths available to the Survival skill are listed below.
 
 Arcana deals with the properties and perception of the weave of magical energies. This current of arcane potentia can be studied, manipulated, and harnessed by those with sufficient knowledge and willpower. Skill in Arcana represents your understanding of the theory and application of magic. Learned arcanists can develop expertise in the reading the arcane weave, manipulating elemental energies, or infusing arcane potentia into physical objects.
 
-#### Arcana Tasks
+#### Example Uses
 
 **Detect Magic.** You can perform an Arcana check to determine if an item bears magic, and what spell or enchantment the object is affected by, if any.<br>
 **Identify Spell.** When you see a spell being cast, you can perform an Arcana check to determine what the spell is, learning which rune and/or gesture was used in its casting. You must have some insight on what components are used to cast a spell before you can properly counter it.<br>
@@ -223,15 +223,15 @@ The progression paths available to the Arcana skill are listed below.
 | Rank 4           | Select a second elemental damage type as a Favored Element. You gain a Damage Resistance of 5 to both elements and +4 to damage when rolling at least one damage die of either type. |
 | Rank 5           | All elements are your Favored Element. You have Damage Resistance of 5 to all elements and +6 to damage when rolling at least one elemental damage die. |
 | **Enchanter**    | Specialists in infusing arcane potency into physical objects to create items of great power. |
-| Rank 2           | You know how to imbue minor magical effects into nonmagical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. |
-| Rank 4           | You know how to imbue major magical effects into both magical and nonmagical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. You may attempt to upgrade an existing magical item by adding a new effect if the item has available enchantment capacity. |
+| Rank 2           | You know how to imbue minor magical effects into non-magical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. |
+| Rank 4           | You know how to imbue major magical effects into both magical and non-magical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. You may attempt to upgrade an existing magical item by adding a new effect if the item has available enchantment capacity. |
 | Rank 5           | You are a master of arcane infusion and you can imbue any spell which you can cast into an item. You are able to add new effects to an item if it has available enchantment capacity and you can remove existing magical effects from an item, freeing the item's enchantment capacity for further infusion. |
 
 ### Lore
 
 Lore relates to the breadth of one's general knowledge, ranging from information on cultures, to world history, geography, politics, or even fables and myths.
 
-#### Lore Tasks
+#### Example Uses
 
 **Recall.** A character can attempt to recall general lore or history they may know about any particular subject. This is often retroactive - a character succeeding on such a Lore check could be seen as having always known the information, but remembering it just in time.<br>
 **Deduce.** When information is already at hand, you may use your knowledge of the world to attempt to predict a future event, or deduce something that was previously unknown.<br>
@@ -242,7 +242,7 @@ Lore relates to the breadth of one's general knowledge, ranging from information
 
 ### Religion
 
-#### Religion Tasks
+#### Example Uses
 
 **Recall.** You can attempt to recall information about a deity, religion, or those who follow a religion. This includes understanding symbology, cultural insight of a religion (or religions), or philosophical sentiments.<br>
 **Intuit.** Religion checks can also be performed to understand the deeper meaning of a religious custom, comprehend the mandates of a deity, or divine the significance of a religious event or figure. Depending on the setting, this level of insight may, at times, literally be the result of divine intervention.<br>
@@ -261,29 +261,29 @@ Lore relates to the breadth of one's general knowledge, ranging from information
 
 Knowledge of Science corresponds to knowledge of the natural world. Improvement in this skill reflects your broadening understanding of the natural laws that govern the world, as well as your ability to apply that knowledge in useful ways. Tasks requiring knowledge of physics, chemistry, mechanics, and engineering can all use Science skill checks to determine their outcome.
 
-#### Science Tasks
+#### Example Uses
 
 **Recall.** You can perform a Science check to remember details about a scientifically observed, theorized, or proven phenomenon.<br>
 **Theorize.** You can come to new conclusions using information you have already acquired, in regards to natural sciences such as geology and chemistry. This includes predicting the properties or effects of a substance, or understanding where or how an object will move.<br>
-**Understand.** You can examine a physical object or phenomenon to determine obscure patterns, an object's purpose or function, or why an object behaves a certain way.<br>
+**Discern.** You can examine a physical object or phenomenon to determine obscure patterns, an object's purpose or function, or why an object behaves a certain way.<br>
 
 | Rank | Science Skill Progression          |
 | ---- | ---------------------------------- |
 | 0    | You have little to no scientific understanding of the world. If there are natural laws governing the world, you do not know much about them. You can perform Science checks to attempt to understand, recall, or deduce certain ideas. If you have not yet learned of a common natural law or theory, you automatically fail checks made to deduce it on your own. You have +2 Banes on checks made to determine the weight or volume of an object at a glance. |
-| 1    | You have some understanding of natural laws, and of basic physical properties of objects, such as momentum and inertia. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You no longer have Banes on checks to determine the weight or volume of objects at a glance. |
-| 2    | You have a broader understanding of natural philosophy, and have developed a decent understanding of the physical properties of objects. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You do not have Banes on checks to determine the weight or volume of objects at a glance. You have Reliability on checks made to understand the function or purpose of commonly-used tools or objects, even if you have not personally used them. |
-| 4    | You have a superior level of understanding of sciences and natural philosophy. You can perfectly recall any scientific theory, law, or concept you have previously learned. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You do not have Banes on checks to determine the weight or volume of objects at a glance. You can quickly surmise the function or purpose of commonly-used tools or objects, even if you have not personally used them. You immediately recognize if a phenomenon violates conventional scientific laws and is therefore supernatural. |
+| 1    | You have some understanding of natural laws, and of basic physical properties of objects, such as momentum and inertia. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). |
+| 2    | You have a broader understanding of natural philosophy, and have developed a decent understanding of the physical properties of objects. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You have Reliability on checks made to understand the function or purpose of non-magical tools or objects. |
+| 4    | You have a superior level of understanding of sciences and natural philosophy. You can perfectly recall any scientific theory, law, or concept you have previously learned. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You can quickly surmise the function or purpose of non-magical tools or objects. You immediately recognize if a phenomenon violates conventional scientific laws and is therefore supernatural. |
 
 The progression paths available to the Science skill are listed below.
 
 | Path (Rank)      | Progression Path Benefits                                    |
 | ---------------- | ------------------------------------------------------------ |
 | **Physiker** | Specialists in the everpresent laws of the natural world. |
-| Rank 3 | Your sharp knowledge of physics lets you quickly understand your surroundings. At a glance, you can automatically determine when a creature is going to land after a fall, or approximately how heavy an object is. You have +3 Boons on checks to determine other physical properties of objects, such as volume. You have +1 Boon on checks made to exploit environmental hazards, or identify structural weaknesses in large objects such as buildings and vehicles. If you notice a structural weakness, you and your allies deal +2 damage on all attacks against the object until either the object is destroyed, or the structural weakness is somehow removed. |
-| Rank 5 | Your studious knowledge of physics gives you an almost omniscient understanding of your surroundings. At a glance, you can automatically determine when a creature is going to land after a fall, or how heavy an object is. If you notice a creature moving, you automatically know any movement speeds it has. You have +3 Boons on checks made to exploit environmental hazards, or identify structural weaknesses in large objects such as buildings and vehicles. If you notice a structural weakness, you and your allies deal +4 damage on all attacks against the object until either the object is destroyed, or the structural weakness is somehow removed. |
+| Rank 3 | Your sharp knowledge of physics lets you quickly understand your surroundings. At a glance, you can automatically determine when a creature is going to land after a fall, or approximately how heavy an object is. You have +3 Boons on checks to determine other physical properties of objects, such as volume. You have +2 Boons on checks made to exploit environmental hazards, or identify structural weaknesses in large objects such as buildings and vehicles. If you notice a structural weakness, you and your allies deal +2 damage on all attacks against the object until either the object is destroyed, or the structural weakness is somehow removed. |
+| Rank 5 | Your studious knowledge of physics gives you an almost omniscient understanding of your surroundings. At a glance, you can automatically determine when a creature is going to land after a fall, or how heavy an object is. If you notice a creature moving, you automatically know any movement speeds it has. You have +4 Boons on checks made to exploit environmental hazards, or identify structural weaknesses in large objects such as buildings and vehicles. If you notice a structural weakness, you and your allies deal +4 damage on all attacks against the object until either the object is destroyed, or the structural weakness is somehow removed. |
 | **Alchemist** | Specialists in harnessing substances to create stunning effects. |
-| Rank 3 | Your comprehension of chemistry helps you reliably create powerful chemical reactions. You have +1 Boon on checks made to identify the nature of a powder, liquid, gas, or similar unknown substance, and +1 Boon on checks to determine what sort of reaction the mixing of two substances will make, if any. You have Reliability on checks made to craft a potion or other alchemical product. |
-| Rank 5 | Your breadth of knowledge has allowed you to uncover the deepest secrets of alchemy. You have +3 Boons on checks made to identify the nature of a powder, liquid, gas, or similar unknown substance, and +3 Boons on checks to determine what sort of reaction the mixing of two substances will make, if any. You have Reliability on checks made to craft a potion or other alchemical product, and can do so in half the time. |
+| Rank 3 | Your comprehension of chemistry helps you reliably create powerful chemical reactions. You have +1 Boon on checks made to identify the nature of a powder, liquid, gas, or similar unknown substance, and +1 Boon on checks to determine what sort of reaction the mixing of two substances will make, if any. You have +2 Boons on checks made to craft a potion or other alchemical product. |
+| Rank 5 | Your breadth of knowledge has allowed you to uncover the deepest secrets of alchemy. You have +3 Boons on checks made to identify the nature of a powder, liquid, gas, or similar unknown substance, and +3 Boons on checks to determine what sort of reaction the mixing of two substances will make, if any. You have +4 Boons on checks made to craft a potion or other alchemical product, and can do so in half the time. |
 | **Tinkerer** | Specialists in the workings of intricate, manufactured objects. |
 | Rank 3 | TBD |
 | Rank 5 | TBD |
@@ -297,7 +297,7 @@ The progression paths available to the Science skill are listed below.
 
 Bartering pertains to the art of trades and bargains. A well-trained barterer will be able to negotiate effectively with merchants or just about anyone they wish to conduct business with. Ranks in Bartering indicate insight into markets as a whole, but also into the social aspect of trading and haggling, persuading others to sweeten an offer, or make a compromise. Barterers can prioritize their training in either procuring obscure goods, transporting trade goods, or negotiating deals with others.
 
-#### Bartering Tasks
+#### Example Uses
 
 **Appraise.** You can perform a Bartering check to determine the approximate value of an item, as well as identify any factors that may cause an item to increase or decrease in value or demand.<br>
 **Haggle.** When conducting a trade or other form of negotiation, you can attempt to convince those you deal with to make a more reasonable offer, or settle for a deal that may be less beneficial for them.<br>
@@ -317,7 +317,7 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 
 Deception deals with using misinformation to subtly or overtly mislead others - causing them to make incorrect assumptions or draw erroneous conclusions. Skill in Deception represents your ability to lie, trick, manipulate, or otherwise act in a disingenuous way. Skilled deceivers can develop expertise in manipulating the flow of information, in tricking the senses through illusion, or in infiltrating the very minds of their enemies.
 
-#### Deception Tasks
+#### Example Uses
 
 **Lie.** You can use the Deception skill for attempts to willfully mislead others, or convincingly omit the truth from your words.<br>
 **Detect Lies.** You can use your own knowledge of Deception to determine if someone else may be lying.<br>
@@ -355,7 +355,7 @@ The progression paths available to the Deception skill are listed below.
 
 Diplomacy involves the persuasion of others, awareness of customs, and general social grace. Trained diplomats are able to convince others to understand their perspective, and can easily pass as approachable or agreeable in conversation. Skill in Diplomacy represents your aptitude to have others agree with you, or to convince, plead, negotiate, or appease.
 
-#### Diplomacy Tasks
+#### Example Uses
 
 **Persuade.** It may, at times, be possible to convince others to agree with you with a Diplomacy check.<br>
 **Diffuse.** When encountering a creature who bears hostile intent towards you, you may attempt to negotiate for civility through performing a Diplomacy check.<br>
@@ -375,7 +375,7 @@ Diplomacy involves the persuasion of others, awareness of customs, and general s
 
 Intimidation refers to harnessing one's social or physical presence, imposing one's self as a threat to others. Much like Diplomacy, Intimidation can be used to persuade others; however, this is done through cultivating fear, rather than respect, in those who are to be persuaded. Skill in Intimidation relates to your ability to persuade through threat of violence, persecution, or any other misfortune, and the most skilled intimidators know what can strike fear into almost anyone.
 
-#### Intimidation Tasks
+#### Example Uses
 
 **Scare.** The Intimidation skill may be used, first and foremost, to startle and violently coerce others to cooperate.<br>
 **Instill.** Creating a more covert sense of doubt in an individual may require an Intimidation check.<br>
@@ -397,7 +397,7 @@ Intimidation refers to harnessing one's social or physical presence, imposing on
 
 Animal Handling is used, quite simply, in the handling of animals. Skill in Animal Handling helps one understand the mindset and habits of beasts, how to coerce, calm, tame, or stave them off, or predict their next move. A well-trained animal handler knows much more general knowledge about animals, and will more easily have understanding of such creatures, to either develop bonds or manipulate.
 
-#### Animal Handling Tasks
+#### Example Uses
 
 **Tame.** Animal Handling is used in attempts to calm wild beasts, allowing them to be approached, examined, or fed. A hostile beast may be dissuaded from attacking you with a successful Animal Handling check.<br>
 **Mount.** You may mount creatures at least one size larger than you, but doing so requires an Animal Handling check.<br>
@@ -418,7 +418,7 @@ Animal Handling is used, quite simply, in the handling of animals. Skill in Anim
 
 Craftsmanship involves knowledge and artisanship in a particular trade skill. Earning ranks in Craftsmanship indicates the ability to understand a certain profession (or general professions as a whole) and aptitude in creating high-quality goods or performing skillful services. A competent craftsman may be acclaimed for their ability to make quality goods, and knows what they need to get the job done.
 
-#### Craftsmanship Tasks
+#### Example Uses
 
 **Appraise.** You may determine the quality of an item, its approximate value, or the cost to make it using a Craftsmanship check. You can also attempt to determine the defining features of a crafted item, its purpose, or its potential flaws (both functionally and aesthetically).<br>
 **Craft.** Creating an item through a trade skill requires a Craftsmanship check, and often requires some prior knowledge to use tools to make such an item.<br>
@@ -438,7 +438,7 @@ Craftsmanship involves knowledge and artisanship in a particular trade skill. Ea
 
 Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.
 
-#### Medicine Tasks
+#### Example Uses
 
 **Diagnose.** You can use a Medicine check to determine the state of a creature's health, and what ailments are affecting it.<br>
 **Autopsy.** You can determine the cause of death in a creature with a successful Medicine check.<br>
@@ -464,7 +464,7 @@ Medicine is used to deal with the health of one's self and others, and to diagno
 
 Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
 
-#### Performance Tasks
+#### Example Uses
 
 **Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Performance checks.<br>
 **Improvise.** You can envision or create a work of performance art on your own, which may require Performance checks to adequately execute.<br>
