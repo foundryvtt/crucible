@@ -6,6 +6,7 @@
   --skillHeight: 30px;
 
   /* General Sheet Styles */
+
   label {
     font-family: @caslon;
     color: @colorOlive;
@@ -76,6 +77,7 @@
   .resource {
     padding: 0 8px;
     border-right: 1px solid @colorFaint;
+
     &:last-child {
       border-right: none;
     }
@@ -88,8 +90,10 @@
       color: @colorOlive;
       border-bottom: 1px solid @colorFaint;
     }
+
     .resource-values {
       margin: 3px 0;
+
       span.sep {
         flex: 0 0 20px;
         color: @colorFaint;
@@ -97,6 +101,7 @@
         line-height: 24px;
         text-align: center;
       }
+
       input, .resource-max {
         height: 24px;
         line-height: 24px;
@@ -106,6 +111,7 @@
   }
 
   /* Badge Icons */
+
   .badge {
     text-align: left;
     padding-left: 28px;
@@ -113,55 +119,98 @@
     background-repeat: no-repeat;
     background-position: 0 50%;
   }
+
   .badge.attributes {
     background-image: url("ui/badges/attributes-inactive.png");
+
     &.active {
       background-image: url("ui/badges/attributes-active.png");
     }
   }
+
   .badge.skills {
     background-image: url("ui/badges/skills-inactive.png");
+
     &.active {
       background-image: url("ui/badges/skills-active.png");
     }
   }
+
   .badge.talents {
     background-image: url("ui/badges/talents-inactive.png");
+
     &.active {
       background-image: url("ui/badges/talents-active.png");
     }
   }
+
   .badge.inventory {
     background-image: url("ui/badges/inventory-inactive.png");
+
     &.active {
       background-image: url("ui/badges/inventory-active.png");
     }
   }
+
   .badge.spells {
     background-image: url("ui/badges/spells-inactive.png");
+
     &.active {
       background-image: url("ui/badges/spells-active.png");
     }
   }
+
   .badge.biography {
     background-image: url("ui/badges/biography-inactive.png");
+
     &.active {
       background-image: url("ui/badges/biography-active.png");
     }
   }
 
-  .badge.strength { background-image: url("ui/badges/strength-active.png"); }
-  .badge.dexterity { background-image: url("ui/badges/dexterity-active.png"); }
-  .badge.constitution { background-image: url("ui/badges/constitution-active.png"); }
-  .badge.intellect { background-image: url("ui/badges/intellect-active.png"); }
-  .badge.wisdom { background-image: url("ui/badges/wisdom-active.png"); }
-  .badge.charisma { background-image: url("ui/badges/charisma-active.png"); }
+  .badge.strength {
+    background-image: url("ui/badges/strength-active.png");
+  }
 
-  .badge.physical-defense { background-image: url("ui/badges/physical-defense.png"); }
-  .badge.saving-throws { background-image: url("ui/badges/saving-throws.png"); }
-  .badge.physical-resistance { background-image: url("ui/badges/physical-resistance.png"); }
-  .badge.elemental-resistance { background-image: url("ui/badges/elemental-resistance.png"); }
-  .badge.spiritual-resistance { background-image: url("ui/badges/spiritual-resistance.png"); }
+  .badge.dexterity {
+    background-image: url("ui/badges/dexterity-active.png");
+  }
+
+  .badge.constitution {
+    background-image: url("ui/badges/constitution-active.png");
+  }
+
+  .badge.intellect {
+    background-image: url("ui/badges/intellect-active.png");
+  }
+
+  .badge.wisdom {
+    background-image: url("ui/badges/wisdom-active.png");
+  }
+
+  .badge.charisma {
+    background-image: url("ui/badges/charisma-active.png");
+  }
+
+  .badge.physical-defense {
+    background-image: url("ui/badges/physical-defense.png");
+  }
+
+  .badge.saving-throws {
+    background-image: url("ui/badges/saving-throws.png");
+  }
+
+  .badge.physical-resistance {
+    background-image: url("ui/badges/physical-resistance.png");
+  }
+
+  .badge.elemental-resistance {
+    background-image: url("ui/badges/elemental-resistance.png");
+  }
+
+  .badge.spiritual-resistance {
+    background-image: url("ui/badges/spiritual-resistance.png");
+  }
 
   /** --------------------------------------
    * ATTRIBUTES TAB
@@ -170,6 +219,7 @@
   .tab {
 
     /* Point Pools */
+
     .point-pools {
       flex: 0 0 24px;
       margin: 6px 0;
@@ -250,33 +300,43 @@
       .defense {
         height: 80px;
         text-align: center;
+
         &.physical {
           flex: 0 0 150px;
-          h4 { font-weight: bold; }
+
+          h4 {
+            font-weight: bold;
+          }
         }
+
         h4 {
           flex: 0 0 24px;
           font-family: @caslon;
           font-size: 18px;
           margin: 0;
         }
-        input {
+
+        .input {
           flex: 0 0 36px;
-          width: 36px;
+          width: 40px;
+          line-height: 36px;
           margin: 0 auto;
           font-size: 20px;
         }
+
         .total {
           flex: 0 0 36px;
           line-height: 36px;
           font-size: 24px;
         }
+
         .subtitle {
           flex: 0 0 20px;
           font-family: @caslon;
           font-size: 18px;
         }
       }
+
       .sep {
         flex: 0 0 20px;
         line-height: 80px;
@@ -296,11 +356,13 @@
         font-family: @caslon;
         font-size: 16px;
       }
+
       .base, .bonus, .total {
         flex: 1;
         margin: 0 3px;
         text-align: center;
       }
+
       .total {
         font-weight: 600;
         border-left: 1px solid @colorBeige;
@@ -336,6 +398,7 @@
       flex: 0 0 24px;
       line-height: 24px;
       font-weight: bold;
+
       .skill-name {
         margin: 0 24px 0 8px;
       }
@@ -350,6 +413,7 @@
 
     .skill {
       line-height: var(--skillHeight);
+
       img {
         flex: 0 0 var(--skillHeight);
         height: var(--skillHeight);
@@ -375,6 +439,7 @@
           background: rgba(0, 0, 0, 0.05);
           border: 1px solid @colorTan;
           border-radius: 1px 2px;
+
           &.trained {
             background: rgba(0, 0, 0, 0.25);
             box-shadow: 0 0 2px #FFF inset;
@@ -395,6 +460,7 @@
     // Common components
     .skill-name {
       flex: 3;
+
       h3 {
         margin: 0;
       }
@@ -427,6 +493,7 @@
       flex: 0 0 72px;
       margin: 0 12px 0 6px;
       text-align: center;
+
       .attribute {
         height: 20px;
         line-height: 20px;
@@ -446,6 +513,7 @@
     .unspecialized .path {
       color: @colorTan;
     }
+
     .untrained .rank {
       color: @colorTan;
     }
@@ -466,9 +534,58 @@
       .cumulative {
         font-weight: bold;
       }
+
       .next {
         color: @colorTan;
       }
     }
+  }
+}
+
+/* -------------------------------------- */
+/*  Item Lists                            */
+/* -------------------------------------- */
+.crucible.actor {
+  .items-header {
+    flex: 0 0 28px;
+    align-items: center;
+    margin: 3px 0;
+    padding: 2px 4px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid @colorBeige;
+    font-weight: bold;
+  }
+
+  .item-name {
+    flex: 2;
+    align-items: center;
+    img {
+      flex: none;
+      margin-right: 3px;
+    }
+    h4 {
+      margin: 0;
+    }
+  }
+
+  .item-controls {
+    text-align: right;
+  }
+
+  .items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .item {
+      padding: 2px 4px;
+      border-bottom: 1px solid @colorBeige;
+    }
+  }
+
+
+  // Status icons
+  .unequipped .equipped-state {
+    opacity: 0.5;
   }
 }

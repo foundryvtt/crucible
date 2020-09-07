@@ -541,9 +541,10 @@
   font-size: 18px;
   margin: 0;
 }
-.crucible.sheet.actor .tab.attributes .physical-defenses .defense input {
+.crucible.sheet.actor .tab.attributes .physical-defenses .defense .input {
   flex: 0 0 36px;
-  width: 36px;
+  width: 40px;
+  line-height: 36px;
   margin: 0 auto;
   font-size: 20px;
 }
@@ -721,6 +722,44 @@
 }
 .crucible.sheet.actor .tab.skills .points .next {
   color: #7a7971;
+}
+/* -------------------------------------- */
+/*  Item Lists                            */
+/* -------------------------------------- */
+.crucible.actor .items-header {
+  flex: 0 0 28px;
+  align-items: center;
+  margin: 3px 0;
+  padding: 2px 4px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #b5b3a4;
+  font-weight: bold;
+}
+.crucible.actor .item-name {
+  flex: 2;
+  align-items: center;
+}
+.crucible.actor .item-name img {
+  flex: none;
+  margin-right: 3px;
+}
+.crucible.actor .item-name h4 {
+  margin: 0;
+}
+.crucible.actor .item-controls {
+  text-align: right;
+}
+.crucible.actor .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.crucible.actor .items-list .item {
+  padding: 2px 4px;
+  border-bottom: 1px solid #b5b3a4;
+}
+.crucible.actor .unequipped .equipped-state {
+  opacity: 0.5;
 }
 .crucible.sheet.item {
   --headerHeight: 80px;

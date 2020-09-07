@@ -25,12 +25,14 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
+    data.armorCategory = SYSTEM.armor.ARMOR_CATEGORIES[this.actor.equipment.armor.data.data.category].label;
     data.points = this.actor.points;
     data.isL1 = data.entity.data.details.level === 1;
     data.abilityScores = this._formatAttributes(data.entity.data.attributes);
     this._formatResources(data.entity.data.attributes);
     data.resistances = this._formatResistances(data.entity.data.resistances);
     data.skillCategories = this._formatSkills(data.entity.data.skills);
+    data.items = this._formatItems(this.entity.items);
     return data;
   }
 
@@ -52,6 +54,65 @@ export default class HeroSheet extends ActorSheet {
       attr.canDecrease = (this.actor.data.data.details.level === 1) || (attr.increases > 0);
       return attr;
     });
+  }
+
+  /* -------------------------------------------- */
+
+  _formatItems(items) {
+
+    // Define placeholder structure
+    const sections = {
+      talents: {},
+      inventory: {
+        equipment: {
+          label: "Equipment",
+          items: []
+        },
+        consumables: {
+          label: "Consumables",
+          items: []
+        },
+        backpack: {
+          label: "Backpack",
+          items: []
+        }
+      },
+      grimoire: {
+        runes: {
+          label: "Runes",
+          items: []
+        },
+        gestures: {
+          label: "Gestures",
+          items: []
+        },
+        metamagic: {
+          label: "Metamagic",
+          items: []
+        }
+      }
+    };
+
+    // Iterate over items and organize them
+    for ( let i of items ) {
+      const data = duplicate(i.data);
+      switch(data.type) {
+        case "armor": case "weapon":
+          data.cssClass = [data.data.equipped ? "equipped" : "unequipped"];
+          if ( data.data.equipped ) sections.inventory.equipment.items.push(data);
+          else sections.inventory.backpack.items.push(data);
+      }
+    }
+
+    // Sort each array
+    for ( let section of Object.values(sections) ) {
+      for ( let heading of Object.values(section) ) {
+        heading.items.sort((a, b) => a.name.localeCompare(b.name));
+      }
+    }
+
+    // Return the prepared sections
+    return sections;
   }
 
   /* -------------------------------------------- */
@@ -147,6 +208,12 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
+      case "itemDelete":
+        return this._onItemDelete(a);
+      case "itemEdit":
+        return this._onItemEdit(a);
+      case "itemEquip":
+        return this._onItemEquip(a);
       case "skillConfig":
         const skillId = a.closest(".skill").dataset.skill;
         return new SkillSheet(this.actor, skillId).render(true);
@@ -170,5 +237,62 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.applyBackground(itemData);
     }
     return super._onDropItemCreate(itemData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle deleting an Owned Item from the Actor
+   * @param {HTMLLinkElement} button
+   * @private
+   */
+  _onItemDelete(button) {
+    const li = button.closest(".item");
+    const itemId = li.dataset.itemId;
+    return this.actor.deleteOwnedItem(itemId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle editing an Owned Item on the Actor
+   * @param {HTMLLinkElement} button
+   * @private
+   */
+  _onItemEdit(button) {
+    const li = button.closest(".item");
+    const item = this.actor.items.get(li.dataset.itemId);
+    if ( !item ) return;
+    return item.sheet.render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle the equipped state of an Owned Item on the Actor
+   * @param {HTMLLinkElement} button
+   * @private
+   */
+  _onItemEquip(button) {
+    const li = button.closest(".item");
+    const item = this.actor.items.get(li.dataset.itemId);
+    if ( !item ) return;
+    const equipped = item.data.data.equipped;
+
+    // Armor
+    const updates = [];
+    if ( item.data.type === "armor" ) {
+      const current = this.actor.equipment.armor;
+      if ( !equipped && current?.id ) {
+        updates.push({_id: current.id, "data.equipped": false});
+      }
+      updates.push({_id: item.id, "data.equipped": !equipped});
+    }
+
+    // TODO: Weapons
+
+    // TODO: Accessories
+
+    return this.actor.updateEmbeddedEntity("OwnedItem", updates);
   }
 }

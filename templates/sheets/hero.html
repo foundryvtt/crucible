@@ -118,27 +118,27 @@
                 </li>
                 <li class="sep">=</li>
                 <li class="defense flexcol">
+                    <h4>Armor</h4>
+                    <span class="input">{{data.defenses.armor.total}}</span>
+                    <span class="subtitle">{{armorCategory}}</span>
+                </li>
+                <li class="sep">+</li>
+                <li class="defense flexcol">
                     <h4>Dodge</h4>
-                    <input type="text" name="data.defenses.dodge.base" value="{{data.defenses.dodge.base}}" data-dtype="Number"/>
-                    <span class="subtitle">Maximum 12</span>
+                    <span class="input">{{data.defenses.dodge.total}}</span>
+                    <span class="subtitle">Maximum {{data.defenses.dodge.max}}</span>
                 </li>
                 <li class="sep">+</li>
                 <li class="defense flexcol">
                     <h4>Parry</h4>
-                    <input type="text" name="data.defenses.parry.base" value="{{data.defenses.parry.base}}" data-dtype="Number"/>
-                    <span class="subtitle">Equipment Bonus</span>
+                    <span class="input">{{data.defenses.parry.total}}</span>
+                    <span class="subtitle">Maximum 6</span>
                 </li>
                 <li class="sep">+</li>
                 <li class="defense flexcol">
                     <h4>Block</h4>
-                    <input type="text" name="data.defenses.block.base" value="{{data.defenses.block.base}}" data-dtype="Number"/>
-                    <span class="subtitle">Equipment Bonus</span>
-                </li>
-                <li class="sep">+</li>
-                <li class="defense flexcol">
-                    <h4>Armor</h4>
-                    <input type="text" name="data.defenses.armor.base" value="{{data.defenses.armor.base}}" data-dtype="Number"/>
-                    <span class="subtitle">Heavy Armor</span>
+                    <span class="input">{{data.defenses.block.total}}</span>
+                    <span class="subtitle">Maximum 6</span>
                 </li>
             </ol>
 
@@ -251,6 +251,41 @@
                         <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
                         <a class="button control highlight" title="Increase Rank" data-action="skillIncrease">
                             <i class="fas fa-plus fa-fw"></i>
+                        </a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            {{/each}}
+        </div>
+
+        {{!-- Inventory Tab --}}
+        <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+            {{#each items.inventory as |section s|}}
+            <header class="items-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>{{section.label}}</h4>
+                </div>
+                <div class="item-controls">
+                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
+                </div>
+            </header>
+            <ol class="items-list">
+                {{#each section.items as |item id|}}
+                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item._id}}">
+                    <div class="item-name flexrow">
+                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                        <h4>{{item.name}}</h4>
+                    </div>
+                    <div class="item-controls">
+                        <a class="control equipped-state" data-action="itemEquip" title="Equip Item">
+                            <i class="fas fa-shield-alt"></i>
+                        </a>
+                        <a class="control" data-action="itemEdit" title="Edit Item">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="control" data-action="itemDelete" title="Delete Item">
+                            <i class="fas fa-trash"></i>
                         </a>
                     </div>
                 </li>

@@ -31,11 +31,11 @@ export default class ArmorSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.categories = Object.entries(SYSTEM.ARMOR_CATEGORIES).map(e => {
+    data.categories = Object.entries(SYSTEM.armor.ARMOR_CATEGORIES).map(e => {
       const [id, cat] = e;
       return { id, label: cat.label }
     });
-    data.properties = Object.entries(SYSTEM.ARMOR_PROPERTIES).map(e => {
+    data.properties = Object.entries(SYSTEM.armor.ARMOR_PROPERTIES).map(e => {
       const [id, label] = e;
         return {
           id: id,
@@ -43,15 +43,6 @@ export default class ArmorSheet extends ItemSheet {
           label: label,
           checked: data.data.properties[id] === true
         }
-    });
-    data.resistances = Object.entries(SYSTEM.DAMAGE_TYPES).map(e => {
-      const [id, res] = e;
-      return {
-        id: id,
-        name: `data.resistances.${id}`,
-        label: res.label,
-        value: data.data.resistances[id] ?? 0
-      }
     });
     return data;
   }

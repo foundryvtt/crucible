@@ -41,6 +41,11 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label>Equipped</label>
+            <input type="checkbox" name="data.equipped" {{checked data.equipped}}/>
+        </div>
+
         <div class="form-group stacked">
             <label>Armor Properties</label>
             <div class="form-fields">
@@ -50,16 +55,6 @@
                 </label>
                 {{/each}}
             </div>
-        </div>
-
-        <div class="form-group stacked">
-            <label>Damage Resistances</label>
-            {{#each resistances}}
-            <div class="resistance flexrow">
-                <label>{{this.label}}</label>
-                <input type="number" name="{{this.name}}" value="{{this.value}}"/>
-            </div>
-            {{/each}}
         </div>
 
         <footer class="sheet-footer">

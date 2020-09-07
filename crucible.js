@@ -63,14 +63,15 @@ Hooks.once("ready", function() {
 
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "ARMOR_CATEGORIES", "ARMOR_PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES", "DAMAGE_TYPES",
-    "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS"
+    "ABILITIES", "armor.ARMOR_CATEGORIES", "armor.ARMOR_PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
+    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS"
   ];
   for ( let c of toLocalize ) {
-    for ( let [k, v] of Object.entries(SYSTEM[c]) ) {
+    const conf = getProperty(SYSTEM, c);
+    for ( let [k, v] of Object.entries(conf) ) {
       if ( v.label ) v.label = game.i18n.localize(v.label);
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
-      if ( typeof v === "string" ) SYSTEM[c][k] = game.i18n.localize(v);
+      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
     }
     Object.freeze(c);
   }

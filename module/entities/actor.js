@@ -15,6 +15,12 @@ export default class CrucibleActor extends Actor {
      * }}
      */
     this.points;
+
+    /**
+     * Track the equipment that the Actor is currently using
+     * @type {{armor: Item, weapons: Item[], accessories: Item[]}}
+     */
+    this.equipment;
   }
 
   /* -------------------------------------------- */
@@ -43,16 +49,22 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Skills
     this._prepareSkills(data);
-
-    // Prepare Defenses
-    this._prepareDefenses(data);
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  prepareEmbeddedEntities() {
+    super.prepareEmbeddedEntities();
+    this._prepareEquipment();
+  };
 
   /* -------------------------------------------- */
 
   /** @override */
   prepareDerivedData() {
     this._prepareResources(this.data);
+    this._prepareDefenses(this.data);
   }
 
   /* -------------------------------------------- */
@@ -102,6 +114,32 @@ export default class CrucibleActor extends Actor {
     this.points.ability.pool = 36 - this.points.ability.bought;
     this.points.ability.spent = abilityPointsSpent;
     this.points.ability.available = this.points.ability.total - abilityPointsSpent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify the equipment that the Actor currently has equipped
+   * @private
+   */
+  _prepareEquipment() {
+    const {armor, weapon, accessory} = this.itemTypes;
+    const equipment = {};
+
+    // Identify equipped armor
+    let armors = armor.filter(i => i.data.data.equipped);
+    if ( armors.length > 1 ) {
+      ui.notifications.warning(`Actor ${this.name} has more than one equipped armor.`);
+      armors = armors[0];
+    }
+    equipment.armor = armors[0] || Item.createOwned(SYSTEM.armor.UNARMORED_DATA, this);
+
+    // TODO: Weapons can be up to two one-handed or one two-handed weapon
+    equipment.weapons = weapon;
+
+    // TODO: Accessories can be up to three equipped and attuned
+    equipment.accessories = accessory;
+    this.equipment = equipment;
   }
 
   /* -------------------------------------------- */
@@ -158,9 +196,17 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareDefenses(data) {
-    const defenses = data.data.defenses;
+    const {attributes, defenses} = data.data;
 
-    // Total physical defense bonus
+    // Compute defensive attributes
+    const armorData = this.equipment.armor.data.data;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus = armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus = Math.max(attributes.dexterity.value - armorData.dodge.start, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+
+    // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];
     defenses["physical"] = 0;
     for ( let pd of physicalDefenses ) {

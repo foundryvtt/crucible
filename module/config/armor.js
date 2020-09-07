@@ -38,3 +38,13 @@ export const ARMOR_PROPERTIES = {
   "magical": "ARMOR.Magical",
   "organic": "ARMOR.Organic"
 };
+
+
+export const UNARMORED_DATA = {
+  name: "Unarmored",
+  data: {
+    category: "unarmored",
+    armor: {base: 0, bonus: 0},
+    dodge: {base: 8, bonus: 0, start: 0}
+  }
+};

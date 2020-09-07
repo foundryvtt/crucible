@@ -61,7 +61,7 @@ export default class CrucibleItem extends Item {
    */
   _prepareArmorData(data) {
     const {armor, dodge} = data.data;
-    const category = SYSTEM.ARMOR_CATEGORIES[data.data.category] || "unarmored";
+    const category = SYSTEM.armor.ARMOR_CATEGORIES[data.data.category] || "unarmored";
 
     // Base Armor can be between zero and the maximum allowed for the category
     armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);

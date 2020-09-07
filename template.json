@@ -257,8 +257,8 @@
         "base": 0,
         "start": 0
       },
-      "properties": {},
-      "resistances": {}
+      "equipped": false,
+      "properties": {}
     },
     "background": {
       "skills": [],
