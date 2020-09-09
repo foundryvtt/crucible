@@ -736,7 +736,6 @@
   font-weight: bold;
 }
 .crucible.actor .item-name {
-  flex: 2;
   align-items: center;
 }
 .crucible.actor .item-name img {
@@ -744,12 +743,32 @@
   margin-right: 3px;
 }
 .crucible.actor .item-name h4 {
+  flex: none;
   margin: 0;
 }
+.crucible.actor .item-name span.tag {
+  flex: none;
+  margin: 0 3px;
+  padding: 1px 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+}
 .crucible.actor .item-controls {
+  flex: 0 0 120px;
+  line-height: 22px;
   text-align: right;
 }
+.crucible.actor .item-controls a.control {
+  margin: 0 2px;
+  padding: 0 2px;
+  border-right: 1px solid #b5b3a4;
+}
+.crucible.actor .item-controls a.control:last-child {
+  border-right: none;
+}
 .crucible.actor .items-list {
+  flex: 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -757,6 +776,9 @@
 .crucible.actor .items-list .item {
   padding: 2px 4px;
   border-bottom: 1px solid #b5b3a4;
+}
+.crucible.actor .items-list .item:last-child {
+  border-bottom: none;
 }
 .crucible.actor .unequipped .equipped-state {
   opacity: 0.5;

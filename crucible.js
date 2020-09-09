@@ -14,6 +14,7 @@ import HeroSheet from "./module/sheets/hero.js";
 import AncestrySheet from "./module/sheets/ancestry.js";
 import ArmorSheet from "./module/sheets/armor.js";
 import BackgroundSheet from "./module/sheets/background.js";
+import WeaponSheet from "./module/sheets/weapon.js";
 
 import StandardCheck from "./module/dice/standard-check.js";
 
@@ -46,6 +47,7 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
+  Items.registerSheet("core", WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Register Dice mechanics
   CONFIG.Dice.rolls.push(StandardCheck);
@@ -63,8 +65,8 @@ Hooks.once("ready", function() {
 
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "armor.ARMOR_CATEGORIES", "armor.ARMOR_PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
-    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS"
+    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
+    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS", "WEAPON.CATEGORIES"
   ];
   for ( let c of toLocalize ) {
     const conf = getProperty(SYSTEM, c);
@@ -76,23 +78,12 @@ Hooks.once("ready", function() {
     Object.freeze(c);
   }
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
-
-  // TODO: Prevent the creation of Items with certain types
-  game.system.entityTypes.Item.splice(game.system.entityTypes.Item.findIndex(i => i === "skill"), 1);
 });
 
 
 /* -------------------------------------------- */
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */
-
-
-Hooks.on("renderChatMessage", (message, html, data) => {
-  if ( message.isRoll ) {
-    const rollType = message.getFlag(SYSTEM.id, "rollType");
-    html.find(".message-content");
-  }
-});
 
 // Add chat log context hooks
 Hooks.on("getChatLogEntryContext", addChatMessageContextOptions);

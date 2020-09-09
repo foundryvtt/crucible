@@ -1,9 +1,9 @@
 import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
-import * as armor from "./armor.js";
+import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
+import * as WEAPON from "./weapon.js";
 export const SYSTEM_ID = "crucible";
 
-/* -------------------------------------------- */
 
 export const ABILITIES = {
   strength: {
@@ -226,7 +226,7 @@ export const SYSTEM = {
   id: SYSTEM_ID,
   name: "Crucible (WIP)",
   activeCheckFormula: "3d8",
-  armor: armor,
+  ARMOR,
   dice: dice,
   ABILITIES,
   ATTRIBUTE_CATEGORIES,
@@ -237,5 +237,6 @@ export const SYSTEM = {
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,
-  PASSIVE_BASE
+  PASSIVE_BASE,
+  WEAPON
 };

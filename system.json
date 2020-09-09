@@ -2,7 +2,7 @@
   "name": "crucible",
   "title": "Crucible (WIP)",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "author": "Atropos",
   "scripts": [],
   "esmodules": ["crucible.js"],
@@ -13,6 +13,27 @@
       "label": "Ancestries",
       "system": "crucible",
       "path": "packs/ancestry.db",
+      "entity": "Item"
+    },
+    {
+      "name": "armor",
+      "label": "Armor",
+      "system": "crucible",
+      "path": "packs/armor.db",
+      "entity": "Item"
+    },
+    {
+      "name": "weapon",
+      "label": "Weapons",
+      "system": "crucible",
+      "path": "packs/weapon.db",
+      "entity": "Item"
+    },
+    {
+      "name": "background",
+      "label": "Backgrounds",
+      "system": "crucible",
+      "path": "packs/background.db",
       "entity": "Item"
     }
   ],

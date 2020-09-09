@@ -31,11 +31,11 @@ export default class ArmorSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.categories = Object.entries(SYSTEM.armor.ARMOR_CATEGORIES).map(e => {
+    data.categories = Object.entries(SYSTEM.ARMOR.CATEGORIES).map(e => {
       const [id, cat] = e;
       return { id, label: cat.label }
     });
-    data.properties = Object.entries(SYSTEM.armor.ARMOR_PROPERTIES).map(e => {
+    data.properties = Object.entries(SYSTEM.ARMOR.PROPERTIES).map(e => {
       const [id, label] = e;
         return {
           id: id,

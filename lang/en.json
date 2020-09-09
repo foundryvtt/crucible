@@ -396,6 +396,12 @@
   "SKILLS.PerformanceAthlete": "Athlete",
   "SKILLS.PerformanceAthleteInfo": "",
   "SKILLS.PerformanceAthlete3": "",
-  "SKILLS.PerformanceAthlete5": ""
+  "SKILLS.PerformanceAthlete5": "",
+
+  "WEAPON.Light": "Light Weapon",
+  "WEAPON.Martial": "Martial Weapon",
+  "WEAPON.Heavy": "Heavy Weapon",
+  "WEAPON.Shield": "Shield",
+  "WEAPON.Focus": "Focus"
 }
 	

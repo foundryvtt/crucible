@@ -262,6 +262,7 @@
         {{!-- Inventory Tab --}}
         <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
             {{#each items.inventory as |section s|}}
+            {{#if section.items.length}}
             <header class="items-header flexrow">
                 <div class="item-name flexrow">
                     <h4>{{section.label}}</h4>
@@ -275,7 +276,13 @@
                 <li class="item flexrow {{item.cssClass}}" data-item-id="{{item._id}}">
                     <div class="item-name flexrow">
                         <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                        <h4>{{item.name}}</h4>
+                        <h4>
+                            {{#if item.showStack}}<span class="stack">({{item.data.quantity}}) </span>{{/if}}
+                            {{~item.name~}}
+                        </h4>
+                        {{#each item.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
                     </div>
                     <div class="item-controls">
                         <a class="control equipped-state" data-action="itemEquip" title="Equip Item">
@@ -291,6 +298,7 @@
                 </li>
                 {{/each}}
             </ol>
+            {{/if}}
             {{/each}}
         </div>
     </section>

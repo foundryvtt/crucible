@@ -132,7 +132,7 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warning(`Actor ${this.name} has more than one equipped armor.`);
       armors = armors[0];
     }
-    equipment.armor = armors[0] || Item.createOwned(SYSTEM.armor.UNARMORED_DATA, this);
+    equipment.armor = armors[0] || Item.createOwned(SYSTEM.ARMOR.UNARMORED_DATA, this);
 
     // TODO: Weapons can be up to two one-handed or one two-handed weapon
     equipment.weapons = weapon;
@@ -230,6 +230,32 @@ export default class CrucibleActor extends Actor {
       else if ( id === ancestry.vulnerability ) r.base = -3;
       r.total = r.base + r.bonus;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  getDefenses({armor}) {
+    const attributes = this.data.data.attributes;
+    const defenses = duplicate(this.data.data.defenses);
+    armor = armor || this.equipment.armor;
+
+    // Physical defenses
+    const armorData = armor.data.data;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus = armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus = Math.max(attributes.dexterity.value - armorData.dodge.start, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+
+    // Compute total physical defenses
+    const physicalDefenses = ["dodge", "parry", "block", "armor"];
+    defenses["physical"] = 0;
+    for ( let pd of physicalDefenses ) {
+      let d = defenses[pd];
+      d.total = d.base + d.bonus;
+      defenses.physical += d.total;
+    }
+    return defenses;
   }
 
   /* -------------------------------------------- */

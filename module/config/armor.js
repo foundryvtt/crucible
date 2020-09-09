@@ -4,7 +4,7 @@
  * Named armor categories which are allowed by the system
  * @type {{string, string}}
  */
-export const ARMOR_CATEGORIES = {
+export const CATEGORIES = {
   "unarmored": {
     label: "ARMOR.Unarmored",
     minArmor: 0,
@@ -31,7 +31,7 @@ export const ARMOR_CATEGORIES = {
  * The boolean properties which a piece of Armor can have.
  * @type {{string, string}}
  */
-export const ARMOR_PROPERTIES = {
+export const PROPERTIES = {
   "bulky": "ARMOR.Bulky",
   "impenetrable": "ARMOR.Impenetrable",
   "flexible": "ARMOR.Flexible",

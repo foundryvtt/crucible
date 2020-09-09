@@ -25,7 +25,7 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.armorCategory = SYSTEM.armor.ARMOR_CATEGORIES[this.actor.equipment.armor.data.data.category].label;
+    data.armorCategory = SYSTEM.ARMOR.CATEGORIES[this.actor.equipment.armor.data.data.category].label;
     data.points = this.actor.points;
     data.isL1 = data.entity.data.details.level === 1;
     data.abilityScores = this._formatAttributes(data.entity.data.attributes);
@@ -96,6 +96,8 @@ export default class HeroSheet extends ActorSheet {
     // Iterate over items and organize them
     for ( let i of items ) {
       const data = duplicate(i.data);
+      data.showStack = data.data?.quantity && (data.data.quantity !== 1);
+      data.tags = i.getTags();
       switch(data.type) {
         case "armor": case "weapon":
           data.cssClass = [data.data.equipped ? "equipped" : "unequipped"];
@@ -279,20 +281,22 @@ export default class HeroSheet extends ActorSheet {
     if ( !item ) return;
     const equipped = item.data.data.equipped;
 
-    // Armor
+    // Handle different item types
     const updates = [];
-    if ( item.data.type === "armor" ) {
-      const current = this.actor.equipment.armor;
-      if ( !equipped && current?.id ) {
-        updates.push({_id: current.id, "data.equipped": false});
-      }
-      updates.push({_id: item.id, "data.equipped": !equipped});
+    switch ( item.data.type ) {
+      case "armor":
+        const current = this.actor.equipment.armor;
+        if ( !equipped && current?.id ) {
+          updates.push({_id: current.id, "data.equipped": false});
+        }
+        updates.push({_id: item.id, "data.equipped": !equipped});
+        break;
+      case "weapon":
+        updates.push({_id: item.id, "data.equipped": !equipped});
+        break;
     }
 
-    // TODO: Weapons
-
-    // TODO: Accessories
-
+    // Commit the updates
     return this.actor.updateEmbeddedEntity("OwnedItem", updates);
   }
 }

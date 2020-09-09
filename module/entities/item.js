@@ -61,7 +61,7 @@ export default class CrucibleItem extends Item {
    */
   _prepareArmorData(data) {
     const {armor, dodge} = data.data;
-    const category = SYSTEM.armor.ARMOR_CATEGORIES[data.data.category] || "unarmored";
+    const category = SYSTEM.ARMOR.CATEGORIES[data.data.category] || "unarmored";
 
     // Base Armor can be between zero and the maximum allowed for the category
     armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);
@@ -113,6 +113,34 @@ export default class CrucibleItem extends Item {
     });
     data.path = path;
     return data;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Provide an array of detail tags which are shown in each item description
+   * @return {object}
+   */
+  getTags() {
+    const d = this.data.data;
+    switch ( this.data.type ) {
+      case "armor":
+        const defenses = this.actor.getDefenses({armor: this});
+        return {
+          category: SYSTEM.ARMOR.CATEGORIES[this.data.data.category].label,
+          defenses: `${defenses.armor.total + defenses.dodge.total} PD`,
+          weight: `${(d.quantity ?? 0) * (d.weight ?? 0)} lbs.`
+        };
+      case "weapon":
+        return {
+          category: SYSTEM.WEAPON.CATEGORIES[this.data.data.category].label,
+          weight: `${(d.quantity ?? 0) * (d.weight ?? 0)} lbs.`
+        };
+      default:
+        return {};
+    }
   }
 
   /* -------------------------------------------- */

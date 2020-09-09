@@ -232,7 +232,7 @@
     }
   },
   "Item": {
-    "types": ["ancestry", "armor", "background", "talent"],
+    "types": ["ancestry", "armor", "background", "talent", "weapon"],
     "templates": {
       "physical": {
         "quantity": 1,
@@ -248,6 +248,7 @@
       "vulnerability": null
     },
     "armor": {
+      "templates": ["physical"],
       "category": null,
       "armor": {
         "base": 0,
@@ -264,6 +265,20 @@
       "skills": [],
       "talents": []
     },
-    "talent": {}
+    "talent": {},
+    "weapon": {
+      "templates": ["physical"],
+      "category": null,
+      "block": {
+        "base": 0,
+        "bonus": 0
+      },
+      "parry": {
+        "base": 0,
+        "bonus": 0
+      },
+      "equipped": false,
+      "properties": {}
+    }
   }
 }
