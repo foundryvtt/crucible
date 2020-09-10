@@ -95,12 +95,12 @@ Acrobatics relates to one's training in agility and athletics. Ranks in this ski
 
 | Rank | Acrobatics Skill Progression       |
 | ---- | ---------------------------------- |
-| 0    | You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform skill checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope. |
-| 1    | You have accrued some experience in traversing your surroundings. You have Reliability on checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
+| 0    | You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform Skill Checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope. |
+| 1    | You have accrued some experience in traversing your surroundings. You have Reliability on Skill Checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
 | 2    | **Choose a progression path.**     |
-| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have +1 Boon on checks made to Tumble after a fall. |
+| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have +1 Boon on Skill Checks made to Tumble after a fall. |
 | 4    | **Upgrade your progression path.** |
-| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have +3 Boons on checks made to Tumble after a fall. **Complete your progression path.** |
+| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have +3 Boons on Skill Checks made to Tumble after a fall. **Complete your progression path.** |
 
 > TODO: Redraft paths - Gymnast needs a replacement
 1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.
@@ -119,7 +119,7 @@ Perception relates to general awareness, most often in relation to one's physica
 
 | Rank | Perception Progression Ideas       |
 | ---- | ---------------------------------- |
-| 0    | You have spent no real effort in honing your observational skills. You can perform checks to detect threats as an action. |
+| 0    | You have spent no real effort in honing your observational skills. You can perform Skill Checks to detect threats as an action. |
 | 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform checks to detect hidden threats as an action. When you perform a lengthy action to search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you know you have sensed before, you gain +1 Boon to your roll. |
 | 5    | You can perform checks to detect hidden threats as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have +3 Boons to Spell Defense against illusion magic. |
 
@@ -199,33 +199,27 @@ Arcana deals with the properties and perception of the weave of magical energies
 | Rank | Arcana Skill Progression                                     |
 | ---- | ------------------------------------------------------------ |
 | 0    | You have next to no understanding of magic. If you witness the casting of a spell, or some other magic, you cannot determine the nature of the magic other than its immediately apparent effects. You cannot ascertain whether an object or creature bears magic. |
-| 1    | You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when another spellcaster is channeling magical energy. You may attempt a Skill Check to identify the nature of a spell. |
-| 2    | **Choose a progression path.**                               |
-| 3    | You have an advanced comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and you can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied. |
-| 4    | **Upgrade your progression path.**                           |
-| 5    | You are a among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You can immediately identify any spell that you can also cast or you may attempt a Skill Check to identify a spell you do not know yourself without consuming any Action. You are able to cast the most powerful tier of magical spell and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest.<br /> **Complete your progression path.** |
-
-> Having no ranks in the Arcana skill comes with limitations. Characters untrained in Arcana generally cannot attempt to:
-> - Identify the nature of a spell
-> - Determine whether a witnessed action, effect, or event is magical in nature
-> - Determine which spell a creature is casting
+| 1    | You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when another spellcaster is channeling magical energy. You may spend 1 AP to attempt a Skill Check to identify the nature of a spell being cast. |
+| 2    | You have developed a decent comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and you can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied. |
+| 3    | **Choose a progression path.** |
+| 4    | You are among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You may attempt a Skill Check without consuming any AP to identify the nature of a spell being cast, and automatically succeed on the check if you are able to cast the spell yourself. You are able to cast some of the most powerful magical spells and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest. |
+| 5    | **Complete your progression path.** |
 
 The progression paths available to the Arcana skill are listed below.
 
 | Path (Rank)      | Progression Path Benefits                                    |
 | ---------------- | ------------------------------------------------------------ |
 | **Diviner**      | Specialists in understanding the nature of magic and reading the arcane aura of others. |
-| Rank 2           | You gain +1 Boon on Skill Checks to identify the nature of a spell or a magically imbued item. |
-| Rank 4           | You gain +3 Boons on Skill Checks to identify the nature of a spell or magically imbued item. You gain +1 Boon to your Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster if you have identified the spell being used. |
-| Rank 5           | You can immediately and automatically identify the nature of a spell or a magically imbued item. You gain +1 Boon to Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster. |
+| Rank 3           | You have learned to focus your senses towards magic around you. When you cast a Divination-type spell, you are able to add the Extend or Quicken Metamagics to the casting without spending additional Focus, even if you do not otherwise know those inflections. You gain +1 Boon on Skill Checks to identify the nature of a spell or a magically imbued item.  |
+| Rank 5           | You have mastered the ability to divine from unseen magical forces; reading the arcane weave feels like a natural sixth sense to you. You can immediately and automatically identify the nature of a spell or a magically imbued item. When you cast a Divination-type spell, you are able to add the Extend, Quicken, or Empower Metamagics to the casting without spending additional Focus, even if you do not otherwise know those inflections. You gain +2 Boons to Spell Power when attempting to dispel an existing spell or counter an enemy spellcaster. |
 | **Elementalist** | Specialists in manipulating elemental energies to harness or ward their power. |
-| Rank 2           | Select one elemental damage type as your Favored Element. You gain a Damage Resistance of 5 to that element and +2 to damage when rolling at least one damage die of this type. |
-| Rank 4           | Select a second elemental damage type as a Favored Element. You gain a Damage Resistance of 5 to both elements and +4 to damage when rolling at least one damage die of either type. |
+| Rank 3           | Select two elemental damage types as your Favored Elements. You gain a Damage Resistance of 5 to both elements and +3 to damage when rolling at least one damage die of this type. |
 | Rank 5           | All elements are your Favored Element. You have Damage Resistance of 5 to all elements and +6 to damage when rolling at least one elemental damage die. |
 | **Enchanter**    | Specialists in infusing arcane potency into physical objects to create items of great power. |
-| Rank 2           | You know how to imbue minor magical effects into non-magical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. |
-| Rank 4           | You know how to imbue major magical effects into both magical and non-magical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. You may attempt to upgrade an existing magical item by adding a new effect if the item has available enchantment capacity. |
-| Rank 5           | You are a master of arcane infusion and you can imbue any spell which you can cast into an item. You are able to add new effects to an item if it has available enchantment capacity and you can remove existing magical effects from an item, freeing the item's enchantment capacity for further infusion. |
+| Rank 3           | You are especially familiar with instilling power into items. You know how to imbue major magical effects into both magical and non-magical items. You may attempt a crafting check to Enchant an item with the effects of a spell that you can cast. You may attempt to upgrade an existing magical item by adding a new effect if the item has available enchantment capacity. |
+| Rank 5           | You are a master of arcane infusion, and can imbue any spell which you can cast into an item. You are able to add new effects to an item if it has available enchantment capacity and you can remove existing magical effects from an item, freeing the item's enchantment capacity for further infusion. |
+
+> Note: Arcana paths will need revision once the magic system is more thoroughly developed.
 
 ### Lore
 
@@ -269,7 +263,7 @@ Knowledge of Science corresponds to knowledge of the natural world. Improvement 
 
 | Rank | Science Skill Progression          |
 | ---- | ---------------------------------- |
-| 0    | You have little to no scientific understanding of the world. If there are natural laws governing the world, you do not know much about them. You can perform Science checks to attempt to understand, recall, or deduce certain ideas. If you have not yet learned of a common natural law or theory, you automatically fail checks made to deduce it on your own. You have +2 Banes on checks made to determine the weight or volume of an object at a glance. |
+| 0    | You have little to no scientific understanding of the world. If there are natural laws governing the world, you do not know much about them. You can perform Science checks to attempt to understand, recall, or deduce certain ideas. If you have not yet learned of a common natural law or theory, you automatically fail checks made to deduce it on your own. |
 | 1    | You have some understanding of natural laws, and of basic physical properties of objects, such as momentum and inertia. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). |
 | 2    | You have a broader understanding of natural philosophy, and have developed a decent understanding of the physical properties of objects. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You have Reliability on checks made to understand the function or purpose of non-magical tools or objects. |
 | 4    | You have a superior level of understanding of sciences and natural philosophy. You can perfectly recall any scientific theory, law, or concept you have previously learned. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You can quickly surmise the function or purpose of non-magical tools or objects. You immediately recognize if a phenomenon violates conventional scientific laws and is therefore supernatural. |
