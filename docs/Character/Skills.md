@@ -62,9 +62,9 @@ The sixteen skills are listed below, with descriptions of the skill itself. Each
 | ---- | ---------------------------------- |
 | 0    | You have no training in the skill. Some general tasks that require some knowledge or experience may automatically fail. |
 | 1    | You have some training in the skill. The aforementioned general tasks no longer automatically fail. |
-| 2    | You have substantial practice in the skill. Some checks to perform certain simple or straightforward tasks may be performed with Reliability, or be performed with +1 Boon. |
+| 2    | You have substantial practice in the skill. Some checks to perform certain simple or straightforward tasks may be performed with Reliability, or be performed with +1 or +2 Boons. |
 | 3    | **Choose a progression path.** |
-| 4    | You have mastered the skill. Certain limitations or penalties incurred when performing certain tasks are nullified. Certain tasks that would normally automatically fail on principle may now allow for a check. Certain tasks may be performed with +3 Boons or Reliability. |
+| 4    | You have mastered the skill. Certain limitations or penalties incurred when performing certain tasks are nullified. Certain tasks that would normally automatically fail on principle may now allow for a check. Certain tasks may be performed with +3 or +4 Boons or Reliability. |
 | 5    | **Complete your progression path.** |
 
 | Path (Rank) | Path Skill Progression |
@@ -141,7 +141,7 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 | ---- | ---------------------------------- |
 | 0    | You have next to no practice sneaking. You can perform checks to hide, but no longer hide once you move. When you sneak, you move at a quarter of your normal Stride. |
 | 1    | You have a basic understanding of how to avoid being noticed, and how to move subtly and quietly. If you move while hiding, checks must be made to remain hidden. Light armor no longer imposes a penalty on your Stealth checks made to move silently. |
-| 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks (or CR for check is lower?). You can use your full stride while sneaking without penalty. Wearing light, medium, or heavy armor imposes no penalty to your Stealth checks. |
+| 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks. You can use your full stride while sneaking without penalty. Wearing light or medium armor imposes no penalty to your Stealth checks. |
 
 1. **Infiltrator** - Specialists in moving unseen and silent to bypass danger or approach it unaware.
 2. **Safecracker** - Specialists in the cracking of mechanical locks and disarming mechanical traps.
@@ -199,8 +199,8 @@ Arcana deals with the properties and perception of the weave of magical energies
 | Rank | Arcana Skill Progression                                     |
 | ---- | ------------------------------------------------------------ |
 | 0    | You have next to no understanding of magic. If you witness the casting of a spell, or some other magic, you cannot determine the nature of the magic other than its immediately apparent effects. You cannot ascertain whether an object or creature bears magic. |
-| 1    | You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when another spellcaster is channeling magical energy. You may spend 1 AP to attempt a Skill Check to identify the nature of a spell being cast. |
-| 2    | You have developed a decent comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and you can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied. |
+| 1    | You have a functional comprehension of magical theory and you have developed an ability to perceive and read the weave of magic which flows around you. You are able to cast spells and you can recognize when a creature is channeling magical energy, such as when casting a spell. You may spend 1 AP to attempt a Skill Check to identify the nature of a spell being cast. |
+| 2    | You have developed a decent comprehension of magical theory and you can more deeply read the weave of magic which flows around you. You are able to cast powerful spells and can recognize when a creature is channeling magical energy, such as when casting a spell. You may spend 1 AP to attempt a Skill Check to identify the nature of a spell being cast. You can learn the final amount of damage dealt by your own spells after resistances and vulnerabilities have been applied. |
 | 3    | **Choose a progression path.** |
 | 4    | You are among the world's foremost arcane minds and the reading of the arcane weave has become second-nature to you. You may attempt a Skill Check without consuming any AP to identify the nature of a spell being cast, and automatically succeed on the check if you are able to cast the spell yourself. You are able to cast some of the most powerful magical spells and you can discern the value of a foe's Arcane Defense attribute after they have been engaged in a contest. |
 | 5    | **Complete your progression path.** |
@@ -243,9 +243,12 @@ Lore relates to the breadth of one's general knowledge, ranging from information
 
 | Rank | Religion Progression Ideas         |
 | ---- | ---------------------------------- |
-| 0    | In the eyes of the faithful, you are unenlightened. You likely only know a few details about your own religion or some widely-known religions. |
-| 1    | You have acquired a basic understanding of your own religion, or a few others. Choose a faith: a religion or sect in your setting, with GM approval. You know of the symbols used to signify your faith, and, if valid, know of the symbols that are excluded from your faith. You know what is generally encouraged or forbidden by your faith. |
-| 5    | You are otherworldly in your understanding of religion. You are capable of effortlessly conducting, or writing anew, religious doctrine. Your knowledge and guidance transcend the boundaries of faith; you automatically succeed on checks to recall information about your own faith, and have +3 Boons to checks made to recall information about other religions. |
+| 0    | In the eyes of the faithful, you are unenlightened. You likely only know a few details about your own religion, if you follow one, or some widely-known religions. |
+| 1    | You have acquired a basic understanding of your own religion, or a few others. Choose a faith: a religion, sect, cult, or circle in your setting, with GM approval. You know of the symbols used to signify your faith, and, if valid, know of the symbols that are antithetical or "blasphemous" to your faith. You know what is generally encouraged or forbidden by your faith, and the places or religious sites normally associated with it. |
+| 2    | You have developed greater insight into your own religion, as well as others related to it. You know of the symbology, practices, and taboos of your faith, as well as its associated locations or religious sites, as well as some deeper insight into your religious philosophy. You have Reliability on Skill Checks made to know how closely-aligned another religion is to your own. |
+| 3    | **Choose a progression path.** |
+| 4    | Your understanding of religion transcends mere encyclopedic knowledge; you have a holistic understanding of faith and dealings with the divine. You are capable of effortlessly conducting, or writing anew, religious doctrine. You automatically succeed on checks to recall information about your own faith, and have +3 Boons to checks made to recall information about other religions. |
+| 5    | **Complete your progression path.** |
 
 1. **Occultist** - Specialists in the practices of a certain faith, from its beliefs to its rites.
 2. **Hierophant** - Specialists in spreading the truth, and illuminating others through their faith.
@@ -266,7 +269,9 @@ Knowledge of Science corresponds to knowledge of the natural world. Improvement 
 | 0    | You have little to no scientific understanding of the world. If there are natural laws governing the world, you do not know much about them. You can perform Science checks to attempt to understand, recall, or deduce certain ideas. If you have not yet learned of a common natural law or theory, you automatically fail checks made to deduce it on your own. |
 | 1    | You have some understanding of natural laws, and of basic physical properties of objects, such as momentum and inertia. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). |
 | 2    | You have a broader understanding of natural philosophy, and have developed a decent understanding of the physical properties of objects. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You have Reliability on checks made to understand the function or purpose of non-magical tools or objects. |
+| 3    | **Choose a progression path.** |
 | 4    | You have a superior level of understanding of sciences and natural philosophy. You can perfectly recall any scientific theory, law, or concept you have previously learned. Any scientific rules or laws you have not yet learned can be deduced with checks (usually as a Lengthy Action). You can quickly surmise the function or purpose of non-magical tools or objects. You immediately recognize if a phenomenon violates conventional scientific laws and is therefore supernatural. |
+| 5    | **Complete your progression path.** |
 
 The progression paths available to the Science skill are listed below.
 
@@ -301,7 +306,7 @@ Bartering pertains to the art of trades and bargains. A well-trained barterer wi
 | ---- | ---------------------------------- |
 | 0    | You are untrained in the ways of the merchant; Any idea you have on the value of a good or service is down to an uneducated guess, or whatever price you've seen it sold at before. Critically failing a Bartering check to haggle a price will often offend those you are haggling with, causing them to either worsen their offer or refuse business entirely. |
 | 1    | You have learned the basics of trade. You can more easily ascertain the value of a common item or service in relation to others, even if you have not seen that specific item sold before. Haggling comes more naturally to you, whether through bartered goods or coin. On a bartering check, critical fails alone do not cause those you are trading with to worsen offers or withdraw from business, unless they have another reason to do so. |
-| 5    | You are almost omniscient in your ability to conduct trade or incite compromise from those around you. If a mundane item, or a magical item of lower rarity than Unique (Legendary?) has an inherent or unanimously-accepted value, you immediately deduce what that value is. If you spend a day examining a market, you have Reliability on checks made to determine the average value of any given item in that market. If you successfully discern that an offer given is too low or two high, you immediately discern whether the offer is insincere (the offer is a deliberate scam), or simply misguided (the offerer doesn't know any better). |
+| 5    | You are almost omniscient in your ability to conduct trade or incite compromise from those around you. If a mundane item, or a magical item of lower rarity than Unique (Legendary?) has an inherent or unanimously-accepted value, you immediately deduce what that value is. If you spend a day examining a market, you have Reliability on checks made to determine the average value of any given item in that market. If you successfully discern that an offer given is too low or too high, you immediately discern whether the offer is insincere (the offer is a deliberate scam), or simply misguided (the offerer doesn't know any better). |
 
 1. **Antiquarian** - Specialists in the procurement and identification of ancient or eclectic items.
 2. **Caravaner** - Specialists in mercantilism and the transportation of goods.
