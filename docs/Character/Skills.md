@@ -540,30 +540,42 @@ Medicine is used to deal with the health of one's self and others, and to diagno
 | 4    | You are almost infinitely wise in your knowledge of health. When you are within 5 feet of a creature you can see, you can spend an action to instantly recognize which of the following conditions the creature is affected by: Afraid, Blinded, Bleeding, Bloodied, Confused, Diseased, Frozen, Paralyzed, Poisoned, Silenced, Stunned, or Unconscious. If you examine a creature for an entire minute, you instantly know of any diseases or other medical conditions the creature is afflicted by. You can perform this check on corpses to automatically identify which conditions they were suffering as they died. You have +3 Boons on checks made to resist contracting an infection or disease, and on checks made to recover from such a disease. |
 | 5    | **Complete your progression path.** |
 
-1. **Apothecary** - Specialists in the identification and creation of curatives, preventatives, and poisons.
-2. **Chirugeon** - Specialists in surgery, bringing those back from death's door with life-saving blades, stitches, and bandages.
-3. **???**
+1. **Chirugeon** - Specialists in surgery, bringing those back from death's door with life-saving blades, stitches, and bandages.
+2. **Thaumaturge** - Specialists in healing magic used to diagnose or cure.
+2. **???**
 
 > NOTES: For third specialization, potentially: <br>
-> Thanatologist/Diener - specializing in autopsy, obscuring the age of a corpse, or perhaps confering a bonus to dealing with / creating undead creatures <br>
-> Thaumaturgist - specializing in using magic to diagnose or cure, removing disease or disease-like curses through the use of magic <br>
+> Thanatologist/Diener - specializing in autopsy, obscuring the age of a corpse, or creating and using poisons <br>
 
-### Performance
+### Artistry
 
-Performance deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, comedy, theatrics, or other crowd-pleasing feats. A talented performer understands their own trade, and knows how to appeal to emotion through an art form.
+Artistry deals with the creative arts meant to impress, inspire, or evoke emotions in those who bear witness. Knowledge in this skill reflects on your ability to entertain an audience, through song, dance, or other crowd-pleasing feats, but also your ability to produce or understand fine art. A talented artist understands many aspects of their trade, and knows how to appeal to emotion through an art form. Those with sufficient skill in Artistry can choose to focus on performing arts, visual arts, or writing.
 
 #### Example Uses
 
-**Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Performance checks.<br>
-**Improvise.** You can envision or create a work of performance art on your own, which may require Performance checks to adequately execute.<br>
-**Recall.** You may perform Performance checks to recall information about a particular work of art, or an individual performance of that work.<br>
+**Perform.** You can recite a song, dance, theatrical scene, or otherwise entertain an audience through a rehearsed act with Artistry checks.<br>
+**Create.** You can make Artistry checks to create a work of art, such as a painting, sculpture, drawing, or other mediums of visual aesthetics.<br>
+**Improvise.** You can envision or create a work of performance art on your own, which may require Artistry checks to adequately execute.<br>
+**Captivate.** At times, you may be able to distract and beguile others with a successful Artistry check.<br>
+**Recall.** You may attempt Artistry checks to recall information about a particular work of art, or an individual performance of that work.<br>
 
-| Rank | Performance Skill Progression      |
-| ---- | ---------------------------------- |
-| 0    | You have next to no experience in any public performance. You have not committed yourself to any particular art form, and cannot reliably recall finer details about any particular art form. You may be considered largely "uncultured" by those who are more familiar with an art form. |
-| 1    | You have learned the basics of an art form, and acquired a general understanding of what attracts onlookers to the spectacle of a good performance. You can recall basic information on most common art forms, and can reliably recite common pieces (such as songs, poems, or dances) as part of a performance. |
-| 5    | You are a quintessential crowdpleaser, and your performances can move almost anyone who bears witness to your craft. You can sing, dance, perform, and act in manners fit to entertain kings or even gods. Improvising during a performance meant to entertain does not increase the difficulty of the check. |
+| Rank | Artistry Skill Progression      |
+| ---- | ------------------------------- |
+| 0    | You have next to no experience in any conventional art form. You don't know how to carry out a public performance You have not committed yourself to any particular art form, and cannot reliably recall finer details about art or performances (though you may still perform Artistry checks to do so). You may be considered largely "uncultured" by those who are more familiar with an art form. |
+| 1    | You have learned the basics of performing arts, and acquired a general understanding of what attracts onlookers to the spectacle of a good performance. You can recall basic information on most common art forms, and can reliably recite common pieces (such as songs, poems, or dances) as part of a performance. |
+| 2    | You have developed more skill in a performing art form, and can figure out what can entertain most audiences. You have Reliability on checks to perform an act with which you are familiar. |
+| 3    | **Choose a progression path.** |
+| 4    | You are a renowned artist with mastery over emotions through your handiwork. You are a crowdpleaser, and your performances can move almost anyone who bears witness. You can sing, dance, perform, and act in manners fit to entertain almost any audience. You have deep insight into fine arts, and can produce thoughtful, powerful works. You have Reliability on any attempt to create a work of fine art or perform, even if it is improvised or unrehearsed. |
+| 5    | **Complete your progression path.** |
 
-1. **Musician** - Specialists in performing music, understanding musical lore, and creating blissful harmonies with others.
-2. **Artist** - ???
-3. **Athlete** - ???
+| Path (Rank)     | Path Skill Progression |
+| --------------- | ---------------------- |
+| **Troubaour**   | Specialists in captivating audiences through music, acting, dancing, and other performing arts. |
+| Rank 3          | Your expertise in the performing arts allows you to keep any audience entertained. You have +2 Boons on checks to perform with an instrument, sing, dance, act, speak publically, or put on any other physical performance. You can read any given audience, and instantly understand the disposition of any crowd, and what sort of performances may be the most effective at entertaining them. If you successfully distract someone with a performance, you can keep them distracted for twice as long as normal. |
+| Rank 5          | You are a quintessential performer and can instantly ascend to become the life of any gathering. You have +4 Boons on checks to perform with an instrument, sing, dance, act, speak publically, or put on any other physical performance. In the presence of any audience, you instantly know their disposition towards you, and what particular acts would be most likely to impress the crowd. If you successfully distract someone with a performance, you can keep them distracted for twice as long as normal. You can recall with perfect accuracy any performance you have personally seen or heard. |
+| **Illustrator** | Specialists in creating evocative imagery through painting, sculpting, and other visual arts. |
+| Rank 3          | You have uncovered great potential within yourself to create moving works of visual art. You have +2 Boons on checks to sculpt, paint, draw, or otherwise create any work of visual art, or analyze another work of art. Your style of art may be distinct, and releasing your works of art likely attracts wealthy collectors or patrons interested in your talent. |
+| Rank 5          | You are a true master of art, capable of creating works that immortalize you among many as a legend. You have +4 Boons on checks to sculpt, paint, draw, or otherwise create any work of visual art, or analyze another work of art. Your art style is quite possibly world-renowned, and your works, if made known, attract a wide array of wealthy collectors or patrons interested in your endless talent. |
+| **Author**      | Specialists in the written word, and writing and understanding powerful passages of text. |
+| Rank 3          | You are a capable wordsmith, able create moving passages with your knowledge of the written word. You have +2 Boons on any checks to compose an original piece of text, such as written notes to persuade a noble or stories to entertain a reader. Your experience in writing allows you to write any passage of text in half the normal time. If anyone recites a piece of text you composed, such as in a speech, song, or play, they gain +1 Boon on rolls made to perform while reciting it. |
+| Rank 5          | You are a genius-level wordsmith, and always know the right words for the perfect delivery of any statement. You have +4 Boons on any checks to compose an original piece of text, such as written notes to persuade a noble or stories to entertain a reader. Your extensive experience in writing allows you to write any passage of text in half the normal time. If anyone recites a piece of text you composed, such as in a speech, song, or play, they gain +2 Boons on rolls made to perform while reciting it. |
