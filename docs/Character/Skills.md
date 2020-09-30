@@ -82,30 +82,37 @@ Exploration skills are used most often when dealing with the environment a chara
 
 ### Acrobatics
 
-Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.
+Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination. 
 
 #### Example Uses
 
 **Climb.** You can climb vertically ascending surfaces at 1/2 your normal Stride as a part of the Stride action. Difficult surfaces, or attempts to climb an easier surface more quickly, may require an Acrobatics check to scale successfully.<br>
 **Leap.** You can perform an Acrobatics check to move farther during a leap than your base Horizontal or Vertical leap distances.<br>
 **Tumble.** When you fall and are not restrained or otherwise immobilized, you can perform an Acrobatics check as Standard Action to land safely.<br>
-**Escape.** If you are grappled or restrained, you can attempt to slip free. Breaking a source of the Grappled condition is a Standard Action, while freeing yourself from a source of the Restrained condition is a Lengthy Action.<br>
+**Escape.** If you are grappled or restrained, you can attempt to slip free. Breaking a source of the Grappled condition uses 2 AP, while freeing yourself from a source of the Restrained condition uses at least 4 AP.<br>
 **Squeeze.** You can force your limbs or entire body into tight spaces by performing an Acrobatics check as an action. If you would move while remaining in this tight space, you move at half movement.<br>
 **Balance.** When standing on narrow footholds, along edges, or upon slippery terrain, you may be required to perform an Acrobatics check to maintain balance.<br>
 
 | Rank | Acrobatics Skill Progression       |
 | ---- | ---------------------------------- |
 | 0    | You have no real practice performing athletic maneuvers. You can make attempts to run, jump, and climb, but cannot swim normally without risking drowning. You must perform Skill Checks to climb, even on surfaces with innate handholds such as ladders, or with the assistance of climbing tools such as rope. |
-| 1    | You have accrued some experience in traversing your surroundings. You have Reliability on Skill Checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
-| 2    | **Choose a progression path.**     |
-| 3    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have +1 Boon on Skill Checks made to Tumble after a fall. |
-| 4    | **Upgrade your progression path.** |
-| 5    | You have perfected your sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have +3 Boons on Skill Checks made to Tumble after a fall. **Complete your progression path.** |
+| 1    | You have accrued some experience in traversing your surroundings. You have Reliability on checks made to swim in calm waters, or to climb ladders and other surfaces with innate handholds at 1/2 speed. You have a basic understanding of how to tumble safely from a fall. |
+| 2    | You know some advanced acrobatic maneuvers, and have developed a keen sense of balance. You have Reliability on checks made to swim or climb ladders or other surfaces with innate handholds at 1/2 speed. You have Reliability on checks tumble after a fall. |
+| 3    | **Choose a progression path.**     |
+| 4    | You have acquired a perfect sense of balance, and are peerless in your motor coordination and ability to carry out complicated maneuvers. You have Reliability on Acrobatics checks made to swim, leap, tumble after a fall, or climb. |
+| 5    | **Complete your progression path.** |
 
-> TODO: Redraft paths - Gymnast needs a replacement
-1. **Gymnast** - Specialists in acrobatic maneuvers which escape harm or tumble safely from great heights.
-2. **Traceur** - Specialists in rapidly traversing obstacles and scaling surfaces whether they be natural or urban.
-3. **Dancer** - Specialists in the art of dance, from the ballroom to the mesmerizing contortions of a street performer.
+| Path (Rank)       | Progression Path Benefits                                    |
+| ----------------- | ------------------------------------------------------------ |
+| **Gymnast**       | Specialists in acrobatic maneuvers to leap great distances or balance on narrow walkways. |
+| Rank 3            | You have an acute sense of balance and spatial awareness, and your nimble stance can carry you great distances. You have +1 Boon on checks made to leap, maintain your balance, or perform maneuvers in midair. You only need a running start of 5 feet to perform longer or higher jumps. You know how to best distribute your weight on precarious surfaces, and can walk on solid surfaces that would normally only support half your weight, such as rickety floorboards or thin ice. |
+| Rank 5            | Your unmatched sense of balance spatial awareness can carry you anywhere and let you perform exceptional maneuvers through the air or on narrow walkways. You have +3 Boons on checks made to leap, maintain your balance, or perform maneuvers in midair. You no longer need a running start to perform longer or higher jumps. You are perfectly light on your feet, and can walk or run on solid surfaces that would normally only support a quarter of your weight, such as rickety floorboards or thin ice. |
+| **Traceur**       | Specialists in rapidly traversing obstacles, scaling surfaces, and falling from great heights. |
+| Rank 3            | Your experience in climbing lets you scale surfaces quicker. You can climb at the same speed as your Stride, and have +2 Boons on checks to do so. You always have Reliability on checks to vault or climb, even if the surface you are scaling has no natural handholds. You have +2 Boons on checks to tumble safely after falling, and you reduce the damage taken from any fall by 3. |
+| Rank 5            | You are a master climber and can ascend any obstacle with superhuman ease. You climb at the same speed as your Stride, and have +4 Boons on checks to do so. You always have Reliability on checks to vault or climb, even if the surface you are scaling has no natural handholds. You have +4 Boons on checks to tumble safely after falling, and you reduce the damage taken from any fall by 6. |
+| **Contortionist** | Specialists in using physical flexibility to fit through tight gaps and slip out from restraints. |
+| Rank 3            | You are unusually flexible and can twist or squeeze your body through tight spaces and maintain positions for extended periods of time. You have +2 Boons on checks to made to fit in a tight space or escape from any effect that causes you to be Prone, Grappled, or Restrained. Attempts to slip out of restraints cost half as much AP. If you are not in heavy armor, you can move through tight spaces at the same speed as your Stride. |
+| Rank 5            | You are are inhumanly flexible, and can contort your body through the tightest of gaps and escape from almost any restraint. You have +2 Boons on checks made to fit in a tight space or escape from any effect that causes you to be Prone, Grappled, or Restrained. Attempts to slip out of restraints cost half as much AP. You can navigate through gaps where it seems your head shouldn't even be able to fit; if you are not in heavy armor, you can move through tight spaces at the same speed as your Stride, and can fit yourself and most equipment through a gap that is six inches wide. |
 
 ### Perception
 
@@ -113,19 +120,31 @@ Perception relates to general awareness, most often in relation to one's physica
 
 #### Example Uses
 
-**Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object or some other physical phenomena.<br>
+**Detect.** You can quickly scan your surroundings as a free action, focusing on your senses to detect an object, a nearby threat, or some other physical phenomena.<br>
 **Search.** You can perform a dedicated search for an object or some other physical phenomena, investigating your surroundings over a minute or more.<br>
+**Deduce.** As a Lengthy Action, you can often use your intuition to determine where an object might be based on clues from your surroundings.<br>
 **Sense Intent.** During social interactions, you can perform a Perception check to understand the motives of a creature, intuit its emotions, or determine if it is lying.<br>
 
 | Rank | Perception Skill Progression       |
 | ---- | ---------------------------------- |
-| 0    | You have spent no real effort in honing your observational skills. You can perform Skill Checks to detect threats as an action. |
-| 1    | You have acquired knowledge in how to find things, and have developed a basic ability to tune to specific senses. You can perform checks to detect hidden threats as an action. When you perform a lengthy action to search for a particular object you have seen before, or try to sense a particular sight, sound, or scent you know you have sensed before, you gain +1 Boon to your roll. |
-| 5    | You can perform checks to detect hidden threats as a free action once per round, and certain natural environmental effects, such as fog, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls, and have +3 Boons to Spell Defense against illusion magic. |
+| 0    | You have spent no real effort in honing your observational skills. You can still perform checks as normal to search for objects or detect hidden threats, but cannot intuit a creature's motives or honesty by facial expressions and body language alone. |
+| 1    | You have acquired knowledge in how to find things around you, and have developed a basic ability to tune to specific senses. You can search your surroundings and attempt to detect hidden objects nearby. You have some knowledge of how to read facial expressions to determine if someone is lying. |
+| 2    | You are more attuned to your own senses, and can spot things fairly easily. You know how to search for threats, clues, or hidden objects more easily. If people have facial tells when they lie, you often notice them. You have Reliability on checks made to hear or spot obscured objects nearby if you are standing still. |
+| 3    | **Choose a progression path.** |
+| 4    | You can perform checks to detect hidden threats as a free action once per round, and most mild natural environmental phenomena, such as fog or rainfall, do not reduce your ability to see or hear. You can hear sounds with perfect clarity through doors and thin walls. You have Reliability on any check made to hear or spot obscure objects, and on checks made to search for clues in an area in which you can see clearly. |
+| 5    | **Complete your progression path.** |
 
-1. **Scout** - Specialists in discovering hidden paths and threats, a Scout is never caught unaware.
-2. **Detective** - Specialists in piecing their environment together, and making deductions from their surroundings.
-3. **Empath** - Specialists in the understanding of people, reading their physical and emotional tells.
+| Path (Rank)      | Progression Path Benefits                                    |
+| ---------------- | ------------------------------------------------------------ |
+| **Scout**        | Specialists in discovering hidden paths and threats, and never being caught unaware. |
+| Rank 3           | Your sharp eye helps you to steer clear of danger. You have +1 Boon on checks to spot or hear hidden objects or threats, such as trapdoors, environmental hazards, and hidden creatures. Creatures have +2 Banes on checks made to remain undetected by you. |
+| Rank 5           | Your senses are perfectly tuned to spot threats from great distances. You have +3 Boons on checks to spot or hear hidden objects or threats, such as trapdoors, environmental hazards, and hidden creatures. You are never personally taken by surprise in combat, and creatures have +4 Banes on checks to otherwise remain undetected by you. |
+| **Detective**    | Specialists in piecing their environment together, and making deductions from their surroundings. |
+| Rank 3           | Your strong intuition gives you a firm grasp on your surroundings. You have +2 Boons on checks to examine or make sense of physical clues in your surroundings, such as scratch marks or discrepancies in visual or aural patterns. If you spot a mark, scratch, or dent made by an object, you immediately know what sort of object may have caused it, and approximately how long ago. |
+| Rank 5           | You are a savant investigator, and have what seems to be omniscience in regards to your surroundings. You have +4 Boons on checks to examine or make sense of physical clues in your surroundings, such as scratch marks or discrepancies in visual or aural patterns. If you spot a mark, scratch, or dent made by an object, you immediately know what sort of object may have caused it, and approiximately how long ago. You know where things should be; if you are searching an area for a particular object as a Lengthy Action and fail to find it, the Game Master must tell you if the object is in the area. |
+| **Empath**       | Specialists in the understanding of people, reading their physical and emotional tells. |
+| Rank 3           | You have learned how to effectively read the emotions of people around you. You have +2 Boons on checks to determine the emotions, honesty, or intent of a creature you can see or hear. If you roll a critically succeed on a check to determine if a creature is lying, you identify a facial tell that always occurs when they tell a lie. You know how to read lips; if you see someone speaking and you understand their language, you immediately know what they are saying. |
+| Rank 5           | You have perfected your ability to read and understand those around you, and can pry into their deeper inner emotions. You have +4 Boons on checks to determine the emotions, honesty, or intent of a creature you can see or hear. If you critically succeed on a check to determine if a creature is lying, you identify a facial tell that always occurs when they tell a lie. You know how to read lips; if you see someone speaking and you understand their language, you immediately know what they are saying. When you speak with someone, you always know if they are lying or otherwise obscuring the truth, but not necessarily what they are hiding. |
 
 ### Stealth
 
@@ -135,7 +154,8 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 
 **Hide.** You can attempt to find a hiding spot nearby and remain hidden, performing a blind Stealth check for your GM.<br>
 **Sneak.** You can pass through an area unnoticed, moving a quarter of your normal Stride.<br>
-**Sleight of Hand.** You can perform Stealth checks to do a physical action with subtlety, such as removing an item unnoticed from a person or place, smuggle an object, or plant one on another person.<br>
+**Lock Pick.** Picking a lock, disarming a trap, or otherwise carefully disabling a device may require a Stealth check.<br>
+**Sleight of Hand.** You can perform Stealth checks to do a physical action with subtlety, such as removing an item unnoticed from a person or place, smuggling an object, or planting one on another person.<br>
 
 | Rank | Stealth Skill Progression          |
 | ---- | ---------------------------------- |
@@ -143,9 +163,17 @@ Stealth is used to advance unnoticed and gain access to areas which are otherwis
 | 1    | You have a basic understanding of how to avoid being noticed, and how to move subtly and quietly. If you move while hiding, checks must be made to remain hidden. Light armor no longer imposes a penalty on your Stealth checks made to move silently. |
 | 5    | You are able to perform a hide check as a free action once per round, and may perform hide checks with Reliability as long as you do not use your movement. Hiding in broad daylight no longer imposes penalties on your Stealth checks. You can use your full stride while sneaking without penalty. Wearing light or medium armor imposes no penalty to your Stealth checks. |
 
-1. **Infiltrator** - Specialists in moving unseen and silent to bypass danger or approach it unaware.
-2. **Safecracker** - Specialists in the cracking of mechanical locks and disarming mechanical traps.
-3. **Pickpocket** - Specialists in the acquisition of property by removing it from the possession of the less deserving.
+| Path (Rank)      | Progression Path Benefits                                    |
+| ---------------- | ------------------------------------------------------------ |
+| **Infiltrator**  | Specialists in moving unseen and unheard to bypass danger or approach it unaware. |
+| Rank 3           | You have a gift for remaining undetected. You have +1 Boon on checks to hide or move without being seen or heard. You have a sense of when not to leave a hiding spot; you have Foresight on all checks made leave a hiding spot without being noticed. |
+| Rank 5           | You have +3 Boons and Foresight on checks to hide or move without being seen or heard. While remaining hidden, always know 10 seconds beforehand if a creature is going to approach your location and potentially detect you. Your understanding of your surroundings is perfectly suited for infiltration; when leaving a hiding spot or entering a new one, you have Foresight on all checks made to remain undetected in that position. |
+| **Safecracker**  | Specialists in the cracking of mechanical locks and disarming of mechanical traps. |
+| Rank 3           | You are familiar with locks and other mechanical security measures enough to consistently disarm and disable them. You have +2 Boons on checks to pick locks, safely disarm traps, or otherwise disable a device. Succeeding on any check to disable such a device allows you to do so silently, and in half the time. When you see a door or container, you immediately know if it is locked. |
+| Rank 5           | You have complete comprehensive knowledge of the inner workings of conventional locks and traps; you know lock picking like the back of your hand. You have +4 Boons on checks to pick locks, safely disarm traps, or otherwise disable a device. Succeeding on any check to disable such a device allows you to do so silently, and in half the time. When you see a door or container, you immediately know if it is locked and the CR to crack the lock. |
+| **Pickpocket**   | Specialists in the acquisition of property by removing it from the possession of the less deserving. |
+| Rank 3           | Your nimble hands can easily snatch a purse or perform articulate gestures to distract others. You have +2 Boons on Stealth checks to steal from a creature unnoticed, plant an item on them, keep an item hidden on your person, or blend into a large gathering of people, such as a street crowd. If you are familiar with what a particular object looks like, or know where exactly a creature is keeping it, you have Reliability on checks to steal the item from their person unnoticed. |
+| Rank 5           | Your capacity for sleight-of-hand is unmatched. You have +4 Boons on Stealth checks to steal from a creature unnoticed, plant an item on them, keep an item hidden on your person, or blend into a large gathering of people, such as a street crowd. If you are familiar with what a particular object looks like, or know where exactly a creature is keeping it, you have Reliability on checks to steal the item from their person unnoticed. If a creature is Confused, Frightened, or Unconscious, you automatically succeed on Stealth checks to steal or plant items on their person. |
 
 ### Survival
 
@@ -161,28 +189,25 @@ Survival represents your ability to operate as a self-sufficient explorer in cha
 | Rank | Survival Skill Progression                                   |
 | ---- | ------------------------------------------------------------ |
 | 0    | You have little or no experience in the wilderness. You cannot navigate through wilderness without clear directions or a guide. You do not know how to start fires with mundane materials, nor where nearby food or water may be. If you find food, you are unable to determine if it's safe to eat or drink. If you find tracks, you cannot determine what creature made them. |
-| 1    | You know basic survival skills. You are able to start fires with flint and tinder, you know where you can try foraging for food and water in environments you are familiar with, and you can recognize common environmental hazards. You are able to recognize the tracks of creatures which you are familiar with if the tracks are discovered. |
-| 2    | **Choose a progression path.**                               |
-| 3    | You know advanced survival skills. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting them +1 Boon on any Skill Checks made by allies who accompany you. |
-| 4    | **Upgrade your progression path.**                           |
-| 5    | You are a paragon of wilderness survival and self-sufficiency. You can reliably forage for food, water, and shelter in even inhospitable or foreign environments. You are an expert tracker, once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of mountain climbing, underwater diving, spelunking, and other means of traversing difficult environments. You can guide groups of allies through such obstacles, granting +3 Boons on any Skill Checks made by allies who accompany you.<br />**Complete your progression path.** |
+| 1    | You know only basic survival skills. You are able to start fires with flint and tinder, you know where you can try foraging for food and water in environments you are familiar with, and you can recognize common environmental hazards. You are able to recognize the tracks of creatures which you are familiar with if the tracks are discovered. |
+| 2    | You know some more advanced survival skills and can be feasibly self-sufficient in the wilderness. You can attempt to forage for food, water, and shelter without slowing your pace of travel. You are able to follow the tracks of a creature that you are not familiar with, even if you do not recognize the tracks. You are experienced with mountain climbing, underwater diving, spelunking, and other means of traversing difficult natural environments, and can identify most natural hazards. |
+| 3    | **Choose a progression path.**                               |
+| 4    | You are a paragon of wilderness survival and self-sufficiency. You have Reliability on attempts to forage for food, water, and shelter in even inhospitable or foreign environments, and can do so without slowing your pace of travel. You are an expert tracker, and once you find the tracks of a creature it cannot elude you by any ordinary means. You are a master of traversing difficult environments; you and any other creatures who travel with you can travel through wilderness at the same speed as they would on a flat road. |
+| 5    | **Complete your progression path.** |
 
 The progression paths available to the Survival skill are listed below.
 
 | Path (Rank)   | Progression Path Benefits                                    |
 | ------------- | ------------------------------------------------------------ |
 | **Explorer**  | Specialists in exploration and navigation of challenging environmental obstacles. |
-| Rank 2        | Select one environmental biome as Favored Terrain, You gain +1 Boon to Skill Checks regarding the exploration or knowledge of that environment. You can guide groups of allies through such obstacles, granting +1 Boon on any Skill Checks made by allies who accompany you. |
-| Rank 4        | Select two environmental biomes as Favored Terrain, You gain +1 Boon to Skill Checks made regarding the exploration or knowledge of those environments. |
-| Rank 5        | Select three environmental biomes as Favored Terrain. You gain +3 Boons to Skill Checks made regarding the exploration or knowledge of those environments and +1 Boon for non-favored biomes. |
+| Rank 3        | You are a worthy navigator and can reliably guide others safely through the wilderness. Select two environmental biomes as Favored Terrain. You gain +2 Boons to Skill Checks to navigate or recall details about those environments. If you visit a notable landmark located in your Favored Terrain, you always know its direction and distance from you when you are within six hours' travel of that landmark. When you guide other creatures through your Favored Terrain, you grant +1 Boons on checks they make to navigate or deal with natural hazards. |
+| Rank 5        | You are an unparalleled navigator, and your extensive experience exploring makes you one of the safest guides to travel with. Select two more (bringing your total to four) environmental biomes as Favored Terrain. You gain +4 Boons to Skill Checks to navigate or recall details about those environments and +2 Boons to all non-favored biomes. If you visit a notable landmark located in your Favored Terrain, you always know its direction and distance from you when you are within two day's travel of that landmark. When you guide other creatures through your Favored Terrain, you grant +2 Boons on checks they make to navigate or deal with natural hazards. |
 | **Hunter**    | Specialists in the tracking and hunting of creatures.        |
-| Rank 2        | Select one naturally occurring creature type as a Favored Prey. You gain +1 Boon to Spell Power and Attack Rolls against this type of creature. |
-| Rank 4        | Select two naturally occurring creature types as Favored Prey. You gain +1 Boon to Spell Power and Attack Rolls against creatures of those types. |
-| Rank 5        | Select three naturally occurring creature types as Favored Prey. You gain +3 Boons to Spell Power and Attack Rolls against creatures of those types and you gain +1 Boon when attacking non-favored naturally occurring creatures. |
+| Rank 3        | You have focused your training on hunting, and the pursuit of specific creatures. Select two naturally occurring creature types as Favored Prey. You gain +1 Boon to Spell Power and Attack Rolls against Favored Prey. You have +2 Boons on identifying and following any tracks you find. If you successfully identify the type of creature that made a set of tracks, you know how fresh the tracks are. |
+| Rank 5        | You are a venator of the highest caliber, and your devotion to studying and hunting specific creatures makes you their most formidable predator. Select one more (bringing your total to three) naturally occurring creature type as a Favored Prey. You gain +3 Boons to Spell Power and Attack Rolls against Favored Prey, and +1 Boon to Spell Power and Attack Rolls against all non-favored naturally occurring creatures. You have +4 Boons on identifying and following any tracks you find. If you successfully identify the type of creature that made a set of tracks, you know how fresh the tracks are. |
 | **Herbalist** | Specialists in the knowledge, identification, and usage of naturally growing plants and reagents. |
-| Rank 2        | You are knowledgeable in common herblore, are able to recognize useful herbs in the wild, and you may devote time during a rest to attempt a Potion Brewing crafting check with +1 Boon using gathered ingredients. |
-| Rank 4        | You are knowledgeable in advanced herblore, are able to recognize both common and rare herbs in the wild. You are familiar with toxins and venom which can be extracted from plants and creatures. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with +1 Boon. |
-| Rank 5        | You are a master of herblore and are able to recognize any useful herb, reagent, toxin, or venom in the wild. You may devote time during a rest to attempt a crafting check for Potion Brewing or Poison Making with +3 Boons. If successful, you produce double the normal quantity of output. You know forbidden arts of creating odorless and tasteless poisons using rare ingredients. |
+| Rank 3        | You are knowledgeable in common herblore. You are able to automatically recognize useful herbs you find in the wild, and have +2 Boons on checks made to gather them and other plants in the wild. You may devote time during a rest to attempt a Potion Brewing crafting check with +1 Boon using gathered ingredients. |
+| Rank 5        | You are a master of herblore, and are able to recognize any useful herb, reagent, toxin, or venom in the wild. You have +4 Boons on checks made to gather plants in the wild. You may devote time during a rest to attempt a crafting check for Potion Brewing with +3 Boons. If successful, you produce double the normal quantity of output. You know forbidden arts of creating odorless and tasteless poisons using rare ingredients. |
 
 ## Knowledge Skills
 
