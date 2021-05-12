@@ -1,14 +1,14 @@
 import { SYSTEM } from "../config/system.js";
 
 /**
- * A sheet application for displaying Skills
- * @type {ItemSheet}
+ * A sheet application for displaying Armor items
+ * @extends {ItemSheet}
  */
 export default class ArmorSheet extends ItemSheet {
 
-  /** @override */
+  /** @inheritdoc */
 	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
+	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "armor"],
@@ -28,30 +28,23 @@ export default class ArmorSheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   getData() {
-    const data = super.getData();
-    data.categories = Object.entries(SYSTEM.ARMOR.CATEGORIES).map(e => {
+    const context = super.getData();
+    const systemData = context.systemData = context.data.data;
+    context.categories = Object.entries(SYSTEM.ARMOR.CATEGORIES).map(e => {
       const [id, cat] = e;
       return { id, label: cat.label }
     });
-    data.properties = Object.entries(SYSTEM.ARMOR.PROPERTIES).map(e => {
+    context.properties = Object.entries(SYSTEM.ARMOR.PROPERTIES).map(e => {
       const [id, label] = e;
         return {
           id: id,
           name: `data.properties.${id}`,
           label: label,
-          checked: data.data.properties[id] === true
+          checked: systemData.properties[id] === true
         }
     });
-    return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _updateObject(event, formData) {
-    event.preventDefault();
-    return this.object.update(formData);
+    return context;
   }
 }

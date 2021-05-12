@@ -2,21 +2,15 @@ import { SYSTEM } from "../config/system.js";
 
 
 export default class CrucibleItem extends Item {
-  constructor(...args) {
-    super(...args);
 
-    /**
-     * Prepare the configuration entry for this Item
-     * @type {Object}
-     */
+  /** @inheritdoc */
+  _initialize() {
     this.config = this.prepareConfig();
-
-    // Re-prepare the Item data once the config is ready
-    this.prepareData();
+    return super._initialize();
   }
 
   /* -------------------------------------------- */
-  /*  Item Configuration
+  /*  Item Data Preparation                       */
   /* -------------------------------------------- */
 
   /**
@@ -33,14 +27,9 @@ export default class CrucibleItem extends Item {
   }
 
   /* -------------------------------------------- */
-  /*  Item Preparation
-  /* -------------------------------------------- */
 
-  /**
-   * Prepare the data object for this Item.
-   * The prepared data will change as the underlying source data is updated
-   */
-  prepareData() {
+  /** @override */
+  prepareDerivedData() {
     const data = this.data;
     switch ( this.data.type ) {
       case "armor":

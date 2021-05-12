@@ -42,6 +42,7 @@ export const PROPERTIES = {
 
 export const UNARMORED_DATA = {
   name: "Unarmored",
+  type: "armor",
   data: {
     category: "unarmored",
     armor: {base: 0, bonus: 0},

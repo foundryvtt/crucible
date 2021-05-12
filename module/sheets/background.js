@@ -1,14 +1,14 @@
 import { SYSTEM } from "../config/system.js";
 
 /**
- * A sheet application for displaying Skills
- * @type {ItemSheet}
+ * A sheet application for displaying Background type Items
+ * @extends {ItemSheet}
  */
 export default class BackgroundSheet extends ItemSheet {
 
-  /** @override */
+  /** @inheritdoc */
 	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
+	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "background"],
@@ -30,16 +30,17 @@ export default class BackgroundSheet extends ItemSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
-    data.data = this.object.data.data;
-    data.system = SYSTEM;
-    data.skills = Object.entries(duplicate(SYSTEM.SKILLS)).map(e => {
+    const context = super.getData();
+    const systemData = context.systemData = context.data.data;
+    context.system = SYSTEM;
+    const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
+    context.skills = Object.entries(skills).map(e => {
       let [id, s] = e;
       s.id = id;
-      s.checked = data.item.data.skills.includes(id);
+      s.checked = systemData.skills.includes(id);
       return s;
     });
-    return data;
+    return context;
   }
 
   /* -------------------------------------------- */

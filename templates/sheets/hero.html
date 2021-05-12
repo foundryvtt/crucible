@@ -24,37 +24,37 @@
 
                 <h2 class="level">
                     <label>Level</label>
-                    <input name="data.details.level" type="text" value="{{data.details.level}}" placeholder="1" data-dtype="Number"/>
+                    <input name="data.details.level" type="text" value="{{systemData.details.level}}" placeholder="1" data-dtype="Number"/>
                 </h2>
             </div>
 
             <div class="history flexrow">
                 <div class="ancestry">
                     <label>Ancestry</label>
-                    <h2>{{data.details.ancestry.name}}</h2>
+                    <h2>{{systemData.details.ancestry.name}}</h2>
                 </div>
 
                 <div class="background">
                     <label>Background</label>
-                    <h2>{{data.details.background.name}}</h2>
+                    <h2>{{systemData.details.background.name}}</h2>
                 </div>
             </div>
 
             {{!-- Character Resources --}}
             <div class="resources flexrow">
                 <div class="resource">
-                    {{> resource label="Health" attr="data.attributes.health" data=data.attributes.health}}
-                    {{> resource label="Wounds" attr="data.attributes.wounds" data=data.attributes.wounds}}
+                    {{> resource label="Health" attr="data.attributes.health" data=systemData.attributes.health}}
+                    {{> resource label="Wounds" attr="data.attributes.wounds" data=systemData.attributes.wounds}}
                 </div>
 
                 <div class="resource">
-                    {{> resource label="Morale" attr="data.attributes.morale" data=data.attributes.morale}}
-                    {{> resource label="Madness" attr="data.attributes.madness" data=data.attributes.madness}}
+                    {{> resource label="Morale" attr="data.attributes.morale" data=systemData.attributes.morale}}
+                    {{> resource label="Madness" attr="data.attributes.madness" data=systemData.attributes.madness}}
                 </div>
 
                 <div class="resource">
-                    {{> resource label="Action" attr="data.attributes.action" data=data.attributes.action}}
-                    {{> resource label="Focus" attr="data.attributes.focus" data=data.attributes.focus}}
+                    {{> resource label="Action" attr="data.attributes.action" data=systemData.attributes.action}}
+                    {{> resource label="Focus" attr="data.attributes.focus" data=systemData.attributes.focus}}
                 </div>
             </div>
         </div>
@@ -113,31 +113,31 @@
             <ol class="physical-defenses flexrow">
                 <li class="defense physical flexcol">
                     <h4 class="badge physical-defense">Physical Defense</h4>
-                    <span class="total">{{data.defenses.physical}}</span>
+                    <span class="total">{{systemData.defenses.physical}}</span>
                     <span class="subtitle">Total Defense</span>
                 </li>
                 <li class="sep">=</li>
                 <li class="defense flexcol">
                     <h4>Armor</h4>
-                    <span class="input">{{data.defenses.armor.total}}</span>
+                    <span class="input">{{systemData.defenses.armor.total}}</span>
                     <span class="subtitle">{{armorCategory}}</span>
                 </li>
                 <li class="sep">+</li>
                 <li class="defense flexcol">
                     <h4>Dodge</h4>
-                    <span class="input">{{data.defenses.dodge.total}}</span>
-                    <span class="subtitle">Maximum {{data.defenses.dodge.max}}</span>
+                    <span class="input">{{systemData.defenses.dodge.total}}</span>
+                    <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
                 </li>
                 <li class="sep">+</li>
                 <li class="defense flexcol">
                     <h4>Parry</h4>
-                    <span class="input">{{data.defenses.parry.total}}</span>
+                    <span class="input">{{systemData.defenses.parry.total}}</span>
                     <span class="subtitle">Maximum 6</span>
                 </li>
                 <li class="sep">+</li>
                 <li class="defense flexcol">
                     <h4>Block</h4>
-                    <span class="input">{{data.defenses.block.total}}</span>
+                    <span class="input">{{systemData.defenses.block.total}}</span>
                     <span class="subtitle">Maximum 6</span>
                 </li>
             </ol>
@@ -148,21 +148,21 @@
                     <ol class="resistances saves" data-resistance-type="saves">
                         <li class="resistance flexrow" data-save="fortitude">
                             <h4>Fortitude</h4>
-                            <span class="base">{{data.defenses.fortitude.base}} +</span>
-                            <input class="bonus" type="text" name="data.defenses.fortitude.bonus" value="{{data.defenses.fortitude.bonus}}" data-dtype="Number"/>
-                            <span class="total">{{data.defenses.fortitude.total}}</span>
+                            <span class="base">{{systemData.defenses.fortitude.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{systemData.defenses.fortitude.total}}</span>
                         </li>
                         <li class="resistance flexrow" data-save="reflex">
                             <h4>Reflex</h4>
-                            <span class="base">{{data.defenses.reflex.base}} +</span>
-                            <input class="bonus" type="text" name="data.defenses.reflex.bonus" value="{{data.defenses.reflex.bonus}}" data-dtype="Number"/>
-                            <span class="total">{{data.defenses.reflex.total}}</span>
+                            <span class="base">{{systemData.defenses.reflex.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{systemData.defenses.reflex.total}}</span>
                         </li>
                         <li class="resistance flexrow" data-save="willpower">
                             <h4>Willpower</h4>
-                            <span class="base">{{data.defenses.willpower.base}} +</span>
-                            <input class="bonus" type="text" name="data.defenses.willpower.bonus" value="{{data.defenses.willpower.bonus}}" data-dtype="Number"/>
-                            <span class="total">{{data.defenses.willpower.total}}</span>
+                            <span class="base">{{systemData.defenses.willpower.base}} +</span>
+                            <input class="bonus" type="text" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" data-dtype="Number"/>
+                            <span class="total">{{systemData.defenses.willpower.total}}</span>
                         </li>
                     </ol>
                 </div>

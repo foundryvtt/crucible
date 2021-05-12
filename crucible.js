@@ -7,17 +7,22 @@
 
 // Import Modules
 import {SYSTEM} from "./module/config/system.js";
-import CrucibleActor from "./module/entities/actor.js";
-import CrucibleItem from "./module/entities/item.js";
-import HeroSheet from "./module/sheets/hero.js";
 
+// Documents
+import CrucibleActor from "./module/documents/actor.js";
+import CrucibleItem from "./module/documents/item.js";
+
+// Sheets
+import HeroSheet from "./module/sheets/hero.js";
 import AncestrySheet from "./module/sheets/ancestry.js";
 import ArmorSheet from "./module/sheets/armor.js";
 import BackgroundSheet from "./module/sheets/background.js";
 import WeaponSheet from "./module/sheets/weapon.js";
 
+// Apps
 import StandardCheck from "./module/dice/standard-check.js";
 
+// Helpers
 import {handleSocketEvent} from "./module/socket.js";
 import {addChatMessageContextOptions} from "./module/chat.js";
 import {localizeSkillConfig} from "./module/config/skills.js";
@@ -30,26 +35,26 @@ import {localizeSkillConfig} from "./module/config/skills.js";
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
 
-  // Record Configuration Values
+  // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
-  CONFIG.Actor.entityClass = CrucibleActor;
-  CONFIG.Item.entityClass = CrucibleItem;
-
-  // Populate the system object
   game.system.dice = {
     StandardCheck
   };
 
-  // Register sheet application classes
+  // Actor document configuration
+  CONFIG.Actor.documentClass = CrucibleActor;
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
+
+  // Item document configuration
+  CONFIG.Item.documentClass = CrucibleItem;
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
-  Items.registerSheet("core", WeaponSheet, {types: ["weapon"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
 
-  // Register Dice mechanics
+  // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck);
 
   // Activate socket handler

@@ -1,15 +1,15 @@
 import { SYSTEM } from "../config/system.js";
-import SkillSheet from "./skill.js";
+import SkillConfig from "./skill.js";
 
 /**
- * A sheet application for displaying Skills
- * @type {Actor}
+ * The ActorSheet class which is used to display a hero character
+ * @extends {ActorSheet}
  */
 export default class HeroSheet extends ActorSheet {
 
-  /** @override */
+  /** @inheritdoc */
 	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
+	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 760,
       height: 840,
       classes: [SYSTEM.id, "sheet", "actor"],
@@ -24,16 +24,30 @@ export default class HeroSheet extends ActorSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
-    data.armorCategory = SYSTEM.ARMOR.CATEGORIES[this.actor.equipment.armor.data.data.category].label;
-    data.points = this.actor.points;
-    data.isL1 = data.entity.data.details.level === 1;
-    data.abilityScores = this._formatAttributes(data.entity.data.attributes);
-    this._formatResources(data.entity.data.attributes);
-    data.resistances = this._formatResistances(data.entity.data.resistances);
-    data.skillCategories = this._formatSkills(data.entity.data.skills);
-    data.items = this._formatItems(this.entity.items);
-    return data;
+    const context = super.getData();
+    const systemData = context.systemData = context.data.data;
+
+    // Equipment
+    context.items = this._formatItems(this.actor.items);
+    const armor = this.actor.equipment.armor;
+    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.data.data.category].label;
+
+    // Leveling
+    context.points = this.actor.points;
+    context.isL1 = systemData.details.level === 1;
+
+    // Abilities
+    context.abilityScores = this._formatAttributes(systemData.attributes);
+
+    // Resources
+    this._formatResources(systemData.attributes);
+
+    // Resistances
+    context.resistances = this._formatResistances(systemData.resistances);
+
+    // Skills
+    context.skillCategories = this._formatSkills(systemData.skills);
+    return context;
   }
 
   /* -------------------------------------------- */
@@ -218,7 +232,7 @@ export default class HeroSheet extends ActorSheet {
         return this._onItemEquip(a);
       case "skillConfig":
         const skillId = a.closest(".skill").dataset.skill;
-        return new SkillSheet(this.actor, skillId).render(true);
+        return new SkillConfig(this.actor, skillId).render(true);
       case "skillDecrease":
         return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, -1);
       case "skillIncrease":

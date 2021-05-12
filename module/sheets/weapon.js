@@ -6,9 +6,9 @@ import { SYSTEM } from "../config/system.js";
  */
 export default class Weapon extends ItemSheet {
 
-  /** @override */
+  /** @inheritdoc */
 	static get defaultOptions() {
-	  return mergeObject(super.defaultOptions, {
+	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "weapon"],
@@ -30,11 +30,11 @@ export default class Weapon extends ItemSheet {
 
   /** @override */
   getData() {
-    const data = super.getData();
-    data.categories = Object.entries(SYSTEM.WEAPON.CATEGORIES).map(e => {
+    const context = super.getData();
+    context.categories = Object.entries(SYSTEM.WEAPON.CATEGORIES).map(e => {
       const [id, cat] = e;
       return { id, label: cat.label }
     });
-    return data;
+    return context;
   }
 }

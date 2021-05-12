@@ -67,9 +67,74 @@ The following table presents valid weapons which are valid using the rules provi
 | Greatbow (2h)       | Heavy      | D10    | 360 ft. | Slow       |
 | Shortbow (2h)       | Light      | D8     | 180 ft. |            |
 
-## Rules for Weapon Creation
+# Rules for Weapon Creation
 
 The following section describes the rules for creating a weapon which is balanced in relation to other weapon types.
+
+
+
+## Weapon Type
+
+| Weapon Type   | Power Modifier | Attack Scaling             | Rarity |
+| ------------- | -------------- | -------------------------- | ------ |
+| Simple (1h)   | 1              | Strength                   | 0      |
+| Light (1h)    | 1              | Dexterity                  | 0      |
+| Balanced (1h) | 2              | (Strength + Dexterity) / 2 | 0      |
+| Martial (1h)  | 3              | Strength                   | 0      |
+| Simple (2h)   | 3              | Strength                   | 0      |
+| Balanced (2h) | 4              | (Strength + Dexterity) / 2 | 0      |
+| Martial (2h)  | 5              | Strength                   | 0      |
+
+## Quality Tier
+
+| Tier Name  | Power Modifier | Rarity |
+| ---------- | -------------- | ------ |
+| Broken     | -2             | 0      |
+| Shoddy     | -1             | 0      |
+| Mundane    | 0              | 0      |
+| Fine       | 1              | 1      |
+| Superior   | 2              | 2      |
+| Masterwork | 3              | 3      |
+| Exquisite  | 4              | 4      |
+| Legendary  | 5              | 5      |
+
+## Enchantment Level
+
+A weapon may have an enchantment level which increases its power modifier and attack bonus; a mundane weapon has no bonus.
+
+## Special Properties
+
+| Property  | Effect                                                       | Rarity |
+| --------- | ------------------------------------------------------------ | ------ |
+| Oversized | Increase number of dice by 1, and decrease denomination of dice by 1, weapon is *slow* |        |
+| Keen      | Reduces the weapon's critical hit threshold by 1.            | 1      |
+| Parrying  | Grants between +1 and +3 Parry Defense                       | #Parry |
+| Reliable  | Increase number of dice by 1 and decrease denomination of dice by 2 | 1      |
+| Reach     | Increases weapon range by #                                  |        |
+| Ambush    | Weapon can be easily concealed. Weapon is *fast*             |        |
+
+### Power resolution order:
+
+1. Weapon Type
+2. Special Properties
+3. Quality Tier
+4. Enchantment Level
+
+|         | **1** | **2** | **3** | **4** |
+| ------- | ----- | ----- | ----- | ----- |
+| **d4**  | 2.5   |       |       |       |
+| **d6**  | 3.5   | 7     |       |       |
+| **d8**  | 4.5   | 9     | 13.5  |       |
+| **d10** | 5.5   | 11    | 16.5  | 22    |
+| **d12** | 6.5   | 13    | 19.5  | 26    |
+
+
+
+
+
+
+
+
 
 ### Step 1. Determine the point pool for the weapon. 
 

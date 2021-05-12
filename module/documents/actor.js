@@ -3,8 +3,14 @@ import StandardCheck from "../dice/standard-check.js"
 
 
 export default class CrucibleActor extends Actor {
-  constructor(...args) {
-    super(...args);
+  constructor(data, context) {
+    super(data, context)
+
+    /**
+     * Track the equipment that the Actor is currently using
+     * @type {{armor: Item, weapons: Item[], accessories: Item[]}}
+     */
+    this.equipment;
 
     /**
      * Track the progression points which are available and spent
@@ -15,12 +21,6 @@ export default class CrucibleActor extends Actor {
      * }}
      */
     this.points;
-
-    /**
-     * Track the equipment that the Actor is currently using
-     * @type {{armor: Item, weapons: Item[], accessories: Item[]}}
-     */
-    this.equipment;
   }
 
   /* -------------------------------------------- */
@@ -132,7 +132,7 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warning(`Actor ${this.name} has more than one equipped armor.`);
       armors = armors[0];
     }
-    equipment.armor = armors[0] || Item.createOwned(SYSTEM.ARMOR.UNARMORED_DATA, this);
+    equipment.armor = armors[0] || new Item.implementation(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
 
     // TODO: Weapons can be up to two one-handed or one two-handed weapon
     equipment.weapons = weapon;

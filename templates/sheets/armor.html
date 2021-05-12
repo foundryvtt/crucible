@@ -2,10 +2,10 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
         <div class="header-content flexrow">
             <h1 class="title">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
+                <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
             </h1>
         </div>
     </header>
@@ -16,11 +16,7 @@
             <label>Category</label>
             <div class="form-fields">
                 <select name="data.category">
-                    {{#select data.category}}
-                    {{#each categories}}
-                    <option value="{{this.id}}">{{this.label}}</option>
-                    {{/each}}
-                    {{/select}}
+                    {{selectOptions categories selected=systemData.category nameAttr="id" labelAttr="label"}}
                 </select>
             </div>
         </div>
@@ -28,22 +24,22 @@
         <div class="form-group">
             <label>Armor (Base and Bonus)</label>
             <div class="form-fields">
-                <input type="number" name="data.armor.base" value="{{data.armor.base}}"/>
-                <input type="number" name="data.armor.bonus" value="{{data.armor.bonus}}"/>
+                <input type="number" name="data.armor.base" value="{{systemData.armor.base}}"/>
+                <input type="number" name="data.armor.bonus" value="{{systemData.armor.bonus}}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label>Dodge (Base and Start)</label>
             <div class="form-fields">
-                <input type="number" name="data.dodge.base" value="{{data.dodge.base}}"/>
-                <input type="number" name="data.dodge.start" value="{{data.dodge.start}}"/>
+                <input type="number" name="data.dodge.base" value="{{systemData.dodge.base}}"/>
+                <input type="number" name="data.dodge.start" value="{{systemData.dodge.start}}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label>Equipped</label>
-            <input type="checkbox" name="data.equipped" {{checked data.equipped}}/>
+            <input type="checkbox" name="data.equipped" {{checked systemData.equipped}}/>
         </div>
 
         <div class="form-group stacked">
@@ -61,11 +57,11 @@
             <label>Physical Details</label>
             <div class="form-fields">
                 <label>Quantity</label>
-                <input type="number" step="any" name="data.quantity" value="{{data.quantity}}"/>
+                <input type="number" step="any" name="data.quantity" value="{{systemData.quantity}}"/>
                 <label>Weight</label>
-                <input type="number" step="any" name="data.weight" value="{{data.weight}}"/>
+                <input type="number" step="any" name="data.weight" value="{{systemData.weight}}"/>
                 <label>Price</label>
-                <input type="number" step="any" name="data.price" value="{{data.price}}"/>
+                <input type="number" step="any" name="data.price" value="{{systemData.price}}"/>
             </div>
         </div>
 

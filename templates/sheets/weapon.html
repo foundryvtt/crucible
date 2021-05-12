@@ -2,10 +2,10 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
         <div class="header-content flexrow">
             <h1 class="title">
-                <input name="name" type="text" value="{{item.name}}" placeholder="Item Name"/>
+                <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
             </h1>
         </div>
     </header>
@@ -16,11 +16,7 @@
             <label>Category</label>
             <div class="form-fields">
                 <select name="data.category">
-                    {{#select data.category}}
-                    {{#each categories}}
-                    <option value="{{this.id}}">{{this.label}}</option>
-                    {{/each}}
-                    {{/select}}
+                    {{selectOptions categories selected=systemData.category nameAttr="id" labelAttr="label"}}
                 </select>
             </div>
         </div>
@@ -28,33 +24,33 @@
         <div class="form-group">
             <label>Parry (Base and Bonus)</label>
             <div class="form-fields">
-                <input type="number" name="data.parry.base" value="{{data.parry.base}}"/>
-                <input type="number" name="data.parry.bonus" value="{{data.parry.bonus}}"/>
+                <input type="number" name="data.parry.base" value="{{systemData.parry.base}}"/>
+                <input type="number" name="data.parry.bonus" value="{{systemData.parry.bonus}}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label>Block (Base and Bonus)</label>
             <div class="form-fields">
-                <input type="number" name="data.block.base" value="{{data.block.base}}"/>
-                <input type="number" name="data.block.bonus" value="{{data.block.bonus}}"/>
+                <input type="number" name="data.block.base" value="{{systemData.block.base}}"/>
+                <input type="number" name="data.block.bonus" value="{{systemData.block.bonus}}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label>Equipped</label>
-            <input type="checkbox" name="data.equipped" {{checked data.equipped}}/>
+            <input type="checkbox" name="data.equipped" {{checked systemData.equipped}}/>
         </div>
 
         <div class="form-group stacked physical-details">
             <label>Physical Details</label>
             <div class="form-fields">
                 <label>Quantity</label>
-                <input type="number" step="any" name="data.quantity" value="{{data.quantity}}"/>
+                <input type="number" step="any" name="data.quantity" value="{{systemData.quantity}}"/>
                 <label>Weight</label>
-                <input type="number" step="any" name="data.weight" value="{{data.weight}}"/>
+                <input type="number" step="any" name="data.weight" value="{{systemData.weight}}"/>
                 <label>Price</label>
-                <input type="number" step="any" name="data.price" value="{{data.price}}"/>
+                <input type="number" step="any" name="data.price" value="{{systemData.price}}"/>
             </div>
         </div>
 
