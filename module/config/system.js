@@ -2,6 +2,7 @@ import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
 import * as WEAPON from "./weapon.js";
+import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
 export const SYSTEM_ID = "crucible";
 
 
@@ -232,11 +233,13 @@ export const SYSTEM = {
   ATTRIBUTE_CATEGORIES,
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
+  ENCHANTMENT_TIERS,
+  QUALITY_TIERS,
   RESOURCES,
   SAVE_DEFENSES,
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,
   PASSIVE_BASE,
-  WEAPON
+  WEAPON,
 };

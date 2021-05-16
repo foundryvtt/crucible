@@ -31,10 +31,10 @@ export default class Weapon extends ItemSheet {
   /** @override */
   getData() {
     const context = super.getData();
-    context.categories = Object.entries(SYSTEM.WEAPON.CATEGORIES).map(e => {
-      const [id, cat] = e;
-      return { id, label: cat.label }
-    });
+    context.systemData = context.data.data;
+    context.categories = SYSTEM.WEAPON.CATEGORIES;
+    context.qualities = SYSTEM.QUALITY_TIERS;
+    context.enchantments = SYSTEM.ENCHANTMENT_TIERS;
     return context;
   }
 }

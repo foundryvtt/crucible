@@ -4,183 +4,126 @@
 
 There are many different types of weapons which can be wielded.
 
-## Weapon Properties
-
-**Simple**. This weapon type requires no training to use. Simple weapons do not have any skill bonus penalty if used in the absence of training, unlike more advanced weapon types.
-
-**Two-Handed.** This weapon type ordinarily requires the use of both hands in order to wield properly. Cannot be lightweight.
-
-**Light.** This weapon type can be used in one hand and scales with dexterity.
-
-**Heavy.** This weapon is oversized and scales with strength.
-
-**Reach.** This weapon can attack targets at a distance.
-
-**Slow.** Attacks with this weapon cost one additional action point per attack, due to its cumbersome nature or need to be reloaded.
-
-**Thrown.** This weapon is balanced for throwing in addition to being useful in melee combat.
-
-**Vicious**. This weapon can deal grievous wounds and critically hits on attacks that meet Physical Defense + 5, instead of Physical Defense + 6.
-
 ## Weapons Table
 
 The following table presents valid weapons which are valid using the rules provided below.
 
-| One-Handed Weapons | Type     | Damage         | Parry | Properties           |
-| ------------------ | -------- | -------------- | ----- | -------------------- |
-| Shortsword         | Light    | D6 slashing    | +1    | Simple               |
-| Xiphos             | Light    | D6 slashing    | +3    |                      |
-| Longsword          | Balanced | D8 slashing    | +1    |                      |
-| Club               | Balanced | D6 bludgeoning | 0     | Simple               |
-| Dagger             | Light    | D4 piercing    | +1    | Simple, Thrown       |
-| Sai                | Light    | D6 piercing    | +3    |                      |
-| Stiletto           | Light    | D8 piercing    | 0     | Vicious              |
-| Rapier             | Light    | D8 piercing    | +2    |                      |
-| Sabre              | Heavy    | D8 slashing    | +1    | Vicious              |
-| Battleaxe          | Balanced | D8 slashing    | +2    |                      |
-| War Axe            | Heavy    | D10 slashing   |       |                      |
-| Hatchet            | Light    | D6 slashing    | 0     | Simple, Thrown       |
-| Whip               | Light    | D4 slashing    | 0     | Reach (15 ft.), Slow |
-| Spear              | Balanced | D6 piercing    | 0     | Reach (10 ft.)       |
-| Flail              | Heavy    | D8 piercing    | 0     | Vicious              |
-| Mace               | Balanced | D8 bludgeoning | +1    |                      |
-| Morningstar        | Balanced | D10 piercing   | 0     |                      |
-| Khopesh            | Heavy    | D10 slashing   |       |                      |
-| Katana             | Balanced | D8 slashing    | +2    | Vicious              |
+| One-Handed Weapons | Type     | Base Damage | Damage Type | Properties        |
+| ------------------ | -------- | ----------- | ----------- | ----------------- |
+| Kukri              | Light    | 1d4         | Slashing    | Parrying          |
+| Shortsword         | Balanced | 1d6         | Slashing    |                   |
+| Longsword          | Heavy    | 1d8         | Slashing    | Versatile         |
+| Bastard Sword      | Massive  | 1d10        | Slashing    | Versatile, Slow   |
+| Club               | Simple   | 1d6         | Bludgeoning |                   |
+| Hammer             | Balanced | 1d6         | Bludgeoning |                   |
+| Morningstar        | Heavy    | 1d8         | Bludgeoning | Versatile         |
+| War Hammer         | Massive  | 1d10        | Bludgeoning | Versatile, Slow   |
+| Dagger             | Light    | 1d4         | Piercing    | Ambush            |
+| Sai                | Light    | 1d4         | Piercing    | Parrying          |
+| Rapier             | Balanced | 1d6         | Piercing    |                   |
+| Spear              | Balanced | 1d6         | Piercing    | Versatile, Thrown |
+| Mattock            | Heavy    | 1d8         | Piercing    |                   |
+| Hatchet            | Simple   | 1d6         | Slashing    | Parrying          |
+| Battle Axe         | Heavy    | 1d8         | Slashing    |                   |
+| War Axe            | Massive  | 2d6         | Slashing    | Versatile, Slow   |
+| Whip               | Light    | 1d4         | Slashing    | Reach, Grasping   |
+| Scimitar           | Balanced | 1d6         | Slashing    |                   |
+| Sabre              | Heavy    | 1d8         | Slashing    |                   |
 
-| Two-Handed Weapons | Type     | Damage | Parry | Properties              |
-| ------------------ | -------- | ------ | ----- | ----------------------- |
-| Pike               | Heavy    | D10    | +2    | Reach (10 ft.)          |
-| Glaive             | Heavy    | D12    | 0     | Reach (10 ft.), Vicious |
-| Greataxe           | Heavy    | D12    | +2    | Vicious                 |
-| Spear              | Balanced | D8     | +1    | Reach (10 ft.), Vicious |
-| Halberd            | Heavy    | D8     | +3    | Reach (10 ft.)          |
-| Quarterstaff       | Balanced | D8     | +4    | Simple                  |
-| Bo Staff           | Balanced | D10    | +4    |                         |
+| Two-Handed Weapons | Type     | Base Damage | Damage Type | Properties |
+| ------------------ | -------- | ----------- | ----------- | ---------- |
+| Glaive             | Balanced | 2d6         | Slashing    | Reach      |
+| Greatsword         | Heavy    | 2d8         | Slashing    |            |
+| Halberd            | Heavy    | 2d8         | Slashing    | Reach      |
+| Pike               | Heavy    | 2d8         | Piercing    | Reach      |
+| Quarterstaff       | Balanced | 2d6         | Bludgeoning | Blocking   |
+| Greatclub          | Simple   | 2d6         | Bludgeoning |            |
+| Woodsman Axe       | Simple   | 2d6         | Slashing    |            |
+| Greataxe           | Heavy    | 2d8         | Slashing    |            |
+| Great Hammer       | Heavy    | 2d8         | Bludgeoning |            |
+| Lance              | Massive  | 2d10        | Piercing    | Slow       |
 
-| Ranged Weapons      | Type       | Damage | Range   | Properties |
-| ------------------- | ---------- | ------ | ------- | ---------- |
-| Sling (1h)          | Light      | D4     | 60 ft.  | Simple     |
-| Dart (1h)           | Light      | D4     | 30 ft.  | Vicious    |
-| Heavy Crossbow (2h) | Mechanical | D12    | 120 ft. | Slow       |
-| Longbow (2h)        | Balanced   | D8     | 360 ft. |            |
-| Greatbow (2h)       | Heavy      | D10    | 360 ft. | Slow       |
-| Shortbow (2h)       | Light      | D8     | 180 ft. |            |
+| Ranged Weapons | Type            | Base Damage | Damage Type | Properties |
+| -------------- | --------------- | ----------- | ----------- | ---------- |
+| Shortbow       | Projectile      | 2d6         | Piercing    |            |
+| Longbow        | Projectile      | 2d6         | Piercing    | Reach      |
+| Dart           | Light           | 1d4         | Piercing    | Thrown     |
+| Throwing Axe   | Balanced        | 1d6         | Slashing    | Thrown     |
+| Shuriken       | Light           | 1d4         | Slashing    | Thrown     |
+| Crossbow       | Mechanical (1h) | 1d8         | Piercing    | Reload     |
+| Heavy Crossbow | Mechanical (2h) | 2d8         | Piercing    | Reload     |
 
 # Rules for Weapon Creation
 
 The following section describes the rules for creating a weapon which is balanced in relation to other weapon types.
 
+1. Identify the weapon category
+2. Identify the weapon quality tier
+3. Identify the weapon enchantment level (if any)
+4. Add any special properties
 
+## Weapon Category
 
-## Weapon Type
+The weapon type describes its physical format and complexity of usage. Different weapon types use different scaling formulae for determining their attack roll, while more demanding weaponry generates a larger base damage formula.
 
-| Weapon Type   | Power Modifier | Attack Scaling             | Rarity |
-| ------------- | -------------- | -------------------------- | ------ |
-| Simple (1h)   | 1              | Strength                   | 0      |
-| Light (1h)    | 1              | Dexterity                  | 0      |
-| Balanced (1h) | 2              | (Strength + Dexterity) / 2 | 0      |
-| Martial (1h)  | 3              | Strength                   | 0      |
-| Simple (2h)   | 3              | Strength                   | 0      |
-| Balanced (2h) | 4              | (Strength + Dexterity) / 2 | 0      |
-| Martial (2h)  | 5              | Strength                   | 0      |
+| Melee Type    | Attack Scaling             | Number of Dice | Dice Denomination | AP Cost | Base Damage |
+| ------------- | -------------------------- | -------------- | ----------------- | ------- | ----------- |
+| Light (1h)    | Dexterity                  | 0              | 0                 | +0      | 1d4         |
+| Simple (1h)   | Strength                   | 0              | +2                | +0      | 1d6         |
+| Balanced (1h) | (Strength + Dexterity) / 2 | 0              | +2                | +0      | 1d6         |
+| Heavy (1h)    | Strength                   | 0              | +4                | +1      | 1d8         |
+| Massive (1h)  | Strength                   | 0              | +6                | +2      | 1d10        |
+| Simple (2h)   | Strength                   | +1             | +2                | +1      | 2d6         |
+| Balanced (2h) | (Strength + Dexterity) / 2 | +1             | +2                | +1      | 2d6         |
+| Heavy (2h)    | Strength                   | +1             | +4                | +2      | 2d8         |
+| Massive (2h)  | Strength                   | +1             | +6                | +3      | 2d10        |
+
+| Ranged Type     | Attack Scaling             | Number of Dice | Dice Denomination | AP Cost | Base Damage |
+| --------------- | -------------------------- | -------------- | ----------------- | ------- | ----------- |
+| Projectile (2h) | (Strength + Dexterity) / 2 | +1             | +2                | +1      | 2d6         |
+| Mechanical (1h) | Dexterity                  | 0              | +4                | +2      | 1d8         |
+| Mechanical (2h) | Dexterity                  | +1             | +4                | +2      | 2d8         |
+
+For weapon types marked (*) please see corresponding Special Properties below.
 
 ## Quality Tier
 
-| Tier Name  | Power Modifier | Rarity |
-| ---------- | -------------- | ------ |
-| Broken     | -2             | 0      |
-| Shoddy     | -1             | 0      |
-| Mundane    | 0              | 0      |
-| Fine       | 1              | 1      |
-| Superior   | 2              | 2      |
-| Masterwork | 3              | 3      |
-| Exquisite  | 4              | 4      |
-| Legendary  | 5              | 5      |
+A weapon has a quality tier which describes the quality of its construction and materials.
 
-## Enchantment Level
+| Tier Name  | Attack Bonus | Rarity Modifier |
+| ---------- | ------------ | --------------- |
+| Broken     | -2           | 0               |
+| Shoddy     | -1           | 0               |
+| Standard   | 0            | 0               |
+| Fine       | +1           | +1              |
+| Superior   | +2           | +2              |
+| Masterwork | +3           | +3              |
 
-A weapon may have an enchantment level which increases its power modifier and attack bonus; a mundane weapon has no bonus.
+## Enchantment Tier
+
+A weapon may have an enchantment tier which increases its power modifier and attack bonus.
+
+
+| Tier Name | Attack Bonus | Rarity Modifier |
+| --------- | ------------ | --------------- |
+| Mundane   | 0            | 0               |
+| Minor     | +1           | +2              |
+| Major     | +2           | +4              |
+| Legendary | +3           | +6              |
 
 ## Special Properties
 
-| Property  | Effect                                                       | Rarity |
-| --------- | ------------------------------------------------------------ | ------ |
-| Oversized | Increase number of dice by 1, and decrease denomination of dice by 1, weapon is *slow* |        |
-| Keen      | Reduces the weapon's critical hit threshold by 1.            | 1      |
-| Parrying  | Grants between +1 and +3 Parry Defense                       | #Parry |
-| Reliable  | Increase number of dice by 1 and decrease denomination of dice by 2 | 1      |
-| Reach     | Increases weapon range by #                                  |        |
-| Ambush    | Weapon can be easily concealed. Weapon is *fast*             |        |
+Some weapons may have one (or in very rare cases multiple) of the following special properties.
 
-### Power resolution order:
-
-1. Weapon Type
-2. Special Properties
-3. Quality Tier
-4. Enchantment Level
-
-|         | **1** | **2** | **3** | **4** |
-| ------- | ----- | ----- | ----- | ----- |
-| **d4**  | 2.5   |       |       |       |
-| **d6**  | 3.5   | 7     |       |       |
-| **d8**  | 4.5   | 9     | 13.5  |       |
-| **d10** | 5.5   | 11    | 16.5  | 22    |
-| **d12** | 6.5   | 13    | 19.5  | 26    |
-
-
-
-
-
-
-
-
-
-### Step 1. Determine the point pool for the weapon. 
-
-Each weapon type begins with 5 points to spend. The number of points is modified by the following table:
-
-| Weapon Type       | Points / Modifier |
-| ----------------- | ----------------- |
-| Starting pool     | +5 points         |
-| Two-handed weapon | +4 points         |
-| Simple weapon     | -2 points         |
-
-### Step 2. Purchase weapon attributes.
-
-Spend the allowed pool of points by purchasing weapon attributes from the following table.
-
-| Attribute                | Point Cost        |
-| ------------------------ | ----------------- |
-| D4 damage scaling        | 1 points          |
-| D6 damage scaling        | 2 points          |
-| D8 damage scaling        | 3 point           |
-| D10 damage scaling       | 5 points          |
-| D12 damage scaling       | 6 points          |
-| Parry Defense            | 1 point per parry |
-| Melee Reach (10 ft.)     | 3 points          |
-| Melee Reach (15 ft.)     | 5 points          |
-| Thrown (30 ft.)          | 1 point           |
-| Projectile Range 30 ft.  | 1 point           |
-| Projectile Range 60 ft.  | 2 points          |
-| Projectile Range 120 ft. | 3 points          |
-| Projectile Range 180 ft. | 4 points          |
-| Projectile Range 360 ft. | 5 points          |
-| Slow                     | -1 point          |
-| Vicious                  | 1 point           |
-
-### Step 3. Determine Attack Scaling
-
-| Weapon Type | Scaling Formula           | Point Cost | Max. Damage |
-| ----------- | ------------------------- | ---------- | ----------- |
-| Lightweight | DEX                       | 1 point    | D6          |
-| Balanced    | (0.5 * STR) + (0.5 * DEX) | 0          | D10         |
-| Heavy       | STR                       | 1 point    | D12         |
-| Mechanical  | DEX                       | 2 points   | D12         |
-
-
-
-
-
-
+| Property  | Effect                                                       |      |
+| --------- | ------------------------------------------------------------ | ---- |
+| Massive   | This weapon is oversized and cumbersome. Attacks cost one additional action point and the weapon cannot be used to perform reactions. | 0    |
+| Reach     | This weapon has twice the normal attack range, decrease denomination of dice by 2 | 0    |
+| Parrying  | Grants +2 Parry defense, decrease denomination of dice by 2  | 0    |
+| Versatile | This one-handed weapon may be used with two-hands, increasing its denomination by +2 | 0    |
+| Blocking  | Grants +2 Block defense, decrease denomination of dice by 2  | 0    |
+| Thrown    | This melee weapon can also be thrown as a ranged weapon      | 0    |
+| Keen      | Reduces the weapon's critical hit threshold by 1.            | +1   |
+| Ambush    | This Light weapon can be easily concealed and can be drawn quickly. The weapon can be drawn for free during your own turn or as part of a reaction. | +1   |
+| Grasping  | Critical hits cause the target to become grappled.           | +1   |
 

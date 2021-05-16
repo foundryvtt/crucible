@@ -4,3 +4,6 @@
 
 # Node Modules
 node_modules/
+
+# Photoshop files
+*.psd

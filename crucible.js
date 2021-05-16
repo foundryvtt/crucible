@@ -71,10 +71,12 @@ Hooks.once("ready", function() {
   // Apply localizations
   const toLocalize = [
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
-    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS", "WEAPON.CATEGORIES"
+    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
+    "QUALITY_TIERS", "ENCHANTMENT_TIERS",
+    "WEAPON.CATEGORIES",
   ];
   for ( let c of toLocalize ) {
-    const conf = getProperty(SYSTEM, c);
+    const conf = foundry.utils.getProperty(SYSTEM, c);
     for ( let [k, v] of Object.entries(conf) ) {
       if ( v.label ) v.label = game.i18n.localize(v.label);
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);

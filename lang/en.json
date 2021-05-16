@@ -79,6 +79,18 @@
 
   "DICE.SetDifficulty": "Set Difficulty",
 
+  "ITEM.EnchantmentMundane": "Mundane",
+  "ITEM.EnchantmentMinor": "Minor",
+  "ITEM.EnchantmentMajor": "Major",
+  "ITEM.EnchantmentLegendary": "Legendary",
+
+  "ITEM.QualityBroken": "Broken",
+  "ITEM.QualityShoddy": "Shoddy",
+  "ITEM.QualityStandard": "Standard",
+  "ITEM.QualityFine": "Fine",
+  "ITEM.QualitySuperior": "Superior",
+  "ITEM.QualityMasterwork": "Masterwork",
+
   "SKILL.SheetTitle": "[{actor}] {skill} Skill",
   "SKILL.Untrained": "Untrained",
   "SKILL.Unspecialized": "Unspecialized",
@@ -398,10 +410,17 @@
   "SKILLS.PerformanceAthlete3": "",
   "SKILLS.PerformanceAthlete5": "",
 
-  "WEAPON.Light": "Light Weapon",
-  "WEAPON.Martial": "Martial Weapon",
-  "WEAPON.Heavy": "Heavy Weapon",
-  "WEAPON.Shield": "Shield",
-  "WEAPON.Focus": "Focus"
+  "WEAPON.Light1": "Light (1h)",
+  "WEAPON.Simple1": "Simple (1h)",
+  "WEAPON.Balanced1": "Balanced (1h)",
+  "WEAPON.Heavy1": "Heavy (1h)",
+  "WEAPON.Massive1": "Massive (1h)",
+  "WEAPON.Simple2": "Simple (2h)",
+  "WEAPON.Balanced2": "Balanced (2h)",
+  "WEAPON.Heavy2": "Heavy (2h)",
+  "WEAPON.Massive2": "Massive (2h)",
+  "WEAPON.Projectile2": "Projectile (2h)",
+  "WEAPON.Mechanical1": "Mechanical (1h)",
+  "WEAPON.Mechanical2": "Mechanical (2h)"
 }
 	

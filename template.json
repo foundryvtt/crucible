@@ -237,7 +237,12 @@
       "physical": {
         "quantity": 1,
         "weight": 0,
-        "price": 0
+        "price": 0,
+        "category": null,
+        "quality": "standard",
+        "enchantment": "mundane",
+        "equipped": false,
+        "properties": {}
       }
     },
     "ancestry": {
@@ -249,7 +254,6 @@
     },
     "armor": {
       "templates": ["physical"],
-      "category": null,
       "armor": {
         "base": 0,
         "bonus": 0
@@ -257,9 +261,7 @@
       "dodge": {
         "base": 0,
         "start": 0
-      },
-      "equipped": false,
-      "properties": {}
+      }
     },
     "background": {
       "skills": [],
@@ -267,18 +269,7 @@
     },
     "talent": {},
     "weapon": {
-      "templates": ["physical"],
-      "category": null,
-      "block": {
-        "base": 0,
-        "bonus": 0
-      },
-      "parry": {
-        "base": 0,
-        "bonus": 0
-      },
-      "equipped": false,
-      "properties": {}
+      "templates": ["physical"]
     }
   }
 }

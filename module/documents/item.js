@@ -38,6 +38,8 @@ export default class CrucibleItem extends Item {
         return this._prepareSkillData(data);
       case "talent":
         return "foo";
+      case "weapon":
+        return this._prepareWeaponData(data);
     }
   }
 
@@ -69,7 +71,7 @@ export default class CrucibleItem extends Item {
 
   /**
    * Prepare additional data for Skill type Items
-   * @param data
+   * @param {object} data   The base Item data
    * @private
    */
   _prepareSkillData(data) {
@@ -102,6 +104,26 @@ export default class CrucibleItem extends Item {
     });
     data.path = path;
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived data for Weapon type Items
+   * @param {object} itemData   The base Item data
+   * @private
+   */
+  _prepareWeaponData(itemData) {
+    const wd = itemData.data;
+    const category = itemData.category = SYSTEM.WEAPON.CATEGORIES[wd.category] || SYSTEM.WEAPON.CATEGORIES.simple1;
+    const quality = itemData.quality = SYSTEM.QUALITY_TIERS[wd.quality] || SYSTEM.QUALITY_TIERS.standard;
+    const enchantment = itemData.enchantment = SYSTEM.ENCHANTMENT_TIERS[wd.enchantment] || SYSTEM.ENCHANTMENT_TIERS.mundane;
+
+    // Determine weapon damage formula
+    let formula = `${1+category.dice}d${Math.max(4+category.denomination, 4)}`;
+    const bonus = quality.bonus + enchantment.bonus;
+    if ( bonus ) formula += ` ${bonus}`;
+    itemData.damage = formula;
   }
 
   /* -------------------------------------------- */
