@@ -3,13 +3,32 @@
 .crucible.sheet.item {
   --headerHeight: 80px;
   --titleHeight: 40px;
+
+  .header-tags {
+    margin: 8px 0;
+    span {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid @colorBeige;
+      border-radius: 3px;
+      padding: 1px 3px;
+    }
+  }
+
+  .form-group.stacked > label {
+    text-decoration: underline;
+  }
+
+  .item-properties {
+    justify-content: flex-start;
+    label.checkbox {
+      flex: none;
+      min-width: 80px;
+    }
+  }
 }
 
 
 .crucible.sheet.armor {
-  .form-group.stacked > label {
-    text-decoration: underline;
-  }
   .resistance {
     flex: 0 0 50%;
     margin: 0 0 3px;

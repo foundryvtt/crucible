@@ -73,7 +73,7 @@ Hooks.once("ready", function() {
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
     "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
-    "WEAPON.CATEGORIES",
+    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
   for ( let c of toLocalize ) {
     const conf = foundry.utils.getProperty(SYSTEM, c);

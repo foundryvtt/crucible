@@ -32,11 +32,21 @@ export const CATEGORIES = {
  * @type {{string, string}}
  */
 export const PROPERTIES = {
-  "bulky": "ARMOR.Bulky",
-  "impenetrable": "ARMOR.Impenetrable",
-  "flexible": "ARMOR.Flexible",
-  "magical": "ARMOR.Magical",
-  "organic": "ARMOR.Organic"
+  bulky: {
+    label: "ARMOR.Bulky"
+  },
+  impenetrable: {
+    label: "ARMOR.Impenetrable"
+  },
+  flexible: {
+    label: "ARMOR.Flexible"
+  },
+  magical: {
+    label: "ARMOR.Magical"
+  },
+  organic: {
+    label: "ARMOR.Organic"
+  }
 };
 
 

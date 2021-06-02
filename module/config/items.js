@@ -57,7 +57,7 @@ export const ENCHANTMENT_TIERS = {
   },
   legendary: {
     label: "ITEM.EnchantmentLegendary",
-    bonus: 2,
+    bonus: 3,
     rarity: 6
   }
 }

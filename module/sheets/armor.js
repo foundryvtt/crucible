@@ -14,8 +14,7 @@ export default class ArmorSheet extends ItemSheet {
       classes: [SYSTEM.id, "sheet", "item", "armor"],
       template: `systems/${SYSTEM.id}/templates/sheets/armor.html`,
       resizable: false,
-      submitOnChange: false,
-      closeOnSubmit: true
+      submitOnChange: true
     });
   }
 
@@ -36,15 +35,29 @@ export default class ArmorSheet extends ItemSheet {
       const [id, cat] = e;
       return { id, label: cat.label }
     });
-    context.properties = Object.entries(SYSTEM.ARMOR.PROPERTIES).map(e => {
-      const [id, label] = e;
-        return {
-          id: id,
-          name: `data.properties.${id}`,
-          label: label,
-          checked: systemData.properties[id] === true
-        }
-    });
+
+    // Armor Properties
+    context.properties = {};
+    for ( let [id, prop] of Object.entries(SYSTEM.ARMOR.PROPERTIES) ) {
+      context.properties[id] = {
+        id: id,
+        name: `data.properties.${id}`,
+        label: prop.label,
+        checked: systemData.properties.includes(id)
+      };
+    }
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _getSubmitData(updateData={}) {
+    const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
+    formData.data.properties = Object.entries(formData.data.properties).reduce((arr, p) => {
+      if ( p[1] === true ) arr.push(p[0]);
+      return arr;
+    }, []);
+    return formData;
   }
 }

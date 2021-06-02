@@ -421,6 +421,16 @@
   "WEAPON.Massive2": "Massive (2h)",
   "WEAPON.Projectile2": "Projectile (2h)",
   "WEAPON.Mechanical1": "Mechanical (1h)",
-  "WEAPON.Mechanical2": "Mechanical (2h)"
+  "WEAPON.Mechanical2": "Mechanical (2h)",
+
+  "WEAPON.PropertyAmbush": "Ambush",
+  "WEAPON.PropertyBlocking": "Blocking",
+  "WEAPON.PropertyGrasping": "Grasping",
+  "WEAPON.PropertyKeen": "Keen",
+  "WEAPON.PropertySlow": "Slow",
+  "WEAPON.PropertyParrying": "Parrying",
+  "WEAPON.PropertyReach": "Reach",
+  "WEAPON.PropertyThrown": "Thrown",
+  "WEAPON.PropertyVersatile": "Versatile"
 }
 	

@@ -44,10 +44,10 @@
 
         <div class="form-group stacked">
             <label>Armor Properties</label>
-            <div class="form-fields">
-                {{#each properties}}
+            <div class="form-fields item-properties">
+                {{#each properties as |prop id|}}
                 <label class="checkbox">
-                    <input type="checkbox" name="{{this.name}}" {{checked this.checked}}/> {{this.label}}
+                    <input type="checkbox" name="{{prop.name}}" {{checked prop.checked}}/> {{prop.label}}
                 </label>
                 {{/each}}
             </div>
@@ -64,9 +64,5 @@
                 <input type="number" step="any" name="data.price" value="{{systemData.price}}"/>
             </div>
         </div>
-
-        <footer class="sheet-footer">
-            <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
-        </footer>
     </section>
 </form>

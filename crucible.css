@@ -124,7 +124,6 @@
 }
 .crucible label.checkbox input[type="checkbox"] {
   height: auto;
-  margin: 0 5px 0;
   position: relative;
   top: 3px;
 }
@@ -166,6 +165,7 @@
 .crucible .form-group.stacked label.checkbox {
   flex: auto;
   text-align: left;
+  margin-right: 10px;
 }
 .crucible.sheet {
   --headerHeight: 50px;
@@ -190,12 +190,16 @@
 }
 .crucible.sheet .sheet-header .header-content {
   flex: 1;
+  padding: 8px;
 }
 .crucible.sheet .sheet-header .title {
   flex: 3;
   height: var(--titleHeight);
   margin: 2px 0;
   border: none;
+}
+.crucible.sheet .sheet-header .title input {
+  margin: 0;
 }
 .crucible.sheet .window-content,
 .crucible.sheet form,
@@ -787,8 +791,24 @@
   --headerHeight: 80px;
   --titleHeight: 40px;
 }
-.crucible.sheet.armor .form-group.stacked > label {
+.crucible.sheet.item .header-tags {
+  margin: 8px 0;
+}
+.crucible.sheet.item .header-tags span {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #b5b3a4;
+  border-radius: 3px;
+  padding: 1px 3px;
+}
+.crucible.sheet.item .form-group.stacked > label {
   text-decoration: underline;
+}
+.crucible.sheet.item .item-properties {
+  justify-content: flex-start;
+}
+.crucible.sheet.item .item-properties label.checkbox {
+  flex: none;
+  min-width: 80px;
 }
 .crucible.sheet.armor .resistance {
   flex: 0 0 50%;

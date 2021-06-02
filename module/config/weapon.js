@@ -90,7 +90,7 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 0,
+    dice: 1,
     denomination: 6,
     ap: 3
   },
@@ -123,5 +123,44 @@ export const CATEGORIES = {
     dice: 1,
     denomination: 4,
     ap: 2
+  }
+}
+
+
+/**
+ * The boolean properties which a Weapon may have.
+ * @enum {object}
+ */
+export const PROPERTIES = {
+  ambush: {
+    label: "WEAPON.PropertyAmbush",
+    rarity: 1
+  },
+  blocking: {
+    label: "WEAPON.PropertyBlocking",
+    denomination: -2
+  },
+  grasping: {
+    label: "WEAPON.PropertyGrasping"
+  },
+  keen: {
+    label: "WEAPON.PropertyKeen",
+    rarity: 1
+  },
+  slow: {
+    label: "WEAPON.PropertySlow",
+  },
+  parrying: {
+    label: "WEAPON.PropertyParrying",
+    denomination: -2
+  },
+  reach: {
+    label: "WEAPON.PropertyReach"
+  },
+  thrown: {
+    label: "WEAPON.PropertyThrown"
+  },
+  versatile: {
+    label: "WEAPON.PropertyVersatile"
   }
 }

@@ -51,7 +51,8 @@ export default class CrucibleItem extends Item {
    * @private
    */
   _prepareArmorData(data) {
-    const {armor, dodge} = data.data;
+    const ad = data.data;
+    const {armor, dodge} = ad;
     const category = SYSTEM.ARMOR.CATEGORIES[data.data.category] || "unarmored";
 
     // Base Armor can be between zero and the maximum allowed for the category
@@ -65,6 +66,11 @@ export default class CrucibleItem extends Item {
 
     // Armor can have an enchantment bonus up to a maximum of 6
     armor.bonus = Math.clamped(armor.bonus, 0, 6);
+
+    // Armor Properties
+    const properties = SYSTEM.ARMOR.PROPERTIES;
+    if ( !(ad.properties instanceof Array ) ) ad.properties = [];
+    ad.properties = ad.properties.filter(p => p in properties);
   }
 
   /* -------------------------------------------- */
@@ -115,15 +121,46 @@ export default class CrucibleItem extends Item {
    */
   _prepareWeaponData(itemData) {
     const wd = itemData.data;
-    const category = itemData.category = SYSTEM.WEAPON.CATEGORIES[wd.category] || SYSTEM.WEAPON.CATEGORIES.simple1;
-    const quality = itemData.quality = SYSTEM.QUALITY_TIERS[wd.quality] || SYSTEM.QUALITY_TIERS.standard;
-    const enchantment = itemData.enchantment = SYSTEM.ENCHANTMENT_TIERS[wd.enchantment] || SYSTEM.ENCHANTMENT_TIERS.mundane;
+
+    // Weapon Category
+    const categories = SYSTEM.WEAPON.CATEGORIES;
+    const category = itemData.category = categories[wd.category] || categories.simple1;
+
+    // Weapon Quality
+    const qualities = SYSTEM.QUALITY_TIERS;
+    const quality = itemData.quality = qualities[wd.quality] || qualities.standard;
+
+    // Enchantment Level
+    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
+    const enchantment = itemData.enchantment = enchantments[wd.enchantment] || enchantments.mundane;
 
     // Determine weapon damage formula
-    let formula = `${1+category.dice}d${Math.max(4+category.denomination, 4)}`;
-    const bonus = quality.bonus + enchantment.bonus;
-    if ( bonus ) formula += ` ${bonus}`;
-    itemData.damage = formula;
+    let dice = Math.max(1 + category.dice, 1);
+    let denom = Math.max(4 + category.denomination, 4);
+
+    // Attack Bonus
+    wd.attackBonus = quality.bonus + enchantment.bonus;
+
+    // AP Cost Modifier
+    wd.apCost = category.ap;
+
+    // Weapon Rarity
+    wd.rarity = quality.rarity + enchantment.rarity;
+
+    // Weapon Properties
+    const properties = SYSTEM.WEAPON.PROPERTIES;
+    if ( !(wd.properties instanceof Array ) ) wd.properties = [];
+    wd.properties = wd.properties.filter(p => {
+      const prop = properties[p];
+      if ( !prop ) return false;
+      if (prop.ap) wd.apCost += prop.ap;
+      if (prop.denomination) denom += prop.denomination;
+      if (prop.rarity) wd.rarity += prop.rarity;
+      return true;
+    });
+
+    // Damage Formula
+    wd.damage = `${dice}d${denom}`;
   }
 
   /* -------------------------------------------- */

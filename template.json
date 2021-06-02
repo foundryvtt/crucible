@@ -242,7 +242,7 @@
         "quality": "standard",
         "enchantment": "mundane",
         "equipped": false,
-        "properties": {}
+        "properties": []
       }
     },
     "ancestry": {
@@ -269,7 +269,8 @@
     },
     "talent": {},
     "weapon": {
-      "templates": ["physical"]
+      "templates": ["physical"],
+      "damageType": "slashing"
     }
   }
 }
