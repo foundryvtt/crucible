@@ -27,6 +27,10 @@ export default class HeroSheet extends ActorSheet {
     const context = super.getData();
     const systemData = context.systemData = context.data.data;
 
+    // Character
+    context.hasAncestry = !!systemData.details.ancestry.name;
+    context.hasBackground = !!systemData.details.background.name;
+
     // Equipment
     context.items = this._formatItems(this.actor.items);
     const armor = this.actor.equipment.armor;
@@ -40,6 +44,15 @@ export default class HeroSheet extends ActorSheet {
     context.abilityScores = this._formatAttributes(systemData.attributes);
 
     // Resources
+    const attributes = systemData.attributes;
+    context.actionPoints = [];
+    for ( let i=0; i<attributes.action.max; i++ ) {
+      context.actionPoints.push(i < attributes.action.value ? "available" : "");
+    }
+    context.focusPoints = [];
+    for ( let i=0; i<attributes.focus.max; i++ ) {
+      context.focusPoints.push(i < attributes.focus.value ? "available" : "");
+    }
     this._formatResources(systemData.attributes);
 
     // Resistances
@@ -264,8 +277,8 @@ export default class HeroSheet extends ActorSheet {
    */
   _onItemDelete(button) {
     const li = button.closest(".item");
-    const itemId = li.dataset.itemId;
-    return this.actor.deleteOwnedItem(itemId);
+    const item = this.actor.items.get(li.dataset.itemId);
+    return item?.delete();
   }
 
   /* -------------------------------------------- */
@@ -278,8 +291,7 @@ export default class HeroSheet extends ActorSheet {
   _onItemEdit(button) {
     const li = button.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
-    if ( !item ) return;
-    return item.sheet.render(true);
+    return item?.sheet.render(true);
   }
 
   /* -------------------------------------------- */
@@ -293,24 +305,15 @@ export default class HeroSheet extends ActorSheet {
     const li = button.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
-    const equipped = item.data.data.equipped;
-
-    // Handle different item types
-    const updates = [];
     switch ( item.data.type ) {
       case "armor":
-        const current = this.actor.equipment.armor;
-        if ( !equipped && current?.id ) {
-          updates.push({_id: current.id, "data.equipped": false});
-        }
-        updates.push({_id: item.id, "data.equipped": !equipped});
-        break;
+        return this.actor.equipArmor({itemId: item.id, equipped: !item.data.data.equipped});
       case "weapon":
-        updates.push({_id: item.id, "data.equipped": !equipped});
-        break;
+        const category = item.data.category;
+        const options = {equipped: !item.data.data.equipped};
+        if ( category.off ) options.offhandId = item.id;
+        else if ( category.main ) options.mainhandId = item.id; // TODO: if the category is mainhand, equip as mainhand
+        return this.actor.equipWeapon(options);
     }
-
-    // Commit the updates
-    return this.actor.updateEmbeddedEntity("OwnedItem", updates);
   }
 }

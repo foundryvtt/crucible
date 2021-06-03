@@ -164,3 +164,18 @@ export const PROPERTIES = {
     label: "WEAPON.PropertyVersatile"
   }
 }
+
+
+/**
+ * The configuration of the default unarmed Weapon.
+ * @type {object}
+ */
+export const UNARMED_DATA = {
+  name: "Unarmed",
+  type: "weapon",
+  img: "icons/skills/melee/unarmed-punch-fist.webp",
+  category: "simple1",
+  quality: "shoddy",
+  enchantment: "mundane",
+  damageType: "bludgeoning"
+}

@@ -8,7 +8,11 @@ export default class CrucibleActor extends Actor {
 
     /**
      * Track the equipment that the Actor is currently using
-     * @type {{armor: Item, weapons: Item[], accessories: Item[]}}
+     * @type {{
+     *   armor: Item,
+     *   weapons: {mainhand: Item, offhand: Item}
+     *   accessories: Item[]
+     * }}
      */
     this.equipment;
 
@@ -125,6 +129,7 @@ export default class CrucibleActor extends Actor {
   _prepareEquipment() {
     const {armor, weapon, accessory} = this.itemTypes;
     const equipment = {};
+    const itemCls = getDocumentClass("Item");
 
     // Identify equipped armor
     let armors = armor.filter(i => i.data.data.equipped);
@@ -132,10 +137,55 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warning(`Actor ${this.name} has more than one equipped armor.`);
       armors = armors[0];
     }
-    equipment.armor = armors[0] || new Item.implementation(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+    equipment.armor = armors[0] || new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
 
-    // TODO: Weapons can be up to two one-handed or one two-handed weapon
-    equipment.weapons = weapon;
+    // Identify equipped weapons
+    let mh = false;
+    let oh = false;
+    equipment.weapons = {};
+    for ( let w of weapon ) {
+      if ( !w.data.data.equipped ) continue;
+      const category = w.data.category;
+
+      // Off-hand already in use
+      if ( category.off ) {
+        if ( oh ) {
+          let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "off-hand"});
+          console.warn(warn);
+          continue;
+        }
+      }
+
+      // Main-hand already in use
+      else if ( category.main ) {
+        if ( mh ) {
+          let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "main-hand"});
+          console.warn(warn);
+          continue;
+        }
+      }
+
+      // Two-handed weapon
+      if ( category.hands === 2 ) {
+        equipment.weapons.mainhand = w;
+        mh = true;
+        oh = true;
+      }
+
+      // Off-hand weapon
+      else if ( category.off ) {
+        equipment.weapons.offhand = w;
+        oh = true;
+      }
+
+      // Main-hand weapon
+      else if ( category.main ) {
+        equipment.weapons.mainhand = w;
+        mh = true;
+      }
+    }
+    if ( !mh ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
+    if ( !oh ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
 
     // TODO: Accessories can be up to three equipped and attuned
     equipment.accessories = accessory;
@@ -458,5 +508,86 @@ export default class CrucibleActor extends Actor {
       }
       return this.update({[`data.skills.${skillId}.rank`]: skill.rank + 1});
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Equipment Management Methods                */
+  /* -------------------------------------------- */
+
+  /**
+   * Equip an owned armor Item.
+   * @param {string} itemId       The owned Item id of the Armor to equip
+   * @param {boolean} [equipped]  Is the armor being equipped (true), or unequipped (false)
+   * @return {Promise}            A Promise which resolves once the armor has been equipped or un-equipped
+   */
+  async equipArmor({itemId, equipped=true}={}) {
+    const current = this.equipment.armor;
+    const item = this.items.get(itemId);
+    const updates = [];
+
+    // Un-equip the current armor
+    if ( item && (current === item) && !equipped ) {
+      updates.push({_id: current.id, "data.equipped": false});
+    }
+
+    // Equip a new piece of armor
+    if ( item && equipped ) {
+      updates.push({_id: item.id, "data.equipped": true});
+    }
+
+    // Apply the updates
+    return this.updateEmbeddedDocuments("Item", updates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Equip an owned weapon Item.
+   * @param {string} mainhandId   The owned Item id of the Weapon to equip in the mainhand slot
+   * @param {string} offhandId    The owned Item id of the Weapon to equip in the offhand slot
+   * @param {boolean} [equipped]  Are these  the weapon being equipped (true), or unequipped (false)
+   * @param {boolean} [offhand]   Prefer equipping a one-handed weapon in the off-hand slot
+   * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
+   */
+  async equipWeapon({mainhandId, offhandId, equipped=true}={}) {
+    const weapons = this.equipment.weapons;
+    const mainhand = this.items.get(mainhandId);
+    const offhand = this.items.get(offhandId);
+    const updates = [];
+
+    // Un-equip the current main-hand
+    let mainhandOpen = !weapons.mainhand.id;
+    if ( mainhand && (mainhand === weapons.mainhand) && !equipped ) {
+      mainhandOpen = true;
+      updates.push({_id: mainhand.id, "data.equipped": false});
+    }
+
+    // Un-equip the current off-hand
+    let offhandOpen = !weapons.offhand.id;
+    if ( offhand && (offhand === weapons.offhand) && !equipped ) {
+      offhandOpen = true;
+      updates.push({_id: offhand.id, "data.equipped": false});
+    }
+
+    // Equip a new main-hand
+    if ( mainhand && equipped ) {
+      if ( !mainhandOpen ) {
+        let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: mainhand.name, type: "main-hand"});
+        ui.notifications.warn(warn);
+      }
+      else updates.push({_id: mainhand.id, "data.equipped": true});
+    }
+
+    // Equip a new off-hand
+    if ( offhand && equipped ) {
+      if ( !offhandOpen ) {
+        let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: offhand.name, type: "off-hand"});
+        ui.notifications.warn(warn);
+      }
+      else updates.push({_id: offhand.id, "data.equipped": true});
+    }
+
+    // Apply the updates
+    return this.updateEmbeddedDocuments("Item", updates);
   }
 }

@@ -2,11 +2,11 @@
 
 .crucible.sheet.actor {
   --headerHeight: 200px;
-  --titleHeight: 50px;
+  --titleHeight: 40px;
   --skillHeight: 30px;
+  --tagHeight: 26px;
 
   /* General Sheet Styles */
-
   label {
     font-family: @caslon;
     color: @colorOlive;
@@ -22,57 +22,69 @@
     }
   }
 
-  h1.charname {
-    flex: 3;
-    margin: 0;
-    border-bottom: 1px solid @colorBeige;
-
-    input {
-      height: calc(var(--titleHeight) - 10px);
-      margin: 5px 0;
-      background: none;
-      border: none;
+  /* Character Sheet Title */
+  .title {
+    h1.charname {
+      flex: 3;
+      height: var(--titleHeight);
+      margin: 0;
+      input {
+        height: var(--titleHeight);
+        margin: 0;
+        background: none;
+        border: none;
+      }
     }
-  }
-
-  h2.level {
-    flex: 1;
-    text-align: right;
-    margin: 0;
-    border-bottom: 1px solid @colorBeige;
-
-    input {
-      height: 40px;
-      width: 40px;
-      margin: 5px;
-      font-size: 28px;
-      line-height: 40px;
-      text-align: center;
-    }
-  }
-
-  .ancestry,
-  .background {
-    flex: 1;
-    font-size: 24px;
-    line-height: 40px;
-    padding: 0 10px;
-    border-bottom: 1px solid @colorBeige;
-
-    label {
-      float: left;
-    }
-
-    h2 {
+    h2.level {
+      flex: 1;
+      text-align: right;
       margin: 0;
       border: none;
-      text-align: right;
+      input {
+        height: var(--titleHeight);
+        width: var(--titleHeight);
+        font-size: 28px;
+        line-height: var(--titleHeight);
+        text-align: center;
+      }
     }
   }
 
-  .ancestry {
-    border-right: 1px solid @colorBeige;
+  /* Character Sheet Subtitle */
+  .subtitle {
+    margin: 5px 0;
+    border-top: 1px solid @colorBeige;
+    border-bottom: 1px solid @colorBeige;
+    .ancestry,
+    .background {
+      flex: none;
+      font-size: 20px;
+      line-height: var(--tagHeight);
+      padding: 0 8px;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid @colorBeige;
+      border-radius: 2px;
+      margin: 5px 3px;
+    }
+    .resource-tracker {
+      margin: 0 3px;
+      line-height: 18px;
+      text-align: right;
+      label {
+        font-size: 16px;
+        color: @colorOlive;
+        margin-right: 3px;
+      }
+      i {
+        -webkit-text-stroke: 1px #000;
+      }
+      .action-points i { color: #1b2b14; }
+      .action-points i.available { color: #328d32; }
+      .focus-points i { color: #181839; }
+      .focus-points i.available { color: #4545b5; }
+    }
   }
+
 
   .resource {
     padding: 0 8px;
@@ -264,7 +276,7 @@
       margin: 0;
       padding: 5px 0;
       border-top: 1px solid @colorBeige;
-      border-bottom: 2px solid @colorTan;
+      border-bottom: 1px solid @colorBeige;
     }
 
     .ability {
@@ -291,11 +303,11 @@
 
     /* Physical Defenses */
     .physical-defenses {
-      flex: 0 0 80px;
+      flex: 0 0 105px;
       list-style: none;
       padding: 5px 0;
       margin: 0;
-      border-bottom: 2px solid @colorTan;
+      border-bottom: 1px solid @colorBeige;
 
       .defense {
         height: 80px;
@@ -348,7 +360,7 @@
     .other-defenses {
       flex: 0;
       padding: 5px 0;
-      border-bottom: 2px solid @colorTan;
+      border-bottom: 1px solid @colorBeige;
 
       h4 {
         flex: 0 0 100px;

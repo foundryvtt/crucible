@@ -177,6 +177,8 @@
 }
 .crucible.sheet .sheet-header {
   flex: 0 0 var(--headerHeight);
+  align-items: flex-start;
+  padding-bottom: 8px;
   border-bottom: 1px solid #b5b3a4;
 }
 .crucible.sheet .sheet-header img.profile {
@@ -190,7 +192,6 @@
 }
 .crucible.sheet .sheet-header .header-content {
   flex: 1;
-  padding: 8px;
 }
 .crucible.sheet .sheet-header .title {
   flex: 3;
@@ -284,9 +285,12 @@
 }
 .crucible.sheet.actor {
   --headerHeight: 200px;
-  --titleHeight: 50px;
+  --titleHeight: 40px;
   --skillHeight: 30px;
+  --tagHeight: 26px;
   /* General Sheet Styles */
+  /* Character Sheet Title */
+  /* Character Sheet Subtitle */
   /* Badge Icons */
   /** --------------------------------------
    * ATTRIBUTES TAB
@@ -304,51 +308,70 @@
 .crucible.sheet.actor .header-content label {
   font-size: 24px;
 }
-.crucible.sheet.actor h1.charname {
+.crucible.sheet.actor .title h1.charname {
   flex: 3;
+  height: var(--titleHeight);
   margin: 0;
-  border-bottom: 1px solid #b5b3a4;
 }
-.crucible.sheet.actor h1.charname input {
-  height: calc(var(--titleHeight) - 10px);
-  margin: 5px 0;
+.crucible.sheet.actor .title h1.charname input {
+  height: var(--titleHeight);
+  margin: 0;
   background: none;
   border: none;
 }
-.crucible.sheet.actor h2.level {
+.crucible.sheet.actor .title h2.level {
   flex: 1;
   text-align: right;
-  margin: 0;
-  border-bottom: 1px solid #b5b3a4;
-}
-.crucible.sheet.actor h2.level input {
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-  font-size: 28px;
-  line-height: 40px;
-  text-align: center;
-}
-.crucible.sheet.actor .ancestry,
-.crucible.sheet.actor .background {
-  flex: 1;
-  font-size: 24px;
-  line-height: 40px;
-  padding: 0 10px;
-  border-bottom: 1px solid #b5b3a4;
-}
-.crucible.sheet.actor .ancestry label,
-.crucible.sheet.actor .background label {
-  float: left;
-}
-.crucible.sheet.actor .ancestry h2,
-.crucible.sheet.actor .background h2 {
   margin: 0;
   border: none;
+}
+.crucible.sheet.actor .title h2.level input {
+  height: var(--titleHeight);
+  width: var(--titleHeight);
+  font-size: 28px;
+  line-height: var(--titleHeight);
+  text-align: center;
+}
+.crucible.sheet.actor .subtitle {
+  margin: 5px 0;
+  border-top: 1px solid #b5b3a4;
+  border-bottom: 1px solid #b5b3a4;
+}
+.crucible.sheet.actor .subtitle .ancestry,
+.crucible.sheet.actor .subtitle .background {
+  flex: none;
+  font-size: 20px;
+  line-height: var(--tagHeight);
+  padding: 0 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #b5b3a4;
+  border-radius: 2px;
+  margin: 5px 3px;
+}
+.crucible.sheet.actor .subtitle .resource-tracker {
+  margin: 0 3px;
+  line-height: 18px;
   text-align: right;
 }
-.crucible.sheet.actor .ancestry {
-  border-right: 1px solid #b5b3a4;
+.crucible.sheet.actor .subtitle .resource-tracker label {
+  font-size: 16px;
+  color: #4b4a44;
+  margin-right: 3px;
+}
+.crucible.sheet.actor .subtitle .resource-tracker i {
+  -webkit-text-stroke: 1px #000;
+}
+.crucible.sheet.actor .subtitle .resource-tracker .action-points i {
+  color: #1b2b14;
+}
+.crucible.sheet.actor .subtitle .resource-tracker .action-points i.available {
+  color: #328d32;
+}
+.crucible.sheet.actor .subtitle .resource-tracker .focus-points i {
+  color: #181839;
+}
+.crucible.sheet.actor .subtitle .resource-tracker .focus-points i.available {
+  color: #4545b5;
 }
 .crucible.sheet.actor .resource {
   padding: 0 8px;
@@ -501,7 +524,7 @@
   margin: 0;
   padding: 5px 0;
   border-top: 1px solid #b5b3a4;
-  border-bottom: 2px solid #7a7971;
+  border-bottom: 1px solid #b5b3a4;
 }
 .crucible.sheet.actor .tab.attributes .ability {
   flex: 0 0 33.33%;
@@ -523,11 +546,11 @@
   text-align: center;
 }
 .crucible.sheet.actor .tab.attributes .physical-defenses {
-  flex: 0 0 80px;
+  flex: 0 0 105px;
   list-style: none;
   padding: 5px 0;
   margin: 0;
-  border-bottom: 2px solid #7a7971;
+  border-bottom: 1px solid #b5b3a4;
 }
 .crucible.sheet.actor .tab.attributes .physical-defenses .defense {
   height: 80px;
@@ -570,7 +593,7 @@
 .crucible.sheet.actor .tab.attributes .other-defenses {
   flex: 0;
   padding: 5px 0;
-  border-bottom: 2px solid #7a7971;
+  border-bottom: 1px solid #b5b3a4;
 }
 .crucible.sheet.actor .tab.attributes .other-defenses h4 {
   flex: 0 0 100px;

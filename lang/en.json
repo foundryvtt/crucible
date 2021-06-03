@@ -431,6 +431,8 @@
   "WEAPON.PropertyParrying": "Parrying",
   "WEAPON.PropertyReach": "Reach",
   "WEAPON.PropertyThrown": "Thrown",
-  "WEAPON.PropertyVersatile": "Versatile"
+  "WEAPON.PropertyVersatile": "Versatile",
+
+  "WEAPON.CannotEquipWarning": "Actor {actor} cannot equip {item} because a {type} weapon is already in use."
 }
 	

@@ -28,15 +28,26 @@
                 </h2>
             </div>
 
-            <div class="history flexrow">
-                <div class="ancestry">
-                    <label>Ancestry</label>
-                    <h2>{{systemData.details.ancestry.name}}</h2>
-                </div>
-
-                <div class="background">
-                    <label>Background</label>
-                    <h2>{{systemData.details.background.name}}</h2>
+            <div class="subtitle flexrow">
+                <h2 class="ancestry {{#unless hasAncestry}}inactive{{/unless}}">
+                    {{#if hasAncestry}}{{systemData.details.ancestry.name}}{{else}}Ancestry{{/if}}
+                </h2>
+                <h2 class="background {{#unless hasAncestry}}inactive{{/unless}}">
+                    {{#if hasBackground}}{{systemData.details.background.name}}{{else}}Background{{/if}}
+                </h2>
+                <div class="resource-tracker flexcol">
+                    <div class="action-points">
+                        <label>Action:</label>
+                        {{#each actionPoints}}
+                        <i class="fas fa-circle {{this}}"></i>
+                        {{/each}}
+                    </div>
+                    <div class="focus-points">
+                        <label>Focus:</label>
+                        {{#each focusPoints}}
+                        <i class="fas fa-circle {{this}}"></i>
+                        {{/each}}
+                    </div>
                 </div>
             </div>
 
