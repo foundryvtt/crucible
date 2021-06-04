@@ -35,6 +35,13 @@
       "system": "crucible",
       "path": "packs/background.db",
       "entity": "Item"
+    },
+    {
+      "name": "rules",
+      "label": "System Rules",
+      "system": "crucible",
+      "path": "packs/rules.db",
+      "entity": "JournalEntry"
     }
   ],
   "languages": [

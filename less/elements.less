@@ -26,6 +26,41 @@
   }
 }
 
+h1.divider,
+h2.divider,
+h3.divider,
+h4.divider {
+  display: flex;
+  text-align: center;
+  label {
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+  span {
+    flex: 1;
+    position: relative;
+    top: 10px;
+    pointer-events: none;
+    -moz-background-size: 100% 1px;
+    background-size: 100% 1px;
+    background-position: 0 0, 0 100%;
+    background-repeat: no-repeat;
+  }
+  span:nth-of-type(1) {
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(@colorOlive));
+    background-image: -webkit-linear-gradient(180deg, transparent, @colorOlive);
+    background-image: -moz-linear-gradient(180deg, transparent, @colorOlive);
+    background-image: -o-linear-gradient(180deg, transparent, @colorOlive);
+    background-image: linear-gradient(90deg, transparent, @colorOlive);
+  }
+  span:nth-of-type(2) {
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@colorOlive), to(transparent));
+    background-image: -webkit-linear-gradient(180deg, @colorOlive, transparent);
+    background-image: -moz-linear-gradient(180deg, @colorOlive, transparent);
+    background-image: -o-linear-gradient(180deg, @colorOlive, transparent);
+    background-image: linear-gradient(90deg, @colorOlive, transparent);
+  }
+}
 
 /* ----------------------------------------- */
 /*  Application Windows                      */
@@ -51,7 +86,7 @@
     &:hover,
     &:focus {
       border: 1px solid #111;
-      box-shadow: 0 0 8px red;
+      box-shadow: 0 0 4px red;
     }
   }
 

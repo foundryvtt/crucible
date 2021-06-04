@@ -2,23 +2,13 @@
 
 .crucible.sheet {
   --headerHeight: 50px;
-  --navHeight: 32px;
+  --profileSize: 50px;
 
+  /** Sheet Header */
   .sheet-header {
     flex: 0 0 var(--headerHeight);
     align-items: flex-start;
-    padding-bottom: 8px;
     border-bottom: 1px solid @colorBeige;
-
-    img.profile {
-      flex: 0 0 var(--headerHeight);
-      height: var(--headerHeight);
-      margin: 0 5px 0 0;
-      border: 1px solid #000;
-      border-radius: 0;
-      object-fit: cover;
-      object-position: 0 10%;
-    }
 
     .header-content {
       flex: 1;
@@ -27,7 +17,7 @@
     .title {
       flex: 3;
       height: var(--titleHeight);
-      margin: 2px 0;
+      margin: 2px;
       border: none;
       input {
         margin: 0;
@@ -35,28 +25,20 @@
     }
   }
 
-  .window-content, form, .sheet-body {
-    overflow: hidden;
+  /** Sheet Profile Image */
+  img.profile {
+    flex: 0 0 var(--profileSize);
+    width: var(--profileSize);
+    height: var(--profileSize);
+    margin: 0 5px 0 0;
+    border: 1px solid #000;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: 0 10%;
   }
 
-  .sheet-navigation {
-    flex: 0 0 var(--navHeight);
-    line-height: var(--navHeight);
-    border-bottom: 1px solid @colorBeige;
-    font-size: 20px;
-    font-family: @caslon;
-    justify-content: flex-start;
-
-    .item {
-      flex: auto;
-      color: @colorOlive;
-    }
-
-    .item.active {
-      color: @colorDark;
-      font-weight: bold;
-      text-shadow: 0 0 5px #FFF;
-    }
+  .window-content, form, .sheet-body {
+    overflow: hidden;
   }
 
   /* Highlight Boxes */
@@ -73,7 +55,7 @@
     height: 24px;
     flex: 0 0 24px;
     line-height: 24px;
-    padding: 0 2px;
+    padding: 0;
     margin: 0 3px;
     color: @colorTan;
     text-align: center;

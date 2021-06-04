@@ -33,6 +33,10 @@ export default class CrucibleActor extends Actor {
     return this.data.data.abilities;
   }
 
+  get isL0() {
+    return this.data.data.advancement.level === 0;
+  }
+
   get skills() {
     return this.data.data.skills;
   }
@@ -46,7 +50,7 @@ export default class CrucibleActor extends Actor {
     const data = this.data;
 
     // Prepare placeholder point totals
-    this._preparePoints(data);
+    this._prepareAdvancement(data);
 
     // Prepare Attributes
     this._prepareAttributes(data);
@@ -78,13 +82,22 @@ export default class CrucibleActor extends Actor {
    * @param {object} data       The actor data to prepare
    * @private
    */
-  _preparePoints(data) {
-    const level = data.data.details.level = Math.clamped(data.data.details.level, 1, 24);
+  _prepareAdvancement(data) {
+    const adv = data.data.advancement;
+    adv.level = Math.clamped(adv.level, 0, 24);
+    const effectiveLevel = Math.max(adv.level, 1) - 1;
+
+    // Compute spendable points
     this.points = {
-      ability: { pool: 36, total: (level - 1), bought: null, spent: null, available: null },
-      skill: { total: 2 + ((level-1) * 2), spent: null, available: null },
-      talent: { total: 3 + ((level - 1) * 3), spent: null, available: null }
+      ability: { pool: 36, total: effectiveLevel, bought: null, spent: null, available: null },
+      skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
+      talent: { total: 3 + (effectiveLevel*3), spent: null, available: null }
     };
+
+    // Compute required advancement
+    adv.progress = adv.progress ?? 0;
+    adv.next = (2 * adv.level) + 1;
+    adv.pct = Math.clamped(Math.round(adv.progress * 100 / adv.next), 0, 100);
   }
 
   /* -------------------------------------------- */
@@ -96,7 +109,9 @@ export default class CrucibleActor extends Actor {
    */
   _prepareAttributes(data) {
     const attrs = data.data.attributes;
-    const anc = data.data.details.ancestry;
+    const points = this.points.ability;
+    const ancestry = data.data.details.ancestry;
+    const hasAncestry = ancestry.primary && ancestry.secondary;
 
     // Ability Scores
     let abilityPointsBought = 0;
@@ -104,8 +119,8 @@ export default class CrucibleActor extends Actor {
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
       let ability = attrs[a];
       ability.initial = 1;
-      if ( a === anc.primary ) ability.initial = 3;
-      else if ( a === anc.secondary ) ability.initial = 2;
+      if ( a === ancestry.primary ) ability.initial = 3;
+      else if ( a === ancestry.secondary ) ability.initial = 2;
       ability.value = ability.initial + ability.base + ability.increases + ability.bonus;
       abilityPointsBought += Array.fromRange(ability.initial + ability.base + 1).reduce((a, v) => a + v);
       abilityPointsSpent += ability.increases;
@@ -113,11 +128,12 @@ export default class CrucibleActor extends Actor {
     }
 
     // Track spent ability points
-    const basePoints = this.data.data.details.ancestry ? 13 : 0;
-    this.points.ability.bought = abilityPointsBought - basePoints;
-    this.points.ability.pool = 36 - this.points.ability.bought;
-    this.points.ability.spent = abilityPointsSpent;
-    this.points.ability.available = this.points.ability.total - abilityPointsSpent;
+    const basePoints = hasAncestry ? 13 : 6;
+    points.bought = abilityPointsBought - basePoints;
+    points.pool = 36 - points.bought;
+    points.spent = abilityPointsSpent;
+    points.available = points.total - abilityPointsSpent;
+    points.hasUnspent = this.isL0 ? (points.pool > 0) : (points.available > 0);
   }
 
   /* -------------------------------------------- */
@@ -316,7 +332,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareResources(data) {
-    const lvl = data.data.details.level;
+    const lvl = data.data.advancement.level;
     const attrs = data.data.attributes;
 
     // Health
@@ -342,7 +358,7 @@ export default class CrucibleActor extends Actor {
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
-    attrs.focus.max = lvl * 3;
+    attrs.focus.max = lvl * 2;
     attrs.focus.value = Math.clamped(attrs.focus.value, 0, attrs.focus.max);
   }
 
@@ -405,7 +421,7 @@ export default class CrucibleActor extends Actor {
     ancestry.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
-    if ( (this.data.data.details.level !== 1) || (this.points.skill.spent > 0) || (this.points.ability.spent > 0) ) {
+    if ( !this.isL0 || (this.points.skill.spent > 0) || (this.points.ability.spent > 0) ) {
       const err = game.i18n.localize("ANCESTRY.ApplyError");
       ui.notifications.warn(err);
       throw new Error(err);
@@ -429,7 +445,7 @@ export default class CrucibleActor extends Actor {
     background.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
-    if ( (this.data.data.details.level !== 1) || (this.points.skill.spent > 0) ) {
+    if ( !this.L0 || (this.points.skill.spent > 0) ) {
       const err = game.i18n.localize("BACKGROUND.ApplyError");
       ui.notifications.warn(err);
       throw new Error(err);
@@ -452,12 +468,11 @@ export default class CrucibleActor extends Actor {
   async purchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
     const points = this.points.ability;
-    const isPointBuy = this.data.data.details.level === 1;
     const attr = this.data.data.attributes[ability];
     if ( !attr ) return;
 
     // Case 1 - Point Buy
-    if ( isPointBuy ) {
+    if ( this.isL0 ) {
       const canAfford = (delta <= 0) || (attr.cost <= points.pool);
       if ( !canAfford ) {
         return ui.notifications.warn(game.i18n.format(`ABILITY.CantAfford`, {cost: attr.cost, points: points.pool}));

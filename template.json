@@ -94,6 +94,10 @@
             "bonus": 0
           }
         },
+        "advancement": {
+          "level": 0,
+          "progress": 0
+        },
         "details": {
           "ancestry": {
             "name": "",
@@ -107,8 +111,7 @@
             "name": "",
             "skills": [],
             "talents": []
-          },
-          "level": 1
+          }
         },
         "resistances": {
           "bludgeoning": {

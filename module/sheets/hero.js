@@ -20,6 +20,17 @@ export default class HeroSheet extends ActorSheet {
     });
   }
 
+  /**
+   * Lock sections of the character sheet to prevent them from being inadvertently edited
+   * @type {{abilities: boolean, resistances: boolean, defenses: boolean}}
+   * @private
+   */
+  _sectionLocks = {
+    abilities: true,
+    defenses: true,
+    resistances: true
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -29,7 +40,9 @@ export default class HeroSheet extends ActorSheet {
 
     // Character
     context.hasAncestry = !!systemData.details.ancestry.name;
+    if ( !context.hasAncestry ) systemData.details.ancestry.name = "No Ancestry";
     context.hasBackground = !!systemData.details.background.name;
+    if ( !context.hasBackground ) systemData.details.background.name = "No Background";
 
     // Equipment
     context.items = this._formatItems(this.actor.items);
@@ -37,22 +50,13 @@ export default class HeroSheet extends ActorSheet {
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.data.data.category].label;
 
     // Leveling
+    context.isL0 = this.actor.isL0;
     context.points = this.actor.points;
-    context.isL1 = systemData.details.level === 1;
 
     // Abilities
     context.abilityScores = this._formatAttributes(systemData.attributes);
 
     // Resources
-    const attributes = systemData.attributes;
-    context.actionPoints = [];
-    for ( let i=0; i<attributes.action.max; i++ ) {
-      context.actionPoints.push(i < attributes.action.value ? "available" : "");
-    }
-    context.focusPoints = [];
-    for ( let i=0; i<attributes.focus.max; i++ ) {
-      context.focusPoints.push(i < attributes.focus.value ? "available" : "");
-    }
     this._formatResources(systemData.attributes);
 
     // Resistances
@@ -60,6 +64,10 @@ export default class HeroSheet extends ActorSheet {
 
     // Skills
     context.skillCategories = this._formatSkills(systemData.skills);
+
+    // Section locks
+    this._updateSectionLocks();
+    context.sectionLocks = this._sectionLocks;
     return context;
   }
 
@@ -77,8 +85,8 @@ export default class HeroSheet extends ActorSheet {
       let [a, ability] = e;
       const attr = mergeObject(attributes[a], ability, {inplace: true});
       attr.id = a;
-      attr.canIncrease = (points.pool > 0) || (points.available > 0);
-      attr.canDecrease = (this.actor.data.data.details.level === 1) || (attr.increases > 0);
+      attr.canIncrease = (attr.value < 12) && (this.actor.isL0 ? (points.pool > 0) : (points.available > 0));
+      attr.canDecrease = this.actor.isL0 ? (attr.value > attr.initial) : (attr.value > attr.initial + attr.base)
       return attr;
     });
   }
@@ -146,9 +154,27 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  /**
+   * Format the display of resource attributes on the actor sheet
+   * @param {object} attributes       The ActorData.data.attributes object
+   * @private
+   */
   _formatResources(attributes) {
     for ( let [id, r] of Object.entries(SYSTEM.RESOURCES) ) {
-      attributes[id].tooltip = r.tooltip;
+      const attr = attributes[id];
+      attr.tooltip = r.tooltip;
+      attr.pct = Math.round(attr.value * 100 / attr.max);
+
+      // Determine resource bar color
+      const p = attr.pct / 100;
+      const c0 = foundry.utils.hexToRGB(r.color.low);
+      const c1 = foundry.utils.hexToRGB(r.color.high);
+      const bg = c0.map(c => c * 0.25 * 255);
+      const fill = c1.map((c, i) => ((c * p) + (c0[i] * (1-p))) * 255);
+      attr.color = {
+        bg: `rgb(${bg.join(",")})`,
+        fill: `rgb(${fill.join(",")})`
+      }
     }
   }
 
@@ -213,6 +239,18 @@ export default class HeroSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Update section locks to automatically unlock sections where the user needs to provide input.
+   * @private
+   */
+  _updateSectionLocks() {
+    const locks = this._sectionLocks;
+    const points = this.actor.points;
+    if ( points.ability.hasUnspent ) locks.abilities = false;
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
@@ -220,6 +258,7 @@ export default class HeroSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find("a.control").click(this._onClickControl.bind(this));
+    html.find("a.section-lock").click(this._onToggleSectionLock.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -253,6 +292,20 @@ export default class HeroSheet extends ActorSheet {
       case "skillRoll":
         return this.actor.rollSkill(a.closest(".skill").dataset.skill, {dialog: true});
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle toggling the locked state of a specific sheet section
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  _onToggleSectionLock(event) {
+    event.preventDefault()
+    const a = event.currentTarget;
+    this._sectionLocks[a.dataset.section] = !this._sectionLocks[a.dataset.section];
+    this.render();
   }
 
   /* -------------------------------------------- */

@@ -1,29 +1,98 @@
 @import "variables.less";
 
+/* ----------------------------------------- */
+/*  Actor Sheet                              */
+/* ----------------------------------------- */
 .crucible.sheet.actor {
-  --headerHeight: 200px;
+  --sidebarWidth: 200px;
+  --profileSize: 200px;
+  --marginSize: 8px;
   --titleHeight: 40px;
+  --navHeight: 30px;
   --skillHeight: 30px;
   --tagHeight: 26px;
 
-  /* General Sheet Styles */
+  /* ----------------------------------------- */
+  /*  Sheet Structure                          */
+  /* ----------------------------------------- */
+
+  /** Sheet Layout and Structure */
+  .sheet-sidebar {
+    flex: 0 0 var(--sidebarWidth);
+    margin-right: var(--marginSize);
+  }
+  .sheet-body {
+    flex: 1;
+  }
+
+  /** Section Headers */
+  h3.section-header {
+    position: relative;
+    flex: 0 0 100%;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+    margin: 0;
+    > span {
+      top: 12px;
+    }
+  }
+
+  /** Labels and Inputs */
   label {
     font-family: @caslon;
     color: @colorOlive;
   }
-
   input[type="text"] {
     border: 1px solid @colorBeige;
   }
 
-  .header-content {
-    label {
-      font-size: 24px;
-    }
+  // Incomplete Inputs
+  i.incomplete {
+    line-height: 24px;
+    font-size: 16px;
+    color: @colorTan;
   }
 
-  /* Character Sheet Title */
+  // Section Locks
+  a.section-lock {
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+  }
+
+  // Separator Slash
+  span.slash {
+    flex: 0 0 20px;
+    height: 1px;
+    background-image: linear-gradient(90deg, transparent, #4b4a44, transparent);
+    transform: rotate(280deg);
+    position: relative;
+    top: 10px;
+  }
+
+  /* ----------------------------------------- */
+  /*  Sheet Sidebar                            */
+  /* ----------------------------------------- */
+
+  .overview {
+    margin-top: var(--marginSize);
+    padding-right: var(--marginSize);
+    border-right: 1px solid @colorBeige;
+  }
+
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+
+  /** Sheet Title */
   .title {
+    margin: 0;
+    border-bottom: 1px solid @colorBeige;
+
     h1.charname {
       flex: 3;
       height: var(--titleHeight);
@@ -31,6 +100,7 @@
       input {
         height: var(--titleHeight);
         margin: 0;
+        padding: 0;
         background: none;
         border: none;
       }
@@ -50,80 +120,344 @@
     }
   }
 
-  /* Character Sheet Subtitle */
+  /** Advancement Bar */
+  .advancement {
+    flex: 0 0 140px;
+    .bar {
+      flex: 0 0 100%;
+      height: 10px;
+      padding: 1px;
+      background: #2a3247;
+      border: 1px solid @colorDark;
+      border-radius: 8px;
+      .fill {
+        height: 6px;
+        background: #91e5f5;
+        border-radius: 8px;
+      }
+    }
+    input, span.value {
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  /** Sheet Subtitle */
   .subtitle {
-    margin: 5px 0;
-    border-top: 1px solid @colorBeige;
-    border-bottom: 1px solid @colorBeige;
-    .ancestry,
-    .background {
+    margin: 4px 0;
+    .tag {
       flex: none;
+      margin: 0 4px 0 0;
+      padding: 0 8px;
       font-size: 20px;
       line-height: var(--tagHeight);
-      padding: 0 8px;
       background: rgba(0, 0, 0, 0.05);
       border: 1px solid @colorBeige;
       border-radius: 2px;
-      margin: 5px 3px;
-    }
-    .resource-tracker {
-      margin: 0 3px;
-      line-height: 18px;
-      text-align: right;
-      label {
-        font-size: 16px;
-        color: @colorOlive;
-        margin-right: 3px;
-      }
-      i {
-        -webkit-text-stroke: 1px #000;
-      }
-      .action-points i { color: #1b2b14; }
-      .action-points i.available { color: #328d32; }
-      .focus-points i { color: #181839; }
-      .focus-points i.available { color: #4545b5; }
     }
   }
 
+  /* ----------------------------------------- */
+  /*  Sheet Navigation                         */
+  /* ----------------------------------------- */
 
+  .sheet-navigation {
+    flex: 0 0 var(--navHeight);
+    justify-content: space-between;
+    margin-bottom: var(--marginSize);
+    font-family: @caslon;
+    font-size: 16px;
+    line-height: var(--navHeight);
+    border-bottom: 1px solid @colorBeige;
+
+    .item {
+      flex: auto;
+      color: @colorOlive;
+    }
+
+    .item.active {
+      color: @colorDark;
+      font-weight: bold;
+      text-shadow: 0 0 5px #FFF;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Resource Tracker                         */
+  /* ----------------------------------------- */
+
+  .resources {
+    flex: none;
+    > h3 {
+      flex: 0 0 100%;
+    }
+  }
   .resource {
-    padding: 0 8px;
+    padding: 0 var(--marginSize);
     border-right: 1px solid @colorFaint;
-
+    &:first-child {
+      padding-left: 0
+    }
     &:last-child {
+      padding-right: 0;
       border-right: none;
     }
 
+    // Divider Title
     .resource-name {
-      margin: 3px 10px 0;
-      font-size: 20px;
-      line-height: 20px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 16px;
       text-align: center;
       color: @colorOlive;
-      border-bottom: 1px solid @colorFaint;
+      > span { top: 8px; }
     }
 
+    // Value Fields
     .resource-values {
       margin: 3px 0;
-
-      span.sep {
-        flex: 0 0 20px;
-        color: @colorFaint;
-        font-size: 20px;
+      input, .resource-max {
+        height: 24px;
+        font-size: 15px;
         line-height: 24px;
         text-align: center;
       }
+    }
 
-      input, .resource-max {
-        height: 24px;
-        line-height: 24px;
-        text-align: center;
+    // Resource Bar
+    .bar {
+      flex: 0 0 100%;
+      height: 8px;
+      margin: 3px 0 0;
+      border: 1px solid #000;
+      border-radius: 4px;
+      padding: 1px;
+      .fill {
+        height: 4px;
+        border-radius: 4px;
       }
     }
   }
 
-  /* Badge Icons */
+  /* ----------------------------------------- */
+  /*  Ability Scores                           */
+  /* ----------------------------------------- */
 
+  --abilityHeight: 32px;
+
+  // Abilities Section
+  .abilities {
+    flex: none;
+    margin-bottom: var(--marginSize);
+
+    a.abilities-lock {
+      position: absolute;
+      right: 0;
+      font-size: 14px;
+    }
+
+    // Ability Scores Grid
+    .ability-scores {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(2, var(--abilityHeight));
+      grid-gap: var(--marginSize);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  // Single Ability
+  .ability {
+    align-items: center;
+
+    h4.label {
+      margin: 0;
+      font-weight: normal;
+      font-size: 16px;
+      font-family: @caslon;
+      line-height: var(--abilityHeight);
+    }
+
+    .value {
+      flex: 0 0 var(--abilityHeight);
+      width: var(--abilityHeight);
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+    }
+
+    .controls {
+      flex: 0 0 16px;
+      height: 100%;
+      margin-right: 4px;
+      .control {
+        flex: 0 0 16px;
+        width: 16px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        &.inactive {
+          color: @colorBeige;
+          pointer-events: none;
+        }
+      }
+      .increase { margin-bottom: 3px; }
+    }
+  }
+
+  /* Point Pools */
+  .point-pools {
+    justify-content: flex-end;
+    text-align: right;
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 24px;
+
+    label {
+      flex: none;
+      margin: 0 4px 0 8px;
+    }
+
+    span.value {
+      flex: 0 0 32px;
+      height: 24px;
+      margin: 0;
+      font-size: 16px;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid @colorBeige;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Physical Defenses                        */
+  /* ----------------------------------------- */
+
+  .physical-defense {
+    flex: none;
+    margin-bottom: var(--marginSize);
+  }
+
+  /* Physical Defenses */
+  .physical-defenses {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .defense {
+      height: 80px;
+      text-align: center;
+
+      &.physical {
+        flex: 0 0 150px;
+      }
+
+      h4 {
+        flex: 0 0 24px;
+        font-family: @caslon;
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .input {
+        flex: 0 0 36px;
+        width: 40px;
+        line-height: 36px;
+        margin: 0 auto;
+        font-size: 18px;
+      }
+
+      .total {
+        flex: 0 0 36px;
+        line-height: 36px;
+        font-size: 20px;
+      }
+
+      .subtitle {
+        flex: 0 0 20px;
+        font-family: @caslon;
+        font-size: 16px;
+      }
+    }
+
+    .sep {
+      flex: 0 0 20px;
+      line-height: 80px;
+      font-size: 24px;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Other Defenses                           */
+  /* ----------------------------------------- */
+
+  /* Saving Throws */
+  .other-defense {
+    flex: 0;
+    h4 {
+      flex: 0 0 100px;
+      margin: 0;
+      font-family: @caslon;
+      font-size: 16px;
+    }
+
+    .base, .bonus, .total {
+      flex: 1;
+      margin: 0 3px;
+      text-align: center;
+    }
+
+    .total {
+      font-weight: 600;
+      border-left: 1px solid @colorBeige;
+    }
+  }
+
+
+  /* ----------------------------------------- */
+  /*  Damage Resistances                       */
+  /* ----------------------------------------- */
+
+  .damage-resistances {
+    .category {
+      padding: 0 var(--marginSize);
+      border-right: 1px solid @colorBeige;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+        border-right: none;
+      }
+      .category-name {
+        font-size: 16px;
+      }
+    }
+    .resistances {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .resistance {
+      align-items: center;
+      font-size: 15px;
+      text-align: center;
+      margin: 0;
+      label {
+        flex: 0 0 80px;
+        text-align: left;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Uncategorized Below                      */
+  /* ----------------------------------------- */
+
+  /* Badge Icons */
   .badge {
     text-align: left;
     padding-left: 28px;
@@ -224,181 +558,7 @@
     background-image: url("ui/badges/spiritual-resistance.png");
   }
 
-  /** --------------------------------------
-   * ATTRIBUTES TAB
-   * ------------------------------------- */
 
-  .tab {
-
-    /* Point Pools */
-
-    .point-pools {
-      flex: 0 0 24px;
-      margin: 6px 0;
-      text-align: right;
-      font-size: 16px;
-      line-height: 24px;
-
-      h3 {
-        margin: 0;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: left;
-      }
-
-      label {
-        flex: 0 0 80px;
-      }
-
-      span.value {
-        flex: 0 0 32px;
-        height: 24px;
-        margin: 0 12px 0 6px;
-        font-size: 16px;
-        text-align: center;
-        font-weight: bold;
-      }
-    }
-  }
-
-  /* Attributes Tab */
-  .tab.attributes {
-
-    /* Ability Scores */
-    .ability-scores {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-      grid-template-rows: repeat(2, 36px);
-      grid-gap: 5px;
-      flex: 0;
-      width: 100%;
-      list-style: none;
-      margin: 0;
-      padding: 5px 0;
-      border-top: 1px solid @colorBeige;
-      border-bottom: 1px solid @colorBeige;
-    }
-
-    .ability {
-      flex: 0 0 33.33%;
-      height: 36px;
-      align-items: center;
-
-      h4.label {
-        margin: 0;
-        font-weight: normal;
-        font-size: 18px;
-        font-family: @caslon;
-        line-height: 36px;
-      }
-
-      .ability-score {
-        flex: 0 0 36px;
-        height: 36px;
-        font-size: 20px;
-        line-height: 34px;
-        text-align: center;
-      }
-    }
-
-    /* Physical Defenses */
-    .physical-defenses {
-      flex: 0 0 105px;
-      list-style: none;
-      padding: 5px 0;
-      margin: 0;
-      border-bottom: 1px solid @colorBeige;
-
-      .defense {
-        height: 80px;
-        text-align: center;
-
-        &.physical {
-          flex: 0 0 150px;
-
-          h4 {
-            font-weight: bold;
-          }
-        }
-
-        h4 {
-          flex: 0 0 24px;
-          font-family: @caslon;
-          font-size: 18px;
-          margin: 0;
-        }
-
-        .input {
-          flex: 0 0 36px;
-          width: 40px;
-          line-height: 36px;
-          margin: 0 auto;
-          font-size: 20px;
-        }
-
-        .total {
-          flex: 0 0 36px;
-          line-height: 36px;
-          font-size: 24px;
-        }
-
-        .subtitle {
-          flex: 0 0 20px;
-          font-family: @caslon;
-          font-size: 18px;
-        }
-      }
-
-      .sep {
-        flex: 0 0 20px;
-        line-height: 80px;
-        font-size: 24px;
-      }
-    }
-
-    /* Saving Throws */
-    .other-defenses {
-      flex: 0;
-      padding: 5px 0;
-      border-bottom: 1px solid @colorBeige;
-
-      h4 {
-        flex: 0 0 100px;
-        margin: 0;
-        font-family: @caslon;
-        font-size: 16px;
-      }
-
-      .base, .bonus, .total {
-        flex: 1;
-        margin: 0 3px;
-        text-align: center;
-      }
-
-      .total {
-        font-weight: 600;
-        border-left: 1px solid @colorBeige;
-      }
-    }
-
-    /* Resistances */
-    .resistances-category > h4,
-    .saves > h4 {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .resistances {
-      list-style: none;
-      margin: 0;
-      padding: 0 3px;
-
-      .resistance {
-        align-items: center;
-        margin: 3px 0;
-      }
-    }
-  }
 
   /* Skills Tab */
   .tab.skills {
