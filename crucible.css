@@ -69,6 +69,10 @@
 }
 .crucible h3 {
   font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-size: 20px;
+}
+.crucible h4 {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
   font-size: 18px;
 }
 .crucible p {
@@ -80,6 +84,7 @@ h3.divider,
 h4.divider {
   display: flex;
   text-align: center;
+  border: none;
 }
 h1.divider label,
 h2.divider label,
@@ -120,6 +125,12 @@ h4.divider span:nth-of-type(2) {
   background-image: -moz-linear-gradient(180deg, #33332e, transparent);
   background-image: -o-linear-gradient(180deg, #33332e, transparent);
   background-image: linear-gradient(90deg, #33332e, transparent);
+}
+h1.divider span {
+  top: 18px;
+}
+h2.divider span {
+  top: 16px;
 }
 /* ----------------------------------------- */
 /*  Application Windows                      */
@@ -1051,6 +1062,46 @@ h4.divider span:nth-of-type(2) {
 .crucible.sheet.armor .resistance > input {
   flex: 0 0 64px;
   text-align: center;
+}
+.crucible.journal-sheet .editor-content {
+  padding-right: 8px;
+}
+.crucible.journal-sheet p {
+  font-size: 14px;
+}
+.crucible.journal-sheet h2.divider {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #33332e;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+}
+.crucible.journal-sheet blockquote {
+  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  color: #000;
+  line-height: 18px;
+  margin: 0 5px;
+  padding: 0.5rem;
+  border-left: 4px solid #7a7971;
+}
+.crucible.journal-sheet blockquote > p {
+  margin: 0;
+  font-size: 16px;
+}
+.crucible.journal-sheet h4 {
+  margin: 0.5rem 0;
+  padding: 0 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #33332e;
+  border-radius: 4px;
+}
+.crucible.journal-sheet pre {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid #7a7971;
+  border-radius: 4px;
+  font-weight: bold;
+  margin: 0.25rem 0;
+  padding: 0.5rem;
 }
 .crucible.sheet.skill {
   --headerHeight: 48px;

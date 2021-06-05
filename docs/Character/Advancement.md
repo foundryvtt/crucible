@@ -1,8 +1,8 @@
 [Back to Home](../../README.md)
 
-# Character Development
+# Character Advancement
 
-Character advancement in Crucible is level based. Increases in level grant additional Attribute, Skill, and Talent points which translate into increases in character power level. The maximum character level in <SYSTEM> is 24.
+Character advancement in Crucible is level based. Increases in level grant additional Attribute, Skill, and Talent points which translate into increases in character power level. The maximum character level in Crucible is 24.
 
 All heroes, even those at level 1, are capable adventurers. They are smart, charismatic, athletic, and skillful - however not to a degree that is wondrous or legendary. As heroes advance they reach tiers of power where their physical, mental, and social capabilities are truly legendary. 
 
@@ -56,19 +56,22 @@ Each time you gain a character level after level 1 you can further advance your 
 * 2 Skill Points which can be used to purchase additional ranks in Skills.
 * 3 Talent Points which can be used to purchase new character Talents.
 
-After gaining a level you should take a moment to invest these points so that you are prepared to face more challenging and heroic tasks.
+After gaining a level you should take a moment to invest these points so that you are prepared to face more challenging and heroic tasks. There are two recommended options for gamemasters in Crucible to award additional levels of experience to player characters.
 
-#### Experience Progression
+#### Encounter-Based Progression
 
-The Crucible system employs an optional experience progression system.
+For a structured gameplay experience, Crucible assumes an encounter-based progression system where each character requires a certain number of successful encounter completions in order to advance to the next level. 
 
-TODO:
+The number of completed encounters required in order to advance to the next character level is equal to two times the next character level. To advance from level 1 to level 2 requires the completion of 4 encounters. To advance to level 3 requires 6 encounters, and so on.
 
-Encounters to-level = current level + next level.
+```
+Encounters To Level = (Level + 1) * 2
+```
 
+Encounter completion is not reserved only for combat encounters, navigating social challenges, completing significant quests, exploration of uncharted territory, or solving a mystery are all examples of actions which at the gamemaster's discretion can be awarded to players as a completed encounter. 
 
+In the case of combat encounters, specifically, such encounters only count towards a character's progression if the encounter level (EL) of the combat exceeds that character's current level. Adventurers must tackle increasingly difficult challenges if they wish to progress.
 
+#### Milestone-Based Progression
 
-
-
-
+Milestone-based progression can be utilized as a more lightweight alternative to encounter-based progression in which it is left to the gamemaster to determine when a character has accomplished a significant feat that is deserving of advancement. This can be structured around the completion of quest objectives, the arrival of significant plot moments, or the vanquishing of notable foes.

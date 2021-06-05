@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "id": "advancement",
+      "path": "Character/Advancement.md",
+      "title": "Character Advancement"
+    },
+    {
+      "id": "ancestry",
+      "path": "Character/Ancestry.md",
+      "title": "Character Ancestry"
+    },
+    {
+      "id": "background",
+      "path": "Character/Background.md",
+      "title": "Character Background"
+    }
+  ]
+}

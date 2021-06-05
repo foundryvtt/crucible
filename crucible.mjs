@@ -9,8 +9,8 @@
 import {SYSTEM} from "./module/config/system.js";
 
 // Documents
-import CrucibleActor from "./module/documents/actor.js";
-import CrucibleItem from "./module/documents/item.js";
+import CrucibleActor from "./module/documents/actor.mjs";
+import CrucibleItem from "./module/documents/item.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
@@ -26,6 +26,7 @@ import StandardCheck from "./module/dice/standard-check.js";
 import {handleSocketEvent} from "./module/socket.js";
 import {addChatMessageContextOptions} from "./module/chat.js";
 import {localizeSkillConfig} from "./module/config/skills.js";
+import {buildJournalCompendium, renderJournalRules} from "./module/documents/journal.mjs";
 
 
 /* -------------------------------------------- */
@@ -37,9 +38,8 @@ Hooks.once("init", async function() {
 
   // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
-  game.system.dice = {
-    StandardCheck
-  };
+  game.system.dice = { StandardCheck };
+  game.system.journal = { buildJournalCompendium }
 
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
@@ -92,6 +92,5 @@ Hooks.once("ready", function() {
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */
 
-// Add chat log context hooks
 Hooks.on("getChatLogEntryContext", addChatMessageContextOptions);
-
+Hooks.on("renderJournalSheet", renderJournalRules);

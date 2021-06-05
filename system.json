@@ -4,8 +4,8 @@
   "description": "This is a work in progress, you shouldn't be using it (yet).",
   "version": "0.3.2",
   "author": "Atropos",
-  "scripts": [],
-  "esmodules": ["crucible.js"],
+  "scripts": ["scripts/showdown.min.js"],
+  "esmodules": ["crucible.mjs"],
   "styles": ["crucible.css"],
   "packs": [
     {
