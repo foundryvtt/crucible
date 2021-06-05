@@ -184,6 +184,8 @@ export default class CrucibleItem extends Item {
       case "weapon":
         return {
           category: SYSTEM.WEAPON.CATEGORIES[this.data.data.category].label,
+          damage: d.damage,
+          attackBonus: d.attackBonus,
           weight: `${(d.quantity ?? 0) * (d.weight ?? 0)} lbs.`
         };
       default:

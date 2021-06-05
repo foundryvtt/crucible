@@ -27,8 +27,9 @@ export default class HeroSheet extends ActorSheet {
    */
   _sectionLocks = {
     abilities: true,
-    defenses: true,
-    resistances: true
+    saves: true,
+    resistances: true,
+    resources: true
   }
 
   /* -------------------------------------------- */
@@ -46,8 +47,11 @@ export default class HeroSheet extends ActorSheet {
 
     // Equipment
     context.items = this._formatItems(this.actor.items);
-    const armor = this.actor.equipment.armor;
-    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.data.data.category].label;
+    const eqp = this.actor.equipment;
+    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.data.data.category].label;
+    context.armorTag = eqp.armor.getTags().defenses;
+    context.mainhandTag = eqp.weapons.mainhand.data.data.damage;
+    context.offhandTag = eqp.weapons.offhand.data.data.damage;
 
     // Leveling
     context.isL0 = this.actor.isL0;

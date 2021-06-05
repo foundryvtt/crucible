@@ -9,7 +9,7 @@
   --marginSize: 8px;
   --titleHeight: 40px;
   --navHeight: 30px;
-  --skillHeight: 30px;
+  --skillHeight: 24px;
   --tagHeight: 26px;
 
   /* ----------------------------------------- */
@@ -19,10 +19,12 @@
   /** Sheet Layout and Structure */
   .sheet-sidebar {
     flex: 0 0 var(--sidebarWidth);
+    height: 100%;
     margin-right: var(--marginSize);
   }
   .sheet-body {
     flex: 1;
+    height: 100%;
   }
 
   /** Section Headers */
@@ -45,6 +47,10 @@
   }
   input[type="text"] {
     border: 1px solid @colorBeige;
+  }
+  input[type="number"] {
+    border: 1px solid @colorBeige;
+    text-align: center;
   }
 
   // Incomplete Inputs
@@ -74,6 +80,32 @@
     top: 10px;
   }
 
+  // Math Separator
+  .math {
+    flex: 0 0 20px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  // Score Boxes
+  .score {
+    flex: 0 0 var(--abilityHeight);
+    width: var(--abilityHeight);
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  // Item Tags
+  span.tag {
+    flex: none;
+    margin: 0 3px;
+    padding: 1px 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid @colorBeige;
+    border-radius: 4px;
+  }
+
   /* ----------------------------------------- */
   /*  Sheet Sidebar                            */
   /* ----------------------------------------- */
@@ -82,6 +114,27 @@
     margin-top: var(--marginSize);
     padding-right: var(--marginSize);
     border-right: 1px solid @colorBeige;
+  }
+
+  .equipment,
+  .talent,
+  .effect {
+    align-items: center;
+    margin-bottom: 4px;
+    img {
+      flex: 0 0 24px;
+      height: 24px;
+      border: 1px solid @colorDark;
+      border-radius: 4px;
+    }
+    h4 {
+      line-height: 24px;
+      margin: 0 0 0 4px;
+    }
+    .tag {
+      flex: none;
+      margin: 0 1px;
+    }
   }
 
   /* ----------------------------------------- */
@@ -115,7 +168,6 @@
         width: var(--titleHeight);
         font-size: 28px;
         line-height: var(--titleHeight);
-        text-align: center;
       }
     }
   }
@@ -136,10 +188,9 @@
         border-radius: 8px;
       }
     }
-    input, span.value {
+    input, span.input {
       height: 20px;
       line-height: 20px;
-      text-align: center;
     }
   }
 
@@ -165,7 +216,6 @@
   .sheet-navigation {
     flex: 0 0 var(--navHeight);
     justify-content: space-between;
-    margin-bottom: var(--marginSize);
     font-family: @caslon;
     font-size: 16px;
     line-height: var(--navHeight);
@@ -188,6 +238,7 @@
   /* ----------------------------------------- */
 
   .resources {
+    margin: var(--marginSize) 0;
     flex: none;
     > h3 {
       flex: 0 0 100%;
@@ -281,14 +332,6 @@
       line-height: var(--abilityHeight);
     }
 
-    .value {
-      flex: 0 0 var(--abilityHeight);
-      width: var(--abilityHeight);
-      font-size: 20px;
-      line-height: 30px;
-      text-align: center;
-    }
-
     .controls {
       flex: 0 0 16px;
       height: 100%;
@@ -343,14 +386,13 @@
 
   /* Physical Defenses */
   .physical-defenses {
+    align-items: center;
+    text-align: center;
     list-style: none;
     padding: 0;
     margin: 0;
 
     .defense {
-      height: 80px;
-      text-align: center;
-
       &.physical {
         flex: 0 0 150px;
       }
@@ -363,17 +405,7 @@
       }
 
       .input {
-        flex: 0 0 36px;
-        width: 40px;
-        line-height: 36px;
         margin: 0 auto;
-        font-size: 18px;
-      }
-
-      .total {
-        flex: 0 0 36px;
-        line-height: 36px;
-        font-size: 20px;
       }
 
       .subtitle {
@@ -381,12 +413,6 @@
         font-family: @caslon;
         font-size: 16px;
       }
-    }
-
-    .sep {
-      flex: 0 0 20px;
-      line-height: 80px;
-      font-size: 24px;
     }
   }
 
@@ -396,59 +422,86 @@
 
   /* Saving Throws */
   .other-defense {
-    flex: 0;
-    h4 {
-      flex: 0 0 100px;
-      margin: 0;
-      font-family: @caslon;
-      font-size: 16px;
-    }
+    flex: none;
+    margin-bottom: var(--marginSize);
+    line-height: 24px;
 
-    .base, .bonus, .total {
-      flex: 1;
-      margin: 0 3px;
-      text-align: center;
-    }
+    .save {
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      &:last-child {
+        margin-bottom: 0;
+      }
 
-    .total {
-      font-weight: 600;
-      border-left: 1px solid @colorBeige;
+      h4 {
+        flex: 0 0 160px;
+        margin: 0;
+        font-family: @caslon;
+        font-size: 16px;
+      }
+
+      input, span.input {
+        flex: 0 0 32px;
+        text-align: center;
+      }
+
+      label {
+        font-size: 16px;
+        flex: 0 0 100px;
+      }
     }
   }
-
 
   /* ----------------------------------------- */
   /*  Damage Resistances                       */
   /* ----------------------------------------- */
 
   .damage-resistances {
+    flex: none;
+
     .category {
       padding: 0 var(--marginSize);
       border-right: 1px solid @colorBeige;
-      &:first-child {
+      font-size: 16px;
+      &.physical {
         padding-left: 0;
       }
-      &:last-child {
-        padding-right: 0;
+      &.spiritual {
+        padding-right: 4px;
         border-right: none;
       }
-      .category-name {
-        font-size: 16px;
-      }
     }
+
+    .category-name {
+      font-size: 18px;
+      margin: 0;
+    }
+
     .resistances {
       list-style: none;
       margin: 0;
       padding: 0;
-    }
-    .resistance {
-      align-items: center;
-      font-size: 15px;
-      text-align: center;
-      margin: 0;
+
+      .resistance {
+        align-items: center;
+        font-size: 15px;
+        text-align: center;
+        margin: 0;
+      }
+
+      .total, input {
+        flex: 0 0 24px;
+        height: 24px;
+        line-height: 24px;
+      }
+
       label {
         flex: 0 0 80px;
+        line-height: 24px;
         text-align: left;
+        margin-left: 4px;
+        font-size: 16px;
       }
     }
   }
@@ -538,24 +591,20 @@
     background-image: url("ui/badges/charisma-active.png");
   }
 
-  .badge.physical-defense {
-    background-image: url("ui/badges/physical-defense.png");
+  .badge.physical {
+    background-image: url("ui/badges/physical.png");
   }
 
-  .badge.saving-throws {
-    background-image: url("ui/badges/saving-throws.png");
+  .badge.fortitude {
+    background-image: url("ui/badges/fortitude.png");
   }
 
-  .badge.physical-resistance {
-    background-image: url("ui/badges/physical-resistance.png");
+  .badge.reflex {
+    background-image: url("ui/badges/reflex.png");
   }
 
-  .badge.elemental-resistance {
-    background-image: url("ui/badges/elemental-resistance.png");
-  }
-
-  .badge.spiritual-resistance {
-    background-image: url("ui/badges/spiritual-resistance.png");
+  .badge.willpower {
+    background-image: url("ui/badges/willpower.png");
   }
 
 
@@ -737,14 +786,6 @@
     h4 {
       flex: none;
       margin: 0;
-    }
-    span.tag {
-      flex: none;
-      margin: 0 3px;
-      padding: 1px 2px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid @colorBeige;
-      border-radius: 4px;
     }
   }
 

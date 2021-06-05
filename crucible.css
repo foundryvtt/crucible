@@ -139,6 +139,10 @@ h4.divider span:nth-of-type(2) {
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
   color: #191813;
+  text-align: center;
+}
+.crucible input[type="text"] {
+  text-align: left;
 }
 .crucible input[type="text"]:hover,
 .crucible input[type="text"]:focus {
@@ -324,7 +328,7 @@ h4.divider span:nth-of-type(2) {
   --marginSize: 8px;
   --titleHeight: 40px;
   --navHeight: 30px;
-  --skillHeight: 30px;
+  --skillHeight: 24px;
   --tagHeight: 26px;
   /* ----------------------------------------- */
   /*  Sheet Structure                          */
@@ -371,10 +375,12 @@ h4.divider span:nth-of-type(2) {
 }
 .crucible.sheet.actor .sheet-sidebar {
   flex: 0 0 var(--sidebarWidth);
+  height: 100%;
   margin-right: var(--marginSize);
 }
 .crucible.sheet.actor .sheet-body {
   flex: 1;
+  height: 100%;
 }
 .crucible.sheet.actor h3.section-header {
   position: relative;
@@ -393,6 +399,10 @@ h4.divider span:nth-of-type(2) {
 }
 .crucible.sheet.actor input[type="text"] {
   border: 1px solid #b5b3a4;
+}
+.crucible.sheet.actor input[type="number"] {
+  border: 1px solid #b5b3a4;
+  text-align: center;
 }
 .crucible.sheet.actor i.incomplete {
   line-height: 24px;
@@ -415,10 +425,56 @@ h4.divider span:nth-of-type(2) {
   position: relative;
   top: 10px;
 }
+.crucible.sheet.actor .math {
+  flex: 0 0 20px;
+  font-size: 20px;
+  text-align: center;
+}
+.crucible.sheet.actor .score {
+  flex: 0 0 var(--abilityHeight);
+  width: var(--abilityHeight);
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+.crucible.sheet.actor span.tag {
+  flex: none;
+  margin: 0 3px;
+  padding: 1px 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+}
 .crucible.sheet.actor .overview {
   margin-top: var(--marginSize);
   padding-right: var(--marginSize);
   border-right: 1px solid #b5b3a4;
+}
+.crucible.sheet.actor .equipment,
+.crucible.sheet.actor .talent,
+.crucible.sheet.actor .effect {
+  align-items: center;
+  margin-bottom: 4px;
+}
+.crucible.sheet.actor .equipment img,
+.crucible.sheet.actor .talent img,
+.crucible.sheet.actor .effect img {
+  flex: 0 0 24px;
+  height: 24px;
+  border: 1px solid #191813;
+  border-radius: 4px;
+}
+.crucible.sheet.actor .equipment h4,
+.crucible.sheet.actor .talent h4,
+.crucible.sheet.actor .effect h4 {
+  line-height: 24px;
+  margin: 0 0 0 4px;
+}
+.crucible.sheet.actor .equipment .tag,
+.crucible.sheet.actor .talent .tag,
+.crucible.sheet.actor .effect .tag {
+  flex: none;
+  margin: 0 1px;
 }
 .crucible.sheet.actor .title {
   margin: 0;
@@ -447,7 +503,6 @@ h4.divider span:nth-of-type(2) {
   width: var(--titleHeight);
   font-size: 28px;
   line-height: var(--titleHeight);
-  text-align: center;
 }
 .crucible.sheet.actor .advancement {
   flex: 0 0 140px;
@@ -466,10 +521,9 @@ h4.divider span:nth-of-type(2) {
   border-radius: 8px;
 }
 .crucible.sheet.actor .advancement input,
-.crucible.sheet.actor .advancement span.value {
+.crucible.sheet.actor .advancement span.input {
   height: 20px;
   line-height: 20px;
-  text-align: center;
 }
 .crucible.sheet.actor .subtitle {
   margin: 4px 0;
@@ -487,7 +541,6 @@ h4.divider span:nth-of-type(2) {
 .crucible.sheet.actor .sheet-navigation {
   flex: 0 0 var(--navHeight);
   justify-content: space-between;
-  margin-bottom: var(--marginSize);
   font-family: "CaslonAntique", "Palatino Linotype", serif;
   font-size: 16px;
   line-height: var(--navHeight);
@@ -503,6 +556,7 @@ h4.divider span:nth-of-type(2) {
   text-shadow: 0 0 5px #FFF;
 }
 .crucible.sheet.actor .resources {
+  margin: var(--marginSize) 0;
   flex: none;
 }
 .crucible.sheet.actor .resources > h3 {
@@ -579,13 +633,6 @@ h4.divider span:nth-of-type(2) {
   font-family: "CaslonAntique", "Palatino Linotype", serif;
   line-height: var(--abilityHeight);
 }
-.crucible.sheet.actor .ability .value {
-  flex: 0 0 var(--abilityHeight);
-  width: var(--abilityHeight);
-  font-size: 20px;
-  line-height: 30px;
-  text-align: center;
-}
 .crucible.sheet.actor .ability .controls {
   flex: 0 0 16px;
   height: 100%;
@@ -630,13 +677,11 @@ h4.divider span:nth-of-type(2) {
   margin-bottom: var(--marginSize);
 }
 .crucible.sheet.actor .physical-defenses {
+  align-items: center;
+  text-align: center;
   list-style: none;
   padding: 0;
   margin: 0;
-}
-.crucible.sheet.actor .physical-defenses .defense {
-  height: 80px;
-  text-align: center;
 }
 .crucible.sheet.actor .physical-defenses .defense.physical {
   flex: 0 0 150px;
@@ -648,75 +693,83 @@ h4.divider span:nth-of-type(2) {
   margin: 0;
 }
 .crucible.sheet.actor .physical-defenses .defense .input {
-  flex: 0 0 36px;
-  width: 40px;
-  line-height: 36px;
   margin: 0 auto;
-  font-size: 18px;
-}
-.crucible.sheet.actor .physical-defenses .defense .total {
-  flex: 0 0 36px;
-  line-height: 36px;
-  font-size: 20px;
 }
 .crucible.sheet.actor .physical-defenses .defense .subtitle {
   flex: 0 0 20px;
   font-family: "CaslonAntique", "Palatino Linotype", serif;
   font-size: 16px;
 }
-.crucible.sheet.actor .physical-defenses .sep {
-  flex: 0 0 20px;
-  line-height: 80px;
-  font-size: 24px;
-}
 .crucible.sheet.actor .other-defense {
-  flex: 0;
+  flex: none;
+  margin-bottom: var(--marginSize);
+  line-height: 24px;
 }
-.crucible.sheet.actor .other-defense h4 {
-  flex: 0 0 100px;
+.crucible.sheet.actor .other-defense .save {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.crucible.sheet.actor .other-defense .save:last-child {
+  margin-bottom: 0;
+}
+.crucible.sheet.actor .other-defense .save h4 {
+  flex: 0 0 160px;
   margin: 0;
   font-family: "CaslonAntique", "Palatino Linotype", serif;
   font-size: 16px;
 }
-.crucible.sheet.actor .other-defense .base,
-.crucible.sheet.actor .other-defense .bonus,
-.crucible.sheet.actor .other-defense .total {
-  flex: 1;
-  margin: 0 3px;
+.crucible.sheet.actor .other-defense .save input,
+.crucible.sheet.actor .other-defense .save span.input {
+  flex: 0 0 32px;
   text-align: center;
 }
-.crucible.sheet.actor .other-defense .total {
-  font-weight: 600;
-  border-left: 1px solid #b5b3a4;
+.crucible.sheet.actor .other-defense .save label {
+  font-size: 16px;
+  flex: 0 0 100px;
+}
+.crucible.sheet.actor .damage-resistances {
+  flex: none;
 }
 .crucible.sheet.actor .damage-resistances .category {
   padding: 0 var(--marginSize);
   border-right: 1px solid #b5b3a4;
+  font-size: 16px;
 }
-.crucible.sheet.actor .damage-resistances .category:first-child {
+.crucible.sheet.actor .damage-resistances .category.physical {
   padding-left: 0;
 }
-.crucible.sheet.actor .damage-resistances .category:last-child {
-  padding-right: 0;
+.crucible.sheet.actor .damage-resistances .category.spiritual {
+  padding-right: 4px;
   border-right: none;
 }
-.crucible.sheet.actor .damage-resistances .category .category-name {
-  font-size: 16px;
+.crucible.sheet.actor .damage-resistances .category-name {
+  font-size: 18px;
+  margin: 0;
 }
 .crucible.sheet.actor .damage-resistances .resistances {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.crucible.sheet.actor .damage-resistances .resistance {
+.crucible.sheet.actor .damage-resistances .resistances .resistance {
   align-items: center;
   font-size: 15px;
   text-align: center;
   margin: 0;
 }
-.crucible.sheet.actor .damage-resistances .resistance label {
+.crucible.sheet.actor .damage-resistances .resistances .total,
+.crucible.sheet.actor .damage-resistances .resistances input {
+  flex: 0 0 24px;
+  height: 24px;
+  line-height: 24px;
+}
+.crucible.sheet.actor .damage-resistances .resistances label {
   flex: 0 0 80px;
+  line-height: 24px;
   text-align: left;
+  margin-left: 4px;
+  font-size: 16px;
 }
 .crucible.sheet.actor .badge {
   text-align: left;
@@ -779,20 +832,17 @@ h4.divider span:nth-of-type(2) {
 .crucible.sheet.actor .badge.charisma {
   background-image: url("ui/badges/charisma-active.png");
 }
-.crucible.sheet.actor .badge.physical-defense {
-  background-image: url("ui/badges/physical-defense.png");
+.crucible.sheet.actor .badge.physical {
+  background-image: url("ui/badges/physical.png");
 }
-.crucible.sheet.actor .badge.saving-throws {
-  background-image: url("ui/badges/saving-throws.png");
+.crucible.sheet.actor .badge.fortitude {
+  background-image: url("ui/badges/fortitude.png");
 }
-.crucible.sheet.actor .badge.physical-resistance {
-  background-image: url("ui/badges/physical-resistance.png");
+.crucible.sheet.actor .badge.reflex {
+  background-image: url("ui/badges/reflex.png");
 }
-.crucible.sheet.actor .badge.elemental-resistance {
-  background-image: url("ui/badges/elemental-resistance.png");
-}
-.crucible.sheet.actor .badge.spiritual-resistance {
-  background-image: url("ui/badges/spiritual-resistance.png");
+.crucible.sheet.actor .badge.willpower {
+  background-image: url("ui/badges/willpower.png");
 }
 .crucible.sheet.actor .tab.skills {
   justify-content: flex-start;
@@ -940,14 +990,6 @@ h4.divider span:nth-of-type(2) {
 .crucible.actor .item-name h4 {
   flex: none;
   margin: 0;
-}
-.crucible.actor .item-name span.tag {
-  flex: none;
-  margin: 0 3px;
-  padding: 1px 2px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #b5b3a4;
-  border-radius: 4px;
 }
 .crucible.actor .item-controls {
   flex: 0 0 120px;

@@ -6,7 +6,8 @@
     <span></span>
 </h4>
 <div class="resource-values flexrow">
-    <input name="{{attr}}.value" type="text" value="{{lookup data 'value'}}" data-dtype="Number" placeholder="0"/>
+    <input type="number" name="{{attr}}.value" value="{{lookup data 'value'}}" placeholder="0"
+           {{#if @root.sectionLocks.resources}}disabled{{/if}}/>
     <span class="slash"></span>
     <span class="input resource-max">{{data.max}}</span>
     <div class="bar" style="background: {{data.color.bg}}">
@@ -22,21 +23,73 @@
         <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img" width="200" height="200"/>
 
         <section class="overview">
-            <div class="equipment">
-                <h3 class="section-header divider"><span></span><label>Equipment</label><span></span></h3>
-                <p>Equipped Weapons</p>
-                <p>Equipped Armor</p>
-                <p>Equipped Accessories</p>
+            <div class="equipped">
+                <h3 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h3>
+                <div class="equipment flexrow">
+                    <img src="{{actor.equipment.weapons.mainhand.img}}" height="24" width="24"/>
+                    <h4>{{actor.equipment.weapons.mainhand.name}}</h4>
+                    <span class="tag">{{mainhandTag}}</span>
+                </div>
+                <div class="equipment flexrow">
+                    <img src="{{actor.equipment.weapons.offhand.img}}" height="24" width="24"/>
+                    <h4>{{actor.equipment.weapons.offhand.name}}</h4>
+                    <span class="tag">{{offhandTag}}</span>
+                </div>
+                <div class="equipment flexrow">
+                    <img src="{{actor.equipment.armor.img}}" height="24" width="24"/>
+                    <h4>{{actor.equipment.armor.name}}</h4>
+                    <span class="tag">{{armorTag}}</span>
+                </div>
             </div>
 
             <div class="actions">
-                <h3 class="section-header divider"><span></span><label>Actions</label><span></span></h3>
-                <p>Active Talents Here</p>
+                <h3 class="section-header divider"><span></span><label>Talent Actions</label><span></span></h3>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Talent #1</h4>
+                    <span class="tag">3A</span>
+                    <span class="tag">6F</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Talent #2</h4>
+                    <span class="tag">2A</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Talent #3</h4>
+                    <span class="tag">1A</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Talent #4</h4>
+                    <span class="tag">1A</span>
+                    <span class="tag">3F</span>
+                </div>
             </div>
 
             <div class="effects">
                 <h3 class="section-header divider"><span></span><label>Active Effects</label><span></span></h3>
-                <p>Active Effect Grid</p>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Effect #1</h4>
+                    <span class="tag">2R</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Effect #2</h4>
+                    <span class="tag">1R</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Effect #3</h4>
+                    <span class="tag">3R</span>
+                </div>
+                <div class="talent flexrow">
+                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
+                    <h4>Effect #4</h4>
+                    <span class="tag">10M</span>
+                </div>
             </div>
         </section>
     </section>
@@ -55,7 +108,7 @@
                         <div class="bar"><div class="fill" style="width:{{systemData.advancement.pct}}%"></div></div>
                         <input type="number" name="data.advancement.progress" value="{{systemData.advancement.progress}}"/>
                         <span class="slash"></span>
-                        <span class="value highlight">{{systemData.advancement.next}}</span>
+                        <span class="input">{{systemData.advancement.next}}</span>
                     </div>
                     <h2 class="level">
                         <label>Level</label>
@@ -91,7 +144,12 @@
 
             {{!-- Character Resources --}}
             <section class="resources flexrow">
-                <h3 class="section-header divider"><span></span><label>Resources</label><span></span></h3>
+                <h3 class="section-header divider">
+                    <span></span><label>Resources</label><span></span>
+                    <a class="button section-lock" data-section="resources">
+                        <i class="fas {{#if sectionLocks.resources}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h3>
                 <div class="resource">
                     {{> resource label="Health" attr="data.attributes.health" data=systemData.attributes.health}}
                     {{> resource label="Wounds" attr="data.attributes.wounds" data=systemData.attributes.wounds}}
@@ -151,7 +209,7 @@
                             </a>
                         </div>
                         {{/unless}}
-                        <span class="value input">{{attr.value}}</span>
+                        <span class="input score">{{attr.value}}</span>
                     </li>
                 {{/each}}
                 </ol>
@@ -166,32 +224,32 @@
                 </h3>
                 <ol class="physical-defenses flexrow">
                     <li class="defense physical flexcol">
-                        <h4>Physical Defense</h4>
-                        <span class="input total">{{systemData.defenses.physical}}</span>
+                        <h4 class="badge physical">Physical Defense</h4>
+                        <span class="input score">{{systemData.defenses.physical}}</span>
                         <span class="subtitle">Total Defense</span>
                     </li>
-                    <li class="sep">=</li>
+                    <li class="math">=</li>
                     <li class="defense flexcol">
                         <h4>Armor</h4>
-                        <span class="input">{{systemData.defenses.armor.total}}</span>
+                        <span class="input score">{{systemData.defenses.armor.total}}</span>
                         <span class="subtitle">{{armorCategory}}</span>
                     </li>
-                    <li class="sep">+</li>
+                    <li class="math">+</li>
                     <li class="defense flexcol">
                         <h4>Dodge</h4>
-                        <span class="input">{{systemData.defenses.dodge.total}}</span>
+                        <span class="input score">{{systemData.defenses.dodge.total}}</span>
                         <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
                     </li>
-                    <li class="sep">+</li>
+                    <li class="math">+</li>
                     <li class="defense flexcol">
                         <h4>Parry</h4>
-                        <span class="input">{{systemData.defenses.parry.total}}</span>
+                        <span class="input score">{{systemData.defenses.parry.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </li>
-                    <li class="sep">+</li>
+                    <li class="math">+</li>
                     <li class="defense flexcol">
                         <h4>Block</h4>
-                        <span class="input">{{systemData.defenses.block.total}}</span>
+                        <span class="input score">{{systemData.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </li>
                 </ol>
@@ -202,27 +260,45 @@
                     <span></span>
                     <label>Other Defenses</label>
                     <span></span>
+                    <a class="button section-lock" data-section="saves">
+                        <i class="fas {{#if sectionLocks.saves}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
                 </h3>
-                <ol class="saves" data-resistance-type="saves">
-                    <li class="save flexrow" data-save="fortitude">
-                        <h4>Fortitude</h4>
-                        <span class="base">{{systemData.defenses.fortitude.base}} +</span>
-                        <input class="bonus" type="text" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" data-dtype="Number"/>
-                        <span class="total">{{systemData.defenses.fortitude.total}}</span>
-                    </li>
-                    <li class="save flexrow" data-save="reflex">
-                        <h4>Reflex</h4>
-                        <span class="base">{{systemData.defenses.reflex.base}} +</span>
-                        <input class="bonus" type="text" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" data-dtype="Number"/>
-                        <span class="total">{{systemData.defenses.reflex.total}}</span>
-                    </li>
-                    <li class="save flexrow" data-save="willpower">
-                        <h4>Willpower</h4>
-                        <span class="base">{{systemData.defenses.willpower.base}} +</span>
-                        <input class="bonus" type="text" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" data-dtype="Number"/>
-                        <span class="total">{{systemData.defenses.willpower.total}}</span>
-                    </li>
-                </ol>
+                <div class="saves" data-resistance-type="saves">
+                    <div class="save flexrow" data-save="fortitude">
+                        <h4 class="badge fortitude">Fortitude Save</h4>
+                        <span class="input score">{{systemData.defenses.fortitude.total}}</span>
+                        <span class="math"> = </span>
+                        <span class="input">{{systemData.defenses.fortitude.base}}</span>
+                        <label>Base (Str, Con)</label>
+                        <span class="math"> + </span>
+                        <input type="number" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}"
+                               {{#if sectionLocks.saves}}disabled{{/if}}/>
+                        <label>Save Bonus</label>
+                    </div>
+                    <div class="save flexrow" data-save="reflex">
+                        <h4 class="badge reflex">Reflex Save</h4>
+                        <span class="input score">{{systemData.defenses.reflex.total}}</span>
+                        <span class="math"> = </span>
+                        <span class="input">{{systemData.defenses.reflex.base}}</span>
+                        <label>Base (Dex, Int)</label>
+                        <span class="math"> + </span>
+                        <input type="number" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}"
+                               {{#if sectionLocks.saves}}disabled{{/if}}/>
+                        <label>Save Bonus</label>
+                    </div>
+                    <div class="save flexrow" data-save="willpower">
+                        <h4 class="badge willpower">Willpower Save</h4>
+                        <span class="input score">{{systemData.defenses.willpower.total}}</span>
+                        <span class="math"> = </span>
+                        <span class="input">{{systemData.defenses.willpower.base}}</span>
+                        <label>Base (Wis, Cha)</label>
+                        <span class="math"> + </span>
+                        <input type="number" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}"
+                               {{#if sectionLocks.saves}}disabled{{/if}}/>
+                        <label>Save Bonus</label>
+                    </div>
+                </div>
             </section>
 
             <section class="damage-resistances flexrow">
@@ -230,9 +306,12 @@
                     <span></span>
                     <label>Damage Resistances</label>
                     <span></span>
+                    <a class="button section-lock" data-section="resistances">
+                        <i class="fas {{#if sectionLocks.resistances}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
                 </h3>
                 {{#each resistances as |res cat|}}
-                <div class="category">
+                <div class="category {{cat}}">
                     <h4 class="category-name divider">
                         <span></span>
                         <label>{{res.label}}</label>
@@ -241,10 +320,12 @@
                     <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
                         {{#each res.resists as |r id|}}
                         <li class="resistance flexrow" data-resistance="{{id}}">
+                            <span class="input total">{{r.total}}</span>
                             <label>{{r.label}}</label>
                             <span class="base">{{r.base}}</span>
-                            <input class="bonus" type="text" name="data.resistances.{{id}}.bonus" value="{{r.bonus}}" data-dtype="Number"/>
-                            <span class="total">{{r.total}}</span>
+                            <span class="math">+</span>
+                            <input type="number" name="data.resistances.{{id}}.bonus" value="{{r.bonus}}"
+                               {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
                         </li>
                         {{/each}}
                     </ol>
