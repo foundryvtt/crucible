@@ -7,6 +7,12 @@ export default class CrucibleActor extends Actor {
     super(data, context)
 
     /**
+     * Track the Actions which this Actor has available to use
+     * @type {ActionData[]}
+     */
+    this.actions;
+
+    /**
      * Track the equipment that the Actor is currently using
      * @type {{
      *   armor: Item,
@@ -61,10 +67,11 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   prepareEmbeddedEntities() {
     super.prepareEmbeddedEntities();
     this._prepareEquipment();
+    this._prepareActions();
   };
 
   /* -------------------------------------------- */
@@ -74,6 +81,7 @@ export default class CrucibleActor extends Actor {
     this._prepareResources(this.data);
     this._prepareDefenses(this.data);
   }
+
 
   /* -------------------------------------------- */
 
@@ -209,6 +217,18 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare Actions which the Actor may actively use
+   * @private
+   */
+  _prepareActions() {
+    const talents = this.itemTypes.talent;
+    this.actions = talents.flatMap(t => t.actions).concat(game.system.talents.defaultActions);
+  }
+
+  /* -------------------------------------------- */
+
 
   /**
    * Prepare Skills for the actor, translating the owned Items for skills and merging them with unowned skills.
@@ -383,7 +403,7 @@ export default class CrucibleActor extends Actor {
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
 
     // Create the check roll
-    const sc = new StandardCheck({
+    const sc = new StandardCheck("", {
       actorId: this.id,
       type: skillId,
       banes: banes,

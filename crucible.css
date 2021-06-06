@@ -444,7 +444,8 @@ h2.divider span {
 .crucible.sheet.actor .score {
   flex: 0 0 var(--abilityHeight);
   width: var(--abilityHeight);
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   line-height: 30px;
   text-align: center;
 }
@@ -774,6 +775,9 @@ h2.divider span {
   flex: 0 0 24px;
   height: 24px;
   line-height: 24px;
+}
+.crucible.sheet.actor .damage-resistances .resistances .total {
+  font-weight: bold;
 }
 .crucible.sheet.actor .damage-resistances .resistances label {
   flex: 0 0 80px;

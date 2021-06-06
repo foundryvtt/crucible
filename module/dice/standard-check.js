@@ -16,9 +16,10 @@ import { StandardCheckDialog } from "./standard-check-dialog.js";
  * @param {number} enchantment  An enchantment bonus which modifies the roll, up to a maximum of 6
  */
 export default class StandardCheck extends Roll {
-  constructor(data, _unused) {
-    super(StandardCheck.FORMULA, data || _unused);
-    this.data.id = this.data.id || randomID(16);
+  constructor(...args) {
+    if ( typeof args[0] === "object" ) args.unshift(""); // Allow for formula to be omitted
+    super(...args);
+    this.data.id = this.data.id || foundry.utils.randomID(16);
   }
 
   /* -------------------------------------------- */
@@ -48,7 +49,7 @@ export default class StandardCheck extends Roll {
       enchantment: 0,
       skill: 0
     };
-    data = mergeObject(current, data);
+    data = foundry.utils.mergeObject(current, data);
 
     // Regulate and constrain data contents
     data.ability = Math.clamped(data.ability, 0, 12);
@@ -77,15 +78,6 @@ export default class StandardCheck extends Roll {
     }
     this.pool = pool;
     return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _identifyTerms(formula) {
-    let terms = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
-    if ( this.data.enchantment > 0 ) terms.push(this.data.enchantment);
-    return super._identifyTerms(terms.join(" + "));
   }
 
   /* -------------------------------------------- */
@@ -143,8 +135,15 @@ export default class StandardCheck extends Roll {
    * @param rollData
    */
   initialize(rollData) {
+
+    // Prepare new roll data
     this.data = this._prepareData(rollData);
-    this.terms = this._identifyTerms(this._formula);
+
+    // Re-prepare formula and terms
+    const terms = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
+    if ( this.data.enchantment > 0 ) terms.push(this.data.enchantment);
+    this._formula = terms.join(" + ");
+    this.terms = this.constructor.parse(this._formula);
   }
 
   /* -------------------------------------------- */
@@ -156,15 +155,6 @@ export default class StandardCheck extends Roll {
     const data = super.toJSON();
     data.data = this.data;
     return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  static fromData(data) {
-    data.formula = data.data;
-    const roll = super.fromData(data);
-    return roll;
   }
 
   /* -------------------------------------------- */

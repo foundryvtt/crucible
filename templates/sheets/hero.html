@@ -21,8 +21,9 @@
     {{!-- Left Sidebar --}}
     <section class="sheet-sidebar flexcol">
         <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img" width="200" height="200"/>
-
         <section class="overview">
+
+            {{!-- Current Equipment --}}
             <div class="equipped">
                 <h3 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h3>
                 <div class="equipment flexrow">
@@ -42,32 +43,21 @@
                 </div>
             </div>
 
+            {{!-- Talent Actions --}}
             <div class="actions">
                 <h3 class="section-header divider"><span></span><label>Talent Actions</label><span></span></h3>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Talent #1</h4>
-                    <span class="tag">3A</span>
-                    <span class="tag">6F</span>
+                {{#each actions}}
+                <div class="talent flexrow" data-action-id="{{this.id}}">
+                    <img src="{{this.img}}" height="24" width="24"/>
+                    <h4>{{this.name}}</h4>
+                    {{#each this.tags}}
+                    <span class="tag">{{this}}</span>
+                    {{/each}}
                 </div>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Talent #2</h4>
-                    <span class="tag">2A</span>
-                </div>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Talent #3</h4>
-                    <span class="tag">1A</span>
-                </div>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Talent #4</h4>
-                    <span class="tag">1A</span>
-                    <span class="tag">3F</span>
-                </div>
+                {{/each}}
             </div>
 
+            {{!-- Active Effects --}}
             <div class="effects">
                 <h3 class="section-header divider"><span></span><label>Active Effects</label><span></span></h3>
                 <div class="talent flexrow">

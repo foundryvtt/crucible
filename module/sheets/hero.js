@@ -22,7 +22,7 @@ export default class HeroSheet extends ActorSheet {
 
   /**
    * Lock sections of the character sheet to prevent them from being inadvertently edited
-   * @type {{abilities: boolean, resistances: boolean, defenses: boolean}}
+   * @type {{abilities: boolean, defenses: boolean, resistances: boolean, resources: boolean}}
    * @private
    */
   _sectionLocks = {
@@ -68,6 +68,11 @@ export default class HeroSheet extends ActorSheet {
 
     // Skills
     context.skillCategories = this._formatSkills(systemData.skills);
+
+    // Actions
+    context.actions = context.actor.actions.map(a => {
+      return {id: a.id, name: a.name, img: a.img, tags: a.getTags()}
+    });
 
     // Section locks
     this._updateSectionLocks();

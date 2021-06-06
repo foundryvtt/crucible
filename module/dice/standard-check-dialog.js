@@ -30,7 +30,7 @@ export class StandardCheckDialog extends FormApplication {
 
   /** @override */
   getData() {
-    const data = duplicate(this.object.data);
+    const data = foundry.utils.deepClone(this.object.data);
     const dc = this._getDifficulty(data.dc);
     const dice = this.object.pool.map(f => `d${f}`);
     return mergeObject(data, {

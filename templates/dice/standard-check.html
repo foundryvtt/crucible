@@ -39,7 +39,7 @@
                 <label data-action="boon">
                     <i class="fas fa-arrow-up"></i> Boons
                 </label>
-                <input type="text" name="boons" value="{{boons}}" data-dtype="Number"/>
+                <input type="number" name="boons" value="{{boons}}"/>
             </div>
 
             <div class="pool flexrow">
@@ -52,21 +52,21 @@
                 <label data-action="bane">
                     <i class="fas fa-arrow-down"></i> Banes
                 </label>
-                <input type="text" name="banes" value="{{banes}}" data-dtype="Number"/>
+                <input type="number" name="banes" value="{{banes}}"/>
             </div>
 
             <ol class="bonuses flexrow">
                 <li class="ability">
                     <label>Ability</label>
-                    <input type="text" name="ability" value="{{ability}}" data-dtype="Number"/>
+                    <input type="number" name="ability" value="{{ability}}"/>
                 </li>
                 <li class="skill">
                     <label>Skill</label>
-                    <input type="text" name="skill" value="{{skill}}" data-dtype="Number"/>
+                    <input type="number" name="skill" value="{{skill}}"/>
                 </li>
                 <li class="enchantment">
                     <label>Enchantment</label>
-                    <input type="text" name="enchantment" value="{{enchantment}}" data-dtype="Number"/>
+                    <input type="number" name="enchantment" value="{{enchantment}}"/>
                 </li>
             </ol>
             </div>
@@ -82,7 +82,7 @@
                 {{/each}}
                 {{/select}}
             </select>
-            <input class="dc" type="text" name="dc" value="{{dc}}" data-dtype="Number"/>
+            <input type="number" class="dc" name="dc" value="{{dc}}"/>
             <label class="difficulty">{{dcLabel}}</label>
 
             <select name="rollMode">

@@ -1,11 +1,22 @@
 import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
+import * as TALENT from "./talent.mjs";
 import * as WEAPON from "./weapon.js";
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
 export const SYSTEM_ID = "crucible";
 
-
+/**
+ * The primary attributes which are called abilities.
+ * @type {{
+ *   dexterity: {label: string, abbreviation: string},
+ *   constitution: {label: string, abbreviation: string},
+ *   intellect: {label: string, abbreviation: string},
+ *   strength: {label: string, abbreviation: string},
+ *   charisma: {label: string, abbreviation: string},
+ *   wisdom: {label: string, abbreviation: string}
+ * }}
+ */
 export const ABILITIES = {
   strength: {
     label: "Strength",
@@ -258,12 +269,13 @@ export const SYSTEM = {
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
   ENCHANTMENT_TIERS,
+  PASSIVE_BASE,
   QUALITY_TIERS,
   RESOURCES,
   SAVE_DEFENSES,
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,
-  PASSIVE_BASE,
+  TALENT,
   WEAPON,
 };

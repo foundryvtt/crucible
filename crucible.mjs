@@ -11,6 +11,7 @@ import {SYSTEM} from "./module/config/system.js";
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
+import ActionData from "./module/talents/action.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
@@ -38,6 +39,10 @@ Hooks.once("init", async function() {
 
   // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
+  game.system.talents = {
+    ActionData,
+    defaultActions: SYSTEM.TALENT.DEFAULT_ACTIONS.map(a => new ActionData(a))
+  }
   game.system.dice = { StandardCheck };
   game.system.journal = { buildJournalCompendium }
 

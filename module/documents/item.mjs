@@ -1,4 +1,5 @@
 import { SYSTEM } from "../config/system.js";
+import ActionData from "../talents/action.mjs";
 
 
 export default class CrucibleItem extends Item {
@@ -37,7 +38,7 @@ export default class CrucibleItem extends Item {
       case "skill":
         return this._prepareSkillData(data);
       case "talent":
-        return "foo";
+        return this._prepareTalentData(data);
       case "weapon":
         return this._prepareWeaponData(data);
     }
@@ -110,6 +111,17 @@ export default class CrucibleItem extends Item {
     });
     data.path = path;
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived data for Talent type Items
+   * @param {object} itemData   The base Item data
+   * @private
+   */
+  _prepareTalentData(itemData) {
+    this.actions = itemData.data.actions.map(a => new ActionData(a));
   }
 
   /* -------------------------------------------- */

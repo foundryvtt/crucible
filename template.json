@@ -270,7 +270,10 @@
       "skills": [],
       "talents": []
     },
-    "talent": {},
+    "talent": {
+      "actions": [],
+      "passives": []
+    },
     "weapon": {
       "templates": ["physical"],
       "damageType": "slashing"
