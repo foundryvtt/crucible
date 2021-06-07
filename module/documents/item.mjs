@@ -1,5 +1,6 @@
 import { SYSTEM } from "../config/system.js";
 import ActionData from "../talents/action.mjs";
+import AttackRoll from "../dice/attack-roll.mjs";
 
 
 export default class CrucibleItem extends Item {
@@ -209,24 +210,69 @@ export default class CrucibleItem extends Item {
   /*  Dice Rolls                                  */
   /* -------------------------------------------- */
 
-  roll({passive=false}={}) {
+  roll(options={}) {
     if ( !this.isOwned ) return false;
     switch ( this.data.type ) {
       case "skill":
-        this._rollSkillCheck({passive});
-        break;
+        return this._rollSkillCheck(options);
+      case "weapon":
+        return this._rollWeaponAttack(options);
     }
   }
 
   /* -------------------------------------------- */
 
-  _rollSkillCheck({passive=false}={}) {
+  async _rollSkillCheck({passive=false}={}) {
     const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
     const roll = new Roll(formula).roll();
     const skillName = this.data.data.path ? `${this.name} (${this.data.path.name})` : this.name;
-    return roll.toMessage({
+    await roll.toMessage({
       speaker: {actor: this.actor, user: game.user},
       flavor: passive ? `Passive ${skillName}` : `${skillName} Skill Check`
     });
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Activate a weapon attack action
+   * @param {object} [options={}]     Additional options that configure the resulting AttackRoll
+   * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
+   * @private
+   */
+  async _rollWeaponAttack({banes=0, boons=0, dc=20, rollMode=null}={}) {
+
+    // Determine Weapon Ability Scaling
+    const attrs = this.actor.data.data.attributes;
+    let ability = 0;
+    switch ( this.data.category.scaling ) {
+      case "str":
+        ability = attrs.strength.value;
+        break;
+      case "dex":
+        ability = attrs.dexterity.value;
+        break;
+      case "strdex":
+        ability = Math.ceil(0.5 * (attrs.strength.value + attrs.dex.value));
+        break;
+    }
+
+    // Create the Attack Roll instance
+    const roll = new AttackRoll("", {
+      actorId: this.parent.id,
+      itemId: this.id,
+      banes: banes,
+      boons: boons,
+      dc: dc,
+      ability: ability,
+      skill: 0,
+      enchantment: this.data.data.attackBonus
+    });
+    const flavor = `${this.parent.name} attacks with ${this.name}`;
+
+    // Create a chat message for the roll result
+    await roll.toMessage({flavor}, {rollMode} );
+    return roll;
   }
 }

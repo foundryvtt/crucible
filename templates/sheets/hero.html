@@ -31,11 +31,13 @@
                     <h4>{{actor.equipment.weapons.mainhand.name}}</h4>
                     <span class="tag">{{mainhandTag}}</span>
                 </div>
+                {{#if showOffhand}}
                 <div class="equipment flexrow">
                     <img src="{{actor.equipment.weapons.offhand.img}}" height="24" width="24"/>
                     <h4>{{actor.equipment.weapons.offhand.name}}</h4>
                     <span class="tag">{{offhandTag}}</span>
                 </div>
+                {{/if}}
                 <div class="equipment flexrow">
                     <img src="{{actor.equipment.armor.img}}" height="24" width="24"/>
                     <h4>{{actor.equipment.armor.name}}</h4>
@@ -47,9 +49,9 @@
             <div class="actions">
                 <h3 class="section-header divider"><span></span><label>Talent Actions</label><span></span></h3>
                 {{#each actions}}
-                <div class="talent flexrow" data-action-id="{{this.id}}">
+                <div class="action flexrow" data-action-id="{{this.id}}">
                     <img src="{{this.img}}" height="24" width="24"/>
-                    <h4>{{this.name}}</h4>
+                    <h4><a class="control" title="Use {{this.name}}" data-action="useAction">{{this.name}}</a></h4>
                     {{#each this.tags}}
                     <span class="tag">{{this}}</span>
                     {{/each}}
@@ -60,25 +62,15 @@
             {{!-- Active Effects --}}
             <div class="effects">
                 <h3 class="section-header divider"><span></span><label>Active Effects</label><span></span></h3>
-                <div class="talent flexrow">
+                <div class="effect flexrow">
                     <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
                     <h4>Effect #1</h4>
                     <span class="tag">2R</span>
                 </div>
-                <div class="talent flexrow">
+                <div class="effect flexrow">
                     <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
                     <h4>Effect #2</h4>
                     <span class="tag">1R</span>
-                </div>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Effect #3</h4>
-                    <span class="tag">3R</span>
-                </div>
-                <div class="talent flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Effect #4</h4>
-                    <span class="tag">10M</span>
                 </div>
             </div>
         </section>

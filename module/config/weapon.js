@@ -99,6 +99,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
+    ranged: true,
     scaling: "strdex",
     dice: 1,
     denomination: 2,
@@ -109,6 +110,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: true,
+    ranged: true,
     scaling: "dex",
     dice: 0,
     denomination: 4,
@@ -119,6 +121,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
+    ranged: true,
     scaling: "dex",
     dice: 1,
     denomination: 4,
@@ -165,6 +168,21 @@ export const PROPERTIES = {
   }
 }
 
+/**
+ * The valid ways that weapon damage can scale
+ * @type {object}
+ */
+export const SCALING_MODES = {
+  "str": {
+    label: "WEAPON.ScalingStr"
+  },
+  "strdex": {
+    label: "WEAPON.ScalingStrDex"
+  },
+  "dex": {
+    label: "WEAPON.ScalingDex"
+  }
+}
 
 /**
  * The configuration of the default unarmed Weapon.

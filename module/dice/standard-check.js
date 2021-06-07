@@ -7,7 +7,6 @@ import { StandardCheckDialog } from "./standard-check-dialog.js";
  *
  * @param {object} rollData     An object of roll data, containing the following optional fields
  * @param {string} actorId      The ID of the actor rolling the check
- * @param {string} type         The type of check being rolled
  * @param {number} dc           The target difficulty of the check
  * @param {number} boons        A number of advantageous boons, up to a maximum of 6
  * @param {number} banes        A number of disadvantageous banes, up to a maximum of 6
@@ -24,43 +23,107 @@ export default class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
-  dialog(options) {
-    return new StandardCheckDialog(this, options);
+  /**
+   * Define the default data attributes for this type of Roll
+   * @type {object}
+   */
+  static defaultData = {
+    actorId: null,
+    ability: 0,
+    banes: 0,
+    boons: 0,
+    circumstance: 0,
+    dc: 15,
+    enchantment: 0,
+    skill: 0
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Did this check result in a success?
+   * @returns {boolean}
+   */
+  get isSuccess() {
+    if ( !this._evaluated ) return undefined;
+    return this.total > this.data.dc;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare the data structure for the Standard Check
-   * @param {object} data
+   * Did this check result in a critical success?
+   * @returns {boolean}
+   */
+  get isCriticalSuccess() {
+    if ( !this._evaluated ) return undefined;
+    return this.total > (this.data.dc + 6);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Did this check result in a failure?
+   * @returns {boolean}
+   */
+  get isFailure() {
+    if ( !this._evaluated ) return undefined;
+    return this.total <= this.data.dc;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Did this check result in a critical failure?
+   * @returns {boolean}
+   */
+  get isCriticalFailure() {
+    if ( !this._evaluated ) return undefined;
+    return this.total <= (this.data.dc - 6);
+  }
+
+  /* -------------------------------------------- */
+
+  dialog(options) {
+    return new StandardCheckDialog(this, options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Roll Configuration                          */
+  /* -------------------------------------------- */
+
+  /** @override */
+  _prepareData(data={}) {
+    const defaults = this.constructor.defaultData;
+    data = foundry.utils.mergeObject(defaults, data);
+    this._configureData(data);
+    return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Configure the provided data used to customize this type of Roll
+   * @param {object} data     The initially provided data object
+   * @returns {object}        The configured data object
    * @private
    */
-  _prepareData(data={}) {
-
-    // Merge provided data with current or default
-    const current = this.data || {
-      actorId: null,
-      type: "generic",
-      ability: 0,
-      banes: 0,
-      boons: 0,
-      circumstance: 0,
-      dc: 15,
-      enchantment: 0,
-      skill: 0
-    };
-    data = foundry.utils.mergeObject(current, data);
-
-    // Regulate and constrain data contents
-    data.ability = Math.clamped(data.ability, 0, 12);
+  _configureData(data) {
     data.banes = Math.clamped(data.banes, 0, SYSTEM.dice.MAX_BOONS);
     data.boons = Math.clamped(data.boons, 0, SYSTEM.dice.MAX_BOONS);
-    data.circumstance = data.boons - data.banes;
     data.dc = Math.max(data.dc, 0);
-    data.enchantment = Math.clamped(data.enchantment, 0, 6);
+    data.ability = Math.clamped(data.ability, 0, 12);
     data.skill = Math.clamped(data.skill, -4, 12);
+    data.enchantment = Math.clamped(data.enchantment, 0, 6);
+    data.circumstance = data.boons - data.banes;
+  }
 
-    // Structure the dice pool
+  /* -------------------------------------------- */
+
+  /** @override */
+  static parse(_, data) {
+
+    // Configure the pool
     const pool = [8, 8, 8];
 
     // Apply boons from the left
@@ -76,31 +139,35 @@ export default class StandardCheck extends Roll {
       pool[d] = pool[d] - SYSTEM.dice.DIE_STEP;
       if (pool[d] === SYSTEM.dice.MIN_DIE) d--;
     }
-    this.pool = pool;
-    return data;
+
+    // Construct the formula
+    const terms = pool.map(p => `1d${p}`).concat([data.ability, data.skill]);
+    if ( data.enchantment > 0 ) terms.push(data.enchantment);
+    const formula = terms.join(" + ");
+    return super.parse(formula, data);
   }
 
   /* -------------------------------------------- */
 
   async render(chatOptions={}) {
     const isPrivate = chatOptions.isPrivate;
-    const total = this.total;
     const css = [SYSTEM.id, "standard-check"];
 
     // Determine outcome
     let outcome = "Unknown";
     if ( this.data.dc ) {
-      if (total >= this.data.dc) {
+      if ( this.isSuccess ) {
         outcome = "Success";
         css.push("success");
-        if (total > this.data.dc + 5) {
+        if ( this.isCriticalSuccess ) {
           css.push("critical");
           outcome = "Critical " + outcome;
         }
-      } else {
+      }
+      else {
         outcome = "Failure";
         css.push("failure");
-        if (total < this.data.dc - 5) {
+        if ( this.isCriticalFailure ) {
           css.push("critical");
           outcome = "Critical " + outcome;
         }
@@ -108,7 +175,7 @@ export default class StandardCheck extends Roll {
     }
 
     // Render chat card
-    const html = await renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
+    return renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
       cssClass: css.join(" "),
       data: this.data,
       dc: this.data.dc || "?",
@@ -125,7 +192,6 @@ export default class StandardCheck extends Roll {
       }),
       total: isPrivate ? "?" : this.total
     });
-    return html;
   }
 
   /* -------------------------------------------- */

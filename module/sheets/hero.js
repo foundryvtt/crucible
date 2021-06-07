@@ -29,7 +29,7 @@ export default class HeroSheet extends ActorSheet {
     abilities: true,
     saves: true,
     resistances: true,
-    resources: true
+    resources: false
   }
 
   /* -------------------------------------------- */
@@ -51,6 +51,7 @@ export default class HeroSheet extends ActorSheet {
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.data.data.category].label;
     context.armorTag = eqp.armor.getTags().defenses;
     context.mainhandTag = eqp.weapons.mainhand.data.data.damage;
+    context.showOffhand = !eqp.weapons.twoHanded;
     context.offhandTag = eqp.weapons.offhand.data.data.damage;
 
     // Leveling
@@ -70,8 +71,8 @@ export default class HeroSheet extends ActorSheet {
     context.skillCategories = this._formatSkills(systemData.skills);
 
     // Actions
-    context.actions = context.actor.actions.map(a => {
-      return {id: a.id, name: a.name, img: a.img, tags: a.getTags()}
+    context.actions = Object.values(context.actor.actions).map(a => {
+      return {id: a.id, name: a.name, img: a.img, tags: a.getActivationTags()}
     });
 
     // Section locks
@@ -300,6 +301,8 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, 1);
       case "skillRoll":
         return this.actor.rollSkill(a.closest(".skill").dataset.skill, {dialog: true});
+      case "useAction":
+        return this.actor.useAction(a.closest(".action").dataset.actionId);
     }
   }
 

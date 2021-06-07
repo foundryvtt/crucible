@@ -22,6 +22,7 @@ import WeaponSheet from "./module/sheets/weapon.js";
 
 // Apps
 import StandardCheck from "./module/dice/standard-check.js";
+import AttackRoll from "./module/dice/attack-roll.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
@@ -43,7 +44,7 @@ Hooks.once("init", async function() {
     ActionData,
     defaultActions: SYSTEM.TALENT.DEFAULT_ACTIONS.map(a => new ActionData(a))
   }
-  game.system.dice = { StandardCheck };
+  game.system.dice = { AttackRoll, StandardCheck };
   game.system.journal = { buildJournalCompendium }
 
   // Actor document configuration
@@ -60,7 +61,7 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Dice system configuration
-  CONFIG.Dice.rolls.push(StandardCheck);
+  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

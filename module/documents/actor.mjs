@@ -8,7 +8,7 @@ export default class CrucibleActor extends Actor {
 
     /**
      * Track the Actions which this Actor has available to use
-     * @type {ActionData[]}
+     * @type {Object<string, ActionData>}
      */
     this.actions;
 
@@ -164,16 +164,14 @@ export default class CrucibleActor extends Actor {
     equipment.armor = armors[0] || new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
 
     // Identify equipped weapons
-    let mh = false;
-    let oh = false;
-    equipment.weapons = {};
+    const weapons = equipment.weapons = {};
     for ( let w of weapon ) {
       if ( !w.data.data.equipped ) continue;
       const category = w.data.category;
 
       // Off-hand already in use
       if ( category.off ) {
-        if ( oh ) {
+        if ( weapons.offhand ) {
           let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "off-hand"});
           console.warn(warn);
           continue;
@@ -182,7 +180,7 @@ export default class CrucibleActor extends Actor {
 
       // Main-hand already in use
       else if ( category.main ) {
-        if ( mh ) {
+        if ( weapons.mainhand ) {
           let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "main-hand"});
           console.warn(warn);
           continue;
@@ -191,25 +189,31 @@ export default class CrucibleActor extends Actor {
 
       // Two-handed weapon
       if ( category.hands === 2 ) {
-        equipment.weapons.mainhand = w;
-        mh = true;
-        oh = true;
+        weapons.mainhand = w;
+        weapons.offhand = w;
       }
 
       // Off-hand weapon
-      else if ( category.off ) {
-        equipment.weapons.offhand = w;
-        oh = true;
-      }
+      else if ( category.off ) weapons.offhand = w;
 
       // Main-hand weapon
-      else if ( category.main ) {
-        equipment.weapons.mainhand = w;
-        mh = true;
-      }
+      else if ( category.main ) weapons.mainhand = w;
     }
-    if ( !mh ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
-    if ( !oh ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
+
+    // Populate default unarmed weaponry
+    if ( !weapons.mainhand ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
+    if ( !weapons.offhand ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
+
+    // Flag equipment states
+    const mh = weapons.mainhand;
+    const oh = weapons.offhand;
+    weapons.unarmed = !(mh.id || oh.id);
+    weapons.twoHanded = mh.data.category.hands === 2;
+    weapons.dualWield = (mh !== oh) && mh.id && oh.id;
+    weapons.ranged = !!mh.data.category.ranged;
+    weapons.dualMelee = weapons.dualWield && !(mh.data.category.ranged || oh.data.category.ranged);
+    weapons.melee = !mh.data.category.ranged;
+    weapons.dualRanged = !!mh.data.category.ranged && !!oh.data.category.ranged;
 
     // TODO: Accessories can be up to three equipped and attuned
     equipment.accessories = accessory;
@@ -224,7 +228,15 @@ export default class CrucibleActor extends Actor {
    */
   _prepareActions() {
     const talents = this.itemTypes.talent;
-    this.actions = talents.flatMap(t => t.actions).concat(game.system.talents.defaultActions);
+    this.actions = {};
+    for ( let t of talents ) {
+      for ( let a of t.actions ) {
+        this.actions[a.id] = a;
+      }
+    }
+    for ( let a of game.system.talents.defaultActions ) {
+      this.actions[a.id] = a;
+    }
   }
 
   /* -------------------------------------------- */
@@ -425,6 +437,75 @@ export default class CrucibleActor extends Actor {
       sc.toMessage({ flavor }, { rollMode });
     }
     return sc;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Use an available Action.
+   * @param {object} [options]    Options which configure action usage
+   * @returns {Promise<Roll[]>}
+   */
+  async useAction(actionId, {banes=0, boons=0, dc=null, rollMode=null, dialog=false}={}) {
+    const action = this.actions[actionId];
+    if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
+
+    // Determine whether the action can be used based on its tags
+    for ( let tag of action.tags ) {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( !at ) continue;
+      if ( (at.canActivate instanceof Function) && !at.canActivate(this, action) ) {
+        return ui.notifications.warn(`${this.name} cannot use action ${action.name} with tag ${at.label}.`);
+      }
+    }
+
+    // Determine whether the action can be activated
+    const attrs = this.data.data.attributes;
+    if ( action.actionCost > attrs.action.value ) {
+      return ui.notifications.warn(`${this.name} has insufficient Action Points to use ${action.name}.`);
+    }
+    if ( action.focusCost > attrs.focus.value ) {
+      return ui.notifications.warn(`${this.name} has insufficient Focus Points to use ${action.name}.`);
+    }
+
+    // Display that the action is being used
+    const html = await action.getHTML();
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({actor: this}),
+      content: html
+    });
+
+    // Activate the action
+    const promises = [];
+    for ( let tag of action.tags ) {
+      switch (tag) {
+        case "mainhand":
+        case "twoHanded":
+          promises.push(this.equipment.weapons.mainhand.roll());
+          break;
+        case "offhand":
+          promises.push(this.equipment.weapons.offhand.roll());
+          break;
+        default:
+          console.warn(`No tags defined which determine how to use Action ${actionId}`);
+      }
+    }
+
+    // Perform post-roll callbacks
+    const rolls = await Promise.all(promises);
+    for ( let tag of action.tags ) {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( at.postActivate instanceof Function ) {
+        await at.postActivate(this, action, rolls);
+      }
+    }
+
+    // Incur the cost of the action that was performed
+    await this.update({
+      "data.attributes.action.value": this.data.data.attributes.action.value - action.actionCost,
+      "data.attributes.focus.value": this.data.data.attributes.focus.value - action.focusCost
+    });
+    return rolls;
   }
 
   /* -------------------------------------------- */

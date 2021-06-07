@@ -78,6 +78,15 @@
 .crucible p {
   margin: 0.25em 0;
 }
+.crucible span.tag {
+  flex: none;
+  margin: 0 1px;
+  padding: 1px 2px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #b5b3a4;
+  border-radius: 4px;
+}
 h1.divider,
 h2.divider,
 h3.divider,
@@ -449,27 +458,19 @@ h2.divider span {
   line-height: 30px;
   text-align: center;
 }
-.crucible.sheet.actor span.tag {
-  flex: none;
-  margin: 0 3px;
-  padding: 1px 2px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #b5b3a4;
-  border-radius: 4px;
-}
 .crucible.sheet.actor .overview {
   margin-top: var(--marginSize);
   padding-right: var(--marginSize);
   border-right: 1px solid #b5b3a4;
 }
 .crucible.sheet.actor .equipment,
-.crucible.sheet.actor .talent,
+.crucible.sheet.actor .action,
 .crucible.sheet.actor .effect {
   align-items: center;
   margin-bottom: 4px;
 }
 .crucible.sheet.actor .equipment img,
-.crucible.sheet.actor .talent img,
+.crucible.sheet.actor .action img,
 .crucible.sheet.actor .effect img {
   flex: 0 0 24px;
   height: 24px;
@@ -477,16 +478,15 @@ h2.divider span {
   border-radius: 4px;
 }
 .crucible.sheet.actor .equipment h4,
-.crucible.sheet.actor .talent h4,
+.crucible.sheet.actor .action h4,
 .crucible.sheet.actor .effect h4 {
   line-height: 24px;
   margin: 0 0 0 4px;
 }
 .crucible.sheet.actor .equipment .tag,
-.crucible.sheet.actor .talent .tag,
+.crucible.sheet.actor .action .tag,
 .crucible.sheet.actor .effect .tag {
   flex: none;
-  margin: 0 1px;
 }
 .crucible.sheet.actor .title {
   margin: 0;
@@ -1169,6 +1169,31 @@ h2.divider span {
 .crucible.sheet .form-group.skills label input {
   width: 16px;
   margin: 0;
+}
+.crucible.action .chat-icon {
+  flex: 0 0 32px;
+}
+.crucible.action .action-header {
+  border-bottom: 1px solid #b5b3a4;
+  align-items: center;
+}
+.crucible.action .action-name {
+  margin: 0 0 0 8px;
+}
+.crucible.action .activation-tags {
+  text-align: right;
+  margin: 0;
+}
+.crucible.action .action-description {
+  margin: 4px 0;
+  font-size: 12px;
+  line-height: 16px;
+}
+.crucible.action .action-tags {
+  margin: 0;
+  text-align: right;
+  padding-top: 4px;
+  border-top: 1px solid #b5b3a4;
 }
 #chat-log .message .flavor-text {
   font-size: 16px;
