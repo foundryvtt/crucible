@@ -18,6 +18,7 @@ import HeroSheet from "./module/sheets/hero.js";
 import AncestrySheet from "./module/sheets/ancestry.js";
 import ArmorSheet from "./module/sheets/armor.js";
 import BackgroundSheet from "./module/sheets/background.js";
+import TalentSheet from "./module/sheets/talent.mjs";
 import WeaponSheet from "./module/sheets/weapon.js";
 
 // Apps
@@ -58,6 +59,7 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Dice system configuration

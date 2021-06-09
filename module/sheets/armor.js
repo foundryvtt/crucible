@@ -31,6 +31,11 @@ export default class ArmorSheet extends ItemSheet {
   getData() {
     const context = super.getData();
     const systemData = context.systemData = context.data.data;
+
+    // Tags
+    context.tags = this.item.getTags();
+
+    // Categories
     context.categories = Object.entries(SYSTEM.ARMOR.CATEGORIES).map(e => {
       const [id, cat] = e;
       return { id, label: cat.label }

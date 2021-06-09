@@ -83,6 +83,10 @@ export const ACTION_TAGS = {
 /* -------------------------------------------- */
 
 
+/**
+ * The default actions that every character can perform regardless of their attributes or talents.
+ * @type {object}
+ */
 export const DEFAULT_ACTIONS = [
   {
     id: "move",
@@ -111,47 +115,5 @@ export const DEFAULT_ACTIONS = [
     affectAllies: false,
     affectEnemies: true,
     tags: ["mainhand"]
-  },
-  {
-    id: "cleave",
-    name: "Cleave",
-    img: "icons/skills/melee/strike-sword-slashing-red.webp",
-    description: "You swing your two-handed weapon in a wide arc, hitting all enemies in front of you.",
-    targetType: "cone",
-    targetNumber: 1,
-    targetDistance: 1,
-    actionCost: 2,
-    focusCost: 0,
-    affectAllies: false,
-    affectEnemies: true,
-    tags: ["twoHanded", "melee"]
-  },
-  {
-    id: "flurry",
-    name: "Flurry",
-    img: "icons/skills/melee/blade-tips-triple steel.webp",
-    description: "You unleash a rapid set of strikes using both weapons against a single target.",
-    targetType: "single",
-    targetNumber: 1,
-    targetDistance: 1,
-    actionCost: 2,
-    focusCost: 0,
-    affectAllies: false,
-    affectEnemies: true,
-    tags: ["mainhand", "offhand", "attackChain"]
-  },
-  {
-    id: "dirty-tricks",
-    name: "Dirty Tricks",
-    img: "icons/magic/earth/projectile-boulder-dust.webp",
-    description: "You hurl dirt and dust in the air in a circle around you, momentarily blinding nearby creatures.",
-    targetType: "pulse",
-    targetNumber: 1,
-    targetDistance: 1,
-    actionCost: 1,
-    focusCost: 1,
-    affectAllies: true,
-    affectEnemies: true,
-    tags: ["mainhand"]
-  },
+  }
 ];

@@ -46,6 +46,10 @@ export default class ActionData extends foundry.abstract.DocumentData {
     return tags;
   }
 
+  getAllTags() {
+    return this.getActionTags().concat(this.getActivationTags());
+  }
+
   async getHTML(actor) {
     const data = this.toObject();
     data.activationTags = this.getActivationTags();

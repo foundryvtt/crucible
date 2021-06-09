@@ -1,0 +1,39 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
+        <h1 class="title">
+            <input name="name" type="text" value="{{data.name}}" placeholder="Talent Name"/>
+        </h1>
+        <div class="header-tags">
+            <label>Requirements:</label>
+            {{#each tags as |tag|}}
+            <span>{{tag}}</span>
+            {{/each}}
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="form-group stacked">
+            <p class="description">{{{data.data.description}}}</p>
+        </div>
+
+        <div class="form-group stacked">
+            <h3 class="divider">
+                <span></span><label>Actions</label><span></span>
+            </h3>
+            {{#each document.actions as |action|}}
+            <div class="action flexrow" data-action-id="{{this.id}}">
+                <img src="{{action.img}}" height="24" width="24"/>
+                <h4 class="action-name">{{action.name}}</h4>
+                {{#each action.getAllTags}}
+                <span class="tag">{{this}}</span>
+                {{/each}}
+                <div class="description">{{{action.description}}}</div>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+</form>

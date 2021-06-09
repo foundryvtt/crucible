@@ -123,6 +123,15 @@ export default class CrucibleItem extends Item {
    */
   _prepareTalentData(itemData) {
     this.actions = itemData.data.actions.map(a => new ActionData(a));
+    const reqs = foundry.utils.flattenObject(itemData.data.requirements);
+    this.requirements = Object.entries(reqs).reduce((obj, r) => {
+      const [k, v] = r;
+      obj[k] = {value: v};
+      if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+      else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
+      else obj[k].label = k;
+      return obj;
+    }, {});
   }
 
   /* -------------------------------------------- */
@@ -188,19 +197,34 @@ export default class CrucibleItem extends Item {
     const d = this.data.data;
     switch ( this.data.type ) {
       case "armor":
-        const defenses = this.actor.getDefenses({armor: this});
-        return {
-          category: SYSTEM.ARMOR.CATEGORIES[this.data.data.category].label,
-          defenses: `${defenses.armor.total + defenses.dodge.total} PD`,
-          weight: `${(d.quantity ?? 0) * (d.weight ?? 0)} lbs.`
+        const defenses = this.parent ? this.actor.getDefenses({armor: this}) : {
+          armor: {total: d.armor.base},
+          dodge: {total: d.dodge.base}
         };
+        const armorTags = {
+          category: SYSTEM.ARMOR.CATEGORIES[this.data.data.category].label,
+          defenses: `${defenses.armor.total + defenses.dodge.total} PD`
+        };
+        for ( let p of d.properties ) {
+          armorTags[p] = SYSTEM.ARMOR.PROPERTIES[p].label;
+        }
+        return armorTags;
+      case "talent":
+        const talentTags = {cost: `${d.cost} ${d.cost > 1 ? "Points" : "Point"}`};
+        for ( let [k, v] of Object.entries(this.requirements) ) {
+          talentTags[k] = `${v.label} ${v.value}`;
+        }
+        return talentTags;
       case "weapon":
-        return {
+        const weaponTags = {
           category: SYSTEM.WEAPON.CATEGORIES[this.data.data.category].label,
           damage: d.damage,
-          attackBonus: d.attackBonus,
-          weight: `${(d.quantity ?? 0) * (d.weight ?? 0)} lbs.`
+          attackBonus: d.attackBonus
         };
+        for ( let p of d.properties ) {
+          weaponTags[p] = SYSTEM.WEAPON.PROPERTIES[p].label;
+        }
+        return weaponTags;
       default:
         return {};
     }

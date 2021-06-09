@@ -63,6 +63,9 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Skills
     this._prepareSkills(data);
+
+    // Prepare Talents
+    this._prepareTalents(data);
   }
 
   /* -------------------------------------------- */
@@ -82,7 +85,6 @@ export default class CrucibleActor extends Actor {
     this._prepareDefenses(this.data);
   }
 
-
   /* -------------------------------------------- */
 
   /**
@@ -95,11 +97,11 @@ export default class CrucibleActor extends Actor {
     adv.level = Math.clamped(adv.level, 0, 24);
     const effectiveLevel = Math.max(adv.level, 1) - 1;
 
-    // Compute spendable points
+    // Initialize spendable points
     this.points = {
       ability: { pool: 36, total: effectiveLevel, bought: null, spent: null, available: null },
       skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
-      talent: { total: 3 + (effectiveLevel*3), spent: null, available: null }
+      talent: { total: 3 + (effectiveLevel*3), spent: 0, available: null }
     };
 
     // Compute required advancement
@@ -229,13 +231,17 @@ export default class CrucibleActor extends Actor {
   _prepareActions() {
     const talents = this.itemTypes.talent;
     this.actions = {};
+
+    // Default actions that every character can do
+    for ( let a of game.system.talents.defaultActions ) {
+      this.actions[a.id] = a;
+    }
+
+    // Actions that are unlocked through an owned Talent
     for ( let t of talents ) {
       for ( let a of t.actions ) {
         this.actions[a.id] = a;
       }
-    }
-    for ( let a of game.system.talents.defaultActions ) {
-      this.actions[a.id] = a;
     }
   }
 
@@ -285,6 +291,23 @@ export default class CrucibleActor extends Actor {
     const points = this.points;
     points.skill.spent = pointsSpent;
     points.skill.available = points.skill.total - points.skill.spent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare owned Talent items that the Actor has unlocked
+   * @private
+   */
+  _prepareTalents(data) {
+    const points = this.points.talent;
+    for ( let item of this.itemTypes.talent ) {
+      points.spent += item.data.data.cost ?? 0;
+    }
+    points.available = points.total - points.spent;
+    if ( points.available < 0) {
+      ui.notifications.warning(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
+    }
   }
 
   /* -------------------------------------------- */
@@ -510,6 +533,54 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
   /*  Character Creation Methods                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Handle requests to add a new Talent to the Actor.
+   * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
+   * @param {object} itemData     Talent data requested to be added to the Actor
+   * @returns {Promise<Item>}     The created talent Item
+   */
+  async addTalent(itemData) {
+    const Item = getDocumentClass("Item");
+    const talent = new Item(itemData, {parent: this});
+
+    // Ensure the Talent is not already owned
+    if ( this.items.find(i => (i.data.type === "talent") && (i.name === talent.name)) ) {
+      const err = game.i18n.format("TALENT.AlreadyOwned", {name: talent.name});
+      ui.notifications.warn(err);
+      throw new Error(err);
+    }
+
+    // Confirm that the Actor meets the requirements to add the Talent
+    for ( let [k, v] of Object.entries(talent.requirements) ) {
+      const current = foundry.utils.getProperty(this.data.data, k);
+      if ( current < v.value ) {
+        const err = game.i18n.format("TALENT.MissingRequirement", {
+          name: talent.name,
+          requirement: v.label,
+          requires: v.value
+        });
+        ui.notifications.warn(err);
+        throw new Error(err);
+      }
+    }
+
+    // Confirm that the Actor has sufficient Talent points
+    const points = this.points.talent;
+    if ( points.available < talent.data.cost ) {
+      const err = game.i18n.format("TALENT.CannotAfford", {
+        name: talent.name,
+        cost: talent.data.cost
+      });
+      ui.notifications.warn(err);
+      throw new Error(err);
+    }
+
+    // Create the talent
+    return Item.create(itemData, {parent: this});
+  }
+
   /* -------------------------------------------- */
 
   /**

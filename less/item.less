@@ -4,16 +4,6 @@
   --headerHeight: 80px;
   --titleHeight: 40px;
 
-  .header-tags {
-    margin: 8px 0;
-    span {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid @colorBeige;
-      border-radius: 3px;
-      padding: 1px 3px;
-    }
-  }
-
   .form-group.stacked > label {
     text-decoration: underline;
   }
@@ -33,9 +23,38 @@
     flex: 0 0 50%;
     margin: 0 0 3px;
     padding: 0 6px;
+
     > input {
       flex: 0 0 64px;
       text-align: center;
+    }
+  }
+}
+
+.crucible.talent {
+  .action {
+    align-items: center;
+    border-bottom: 1px solid @colorBeige;
+    margin-bottom: 4px;
+    &:last-child {
+      border-bottom: none;
+    }
+    img {
+      flex: 0 0 24px;
+      height: 24px;
+      border: 1px solid @colorDark;
+      border-radius: 4px;
+    }
+    h4 {
+      line-height: 24px;
+      margin: 0 0 0 4px;
+    }
+    .tag {
+      flex: none;
+    }
+    .description {
+      padding: 0.25rem 0;
+      flex: 0 0 100%;
     }
   }
 }

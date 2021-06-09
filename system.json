@@ -2,7 +2,7 @@
   "name": "crucible",
   "title": "Crucible (WIP)",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Atropos",
   "scripts": ["scripts/showdown.min.js"],
   "esmodules": ["crucible.mjs"],
@@ -23,6 +23,13 @@
       "entity": "Item"
     },
     {
+      "name": "background",
+      "label": "Backgrounds",
+      "system": "crucible",
+      "path": "packs/background.db",
+      "entity": "Item"
+    },
+    {
       "name": "weapon",
       "label": "Weapons",
       "system": "crucible",
@@ -30,10 +37,10 @@
       "entity": "Item"
     },
     {
-      "name": "background",
-      "label": "Backgrounds",
+      "name": "talent",
+      "label": "Talents",
       "system": "crucible",
-      "path": "packs/background.db",
+      "path": "packs/talent.db",
       "entity": "Item"
     },
     {

@@ -3,15 +3,14 @@
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
         <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
-        <div class="header-content flexcol">
-            <h1 class="title">
-                <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
-            </h1>
-            <div class="header-tags">
-                {{#each headerTags as |tag|}}
-                <span>{{tag}}</span>
-                {{/each}}
-            </div>
+        <h1 class="title">
+            <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
+        </h1>
+        <div class="header-tags">
+            <label>Tags:</label>
+            {{#each tags as |tag|}}
+            <span>{{tag}}</span>
+            {{/each}}
         </div>
     </header>
 

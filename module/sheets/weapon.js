@@ -38,23 +38,15 @@ export default class Weapon extends ItemSheet {
     context.qualities = SYSTEM.QUALITY_TIERS;
     context.enchantments = SYSTEM.ENCHANTMENT_TIERS;
 
-    // Weapon Header Tags
-    const headerTags = [
-      context.systemData.damage,
-      SYSTEM.DAMAGE_TYPES[context.systemData.damageType].label,
-      context.systemData.attackBonus ? `${context.systemData.attackBonus.signedString()} Bonus` : "",
-      context.systemData.apCost ? `${context.systemData.apCost.signedString()} Action Cost` : "",
-      context.systemData.rarity ? `Rarity ${context.systemData.rarity}` : ""
-    ];
+    // Weapon Tags
+    context.tags = this.item.getTags();
 
     // Weapon Properties
     context.properties = {};
     for ( let [id, prop] of Object.entries(SYSTEM.WEAPON.PROPERTIES) ) {
       const checked = context.systemData.properties.includes(id);
-      if ( checked ) headerTags.push(prop.label);
       context.properties[id] = {label: prop.label, checked};
     }
-    context.headerTags = headerTags.filter(t => !!t);
     return context;
   }
 

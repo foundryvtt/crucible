@@ -10,10 +10,6 @@
     align-items: flex-start;
     border-bottom: 1px solid @colorBeige;
 
-    .header-content {
-      flex: 1;
-    }
-
     .title {
       flex: 3;
       height: var(--titleHeight);
@@ -21,6 +17,21 @@
       border: none;
       input {
         margin: 0;
+      }
+    }
+
+    .header-tags {
+      flex: 0 0 100%;
+      margin: 8px 0;
+      label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      span {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid @colorBeige;
+        border-radius: 3px;
+        padding: 1px 3px;
       }
     }
   }
@@ -95,17 +106,5 @@
       z-index: 999;
     }
     &:hover > .tooltip { display: block; }
-  }
-
-  /* Form Group Labels */
-  .form-group label {
-    font-size: 16px;
-    font-family: @caslon;
-  }
-
-  label.checkbox {
-    font-size: 11px;
-    font-family: "Signika", sans-serif;
-    font-weight: normal;
   }
 }

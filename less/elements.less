@@ -57,7 +57,7 @@ h4.divider {
   span {
     flex: 1;
     position: relative;
-    top: 10px;
+    top: 12px;
     pointer-events: none;
     -moz-background-size: 100% 1px;
     background-size: 100% 1px;
@@ -139,6 +139,8 @@ h2.divider span {
     margin: 0;
     line-height: 20px;
     font-size: 11px;
+    font-family: "Signika", sans-serif;
+    font-weight: normal;
     text-align: right;
     input[type="checkbox"] {
       height: auto;
@@ -149,9 +151,11 @@ h2.divider span {
 
   /* Form Groups */
   .form-group {
-    label {
+    > label {
       flex: 2;
       color: @colorOlive;
+      font-size: 16px;
+      font-family: @caslon;
       font-weight: bold;
     }
     .form-fields {

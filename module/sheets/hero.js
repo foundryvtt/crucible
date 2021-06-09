@@ -70,6 +70,9 @@ export default class HeroSheet extends ActorSheet {
     // Skills
     context.skillCategories = this._formatSkills(systemData.skills);
 
+    // Talents
+    context.talents = this.actor.itemTypes.talent.sort((a, b) => a.name.localeCompare(b.name));
+
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
       return {id: a.id, name: a.name, img: a.img, tags: a.getActivationTags()}
@@ -93,7 +96,7 @@ export default class HeroSheet extends ActorSheet {
     const points = this.actor.points.ability;
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
-      const attr = mergeObject(attributes[a], ability, {inplace: true});
+      const attr = foundry.utils.mergeObject(attributes[a], ability);
       attr.id = a;
       attr.canIncrease = (attr.value < 12) && (this.actor.isL0 ? (points.pool > 0) : (points.available > 0));
       attr.canDecrease = this.actor.isL0 ? (attr.value > attr.initial) : (attr.value > attr.initial + attr.base)
@@ -329,6 +332,8 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.applyAncestry(itemData);
       case "background":
         return this.actor.applyBackground(itemData);
+      case "talent":
+        return this.actor.addTalent(itemData);
     }
     return super._onDropItemCreate(itemData);
   }
