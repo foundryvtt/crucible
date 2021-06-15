@@ -128,6 +128,7 @@ export default class CrucibleItem extends Item {
       const [k, v] = r;
       obj[k] = {value: v};
       if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+      else if ( k === "advancement.level" ) obj[k].label = "Level"
       else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
       else obj[k].label = k;
       return obj;

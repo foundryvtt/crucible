@@ -117,3 +117,32 @@ export const DEFAULT_ACTIONS = [
     tags: ["mainhand"]
   }
 ];
+
+
+
+async function createTalent() {
+  await Item.create({
+    "name": "Impenetrable Advance",
+    "img": "icons/environment/people/infantry-armored.webp",
+    "type": "talent",
+    "folder": game.folders.getName("Armor Talents").id,
+    "data.tier": 1,
+    "data.cost": 1,
+    "data.description": "You gain +1 Resistance to Bludgeoning, Piercing, and Slashing while you have Heavy Armor equipped.",
+    // "data.actions": [{
+    //   id: "move",
+    //   name: "Move",
+    //   img: "icons/skills/movement/arrow-upward-yellow.webp",
+    //   description: "You move at normal speed up to 10 feet in any direction.",
+    //   targetType: "self",
+    //   targetNumber: 1,
+    //   targetDistance: 2,
+    //   actionCost: 1,
+    //   focusCost: 0,
+    //   affectAllies: false,
+    //   affectEnemies: false,
+    //   tags: ["movement"]
+    // }],
+    "data.requirements": {"advancement.level": 1, "attributes.strength.value": 4}
+  });
+}

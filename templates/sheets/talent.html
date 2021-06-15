@@ -20,6 +20,7 @@
             <p class="description">{{{data.data.description}}}</p>
         </div>
 
+        {{#if hasActions}}
         <div class="form-group stacked">
             <h3 class="divider">
                 <span></span><label>Actions</label><span></span>
@@ -35,5 +36,6 @@
             </div>
             {{/each}}
         </div>
+        {{/if}}
     </section>
 </form>

@@ -160,7 +160,7 @@ export default class CrucibleActor extends Actor {
     // Identify equipped armor
     let armors = armor.filter(i => i.data.data.equipped);
     if ( armors.length > 1 ) {
-      ui.notifications.warning(`Actor ${this.name} has more than one equipped armor.`);
+      ui.notifications.warn(`Actor ${this.name} has more than one equipped armor.`);
       armors = armors[0];
     }
     equipment.armor = armors[0] || new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
@@ -306,7 +306,7 @@ export default class CrucibleActor extends Actor {
     }
     points.available = points.total - points.spent;
     if ( points.available < 0) {
-      ui.notifications.warning(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
+      ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
     }
   }
 
@@ -392,7 +392,7 @@ export default class CrucibleActor extends Actor {
 
     // Health
     const healthMod = ((2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value) / 4;
-    attrs.health.max = (8 * lvl) + Math.round(healthMod * lvl);
+    attrs.health.max = (12 * lvl) + Math.round(healthMod * lvl);
     attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
 
     // Wounds
@@ -401,7 +401,7 @@ export default class CrucibleActor extends Actor {
 
     // Morale
     const moraleMod = ((2 * attrs.charisma.value) + attrs.intellect.value + attrs.wisdom.value) / 4;
-    attrs.morale.max = (8 * lvl) + Math.round(moraleMod * lvl);
+    attrs.morale.max = (12 * lvl) + Math.round(moraleMod * lvl);
     attrs.morale.value = Math.clamped(attrs.morale.value, 0, attrs.morale.max);
 
     // Madness
@@ -778,3 +778,4 @@ export default class CrucibleActor extends Actor {
     return this.updateEmbeddedDocuments("Item", updates);
   }
 }
+

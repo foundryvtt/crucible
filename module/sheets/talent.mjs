@@ -31,6 +31,7 @@ export default class TalentSheet extends ItemSheet {
   /** @inheritdoc */
   getData(options={}) {
     const context = super.getData(options);
+    context.hasActions = this.item.actions.length;
     context.tags = this.item.getTags();
     return context;
   }
@@ -43,16 +44,3 @@ export default class TalentSheet extends ItemSheet {
     return this.object.update(formData);
   }
 }
-
-// Talent Creation
-// await Item.create({
-//   "name": "Flurry",
-//   "img": "icons/skills/melee/blade-tips-triple steel.webp",
-//   "type": "talent",
-//   "folder": game.folders.getName("Talents").id,
-//   "data.tier": 1,
-//   "data.cost": 3,
-//   "data.description": "A martial technique which involves using two weapons to overwhelm a single target with a relentless sequence of attacks",
-//   "data.actions": [CONFIG.SYSTEM.TALENT.DEFAULT_ACTIONS[3]],
-//   "data.requirements": {"attributes.dexterity.value": 5}
-// });

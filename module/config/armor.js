@@ -52,6 +52,7 @@ export const PROPERTIES = {
 
 export const UNARMORED_DATA = {
   name: "Unarmored",
+  img: "icons/equipment/chest/shirt-simple-white.webp",
   type: "armor",
   data: {
     category: "unarmored",
