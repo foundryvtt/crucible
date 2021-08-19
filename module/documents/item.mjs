@@ -266,7 +266,7 @@ export default class CrucibleItem extends Item {
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    * @private
    */
-  async _rollWeaponAttack({banes=0, boons=0, dc=20, rollMode=null}={}) {
+  async _rollWeaponAttack({banes=0, boons=0, dc, rollMode}={}) {
 
     // Determine Weapon Ability Scaling
     const attrs = this.actor.data.data.attributes;
@@ -284,7 +284,7 @@ export default class CrucibleItem extends Item {
     }
 
     // Create the Attack Roll instance
-    const roll = new AttackRoll("", {
+    const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
       banes: banes,

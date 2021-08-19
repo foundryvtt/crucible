@@ -105,8 +105,8 @@
   "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "SKILL.RollFlavor": "{name} rolls a {skill} check",
   "SKILL.RollTitle": "[{name}] {skill} Skill Check",
-  "SKILL.TooltipCheck": "Roll Bonus = [0.5 * ({a1} + {a2})] + Skill Bonus + Enchantment Bonus",
-  "SKILL.TooltipPassive": "Passive Bonus = 12 + Roll Bonus",
+  "SKILL.TooltipCheck": "Score = [0.5 * ({a1} + {a2})] + Bonus + Enchantment",
+  "SKILL.TooltipPassive": "Passive = 12 + Score",
 
   "SKILLS.Acrobatics": "Acrobatics",
   "SKILLS.AcrobaticsInfo": "Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.",

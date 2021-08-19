@@ -11,7 +11,7 @@ export default class HeroSheet extends ActorSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 760,
-      height: 840,
+      height: 800,
       classes: [SYSTEM.id, "sheet", "actor"],
       template: `systems/${SYSTEM.id}/templates/sheets/hero.html`,
       resizable: false,
@@ -200,10 +200,10 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _formatSkills(skills) {
-    const categories = duplicate(SYSTEM.SKILL_CATEGORIES);
-    return Object.entries(duplicate(skills)).reduce((categories, e) => {
+    const categories = foundry.utils.deepClone(SYSTEM.SKILL_CATEGORIES);
+    return Object.entries(skills).reduce((categories, e) => {
       let [id, c] = e;
-      const skill = mergeObject(c, SYSTEM.SKILLS[id]);
+      const skill = mergeObject(c, SYSTEM.SKILLS[id], {inplace: false});
       const cat = categories[skill.category];
       if ( !cat ) return categories;
 

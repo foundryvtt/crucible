@@ -92,6 +92,8 @@ Hooks.once("ready", function() {
     }
     Object.freeze(c);
   }
+
+  // TODO: Make this cleaner
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
 });
 

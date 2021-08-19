@@ -478,7 +478,7 @@ export default class CrucibleActor extends Actor {
       const at = SYSTEM.TALENT.ACTION_TAGS[tag];
       if ( !at ) continue;
       if ( (at.canActivate instanceof Function) && !at.canActivate(this, action) ) {
-        return ui.notifications.warn(`${this.name} cannot use action ${action.name} with tag ${at.label}.`);
+        return ui.notifications.warn(`${this.name} cannot use action ${action.name} which requires tag ${at.label}.`);
       }
     }
 

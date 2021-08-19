@@ -94,8 +94,10 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   _prepareData(data={}) {
-    const defaults = this.constructor.defaultData;
-    data = foundry.utils.mergeObject(defaults, data);
+    for ( let [k, v] of Object.entries(data) ) {
+      if ( v === undefined ) delete data[k];
+    }
+    data = Object.assign({}, this.constructor.defaultData, data);
     this._configureData(data);
     return data;
   }
@@ -201,15 +203,8 @@ export default class StandardCheck extends Roll {
    * @param rollData
    */
   initialize(rollData) {
-
-    // Prepare new roll data
     this.data = this._prepareData(rollData);
-
-    // Re-prepare formula and terms
-    const terms = this.pool.map(p => `1d${p}`).concat([this.data.ability, this.data.skill]);
-    if ( this.data.enchantment > 0 ) terms.push(this.data.enchantment);
-    this._formula = terms.join(" + ");
-    this.terms = this.constructor.parse(this._formula);
+    this.terms = this.constructor.parse("", this.data);
   }
 
   /* -------------------------------------------- */

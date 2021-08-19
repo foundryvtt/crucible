@@ -187,7 +187,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
     type: "sustain",
-    tooltip: "Level * 2",
+    tooltip: "(Level * 2) + Focus Bonus",
     color: {
       high: 0x0066FF,
       low: 0x0033CC

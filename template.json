@@ -111,6 +111,10 @@
             "name": "",
             "skills": [],
             "talents": []
+          },
+          "biography": {
+            "public": "",
+            "private": ""
           }
         },
         "resistances": {

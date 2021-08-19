@@ -32,7 +32,7 @@ export class StandardCheckDialog extends FormApplication {
   getData() {
     const data = foundry.utils.deepClone(this.object.data);
     const dc = this._getDifficulty(data.dc);
-    const dice = this.object.pool.map(f => `d${f}`);
+    const dice = this.object.dice.map(d => `d${d.faces}`);
     return mergeObject(data, {
       actors: game.user.isGM ? this._getPlayerActors() : [],
       dcLabel: dc.label,

@@ -318,9 +318,7 @@
 
         {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
-
             <div class="point-pools flexrow">
-                <h3 class="badge skills active">Skill Progression</h3>
                 <label>Total Points</label>
                 <span class="value highlight">{{points.skill.total}}</span>
                 <label>Spent</label>
@@ -332,30 +330,22 @@
             {{!-- Skills List --}}
             {{#each skillCategories as |category catId|}}
             <header class="skills-header flexrow highlight" data-category="{{catId}}">
-                <span class="skill-name">{{category.name}} Skills</span>
+                <span class="skill-name">{{category.label}} Skills</span>
                 <div class="bonus">Bonus</div>
                 <div class="attributes">Attributes</div>
-                <span>Rank</span>
-                <span>Specialization</span>
+                <span>Trained Rank</span>
                 <span class="points">Spent (Cost)</span>
             </header>
 
             <ol class="skills-list">
                 {{#each category.skills as |skill skillId|}}
                 <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
-                    <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
                     <div class="skill-name flexrow">
-                        <h3>
-                            <a class="control" title="Roll Check" data-action="skillRoll">{{skill.name}}</a>
-                        </h3>
+                        <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
+                        <h4><a class="control" title="Roll Check" data-action="skillRoll">{{skill.name}}</a></h4>
                         <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
                             <i class="fas fa-cog"></i>
                         </a>
-                        <div class="skill-ranks">
-                            {{#each skill.pips}}
-                            <span class="pip {{this}}"></span>
-                            {{/each}}
-                        </div>
                     </div>
                     <div class="bonus flexrow">
                         <span class="active highlight tooltipped">
@@ -369,19 +359,25 @@
                     </div>
                     <div class="attributes">
                         {{#each skill.attributes}}
-                        <span class="attribute highlight">{{this.abbreviation}}</span>
+                        <span class="attribute tag">{{this.abbreviation}}</span>
                         {{/each}}
                     </div>
-                    <span class="rank">{{skill.rankName}}</span>
-                    <span class="path">{{skill.pathName}}</span>
-                    <div class="points">
-                        <a class="button control highlight" title="Decrease Rank" data-action="skillDecrease">
-                            <i class="fas fa-minus fa-fw"></i>
+                    <span class="rank">
+                        <div class="skill-ranks tooltipped">
+                            {{#each skill.pips}}
+                            <span class="pip {{this}}"></span>
+                            {{/each}}
+                            <div class="tooltip">{{skill.rankName}}, {{skill.pathName}}</div>
+                        </div>
+                    </span>
+                    <div class="points flexrow">
+                        <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
+                            <i class="fas fa-caret-down"></i>
                         </a>
                         <span class="cumulative">{{skill.spent}}</span>
                         <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
-                        <a class="button control highlight" title="Increase Rank" data-action="skillIncrease">
-                            <i class="fas fa-plus fa-fw"></i>
+                        <a class="control {{#unless skill.canIncrease}}inactive{{/unless}} increase" title="Increase Skill Rank" data-action="skillIncrease">
+                            <i class="fas fa-caret-up"></i>
                         </a>
                     </div>
                 </li>
@@ -472,6 +468,14 @@
                 </li>
                 {{/each}}
             </ol>
+        </div>
+
+        {{!-- Biography Tab --}}
+        <div class="tab biography flexcol" data-group="primary" data-tab="biography">
+            <h3 class="section-header divider"><span></span><label>Public Biography</label><span></span></h3>
+            {{editor content=systemData.details.biography.public target="data.details.biography.public" button=true owner=owner editable=editable rollData=rollData}}
+            <h3 class="section-header divider"><span></span><label>Private Biography</label><span></span></h3>
+            {{editor content=systemData.details.biography.private target="data.details.biography.private" button=true owner=owner editable=editable rollData=rollData}}
         </div>
     </section>
 </form>

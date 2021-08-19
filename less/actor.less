@@ -4,13 +4,23 @@
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
 .crucible.sheet.actor {
+
+  // Positioning
   --sidebarWidth: 200px;
   --profileSize: 200px;
   --marginSize: 8px;
   --titleHeight: 40px;
   --navHeight: 30px;
-  --skillHeight: 24px;
-  --tagHeight: 26px;
+  --skillHeight: 28px;
+
+  // Fonts
+  --fontSizeTitle: 20px;
+  --fontSizeHeader: 16px;
+  --fontSizeMain: 14px;
+  --fontSizeSmall: 12px;
+
+  // General Rules
+  line-height: 150%;
 
   /* ----------------------------------------- */
   /*  Sheet Structure                          */
@@ -22,17 +32,17 @@
     height: 100%;
     margin-right: var(--marginSize);
   }
+
   .sheet-body {
     flex: 1;
     height: 100%;
   }
 
   /** Section Headers */
+
   h3.section-header {
     position: relative;
-    flex: 0 0 100%;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: var(--fontSizeTitle);
     font-weight: bold;
     margin: 0;
     > span {
@@ -40,14 +50,27 @@
     }
   }
 
+  .flexrow > .section-header {
+    flex: 0 0 100%;
+    height: 24px;
+  }
+
+  .flexcol > .section-header {
+    flex: 0;
+    width: 100%;
+  }
+
   /** Labels and Inputs */
+
   label {
     font-family: @caslon;
     color: @colorOlive;
   }
+
   input[type="text"] {
     border: 1px solid @colorBeige;
   }
+
   input[type="number"] {
     border: 1px solid @colorBeige;
     text-align: center;
@@ -55,8 +78,7 @@
 
   // Incomplete Inputs
   i.incomplete {
-    line-height: 24px;
-    font-size: 16px;
+    font-size: var(--fontSizeMain);
     color: @colorTan;
   }
 
@@ -66,8 +88,8 @@
     right: 0;
     width: 20px;
     height: 20px;
-    line-height: 20px;
-    font-size: 14px;
+    font-size: var(--fontSizeSmall);
+    line-height: inherit;
   }
 
   // Separator Slash
@@ -80,10 +102,11 @@
     top: 10px;
   }
 
-  // Math Separator
+  // Math Separators
   .math {
     flex: 0 0 20px;
-    font-size: 20px;
+    font-size: var(--fontSizeTitle);
+    line-height: inherit;
     text-align: center;
   }
 
@@ -91,9 +114,9 @@
   .score {
     flex: 0 0 var(--abilityHeight);
     width: var(--abilityHeight);
-    font-size: 18px;
+    font-size: var(--fontSizeTitle);
+    line-height: 150%;
     font-weight: bold;
-    line-height: 30px;
     text-align: center;
   }
 
@@ -112,16 +135,19 @@
   .effect {
     align-items: center;
     margin-bottom: 4px;
+
     img {
       flex: 0 0 24px;
       height: 24px;
       border: 1px solid @colorDark;
       border-radius: 4px;
     }
+
     h4 {
       line-height: 24px;
       margin: 0 0 0 4px;
     }
+
     .tag {
       flex: none;
     }
@@ -132,6 +158,7 @@
   /* ----------------------------------------- */
 
   /** Sheet Title */
+
   .title {
     margin: 0;
     border-bottom: 1px solid @colorBeige;
@@ -140,6 +167,7 @@
       flex: 3;
       height: var(--titleHeight);
       margin: 0;
+
       input {
         height: var(--titleHeight);
         margin: 0;
@@ -148,6 +176,7 @@
         border: none;
       }
     }
+
     h2.level {
       flex: 1;
       text-align: right;
@@ -163,8 +192,10 @@
   }
 
   /** Advancement Bar */
+
   .advancement {
     flex: 0 0 140px;
+
     .bar {
       flex: 0 0 100%;
       height: 10px;
@@ -172,12 +203,14 @@
       background: #2a3247;
       border: 1px solid @colorDark;
       border-radius: 8px;
+
       .fill {
         height: 6px;
         background: #91e5f5;
         border-radius: 8px;
       }
     }
+
     input, span.input {
       height: 20px;
       line-height: 20px;
@@ -191,8 +224,8 @@
       flex: none;
       margin: 0 4px 0 0;
       padding: 0 8px;
-      font-size: 20px;
-      line-height: var(--tagHeight);
+      font-size: var(--fontSizeTitle);
+      line-height: 125%;
       background: rgba(0, 0, 0, 0.05);
       border: 1px solid @colorBeige;
       border-radius: 2px;
@@ -207,7 +240,7 @@
     flex: 0 0 var(--navHeight);
     justify-content: space-between;
     font-family: @caslon;
-    font-size: 16px;
+    font-size: var(--fontSizeHeader);
     line-height: var(--navHeight);
     border-bottom: 1px solid @colorBeige;
 
@@ -230,16 +263,20 @@
   .resources {
     margin: var(--marginSize) 0;
     flex: none;
+
     > h3 {
       flex: 0 0 100%;
     }
   }
+
   .resource {
     padding: 0 var(--marginSize);
     border-right: 1px solid @colorFaint;
+
     &:first-child {
       padding-left: 0
     }
+
     &:last-child {
       padding-right: 0;
       border-right: none;
@@ -248,19 +285,21 @@
     // Divider Title
     .resource-name {
       margin: 0;
-      font-size: 18px;
-      line-height: 16px;
+      line-height: 80%;
       text-align: center;
       color: @colorOlive;
-      > span { top: 8px; }
+      > span {
+        top: var(--marginSize);
+      }
     }
 
     // Value Fields
     .resource-values {
       margin: 3px 0;
+
       input, .resource-max {
         height: 24px;
-        font-size: 15px;
+        font-size: var(--fontSizeMain);
         line-height: 24px;
         text-align: center;
       }
@@ -274,6 +313,7 @@
       border: 1px solid #000;
       border-radius: 4px;
       padding: 1px;
+
       .fill {
         height: 4px;
         border-radius: 4px;
@@ -291,12 +331,6 @@
   .abilities {
     flex: none;
     margin-bottom: var(--marginSize);
-
-    a.abilities-lock {
-      position: absolute;
-      right: 0;
-      font-size: 14px;
-    }
 
     // Ability Scores Grid
     .ability-scores {
@@ -317,7 +351,7 @@
     h4.label {
       margin: 0;
       font-weight: normal;
-      font-size: 16px;
+      font-size: var(--fontSizeHeader);
       font-family: @caslon;
       line-height: var(--abilityHeight);
     }
@@ -329,6 +363,7 @@
       .control {
         flex: 0 0 16px;
         width: 16px;
+        line-height: 16px;
         text-align: center;
         margin: 0;
         padding: 0;
@@ -337,7 +372,9 @@
           pointer-events: none;
         }
       }
-      .increase { margin-bottom: 3px; }
+      .increase {
+        margin-bottom: 3px;
+      }
     }
   }
 
@@ -346,8 +383,8 @@
     flex: none;
     justify-content: flex-end;
     text-align: right;
-    margin: 8px 0;
-    font-size: 16px;
+    margin: calc(var(--marginSize) / 2) 0;
+    font-size: var(--fontSizeHeader);
     line-height: 24px;
 
     label {
@@ -359,7 +396,7 @@
       flex: 0 0 32px;
       height: 24px;
       margin: 0;
-      font-size: 16px;
+      font-size: var(--fontSizeHeader);
       text-align: center;
       font-weight: bold;
       border: 1px solid @colorBeige;
@@ -387,22 +424,19 @@
       &.physical {
         flex: 0 0 150px;
       }
-
       h4 {
         flex: 0 0 24px;
         font-family: @caslon;
-        font-size: 18px;
+        font-size: var(--fontSizeHeader);
         margin: 0;
       }
-
       .input {
         margin: 0 auto;
       }
-
       .subtitle {
         flex: 0 0 20px;
         font-family: @caslon;
-        font-size: 16px;
+        font-size: var(--fontSizeHeader);
       }
     }
   }
@@ -421,6 +455,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 4px;
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -429,7 +464,7 @@
         flex: 0 0 160px;
         margin: 0;
         font-family: @caslon;
-        font-size: 16px;
+        font-size: var(--fontSizeHeader);
       }
 
       input, span.input {
@@ -438,7 +473,7 @@
       }
 
       label {
-        font-size: 16px;
+        font-size: var(--fontSizeHeader);
         flex: 0 0 100px;
       }
     }
@@ -454,10 +489,12 @@
     .category {
       padding: 0 var(--marginSize);
       border-right: 1px solid @colorBeige;
-      font-size: 16px;
+      font-size: var(--fontSizeHeader);
+
       &.physical {
         padding-left: 0;
       }
+
       &.spiritual {
         padding-right: 4px;
         border-right: none;
@@ -465,7 +502,6 @@
     }
 
     .category-name {
-      font-size: 18px;
       margin: 0;
     }
 
@@ -476,9 +512,17 @@
 
       .resistance {
         align-items: center;
-        font-size: 15px;
         text-align: center;
         margin: 0;
+        font-size: var(--fontSizeSmall);
+      }
+
+      label {
+        flex: 0 0 80px;
+        line-height: 24px;
+        text-align: left;
+        margin-left: calc(var(--marginSize) / 2);
+        font-size: var(--fontSizeHeader);
       }
 
       .total, input {
@@ -491,12 +535,8 @@
         font-weight: bold;
       }
 
-      label {
-        flex: 0 0 80px;
-        line-height: 24px;
-        text-align: left;
-        margin-left: 4px;
-        font-size: 16px;
+      .math {
+        font-size: var(--fontSizeMain);
       }
     }
   }
@@ -601,161 +641,141 @@
   .badge.willpower {
     background-image: url("ui/badges/willpower.png");
   }
+}
 
+/* -------------------------------------- */
+/*  Skills Tab                            */
+/* -------------------------------------- */
 
+.crucible.sheet.actor .tab.skills {
+  justify-content: flex-start;
+  height: 100%;
+  overflow-y: auto;
 
-  /* Skills Tab */
-  .tab.skills {
-    justify-content: flex-start;
-    height: 100%;
-    overflow-y: scroll;
-
-    .skills-header {
-      flex: 0 0 24px;
-      line-height: 24px;
-      font-weight: bold;
-
-      .skill-name {
-        margin: 0 24px 0 8px;
-      }
-    }
-
-    .skills-list {
-      flex: 0;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .skill {
-      line-height: var(--skillHeight);
-
-      img {
-        flex: 0 0 var(--skillHeight);
-        height: var(--skillHeight);
-        margin-right: 4px;
-      }
-
-      .skill-config {
-        flex: 0 0 20px;
-        text-align: center;
-        color: @colorTan;
-      }
-
-      .skill-ranks {
-        flex: 0 0 92px;
-        height: 24px;
-        padding: 3px 0;
-
-        .pip {
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          margin: 0;
-          background: rgba(0, 0, 0, 0.05);
-          border: 1px solid @colorTan;
-          border-radius: 1px 2px;
-
-          &.trained {
-            background: rgba(0, 0, 0, 0.25);
-            box-shadow: 0 0 2px #FFF inset;
-            border: 1px solid @colorOlive;
-          }
-        }
-      }
-
-      .bonus {
-        padding: 3px;
-      }
-
-      .points, .bonus {
-        height: var(--skillHeight);
-      }
-    }
-
-    // Common components
+  .skills-header {
+    flex: 0 0 24px;
+    line-height: 24px;
+    font-weight: bold;
     .skill-name {
-      flex: 3;
+      padding-left: 4px;
+    }
+  }
 
-      h3 {
+  .skills-list {
+    flex: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .skill {
+    margin: 3px 0;
+    line-height: var(--skillHeight);
+
+    img {
+      flex: 0 0 var(--skillHeight);
+      height: var(--skillHeight);
+      margin-right: calc(var(--marginSize) / 2);
+    }
+
+    .skill-config {
+      flex: 0 0 20px;
+      text-align: center;
+      color: @colorTan;
+    }
+
+    .skill-ranks {
+      height: 24px;
+      padding: 3px 0;
+      .pip {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
         margin: 0;
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid @colorTan;
+        border-radius: 1px 2px;
+
+        &.trained {
+          background: rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 2px #FFF inset;
+          border: 1px solid @colorOlive;
+        }
       }
     }
 
     .bonus {
-      flex: 0 0 64px;
-      text-align: center;
-
-      .active,
-      .passive {
-        height: 24px;
-        line-height: 24px;
-        text-align: center;
-        margin: 0 2px;
-      }
-
-      .active {
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      .passive {
-        color: @colorTan;
-      }
+      padding: 3px;
     }
 
-    // Attribute scores
-    .attributes {
-      flex: 0 0 72px;
-      margin: 0 12px 0 6px;
-      text-align: center;
-
-      .attribute {
-        height: 20px;
-        line-height: 20px;
-        margin: 5px 2px;
-        width: 32px;
-        float: left;
-        color: @colorOlive;
-      }
-    }
-
-    .rank, .path {
-      font-family: @caslon;
-      font-size: 16px;
-    }
-
-    // Denote untrained skills
-    .unspecialized .path {
-      color: @colorTan;
-    }
-
-    .untrained .rank {
-      color: @colorTan;
-    }
-
-    .points {
-      flex: 0 0 100px;
-      text-align: center;
-
-      .control {
-        margin: 0;
-      }
-
-      .cumulative, .next {
-        display: inline-block;
-        width: 16px;
-      }
-
-      .cumulative {
-        font-weight: bold;
-      }
-
-      .next {
-        color: @colorTan;
-      }
+    .points, .bonus {
+      height: var(--skillHeight);
     }
   }
+
+  // Skill Name
+  .skill-name {
+    flex: 2;
+    h4 {
+      margin: 0;
+    }
+  }
+
+  // Skill Bonus and Passive
+  .bonus {
+    flex: 0 0 64px;
+    text-align: center;
+    .active,
+    .passive {
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      margin: 0 2px;
+    }
+    .active {
+      font-size: var(--fontSizeHeader);
+      font-weight: bold;
+    }
+    .passive {
+      color: @colorTan;
+    }
+  }
+
+  // Attribute Tags
+  .attributes {
+    flex: 0 0 72px;
+    text-align: center;
+    .tag {
+      width: 26px;
+    }
+  }
+
+  // Point Buy
+  .points {
+    flex: 0 0 80px;
+    text-align: center;
+    .control {
+      margin: 0;
+    }
+    .cumulative, .next {
+      display: inline-block;
+      width: 16px;
+    }
+    .cumulative {
+      font-weight: bold;
+    }
+    .next {
+      color: @colorTan;
+    }
+  }
+}
+
+/* -------------------------------------- */
+/*  Biography Tab                         */
+/* -------------------------------------- */
+
+.crucible.sheet.actor .tab.biography {
+  margin: var(--marginSize) 0;
 }
 
 /* -------------------------------------- */
@@ -779,13 +799,12 @@
       margin-right: 3px;
     }
     h4 {
-      flex: none;
       margin: 0;
     }
   }
 
   .item-controls {
-    flex: 0 0 120px;
+    flex: 0 0 75px;
     line-height: 22px;
     text-align: right;
     a.control {
