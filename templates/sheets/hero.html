@@ -132,27 +132,27 @@
                         <i class="fas {{#if sectionLocks.resources}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
                 </h3>
-                <div class="resource">
+                <div class="resource health">
                     {{> resource label="Health" attr="data.attributes.health" data=systemData.attributes.health}}
                     {{> resource label="Wounds" attr="data.attributes.wounds" data=systemData.attributes.wounds}}
                 </div>
 
-                <div class="resource">
+                <div class="resource morale">
                     {{> resource label="Morale" attr="data.attributes.morale" data=systemData.attributes.morale}}
                     {{> resource label="Madness" attr="data.attributes.madness" data=systemData.attributes.madness}}
                 </div>
 
-                <div class="resource">
+                <div class="resource action">
                     {{> resource label="Action" attr="data.attributes.action" data=systemData.attributes.action}}
                     {{> resource label="Focus" attr="data.attributes.focus" data=systemData.attributes.focus}}
                 </div>
             </section>
 
-            {{!-- Ability Scores --}}
+            {{!-- Abilities --}}
             <section class="abilities">
                 <h3 class="section-header divider">
                     <span></span>
-                    <label>Ability Scores{{#if actor.points.ability.hasUnspent}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}</label>
+                    <label>Abilities{{#if actor.points.ability.hasUnspent}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}</label>
                     <span></span>
                     <a class="button section-lock" data-section="abilities">
                         <i class="fas {{#if sectionLocks.abilities}}fa-lock{{else}}fa-unlock{{/if}}"></i>
@@ -197,96 +197,112 @@
                 </ol>
             </section>
 
-            {{!-- Physical Defense --}}
-            <section class="physical-defense">
+            {{!-- Defenses --}}
+            <section class="defenses">
                 <h3 class="section-header divider">
                     <span></span>
-                    <label>Physical Defenses</label>
+                    <label>Defenses</label>
                     <span></span>
+                    <a class="button section-lock" data-section="defenses">
+                        <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
                 </h3>
-                <ol class="physical-defenses flexrow">
-                    <li class="defense physical flexcol">
-                        <h4 class="badge physical">Physical Defense</h4>
+
+                {{! Physical Defense --}}
+                <ol class="defense physical flexrow" data-defense="physical">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge physical">Physical</h3>
                         <span class="input score">{{systemData.defenses.physical}}</span>
-                        <span class="subtitle">Total Defense</span>
                     </li>
                     <li class="math">=</li>
-                    <li class="defense flexcol">
+                    <li class="flexcol">
                         <h4>Armor</h4>
                         <span class="input score">{{systemData.defenses.armor.total}}</span>
                         <span class="subtitle">{{armorCategory}}</span>
                     </li>
                     <li class="math">+</li>
-                    <li class="defense flexcol">
+                    <li class="flexcol">
                         <h4>Dodge</h4>
                         <span class="input score">{{systemData.defenses.dodge.total}}</span>
                         <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
                     </li>
                     <li class="math">+</li>
-                    <li class="defense flexcol">
+                    <li class="flexcol">
                         <h4>Parry</h4>
                         <span class="input score">{{systemData.defenses.parry.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </li>
                     <li class="math">+</li>
-                    <li class="defense flexcol">
+                    <li class="flexcol">
                         <h4>Block</h4>
                         <span class="input score">{{systemData.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </li>
                 </ol>
-            </section>
 
-            <section class="other-defense">
-                <h3 class="section-header divider">
-                    <span></span>
-                    <label>Other Defenses</label>
-                    <span></span>
-                    <a class="button section-lock" data-section="saves">
-                        <i class="fas {{#if sectionLocks.saves}}fa-lock{{else}}fa-unlock{{/if}}"></i>
-                    </a>
-                </h3>
-                <div class="saves" data-resistance-type="saves">
-                    <div class="save flexrow" data-save="fortitude">
-                        <h4 class="badge fortitude">Fortitude Save</h4>
+                {{! Fortitude Defense --}}
+                <ol class="defense save flexrow" data-defense="fortitude">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge fortitude">Fortitude</h3>
                         <span class="input score">{{systemData.defenses.fortitude.total}}</span>
-                        <span class="math"> = </span>
-                        <span class="input">{{systemData.defenses.fortitude.base}}</span>
-                        <label>Base (Str, Con)</label>
-                        <span class="math"> + </span>
-                        <input type="number" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}"
-                               {{#if sectionLocks.saves}}disabled{{/if}}/>
-                        <label>Save Bonus</label>
-                    </div>
-                    <div class="save flexrow" data-save="reflex">
-                        <h4 class="badge reflex">Reflex Save</h4>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.fortitude.base}}</span>
+                        <span class="tag">Str</span>
+                        <span class="tag">Con</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                </ol>
+
+                {{! Reflex Defense --}}
+                <ol class="defense save flexrow" data-defense="reflex">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge reflex">Reflex</h3>
                         <span class="input score">{{systemData.defenses.reflex.total}}</span>
-                        <span class="math"> = </span>
-                        <span class="input">{{systemData.defenses.reflex.base}}</span>
-                        <label>Base (Dex, Int)</label>
-                        <span class="math"> + </span>
-                        <input type="number" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}"
-                               {{#if sectionLocks.saves}}disabled{{/if}}/>
-                        <label>Save Bonus</label>
-                    </div>
-                    <div class="save flexrow" data-save="willpower">
-                        <h4 class="badge willpower">Willpower Save</h4>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.reflex.base}}</span>
+                        <span class="tag">Dex</span>
+                        <span class="tag">Int</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                </ol>
+
+                {{! Willpower Defense --}}
+                <ol class="defense save flexrow" data-defense="willpower">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge willpower">Willpower</h3>
                         <span class="input score">{{systemData.defenses.willpower.total}}</span>
-                        <span class="math"> = </span>
-                        <span class="input">{{systemData.defenses.willpower.base}}</span>
-                        <label>Base (Wis, Cha)</label>
-                        <span class="math"> + </span>
-                        <input type="number" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}"
-                               {{#if sectionLocks.saves}}disabled{{/if}}/>
-                        <label>Save Bonus</label>
-                    </div>
-                </div>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.willpower.base}}</span>
+                        <span class="tag">Wis</span>
+                        <span class="tag">Cha</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                </ol>
             </section>
 
+            {{!-- Resistances --}}
             <section class="damage-resistances flexrow">
                 <h3 class="section-header divider">
                     <span></span>
-                    <label>Damage Resistances</label>
+                    <label>Resistances</label>
                     <span></span>
                     <a class="button section-lock" data-section="resistances">
                         <i class="fas {{#if sectionLocks.resistances}}fa-lock{{else}}fa-unlock{{/if}}"></i>

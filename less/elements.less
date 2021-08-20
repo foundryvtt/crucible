@@ -1,28 +1,29 @@
 @import "./variables.less";
 
-
-/* ----------------------------------------- */
-/*  Element Styles                           */
-/* ----------------------------------------- */
-
 .crucible {
+  .window-content {
+    background: @sheetBackground;
+    font-size: 13px;
+    color: @colorDark
+  }
+
   h1 {
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     font-size: 32px;
   }
 
   h2 {
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     font-size: 24px;
   }
 
   h3 {
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     font-size: 20px;
   }
 
   h4 {
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     font-size: 18px;
   }
 
@@ -36,11 +37,21 @@
     flex: none;
     margin: 0 1px;
     padding: 1px 2px;
+    font-family: var(--fontFamilySans);
     font-size: 12px;
     line-height: 16px;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid @colorBeige;
     border-radius: 4px;
+  }
+
+  // Input Fields
+  input, select, span.input {
+    border: 1px solid @colorBeige;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.05);
+    color: @colorDark;
+    text-align: center;
   }
 }
 
@@ -86,98 +97,4 @@ h1.divider span {
 }
 h2.divider span {
   top: 16px;
-}
-
-/* ----------------------------------------- */
-/*  Application Windows                      */
-/* ----------------------------------------- */
-
-.crucible {
-  .window-content {
-    background: @sheetBackground;
-    font-size: 13px;
-    color: @colorDark
-  }
-
-  // Item Sheet form fields
-  input, select, span.input {
-    border: 1px solid @colorBeige;
-    border-radius: 2px;
-    background: rgba(0, 0, 0, 0.05);
-    color: @colorDark;
-    text-align: center;
-  }
-
-  // Hovered Fields
-  input[type="text"] {
-    text-align: left;
-    &:hover,
-    &:focus {
-      border: 1px solid #111;
-      box-shadow: 0 0 4px red;
-    }
-  }
-
-  // Disabled Fields
-  input:disabled,
-  select:disabled,
-  textarea:disabled {
-    color: @colorOlive;
-    &:hover,
-    &:focus {
-      box-shadow: none !important;
-    }
-  }
-
-  // Buttons
-  button {
-    background: rgba(0, 0, 0, 0.10);
-    border: @borderGroove;
-  }
-
-  // Checkbox Labels
-  label.checkbox {
-    flex: auto;
-    margin: 0;
-    line-height: 20px;
-    font-size: 11px;
-    font-family: "Signika", sans-serif;
-    font-weight: normal;
-    text-align: right;
-    input[type="checkbox"] {
-      height: auto;
-      position: relative;
-      top: 3px;
-    }
-  }
-
-  /* Form Groups */
-  .form-group {
-    > label {
-      flex: 2;
-      color: @colorOlive;
-      font-size: 16px;
-      font-family: @caslon;
-      font-weight: bold;
-    }
-    .form-fields {
-      .flexrow();
-      > * {
-        margin: 0 3px 0 0;
-        &:last-child { margin-right: 0; }
-      }
-    }
-  }
-
-  // Stacked Groups
-  .form-group.stacked {
-    > label {
-      flex: 0 0 100%;
-    }
-    label.checkbox {
-      flex: auto;
-      text-align: left;
-      margin-right: 10px;
-    }
-  }
 }

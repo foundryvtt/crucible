@@ -1,5 +1,5 @@
 /* ----------------------------------------- */
-/*  Fonts                                    */
+/*  Font Faces                               */
 /* ----------------------------------------- */
 @font-face {
   font-family: "CaslonAntique";
@@ -10,69 +10,38 @@
   src: url("fonts/Planewalker/Planewalker.otf");
 }
 /* ----------------------------------------- */
-/*  Sheet Styles                             */
+/*  LESS Variables                           */
 /* ----------------------------------------- */
 /* ----------------------------------------- */
-/*  Flexbox                                  */
+/*  CSS Variables                            */
 /* ----------------------------------------- */
-.flexrow {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.crucible {
+  --fontFamilySerif: "CaslonAntique", "Palatino Linotype", serif;
+  --fontFamilySans: "Signika", sans-serif;
+  --fontSizeTitle: 20px;
+  --fontSizeHeader: 16px;
+  --fontSizeMain: 14px;
+  --fontSizeSmall: 12px;
 }
-.flexrow > * {
-  flex: 1;
+.crucible .window-content {
+  background: url("ui/parchment.jpg") repeat;
+  font-size: 13px;
+  color: #191813;
 }
-.flexrow .flex1 {
-  flex: 1;
-}
-.flexrow .flex2 {
-  flex: 2;
-}
-.flexrow .flex3 {
-  flex: 3;
-}
-.flexrow .flex4 {
-  flex: 4;
-}
-.flexcol {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-.flexcol > * {
-  flex: 1;
-}
-.flexcol .flex1 {
-  flex: 1;
-}
-.flexcol .flex2 {
-  flex: 2;
-}
-.flexcol .flex3 {
-  flex: 3;
-}
-.flexcol .flex4 {
-  flex: 4;
-}
-/* ----------------------------------------- */
-/*  Element Styles                           */
-/* ----------------------------------------- */
 .crucible h1 {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 32px;
 }
 .crucible h2 {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 24px;
 }
 .crucible h3 {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 20px;
 }
 .crucible h4 {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 18px;
 }
 .crucible p {
@@ -83,11 +52,21 @@
   flex: none;
   margin: 0 1px;
   padding: 1px 2px;
+  font-family: var(--fontFamilySans);
   font-size: 12px;
   line-height: 16px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid #b5b3a4;
   border-radius: 4px;
+}
+.crucible input,
+.crucible select,
+.crucible span.input {
+  border: 1px solid #b5b3a4;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #191813;
+  text-align: center;
 }
 h1.divider,
 h2.divider,
@@ -142,107 +121,6 @@ h1.divider span {
 }
 h2.divider span {
   top: 16px;
-}
-/* ----------------------------------------- */
-/*  Application Windows                      */
-/* ----------------------------------------- */
-.crucible {
-  /* Form Groups */
-}
-.crucible .window-content {
-  background: url("ui/parchment.jpg") repeat;
-  font-size: 13px;
-  color: #191813;
-}
-.crucible input,
-.crucible select,
-.crucible span.input {
-  border: 1px solid #b5b3a4;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.05);
-  color: #191813;
-  text-align: center;
-}
-.crucible input[type="text"] {
-  text-align: left;
-}
-.crucible input[type="text"]:hover,
-.crucible input[type="text"]:focus {
-  border: 1px solid #111;
-  box-shadow: 0 0 4px red;
-}
-.crucible input:disabled,
-.crucible select:disabled,
-.crucible textarea:disabled {
-  color: #33332e;
-}
-.crucible input:disabled:hover,
-.crucible select:disabled:hover,
-.crucible textarea:disabled:hover,
-.crucible input:disabled:focus,
-.crucible select:disabled:focus,
-.crucible textarea:disabled:focus {
-  box-shadow: none !important;
-}
-.crucible button {
-  background: rgba(0, 0, 0, 0.1);
-  border: 2px groove #eeede0;
-}
-.crucible label.checkbox {
-  flex: auto;
-  margin: 0;
-  line-height: 20px;
-  font-size: 11px;
-  font-family: "Signika", sans-serif;
-  font-weight: normal;
-  text-align: right;
-}
-.crucible label.checkbox input[type="checkbox"] {
-  height: auto;
-  position: relative;
-  top: 3px;
-}
-.crucible .form-group > label {
-  flex: 2;
-  color: #33332e;
-  font-size: 16px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-weight: bold;
-}
-.crucible .form-group .form-fields {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.crucible .form-group .form-fields > * {
-  flex: 1;
-}
-.crucible .form-group .form-fields .flex1 {
-  flex: 1;
-}
-.crucible .form-group .form-fields .flex2 {
-  flex: 2;
-}
-.crucible .form-group .form-fields .flex3 {
-  flex: 3;
-}
-.crucible .form-group .form-fields .flex4 {
-  flex: 4;
-}
-.crucible .form-group .form-fields > * {
-  margin: 0 3px 0 0;
-}
-.crucible .form-group .form-fields > *:last-child {
-  margin-right: 0;
-}
-.crucible .form-group.stacked > label {
-  flex: 0 0 100%;
-}
-.crucible .form-group.stacked label.checkbox {
-  flex: auto;
-  text-align: left;
-  margin-right: 10px;
 }
 .crucible.sheet {
   --headerHeight: 50px;
@@ -356,10 +234,6 @@ h2.divider span {
   --titleHeight: 40px;
   --navHeight: 30px;
   --skillHeight: 28px;
-  --fontSizeTitle: 20px;
-  --fontSizeHeader: 16px;
-  --fontSizeMain: 14px;
-  --fontSizeSmall: 12px;
   line-height: 150%;
   /* ----------------------------------------- */
   /*  Sheet Structure                          */
@@ -388,13 +262,8 @@ h2.divider span {
   --abilityHeight: 32px;
   /* Point Pools */
   /* ----------------------------------------- */
-  /*  Physical Defenses                        */
+  /*  Defenses                                 */
   /* ----------------------------------------- */
-  /* Physical Defenses */
-  /* ----------------------------------------- */
-  /*  Other Defenses                           */
-  /* ----------------------------------------- */
-  /* Saving Throws */
   /* ----------------------------------------- */
   /*  Damage Resistances                       */
   /* ----------------------------------------- */
@@ -430,7 +299,7 @@ h2.divider span {
   width: 100%;
 }
 .crucible.sheet.actor label {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   color: #33332e;
 }
 .crucible.sheet.actor input[type="text"] {
@@ -511,14 +380,15 @@ h2.divider span {
 .crucible.sheet.actor .title h1.charname {
   flex: 3;
   height: var(--titleHeight);
-  margin: 0;
+  padding: 2px;
 }
 .crucible.sheet.actor .title h1.charname input {
-  height: var(--titleHeight);
+  height: 100%;
   margin: 0;
   padding: 0;
   background: none;
   border: none;
+  text-align: left;
 }
 .crucible.sheet.actor .title h2.level {
   flex: 1;
@@ -569,7 +439,7 @@ h2.divider span {
 .crucible.sheet.actor .sheet-navigation {
   flex: 0 0 var(--navHeight);
   justify-content: space-between;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: var(--fontSizeHeader);
   line-height: var(--navHeight);
   border-bottom: 1px solid #b5b3a4;
@@ -594,10 +464,10 @@ h2.divider span {
   padding: 0 var(--marginSize);
   border-right: 1px solid #c9c7b8;
 }
-.crucible.sheet.actor .resource:first-child {
+.crucible.sheet.actor .resource.health {
   padding-left: 0;
 }
-.crucible.sheet.actor .resource:last-child {
+.crucible.sheet.actor .resource.action {
   padding-right: 0;
   border-right: none;
 }
@@ -652,8 +522,11 @@ h2.divider span {
   margin: 0;
   font-weight: normal;
   font-size: var(--fontSizeHeader);
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   line-height: var(--abilityHeight);
+}
+.crucible.sheet.actor .ability .score {
+  margin: 0 var(--marginSize);
 }
 .crucible.sheet.actor .ability .controls {
   flex: 0 0 16px;
@@ -696,61 +569,47 @@ h2.divider span {
   font-weight: bold;
   border: 1px solid #b5b3a4;
 }
-.crucible.sheet.actor .physical-defense {
+.crucible.sheet.actor .defenses {
   flex: none;
   margin-bottom: var(--marginSize);
 }
-.crucible.sheet.actor .physical-defenses {
+.crucible.sheet.actor .defenses .defense {
   align-items: center;
   text-align: center;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: calc(var(--marginSize)/2) 0;
 }
-.crucible.sheet.actor .physical-defenses .defense.physical {
-  flex: 0 0 150px;
+.crucible.sheet.actor .defenses .defense .defense-title {
+  flex: 0 0 140px;
 }
-.crucible.sheet.actor .physical-defenses .defense h4 {
-  flex: 0 0 24px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-size: var(--fontSizeHeader);
-  margin: 0;
-}
-.crucible.sheet.actor .physical-defenses .defense .input {
-  margin: 0 auto;
-}
-.crucible.sheet.actor .physical-defenses .defense .subtitle {
-  flex: 0 0 20px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-size: var(--fontSizeHeader);
-}
-.crucible.sheet.actor .other-defense {
-  flex: none;
-  margin-bottom: var(--marginSize);
-  line-height: 24px;
-}
-.crucible.sheet.actor .other-defense .save {
+.crucible.sheet.actor .defenses .defense > li {
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
 }
-.crucible.sheet.actor .other-defense .save:last-child {
-  margin-bottom: 0;
+.crucible.sheet.actor .defenses .defense .math {
+  flex: 0 0 36px;
 }
-.crucible.sheet.actor .other-defense .save h4 {
-  flex: 0 0 160px;
+.crucible.sheet.actor .defenses .defense h3,
+.crucible.sheet.actor .defenses .defense h4 {
+  font-size: var(--fontSizeHeader);
   margin: 0;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
-  font-size: var(--fontSizeHeader);
+  white-space: nowrap;
 }
-.crucible.sheet.actor .other-defense .save input,
-.crucible.sheet.actor .other-defense .save span.input {
+.crucible.sheet.actor .defenses .defense input,
+.crucible.sheet.actor .defenses .defense .input {
+  margin: 0 var(--marginSize);
   flex: 0 0 32px;
-  text-align: center;
 }
-.crucible.sheet.actor .other-defense .save label {
-  font-size: var(--fontSizeHeader);
-  flex: 0 0 100px;
+.crucible.sheet.actor .defenses .defense .subtitle {
+  font-family: var(--fontFamilySerif);
+  font-size: var(--fontSizeMain);
+}
+.crucible.sheet.actor .defenses .defense .base {
+  max-width: 104px;
+  margin-left: 8px;
+}
+.crucible.sheet.actor .defenses .defense .bonus h4 {
+  text-align: left;
 }
 .crucible.sheet.actor .damage-resistances {
   flex: none;
@@ -896,7 +755,7 @@ h2.divider span {
   padding: 0;
 }
 .crucible.sheet.actor .tab.skills .skill {
-  margin: 3px 0;
+  margin: 2px 0;
   line-height: var(--skillHeight);
 }
 .crucible.sheet.actor .tab.skills .skill img {
@@ -1101,7 +960,7 @@ h2.divider span {
   border-radius: 4px;
 }
 .crucible.journal-sheet blockquote {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   color: #000;
   line-height: 18px;
   margin: 0 5px;
@@ -1144,7 +1003,7 @@ h2.divider span {
   padding: 0 3px;
   border: 1px solid #7a7971;
   border-radius: 3px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 28px;
   text-align: center;
 }
@@ -1218,7 +1077,7 @@ h2.divider span {
 }
 #chat-log .message .flavor-text {
   font-size: 16px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
 }
 .dice-roll.standard-check .dice-pool {
   justify-content: space-between;
@@ -1282,7 +1141,7 @@ h2.divider span {
 }
 .dice-roll.standard-check .dice-tooltip div.counter label {
   font-size: 16px;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
 }
 .dice-roll.standard-check .dice-tooltip div.counter span {
   width: 20px;
@@ -1371,7 +1230,7 @@ h2.divider span {
   margin: 3px 0;
 }
 .roll .roller .boons label {
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-weight: normal;
   font-size: 20px;
   padding-left: 32px;
@@ -1432,7 +1291,7 @@ h2.divider span {
 .roll .roller .bonuses li label {
   height: 16px;
   color: #7a7971;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 16px;
 }
 .roll .roller .bonuses li input {
@@ -1450,7 +1309,7 @@ h2.divider span {
 .roll .target label.difficulty {
   flex: 0 0 16px;
   color: #33332e;
-  font-family: "CaslonAntique", "Palatino Linotype", serif;
+  font-family: var(--fontFamilySerif);
   font-size: 20px;
   text-align: center;
 }

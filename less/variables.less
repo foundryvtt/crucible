@@ -1,23 +1,20 @@
 
 /* ----------------------------------------- */
-/*  Fonts                                    */
+/*  Font Faces                               */
 /* ----------------------------------------- */
 
 @font-face {
   font-family: "CaslonAntique";
   src: url("fonts/CaslonAntique/CaslonAntique.ttf");
 }
-@caslon: "CaslonAntique", "Palatino Linotype", serif;
 
 @font-face {
   font-family: "Planewalker";
   src: url("fonts/Planewalker/Planewalker.otf");
 }
-@planewalker: "Planewalker", "Palatino Linotype", serif;
-
 
 /* ----------------------------------------- */
-/*  Sheet Styles                             */
+/*  LESS Variables                           */
 /* ----------------------------------------- */
 
 @colorDark: #191813;
@@ -30,36 +27,16 @@
 @sheetBackground: url("ui/parchment.jpg") repeat;
 
 /* ----------------------------------------- */
-/*  Flexbox                                  */
+/*  CSS Variables                            */
 /* ----------------------------------------- */
 
-.flexrow {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.crucible {
 
-  > * {
-    flex: 1;
-  }
-
-  .flex1 { flex: 1; }
-  .flex2 { flex: 2; }
-  .flex3 { flex: 3; }
-  .flex4 { flex: 4; }
-}
-
-.flexcol {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-
-  > * {
-    flex: 1;
-  }
-
-  .flex1 { flex: 1; }
-  .flex2 { flex: 2; }
-  .flex3 { flex: 3; }
-  .flex4 { flex: 4; }
+  // Fonts
+  --fontFamilySerif: "CaslonAntique", "Palatino Linotype", serif;
+  --fontFamilySans: "Signika", sans-serif;
+  --fontSizeTitle: 20px;
+  --fontSizeHeader: 16px;
+  --fontSizeMain: 14px;
+  --fontSizeSmall: 12px;
 }

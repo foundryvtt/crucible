@@ -13,12 +13,6 @@
   --navHeight: 30px;
   --skillHeight: 28px;
 
-  // Fonts
-  --fontSizeTitle: 20px;
-  --fontSizeHeader: 16px;
-  --fontSizeMain: 14px;
-  --fontSizeSmall: 12px;
-
   // General Rules
   line-height: 150%;
 
@@ -63,7 +57,7 @@
   /** Labels and Inputs */
 
   label {
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     color: @colorOlive;
   }
 
@@ -166,14 +160,14 @@
     h1.charname {
       flex: 3;
       height: var(--titleHeight);
-      margin: 0;
-
+      padding: 2px;
       input {
-        height: var(--titleHeight);
+        height: 100%;
         margin: 0;
         padding: 0;
         background: none;
         border: none;
+        text-align: left;
       }
     }
 
@@ -239,7 +233,7 @@
   .sheet-navigation {
     flex: 0 0 var(--navHeight);
     justify-content: space-between;
-    font-family: @caslon;
+    font-family: var(--fontFamilySerif);
     font-size: var(--fontSizeHeader);
     line-height: var(--navHeight);
     border-bottom: 1px solid @colorBeige;
@@ -272,12 +266,10 @@
   .resource {
     padding: 0 var(--marginSize);
     border-right: 1px solid @colorFaint;
-
-    &:first-child {
+    &.health {
       padding-left: 0
     }
-
-    &:last-child {
+    &.action {
       padding-right: 0;
       border-right: none;
     }
@@ -352,8 +344,12 @@
       margin: 0;
       font-weight: normal;
       font-size: var(--fontSizeHeader);
-      font-family: @caslon;
+      font-family: var(--fontFamilySerif);
       line-height: var(--abilityHeight);
+    }
+
+    .score {
+      margin: 0 var(--marginSize);
     }
 
     .controls {
@@ -404,77 +400,46 @@
   }
 
   /* ----------------------------------------- */
-  /*  Physical Defenses                        */
+  /*  Defenses                                 */
   /* ----------------------------------------- */
 
-  .physical-defense {
+  .defenses {
     flex: none;
     margin-bottom: var(--marginSize);
-  }
-
-  /* Physical Defenses */
-  .physical-defenses {
-    align-items: center;
-    text-align: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
     .defense {
-      &.physical {
-        flex: 0 0 150px;
+      align-items: center;
+      text-align: center;
+      list-style: none;
+      padding: 0;
+      margin: calc(var(--marginSize)/2) 0;
+      .defense-title {
+        flex: 0 0 140px;
       }
-      h4 {
-        flex: 0 0 24px;
-        font-family: @caslon;
+      > li {
+        align-items: center;
+      }
+      .math {
+        flex: 0 0 36px;
+      }
+      h3, h4 {
         font-size: var(--fontSizeHeader);
         margin: 0;
+        white-space: nowrap;
       }
-      .input {
-        margin: 0 auto;
+      input, .input {
+        margin: 0 var(--marginSize);
+        flex: 0 0 32px;
       }
       .subtitle {
-        flex: 0 0 20px;
-        font-family: @caslon;
-        font-size: var(--fontSizeHeader);
+        font-family: var(--fontFamilySerif);
+        font-size: var(--fontSizeMain);
       }
-    }
-  }
-
-  /* ----------------------------------------- */
-  /*  Other Defenses                           */
-  /* ----------------------------------------- */
-
-  /* Saving Throws */
-  .other-defense {
-    flex: none;
-    margin-bottom: var(--marginSize);
-    line-height: 24px;
-
-    .save {
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-
-      &:last-child {
-        margin-bottom: 0;
+      .base {
+        max-width: 104px; // Align addition with Dodge
+        margin-left: 8px; // Align with Armor
       }
-
-      h4 {
-        flex: 0 0 160px;
-        margin: 0;
-        font-family: @caslon;
-        font-size: var(--fontSizeHeader);
-      }
-
-      input, span.input {
-        flex: 0 0 32px;
-        text-align: center;
-      }
-
-      label {
-        font-size: var(--fontSizeHeader);
-        flex: 0 0 100px;
+      .bonus h4 {
+        text-align: left;
       }
     }
   }
@@ -669,7 +634,7 @@
   }
 
   .skill {
-    margin: 3px 0;
+    margin: 2px 0;
     line-height: var(--skillHeight);
 
     img {

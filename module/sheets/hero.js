@@ -11,7 +11,7 @@ export default class HeroSheet extends ActorSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 760,
-      height: 800,
+      height: 780,
       classes: [SYSTEM.id, "sheet", "actor"],
       template: `systems/${SYSTEM.id}/templates/sheets/hero.html`,
       resizable: false,
@@ -27,7 +27,7 @@ export default class HeroSheet extends ActorSheet {
    */
   _sectionLocks = {
     abilities: true,
-    saves: true,
+    defenses: true,
     resistances: true,
     resources: false
   }

@@ -340,7 +340,7 @@ export default class CrucibleActor extends Actor {
     for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
       let d = defenses[k];
       const abilities = sd.abilities.map(a => data.data.attributes[a]);
-      d.base = Math.ceil(0.5 * (abilities[0].value + abilities[1].value));
+      d.base = abilities[0].value + abilities[1].value;
       d.total = d.base + d.bonus;
     }
 
