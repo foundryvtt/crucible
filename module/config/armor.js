@@ -13,17 +13,17 @@ export const CATEGORIES = {
   "light": {
     label: "ARMOR.Light",
     minArmor: 1,
-    maxArmor: 6
+    maxArmor: 8
   },
   "medium": {
     label: "ARMOR.Medium",
-    minArmor: 7,
-    maxArmor: 12
+    minArmor: 9,
+    maxArmor: 16
   },
   "heavy": {
     label: "ARMOR.Heavy",
-    minArmor: 13,
-    maxArmor: 18
+    minArmor: 17,
+    maxArmor: 24
   }
 };
 

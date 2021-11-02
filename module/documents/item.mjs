@@ -1,7 +1,7 @@
 import { SYSTEM } from "../config/system.js";
 import ActionData from "../talents/action.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
-
+import {TalentData} from "../data/talent.mjs";
 
 export default class CrucibleItem extends Item {
 
@@ -26,6 +26,18 @@ export default class CrucibleItem extends Item {
       case "talent":
         return "foo";
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  prepareBaseData() {
+    switch ( this.data.type ) {
+      case "talent":
+        this.data.data = new TalentData(this.data.data);
+        break;
+    }
+    return super.prepareBaseData();
   }
 
   /* -------------------------------------------- */
@@ -60,11 +72,11 @@ export default class CrucibleItem extends Item {
     // Base Armor can be between zero and the maximum allowed for the category
     armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);
 
-    // Base Dodge is defined as (18 - base_armor) / 2, to a maximum of 8
-    dodge.base = Math.min(Math.floor((18 - armor.base) / 2), 8);
+    // Starting Dodge is half of base armor
+    dodge.start = Math.floor(armor.base / 2);
 
-    // Dodge Start is defined as base armor / 3
-    dodge.start = Math.ceil(armor.base / 3);
+    // Base Dodge is 10 - dodge start, clamped between 0 and 8
+    dodge.base = Math.clamped(10 - dodge.start, 0, 8);
 
     // Armor can have an enchantment bonus up to a maximum of 6
     armor.bonus = Math.clamped(armor.bonus, 0, 6);
@@ -122,17 +134,28 @@ export default class CrucibleItem extends Item {
    * @private
    */
   _prepareTalentData(itemData) {
-    this.actions = itemData.data.actions.map(a => new ActionData(a));
-    const reqs = foundry.utils.flattenObject(itemData.data.requirements);
-    this.requirements = Object.entries(reqs).reduce((obj, r) => {
-      const [k, v] = r;
-      obj[k] = {value: v};
-      if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
-      else if ( k === "advancement.level" ) obj[k].label = "Level"
-      else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
-      else obj[k].label = k;
-      return obj;
-    }, {});
+    const td = itemData.data;
+
+    // Identify current rank
+    this.rank = td.ranks[td.rank-1] || null;
+    this.nextRank = td.ranks[td.rank] || null;
+    this.actions = this.rank?.actions || [];
+    this.passives = this.rank?.passives || [];
+
+    // Identify requirements
+    const getReqs = reqs => {
+      return Object.entries(reqs).reduce((obj, r) => {
+        const [k, v] = r;
+        obj[k] = {value: v};
+        if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+        else if ( k === "advancement.level" ) obj[k].label = "Level"
+        else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
+        else obj[k].label = k;
+        return obj;
+      }, {});
+    }
+    this.prerequisites = getReqs(foundry.utils.flattenObject(this.rank?.requirements || {}));
+    this.requirements = getReqs(foundry.utils.flattenObject(this.nextRank?.requirements || {}));
   }
 
   /* -------------------------------------------- */

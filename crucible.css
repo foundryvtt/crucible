@@ -603,6 +603,7 @@ h2.divider span {
 .crucible.sheet.actor .defenses .defense .subtitle {
   font-family: var(--fontFamilySerif);
   font-size: var(--fontSizeMain);
+  white-space: nowrap;
 }
 .crucible.sheet.actor .defenses .defense .base {
   max-width: 104px;

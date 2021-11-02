@@ -15,7 +15,8 @@ export default class TalentSheet extends ItemSheet {
       template: `systems/${SYSTEM.id}/templates/sheets/talent.html`,
       resizable: false,
       submitOnChange: false,
-      closeOnSubmit: true
+      submitOnClose: false,
+      closeOnSubmit: false
     });
   }
 
@@ -33,6 +34,7 @@ export default class TalentSheet extends ItemSheet {
     const context = super.getData(options);
     context.hasActions = this.item.actions.length;
     context.tags = this.item.getTags();
+    context.jsonData = JSON.stringify(this.item.data.data, null, 2);
     return context;
   }
 
@@ -41,6 +43,7 @@ export default class TalentSheet extends ItemSheet {
   /** @override */
   _updateObject(event, formData) {
     event.preventDefault();
+    formData.data = JSON.parse(formData.data);
     return this.object.update(formData);
   }
 }

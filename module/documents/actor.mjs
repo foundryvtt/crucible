@@ -357,7 +357,7 @@ export default class CrucibleActor extends Actor {
 
   getDefenses({armor}) {
     const attributes = this.data.data.attributes;
-    const defenses = duplicate(this.data.data.defenses);
+    const defenses = foundry.utils.deepClone(this.data.data.defenses);
     armor = armor || this.equipment.armor;
 
     // Physical defenses
@@ -391,8 +391,8 @@ export default class CrucibleActor extends Actor {
     const attrs = data.data.attributes;
 
     // Health
-    const healthMod = ((2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value) / 4;
-    attrs.health.max = (12 * lvl) + Math.round(healthMod * lvl);
+    const healthMod = (2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value;
+    attrs.health.max = healthMod * lvl;
     attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
 
     // Wounds
@@ -400,8 +400,8 @@ export default class CrucibleActor extends Actor {
     attrs.wounds.value = Math.clamped(attrs.wounds.value, 0, attrs.wounds.max);
 
     // Morale
-    const moraleMod = ((2 * attrs.charisma.value) + attrs.intellect.value + attrs.wisdom.value) / 4;
-    attrs.morale.max = (12 * lvl) + Math.round(moraleMod * lvl);
+    const moraleMod = (2 * attrs.charisma.value) + attrs.intellect.value + attrs.wisdom.value;
+    attrs.morale.max = moraleMod * lvl;
     attrs.morale.value = Math.clamped(attrs.morale.value, 0, attrs.morale.max);
 
     // Madness

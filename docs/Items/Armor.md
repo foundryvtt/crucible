@@ -6,21 +6,21 @@
 
 **Dodge Start:** The amount of Dexterity required beyond which additional Dodge is gained.
 
-| Armor Type       | Base Armor | Base Dodge | Dodge Start |
-| ---------------- | ---------- | ---------- | ----------- |
-| Unarmored        | 0 | 8 | 0 |
-| **Light Armor**  |
-| Padded           | 2 | 8 | 1 |
-| Leather          | 4 | 7 | 2 |
-| Studded Leather  | 6 | 6 | 2 |
-| **Medium Armor** |
-| Brigandine       | 8 | 5 | 3 |
-| Breastplate      | 10 | 4 | 4 |
-| Lamellar         | 12 | 3 | 4 |
-| **Heavy Armor**  |
-| Chain Mail       | 14 | 2 | 5 |
-| Splint Mail      | 16 | 1 | 6 |
-| Full Plate       | 18 | 0 | 6 |
+| Armor Type       | Base Armor | Base Dodge | Dodge Start | At 6 Dex | At 12 Dex |
+| ---------------- | ---------- | ---------- | ----------- | ----------- | ----------- |
+| Unarmored        | 0 | 8 | 0 | 14 | 20 |
+| **Light Armor**  ||||||
+| Padded           | 4 | 8 | 2 | 16 | 22 |
+| Leather          | 6 | 7 | 3 | 16 | 22 |
+| Studded Leather  | 8 | 6 | 4 | 16 | 22 |
+| **Medium Armor** ||||||
+| Brigandine       | 12 | 4 | 6 | 16 | 22 |
+| Breastplate      | 14 | 3 | 7 | 17 | 22 |
+| Lamellar         | 16 | 2 | 8 | 18 | 22 |
+| **Heavy Armor**  ||||||
+| Chain Mail     | 20         | 0 | 10 | 20 | 22 |
+| Splint Mail      | 22 | 0 | 11 | 22 | 23 |
+| Full Plate       | 24 | 0 | 12 | 24 | 24 |
 
 
 # ~~ WIP Below This Point ~~

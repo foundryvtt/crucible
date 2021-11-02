@@ -137,7 +137,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
     type: "burst",
-    tooltip: "1d12 + (((2 * Constitution) + Strength + Dexterity) / 4)",
+    tooltip: "((2 * Constitution) + Strength + Dexterity) * Level",
     color: {
       high: 0xEE0000,
       low: 0xAA0000
@@ -157,7 +157,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
     type: "burst",
-    tooltip: "1d12 + (((2 * Charisma) + Intellect + Wisdom) / 4)",
+    tooltip: "((2 * Charisma) + Intellect + Wisdom) * Level",
     color: {
       high: 0x9900CC,
       low: 0x6600AA

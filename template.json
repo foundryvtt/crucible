@@ -280,6 +280,7 @@
       "passives": [],
       "tier": 1,
       "cost": 1,
+      "ranks": 1,
       "requirements": {}
     },
     "weapon": {
