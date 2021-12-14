@@ -15,9 +15,11 @@
 /* ----------------------------------------- */
 /*  CSS Variables                            */
 /* ----------------------------------------- */
-.crucible {
+:root {
   --fontFamilySerif: "CaslonAntique", "Palatino Linotype", serif;
   --fontFamilySans: "Signika", sans-serif;
+}
+.crucible {
   --fontSizeTitle: 20px;
   --fontSizeHeader: 16px;
   --fontSizeMain: 14px;
@@ -1077,8 +1079,8 @@ h2.divider span {
   border-top: 1px solid #b5b3a4;
 }
 #chat-log .message .flavor-text {
-  font-size: 16px;
   font-family: var(--fontFamilySerif);
+  font-size: var(--font-size-16);
 }
 .dice-roll.standard-check .dice-pool {
   justify-content: space-between;
@@ -1137,52 +1139,57 @@ h2.divider span {
   margin: 5px 0;
   padding: 5px 0 0;
 }
-.dice-roll.standard-check .dice-tooltip div.counter {
+.dice-roll.standard-check .dice-tooltip .counter {
+  display: flex;
+  justify-content: space-between;
   padding: 2px 0;
 }
-.dice-roll.standard-check .dice-tooltip div.counter label {
+.dice-roll.standard-check .dice-tooltip .counter label {
   font-size: 16px;
   font-family: var(--fontFamilySerif);
 }
-.dice-roll.standard-check .dice-tooltip div.counter span {
+.dice-roll.standard-check .dice-tooltip .counter span {
   width: 20px;
   height: 20px;
-  position: absolute;
-  right: 10px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
   border-radius: 2px;
   text-align: center;
 }
-.dice-roll.standard-check .dice-total {
+.dice-roll.standard-check .check-result,
+.dice-roll.standard-check .damage {
   position: relative;
   margin: 5px 0 0;
 }
-.dice-roll.standard-check .dice-total .outcome,
-.dice-roll.standard-check .dice-total .target {
+.dice-roll.standard-check .check-result .outcome,
+.dice-roll.standard-check .damage .outcome,
+.dice-roll.standard-check .check-result .target,
+.dice-roll.standard-check .damage .target {
   position: absolute;
   color: #33332e;
   font-weight: normal;
   font-size: 14px;
 }
-.dice-roll.standard-check .dice-total .outcome {
+.dice-roll.standard-check .check-result .outcome,
+.dice-roll.standard-check .damage .outcome {
   left: 5px;
 }
-.dice-roll.standard-check .dice-total .target {
+.dice-roll.standard-check .check-result .target,
+.dice-roll.standard-check .damage .target {
   right: 5px;
 }
-.dice-roll.standard-check.success .dice-total {
+.dice-roll.standard-check.success .check-result {
   background: rgba(0, 255, 0, 0.05);
   border: 1px solid green;
 }
-.dice-roll.standard-check.success.critical .dice-total {
+.dice-roll.standard-check.success.critical .check-result {
   color: green;
 }
-.dice-roll.standard-check.failure .dice-total {
+.dice-roll.standard-check.failure .check-result {
   background: rgba(255, 0, 0, 0.05);
   border: 1px solid red;
 }
-.dice-roll.standard-check.failure.critical .dice-total {
+.dice-roll.standard-check.failure.critical .check-result {
   color: red;
 }
 /**

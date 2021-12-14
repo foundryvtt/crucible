@@ -180,14 +180,10 @@ export default class CrucibleItem extends Item {
     const enchantments = SYSTEM.ENCHANTMENT_TIERS;
     const enchantment = itemData.enchantment = enchantments[wd.enchantment] || enchantments.mundane;
 
-    // Determine weapon damage formula
-    let dice = Math.max(1 + category.dice, 1);
-    let denom = Math.max(4 + category.denomination, 4);
-
-    // Attack Bonus
+    // Attack Attributes
     wd.attackBonus = quality.bonus + enchantment.bonus;
-
-    // AP Cost Modifier
+    wd.damageBonus = category.bonus;
+    wd.damageMultiplier = category.multiplier;
     wd.apCost = category.ap;
 
     // Weapon Rarity
@@ -200,13 +196,9 @@ export default class CrucibleItem extends Item {
       const prop = properties[p];
       if ( !prop ) return false;
       if (prop.ap) wd.apCost += prop.ap;
-      if (prop.denomination) denom += prop.denomination;
       if (prop.rarity) wd.rarity += prop.rarity;
       return true;
     });
-
-    // Damage Formula
-    wd.damage = `${dice}d${denom}`;
   }
 
   /* -------------------------------------------- */
@@ -242,7 +234,6 @@ export default class CrucibleItem extends Item {
       case "weapon":
         const weaponTags = {
           category: SYSTEM.WEAPON.CATEGORIES[this.data.data.category].label,
-          damage: d.damage,
           attackBonus: d.attackBonus
         };
         for ( let p of d.properties ) {
@@ -318,6 +309,19 @@ export default class CrucibleItem extends Item {
       enchantment: this.data.data.attackBonus
     });
     const flavor = `${this.parent.name} attacks with ${this.name}`;
+
+    // Evaluate the result and record the result
+    await roll.evaluate({async: true});
+    roll.data.result = this.actor.testPhysicalDefense(roll.total);
+    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
+      roll.data.damage = {
+        overflow: roll.overflow,
+        bonus: this.data.data.damageBonus,
+        multiplier: this.data.data.damageMultiplier,
+        resistance: 0,
+        total: (roll.overflow + this.data.data.damageBonus) * this.data.data.damageMultiplier
+      }
+    }
 
     // Create a chat message for the roll result
     await roll.toMessage({flavor}, {rollMode} );

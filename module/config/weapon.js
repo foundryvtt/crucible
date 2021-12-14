@@ -10,8 +10,8 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "dex",
-    dice: 0,
-    denomination: 0,
+    bonus: 0,
+    multiplier: 1,
     ap: 0
   },
   simple1: {
@@ -20,8 +20,8 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "str",
-    dice: 0,
-    denomination: 2,
+    bonus: 0,
+    multiplier: 1,
     ap: 0
   },
   balanced1: {
@@ -30,8 +30,8 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strdex",
-    dice: 0,
-    denomination: 2,
+    bonus: 1,
+    multiplier: 1,
     ap: 0
   },
   heavy1: {
@@ -40,8 +40,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 0,
-    denomination: 4,
+    bonus: 2,
+    multiplier: 1,
     ap: 1
   },
   massive1: {
@@ -50,8 +50,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 0,
-    denomination: 6,
+    bonus: 2,
+    multiplier: 2,
     ap: 2
   },
   simple2: {
@@ -60,8 +60,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 1,
-    denomination: 2,
+    bonus: 0,
+    multiplier: 2,
     ap: 1
   },
   balanced2: {
@@ -70,8 +70,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strdex",
-    dice: 1,
-    denomination: 2,
+    bonus: 1,
+    multiplier: 2,
     ap: 1
   },
   heavy2: {
@@ -80,8 +80,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 1,
-    denomination: 4,
+    bonus: 2,
+    multiplier: 2,
     ap: 2
   },
   massive2: {
@@ -90,8 +90,8 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "str",
-    dice: 1,
-    denomination: 6,
+    bonus: 2,
+    multiplier: 3,
     ap: 3
   },
   projectile2: {
@@ -101,9 +101,9 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "strdex",
-    dice: 1,
-    denomination: 2,
-    ap: 1
+    bonus: 0,
+    multiplier: 2,
+    ap: 2
   },
   mechanical1: {
     label: "WEAPON.Mechanical1",
@@ -112,9 +112,9 @@ export const CATEGORIES = {
     off: true,
     ranged: true,
     scaling: "dex",
-    dice: 0,
-    denomination: 4,
-    ap: 2
+    bonus: 0,
+    multiplier: 1,
+    ap: 1
   },
   mechanical2: {
     label: "WEAPON.Mechanical2",
@@ -123,8 +123,8 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "dex",
-    dice: 1,
-    denomination: 4,
+    bonus: 0,
+    multiplier: 2,
     ap: 2
   }
 }

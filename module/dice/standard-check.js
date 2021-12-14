@@ -41,6 +41,14 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /**
+   * The HTML template path used to render dice checks of this type
+   * @type {string}
+   */
+  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`;
+
+  /* -------------------------------------------- */
+
+  /**
    * Did this check result in a success?
    * @returns {boolean}
    */
@@ -151,41 +159,24 @@ export default class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
+  /** @override */
   async render(chatOptions={}) {
+    return renderTemplate(this.constructor.htmlTemplate, this._getChatCardData(chatOptions));
+  }
+
+  /* -------------------------------------------- */
+
+  _getChatCardData(chatOptions) {
     const isPrivate = chatOptions.isPrivate;
-    const css = [SYSTEM.id, "standard-check"];
-
-    // Determine outcome
-    let outcome = "Unknown";
-    if ( this.data.dc ) {
-      if ( this.isSuccess ) {
-        outcome = "Success";
-        css.push("success");
-        if ( this.isCriticalSuccess ) {
-          css.push("critical");
-          outcome = "Critical " + outcome;
-        }
-      }
-      else {
-        outcome = "Failure";
-        css.push("failure");
-        if ( this.isCriticalFailure ) {
-          css.push("critical");
-          outcome = "Critical " + outcome;
-        }
-      }
-    }
-
-    // Render chat card
-    return renderTemplate(`systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`, {
-      cssClass: css.join(" "),
+    const cardData = {
+      css: [SYSTEM.id, "standard-check"],
       data: this.data,
       dc: this.data.dc || "?",
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
       isGM: game.user.isGM,
       isPrivate: isPrivate,
       formula: this.formula,
-      outcome: outcome,
+      outcome: "Unknown",
       pool: this.dice.map(d => {
         return {
           denom: "d"+d.faces,
@@ -193,7 +184,29 @@ export default class StandardCheck extends Roll {
         }
       }),
       total: isPrivate ? "?" : this.total
-    });
+    }
+
+    // Successes and Failures
+    if ( this.data.dc ) {
+      if ( this.isSuccess ) {
+        cardData.outcome = "Success";
+        cardData.css.push("success");
+        if ( this.isCriticalSuccess ) {
+          cardData.outcome = "Critical " + cardData.outcome;
+          cardData.css.push("critical");
+        }
+      }
+      else {
+        cardData.outcome = "Failure";
+        cardData.css.push("failure");
+        if ( this.isCriticalFailure ) {
+          cardData.outcome = "Critical " + cardData.outcome;
+          cardData.css.push("critical");
+        }
+      }
+    }
+    cardData.cssClass = cardData.css.join(" ");
+    return cardData;
   }
 
   /* -------------------------------------------- */

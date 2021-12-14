@@ -1,5 +1,6 @@
 import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js"
+import AttackRoll from "../dice/attack-roll.mjs";
 
 
 export default class CrucibleActor extends Actor {
@@ -71,8 +72,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  prepareEmbeddedEntities() {
-    super.prepareEmbeddedEntities();
+  prepareEmbeddedDocuments() {
+    super.prepareEmbeddedDocuments();
     this._prepareEquipment();
     this._prepareActions();
   };
@@ -465,6 +466,35 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Test the Actor's defense, determining which defense type is used to avoid an attack.
+   * @returns {AttackRoll.RESULT_TYPES}
+   */
+  testPhysicalDefense(attackRoll) {
+    const d = this.data.data.defenses;
+
+    // Hit
+    if ( attackRoll > d.physical ) return AttackRoll.RESULT_TYPES.HIT;
+
+    // Dodge
+    const r = twist.random() * d.physical;
+    const dodge = d.dodge.total;
+    if ( r <= dodge ) return AttackRoll.RESULT_TYPES.DODGE;
+
+    // Parry
+    const parry = dodge + d.parry.total;
+    if ( r <= parry ) return AttackRoll.RESULT_TYPES.PARRY;
+
+    // Block
+    const block = dodge + d.block.total;
+    if ( r <= block ) return AttackRoll.RESULT_TYPES.BLOCK;
+
+    // Armor
+    return AttackRoll.RESULT_TYPES.DEFLECT;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Use an available Action.
    * @param {object} [options]    Options which configure action usage
    * @returns {Promise<Roll[]>}
@@ -617,7 +647,7 @@ export default class CrucibleActor extends Actor {
     background.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
-    if ( !this.L0 || (this.points.skill.spent > 0) ) {
+    if ( !this.isL0 || (this.points.skill.spent > 0) ) {
       const err = game.i18n.localize("BACKGROUND.ApplyError");
       ui.notifications.warn(err);
       throw new Error(err);

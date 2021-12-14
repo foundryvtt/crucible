@@ -1,0 +1,111 @@
+{
+  "main": {
+    "id": "3f6b1ae2cef1b1aa",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e715501b208f557",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Character/Attributes.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9387608a7a6eac80",
+    "type": "split",
+    "children": [
+      {
+        "id": "d94cf0e4d7fab25f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d2ab4a919e1ab9cb",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "f047235429a24cde",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "critical",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "029107e5bb197f14",
+    "type": "split",
+    "children": [
+      {
+        "id": "d800639455408358",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6f729ab44fb1a876",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Character/Attributes.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6fc601782c416d54",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Character/Attributes.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "9e715501b208f557",
+  "lastOpenFiles": [
+    "Character/Attributes.md",
+    "Combat/Weapon Attacks.md",
+    "Items/Weapons.md",
+    "Combat/Combat Overview.md",
+    "Combat/Actions and Action Points.md",
+    "Combat/Initiative and Turn Order.md",
+    "Combat/Rounds, Turns, and Phases.md",
+    "Acronyms.md"
+  ]
+}

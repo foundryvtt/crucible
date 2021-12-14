@@ -1,10 +1,8 @@
 
 #chat-log .message .flavor-text {
-  font-size: 16px;
   font-family: var(--fontFamilySerif);
+  font-size: var(--font-size-16);
 }
-
-
 
 .dice-roll.standard-check {
   .dice-pool {
@@ -56,7 +54,9 @@
     border-top: 1px solid @colorBeige;
     margin: 5px 0;
     padding: 5px 0 0;
-    div.counter {
+    .counter {
+      display: flex;
+      justify-content: space-between;
       padding: 2px 0;
       label {
         font-size: 16px;
@@ -65,8 +65,6 @@
       span {
         width: 20px;
         height: 20px;
-        position: absolute;
-        right: 10px;
         background: rgba(0, 0, 0, 0.05);
         border: 1px solid @colorTan;
         border-radius: 2px;
@@ -75,7 +73,8 @@
     }
   }
 
-  .dice-total {
+  .check-result,
+  .damage {
     position: relative;
     margin: 5px 0 0;
     .outcome, .target {
@@ -92,18 +91,18 @@
     }
   }
 
-  &.success .dice-total {
+  &.success .check-result {
     background: rgba(0,255,0,0.05);
     border: 1px solid green;
   }
-  &.success.critical .dice-total {
+  &.success.critical .check-result {
     color: green;
   }
-  &.failure .dice-total  {
+  &.failure .check-result  {
     background: rgba(255,0,0,0.05);
     border: 1px solid red;
   }
-  &.failure.critical .dice-total  {
+  &.failure.critical .check-result  {
     color: red;
   }
 }

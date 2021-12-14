@@ -94,8 +94,8 @@ export class StandardCheckDialog extends FormApplication {
    * @private
    */
   _getPlayerActors() {
-    return game.actors.entities.filter(a => {
-      return Math.max(...Object.values(a.data.permission)) >= CONST.ENTITY_PERMISSIONS.OWNER;
+    return game.actors.filter(a => {
+      return Math.max(...Object.values(a.data.permission)) >= CONST.DOCUMENT_PERMISSIONS.OWNER;
     });
   }
 

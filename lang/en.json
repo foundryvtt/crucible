@@ -1,6 +1,6 @@
 {
   "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
-  "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 1 character with no spent skill or ability points.",
+  "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
   "ANCESTRY.PrimaryAbility": "Primary Ability",
   "ANCESTRY.PrimaryAbilityHint": "Choose the primary ability score for this ancestry, which starts at +3.",
   "ANCESTRY.SecondaryAbility": "Secondary Ability",
@@ -27,6 +27,13 @@
   "ARMOR.Medium": "Medium Armor",
   "ARMOR.Heavy": "Heavy Armor",
 
+  "ATTACK.ResultTypeMiss": "Miss",
+  "ATTACK.ResultTypeDodge": "Dodge",
+  "ATTACK.ResultTypeParry": "Parry",
+  "ATTACK.ResultTypeBlock": "Block",
+  "ATTACK.ResultTypeDeflect": "Deflect",
+  "ATTACK.ResultTypeHit": "Hit",
+
   "ATTRIBUTES.Abilities": "Ability Scores",
   "ATTRIBUTES.Pools": "Resource Pools",
   "ATTRIBUTES.Resistances": "Damage Resistances",
@@ -45,7 +52,7 @@
   "ATTRIBUTES.FocusAbr": "Focus",
 
   "BACKGROUND.Applied": "Applied the {background} background to {actor}.",
-  "BACKGROUND.ApplyError": "You may only apply a background to a level 1 character with no spent skill points.",
+  "BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
   "BACKGROUND.Skills": "Acquired Skills",
   "BACKGROUND.SkillsHint": "Choose two skills which were acquired as part of your background, each of which will begin with +1 rank.",
   "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",

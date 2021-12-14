@@ -41,12 +41,39 @@
             </div>
         </div>
 
-        <h4 class="dice-total">
+        <h4 class="dice-total check-result">
             <span class="outcome">{{outcome}}</span>
             <span>{{total}}</span>
             {{#if isGM}}
             <span class="target">vs. DC {{dc}}</span>
             {{/if}}
         </h4>
+
+        {{#if data.damage.total}}
+        <div class="dice-tooltip">
+            <div class="counter">
+                <label>Overflow</label>
+                <span>{{data.damage.overflow}}</span>
+            </div>
+            <div class="counter">
+                <label>Bonus</label>
+                <span>{{data.damage.bonus}}</span>
+            </div>
+            <div class="counter">
+                <label>Multiplier</label>
+                <span>{{data.damage.multiplier}}</span>
+            </div>
+            <div class="counter">
+                <label>Resistance</label>
+                <span>{{data.damage.resistance}}</span>
+            </div>
+        </div>
+
+        <h4 class="dice-total check-result">
+            <span class="outcome">Damage</span>
+            <span>{{data.damage.total}}</span>
+            <span class="target">Physical</span>
+        </h4>
+        {{/if}}
     </div>
 </div>
