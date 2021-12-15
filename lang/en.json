@@ -17,6 +17,10 @@
 
   "ABILITY.CantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
 
+  "ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}",
+  "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}",
+  "ACTION.WarningIncorrectTargets": "You must designate {number} {type} targets for the {action} action",
+
   "ARMOR.Bulky": "Bulky",
   "ARMOR.Impenetrable": "Impenetrable",
   "ARMOR.Flexible": "Flexible",

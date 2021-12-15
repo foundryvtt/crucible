@@ -45,7 +45,7 @@
             <span class="outcome">{{outcome}}</span>
             <span>{{total}}</span>
             {{#if isGM}}
-            <span class="target">vs. DC {{dc}}</span>
+            <span class="target">{{defenseType}} {{defenseValue}}</span>
             {{/if}}
         </h4>
 
@@ -56,12 +56,12 @@
                 <span>{{data.damage.overflow}}</span>
             </div>
             <div class="counter">
-                <label>Bonus</label>
-                <span>{{data.damage.bonus}}</span>
-            </div>
-            <div class="counter">
                 <label>Multiplier</label>
                 <span>{{data.damage.multiplier}}</span>
+            </div>
+            <div class="counter">
+                <label>Bonus</label>
+                <span>{{data.damage.bonus}}</span>
             </div>
             <div class="counter">
                 <label>Resistance</label>
@@ -69,10 +69,10 @@
             </div>
         </div>
 
-        <h4 class="dice-total check-result">
+        <h4 class="dice-total damage-result">
             <span class="outcome">Damage</span>
             <span>{{data.damage.total}}</span>
-            <span class="target">Physical</span>
+            <span class="target">{{damageType}}</span>
         </h4>
         {{/if}}
     </div>

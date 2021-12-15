@@ -50,9 +50,9 @@ export default class HeroSheet extends ActorSheet {
     const eqp = this.actor.equipment;
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.data.data.category].label;
     context.armorTag = eqp.armor.getTags().defenses;
-    context.mainhandTag = eqp.weapons.mainhand.data.data.damage;
+    context.mainhandTag = eqp.weapons.mainhand.getTags().damage;
     context.showOffhand = !eqp.weapons.twoHanded;
-    context.offhandTag = eqp.weapons.offhand.data.data.damage;
+    context.offhandTag = eqp.weapons.offhand.getTags().damage;
 
     // Leveling
     context.isL0 = this.actor.isL0;

@@ -1,27 +1,28 @@
 .crucible.action {
   .chat-icon {
-    flex: 0 0 32px;
+    flex: 0 0 40px;
+    height: 40px;
   }
   .action-header {
+    padding-bottom: 4px;
     border-bottom: 1px solid @colorBeige;
     align-items: center;
   }
   .action-name {
     margin: 0 0 0 8px;
   }
-  .activation-tags {
+  .activation-tags,
+  .action-tags {
     text-align: right;
     margin: 0;
+  }
+  .action-tags {
+    margin-top: 2px;
   }
   .action-description {
     margin: 4px 0;
     font-size: 12px;
     line-height: 16px;
-  }
-  .action-tags {
-    margin: 0;
-    text-align: right;
-    padding-top: 4px;
-    border-top: 1px solid @colorBeige;
+    font-style: italic;
   }
 }

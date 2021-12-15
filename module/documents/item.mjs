@@ -219,11 +219,11 @@ export default class CrucibleItem extends Item {
         };
         const armorTags = {
           category: SYSTEM.ARMOR.CATEGORIES[this.data.data.category].label,
-          defenses: `${defenses.armor.total + defenses.dodge.total} PD`
         };
         for ( let p of d.properties ) {
           armorTags[p] = SYSTEM.ARMOR.PROPERTIES[p].label;
         }
+        armorTags.defenses = `${defenses.armor.total + defenses.dodge.total} PD`;
         return armorTags;
       case "talent":
         const talentTags = {cost: `${d.cost} ${d.cost > 1 ? "Points" : "Point"}`};
@@ -233,12 +233,13 @@ export default class CrucibleItem extends Item {
         return talentTags;
       case "weapon":
         const weaponTags = {
-          category: SYSTEM.WEAPON.CATEGORIES[this.data.data.category].label,
-          attackBonus: d.attackBonus
+          category: SYSTEM.WEAPON.CATEGORIES[d.category].label,
+          attackBonus: d.attackBonus,
         };
         for ( let p of d.properties ) {
           weaponTags[p] = SYSTEM.WEAPON.PROPERTIES[p].label;
         }
+        weaponTags.damage = `${d.attackBonus}/${d.damageBonus}/x${d.damageMultiplier}`;
         return weaponTags;
       default:
         return {};
@@ -254,8 +255,6 @@ export default class CrucibleItem extends Item {
     switch ( this.data.type ) {
       case "skill":
         return this._rollSkillCheck(options);
-      case "weapon":
-        return this._rollWeaponAttack(options);
     }
   }
 
@@ -276,14 +275,23 @@ export default class CrucibleItem extends Item {
 
   /**
    * Activate a weapon attack action
-   * @param {object} [options={}]     Additional options that configure the resulting AttackRoll
+   * @param {CrucibleActor} target    The target creature being attacked
+   * @param {number} [banes=0]        The number of banes which afflict this attack roll
+   * @param {number} [boons=0]        The number of boons which benefit this attack roll
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    * @private
    */
-  async _rollWeaponAttack({banes=0, boons=0, dc, rollMode}={}) {
+  async weaponAttack(target, {banes=0, boons=0}={}) {
+    if ( this.data.type !== "weapon" ) {
+      throw new Error("You may only call the weaponAttack method for weapon-type Items");
+    }
+    if ( !target ) {
+      throw new Error("You must provide an Actor as the target for this weapon attack");
+    }
+    const id = this.data.data;
 
     // Determine Weapon Ability Scaling
-    const attrs = this.actor.data.data.attributes;
+    const attrs = this.actor.attributes;
     let ability = 0;
     switch ( this.data.category.scaling ) {
       case "str":
@@ -303,28 +311,25 @@ export default class CrucibleItem extends Item {
       itemId: this.id,
       banes: banes,
       boons: boons,
-      dc: dc,
+      dc: target.defenses.physical,
       ability: ability,
       skill: 0,
-      enchantment: this.data.data.attackBonus
+      enchantment: id.attackBonus
     });
-    const flavor = `${this.parent.name} attacks with ${this.name}`;
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
-    roll.data.result = this.actor.testPhysicalDefense(roll.total);
+    roll.data.result = target.testPhysicalDefense(roll.total);
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        bonus: this.data.data.damageBonus,
-        multiplier: this.data.data.damageMultiplier,
-        resistance: 0,
-        total: (roll.overflow + this.data.data.damageBonus) * this.data.data.damageMultiplier
-      }
+        multiplier: id.damageMultiplier,
+        bonus: id.damageBonus,
+        resistance: target.resistances[id.damageType]?.total ?? 0,
+        type: id.damageType
+      };
+      roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
     }
-
-    // Create a chat message for the roll result
-    await roll.toMessage({flavor}, {rollMode} );
     return roll;
   }
 }

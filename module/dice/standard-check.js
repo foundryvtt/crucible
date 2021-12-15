@@ -171,7 +171,8 @@ export default class StandardCheck extends Roll {
     const cardData = {
       css: [SYSTEM.id, "standard-check"],
       data: this.data,
-      dc: this.data.dc || "?",
+      defenseType: "DC",
+      defenseValue: this.data.dc,
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
       isGM: game.user.isGM,
       isPrivate: isPrivate,

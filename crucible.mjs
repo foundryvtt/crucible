@@ -51,7 +51,7 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero", "npc"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;

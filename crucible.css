@@ -1054,29 +1054,30 @@ h2.divider span {
   margin: 0;
 }
 .crucible.action .chat-icon {
-  flex: 0 0 32px;
+  flex: 0 0 40px;
+  height: 40px;
 }
 .crucible.action .action-header {
+  padding-bottom: 4px;
   border-bottom: 1px solid #b5b3a4;
   align-items: center;
 }
 .crucible.action .action-name {
   margin: 0 0 0 8px;
 }
-.crucible.action .activation-tags {
+.crucible.action .activation-tags,
+.crucible.action .action-tags {
   text-align: right;
   margin: 0;
+}
+.crucible.action .action-tags {
+  margin-top: 2px;
 }
 .crucible.action .action-description {
   margin: 4px 0;
   font-size: 12px;
   line-height: 16px;
-}
-.crucible.action .action-tags {
-  margin: 0;
-  text-align: right;
-  padding-top: 4px;
-  border-top: 1px solid #b5b3a4;
+  font-style: italic;
 }
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);
@@ -1084,7 +1085,7 @@ h2.divider span {
 }
 .dice-roll.standard-check .dice-pool {
   justify-content: space-between;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 .dice-roll.standard-check .die {
   position: relative;
@@ -1157,25 +1158,25 @@ h2.divider span {
   text-align: center;
 }
 .dice-roll.standard-check .check-result,
-.dice-roll.standard-check .damage {
+.dice-roll.standard-check .damage-result {
   position: relative;
   margin: 5px 0 0;
 }
 .dice-roll.standard-check .check-result .outcome,
-.dice-roll.standard-check .damage .outcome,
+.dice-roll.standard-check .damage-result .outcome,
 .dice-roll.standard-check .check-result .target,
-.dice-roll.standard-check .damage .target {
+.dice-roll.standard-check .damage-result .target {
   position: absolute;
   color: #33332e;
   font-weight: normal;
   font-size: 14px;
 }
 .dice-roll.standard-check .check-result .outcome,
-.dice-roll.standard-check .damage .outcome {
+.dice-roll.standard-check .damage-result .outcome {
   left: 5px;
 }
 .dice-roll.standard-check .check-result .target,
-.dice-roll.standard-check .damage .target {
+.dice-roll.standard-check .damage-result .target {
   right: 5px;
 }
 .dice-roll.standard-check.success .check-result {

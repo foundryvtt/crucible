@@ -44,10 +44,21 @@ export default class AttackRoll extends StandardCheck {
   }
 
   /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
 
   _getChatCardData(chatOptions) {
     const cardData = super._getChatCardData(chatOptions);
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
+    cardData.defenseType = "Defense";
+    if ( this.data.damage.total ) {
+      cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
+    }
     return cardData;
   }
+
+  /* -------------------------------------------- */
+
+
+
 }

@@ -1,6 +1,7 @@
 import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
+import ActionData from "../talents/action.mjs";
 
 
 export default class CrucibleActor extends Actor {
@@ -40,12 +41,36 @@ export default class CrucibleActor extends Actor {
     return this.data.data.abilities;
   }
 
+  /**
+   * The prepared object of actor attributes
+   * @type {object}
+   */
+  get attributes() {
+    return this.data.data.attributes;
+  }
+
   get isL0() {
     return this.data.data.advancement.level === 0;
   }
 
   get skills() {
     return this.data.data.skills;
+  }
+
+  /**
+   * The prepared object of actor defenses
+   * @type {object}
+   */
+  get defenses() {
+    return this.data.data.defenses;
+  }
+
+  /**
+   * The prepared object of actor resistances
+   * @returns {object}
+   */
+  get resistances() {
+    return this.data.data.resistances;
   }
 
   /* -------------------------------------------- */
@@ -496,69 +521,14 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Use an available Action.
+   * @param {string} actionId     The action to use
    * @param {object} [options]    Options which configure action usage
    * @returns {Promise<Roll[]>}
    */
-  async useAction(actionId, {banes=0, boons=0, dc=null, rollMode=null, dialog=false}={}) {
+  async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-
-    // Determine whether the action can be used based on its tags
-    for ( let tag of action.tags ) {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
-      if ( !at ) continue;
-      if ( (at.canActivate instanceof Function) && !at.canActivate(this, action) ) {
-        return ui.notifications.warn(`${this.name} cannot use action ${action.name} which requires tag ${at.label}.`);
-      }
-    }
-
-    // Determine whether the action can be activated
-    const attrs = this.data.data.attributes;
-    if ( action.actionCost > attrs.action.value ) {
-      return ui.notifications.warn(`${this.name} has insufficient Action Points to use ${action.name}.`);
-    }
-    if ( action.focusCost > attrs.focus.value ) {
-      return ui.notifications.warn(`${this.name} has insufficient Focus Points to use ${action.name}.`);
-    }
-
-    // Display that the action is being used
-    const html = await action.getHTML();
-    await ChatMessage.create({
-      speaker: ChatMessage.getSpeaker({actor: this}),
-      content: html
-    });
-
-    // Activate the action
-    const promises = [];
-    for ( let tag of action.tags ) {
-      switch (tag) {
-        case "mainhand":
-        case "twoHanded":
-          promises.push(this.equipment.weapons.mainhand.roll());
-          break;
-        case "offhand":
-          promises.push(this.equipment.weapons.offhand.roll());
-          break;
-        default:
-          console.warn(`No tags defined which determine how to use Action ${actionId}`);
-      }
-    }
-
-    // Perform post-roll callbacks
-    const rolls = await Promise.all(promises);
-    for ( let tag of action.tags ) {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
-      if ( at.postActivate instanceof Function ) {
-        await at.postActivate(this, action, rolls);
-      }
-    }
-
-    // Incur the cost of the action that was performed
-    await this.update({
-      "data.attributes.action.value": this.data.data.attributes.action.value - action.actionCost,
-      "data.attributes.focus.value": this.data.data.attributes.focus.value - action.focusCost
-    });
-    return rolls;
+    return action.use(this, options)
   }
 
   /* -------------------------------------------- */
