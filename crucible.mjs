@@ -11,6 +11,8 @@ import {SYSTEM} from "./module/config/system.js";
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
+import CrucibleCombat from "./module/documents/combat.mjs";
+import CrucibleCombatant from "./module/documents/combatant.mjs";
 import ActionData from "./module/talents/action.mjs";
 
 // Sheets
@@ -61,6 +63,10 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
+
+  // Combat Configuration
+  CONFIG.Combat.documentClass = CrucibleCombat;
+  CONFIG.Combatant.documentClass = CrucibleCombatant;
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);

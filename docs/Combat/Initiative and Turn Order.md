@@ -3,8 +3,7 @@
 Initiative reflects your character's swiftness of mind and body - corresponding to how quickly you are able to act in a situation where time is of the essence. Your character's initiative during combat is determined by your Dexterity and Intellect attributes, any passive Initiative Bonus you may have, any situational bonus which allows you to react faster than usual, and an element of random chance. Your initiative is determined by:
 
 ```
-Initiative = 1d10 + (0.5 * (Dexterity + Intelligence)) + Situational Bonus 
-		   + Unspent Action Reserves
+Initiative = 3d8 + (0.5 * (Dexterity + Intelligence)) + Unspent Action Reserves
 ```
 
 A situational bonus to initiative could result from you getting the drop on an enemy, or benefiting from a magical spell which hastens your reactions, alternatively you could face a situational penalty to initiative if your reactions are dulled or slowed by alchemical or magical effects.

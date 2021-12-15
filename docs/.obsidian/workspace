@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Character/Attributes.md",
+            "file": "Dice.md",
             "mode": "source"
           }
         }
@@ -39,7 +39,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "critical",
+                "query": "balanced",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -48,8 +48,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -69,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Character/Attributes.md",
+                "file": "Dice.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Character/Attributes.md"
+                "file": "Dice.md"
               }
             }
           }
@@ -99,12 +98,13 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
+    "Dice.md",
+    "Items/Weapons.md",
+    "Combat/Initiative and Turn Order.md",
+    "Combat/Combat Overview.md",
     "Character/Attributes.md",
     "Combat/Weapon Attacks.md",
-    "Items/Weapons.md",
-    "Combat/Combat Overview.md",
     "Combat/Actions and Action Points.md",
-    "Combat/Initiative and Turn Order.md",
     "Combat/Rounds, Turns, and Phases.md",
     "Acronyms.md"
   ]
