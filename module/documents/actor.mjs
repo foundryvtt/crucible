@@ -3,43 +3,43 @@ import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
 import ActionData from "../talents/action.mjs";
 
-
+/**
+ * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
+ * @extends {Actor}
+ */
 export default class CrucibleActor extends Actor {
-  constructor(data, context) {
-    super(data, context)
 
-    /**
-     * Track the Actions which this Actor has available to use
-     * @type {Object<string, ActionData>}
-     */
-    this.actions;
-
-    /**
-     * Track the equipment that the Actor is currently using
-     * @type {{
-     *   armor: Item,
-     *   weapons: {mainhand: Item, offhand: Item}
-     *   accessories: Item[]
-     * }}
-     */
-    this.equipment;
-
-    /**
-     * Track the progression points which are available and spent
-     * @type {{
-     *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
-     *   skill: {total: number, spent: number, available: number },
-     *   talent: {total: number, spent: number, available: number }
-     * }}
-     */
-    this.points;
+  /** @inheritdoc */
+  _initialize() {
+    super._initialize();
+    this._updateCachedResources();
   }
 
-  /* -------------------------------------------- */
+  /**
+   * Track the Actions which this Actor has available to use
+   * @type {Object<string, ActionData>}
+   */
+  actions = this.actions;
 
-  get abilities() {
-    return this.data.data.abilities;
-  }
+  /**
+   * Track the equipment that the Actor is currently using
+   * @type {{
+   *   armor: Item,
+   *   weapons: {mainhand: Item, offhand: Item}
+   *   accessories: Item[]
+   * }}
+   */
+  equipment = this.equipment;
+
+  /**
+   * Track the progression points which are available and spent
+   * @type {{
+   *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
+   *   skill: {total: number, spent: number, available: number },
+   *   talent: {total: number, spent: number, available: number }
+   * }}
+   */
+  points = this.points;
 
   /**
    * The prepared object of actor attributes
@@ -47,14 +47,6 @@ export default class CrucibleActor extends Actor {
    */
   get attributes() {
     return this.data.data.attributes;
-  }
-
-  get isL0() {
-    return this.data.data.advancement.level === 0;
-  }
-
-  get skills() {
-    return this.data.data.skills;
   }
 
   /**
@@ -66,11 +58,27 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * Is this actor currently "level zero"
+   * @returns {boolean}
+   */
+  get isL0() {
+    return this.data.data.advancement.level === 0;
+  }
+
+  /**
    * The prepared object of actor resistances
    * @returns {object}
    */
   get resistances() {
     return this.data.data.resistances;
+  }
+
+  /**
+   * The prepared object of actor skills
+   * @returns {object}
+   */
+  get skills() {
+    return this.data.data.skills;
   }
 
   /* -------------------------------------------- */
@@ -776,6 +784,65 @@ export default class CrucibleActor extends Actor {
 
     // Apply the updates
     return this.updateEmbeddedDocuments("Item", updates);
+  }
+
+
+  /* -------------------------------------------- */
+  /*  Database Workflows                          */
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(data, options, userId) {
+    this._displayScrollingDamage(data);
+    super._onUpdate(data, options, userId);
+    this._updateCachedResources();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display changes to resources as scrolling combat text.
+   * @private
+   */
+  _displayScrollingDamage(changed) {
+    if ( !changed.data.attributes ) return;
+    const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
+    if ( !tokens.length ) return;
+    for ( let [resource, prior] of Object.entries(this._cachedResources ) ) {
+      if ( !changed.data.attributes[resource]?.value ) continue;
+      const attr = this.attributes[resource];
+      const delta = attr.value - prior;
+      if ( delta === 0 ) continue;
+      for ( let token of tokens ) {
+        const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
+        token.hud.createScrollingText(delta.signedString(), {
+          anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
+          fontSize: 16 + (32 * pct), // Range between [16, 48]
+          fill: SYSTEM.RESOURCES[resource].color[delta < 0 ? "high" : "heal"],
+          stroke: 0x000000,
+          strokeThickness: 4,
+          jitter: 0.25
+        });
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update the cached resources for this actor
+   * @private
+   */
+  _updateCachedResources() {
+    const a = this.attributes;
+    this._cachedResources = {
+      health: a.health.value,
+      wounds: a.wounds.value,
+      morale: a.morale.value,
+      madness: a.madness.value,
+      action: a.action.value,
+      focus: a.focus.value
+    }
   }
 }
 

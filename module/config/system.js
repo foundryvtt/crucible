@@ -136,61 +136,61 @@ export const RESOURCES = {
   "health": {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
-    type: "burst",
     tooltip: "((2 * Constitution) + Strength + Dexterity) * Level",
     color: {
       high: 0xEE0000,
-      low: 0xAA0000
+      low: 0xAA0000,
+      heal: 0x00EE00
     },
   },
   "wounds": {
     label: "ATTRIBUTES.Wounds",
     abbreviation: "ATTRIBUTES.Wounds",
-    type: "sustain",
     tooltip: "Health * 2",
     color: {
       high: 0xEE0000,
-      low: 0xAA0000
+      low: 0xAA0000,
+      heal: 0x00EE00
     },
   },
   "morale": {
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
-    type: "burst",
     tooltip: "((2 * Charisma) + Intellect + Wisdom) * Level",
     color: {
       high: 0x9900CC,
-      low: 0x6600AA
+      low: 0x6600AA,
+      heal: 0x9900CC
     }
   },
   "madness": {
     label: "ATTRIBUTES.Madness",
     abbreviation: "ATTRIBUTES.Madness",
-    type: "sustain",
     tooltip: "Morale * 2",
     color: {
       high: 0x9900CC,
-      low: 0x6600AA
+      low: 0x6600AA,
+      heal: 0x9900CC
     }
   },
   "action": {
     label: "ATTRIBUTES.Action",
     abbreviation: "ATTRIBUTES.Action",
-    type: "burst",
     tooltip: "3 + Action Bonus",
     color: {
       high: 0xFF9900,
-      low: 0xCC6600
+      low: 0xCC6600,
+      heal: 0xFF9900
     }
   },
   "focus": {
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
-    type: "sustain",
     tooltip: "(Level * 2) + Focus Bonus",
     color: {
       high: 0x0066FF,
-      low: 0x0033CC
+      low: 0x0033CC,
+      heal: 0x0066FF
     }
   }
 };

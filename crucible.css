@@ -466,11 +466,7 @@ h2.divider span {
   padding: 0 var(--marginSize);
   border-right: 1px solid #c9c7b8;
 }
-.crucible.sheet.actor .resource.health {
-  padding-left: 0;
-}
 .crucible.sheet.actor .resource.action {
-  padding-right: 0;
   border-right: none;
 }
 .crucible.sheet.actor .resource .resource-name {
