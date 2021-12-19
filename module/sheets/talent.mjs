@@ -44,6 +44,9 @@ export default class TalentSheet extends ItemSheet {
   _updateObject(event, formData) {
     event.preventDefault();
     formData.data = JSON.parse(formData.data);
+    for ( let rank of formData.data.ranks ) {
+      rank.requirements = foundry.utils.expandObject(rank.requirements || {});
+    }
     return this.object.update(formData);
   }
 }

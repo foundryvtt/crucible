@@ -47,6 +47,18 @@ export const ABILITIES = {
 /* -------------------------------------------- */
 
 /**
+ * The amount of damage resistance granted by ancestries.
+ * @type {object}
+ */
+export const ANCESTRIES = {
+  primaryAttributeStart: 3,
+  secondaryAttributeStart: 2,
+  resistanceAmount: 2
+}
+
+/* -------------------------------------------- */
+
+/**
  * Define the top level damage categories.
  * @type {object}
  */
@@ -265,6 +277,7 @@ export const SYSTEM = {
   ARMOR,
   dice: dice,
   ABILITIES,
+  ANCESTRIES,
   ATTRIBUTE_CATEGORIES,
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,

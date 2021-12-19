@@ -90,11 +90,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Create chat message
     const messageData = {
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor}),
-      roll: rolls[0]
     }
+    if ( rolls.length > 0 ) messageData.roll = rolls[0];
     if ( rolls.length > 1 ) messageData["flags.crucible.rolls"] = rolls;
     return ChatMessage.create(messageData, messageOptions);
   }
@@ -147,7 +147,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
     // Assert that required targets are designated
     let targets;
     try {
-      targets = this._acquireTargets();
+      targets = this._acquireTargets(actor);
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -157,7 +157,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
     for ( let target of targets ) {
 
       // Perform each action tag callback
-      const promises = this.tags.map(tag => this._executeTag(actor, target, tag));
+      const promises = this.tags.reduce((promises, tag) => {
+        const promise = this._executeTag(actor, target, tag);
+        if ( promise instanceof Promise ) promises.push(promise);
+        return promises;
+      }, []);
 
       // Perform post-roll callbacks
       const rolls = await Promise.all(promises);
@@ -183,11 +187,13 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
   /* -------------------------------------------- */
 
-  _acquireTargets() {
+  _acquireTargets(actor) {
     const targets = Array.from(game.user.targets).map(t => t.actor);
     switch ( this.targetType ) {
+      case "self":
+        return [actor];
       case "single":
-        if ( targets.length !== this.targetNumber ) {
+        if ( !targets.length.between(1, this.targetNumber) ) {
           throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
             number: this.targetNumber,
             type: this.targetType,
@@ -218,6 +224,8 @@ export default class ActionData extends foundry.abstract.DocumentData {
         return actor.equipment.weapons.mainhand.weaponAttack(target);
       case "offhand":
         return actor.equipment.weapons.offhand.weaponAttack(target);
+      case "movement":
+        return null;
       default:
         console.warn(`No tags defined which determine how to use Action ${this.id}`);
     }
@@ -234,6 +242,6 @@ export default class ActionData extends foundry.abstract.DocumentData {
    * @returns {number}
    */
   static computeDamage({overflow, multiplier=1, bonus=0, resistance=0}={}) {
-    return (overflow * multiplier) + bonus - resistance;
+    return Math.max((overflow * multiplier) + bonus - resistance, 1);
   }
 }

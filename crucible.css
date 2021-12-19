@@ -68,6 +68,9 @@
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
   color: #191813;
+}
+.crucible input,
+.crucible span.input {
   text-align: center;
 }
 h1.divider,
@@ -225,6 +228,12 @@ h2.divider span {
 }
 .crucible.sheet .tooltipped:hover > .tooltip {
   display: block;
+}
+.crucible.sheet.ancestry .form-group.skills .form-fields {
+  flex-wrap: wrap;
+}
+.crucible.sheet.ancestry .form-group.skills .form-fields > label {
+  text-align: left;
 }
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
@@ -858,6 +867,9 @@ h2.divider span {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #b5b3a4;
   font-weight: bold;
+}
+.crucible.actor .items-header.talents-header {
+  margin: 0;
 }
 .crucible.actor .item-name {
   align-items: center;

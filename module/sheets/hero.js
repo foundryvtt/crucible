@@ -79,8 +79,7 @@ export default class HeroSheet extends ActorSheet {
     });
 
     // Section locks
-    this._updateSectionLocks();
-    context.sectionLocks = this._sectionLocks;
+    context.sectionLocks = this._getSectionLocks();
     return context;
   }
 
@@ -257,10 +256,11 @@ export default class HeroSheet extends ActorSheet {
    * Update section locks to automatically unlock sections where the user needs to provide input.
    * @private
    */
-  _updateSectionLocks() {
-    const locks = this._sectionLocks;
+  _getSectionLocks() {
+    const locks = foundry.utils.deepClone(this._sectionLocks);
     const points = this.actor.points;
-    if ( points.ability.hasUnspent ) locks.abilities = false;
+    if ( points.ability.requireAttention ) locks.abilities = false;
+    return locks;
   }
 
   /* -------------------------------------------- */

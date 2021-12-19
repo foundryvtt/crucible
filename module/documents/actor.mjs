@@ -163,8 +163,8 @@ export default class CrucibleActor extends Actor {
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
       let ability = attrs[a];
       ability.initial = 1;
-      if ( a === ancestry.primary ) ability.initial = 3;
-      else if ( a === ancestry.secondary ) ability.initial = 2;
+      if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAttributeStart;
+      else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAttributeStart;
       ability.value = ability.initial + ability.base + ability.increases + ability.bonus;
       abilityPointsBought += Array.fromRange(ability.initial + ability.base + 1).reduce((a, v) => a + v);
       abilityPointsSpent += ability.increases;
@@ -177,7 +177,7 @@ export default class CrucibleActor extends Actor {
     points.pool = 36 - points.bought;
     points.spent = abilityPointsSpent;
     points.available = points.total - abilityPointsSpent;
-    points.hasUnspent = this.isL0 ? (points.pool > 0) : (points.available > 0);
+    points.requireAttention = this.isL0 ? (points.pool > 0) : (points.available !== 0);
   }
 
   /* -------------------------------------------- */
@@ -336,7 +336,7 @@ export default class CrucibleActor extends Actor {
   _prepareTalents(data) {
     const points = this.points.talent;
     for ( let item of this.itemTypes.talent ) {
-      points.spent += item.data.data.cost ?? 0;
+      points.spent += item.cost;
     }
     points.available = points.total - points.spent;
     if ( points.available < 0) {
@@ -381,8 +381,8 @@ export default class CrucibleActor extends Actor {
     // Damage Resistances
     const ancestry = data.data.details.ancestry;
     for ( let [id, r] of Object.entries(data.data.resistances) ) {
-      if ( id === ancestry.resistance ) r.base = 3;
-      else if ( id === ancestry.vulnerability ) r.base = -3;
+      if ( id === ancestry.resistance ) r.base = SYSTEM.ANCESTRIES.resistanceAmount;
+      else if ( id === ancestry.vulnerability ) r.base = -SYSTEM.ANCESTRIES.resistanceAmount;
       r.total = r.base + r.bonus;
     }
   }
@@ -443,7 +443,7 @@ export default class CrucibleActor extends Actor {
     attrs.madness.value = Math.clamped(attrs.madness.value, 0, attrs.madness.max);
 
     // Action
-    attrs.action.max = 3;
+    attrs.action.max = lvl > 0 ? 3 : 0;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
@@ -540,6 +540,32 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Restore all resource pools to their maximum value.
+   * @returns {Promise<CrucibleActor>}
+   */
+  async rest() {
+    return this.update(this._getRestData());
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare an object that replenishes all resource pools to their current maximum level
+   * @returns {{}}
+   * @private
+   */
+  _getRestData() {
+    const updates = {};
+    for ( let r of Object.keys(SYSTEM.RESOURCES) ) {
+      const attr = this.attributes[r];
+      updates[`data.attributes.${r}.value`] = attr.max;
+    }
+    return updates;
+  }
+
+  /* -------------------------------------------- */
   /*  Character Creation Methods                  */
   /* -------------------------------------------- */
 
@@ -551,6 +577,7 @@ export default class CrucibleActor extends Actor {
    */
   async addTalent(itemData) {
     const Item = getDocumentClass("Item");
+    itemData.data.rank = 1;
     const talent = new Item(itemData, {parent: this});
 
     // Ensure the Talent is not already owned
@@ -576,10 +603,10 @@ export default class CrucibleActor extends Actor {
 
     // Confirm that the Actor has sufficient Talent points
     const points = this.points.talent;
-    if ( points.available < talent.data.cost ) {
+    if ( points.available < talent.rank.cost ) {
       const err = game.i18n.format("TALENT.CannotAfford", {
         name: talent.name,
-        cost: talent.data.cost
+        cost: talent.cost
       });
       ui.notifications.warn(err);
       throw new Error(err);
@@ -796,6 +823,7 @@ export default class CrucibleActor extends Actor {
     this._displayScrollingDamage(data);
     super._onUpdate(data, options, userId);
     this._updateCachedResources();
+    this._replenishResources(data);
   }
 
   /* -------------------------------------------- */
@@ -805,7 +833,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _displayScrollingDamage(changed) {
-    if ( !changed.data.attributes ) return;
+    if ( !changed.data?.attributes ) return;
     const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
     if ( !tokens.length ) return;
     for ( let [resource, prior] of Object.entries(this._cachedResources ) ) {
@@ -843,6 +871,14 @@ export default class CrucibleActor extends Actor {
       action: a.action.value,
       focus: a.focus.value
     }
+  }
+
+  /* -------------------------------------------- */
+
+  _replenishResources(data) {
+    const levelChange = foundry.utils.hasProperty(data, "data.advancement.level");
+    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => foundry.utils.hasProperty(data, `data.attributes.${k}`));
+    if ( levelChange || attributeChange ) this.rest();
   }
 }
 

@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Dice.md",
+            "file": "To-Do List.md",
             "mode": "source"
           }
         }
@@ -39,7 +39,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "balanced",
+                "query": "Gestures",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dice.md",
+                "file": "To-Do List.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dice.md"
+                "file": "To-Do List.md"
               }
             }
           }
@@ -98,14 +98,15 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
+    "To-Do List.md",
+    "Spells/Essentials.md",
+    "Spells/Components.md",
     "Dice.md",
     "Items/Weapons.md",
     "Combat/Initiative and Turn Order.md",
     "Combat/Combat Overview.md",
     "Character/Attributes.md",
     "Combat/Weapon Attacks.md",
-    "Combat/Actions and Action Points.md",
-    "Combat/Rounds, Turns, and Phases.md",
-    "Acronyms.md"
+    "Combat/Actions and Action Points.md"
   ]
 }

@@ -275,13 +275,11 @@
       "talents": []
     },
     "talent": {
+      "type": "",
+      "tags": "",
       "description": "",
-      "actions": [],
-      "passives": [],
-      "tier": 1,
-      "cost": 1,
-      "ranks": 1,
-      "requirements": {}
+      "ranks": [],
+      "rank": 0
     },
     "weapon": {
       "templates": ["physical"],

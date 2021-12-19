@@ -6,18 +6,28 @@ import ActionData from "../talents/action.mjs";
  * The data schema of a Talent type Item in the Crucible system.
  * @extends DocumentData
  *
+ * @property {string} type              The talent type in
  * @property {string} description
- * @property {number} tier
- * @property {number} cost
+ * @property {string[]} tags
  * @property {number} ranks
- * @property {{[key: string]: number}} requirements
+ * @property {number} rank
  * @property {ActionData[]} actions
  */
 export class TalentData extends DocumentData {
   static defineSchema() {
     return {
       description: fields.BLANK_STRING,
-      type: fields.BLANK_STRING,
+      type: fields.field(fields.BLANK_STRING, {
+        validate: t => this.TALENT_TYPES.includes(t),
+        validationError: '{name} {field} "{value}" is not a valid type in TalentData.TALENT_TYPES'
+      }),
+      tags: {
+        type: [String],
+        required: true,
+        default: [],
+        validate: tags => tags.every(t => this.TALENT_TAGS.includes(t)),
+        validationError: '{name} {field} "{value}" must all be valid tags in TalentData.TALENT_TAGS'
+      },
       ranks: {
         type: [TalentRankData],
         required: true,
@@ -26,6 +36,18 @@ export class TalentData extends DocumentData {
       rank: fields.field(fields.INTEGER_FIELD, {default: 0})
     }
   }
+
+  /**
+   * Allowed talent types which can be assigned to TalentData
+   * @type {string[]}
+   */
+  static TALENT_TYPES = ["armor", "weaponry"];
+
+  /**
+   * Allowed talent tags which can be assigned to TalentData or ActionData
+   * @type {string[]}
+   */
+  static TALENT_TAGS = ["melee", "mainhand", "twohand", "offhand", "shield"];
 }
 
 /**

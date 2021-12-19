@@ -14,6 +14,7 @@ import CrucibleItem from "./module/documents/item.mjs";
 import CrucibleCombat from "./module/documents/combat.mjs";
 import CrucibleCombatant from "./module/documents/combatant.mjs";
 import ActionData from "./module/talents/action.mjs";
+import {TalentData, TalentRankData, TalentPassiveData} from "./module/data/talent.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
@@ -49,6 +50,18 @@ Hooks.once("init", async function() {
   }
   game.system.dice = { AttackRoll, StandardCheck };
   game.system.journal = { buildJournalCompendium }
+  game.system.api = {
+    ActionData,
+    AttackRoll,
+    CrucibleActor,
+    CrucibleItem,
+    CrucibleCombat,
+    CrucibleCombatant,
+    StandardCheck,
+    TalentData,
+    TalentRankData,
+    TalentPassiveData
+  }
 
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;

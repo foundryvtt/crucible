@@ -136,8 +136,9 @@ export default class CrucibleItem extends Item {
   _prepareTalentData(itemData) {
     const td = itemData.data;
 
-    // Identify current rank
+    // Identify current rank and cost
     this.rank = td.ranks[td.rank-1] || null;
+    this.cost = this.rank?.cost || 0;
     this.nextRank = td.ranks[td.rank] || null;
     this.actions = this.rank?.actions || [];
     this.passives = this.rank?.passives || [];
@@ -226,7 +227,11 @@ export default class CrucibleItem extends Item {
         armorTags.defenses = `${defenses.armor.total + defenses.dodge.total} PD`;
         return armorTags;
       case "talent":
-        const talentTags = {cost: `${d.cost} ${d.cost > 1 ? "Points" : "Point"}`};
+        const talentTags = {};
+        if ( this.nextRank ) {
+          const cost = this.nextRank.cost;
+          talentTags.cost = `${cost} ${cost > 1 ? "Points" : "Point"}`;
+        }
         for ( let [k, v] of Object.entries(this.requirements) ) {
           talentTags[k] = `${v.label} ${v.value}`;
         }

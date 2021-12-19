@@ -152,7 +152,7 @@
             <section class="abilities">
                 <h3 class="section-header divider">
                     <span></span>
-                    <label>Abilities{{#if actor.points.ability.hasUnspent}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}</label>
+                    <label>Abilities{{#if actor.points.ability.requireAttention}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}</label>
                     <span></span>
                     <a class="button section-lock" data-section="abilities">
                         <i class="fas {{#if sectionLocks.abilities}}fa-lock{{else}}fa-unlock{{/if}}"></i>
@@ -402,6 +402,47 @@
             {{/each}}
         </div>
 
+        {{!-- Talents Tab --}}
+        <div class="tab talents flexcol" data-group="primary" data-tab="talents">
+            <div class="point-pools flexrow">
+                <label>Talent Points</label>
+                <span class="value highlight">{{points.talent.total}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.talent.spent}}</span>
+                <label>Available</label>
+                <span class="value highlight">{{points.talent.available}}</span>
+            </div>
+            <header class="talents-header items-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>Talent</h4>
+                </div>
+                <div class="item-controls">
+                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
+                </div>
+            </header>
+            <ol class="items-list">
+                {{#each talents as |item id|}}
+                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item.id}}">
+                    <div class="item-name flexrow">
+                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                        <h4>{{item.name}}</h4>
+                        {{#each item.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="item-controls">
+                        <a class="control" data-action="itemEdit" title="Edit Item">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="control" data-action="itemDelete" title="Delete Item">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+        </div>
+
         {{!-- Inventory Tab --}}
         <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
             {{#each items.inventory as |section s|}}
@@ -445,45 +486,35 @@
             {{/each}}
         </div>
 
-        {{!-- Talents Tab --}}
-        <div class="tab talents flexcol" data-group="primary" data-tab="talents">
-            <div class="point-pools flexrow">
-                <label>Talent Points</label>
-                <span class="value highlight">{{points.talent.total}}</span>
-                <label>Spent</label>
-                <span class="value highlight">{{points.talent.spent}}</span>
-                <label>Available</label>
-                <span class="value highlight">{{points.talent.available}}</span>
-            </div>
-            <header class="items-header flexrow">
+        {{!-- Grimoire Tab --}}
+        <div class="tab spells flexcol" data-group="primary" data-tab="spells">
+            <header class="items-header spells-header flexrow">
                 <div class="item-name flexrow">
-                    <h4>Talent</h4>
+                    <h4>Arcane Runes</h4>
                 </div>
                 <div class="item-controls">
                     <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
                 </div>
             </header>
-            <ol class="items-list">
-                {{#each talents as |item id|}}
-                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item.id}}">
-                    <div class="item-name flexrow">
-                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                        <h4>{{item.name}}</h4>
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
-                    </div>
-                    <div class="item-controls">
-                        <a class="control" data-action="itemEdit" title="Edit Item">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a class="control" data-action="itemDelete" title="Delete Item">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                </li>
-                {{/each}}
-            </ol>
+            <p class="notes" style="flex: none">No runes known.</p>
+            <header class="items-header spells-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>Spell Gestures</h4>
+                </div>
+                <div class="item-controls">
+                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
+                </div>
+            </header>
+            <p class="notes" style="flex: none">No gestures known.</p>
+            <header class="items-header spells-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>Metamagic Inflections</h4>
+                </div>
+                <div class="item-controls">
+                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
+                </div>
+            </header>
+            <p class="notes" style="flex: none">No inflections known.</p>
         </div>
 
         {{!-- Biography Tab --}}
