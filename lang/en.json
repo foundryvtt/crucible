@@ -437,6 +437,12 @@
   "WEAPON.Projectile2": "Projectile (2h)",
   "WEAPON.Mechanical1": "Mechanical (1h)",
   "WEAPON.Mechanical2": "Mechanical (2h)",
+  "WEAPON.Shield": "Shield",
+
+  "WEAPON.HandsTwo": "Two-Handed",
+  "WEAPON.HandsMain": "Main Hand",
+  "WEAPON.HandsOff": "Off Hand",
+  "WEAPON.HandsEither": "Either Hand",
 
   "WEAPON.PropertyAmbush": "Ambush",
   "WEAPON.PropertyBlocking": "Blocking",
@@ -448,6 +454,7 @@
   "WEAPON.PropertyThrown": "Thrown",
   "WEAPON.PropertyVersatile": "Versatile",
 
-  "WEAPON.CannotEquipWarning": "Actor {actor} cannot equip {item} because a {type} weapon is already in use."
+  "WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} weapon is already in use.",
+  "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot."
 }
 	

@@ -126,6 +126,17 @@ export const CATEGORIES = {
     bonus: 0,
     multiplier: 2,
     ap: 2
+  },
+  shield: {
+    label: "WEAPON.Shield",
+    hands: 1,
+    main: false,
+    off: true,
+    ranged: false,
+    scaling: "str",
+    bonus: 0,
+    multiplier: 1,
+    ap: 1
   }
 }
 

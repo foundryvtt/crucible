@@ -242,14 +242,15 @@
     "types": ["ancestry", "armor", "background", "talent", "weapon"],
     "templates": {
       "physical": {
+        "category": null,
         "quantity": 1,
         "weight": 0,
         "price": 0,
-        "category": null,
         "quality": "standard",
         "enchantment": "mundane",
         "equipped": false,
-        "properties": []
+        "properties": [],
+        "description": ""
       }
     },
     "ancestry": {
@@ -271,6 +272,7 @@
       }
     },
     "background": {
+      "description": "",
       "skills": [],
       "talents": []
     },
@@ -283,7 +285,15 @@
     },
     "weapon": {
       "templates": ["physical"],
-      "damageType": "slashing"
+      "damageType": "slashing",
+      "block":  {
+        "base": 0,
+        "bonus": 0
+      },
+      "parry": {
+        "base": 0,
+        "bonus": 0
+      }
     }
   }
 }

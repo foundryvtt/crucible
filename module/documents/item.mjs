@@ -2,7 +2,16 @@ import { SYSTEM } from "../config/system.js";
 import ActionData from "../talents/action.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import {TalentData} from "../data/talent.mjs";
+import WeaponData from "../data/weapon.mjs";
 
+
+/**
+ * An Item subclass which handles system specific logic for the Item document type.
+ *
+ * @property {object} category        The derived category configuration for this item
+ * @property {object} quality         The derived quality tier configuration for this item
+ * @property {object} enchantment     The derived enchantment tier configuration for this item
+ */
 export default class CrucibleItem extends Item {
 
   /** @inheritdoc */
@@ -36,6 +45,9 @@ export default class CrucibleItem extends Item {
       case "talent":
         this.data.data = new TalentData(this.data.data);
         break;
+      case "weapon":
+        this.data.data = new WeaponData(this.data.data);
+        break;
     }
     return super.prepareBaseData();
   }
@@ -53,7 +65,11 @@ export default class CrucibleItem extends Item {
       case "talent":
         return this._prepareTalentData(data);
       case "weapon":
-        return this._prepareWeaponData(data);
+        const {category, quality, enchantment} = this.data.data.prepareData();
+        this.category = category;
+        this.quality = quality;
+        this.enchantment = enchantment;
+        break;
     }
   }
 
@@ -237,15 +253,7 @@ export default class CrucibleItem extends Item {
         }
         return talentTags;
       case "weapon":
-        const weaponTags = {
-          category: SYSTEM.WEAPON.CATEGORIES[d.category].label,
-          attackBonus: d.attackBonus,
-        };
-        for ( let p of d.properties ) {
-          weaponTags[p] = SYSTEM.WEAPON.PROPERTIES[p].label;
-        }
-        weaponTags.damage = `${d.attackBonus}/${d.damageBonus}/x${d.damageMultiplier}`;
-        return weaponTags;
+        return this.data.data.getTags();
       default:
         return {};
     }
@@ -298,7 +306,7 @@ export default class CrucibleItem extends Item {
     // Determine Weapon Ability Scaling
     const attrs = this.actor.attributes;
     let ability = 0;
-    switch ( this.data.category.scaling ) {
+    switch ( this.category.scaling ) {
       case "str":
         ability = attrs.strength.value;
         break;
@@ -306,7 +314,7 @@ export default class CrucibleItem extends Item {
         ability = attrs.dexterity.value;
         break;
       case "strdex":
-        ability = Math.ceil(0.5 * (attrs.strength.value + attrs.dex.value));
+        ability = Math.ceil(0.5 * (attrs.strength.value + attrs.dexterity.value));
         break;
     }
 

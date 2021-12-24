@@ -53,6 +53,26 @@
         </div>
 
         <div class="form-group">
+            <label>Parry Defense</label>
+            <div class="form-fields">
+                <label>Base</label>
+                <input type="number" step="any" name="data.parry.base" value="{{systemData.parry.base}}"/>
+                <label>Bonus</label>
+                <input type="number" step="any" name="data.parry.bonus" value="{{systemData.parry.bonus}}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Block Defense</label>
+            <div class="form-fields">
+                <label>Base</label>
+                <input type="number" step="any" name="data.block.base" value="{{systemData.block.base}}"/>
+                <label>Bonus</label>
+                <input type="number" step="any" name="data.block.bonus" value="{{systemData.block.bonus}}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label>Equipped</label>
             <input type="checkbox" name="data.equipped" {{checked systemData.equipped}}/>
         </div>

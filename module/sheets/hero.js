@@ -377,13 +377,15 @@ export default class HeroSheet extends ActorSheet {
     if ( !item ) return;
     switch ( item.data.type ) {
       case "armor":
-        return this.actor.equipArmor({itemId: item.id, equipped: !item.data.data.equipped});
+        return this.actor.equipArmor({
+          itemId: item.id,
+          equipped: !item.data.data.equipped
+        });
       case "weapon":
-        const category = item.data.category;
-        const options = {equipped: !item.data.data.equipped};
-        if ( category.off ) options.offhandId = item.id;
-        else if ( category.main ) options.mainhandId = item.id; // TODO: if the category is mainhand, equip as mainhand
-        return this.actor.equipWeapon(options);
+        return this.actor.equipWeapon({
+          itemId: item.id,
+          equipped: !item.data.data.equipped
+        });
     }
   }
 }

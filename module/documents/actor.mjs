@@ -190,6 +190,11 @@ export default class CrucibleActor extends Actor {
     const {armor, weapon, accessory} = this.itemTypes;
     const equipment = {};
     const itemCls = getDocumentClass("Item");
+    const warnSlotInUse = (item, type) => {
+      const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.name, item: item.name, type});
+      console.warn(w);
+    }
+
 
     // Identify equipped armor
     let armors = armor.filter(i => i.data.data.equipped);
@@ -199,44 +204,36 @@ export default class CrucibleActor extends Actor {
     }
     equipment.armor = armors[0] || new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
 
-    // Identify equipped weapons
+    // Classify equipped weapons
     const weapons = equipment.weapons = {};
+    const equippedWeapons = {mh: [], oh: [], either: []};
     for ( let w of weapon ) {
       if ( !w.data.data.equipped ) continue;
-      const category = w.data.category;
-
-      // Off-hand already in use
-      if ( category.off ) {
-        if ( weapons.offhand ) {
-          let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "off-hand"});
-          console.warn(warn);
-          continue;
-        }
+      if ( (w.hands === 2) ) {
+        equippedWeapons.mh.unshift(w);
+        equippedWeapons.oh.unshift(w);
       }
-
-      // Main-hand already in use
-      else if ( category.main ) {
-        if ( weapons.mainhand ) {
-          let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: w.name, type: "main-hand"});
-          console.warn(warn);
-          continue;
-        }
-      }
-
-      // Two-handed weapon
-      if ( category.hands === 2 ) {
-        weapons.mainhand = w;
-        weapons.offhand = w;
-      }
-
-      // Off-hand weapon
-      else if ( category.off ) weapons.offhand = w;
-
-      // Main-hand weapon
-      else if ( category.main ) weapons.mainhand = w;
+      else if ( w.category.main && !w.category.off ) equippedWeapons.mh.push(w);
+      else if ( w.category.off && !w.category.main ) equippedWeapons.oh.push(w);
+      else equippedWeapons.either.push(w);
     }
 
-    // Populate default unarmed weaponry
+    // Assign equipped weapons
+    for ( let w of equippedWeapons.mh ) {
+      if ( weapons.mainhand ) warnSlotInUse(w, "mainhand");
+      else weapons.mainhand = w;
+    }
+    for ( let w of equippedWeapons.oh ) {
+      if ( weapons.offhand ) warnSlotInUse(w, "offhand");
+      else weapons.offhand = w;
+    }
+    for ( let w of equippedWeapons.either ) {
+      if ( !weapons.mainhand ) weapons.mainhand = w;
+      else if ( !weapons.offhand ) weapons.offhand = w;
+      else warnSlotInUse(w, "mainhand");
+    }
+
+    // Populate unarmed weaponry for unused slots
     if ( !weapons.mainhand ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
     if ( !weapons.offhand ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
 
@@ -244,12 +241,12 @@ export default class CrucibleActor extends Actor {
     const mh = weapons.mainhand;
     const oh = weapons.offhand;
     weapons.unarmed = !(mh.id || oh.id);
-    weapons.twoHanded = mh.data.category.hands === 2;
+    weapons.twoHanded = mh.category.hands === 2;
     weapons.dualWield = (mh !== oh) && mh.id && oh.id;
-    weapons.ranged = !!mh.data.category.ranged;
-    weapons.dualMelee = weapons.dualWield && !(mh.data.category.ranged || oh.data.category.ranged);
-    weapons.melee = !mh.data.category.ranged;
-    weapons.dualRanged = !!mh.data.category.ranged && !!oh.data.category.ranged;
+    weapons.ranged = !!mh.category.ranged;
+    weapons.dualMelee = weapons.dualWield && !(mh.category.ranged || oh.category.ranged);
+    weapons.melee = !mh.category.ranged;
+    weapons.dualRanged = !!mh.category.ranged && !!oh.category.ranged;
 
     // TODO: Accessories can be up to three equipped and attuned
     equipment.accessories = accessory;
@@ -353,13 +350,25 @@ export default class CrucibleActor extends Actor {
   _prepareDefenses(data) {
     const {attributes, defenses} = data.data;
 
-    // Compute defensive attributes
+    // Armor and Dodge from equipped Armor
     const armorData = this.equipment.armor.data.data;
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus = armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
     defenses.dodge.bonus = Math.max(attributes.dexterity.value - armorData.dodge.start, 0);
     defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+
+    // Block and Parry from equipped Weapons
+    const weaponData = [this.equipment.weapons.mainhand.data.data];
+    if ( !this.equipment.weapons.twoHanded ) weaponData.push(this.equipment.weapons.offhand.data.data);
+    defenses.block = {base: 0, bonus: 0};
+    defenses.parry = {base: 0, bonus: 0};
+    for ( let wd of weaponData ) {
+      for ( let d of ["block", "parry"] ) {
+        defenses[d].base += wd[d].base;
+        defenses[d].bonus += wd[d].bonus;
+      }
+    }
 
     // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];
@@ -765,48 +774,72 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Equip an owned weapon Item.
-   * @param {string} mainhandId   The owned Item id of the Weapon to equip in the mainhand slot
-   * @param {string} offhandId    The owned Item id of the Weapon to equip in the offhand slot
-   * @param {boolean} [equipped]  Are these  the weapon being equipped (true), or unequipped (false)
-   * @param {boolean} [offhand]   Prefer equipping a one-handed weapon in the off-hand slot
+   * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
+   * @param {string} [mainhandId] The owned Item id of the Weapon to equip specifically in the mainhand slot.
+   * @param {string} [offhandId]  The owned Item id of the Weapon to equip specifically in the offhand slot.
+   * @param {boolean} [equipped]  Are these weapons being equipped (true), or unequipped (false).
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
-  async equipWeapon({mainhandId, offhandId, equipped=true}={}) {
+  async equipWeapon({itemId, mainhandId, offhandId, equipped=true}={}) {
     const weapons = this.equipment.weapons;
-    const mainhand = this.items.get(mainhandId);
-    const offhand = this.items.get(offhandId);
+    let isMHFree = !weapons.mainhand.id;
+    let isOHFree = !weapons.offhand.id;
+
+    // Identify the items being requested
+    const w1 = this.items.get(mainhandId ?? itemId, {strict: true});
+    const w2 = this.items.get(offhandId);
     const updates = [];
 
-    // Un-equip the current main-hand
-    let mainhandOpen = !weapons.mainhand.id;
-    if ( mainhand && (mainhand === weapons.mainhand) && !equipped ) {
-      mainhandOpen = true;
-      updates.push({_id: mainhand.id, "data.equipped": false});
-    }
-
-    // Un-equip the current off-hand
-    let offhandOpen = !weapons.offhand.id;
-    if ( offhand && (offhand === weapons.offhand) && !equipped ) {
-      offhandOpen = true;
-      updates.push({_id: offhand.id, "data.equipped": false});
-    }
-
-    // Equip a new main-hand
-    if ( mainhand && equipped ) {
-      if ( !mainhandOpen ) {
-        let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: mainhand.name, type: "main-hand"});
-        ui.notifications.warn(warn);
+    // Handle un-equipping weapons which are currently equipped
+    if ( !equipped ) {
+      if ( (w1 === weapons.mainhand) || (w1 === weapons.offhand) ) {
+        updates.push({_id: w1.id, "data.equipped": false});
       }
-      else updates.push({_id: mainhand.id, "data.equipped": true});
+      if ( w2 && (w2 === weapons.offhand) ) {
+        updates.push({_id: w2.id, "data.equipped": false});
+      }
+      return this.updateEmbeddedDocuments("Item", updates);
     }
 
-    // Equip a new off-hand
-    if ( offhand && equipped ) {
-      if ( !offhandOpen ) {
-        let warn = game.i18n.format("WEAPON.CannotEquipWarning", {actor: this.name, item: offhand.name, type: "off-hand"});
-        ui.notifications.warn(warn);
+    // Equip a secondary weapon that can only go in an offhand slot
+    if ( w2 ) {
+      if ( !w2.category.off ) {
+        ui.notifications.warn(game.i18n.format("WARNING.CannotEquipInvalidCategory", {
+          actor: this.name,
+          item: w2.name,
+          type: "off-hand"
+        }));
       }
-      else updates.push({_id: offhand.id, "data.equipped": true});
+      if ( !isOHFree ) {
+        ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+          actor: this.name,
+          item: w2.name,
+          type: "off-hand"
+        }));
+      }
+      else {
+        isOHFree = false;
+        updates.push({_id: w2.id, "data.equipped": true});
+      }
+    }
+
+    // Equip the primary weapon in the main-hand slot
+    if ( w1.category.main && isMHFree ) {
+      updates.push({_id: w1.id, "data.equipped": true});
+    }
+
+    // Equip the primary weapon in the off-hand slot
+    else if ( w1.category.off && isOHFree ) {
+      updates.push({_id: w1.id, "data.equipped": true});
+    }
+
+    // Failed to equip
+    else {
+      ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+        actor: this.name,
+        item: w1.name,
+        type: w1.category.off ? "off-hand" : "main-hand"
+      }));
     }
 
     // Apply the updates

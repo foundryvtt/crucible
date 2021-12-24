@@ -148,6 +148,7 @@ h2.divider span {
   border: none;
 }
 .crucible.sheet .sheet-header .title input {
+  text-align: left;
   margin: 0;
 }
 .crucible.sheet .sheet-header .header-tags {
@@ -395,11 +396,9 @@ h2.divider span {
 }
 .crucible.sheet.actor .title h1.charname input {
   height: 100%;
-  margin: 0;
   padding: 0;
   background: none;
   border: none;
-  text-align: left;
 }
 .crucible.sheet.actor .title h2.level {
   flex: 1;
@@ -919,9 +918,10 @@ h2.divider span {
 }
 .crucible.sheet.item .item-properties {
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 .crucible.sheet.item .item-properties label.checkbox {
-  flex: none;
+  text-align: left;
   min-width: 80px;
 }
 .crucible.sheet.armor .resistance {
