@@ -114,8 +114,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
    */
   async use(actor, {banes=0, boons=0, rollMode=null, dialog=false}={}) {
 
+    // Combine action-level tags with talent-level tags
+    const tags = (this.document?.data.data.tags || []).concat(this.tags);
+
     // Assert that the action can be used based on its tags
-    for ( let tag of this.tags ) {
+    for ( let tag of tags ) {
       const actionTags = SYSTEM.TALENT.ACTION_TAGS[tag];
       if ( !actionTags ) continue;
       if ( (actionTags.canActivate instanceof Function) && !actionTags.canActivate(actor, this) ) {
@@ -157,7 +160,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
     for ( let target of targets ) {
 
       // Perform each action tag callback
-      const promises = this.tags.reduce((promises, tag) => {
+      const promises = tags.reduce((promises, tag) => {
         const promise = this._executeTag(actor, target, tag);
         if ( promise instanceof Promise ) promises.push(promise);
         return promises;
@@ -165,7 +168,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
       // Perform post-roll callbacks
       const rolls = await Promise.all(promises);
-      for ( let tag of this.tags ) {
+      for ( let tag of tags ) {
         const at = SYSTEM.TALENT.ACTION_TAGS[tag];
         if ( at.postActivate instanceof Function ) {
           await at.postActivate(actor, this, rolls);
@@ -193,7 +196,14 @@ export default class ActionData extends foundry.abstract.DocumentData {
       case "self":
         return [actor];
       case "single":
-        if ( !targets.length.between(1, this.targetNumber) ) {
+        if ( targets.length < 1 ) {
+          throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
+            number: this.targetNumber,
+            type: this.targetType,
+            action: this.name
+          }));
+        }
+        else if ( targets.length > this.targetNumber ) {
           throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
             number: this.targetNumber,
             type: this.targetType,
@@ -220,7 +230,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
   _executeTag(actor, target, tag) {
     switch ( tag ) {
       case "mainhand":
-      case "twoHanded":
+      case "twohand":
         return actor.equipment.weapons.mainhand.weaponAttack(target);
       case "offhand":
         return actor.equipment.weapons.offhand.weaponAttack(target);

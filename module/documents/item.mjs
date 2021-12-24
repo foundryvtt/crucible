@@ -43,10 +43,10 @@ export default class CrucibleItem extends Item {
   prepareBaseData() {
     switch ( this.data.type ) {
       case "talent":
-        this.data.data = new TalentData(this.data.data);
+        this.data.data = new TalentData(this.data.data, this);
         break;
       case "weapon":
-        this.data.data = new WeaponData(this.data.data);
+        this.data.data = new WeaponData(this.data.data, this);
         break;
     }
     return super.prepareBaseData();

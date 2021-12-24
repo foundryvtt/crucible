@@ -67,7 +67,7 @@ export const ACTION_TAGS = {
       return actor.equipment.weapons.dualWield;
     }
   },
-  "twoHanded": {
+  "twohand": {
     label: "Two-Handed",
     canActivate: function(actor, action) {
       return actor.equipment.weapons.twoHanded;

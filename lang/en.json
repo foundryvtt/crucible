@@ -19,7 +19,8 @@
 
   "ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}",
   "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}",
-  "ACTION.WarningIncorrectTargets": "You must designate {number} {type} targets for the {action} action",
+  "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for the {action} action",
+  "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for the {action} action",
 
   "ARMOR.Bulky": "Bulky",
   "ARMOR.Impenetrable": "Impenetrable",
