@@ -16,9 +16,18 @@
             </p>
         </div>
 
+        {{#if action.context}}
+        <div class="action-context">
+            <label>{{action.context.label}}</label>
+            {{#each action.context.tags}}
+            <span class="tag">{{this}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
+
         {{#if targets.length}}
         <div class="action-targets">
-            <label>Targets:</label>
+            <label>{{localize "ACTION.Targets"}}</label>
             {{#each targets}}
             <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
             {{/each}}

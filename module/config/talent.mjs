@@ -33,9 +33,9 @@ export const ACTION_TARGET_TYPES = {
  * @typedef {Object}    ActionTag
  * @property {string} tag
  * @property {string} label
- * @property {Function} [can]
- * @property {Function} [pre]
  * @property {Function} [prepare]
+ * @property {Function} [can]
+ * @property {Function} [execute]
  * @property {Function} [post]
  */
 
@@ -52,7 +52,12 @@ export const ACTION_TAGS = {
   mainhand: {
     tag: "mainhand",
     label: "Main-Hand",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
+    execute: (actor, action, target) => {
+      const mh = actor.equipment.weapons.mainhand;
+      action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
+      return mh.weaponAttack(target);
+    }
   },
   movement: {
     tag: "movement",
@@ -75,14 +80,24 @@ export const ACTION_TAGS = {
   offhand: {
     tag: "offhand",
     label: "Off-Hand",
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
     can: (actor, action) => actor.equipment.weapons.dualWield,
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost
+    execute: (actor, action, target) => {
+      const oh = actor.equipment.weapons.offhand;
+      action.context = {label: oh.name, tags: oh.getTags({scope: "short"})};
+      return oh.weaponAttack(target);
+    }
   },
   twohand: {
     tag: "twohand",
     label: "Two-Handed",
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
     can: (actor, action) => actor.equipment.weapons.twoHanded,
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost
+    execute: (actor, action, target) => {
+      const mh = actor.equipment.weapons.mainhand;
+      action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
+      return mh.weaponAttack(target);
+    }
   },
   weapon: {
     tag: "weapon",

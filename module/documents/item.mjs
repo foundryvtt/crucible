@@ -51,7 +51,7 @@ export default class CrucibleItem extends Item {
    * @type {TalentRankData}
    */
   get rank() {
-    return this.data.data.rank;
+    return this.data.data.currentRank;
   }
 
   /* -------------------------------------------- */
@@ -167,7 +167,7 @@ export default class CrucibleItem extends Item {
    * Provide an array of detail tags which are shown in each item description
    * @return {object}
    */
-  getTags() {
+  getTags({scope="full"}={}) {
     const d = this.data.data;
     switch ( this.data.type ) {
       case "armor":
@@ -194,7 +194,7 @@ export default class CrucibleItem extends Item {
         }
         return talentTags;
       case "weapon":
-        return this.data.data.getTags();
+        return this.data.data.getTags({scope});
       default:
         return {};
     }
@@ -285,5 +285,41 @@ export default class CrucibleItem extends Item {
       roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
     }
     return roll;
+  }
+
+  /* -------------------------------------------- */
+  /*  Database Workflows                          */
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(data, options, userId) {
+    this._displayScrollingStatus(data);
+    return super._onUpdate(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display changes to the Item as scrolling combat text.
+   * @private
+   */
+  _displayScrollingStatus(changed) {
+    if ( !this.isOwned ) return;
+    const tokens = this.actor.getActiveTokens(true);
+
+    // Equipment changes
+    if ( "equipped" in changed.data ) {
+      const text = `${changed.data.equipped ? "+" : "-"}(${this.name})`;
+      const fontSize = 24 * (canvas.dimensions.size / 100).toNearest(0.25);
+      for ( let token of tokens ) {
+        token.hud.createScrollingText(text, {
+          anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
+          direction: CONST.TEXT_ANCHOR_POINTS[changed.data.equipped ? "TOP" : "BOTTOM"],
+          fontSize: fontSize,
+          stroke: 0x000000,
+          strokeThickness: 4
+        });
+      }
+    }
   }
 }

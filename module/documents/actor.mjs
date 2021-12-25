@@ -346,7 +346,7 @@ export default class CrucibleActor extends Actor {
   _prepareTalents(data) {
     const points = this.points.talent;
     for ( let item of this.itemTypes.talent ) {
-      points.spent += item.cost;
+      points.spent += item.systemData.cost;
     }
     points.available = points.total - points.spent;
     if ( points.available < 0) {
@@ -891,14 +891,13 @@ export default class CrucibleActor extends Actor {
     return this.updateEmbeddedDocuments("Item", updates);
   }
 
-
   /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
-    this._displayScrollingDamage(data);
+    this._displayScrollingStatus(data);
     super._onUpdate(data, options, userId);
     this._updateCachedResources();
     this._replenishResources(data);
@@ -907,12 +906,12 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Display changes to resources as scrolling combat text.
+   * Display changes to the Actor as scrolling combat text.
    * @private
    */
-  _displayScrollingDamage(changed) {
+  _displayScrollingStatus(changed) {
     if ( !changed.data?.attributes ) return;
-    const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
+    const tokens = this.getActiveTokens(true);
     if ( !tokens.length ) return;
     for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( changed.data.attributes[resourceName]?.value === undefined ) continue;

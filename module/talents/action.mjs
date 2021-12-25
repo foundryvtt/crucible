@@ -158,7 +158,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
   async use(actor, {banes=0, boons=0, rollMode=null, dialog=false}={}) {
 
     // Clone the derived action data which may be further transformed throughout the workflow
-    const action = this.toObject(false);
+    const action = new this.constructor(this);
 
     // Assert that the action can be used based on its tags
     for ( let tag of action.tags ) {
@@ -175,14 +175,14 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Assert that cost of the action can be afforded
     const attrs = actor.data.data.attributes;
-    if ( this.actionCost > attrs.action.value ) {
+    if ( action.actionCost > attrs.action.value ) {
       return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: actor.name,
         resource: game.i18n.localize("ATTRIBUTES.Action"),
         action: this.name
       }));
     }
-    if ( this.focusCost > attrs.focus.value ) {
+    if ( action.focusCost > attrs.focus.value ) {
       return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: actor.name,
         resource: game.i18n.localize("ATTRIBUTES.Focus"),
@@ -193,7 +193,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
     // Assert that required targets are designated
     let targets = [];
     try {
-      targets = this._acquireTargets(actor);
+      targets = action._acquireTargets(actor);
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -204,8 +204,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
       // Perform each action tag callback
       const promises = action.tags.reduce((promises, tag) => {
-        const promise = this._executeTag(actor, target.actor, tag);
-        if ( promise instanceof Promise ) promises.push(promise);
+        const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+        if ( at.execute instanceof Function ) {
+          const promise = at.execute(actor, action, target.actor);
+          if ( promise instanceof Promise ) promises.push(promise);
+        }
         return promises;
       }, []);
 
@@ -214,17 +217,17 @@ export default class ActionData extends foundry.abstract.DocumentData {
       for ( let tag of action.tags ) {
         const at = SYSTEM.TALENT.ACTION_TAGS[tag];
         if ( at.post instanceof Function ) {
-          await at.post(actor, this, rolls);
+          await at.post(actor, action, rolls);
         }
       }
 
       // Display the Action itself in the chat log
-      await this.toMessage(actor, [target], rolls, {rollMode});
+      await action.toMessage(actor, [target], rolls, {rollMode});
       results = results.concat(rolls);
     }
 
     // Incur the cost of the action that was performed
-    await actor.alterResources({action: -this.actionCost, focus: -this.focusCost});
+    await actor.alterResources({action: -action.actionCost, focus: -action.focusCost});
     return results;
   }
 
@@ -269,30 +272,6 @@ export default class ActionData extends foundry.abstract.DocumentData {
         throw new Error(`targetType ${this.targetType} for action ${this.name} is not yet supported`);
     }
     return targets;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Perform the necessary callback method for a particular action tag
-   * @param {CrucibleActor} actor
-   * @param {CrucibleActor} target
-   * @param {string} tag
-   * @returns {Promise}
-   * @private
-   */
-  _executeTag(actor, target, tag) {
-    switch ( tag ) {
-      case "mainhand":
-      case "twohand":
-        return actor.equipment.weapons.mainhand.weaponAttack(target);
-      case "offhand":
-        return actor.equipment.weapons.offhand.weaponAttack(target);
-      case "movement":
-        return null;
-      default:
-        console.warn(`No tags defined which determine how to use Action ${this.id}`);
-    }
   }
 
   /* -------------------------------------------- */

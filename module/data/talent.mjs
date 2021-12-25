@@ -11,7 +11,7 @@ import {SYSTEM} from "../config/system.js";
  * The data schema of a Talent type Item in the Crucible system.
  * @extends {DocumentData}
  *
- * @property {TalentRankData} rank                    The current rank in this talent
+ * @property {TalentRankData} currentRank             The current rank in this talent
  * @property {number} cost                            The action point cost to have obtained the current rank
  * @property {TalentRankData} nextRank                The next rank in this talent
  * @property {ActionData} actions                     The actions which have been unlocked by this talent
@@ -64,10 +64,13 @@ export class TalentData extends DocumentData {
   prepareData() {
 
     // Identify current rank and cost
-    this.rank = this.ranks[this.rank-1] || null;
-    this.cost = this.rank?.cost || 0;
+    this.currentRank = this.ranks[this.rank-1] || null;
+    this.cost = this.ranks.reduce((cost, r, i) => {
+      if ( i < this.rank-1 ) cost += r.cost;
+      return cost;
+    }, 0);
     this.nextRank = this.ranks[this.rank] || null;
-    this.actions = this.rank?.actions || [];
+    this.actions = this.currentRank?.actions || [];
 
     // Identify requirements
     const getReqs = reqs => {
@@ -81,7 +84,7 @@ export class TalentData extends DocumentData {
         return obj;
       }, {});
     }
-    this.prerequisites = getReqs(foundry.utils.flattenObject(this.rank?.requirements || {}));
+    this.prerequisites = getReqs(foundry.utils.flattenObject(this.currentRank?.requirements || {}));
     this.requirements = getReqs(foundry.utils.flattenObject(this.nextRank?.requirements || {}));
 
     // Prepare action data

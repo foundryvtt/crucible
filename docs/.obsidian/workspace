@@ -10,7 +10,8 @@
           "type": "markdown",
           "state": {
             "file": "To-Do List.md",
-            "mode": "source"
+            "mode": "source",
+            "source": true
           }
         }
       }
@@ -99,14 +100,14 @@
   "active": "9e715501b208f557",
   "lastOpenFiles": [
     "To-Do List.md",
+    "Talents/PlaytestTalents.md",
+    "Talents/Sketch.jpg",
+    "Talents/Talent Ideas.md",
+    "Talents/Tree.png",
     "Spells/Essentials.md",
     "Spells/Components.md",
     "Dice.md",
     "Items/Weapons.md",
-    "Combat/Initiative and Turn Order.md",
-    "Combat/Combat Overview.md",
-    "Character/Attributes.md",
-    "Combat/Weapon Attacks.md",
-    "Combat/Actions and Action Points.md"
+    "Combat/Initiative and Turn Order.md"
   ]
 }

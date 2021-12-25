@@ -107,7 +107,8 @@ export default class WeaponData extends PhysicalItemData {
    * Return an object of string formatted tag data which describes this item type.
    * @returns {Object<string, string>}    The tags which describe this weapon
    */
-  getTags() {
+  getTags({scope="full"}={}) {
+    const tags = {};
     const category = this.document.config.category;
     const handsTag = category => {
       if ( category.hands === 2 ) return "WEAPON.HandsTwo";
@@ -115,10 +116,14 @@ export default class WeaponData extends PhysicalItemData {
       if ( category.main ) return "WEAPON.HandsMain";
       if ( category.off ) return "WEAPON.HandsOff";
     }
-    const tags = {
-      category: category.label,
-      hands: game.i18n.localize(handsTag(category))
+
+    // Full Tags
+    if ( scope === "full") {
+      tags.category = category.label;
+      tags.hands = game.i18n.localize(handsTag(category));
     }
+
+    // Short Tags
     tags.damage = [
       this.attackBonus === 0 ? 0 : this.attackBonus.signedString(),
       this.damageBonus === 0 ? 0 : this.damageBonus.signedString(),
