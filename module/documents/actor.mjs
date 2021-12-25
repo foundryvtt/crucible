@@ -81,6 +81,14 @@ export default class CrucibleActor extends Actor {
     return this.data.data.skills;
   }
 
+  /**
+   * A more semantic reference to the system data.data object
+   * @type {object}
+   */
+  get systemData() {
+    return this.data.data;
+  }
+
   /* -------------------------------------------- */
   /*  Actor Preparation
   /* -------------------------------------------- */
@@ -209,12 +217,13 @@ export default class CrucibleActor extends Actor {
     const equippedWeapons = {mh: [], oh: [], either: []};
     for ( let w of weapon ) {
       if ( !w.data.data.equipped ) continue;
+      const category = w.config.category;
       if ( (w.hands === 2) ) {
         equippedWeapons.mh.unshift(w);
         equippedWeapons.oh.unshift(w);
       }
-      else if ( w.category.main && !w.category.off ) equippedWeapons.mh.push(w);
-      else if ( w.category.off && !w.category.main ) equippedWeapons.oh.push(w);
+      else if ( category.main && !category.off ) equippedWeapons.mh.push(w);
+      else if ( category.off && !category.main ) equippedWeapons.oh.push(w);
       else equippedWeapons.either.push(w);
     }
 
@@ -237,18 +246,22 @@ export default class CrucibleActor extends Actor {
     if ( !weapons.mainhand ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
     if ( !weapons.offhand ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
 
-    // Flag equipment states
+    // Reference final weapon configurations
     const mh = weapons.mainhand;
+    const mhCategory = mh.config.category;
     const oh = weapons.offhand;
-    weapons.unarmed = !(mh.id || oh.id);
-    weapons.twoHanded = mh.category.hands === 2;
-    weapons.dualWield = (mh !== oh) && mh.id && oh.id;
-    weapons.ranged = !!mh.category.ranged;
-    weapons.dualMelee = weapons.dualWield && !(mh.category.ranged || oh.category.ranged);
-    weapons.melee = !mh.category.ranged;
-    weapons.dualRanged = !!mh.category.ranged && !!oh.category.ranged;
+    const ohCategory = oh.config.category;
 
-    // TODO: Accessories can be up to three equipped and attuned
+    // Flag equipped weapon states
+    weapons.unarmed = !(mh.id || oh.id);
+    weapons.twoHanded = mhCategory.hands === 2;
+    weapons.dualWield = (mh !== oh) && mh.id && oh.id;
+    weapons.ranged = !!mhCategory.ranged;
+    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
+    weapons.melee = !mhCategory.ranged;
+    weapons.dualRanged = !!mhCategory.ranged && !!ohCategory.ranged;
+
+    // TODO: Up to three? equipped accessories
     equipment.accessories = accessory;
     this.equipment = equipment;
   }
@@ -260,18 +273,18 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareActions() {
-    const talents = this.itemTypes.talent;
     this.actions = {};
 
     // Default actions that every character can do
-    for ( let a of game.system.talents.defaultActions ) {
-      this.actions[a.id] = a;
+    for ( let ad of SYSTEM.TALENT.DEFAULT_ACTIONS ) {
+      const a = new ActionData(ad);
+      this.actions[a.id] = a.prepareForActor(this);
     }
 
     // Actions that are unlocked through an owned Talent
-    for ( let t of talents ) {
+    for ( let t of this.itemTypes.talent ) {
       for ( let a of t.actions ) {
-        this.actions[a.id] = a;
+        this.actions[a.id] = a.prepareForActor(this);
       }
     }
   }
@@ -567,11 +580,43 @@ export default class CrucibleActor extends Actor {
    */
   _getRestData() {
     const updates = {};
-    for ( let r of Object.keys(SYSTEM.RESOURCES) ) {
-      const attr = this.attributes[r];
-      updates[`data.attributes.${r}.value`] = attr.max;
+    for ( let resource of Object.values(SYSTEM.RESOURCES) ) {
+      const attr = this.attributes[resource.id];
+      updates[`data.attributes.${resource.id}.value`] = resource.type === "reserve" ? 0 : attr.max;
     }
     return updates;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Alter the resource pools of the actor using an object of change data
+   * @param {Object<string, number>} changes      Changes where the keys are resource names and the values are deltas
+   * @returns {Promise<CrucibleActor>}            The updated Actor document
+   */
+  async alterResources(changes) {
+    const updates = {};
+    for ( let [resourceName, delta] of Object.entries(changes) ) {
+      let resource = this.attributes[resourceName];
+      const uncapped = resource.value + delta;
+      let overflow = Math.min(uncapped, 0);
+
+      // Overflow health onto wounds (double damage)
+      if ( (resourceName === "health") && (overflow !== 0) ) {
+        const wounds = this.attributes.wounds.value - overflow;
+        updates["data.attributes.wounds.value"] = Math.clamped(wounds, 0, this.attributes.wounds.max);
+      }
+
+      // Overflow morale onto madness (double damage)
+      if ( (resourceName === "morale") && (overflow !== 0) ) {
+        const madness = this.attributes.madness.value - overflow;
+        updates["data.attributes.madness.value"] = Math.clamped(madness, 0, this.attributes.madness.max);
+      }
+
+      // Regular update
+      updates[`data.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
+    }
+    return this.update(updates);
   }
 
   /* -------------------------------------------- */
@@ -615,7 +660,7 @@ export default class CrucibleActor extends Actor {
     if ( points.available < talent.rank.cost ) {
       const err = game.i18n.format("TALENT.CannotAfford", {
         name: talent.name,
-        cost: talent.cost
+        cost: talent.rank.cost
       });
       ui.notifications.warn(err);
       throw new Error(err);
@@ -803,18 +848,18 @@ export default class CrucibleActor extends Actor {
 
     // Equip a secondary weapon that can only go in an offhand slot
     if ( w2 ) {
-      if ( !w2.category.off ) {
+      if ( !w2.config.category.off ) {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipInvalidCategory", {
           actor: this.name,
           item: w2.name,
-          type: "off-hand"
+          type: "offhand"
         }));
       }
       if ( !isOHFree ) {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
           actor: this.name,
           item: w2.name,
-          type: "off-hand"
+          type: "offhand"
         }));
       }
       else {
@@ -824,12 +869,12 @@ export default class CrucibleActor extends Actor {
     }
 
     // Equip the primary weapon in the main-hand slot
-    if ( w1.category.main && isMHFree ) {
+    if ( w1.config.category.main && isMHFree ) {
       updates.push({_id: w1.id, "data.equipped": true});
     }
 
     // Equip the primary weapon in the off-hand slot
-    else if ( w1.category.off && isOHFree ) {
+    else if ( w1.config.category.off && isOHFree ) {
       updates.push({_id: w1.id, "data.equipped": true});
     }
 
@@ -838,7 +883,7 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: w1.name,
-        type: w1.category.off ? "off-hand" : "main-hand"
+        type: w1.config.category.off ? "offhand" : "mainhand"
       }));
     }
 
@@ -869,20 +914,29 @@ export default class CrucibleActor extends Actor {
     if ( !changed.data?.attributes ) return;
     const tokens = this.isToken ? [this.token?.object] : this.getActiveTokens(true);
     if ( !tokens.length ) return;
-    for ( let [resource, prior] of Object.entries(this._cachedResources ) ) {
-      if ( !changed.data.attributes[resource]?.value ) continue;
-      const attr = this.attributes[resource];
+    for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
+      if ( changed.data.attributes[resourceName]?.value === undefined ) continue;
+
+      // Get change data
+      const resource = SYSTEM.RESOURCES[resourceName];
+      const attr = this.attributes[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
+      const text = `${delta.signedString()} (${resource.label})`;
+      const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
+      const fontSize = (24 + (24 * pct)) * (canvas.dimensions.size / 100).toNearest(0.25); // Range between [24, 48]
+      const healSign = resource.type === "active" ? 1 : -1;
+      const fillColor = resource.color[Math.sign(delta) === healSign ? "heal" : "high"];
+
+      // Display for all tokens
       for ( let token of tokens ) {
-        const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
-        token.hud.createScrollingText(delta.signedString(), {
+        token.hud.createScrollingText(text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
-          fontSize: 16 + (32 * pct), // Range between [16, 48]
-          fill: SYSTEM.RESOURCES[resource].color[delta < 0 ? "high" : "heal"],
+          fontSize: fontSize,
+          fill: fillColor,
           stroke: 0x000000,
           strokeThickness: 4,
-          jitter: 0.25
+          jitter: 0.5
         });
       }
     }

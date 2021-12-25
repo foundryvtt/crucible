@@ -1,7 +1,20 @@
 /**
+ * @typedef {Object} WeaponCategory       A category of weapon which can exist in the system
+ * @property {string} id                  The category id
+ * @property {string} label               The localized label for the category
+ * @property {number} hands               The number of hands required, 1 or 2
+ * @property {boolean} main               Can this weapon be used in the main-hand
+ * @property {boolean} off                Can this weapon be used in the off-hand
+ * @property {string} scaling             What scaling formula does this weapon use? "str", "dex", or "strdex"
+ * @property {number} bonus               The additive damage of this weapon
+ * @property {number} multiplier          The multiplicative damage of this weapon
+ * @property {number} actionCost          The action point cost to strike with this weapon
+ */
+
+/**
  * Enumerate the weapon categories which are allowed by the system.
  * Record certain mechanical metadata which applies to weapons in each category.
- * @type {{string, object}}
+ * @enum {WeaponCategory}
  */
 export const CATEGORIES = {
   light1: {
@@ -12,7 +25,7 @@ export const CATEGORIES = {
     scaling: "dex",
     bonus: 0,
     multiplier: 1,
-    ap: 0
+    actionCost: 1
   },
   simple1: {
     label: "WEAPON.Simple1",
@@ -22,7 +35,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 0,
     multiplier: 1,
-    ap: 0
+    actionCost: 1
   },
   balanced1: {
     label: "WEAPON.Balanced1",
@@ -32,7 +45,7 @@ export const CATEGORIES = {
     scaling: "strdex",
     bonus: 1,
     multiplier: 1,
-    ap: 0
+    actionCost: 1
   },
   heavy1: {
     label: "WEAPON.Heavy1",
@@ -42,7 +55,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 2,
     multiplier: 1,
-    ap: 1
+    actionCost: 1
   },
   massive1: {
     label: "WEAPON.Massive1",
@@ -52,7 +65,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 2,
     multiplier: 2,
-    ap: 2
+    actionCost: 2
   },
   simple2: {
     label: "WEAPON.Simple2",
@@ -62,7 +75,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 0,
     multiplier: 2,
-    ap: 1
+    actionCost: 2
   },
   balanced2: {
     label: "WEAPON.Balanced2",
@@ -72,7 +85,7 @@ export const CATEGORIES = {
     scaling: "strdex",
     bonus: 1,
     multiplier: 2,
-    ap: 1
+    actionCost: 2
   },
   heavy2: {
     label: "WEAPON.Heavy2",
@@ -82,7 +95,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 2,
     multiplier: 2,
-    ap: 2
+    actionCost: 2
   },
   massive2: {
     label: "WEAPON.Massive2",
@@ -92,7 +105,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 2,
     multiplier: 3,
-    ap: 3
+    actionCost: 3
   },
   projectile2: {
     label: "WEAPON.Projectile2",
@@ -103,7 +116,7 @@ export const CATEGORIES = {
     scaling: "strdex",
     bonus: 0,
     multiplier: 2,
-    ap: 2
+    actionCost: 2
   },
   mechanical1: {
     label: "WEAPON.Mechanical1",
@@ -114,7 +127,7 @@ export const CATEGORIES = {
     scaling: "dex",
     bonus: 0,
     multiplier: 1,
-    ap: 1
+    actionCost: 2
   },
   mechanical2: {
     label: "WEAPON.Mechanical2",
@@ -125,7 +138,7 @@ export const CATEGORIES = {
     scaling: "dex",
     bonus: 0,
     multiplier: 2,
-    ap: 2
+    actionCost: 2
   },
   shield: {
     label: "WEAPON.Shield",
@@ -136,7 +149,7 @@ export const CATEGORIES = {
     scaling: "str",
     bonus: 0,
     multiplier: 1,
-    ap: 1
+    actionCost: 1
   }
 }
 
@@ -147,26 +160,22 @@ export const CATEGORIES = {
  */
 export const PROPERTIES = {
   ambush: {
-    label: "WEAPON.PropertyAmbush",
-    rarity: 1
+    label: "WEAPON.PropertyAmbush"
   },
   blocking: {
-    label: "WEAPON.PropertyBlocking",
-    denomination: -2
+    label: "WEAPON.PropertyBlocking"
   },
   grasping: {
     label: "WEAPON.PropertyGrasping"
   },
   keen: {
-    label: "WEAPON.PropertyKeen",
-    rarity: 1
+    label: "WEAPON.PropertyKeen"
   },
   slow: {
-    label: "WEAPON.PropertySlow",
+    label: "WEAPON.PropertySlow"
   },
   parrying: {
-    label: "WEAPON.PropertyParrying",
-    denomination: -2
+    label: "WEAPON.PropertyParrying"
   },
   reach: {
     label: "WEAPON.PropertyReach"

@@ -1,17 +1,22 @@
 import DocumentData from "/common/abstract/data.mjs";
 import * as fields from "/common/data/fields.mjs";
 import ActionData from "../talents/action.mjs";
+import {SYSTEM} from "../config/system.js";
+
+/**
+ * @typedef {Object<string, {value: number, label: string}>}  TalentPrerequisiteData
+ */
 
 /**
  * The data schema of a Talent type Item in the Crucible system.
- * @extends DocumentData
+ * @extends {DocumentData}
  *
- * @property {string} type              The talent type in
- * @property {string} description
- * @property {string[]} tags
- * @property {number} ranks
- * @property {number} rank
- * @property {ActionData[]} actions
+ * @property {TalentRankData} rank                    The current rank in this talent
+ * @property {number} cost                            The action point cost to have obtained the current rank
+ * @property {TalentRankData} nextRank                The next rank in this talent
+ * @property {ActionData} actions                     The actions which have been unlocked by this talent
+ * @property {TalentPrerequisiteData} prerequisites   The derived prerequisites required for this rank
+ * @property {TalentPrerequisiteData} requirements    The derived requirements required for the next rank
  */
 export class TalentData extends DocumentData {
   static defineSchema() {
@@ -48,7 +53,47 @@ export class TalentData extends DocumentData {
    * @type {string[]}
    */
   static TALENT_TAGS = ["melee", "mainhand", "twohand", "offhand", "shield"];
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived data specific to the talent type.
+   */
+  prepareData() {
+
+    // Identify current rank and cost
+    this.rank = this.ranks[this.rank-1] || null;
+    this.cost = this.rank?.cost || 0;
+    this.nextRank = this.ranks[this.rank] || null;
+    this.actions = this.rank?.actions || [];
+
+    // Identify requirements
+    const getReqs = reqs => {
+      return Object.entries(reqs).reduce((obj, r) => {
+        const [k, v] = r;
+        obj[k] = {value: v};
+        if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+        else if ( k === "advancement.level" ) obj[k].label = "Level"
+        else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
+        else obj[k].label = k;
+        return obj;
+      }, {});
+    }
+    this.prerequisites = getReqs(foundry.utils.flattenObject(this.rank?.requirements || {}));
+    this.requirements = getReqs(foundry.utils.flattenObject(this.nextRank?.requirements || {}));
+
+    // Prepare action data
+    for ( let a of this.actions ) {
+      a.prepareData();
+    }
+  }
 }
+
+
+/* -------------------------------------------- */
+
 
 /**
  * The data schema of a Talent type Item in the Crucible system.

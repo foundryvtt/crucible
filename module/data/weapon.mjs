@@ -6,10 +6,11 @@ import { SYSTEM } from "../config/system.js";
  * A data structure which is specific to weapon items
  * @extends {PhysicalItemData}
  *
+ * @property {object} config              Weapon-specific configuration data
  * @property {number} attackBonus         The derived attack bonus this weapon provides
  * @property {number} damageBonus         The derived damage bonus this weapon provides
  * @property {number} damageMultiplier    The derived damage multiplier this weapon provides
- * @property {number} apCost              The derived action point cost of striking with this weapon
+ * @property {number} actionCost          The derived action point cost of striking with this weapon
  * @property {number} rarity              The derived rarity score of this weapon
  */
 export default class WeaponData extends PhysicalItemData {
@@ -51,31 +52,41 @@ export default class WeaponData extends PhysicalItemData {
   };
 
   /* -------------------------------------------- */
-  /*  Helper Methods                              */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _initializeSource(data) {
+    data = super._initializeSource(data);
+
+    // Weapon Category
+    const categories = SYSTEM.WEAPON.CATEGORIES;
+    const category = categories[data.category] || categories.simple1;
+
+    // Weapon Quality
+    const qualities = SYSTEM.QUALITY_TIERS;
+    const quality = qualities[data.quality] || qualities.standard;
+
+    // Enchantment Level
+    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
+    const enchantment = enchantments[data.enchantment] || enchantments.mundane;
+    this.config = {category, quality, enchantment};
+    return data;
+  }
+
   /* -------------------------------------------- */
 
   /**
    * Prepare derived data specific to the weapon type.
    */
   prepareData() {
-
-    // Weapon Category
-    const categories = SYSTEM.WEAPON.CATEGORIES;
-    const category = categories[this.category] || categories.simple1;
-
-    // Weapon Quality
-    const qualities = SYSTEM.QUALITY_TIERS;
-    const quality = qualities[this.quality] || qualities.standard;
-
-    // Enchantment Level
-    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
-    const enchantment = enchantments[this.enchantment] || enchantments.mundane;
+    const {category, quality, enchantment} = this.config;
 
     // Attack Attributes
     this.attackBonus = quality.bonus + enchantment.bonus;
     this.damageBonus = category.bonus;
     this.damageMultiplier = category.multiplier;
-    this.apCost = category.ap;
+    this.actionCost = category.actionCost;
 
     // Weapon Rarity
     this.rarity = quality.rarity + enchantment.rarity;
@@ -83,12 +94,13 @@ export default class WeaponData extends PhysicalItemData {
     // Weapon Properties
     for ( let p of this.properties ) {
       const prop = SYSTEM.WEAPON.PROPERTIES[p];
-      if ( prop.ap ) this.apCost += prop.ap;
+      if ( prop.actionCost ) this.actionCost += prop.actionCost;
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
-    return {category, quality, enchantment};
   }
 
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
   /* -------------------------------------------- */
 
   /**
@@ -96,7 +108,7 @@ export default class WeaponData extends PhysicalItemData {
    * @returns {Object<string, string>}    The tags which describe this weapon
    */
   getTags() {
-    const category = SYSTEM.WEAPON.CATEGORIES[this.category];
+    const category = this.document.config.category;
     const handsTag = category => {
       if ( category.hands === 2 ) return "WEAPON.HandsTwo";
       if ( category.main && category.off ) return "WEAPON.HandsEither";

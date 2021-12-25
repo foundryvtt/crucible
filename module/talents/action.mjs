@@ -3,6 +3,13 @@ import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
 
 /**
+ * @typedef {Object} ActionTarget
+ * @property {string} name              The target name
+ * @property {CrucibleActor} actor      The base actor being targeted
+ * @property {TokenDocument} token      A specific token being targeted
+ */
+
+/**
  * The data schema used for an Action within a talent Item
  * @property {string} id
  * @property {string} name
@@ -42,6 +49,33 @@ export default class ActionData extends foundry.abstract.DocumentData {
   }
 
   /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Additional data preparation steps for the ActionData.
+   */
+  prepareData() {
+    // Combine action-level tags with talent-level tags
+    this.tags = (this.document?.data.data.tags || []).concat(this.tags);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare this Action to be used by a specific Actor
+   * @param {CrucibleActor} actor     The actor for whom this action is being prepared
+   */
+  prepareForActor(actor) {
+    for ( let t of this.tags ) {
+      const tag = SYSTEM.TALENT.ACTION_TAGS[t];
+      if ( !tag ) continue;
+      if ( tag.prepare instanceof Function ) tag.prepare(actor, this);
+    }
+    return this;
+  }
+
+  /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
@@ -71,12 +105,15 @@ export default class ActionData extends foundry.abstract.DocumentData {
   /**
    * Render the action to a chat message including contained rolls and results
    * @param {CrucibleActor} actor       The actor performing the action
-   * @param {CrucibleActor} target      The target of the action
+   * @param {ActionTarget[]} targets    The targets of the action
    * @param {Roll[]} rolls              Dice rolls associated with the action
    * @param {DocumentModificationContext} messageOptions  Context options for chat message creation
    * @returns {Promise<ChatMessage>}    The created chat message document
    */
-  async toMessage(actor, target, rolls, messageOptions) {
+  async toMessage(actor, targets, rolls, messageOptions) {
+    targets = targets.map(t => {
+      return {name: t.name, uuid: t.uuid};
+    });
 
     // Render action template
     const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.html", {
@@ -84,7 +121,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       actor: actor,
       activationTags: this.getActivationTags(),
       actionTags: this.getActionTags(),
-      target: target,
+      targets: targets,
       rolls: await Promise.all(rolls.map(r => r.render()))
     });
 
@@ -93,9 +130,15 @@ export default class ActionData extends foundry.abstract.DocumentData {
       type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor}),
+      roll: rolls.length > 0 ? rolls[0] : null,
+      flags: {
+        crucible: {
+          isAttack: !!rolls[0].data.damage,
+          targets: targets,
+          additionalRolls: rolls.slice(1)
+        }
+      }
     }
-    if ( rolls.length > 0 ) messageData.roll = rolls[0];
-    if ( rolls.length > 1 ) messageData["flags.crucible.rolls"] = rolls;
     return ChatMessage.create(messageData, messageOptions);
   }
 
@@ -114,14 +157,14 @@ export default class ActionData extends foundry.abstract.DocumentData {
    */
   async use(actor, {banes=0, boons=0, rollMode=null, dialog=false}={}) {
 
-    // Combine action-level tags with talent-level tags
-    const tags = (this.document?.data.data.tags || []).concat(this.tags);
+    // Clone the derived action data which may be further transformed throughout the workflow
+    const action = this.toObject(false);
 
     // Assert that the action can be used based on its tags
-    for ( let tag of tags ) {
+    for ( let tag of action.tags ) {
       const actionTags = SYSTEM.TALENT.ACTION_TAGS[tag];
       if ( !actionTags ) continue;
-      if ( (actionTags.canActivate instanceof Function) && !actionTags.canActivate(actor, this) ) {
+      if ( (actionTags.can instanceof Function) && !actionTags.can(actor, this) ) {
         return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
           name: actor.name,
           action: this.name,
@@ -148,7 +191,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
     }
 
     // Assert that required targets are designated
-    let targets;
+    let targets = [];
     try {
       targets = this._acquireTargets(actor);
     } catch(err) {
@@ -160,41 +203,52 @@ export default class ActionData extends foundry.abstract.DocumentData {
     for ( let target of targets ) {
 
       // Perform each action tag callback
-      const promises = tags.reduce((promises, tag) => {
-        const promise = this._executeTag(actor, target, tag);
+      const promises = action.tags.reduce((promises, tag) => {
+        const promise = this._executeTag(actor, target.actor, tag);
         if ( promise instanceof Promise ) promises.push(promise);
         return promises;
       }, []);
 
       // Perform post-roll callbacks
       const rolls = await Promise.all(promises);
-      for ( let tag of tags ) {
+      for ( let tag of action.tags ) {
         const at = SYSTEM.TALENT.ACTION_TAGS[tag];
-        if ( at.postActivate instanceof Function ) {
-          await at.postActivate(actor, this, rolls);
+        if ( at.post instanceof Function ) {
+          await at.post(actor, this, rolls);
         }
       }
 
       // Display the Action itself in the chat log
-      await this.toMessage(actor, target, rolls, {rollMode});
+      await this.toMessage(actor, [target], rolls, {rollMode});
       results = results.concat(rolls);
     }
 
     // Incur the cost of the action that was performed
-    await actor.update({
-      "data.attributes.action.value": attrs.action.value - this.actionCost,
-      "data.attributes.focus.value": attrs.focus.value - this.focusCost
-    });
+    await actor.alterResources({action: -this.actionCost, focus: -this.focusCost});
     return results;
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Acquire the targets for an action activation. For each target track both the Token and the Actor.
+   * @param {CrucibleActor} actor     The Actor using the action.
+   * @returns {ActionTarget[]}
+   * @private
+   */
   _acquireTargets(actor) {
-    const targets = Array.from(game.user.targets).map(t => t.actor);
+    const targets = Array.from(game.user.targets).map(t => {
+      return {
+        token: t.document,
+        actor: t.actor,
+        uuid: t.actor.uuid,
+        name: t.name
+      };
+    });
     switch ( this.targetType ) {
       case "self":
-        return [actor];
+        const tokens = actor.getActiveTokens(true);
+        return [{actor, token: tokens[0], name: actor.name}];
       case "single":
         if ( targets.length < 1 ) {
           throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {

@@ -1087,6 +1087,19 @@ h2.divider span {
   line-height: 16px;
   font-style: italic;
 }
+.crucible.action .action-targets {
+  flex: 0 0 100%;
+  display: flex;
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 20px;
+}
+.crucible.action .action-targets label {
+  flex: 1;
+}
+.crucible.action .action-targets .target-link {
+  flex: none;
+}
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);
   font-size: var(--font-size-16);
@@ -1186,6 +1199,13 @@ h2.divider span {
 .dice-roll.standard-check .check-result .target,
 .dice-roll.standard-check .damage-result .target {
   right: 5px;
+}
+.dice-roll.standard-check .check-result .applied:before,
+.dice-roll.standard-check .damage-result .applied:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 3px;
+  content: "\f00c";
 }
 .dice-roll.standard-check.success .check-result {
   background: rgba(0, 255, 0, 0.05);

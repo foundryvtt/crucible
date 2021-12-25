@@ -2,6 +2,7 @@
     <header class="action-header flexrow">
         <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
         <h3 class="action-name">{{action.name}}</h3>
+
         <div class="tags flexcol">
             <p class="activation-tags">
                 {{#each activationTags}}
@@ -14,6 +15,15 @@
                 {{/each}}
             </p>
         </div>
+
+        {{#if targets.length}}
+        <div class="action-targets">
+            <label>Targets:</label>
+            {{#each targets}}
+            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
     </header>
 
     <p class="action-description">{{action.description}}</p>

@@ -30,7 +30,7 @@ import AttackRoll from "./module/dice/attack-roll.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
-import {addChatMessageContextOptions} from "./module/chat.js";
+import * as chat from "./module/chat.js";
 import {localizeSkillConfig} from "./module/config/skills.js";
 import {buildJournalCompendium, renderJournalRules} from "./module/documents/journal.mjs";
 
@@ -44,10 +44,6 @@ Hooks.once("init", async function() {
 
   // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
-  game.system.talents = {
-    ActionData,
-    defaultActions: SYSTEM.TALENT.DEFAULT_ACTIONS.map(a => new ActionData(a))
-  }
   game.system.dice = { AttackRoll, StandardCheck };
   game.system.journal = { buildJournalCompendium }
   game.system.api = {
@@ -114,6 +110,9 @@ Hooks.once("ready", function() {
 
   // TODO: Make this cleaner
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
+
+  // Activate window listeners
+  $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
 });
 
 
@@ -121,5 +120,6 @@ Hooks.once("ready", function() {
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */
 
-Hooks.on("getChatLogEntryContext", addChatMessageContextOptions);
+Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("renderChatMessage", chat.renderChatMessage)
 Hooks.on("renderJournalSheet", renderJournalRules);

@@ -29,54 +29,70 @@ export const ACTION_TARGET_TYPES = {
 
 /* -------------------------------------------- */
 
+/**
+ * @typedef {Object}    ActionTag
+ * @property {string} tag
+ * @property {string} label
+ * @property {Function} [can]
+ * @property {Function} [pre]
+ * @property {Function} [prepare]
+ * @property {Function} [post]
+ */
 
 /**
  * Define special logic for action tag types
- * @type {object}
+ * @enum {ActionTag}
  */
 export const ACTION_TAGS = {
-  "melee": {
+  melee: {
+    tag: "melee",
     label: "Melee",
-    canActivate: function(actor, action) {
-      return actor.equipment.weapons.melee;
-    }
+    can: (actor, action) => actor.equipment.weapons.melee,
   },
-  "mainhand": {
-    label: "Main-Hand"
+  mainhand: {
+    tag: "mainhand",
+    label: "Main-Hand",
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost
   },
-  "movement": {
+  movement: {
+    tag: "movement",
     label: "Movement"
   },
-  "ranged": {
+  ranged: {
+    tag: "ranged",
     label: "Ranged",
-    canActivate: function(actor, action) {
-      return actor.equipment.weapons.ranged;
-    }
+    can: (actor, action) => actor.equipment.weapons.ranged
   },
-  "attackChain": {
+  attackChain: {
+    tag: "attackChain",
     label: "Attack Chain",
-    postActivate: async function(actor, action, rolls) {
+    post: async function(actor, action, rolls) {
       if ( rolls.every(r => r.isSuccess) ) {
         rolls.push(await actor.equipment.weapons.mainhand.roll(rolls[0].data));
       }
     }
   },
-  "offhand": {
+  offhand: {
+    tag: "offhand",
     label: "Off-Hand",
-    canActivate: function(actor, action) {
-      return actor.equipment.weapons.dualWield;
-    }
+    can: (actor, action) => actor.equipment.weapons.dualWield,
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost
   },
-  "twohand": {
+  twohand: {
+    tag: "twohand",
     label: "Two-Handed",
-    canActivate: function(actor, action) {
-      return actor.equipment.weapons.twoHanded;
-    }
+    can: (actor, action) => actor.equipment.weapons.twoHanded,
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost
   },
-  "weapon": {
-    canActivate: function(actor, action) {
-      return !actor.equipment.weapons.unarmed;
-    }
+  weapon: {
+    tag: "weapon",
+    label: "Weaponry",
+    can: (actor, action) => !actor.equipment.weapons.unarmed
+  },
+  unarmed: {
+    tag: "unarmed",
+    label: "Unarmed",
+    can: (actor, action) => actor.equipment.weapons.unarmed
   }
 }
 
@@ -110,7 +126,7 @@ export const DEFAULT_ACTIONS = [
     targetType: "single",
     targetNumber: 1,
     targetDistance: 1,
-    actionCost: 1,
+    actionCost: 0,  // Determined by your weapon
     focusCost: 0,
     affectAllies: false,
     affectEnemies: true,

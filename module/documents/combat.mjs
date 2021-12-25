@@ -31,7 +31,7 @@ export default class CrucibleCombat extends Combat {
     if ( isNewTurn || isNewRound ) {
       const actor = this.combatant?.actor;
       if ( !actor?.isOwner ) return;
-      actor.update({"data.attributes.action.value": 3});
+      actor.update({"data.attributes.action.value": actor.systemData.attributes.action.max});
     }
     return super._onUpdate(data, options, userId);
   }

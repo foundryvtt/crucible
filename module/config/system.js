@@ -139,15 +139,26 @@ export const DAMAGE_TYPES = {
 
 /* -------------------------------------------- */
 
+/**
+ * @typedef {Object}  ActorResource       A resource pool available to an Actor within the system
+ * @property {string} id                  The resource id
+ * @property {string} label               The localized full label for the resource
+ * @property {string} abbreviation        The localized abbreviation for the resource
+ * @property {string} type                The type of resource, "active" or "reserve"
+ * @property {string} tooltip             The tooltip formula for the resource
+ * @property {{high: number, low: number, heal: number}} color  Displayed colors for the resource
+ */
 
 /**
  * Define the resource pools which are tracked for each character
- * @type{object}
+ * @enum {ActorResource}
  */
 export const RESOURCES = {
   "health": {
+    id: "health",
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
+    type: "active",
     tooltip: "((2 * Constitution) + Strength + Dexterity) * Level",
     color: {
       high: 0xEE0000,
@@ -156,8 +167,10 @@ export const RESOURCES = {
     },
   },
   "wounds": {
+    id: "wounds",
     label: "ATTRIBUTES.Wounds",
     abbreviation: "ATTRIBUTES.Wounds",
+    type: "reserve",
     tooltip: "Health * 2",
     color: {
       high: 0xEE0000,
@@ -166,8 +179,10 @@ export const RESOURCES = {
     },
   },
   "morale": {
+    id: "morale",
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
+    type: "active",
     tooltip: "((2 * Charisma) + Intellect + Wisdom) * Level",
     color: {
       high: 0x9900CC,
@@ -176,9 +191,11 @@ export const RESOURCES = {
     }
   },
   "madness": {
+    id: "madness",
     label: "ATTRIBUTES.Madness",
     abbreviation: "ATTRIBUTES.Madness",
     tooltip: "Morale * 2",
+    type: "reserve",
     color: {
       high: 0x9900CC,
       low: 0x6600AA,
@@ -186,9 +203,11 @@ export const RESOURCES = {
     }
   },
   "action": {
+    id: "action",
     label: "ATTRIBUTES.Action",
     abbreviation: "ATTRIBUTES.Action",
     tooltip: "3 + Action Bonus",
+    type: "active",
     color: {
       high: 0xFF9900,
       low: 0xCC6600,
@@ -196,9 +215,11 @@ export const RESOURCES = {
     }
   },
   "focus": {
+    id: "focus",
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
     tooltip: "(Level * 2) + Focus Bonus",
+    type: "active",
     color: {
       high: 0x0066FF,
       low: 0x0033CC,

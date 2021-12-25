@@ -7,46 +7,68 @@ import WeaponData from "../data/weapon.mjs";
 
 /**
  * An Item subclass which handles system specific logic for the Item document type.
- *
- * @property {object} category        The derived category configuration for this item
- * @property {object} quality         The derived quality tier configuration for this item
- * @property {object} enchantment     The derived enchantment tier configuration for this item
  */
 export default class CrucibleItem extends Item {
 
-  /** @inheritdoc */
-  _initialize() {
-    this.config = this.prepareConfig();
-    return super._initialize();
+  /* -------------------------------------------- */
+  /*  Item Attributes                             */
+  /* -------------------------------------------- */
+
+  /**
+   * Item-specific configuration data which is constructed before any additional data preparation steps.
+   * @type {object}
+   */
+  get config() {
+    return this.data.data.config;
+  }
+
+  /**
+   * A more semantic reference to the system data.data object
+   * @type {object}
+   */
+  get systemData() {
+    return this.data.data;
+  }
+
+  /**
+   * An array of actions that this Item provides.
+   * @type {ActionData}
+   */
+  get actions() {
+    return this.data.data.actions;
+  }
+
+  /**
+   * Usage requirement configuration for the Item
+   * @type {object}
+   */
+  get requirements() {
+    return this.data.data.requirements;
+  }
+
+  /**
+   * Current talent rank for this Item
+   * @type {TalentRankData}
+   */
+  get rank() {
+    return this.data.data.rank;
   }
 
   /* -------------------------------------------- */
   /*  Item Data Preparation                       */
   /* -------------------------------------------- */
 
-  /**
-   * Prepare the Configuration object for this Item type.
-   * This configuration does not change when the data changes
-   */
-  prepareConfig() {
-    switch ( this.data.type ) {
-      case "skill":
-        return SYSTEM.skills.skills[this.data.data.skill] || {};
-      case "talent":
-        return "foo";
-    }
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
   prepareBaseData() {
     switch ( this.data.type ) {
+      case "skill":
+        this.data.data.config = SYSTEM.skills.skills[this.data.data.skill] || {};
+        break;
       case "talent":
-        this.data.data = new TalentData(this.data.data, this);
+        this.data.data = new TalentData(this.systemData, this);
         break;
       case "weapon":
-        this.data.data = new WeaponData(this.data.data, this);
+        this.data.data = new WeaponData(this.systemData, this);
         break;
     }
     return super.prepareBaseData();
@@ -63,13 +85,8 @@ export default class CrucibleItem extends Item {
       case "skill":
         return this._prepareSkillData(data);
       case "talent":
-        return this._prepareTalentData(data);
       case "weapon":
-        const {category, quality, enchantment} = this.data.data.prepareData();
-        this.category = category;
-        this.quality = quality;
-        this.enchantment = enchantment;
-        break;
+        return this.data.data.prepareData();
     }
   }
 
@@ -140,82 +157,6 @@ export default class CrucibleItem extends Item {
     });
     data.path = path;
     return data;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare derived data for Talent type Items
-   * @param {object} itemData   The base Item data
-   * @private
-   */
-  _prepareTalentData(itemData) {
-    const td = itemData.data;
-
-    // Identify current rank and cost
-    this.rank = td.ranks[td.rank-1] || null;
-    this.cost = this.rank?.cost || 0;
-    this.nextRank = td.ranks[td.rank] || null;
-    this.actions = this.rank?.actions || [];
-    this.passives = this.rank?.passives || [];
-
-    // Identify requirements
-    const getReqs = reqs => {
-      return Object.entries(reqs).reduce((obj, r) => {
-        const [k, v] = r;
-        obj[k] = {value: v};
-        if ( k.startsWith("attributes.") ) obj[k].label = SYSTEM.ABILITIES[k.split(".")[1]].label;
-        else if ( k === "advancement.level" ) obj[k].label = "Level"
-        else if ( k.startsWith("skills.") ) obj[k].label = SYSTEM.SKILLS[k.split(".")[1]].label;
-        else obj[k].label = k;
-        return obj;
-      }, {});
-    }
-    this.prerequisites = getReqs(foundry.utils.flattenObject(this.rank?.requirements || {}));
-    this.requirements = getReqs(foundry.utils.flattenObject(this.nextRank?.requirements || {}));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare derived data for Weapon type Items
-   * @param {object} itemData   The base Item data
-   * @private
-   */
-  _prepareWeaponData(itemData) {
-    const wd = itemData.data;
-
-    // Weapon Category
-    const categories = SYSTEM.WEAPON.CATEGORIES;
-    const category = itemData.category = categories[wd.category] || categories.simple1;
-
-    // Weapon Quality
-    const qualities = SYSTEM.QUALITY_TIERS;
-    const quality = itemData.quality = qualities[wd.quality] || qualities.standard;
-
-    // Enchantment Level
-    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
-    const enchantment = itemData.enchantment = enchantments[wd.enchantment] || enchantments.mundane;
-
-    // Attack Attributes
-    wd.attackBonus = quality.bonus + enchantment.bonus;
-    wd.damageBonus = category.bonus;
-    wd.damageMultiplier = category.multiplier;
-    wd.apCost = category.ap;
-
-    // Weapon Rarity
-    wd.rarity = quality.rarity + enchantment.rarity;
-
-    // Weapon Properties
-    const properties = SYSTEM.WEAPON.PROPERTIES;
-    if ( !(wd.properties instanceof Array ) ) wd.properties = [];
-    wd.properties = wd.properties.filter(p => {
-      const prop = properties[p];
-      if ( !prop ) return false;
-      if (prop.ap) wd.apCost += prop.ap;
-      if (prop.rarity) wd.rarity += prop.rarity;
-      return true;
-    });
   }
 
   /* -------------------------------------------- */
@@ -306,7 +247,7 @@ export default class CrucibleItem extends Item {
     // Determine Weapon Ability Scaling
     const attrs = this.actor.attributes;
     let ability = 0;
-    switch ( this.category.scaling ) {
+    switch ( this.config.category.scaling ) {
       case "str":
         ability = attrs.strength.value;
         break;
