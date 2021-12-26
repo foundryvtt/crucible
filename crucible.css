@@ -747,14 +747,6 @@ h2.divider span {
   height: 100%;
   overflow-y: auto;
 }
-.crucible.sheet.actor .tab.skills .skills-header {
-  flex: 0 0 24px;
-  line-height: 24px;
-  font-weight: bold;
-}
-.crucible.sheet.actor .tab.skills .skills-header .skill-name {
-  padding-left: 4px;
-}
 .crucible.sheet.actor .tab.skills .skills-list {
   flex: 0;
   list-style: none;
@@ -863,9 +855,9 @@ h2.divider span {
   align-items: center;
   margin: 3px 0;
   padding: 2px 4px;
+  line-height: 24px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #b5b3a4;
-  font-weight: bold;
 }
 .crucible.actor .items-header.talents-header {
   margin: 0;
@@ -1067,7 +1059,6 @@ h2.divider span {
 }
 .crucible.action .action-header {
   padding-bottom: 4px;
-  border-bottom: 1px solid #b5b3a4;
   align-items: center;
 }
 .crucible.action .action-name {
@@ -1080,12 +1071,6 @@ h2.divider span {
 }
 .crucible.action .action-tags {
   margin-top: 2px;
-}
-.crucible.action .action-description {
-  margin: 4px 0;
-  font-size: 12px;
-  line-height: 16px;
-  font-style: italic;
 }
 .crucible.action .action-targets,
 .crucible.action .action-context {
@@ -1102,6 +1087,16 @@ h2.divider span {
 .crucible.action .action-targets .target-link,
 .crucible.action .action-context .target-link {
   flex: none;
+}
+.crucible.action .action-description {
+  flex: 0 0 100%;
+  margin: 4px 0;
+  padding: 4px 0;
+  font-size: 12px;
+  line-height: 16px;
+  font-style: italic;
+  border-top: 1px solid #b5b3a4;
+  border-bottom: 1px solid #b5b3a4;
 }
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);
@@ -1256,33 +1251,39 @@ h2.divider span {
   flex: 1;
   margin: -1px 0 0 5px;
 }
-.roll .content {
-  flex: 0 0 200px;
-  padding: 5px 0;
-}
 .roll .roller {
   flex: 2;
-  padding: 0 5px 0 0;
   text-align: center;
 }
-.roll .roller .boons {
+.roll .roller .boons,
+.roll .roller .banes {
   flex: 0 0 32px;
-  margin: 3px 0;
 }
-.roll .roller .boons label {
+.roll .roller .boons label,
+.roll .roller .banes label {
+  padding: 0 5px;
   font-family: var(--fontFamilySerif);
   font-weight: normal;
   font-size: 20px;
-  padding-left: 32px;
   line-height: 32px;
-  cursor: pointer;
+  text-align: left;
 }
-.roll .roller .boons label:hover {
-  text-shadow: 0 0 6px red;
-}
-.roll .roller .boons input {
+.roll .roller .boons input,
+.roll .roller .banes input {
   flex: 0 0 32px;
   height: 32px;
+}
+.roll .roller .boons .action-button,
+.roll .roller .banes .action-button {
+  flex: 0 0 32px;
+  margin: 0 3px;
+  cursor: pointer;
+  font-size: 1.125rem;
+}
+.roll .roller .boons .action-button:hover,
+.roll .roller .banes .action-button:hover {
+  font-weight: bold;
+  text-shadow: 0 0 6px red;
 }
 .roll .roller .pool {
   margin: 5px 0;
@@ -1340,8 +1341,8 @@ h2.divider span {
 .roll .target {
   justify-content: space-between;
   border-left: 1px solid #b5b3a4;
-  margin: 0;
-  padding: 0 0 0 5px;
+  margin-left: 5px;
+  padding-left: 5px;
 }
 .roll .target select {
   flex: 0 0 30px;
@@ -1360,4 +1361,8 @@ h2.divider span {
 }
 .roll .buttons {
   flex: 0 0 32px;
+  margin-top: 4px;
+}
+.roll .buttons > select {
+  margin-right: 5px;
 }

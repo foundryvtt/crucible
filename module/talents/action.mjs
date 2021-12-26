@@ -1,27 +1,40 @@
 import * as fields from "/common/data/fields.mjs";
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
+import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
  * @typedef {Object} ActionTarget
- * @property {string} name              The target name
- * @property {CrucibleActor} actor      The base actor being targeted
- * @property {TokenDocument} token      A specific token being targeted
+ * @property {string} name                  The target name
+ * @property {CrucibleActor} actor          The base actor being targeted
+ * @property {TokenDocument} token          A specific token being targeted
+ */
+
+/**
+ * @typedef {Object} ActionContext
+ * @property {string} label                 A string label providing context info
+ * @property {string[]} tags                An array of tags which describe the context
  */
 
 /**
  * The data schema used for an Action within a talent Item
- * @property {string} id
- * @property {string} name
- * @property {string} img
- * @property {string} description
- * @property {string} targetType
- * @property {number} targetNumber
- * @property {number} targetDistance
- * @property {number} actionCost
- * @property {boolean} affectAllies
- * @property {boolean} affectEnemies
- * @property {string[]} tags
+ *
+ * @property {string} id                    The action identifier
+ * @property {string} name                  The action name
+ * @property {string} img                   An image for the action
+ * @property {string} description           Text description of the action
+ * @property {string} targetType            The type of target for the action in ACTION_TARGET_TYPES
+ * @property {number} targetNumber          The number of targets affected or size of target template
+ * @property {number} targetDistance        The allowed distance between the actor and the target(s)
+ * @property {number} actionCost            The action point cost of this action
+ * @property {number} focusCost             The focus point cost of this action
+ * @property {boolean} affectAllies         Does this action affect allies within its area of effect?
+ * @property {boolean} affectEnemies        Does this action affect enemies within its area of effect?
+ * @property {string[]} tags                An array of tags in ACTION_TAGS which apply to this action
+ *
+ * @property {ActionContext} context        Additional context which defines how the action is being used
+ * @property {ActionTarget[]} targets       An array of targets which are affected by the action
+ * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
  */
 export default class ActionData extends foundry.abstract.DocumentData {
   static defineSchema() {
@@ -81,7 +94,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
   getActivationTags() {
     return [
-      TALENT.ACTION_TARGET_TYPES[this.targetType].label,
+      `${TALENT.ACTION_TARGET_TYPES[this.targetType].label} ${this.targetNumber}`,
       this.actionCost ? `${this.actionCost}A` : null,
       this.focusCost ? `${this.focusCost}F` : null,
     ].filter(t => !!t);
@@ -159,16 +172,22 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = new this.constructor(this);
+    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0};
+
+    // Pre-configure of the action
+    for ( let tag of action.tags ) {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( at.pre instanceof Function ) at.pre(actor, action);
+    }
 
     // Assert that the action can be used based on its tags
     for ( let tag of action.tags ) {
-      const actionTags = SYSTEM.TALENT.ACTION_TAGS[tag];
-      if ( !actionTags ) continue;
-      if ( (actionTags.can instanceof Function) && !actionTags.can(actor, this) ) {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( (at.can instanceof Function) && !at.can(actor, this) ) {
         return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
           name: actor.name,
           action: this.name,
-          tag: actionTags.label
+          tag: at.label
         }));
       }
     }
@@ -196,6 +215,14 @@ export default class ActionData extends foundry.abstract.DocumentData {
       targets = action._acquireTargets(actor);
     } catch(err) {
       return ui.notifications.warn(err.message);
+    }
+
+    // Prompt for confirmation with a dialog which customizes boons and banes
+    if ( dialog ) {
+      const response = await ActionUseDialog.prompt({options: {action, actor, boons, banes, targets}});
+      if ( response === null ) return [];
+      action.bonuses.boons = response.boons;
+      action.bonuses.banes = response.banes;
     }
 
     // Iterate over every designated target

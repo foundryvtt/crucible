@@ -35,6 +35,7 @@ export const ACTION_TARGET_TYPES = {
  * @property {string} label
  * @property {Function} [prepare]
  * @property {Function} [can]
+ * @property {Function} [pre]
  * @property {Function} [execute]
  * @property {Function} [post]
  */
@@ -53,11 +54,12 @@ export const ACTION_TAGS = {
     tag: "mainhand",
     label: "Main-Hand",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
-    execute: (actor, action, target) => {
+    pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
+      foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
       action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
-      return mh.weaponAttack(target);
-    }
+    },
+    execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
   movement: {
     tag: "movement",
@@ -82,22 +84,24 @@ export const ACTION_TAGS = {
     label: "Off-Hand",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
     can: (actor, action) => actor.equipment.weapons.dualWield,
-    execute: (actor, action, target) => {
+    pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
+      foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
       action.context = {label: oh.name, tags: oh.getTags({scope: "short"})};
-      return oh.weaponAttack(target);
-    }
+    },
+    execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
   twohand: {
     tag: "twohand",
     label: "Two-Handed",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
     can: (actor, action) => actor.equipment.weapons.twoHanded,
-    execute: (actor, action, target) => {
+    pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
+      foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
       action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
-      return mh.weaponAttack(target);
-    }
+    },
+    execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
   weapon: {
     tag: "weapon",

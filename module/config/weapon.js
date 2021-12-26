@@ -22,7 +22,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: true,
-    scaling: "dex",
+    scaling: "dexterity",
     bonus: 0,
     multiplier: 1,
     actionCost: 1
@@ -32,7 +32,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: true,
-    scaling: "str",
+    scaling: "strength",
     bonus: 0,
     multiplier: 1,
     actionCost: 1
@@ -42,7 +42,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: true,
-    scaling: "strdex",
+    scaling: "strength.dexterity",
     bonus: 1,
     multiplier: 1,
     actionCost: 1
@@ -52,7 +52,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 2,
     multiplier: 1,
     actionCost: 1
@@ -62,7 +62,7 @@ export const CATEGORIES = {
     hands: 1,
     main: true,
     off: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 2,
     multiplier: 2,
     actionCost: 2
@@ -72,7 +72,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 0,
     multiplier: 2,
     actionCost: 2
@@ -82,7 +82,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
-    scaling: "strdex",
+    scaling: "strength.dexterity",
     bonus: 1,
     multiplier: 2,
     actionCost: 2
@@ -92,7 +92,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 2,
     multiplier: 2,
     actionCost: 2
@@ -102,7 +102,7 @@ export const CATEGORIES = {
     hands: 2,
     main: true,
     off: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 2,
     multiplier: 3,
     actionCost: 3
@@ -113,7 +113,7 @@ export const CATEGORIES = {
     main: true,
     off: false,
     ranged: true,
-    scaling: "strdex",
+    scaling: "strength.dexterity",
     bonus: 0,
     multiplier: 2,
     actionCost: 2
@@ -124,7 +124,7 @@ export const CATEGORIES = {
     main: true,
     off: true,
     ranged: true,
-    scaling: "dex",
+    scaling: "dexterity",
     bonus: 0,
     multiplier: 1,
     actionCost: 2
@@ -135,7 +135,7 @@ export const CATEGORIES = {
     main: true,
     off: false,
     ranged: true,
-    scaling: "dex",
+    scaling: "dexterity",
     bonus: 0,
     multiplier: 2,
     actionCost: 2
@@ -146,7 +146,7 @@ export const CATEGORIES = {
     main: false,
     off: true,
     ranged: false,
-    scaling: "str",
+    scaling: "strength",
     bonus: 0,
     multiplier: 1,
     actionCost: 1

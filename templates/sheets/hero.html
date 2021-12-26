@@ -345,8 +345,10 @@
 
             {{!-- Skills List --}}
             {{#each skillCategories as |category catId|}}
-            <header class="skills-header flexrow highlight" data-category="{{catId}}">
-                <span class="skill-name">{{category.label}} Skills</span>
+            <header class="items-header flexrow">
+                <div class="item-name skill-name">
+                    <h4>{{category.label}} Skills</h4>
+                </div>
                 <div class="bonus">Bonus</div>
                 <div class="attributes">Attributes</div>
                 <span>Trained Rank</span>

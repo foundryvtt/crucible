@@ -26,13 +26,17 @@ export default class CrucibleCombat extends Combat {
 
   /** @override */
   async _onUpdate(data, options, userId) {
+
+    // Check whether the turn order changed
     const isNewTurn = (("turn" in data) && (data.turn !== this.previous.turn));
     const isNewRound = (("round" in data) && (data.round !== this.previous.round));
+    super._onUpdate(data, options, userId);
+
+    // Apply changes at the start of a new combatant's turn
     if ( isNewTurn || isNewRound ) {
       const actor = this.combatant?.actor;
       if ( !actor?.isOwner ) return;
       actor.update({"data.attributes.action.value": actor.systemData.attributes.action.max});
     }
-    return super._onUpdate(data, options, userId);
   }
 }

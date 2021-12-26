@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "To-Do List.md",
+            "file": "Combat/Combat Conditions.md",
             "mode": "source",
             "source": true
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Gestures",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "To-Do List.md",
+                "file": "Combat/Combat Conditions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "To-Do List.md"
+                "file": "Combat/Combat Conditions.md"
               }
             }
           }
@@ -99,15 +99,15 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
+    "Combat/Combat Conditions.md",
     "To-Do List.md",
+    "Items/Armor.md",
+    "Conditions.md",
+    "Talents/Tree.png",
+    "Talents/Talent Ideas.md",
     "Talents/PlaytestTalents.md",
     "Talents/Sketch.jpg",
-    "Talents/Talent Ideas.md",
-    "Talents/Tree.png",
     "Spells/Essentials.md",
-    "Spells/Components.md",
-    "Dice.md",
-    "Items/Weapons.md",
-    "Combat/Initiative and Turn Order.md"
+    "Spells/Components.md"
   ]
 }

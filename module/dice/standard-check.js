@@ -2,22 +2,34 @@ import { SYSTEM } from "../config/system.js";
 import { StandardCheckDialog } from "./standard-check-dialog.js";
 
 /**
+ * @typedef {Object} DiceCheckBonuses
+ * @property {number} boons         A number of advantageous boons, up to a maximum of 6
+ * @property {number} banes         A number of disadvantageous banes, up to a maximum of 6
+ * @property {number} ability       The ability score which modifies the roll, up to a maximum of 12
+ * @property {number} skill         The skill bonus which modifies the roll, up to a maximum of 12
+ * @property {number} enchantment   An enchantment bonus which modifies the roll, up to a maximum of 6
+ */
+
+/**
+ * @typedef {DiceCheckBonuses} StandardCheckData
+ * @property {string} actorId       The ID of the actor rolling the check
+ * @property {number} dc            The target difficulty of the check
+ */
+
+/**
  * The standard 3d8 dice pool check used by the system.
  * The rolled formula is determined by:
  *
- * @param {object} rollData     An object of roll data, containing the following optional fields
- * @param {string} actorId      The ID of the actor rolling the check
- * @param {number} dc           The target difficulty of the check
- * @param {number} boons        A number of advantageous boons, up to a maximum of 6
- * @param {number} banes        A number of disadvantageous banes, up to a maximum of 6
- * @param {number} ability      The ability score which modifies the roll, up to a maximum of 12
- * @param {number} skill        The skill bonus which modifies the roll, up to a maximum of 12
- * @param {number} enchantment  An enchantment bonus which modifies the roll, up to a maximum of 6
+ * @param {string|StandardCheckData} formula  This parameter is ignored
+ * @param {StandardCheckData} [data]          An object of roll data, containing the following optional fields
  */
 export default class StandardCheck extends Roll {
-  constructor(...args) {
-    if ( typeof args[0] === "object" ) args.unshift(""); // Allow for formula to be omitted
-    super(...args);
+  constructor(formula, data) {
+    if ( typeof formula === "object" ) {
+      data = formula;
+      formula = "";
+    }
+    super(formula, data);
     this.data.id = this.data.id || foundry.utils.randomID(16);
   }
 
@@ -33,7 +45,7 @@ export default class StandardCheck extends Roll {
     banes: 0,
     boons: 0,
     circumstance: 0,
-    dc: 15,
+    dc: 20,
     enchantment: 0,
     skill: 0
   };
@@ -105,7 +117,7 @@ export default class StandardCheck extends Roll {
     for ( let [k, v] of Object.entries(data) ) {
       if ( v === undefined ) delete data[k];
     }
-    data = Object.assign({}, this.constructor.defaultData, data);
+    data = Object.assign({}, this.constructor.defaultData, this.data || {}, data);
     this._configureData(data);
     return data;
   }
@@ -243,7 +255,7 @@ export default class StandardCheck extends Roll {
   static handle(data) {
     const {title, flavor, rollMode, check} = data;
     const actor = game.actors.get(check.actorId);
-    if ( actor.hasPerm(game.user, "OWNER", true) ) {
+    if ( actor.testUserPermission(game.user, "OWNER", {exact: true}) ) {
       const sc = new this(check);
       sc.dialog({ title, flavor, rollMode }).render(true);
     }

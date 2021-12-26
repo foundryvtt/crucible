@@ -83,8 +83,8 @@ export default class WeaponData extends PhysicalItemData {
     const {category, quality, enchantment} = this.config;
 
     // Attack Attributes
-    this.attackBonus = quality.bonus + enchantment.bonus;
-    this.damageBonus = category.bonus;
+    this.attackBonus = enchantment.bonus;
+    this.damageBonus = category.bonus + quality.bonus;
     this.damageMultiplier = category.multiplier;
     this.actionCost = category.actionCost;
 

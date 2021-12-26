@@ -214,6 +214,26 @@ export default class CrucibleItem extends Item {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare an object of bonuses associated with this item usage
+   * @returns {DiceCheckBonuses}
+   */
+  getItemBonuses() {
+    if ( !this.isOwned ) throw new Error("Item bonuses are not determined until it is owned by an Actor");
+    switch ( this.data.type ) {
+      case "weapon":
+        return {
+          ability: this.actor.getAbilityBonus(this.config.category.scaling),
+          skill: 0,
+          enchantment: this.systemData.attackBonus
+        };
+      default:
+        throw new Error("NOT YET SUPPORTED");
+    }
+  }
+
+  /* -------------------------------------------- */
+
   async _rollSkillCheck({passive=false}={}) {
     const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
     const roll = new Roll(formula).roll();
@@ -244,22 +264,8 @@ export default class CrucibleItem extends Item {
     }
     const id = this.data.data;
 
-    // Determine Weapon Ability Scaling
-    const attrs = this.actor.attributes;
-    let ability = 0;
-    switch ( this.config.category.scaling ) {
-      case "str":
-        ability = attrs.strength.value;
-        break;
-      case "dex":
-        ability = attrs.dexterity.value;
-        break;
-      case "strdex":
-        ability = Math.ceil(0.5 * (attrs.strength.value + attrs.dexterity.value));
-        break;
-    }
-
     // Create the Attack Roll instance
+    const {ability, skill, enchantment} = this.getItemBonuses();
     const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
@@ -267,8 +273,8 @@ export default class CrucibleItem extends Item {
       boons: boons,
       dc: target.defenses.physical,
       ability: ability,
-      skill: 0,
-      enchantment: id.attackBonus
+      skill: skill,
+      enchantment: enchantment
     });
 
     // Evaluate the result and record the result

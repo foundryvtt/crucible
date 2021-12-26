@@ -478,6 +478,24 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Compute the ability score bonus for a given scaling mode
+   * @param {string} scaling      How is the ability bonus computed?
+   * @returns {number}            The ability bonus
+   */
+  getAbilityBonus(scaling) {
+
+    // Single-attribute scaling mode
+    const attrs = this.attributes;
+    if ( scaling in attrs ) return attrs[scaling].value;
+
+    // Hybrid-attribute scaling mode
+    const terms = scaling.split(".");
+    return Math.ceil(terms.reduce((x, t) => x + attrs[t].value, 0) / terms.length);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
@@ -489,12 +507,12 @@ export default class CrucibleActor extends Actor {
    *
    * @return {StandardCheck}      The StandardCheck roll instance which was produced.
    */
-  rollSkill(skillId, {banes=0, boons=0, dc=null, rollMode=null, dialog=false}={}) {
+  rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
     const skill = this.data.data.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
 
     // Create the check roll
-    const sc = new StandardCheck("", {
+    const sc = new StandardCheck({
       actorId: this.id,
       type: skillId,
       banes: banes,
@@ -558,7 +576,7 @@ export default class CrucibleActor extends Actor {
   async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-    return action.use(this, options)
+    return action.use(this, {dialog: true, ...options});
   }
 
   /* -------------------------------------------- */

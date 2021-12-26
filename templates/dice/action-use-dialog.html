@@ -1,0 +1,95 @@
+<form class="standard-check flexcol">
+
+    <header class="action-header flexrow">
+        <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
+        <h3 class="action-name">{{action.name}}</h3>
+
+        <div class="tags flexcol">
+            <p class="activation-tags">
+                {{#each activationTags}}
+                <span class="tag">{{this}}</span>
+                {{/each}}
+            </p>
+            <p class="action-tags">
+                {{#each actionTags}}
+                <span class="tag">{{this}}</span>
+                {{/each}}
+            </p>
+        </div>
+
+        {{#if action.context}}
+        <div class="action-context">
+            <label>{{action.context.label}}</label>
+            {{#each action.context.tags}}
+            <span class="tag">{{this}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if targets.length}}
+        <div class="action-targets">
+            <label>{{localize "ACTION.Targets"}}</label>
+            {{#each targets}}
+            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        <p class="action-description">{{action.description}}</p>
+    </header>
+
+    <section class="content roller flexcol">
+        <div class="form-group boons">
+            <label>Boons</label>
+            <i class="action-button fas fa-arrow-down" data-action="boon-subtract"></i>
+            <input type="number" name="boons" value="{{boons}}"/>
+            <i class="action-button fas fa-arrow-up" data-action="boon-add"></i>
+            <label></label>
+        </div>
+
+        <div class="pool flexrow">
+            {{#each dice}}
+            <div class="die {{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+
+        <div class="form-group banes">
+            <label>Banes</label>
+            <i class="action-button fas fa-arrow-down" data-action="bane-subtract"></i>
+            <input type="number" name="banes" value="{{banes}}"/>
+            <i class="action-button fas fa-arrow-up" data-action="bane-add"></i>
+            <label></label>
+        </div>
+
+        <ol class="bonuses flexrow">
+            <li class="ability">
+                <label>Ability</label>
+                <input type="number" name="ability" value="{{ability}}"/>
+            </li>
+            <li class="skill">
+                <label>Skill</label>
+                <input type="number" name="skill" value="{{skill}}"/>
+            </li>
+            <li class="enchantment">
+                <label>Enchantment</label>
+                <input type="number" name="enchantment" value="{{enchantment}}"/>
+            </li>
+        </ol>
+    </section>
+
+    <footer class="buttons flexrow">
+        <select name="rollMode">
+            {{#select rollMode}}
+            <option value="">Roll Mode</option>
+            {{#each rollModes as |label id|}}
+            <option value="{{id}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+
+        <button type="button" class="dialog-button" data-button="ok">
+            <i class="fas fa-dice"></i>
+            <label>Use Action</label>
+        </button>
+    </footer>
+</form>

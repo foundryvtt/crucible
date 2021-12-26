@@ -5,7 +5,7 @@ export class StandardCheckDialog extends FormApplication {
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
-	    template: `systems/${SYSTEM.id}/templates/dice/standard-check.html`,
+	    template: `systems/${SYSTEM.id}/templates/dice/standard-check-dialog.html`,
       classes: [SYSTEM.id, "roll"],
       width: game.user.isGM ? 520 : 360,
       submitOnChange: true,
@@ -70,11 +70,11 @@ export class StandardCheckDialog extends FormApplication {
 
   /**
    * Get the text label for a dice roll DC
-   * @param {number} dc
-   * @return {object}
+   * @param {number} [dc=20]    The difficulty check for the test
+   * @return {{dc: number, label: string, tier: number}}
    * @private
    */
-  _getDifficulty(dc) {
+  _getDifficulty(dc=20) {
     let label = "";
     let tier = 0;
     for ( let [d, l] of Object.entries(SYSTEM.dice.checkDifficulties) ) {
@@ -95,7 +95,7 @@ export class StandardCheckDialog extends FormApplication {
    */
   _getPlayerActors() {
     return game.actors.filter(a => {
-      return Math.max(...Object.values(a.data.permission)) >= CONST.DOCUMENT_PERMISSIONS.OWNER;
+      return Math.max(...Object.values(a.data.permission)) >= CONST.DOCUMENT_PERMISSION_LEVELS.OWNER;
     });
   }
 
@@ -137,8 +137,7 @@ export class StandardCheckDialog extends FormApplication {
         return this.request();
       case "roll":
         const rollMode = this.element.find('select[name="rollMode"]').val();
-        const roll = this.object.evaluate();
-        roll.toMessage({ flavor: this.options.flavor }, { rollMode });
+        this.object.toMessage({ flavor: this.options.flavor }, { rollMode });
         return this.close();
     }
   }
