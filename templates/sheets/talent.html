@@ -14,8 +14,14 @@
         </div>
     </header>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+    <!-- Configuration Tabs -->
+    <nav class="sheet-tabs tabs">
+        <a class="item" data-tab="details"><i class="fas fa-scroll"></i> Description</a>
+        <a class="item" data-tab="config"><i class="fas fa-cogs"></i> Configuration</a>
+    </nav>
+
+    {{!-- Description Tab --}}
+    <section class="tab sheet-body" data-tab="details">
         <div class="form-group stacked">
             <p class="description">{{{data.data.description}}}</p>
         </div>
@@ -32,12 +38,20 @@
                 {{#each action.getAllTags}}
                 <span class="tag">{{this}}</span>
                 {{/each}}
+                {{#if action.condition}}
+                <p class="condition">
+                    <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
+                </p>
+                {{/if}}
                 <div class="description">{{{action.description}}}</div>
             </div>
             {{/each}}
         </div>
         {{/if}}
+    </section>
 
+    <!-- Configuration Tab -->
+    <section class="tab sheet-body" data-tab="config">
         <div class="form-group">
             <textarea name="data" style="height: 300px">{{jsonData}}</textarea>
         </div>

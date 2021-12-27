@@ -13,6 +13,7 @@ export default class TalentSheet extends ItemSheet {
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "talent"],
       template: `systems/${SYSTEM.id}/templates/sheets/talent.html`,
+      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}],
       resizable: false,
       submitOnChange: false,
       submitOnClose: false,

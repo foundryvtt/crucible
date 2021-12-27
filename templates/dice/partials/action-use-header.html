@@ -1,0 +1,42 @@
+<header class="action-header flexrow">
+    <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
+    <h3 class="action-name">{{action.name}}</h3>
+
+    <div class="tags flexcol">
+        <p class="activation-tags">
+            {{#each activationTags}}
+            <span class="tag">{{this}}</span>
+            {{/each}}
+        </p>
+        <p class="action-tags">
+            {{#each actionTags}}
+            <span class="tag">{{this}}</span>
+            {{/each}}
+        </p>
+    </div>
+
+    {{#if action.context}}
+    <div class="action-context">
+        <label>{{action.context.label}}</label>
+        {{#each action.context.tags}}
+        <span class="tag">{{this}}</span>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if targets.length}}
+    <div class="action-targets">
+        <label>{{localize "ACTION.Targets"}}</label>
+        {{#each targets}}
+        <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    <div class="action-description">
+        {{#if action.condition}}
+        <p class="condition"><strong>{{localize "ACTION.Condition"}}:</strong> {{action.condition}}</p>
+        {{/if}}
+        <p>{{action.description}}</p>
+    </div>
+</header>

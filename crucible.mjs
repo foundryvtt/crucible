@@ -13,7 +13,7 @@ import CrucibleActor from "./module/documents/actor.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
 import CrucibleCombat from "./module/documents/combat.mjs";
 import CrucibleCombatant from "./module/documents/combatant.mjs";
-import ActionData from "./module/talents/action.mjs";
+import ActionData from "./module/data/action.mjs";
 import {TalentData, TalentRankData, TalentPassiveData} from "./module/data/talent.mjs";
 
 // Sheets
@@ -110,6 +110,12 @@ Hooks.once("ready", function() {
 
   // TODO: Make this cleaner
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
+
+  // Preload Handlebars Templates
+  loadTemplates([
+    // Dice Partials
+    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
+  ]);
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);

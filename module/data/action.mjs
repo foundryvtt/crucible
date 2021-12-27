@@ -22,6 +22,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {string} id                    The action identifier
  * @property {string} name                  The action name
  * @property {string} img                   An image for the action
+ * @property {string} condition             An optional condition which must be met in order for the action to be used
  * @property {string} description           Text description of the action
  * @property {string} targetType            The type of target for the action in ACTION_TARGET_TYPES
  * @property {number} targetNumber          The number of targets affected or size of target template
@@ -42,6 +43,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       id: fields.REQUIRED_STRING,
       name: fields.REQUIRED_STRING,
       img: fields.IMAGE_FIELD,
+      condition: fields.BLANK_STRING,
       description: fields.REQUIRED_STRING,
       targetType: fields.field(fields.REQUIRED_STRING, {
         default: "single",
@@ -49,8 +51,8 @@ export default class ActionData extends foundry.abstract.DocumentData {
       }),
       targetNumber: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 1}),
       targetDistance: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 1}),
-      actionCost: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 0}),
-      focusCost: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 0}),
+      actionCost: fields.field(fields.INTEGER_FIELD, {required: true, default: 0}),
+      focusCost: fields.field(fields.INTEGER_FIELD, {required: true, default: 0}),
       affectAllies: fields.field(fields.BOOLEAN_FIELD, {default: false}),
       affectEnemies: fields.field(fields.BOOLEAN_FIELD, {default: true}),
       tags: {

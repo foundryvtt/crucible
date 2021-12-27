@@ -1,5 +1,5 @@
 import { SYSTEM } from "../config/system.js";
-import ActionData from "../talents/action.mjs";
+import ActionData from "../data/action.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import {TalentData} from "../data/talent.mjs";
 import WeaponData from "../data/weapon.mjs";

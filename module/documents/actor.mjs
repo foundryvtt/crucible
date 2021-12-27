@@ -1,7 +1,7 @@
 import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
-import ActionData from "../talents/action.mjs";
+import ActionData from "../data/action.mjs";
 
 /**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.

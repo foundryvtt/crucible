@@ -7,11 +7,12 @@
 * Backstab (3AP)
 
 ## Two-Handed Melee
-* Cleave (3AP)
+[✓] Cleave (3AP)
+[✓] Uppercut (1AP)
 * Momentum (1AP)
 
 ## Dual-Wield Melee
-* Flurry (2AP)
+[✓] Flurry (2AP)
 * Feinting Strike (2AP)
 * Barrage (3AP)
 

@@ -1,5 +1,9 @@
 @import "variables.less";
 
+/** ----------------------------------------- *
+ *  Item Sheets                               *
+ * ------------------------------------------ */
+
 .crucible.sheet.item {
   --headerHeight: 80px;
   --titleHeight: 40px;
@@ -18,6 +22,9 @@
   }
 }
 
+/** ----------------------------------------- *
+ *  Armor Sheet                               *
+ * ------------------------------------------ */
 
 .crucible.sheet.armor {
   .resistance {
@@ -32,7 +39,20 @@
   }
 }
 
+/** ----------------------------------------- *
+ *  Talent Sheet                              *
+ * ------------------------------------------ */
 .crucible.talent {
+
+  // This is because the talent sheet uses tabbed navigation
+  .sheet-header {
+    border-bottom: none;
+    .header-tags {
+      margin-bottom: 0;
+    }
+  }
+
+  // Included Actions
   .action {
     align-items: center;
     border-bottom: 1px solid @colorBeige;
@@ -54,7 +74,11 @@
       flex: none;
     }
     .description {
-      padding: 0.25rem 0;
+      margin: 0.25rem 0;
+      flex: 0 0 100%;
+    }
+    .condition {
+      margin: 0.5rem 0 0;
       flex: 0 0 100%;
     }
   }

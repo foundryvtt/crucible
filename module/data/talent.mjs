@@ -1,6 +1,6 @@
 import DocumentData from "/common/abstract/data.mjs";
 import * as fields from "/common/data/fields.mjs";
-import ActionData from "../talents/action.mjs";
+import ActionData from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
 
 /**
@@ -14,7 +14,7 @@ import {SYSTEM} from "../config/system.js";
  * @property {TalentRankData} currentRank             The current rank in this talent
  * @property {number} cost                            The action point cost to have obtained the current rank
  * @property {TalentRankData} nextRank                The next rank in this talent
- * @property {ActionData} actions                     The actions which have been unlocked by this talent
+ * @property {ActionData[]} actions                   The actions which have been unlocked by this talent
  * @property {TalentPrerequisiteData} prerequisites   The derived prerequisites required for this rank
  * @property {TalentPrerequisiteData} requirements    The derived requirements required for the next rank
  */
@@ -70,7 +70,7 @@ export class TalentData extends DocumentData {
       return cost;
     }, 0);
     this.nextRank = this.ranks[this.rank] || null;
-    this.actions = this.currentRank?.actions || [];
+    this.actions = this.rank > 0 ? this.currentRank.actions : this.nextRank.actions;
 
     // Identify requirements
     const getReqs = reqs => {

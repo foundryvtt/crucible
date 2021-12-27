@@ -901,6 +901,9 @@ h2.divider span {
 .crucible.actor .unequipped .equipped-state {
   opacity: 0.5;
 }
+/** ----------------------------------------- *
+ *  Item Sheets                               *
+ * ------------------------------------------ */
 .crucible.sheet.item {
   --headerHeight: 80px;
   --titleHeight: 40px;
@@ -916,6 +919,9 @@ h2.divider span {
   text-align: left;
   min-width: 80px;
 }
+/** ----------------------------------------- *
+ *  Armor Sheet                               *
+ * ------------------------------------------ */
 .crucible.sheet.armor .resistance {
   flex: 0 0 50%;
   margin: 0 0 3px;
@@ -924,6 +930,15 @@ h2.divider span {
 .crucible.sheet.armor .resistance > input {
   flex: 0 0 64px;
   text-align: center;
+}
+/** ----------------------------------------- *
+ *  Talent Sheet                              *
+ * ------------------------------------------ */
+.crucible.talent .sheet-header {
+  border-bottom: none;
+}
+.crucible.talent .sheet-header .header-tags {
+  margin-bottom: 0;
 }
 .crucible.talent .action {
   align-items: center;
@@ -947,7 +962,11 @@ h2.divider span {
   flex: none;
 }
 .crucible.talent .action .description {
-  padding: 0.25rem 0;
+  margin: 0.25rem 0;
+  flex: 0 0 100%;
+}
+.crucible.talent .action .condition {
+  margin: 0.5rem 0 0;
   flex: 0 0 100%;
 }
 .crucible.journal-sheet .editor-content {
