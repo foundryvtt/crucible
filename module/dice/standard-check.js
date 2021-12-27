@@ -3,17 +3,19 @@ import { StandardCheckDialog } from "./standard-check-dialog.js";
 
 /**
  * @typedef {Object} DiceCheckBonuses
- * @property {number} boons         A number of advantageous boons, up to a maximum of 6
- * @property {number} banes         A number of disadvantageous banes, up to a maximum of 6
- * @property {number} ability       The ability score which modifies the roll, up to a maximum of 12
- * @property {number} skill         The skill bonus which modifies the roll, up to a maximum of 12
- * @property {number} enchantment   An enchantment bonus which modifies the roll, up to a maximum of 6
+ * @property {number} [boons=0]               A number of advantageous boons, up to a maximum of 6
+ * @property {number} [banes=0]               A number of disadvantageous banes, up to a maximum of 6
+ * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
+ * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
+ * @property {number} [enchantment=0]         An enchantment bonus which modifies the roll, up to a maximum of 6
+ * @param {number} [damageBonus=0]            An additional damage bonus which applies to this attack
+ * @param {number} [damageMultiplier=0]       An additional damage multiplier which applies to this attack
  */
 
 /**
  * @typedef {DiceCheckBonuses} StandardCheckData
- * @property {string} actorId       The ID of the actor rolling the check
- * @property {number} dc            The target difficulty of the check
+ * @property {string} actorId                 The ID of the actor rolling the check
+ * @property {number} dc                      The target difficulty of the check
  */
 
 /**

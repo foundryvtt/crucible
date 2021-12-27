@@ -41,7 +41,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
   static defineSchema() {
     return {
       id: fields.REQUIRED_STRING,
-      name: fields.REQUIRED_STRING,
+      name: fields.STRING_FIELD,
       img: fields.IMAGE_FIELD,
       condition: fields.BLANK_STRING,
       description: fields.REQUIRED_STRING,
@@ -71,6 +71,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
    * Additional data preparation steps for the ActionData.
    */
   prepareData() {
+    this.name = this.name || this.document?.name;
     this.img = this.img || this.document?.img;
     this.tags = (this.document?.data.data.tags || []).concat(this.tags);
   }

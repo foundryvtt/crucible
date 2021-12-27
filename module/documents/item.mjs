@@ -243,10 +243,12 @@ export default class CrucibleItem extends Item {
    * @param {CrucibleActor} target    The target creature being attacked
    * @param {number} [banes=0]        The number of banes which afflict this attack roll
    * @param {number} [boons=0]        The number of boons which benefit this attack roll
+   * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
+   * @param {number} [damageMultiplier=0] An additional damage multiplier which applies to this attack
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    * @private
    */
-  async weaponAttack(target, {banes=0, boons=0}={}) {
+  async weaponAttack(target, {banes=0, boons=0, damageMultiplier=0, damageBonus=0}={}) {
     if ( this.data.type !== "weapon" ) {
       throw new Error("You may only call the weaponAttack method for weapon-type Items");
     }
@@ -274,8 +276,8 @@ export default class CrucibleItem extends Item {
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: id.damageMultiplier,
-        bonus: id.damageBonus,
+        multiplier: id.damageMultiplier + damageMultiplier,
+        bonus: id.damageBonus + damageBonus,
         resistance: target.resistances[id.damageType]?.total ?? 0,
         type: id.damageType
       };

@@ -30,8 +30,8 @@ export class TalentData extends DocumentData {
         type: [String],
         required: true,
         default: [],
-        validate: tags => tags.every(t => this.TALENT_TAGS.includes(t)),
-        validationError: '{name} {field} "{value}" must all be valid tags in TalentData.TALENT_TAGS'
+        validate: tags => tags.every(t => t in SYSTEM.TALENT.ACTION_TAGS),
+        validationError: '{name} {field} "{value}" must all be valid tags in TALENT.ACTION_TAGS'
       },
       ranks: {
         type: [TalentRankData],
@@ -47,12 +47,6 @@ export class TalentData extends DocumentData {
    * @type {string[]}
    */
   static TALENT_TYPES = ["armor", "weaponry"];
-
-  /**
-   * Allowed talent tags which can be assigned to TalentData or ActionData
-   * @type {string[]}
-   */
-  static TALENT_TAGS = ["melee", "mainhand", "twohand", "offhand", "shield"];
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */

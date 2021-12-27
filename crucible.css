@@ -377,7 +377,7 @@ h2.divider span {
 .crucible.sheet.actor .equipment h4,
 .crucible.sheet.actor .action h4,
 .crucible.sheet.actor .effect h4 {
-  line-height: 24px;
+  line-height: 16px;
   margin: 0 0 0 4px;
 }
 .crucible.sheet.actor .equipment .tag,
@@ -1080,6 +1080,7 @@ h2.divider span {
   align-items: center;
 }
 .crucible.action .action-name {
+  line-height: 20px;
   margin: 0 0 0 8px;
 }
 .crucible.action .activation-tags,

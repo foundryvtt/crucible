@@ -4,12 +4,12 @@
 ## One-Handed Melee
 * Disarming Strike (2AP)
 * Flourishing Strike (2AP)
-* Backstab (3AP)
+[✓] Backstab (3AP)
 
 ## Two-Handed Melee
 [✓] Cleave (3AP)
 [✓] Uppercut (1AP)
-* Momentum (1AP)
+[✓] Ruthless Momentum (1AP)
 
 ## Dual-Wield Melee
 [✓] Flurry (2AP)
@@ -17,8 +17,8 @@
 * Barrage (3AP)
 
 ## Unarmed Melee
-* Flying Kick (1AP)
-* Stunning Strike (2AP)
+[✓] Flying Kick (1AP)
+[✓] Stunning Strike (2AP)
 
 ## Ranged
 * Precise Shot (3AP)

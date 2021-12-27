@@ -261,15 +261,18 @@ export default class CrucibleActor extends Actor {
     const oh = weapons.offhand;
     const ohCategory = oh.config.category;
 
-    // Flag equipped weapon states
+    // Assign equipment state flags
+    equipment.unarmored = equipment.armor.data.data.category === "unarmored";
     weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
     weapons.shield = ohCategory.id === "shield";
     weapons.twoHanded = mhCategory.hands === 2;
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
-    weapons.dualWield = (mh !== oh) && mh.id && (oh.id && !weapons.shield);
+
+    // Dual Wielding States
+    weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
     weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
-    weapons.dualRanged = !!mhCategory.ranged && !!ohCategory.ranged;
+    weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
 
     // TODO: Up to three? equipped accessories
     equipment.accessories = accessory;

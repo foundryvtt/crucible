@@ -45,6 +45,21 @@ export const ACTION_TARGET_TYPES = {
  * @enum {ActionTag}
  */
 export const ACTION_TAGS = {
+  deadly: {
+    tag: "deadly",
+    label: "Deadly",
+    pre: (actor, action) => action.bonuses.damageMultiplier = 2,
+  },
+  empowered: {
+    tag: "empowered",
+    label: "Empowered",
+    pre: (actor, action) => action.bonuses.damageBonus = 2,
+  },
+  finesse: {
+    tag: "finesse",
+    label: "Finesse",
+    can: (actor, action) => actor.equipment.weapons.mainhand.config.category.id === "light1"
+  },
   melee: {
     tag: "melee",
     label: "Melee",
@@ -112,6 +127,11 @@ export const ACTION_TAGS = {
     tag: "unarmed",
     label: "Unarmed",
     can: (actor, action) => actor.equipment.weapons.unarmed
+  },
+  unarmored: {
+    tag: "unarmored",
+    label: "Unarmored",
+    can: (actor, action) => actor.equipment.unarmored
   }
 }
 
