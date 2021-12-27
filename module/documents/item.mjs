@@ -39,14 +39,6 @@ export default class CrucibleItem extends Item {
   }
 
   /**
-   * Usage requirement configuration for the Item
-   * @type {object}
-   */
-  get requirements() {
-    return this.data.data.requirements;
-  }
-
-  /**
    * Current talent rank for this Item
    * @type {TalentRankData}
    */

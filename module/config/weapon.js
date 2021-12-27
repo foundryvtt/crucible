@@ -136,8 +136,8 @@ export const CATEGORIES = {
     ranged: true,
     scaling: "strength.dexterity",
     bonus: 0,
-    multiplier: 2,
-    actionCost: 2
+    multiplier: 1,
+    actionCost: 1
   },
   mechanical1: {
     id: "mechanical1",
@@ -159,7 +159,7 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "dexterity",
-    bonus: 0,
+    bonus: 2,
     multiplier: 2,
     actionCost: 2
   },
@@ -171,7 +171,7 @@ export const CATEGORIES = {
     off: true,
     ranged: false,
     scaling: "strength",
-    bonus: 0,
+    bonus: -2,
     multiplier: 1,
     actionCost: 1
   }

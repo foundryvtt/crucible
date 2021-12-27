@@ -177,7 +177,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = new this.constructor(this);
-    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0};
+    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, damageMultiplier: 0};
 
     // Pre-configure of the action
     for ( let tag of action.tags ) {
@@ -272,38 +272,56 @@ export default class ActionData extends foundry.abstract.DocumentData {
    * @private
    */
   _acquireTargets(actor) {
-    const targets = Array.from(game.user.targets).map(t => {
+    if ( !canvas.ready ) return [];
+    const userTargets = game.user.targets;
+    const mapTokenTargets = t => {
       return {
         token: t.document,
         actor: t.actor,
         uuid: t.actor.uuid,
         name: t.name
-      };
-    });
+      }
+    };
     switch ( this.targetType ) {
+
+      // AOE pulse
+      case "pulse":
+        const actorTokens = actor.getActiveTokens(true);
+        if ( !actorTokens.length ) return [];
+        const origin = actorTokens[0];
+        const r = this.targetDistance * canvas.dimensions.size;
+        const rect = new NormalizedRectangle(origin.data.x - r, origin.data.y - r, origin.w + (2*r), origin.h + (2*r));
+        return canvas.tokens.placeables.reduce((arr, t) => {
+          const c = t.center;
+          if ( rect.contains(c.x, c.y) && (t.id !== origin.id) ) arr.push(mapTokenTargets(t));
+          return arr;
+        }, []);
+
+      // Self-target
       case "self":
-        const tokens = actor.getActiveTokens(true);
-        return [{actor, token: tokens[0], name: actor.name}];
+        return actor.getActiveTokens(true).map(mapTokenTargets);
+
+      // Single targets
       case "single":
-        if ( targets.length < 1 ) {
+        if ( userTargets.size < 1 ) {
           throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
             number: this.targetNumber,
             type: this.targetType,
             action: this.name
           }));
         }
-        else if ( targets.length > this.targetNumber ) {
+        else if ( userTargets.size > this.targetNumber ) {
           throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
             number: this.targetNumber,
             type: this.targetType,
             action: this.name
           }));
         }
-        break;
+        return Array.from(userTargets).map(mapTokenTargets);
       default:
-        throw new Error(`targetType ${this.targetType} for action ${this.name} is not yet supported`);
+        ui.notifications.warn(`Automation for target type ${this.targetType} for action ${this.name} is not yet supported, you must manually target affected tokens.`);
+        return Array.from(userTargets).map(mapTokenTargets);
     }
-    return targets;
   }
 
   /* -------------------------------------------- */

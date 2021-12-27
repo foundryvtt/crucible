@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Talents/PlaytestTalents.md",
+            "file": "To-Do List.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Talents/PlaytestTalents.md",
+                "file": "To-Do List.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Talents/PlaytestTalents.md"
+                "file": "To-Do List.md"
               }
             }
           }
@@ -99,12 +99,12 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
-    "Talents/PlaytestTalents.md",
-    "Talents/Talent Ideas.md",
     "To-Do List.md",
+    "Talents/PlaytestTalents.md",
+    "Combat/Combat Conditions.md",
+    "Talents/Talent Ideas.md",
     "Dice.md",
     "Conditions.md",
-    "Combat/Combat Conditions.md",
     "Items/Armor.md",
     "Talents/Tree.png",
     "Talents/Sketch.jpg",

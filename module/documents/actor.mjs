@@ -673,8 +673,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Confirm that the Actor meets the requirements to add the Talent
-    for ( let [k, v] of Object.entries(talent.requirements) ) {
-      const current = foundry.utils.getProperty(this.data.data, k);
+    for ( let [k, v] of Object.entries(talent.systemData.prerequisites) ) {
+      const current = foundry.utils.getProperty(this.systemData, k);
       if ( current < v.value ) {
         const err = game.i18n.format("TALENT.MissingRequirement", {
           name: talent.name,

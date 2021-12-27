@@ -48,17 +48,32 @@ export const ACTION_TAGS = {
   deadly: {
     tag: "deadly",
     label: "Deadly",
-    pre: (actor, action) => action.bonuses.damageMultiplier = 2,
+    pre: (actor, action) => action.bonuses.damageMultiplier += 1,
+  },
+  dualwield: {
+    tag: "dualwield",
+    label: "Dual Wield",
+    can: (actor, action) => actor.equipment.weapons.dualWield
   },
   empowered: {
     tag: "empowered",
     label: "Empowered",
-    pre: (actor, action) => action.bonuses.damageBonus = 2,
+    pre: (actor, action) => action.bonuses.damageBonus += 2,
+  },
+  exposing: {
+    tag: "exposing",
+    label: "Exposing",
+    pre: (actor, action) => action.bonuses.boons += 2
   },
   finesse: {
     tag: "finesse",
     label: "Finesse",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.id === "light1"
+  },
+  harmless: {
+    tag: "harmless",
+    label: "Harmless",
+    pre: (actor, action) => action.bonuses.damageMultiplier -= 1
   },
   melee: {
     tag: "melee",
@@ -85,6 +100,16 @@ export const ACTION_TAGS = {
     label: "Ranged",
     can: (actor, action) => actor.equipment.weapons.ranged
   },
+  reaction: {
+    tag: "reaction",
+    label: "Reaction",
+    can: (actor, action) => actor !== game.combat.combatant.actor
+  },
+  shield: {
+    type: "shield",
+    label: "Shield",
+    can: (actor, action) => actor.equipment.weapons.shield
+  },
   chain: {
     tag: "chain",
     label: "Attack Chain",
@@ -98,7 +123,6 @@ export const ACTION_TAGS = {
     tag: "offhand",
     label: "Off-Hand",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
-    can: (actor, action) => actor.equipment.weapons.dualWield,
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
@@ -132,6 +156,11 @@ export const ACTION_TAGS = {
     tag: "unarmored",
     label: "Unarmored",
     can: (actor, action) => actor.equipment.unarmored
+  },
+  unsighted: {
+    tag: "unsighted",
+    label: "Unsighted",
+    pre: (actor, action) => action.bonuses.banes += 2
   }
 }
 
@@ -172,32 +201,3 @@ export const DEFAULT_ACTIONS = [
     tags: ["mainhand"]
   }
 ];
-
-
-
-async function createTalent() {
-  await Item.create({
-    "name": "Impenetrable Advance",
-    "img": "icons/environment/people/infantry-armored.webp",
-    "type": "talent",
-    "folder": game.folders.getName("Armor Talents").id,
-    "data.tier": 1,
-    "data.cost": 1,
-    "data.description": "You gain +1 Resistance to Bludgeoning, Piercing, and Slashing while you have Heavy Armor equipped.",
-    // "data.actions": [{
-    //   id: "move",
-    //   name: "Move",
-    //   img: "icons/skills/movement/arrow-upward-yellow.webp",
-    //   description: "You move at normal speed up to 10 feet in any direction.",
-    //   targetType: "self",
-    //   targetNumber: 1,
-    //   targetDistance: 2,
-    //   actionCost: 1,
-    //   focusCost: 0,
-    //   affectAllies: false,
-    //   affectEnemies: false,
-    //   tags: ["movement"]
-    // }],
-    "data.requirements": {"advancement.level": 1, "attributes.strength.value": 4}
-  });
-}

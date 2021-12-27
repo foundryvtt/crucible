@@ -463,6 +463,13 @@ h2.divider span {
   font-weight: bold;
   text-shadow: 0 0 5px #FFF;
 }
+.crucible.sheet.actor .tab.skills,
+.crucible.sheet.actor .tab.talents,
+.crucible.sheet.actor .tab.inventory,
+.crucible.sheet.actor .tab.spells {
+  overflow-y: auto;
+  padding-right: 4px;
+}
 .crucible.sheet.actor .resources {
   margin: var(--marginSize) 0;
   flex: none;
@@ -742,11 +749,6 @@ h2.divider span {
 /* -------------------------------------- */
 /*  Skills Tab                            */
 /* -------------------------------------- */
-.crucible.sheet.actor .tab.skills {
-  justify-content: flex-start;
-  height: 100%;
-  overflow-y: auto;
-}
 .crucible.sheet.actor .tab.skills .skills-list {
   flex: 0;
   list-style: none;
@@ -1083,16 +1085,13 @@ h2.divider span {
   line-height: 20px;
   margin: 0 0 0 8px;
 }
-.crucible.action .activation-tags,
-.crucible.action .action-tags {
+.crucible.action .activation-tags {
   text-align: right;
   margin: 0;
 }
-.crucible.action .action-tags {
-  margin-top: 2px;
-}
 .crucible.action .action-targets,
-.crucible.action .action-context {
+.crucible.action .action-context,
+.crucible.action .action-tags {
   flex: 0 0 100%;
   display: flex;
   margin: 4px 0 0;
@@ -1100,11 +1099,13 @@ h2.divider span {
   line-height: 20px;
 }
 .crucible.action .action-targets label,
-.crucible.action .action-context label {
+.crucible.action .action-context label,
+.crucible.action .action-tags label {
   flex: 1;
 }
 .crucible.action .action-targets .target-link,
-.crucible.action .action-context .target-link {
+.crucible.action .action-context .target-link,
+.crucible.action .action-tags .target-link {
   flex: none;
 }
 .crucible.action .action-description {

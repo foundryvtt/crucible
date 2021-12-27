@@ -7,7 +7,7 @@
 [ ] Implement 8 basic backgrounds as Items
 [ ] Implement all basic weapon types as Items
 [ ] Implement all basic armor types as Items
-[ ] Implement all [[PlaytestTalents]]
+[✓] Implement all [[PlaytestTalents]]
 
 # For Combat Playtest
 [✓] Re-enable skill checks

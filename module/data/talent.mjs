@@ -46,7 +46,7 @@ export class TalentData extends DocumentData {
    * Allowed talent types which can be assigned to TalentData
    * @type {string[]}
    */
-  static TALENT_TYPES = ["armor", "weaponry"];
+  static TALENT_TYPES = ["armor", "defensive", "weaponry"];
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -64,7 +64,8 @@ export class TalentData extends DocumentData {
       return cost;
     }, 0);
     this.nextRank = this.ranks[this.rank] || null;
-    this.actions = this.rank > 0 ? this.currentRank.actions : this.nextRank.actions;
+    if ( !this.ranks.length ) this.actions = [];
+    else this.actions = this.rank > 0 ? this.currentRank.actions : this.nextRank.actions;
 
     // Identify requirements
     const getReqs = reqs => {
@@ -101,7 +102,7 @@ export class TalentData extends DocumentData {
       const cost = this.nextRank.cost;
       tags.cost = `${cost} ${cost > 1 ? "Points" : "Point"}`;
     }
-    for ( let [k, v] of Object.entries(this.requirements) ) {
+    for ( let [k, v] of Object.entries(this.requirements || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
     }
     return tags;

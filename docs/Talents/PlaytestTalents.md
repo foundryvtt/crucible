@@ -1,47 +1,46 @@
 
 # Weaponry Talents
-
 ## One-Handed Melee
-* Disarming Strike (2AP)
-* Flourishing Strike (2AP)
-[✓] Backstab (3AP)
+[✓] Disarming Strike (+1AP)
+[✓] Flourishing Strike (+1AP)
+[✓] Backstab (+2AP)
 
 ## Two-Handed Melee
-[✓] Cleave (3AP)
-[✓] Uppercut (1AP)
-[✓] Ruthless Momentum (1AP)
+[✓] Cleave (+1AP)
+[✓] Uppercut (-1AP)
+[✓] Ruthless Momentum (-1AP)
 
 ## Dual-Wield Melee
-[✓] Flurry (2AP)
-* Feinting Strike (2AP)
-* Barrage (3AP)
+[✓] Flurry (+1AP)
+[✓] Feinting Strike (+1AP)
+[✓] Whirlwind (+2AP)
 
 ## Unarmed Melee
-[✓] Flying Kick (1AP)
-[✓] Stunning Strike (2AP)
+[✓] Flying Kick (+1AP)
+[✓] Stunning Strike (+1AP)
 
 ## Ranged
-* Precise Shot (3AP)
-* Fan of Arrows (3AP)
-* Quick Reload (1FP)?
+[✓] Precise Shot (+1AP)
+[✓] Triple Shot (+2AP)
+[✓] Rapid Reload (+1FP)
 
 ## Shield
-* Bashing Strike (1AP)
-* Testudo (double block bonus?)
+[✓] Bashing Strike (1AP)
+[✓] Shield Charge (1AP)
 
 # Defensive Talents
 
 ## Parry
-* Riposte
+[✓] Counter Riposte
 
 ## Dodge
-* Counter Strike
+[✓] Counter Evade 
 
 ## Block
-* Counter Smash
+[✓] Counter Strike
 
 ## Light Armor
-* Defensive Roll
+[✓] Defensive Roll
 
 ## Heavy Armor
-* Body Block
+[✓] Body Block

@@ -33,7 +33,6 @@
   }
 
   /** Section Headers */
-
   h3.section-header {
     position: relative;
     font-size: var(--fontSizeTitle);
@@ -55,7 +54,6 @@
   }
 
   /** Labels and Inputs */
-
   label {
     font-family: var(--fontFamilySerif);
     color: @colorOlive;
@@ -152,7 +150,6 @@
   /* ----------------------------------------- */
 
   /** Sheet Title */
-
   .title {
     margin: 0;
     border-bottom: 1px solid @colorBeige;
@@ -184,7 +181,6 @@
   }
 
   /** Advancement Bar */
-
   .advancement {
     flex: 0 0 140px;
 
@@ -246,6 +242,14 @@
       font-weight: bold;
       text-shadow: 0 0 5px #FFF;
     }
+  }
+
+  .tab.skills,
+  .tab.talents,
+  .tab.inventory,
+  .tab.spells {
+    overflow-y: auto;
+    padding-right: 4px;
   }
 
   /* ----------------------------------------- */
@@ -608,10 +612,6 @@
 /* -------------------------------------- */
 
 .crucible.sheet.actor .tab.skills {
-  justify-content: flex-start;
-  height: 100%;
-  overflow-y: auto;
-
   .skills-list {
     flex: 0;
     list-style: none;

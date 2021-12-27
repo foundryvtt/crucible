@@ -1,19 +1,17 @@
 <header class="action-header flexrow">
     <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
     <h3 class="action-name">{{action.name}}</h3>
-
-    <div class="tags flexcol">
-        <p class="activation-tags">
-            {{#each activationTags}}
-            <span class="tag">{{this}}</span>
-            {{/each}}
-        </p>
-        <p class="action-tags">
-            {{#each actionTags}}
-            <span class="tag">{{this}}</span>
-            {{/each}}
-        </p>
-    </div>
+    <p class="activation-tags">
+        {{#each activationTags}}
+        <span class="tag">{{this}}</span>
+        {{/each}}
+    </p>
+    <p class="action-tags">
+        <label>{{localize "ACTION.Action"}}</label>
+        {{#each actionTags}}
+        <span class="tag">{{this}}</span>
+        {{/each}}
+    </p>
 
     {{#if action.context}}
     <div class="action-context">
