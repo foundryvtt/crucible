@@ -34,22 +34,13 @@ export function addChatMessageContextOptions(html, options)  {
     icon: '<i class="fas fa-first-aid"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
-      if ( !message.isRoll || !message.getFlag("crucible", "isAttack") ) return false;
-      const targets = message.getFlag("crucible", "targets");
-      return targets.every(t => {
-        if ( t.uuid.startsWith("Compendium") ) return false;  // Don't apply damage to compendium targets
-        const [documentName, documentId, embeddedName, embeddedId] = t.uuid.split(".");
-        if ( documentName === "Actor" ) return game.actors.get(documentId)?.isOwner;
-        else if ( embeddedName === "Token" ) {
-          const scene = game.scenes.get(documentId);
-          if ( !scene ) return false;
-          return scene.tokens.get(embeddedId)?.isOwner;
-        }
-      });
+      const flags = message.data.flags.crucible || {};
+      return flags.isAttack && !flags.damageApplied;
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
       const targets = message.getFlag("crucible", "targets");
+      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage.total || 0), 0);
       for ( let t of targets ) {
 
         // Get target actor
@@ -58,11 +49,34 @@ export function addChatMessageContextOptions(html, options)  {
         const actor = target instanceof TokenDocument ? target.actor : target;
 
         // Apply damage
-        await actor.alterResources({"health": -1 * message.roll.data.damage.total });
+        await actor.alterResources({"health": -1 * totalDamage });
       }
       return message.setFlag("crucible", "damageApplied", true);
     }
-  })
+  });
+
+  // Reverse damage
+  options.push({
+    name: game.i18n.localize("DICE.ReverseDamage"),
+    icon: '<i class="fas fa-first-aid"></i>',
+    condition: li => {
+      const message = game.messages.get(li.data("messageId"));
+      const flags = message.data.flags.crucible || {};
+      return flags.isAttack && flags.damageApplied;
+    },
+    callback: async li => {
+      const message = game.messages.get(li.data("messageId"));
+      const targets = message.getFlag("crucible", "targets");
+      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage.total || 0), 0);
+      for ( let t of targets ) {
+        const target = await fromUuid(t.uuid);
+        if ( !target ) continue;
+        const actor = target instanceof TokenDocument ? target.actor : target;
+        await actor.alterResources({"health": totalDamage });
+      }
+      return message.setFlag("crucible", "damageApplied", false);
+    }
+  });
   return options;
 }
 

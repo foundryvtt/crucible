@@ -1058,7 +1058,6 @@ h2.divider span {
   height: 40px;
 }
 .crucible.action .action-header {
-  padding-bottom: 4px;
   align-items: center;
 }
 .crucible.action .action-name {
@@ -1097,6 +1096,9 @@ h2.divider span {
   font-style: italic;
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
+}
+.crucible.action .dice-roll {
+  margin: 4px 0;
 }
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);

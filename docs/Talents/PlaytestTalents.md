@@ -4,6 +4,7 @@
 ## One-Handed Melee
 * Disarming Strike (2AP)
 * Flourishing Strike (2AP)
+* Backstab (3AP)
 
 ## Two-Handed Melee
 * Cleave (3AP)
@@ -33,11 +34,13 @@
 * Riposte
 
 ## Dodge
-* Defensive Roll
 * Counter Strike
 
 ## Block
 * Counter Smash
+
+## Light Armor
+* Defensive Roll
 
 ## Heavy Armor
 * Body Block

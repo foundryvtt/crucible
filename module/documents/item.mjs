@@ -184,15 +184,6 @@ export default class CrucibleItem extends Item {
         armorTags.defenses = `${defenses.armor.total + defenses.dodge.total} PD`;
         return armorTags;
       case "talent":
-        const talentTags = {};
-        if ( this.nextRank ) {
-          const cost = this.nextRank.cost;
-          talentTags.cost = `${cost} ${cost > 1 ? "Points" : "Point"}`;
-        }
-        for ( let [k, v] of Object.entries(this.requirements) ) {
-          talentTags[k] = `${v.label} ${v.value}`;
-        }
-        return talentTags;
       case "weapon":
         return this.data.data.getTags({scope});
       default:

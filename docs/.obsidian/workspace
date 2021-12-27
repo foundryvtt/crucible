@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Combat/Combat Conditions.md",
+            "file": "Talents/Talent Ideas.md",
             "mode": "source",
             "source": true
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "flurry",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -49,7 +49,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -69,7 +70,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Combat/Combat Conditions.md",
+                "file": "Talents/Talent Ideas.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +87,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Combat/Combat Conditions.md"
+                "file": "Talents/Talent Ideas.md"
               }
             }
           }
@@ -99,15 +100,15 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
-    "Combat/Combat Conditions.md",
-    "To-Do List.md",
-    "Items/Armor.md",
-    "Conditions.md",
-    "Talents/Tree.png",
     "Talents/Talent Ideas.md",
     "Talents/PlaytestTalents.md",
+    "To-Do List.md",
+    "Dice.md",
+    "Conditions.md",
+    "Combat/Combat Conditions.md",
+    "Items/Armor.md",
+    "Talents/Tree.png",
     "Talents/Sketch.jpg",
-    "Spells/Essentials.md",
-    "Spells/Components.md"
+    "Spells/Essentials.md"
   ]
 }

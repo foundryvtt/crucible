@@ -55,7 +55,7 @@ export class TalentData extends DocumentData {
   static TALENT_TAGS = ["melee", "mainhand", "twohand", "offhand", "shield"];
 
   /* -------------------------------------------- */
-  /*  Helper Methods                              */
+  /*  Data Preparation                            */
   /* -------------------------------------------- */
 
   /**
@@ -66,7 +66,7 @@ export class TalentData extends DocumentData {
     // Identify current rank and cost
     this.currentRank = this.ranks[this.rank-1] || null;
     this.cost = this.ranks.reduce((cost, r, i) => {
-      if ( i < this.rank-1 ) cost += r.cost;
+      if ( i < this.rank ) cost += r.cost;
       return cost;
     }, 0);
     this.nextRank = this.ranks[this.rank] || null;
@@ -91,6 +91,48 @@ export class TalentData extends DocumentData {
     for ( let a of this.actions ) {
       a.prepareData();
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Return an object of string formatted tag data which describes this item type.
+   * @returns {Object<string, string>}    The tags which describe this weapon
+   */
+  getTags({scope="full"}={}) {
+    const tags = {};
+    if ( this.nextRank ) {
+      const cost = this.nextRank.cost;
+      tags.cost = `${cost} ${cost > 1 ? "Points" : "Point"}`;
+    }
+    for ( let [k, v] of Object.entries(this.requirements) ) {
+      tags[k] = `${v.label} ${v.value}`;
+    }
+    return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  addRank() {
+    const source = this.toObject();
+    const rank = new TalentRankData({description: "New Rank"});
+    source.ranks.push(rank);
+    return this.document.update({data: source});
+  }
+
+  /* -------------------------------------------- */
+
+  addAction(rank) {
+    const source = this.toObject();
+    const action = new ActionData({
+      id: "new-action",
+      name: "New Action",
+      description: "New action description"
+    });
+    source.ranks[rank].actions.push(action);
+    return this.document.update({data: source});
   }
 }
 

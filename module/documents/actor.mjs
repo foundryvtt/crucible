@@ -42,11 +42,27 @@ export default class CrucibleActor extends Actor {
   points = this.points;
 
   /**
+   * The ancestry of the Actor.
+   * @returns {*}
+   */
+  get ancestry() {
+    return this.data.data.details.ancestry;
+  }
+
+  /**
    * The prepared object of actor attributes
    * @type {object}
    */
   get attributes() {
     return this.data.data.attributes;
+  }
+
+  /**
+   * The background of the Actor.
+   * @returns {*}
+   */
+  get background() {
+    return this.data.data.details.background;
   }
 
   /**
@@ -95,19 +111,15 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
-    const data = this.data;
 
     // Prepare placeholder point totals
-    this._prepareAdvancement(data);
+    this._prepareAdvancement();
 
     // Prepare Attributes
-    this._prepareAttributes(data);
+    this._prepareAttributes();
 
     // Prepare Skills
-    this._prepareSkills(data);
-
-    // Prepare Talents
-    this._prepareTalents(data);
+    this._prepareSkills();
   }
 
   /* -------------------------------------------- */
@@ -115,7 +127,9 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
-    this._prepareEquipment();
+    const items = this.itemTypes;
+    this._prepareTalents(items);
+    this._prepareEquipment(items);
     this._prepareActions();
   };
 
@@ -131,11 +145,10 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the available points which can be spent to advance this character
-   * @param {object} data       The actor data to prepare
    * @private
    */
-  _prepareAdvancement(data) {
-    const adv = data.data.advancement;
+  _prepareAdvancement() {
+    const adv = this.systemData.advancement;
     adv.level = Math.clamped(adv.level, 0, 24);
     const effectiveLevel = Math.max(adv.level, 1) - 1;
 
@@ -156,20 +169,18 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Prepare attributes, ability scores, and resource pools for the Actor.
-   * @param {object} data       The actor data to prepare
    * @private
    */
-  _prepareAttributes(data) {
-    const attrs = data.data.attributes;
+  _prepareAttributes() {
     const points = this.points.ability;
-    const ancestry = data.data.details.ancestry;
+    const ancestry = this.ancestry;
     const hasAncestry = ancestry.primary && ancestry.secondary;
 
     // Ability Scores
     let abilityPointsBought = 0;
     let abilityPointsSpent = 0;
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
-      let ability = attrs[a];
+      let ability = this.attributes[a];
       ability.initial = 1;
       if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAttributeStart;
       else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAttributeStart;
@@ -194,15 +205,13 @@ export default class CrucibleActor extends Actor {
    * Classify the equipment that the Actor currently has equipped
    * @private
    */
-  _prepareEquipment() {
-    const {armor, weapon, accessory} = this.itemTypes;
+  _prepareEquipment({armor, weapon, accessory}={}) {
     const equipment = {};
     const itemCls = getDocumentClass("Item");
     const warnSlotInUse = (item, type) => {
       const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.name, item: item.name, type});
       console.warn(w);
     }
-
 
     // Identify equipped armor
     let armors = armor.filter(i => i.data.data.equipped);
@@ -253,12 +262,13 @@ export default class CrucibleActor extends Actor {
     const ohCategory = oh.config.category;
 
     // Flag equipped weapon states
-    weapons.unarmed = !(mh.id || oh.id);
+    weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
+    weapons.shield = ohCategory.id === "shield";
     weapons.twoHanded = mhCategory.hands === 2;
-    weapons.dualWield = (mh !== oh) && mh.id && oh.id;
-    weapons.ranged = !!mhCategory.ranged;
-    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
     weapons.melee = !mhCategory.ranged;
+    weapons.ranged = !!mhCategory.ranged;
+    weapons.dualWield = (mh !== oh) && mh.id && (oh.id && !weapons.shield);
+    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
     weapons.dualRanged = !!mhCategory.ranged && !!ohCategory.ranged;
 
     // TODO: Up to three? equipped accessories
@@ -297,16 +307,16 @@ export default class CrucibleActor extends Actor {
    * Validate the number of points spent on skills, and the number of skill points remaining to be spent.
    * @private
    */
-  _prepareSkills(data) {
+  _prepareSkills() {
 
     // Populate all the skills
     const ranks = SYSTEM.SKILL_RANKS;
-    const ancestry = data.data.details.ancestry;
-    const background = data.data.details.background;
+    const ancestry = this.ancestry;
+    const background = this.background;
     let pointsSpent = 0;
 
     // Iterate over skills
-    for ( let [id, skill] of Object.entries(data.data.skills) ) {
+    for ( let [id, skill] of Object.entries(this.skills) ) {
       const config = SYSTEM.SKILLS[id];
 
       // Skill Rank
@@ -323,7 +333,7 @@ export default class CrucibleActor extends Actor {
       skill.cost = next.cost;
 
       // Bonuses
-      const attrs = config.attributes.map(a => data.data.attributes[a].value);
+      const attrs = config.attributes.map(a => this.attributes[a].value);
       skill.abilityBonus = Math.ceil(0.5 * (attrs[0] + attrs[1]));
       skill.skillBonus = ranks[skill.rank].bonus;
       skill.enchantmentBonus = 0;
@@ -343,9 +353,9 @@ export default class CrucibleActor extends Actor {
    * Prepare owned Talent items that the Actor has unlocked
    * @private
    */
-  _prepareTalents(data) {
+  _prepareTalents({talent}={}) {
     const points = this.points.talent;
-    for ( let item of this.itemTypes.talent ) {
+    for ( let item of talent ) {
       points.spent += item.systemData.cost;
     }
     points.available = points.total - points.spent;

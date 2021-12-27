@@ -70,13 +70,13 @@ export const ACTION_TAGS = {
     label: "Ranged",
     can: (actor, action) => actor.equipment.weapons.ranged
   },
-  attackChain: {
-    tag: "attackChain",
+  chain: {
+    tag: "chain",
     label: "Attack Chain",
-    post: async function(actor, action, rolls) {
-      if ( rolls.every(r => r.isSuccess) ) {
-        rolls.push(await actor.equipment.weapons.mainhand.roll(rolls[0].data));
-      }
+    post: async function(actor, action, target, rolls) {
+      if ( !rolls.every(r => r.isSuccess ) ) return;
+      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
+      rolls.push(chain);
     }
   },
   offhand: {

@@ -69,7 +69,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
    * Additional data preparation steps for the ActionData.
    */
   prepareData() {
-    // Combine action-level tags with talent-level tags
+    this.img = this.img || this.document?.img;
     this.tags = (this.document?.data.data.tags || []).concat(this.tags);
   }
 
@@ -138,17 +138,19 @@ export default class ActionData extends foundry.abstract.DocumentData {
       rolls: await Promise.all(rolls.map(r => r.render()))
     });
 
+    // Composite a single roll for the purpose of the chat record
+    const metaRoll = Roll.fromTerms([PoolTerm.fromRolls(rolls)]);
+
     // Create chat message
     const messageData = {
       type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor}),
-      roll: rolls.length > 0 ? rolls[0] : null,
+      roll: metaRoll,
       flags: {
         crucible: {
           isAttack: !!rolls[0].data.damage,
-          targets: targets,
-          additionalRolls: rolls.slice(1)
+          targets: targets
         }
       }
     }
@@ -168,7 +170,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
    * @param {boolean} dialog
    * @returns {Promise<AttackRoll[]>}
    */
-  async use(actor, {banes=0, boons=0, rollMode=null, dialog=false}={}) {
+  async use(actor, {banes=0, boons=0, rollMode, dialog=false}={}) {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = new this.constructor(this);
@@ -244,7 +246,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       for ( let tag of action.tags ) {
         const at = SYSTEM.TALENT.ACTION_TAGS[tag];
         if ( at.post instanceof Function ) {
-          await at.post(actor, action, rolls);
+          await at.post(actor, action, target.actor, rolls);
         }
       }
 

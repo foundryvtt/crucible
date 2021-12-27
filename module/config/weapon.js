@@ -17,7 +17,19 @@
  * @enum {WeaponCategory}
  */
 export const CATEGORIES = {
+  unarmed: {
+    id: "unarmed",
+    label: "WEAPON.Unarmed",
+    hands: 1,
+    main: true,
+    off: true,
+    scaling: "strength",
+    bonus: 0,
+    multiplier: 1,
+    actionCost: 1
+  },
   light1: {
+    id: "light1",
     label: "WEAPON.Light1",
     hands: 1,
     main: true,
@@ -28,6 +40,7 @@ export const CATEGORIES = {
     actionCost: 1
   },
   simple1: {
+    id: "simple1",
     label: "WEAPON.Simple1",
     hands: 1,
     main: true,
@@ -38,6 +51,7 @@ export const CATEGORIES = {
     actionCost: 1
   },
   balanced1: {
+    id: "balanced1",
     label: "WEAPON.Balanced1",
     hands: 1,
     main: true,
@@ -48,6 +62,7 @@ export const CATEGORIES = {
     actionCost: 1
   },
   heavy1: {
+    id: "heavy1",
     label: "WEAPON.Heavy1",
     hands: 1,
     main: true,
@@ -58,6 +73,7 @@ export const CATEGORIES = {
     actionCost: 1
   },
   massive1: {
+    id: "massive1",
     label: "WEAPON.Massive1",
     hands: 1,
     main: true,
@@ -68,6 +84,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   simple2: {
+    id: "simple2",
     label: "WEAPON.Simple2",
     hands: 2,
     main: true,
@@ -78,6 +95,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   balanced2: {
+    id: "balanced2",
     label: "WEAPON.Balanced2",
     hands: 2,
     main: true,
@@ -88,6 +106,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   heavy2: {
+    id: "heavy2",
     label: "WEAPON.Heavy2",
     hands: 2,
     main: true,
@@ -98,6 +117,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   massive2: {
+    id: "massive2",
     label: "WEAPON.Massive2",
     hands: 2,
     main: true,
@@ -108,6 +128,7 @@ export const CATEGORIES = {
     actionCost: 3
   },
   projectile2: {
+    id: "projectile2",
     label: "WEAPON.Projectile2",
     hands: 2,
     main: true,
@@ -119,6 +140,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   mechanical1: {
+    id: "mechanical1",
     label: "WEAPON.Mechanical1",
     hands: 1,
     main: true,
@@ -130,6 +152,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   mechanical2: {
+    id: "mechanical2",
     label: "WEAPON.Mechanical2",
     hands: 2,
     main: true,
@@ -141,6 +164,7 @@ export const CATEGORIES = {
     actionCost: 2
   },
   shield: {
+    id: "shield",
     label: "WEAPON.Shield",
     hands: 1,
     main: false,
@@ -212,7 +236,7 @@ export const UNARMED_DATA = {
   name: "Unarmed",
   type: "weapon",
   img: "icons/skills/melee/unarmed-punch-fist.webp",
-  category: "simple1",
+  category: "unarmed",
   quality: "shoddy",
   enchantment: "mundane",
   damageType: "bludgeoning"

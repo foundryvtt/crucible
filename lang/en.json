@@ -91,6 +91,7 @@
   "DAMAGE.SpiritualAbr": "Sptl",
 
   "DICE.ApplyDamage": "Apply Damage",
+  "DICE.ReverseDamage": "Reverse Damage",
   "DICE.SetDifficulty": "Set Difficulty",
 
   "ITEM.EnchantmentMundane": "Mundane",

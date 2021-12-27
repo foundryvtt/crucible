@@ -11,12 +11,13 @@
 
 # For Combat Playtest
 [✓] Re-enable skill checks
-[ ] Supports boons/banes election for actions which involve dice
+[✓] Supports boons/banes election for actions which involve dice
 [✓] Support equipable shields
 [✓ ] Ensure ranged weapons are supported
 [✓] Action targets and damage application
 [ ] Create 4-5 playtest adversary creatures
 
 # Medium-Term
+[ ] Implement Talent Ranks
 [ ] Implement Passive Talents
 [ ] Passive bonuses from talents
