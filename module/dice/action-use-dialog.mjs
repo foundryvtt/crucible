@@ -55,10 +55,12 @@ export default class ActionUseDialog extends Dialog {
       actionTags: action.getActionTags(),
       boons: boons ?? 0,
       banes: banes ?? 0,
+      hasDice: action.context.hasDice ?? false,
       dice: this.pool.dice.map(d => `d${d.faces}`),
       ability: ability,
       skill: skill,
       enchantment: enchantment,
+      showTargets: action.targetType !== "self",
       targets: targets,
       rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes

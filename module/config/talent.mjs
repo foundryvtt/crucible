@@ -79,6 +79,10 @@ export const ACTION_TAGS = {
     tag: "melee",
     label: "Melee",
     can: (actor, action) => actor.equipment.weapons.melee,
+    execute: (actor, action, target) => {
+      target.status.wasAttacked = true
+      actor.status.hasAttacked = true
+    }
   },
   mainhand: {
     tag: "mainhand",
@@ -87,18 +91,21 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
+      foundry.utils.mergeObject(action.context, {hasDice: true, label: mh.name, tags: mh.getTags({scope: "short"})});
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
   movement: {
     tag: "movement",
-    label: "Movement"
+    label: "Movement",
+    prepare: (actor, action) => action.actionCost -= (actor.status.hasMoved ? 0 : 1),
+    execute: (actor, action, target) => action.actorUpdates["data.status.hasMoved"] = true
   },
   ranged: {
     tag: "ranged",
     label: "Ranged",
-    can: (actor, action) => actor.equipment.weapons.ranged
+    can: (actor, action) => actor.equipment.weapons.ranged,
+    execute: (actor, action, target) => action.actorUpdates["data.status.hasAttacked"] = true
   },
   reaction: {
     tag: "reaction",
@@ -126,7 +133,7 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
-      action.context = {label: oh.name, tags: oh.getTags({scope: "short"})};
+      foundry.utils.mergeObject(action.context, {hasDice: true, label: oh.name, tags: oh.getTags({scope: "short"})});
     },
     execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
@@ -138,7 +145,7 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      action.context = {label: mh.name, tags: mh.getTags({scope: "short"})};
+      foundry.utils.mergeObject(action.context, {hasDice: true, label: mh.name, tags: mh.getTags({scope: "short"})});
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -176,10 +183,10 @@ export const DEFAULT_ACTIONS = [
     id: "move",
     name: "Move",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
-    description: "Move quickly up to 20 feet in any direction, or move cautiously 5 feet in any direction.",
+    description: "Move quickly up to 4 spaces in any direction, or move cautiously one space in any direction.",
     targetType: "self",
     targetNumber: 1,
-    targetDistance: 2,
+    targetDistance: 4,
     actionCost: 1,
     focusCost: 0,
     affectAllies: false,

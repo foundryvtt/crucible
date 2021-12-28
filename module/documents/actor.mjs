@@ -4,6 +4,13 @@ import AttackRoll from "../dice/attack-roll.mjs";
 import ActionData from "../data/action.mjs";
 
 /**
+ * @typedef {Object}   ActorRoundStatus
+ * @property {boolean} hasMoved
+ * @property {boolean} hasAttacked
+ * @property {boolean} wasAttacked
+ */
+
+/**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  * @extends {Actor}
  */
@@ -19,7 +26,7 @@ export default class CrucibleActor extends Actor {
    * Track the Actions which this Actor has available to use
    * @type {Object<string, ActionData>}
    */
-  actions = this.actions;
+  actions = this["actions"];
 
   /**
    * Track the equipment that the Actor is currently using
@@ -29,7 +36,7 @@ export default class CrucibleActor extends Actor {
    *   accessories: Item[]
    * }}
    */
-  equipment = this.equipment;
+  equipment = this["equipment"];
 
   /**
    * Track the progression points which are available and spent
@@ -39,7 +46,7 @@ export default class CrucibleActor extends Actor {
    *   talent: {total: number, spent: number, available: number }
    * }}
    */
-  points = this.points;
+  points = this["points"];
 
   /**
    * The ancestry of the Actor.
@@ -95,6 +102,14 @@ export default class CrucibleActor extends Actor {
    */
   get skills() {
     return this.data.data.skills;
+  }
+
+  /**
+   * The prepared object of actor status data
+   * @returns {ActorRoundStatus}
+   */
+  get status() {
+    return this.data.data.status;
   }
 
   /**
@@ -599,7 +614,27 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleActor>}
    */
   async rest() {
+    if ( this.attributes.wounds.value === this.attributes.wounds.max ) return this;
+    if ( this.attributes.madness.value === this.attributes.madness.max ) return this;
+    await this.toggleStatusEffect("unconscious", {active: false});
     return this.update(this._getRestData());
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Recover resources which replenish each round of combat.
+   * @returns {Promise<CrucibleActor>}
+   */
+  async recover() {
+    return this.update({
+      "data.attributes.action.value": this.attributes.action.max,
+      "data.status": {
+        hasMoved: false,
+        hasAttacked: false,
+        wasAttacked: false
+      }
+    });
   }
 
   /* -------------------------------------------- */
@@ -623,31 +658,79 @@ export default class CrucibleActor extends Actor {
   /**
    * Alter the resource pools of the actor using an object of change data
    * @param {Object<string, number>} changes      Changes where the keys are resource names and the values are deltas
+   * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
-  async alterResources(changes) {
-    const updates = {};
+  async alterResources(changes, updates={}) {
+    const attrs = this.attributes;
+    let tookWounds = false;
+    let tookMadness = false;
+
+    // Apply resource updates
     for ( let [resourceName, delta] of Object.entries(changes) ) {
-      let resource = this.attributes[resourceName];
+      let resource = attrs[resourceName];
       const uncapped = resource.value + delta;
       let overflow = Math.min(uncapped, 0);
 
       // Overflow health onto wounds (double damage)
       if ( (resourceName === "health") && (overflow !== 0) ) {
-        const wounds = this.attributes.wounds.value - overflow;
-        updates["data.attributes.wounds.value"] = Math.clamped(wounds, 0, this.attributes.wounds.max);
+        tookWounds = true;
+        updates["data.attributes.wounds.value"] = Math.clamped(attrs.wounds.value - overflow, 0, attrs.wounds.max);
       }
+      else if ( resourceName === "wounds" ) tookWounds = true;
 
       // Overflow morale onto madness (double damage)
       if ( (resourceName === "morale") && (overflow !== 0) ) {
         const madness = this.attributes.madness.value - overflow;
-        updates["data.attributes.madness.value"] = Math.clamped(madness, 0, this.attributes.madness.max);
+        updates["data.attributes.madness.value"] = Math.clamped(madness, 0, attrs.madness.max);
       }
+      else if ( resourceName === "madness" ) tookMadness = true;
 
       // Regular update
       updates[`data.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
     }
-    return this.update(updates);
+    await this.update(updates);
+
+    // Flag status effects
+    const isDead = attrs.wounds.value === this.attributes.wounds.max
+    await this.toggleStatusEffect("unconscious", {active: (this.attributes.health.value === 0) && !isDead});
+    await this.toggleStatusEffect("dead", {active: isDead});
+    let isBroken = attrs.morale.value === 0;
+    let isInsane = attrs.madness.value === attrs.madness.max;
+    return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle a named status active effect for the Actor
+   * @param {string} statusId     The status effect ID to toggle
+   * @param {boolean} active      Should the effect be active?
+   * @param {boolean} overlay     Should the effect be an overlay?
+   * @returns {Promise<ActiveEffect|null>}
+   */
+  async toggleStatusEffect(statusId, {active=true, overlay=false, createData={}}={}) {
+    const effectData = CONFIG.statusEffects.find(e => e.id === statusId);
+    if ( !effectData ) return;
+    const existing = this.effects.find(e => e.getFlag("core", "statusId") === effectData.id);
+
+    // No changes needed
+    if ( !active && !existing ) return null;
+    if ( active && existing ) return existing.update({"flags.core.overlay": overlay});
+
+    // Remove an existing effect
+    if ( !active && existing ) return existing.delete();
+
+    // Add a new effect
+    else if ( active ) {
+      createData = foundry.utils.mergeObject(effectData, createData, {inplace: false});
+      delete createData.id;
+      createData.label = game.i18n.localize(effectData.label);
+      createData["flags.core.statusId"] = effectData.id;
+      createData["flags.core.overlay"] = overlay;
+      const cls = getDocumentClass("ActiveEffect");
+      await cls.create(createData, {parent: this});
+    }
   }
 
   /* -------------------------------------------- */

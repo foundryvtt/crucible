@@ -224,6 +224,11 @@
             "rank": 0,
             "path": null
           }
+        },
+        "status": {
+          "hasMoved": false,
+          "hasAttacked": false,
+          "wasAttacked": false
         }
       }
     },

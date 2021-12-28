@@ -14,6 +14,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @typedef {Object} ActionContext
  * @property {string} label                 A string label providing context info
  * @property {string[]} tags                An array of tags which describe the context
+ * @property {boolean} hasDice              Does this action involve the rolling of a dice check?
  */
 
 /**
@@ -36,6 +37,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {ActionContext} context        Additional context which defines how the action is being used
  * @property {ActionTarget[]} targets       An array of targets which are affected by the action
  * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
+ * @property {object} actorUpdates          Other Actor data updates to make as part of this Action
  */
 export default class ActionData extends foundry.abstract.DocumentData {
   static defineSchema() {
@@ -95,14 +97,31 @@ export default class ActionData extends foundry.abstract.DocumentData {
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
+  /**
+   * Get tags which describe the activation conditions for the Action.
+   * @returns {string[]}
+   */
   getActivationTags() {
+
+    // Action target
+    let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
+    if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
+    const ap = Math.max(this.actionCost, 0);
+    const fp = Math.max(this.focusCost, 0);
     return [
-      `${TALENT.ACTION_TARGET_TYPES[this.targetType].label} ${this.targetNumber}`,
-      this.actionCost ? `${this.actionCost}A` : null,
-      this.focusCost ? `${this.focusCost}F` : null,
+      target,
+      ap ? `${ap}A` : null,
+      fp ? `${fp}F` : null,
+      !ap && !fp ? "Free" : null
     ].filter(t => !!t);
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Get tags which describe the properties of the Action.
+   * @returns {string[]}
+   */
   getActionTags() {
     const tags = [];
     for (let t of this.tags) {
@@ -112,6 +131,12 @@ export default class ActionData extends foundry.abstract.DocumentData {
     return tags;
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Get all tags for the Action.
+   * @returns {string[]}
+   */
   getAllTags() {
     return this.getActionTags().concat(this.getActivationTags());
   }
@@ -137,6 +162,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       actor: actor,
       activationTags: this.getActivationTags(),
       actionTags: this.getActionTags(),
+      showTargets: this.targetType !== "self",
       targets: targets,
       rolls: await Promise.all(rolls.map(r => r.render()))
     });
@@ -152,7 +178,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       roll: metaRoll,
       flags: {
         crucible: {
-          isAttack: !!rolls[0].data.damage,
+          isAttack: !!rolls[0]?.data.damage,
           targets: targets
         }
       }
@@ -177,7 +203,9 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = new this.constructor(this);
+    action.context = {};
     action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, damageMultiplier: 0};
+    action.actorUpdates = {};
 
     // Pre-configure of the action
     for ( let tag of action.tags ) {
@@ -259,7 +287,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
     }
 
     // Incur the cost of the action that was performed
-    await actor.alterResources({action: -action.actionCost, focus: -action.focusCost});
+    await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
     return results;
   }
 

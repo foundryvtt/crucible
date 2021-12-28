@@ -1,6 +1,7 @@
 <form class="standard-check flexcol">
     {{> "systems/crucible/templates/dice/partials/action-use-header.html"}}
 
+    {{#if hasDice}}
     <section class="content roller flexcol">
         <div class="form-group boons">
             <label>Boons</label>
@@ -39,6 +40,7 @@
             </li>
         </ol>
     </section>
+    {{/if}}
 
     <footer class="buttons flexrow">
         <select name="rollMode">
