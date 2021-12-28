@@ -12,13 +12,14 @@
 [✓ ] Ensure ranged weapons are supported
 [✓] Action targets and damage application
 [✓] First move should be free
-[✓ ] Ensure that movement actions do not prompt for dice rolls
+[✓] Ensure that movement actions do not prompt for dice rolls
+[✓] Support slow weapons
 
 # Playtest GM Prep
-[ ] Implement 8 basic ancestries as Items
-[ ] Implement 8 basic backgrounds as Items
-[ ] Implement all basic weapon types as Items
-[ ] Implement all basic armor types as Items
+[✓] Implement 8 basic ancestries as Items
+[✓] Implement 8 basic backgrounds as Items
+[✓] Implement basic weapon types as Items
+[✓] Implement basic armor types as Items
 [ ] Create 1 playtest adventure
 [ ] Create 4-5 playtest adversary creatures
 

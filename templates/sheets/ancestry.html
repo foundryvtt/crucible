@@ -41,20 +41,19 @@
             <p class="hint">{{localize "ANCESTRY.SkillsHint"}}</p>
         </div>
 
-        <div class="form-group ability">
+        <div class="form-group">
             <label>{{localize "ANCESTRY.Resistance"}}</label>
             <select name="data.resistance">
                 {{selectOptions system.DAMAGE_TYPES selected=systemData.resistance blank="None" labelAttr="label"}}
             </select>
-            <p class="hint">{{localize "ANCESTRY.ResistanceHint"}}</p>
         </div>
 
-        <div class="form-group ability">
+        <div class="form-group">
             <label>{{localize "ANCESTRY.Vulnerability"}}</label>
             <select name="data.vulnerability">
                 {{selectOptions system.DAMAGE_TYPES selected=systemData.vulnerability blank="None" labelAttr="label"}}
             </select>
-            <p class="hint">{{localize "ANCESTRY.VulnerabilityHint"}}</p>
+            <p class="hint">{{localize "ANCESTRY.ResistanceHint"}}</p>
         </div>
 
         <footer class="sheet-footer">

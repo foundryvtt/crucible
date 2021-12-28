@@ -1,10 +1,16 @@
+import StandardCheck from "../dice/standard-check.js";
+
 
 export default class CrucibleCombatant extends Combatant {
+
   /** @override */
-  _getInitiativeFormula() {
-    const attrs = this.actor.attributes;
-    const bonus = Math.ceil(0.5 * (attrs.dexterity.value + attrs.intellect.value));
-    const reserves = attrs.action.value;
-    return `3d8 + ${bonus} + ${reserves}`;
+  getInitiativeRoll() {
+    return new StandardCheck({
+      ability: this.actor.getAbilityBonus("dexterity.intellect"),
+      skill: 0,
+      enchantment: 0,
+      boons: this.parent.round > 0 ? this.actor.attributes.action.value : 0,
+      banes: this.actor.equipment.weapons.slow * 3
+    });
   }
 }

@@ -79,7 +79,7 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 2,
+    bonus: 0,
     multiplier: 2,
     actionCost: 2
   },
@@ -123,7 +123,7 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 2,
+    bonus: 0,
     multiplier: 3,
     actionCost: 3
   },
@@ -203,6 +203,9 @@ export const PROPERTIES = {
   },
   reach: {
     label: "WEAPON.PropertyReach"
+  },
+  reload: {
+    label: "WEAPON.PropertyReload"
   },
   thrown: {
     label: "WEAPON.PropertyThrown"

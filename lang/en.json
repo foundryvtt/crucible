@@ -2,18 +2,17 @@
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.PrimaryAbility": "Primary Ability",
-"ANCESTRY.PrimaryAbilityHint": "Choose the primary ability score for this ancestry, which starts at +3.",
+"ANCESTRY.PrimaryAbilityHint": "Select one ability which is a noteworthy attribute for this ancestry and starts at +3.",
 "ANCESTRY.SecondaryAbility": "Secondary Ability",
-"ANCESTRY.SecondaryAbilityHint": "Choose the secondary ability score for this ancestry, which starts at +2.",
+"ANCESTRY.SecondaryAbilityHint": "Select a second ability which is a noteworthy attribute for this ancestry and starts at +2.",
 "ANCESTRY.AbilityWarning": "The primary and secondary abilities for an ancestry may not be the same.",
 "ANCESTRY.Skills": "Traditional Skills",
-"ANCESTRY.SkillsHint": "Choose the hallmark skills for this ancestry, each of which will begin with +1 rank.",
+"ANCESTRY.SkillsHint": "Choose two traditional skills of this ancestry, each of which will begin with +1 rank.",
 "ANCESTRY.SkillsWarning": "You must choose exactly two skills as ancestry specializations.",
 "ANCESTRY.Resistance": "Damage Resistance",
-"ANCESTRY.ResistanceHint": "This ancestry may have resistance +3 to one type of damage. If a resistance is granted, a vulnerability must also be chosen.",
-"ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
 "ANCESTRY.Vulnerability": "Damage Vulnerability",
-"ANCESTRY.VulnerabilityHint": "This ancestry may have vulnerability -3 to one type of damage. If a vulnerability is incurred, a resistance must also be granted.",
+"ANCESTRY.ResistanceHint": "This ancestry may have a traditional resistance (+2) and a traditional vulnerability (-2) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
+"ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
 
 "ABILITY.CantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
 
@@ -64,6 +63,8 @@
 "BACKGROUND.Skills": "Acquired Skills",
 "BACKGROUND.SkillsHint": "Choose two skills which were acquired as part of your background, each of which will begin with +1 rank.",
 "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",
+"BACKGROUND.Talent": "Acquired Talent",
+"BACKGROUND.TalentHint": "Select a starting Talent which is learned through this background. This is not yet supported for the playtest.",
 
 "DAMAGE.Bludgeoning": "Bludgeoning",
 "DAMAGE.BludgeoningAbr": "Bldg",
@@ -443,6 +444,7 @@
 "WEAPON.Projectile2": "Projectile (2h)",
 "WEAPON.Mechanical1": "Mechanical (1h)",
 "WEAPON.Mechanical2": "Mechanical (2h)",
+"WEAPON.Unarmed": "Unarmed",
 "WEAPON.Shield": "Shield",
 
 "WEAPON.HandsTwo": "Two-Handed",
@@ -457,6 +459,7 @@
 "WEAPON.PropertySlow": "Slow",
 "WEAPON.PropertyParrying": "Parrying",
 "WEAPON.PropertyReach": "Reach",
+"WEAPON.PropertyReload": "Reload",
 "WEAPON.PropertyThrown": "Thrown",
 "WEAPON.PropertyVersatile": "Versatile",
 

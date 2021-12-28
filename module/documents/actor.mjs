@@ -283,6 +283,7 @@ export default class CrucibleActor extends Actor {
     weapons.twoHanded = mhCategory.hands === 2;
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
+    weapons.slow = mh.systemData.properties.includes("slow") + oh.systemData.properties.includes("slow");
 
     // Dual Wielding States
     weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
@@ -373,7 +374,9 @@ export default class CrucibleActor extends Actor {
    */
   _prepareTalents({talent}={}) {
     const points = this.points.talent;
+    this._hasPatientDefense = false; // TODO - temporary special case for playtest
     for ( let item of talent ) {
+      if ( item.name === "Patient Defense" ) this._hasPatientDefense = true;
       points.spent += item.systemData.cost;
     }
     points.available = points.total - points.spent;
@@ -409,6 +412,11 @@ export default class CrucibleActor extends Actor {
         defenses[d].base += wd[d].base;
         defenses[d].bonus += wd[d].bonus;
       }
+    }
+
+    // TODO - temporary special case for playtest
+    if ( this._hasPatientDefense ) {
+      defenses.parry.bonus += Math.ceil(attributes.wisdom.value / 2);
     }
 
     // Compute total physical defenses

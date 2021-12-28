@@ -230,12 +230,6 @@ h2.divider span {
 .crucible.sheet .tooltipped:hover > .tooltip {
   display: block;
 }
-.crucible.sheet.ancestry .form-group.skills .form-fields {
-  flex-wrap: wrap;
-}
-.crucible.sheet.ancestry .form-group.skills .form-fields > label {
-  text-align: left;
-}
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
@@ -1065,10 +1059,14 @@ h2.divider span {
 /**
  * Skill Group Selector
  */
+.crucible.sheet .form-group.skills .form-fields {
+  flex-wrap: wrap;
+}
 .crucible.sheet .form-group.skills label {
   flex: 0 0 25%;
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 .crucible.sheet .form-group.skills label input {
   width: 16px;
