@@ -210,16 +210,6 @@ export default class CrucibleItem extends Item {
           skill: 0,
           enchantment: this.systemData.attackBonus
         };
-      case "talent":  // TODO - temporary spell support
-        let scaling = "";
-        if ( this.systemData.tags.includes("arcane") ) scaling = "intellect";
-        else if ( this.systemData.tags.includes("primal") ) scaling = "wisdom";
-        else if ( this.systemData.tags.includes("occult") ) scaling = "charisma";
-        return {
-          ability: this.actor.getAbilityBonus(scaling),
-          skill: 0,
-          enchantment: 0
-        };
       default:
         throw new Error("NOT YET SUPPORTED");
     }
@@ -304,14 +294,13 @@ export default class CrucibleItem extends Item {
     }
 
     // Create the Attack Roll instance
-    const {ability, skill, enchantment} = this.getItemBonuses();
     const dc = target.defenses[defenseType].total;
     const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
-      ability: ability,
-      skill: skill,
-      enchantment: enchantment,
+      ability: this.actor.getAbilityBonus("intellect"),
+      skill: 0,
+      enchantment: 0,
       banes: banes,
       boons: boons,
       defenseType: defenseType,

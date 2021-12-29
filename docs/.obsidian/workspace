@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Dice/Dice Mechanics.md",
+            "file": "Combat/Initiative and Turn Order.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dice/Dice Mechanics.md",
+                "file": "Combat/Initiative and Turn Order.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dice/Dice Mechanics.md"
+                "file": "Combat/Initiative and Turn Order.md"
               }
             }
           }
@@ -100,15 +100,15 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
-    "Dice/Dice Mechanics.md",
-    "Dice-WIP.md",
-    "Combat/Weapon Attacks.md",
+    "Combat/Initiative and Turn Order.md",
+    "Playtest/Introduction.md",
     "Combat/Rounds, Turns, and Phases.md",
+    "Combat/Actions and Action Points.md",
+    "Combat/Combat Overview.md",
+    "Character/Skills.md",
+    "Character/Background.md",
     "Combat/Combat Conditions.md",
-    "Character/Resources.md",
-    "Character/Abilities.md",
-    "Misc.md",
-    "Character/Ancestry.md",
-    "Character/Defenses.md"
+    "Conditions.md",
+    "To-Do List.md"
   ]
 }

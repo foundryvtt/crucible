@@ -19,6 +19,7 @@
 [✓] First move should be free
 [✓] Ensure that movement actions do not prompt for dice rolls
 [✓] Support slow weapons
+[✓] Torch offhand item (shield?)
 
 # Playtest GM Prep
 [✓] Implement 8 basic ancestries as Items

@@ -187,33 +187,9 @@ export const ACTION_TAGS = {
     },
     execute: (actor, action, target) => action.document.spellAttack(target, action.bonuses)
   },
-  arcane: {
-    tag: "arcane",
-    label: "Arcane",
-    pre: (actor, action) => {
-      foundry.utils.mergeObject(action.bonuses, {defenseType: "willpower"});
-      foundry.utils.mergeObject(action.context, {
-        hasDice: true,
-        label: action.name,
-        tags: ["Willpower"]
-      });
-    },
-  },
-  primal: {
-    tag: "primal",
-    label: "Primal",
-    pre: (actor, action) => {
-      foundry.utils.mergeObject(action.bonuses, {defenseType: "reflex"});
-      foundry.utils.mergeObject(action.context, {
-        hasDice: true,
-        label: action.name,
-        tags: ["Reflex"]
-      });
-    },
-  },
-  occult: {
-    tag: "occult",
-    label: "Occult",
+  fortitude: {
+    tag: "fortitude",
+    label: "Fortitude",
     pre: (actor, action) => {
       foundry.utils.mergeObject(action.bonuses, {defenseType: "fortitude"});
       foundry.utils.mergeObject(action.context, {
@@ -223,6 +199,66 @@ export const ACTION_TAGS = {
       });
     },
   },
+  reflex: {
+    tag: "reflex",
+    label: "Reflex",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {defenseType: "reflex"});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: ["Reflex"]
+      });
+    },
+  },
+  willpower: {
+    tag: "willpower",
+    label: "Willpower",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {defenseType: "willpower"});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: ["Willpower"]
+      });
+    },
+  },
+
+  acid: {
+    tag: "acid",
+    label: "Acid",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "acid"}),
+  },
+  fire: {
+    tag: "fire",
+    label: "Fire",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "fire"}),
+  },
+  frost: {
+    tag: "frost",
+    label: "Frost",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "frost"}),
+  },
+  lightning: {
+    tag: "lightning",
+    label: "Lightning",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "lightning"}),
+  },
+  psychic: {
+    tag: "psychic",
+    label: "Psychic",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "psychic"}),
+  },
+  radiant: {
+    tag: "radiant",
+    label: "Radiant",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "radiant"}),
+  },
+  unholy: {
+    tag: "unholy",
+    label: "Unholy",
+    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "unholy"}),
+  }
 }
 
 /* -------------------------------------------- */

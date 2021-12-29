@@ -17,10 +17,10 @@ When a creature is **Engaged** by multiple foes which are its own size or larger
 When you are **Engaged** with a creature that is your size or smaller that is currently **Flanked**, you gain a number of **Boons** to Attack abilities equal to the number of flanking allies.
 
 #### Incapacitated
-When a creature is entirely unable to act, it is **Inacapacitated**. There are several conditions which are also treated as Incapacitated, including **Unconscious** or **Paralyzed**.
+When a creature is entirely unable to act, it is **Inacapacitated**. There are several conditions which are also treated as Incapacitated, including **Unconscious** or **Paralyzed**. When a target is Incapacitated, attacks against it gain +4 Boons.
 
 #### Prone
-A creature that has been knocked to the ground, or has voluntarily thrown itself to the ground is considered **Prone**. Returning to your feet from a Prone position requires one Movement action.
+A creature that has been knocked to the ground, or has voluntarily thrown itself to the ground is considered **Prone**. Returning to your feet from a Prone position requires one Movement action. While Prone, the creature is **Exposed** against melee attacks.
 
 #### Staggered
 A creature that is **Staggered** temporarily has 1 fewer Action Point available than normal.

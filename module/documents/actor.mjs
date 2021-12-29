@@ -120,6 +120,15 @@ export default class CrucibleActor extends Actor {
     return this.data.data;
   }
 
+  get isUnconscious() {
+    return this.attributes.health.value === 0;
+  }
+
+  get isDead() {
+    if ( this.data.type === "npc" ) return this.isUnconscious;
+    return this.attributes.wounds.value === this.attributes.wounds.max;
+  }
+
   /* -------------------------------------------- */
   /*  Actor Preparation
   /* -------------------------------------------- */
@@ -501,6 +510,8 @@ export default class CrucibleActor extends Actor {
 
     // Action
     attrs.action.max = lvl > 0 ? 3 : 0;
+    // TODO - For Playtest
+    if ( data.flags.crucible?.isMook ) attrs.action.max -= 1;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
@@ -634,14 +645,15 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleActor>}
    */
   async recover() {
-    return this.update({
-      "data.attributes.action.value": this.attributes.action.max,
+    const updates = {
       "data.status": {
         hasMoved: false,
         hasAttacked: false,
         wasAttacked: false
       }
-    });
+    }
+    if ( !this.isUnconscious ) updates["data.attributes.action.value"] = this.attributes.action.max;
+    return this.update(updates);
   }
 
   /* -------------------------------------------- */
@@ -699,9 +711,8 @@ export default class CrucibleActor extends Actor {
     await this.update(updates);
 
     // Flag status effects
-    const isDead = attrs.wounds.value === this.attributes.wounds.max
-    await this.toggleStatusEffect("unconscious", {active: (this.attributes.health.value === 0) && !isDead});
-    await this.toggleStatusEffect("dead", {active: isDead});
+    await this.toggleStatusEffect("unconscious", {active: this.isUnconscious && !this.isDead});
+    await this.toggleStatusEffect("dead", {active: this.isDead});
     let isBroken = attrs.morale.value === 0;
     let isInsane = attrs.madness.value === attrs.madness.max;
     return this;

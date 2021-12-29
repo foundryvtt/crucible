@@ -54,7 +54,7 @@ export async function buildJournalCompendium() {
     let html = sd.makeHtml(md);
 
     // Post-process the HTML string
-    html = _postProcessJournalHTML(config, html);
+    html = _postProcessJournalHTML(entry, config, html);
 
     // Update an existing Journal Entry
     const journal = folder.content.find(e => e.name === entry.title);
@@ -76,12 +76,15 @@ export async function buildJournalCompendium() {
 
 /**
  * Post-process the converted HTML before saving the Journal Entry.
+ * @param {object} entry    The specific entry being configured
  * @param {object} config   The documentation configuration object
  * @param {string} html     The raw HTML string
  * @returns {string}        The processed HTML string
  * @private
  */
-function _postProcessJournalHTML(config, html) {
+function _postProcessJournalHTML(entry, config, html) {
+
+  // Convert to HTML
   const div = document.createElement("div");
   div.innerHTML = html;
 
@@ -102,6 +105,15 @@ function _postProcessJournalHTML(config, html) {
     h.innerHTML = `<span></span><label>${h.textContent}</label><span></span>`;
     h.classList.add("divider");
   }
+
+  // Pre-process links with regex
+  const text = TextEditor._getTextNodes(div);
+  const linkRgx = /\[\[([^\]]+)\]\]/g;
+  TextEditor._replaceTextContent(text, linkRgx, (match, title) => {
+    const entry = game.journal.getName(title);
+    if ( entry ) return entry.link;
+    else return title;
+  });
 
   // Replace links
   const links = div.querySelectorAll("a[href]");

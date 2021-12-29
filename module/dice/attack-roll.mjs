@@ -94,16 +94,9 @@ export default class AttackRoll extends StandardCheck {
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
 
     // Damage type
-    if ( this.data.damage.total ) {
+    if ( this.data.damage?.total ) {
       cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
     }
     return cardData;
   }
-
-  /* -------------------------------------------- */
-
-  _
-
-
-
 }

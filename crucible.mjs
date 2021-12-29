@@ -119,6 +119,10 @@ Hooks.once("ready", function() {
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
+
+  // Display Playtest Introduction journal
+  const intro = game.journal.getName("Playtest Introduction");
+  if ( intro ) intro.sheet.render(true);
 });
 
 

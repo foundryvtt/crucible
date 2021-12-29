@@ -3,27 +3,27 @@
     {
       "id": "character-abilities",
       "path": "Character/Abilities.md",
-      "title": "Character Abilities"
+      "title": "Abilities"
     },
     {
       "id": "character-advancement",
       "path": "Character/Advancement.md",
-      "title": "Character Advancement"
+      "title": "Advancement"
     },
     {
       "id": "character-ancestry",
       "path": "Character/Ancestry.md",
-      "title": "Character Ancestry"
+      "title": "Ancestry"
     },
     {
       "id": "character-background",
       "path": "Character/Background.md",
-      "title": "Character Background"
+      "title": "Background"
     },
     {
       "id": "character-resources",
       "path": "Character/Resources.md",
-      "title": "Character Resources"
+      "title": "Resources"
     },
     {
       "id": "combat-conditions",
@@ -49,6 +49,11 @@
       "id": "dice-mechanics",
       "path": "Dice/Dice Mechanics.md",
       "title": "Dice Mechanics"
+    },
+    {
+      "id": "playtest-introduction",
+      "path": "Playtest/Introduction.md",
+      "title": "Playtest Introduction"
     }
   ]
 }
