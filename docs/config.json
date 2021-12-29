@@ -1,19 +1,54 @@
 {
   "entries": [
     {
-      "id": "advancement",
+      "id": "character-abilities",
+      "path": "Character/Abilities.md",
+      "title": "Character Abilities"
+    },
+    {
+      "id": "character-advancement",
       "path": "Character/Advancement.md",
       "title": "Character Advancement"
     },
     {
-      "id": "ancestry",
+      "id": "character-ancestry",
       "path": "Character/Ancestry.md",
       "title": "Character Ancestry"
     },
     {
-      "id": "background",
+      "id": "character-background",
       "path": "Character/Background.md",
       "title": "Character Background"
+    },
+    {
+      "id": "character-resources",
+      "path": "Character/Resources.md",
+      "title": "Character Resources"
+    },
+    {
+      "id": "combat-conditions",
+      "path": "Combat/Combat Conditions.md",
+      "title": "Combat Conditions"
+    },
+    {
+      "id": "combat-initiative-order",
+      "path": "Combat/Initiative and Turn Order.md",
+      "title": "Initiative and Turn Order"
+    },
+    {
+      "id": "combat-rounds",
+      "path": "Combat/Rounds, Turns, and Phases.md",
+      "title": "Rounds, Turns, and Phases"
+    },
+    {
+      "id": "combat-weapon-attacks",
+      "path": "Combat/Weapon Attacks.md",
+      "title": "Weapon Attacks"
+    },
+    {
+      "id": "dice-mechanics",
+      "path": "Dice/Dice Mechanics.md",
+      "title": "Dice Mechanics"
     }
   ]
 }

@@ -981,6 +981,11 @@ h2.divider span {
 .crucible.journal-sheet p {
   font-size: 14px;
 }
+.crucible.journal-sheet input[name="name"] {
+  font-family: var(--fontFamilySerif);
+  font-size: 28px;
+  text-align: left;
+}
 .crucible.journal-sheet h2.divider {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #33332e;
@@ -998,6 +1003,7 @@ h2.divider span {
 .crucible.journal-sheet blockquote > p {
   margin: 0;
   font-size: 16px;
+  text-align: justify;
 }
 .crucible.journal-sheet h4 {
   margin: 0.5rem 0;
@@ -1250,9 +1256,12 @@ h2.divider span {
 .dice-roll.standard-check.failure.critical .check-result {
   color: red;
 }
-/**
- * Roll Dialog
- */
+/* ----------------------------------------- */
+/*  Roll Dialog                              */
+/* ----------------------------------------- */
+.roll {
+  --marginSize: 5px;
+}
 .roll button {
   height: 32px;
 }
@@ -1272,7 +1281,7 @@ h2.divider span {
 }
 .roll header.request {
   flex: 0 0 32px;
-  padding: 0 0 5px;
+  padding: 0 0 var(--marginSize);
   border-bottom: 1px solid #b5b3a4;
 }
 .roll header.request select {
@@ -1281,6 +1290,9 @@ h2.divider span {
 .roll header.request .buttons {
   flex: 1;
   margin: -1px 0 0 5px;
+}
+.roll .content {
+  margin-top: var(--marginSize);
 }
 .roll .roller {
   flex: 2;
@@ -1292,7 +1304,7 @@ h2.divider span {
 }
 .roll .roller .boons label,
 .roll .roller .banes label {
-  padding: 0 5px;
+  padding: 0 var(--marginSize);
   font-family: var(--fontFamilySerif);
   font-weight: normal;
   font-size: 20px;
@@ -1317,7 +1329,7 @@ h2.divider span {
   text-shadow: 0 0 6px red;
 }
 .roll .roller .pool {
-  margin: 5px 0;
+  margin: var(--marginSize) 0;
   justify-content: space-evenly;
 }
 .roll .roller .pool .die {
@@ -1347,7 +1359,7 @@ h2.divider span {
 }
 .roll .roller .bonuses {
   list-style: none;
-  margin: 5px 0 0;
+  margin: var(--marginSize) 0 0;
   padding: 0;
 }
 .roll .roller .bonuses li {
@@ -1372,8 +1384,8 @@ h2.divider span {
 .roll .target {
   justify-content: space-between;
   border-left: 1px solid #b5b3a4;
-  margin-left: 5px;
-  padding-left: 5px;
+  margin-left: var(--marginSize);
+  padding-left: var(--marginSize);
 }
 .roll .target select {
   flex: 0 0 30px;
@@ -1395,5 +1407,5 @@ h2.divider span {
   margin-top: 4px;
 }
 .roll .buttons > select {
-  margin-right: 5px;
+  margin-right: var(--marginSize);
 }

@@ -1,36 +1,3 @@
-[Back to Home](../README.md)
-
-# Dice Mechanics
-
-While <SYSTEM> is designed specifically for virtual tabletop platforms, we use the standard set of role-playing game dice; relying upon 4, 6, 8, 10, 12, and 20-sided dice for various rolls. These dice are referred to as d4, d6, d8, d10, d12, and d20 where a number that precedes the die type (like 4d6) represents the quantity of that die to roll.
-
-> A tenet for the dice mechanics in this system is to, where possible, design first by considering the probability of events and then tailor the dice rolled to appropriately match the target probability distribution.
-
-When your character takes heroic actions within the world, whether they be feats of martial prowess or clever social maneuvers, the outcomes of the attempted action are discovered by rolling dice.
-
-## The Dice Pool
-
-The majority of rolls to determine an outcome in <SYSTEM> use a **3d8** dice pool. Depending on the purpose of the roll, various bonus modifiers are then added to the dice pool to determine the final result of the roll.
-For player characters, rolls may involve adding ability scores or skill bonuses as modifiers to a 3d8 roll. Such a roll is considered a Standard Check, and is the most common type of roll made by a character.
-
-## Boons & Banes
-
-A goblin desperately thrusts at an armored human with its damaged, dull blade. An enchanter wishes to haggle with a merchant she has magically charmed. A soldier swings his hammer at the head of a dazed, concussed ogre. When performing a check, a character may find some circumstances shift the odds in their favor. By the same token, other circumstances will hinder a character's chances of success. These situations may be represented as **boons** and **banes**, respectively. The number of boons and banes to be applied to a roll are both determined before a roll is made, as they directly affect the size of the dice rolled. A single dice pool roll can have no more than 6 boons and 6 banes affecting it.
-
-For each **boon** on a roll, add a **+1** modifier to the roll, and increase the number of sides on the *first* die in the pool by 2, up to a maximum of 12. If a die is already a d12 due to boons, increase the size of the next die by 2 instead. In a sense, boons upgrade dice, starting from the first die, towards the last.
-
-For each **bane** on a roll, add a **-1** modifier to the roll, and decrease the number of sides on the *last* die in the pool by 2, to a minimum of 4. If a die is already a d4 due to banes, decrease the size of the previous die by 2 instead. In this way, banes will downgrade dice, starting from the last die, progressing backwards toward the first.
-
-Because boons and banes start at opposite ends of the dice pool, they can both make visible changes in the same roll. However, with a great number of boons and banes, they can begin increasing/decreasing the same die.
-
-**Situation:** *Suppose Albert, a naval captain, has had his ship boarded by pirates. By fortunate circumstance, the fierce rocking of the ship has toppled one of the invaders over on the deck of his ship. Advancing towards the sprawling pirate, he draws his blade and slashes down at the unwelcome guest. Attacking such a prone creature confers 2 boons to his attack roll. This upgrades the first die in his 3d8 dice pool twice, from an d8 to a d12, resulting in a dice pool of 1d12 + 2d8. Additionally, each boon gives him a flat +1 modifier to his roll, resulting in a +2 modifier to this attack roll. On top of his +5 Strength Ability Bonus and +6 Skill Bonus in using the sword, his attack roll becomes a 1d12 + 2d8 + 13.*
-
-Some situations may benefit from boons and banes simultaneously, and allow for varying degrees of advantage/disadvantage.
-
-**Situation:** *Dariel is a practicing outdoorswoman - with Journeyman rank in Survival with a Herbalist specialization. Suppose she wishes to identify a herb that may be used to treat poison, after a long and arduous day of traveling through the forests. Her specialization as a Herbalist gives her +1 boon to her roll made to identify the herb, but her state of exhaustion gives her +2 banes to her roll. The boon upgrades the first die in the 3d8 dice pool to a 1d10, and the two banes downgrade the third die to a d4, resulting in a dice pool of 1d10 + 1d8 + 1d4. Additionally, with each boon giving a flat +1 modifier, and each bane giving a flat -1 modifier, there is a net -1 modifier to the attack roll. On top of her +6 Ability bonus (an average between her Constitution and Survival), and a +6 Survival Skill Bonus, the roll for the Survival check becomes a 1d12 + 1d8 + 1d4 + 11.*
-
-> Game Masters should note that in regards to mathematically expected outcomes, each boon will increase the average result by 2, and each each bane will decrease the average result by 2.
-
 ## Standard Checks
 
 In a standard check, the character who takes an action rolls a set of dice, adds bonuses to the roll, and compares the total result against a target value which may or may not be known to the player. More difficult tasks will require a higher target value. For some actions, the amount by which the roll exceeds or fails to meet the target may further determine the extent of the action's effectiveness.

@@ -113,25 +113,12 @@
   }
 }
 
+/* ----------------------------------------- */
+/*  Roll Dialog                              */
+/* ----------------------------------------- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Roll Dialog
- */
 .roll {
+  --marginSize: 5px;
   button {
     height: 32px;
   }
@@ -156,7 +143,7 @@
   // GM Request Roller
   header.request {
     flex: 0 0 32px;
-    padding: 0 0 5px;
+    padding: 0 0 var(--marginSize);
     border-bottom: 1px solid @colorBeige;
     select {
       flex: 2;
@@ -167,6 +154,10 @@
     }
   }
 
+  .content {
+    margin-top: var(--marginSize);
+  }
+
   .roller {
     flex: 2;
     text-align: center;
@@ -175,7 +166,7 @@
     .banes {
       flex: 0 0 32px;
       label {
-        padding: 0 5px;
+        padding: 0 var(--marginSize);
         font-family: var(--fontFamilySerif);
         font-weight: normal;
         font-size: 20px;
@@ -199,7 +190,7 @@
     }
 
     .pool {
-      margin: 5px 0;
+      margin: var(--marginSize) 0;
       justify-content: space-evenly;
       .die {
         flex: 0 0 64px;
@@ -220,7 +211,7 @@
 
     .bonuses {
       list-style: none;
-      margin: 5px 0 0;
+      margin: var(--marginSize) 0 0;
       padding: 0;
       li {
         flex: 1;
@@ -246,8 +237,8 @@
   .target {
     justify-content: space-between;
     border-left: 1px solid @colorBeige;
-    margin-left: 5px;
-    padding-left: 5px;
+    margin-left: var(--marginSize);
+    padding-left: var(--marginSize);
 
     select {
       flex: 0 0 30px;
@@ -272,7 +263,7 @@
     flex: 0 0 32px;
     margin-top: 4px;
     > select {
-      margin-right: 5px;
+      margin-right: var(--marginSize);
     }
   }
 }

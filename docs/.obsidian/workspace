@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "To-Do List.md",
+            "file": "Dice/Dice Mechanics.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "To-Do List.md",
+                "file": "Dice/Dice Mechanics.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "To-Do List.md"
+                "file": "Dice/Dice Mechanics.md"
               }
             }
           }
@@ -95,19 +95,20 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
-    "To-Do List.md",
-    "Items/Weapons.md",
-    "Items/Armor.md",
-    "Talents/PlaytestTalents.md",
+    "Dice/Dice Mechanics.md",
+    "Dice-WIP.md",
+    "Combat/Weapon Attacks.md",
+    "Combat/Rounds, Turns, and Phases.md",
     "Combat/Combat Conditions.md",
-    "Talents/Talent Ideas.md",
-    "Dice.md",
-    "Conditions.md",
-    "Talents/Tree.png",
-    "Talents/Sketch.jpg"
+    "Character/Resources.md",
+    "Character/Abilities.md",
+    "Misc.md",
+    "Character/Ancestry.md",
+    "Character/Defenses.md"
   ]
 }

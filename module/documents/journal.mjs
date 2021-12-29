@@ -58,13 +58,17 @@ export async function buildJournalCompendium() {
 
     // Update an existing Journal Entry
     const journal = folder.content.find(e => e.name === entry.title);
-    if ( journal ) await journal.update({content: html});
+    if ( journal ) await journal.update({
+      content: html,
+      "permission.default": CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER
+    });
 
     // Create a new Journal Entry
     else await JournalEntry.create({
       name: entry.title,
       content: html,
       folder: folder.id,
+      "permission.default": CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER,
       "flags.crucible.rulesEntry": true
     });
   }

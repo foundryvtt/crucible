@@ -2,8 +2,13 @@
 [✓] Automatically fill resources when the character level changes
 [✓] Reduce the amount of damage resistance granted by ancestries
 [✓] Style skill section headers more similarly to other tabs
-[ ] Add basic descriptions for every skill
 [✓] Implement all [[PlaytestTalents]]
+[✓] Implement character creation guide prompts
+[ ] Add basic descriptions for every skill
+- Investigation
+- Lore
+- Religion
+- Animal Handling
 
 # For Combat Playtest
 [✓] Re-enable skill checks
