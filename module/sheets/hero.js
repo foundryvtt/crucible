@@ -11,7 +11,7 @@ export default class HeroSheet extends ActorSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 760,
-      height: 780,
+      height: "auto",
       classes: [SYSTEM.id, "sheet", "actor"],
       template: `systems/${SYSTEM.id}/templates/sheets/hero.html`,
       resizable: false,
@@ -29,7 +29,7 @@ export default class HeroSheet extends ActorSheet {
     abilities: true,
     defenses: true,
     resistances: true,
-    resources: false
+    resources: true
   }
 
   /* -------------------------------------------- */
@@ -39,11 +39,19 @@ export default class HeroSheet extends ActorSheet {
     const context = super.getData();
     const systemData = context.systemData = context.data.data;
 
-    // Character
-    context.hasAncestry = !!systemData.details.ancestry.name;
-    if ( !context.hasAncestry ) systemData.details.ancestry.name = "No Ancestry";
-    context.hasBackground = !!systemData.details.background.name;
-    if ( !context.hasBackground ) systemData.details.background.name = "No Background";
+    // Incomplete Tasks
+    context.incomplete = {
+      ancestry: !systemData.details.ancestry.name,
+      background: !systemData.details.background.name,
+      abilities: this.actor.points.ability.requireInput,
+      skills: this.actor.points.skill.available,
+      talents: this.actor.points.talent.available,
+      level: this.actor.isL0 || (this.actor.systemData.advancement.pct === 100),
+      levelOne: this.actor.isL0,
+      levelUp: (this.actor.systemData.advancement.pct === 100)
+    }
+    if ( context.incomplete.ancestry ) systemData.details.ancestry.name = game.i18n.localize("ANCESTRY.None");
+    if ( context.incomplete.background ) systemData.details.background.name = game.i18n.localize("BACKGROUND.None");
 
     // Equipment
     context.items = this._formatItems(this.actor.items);
@@ -79,7 +87,7 @@ export default class HeroSheet extends ActorSheet {
     });
 
     // Section locks
-    context.sectionLocks = this._getSectionLocks();
+    context.sectionLocks = this._getSectionLocks(context);
     return context;
   }
 
@@ -256,10 +264,9 @@ export default class HeroSheet extends ActorSheet {
    * Update section locks to automatically unlock sections where the user needs to provide input.
    * @private
    */
-  _getSectionLocks() {
+  _getSectionLocks(context) {
     const locks = foundry.utils.deepClone(this._sectionLocks);
-    const points = this.actor.points;
-    if ( points.ability.requireAttention ) locks.abilities = false;
+    if ( context.incomplete.abilities ) locks.abilities = false;
     return locks;
   }
 

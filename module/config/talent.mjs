@@ -168,7 +168,61 @@ export const ACTION_TAGS = {
     tag: "unsighted",
     label: "Unsighted",
     pre: (actor, action) => action.bonuses.banes += 2
-  }
+  },
+
+  /* -------------------------------------------- */
+  /*  TODO - Spells (Temporary)                   */
+  /* -------------------------------------------- */
+
+  spell: {
+    tag: "spell",
+    label: "Spell",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {damageMultiplier: 1});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: []
+      });
+    },
+    execute: (actor, action, target) => action.document.spellAttack(target, action.bonuses)
+  },
+  arcane: {
+    tag: "arcane",
+    label: "Arcane",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {defenseType: "willpower"});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: ["Willpower"]
+      });
+    },
+  },
+  primal: {
+    tag: "primal",
+    label: "Primal",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {defenseType: "reflex"});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: ["Reflex"]
+      });
+    },
+  },
+  occult: {
+    tag: "occult",
+    label: "Occult",
+    pre: (actor, action) => {
+      foundry.utils.mergeObject(action.bonuses, {defenseType: "fortitude"});
+      foundry.utils.mergeObject(action.context, {
+        hasDice: true,
+        label: action.name,
+        tags: ["Fortitude"]
+      });
+    },
+  },
 }
 
 /* -------------------------------------------- */

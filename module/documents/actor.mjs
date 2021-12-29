@@ -211,7 +211,7 @@ export default class CrucibleActor extends Actor {
     points.pool = 36 - points.bought;
     points.spent = abilityPointsSpent;
     points.available = points.total - abilityPointsSpent;
-    points.requireAttention = this.isL0 ? (points.pool > 0) : (points.available !== 0);
+    points.requireInput = this.isL0 ? (points.pool > 0) : (points.available !== 0);
   }
 
   /* -------------------------------------------- */
@@ -428,11 +428,10 @@ export default class CrucibleActor extends Actor {
       defenses.physical += d.total;
     }
 
-    // Saves
+    // Saves Defenses
     for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
       let d = defenses[k];
-      const abilities = sd.abilities.map(a => data.data.attributes[a]);
-      d.base = abilities[0].value + abilities[1].value;
+      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, 0) * 2;
       d.total = d.base + d.bonus;
     }
 
@@ -851,14 +850,19 @@ export default class CrucibleActor extends Actor {
   async purchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
     const points = this.points.ability;
-    const attr = this.data.data.attributes[ability];
+    const attr = this.attributes[ability];
     if ( !attr ) return;
+
+    // Must Choose Ancestry first
+    if ( !this.ancestry.name ) {
+      return ui.notifications.warn(game.i18n.localize("WARNING.AbilityRequireAncestry"));
+    }
 
     // Case 1 - Point Buy
     if ( this.isL0 ) {
       const canAfford = (delta <= 0) || (attr.cost <= points.pool);
       if ( !canAfford ) {
-        return ui.notifications.warn(game.i18n.format(`ABILITY.CantAfford`, {cost: attr.cost, points: points.pool}));
+        return ui.notifications.warn(game.i18n.format("WARNING.AbilityCantAfford", {cost: attr.cost, points: points.pool}));
       }
       return this.update({[`data.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
     }
@@ -885,6 +889,11 @@ export default class CrucibleActor extends Actor {
     const points = this.points.skill;
     const skill = this.data.data.skills[skillId];
     if ( !skill ) return;
+
+    // Must Choose Background first
+    if ( !this.ancestry.name || !this.background.name ) {
+      return ui.notifications.warn(game.i18n.localize("WARNING.SkillRequireAncestryBackground"));
+    }
 
     // Decrease
     if ( delta < 0 ) {

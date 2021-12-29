@@ -8,8 +8,7 @@ import { StandardCheckDialog } from "./standard-check-dialog.js";
  * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
  * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
  * @property {number} [enchantment=0]         An enchantment bonus which modifies the roll, up to a maximum of 6
- * @param {number} [damageBonus=0]            An additional damage bonus which applies to this attack
- * @param {number} [damageMultiplier=0]       An additional damage multiplier which applies to this attack
+
  */
 
 /**

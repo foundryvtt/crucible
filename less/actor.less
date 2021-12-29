@@ -9,9 +9,10 @@
   --sidebarWidth: 200px;
   --profileSize: 200px;
   --marginSize: 8px;
+  --marginHalfSize: calc(var(--marginSize) / 2);
   --titleHeight: 40px;
   --navHeight: 30px;
-  --skillHeight: 28px;
+  --skillHeight: 24px;
 
   // General Rules
   line-height: 150%;
@@ -29,17 +30,26 @@
 
   .sheet-body {
     flex: 1;
-    height: 100%;
+    min-height: 700px;
   }
 
   /** Section Headers */
-  h3.section-header {
+  h2.section-header {
     position: relative;
     font-size: var(--fontSizeTitle);
     font-weight: bold;
     margin: 0;
     > span {
       top: 12px;
+    }
+  }
+
+  h3.category-header {
+    line-height: 80%;
+    text-align: center;
+    color: @colorOlive;
+    > span {
+      top: var(--marginSize);
     }
   }
 
@@ -66,12 +76,6 @@
   input[type="number"] {
     border: 1px solid @colorBeige;
     text-align: center;
-  }
-
-  // Incomplete Inputs
-  i.incomplete {
-    font-size: var(--fontSizeMain);
-    color: @colorTan;
   }
 
   // Section Locks
@@ -120,28 +124,28 @@
     margin-top: var(--marginSize);
     padding-right: var(--marginSize);
     border-right: 1px solid @colorBeige;
-  }
 
-  .equipment,
-  .action,
-  .effect {
-    align-items: center;
-    margin-bottom: 4px;
+    .equipment,
+    .action,
+    .effect {
+      align-items: center;
+      margin-bottom: 4px;
 
-    img {
-      flex: 0 0 24px;
-      height: 24px;
-      border: 1px solid @colorDark;
-      border-radius: 4px;
-    }
+      img {
+        flex: 0 0 24px;
+        height: 24px;
+        border: 1px solid @colorDark;
+        border-radius: 4px;
+      }
 
-    h4 {
-      line-height: 16px;
-      margin: 0 0 0 4px;
-    }
+      h4 {
+        line-height: 16px;
+        margin: 0 0 0 4px;
+      }
 
-    .tag {
-      flex: none;
+      .tag {
+        flex: none;
+      }
     }
   }
 
@@ -167,9 +171,9 @@
     }
 
     h2.level {
-      flex: 1;
+      flex: none;
       text-align: right;
-      margin: 0;
+      margin: 0 0 0 var(--marginSize);
       border: none;
       input {
         height: var(--titleHeight);
@@ -257,12 +261,8 @@
   /* ----------------------------------------- */
 
   .resources {
-    margin: var(--marginSize) 0;
+    margin: 4px 0;
     flex: none;
-
-    > h3 {
-      flex: 0 0 100%;
-    }
   }
 
   .resource {
@@ -270,17 +270,6 @@
     border-right: 1px solid @colorFaint;
     &.action {
       border-right: none;
-    }
-
-    // Divider Title
-    .resource-name {
-      margin: 0;
-      line-height: 80%;
-      text-align: center;
-      color: @colorOlive;
-      > span {
-        top: var(--marginSize);
-      }
     }
 
     // Value Fields
@@ -320,14 +309,14 @@
   // Abilities Section
   .abilities {
     flex: none;
-    margin-bottom: var(--marginSize);
+    margin-bottom: 4px;
 
     // Ability Scores Grid
     .ability-scores {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(2, var(--abilityHeight));
-      grid-gap: var(--marginSize);
+      grid-gap: var(--marginHalfSize);
       list-style: none;
       margin: 0;
       padding: 0;
@@ -403,7 +392,7 @@
 
   .defenses {
     flex: none;
-    margin-bottom: var(--marginSize);
+    margin-bottom: 4px;
     .defense {
       align-items: center;
       text-align: center;
@@ -431,6 +420,7 @@
       .subtitle {
         font-family: var(--fontFamilySerif);
         font-size: var(--fontSizeMain);
+        margin: 0;
         white-space: nowrap;
       }
       .base {
@@ -463,10 +453,6 @@
         padding-right: 4px;
         border-right: none;
       }
-    }
-
-    .category-name {
-      margin: 0;
     }
 
     .resistances {
@@ -654,11 +640,6 @@
         }
       }
     }
-
-    .bonus {
-      padding: 3px;
-    }
-
     .points, .bonus {
       height: var(--skillHeight);
     }
@@ -669,6 +650,7 @@
     flex: 2;
     h4 {
       margin: 0;
+      font-size: 16px;
     }
   }
 
@@ -679,12 +661,10 @@
     .active,
     .passive {
       height: 24px;
-      line-height: 24px;
       text-align: center;
       margin: 0 2px;
     }
     .active {
-      font-size: var(--fontSizeHeader);
       font-weight: bold;
     }
     .passive {
@@ -737,8 +717,7 @@
     flex: 0 0 28px;
     align-items: center;
     margin: 3px 0;
-    padding: 2px 4px;
-    line-height: 24px;
+    padding: 0 4px;
     background: rgba(0, 0, 0, 0.05);
     border: 1px solid @colorBeige;
     &.talents-header {

@@ -1,13 +1,39 @@
 import StandardCheck from "./standard-check.js";
 import {SYSTEM} from "../config/system.js";
 
+
+/**
+ * @typedef {StandardCheckData} AttackRollData
+ * @param {string} [itemId]                   The id of the Item being used to make the attack
+ * @param {string} [defenseType=physical]     The defense type being attacked, "physical" or a value in SAVE_DEFENSES
+ * @param {number} [result]                   The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
+ * @param {DamageData} [damage]               The resolved damage of the roll, undefined before evaluation
+ */
+
+/**
+ * @typedef {Object} DamageData
+ * @property {number} overflow                The attack check result in excess of the defense threshold
+ * @property {number} multiplier              The overflow multiplier value
+ * @property {number} bonus                   An additive damage bonus
+ * @property {number} resistance              A subtracted resistance threshold
+ * @property {string} type                    The type of damage
+ */
+
+/**
+ * A special case of the 3d8 dice pool that is used to make attacks against a target defense value.
+ * @extends {StandardCheck}
+ *
+ * @param {string|StandardCheckData} formula  This parameter is ignored
+ * @param {StandardCheckData} [data]          An object of roll data, containing the following optional fields
+ */
 export default class AttackRoll extends StandardCheck {
 
   /** @override */
   static defaultData = foundry.utils.mergeObject(StandardCheck.defaultData, {
-    result: 0,
-    damage: {}
-  })
+    defenseType: "physical",
+    result: undefined,
+    damage: undefined
+  });
 
   /**
    * The possible result types which can occur from an attack roll
@@ -19,7 +45,9 @@ export default class AttackRoll extends StandardCheck {
     PARRY: 2,
     BLOCK: 3,
     DEFLECT: 4,
-    HIT: 5
+    RESIST: 5,
+    HIT: 6,
+    EFFECTIVE: 7
   };
 
   /**
@@ -32,7 +60,9 @@ export default class AttackRoll extends StandardCheck {
     [this.RESULT_TYPES.PARRY]: "ATTACK.ResultTypeParry",
     [this.RESULT_TYPES.BLOCK]: "ATTACK.ResultTypeBlock",
     [this.RESULT_TYPES.DEFLECT]: "ATTACK.ResultTypeDeflect",
+    [this.RESULT_TYPES.RESIST]: "ATTACK.ResultTypeResist",
     [this.RESULT_TYPES.HIT]: "ATTACK.ResultTypeHit",
+    [this.RESULT_TYPES.EFFECTIVE]: "ATTACK.ResultTypeEffective",
   }
 
   /**
@@ -49,8 +79,21 @@ export default class AttackRoll extends StandardCheck {
 
   _getChatCardData(chatOptions) {
     const cardData = super._getChatCardData(chatOptions);
+
+    // Defense label
+    switch ( this.data.defenseType ) {
+      case "physical":
+        cardData.defenseType = "Defense";
+        break;
+      default:
+        cardData.defenseType = SYSTEM.SAVE_DEFENSES[this.data.defenseType].label;
+        break;
+    }
+
+    // Outcome label
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
-    cardData.defenseType = "Defense";
+
+    // Damage type
     if ( this.data.damage.total ) {
       cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
     }
@@ -58,6 +101,8 @@ export default class AttackRoll extends StandardCheck {
   }
 
   /* -------------------------------------------- */
+
+  _
 
 
 

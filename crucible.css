@@ -40,11 +40,11 @@
 }
 .crucible h3 {
   font-family: var(--fontFamilySerif);
-  font-size: 20px;
+  font-size: 18px;
 }
 .crucible h4 {
   font-family: var(--fontFamilySerif);
-  font-size: 18px;
+  font-size: 16px;
 }
 .crucible p {
   margin: 0.25em 0;
@@ -134,7 +134,14 @@ h2.divider span {
   /** Sheet Profile Image */
   /* Highlight Boxes */
   /* Control Buttons */
+  /** Incompletion Warnings */
   /* Tooltips */
+}
+.crucible.sheet h1,
+.crucible.sheet h2,
+.crucible.sheet h3,
+.crucible.sheet h4 {
+  margin: 0;
 }
 .crucible.sheet .sheet-header {
   flex: 0 0 var(--headerHeight);
@@ -207,25 +214,42 @@ h2.divider span {
 .crucible.sheet a.button.inactive {
   visibility: hidden;
 }
+.crucible.sheet .incomplete {
+  margin-left: 2px;
+  font-size: var(--fontSizeMain);
+  color: var(--color-text-hyperlink);
+  text-shadow: 0 0 4px #FFF;
+}
 .crucible.sheet .tooltipped {
   position: relative;
 }
 .crucible.sheet .tooltipped .tooltip {
   display: none;
-  line-height: 22px;
+  width: max-content;
+  max-width: 320px;
+  line-height: 16px;
   position: absolute;
-  white-space: nowrap;
-  left: 0;
   top: 120%;
-  padding: 1px 5px;
+  padding: 2px 5px;
   background: rgba(0, 0, 0, 0.95);
-  font-family: "Signika";
+  font-family: "Signika", serif;
   font-size: 12px;
   font-weight: normal;
-  color: #b5b3a4;
+  text-align: left;
+  text-shadow: none;
+  color: #c9c7b8;
   border: 1px solid #000;
   border-radius: 3px;
   z-index: 999;
+}
+.crucible.sheet .tooltipped .tooltip.left {
+  left: 0;
+}
+.crucible.sheet .tooltipped .tooltip.right {
+  right: 0;
+}
+.crucible.sheet .tooltipped .tooltip.center {
+  left: calc(100% - 180px);
 }
 .crucible.sheet .tooltipped:hover > .tooltip {
   display: block;
@@ -237,9 +261,10 @@ h2.divider span {
   --sidebarWidth: 200px;
   --profileSize: 200px;
   --marginSize: 8px;
+  --marginHalfSize: calc(var(--marginSize) / 2);
   --titleHeight: 40px;
   --navHeight: 30px;
-  --skillHeight: 28px;
+  --skillHeight: 24px;
   line-height: 150%;
   /* ----------------------------------------- */
   /*  Sheet Structure                          */
@@ -285,16 +310,24 @@ h2.divider span {
 }
 .crucible.sheet.actor .sheet-body {
   flex: 1;
-  height: 100%;
+  min-height: 700px;
 }
-.crucible.sheet.actor h3.section-header {
+.crucible.sheet.actor h2.section-header {
   position: relative;
   font-size: var(--fontSizeTitle);
   font-weight: bold;
   margin: 0;
 }
-.crucible.sheet.actor h3.section-header > span {
+.crucible.sheet.actor h2.section-header > span {
   top: 12px;
+}
+.crucible.sheet.actor h3.category-header {
+  line-height: 80%;
+  text-align: center;
+  color: #33332e;
+}
+.crucible.sheet.actor h3.category-header > span {
+  top: var(--marginSize);
 }
 .crucible.sheet.actor .flexrow > .section-header {
   flex: 0 0 100%;
@@ -314,10 +347,6 @@ h2.divider span {
 .crucible.sheet.actor input[type="number"] {
   border: 1px solid #b5b3a4;
   text-align: center;
-}
-.crucible.sheet.actor i.incomplete {
-  font-size: var(--fontSizeMain);
-  color: #7a7971;
 }
 .crucible.sheet.actor a.section-lock {
   position: absolute;
@@ -354,29 +383,29 @@ h2.divider span {
   padding-right: var(--marginSize);
   border-right: 1px solid #b5b3a4;
 }
-.crucible.sheet.actor .equipment,
-.crucible.sheet.actor .action,
-.crucible.sheet.actor .effect {
+.crucible.sheet.actor .overview .equipment,
+.crucible.sheet.actor .overview .action,
+.crucible.sheet.actor .overview .effect {
   align-items: center;
   margin-bottom: 4px;
 }
-.crucible.sheet.actor .equipment img,
-.crucible.sheet.actor .action img,
-.crucible.sheet.actor .effect img {
+.crucible.sheet.actor .overview .equipment img,
+.crucible.sheet.actor .overview .action img,
+.crucible.sheet.actor .overview .effect img {
   flex: 0 0 24px;
   height: 24px;
   border: 1px solid #191813;
   border-radius: 4px;
 }
-.crucible.sheet.actor .equipment h4,
-.crucible.sheet.actor .action h4,
-.crucible.sheet.actor .effect h4 {
+.crucible.sheet.actor .overview .equipment h4,
+.crucible.sheet.actor .overview .action h4,
+.crucible.sheet.actor .overview .effect h4 {
   line-height: 16px;
   margin: 0 0 0 4px;
 }
-.crucible.sheet.actor .equipment .tag,
-.crucible.sheet.actor .action .tag,
-.crucible.sheet.actor .effect .tag {
+.crucible.sheet.actor .overview .equipment .tag,
+.crucible.sheet.actor .overview .action .tag,
+.crucible.sheet.actor .overview .effect .tag {
   flex: none;
 }
 .crucible.sheet.actor .title {
@@ -395,9 +424,9 @@ h2.divider span {
   border: none;
 }
 .crucible.sheet.actor .title h2.level {
-  flex: 1;
+  flex: none;
   text-align: right;
-  margin: 0;
+  margin: 0 0 0 var(--marginSize);
   border: none;
 }
 .crucible.sheet.actor .title h2.level input {
@@ -465,11 +494,8 @@ h2.divider span {
   padding-right: 4px;
 }
 .crucible.sheet.actor .resources {
-  margin: var(--marginSize) 0;
+  margin: 4px 0;
   flex: none;
-}
-.crucible.sheet.actor .resources > h3 {
-  flex: 0 0 100%;
 }
 .crucible.sheet.actor .resource {
   padding: 0 var(--marginSize);
@@ -477,15 +503,6 @@ h2.divider span {
 }
 .crucible.sheet.actor .resource.action {
   border-right: none;
-}
-.crucible.sheet.actor .resource .resource-name {
-  margin: 0;
-  line-height: 80%;
-  text-align: center;
-  color: #33332e;
-}
-.crucible.sheet.actor .resource .resource-name > span {
-  top: var(--marginSize);
 }
 .crucible.sheet.actor .resource .resource-values {
   margin: 3px 0;
@@ -511,13 +528,13 @@ h2.divider span {
 }
 .crucible.sheet.actor .abilities {
   flex: none;
-  margin-bottom: var(--marginSize);
+  margin-bottom: 4px;
 }
 .crucible.sheet.actor .abilities .ability-scores {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(2, var(--abilityHeight));
-  grid-gap: var(--marginSize);
+  grid-gap: var(--marginHalfSize);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -578,7 +595,7 @@ h2.divider span {
 }
 .crucible.sheet.actor .defenses {
   flex: none;
-  margin-bottom: var(--marginSize);
+  margin-bottom: 4px;
 }
 .crucible.sheet.actor .defenses .defense {
   align-items: center;
@@ -610,6 +627,7 @@ h2.divider span {
 .crucible.sheet.actor .defenses .defense .subtitle {
   font-family: var(--fontFamilySerif);
   font-size: var(--fontSizeMain);
+  margin: 0;
   white-space: nowrap;
 }
 .crucible.sheet.actor .defenses .defense .base {
@@ -633,9 +651,6 @@ h2.divider span {
 .crucible.sheet.actor .damage-resistances .category.spiritual {
   padding-right: 4px;
   border-right: none;
-}
-.crucible.sheet.actor .damage-resistances .category-name {
-  margin: 0;
 }
 .crucible.sheet.actor .damage-resistances .resistances {
   list-style: none;
@@ -781,9 +796,6 @@ h2.divider span {
   box-shadow: 0 0 2px #FFF inset;
   border: 1px solid #33332e;
 }
-.crucible.sheet.actor .tab.skills .skill .bonus {
-  padding: 3px;
-}
 .crucible.sheet.actor .tab.skills .skill .points,
 .crucible.sheet.actor .tab.skills .skill .bonus {
   height: var(--skillHeight);
@@ -793,6 +805,7 @@ h2.divider span {
 }
 .crucible.sheet.actor .tab.skills .skill-name h4 {
   margin: 0;
+  font-size: 16px;
 }
 .crucible.sheet.actor .tab.skills .bonus {
   flex: 0 0 64px;
@@ -801,12 +814,10 @@ h2.divider span {
 .crucible.sheet.actor .tab.skills .bonus .active,
 .crucible.sheet.actor .tab.skills .bonus .passive {
   height: 24px;
-  line-height: 24px;
   text-align: center;
   margin: 0 2px;
 }
 .crucible.sheet.actor .tab.skills .bonus .active {
-  font-size: var(--fontSizeHeader);
   font-weight: bold;
 }
 .crucible.sheet.actor .tab.skills .bonus .passive {
@@ -850,8 +861,7 @@ h2.divider span {
   flex: 0 0 28px;
   align-items: center;
   margin: 3px 0;
-  padding: 2px 4px;
-  line-height: 24px;
+  padding: 0 4px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #b5b3a4;
 }

@@ -13,8 +13,7 @@
 "ANCESTRY.Vulnerability": "Damage Vulnerability",
 "ANCESTRY.ResistanceHint": "This ancestry may have a traditional resistance (+2) and a traditional vulnerability (-2) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
 "ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
-
-"ABILITY.CantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
+"ANCESTRY.None": "No Ancestry",
 
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",
@@ -39,7 +38,9 @@
 "ATTACK.ResultTypeParry": "Parry",
 "ATTACK.ResultTypeBlock": "Block",
 "ATTACK.ResultTypeDeflect": "Deflect",
+"ATTACK.ResultTypeResist": "Resist",
 "ATTACK.ResultTypeHit": "Hit",
+"ATTACK.ResultTypeEffective": "Effective",
 
 "ATTRIBUTES.Abilities": "Ability Scores",
 "ATTRIBUTES.Pools": "Resource Pools",
@@ -65,6 +66,7 @@
 "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",
 "BACKGROUND.Talent": "Acquired Talent",
 "BACKGROUND.TalentHint": "Select a starting Talent which is learned through this background. This is not yet supported for the playtest.",
+"BACKGROUND.None": "No Background",
 
 "DAMAGE.Bludgeoning": "Bludgeoning",
 "DAMAGE.BludgeoningAbr": "Bldg",
@@ -92,6 +94,13 @@
 "DAMAGE.PhysicalAbr": "Phys",
 "DAMAGE.Spiritual": "Spiritual",
 "DAMAGE.SpiritualAbr": "Sptl",
+
+"DEFENSES.Fortitude": "Fortitude",
+"DEFENSES.FortitudeAbr": "Fort",
+"DEFENSES.Reflex": "Reflex",
+"DEFENSES.ReflexAbr": "Ref",
+"DEFENSES.Willpower": "Willpower",
+"DEFENSES.WillpowerAbr": "Wil",
 
 "DICE.ApplyDamage": "Apply Damage",
 "DICE.ReverseDamage": "Reverse Damage",
@@ -463,7 +472,18 @@
 "WEAPON.PropertyThrown": "Thrown",
 "WEAPON.PropertyVersatile": "Versatile",
 
+"WARNING.AbilityCantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
+"WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",
 "WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} weapon is already in use.",
-"WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot."
+"WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
+"WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
+
+"WALKTHROUGH.AddAncestry": "Step 1: Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
+"WALKTHROUGH.AddBackground": "Step 2: Choose a Background from the Compendium or Items sidebar and add it via drag-and-drop.",
+"WALKTHROUGH.AbilityPoints": "Step 3: Spend available Ability Points by increasing your Ability scores. It is not required to spend all points.",
+"WALKTHROUGH.SkillPoints": "Step 4: Spend available Skill Points by increasing your Skill ranks. You do not need to spend all points.",
+"WALKTHROUGH.TalentPoints": "Step 5: Choose Talents for your character from the Compendium or Items sidebar and add them via drag-and-drop.",
+"WALKTHROUGH.LevelOne": "Step 6: Once you are done with character creation, set your character to Level 1 and begin your adventure!",
+"WALKTHROUGH.LevelUp": "You have made enough progress to advance to a new level. Increase your level by one when you are ready!"
 }
 

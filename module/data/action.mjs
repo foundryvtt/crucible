@@ -202,7 +202,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
   async use(actor, {banes=0, boons=0, rollMode, dialog=false}={}) {
 
     // Clone the derived action data which may be further transformed throughout the workflow
-    const action = new this.constructor(this);
+    const action = new this.constructor(this, this.document);
     action.context = {};
     action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, damageMultiplier: 0};
     action.actorUpdates = {};
@@ -356,11 +356,8 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
   /**
    * Compute the amount of damage dealt by a certain action
-   * @param {number} overflow       The rolled check result in excess of the target threshold
-   * @param {number} multiplier     The overflow multiplier value
-   * @param {number} bonus          An additive damage bonus
-   * @param {number} resistance     A subtracted resistance threshold
-   * @returns {number}
+   * @param {DamageData} damage     The component details of the damage dealt
+   * @returns {number}              The total damage dealt
    */
   static computeDamage({overflow, multiplier=1, bonus=0, resistance=0}={}) {
     return Math.max((overflow * multiplier) + bonus - resistance, 1);

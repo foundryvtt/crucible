@@ -1,10 +1,10 @@
 {{#*inline "resource"}}
-<h4 class="resource-name divider tooltipped">
+<h3 class="category-header divider tooltipped">
     <span></span>
     <label>{{label}}</label>
     <div class="tooltip">{{data.tooltip}}</div>
     <span></span>
-</h4>
+</h3>
 <div class="resource-values flexrow">
     <input type="number" name="{{attr}}.value" value="{{lookup data 'value'}}" placeholder="0"
            {{#if @root.sectionLocks.resources}}disabled{{/if}}/>
@@ -25,7 +25,7 @@
 
             {{!-- Current Equipment --}}
             <div class="equipped">
-                <h3 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h3>
+                <h2 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h2>
                 <div class="equipment flexrow">
                     <img src="{{actor.equipment.weapons.mainhand.img}}" height="24" width="24"/>
                     <h4>{{actor.equipment.weapons.mainhand.name}}</h4>
@@ -47,7 +47,7 @@
 
             {{!-- Available Actions --}}
             <div class="actions">
-                <h3 class="section-header divider"><span></span><label>Available Actions</label><span></span></h3>
+                <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
                 {{#each actions}}
                 <div class="action flexrow" data-action-id="{{this.id}}">
                     <img src="{{this.img}}" height="24" width="24"/>
@@ -61,7 +61,7 @@
 
             {{!-- Active Effects --}}
             <div class="effects">
-                <h3 class="section-header divider"><span></span><label>Active Effects</label><span></span></h3>
+                <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
                 <div class="effect flexrow">
                     <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
                     <h4>Effect #1</h4>
@@ -92,20 +92,35 @@
                         <span class="slash"></span>
                         <span class="input">{{systemData.advancement.next}}</span>
                     </div>
-                    <h2 class="level">
+                    <h2 class="level {{#if incomplete.level}}tooltipped{{/if}}">
                         <label>Level</label>
+                        {{#if incomplete.level}}
+                        <i class="incomplete fas fa-exclamation-triangle"></i>
+                        {{/if}}
+                        {{#if incomplete.levelOne}}
+                        <div class="tooltip right">{{localize "WALKTHROUGH.LevelOne"}}</div>
+                        {{/if}}
+                        {{#if incomplete.levelUp}}
+                        <div class="tooltip right">{{localize "WALKTHROUGH.LevelUp"}}</div>
+                        {{/if}}
                         <input type="number" name="data.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
                     </h2>
                 </div>
 
                 <div class="subtitle flexrow">
-                    <h2 class="ancestry tag {{#unless hasAncestry}}inactive{{/unless}}">
+                    <h2 class="ancestry tag {{#if incomplete.ancestry}}inactive tooltipped{{/if}}">
                         {{systemData.details.ancestry.name}}
-                        {{#unless hasAncestry}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/unless}}
+                        {{#if incomplete.ancestry}}
+                        <i class="incomplete fas fa-exclamation-triangle"></i>
+                        <div class="tooltip left">{{localize "WALKTHROUGH.AddAncestry"}}</div>
+                        {{/if}}
                     </h2>
-                    <h2 class="background tag {{#unless hasBackground}}inactive{{/unless}}">
+                    <h2 class="background tag {{#if incomplete.background}}inactive tooltipped{{/if}}">
                         {{systemData.details.background.name}}
-                        {{#unless hasBackground}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/unless}}
+                        {{#if incomplete.background}}
+                        <i class="incomplete fas fa-exclamation-triangle"></i>
+                        <div class="tooltip left">{{localize "WALKTHROUGH.AddBackground"}}</div>
+                        {{/if}}
                     </h2>
                 </div>
             </div>
@@ -113,9 +128,21 @@
 
         {{!-- Sheet Navigation --}}
         <nav class="sheet-navigation tabs" data-group="primary">
-            <a class="item badge attributes" data-tab="attributes">Attributes</a>
-            <a class="item badge skills" data-tab="skills">Skills</a>
-            <a class="item badge talents" data-tab="talents">Talents</a>
+            <a class="item badge attributes {{#if incomplete.abilities}}tooltipped{{/if}}" data-tab="attributes">Attributes
+            {{~#if incomplete.abilities~}}
+            <i class="incomplete fas fa-exclamation-triangle"></i>
+            <div class="tooltip">{{localize "WALKTHROUGH.AbilityPoints"}}</div>
+            {{/if}}</a>
+            <a class="item badge skills {{#if incomplete.skills}}tooltipped{{/if}}" data-tab="skills">Skills
+            {{~#if incomplete.skills~}}
+            <i class="incomplete fas fa-exclamation-triangle"></i>
+            <div class="tooltip">{{localize "WALKTHROUGH.SkillPoints"}}</div>
+            {{/if}}</a>
+            <a class="item badge talents {{#if incomplete.talents}}tooltipped{{/if}}" data-tab="talents">Talents
+            {{~#if incomplete.talents~}}
+            <i class="incomplete fas fa-exclamation-triangle"></i>
+            <div class="tooltip center">{{localize "WALKTHROUGH.TalentPoints"}}</div>
+            {{/if}}</a>
             <a class="item badge inventory" data-tab="inventory">Inventory</a>
             <a class="item badge spells" data-tab="spells">Grimoire</a>
             <a class="item badge biography" data-tab="biography">Biography</a>
@@ -126,12 +153,12 @@
 
             {{!-- Character Resources --}}
             <section class="resources flexrow">
-                <h3 class="section-header divider">
+                <h2 class="section-header divider">
                     <span></span><label>Resources</label><span></span>
                     <a class="button section-lock" data-section="resources">
                         <i class="fas {{#if sectionLocks.resources}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
-                </h3>
+                </h2>
                 <div class="resource health">
                     {{> resource label="Health" attr="data.attributes.health" data=systemData.attributes.health}}
                     {{> resource label="Wounds" attr="data.attributes.wounds" data=systemData.attributes.wounds}}
@@ -150,14 +177,14 @@
 
             {{!-- Abilities --}}
             <section class="abilities">
-                <h3 class="section-header divider">
+                <h2 class="section-header divider">
                     <span></span>
-                    <label>Abilities{{#if actor.points.ability.requireAttention}} <i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}</label>
+                    <label>Abilities</label>
                     <span></span>
                     <a class="button section-lock" data-section="abilities">
                         <i class="fas {{#if sectionLocks.abilities}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
-                </h3>
+                </h2>
                 {{#unless sectionLocks.abilities}}
                 <div class="point-pools flexrow">
                     {{#if isL0}}
@@ -199,14 +226,14 @@
 
             {{!-- Defenses --}}
             <section class="defenses">
-                <h3 class="section-header divider">
+                <h2 class="section-header divider">
                     <span></span>
                     <label>Defenses</label>
                     <span></span>
                     <a class="button section-lock" data-section="defenses">
                         <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
-                </h3>
+                </h2>
 
                 {{! Physical Defense --}}
                 <ol class="defense physical flexrow" data-defense="physical">
@@ -300,21 +327,21 @@
 
             {{!-- Resistances --}}
             <section class="damage-resistances flexrow">
-                <h3 class="section-header divider">
+                <h2 class="section-header divider">
                     <span></span>
                     <label>Resistances</label>
                     <span></span>
                     <a class="button section-lock" data-section="resistances">
                         <i class="fas {{#if sectionLocks.resistances}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
-                </h3>
+                </h2>
                 {{#each resistances as |res cat|}}
                 <div class="category {{cat}}">
-                    <h4 class="category-name divider">
+                    <h3 class="category-header divider">
                         <span></span>
                         <label>{{res.label}}</label>
                         <span></span>
-                    </h4>
+                    </h3>
                     <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
                         {{#each res.resists as |r id|}}
                         <li class="resistance flexrow" data-resistance="{{id}}">
@@ -521,9 +548,9 @@
 
         {{!-- Biography Tab --}}
         <div class="tab biography flexcol" data-group="primary" data-tab="biography">
-            <h3 class="section-header divider"><span></span><label>Public Biography</label><span></span></h3>
+            <h2 class="section-header divider"><span></span><label>Public Biography</label><span></span></h2>
             {{editor content=systemData.details.biography.public target="data.details.biography.public" button=true owner=owner editable=editable rollData=rollData}}
-            <h3 class="section-header divider"><span></span><label>Private Biography</label><span></span></h3>
+            <h2 class="section-header divider"><span></span><label>Private Biography</label><span></span></h2>
             {{editor content=systemData.details.biography.private target="data.details.biography.private" button=true owner=owner editable=editable rollData=rollData}}
         </div>
     </section>

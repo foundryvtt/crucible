@@ -4,6 +4,10 @@
   --headerHeight: 50px;
   --profileSize: 50px;
 
+  h1, h2, h3, h4 {
+    margin: 0;
+  }
+
   /** Sheet Header */
   .sheet-header {
     flex: 0 0 var(--headerHeight);
@@ -86,25 +90,38 @@
     }
   }
 
+  /** Incompletion Warnings */
+  .incomplete {
+    margin-left: 2px;
+    font-size: var(--fontSizeMain);
+    color: var(--color-text-hyperlink);
+    text-shadow: 0 0 4px #FFF;
+  }
+
   /* Tooltips */
   .tooltipped {
     position: relative;
     .tooltip {
       display: none;
-      line-height: 22px;
+      width: max-content;
+      max-width: 320px;
+      line-height: 16px;
       position: absolute;
-      white-space: nowrap;
-      left: 0;
       top: 120%;
-      padding: 1px 5px;
+      padding: 2px 5px;
       background: rgba(0, 0, 0, 0.95);
-      font-family: "Signika";
+      font-family: "Signika", serif;
       font-size: 12px;
       font-weight: normal;
-      color: @colorBeige;
+      text-align: left;
+      text-shadow: none;
+      color: @colorFaint;
       border: 1px solid #000;
       border-radius: 3px;
       z-index: 999;
+      &.left { left: 0; }
+      &.right { right: 0; }
+      &.center { left: calc(100% - 180px); }
     }
     &:hover > .tooltip { display: block; }
   }

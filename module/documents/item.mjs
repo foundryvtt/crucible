@@ -210,6 +210,16 @@ export default class CrucibleItem extends Item {
           skill: 0,
           enchantment: this.systemData.attackBonus
         };
+      case "talent":  // TODO - temporary spell support
+        let scaling = "";
+        if ( this.systemData.tags.includes("arcane") ) scaling = "intellect";
+        else if ( this.systemData.tags.includes("primal") ) scaling = "wisdom";
+        else if ( this.systemData.tags.includes("occult") ) scaling = "charisma";
+        return {
+          ability: this.actor.getAbilityBonus(scaling),
+          skill: 0,
+          enchantment: 0
+        };
       default:
         throw new Error("NOT YET SUPPORTED");
     }
@@ -238,7 +248,6 @@ export default class CrucibleItem extends Item {
    * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
    * @param {number} [damageMultiplier=0] An additional damage multiplier which applies to this attack
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
-   * @private
    */
   async weaponAttack(target, {banes=0, boons=0, damageMultiplier=0, damageBonus=0}={}) {
     if ( this.data.type !== "weapon" ) {
@@ -254,12 +263,13 @@ export default class CrucibleItem extends Item {
     const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
-      banes: banes,
-      boons: boons,
-      dc: target.defenses.physical,
       ability: ability,
       skill: skill,
-      enchantment: enchantment
+      enchantment: enchantment,
+      banes: banes,
+      boons: boons,
+      defenseType: "physical",
+      dc: target.defenses.physical
     });
 
     // Evaluate the result and record the result
@@ -272,6 +282,52 @@ export default class CrucibleItem extends Item {
         bonus: id.damageBonus + damageBonus,
         resistance: target.resistances[id.damageType]?.total ?? 0,
         type: id.damageType
+      };
+      roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
+    }
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * TODO: A temporary shim for mocking the functionality of spell attacks
+   * @see {CrucibleItem#weaponAttack}
+   * @returns {Promise<AttackRoll>}
+   */
+  async spellAttack(target, {banes=0, boons=0, defenseType="willpower", damageType="fire", damageMultiplier=0, damageBonus=0}={}) {
+    if ( this.data.type !== "talent" ) {
+      throw new Error("Temporary spellAttack method called with wrong item type");
+    }
+    if ( !target ) {
+      throw new Error("You must provide an Actor as the target for this attack");
+    }
+
+    // Create the Attack Roll instance
+    const {ability, skill, enchantment} = this.getItemBonuses();
+    const dc = target.defenses[defenseType].total;
+    const roll = new AttackRoll({
+      actorId: this.parent.id,
+      itemId: this.id,
+      ability: ability,
+      skill: skill,
+      enchantment: enchantment,
+      banes: banes,
+      boons: boons,
+      defenseType: defenseType,
+      dc: dc
+    });
+
+    // Evaluate the result and record the result
+    await roll.evaluate({async: true});
+    roll.data.result = AttackRoll.RESULT_TYPES[roll.total > dc ? "EFFECTIVE" : "RESIST"]
+    if ( roll.data.result === AttackRoll.RESULT_TYPES.EFFECTIVE ) {
+      roll.data.damage = {
+        overflow: roll.overflow,
+        multiplier: damageMultiplier,
+        bonus: damageBonus,
+        resistance: target.resistances[damageType]?.total ?? 0,
+        type: damageType
       };
       roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
     }
