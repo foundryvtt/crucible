@@ -105,9 +105,10 @@ export default class WeaponData extends PhysicalItemData {
 
   /**
    * Return an object of string formatted tag data which describes this item type.
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
    * @returns {Object<string, string>}    The tags which describe this weapon
    */
-  getTags({scope="full"}={}) {
+  getTags(scope="full") {
     const tags = {};
     const category = this.document.config.category;
     const handsTag = category => {

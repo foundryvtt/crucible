@@ -6,10 +6,12 @@ import StandardCheck from "./standard-check.js";
  * @extends {Dialog}
  */
 export default class ActionUseDialog extends Dialog {
-  constructor(data, options) {
-    super(data, options);
-    this.pool = new StandardCheck(this.options);
-  }
+
+  /**
+   * A StandardCheck dice pool instance which organizes the data for this dialog
+   * @type {StandardCheck}
+   */
+  pool = new StandardCheck(this.options.action.bonuses);
 
   /* -------------------------------------------- */
 
@@ -83,16 +85,16 @@ export default class ActionUseDialog extends Dialog {
     const bonuses = this.action.bonuses;
     switch (action) {
       case "boon-add":
-        bonuses.boons = Math.clamped(bonuses.boons + 1, 0, 6);
+        bonuses.boons = Math.clamped(bonuses.boons + 1, 0, SYSTEM.dice.MAX_BOONS);
         break;
       case "boon-subtract":
-        bonuses.boons = Math.clamped(bonuses.boons - 1, 0, 6);
+        bonuses.boons = Math.clamped(bonuses.boons - 1, 0, SYSTEM.dice.MAX_BOONS);
         break;
       case "bane-add":
-        bonuses.banes = Math.clamped(bonuses.banes + 1, 0, 6);
+        bonuses.banes = Math.clamped(bonuses.banes + 1, 0, SYSTEM.dice.MAX_BOONS);
         break;
       case "bane-subtract":
-        bonuses.banes = Math.clamped(bonuses.banes - 1, 0, 6);
+        bonuses.banes = Math.clamped(bonuses.banes - 1, 0, SYSTEM.dice.MAX_BOONS);
         break;
     }
 

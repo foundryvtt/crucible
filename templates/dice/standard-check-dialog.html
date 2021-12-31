@@ -1,45 +1,12 @@
 <form class="standard-check flexcol">
-    {{#if isGM}}
-    <header class="request form-group">
-        <div class="roller">
-            <select name="actorId">
-                {{#select actorId}}
-                <option value="">Select Character</option>
-                {{#each actors}}
-                <option value="{{this.id}}">{{this.name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
-        <div class="buttons">
-            <button class="dialog-button" data-action="request">
-                Request Roll <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    </header>
-    {{/if}}
-
     <section class="content flexrow">
         <div class="roller flexcol">
-            <div class="form-group">
-                <select name="type">
-                    {{#select type}}
-                    {{#each types}}
-                    <optgroup label="{{this.label}}">
-                        {{#each this.options as |t id|}}
-                        <option value="{{id}}">{{t.name}}</option>
-                        {{/each}}
-                    </optgroup>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-
             <div class="form-group boons">
-                <label data-action="boon">
-                    <i class="fas fa-arrow-up"></i> Boons
-                </label>
-                <input type="number" name="boons" value="{{boons}}"/>
+                <label>Boons</label>
+                <i class="action-button fas fa-arrow-down" data-action="boon-subtract"></i>
+                {{numberInput boons name="boons" step=1 min=0 max=6}}
+                <i class="action-button fas fa-arrow-up" data-action="boon-add"></i>
+                <label></label>
             </div>
 
             <div class="pool flexrow">
@@ -48,25 +15,26 @@
                 {{/each}}
             </div>
 
-            <div class="form-group boons">
-                <label data-action="bane">
-                    <i class="fas fa-arrow-down"></i> Banes
-                </label>
-                <input type="number" name="banes" value="{{banes}}"/>
+            <div class="form-group banes">
+                <label>Banes</label>
+                <i class="action-button fas fa-arrow-down" data-action="bane-subtract"></i>
+                {{numberInput banes name="banes" step=1 min=0 max=6}}
+                <i class="action-button fas fa-arrow-up" data-action="bane-add"></i>
+                <label></label>
             </div>
 
             <ol class="bonuses flexrow">
                 <li class="ability">
                     <label>Ability</label>
-                    <input type="number" name="ability" value="{{ability}}"/>
+                    {{numberInput ability name="ability" min=-4 max=12 disabled=true}}
                 </li>
                 <li class="skill">
                     <label>Skill</label>
-                    <input type="number" name="skill" value="{{skill}}"/>
+                    {{numberInput skill name="skill" min=-4 max=12 disabled=true}}
                 </li>
                 <li class="enchantment">
                     <label>Enchantment</label>
-                    <input type="number" name="enchantment" value="{{enchantment}}"/>
+                    {{numberInput enchantment name="enchantment" min=-4 max=12 disabled=true}}
                 </li>
             </ol>
             </div>
@@ -75,23 +43,13 @@
         {{#if isGM}}
         <div class="target flexcol">
             <select name="tier">
-                {{#select tier}}
-                <option value="">Assign Difficulty</option>
-                {{#each difficulties as |label dc|}}
-                <option value="{{dc}}">{{label}} (DC {{dc}})</option>
-                {{/each}}
-                {{/select}}
+                {{log difficulty}}
+                {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Assign Difficulty"}}
             </select>
-            <input type="number" class="dc" name="dc" value="{{dc}}"/>
-            <label class="difficulty">{{dcLabel}}</label>
-
+            {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
+            <label class="difficulty">{{difficulty.label}}</label>
             <select name="rollMode">
-                {{#select rollMode}}
-                <option value="">Roll Mode</option>
-                {{#each rollModes as |label id|}}
-                <option value="{{id}}">{{localize label}}</option>
-                {{/each}}
-                {{/select}}
+                {{selectOptions rollModes selected=rollMode localize=true}}
             </select>
         </div>
         {{/if}}
@@ -100,18 +58,18 @@
     <footer class="buttons flexrow">
         {{#unless isGM}}
         <select name="rollMode">
-            {{#select rollMode}}
-            <option value="">Roll Mode</option>
-            {{#each rollModes as |label id|}}
-            <option value="{{id}}">{{localize label}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions rollModes selected=rollMode localize=true}}
         </select>
         {{/unless}}
-
-        <button data-action="roll">
+        <button type="button" class="dialog-button" data-button="ok">
             <i class="fas fa-dice"></i>
             <label>Roll Check</label>
         </button>
+        {{#if isGM}}
+        <button type="button" class="action-button" data-action="request">
+            <i class="fas fa-arrow-right"></i>
+            <label>Request Roll</label>
+        </button>
+        {{/if}}
     </footer>
 </form>

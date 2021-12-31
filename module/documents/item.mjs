@@ -157,9 +157,10 @@ export default class CrucibleItem extends Item {
 
   /**
    * Provide an array of detail tags which are shown in each item description
-   * @return {object}
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
+   * @returns {Object<string, string>}    The tags which describe this Item
    */
-  getTags({scope="full"}={}) {
+  getTags(scope="full") {
     const d = this.data.data;
     switch ( this.data.type ) {
       case "armor":
@@ -177,7 +178,7 @@ export default class CrucibleItem extends Item {
         return armorTags;
       case "talent":
       case "weapon":
-        return this.data.data.getTags({scope});
+        return this.data.data.getTags(scope);
       default:
         return {};
     }

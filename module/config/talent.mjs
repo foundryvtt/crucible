@@ -121,7 +121,7 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {hasDice: true, label: mh.name, tags: mh.getTags({scope: "short"})});
+      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: mh.name, tags: mh.getTags("short")});
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -146,7 +146,7 @@ export const ACTION_TAGS = {
     can: (actor, action) => actor !== game.combat?.combatant.actor
   },
   shield: {
-    type: "shield",
+    tag: "shield",
     label: "ACTION.TagShield",
     tooltip: "ACTION.TagShieldTooltip",
     can: (actor, action) => actor.equipment.weapons.shield
@@ -160,7 +160,7 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {hasDice: true, label: mh.name, tags: mh.getTags({scope: "short"})});
+      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: mh.name, tags: mh.getTags("short")});
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -172,7 +172,7 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {hasDice: true, label: oh.name, tags: oh.getTags({scope: "short"})});
+      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: oh.name, tags: oh.getTags("short")});
     },
     execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },

@@ -1,6 +1,19 @@
 import { SYSTEM } from "../config/system.js";
+import StandardCheck from "./standard-check.js";
 
-export class StandardCheckDialog extends FormApplication {
+/**
+ * Prompt the user to perform a Standard Check.
+ * @extends {Dialog}
+ */
+export class StandardCheckDialog extends Dialog {
+
+  /**
+   * A StandardCheck dice pool instance which organizes the data for this dialog
+   * @type {StandardCheck}
+   */
+  pool = this.options.pool;
+
+  /* -------------------------------------------- */
 
   /** @override */
 	static get defaultOptions() {
@@ -18,7 +31,7 @@ export class StandardCheckDialog extends FormApplication {
   /** @override */
   get title() {
     if ( this.options.title ) return this.options.title;
-    const type = this.object.data.type;
+    const type = this.pool.data.type;
     if ( type in CONFIG.SYSTEM.SKILLS ) {
       const skill = CONFIG.SYSTEM.SKILLS[type];
       return `${skill.name} Skill Check`;
@@ -30,51 +43,31 @@ export class StandardCheckDialog extends FormApplication {
 
   /** @override */
   getData() {
-    const data = foundry.utils.deepClone(this.object.data);
-    const dc = this._getDifficulty(data.dc);
-    const dice = this.object.dice.map(d => `d${d.faces}`);
-    return mergeObject(data, {
-      actors: game.user.isGM ? this._getPlayerActors() : [],
-      dcLabel: dc.label,
-      dice: dice,
-      difficulties: SYSTEM.dice.checkDifficulties,
+    const data = this.pool.data;
+    return {
+      ability: data.ability,
+      banes: data.banes,
+      boons: data.boons,
+      difficulty: this._getDifficulty(data.dc),
+      dice: this.pool.dice.map(d => `d${d.faces}`),
+      difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
+      enchantment: data.enchantment,
       isGM: game.user.isGM,
       rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
-      tier: dc.tier,
-      types: [
-        {
-          label: "Check Type",
-          options: {
-            "": {name: "Generic"}
-          }
-        },
-        {
-          label: "Combat",
-          options: {
-            attack: {name: "Attack"},
-            endurance: {name: "Endurance"},
-            evasion: {name: "Evasion"},
-            resolve: {name: "Resolve"}
-          }
-        },
-        {
-          label: "Skills",
-          options: CONFIG.SYSTEM.SKILLS
-        }
-      ]
-    });
+      skill: data.skill
+    }
   }
 
 	/* -------------------------------------------- */
 
   /**
    * Get the text label for a dice roll DC
-   * @param {number} [dc=20]    The difficulty check for the test
+   * @param {number} dc    The difficulty check for the test
    * @return {{dc: number, label: string, tier: number}}
    * @private
    */
-  _getDifficulty(dc=20) {
+  _getDifficulty(dc) {
     let label = "";
     let tier = 0;
     for ( let [d, l] of Object.entries(SYSTEM.dice.checkDifficulties) ) {
@@ -119,25 +112,24 @@ export class StandardCheckDialog extends FormApplication {
   _onClickAction(event) {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
-    const check = this.object;
+    const form = event.currentTarget.closest("form");
+    const bonuses = this.pool.data;
     switch ( action ) {
-      case "boon":
-        const nBoons = check.data.boons + (event.type === "contextmenu" ? -1 : 1);
-        if ( nBoons <= SYSTEM.dice.MAX_BOONS ) {
-          this._updateObject(event, {boons: nBoons});
-        }
-        break;
-      case "bane":
-        const nBanes = check.data.banes + (event.type === "contextmenu" ? -1 : 1);
-        if ( nBanes <= SYSTEM.dice.MAX_BANES ) {
-          this._updateObject(event, {banes: nBanes});
-        }
-        break;
+      case "boon-add":
+        return this._updatePool(form, {boons: Math.clamped(bonuses.boons + 1, 0, SYSTEM.dice.MAX_BOONS)});
+      case "boon-subtract":
+        return this._updatePool(form, {boons: Math.clamped(bonuses.boons - 1, 0, SYSTEM.dice.MAX_BOONS)});
+      case "bane-add":
+        return this._updatePool(form, {banes: Math.clamped(bonuses.banes + 1, 0, SYSTEM.dice.MAX_BOONS)});
+      case "bane-subtract":
+        return this._updatePool(form, {banes: Math.clamped(bonuses.banes - 1, 0, SYSTEM.dice.MAX_BOONS)});
       case "request":
-        return this.request();
-      case "roll":
-        const rollMode = this.element.find('select[name="rollMode"]').val();
-        this.object.toMessage({ flavor: this.options.flavor }, { rollMode });
+        this._updatePool(form);
+        this.pool.request({
+          title: this.title,
+          flavor: this.options.flavor,
+          rollMode: this.options.rollMode
+        });
         return this.close();
     }
   }
@@ -147,7 +139,7 @@ export class StandardCheckDialog extends FormApplication {
   _onChangeDifficultyTier(event) {
     event.preventDefault();
     event.stopPropagation();
-    return this._updateObject(event, {dc: parseInt(event.target.value)});
+    return this._updatePool({dc: parseInt(event.target.value)});
   }
 
 	/* -------------------------------------------- */
@@ -160,24 +152,44 @@ export class StandardCheckDialog extends FormApplication {
 
 	/* -------------------------------------------- */
 
-  _updateObject(event, formData) {
-    this.object.initialize(formData);
+  /**
+   * Handle updating the StandardCheck dice pool
+   * @param {HTMLFormElement} form    The updated form HTML
+   * @param {object} updates          Additional data updates
+   * @private
+   */
+  _updatePool(form, updates={}) {
+    const fd = new FormDataExtended(form);
+    updates = foundry.utils.mergeObject(fd.toObject(), updates);
+    this.pool.initialize(updates);
     this.render();
   }
 
   /* -------------------------------------------- */
-  /*  Socket Interactions                         */
+  /*  Factory Methods                             */
   /* -------------------------------------------- */
 
-  request() {
-    game.socket.emit(`system.${SYSTEM.id}`, {
-      action: "diceCheck",
-      data: {
-        title: this.options.title,
-        flavor: this.options.flavor,
-        rollMode: this.options.rollMode,
-        check: this.object.data
-      }
-    })
+  /** @inheritdoc */
+  static async prompt(config={}) {
+    config.callback = html => this._onSubmit(html, config.options.pool);
+    config.options.jQuery = false;
+    config.rejectClose = false;
+    return super.prompt(config);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Return dialog submission data as a form data object
+   * @param {HTMLElement} html    The rendered dialog HTML
+   * @param {StandardCheck} pool  The check being submitted
+   * @returns {StandardCheck}     The processed StandardCheck instance
+   * @private
+   */
+  static _onSubmit(html, pool) {
+    const form = html.querySelector("form");
+    const fd = new FormDataExtended(form);
+    pool.initialize(fd.toObject());
+    return pool;
   }
 }

@@ -94,9 +94,10 @@ export class TalentData extends DocumentData {
 
   /**
    * Return an object of string formatted tag data which describes this item type.
-   * @returns {Object<string, string>}    The tags which describe this weapon
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
+   * @returns {Object<string, string>}    The tags which describe this Talent
    */
-  getTags({scope="full"}={}) {
+  getTags(scope="full") {
     const tags = {};
     if ( this.nextRank ) {
       const cost = this.nextRank.cost;

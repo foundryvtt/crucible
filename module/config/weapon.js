@@ -184,34 +184,44 @@ export const CATEGORIES = {
  */
 export const PROPERTIES = {
   ambush: {
-    label: "WEAPON.PropertyAmbush"
+    label: "WEAPON.TagAmbush",
+    tooltip: "WEAPON.TagAmbushTooltip"
   },
   blocking: {
-    label: "WEAPON.PropertyBlocking"
+    label: "WEAPON.TagBlocking",
+    tooltip: "WEAPON.TagBlockingTooltip"
   },
   grasping: {
-    label: "WEAPON.PropertyGrasping"
+    label: "WEAPON.TagGrasping",
+    tooltip: "WEAPON.TagGraspingTooltip"
   },
   keen: {
-    label: "WEAPON.PropertyKeen"
+    label: "WEAPON.TagKeen",
+    tooltip: "WEAPON.TagKeenTooltip"
   },
   slow: {
-    label: "WEAPON.PropertySlow"
+    label: "WEAPON.TagSlow",
+    tooltip: "WEAPON.TagAmbushTooltip"
   },
   parrying: {
-    label: "WEAPON.PropertyParrying"
+    label: "WEAPON.TagParrying",
+    tooltip: "WEAPON.TagParryingTooltip"
   },
   reach: {
-    label: "WEAPON.PropertyReach"
+    label: "WEAPON.TagReach",
+    tooltip: "WEAPON.TagReachTooltip"
   },
   reload: {
-    label: "WEAPON.PropertyReload"
+    label: "WEAPON.TagReload",
+    tooltip: "WEAPON.TagReloadTooltip"
   },
   thrown: {
-    label: "WEAPON.PropertyThrown"
+    label: "WEAPON.TagThrown",
+    tooltip: "WEAPON.TagThrownTooltip"
   },
   versatile: {
-    label: "WEAPON.PropertyVersatile"
+    label: "WEAPON.TagVersatile",
+    tooltip: "WEAPON.TagVersatileTooltip"
   }
 }
 

@@ -553,32 +553,33 @@ export default class CrucibleActor extends Actor {
    *
    * @return {StandardCheck}      The StandardCheck roll instance which was produced.
    */
-  rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
+  async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
     const skill = this.data.data.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
 
     // Create the check roll
     const sc = new StandardCheck({
       actorId: this.id,
-      type: skillId,
       banes: banes,
       boons: boons,
       dc: dc,
       ability: skill.abilityBonus,
       skill: skill.skillBonus,
       enchantment: skill.enchantmentBonus,
-      rollMode: rollMode
+      type: skillId,
+      rollMode: rollMode,
     });
 
-    // Execute the roll
+    // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
     if ( dialog ){
       const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
-      sc.dialog({ title, flavor, rollMode }).render(true);
+      const response = await sc.dialog({title, flavor, rollMode});
+      if ( response === null ) return null;
     }
-    else {
-      sc.toMessage({ flavor }, { rollMode });
-    }
+
+    // Execute the roll to chat
+    await sc.toMessage({flavor}, {rollMode});
     return sc;
   }
 

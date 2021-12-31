@@ -12,6 +12,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
  * @typedef {Object} ActionContext
+ * @property {string} type                  The type of context provided, i.e. "weapon", "spell", etc...
  * @property {string} label                 A string label providing context info
  * @property {string[]} tags                An array of tags which describe the context
  * @property {boolean} hasDice              Does this action involve the rolling of a dice check?

@@ -200,7 +200,7 @@ function onTagHoverTooltip(event) {
   // Add tooltip
   if ( event.type === "mouseenter" ) {
     const tip = getTagTooltip(tagType, tag);
-    if ( !tip ) return tooltip.classList.remove("active");
+    if ( !tip ) return _tooltip.classList.remove("active");
     _tooltip.classList.add("active");
     _tooltip.innerText = tip;
     const pos = el.getBoundingClientRect();
@@ -223,10 +223,33 @@ function onTagHoverTooltip(event) {
   else _tooltip.classList.remove("active");
 }
 
+/* -------------------------------------------- */
+
+/**
+ * Get the localized tooltip which should be displayed for a given tag.
+ * @param {string} tagType      The tag type being displayed
+ * @param {string} tag          The tag value being displayed
+ * @returns {string}            The localized tag tooltip, if any
+ */
 function getTagTooltip(tagType, tag) {
   switch ( tagType ) {
     case "action":
-      return game.i18n.localize(SYSTEM.TALENT.ACTION_TAGS[tag]?.tooltip);
+      switch ( tag ) {
+        case "target":
+          return game.i18n.localize("ACTION.TagTargetTooltip");
+        case "cost":
+          return game.i18n.localize("ACTION.TagCostTooltip");
+        default:
+          return game.i18n.localize(SYSTEM.TALENT.ACTION_TAGS[tag]?.tooltip);
+      }
+    case "weapon":
+      switch ( tag ) {
+        case "damage":
+          return game.i18n.localize("WEAPON.TagDamageTooltip");
+        default:
+          return game.i18n.localize(SYSTEM.WEAPON.PROPERTIES[tag]?.tooltip);
+      }
+    default:
+      return "";
   }
-
 }

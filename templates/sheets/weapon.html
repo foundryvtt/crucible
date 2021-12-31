@@ -6,10 +6,9 @@
         <h1 class="title">
             <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
         </h1>
-        <div class="header-tags">
-            <label>Tags:</label>
-            {{#each tags as |tag|}}
-            <span>{{tag}}</span>
+        <div class="tags header-tags" data-tag-type="weapon">
+            {{#each tags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
     </header>
