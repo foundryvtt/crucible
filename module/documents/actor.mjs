@@ -970,7 +970,7 @@ export default class CrucibleActor extends Actor {
   async equipWeapon({itemId, mainhandId, offhandId, equipped=true}={}) {
     const weapons = this.equipment.weapons;
     let isMHFree = !weapons.mainhand.id;
-    let isOHFree = !weapons.offhand.id;
+    let isOHFree = (weapons.mainhand.config.category.hands === 1) && !weapons.offhand.id;
 
     // Identify the items being requested
     const w1 = this.items.get(mainhandId ?? itemId, {strict: true});
@@ -1106,7 +1106,7 @@ export default class CrucibleActor extends Actor {
   _replenishResources(data) {
     const levelChange = foundry.utils.hasProperty(data, "data.advancement.level");
     const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => foundry.utils.hasProperty(data, `data.attributes.${k}`));
-    if ( levelChange || attributeChange ) this.rest();
+    if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
   }
 }
 

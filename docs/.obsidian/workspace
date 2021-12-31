@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Combat/Initiative and Turn Order.md",
+            "file": "Playtest/Introduction.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Combat/Initiative and Turn Order.md",
+                "file": "Playtest/Introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Combat/Initiative and Turn Order.md"
+                "file": "Playtest/Introduction.md"
               }
             }
           }
@@ -100,8 +100,8 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
-    "Combat/Initiative and Turn Order.md",
     "Playtest/Introduction.md",
+    "Combat/Initiative and Turn Order.md",
     "Combat/Rounds, Turns, and Phases.md",
     "Combat/Actions and Action Points.md",
     "Combat/Combat Overview.md",

@@ -56,7 +56,8 @@ Hooks.once("init", async function() {
     StandardCheck,
     TalentData,
     TalentRankData,
-    TalentPassiveData
+    TalentPassiveData,
+    packageItemCompendium
   }
 
   // Actor document configuration
@@ -133,3 +134,27 @@ Hooks.once("ready", function() {
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.renderChatMessage)
 Hooks.on("renderJournalSheet", renderJournalRules);
+
+/* -------------------------------------------- */
+/*  Convenience Functions                       */
+/* -------------------------------------------- */
+
+/**
+ * Package all Items of a certain type into their appropriate Compendium pack
+ * @param itemType
+ * @returns {Promise<void>}
+ */
+async function packageItemCompendium(itemType) {
+  const pack = game.packs.get(`crucible.${itemType}`);
+  const items = game.items.filter(i => i.type === itemType);
+  const data = items.map(i => i.toCompendium(pack, {keepId: true}));
+
+  // Delete everything in the pack currently
+  await pack.configure({locked: false});
+  await pack.getDocuments();
+  await Item.deleteDocuments(Array.from(pack.index.keys()), {pack: pack.collection});
+
+  // Load everything to the pack, keeping IDs
+  await Item.createDocuments(data, {pack: pack.collection, keepId: true});
+  await pack.configure({locked: true});
+}

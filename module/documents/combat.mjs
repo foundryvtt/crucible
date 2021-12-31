@@ -2,6 +2,25 @@
 
 export default class CrucibleCombat extends Combat {
 
+  /** @inheritdoc */
+  async nextRound() {
+    if ( !game.user.isGM ) return ui.notifications.warn("Only a Gamemaster user may advance the Combat round.");
+    return super.nextRound();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  async previousRound() {
+    if ( !game.user.isGM ) return ui.notifications.warn("Only a Gamemaster user may change the Combat round.");
+    return super.previousRound();
+  }
+
+  /* -------------------------------------------- */
+  /*  Database Update Workflows                   */
+  /* -------------------------------------------- */
+
+
   /** @override */
   async _preUpdate(data, options, user) {
     const isNewRound = (("round" in data) && (data.round !== this.previous.round));

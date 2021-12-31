@@ -16,7 +16,7 @@ A primary goal of the playtest is testing the mechanics of character creation. W
 To create a new character, follow these steps:
 
 1. Create a new Actor using the **hero** type.
-2. Choose an [[Ancestry]] from the Compendium or Items sidebar and add itto the character sheet via drag-and-drop.
+2. Choose an [[Ancestry]] from the Compendium or Items sidebar and add it to the character sheet via drag-and-drop.
 3. Choose a [[Background]] from the Compendium or Items sidebar and add it to the character sheet via drag-and-drop.
 4. Spend available Ability Points by increasing the scores of your [[Abilities]]. It is not required to spend all points.
 5. Spend available Skill Points by increasing your ranks in various [[Skills]]. You do not need to spend all points.

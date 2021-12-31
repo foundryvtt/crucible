@@ -50,6 +50,11 @@ export const ACTION_TAGS = {
     label: "Deadly",
     pre: (actor, action) => action.bonuses.damageMultiplier += 1,
   },
+  difficult: {
+    tag: "difficult",
+    label: "Difficult",
+    pre: (actor, action) => action.bonuses.banes += 2
+  },
   dualwield: {
     tag: "dualwield",
     label: "Dual Wield",
@@ -68,12 +73,17 @@ export const ACTION_TAGS = {
   finesse: {
     tag: "finesse",
     label: "Finesse",
-    can: (actor, action) => actor.equipment.weapons.mainhand.config.category.id === "light1"
+    can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity")
   },
   harmless: {
     tag: "harmless",
     label: "Harmless",
     pre: (actor, action) => action.bonuses.damageMultiplier -= 1
+  },
+  indirect: {
+    tag: "indirect",
+    label: "Indirect",
+    pre: (actor, action) => action.bonuses.damageBonus -= 2,
   },
   melee: {
     tag: "melee",
@@ -110,7 +120,7 @@ export const ACTION_TAGS = {
   reaction: {
     tag: "reaction",
     label: "Reaction",
-    can: (actor, action) => actor !== game.combat.combatant.actor
+    can: (actor, action) => actor !== game.combat?.combatant.actor
   },
   shield: {
     type: "shield",
@@ -163,11 +173,6 @@ export const ACTION_TAGS = {
     tag: "unarmored",
     label: "Unarmored",
     can: (actor, action) => actor.equipment.unarmored
-  },
-  unsighted: {
-    tag: "unsighted",
-    label: "Unsighted",
-    pre: (actor, action) => action.bonuses.banes += 2
   },
 
   /* -------------------------------------------- */

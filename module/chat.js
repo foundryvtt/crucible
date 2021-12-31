@@ -40,7 +40,7 @@ export function addChatMessageContextOptions(html, options)  {
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
       const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage.total || 0), 0);
+      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
       for ( let t of targets ) {
 
         // Get target actor
@@ -67,7 +67,7 @@ export function addChatMessageContextOptions(html, options)  {
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
       const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage.total || 0), 0);
+      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
       for ( let t of targets ) {
         const target = await fromUuid(t.uuid);
         if ( !target ) continue;
