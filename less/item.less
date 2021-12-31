@@ -60,19 +60,25 @@
     &:last-child {
       border-bottom: none;
     }
-    img {
-      flex: 0 0 24px;
-      height: 24px;
-      border: 1px solid @colorDark;
-      border-radius: 4px;
-    }
-    h4 {
-      line-height: 24px;
-      margin: 0 0 0 4px;
-    }
-    .tag {
+
+    .action-name {
       flex: none;
+      align-items: center;
+      img {
+        flex: 0 0 24px;
+        height: 24px;
+        border: 1px solid @colorDark;
+        border-radius: 4px;
+      }
+      h4 {
+        margin: 0 0 0 4px;
+      }
     }
+
+    .action-tags {
+      text-align: right;
+    }
+
     .description {
       margin: 0.25rem 0;
       flex: 0 0 100%;

@@ -33,11 +33,15 @@
             </h3>
             {{#each document.actions as |action|}}
             <div class="action flexrow" data-action-id="{{this.id}}">
-                <img src="{{action.img}}" height="24" width="24"/>
-                <h4 class="action-name">{{action.name}}</h4>
-                {{#each action.getAllTags}}
-                <span class="tag">{{this}}</span>
+                <div class="action-name flexrow">
+                    <img src="{{action.img}}" height="24" width="24"/>
+                    <h4>{{action.name}}</h4>
+                </div>
+                <div class="tags action-tags" data-tag-type="action">
+                {{#each action.getTags as |label tag|}}
+                    <span class="tag" data-tag="{{tag}}">{{this}}</span>
                 {{/each}}
+                </div>
                 {{#if action.condition}}
                 <p class="condition">
                     <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>

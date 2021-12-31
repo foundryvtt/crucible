@@ -109,8 +109,9 @@ Hooks.once("ready", function() {
     Object.freeze(c);
   }
 
-  // TODO: Make this cleaner
-  localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id);
+  // Pre-localize config translations
+  preLocalizeConfig()
+  localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id); // TODO: Make this cleaner
 
   // Preload Handlebars Templates
   loadTemplates([
@@ -120,6 +121,7 @@ Hooks.once("ready", function() {
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
+  $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip)
 
   // Display Playtest Introduction journal
   const intro = game.journal.getName("Playtest Introduction");
@@ -157,4 +159,74 @@ async function packageItemCompendium(itemType) {
   // Load everything to the pack, keeping IDs
   await Item.createDocuments(data, {pack: pack.collection, keepId: true});
   await pack.configure({locked: true});
+}
+
+/* -------------------------------------------- */
+
+
+function preLocalizeConfig() {
+  const localizeConfigObject = (obj, keys) => {
+    for ( let o of Object.values(obj) ) {
+      for ( let k of keys ) {
+        o[k] = game.i18n.localize(o[k]);
+      }
+    }
+  }
+
+  // Action Tags
+  localizeConfigObject(SYSTEM.TALENT.ACTION_TAGS, ["label", "tooltip"]);
+}
+
+/* -------------------------------------------- */
+
+// Create a global tooltip
+const _tooltip = document.createElement("div");
+_tooltip.id = "crucible-tooltip";
+_tooltip.classList.add("tooltip");
+document.body.appendChild(_tooltip);
+
+function onTagHoverTooltip(event) {
+  const el = event.currentTarget;
+  const parent = el.parentElement;
+  const tagType = parent.dataset.tagType;
+  const tag = el.dataset.tag;
+
+  // No tooltip
+  if ( !tagType || !tag ) {
+    _tooltip.classList.remove("active");
+    return;
+  }
+
+  // Add tooltip
+  if ( event.type === "mouseenter" ) {
+    const tip = getTagTooltip(tagType, tag);
+    if ( !tip ) return tooltip.classList.remove("active");
+    _tooltip.classList.add("active");
+    _tooltip.innerText = tip;
+    const pos = el.getBoundingClientRect();
+    _tooltip.style.top = `${pos.bottom + 5}px`;
+
+    // Extend left
+    if ( (pos.x + _tooltip.offsetWidth) > window.innerWidth ) {
+      _tooltip.style.right = `${window.innerWidth - pos.right}px`;
+      _tooltip.style.left = null;
+    }
+
+    // Extend right
+    else {
+      _tooltip.style.left = `${pos.left}px`;
+      _tooltip.style.right = null;
+    }
+  }
+
+  // Remove tooltip
+  else _tooltip.classList.remove("active");
+}
+
+function getTagTooltip(tagType, tag) {
+  switch ( tagType ) {
+    case "action":
+      return game.i18n.localize(SYSTEM.TALENT.ACTION_TAGS[tag]?.tooltip);
+  }
+
 }

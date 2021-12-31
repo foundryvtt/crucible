@@ -45,49 +45,68 @@ export const ACTION_TARGET_TYPES = {
  * @enum {ActionTag}
  */
 export const ACTION_TAGS = {
+  chain: {
+    tag: "chain",
+    label: "ACTION.TagChain",
+    tooltip: "ACTION.TagChainTooltip",
+    post: async function(actor, action, target, rolls) {
+      if ( !rolls.every(r => r.isSuccess ) ) return;
+      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
+      rolls.push(chain);
+    }
+  },
   deadly: {
     tag: "deadly",
-    label: "Deadly",
+    label: "ACTION.TagDeadly",
+    tooltip: "ACTION.TagDeadlyTooltip",
     pre: (actor, action) => action.bonuses.damageMultiplier += 1,
   },
   difficult: {
     tag: "difficult",
-    label: "Difficult",
+    label: "ACTION.TagDifficult",
+    tooltip: "ACTION.TagDifficultTooltip",
     pre: (actor, action) => action.bonuses.banes += 2
   },
   dualwield: {
     tag: "dualwield",
-    label: "Dual Wield",
+    label: "ACTION.TagDualWield",
+    tooltip: "ACTION.TagDualWieldTooltip",
     can: (actor, action) => actor.equipment.weapons.dualWield
   },
   empowered: {
     tag: "empowered",
-    label: "Empowered",
+    label: "ACTION.TagEmpowered",
+    tooltip: "ACTION.TagEmpoweredTooltip",
     pre: (actor, action) => action.bonuses.damageBonus += 2,
   },
   exposing: {
     tag: "exposing",
-    label: "Exposing",
+    label: "ACTION.TagExposing",
+    tooltip: "ACTION.TagExposingTooltip",
     pre: (actor, action) => action.bonuses.boons += 2
   },
   finesse: {
     tag: "finesse",
-    label: "Finesse",
+    label: "ACTION.TagFinesse",
+    tooltip: "ACTION.TagFinesseTooltip",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity")
   },
   harmless: {
     tag: "harmless",
-    label: "Harmless",
-    pre: (actor, action) => action.bonuses.damageMultiplier -= 1
+    label: "ACTION.TagHarmless",
+    tooltip: "ACTION.TagHarmlessTooltip",
+    pre: (actor, action) => action.bonuses.damageMultiplier = 0
   },
-  indirect: {
-    tag: "indirect",
-    label: "Indirect",
+  weakened: {
+    tag: "weakened",
+    label: "ACTION.TagWeakened",
+    tooltip: "ACTION.TagWeakenedTooltip",
     pre: (actor, action) => action.bonuses.damageBonus -= 2,
   },
   melee: {
     tag: "melee",
-    label: "Melee",
+    label: "ACTION.TagMelee",
+    tooltip: "ACTION.TagMeleeTooltip",
     can: (actor, action) => actor.equipment.weapons.melee,
     execute: (actor, action, target) => {
       target.status.wasAttacked = true
@@ -96,7 +115,8 @@ export const ACTION_TAGS = {
   },
   mainhand: {
     tag: "mainhand",
-    label: "Main-Hand",
+    label: "ACTION.TagMainHand",
+    tooltip: "ACTION.TagMainHandTooltip",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
@@ -107,49 +127,34 @@ export const ACTION_TAGS = {
   },
   movement: {
     tag: "movement",
-    label: "Movement",
+    label: "ACTION.TagMovement",
+    tooltip: "ACTION.TagMovementTooltip",
     prepare: (actor, action) => action.actionCost -= (actor.status.hasMoved ? 0 : 1),
     execute: (actor, action, target) => action.actorUpdates["data.status.hasMoved"] = true
   },
   ranged: {
     tag: "ranged",
-    label: "Ranged",
+    label: "ACTION.TagRanged",
+    tooltip: "ACTION.TagRangedTooltip",
     can: (actor, action) => actor.equipment.weapons.ranged,
     execute: (actor, action, target) => action.actorUpdates["data.status.hasAttacked"] = true
   },
   reaction: {
     tag: "reaction",
-    label: "Reaction",
+    label: "ACTION.TagReaction",
+    tooltip: "ACTION.TagReactionTooltip",
     can: (actor, action) => actor !== game.combat?.combatant.actor
   },
   shield: {
     type: "shield",
-    label: "Shield",
+    label: "ACTION.TagShield",
+    tooltip: "ACTION.TagShieldTooltip",
     can: (actor, action) => actor.equipment.weapons.shield
-  },
-  chain: {
-    tag: "chain",
-    label: "Attack Chain",
-    post: async function(actor, action, target, rolls) {
-      if ( !rolls.every(r => r.isSuccess ) ) return;
-      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
-      rolls.push(chain);
-    }
-  },
-  offhand: {
-    tag: "offhand",
-    label: "Off-Hand",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
-    pre: (actor, action) => {
-      const oh = actor.equipment.weapons.offhand;
-      foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {hasDice: true, label: oh.name, tags: oh.getTags({scope: "short"})});
-    },
-    execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
   twohand: {
     tag: "twohand",
-    label: "Two-Handed",
+    label: "ACTION.TagTwoHanded",
+    tooltip: "ACTION.TagTwoHandedTooltip",
     prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
     can: (actor, action) => actor.equipment.weapons.twoHanded,
     pre: (actor, action) => {
@@ -159,19 +164,28 @@ export const ACTION_TAGS = {
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
-  weapon: {
-    tag: "weapon",
-    label: "Weaponry",
-    can: (actor, action) => !actor.equipment.weapons.unarmed
+  offhand: {
+    tag: "offhand",
+    label: "ACTION.TagOffHand",
+    tooltip: "ACTION.TagOffHandTooltip",
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
+    pre: (actor, action) => {
+      const oh = actor.equipment.weapons.offhand;
+      foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
+      foundry.utils.mergeObject(action.context, {hasDice: true, label: oh.name, tags: oh.getTags({scope: "short"})});
+    },
+    execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
   unarmed: {
     tag: "unarmed",
-    label: "Unarmed",
+    label: "ACTION.TagUnarmed",
+    tooltip: "ACTION.TagUnarmedTooltip",
     can: (actor, action) => actor.equipment.weapons.unarmed
   },
   unarmored: {
     tag: "unarmored",
-    label: "Unarmored",
+    label: "ACTION.TagUnarmored",
+    tooltip: "ACTION.TagUnarmoredTooltip",
     can: (actor, action) => actor.equipment.unarmored
   },
 

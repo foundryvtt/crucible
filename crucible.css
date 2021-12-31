@@ -73,6 +73,51 @@
 .crucible span.input {
   text-align: center;
 }
+/* Tooltips */
+#crucible-tooltip,
+.crucible .tooltip {
+  display: none;
+  width: max-content;
+  max-width: 320px;
+  line-height: 16px;
+  position: absolute;
+  top: 120%;
+  padding: 2px 5px;
+  background: rgba(0, 0, 0, 0.95);
+  font-family: "Signika", serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  text-shadow: none;
+  color: #c9c7b8;
+  border-radius: 3px;
+  box-shadow: 0 0 4px #000;
+  z-index: 999;
+}
+#crucible-tooltip.left,
+.crucible .tooltip.left {
+  left: 0;
+}
+#crucible-tooltip.right,
+.crucible .tooltip.right {
+  right: 0;
+}
+#crucible-tooltip.center,
+.crucible .tooltip.center {
+  left: calc(100% - 180px);
+}
+#crucible-tooltip {
+  position: absolute;
+}
+#crucible-tooltip.active {
+  display: block;
+}
+.crucible .tooltipped {
+  position: relative;
+}
+.crucible .tooltipped:hover > .tooltip {
+  display: block;
+}
 h1.divider,
 h2.divider,
 h3.divider,
@@ -135,7 +180,6 @@ h2.divider span {
   /* Highlight Boxes */
   /* Control Buttons */
   /** Incompletion Warnings */
-  /* Tooltips */
 }
 .crucible.sheet h1,
 .crucible.sheet h2,
@@ -219,40 +263,6 @@ h2.divider span {
   font-size: var(--fontSizeMain);
   color: var(--color-text-hyperlink);
   text-shadow: 0 0 4px #FFF;
-}
-.crucible.sheet .tooltipped {
-  position: relative;
-}
-.crucible.sheet .tooltipped .tooltip {
-  display: none;
-  width: max-content;
-  max-width: 320px;
-  line-height: 16px;
-  position: absolute;
-  top: 120%;
-  padding: 2px 5px;
-  background: rgba(0, 0, 0, 0.95);
-  font-family: "Signika", serif;
-  font-size: 12px;
-  font-weight: normal;
-  text-align: left;
-  text-shadow: none;
-  color: #c9c7b8;
-  border: 1px solid #000;
-  border-radius: 3px;
-  z-index: 999;
-}
-.crucible.sheet .tooltipped .tooltip.left {
-  left: 0;
-}
-.crucible.sheet .tooltipped .tooltip.right {
-  right: 0;
-}
-.crucible.sheet .tooltipped .tooltip.center {
-  left: calc(100% - 180px);
-}
-.crucible.sheet .tooltipped:hover > .tooltip {
-  display: block;
 }
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
@@ -954,18 +964,21 @@ h2.divider span {
 .crucible.talent .action:last-child {
   border-bottom: none;
 }
-.crucible.talent .action img {
+.crucible.talent .action .action-name {
+  flex: none;
+  align-items: center;
+}
+.crucible.talent .action .action-name img {
   flex: 0 0 24px;
   height: 24px;
   border: 1px solid #191813;
   border-radius: 4px;
 }
-.crucible.talent .action h4 {
-  line-height: 24px;
+.crucible.talent .action .action-name h4 {
   margin: 0 0 0 4px;
 }
-.crucible.talent .action .tag {
-  flex: none;
+.crucible.talent .action .action-tags {
+  text-align: right;
 }
 .crucible.talent .action .description {
   margin: 0.25rem 0;
@@ -1103,8 +1116,6 @@ h2.divider span {
   text-align: right;
   margin: 0;
 }
-.crucible.action .action-targets,
-.crucible.action .action-context,
 .crucible.action .action-tags {
   flex: 0 0 100%;
   display: flex;
@@ -1112,13 +1123,9 @@ h2.divider span {
   font-size: 12px;
   line-height: 20px;
 }
-.crucible.action .action-targets label,
-.crucible.action .action-context label,
 .crucible.action .action-tags label {
   flex: 1;
 }
-.crucible.action .action-targets .target-link,
-.crucible.action .action-context .target-link,
 .crucible.action .action-tags .target-link {
   flex: none;
 }

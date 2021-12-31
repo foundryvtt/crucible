@@ -98,6 +98,44 @@ export default class ActionData extends foundry.abstract.DocumentData {
   /* -------------------------------------------- */
 
   /**
+   * Obtain an object of tags which describe the Action.
+   * @param {string} scope      The subset of tags desired: "action", "activation", or "all"
+   * @returns {Object<string, string>}
+   */
+  getTags(scope="all") {
+    const tags = {};
+
+    // Action Tags
+    if ( ["all", "action"].includes(scope) ) {
+      for (let t of this.tags) {
+        const tag = TALENT.ACTION_TAGS[t];
+        if ( tag.label ) tags[tag.tag] = tag.label;
+      }
+    }
+
+    // Activation Tags
+    if ( ["all", "activation"].includes(scope) ) {
+
+      // Target
+      let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
+      if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
+      tags.target = target;
+
+      // Cost
+      const ap = Math.max(this.actionCost, 0);
+      const fp = Math.max(this.focusCost, 0);
+      tags.cost = [
+        ap ? `${ap}A` : null,
+        fp ? `${fp}F` : null,
+        !ap && !fp ? "Free" : null
+      ].filterJoin(" ");
+    }
+    return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Get tags which describe the activation conditions for the Action.
    * @returns {string[]}
    */
@@ -160,8 +198,8 @@ export default class ActionData extends foundry.abstract.DocumentData {
     const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.html", {
       action: this,
       actor: actor,
-      activationTags: this.getActivationTags(),
-      actionTags: this.getActionTags(),
+      activationTags: this.getTags("activation"),
+      actionTags: this.getTags("action"),
       showTargets: this.targetType !== "self",
       targets: targets,
       rolls: await Promise.all(rolls.map(r => r.render()))

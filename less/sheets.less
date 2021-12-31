@@ -97,33 +97,5 @@
     color: var(--color-text-hyperlink);
     text-shadow: 0 0 4px #FFF;
   }
-
-  /* Tooltips */
-  .tooltipped {
-    position: relative;
-    .tooltip {
-      display: none;
-      width: max-content;
-      max-width: 320px;
-      line-height: 16px;
-      position: absolute;
-      top: 120%;
-      padding: 2px 5px;
-      background: rgba(0, 0, 0, 0.95);
-      font-family: "Signika", serif;
-      font-size: 12px;
-      font-weight: normal;
-      text-align: left;
-      text-shadow: none;
-      color: @colorFaint;
-      border: 1px solid #000;
-      border-radius: 3px;
-      z-index: 999;
-      &.left { left: 0; }
-      &.right { right: 0; }
-      &.center { left: calc(100% - 180px); }
-    }
-    &:hover > .tooltip { display: block; }
-  }
 }
 

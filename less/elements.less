@@ -57,6 +57,41 @@
   }
 }
 
+/* Tooltips */
+#crucible-tooltip,
+.crucible .tooltip {
+  display: none;
+  width: max-content;
+  max-width: 320px;
+  line-height: 16px;
+  position: absolute;
+  top: 120%;
+  padding: 2px 5px;
+  background: rgba(0, 0, 0, 0.95);
+  font-family: "Signika", serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  text-shadow: none;
+  color: @colorFaint;
+  border-radius: 3px;
+  box-shadow: 0 0 4px #000;
+  z-index: 999;
+  &.left { left: 0; }
+  &.right { right: 0; }
+  &.center { left: calc(100% - 180px); }
+}
+// Global tooltip
+#crucible-tooltip {
+  position: absolute;
+  &.active { display: block }
+}
+// Relative tooltip
+.crucible .tooltipped {
+  position: relative;
+  &:hover > .tooltip { display: block; }
+}
+
 // Divider Headers
 h1.divider,
 h2.divider,

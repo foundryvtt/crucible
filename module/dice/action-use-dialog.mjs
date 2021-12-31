@@ -51,8 +51,8 @@ export default class ActionUseDialog extends Dialog {
     return {
       action: action,
       actor: actor,
-      activationTags: action.getActivationTags(),
-      actionTags: action.getActionTags(),
+      activationTags: action.getTags("activation"),
+      actionTags: action.getTags("action"),
       boons: boons ?? 0,
       banes: banes ?? 0,
       hasDice: action.context.hasDice ?? false,

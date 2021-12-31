@@ -1,20 +1,20 @@
 <header class="action-header flexrow">
     <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
     <h3 class="action-name">{{action.name}}</h3>
-    <p class="activation-tags">
-        {{#each activationTags}}
-        <span class="tag">{{this}}</span>
+    <p class="tags activation-tags" data-tag-type="activation">
+        {{#each activationTags as |label tag|}}
+        <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </p>
-    <p class="action-tags">
+    <p class="tags action-tags" data-tag-type="action">
         <label>{{localize "ACTION.Action"}}</label>
-        {{#each actionTags}}
-        <span class="tag">{{this}}</span>
+        {{#each actionTags as |label tag|}}
+        <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </p>
 
     {{#if action.context}}
-    <div class="action-context">
+    <div class="tags action-tags" data-tag-type="{{action.context.type}}">
         <label>{{action.context.label}}</label>
         {{#each action.context.tags}}
         <span class="tag">{{this}}</span>
@@ -23,7 +23,7 @@
     {{/if}}
 
     {{#if showTargets}}
-    <div class="action-targets">
+    <div class="tags action-tags">
         <label>{{localize "ACTION.Targets"}}</label>
         {{#each targets}}
         <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
