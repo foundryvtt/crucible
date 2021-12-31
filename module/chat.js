@@ -9,7 +9,8 @@ export function addChatMessageContextOptions(html, options)  {
     condition: li => {
       if ( !game.user.isGM ) return false;
       const message = game.messages.get(li.data("messageId"));
-      return message.isRoll && !message.getFlag("crucible", "isAttack");
+      const flags = message.data.flags.crucible || {};
+      return message.isRoll && !flags.isAttack;
     },
     callback: li => {
       const message = game.messages.get(li.data("messageId"));
@@ -35,7 +36,8 @@ export function addChatMessageContextOptions(html, options)  {
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.data.flags.crucible || {};
-      return flags.isAttack && !flags.damageApplied;
+      const rolls = message.roll.terms[0].rolls;
+      return flags.isAttack && !flags.damageApplied && rolls.some(r => r.data.damage?.total);
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));

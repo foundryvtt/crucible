@@ -1,5 +1,6 @@
 import StandardCheck from "./standard-check.js";
 import {SYSTEM} from "../config/system.js";
+import ActionUseDialog from "./action-use-dialog.mjs";
 
 
 /**
@@ -34,6 +35,12 @@ export default class AttackRoll extends StandardCheck {
     result: undefined,
     damage: undefined
   });
+
+  /**
+   * Which Dialog subclass should display a prompt for this Roll type?
+   * @type {ActionUseDialog}
+   */
+  static dialogClass = ActionUseDialog;
 
   /**
    * The possible result types which can occur from an attack roll

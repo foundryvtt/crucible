@@ -5,7 +5,7 @@ import StandardCheck from "./standard-check.js";
  * Prompt the user to perform a Standard Check.
  * @extends {Dialog}
  */
-export class StandardCheckDialog extends Dialog {
+export default class StandardCheckDialog extends Dialog {
 
   /**
    * A StandardCheck dice pool instance which organizes the data for this dialog

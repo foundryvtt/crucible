@@ -1,6 +1,7 @@
 import * as fields from "/common/data/fields.mjs";
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
+import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
@@ -217,7 +218,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
       roll: metaRoll,
       flags: {
         crucible: {
-          isAttack: !!rolls[0]?.data.damage,
+          isAttack: rolls.length,
           targets: targets
         }
       }
@@ -291,10 +292,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
 
     // Prompt for confirmation with a dialog which customizes boons and banes
     if ( dialog ) {
-      const response = await ActionUseDialog.prompt({options: {action, actor, boons, banes, targets}});
+      const pool = new StandardCheck(action.bonuses);
+      const response = await ActionUseDialog.prompt({options: {action, actor, pool, targets}});
       if ( response === null ) return [];
-      action.bonuses.boons = response.boons;
-      action.bonuses.banes = response.banes;
+      action.bonuses.boons = response.data.boons;
+      action.bonuses.banes = response.data.banes;
     }
 
     // Iterate over every designated target
