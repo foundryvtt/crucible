@@ -99,7 +99,6 @@ export default class StandardCheckDialog extends Dialog {
     html.find('[data-action]').click(this._onClickAction.bind(this));
     html.find('label[data-action]').contextmenu(this._onClickAction.bind(this));
     html.find('select[name="tier"]').change(this._onChangeDifficultyTier.bind(this));
-    html.find('select[name="rollMode"]').change(this._onChangeRollMode.bind(this));
     super.activateListeners(html);
   }
 
@@ -113,41 +112,44 @@ export default class StandardCheckDialog extends Dialog {
     event.preventDefault();
     const action = event.currentTarget.dataset.action;
     const form = event.currentTarget.closest("form");
-    const bonuses = this.pool.data;
+    const rollData = this.pool.data;
     switch ( action ) {
       case "boon-add":
-        return this._updatePool(form, {boons: Math.clamped(bonuses.boons + 1, 0, SYSTEM.dice.MAX_BOONS)});
+        this._updatePool(form, {boons: Math.clamped(rollData.boons + 1, 0, SYSTEM.dice.MAX_BOONS)});
+        return this.render();
       case "boon-subtract":
-        return this._updatePool(form, {boons: Math.clamped(bonuses.boons - 1, 0, SYSTEM.dice.MAX_BOONS)});
+        this._updatePool(form, {boons: Math.clamped(rollData.boons - 1, 0, SYSTEM.dice.MAX_BOONS)});
+        return this.render();
       case "bane-add":
-        return this._updatePool(form, {banes: Math.clamped(bonuses.banes + 1, 0, SYSTEM.dice.MAX_BOONS)});
+        this._updatePool(form, {banes: Math.clamped(rollData.banes + 1, 0, SYSTEM.dice.MAX_BOONS)});
+        return this.render();
       case "bane-subtract":
-        return this._updatePool(form, {banes: Math.clamped(bonuses.banes - 1, 0, SYSTEM.dice.MAX_BOONS)});
+        this._updatePool(form, {banes: Math.clamped(rollData.banes - 1, 0, SYSTEM.dice.MAX_BOONS)});
+        return this.render();
       case "request":
         this._updatePool(form);
         this.pool.request({
           title: this.title,
-          flavor: this.options.flavor,
-          rollMode: this.options.rollMode
+          flavor: this.options.flavor
         });
+        const actor = game.actors.get(rollData.actorId);
+        ui.notifications.info(`Requested a ${rollData.type} check be made by ${actor.name}.`);
         return this.close();
     }
   }
 
 	/* -------------------------------------------- */
 
+  /**
+   * Handle changes to the difficulty tier select input
+   * @param {Event} event           The event which triggers on select change
+   * @private
+   */
   _onChangeDifficultyTier(event) {
     event.preventDefault();
     event.stopPropagation();
-    return this._updatePool({dc: parseInt(event.target.value)});
-  }
-
-	/* -------------------------------------------- */
-
-  _onChangeRollMode(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.options.rollMode = event.target.value;
+    this._updatePool({dc: parseInt(event.target.value)});
+    return this.render();
   }
 
 	/* -------------------------------------------- */
@@ -162,7 +164,6 @@ export default class StandardCheckDialog extends Dialog {
     const fd = new FormDataExtended(form);
     updates = foundry.utils.mergeObject(fd.toObject(), updates);
     this.pool.initialize(updates);
-    this.render();
   }
 
   /* -------------------------------------------- */
@@ -188,8 +189,8 @@ export default class StandardCheckDialog extends Dialog {
    */
   static _onSubmit(html, pool) {
     const form = html.querySelector("form");
-    const fd = new FormDataExtended(form);
-    pool.initialize(fd.toObject());
+    const fd = (new FormDataExtended(form)).toObject();
+    pool.initialize(fd);
     return pool;
   }
 }

@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Playtest/Introduction.md",
+            "file": "To-Do List.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Playtest/Introduction.md",
+                "file": "To-Do List.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Playtest/Introduction.md"
+                "file": "To-Do List.md"
               }
             }
           }
@@ -100,6 +100,7 @@
   },
   "active": "9e715501b208f557",
   "lastOpenFiles": [
+    "To-Do List.md",
     "Playtest/Introduction.md",
     "Combat/Initiative and Turn Order.md",
     "Combat/Rounds, Turns, and Phases.md",
@@ -108,7 +109,6 @@
     "Character/Skills.md",
     "Character/Background.md",
     "Combat/Combat Conditions.md",
-    "Conditions.md",
-    "To-Do List.md"
+    "Conditions.md"
   ]
 }

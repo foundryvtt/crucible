@@ -1,6 +1,7 @@
 import * as fields from "/common/data/fields.mjs";
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
+import MetaRoll from "../dice/meta-roll.mjs";
 import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
@@ -203,12 +204,11 @@ export default class ActionData extends foundry.abstract.DocumentData {
       activationTags: this.getTags("activation"),
       actionTags: this.getTags("action"),
       showTargets: this.targetType !== "self",
-      targets: targets,
-      rolls: await Promise.all(rolls.map(r => r.render()))
+      targets: targets
     });
 
     // Composite a single roll for the purpose of the chat record
-    const metaRoll = Roll.fromTerms([PoolTerm.fromRolls(rolls)]);
+    const metaRoll = MetaRoll.fromRolls(rolls);
 
     // Create chat message
     const messageData = {

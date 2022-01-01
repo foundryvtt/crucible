@@ -43,7 +43,6 @@
         {{#if isGM}}
         <div class="target flexcol">
             <select name="tier">
-                {{log difficulty}}
                 {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Assign Difficulty"}}
             </select>
             {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}

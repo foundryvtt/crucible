@@ -58,6 +58,7 @@ export default class BackgroundSheet extends ItemSheet {
    * @private
    */
   _disableSkills() {
+    if ( !this.isEditable ) return;
     const skills = this.element.find(".skills input");
     const checked = Array.from(skills).reduce((n, s) => n + (s.checked ? 1 : 0), 0);
     for ( let s of skills ) {

@@ -10,9 +10,10 @@ import {SYSTEM} from "./module/config/system.js";
 
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
-import CrucibleItem from "./module/documents/item.mjs";
+import CrucibleChatMessage from "./module/documents/chat-message.mjs";
 import CrucibleCombat from "./module/documents/combat.mjs";
 import CrucibleCombatant from "./module/documents/combatant.mjs";
+import CrucibleItem from "./module/documents/item.mjs";
 import ActionData from "./module/data/action.mjs";
 import {TalentData, TalentRankData, TalentPassiveData} from "./module/data/talent.mjs";
 
@@ -24,9 +25,10 @@ import BackgroundSheet from "./module/sheets/background.js";
 import TalentSheet from "./module/sheets/talent.mjs";
 import WeaponSheet from "./module/sheets/weapon.js";
 
-// Apps
+// Dice
 import StandardCheck from "./module/dice/standard-check.js";
 import AttackRoll from "./module/dice/attack-roll.mjs";
+import MetaRoll from "./module/dice/meta-roll.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
@@ -44,16 +46,15 @@ Hooks.once("init", async function() {
 
   // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
-  game.system.dice = { AttackRoll, StandardCheck };
+  game.system.dice = { AttackRoll, StandardCheck, MetaRoll };
   game.system.journal = { buildJournalCompendium }
   game.system.api = {
     ActionData,
-    AttackRoll,
     CrucibleActor,
-    CrucibleItem,
+    CrucibleChatMessage,
     CrucibleCombat,
     CrucibleCombatant,
-    StandardCheck,
+    CrucibleItem,
     TalentData,
     TalentRankData,
     TalentPassiveData,
@@ -74,17 +75,30 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
 
-  // Combat Configuration
+  // Other Document Configuration
+  CONFIG.ChatMessage.documentClass = CrucibleChatMessage;
   CONFIG.Combat.documentClass = CrucibleCombat;
   CONFIG.Combatant.documentClass = CrucibleCombatant;
 
   // Dice system configuration
-  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
+  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll, MetaRoll);
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 });
 
+/* -------------------------------------------- */
+
+Hooks.once("i18nInit", function() {
+
+  // Pre-localize configuration objects
+  preLocalizeConfig();
+
+  // Preload Handlebars Templates
+  loadTemplates([
+    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,  // Dice Partials
+  ]);
+});
 
 /* -------------------------------------------- */
 /*  Ready Hooks                                 */
@@ -95,7 +109,7 @@ Hooks.once("ready", function() {
   // Apply localizations
   const toLocalize = [
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
-    "DAMAGE_TYPES", "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
+    "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
@@ -109,15 +123,8 @@ Hooks.once("ready", function() {
     Object.freeze(c);
   }
 
-  // Pre-localize config translations
-  preLocalizeConfig()
+  // Pre-localize translations
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id); // TODO: Make this cleaner
-
-  // Preload Handlebars Templates
-  loadTemplates([
-    // Dice Partials
-    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
-  ]);
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
@@ -174,6 +181,7 @@ function preLocalizeConfig() {
   }
 
   // Action Tags
+  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.TALENT.ACTION_TAGS, ["label", "tooltip"]);
 }
 

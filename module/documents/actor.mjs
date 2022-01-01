@@ -579,7 +579,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Execute the roll to chat
-    await sc.toMessage({flavor}, {rollMode});
+    await sc.toMessage({flavor});
     return sc;
   }
 
@@ -942,20 +942,24 @@ export default class CrucibleActor extends Actor {
   async equipArmor({itemId, equipped=true}={}) {
     const current = this.equipment.armor;
     const item = this.items.get(itemId);
-    const updates = [];
 
-    // Un-equip the current armor
-    if ( item && (current === item) && !equipped ) {
-      updates.push({_id: current.id, "data.equipped": false});
+    // Modify the currently equipped armor
+    if ( current === item ) {
+      if ( equipped ) return current;
+      else return current.update({"data.equipped": false});
     }
 
-    // Equip a new piece of armor
-    if ( item && equipped ) {
-      updates.push({_id: item.id, "data.equipped": true});
+    // Cannot equip armor
+    if ( current.id ) {
+      return ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+        actor: this.name,
+        item: item.name,
+        type: game.i18n.localize("ITEM.TypeArmor")
+      }));
     }
 
-    // Apply the updates
-    return this.updateEmbeddedDocuments("Item", updates);
+    // Equip new armor
+    return item.update({"data.equipped": true});
   }
 
   /* -------------------------------------------- */
@@ -995,14 +999,14 @@ export default class CrucibleActor extends Actor {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipInvalidCategory", {
           actor: this.name,
           item: w2.name,
-          type: "offhand"
+          type: game.i18n.localize("ITEM.HandsOff")
         }));
       }
       if ( !isOHFree ) {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
           actor: this.name,
           item: w2.name,
-          type: "offhand"
+          type: game.i18n.localize("ITEM.HandsOff")
         }));
       }
       else {
@@ -1026,7 +1030,7 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: w1.name,
-        type: w1.config.category.off ? "offhand" : "mainhand"
+        type: game.i18n.localize(`ITEM.Hands${w1.config.category.off ? "Off" : "Main"}`)
       }));
     }
 
@@ -1036,6 +1040,18 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
   /*  Database Workflows                          */
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+
+    // Prototype Token configuration
+    if ( this.type === "hero" ) {
+      this.data.token.update({vision: true, actorLink: true, disposition: 1});
+    }
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritdoc */

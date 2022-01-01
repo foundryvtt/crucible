@@ -84,13 +84,14 @@ export default class AttackRoll extends StandardCheck {
   /*  Helpers                                     */
   /* -------------------------------------------- */
 
-  _getChatCardData(chatOptions) {
-    const cardData = super._getChatCardData(chatOptions);
+  /** @inheritdoc */
+  _getChatCardData() {
+    const cardData = super._getChatCardData();
 
     // Defense label
     switch ( this.data.defenseType ) {
       case "physical":
-        cardData.defenseType = "Defense";
+        cardData.defenseType = game.i18n.localize("DEFENSES.Defense");
         break;
       default:
         cardData.defenseType = SYSTEM.SAVE_DEFENSES[this.data.defenseType].label;

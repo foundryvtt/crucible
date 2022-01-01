@@ -20,23 +20,23 @@
 
         <div class="dice-tooltip">
             <div class="counter">
-                <label>Dice Total</label>
+                <label>{{localize "DICE.DiceTotal"}}</label>
                 <span>{{diceTotal}}</span>
             </div>
             <div class="counter">
-                <label>Ability Bonus</label>
+                <label>{{localize "DICE.AbilityBonus"}}</label>
                 <span>{{data.ability}}</span>
             </div>
             <div class="counter">
-                <label>Skill Bonus</label>
+                <label>{{localize "DICE.SkillBonus"}}</label>
                 <span>{{data.skill}}</span>
             </div>
             <div class="counter">
-                <label>Enchantment Bonus</label>
+                <label>{{localize "DICE.EnchantmentBonus"}}</label>
                 <span>{{data.enchantment}}</span>
             </div>
             <div class="counter">
-                <label>Circumstance Bonus</label>
+                <label>{{localize "DICE.CircumstanceBonus"}}</label>
                 <span>{{data.circumstance}}</span>
             </div>
         </div>
@@ -52,25 +52,25 @@
         {{#if data.damage.total}}
         <div class="dice-tooltip">
             <div class="counter">
-                <label>Overflow</label>
+                <label>{{localize "DICE.DamageOverflow"}}</label>
                 <span>{{data.damage.overflow}}</span>
             </div>
             <div class="counter">
-                <label>Multiplier</label>
+                <label>{{localize "DICE.DamageMultiplier"}}</label>
                 <span>{{data.damage.multiplier}}</span>
             </div>
             <div class="counter">
-                <label>Bonus</label>
+                <label>{{localize "DICE.DamageBonus"}}</label>
                 <span>{{data.damage.bonus}}</span>
             </div>
             <div class="counter">
-                <label>Resistance</label>
+                <label>{{localize "DICE.DamageResistance"}}</label>
                 <span>{{data.damage.resistance}}</span>
             </div>
         </div>
 
         <h4 class="dice-total damage-result">
-            <span class="outcome">Damage</span>
+            <span class="outcome">{{localize "DICE.Damage"}}</span>
             <span>{{data.damage.total}}</span>
             <span class="target">{{damageType}}</span>
         </h4>

@@ -30,6 +30,12 @@ export default class CrucibleCombat extends Combat {
 
   /* -------------------------------------------- */
 
+  /**
+   * When the Combat encounter advances to a new round, trigger an update of Initiative for every participant.
+   * @param {object} data               The data being changed as the round changes
+   * @returns {Promise<object[]>}       Updated initiative scores for all Combatant documents
+   * @private
+   */
   async _updateAllInitiative(data) {
     const combatantUpdates = [];
     const chatLog = [];
@@ -38,14 +44,14 @@ export default class CrucibleCombat extends Combat {
     for ( let c of this.combatants ) {
       const r = c.getInitiativeRoll();
       combatantUpdates.push(r.evaluate({async: true}).then(r => {
-        chatLog.push({name: c.name, roll: r, result: r.total});
-        return {_id: c.id, initiative: r.total}
+        chatLog.push({id: c.id, name: c.name, roll: r, initiative: r.total});
+        return {_id: c.id, initiative: r.total};
       }));
     }
     const updates = await Promise.all(combatantUpdates);
 
     // Chat log message
-    chatLog.sort((a, b) => b.result - a.result);
+    chatLog.sort(this._sortCombatants);
     const rows = chatLog.map(i => {
       const rd = i.roll.data;
       const modifiers = [
@@ -53,7 +59,7 @@ export default class CrucibleCombat extends Combat {
         rd.boons > 0 ? `${rd.boons} Boons` : "",
         rd.banes > 0 ? `${rd.banes} Banes` : ""
       ].filterJoin(", ");
-      return `<tr><td>${i.name}</td><td>${modifiers}</td><td>${i.result}</td></tr>`;
+      return `<tr><td>${i.name}</td><td>${modifiers}</td><td>${i.initiative}</td></tr>`;
     }).join("");
     ChatMessage.create({
       content: `
@@ -70,7 +76,8 @@ export default class CrucibleCombat extends Combat {
             ${rows}
         </tbody>
       </table>`,
-      speaker: ChatMessage.getSpeaker({user: game.user})
+      speaker: ChatMessage.getSpeaker({user: game.user}),
+      "flags.crucible.isInitiativeReport": true
     });
     return updates;
   }

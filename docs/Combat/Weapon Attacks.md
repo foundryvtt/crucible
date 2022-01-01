@@ -15,7 +15,7 @@ The amount by which the Attack Roll exceeded the Physical Defense value is somet
 
 ```
 Overflow = Attack Roll - Physical Defense
-Damage = ((Overflow + Damage Bonus) * Damage Multiplier) - Target Resistance
+Damage = ((Overflow * Damage Multiplier) + Damage Bonus - Target Resistance
 ```
 
 Any amount of Damage Resistance that the target possesses is used to reduce the amount of damage dealt by the attack - although damage cannot be mitigated entirely. Any attack that surpasses its target defense will always deal at least one point of damage.

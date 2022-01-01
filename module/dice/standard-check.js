@@ -8,6 +8,7 @@ import StandardCheckDialog from "./standard-check-dialog.js";
  * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
  * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
  * @property {number} [enchantment=0]         An enchantment bonus which modifies the roll, up to a maximum of 6
+ * @property {string} [rollMode]              The rollMode which should be used if this check is displayed in chat
  */
 
 /**
@@ -31,7 +32,6 @@ export default class StandardCheck extends Roll {
       formula = "";
     }
     super(formula, data);
-    this.data.id = this.data.id || foundry.utils.randomID(16);
   }
 
   /* -------------------------------------------- */
@@ -49,7 +49,8 @@ export default class StandardCheck extends Roll {
     dc: 20,
     enchantment: 0,
     skill: 0,
-    type: "general"
+    type: "general",
+    rollMode: undefined
   };
 
   /* -------------------------------------------- */
@@ -178,13 +179,18 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   async render(chatOptions={}) {
-    return renderTemplate(this.constructor.htmlTemplate, this._getChatCardData(chatOptions));
+    if ( chatOptions.isPrivate ) return "";
+    return renderTemplate(this.constructor.htmlTemplate, this._getChatCardData());
   }
 
   /* -------------------------------------------- */
 
-  _getChatCardData(chatOptions) {
-    const isPrivate = chatOptions.isPrivate;
+  /**
+   * Prepare the data object used to render the StandardCheck object to an HTML template
+   * @returns {object}      A prepared context object that is used to render the HTML template
+   * @private
+   */
+  _getChatCardData() {
     const cardData = {
       css: [SYSTEM.id, "standard-check"],
       data: this.data,
@@ -192,16 +198,10 @@ export default class StandardCheck extends Roll {
       defenseValue: this.data.dc,
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
       isGM: game.user.isGM,
-      isPrivate: isPrivate,
       formula: this.formula,
       outcome: "Unknown",
-      pool: this.dice.map(d => {
-        return {
-          denom: "d"+d.faces,
-          result: isPrivate ? "?" : d.total
-        }
-      }),
-      total: isPrivate ? "?" : this.total
+      pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
+      total: this.total
     }
 
     // Successes and Failures
@@ -256,11 +256,19 @@ export default class StandardCheck extends Roll {
   /*  Saving and Loading                          */
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   toJSON() {
     const data = super.toJSON();
     data.data = this.data;
     return data;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  async toMessage(messageData, options={}) {
+    options.rollMode = options.rollMode || this.data.rollMode;
+    return super.toMessage(messageData, options);
   }
 
   /* -------------------------------------------- */
@@ -271,18 +279,16 @@ export default class StandardCheck extends Roll {
    * Dispatch a request to perform a roll
    * @param {string} title      The title of the roll request
    * @param {string} flavor     Any flavor text attached to the roll
-   * @param {string} rollMode   The requested roll mode
    */
-  request({title, flavor, rollMode}={}) {
+  request({title, flavor}={}) {
     game.socket.emit(`system.${SYSTEM.id}`, {
       action: "diceCheck",
       data: {
         title: title,
         flavor: flavor,
-        rollMode: rollMode,
         check: this.data
       }
-    })
+    });
   }
 
   /* -------------------------------------------- */
@@ -291,16 +297,15 @@ export default class StandardCheck extends Roll {
    * Handle a request to roll a standard check
    * @param {string} title              The title of the roll request
    * @param {string} flavor             Any flavor text attached to the roll
-   * @param {string} rollMode           The requested roll mode
    * @param {StandardCheckData} check   Data for the handled check request
    */
-  static async handle({title, flavor, rollMode, check}={}) {
+  static async handle({title, flavor, check}={}) {
     const actor = game.actors.get(check.actorId);
     if ( actor.testUserPermission(game.user, "OWNER", {exact: true}) ) {
       const pool = new this(check);
-      const response = await pool.dialog({title, flavor, rollMode});
+      const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
-      return pool.toMessage({flavor}, {rollMode});
+      return pool.toMessage({flavor});
     }
   }
 }

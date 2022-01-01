@@ -1,4 +1,13 @@
 {
+
+"ACTOR.TypeHero": "Hero Character",
+"ACTOR.TypeNpc": "Non-Player Character",
+"ITEM.TypeAncestry": "Ancestry",
+"ITEM.TypeArmor": "Armor",
+"ITEM.TypeBackground": "Background",
+"ITEM.TypeTalent": "Talent",
+"ITEM.TypeWeapon": "Weapon",
+
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.PrimaryAbility": "Primary Ability",
@@ -137,13 +146,26 @@
 "DAMAGE.Spiritual": "Spiritual",
 "DAMAGE.SpiritualAbr": "Sptl",
 
+"DEFENSES.Defense": "Defense",
 "DEFENSES.Fortitude": "Fortitude",
 "DEFENSES.FortitudeAbr": "Fort",
 "DEFENSES.Reflex": "Reflex",
 "DEFENSES.ReflexAbr": "Ref",
 "DEFENSES.Willpower": "Willpower",
 "DEFENSES.WillpowerAbr": "Wil",
+"DEFENSES.Physical": "Physical",
+"DEFENSES.PhysicalAbr": "PD",
 
+"DICE.DiceTotal": "Dice Total",
+"DICE.AbilityBonus": "Ability Bonus",
+"DICE.SkillBonus": "Skill Bonus",
+"DICE.EnchantmentBonus": "Enchantment Bonus",
+"DICE.CircumstanceBonus": "Circumstance Bonus",
+"DICE.Damage": "Damage",
+"DICE.DamageOverflow": "Overflow Amount",
+"DICE.DamageMultiplier": "Damage Multiplier",
+"DICE.DamageBonus": "Damage Bonus",
+"DICE.DamageResistance": "Damage Resistance",
 "DICE.ApplyDamage": "Apply Damage",
 "DICE.ReverseDamage": "Reverse Damage",
 "DICE.SetDifficulty": "Set Difficulty",
@@ -499,8 +521,8 @@
 "WEAPON.Shield": "Shield",
 
 "WEAPON.HandsTwo": "Two-Handed",
-"WEAPON.HandsMain": "Main Hand",
-"WEAPON.HandsOff": "Off Hand",
+"WEAPON.HandsMain": "Main-Hand",
+"WEAPON.HandsOff": "Off-Hand",
 "WEAPON.HandsEither": "Either Hand",
 
 "WEAPON.TagAmbush": "Ambush",
@@ -528,7 +550,7 @@
 
 "WARNING.AbilityCantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
 "WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",
-"WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} weapon is already in use.",
+"WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} item is already equipped.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
 
