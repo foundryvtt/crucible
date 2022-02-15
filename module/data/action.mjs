@@ -1,3 +1,4 @@
+import DataModel from "/common/abstract/data.mjs";
 import * as fields from "/common/data/fields.mjs";
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
@@ -35,36 +36,29 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {number} focusCost             The focus point cost of this action
  * @property {boolean} affectAllies         Does this action affect allies within its area of effect?
  * @property {boolean} affectEnemies        Does this action affect enemies within its area of effect?
- * @property {string[]} tags                An array of tags in ACTION_TAGS which apply to this action
+ * @property {Set<string>} tags             A set of tags in ACTION_TAGS which apply to this action
  *
  * @property {ActionContext} context        Additional context which defines how the action is being used
  * @property {ActionTarget[]} targets       An array of targets which are affected by the action
  * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
  * @property {object} actorUpdates          Other Actor data updates to make as part of this Action
  */
-export default class ActionData extends foundry.abstract.DocumentData {
+export default class ActionData extends DataModel {
   static defineSchema() {
     return {
-      id: fields.REQUIRED_STRING,
-      name: fields.STRING_FIELD,
-      img: fields.IMAGE_FIELD,
-      condition: fields.BLANK_STRING,
-      description: fields.REQUIRED_STRING,
-      targetType: fields.field(fields.REQUIRED_STRING, {
-        default: "single",
-        validate: v => v in TALENT.ACTION_TARGET_TYPES
-      }),
-      targetNumber: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 1}),
-      targetDistance: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {required: true, default: 1}),
-      actionCost: fields.field(fields.INTEGER_FIELD, {required: true, default: 0}),
-      focusCost: fields.field(fields.INTEGER_FIELD, {required: true, default: 0}),
-      affectAllies: fields.field(fields.BOOLEAN_FIELD, {default: false}),
-      affectEnemies: fields.field(fields.BOOLEAN_FIELD, {default: true}),
-      tags: {
-        type: [String],
-        required: true,
-        default: []
-      }
+      id: new fields.StringField({required: true, blank: false}),
+      name: new fields.StringField(),
+      img: new fields.FilePathField({categories: ["IMAGE"]}),
+      condition: new fields.StringField(),
+      description: new fields.StringField(),
+      targetType: new fields.StringField({required: true, choices: TALENT.ACTION_TARGET_TYPES, initial: "single"}),
+      targetNumber: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+      targetDistance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+      actionCost: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+      focusCost: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+      affectAllies: new fields.BooleanField(),
+      affectEnemies: new fields.BooleanField({initial: true}),
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     }
   }
 
@@ -78,7 +72,7 @@ export default class ActionData extends foundry.abstract.DocumentData {
   prepareData() {
     this.name = this.name || this.document?.name;
     this.img = this.img || this.document?.img;
-    this.tags = (this.document?.data.data.tags || []).concat(this.tags);
+    this.tags = new Set([...this.document?.data.data.tags || [], ...this.tags]);
   }
 
   /* -------------------------------------------- */

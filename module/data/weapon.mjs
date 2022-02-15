@@ -16,21 +16,15 @@ import { SYSTEM } from "../config/system.js";
 export default class WeaponData extends PhysicalItemData {
   static defineSchema() {
     return foundry.utils.mergeObject(super.defineSchema(), {
-      damageType: fields.field(fields.REQUIRED_STRING, {default: "slashing"}),
-      block: {
-        type: Object,
-        required: true,
-        default: {base: 0, bonus: 0},
-        validate: this.validateDefense,
-        validationError: '{name} {field} "{value}" must be an object \{base (number), bonus (number)\}'
-      },
-      parry: {
-        type: Object,
-        required: true,
-        default: {base: 0, bonus: 0},
-        validate: this.validateDefense,
-        validationError: '{name} {field} "{value}" must be an object \{base (number), bonus (number)\}'
-      },
+      damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES}),
+      block: new fields.SchemaField({
+        base: new fields.NumberField({required: true, nullable: false, integer: true, min: 0}),
+        bonus: new fields.NumberField({required: true, nullable: false, integer: true, min: 0})
+      }),
+      parry: new fields.SchemaField({
+        base: new fields.NumberField({required: true, nullable: false, integer: true, min: 0}),
+        bonus: new fields.NumberField({required: true, nullable: false, integer: true, min: 0})
+      })
     });
   }
 

@@ -1,9 +1,6 @@
 import { SYSTEM } from "../config/system.js";
 import ActionData from "../data/action.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
-import {TalentData} from "../data/talent.mjs";
-import WeaponData from "../data/weapon.mjs";
-
 
 /**
  * An Item subclass which handles system specific logic for the Item document type.
@@ -55,12 +52,6 @@ export default class CrucibleItem extends Item {
     switch ( this.data.type ) {
       case "skill":
         this.data.data.config = SYSTEM.skills.skills[this.data.data.skill] || {};
-        break;
-      case "talent":
-        this.data.data = new TalentData(this.systemData, this);
-        break;
-      case "weapon":
-        this.data.data = new WeaponData(this.systemData, this);
         break;
     }
     return super.prepareBaseData();

@@ -1,28 +1,23 @@
-import DocumentData from "/common/abstract/data.mjs";
+import DataModel from "/common/abstract/data.mjs";
 import * as fields from "/common/data/fields.mjs";
+import { SYSTEM } from "../config/system.js";
 
 /**
- * A data structure which is shared by all physical items
- * @extends {foundry.abstract.DocumentData}
+ * A data structure which is shared by all physical items.
+ * @extends {DataModel}
  */
-export default class PhysicalItemData extends DocumentData {
+export default class PhysicalItemData extends DataModel {
   static defineSchema() {
     return {
-      category: fields.field(fields.REQUIRED_STRING, {default: this.DEFAULT_CATEGORY}),
-      quantity: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {default: 1}),
-      weight: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {default: 0}),
-      price: fields.field(fields.NONNEGATIVE_INTEGER_FIELD, {default: 0}),
-      quality: fields.field(fields.REQUIRED_STRING, {default: "standard"}),
-      enchantment: fields.field(fields.REQUIRED_STRING, {default: "mundane"}),
-      equipped: fields.BOOLEAN_FIELD,
-      properties: {
-        type: [String],
-        required: true,
-        default: [],
-        validate: tags => tags.every(t => t in this.ITEM_PROPERTIES),
-        validationError: '{name} {field} "{value}" must all be valid keys in ITEM_PROPERTIES for this item type'
-      },
-      description: fields.BLANK_STRING
+      category: new fields.StringField({required: true, blank: false, initial: this.DEFAULT_CATEGORY}),
+      quantity: new fields.NumberField({required: true, nullable: false, integer: true, min: 0}),
+      weight: new fields.NumberField({required: true, nullable: false, integer: true, min: 0}),
+      price: new fields.NumberField({required: true, nullable: false, integer: true, min: 0}),
+      quality: new fields.StringField({required: true, choices: SYSTEM.QUALITY_TIERS, initial: "standard"}),
+      enchantment: new fields.StringField({required: true, choices: SYSTEM.ENCHANTMENT_TIERS, initial: "mundane"}),
+      equipped: new fields.BooleanField(),
+      properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
+      description: new fields.StringField()
     }
   }
 

@@ -48,7 +48,7 @@ export default class ArmorSheet extends ItemSheet {
         id: id,
         name: `data.properties.${id}`,
         label: prop.label,
-        checked: systemData.properties.includes(id)
+        checked: systemData.properties.has(id)
       };
     }
     return context;

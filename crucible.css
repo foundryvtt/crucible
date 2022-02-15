@@ -210,12 +210,6 @@ h2.divider span {
   font-weight: bold;
   margin-right: 5px;
 }
-.crucible.sheet .sheet-header .header-tags span {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #b5b3a4;
-  border-radius: 3px;
-  padding: 1px 3px;
-}
 .crucible.sheet img.profile {
   flex: 0 0 var(--profileSize);
   width: var(--profileSize);

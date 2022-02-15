@@ -292,7 +292,7 @@ export default class CrucibleActor extends Actor {
     weapons.twoHanded = mhCategory.hands === 2;
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
-    weapons.slow = mh.systemData.properties.includes("slow") + oh.systemData.properties.includes("slow");
+    weapons.slow = mh.systemData.properties.has("slow") + oh.systemData.properties.has("slow");
 
     // Dual Wielding States
     weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));

@@ -15,7 +15,8 @@ import CrucibleCombat from "./module/documents/combat.mjs";
 import CrucibleCombatant from "./module/documents/combatant.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
 import ActionData from "./module/data/action.mjs";
-import {TalentData, TalentRankData, TalentPassiveData} from "./module/data/talent.mjs";
+import TalentData from "./module/data/talent.mjs";
+import WeaponData from "./module/data/weapon.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
@@ -56,8 +57,6 @@ Hooks.once("init", async function() {
     CrucibleCombatant,
     CrucibleItem,
     TalentData,
-    TalentRankData,
-    TalentPassiveData,
     packageItemCompendium
   }
 
@@ -68,6 +67,10 @@ Hooks.once("init", async function() {
 
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
+  CONFIG.Item.systemDataModels = {
+    talent: TalentData,
+    weapon: WeaponData
+  };
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});

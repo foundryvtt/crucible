@@ -8,6 +8,16 @@ import {SYSTEM} from "../config/system.js";
  */
 
 /**
+ * @typedef {Object} TalentRankData
+ * @property {string} description
+ * @property {number} tier
+ * @property {number} cost
+ * @property {{[key: string]: number}} requirements
+ * @property {ActionData[]} actions
+ * @property {object[]} passives
+ */
+
+/**
  * The data schema of a Talent type Item in the Crucible system.
  * @extends {DocumentData}
  *
@@ -18,27 +28,21 @@ import {SYSTEM} from "../config/system.js";
  * @property {TalentPrerequisiteData} prerequisites   The derived prerequisites required for this rank
  * @property {TalentPrerequisiteData} requirements    The derived requirements required for the next rank
  */
-export class TalentData extends DocumentData {
+export default class TalentData extends DocumentData {
   static defineSchema() {
     return {
-      description: fields.BLANK_STRING,
-      type: fields.field(fields.BLANK_STRING, {
-        validate: t => this.TALENT_TYPES.includes(t),
-        validationError: '{name} {field} "{value}" is not a valid type in TalentData.TALENT_TYPES'
-      }),
-      tags: {
-        type: [String],
-        required: true,
-        default: [],
-        validate: tags => tags.every(t => t in SYSTEM.TALENT.ACTION_TAGS),
-        validationError: '{name} {field} "{value}" must all be valid tags in TALENT.ACTION_TAGS'
-      },
-      ranks: {
-        type: [TalentRankData],
-        required: true,
-        default: []
-      },
-      rank: fields.field(fields.INTEGER_FIELD, {default: 0})
+      description: new fields.StringField(),
+      type: new fields.StringField({required: true, choices: this.TALENT_TYPES}),
+      tags: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.TALENT.ACTION_TAGS})),
+      ranks: new fields.ArrayField(new fields.SchemaField({
+        description: new fields.StringField(),
+        tier: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1}),
+        cost: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1}),
+        requirements: new fields.ObjectField(),
+        actions: new fields.ArrayField(new fields.EmbeddedDataField(ActionData)), // todo
+        passives: new fields.ArrayField(new fields.ObjectField()) // todo
+      })),
+      rank: new fields.NumberField({required: true, nullable: false, integer: true, min: 0})
     }
   }
 
@@ -113,7 +117,7 @@ export class TalentData extends DocumentData {
 
   addRank() {
     const source = this.toObject();
-    const rank = new TalentRankData({description: "New Rank"});
+    const rank = {cost: 1, description: "New Rank"};
     source.ranks.push(rank);
     return this.document.update({data: source});
   }
@@ -129,56 +133,5 @@ export class TalentData extends DocumentData {
     });
     source.ranks[rank].actions.push(action);
     return this.document.update({data: source});
-  }
-}
-
-
-/* -------------------------------------------- */
-
-
-/**
- * The data schema of a Talent type Item in the Crucible system.
- * @extends DocumentData
- *
- * @property {string} description
- * @property {number} tier
- * @property {number} cost
- * @property {number} ranks
- * @property {{[key: string]: number}} requirements
- * @property {ActionData[]} actions
- */
-export class TalentRankData extends DocumentData {
-  static defineSchema() {
-    return {
-      description: fields.BLANK_STRING,
-      cost: fields.field(fields.POSITIVE_INTEGER_FIELD, {default: 1}),
-      requirements: fields.OBJECT_FIELD,
-      actions: {
-        type: [ActionData],
-        required: true,
-        default: []
-      },
-      passives: {
-        type: [TalentPassiveData],
-        required: true,
-        default: []
-      },
-    }
-  }
-}
-
-export class TalentPassiveData extends DocumentData {
-  static defineSchema() {
-    return {
-      key: fields.BLANK_STRING,
-      value: fields.BLANK_STRING,
-      mode: {
-        type: Number,
-        required: true,
-        default: CONST.ACTIVE_EFFECT_MODES.ADD,
-        validate: m => Object.values(CONST.ACTIVE_EFFECT_MODES).includes(m),
-        validationError: "Invalid mode specified for change in ActiveEffectData"
-      }
-    }
   }
 }
