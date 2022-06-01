@@ -162,7 +162,7 @@ export default class StandardCheckDialog extends Dialog {
    */
   _updatePool(form, updates={}) {
     const fd = new FormDataExtended(form);
-    updates = foundry.utils.mergeObject(fd.toObject(), updates);
+    updates = foundry.utils.mergeObject(fd.object, updates);
     this.pool.initialize(updates);
   }
 
@@ -189,7 +189,7 @@ export default class StandardCheckDialog extends Dialog {
    */
   static _onSubmit(html, pool) {
     const form = html.querySelector("form");
-    const fd = (new FormDataExtended(form)).toObject();
+    const fd = (new FormDataExtended(form)).object;
     pool.initialize(fd);
     return pool;
   }
