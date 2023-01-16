@@ -1,5 +1,3 @@
-import DocumentData from "/common/abstract/data.mjs";
-import * as fields from "/common/data/fields.mjs";
 import ActionData from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
 
@@ -19,7 +17,6 @@ import {SYSTEM} from "../config/system.js";
 
 /**
  * The data schema of a Talent type Item in the Crucible system.
- * @extends {DocumentData}
  *
  * @property {TalentRankData} currentRank             The current rank in this talent
  * @property {number} cost                            The action point cost to have obtained the current rank
@@ -28,8 +25,9 @@ import {SYSTEM} from "../config/system.js";
  * @property {TalentPrerequisiteData} prerequisites   The derived prerequisites required for this rank
  * @property {TalentPrerequisiteData} requirements    The derived requirements required for the next rank
  */
-export default class TalentData extends DocumentData {
+export default class TalentData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
+    const fields = foundry.data.fields;
     return {
       description: new fields.StringField(),
       type: new fields.StringField({required: true, choices: this.TALENT_TYPES}),
@@ -59,7 +57,7 @@ export default class TalentData extends DocumentData {
   /**
    * Prepare derived data specific to the talent type.
    */
-  prepareData() {
+  prepareBaseData() {
 
     // Identify current rank and cost
     this.currentRank = this.ranks[this.rank-1] || null;

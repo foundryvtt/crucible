@@ -95,7 +95,6 @@ A weapon has a quality tier which describes the quality of its construction and 
 
 | Tier Name  | Attack Bonus | Rarity Modifier |
 | ---------- | ------------ | --------------- |
-| Broken     | -2           | 0               |
 | Shoddy     | -1           | 0               |
 | Standard   | 0            | 0               |
 | Fine       | +1           | +1              |
@@ -130,3 +129,9 @@ Some weapons may have one (or in very rare cases multiple) of the following spec
 | Ambush    | This Light weapon can be easily concealed and can be drawn quickly. The weapon can be drawn for free during your own turn or as part of a reaction. | +1   |
 | Grasping  | Critical hits cause the target to become grappled.           | +1   |
 
+### Blocking
+A blocking weapon provides Block defense equal to 2 plus 2 times the Enchantment bonus as long as that weapon is 
+not broken.
+
+### Parrying
+A parrying weapon provides Parry defense equal to 1 plus the Enchantment bonus as long as that weapon is not broken.

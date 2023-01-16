@@ -67,7 +67,7 @@ Hooks.once("init", async function() {
 
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
-  CONFIG.Item.systemDataModels = {
+  CONFIG.Item.dataModels = {
     talent: TalentData,
     weapon: WeaponData
   };

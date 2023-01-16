@@ -1,12 +1,11 @@
 {
-
-"ACTOR.TypeHero": "Hero Character",
-"ACTOR.TypeNpc": "Non-Player Character",
-"ITEM.TypeAncestry": "Ancestry",
-"ITEM.TypeArmor": "Armor",
-"ITEM.TypeBackground": "Background",
-"ITEM.TypeTalent": "Talent",
-"ITEM.TypeWeapon": "Weapon",
+"TYPES.Actor.hero": "Hero Character",
+"TYPES.Actor.npc": "Non-Player Character",
+"TYPES.Item.ancestry": "Ancestry",
+"TYPES.Item.armor": "Armor",
+"TYPES.Item.background": "Background",
+"TYPES.Item.talent": "Talent",
+"TYPES.Item.weapon": "Weapon",
 
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
@@ -163,19 +162,20 @@
 "DICE.CircumstanceBonus": "Circumstance Bonus",
 "DICE.Damage": "Damage",
 "DICE.DamageOverflow": "Overflow Amount",
-"DICE.DamageMultiplier": "Damage Multiplier",
-"DICE.DamageBonus": "Damage Bonus",
+"DICE.DamageBase": "Base Damage",
+"DICE.DamageBonus": "Action Bonus",
 "DICE.DamageResistance": "Damage Resistance",
 "DICE.ApplyDamage": "Apply Damage",
 "DICE.ReverseDamage": "Reverse Damage",
 "DICE.SetDifficulty": "Set Difficulty",
+
+"ITEM.Broken": "Broken",
 
 "ITEM.EnchantmentMundane": "Mundane",
 "ITEM.EnchantmentMinor": "Minor",
 "ITEM.EnchantmentMajor": "Major",
 "ITEM.EnchantmentLegendary": "Legendary",
 
-"ITEM.QualityBroken": "Broken",
 "ITEM.QualityShoddy": "Shoddy",
 "ITEM.QualityStandard": "Standard",
 "ITEM.QualityFine": "Fine",
@@ -518,7 +518,8 @@
 "WEAPON.Mechanical1": "Mechanical (1h)",
 "WEAPON.Mechanical2": "Mechanical (2h)",
 "WEAPON.Unarmed": "Unarmed",
-"WEAPON.Shield": "Shield",
+"WEAPON.ShieldLight": "Light Shield",
+"WEAPON.ShieldHeavy": "Heavy Shield",
 
 "WEAPON.HandsTwo": "Two-Handed",
 "WEAPON.HandsMain": "Main-Hand",

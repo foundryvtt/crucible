@@ -30,7 +30,7 @@ export default class Weapon extends ItemSheet {
   /** @inheritdoc */
   getData() {
     const context = super.getData();
-    context.systemData = context.data.data;
+    context.systemData = context.data.system;
 
     // Configuration Categories
     context.categories = SYSTEM.WEAPON.CATEGORIES;

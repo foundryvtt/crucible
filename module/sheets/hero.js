@@ -2,8 +2,7 @@ import { SYSTEM } from "../config/system.js";
 import SkillConfig from "./skill.js";
 
 /**
- * The ActorSheet class which is used to display a hero character
- * @extends {ActorSheet}
+ * The ActorSheet class which is used to display a hero character.
  */
 export default class HeroSheet extends ActorSheet {
 
@@ -37,7 +36,7 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   getData() {
     const context = super.getData();
-    const systemData = context.systemData = context.data.data;
+    const systemData = context.systemData = context.data.system;
 
     // Incomplete Tasks
     context.incomplete = {
@@ -46,9 +45,9 @@ export default class HeroSheet extends ActorSheet {
       abilities: this.actor.points.ability.requireInput,
       skills: this.actor.points.skill.available,
       talents: this.actor.points.talent.available,
-      level: this.actor.isL0 || (this.actor.systemData.advancement.pct === 100),
+      level: this.actor.isL0 || (this.actor.system.advancement.pct === 100),
       levelOne: this.actor.isL0,
-      levelUp: (this.actor.systemData.advancement.pct === 100)
+      levelUp: (this.actor.system.advancement.pct === 100)
     }
     if ( context.incomplete.ancestry ) systemData.details.ancestry.name = game.i18n.localize("ANCESTRY.None");
     if ( context.incomplete.background ) systemData.details.background.name = game.i18n.localize("BACKGROUND.None");
@@ -56,7 +55,7 @@ export default class HeroSheet extends ActorSheet {
     // Equipment
     context.items = this._formatItems(this.actor.items);
     const eqp = this.actor.equipment;
-    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.data.data.category].label;
+    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.system.category].label;
     context.armorTag = `${this.actor.defenses.physical} PD`;
     context.mainhandTag = eqp.weapons.mainhand.getTags().damage;
     context.showOffhand = !eqp.weapons.twoHanded;
@@ -150,14 +149,16 @@ export default class HeroSheet extends ActorSheet {
 
     // Iterate over items and organize them
     for ( let i of items ) {
-      const data = duplicate(i.data);
-      data.showStack = data.data?.quantity && (data.data.quantity !== 1);
-      data.tags = i.getTags();
-      switch(data.type) {
-        case "armor": case "weapon":
-          data.cssClass = [data.data.equipped ? "equipped" : "unequipped"];
-          if ( data.data.equipped ) sections.inventory.equipment.items.push(data);
-          else sections.inventory.backpack.items.push(data);
+      const d = i.toObject();
+      d.showStack = d.system?.quantity && (d.system.quantity !== 1);
+      d.tags = i.getTags();
+      switch(d.type) {
+        case "armor":
+        case "weapon":
+          d.cssClass = [d.system.equipped ? "equipped" : "unequipped"];
+          if ( d.system.equipped ) sections.inventory.equipment.items.push(d);
+          else sections.inventory.backpack.items.push(d);
+          break;
       }
     }
 
@@ -386,12 +387,12 @@ export default class HeroSheet extends ActorSheet {
       case "armor":
         return this.actor.equipArmor({
           itemId: item.id,
-          equipped: !item.data.data.equipped
+          equipped: !item.system.equipped
         });
       case "weapon":
         return this.actor.equipWeapon({
           itemId: item.id,
-          equipped: !item.data.data.equipped
+          equipped: !item.system.equipped
         });
     }
   }

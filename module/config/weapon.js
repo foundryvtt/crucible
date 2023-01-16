@@ -24,8 +24,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength.dexterity",
-    bonus: 0,
-    multiplier: 1,
+    damage: {
+      base: 4
+    },
     actionCost: 1
   },
   light1: {
@@ -35,8 +36,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "dexterity",
-    bonus: 0,
-    multiplier: 1,
+    damage: {
+      base: 4
+    },
     actionCost: 1
   },
   simple1: {
@@ -46,8 +48,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength",
-    bonus: 0,
-    multiplier: 1,
+    damage: {
+      base: 6
+    },
     actionCost: 1
   },
   balanced1: {
@@ -57,8 +60,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength.dexterity",
-    bonus: 1,
-    multiplier: 1,
+    damage: {
+      base: 8
+    },
     actionCost: 1
   },
   heavy1: {
@@ -68,8 +72,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 2,
-    multiplier: 1,
+    damage: {
+      base: 8
+    },
     actionCost: 1
   },
   massive1: {
@@ -79,8 +84,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 0,
-    multiplier: 2,
+    damage: {
+      base: 12
+    },
     actionCost: 2
   },
   simple2: {
@@ -90,8 +96,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 0,
-    multiplier: 2,
+    damage: {
+      base: 10
+    },
     actionCost: 2
   },
   balanced2: {
@@ -101,8 +108,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength.dexterity",
-    bonus: 1,
-    multiplier: 2,
+    damage: {
+      base: 12
+    },
     actionCost: 2
   },
   heavy2: {
@@ -112,8 +120,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 2,
-    multiplier: 2,
+    damage: {
+      base: 12
+    },
     actionCost: 2
   },
   massive2: {
@@ -123,8 +132,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    bonus: 0,
-    multiplier: 3,
+    damage: {
+      base: 16
+    },
     actionCost: 3
   },
   projectile2: {
@@ -135,8 +145,9 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "strength.dexterity",
-    bonus: 0,
-    multiplier: 1,
+    damage: {
+      base: 8
+    },
     actionCost: 1
   },
   mechanical1: {
@@ -147,8 +158,9 @@ export const CATEGORIES = {
     off: true,
     ranged: true,
     scaling: "dexterity",
-    bonus: 0,
-    multiplier: 1,
+    damage: {
+      base: 6
+    },
     actionCost: 2
   },
   mechanical2: {
@@ -159,20 +171,41 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "dexterity",
-    bonus: 2,
-    multiplier: 2,
+    damage: {
+      base: 12
+    },
     actionCost: 2
   },
-  shield: {
-    id: "shield",
-    label: "WEAPON.Shield",
+  shieldLight: {
+    id: "shieldLight",
+    label: "WEAPON.ShieldLight",
+    hands: 1,
+    main: false,
+    off: true,
+    ranged: false,
+    scaling: "strength.dexterity",
+    damage: {
+      base: 2
+    },
+    defense: {
+      block: 2
+    },
+    actionCost: 1
+  },
+  shieldHeavy: {
+    id: "shieldHeavy",
+    label: "WEAPON.ShieldHeavy",
     hands: 1,
     main: false,
     off: true,
     ranged: false,
     scaling: "strength",
-    bonus: -2,
-    multiplier: 1,
+    damage: {
+      base: 4
+    },
+    defense: {
+      block: 4
+    },
     actionCost: 1
   }
 }

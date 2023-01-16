@@ -53,7 +53,7 @@ export default class CrucibleActor extends Actor {
    * @returns {*}
    */
   get ancestry() {
-    return this.data.data.details.ancestry;
+    return this.system.details.ancestry;
   }
 
   /**
@@ -61,7 +61,7 @@ export default class CrucibleActor extends Actor {
    * @type {object}
    */
   get attributes() {
-    return this.data.data.attributes;
+    return this.system.attributes;
   }
 
   /**
@@ -69,7 +69,7 @@ export default class CrucibleActor extends Actor {
    * @returns {*}
    */
   get background() {
-    return this.data.data.details.background;
+    return this.system.details.background;
   }
 
   /**
@@ -77,7 +77,7 @@ export default class CrucibleActor extends Actor {
    * @type {object}
    */
   get defenses() {
-    return this.data.data.defenses;
+    return this.system.defenses;
   }
 
   /**
@@ -85,7 +85,7 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}
    */
   get isL0() {
-    return this.data.data.advancement.level === 0;
+    return this.system.advancement.level === 0;
   }
 
   /**
@@ -93,7 +93,7 @@ export default class CrucibleActor extends Actor {
    * @returns {object}
    */
   get resistances() {
-    return this.data.data.resistances;
+    return this.system.resistances;
   }
 
   /**
@@ -101,7 +101,7 @@ export default class CrucibleActor extends Actor {
    * @returns {object}
    */
   get skills() {
-    return this.data.data.skills;
+    return this.system.skills;
   }
 
   /**
@@ -109,15 +109,7 @@ export default class CrucibleActor extends Actor {
    * @returns {ActorRoundStatus}
    */
   get status() {
-    return this.data.data.status;
-  }
-
-  /**
-   * A more semantic reference to the system data.data object
-   * @type {object}
-   */
-  get systemData() {
-    return this.data.data;
+    return this.system.status;
   }
 
   get isUnconscious() {
@@ -161,8 +153,8 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareDerivedData() {
-    this._prepareResources(this.data);
-    this._prepareDefenses(this.data);
+    this._prepareResources();
+    this._prepareDefenses();
   }
 
   /* -------------------------------------------- */
@@ -172,7 +164,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareAdvancement() {
-    const adv = this.systemData.advancement;
+    const adv = this.system.advancement;
     adv.level = Math.clamped(adv.level, 0, 24);
     const effectiveLevel = Math.max(adv.level, 1) - 1;
 
@@ -238,7 +230,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Identify equipped armor
-    let armors = armor.filter(i => i.data.data.equipped);
+    let armors = armor.filter(i => i.system.equipped);
     if ( armors.length > 1 ) {
       ui.notifications.warn(`Actor ${this.name} has more than one equipped armor.`);
       armors = armors[0];
@@ -249,7 +241,7 @@ export default class CrucibleActor extends Actor {
     const weapons = equipment.weapons = {};
     const equippedWeapons = {mh: [], oh: [], either: []};
     for ( let w of weapon ) {
-      if ( !w.data.data.equipped ) continue;
+      if ( !w.system.equipped ) continue;
       const category = w.config.category;
       if ( (w.hands === 2) ) {
         equippedWeapons.mh.unshift(w);
@@ -286,13 +278,13 @@ export default class CrucibleActor extends Actor {
     const ohCategory = oh.config.category;
 
     // Assign equipment state flags
-    equipment.unarmored = equipment.armor.data.data.category === "unarmored";
+    equipment.unarmored = equipment.armor.system.category === "unarmored";
     weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
     weapons.shield = ohCategory.id === "shield";
     weapons.twoHanded = mhCategory.hands === 2;
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
-    weapons.slow = mh.systemData.properties.has("slow") + oh.systemData.properties.has("slow");
+    weapons.slow = mh.system.properties.has("slow") + oh.system.properties.has("slow");
 
     // Dual Wielding States
     weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
@@ -386,7 +378,7 @@ export default class CrucibleActor extends Actor {
     this._hasPatientDefense = false; // TODO - temporary special case for playtest
     for ( let item of talent ) {
       if ( item.name === "Patient Defense" ) this._hasPatientDefense = true;
-      points.spent += item.systemData.cost;
+      points.spent += item.system.cost;
     }
     points.available = points.total - points.spent;
     if ( points.available < 0) {
@@ -400,11 +392,11 @@ export default class CrucibleActor extends Actor {
    * Prepare Defenses and Resistances data for the Actor
    * @private
    */
-  _prepareDefenses(data) {
-    const {attributes, defenses} = data.data;
+  _prepareDefenses() {
+    const {attributes, defenses} = this.system;
 
     // Armor and Dodge from equipped Armor
-    const armorData = this.equipment.armor.data.data;
+    const armorData = this.equipment.armor.system;
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus = armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
@@ -412,14 +404,13 @@ export default class CrucibleActor extends Actor {
     defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
 
     // Block and Parry from equipped Weapons
-    const weaponData = [this.equipment.weapons.mainhand.data.data];
-    if ( !this.equipment.weapons.twoHanded ) weaponData.push(this.equipment.weapons.offhand.data.data);
+    const weaponData = [this.equipment.weapons.mainhand.system];
+    if ( !this.equipment.weapons.twoHanded ) weaponData.push(this.equipment.weapons.offhand.system);
     defenses.block = {base: 0, bonus: 0};
     defenses.parry = {base: 0, bonus: 0};
     for ( let wd of weaponData ) {
       for ( let d of ["block", "parry"] ) {
-        defenses[d].base += wd[d].base;
-        defenses[d].bonus += wd[d].bonus;
+        defenses[d].base += wd.defense[d];
       }
     }
 
@@ -445,8 +436,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Damage Resistances
-    const ancestry = data.data.details.ancestry;
-    for ( let [id, r] of Object.entries(data.data.resistances) ) {
+    const ancestry = this.system.details.ancestry;
+    for ( let [id, r] of Object.entries(this.system.resistances) ) {
       if ( id === ancestry.resistance ) r.base = SYSTEM.ANCESTRIES.resistanceAmount;
       else if ( id === ancestry.vulnerability ) r.base = -SYSTEM.ANCESTRIES.resistanceAmount;
       r.total = r.base + r.bonus;
@@ -456,12 +447,12 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   getDefenses({armor}) {
-    const attributes = this.data.data.attributes;
-    const defenses = foundry.utils.deepClone(this.data.data.defenses);
+    const attributes = this.system.attributes;
+    const defenses = foundry.utils.deepClone(this.system.defenses);
     armor = armor || this.equipment.armor;
 
     // Physical defenses
-    const armorData = armor.data.data;
+    const armorData = armor.system;
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus = armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
@@ -483,12 +474,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the values of resource pools for the Actor based on their attributes and resource rolls.
-   * @param {object} data
    * @private
    */
-  _prepareResources(data) {
-    const lvl = data.data.advancement.level;
-    const attrs = data.data.attributes;
+  _prepareResources() {
+    const lvl = this.system.advancement.level;
+    const attrs = this.system.attributes;
 
     // Health
     const healthMod = (2 * attrs.constitution.value) + attrs.strength.value + attrs.dexterity.value;
@@ -511,7 +501,7 @@ export default class CrucibleActor extends Actor {
     // Action
     attrs.action.max = lvl > 0 ? 3 : 0;
     // TODO - For Playtest
-    if ( data.flags.crucible?.isMook ) attrs.action.max -= 1;
+    if ( this.flags.crucible?.isMook ) attrs.action.max -= 1;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
@@ -554,7 +544,7 @@ export default class CrucibleActor extends Actor {
    * @return {StandardCheck}      The StandardCheck roll instance which was produced.
    */
   async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
-    const skill = this.data.data.skills[skillId];
+    const skill = this.system.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
 
     // Create the check roll
@@ -590,7 +580,7 @@ export default class CrucibleActor extends Actor {
    * @returns {AttackRoll.RESULT_TYPES}
    */
   testPhysicalDefense(attackRoll) {
-    const d = this.data.data.defenses;
+    const d = this.system.defenses;
 
     // Hit
     if ( attackRoll > d.physical ) return AttackRoll.RESULT_TYPES.HIT;
@@ -775,8 +765,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Confirm that the Actor meets the requirements to add the Talent
-    for ( let [k, v] of Object.entries(talent.systemData.prerequisites) ) {
-      const current = foundry.utils.getProperty(this.systemData, k);
+    for ( let [k, v] of Object.entries(talent.system.prerequisites) ) {
+      const current = foundry.utils.getProperty(this.system, k);
       if ( current < v.value ) {
         const err = game.i18n.format("TALENT.MissingRequirement", {
           name: talent.name,
@@ -899,7 +889,7 @@ export default class CrucibleActor extends Actor {
   async purchaseSkill(skillId, delta=1) {
     delta = Math.sign(delta);
     const points = this.points.skill;
-    const skill = this.data.data.skills[skillId];
+    const skill = this.system.skills[skillId];
     if ( !skill ) return;
 
     // Must Choose Background first
@@ -1088,7 +1078,7 @@ export default class CrucibleActor extends Actor {
 
       // Display for all tokens
       for ( let token of tokens ) {
-        token.hud.createScrollingText(text, {
+        canvas.interface.createScrollingText(token.center, text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
           fontSize: fontSize,
           fill: fillColor,

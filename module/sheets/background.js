@@ -31,7 +31,7 @@ export default class BackgroundSheet extends ItemSheet {
   /** @override */
   getData() {
     const context = super.getData();
-    const systemData = context.systemData = context.data.data;
+    const systemData = context.systemData = context.data.system;
     context.system = SYSTEM;
     const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
     context.skills = Object.entries(skills).map(e => {

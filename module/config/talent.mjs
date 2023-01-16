@@ -117,7 +117,7 @@ export const ACTION_TAGS = {
     tag: "mainhand",
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.system.actionCost,
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
@@ -155,7 +155,7 @@ export const ACTION_TAGS = {
     tag: "twohand",
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.systemData.actionCost,
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.system.actionCost,
     can: (actor, action) => actor.equipment.weapons.twoHanded,
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
@@ -168,7 +168,7 @@ export const ACTION_TAGS = {
     tag: "offhand",
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.systemData.actionCost,
+    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.system.actionCost,
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());

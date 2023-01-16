@@ -11,16 +11,10 @@
  * @enum {ItemQualityTier}
  */
 export const QUALITY_TIERS = {
-  broken: {
-    id: "broken",
-    label: "ITEM.QualityBroken",
-    bonus: -2,
-    rarity: 0
-  },
   shoddy: {
     id: "shoddy",
     label: "ITEM.QualityShoddy",
-    bonus: -1,
+    bonus: -2,
     rarity: 0
   },
   standard: {

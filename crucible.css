@@ -41,6 +41,7 @@
 .crucible h3 {
   font-family: var(--fontFamilySerif);
   font-size: 18px;
+  border: none;
 }
 .crucible h4 {
   font-family: var(--fontFamilySerif);

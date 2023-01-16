@@ -30,7 +30,7 @@ export default class ArmorSheet extends ItemSheet {
   /** @inheritdoc */
   getData() {
     const context = super.getData();
-    const systemData = context.systemData = context.data.data;
+    const systemData = context.systemData = context.data.system;
 
     // Tags
     context.tags = this.item.getTags();

@@ -1,5 +1,3 @@
-import DataModel from "/common/abstract/data.mjs";
-import * as fields from "/common/data/fields.mjs";
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
 import MetaRoll from "../dice/meta-roll.mjs";
@@ -43,8 +41,9 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
  * @property {object} actorUpdates          Other Actor data updates to make as part of this Action
  */
-export default class ActionData extends DataModel {
+export default class ActionData extends foundry.abstract.DataModel {
   static defineSchema() {
+    const fields = foundry.data.fields;
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -72,7 +71,7 @@ export default class ActionData extends DataModel {
   prepareData() {
     this.name = this.name || this.document?.name;
     this.img = this.img || this.document?.img;
-    this.tags = new Set([...this.document?.data.data.tags || [], ...this.tags]);
+    this.tags = new Set([...this.document?.system.tags || [], ...this.tags]);
   }
 
   /* -------------------------------------------- */
@@ -260,7 +259,7 @@ export default class ActionData extends DataModel {
     }
 
     // Assert that cost of the action can be afforded
-    const attrs = actor.data.data.attributes;
+    const attrs = actor.system.attributes;
     if ( action.actionCost > attrs.action.value ) {
       return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: actor.name,
@@ -394,7 +393,7 @@ export default class ActionData extends DataModel {
    * @param {DamageData} damage     The component details of the damage dealt
    * @returns {number}              The total damage dealt
    */
-  static computeDamage({overflow, multiplier=1, bonus=0, resistance=0}={}) {
-    return Math.max((overflow * multiplier) + bonus - resistance, 1);
+  static computeDamage({overflow=1, base=0, bonus=0, resistance=0}={}) {
+    return Math.max(overflow + base + bonus - resistance, 1);
   }
 }

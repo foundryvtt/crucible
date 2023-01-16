@@ -16,15 +16,7 @@ export default class CrucibleItem extends Item {
    * @type {object}
    */
   get config() {
-    return this.data.data.config;
-  }
-
-  /**
-   * A more semantic reference to the system data.data object
-   * @type {object}
-   */
-  get systemData() {
-    return this.data.data;
+    return this.system.config;
   }
 
   /**
@@ -32,7 +24,7 @@ export default class CrucibleItem extends Item {
    * @type {ActionData}
    */
   get actions() {
-    return this.data.data.actions;
+    return this.system.actions;
   }
 
   /**
@@ -40,7 +32,7 @@ export default class CrucibleItem extends Item {
    * @type {TalentRankData}
    */
   get rank() {
-    return this.data.data.currentRank;
+    return this.system.currentRank;
   }
 
   /* -------------------------------------------- */
@@ -49,9 +41,9 @@ export default class CrucibleItem extends Item {
 
   /** @override */
   prepareBaseData() {
-    switch ( this.data.type ) {
+    switch ( this.type ) {
       case "skill":
-        this.data.data.config = SYSTEM.skills.skills[this.data.data.skill] || {};
+        this.system.config = SYSTEM.skills.skills[this.system.skill] || {};
         break;
     }
     return super.prepareBaseData();
@@ -61,29 +53,22 @@ export default class CrucibleItem extends Item {
 
   /** @override */
   prepareDerivedData() {
-    const data = this.data;
-    switch ( this.data.type ) {
+    switch ( this.type ) {
       case "armor":
-        return this._prepareArmorData(data);
+        return this._prepareArmorData();
       case "skill":
-        return this._prepareSkillData(data);
-      case "talent":
-      case "weapon":
-        return this.data.data.prepareData();
+        return this._prepareSkillData();
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare base data for Armor type Items
-   * @param {object} data     The item data object
-   * @private
+   * Prepare base data for Armor type Items.
    */
-  _prepareArmorData(data) {
-    const ad = data.data;
-    const {armor, dodge} = ad;
-    const category = SYSTEM.ARMOR.CATEGORIES[data.data.category] || "unarmored";
+  _prepareArmorData() {
+    const {armor, dodge} = this.system;
+    const category = SYSTEM.ARMOR.CATEGORIES[this.system.category] || "unarmored";
 
     // Base Armor can be between zero and the maximum allowed for the category
     armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);
@@ -99,47 +84,44 @@ export default class CrucibleItem extends Item {
 
     // Armor Properties
     const properties = SYSTEM.ARMOR.PROPERTIES;
-    if ( !(ad.properties instanceof Array ) ) ad.properties = [];
-    ad.properties = ad.properties.filter(p => p in properties);
+    if ( !(this.system.properties instanceof Array ) ) this.system.properties = [];
+    this.system.properties = this.system.properties.filter(p => p in properties);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare additional data for Skill type Items
-   * @param {object} data   The base Item data
-   * @private
+   * Prepare additional data for Skill type Items.
    */
-  _prepareSkillData(data) {
+  _prepareSkillData() {
     const skill = this.config || {};
 
     // Copy and merge skill data
-    data.name = skill.name;
-    data.img = skill.icon;
-    data.category = skill.category;
-    data.attributes = skill.attributes;
+    this.name = skill.name;
+    this.img = skill.icon;
+    this.category = skill.category;
+    this.attributes = skill.attributes;
 
     // Skill rank
     let current = null;
     let next = null;
-    data.ranks = duplicate(skill.ranks).map(r => {
-      r.purchased = (r.rank > 0) && (r.rank <= data.data.rank);
-      if ( r.rank === data.data.rank ) current = r;
-      else if ( r.rank === data.data.rank + 1 ) next = r;
+    this.ranks = foundry.utils.deepClone(skill.ranks).map(r => {
+      r.purchased = (r.rank > 0) && (r.rank <= this.rank);
+      if ( r.rank === this.rank ) current = r;
+      else if ( r.rank === this.rank + 1 ) next = r;
       return r;
     });
-    data.currentRank = current;
-    data.nextRank = next;
+    this.currentRank = current;
+    this.nextRank = next;
 
     // Skill progression paths
     let path = null;
-    data.paths = duplicate(skill.paths).map(p => {
-      p.active = p.id === data.data.path;
+    this.paths = foundry.utils.deepClone(skill.paths).map(p => {
+      p.active = p.id === this.path;
       if ( p.active ) path = p;
       return p;
     });
-    data.path = path;
-    return data;
+    this.path = path;
   }
 
   /* -------------------------------------------- */
@@ -152,24 +134,23 @@ export default class CrucibleItem extends Item {
    * @returns {Object<string, string>}    The tags which describe this Item
    */
   getTags(scope="full") {
-    const d = this.data.data;
-    switch ( this.data.type ) {
+    switch ( this.type ) {
       case "armor":
         const defenses = this.parent ? this.actor.getDefenses({armor: this}) : {
-          armor: {total: d.armor.base},
-          dodge: {total: d.dodge.base}
+          armor: {total: this.system.armor.base},
+          dodge: {total: this.system.dodge.base}
         };
         const armorTags = {
-          category: SYSTEM.ARMOR.CATEGORIES[this.data.data.category].label,
+          category: SYSTEM.ARMOR.CATEGORIES[this.system.category].label,
         };
-        for ( let p of d.properties ) {
+        for ( let p of this.system.properties ) {
           armorTags[p] = SYSTEM.ARMOR.PROPERTIES[p].label;
         }
         armorTags.defenses = `${defenses.armor.total + defenses.dodge.total} PD`;
         return armorTags;
       case "talent":
       case "weapon":
-        return this.data.data.getTags(scope);
+        return this.system.getTags(scope);
       default:
         return {};
     }
@@ -181,7 +162,7 @@ export default class CrucibleItem extends Item {
 
   roll(options={}) {
     if ( !this.isOwned ) return false;
-    switch ( this.data.type ) {
+    switch ( this.type ) {
       case "skill":
         return this._rollSkillCheck(options);
     }
@@ -195,12 +176,12 @@ export default class CrucibleItem extends Item {
    */
   getItemBonuses() {
     if ( !this.isOwned ) throw new Error("Item bonuses are not determined until it is owned by an Actor");
-    switch ( this.data.type ) {
+    switch ( this.type ) {
       case "weapon":
         return {
           ability: this.actor.getAbilityBonus(this.config.category.scaling),
           skill: 0,
-          enchantment: this.systemData.attackBonus
+          enchantment: this.system.config.enchantment.bonus
         };
       default:
         throw new Error("NOT YET SUPPORTED");
@@ -210,9 +191,9 @@ export default class CrucibleItem extends Item {
   /* -------------------------------------------- */
 
   async _rollSkillCheck({passive=false}={}) {
-    const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.data.value}`;
+    const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.value}`;
     const roll = new Roll(formula).roll();
-    const skillName = this.data.data.path ? `${this.name} (${this.data.path.name})` : this.name;
+    const skillName = this.system.path ? `${this.name} (${this.path.name})` : this.name;
     await roll.toMessage({
       speaker: {actor: this.actor, user: game.user},
       flavor: passive ? `Passive ${skillName}` : `${skillName} Skill Check`
@@ -232,13 +213,13 @@ export default class CrucibleItem extends Item {
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    */
   async weaponAttack(target, {banes=0, boons=0, damageMultiplier=0, damageBonus=0}={}) {
-    if ( this.data.type !== "weapon" ) {
+    if ( this.type !== "weapon" ) {
       throw new Error("You may only call the weaponAttack method for weapon-type Items");
     }
     if ( !target ) {
       throw new Error("You must provide an Actor as the target for this weapon attack");
     }
-    const id = this.data.data;
+    const sd = this.system;
 
     // Create the Attack Roll instance
     const {ability, skill, enchantment} = this.getItemBonuses();
@@ -260,10 +241,10 @@ export default class CrucibleItem extends Item {
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: id.damageMultiplier + damageMultiplier,
-        bonus: id.damageBonus + damageBonus,
-        resistance: target.resistances[id.damageType]?.total ?? 0,
-        type: id.damageType
+        base: sd.damage.weapon,
+        bonus: damageBonus,
+        resistance: target.resistances[sd.damageType]?.total ?? 0,
+        type: sd.damageType
       };
       roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
     }
@@ -278,7 +259,7 @@ export default class CrucibleItem extends Item {
    * @returns {Promise<AttackRoll>}
    */
   async spellAttack(target, {banes=0, boons=0, defenseType="willpower", damageType="fire", damageMultiplier=0, damageBonus=0}={}) {
-    if ( this.data.type !== "talent" ) {
+    if ( this.type !== "talent" ) {
       throw new Error("Temporary spellAttack method called with wrong item type");
     }
     if ( !target ) {
@@ -336,13 +317,13 @@ export default class CrucibleItem extends Item {
     const tokens = this.actor.getActiveTokens(true);
 
     // Equipment changes
-    if ( "equipped" in changed.data ) {
-      const text = `${changed.data.equipped ? "+" : "-"}(${this.name})`;
+    if ( "equipped" in changed.system ) {
+      const text = `${changed.system.equipped ? "+" : "-"}(${this.name})`;
       const fontSize = 24 * (canvas.dimensions.size / 100).toNearest(0.25);
       for ( let token of tokens ) {
-        token.hud.createScrollingText(text, {
+        canvas.interface.createScrollingText(token.center, text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
-          direction: CONST.TEXT_ANCHOR_POINTS[changed.data.equipped ? "TOP" : "BOTTOM"],
+          direction: CONST.TEXT_ANCHOR_POINTS[changed.system.equipped ? "TOP" : "BOTTOM"],
           fontSize: fontSize,
           stroke: 0x000000,
           strokeThickness: 4

@@ -2,11 +2,15 @@
   "name": "crucible",
   "title": "Crucible",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Atropos",
   "scripts": ["scripts/showdown.min.js"],
   "esmodules": ["crucible.mjs"],
   "styles": ["crucible.css"],
+  "compatibility": {
+    "minimum": 11,
+    "verified": 11
+  },
   "packs": [
     {
       "name": "ancestry",
@@ -61,8 +65,6 @@
   "socket": true,
   "primaryTokenAttribute": "attributes.wounds",
   "secondaryTokenAttribute": "attributes.stress",
-  "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
   "url": "https://gitlab.com/foundrynet/crucible",
   "manifest": "https://gitlab.com/foundrynet/crucible/raw/master/system.json",
   "download": "https://gitlab.com/foundrynet/crucible/-/archive/master/crucible-master.zip"
