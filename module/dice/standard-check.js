@@ -45,7 +45,6 @@ export default class StandardCheck extends Roll {
     ability: 0,
     banes: 0,
     boons: 0,
-    circumstance: 0,
     dc: 20,
     enchantment: 0,
     skill: 0,
@@ -143,7 +142,6 @@ export default class StandardCheck extends Roll {
     data.ability = Math.clamped(data.ability, 0, 12);
     data.skill = Math.clamped(data.skill, -4, 12);
     data.enchantment = Math.clamped(data.enchantment, 0, 6);
-    data.circumstance = data.boons - data.banes;
   }
 
   /* -------------------------------------------- */
@@ -310,5 +308,5 @@ export default class StandardCheck extends Roll {
   }
 }
 
-StandardCheck.PARTS = ["3d8", "@ability", "@skill", "@enchantment", "@circumstance"];
+StandardCheck.PARTS = ["3d8", "@ability", "@skill", "@enchantment"];
 StandardCheck.FORMULA = StandardCheck.PARTS.join(" + ");

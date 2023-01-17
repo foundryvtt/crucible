@@ -54,38 +54,9 @@ export default class CrucibleItem extends Item {
   /** @override */
   prepareDerivedData() {
     switch ( this.type ) {
-      case "armor":
-        return this._prepareArmorData();
       case "skill":
         return this._prepareSkillData();
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare base data for Armor type Items.
-   */
-  _prepareArmorData() {
-    const {armor, dodge} = this.system;
-    const category = SYSTEM.ARMOR.CATEGORIES[this.system.category] || "unarmored";
-
-    // Base Armor can be between zero and the maximum allowed for the category
-    armor.base = Math.clamped(armor.base, category.minArmor, category.maxArmor);
-
-    // Starting Dodge is half of base armor
-    dodge.start = Math.floor(armor.base / 2);
-
-    // Base Dodge is 10 - dodge start, clamped between 0 and 8
-    dodge.base = Math.clamped(10 - dodge.start, 0, 8);
-
-    // Armor can have an enchantment bonus up to a maximum of 6
-    armor.bonus = Math.clamped(armor.bonus, 0, 6);
-
-    // Armor Properties
-    const properties = SYSTEM.ARMOR.PROPERTIES;
-    if ( !(this.system.properties instanceof Array ) ) this.system.properties = [];
-    this.system.properties = this.system.properties.filter(p => p in properties);
   }
 
   /* -------------------------------------------- */
@@ -136,18 +107,6 @@ export default class CrucibleItem extends Item {
   getTags(scope="full") {
     switch ( this.type ) {
       case "armor":
-        const defenses = this.parent ? this.actor.getDefenses({armor: this}) : {
-          armor: {total: this.system.armor.base},
-          dodge: {total: this.system.dodge.base}
-        };
-        const armorTags = {
-          category: SYSTEM.ARMOR.CATEGORIES[this.system.category].label,
-        };
-        for ( let p of this.system.properties ) {
-          armorTags[p] = SYSTEM.ARMOR.PROPERTIES[p].label;
-        }
-        armorTags.defenses = `${defenses.armor.total + defenses.dodge.total} PD`;
-        return armorTags;
       case "talent":
       case "weapon":
         return this.system.getTags(scope);

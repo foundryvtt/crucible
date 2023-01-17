@@ -2,10 +2,10 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
+        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
         <div class="header-content flexrow">
             <h1 class="title">
-                <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
+                <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
             </h1>
         </div>
     </header>
@@ -14,16 +14,16 @@
     <section class="sheet-body">
         <div class="form-group ability">
             <label>{{localize "ANCESTRY.PrimaryAbility"}}</label>
-            <select name="data.primary">
-                {{selectOptions system.ABILITIES selected=systemData.primary labelAttr="label"}}
+            <select name="system.primary">
+                {{selectOptions abilities selected=source.system.primary labelAttr="label"}}
             </select>
             <p class="hint">{{localize "ANCESTRY.PrimaryAbilityHint"}}</p>
         </div>
 
         <div class="form-group ability">
             <label>{{localize "ANCESTRY.SecondaryAbility"}}</label>
-            <select name="data.secondary">
-                {{selectOptions system.ABILITIES selected=systemData.secondary labelAttr="label"}}
+            <select name="system.secondary">
+                {{selectOptions abilities selected=source.system.secondary labelAttr="label"}}
             </select>
             <p class="hint">{{localize "ANCESTRY.SecondaryAbilityHint"}}</p>
         </div>
@@ -33,7 +33,7 @@
             <div class="form-fields">
                 {{#each skills}}
                 <label class="checkbox">
-                    <input type="checkbox" name="{{this.id}}" {{checked this.checked}}/>
+                    <input type="checkbox" name="system.skills" value="{{this.id}}" {{checked this.checked}}/>
                     {{this.name}}
                 </label>
                 {{/each}}
@@ -43,15 +43,15 @@
 
         <div class="form-group">
             <label>{{localize "ANCESTRY.Resistance"}}</label>
-            <select name="data.resistance">
-                {{selectOptions system.DAMAGE_TYPES selected=systemData.resistance blank="None" labelAttr="label"}}
+            <select name="system.resistance">
+                {{selectOptions damageTypes selected=source.system.resistance blank="None" labelAttr="label"}}
             </select>
         </div>
 
         <div class="form-group">
             <label>{{localize "ANCESTRY.Vulnerability"}}</label>
-            <select name="data.vulnerability">
-                {{selectOptions system.DAMAGE_TYPES selected=systemData.vulnerability blank="None" labelAttr="label"}}
+            <select name="system.vulnerability">
+                {{selectOptions damageTypes selected=source.system.vulnerability blank="None" labelAttr="label"}}
             </select>
             <p class="hint">{{localize "ANCESTRY.ResistanceHint"}}</p>
         </div>

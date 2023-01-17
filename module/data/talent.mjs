@@ -66,7 +66,7 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
       return cost;
     }, 0);
     this.nextRank = this.ranks[this.rank] || null;
-    if ( !this.ranks.length ) this.actions = [];
+    if ( !this.ranks.length )this.actions = [];
     else this.actions = this.rank > 0 ? this.currentRank.actions : this.nextRank.actions;
 
     // Identify requirements

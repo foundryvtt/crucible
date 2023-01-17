@@ -236,6 +236,7 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = new this.constructor(this, this.document);
+    action.prepareForActor(actor);
     action.context = {};
     action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, damageMultiplier: 0};
     action.actorUpdates = {};

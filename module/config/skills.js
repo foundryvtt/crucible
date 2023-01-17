@@ -113,7 +113,7 @@ export const SKILLS = {
   "investigation": {
     name:"SKILLS.Investigation",
     category:"kno",
-    attributes: ["intellect", "charisma"],
+    attributes: ["intellect", "presence"],
     paths: ["detective", "spy", "tinkerer"]
   },
   "lore": {
@@ -125,31 +125,31 @@ export const SKILLS = {
   "religion": {
     name:"SKILLS.Religion",
     category:"kno",
-    attributes: ["wisdom", "charisma"],
+    attributes: ["wisdom", "presence"],
     paths: ["theologian", "crusader", "druid"]
   },
   "bartering": {
     name:"SKILLS.Bartering",
     category:"soc",
-    attributes: ["intellect", "charisma"],
+    attributes: ["intellect", "presence"],
     paths: ["antiquarian", "caravaner", "negotiator"]
   },
   "deception": {
     name:"SKILLS.Deception",
     category:"soc",
-    attributes: ["intellect", "charisma"],
+    attributes: ["intellect", "presence"],
     paths: ["grifter", "illusionist", "mesmer"]
   },
   "diplomacy": {
     name:"SKILLS.Diplomacy",
     category:"soc",
-    attributes: ["wisdom", "charisma"],
+    attributes: ["wisdom", "presence"],
     paths: ["dip1", "dip2", "dip3"]
   },
   "intimidation": {
     name:"SKILLS.Intimidation",
     category:"soc",
-    attributes: ["strength", "charisma"],
+    attributes: ["strength", "presence"],
     paths: ["int1", "int2", "int3"]
   },
   "animal": {
@@ -173,7 +173,7 @@ export const SKILLS = {
   "performance": {
     name:"SKILLS.Performance",
     category:"trd",
-    attributes: ["dexterity", "charisma"],
+    attributes: ["dexterity", "presence"],
     paths: ["musician", "artist", "athlete"]
   },
 };

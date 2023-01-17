@@ -1,12 +1,19 @@
 /**
- * Crucible (WIP) Game System
- * Author: Atropos
- * Software License: GNU GPLv3
- * Repository: https://gitlab.com/foundrynet/crucible
+ * Crucible Game System
+ * Author: Atropos of Foundry Virtual Tabletop
+ * Software License: MIT
+ * Repository: https://github.com/foundryvtt/crucible
  */
 
-// Import Modules
+// Configuration
 import {SYSTEM} from "./module/config/system.js";
+
+// Data Models
+import ActionData from "./module/data/action.mjs";
+import AncestryData from "./module/data/ancestry.mjs";
+import ArmorData from "./module/data/armor.mjs";
+import TalentData from "./module/data/talent.mjs";
+import WeaponData from "./module/data/weapon.mjs";
 
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
@@ -14,17 +21,14 @@ import CrucibleChatMessage from "./module/documents/chat-message.mjs";
 import CrucibleCombat from "./module/documents/combat.mjs";
 import CrucibleCombatant from "./module/documents/combatant.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
-import ActionData from "./module/data/action.mjs";
-import TalentData from "./module/data/talent.mjs";
-import WeaponData from "./module/data/weapon.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
-import AncestrySheet from "./module/sheets/ancestry.js";
-import ArmorSheet from "./module/sheets/armor.js";
+import AncestrySheet from "./module/sheets/ancestry.mjs";
+import ArmorSheet from "./module/sheets/armor.mjs";
 import BackgroundSheet from "./module/sheets/background.js";
 import TalentSheet from "./module/sheets/talent.mjs";
-import WeaponSheet from "./module/sheets/weapon.js";
+import WeaponSheet from "./module/sheets/weapon.mjs";
 
 // Dice
 import StandardCheck from "./module/dice/standard-check.js";
@@ -68,6 +72,8 @@ Hooks.once("init", async function() {
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
   CONFIG.Item.dataModels = {
+    ancestry: AncestryData,
+    armor: ArmorData,
     talent: TalentData,
     weapon: WeaponData
   };

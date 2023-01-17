@@ -61,7 +61,7 @@
             "increases": 0,
             "bonus": 0
           },
-          "charisma": {
+          "presence": {
             "base": 0,
             "increases": 0,
             "bonus": 0
@@ -245,60 +245,14 @@
   },
   "Item": {
     "types": ["ancestry", "armor", "background", "talent", "weapon"],
-    "templates": {
-      "physical": {
-        "category": null,
-        "quantity": 1,
-        "weight": 0,
-        "price": 0,
-        "quality": "standard",
-        "enchantment": "mundane",
-        "equipped": false,
-        "properties": [],
-        "description": ""
-      }
-    },
-    "ancestry": {
-      "primary": null,
-      "secondary": null,
-      "skills": [],
-      "resistance": null,
-      "vulnerability": null
-    },
-    "armor": {
-      "templates": ["physical"],
-      "armor": {
-        "base": 0,
-        "bonus": 0
-      },
-      "dodge": {
-        "base": 0,
-        "start": 0
-      }
-    },
+    "ancestry": {},
     "background": {
       "description": "",
       "skills": [],
       "talents": []
     },
-    "talent": {
-      "type": "",
-      "tags": "",
-      "description": "",
-      "ranks": [],
-      "rank": 0
-    },
-    "weapon": {
-      "templates": ["physical"],
-      "damageType": "slashing",
-      "block":  {
-        "base": 0,
-        "bonus": 0
-      },
-      "parry": {
-        "base": 0,
-        "bonus": 0
-      }
-    }
+    "armor": {},
+    "talent": {},
+    "weapon": {}
   }
 }

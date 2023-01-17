@@ -45,7 +45,7 @@ export default class Weapon extends ItemSheet {
     context.properties = {};
     for ( let [id, prop] of Object.entries(SYSTEM.WEAPON.PROPERTIES) ) {
       const checked = context.systemData.properties.includes(id);
-      context.properties[id] = {label: prop.label, checked};
+      context.properties[id] = {id, name: `system.properties.${id}`, label: prop.label, checked};
     }
     return context;
   }
@@ -55,7 +55,7 @@ export default class Weapon extends ItemSheet {
   /** @inheritdoc */
   _getSubmitData(updateData={}) {
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.data.properties = Object.entries(formData.data.properties).reduce((arr, p) => {
+    formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
       if ( p[1] === true ) arr.push(p[0]);
       return arr;
     }, []);

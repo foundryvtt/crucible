@@ -2,14 +2,13 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
+        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
         <h1 class="title">
-            <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
+            <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
         </h1>
-        <div class="header-tags">
-            <label>Tags:</label>
-            {{#each tags as |tag|}}
-            <span>{{tag}}</span>
+        <div class="tags header-tags">
+            {{#each tags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
     </header>
@@ -19,31 +18,56 @@
         <div class="form-group">
             <label>Category</label>
             <div class="form-fields">
-                <select name="data.category">
-                    {{selectOptions categories selected=systemData.category nameAttr="id" labelAttr="label"}}
+                <select name="system.category">
+                    {{selectOptions categories selected=source.system.category labelAttr="label"}}
                 </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Armor (Base and Bonus)</label>
+            <label>Armor Defense</label>
             <div class="form-fields">
-                <input type="number" name="data.armor.base" value="{{systemData.armor.base}}"/>
-                <input type="number" name="data.armor.bonus" value="{{systemData.armor.bonus}}"/>
+                <label>Base</label>
+                <input type="number" name="system.armor.base" value="{{source.system.armor.base}}"/>
+                <label>Bonus</label>
+                <input type="number" value="{{item.system.armor.bonus}}" disabled/>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Dodge (Base and Start)</label>
+            <label>Dodge Defense</label>
             <div class="form-fields">
-                <input type="number" name="data.dodge.base" value="{{systemData.dodge.base}}" disabled/>
-                <input type="number" name="data.dodge.start" value="{{systemData.dodge.start}}" disabled/>
+                <label>Base</label>
+                <input type="number" value="{{item.system.dodge.base}}" disabled/>
+                <label>Bonus</label>
+                <input type="text" value="{{item.system.dodge.start}} Dexterity" disabled/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Quality</label>
+            <div class="form-fields">
+                <select name="system.quality">
+                    {{selectOptions qualities selected=source.system.quality labelAttr="label"}}
+                </select>
+                <label class="checkbox">
+                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}/> Broken
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Enchantment</label>
+            <div class="form-fields">
+                <select name="system.enchantment">
+                    {{selectOptions enchantments selected=source.system.enchantment labelAttr="label"}}
+                </select>
             </div>
         </div>
 
         <div class="form-group">
             <label>Equipped</label>
-            <input type="checkbox" name="data.equipped" {{checked systemData.equipped}}/>
+            <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}/>
         </div>
 
         <div class="form-group stacked">
@@ -61,11 +85,11 @@
             <label>Physical Details</label>
             <div class="form-fields">
                 <label>Quantity</label>
-                <input type="number" step="any" name="data.quantity" value="{{systemData.quantity}}"/>
+                <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
                 <label>Weight</label>
-                <input type="number" step="any" name="data.weight" value="{{systemData.weight}}"/>
+                <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
                 <label>Price</label>
-                <input type="number" step="any" name="data.price" value="{{systemData.price}}"/>
+                <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
             </div>
         </div>
     </section>

@@ -9,12 +9,12 @@ export const SYSTEM_ID = "crucible";
 /**
  * The primary attributes which are called abilities.
  * @type {{
+ *   strength: {label: string, abbreviation: string},
  *   dexterity: {label: string, abbreviation: string},
  *   constitution: {label: string, abbreviation: string},
  *   intellect: {label: string, abbreviation: string},
- *   strength: {label: string, abbreviation: string},
- *   charisma: {label: string, abbreviation: string},
- *   wisdom: {label: string, abbreviation: string}
+ *   wisdom: {label: string, abbreviation: string},
+ *   presence: {label: string, abbreviation: string}
  * }}
  */
 export const ABILITIES = {
@@ -38,9 +38,9 @@ export const ABILITIES = {
     label: "Wisdom",
     abbreviation: "Wis"
   },
-  charisma: {
-    label: "Charisma",
-    abbreviation: "Cha"
+  presence: {
+    label: "Presence",
+    abbreviation: "Pre"
   }
 };
 
@@ -159,7 +159,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
     type: "active",
-    tooltip: "((2 * Constitution) + Strength + Dexterity) * Level",
+    tooltip: "(4 * (Level + Constitution)) + (2 * (Strength + Dexterity))",
     color: {
       high: 0xEE0000,
       low: 0xAA0000,
@@ -183,7 +183,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
     type: "active",
-    tooltip: "((2 * Charisma) + Intellect + Wisdom) * Level",
+    tooltip: "(4 * (Level + Presence)) + (2 * (Intellect + Wisdom))",
     color: {
       high: 0x9900CC,
       low: 0x6600AA,
@@ -272,7 +272,7 @@ export const SAVE_DEFENSES = {
   "willpower": {
     label: "DEFENSES.Willpower",
     abbreviation: "DEFENSES.WillpowerAbr",
-    abilities: ["wisdom", "charisma"]
+    abilities: ["wisdom", "presence"]
   }
 };
 

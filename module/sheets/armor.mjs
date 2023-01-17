@@ -28,27 +28,27 @@ export default class ArmorSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  getData() {
-    const context = super.getData();
-    const systemData = context.systemData = context.data.system;
-
-    // Tags
-    context.tags = this.item.getTags();
-
-    // Categories
-    context.categories = Object.entries(SYSTEM.ARMOR.CATEGORIES).map(e => {
-      const [id, cat] = e;
-      return { id, label: cat.label }
-    });
+  async getData(options={}) {
+    const isEditable = this.isEditable;
+    const context = {
+      cssClass: isEditable ? "editable" : "locked",
+      editable: isEditable,
+      item: this.document,
+      source: this.document.toObject(),
+      categories: SYSTEM.ARMOR.CATEGORIES,
+      qualities: SYSTEM.QUALITY_TIERS,
+      enchantments: SYSTEM.ENCHANTMENT_TIERS,
+      tags: this.item.getTags(),
+    };
 
     // Armor Properties
     context.properties = {};
     for ( let [id, prop] of Object.entries(SYSTEM.ARMOR.PROPERTIES) ) {
       context.properties[id] = {
         id: id,
-        name: `data.properties.${id}`,
+        name: `system.properties.${id}`,
         label: prop.label,
-        checked: systemData.properties.has(id)
+        checked: this.item.system.properties.has(id)
       };
     }
     return context;
@@ -59,7 +59,7 @@ export default class ArmorSheet extends ItemSheet {
   /** @inheritdoc */
   _getSubmitData(updateData={}) {
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.data.properties = Object.entries(formData.data.properties).reduce((arr, p) => {
+    formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
       if ( p[1] === true ) arr.push(p[0]);
       return arr;
     }, []);

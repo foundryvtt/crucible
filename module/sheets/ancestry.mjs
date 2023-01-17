@@ -29,18 +29,23 @@ export default class AncestrySheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  getData() {
-    const context = super.getData();
-    const systemData = context.systemData = context.data.system;
-    context.system = SYSTEM;
+  async getData(options={}) {
+    const isEditable = this.isEditable;
     const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
-    context.skills = Object.entries(skills).map(e => {
-      let [id, s] = e;
-      s.id = id;
-      s.checked = systemData.skills.includes(id);
-      return s;
-    });
-    return context;
+    return {
+      cssClass: isEditable ? "editable" : "locked",
+      editable: isEditable,
+      item: this.document,
+      source: this.document.toObject(),
+      abilities: SYSTEM.ABILITIES,
+      damageTypes: SYSTEM.DAMAGE_TYPES,
+      skills: Object.entries(skills).map(e => {
+        let [id, s] = e;
+        s.id = id;
+        s.checked = this.document.system.skills.includes(id);
+        return s;
+      })
+    };
   }
 
   /* -------------------------------------------- */
@@ -76,37 +81,24 @@ export default class AncestrySheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _updateObject(event, formData) {
-    event.preventDefault();
+  /** @inheritDoc */
+  _getSubmitData(updateData) {
+    const formData = super._getSubmitData(updateData);
+    formData["system.skills"] = formData["system.skills"].filter(s => s);
+    return formData;
+  }
 
-    // Process abilities
-    if ( formData["data.primary"] === formData["data.secondary"] ) {
-      const err = game.i18n.localize("ANCESTRY.AbilityWarning");
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  async _updateObject(event, formData) {
+    const clone = this.document.clone();
+    try {
+      clone.updateSource(formData);
+    } catch(err) {
       ui.notifications.warn(err);
-      throw new Error(err);
+      throw err;
     }
-
-    // Process skills
-    const skills = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
-      if ( formData[s] === true ) skills.push(s);
-      return skills;
-    }, []);
-    if ( skills.length !== 2 ) {
-      const err = game.i18n.localize("ANCESTRY.SkillsWarning");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
-    formData["data.skills"] = skills;
-
-    // Process resistance and vulnerability
-    if ( (!!formData["data.resistance"] !== !!formData["data.vulnerability"]) ) {
-      const err = game.i18n.localize("ANCESTRY.ResistanceWarning");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
-
-    // Update the item
-    return this.object.update(formData);
+    return super._updateObject(event, formData);
   }
 }

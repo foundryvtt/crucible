@@ -74,6 +74,9 @@
 .crucible span.input {
   text-align: center;
 }
+.crucible input[disabled] {
+  border: none;
+}
 /* Tooltips */
 #crucible-tooltip,
 .crucible .tooltip {
@@ -210,6 +213,9 @@ h2.divider span {
 .crucible.sheet .sheet-header .header-tags label {
   font-weight: bold;
   margin-right: 5px;
+}
+.crucible.sheet nav.sheet-tabs {
+  flex: none;
 }
 .crucible.sheet img.profile {
   flex: 0 0 var(--profileSize);
@@ -731,22 +737,22 @@ h2.divider span {
   background-image: url("ui/badges/biography-active.png");
 }
 .crucible.sheet.actor .badge.strength {
-  background-image: url("ui/badges/strength-active.png");
+  background-image: url("ui/badges/strength.png");
 }
 .crucible.sheet.actor .badge.dexterity {
-  background-image: url("ui/badges/dexterity-active.png");
+  background-image: url("ui/badges/dexterity.png");
 }
 .crucible.sheet.actor .badge.constitution {
-  background-image: url("ui/badges/constitution-active.png");
+  background-image: url("ui/badges/constitution.png");
 }
 .crucible.sheet.actor .badge.intellect {
-  background-image: url("ui/badges/intellect-active.png");
+  background-image: url("ui/badges/intellect.png");
 }
 .crucible.sheet.actor .badge.wisdom {
-  background-image: url("ui/badges/wisdom-active.png");
+  background-image: url("ui/badges/wisdom.png");
 }
-.crucible.sheet.actor .badge.charisma {
-  background-image: url("ui/badges/charisma-active.png");
+.crucible.sheet.actor .badge.presence {
+  background-image: url("ui/badges/presence.png");
 }
 .crucible.sheet.actor .badge.physical {
   background-image: url("ui/badges/physical.png");

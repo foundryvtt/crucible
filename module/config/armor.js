@@ -5,22 +5,26 @@
  * @type {{string, string}}
  */
 export const CATEGORIES = {
-  "unarmored": {
+  unarmored: {
+    id: "unarmored",
     label: "ARMOR.Unarmored",
     minArmor: 0,
     maxArmor: 0
   },
-  "light": {
+  light: {
+    id: "light",
     label: "ARMOR.Light",
     minArmor: 1,
     maxArmor: 8
   },
-  "medium": {
+  medium: {
+    id: "medium",
     label: "ARMOR.Medium",
     minArmor: 9,
     maxArmor: 16
   },
-  "heavy": {
+  heavy: {
+    id: "heavy",
     label: "ARMOR.Heavy",
     minArmor: 17,
     maxArmor: 24
