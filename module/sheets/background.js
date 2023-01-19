@@ -30,17 +30,20 @@ export default class BackgroundSheet extends ItemSheet {
 
   /** @override */
   getData() {
-    const context = super.getData();
-    const systemData = context.systemData = context.data.system;
-    context.system = SYSTEM;
+    const isEditable = this.isEditable;
     const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
-    context.skills = Object.entries(skills).map(e => {
-      let [id, s] = e;
-      s.id = id;
-      s.checked = systemData.skills.includes(id);
-      return s;
-    });
-    return context;
+    return {
+      cssClass: isEditable ? "editable" : "locked",
+      editable: isEditable,
+      item: this.document,
+      source: this.document.toObject(),
+      skills: Object.entries(skills).map(e => {
+        let [id, s] = e;
+        s.id = id;
+        s.checked = this.document.system.skills.includes(id);
+        return s;
+      })
+    };
   }
 
   /* -------------------------------------------- */

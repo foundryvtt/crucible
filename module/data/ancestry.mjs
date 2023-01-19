@@ -13,6 +13,7 @@ export default class AncestryData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      description: new fields.HTMLField({required: true, blank: true}),
       primary: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       secondary: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {

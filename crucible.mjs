@@ -12,6 +12,7 @@ import {SYSTEM} from "./module/config/system.js";
 import ActionData from "./module/data/action.mjs";
 import AncestryData from "./module/data/ancestry.mjs";
 import ArmorData from "./module/data/armor.mjs";
+import BackgroundData from "./module/data/background.mjs";
 import TalentData from "./module/data/talent.mjs";
 import WeaponData from "./module/data/weapon.mjs";
 
@@ -48,20 +49,34 @@ import {buildJournalCompendium, renderJournalRules} from "./module/documents/jou
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
-
-  // System configuration values and module structure
   CONFIG.SYSTEM = SYSTEM;
-  game.system.dice = { AttackRoll, StandardCheck, MetaRoll };
-  game.system.journal = { buildJournalCompendium }
+
+  // Expose the system API
   game.system.api = {
-    ActionData,
-    CrucibleActor,
-    CrucibleChatMessage,
-    CrucibleCombat,
-    CrucibleCombatant,
-    CrucibleItem,
-    TalentData,
-    packageItemCompendium
+    dice: {
+      AttackRoll,
+      StandardCheck,
+      MetaRoll
+    },
+    models: {
+      ActionData,
+      AncestryData,
+      ArmorData,
+      BackgroundData,
+      TalentData,
+      WeaponData
+    },
+    documents: {
+      CrucibleActor,
+      CrucibleChatMessage,
+      CrucibleCombat,
+      CrucibleCombatant,
+      CrucibleItem,
+    },
+    methods: {
+      buildJournalCompendium,
+      packageItemCompendium
+    }
   }
 
   // Actor document configuration
@@ -74,6 +89,7 @@ Hooks.once("init", async function() {
   CONFIG.Item.dataModels = {
     ancestry: AncestryData,
     armor: ArmorData,
+    background: BackgroundData,
     talent: TalentData,
     weapon: WeaponData
   };

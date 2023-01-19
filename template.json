@@ -246,11 +246,7 @@
   "Item": {
     "types": ["ancestry", "armor", "background", "talent", "weapon"],
     "ancestry": {},
-    "background": {
-      "description": "",
-      "skills": [],
-      "talents": []
-    },
+    "background": {},
     "armor": {},
     "talent": {},
     "weapon": {}

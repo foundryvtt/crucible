@@ -2,16 +2,20 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img"/>
+        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
         <div class="header-content flexrow">
             <h1 class="title">
-                <input name="name" type="text" value="{{data.name}}" placeholder="Item Name"/>
+                <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
             </h1>
         </div>
     </header>
 
     {{!-- Sheet Body --}}
     <section class="sheet-body">
+        <div class="form-group">
+            <textarea name="system.description" rows="4">{{source.system.description}}</textarea>
+        </div>
+
         <div class="form-group stacked skills">
             <label>{{localize "BACKGROUND.Skills"}}</label>
             <div class="form-fields">
