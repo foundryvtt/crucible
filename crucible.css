@@ -53,7 +53,6 @@
 .crucible span.tag {
   display: inline-block;
   flex: none;
-  margin: 0 1px;
   padding: 1px 2px;
   font-family: var(--fontFamilySans);
   font-size: 12px;
@@ -398,6 +397,7 @@ h2.divider span {
 .crucible.sheet.actor .overview .action,
 .crucible.sheet.actor .overview .effect {
   align-items: center;
+  gap: 2px;
   margin-bottom: 4px;
 }
 .crucible.sheet.actor .overview .equipment img,
@@ -1107,6 +1107,7 @@ h2.divider span {
   height: 40px;
 }
 .crucible.action .action-header {
+  gap: 4px;
   align-items: center;
 }
 .crucible.action .action-name {
@@ -1120,9 +1121,11 @@ h2.divider span {
 .crucible.action .action-tags {
   flex: 0 0 100%;
   display: flex;
-  margin: 4px 0 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
   font-size: 12px;
-  line-height: 20px;
 }
 .crucible.action .action-tags label {
   flex: 1;

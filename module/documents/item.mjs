@@ -168,10 +168,10 @@ export default class CrucibleItem extends Item {
    * @param {number} [banes=0]        The number of banes which afflict this attack roll
    * @param {number} [boons=0]        The number of boons which benefit this attack roll
    * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
-   * @param {number} [damageMultiplier=0] An additional damage multiplier which applies to this attack
+   * @param {number} [multiplier=0] An additional damage multiplier which applies to this attack
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    */
-  async weaponAttack(target, {banes=0, boons=0, damageMultiplier=0, damageBonus=0}={}) {
+  async weaponAttack(target, {banes=0, boons=0, multiplier=1, damageBonus=0}={}) {
     if ( this.type !== "weapon" ) {
       throw new Error("You may only call the weaponAttack method for weapon-type Items");
     }
@@ -200,6 +200,7 @@ export default class CrucibleItem extends Item {
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
+        multiplier: multiplier,
         base: sd.damage.weapon,
         bonus: damageBonus,
         resistance: target.resistances[sd.damageType]?.total ?? 0,
@@ -217,7 +218,7 @@ export default class CrucibleItem extends Item {
    * @see {CrucibleItem#weaponAttack}
    * @returns {Promise<AttackRoll>}
    */
-  async spellAttack(target, {banes=0, boons=0, defenseType="willpower", damageType="fire", damageMultiplier=0, damageBonus=0}={}) {
+  async spellAttack(target, {banes=0, boons=0, defenseType="willpower", damageType="fire", multiplier=0, damageBonus=0}={}) {
     if ( this.type !== "talent" ) {
       throw new Error("Temporary spellAttack method called with wrong item type");
     }
@@ -245,7 +246,7 @@ export default class CrucibleItem extends Item {
     if ( roll.data.result === AttackRoll.RESULT_TYPES.EFFECTIVE ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: damageMultiplier,
+        multiplier: multiplier,
         bonus: damageBonus,
         resistance: target.resistances[damageType]?.total ?? 0,
         type: damageType

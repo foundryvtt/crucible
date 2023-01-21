@@ -34,8 +34,8 @@ export default class HeroSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    const context = super.getData();
+  async getData(options) {
+    const context = await super.getData(options);
     const systemData = context.systemData = context.data.system;
 
     // Incomplete Tasks
@@ -83,6 +83,21 @@ export default class HeroSheet extends ActorSheet {
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
       return {id: a.id, name: a.name, img: a.img, tags: a.getActivationTags()}
+    });
+
+    // HTML Biography
+    context.biography = {};
+    context.biography.public = await TextEditor.enrichHTML(context.systemData.details.biography.public, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
+    });
+    context.biography.private = await TextEditor.enrichHTML(context.systemData.details.biography.private, {
+      secrets: this.actor.isOwner,
+      rollData: context.rollData,
+      async: true,
+      relativeTo: this.actor
     });
 
     // Section locks
@@ -177,7 +192,7 @@ export default class HeroSheet extends ActorSheet {
 
   /**
    * Format the display of resource attributes on the actor sheet
-   * @param {object} attributes       The ActorData.data.attributes object
+   * @param {object} attributes       The ActorData.system.attributes object
    * @private
    */
   _formatResources(attributes) {
@@ -188,8 +203,8 @@ export default class HeroSheet extends ActorSheet {
 
       // Determine resource bar color
       const p = attr.pct / 100;
-      const c0 = foundry.utils.hexToRGB(r.color.low);
-      const c1 = foundry.utils.hexToRGB(r.color.high);
+      const c0 = r.color.low.rgb;
+      const c1 = r.color.high.rgb;
       const bg = c0.map(c => c * 0.25 * 255);
       const fill = c1.map((c, i) => ((c * p) + (c0[i] * (1-p))) * 255);
       attr.color = {
@@ -383,7 +398,7 @@ export default class HeroSheet extends ActorSheet {
     const li = button.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
-    switch ( item.data.type ) {
+    switch ( item.type ) {
       case "armor":
         return this.actor.equipArmor({
           itemId: item.id,

@@ -88,7 +88,7 @@
                     </h1>
                     <div class="advancement flexrow">
                         <div class="bar"><div class="fill" style="width:{{systemData.advancement.pct}}%"></div></div>
-                        <input type="number" name="data.advancement.progress" value="{{systemData.advancement.progress}}"/>
+                        <input type="number" name="system.advancement.progress" value="{{systemData.advancement.progress}}"/>
                         <span class="slash"></span>
                         <span class="input">{{systemData.advancement.next}}</span>
                     </div>
@@ -103,7 +103,7 @@
                         {{#if incomplete.levelUp}}
                         <div class="tooltip right">{{localize "WALKTHROUGH.LevelUp"}}</div>
                         {{/if}}
-                        <input type="number" name="data.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
+                        <input type="number" name="system.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
                     </h2>
                 </div>
 
@@ -160,18 +160,18 @@
                     </a>
                 </h2>
                 <div class="resource health">
-                    {{> resource label="Health" attr="data.attributes.health" data=systemData.attributes.health}}
-                    {{> resource label="Wounds" attr="data.attributes.wounds" data=systemData.attributes.wounds}}
+                    {{> resource label="Health" attr="system.attributes.health" data=systemData.attributes.health}}
+                    {{> resource label="Wounds" attr="system.attributes.wounds" data=systemData.attributes.wounds}}
                 </div>
 
                 <div class="resource morale">
-                    {{> resource label="Morale" attr="data.attributes.morale" data=systemData.attributes.morale}}
-                    {{> resource label="Madness" attr="data.attributes.madness" data=systemData.attributes.madness}}
+                    {{> resource label="Morale" attr="system.attributes.morale" data=systemData.attributes.morale}}
+                    {{> resource label="Madness" attr="system.attributes.madness" data=systemData.attributes.madness}}
                 </div>
 
                 <div class="resource action">
-                    {{> resource label="Action" attr="data.attributes.action" data=systemData.attributes.action}}
-                    {{> resource label="Focus" attr="data.attributes.focus" data=systemData.attributes.focus}}
+                    {{> resource label="Action" attr="system.attributes.action" data=systemData.attributes.action}}
+                    {{> resource label="Focus" attr="system.attributes.focus" data=systemData.attributes.focus}}
                 </div>
             </section>
 
@@ -281,7 +281,7 @@
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
-                        <input type="number" name="data.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <input type="number" name="system.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
                         <h4 class="subtitle">Bonus</h4>
                     </li>
                 </ol>
@@ -300,7 +300,7 @@
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
-                        <input type="number" name="data.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <input type="number" name="system.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
                         <h4 class="subtitle">Bonus</h4>
                     </li>
                 </ol>
@@ -319,7 +319,7 @@
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
-                        <input type="number" name="data.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <input type="number" name="system.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
                         <h4 class="subtitle">Bonus</h4>
                     </li>
                 </ol>
@@ -349,7 +349,7 @@
                             <label>{{r.label}}</label>
                             <span class="base">{{r.base}}</span>
                             <span class="math">+</span>
-                            <input type="number" name="data.resistances.{{id}}.bonus" value="{{r.bonus}}"
+                            <input type="number" name="system.resistances.{{id}}.bonus" value="{{r.bonus}}"
                                {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
                         </li>
                         {{/each}}
@@ -490,7 +490,7 @@
                     <div class="item-name flexrow">
                         <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
                         <h4>
-                            {{#if item.showStack}}<span class="stack">({{item.data.quantity}}) </span>{{/if}}
+                            {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
                             {{~item.name~}}
                         </h4>
                         {{#each item.tags}}
@@ -549,9 +549,9 @@
         {{!-- Biography Tab --}}
         <div class="tab biography flexcol" data-group="primary" data-tab="biography">
             <h2 class="section-header divider"><span></span><label>Public Biography</label><span></span></h2>
-            {{editor content=systemData.details.biography.public target="data.details.biography.public" button=true owner=owner editable=editable rollData=rollData}}
+            {{editor biography.public target="system.details.biography.public" button=true owner=owner editable=editable}}
             <h2 class="section-header divider"><span></span><label>Private Biography</label><span></span></h2>
-            {{editor content=systemData.details.biography.private target="data.details.biography.private" button=true owner=owner editable=editable rollData=rollData}}
+            {{editor biography.private target="system.details.biography.private" button=true owner=owner editable=editable}}
         </div>
     </section>
 </form>

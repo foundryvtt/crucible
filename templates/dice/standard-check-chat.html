@@ -48,7 +48,7 @@
         {{#if data.damage.total}}
         <div class="dice-tooltip">
             <div class="counter">
-                <label>{{localize "DICE.DamageOverflow"}}</label>
+                <label>{{localize "DICE.DamageOverflow"}}{{#if hasMultiplier}} (x{{data.damage.multiplier}}){{/if}}</label>
                 <span>{{data.damage.overflow}}</span>
             </div>
             <div class="counter">

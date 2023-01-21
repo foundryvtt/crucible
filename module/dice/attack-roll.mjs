@@ -15,6 +15,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @typedef {Object} DamageData
  * @property {number} overflow                The attack check result in excess of the defense threshold
  * @property {number} multiplier              The overflow multiplier value
+ * @property {number} base                    The base damage amount
  * @property {number} bonus                   An additive damage bonus
  * @property {number} resistance              A subtracted resistance threshold
  * @property {string} type                    The type of damage
@@ -105,6 +106,7 @@ export default class AttackRoll extends StandardCheck {
     if ( this.data.damage?.total ) {
       cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
     }
+    cardData.hasMultiplier = this.data.damage?.multiplier !== 1;
     return cardData;
   }
 }

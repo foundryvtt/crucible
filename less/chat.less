@@ -4,6 +4,7 @@
     height: 40px;
   }
   .action-header {
+    gap: 4px;
     align-items: center;
   }
   .action-name {
@@ -17,9 +18,11 @@
   .action-tags {
     flex: 0 0 100%;
     display: flex;
-    margin: 4px 0 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2px;
     font-size: 12px;
-    line-height: 20px;
     label {
       flex: 1;
     }

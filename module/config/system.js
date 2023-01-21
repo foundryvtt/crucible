@@ -53,7 +53,7 @@ export const ABILITIES = {
 export const ANCESTRIES = {
   primaryAttributeStart: 3,
   secondaryAttributeStart: 2,
-  resistanceAmount: 2
+  resistanceAmount: 5
 }
 
 /* -------------------------------------------- */
@@ -161,9 +161,9 @@ export const RESOURCES = {
     type: "active",
     tooltip: "(4 * (Level + Constitution)) + (2 * (Strength + Dexterity))",
     color: {
-      high: 0xEE0000,
-      low: 0xAA0000,
-      heal: 0x00EE00
+      high: Color.from(0xEE0000),
+      low: Color.from(0xAA0000),
+      heal: Color.from(0x00EE00)
     },
   },
   "wounds": {
@@ -173,9 +173,9 @@ export const RESOURCES = {
     type: "reserve",
     tooltip: "Health * 2",
     color: {
-      high: 0xEE0000,
-      low: 0xAA0000,
-      heal: 0x00EE00
+      high: Color.from(0xEE0000),
+      low: Color.from(0xAA0000),
+      heal: Color.from(0x00EE00)
     },
   },
   "morale": {
@@ -185,9 +185,9 @@ export const RESOURCES = {
     type: "active",
     tooltip: "(4 * (Level + Presence)) + (2 * (Intellect + Wisdom))",
     color: {
-      high: 0x9900CC,
-      low: 0x6600AA,
-      heal: 0x9900CC
+      high: Color.from(0x9900CC),
+      low: Color.from(0x6600AA),
+      heal: Color.from(0x9900CC)
     }
   },
   "madness": {
@@ -197,9 +197,9 @@ export const RESOURCES = {
     tooltip: "Morale * 2",
     type: "reserve",
     color: {
-      high: 0x9900CC,
-      low: 0x6600AA,
-      heal: 0x9900CC
+      high: Color.from(0x9900CC),
+      low: Color.from(0x6600AA),
+      heal: Color.from(0x9900CC)
     }
   },
   "action": {
@@ -209,9 +209,9 @@ export const RESOURCES = {
     tooltip: "3 + Action Bonus",
     type: "active",
     color: {
-      high: 0xFF9900,
-      low: 0xCC6600,
-      heal: 0xFF9900
+      high: Color.from(0xFF9900),
+      low: Color.from(0xCC6600),
+      heal: Color.from(0xFF9900)
     }
   },
   "focus": {
@@ -221,9 +221,9 @@ export const RESOURCES = {
     tooltip: "(Level * 2) + Focus Bonus",
     type: "active",
     color: {
-      high: 0x0066FF,
-      low: 0x0033CC,
-      heal: 0x0066FF
+      high: Color.from(0x0066FF),
+      low: Color.from(0x0033CC),
+      heal: Color.from(0x0066FF)
     }
   }
 };

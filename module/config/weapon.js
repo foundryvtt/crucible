@@ -6,8 +6,7 @@
  * @property {boolean} main               Can this weapon be used in the main-hand
  * @property {boolean} off                Can this weapon be used in the off-hand
  * @property {string} scaling             What scaling formula does this weapon use? "str", "dex", or "strdex"
- * @property {number} bonus               The additive damage of this weapon
- * @property {number} multiplier          The multiplicative damage of this weapon
+ * @property {{base: number, [multiplier]: number}} damage  The damage attributes of the weapon
  * @property {number} actionCost          The action point cost to strike with this weapon
  */
 

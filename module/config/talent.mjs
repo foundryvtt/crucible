@@ -59,7 +59,7 @@ export const ACTION_TAGS = {
     tag: "deadly",
     label: "ACTION.TagDeadly",
     tooltip: "ACTION.TagDeadlyTooltip",
-    pre: (actor, action) => action.bonuses.damageMultiplier += 1,
+    pre: (actor, action) => action.bonuses.multiplier += 1,
   },
   difficult: {
     tag: "difficult",
@@ -95,7 +95,7 @@ export const ACTION_TAGS = {
     tag: "harmless",
     label: "ACTION.TagHarmless",
     tooltip: "ACTION.TagHarmlessTooltip",
-    pre: (actor, action) => action.bonuses.damageMultiplier = 0
+    pre: (actor, action) => action.bonuses.multiplier = 0
   },
   weakened: {
     tag: "weakened",
@@ -197,7 +197,7 @@ export const ACTION_TAGS = {
     tag: "spell",
     label: "Spell",
     pre: (actor, action) => {
-      foundry.utils.mergeObject(action.bonuses, {damageMultiplier: 1});
+      foundry.utils.mergeObject(action.bonuses, {multiplier: 1});
       foundry.utils.mergeObject(action.context, {
         hasDice: true,
         label: action.name,

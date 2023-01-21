@@ -32,7 +32,7 @@ export default class CrucibleActor extends Actor {
    * Track the equipment that the Actor is currently using
    * @type {{
    *   armor: Item,
-   *   weapons: {mainhand: Item, offhand: Item}
+   *   weapons: {mainhand: Item, offhand: Item},
    *   accessories: Item[]
    * }}
    */
@@ -117,8 +117,17 @@ export default class CrucibleActor extends Actor {
   }
 
   get isDead() {
-    if ( this.data.type === "npc" ) return this.isUnconscious;
+    if ( this.type === "npc" ) return this.isUnconscious;
     return this.attributes.wounds.value === this.attributes.wounds.max;
+  }
+
+  /**
+   * Is this Actor currently in the active Combat encounter?
+   * @type {boolean}
+   */
+  get inCombat() {
+    if ( this.isToken ) return !!game.combat?.combatants.find(c => c.tokenId === this.token.id);
+    return !!game.combat?.combatants.find(c => c.actorId === this.id);
   }
 
   /* -------------------------------------------- */
@@ -635,13 +644,13 @@ export default class CrucibleActor extends Actor {
    */
   async recover() {
     const updates = {
-      "data.status": {
+      "system.status": {
         hasMoved: false,
         hasAttacked: false,
         wasAttacked: false
       }
     }
-    if ( !this.isUnconscious ) updates["data.attributes.action.value"] = this.attributes.action.max;
+    if ( !this.isUnconscious ) updates["system.attributes.action.value"] = this.attributes.action.max;
     return this.update(updates);
   }
 
@@ -656,7 +665,7 @@ export default class CrucibleActor extends Actor {
     const updates = {};
     for ( let resource of Object.values(SYSTEM.RESOURCES) ) {
       const attr = this.attributes[resource.id];
-      updates[`data.attributes.${resource.id}.value`] = resource.type === "reserve" ? 0 : attr.max;
+      updates[`system.attributes.${resource.id}.value`] = resource.type === "reserve" ? 0 : attr.max;
     }
     return updates;
   }
@@ -683,19 +692,19 @@ export default class CrucibleActor extends Actor {
       // Overflow health onto wounds (double damage)
       if ( (resourceName === "health") && (overflow !== 0) ) {
         tookWounds = true;
-        updates["data.attributes.wounds.value"] = Math.clamped(attrs.wounds.value - overflow, 0, attrs.wounds.max);
+        updates["system.attributes.wounds.value"] = Math.clamped(attrs.wounds.value - overflow, 0, attrs.wounds.max);
       }
       else if ( resourceName === "wounds" ) tookWounds = true;
 
       // Overflow morale onto madness (double damage)
       if ( (resourceName === "morale") && (overflow !== 0) ) {
         const madness = this.attributes.madness.value - overflow;
-        updates["data.attributes.madness.value"] = Math.clamped(madness, 0, attrs.madness.max);
+        updates["system.attributes.madness.value"] = Math.clamped(madness, 0, attrs.madness.max);
       }
       else if ( resourceName === "madness" ) tookMadness = true;
 
       // Regular update
-      updates[`data.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
+      updates[`system.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
     }
     await this.update(updates);
 
@@ -752,11 +761,11 @@ export default class CrucibleActor extends Actor {
    */
   async addTalent(itemData) {
     const Item = getDocumentClass("Item");
-    itemData.data.rank = 1;
+    itemData.system.rank = 1;
     const talent = new Item(itemData, {parent: this});
 
     // Ensure the Talent is not already owned
-    if ( this.items.find(i => (i.data.type === "talent") && (i.name === talent.name)) ) {
+    if ( this.items.find(i => (i.type === "talent") && (i.name === talent.name)) ) {
       const err = game.i18n.format("TALENT.AlreadyOwned", {name: talent.name});
       ui.notifications.warn(err);
       throw new Error(err);
@@ -799,7 +808,7 @@ export default class CrucibleActor extends Actor {
    * @return {CrucibleActor}      The updated Actor with the new Ancestry applied.
    */
   async applyAncestry(itemData) {
-    const ancestry = duplicate(itemData.data);
+    const ancestry = foundry.utils.deepClone(itemData.system);
     ancestry.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
@@ -810,7 +819,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update the Actor
-    await this.update({"data.details.ancestry": ancestry});
+    await this.update({"system.details.ancestry": ancestry});
     ui.notifications.info(game.i18n.format("ANCESTRY.Applied", {ancestry: ancestry.name, actor: this.name}));
     return this;
   }
@@ -823,7 +832,7 @@ export default class CrucibleActor extends Actor {
    * @return {CrucibleActor}      The updated Actor with the new Background applied.
    */
   async applyBackground(itemData) {
-    const background = duplicate(itemData.data);
+    const background = foundry.utils.deepClone(itemData.system);
     background.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
@@ -834,7 +843,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update the Actor
-    await this.update({"data.details.background": background});
+    await this.update({"system.details.background": background});
     ui.notifications.info(game.i18n.format("BACKGROUND.Applied", {background: background.name, actor: this.name}));
     return this;
   }
@@ -864,7 +873,7 @@ export default class CrucibleActor extends Actor {
       if ( !canAfford ) {
         return ui.notifications.warn(game.i18n.format("WARNING.AbilityCantAfford", {cost: attr.cost, points: points.pool}));
       }
-      return this.update({[`data.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
+      return this.update({[`system.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
     }
 
     // Case 2 - Regular Increase
@@ -872,7 +881,7 @@ export default class CrucibleActor extends Actor {
       if (((delta < 0) && !points.spent) || ((delta > 0) && !points.available)) return false;
       const base = attr.initial + attr.base;
       const target = Math.clamped(attr.increases + delta, 0, 12 - base);
-      return this.update({[`data.attributes.${ability}.increases`]: target});
+      return this.update({[`system.attributes.${ability}.increases`]: target});
     }
   }
 
@@ -899,8 +908,8 @@ export default class CrucibleActor extends Actor {
     if ( delta < 0 ) {
       if ( skill.rank === 0 ) return;
       const update = {};
-      if ( skill.rank === 3 ) update[`data.skills.${skillId}.path`] = null;
-      update[`data.skills.${skillId}.rank`] = skill.rank - 1;
+      if ( skill.rank === 3 ) update[`system.skills.${skillId}.path`] = null;
+      update[`system.skills.${skillId}.rank`] = skill.rank - 1;
       return this.update(update);
     }
 
@@ -913,7 +922,7 @@ export default class CrucibleActor extends Actor {
       if ( points.available < skill.cost ) {
         return ui.notifications.warn(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: points.available}));
       }
-      return this.update({[`data.skills.${skillId}.rank`]: skill.rank + 1});
+      return this.update({[`system.skills.${skillId}.rank`]: skill.rank + 1});
     }
   }
 
@@ -934,7 +943,7 @@ export default class CrucibleActor extends Actor {
     // Modify the currently equipped armor
     if ( current === item ) {
       if ( equipped ) return current;
-      else return current.update({"data.equipped": false});
+      else return current.update({"system.equipped": false});
     }
 
     // Cannot equip armor
@@ -947,7 +956,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Equip new armor
-    return item.update({"data.equipped": true});
+    return item.update({"system.equipped": true});
   }
 
   /* -------------------------------------------- */
@@ -973,10 +982,10 @@ export default class CrucibleActor extends Actor {
     // Handle un-equipping weapons which are currently equipped
     if ( !equipped ) {
       if ( (w1 === weapons.mainhand) || (w1 === weapons.offhand) ) {
-        updates.push({_id: w1.id, "data.equipped": false});
+        updates.push({_id: w1.id, "system.equipped": false});
       }
       if ( w2 && (w2 === weapons.offhand) ) {
-        updates.push({_id: w2.id, "data.equipped": false});
+        updates.push({_id: w2.id, "system.equipped": false});
       }
       return this.updateEmbeddedDocuments("Item", updates);
     }
@@ -999,18 +1008,18 @@ export default class CrucibleActor extends Actor {
       }
       else {
         isOHFree = false;
-        updates.push({_id: w2.id, "data.equipped": true});
+        updates.push({_id: w2.id, "system.equipped": true});
       }
     }
 
     // Equip the primary weapon in the main-hand slot
     if ( w1.config.category.main && isMHFree ) {
-      updates.push({_id: w1.id, "data.equipped": true});
+      updates.push({_id: w1.id, "system.equipped": true});
     }
 
     // Equip the primary weapon in the off-hand slot
     else if ( w1.config.category.off && isOHFree ) {
-      updates.push({_id: w1.id, "data.equipped": true});
+      updates.push({_id: w1.id, "system.equipped": true});
     }
 
     // Failed to equip
@@ -1036,7 +1045,7 @@ export default class CrucibleActor extends Actor {
 
     // Prototype Token configuration
     if ( this.type === "hero" ) {
-      this.data.token.update({vision: true, actorLink: true, disposition: 1});
+      this.updateSource({prototypeToken: {vision: true, actorLink: true, disposition: 1}});
     }
   }
 
@@ -1057,11 +1066,11 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _displayScrollingStatus(changed) {
-    if ( !changed.data?.attributes ) return;
+    if ( !changed.system?.attributes ) return;
     const tokens = this.getActiveTokens(true);
     if ( !tokens.length ) return;
     for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
-      if ( changed.data.attributes[resourceName]?.value === undefined ) continue;
+      if ( changed.system.attributes[resourceName]?.value === undefined ) continue;
 
       // Get change data
       const resource = SYSTEM.RESOURCES[resourceName];
@@ -1109,8 +1118,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   _replenishResources(data) {
-    const levelChange = foundry.utils.hasProperty(data, "data.advancement.level");
-    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => foundry.utils.hasProperty(data, `data.attributes.${k}`));
+    const levelChange = foundry.utils.hasProperty(data, "system.advancement.level");
+    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => foundry.utils.hasProperty(data, `system.attributes.${k}`));
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
   }
 }

@@ -69,9 +69,10 @@ export default class ActionData extends foundry.abstract.DataModel {
    * Additional data preparation steps for the ActionData.
    */
   prepareData() {
-    this.name = this.name || this.document?.name;
-    this.img = this.img || this.document?.img;
-    this.tags = new Set([...this.document?.system.tags || [], ...this.tags]);
+    const item = this.parent?.parent;
+    this.name = this.name || item?.name;
+    this.img = this.img || item?.img;
+    this.tags = new Set([...item?.system.tags || [], ...this.tags]);
   }
 
   /* -------------------------------------------- */
@@ -235,10 +236,11 @@ export default class ActionData extends foundry.abstract.DataModel {
   async use(actor, {banes=0, boons=0, rollMode, dialog=false}={}) {
 
     // Clone the derived action data which may be further transformed throughout the workflow
-    const action = new this.constructor(this, this.document);
+    const action = this.clone({}, {parent: this.parent});
+    action.prepareData();
     action.prepareForActor(actor);
     action.context = {};
-    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, damageMultiplier: 0};
+    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1};
     action.actorUpdates = {};
 
     // Pre-configure of the action
@@ -321,8 +323,10 @@ export default class ActionData extends foundry.abstract.DataModel {
       results = results.concat(rolls);
     }
 
-    // Incur the cost of the action that was performed
-    await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
+    // If the actor is in combat, incur the cost of the action that was performed
+    if ( actor.inCombat ) {
+      await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
+    }
     return results;
   }
 
@@ -394,7 +398,7 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @param {DamageData} damage     The component details of the damage dealt
    * @returns {number}              The total damage dealt
    */
-  static computeDamage({overflow=1, base=0, bonus=0, resistance=0}={}) {
-    return Math.max(overflow + base + bonus - resistance, 1);
+  static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
+    return Math.max((overflow * multiplier) + base + bonus - resistance, 1);
   }
 }
