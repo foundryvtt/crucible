@@ -277,7 +277,7 @@ export default class CrucibleItem extends Item {
     const tokens = this.actor.getActiveTokens(true);
 
     // Equipment changes
-    if ( "equipped" in changed.system ) {
+    if ( changed.system?.equipped !== undefined ) {
       const text = `${changed.system.equipped ? "+" : "-"}(${this.name})`;
       const fontSize = 24 * (canvas.dimensions.size / 100).toNearest(0.25);
       for ( let token of tokens ) {

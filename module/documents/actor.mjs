@@ -15,10 +15,8 @@ import ActionData from "../data/action.mjs";
  * @extends {Actor}
  */
 export default class CrucibleActor extends Actor {
-
-  /** @inheritdoc */
-  _initialize() {
-    super._initialize();
+  constructor(data, context) {
+    super(data, context);
     this._updateCachedResources();
   }
 
@@ -129,6 +127,12 @@ export default class CrucibleActor extends Actor {
     if ( this.isToken ) return !!game.combat?.combatants.find(c => c.tokenId === this.token.id);
     return !!game.combat?.combatants.find(c => c.actorId === this.id);
   }
+
+  /**
+   * Track resource values prior to updates to capture differential changes.
+   * @enum {number}
+   */
+  _cachedResources;
 
   /* -------------------------------------------- */
   /*  Actor Preparation
@@ -260,17 +264,18 @@ export default class CrucibleActor extends Actor {
       else if ( category.off && !category.main ) equippedWeapons.oh.push(w);
       else equippedWeapons.either.push(w);
     }
+    equippedWeapons.either.sort((a, b) => b.system.damage.base - a.system.damage.base);
 
     // Assign equipped weapons
-    for ( let w of equippedWeapons.mh ) {
+    for ( const w of equippedWeapons.mh ) {
       if ( weapons.mainhand ) warnSlotInUse(w, "mainhand");
       else weapons.mainhand = w;
     }
-    for ( let w of equippedWeapons.oh ) {
+    for ( const w of equippedWeapons.oh ) {
       if ( weapons.offhand ) warnSlotInUse(w, "offhand");
       else weapons.offhand = w;
     }
-    for ( let w of equippedWeapons.either ) {
+    for ( const w of equippedWeapons.either ) {
       if ( !weapons.mainhand ) weapons.mainhand = w;
       else if ( !weapons.offhand ) weapons.offhand = w;
       else warnSlotInUse(w, "mainhand");
@@ -1053,10 +1058,10 @@ export default class CrucibleActor extends Actor {
 
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
-    this._displayScrollingStatus(data);
     super._onUpdate(data, options, userId);
-    this._updateCachedResources();
+    this._displayScrollingStatus(data);
     this._replenishResources(data);
+    this._updateCachedResources();
   }
 
   /* -------------------------------------------- */

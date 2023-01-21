@@ -34,7 +34,6 @@ import WeaponSheet from "./module/sheets/weapon.mjs";
 // Dice
 import StandardCheck from "./module/dice/standard-check.js";
 import AttackRoll from "./module/dice/attack-roll.mjs";
-import MetaRoll from "./module/dice/meta-roll.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
@@ -55,8 +54,7 @@ Hooks.once("init", async function() {
   game.system.api = {
     dice: {
       AttackRoll,
-      StandardCheck,
-      MetaRoll
+      StandardCheck
     },
     models: {
       ActionData,
@@ -106,7 +104,7 @@ Hooks.once("init", async function() {
   CONFIG.Combatant.documentClass = CrucibleCombatant;
 
   // Dice system configuration
-  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll, MetaRoll);
+  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

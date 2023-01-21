@@ -9,7 +9,7 @@ export function addChatMessageContextOptions(html, options)  {
     condition: li => {
       if ( !game.user.isGM ) return false;
       const message = game.messages.get(li.data("messageId"));
-      const flags = message.data.flags.crucible || {};
+      const flags = message.flags.crucible || {};
       return message.isRoll && !flags.isAttack;
     },
     callback: li => {
@@ -35,14 +35,13 @@ export function addChatMessageContextOptions(html, options)  {
     icon: '<i class="fas fa-first-aid"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
-      const flags = message.data.flags.crucible || {};
-      const rolls = message.roll.terms[0].rolls;
-      return flags.isAttack && !flags.damageApplied && rolls.some(r => r.data.damage?.total);
+      const flags = message.flags.crucible || {};
+      return flags.isAttack && !flags.damageApplied && message.rolls.some(r => r.data.damage?.total);
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
       const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
+      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
       for ( let t of targets ) {
 
         // Get target actor
@@ -63,13 +62,13 @@ export function addChatMessageContextOptions(html, options)  {
     icon: '<i class="fas fa-first-aid"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
-      const flags = message.data.flags.crucible || {};
+      const flags = message.flags.crucible || {};
       return flags.isAttack && flags.damageApplied;
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
       const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.roll.terms[0].rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
+      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
       for ( let t of targets ) {
         const target = await fromUuid(t.uuid);
         if ( !target ) continue;
@@ -88,7 +87,7 @@ export function addChatMessageContextOptions(html, options)  {
  * Custom alterations to apply when rendering chat message HTML
  */
 export function renderChatMessage(message, html, data, options) {
-  const flags = message.data.flags.crucible || {};
+  const flags = message.flags.crucible || {};
   if ( flags.isAttack && flags.damageApplied ) {
     html.find(".damage-result .target").addClass("applied");
   }

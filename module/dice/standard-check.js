@@ -66,7 +66,7 @@ export default class StandardCheck extends Roll {
    * The HTML template path used to render dice checks of this type
    * @type {string}
    */
-  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-chat.html`;
+  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-roll.html`;
 
   /* -------------------------------------------- */
 
@@ -266,6 +266,7 @@ export default class StandardCheck extends Roll {
   /** @inheritdoc */
   async toMessage(messageData, options={}) {
     options.rollMode = options.rollMode || this.data.rollMode;
+    messageData.content ||= "";
     return super.toMessage(messageData, options);
   }
 

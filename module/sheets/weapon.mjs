@@ -28,23 +28,25 @@ export default class Weapon extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  getData() {
-    const context = super.getData();
-    context.systemData = context.data.system;
-
-    // Configuration Categories
-    context.categories = SYSTEM.WEAPON.CATEGORIES;
-    context.damageTypes = SYSTEM.DAMAGE_TYPES;
-    context.qualities = SYSTEM.QUALITY_TIERS;
-    context.enchantments = SYSTEM.ENCHANTMENT_TIERS;
-
-    // Weapon Tags
-    context.tags = this.item.getTags();
+  async getData(options={}) {
+    const isEditable = this.isEditable;
+    const source = this.document.toObject();
+    const context = {
+      cssClass: isEditable ? "editable" : "locked",
+      editable: isEditable,
+      item: this.document,
+      source: source,
+      categories: SYSTEM.WEAPON.CATEGORIES,
+      damageTypes: SYSTEM.DAMAGE_TYPES,
+      qualities: SYSTEM.QUALITY_TIERS,
+      enchantments: SYSTEM.ENCHANTMENT_TIERS,
+      tags: this.item.getTags(),
+    };
 
     // Weapon Properties
     context.properties = {};
     for ( let [id, prop] of Object.entries(SYSTEM.WEAPON.PROPERTIES) ) {
-      const checked = context.systemData.properties.includes(id);
+      const checked = source.system.properties.includes(id);
       context.properties[id] = {id, name: `system.properties.${id}`, label: prop.label, checked};
     }
     return context;

@@ -1,6 +1,5 @@
 import * as TALENT from "../config/talent.mjs";
 import {SYSTEM} from "../config/system.js";
-import MetaRoll from "../dice/meta-roll.mjs";
 import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
@@ -201,15 +200,12 @@ export default class ActionData extends foundry.abstract.DataModel {
       targets: targets
     });
 
-    // Composite a single roll for the purpose of the chat record
-    const metaRoll = MetaRoll.fromRolls(rolls);
-
     // Create chat message
     const messageData = {
       type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor}),
-      roll: metaRoll,
+      rolls: rolls,
       flags: {
         crucible: {
           isAttack: rolls.length,
