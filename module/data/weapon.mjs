@@ -123,27 +123,22 @@ export default class WeaponData extends PhysicalItemData {
    */
   getTags(scope="full") {
     const tags = {};
+    tags.damage = `${this.damage.weapon} Damage`;
+    if ( scope === "short" ) return tags;
+
+    // Weapon Category
     const category = this.config.category;
-    const handsTag = category => {
+    const handsTag = () => {
       if ( category.hands === 2 ) return "WEAPON.HandsTwo";
       if ( category.main && category.off ) return "WEAPON.HandsEither";
       if ( category.main ) return "WEAPON.HandsMain";
       if ( category.off ) return "WEAPON.HandsOff";
     }
+    tags.category = category.label;
+    tags.hands = game.i18n.localize(handsTag());
 
-    // Full Tags
-    if ( scope === "full") {
-      tags.category = category.label;
-      tags.hands = game.i18n.localize(handsTag(category));
-    }
-
-    // Special properties
+    // Weapon Properties
     if ( this.broken ) tags.broken = game.i18n.localize("ITEM.Broken");
-
-    // Damage
-    tags.damage = `${this.damage.weapon} Damage`;
-
-    // Defenses
     if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
     if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
     return tags;

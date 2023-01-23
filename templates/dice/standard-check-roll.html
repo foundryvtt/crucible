@@ -1,24 +1,30 @@
 <div class="dice-roll {{cssClass}}">
-    <div class="dice-result">
-        <div class="dice-formula">{{formula}}</div>
-        <div class="dice-pool flexrow">
-            <div class="boons">
-                <i class="fas fa-arrow-up"></i>
-                <span>{{data.boons}}</span>
-            </div>
-            {{#each pool}}
-            <div class="die {{this.denom}}">
-                <span class="denom">{{this.denom}}</span>
-                {{this.result}}
-            </div>
-            {{/each}}
-            <div class="boons banes">
-                <i class="fas fa-arrow-down"></i>
-                <span>{{data.banes}}</span>
-            </div>
-        </div>
+    {{#if target }}
+    <div class="tags action-tags flexrow" data-tag-type="target">
+        <label><i class="fa-solid fa-bullseye"></i> Target</label>
+        <span class="target-link tag" data-uuid="{{target.uuid}}">{{target.name}}</span>
+    </div>
+    {{/if}}
 
+    <div class="dice-result">
         <div class="dice-tooltip">
+            <div class="dice-formula">{{formula}}</div>
+            <div class="dice-pool flexrow">
+                <div class="boons">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>{{data.boons}}</span>
+                </div>
+                {{#each pool}}
+                <div class="die {{this.denom}}">
+                    <span class="denom">{{this.denom}}</span>
+                    {{this.result}}
+                </div>
+                {{/each}}
+                <div class="boons banes">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>{{data.banes}}</span>
+                </div>
+            </div>
             <div class="counter">
                 <label>{{localize "DICE.DiceTotal"}}</label>
                 <span>{{diceTotal}}</span>

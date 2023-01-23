@@ -294,7 +294,7 @@ export default class CrucibleActor extends Actor {
     // Assign equipment state flags
     equipment.unarmored = equipment.armor.system.category === "unarmored";
     weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
-    weapons.shield = ohCategory.id === "shield";
+    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
     weapons.twoHanded = mhCategory.hands === 2;
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;

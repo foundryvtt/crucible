@@ -185,6 +185,7 @@ export default class CrucibleItem extends Item {
     const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
+      target: target.uuid,
       ability: ability,
       skill: skill,
       enchantment: enchantment,
@@ -231,6 +232,7 @@ export default class CrucibleItem extends Item {
     const roll = new AttackRoll({
       actorId: this.parent.id,
       itemId: this.id,
+      target: target.uuid,
       ability: this.actor.getAbilityBonus("intellect"),
       skill: 0,
       enchantment: 0,

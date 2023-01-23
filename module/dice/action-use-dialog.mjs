@@ -13,7 +13,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
 	    template: `systems/${SYSTEM.id}/templates/dice/action-use-dialog.html`,
-      classes: [SYSTEM.id, "roll", "action"],
+      classes: [SYSTEM.id, "roll"],
       width: 360,
       submitOnChange: true,
       closeOnSubmit: false
@@ -44,11 +44,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
   getData() {
     const context = super.getData();
     const {actor, action, targets} = this.options;
+    const tags = action.getTags();
     return foundry.utils.mergeObject(context, {
       action: action,
       actor: actor,
-      activationTags: action.getTags("activation"),
-      actionTags: action.getTags("action"),
+      activationTags: tags.activation,
+      actionTags: tags.action,
       hasDice: action.context.hasDice ?? false,
       showTargets: action.targetType !== "self",
       targets: targets

@@ -99,80 +99,38 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @returns {Object<string, string>}
    */
   getTags(scope="all") {
-    const tags = {};
+    const tags = {
+      activation: {},
+      action: {},
+      context: {}
+    };
 
     // Action Tags
-    if ( ["all", "action"].includes(scope) ) {
-      for (let t of this.tags) {
-        const tag = TALENT.ACTION_TAGS[t];
-        if ( tag.label ) tags[tag.tag] = tag.label;
-      }
-    }
-
-    // Activation Tags
-    if ( ["all", "activation"].includes(scope) ) {
-
-      // Target
-      let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
-      if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
-      tags.target = target;
-
-      // Cost
-      const ap = Math.max(this.actionCost, 0);
-      const fp = Math.max(this.focusCost, 0);
-      tags.cost = [
-        ap ? `${ap}A` : null,
-        fp ? `${fp}F` : null,
-        !ap && !fp ? "Free" : null
-      ].filterJoin(" ");
-    }
-    return tags;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get tags which describe the activation conditions for the Action.
-   * @returns {string[]}
-   */
-  getActivationTags() {
-
-    // Action target
-    let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
-    if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
-    const ap = Math.max(this.actionCost, 0);
-    const fp = Math.max(this.focusCost, 0);
-    return [
-      target,
-      ap ? `${ap}A` : null,
-      fp ? `${fp}F` : null,
-      !ap && !fp ? "Free" : null
-    ].filter(t => !!t);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get tags which describe the properties of the Action.
-   * @returns {string[]}
-   */
-  getActionTags() {
-    const tags = [];
     for (let t of this.tags) {
       const tag = TALENT.ACTION_TAGS[t];
-      if (tag.label) tags.push(tag.label);
+      if ( tag.label ) tags.action[tag.tag] = tag.label;
     }
+
+    // De-duplicate action tags
+    if ( tags.action.dualwield ) {
+      delete tags.action.mainhand;
+      delete tags.action.offhand;
+    }
+
+    // Target
+    let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
+    if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
+    tags.activation.target = target;
+
+    // Cost
+    const ap = Math.max(this.actionCost, 0);
+    const fp = Math.max(this.focusCost, 0);
+    if ( ap || fp ) {
+      if ( ap ) tags.activation.ap = `${ap}A`;
+      if ( fp ) tags.activation.fp = `${fp}F`;
+    }
+    else tags.activation.cost = "Free";
     return tags;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get all tags for the Action.
-   * @returns {string[]}
-   */
-  getAllTags() {
-    return this.getActionTags().concat(this.getActivationTags());
   }
 
   /* -------------------------------------------- */
@@ -189,13 +147,14 @@ export default class ActionData extends foundry.abstract.DataModel {
     targets = targets.map(t => {
       return {name: t.name, uuid: t.uuid};
     });
+    const tags = this.getTags();
 
     // Render action template
     const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.html", {
       action: this,
       actor: actor,
-      activationTags: this.getTags("activation"),
-      actionTags: this.getTags("action"),
+      activationTags: tags.activation,
+      actionTags: tags.action,
       showTargets: this.targetType !== "self",
       targets: targets
     });
@@ -235,7 +194,12 @@ export default class ActionData extends foundry.abstract.DataModel {
     const action = this.clone({}, {parent: this.parent});
     action.prepareData();
     action.prepareForActor(actor);
-    action.context = {};
+    action.context = {
+      type: undefined,
+      label: undefined,
+      icon: undefined,
+      tags: new Set()
+    };
     action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1};
     action.actorUpdates = {};
 

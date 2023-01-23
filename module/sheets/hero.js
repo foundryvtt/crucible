@@ -82,7 +82,7 @@ export default class HeroSheet extends ActorSheet {
 
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
-      return {id: a.id, name: a.name, img: a.img, tags: a.getActivationTags()}
+      return {id: a.id, name: a.name, img: a.img, tags: a.getTags().activation}
     });
 
     // HTML Biography

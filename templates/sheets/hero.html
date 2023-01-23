@@ -276,13 +276,14 @@
                     <li class="math">=</li>
                     <li class="flexrow base">
                         <span class="input score">{{systemData.defenses.fortitude.base}}</span>
-                        <span class="tag">Str</span>
-                        <span class="tag">Con</span>
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
                         <input type="number" name="system.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Str</span>
+                        <span class="tag">Con</span>
                     </li>
                 </ol>
 
@@ -295,13 +296,14 @@
                     <li class="math">=</li>
                     <li class="flexrow base">
                         <span class="input score">{{systemData.defenses.reflex.base}}</span>
-                        <span class="tag">Dex</span>
-                        <span class="tag">Int</span>
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
                         <input type="number" name="system.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Dex</span>
+                        <span class="tag">Int</span>
                     </li>
                 </ol>
 
@@ -314,13 +316,14 @@
                     <li class="math">=</li>
                     <li class="flexrow base">
                         <span class="input score">{{systemData.defenses.willpower.base}}</span>
-                        <span class="tag">Wis</span>
-                        <span class="tag">Pre</span>
                     </li>
                     <li class="math">+</li>
                     <li class="flexrow bonus">
                         <input type="number" name="system.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                        <h4 class="subtitle">Bonus</h4>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Wis</span>
+                        <span class="tag">Pre</span>
                     </li>
                 </ol>
             </section>

@@ -6,24 +6,24 @@
         <h1 class="title">
             <input name="name" type="text" value="{{data.name}}" placeholder="Talent Name"/>
         </h1>
-        <div class="header-tags">
+        <div class="tags header-tags">
             <label>Requirements:</label>
             {{#each tags as |tag|}}
-            <span>{{tag}}</span>
+            <span class="tag">{{tag}}</span>
             {{/each}}
         </div>
     </header>
 
     <!-- Configuration Tabs -->
     <nav class="sheet-tabs tabs">
-        <a class="item" data-tab="details"><i class="fas fa-scroll"></i> Description</a>
+        <a class="item" data-tab="summary"><i class="fas fa-scroll"></i> Summary</a>
         <a class="item" data-tab="config"><i class="fas fa-cogs"></i> Configuration</a>
     </nav>
 
     {{!-- Description Tab --}}
-    <section class="tab sheet-body" data-tab="details">
-        <div class="form-group stacked">
-            <p class="description">{{{data.system.description}}}</p>
+    <section class="tab sheet-body" data-tab="summary">
+        <div class="description">
+            {{{data.system.description}}}
         </div>
 
         {{#if hasActions}}
@@ -33,14 +33,16 @@
             </h3>
             {{#each document.actions as |action|}}
             <div class="action flexrow" data-action-id="{{this.id}}">
-                <div class="action-name flexrow">
-                    <img src="{{action.img}}" height="24" width="24"/>
-                    <h4>{{action.name}}</h4>
-                </div>
-                <div class="tags action-tags" data-tag-type="action">
-                {{#each action.getTags as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{this}}</span>
-                {{/each}}
+                <div class="action-header flexrow">
+                    <img class="action-icon" src="{{action.img}}" title="{{action.name}}"/>
+                    <h4 class="action-name">{{action.name}}</h4>
+                    <div class="tags" data-tag-type="action">
+                        {{#each action.getTags as |tags section|}}
+                        {{#each tags as |label tag|}}
+                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                        {{/each}}
+                        {{/each}}
+                    </div>
                 </div>
                 {{#if action.condition}}
                 <p class="condition">
@@ -57,7 +59,25 @@
     <!-- Configuration Tab -->
     <section class="tab sheet-body" data-tab="config">
         <div class="form-group">
-            <textarea name="data" style="height: 300px">{{jsonData}}</textarea>
+            <label>Talent Node</label>
+            <select name="system.node">
+                {{selectOptions nodes selected=data.system.node blank=""}}
+            </select>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Description</label>
+            <textarea name="system.description" rows="3">{{data.system.description}}</textarea>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Actions JSON</label>
+            <textarea name="system.actions" rows="6" data-dtype="JSON">{{actionsJSON}}</textarea>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Requirements JSON</label>
+            <textarea name="system.requirements" rows="6" data-dtype="JSON">{{requirementsJSON}}</textarea>
         </div>
 
         <footer>

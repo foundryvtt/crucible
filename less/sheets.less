@@ -11,15 +11,16 @@
   /** Sheet Header */
   .sheet-header {
     flex: 0 0 var(--headerHeight);
-    align-items: flex-start;
+    gap: 4px;
     border-bottom: 1px solid @colorBeige;
 
     .title {
       flex: 3;
       height: var(--titleHeight);
-      margin: 2px;
       border: none;
       input {
+        height: 100%;
+        width: 100%;
         text-align: left;
         margin: 0;
       }
@@ -27,7 +28,6 @@
 
     .header-tags {
       flex: 0 0 100%;
-      margin: 8px 0;
       label {
         font-weight: bold;
         margin-right: 5px;

@@ -95,7 +95,6 @@
     background-image: linear-gradient(90deg, transparent, #4b4a44, transparent);
     transform: rotate(280deg);
     position: relative;
-    top: 10px;
   }
 
   // Math Separators
@@ -193,6 +192,7 @@
       flex: 0 0 100%;
       height: 10px;
       padding: 1px;
+      margin-bottom: 4px;
       background: #2a3247;
       border: 1px solid @colorDark;
       border-radius: 8px;
@@ -407,7 +407,7 @@
         align-items: center;
       }
       .math {
-        flex: 0 0 36px;
+        flex: 0 0 24px;
       }
       h3, h4 {
         font-size: var(--fontSizeHeader);
@@ -425,8 +425,9 @@
         white-space: nowrap;
       }
       .base {
-        max-width: 104px; // Align addition with Dodge
-        margin-left: 8px; // Align with Armor
+        flex: none;
+        margin-left: 14px; // Align with Armor
+        gap: 2px;
       }
       .bonus h4 {
         text-align: left;
@@ -440,6 +441,7 @@
 
   .damage-resistances {
     flex: none;
+    align-items: flex-start;
 
     .category {
       padding: 0 var(--marginSize);

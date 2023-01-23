@@ -121,7 +121,13 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: mh.name, tags: mh.getTags("short")});
+      foundry.utils.mergeObject(action.context, {
+        type: "weapons",
+        label: "Weapon Tags",
+        icon: "fa-solid fa-swords",
+        hasDice: true
+      });
+      action.context.tags.add(`${mh.name} (MH)`);
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -160,7 +166,13 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: mh.name, tags: mh.getTags("short")});
+      foundry.utils.mergeObject(action.context, {
+        type: "weapons",
+        label: "Weapon Tags",
+        icon: "fa-solid fa-swords",
+        hasDice: true
+      });
+      action.context.tags.add(`${oh.name} (2H)`);
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -172,7 +184,13 @@ export const ACTION_TAGS = {
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
-      foundry.utils.mergeObject(action.context, {type: "weapon", hasDice: true, label: oh.name, tags: oh.getTags("short")});
+      foundry.utils.mergeObject(action.context, {
+        type: "weapons",
+        label: "Weapon Tags",
+        icon: "fa-solid fa-swords",
+        hasDice: true
+      });
+      action.context.tags.add(`${oh.name} (OH)`);
     },
     execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },

@@ -1,21 +1,24 @@
-<header class="action-header flexrow">
-    <img class="chat-icon" src="{{action.img}}" title="{{action.name}}"/>
-    <h3 class="action-name">{{action.name}}</h3>
-    <p class="tags activation-tags" data-tag-type="action">
-        {{#each activationTags as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
-    </p>
-    <p class="tags action-tags" data-tag-type="action">
-        <label>{{localize "ACTION.Action"}}</label>
+<section class="action flexrow">
+    <header class="action-header flexrow">
+        <img class="action-icon" src="{{action.img}}" title="{{action.name}}"/>
+        <h3 class="action-name">{{action.name}}</h3>
+        <div class="tags" data-tag-type="action">
+            {{#each activationTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
+    </header>
+
+    <div class="tags" data-tag-type="action">
+        <label data-tooltip="Action Tags"><i class="fa-solid fa-bolt"></i></label>
         {{#each actionTags as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
-    </p>
+    </div>
 
     {{#if action.context}}
-    <div class="tags action-tags" data-tag-type="{{action.context.type}}">
-        <label>{{action.context.label}}</label>
+    <div class="tags" data-tag-type="{{action.context.type}}">
+        <label data-tooltip="{{action.context.label}}"><i class="{{action.context.icon}}"></i></label>
         {{#each action.context.tags as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
@@ -23,8 +26,8 @@
     {{/if}}
 
     {{#if showTargets}}
-    <div class="tags action-tags">
-        <label>{{localize "ACTION.Targets"}}</label>
+    <div class="tags" data-tag-type="target">
+        <label data-tooltip="{{localize "ACTION.Targets"}}"><i class="fa-solid fa-bullseye"></i></label>
         {{#each targets}}
         <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
         {{/each}}
@@ -37,4 +40,4 @@
         {{/if}}
         <p>{{action.description}}</p>
     </div>
-</header>
+</section>

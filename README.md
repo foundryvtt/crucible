@@ -21,6 +21,7 @@ There are several primary goals of this RPG system which I hope can serve a valu
 2. The system is purposefully designed to be best experienced using virtual tabletop (VTT) software to manage aspects of dice rolling and book-keeping which could be cumbersome using traditional pen-and-paper materials.
 
 3. The system places a high emphasis on mechanical consistency and enabling diversity of character concepts through a classless system with multiple vertical pillars of character progression. These mechanics allow for crunchy encounters with inherent tools for combat, puzzle-solving, and social challenges.
+
 4. <SYSTEM> is optimized and designed with extended-form narrative in mind. While it can be used for one-shot adventures, the system's mechanics are intended to play out over the course of months or years of gameplay.
 
 ### Non-Goals

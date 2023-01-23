@@ -32,6 +32,7 @@ export default class AttackRoll extends StandardCheck {
 
   /** @override */
   static defaultData = foundry.utils.mergeObject(StandardCheck.defaultData, {
+    target: undefined,
     defenseType: "physical",
     result: undefined,
     damage: undefined
@@ -88,6 +89,12 @@ export default class AttackRoll extends StandardCheck {
   /** @inheritdoc */
   _getChatCardData() {
     const cardData = super._getChatCardData();
+
+    // Target
+    if ( this.data.target ) {
+      const target = fromUuidSync(this.data.target);
+      cardData.target = {uuid: this.data.target, name: target.name};
+    }
 
     // Defense label
     switch ( this.data.defenseType ) {

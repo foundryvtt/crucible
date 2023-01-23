@@ -7,6 +7,7 @@
 
 // Configuration
 import {SYSTEM} from "./module/config/system.js";
+import CrucibleTalentNode from "./module/config/talent-tree.mjs";
 
 // Data Models
 import ActionData from "./module/data/action.mjs";
@@ -35,6 +36,9 @@ import WeaponSheet from "./module/sheets/weapon.mjs";
 import StandardCheck from "./module/dice/standard-check.js";
 import AttackRoll from "./module/dice/attack-roll.mjs";
 
+// Canvas
+import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
+
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
 import * as chat from "./module/chat.js";
@@ -52,6 +56,9 @@ Hooks.once("init", async function() {
 
   // Expose the system API
   game.system.api = {
+    canvas: {
+      CrucibleTalentTree
+    },
     dice: {
       AttackRoll,
       StandardCheck
@@ -74,6 +81,9 @@ Hooks.once("init", async function() {
     methods: {
       buildJournalCompendium,
       packageItemCompendium
+    },
+    talents: {
+      CrucibleTalentNode
     }
   }
 
@@ -106,6 +116,12 @@ Hooks.once("init", async function() {
   // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
 
+  // Canvas configuration
+  CONFIG.Canvas.layers.talents = {
+    layerClass: CrucibleTalentTree,
+    group: "interface"
+  }
+
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 });
@@ -127,7 +143,7 @@ Hooks.once("i18nInit", function() {
 /*  Ready Hooks                                 */
 /* -------------------------------------------- */
 
-Hooks.once("ready", function() {
+Hooks.once("setup", function() {
 
   // Apply localizations
   const toLocalize = [
@@ -149,15 +165,17 @@ Hooks.once("ready", function() {
   // Pre-localize translations
   localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id); // TODO: Make this cleaner
 
+  // Initialize Talent tree
+  CrucibleTalentNode.initialize();
+
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
-  $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip)
-
-  // Display Playtest Introduction journal
-  const intro = game.journal.getName("Playtest Introduction");
-  if ( intro ) intro.sheet.render(true);
+  $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip);
 });
 
+Hooks.on("canvasReady", () => {
+  if ( canvas.id === "XTz8NrEeavbUDh4r") canvas.layers.at(-1).activate()
+})
 
 /* -------------------------------------------- */
 /*  Rendering Hooks                             */
