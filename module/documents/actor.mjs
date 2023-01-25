@@ -392,7 +392,7 @@ export default class CrucibleActor extends Actor {
     this._hasPatientDefense = false; // TODO - temporary special case for playtest
     for ( let item of talent ) {
       if ( item.name === "Patient Defense" ) this._hasPatientDefense = true;
-      points.spent += item.system.cost;
+      points.spent += 1; // TODO - every talent costs 1 for now
     }
     points.available = points.total - points.spent;
     if ( points.available < 0) {
@@ -761,13 +761,12 @@ export default class CrucibleActor extends Actor {
   /**
    * Handle requests to add a new Talent to the Actor.
    * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
-   * @param {object} itemData     Talent data requested to be added to the Actor
-   * @returns {Promise<Item>}     The created talent Item
+   * @param {CrucibleItem} talent     The Talent item to add to the Actor
+   * @param {object} [options]        Options which configure how the Talent is added
+   * @param {boolean} [options.dialog]    Prompt the user with a confirmation dialog?
+   * @returns {Promise<CrucibleItem>} The created talent Item
    */
-  async addTalent(itemData) {
-    const Item = getDocumentClass("Item");
-    itemData.system.rank = 1;
-    const talent = new Item(itemData, {parent: this});
+  async addTalent(talent, {dialog=false}={}) {
 
     // Ensure the Talent is not already owned
     if ( this.items.find(i => (i.type === "talent") && (i.name === talent.name)) ) {
@@ -792,17 +791,27 @@ export default class CrucibleActor extends Actor {
 
     // Confirm that the Actor has sufficient Talent points
     const points = this.points.talent;
-    if ( points.available < talent.rank.cost ) {
+    if ( !points.available ) {  // TODO - every talent costs 1 for now
       const err = game.i18n.format("TALENT.CannotAfford", {
         name: talent.name,
-        cost: talent.rank.cost
+        cost: 1
       });
       ui.notifications.warn(err);
       throw new Error(err);
     }
 
+    // Confirmation dialog
+    if ( dialog ) {
+      const confirm = await Dialog.confirm({
+        title: `Purchase Talent: ${talent.name}`,
+        content: "Spend X points to buy it?",
+        defaultYes: false
+      });
+      if ( !confirm ) return;
+    }
+
     // Create the talent
-    return Item.create(itemData, {parent: this});
+    return talent.constructor.create(talent.toObject(), {parent: this});
   }
 
   /* -------------------------------------------- */

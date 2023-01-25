@@ -78,6 +78,7 @@ export default class HeroSheet extends ActorSheet {
     context.skillCategories = this._formatSkills(systemData.skills);
 
     // Talents
+    context.talentTreeButton = game.system.tree.actor === this.actor ? "Close Talent Tree" : "Open Talent Tree";
     context.talents = this.actor.itemTypes.talent.sort((a, b) => a.name.localeCompare(b.name));
 
     // Actions
@@ -329,6 +330,11 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.rollSkill(a.closest(".skill").dataset.skill, {dialog: true});
       case "useAction":
         return this.actor.useAction(a.closest(".action").dataset.actionId);
+      case "talentTree":
+        if ( game.system.tree.actor === this.actor ) game.system.tree.deactivate();
+        else game.system.tree.activate({actor: this.actor});
+        this.render();
+        break;
     }
   }
 
@@ -356,7 +362,7 @@ export default class HeroSheet extends ActorSheet {
       case "background":
         return this.actor.applyBackground(itemData);
       case "talent":
-        return this.actor.addTalent(itemData);
+        break;  // Talents cannot be created via drag-and-drop
     }
     return super._onDropItemCreate(itemData);
   }

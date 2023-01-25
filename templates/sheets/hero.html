@@ -437,6 +437,7 @@
         {{!-- Talents Tab --}}
         <div class="tab talents flexcol" data-group="primary" data-tab="talents">
             <div class="point-pools flexrow">
+                <a class="button control" data-action="talentTree">{{talentTreeButton}}</a>
                 <label>Talent Points</label>
                 <span class="value highlight">{{points.talent.total}}</span>
                 <label>Spent</label>
@@ -447,9 +448,6 @@
             <header class="talents-header items-header flexrow">
                 <div class="item-name flexrow">
                     <h4>Talent</h4>
-                </div>
-                <div class="item-controls">
-                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
                 </div>
             </header>
             <ol class="items-list">

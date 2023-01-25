@@ -32,15 +32,20 @@ export default class TalentSheet extends ItemSheet {
 
   /** @inheritdoc */
   getData(options = {}) {
-    const context = super.getData(options);
-    const source = this.item.toObject();
+    const isEditable = this.isEditable;
     const nodeIds = Array.from(CrucibleTalentNode.nodes.keys());
-    context.hasActions = this.item.actions.length;
-    context.tags = this.item.getTags();
-    context.actionsJSON = JSON.stringify(source.system.actions, null, 2);
-    context.requirementsJSON = JSON.stringify(source.system.requirements, null, 2);
-    context.nodes = Object.fromEntries(nodeIds.map(id => [id, id]));
-    return context;
+    const source = this.object.toObject();
+    return {
+      cssClass: isEditable ? "editable" : "locked",
+      editable: isEditable,
+      item: this.object,
+      source: source,
+      hasActions: this.item.actions.length,
+      tags: this.item.getTags(),
+      actionsJSON: JSON.stringify(source.system.actions, null, 2),
+      requirementsJSON: JSON.stringify(source.system.requirements, null, 2),
+      nodes: Object.fromEntries(nodeIds.map(id => [id, id]))
+    }
   }
 
   /* -------------------------------------------- */

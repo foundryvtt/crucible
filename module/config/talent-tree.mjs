@@ -1,6 +1,6 @@
 
 export default class CrucibleTalentNode {
-  constructor({id, tier=0, type="choice", abilities=[], angle=0, distance=400, connected=[]} = {}) {
+  constructor({id, tier=0, type="choice", abilities=[], angle=0, distance=200, connected=[]} = {}) {
     if ( CrucibleTalentNode.#nodes.has(id) ) {
       throw new Error(`CrucibleTalentNode id "${id}" is already defined.`);
     }
@@ -46,8 +46,7 @@ export default class CrucibleTalentNode {
     0: 3,
     1: 5,
     2: 7
-  })
-
+  });
 
   static get nodes() {
     return this.#nodes;
@@ -101,6 +100,7 @@ new CrucibleTalentNode(({
 new CrucibleTalentNode({
   id: "dex0",
   abilities: ["dexterity"],
+  type: "attack",
   tier: 0,
   angle: 30,
   connected: ["origin"]
@@ -109,7 +109,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "con0",
   abilities: ["constitution"],
-  type: "choice",
+  type: "defense",
   tier: 0,
   angle: 90,
   connected: ["origin"]
@@ -118,7 +118,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "str0",
   abilities: ["strength"],
-  type: "choice",
+  type: "attack",
   tier: 0,
   angle: 150,
   connected: ["origin"]
@@ -127,7 +127,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis0",
   abilities: ["wisdom"],
-  type: "choice",
+  type: "magic",
   tier: 0,
   angle: 210,
   connected: ["origin"]
@@ -136,7 +136,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "pre0",
   abilities: ["presence"],
-  type: "choice",
+  type: "utility",
   tier: 0,
   angle: 270,
   connected: ["origin"]
@@ -145,7 +145,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "int0",
   abilities: ["intellect"],
-  type: "choice",
+  type: "magic",
   tier: 0,
   angle: 330,
   connected: ["origin"]
@@ -161,7 +161,7 @@ const dexint1 = new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 0,
-  distance: 320,
+  distance: 180,
   connected: ["dex0", "int0"]
 });
 
@@ -189,7 +189,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 60,
-  distance: 320,
+  distance: 180,
   connected: ["dex0", "con0", "dex1b"]
 });
 
@@ -217,7 +217,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 120,
-  distance: 320,
+  distance: 180,
   connected: ["con0", "str0", "con1b"]
 });
 
@@ -245,7 +245,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 180,
-  distance: 320,
+  distance: 180,
   connected: ["str0", "wis0", "str1b"]
 });
 
@@ -273,7 +273,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 240,
-  distance: 320,
+  distance: 180,
   connected: ["wis0", "pre0", "wis1b"]
 });
 
@@ -301,7 +301,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 1,
   angle: 300,
-  distance: 320,
+  distance: 180,
   connected: ["pre0", "int0", "pre1b"]
 });
 
@@ -334,7 +334,7 @@ const dexint2 = new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 0,
-  distance: 360,
+  distance: 180,
   connected: ["int1b", "dexint1", "dex1a"]
 });
 
@@ -353,7 +353,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 30,
-  distance: 360,
+  distance: 180,
   connected: ["dex1a", "dex1b", "dex2a"]
 });
 
@@ -372,7 +372,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 60,
-  distance: 360,
+  distance: 180,
   connected: ["dex1b", "dexcon1", "con1a", "dex2c"]
 });
 
@@ -391,7 +391,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 90,
-  distance: 360,
+  distance: 180,
   connected: ["con1a", "con1b", "con2a"]
 });
 
@@ -410,7 +410,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 120,
-  distance: 360,
+  distance: 180,
   connected: ["con1b", "constr1", "str1a", "con2c"]
 });
 
@@ -429,7 +429,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 150,
-  distance: 360,
+  distance: 180,
   connected: ["str1a", "str1b", "str2a"]
 });
 
@@ -448,7 +448,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 180,
-  distance: 360,
+  distance: 180,
   connected: ["str1b", "strwis1", "wis1a", "str2c"]
 });
 
@@ -467,7 +467,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 210,
-  distance: 360,
+  distance: 180,
   connected: ["wis1a", "wis1b", "wis2a"]
 });
 
@@ -486,7 +486,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 240,
-  distance: 360,
+  distance: 180,
   connected: ["wis1b", "wispre1", "pre1a", "wis2c"]
 });
 
@@ -505,7 +505,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 270,
-  distance: 360,
+  distance: 180,
   connected: ["pre1a", "pre1b", "pre2a"]
 });
 
@@ -524,7 +524,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 300,
-  distance: 360,
+  distance: 180,
   connected: ["pre1b", "preint1", "int1a", "pre2c"]
 });
 
@@ -543,7 +543,7 @@ new CrucibleTalentNode({
   type: "choice",
   tier: 2,
   angle: 330,
-  distance: 360,
+  distance: 180,
   connected: ["int1a", "int1b", "int2a"]
 });
 

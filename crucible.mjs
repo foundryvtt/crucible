@@ -173,10 +173,6 @@ Hooks.once("setup", function() {
   $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip);
 });
 
-Hooks.on("canvasReady", () => {
-  if ( canvas.id === "XTz8NrEeavbUDh4r") canvas.layers.at(-1).activate()
-})
-
 /* -------------------------------------------- */
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */

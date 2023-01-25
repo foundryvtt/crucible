@@ -1,20 +1,78 @@
 import CrucibleTalentNode from "../config/talent-tree.mjs";
-import CrucibleTalentTreeNode from "./talent-node.mjs";
+import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
+import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
+import CrucibleTalentHUD from "./talent-hud.mjs";
 
 export default class CrucibleTalentTree extends InteractionLayer {
+  constructor(...args) {
+    super(...args);
+    game.system.tree = this;
+    this.visible = false;
+  }
+
+  static SORT_INDICES = {
+    INACTIVE: 0,
+    HOVER: 10,
+    WHEEL: 20,
+    ACTIVE: 30
+  }
+
+  /**
+   * A reference to the Actor which is currently bound to the talent tree.
+   * @type {CrucibleActor|null}
+   */
+  actor = null;
+
+  /**
+   * A reference to the active node
+   * @type {CrucibleTalentTreeNode}
+   */
+  active;
+
+  /**
+   * A reference to the talent tree HUD
+   * @type {CrucibleTalentHUD}
+   */
+  hud = new CrucibleTalentHUD();
+
+  /* -------------------------------------------- */
+
+  activate({actor, ...options}={}) {
+    this.actor = actor;
+    super.activate(options);
+  }
+
+  /** @override */
+  _activate() {
+    this.visible = true;
+  }
+
+  /** @override */
+  _deactivate() {
+    this.actor = null;
+    this.visible = false;
+  }
+
+  /* -------------------------------------------- */
 
   /** @override */
   async _draw() {
+
+    // Draw Background
     this.bg = this.addChild(new PIXI.Graphics());
-
-    this.connections = this.addChild(new PIXI.Graphics());
-    this.connections.lineStyle({color: 0x000000, width: 10});
-
-    this.nodes = this.addChild(new PIXI.Container());
     this.#drawBackground();
 
+    // Draw Nodes and Edges
+    this.connections = this.addChild(new PIXI.Graphics());
+    this.connections.lineStyle({color: 0x000000, width: 4});
+    this.nodes = this.addChild(new PIXI.Container());
+    this.nodes.sortableChildren = true;
     const origin = CrucibleTalentNode.nodes.get("origin");
     this.#drawNodes(origin.connected, new Set([origin]));
+
+    // Create Choice Wheel
+    this.wheel = this.nodes.addChild(new CrucibleTalentChoiceWheel());
+    this.wheel.zIndex = CrucibleTalentTree.SORT_INDICES.WHEEL;
   }
 
   _activate() {
@@ -43,7 +101,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
     }
 
     // Center Hex
-    const cd = HexagonalGrid.computeDimensions({columns: true, even: true, size: 800});
+    const cd = HexagonalGrid.computeDimensions({columns: true, even: true, size: 400});
     const ocx = center.x - (cd.width / 2);
     const ocy = center.y - (cd.height / 2);
     const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [ocx + (cd.width * d[0]), ocy + (cd.height * d[1])]);
@@ -74,5 +132,19 @@ export default class CrucibleTalentTree extends InteractionLayer {
       this.connections.moveTo(node.point.x, node.point.y);
       this.connections.lineTo(c.point.x, c.point.y);
     }
+  }
+
+  activateNode(node) {
+    if ( this.active ) this.deactivateNode();
+    this.active = node;
+    this.active.zIndex = CrucibleTalentTree.SORT_INDICES.ACTIVE;
+    this.wheel.activate(node);
+  }
+
+  deactivateNode() {
+    if ( !this.active ) return;
+    this.active.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
+    this.wheel.deactivate();
+    this.active = null;
   }
 }

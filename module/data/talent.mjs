@@ -84,10 +84,6 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
    */
   getTags(scope="full") {
     const tags = {};
-    if ( this.nextRank ) {
-      const cost = this.nextRank.cost;
-      tags.cost = `${cost} ${cost > 1 ? "Points" : "Point"}`;
-    }
     for ( let [k, v] of Object.entries(this.prerequisites || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
     }
