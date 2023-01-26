@@ -2,8 +2,8 @@ import CrucibleTalentTree from "./talent-tree.mjs";
 import CrucibleTalentIcon from "./talent-icon.mjs";
 
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
-  constructor(node) {
-    super();
+  constructor(node, config) {
+    super(config);
 
     // Node assignment
     this.node = node;

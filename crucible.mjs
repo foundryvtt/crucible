@@ -174,6 +174,13 @@ Hooks.once("setup", function() {
 });
 
 /* -------------------------------------------- */
+
+Hooks.on("canvasReady", () => {
+  const actor = game.actors.get("sNNr3tDKX8iffGHS");
+  actor.toggleTalentTree();
+});
+
+/* -------------------------------------------- */
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */
 

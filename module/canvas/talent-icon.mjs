@@ -1,7 +1,22 @@
 
 export default class CrucibleTalentIcon extends PIXI.Container {
-  constructor(...args) {
-    super(...args);
+  constructor(config) {
+    super(config);
+
+    /**
+     * Configuration for this icon
+     * @type {object}
+     */
+    this.config = Object.assign({
+      backgroundColor: 0x000000,
+      borderColor: undefined,
+      borderWidth: 4,
+      borderRadius: undefined,
+      disabled: false,
+      size: 50,
+      text: undefined,
+      texture: undefined
+    }, config);
 
     // Border
     this.border = this.addChild(new PIXI.Graphics());
@@ -19,19 +34,6 @@ export default class CrucibleTalentIcon extends PIXI.Container {
   }
 
   /**
-   * Configuration for this icon
-   * @type {{borderColor: Color, text: string, texture: PIXI.Texture}}
-   */
-  config = {
-    borderColor: undefined,
-    borderWidth: 4,
-    disabled: false,
-    size: 50,
-    text: undefined,
-    texture: undefined
-  };
-
-  /**
    * The shared filter instance used by all disabled icons
    * @type {PIXI.filters.ColorMatrixFilter}
    */
@@ -43,23 +45,23 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * @returns {Promise<void>}
    */
   async draw(config={}) {
-    foundry.utils.mergeObject(this.config, config);
-    const {borderColor, borderWidth, disabled, text, texture, size} = this.config;
-    const rr = [];
+    const {backgroundColor, borderColor, borderRadius, borderWidth,
+      disabled, text, texture, size} = Object.assign(this.config, config);
 
     // Draw icon
     this.icon.texture = texture;
     this.icon.width = this.icon.height = size;
-    this.icon.mask.clear().beginFill(0x000000, 1.0).drawRoundedRect(size/-2, size/-2, size, size, size/5);
+    this.icon.mask.clear().beginFill(0x000000, 1.0).drawRoundedRect(size/-2, size/-2, size, size, borderRadius || size/5);
     this.icon.filters = disabled ? [this.constructor.disabledFilter] : [];
 
     // Draw Border
     this.border.clear().lineStyle({
       width: borderWidth,
       color: disabled ? 0x444444 : borderColor
-    }).beginFill(0x000000, 1.0);
+    })
+    if ( typeof backgroundColor === "number" ) this.border.beginFill(backgroundColor, 1.0);
     const bs = size + 10;
-    this.border.drawRoundedRect(bs/-2, bs/-2, bs, bs, bs/4);
+    this.border.drawRoundedRect(bs/-2, bs/-2, bs, bs, borderRadius || bs/4);
     this.border.endFill();
 
     // Number

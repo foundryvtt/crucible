@@ -208,6 +208,23 @@ export const ACTION_TAGS = {
   },
 
   /* -------------------------------------------- */
+  /*  Skill Checks                                */
+  /* -------------------------------------------- */
+
+  healing: {
+    tag: "healing",
+    label: "ACTION.TagHealing",
+    tooltip: "ACTION.TagHealingTooltip",
+  },
+
+  medicine: {
+    tag: "medicine",
+    label: "SKILLS.Medicine",
+    tooltip: "SKILLS.MedicineActionTooltip",
+    execute: (actor, action, target) => actor.rollSkill("medicine", action.bonuses)
+  },
+
+  /* -------------------------------------------- */
   /*  TODO - Spells (Temporary)                   */
   /* -------------------------------------------- */
 
@@ -300,7 +317,6 @@ export const ACTION_TAGS = {
 
 /* -------------------------------------------- */
 
-
 /**
  * The default actions that every character can perform regardless of their attributes or talents.
  * @type {object}
@@ -328,10 +344,24 @@ export const DEFAULT_ACTIONS = [
     targetType: "single",
     targetNumber: 1,
     targetDistance: 1,
-    actionCost: 0,  // Determined by your weapon
+    actionCost: 0, // Determined by your weapon
     focusCost: 0,
     affectAllies: false,
     affectEnemies: true,
     tags: ["mainhand"]
+  },
+  {
+    id: "defend",
+    name: "Defend",
+    img: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+    description: "You concentrate effort on avoiding harm, heightening your physical defense.",
+    targetType: "self",
+    targetNumber: 1,
+    targetDistance: 0,
+    actionCost: 1,
+    focusCost: 0,
+    affectAllies: false,
+    affectEnemies: false,
+    tags: []
   }
 ];

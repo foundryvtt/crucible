@@ -331,10 +331,7 @@ export default class HeroSheet extends ActorSheet {
       case "useAction":
         return this.actor.useAction(a.closest(".action").dataset.actionId);
       case "talentTree":
-        if ( game.system.tree.actor === this.actor ) game.system.tree.deactivate();
-        else game.system.tree.activate({actor: this.actor});
-        this.render();
-        break;
+        return this.actor.toggleTalentTree();
     }
   }
 

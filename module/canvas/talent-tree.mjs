@@ -1,3 +1,4 @@
+import CrucibleTalentIcon from "./talent-icon.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
@@ -37,15 +38,22 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   /* -------------------------------------------- */
 
-  activate({actor, ...options}={}) {
+  async activate({actor, ...options}={}) {
     this.actor = actor;
+    const actorTexture = await loadTexture(this.actor.img);
+    this.#drawCharacter(actorTexture);
+    this.refresh();
     super.activate(options);
   }
+
+  /* -------------------------------------------- */
 
   /** @override */
   _activate() {
     this.visible = true;
   }
+
+  /* -------------------------------------------- */
 
   /** @override */
   _deactivate() {
@@ -62,6 +70,14 @@ export default class CrucibleTalentTree extends InteractionLayer {
     this.bg = this.addChild(new PIXI.Graphics());
     this.#drawBackground();
 
+    // Draw Center
+    const textStyle = PreciseText.getTextStyle({fontSize: 28});
+    this.character = this.addChild(new PIXI.Container());
+    this.character.icon = this.character.addChild(new PIXI.Sprite());
+    this.character.points = this.character.addChild(new PreciseText("", textStyle));
+    this.character.name = this.character.addChild(new PreciseText("", textStyle));
+    this.#drawCharacter();
+
     // Draw Nodes and Edges
     this.connections = this.addChild(new PIXI.Graphics());
     this.connections.lineStyle({color: 0x000000, width: 4});
@@ -73,15 +89,12 @@ export default class CrucibleTalentTree extends InteractionLayer {
     // Create Choice Wheel
     this.wheel = this.nodes.addChild(new CrucibleTalentChoiceWheel());
     this.wheel.zIndex = CrucibleTalentTree.SORT_INDICES.WHEEL;
+
+    // Set initial display
+    this.refresh();
   }
 
-  _activate() {
-    this.visible = true;
-  }
-
-  _deactivate() {
-    this.visible = false;
-  }
+  /* -------------------------------------------- */
 
   #drawBackground() {
 
@@ -105,8 +118,47 @@ export default class CrucibleTalentTree extends InteractionLayer {
     const ocx = center.x - (cd.width / 2);
     const ocy = center.y - (cd.height / 2);
     const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [ocx + (cd.width * d[0]), ocy + (cd.height * d[1])]);
-    this.bg.beginFill(0x111111, 1.0).drawPolygon(cp).endFill();
+    this.bg.lineStyle({color: 0x444444, width: 4})
+      .beginFill(0x111111, 1.0)
+      .drawPolygon(cp)
+      .endFill();
   }
+
+  /* -------------------------------------------- */
+
+  #drawCharacter(texture) {
+    if ( !this.actor ) return this.character.visible = false;
+    const r = canvas.dimensions.rect;
+    const c = r.center;
+    this.character.position.set(c.x, c.y);
+    if ( texture ) this.character.icon.texture = texture;
+    this.character.icon.width = this.character.icon.height = 200;
+    this.character.icon.anchor.set(0.5, 0.5);
+
+    // Nameplate
+    this.character.name.text = this.actor.name;
+    this.character.name.anchor.set(0.5, 1);
+    this.character.name.position.set(0, -110);
+
+    // Points
+    this.character.points.anchor.set(0.5, 0);
+    this.character.points.position.set(0, 110);
+
+    // Visibility
+    this.character.visible = true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Refresh display of the talent tree, incorporating updated data about the Actor's purchased Talents.
+   */
+  refresh() {
+    if ( !this.actor ) return;
+    this.character.points.text = `${this.actor.points.talent.available} Points Available`;
+  }
+
+  /* -------------------------------------------- */
 
   #drawNodes(nodes, seen=new Set()) {
     const next = [];
@@ -120,11 +172,15 @@ export default class CrucibleTalentTree extends InteractionLayer {
     if ( next.length ) this.#drawNodes(next, seen);
   }
 
+  /* -------------------------------------------- */
+
   #drawNode(node) {
     const g = new CrucibleTalentTreeNode(node);
     g.draw();
     this.nodes.addChild(g);
   }
+
+  /* -------------------------------------------- */
 
   #drawEdges(node, seen) {
     for ( const c of node.connected ) {
@@ -134,12 +190,16 @@ export default class CrucibleTalentTree extends InteractionLayer {
     }
   }
 
+  /* -------------------------------------------- */
+
   activateNode(node) {
     if ( this.active ) this.deactivateNode();
     this.active = node;
     this.active.zIndex = CrucibleTalentTree.SORT_INDICES.ACTIVE;
     this.wheel.activate(node);
   }
+
+  /* -------------------------------------------- */
 
   deactivateNode() {
     if ( !this.active ) return;

@@ -211,6 +211,11 @@ The progression paths available to the Survival skill are listed below.
 
 ## Knowledge Skills
 
+Arcana: Elementalism, Occultism, Magitech
+Religion: Theurgy, Diabolism, Thanatology
+Society: History, Politics, Streetwise
+Nature: Druidism, Zoology, Botany
+
 ### Arcana
 
 Arcana deals with the properties and perception of the weave of magical energies. This current of arcane potentia can be studied, manipulated, and harnessed by those with sufficient knowledge and willpower. Skill in Arcana represents your understanding of the theory and application of magic. Learned arcanists can develop expertise in the reading the arcane weave, manipulating elemental energies, or infusing arcane potentia into physical objects.

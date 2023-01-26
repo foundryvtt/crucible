@@ -47,6 +47,8 @@
 "ACTION.TagFinesseTooltip": "This action requires a certain amount of finesse to perform. You must be wielding a weapon which scales using Dexterity.",
 "ACTION.TagHarmless": "Harmless",
 "ACTION.TagHarmlessTooltip": "This action does not impose a directly harmful effect, its damage multiplier is zero.",
+"ACTION.TagHealing": "Healing",
+"ACTION.TagHealingTooltip": "This action restores Health or Wounds.",
 "ACTION.TagWeakened": "Weakened",
 "ACTION.TagWeakenedTooltip": "This action is weaker than normal attacks and has a -2 damage bonus.",
 "ACTION.TagMelee": "Melee",
@@ -464,6 +466,7 @@
 "SKILLS.CraftsmanshipRunekeeper5": "",
 
 "SKILLS.Medicine": "Medicine",
+"SKILLS.MedicineActionTooltip": "This action involves use of the Medicine skill.",
 "SKILLS.MedicineInfo": "Medicine is used to deal with the health of one's self and others, and to diagnose and effectively treat medical problems. Knowledge in this skill represents your knowledge about the humanoid body, sickness, infections, and the art of healing. This skill typically involves examining/treating humanoids, but can apply to other types of creatures as well. A medic who has mastered their craft can diagnose and treat a wide variety of illnesses, prevent illnesses in those around them, perform autopsies, and more.",
 "SKILLS.MedicineRank0": "",
 "SKILLS.MedicineRank1": "",

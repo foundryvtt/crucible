@@ -261,7 +261,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis1b",
   abilities: ["wisdom"],
-  type: "choice",
+  type: "utility",
   tier: 1,
   angle: 220,
   connected: ["wis0", "wis1a"]
@@ -308,7 +308,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "int1a",
   abilities: ["intellect"],
-  type: "choice",
+  type: "utility",
   tier: 1,
   angle: 320,
   connected: ["int0", "preint1"]

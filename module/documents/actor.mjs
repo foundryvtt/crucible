@@ -134,6 +134,12 @@ export default class CrucibleActor extends Actor {
    */
   _cachedResources;
 
+  /**
+   * The IDs of purchased talents
+   * @type {Set<string>}
+   */
+  talentIds = new Set();
+
   /* -------------------------------------------- */
   /*  Actor Preparation
   /* -------------------------------------------- */
@@ -390,8 +396,10 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     const points = this.points.talent;
     this._hasPatientDefense = false; // TODO - temporary special case for playtest
-    for ( let item of talent ) {
-      if ( item.name === "Patient Defense" ) this._hasPatientDefense = true;
+    this.talentIds.clear();
+    for ( const t of talent ) {
+      this.talentIds.add(t.id);
+      if ( t.name === "Patient Defense" ) this._hasPatientDefense = true;
       points.spent += 1; // TODO - every talent costs 1 for now
     }
     points.available = points.total - points.spent;
@@ -759,6 +767,17 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Toggle display of the Talent Tree.
+   */
+  toggleTalentTree() {
+    if ( game.system.tree.actor === this ) game.system.tree.deactivate();
+    else game.system.tree.activate({actor: this});
+    this.sheet.render(false);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle requests to add a new Talent to the Actor.
    * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
    * @param {CrucibleItem} talent     The Talent item to add to the Actor
@@ -811,7 +830,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Create the talent
-    return talent.constructor.create(talent.toObject(), {parent: this});
+    return talent.constructor.create(talent.toObject(), {parent: this, keepId: true});
   }
 
   /* -------------------------------------------- */

@@ -2,12 +2,15 @@ import CrucibleTalentIcon from "./talent-icon.mjs";
 
 
 export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
-  constructor(node, talent) {
-    super();
+  constructor(node, talent, position, config) {
+    super(config);
 
     // Node assignment
     this.node = node;
     this.talent = talent;
+
+    // Position
+    this.position.set(position.x, position.y);
 
     // Mouse Interaction
     this.interactionManager = new MouseInteractionManager(this, canvas.stage, {
@@ -20,15 +23,6 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     });
     this.interactionManager.activate();
   }
-
-  async draw({position, ...config}={}) {
-    this.position.set(position.x, position.y);
-    config.disabled = true;
-    config.texture = await loadTexture(this.talent.img);
-    config.borderColor = this.node.node.color;
-    return super.draw(config);
-  }
-
 
   #onClickLeft(event) {
     const tree = game.system.tree;
