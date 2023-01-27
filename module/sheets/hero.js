@@ -10,7 +10,7 @@ export default class HeroSheet extends ActorSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 760,
-      height: "auto",
+      height: 760,
       classes: [SYSTEM.id, "sheet", "actor"],
       template: `systems/${SYSTEM.id}/templates/sheets/hero.html`,
       resizable: false,
@@ -132,7 +132,16 @@ export default class HeroSheet extends ActorSheet {
 
     // Define placeholder structure
     const sections = {
-      talents: {},
+      talents: {
+        active: {
+          label: "Active Abilities",
+          items: []
+        },
+        passive: {
+          label: "Passive Talents",
+          items: []
+        }
+      },
       inventory: {
         equipment: {
           label: "Equipment",
@@ -167,13 +176,23 @@ export default class HeroSheet extends ActorSheet {
     for ( let i of items ) {
       const d = i.toObject();
       d.showStack = d.system?.quantity && (d.system.quantity !== 1);
-      d.tags = i.getTags();
       switch(d.type) {
         case "armor":
         case "weapon":
+          d.tags = i.getTags();
           d.cssClass = [d.system.equipped ? "equipped" : "unequipped"];
           if ( d.system.equipped ) sections.inventory.equipment.items.push(d);
           else sections.inventory.backpack.items.push(d);
+          break;
+        case "talent":
+          d.tags = {};
+          const action = i.actions.at(0);
+          if ( action ) {
+            const tags = action.getTags();
+            d.tags = Object.assign({}, tags.action, tags.activation);
+            sections.talents.active.items.push(d);
+          }
+          else sections.talents.passive.items.push(d);
           break;
       }
     }
@@ -374,7 +393,7 @@ export default class HeroSheet extends ActorSheet {
   _onItemDelete(button) {
     const li = button.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
-    return item?.delete();
+    return item?.deleteDialog();
   }
 
   /* -------------------------------------------- */

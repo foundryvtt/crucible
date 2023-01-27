@@ -1,28 +1,33 @@
-
-
+/**
+ * The allowed target types which an Action may have.
+ * @enum {{label: string}}
+ */
 export const ACTION_TARGET_TYPES = {
-  "self": {
+  none: {
+    label: "None"
+  },
+  self: {
     label: "Self"
   },
-  "single": {
+  single: {
     label: "Single"
   },
-  "cone": {
+  cone: {
     label: "Cone"
   },
-  "fan": {
+  fan: {
     label: "Fan"
   },
-  "pulse": {
+  pulse: {
     label: "Pulse"
   },
-  "blast": {
+  blast: {
     label: "Blast"
   },
-  "ray": {
+  ray: {
     label: "Ray"
   },
-  "wall": {
+  wall: {
     label: "Wall"
   }
 }
@@ -117,7 +122,10 @@ export const ACTION_TAGS = {
     tag: "mainhand",
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.system.actionCost,
+    prepare: (actor, action) => {
+      const mh = actor.equipment.weapons.mainhand;
+      action.actionCost = mh.system.actionCost + action.cost.action;
+    },
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
       foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
@@ -127,7 +135,7 @@ export const ACTION_TAGS = {
         icon: "fa-solid fa-swords",
         hasDice: true
       });
-      action.context.tags.add(`${mh.name} (MH)`);
+      action.context.tags.add(mh.name);
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -161,7 +169,10 @@ export const ACTION_TAGS = {
     tag: "twohand",
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.mainhand.system.actionCost,
+    prepare: (actor, action) => {
+      const mh = actor.equipment.weapons.mainhand;
+      action.actionCost = mh.system.actionCost + action.cost.action;
+    },
     can: (actor, action) => actor.equipment.weapons.twoHanded,
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
@@ -172,7 +183,7 @@ export const ACTION_TAGS = {
         icon: "fa-solid fa-swords",
         hasDice: true
       });
-      action.context.tags.add(`${oh.name} (2H)`);
+      action.context.tags.add(mh.name);
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
@@ -180,7 +191,10 @@ export const ACTION_TAGS = {
     tag: "offhand",
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
-    prepare: (actor, action) => action.actionCost += actor.equipment.weapons.offhand.system.actionCost,
+    prepare: (actor, action) => {
+      const oh = actor.equipment.weapons.offhand;
+      action.actionCost = oh.system.actionCost + action.cost.action;
+    },
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
       foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
@@ -190,7 +204,7 @@ export const ACTION_TAGS = {
         icon: "fa-solid fa-swords",
         hasDice: true
       });
-      action.context.tags.add(`${oh.name} (OH)`);
+      action.context.tags.add(oh.name);
     },
     execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
@@ -327,11 +341,12 @@ export const DEFAULT_ACTIONS = [
     name: "Move",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
     description: "Move quickly up to 4 spaces in any direction, or move cautiously one space in any direction.",
-    targetType: "self",
+    targetType: "none",
     targetNumber: 1,
     targetDistance: 4,
-    actionCost: 1,
-    focusCost: 0,
+    cost: {
+      action: 1
+    },
     affectAllies: false,
     affectEnemies: false,
     tags: ["movement"]
@@ -344,8 +359,6 @@ export const DEFAULT_ACTIONS = [
     targetType: "single",
     targetNumber: 1,
     targetDistance: 1,
-    actionCost: 0, // Determined by your weapon
-    focusCost: 0,
     affectAllies: false,
     affectEnemies: true,
     tags: ["mainhand"]
@@ -358,8 +371,9 @@ export const DEFAULT_ACTIONS = [
     targetType: "self",
     targetNumber: 1,
     targetDistance: 0,
-    actionCost: 1,
-    focusCost: 0,
+    cost: {
+      action: 1
+    },
     affectAllies: false,
     affectEnemies: false,
     tags: []

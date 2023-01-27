@@ -52,8 +52,10 @@ export default class ActionData extends foundry.abstract.DataModel {
       targetType: new fields.StringField({required: true, choices: TALENT.ACTION_TARGET_TYPES, initial: "single"}),
       targetNumber: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
       targetDistance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-      actionCost: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-      focusCost: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+      cost: new fields.SchemaField({
+        action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
+      }),
       affectAllies: new fields.BooleanField(),
       affectEnemies: new fields.BooleanField({initial: true}),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
@@ -68,10 +70,15 @@ export default class ActionData extends foundry.abstract.DataModel {
    * Additional data preparation steps for the ActionData.
    */
   prepareData() {
+    const source = this._source;
     const item = this.parent?.parent;
-    this.name = this.name || item?.name;
-    this.img = this.img || item?.img;
-    this.tags = new Set([...item?.system.tags || [], ...this.tags]);
+    this.name = source.name || item?.name;
+    this.img = source.img || item?.img;
+    this.tags = new Set([...item?.system.tags || [], ...source.tags]);
+
+    // Effective costs
+    this.actionCost = source.cost.action;
+    this.focusCost = source.cost.focus;
   }
 
   /* -------------------------------------------- */
@@ -81,6 +88,7 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @param {CrucibleActor} actor     The actor for whom this action is being prepared
    */
   prepareForActor(actor) {
+    this.prepareData();
     for ( let t of this.tags ) {
       const tag = SYSTEM.TALENT.ACTION_TAGS[t];
       if ( !tag ) continue;
@@ -111,25 +119,17 @@ export default class ActionData extends foundry.abstract.DataModel {
       if ( tag.label ) tags.action[tag.tag] = tag.label;
     }
 
-    // De-duplicate action tags
-    if ( tags.action.dualwield ) {
-      delete tags.action.mainhand;
-      delete tags.action.offhand;
-    }
-
     // Target
-    let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
-    if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
-    tags.activation.target = target;
+    if ( this.targetType !== "none" ) {
+      let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
+      if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
+      tags.activation.target = target;
+    }
 
     // Cost
-    const ap = Math.max(this.actionCost, 0);
-    const fp = Math.max(this.focusCost, 0);
-    if ( ap || fp ) {
-      if ( ap ) tags.activation.ap = `${ap}A`;
-      if ( fp ) tags.activation.fp = `${fp}F`;
-    }
-    else tags.activation.cost = "Free";
+    if ( this.actionCost !== 0 ) tags.activation.ap = `${this.actionCost}A`;
+    if ( this.focusCost !== 0 ) tags.activation.fp = `${this.focusCost}F`;
+    if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
     return tags;
   }
 
@@ -192,7 +192,6 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = this.clone({}, {parent: this.parent});
-    action.prepareData();
     action.prepareForActor(actor);
     action.context = {
       type: undefined,
@@ -310,6 +309,10 @@ export default class ActionData extends foundry.abstract.DataModel {
       }
     };
     switch ( this.targetType ) {
+
+      // No target
+      case "none":
+        return []
 
       // AOE pulse
       case "pulse":

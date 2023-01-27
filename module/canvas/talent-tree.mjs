@@ -38,6 +38,12 @@ export default class CrucibleTalentTree extends InteractionLayer {
   hud = new CrucibleTalentHUD();
 
   /**
+   * A reference to the talent tree choice wheel
+   * @type {CrucibleTalentChoiceWheel}
+   */
+  wheel;
+
+  /**
    * A mapping which tracks the current node states
    * @type {Map<CrucibleTalentNode,number>}
    */
@@ -102,6 +108,8 @@ export default class CrucibleTalentTree extends InteractionLayer {
   _deactivate() {
     this.actor = null;
     this.visible = false;
+    this.wheel.deactivate();
+    this.hud.clear();
   }
 
   /* -------------------------------------------- */

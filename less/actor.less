@@ -740,9 +740,7 @@
   }
 
   .item-controls {
-    flex: 0 0 75px;
-    line-height: 22px;
-    text-align: right;
+    flex: none;
     a.control {
       margin: 0 2px;
       padding: 0 2px;
@@ -761,6 +759,10 @@
       padding: 2px 4px;
       border-bottom: 1px solid @colorBeige;
       &:last-child { border-bottom: none; }
+    }
+
+    .tags {
+      flex: 2;
     }
   }
 

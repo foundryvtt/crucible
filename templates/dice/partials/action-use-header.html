@@ -9,25 +9,33 @@
         </div>
     </header>
 
+    {{#if hasActionTags}}
     <div class="tags" data-tag-type="action">
-        <label data-tooltip="Action Tags"><i class="fa-solid fa-bolt"></i></label>
+        <label data-tooltip="Action Tags" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bolt"></i>
+        </label>
         {{#each actionTags as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </div>
+    {{/if}}
 
-    {{#if action.context}}
+    {{#if hasContextTags}}
     <div class="tags" data-tag-type="{{action.context.type}}">
-        <label data-tooltip="{{action.context.label}}"><i class="{{action.context.icon}}"></i></label>
+        <label data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
+            <i class="{{action.context.icon}}"></i>
+        </label>
         {{#each action.context.tags as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </div>
     {{/if}}
 
-    {{#if showTargets}}
+    {{#if targets.length}}
     <div class="tags" data-tag-type="target">
-        <label data-tooltip="{{localize "ACTION.Targets"}}"><i class="fa-solid fa-bullseye"></i></label>
+        <label data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bullseye"></i>
+        </label>
         {{#each targets}}
         <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
         {{/each}}

@@ -504,6 +504,13 @@
 "SKILLS.PerformanceAthlete3": "",
 "SKILLS.PerformanceAthlete5": "",
 
+"TALENT.NodeAttack": "Offensive",
+"TALENT.NodeDefense": "Defensive",
+"TALENT.NodeMagic": "Magic",
+"TALENT.NodeMove": "Movement",
+"TALENT.NodeUtility": "Utility",
+"TALENT.NodeDefault": "PLACEHOLDER",
+
 "TALENT.AlreadyOwned": "You already own {name} and cannot add it a second time.",
 "TALENT.MissingRequirement": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
 "TALENT.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",

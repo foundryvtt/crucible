@@ -50,7 +50,7 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
     }
 
     // Prepare prerequisites
-    this.prerequisites = this.#preparePrerequisites(node.requirements, this.requirements);
+    this.prerequisites = TalentData.preparePrerequisites(node.requirements, this.requirements);
 
     // Prepare Action data
     for ( let a of this.actions ) {
@@ -60,7 +60,7 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
-  #preparePrerequisites(nodeReqs, talentReqs) {
+  static preparePrerequisites(nodeReqs={}, talentReqs={}) {
     const reqs = foundry.utils.mergeObject(nodeReqs, talentReqs);
     return Object.entries(foundry.utils.flattenObject(reqs)).reduce((obj, r) => {
       const [k, v] = r;

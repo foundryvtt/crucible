@@ -22,25 +22,25 @@ export const ABILITIES = {
     label: "Strength",
     abbreviation: "Str"
   },
-  dexterity: {
-    label: "Dexterity",
-    abbreviation: "Dex"
-  },
   constitution: {
     label: "Constitution",
     abbreviation: "Con"
+  },
+  dexterity: {
+    label: "Dexterity",
+    abbreviation: "Dex"
   },
   intellect: {
     label: "Intellect",
     abbreviation: "Int"
   },
-  wisdom: {
-    label: "Wisdom",
-    abbreviation: "Wis"
-  },
   presence: {
     label: "Presence",
     abbreviation: "Pre"
+  },
+  wisdom: {
+    label: "Wisdom",
+    abbreviation: "Wis"
   }
 };
 

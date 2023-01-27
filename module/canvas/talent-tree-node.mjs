@@ -55,14 +55,16 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   }
 
   #onPointerOver(event) {
-    if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.2, 1.2);
+    game.system.tree.hud.activate(this);
+    if ( this.isActive ) return; // Don't un-hover an active node
     this.zIndex = CrucibleTalentTree.SORT_INDICES.HOVER;
   }
 
   #onPointerOut(event) {
-    if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
+    game.system.tree.hud.clear();
+    if ( this.isActive ) return; // Don't un-hover an active node
     this.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
   }
 }

@@ -59,7 +59,7 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   font-size: 12px;
 }
 .crucible .tags label {
@@ -70,10 +70,10 @@
 }
 .crucible span.tag {
   display: inline-block;
-  padding: 1px 2px;
+  padding: 0 4px;
   font-family: var(--fontFamilySans);
   font-size: 12px;
-  line-height: 16px;
+  line-height: 18px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid #b5b3a4;
   border-radius: 4px;
@@ -909,9 +909,7 @@ h2.divider span {
   margin: 0;
 }
 .crucible.actor .item-controls {
-  flex: 0 0 75px;
-  line-height: 22px;
-  text-align: right;
+  flex: none;
 }
 .crucible.actor .item-controls a.control {
   margin: 0 2px;
@@ -933,6 +931,9 @@ h2.divider span {
 }
 .crucible.actor .items-list .item:last-child {
   border-bottom: none;
+}
+.crucible.actor .items-list .tags {
+  flex: 2;
 }
 .crucible.actor .talents .point-pools a.button {
   flex: 1;
@@ -1424,4 +1425,7 @@ h2.divider span {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.9);
   text-align: left;
+}
+#talent-hud-header {
+  gap: 0.5rem;
 }

@@ -138,7 +138,7 @@ export default class CrucibleActor extends Actor {
    * The IDs of purchased talents
    * @type {Set<string>}
    */
-  talentIds = new Set();
+  talentIds;
 
   /* -------------------------------------------- */
   /*  Actor Preparation
@@ -394,9 +394,9 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareTalents({talent}={}) {
+    this.talentIds = new Set();
     const points = this.points.talent;
     this._hasPatientDefense = false; // TODO - temporary special case for playtest
-    this.talentIds.clear();
     for ( const t of talent ) {
       this.talentIds.add(t.id);
       if ( t.name === "Patient Defense" ) this._hasPatientDefense = true;
@@ -814,7 +814,7 @@ export default class CrucibleActor extends Actor {
     if ( dialog ) {
       const confirm = await Dialog.confirm({
         title: `Purchase Talent: ${talent.name}`,
-        content: "Spend X points to buy it?",
+        content: `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`,
         defaultYes: false
       });
       if ( !confirm ) return;

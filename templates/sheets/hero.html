@@ -445,20 +445,25 @@
                 <label>Available</label>
                 <span class="value highlight">{{points.talent.available}}</span>
             </div>
-            <header class="talents-header items-header flexrow">
+
+            {{#each items.talents as |section s|}}
+            {{#if section.items.length}}
+            <header class="items-header flexrow">
                 <div class="item-name flexrow">
-                    <h4>Talent</h4>
+                    <h4>{{section.label}}</h4>
                 </div>
             </header>
             <ol class="items-list">
-                {{#each talents as |item id|}}
-                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item.id}}">
+                {{#each section.items as |item id|}}
+                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item._id}}">
                     <div class="item-name flexrow">
                         <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
                         <h4>{{item.name}}</h4>
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
+                        <div class="tags">
+                            {{#each item.tags}}
+                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                            {{/each}}
+                        </div>
                     </div>
                     <div class="item-controls">
                         <a class="control" data-action="itemEdit" title="Edit Item">
@@ -471,6 +476,8 @@
                 </li>
                 {{/each}}
             </ol>
+            {{/if}}
+            {{/each}}
         </div>
 
         {{!-- Inventory Tab --}}
@@ -494,9 +501,11 @@
                             {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
                             {{~item.name~}}
                         </h4>
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
+                        <div class="tags">
+                            {{#each item.tags}}
+                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                            {{/each}}
+                        </div>
                     </div>
                     <div class="item-controls">
                         <a class="control equipped-state" data-action="itemEquip" title="Equip Item">

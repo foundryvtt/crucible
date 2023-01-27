@@ -40,14 +40,12 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   #onPointerOver(event) {
     this.scale.set(1.2, 1.2);
-    const hud = game.system.tree.hud;
-    hud.activate(this);
+    game.system.tree.hud.activate(this);
   }
 
   #onPointerOut(event) {
     this.scale.set(1.0, 1.0);
-    const hud = game.system.tree.hud;
-    hud.clear();
+    game.system.tree.hud.clear();
   }
 }
 
