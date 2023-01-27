@@ -176,8 +176,10 @@ Hooks.once("setup", function() {
 /* -------------------------------------------- */
 
 Hooks.on("canvasReady", () => {
-  const actor = game.actors.get("sNNr3tDKX8iffGHS");
-  actor.toggleTalentTree();
+  if ( canvas.id === "XTz8NrEeavbUDh4r" ) {
+    const actor = game.actors.get("sNNr3tDKX8iffGHS");
+    actor.toggleTalentTree();
+  }
 });
 
 /* -------------------------------------------- */

@@ -8,11 +8,12 @@ export default class CrucibleTalentIcon extends PIXI.Container {
      * @type {object}
      */
     this.config = Object.assign({
+      active: false,
+      accessible: false,
       backgroundColor: 0x000000,
       borderColor: undefined,
       borderWidth: 4,
       borderRadius: undefined,
-      disabled: false,
       size: 50,
       text: undefined,
       texture: undefined
@@ -34,10 +35,10 @@ export default class CrucibleTalentIcon extends PIXI.Container {
   }
 
   /**
-   * The shared filter instance used by all disabled icons
+   * The shared filter instance used by all inaccessible icons
    * @type {PIXI.filters.ColorMatrixFilter}
    */
-  static disabledFilter = new PIXI.filters.ColorMatrixFilter();
+  static greyscaleFilter = new PIXI.filters.ColorMatrixFilter();
 
   /**
    * Draw the talent tree icon
@@ -45,19 +46,22 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * @returns {Promise<void>}
    */
   async draw(config={}) {
-    const {backgroundColor, borderColor, borderRadius, borderWidth,
-      disabled, text, texture, size} = Object.assign(this.config, config);
+    const {active, accessible, backgroundColor, borderColor, borderRadius, borderWidth,
+      text, texture, size} = Object.assign(this.config, config);
 
     // Draw icon
     this.icon.texture = texture;
     this.icon.width = this.icon.height = size;
     this.icon.mask.clear().beginFill(0x000000, 1.0).drawRoundedRect(size/-2, size/-2, size, size, borderRadius || size/5);
-    this.icon.filters = disabled ? [this.constructor.disabledFilter] : [];
 
-    // Draw Border
+    // Inaccessible icons are greyscale
+    this.icon.filters = accessible ? [] : [this.constructor.greyscaleFilter];
+    this.icon.alpha = active ? 1.0 : 0.6;
+
+    // Active icons have a colorful border
     this.border.clear().lineStyle({
       width: borderWidth,
-      color: disabled ? 0x444444 : borderColor
+      color: active ? borderColor : 0x444444
     })
     if ( typeof backgroundColor === "number" ) this.border.beginFill(backgroundColor, 1.0);
     const bs = size + 10;
@@ -69,6 +73,4 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.number.visible = !!this.number.text;
   }
 }
-
-// Set disabled filter to desaturate
-CrucibleTalentIcon.disabledFilter.desaturate();
+CrucibleTalentIcon.greyscaleFilter.desaturate();

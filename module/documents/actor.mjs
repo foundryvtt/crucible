@@ -769,10 +769,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Toggle display of the Talent Tree.
    */
-  toggleTalentTree() {
-    if ( game.system.tree.actor === this ) game.system.tree.deactivate();
-    else game.system.tree.activate({actor: this});
-    this.sheet.render(false);
+  async toggleTalentTree() {
+    const tree = game.system.tree;
+    if ( tree.actor === this ) return game.system.tree.close();
+    return game.system.tree.open(this);
   }
 
   /* -------------------------------------------- */
@@ -790,22 +790,14 @@ export default class CrucibleActor extends Actor {
     // Ensure the Talent is not already owned
     if ( this.items.find(i => (i.type === "talent") && (i.name === talent.name)) ) {
       const err = game.i18n.format("TALENT.AlreadyOwned", {name: talent.name});
-      ui.notifications.warn(err);
-      throw new Error(err);
+      return ui.notifications.warn(err);
     }
 
     // Confirm that the Actor meets the requirements to add the Talent
-    for ( let [k, v] of Object.entries(talent.system.prerequisites) ) {
-      const current = foundry.utils.getProperty(this.system, k);
-      if ( current < v.value ) {
-        const err = game.i18n.format("TALENT.MissingRequirement", {
-          name: talent.name,
-          requirement: v.label,
-          requires: v.value
-        });
-        ui.notifications.warn(err);
-        throw new Error(err);
-      }
+    try {
+      talent.system.assertPrerequisites(this);
+    } catch(err) {
+      return ui.notifications.warn(err.message);
     }
 
     // Confirm that the Actor has sufficient Talent points
@@ -815,8 +807,7 @@ export default class CrucibleActor extends Actor {
         name: talent.name,
         cost: 1
       });
-      ui.notifications.warn(err);
-      throw new Error(err);
+      return ui.notifications.warn(err);
     }
 
     // Confirmation dialog

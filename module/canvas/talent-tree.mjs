@@ -1,4 +1,3 @@
-import CrucibleTalentIcon from "./talent-icon.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
@@ -10,6 +9,8 @@ export default class CrucibleTalentTree extends InteractionLayer {
     game.system.tree = this;
     this.visible = false;
   }
+
+  static #TREE_SCENE_ID = "XTz8NrEeavbUDh4r";
 
   static SORT_INDICES = {
     INACTIVE: 0,
@@ -36,14 +37,56 @@ export default class CrucibleTalentTree extends InteractionLayer {
    */
   hud = new CrucibleTalentHUD();
 
+  /**
+   * A mapping which tracks the current node states
+   * @type {Map<CrucibleTalentNode,number>}
+   */
+  state = new Map();
+
+  /**
+   * Record the prior Scene that was active before switching to the Talent Tree.
+   * @type {Scene}
+   */
+  priorScene;
+
   /* -------------------------------------------- */
 
-  async activate({actor, ...options}={}) {
+  /** @override */
+  async open(actor) {
+
+    // Assign the actor
     this.actor = actor;
-    const actorTexture = await loadTexture(this.actor.img);
-    this.#drawCharacter(actorTexture);
-    this.refresh();
-    super.activate(options);
+    actor.sheet.render(false);
+
+    // Activate the Scene
+    if ( canvas.id !== CrucibleTalentTree.#TREE_SCENE_ID ) {
+      this.priorScene = canvas.scene;
+      const scene = game.scenes.get(CrucibleTalentTree.#TREE_SCENE_ID);
+      await scene.view();
+    }
+    else await this.draw();
+
+    // Activate the layer
+    this.activate();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async close() {
+
+    // Deactivate the layer
+    this.deactivate();
+
+    // Clear the actor
+    const actor = this.actor;
+    this.actor = null;
+    actor?.sheet.render(false);
+
+    // Switch Scenes
+    const scene = this.priorScene;
+    this.priorScene = null;
+    if ( scene ) await scene.view();
   }
 
   /* -------------------------------------------- */
@@ -76,7 +119,10 @@ export default class CrucibleTalentTree extends InteractionLayer {
     this.character.icon = this.character.addChild(new PIXI.Sprite());
     this.character.points = this.character.addChild(new PreciseText("", textStyle));
     this.character.name = this.character.addChild(new PreciseText("", textStyle));
-    this.#drawCharacter();
+
+    // Draw character portrait
+    const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
+    this.#drawCharacter(actorTexture);
 
     // Draw Nodes and Edges
     this.connections = this.addChild(new PIXI.Graphics());
@@ -84,7 +130,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
     this.nodes = this.addChild(new PIXI.Container());
     this.nodes.sortableChildren = true;
     const origin = CrucibleTalentNode.nodes.get("origin");
-    this.#drawNodes(origin.connected, new Set([origin]));
+    await this.#drawNodes(origin.connected, new Set([origin]));
 
     // Create Choice Wheel
     this.wheel = this.nodes.addChild(new CrucibleTalentChoiceWheel());
@@ -156,28 +202,43 @@ export default class CrucibleTalentTree extends InteractionLayer {
   refresh() {
     if ( !this.actor ) return;
     this.character.points.text = `${this.actor.points.talent.available} Points Available`;
+    this.getActiveNodes();
+    for ( const node of CrucibleTalentNode.nodes.values() ) {
+      const state = this.state.get(node);
+      node.icon?.draw({active: state === 2, accessible: state > 0})
+    }
+    this.wheel.refresh();
   }
 
   /* -------------------------------------------- */
 
-  #drawNodes(nodes, seen=new Set()) {
+  async #drawNodes(nodes, seen=new Set()) {
     const next = [];
     for ( const node of nodes ) {
       if ( seen.has(node) ) continue;
-      this.#drawNode(node);
+      await this.#drawNode(node);
       this.#drawEdges(node, seen);
       seen.add(node);
       next.push(...node.connected);
     }
-    if ( next.length ) this.#drawNodes(next, seen);
+    if ( next.length ) await this.#drawNodes(next, seen);
   }
 
   /* -------------------------------------------- */
 
-  #drawNode(node) {
-    const g = new CrucibleTalentTreeNode(node);
-    g.draw();
-    this.nodes.addChild(g);
+  async #drawNode(node) {
+
+    // Configure the node icon
+    const config = {};
+    const icons = CrucibleTalentTreeNode.NODE_TYPE_ICONS;
+    config.texture = await loadTexture(icons[node.type] || icons.default);
+    config.borderColor = node.color;
+    config.text = node.talents.size > 1 ? node.talents.size : "";
+
+    // Create the Node icon
+    const icon = node.icon = new CrucibleTalentTreeNode(node, config);
+    await icon.draw();
+    this.nodes.addChild(icon);
   }
 
   /* -------------------------------------------- */
@@ -206,5 +267,40 @@ export default class CrucibleTalentTree extends InteractionLayer {
     this.active.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
     this.wheel.deactivate();
     this.active = null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Traverse the talent tree, acquiring a Set of nodes which are currently accessible.
+   * @returns {Map<CrucibleTalentNode, number>}
+   */
+  getActiveNodes() {
+    const state = this.state;
+    const actor = this.actor;
+    state.clear();
+
+    function isPurchased(node, actor) {
+      for ( const talent of node.talents ) {
+        if ( actor.talentIds.has(talent.id) ) return true;
+      }
+      return false;
+    }
+
+    function updateBatch(nodes) {
+      const next = [];
+      for ( const n of nodes ) {
+        if ( state.has(n) ) continue;
+        const p = isPurchased(n, actor);
+        state.set(n, p ? 2 : 1);
+        if ( (n.id === "origin") || p ) {
+          next.push(...n.connected);
+        }
+      }
+      if ( next.length ) updateBatch(next);
+    }
+
+    updateBatch([CrucibleTalentNode.nodes.get("origin")]);
+    return state;
   }
 }

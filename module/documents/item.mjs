@@ -263,9 +263,27 @@ export default class CrucibleItem extends Item {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
+  _onCreate(data, options, userId) {
+    const tree = game.system.tree;
+    if ( this.parent && (tree.actor === this.parent) ) tree.refresh();
+    return super._onCreate(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);
     return super._onUpdate(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    const tree = game.system.tree;
+    if ( this.parent && (tree.actor === this.parent) ) tree.refresh();
+    return super._onDelete(options, userId);
   }
 
   /* -------------------------------------------- */

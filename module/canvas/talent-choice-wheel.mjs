@@ -89,7 +89,6 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       const position = tier1.pointAtAngle((i * a) - (Math.PI / 2));
       const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
         borderColor: this.node.node.color,
-        disabled: true,
         texture: await loadTexture(talent.img)
       });
       this.talents.addChild(icon);
@@ -106,11 +105,13 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Refresh the display of the Talent wheel when the Actor's purchased Talents change.
    */
   refresh() {
-    const actor = game.system.tree.actor;
+    const tree = game.system.tree;
+    const actor = tree.actor;
     if ( !actor ) return;
-    for ( const icon of this.talents.children ) {
-      icon.draw({
-        disabled: !actor.talentIds.has(icon.talent.id)
+    for ( const talentIcon of this.talents.children ) {
+      talentIcon.draw({
+        accessible: tree.state.get(talentIcon.node.node),
+        active: actor.talentIds.has(talentIcon.talent.id)
       });
     }
   }

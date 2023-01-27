@@ -89,4 +89,25 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
     }
     return tags;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Assert that an Actor meets the prerequisites for this Talent.
+   * @param {CrucibleActor} actor         The Actor to test
+   * @throws a formatted error message if the prerequisites are not met
+   */
+  assertPrerequisites(actor) {
+    for ( let [k, v] of Object.entries(this.prerequisites) ) {
+      const current = foundry.utils.getProperty(actor.system, k);
+      if ( current < v.value ) {
+        const err = game.i18n.format("TALENT.MissingRequirement", {
+          name: this.parent.name,
+          requirement: v.label,
+          requires: v.value
+        });
+        throw new Error(err);
+      }
+    }
+  }
 }

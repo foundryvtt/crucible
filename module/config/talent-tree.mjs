@@ -58,6 +58,12 @@ export default class CrucibleTalentNode {
   talents = new Set();
 
   /**
+   * A reference to the icon in the canvas representation of the talent tree that controls this node.
+   * @type {CrucibleTalentTreeNode}
+   */
+  icon;
+
+  /**
    * The minimum character requirements needed to unlock this Talent.
    * @type {Object<string, number>}
    */
@@ -67,7 +73,7 @@ export default class CrucibleTalentNode {
     }
     const ad = this.abilities.length - 1;
     for ( const ability of this.abilities ) {
-      reqs[`attributes.${ability}`] = CrucibleTalentNode.TIER_ABILITIES[this.tier] - ad;
+      reqs[`attributes.${ability}.value`] = CrucibleTalentNode.TIER_ABILITIES[this.tier] - ad;
     }
     return reqs;
   }
@@ -82,6 +88,14 @@ export default class CrucibleTalentNode {
       if ( (item.type !== "talent") || !item.system.node ) continue;
       const node = CrucibleTalentNode.#nodes.get(item.system.node);
       if ( node ) node.talents.add(item);
+    }
+  }
+
+  isAccessible(actor) {
+    if ( this.tier === 0 ) return true;
+    if ( !actor ) return false;
+    for ( const talent in this.talents ) {
+      if ( actor.talentIds.has(talent.id) ) return true;
     }
   }
 }
@@ -214,7 +228,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "constr1",
   abilities: ["constitution", "strength"],
-  type: "choice",
+  type: "move",
   tier: 1,
   angle: 120,
   distance: 180,
@@ -224,7 +238,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "str1a",
   abilities: ["strength"],
-  type: "choice",
+  type: "attack",
   tier: 1,
   angle: 140,
   connected: ["str0", "constr1"]

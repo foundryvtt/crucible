@@ -30,6 +30,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     defense: "icons/skills/melee/shield-block-gray-orange.webp",
     default: "icons/magic/symbols/question-stone-yellow.webp",
     magic: "icons/magic/symbols/circled-gem-pink.webp",
+    move: "icons/skills/movement/feet-winged-boots-glowing-yellow.webp",
     utility: "icons/magic/symbols/cog-shield-white-blue.webp",
   }
 
@@ -40,25 +41,6 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   get isActive() {
     return game.system.tree.active === this;
   }
-
-  async draw(config={}) {
-
-    // Is available?
-    config.disabled = this.node.talents.size === 0;
-
-    // Load Texture
-    const icons = CrucibleTalentTreeNode.NODE_TYPE_ICONS;
-    const icon = icons[this.node.type] || icons.default;
-    config.texture = await loadTexture(icon);
-
-    // Configure
-    config.borderColor = this.node.color;
-    config.text = this.node.talents.size > 1 ? this.node.talents.size : "";
-
-    // Draw icon
-    return super.draw(config);
-  }
-
 
   #onClickLeft(event) {
     const tree = game.system.tree;

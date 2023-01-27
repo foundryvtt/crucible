@@ -505,7 +505,7 @@
 "SKILLS.PerformanceAthlete5": "",
 
 "TALENT.AlreadyOwned": "You already own {name} and cannot add it a second time.",
-"TALENT.MissingRequirement": "You do not satisfy the requirements to add {name} which requires {requires} {requirement}.",
+"TALENT.MissingRequirement": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
 "TALENT.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
 
 "WEAPON.Light1": "Light (1h)",

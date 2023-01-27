@@ -19,15 +19,23 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     }, {
       hoverIn: this.#onPointerOver,
       hoverOut: this.#onPointerOut,
-      clickLeft: this.#onClickLeft
+      clickLeft: this.#onClickLeft,
+      clickRight: this.#onClickRight
     });
     this.interactionManager.activate();
   }
 
   #onClickLeft(event) {
     const tree = game.system.tree;
-    if ( !tree.actor ) return;
+    if ( !tree.actor || tree.actor.talentIds.has(this.talent.id) ) return;
     tree.actor.addTalent(this.talent, {dialog: true});
+  }
+
+  #onClickRight(event) {
+    const tree = game.system.tree;
+    if ( !tree.actor || !tree.actor.talentIds.has(this.talent.id) ) return;
+    const talent = tree.actor.items.get(this.talent.id);
+    return talent.deleteDialog();
   }
 
   #onPointerOver(event) {
