@@ -6,8 +6,8 @@
         <h1 class="title">{{source.name}}</h1>
         <div class="tags header-tags">
             <label>Requirements:</label>
-            {{#each tags as |tag|}}
-                <span class="tag">{{tag}}</span>
+            {{#each prerequisites as |req|}}
+                <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
             {{/each}}
         </div>
     </header>

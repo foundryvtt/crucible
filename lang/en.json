@@ -116,8 +116,6 @@
 "BACKGROUND.Skills": "Acquired Skills",
 "BACKGROUND.SkillsHint": "Choose two skills which were acquired as part of your background, each of which will begin with +1 rank.",
 "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",
-"BACKGROUND.Talent": "Acquired Talent",
-"BACKGROUND.TalentHint": "Select a starting Talent which is learned through this background. This is not yet supported for the playtest.",
 "BACKGROUND.None": "No Background",
 
 "DAMAGE.Bludgeoning": "Bludgeoning",

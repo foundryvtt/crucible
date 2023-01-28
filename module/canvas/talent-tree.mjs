@@ -2,6 +2,8 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
+import TalentData from "../data/talent.mjs";
+
 
 export default class CrucibleTalentTree extends InteractionLayer {
   constructor(...args) {
@@ -132,9 +134,14 @@ export default class CrucibleTalentTree extends InteractionLayer {
     const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
     this.#drawCharacter(actorTexture);
 
-    // Draw Nodes and Edges
+    // Background connections
+    this.edges = this.addChild(new PIXI.Graphics());
+    this.edges.lineStyle({color: 0x000000, alpha: 0.2, width: 4});
+
+    // Active connections
     this.connections = this.addChild(new PIXI.Graphics());
-    this.connections.lineStyle({color: 0x000000, width: 4});
+
+    // Draw Nodes and Edges
     this.nodes = this.addChild(new PIXI.Container());
     this.nodes.sortableChildren = true;
     const origin = CrucibleTalentNode.nodes.get("origin");
@@ -211,11 +218,34 @@ export default class CrucibleTalentTree extends InteractionLayer {
     if ( !this.actor ) return;
     this.character.points.text = `${this.actor.points.talent.available} Points Available`;
     this.getActiveNodes();
+
+    // Draw node changes
+    this.connections.clear();
+    const seen = new Set();
     for ( const node of CrucibleTalentNode.nodes.values() ) {
+      if ( node.tier < 0 ) continue;
       const state = this.state.get(node);
-      node.icon?.draw({active: state === 2, accessible: state > 0})
+      node.icon?.draw({active: state === 2, accessible: state > 0});
+      if ( state === 2 ) this.#drawConnections(node, seen);
+      seen.add(node);
     }
+
+    // Refresh talent wheel
     this.wheel.refresh();
+  }
+
+  /* -------------------------------------------- */
+
+  #drawConnections(node, seen) {
+    for ( const c of node.connected ) {
+      if ( seen.has(c) || (c.tier < 0) || (this.state.get(c) < 2) ) continue;
+      this.connections.lineStyle({color: 0x000000, width: 8, alpha: 1.0})
+        .moveTo(node.point.x, node.point.y)
+        .lineTo(c.point.x, c.point.y)
+        .lineStyle({color: c.color, width: 4, alpha: 1.0})
+        .moveTo(node.point.x, node.point.y)
+        .lineTo(c.point.x, c.point.y);
+    }
   }
 
   /* -------------------------------------------- */
@@ -254,8 +284,8 @@ export default class CrucibleTalentTree extends InteractionLayer {
   #drawEdges(node, seen) {
     for ( const c of node.connected ) {
       if ( seen.has(c) ) continue;
-      this.connections.moveTo(node.point.x, node.point.y);
-      this.connections.lineTo(c.point.x, c.point.y);
+      this.edges.moveTo(node.point.x, node.point.y);
+      this.edges.lineTo(c.point.x, c.point.y);
     }
   }
 
@@ -299,11 +329,21 @@ export default class CrucibleTalentTree extends InteractionLayer {
       const next = [];
       for ( const n of nodes ) {
         if ( state.has(n) ) continue;
+
+        // Verify whether the node is accessible
+        const a = TalentData.testPrerequisites(actor, n.prerequisites);
+        const accessible = Object.values(a).every(r => r.met);
+        if ( !accessible ) {
+          state.set(n, 0);
+          continue;
+        }
+
+        // Check whether a talent has been purchased
         const p = isPurchased(n, actor);
         state.set(n, p ? 2 : 1);
-        if ( (n.id === "origin") || p ) {
-          next.push(...n.connected);
-        }
+
+        // If the node was accessible, add connected nodes to the next batch
+        if ( (n.id === "origin") || p ) next.push(...n.connected);
       }
       if ( next.length ) updateBatch(next);
     }

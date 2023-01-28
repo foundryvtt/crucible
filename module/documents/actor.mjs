@@ -191,7 +191,7 @@ export default class CrucibleActor extends Actor {
     this.points = {
       ability: { pool: 36, total: effectiveLevel, bought: null, spent: null, available: null },
       skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
-      talent: { total: 3 + (effectiveLevel*3), spent: 0, available: null }
+      talent: { total: 2 + (effectiveLevel*2), spent: 0, available: null }
     };
 
     // Compute required advancement
@@ -778,6 +778,34 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Reset all Talents for the Actor.
+   * @param {object} [options]        Options which modify how talents are reset
+   * @param {boolean} [options.dialog]    Present the user with a confirmation dialog?
+   * @returns {Promise<void>}         A Promise which resolves once talents are reset or the dialog is declined
+   */
+  async resetTalents({dialog=true}={}) {
+
+    // Prompt for confirmation
+    if ( dialog ) {
+      const confirm = await Dialog.confirm({
+        title: `Reset Talents: ${this.name}`,
+        content: `<p>Are you sure you wish to reset all Talents?</p>`,
+        defaultYes: false
+      });
+      if ( !confirm ) return;
+    }
+
+    // Remove all Talent items
+    const deleteIds = this.items.reduce((arr, i) => {
+      if ( i.type === "talent" ) arr.push(i.id);
+      return arr;
+    }, []);
+    await this.deleteEmbeddedDocuments("Item", deleteIds);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle requests to add a new Talent to the Actor.
    * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
    * @param {CrucibleItem} talent     The Talent item to add to the Actor
@@ -1081,6 +1109,31 @@ export default class CrucibleActor extends Actor {
     this._displayScrollingStatus(data);
     this._replenishResources(data);
     this._updateCachedResources();
+
+    // Refresh talent tree
+    const tree = game.system.tree;
+    if ( tree.actor === this ) {
+      const talentChange = (foundry.utils.hasProperty(data, "system.advancement.level") || ("items" in data));
+      if ( talentChange ) tree.refresh();
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _onCreateEmbeddedDocuments(...args) {
+    super._onCreateEmbeddedDocuments(...args);
+    const tree = game.system.tree;
+    if ( tree.actor === this ) tree.refresh();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDeleteEmbeddedDocuments(...args) {
+    super._onDeleteEmbeddedDocuments(...args);
+    const tree = game.system.tree;
+    if ( tree.actor === this ) tree.refresh();
   }
 
   /* -------------------------------------------- */

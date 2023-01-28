@@ -1,3 +1,4 @@
+import TalentData from "../data/talent.mjs";
 
 export default class CrucibleTalentNode {
   constructor({id, tier=0, type="choice", abilities=[], angle=0, distance=200, connected=[]} = {}) {
@@ -25,6 +26,10 @@ export default class CrucibleTalentNode {
       if ( !n ) throw new Error(`CrucibleTalentNode parent "${node}" has not yet been defined`);
       n.connect(this);
     }
+
+    // Define prerequisites
+    this.prerequisites = TalentData.preparePrerequisites(this.requirements, {});
+
   }
 
   static ABILITY_COLORS = Object.freeze({
@@ -88,14 +93,6 @@ export default class CrucibleTalentNode {
       if ( (item.type !== "talent") || !item.system.node ) continue;
       const node = CrucibleTalentNode.#nodes.get(item.system.node);
       if ( node ) node.talents.add(item);
-    }
-  }
-
-  isAccessible(actor) {
-    if ( this.tier === 0 ) return true;
-    if ( !actor ) return false;
-    for ( const talent in this.talents ) {
-      if ( actor.talentIds.has(talent.id) ) return true;
     }
   }
 }
@@ -421,7 +418,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "constr2",
   abilities: ["constitution", "strength"],
-  type: "default",
+  type: "attack",
   tier: 2,
   angle: 120,
   distance: 180,
@@ -431,7 +428,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "str2a",
   abilities: ["strength"],
-  type: "default",
+  type: "attack",
   tier: 2,
   angle: 135,
   connected: ["str1a", "constr2"]

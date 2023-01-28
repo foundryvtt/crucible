@@ -2,14 +2,14 @@
     <header id="talent-hud-header" class="flexcol">
         <div class="tags">
             <label>Node:</label>
-            <span class="tag">Tier {{node.tier}}</span>
-            <span class="tag">{{node.type}}</span>
-            <span class="tag">{{node.talents}} Talents</span>
+            <span class="tag">Tier {{tier}}</span>
+            <span class="tag">{{type}}</span>
+            <span class="tag">{{talents}} Talents</span>
         </div>
         <div class="tags">
             <label>Prerequisites:</label>
-            {{#each prerequisites as |tag|}}
-                <span class="tag">{{tag}}</span>
+            {{#each prerequisites as |req|}}
+            <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
             {{/each}}
         </div>
     </header>

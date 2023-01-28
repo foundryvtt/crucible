@@ -24,6 +24,7 @@
   --fontSizeHeader: 16px;
   --fontSizeMain: 14px;
   --fontSizeSmall: 12px;
+  --colorError: #cb2f30;
 }
 .crucible .window-content {
   background: url("ui/parchment.jpg") repeat;
@@ -77,6 +78,11 @@
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid #b5b3a4;
   border-radius: 4px;
+}
+.crucible .tag.unmet {
+  background: #111;
+  border-color: var(--colorError);
+  color: var(--colorError);
 }
 .crucible input,
 .crucible select,
@@ -621,6 +627,10 @@ h2.divider span {
   font-weight: bold;
   border: 1px solid #b5b3a4;
 }
+.crucible.sheet.actor .point-pools .button.reset {
+  flex: none;
+  padding: 0 0.5rem;
+}
 .crucible.sheet.actor .defenses {
   flex: none;
   margin-bottom: 4px;
@@ -965,6 +975,23 @@ h2.divider span {
   min-width: 80px;
 }
 /** ----------------------------------------- *
+ *  Background and Ancestry                   *
+ * ------------------------------------------ */
+.crucible.sheet .form-group.skills .form-fields {
+  flex-wrap: wrap;
+  gap: 0;
+}
+.crucible.sheet .form-group.skills label {
+  flex: 0 0 25%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.crucible.sheet .form-group.skills label input {
+  width: 16px;
+  margin: 0;
+}
+/** ----------------------------------------- *
  *  Armor Sheet                               *
  * ------------------------------------------ */
 .crucible.sheet.armor .resistance {
@@ -1094,22 +1121,6 @@ h2.divider span {
 .crucible.sheet.skill .skill-ranks .skill-rank h4 {
   display: inline;
   font-weight: bold;
-}
-/**
- * Skill Group Selector
- */
-.crucible.sheet .form-group.skills .form-fields {
-  flex-wrap: wrap;
-}
-.crucible.sheet .form-group.skills label {
-  flex: 0 0 25%;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
-.crucible.sheet .form-group.skills label input {
-  width: 16px;
-  margin: 0;
 }
 .crucible .action {
   gap: 4px;

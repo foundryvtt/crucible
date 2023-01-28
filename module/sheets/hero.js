@@ -351,6 +351,8 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.useAction(a.closest(".action").dataset.actionId);
       case "talentTree":
         return this.actor.toggleTalentTree();
+      case "talentReset":
+        return this.actor.resetTalents();
     }
   }
 

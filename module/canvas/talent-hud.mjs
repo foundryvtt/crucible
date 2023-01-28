@@ -46,19 +46,14 @@ export default class CrucibleTalentHUD extends Application {
    * @returns {object}
    */
   #getNodeContext() {
-    const context = {};
+    const actor = game.system.tree.actor;
     const node = this.target.node;
-    const prerequisites = TalentData.preparePrerequisites(node.requirements, {});
-    context.node = {
+    return {
       type: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`),
       tier: node.tier,
       talents: node.talents.size,
+      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites)
     }
-    context.prerequisites = {};
-    for ( let [k, v] of Object.entries(prerequisites || {}) ) {
-      context.prerequisites[k] = `${v.label} ${v.value}`;
-    }
-    return context;
   }
 
   /* -------------------------------------------- */
@@ -68,13 +63,14 @@ export default class CrucibleTalentHUD extends Application {
    * @returns {object}
    */
   #getTalentContext() {
+    const actor = game.system.tree.actor;
     const talent = this.target.talent;
     const source = talent.toObject();
     return {
       item: talent,
       source: source,
       hasActions: talent.actions.length,
-      tags: talent.getTags()
+      prerequisites: TalentData.testPrerequisites(actor, talent.system.prerequisites)
     }
   }
 

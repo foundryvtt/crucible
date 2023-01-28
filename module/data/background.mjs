@@ -16,8 +16,7 @@ export default class BackgroundData extends foundry.abstract.TypeDataModel {
       description: new fields.HTMLField({required: true, blank: true}),
       skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
         validate: BackgroundData.#validateSkills
-      }),
-      talent: new fields.StringField({required: false})
+      })
     };
   }
 
