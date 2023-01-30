@@ -26,12 +26,20 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    * @enum {string}
    */
   static NODE_TYPE_ICONS = {
-    attack: "icons/skills/melee/hand-grip-sword-strike-orange.webp",
-    defense: "icons/skills/melee/shield-block-gray-orange.webp",
-    default: "icons/magic/symbols/question-stone-yellow.webp",
-    magic: "icons/magic/symbols/circled-gem-pink.webp",
-    move: "icons/skills/movement/feet-winged-boots-glowing-yellow.webp",
-    utility: "icons/magic/symbols/cog-shield-white-blue.webp",
+    attack: "systems/crucible/icons/nodes/attack.webp",
+    defense: "systems/crucible/icons/nodes/defense.webp",
+    default: "systems/crucible/icons/nodes/unassigned.webp",
+    heal: "systems/crucible/icons/nodes/healing.webp",
+    magic: "systems/crucible/icons/nodes/magic.webp",
+    move: "systems/crucible/icons/nodes/movement.webp",
+    utility: "systems/crucible/icons/nodes/utility.webp",
+  }
+
+  /** @override */
+  async draw(config) {
+    await super.draw(config);
+    const {accessible, borderColor} = this.config;
+    this.icon.tint = accessible ? borderColor.mix(new Color(0xFFFFFF), 0.25) : 0xFFFFFF;
   }
 
   /**

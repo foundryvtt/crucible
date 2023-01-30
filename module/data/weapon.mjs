@@ -84,8 +84,7 @@ export default class WeaponData extends PhysicalItemData {
     this.damage = {
       base: category.damage.base,
       quality: quality.bonus,
-      enchantment: enchantment.bonus,
-      weapon: category.damage.base + quality.bonus + enchantment.bonus
+      weapon: category.damage.base + quality.bonus
     };
     if ( this.broken ) this.damage.weapon = Math.floor(this.damage.weapon / 2);
 

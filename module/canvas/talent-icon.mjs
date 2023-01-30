@@ -53,9 +53,6 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.icon.texture = texture;
     this.icon.width = this.icon.height = size;
     this.icon.mask.clear().beginFill(0x000000, 1.0).drawRoundedRect(size/-2, size/-2, size, size, borderRadius || size/5);
-
-    // Inaccessible icons are greyscale
-    this.icon.filters = accessible ? [] : [this.constructor.greyscaleFilter];
     this.icon.alpha = active ? 1.0 : 0.6;
 
     // Active icons have a colorful border
@@ -69,7 +66,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.border.endFill();
 
     // Number
-    this.number.text = text || "";
+    this.number.text = text ?? "";
     this.number.visible = !!this.number.text;
   }
 }

@@ -1,5 +1,32 @@
 [Back to Home](../../README.md)
 
+# TODO - Skill Changes
+
+## Exploration Skills
+Stealth
+Awareness
+Pathfinding
+Survival
+
+## Knowledge Skills
+Arcana: Elementalism, Occultism, Magitech
+Religion: Theurgy, Diabolism, Thanatology
+Society: History, Politics, Streetwise
+Nature: Druidism, Zoology, Botany
+
+## Social Skills
+Bartering
+Deception
+Diplomacy
+Intimidation
+
+## Technical Skills
+Medicine
+Performance
+Crafting: Artificer, Trademaster, Runesmith
+Animal Handling
+
+
 # Character Skills
 
 Skills represent the social, exploration, puzzle-solving, and crafting abilities of a character. Skills describe how talented your character is at accomplishing certain tasks. Each skill has six tiers ranging from Untrained to Grandmaster which reflect the degree of expertise the hero has in that area. The skill tiers are generally described as follows, each yielding the following Skill Bonus and Skill Point cost.
@@ -210,11 +237,6 @@ The progression paths available to the Survival skill are listed below.
 | Rank 5        | You are a master of herblore, and are able to recognize any useful herb, reagent, toxin, or venom in the wild. You have +4 Boons on checks made to gather plants in the wild. You may devote time during a rest to attempt a crafting check for Potion Brewing with +3 Boons. If successful, you produce double the normal quantity of output. You know forbidden arts of creating odorless and tasteless poisons using rare ingredients. |
 
 ## Knowledge Skills
-
-Arcana: Elementalism, Occultism, Magitech
-Religion: Theurgy, Diabolism, Thanatology
-Society: History, Politics, Streetwise
-Nature: Druidism, Zoology, Botany
 
 ### Arcana
 

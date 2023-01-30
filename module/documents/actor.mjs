@@ -3,6 +3,30 @@ import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
 import ActionData from "../data/action.mjs";
 
+
+/**
+ * @typedef {Object} ActorEquippedWeapons
+ * @property {CrucibleItem} mainhand
+ * @property {CrucibleItem} offhand
+ * @property {boolean} freehand
+ * @property {boolean} unarmed
+ * @property {boolean} shield
+ * @property {boolean} twoHanded
+ * @property {boolean} melee
+ * @property {boolean} ranged
+ * @property {boolean} dualWield
+ * @property {boolean} dualMelee
+ * @property {boolean} dualRanged
+ * @property {boolean} slow
+ */
+
+/**
+ * @typedef {Object} ActorEquipment
+ * @property {CrucibleItem} armor
+ * @property {ActorEquippedWeapons} weapons
+ * @property {CrucibleItem[]} accessories
+ */
+
 /**
  * @typedef {Object}   ActorRoundStatus
  * @property {boolean} hasMoved
@@ -12,7 +36,6 @@ import ActionData from "../data/action.mjs";
 
 /**
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
- * @extends {Actor}
  */
 export default class CrucibleActor extends Actor {
   constructor(data, context) {
@@ -27,14 +50,10 @@ export default class CrucibleActor extends Actor {
   actions = this["actions"];
 
   /**
-   * Track the equipment that the Actor is currently using
-   * @type {{
-   *   armor: Item,
-   *   weapons: {mainhand: Item, offhand: Item},
-   *   accessories: Item[]
-   * }}
+   * Track the Items which are currently equipped for the Actor.
+   * @type {ActorEquipment}
    */
-  equipment = this["equipment"];
+  equipment = this.equipment;
 
   /**
    * Track the progression points which are available and spent
@@ -110,13 +129,37 @@ export default class CrucibleActor extends Actor {
     return this.system.status;
   }
 
-  get isUnconscious() {
-    return this.attributes.health.value === 0;
+  /**
+   * Is this Actor incapacitated?
+   * @type {boolean}
+   */
+  get isIncapacitated() {
+    return (this.attributes.health.value === 0) && (this.attributes.wounds.value < this.attributes.wounds.max);
   }
 
+  /**
+   * Is this Actor broken?
+   * @type {boolean}
+   */
+  get isBroken() {
+    return (this.attributes.morale.value === 0) && (this.attributes.madness.value < this.attributes.madness.max);
+  }
+
+  /**
+   * Is this Actor dead?
+   * @type {boolean}
+   */
   get isDead() {
-    if ( this.type === "npc" ) return this.isUnconscious;
+    if ( this.type === "npc" ) return this.attributes.health.value === 0;
     return this.attributes.wounds.value === this.attributes.wounds.max;
+  }
+
+  /**
+   * Is this Actor insane?
+   * @type {boolean}
+   */
+  get isInsane() {
+    return this.attributes.madness.value === this.attributes.madness.max;
   }
 
   /**
@@ -164,7 +207,7 @@ export default class CrucibleActor extends Actor {
     super.prepareEmbeddedDocuments();
     const items = this.itemTypes;
     this._prepareTalents(items);
-    this._prepareEquipment(items);
+    this.equipment = this._prepareEquipment(items);
     this._prepareActions();
   };
 
@@ -237,29 +280,65 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Classify the equipment that the Actor currently has equipped
+   * Classify the Items in the Actor's inventory to identify current equipment.
+   * @returns {ActorEquipment}
    * @private
    */
   _prepareEquipment({armor, weapon, accessory}={}) {
-    const equipment = {};
+    return {
+      armor: this._prepareArmor(armor),
+      weapons: this._prepareWeapons(weapon),
+      accessories: {} // TODO: Equipped Accessories
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Armor item that this Actor has equipped.
+   * @param {CrucibleItem[]} armorItems       The armor type Items in the Actor's inventory
+   * @returns {CrucibleItem}                  The armor Item which is equipped
+   * @private
+   */
+  _prepareArmor(armorItems) {
+    let armors = armorItems.filter(i => i.system.equipped);
+    if ( armors.length > 1 ) {
+      ui.notifications.warn(`Actor ${this.name} has more than one equipped armor.`);
+      armors = armors[0];
+    }
+    return armors[0] || this._getUnarmoredArmor();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the default unarmored Armor item used by this Actor if they do not have other equipped armor.
+   * @returns {CrucibleItem}
+   * @private
+   */
+  _getUnarmoredArmor() {
     const itemCls = getDocumentClass("Item");
+    return new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Armor item that this Actor has equipped.
+   * @param {CrucibleItem[]} weaponItems      The Weapon type Items in the Actor's inventory
+   * @returns {EquippedWeapons}               The currently equipped weaponry for the Actor
+   * @private
+   */
+  _prepareWeapons(weaponItems) {
     const warnSlotInUse = (item, type) => {
       const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.name, item: item.name, type});
       console.warn(w);
     }
 
-    // Identify equipped armor
-    let armors = armor.filter(i => i.system.equipped);
-    if ( armors.length > 1 ) {
-      ui.notifications.warn(`Actor ${this.name} has more than one equipped armor.`);
-      armors = armors[0];
-    }
-    equipment.armor = armors[0] || new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
-
-    // Classify equipped weapons
-    const weapons = equipment.weapons = {};
+    // Identify main-hand and off-hand weapons
+    const weapons = {};
     const equippedWeapons = {mh: [], oh: [], either: []};
-    for ( let w of weapon ) {
+    for ( let w of weaponItems ) {
       if ( !w.system.equipped ) continue;
       const category = w.config.category;
       if ( (w.hands === 2) ) {
@@ -288,8 +367,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Populate unarmed weaponry for unused slots
-    if ( !weapons.mainhand ) equipment.weapons.mainhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
-    if ( !weapons.offhand ) equipment.weapons.offhand = new itemCls(SYSTEM.WEAPON.UNARMED_DATA, {parent: this});
+    if ( !weapons.mainhand ) weapons.mainhand = this._getUnarmedWeapon();
+    if ( !weapons.offhand ) weapons.offhand = this._getUnarmedWeapon();
 
     // Reference final weapon configurations
     const mh = weapons.mainhand;
@@ -297,23 +376,43 @@ export default class CrucibleActor extends Actor {
     const oh = weapons.offhand;
     const ohCategory = oh.config.category;
 
-    // Assign equipment state flags
-    equipment.unarmored = equipment.armor.system.category === "unarmored";
+    // Free Hand or Unarmed
+    weapons.freehand = (mhCategory.id === "unarmed") || (ohCategory.id === "unarmed");
     weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
+
+    // Shield
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
+
+    // Two-Handed
     weapons.twoHanded = mhCategory.hands === 2;
+
+    // Melee vs. Ranged
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
-    weapons.slow = mh.system.properties.has("slow") + oh.system.properties.has("slow");
 
-    // Dual Wielding States
+    // Dual Wielding
     weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
     weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
     weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
 
-    // TODO: Up to three? equipped accessories
-    equipment.accessories = accessory;
-    this.equipment = equipment;
+    // Slow Weapons
+    weapons.slow = mh.system.properties.has("slow") + oh.system.properties.has("slow");
+    return weapons;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the default unarmed weapon used by this Actor if they do not have other weapons equipped.
+   * @returns {CrucibleItem}
+   * @private
+   */
+  _getUnarmedWeapon() {
+    const itemCls = getDocumentClass("Item");
+    const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
+    if ( this.talentIds.has("pugilist00000000") ) data.system.quality = "fine";
+    if ( this.talentIds.has("martialartist000") ) data.system.enchantment = "minor";
+    return new itemCls(data, {parent: this});
   }
 
   /* -------------------------------------------- */
@@ -396,10 +495,8 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
     const points = this.points.talent;
-    this._hasPatientDefense = false; // TODO - temporary special case for playtest
     for ( const t of talent ) {
       this.talentIds.add(t.id);
-      if ( t.name === "Patient Defense" ) this._hasPatientDefense = true;
       points.spent += 1; // TODO - every talent costs 1 for now
     }
     points.available = points.total - points.spent;
@@ -436,8 +533,8 @@ export default class CrucibleActor extends Actor {
       }
     }
 
-    // TODO - temporary special case for playtest
-    if ( this._hasPatientDefense ) {
+    // Patient Deflection
+    if ( this.talentIds.has("patientdeflectio") && this.equipment.weapons.unarmed ) {
       defenses.parry.bonus += Math.ceil(attributes.wisdom.value / 2);
     }
 
@@ -503,7 +600,7 @@ export default class CrucibleActor extends Actor {
     const attrs = this.system.attributes;
 
     // Health
-    attrs.health.max = (4 * (lvl + attrs.constitution.value)) + (2 * (attrs.strength.value + attrs.dexterity.value));
+    attrs.health.max = (4 * (lvl + attrs.toughness.value)) + (2 * (attrs.strength.value + attrs.dexterity.value));
     attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
 
     // Wounds
@@ -645,7 +742,6 @@ export default class CrucibleActor extends Actor {
   async rest() {
     if ( this.attributes.wounds.value === this.attributes.wounds.max ) return this;
     if ( this.attributes.madness.value === this.attributes.madness.max ) return this;
-    await this.toggleStatusEffect("unconscious", {active: false});
     return this.update(this._getRestData());
   }
 
@@ -663,7 +759,7 @@ export default class CrucibleActor extends Actor {
         wasAttacked: false
       }
     }
-    if ( !this.isUnconscious ) updates["system.attributes.action.value"] = this.attributes.action.max;
+    if ( !this.isIncapacitated ) updates["system.attributes.action.value"] = this.attributes.action.max;
     return this.update(updates);
   }
 
@@ -719,14 +815,7 @@ export default class CrucibleActor extends Actor {
       // Regular update
       updates[`system.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
     }
-    await this.update(updates);
-
-    // Flag status effects
-    await this.toggleStatusEffect("unconscious", {active: this.isUnconscious && !this.isDead});
-    await this.toggleStatusEffect("dead", {active: this.isDead});
-    let isBroken = attrs.morale.value === 0;
-    let isInsane = attrs.madness.value === attrs.madness.max;
-    return this;
+    return this.update(updates);
   }
 
   /* -------------------------------------------- */
@@ -1108,6 +1197,7 @@ export default class CrucibleActor extends Actor {
     super._onUpdate(data, options, userId);
     this._displayScrollingStatus(data);
     this._replenishResources(data);
+    this._applyAttributeStatuses(data);
     this._updateCachedResources();
 
     // Refresh talent tree
@@ -1171,6 +1261,26 @@ export default class CrucibleActor extends Actor {
           jitter: 0.5
         });
       }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply status effect changes when attribute pools change
+   * @param {object} data     The data which changed
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _applyAttributeStatuses(data) {
+    const attrs = data.system.attributes || {};
+    if ( ("health" in attrs) || ("wounds" in attrs) ) {
+      await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated });
+      await this.toggleStatusEffect("dead", {active: this.isDead});
+    }
+    if ( ("morale" in attrs) || ("madness" in attrs) ) {
+      await this.toggleStatusEffect("broken", {active: this.isBroken});
+      await this.toggleStatusEffect("insane", {active: this.isInsane});
     }
   }
 

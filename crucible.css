@@ -771,8 +771,8 @@ h2.divider span {
 .crucible.sheet.actor .badge.dexterity {
   background-image: url("ui/badges/dexterity.png");
 }
-.crucible.sheet.actor .badge.constitution {
-  background-image: url("ui/badges/constitution.png");
+.crucible.sheet.actor .badge.toughness {
+  background-image: url("ui/badges/toughness.png");
 }
 .crucible.sheet.actor .badge.intellect {
   background-image: url("ui/badges/intellect.png");
@@ -1016,10 +1016,16 @@ h2.divider span {
   padding: 0;
   border-bottom: none;
 }
-.crucible.talent .action .action-header .action-icon {
+.crucible.talent .action .action-icon {
   flex: 0 0 24px;
   height: 24px;
   border-radius: 4px;
+}
+.crucible.talent .action .action-name {
+  flex: none;
+}
+.crucible.talent .action .action-tags {
+  gap: 4px;
 }
 .crucible.talent .action .condition {
   margin: 0.5rem 0 0;

@@ -10,11 +10,11 @@ export const SYSTEM_ID = "crucible";
  * The primary attributes which are called abilities.
  * @type {{
  *   strength: {label: string, abbreviation: string},
+ *   toughness: {label: string, abbreviation: string},
  *   dexterity: {label: string, abbreviation: string},
- *   constitution: {label: string, abbreviation: string},
  *   intellect: {label: string, abbreviation: string},
- *   wisdom: {label: string, abbreviation: string},
- *   presence: {label: string, abbreviation: string}
+ *   presence: {label: string, abbreviation: string},
+ *   wisdom: {label: string, abbreviation: string}
  * }}
  */
 export const ABILITIES = {
@@ -22,9 +22,9 @@ export const ABILITIES = {
     label: "Strength",
     abbreviation: "Str"
   },
-  constitution: {
-    label: "Constitution",
-    abbreviation: "Con"
+  toughness: {
+    label: "Toughness",
+    abbreviation: "Tou"
   },
   dexterity: {
     label: "Dexterity",
@@ -159,7 +159,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
     type: "active",
-    tooltip: "(4 * (Level + Constitution)) + (2 * (Strength + Dexterity))",
+    tooltip: "(4 * (Level + Toughness)) + (2 * (Strength + Dexterity))",
     color: {
       high: Color.from(0xEE0000),
       low: Color.from(0xAA0000),
@@ -262,7 +262,7 @@ export const SAVE_DEFENSES = {
   "fortitude": {
     label: "DEFENSES.Fortitude",
     abbreviation: "DEFENSES.FortitudeAbr",
-    abilities: ["strength", "constitution"]
+    abilities: ["strength", "toughness"]
   },
   "reflex": {
     label: "DEFENSES.Reflex",

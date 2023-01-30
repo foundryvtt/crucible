@@ -271,7 +271,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
     const icons = CrucibleTalentTreeNode.NODE_TYPE_ICONS;
     config.texture = await loadTexture(icons[node.type] || icons.default);
     config.borderColor = node.color;
-    config.text = node.talents.size > 1 ? node.talents.size : "";
+    config.text = node.talents.size;
 
     // Create the Node icon
     const icon = node.icon = new CrucibleTalentTreeNode(node, config);

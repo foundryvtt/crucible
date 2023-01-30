@@ -281,7 +281,7 @@ export const UNARMED_DATA = {
   name: "Unarmed",
   type: "weapon",
   img: "icons/skills/melee/unarmed-punch-fist.webp",
-  data: {
+  system: {
     category: "unarmed",
     quality: "standard",
     enchantment: "mundane",

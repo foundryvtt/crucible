@@ -8,6 +8,7 @@
 // Configuration
 import {SYSTEM} from "./module/config/system.js";
 import CrucibleTalentNode from "./module/config/talent-tree.mjs";
+import {statusEffects} from "./module/config/statuses.mjs";
 
 // Data Models
 import ActionData from "./module/data/action.mjs";
@@ -80,7 +81,8 @@ Hooks.once("init", async function() {
     },
     methods: {
       buildJournalCompendium,
-      packageItemCompendium
+      packageItemCompendium,
+      standardizeItemIds
     },
     talents: {
       CrucibleTalentNode
@@ -115,6 +117,9 @@ Hooks.once("init", async function() {
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
+
+  // Status Effects
+  CONFIG.statusEffects = statusEffects;
 
   // Canvas configuration
   CONFIG.Canvas.layers.talents = {
@@ -307,3 +312,32 @@ function getTagTooltip(tagType, tag) {
       return "";
   }
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Standardize all World item IDs
+ * @returns {Promise<void>}
+ */
+async function standardizeItemIds() {
+  const creations = [];
+  const deletions = [];
+  for ( const item of game.items ) {
+    const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
+    if ( item.id === standardId ) continue;
+    if ( game.items.has(standardId) ) throw new Error(`Standardized system ID ${standardId} is already in use`);
+    deletions.push(item.id);
+    creations.push(Object.assign(item.toObject(), {_id: standardId}));
+  }
+  await Item.deleteDocuments(deletions);
+  await Item.createDocuments(creations, {keepId: true});
+}
+
+// TODO for development
+Hooks.on("preCreateItem", (item, data, options, user) => {
+  if ( !item.parent && !item.id ) {
+    const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
+    item.updateSource({_id: standardId});
+    options.keepId = true;
+  }
+});

@@ -25,6 +25,12 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     this.interactionManager.activate();
   }
 
+  /** @override */
+  async draw(config) {
+    await super.draw(config);
+    this.icon.filters = this.config.accessible ? [] : [this.constructor.greyscaleFilter];
+  }
+
   #onClickLeft(event) {
     const tree = game.system.tree;
     if ( !tree.actor || tree.actor.talentIds.has(this.talent.id) ) return;

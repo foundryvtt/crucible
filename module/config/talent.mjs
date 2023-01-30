@@ -50,64 +50,37 @@ export const ACTION_TARGET_TYPES = {
  * @enum {ActionTag}
  */
 export const ACTION_TAGS = {
-  chain: {
-    tag: "chain",
-    label: "ACTION.TagChain",
-    tooltip: "ACTION.TagChainTooltip",
-    post: async function(actor, action, target, rolls) {
-      if ( !rolls.every(r => r.isSuccess ) ) return;
-      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
-      rolls.push(chain);
-    }
-  },
-  deadly: {
-    tag: "deadly",
-    label: "ACTION.TagDeadly",
-    tooltip: "ACTION.TagDeadlyTooltip",
-    pre: (actor, action) => action.bonuses.multiplier += 1,
-  },
-  difficult: {
-    tag: "difficult",
-    label: "ACTION.TagDifficult",
-    tooltip: "ACTION.TagDifficultTooltip",
-    pre: (actor, action) => action.bonuses.banes += 2
-  },
+
+
+  /* -------------------------------------------- */
+  /*  Required Equipment                          */
+  /* -------------------------------------------- */
+
+  // Requires Dual-Wield
   dualwield: {
     tag: "dualwield",
     label: "ACTION.TagDualWield",
     tooltip: "ACTION.TagDualWieldTooltip",
     can: (actor, action) => actor.equipment.weapons.dualWield
   },
-  empowered: {
-    tag: "empowered",
-    label: "ACTION.TagEmpowered",
-    tooltip: "ACTION.TagEmpoweredTooltip",
-    pre: (actor, action) => action.bonuses.damageBonus += 2,
-  },
-  exposing: {
-    tag: "exposing",
-    label: "ACTION.TagExposing",
-    tooltip: "ACTION.TagExposingTooltip",
-    pre: (actor, action) => action.bonuses.boons += 2
-  },
+
+  // Requires Dexterity Weapon
   finesse: {
     tag: "finesse",
     label: "ACTION.TagFinesse",
     tooltip: "ACTION.TagFinesseTooltip",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity")
   },
-  harmless: {
-    tag: "harmless",
-    label: "ACTION.TagHarmless",
-    tooltip: "ACTION.TagHarmlessTooltip",
-    pre: (actor, action) => action.bonuses.multiplier = 0
+
+  // Requires Heavy Weapon
+  heavy: {
+    tag: "heavy",
+    label: "ACTION.TagHeavy",
+    tooltip: "ACTION.TagHeavyTooltip",
+    can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("strength")
   },
-  weakened: {
-    tag: "weakened",
-    label: "ACTION.TagWeakened",
-    tooltip: "ACTION.TagWeakenedTooltip",
-    pre: (actor, action) => action.bonuses.damageBonus -= 2,
-  },
+
+  // Requires Melee Weapon
   melee: {
     tag: "melee",
     label: "ACTION.TagMelee",
@@ -118,6 +91,80 @@ export const ACTION_TAGS = {
       actor.status.hasAttacked = true
     }
   },
+
+  // Requires Ranged Weapon
+  ranged: {
+    tag: "ranged",
+    label: "ACTION.TagRanged",
+    tooltip: "ACTION.TagRangedTooltip",
+    can: (actor, action) => actor.equipment.weapons.ranged,
+    execute: (actor, action, target) => {
+      target.status.wasAttacked = true
+      actor.status.hasAttacked = true
+    }
+  },
+
+  // Requires Shield
+  shield: {
+    tag: "shield",
+    label: "ACTION.TagShield",
+    tooltip: "ACTION.TagShieldTooltip",
+    can: (actor, action) => actor.equipment.weapons.shield
+  },
+
+  // Requires Unarmed
+  unarmed: {
+    tag: "unarmed",
+    label: "ACTION.TagUnarmed",
+    tooltip: "ACTION.TagUnarmedTooltip",
+    can: (actor, action) => actor.equipment.weapons.unarmed
+  },
+
+  // Requires Unarmored
+  unarmored: {
+    tag: "unarmored",
+    label: "ACTION.TagUnarmored",
+    tooltip: "ACTION.TagUnarmoredTooltip",
+    can: (actor, action) => actor.equipment.armor.system.category === "unarmored"
+  },
+
+  // Requires Free Hand
+  freehand: {
+    tag: "freehand",
+    label: "ACTION.TagFreehand",
+    tooltip: "ACTION.TagFreehandTooltip",
+    can: (actor, action) => {
+      const weapons = actor.equipment.weapons;
+      if ( weapons.twoHanded && actor.talentIds.has("stronggrip000000") ) return true;
+      return (weapons.mainhand.config.category === "unarmed") || (weapons.offhand.config.category === "unarmed");
+    }
+  },
+
+  /* -------------------------------------------- */
+  /*  Context Requirements                        */
+  /* -------------------------------------------- */
+
+  // Involves Movement
+  movement: {
+    tag: "movement",
+    label: "ACTION.TagMovement",
+    tooltip: "ACTION.TagMovementTooltip",
+    prepare: (actor, action) => action.actionCost -= (actor.status.hasMoved ? 0 : 1),
+    execute: (actor, action, target) => action.actorUpdates["data.status.hasMoved"] = true
+  },
+
+  // Requires Reaction
+  reaction: {
+    tag: "reaction",
+    label: "ACTION.TagReaction",
+    tooltip: "ACTION.TagReactionTooltip",
+    can: (actor, action) => actor !== game.combat?.combatant.actor
+  },
+
+  /* -------------------------------------------- */
+  /*  Attack Rolls                                */
+  /* -------------------------------------------- */
+
   mainhand: {
     tag: "mainhand",
     label: "ACTION.TagMainHand",
@@ -139,32 +186,7 @@ export const ACTION_TAGS = {
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
-  movement: {
-    tag: "movement",
-    label: "ACTION.TagMovement",
-    tooltip: "ACTION.TagMovementTooltip",
-    prepare: (actor, action) => action.actionCost -= (actor.status.hasMoved ? 0 : 1),
-    execute: (actor, action, target) => action.actorUpdates["data.status.hasMoved"] = true
-  },
-  ranged: {
-    tag: "ranged",
-    label: "ACTION.TagRanged",
-    tooltip: "ACTION.TagRangedTooltip",
-    can: (actor, action) => actor.equipment.weapons.ranged,
-    execute: (actor, action, target) => action.actorUpdates["data.status.hasAttacked"] = true
-  },
-  reaction: {
-    tag: "reaction",
-    label: "ACTION.TagReaction",
-    tooltip: "ACTION.TagReactionTooltip",
-    can: (actor, action) => actor !== game.combat?.combatant.actor
-  },
-  shield: {
-    tag: "shield",
-    label: "ACTION.TagShield",
-    tooltip: "ACTION.TagShieldTooltip",
-    can: (actor, action) => actor.equipment.weapons.shield
-  },
+
   twohand: {
     tag: "twohand",
     label: "ACTION.TagTwoHanded",
@@ -187,6 +209,7 @@ export const ACTION_TAGS = {
     },
     execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
   },
+
   offhand: {
     tag: "offhand",
     label: "ACTION.TagOffHand",
@@ -208,53 +231,105 @@ export const ACTION_TAGS = {
     },
     execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
   },
-  unarmed: {
-    tag: "unarmed",
-    label: "ACTION.TagUnarmed",
-    tooltip: "ACTION.TagUnarmedTooltip",
-    can: (actor, action) => actor.equipment.weapons.unarmed
+
+  /* -------------------------------------------- */
+  /*  Attack Modifiers                            */
+  /* -------------------------------------------- */
+
+  chain: {
+    tag: "chain",
+    label: "ACTION.TagChain",
+    tooltip: "ACTION.TagChainTooltip",
+    post: async function(actor, action, target, rolls) {
+      if ( !rolls.every(r => r.isSuccess ) ) return;
+      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
+      rolls.push(chain);
+    }
   },
-  unarmored: {
-    tag: "unarmored",
-    label: "ACTION.TagUnarmored",
-    tooltip: "ACTION.TagUnarmoredTooltip",
-    can: (actor, action) => actor.equipment.unarmored
+
+  deadly: {
+    tag: "deadly",
+    label: "ACTION.TagDeadly",
+    tooltip: "ACTION.TagDeadlyTooltip",
+    pre: (actor, action) => action.bonuses.multiplier += 1,
+  },
+
+  difficult: {
+    tag: "difficult",
+    label: "ACTION.TagDifficult",
+    tooltip: "ACTION.TagDifficultTooltip",
+    pre: (actor, action) => action.bonuses.banes += 2
+  },
+
+  empowered: {
+    tag: "empowered",
+    label: "ACTION.TagEmpowered",
+    tooltip: "ACTION.TagEmpoweredTooltip",
+    pre: (actor, action) => action.bonuses.damageBonus += 2,
+  },
+
+  exposing: {
+    tag: "exposing",
+    label: "ACTION.TagExposing",
+    tooltip: "ACTION.TagExposingTooltip",
+    pre: (actor, action) => action.bonuses.boons += 2
+  },
+
+  harmless: {
+    tag: "harmless",
+    label: "ACTION.TagHarmless",
+    tooltip: "ACTION.TagHarmlessTooltip",
+    pre: (actor, action) => action.bonuses.multiplier = 0
+  },
+
+  weakened: {
+    tag: "weakened",
+    label: "ACTION.TagWeakened",
+    tooltip: "ACTION.TagWeakenedTooltip",
+    pre: (actor, action) => action.bonuses.damageBonus -= 2,
+  },
+
+  acid: {
+    tag: "acid",
+    label: "Acid",
+    pre: (actor, action) => action.bonuses.damageType = "acid"
+  },
+  fire: {
+    tag: "fire",
+    label: "Fire",
+    pre: (actor, action) => action.bonuses.damageType = "fire"
+  },
+  frost: {
+    tag: "frost",
+    label: "Frost",
+    pre: (actor, action) => action.bonuses.damageType = "frost"
+  },
+  lightning: {
+    tag: "lightning",
+    label: "Lightning",
+    pre: (actor, action) => action.bonuses.damageType = "lightning"
+  },
+  psychic: {
+    tag: "psychic",
+    label: "Psychic",
+    pre: (actor, action) => action.bonuses.damageType = "psychic"
+  },
+  radiant: {
+    tag: "radiant",
+    label: "Radiant",
+    pre: (actor, action) => action.bonuses.damageType = "radiant"
+  },
+  unholy: {
+    tag: "unholy",
+    label: "Unholy",
+    pre: (actor, action) => action.bonuses.damageType = "unholy"
   },
 
   /* -------------------------------------------- */
-  /*  Skill Checks                                */
+  /*  Defense Modifiers                           */
   /* -------------------------------------------- */
 
-  healing: {
-    tag: "healing",
-    label: "ACTION.TagHealing",
-    tooltip: "ACTION.TagHealingTooltip",
-  },
-
-  medicine: {
-    tag: "medicine",
-    label: "SKILLS.Medicine",
-    tooltip: "SKILLS.MedicineActionTooltip",
-    execute: (actor, action, target) => actor.rollSkill("medicine", action.bonuses)
-  },
-
-  /* -------------------------------------------- */
-  /*  TODO - Spells (Temporary)                   */
-  /* -------------------------------------------- */
-
-  spell: {
-    tag: "spell",
-    label: "Spell",
-    pre: (actor, action) => {
-      foundry.utils.mergeObject(action.bonuses, {multiplier: 1});
-      foundry.utils.mergeObject(action.context, {
-        hasDice: true,
-        label: action.name,
-        tags: []
-      });
-    },
-    execute: (actor, action, target) => action.document.spellAttack(target, action.bonuses)
-  },
+  // Target Fortitude
   fortitude: {
     tag: "fortitude",
     label: "Fortitude",
@@ -267,6 +342,8 @@ export const ACTION_TAGS = {
       });
     },
   },
+
+  // Target Reflex
   reflex: {
     tag: "reflex",
     label: "Reflex",
@@ -279,6 +356,8 @@ export const ACTION_TAGS = {
       });
     },
   },
+
+  // Target Willpower
   willpower: {
     tag: "willpower",
     label: "Willpower",
@@ -292,40 +371,32 @@ export const ACTION_TAGS = {
     },
   },
 
-  acid: {
-    tag: "acid",
-    label: "Acid",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "acid"}),
+  /* -------------------------------------------- */
+  /*  Skill Requirements                          */
+  /* -------------------------------------------- */
+
+  crafting: {
+    tag: "crafting",
+    label: "SKILLS.Crafting",
+    tooltip: "SKILLS.CraftingActionTooltip"
   },
-  fire: {
-    tag: "fire",
-    label: "Fire",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "fire"}),
+
+  medicine: {
+    tag: "medicine",
+    label: "SKILLS.Medicine",
+    tooltip: "SKILLS.MedicineActionTooltip"
   },
-  frost: {
-    tag: "frost",
-    label: "Frost",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "frost"}),
+
+  performance: {
+    tag: "performance",
+    label: "SKILLS.Performance",
+    tooltip: "SKILLS.PerformanceActionTooltip"
   },
-  lightning: {
-    tag: "lightning",
-    label: "Lightning",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "lightning"}),
-  },
-  psychic: {
-    tag: "psychic",
-    label: "Psychic",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "psychic"}),
-  },
-  radiant: {
-    tag: "radiant",
-    label: "Radiant",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "radiant"}),
-  },
-  unholy: {
-    tag: "unholy",
-    label: "Unholy",
-    pre: (actor, action) => foundry.utils.mergeObject(action.bonuses, {damageType: "unholy"}),
+
+  healing: {
+    tag: "healing",
+    label: "ACTION.TagHealing",
+    tooltip: "ACTION.TagHealingTooltip"
   }
 }
 

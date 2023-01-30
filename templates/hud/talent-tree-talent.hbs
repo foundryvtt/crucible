@@ -25,12 +25,14 @@
             <div class="action-header flexrow">
                 <img class="action-icon" src="{{action.img}}" title="{{action.name}}"/>
                 <h4 class="action-name">{{action.name}}</h4>
+                <div class="action-tags flexcol">
+                {{#each action.getTags as |tags section|}}
                 <div class="tags" data-tag-type="action">
-                    {{#each action.getTags as |tags section|}}
-                        {{#each tags as |label tag|}}
-                            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                        {{/each}}
+                    {{#each tags as |label tag|}}
+                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
                     {{/each}}
+                </div>
+                {{/each}}
                 </div>
             </div>
             {{#if action.condition}}

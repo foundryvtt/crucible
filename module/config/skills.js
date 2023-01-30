@@ -101,7 +101,7 @@ export const SKILLS = {
   "survival": {
     name:"SKILLS.Survival",
     category:"exp",
-    attributes: ["constitution", "wisdom"],
+    attributes: ["toughness", "wisdom"],
     paths: ["explorer", "hunter", "herbalist"]
   },
   "arcana": {
@@ -167,7 +167,7 @@ export const SKILLS = {
   "medicine": {
     name:"SKILLS.Medicine",
     category:"trd",
-    attributes: ["constitution", "intellect"],
+    attributes: ["toughness", "intellect"],
     paths: ["apothecary", "chirurgeon", "occultist"]
   },
   "performance": {
