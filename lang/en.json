@@ -521,6 +521,7 @@
 "TALENT.NodeMagic": "Magic",
 "TALENT.NodeMove": "Movement",
 "TALENT.NodeUtility": "Utility",
+"TALENT.NodeSignature": "Signature",
 "TALENT.NodeDefault": "PLACEHOLDER",
 
 "TALENT.AlreadyOwned": "You already own {name} and cannot add it a second time.",

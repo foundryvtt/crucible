@@ -59,6 +59,12 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   /* -------------------------------------------- */
 
+  get tree() {
+    return CrucibleTalentNode.nodes;
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   async open(actor) {
 
@@ -118,6 +124,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   /** @override */
   async _draw() {
+    this.center = canvas.dimensions.rect.center;
 
     // Draw Background
     this.bg = this.addChild(new PIXI.Graphics());
@@ -146,6 +153,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
     this.nodes.sortableChildren = true;
     const origin = CrucibleTalentNode.nodes.get("origin");
     await this.#drawNodes(origin.connected, new Set([origin]));
+    this.#drawCircles();
 
     // Create Choice Wheel
     this.wheel = this.nodes.addChild(new CrucibleTalentChoiceWheel());
@@ -162,7 +170,6 @@ export default class CrucibleTalentTree extends InteractionLayer {
     // Compute dimensions
     const r = canvas.dimensions.rect;
     const {width, height} = HexagonalGrid.computeDimensions({columns: true, even: true, size: 12000});
-    const center = r.center;
     const ox = (r.width  - width) / 2;
     const oy = (r.height - height) / 2;
     const points = HexagonalGrid.FLAT_HEX_BORDERS["1"].map(d => [(width * d[0]) + ox, (height * d[1]) + oy]);
@@ -170,14 +177,14 @@ export default class CrucibleTalentTree extends InteractionLayer {
     // Sectors
     const colors = Object.values(CrucibleTalentNode.ABILITY_COLORS);
     for ( let i=0; i<points.length; i++ ) {
-      const shape = new PIXI.Polygon([center.x, center.y, ...points.at(i-1), ...points.at(i)]);
+      const shape = new PIXI.Polygon([this.center.x, this.center.y, ...points.at(i-1), ...points.at(i)]);
       this.bg.beginFill(colors[i].multiply(0.4), 1.0).drawShape(shape).endFill();
     }
 
     // Center Hex
     const cd = HexagonalGrid.computeDimensions({columns: true, even: true, size: 400});
-    const ocx = center.x - (cd.width / 2);
-    const ocy = center.y - (cd.height / 2);
+    const ocx = this.center.x - (cd.width / 2);
+    const ocy = this.center.y - (cd.height / 2);
     const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [ocx + (cd.width * d[0]), ocy + (cd.height * d[1])]);
     this.bg.lineStyle({color: 0x444444, width: 4})
       .beginFill(0x111111, 1.0)
@@ -189,9 +196,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   #drawCharacter(texture) {
     if ( !this.actor ) return this.character.visible = false;
-    const r = canvas.dimensions.rect;
-    const c = r.center;
-    this.character.position.set(c.x, c.y);
+    this.character.position.set(this.center.x, this.center.y);
     if ( texture ) this.character.icon.texture = texture;
     this.character.icon.width = this.character.icon.height = 200;
     this.character.icon.anchor.set(0.5, 0.5);
@@ -258,6 +263,7 @@ export default class CrucibleTalentTree extends InteractionLayer {
       this.#drawEdges(node, seen);
       seen.add(node);
       next.push(...node.connected);
+      if ( node.twin ) next.push(CrucibleTalentNode.nodes.get(node.twin));
     }
     if ( next.length ) await this.#drawNodes(next, seen);
   }
@@ -287,6 +293,12 @@ export default class CrucibleTalentTree extends InteractionLayer {
       this.edges.moveTo(node.point.x, node.point.y);
       this.edges.lineTo(c.point.x, c.point.y);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  #drawCircles() {
+    this.edges.drawCircle(this.center.x, this.center.y, 800);
   }
 
   /* -------------------------------------------- */
@@ -340,10 +352,18 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
         // Check whether a talent has been purchased
         const p = isPurchased(n, actor);
-        state.set(n, p ? 2 : 1);
+        const s = p ? 2 : 1;
+        state.set(n, s);
 
         // If the node was accessible, add connected nodes to the next batch
         if ( (n.id === "origin") || p ) next.push(...n.connected);
+
+        // Record twinned nodes
+        if ( n.twin ) {
+          const twin = CrucibleTalentNode.nodes.get(n.twin);
+          state.set(twin, s);
+          next.push(...twin.connected);
+        }
       }
       if ( next.length ) updateBatch(next);
     }

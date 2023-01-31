@@ -39,6 +39,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
   async activate(node) {
     this.node = node;
     this.position.set(node.x, node.y);
+    this.radius = node.config.size + 50;
     this.#drawBackground();
     await this.#drawTalents();
     this.refresh(); // Set initial display
@@ -65,7 +66,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     this.bg.clear()
       .lineStyle({color: this.node.node.color, width: 4})
       .beginFill(0x000000, 0.9)
-      .drawCircle(0, 0, 100)
+      .drawCircle(0, 0, this.radius)
       .endFill();
 
     // Set line style for later connecting lines
@@ -80,7 +81,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    */
   async #drawTalents() {
     const talents = this.node.node.talents;
-    const tier1 = new PIXI.Circle(0, 0, 100);
+    const tier1 = new PIXI.Circle(0, 0, this.radius);
     const a = 2 * Math.PI / talents.size;
 
     // Iterate over talents

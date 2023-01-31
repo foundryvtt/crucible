@@ -34,6 +34,7 @@ export default class TalentSheet extends ItemSheet {
   getData(options = {}) {
     const isEditable = this.isEditable;
     const nodeIds = Array.from(CrucibleTalentNode.nodes.keys());
+    nodeIds.sort((a, b) => a.localeCompare(b));
     const source = this.object.toObject();
     return {
       cssClass: isEditable ? "editable" : "locked",

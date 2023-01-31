@@ -33,10 +33,15 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     magic: "systems/crucible/icons/nodes/magic.webp",
     move: "systems/crucible/icons/nodes/movement.webp",
     utility: "systems/crucible/icons/nodes/utility.webp",
+    signature: "systems/crucible/icons/nodes/utility.webp"
   }
 
   /** @override */
-  async draw(config) {
+  async draw(config={}) {
+    if ( this.node.type === "signature" ) {
+      config.size = 80;
+      config.borderRadius = 80;
+    }
     await super.draw(config);
     const {accessible, borderColor} = this.config;
     this.icon.tint = accessible ? borderColor.mix(new Color(0xFFFFFF), 0.25) : 0xFFFFFF;
@@ -63,16 +68,16 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   }
 
   #onPointerOver(event) {
-    this.scale.set(1.2, 1.2);
     game.system.tree.hud.activate(this);
     if ( this.isActive ) return; // Don't un-hover an active node
+    this.scale.set(1.2, 1.2);
     this.zIndex = CrucibleTalentTree.SORT_INDICES.HOVER;
   }
 
   #onPointerOut(event) {
-    this.scale.set(1.0, 1.0);
     game.system.tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
+    this.scale.set(1.0, 1.0);
     this.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
   }
 }

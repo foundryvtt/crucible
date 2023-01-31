@@ -622,7 +622,7 @@ export default class CrucibleActor extends Actor {
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
-    attrs.focus.max = lvl * 2;
+    attrs.focus.max = Math.floor(lvl / 2) + Math.max(attrs.wisdom.value, attrs.presence.value, attrs.intellect.value);
     attrs.focus.value = Math.clamped(attrs.focus.value, 0, attrs.focus.max);
   }
 

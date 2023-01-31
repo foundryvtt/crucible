@@ -218,7 +218,7 @@ export const RESOURCES = {
     id: "focus",
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
-    tooltip: "(Level * 2) + Focus Bonus",
+    tooltip: "(Level / 2) + MAX(Wisdom, Presence, Intellect)",
     type: "active",
     color: {
       high: Color.from(0x0066FF),
