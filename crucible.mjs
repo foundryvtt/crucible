@@ -12,7 +12,9 @@ import {statusEffects} from "./module/config/statuses.mjs";
 
 // Data Models
 import ActionData from "./module/data/action.mjs";
+import AdversaryData from "./module/data/adversary.mjs";
 import AncestryData from "./module/data/ancestry.mjs";
+import ArchetypeData from "./module/data/archetype.mjs";
 import ArmorData from "./module/data/armor.mjs";
 import BackgroundData from "./module/data/background.mjs";
 import TalentData from "./module/data/talent.mjs";
@@ -28,6 +30,7 @@ import CrucibleItem from "./module/documents/item.mjs";
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
 import AncestrySheet from "./module/sheets/ancestry.mjs";
+import ArchetypeSheet from "./module/sheets/archetype.mjs";
 import ArmorSheet from "./module/sheets/armor.mjs";
 import BackgroundSheet from "./module/sheets/background.js";
 import TalentSheet from "./module/sheets/talent.mjs";
@@ -91,6 +94,9 @@ Hooks.once("init", async function() {
 
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
+  CONFIG.Actor.dataModels = {
+    adversary: AdversaryData
+  };
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero", "npc"], makeDefault: true});
 
@@ -98,6 +104,7 @@ Hooks.once("init", async function() {
   CONFIG.Item.documentClass = CrucibleItem;
   CONFIG.Item.dataModels = {
     ancestry: AncestryData,
+    archetype: ArchetypeData,
     armor: ArmorData,
     background: BackgroundData,
     talent: TalentData,
@@ -105,6 +112,7 @@ Hooks.once("init", async function() {
   };
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, ArchetypeSheet, {types: ["archetype"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});

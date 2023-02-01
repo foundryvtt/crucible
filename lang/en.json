@@ -1,7 +1,9 @@
 {
-"TYPES.Actor.hero": "Hero Character",
-"TYPES.Actor.npc": "Non-Player Character",
+"TYPES.Actor.adversary": "Adversary",
+"TYPES.Actor.hero": "Protagonist",
+"TYPES.Actor.npc": "Background Character",
 "TYPES.Item.ancestry": "Ancestry",
+"TYPES.Item.archetype": "Archetype",
 "TYPES.Item.armor": "Armor",
 "TYPES.Item.background": "Background",
 "TYPES.Item.talent": "Talent",
@@ -78,6 +80,8 @@
 
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
+
+"ARCHETYPE.Applied": "Applied the {archetype} archetype to {actor}.",
 
 "ARMOR.Bulky": "Bulky",
 "ARMOR.Impenetrable": "Impenetrable",

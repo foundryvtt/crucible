@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["hero", "npc"],
+    "types": ["hero", "npc", "adversary"],
     "templates": {
       "common": {
         "attributes": {
@@ -232,6 +232,7 @@
         }
       }
     },
+    "adversary": {},
     "hero": {
       "templates": ["common"],
       "attributes": {},
@@ -244,8 +245,9 @@
     }
   },
   "Item": {
-    "types": ["ancestry", "armor", "background", "talent", "weapon"],
+    "types": ["ancestry", "archetype", "armor", "background", "talent", "weapon"],
     "ancestry": {},
+    "archetype": {},
     "background": {},
     "armor": {},
     "talent": {},

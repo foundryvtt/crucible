@@ -262,6 +262,20 @@ export default class CrucibleItem extends Item {
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    if ( (data.type === "archetype") && this.parent ) {
+      if ( this.parent.type !== "adversary" ) {
+        throw new Error("You may only add an Archetype Item to an Adversary Actor.");
+      }
+      options.temporary = true; // TODO this is a hack until I can return false
+      await this.parent.applyArchetype(this);
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);

@@ -189,6 +189,7 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
+    if ( this.type === "adversary" ) return;
 
     // Prepare placeholder point totals
     this._prepareAdvancement();
@@ -205,6 +206,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
+    if ( this.type === "adversary" ) return;
     const items = this.itemTypes;
     this._prepareTalents(items);
     this.equipment = this._prepareEquipment(items);
@@ -215,6 +217,7 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareDerivedData() {
+    if ( this.type === "adversary" ) return;
     this._prepareResources();
     this._prepareDefenses();
   }
@@ -992,6 +995,21 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Apply data from an Archetype Item to this Actor.
+   * @param {CrucibleItem} item         The Archetype Item to apply
+   * @return {Promise<CrucibleActor>}   The updated Actor with the Archetype applied
+   */
+  async applyArchetype(item) {
+    const archetype = item.toObject().system;
+    archetype.name = item.name;
+    await this.update({"system.details.archetype": archetype});
+    ui.notifications.info(game.i18n.format("ARCHETYPE.Applied", {archetype: item.name, actor: this.name}));
+    return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Purchase an ability score increase or decrease for the Actor
    * @param {string} ability      The ability id to increase
    * @param {number} delta        A number in [-1, 1] for the direction of the purchase
@@ -1291,14 +1309,27 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _updateCachedResources() {
-    const a = this.attributes;
-    this._cachedResources = {
-      health: a.health.value,
-      wounds: a.wounds.value,
-      morale: a.morale.value,
-      madness: a.madness.value,
-      action: a.action.value,
-      focus: a.focus.value
+    switch ( this.type ) {
+      case "adversary":
+        const r = this.system.resources;
+        this._cachedResources = {
+          health: r.health,
+          morale: r.morale,
+          action: r.action,
+          focus: r.focus
+        }
+        break;
+      case "hero":
+        const a = this.attributes;
+        this._cachedResources = {
+          health: a.health.value,
+          wounds: a.wounds.value,
+          morale: a.morale.value,
+          madness: a.madness.value,
+          action: a.action.value,
+          focus: a.focus.value
+        }
+        break;
     }
   }
 
