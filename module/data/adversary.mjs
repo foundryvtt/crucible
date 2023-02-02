@@ -17,6 +17,10 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
       base: new fields.NumberField({...requiredInteger, initial: 0, min}),
       bonus: new fields.NumberField({...requiredInteger, initial: 0})
     });
+    const resourceField = () => new fields.SchemaField({
+      value: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+    });
+
     return {
       attributes: new fields.SchemaField({
         strength: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 12}),
@@ -36,10 +40,10 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
         willpower: defenseField({min: 0}),
       }),
       resources: new fields.SchemaField({
-        health: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-        morale: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-        action: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-        focus: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+        health: resourceField(),
+        morale: resourceField(),
+        action: resourceField(),
+        focus: resourceField(),
       }),
       resistances: new fields.SchemaField({
         bludgeoning: defenseField(),
@@ -57,7 +61,7 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
         archetype: new fields.SchemaField({
           name: new fields.StringField(),
           ...ArchetypeData.defineSchema()
-        }),
+        }, {required: false, initial: undefined}),
         level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
         category: new fields.StringField({required: true, choices: AdversaryData.CATEGORIES, initial: "humanoid"}),
         threat: new fields.StringField({required: true, choices: AdversaryData.THREATS, initial: "normal"}),
@@ -90,9 +94,40 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
     boss: "CRUCIBLE.AdversaryThreatBoss"
   });
 
+  /**
+   * Multiplicative factors which adjust how threat levels interact with archetype scaling.
+   * @enum {number}
+   */
+  static THREAT_SCALING = Object.freeze({
+    minion: 0.75,
+    normal: 1,
+    elite: 1.25,
+    boss: 1.5
+  })
+
   /* -------------------------------------------- */
 
   prepareBaseData() {
-    debugger;
+    if ( this.details.archetype ) this.#applyArchetype();
+  }
+
+  /* -------------------------------------------- */
+
+  #applyArchetype() {
+    const {archetype, level, threat} = this.details;
+    const factor = AdversaryData.THREAT_SCALING[threat] || 1;
+
+    // Scale attributes
+    for ( const a of Object.keys(this.attributes) ) {
+      const scale = archetype.attributes[a];
+      this.attributes[a] = scale === 0 ? 0 : Math.min(1 + Math.floor(((level + 3) * factor) / scale), 20);
+    }
+
+    // Scale resistances
+    for ( const r of Object.keys(this.resistances) ) {
+      const scale = archetype.resistances[r];
+      this.resistances[r].base = scale === 0 ? 0
+        : Math.floor(((level + 4) * factor) / Math.abs(scale)) * Math.sign(scale);
+    }
   }
 }

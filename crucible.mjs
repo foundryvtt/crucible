@@ -29,6 +29,7 @@ import CrucibleItem from "./module/documents/item.mjs";
 
 // Sheets
 import HeroSheet from "./module/sheets/hero.js";
+import AdversarySheet from "./module/sheets/adversary.mjs";
 import AncestrySheet from "./module/sheets/ancestry.mjs";
 import ArchetypeSheet from "./module/sheets/archetype.mjs";
 import ArmorSheet from "./module/sheets/armor.mjs";
@@ -99,6 +100,7 @@ Hooks.once("init", async function() {
   };
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero", "npc"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, AdversarySheet, {types: ["adversary"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;

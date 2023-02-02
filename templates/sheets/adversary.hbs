@@ -1,0 +1,240 @@
+{{#*inline "resource"}}
+<h3 class="category-header divider tooltipped">
+    <span></span>
+    <label>{{label}}</label>
+    <div class="tooltip">{{data.tooltip}}</div>
+    <span></span>
+</h3>
+<div class="resource-values flexrow">
+    <input type="number" name="{{attr}}.value" value="{{lookup data 'value'}}" placeholder="0"
+           {{#if @root.sectionLocks.resources}}disabled{{/if}}/>
+    <span class="slash"></span>
+    <span class="input resource-max">{{data.max}}</span>
+    <div class="bar" style="background: {{data.color.bg}}">
+        <div class="fill" style="width:{{data.pct}}%; background: {{data.color.fill}}"></div>
+    </div>
+</div>
+{{/inline}}
+
+<form class="{{cssClass}} flexrow" autocomplete="off">
+
+    {{!-- Left Sidebar --}}
+    <section class="sheet-sidebar flexcol">
+        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img" width="200" height="200"/>
+        <section class="overview">
+
+            {{!-- Current Equipment --}}
+            <div class="equipped">
+                <h2 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h2>
+            </div>
+
+            {{!-- Available Actions --}}
+            <div class="actions">
+                <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
+            </div>
+
+            {{!-- Active Effects --}}
+            <div class="effects">
+                <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
+            </div>
+        </section>
+    </section>
+
+    {{!-- Main Content --}}
+    <section class="sheet-body flexcol">
+
+        {{!-- Sheet Header --}}
+        <header class="sheet-header flexrow">
+            <div class="header-content">
+                <div class="title flexrow">
+                    <h1 class="charname">
+                        <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
+                    </h1>
+                    <h2 class="level">
+                        <label>Level</label>
+                        <input type="number" name="system.details.level" value="{{systemData.details.level}}" placeholder="1">
+                    </h2>
+                </div>
+            </div>
+        </header>
+
+        {{!-- Sheet Navigation --}}
+        <nav class="sheet-navigation tabs" data-group="primary">
+            <a class="item badge attributes" data-tab="attributes">Attributes</a>
+        </nav>
+
+        {{!-- Attributes Tab --}}
+        <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+
+            {{!-- Character Resources --}}
+            <section class="resources flexrow">
+                <h2 class="section-header divider">
+                    <span></span><label>Resources</label><span></span>
+                </h2>
+                <div class="resource health">
+                    {{> resource label="Health" attr="system.resources.health" data=systemData.resources.health}}
+                </div>
+
+                <div class="resource morale">
+                    {{> resource label="Morale" attr="system.resources.morale" data=systemData.resources.morale}}
+                </div>
+
+                <div class="resource action">
+                    {{> resource label="Action" attr="system.resources.action" data=systemData.resources.action}}
+                    {{> resource label="Focus" attr="system.resources.focus" data=systemData.resources.focus}}
+                </div>
+            </section>
+
+            {{!-- Abilities --}}
+            <section class="abilities">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Abilities</label>
+                    <span></span>
+                </h2>
+                <ol class="ability-scores">
+                {{#each abilityScores as |attr|}}
+                    <li class="ability flexrow" data-ability="{{attr.id}}">
+                        <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
+                        <span class="input score">{{attr.value}}</span>
+                    </li>
+                {{/each}}
+                </ol>
+            </section>
+
+            {{!-- Defenses --}}
+            <section class="defenses">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Defenses</label>
+                    <span></span>
+                    <a class="button section-lock" data-section="defenses">
+                        <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h2>
+
+                {{! Physical Defense --}}
+                <ol class="defense physical flexrow" data-defense="physical">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge physical">Physical</h3>
+                        <span class="input score">{{systemData.defenses.physical}}</span>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexcol">
+                        <h4>Armor</h4>
+                        <span class="input score">{{systemData.defenses.armor.total}}</span>
+                        <span class="subtitle">{{armorCategory}}</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexcol">
+                        <h4>Dodge</h4>
+                        <span class="input score">{{systemData.defenses.dodge.total}}</span>
+                        <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexcol">
+                        <h4>Parry</h4>
+                        <span class="input score">{{systemData.defenses.parry.total}}</span>
+                        <span class="subtitle">Maximum 6</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexcol">
+                        <h4>Block</h4>
+                        <span class="input score">{{systemData.defenses.block.total}}</span>
+                        <span class="subtitle">Maximum 6</span>
+                    </li>
+                </ol>
+
+                {{! Fortitude Defense --}}
+                <ol class="defense save flexrow" data-defense="fortitude">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge fortitude">Fortitude</h3>
+                        <span class="input score">{{systemData.defenses.fortitude.total}}</span>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.fortitude.base}}</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="system.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Str</span>
+                        <span class="tag">Con</span>
+                    </li>
+                </ol>
+
+                {{! Reflex Defense --}}
+                <ol class="defense save flexrow" data-defense="reflex">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge reflex">Reflex</h3>
+                        <span class="input score">{{systemData.defenses.reflex.total}}</span>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.reflex.base}}</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="system.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Dex</span>
+                        <span class="tag">Int</span>
+                    </li>
+                </ol>
+
+                {{! Willpower Defense --}}
+                <ol class="defense save flexrow" data-defense="willpower">
+                    <li class="defense-title flexrow">
+                        <h3 class="badge willpower">Willpower</h3>
+                        <span class="input score">{{systemData.defenses.willpower.total}}</span>
+                    </li>
+                    <li class="math">=</li>
+                    <li class="flexrow base">
+                        <span class="input score">{{systemData.defenses.willpower.base}}</span>
+                    </li>
+                    <li class="math">+</li>
+                    <li class="flexrow bonus">
+                        <input type="number" name="system.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                    </li>
+                    <li class="tags">
+                        <span class="tag">Wis</span>
+                        <span class="tag">Pre</span>
+                    </li>
+                </ol>
+            </section>
+
+            {{!-- Resistances --}}
+            <section class="damage-resistances flexrow">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Resistances</label>
+                    <span></span>
+                </h2>
+                {{#each resistances as |res cat|}}
+                <div class="category {{cat}}">
+                    <h3 class="category-header divider">
+                        <span></span>
+                        <label>{{res.label}}</label>
+                        <span></span>
+                    </h3>
+                    <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
+                        {{#each res.resists as |r id|}}
+                        <li class="resistance flexrow" data-resistance="{{id}}">
+                            <span class="input total">{{r.total}}</span>
+                            <label>{{r.label}}</label>
+                            <span class="base">{{r.base}}</span>
+                            <span class="math">+</span>
+                            <input type="number" name="system.resistances.{{id}}.bonus" value="{{r.bonus}}"
+                               {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
+                        </li>
+                        {{/each}}
+                    </ol>
+                </div>
+                {{/each}}
+            </section>
+        </div>
+    </section>
+</form>
