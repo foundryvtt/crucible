@@ -88,13 +88,12 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   /** @override */
   async close() {
+    const actor = this.actor;
 
     // Deactivate the layer
     this.deactivate();
 
-    // Clear the actor
-    const actor = this.actor;
-    this.actor = null;
+    // Re-render Actor sheet
     actor?.sheet.render(false);
 
     // Switch Scenes

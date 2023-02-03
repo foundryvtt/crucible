@@ -235,7 +235,7 @@ export default class CrucibleActor extends Actor {
 
     // Initialize spendable points
     this.points = {
-      ability: { pool: 36, total: effectiveLevel, bought: null, spent: null, available: null },
+      ability: { pool: 9, total: effectiveLevel, bought: null, spent: null, available: null },
       skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
       talent: { total: 2 + (effectiveLevel*2), spent: 0, available: null }
     };
@@ -255,26 +255,27 @@ export default class CrucibleActor extends Actor {
   _prepareAttributes() {
     const points = this.points.ability;
     const ancestry = this.ancestry;
-    const hasAncestry = ancestry.primary && ancestry.secondary;
 
     // Ability Scores
     let abilityPointsBought = 0;
     let abilityPointsSpent = 0;
     for ( let a in CONFIG.SYSTEM.ABILITIES ) {
-      let ability = this.attributes[a];
+      const ability = this.attributes[a];
+
+      // Configure initial value
       ability.initial = 1;
       if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAttributeStart;
       else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAttributeStart;
-      ability.value = ability.initial + ability.base + ability.increases + ability.bonus;
-      abilityPointsBought += Array.fromRange(ability.initial + ability.base + 1).reduce((a, v) => a + v);
+      ability.value = Math.clamped(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
+
+      // Track points spent
+      abilityPointsBought += ability.base;
       abilityPointsSpent += ability.increases;
-      ability.cost = ability.value + 1;
     }
 
     // Track spent ability points
-    const basePoints = hasAncestry ? 13 : 6;
-    points.bought = abilityPointsBought - basePoints;
-    points.pool = 36 - points.bought;
+    points.bought = abilityPointsBought;
+    points.pool = 9 - points.bought;
     points.spent = abilityPointsSpent;
     points.available = points.total - abilityPointsSpent;
     points.requireInput = this.isL0 ? (points.pool > 0) : (points.available !== 0);
@@ -552,8 +553,8 @@ export default class CrucibleActor extends Actor {
 
     // Saves Defenses
     for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
-      let d = defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, 0) * 2;
+      let d = this.defenses[k];
+      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
       d.total = d.base + d.bonus;
     }
 
@@ -1017,30 +1018,45 @@ export default class CrucibleActor extends Actor {
    */
   async purchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
+    const attr = this.attributes[ability];
+    if ( !attr || !delta ) return;
+
+    // Can the ability be purchased?
+    if ( !this.canPurchaseAbility(ability, delta) ) {
+      return ui.notifications.warn(`WARNING.AbilityCannot${delta > 0 ? "Increase" : "Decrease"}`, {localize: true});
+    }
+
+    // Modify the ability
+    if ( this.isL0 ) return this.update({[`system.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
+    else return this.update({[`system.attributes.${ability}.increases`]: attr.increases + delta});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor can modify an ability score in a certain direction.
+   * @param {string} ability      A value in ABILITIES
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @returns {boolean}           Can the ability score be changed?
+   */
+  canPurchaseAbility(ability, delta=1) {
+    delta = Math.sign(delta);
     const points = this.points.ability;
     const attr = this.attributes[ability];
-    if ( !attr ) return;
-
-    // Must Choose Ancestry first
-    if ( !this.ancestry.name ) {
-      return ui.notifications.warn(game.i18n.localize("WARNING.AbilityRequireAncestry"));
-    }
+    if ( !attr || !delta ) return;
 
     // Case 1 - Point Buy
     if ( this.isL0 ) {
-      const canAfford = (delta <= 0) || (attr.cost <= points.pool);
-      if ( !canAfford ) {
-        return ui.notifications.warn(game.i18n.format("WARNING.AbilityCantAfford", {cost: attr.cost, points: points.pool}));
-      }
-      return this.update({[`system.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
+      if ( (delta > 0) && ((attr.base === 3) || !points.pool) ) return false;
+      else if ( (delta < 0) && (attr.base === 0) ) return false;
+      return true;
     }
 
     // Case 2 - Regular Increase
     else {
-      if (((delta < 0) && !points.spent) || ((delta > 0) && !points.available)) return false;
-      const base = attr.initial + attr.base;
-      const target = Math.clamped(attr.increases + delta, 0, 12 - base);
-      return this.update({[`system.attributes.${ability}.increases`]: target});
+      if ( (delta > 0) && ((attr.total === 12) || !points.available) ) return false;
+      else if ( (delta < 0) && (attr.increases === 0) ) return false;
+      return true;
     }
   }
 

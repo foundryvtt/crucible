@@ -218,7 +218,7 @@ export const RESOURCES = {
     id: "focus",
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
-    tooltip: "(Level / 2) + MAX(Wisdom, Presence, Intellect)",
+    tooltip: "(Level / 2) + Max(Wisdom, Presence, Intellect)",
     type: "active",
     color: {
       high: Color.from(0x0066FF),
@@ -262,17 +262,20 @@ export const SAVE_DEFENSES = {
   "fortitude": {
     label: "DEFENSES.Fortitude",
     abbreviation: "DEFENSES.FortitudeAbr",
-    abilities: ["strength", "toughness"]
+    abilities: ["strength", "toughness"],
+    tooltip: "12 + Strength + Toughness"
   },
   "reflex": {
     label: "DEFENSES.Reflex",
     abbreviation: "DEFENSES.ReflexAbr",
-    abilities: ["dexterity", "intellect"]
+    abilities: ["dexterity", "intellect"],
+    tooltip: "12 + Dexterity + Intellect"
   },
   "willpower": {
     label: "DEFENSES.Willpower",
     abbreviation: "DEFENSES.WillpowerAbr",
-    abilities: ["wisdom", "presence"]
+    abilities: ["wisdom", "presence"],
+    tooltip: "12 + Wisdom + Presence"
   }
 };
 

@@ -71,6 +71,9 @@ export default class HeroSheet extends ActorSheet {
     // Resources
     this._formatResources(systemData.attributes);
 
+    // Defenses
+    context.magicDefenses = this._formatMagicDefenses(this.actor.system.defenses);
+
     // Resistances
     context.resistances = this._formatResistances(systemData.resistances);
 
@@ -115,13 +118,12 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _formatAttributes(attributes) {
-    const points = this.actor.points.ability;
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
       const attr = foundry.utils.mergeObject(attributes[a], ability);
       attr.id = a;
-      attr.canIncrease = (attr.value < 12) && (this.actor.isL0 ? (points.pool > 0) : (points.available > 0));
-      attr.canDecrease = this.actor.isL0 ? (attr.value > attr.initial) : (attr.value > attr.initial + attr.base)
+      attr.canIncrease = this.actor.canPurchaseAbility(a, 1);
+      attr.canDecrease = this.actor.canPurchaseAbility(a, -1);
       return attr;
     });
   }
@@ -232,6 +234,16 @@ export default class HeroSheet extends ActorSheet {
         fill: `rgb(${fill.join(",")})`
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  _formatMagicDefenses(defenses) {
+    return Object.entries(SYSTEM.SAVE_DEFENSES).map(([id, defense]) => {
+      const d = foundry.utils.mergeObject(defense, defenses[id]);
+      d.id = id;
+      return d;
+    });
   }
 
   /* -------------------------------------------- */

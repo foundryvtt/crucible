@@ -178,7 +178,7 @@ Hooks.once("setup", function() {
   }
 
   // Pre-localize translations
-  localizeSkillConfig(SYSTEM.SKILLS, SYSTEM.id); // TODO: Make this cleaner
+  localizeSkillConfig(SYSTEM); // TODO: Make this cleaner
 
   // Initialize Talent tree
   CrucibleTalentNode.initialize();
@@ -190,7 +190,7 @@ Hooks.once("setup", function() {
 
 /* -------------------------------------------- */
 
-Hooks.on("canvasReady", () => {
+Hooks.once("canvasReady", () => {
   if ( canvas.id === "XTz8NrEeavbUDh4r" ) {
     const actor = game.actors.get("sNNr3tDKX8iffGHS");
     actor.toggleTalentTree();

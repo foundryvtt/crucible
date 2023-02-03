@@ -643,9 +643,9 @@ h2.divider span {
   margin: calc(var(--marginSize)/2) 0;
 }
 .crucible.sheet.actor .defenses .defense .defense-title {
-  flex: 0 0 140px;
+  flex: 0 0 175px;
 }
-.crucible.sheet.actor .defenses .defense > li {
+.crucible.sheet.actor .defenses .defense > .flexcol {
   align-items: center;
 }
 .crucible.sheet.actor .defenses .defense .math {
@@ -668,29 +668,19 @@ h2.divider span {
   margin: 0;
   white-space: nowrap;
 }
-.crucible.sheet.actor .defenses .defense .base {
-  flex: none;
-  margin-left: 14px;
-  gap: 2px;
-}
-.crucible.sheet.actor .defenses .defense .bonus h4 {
-  text-align: left;
+.crucible.sheet.actor .magic-defenses {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(1, var(--abilityHeight));
+  grid-gap: var(--marginHalfSize);
+  margin: 0;
+  padding: 0;
 }
 .crucible.sheet.actor .damage-resistances {
   flex: none;
   align-items: flex-start;
-}
-.crucible.sheet.actor .damage-resistances .category {
-  padding: 0 var(--marginSize);
-  border-right: 1px solid #b5b3a4;
+  gap: 0.5rem 1rem;
   font-size: var(--fontSizeHeader);
-}
-.crucible.sheet.actor .damage-resistances .category.physical {
-  padding-left: 0;
-}
-.crucible.sheet.actor .damage-resistances .category.spiritual {
-  padding-right: 4px;
-  border-right: none;
 }
 .crucible.sheet.actor .damage-resistances .resistances {
   list-style: none;

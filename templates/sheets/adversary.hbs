@@ -1,21 +1,3 @@
-{{#*inline "resource"}}
-<h3 class="category-header divider tooltipped">
-    <span></span>
-    <label>{{label}}</label>
-    <div class="tooltip">{{data.tooltip}}</div>
-    <span></span>
-</h3>
-<div class="resource-values flexrow">
-    <input type="number" name="{{attr}}.value" value="{{lookup data 'value'}}" placeholder="0"
-           {{#if @root.sectionLocks.resources}}disabled{{/if}}/>
-    <span class="slash"></span>
-    <span class="input resource-max">{{data.max}}</span>
-    <div class="bar" style="background: {{data.color.bg}}">
-        <div class="fill" style="width:{{data.pct}}%; background: {{data.color.fill}}"></div>
-    </div>
-</div>
-{{/inline}}
-
 <form class="{{cssClass}} flexrow" autocomplete="off">
 
     {{!-- Left Sidebar --}}
@@ -71,18 +53,25 @@
                 <h2 class="section-header divider">
                     <span></span><label>Resources</label><span></span>
                 </h2>
-                <div class="resource health">
-                    {{> resource label="Health" attr="system.resources.health" data=systemData.resources.health}}
-                </div>
 
-                <div class="resource morale">
-                    {{> resource label="Morale" attr="system.resources.morale" data=systemData.resources.morale}}
+                {{#each resources as |resource|}}
+                <div class="resource {{resource.id}}">
+                    <h3 class="category-header divider tooltipped">
+                        <span></span>
+                        <label>{{resource.label}}</label>
+                        <div class="tooltip">{{resource.tooltip}}</div>
+                        <span></span>
+                    </h3>
+                    <div class="resource-values flexrow">
+                        <input type="number" name="system.{{resource.id}}.value" value="{{resource.value}}" placeholder="0">
+                        <span class="slash"></span>
+                        <span class="input resource-max">{{resource.max}}</span>
+                        <div class="bar" style="background: {{resource.color.bg}}">
+                            <div class="fill" style="width:{{resource.pct}}%; background: {{resource.color.fill}}"></div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="resource action">
-                    {{> resource label="Action" attr="system.resources.action" data=systemData.resources.action}}
-                    {{> resource label="Focus" attr="system.resources.focus" data=systemData.resources.focus}}
-                </div>
+                {{/each}}
             </section>
 
             {{!-- Abilities --}}
@@ -149,15 +138,7 @@
                 <ol class="defense save flexrow" data-defense="fortitude">
                     <li class="defense-title flexrow">
                         <h3 class="badge fortitude">Fortitude</h3>
-                        <span class="input score">{{systemData.defenses.fortitude.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.fortitude.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <span class="input score">{{actor.system.defenses.fortitude.total}}</span>
                     </li>
                     <li class="tags">
                         <span class="tag">Str</span>
@@ -169,15 +150,7 @@
                 <ol class="defense save flexrow" data-defense="reflex">
                     <li class="defense-title flexrow">
                         <h3 class="badge reflex">Reflex</h3>
-                        <span class="input score">{{systemData.defenses.reflex.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.reflex.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <span class="input score">{{actor.system.defenses.reflex.total}}</span>
                     </li>
                     <li class="tags">
                         <span class="tag">Dex</span>
@@ -189,15 +162,7 @@
                 <ol class="defense save flexrow" data-defense="willpower">
                     <li class="defense-title flexrow">
                         <h3 class="badge willpower">Willpower</h3>
-                        <span class="input score">{{systemData.defenses.willpower.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.willpower.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
+                        <span class="input score">{{actor.system.defenses.willpower.total}}</span>
                     </li>
                     <li class="tags">
                         <span class="tag">Wis</span>
@@ -225,10 +190,6 @@
                         <li class="resistance flexrow" data-resistance="{{id}}">
                             <span class="input total">{{r.total}}</span>
                             <label>{{r.label}}</label>
-                            <span class="base">{{r.base}}</span>
-                            <span class="math">+</span>
-                            <input type="number" name="system.resistances.{{id}}.bonus" value="{{r.bonus}}"
-                               {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
                         </li>
                         {{/each}}
                     </ol>

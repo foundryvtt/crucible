@@ -209,8 +209,8 @@
 "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
 "SKILL.RollFlavor": "{name} rolls a {skill} check",
 "SKILL.RollTitle": "[{name}] {skill} Skill Check",
-"SKILL.TooltipCheck": "Score = [0.5 * ({a1} + {a2})] + Bonus + Enchantment",
-"SKILL.TooltipPassive": "Passive = 12 + Score",
+"SKILL.TooltipCheck": "(0.5 * ({a1} + {a2})) + Bonus + Enchantment",
+"SKILL.TooltipPassive": "12 + Score",
 
 "SKILLS.Acrobatics": "Acrobatics",
 "SKILLS.AcrobaticsInfo": "Acrobatics relates to one's training in agility and athletics. Ranks in this skill make traversing the environment easier, and those highly proficient in Acrobatics likely have greater balance, spatial awareness, and motor coordination.",
@@ -576,7 +576,8 @@
 
 "WEAPON.TagDamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier.",
 
-"WARNING.AbilityCantAfford": "You cannot afford to increase this ability which costs {cost} points. You have {points} points available.",
+"WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
+"WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",
 "WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",
 "WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} item is already equipped.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
@@ -584,9 +585,9 @@
 
 "WALKTHROUGH.AddAncestry": "Step 1: Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
 "WALKTHROUGH.AddBackground": "Step 2: Choose a Background from the Compendium or Items sidebar and add it via drag-and-drop.",
-"WALKTHROUGH.AbilityPoints": "Step 3: Spend available Ability Points by increasing your Ability scores. It is not required to spend all points.",
-"WALKTHROUGH.SkillPoints": "Step 4: Spend available Skill Points by increasing your Skill ranks. You do not need to spend all points.",
-"WALKTHROUGH.TalentPoints": "Step 5: Choose Talents for your character from the Compendium or Items sidebar and add them via drag-and-drop.",
+"WALKTHROUGH.AbilityPoints": "Step 3: Spend available Ability Points by increasing your Ability scores.",
+"WALKTHROUGH.SkillPoints": "Step 4: Spend available Skill Points by increasing your Skill ranks.",
+"WALKTHROUGH.TalentPoints": "Step 5: Spend available Talent Points by opening the Talent Tree.",
 "WALKTHROUGH.LevelOne": "Step 6: Once you are done with character creation, set your character to Level 1 and begin your adventure!",
 "WALKTHROUGH.LevelUp": "You have made enough progress to advance to a new level. Increase your level by one when you are ready!"
 }

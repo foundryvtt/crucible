@@ -1,8 +1,7 @@
 {{#*inline "resource"}}
-<h3 class="category-header divider tooltipped">
+<h3 class="category-header divider" data-tooltip="{{data.tooltip}}">
     <span></span>
     <label>{{label}}</label>
-    <div class="tooltip">{{data.tooltip}}</div>
     <span></span>
 </h3>
 <div class="resource-values flexrow">
@@ -188,19 +187,15 @@
                 {{#unless sectionLocks.abilities}}
                 <div class="point-pools flexrow">
                     {{#if isL0}}
-                    <label>Pool Size</label>
-                    <span class="value highlight">36</span>
-                    <label>Spent</label>
-                    <span class="value highlight">{{points.ability.bought}}</span>
                     <label>Available</label>
                     <span class="value highlight">{{points.ability.pool}}</span>
-                    {{else}}
-                    <label>Total Points</label>
-                    <span class="value highlight">{{points.ability.total}}</span>
                     <label>Spent</label>
-                    <span class="value highlight">{{points.ability.spent}}</span>
+                    <span class="value highlight">{{points.ability.bought}}</span>
+                    {{else}}
                     <label>Available</label>
                     <span class="value highlight">{{points.ability.available}}</span>
+                    <label>Spent</label>
+                    <span class="value highlight">{{points.ability.spent}}</span>
                     {{/if}}
                 </div>
                 {{/unless}}
@@ -236,96 +231,45 @@
                 </h2>
 
                 {{! Physical Defense --}}
-                <ol class="defense physical flexrow" data-defense="physical">
-                    <li class="defense-title flexrow">
+                <div class="defense physical flexrow" data-defense="physical">
+                    <div class="defense-title flexrow">
                         <h3 class="badge physical">Physical</h3>
                         <span class="input score">{{systemData.defenses.physical}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">=</span>
+                    <div class="flexcol">
                         <h4>Armor</h4>
                         <span class="input score">{{systemData.defenses.armor.total}}</span>
                         <span class="subtitle">{{armorCategory}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Dodge</h4>
                         <span class="input score">{{systemData.defenses.dodge.total}}</span>
                         <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Parry</h4>
                         <span class="input score">{{systemData.defenses.parry.total}}</span>
                         <span class="subtitle">Maximum 6</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Block</h4>
                         <span class="input score">{{systemData.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
-                    </li>
-                </ol>
+                    </div>
+                </div>
 
-                {{! Fortitude Defense --}}
-                <ol class="defense save flexrow" data-defense="fortitude">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge fortitude">Fortitude</h3>
-                        <span class="input score">{{systemData.defenses.fortitude.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.fortitude.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.fortitude.bonus" value="{{systemData.defenses.fortitude.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Str</span>
-                        <span class="tag">Con</span>
-                    </li>
-                </ol>
-
-                {{! Reflex Defense --}}
-                <ol class="defense save flexrow" data-defense="reflex">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge reflex">Reflex</h3>
-                        <span class="input score">{{systemData.defenses.reflex.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.reflex.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.reflex.bonus" value="{{systemData.defenses.reflex.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Dex</span>
-                        <span class="tag">Int</span>
-                    </li>
-                </ol>
-
-                {{! Willpower Defense --}}
-                <ol class="defense save flexrow" data-defense="willpower">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge willpower">Willpower</h3>
-                        <span class="input score">{{systemData.defenses.willpower.total}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexrow base">
-                        <span class="input score">{{systemData.defenses.willpower.base}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexrow bonus">
-                        <input type="number" name="system.defenses.willpower.bonus" value="{{systemData.defenses.willpower.bonus}}" {{#if sectionLocks.defenses}}disabled{{/if}}/>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Wis</span>
-                        <span class="tag">Pre</span>
-                    </li>
-                </ol>
+                <div class="magic-defenses">
+                    {{#each magicDefenses as |defense|}}
+                    <div class="defense save flexrow" data-defense="{{defense.id}}">
+                        <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
+                        <span class="input score">{{defense.total}}</span>
+                    </div>
+                    {{/each}}
+                </div>
             </section>
 
             {{!-- Resistances --}}
@@ -365,12 +309,10 @@
         {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
             <div class="point-pools flexrow">
-                <label>Total Points</label>
-                <span class="value highlight">{{points.skill.total}}</span>
-                <label>Spent</label>
-                <span class="value highlight">{{points.skill.spent}}</span>
                 <label>Available</label>
                 <span class="value highlight">{{points.skill.available}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.skill.spent}}</span>
             </div>
 
             {{!-- Skills List --}}
@@ -396,14 +338,10 @@
                         </a>
                     </div>
                     <div class="bonus flexrow">
-                        <span class="active highlight tooltipped">
+                        <span class="active highlight" data-tooltip="{{skill.tooltips.value}}">
                             {{numberFormat skill.score sign=true}}
-                            <div class="tooltip">{{skill.tooltips.value}}</div>
                         </span>
-                        <span class="passive tooltipped">
-                            ({{skill.passive}})
-                            <div class="tooltip">{{skill.tooltips.passive}}</div>
-                        </span>
+                        <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
                     </div>
                     <div class="attributes">
                         {{#each skill.attributes}}
@@ -411,11 +349,10 @@
                         {{/each}}
                     </div>
                     <span class="rank">
-                        <div class="skill-ranks tooltipped">
+                        <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
                             {{#each skill.pips}}
                             <span class="pip {{this}}"></span>
                             {{/each}}
-                            <div class="tooltip">{{skill.rankName}}, {{skill.pathName}}</div>
                         </div>
                     </span>
                     <div class="points flexrow">
@@ -438,12 +375,10 @@
         <div class="tab talents flexcol" data-group="primary" data-tab="talents">
             <div class="point-pools flexrow">
                 <a class="button control" data-action="talentTree">{{talentTreeButton}}</a>
-                <label>Talent Points</label>
-                <span class="value highlight">{{points.talent.total}}</span>
-                <label>Spent</label>
-                <span class="value highlight">{{points.talent.spent}}</span>
                 <label>Available</label>
                 <span class="value highlight">{{points.talent.available}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.talent.spent}}</span>
                 <a class="button control reset" data-action="talentReset">Reset</a>
             </div>
 

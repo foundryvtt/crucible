@@ -14,20 +14,8 @@ export default class AdversarySheet extends ActorSheet {
       template: `systems/${SYSTEM.id}/templates/sheets/adversary.hbs`,
       resizable: false,
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "attributes"}],
-      scrollY: [".tab.attributes", ".tab.skills"]
+      scrollY: []
     });
-  }
-
-  /**
-   * Lock sections of the character sheet to prevent them from being inadvertently edited
-   * @type {{abilities: boolean, defenses: boolean, resistances: boolean, resources: boolean}}
-   * @private
-   */
-  _sectionLocks = {
-    abilities: true,
-    defenses: true,
-    resistances: true,
-    resources: true
   }
 
   /* -------------------------------------------- */
@@ -35,16 +23,16 @@ export default class AdversarySheet extends ActorSheet {
   /** @override */
   async getData(options) {
     const context = await super.getData(options);
-    const systemData = context.systemData = context.data.system;
+    context.systemData = context.data.system;
 
     // Abilities
-    context.abilityScores = this._formatAttributes(systemData.attributes);
+    context.abilityScores = this._formatAttributes(this.actor.system.attributes);
 
     // Resources
-    context.resources = this._formatResources(systemData.resources);
+    context.resources = this._formatResources(this.actor.system.resources);
 
     // Resistances
-    context.resistances = this._formatResistances(systemData.resistances);
+    context.resistances = this._formatResistances(this.actor.system.resistances);
     return context;
   }
 
@@ -61,7 +49,7 @@ export default class AdversarySheet extends ActorSheet {
       let [a, ability] = e;
       const attr = foundry.utils.deepClone(ability);
       attr.id = a;
-      attr.value = attributes[a];
+      attr.value = attributes[a].value;
       return attr;
     });
   }
@@ -74,11 +62,9 @@ export default class AdversarySheet extends ActorSheet {
    * @private
    */
   _formatResources(resources) {
-    return Object.entries(resources).map(([id, {value}]) => {
-      const r = foundry.utils.deepClone(SYSTEM.RESOURCES[id]);
+    return Object.entries(resources).map(([id, resource]) => {
+      const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
       r.id = id;
-      r.value = value;
-      r.max = resources[id].max;
       r.pct = Math.round(r.value * 100 / r.max);
 
       // Determine resource bar color
@@ -107,7 +93,7 @@ export default class AdversarySheet extends ActorSheet {
 
       // Merge resistance data for rendering
       let [id, r] = e;
-      const resist = mergeObject(r, SYSTEM.DAMAGE_TYPES[id]);
+      const resist = foundry.utils.mergeObject(r, SYSTEM.DAMAGE_TYPES[id]);
 
       // Add the resistance to its category
       const cat = categories[resist.type];

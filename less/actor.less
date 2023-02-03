@@ -406,9 +406,9 @@
       padding: 0;
       margin: calc(var(--marginSize)/2) 0;
       .defense-title {
-        flex: 0 0 140px;
+        flex: 0 0 175px;  // Align with Fortitude
       }
-      > li {
+      > .flexcol {
         align-items: center;
       }
       .math {
@@ -429,15 +429,16 @@
         margin: 0;
         white-space: nowrap;
       }
-      .base {
-        flex: none;
-        margin-left: 14px; // Align with Armor
-        gap: 2px;
-      }
-      .bonus h4 {
-        text-align: left;
-      }
     }
+  }
+
+  .magic-defenses {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(1, var(--abilityHeight));
+    grid-gap: var(--marginHalfSize);
+    margin: 0;
+    padding: 0;
   }
 
   /* ----------------------------------------- */
@@ -447,21 +448,8 @@
   .damage-resistances {
     flex: none;
     align-items: flex-start;
-
-    .category {
-      padding: 0 var(--marginSize);
-      border-right: 1px solid @colorBeige;
-      font-size: var(--fontSizeHeader);
-
-      &.physical {
-        padding-left: 0;
-      }
-
-      &.spiritual {
-        padding-right: 4px;
-        border-right: none;
-      }
-    }
+    gap: 0.5rem 1rem;
+    font-size: var(--fontSizeHeader);
 
     .resistances {
       list-style: none;

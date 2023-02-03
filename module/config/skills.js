@@ -234,15 +234,17 @@ expandSkillConfig(SKILLS);
 
 /**
  * Translate the SKILLS configuration object using localization strings
- * @param skills
  */
-export function localizeSkillConfig(skills, systemId) {
-  for ( let skill of Object.values(skills) ) {
+export function localizeSkillConfig(SYSTEM) {
+  for ( let skill of Object.values(SYSTEM.SKILLS) ) {
     skill.name = game.i18n.localize(skill.name);
-    skill.icon = `systems/${systemId}/${skill.icon}`;
+    skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
     skill.description = game.i18n.localize(`SKILLS.${skill.name}Info`);
     skill.tooltips = {
-      value: game.i18n.format("SKILL.TooltipCheck", {a1: skill.attributes[0], a2: skill.attributes[1]}),
+      value: game.i18n.format("SKILL.TooltipCheck", {
+        a1: SYSTEM.ABILITIES[skill.attributes[0]].label,
+        a2: SYSTEM.ABILITIES[skill.attributes[1]].label
+      }),
       passive: game.i18n.localize("SKILL.TooltipPassive")
     };
     for ( let p of Object.values(skill.paths) ) {
@@ -252,5 +254,5 @@ export function localizeSkillConfig(skills, systemId) {
     }
     skill.ranks.forEach(r => r.description = game.i18n.localize(r.description));
   }
-  Object.freeze(skills);
+  Object.freeze(SYSTEM.SKILLS);
 }
