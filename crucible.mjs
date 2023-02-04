@@ -86,6 +86,7 @@ Hooks.once("init", async function() {
     methods: {
       buildJournalCompendium,
       packageItemCompendium,
+      packageCompendiumPacks,
       standardizeItemIds
     },
     talents: {
@@ -197,6 +198,15 @@ Hooks.on("renderJournalSheet", renderJournalRules);
 /*  Convenience Functions                       */
 /* -------------------------------------------- */
 
+async function packageCompendiumPacks() {
+  const toPack = ["ancestry", "armor", "background", "talent", "weapon"];
+  for ( const type of toPack ) {
+    await packageItemCompendium(type);
+  }
+}
+
+/* -------------------------------------------- */
+
 /**
  * Package all Items of a certain type into their appropriate Compendium pack
  * @param itemType
@@ -205,15 +215,11 @@ Hooks.on("renderJournalSheet", renderJournalRules);
 async function packageItemCompendium(itemType) {
   const pack = game.packs.get(`crucible.${itemType}`);
   const items = game.items.filter(i => i.type === itemType);
-  const data = items.map(i => i.toCompendium(pack, {keepId: true}));
-
-  // Delete everything in the pack currently
+  const toCreate = items.map(i => i.toCompendium(pack, {keepId: true}));
   await pack.configure({locked: false});
   await pack.getDocuments();
-  await Item.deleteDocuments(Array.from(pack.index.keys()), {pack: pack.collection});
-
-  // Load everything to the pack, keeping IDs
-  await Item.createDocuments(data, {pack: pack.collection, keepId: true});
+  await Item.deleteDocuments([], {pack: pack.collection, deleteAll: true});
+  await Item.createDocuments(toCreate, {pack: pack.collection, keepId: true});
   await pack.configure({locked: true});
 }
 

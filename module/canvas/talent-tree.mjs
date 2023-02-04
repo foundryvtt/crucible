@@ -114,7 +114,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Draw Center
     const textStyle = PreciseText.getTextStyle({fontSize: 28});
-    this.character = this.background.addChild(new PIXI.Container());
+    this.character = this.foreground.addChild(new PIXI.Container());
     this.character.icon = this.character.addChild(new PIXI.Sprite());
     this.character.points = this.character.addChild(new PreciseText("", textStyle));
     this.character.name = this.character.addChild(new PreciseText("", textStyle));
