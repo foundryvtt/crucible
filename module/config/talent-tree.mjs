@@ -12,7 +12,7 @@ export default class CrucibleTalentNode {
     angle ??= n * CrucibleTalentNode.TIER_ANGLES[tier];
 
     // Create a Ray
-    const r = Ray.fromAngle(4000, 4000, Math.toRadians(angle), distance * (tier+1));
+    const r = Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier+1));
     Object.defineProperties(this, {
       id: {value: id, writable: false, enumerable: true},
       tier: {value: tier, writable: false, enumerable: true},

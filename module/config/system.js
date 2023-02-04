@@ -59,6 +59,18 @@ export const ANCESTRIES = {
 /* -------------------------------------------- */
 
 /**
+ * The compendium pack IDs which should be used as the source for character creation materials.
+ * @enum {string}
+ */
+export const COMPENDIUM_PACKS = {
+  ancestry: "crucible.ancestry",
+  background: "crucible.background",
+  talent: "crucible.talent"
+}
+
+/* -------------------------------------------- */
+
+/**
  * Define the top level damage categories.
  * @type {object}
  */
@@ -303,6 +315,7 @@ export const SYSTEM = {
   ABILITIES,
   ANCESTRIES,
   ATTRIBUTE_CATEGORIES,
+  COMPENDIUM_PACKS,
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
   ENCHANTMENT_TIERS,

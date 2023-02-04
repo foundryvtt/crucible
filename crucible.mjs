@@ -131,12 +131,6 @@ Hooks.once("init", async function() {
   // Status Effects
   CONFIG.statusEffects = statusEffects;
 
-  // Canvas configuration
-  CONFIG.Canvas.layers.talents = {
-    layerClass: CrucibleTalentTree,
-    group: "interface"
-  }
-
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 });
@@ -180,21 +174,15 @@ Hooks.once("setup", function() {
   // Pre-localize translations
   localizeSkillConfig(SYSTEM); // TODO: Make this cleaner
 
-  // Initialize Talent tree
+  // Initialize Talent tree data
   CrucibleTalentNode.initialize();
+
+  // Create Talent Tree canvas
+  game.system.tree = new CrucibleTalentTree();
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
   $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip);
-});
-
-/* -------------------------------------------- */
-
-Hooks.once("canvasReady", () => {
-  if ( canvas.id === "XTz8NrEeavbUDh4r" ) {
-    const actor = game.actors.get("sNNr3tDKX8iffGHS");
-    actor.toggleTalentTree();
-  }
 });
 
 /* -------------------------------------------- */

@@ -40,17 +40,19 @@ export default class HeroSheet extends ActorSheet {
 
     // Incomplete Tasks
     context.incomplete = {
-      ancestry: !systemData.details.ancestry.name,
-      background: !systemData.details.background.name,
+      ancestry: !systemData.details.ancestry?.name,
+      background: !systemData.details.background?.name,
       abilities: this.actor.points.ability.requireInput,
       skills: this.actor.points.skill.available,
       talents: this.actor.points.talent.available,
       level: this.actor.isL0 || (this.actor.system.advancement.pct === 100),
       levelOne: this.actor.isL0,
-      levelUp: (this.actor.system.advancement.pct === 100)
+      levelUp: (this.actor.system.advancement.pct === 100),
+      levelTooltip: this.actor.isL0 ? "WALKTHROUGH.LevelOne" : "WALKTHROUGH.LevelUp"
     }
     if ( context.incomplete.ancestry ) systemData.details.ancestry.name = game.i18n.localize("ANCESTRY.None");
     if ( context.incomplete.background ) systemData.details.background.name = game.i18n.localize("BACKGROUND.None");
+    context.packs = SYSTEM.COMPENDIUM_PACKS;
 
     // Equipment
     context.items = this._formatItems(this.actor.items);
@@ -319,6 +321,14 @@ export default class HeroSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  async close(options) {
+    await super.close(options);
+    await this.actor.toggleTalentTree(false);
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
@@ -344,6 +354,13 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
+      case "browseCompendium":
+        const pack = game.packs.get(a.dataset.pack);
+        return pack.render(true);
+      case "clearAncestry":
+        return this.actor.applyAncestry(null);
+      case "clearBackground":
+        return this.actor.applyBackground(null);
       case "itemDelete":
         return this._onItemDelete(a);
       case "itemEdit":

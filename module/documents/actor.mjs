@@ -190,6 +190,8 @@ export default class CrucibleActor extends Actor {
   /** @override */
   prepareBaseData() {
     if ( this.type === "adversary" ) return;
+    this.system.details.ancestry ||= {};
+    this.system.details.background ||= {};
 
     // Prepare placeholder point totals
     this._prepareAdvancement();
@@ -464,8 +466,8 @@ export default class CrucibleActor extends Actor {
 
       // Skill Rank
       let base = 0;
-      if ( ancestry.skills.includes(id) ) base++;
-      if ( background.skills.includes(id) ) base++;
+      if ( ancestry.skills?.includes(id) ) base++;
+      if ( background.skills?.includes(id) ) base++;
       skill.rank = Math.max(skill.rank || 0, base);
 
       // Point Cost
@@ -862,10 +864,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Toggle display of the Talent Tree.
    */
-  async toggleTalentTree() {
+  async toggleTalentTree(active) {
     const tree = game.system.tree;
-    if ( tree.actor === this ) return game.system.tree.close();
-    return game.system.tree.open(this);
+    if ( (tree.actor === this) && (active !== true) ) return game.system.tree.close();
+    else if ( active !== false ) return game.system.tree.open(this);
   }
 
   /* -------------------------------------------- */
@@ -949,10 +951,17 @@ export default class CrucibleActor extends Actor {
 
   /**
    * When an Ancestry item is dropped on an Actor, apply its contents to the data model
-   * @param {object} itemData     The ancestry data to apply to the Actor.
-   * @return {CrucibleActor}      The updated Actor with the new Ancestry applied.
+   * @param {object|null} itemData  The ancestry data to apply to the Actor.
+   * @return {CrucibleActor}        The updated Actor with the new Ancestry applied.
    */
   async applyAncestry(itemData) {
+
+    // Clear an existing ancestry
+    if ( !itemData ) {
+      if ( this.isL0 ) return this.update({"system.details.ancestry": null});
+      else throw new Error("Ancestry data not provided");
+    }
+
     const ancestry = foundry.utils.deepClone(itemData.system);
     ancestry.name = itemData.name;
 
@@ -973,10 +982,17 @@ export default class CrucibleActor extends Actor {
 
   /**
    * When a Background item is dropped on an Actor, apply its contents to the data model
-   * @param {object} itemData     The background data to apply to the Actor.
-   * @return {CrucibleActor}      The updated Actor with the new Background applied.
+   * @param {object|null} itemData    The background data to apply to the Actor.
+   * @return {CrucibleActor}          The updated Actor with the new Background applied.
    */
   async applyBackground(itemData) {
+
+    // Clear an existing ancestry
+    if ( !itemData ) {
+      if ( this.isL0 ) return this.update({"system.details.background": null});
+      else throw new Error("Background data not provided");
+    }
+
     const background = foundry.utils.deepClone(itemData.system);
     background.name = itemData.name;
 

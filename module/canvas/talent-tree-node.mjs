@@ -4,24 +4,11 @@ import CrucibleTalentIcon from "./talent-icon.mjs";
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   constructor(node, config) {
     super(config);
-
-    // Node assignment
     this.node = node;
     this.position.set(node.point.x, node.point.y);
-
-    // Mouse Interaction
-    this.interactionManager = new MouseInteractionManager(this, canvas.stage, {
-      hoverIn: true,
-      hoverOut: true
-    }, {
-      hoverIn: this.#onPointerOver,
-      hoverOut: this.#onPointerOut,
-      clickLeft: this.#onClickLeft
-    });
-    this.interactionManager.activate();
   }
 
-  /**
+  /**cc
    * The icons used for different node types
    * @enum {string}
    */
@@ -33,8 +20,20 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     magic: "systems/crucible/icons/nodes/magic.webp",
     move: "systems/crucible/icons/nodes/movement.webp",
     utility: "systems/crucible/icons/nodes/utility.webp",
-    signature: "systems/crucible/icons/nodes/utility.webp"
+    signature: "systems/crucible/icons/nodes/signature.webp"
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this node currently active?
+   * @type {boolean}
+   */
+  get isActive() {
+    return game.system.tree.active === this;
+  }
+
+  /* -------------------------------------------- */
 
   /** @override */
   async draw(config={}) {
@@ -45,17 +44,25 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     await super.draw(config);
     const {accessible, borderColor} = this.config;
     this.icon.tint = accessible ? borderColor.mix(new Color(0xFFFFFF), 0.25) : 0xFFFFFF;
+    this.#activateInteraction();
   }
 
-  /**
-   * Is this node currently active?
-   * @type {boolean}
-   */
-  get isActive() {
-    return game.system.tree.active === this;
+  /* -------------------------------------------- */
+
+  #activateInteraction() {
+    this.removeAllListeners();
+    this.on("pointerover", this.#onPointerOver.bind(this));
+    this.on("pointerout", this.#onPointerOut.bind(this));
+    this.on("pointerdown", this.#onClickLeft.bind(this));
+    this.interactive = true;
+    this.buttonMode = true;
   }
+
+  /* -------------------------------------------- */
 
   #onClickLeft(event) {
+    event.stopPropagation();
+    if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
     if ( this.isActive ) {
       tree.deactivateNode();
@@ -67,18 +74,22 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     }
   }
 
+  /* -------------------------------------------- */
+
   #onPointerOver(event) {
+    event.stopPropagation();
     game.system.tree.hud.activate(this);
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.2, 1.2);
-    this.zIndex = CrucibleTalentTree.SORT_INDICES.HOVER;
   }
 
+  /* -------------------------------------------- */
+
   #onPointerOut(event) {
+    event.stopPropagation();
     game.system.tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
-    this.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
   }
 }
 

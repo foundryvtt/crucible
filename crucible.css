@@ -491,17 +491,25 @@ h2.divider span {
   line-height: 20px;
 }
 .crucible.sheet.actor .subtitle {
-  margin: 4px 0;
+  margin: 0.25rem 0;
+  gap: 0.25rem;
 }
 .crucible.sheet.actor .subtitle .tag {
+  display: flex;
   flex: none;
-  margin: 0 4px 0 0;
-  padding: 0 8px;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.5rem;
   font-size: var(--fontSizeTitle);
-  line-height: 125%;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #b5b3a4;
   border-radius: 2px;
+}
+.crucible.sheet.actor .subtitle .tag.inactive {
+  border: 2px dashed #b5b3a4;
+}
+.crucible.sheet.actor .subtitle .tag a.control {
+  font-size: var(--font-size-14);
 }
 .crucible.sheet.actor .sheet-navigation {
   flex: 0 0 var(--navHeight);
@@ -1440,6 +1448,9 @@ h2.divider span {
 }
 .roll .buttons > select {
   margin-right: var(--marginSize);
+}
+#crucible-talent-tree {
+  z-index: var(--z-index-canvas);
 }
 #crucible-talent-hud {
   padding: 1rem;

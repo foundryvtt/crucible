@@ -37,7 +37,14 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * @returns {Promise<void>}
    */
   async activate(node) {
+    const tree = game.system.tree;
+
+    // Swap the node
     this.node = node;
+    tree.nodes.removeChild(node);
+    tree.foreground.addChild(node);
+
+    // Set position
     this.position.set(node.x, node.y);
     this.radius = node.config.size + 50;
     this.#drawBackground();
@@ -52,6 +59,11 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Activate the talent tree choice wheel.
    */
   deactivate() {
+    const tree = game.system.tree;
+    if ( this.node ) {
+      tree.foreground.removeChild(this.node);
+      tree.nodes.addChild(this.node);
+    }
     this.visible = false;
     this.node = null;
     this.talents.removeChildren().forEach(t => t.destroy());

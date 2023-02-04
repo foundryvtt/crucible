@@ -11,6 +11,8 @@
 
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
+"ANCESTRY.Browse": "Browse Ancestries",
+"ANCESTRY.Clear": "Clear Ancestry",
 "ANCESTRY.PrimaryAbility": "Primary Ability",
 "ANCESTRY.PrimaryAbilityHint": "Select one ability which is a noteworthy attribute for this ancestry and starts at +3.",
 "ANCESTRY.SecondaryAbility": "Secondary Ability",
@@ -23,7 +25,7 @@
 "ANCESTRY.Vulnerability": "Damage Vulnerability",
 "ANCESTRY.ResistanceHint": "This ancestry may have a traditional resistance (+2) and a traditional vulnerability (-2) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
 "ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
-"ANCESTRY.None": "No Ancestry",
+"ANCESTRY.None": "Choose Ancestry",
 
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",
@@ -121,10 +123,12 @@
 
 "BACKGROUND.Applied": "Applied the {background} background to {actor}.",
 "BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
+"BACKGROUND.Browse": "Browse Backgrounds",
+"BACKGROUND.Clear": "Clear Background",
 "BACKGROUND.Skills": "Acquired Skills",
 "BACKGROUND.SkillsHint": "Choose two skills which were acquired as part of your background, each of which will begin with +1 rank.",
 "BACKGROUND.SkillsWarning": "You must choose exactly two skills as background specializations.",
-"BACKGROUND.None": "No Background",
+"BACKGROUND.None": "Choose Background",
 
 "DAMAGE.Bludgeoning": "Bludgeoning",
 "DAMAGE.BludgeoningAbr": "Bldg",

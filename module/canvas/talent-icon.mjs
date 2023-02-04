@@ -68,6 +68,9 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     // Number
     this.number.text = text ?? "";
     this.number.visible = !!this.number.text;
+
+    // Interactive hit area
+    this.hitArea = new PIXI.Rectangle(-size/2, -size/2, size, size);
   }
 }
 CrucibleTalentIcon.greyscaleFilter.desaturate();

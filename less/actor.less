@@ -212,16 +212,24 @@
 
   /** Sheet Subtitle */
   .subtitle {
-    margin: 4px 0;
+    margin: 0.25rem 0;
+    gap: 0.25rem;
     .tag {
+      display: flex;
       flex: none;
-      margin: 0 4px 0 0;
-      padding: 0 8px;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0 0.5rem;
       font-size: var(--fontSizeTitle);
-      line-height: 125%;
       background: rgba(0, 0, 0, 0.05);
       border: 1px solid @colorBeige;
       border-radius: 2px;
+      &.inactive {
+        border: 2px dashed @colorBeige;
+      }
+      a.control {
+        font-size: var(--font-size-14);
+      }
     }
   }
 

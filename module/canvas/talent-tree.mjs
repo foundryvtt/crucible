@@ -5,21 +5,29 @@ import CrucibleTalentHUD from "./talent-hud.mjs";
 import TalentData from "../data/talent.mjs";
 
 
-export default class CrucibleTalentTree extends InteractionLayer {
-  constructor(...args) {
-    super(...args);
-    game.system.tree = this;
-    this.visible = false;
+export default class CrucibleTalentTree extends PIXI.Container {
+  constructor() {
+    super();
+    this.#initialize();
   }
 
-  static #TREE_SCENE_ID = "XTz8NrEeavbUDh4r";
+  /**
+   * Has the talent tree been drawn yet?
+   * @type {boolean}
+   */
+  #drawn = false;
 
-  static SORT_INDICES = {
-    INACTIVE: 0,
-    HOVER: 10,
-    WHEEL: 20,
-    ACTIVE: 30
-  }
+  /**
+   * The canvas element used to draw the tree.
+   * @type {HTMLCanvasElement}
+   */
+  canvas;
+
+  /**
+   * The PIXI Application that controls the secondary canvas.
+   * @type {PIXI.Application}
+   */
+  app;
 
   /**
    * A reference to the Actor which is currently bound to the talent tree.
@@ -51,12 +59,6 @@ export default class CrucibleTalentTree extends InteractionLayer {
    */
   state = new Map();
 
-  /**
-   * Record the prior Scene that was active before switching to the Talent Tree.
-   * @type {Scene}
-   */
-  priorScene;
-
   /* -------------------------------------------- */
 
   get tree() {
@@ -65,137 +67,133 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async open(actor) {
+  /**
+   * Initialize the secondary canvas used for the talent tree.
+   */
+  #initialize() {
 
-    // Assign the actor
-    this.actor = actor;
-    actor.sheet.render(false);
+    // Create the HTML canvas element
+    Object.defineProperty(this, "canvas", {value: document.createElement("canvas"), writable: false});
+    this.canvas.id = "crucible-talent-tree";
+    this.canvas.hidden = true;
+    document.body.appendChild(this.canvas);
 
-    // Activate the Scene
-    if ( canvas.id !== CrucibleTalentTree.#TREE_SCENE_ID ) {
-      this.priorScene = canvas.scene;
-      const scene = game.scenes.get(CrucibleTalentTree.#TREE_SCENE_ID);
-      await scene.view();
-    }
-    else await this.draw();
+    // Create the PIXI Application
+    Object.defineProperty(this, "app", {value: new PIXI.Application({
+        view: this.canvas,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        transparent: false,
+        resolution: 1,
+        autoDensity: true,
+        antialias: false,  // Not needed because we use SmoothGraphics
+        powerPreference: "high-performance" // Prefer high performance GPU for devices with dual graphics cards
+    }), writable: false});
+    Object.defineProperty(this, "stage", {value: this.app.stage, writable: false});
 
-    // Activate the layer
-    this.activate();
+    // Add this class to the canvas stage
+    this.stage.addChild(this);
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  async close() {
-    const actor = this.actor;
-
-    // Deactivate the layer
-    this.deactivate();
-
-    // Re-render Actor sheet
-    actor?.sheet.render(false);
-
-    // Switch Scenes
-    const scene = this.priorScene;
-    this.priorScene = null;
-    if ( scene ) await scene.view();
-  }
-
+  /*  Drawing                                     */
   /* -------------------------------------------- */
 
-  /** @override */
-  _activate() {
-    this.visible = true;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _deactivate() {
-    this.actor = null;
-    this.visible = false;
-    this.wheel.deactivate();
-    this.hud.clear();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _draw() {
-    this.center = canvas.dimensions.rect.center;
+  /**
+   * Draw the Talent Tree to the secondary canvas.
+   * @returns {Promise<void>}
+   */
+  async draw() {
+    if ( this.#drawn ) return;
+    this.background = this.addChild(new PIXI.Container());
+    this.foreground = this.addChild(new PIXI.Container());
 
     // Draw Background
-    this.bg = this.addChild(new PIXI.Graphics());
-    this.#drawBackground();
+    this.backdrop = this.background.addChild(await this.#drawBackdrop());
+    this.bg = this.background.addChild(this.#drawBackground());
 
     // Draw Center
     const textStyle = PreciseText.getTextStyle({fontSize: 28});
-    this.character = this.addChild(new PIXI.Container());
+    this.character = this.background.addChild(new PIXI.Container());
     this.character.icon = this.character.addChild(new PIXI.Sprite());
     this.character.points = this.character.addChild(new PreciseText("", textStyle));
     this.character.name = this.character.addChild(new PreciseText("", textStyle));
 
-    // Draw character portrait
-    const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
-    this.#drawCharacter(actorTexture);
-
     // Background connections
-    this.edges = this.addChild(new PIXI.Graphics());
-    this.edges.lineStyle({color: 0x000000, alpha: 0.2, width: 4});
+    this.edges = this.background.addChild(new PIXI.Graphics());
+    this.edges.lineStyle({color: 0x000000, alpha: 0.35, width: 4});
 
     // Active connections
-    this.connections = this.addChild(new PIXI.Graphics());
+    this.connections = this.background.addChild(new PIXI.Graphics());
 
     // Draw Nodes and Edges
-    this.nodes = this.addChild(new PIXI.Container());
-    this.nodes.sortableChildren = true;
+    this.nodes = this.background.addChild(new PIXI.Container());
     const origin = CrucibleTalentNode.nodes.get("origin");
     await this.#drawNodes(origin.connected, new Set([origin]));
     this.#drawCircles();
 
-    // Create Choice Wheel
-    this.wheel = this.nodes.addChild(new CrucibleTalentChoiceWheel());
-    this.wheel.zIndex = CrucibleTalentTree.SORT_INDICES.WHEEL;
+    // Background fade and filter
+    this.background.darken = this.background.addChild(new PIXI.Graphics());
+    this.background.blurFilter = new PIXI.filters.BlurFilter(1);
+    this.background.filters = [this.background.blurFilter];
+    this.background.blurFilter.enabled = false;
 
-    // Set initial display
+    // Create Choice Wheel
+    this.wheel = this.foreground.addChild(new CrucibleTalentChoiceWheel());
+
+    // Enable interactivity
+    this.#activateInteractivity();
+
+    // Draw initial conditions
     this.refresh();
+    this.#drawn = true;
+  }
+
+  /* -------------------------------------------- */
+
+  async #drawBackdrop() {
+    const tex = await loadTexture("ui/backgrounds/setup.webp");
+    const bd = new PIXI.Sprite(tex);
+    bd.anchor.set(0.5, 0.5);
+    bd.alpha = 0.25;
+    return bd;
   }
 
   /* -------------------------------------------- */
 
   #drawBackground() {
+    const bg = new PIXI.Graphics();
 
-    // Compute dimensions
-    const r = canvas.dimensions.rect;
+    // Compute hex points
     const {width, height} = HexagonalGrid.computeDimensions({columns: true, even: true, size: 12000});
-    const ox = (r.width  - width) / 2;
-    const oy = (r.height - height) / 2;
-    const points = HexagonalGrid.FLAT_HEX_BORDERS["1"].map(d => [(width * d[0]) + ox, (height * d[1]) + oy]);
+    const ox = width / 2;
+    const oy = height / 2;
+    const points = HexagonalGrid.FLAT_HEX_BORDERS["1"].map(d => [(width * d[0]) - ox, (height * d[1]) - oy]);
 
     // Sectors
+    bg.lineStyle({color: 0x000000, width: 2});
     const colors = Object.values(CrucibleTalentNode.ABILITY_COLORS);
     for ( let i=0; i<points.length; i++ ) {
-      const shape = new PIXI.Polygon([this.center.x, this.center.y, ...points.at(i-1), ...points.at(i)]);
-      this.bg.beginFill(colors[i].multiply(0.4), 1.0).drawShape(shape).endFill();
+      const shape = new PIXI.Polygon([0, 0, ...points.at(i-1), ...points.at(i)]);
+      bg.beginFill(colors[i], 0.06).drawShape(shape).endFill();
     }
 
     // Center Hex
     const cd = HexagonalGrid.computeDimensions({columns: true, even: true, size: 400});
-    const ocx = this.center.x - (cd.width / 2);
-    const ocy = this.center.y - (cd.height / 2);
-    const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [ocx + (cd.width * d[0]), ocy + (cd.height * d[1])]);
-    this.bg.lineStyle({color: 0x444444, width: 4})
-      .beginFill(0x111111, 1.0)
+    const cx = cd.width / 2;
+    const cy = cd.height / 2;
+    const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [(cd.width * d[0]) - cx, (cd.height * d[1]) - cy]);
+    bg.lineStyle({color: 0x000000, width: 2})
+      .beginFill(0x0b0a13, 1.0)
       .drawPolygon(cp)
       .endFill();
+    return bg;
   }
 
   /* -------------------------------------------- */
 
   #drawCharacter(texture) {
     if ( !this.actor ) return this.character.visible = false;
-    this.character.position.set(this.center.x, this.center.y);
     if ( texture ) this.character.icon.texture = texture;
     this.character.icon.width = this.character.icon.height = 200;
     this.character.icon.anchor.set(0.5, 0.5);
@@ -211,31 +209,6 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
     // Visibility
     this.character.visible = true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Refresh display of the talent tree, incorporating updated data about the Actor's purchased Talents.
-   */
-  refresh() {
-    if ( !this.actor ) return;
-    this.character.points.text = `${this.actor.points.talent.available} Points Available`;
-    this.getActiveNodes();
-
-    // Draw node changes
-    this.connections.clear();
-    const seen = new Set();
-    for ( const node of CrucibleTalentNode.nodes.values() ) {
-      if ( node.tier < 0 ) continue;
-      const state = this.state.get(node);
-      node.icon?.draw({active: state === 2, accessible: state > 0});
-      if ( state === 2 ) this.#drawConnections(node, seen);
-      seen.add(node);
-    }
-
-    // Refresh talent wheel
-    this.wheel.refresh();
   }
 
   /* -------------------------------------------- */
@@ -297,25 +270,134 @@ export default class CrucibleTalentTree extends InteractionLayer {
   /* -------------------------------------------- */
 
   #drawCircles() {
-    this.edges.drawCircle(this.center.x, this.center.y, 800);
+    this.edges.drawCircle(0, 0, 800);
+    this.edges.drawCircle(0, 0, 1200);
+    this.edges.drawCircle(0, 0, 1600);
   }
 
+  /* -------------------------------------------- */
+  /*  Tree Management                             */
+  /* -------------------------------------------- */
+
+  /**
+   * Open the Talent Tree, binding it to a certain Actor
+   * @param {CrucibleActor} actor
+   */
+  async open(actor) {
+    if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.")
+
+    // Draw the tree (once only)
+    await this.draw();
+    for ( const layer of canvas.layers ) {
+      if ( layer.hud?.clear instanceof Function ) layer.hud.clear();
+    }
+
+    // Associate Actor
+    this.actor = actor;
+    const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
+    this.#drawCharacter(actorTexture);
+    await actor.sheet._render(false, {left: 20, top: 20});
+    actor.sheet.minimize();
+
+    // Refresh tree state
+    this.pan({x: 0, y: 0});
+    this.refresh();
+    this.app.renderer.enabled = true;
+    this.canvas.hidden = false;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async close() {
+
+    // Disassociate Actor
+    const actor = this.actor;
+    this.actor = null;
+    actor?.sheet.render(false);
+
+    // Deactivate UI
+    this.wheel.deactivate();
+    this.hud.clear();
+
+    // Stop rendering
+    this.app.renderer.enabled = false;
+    this.canvas.hidden = true;
+    canvas.hud.align();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Refresh display of the talent tree, incorporating updated data about the Actor's purchased Talents.
+   */
+  refresh() {
+    if ( !this.actor ) return;
+
+    // Update Actor portrait
+    this.character.points.text = `${this.actor.points.talent.available} Points Available`;
+    this.getActiveNodes();
+
+    // Draw node changes
+    this.connections.clear();
+    const seen = new Set();
+    for ( const node of CrucibleTalentNode.nodes.values() ) {
+      if ( node.tier < 0 ) continue;
+      const state = this.state.get(node);
+      node.icon?.draw({active: state === 2, accessible: state > 0});
+      if ( state === 2 ) this.#drawConnections(node, seen);
+      seen.add(node);
+    }
+
+    // Refresh talent wheel
+    this.wheel.refresh();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pan the visual position of the talent tree canvas.
+   * @param {number} x
+   * @param {number} y
+   * @param {number} scale
+   */
+  pan({x, y, scale}) {
+    x ??= this.stage.pivot.x;
+    y ??= this.stage.pivot.y;
+    scale ??= this.stage.scale.x;
+    // TODO - constrain x, y, scale
+    this.stage.pivot.set(x, y);
+    this.stage.scale.set(scale, scale);
+    this.#alignHUD();
+  }
+
+  /* -------------------------------------------- */
+  /*  Talent Management                           */
   /* -------------------------------------------- */
 
   activateNode(node) {
     if ( this.active ) this.deactivateNode();
     this.active = node;
-    this.active.zIndex = CrucibleTalentTree.SORT_INDICES.ACTIVE;
     this.wheel.activate(node);
+    this.darkenBackground(true);
   }
 
   /* -------------------------------------------- */
 
   deactivateNode() {
     if ( !this.active ) return;
-    this.active.zIndex = CrucibleTalentTree.SORT_INDICES.INACTIVE;
     this.wheel.deactivate();
     this.active = null;
+    this.darkenBackground(false);
+  }
+
+  /* -------------------------------------------- */
+
+  darkenBackground(fade=true) {
+    this.background.darken.clear();
+    const w = 12000;
+    if ( fade ) this.background.darken.beginFill(0x000000, 0.5).drawRect(-w/2, -w/2, w, w).endFill();
+    this.background.blurFilter.enabled = fade;
   }
 
   /* -------------------------------------------- */
@@ -369,5 +451,81 @@ export default class CrucibleTalentTree extends InteractionLayer {
 
     updateBatch([CrucibleTalentNode.nodes.get("origin")]);
     return state;
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  #activateInteractivity() {
+
+    // Mouse Interaction Manager
+    this.interactionManager = new MouseInteractionManager(this, this, {
+      clickLeft: false
+    }, {
+      dragRightStart: null,
+      dragRightMove: this.#onDragRightMove,
+      dragRightDrop: null,
+      dragRightCancel: null
+    }).activate();
+
+    // Window Events
+    window.addEventListener("resize", this.#onResize.bind(this));
+    window.addEventListener("wheel", this.#onWheel.bind(this), {passive: false});
+    this.#onResize();  // set initial dimensions
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle right-mouse drag events occurring on the Canvas.
+   * @param {PIXI.InteractionEvent} event
+   */
+  #onDragRightMove(event) {
+    const DRAG_SPEED_MODIFIER = 0.8;
+    const {origin, destination} = event.data;
+    const dx = destination.x - origin.x;
+    const dy = destination.y - origin.y;
+    this.pan({
+      x: this.stage.pivot.x - (dx * DRAG_SPEED_MODIFIER),
+      y: this.stage.pivot.y - (dy * DRAG_SPEED_MODIFIER)
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle window resize events.
+   */
+  #onResize() {
+    this.app.renderer.resize(window.innerWidth, window.innerHeight);
+    const {width, height} = this.app.renderer.screen;
+    this.stage.position.set(width/2, height/2);
+    this.pan(this.stage.pivot);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle mousewheel events on the Talent Tree canvas.
+   * @param {WheelEvent} event      The mousewheel event
+   */
+  #onWheel(event) {
+    let dz = ( event.delta < 0 ) ? 1.05 : 0.95;
+    this.pan({scale: dz * this.stage.scale.x});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Align the position of the HUD layer to the current position of the canvas
+   */
+  #alignHUD() {
+    const hud = canvas.hud.element[0];
+    const {x, y} = this.getGlobalPosition();
+    const scale = this.stage.scale.x;
+    hud.style.left = `${x}px`;
+    hud.style.top = `${y}px`;
+    hud.style.transform = `scale(${scale})`;
   }
 }

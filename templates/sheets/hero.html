@@ -91,34 +91,46 @@
                         <span class="slash"></span>
                         <span class="input">{{systemData.advancement.next}}</span>
                     </div>
-                    <h2 class="level {{#if incomplete.level}}tooltipped{{/if}}">
-                        <label>Level</label>
+                    <h2 class="level" {{#if incomplete.level}}data-tooltip="{{incomplete.levelTooltip}}"{{/if}}>
                         {{#if incomplete.level}}
                         <i class="incomplete fas fa-exclamation-triangle"></i>
                         {{/if}}
-                        {{#if incomplete.levelOne}}
-                        <div class="tooltip right">{{localize "WALKTHROUGH.LevelOne"}}</div>
-                        {{/if}}
-                        {{#if incomplete.levelUp}}
-                        <div class="tooltip right">{{localize "WALKTHROUGH.LevelUp"}}</div>
-                        {{/if}}
+                        <label>Level</label>
                         <input type="number" name="system.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
                     </h2>
                 </div>
 
                 <div class="subtitle flexrow">
-                    <h2 class="ancestry tag {{#if incomplete.ancestry}}inactive tooltipped{{/if}}">
-                        {{systemData.details.ancestry.name}}
+                    <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive{{/if}}"
+                        {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
                         {{#if incomplete.ancestry}}
                         <i class="incomplete fas fa-exclamation-triangle"></i>
-                        <div class="tooltip left">{{localize "WALKTHROUGH.AddAncestry"}}</div>
+                        {{/if}}
+                        {{systemData.details.ancestry.name}}
+                        {{#if incomplete.ancestry}}
+                        <a class="control" data-action="browseCompendium" data-pack="{{packs.ancestry}}" data-tooltip="ANCESTRY.Browse">
+                            <i class="fa-solid fa-plus-circle"></i>
+                        </a>
+                        {{else if isL0}}
+                        <a class="control" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear">
+                            <i class="fas fa-times-circle"></i>
+                        </a>
                         {{/if}}
                     </h2>
-                    <h2 class="background tag {{#if incomplete.background}}inactive tooltipped{{/if}}">
-                        {{systemData.details.background.name}}
+                    <h2 class="background tag flexrow {{#if incomplete.background}}inactive{{/if}}"
+                        {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
                         {{#if incomplete.background}}
                         <i class="incomplete fas fa-exclamation-triangle"></i>
-                        <div class="tooltip left">{{localize "WALKTHROUGH.AddBackground"}}</div>
+                        {{/if}}
+                        {{systemData.details.background.name}}
+                        {{#if incomplete.background}}
+                        <a class="control" data-action="browseCompendium" data-pack="{{packs.background}}" data-tooltip="BACKGROUND.Browse">
+                            <i class="fa-solid fa-plus-circle"></i>
+                        </a>
+                        {{else if isL0}}
+                        <a class="control" data-action="clearBackground" data-tooltip="BACKGROUND.Clear">
+                            <i class="fas fa-times-circle"></i>
+                        </a>
                         {{/if}}
                     </h2>
                 </div>
@@ -127,21 +139,15 @@
 
         {{!-- Sheet Navigation --}}
         <nav class="sheet-navigation tabs" data-group="primary">
-            <a class="item badge attributes {{#if incomplete.abilities}}tooltipped{{/if}}" data-tab="attributes">Attributes
-            {{~#if incomplete.abilities~}}
-            <i class="incomplete fas fa-exclamation-triangle"></i>
-            <div class="tooltip">{{localize "WALKTHROUGH.AbilityPoints"}}</div>
-            {{/if}}</a>
-            <a class="item badge skills {{#if incomplete.skills}}tooltipped{{/if}}" data-tab="skills">Skills
-            {{~#if incomplete.skills~}}
-            <i class="incomplete fas fa-exclamation-triangle"></i>
-            <div class="tooltip">{{localize "WALKTHROUGH.SkillPoints"}}</div>
-            {{/if}}</a>
-            <a class="item badge talents {{#if incomplete.talents}}tooltipped{{/if}}" data-tab="talents">Talents
-            {{~#if incomplete.talents~}}
-            <i class="incomplete fas fa-exclamation-triangle"></i>
-            <div class="tooltip center">{{localize "WALKTHROUGH.TalentPoints"}}</div>
-            {{/if}}</a>
+            <a class="item badge attributes" data-tab="attributes" {{#if incomplete.abilities}}data-tooltip="WALKTHROUGH.AbilityPoints"{{/if}}>
+            {{~#if incomplete.abilities~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Attributes</a>
+            <a class="item badge skills" data-tab="skills" {{#if incomplete.skills}}data-tooltip="WALKTHROUGH.SkillPoints"{{/if}}>
+            {{~#if incomplete.skills~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Skills</a>
+            <a class="item badge talents" data-tab="talents" {{#if incomplete.talents}}data-tooltip="WALKTHROUGH.TalentPoints"{{/if}}>
+            {{~#if incomplete.talents~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Talents</a>
             <a class="item badge inventory" data-tab="inventory">Inventory</a>
             <a class="item badge spells" data-tab="spells">Grimoire</a>
             <a class="item badge biography" data-tab="biography">Biography</a>
