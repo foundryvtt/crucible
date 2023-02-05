@@ -438,7 +438,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "toustr2",
   abilities: ["toughness", "strength"],
-  type: "magic",
+  type: "defense",
   tier: 2,
   distance: 180,
   connected: ["tou1b", "toustr1", "str1a", "tou2c"]
@@ -447,7 +447,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "str2a",
   abilities: ["strength"],
-  type: "defense",
+  type: "utility",
   tier: 2,
   connected: ["str1a", "toustr2"]
 });
@@ -464,7 +464,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "str2c",
   abilities: ["strength"],
-  type: "utility",
+  type: "magic",
   tier: 2,
   connected: ["str1b", "str2b"]
 });
