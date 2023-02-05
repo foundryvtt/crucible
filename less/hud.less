@@ -1,13 +1,71 @@
+
+/* -------------------------------------------- */
+/*  Talent Tree Canvas                          */
+/* -------------------------------------------- */
+
 #crucible-talent-tree {
-  z-index: var(--z-index-canvas);
+  position: absolute;
+  z-index: calc(var(--z-index-window) - 1);
 }
+
+/* -------------------------------------------- */
+/*  Talent Tree HUD                             */
+/* -------------------------------------------- */
 
 #crucible-talent-hud {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.9);
   text-align: left;
+  #talent-hud-header {
+    gap: 0.5rem;
+  }
 }
 
-#talent-hud-header {
-  gap: 0.5rem;
+/* -------------------------------------------- */
+/*  Talent Tree Controls                        */
+/* -------------------------------------------- */
+
+#crucible-talent-controls {
+  position: fixed;
+  width: 100%;
+  bottom: 50px;
+  justify-content: center;
+  z-index: var(--z-index-tooltip);
+  nav {
+    width: 100%;
+    max-width: 960px;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
+  p.points {
+    flex: 0 0 240px;
+    margin: 0;
+    font-size: var(--font-size-20);
+  }
+  span.input {
+    display: inline-block;
+    width: 36px;
+    text-align: center;
+    background: var(--color-bg-option);
+  }
+  header.name {
+    gap: 0.5rem;
+    justify-content: center;
+    h2 {
+      flex: none;
+      margin: 0;
+      border: none;
+      font-size: var(--font-size-32);
+    }
+    span.level {
+      flex: none;
+      font-family: var(--fontFamilySerif);
+      font-size: var(--font-size-24);
+      color: var(--color-text-light-4);
+    }
+  }
+  div.controls {
+    flex: 0 0 240px;
+    gap: 0.5rem;
+  }
 }

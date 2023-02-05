@@ -1,0 +1,22 @@
+<div id="crucible-talent-controls" class="flexrow">
+    <nav class="{{cssClass}}">
+        <p class="points">
+            <span class="input">{{actor.points.talent.available}}</span>
+            {{localize "TALENT.PointsAvailable"}}
+        </p>
+        <header class="name flexrow">
+            <h2 class="charname">{{actor.name}}</h2>
+            <span class="level">(Level {{actor.level}})</span>
+        </header>
+        <div class="controls flexrow">
+            <button type="button" class="reset">
+                <i class="fa-solid fa-undo"></i>
+                <label>{{localize "Reset"}}</label>
+            </button>
+            <button type="button" class="close">
+                <i class="fa-solid fa-times"></i>
+                <label>{{localize "Close"}}</label>
+            </button>
+        </div>
+    </nav>
+</div>

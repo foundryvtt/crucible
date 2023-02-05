@@ -265,12 +265,32 @@ export default class CrucibleItem extends Item {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
-    if ( (data.type === "archetype") && this.parent ) {
-      if ( this.parent.type !== "adversary" ) {
-        throw new Error("You may only add an Archetype Item to an Adversary Actor.");
+
+    // Prevent creating certain types of items
+    if ( this.isOwned ) {
+      switch (data.type) {
+        case "ancestry":
+          if ( this.parent.type === "hero" ) {
+            await this.parent.applyAncestry(this);
+            options.temporary = true;
+          }
+          return;
+        case "archetype":
+          if ( this.parent.type === "archetype" ) {
+            await this.parent.applyArchetype(this);
+            options.temporary = true;
+          }
+          return;
+        case "background":
+          if ( this.parent.type === "hero" ) {
+            await this.applyBackground(this);
+            options.temporary = true;
+          }
+          return;
+        case "talent":
+          options.keepId = true;
+          options.keepEmbeddedIds = true;
       }
-      options.temporary = true; // TODO this is a hack until I can return false
-      await this.parent.applyArchetype(this);
     }
   }
 

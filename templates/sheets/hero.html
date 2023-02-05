@@ -85,7 +85,7 @@
                     <h1 class="charname">
                         <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name"/>
                     </h1>
-                    <div class="advancement flexrow">
+                    <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
                         <div class="bar"><div class="fill" style="width:{{systemData.advancement.pct}}%"></div></div>
                         <input type="number" name="system.advancement.progress" value="{{systemData.advancement.progress}}"/>
                         <span class="slash"></span>
@@ -430,9 +430,6 @@
                 <div class="item-name flexrow">
                     <h4>{{section.label}}</h4>
                 </div>
-                <div class="item-controls">
-                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
-                </div>
             </header>
             <ol class="items-list">
                 {{#each section.items as |item id|}}
@@ -473,26 +470,17 @@
                 <div class="item-name flexrow">
                     <h4>Arcane Runes</h4>
                 </div>
-                <div class="item-controls">
-                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
-                </div>
             </header>
             <p class="notes" style="flex: none">No runes known.</p>
             <header class="items-header spells-header flexrow">
                 <div class="item-name flexrow">
                     <h4>Spell Gestures</h4>
                 </div>
-                <div class="item-controls">
-                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
-                </div>
             </header>
             <p class="notes" style="flex: none">No gestures known.</p>
             <header class="items-header spells-header flexrow">
                 <div class="item-name flexrow">
                     <h4>Metamagic Inflections</h4>
-                </div>
-                <div class="item-controls">
-                    <a class="control" data-action="itemCreate"><i class="fas fa-plus"></i></a>
                 </div>
             </header>
             <p class="notes" style="flex: none">No inflections known.</p>

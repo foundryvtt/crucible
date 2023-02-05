@@ -1,4 +1,5 @@
 import CrucibleTalentNode from "../config/talent-tree.mjs";
+import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
@@ -91,6 +92,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
     }), writable: false});
     Object.defineProperty(this, "stage", {value: this.app.stage, writable: false});
 
+    // Create the controls app
+    Object.defineProperty(this, "controls", {value: new CrucibleTalentTreeControls(), writable: false});
+
     // Add this class to the canvas stage
     this.stage.addChild(this);
   }
@@ -113,11 +117,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.bg = this.background.addChild(this.#drawBackground());
 
     // Draw Center
-    const textStyle = PreciseText.getTextStyle({fontSize: 28});
-    this.character = this.foreground.addChild(new PIXI.Container());
-    this.character.icon = this.character.addChild(new PIXI.Sprite());
-    this.character.points = this.character.addChild(new PreciseText("", textStyle));
-    this.character.name = this.character.addChild(new PreciseText("", textStyle));
+    this.character = this.foreground.addChild(new PIXI.Sprite());
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
@@ -194,20 +194,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   #drawCharacter(texture) {
     if ( !this.actor ) return this.character.visible = false;
-    if ( texture ) this.character.icon.texture = texture;
-    this.character.icon.width = this.character.icon.height = 200;
-    this.character.icon.anchor.set(0.5, 0.5);
-
-    // Nameplate
-    this.character.name.text = this.actor.name;
-    this.character.name.anchor.set(0.5, 1);
-    this.character.name.position.set(0, -110);
-
-    // Points
-    this.character.points.anchor.set(0.5, 0);
-    this.character.points.position.set(0, 110);
-
-    // Visibility
+    if ( texture ) this.character.texture = texture;
+    this.character.width = this.character.height = 200;
+    this.character.anchor.set(0.5, 0.5);
     this.character.visible = true;
   }
 
@@ -291,6 +280,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     for ( const layer of canvas.layers ) {
       if ( layer.hud?.clear instanceof Function ) layer.hud.clear();
     }
+    this.darkenBackground(false);
 
     // Associate Actor
     this.actor = actor;
@@ -300,10 +290,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
     actor.sheet.minimize();
 
     // Refresh tree state
-    this.pan({x: 0, y: 0});
+    this.pan({x: 0, y: 0, scale: 1.0});
     this.refresh();
+
+    // Toggle visibility of UI elements
     this.app.renderer.enabled = true;
     this.canvas.hidden = false;
+    canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
   }
 
   /* -------------------------------------------- */
@@ -314,15 +307,18 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Disassociate Actor
     const actor = this.actor;
     this.actor = null;
-    actor?.sheet.render(false);
+    await actor?.sheet.render(false);
+    actor.sheet.maximize();
 
     // Deactivate UI
     this.wheel.deactivate();
     this.hud.clear();
+    this.controls.close();
 
-    // Stop rendering
+    // Toggle visibility of UI elements
     this.app.renderer.enabled = false;
     this.canvas.hidden = true;
+    canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();
   }
 
@@ -334,11 +330,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
   refresh() {
     if ( !this.actor ) return;
 
-    // Update Actor portrait
-    this.character.points.text = `${this.actor.points.talent.available} Points Available`;
-    this.getActiveNodes();
-
     // Draw node changes
+    this.getActiveNodes();
     this.connections.clear();
     const seen = new Set();
     for ( const node of CrucibleTalentNode.nodes.values() ) {
@@ -351,6 +344,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Refresh talent wheel
     this.wheel.refresh();
+
+    // Refresh controls
+    this.controls.render(true);
   }
 
   /* -------------------------------------------- */
@@ -511,6 +507,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @param {WheelEvent} event      The mousewheel event
    */
   #onWheel(event) {
+    if ( this.canvas.hidden ) return;
     let dz = ( event.delta < 0 ) ? 1.05 : 0.95;
     this.pan({scale: dz * this.stage.scale.x});
   }

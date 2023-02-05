@@ -82,6 +82,10 @@ export default class CrucibleTalentNode {
    */
   icon;
 
+  get twinNode() {
+    return this.twin ? CrucibleTalentNode.#nodes.get(this.twin) : null;
+  }
+
   /**
    * The minimum character requirements needed to unlock this Talent.
    * @type {Object<string, number>}
@@ -105,17 +109,37 @@ export default class CrucibleTalentNode {
   /**
    * Initialize all talents from within the designated collection
    */
-  static initialize() {
-    for ( const item of game.items ) {
-      if ( (item.type !== "talent") || !item.system.node ) continue;
+  static async initialize() {
+    const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
+    const items = await pack.getDocuments();
+    for ( const item of items ) {
+      if ( !item.system.node ) continue;
       const node = CrucibleTalentNode.#nodes.get(item.system.node);
       if ( !node ) continue;
       node.talents.add(item);
-      if ( node.twin ) {
-        const twin = CrucibleTalentNode.#nodes.get(node.twin);
-        if ( twin ) twin.talents.add(item);
+      const twin = node.twinNode;
+      if ( twin ) twin.talents.add(item);
+    }
+  }
+
+  /**
+   * Is this Node connected and eligible to be acquired by an Actor?
+   * @param {CrucibleActor} actor         The Actor being tested
+   * @returns {boolean}                   Is the node connected?
+   */
+  isConnected(actor) {
+    for ( const c of this.connected ) {
+      for ( const t of c.talents ) {
+        if ( actor.talentIds.has(t.id) ) return true;
       }
     }
+    if ( this.twin ) {
+      const twin = this.twinNode;
+      for ( const t of twin.talents ) {
+        if ( actor.talentIds.has(t.id) ) return true;
+      }
+    }
+    return false;
   }
 }
 

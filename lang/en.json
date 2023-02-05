@@ -23,7 +23,7 @@
 "ANCESTRY.SkillsWarning": "You must choose exactly two skills as ancestry specializations.",
 "ANCESTRY.Resistance": "Damage Resistance",
 "ANCESTRY.Vulnerability": "Damage Vulnerability",
-"ANCESTRY.ResistanceHint": "This ancestry may have a traditional resistance (+2) and a traditional vulnerability (-2) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
+"ANCESTRY.ResistanceHint": "This ancestry may have a traditional resistance (+5) and a traditional vulnerability (-5) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
 "ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
 "ANCESTRY.None": "Choose Ancestry",
 
@@ -534,7 +534,10 @@
 
 "TALENT.AlreadyOwned": "You already own {name} and cannot add it a second time.",
 "TALENT.MissingRequirement": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
+"TALENT.MissingConnection": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
 "TALENT.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+
+"TALENT.PointsAvailable": "Points Available",
 
 "WEAPON.Light1": "Light (1h)",
 "WEAPON.Simple1": "Simple (1h)",
@@ -592,6 +595,7 @@
 "WALKTHROUGH.AbilityPoints": "Step 3: Spend available Ability Points by increasing your Ability scores.",
 "WALKTHROUGH.SkillPoints": "Step 4: Spend available Skill Points by increasing your Skill ranks.",
 "WALKTHROUGH.TalentPoints": "Step 5: Spend available Talent Points by opening the Talent Tree.",
+"WALKTHROUGH.NextLevel": "Advancement progress towards next level",
 "WALKTHROUGH.LevelOne": "Step 6: Once you are done with character creation, set your character to Level 1 and begin your adventure!",
 "WALKTHROUGH.LevelUp": "You have made enough progress to advance to a new level. Increase your level by one when you are ready!"
 }

@@ -98,6 +98,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * A convenience reference to the Actor level.
+   * @type {number}
+   */
+  get level() {
+    return this.system.advancement.level;
+  }
+
+  /**
    * Is this actor currently "level zero"
    * @returns {boolean}
    */
@@ -623,12 +631,11 @@ export default class CrucibleActor extends Actor {
 
     // Action
     attrs.action.max = lvl > 0 ? 3 : 0;
-    // TODO - For Playtest
-    if ( this.flags.crucible?.isMook ) attrs.action.max -= 1;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
-    attrs.focus.max = Math.floor(lvl / 2) + Math.max(attrs.wisdom.value, attrs.presence.value, attrs.intellect.value);
+    attrs.focus.max = lvl === 0 ? 0
+      : Math.floor(lvl / 2) + Math.max(attrs.wisdom.value, attrs.presence.value, attrs.intellect.value);
     attrs.focus.value = Math.clamped(attrs.focus.value, 0, attrs.focus.max);
   }
 
@@ -1070,7 +1077,7 @@ export default class CrucibleActor extends Actor {
 
     // Case 2 - Regular Increase
     else {
-      if ( (delta > 0) && ((attr.total === 12) || !points.available) ) return false;
+      if ( (delta > 0) && ((attr.value === 12) || !points.available) ) return false;
       else if ( (delta < 0) && (attr.increases === 0) ) return false;
       return true;
     }
@@ -1187,14 +1194,14 @@ export default class CrucibleActor extends Actor {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipInvalidCategory", {
           actor: this.name,
           item: w2.name,
-          type: game.i18n.localize("ITEM.HandsOff")
+          type: game.i18n.localize("ACTION.TagOffhand")
         }));
       }
       if ( !isOHFree ) {
         ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
           actor: this.name,
           item: w2.name,
-          type: game.i18n.localize("ITEM.HandsOff")
+          type: game.i18n.localize("ACTION.TagOffhand")
         }));
       }
       else {
@@ -1218,7 +1225,7 @@ export default class CrucibleActor extends Actor {
       ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: w1.name,
-        type: game.i18n.localize(`ITEM.Hands${w1.config.category.off ? "Off" : "Main"}`)
+        type: game.i18n.localize(`ACTION.Tag${w1.config.category.off ? "Off" : "Main"}Hand`)
       }));
     }
 
@@ -1323,7 +1330,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   async _applyAttributeStatuses(data) {
-    const attrs = data.system.attributes || {};
+    const attrs = data?.system?.attributes || {};
     if ( ("health" in attrs) || ("wounds" in attrs) ) {
       await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated });
       await this.toggleStatusEffect("dead", {active: this.isDead});

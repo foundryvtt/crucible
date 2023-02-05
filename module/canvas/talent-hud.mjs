@@ -36,7 +36,6 @@ export default class CrucibleTalentHUD extends Application {
   getData(options = {}) {
     if ( this.target instanceof CrucibleTalentTreeNode ) return this.#getNodeContext();
     else return this.#getTalentContext();
-
   }
 
   /* -------------------------------------------- */
@@ -52,7 +51,8 @@ export default class CrucibleTalentHUD extends Application {
       type: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`),
       tier: node.tier,
       talents: node.talents.size,
-      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites)
+      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites),
+      twin: node.twinNode
     }
   }
 
