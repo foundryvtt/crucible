@@ -18,10 +18,9 @@ export default class CrucibleTalentNode {
       tier: {value: tier, writable: false, enumerable: true},
       twin: {value: twin, writable: false, enumerable: true},
       type: {value: type, writable: false, enumerable: true},
-      abilities: {value: abilities, writable: false, enumerable: true},
+      abilities: {value: new Set(abilities), writable: false, enumerable: true},
       point: {value: r.B, writable: false, enumerable: true}
     });
-    CrucibleTalentNode.#nodes.set(id, this);
 
     // Node color
     for ( const ability of this.abilities ) {
@@ -32,6 +31,7 @@ export default class CrucibleTalentNode {
       }
     }
 
+    // Connected nodes
     for ( const node of connected ) {
       const n = CrucibleTalentNode.#nodes.get(node);
       if ( !n ) throw new Error(`CrucibleTalentNode parent "${node}" has not yet been defined`);
@@ -40,6 +40,10 @@ export default class CrucibleTalentNode {
 
     // Define prerequisites
     this.prerequisites = TalentData.preparePrerequisites(this.requirements, {});
+
+    // Register node
+    CrucibleTalentNode.#nodes.set(id, this);
+    if ( this.type === "signature" ) CrucibleTalentNode.#signature.add(this);
   }
 
   static #counters = {};
@@ -65,13 +69,46 @@ export default class CrucibleTalentNode {
     1: 20,
     2: 15,
     3: 15
-  }
+  };
 
+  /**
+   * The states which a node may have on the tree for a given Actor.
+   * @enum {number}
+   */
+  static STATES = {
+    BANNED: -1,
+    LOCKED: 0,
+    UNLOCKED: 1,
+    PURCHASED: 2
+  }
+  /* -------------------------------------------- */
+
+  /**
+   * A mapping of all nodes in the tree.
+   * @returns {Map<string, CrucibleTalentNode>}
+   */
   static get nodes() {
     return this.#nodes;
   }
   static #nodes = new Map();
 
+  /* -------------------------------------------- */
+
+  /**
+   * The signature nodes in the tree
+   * @type {Set<CrucibleTalentNode>}
+   */
+  static get signature() {
+    return this.#signature;
+  }
+  static #signature = new Set();
+
+  /* -------------------------------------------- */
+
+  /**
+   * The Set of other nodes which are connected to this one
+   * @type {Set<CrucibleTalentNode>}
+   */
   connected = new Set();
 
   talents = new Set();
@@ -94,7 +131,7 @@ export default class CrucibleTalentNode {
     const reqs = {
       "advancement.level": CrucibleTalentNode.TIER_LEVELS[this.tier]
     }
-    const ad = this.abilities.length - 1;
+    const ad = this.abilities.size - 1;
     for ( const ability of this.abilities ) {
       reqs[`attributes.${ability}.value`] = this.tier + 3 - ad;
     }
@@ -122,6 +159,24 @@ export default class CrucibleTalentNode {
     }
   }
 
+  /* -------------------------------------------- */
+  /*  State Testing                               */
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether a node belongs to a certain special state
+   * @param {CrucibleActor} actor
+   * @returns {CrucibleTalentNode.STATES}
+   */
+  getState(actor) {
+    if ( this.isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
+    if ( this.isBanned(actor) ) return CrucibleTalentNode.STATES.BANNED;
+    const accessible = Object.values(TalentData.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    return accessible ? CrucibleTalentNode.STATES.UNLOCKED : CrucibleTalentNode.STATES.LOCKED;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Is this Node connected and eligible to be acquired by an Actor?
    * @param {CrucibleActor} actor         The Actor being tested
@@ -129,15 +184,35 @@ export default class CrucibleTalentNode {
    */
   isConnected(actor) {
     for ( const c of this.connected ) {
-      for ( const t of c.talents ) {
-        if ( actor.talentIds.has(t.id) ) return true;
-      }
+      if ( c.isPurchased(actor) ) return true;
     }
     if ( this.twin ) {
-      const twin = this.twinNode;
-      for ( const t of twin.talents ) {
-        if ( actor.talentIds.has(t.id) ) return true;
-      }
+      if ( this.twinNode.isPurchased(actor) ) return true;
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is a signature node banned because the user has selected some other Signature node which shares an ability score.
+   * @param {CrucibleActor} actor
+   * @returns {boolean}
+   */
+  isBanned(actor) {
+    if ( this.type !== "signature" ) return false;
+    for ( const sibling of CrucibleTalentNode.#signature ) {
+      if ( (sibling === this) || (sibling.id === this.twin) || (sibling.tier !== this.tier) ) continue;
+      if ( sibling.abilities.intersects(this.abilities) && sibling.isPurchased(actor) ) return true;
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  isPurchased(actor) {
+    for ( const t of this.talents ) {
+      if ( actor.talentIds.has(t.id) ) return true;
     }
     return false;
   }

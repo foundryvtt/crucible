@@ -62,6 +62,12 @@ export default class ActionData extends foundry.abstract.DataModel {
     }
   }
 
+  /**
+   * Is this Action owned and prepared for a specific Actor?
+   * @type {CrucibleActor}
+   */
+  #actor;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -94,6 +100,7 @@ export default class ActionData extends foundry.abstract.DataModel {
       if ( !tag ) continue;
       if ( tag.prepare instanceof Function ) tag.prepare(actor, this);
     }
+    this.#actor = actor;
     return this;
   }
 
@@ -127,8 +134,13 @@ export default class ActionData extends foundry.abstract.DataModel {
     }
 
     // Cost
-    if ( this.actionCost !== 0 ) tags.activation.ap = `${this.actionCost}A`;
-    if ( this.focusCost !== 0 ) tags.activation.fp = `${this.focusCost}F`;
+    if ( this.#actor ) {
+      if ( this.actionCost > 0 ) tags.activation.ap = `${this.actionCost}A`;
+      if ( this.focusCost > 0 ) tags.activation.fp = `${this.focusCost}F`;
+    } else {
+      if ( this.actionCost !== 0 ) tags.activation.ap = `${this.actionCost}A`;
+      if ( this.focusCost !== 0 ) tags.activation.fp = `${this.focusCost}F`;
+    }
     if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
     return tags;
   }
@@ -256,29 +268,10 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Iterate over every designated target
     let results = [];
+    if ( action.targetType === "none" ) targets = [null];
     for ( let target of targets ) {
-
-      // Perform each action tag callback
-      const promises = action.tags.reduce((promises, tag) => {
-        const at = SYSTEM.TALENT.ACTION_TAGS[tag];
-        if ( at.execute instanceof Function ) {
-          const promise = at.execute(actor, action, target.actor);
-          if ( promise instanceof Promise ) promises.push(promise);
-        }
-        return promises;
-      }, []);
-
-      // Perform post-roll callbacks
-      const rolls = await Promise.all(promises);
-      for ( let tag of action.tags ) {
-        const at = SYSTEM.TALENT.ACTION_TAGS[tag];
-        if ( at.post instanceof Function ) {
-          await at.post(actor, action, target.actor, rolls);
-        }
-      }
-
-      // Display the Action itself in the chat log
-      await action.toMessage(actor, [target], rolls, {rollMode});
+      const rolls = await this.#evaluateAction(actor, action, target);
+      await action.toMessage(actor, target ? [target] : [], rolls, {rollMode});
       results = results.concat(rolls);
     }
 
@@ -287,6 +280,37 @@ export default class ActionData extends foundry.abstract.DataModel {
       await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
     }
     return results;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Evaluate an action, constructing an array of Roll instances it produces.
+   * @param {CrucibleActor} actor         The actor performing the action
+   * @param {ActionData} action           The action being performed
+   * @param {Token|null} target           A Token target or null
+   * @returns {Promise<StandardCheck[]>}  Performed rolls
+   */
+  async #evaluateAction(actor, action, target) {
+
+    // Translate action tags which define an "execute" operation into dice rolls
+    const rolls = await Promise.all(action.tags.reduce((promises, tag) => {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( at.execute instanceof Function ) {
+        const roll = at.execute(actor, action, target?.actor);
+        if ( roll instanceof Promise ) promises.push(roll);
+      }
+      return promises;
+    }, []));
+
+    // Perform post-roll operations for actions which define a "post" operation
+    for ( const tag of action.tags ) {
+      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      if ( at.post instanceof Function ) {
+        await at.post(actor, action, target?.actor, rolls);
+      }
+    }
+    return rolls;
   }
 
   /* -------------------------------------------- */

@@ -10,9 +10,15 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
   }
 
   /** @override */
-  async draw(config) {
+  async draw({active, accessible, ...config}={}) {
+
+    // Talent State
+    config.borderColor = active ? this.node.node.color : 0x444444;
+    config.alpha = active ? 1.0 : 0.6;
+
+    // Draw Icon
     await super.draw(config);
-    this.icon.filters = this.config.accessible ? [] : [this.constructor.greyscaleFilter];
+    this.icon.filters = accessible ? [] : [this.constructor.greyscaleFilter];
     this.#activateInteraction();
   }
 

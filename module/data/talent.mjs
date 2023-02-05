@@ -132,7 +132,7 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
    * @returns {boolean}                   Only if testing is not strict
    * @throws a formatted error message if the prerequisites are not met and testing is strict
    */
-  assertPrerequisites(actor, prerequisites, strict=true) {
+  assertPrerequisites(actor, strict=true) {
 
     // Require a connected node
     const node = CrucibleTalentNode.nodes.get(this.node);

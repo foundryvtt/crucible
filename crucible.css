@@ -314,6 +314,7 @@ h2.divider span {
   /* ----------------------------------------- */
   /** Sheet Title */
   /** Advancement Bar */
+  /** Character Level */
   /** Sheet Subtitle */
   /* ----------------------------------------- */
   /*  Sheet Navigation                         */
@@ -444,31 +445,21 @@ h2.divider span {
   flex: none;
 }
 .crucible.sheet.actor .title {
+  gap: 0.5rem;
   margin: 0;
   border-bottom: 1px solid #b5b3a4;
+  font-family: var(--fontFamilySerif);
 }
 .crucible.sheet.actor .title h1.charname {
-  flex: 3;
+  margin: 0;
+  border: none;
   height: var(--titleHeight);
-  padding: 2px;
 }
 .crucible.sheet.actor .title h1.charname input {
   height: 100%;
-  padding: 0;
   background: none;
   border: none;
-}
-.crucible.sheet.actor .title h2.level {
-  flex: none;
-  text-align: right;
-  margin: 0 0 0 var(--marginSize);
-  border: none;
-}
-.crucible.sheet.actor .title h2.level input {
-  height: var(--titleHeight);
-  width: var(--titleHeight);
-  font-size: 28px;
-  line-height: var(--titleHeight);
+  padding: 0 0.5rem;
 }
 .crucible.sheet.actor .advancement {
   flex: 0 0 140px;
@@ -491,6 +482,24 @@ h2.divider span {
 .crucible.sheet.actor .advancement span.input {
   height: 20px;
   line-height: 20px;
+}
+.crucible.sheet.actor a.level-up {
+  flex: 0 0 36px;
+  height: 36px;
+  margin: 0;
+  line-height: 36px;
+  font-size: var(--font-size-20);
+  font-weight: bold;
+  color: var(--color-text-hyperlink);
+}
+.crucible.sheet.actor label.level {
+  flex: none;
+  font-size: var(--font-size-28);
+}
+.crucible.sheet.actor label.level input {
+  width: var(--titleHeight);
+  height: var(--titleHeight);
+  line-height: var(--titleHeight);
 }
 .crucible.sheet.actor .subtitle {
   margin: 0.25rem 0;
@@ -1479,12 +1488,14 @@ h2.divider span {
   bottom: 50px;
   justify-content: center;
   z-index: var(--z-index-tooltip);
+  pointer-events: none;
 }
 #crucible-talent-controls nav {
   width: 100%;
   max-width: 960px;
   align-items: center;
   padding: 0.5rem 1rem;
+  pointer-events: all;
 }
 #crucible-talent-controls p.points {
   flex: 0 0 240px;

@@ -39,7 +39,7 @@ export default class HeroSheet extends ActorSheet {
     const systemData = context.systemData = context.data.system;
 
     // Incomplete Tasks
-    context.incomplete = {
+    const i = context.incomplete = {
       ancestry: !systemData.details.ancestry?.name,
       background: !systemData.details.background?.name,
       abilities: this.actor.points.ability.requireInput,
@@ -47,12 +47,17 @@ export default class HeroSheet extends ActorSheet {
       talents: this.actor.points.talent.available,
       level: this.actor.isL0 || (this.actor.system.advancement.pct === 100),
       levelOne: this.actor.isL0,
-      levelUp: (this.actor.system.advancement.pct === 100),
-      levelTooltip: this.actor.isL0 ? "WALKTHROUGH.LevelOne" : "WALKTHROUGH.LevelUp"
+      levelUp: (this.actor.system.advancement.pct === 100)
     }
-    if ( context.incomplete.ancestry ) systemData.details.ancestry.name = game.i18n.localize("ANCESTRY.None");
-    if ( context.incomplete.background ) systemData.details.background.name = game.i18n.localize("BACKGROUND.None");
+    i.any = i.ancestry || i.background || i.abilities || i.skills || i.talents;
+    if ( this.actor.isL0 ) i.levelTooltip = `WALKTHROUGH.Level${i.any ? "Zero" : "One"}`;
+    else i.levelTooltip = "WALKTHROUGH.LevelUp";
+    i.levelIcon = i.levelOne ? "fa-exclamation-triangle" : "fa-circle-plus";
     context.packs = SYSTEM.COMPENDIUM_PACKS;
+
+    // Ancestry and Background names
+    systemData.details.ancestry.name ||= game.i18n.localize("ANCESTRY.None");
+    systemData.details.background.name ||= game.i18n.localize("BACKGROUND.None");
 
     // Equipment
     context.items = this._formatItems(this.actor.items);
@@ -66,6 +71,7 @@ export default class HeroSheet extends ActorSheet {
     // Leveling
     context.isL0 = this.actor.isL0;
     context.points = this.actor.points;
+    context.showMilestones = this.actor.level.between(1, 23);
 
     // Abilities
     context.abilityScores = this._formatAttributes(systemData.attributes);
@@ -367,6 +373,9 @@ export default class HeroSheet extends ActorSheet {
         return this._onItemEdit(a);
       case "itemEquip":
         return this._onItemEquip(a);
+      case "levelUp":
+        game.tooltip.deactivate();
+        return this.actor.levelUp(1);
       case "skillConfig":
         const skillId = a.closest(".skill").dataset.skill;
         return new SkillConfig(this.actor, skillId).render(true);

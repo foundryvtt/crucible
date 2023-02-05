@@ -47,13 +47,19 @@ export default class CrucibleTalentHUD extends Application {
   #getNodeContext() {
     const actor = game.system.tree.actor;
     const node = this.target.node;
+    const states = node.constructor.STATES;
+    const state = game.system.tree.state.get(node) ?? states.LOCKED;
+    const tags = [
+      {label: `Tier ${node.tier}`},
+      {label: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`)},
+      {label: `${node.talents.size} Talents`}
+    ];
+    if ( state === states.BANNED ) tags.push({label: "Banned", class: "unmet"});
+    else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
     return {
-      type: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`),
-      tier: node.tier,
-      talents: node.talents.size,
-      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites),
-      twin: node.twinNode
-    }
+      tags,
+      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites)
+    };
   }
 
   /* -------------------------------------------- */

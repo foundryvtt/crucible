@@ -1034,6 +1034,25 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Advance the Actor a certain number of levels (or decrease level with a negative delta).
+   * When advancing in level, resources are restored and advancement progress is reset.
+   * @param {number} delta                The number of levels to advance or decrease
+   * @returns {Promise<CrucibleActor>}    The modified Actor
+   */
+  async levelUp(delta=1) {
+    if ( delta === 0 ) return;
+    const clone = this.clone();
+    const level = Math.clamped(this.level + delta, 0, 24);
+    const update = {"system.advancement.level": level};
+    clone.updateSource(update);
+    Object.assign(update, clone._getRestData());
+    update["system.advancement.progress"] = delta > 0 ? 0 : clone.system.advancement.next;
+    return this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Purchase an ability score increase or decrease for the Actor
    * @param {string} ability      The ability id to increase
    * @param {number} delta        A number in [-1, 1] for the direction of the purchase

@@ -1,4 +1,4 @@
-import CrucibleTalentTree from "./talent-tree.mjs";
+import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentIcon from "./talent-icon.mjs";
 
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
@@ -36,14 +36,29 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   /** @override */
-  async draw(config={}) {
+  async draw({state, ...config}={}) {
+    const states = CrucibleTalentNode.STATES;
+
+    // Signature nodes
     if ( this.node.type === "signature" ) {
       config.size = 80;
       config.borderRadius = 80;
     }
+
+    // Node state
+    if ( state === states.BANNED ) config.borderColor = config.tint = 0x330000;
+    else if ( state === states.PURCHASED ) {
+      config.borderColor = this.node.color;
+      config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
+    }
+    else {
+      config.borderColor = 0x444444;
+      config.tint = 0xFFFFFF;
+    }
+    config.alpha = state === states.PURCHASED ? 1.0 : 0.6;
+
+    // Draw Icon
     await super.draw(config);
-    const {accessible, borderColor} = this.config;
-    this.icon.tint = accessible ? borderColor.mix(new Color(0xFFFFFF), 0.25) : 0xFFFFFF;
     this.#activateInteraction();
   }
 

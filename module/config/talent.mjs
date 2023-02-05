@@ -149,8 +149,8 @@ export const ACTION_TAGS = {
     tag: "movement",
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
-    prepare: (actor, action) => action.actionCost -= (actor.status.hasMoved ? 0 : 1),
-    execute: (actor, action, target) => action.actorUpdates["data.status.hasMoved"] = true
+    prepare: (actor, action) => action.actionCost -= (actor.system.status.hasMoved ? 0 : 1),
+    execute: (actor, action, target) => action.actorUpdates["system.status.hasMoved"] = true
   },
 
   // Requires Reaction

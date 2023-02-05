@@ -213,7 +213,7 @@
 "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
 "SKILL.RollFlavor": "{name} rolls a {skill} check",
 "SKILL.RollTitle": "[{name}] {skill} Skill Check",
-"SKILL.TooltipCheck": "(0.5 * ({a1} + {a2})) + Bonus + Enchantment",
+"SKILL.TooltipCheck": "[0.5 &times; ({a1} + {a2})] + Bonus + Enchantment",
 "SKILL.TooltipPassive": "12 + Score",
 
 "SKILLS.Acrobatics": "Acrobatics",
@@ -590,13 +590,13 @@
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
 
-"WALKTHROUGH.AddAncestry": "Step 1: Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
-"WALKTHROUGH.AddBackground": "Step 2: Choose a Background from the Compendium or Items sidebar and add it via drag-and-drop.",
-"WALKTHROUGH.AbilityPoints": "Step 3: Spend available Ability Points by increasing your Ability scores.",
-"WALKTHROUGH.SkillPoints": "Step 4: Spend available Skill Points by increasing your Skill ranks.",
-"WALKTHROUGH.TalentPoints": "Step 5: Spend available Talent Points by opening the Talent Tree.",
+"WALKTHROUGH.AddAncestry": "Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
+"WALKTHROUGH.AddBackground": "Choose a Background from the Compendium or Items sidebar and add it via drag-and-drop.",
+"WALKTHROUGH.AbilityPoints": "Spend available Ability Points by increasing your Ability scores.",
+"WALKTHROUGH.SkillPoints": "Spend available Skill Points by increasing your Skill ranks.",
+"WALKTHROUGH.TalentPoints": "Spend available Talent Points by opening the Talent Tree.",
 "WALKTHROUGH.NextLevel": "Advancement progress towards next level",
-"WALKTHROUGH.LevelOne": "Step 6: Once you are done with character creation, set your character to Level 1 and begin your adventure!",
+"WALKTHROUGH.LevelZero": "Complete all character creation steps before advancing your character to Level 1.",
+"WALKTHROUGH.LevelOne": "Set your character to Level 1 and begin your adventure!",
 "WALKTHROUGH.LevelUp": "You have made enough progress to advance to a new level. Increase your level by one when you are ready!"
 }
-

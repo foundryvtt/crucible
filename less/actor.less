@@ -156,31 +156,19 @@
 
   /** Sheet Title */
   .title {
+    gap: 0.5rem;
     margin: 0;
     border-bottom: 1px solid @colorBeige;
-
+    font-family: var(--fontFamilySerif);
     h1.charname {
-      flex: 3;
+      margin: 0;
+      border: none;
       height: var(--titleHeight);
-      padding: 2px;
       input {
         height: 100%;
-        padding: 0;
         background: none;
         border: none;
-      }
-    }
-
-    h2.level {
-      flex: none;
-      text-align: right;
-      margin: 0 0 0 var(--marginSize);
-      border: none;
-      input {
-        height: var(--titleHeight);
-        width: var(--titleHeight);
-        font-size: 28px;
-        line-height: var(--titleHeight);
+        padding: 0 0.5rem;
       }
     }
   }
@@ -208,6 +196,26 @@
     input, span.input {
       height: 20px;
       line-height: 20px;
+    }
+  }
+
+  /** Character Level */
+  a.level-up {
+    flex: 0 0 36px;
+    height: 36px;
+    margin: 0;
+    line-height: 36px;
+    font-size: var(--font-size-20);
+    font-weight: bold;
+    color: var(--color-text-hyperlink);
+  }
+  label.level {
+    flex: none;
+    font-size: var(--font-size-28);
+    input {
+      width: var(--titleHeight);
+      height: var(--titleHeight);
+      line-height: var(--titleHeight);
     }
   }
 

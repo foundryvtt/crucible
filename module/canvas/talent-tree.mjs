@@ -73,6 +73,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #initialize() {
 
+    // TODO Development mode
+    this.developmentMode = game.data.options.debug && game.user.isGM;
+
     // Create the HTML canvas element
     Object.defineProperty(this, "canvas", {value: document.createElement("canvas"), writable: false});
     this.canvas.id = "crucible-talent-tree";
@@ -238,7 +241,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const icons = CrucibleTalentTreeNode.NODE_TYPE_ICONS;
     config.texture = await loadTexture(icons[node.type] || icons.default);
     config.borderColor = node.color;
-    config.text = node.talents.size;
 
     // Create the Node icon
     const icon = node.icon = new CrucibleTalentTreeNode(node, config);
@@ -296,7 +298,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Toggle visibility of UI elements
     this.app.renderer.enabled = true;
     this.canvas.hidden = false;
-    canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
+    if ( this.developmentMode ) this.canvas.style.zIndex = 0;
+    else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
   }
 
   /* -------------------------------------------- */
@@ -337,7 +340,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
     for ( const node of CrucibleTalentNode.nodes.values() ) {
       if ( node.tier < 0 ) continue;
       const state = this.state.get(node);
-      node.icon?.draw({active: state === 2, accessible: state > 0});
+      let text = state === 2 ? node.talents.reduce((n, t) => n + this.actor.talentIds.has(t.id), 0) : "";
+      if ( this.developmentMode ) text = node.talents.size;
+      node.icon?.draw({state, text});
       if ( state === 2 ) this.#drawConnections(node, seen);
       seen.add(node);
     }
@@ -403,49 +408,39 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @returns {Map<CrucibleTalentNode, number>}
    */
   getActiveNodes() {
+    const states = CrucibleTalentNode.STATES;
     const state = this.state;
     const actor = this.actor;
     state.clear();
 
-    function isPurchased(node, actor) {
-      for ( const talent of node.talents ) {
-        if ( actor.talentIds.has(talent.id) ) return true;
-      }
-      return false;
-    }
-
-    function updateBatch(nodes) {
+    // Recursive testing function
+    function updateBatch(nodes, defaultState=states.UNLOCKED) {
       const next = [];
-      for ( const n of nodes ) {
-        if ( state.has(n) ) continue;
+      for ( const node of nodes ) {
+        if ( state.has(node) ) continue;
+        const s = node.getState(actor) ?? defaultState;
+        const twin = node.twinNode;
 
-        // Verify whether the node is accessible
-        const a = TalentData.testPrerequisites(actor, n.prerequisites);
-        const accessible = Object.values(a).every(r => r.met);
-        if ( !accessible ) {
-          state.set(n, 0);
-          continue;
-        }
+        // Record State
+        state.set(node, s);
+        if ( twin ) state.set(twin, s);
 
-        // Check whether a talent has been purchased
-        const p = isPurchased(n, actor);
-        const s = p ? 2 : 1;
-        state.set(n, s);
-
-        // If the node was accessible, add connected nodes to the next batch
-        if ( (n.id === "origin") || p ) next.push(...n.connected);
-
-        // Record twinned nodes
-        if ( n.twin ) {
-          const twin = CrucibleTalentNode.nodes.get(n.twin);
-          state.set(twin, s);
-          next.push(...twin.connected);
+        // Traverse Outwards
+        if ( (node.id === "origin") || (s > 0) ) {
+          next.push(...node.connected);
+          if ( twin ) next.push(...twin.connected);
         }
       }
+
+      // Recursively test
       if ( next.length ) updateBatch(next);
     }
 
-    updateBatch([CrucibleTalentNode.nodes.get("origin")]);
+    // Explore outwards from the origin node
+    updateBatch([CrucibleTalentNode.nodes.get("origin")], states.UNLOCKED);
+
+    // Specifically record the state of all signature nodes
+    updateBatch(CrucibleTalentNode.signature, states.LOCKED);
     return state;
   }
 

@@ -83,21 +83,25 @@
             <div class="header-content">
                 <div class="title flexrow">
                     <h1 class="charname">
-                        <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name"/>
+                        <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
                     </h1>
+                    {{#if incomplete.level}}
+                    <a class="button control level-up" data-action="levelUp" data-tooltip="{{incomplete.levelTooltip}}">
+                        <i class="fa-solid {{incomplete.levelIcon}}"></i>
+                    </a>
+                    {{/if}}
+                    {{#if showMilestones}}
                     <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
                         <div class="bar"><div class="fill" style="width:{{systemData.advancement.pct}}%"></div></div>
                         <input type="number" name="system.advancement.progress" value="{{systemData.advancement.progress}}"/>
                         <span class="slash"></span>
                         <span class="input">{{systemData.advancement.next}}</span>
                     </div>
-                    <h2 class="level" {{#if incomplete.level}}data-tooltip="{{incomplete.levelTooltip}}"{{/if}}>
-                        {{#if incomplete.level}}
-                        <i class="incomplete fas fa-exclamation-triangle"></i>
-                        {{/if}}
-                        <label>Level</label>
+                    {{/if}}
+                    <label class="level">
+                        Level
                         <input type="number" name="system.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
-                    </h2>
+                    </label>
                 </div>
 
                 <div class="subtitle flexrow">

@@ -171,7 +171,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
     type: "active",
-    tooltip: "(4 * (Level + Toughness)) + (2 * (Strength + Dexterity))",
+    tooltip: "[4 &times; (Level + Toughness)] + [2 &times; (Strength + Dexterity)]",
     color: {
       high: Color.from(0xEE0000),
       low: Color.from(0xAA0000),
@@ -183,7 +183,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Wounds",
     abbreviation: "ATTRIBUTES.Wounds",
     type: "reserve",
-    tooltip: "Health * 2",
+    tooltip: "Health &times; 2",
     color: {
       high: Color.from(0xEE0000),
       low: Color.from(0xAA0000),
@@ -195,7 +195,7 @@ export const RESOURCES = {
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
     type: "active",
-    tooltip: "(4 * (Level + Presence)) + (2 * (Intellect + Wisdom))",
+    tooltip: "[4 &times; (Level + Presence)] + [2 &times; (Intellect + Wisdom)]",
     color: {
       high: Color.from(0x9900CC),
       low: Color.from(0x6600AA),
@@ -206,7 +206,7 @@ export const RESOURCES = {
     id: "madness",
     label: "ATTRIBUTES.Madness",
     abbreviation: "ATTRIBUTES.Madness",
-    tooltip: "Morale * 2",
+    tooltip: "Morale &times; 2",
     type: "reserve",
     color: {
       high: Color.from(0x9900CC),
@@ -230,7 +230,7 @@ export const RESOURCES = {
     id: "focus",
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
-    tooltip: "(Level / 2) + Max(Wisdom, Presence, Intellect)",
+    tooltip: "(0.5 &times; Level) + Max(Wisdom, Presence, Intellect)",
     type: "active",
     color: {
       high: Color.from(0x0066FF),
