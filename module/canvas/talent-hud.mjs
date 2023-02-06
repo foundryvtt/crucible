@@ -56,9 +56,10 @@ export default class CrucibleTalentHUD extends Application {
     ];
     if ( state === states.BANNED ) tags.push({label: "Banned", class: "unmet"});
     else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
+    const reqs = TalentData.preparePrerequisites(node.requirements, {});
     return {
       tags,
-      prerequisites: TalentData.testPrerequisites(actor, node.prerequisites)
+      prerequisites: TalentData.testPrerequisites(actor, reqs)
     };
   }
 
