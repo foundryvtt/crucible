@@ -83,7 +83,7 @@ export default class HeroSheet extends ActorSheet {
     context.magicDefenses = this._formatMagicDefenses(this.actor.system.defenses);
 
     // Resistances
-    context.resistances = this._formatResistances(systemData.resistances);
+    context.resistances = this._formatResistances(this.actor.system.resistances);
 
     // Skills
     context.skillCategories = this._formatSkills(systemData.skills);
@@ -96,6 +96,9 @@ export default class HeroSheet extends ActorSheet {
     context.actions = Object.values(context.actor.actions).map(a => {
       return {id: a.id, name: a.name, img: a.img, tags: a.getTags().activation}
     });
+
+    // Spellcraft
+    context.grimoire = this._formatGrimoire();
 
     // HTML Biography
     context.biography = {};
@@ -165,20 +168,6 @@ export default class HeroSheet extends ActorSheet {
           label: "Backpack",
           items: []
         }
-      },
-      grimoire: {
-        runes: {
-          label: "Runes",
-          items: []
-        },
-        gestures: {
-          label: "Gestures",
-          items: []
-        },
-        metamagic: {
-          label: "Metamagic",
-          items: []
-        }
       }
     };
 
@@ -197,12 +186,13 @@ export default class HeroSheet extends ActorSheet {
         case "talent":
           d.tags = {};
           const action = i.actions.at(0);
+          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
           if ( action ) {
             const tags = action.getTags();
             d.tags = Object.assign({}, tags.action, tags.activation);
             sections.talents.active.items.push(d);
           }
-          else sections.talents.passive.items.push(d);
+          else if ( !spellComp ) sections.talents.passive.items.push(d);
           break;
       }
     }
@@ -218,6 +208,25 @@ export default class HeroSheet extends ActorSheet {
     return sections;
   }
 
+  /* -------------------------------------------- */
+
+  _formatGrimoire() {
+    const grimoire = {
+      runes: {
+        label: game.i18n.localize("SPELL.ComponentRune")
+      },
+      gestures: {
+        label: game.i18n.localize("SPELL.ComponentGesture")
+      },
+      inflections: {
+        label: game.i18n.localize("SPELL.ComponentInflection")
+      }
+    }
+    for ( const [k, v] of Object.entries(this.actor.grimoire) ) {
+      grimoire[k].known = v;
+    }
+    return grimoire;
+  }
   /* -------------------------------------------- */
 
   /**
@@ -299,12 +308,12 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _formatResistances(resistances) {
-    const categories = duplicate(SYSTEM.DAMAGE_CATEGORIES);
-    return Object.entries(duplicate(resistances)).reduce((categories, e) => {
+    const categories = foundry.utils.deepClone(SYSTEM.DAMAGE_CATEGORIES);
+    return Object.entries(resistances).reduce((categories, e) => {
 
       // Merge resistance data for rendering
       let [id, r] = e;
-      const resist = mergeObject(r, SYSTEM.DAMAGE_TYPES[id]);
+      const resist = foundry.utils.mergeObject(r, SYSTEM.DAMAGE_TYPES[id]);
 
       // Add the resistance to its category
       const cat = categories[resist.type];

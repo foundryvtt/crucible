@@ -1,6 +1,7 @@
 import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
+import * as SPELL from "./spellcraft.mjs";
 import * as TALENT from "./talent.mjs";
 import * as WEAPON from "./weapon.js";
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
@@ -72,81 +73,91 @@ export const COMPENDIUM_PACKS = {
 
 /**
  * Define the top level damage categories.
- * @type {object}
+ * @enum {{id: string, label: string}}
  */
-export const DAMAGE_CATEGORIES = {
-  "physical": {
-    label: "DAMAGE.Physical",
-    abbreviation: "DAMAGE.PhysicalAbr",
+export const DAMAGE_CATEGORIES = Object.freeze({
+  physical: {
+    id: "physical",
+    label: "DAMAGE.Physical"
   },
-  "elemental": {
-    label: "DAMAGE.Elemental",
-    abbreviation: "DAMAGE.ElementalAbr",
+  elemental: {
+    id: "elemental",
+    label: "DAMAGE.Elemental"
   },
-  "spiritual": {
-    label: "DAMAGE.Spiritual",
-    abbreviation: "DAMAGE.SpiritualAbr",
+  spiritual: {
+    id: "spiritual",
+    label: "DAMAGE.Spiritual"
   }
-};
+});
 
 /* -------------------------------------------- */
 
 /**
  * Define the individual damage types within each damage category.
- * @type {object}
+ * @enum {{id: string, label: string, type: string}}
  */
-export const DAMAGE_TYPES = {
-  "bludgeoning": {
+export const DAMAGE_TYPES = Object.freeze({
+  bludgeoning: {
+    id: "bludgeoning",
     label: "DAMAGE.Bludgeoning",
-    abbreviation: "DAMAGE.BludgeoningAbr",
     type: "physical"
   },
-  "piercing": {
+  piercing: {
+    id: "piercing",
     label: "DAMAGE.Piercing",
-    abbreviation: "DAMAGE.PiercingAbr",
     type: "physical"
   },
-  "slashing": {
+  slashing: {
+    id: "slashing",
     label: "DAMAGE.Slashing",
-    abbreviation: "DAMAGE.SlashingAbr",
     type: "physical"
   },
-  "acid": {
+  poison: {
+    id: "poison",
+    label: "DAMAGE.Poison",
+    type: "physical"
+  },
+  acid: {
+    id: "acid",
     label: "DAMAGE.Acid",
-    abbreviation: "DAMAGE.AcidAbr",
     type: "elemental"
   },
-  "fire": {
+  fire: {
+    id: "fire",
     label: "DAMAGE.Fire",
-    abbreviation: "DAMAGE.FireAbr",
     type: "elemental"
   },
-  "frost": {
+  frost: {
+    id: "frost",
     label: "DAMAGE.Frost",
-    abbreviation: "DAMAGE.FrostAbr",
     type: "elemental"
   },
-  "lightning": {
+  lightning: {
+    id: "lightning",
     label: "DAMAGE.Lightning",
-    abbreviation: "DAMAGE.LightningAbr",
     type: "elemental"
   },
-  "psychic": {
+  psychic: {
+    id: "psychic",
     label: "DAMAGE.Psychic",
-    abbreviation: "DAMAGE.PsychicAbr",
     type: "spiritual"
   },
-  "radiant": {
+  radiant: {
+    id: "radiant",
     label: "DAMAGE.Radiant",
-    abbreviation: "DAMAGE.RadiantAbr",
     type: "spiritual"
   },
-  "unholy": {
+  unholy: {
+    id: "unholy",
     label: "DAMAGE.Unholy",
-    abbreviation: "DAMAGE.UnholyAbr",
+    type: "spiritual"
+  },
+  void: {
+    id: "void",
+    label: "DAMAGE.Void",
     type: "spiritual"
   }
-};
+});
 
 
 /* -------------------------------------------- */
@@ -245,28 +256,6 @@ export const RESOURCES = {
 
 
 /**
- * Define the high level attribute categories tracked for each character
- * @type{object}
- */
-export const ATTRIBUTE_CATEGORIES = {
-  "abilities": {
-    label: "ATTRIBUTES.Abilities",
-    values: Object.keys(ABILITIES)
-  },
-  "pools": {
-    label: "ATTRIBUTES.Pools",
-    values: Object.keys(RESOURCES)
-  },
-  "resistances": {
-    label: "ATTRIBUTES.Resistances",
-    values: Object.keys(DAMAGE_TYPES)
-  }
-};
-
-/* -------------------------------------------- */
-
-
-/**
  * The magical defense saving throws which can be applied.
  * @type {object}
  */
@@ -314,7 +303,6 @@ export const SYSTEM = {
   dice: dice,
   ABILITIES,
   ANCESTRIES,
-  ATTRIBUTE_CATEGORIES,
   COMPENDIUM_PACKS,
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
@@ -326,6 +314,7 @@ export const SYSTEM = {
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,
+  SPELL,
   TALENT,
   WEAPON,
 };

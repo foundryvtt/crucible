@@ -408,6 +408,12 @@ export const ACTION_TAGS = {
  */
 export const DEFAULT_ACTIONS = [
   {
+    id: "cast",
+    name: "Cast Spell",
+    img: "icons/magic/air/air-smoke-casting.webp",
+    description: "Weave arcana to create a work of spellcraft."
+  },
+  {
     id: "move",
     name: "Move",
     img: "icons/skills/movement/arrow-upward-yellow.webp",

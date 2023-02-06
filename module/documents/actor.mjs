@@ -56,6 +56,12 @@ export default class CrucibleActor extends Actor {
   equipment = this.equipment;
 
   /**
+   * The spellcraft components known by this Actor
+   * @type {{runes: Set<CrucibleRune>, inflections: Set<CrucibleInflection>, gestures: Set<CrucibleGesture>}}
+   */
+  grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
+
+  /**
    * Track the progression points which are available and spent
    * @type {{
    *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
@@ -509,10 +515,25 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
     const points = this.points.talent;
+
+    // Clear grimoire
+    Object.values(this.grimoire).forEach(s => s.clear());
+
+    // Iterate over talents
     for ( const t of talent ) {
       this.talentIds.add(t.id);
       points.spent += 1; // TODO - every talent costs 1 for now
+
+      // Register spellcraft knowledge
+      if ( t.system.rune ) {
+        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[t.system.rune]);
+        if ( !this.grimoire.gestures.size ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
+      }
+      if ( t.system.gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[t.system.gesture]);
+      if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
     }
+
+    // Warn if the Actor does not have a legal build
     points.available = points.total - points.spent;
     if ( points.available < 0) {
       ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);

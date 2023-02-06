@@ -42,6 +42,9 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(ActionData)),
       requirements: new fields.ObjectField(),
+      rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
+      gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
+      inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
     }
   }
 

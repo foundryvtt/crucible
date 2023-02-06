@@ -140,6 +140,27 @@ Hooks.once("init", async function() {
 
 Hooks.once("i18nInit", function() {
 
+  // Apply localizations
+  const toLocalize = [
+    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES",
+    "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
+    "QUALITY_TIERS", "ENCHANTMENT_TIERS",
+    "SPELL.RUNES", "SPELL.GESTURES", "SPELL.INFLECTIONS",
+    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
+  ];
+  for ( let c of toLocalize ) {
+    const conf = foundry.utils.getProperty(SYSTEM, c);
+    for ( let [k, v] of Object.entries(conf) ) {
+      if ( v.label ) v.label = game.i18n.localize(v.label);
+      if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
+      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+    }
+    Object.freeze(c);
+  }
+
+  // Pre-localize translations
+  localizeSkillConfig(SYSTEM); // TODO: Make this cleaner
+
   // Pre-localize configuration objects
   preLocalizeConfig();
 
@@ -155,25 +176,6 @@ Hooks.once("i18nInit", function() {
 
 Hooks.once("setup", function() {
 
-  // Apply localizations
-  const toLocalize = [
-    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "ATTRIBUTE_CATEGORIES", "DAMAGE_CATEGORIES",
-    "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
-    "QUALITY_TIERS", "ENCHANTMENT_TIERS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
-  ];
-  for ( let c of toLocalize ) {
-    const conf = foundry.utils.getProperty(SYSTEM, c);
-    for ( let [k, v] of Object.entries(conf) ) {
-      if ( v.label ) v.label = game.i18n.localize(v.label);
-      if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
-      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
-    }
-    Object.freeze(c);
-  }
-
-  // Pre-localize translations
-  localizeSkillConfig(SYSTEM); // TODO: Make this cleaner
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();

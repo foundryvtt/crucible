@@ -12,7 +12,7 @@ export default class TalentSheet extends ItemSheet {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "talent"],
-      template: `systems/${SYSTEM.id}/templates/sheets/talent.html`,
+      template: `systems/${SYSTEM.id}/templates/sheets/talent.hbs`,
       tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}],
       resizable: false,
       submitOnChange: false,
@@ -45,7 +45,10 @@ export default class TalentSheet extends ItemSheet {
       tags: this.item.getTags(),
       actionsJSON: JSON.stringify(source.system.actions, null, 2),
       requirementsJSON: JSON.stringify(source.system.requirements, null, 2),
-      nodes: Object.fromEntries(nodeIds.map(id => [id, id]))
+      nodes: Object.fromEntries(nodeIds.map(id => [id, id])),
+      runes: SYSTEM.SPELL.RUNES,
+      gestures: SYSTEM.SPELL.GESTURES,
+      inflections: SYSTEM.SPELL.INFLECTIONS
     }
   }
 

@@ -2,7 +2,7 @@
   "name": "crucible",
   "title": "Crucible",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "author": "Atropos",
   "scripts": [],
   "esmodules": ["crucible.mjs"],

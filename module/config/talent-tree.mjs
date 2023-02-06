@@ -153,9 +153,18 @@ export default class CrucibleTalentNode {
       if ( !item.system.node ) continue;
       const node = CrucibleTalentNode.#nodes.get(item.system.node);
       if ( !node ) continue;
+
+      // Register Talents
       node.talents.add(item);
+
+      // Twinned Nodes
       const twin = node.twinNode;
       if ( twin ) twin.talents.add(item);
+
+      // Spellcraft Metadata
+      if ( item.system.rune ) CONFIG.SYSTEM.SPELL.RUNES[item.system.rune].img = item.img;
+      if ( item.system.gesture ) CONFIG.SYSTEM.SPELL.GESTURES[item.system.gesture].img = item.img;
+      if ( item.system.inflection ) CONFIG.SYSTEM.SPELL.INFLECTIONS[item.system.inflection].img = item.img;
     }
   }
 
@@ -505,7 +514,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "tou2c",
   abilities: ["toughness"],
-  type: "utility",
+  type: "magic",
   tier: 2,
   connected: ["tou1b", "tou2b"]
 });

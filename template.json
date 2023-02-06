@@ -130,6 +130,10 @@
             "base": 0,
             "bonus": 0
           },
+          "poison": {
+            "base": 0,
+            "bonus": 0
+          },
           "acid": {
             "base": 0,
             "bonus": 0
@@ -155,6 +159,10 @@
             "bonus": 0
           },
           "unholy": {
+            "base": 0,
+            "bonus": 0
+          },
+          "void": {
             "base": 0,
             "bonus": 0
           }

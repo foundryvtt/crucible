@@ -50,13 +50,15 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
         bludgeoning: defenseField(),
         piercing: defenseField(),
         slashing: defenseField(),
+        poison: defenseField(),
         acid: defenseField(),
         fire: defenseField(),
         frost: defenseField(),
         lightning: defenseField(),
         psychic: defenseField(),
         radiant: defenseField(),
-        unholy: defenseField()
+        unholy: defenseField(),
+        void: defenseField()
       }),
       details: new fields.SchemaField({
         archetype: new fields.SchemaField({
