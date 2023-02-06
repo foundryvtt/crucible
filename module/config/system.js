@@ -18,32 +18,32 @@ export const SYSTEM_ID = "crucible";
  *   wisdom: {label: string, abbreviation: string}
  * }}
  */
-export const ABILITIES = {
+export const ABILITIES = Object.freeze({
   strength: {
-    label: "Strength",
-    abbreviation: "Str"
+    label: "ABILITIES.Strength",
+    abbreviation: "ABILITIES.StrengthAbbr"
   },
   toughness: {
-    label: "Toughness",
-    abbreviation: "Tou"
+    label: "ABILITIES.Toughness",
+    abbreviation: "ABILITIES.ToughnessAbbr"
   },
   dexterity: {
-    label: "Dexterity",
-    abbreviation: "Dex"
+    label: "ABILITIES.Dexterity",
+    abbreviation: "ABILITIES.DexterityAbbr"
   },
   intellect: {
-    label: "Intellect",
-    abbreviation: "Int"
+    label: "ABILITIES.Intellect",
+    abbreviation: "ABILITIES.IntellectAbbr"
   },
   presence: {
-    label: "Presence",
-    abbreviation: "Pre"
+    label: "ABILITIES.Presence",
+    abbreviation: "ABILITIES.PresenceAbbr"
   },
   wisdom: {
-    label: "Wisdom",
-    abbreviation: "Wis"
+    label: "ABILITIES.Wisdom",
+    abbreviation: "ABILITIES.WisdomAbbr"
   }
-};
+});
 
 /* -------------------------------------------- */
 
@@ -163,7 +163,7 @@ export const DAMAGE_TYPES = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * @typedef {Object}  ActorResource       A resource pool available to an Actor within the system
+ * @typedef {Object}  CrucibleResource    A resource pool available to an Actor within the system
  * @property {string} id                  The resource id
  * @property {string} label               The localized full label for the resource
  * @property {string} abbreviation        The localized abbreviation for the resource
@@ -174,10 +174,10 @@ export const DAMAGE_TYPES = Object.freeze({
 
 /**
  * Define the resource pools which are tracked for each character
- * @enum {ActorResource}
+ * @enum {CrucibleResource}
  */
-export const RESOURCES = {
-  "health": {
+export const RESOURCES = Object.freeze({
+  health: {
     id: "health",
     label: "ATTRIBUTES.Health",
     abbreviation: "ATTRIBUTES.Health",
@@ -189,7 +189,7 @@ export const RESOURCES = {
       heal: Color.from(0x00EE00)
     },
   },
-  "wounds": {
+  wounds: {
     id: "wounds",
     label: "ATTRIBUTES.Wounds",
     abbreviation: "ATTRIBUTES.Wounds",
@@ -201,7 +201,7 @@ export const RESOURCES = {
       heal: Color.from(0x00EE00)
     },
   },
-  "morale": {
+  morale: {
     id: "morale",
     label: "ATTRIBUTES.Morale",
     abbreviation: "ATTRIBUTES.Morale",
@@ -213,7 +213,7 @@ export const RESOURCES = {
       heal: Color.from(0x9900CC)
     }
   },
-  "madness": {
+  madness: {
     id: "madness",
     label: "ATTRIBUTES.Madness",
     abbreviation: "ATTRIBUTES.Madness",
@@ -225,7 +225,7 @@ export const RESOURCES = {
       heal: Color.from(0x9900CC)
     }
   },
-  "action": {
+  action: {
     id: "action",
     label: "ATTRIBUTES.Action",
     abbreviation: "ATTRIBUTES.Action",
@@ -237,7 +237,7 @@ export const RESOURCES = {
       heal: Color.from(0xFF9900)
     }
   },
-  "focus": {
+  focus: {
     id: "focus",
     label: "ATTRIBUTES.Focus",
     abbreviation: "ATTRIBUTES.Focus",
@@ -249,7 +249,7 @@ export const RESOURCES = {
       heal: Color.from(0x0066FF)
     }
   }
-};
+});
 
 
 /* -------------------------------------------- */

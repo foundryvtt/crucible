@@ -9,6 +9,19 @@
 "TYPES.Item.talent": "Talent",
 "TYPES.Item.weapon": "Weapon",
 
+"ABILITIES.Strength": "Strength",
+"ABILITIES.StrengthAbbr": "Str",
+"ABILITIES.Toughness": "Toughness",
+"ABILITIES.ToughnessAbbr": "Tou",
+"ABILITIES.Dexterity": "Dexterity",
+"ABILITIES.DexterityAbbr": "Dex",
+"ABILITIES.Intellect": "Intellect",
+"ABILITIES.IntellectAbbr": "Int",
+"ABILITIES.Presence": "Presence",
+"ABILITIES.PresenceAbbr": "Pre",
+"ABILITIES.Wisdom": "Wisdom",
+"ABILITIES.WisdomAbbr": "Wis",
+
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
@@ -512,7 +525,6 @@
 "SKILLS.PerformanceAthlete3": "",
 "SKILLS.PerformanceAthlete5": "",
 
-
 "SPELL.ComponentRune": "Arcane Rune",
 "SPELL.ComponentGesture": "Somatic Gesture",
 "SPELL.ComponentInflection": "Metamagic Inflection",
@@ -522,10 +534,12 @@
 "SPELL.RuneEarth": "Earth",
 "SPELL.RuneFlame": "Flame",
 "SPELL.RuneFrost": "Frost",
+"SPELL.RuneKinesis": "Kinesis",
 "SPELL.RuneLife": "Life",
 "SPELL.RuneLightning": "Lightning",
 "SPELL.RuneMind": "Mind",
 "SPELL.RuneRadiance": "Radiance",
+"SPELL.RuneTime": "Time",
 "SPELL.RuneVoid": "Void",
 
 "SPELL.GestureArrow": "Arrow",
@@ -538,6 +552,11 @@
 "SPELL.GestureStrike": "Strike",
 "SPELL.GestureTouch": "Touch",
 "SPELL.GestureWard": "Ward",
+
+"SPELL.MetamagicExtend": "Extend",
+"SPELL.MetamagicNegate": "Negate",
+"SPELL.MetamagicPull": "Pull",
+"SPELL.MetamagicPush": "Push",
 
 "TALENT.NodeAttack": "Attack",
 "TALENT.NodeDefense": "Defense",

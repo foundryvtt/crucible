@@ -19,6 +19,9 @@ import ArmorData from "./module/data/armor.mjs";
 import BackgroundData from "./module/data/background.mjs";
 import TalentData from "./module/data/talent.mjs";
 import WeaponData from "./module/data/weapon.mjs";
+import CrucibleGesture from "./module/data/gesture.mjs";
+import CrucibleInflection from "./module/data/inflection.mjs";
+import CrucibleRune from "./module/data/rune.mjs";
 
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
@@ -73,6 +76,9 @@ Hooks.once("init", async function() {
       AncestryData,
       ArmorData,
       BackgroundData,
+      CrucibleGesture,
+      CrucibleInflection,
+      CrucibleRune,
       TalentData,
       WeaponData
     },
@@ -145,7 +151,6 @@ Hooks.once("i18nInit", function() {
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES",
     "RESOURCES", "SAVE_DEFENSES", "SKILL_CATEGORIES", "SKILL_RANKS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
-    "SPELL.RUNES", "SPELL.GESTURES", "SPELL.INFLECTIONS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
   for ( let c of toLocalize ) {
@@ -155,7 +160,6 @@ Hooks.once("i18nInit", function() {
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
       if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
     }
-    Object.freeze(c);
   }
 
   // Pre-localize translations
@@ -163,6 +167,11 @@ Hooks.once("i18nInit", function() {
 
   // Pre-localize configuration objects
   preLocalizeConfig();
+
+  // Initialize Spellcraft Components
+  CrucibleGesture.initialize();
+  CrucibleInflection.initialize();
+  CrucibleRune.initialize();
 
   // Preload Handlebars Templates
   loadTemplates([

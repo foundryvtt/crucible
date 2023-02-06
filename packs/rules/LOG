@@ -1,3 +1,7 @@
-2023/02/05-22:42:39.996 1f944 Recovering log #52
-2023/02/05-22:42:40.000 1f944 Delete type=0 #52
-2023/02/05-22:42:40.000 1f944 Delete type=3 #50
+2023/02/06-11:19:26.969 4418 Recovering log #55
+2023/02/06-11:19:26.973 4418 Delete type=0 #55
+2023/02/06-11:19:26.973 4418 Delete type=3 #54
+2023/02/06-12:52:09.791 ddf8 Level-0 table #59: started
+2023/02/06-12:52:09.791 ddf8 Level-0 table #59: 0 bytes OK
+2023/02/06-12:52:09.792 ddf8 Delete type=0 #57
+2023/02/06-12:52:09.794 ddf8 Manual compaction at level-0 from 'undefined' @ 72057594037927935 : 1 .. 'undefined' @ 0 : 0; will stop at (end)

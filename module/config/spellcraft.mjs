@@ -1,215 +1,293 @@
-
-export class CrucibleRune {
-  constructor(config={}) {
-    const attrs = Object.fromEntries(Object.entries(config).map(([k, v]) => {
-      return [k, {value: v, writable: k === "label", enumerable: true}];
-    }));
-    Object.defineProperties(this, attrs);
-  }
-
-  /**
-   * The icon used for this rune. Defined by the Talent which provides it.
-   * @type {string}
-   */
-  img;
-
-  /**
-   * Tags used to annotate this Gesture.
-   * @returns {string[]}
-   */
-  get tags() {
-    const tags = [];
-
-    // Affected Resource
-    const resource = CONFIG.SYSTEM.RESOURCES[this.resource]
-    tags.push(resource.label);
-
-    // Damage Type
-    if ( this.damageType ) {
-      const dt = CONFIG.SYSTEM.DAMAGE_TYPES[this.damageType];
-      tags.push(`${dt.label} Damage`);
-    }
-
-    // Restoration
-    if ( this.restoration ) {
-      tags.push("Restoration");
-    }
-
-    // Opposition
-    const op = RUNES[this.opposed];
-    tags.push(`Opposed ${op.label}`);
-    return tags;
-  }
-}
-
 /**
- * The Runes which exist in the Crucible spellcraft system.
+ * The Arcane Runes which exist in the Crucible spellcraft system.
+ * These config objects are instantiated as CrucibleRune instances during system initialization.
  * @enum {CrucibleRune}
  */
-export const RUNES = Object.freeze({
-  courage: new CrucibleRune({
+export const RUNES = Object.seal({
+  courage: {
     id: "courage",
-    label: "SPELL.RuneCourage",
+    name: "SPELL.RuneCourage",
     resource: "morale",
     restoration: true,
-    opposed: "mind"
-  }),
-  death: new CrucibleRune({
+    opposed: "mind",
+    save: "willpower",
+    scaling: "presence"
+  },
+  death: {
     id: "death",
-    label: "SPELL.RuneDeath",
+    name: "SPELL.RuneDeath",
     resource: "health",
     damageType: "unholy",
-    opposed: "life"
-  }),
-  earth: new CrucibleRune({
+    opposed: "life",
+    save: "fortitude",
+    scaling: "wisdom"
+  },
+  earth: {
     id: "earth",
-    label: "SPELL.RuneEarth",
+    name: "SPELL.RuneEarth",
     resource: "health",
     damageType: "acid",
-    opposed: "lightning"
-  }),
-  flame: new CrucibleRune({
+    opposed: "lightning",
+    save: "reflex",
+    scaling: "intellect"
+  },
+  flame: {
     id: "flame",
-    label: "SPELL.RuneFlame",
+    name: "SPELL.RuneFlame",
     resource: "health",
     damageType: "fire",
-    opposed: "frost"
-  }),
-  frost: new CrucibleRune({
+    opposed: "frost",
+    save: "reflex",
+    scaling: "intellect"
+  },
+  frost: {
     id: "frost",
-    label: "SPELL.RuneFrost",
+    name: "SPELL.RuneFrost",
     resource: "health",
     damageType: "frost",
-    opposed: "flame"
-  }),
-  life: new CrucibleRune({
+    opposed: "flame",
+    save: "fortitude",
+    scaling: "intellect"
+  },
+  kinesis: {
+    id: "kinesis",
+    name: "SPELL.RuneKinesis",
+    resource: "health",
+    opposed: "time",
+    save: "reflex",
+    scaling: "presence"
+  },
+  life: {
     id: "life",
-    label: "SPELL.RuneLife",
+    name: "SPELL.RuneLife",
     resource: "health",
     restoration: true,
-    opposed: "death"
-  }),
-  lightning: new CrucibleRune({
+    opposed: "death",
+    save: "fortitude",
+    scaling: "wisdom"
+  },
+  lightning: {
     id: "lightning",
-    label: "SPELL.RuneLightning",
+    name: "SPELL.RuneLightning",
     resource: "health",
     damageType: "lightning",
-    opposed: "earth"
-  }),
-  mind: new CrucibleRune({
+    opposed: "earth",
+    save: "reflex",
+    scaling: "intellect"
+  },
+  mind: {
     id: "mind",
-    label: "SPELL.RuneMind",
+    name: "SPELL.RuneMind",
     resource: "morale",
     damageType: "psychic",
-    opposed: "courage"
-  }),
-  radiance: new CrucibleRune({
+    opposed: "courage",
+    save: "willpower",
+    scaling: "presence"
+  },
+  radiance: {
     id: "radiance",
-    label: "SPELL.RuneRadiance",
+    name: "SPELL.RuneRadiance",
     resource: "health",
     damageType: "radiant",
-    opposed: "void"
-  }),
-  void: new CrucibleRune({
+    opposed: "void",
+    save: "willpower",
+    scaling: "wisdom"
+  },
+  time: {
+    id: "time",
+    name: "SPELL.RuneTime",
+    resource: "morale",
+    opposed: "kinesis",
+    save: "willpower",
+    scaling: "presence"
+  },
+  void: {
     id: "void",
-    label: "SPELL.RuneVoid",
+    name: "SPELL.RuneVoid",
     resource: "morale",
     damageType: "void",
-    opposed: "radiance"
-  }),
+    opposed: "radiance",
+    save: "willpower",
+    scaling: "wisdom"
+  },
 });
 
-
-export class CrucibleGesture {
-  constructor(config={}) {
-    const attrs = Object.fromEntries(Object.entries(config).map(([k, v]) => {
-      return [k, {value: v, writable: k === "label", enumerable: true}];
-    }));
-    Object.defineProperties(this, attrs);
-  }
-
-  /**
-   * The icon used for this rune. Defined by the Talent which provides it.
-   * @type {string}
-   */
-  img;
-}
-
-export const GESTURES = {
-  arrow: new CrucibleGesture({
+/**
+ * The Somatic Gestures which exist in the Crucible spellcraft system.
+ * These config objects are instantiated as CrucibleGesture instances during system initialization.
+ * @enum {CrucibleGesture}
+ */
+export const GESTURES = Object.seal({
+  arrow: {
     id: "arrow",
-    label: "SPELL.GestureArrow"
-  }),
-  aspect: new CrucibleGesture({
+    name: "SPELL.GestureArrow",
+    cost: {
+      action: 1,
+      focus: 0
+    },
+    damage: {
+      base: 6
+    },
+    scaling: "intellect",
+    tier: 1
+  },
+  aspect: {
     id: "aspect",
-    label: "SPELL.GestureAspect"
-  }),
-  create: new CrucibleGesture({
+    name: "SPELL.GestureAspect",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 2
+    },
+    scaling: "wisdom",
+    tier: 1
+  },
+  create: {
     id: "create",
-    label: "SPELL.GestureCreate"
-  }),
-  fan: new CrucibleGesture({
+    name: "SPELL.GestureCreate",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 2
+    },
+    scaling: "wisdom",
+    tier: 1
+  },
+  fan: {
     id: "fan",
-    label: "SPELL.GestureFan"
-  }),
-  influence: new CrucibleGesture({
+    name: "SPELL.GestureFan",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 4
+    },
+    scaling: "intellect",
+    tier: 1
+  },
+  influence: {
     id: "influence",
-    label: "SPELL.GestureInfluence"
-  }),
-  ray: new CrucibleGesture({
+    name: "SPELL.GestureInfluence",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 8
+    },
+    scaling: "wisdom",
+    tier: 1
+  },
+  ray: {
     id: "ray",
-    label: "SPELL.GestureRay"
-  }),
-  step: new CrucibleGesture({
+    name: "SPELL.GestureRay",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 4
+    },
+    scaling: "intellect",
+    tier: 1
+  },
+  step: {
     id: "step",
-    label: "SPELL.GestureStep"
-  }),
-  strike: new CrucibleGesture({
+    name: "SPELL.GestureStep",
+    cost: {
+      action: 1,
+      focus: 1
+    },
+    damage: {
+      base: 2
+    },
+    scaling: "dexterity",
+    tier: 1
+  },
+  strike: {
     id: "strike",
-    label: "SPELL.GestureStrike"
-  }),
-  touch: new CrucibleGesture({
+    name: "SPELL.GestureStrike",
+    cost: {
+      action: 1,
+      focus: 0
+    },
+    damage: {
+      base: 6
+    },
+    scaling: "strength",
+    tier: 1
+  },
+  touch: {
     id: "touch",
-    label: "SPELL.GestureTouch",
-    img: "icons/magic/light/hand-sparks-smoke-teal.webp"
-  }),
-  ward: new CrucibleGesture({
+    name: "SPELL.GestureTouch",
+    img: "icons/magic/light/hand-sparks-smoke-teal.webp",
+    cost: {
+      action: 1,
+      focus: 0
+    },
+    damage: {
+      base: 4
+    },
+    scaling: "dexterity",
+    tier: 1
+  },
+  ward: {
     id: "ward",
-    label: "SPELL.GestureWard"
-  })
-}
-
-
-export class CrucibleInflection {
-  constructor(config={}) {
-    const attrs = Object.fromEntries(Object.entries(config).map(([k, v]) => {
-      return [k, {value: v, writable: k === "label", enumerable: true}];
-    }));
-    Object.defineProperties(this, attrs);
+    name: "SPELL.GestureWard",
+    cost: {
+      action: 1,
+      focus: 1
+    },
+    damage: {
+      base: 6
+    },
+    scaling: "toughness",
+    tier: 1
   }
+});
 
-  /**
-   * The icon used for this rune. Defined by the Talent which provides it.
-   * @type {string}
-   */
-  img;
-}
-
-export const INFLECTIONS = {
-  extend: new CrucibleInflection({
+/**
+ * The Metamagic Inflections which exist in the Crucible spellcraft system.
+ * These config objects are instantiated as CrucibleInflection instances during system initialization.
+ * @enum {CrucibleInflection}
+ */
+export const INFLECTIONS = Object.seal({
+  extend: {
     id: "extend",
-    label: "Extend"
-  }),
-  negate: new CrucibleInflection({
+    name: "SPELL.MetamagicExtend",
+    cost: {
+      action: 1,
+      focus: 1
+    },
+    tier: 1
+  },
+  negate: {
     id: "negate",
-    label: "Negate"
-  }),
-  pull: new CrucibleInflection({
+    name: "SPELL.MetamagicNegate",
+    cost: {
+      focus: 1
+    },
+    tier: 1
+  },
+  pull: {
     id: "pull",
-    label: "Pull"
-  }),
-  push: new CrucibleInflection({
+    name: "SPELL.MetamagicPull",
+    cost: {
+      focus: 1
+    },
+    tier: 1
+  },
+  push: {
     id: "push",
-    label: "Push"
-  }),
-}
+    name: "SPELL.MetamagicPush",
+    cost: {
+      focus: 1
+    },
+    tier: 1
+  }
+});
