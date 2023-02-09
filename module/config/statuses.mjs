@@ -60,4 +60,9 @@ export const statusEffects = [
     label: "EFFECT.StatusInvisible",
     icon: "icons/svg/invisible.svg"
   },
+  {
+    id: "resolute",
+    label: "EFFECT.StatusResolute",
+    icon: "icons/svg/holy-shield.svg"
+  }
 ]

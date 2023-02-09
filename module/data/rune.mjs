@@ -10,6 +10,7 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
+      damageType: new fields.StringField({choices: SYSTEM.DAMAGE_TYPES, required: false, initial: undefined}),
       resource: new fields.StringField({choices: SYSTEM.RESOURCES, initial: "health"}),
       restoration: new fields.BooleanField({initial: false}),
       opposed: new fields.StringField({required: true, blank: false}),

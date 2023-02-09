@@ -59,7 +59,7 @@ export default class CrucibleActor extends Actor {
    * The spellcraft components known by this Actor
    * @type {{runes: Set<CrucibleRune>, inflections: Set<CrucibleInflection>, gestures: Set<CrucibleGesture>}}
    */
-  grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
+  grimoire = this.grimoire;
 
   /**
    * Track the progression points which are available and spent
@@ -514,10 +514,8 @@ export default class CrucibleActor extends Actor {
    */
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
+    this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
     const points = this.points.talent;
-
-    // Clear grimoire
-    Object.values(this.grimoire).forEach(s => s.clear());
 
     // Iterate over talents
     for ( const t of talent ) {
@@ -573,6 +571,11 @@ export default class CrucibleActor extends Actor {
       defenses.parry.bonus += Math.ceil(attributes.wisdom.value / 2);
     }
 
+    // Unarmed Blocking
+    if ( this.talentIds.has("unarmedblocking0") && this.equipment.weapons.unarmed ) {
+      defenses.block.bonus += Math.ceil(attributes.toughness.value / 2);
+    }
+
     // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];
     defenses["physical"] = 0;
@@ -590,10 +593,26 @@ export default class CrucibleActor extends Actor {
     }
 
     // Damage Resistances
+    this._prepareResistances();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived resistance data for the Actor.
+   * @private
+   */
+  _prepareResistances() {
     const ancestry = this.system.details.ancestry;
+    const hasRunewarden = this.talentIds.has("runewarden000000");
     for ( let [id, r] of Object.entries(this.system.resistances) ) {
+
+      // Ancestry Resistances
       if ( id === ancestry.resistance ) r.base = SYSTEM.ANCESTRIES.resistanceAmount;
       else if ( id === ancestry.vulnerability ) r.base = -SYSTEM.ANCESTRIES.resistanceAmount;
+
+      // Runewarden
+      if ( hasRunewarden && this.grimoire.runes.find(r => r.damageType === id) ) r.base += 5;
       r.total = r.base + r.bonus;
     }
   }

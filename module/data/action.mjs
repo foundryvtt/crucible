@@ -19,20 +19,28 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  */
 
 /**
+ * @typedef {Object} ActionTarget
+ * @property {string} type                  The type of target for the action in ACTION_TARGET_TYPES
+ * @property {number} number                The number of targets affected or size of target template
+ * @property {number} distance              The allowed distance between the actor and the target(s)
+ * @property {number} scope                 The scope of creatures affected by an action
+ */
+
+/**
+ * @typedef {Object} ActionCost
+ * @property {number} action                The cost in action points
+ * @property {number} focus                 The cost in focus points
+ */
+
+/**
  * The data schema used for an Action within a talent Item
- *
  * @property {string} id                    The action identifier
  * @property {string} name                  The action name
  * @property {string} img                   An image for the action
  * @property {string} condition             An optional condition which must be met in order for the action to be used
  * @property {string} description           Text description of the action
- * @property {string} targetType            The type of target for the action in ACTION_TARGET_TYPES
- * @property {number} targetNumber          The number of targets affected or size of target template
- * @property {number} targetDistance        The allowed distance between the actor and the target(s)
- * @property {number} actionCost            The action point cost of this action
- * @property {number} focusCost             The focus point cost of this action
- * @property {boolean} affectAllies         Does this action affect allies within its area of effect?
- * @property {boolean} affectEnemies        Does this action affect enemies within its area of effect?
+ * @property {ActionTarget} target          Target data for the action
+ * @property {ActionCost} cost              Cost data for the action
  * @property {Set<string>} tags             A set of tags in ACTION_TAGS which apply to this action
  *
  * @property {ActionContext} context        Additional context which defines how the action is being used
@@ -49,23 +57,45 @@ export default class ActionData extends foundry.abstract.DataModel {
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       condition: new fields.StringField(),
       description: new fields.StringField(),
-      targetType: new fields.StringField({required: true, choices: TALENT.ACTION_TARGET_TYPES, initial: "single"}),
-      targetNumber: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-      targetDistance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+      duration: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
       }),
-      affectAllies: new fields.BooleanField(),
-      affectEnemies: new fields.BooleanField({initial: true}),
+      target: new fields.SchemaField({
+        type: new fields.StringField({required: true, choices: TALENT.ACTION_TARGET_TYPES, initial: "single"}),
+        number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+        distance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+        scope: new fields.NumberField({required: true, choices: Object.values(ActionData.TARGET_SCOPES),
+          initial: ActionData.TARGET_SCOPES.NONE})
+      }),
+      effects: new fields.ArrayField(new fields.SchemaField({
+        scope: new fields.NumberField({required: true, choices: Object.values(ActionData.TARGET_SCOPES)}),
+        effect: new fields.ObjectField()
+      })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     }
   }
 
   /**
+   * The scope of creatures affected by an action.
+   * @enum {number}
+   */
+  static TARGET_SCOPES = Object.freeze({
+    NONE: 0,
+    SELF: 1,
+    ALLIES: 2,
+    ENEMIES: 3,
+    ALL: 4
+  });
+
+  /**
    * Is this Action owned and prepared for a specific Actor?
    * @type {CrucibleActor}
    */
+  get actor() {
+    return this.#actor;
+  }
   #actor;
 
   /* -------------------------------------------- */
@@ -127,9 +157,9 @@ export default class ActionData extends foundry.abstract.DataModel {
     }
 
     // Target
-    if ( this.targetType !== "none" ) {
-      let target = TALENT.ACTION_TARGET_TYPES[this.targetType].label;
-      if ( this.targetNumber > 1 ) target += ` ${this.targetNumber}`;
+    if ( this.target.type !== "none" ) {
+      let target = TALENT.ACTION_TARGET_TYPES[this.target.type].label;
+      if ( this.target.number > 1 ) target += ` ${this.target.number}`;
       tags.activation.target = target;
     }
 
@@ -142,6 +172,9 @@ export default class ActionData extends foundry.abstract.DataModel {
       if ( this.focusCost !== 0 ) tags.activation.fp = `${this.focusCost}F`;
     }
     if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
+
+    // Duration
+    if ( this.duration ) tags.action.duration = `${this.duration}R`;
     return tags;
   }
 
@@ -167,7 +200,7 @@ export default class ActionData extends foundry.abstract.DataModel {
       actor: actor,
       activationTags: tags.activation,
       actionTags: tags.action,
-      showTargets: this.targetType !== "self",
+      showTargets: this.target.type !== "self",
       targets: targets
     });
 
@@ -179,12 +212,68 @@ export default class ActionData extends foundry.abstract.DataModel {
       rolls: rolls,
       flags: {
         crucible: {
+          action: this.id,
           isAttack: rolls.length,
           targets: targets
         }
       }
     }
     return ChatMessage.create(messageData, messageOptions);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply the effects caused by an Action to targeted Actors when the result is confirmed.
+   * @param {CrucibleActor[]} targets       The targeted actors
+   * @returns {ActiveEffect[]}              An array of created Active Effects
+   */
+  async confirmEffects(targets) {
+    const scopes = ActionData.TARGET_SCOPES;
+    const effects = [];
+    for ( const {scope, effect} of this.effects ) {
+      switch ( scope ) {
+        case scopes.NONE:
+          continue;
+        case scopes.SELF:
+          effects.push(await this.#createEffect(effect, this.actor));
+          break;
+        default:
+          for ( const target of targets ) effects.push(await this.#createEffect(effect, target));
+          break;
+      }
+    }
+    return effects;
+  }
+
+  /* -------------------------------------------- */
+
+  async #createEffect(effectData, target) {
+    return ActiveEffect.create(foundry.utils.mergeObject({
+      label: this.name,
+      description: this.description,
+      icon: this.img,
+      origin: this.actor.uuid,
+      flags: {
+        crucible: {
+          action: this.id
+        }
+      }
+    }, effectData), {parent: target});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reverse applied effects.
+   * @param {string[]} effects      An array of active effect UUIDs
+   * @returns {Promise<void>}
+   */
+  async reverseEffects(effects) {
+    for ( const uuid of effects ) {
+      const effect = fromUuidSync(uuid);
+      if ( effect ) await effect.delete();
+    }
   }
 
   /* -------------------------------------------- */
@@ -268,7 +357,7 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Iterate over every designated target
     let results = [];
-    if ( action.targetType === "none" ) targets = [null];
+    if ( action.target.type === "none" ) targets = [null];
     for ( let target of targets ) {
       const rolls = await this.#evaluateAction(actor, action, target);
       await action.toMessage(actor, target ? [target] : [], rolls, {rollMode});
@@ -332,7 +421,7 @@ export default class ActionData extends foundry.abstract.DataModel {
         name: t.name
       }
     };
-    switch ( this.targetType ) {
+    switch ( this.target.type ) {
 
       // No target
       case "none":
@@ -343,7 +432,7 @@ export default class ActionData extends foundry.abstract.DataModel {
         const actorTokens = actor.getActiveTokens(true);
         if ( !actorTokens.length ) return [];
         const origin = actorTokens[0];
-        const r = this.targetDistance * canvas.dimensions.size;
+        const r = this.target.distance * canvas.dimensions.size;
         const rect = new NormalizedRectangle(origin.data.x - r, origin.data.y - r, origin.w + (2*r), origin.h + (2*r));
         return canvas.tokens.placeables.reduce((arr, t) => {
           const c = t.center;
@@ -359,21 +448,21 @@ export default class ActionData extends foundry.abstract.DataModel {
       case "single":
         if ( userTargets.size < 1 ) {
           throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
-            number: this.targetNumber,
-            type: this.targetType,
+            number: this.target.number,
+            type: this.target.type,
             action: this.name
           }));
         }
-        else if ( userTargets.size > this.targetNumber ) {
+        else if ( userTargets.size > this.target.number ) {
           throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
-            number: this.targetNumber,
-            type: this.targetType,
+            number: this.target.number,
+            type: this.target.type,
             action: this.name
           }));
         }
         return Array.from(userTargets).map(mapTokenTargets);
       default:
-        ui.notifications.warn(`Automation for target type ${this.targetType} for action ${this.name} is not yet supported, you must manually target affected tokens.`);
+        ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not yet supported, you must manually target affected tokens.`);
         return Array.from(userTargets).map(mapTokenTargets);
     }
   }
@@ -387,5 +476,25 @@ export default class ActionData extends foundry.abstract.DataModel {
    */
   static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
     return Math.max((overflow * multiplier) + base + bonus - resistance, 1);
+  }
+
+  /* -------------------------------------------- */
+  /*  Migration and Compatibility                 */
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  static migrateData(data) {
+
+    // Migrate target data
+    data.target.type = data.targetType;
+    data.target.number = data.targetNumber;
+    data.target.distance = data.targetDistance;
+
+    // Affect
+    if ( data.affectAllies && data.affectEnemies ) data.target.scope = this.TARGET_SCOPES.ALL;
+    else if ( data.affectEnemies ) data.target.scope = this.TARGET_SCOPES.ENEMIES;
+    else if ( data.affectAllies ) data.target.scope = this.TARGET_SCOPES.ALLIES;
+    else if ( data.target.type === "self" ) data.target.scope = this.TARGET_SCOPES.SELF;
+    else data.target.scope = this.TARGET_SCOPES.NONE;
   }
 }

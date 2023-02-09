@@ -13,6 +13,7 @@ export default class CrucibleTalentNode {
 
     // Create a Ray
     const r = Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier+1));
+    this.#sortAbilities(abilities);
     Object.defineProperties(this, {
       id: {value: id, writable: false, enumerable: true},
       tier: {value: tier, writable: false, enumerable: true},
@@ -44,6 +45,11 @@ export default class CrucibleTalentNode {
     // Register node
     CrucibleTalentNode.#nodes.set(id, this);
     if ( this.type === "signature" ) CrucibleTalentNode.#signature.add(this);
+  }
+
+  #sortAbilities(abilities) {
+    const order = Object.keys(CrucibleTalentNode.ABILITY_COLORS);
+    abilities.sort((a, b) => order.indexOf(b) - order.indexOf(a));
   }
 
   static #counters = {};
@@ -173,7 +179,9 @@ export default class CrucibleTalentNode {
   /* -------------------------------------------- */
 
   /**
-   * Test whether a node belongs to a certain special state
+   * Test whether a node belongs to a certain special state.
+   * This method only verifies node state independent of other nodes.
+   * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
    * @returns {CrucibleTalentNode.STATES}
    */
@@ -181,7 +189,7 @@ export default class CrucibleTalentNode {
     if ( this.isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
     if ( this.isBanned(actor) ) return CrucibleTalentNode.STATES.BANNED;
     const accessible = Object.values(TalentData.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
-    return accessible ? CrucibleTalentNode.STATES.UNLOCKED : CrucibleTalentNode.STATES.LOCKED;
+    if ( !accessible ) return CrucibleTalentNode.STATES.LOCKED;
   }
 
   /* -------------------------------------------- */
@@ -196,7 +204,9 @@ export default class CrucibleTalentNode {
       if ( c.isPurchased(actor) ) return true;
     }
     if ( this.twin ) {
-      if ( this.twinNode.isPurchased(actor) ) return true;
+      for ( const c of this.twinNode.connected ) {
+        if ( c.isPurchased(actor) ) return true;
+      }
     }
     return false;
   }

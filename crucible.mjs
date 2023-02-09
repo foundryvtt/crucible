@@ -137,6 +137,7 @@ Hooks.once("init", async function() {
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;
+  CONFIG.specialStatusEffects.BLIND = "blinded";
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

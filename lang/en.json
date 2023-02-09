@@ -179,14 +179,15 @@
 "DICE.DamageBase": "Base Damage",
 "DICE.DamageBonus": "Action Bonus",
 "DICE.DamageResistance": "Damage Resistance",
-"DICE.ApplyDamage": "Apply Damage",
-"DICE.ReverseDamage": "Reverse Damage",
+"DICE.Confirm": "Confirm",
+"DICE.Reverse": "Reverse",
 "DICE.SetDifficulty": "Set Difficulty",
 
 "EFFECT.StatusBroken": "Broken",
 "EFFECT.StatusEnraged": "Enraged",
 "EFFECT.StatusIncapacitated": "Incapacitated",
 "EFFECT.StatusInsane": "Insane",
+"EFFECT.StatusResolute": "Resolute",
 
 "ITEM.Broken": "Broken",
 

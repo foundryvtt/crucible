@@ -1,15 +1,15 @@
-2023/02/06-11:19:26.968 3d98 Recovering log #59
-2023/02/06-11:19:26.973 3d98 Delete type=0 #59
-2023/02/06-11:19:26.973 3d98 Delete type=3 #58
-2023/02/06-12:52:09.785 ddf8 Level-0 table #63: started
-2023/02/06-12:52:09.786 ddf8 Level-0 table #63: 1568 bytes OK
-2023/02/06-12:52:09.787 ddf8 Delete type=0 #61
-2023/02/06-12:52:09.787 ddf8 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/02/06-12:52:09.787 ddf8 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!runetime00000000' @ 139 : 1
-2023/02/06-12:52:09.787 ddf8 Compacting 1@1 + 1@2 files
-2023/02/06-12:52:09.789 ddf8 Generated table #64@1: 102 keys, 39372 bytes
-2023/02/06-12:52:09.790 ddf8 Compacted 1@1 + 1@2 files => 39372 bytes
-2023/02/06-12:52:09.790 ddf8 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/02/06-12:52:09.790 ddf8 Delete type=2 #57
-2023/02/06-12:52:09.791 ddf8 Delete type=2 #63
-2023/02/06-12:52:09.794 ddf8 Manual compaction at level-1 from '!items!runetime00000000' @ 139 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/08-21:11:46.065 21ed0 Recovering log #83
+2023/02/08-21:11:46.069 21ed0 Delete type=0 #83
+2023/02/08-21:11:46.069 21ed0 Delete type=3 #82
+2023/02/08-22:16:39.385 25428 Level-0 table #87: started
+2023/02/08-22:16:39.386 25428 Level-0 table #87: 1233 bytes OK
+2023/02/08-22:16:39.387 25428 Delete type=0 #85
+2023/02/08-22:16:39.387 25428 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/08-22:16:39.387 25428 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!dirtytricks00000' @ 155 : 1
+2023/02/08-22:16:39.387 25428 Compacting 1@1 + 1@2 files
+2023/02/08-22:16:39.392 25428 Generated table #88@1: 108 keys, 42818 bytes
+2023/02/08-22:16:39.392 25428 Compacted 1@1 + 1@2 files => 42818 bytes
+2023/02/08-22:16:39.393 25428 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/02/08-22:16:39.394 25428 Delete type=2 #71
+2023/02/08-22:16:39.394 25428 Delete type=2 #87
+2023/02/08-22:16:39.396 25428 Manual compaction at level-1 from '!items!dirtytricks00000' @ 155 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

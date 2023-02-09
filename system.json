@@ -65,7 +65,5 @@
   "socket": true,
   "primaryTokenAttribute": "attributes.wounds",
   "secondaryTokenAttribute": "attributes.stress",
-  "url": "https://gitlab.com/foundrynet/crucible",
-  "manifest": "https://gitlab.com/foundrynet/crucible/raw/master/system.json",
-  "download": "https://gitlab.com/foundrynet/crucible/-/archive/master/crucible-master.zip"
+  "url": "https://gitlab.com/foundrynet/crucible"
 }

@@ -31,51 +31,87 @@ export function addChatMessageContextOptions(html, options)  {
 
   // Apply damage for attack rolls
   options.push({
-    name: game.i18n.localize("DICE.ApplyDamage"),
+    name: game.i18n.localize("DICE.Confirm"),
     icon: '<i class="fas fa-first-aid"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return flags.isAttack && !flags.damageApplied && message.rolls.some(r => r.data.damage?.total);
+      return flags.isAttack && !flags.confirmed && message.rolls.some(r => r.data.damage?.total);
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
-      for ( let t of targets ) {
+      const flags = message.flags.crucible || {};
+      const flagsUpdate = {confirmed: true};
 
-        // Get target actor
-        const target = await fromUuid(t.uuid);
+      // Get the Actor and the Action
+      const actor = ChatMessage.getSpeakerActor(message.speaker);
+      const action = actor.actions[flags.action] || null;
+
+      // Get targets
+      const targets = [];
+      for ( let targetId of flags.targets || [] ) {
+        const target = await fromUuid(targetId.uuid);
         if ( !target ) continue;
         const actor = target instanceof TokenDocument ? target.actor : target;
-
-        // Apply damage
-        await actor.alterResources({"health": -1 * totalDamage });
+        targets.push(actor);
       }
-      return message.setFlag("crucible", "damageApplied", true);
+
+      // Apply damage
+      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
+      for ( const target of targets ) {
+        await target.alterResources({"health": -1 * totalDamage });
+      }
+
+      // Apply effects
+      const effects = await action.confirmEffects(targets);
+      flagsUpdate.effects = effects.map(e => e.uuid);
+
+      // Record confirmation
+      return message.update({flags: {crucible: flagsUpdate}});
     }
   });
 
   // Reverse damage
   options.push({
-    name: game.i18n.localize("DICE.ReverseDamage"),
+    name: game.i18n.localize("DICE.Reverse"),
     icon: '<i class="fas fa-first-aid"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return flags.isAttack && flags.damageApplied;
+      return flags.isAttack && flags.confirmed;
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      const targets = message.getFlag("crucible", "targets");
-      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
-      for ( let t of targets ) {
-        const target = await fromUuid(t.uuid);
+      const flags = message.flags.crucible || {};
+      const flagsUpdate = {confirmed: false};
+
+      // Get the Actor and the Action
+      const actor = ChatMessage.getSpeakerActor(message.speaker);
+      const action = actor.actions[flags.action] || null;
+
+      // Get targets
+      const targets = [];
+      for ( let targetId of flags.targets || [] ) {
+        const target = await fromUuid(targetId.uuid);
         if ( !target ) continue;
         const actor = target instanceof TokenDocument ? target.actor : target;
-        await actor.alterResources({"health": totalDamage });
+        targets.push(actor);
       }
-      return message.setFlag("crucible", "damageApplied", false);
+
+      // Reverse damage
+      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
+      for ( const target of targets ) {
+        await target.alterResources({"health": totalDamage });
+      }
+
+      // Reverse effects
+      if ( flags.effects ) {
+        await action.reverseEffects(flags.effects);
+        flagsUpdate.effects = [];
+      }
+
+      // Record reversal
+      return message.update({flags: {crucible: flagsUpdate}});
     }
   });
   return options;
@@ -88,7 +124,7 @@ export function addChatMessageContextOptions(html, options)  {
  */
 export function renderChatMessage(message, html, data, options) {
   const flags = message.flags.crucible || {};
-  if ( flags.isAttack && flags.damageApplied ) {
+  if ( flags.isAttack && flags.confirmed ) {
     html.find(".damage-result .target").addClass("applied");
   }
 }

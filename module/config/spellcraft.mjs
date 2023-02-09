@@ -128,6 +128,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 6
     },
+    hands: 1,
     scaling: "intellect",
     tier: 1
   },
@@ -141,6 +142,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 2
     },
+    hands: 1,
     scaling: "wisdom",
     tier: 1
   },
@@ -154,6 +156,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 2
     },
+    hands: 2,
     scaling: "wisdom",
     tier: 1
   },
@@ -167,6 +170,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 4
     },
+    hands: 1,
     scaling: "intellect",
     tier: 1
   },
@@ -180,6 +184,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 8
     },
+    hands: 1,
     scaling: "wisdom",
     tier: 1
   },
@@ -193,6 +198,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 4
     },
+    hands: 1,
     scaling: "intellect",
     tier: 1
   },
@@ -206,6 +212,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 2
     },
+    hands: 0,
     scaling: "dexterity",
     tier: 1
   },
@@ -219,6 +226,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 6
     },
+    hands: 0,
     scaling: "strength",
     tier: 1
   },
@@ -233,6 +241,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 4
     },
+    hands: 1,
     scaling: "dexterity",
     tier: 1
   },
@@ -246,6 +255,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 6
     },
+    hands: 1,
     scaling: "toughness",
     tier: 1
   }

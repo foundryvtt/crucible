@@ -1,8 +1,8 @@
-2023/02/06-11:19:26.954 2414 Recovering log #55
-2023/02/06-11:19:26.959 2414 Delete type=0 #55
-2023/02/06-11:19:26.959 2414 Delete type=3 #54
-2023/02/06-12:52:09.782 ddf8 Level-0 table #59: started
-2023/02/06-12:52:09.782 ddf8 Level-0 table #59: 0 bytes OK
-2023/02/06-12:52:09.783 ddf8 Delete type=0 #57
-2023/02/06-12:52:09.784 ddf8 Manual compaction at level-0 from '!items!breastplate00000' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/02/06-12:52:09.787 ddf8 Manual compaction at level-1 from '!items!breastplate00000' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/02/08-21:11:46.051 21ed0 Recovering log #77
+2023/02/08-21:11:46.056 21ed0 Delete type=0 #77
+2023/02/08-21:11:46.056 21ed0 Delete type=3 #76
+2023/02/08-22:16:39.378 25428 Level-0 table #81: started
+2023/02/08-22:16:39.379 25428 Level-0 table #81: 0 bytes OK
+2023/02/08-22:16:39.380 25428 Delete type=0 #79
+2023/02/08-22:16:39.382 25428 Manual compaction at level-0 from '!items!breastplate00000' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/02/08-22:16:39.382 25428 Manual compaction at level-1 from '!items!breastplate00000' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)

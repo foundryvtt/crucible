@@ -136,7 +136,7 @@ export const ACTION_TAGS = {
     can: (actor, action) => {
       const weapons = actor.equipment.weapons;
       if ( weapons.twoHanded && actor.talentIds.has("stronggrip000000") ) return true;
-      return (weapons.mainhand.config.category === "unarmed") || (weapons.offhand.config.category === "unarmed");
+      return weapons.freehand;
     }
   },
 
@@ -329,6 +329,12 @@ export const ACTION_TAGS = {
   /*  Defense Modifiers                           */
   /* -------------------------------------------- */
 
+  // TODO Target Morale
+  morale: {
+    tag: "morale",
+    label: "Morale"
+  },
+
   // Target Fortitude
   fortitude: {
     tag: "fortitude",
@@ -418,14 +424,15 @@ export const DEFAULT_ACTIONS = [
     name: "Move",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
     description: "Move quickly up to 4 spaces in any direction, or move cautiously one space in any direction.",
-    targetType: "none",
-    targetNumber: 1,
-    targetDistance: 4,
+    target: {
+      type: "none",
+      number: 0,
+      distance: 4,
+      scope: 1
+    },
     cost: {
       action: 1
     },
-    affectAllies: false,
-    affectEnemies: false,
     tags: ["movement"]
   },
   {
@@ -433,11 +440,12 @@ export const DEFAULT_ACTIONS = [
     name: "Strike",
     img: "icons/skills/melee/blade-tip-orange.webp",
     description: "Attack a single target creature or object with your main-hand weapon.",
-    targetType: "single",
-    targetNumber: 1,
-    targetDistance: 1,
-    affectAllies: false,
-    affectEnemies: true,
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1,
+      scope: 3
+    },
     tags: ["mainhand"]
   },
   {
@@ -445,14 +453,12 @@ export const DEFAULT_ACTIONS = [
     name: "Defend",
     img: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
     description: "You concentrate effort on avoiding harm, heightening your physical defense.",
-    targetType: "self",
-    targetNumber: 1,
-    targetDistance: 0,
-    cost: {
-      action: 1
+    target: {
+      type: "self",
+      number: 0,
+      distance: 0,
+      scope: 1
     },
-    affectAllies: false,
-    affectEnemies: false,
     tags: []
   }
 ];

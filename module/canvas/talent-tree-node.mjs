@@ -36,7 +36,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   /** @override */
-  async draw({state, ...config}={}) {
+  async draw({state=0, ...config}={}) {
     const states = CrucibleTalentNode.STATES;
 
     // Signature nodes
@@ -46,14 +46,22 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     }
 
     // Node state
-    if ( state === states.BANNED ) config.borderColor = config.tint = 0x330000;
-    else if ( state === states.PURCHASED ) {
-      config.borderColor = this.node.color;
-      config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
-    }
-    else {
-      config.borderColor = 0x444444;
-      config.tint = 0xFFFFFF;
+    switch ( state ) {
+      case states.BANNED:
+        config.borderColor = config.tint = 0x330000;
+        break;
+      case states.PURCHASED:
+        config.borderColor = this.node.color;
+        config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
+        break;
+      case states.UNLOCKED:
+        config.borderColor = 0x444444;
+        config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
+        break;
+      case states.LOCKED:
+        config.borderColor = 0x444444;
+        config.tint = 0xFFFFFF;
+        break;
     }
     config.alpha = state === states.PURCHASED ? 1.0 : 0.6;
 
