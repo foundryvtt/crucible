@@ -97,8 +97,10 @@
 .crucible span.input {
   text-align: center;
 }
-.crucible input[disabled] {
+.crucible input:disabled,
+.crucible input:read-only {
   border: none;
+  pointer-events: none;
 }
 /* Tooltips */
 #crucible-tooltip,

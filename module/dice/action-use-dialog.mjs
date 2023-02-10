@@ -1,10 +1,8 @@
 import {SYSTEM} from "../config/system.js";
-import StandardCheck from "./standard-check.js";
 import StandardCheckDialog from "./standard-check-dialog.js";
 
-
 /**
- * Prompt the user to active an action which may involve the rolling of a dice pool.
+ * Prompt the user to activate an action which may involve the rolling of a dice pool.
  * @extends {StandardCheckDialog}
  */
 export default class ActionUseDialog extends StandardCheckDialog {
@@ -44,7 +42,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   getData() {
     const context = super.getData();
     const {actor, action, targets} = this.options;
-    const tags = action.getTags();
+    const tags = this._getTags();
     return foundry.utils.mergeObject(context, {
       action: action,
       actor: actor,
@@ -55,5 +53,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasDice: action.context.hasDice ?? false,
       targets: targets
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the tags that apply to this dialog.
+   * @returns {ActionTags}
+   * @protected
+   */
+  _getTags() {
+    return this.action.getTags();
   }
 }

@@ -445,7 +445,7 @@ export default class CrucibleActor extends Actor {
     this.actions = {};
 
     // Default actions that every character can do
-    for ( let ad of SYSTEM.TALENT.DEFAULT_ACTIONS ) {
+    for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
       const a = new ActionData(ad);
       this.actions[a.id] = a.prepareForActor(this);
     }
@@ -685,18 +685,12 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the ability score bonus for a given scaling mode
-   * @param {string} scaling      How is the ability bonus computed?
+   * @param {string[]} scaling    How is the ability bonus computed?
    * @returns {number}            The ability bonus
    */
   getAbilityBonus(scaling) {
-
-    // Single-attribute scaling mode
     const attrs = this.attributes;
-    if ( scaling in attrs ) return attrs[scaling].value;
-
-    // Hybrid-attribute scaling mode
-    const terms = scaling.split(".");
-    return Math.ceil(terms.reduce((x, t) => x + attrs[t].value, 0) / terms.length);
+    return Math.ceil(scaling.reduce((x, t) => x + attrs[t].value, 0) / scaling.length);
   }
 
   /* -------------------------------------------- */
@@ -774,6 +768,14 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  testSaveDefense(defenseType, attackRoll) {
+    const d = this.system.defenses[defenseType];
+    if ( attackRoll > d.total ) return AttackRoll.RESULT_TYPES.HIT;
+    else return AttackRoll.RESULT_TYPES.RESIST;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Use an available Action.
    * @param {string} actionId     The action to use
@@ -784,6 +786,52 @@ export default class CrucibleActor extends Actor {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
     return action.use(this, {dialog: true, ...options});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Cast a certain spell against a target
+   * @param {ActionData} action
+   * @param {CrucibleActor} target
+   * @param {object} bonuses
+   * @returns {Promise<void>}
+   */
+  async castSpell(action, target) {
+    if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
+    const spell = action.spell;
+    debugger;
+
+    // Create the Attack Roll instance
+    const defense = action.spell.rune.save;
+    const roll = new AttackRoll({
+      actorId: this.id,
+      spellId: spell.id,
+      target: target.uuid,
+      ability: this.getAbilityBonus(Array.from(spell.scaling)),
+      skill: 0,
+      enchantment: 0,
+      banes: action.bonuses.banes,
+      boons: action.bonuses.boons,
+      defenseType: defense,
+      dc: target.defenses[defense].total
+    });
+
+    // Evaluate the result and record the result
+    await roll.evaluate({async: true});
+    roll.data.result = target.testSaveDefense(defense, roll.total);
+    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
+      roll.data.damage = {
+        overflow: roll.overflow,
+        multiplier: 1,
+        base: spell.gesture.damage.base,
+        bonus: spell.gesture.damage.bonus ?? 0,
+        resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
+        type: spell.rune.damageType
+      };
+      roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
+    }
+    return roll;
   }
 
   /* -------------------------------------------- */

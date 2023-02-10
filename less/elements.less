@@ -82,8 +82,10 @@
   input, span.input {
     text-align: center;
   }
-  input[disabled] {
+  input:disabled,
+  input:read-only {
     border: none;
+    pointer-events: none;
   }
 }
 

@@ -19,6 +19,11 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
       }),
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
+      target: new fields.SchemaField({
+        type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES}),
+        number: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
+        distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined})
+      }),
       tier: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3})
     }
   }

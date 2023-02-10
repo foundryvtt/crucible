@@ -2,7 +2,7 @@
  * The allowed target types which an Action may have.
  * @enum {{label: string}}
  */
-export const ACTION_TARGET_TYPES = {
+export const TARGET_TYPES = Object.freeze({
   none: {
     label: "None"
   },
@@ -30,7 +30,20 @@ export const ACTION_TARGET_TYPES = {
   wall: {
     label: "Wall"
   }
-}
+});
+
+
+/**
+ * The scope of creatures affected by an action.
+ * @enum {number}
+ */
+export const TARGET_SCOPES = Object.freeze({
+  NONE: 0,
+  SELF: 1,
+  ALLIES: 2,
+  ENEMIES: 3,
+  ALL: 4
+});
 
 /* -------------------------------------------- */
 
@@ -49,8 +62,7 @@ export const ACTION_TARGET_TYPES = {
  * Define special logic for action tag types
  * @enum {ActionTag}
  */
-export const ACTION_TAGS = {
-
+export const TAGS = {
 
   /* -------------------------------------------- */
   /*  Required Equipment                          */
@@ -159,6 +171,17 @@ export const ACTION_TAGS = {
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
     can: (actor, action) => actor !== game.combat?.combatant.actor
+  },
+
+  /* -------------------------------------------- */
+  /*  Spellcasting Tags                           */
+  /* -------------------------------------------- */
+
+  spell: {
+    tag: "spell",
+    label: "ACTION.TagSpell",
+    tooltip: "ACTION.TagSpellTooltip",
+    execute: (actor, action, target) => actor.castSpell(action, target)
   },
 
   /* -------------------------------------------- */
@@ -410,14 +433,18 @@ export const ACTION_TAGS = {
 
 /**
  * The default actions that every character can perform regardless of their attributes or talents.
- * @type {object}
+ * @type {object[]}
  */
-export const DEFAULT_ACTIONS = [
+export const DEFAULT_ACTIONS = Object.freeze([
   {
     id: "cast",
     name: "Cast Spell",
     img: "icons/magic/air/air-smoke-casting.webp",
-    description: "Weave arcana to create a work of spellcraft."
+    description: "Weave arcana to create a work of spellcraft.",
+    tags: ["spell"],
+    target: {
+      type: "none",
+    }
   },
   {
     id: "move",
@@ -461,4 +488,4 @@ export const DEFAULT_ACTIONS = [
     },
     tags: []
   }
-];
+]);

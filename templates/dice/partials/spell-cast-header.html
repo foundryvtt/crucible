@@ -1,0 +1,60 @@
+<section class="action flexrow">
+    <header class="action-header flexrow">
+        <img class="action-icon" src="{{spell.img}}" title="{{spell.name}}"/>
+        <h3 class="action-name">{{spell.name}}</h3>
+        <div class="tags" data-tag-type="activation">
+            {{#each activationTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
+    </header>
+
+    {{#if hasActionTags}}
+    <div class="tags" data-tag-type="action">
+        <label data-tooltip="Action Tags" data-tooltip-direction="LEFT">
+            <i class="fa-solid fa-bolt"></i>
+        </label>
+        {{#each actionTags as |label tag|}}
+        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if targets.length}}
+    <div class="tags" data-tag-type="target">
+        <label data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
+        <i class="fa-solid fa-bullseye"></i>
+        </label>
+        {{#each targets}}
+        <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+        {{/each}}
+    </div>
+    {{/if}}
+</section>
+
+<section class="spell flexcol">
+    <div class="form-group">
+        <label>{{localize "SPELL.ComponentRune"}}</label>
+        <div class="form-fields">
+            <select name="rune" class="component">
+                {{selectOptions runes selected=spell.rune.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>{{localize "SPELL.ComponentGesture"}}</label>
+        <div class="form-fields">
+            <select name="gesture" class="component">
+                {{selectOptions gestures selected=spell.gesture.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>{{localize "SPELL.ComponentInflection"}}</label>
+        <div class="form-fields">
+            <select name="inflection" class="component">
+                {{selectOptions inflections selected=spell.inflection.id blank="" nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+</section>

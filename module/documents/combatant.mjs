@@ -17,7 +17,7 @@ export default class CrucibleCombatant extends Combatant {
 
     // Construct Initiative Check
     return new StandardCheck({
-      ability: this.actor.getAbilityBonus("dexterity.intellect"),
+      ability: this.actor.getAbilityBonus(["dexterity", "intellect"]),
       skill: 0,
       enchantment: 0,
       boons: boons,

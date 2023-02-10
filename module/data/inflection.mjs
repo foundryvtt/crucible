@@ -10,6 +10,7 @@ export default class CrucibleInflection extends foundry.abstract.DataModel {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
+      adjective: new fields.StringField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
@@ -26,6 +27,7 @@ export default class CrucibleInflection extends foundry.abstract.DataModel {
   static initialize() {
     const inflections = SYSTEM.SPELL.INFLECTIONS;
     for ( const [k, v] of Object.entries(inflections) ) {
+      v.adjective = game.i18n.localize(`${v.name}Adjective`);
       v.name = game.i18n.localize(v.name);
       inflections[k] = new CrucibleInflection(v);
     }

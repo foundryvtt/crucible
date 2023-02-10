@@ -130,6 +130,11 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "intellect",
+    target: {
+      type: "single",
+      number: 1,
+      distance: 10
+    },
     tier: 1
   },
   aspect: {
@@ -144,6 +149,9 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "wisdom",
+    target: {
+      type: "self"
+    },
     tier: 1
   },
   create: {
@@ -158,6 +166,10 @@ export const GESTURES = Object.seal({
     },
     hands: 2,
     scaling: "wisdom",
+    target: {
+      type: "none",
+      distance: 1
+    },
     tier: 1
   },
   fan: {
@@ -172,6 +184,11 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "intellect",
+    target: {
+      type: "fan",
+      number: 1,
+      distance: 1
+    },
     tier: 1
   },
   influence: {
@@ -186,6 +203,11 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "wisdom",
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1
+    },
     tier: 1
   },
   ray: {
@@ -200,6 +222,11 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "intellect",
+    target: {
+      type: "ray",
+      number: 1,
+      distance: 6
+    },
     tier: 1
   },
   step: {
@@ -214,6 +241,10 @@ export const GESTURES = Object.seal({
     },
     hands: 0,
     scaling: "dexterity",
+    target: {
+      type: "self",
+      distance: 4
+    },
     tier: 1
   },
   strike: {
@@ -228,6 +259,11 @@ export const GESTURES = Object.seal({
     },
     hands: 0,
     scaling: "strength",
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1
+    },
     tier: 1
   },
   touch: {
@@ -243,6 +279,11 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "dexterity",
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1
+    },
     tier: 1
   },
   ward: {
@@ -257,6 +298,9 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     scaling: "toughness",
+    target: {
+      type: "self"
+    },
     tier: 1
   }
 });

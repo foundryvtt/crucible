@@ -19,6 +19,7 @@ import ArmorData from "./module/data/armor.mjs";
 import BackgroundData from "./module/data/background.mjs";
 import TalentData from "./module/data/talent.mjs";
 import WeaponData from "./module/data/weapon.mjs";
+import CrucibleSpell from "./module/data/spell.mjs";
 import CrucibleGesture from "./module/data/gesture.mjs";
 import CrucibleInflection from "./module/data/inflection.mjs";
 import CrucibleRune from "./module/data/rune.mjs";
@@ -76,6 +77,7 @@ Hooks.once("init", async function() {
       AncestryData,
       ArmorData,
       BackgroundData,
+      CrucibleSpell,
       CrucibleGesture,
       CrucibleInflection,
       CrucibleRune,
@@ -176,7 +178,8 @@ Hooks.once("i18nInit", function() {
 
   // Preload Handlebars Templates
   loadTemplates([
-    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,  // Dice Partials
+    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
+    `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.html`,
   ]);
 });
 
@@ -249,7 +252,7 @@ function preLocalizeConfig() {
 
   // Action Tags
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
-  localizeConfigObject(SYSTEM.TALENT.ACTION_TAGS, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
 }
 
 /* -------------------------------------------- */
@@ -315,7 +318,7 @@ function getTagTooltip(tagType, tag) {
         case "cost":
           return game.i18n.localize("ACTION.TagCostTooltip");
         default:
-          return game.i18n.localize(SYSTEM.TALENT.ACTION_TAGS[tag]?.tooltip);
+          return game.i18n.localize(SYSTEM.ACTION.TAGS[tag]?.tooltip);
       }
     case "weapon":
       switch ( tag ) {

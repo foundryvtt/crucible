@@ -1,7 +1,8 @@
-import * as TALENT from "../config/talent.mjs";
+import * as ACTION from "../config/action.mjs";
 import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
  * @typedef {Object} ActionTarget
@@ -20,7 +21,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
  * @typedef {Object} ActionTarget
- * @property {string} type                  The type of target for the action in ACTION_TARGET_TYPES
+ * @property {string} type                  The type of target for the action in ACTION.TARGET_TYPES
  * @property {number} number                The number of targets affected or size of target template
  * @property {number} distance              The allowed distance between the actor and the target(s)
  * @property {number} scope                 The scope of creatures affected by an action
@@ -33,6 +34,13 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  */
 
 /**
+ * @typedef {Object} ActionTags
+ * @property {Object<string, string>} activation
+ * @property {Object<string, string>} action
+ * @property {Object<string, string>} context
+ */
+
+/**
  * The data schema used for an Action within a talent Item
  * @property {string} id                    The action identifier
  * @property {string} name                  The action name
@@ -41,7 +49,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {string} description           Text description of the action
  * @property {ActionTarget} target          Target data for the action
  * @property {ActionCost} cost              Cost data for the action
- * @property {Set<string>} tags             A set of tags in ACTION_TAGS which apply to this action
+ * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
  *
  * @property {ActionContext} context        Additional context which defines how the action is being used
  * @property {ActionTarget[]} targets       An array of targets which are affected by the action
@@ -62,32 +70,25 @@ export default class ActionData extends foundry.abstract.DataModel {
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
       }),
+      spell: new fields.SchemaField({
+        rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
+        gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
+        inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
+      }, {required: false, initial: undefined}),
       target: new fields.SchemaField({
-        type: new fields.StringField({required: true, choices: TALENT.ACTION_TARGET_TYPES, initial: "single"}),
+        type: new fields.StringField({required: true, choices: ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         distance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-        scope: new fields.NumberField({required: true, choices: Object.values(ActionData.TARGET_SCOPES),
-          initial: ActionData.TARGET_SCOPES.NONE})
+        scope: new fields.NumberField({required: true, choices: Object.values(ACTION.TARGET_SCOPES),
+          initial: ACTION.TARGET_SCOPES.NONE})
       }),
       effects: new fields.ArrayField(new fields.SchemaField({
-        scope: new fields.NumberField({required: true, choices: Object.values(ActionData.TARGET_SCOPES)}),
+        scope: new fields.NumberField({required: true, choices: Object.values(ACTION.TARGET_SCOPES)}),
         effect: new fields.ObjectField()
       })),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     }
   }
-
-  /**
-   * The scope of creatures affected by an action.
-   * @enum {number}
-   */
-  static TARGET_SCOPES = Object.freeze({
-    NONE: 0,
-    SELF: 1,
-    ALLIES: 2,
-    ENEMIES: 3,
-    ALL: 4
-  });
 
   /**
    * Is this Action owned and prepared for a specific Actor?
@@ -126,7 +127,7 @@ export default class ActionData extends foundry.abstract.DataModel {
   prepareForActor(actor) {
     this.prepareData();
     for ( let t of this.tags ) {
-      const tag = SYSTEM.TALENT.ACTION_TAGS[t];
+      const tag = SYSTEM.ACTION.TAGS[t];
       if ( !tag ) continue;
       if ( tag.prepare instanceof Function ) tag.prepare(actor, this);
     }
@@ -140,10 +141,9 @@ export default class ActionData extends foundry.abstract.DataModel {
 
   /**
    * Obtain an object of tags which describe the Action.
-   * @param {string} scope      The subset of tags desired: "action", "activation", or "all"
-   * @returns {Object<string, string>}
+   * @returns {ActionTags}
    */
-  getTags(scope="all") {
+  getTags() {
     const tags = {
       activation: {},
       action: {},
@@ -152,13 +152,13 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Action Tags
     for (let t of this.tags) {
-      const tag = TALENT.ACTION_TAGS[t];
+      const tag = ACTION.TAGS[t];
       if ( tag.label ) tags.action[tag.tag] = tag.label;
     }
 
     // Target
     if ( this.target.type !== "none" ) {
-      let target = TALENT.ACTION_TARGET_TYPES[this.target.type].label;
+      let target = ACTION.TARGET_TYPES[this.target.type].label;
       if ( this.target.number > 1 ) target += ` ${this.target.number}`;
       tags.activation.target = target;
     }
@@ -229,7 +229,7 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @returns {ActiveEffect[]}              An array of created Active Effects
    */
   async confirmEffects(targets) {
-    const scopes = ActionData.TARGET_SCOPES;
+    const scopes = ACTION.TARGET_SCOPES;
     const effects = [];
     for ( const {scope, effect} of this.effects ) {
       switch ( scope ) {
@@ -302,16 +302,17 @@ export default class ActionData extends foundry.abstract.DataModel {
     };
     action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1};
     action.actorUpdates = {};
+    action.isSpell = action.tags.has("spell");
 
     // Pre-configure of the action
     for ( let tag of action.tags ) {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      const at = SYSTEM.ACTION.TAGS[tag];
       if ( at.pre instanceof Function ) at.pre(actor, action);
     }
 
     // Assert that the action can be used based on its tags
     for ( let tag of action.tags ) {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      const at = SYSTEM.ACTION.TAGS[tag];
       if ( (at.can instanceof Function) && !at.can(actor, this) ) {
         return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
           name: actor.name,
@@ -346,9 +347,20 @@ export default class ActionData extends foundry.abstract.DataModel {
       return ui.notifications.warn(err.message);
     }
 
-    // Prompt for confirmation with a dialog which customizes boons and banes
-    if ( dialog ) {
-      const pool = new StandardCheck(action.bonuses);
+    // Require a spell configuration dialog
+    const pool = new StandardCheck(action.bonuses);
+    if ( action.isSpell ) {
+      if ( dialog || !action.spell ) {
+        const response = await SpellCastDialog.prompt({options: {action, actor, pool, targets}});
+        this.#applySpell(actor, action, response.spell);
+        targets = action._acquireTargets(actor); // Reacquire for spell
+        action.bonuses.boons = response.data.boons;
+        action.bonuses.banes = response.data.banes;
+      }
+    }
+
+    // Normal action configuration
+    else if ( dialog ) {
       const response = await ActionUseDialog.prompt({options: {action, actor, pool, targets}});
       if ( response === null ) return [];
       action.bonuses.boons = response.data.boons;
@@ -374,6 +386,28 @@ export default class ActionData extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Apply a configured spell as the Action being performed.
+   * @param {CrucibleActor} actor     The actor casting the spell
+   * @param {ActionData} action       The base action
+   * @param {CrucibleSpell} spell     The configured spell
+   */
+  #applySpell(actor, action, spell) {
+    action._source.spell = {}; // FIXME bit of a hack
+    action.updateSource({
+      name: spell.name,
+      img: spell.img,
+      description: spell.description,
+      cost: spell.cost,
+      spell: spell.toObject(),
+      target: spell.target,
+    });
+    action.spell = spell;
+    action.prepareForActor(actor);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Evaluate an action, constructing an array of Roll instances it produces.
    * @param {CrucibleActor} actor         The actor performing the action
    * @param {ActionData} action           The action being performed
@@ -384,7 +418,7 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Translate action tags which define an "execute" operation into dice rolls
     const rolls = await Promise.all(action.tags.reduce((promises, tag) => {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      const at = SYSTEM.ACTION.TAGS[tag];
       if ( at.execute instanceof Function ) {
         const roll = at.execute(actor, action, target?.actor);
         if ( roll instanceof Promise ) promises.push(roll);
@@ -394,7 +428,7 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Perform post-roll operations for actions which define a "post" operation
     for ( const tag of action.tags ) {
-      const at = SYSTEM.TALENT.ACTION_TAGS[tag];
+      const at = SYSTEM.ACTION.TAGS[tag];
       if ( at.post instanceof Function ) {
         await at.post(actor, action, target?.actor, rolls);
       }
@@ -486,15 +520,15 @@ export default class ActionData extends foundry.abstract.DataModel {
   static migrateData(data) {
 
     // Migrate target data
-    data.target.type = data.targetType;
-    data.target.number = data.targetNumber;
-    data.target.distance = data.targetDistance;
+    if ( "targetType" in data ) data.target.type = data.targetType;
+    if ( "targetNumber" in data ) data.target.number = data.targetNumber;
+    if ( "targetDistance" in data ) data.target.distance = data.targetDistance;
 
     // Affect
-    if ( data.affectAllies && data.affectEnemies ) data.target.scope = this.TARGET_SCOPES.ALL;
-    else if ( data.affectEnemies ) data.target.scope = this.TARGET_SCOPES.ENEMIES;
-    else if ( data.affectAllies ) data.target.scope = this.TARGET_SCOPES.ALLIES;
-    else if ( data.target.type === "self" ) data.target.scope = this.TARGET_SCOPES.SELF;
-    else data.target.scope = this.TARGET_SCOPES.NONE;
+    if ( data.affectAllies && data.affectEnemies ) data.target.scope = ACTION.TARGET_SCOPES.ALL;
+    else if ( data.affectEnemies ) data.target.scope = ACTION.TARGET_SCOPES.ENEMIES;
+    else if ( data.affectAllies ) data.target.scope = ACTION.TARGET_SCOPES.ALLIES;
+    else if ( data.target.type === "self" ) data.target.scope = ACTION.TARGET_SCOPES.SELF;
+    else data.target.scope = ACTION.TARGET_SCOPES.NONE;
   }
 }

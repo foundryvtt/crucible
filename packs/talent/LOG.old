@@ -1,3 +1,15 @@
-2023/02/08-21:11:27.094 1f758 Recovering log #81
-2023/02/08-21:11:27.098 1f758 Delete type=0 #81
-2023/02/08-21:11:27.098 1f758 Delete type=3 #80
+2023/02/08-21:11:46.065 21ed0 Recovering log #83
+2023/02/08-21:11:46.069 21ed0 Delete type=0 #83
+2023/02/08-21:11:46.069 21ed0 Delete type=3 #82
+2023/02/08-22:16:39.385 25428 Level-0 table #87: started
+2023/02/08-22:16:39.386 25428 Level-0 table #87: 1233 bytes OK
+2023/02/08-22:16:39.387 25428 Delete type=0 #85
+2023/02/08-22:16:39.387 25428 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/08-22:16:39.387 25428 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!dirtytricks00000' @ 155 : 1
+2023/02/08-22:16:39.387 25428 Compacting 1@1 + 1@2 files
+2023/02/08-22:16:39.392 25428 Generated table #88@1: 108 keys, 42818 bytes
+2023/02/08-22:16:39.392 25428 Compacted 1@1 + 1@2 files => 42818 bytes
+2023/02/08-22:16:39.393 25428 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/02/08-22:16:39.394 25428 Delete type=2 #71
+2023/02/08-22:16:39.394 25428 Delete type=2 #87
+2023/02/08-22:16:39.396 25428 Manual compaction at level-1 from '!items!dirtytricks00000' @ 155 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

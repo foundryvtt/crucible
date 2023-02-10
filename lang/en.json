@@ -84,6 +84,8 @@
 "ACTION.TagReactionTooltip": "This action can only be performed during some other creature's turn when its activation condition is met.",
 "ACTION.TagShield": "Shield",
 "ACTION.TagShieldTooltip": "This action requires wielding a shield to perform.",
+"ACTION.TagSpell": "Spell",
+"ACTION.TagSpellTooltip": "This action involves spellcraft.",
 "ACTION.TagTwoHanded": "Two-Handed",
 "ACTION.TagTwoHandedTooltip": "This action requires wielding a two-handed weapon to perform.",
 "ACTION.TagOffHand": "Off-Hand",
@@ -530,6 +532,9 @@
 "SPELL.ComponentGesture": "Somatic Gesture",
 "SPELL.ComponentInflection": "Metamagic Inflection",
 
+"SPELL.DefaultName": "{gesture} of {rune}",
+"SPELL.DefaultNameAdjective": "{adjective} {gesture} of {rune}",
+
 "SPELL.RuneCourage": "Courage",
 "SPELL.RuneDeath": "Death",
 "SPELL.RuneEarth": "Earth",
@@ -555,9 +560,13 @@
 "SPELL.GestureWard": "Ward",
 
 "SPELL.MetamagicExtend": "Extend",
+"SPELL.MetamagicExtendAdjective": "Extended",
 "SPELL.MetamagicNegate": "Negate",
+"SPELL.MetamagicNegateAdjective": "Negated",
 "SPELL.MetamagicPull": "Pull",
+"SPELL.MetamagicPullAdjective": "Attractive",
 "SPELL.MetamagicPush": "Push",
+"SPELL.MetamagicPushAdjective": "Repellent",
 
 "TALENT.NodeAttack": "Attack",
 "TALENT.NodeDefense": "Defense",

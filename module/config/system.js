@@ -1,8 +1,8 @@
 import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
+import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
 import * as SPELL from "./spellcraft.mjs";
-import * as TALENT from "./talent.mjs";
 import * as WEAPON from "./weapon.js";
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
 export const SYSTEM_ID = "crucible";
@@ -299,6 +299,7 @@ export const SYSTEM = {
   id: SYSTEM_ID,
   name: "Crucible (WIP)",
   activeCheckFormula: "3d8",
+  ACTION,
   ARMOR,
   dice: dice,
   ABILITIES,
@@ -315,6 +316,5 @@ export const SYSTEM = {
   SKILL_RANKS,
   SKILLS,
   SPELL,
-  TALENT,
   WEAPON,
 };

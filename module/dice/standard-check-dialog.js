@@ -59,7 +59,7 @@ export default class StandardCheckDialog extends Dialog {
     }
   }
 
-	/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Get the text label for a dice roll DC
@@ -80,19 +80,7 @@ export default class StandardCheckDialog extends Dialog {
     return {dc, label, tier};
   }
 
-	/* -------------------------------------------- */
-
-  /**
-   * Get an array of Actors which are owned by a player
-   * @private
-   */
-  _getPlayerActors() {
-    return game.actors.filter(a => {
-      return Math.max(...Object.values(a.data.permission)) >= CONST.DOCUMENT_PERMISSION_LEVELS.OWNER;
-    });
-  }
-
-	/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /** @override */
   activateListeners(html) {
@@ -102,7 +90,7 @@ export default class StandardCheckDialog extends Dialog {
     super.activateListeners(html);
   }
 
-	/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Handle execution of one of the dialog roll actions
@@ -138,7 +126,7 @@ export default class StandardCheckDialog extends Dialog {
     }
   }
 
-	/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Handle changes to the difficulty tier select input
@@ -152,7 +140,7 @@ export default class StandardCheckDialog extends Dialog {
     return this.render();
   }
 
-	/* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
    * Handle updating the StandardCheck dice pool
@@ -189,8 +177,8 @@ export default class StandardCheckDialog extends Dialog {
    */
   static _onSubmit(html, pool) {
     const form = html.querySelector("form");
-    const fd = (new FormDataExtended(form)).object;
-    pool.initialize(fd);
+    const fd = new FormDataExtended(form)
+    pool.initialize(fd.object);
     return pool;
   }
 }
