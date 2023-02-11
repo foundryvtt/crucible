@@ -21,14 +21,21 @@ export default class CrucibleInflection extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _initialize() {
+    super._initialize();
+    this.adjective = game.i18n.localize(`${this.name}Adj`);
+    this.name = game.i18n.localize(this.name);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * One-time initialization to instantiate SYSTEM.SPELL.INFLECTIONS.
    */
   static initialize() {
     const inflections = SYSTEM.SPELL.INFLECTIONS;
     for ( const [k, v] of Object.entries(inflections) ) {
-      v.adjective = game.i18n.localize(`${v.name}Adjective`);
-      v.name = game.i18n.localize(v.name);
       inflections[k] = new CrucibleInflection(v);
     }
     Object.freeze(inflections);

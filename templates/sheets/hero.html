@@ -20,57 +20,58 @@
     {{!-- Left Sidebar --}}
     <section class="sheet-sidebar flexcol">
         <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img" width="200" height="200"/>
-        <section class="overview">
+        <section class="overview flexcol">
 
             {{!-- Current Equipment --}}
-            <div class="equipped">
+            <div class="equipment">
                 <h2 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h2>
-                <div class="equipment flexrow">
-                    <img src="{{actor.equipment.weapons.mainhand.img}}" height="24" width="24"/>
-                    <h4>{{actor.equipment.weapons.mainhand.name}}</h4>
-                    <span class="tag">{{mainhandTag}}</span>
-                </div>
-                {{#if showOffhand}}
-                <div class="equipment flexrow">
-                    <img src="{{actor.equipment.weapons.offhand.img}}" height="24" width="24"/>
-                    <h4>{{actor.equipment.weapons.offhand.name}}</h4>
-                    <span class="tag">{{offhandTag}}</span>
-                </div>
-                {{/if}}
-                <div class="equipment flexrow">
-                    <img src="{{actor.equipment.armor.img}}" height="24" width="24"/>
-                    <h4>{{actor.equipment.armor.name}}</h4>
-                    <span class="tag">{{armorTag}}</span>
-                </div>
-            </div>
-
-            {{!-- Available Actions --}}
-            <div class="actions">
-                <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
-                {{#each actions}}
-                <div class="action flexrow" data-action-id="{{this.id}}">
-                    <img src="{{this.img}}" height="24" width="24"/>
-                    <h4><a class="control" title="Use {{this.name}}" data-action="useAction">{{this.name}}</a></h4>
-                    {{#each this.tags}}
-                    <span class="tag">{{this}}</span>
-                    {{/each}}
+                {{#each featuredEquipment as |e|}}
+                <div class="equipped line-item">
+                    <div class="name">
+                        <img class="icon" src="{{e.img}}">
+                        <h4>{{e.name}}</h4>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">{{e.tag}}</span>
+                    </div>
                 </div>
                 {{/each}}
             </div>
 
+            {{!-- Available Actions --}}
+            <section class="actions">
+                <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
+                {{#each actions}}
+                <div class="action line-item" data-action-id="{{this.id}}">
+                    <div class="name" data-action="useAction">
+                        <img class="icon" src="{{this.img}}">
+                        <h4><a>{{this.name}}</a></h4>
+                    </div>
+                    <div class="tags">
+                        {{#each this.tags}}
+                        <span class="tag">{{this}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </section>
+
             {{!-- Active Effects --}}
             <div class="effects">
                 <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
-                <div class="effect flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Effect #1</h4>
-                    <span class="tag">2R</span>
+                {{#each effects as |effect|}}
+                <div class="effect line-item" data-effect-id="{{effect._id}}">
+                    <div class="name">
+                        <img class="icon" src="{{effect.icon}}">
+                        <h4>{{effect.label}}</h4>
+                    </div>
+                    <div class="controls flexrow">
+                        <a class="control" data-action="effectDelete" data-tooltip="Delete Effect">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="effect flexrow">
-                    <img src="systems/crucible/icons/skills/arcana.jpg" height="24" width="24"/>
-                    <h4>Effect #2</h4>
-                    <span class="tag">1R</span>
-                </div>
+                {{/each}}
             </div>
         </section>
     </section>
@@ -339,10 +340,12 @@
 
             <ol class="skills-list">
                 {{#each category.skills as |skill skillId|}}
-                <li class="skill flexrow {{skill.css}}" data-skill="{{skillId}}">
-                    <div class="skill-name flexrow">
-                        <img class="skill-icon" title="{{skill.name}}" src="{{skill.icon}}"/>
-                        <h4><a class="control" title="Roll Check" data-action="skillRoll">{{skill.name}}</a></h4>
+                <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
+                    <div class="name">
+                        <img class="icon" src="{{skill.icon}}">
+                        <h4><a data-tooltip="Roll Check" data-action="skillRoll">{{skill.name}}</a></h4>
+                    </div>
+                    <div class="controls">
                         <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
                             <i class="fas fa-cog"></i>
                         </a>
@@ -358,13 +361,11 @@
                         <span class="attribute tag">{{this.abbreviation}}</span>
                         {{/each}}
                     </div>
-                    <span class="rank">
-                        <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
-                            {{#each skill.pips}}
-                            <span class="pip {{this}}"></span>
-                            {{/each}}
-                        </div>
-                    </span>
+                    <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
+                        {{#each skill.pips}}
+                        <span class="pip {{this}}"></span>
+                        {{/each}}
+                    </div>
                     <div class="points flexrow">
                         <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
                             <i class="fas fa-caret-down"></i>
@@ -401,15 +402,20 @@
             </header>
             <ol class="items-list">
                 {{#each section.items as |item id|}}
-                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item._id}}">
-                    <div class="item-name flexrow">
-                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+                    <div class="name">
+                        <img class="icon" src="{{item.img}}" title="{{item.name}}">
                         <h4>{{item.name}}</h4>
-                        <div class="tags">
-                            {{#each item.tags}}
-                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                            {{/each}}
-                        </div>
+                    </div>
+                    <div class="tags">
+                        {{#each item.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="controls">
+                        <a class="control" data-action="itemEdit" title="Edit Item">
+                            <i class="fas fa-edit"></i>
+                        </a>
                     </div>
                 </li>
                 {{/each}}
@@ -429,20 +435,20 @@
             </header>
             <ol class="items-list">
                 {{#each section.items as |item id|}}
-                <li class="item flexrow {{item.cssClass}}" data-item-id="{{item._id}}">
-                    <div class="item-name flexrow">
-                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+                    <div class="name">
+                        <img class="icon" src="{{item.img}}" title="{{item.name}}">
                         <h4>
                             {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
                             {{~item.name~}}
                         </h4>
-                        <div class="tags">
-                            {{#each item.tags}}
-                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                            {{/each}}
-                        </div>
                     </div>
-                    <div class="item-controls">
+                    <div class="tags">
+                        {{#each item.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="controls">
                         <a class="control equipped-state" data-action="itemEquip" title="Equip Item">
                             <i class="fas fa-shield-alt"></i>
                         </a>
@@ -470,9 +476,9 @@
             </header>
             <ol class="items-list">
                 {{#each section.known}}
-                <li class="item flexrow" data-component="{{this.id}}">
-                    <div class="item-name flexrow">
-                        <img src="{{this.img}}" title="{{this.name}}" width="24" height="24"/>
+                <li class="line-item" data-component="{{this.id}}">
+                    <div class="name">
+                        <img class="icon" src="{{this.img}}" title="{{this.name}}">
                         <h4>{{this.name}}</h4>
                     </div>
                     <div class="tags">

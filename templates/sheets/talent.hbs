@@ -32,11 +32,13 @@
                 <span></span><label>Actions</label><span></span>
             </h3>
             {{#each item.actions as |action|}}
-            <div class="action flexrow" data-action-id="{{this.id}}">
-                <div class="action-header flexrow">
-                    <img class="action-icon" src="{{action.img}}" title="{{action.name}}"/>
-                    <h4 class="action-name">{{action.name}}</h4>
-                    <div class="action-tags flexcol">
+            <div class="action" data-action-id="{{this.id}}">
+                <div class="action-header line-item">
+                    <div class="name flexrow">
+                        <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
+                        <h4>{{action.name}}</h4>
+                    </div>
+                    <div class="tags">
                         {{#each action.getTags as |tags section|}}
                         <div class="tags" data-tag-type="action">
                             {{#each tags as |label tag|}}

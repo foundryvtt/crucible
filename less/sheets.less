@@ -51,10 +51,6 @@
     object-position: 0 10%;
   }
 
-  .window-content, form, .sheet-body {
-    overflow: hidden;
-  }
-
   /* Highlight Boxes */
   .highlight {
     background: rgba(0, 0, 0, 0.05);
@@ -63,30 +59,34 @@
   }
 
   /* Control Buttons */
-  a.button {
+  a.button,
+  a.control {
     display: inline-block;
-    width: 24px;
-    height: 24px;
-    flex: 0 0 24px;
-    line-height: 24px;
+    min-width: 20px;
+    margin: 0;
     padding: 0;
-    margin: 0 3px;
     color: @colorTan;
     text-align: center;
+    &.active {
+      color: @colorDark;
+    }
+    &.inactive {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  a.button {
     border: 1px solid transparent;
     border-radius: 3px;
-
     &:hover {
       border: 1px solid @colorTan;
       box-shadow: 0 0 4px #FFF;
       text-shadow: none;
       color: @colorDark;
     }
-
-    &.inactive {
-      visibility: hidden;
-    }
   }
+
 
   /** Incompletion Warnings */
   .incomplete {

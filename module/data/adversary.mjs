@@ -182,7 +182,8 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
    * Prepare non-physical defense scores.
    */
   #prepareMagicDefenses() {
-    for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
+    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( k === "physical" ) continue;
       let d = this.defenses[k];
       d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
       d.total = d.base + d.bonus;

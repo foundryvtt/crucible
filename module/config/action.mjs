@@ -281,14 +281,14 @@ export const TAGS = {
     tag: "difficult",
     label: "ACTION.TagDifficult",
     tooltip: "ACTION.TagDifficultTooltip",
-    pre: (actor, action) => action.bonuses.banes += 2
+    pre: (actor, action) => action.bonuses.banes += 1
   },
 
   empowered: {
     tag: "empowered",
     label: "ACTION.TagEmpowered",
     tooltip: "ACTION.TagEmpoweredTooltip",
-    pre: (actor, action) => action.bonuses.damageBonus += 2,
+    pre: (actor, action) => action.bonuses.damageBonus += 6,
   },
 
   exposing: {
@@ -485,6 +485,9 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 0,
       distance: 0,
       scope: 1
+    },
+    cost: {
+      action: 1
     },
     tags: []
   }

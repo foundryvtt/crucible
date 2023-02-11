@@ -1,7 +1,9 @@
-<section class="action flexrow">
-    <header class="action-header flexrow">
-        <img class="action-icon" src="{{action.img}}" title="{{action.name}}"/>
-        <h3 class="action-name">{{action.name}}</h3>
+<section class="action flexcol">
+    <header class="action-header line-item">
+        <div class="name">
+            <img class="icon" src="{{action.img}}">
+            <h3>{{action.name}}</h3>
+        </div>
         <div class="tags" data-tag-type="activation">
             {{#each activationTags as |label tag|}}
             <span class="tag" data-tag="{{tag}}">{{label}}</span>
@@ -10,35 +12,41 @@
     </header>
 
     {{#if hasActionTags}}
-    <div class="tags" data-tag-type="action">
+    <div class="flexrow">
         <label data-tooltip="Action Tags" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bolt"></i>
         </label>
-        {{#each actionTags as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        <div class="tags" data-tag-type="action">
+            {{#each actionTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
     </div>
     {{/if}}
 
     {{#if hasContextTags}}
-    <div class="tags" data-tag-type="{{action.context.type}}">
+    <div class="flexrow">
         <label data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
             <i class="{{action.context.icon}}"></i>
         </label>
-        {{#each action.context.tags as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        <div class="tags" data-tag-type="{{action.context.type}}">
+            {{#each action.context.tags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
     </div>
     {{/if}}
 
     {{#if targets.length}}
-    <div class="tags" data-tag-type="target">
+    <div class="flexrow">
         <label data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bullseye"></i>
         </label>
-        {{#each targets}}
-        <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
-        {{/each}}
+        <div class="tags" data-tag-type="target">
+            {{#each targets}}
+            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+            {{/each}}
+        </div>
     </div>
     {{/if}}
 

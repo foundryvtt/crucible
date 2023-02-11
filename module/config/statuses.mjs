@@ -64,5 +64,10 @@ export const statusEffects = [
     id: "resolute",
     label: "EFFECT.StatusResolute",
     icon: "icons/svg/holy-shield.svg"
+  },
+  {
+    id: "exposed",
+    label: "EFFECT.StatusExposed",
+    icon: "systems/crucible/icons/statuses/exposed.svg"
   }
 ]

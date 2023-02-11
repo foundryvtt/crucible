@@ -197,7 +197,7 @@ export default class CrucibleItem extends Item {
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
-    roll.data.result = target.testPhysicalDefense(roll.total);
+    roll.data.result = target.testDefense("physical", roll.total);
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,

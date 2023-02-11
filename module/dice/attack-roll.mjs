@@ -6,7 +6,7 @@ import ActionUseDialog from "./action-use-dialog.mjs";
 /**
  * @typedef {StandardCheckData} AttackRollData
  * @param {string} [itemId]                   The id of the Item being used to make the attack
- * @param {string} [defenseType=physical]     The defense type being attacked, "physical" or a value in SAVE_DEFENSES
+ * @param {string} [defenseType=physical]     The defense type being attacked, a value in SYSTEM.DEFENSES
  * @param {number} [result]                   The result code in AttackRoll.RESULT_TYPES, undefined before evaluation
  * @param {DamageData} [damage]               The resolved damage of the roll, undefined before evaluation
  */
@@ -97,14 +97,7 @@ export default class AttackRoll extends StandardCheck {
     }
 
     // Defense label
-    switch ( this.data.defenseType ) {
-      case "physical":
-        cardData.defenseType = game.i18n.localize("DEFENSES.Defense");
-        break;
-      default:
-        cardData.defenseType = SYSTEM.SAVE_DEFENSES[this.data.defenseType].label;
-        break;
-    }
+    cardData.defenseType = SYSTEM.DEFENSES[this.data.defenseType].label;
 
     // Outcome label
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);

@@ -1,3 +1,8 @@
+export const NAME_FORMATS = Object.freeze({
+  NOUN: 1,
+  ADJ: 2
+});
+
 /**
  * The Arcane Runes which exist in the Crucible spellcraft system.
  * These config objects are instantiated as CrucibleRune instances during system initialization.
@@ -10,8 +15,9 @@ export const RUNES = Object.seal({
     resource: "morale",
     restoration: true,
     opposed: "mind",
-    save: "willpower",
-    scaling: "presence"
+    defense: "willpower",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.NOUN
   },
   death: {
     id: "death",
@@ -19,8 +25,9 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "unholy",
     opposed: "life",
-    save: "fortitude",
-    scaling: "wisdom"
+    defense: "fortitude",
+    scaling: "wisdom",
+    nameFormat: NAME_FORMATS.NOUN
   },
   earth: {
     id: "earth",
@@ -28,8 +35,9 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "acid",
     opposed: "lightning",
-    save: "reflex",
-    scaling: "intellect"
+    defense: "reflex",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.ADJ
   },
   flame: {
     id: "flame",
@@ -37,8 +45,9 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "fire",
     opposed: "frost",
-    save: "reflex",
-    scaling: "intellect"
+    defense: "reflex",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.NOUN
   },
   frost: {
     id: "frost",
@@ -46,16 +55,19 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "frost",
     opposed: "flame",
-    save: "fortitude",
-    scaling: "intellect"
+    defense: "fortitude",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.NOUN
   },
   kinesis: {
     id: "kinesis",
     name: "SPELL.RuneKinesis",
     resource: "health",
+    damageType: "slashing", // TODO make this a choice
     opposed: "time",
-    save: "reflex",
-    scaling: "presence"
+    defense: "physical",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.ADJ
   },
   life: {
     id: "life",
@@ -63,8 +75,9 @@ export const RUNES = Object.seal({
     resource: "health",
     restoration: true,
     opposed: "death",
-    save: "fortitude",
-    scaling: "wisdom"
+    defense: "fortitude",
+    scaling: "wisdom",
+    nameFormat: NAME_FORMATS.NOUN
   },
   lightning: {
     id: "lightning",
@@ -72,8 +85,9 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "lightning",
     opposed: "earth",
-    save: "reflex",
-    scaling: "intellect"
+    defense: "reflex",
+    scaling: "intellect",
+    nameFormat: NAME_FORMATS.ADJ
   },
   mind: {
     id: "mind",
@@ -81,8 +95,9 @@ export const RUNES = Object.seal({
     resource: "morale",
     damageType: "psychic",
     opposed: "courage",
-    save: "willpower",
-    scaling: "presence"
+    defense: "willpower",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.NOUN
   },
   radiance: {
     id: "radiance",
@@ -90,16 +105,18 @@ export const RUNES = Object.seal({
     resource: "health",
     damageType: "radiant",
     opposed: "void",
-    save: "willpower",
-    scaling: "wisdom"
+    defense: "willpower",
+    scaling: "wisdom",
+    nameFormat: NAME_FORMATS.NOUN
   },
   time: {
     id: "time",
     name: "SPELL.RuneTime",
     resource: "morale",
     opposed: "kinesis",
-    save: "willpower",
-    scaling: "presence"
+    defense: "willpower",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.ADJ
   },
   void: {
     id: "void",
@@ -107,8 +124,9 @@ export const RUNES = Object.seal({
     resource: "morale",
     damageType: "void",
     opposed: "radiance",
-    save: "willpower",
-    scaling: "wisdom"
+    defense: "willpower",
+    scaling: "wisdom",
+    nameFormat: NAME_FORMATS.ADJ
   },
 });
 
@@ -148,6 +166,7 @@ export const GESTURES = Object.seal({
       base: 2
     },
     hands: 1,
+    nameFormat: NAME_FORMATS.NOUN,
     scaling: "wisdom",
     target: {
       type: "self"
@@ -165,6 +184,7 @@ export const GESTURES = Object.seal({
       base: 2
     },
     hands: 2,
+    nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
       type: "none",
@@ -202,6 +222,7 @@ export const GESTURES = Object.seal({
       base: 8
     },
     hands: 1,
+    nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
       type: "single",
@@ -240,6 +261,7 @@ export const GESTURES = Object.seal({
       base: 2
     },
     hands: 0,
+    nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
       type: "self",
@@ -258,6 +280,7 @@ export const GESTURES = Object.seal({
       base: 6
     },
     hands: 0,
+    nameFormat: NAME_FORMATS.ADJ,
     scaling: "strength",
     target: {
       type: "single",

@@ -83,10 +83,7 @@
   a.section-lock {
     position: absolute;
     right: 0;
-    width: 20px;
-    height: 20px;
     font-size: var(--fontSizeSmall);
-    line-height: inherit;
   }
 
   // Separator Slash
@@ -124,29 +121,14 @@
     margin-top: var(--marginSize);
     padding-right: var(--marginSize);
     border-right: 1px solid @colorBeige;
+    gap: 4px;
 
+    /** Overview Containers */
     .equipment,
-    .action,
-    .effect {
+    .actions,
+    .effects {
+      flex: none;
       align-items: center;
-      gap: 2px;
-      margin-bottom: 4px;
-
-      img {
-        flex: 0 0 24px;
-        height: 24px;
-        border: 1px solid @colorDark;
-        border-radius: 4px;
-      }
-
-      h4 {
-        line-height: 16px;
-        margin: 0 0 0 4px;
-      }
-
-      .tag {
-        flex: none;
-      }
     }
   }
 
@@ -383,6 +365,7 @@
   .point-pools {
     flex: none;
     justify-content: flex-end;
+    gap: 4px;
     text-align: right;
     margin: calc(var(--marginSize) / 2) 0;
     font-size: var(--fontSizeHeader);
@@ -390,7 +373,6 @@
 
     label {
       flex: none;
-      margin: 0 4px 0 8px;
     }
 
     span.value {
@@ -619,21 +601,7 @@
   }
 
   .skill {
-    margin: 2px 0;
-    line-height: var(--skillHeight);
-
-    img {
-      flex: 0 0 var(--skillHeight);
-      height: var(--skillHeight);
-      margin-right: calc(var(--marginSize) / 2);
-    }
-
-    .skill-config {
-      flex: 0 0 20px;
-      text-align: center;
-      color: @colorTan;
-    }
-
+    padding: 1px 0;
     .skill-ranks {
       display: flex;
       align-items: center;
@@ -646,7 +614,6 @@
         background: rgba(0, 0, 0, 0.05);
         border: 1px solid @colorTan;
         border-radius: 1px 2px;
-
         &.trained {
           background: rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 2px #FFF inset;
@@ -654,19 +621,8 @@
         }
       }
     }
-    .points, .bonus {
-      height: var(--skillHeight);
-    }
   }
 
-  // Skill Name
-  .skill-name {
-    flex: 2;
-    h4 {
-      margin: 0;
-      font-size: 16px;
-    }
-  }
 
   // Skill Bonus and Passive
   .bonus {
@@ -697,15 +653,7 @@
 
   // Point Buy
   .points {
-    flex: 0 0 80px;
-    text-align: center;
-    .control {
-      margin: 0;
-    }
-    .cumulative, .next {
-      display: inline-block;
-      width: 16px;
-    }
+    flex: 0 0 72px;
     .cumulative {
       font-weight: bold;
     }
@@ -734,30 +682,6 @@
     padding: 0 4px;
     background: rgba(0, 0, 0, 0.05);
     border: 1px solid @colorBeige;
-    &.talents-header {
-      margin: 0;
-    }
-  }
-
-  .item-name {
-    align-items: center;
-    img {
-      flex: none;
-      margin-right: 3px;
-    }
-    h4 {
-      margin: 0;
-    }
-  }
-
-  .item-controls {
-    flex: none;
-    a.control {
-      margin: 0 2px;
-      padding: 0 2px;
-      border-right: 1px solid @colorBeige;
-      &:last-child { border-right: none; }
-    }
   }
 
   .items-list {
@@ -766,22 +690,15 @@
     margin: 0;
     padding: 0;
 
-    .item {
-      padding: 2px 4px;
-      border-bottom: 1px solid @colorBeige;
-      &:last-child { border-bottom: none; }
-    }
-
-    .tags {
-      flex: 2;
+    .controls {
+      padding-left: 2px;
+      border-left: 1px solid @colorBeige;
     }
   }
 
   // Talent Tree
   .talents .point-pools {
     a.button {
-      flex: 1;
-      width: auto;
       color: @colorOlive;
       border: 1px solid @colorBeige;
       font-size: var(--font-size-14);
@@ -793,4 +710,11 @@
   .unequipped .equipped-state {
     opacity: 0.5;
   }
+}
+
+/* -------------------------------------- */
+/*  Active Effects                        */
+/* -------------------------------------- */
+.crucible.actor .effect {
+
 }

@@ -447,6 +447,7 @@ export default class CrucibleActor extends Actor {
     // Default actions that every character can do
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
       const a = new ActionData(ad);
+      if ( a.tags.has("spell") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
       this.actions[a.id] = a.prepareForActor(this);
     }
 
@@ -586,7 +587,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Saves Defenses
-    for ( let [k, sd] of Object.entries(SYSTEM.SAVE_DEFENSES) ) {
+    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( k === "physical" ) continue;
       let d = this.defenses[k];
       d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
       d.total = d.base + d.bonus;
@@ -741,37 +743,41 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Test the Actor's defense, determining which defense type is used to avoid an attack.
+   * @param {string} defenseType
+   * @param {number} rollTotal
    * @returns {AttackRoll.RESULT_TYPES}
    */
-  testPhysicalDefense(attackRoll) {
+  testDefense(defenseType, rollTotal) {
     const d = this.system.defenses;
 
-    // Hit
-    if ( attackRoll > d.physical ) return AttackRoll.RESULT_TYPES.HIT;
+    // Physical Defense
+    if ( defenseType === "physical" ) {
 
-    // Dodge
-    const r = twist.random() * d.physical;
-    const dodge = d.dodge.total;
-    if ( r <= dodge ) return AttackRoll.RESULT_TYPES.DODGE;
+      // Hit
+      if ( rollTotal > d.physical ) return AttackRoll.RESULT_TYPES.HIT;
 
-    // Parry
-    const parry = dodge + d.parry.total;
-    if ( r <= parry ) return AttackRoll.RESULT_TYPES.PARRY;
+      // Dodge
+      const r = twist.random() * d.physical;
+      const dodge = d.dodge.total;
+      if ( r <= dodge ) return AttackRoll.RESULT_TYPES.DODGE;
 
-    // Block
-    const block = dodge + d.block.total;
-    if ( r <= block ) return AttackRoll.RESULT_TYPES.BLOCK;
+      // Parry
+      const parry = dodge + d.parry.total;
+      if ( r <= parry ) return AttackRoll.RESULT_TYPES.PARRY;
 
-    // Armor
-    return AttackRoll.RESULT_TYPES.DEFLECT;
-  }
+      // Block
+      const block = dodge + d.block.total;
+      if ( r <= block ) return AttackRoll.RESULT_TYPES.BLOCK;
 
-  /* -------------------------------------------- */
+      // Armor
+      return AttackRoll.RESULT_TYPES.DEFLECT;
+    }
 
-  testSaveDefense(defenseType, attackRoll) {
-    const d = this.system.defenses[defenseType];
-    if ( attackRoll > d.total ) return AttackRoll.RESULT_TYPES.HIT;
-    else return AttackRoll.RESULT_TYPES.RESIST;
+    // Save Defenses
+    else {
+      if ( rollTotal > d[defenseType].total ) return AttackRoll.RESULT_TYPES.EFFECTIVE;
+      else return AttackRoll.RESULT_TYPES.RESIST;
+    }
   }
 
   /* -------------------------------------------- */
@@ -800,10 +806,9 @@ export default class CrucibleActor extends Actor {
   async castSpell(action, target) {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
     const spell = action.spell;
-    debugger;
 
     // Create the Attack Roll instance
-    const defense = action.spell.rune.save;
+    const defense = action.spell.rune.defense;
     const roll = new AttackRoll({
       actorId: this.id,
       spellId: spell.id,
@@ -819,8 +824,8 @@ export default class CrucibleActor extends Actor {
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
-    roll.data.result = target.testSaveDefense(defense, roll.total);
-    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
+    const r = roll.data.result = target.testDefense(defense, roll.total);
+    if ( (r === AttackRoll.RESULT_TYPES.HIT) || (r === AttackRoll.RESULT_TYPES.EFFECTIVE) ) {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: 1,
@@ -1129,12 +1134,30 @@ export default class CrucibleActor extends Actor {
    */
   async levelUp(delta=1) {
     if ( delta === 0 ) return;
+
+    // Confirm that character creation is complete
+    if ( this.isL0 ) {
+      const steps = [
+        this.system.details.ancestry?.name,
+        this.system.details.background?.name,
+        !this.points.ability.requireInput,
+        !this.points.skill.available,
+        !this.points.talent.available
+      ];
+      if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
+    }
+
+    // Clone the actor and advance level
     const clone = this.clone();
     const level = Math.clamped(this.level + delta, 0, 24);
     const update = {"system.advancement.level": level};
     clone.updateSource(update);
+
+    // Update resources and progress
     Object.assign(update, clone._getRestData());
     update["system.advancement.progress"] = delta > 0 ? 0 : clone.system.advancement.next;
+
+    // Commit the update
     return this.update(update);
   }
 
@@ -1200,35 +1223,74 @@ export default class CrucibleActor extends Actor {
    */
   async purchaseSkill(skillId, delta=1) {
     delta = Math.sign(delta);
-    const points = this.points.skill;
     const skill = this.system.skills[skillId];
     if ( !skill ) return;
 
+    // Assert that the skill can be purchased
+    try {
+      this.canPurchaseSkill(skillId, delta, true);
+    } catch (err) {
+      return ui.notifications.warn(err);
+    }
+
+    // Adjust rank
+    const rank = skill.rank + delta;
+    const update = {[`system.skills.${skillId}.rank`]: rank};
+    if ( rank === 3 ) update[`system.skills.${skillId}.path`] = null;
+    return this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor can modify a Skill rank in a certain direction.
+   * @param {string} skillId      A skill in SKILLS
+   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
+   * @param {boolean} strict      In strict mode an error message is thrown if the skill cannot be changed
+   * @returns {boolean}           In non-strict mode, a boolean for whether the rank can be purchased
+   * @throws                      In strict mode, an error if the skill cannot be purchased
+   */
+  canPurchaseSkill(skillId, delta=1, strict=false) {
+    delta = Math.sign(delta);
+    const skill = this.system.skills[skillId];
+    if ( !skill || (delta === 0) ) return false;
+
     // Must Choose Background first
     if ( !this.ancestry.name || !this.background.name ) {
-      return ui.notifications.warn(game.i18n.localize("WARNING.SkillRequireAncestryBackground"));
+      if ( strict ) throw new Error(game.i18n.localize("WARNING.SkillRequireAncestryBackground"));
+      return false;
     }
 
-    // Decrease
+    // Decreasing Skill
     if ( delta < 0 ) {
-      if ( skill.rank === 0 ) return;
-      const update = {};
-      if ( skill.rank === 3 ) update[`system.skills.${skillId}.path`] = null;
-      update[`system.skills.${skillId}.rank`] = skill.rank - 1;
-      return this.update(update);
+      if ( skill.rank === 0 ) {
+        if ( strict ) throw new Error("Cannot decrease skill rank");
+        return false;
+      }
+      return true;
     }
 
-    // Increase
-    else if ( delta > 0 ) {
-      if ( skill.rank === 5 ) return;
-      if ( (skill.rank === 3) && !skill.path ) {
-        return ui.notifications.warn(game.i18n.localize(`SKILL.ChoosePath`));
-      }
-      if ( points.available < skill.cost ) {
-        return ui.notifications.warn(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: points.available}));
-      }
-      return this.update({[`system.skills.${skillId}.rank`]: skill.rank + 1});
+    // Maximum Rank
+    if ( skill.rank === 5 ) {
+      if ( strict ) throw new Error("Skill already at maximum");
+      return false;
     }
+
+    // Require Specialization
+    if ( (skill.rank === 3) && !skill.path ) {
+      if ( strict ) throw new Error(game.i18n.localize(`SKILL.ChoosePath`));
+      return false;
+    }
+
+    // Cannot Afford
+    const p = this.points.skill;
+    if ( p.available < skill.cost ) {
+      if ( strict ) throw new Error(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: p.available}));
+      return false;
+    }
+
+    // Can purchase
+    return true;
   }
 
   /* -------------------------------------------- */

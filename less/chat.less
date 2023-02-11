@@ -1,43 +1,26 @@
 .crucible .action {
   gap: 4px;
 
-  > div {
-    flex-basis: 100%;
-  }
-
   /** Action Header */
   .action-header {
-    gap: 4px;
-    padding: 0 0 4px;
-    border-bottom: 1px solid @colorBeige;
-
-    .action-icon {
-      flex: 0 0 40px;
-      height: 40px;
+    flex: none;
+    img.icon {
+      height: 48px;
+      flex: 0 0 48px;
     }
+  }
 
-    .action-name {
-      margin: 0;
-    }
-
-    .tags {
-      flex: none;
-    }
+  /** Detail Tags */
+  > div {
+    flex: none;
   }
 
   /** Text Description */
   .action-description {
-    flex: 0 0 100%;
-    margin: 4px 0;
     padding: 4px 0;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: var(--font-size-12);
     font-style: italic;
     border-top: 1px solid @colorBeige;
     border-bottom: 1px solid @colorBeige;
-  }
-
-  .dice-roll {
-    margin: 4px 0;
   }
 }

@@ -26,6 +26,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     this.rune = SYSTEM.SPELL.RUNES[this.rune];
     this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
     this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
+    this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
     this.name ||= CrucibleSpell.#getDefaultName(this);
     this.img ||= this.rune.img;
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
@@ -82,9 +83,18 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
    * Prepare a default name for the spell if a custom name has not been designated.
    * @type {string}
    */
-  static #getDefaultName({rune, gesture, inflection}={}) {
-    const format = inflection ? "SPELL.DefaultNameAdjective" : "SPELL.DefaultName";
-    return game.i18n.format(format, {rune, gesture, adjective: inflection?.adjective});
+  static #getDefaultName({rune, gesture, inflection, nameFormat}={}) {
+    let name = "";
+    switch ( nameFormat ) {
+      case SYSTEM.SPELL.NAME_FORMATS.NOUN:
+        name = game.i18n.format("SPELL.NameFormatNoun", {rune, gesture});
+        break;
+      case SYSTEM.SPELL.NAME_FORMATS.ADJ:
+        name = game.i18n.format("SPELL.NameFormatAdj", {rune: rune.adjective, gesture});
+        break;
+    }
+    if ( inflection ) name = `${inflection.adjective} ${name}`;
+    return name;
   }
 
   /* -------------------------------------------- */
@@ -110,7 +120,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
 
     // Action Tags
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
-    tags.action.defense = SYSTEM.SAVE_DEFENSES[this.rune.save].label;
+    tags.action.defense = SYSTEM.DEFENSES[this.rune.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
     return tags;
   }

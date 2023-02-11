@@ -63,10 +63,13 @@ export default class HeroSheet extends ActorSheet {
     context.items = this._formatItems(this.actor.items);
     const eqp = this.actor.equipment;
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.system.category].label;
-    context.armorTag = eqp.armor.getTags("short").armor;
-    context.mainhandTag = eqp.weapons.mainhand.getTags().damage;
-    context.showOffhand = !eqp.weapons.twoHanded;
-    context.offhandTag = eqp.weapons.offhand.getTags().damage;
+    const {mainhand: mh, offhand: oh, twoHanded: th} = eqp.weapons;
+    context.featuredEquipment = [
+      {name: mh.name, img: mh.img, tag: [mh.getTags().damage]}
+    ]
+    if ( !th ) context.featuredEquipment.push({name: oh.name, img: oh.img, tag: [oh.getTags().damage]});
+    const a = eqp.armor;
+    context.featuredEquipment.push({name: a.name, img: a.img, tag: eqp.armor.getTags("short").armor})
 
     // Leveling
     context.isL0 = this.actor.isL0;
@@ -256,11 +259,14 @@ export default class HeroSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   _formatMagicDefenses(defenses) {
-    return Object.entries(SYSTEM.SAVE_DEFENSES).map(([id, defense]) => {
+    const formatted = [];
+    for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( id === "physical" ) continue;
       const d = foundry.utils.mergeObject(defense, defenses[id]);
       d.id = id;
-      return d;
-    });
+      formatted.push(d);
+    }
+    return formatted;
   }
 
   /* -------------------------------------------- */
@@ -286,6 +292,8 @@ export default class HeroSheet extends ActorSheet {
         c.rank > 0 ? "trained" : "untrained",
         c.path ? "specialized" : "unspecialized"
       ].join(" ");
+      skill.canIncrease = this.actor.canPurchaseSkill(id, 1);
+      skill.canDecrease = this.actor.canPurchaseSkill(id, -1);
 
       // Specialization status
       const path = skill.paths[skill.path] || null;
@@ -350,7 +358,7 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find("a.control").click(this._onClickControl.bind(this));
+    html.find("[data-action]").click(this._onClickControl.bind(this));
     html.find("a.section-lock").click(this._onToggleSectionLock.bind(this));
   }
 
@@ -376,6 +384,8 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.applyAncestry(null);
       case "clearBackground":
         return this.actor.applyBackground(null);
+      case "effectDelete":
+        return this.#onEffectDelete(a);
       case "itemDelete":
         return this._onItemDelete(a);
       case "itemEdit":
@@ -430,6 +440,14 @@ export default class HeroSheet extends ActorSheet {
         break;  // Talents cannot be created via drag-and-drop
     }
     return super._onDropItemCreate(itemData);
+  }
+
+  /* -------------------------------------------- */
+
+  #onEffectDelete(button) {
+    const li = button.closest(".effect");
+    const effect = this.actor.effects.get(li.dataset.effectId);
+    return effect?.deleteDialog();
   }
 
   /* -------------------------------------------- */

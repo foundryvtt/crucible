@@ -14,9 +14,19 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
       resource: new fields.StringField({choices: SYSTEM.RESOURCES, initial: "health"}),
       restoration: new fields.BooleanField({initial: false}),
       opposed: new fields.StringField({required: true, blank: false}),
-      save: new fields.StringField({choices: SYSTEM.SAVE_DEFENSES}),
+      defense: new fields.StringField({choices: SYSTEM.DEFENSES}),
+      nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
       scaling: new fields.StringField({choices: SYSTEM.ABILITIES})
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _initialize() {
+    super._initialize();
+    this.adjective = game.i18n.localize(`${this.name}Adj`);
+    this.name = game.i18n.localize(this.name);
   }
 
   /* -------------------------------------------- */
@@ -27,7 +37,6 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
   static initialize() {
     const runes = SYSTEM.SPELL.RUNES;
     for ( const [k, v] of Object.entries(runes) ) {
-      v.name = game.i18n.localize(v.name);
       runes[k] = new CrucibleRune(v);
     }
     Object.freeze(runes);
@@ -50,7 +59,7 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
     const tags = [
       SYSTEM.ABILITIES[this.scaling].label,
       SYSTEM.RESOURCES[this.resource].label,
-      SYSTEM.SAVE_DEFENSES[this.save].label
+      SYSTEM.DEFENSES[this.defense].label
     ];
 
     // Damage Type

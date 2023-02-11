@@ -4,6 +4,10 @@
   font-size: var(--font-size-16);
 }
 
+#chat-log .dice-rolls {
+  margin-top: 4px;
+}
+
 .dice-roll.standard-check {
   .dice-pool {
     justify-content: space-between;
@@ -260,10 +264,8 @@
   }
 
   .buttons {
-    flex: 0 0 32px;
+    flex: none;
     margin-top: 4px;
-    > select {
-      margin-right: var(--marginSize);
-    }
+    gap: 4px;
   }
 }

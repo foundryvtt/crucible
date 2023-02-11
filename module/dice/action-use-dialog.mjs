@@ -11,7 +11,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
 	    template: `systems/${SYSTEM.id}/templates/dice/action-use-dialog.html`,
-      classes: [SYSTEM.id, "roll"],
+      classes: [SYSTEM.id, "sheet", "roll"],
       width: 360,
       submitOnChange: true,
       closeOnSubmit: false

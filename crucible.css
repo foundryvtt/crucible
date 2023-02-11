@@ -26,6 +26,9 @@
   --fontSizeSmall: 12px;
   --colorError: #cb2f30;
 }
+.crucible {
+  /* Line Items */
+}
 .crucible .window-content {
   background: url("ui/parchment.jpg") repeat;
   font-size: 13px;
@@ -60,10 +63,11 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  gap: 3px;
-  font-size: 12px;
+  gap: 2px;
+  font-size: var(--font-size-10);
 }
 .crucible .tags label {
+  font-size: var(--font-size-12);
   flex: 1;
 }
 .crucible .tags .tag {
@@ -71,11 +75,11 @@
 }
 .crucible span.tag {
   display: inline-block;
-  padding: 0 4px;
+  padding: 0 3px;
   font-family: var(--fontFamilySans);
-  font-size: 12px;
+  font-size: var(--font-size-11);
+  line-height: var(--font-size-16);
   text-align: center;
-  line-height: 18px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid #b5b3a4;
   border-radius: 4px;
@@ -101,6 +105,28 @@
 .crucible input:read-only {
   border: none;
   pointer-events: none;
+}
+.crucible .line-item {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  gap: 4px;
+}
+.crucible .line-item .name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.crucible .line-item .name h3,
+.crucible .line-item .name h4 {
+  line-height: 1rem;
+  margin: 0;
+}
+.crucible .line-item .icon {
+  flex: 0 0 24px;
+  height: 24px;
+  border-radius: 4px;
 }
 /* Tooltips */
 #crucible-tooltip,
@@ -252,26 +278,30 @@ h2.divider span {
   object-fit: cover;
   object-position: 0 10%;
 }
-.crucible.sheet .window-content,
-.crucible.sheet form,
-.crucible.sheet .sheet-body {
-  overflow: hidden;
-}
 .crucible.sheet .highlight {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #c9c7b8;
   border-radius: 3px;
 }
-.crucible.sheet a.button {
+.crucible.sheet a.button,
+.crucible.sheet a.control {
   display: inline-block;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
-  line-height: 24px;
+  min-width: 20px;
+  margin: 0;
   padding: 0;
-  margin: 0 3px;
   color: #7a7971;
   text-align: center;
+}
+.crucible.sheet a.button.active,
+.crucible.sheet a.control.active {
+  color: #191813;
+}
+.crucible.sheet a.button.inactive,
+.crucible.sheet a.control.inactive {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.crucible.sheet a.button {
   border: 1px solid transparent;
   border-radius: 3px;
 }
@@ -280,9 +310,6 @@ h2.divider span {
   box-shadow: 0 0 4px #FFF;
   text-shadow: none;
   color: #191813;
-}
-.crucible.sheet a.button.inactive {
-  visibility: hidden;
 }
 .crucible.sheet .incomplete {
   margin-left: 2px;
@@ -389,10 +416,7 @@ h2.divider span {
 .crucible.sheet.actor a.section-lock {
   position: absolute;
   right: 0;
-  width: 20px;
-  height: 20px;
   font-size: var(--fontSizeSmall);
-  line-height: inherit;
 }
 .crucible.sheet.actor span.slash {
   flex: 0 0 20px;
@@ -419,32 +443,14 @@ h2.divider span {
   margin-top: var(--marginSize);
   padding-right: var(--marginSize);
   border-right: 1px solid #b5b3a4;
+  gap: 4px;
+  /** Overview Containers */
 }
 .crucible.sheet.actor .overview .equipment,
-.crucible.sheet.actor .overview .action,
-.crucible.sheet.actor .overview .effect {
-  align-items: center;
-  gap: 2px;
-  margin-bottom: 4px;
-}
-.crucible.sheet.actor .overview .equipment img,
-.crucible.sheet.actor .overview .action img,
-.crucible.sheet.actor .overview .effect img {
-  flex: 0 0 24px;
-  height: 24px;
-  border: 1px solid #191813;
-  border-radius: 4px;
-}
-.crucible.sheet.actor .overview .equipment h4,
-.crucible.sheet.actor .overview .action h4,
-.crucible.sheet.actor .overview .effect h4 {
-  line-height: 16px;
-  margin: 0 0 0 4px;
-}
-.crucible.sheet.actor .overview .equipment .tag,
-.crucible.sheet.actor .overview .action .tag,
-.crucible.sheet.actor .overview .effect .tag {
+.crucible.sheet.actor .overview .actions,
+.crucible.sheet.actor .overview .effects {
   flex: none;
+  align-items: center;
 }
 .crucible.sheet.actor .title {
   gap: 0.5rem;
@@ -630,6 +636,7 @@ h2.divider span {
 .crucible.sheet.actor .point-pools {
   flex: none;
   justify-content: flex-end;
+  gap: 4px;
   text-align: right;
   margin: calc(var(--marginSize) / 2) 0;
   font-size: var(--fontSizeHeader);
@@ -637,7 +644,6 @@ h2.divider span {
 }
 .crucible.sheet.actor .point-pools label {
   flex: none;
-  margin: 0 4px 0 8px;
 }
 .crucible.sheet.actor .point-pools span.value {
   flex: 0 0 32px;
@@ -816,18 +822,7 @@ h2.divider span {
   padding: 0;
 }
 .crucible.sheet.actor .tab.skills .skill {
-  margin: 2px 0;
-  line-height: var(--skillHeight);
-}
-.crucible.sheet.actor .tab.skills .skill img {
-  flex: 0 0 var(--skillHeight);
-  height: var(--skillHeight);
-  margin-right: calc(var(--marginSize) / 2);
-}
-.crucible.sheet.actor .tab.skills .skill .skill-config {
-  flex: 0 0 20px;
-  text-align: center;
-  color: #7a7971;
+  padding: 1px 0;
 }
 .crucible.sheet.actor .tab.skills .skill .skill-ranks {
   display: flex;
@@ -847,17 +842,6 @@ h2.divider span {
   background: rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 2px #FFF inset;
   border: 1px solid #33332e;
-}
-.crucible.sheet.actor .tab.skills .skill .points,
-.crucible.sheet.actor .tab.skills .skill .bonus {
-  height: var(--skillHeight);
-}
-.crucible.sheet.actor .tab.skills .skill-name {
-  flex: 2;
-}
-.crucible.sheet.actor .tab.skills .skill-name h4 {
-  margin: 0;
-  font-size: 16px;
 }
 .crucible.sheet.actor .tab.skills .bonus {
   flex: 0 0 64px;
@@ -883,16 +867,7 @@ h2.divider span {
   width: 28px;
 }
 .crucible.sheet.actor .tab.skills .points {
-  flex: 0 0 80px;
-  text-align: center;
-}
-.crucible.sheet.actor .tab.skills .points .control {
-  margin: 0;
-}
-.crucible.sheet.actor .tab.skills .points .cumulative,
-.crucible.sheet.actor .tab.skills .points .next {
-  display: inline-block;
-  width: 16px;
+  flex: 0 0 72px;
 }
 .crucible.sheet.actor .tab.skills .points .cumulative {
   font-weight: bold;
@@ -917,49 +892,17 @@ h2.divider span {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #b5b3a4;
 }
-.crucible.actor .items-header.talents-header {
-  margin: 0;
-}
-.crucible.actor .item-name {
-  align-items: center;
-}
-.crucible.actor .item-name img {
-  flex: none;
-  margin-right: 3px;
-}
-.crucible.actor .item-name h4 {
-  margin: 0;
-}
-.crucible.actor .item-controls {
-  flex: none;
-}
-.crucible.actor .item-controls a.control {
-  margin: 0 2px;
-  padding: 0 2px;
-  border-right: 1px solid #b5b3a4;
-}
-.crucible.actor .item-controls a.control:last-child {
-  border-right: none;
-}
 .crucible.actor .items-list {
   flex: 0;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.crucible.actor .items-list .item {
-  padding: 2px 4px;
-  border-bottom: 1px solid #b5b3a4;
-}
-.crucible.actor .items-list .item:last-child {
-  border-bottom: none;
-}
-.crucible.actor .items-list .tags {
-  flex: 2;
+.crucible.actor .items-list .controls {
+  padding-left: 2px;
+  border-left: 1px solid #b5b3a4;
 }
 .crucible.actor .talents .point-pools a.button {
-  flex: 1;
-  width: auto;
   color: #33332e;
   border: 1px solid #b5b3a4;
   font-size: var(--font-size-14);
@@ -968,6 +911,9 @@ h2.divider span {
 .crucible.actor .unequipped .equipped-state {
   opacity: 0.5;
 }
+/* -------------------------------------- */
+/*  Active Effects                        */
+/* -------------------------------------- */
 /** ----------------------------------------- *
  *  Item Sheets                               *
  * ------------------------------------------ */
@@ -1036,21 +982,6 @@ h2.divider span {
 }
 .crucible.talent .description {
   margin: 0.5rem 0;
-}
-.crucible.talent .action .action-header {
-  padding: 0;
-  border-bottom: none;
-}
-.crucible.talent .action .action-icon {
-  flex: 0 0 24px;
-  height: 24px;
-  border-radius: 4px;
-}
-.crucible.talent .action .action-name {
-  flex: none;
-}
-.crucible.talent .action .action-tags {
-  gap: 4px;
 }
 .crucible.talent .action .condition {
   margin: 0.5rem 0 0;
@@ -1156,42 +1087,32 @@ h2.divider span {
 .crucible .action {
   gap: 4px;
   /** Action Header */
+  /** Detail Tags */
   /** Text Description */
 }
-.crucible .action > div {
-  flex-basis: 100%;
-}
 .crucible .action .action-header {
-  gap: 4px;
-  padding: 0 0 4px;
-  border-bottom: 1px solid #b5b3a4;
+  flex: none;
 }
-.crucible .action .action-header .action-icon {
-  flex: 0 0 40px;
-  height: 40px;
+.crucible .action .action-header img.icon {
+  height: 48px;
+  flex: 0 0 48px;
 }
-.crucible .action .action-header .action-name {
-  margin: 0;
-}
-.crucible .action .action-header .tags {
+.crucible .action > div {
   flex: none;
 }
 .crucible .action .action-description {
-  flex: 0 0 100%;
-  margin: 4px 0;
   padding: 4px 0;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: var(--font-size-12);
   font-style: italic;
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
 }
-.crucible .action .dice-roll {
-  margin: 4px 0;
-}
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);
   font-size: var(--font-size-16);
+}
+#chat-log .dice-rolls {
+  margin-top: 4px;
 }
 .dice-roll.standard-check .dice-pool {
   justify-content: space-between;
@@ -1457,11 +1378,9 @@ h2.divider span {
   margin: 0 auto;
 }
 .roll .buttons {
-  flex: 0 0 32px;
+  flex: none;
   margin-top: 4px;
-}
-.roll .buttons > select {
-  margin-right: var(--marginSize);
+  gap: 4px;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */

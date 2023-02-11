@@ -17,7 +17,7 @@ export default class SpellCastDialog extends ActionUseDialog {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       template: `systems/${SYSTEM.id}/templates/dice/spell-cast-dialog.html`,
-      classes: [SYSTEM.id, "roll", "spell"]
+      classes: [SYSTEM.id, "sheet", "roll", "spell"]
     });
   }
 

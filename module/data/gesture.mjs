@@ -18,6 +18,8 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
         base: new fields.NumberField({required: true, integer: true, min: 0})
       }),
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
+      nameFormat: new fields.NumberField({required: false, choices: Object.values(SYSTEM.SPELL.NAME_FORMATS),
+        initial: undefined}),
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES}),
@@ -30,13 +32,20 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _initialize() {
+    super._initialize();
+    this.name = game.i18n.localize(this.name);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * One-time initialization to instantiate SYSTEM.SPELL.GESTURES.
    */
   static initialize() {
     const gestures = SYSTEM.SPELL.GESTURES;
     for ( const [k, v] of Object.entries(gestures) ) {
-      v.name = game.i18n.localize(v.name);
       gestures[k] = new CrucibleGesture(v);
     }
     Object.freeze(gestures);

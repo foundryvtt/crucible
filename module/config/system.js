@@ -251,44 +251,40 @@ export const RESOURCES = Object.freeze({
   }
 });
 
-
-/* -------------------------------------------- */
-
-
-/**
- * The magical defense saving throws which can be applied.
- * @type {object}
- */
-export const SAVE_DEFENSES = {
-  "fortitude": {
-    label: "DEFENSES.Fortitude",
-    abbreviation: "DEFENSES.FortitudeAbr",
-    abilities: ["strength", "toughness"],
-    tooltip: "12 + Strength + Toughness"
-  },
-  "reflex": {
-    label: "DEFENSES.Reflex",
-    abbreviation: "DEFENSES.ReflexAbr",
-    abilities: ["dexterity", "intellect"],
-    tooltip: "12 + Dexterity + Intellect"
-  },
-  "willpower": {
-    label: "DEFENSES.Willpower",
-    abbreviation: "DEFENSES.WillpowerAbr",
-    abilities: ["wisdom", "presence"],
-    tooltip: "12 + Wisdom + Presence"
-  }
-};
-
-
-/* -------------------------------------------- */
-
-
 /**
  * The base threshold for passive checks onto which bonuses are added.
  * @type {number}
  */
 export const PASSIVE_BASE = 12;
+
+/* -------------------------------------------- */
+
+/**
+ * The defense types which can be used to counter an attack roll.
+ * @type {object}
+ */
+export const DEFENSES = {
+  physical: {
+    label: "DEFENSES.Physical"
+  },
+  fortitude: {
+    label: "DEFENSES.Fortitude",
+    abilities: ["strength", "toughness"],
+    tooltip: `${PASSIVE_BASE} + Strength + Toughness`
+  },
+  reflex: {
+    label: "DEFENSES.Reflex",
+    abilities: ["dexterity", "intellect"],
+    tooltip: `${PASSIVE_BASE} + Dexterity + Intellect`
+  },
+  willpower: {
+    label: "DEFENSES.Willpower",
+    abilities: ["wisdom", "presence"],
+    tooltip: `${PASSIVE_BASE} + Wisdom + Presence`
+  }
+}
+
+/* -------------------------------------------- */
 
 
 /**
@@ -307,11 +303,11 @@ export const SYSTEM = {
   COMPENDIUM_PACKS,
   DAMAGE_CATEGORIES,
   DAMAGE_TYPES,
+  DEFENSES,
   ENCHANTMENT_TIERS,
   PASSIVE_BASE,
   QUALITY_TIERS,
   RESOURCES,
-  SAVE_DEFENSES,
   SKILL_CATEGORIES,
   SKILL_RANKS,
   SKILLS,
