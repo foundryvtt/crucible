@@ -1,4 +1,4 @@
-import ActionData from "./data/action.mjs";
+import CrucibleAction from "./data/action.mjs";
 
 
 export function addChatMessageContextOptions(html, options)  {
@@ -41,7 +41,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      return ActionData.confirm(message);
+      return CrucibleAction.confirm(message);
     }
   });
 
@@ -56,7 +56,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      return ActionData.reverse(message);
+      return CrucibleAction.reverse(message);
     }
   });
   return options;

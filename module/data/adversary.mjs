@@ -1,10 +1,10 @@
-import ArchetypeData from "./archetype.mjs";
+import CrucibleArchetype from "./archetype.mjs";
 import {SYSTEM} from "../config/system.js";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
  */
-export default class AdversaryData extends foundry.abstract.TypeDataModel {
+export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -63,11 +63,11 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
       details: new fields.SchemaField({
         archetype: new fields.SchemaField({
           name: new fields.StringField(),
-          ...ArchetypeData.defineSchema()
+          ...CrucibleArchetype.defineSchema()
         }, {required: false, initial: undefined}),
         level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-        category: new fields.StringField({required: true, choices: AdversaryData.CATEGORIES, initial: "humanoid"}),
-        threat: new fields.StringField({required: true, choices: AdversaryData.THREATS, initial: "normal"}),
+        category: new fields.StringField({required: true, choices: CrucibleAdversary.CATEGORIES, initial: "humanoid"}),
+        threat: new fields.StringField({required: true, choices: CrucibleAdversary.THREATS, initial: "normal"}),
         biography: new fields.SchemaField({
           public: new fields.HTMLField(),
           private: new fields.HTMLField()
@@ -124,7 +124,7 @@ export default class AdversaryData extends foundry.abstract.TypeDataModel {
    */
   #applyArchetype() {
     const {archetype, level, threat} = this.details;
-    const factor = AdversaryData.THREAT_SCALING[threat] || 1;
+    const factor = CrucibleAdversary.THREAT_SCALING[threat] || 1;
 
     // Scale attributes
     for ( const a of Object.keys(this.attributes) ) {

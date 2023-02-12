@@ -1,4 +1,4 @@
-import ActionData from "./action.mjs";
+import CrucibleAction from "./action.mjs";
 import AttackRoll from "../dice/attack-roll.mjs";
 import PhysicalItemData from "./physical.mjs";
 import { SYSTEM } from "../config/system.js";
@@ -6,7 +6,7 @@ import { SYSTEM } from "../config/system.js";
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
  */
-export default class WeaponData extends PhysicalItemData {
+export default class CrucibleWeapon extends PhysicalItemData {
 
   /** @inheritDoc */
   _configure(options) {
@@ -191,7 +191,7 @@ export default class WeaponData extends PhysicalItemData {
       resistance: target.resistances[this.damageType]?.total ?? 0,
       type: this.damageType
     };
-    roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
+    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;
   }
 

@@ -11,18 +11,18 @@ import CrucibleTalentNode from "./module/config/talent-tree.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
 // Data Models
-import ActionData from "./module/data/action.mjs";
-import AdversaryData from "./module/data/adversary.mjs";
-import AncestryData from "./module/data/ancestry.mjs";
-import ArchetypeData from "./module/data/archetype.mjs";
-import ArmorData from "./module/data/armor.mjs";
-import BackgroundData from "./module/data/background.mjs";
-import TalentData from "./module/data/talent.mjs";
-import WeaponData from "./module/data/weapon.mjs";
-import CrucibleSpell from "./module/data/spell.mjs";
+import CrucibleAction from "./module/data/action.mjs";
+import CrucibleAdversary from "./module/data/adversary.mjs";
+import CrucibleAncestry from "./module/data/ancestry.mjs";
+import CrucibleArchetype from "./module/data/archetype.mjs";
+import CrucibleArmor from "./module/data/armor.mjs";
+import CrucibleBackground from "./module/data/background.mjs";
 import CrucibleGesture from "./module/data/gesture.mjs";
 import CrucibleInflection from "./module/data/inflection.mjs";
 import CrucibleRune from "./module/data/rune.mjs";
+import CrucibleSpell from "./module/data/spell.mjs";
+import CrucibleTalent from "./module/data/talent.mjs";
+import CrucibleWeapon from "./module/data/weapon.mjs";
 
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
@@ -73,16 +73,18 @@ Hooks.once("init", async function() {
       StandardCheck
     },
     models: {
-      ActionData,
-      AncestryData,
-      ArmorData,
-      BackgroundData,
-      CrucibleSpell,
+      CrucibleAction,
+      CrucibleAdversary,
+      CrucibleAncestry,
+      CrucibleArchetype,
+      CrucibleArmor,
+      CrucibleBackground,
       CrucibleGesture,
       CrucibleInflection,
       CrucibleRune,
-      TalentData,
-      WeaponData
+      CrucibleSpell,
+      CrucibleTalent,
+      CrucibleWeapon
     },
     documents: {
       CrucibleActor,
@@ -106,7 +108,7 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
   CONFIG.Actor.dataModels = {
-    adversary: AdversaryData
+    adversary: CrucibleAdversary
   };
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero", "npc"], makeDefault: true});
@@ -115,12 +117,12 @@ Hooks.once("init", async function() {
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
   CONFIG.Item.dataModels = {
-    ancestry: AncestryData,
-    archetype: ArchetypeData,
-    armor: ArmorData,
-    background: BackgroundData,
-    talent: TalentData,
-    weapon: WeaponData
+    ancestry: CrucibleAncestry,
+    archetype: CrucibleArchetype,
+    armor: CrucibleArmor,
+    background: CrucibleBackground,
+    talent: CrucibleTalent,
+    weapon: CrucibleWeapon
   };
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
@@ -181,6 +183,7 @@ Hooks.once("i18nInit", function() {
   loadTemplates([
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.html`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
   ]);
 });
 

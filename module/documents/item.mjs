@@ -19,7 +19,7 @@ export default class CrucibleItem extends Item {
 
   /**
    * An array of actions that this Item provides.
-   * @type {ActionData}
+   * @type {CrucibleAction}
    */
   get actions() {
     return this.system.actions;

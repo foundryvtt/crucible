@@ -41,7 +41,7 @@ export default class TalentSheet extends ItemSheet {
       editable: isEditable,
       item: this.object,
       source: source,
-      hasActions: this.item.actions.length,
+      actions: TalentSheet.prepareActions(this.object.system.actions),
       tags: this.item.getTags(),
       actionsJSON: JSON.stringify(source.system.actions, null, 2),
       requirementsJSON: JSON.stringify(source.system.requirements, null, 2),
@@ -50,6 +50,26 @@ export default class TalentSheet extends ItemSheet {
       gestures: SYSTEM.SPELL.GESTURES,
       inflections: SYSTEM.SPELL.INFLECTIONS
     }
+  }
+
+  /* -------------------------------------------- */
+
+  static prepareActions(actions) {
+    return actions.map(action => ({
+      id: action.id,
+      name: action.name,
+      img: action.img,
+      condition: action.condition,
+      description: action.description,
+      tags: action.getTags(),
+      effects: action.effects.map(effect => ({
+        name: action.name,
+        tags: {
+          scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope)}`,
+          duration: effect.duration?.rounds ? `${effect.duration.rounds}R` : "Until Ended"
+        }
+      }))
+    }));
   }
 
   /* -------------------------------------------- */

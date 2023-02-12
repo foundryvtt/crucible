@@ -1,6 +1,7 @@
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
-import TalentData from "../data/talent.mjs";
+import CrucibleTalent from "../data/talent.mjs";
+import TalentSheet from "../sheets/talent.mjs";
 
 /**
  * An Application instance that renders a HUD tooltip in the CrucibleTalentTree
@@ -57,10 +58,10 @@ export default class CrucibleTalentHUD extends Application {
     tags.push({label: `${node.talents.size} Talents`});
     if ( state === states.BANNED ) tags.push({label: "Banned", class: "unmet"});
     else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
-    const reqs = TalentData.preparePrerequisites(node.requirements, {});
+    const reqs = CrucibleTalent.preparePrerequisites(node.requirements, {});
     return {
       tags,
-      prerequisites: TalentData.testPrerequisites(actor, reqs)
+      prerequisites: CrucibleTalent.testPrerequisites(actor, reqs)
     };
   }
 
@@ -71,14 +72,11 @@ export default class CrucibleTalentHUD extends Application {
    * @returns {object}
    */
   #getTalentContext() {
-    const actor = game.system.tree.actor;
     const talent = this.target.talent;
-    const source = talent.toObject();
     return {
-      item: talent,
-      source: source,
-      hasActions: talent.actions.length,
-      prerequisites: TalentData.testPrerequisites(actor, talent.system.prerequisites)
+      source: talent.toObject(),
+      actions: TalentSheet.prepareActions(talent.system.actions),
+      tags: talent.getTags()
     }
   }
 

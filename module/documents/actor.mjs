@@ -1,7 +1,7 @@
 import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
-import ActionData from "../data/action.mjs";
+import CrucibleAction from "../data/action.mjs";
 
 
 /**
@@ -45,7 +45,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Track the Actions which this Actor has available to use
-   * @type {Object<string, ActionData>}
+   * @type {Object<string, CrucibleAction>}
    */
   actions = this["actions"];
 
@@ -463,7 +463,7 @@ export default class CrucibleActor extends Actor {
 
     // Default actions that every character can do
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
-      const a = new ActionData(ad);
+      const a = new CrucibleAction(ad);
       if ( a.tags.has("spell") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
       this.actions[a.id] = a.prepareForActor(this);
     }
@@ -927,7 +927,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Cast a certain spell against a target
-   * @param {ActionData} action
+   * @param {CrucibleAction} action
    * @param {CrucibleActor} target
    * @param {object} bonuses
    * @returns {Promise<void>}
@@ -963,7 +963,7 @@ export default class CrucibleActor extends Actor {
         resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
         type: spell.damage.type
       };
-      roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
+      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
 
     // Record actor updates

@@ -4,7 +4,7 @@ import { SYSTEM } from "../config/system.js";
 /**
  * Data schema, attributes, and methods specific to Armor type Items.
  */
-export default class ArmorData extends PhysicalItemData {
+export default class CrucibleArmor extends PhysicalItemData {
 
   /** @override */
   static DEFAULT_CATEGORY = "medium";

@@ -3,7 +3,7 @@ import { SYSTEM } from "../config/system.js";
 /**
  * Data schema, attributes, and methods specific to Ancestry type Items.
  */
-export default class AncestryData extends foundry.abstract.TypeDataModel {
+export default class CrucibleAncestry extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -17,7 +17,7 @@ export default class AncestryData extends foundry.abstract.TypeDataModel {
       primary: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       secondary: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
-        validate: AncestryData.#validateSkills
+        validate: CrucibleAncestry.#validateSkills
       }),
       resistance: new fields.StringField({blank: true, choices: SYSTEM.DAMAGE_TYPES}),
       vulnerability: new fields.StringField({blank: true, choices: SYSTEM.DAMAGE_TYPES})

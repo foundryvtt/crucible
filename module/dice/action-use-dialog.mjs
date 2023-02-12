@@ -22,7 +22,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * The Action being performed
-   * @type {ActionData}
+   * @type {CrucibleAction}
    */
   get action() {
     return this.options.action;

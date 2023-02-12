@@ -1,4 +1,4 @@
-import ActionData from "./action.mjs";
+import CrucibleAction from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 
@@ -8,7 +8,7 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
  * @property {number} tier
  * @property {number} cost
  * @property {{[key: string]: number}} requirements
- * @property {ActionData[]} actions
+ * @property {CrucibleAction[]} actions
  * @property {object[]} passives
  */
 
@@ -30,17 +30,17 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
  * @property {TalentRankData} currentRank             The current rank in this talent
  * @property {number} cost                            The action point cost to have obtained the current rank
  * @property {TalentRankData} nextRank                The next rank in this talent
- * @property {ActionData[]} actions                   The actions which have been unlocked by this talent
+ * @property {CrucibleAction[]} actions               The actions which have been unlocked by this talent
  * @property {AdvancementPrerequisites} prerequisites The derived prerequisites required for this rank
  * @property {AdvancementPrerequisites} requirements  The derived requirements required for the next rank
  */
-export default class TalentData extends foundry.abstract.TypeDataModel {
+export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
       node: new fields.StringField({required: false, choices: () => Array.from(CrucibleTalentNode.nodes.keys())}),
       description: new fields.HTMLField(),
-      actions: new fields.ArrayField(new fields.EmbeddedDataField(ActionData)),
+      actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
       requirements: new fields.ObjectField(),
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
       gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
@@ -61,7 +61,7 @@ export default class TalentData extends foundry.abstract.TypeDataModel {
     }
 
     // Prepare prerequisites
-    this.prerequisites = TalentData.preparePrerequisites(node.requirements, this.requirements);
+    this.prerequisites = CrucibleTalent.preparePrerequisites(node.requirements, this.requirements);
 
     // Prepare Action data
     for ( let a of this.actions ) {

@@ -981,6 +981,9 @@ h2.divider span {
   margin: 0.5rem 0 0;
   flex: 0 0 100%;
 }
+.crucible.talent .action .effect {
+  font-size: var(--font-size-11);
+}
 .crucible.journal-sheet .editor-content {
   padding-right: 8px;
 }

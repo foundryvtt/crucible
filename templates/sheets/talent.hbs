@@ -22,42 +22,7 @@
 
     {{!-- Description Tab --}}
     <section class="tab sheet-body" data-tab="summary">
-        <div class="description">
-            {{{source.system.description}}}
-        </div>
-
-        {{#if hasActions}}
-        <div class="form-group stacked">
-            <h3 class="divider">
-                <span></span><label>Actions</label><span></span>
-            </h3>
-            {{#each item.actions as |action|}}
-            <div class="action" data-action-id="{{this.id}}">
-                <div class="action-header line-item">
-                    <div class="name flexrow">
-                        <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
-                        <h4>{{action.name}}</h4>
-                    </div>
-                    <div class="action-tags">
-                    {{#each action.getTags as |tags section|}}
-                        <div class="tags" data-tag-type="{{section}}">
-                        {{#each tags as |label tag|}}
-                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                            {{/each}}
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-                {{#if action.condition}}
-                <p class="condition">
-                    <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
-                </p>
-                {{/if}}
-                <div class="description">{{{action.description}}}</div>
-            </div>
-            {{/each}}
-        </div>
-        {{/if}}
+        {{> "systems/crucible/templates/sheets/partials/talent-summary.hbs"}}
     </section>
 
     <!-- Configuration Tab -->

@@ -1,4 +1,5 @@
 export {default as ACTIONS} from "./actions.mjs";
+import Enum from "./enum.mjs";
 
 /**
  * The allowed target types which an Action may have.
@@ -34,17 +35,16 @@ export const TARGET_TYPES = Object.freeze({
   }
 });
 
-
 /**
  * The scope of creatures affected by an action.
  * @enum {number}
  */
-export const TARGET_SCOPES = Object.freeze({
-  NONE: 0,
-  SELF: 1,
-  ALLIES: 2,
-  ENEMIES: 3,
-  ALL: 4
+export const TARGET_SCOPES = new Enum({
+  NONE: {value: 0, label: "None"},
+  SELF: {value: 1, label: "Self"},
+  ALLIES: {value: 2, label: "Allies"},
+  ENEMIES: {value: 3, label: "Enemies"},
+  ALL: {value: 4, label: "All"}
 });
 
 /* -------------------------------------------- */

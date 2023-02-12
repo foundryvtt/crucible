@@ -1,4 +1,4 @@
-import TalentData from "../data/talent.mjs";
+import CrucibleTalent from "../data/talent.mjs";
 
 export default class CrucibleTalentNode {
   constructor({id, tier=0, type="choice", abilities=[], angle, distance=200, connected=[], twin} = {}) {
@@ -40,7 +40,7 @@ export default class CrucibleTalentNode {
     }
 
     // Define prerequisites
-    this.prerequisites = TalentData.preparePrerequisites(this.requirements, {});
+    this.prerequisites = CrucibleTalent.preparePrerequisites(this.requirements, {});
 
     // Register node
     CrucibleTalentNode.#nodes.set(id, this);
@@ -188,7 +188,7 @@ export default class CrucibleTalentNode {
   getState(actor) {
     if ( this.isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
     if ( this.isBanned(actor) ) return CrucibleTalentNode.STATES.BANNED;
-    const accessible = Object.values(TalentData.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    const accessible = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
     if ( !accessible ) return CrucibleTalentNode.STATES.LOCKED;
   }
 

@@ -3,7 +3,7 @@ import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
-import TalentData from "../data/talent.mjs";
+import CrucibleTalent from "../data/talent.mjs";
 
 
 export default class CrucibleTalentTree extends PIXI.Container {

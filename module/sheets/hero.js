@@ -386,6 +386,8 @@ export default class HeroSheet extends ActorSheet {
         return this.actor.applyBackground(null);
       case "effectDelete":
         return this.#onEffectDelete(a);
+      case "effectEdit":
+        return this.#onEffectEdit(a);
       case "itemDelete":
         return this._onItemDelete(a);
       case "itemEdit":
@@ -444,10 +446,26 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle deleting an ActiveEffect within the Actor sheet.
+   * @param {HTMLLinkElement} button    The clicked button element
+   */
   #onEffectDelete(button) {
-    const li = button.closest(".effect");
+    const li = button.closest("[data-effect-id]");
     const effect = this.actor.effects.get(li.dataset.effectId);
-    return effect?.deleteDialog();
+    effect?.deleteDialog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle editing an ActiveEffect within the Actor sheet.
+   * @param {HTMLLinkElement} button    The clicked button element
+   */
+  #onEffectEdit(button) {
+    const li = button.closest("[data-effect-id]");
+    const effect = this.actor.effects.get(li.dataset.effectId);
+    effect?.sheet.render(true);
   }
 
   /* -------------------------------------------- */

@@ -1,7 +1,7 @@
 /**
  * Data schema, attributes, and methods specific to Archetype type Items.
  */
-export default class ArchetypeData extends foundry.abstract.TypeDataModel {
+export default class CrucibleArchetype extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -19,7 +19,7 @@ export default class ArchetypeData extends foundry.abstract.TypeDataModel {
         intellect: new fields.NumberField({...requiredInteger, initial: 4, min: 0, max: 6}),
         presence: new fields.NumberField({...requiredInteger, initial: 4, min: 0, max: 6}),
         wisdom: new fields.NumberField({...requiredInteger, initial: 4, min: 0, max: 6})
-      }, {validate: ArchetypeData.#validateAttributes}),
+      }, {validate: CrucibleArchetype.#validateAttributes}),
       resistances: new fields.SchemaField({
         bludgeoning: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3}),
         piercing: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3}),
@@ -31,7 +31,7 @@ export default class ArchetypeData extends foundry.abstract.TypeDataModel {
         psychic: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3}),
         radiant: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3}),
         unholy: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3})
-      }, {validate: ArchetypeData.#validateResistances})
+      }, {validate: CrucibleArchetype.#validateResistances})
     }
   }
 

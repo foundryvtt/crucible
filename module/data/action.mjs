@@ -56,7 +56,7 @@ import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
  * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
  * @property {object} actorUpdates          Other Actor data updates to make as part of this Action
  */
-export default class ActionData extends foundry.abstract.DataModel {
+export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -65,7 +65,6 @@ export default class ActionData extends foundry.abstract.DataModel {
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       condition: new fields.StringField(),
       description: new fields.StringField(),
-      duration: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
@@ -107,7 +106,7 @@ export default class ActionData extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Additional data preparation steps for the ActionData.
+   * Additional data preparation steps for the CrucibleAction.
    */
   prepareData(actor=null) {
 
@@ -178,7 +177,11 @@ export default class ActionData extends foundry.abstract.DataModel {
     if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
 
     // Duration
-    if ( this.duration ) tags.action.duration = `${this.duration}R`;
+    let duration = 0;
+    for ( const effect of this.effects ) {
+      if ( effect.duration?.rounds ) duration = Math.max(effect.duration?.rounds);
+    }
+    if ( duration ) tags.action.duration = `${duration}R`;
     return tags;
   }
 
@@ -338,6 +341,12 @@ export default class ActionData extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
+  /**
+   * Create a new ActiveEffect defined by this Action and apply it to the target Actor.
+   * @param {object} effectData         The effect data which defines the effect
+   * @param {CrucibleActor} target      The target to whom the effect is applied
+   * @returns {Promise<ActiveEffect>}   The created ActiveEffect document
+   */
   async #createEffect(effectData, target) {
     return ActiveEffect.create(foundry.utils.mergeObject({
       label: this.name,
@@ -495,7 +504,7 @@ export default class ActionData extends foundry.abstract.DataModel {
   /**
    * Apply a configured spell as the Action being performed.
    * @param {CrucibleActor} actor     The actor casting the spell
-   * @param {ActionData} action       The base action
+   * @param {CrucibleAction} action   The base action
    * @param {object} formData         SpellCastDialog form submission data
    */
   #applySpell(actor, action, formData) {
@@ -527,7 +536,7 @@ export default class ActionData extends foundry.abstract.DataModel {
   /**
    * Evaluate an action, constructing an array of Roll instances it produces.
    * @param {CrucibleActor} actor         The actor performing the action
-   * @param {ActionData} action           The action being performed
+   * @param {CrucibleAction} action       The action being performed
    * @param {Token|null} target           A Token target or null
    * @returns {Promise<StandardCheck[]>}  Performed rolls
    */
