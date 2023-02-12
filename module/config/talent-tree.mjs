@@ -351,7 +351,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "tou1b",
   abilities: ["toughness"],
-  type: "utility",
+  type: "heal",
   tier: 1,
   connected: ["tou0", "tou1a"]
 });

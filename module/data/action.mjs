@@ -1,7 +1,7 @@
-import * as ACTION from "../config/action.mjs";
 import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import CrucibleSpell from "./spell.mjs";
 import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
@@ -76,16 +76,13 @@ export default class ActionData extends foundry.abstract.DataModel {
         inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
       }, {required: false, initial: undefined}),
       target: new fields.SchemaField({
-        type: new fields.StringField({required: true, choices: ACTION.TARGET_TYPES, initial: "single"}),
+        type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         distance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-        scope: new fields.NumberField({required: true, choices: Object.values(ACTION.TARGET_SCOPES),
-          initial: ACTION.TARGET_SCOPES.NONE})
+        scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
+          initial: SYSTEM.ACTION.TARGET_SCOPES.NONE})
       }),
-      effects: new fields.ArrayField(new fields.SchemaField({
-        scope: new fields.NumberField({required: true, choices: Object.values(ACTION.TARGET_SCOPES)}),
-        effect: new fields.ObjectField()
-      })),
+      effects: new fields.ArrayField(new fields.ObjectField()),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     }
   }
@@ -99,6 +96,12 @@ export default class ActionData extends foundry.abstract.DataModel {
   }
   #actor;
 
+  /**
+   * Special action configuration from SYSTEM.ACTION.ACTIONS
+   * @type {object}
+   */
+  #config;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -106,7 +109,13 @@ export default class ActionData extends foundry.abstract.DataModel {
   /**
    * Additional data preparation steps for the ActionData.
    */
-  prepareData() {
+  prepareData(actor=null) {
+
+    // Special configuration
+    this.#actor = actor;
+    this.#config = SYSTEM.ACTION.ACTIONS[this.id] || {};
+
+    // Configure action data
     const source = this._source;
     const item = this.parent?.parent;
     this.name = source.name || item?.name;
@@ -125,13 +134,8 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @param {CrucibleActor} actor     The actor for whom this action is being prepared
    */
   prepareForActor(actor) {
-    this.prepareData();
-    for ( let t of this.tags ) {
-      const tag = SYSTEM.ACTION.TAGS[t];
-      if ( !tag ) continue;
-      if ( tag.prepare instanceof Function ) tag.prepare(actor, this);
-    }
-    this.#actor = actor;
+    this.prepareData(actor);
+    this.#prepare(actor);
     return this;
   }
 
@@ -152,13 +156,13 @@ export default class ActionData extends foundry.abstract.DataModel {
 
     // Action Tags
     for (let t of this.tags) {
-      const tag = ACTION.TAGS[t];
+      const tag = SYSTEM.ACTION.TAGS[t];
       if ( tag.label ) tags.action[tag.tag] = tag.label;
     }
 
     // Target
     if ( this.target.type !== "none" ) {
-      let target = ACTION.TARGET_TYPES[this.target.type].label;
+      let target = SYSTEM.ACTION.TARGET_TYPES[this.target.type].label;
       if ( this.target.number > 1 ) target += ` ${this.target.number}`;
       tags.activation.target = target;
     }
@@ -224,22 +228,108 @@ export default class ActionData extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Confirm the result of an Action that was recorded as a ChatMessage.
+   */
+  static async confirm(message) {
+    const flags = message.flags.crucible || {};
+    const flagsUpdate = {confirmed: true};
+
+    // Get the Actor and the Action
+    const actor = ChatMessage.getSpeakerActor(message.speaker);
+    const action = actor.actions[flags.action] || null;
+
+    // Get targets and group rolls by target
+    const targets = new Map();
+    for ( const roll of message.rolls ) {
+      if ( !roll.data.target ) continue;
+      const target = fromUuidSync(roll.data.target);
+      if ( !target ) continue;
+      if ( !targets.has(target) ) targets.set(target, [roll]);
+      else targets.get(target).push(roll);
+    }
+
+    // Apply damage to each target
+    const outcomes = new Map();
+    for ( const [target, rolls] of targets.entries() ) {
+      const outcome = await actor.dealDamage(target, "health", rolls);
+      outcomes.set(target, outcome);
+    }
+
+    // Apply effects
+    const effects = await action.confirmEffects(targets.keys());
+    flagsUpdate.effects = effects.map(e => e.uuid);
+
+    // Action confirmation steps
+    action.#confirm(actor, outcomes);
+
+    // Actor follow-up steps
+    await actor.onDealDamage(outcomes);
+
+    // Record confirmation
+    return message.update({flags: {crucible: flagsUpdate}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reverse the result of an Action that was recorded as a ChatMessage.
+   * TODO: generalize this so it uses the same worlkflow as confirm()
+   * @param message
+   * @returns {Promise<void>}
+   */
+  static async reverse(message) {
+    const flags = message.flags.crucible || {};
+    const flagsUpdate = {confirmed: false};
+
+    // Get the Actor and the Action
+    const actor = ChatMessage.getSpeakerActor(message.speaker);
+    const action = actor.actions[flags.action] || null;
+
+    // Get targets
+    const targets = [];
+    for ( let targetId of flags.targets || [] ) {
+      const target = await fromUuid(targetId.uuid);
+      if ( !target ) continue;
+      const actor = target instanceof TokenDocument ? target.actor : target;
+      targets.push(actor);
+    }
+
+    // Reverse damage
+    const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
+    for ( const target of targets ) {
+      await target.alterResources({"health": totalDamage });
+    }
+
+    // Reverse effects
+    if ( flags.effects ) {
+      await action.reverseEffects(flags.effects);
+      flagsUpdate.effects = [];
+    }
+
+    // Record reversal
+    return message.update({flags: {crucible: flagsUpdate}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Apply the effects caused by an Action to targeted Actors when the result is confirmed.
    * @param {CrucibleActor[]} targets       The targeted actors
-   * @returns {ActiveEffect[]}              An array of created Active Effects
+   * @returns {Promise<ActiveEffect[]>}     An array of created Active Effects
    */
   async confirmEffects(targets) {
-    const scopes = ACTION.TARGET_SCOPES;
+    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     const effects = [];
-    for ( const {scope, effect} of this.effects ) {
+    for ( const effectData of this.effects ) {
+      const scope = effectData.scope ?? this.target.scope;
       switch ( scope ) {
         case scopes.NONE:
           continue;
         case scopes.SELF:
-          effects.push(await this.#createEffect(effect, this.actor));
+          effects.push(await this.#createEffect(effectData, this.actor));
           break;
         default:
-          for ( const target of targets ) effects.push(await this.#createEffect(effect, target));
+          for ( const target of targets ) effects.push(await this.#createEffect(effectData, target));
           break;
       }
     }
@@ -304,11 +394,15 @@ export default class ActionData extends foundry.abstract.DataModel {
     action.actorUpdates = {};
     action.isSpell = action.tags.has("spell");
 
+    // Get special action configuration
+    const config = SYSTEM.ACTION.ACTIONS[action.id] || {};
+
     // Pre-configure of the action
     for ( let tag of action.tags ) {
       const at = SYSTEM.ACTION.TAGS[tag];
       if ( at.pre instanceof Function ) at.pre(actor, action);
     }
+    if ( config.pre instanceof Function ) config.pre(actor, action);
 
     // Assert that the action can be used based on its tags
     for ( let tag of action.tags ) {
@@ -318,6 +412,14 @@ export default class ActionData extends foundry.abstract.DataModel {
           name: actor.name,
           action: this.name,
           tag: at.label
+        }));
+      }
+    }
+    if ( config.can instanceof Function ) {
+      if ( !config.can(actor, this) ) {
+        return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
+          name: actor.name,
+          action: this.name,
         }));
       }
     }
@@ -352,10 +454,9 @@ export default class ActionData extends foundry.abstract.DataModel {
     if ( action.isSpell ) {
       if ( dialog || !action.spell ) {
         const response = await SpellCastDialog.prompt({options: {action, actor, pool, targets}});
-        this.#applySpell(actor, action, response.spell);
+        if ( !response ) return [];
+        this.#applySpell(actor, action, response);
         targets = action._acquireTargets(actor); // Reacquire for spell
-        action.bonuses.boons = response.data.boons;
-        action.bonuses.banes = response.data.banes;
       }
     }
 
@@ -376,8 +477,14 @@ export default class ActionData extends foundry.abstract.DataModel {
       results = results.concat(rolls);
     }
 
+    // Apply effects if no dice rolls were involved
+    if ( !results.length && action.effects ) {
+      await action.#confirm();
+      await action.confirmEffects(targets);
+    }
+
     // If the actor is in combat, incur the cost of the action that was performed
-    if ( actor.inCombat ) {
+    if ( actor.combatant ) {
       await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
     }
     return results;
@@ -389,10 +496,16 @@ export default class ActionData extends foundry.abstract.DataModel {
    * Apply a configured spell as the Action being performed.
    * @param {CrucibleActor} actor     The actor casting the spell
    * @param {ActionData} action       The base action
-   * @param {CrucibleSpell} spell     The configured spell
+   * @param {object} formData         SpellCastDialog form submission data
    */
-  #applySpell(actor, action, spell) {
+  #applySpell(actor, action, formData) {
+
+    // Create Spell
+    const {boons, banes, ...spellData} = formData;
     action._source.spell = {}; // FIXME bit of a hack
+    const spell = new CrucibleSpell(spellData, {parent: this.#actor});
+
+    // Update Action
     action.updateSource({
       name: spell.name,
       img: spell.img,
@@ -401,7 +514,11 @@ export default class ActionData extends foundry.abstract.DataModel {
       spell: spell.toObject(),
       target: spell.target,
     });
+
+    // Update derived Action data
     action.spell = spell;
+    action.bonuses.boons = boons;
+    action.bonuses.banes = banes;
     action.prepareForActor(actor);
   }
 
@@ -415,6 +532,7 @@ export default class ActionData extends foundry.abstract.DataModel {
    * @returns {Promise<StandardCheck[]>}  Performed rolls
    */
   async #evaluateAction(actor, action, target) {
+    const config = SYSTEM.ACTION.ACTIONS[action.id] || {};
 
     // Translate action tags which define an "execute" operation into dice rolls
     const rolls = await Promise.all(action.tags.reduce((promises, tag) => {
@@ -425,6 +543,9 @@ export default class ActionData extends foundry.abstract.DataModel {
       }
       return promises;
     }, []));
+    if ( config.execute instanceof Function ) {
+      rolls.push(await config.execute(actor, action, target?.actor));
+    }
 
     // Perform post-roll operations for actions which define a "post" operation
     for ( const tag of action.tags ) {
@@ -433,6 +554,7 @@ export default class ActionData extends foundry.abstract.DataModel {
         await at.post(actor, action, target?.actor, rolls);
       }
     }
+    if ( config.post instanceof Function ) await config.post(actor, action, target?.actor, rolls);
     return rolls;
   }
 
@@ -513,6 +635,38 @@ export default class ActionData extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+  /*  Action Lifecycle Methods                    */
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation, the first step in the Action life-cycle.
+   */
+  #prepare() {
+    for ( let t of this.tags ) {
+      const tag = SYSTEM.ACTION.TAGS[t];
+      if ( !tag ) continue;
+      if ( tag.prepare instanceof Function ) tag.prepare(this.#actor, this);
+    }
+    if ( this.#config.prepare instanceof Function ) this.#config.prepare(this.#actor);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Action-specific steps when the outcome is confirmed by a GM user.
+   * @param {Map<CrucibleActor, DamageOutcome>} [outcomes]    A mapping of damage outcomes which occurred
+   */
+  async #confirm(outcomes) {
+    for ( let tag of this.tags ) {
+      const at = SYSTEM.ACTION.TAGS[tag];
+      if ( at.confirm instanceof Function ) {
+        await at.confirm(this.#actor, this, outcomes);
+      }
+    }
+    if ( this.#config.confirm instanceof Function ) await this.#config.confirm(this.#actor, this, outcomes);
+  }
+
+  /* -------------------------------------------- */
   /*  Migration and Compatibility                 */
   /* -------------------------------------------- */
 
@@ -525,10 +679,19 @@ export default class ActionData extends foundry.abstract.DataModel {
     if ( "targetDistance" in data ) data.target.distance = data.targetDistance;
 
     // Affect
-    if ( data.affectAllies && data.affectEnemies ) data.target.scope = ACTION.TARGET_SCOPES.ALL;
-    else if ( data.affectEnemies ) data.target.scope = ACTION.TARGET_SCOPES.ENEMIES;
-    else if ( data.affectAllies ) data.target.scope = ACTION.TARGET_SCOPES.ALLIES;
-    else if ( data.target.type === "self" ) data.target.scope = ACTION.TARGET_SCOPES.SELF;
-    else data.target.scope = ACTION.TARGET_SCOPES.NONE;
+    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
+    if ( data.affectAllies && data.affectEnemies ) data.target.scope = scopes.ALL;
+    else if ( data.affectEnemies ) data.target.scope = scopes.ENEMIES;
+    else if ( data.affectAllies ) data.target.scope = scopes.ALLIES;
+    else if ( data.target.type === "self" ) data.target.scope = scopes.SELF;
+    else data.target.scope = scopes.NONE;
+
+    // Effects
+    for ( const effectData of data.effects || [] ) {
+      if ( "effect" in effectData ) {
+        Object.assign(effectData, effectData.effect);
+        delete effectData.effect;
+      }
+    }
   }
 }

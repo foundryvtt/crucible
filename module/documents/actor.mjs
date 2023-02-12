@@ -50,6 +50,14 @@ export default class CrucibleActor extends Actor {
   actions = this["actions"];
 
   /**
+   * Temporary roll bonuses this actor has outside the fields of its data model.
+   * @type {{
+   *   damage: Object<string, number>
+   * }}
+   */
+  rollBonuses = this.rollBonuses;
+
+  /**
    * Track the Items which are currently equipped for the Actor.
    * @type {ActorEquipment}
    */
@@ -180,9 +188,9 @@ export default class CrucibleActor extends Actor {
    * Is this Actor currently in the active Combat encounter?
    * @type {boolean}
    */
-  get inCombat() {
-    if ( this.isToken ) return !!game.combat?.combatants.find(c => c.tokenId === this.token.id);
-    return !!game.combat?.combatants.find(c => c.actorId === this.id);
+  get combatant() {
+    if ( this.isToken ) return game.combat?.combatants.find(c => c.tokenId === this.token.id);
+    return game.combat?.combatants.find(c => c.actorId === this.id);
   }
 
   /**
@@ -197,6 +205,12 @@ export default class CrucibleActor extends Actor {
    */
   talentIds;
 
+  /**
+   * Currently active status effects
+   * @type {Set<string>}
+   */
+  statuses;
+
   /* -------------------------------------------- */
   /*  Actor Preparation
   /* -------------------------------------------- */
@@ -204,8 +218,10 @@ export default class CrucibleActor extends Actor {
   /** @override */
   prepareBaseData() {
     if ( this.type === "adversary" ) return;
+    this.system.status ||= {};
     this.system.details.ancestry ||= {};
     this.system.details.background ||= {};
+    this.rollBonuses = {damage: {}};
 
     // Prepare placeholder point totals
     this._prepareAdvancement();
@@ -227,6 +243,7 @@ export default class CrucibleActor extends Actor {
     this._prepareTalents(items);
     this.equipment = this._prepareEquipment(items);
     this._prepareActions();
+    this._prepareEffects();
   };
 
   /* -------------------------------------------- */
@@ -461,6 +478,19 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare current Active Effects.
+   * @private
+   */
+  _prepareEffects() {
+    this.statuses = new Set();
+    for ( const effect of this.effects ) {
+      for ( const status of effect.statuses ) this.statuses.add(status);
+    }
+  }
+
+  /* -------------------------------------------- */
+
 
   /**
    * Prepare Skills for the actor, translating the owned Items for skills and merging them with unowned skills.
@@ -579,23 +609,40 @@ export default class CrucibleActor extends Actor {
 
     // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];
-    defenses["physical"] = 0;
     for ( let pd of physicalDefenses ) {
       let d = defenses[pd];
       d.total = d.base + d.bonus;
-      defenses.physical += d.total;
     }
+    if ( this.statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
+    defenses.physical = physicalDefenses.reduce((v, k) => v + defenses[k].total, 0);
 
-    // Saves Defenses
-    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( k === "physical" ) continue;
-      let d = this.defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
-      d.total = d.base + d.bonus;
-    }
+    // Save Defenses
+    this._prepareSaves();
 
     // Damage Resistances
     this._prepareResistances();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived saving throw defenses.
+   * @private
+   */
+  _prepareSaves() {
+
+    // Special Bonuses
+    const bonuses = {fortitude: 0, reflex: 0, willpower: 0};
+    if ( this.talentIds.has("mentalfortress00") ) bonuses.willpower += 1;
+
+    // Save Preparation
+    for ( let [k, bonus] of Object.entries(bonuses) ) {
+      let d = this.defenses[k];
+      const sd = SYSTEM.DEFENSES[k];
+      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
+      d.base += bonus;
+      d.total = d.base + d.bonus;
+    }
   }
 
   /* -------------------------------------------- */
@@ -605,15 +652,36 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareResistances() {
+    const res = this.system.resistances
+
+    // Ancestries
     const ancestry = this.system.details.ancestry;
+    if ( ancestry.resistance ) res[ancestry.resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
+    if ( ancestry.vulnerability ) res[ancestry.vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
+
+    // Nosferatu
+    if ( this.talentIds.has("nosferatu0000000") ) res.radiant.base -= 10;
+
+    // Thick Skin
+    if ( this.talentIds.has("thickskin0000000") ) {
+      res.bludgeoning.base += 2;
+      res.slashing.base += 2;
+      res.piercing.base += 2;
+    }
+
+    // Mental Fortress
+    if ( this.talentIds.has("mentalfortress00") ) {
+      res.psychic.base += 5;
+    }
+
+    // Snakeblood
+    if ( this.talentIds.has("snakeblood000000") ) {
+      res.poison.base += 5;
+    }
+
+    // Iterate over resistances
     const hasRunewarden = this.talentIds.has("runewarden000000");
     for ( let [id, r] of Object.entries(this.system.resistances) ) {
-
-      // Ancestry Resistances
-      if ( id === ancestry.resistance ) r.base = SYSTEM.ANCESTRIES.resistanceAmount;
-      else if ( id === ancestry.vulnerability ) r.base = -SYSTEM.ANCESTRIES.resistanceAmount;
-
-      // Runewarden
       if ( hasRunewarden && this.grimoire.runes.find(r => r.damageType === id) ) r.base += 5;
       r.total = r.base + r.bonus;
     }
@@ -673,6 +741,7 @@ export default class CrucibleActor extends Actor {
 
     // Action
     attrs.action.max = lvl > 0 ? 3 : 0;
+    if ( this.statuses.has("stunned") ) attrs.action.max = 1;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
@@ -693,6 +762,40 @@ export default class CrucibleActor extends Actor {
   getAbilityBonus(scaling) {
     const attrs = this.attributes;
     return Math.ceil(scaling.reduce((x, t) => x + attrs[t].value, 0) / scaling.length);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the number of additional boons or banes you have when attacking a target.
+   * @param {CrucibleActor} target  The target being attacked
+   * @param {string} defenseType    The defense type being tested
+   * @returns {{boons: number, banes: number}}  The number of additional boons and banes
+   */
+  getTargetBoons(target, defenseType) {
+    let boons = 0;
+    let banes = 0;
+
+    // Physical Attacks
+    if ( defenseType === "physical" ) {
+
+      // Exposed
+      if ( target.statuses.has("exposed") ) boons += 2;
+
+      // Guarded
+      if ( target.statuses.has("guarded") ) {
+        if ( target.talentIds.has("testudo000000000") && target.equipment.weapons.shield ) banes += 2;
+        else banes += 1;
+      }
+    }
+
+    // Initiative Difference
+    if ( this.talentIds.has("strikefirst00000") ) {
+      const ac = this.combatant;
+      const tc = target.combatant;
+      if ( ac?.initiative > tc?.initiative ) boons += 1;
+    }
+    return {boons, banes};
   }
 
   /* -------------------------------------------- */
@@ -797,6 +900,32 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Actor-specific spell preparation steps.
+   * @param {CrucibleSpell} spell   The spell being prepared
+   */
+  prepareSpell(spell) {
+    const s = this.system.status;
+
+    // Gesture: Strike
+    if ( spell.gesture.id === "strike" ) {
+      const mh = this.equipment.weapons.mainhand;
+      spell.cost.action = mh.system.actionCost;
+      spell.damage.base = mh.system.damage.weapon;
+      spell.defense = "physical";
+      spell.scaling = new Set([...mh.config.category.scaling.split("."), spell.rune.scaling]);
+      spell.target.distance = mh.config.category.ranged ? 10 : 1;
+    }
+
+    // Spellblade
+    if ( this.talentIds.has("spellblade000000") && s.hasAttacked && !s.spellblade ) {
+      spell.cost.action -= 1;
+      spell.cost.spellblade = true;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Cast a certain spell against a target
    * @param {ActionData} action
    * @param {CrucibleActor} target
@@ -808,7 +937,7 @@ export default class CrucibleActor extends Actor {
     const spell = action.spell;
 
     // Create the Attack Roll instance
-    const defense = action.spell.rune.defense;
+    const defense = action.spell.defense;
     const roll = new AttackRoll({
       actorId: this.id,
       spellId: spell.id,
@@ -829,13 +958,16 @@ export default class CrucibleActor extends Actor {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: 1,
-        base: spell.gesture.damage.base,
-        bonus: spell.gesture.damage.bonus ?? 0,
+        base: spell.damage.base,
+        bonus: spell.damage.bonus ?? 0,
         resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
-        type: spell.rune.damageType
+        type: spell.damage.type
       };
       roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
     }
+
+    // Record actor updates
+    if ( spell.cost.spellblade ) action.actorUpdates["system.status.spellblade"] = true;
     return roll;
   }
 
@@ -858,15 +990,30 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleActor>}
    */
   async recover() {
+
+    // Apply damage-over-time before recovery
+    await this.applyDamageOverTime();
+
+    // Apply recovery
     const updates = {
-      "system.status": {
-        hasMoved: false,
-        hasAttacked: false,
-        wasAttacked: false
-      }
+      "system.-=status": null
     }
     if ( !this.isIncapacitated ) updates["system.attributes.action.value"] = this.attributes.action.max;
     return this.update(updates);
+  }
+
+  /* -------------------------------------------- */
+
+  async applyDamageOverTime() {
+    for ( const effect of this.effects ) {
+      const dot = effect.flags.crucible?.dot;
+      if ( !dot ) continue;
+      const damage = Math.max(dot.damage - this.resistances[dot.damageType].total);
+      if ( damage ) {
+        const statusText = `${effect.label} ${-damage.signedString()}`;
+        await this.alterResources({health: -damage}, {}, {statusText});
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -891,9 +1038,11 @@ export default class CrucibleActor extends Actor {
    * Alter the resource pools of the actor using an object of change data
    * @param {Object<string, number>} changes      Changes where the keys are resource names and the values are deltas
    * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
+   * @param {object} [options]                    Options which are forwarded to the update method
+   * @param {string} [options.statusText]           Custom status text displayed on the Token.
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
-  async alterResources(changes, updates={}) {
+  async alterResources(changes, updates={}, {statusText}={}) {
     const attrs = this.attributes;
     let tookWounds = false;
     let tookMadness = false;
@@ -921,7 +1070,7 @@ export default class CrucibleActor extends Actor {
       // Regular update
       updates[`system.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
     }
-    return this.update(updates);
+    return this.update(updates, {statusText});
   }
 
   /* -------------------------------------------- */
@@ -936,7 +1085,7 @@ export default class CrucibleActor extends Actor {
   async toggleStatusEffect(statusId, {active=true, overlay=false, createData={}}={}) {
     const effectData = CONFIG.statusEffects.find(e => e.id === statusId);
     if ( !effectData ) return;
-    const existing = this.effects.find(e => e.getFlag("core", "statusId") === effectData.id);
+    const existing = this.effects.find(e => e.statuses.has(effectData.id));
 
     // No changes needed
     if ( !active && !existing ) return null;
@@ -950,10 +1099,116 @@ export default class CrucibleActor extends Actor {
       createData = foundry.utils.mergeObject(effectData, createData, {inplace: false});
       delete createData.id;
       createData.label = game.i18n.localize(effectData.label);
-      createData["flags.core.statusId"] = effectData.id;
+      createData.statuses = [effectData.id];
       createData["flags.core.overlay"] = overlay;
       const cls = getDocumentClass("ActiveEffect");
       await cls.create(createData, {parent: this});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @typedef {Object} DamageOutcome
+   * @property {CrucibleActor} target   The damage target
+   * @property {number} resourceType    Which resource was being attacked?
+   * @property {AttackRoll[]} rolls     The attack roll instances
+   * @property {number} total           The total damage applied
+   * @property {boolean} incapacitated  Did the target become incapacitated?
+   * @property {boolean} broken         Did the target become broken?
+   * @property {boolean} critical       Did the damage contain a Critical Hit
+   * @property {boolean} failure        Did the damage contain a Critical Miss
+   */
+
+  /**
+   * Deal damage to a target. This method requires ownership of the target Actor.
+   * Applies resource changes to both the initiating Actor and to affected Targets.
+   * @param {CrucibleActor} target      The target being damaged
+   * @param {string} resourceType       Which resource is being damaged?
+   * @param {AttackRoll[]} rolls        The rolls which produced damage
+   * @returns {Promise<DamageOutcome>}  The damage outcome
+   */
+  async dealDamage(target, resourceType, rolls) {
+    const outcome = {
+      target, resourceType, rolls,
+      total: undefined,
+      incapacitated: false,
+      broken: false,
+      critical: false,
+      failure: false
+    };
+
+    // Compute total damage
+    let totalDamage = 0;
+    for ( const roll of rolls ) {
+      totalDamage += roll.data.damage?.total ?? 0;
+      if ( roll.isCriticalSuccess ) outcome.critical = true;
+      else if ( roll.isCriticalFailure) outcome.failure = true;
+    }
+    outcome.total = totalDamage;
+
+    // Apply damage to the target
+    const wasIncapacitated = target.isIncapacitated;
+    const wasBroken = target.isBroken;
+    await target.alterResources({[resourceType]: -1 * totalDamage});
+    if ( target.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
+    if ( target.isBroken && !wasBroken ) outcome.broken = true;
+    return outcome;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Additional steps taken when this Actor deals damage to other targets.
+   * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
+   */
+  async onDealDamage(outcomes) {
+
+    // Battle Focus
+    if ( this.talentIds.has("battlefocus00000") ) {
+      for ( const outcome of outcomes.values() ) {
+        if ( outcome.critical || outcome.incapacitated ) {
+          await this.alterResources({"focus": 1}, {}, {statusText: "Battle Focus +1"});
+          break;
+        }
+      }
+    }
+
+    // Blood Frenzy
+    if ( this.talentIds.has("bloodfrenzy00000") && !this.system.status.bloodFrenzy ) {
+      for ( const outcome of outcomes.values() ) {
+        if ( outcome.critical ) {
+          const statusText = "Blood Frenzy +1";
+          await this.alterResources({"action": 1}, {"system.status.bloodFrenzy": true}, {statusText});
+          break;
+        }
+      }
+    }
+
+    // Poisoner
+    if ( this.talentIds.has("poisoner00000000") ) {
+      if ( this.effects.find(e => e.getFlag("crucible", "action") === "poison-blades") ) {
+        for ( const {target, critical} of outcomes.values() ) {
+          if ( critical ) {
+            const cls = getDocumentClass("ActiveEffect");
+            await cls.create({
+              label: "Poisoned",
+              icon: "icons/skills/melee/strike-dagger-poison-green.webp",
+              origin: this.uuid,
+              statuses: ["poisoned"],
+              flags: {
+                crucible: {
+                  action: "poison-blades",
+                  dot: {
+                    damage: this.attributes.intellect.value,
+                    damageType: "poison"
+                  }
+                }
+              }
+            }, {parent: target});
+          }
+        }
+      }
     }
   }
 
@@ -996,6 +1251,22 @@ export default class CrucibleActor extends Actor {
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("Item", deleteIds);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Re-sync all Talent data on this actor with updated source data.
+   * @returns {Promise<void>}
+   */
+  async syncTalents() {
+    const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
+    const updates = [];
+    for ( const item of this.itemTypes.talent ) {
+      const talent = pack.get(item.id);
+      if ( talent ) updates.push(talent.toObject());
+    }
+    return this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
   }
 
   /* -------------------------------------------- */
@@ -1421,7 +1692,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
-    this._displayScrollingStatus(data);
+    this._displayScrollingStatus(data, options);
     this._replenishResources(data);
     this._applyAttributeStatuses(data);
     this._updateCachedResources();
@@ -1458,7 +1729,7 @@ export default class CrucibleActor extends Actor {
    * Display changes to the Actor as scrolling combat text.
    * @private
    */
-  _displayScrollingStatus(changed) {
+  _displayScrollingStatus(changed, {statusText}={}) {
     if ( !changed.system?.attributes ) return;
     const tokens = this.getActiveTokens(true);
     if ( !tokens.length ) return;
@@ -1470,7 +1741,7 @@ export default class CrucibleActor extends Actor {
       const attr = this.attributes[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
-      const text = `${delta.signedString()} (${resource.label})`;
+      const text = statusText ?? `${delta.signedString()} (${resource.label})`;
       const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
       const fontSize = (24 + (24 * pct)) * (canvas.dimensions.size / 100).toNearest(0.25); // Range between [24, 48]
       const healSign = resource.type === "active" ? 1 : -1;

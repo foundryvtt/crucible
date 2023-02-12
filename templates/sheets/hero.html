@@ -305,8 +305,6 @@
                         <li class="resistance flexrow" data-resistance="{{id}}">
                             <span class="input total">{{r.total}}</span>
                             <label>{{r.label}}</label>
-                            <span class="base">{{r.base}}</span>
-                            <span class="math">+</span>
                             <input type="number" name="system.resistances.{{id}}.bonus" value="{{r.bonus}}"
                                {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
                         </li>

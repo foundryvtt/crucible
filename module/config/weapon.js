@@ -28,6 +28,18 @@ export const CATEGORIES = {
     },
     actionCost: 1
   },
+  natural: {
+    id: "natural",
+    label: "WEAPON.Natural",
+    hands: 0,
+    main: true,
+    off: true,
+    scaling: "strength",
+    damage: {
+      base: 4
+    },
+    actionCost: 1
+  },
   light1: {
     id: "light1",
     label: "WEAPON.Light1",
@@ -286,5 +298,21 @@ export const UNARMED_DATA = {
     quality: "standard",
     enchantment: "mundane",
     damageType: "bludgeoning"
+  }
+}
+
+/**
+ * A special weapon configuration used for Nosferatu bite attack.
+ * @type {WeaponData}
+ */
+export const VAMPIRE_BITE = {
+  name: "Vampire Bite",
+  type: "weapon",
+  img: "icons/magic/death/mouth-bite-fangs-vampire.webp",
+  system: {
+    category: "natural",
+    quality: "superior",
+    enchantment: "mundane",
+    damageType: "piercing"
   }
 }

@@ -1,3 +1,4 @@
+import ActionData from "./data/action.mjs";
 
 
 export function addChatMessageContextOptions(html, options)  {
@@ -40,34 +41,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      const flags = message.flags.crucible || {};
-      const flagsUpdate = {confirmed: true};
-
-      // Get the Actor and the Action
-      const actor = ChatMessage.getSpeakerActor(message.speaker);
-      const action = actor.actions[flags.action] || null;
-
-      // Get targets
-      const targets = [];
-      for ( let targetId of flags.targets || [] ) {
-        const target = await fromUuid(targetId.uuid);
-        if ( !target ) continue;
-        const actor = target instanceof TokenDocument ? target.actor : target;
-        targets.push(actor);
-      }
-
-      // Apply damage
-      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
-      for ( const target of targets ) {
-        await target.alterResources({"health": -1 * totalDamage });
-      }
-
-      // Apply effects
-      const effects = await action.confirmEffects(targets);
-      flagsUpdate.effects = effects.map(e => e.uuid);
-
-      // Record confirmation
-      return message.update({flags: {crucible: flagsUpdate}});
+      return ActionData.confirm(message);
     }
   });
 
@@ -82,36 +56,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      const flags = message.flags.crucible || {};
-      const flagsUpdate = {confirmed: false};
-
-      // Get the Actor and the Action
-      const actor = ChatMessage.getSpeakerActor(message.speaker);
-      const action = actor.actions[flags.action] || null;
-
-      // Get targets
-      const targets = [];
-      for ( let targetId of flags.targets || [] ) {
-        const target = await fromUuid(targetId.uuid);
-        if ( !target ) continue;
-        const actor = target instanceof TokenDocument ? target.actor : target;
-        targets.push(actor);
-      }
-
-      // Reverse damage
-      const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
-      for ( const target of targets ) {
-        await target.alterResources({"health": totalDamage });
-      }
-
-      // Reverse effects
-      if ( flags.effects ) {
-        await action.reverseEffects(flags.effects);
-        flagsUpdate.effects = [];
-      }
-
-      // Record reversal
-      return message.update({flags: {crucible: flagsUpdate}});
+      return ActionData.reverse(message);
     }
   });
   return options;

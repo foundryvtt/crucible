@@ -458,7 +458,7 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _onItemDelete(button) {
-    const li = button.closest(".item");
+    const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     return item?.deleteDialog();
   }
@@ -471,7 +471,7 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _onItemEdit(button) {
-    const li = button.closest(".item");
+    const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     return item?.sheet.render(true);
   }
@@ -484,7 +484,7 @@ export default class HeroSheet extends ActorSheet {
    * @private
    */
   _onItemEquip(button) {
-    const li = button.closest(".item");
+    const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
     switch ( item.type ) {

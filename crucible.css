@@ -715,16 +715,12 @@ h2.divider span {
   padding: 0;
 }
 .crucible.sheet.actor .damage-resistances .resistances .resistance {
-  align-items: center;
-  text-align: center;
   margin: 0;
   font-size: var(--fontSizeSmall);
+  gap: 4px;
 }
 .crucible.sheet.actor .damage-resistances .resistances label {
-  flex: 0 0 80px;
   line-height: 24px;
-  text-align: left;
-  margin-left: calc(var(--marginSize) / 2);
   font-size: var(--fontSizeHeader);
 }
 .crucible.sheet.actor .damage-resistances .resistances .total,
@@ -732,12 +728,10 @@ h2.divider span {
   flex: 0 0 24px;
   height: 24px;
   line-height: 24px;
+  text-align: center;
 }
 .crucible.sheet.actor .damage-resistances .resistances .total {
   font-weight: bold;
-}
-.crucible.sheet.actor .damage-resistances .resistances .math {
-  font-size: var(--fontSizeMain);
 }
 .crucible.sheet.actor .badge {
   text-align: left;
@@ -1087,17 +1081,21 @@ h2.divider span {
 .crucible .action {
   gap: 4px;
   /** Action Header */
-  /** Detail Tags */
   /** Text Description */
 }
 .crucible .action .action-header {
   flex: none;
 }
-.crucible .action .action-header img.icon {
+.crucible .action .action-header img.large {
   height: 48px;
   flex: 0 0 48px;
 }
-.crucible .action > div {
+.crucible .action .action-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.crucible .action label.tag-icon {
   flex: none;
 }
 .crucible .action .action-description {

@@ -1,7 +1,7 @@
 <section class="action flexcol">
     <header class="action-header line-item">
         <div class="name">
-            <img class="icon" src="{{action.img}}">
+            <img class="icon large" src="{{action.img}}">
             <h3>{{action.name}}</h3>
         </div>
         <div class="tags" data-tag-type="activation">
@@ -13,7 +13,7 @@
 
     {{#if hasActionTags}}
     <div class="flexrow">
-        <label data-tooltip="Action Tags" data-tooltip-direction="LEFT">
+        <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bolt"></i>
         </label>
         <div class="tags" data-tag-type="action">
@@ -26,7 +26,7 @@
 
     {{#if hasContextTags}}
     <div class="flexrow">
-        <label data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
+        <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
             <i class="{{action.context.icon}}"></i>
         </label>
         <div class="tags" data-tag-type="{{action.context.type}}">
@@ -39,7 +39,7 @@
 
     {{#if targets.length}}
     <div class="flexrow">
-        <label data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
+        <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bullseye"></i>
         </label>
         <div class="tags" data-tag-type="target">

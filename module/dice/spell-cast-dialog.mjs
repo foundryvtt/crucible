@@ -39,7 +39,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     if ( !this.spell ) this.spell = new CrucibleSpell({
       rune: runes[0].id,
       gesture: gestures[0].id
-    });
+    }, {parent: actor});
 
     // Scaling
     const ability = actor.getAbilityBonus([...this.spell.scaling]);
@@ -79,7 +79,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     const select = event.currentTarget;
     const form = select.form;
     const fd = new FormDataExtended(form);
-    this.spell = new CrucibleSpell(fd.object);
+    this.spell = new CrucibleSpell(fd.object, {parent: this.action.actor});
     this.render();
   }
 
@@ -89,8 +89,9 @@ export default class SpellCastDialog extends ActionUseDialog {
   static _onSubmit(html, pool) {
     const form = html.querySelector("form");
     const fd = new FormDataExtended(form, {readonly: true});
+    return fd.object;
     pool.initialize(fd.object);
-    const spell = new CrucibleSpell(fd.object);
+    const spell = new CrucibleSpell(fd.object, {parent: this.action.actor});
     return {spell, ...pool};
   }
 }

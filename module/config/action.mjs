@@ -1,3 +1,5 @@
+export {default as ACTIONS} from "./actions.mjs";
+
 /**
  * The allowed target types which an Action may have.
  * @enum {{label: string}}
@@ -97,11 +99,7 @@ export const TAGS = {
     tag: "melee",
     label: "ACTION.TagMelee",
     tooltip: "ACTION.TagMeleeTooltip",
-    can: (actor, action) => actor.equipment.weapons.melee,
-    execute: (actor, action, target) => {
-      target.status.wasAttacked = true
-      actor.status.hasAttacked = true
-    }
+    can: (actor, action) => actor.equipment.weapons.melee
   },
 
   // Requires Ranged Weapon
@@ -109,11 +107,7 @@ export const TAGS = {
     tag: "ranged",
     label: "ACTION.TagRanged",
     tooltip: "ACTION.TagRangedTooltip",
-    can: (actor, action) => actor.equipment.weapons.ranged,
-    execute: (actor, action, target) => {
-      target.status.wasAttacked = true
-      actor.status.hasAttacked = true
-    }
+    can: (actor, action) => actor.equipment.weapons.ranged
   },
 
   // Requires Shield
@@ -181,7 +175,10 @@ export const TAGS = {
     tag: "spell",
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
-    execute: (actor, action, target) => actor.castSpell(action, target)
+    execute: (actor, action, target) => {
+      action.actorUpdates["system.status.hasCast"] = true;
+      return actor.castSpell(action, target)
+    }
   },
 
   /* -------------------------------------------- */
@@ -198,7 +195,7 @@ export const TAGS = {
     },
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
-      foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
+      foundry.utils.mergeObject(action.bonuses, mh.system.actionBonuses);
       foundry.utils.mergeObject(action.context, {
         type: "weapons",
         label: "Weapon Tags",
@@ -207,7 +204,10 @@ export const TAGS = {
       });
       action.context.tags.add(mh.name);
     },
-    execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
+    execute: (actor, action, target) => {
+      action.actorUpdates["system.status.hasAttacked"] = true;
+      return actor.equipment.weapons.mainhand.attack(target, action.bonuses);
+    }
   },
 
   twohand: {
@@ -221,7 +221,7 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.twoHanded,
     pre: (actor, action) => {
       const mh = actor.equipment.weapons.mainhand;
-      foundry.utils.mergeObject(action.bonuses, mh.getItemBonuses());
+      foundry.utils.mergeObject(action.bonuses, mh.system.actionBonuses);
       foundry.utils.mergeObject(action.context, {
         type: "weapons",
         label: "Weapon Tags",
@@ -230,7 +230,10 @@ export const TAGS = {
       });
       action.context.tags.add(mh.name);
     },
-    execute: (actor, action, target) => actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses)
+    execute: (actor, action, target) => {
+      action.actorUpdates["system.status.hasAttacked"] = true;
+      return actor.equipment.weapons.mainhand.attack(target, action.bonuses)
+    }
   },
 
   offhand: {
@@ -243,7 +246,7 @@ export const TAGS = {
     },
     pre: (actor, action) => {
       const oh = actor.equipment.weapons.offhand;
-      foundry.utils.mergeObject(action.bonuses, oh.getItemBonuses());
+      foundry.utils.mergeObject(action.bonuses, oh.system.actionBonuses);
       foundry.utils.mergeObject(action.context, {
         type: "weapons",
         label: "Weapon Tags",
@@ -252,7 +255,10 @@ export const TAGS = {
       });
       action.context.tags.add(oh.name);
     },
-    execute: (actor, action, target) => actor.equipment.weapons.offhand.weaponAttack(target, action.bonuses)
+    execute: (actor, action, target) => {
+      action.actorUpdates["system.status.hasAttacked"] = true;
+      return actor.equipment.weapons.offhand.attack(target, action.bonuses)
+    }
   },
 
   /* -------------------------------------------- */
@@ -265,7 +271,7 @@ export const TAGS = {
     tooltip: "ACTION.TagChainTooltip",
     post: async function(actor, action, target, rolls) {
       if ( !rolls.every(r => r.isSuccess ) ) return;
-      const chain = await actor.equipment.weapons.mainhand.weaponAttack(target, action.bonuses);
+      const chain = await actor.equipment.weapons.mainhand.attack(target, action.bonuses);
       rolls.push(chain);
     }
   },
@@ -489,6 +495,12 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 1
     },
+    effects: [
+      {
+        duration: { rounds: 1 },
+        statuses: ["guarded"]
+      }
+    ],
     tags: []
   }
 ]);

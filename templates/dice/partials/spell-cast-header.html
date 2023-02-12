@@ -1,7 +1,9 @@
-<section class="action flexrow">
-    <header class="action-header flexrow">
-        <img class="action-icon" src="{{spell.img}}" title="{{spell.name}}"/>
-        <h3 class="action-name">{{spell.name}}</h3>
+<section class="action spell flexcol">
+    <header class="action-header line-item">
+        <div class="name">
+            <img class="icon large" src="{{spell.img}}">
+            <h3>{{spell.name}}</h3>
+        </div>
         <div class="tags" data-tag-type="activation">
             {{#each activationTags as |label tag|}}
             <span class="tag" data-tag="{{tag}}">{{label}}</span>
@@ -10,29 +12,31 @@
     </header>
 
     {{#if hasActionTags}}
-    <div class="tags" data-tag-type="action">
-        <label data-tooltip="Action Tags" data-tooltip-direction="LEFT">
+    <div class="flexrow">
+        <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
             <i class="fa-solid fa-bolt"></i>
         </label>
-        {{#each actionTags as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+        <div class="tags" data-tag-type="action">
+            {{#each actionTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
     </div>
     {{/if}}
 
     {{#if targets.length}}
-    <div class="tags" data-tag-type="target">
-        <label data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
+    <div class="flexrow">
+        <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bullseye"></i>
         </label>
-        {{#each targets}}
-        <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
-        {{/each}}
+        <div class="tags" data-tag-type="target">
+            {{#each targets}}
+            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+            {{/each}}
+        </div>
     </div>
     {{/if}}
-</section>
 
-<section class="spell flexcol">
     <div class="form-group">
         <label>{{localize "SPELL.ComponentRune"}}</label>
         <div class="form-fields">
@@ -41,6 +45,7 @@
             </select>
         </div>
     </div>
+
     <div class="form-group">
         <label>{{localize "SPELL.ComponentGesture"}}</label>
         <div class="form-fields">
@@ -49,6 +54,7 @@
             </select>
         </div>
     </div>
+
     <div class="form-group">
         <label>{{localize "SPELL.ComponentInflection"}}</label>
         <div class="form-fields">

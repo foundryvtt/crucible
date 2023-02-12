@@ -1,6 +1,4 @@
 import { SYSTEM } from "../config/system.js";
-import ActionData from "../data/action.mjs";
-import AttackRoll from "../dice/attack-roll.mjs";
 
 /**
  * An Item subclass which handles system specific logic for the Item document type.
@@ -129,26 +127,6 @@ export default class CrucibleItem extends Item {
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare an object of bonuses associated with this item usage
-   * @returns {DiceCheckBonuses}
-   */
-  getItemBonuses() {
-    if ( !this.isOwned ) throw new Error("Item bonuses are not determined until it is owned by an Actor");
-    switch ( this.type ) {
-      case "weapon":
-        return {
-          ability: this.actor.getAbilityBonus(this.config.category.scaling.split(".")),
-          skill: 0,
-          enchantment: this.system.config.enchantment.bonus
-        };
-      default:
-        throw new Error("NOT YET SUPPORTED");
-    }
-  }
-
-  /* -------------------------------------------- */
-
   async _rollSkillCheck({passive=false}={}) {
     const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.value}`;
     const roll = new Roll(formula).roll();
@@ -157,58 +135,6 @@ export default class CrucibleItem extends Item {
       speaker: {actor: this.actor, user: game.user},
       flavor: passive ? `Passive ${skillName}` : `${skillName} Skill Check`
     });
-    return roll;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Activate a weapon attack action
-   * @param {CrucibleActor} target    The target creature being attacked
-   * @param {number} [banes=0]        The number of banes which afflict this attack roll
-   * @param {number} [boons=0]        The number of boons which benefit this attack roll
-   * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
-   * @param {number} [multiplier=0] An additional damage multiplier which applies to this attack
-   * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
-   */
-  async weaponAttack(target, {banes=0, boons=0, multiplier=1, damageBonus=0}={}) {
-    if ( this.type !== "weapon" ) {
-      throw new Error("You may only call the weaponAttack method for weapon-type Items");
-    }
-    if ( !target ) {
-      throw new Error("You must provide an Actor as the target for this weapon attack");
-    }
-    const sd = this.system;
-
-    // Create the Attack Roll instance
-    const {ability, skill, enchantment} = this.getItemBonuses();
-    const roll = new AttackRoll({
-      actorId: this.parent.id,
-      itemId: this.id,
-      target: target.uuid,
-      ability: ability,
-      skill: skill,
-      enchantment: enchantment,
-      banes: banes,
-      boons: boons,
-      defenseType: "physical",
-      dc: target.defenses.physical
-    });
-
-    // Evaluate the result and record the result
-    await roll.evaluate({async: true});
-    roll.data.result = target.testDefense("physical", roll.total);
-    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: multiplier,
-        base: sd.damage.weapon,
-        bonus: damageBonus,
-        resistance: target.resistances[sd.damageType]?.total ?? 0,
-        type: sd.damageType
-      };
-      roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
-    }
     return roll;
   }
 

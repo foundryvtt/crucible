@@ -4,14 +4,19 @@
   /** Action Header */
   .action-header {
     flex: none;
-    img.icon {
+    img.large {
       height: 48px;
       flex: 0 0 48px;
     }
   }
 
-  /** Detail Tags */
-  > div {
+  .action-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  label.tag-icon {
     flex: none;
   }
 

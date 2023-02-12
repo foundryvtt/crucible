@@ -95,7 +95,8 @@ Hooks.once("init", async function() {
       buildJournalCompendium,
       packageItemCompendium,
       packageCompendiumPacks,
-      standardizeItemIds
+      standardizeItemIds,
+      syncTalents
     },
     talents: {
       CrucibleTalentNode
@@ -189,7 +190,6 @@ Hooks.once("i18nInit", function() {
 
 Hooks.once("setup", function() {
 
-
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();
 
@@ -198,7 +198,6 @@ Hooks.once("setup", function() {
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
-  $("body").on("mouseenter mouseleave", ".crucible .tags .tag", onTagHoverTooltip);
 });
 
 /* -------------------------------------------- */
@@ -257,83 +256,6 @@ function preLocalizeConfig() {
 
 /* -------------------------------------------- */
 
-// Create a global tooltip
-const _tooltip = document.createElement("div");
-_tooltip.id = "crucible-tooltip";
-_tooltip.classList.add("tooltip");
-document.body.appendChild(_tooltip);
-
-function onTagHoverTooltip(event) {
-  const el = event.currentTarget;
-  const parent = el.parentElement;
-  const tagType = parent.dataset.tagType;
-  const tag = el.dataset.tag;
-
-  // No tooltip
-  if ( !tagType || !tag ) {
-    _tooltip.classList.remove("active");
-    return;
-  }
-
-  // Add tooltip
-  if ( event.type === "mouseenter" ) {
-    const tip = getTagTooltip(tagType, tag);
-    if ( !tip ) return _tooltip.classList.remove("active");
-    _tooltip.classList.add("active");
-    _tooltip.innerText = tip;
-    const pos = el.getBoundingClientRect();
-    _tooltip.style.top = `${pos.bottom + 5}px`;
-
-    // Extend left
-    if ( (pos.x + _tooltip.offsetWidth) > window.innerWidth ) {
-      _tooltip.style.right = `${window.innerWidth - pos.right}px`;
-      _tooltip.style.left = null;
-    }
-
-    // Extend right
-    else {
-      _tooltip.style.left = `${pos.left}px`;
-      _tooltip.style.right = null;
-    }
-  }
-
-  // Remove tooltip
-  else _tooltip.classList.remove("active");
-}
-
-/* -------------------------------------------- */
-
-/**
- * Get the localized tooltip which should be displayed for a given tag.
- * @param {string} tagType      The tag type being displayed
- * @param {string} tag          The tag value being displayed
- * @returns {string}            The localized tag tooltip, if any
- */
-function getTagTooltip(tagType, tag) {
-  switch ( tagType ) {
-    case "action":
-      switch ( tag ) {
-        case "target":
-          return game.i18n.localize("ACTION.TagTargetTooltip");
-        case "cost":
-          return game.i18n.localize("ACTION.TagCostTooltip");
-        default:
-          return game.i18n.localize(SYSTEM.ACTION.TAGS[tag]?.tooltip);
-      }
-    case "weapon":
-      switch ( tag ) {
-        case "damage":
-          return game.i18n.localize("WEAPON.TagDamageTooltip");
-        default:
-          return game.i18n.localize(SYSTEM.WEAPON.PROPERTIES[tag]?.tooltip);
-      }
-    default:
-      return "";
-  }
-}
-
-/* -------------------------------------------- */
-
 /**
  * Standardize all World item IDs
  * @returns {Promise<void>}
@@ -360,3 +282,14 @@ Hooks.on("preCreateItem", (item, data, options, user) => {
     options.keepId = true;
   }
 });
+
+
+/* -------------------------------------------- */
+
+async function syncTalents() {
+  for ( const actor of game.actors ) {
+    if ( actor.type !== "hero" ) continue;
+    await actor.syncTalents();
+    console.log(`Crucible | Synced talents with latest data for Actor "${actor.name}"`);
+  }
+}

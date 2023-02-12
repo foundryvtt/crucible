@@ -140,11 +140,11 @@ export const GESTURES = Object.seal({
     id: "arrow",
     name: "SPELL.GestureArrow",
     cost: {
-      action: 1,
+      action: 2,
       focus: 0
     },
     damage: {
-      base: 6
+      base: 10
     },
     hands: 1,
     scaling: "intellect",
@@ -162,9 +162,6 @@ export const GESTURES = Object.seal({
       action: 2,
       focus: 1
     },
-    damage: {
-      base: 2
-    },
     hands: 1,
     nameFormat: NAME_FORMATS.NOUN,
     scaling: "wisdom",
@@ -179,9 +176,6 @@ export const GESTURES = Object.seal({
     cost: {
       action: 2,
       focus: 1
-    },
-    damage: {
-      base: 2
     },
     hands: 2,
     nameFormat: NAME_FORMATS.ADJ,
@@ -219,7 +213,7 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 8
+      base: 12
     },
     hands: 1,
     nameFormat: NAME_FORMATS.ADJ,
@@ -257,9 +251,6 @@ export const GESTURES = Object.seal({
       action: 1,
       focus: 1
     },
-    damage: {
-      base: 2
-    },
     hands: 0,
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
@@ -272,13 +263,6 @@ export const GESTURES = Object.seal({
   strike: {
     id: "strike",
     name: "SPELL.GestureStrike",
-    cost: {
-      action: 1,
-      focus: 0
-    },
-    damage: {
-      base: 6
-    },
     hands: 0,
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "strength",
@@ -313,7 +297,7 @@ export const GESTURES = Object.seal({
     id: "ward",
     name: "SPELL.GestureWard",
     cost: {
-      action: 1,
+      action: 2,
       focus: 1
     },
     damage: {

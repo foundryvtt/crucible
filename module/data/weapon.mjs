@@ -1,3 +1,5 @@
+import ActionData from "./action.mjs";
+import AttackRoll from "../dice/attack-roll.mjs";
 import PhysicalItemData from "./physical.mjs";
 import { SYSTEM } from "../config/system.js";
 
@@ -5,6 +7,14 @@ import { SYSTEM } from "../config/system.js";
  * Data schema, attributes, and methods specific to Weapon type Items.
  */
 export default class WeaponData extends PhysicalItemData {
+
+  /** @inheritDoc */
+  _configure(options) {
+    super._configure(options);
+    Object.defineProperties(this.parent, {
+      attack: {value: this.attack.bind(this), writable: false, configurable: true}
+    });
+  }
 
   /** @override */
   static DEFAULT_CATEGORY = "simple1";
@@ -27,6 +37,12 @@ export default class WeaponData extends PhysicalItemData {
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
+
+  /**
+   * Bonuses applied to actions performed with this weapon
+   * @type {DiceCheckBonuses}
+   */
+  actionBonuses;
 
   /**
    * Weapon Strike action cost.
@@ -100,7 +116,12 @@ export default class WeaponData extends PhysicalItemData {
     // Weapon Rarity Score
     this.rarity = quality.rarity + enchantment.rarity;
 
-    // Weapon Strike action cost
+    // Action bonuses and cost
+    this.actionBonuses = this.parent.actor ? {
+      ability: this.parent.actor.getAbilityBonus(category.scaling.split(".")),
+      skill: 0,
+      enchantment: enchantment.bonus
+    } : {}
     this.actionCost = category.actionCost;
 
     // Weapon Properties
@@ -113,6 +134,88 @@ export default class WeaponData extends PhysicalItemData {
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Perform a weapon attack action.
+   * @param {CrucibleActor} target    The target creature being attacked
+   * @param {number} [banes=0]        The number of banes which afflict this attack roll
+   * @param {number} [boons=0]        The number of boons which benefit this attack roll
+   * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
+   * @param {number} [multiplier=0] An additional damage multiplier which applies to this attack
+   * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
+   */
+  async attack(target, {banes=0, boons=0, multiplier=1, damageBonus=0}={}) {
+    const actor = this.parent.actor;
+    if ( !actor ) {
+      throw new Error("You may only perform a weapon attack using an owned weapon Item.");
+    }
+    if ( !target ) {
+      throw new Error("You must provide an Actor as the target for this weapon attack");
+    }
+
+    // Apply additional boons or banes
+    const defenseType = "physical";
+    const targetBoons = actor.getTargetBoons(target, defenseType)
+    boons += targetBoons.boons;
+    banes += targetBoons.banes;
+
+    // Create the Attack Roll instance
+    const {ability, skill, enchantment} = this.actionBonuses;
+    const roll = new AttackRoll({
+      actorId: actor.id,
+      itemId: this.parent.id,
+      target: target.uuid,
+      ability: ability,
+      skill: skill,
+      enchantment: enchantment,
+      banes: banes,
+      boons: boons,
+      defenseType,
+      dc: target.defenses.physical
+    });
+
+    // Evaluate the attack roll
+    await roll.evaluate({async: true});
+    roll.data.result = target.testDefense(defenseType, roll.total);
+
+    // Miss
+    if ( roll.data.result !== AttackRoll.RESULT_TYPES.HIT ) return roll;
+
+    // Damage
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: multiplier,
+      base: this.damage.weapon,
+      bonus: this.#getDamageBonus(damageBonus),
+      resistance: target.resistances[this.damageType]?.total ?? 0,
+      type: this.damageType
+    };
+    roll.data.damage.total = ActionData.computeDamage(roll.data.damage);
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the damage bonus that should be applied to a weapon attack.
+   * @param {number} bonus      The baseline roll damage bonus
+   * @returns {number}          The final roll damage bonus
+   */
+  #getDamageBonus(bonus=0) {
+    const rb = this.parent.actor.rollBonuses.damage;
+
+    // Category-specific bonuses
+    const category = this.config.category;
+    if ( !category.ranged ) bonus += rb.melee ?? 0;
+    if ( category.ranged ) bonus += rb.ranged ?? 0;
+    if ( category.hands === 2 ) bonus += rb.twoHanded ?? 0;
+
+    // Weapon-specific bonuses
+    bonus += rb[this.damageType] ?? 0;
+    return bonus;
+  }
+
   /* -------------------------------------------- */
 
   /**
