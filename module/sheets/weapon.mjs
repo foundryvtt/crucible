@@ -12,7 +12,7 @@ export default class Weapon extends ItemSheet {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "weapon"],
-      template: `systems/${SYSTEM.id}/templates/sheets/weapon.html`,
+      template: `systems/${SYSTEM.id}/templates/sheets/weapon.hbs`,
       resizable: false,
       submitOnChange: true
     });
@@ -40,6 +40,7 @@ export default class Weapon extends ItemSheet {
       damageTypes: SYSTEM.DAMAGE_TYPES,
       qualities: SYSTEM.QUALITY_TIERS,
       enchantments: SYSTEM.ENCHANTMENT_TIERS,
+      usesReload: this.document.config.category.reload,
       tags: this.item.getTags(),
     };
 

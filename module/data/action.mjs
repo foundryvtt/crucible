@@ -414,23 +414,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( config.pre instanceof Function ) config.pre(actor, action);
 
     // Assert that the action can be used based on its tags
-    for ( let tag of action.tags ) {
-      const at = SYSTEM.ACTION.TAGS[tag];
-      if ( (at.can instanceof Function) && !at.can(actor, this) ) {
-        return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
-          name: actor.name,
-          action: this.name,
-          tag: at.label
-        }));
-      }
-    }
-    if ( config.can instanceof Function ) {
-      if ( !config.can(actor, this) ) {
-        return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotUseTag", {
-          name: actor.name,
-          action: this.name,
-        }));
-      }
+    try {
+      this.#can();
+    } catch(err) {
+      return ui.notifications.warn(err.message);
     }
 
     // Assert that cost of the action can be afforded
@@ -543,17 +530,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   async #evaluateAction(actor, action, target) {
     const config = SYSTEM.ACTION.ACTIONS[action.id] || {};
 
-    // Translate action tags which define an "execute" operation into dice rolls
+    // Translate action tags which define a "roll" operation into dice rolls
     const rolls = await Promise.all(action.tags.reduce((promises, tag) => {
       const at = SYSTEM.ACTION.TAGS[tag];
-      if ( at.execute instanceof Function ) {
-        const roll = at.execute(actor, action, target?.actor);
+      if ( at.roll instanceof Function ) {
+        const roll = at.roll(actor, action, target?.actor);
         if ( roll instanceof Promise ) promises.push(roll);
       }
       return promises;
     }, []));
-    if ( config.execute instanceof Function ) {
-      rolls.push(await config.execute(actor, action, target?.actor));
+    if ( config.roll instanceof Function ) {
+      rolls.push(await config.roll(actor, action, target?.actor));
     }
 
     // Perform post-roll operations for actions which define a "post" operation
@@ -648,15 +635,43 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * A generator which provides the test conditions for action lifecycle.
+   * @returns {Generator<Object|*, void, *>}
+   */
+  * #tests() {
+    for ( const t of this.tags ) {
+      yield SYSTEM.ACTION.TAGS[t];
+    }
+    yield this.#config;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether an action can be performed.
+   * @throws      An error if the action cannot be taken
+   */
+  #can() {
+    for ( const test of this.#tests() ) {
+      if ( !(test.can instanceof Function) ) continue;
+      const can = test.can(this.#actor, this);
+      if ( can === false ) throw new Error(game.i18n.format("ACTION.WarningCannotUseTag", {
+        name: this.#actor.name,
+        action: this.name,
+        tag: test.label || ""
+      }));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Preparation, the first step in the Action life-cycle.
    */
   #prepare() {
-    for ( let t of this.tags ) {
-      const tag = SYSTEM.ACTION.TAGS[t];
-      if ( !tag ) continue;
-      if ( tag.prepare instanceof Function ) tag.prepare(this.#actor, this);
+    for ( const test of this.#tests() ) {
+      if ( test.prepare instanceof Function ) test.prepare(this.#actor, this);
     }
-    if ( this.#config.prepare instanceof Function ) this.#config.prepare(this.#actor);
   }
 
   /* -------------------------------------------- */
@@ -666,13 +681,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {Map<CrucibleActor, DamageOutcome>} [outcomes]    A mapping of damage outcomes which occurred
    */
   async #confirm(outcomes) {
-    for ( let tag of this.tags ) {
-      const at = SYSTEM.ACTION.TAGS[tag];
-      if ( at.confirm instanceof Function ) {
-        await at.confirm(this.#actor, this, outcomes);
-      }
+    for ( const test of this.#tests() ) {
+      if ( !(test.confirm instanceof Function) ) continue
+      await test.confirm(this.#actor, this, outcomes);
     }
-    if ( this.#config.confirm instanceof Function ) await this.#config.confirm(this.#actor, this, outcomes);
   }
 
   /* -------------------------------------------- */

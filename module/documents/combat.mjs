@@ -20,12 +20,34 @@ export default class CrucibleCombat extends Combat {
   /*  Database Update Workflows                   */
   /* -------------------------------------------- */
 
-
   /** @override */
   async _preUpdate(data, options, user) {
-    const isNewRound = (("round" in data) && (data.round !== this.previous.round));
+    const advanceTurn = ("turn" in data) && (data.turn > this.current.turn);
+    const advanceRound = ("round" in data) && (data.round > this.current.round);
     await super._preUpdate(data, options, user);
-    if ( isNewRound ) data.combatants = await this._updateAllInitiative(data);
+
+    // Actor End Turn
+    const actor = this.combatant?.actor;
+    if ( actor && (advanceRound || advanceTurn) ) await actor.onEndTurn();
+
+    // Re-roll Initiative
+    if ( advanceRound ) data.combatants = await this.#updateAllInitiative(data);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onUpdate(data, options, userId) {
+    const advanceTurn = ("turn" in data) && (data.turn > this.previous.turn);
+    const advanceRound = ("round" in data) && (data.round > this.previous.round);
+    super._onUpdate(data, options, userId);
+
+    // Actor Begin Turn
+    const actor = this.combatant?.actor;
+    if ( actor && (advanceTurn || advanceRound) ) {
+      const hasControl = ((game.userId === userId) && actor.isOwner) || game.users.find(u => u.isGM).isSelf;
+      if ( hasControl ) actor.onBeginTurn();
+    }
   }
 
   /* -------------------------------------------- */
@@ -34,9 +56,8 @@ export default class CrucibleCombat extends Combat {
    * When the Combat encounter advances to a new round, trigger an update of Initiative for every participant.
    * @param {object} data               The data being changed as the round changes
    * @returns {Promise<object[]>}       Updated initiative scores for all Combatant documents
-   * @private
    */
-  async _updateAllInitiative(data) {
+  async #updateAllInitiative(data) {
     const combatantUpdates = [];
     const chatLog = [];
 
@@ -80,22 +101,5 @@ export default class CrucibleCombat extends Combat {
       "flags.crucible.isInitiativeReport": true
     });
     return updates;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _onUpdate(data, options, userId) {
-
-    // Check whether the turn order changed
-    const isNewTurn = (("turn" in data) && (data.turn !== this.previous.turn));
-    const isNewRound = (("round" in data) && (data.round !== this.previous.round));
-    super._onUpdate(data, options, userId);
-
-    // Apply changes at the start of a new combatant's turn
-    if ( isNewTurn || isNewRound ) {
-      const actor = this.combatant?.actor;
-      if ( actor?.isOwner ) actor.recover();
-    }
   }
 }

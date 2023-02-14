@@ -97,11 +97,14 @@ export default class HeroSheet extends ActorSheet {
 
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
-      return {id: a.id, name: a.name, img: a.img, tags: a.getTags().activation}
-    });
+      return {id: a.id, name: a.name, img: a.img, tags: a.getTags().activation, totalCost: a.actionCost + a.focusCost}
+    }).sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
 
     // Spellcraft
     context.grimoire = this._formatGrimoire();
+
+    // Active Effects
+    context.effects = this.#formatEffects();
 
     // HTML Biography
     context.biography = {};
@@ -230,6 +233,27 @@ export default class HeroSheet extends ActorSheet {
     }
     return grimoire;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Format ActiveEffect data required for rendering the sheet
+   * @returns {object[]}
+   */
+  #formatEffects() {
+    return this.actor.effects.map(effect => {
+      const {startRound, rounds} = effect.duration;
+      const tags = {};
+      if ( game.combat?.round ) tags.duration = (startRound + rounds) - game.combat.round;
+      return {
+        id: effect.id,
+        icon: effect.icon,
+        label: effect.label,
+        tags: tags
+      }
+    });
+  }
+
   /* -------------------------------------------- */
 
   /**

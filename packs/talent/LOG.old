@@ -1,5 +1,23 @@
-2023/02/11-08:47:10.707 108dc Recovering log #98
-2023/02/11-08:47:10.708 108dc Level-0 table #100: started
-2023/02/11-08:47:10.709 108dc Level-0 table #100: 1590 bytes OK
-2023/02/11-08:47:10.713 108dc Delete type=0 #98
-2023/02/11-08:47:10.714 108dc Delete type=3 #97
+2023/02/13-17:01:32.658 23b48 Recovering log #107
+2023/02/13-17:01:32.662 23b48 Delete type=0 #107
+2023/02/13-17:01:32.662 23b48 Delete type=3 #105
+2023/02/13-17:01:38.554 24dfc Level-0 table #111: started
+2023/02/13-17:01:38.554 24dfc Level-0 table #111: 0 bytes OK
+2023/02/13-17:01:38.554 24dfc Delete type=0 #109
+2023/02/13-17:01:38.557 24dfc Manual compaction at level-0 from '!folders!17kb71whZGE7JhH7' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!sunderingstrike0' @ 161 : 1
+2023/02/13-17:01:38.557 24dfc Compacting 3@0 + 0@1 files
+2023/02/13-17:01:38.559 24dfc Generated table #112@0: 22 keys, 10972 bytes
+2023/02/13-17:01:38.559 24dfc Compacted 3@0 + 0@1 files => 10972 bytes
+2023/02/13-17:01:38.560 24dfc compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/02/13-17:01:38.561 24dfc Delete type=2 #100
+2023/02/13-17:01:38.561 24dfc Delete type=2 #103
+2023/02/13-17:01:38.561 24dfc Delete type=2 #106
+2023/02/13-17:01:38.561 24dfc Manual compaction at level-0 from '!items!sunderingstrike0' @ 161 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/13-17:01:38.561 24dfc Manual compaction at level-1 from '!folders!17kb71whZGE7JhH7' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!uppercut00000000' @ 179 : 1
+2023/02/13-17:01:38.561 24dfc Compacting 1@1 + 1@2 files
+2023/02/13-17:01:38.565 24dfc Generated table #113@1: 117 keys, 47092 bytes
+2023/02/13-17:01:38.565 24dfc Compacted 1@1 + 1@2 files => 47092 bytes
+2023/02/13-17:01:38.565 24dfc compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/02/13-17:01:38.565 24dfc Delete type=2 #88
+2023/02/13-17:01:38.566 24dfc Delete type=2 #112
+2023/02/13-17:01:38.567 24dfc Manual compaction at level-1 from '!items!uppercut00000000' @ 179 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

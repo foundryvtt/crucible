@@ -283,8 +283,8 @@ h2.divider span {
   border: 1px solid #c9c7b8;
   border-radius: 3px;
 }
-.crucible.sheet a.button,
-.crucible.sheet a.control {
+.crucible.sheet .window-content a.button,
+.crucible.sheet .window-content a.control {
   display: inline-block;
   min-width: 20px;
   margin: 0;
@@ -292,20 +292,20 @@ h2.divider span {
   color: #7a7971;
   text-align: center;
 }
-.crucible.sheet a.button.active,
-.crucible.sheet a.control.active {
+.crucible.sheet .window-content a.button.active,
+.crucible.sheet .window-content a.control.active {
   color: #191813;
 }
-.crucible.sheet a.button.inactive,
-.crucible.sheet a.control.inactive {
+.crucible.sheet .window-content a.button.inactive,
+.crucible.sheet .window-content a.control.inactive {
   pointer-events: none;
   opacity: 0.5;
 }
-.crucible.sheet a.button {
+.crucible.sheet .window-content a.button {
   border: 1px solid transparent;
   border-radius: 3px;
 }
-.crucible.sheet a.button:hover {
+.crucible.sheet .window-content a.button:hover {
   border: 1px solid #7a7971;
   box-shadow: 0 0 4px #FFF;
   text-shadow: none;

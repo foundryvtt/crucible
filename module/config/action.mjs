@@ -56,9 +56,50 @@ export const TARGET_SCOPES = new Enum({
  * @property {Function} [prepare]
  * @property {Function} [can]
  * @property {Function} [pre]
- * @property {Function} [execute]
+ * @property {Function} [roll]
  * @property {Function} [post]
  */
+
+/**
+ * A generalized helper which populates tags for mainhand, offhand, and twoHanded tags.
+ */
+function weaponAttack(type="mainhand") {
+  return {
+    can: actor => {
+      if ( (type === "twoHanded") && !actor.equipment.weapons.twoHanded ) {
+        throw new Error("You must have a two-handed weapon equipped")
+      }
+      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      if ( w.config.category.reload && !w.system.loaded ) {
+        throw new Error("Your weapon requires reloading in order to attack")
+      }
+    },
+    prepare: (actor, action) => {
+      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      action.actionCost = w.system.actionCost + action.cost.action;
+    },
+    pre: (actor, action) => {
+      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      foundry.utils.mergeObject(action.bonuses, w.system.actionBonuses);
+      foundry.utils.mergeObject(action.context, {
+        type: "weapons",
+        label: "Weapon Tags",
+        icon: "fa-solid fa-swords",
+        hasDice: true
+      });
+      action.context.tags.add(w.name);
+    },
+    roll: async (actor, action, target) => {
+      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      action.actorUpdates["system.status.hasAttacked"] = true;
+      return w.attack(target, action.bonuses)
+    },
+    post: async actor => {
+      const w = actor.equipment.weapons.mainhand;
+      if ( w.config.category.reload ) await w.update({"system.loaded": false});
+    }
+  }
+}
 
 /**
  * Define special logic for action tag types
@@ -156,7 +197,7 @@ export const TAGS = {
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
     prepare: (actor, action) => action.actionCost -= (actor.system.status.hasMoved ? 0 : 1),
-    execute: (actor, action, target) => action.actorUpdates["system.status.hasMoved"] = true
+    roll: (actor, action, target) => action.actorUpdates["system.status.hasMoved"] = true
   },
 
   // Requires Reaction
@@ -175,7 +216,7 @@ export const TAGS = {
     tag: "spell",
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
-    execute: (actor, action, target) => {
+    roll: (actor, action, target) => {
       action.actorUpdates["system.status.hasCast"] = true;
       return actor.castSpell(action, target)
     }
@@ -189,75 +230,41 @@ export const TAGS = {
     tag: "mainhand",
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
-    prepare: (actor, action) => {
-      const mh = actor.equipment.weapons.mainhand;
-      action.actionCost = mh.system.actionCost + action.cost.action;
-    },
-    pre: (actor, action) => {
-      const mh = actor.equipment.weapons.mainhand;
-      foundry.utils.mergeObject(action.bonuses, mh.system.actionBonuses);
-      foundry.utils.mergeObject(action.context, {
-        type: "weapons",
-        label: "Weapon Tags",
-        icon: "fa-solid fa-swords",
-        hasDice: true
-      });
-      action.context.tags.add(mh.name);
-    },
-    execute: (actor, action, target) => {
-      action.actorUpdates["system.status.hasAttacked"] = true;
-      return actor.equipment.weapons.mainhand.attack(target, action.bonuses);
-    }
+    ...weaponAttack("mainhand")
   },
 
   twohand: {
     tag: "twohand",
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
-    prepare: (actor, action) => {
-      const mh = actor.equipment.weapons.mainhand;
-      action.actionCost = mh.system.actionCost + action.cost.action;
-    },
-    can: (actor, action) => actor.equipment.weapons.twoHanded,
-    pre: (actor, action) => {
-      const mh = actor.equipment.weapons.mainhand;
-      foundry.utils.mergeObject(action.bonuses, mh.system.actionBonuses);
-      foundry.utils.mergeObject(action.context, {
-        type: "weapons",
-        label: "Weapon Tags",
-        icon: "fa-solid fa-swords",
-        hasDice: true
-      });
-      action.context.tags.add(mh.name);
-    },
-    execute: (actor, action, target) => {
-      action.actorUpdates["system.status.hasAttacked"] = true;
-      return actor.equipment.weapons.mainhand.attack(target, action.bonuses)
-    }
+    ...weaponAttack("twoHanded")
   },
 
   offhand: {
     tag: "offhand",
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
-    prepare: (actor, action) => {
-      const oh = actor.equipment.weapons.offhand;
-      action.actionCost = oh.system.actionCost + action.cost.action;
+    ...weaponAttack("offhand")
+  },
+
+  /* -------------------------------------------- */
+  /*  Ranged Attacks                              */
+  /* -------------------------------------------- */
+
+  reload: {
+    tag: "Reload",
+    label: "ACTION.TagReload",
+    tooltip: "ACTION.TagReloadTooltip",
+    can: actor => {
+      const {mainhand: m, offhand: o, reload} = actor.equipment.weapons;
+      if ( !reload || (m.system.loaded && (!o || o.system.loaded)) ) {
+        throw new Error("Your weapons do not require reloading");
+      }
     },
-    pre: (actor, action) => {
-      const oh = actor.equipment.weapons.offhand;
-      foundry.utils.mergeObject(action.bonuses, oh.system.actionBonuses);
-      foundry.utils.mergeObject(action.context, {
-        type: "weapons",
-        label: "Weapon Tags",
-        icon: "fa-solid fa-swords",
-        hasDice: true
-      });
-      action.context.tags.add(oh.name);
-    },
-    execute: (actor, action, target) => {
-      action.actorUpdates["system.status.hasAttacked"] = true;
-      return actor.equipment.weapons.offhand.attack(target, action.bonuses)
+    post: async actor => {
+      const {mainhand: m, offhand: o} = actor.equipment.weapons;
+      if (m.config.category.reload && !m.system.loaded) return m.update({"system.loaded": true});
+      else if (o?.config.category.reload && !o.system.loaded) return o.update({"system.loaded": true});
     }
   },
 
@@ -502,5 +509,18 @@ export const DEFAULT_ACTIONS = Object.freeze([
       }
     ],
     tags: []
-  }
+  },
+  {
+    id: "reload",
+    name: "Reload Weapon",
+    img: "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
+    description: "Reload a ranged weapon which features a reloading time.",
+    cost: {
+      action: 1
+    },
+    tags: ["reload"],
+    target: {
+      type: "self",
+    }
+  },
 ]);

@@ -403,15 +403,15 @@ export default class CrucibleActor extends Actor {
       else warnSlotInUse(w, "mainhand");
     }
 
-    // Populate unarmed weaponry for unused slots
+    // Mainhand Weapon
     if ( !weapons.mainhand ) weapons.mainhand = this._getUnarmedWeapon();
-    if ( !weapons.offhand ) weapons.offhand = this._getUnarmedWeapon();
-
-    // Reference final weapon configurations
     const mh = weapons.mainhand;
     const mhCategory = mh.config.category;
+
+    // Offhand Weapon
+    if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
-    const ohCategory = oh.config.category;
+    const ohCategory = oh?.config.category || {};
 
     // Free Hand or Unarmed
     weapons.freehand = (mhCategory.id === "unarmed") || (ohCategory.id === "unarmed");
@@ -432,8 +432,9 @@ export default class CrucibleActor extends Actor {
     weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
     weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
 
-    // Slow Weapons
-    weapons.slow = mh.system.properties.has("slow") + oh.system.properties.has("slow");
+    // Special Properties
+    weapons.reload = mhCategory.reload || ohCategory.reload;
+    weapons.slow = mh.system.properties.has("slow") + oh?.system.properties.has("slow");
     return weapons;
   }
 
@@ -464,7 +465,8 @@ export default class CrucibleActor extends Actor {
     // Default actions that every character can do
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
       const a = new CrucibleAction(ad);
-      if ( a.tags.has("spell") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+      if ( (a.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+      if ( (a.id === "reload") && !this.equipment.weapons.reload ) continue;
       this.actions[a.id] = a.prepareForActor(this);
     }
 
@@ -986,39 +988,6 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Recover resources which replenish each round of combat.
-   * @returns {Promise<CrucibleActor>}
-   */
-  async recover() {
-
-    // Apply damage-over-time before recovery
-    await this.applyDamageOverTime();
-
-    // Apply recovery
-    const updates = {
-      "system.-=status": null
-    }
-    if ( !this.isIncapacitated ) updates["system.attributes.action.value"] = this.attributes.action.max;
-    return this.update(updates);
-  }
-
-  /* -------------------------------------------- */
-
-  async applyDamageOverTime() {
-    for ( const effect of this.effects ) {
-      const dot = effect.flags.crucible?.dot;
-      if ( !dot ) continue;
-      const damage = Math.max(dot.damage - this.resistances[dot.damageType].total);
-      if ( damage ) {
-        const statusText = `${effect.label} ${-damage.signedString()}`;
-        await this.alterResources({health: -damage}, {}, {statusText});
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Prepare an object that replenishes all resource pools to their current maximum level
    * @returns {{}}
    * @private
@@ -1194,6 +1163,9 @@ export default class CrucibleActor extends Actor {
             await cls.create({
               label: "Poisoned",
               icon: "icons/skills/melee/strike-dagger-poison-green.webp",
+              duration: {
+                rounds: 6
+              },
               origin: this.uuid,
               statuses: ["poisoned"],
               flags: {
@@ -1209,6 +1181,93 @@ export default class CrucibleActor extends Actor {
           }
         }
       }
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Combat Encounters and Turn Order            */
+  /* -------------------------------------------- */
+
+  /**
+   * Actions that occur at the beginning of an Actor's turn in Combat.
+   * This method is only called for one User who has ownership permission over the Actor.
+   * @returns {Promise<CrucibleActor>}
+   */
+  async onBeginTurn() {
+
+    // Remove Active Effects which expire at the start of a turn
+    await this.expireEffects(true);
+
+    // Apply damage-over-time before recovery
+    await this.applyDamageOverTime();
+
+    // Recover resources
+    const updates = {"system.-=status": null}
+    if ( !this.isIncapacitated ) updates["system.attributes.action.value"] = this.attributes.action.max;
+    return this.update(updates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Actions that occur at the end of an Actor's turn in Combat.
+   * This method is only called for one User who has ownership permission over the Actor.
+   * @returns {Promise<void>}
+   */
+  async onEndTurn() {
+
+    // Remove active effects which expire at the end of a turn
+    await this.expireEffects(false);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply damage over time effects which are currently active on the Actor.
+   * @returns {Promise<void>}
+   */
+  async applyDamageOverTime() {
+    for ( const effect of this.effects ) {
+      const dot = effect.flags.crucible?.dot;
+      if ( !dot ) continue;
+      const damage = Math.max(dot.damage - this.resistances[dot.damageType].total);
+      if ( damage ) {
+        const statusText = `${effect.label} ${-damage.signedString()}`;
+        await this.alterResources({health: -damage}, {}, {statusText});
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Expire active effects whose durations have concluded at the end of the Actor's turn.
+   * @param {boolean} start       Is it the start of the turn (true) or the end of the turn (false)
+   * @returns {Promise<void>}
+   */
+  async expireEffects(start=true) {
+    const toDelete = [];
+    for ( const effect of this.effects ) {
+      if ( this.#isEffectExpired(effect, start) ) toDelete.push(effect.id);
+    }
+    await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
+  }
+
+  /* -------------------------------------------- */
+
+  #isEffectExpired(effect, start=true) {
+    const {startRound, rounds} = effect.duration;
+    if ( !Number.isNumeric(rounds) ) return false;
+    const isSelf = effect.origin === this.uuid;
+    const remaining = (startRound + rounds) - game.combat.round;
+
+    // Self effects expire at the beginning of your next turn
+    if ( isSelf ) return remaining <=0;
+
+    // Effects from others expire at the end of your turn
+    else {
+      if ( start ) return remaining < 0;
+      else return remaining <= 0;
     }
   }
 

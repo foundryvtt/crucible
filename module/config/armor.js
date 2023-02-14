@@ -14,20 +14,20 @@ export const CATEGORIES = {
   light: {
     id: "light",
     label: "ARMOR.Light",
-    minArmor: 1,
+    minArmor: 4,
     maxArmor: 8
   },
   medium: {
     id: "medium",
     label: "ARMOR.Medium",
-    minArmor: 9,
-    maxArmor: 16
+    minArmor: 10,
+    maxArmor: 14
   },
   heavy: {
     id: "heavy",
     label: "ARMOR.Heavy",
-    minArmor: 17,
-    maxArmor: 24
+    minArmor: 16,
+    maxArmor: 20
   }
 };
 
@@ -61,6 +61,6 @@ export const UNARMORED_DATA = {
   data: {
     category: "unarmored",
     armor: {base: 0, bonus: 0},
-    dodge: {base: 8, bonus: 0, start: 0}
+    dodge: {base: 8, bonus: 0, start: 2}
   }
 };

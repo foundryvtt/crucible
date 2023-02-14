@@ -55,8 +55,17 @@
         </div>
 
         <div class="form-group">
-            <label>Equipped</label>
-            <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}/>
+            <div class="form-fields">
+                <label class="checkbox">Equipped
+                    <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}/>
+                </label>
+                {{#if usesReload}}
+                <label class="checkbox">Loaded
+                    <input type="checkbox" name="system.loaded" {{checked source.system.loaded}}/>
+                </label>
+                {{/if}}
+            </div>
+
         </div>
 
         <div class="form-group stacked">

@@ -24,7 +24,7 @@ export default {
         hasDice: true
       });
     },
-    execute: (actor, action, target) => action.context.weapon.attack(target, action.bonuses),
+    roll: (actor, action, target) => action.context.weapon.attack(target, action.bonuses),
     confirm: async (actor, action, outcomes) => {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.total ) {

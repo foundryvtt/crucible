@@ -70,8 +70,8 @@ export default class CrucibleArmor extends PhysicalItemData {
     this.armor.bonus = quality.bonus + enchantment.bonus;
 
     // Dodge Defense
-    this.dodge = {start: Math.floor(this.armor.base / 2)};
-    this.dodge.base = Math.clamped(10 - this.dodge.start, 0, 8);
+    this.dodge = {start: 2 + Math.floor(this.armor.base / 2)};
+    this.dodge.base = Math.clamped(SYSTEM.PASSIVE_BASE - this.dodge.start, 0, 8);
 
     // Broken Armor
     if ( this.broken ) {

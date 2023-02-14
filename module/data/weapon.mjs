@@ -12,7 +12,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
   _configure(options) {
     super._configure(options);
     Object.defineProperties(this.parent, {
-      attack: {value: this.attack.bind(this), writable: false, configurable: true}
+      attack: {value: this.attack.bind(this), writable: false, configurable: true},
     });
   }
 
@@ -30,7 +30,8 @@ export default class CrucibleWeapon extends PhysicalItemData {
   static defineSchema() {
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(super.defineSchema(), {
-      damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES})
+      damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES}),
+      loaded: new fields.BooleanField({required: false, initial: undefined})
     });
   }
 
@@ -225,7 +226,10 @@ export default class CrucibleWeapon extends PhysicalItemData {
    */
   getTags(scope="full") {
     const tags = {};
+
+    // Damage
     tags.damage = `${this.damage.weapon} Damage`;
+    if ( this.config.category.reload && !this.loaded ) tags.damage = "Reload";
     if ( scope === "short" ) return tags;
 
     // Weapon Category

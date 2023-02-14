@@ -60,12 +60,17 @@
             <div class="effects">
                 <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
                 {{#each effects as |effect|}}
-                <div class="effect line-item" data-effect-id="{{effect._id}}">
+                <div class="effect line-item" data-effect-id="{{effect.id}}">
                     <div class="name">
                         <img class="icon" src="{{effect.icon}}">
                         <h4>{{effect.label}}</h4>
                     </div>
-                    <div class="controls flexrow">
+                    <div class="tags">
+                        {{#each effect.tags as |label tag|}}
+                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                        {{/each}}
+                    </div>
+                    <div class="controls">
                         <a class="control" data-action="effectEdit" data-tooltip="Edit Effect">
                             <i class="fas fa-edit"></i>
                         </a>

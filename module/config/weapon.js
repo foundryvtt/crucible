@@ -88,18 +88,6 @@ export const CATEGORIES = {
     },
     actionCost: 1
   },
-  massive1: {
-    id: "massive1",
-    label: "WEAPON.Massive1",
-    hands: 1,
-    main: true,
-    off: false,
-    scaling: "strength",
-    damage: {
-      base: 12
-    },
-    actionCost: 2
-  },
   simple2: {
     id: "simple2",
     label: "WEAPON.Simple2",
@@ -136,18 +124,6 @@ export const CATEGORIES = {
     },
     actionCost: 2
   },
-  massive2: {
-    id: "massive2",
-    label: "WEAPON.Massive2",
-    hands: 2,
-    main: true,
-    off: false,
-    scaling: "strength",
-    damage: {
-      base: 16
-    },
-    actionCost: 3
-  },
   projectile2: {
     id: "projectile2",
     label: "WEAPON.Projectile2",
@@ -168,11 +144,12 @@ export const CATEGORIES = {
     main: true,
     off: true,
     ranged: true,
+    reload: true,
     scaling: "dexterity",
     damage: {
       base: 6
     },
-    actionCost: 2
+    actionCost: 1
   },
   mechanical2: {
     id: "mechanical2",
@@ -181,11 +158,12 @@ export const CATEGORIES = {
     main: true,
     off: false,
     ranged: true,
+    reload: true,
     scaling: "dexterity",
     damage: {
       base: 12
     },
-    actionCost: 2
+    actionCost: 1
   },
   shieldLight: {
     id: "shieldLight",
@@ -255,10 +233,6 @@ export const PROPERTIES = {
     label: "WEAPON.TagReach",
     tooltip: "WEAPON.TagReachTooltip"
   },
-  reload: {
-    label: "WEAPON.TagReload",
-    tooltip: "WEAPON.TagReloadTooltip"
-  },
   thrown: {
     label: "WEAPON.TagThrown",
     tooltip: "WEAPON.TagThrownTooltip"
@@ -266,22 +240,6 @@ export const PROPERTIES = {
   versatile: {
     label: "WEAPON.TagVersatile",
     tooltip: "WEAPON.TagVersatileTooltip"
-  }
-}
-
-/**
- * The valid ways that weapon damage can scale
- * @type {object}
- */
-export const SCALING_MODES = {
-  "str": {
-    label: "WEAPON.ScalingStr"
-  },
-  "strdex": {
-    label: "WEAPON.ScalingStrDex"
-  },
-  "dex": {
-    label: "WEAPON.ScalingDex"
   }
 }
 
