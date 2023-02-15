@@ -26,6 +26,11 @@ export const statusEffects = [
     icon: "icons/svg/daze.svg"
   },
   {
+    id: "restrained",
+    label: "EFFECT.StatusRestrained",
+    icon: "icons/svg/net.svg"
+  },
+  {
     id: "prone",
     label: "EFFECT.StatusProne",
     icon: "icons/svg/falling.svg"

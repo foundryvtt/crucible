@@ -76,7 +76,7 @@ function weaponAttack(type="mainhand") {
     },
     prepare: (actor, action) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
-      action.actionCost = w.system.actionCost + action.cost.action;
+      action.actionCost = (w?.system.actionCost || 0) + action.cost.action;
     },
     pre: (actor, action) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];

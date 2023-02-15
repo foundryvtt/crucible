@@ -10,6 +10,16 @@ export default {
       return actor.alterResources({health: actor.attributes.toughness.value}, {}, {statusText: action.name});
     }
   },
+  "strike": {
+    post: async (actor, action, target) => action.actorUpdates["system.status.basicStrike"] = true
+  },
+  "offhand-strike": {
+    prepare: (actor, action) => {
+      const {basicStrike, offhandStrike} = actor.system.status;
+      if ( basicStrike && !offhandStrike ) action.actionCost = 0;
+    },
+    post: async (actor, action, target) => action.actorUpdates["system.status.offhandStrike"] = true
+  },
   "vampiric-bite": {
     pre: (actor, action) => {
       const cls = getDocumentClass("Item");
