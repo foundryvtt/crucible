@@ -3,7 +3,6 @@ import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../data/action.mjs";
 
-
 /**
  * @typedef {Object} ActorEquippedWeapons
  * @property {CrucibleItem} mainhand
@@ -242,8 +241,8 @@ export default class CrucibleActor extends Actor {
     const items = this.itemTypes;
     this._prepareTalents(items);
     this.equipment = this._prepareEquipment(items);
-    this._prepareActions();
     this._prepareEffects();
+    this._prepareActions();
   };
 
   /* -------------------------------------------- */
@@ -623,6 +622,9 @@ export default class CrucibleActor extends Actor {
 
     // Damage Resistances
     this._prepareResistances();
+
+    // Healing Thresholds
+    this._prepareHealingThresholds();
   }
 
   /* -------------------------------------------- */
@@ -687,6 +689,18 @@ export default class CrucibleActor extends Actor {
       if ( hasRunewarden && this.grimoire.runes.find(r => r.damageType === id) ) r.base += 5;
       r.total = r.base + r.bonus;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare thresholds for receiving healing based on current wounds and madness.
+   * @private
+   */
+  _prepareHealingThresholds() {
+    const d = this.system.defenses;
+    d.wounds = {base: 15, total: 15}
+    d.madness = {base: 15, total: 15}
   }
 
   /* -------------------------------------------- */
@@ -878,7 +892,7 @@ export default class CrucibleActor extends Actor {
       return AttackRoll.RESULT_TYPES.DEFLECT;
     }
 
-    // Save Defenses
+    // Other Defenses
     else {
       if ( rollTotal > d[defenseType].total ) return AttackRoll.RESULT_TYPES.EFFECTIVE;
       else return AttackRoll.RESULT_TYPES.RESIST;
@@ -938,8 +952,14 @@ export default class CrucibleActor extends Actor {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
     const spell = action.spell;
 
+    // Modify boons and banes against this target
+    const defenseType = action.spell.defense;
+    let {boons, banes} = action.usage.bonuses;
+    const targetBoons = this.getTargetBoons(target, defenseType)
+    boons += targetBoons.boons;
+    banes += targetBoons.banes;
+
     // Create the Attack Roll instance
-    const defense = action.spell.defense;
     const roll = new AttackRoll({
       actorId: this.id,
       spellId: spell.id,
@@ -947,29 +967,66 @@ export default class CrucibleActor extends Actor {
       ability: this.getAbilityBonus(Array.from(spell.scaling)),
       skill: 0,
       enchantment: 0,
-      banes: action.bonuses.banes,
-      boons: action.bonuses.boons,
-      defenseType: defense,
-      dc: target.defenses[defense].total
+      banes, boons,
+      defenseType,
+      dc: target.defenses[defenseType].total
     });
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
-    const r = roll.data.result = target.testDefense(defense, roll.total);
+    const r = roll.data.result = target.testDefense(defenseType, roll.total);
     if ( (r === AttackRoll.RESULT_TYPES.HIT) || (r === AttackRoll.RESULT_TYPES.EFFECTIVE) ) {
       roll.data.damage = {
         overflow: roll.overflow,
-        multiplier: 1,
+        multiplier: spell.damage.multiplier ?? 1,
         base: spell.damage.base,
         bonus: spell.damage.bonus ?? 0,
         resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
-        type: spell.damage.type
+        resource: spell.rune.resource,
+        type: spell.damage.type,
+        healing: spell.damage.healing
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
 
     // Record actor updates
-    if ( spell.cost.spellblade ) action.actorUpdates["system.status.spellblade"] = true;
+    if ( spell.cost.spellblade ) action.usage.actorUpdates["system.status.spellblade"] = true;
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  async skillAttack(action, target) {
+
+    // Prepare Roll Data
+    const {skillId, defenseType, bonuses, healing} = action.usage;
+    const dc = defenseType ? target.defenses[defenseType].total : target.skills[skillId].passive;
+    const rollData = Object.assign({}, bonuses, {
+      actorId: this.id,
+      type: skillId,
+      target: target.uuid,
+      dc,
+      defenseType
+    });
+
+    // Create and evaluate the skill attack roll
+    const roll = new game.system.api.dice.AttackRoll(rollData);
+    await roll.evaluate();
+    roll.data.result = target.testDefense(defenseType, roll.total);
+
+    // Create resulting damage
+    if ( roll.data.result === AttackRoll.RESULT_TYPES.EFFECTIVE ) {
+      roll.data.damage = {
+        overflow: roll.overflow,
+        multiplier: bonuses.multiplier,
+        base: 0,
+        bonus: bonuses.damageBonus,
+        resistance: 0,
+        type: bonuses.damageType,
+        healing: healing
+      };
+      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+    }
     return roll;
   }
 
@@ -1080,9 +1137,9 @@ export default class CrucibleActor extends Actor {
   /**
    * @typedef {Object} DamageOutcome
    * @property {CrucibleActor} target   The damage target
-   * @property {number} resourceType    Which resource was being attacked?
    * @property {AttackRoll[]} rolls     The attack roll instances
-   * @property {number} total           The total damage applied
+   * @property {object} resources       Damage dealt per target resource
+   * @property {number} total           The total damage applied across all resources
    * @property {boolean} incapacitated  Did the target become incapacitated?
    * @property {boolean} broken         Did the target become broken?
    * @property {boolean} critical       Did the damage contain a Critical Hit
@@ -1093,33 +1150,40 @@ export default class CrucibleActor extends Actor {
    * Deal damage to a target. This method requires ownership of the target Actor.
    * Applies resource changes to both the initiating Actor and to affected Targets.
    * @param {CrucibleActor} target      The target being damaged
-   * @param {string} resourceType       Which resource is being damaged?
    * @param {AttackRoll[]} rolls        The rolls which produced damage
+   * @param {object} [options]          Options which affect how damage is applied
+   * @param {boolean} [options.reverse]   Reverse damage instead of applying it
    * @returns {Promise<DamageOutcome>}  The damage outcome
    */
-  async dealDamage(target, resourceType, rolls) {
+  async dealDamage(target, rolls, {reverse=false}={}) {
     const outcome = {
-      target, resourceType, rolls,
+      target, rolls,
       total: undefined,
       incapacitated: false,
       broken: false,
       critical: false,
       failure: false
     };
+    const resources = outcome.resources = {};
+    const direction = reverse ? 1 : -1;
 
     // Compute total damage
-    let totalDamage = 0;
     for ( const roll of rolls ) {
-      totalDamage += roll.data.damage?.total ?? 0;
+      const damage = roll.data.damage || {};
+      const resource = damage.resource ?? "health";
+      resources[resource] ??= 0;
+      resources[resource] += ((damage.total ?? 0) * (damage.healing ? -1 : 1) * direction);
       if ( roll.isCriticalSuccess ) outcome.critical = true;
       else if ( roll.isCriticalFailure) outcome.failure = true;
     }
-    outcome.total = totalDamage;
+    outcome.total = Object.values(resources).reduce((t, d) => t - d, 0);
 
     // Apply damage to the target
     const wasIncapacitated = target.isIncapacitated;
     const wasBroken = target.isBroken;
-    await target.alterResources({[resourceType]: -1 * totalDamage});
+    await target.alterResources(resources);
+
+    // Record state changes
     if ( target.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
     if ( target.isBroken && !wasBroken ) outcome.broken = true;
     return outcome;

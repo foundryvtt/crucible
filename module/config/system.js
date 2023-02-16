@@ -265,22 +265,36 @@ export const PASSIVE_BASE = 12;
  */
 export const DEFENSES = {
   physical: {
-    label: "DEFENSES.Physical"
+    label: "DEFENSES.Physical",
+    type: "physical"
   },
   fortitude: {
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "toughness"],
-    tooltip: `${PASSIVE_BASE} + Strength + Toughness`
+    tooltip: `${PASSIVE_BASE} + Strength + Toughness`,
+    type: "save"
   },
   reflex: {
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
-    tooltip: `${PASSIVE_BASE} + Dexterity + Intellect`
+    tooltip: `${PASSIVE_BASE} + Dexterity + Intellect`,
+    type: "save"
   },
   willpower: {
     label: "DEFENSES.Willpower",
     abilities: ["wisdom", "presence"],
-    tooltip: `${PASSIVE_BASE} + Wisdom + Presence`
+    tooltip: `${PASSIVE_BASE} + Wisdom + Presence`,
+    type: "save"
+  },
+  wounds: {
+    label: "DEFENSES.Wounds",
+    tooltip: `${PASSIVE_BASE} + (Wounds / 10)`,
+    type: "threshold"
+  },
+  madness: {
+    label: "DEFENSES.Madness",
+    tooltip: `${PASSIVE_BASE} + (Madness / 10)`,
+    type: "threshold"
   }
 }
 

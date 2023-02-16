@@ -101,6 +101,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #config;
 
+  /**
+   * Dice roll bonuses which modify the usage of this action
+   * @type {{actorUpdates: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
+   */
+  usage = {};
+
+  /**
+   * If this Action involves the casting of a Spell, it is referenced here
+   * @type {CrucibleSpell|null}
+   */
+  spell;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -113,6 +125,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Special configuration
     this.#actor = actor;
     this.#config = SYSTEM.ACTION.ACTIONS[this.id] || {};
+
+    // Initialize usage data
+    this.usage = {
+      actorUpdates: {},
+      bonuses: {boons: 0, banes: 0, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
+      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()}
+    };
 
     // Configure action data
     const source = this._source;
@@ -131,9 +150,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Prepare this Action to be used by a specific Actor
    * @param {CrucibleActor} actor     The actor for whom this action is being prepared
+   * @param {object} bonuses          Special bonuses which apply to this Action usage
    */
-  prepareForActor(actor) {
+  prepareForActor(actor, bonuses={}) {
     this.prepareData(actor);
+    Object.assign(this.usage.bonuses, bonuses);
+    if ( actor?.statuses.has("broken") ) this.usage.bonuses.banes += 2;
     this.#prepare(actor);
     return this;
   }
@@ -233,9 +255,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Confirm the result of an Action that was recorded as a ChatMessage.
    */
-  static async confirm(message) {
+  static async confirm(message, {reverse=false}={}) {
     const flags = message.flags.crucible || {};
-    const flagsUpdate = {confirmed: true};
+    const flagsUpdate = {confirmed: !reverse};
 
     // Get the Actor and the Action
     const actor = ChatMessage.getSpeakerActor(message.speaker);
@@ -251,11 +273,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       else targets.get(target).push(roll);
     }
 
-    // Apply damage to each target
+    // Apply damage or healing to each target
     const outcomes = new Map();
     for ( const [target, rolls] of targets.entries() ) {
-      const outcome = await actor.dealDamage(target, "health", rolls);
+      const outcome = await actor.dealDamage(target, rolls, {reverse});
       outcomes.set(target, outcome);
+    }
+
+    // Reverse effects
+    if ( reverse ) {
+      await action.reverseEffects(flags.effects);
+      flagsUpdate.effects = [];
+      return message.update({flags: {crucible: flagsUpdate}});
     }
 
     // Apply effects
@@ -269,47 +298,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await actor.onDealDamage(outcomes);
 
     // Record confirmation
-    return message.update({flags: {crucible: flagsUpdate}});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Reverse the result of an Action that was recorded as a ChatMessage.
-   * TODO: generalize this so it uses the same worlkflow as confirm()
-   * @param message
-   * @returns {Promise<void>}
-   */
-  static async reverse(message) {
-    const flags = message.flags.crucible || {};
-    const flagsUpdate = {confirmed: false};
-
-    // Get the Actor and the Action
-    const actor = ChatMessage.getSpeakerActor(message.speaker);
-    const action = actor.actions[flags.action] || null;
-
-    // Get targets
-    const targets = [];
-    for ( let targetId of flags.targets || [] ) {
-      const target = await fromUuid(targetId.uuid);
-      if ( !target ) continue;
-      const actor = target instanceof TokenDocument ? target.actor : target;
-      targets.push(actor);
-    }
-
-    // Reverse damage
-    const totalDamage = message.rolls.reduce((t, r) => t + (r.data.damage?.total || 0), 0);
-    for ( const target of targets ) {
-      await target.alterResources({"health": totalDamage });
-    }
-
-    // Reverse effects
-    if ( flags.effects ) {
-      await action.reverseEffects(flags.effects);
-      flagsUpdate.effects = [];
-    }
-
-    // Record reversal
     return message.update({flags: {crucible: flagsUpdate}});
   }
 
@@ -368,7 +356,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {string[]} effects      An array of active effect UUIDs
    * @returns {Promise<void>}
    */
-  async reverseEffects(effects) {
+  async reverseEffects(effects=[]) {
     for ( const uuid of effects ) {
       const effect = fromUuidSync(uuid);
       if ( effect ) await effect.delete();
@@ -392,26 +380,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = this.clone({}, {parent: this.parent});
-    action.prepareForActor(actor);
-    action.context = {
-      type: undefined,
-      label: undefined,
-      icon: undefined,
-      tags: new Set()
-    };
-    action.bonuses = {boons, banes, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1};
-    action.actorUpdates = {};
-    action.isSpell = action.tags.has("spell");
 
-    // Get special action configuration
-    const config = SYSTEM.ACTION.ACTIONS[action.id] || {};
-
-    // Pre-configure of the action
-    for ( let tag of action.tags ) {
-      const at = SYSTEM.ACTION.TAGS[tag];
-      if ( at.pre instanceof Function ) at.pre(actor, action);
-    }
-    if ( config.pre instanceof Function ) config.pre(actor, action);
+    // Actor-specific action preparation
+    action.prepareForActor(actor, {banes, boons});
 
     // Assert that the action can be used based on its tags
     try {
@@ -445,9 +416,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return ui.notifications.warn(err.message);
     }
 
+    // Pre-execution steps
+    this.#pre(targets)
+
     // Require a spell configuration dialog
-    const pool = new StandardCheck(action.bonuses);
-    if ( action.isSpell ) {
+    const pool = new StandardCheck(action.usage.bonuses);
+    if ( action.tags.has("spell") ) {
       if ( dialog || !action.spell ) {
         const response = await SpellCastDialog.prompt({options: {action, actor, pool, targets}});
         if ( !response ) return [];
@@ -460,8 +434,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     else if ( dialog ) {
       const response = await ActionUseDialog.prompt({options: {action, actor, pool, targets}});
       if ( response === null ) return [];
-      action.bonuses.boons = response.data.boons;
-      action.bonuses.banes = response.data.banes;
+      Object.assign(action.usage.bonuses, {boons: response.data.boons, banes: response.data.banes});
     }
 
     // Iterate over every designated target
@@ -481,7 +454,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // If the actor is in combat, incur the cost of the action that was performed
     if ( actor.combatant ) {
-      await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.actorUpdates);
+      await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.usage.actorUpdates);
     }
     return results;
   }
@@ -510,12 +483,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       spell: spell.toObject(),
       target: spell.target,
     });
+    Object.defineProperty(action, "spell", {value: spell, writable: false, enumerable: false});
 
     // Update derived Action data
-    action.spell = spell;
-    action.bonuses.boons = boons;
-    action.bonuses.banes = banes;
     action.prepareForActor(actor);
+    Object.assign(action.usage.bonuses, {boons, banes});
   }
 
   /* -------------------------------------------- */
@@ -671,6 +643,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #prepare() {
     for ( const test of this.#tests() ) {
       if ( test.prepare instanceof Function ) test.prepare(this.#actor, this);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pre-execution steps.
+   */
+  #pre(targets) {
+    for ( const test of this.#tests() ) {
+      if ( test.pre instanceof Function ) test.pre(this.#actor, this, targets);
     }
   }
 

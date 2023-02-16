@@ -1,3 +1,7 @@
-2023/02/14-19:56:45.557 d2f8 Recovering log #107
-2023/02/14-19:56:45.561 d2f8 Delete type=0 #107
-2023/02/14-19:56:45.561 d2f8 Delete type=3 #106
+2023/02/15-20:33:53.314 302c8 Recovering log #113
+2023/02/15-20:33:53.319 302c8 Delete type=0 #113
+2023/02/15-20:33:53.319 302c8 Delete type=3 #112
+2023/02/15-22:45:48.366 2feb8 Level-0 table #117: started
+2023/02/15-22:45:48.366 2feb8 Level-0 table #117: 0 bytes OK
+2023/02/15-22:45:48.367 2feb8 Delete type=0 #115
+2023/02/15-22:45:48.367 2feb8 Manual compaction at level-0 from 'undefined' @ 72057594037927935 : 1 .. 'undefined' @ 0 : 0; will stop at (end)

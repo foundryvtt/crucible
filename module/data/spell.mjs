@@ -31,7 +31,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     this.img ||= this.rune.img;
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
     this.cost = CrucibleSpell.#prepareCost(this);
-    this.defense = this.rune.defense;
+    this.defense = CrucibleSpell.#prepareDefense(this);
     this.damage = CrucibleSpell.#prepareDamage(this);
     this.target = CrucibleSpell.#prepareTarget(this);
     if ( this.parent ) this.parent.prepareSpell(this);
@@ -56,6 +56,23 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Prepare the defense against which this spell is tested.
+   * @param {CrucibleSpell} spell     The spell being prepared
+   * @returns {string}                The defense to test
+   */
+  static #prepareDefense(spell) {
+    if ( spell.rune.restoration ) return {
+      health: "wounds",
+      wounds: "wounds",
+      morale: "madness",
+      madness: "madness"
+    }[spell.rune.resource];
+    else return spell.rune.defense;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare damage information for the spell from its components.
    * @param {CrucibleSpell} spell     The spell being prepared
    * @returns {DamageData}
@@ -65,7 +82,8 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
       base: spell.gesture.damage.base ?? 0,
       bonus: spell.gesture.damage.bonus ?? 0,
       multiplier: 1,
-      type: spell.rune.damageType
+      type: spell.rune.damageType,
+      healing: spell.rune.restoration ? spell.rune.resource : null
     };
   }
 

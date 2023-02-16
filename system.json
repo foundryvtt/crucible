@@ -7,6 +7,7 @@
   "scripts": [],
   "esmodules": ["crucible.mjs"],
   "styles": ["crucible.css"],
+  "background": "systems/crucible/ui/background.webp",
   "compatibility": {
     "minimum": 11,
     "verified": 11

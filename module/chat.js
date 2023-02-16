@@ -56,7 +56,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
-      return CrucibleAction.reverse(message);
+      return CrucibleAction.confirm(message, {reverse: true});
     }
   });
   return options;
