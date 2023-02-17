@@ -285,7 +285,7 @@ export default class HeroSheet extends ActorSheet {
   _formatMagicDefenses(defenses) {
     const formatted = [];
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( id === "physical" ) continue;
+      if ( defense.type !== "save" ) continue;
       const d = foundry.utils.mergeObject(defense, defenses[id]);
       d.id = id;
       formatted.push(d);

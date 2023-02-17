@@ -757,7 +757,8 @@ export default class CrucibleActor extends Actor {
 
     // Action
     attrs.action.max = lvl > 0 ? 3 : 0;
-    if ( this.statuses.has("stunned") ) attrs.action.max = 1;
+    if ( this.statuses.has("stunned") ) attrs.action.max -= 2;
+    else if ( this.statuses.has("staggered") ) attrs.action.max -= 1;
     attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
 
     // Focus
@@ -991,6 +992,7 @@ export default class CrucibleActor extends Actor {
 
     // Record actor updates
     if ( spell.cost.spellblade ) action.usage.actorUpdates["system.status.spellblade"] = true;
+    action.usage.actorUpdates["flags.crucible.lastSpell"] = spell.id;
     return roll;
   }
 
@@ -1193,15 +1195,16 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Additional steps taken when this Actor deals damage to other targets.
+   * @param {CrucibleAction} action                           The action performed
    * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
    */
-  async onDealDamage(outcomes) {
+  async onDealDamage(action, outcomes) {
 
     // Battle Focus
     if ( this.talentIds.has("battlefocus00000") ) {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.critical || outcome.incapacitated ) {
-          await this.alterResources({"focus": 1}, {}, {statusText: "Battle Focus +1"});
+          await this.alterResources({"focus": 1}, {}, {statusText: "Battle Focus"});
           break;
         }
       }
@@ -1211,7 +1214,7 @@ export default class CrucibleActor extends Actor {
     if ( this.talentIds.has("bloodfrenzy00000") && !this.system.status.bloodFrenzy ) {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.critical ) {
-          const statusText = "Blood Frenzy +1";
+          const statusText = "Blood Frenzy";
           await this.alterResources({"action": 1}, {"system.status.bloodFrenzy": true}, {statusText});
           break;
         }
@@ -1219,32 +1222,39 @@ export default class CrucibleActor extends Actor {
     }
 
     // Poisoner
-    if ( this.talentIds.has("poisoner00000000") ) {
-      if ( this.effects.find(e => e.getFlag("crucible", "action") === "poison-blades") ) {
-        for ( const {target, critical} of outcomes.values() ) {
-          if ( critical ) {
-            const cls = getDocumentClass("ActiveEffect");
-            await cls.create({
-              label: "Poisoned",
-              icon: "icons/skills/melee/strike-dagger-poison-green.webp",
-              duration: {
-                rounds: 6
-              },
-              origin: this.uuid,
-              statuses: ["poisoned"],
-              flags: {
-                crucible: {
-                  action: "poison-blades",
-                  dot: {
-                    damage: this.attributes.intellect.value,
-                    damageType: "poison"
-                  }
-                }
-              }
-            }, {parent: target});
-          }
-        }
+    if ( this.talentIds.has("poisoner00000000") &&
+      this.effects.find(e => e.getFlag("crucible", "action") === "poison-blades") ) {
+      await this.#applyCriticalEffect("poisoned", action, outcomes);
+    }
+
+    // Elemental Critical Effects
+    const elementalEffects = {
+      "dustbinder000000": {rune: "earth", effectName: "corroding"},
+      "pyromancer000000": {rune: "flame", effectName: "burning"},
+      "rimecaller000000": {rune: "frost", effectName: "chilled"},
+      "surgeweaver00000": {rune: "lightning", effectName: "shocked"},
+    }
+    for ( const [talentId, {rune, effectName}] of Object.entries(elementalEffects) ) {
+      if ( this.talentIds.has(talentId) && action.spell?.rune.id === rune ) {
+        await this.#applyCriticalEffect(effectName, action, outcomes);
       }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply effects to a target which occur on Critical Hit.
+   * @param {string} effectName                               The named effect in SYSTEM.EFFECTS
+   * @param {CrucibleAction} action                           The action performed
+   * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
+   * @returns {Promise<void>}
+   */
+  async #applyCriticalEffect(effectName, action, outcomes) {
+    for ( const {target, critical} of outcomes.values() ) {
+      if ( !critical ) continue;
+      const effectData = SYSTEM.EFFECTS[effectName](this, target);
+      await ActiveEffect.create(effectData, {parent: target});
     }
   }
 
@@ -1294,11 +1304,17 @@ export default class CrucibleActor extends Actor {
     for ( const effect of this.effects ) {
       const dot = effect.flags.crucible?.dot;
       if ( !dot ) continue;
-      const damage = Math.max(dot.damage - this.resistances[dot.damageType].total);
-      if ( damage ) {
-        const statusText = `${effect.label} ${-damage.signedString()}`;
-        await this.alterResources({health: -damage}, {}, {statusText});
+
+      // Categorize damage
+      const damage = {};
+      for ( const r of Object.keys(SYSTEM.RESOURCES) ) {
+        if ( !(r in dot) ) continue;
+        const d = Math.clamped(dot[r] - this.resistances[dot.damageType].total, 0, 2 * dot[r]);
+        damage[r] ||= 0;
+        damage[r] -= d;
       }
+      if ( foundry.utils.isEmpty(damage) ) return;
+      await this.alterResources(damage, {}, {statusText: effect.label});
     }
   }
 
@@ -1864,7 +1880,7 @@ export default class CrucibleActor extends Actor {
       const attr = this.attributes[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
-      const text = statusText ?? `${delta.signedString()} (${resource.label})`;
+      const text = `${delta.signedString()} ${statusText ?? resource.label}`;
       const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
       const fontSize = (24 + (24 * pct)) * (canvas.dimensions.size / 100).toNearest(0.25); // Range between [24, 48]
       const healSign = resource.type === "active" ? 1 : -1;

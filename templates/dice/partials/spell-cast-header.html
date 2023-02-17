@@ -46,6 +46,17 @@
         </div>
     </div>
 
+    {{#if chooseDamageType}}
+    <div class="form-group">
+        <label>{{localize "SPELL.DamageType"}}</label>
+        <div class="form-fields">
+            <select name="damageType" class="component">
+                {{selectOptions damageTypes selected=spell.damage.type}}
+            </select>
+        </div>
+    </div>
+    {{/if}}
+
     <div class="form-group">
         <label>{{localize "SPELL.ComponentGesture"}}</label>
         <div class="form-fields">

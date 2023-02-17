@@ -21,9 +21,19 @@ export const statusEffects = [
     icon: "systems/crucible/icons/statuses/insane.svg"
   },
   {
+    id: "staggered",
+    label: "EFFECT.StatusStaggered",
+    icon: "systems/crucible/icons/statuses/staggered.svg"
+  },
+  {
     id: "stunned",
     label: "EFFECT.StatusStunned",
     icon: "icons/svg/daze.svg"
+  },
+  {
+    id: "slowed",
+    label: "EFFECT.StatusSlowed",
+    icon: "systems/crucible/icons/statuses/slowed.svg"
   },
   {
     id: "restrained",

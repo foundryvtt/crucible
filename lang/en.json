@@ -194,6 +194,8 @@
 "EFFECT.StatusIncapacitated": "Incapacitated",
 "EFFECT.StatusInsane": "Insane",
 "EFFECT.StatusResolute": "Resolute",
+"EFFECT.StatusSlowed": "Slowed",
+"EFFECT.StatusStaggered": "Staggered",
 
 "ITEM.Broken": "Broken",
 
@@ -535,6 +537,7 @@
 "SPELL.ComponentRune": "Arcane Rune",
 "SPELL.ComponentGesture": "Somatic Gesture",
 "SPELL.ComponentInflection": "Metamagic Inflection",
+"SPELL.DamageType": "Damage Type",
 
 "SPELL.NameFormatNoun": "{gesture} of {rune}",
 "SPELL.NameFormatAdj": "{rune} {gesture}",

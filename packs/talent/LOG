@@ -1,3 +1,15 @@
-2023/02/15-22:57:12.313 3816c Recovering log #131
-2023/02/15-22:57:12.317 3816c Delete type=0 #131
-2023/02/15-22:57:12.317 3816c Delete type=3 #129
+2023/02/16-17:17:42.929 22564 Recovering log #140
+2023/02/16-17:17:42.933 22564 Delete type=0 #140
+2023/02/16-17:17:42.933 22564 Delete type=3 #139
+2023/02/16-22:35:15.998 2b6fc Level-0 table #144: started
+2023/02/16-22:35:16.000 2b6fc Level-0 table #144: 5220 bytes OK
+2023/02/16-22:35:16.001 2b6fc Delete type=0 #142
+2023/02/16-22:35:16.001 2b6fc Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/16-22:35:16.001 2b6fc Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!surgeweaver00000' @ 368 : 1
+2023/02/16-22:35:16.001 2b6fc Compacting 1@1 + 1@2 files
+2023/02/16-22:35:16.005 2b6fc Generated table #145@1: 121 keys, 49000 bytes
+2023/02/16-22:35:16.005 2b6fc Compacted 1@1 + 1@2 files => 49000 bytes
+2023/02/16-22:35:16.007 2b6fc compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/02/16-22:35:16.007 2b6fc Delete type=2 #134
+2023/02/16-22:35:16.007 2b6fc Delete type=2 #144
+2023/02/16-22:35:16.007 2b6fc Manual compaction at level-1 from '!items!surgeweaver00000' @ 368 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

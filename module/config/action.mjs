@@ -193,7 +193,13 @@ export const TAGS = {
     tag: "movement",
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
-    prepare: (actor, action) => action.actionCost -= (actor.system.status.hasMoved ? 0 : 1),
+    can: (actor, action) => {
+      if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
+    },
+    prepare: (actor, action) => {
+      action.actionCost -= (actor.system.status.hasMoved ? 0 : 1)
+      if ( actor.statuses.has("slowed") ) action.actionCost += 1;
+    },
     roll: (actor, action, target) => action.usage.actorUpdates["system.status.hasMoved"] = true
   },
 

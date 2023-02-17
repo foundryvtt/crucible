@@ -242,6 +242,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       flags: {
         crucible: {
           action: this.id,
+          spell: this.spell?.id,
           isAttack: rolls.length,
           targets: targets
         }
@@ -261,7 +262,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Get the Actor and the Action
     const actor = ChatMessage.getSpeakerActor(message.speaker);
-    const action = actor.actions[flags.action] || null;
+    const action = actor.actions[flags.action]?.clone({}, {parent: actor}) || null;
+    if ( flags.spell ) {
+      const [, rune, gesture, inflection] = flags.spell.split(".");
+      action.#applySpell({rune, gesture, inflection});
+    }
+    else action?.prepareForActor(actor);
 
     // Get targets and group rolls by target
     const targets = new Map();
@@ -287,15 +293,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return message.update({flags: {crucible: flagsUpdate}});
     }
 
+    // Action confirmation steps
+    await action.#confirm(outcomes);
+
+    // Apply damage
+    await actor.onDealDamage(action, outcomes);
+
     // Apply effects
     const effects = await action.confirmEffects(targets.keys());
     flagsUpdate.effects = effects.map(e => e.uuid);
-
-    // Action confirmation steps
-    action.#confirm(actor, outcomes);
-
-    // Actor follow-up steps
-    await actor.onDealDamage(outcomes);
 
     // Record confirmation
     return message.update({flags: {crucible: flagsUpdate}});
@@ -380,8 +386,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Clone the derived action data which may be further transformed throughout the workflow
     const action = this.clone({}, {parent: this.parent});
-
-    // Actor-specific action preparation
     action.prepareForActor(actor, {banes, boons});
 
     // Assert that the action can be used based on its tags
@@ -425,7 +429,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( dialog || !action.spell ) {
         const response = await SpellCastDialog.prompt({options: {action, actor, pool, targets}});
         if ( !response ) return [];
-        this.#applySpell(actor, action, response);
+        action.#applySpell(response);
         targets = action._acquireTargets(actor); // Reacquire for spell
       }
     }
@@ -464,18 +468,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Apply a configured spell as the Action being performed.
    * @param {CrucibleActor} actor     The actor casting the spell
-   * @param {CrucibleAction} action   The base action
    * @param {object} formData         SpellCastDialog form submission data
    */
-  #applySpell(actor, action, formData) {
+  #applySpell(formData) {
 
     // Create Spell
-    const {boons, banes, ...spellData} = formData;
-    action._source.spell = {}; // FIXME bit of a hack
-    const spell = new CrucibleSpell(spellData, {parent: this.#actor});
+    const {boons, banes, damageType, ...spellData} = formData;
+    this._source.spell = {}; // FIXME bit of a hack
+    const spell = new CrucibleSpell(spellData, {parent: this.#actor, damageType});
 
     // Update Action
-    action.updateSource({
+    this.updateSource({
       name: spell.name,
       img: spell.img,
       description: spell.description,
@@ -483,11 +486,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       spell: spell.toObject(),
       target: spell.target,
     });
-    Object.defineProperty(action, "spell", {value: spell, writable: false, enumerable: false});
+    Object.defineProperty(this, "spell", {value: spell, writable: false, enumerable: false});
 
     // Update derived Action data
-    action.prepareForActor(actor);
-    Object.assign(action.usage.bonuses, {boons, banes});
+    this.prepareForActor(this.#actor);
+    Object.assign(this.usage.bonuses, {boons, banes});
   }
 
   /* -------------------------------------------- */
@@ -599,7 +602,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {number}              The total damage dealt
    */
   static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
-    return Math.max((overflow * multiplier) + base + bonus - resistance, 1);
+    const damage = (overflow * multiplier) + base + bonus;
+    return Math.clamped(damage - resistance, 1, 2 * damage);
   }
 
   /* -------------------------------------------- */

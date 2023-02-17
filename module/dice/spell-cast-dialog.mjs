@@ -35,10 +35,15 @@ export default class SpellCastDialog extends ActionUseDialog {
     const inflections = Array.from(actor.grimoire.inflections);
     inflections.sort((a, b) => a.name.localeCompare(b.name));
 
+    // Last cast spell
+    const spellId = actor.getFlag("crucible", "lastSpell") || "";
+    const [, rune, gesture, inflection] = spellId.split(".");
+
     // Default Spell
     if ( !this.spell ) this.spell = new CrucibleSpell({
-      rune: runes[0].id,
-      gesture: gestures[0].id
+      rune: spellId ? rune : runes[0].id,
+      gesture: spellId ? gesture : gestures[0].id,
+      inflection: spellId ? inflection : undefined
     }, {parent: actor});
 
     // Scaling
@@ -49,7 +54,13 @@ export default class SpellCastDialog extends ActionUseDialog {
     return Object.assign(context, {
       spell: this.spell,
       hasDice: true,
-      ability, runes, gestures, inflections
+      ability, runes, gestures, inflections,
+      chooseDamageType: this.spell.rune.id === "kinesis",
+      damageTypes: {
+        bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
+        piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
+        slashing: SYSTEM.DAMAGE_TYPES.slashing.label,
+      }
     });
   }
 
@@ -78,9 +89,10 @@ export default class SpellCastDialog extends ActionUseDialog {
     event.preventDefault();
     const select = event.currentTarget;
     const form = select.form;
-    const fd = new FormDataExtended(form);
-    this.spell = new CrucibleSpell(fd.object, {parent: this.action.actor});
-    this.render();
+    const fd = (new FormDataExtended(form)).object;
+    if ( fd.rune !== "kinesis" ) delete fd.damageType;
+    this.spell = new CrucibleSpell(fd, {parent: this.action.actor, damageType: fd.damageType});
+    this.render(true, {height: "auto"});
   }
 
   /* -------------------------------------------- */
@@ -90,8 +102,5 @@ export default class SpellCastDialog extends ActionUseDialog {
     const form = html.querySelector("form");
     const fd = new FormDataExtended(form, {readonly: true});
     return fd.object;
-    pool.initialize(fd.object);
-    const spell = new CrucibleSpell(fd.object, {parent: this.action.actor});
-    return {spell, ...pool};
   }
 }

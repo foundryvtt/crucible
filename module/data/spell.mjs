@@ -32,7 +32,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
     this.cost = CrucibleSpell.#prepareCost(this);
     this.defense = CrucibleSpell.#prepareDefense(this);
-    this.damage = CrucibleSpell.#prepareDamage(this);
+    this.damage = CrucibleSpell.#prepareDamage(this, options);
     this.target = CrucibleSpell.#prepareTarget(this);
     if ( this.parent ) this.parent.prepareSpell(this);
   }
@@ -75,14 +75,16 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
   /**
    * Prepare damage information for the spell from its components.
    * @param {CrucibleSpell} spell     The spell being prepared
+   * @param {object} options          Options which modify damage preparation
+   * @param {string} [options.damageType]   A special damage type to apply to this spell
    * @returns {DamageData}
    */
-  static #prepareDamage(spell) {
+  static #prepareDamage(spell, {damageType}={}) {
     return {
       base: spell.gesture.damage.base ?? 0,
       bonus: spell.gesture.damage.bonus ?? 0,
       multiplier: 1,
-      type: spell.rune.damageType,
+      type: damageType ?? spell.rune.damageType,
       healing: spell.rune.restoration ? spell.rune.resource : null
     };
   }
@@ -156,7 +158,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     if ( !(this.cost.action || this.cost.focus)) tags.activation.free = "Free";
 
     // Action Tags
-    tags.action.damage = `${this.damage.base} Damage`;
+    tags.action.damage = `${this.damage.base} ${SYSTEM.DAMAGE_TYPES[this.damage.type].label}`;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
     tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
