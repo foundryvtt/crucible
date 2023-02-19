@@ -13,12 +13,56 @@
     text-align: left;
   }
 
+  // Page Header
+  h1 {
+    clear: both;
+    border: none;
+    margin: 0 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.5), transparent);
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+    mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+    &::before {
+      content: "";
+      width: 50%;
+      margin-right: 0.5rem;
+      border-top: 6px double @colorCrimson;
+    }
+    &::after {
+      content: "";
+      width: 50%;
+      margin-left: 0.5rem;
+      border-top: 6px double @colorCrimson;
+    }
+  }
+
   // Major Section Headers
   h2.divider {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid @colorOlive;
-      margin: 0.5rem 0;
-      border-radius: 4px;
+    clear: both;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    font-size: var(--font-size-28);
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.5), transparent);
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+    mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+    &::before {
+      content: "";
+      width: 50%;
+      margin-right: 0.5rem;
+      border-top: 1px solid @colorOlive;
+    }
+    &::after {
+      content: "";
+      width: 50%;
+      margin-left: 0.5rem;
+      border-top: 1px solid @colorOlive;
+    }
   }
 
   // GM Tips
@@ -37,6 +81,14 @@
   }
 
   // Minor Section Headers
+  h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: var(--font-size-20);
+    padding: 2px 0.5rem;
+    background: @colorFaint;
+    border: 1px solid @colorTan;
+    border-radius: 4px;
+  }
   h4 {
     margin: 0.5rem 0;
     padding: 0 8px;
@@ -54,5 +106,15 @@
     font-weight: bold;
     margin: 0.25rem 0;
     padding: 0.5rem;
+  }
+
+  table {
+    thead th {
+      text-align: left;
+    }
+    td:first-child,
+    th:first-child {
+      padding-left: 0.25rem;
+    }
   }
 }

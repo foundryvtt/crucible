@@ -10,8 +10,17 @@ export default {
       return actor.alterResources({health: actor.attributes.toughness.value}, {}, {statusText: action.name});
     }
   },
+  "shield-bash": {
+    can: (actor, action) => {
+      if ( !actor.system.status.basicStrike ) throw new Error("You can only perform Shield Bash after a basic Strike.");
+      if ( actor.system.status.shieldBash ) throw new Error("You cannot use Shield Bash again this Turn.");
+    },
+    post: async (actor, action, target) => action.usage.actorUpdates["system.status.shieldBash"] = true
+  },
   "strike": {
-    post: async (actor, action, target) => action.usage.actorUpdates["system.status.basicStrike"] = true
+    post: async (actor, action, target, rolls) => {
+      if ( !rolls[0].isCriticalFailure ) action.usage.actorUpdates["system.status.basicStrike"] = true;
+    }
   },
   "offhand-strike": {
     prepare: (actor, action) => {
@@ -19,6 +28,13 @@ export default {
       if ( basicStrike && !offhandStrike ) action.actionCost = 0;
     },
     post: async (actor, action, target) => action.usage.actorUpdates["system.status.offhandStrike"] = true
+  },
+  "uppercut": {
+    can: (actor, action) => {
+      if ( !actor.system.status.basicStrike ) throw new Error("You can only perform Uppercut after a basic Strike.");
+      if ( actor.system.status.uppercut ) throw new Error("You cannot use Uppercut again this Turn.");
+    },
+    post: async (actor, action, target) => action.usage.actorUpdates["system.status.uppercut"] = true
   },
   "vampiric-bite": {
     pre: (actor, action) => {

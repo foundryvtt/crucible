@@ -262,7 +262,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Get the Actor and the Action
     const actor = ChatMessage.getSpeakerActor(message.speaker);
-    const action = actor.actions[flags.action]?.clone({}, {parent: actor}) || null;
+    let action = actor.actions[flags.action];
+    action = action?.clone({}, {parent: action.parent}) || null;
     if ( flags.spell ) {
       const [, rune, gesture, inflection] = flags.spell.split(".");
       action.#applySpell({rune, gesture, inflection});
@@ -342,7 +343,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<ActiveEffect>}   The created ActiveEffect document
    */
   async #createEffect(effectData, target) {
-    return ActiveEffect.create(foundry.utils.mergeObject({
+    effectData = foundry.utils.mergeObject({
       label: this.name,
       description: this.description,
       icon: this.img,
@@ -352,7 +353,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           action: this.id
         }
       }
-    }, effectData), {parent: target});
+    }, effectData)
+
+    // Update an existing effect
+    const existing = target.effects.find(e => e.getFlag("crucible", "action") === this.id);
+    if ( existing ) {
+      effectData.duration ||= {};
+      effectData.duration.startRound = game.combat?.round || null;
+      return existing.update(effectData);
+    }
+
+    // Create a new effect
+    return ActiveEffect.create(effectData, {parent: target});
   }
 
   /* -------------------------------------------- */
@@ -393,23 +405,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.#can();
     } catch(err) {
       return ui.notifications.warn(err.message);
-    }
-
-    // Assert that cost of the action can be afforded
-    const attrs = actor.system.attributes;
-    if ( action.actionCost > attrs.action.value ) {
-      return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordCost", {
-        name: actor.name,
-        resource: game.i18n.localize("ATTRIBUTES.Action"),
-        action: this.name
-      }));
-    }
-    if ( action.focusCost > attrs.focus.value ) {
-      return ui.notifications.warn(game.i18n.format("ACTION.WarningCannotAffordCost", {
-        name: actor.name,
-        resource: game.i18n.localize("ATTRIBUTES.Focus"),
-        action: this.name
-      }));
     }
 
     // Assert that required targets are designated
@@ -628,6 +623,41 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @throws      An error if the action cannot be taken
    */
   #can() {
+    const attrs = this.#actor.system.attributes;
+
+    // Cannot spend action
+    if ( this.focusCost && this.#actor.statuses.has("paralyzed" ) ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotSpendAction", {
+        name: this.#actor.name
+      }))
+    }
+
+    // Cannot afford action cost
+    if ( this.actionCost > attrs.action.value ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
+        name: this.#actor.name,
+        resource: game.i18n.localize("ATTRIBUTES.Action"),
+        action: this.name
+      }));
+    }
+
+    // Cannot spend focus
+    if ( this.focusCost && this.#actor.statuses.has("broken" ) ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
+        name: this.#actor.name
+      }))
+    }
+
+    // Cannot afford focus cost
+    if ( this.focusCost > attrs.focus.value ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
+        name: this.#actor.name,
+        resource: game.i18n.localize("ATTRIBUTES.Focus"),
+        action: this.name
+      }));
+    }
+
+    // Test each action tag
     for ( const test of this.#tests() ) {
       if ( !(test.can instanceof Function) ) continue;
       const can = test.can(this.#actor, this);

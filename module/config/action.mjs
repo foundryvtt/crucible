@@ -363,15 +363,21 @@ export const TAGS = {
     label: "Unholy",
     prepare: (actor, action) => action.usage.bonuses.damageType = "unholy"
   },
+  void: {
+    tag: "void",
+    label: "Void",
+    prepare: (actor, action) => action.usage.bonuses.damageType = "void"
+  },
 
   /* -------------------------------------------- */
   /*  Defense Modifiers                           */
   /* -------------------------------------------- */
 
-  // TODO Target Morale
+  // Target Morale
   morale: {
     tag: "morale",
-    label: "Morale"
+    label: "Morale",
+    prepare: (actor, action) => action.usage.resource = "morale"
   },
 
   // Target Fortitude
@@ -379,7 +385,7 @@ export const TAGS = {
     tag: "fortitude",
     label: "Fortitude",
     prepare: (actor, action) => {
-      Object.assign(action.usage.bonuses, {defenseType: "fortitude"});
+      action.usage.defenseType = "fortitude";
       action.usage.context.tags.add("Fortitude");
     },
   },
@@ -389,7 +395,7 @@ export const TAGS = {
     tag: "reflex",
     label: "Reflex",
     prepare: (actor, action) => {
-      Object.assign(action.usage.bonuses, {defenseType: "reflex"});
+      action.usage.defenseType = "reflex";
       action.usage.context.tags.add("Reflex");
     },
   },
@@ -399,7 +405,7 @@ export const TAGS = {
     tag: "willpower",
     label: "Willpower",
     prepare: (actor, action) => {
-      Object.assign(action.usage.bonuses, {defenseType: "willpower"});
+      action.usage.defenseType = "willpower";
       action.usage.context.tags.add("Willpower");
     },
   },
@@ -433,7 +439,15 @@ export const TAGS = {
   crafting: {
     tag: "crafting",
     label: "SKILLS.Crafting",
-    tooltip: "SKILLS.CraftingActionTooltip"
+    tooltip: "SKILLS.CraftingActionTooltip",
+    prepare: (actor, action) => action.usage.skillId = "crafting"
+  },
+
+  intimidation: {
+    tag: "intimidation",
+    label: "SKILLS.Intimidation",
+    tooltip: "SKILLS.IntimidationActionTooltip",
+    prepare: (actor, action) => action.usage.skillId = "intimidation"
   },
 
   medicine: {
@@ -446,7 +460,8 @@ export const TAGS = {
   performance: {
     tag: "performance",
     label: "SKILLS.Performance",
-    tooltip: "SKILLS.PerformanceActionTooltip"
+    tooltip: "SKILLS.PerformanceActionTooltip",
+    prepare: (actor, action) => action.usage.skillId = "performance"
   },
 
   /* -------------------------------------------- */
@@ -514,7 +529,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     id: "defend",
     name: "Defend",
     img: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-    description: "You concentrate effort on avoiding harm, heightening your physical defense.",
+    description: "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn.",
     target: {
       type: "self",
       number: 0,

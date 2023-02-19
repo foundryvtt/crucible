@@ -433,7 +433,7 @@ export default class CrucibleActor extends Actor {
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh.system.properties.has("slow") + oh?.system.properties.has("slow");
+    weapons.slow = mh.system.properties.has("oversized") + oh?.system.properties.has("oversized");
     return weapons;
   }
 
@@ -1001,7 +1001,7 @@ export default class CrucibleActor extends Actor {
   async skillAttack(action, target) {
 
     // Prepare Roll Data
-    const {skillId, defenseType, bonuses, healing} = action.usage;
+    const {bonuses, defenseType, healing, resource, skillId} = action.usage;
     const dc = defenseType ? target.defenses[defenseType].total : target.skills[skillId].passive;
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
@@ -1025,6 +1025,7 @@ export default class CrucibleActor extends Actor {
         bonus: bonuses.damageBonus,
         resistance: 0,
         type: bonuses.damageType,
+        resource: resource ?? "health",
         healing: healing
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
@@ -1108,15 +1109,15 @@ export default class CrucibleActor extends Actor {
    * @param {string} statusId     The status effect ID to toggle
    * @param {boolean} active      Should the effect be active?
    * @param {boolean} overlay     Should the effect be an overlay?
-   * @returns {Promise<ActiveEffect|null>}
+   * @returns {Promise<ActiveEffect|undefined>}
    */
-  async toggleStatusEffect(statusId, {active=true, overlay=false, createData={}}={}) {
+  async toggleStatusEffect(statusId, {active=true, overlay=false}={}) {
     const effectData = CONFIG.statusEffects.find(e => e.id === statusId);
     if ( !effectData ) return;
     const existing = this.effects.find(e => e.statuses.has(effectData.id));
 
     // No changes needed
-    if ( !active && !existing ) return null;
+    if ( !active && !existing ) return;
     if ( active && existing ) return existing.update({"flags.core.overlay": overlay});
 
     // Remove an existing effect
@@ -1124,13 +1125,13 @@ export default class CrucibleActor extends Actor {
 
     // Add a new effect
     else if ( active ) {
-      createData = foundry.utils.mergeObject(effectData, createData, {inplace: false});
-      delete createData.id;
-      createData.label = game.i18n.localize(effectData.label);
-      createData.statuses = [effectData.id];
-      createData["flags.core.overlay"] = overlay;
-      const cls = getDocumentClass("ActiveEffect");
-      await cls.create(createData, {parent: this});
+      const createData = foundry.utils.mergeObject(effectData, {
+        _id: SYSTEM.EFFECTS.getEffectId(statusId),
+        label: game.i18n.localize(effectData.label),
+        statuses: [statusId]
+      });
+      if ( overlay ) createData["flags.core.overlay"] = true;
+      await ActiveEffect.create(createData, {parent: this, keepId: true});
     }
   }
 
@@ -1227,6 +1228,29 @@ export default class CrucibleActor extends Actor {
       await this.#applyCriticalEffect("poisoned", action, outcomes);
     }
 
+    // Bloodletter
+    if ( this.talentIds.has("bloodletter00000") ) {
+      const {mainhand, offhand} = this.equipment.weapons;
+      const damageTypes = new Set(["piercing", "slashing"]);
+      if ( action.tags.has("mainhand") && damageTypes.has(mainhand.system.damageType) ) {
+        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType: mainhand.system.damageType});
+      }
+      else if ( action.tags.has("offhand") && damageTypes.has(offhand.system.damageType) ) {
+        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType: offhand.system.damageType});
+      }
+    }
+
+    // Concussive Blows
+    if ( this.talentIds.has("concussiveblows0") ) {
+      const {mainhand, offhand} = this.equipment.weapons;
+      if ( action.tags.has("mainhand") && (mainhand.system.damageType === "bludgeoning") ) {
+        await this.#applyCriticalEffect("staggered", action, outcomes);
+      }
+      else if ( action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning") ) {
+        await this.#applyCriticalEffect("staggered", action, outcomes);
+      }
+    }
+
     // Elemental Critical Effects
     const elementalEffects = {
       "dustbinder000000": {rune: "earth", effectName: "corroding"},
@@ -1248,13 +1272,19 @@ export default class CrucibleActor extends Actor {
    * @param {string} effectName                               The named effect in SYSTEM.EFFECTS
    * @param {CrucibleAction} action                           The action performed
    * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
+   * @param {object} [options]                                Additional options passed to the effect generator
    * @returns {Promise<void>}
    */
-  async #applyCriticalEffect(effectName, action, outcomes) {
+  async #applyCriticalEffect(effectName, action, outcomes, options={}) {
     for ( const {target, critical} of outcomes.values() ) {
       if ( !critical ) continue;
-      const effectData = SYSTEM.EFFECTS[effectName](this, target);
-      await ActiveEffect.create(effectData, {parent: target});
+      const effectData = SYSTEM.EFFECTS[effectName](this, target, options);
+      const existing = target.effects.get(effectData._id);
+      if ( existing ) {
+        effectData.duration.startRound = game.combat?.round || null;
+        await existing.update(effectData);
+      }
+      else await ActiveEffect.create(effectData, {parent: target, keepId: true});
     }
   }
 
@@ -1755,6 +1785,7 @@ export default class CrucibleActor extends Actor {
     const w1 = this.items.get(mainhandId ?? itemId, {strict: true});
     const w2 = this.items.get(offhandId);
     const updates = [];
+    let actionCost = 0;
 
     // Handle un-equipping weapons which are currently equipped
     if ( !equipped ) {
@@ -1786,17 +1817,20 @@ export default class CrucibleActor extends Actor {
       else {
         isOHFree = false;
         updates.push({_id: w2.id, "system.equipped": true});
+        actionCost += w2.system.properties.has("ambush") ? 0 : 1;
       }
     }
 
     // Equip the primary weapon in the main-hand slot
     if ( w1.config.category.main && isMHFree ) {
       updates.push({_id: w1.id, "system.equipped": true});
+      actionCost += w1.system.properties.has("ambush") ? 0 : 1;
     }
 
     // Equip the primary weapon in the off-hand slot
     else if ( w1.config.category.off && isOHFree ) {
       updates.push({_id: w1.id, "system.equipped": true});
+      actionCost += w1.system.properties.has("ambush") ? 0 : 1;
     }
 
     // Failed to equip
@@ -1809,7 +1843,13 @@ export default class CrucibleActor extends Actor {
     }
 
     // Apply the updates
-    return this.updateEmbeddedDocuments("Item", updates);
+    if ( this.combatant && actionCost ) {
+      if ( this.attributes.action.value < actionCost ) {
+        return ui.notifications.warn("WARNING.CannotEquipActionCost", {localize: true});
+      }
+      await this.alterResources({action: -actionCost});
+    }
+    await this.updateEmbeddedDocuments("Item", updates);
   }
 
   /* -------------------------------------------- */

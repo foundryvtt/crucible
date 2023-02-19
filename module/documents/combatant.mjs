@@ -13,7 +13,7 @@ export default class CrucibleCombatant extends Combatant {
 
     // Initiative Banes
     let banes = 0;
-    if ( actor.equipment.weapons.slow && !actor.talentIds.has("powerfulphysique") ) banes += 3;
+    if ( actor.equipment.weapons.slow && !actor.talentIds.has("powerfulphysique") ) banes += 2;
     if ( actor.statuses.has("broken") ) banes += 2;
 
     // Construct Initiative Check

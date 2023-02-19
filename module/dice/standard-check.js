@@ -49,6 +49,8 @@ export default class StandardCheck extends Roll {
     enchantment: 0,
     skill: 0,
     type: "general",
+    criticalSuccessThreshold: undefined,
+    criticalFailureThreshold: undefined,
     rollMode: undefined
   };
 
@@ -87,7 +89,7 @@ export default class StandardCheck extends Roll {
    */
   get isCriticalSuccess() {
     if ( !this._evaluated ) return undefined;
-    return this.total > (this.data.dc + 6);
+    return this.total > (this.data.dc + (this.data.criticalSuccessThreshold ?? 6));
   }
 
   /* -------------------------------------------- */
@@ -109,7 +111,7 @@ export default class StandardCheck extends Roll {
    */
   get isCriticalFailure() {
     if ( !this._evaluated ) return undefined;
-    return this.total <= (this.data.dc - 6);
+    return this.total <= (this.data.dc - (this.data.criticalFailureThreshold ?? 6));
   }
 
   /* -------------------------------------------- */

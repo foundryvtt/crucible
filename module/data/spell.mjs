@@ -158,7 +158,9 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     if ( !(this.cost.action || this.cost.focus)) tags.activation.free = "Free";
 
     // Action Tags
-    tags.action.damage = `${this.damage.base} ${SYSTEM.DAMAGE_TYPES[this.damage.type].label}`;
+    const damageTypeLabel = this.damage.healing ? SYSTEM.RESOURCES[this.damage.healing].label
+      : SYSTEM.DAMAGE_TYPES[this.damage.type].label;
+    tags.action.damage = `${this.damage.base} ${damageTypeLabel}`;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
     tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;

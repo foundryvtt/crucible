@@ -48,8 +48,8 @@
                         <h4><a>{{this.name}}</a></h4>
                     </div>
                     <div class="tags">
-                        {{#each this.tags}}
-                        <span class="tag">{{this}}</span>
+                        {{#each this.tags as |label tag|}}
+                        <span class="tag {{tag}}">{{label}}</span>
                         {{/each}}
                     </div>
                 </div>
@@ -109,7 +109,8 @@
                     {{/if}}
                     <label class="level">
                         Level
-                        <input type="number" name="system.advancement.level" value="{{systemData.advancement.level}}" placeholder="1"/>
+                        <input type="number" name="system.advancement.level" value="{{systemData.advancement.level}}"
+                               {{#if isL0}}disabled{{/if}}>
                     </label>
                 </div>
 

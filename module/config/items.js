@@ -15,7 +15,7 @@ export const QUALITY_TIERS = {
     id: "shoddy",
     label: "ITEM.QualityShoddy",
     bonus: -2,
-    rarity: 0
+    rarity: -1
   },
   standard: {
     id: "standard",

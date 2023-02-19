@@ -25,6 +25,10 @@
   --fontSizeMain: 14px;
   --fontSizeSmall: 12px;
   --colorError: #cb2f30;
+  --colorActionBG: #e7cc9d;
+  --colorAction: #FF9900;
+  --colorFocusBG: #b2c3ef;
+  --colorFocus: #0066FF;
 }
 .crucible {
   /* Line Items */
@@ -451,6 +455,14 @@ h2.divider span {
 .crucible.sheet.actor .overview .effects {
   flex: none;
   align-items: center;
+}
+.crucible.sheet.actor .overview .tag.ap {
+  background: var(--colorActionBG);
+  border-color: var(--colorAction);
+}
+.crucible.sheet.actor .overview .tag.fp {
+  background: var(--colorFocusBG);
+  border-color: var(--colorFocus);
 }
 .crucible.sheet.actor .title {
   gap: 0.5rem;
@@ -915,16 +927,17 @@ h2.divider span {
   --headerHeight: 80px;
   --titleHeight: 40px;
 }
-.crucible.sheet.item .form-group.stacked > label {
-  text-decoration: underline;
+.crucible.sheet.item .sheet-header {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .crucible.sheet.item .item-properties {
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 .crucible.sheet.item .item-properties label.checkbox {
+  flex: 0 0 80px;
   text-align: left;
-  min-width: 80px;
 }
 /** ----------------------------------------- *
  *  Background and Ancestry                   *
@@ -995,11 +1008,53 @@ h2.divider span {
   font-size: 28px;
   text-align: left;
 }
+.crucible.journal-sheet h1 {
+  clear: both;
+  border: none;
+  margin: 0 0 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.5), transparent);
+  -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+  mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+}
+.crucible.journal-sheet h1::before {
+  content: "";
+  width: 50%;
+  margin-right: 0.5rem;
+  border-top: 6px double #44191A;
+}
+.crucible.journal-sheet h1::after {
+  content: "";
+  width: 50%;
+  margin-left: 0.5rem;
+  border-top: 6px double #44191A;
+}
 .crucible.journal-sheet h2.divider {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #33332e;
-  margin: 0.5rem 0;
-  border-radius: 4px;
+  clear: both;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  font-size: var(--font-size-28);
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.5), transparent);
+  -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+  mask-image: linear-gradient(270deg, transparent 0%, black 25%, black 75%, transparent 100%);
+}
+.crucible.journal-sheet h2.divider::before {
+  content: "";
+  width: 50%;
+  margin-right: 0.5rem;
+  border-top: 1px solid #33332e;
+}
+.crucible.journal-sheet h2.divider::after {
+  content: "";
+  width: 50%;
+  margin-left: 0.5rem;
+  border-top: 1px solid #33332e;
 }
 .crucible.journal-sheet blockquote {
   font-family: var(--fontFamilySerif);
@@ -1013,6 +1068,14 @@ h2.divider span {
   margin: 0;
   font-size: 16px;
   text-align: justify;
+}
+.crucible.journal-sheet h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: var(--font-size-20);
+  padding: 2px 0.5rem;
+  background: #c9c7b8;
+  border: 1px solid #7a7971;
+  border-radius: 4px;
 }
 .crucible.journal-sheet h4 {
   margin: 0.5rem 0;
@@ -1029,6 +1092,13 @@ h2.divider span {
   font-weight: bold;
   margin: 0.25rem 0;
   padding: 0.5rem;
+}
+.crucible.journal-sheet table thead th {
+  text-align: left;
+}
+.crucible.journal-sheet table td:first-child,
+.crucible.journal-sheet table th:first-child {
+  padding-left: 0.25rem;
 }
 .crucible.sheet.skill {
   --headerHeight: 48px;

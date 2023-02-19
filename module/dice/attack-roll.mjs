@@ -18,7 +18,9 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {number} base                    The base damage amount
  * @property {number} bonus                   An additive damage bonus
  * @property {number} resistance              A subtracted resistance threshold
+ * @property {number} [resource]              The resource targeted
  * @property {string} type                    The type of damage
+ * @property {boolean} [healing]              Is the damage provided as restorative healing?
  */
 
 /**

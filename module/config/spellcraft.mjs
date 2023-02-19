@@ -124,7 +124,7 @@ export const RUNES = Object.seal({
     resource: "morale",
     damageType: "void",
     opposed: "radiance",
-    defense: "willpower",
+    defense: "fortitude",
     scaling: "wisdom",
     nameFormat: NAME_FORMATS.ADJ
   },

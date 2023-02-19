@@ -244,7 +244,8 @@ export default class HeroSheet extends ActorSheet {
     return this.actor.effects.map(effect => {
       const {startRound, rounds} = effect.duration;
       const tags = {};
-      if ( game.combat?.round ) tags.duration = (startRound + rounds) - game.combat.round;
+      if ( rounds ) tags.duration = game.combat?.round ? (startRound + rounds - game.combat.round) : rounds;
+      else tags.duration = "∞";
       return {
         id: effect.id,
         icon: effect.icon,

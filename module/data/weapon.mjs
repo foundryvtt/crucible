@@ -30,7 +30,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
   static defineSchema() {
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(super.defineSchema(), {
-      damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES}),
+      damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
       loaded: new fields.BooleanField({required: false, initial: undefined})
     });
   }
@@ -59,7 +59,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
   /**
    * Weapon damage data.
-   * @type {{base: number, quality: number, enchantment: number, weapon: number}}
+   * @type {{base: number, quality: number, weapon: number}}
    */
   damage;
 
@@ -98,24 +98,14 @@ export default class CrucibleWeapon extends PhysicalItemData {
     this.config = {category, quality, enchantment};
 
     // Weapon Damage
-    this.damage = {
-      base: category.damage.base,
-      quality: quality.bonus,
-      weapon: category.damage.base + quality.bonus
-    };
-    if ( this.broken ) this.damage.weapon = Math.floor(this.damage.weapon / 2);
+    this.damage = this.#prepareDamage();
 
     // Weapon Defense
-    this.defense = {
-      block: category.defense?.block ?? 0,
-      parry: category.defense?.parry ?? 0
-    };
-    if ( this.properties.has("parrying") ) this.defense.parry += (1 + enchantment.bonus);
-    if ( this.properties.has("blocking") ) this.defense.block += (2 * (enchantment.bonus + 1));
-    if ( this.broken ) this.defense = {block: 0, parry: 0};
+    this.defense = this.#prepareDefense();
 
     // Weapon Rarity Score
     this.rarity = quality.rarity + enchantment.rarity;
+    this.price = this.price * Math.max(Math.pow(this.rarity, 3), 1);
 
     // Action bonuses and cost
     this.actionBonuses = this.parent.actor ? {
@@ -131,6 +121,52 @@ export default class CrucibleWeapon extends PhysicalItemData {
       if ( prop.actionCost ) this.actionCost += prop.actionCost;
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare damage for the Weapon.
+   * @returns {{weapon: number, base: number, quality: number}}
+   */
+  #prepareDamage() {
+    const damage = {
+      base: this.config.category.damage.base,
+      quality: this.config.quality.bonus,
+      weapon: 0
+    };
+    if ( this.properties.has("oversized") ) damage.base += 2;
+    damage.weapon = damage.base + damage.quality;
+    if ( this.broken ) damage.weapon = Math.floor(damage.weapon / 2);
+    return damage;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare defense for the Weapon.
+   * @returns {{block: number, parry: number}}
+   */
+  #prepareDefense() {
+
+    // Broken weapons cannot defend
+    if ( this.broken ) return {block: 0, parry: 0};
+
+    // Base defense for the category
+    const category = this.config.category
+    const defense = {
+      block: category.defense?.block ?? 0,
+      parry: category.defense?.parry ?? 0
+    };
+
+    // Parrying and Blocking properties
+    if ( this.properties.has("parrying") ) {
+      defense.parry += (category.hands + this.config.enchantment.bonus);
+    }
+    if ( this.properties.has("blocking") ) {
+      defense.block += (category.hands + this.config.enchantment.bonus);
+    }
+    return defense;
   }
 
   /* -------------------------------------------- */
@@ -173,7 +209,9 @@ export default class CrucibleWeapon extends PhysicalItemData {
       banes: banes,
       boons: boons,
       defenseType,
-      dc: target.defenses.physical
+      dc: target.defenses.physical,
+      criticalSuccessThreshold: this.properties.has("keen") ? 4 : 6,
+      criticalFailureThreshold: this.properties.has("reliable") ? 4 : 6
     });
 
     // Evaluate the attack roll

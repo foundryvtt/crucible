@@ -7,3 +7,6 @@ node_modules/
 
 # Photoshop files
 *.psd
+
+# Foundry VTT
+crucible.lock

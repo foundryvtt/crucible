@@ -221,9 +221,9 @@ export const PROPERTIES = {
     label: "WEAPON.TagKeen",
     tooltip: "WEAPON.TagKeenTooltip"
   },
-  slow: {
-    label: "WEAPON.TagSlow",
-    tooltip: "WEAPON.TagAmbushTooltip"
+  oversized: {
+    label: "WEAPON.TagOversized",
+    tooltip: "WEAPON.TagOversizedTooltip"
   },
   parrying: {
     label: "WEAPON.TagParrying",
@@ -232,6 +232,10 @@ export const PROPERTIES = {
   reach: {
     label: "WEAPON.TagReach",
     tooltip: "WEAPON.TagReachTooltip"
+  },
+  reliable: {
+    label: "WEAPON.TagReliable",
+    tooltip: "WEAPON.TagReliableTooltip"
   },
   thrown: {
     label: "WEAPON.TagThrown",
