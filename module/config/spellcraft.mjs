@@ -63,7 +63,7 @@ export const RUNES = Object.seal({
     id: "kinesis",
     name: "SPELL.RuneKinesis",
     resource: "health",
-    damageType: "slashing", // TODO make this a choice
+    damageType: "slashing",
     opposed: "time",
     defense: "physical",
     scaling: "presence",

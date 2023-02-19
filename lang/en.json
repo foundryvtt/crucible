@@ -104,6 +104,9 @@
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
+"ADVANCEMENT.Level": "Level",
+"ADVANCEMENT.Progress": "Milestone Progress",
+
 "ARCHETYPE.Applied": "Applied the {archetype} archetype to {actor}.",
 
 "ARMOR.Bulky": "Bulky",
@@ -128,19 +131,6 @@
 "ATTRIBUTES.Abilities": "Ability Scores",
 "ATTRIBUTES.Pools": "Resource Pools",
 "ATTRIBUTES.Resistances": "Damage Resistances",
-
-"ATTRIBUTES.Health": "Health",
-"ATTRIBUTES.HealthAbr": "Health",
-"ATTRIBUTES.Wounds": "Wounds",
-"ATTRIBUTES.WoundsAbr": "Wounds",
-"ATTRIBUTES.Morale": "Morale",
-"ATTRIBUTES.MoraleAbr": "Morale",
-"ATTRIBUTES.Madness": "Madness",
-"ATTRIBUTES.MadnessAbr": "Madness",
-"ATTRIBUTES.Action": "Action",
-"ATTRIBUTES.ActionAbr": "Action",
-"ATTRIBUTES.Focus": "Focus",
-"ATTRIBUTES.FocusAbr": "Focus",
 
 "BACKGROUND.Applied": "Applied the {background} background to {actor}.",
 "BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
@@ -167,6 +157,11 @@
 "DAMAGE.Physical": "Physical",
 "DAMAGE.Spiritual": "Spiritual",
 
+
+"DEFENSES.Armor": "Armor",
+"DEFENSES.Block": "Block",
+"DEFENSES.Dodge": "Dodge",
+"DEFENSES.Parry": "Parry",
 "DEFENSES.Fortitude": "Fortitude",
 "DEFENSES.Reflex": "Reflex",
 "DEFENSES.Willpower": "Willpower",
@@ -211,6 +206,13 @@
 "ITEM.QualityFine": "Fine",
 "ITEM.QualitySuperior": "Superior",
 "ITEM.QualityMasterwork": "Masterwork",
+
+"RESOURCES.Health": "Health",
+"RESOURCES.Wounds": "Wounds",
+"RESOURCES.Morale": "Morale",
+"RESOURCES.Madness": "Madness",
+"RESOURCES.Action": "Action",
+"RESOURCES.Focus": "Focus",
 
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",
 "SKILL.Untrained": "Untrained",

@@ -14,7 +14,10 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
       resource: new fields.StringField({choices: SYSTEM.RESOURCES, initial: "health"}),
       restoration: new fields.BooleanField({initial: false}),
       opposed: new fields.StringField({required: true, blank: false}),
-      defense: new fields.StringField({choices: SYSTEM.DEFENSES}),
+      defense: new fields.StringField({choices: Object.values(SYSTEM.DEFENSES).reduce((obj, d) => {
+        if ( (d.id === "physical") || (d.type === "save") ) obj[d.id] = d.label;
+        return obj;
+      }, {})}),
       nameFormat: new fields.NumberField({choices: Object.values(SYSTEM.SPELL.NAME_FORMATS)}),
       scaling: new fields.StringField({choices: SYSTEM.ABILITIES})
     }

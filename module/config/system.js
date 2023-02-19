@@ -11,36 +11,42 @@ export const SYSTEM_ID = "crucible";
 /**
  * The primary attributes which are called abilities.
  * @type {{
- *   strength: {label: string, abbreviation: string},
- *   toughness: {label: string, abbreviation: string},
- *   dexterity: {label: string, abbreviation: string},
- *   intellect: {label: string, abbreviation: string},
- *   presence: {label: string, abbreviation: string},
- *   wisdom: {label: string, abbreviation: string}
+ *   strength: {id: string, label: string, abbreviation: string},
+ *   toughness: {id: string, label: string, abbreviation: string},
+ *   dexterity: {id: string, label: string, abbreviation: string},
+ *   intellect: {id: string, label: string, abbreviation: string},
+ *   presence: {id: string, label: string, abbreviation: string},
+ *   wisdom: {id: string, label: string, abbreviation: string}
  * }}
  */
 export const ABILITIES = Object.freeze({
   strength: {
+    id: "strength",
     label: "ABILITIES.Strength",
     abbreviation: "ABILITIES.StrengthAbbr"
   },
   toughness: {
+    id: "toughness",
     label: "ABILITIES.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr"
   },
   dexterity: {
+    id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr"
   },
   intellect: {
+    id: "intellect",
     label: "ABILITIES.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr"
   },
   presence: {
+    id: "presence",
     label: "ABILITIES.Presence",
     abbreviation: "ABILITIES.PresenceAbbr"
   },
   wisdom: {
+    id: "wisdom",
     label: "ABILITIES.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr"
   }
@@ -53,8 +59,8 @@ export const ABILITIES = Object.freeze({
  * @type {object}
  */
 export const ANCESTRIES = {
-  primaryAttributeStart: 3,
-  secondaryAttributeStart: 2,
+  primaryAbilityStart: 3,
+  secondaryAbilityStart: 2,
   resistanceAmount: 5
 }
 
@@ -180,8 +186,7 @@ export const DAMAGE_TYPES = Object.freeze({
 export const RESOURCES = Object.freeze({
   health: {
     id: "health",
-    label: "ATTRIBUTES.Health",
-    abbreviation: "ATTRIBUTES.Health",
+    label: "RESOURCES.Health",
     type: "active",
     tooltip: "[4 &times; (Level + Toughness)] + [2 &times; (Strength + Dexterity)]",
     color: {
@@ -192,8 +197,7 @@ export const RESOURCES = Object.freeze({
   },
   wounds: {
     id: "wounds",
-    label: "ATTRIBUTES.Wounds",
-    abbreviation: "ATTRIBUTES.Wounds",
+    label: "RESOURCES.Wounds",
     type: "reserve",
     tooltip: "Health &times; 2",
     color: {
@@ -204,8 +208,7 @@ export const RESOURCES = Object.freeze({
   },
   morale: {
     id: "morale",
-    label: "ATTRIBUTES.Morale",
-    abbreviation: "ATTRIBUTES.Morale",
+    label: "RESOURCES.Morale",
     type: "active",
     tooltip: "[4 &times; (Level + Presence)] + [2 &times; (Intellect + Wisdom)]",
     color: {
@@ -216,8 +219,7 @@ export const RESOURCES = Object.freeze({
   },
   madness: {
     id: "madness",
-    label: "ATTRIBUTES.Madness",
-    abbreviation: "ATTRIBUTES.Madness",
+    label: "RESOURCES.Madness",
     tooltip: "Morale &times; 2",
     type: "reserve",
     color: {
@@ -228,8 +230,7 @@ export const RESOURCES = Object.freeze({
   },
   action: {
     id: "action",
-    label: "ATTRIBUTES.Action",
-    abbreviation: "ATTRIBUTES.Action",
+    label: "RESOURCES.Action",
     tooltip: "3 + Action Bonus",
     type: "active",
     color: {
@@ -240,8 +241,7 @@ export const RESOURCES = Object.freeze({
   },
   focus: {
     id: "focus",
-    label: "ATTRIBUTES.Focus",
-    abbreviation: "ATTRIBUTES.Focus",
+    label: "RESOURCES.Focus",
     tooltip: "(0.5 &times; Level) + Max(Wisdom, Presence, Intellect)",
     type: "active",
     color: {
@@ -266,33 +266,59 @@ export const PASSIVE_BASE = 12;
  */
 export const DEFENSES = {
   physical: {
+    id: "physical",
     label: "DEFENSES.Physical",
     type: "physical"
   },
+  armor: {
+    id: "armor",
+    label: "DEFENSES.Armor",
+    type: "physical"
+  },
+  block: {
+    id: "block",
+    label: "DEFENSES.Block",
+    type: "physical"
+  },
+  dodge: {
+    id: "dodge",
+    label: "DEFENSES.Dodge",
+    type: "physical"
+  },
+  parry: {
+    id: "parry",
+    label: "DEFENSES.Parry",
+    type: "physical"
+  },
   fortitude: {
+    id: "fortitude",
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "toughness"],
     tooltip: `${PASSIVE_BASE} + Strength + Toughness`,
     type: "save"
   },
   reflex: {
+    id: "reflex",
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
     tooltip: `${PASSIVE_BASE} + Dexterity + Intellect`,
     type: "save"
   },
   willpower: {
+    id: "willpower",
     label: "DEFENSES.Willpower",
     abilities: ["wisdom", "presence"],
     tooltip: `${PASSIVE_BASE} + Wisdom + Presence`,
     type: "save"
   },
   wounds: {
+    id: "wounds",
     label: "DEFENSES.Wounds",
     tooltip: `${PASSIVE_BASE} + (Wounds / 10)`,
     type: "threshold"
   },
   madness: {
+    id: "madness",
     label: "DEFENSES.Madness",
     tooltip: `${PASSIVE_BASE} + (Madness / 10)`,
     type: "threshold"

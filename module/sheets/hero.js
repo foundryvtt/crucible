@@ -77,10 +77,10 @@ export default class HeroSheet extends ActorSheet {
     context.showMilestones = this.actor.level.between(1, 23);
 
     // Abilities
-    context.abilityScores = this._formatAttributes(systemData.attributes);
+    context.abilityScores = this._formatAbilities(this.actor.system.abilities);
 
     // Resources
-    this._formatResources(systemData.attributes);
+    context.resources = this._formatResources(this.actor.system.resources);
 
     // Defenses
     context.magicDefenses = this._formatMagicDefenses(this.actor.system.defenses);
@@ -130,14 +130,14 @@ export default class HeroSheet extends ActorSheet {
 
   /**
    * Format ability scores for display on the Actor sheet.
-   * @param {object} attributes
+   * @param {object} abilities
    * @return {object[]}
    * @private
    */
-  _formatAttributes(attributes) {
+  _formatAbilities(abilities) {
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
-      const attr = foundry.utils.mergeObject(attributes[a], ability);
+      const attr = foundry.utils.mergeObject(abilities[a], ability);
       attr.id = a;
       attr.canIncrease = this.actor.canPurchaseAbility(a, 1);
       attr.canDecrease = this.actor.canPurchaseAbility(a, -1);
@@ -259,26 +259,27 @@ export default class HeroSheet extends ActorSheet {
 
   /**
    * Format the display of resource attributes on the actor sheet
-   * @param {object} attributes       The ActorData.system.attributes object
+   * @param {object} resources       The ActorData.system.resources object
    * @private
    */
-  _formatResources(attributes) {
-    for ( let [id, r] of Object.entries(SYSTEM.RESOURCES) ) {
-      const attr = attributes[id];
-      attr.tooltip = r.tooltip;
-      attr.pct = Math.round(attr.value * 100 / attr.max);
-
-      // Determine resource bar color
-      const p = attr.pct / 100;
+  _formatResources(resources) {
+    const formatted = {};
+    for ( const [id, r] of Object.entries(resources) ) {
+      const cfg = SYSTEM.RESOURCES[id];
+      const resource = foundry.utils.mergeObject(r, cfg);
+      resource.pct = Math.round(resource.value * 100 / resource.max);
+      const p = resource.pct / 100;
       const c0 = r.color.low.rgb;
       const c1 = r.color.high.rgb;
       const bg = c0.map(c => c * 0.25 * 255);
       const fill = c1.map((c, i) => ((c * p) + (c0[i] * (1-p))) * 255);
-      attr.color = {
+      resource.color = {
         bg: `rgb(${bg.join(",")})`,
         fill: `rgb(${fill.join(",")})`
       }
+      formatted[id] = resource;
     }
+    return formatted;
   }
 
   /* -------------------------------------------- */
@@ -311,7 +312,7 @@ export default class HeroSheet extends ActorSheet {
       if ( !cat ) return categories;
 
       // Update skill data for rendering
-      skill.attributes = skill.attributes.map(a => SYSTEM.ABILITIES[a]);
+      skill.abilities = skill.abilities.map(a => SYSTEM.ABILITIES[a]);
       skill.pips = Array.fromRange(5).map((v, i) => i < c.rank ? "trained" : "untrained");
       skill.css = [
         c.rank > 0 ? "trained" : "untrained",

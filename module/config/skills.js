@@ -80,100 +80,116 @@ export const SKILL_CATEGORIES = {
 
 // The starting outline of each skill. The final structure of the SKILLS const is derived from this data.
 export const SKILLS = {
-  "acrobatics": {
-    name:"SKILLS.Acrobatics",
-    category:"exp",
-    attributes: ["strength", "dexterity"],
+  acrobatics: {
+    id: "acrobatics",
+    label: "SKILLS.Acrobatics",
+    category: "exp",
+    abilities: ["strength", "dexterity"],
     paths: ["gymnast", "traceur", "dancer"]
   },
-  "perception": {
-    name:"SKILLS.Perception",
-    category:"exp",
-    attributes: ["intellect", "wisdom"],
+  perception: {
+    id: "perception",
+    label: "SKILLS.Perception",
+    category: "exp",
+    abilities: ["intellect", "wisdom"],
     paths: ["scout", "sentry", "empath"]
   },
-  "stealth": {
-    name:"SKILLS.Stealth",
-    category:"exp",
-    attributes: ["dexterity", "intellect"],
+  stealth: {
+    id: "stealth",
+    label: "SKILLS.Stealth",
+    category: "exp",
+    abilities: ["dexterity", "intellect"],
     paths: ["infiltrator", "safecracker", "pickpocket"]
   },
-  "survival": {
-    name:"SKILLS.Survival",
-    category:"exp",
-    attributes: ["toughness", "wisdom"],
+  survival: {
+    id: "survival",
+    label: "SKILLS.Survival",
+    category: "exp",
+    abilities: ["toughness", "wisdom"],
     paths: ["explorer", "hunter", "herbalist"]
   },
-  "arcana": {
-    name:"SKILLS.Arcana",
-    category:"kno",
-    attributes: ["intellect", "wisdom"],
+  arcana: {
+    id: "arcana",
+    label: "SKILLS.Arcana",
+    category: "kno",
+    abilities: ["intellect", "wisdom"],
     paths: ["diviner", "elementalist", "enchanter"]
   },
-  "investigation": {
-    name:"SKILLS.Investigation",
-    category:"kno",
-    attributes: ["intellect", "presence"],
+  investigation: {
+    id: "investigation",
+    label: "SKILLS.Investigation",
+    category: "kno",
+    abilities: ["intellect", "presence"],
     paths: ["detective", "spy", "tinkerer"]
   },
-  "lore": {
-    name:"SKILLS.Lore",
-    category:"kno",
-    attributes: ["intellect", "wisdom"],
+  lore: {
+    id: "lore",
+    label: "SKILLS.Lore",
+    category: "kno",
+    abilities: ["intellect", "wisdom"],
     paths: ["scholar", "historian", "storyteller"]
   },
-  "religion": {
-    name:"SKILLS.Religion",
-    category:"kno",
-    attributes: ["wisdom", "presence"],
+  religion: {
+    id: "religion",
+    label: "SKILLS.Religion",
+    category: "kno",
+    abilities: ["wisdom", "presence"],
     paths: ["theologian", "crusader", "druid"]
   },
-  "bartering": {
-    name:"SKILLS.Bartering",
-    category:"soc",
-    attributes: ["intellect", "presence"],
+  bartering: {
+    id: "bartering",
+    label: "SKILLS.Bartering",
+    category: "soc",
+    abilities: ["intellect", "presence"],
     paths: ["antiquarian", "caravaner", "negotiator"]
   },
-  "deception": {
-    name:"SKILLS.Deception",
-    category:"soc",
-    attributes: ["intellect", "presence"],
+  deception: {
+    id: "deception",
+    label: "SKILLS.Deception",
+    category: "soc",
+    abilities: ["intellect", "presence"],
     paths: ["grifter", "illusionist", "mesmer"]
   },
-  "diplomacy": {
-    name:"SKILLS.Diplomacy",
-    category:"soc",
-    attributes: ["wisdom", "presence"],
+  diplomacy: {
+    id: "diplomacy",
+    label: "SKILLS.Diplomacy",
+    category: "soc",
+    abilities: ["wisdom", "presence"],
     paths: ["dip1", "dip2", "dip3"]
   },
-  "intimidation": {
-    name:"SKILLS.Intimidation",
-    category:"soc",
-    attributes: ["strength", "presence"],
+  intimidation: {
+    id: "intimidation",
+    label: "SKILLS.Intimidation",
+    category: "soc",
+    abilities: ["strength", "presence"],
     paths: ["int1", "int2", "int3"]
   },
-  "animal": {
-    name:"SKILLS.AnimalHandling",
-    category:"trd",
-    attributes: ["strength", "wisdom"],
+  animal: {
+    id: "animal",
+    label: "SKILLS.AnimalHandling",
+    category: "trd",
+    abilities: ["strength", "wisdom"],
     paths: ["knight", "beastmaster", "warden"]
   },
-  "craftsmanship": {
-    name:"SKILLS.Craftsmanship",
-    category:"trd",
-    attributes: ["dexterity", "intellect"],
+  craftsmanship: {
+    id: "craftsmanship",
+    label: "SKILLS.Craftsmanship",
+    category: "trd",
+    abilities: ["dexterity", "intellect"],
     paths: ["trademaster", "artificer", "runekeeper"]
   },
-  "medicine": {
-    name:"SKILLS.Medicine",
-    category:"trd",
-    attributes: ["toughness", "intellect"],
+  medicine: {
+    id: "medicine",
+    label: "SKILLS.Medicine",
+    category: "trd",
+    abilities: ["toughness", "intellect"],
     paths: ["apothecary", "chirurgeon", "occultist"]
   },
-  "performance": {
-    name:"SKILLS.Performance",
-    category:"trd",
-    attributes: ["dexterity", "presence"],
+  performance: {
+    id: "performance",
+    label: "SKILLS.Performance",
+    category: "trd",
+    abilities: ["dexterity", "presence"],
     paths: ["musician", "artist", "athlete"]
   },
 };
@@ -237,13 +253,13 @@ expandSkillConfig(SKILLS);
  */
 export function localizeSkillConfig(SYSTEM) {
   for ( let skill of Object.values(SYSTEM.SKILLS) ) {
-    skill.name = game.i18n.localize(skill.name);
+    skill.label = game.i18n.localize(skill.label);
     skill.icon = `systems/${SYSTEM.id}/${skill.icon}`;
     skill.description = game.i18n.localize(`SKILLS.${skill.name}Info`);
     skill.tooltips = {
       value: game.i18n.format("SKILL.TooltipCheck", {
-        a1: SYSTEM.ABILITIES[skill.attributes[0]].label,
-        a2: SYSTEM.ABILITIES[skill.attributes[1]].label
+        a1: SYSTEM.ABILITIES[skill.abilities[0]].label,
+        a2: SYSTEM.ABILITIES[skill.abilities[1]].label
       }),
       passive: game.i18n.localize("SKILL.TooltipPassive")
     };

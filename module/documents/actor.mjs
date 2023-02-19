@@ -69,16 +69,6 @@ export default class CrucibleActor extends Actor {
   grimoire = this.grimoire;
 
   /**
-   * Track the progression points which are available and spent
-   * @type {{
-   *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
-   *   skill: {total: number, spent: number, available: number },
-   *   talent: {total: number, spent: number, available: number }
-   * }}
-   */
-  points = this["points"];
-
-  /**
    * The ancestry of the Actor.
    * @returns {*}
    */
@@ -90,8 +80,8 @@ export default class CrucibleActor extends Actor {
    * The prepared object of actor attributes
    * @type {object}
    */
-  get attributes() {
-    return this.system.attributes;
+  get abilities() {
+    return this.system.abilities;
   }
 
   /**
@@ -126,6 +116,10 @@ export default class CrucibleActor extends Actor {
     return this.system.advancement.level === 0;
   }
 
+  get points() {
+    return this.system.points;
+  }
+
   /**
    * The prepared object of actor resistances
    * @returns {object}
@@ -155,7 +149,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return (this.attributes.health.value === 0) && (this.attributes.wounds.value < this.attributes.wounds.max);
+    return (this.resources.health.value === 0) && (this.resources.wounds.value < this.resources.wounds.max);
   }
 
   /**
@@ -163,7 +157,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isBroken() {
-    return (this.attributes.morale.value === 0) && (this.attributes.madness.value < this.attributes.madness.max);
+    return (this.resources.morale.value === 0) && (this.resources.madness.value < this.resources.madness.max);
   }
 
   /**
@@ -171,8 +165,8 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isDead() {
-    if ( this.type === "npc" ) return this.attributes.health.value === 0;
-    return this.attributes.wounds.value === this.attributes.wounds.max;
+    if ( this.type === "npc" ) return this.resources.health.value === 0;
+    return this.resources.wounds.value === this.resources.wounds.max;
   }
 
   /**
@@ -180,7 +174,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isInsane() {
-    return this.attributes.madness.value === this.attributes.madness.max;
+    return this.resources.madness.value === this.resources.madness.max;
   }
 
   /**
@@ -216,20 +210,7 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
-    if ( this.type === "adversary" ) return;
-    this.system.status ||= {};
-    this.system.details.ancestry ||= {};
-    this.system.details.background ||= {};
     this.rollBonuses = {damage: {}};
-
-    // Prepare placeholder point totals
-    this._prepareAdvancement();
-
-    // Prepare Attributes
-    this._prepareAttributes();
-
-    // Prepare Skills
-    this._prepareSkills();
   }
 
   /* -------------------------------------------- */
@@ -244,74 +225,6 @@ export default class CrucibleActor extends Actor {
     this._prepareEffects();
     this._prepareActions();
   };
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  prepareDerivedData() {
-    if ( this.type === "adversary" ) return;
-    this._prepareResources();
-    this._prepareDefenses();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Compute the available points which can be spent to advance this character
-   * @private
-   */
-  _prepareAdvancement() {
-    const adv = this.system.advancement;
-    adv.level = Math.clamped(adv.level, 0, 24);
-    const effectiveLevel = Math.max(adv.level, 1) - 1;
-
-    // Initialize spendable points
-    this.points = {
-      ability: { pool: 9, total: effectiveLevel, bought: null, spent: null, available: null },
-      skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
-      talent: { total: 2 + (effectiveLevel*2), spent: 0, available: null }
-    };
-
-    // Compute required advancement
-    adv.progress = adv.progress ?? 0;
-    adv.next = (2 * adv.level) + 1;
-    adv.pct = Math.clamped(Math.round(adv.progress * 100 / adv.next), 0, 100);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare attributes, ability scores, and resource pools for the Actor.
-   * @private
-   */
-  _prepareAttributes() {
-    const points = this.points.ability;
-    const ancestry = this.ancestry;
-
-    // Ability Scores
-    let abilityPointsBought = 0;
-    let abilityPointsSpent = 0;
-    for ( let a in CONFIG.SYSTEM.ABILITIES ) {
-      const ability = this.attributes[a];
-
-      // Configure initial value
-      ability.initial = 1;
-      if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAttributeStart;
-      else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAttributeStart;
-      ability.value = Math.clamped(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
-
-      // Track points spent
-      abilityPointsBought += ability.base;
-      abilityPointsSpent += ability.increases;
-    }
-
-    // Track spent ability points
-    points.bought = abilityPointsBought;
-    points.pool = 9 - points.bought;
-    points.spent = abilityPointsSpent;
-    points.available = points.total - abilityPointsSpent;
-    points.requireInput = this.isL0 ? (points.pool > 0) : (points.available !== 0);
-  }
 
   /* -------------------------------------------- */
 
@@ -492,54 +405,6 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-
-  /**
-   * Prepare Skills for the actor, translating the owned Items for skills and merging them with unowned skills.
-   * Validate the number of points spent on skills, and the number of skill points remaining to be spent.
-   * @private
-   */
-  _prepareSkills() {
-
-    // Populate all the skills
-    const ranks = SYSTEM.SKILL_RANKS;
-    const ancestry = this.ancestry;
-    const background = this.background;
-    let pointsSpent = 0;
-
-    // Iterate over skills
-    for ( let [id, skill] of Object.entries(this.skills) ) {
-      const config = SYSTEM.SKILLS[id];
-
-      // Skill Rank
-      let base = 0;
-      if ( ancestry.skills?.includes(id) ) base++;
-      if ( background.skills?.includes(id) ) base++;
-      skill.rank = Math.max(skill.rank || 0, base);
-
-      // Point Cost
-      const rank = ranks[skill.rank];
-      skill.spent = rank.spent - base;
-      pointsSpent += skill.spent;
-      const next = ranks[skill.rank + 1] || {cost: null};
-      skill.cost = next.cost;
-
-      // Bonuses
-      const attrs = config.attributes.map(a => this.attributes[a].value);
-      skill.abilityBonus = Math.ceil(0.5 * (attrs[0] + attrs[1]));
-      skill.skillBonus = ranks[skill.rank].bonus;
-      skill.enchantmentBonus = 0;
-      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
-      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
-    }
-
-    // Update available skill points
-    const points = this.points;
-    points.skill.spent = pointsSpent;
-    points.skill.available = points.skill.total - points.skill.spent;
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * Prepare owned Talent items that the Actor has unlocked
    * @private
@@ -547,7 +412,7 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
-    const points = this.points.talent;
+    const points = this.system.points.talent;
 
     // Iterate over talents
     for ( const t of talent ) {
@@ -572,141 +437,7 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare Defenses and Resistances data for the Actor
-   * @private
-   */
-  _prepareDefenses() {
-    const {attributes, defenses} = this.system;
-
-    // Armor and Dodge from equipped Armor
-    const armorData = this.equipment.armor.system;
-    defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus = armorData.armor.bonus;
-    defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(attributes.dexterity.value - armorData.dodge.start, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
-
-    // Block and Parry from equipped Weapons
-    const weaponData = [this.equipment.weapons.mainhand.system];
-    if ( !this.equipment.weapons.twoHanded ) weaponData.push(this.equipment.weapons.offhand.system);
-    defenses.block = {base: 0, bonus: 0};
-    defenses.parry = {base: 0, bonus: 0};
-    for ( let wd of weaponData ) {
-      for ( let d of ["block", "parry"] ) {
-        defenses[d].base += wd.defense[d];
-      }
-    }
-
-    // Patient Deflection
-    if ( this.talentIds.has("patientdeflectio") && this.equipment.weapons.unarmed ) {
-      defenses.parry.bonus += Math.ceil(attributes.wisdom.value / 2);
-    }
-
-    // Unarmed Blocking
-    if ( this.talentIds.has("unarmedblocking0") && this.equipment.weapons.unarmed ) {
-      defenses.block.bonus += Math.ceil(attributes.toughness.value / 2);
-    }
-
-    // Compute total physical defenses
-    const physicalDefenses = ["dodge", "parry", "block", "armor"];
-    for ( let pd of physicalDefenses ) {
-      let d = defenses[pd];
-      d.total = d.base + d.bonus;
-    }
-    if ( this.statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
-    defenses.physical = physicalDefenses.reduce((v, k) => v + defenses[k].total, 0);
-
-    // Save Defenses
-    this._prepareSaves();
-
-    // Damage Resistances
-    this._prepareResistances();
-
-    // Healing Thresholds
-    this._prepareHealingThresholds();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare derived saving throw defenses.
-   * @private
-   */
-  _prepareSaves() {
-
-    // Special Bonuses
-    const bonuses = {fortitude: 0, reflex: 0, willpower: 0};
-    if ( this.talentIds.has("mentalfortress00") ) bonuses.willpower += 1;
-
-    // Save Preparation
-    for ( let [k, bonus] of Object.entries(bonuses) ) {
-      let d = this.defenses[k];
-      const sd = SYSTEM.DEFENSES[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
-      d.base += bonus;
-      d.total = d.base + d.bonus;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare derived resistance data for the Actor.
-   * @private
-   */
-  _prepareResistances() {
-    const res = this.system.resistances
-
-    // Ancestries
-    const ancestry = this.system.details.ancestry;
-    if ( ancestry.resistance ) res[ancestry.resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
-    if ( ancestry.vulnerability ) res[ancestry.vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
-
-    // Nosferatu
-    if ( this.talentIds.has("nosferatu0000000") ) res.radiant.base -= 10;
-
-    // Thick Skin
-    if ( this.talentIds.has("thickskin0000000") ) {
-      res.bludgeoning.base += 2;
-      res.slashing.base += 2;
-      res.piercing.base += 2;
-    }
-
-    // Mental Fortress
-    if ( this.talentIds.has("mentalfortress00") ) {
-      res.psychic.base += 5;
-    }
-
-    // Snakeblood
-    if ( this.talentIds.has("snakeblood000000") ) {
-      res.poison.base += 5;
-    }
-
-    // Iterate over resistances
-    const hasRunewarden = this.talentIds.has("runewarden000000");
-    for ( let [id, r] of Object.entries(this.system.resistances) ) {
-      if ( hasRunewarden && this.grimoire.runes.find(r => r.damageType === id) ) r.base += 5;
-      r.total = r.base + r.bonus;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare thresholds for receiving healing based on current wounds and madness.
-   * @private
-   */
-  _prepareHealingThresholds() {
-    const d = this.system.defenses;
-    d.wounds = {base: 15, total: 15}
-    d.madness = {base: 15, total: 15}
-  }
-
-  /* -------------------------------------------- */
-
   getDefenses({armor}) {
-    const attributes = this.system.attributes;
     const defenses = foundry.utils.deepClone(this.system.defenses);
     armor = armor || this.equipment.armor;
 
@@ -715,7 +446,7 @@ export default class CrucibleActor extends Actor {
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus = armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(attributes.dexterity.value - armorData.dodge.start, 0);
+    defenses.dodge.bonus = Math.max(this.system.abilities.dexterity.value - armorData.dodge.start, 0);
     defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
 
     // Compute total physical defenses
@@ -730,44 +461,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Compute the values of resource pools for the Actor based on their attributes and resource rolls.
-   * @private
-   */
-  _prepareResources() {
-    const lvl = this.system.advancement.level;
-    const attrs = this.system.attributes;
-
-    // Health
-    attrs.health.max = (4 * (lvl + attrs.toughness.value)) + (2 * (attrs.strength.value + attrs.dexterity.value));
-    attrs.health.value = Math.clamped(attrs.health.value, 0, attrs.health.max);
-
-    // Wounds
-    attrs.wounds.max = 2 * attrs.health.max;
-    attrs.wounds.value = Math.clamped(attrs.wounds.value, 0, attrs.wounds.max);
-
-    // Morale
-    attrs.morale.max = (4 * (lvl + attrs.presence.value)) + (2 * (attrs.intellect.value + attrs.wisdom.value));
-    attrs.morale.value = Math.clamped(attrs.morale.value, 0, attrs.morale.max);
-
-    // Madness
-    attrs.madness.max = 2 * attrs.morale.max;
-    attrs.madness.value = Math.clamped(attrs.madness.value, 0, attrs.madness.max);
-
-    // Action
-    attrs.action.max = lvl > 0 ? 3 : 0;
-    if ( this.statuses.has("stunned") ) attrs.action.max -= 2;
-    else if ( this.statuses.has("staggered") ) attrs.action.max -= 1;
-    attrs.action.value = Math.clamped(attrs.action.value, 0, attrs.action.max);
-
-    // Focus
-    attrs.focus.max = lvl === 0 ? 0
-      : Math.floor(lvl / 2) + Math.max(attrs.wisdom.value, attrs.presence.value, attrs.intellect.value);
-    attrs.focus.value = Math.clamped(attrs.focus.value, 0, attrs.focus.max);
-  }
-
-  /* -------------------------------------------- */
   /*  Dice Rolling Methods                        */
   /* -------------------------------------------- */
 
@@ -777,8 +470,8 @@ export default class CrucibleActor extends Actor {
    * @returns {number}            The ability bonus
    */
   getAbilityBonus(scaling) {
-    const attrs = this.attributes;
-    return Math.ceil(scaling.reduce((x, t) => x + attrs[t].value, 0) / scaling.length);
+    const abilities = this.system.abilities;
+    return Math.ceil(scaling.reduce((x, t) => x + abilities[t].value, 0) / scaling.length);
   }
 
   /* -------------------------------------------- */
@@ -1040,8 +733,9 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleActor>}
    */
   async rest() {
-    if ( this.attributes.wounds.value === this.attributes.wounds.max ) return this;
-    if ( this.attributes.madness.value === this.attributes.madness.max ) return this;
+    const r = this.system.resources;
+    if ( r.wounds.value === r.wounds.max ) return this;
+    if ( r.madness.value === r.madness.max ) return this;
     return this.update(this._getRestData());
   }
 
@@ -1054,9 +748,9 @@ export default class CrucibleActor extends Actor {
    */
   _getRestData() {
     const updates = {};
-    for ( let resource of Object.values(SYSTEM.RESOURCES) ) {
-      const attr = this.attributes[resource.id];
-      updates[`system.attributes.${resource.id}.value`] = resource.type === "reserve" ? 0 : attr.max;
+    for ( let [id, resource] of Object.entries(this.system.resources) ) {
+      const cfg = SYSTEM.RESOURCES[id];
+      updates[`system.resources.${id}.value`] = cfg.type === "reserve" ? 0 : resource.max;
     }
     return updates;
   }
@@ -1072,32 +766,32 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
   async alterResources(changes, updates={}, {statusText}={}) {
-    const attrs = this.attributes;
+    const r = this.system.resources;
     let tookWounds = false;
     let tookMadness = false;
 
     // Apply resource updates
     for ( let [resourceName, delta] of Object.entries(changes) ) {
-      let resource = attrs[resourceName];
+      let resource = r[resourceName];
       const uncapped = resource.value + delta;
       let overflow = Math.min(uncapped, 0);
 
       // Overflow health onto wounds (double damage)
       if ( (resourceName === "health") && (overflow !== 0) ) {
         tookWounds = true;
-        updates["system.attributes.wounds.value"] = Math.clamped(attrs.wounds.value - overflow, 0, attrs.wounds.max);
+        updates["system.resources.wounds.value"] = Math.clamped(r.wounds.value - overflow, 0, r.wounds.max);
       }
       else if ( resourceName === "wounds" ) tookWounds = true;
 
       // Overflow morale onto madness (double damage)
       if ( (resourceName === "morale") && (overflow !== 0) ) {
-        const madness = this.attributes.madness.value - overflow;
-        updates["system.attributes.madness.value"] = Math.clamped(madness, 0, attrs.madness.max);
+        const madness = this.resources.madness.value - overflow;
+        updates["system.resources.madness.value"] = Math.clamped(madness, 0, r.madness.max);
       }
       else if ( resourceName === "madness" ) tookMadness = true;
 
       // Regular update
-      updates[`system.attributes.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
+      updates[`system.resources.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
     }
     return this.update(updates, {statusText});
   }
@@ -1307,7 +1001,7 @@ export default class CrucibleActor extends Actor {
 
     // Recover resources
     const updates = {"system.-=status": null}
-    if ( !this.isIncapacitated ) updates["system.attributes.action.value"] = this.attributes.action.max;
+    if ( !this.isIncapacitated ) updates["system.resources.action.value"] = this.system.resources.action.max;
     return this.update(updates);
   }
 
@@ -1611,8 +1305,8 @@ export default class CrucibleActor extends Actor {
    */
   async purchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
-    const attr = this.attributes[ability];
-    if ( !attr || !delta ) return;
+    const a = this.system.abilities[ability];
+    if ( !a || !delta ) return;
 
     // Can the ability be purchased?
     if ( !this.canPurchaseAbility(ability, delta) ) {
@@ -1620,8 +1314,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Modify the ability
-    if ( this.isL0 ) return this.update({[`system.attributes.${ability}.base`]: Math.max(attr.base + delta, 0)});
-    else return this.update({[`system.attributes.${ability}.increases`]: attr.increases + delta});
+    if ( this.isL0 ) return this.update({[`system.abilities.${ability}.base`]: Math.max(a.base + delta, 0)});
+    else return this.update({[`system.abilities.${ability}.increases`]: a.increases + delta});
   }
 
   /* -------------------------------------------- */
@@ -1635,20 +1329,20 @@ export default class CrucibleActor extends Actor {
   canPurchaseAbility(ability, delta=1) {
     delta = Math.sign(delta);
     const points = this.points.ability;
-    const attr = this.attributes[ability];
-    if ( !attr || !delta ) return;
+    const a = this.system.abilities[ability];
+    if ( !a || !delta ) return;
 
     // Case 1 - Point Buy
     if ( this.isL0 ) {
-      if ( (delta > 0) && ((attr.base === 3) || !points.pool) ) return false;
-      else if ( (delta < 0) && (attr.base === 0) ) return false;
+      if ( (delta > 0) && ((a.base === 3) || !points.pool) ) return false;
+      else if ( (delta < 0) && (a.base === 0) ) return false;
       return true;
     }
 
     // Case 2 - Regular Increase
     else {
-      if ( (delta > 0) && ((attr.value === 12) || !points.available) ) return false;
-      else if ( (delta < 0) && (attr.increases === 0) ) return false;
+      if ( (delta > 0) && ((a.value === 12) || !points.available) ) return false;
+      else if ( (delta < 0) && (a.increases === 0) ) return false;
       return true;
     }
   }
@@ -1844,7 +1538,7 @@ export default class CrucibleActor extends Actor {
 
     // Apply the updates
     if ( this.combatant && actionCost ) {
-      if ( this.attributes.action.value < actionCost ) {
+      if ( this.system.resources.action.value < actionCost ) {
         return ui.notifications.warn("WARNING.CannotEquipActionCost", {localize: true});
       }
       await this.alterResources({action: -actionCost});
@@ -1917,7 +1611,7 @@ export default class CrucibleActor extends Actor {
 
       // Get change data
       const resource = SYSTEM.RESOURCES[resourceName];
-      const attr = this.attributes[resourceName];
+      const attr = this.system.resources[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
       const text = `${delta.signedString()} ${statusText ?? resource.label}`;
@@ -1963,39 +1657,23 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Update the cached resources for this actor
+   * Update the cached resources for this actor.
    * @private
    */
   _updateCachedResources() {
-    switch ( this.type ) {
-      case "adversary":
-        const r = this.system.resources;
-        this._cachedResources = {
-          health: r.health,
-          morale: r.morale,
-          action: r.action,
-          focus: r.focus
-        }
-        break;
-      case "hero":
-        const a = this.attributes;
-        this._cachedResources = {
-          health: a.health.value,
-          wounds: a.wounds.value,
-          morale: a.morale.value,
-          madness: a.madness.value,
-          action: a.action.value,
-          focus: a.focus.value
-        }
-        break;
-    }
+    this._cachedResources = Object.entries(this.system.resources).reduce((obj, [id, {value}]) => {
+      obj[id] = value;
+      return obj;
+    }, {});
   }
 
   /* -------------------------------------------- */
 
   _replenishResources(data) {
     const levelChange = foundry.utils.hasProperty(data, "system.advancement.level");
-    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => foundry.utils.hasProperty(data, `system.attributes.${k}`));
+    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => {
+      return foundry.utils.hasProperty(data, `system.abilities.${k}`);
+    });
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
   }
 }

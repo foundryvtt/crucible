@@ -1,5 +1,22 @@
-2023/02/18-15:05:02.422 127e4 Recovering log #158
-2023/02/18-15:05:02.423 127e4 Level-0 table #160: started
-2023/02/18-15:05:02.424 127e4 Level-0 table #160: 50633 bytes OK
-2023/02/18-15:05:02.428 127e4 Delete type=0 #158
-2023/02/18-15:05:02.428 127e4 Delete type=3 #157
+2023/02/18-21:21:28.869 28510 Recovering log #164
+2023/02/18-21:21:28.874 28510 Delete type=0 #164
+2023/02/18-21:21:28.874 28510 Delete type=3 #162
+2023/02/18-21:22:12.863 2b354 Level-0 table #168: started
+2023/02/18-21:22:12.863 2b354 Level-0 table #168: 0 bytes OK
+2023/02/18-21:22:12.865 2b354 Delete type=0 #166
+2023/02/18-21:22:12.866 2b354 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!uppercut00000000' @ 527 : 1
+2023/02/18-21:22:12.866 2b354 Compacting 2@0 + 0@1 files
+2023/02/18-21:22:12.870 2b354 Generated table #169@0: 127 keys, 50245 bytes
+2023/02/18-21:22:12.870 2b354 Compacted 2@0 + 0@1 files => 50245 bytes
+2023/02/18-21:22:12.872 2b354 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/02/18-21:22:12.872 2b354 Delete type=2 #160
+2023/02/18-21:22:12.873 2b354 Delete type=2 #163
+2023/02/18-21:22:12.873 2b354 Manual compaction at level-0 from '!items!uppercut00000000' @ 527 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/18-21:22:12.873 2b354 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!zealoussmite0000' @ 518 : 1
+2023/02/18-21:22:12.873 2b354 Compacting 1@1 + 1@2 files
+2023/02/18-21:22:12.876 2b354 Generated table #170@1: 125 keys, 50197 bytes
+2023/02/18-21:22:12.876 2b354 Compacted 1@1 + 1@2 files => 50197 bytes
+2023/02/18-21:22:12.878 2b354 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/02/18-21:22:12.878 2b354 Delete type=2 #154
+2023/02/18-21:22:12.878 2b354 Delete type=2 #169
+2023/02/18-21:22:12.878 2b354 Manual compaction at level-1 from '!items!zealoussmite0000' @ 518 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

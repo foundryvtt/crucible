@@ -18,6 +18,7 @@ import CrucibleArchetype from "./module/data/archetype.mjs";
 import CrucibleArmor from "./module/data/armor.mjs";
 import CrucibleBackground from "./module/data/background.mjs";
 import CrucibleGesture from "./module/data/gesture.mjs";
+import CrucibleHero from "./module/data/hero.mjs";
 import CrucibleInflection from "./module/data/inflection.mjs";
 import CrucibleRune from "./module/data/rune.mjs";
 import CrucibleSpell from "./module/data/spell.mjs";
@@ -80,6 +81,7 @@ Hooks.once("init", async function() {
       CrucibleArmor,
       CrucibleBackground,
       CrucibleGesture,
+      CrucibleHero,
       CrucibleInflection,
       CrucibleRune,
       CrucibleSpell,
@@ -108,10 +110,11 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
   CONFIG.Actor.dataModels = {
-    adversary: CrucibleAdversary
+    adversary: CrucibleAdversary,
+    hero: CrucibleHero
   };
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero", "npc"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
   Actors.registerSheet(SYSTEM.id, AdversarySheet, {types: ["adversary"], makeDefault: true});
 
   // Item document configuration
@@ -143,6 +146,19 @@ Hooks.once("init", async function() {
   // Status Effects
   CONFIG.statusEffects = statusEffects;
   CONFIG.specialStatusEffects.BLIND = "blinded";
+
+  // TODO HACK TOKEN ATTRIBUTES
+  TokenDocument.getTrackedAttributes = function() {
+    return {
+      bar: [
+        ["resources", "health"],
+        ["resources", "morale"],
+        ["resources", "action"],
+        ["resources", "focus"]
+      ],
+      value: []
+    }
+  }
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

@@ -69,7 +69,7 @@ export default class CrucibleItem extends Item {
     this.name = skill.name;
     this.img = skill.icon;
     this.category = skill.category;
-    this.attributes = skill.attributes;
+    this.abilities = skill.abilities;
 
     // Skill rank
     let current = null;

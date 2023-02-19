@@ -101,10 +101,10 @@
                     {{/if}}
                     {{#if showMilestones}}
                     <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
-                        <div class="bar"><div class="fill" style="width:{{systemData.advancement.pct}}%"></div></div>
-                        <input type="number" name="system.advancement.progress" value="{{systemData.advancement.progress}}"/>
+                        <div class="bar"><div class="fill" style="width:{{actor.system.advancement.pct}}%"></div></div>
+                        <input type="number" name="system.advancement.progress" value="{{actor.system.advancement.progress}}"/>
                         <span class="slash"></span>
-                        <span class="input">{{systemData.advancement.next}}</span>
+                        <span class="input">{{actor.system.advancement.next}}</span>
                     </div>
                     {{/if}}
                     <label class="level">
@@ -179,18 +179,18 @@
                     </a>
                 </h2>
                 <div class="resource health">
-                    {{> resource label="Health" attr="system.attributes.health" data=systemData.attributes.health}}
-                    {{> resource label="Wounds" attr="system.attributes.wounds" data=systemData.attributes.wounds}}
+                    {{> resource label="Health" attr="system.resources.health" data=resources.health}}
+                    {{> resource label="Wounds" attr="system.resources.wounds" data=resources.wounds}}
                 </div>
 
                 <div class="resource morale">
-                    {{> resource label="Morale" attr="system.attributes.morale" data=systemData.attributes.morale}}
-                    {{> resource label="Madness" attr="system.attributes.madness" data=systemData.attributes.madness}}
+                    {{> resource label="Morale" attr="system.resources.morale" data=resources.morale}}
+                    {{> resource label="Madness" attr="system.resources.madness" data=resources.madness}}
                 </div>
 
                 <div class="resource action">
-                    {{> resource label="Action" attr="system.attributes.action" data=systemData.attributes.action}}
-                    {{> resource label="Focus" attr="system.attributes.focus" data=systemData.attributes.focus}}
+                    {{> resource label="Action" attr="system.resources.action" data=resources.action}}
+                    {{> resource label="Focus" attr="system.resources.focus" data=resources.focus}}
                 </div>
             </section>
 
@@ -254,30 +254,30 @@
                 <div class="defense physical flexrow" data-defense="physical">
                     <div class="defense-title flexrow">
                         <h3 class="badge physical">Physical</h3>
-                        <span class="input score">{{systemData.defenses.physical}}</span>
+                        <span class="input score">{{actor.system.defenses.physical}}</span>
                     </div>
                     <span class="math">=</span>
                     <div class="flexcol">
                         <h4>Armor</h4>
-                        <span class="input score">{{systemData.defenses.armor.total}}</span>
+                        <span class="input score">{{actor.system.defenses.armor.total}}</span>
                         <span class="subtitle">{{armorCategory}}</span>
                     </div>
                     <span class="math">+</span>
                     <div class="flexcol">
                         <h4>Dodge</h4>
-                        <span class="input score">{{systemData.defenses.dodge.total}}</span>
+                        <span class="input score">{{actor.system.defenses.dodge.total}}</span>
                         <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
                     </div>
                     <span class="math">+</span>
                     <div class="flexcol">
                         <h4>Parry</h4>
-                        <span class="input score">{{systemData.defenses.parry.total}}</span>
+                        <span class="input score">{{actor.system.defenses.parry.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </div>
                     <span class="math">+</span>
                     <div class="flexcol">
                         <h4>Block</h4>
-                        <span class="input score">{{systemData.defenses.block.total}}</span>
+                        <span class="input score">{{actor.system.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </div>
                 </div>
@@ -364,7 +364,7 @@
                         <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
                     </div>
                     <div class="attributes">
-                        {{#each skill.attributes}}
+                        {{#each skill.abilities}}
                         <span class="attribute tag">{{this.abbreviation}}</span>
                         {{/each}}
                     </div>

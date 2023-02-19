@@ -64,7 +64,7 @@
     }
   ],
   "socket": true,
-  "primaryTokenAttribute": "attributes.wounds",
-  "secondaryTokenAttribute": "attributes.stress",
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.morale",
   "url": "https://gitlab.com/foundrynet/crucible"
 }
