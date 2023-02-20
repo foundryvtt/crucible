@@ -5,9 +5,15 @@ export default {
       await effect.delete();
     }
   },
+  "distract": {
+    pre: (actor, action) => {
+      action.usage.bonuses.multiplier = 0;
+      action.usage.bonuses.base = 1;
+    }
+  },
   "second-wind": {
-    post: (actor, action, target) => {
-      return actor.alterResources({health: actor.attributes.toughness.value}, {}, {statusText: action.name});
+    post: async (actor, action, target) => {
+      return actor.alterResources({health: actor.system.abilities.toughness.value}, {}, {statusText: action.name});
     }
   },
   "shield-bash": {
@@ -54,7 +60,7 @@ export default {
     confirm: async (actor, action, outcomes) => {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.total ) {
-          await actor.alterResources({"health": actor.attributes.toughness.value}, {}, {statusText: action.name});
+          await actor.alterResources({"health": actor.system.abilities.toughness.value}, {}, {statusText: action.name});
           break;
         }
       }

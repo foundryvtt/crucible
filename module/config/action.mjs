@@ -1,4 +1,6 @@
 export {default as ACTIONS} from "./actions.mjs";
+import {SKILLS} from "./skills.js";
+import {RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
 
 /**
@@ -70,13 +72,15 @@ function weaponAttack(type="mainhand") {
         throw new Error("You must have a two-handed weapon equipped")
       }
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      if ( !w ) return false;
       if ( w.config.category.reload && !w.system.loaded ) {
         throw new Error("Your weapon requires reloading in order to attack")
       }
     },
     prepare: (actor, action) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
-      action.actionCost = (w?.system.actionCost || 0) + action.cost.action;
+      if ( !w ) return; // TODO - we probably shouldn't even attempt data preparation if can is false
+      action.actionCost += (w?.system.actionCost || 0);
       Object.assign(action.usage.bonuses, w.system.actionBonuses);
       Object.assign(action.usage.context, {
         type: "weapons",
@@ -89,6 +93,8 @@ function weaponAttack(type="mainhand") {
     roll: async (actor, action, target) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       action.usage.actorUpdates["system.status.hasAttacked"] = true;
+      if ( w.config.category.ranged ) action.usage.actorUpdates["system.status.rangedAttack"] = true;
+      else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       return w.attack(target, action.usage.bonuses)
     },
     post: async actor => {
@@ -197,7 +203,9 @@ export const TAGS = {
       if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare: (actor, action) => {
-      action.actionCost -= (actor.system.status.hasMoved ? 0 : 1)
+      const canFreeMove = !actor.system.status.hasMoved
+        && (!actor.equipment.armor.system.properties.has("bulky") || actor.talentIds.has("armoredefficienc"));
+      if ( !canFreeMove ) action.actionCost += 1;
       if ( actor.statuses.has("slowed") ) action.actionCost += 1;
     },
     roll: (actor, action, target) => action.usage.actorUpdates["system.status.hasMoved"] = true
@@ -208,7 +216,15 @@ export const TAGS = {
     tag: "reaction",
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
-    can: (actor, action) => actor !== game.combat?.combatant.actor
+    can: (actor, action) => actor !== game.combat?.combatant.actor,
+    prepare: (actor, action) => {
+      const canFreeReact = actor.talentIds.has("gladiator0000000") && !actor.system.status.gladiator
+        && (action.tags.has("mainhand") || action.tags.has("offhand"));
+      if ( canFreeReact ) {
+        action.focusCost = -Infinity;
+        action.usage.actorUpdates["system.status.gladiator"] = true;
+      }
+    }
   },
 
   /* -------------------------------------------- */
@@ -373,12 +389,6 @@ export const TAGS = {
   /*  Defense Modifiers                           */
   /* -------------------------------------------- */
 
-  // Target Morale
-  morale: {
-    tag: "morale",
-    label: "Morale",
-    prepare: (actor, action) => action.usage.resource = "morale"
-  },
 
   // Target Fortitude
   fortitude: {
@@ -411,60 +421,6 @@ export const TAGS = {
   },
 
   /* -------------------------------------------- */
-  /*  Skill Check Actions                         */
-  /* -------------------------------------------- */
-
-  skill: {
-    tag: "skill",
-    label: "ACTION.TagSkill",
-    tooltip: "ACTION.TagSkill",
-    prepare: (actor, action) => {
-      const skill = actor.skills[action.usage.skillId];
-      if ( !skill ) throw new Error(`The skill action "${action.id}" did not designate which skill to use`);
-      Object.assign(action.usage.bonuses, {
-        ability: skill.abilityBonus,
-        skill: skill.skillBonus,
-        enchantment: skill.enchantmentBonus
-      });
-      Object.assign(action.usage.context, {
-        type: "skill",
-        label: "Skill Tags",
-        icon: "fa-solid fa-cogs",
-        hasDice: true
-      });
-    },
-    roll: async (actor, action, target) => actor.skillAttack(action, target)
-  },
-
-  crafting: {
-    tag: "crafting",
-    label: "SKILLS.Crafting",
-    tooltip: "SKILLS.CraftingActionTooltip",
-    prepare: (actor, action) => action.usage.skillId = "crafting"
-  },
-
-  intimidation: {
-    tag: "intimidation",
-    label: "SKILLS.Intimidation",
-    tooltip: "SKILLS.IntimidationActionTooltip",
-    prepare: (actor, action) => action.usage.skillId = "intimidation"
-  },
-
-  medicine: {
-    tag: "medicine",
-    label: "SKILLS.Medicine",
-    tooltip: "SKILLS.MedicineActionTooltip",
-    prepare: (actor, action) => action.usage.skillId = "medicine"
-  },
-
-  performance: {
-    tag: "performance",
-    label: "SKILLS.Performance",
-    tooltip: "SKILLS.PerformanceActionTooltip",
-    prepare: (actor, action) => action.usage.skillId = "performance"
-  },
-
-  /* -------------------------------------------- */
   /*  Healing Actions                             */
   /* -------------------------------------------- */
 
@@ -476,6 +432,46 @@ export const TAGS = {
       action.usage.defenseType = "wounds";
       action.usage.healing = "wounds";
     }
+  }
+}
+
+/* -------------------------------------------- */
+/*  Target Resources                            */
+/* -------------------------------------------- */
+
+for ( const {id, label} of Object.values(RESOURCES) ) {
+  TAGS[id] = {
+    tag: id,
+    label: label,
+    prepare: (actor, action) => action.usage.resource = id
+  }
+}
+
+/* -------------------------------------------- */
+/*  Skill Attacks                               */
+/* -------------------------------------------- */
+
+for ( const {id, label} of Object.values(SKILLS) ) {
+  TAGS[id] = {
+    tag: id,
+    label: label,
+    prepare: (actor, action) => {
+      action.usage.skillId = id;
+      const skill = actor.skills[id];
+      Object.assign(action.usage.bonuses, {
+        ability: skill.abilityBonus,
+        skill: skill.skillBonus,
+        enchantment: skill.enchantmentBonus
+      });
+      Object.assign(action.usage.context, {
+        type: "skill",
+        label: "Skill Tags",
+        icon: "fa-solid fa-cogs",
+        hasDice: true
+      });
+      action.usage.context.tags.add(skill.label);
+    },
+    roll: async (actor, action, target) => actor.skillAttack(action, target)
   }
 }
 
@@ -506,9 +502,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 0,
       distance: 4,
       scope: 1
-    },
-    cost: {
-      action: 1
     },
     tags: ["movement"]
   },

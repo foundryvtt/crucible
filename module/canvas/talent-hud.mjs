@@ -72,11 +72,27 @@ export default class CrucibleTalentHUD extends Application {
    * @returns {object}
    */
   #getTalentContext() {
+    const actor = game.system.tree.actor;
     const talent = this.target.talent;
+    const node = talent.system.node;
+
+    // Talent Tags
+    const states = node.constructor.STATES;
+    const reqs = CrucibleTalent.testPrerequisites(actor, talent.system.prerequisites);
+    const state = game.system.tree.state.get(node) ?? states.LOCKED;
+
+    // Banned Signature
+    if ( node.type === "signature" ) {
+      if ( ((state === states.PURCHASED) && !actor.talentIds.has(talent.id)) || (state === states.BANNED) ) {
+        reqs.signature = {tag: "Banned", met: false};
+      }
+    }
+
+    // Return context
     return {
       source: talent.toObject(),
       actions: TalentSheet.prepareActions(talent.system.actions),
-      tags: talent.getTags()
+      prerequisites: reqs
     }
   }
 

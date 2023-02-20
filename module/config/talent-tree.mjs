@@ -139,7 +139,7 @@ export default class CrucibleTalentNode {
     }
     const ad = this.abilities.size - 1;
     for ( const ability of this.abilities ) {
-      reqs[`attributes.${ability}.value`] = this.tier + 3 - ad;
+      reqs[`abilities.${ability}.value`] = this.tier + 3 - ad;
     }
     return reqs;
   }
@@ -154,23 +154,22 @@ export default class CrucibleTalentNode {
    */
   static async initialize() {
     const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
-    const items = await pack.getDocuments();
-    for ( const item of items ) {
-      if ( !item.system.node ) continue;
-      const node = CrucibleTalentNode.#nodes.get(item.system.node);
+    const talents = await pack.getDocuments();
+    for ( const talent of talents ) {
+      const node = talent.system.node;
       if ( !node ) continue;
 
       // Register Talents
-      node.talents.add(item);
+      node.talents.add(talent);
 
       // Twinned Nodes
       const twin = node.twinNode;
-      if ( twin ) twin.talents.add(item);
+      if ( twin ) twin.talents.add(talent);
 
       // Spellcraft Metadata
-      if ( item.system.rune ) CONFIG.SYSTEM.SPELL.RUNES[item.system.rune].img = item.img;
-      if ( item.system.gesture ) CONFIG.SYSTEM.SPELL.GESTURES[item.system.gesture].img = item.img;
-      if ( item.system.inflection ) CONFIG.SYSTEM.SPELL.INFLECTIONS[item.system.inflection].img = item.img;
+      if ( talent.system.rune ) CONFIG.SYSTEM.SPELL.RUNES[talent.system.rune].img = talent.img;
+      if ( talent.system.gesture ) CONFIG.SYSTEM.SPELL.GESTURES[talent.system.gesture].img = talent.img;
+      if ( talent.system.inflection ) CONFIG.SYSTEM.SPELL.INFLECTIONS[talent.system.inflection].img = talent.img;
     }
   }
 
@@ -183,11 +182,12 @@ export default class CrucibleTalentNode {
    * This method only verifies node state independent of other nodes.
    * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
+   * @param {Object<number,Set<CrucibleTalent>>} signatures
    * @returns {CrucibleTalentNode.STATES}
    */
-  getState(actor) {
-    if ( this.isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
-    if ( this.isBanned(actor) ) return CrucibleTalentNode.STATES.BANNED;
+  getState(actor, signatures) {
+    if ( this.#isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
+    if ( this.#isBanned(actor, signatures) ) return CrucibleTalentNode.STATES.BANNED;
     const accessible = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
     if ( !accessible ) return CrucibleTalentNode.STATES.LOCKED;
   }
@@ -201,11 +201,11 @@ export default class CrucibleTalentNode {
    */
   isConnected(actor) {
     for ( const c of this.connected ) {
-      if ( c.isPurchased(actor) ) return true;
+      if ( c.#isPurchased(actor) ) return true;
     }
     if ( this.twin ) {
       for ( const c of this.twinNode.connected ) {
-        if ( c.isPurchased(actor) ) return true;
+        if ( c.#isPurchased(actor) ) return true;
       }
     }
     return false;
@@ -215,25 +215,38 @@ export default class CrucibleTalentNode {
 
   /**
    * Is a signature node banned because the user has selected some other Signature node which shares an ability score.
+   * Nodes which have been purchased have already been categorized as purchased.
    * @param {CrucibleActor} actor
+   * @param {Object<number,Set<CrucibleTalent>>} signatures
    * @returns {boolean}
    */
-  isBanned(actor) {
+  #isBanned(actor, signatures) {
     if ( this.type !== "signature" ) return false;
-    for ( const sibling of CrucibleTalentNode.#signature ) {
-      if ( (sibling === this) || (sibling.id === this.twin) || (sibling.tier !== this.tier) ) continue;
-      if ( sibling.abilities.intersects(this.abilities) && sibling.isPurchased(actor) ) return true;
+    return signatures[this.tier].size >= 2;
+  }
+
+  /* -------------------------------------------- */
+
+  #isPurchased(actor) {
+    for ( const t of this.talents ) {
+      if ( actor.talentIds.has(t.id) ) return true;
     }
     return false;
   }
 
   /* -------------------------------------------- */
 
-  isPurchased(actor) {
-    for ( const t of this.talents ) {
-      if ( actor.talentIds.has(t.id) ) return true;
+  static getSignatureTalents(actor) {
+    const tiers = {};
+    for ( const node of CrucibleTalentNode.#signature ) {
+      tiers[node.tier] ||= new Set();
+      for ( const t of node.talents ) {
+        if ( actor.talentIds.has(t.id) ) {
+          tiers[node.tier].add(t);
+        }
+      }
     }
-    return false;
+    return tiers;
   }
 }
 

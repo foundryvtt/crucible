@@ -707,7 +707,7 @@ h2.divider span {
   margin: 0;
   white-space: nowrap;
 }
-.crucible.sheet.actor .magic-defenses {
+.crucible.sheet.actor .save-defenses {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(1, var(--abilityHeight));

@@ -8,7 +8,7 @@ export default class CrucibleCombatant extends Combatant {
     const actor = this.actor;
 
     // Initiative Boons
-    let boons = this.parent.round > 0 ? this.actor.attributes.action.value : 0;
+    let boons = this.parent.round > 0 ? this.actor.system.resources.action.value : 0;
     if ( actor.talentIds.has("preternaturalins") ) boons += 2;
 
     // Initiative Banes

@@ -65,11 +65,26 @@ export default class TalentSheet extends ItemSheet {
       effects: action.effects.map(effect => ({
         name: action.name,
         tags: {
-          scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope)}`,
+          scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || action.target.scope)}`,
           duration: effect.duration?.rounds ? `${effect.duration.rounds}R` : "Until Ended"
         }
       }))
     }));
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getSubmitData(updateData) {
+    const form = this.form;
+    for ( const field of ["system.actions", "system.requirements"] ) {
+      try {
+        JSON.parse(form[field].value);
+      } catch(err) {
+        return ui.notifications.error(`Invalid JSON in "${field}" field: ${err.message}`);
+      }
+    }
+    return super._getSubmitData(updateData);
   }
 
   /* -------------------------------------------- */

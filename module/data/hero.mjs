@@ -48,11 +48,11 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
       ancestry: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         ...CrucibleAncestry.defineSchema()
-      }),
+      }, {required: true, nullable: true, initial: null}),
       background: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         ...CrucibleBackground.defineSchema()
-      }),
+      }, {required: true, nullable: true, initial: null}),
       biography: new fields.SchemaField({
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
@@ -100,7 +100,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
-  /*  Prepared Attributes                         */
+  /*  Derived Attributes                          */
   /* -------------------------------------------- */
 
   /**
@@ -119,6 +119,9 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
   /** @override */
   prepareBaseData() {
+    this.details.ancestry ||= CrucibleAncestry.cleanData();
+    this.details.background ||= CrucibleBackground.cleanData();
+    this.status ||= {};
     this.#prepareAdvancement();
     this.#prepareAbilities();
     this.#prepareSkills();
@@ -132,15 +135,11 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
   #prepareAdvancement() {
     const adv = this.advancement;
     const effectiveLevel = Math.max(adv.level, 1) - 1;
-
-    // Initialize spendable points
     this.points = {
       ability: { pool: 9, total: effectiveLevel, bought: null, spent: null, available: null },
       skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
       talent: { total: 2 + (effectiveLevel*2), spent: 0, available: null }
     };
-
-    // Compute required advancement
     adv.progress = adv.progress ?? 0;
     adv.next = (2 * adv.level) + 1;
     adv.pct = Math.clamped(Math.round(adv.progress * 100 / adv.next), 0, 100);
@@ -177,7 +176,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     points.pool = 9 - points.bought;
     points.spent = abilityPointsSpent;
     points.available = points.total - abilityPointsSpent;
-    points.requireInput = this.isL0 ? (points.pool > 0) : (points.available !== 0);
+    points.requireInput = (this.advancement.level === 0) ? (points.pool > 0) : (points.available !== 0);
   }
 
   /* -------------------------------------------- */
@@ -311,6 +310,11 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     // Unarmed Blocking
     if ( talentIds.has("unarmedblocking0") && equipment.weapons.unarmed ) {
       defenses.block.bonus += Math.ceil(abilities.toughness.value / 2);
+    }
+
+    // Monk
+    if ( talentIds.has("monk000000000000") && (equipment.armor.config.category.id === "unarmored") ) {
+      defenses.dodge.bonus += 2;
     }
 
     // Compute total physical defenses

@@ -39,12 +39,13 @@ export default class HeroSheet extends ActorSheet {
     const systemData = context.systemData = context.data.system;
 
     // Incomplete Tasks
+    const points = this.actor.system.points;
     const i = context.incomplete = {
       ancestry: !systemData.details.ancestry?.name,
       background: !systemData.details.background?.name,
-      abilities: this.actor.points.ability.requireInput,
-      skills: this.actor.points.skill.available,
-      talents: this.actor.points.talent.available,
+      abilities: points.ability.requireInput,
+      skills: points.skill.available,
+      talents: points.talent.available,
       level: this.actor.isL0 || (this.actor.system.advancement.pct === 100),
       levelOne: this.actor.isL0,
       levelUp: (this.actor.system.advancement.pct === 100)
@@ -60,7 +61,7 @@ export default class HeroSheet extends ActorSheet {
     systemData.details.background.name ||= game.i18n.localize("BACKGROUND.None");
 
     // Equipment
-    context.items = this._formatItems(this.actor.items);
+    context.items = this.#formatItems(this.actor.items);
     const eqp = this.actor.equipment;
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[eqp.armor.system.category].label;
     const {mainhand: mh, offhand: oh, twoHanded: th} = eqp.weapons;
@@ -77,19 +78,19 @@ export default class HeroSheet extends ActorSheet {
     context.showMilestones = this.actor.level.between(1, 23);
 
     // Abilities
-    context.abilityScores = this._formatAbilities(this.actor.system.abilities);
+    context.abilityScores = this.#formatAbilities(this.actor.system.abilities);
 
     // Resources
-    context.resources = this._formatResources(this.actor.system.resources);
+    context.resources = this.#formatResources(this.actor.system.resources);
 
     // Defenses
-    context.magicDefenses = this._formatMagicDefenses(this.actor.system.defenses);
+    context.saveDefenses = this.#formatSaveDefenses(this.actor.system.defenses);
 
     // Resistances
-    context.resistances = this._formatResistances(this.actor.system.resistances);
+    context.resistances = this.#formatResistances(this.actor.system.resistances);
 
     // Skills
-    context.skillCategories = this._formatSkills(systemData.skills);
+    context.skillCategories = this.#formatSkills(this.actor.system.skills);
 
     // Talents
     context.talentTreeButton = game.system.tree.actor === this.actor ? "Close Talent Tree" : "Open Talent Tree";
@@ -101,7 +102,7 @@ export default class HeroSheet extends ActorSheet {
     }).sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
 
     // Spellcraft
-    context.grimoire = this._formatGrimoire();
+    context.grimoire = this.#formatGrimoire();
 
     // Active Effects
     context.effects = this.#formatEffects();
@@ -122,7 +123,7 @@ export default class HeroSheet extends ActorSheet {
     });
 
     // Section locks
-    context.sectionLocks = this._getSectionLocks(context);
+    context.sectionLocks = this.#getSectionLocks(context);
     return context;
   }
 
@@ -132,9 +133,8 @@ export default class HeroSheet extends ActorSheet {
    * Format ability scores for display on the Actor sheet.
    * @param {object} abilities
    * @return {object[]}
-   * @private
    */
-  _formatAbilities(abilities) {
+  #formatAbilities(abilities) {
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
       const attr = foundry.utils.mergeObject(abilities[a], ability);
@@ -147,7 +147,7 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  _formatItems(items) {
+  #formatItems(items) {
 
     // Define placeholder structure
     const sections = {
@@ -216,17 +216,19 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  _formatGrimoire() {
+  /**
+   * Format categories of the grimoire tab.
+   * @returns {{
+   *  runes: {label: string, known: Set<CrucibleRune>},
+   *  inflections: {label: string, known: Set<CrucibleInflection>},
+   *  gestures: {label: string, known: Set<CrucibleGesture>}
+   * }}
+   */
+  #formatGrimoire() {
     const grimoire = {
-      runes: {
-        label: game.i18n.localize("SPELL.ComponentRune")
-      },
-      gestures: {
-        label: game.i18n.localize("SPELL.ComponentGesture")
-      },
-      inflections: {
-        label: game.i18n.localize("SPELL.ComponentInflection")
-      }
+      runes: {label: game.i18n.localize("SPELL.ComponentRune")},
+      gestures: {label: game.i18n.localize("SPELL.ComponentGesture")},
+      inflections: {label: game.i18n.localize("SPELL.ComponentInflection")}
     }
     for ( const [k, v] of Object.entries(this.actor.grimoire) ) {
       grimoire[k].known = v;
@@ -260,9 +262,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Format the display of resource attributes on the actor sheet
    * @param {object} resources       The ActorData.system.resources object
-   * @private
    */
-  _formatResources(resources) {
+  #formatResources(resources) {
     const formatted = {};
     for ( const [id, r] of Object.entries(resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
@@ -284,7 +285,12 @@ export default class HeroSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  _formatMagicDefenses(defenses) {
+  /**
+   * Format magic defenses for display in the sheet.
+   * @param {object} defenses     Prepared Actor system defenses
+   * @returns {object[]}          A formatted array of save defenses
+   */
+  #formatSaveDefenses(defenses) {
     const formatted = [];
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type !== "save" ) continue;
@@ -301,36 +307,33 @@ export default class HeroSheet extends ActorSheet {
    * Organize skills by category in alphabetical order
    * @param {Object} skills
    * @return {*}
-   * @private
    */
-  _formatSkills(skills) {
+  #formatSkills(skills) {
     const categories = foundry.utils.deepClone(SYSTEM.SKILL_CATEGORIES);
-    return Object.entries(skills).reduce((categories, e) => {
-      let [id, c] = e;
-      const skill = mergeObject(c, SYSTEM.SKILLS[id], {inplace: false});
-      const cat = categories[skill.category];
-      if ( !cat ) return categories;
+    for ( const skill of Object.values(SYSTEM.SKILLS) ) {
+      const s = foundry.utils.mergeObject(skill, skills[skill.id]);
+      const category = categories[skill.category];
 
-      // Update skill data for rendering
-      skill.abilities = skill.abilities.map(a => SYSTEM.ABILITIES[a]);
-      skill.pips = Array.fromRange(5).map((v, i) => i < c.rank ? "trained" : "untrained");
-      skill.css = [
-        c.rank > 0 ? "trained" : "untrained",
-        c.path ? "specialized" : "unspecialized"
+      // Skill data
+      s.abilityAbbrs = skill.abilities.map(a => SYSTEM.ABILITIES[a].abbreviation);
+      s.pips = Array.fromRange(5).map((v, i) => i < s.rank ? "trained" : "untrained");
+      s.css = [
+        s.rank > 0 ? "trained" : "untrained",
+        s.path ? "specialized" : "unspecialized"
       ].join(" ");
-      skill.canIncrease = this.actor.canPurchaseSkill(id, 1);
-      skill.canDecrease = this.actor.canPurchaseSkill(id, -1);
+      s.canIncrease = this.actor.canPurchaseSkill(skill.id, 1);
+      s.canDecrease = this.actor.canPurchaseSkill(skill.id, -1);
 
       // Specialization status
       const path = skill.paths[skill.path] || null;
-      skill.rankName = SYSTEM.SKILL_RANKS[skill.rank].label;
-      skill.pathName = path ? path.name : game.i18n.localize("SKILL.Unspecialized");
+      s.rankName = SYSTEM.SKILL_RANKS[skill.rank].label;
+      s.pathName = path ? path.name : game.i18n.localize("SKILL.Unspecialized");
 
-      // Add to category and return
-      cat.skills = cat.skills || {};
-      cat.skills[id] = skill;
-      return categories;
-    }, categories);
+      // Add to category
+      category.skills ||= {};
+      category.skills[skill.id] = s;
+    }
+    return categories;
   }
 
   /* -------------------------------------------- */
@@ -339,9 +342,8 @@ export default class HeroSheet extends ActorSheet {
    * Organize resistances data for rendering
    * @param {object} resistances    The Actor's resistances data
    * @return {object}               Resistances data organized by category
-   * @private
    */
-  _formatResistances(resistances) {
+  #formatResistances(resistances) {
     const categories = foundry.utils.deepClone(SYSTEM.DAMAGE_CATEGORIES);
     return Object.entries(resistances).reduce((categories, e) => {
 
@@ -361,9 +363,8 @@ export default class HeroSheet extends ActorSheet {
 
   /**
    * Update section locks to automatically unlock sections where the user needs to provide input.
-   * @private
    */
-  _getSectionLocks(context) {
+  #getSectionLocks(context) {
     const locks = foundry.utils.deepClone(this._sectionLocks);
     if ( context.incomplete.abilities ) locks.abilities = false;
     return locks;
@@ -384,8 +385,8 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find("[data-action]").click(this._onClickControl.bind(this));
-    html.find("a.section-lock").click(this._onToggleSectionLock.bind(this));
+    html.find("[data-action]").click(this.#onClickControl.bind(this));
+    html.find("a.section-lock").click(this.#onToggleSectionLock.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -393,9 +394,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Handle click events on a Skill control
    * @param {Event} event   The originating click event
-   * @private
    */
-  async _onClickControl(event) {
+  async #onClickControl(event) {
     event.preventDefault();
     const a = event.currentTarget;
     switch ( a.dataset.action ) {
@@ -415,11 +415,11 @@ export default class HeroSheet extends ActorSheet {
       case "effectEdit":
         return this.#onEffectEdit(a);
       case "itemDelete":
-        return this._onItemDelete(a);
+        return this.#onItemDelete(a);
       case "itemEdit":
-        return this._onItemEdit(a);
+        return this.#onItemEdit(a);
       case "itemEquip":
-        return this._onItemEquip(a);
+        return this.#onItemEquip(a);
       case "levelUp":
         game.tooltip.deactivate();
         return this.actor.levelUp(1);
@@ -446,9 +446,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Handle toggling the locked state of a specific sheet section
    * @param {Event} event   The originating click event
-   * @private
    */
-  _onToggleSectionLock(event) {
+  #onToggleSectionLock(event) {
     event.preventDefault()
     const a = event.currentTarget;
     this._sectionLocks[a.dataset.section] = !this._sectionLocks[a.dataset.section];
@@ -460,12 +459,14 @@ export default class HeroSheet extends ActorSheet {
   /** @override */
   async _onDropItemCreate(itemData) {
     switch (itemData.type) {
+      case "archetype":
+        return ui.notifications.error("Archetype items cannot be added to a protagonist Actor.")
       case "ancestry":
         return this.actor.applyAncestry(itemData);
       case "background":
         return this.actor.applyBackground(itemData);
       case "talent":
-        break;  // Talents cannot be created via drag-and-drop
+        return ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
     }
     return super._onDropItemCreate(itemData);
   }
@@ -499,9 +500,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Handle deleting an Owned Item from the Actor
    * @param {HTMLLinkElement} button
-   * @private
    */
-  _onItemDelete(button) {
+  #onItemDelete(button) {
     const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     return item?.deleteDialog();
@@ -512,9 +512,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Handle editing an Owned Item on the Actor
    * @param {HTMLLinkElement} button
-   * @private
    */
-  _onItemEdit(button) {
+  #onItemEdit(button) {
     const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     return item?.sheet.render(true);
@@ -525,9 +524,8 @@ export default class HeroSheet extends ActorSheet {
   /**
    * Toggle the equipped state of an Owned Item on the Actor
    * @param {HTMLLinkElement} button
-   * @private
    */
-  _onItemEquip(button) {
+  #onItemEquip(button) {
     const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;

@@ -54,7 +54,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
 
   /** @override */
   prepareBaseData() {
-    let node = CrucibleTalentNode.nodes.get(this.node);
+    let node = this.node = CrucibleTalentNode.nodes.get(this.node);
     if ( !node ) {
       console.warn(`Talent ${this.parent.name} "${this.parent.id}" does not define a valid talent tree node`);
       node = {requirements: {}}
@@ -82,7 +82,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
     return Object.entries(foundry.utils.flattenObject(reqs)).reduce((obj, r) => {
       const [k, v] = r;
       const o = obj[k] = {value: v};
-      if ( k.startsWith("attributes.") ) o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+      if ( k.startsWith("abilities.") ) o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;
       else if ( k === "advancement.level" ) o.label = "Level"
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
       else o.label = k;
@@ -97,10 +97,9 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
 
   /**
    * Return an object of string formatted tag data which describes this item type.
-   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
    * @returns {Object<string, string>}    The tags which describe this Talent
    */
-  getTags(scope="full") {
+  getTags() {
     const tags = {};
     for ( let [k, v] of Object.entries(this.prerequisites || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
@@ -138,13 +137,20 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   assertPrerequisites(actor, strict=true) {
 
     // Require a connected node
-    const node = CrucibleTalentNode.nodes.get(this.node);
-    if ( (node.tier > 0) && !node.isConnected(actor) ) {
+    if ( (this.node.tier > 0) && !this.node.isConnected(actor) ) {
       const err = game.i18n.format("TALENT.MissingConnection", {
         name: this.parent.name
       });
       if ( strict ) throw new Error(err);
       else return false;
+    }
+
+    // Banned signature
+    if ( this.node.type === "signature" ) {
+      if ( this.node.talents.some(t => actor.talentIds.has(t.id)) ) {
+        if ( strict ) throw new Error(game.i18n.localize("TALENT.BlockedSignature"));
+        else return false;
+      }
     }
 
     // Require prerequisite stats

@@ -1,8 +1,8 @@
-2023/02/18-21:21:28.855 28510 Recovering log #142
-2023/02/18-21:21:28.858 28510 Delete type=0 #142
-2023/02/18-21:21:28.859 28510 Delete type=3 #141
-2023/02/18-21:22:12.854 2b354 Level-0 table #146: started
-2023/02/18-21:22:12.854 2b354 Level-0 table #146: 0 bytes OK
-2023/02/18-21:22:12.855 2b354 Delete type=0 #144
-2023/02/18-21:22:12.856 2b354 Manual compaction at level-0 from '!items!1lTOzjUX4bUNDQFc' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/02/18-21:22:12.856 2b354 Manual compaction at level-1 from '!items!1lTOzjUX4bUNDQFc' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/02/19-09:19:47.114 35640 Recovering log #156
+2023/02/19-09:19:47.119 35640 Delete type=0 #156
+2023/02/19-09:19:47.119 35640 Delete type=3 #155
+2023/02/19-20:49:31.361 2e98 Level-0 table #160: started
+2023/02/19-20:49:31.361 2e98 Level-0 table #160: 0 bytes OK
+2023/02/19-20:49:31.364 2e98 Delete type=0 #158
+2023/02/19-20:49:31.366 2e98 Manual compaction at level-0 from '!items!1lTOzjUX4bUNDQFc' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/02/19-20:49:31.369 2e98 Manual compaction at level-1 from '!items!1lTOzjUX4bUNDQFc' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)

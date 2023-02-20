@@ -603,6 +603,7 @@
 "TALENT.AlreadyOwned": "You already own {name} and cannot add it a second time.",
 "TALENT.MissingRequirement": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
 "TALENT.MissingConnection": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
+"TALENT.BlockedSignature": "You cannot purchase more than one signature Talent from a single signature node.",
 "TALENT.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
 
 "TALENT.PointsAvailable": "Points Available",

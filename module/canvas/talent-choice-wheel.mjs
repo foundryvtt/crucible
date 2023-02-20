@@ -123,9 +123,10 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     if ( !actor ) return;
     for ( const talentIcon of this.talents.children ) {
       const {node, talent} = talentIcon;
+      const active = actor.talentIds.has(talent.id);
       talentIcon.draw({
-        accessible: tree.state.get(node.node) && talent.system.assertPrerequisites(actor, false),
-        active: actor.talentIds.has(talent.id)
+        accessible: active || (tree.state.get(node.node) && talent.system.assertPrerequisites(actor, false)),
+        active
       });
     }
   }

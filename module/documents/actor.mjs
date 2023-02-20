@@ -39,7 +39,7 @@ import CrucibleAction from "../data/action.mjs";
 export default class CrucibleActor extends Actor {
   constructor(data, context) {
     super(data, context);
-    this._updateCachedResources();
+    this.#updateCachedResources();
   }
 
   /**
@@ -149,7 +149,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return (this.resources.health.value === 0) && (this.resources.wounds.value < this.resources.wounds.max);
+    return (this.system.resources.health.value === 0) && (this.system.resources.wounds.value < this.system.resources.wounds.max);
   }
 
   /**
@@ -157,7 +157,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isBroken() {
-    return (this.resources.morale.value === 0) && (this.resources.madness.value < this.resources.madness.max);
+    return (this.system.resources.morale.value === 0) && (this.system.resources.madness.value < this.system.resources.madness.max);
   }
 
   /**
@@ -165,8 +165,8 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isDead() {
-    if ( this.type === "npc" ) return this.resources.health.value === 0;
-    return this.resources.wounds.value === this.resources.wounds.max;
+    if ( this.type === "npc" ) return this.system.resources.health.value === 0;
+    return this.system.resources.wounds.value === this.system.resources.wounds.max;
   }
 
   /**
@@ -174,7 +174,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isInsane() {
-    return this.resources.madness.value === this.resources.madness.max;
+    return this.system.resources.madness.value === this.system.resources.madness.max;
   }
 
   /**
@@ -436,31 +436,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  getDefenses({armor}) {
-    const defenses = foundry.utils.deepClone(this.system.defenses);
-    armor = armor || this.equipment.armor;
-
-    // Physical defenses
-    const armorData = armor.system;
-    defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus = armorData.armor.bonus;
-    defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(this.system.abilities.dexterity.value - armorData.dodge.start, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
-
-    // Compute total physical defenses
-    const physicalDefenses = ["dodge", "parry", "block", "armor"];
-    defenses["physical"] = 0;
-    for ( let pd of physicalDefenses ) {
-      let d = defenses[pd];
-      d.total = d.base + d.bonus;
-      defenses.physical += d.total;
-    }
-    return defenses;
-  }
-
-  /* -------------------------------------------- */
   /*  Dice Rolling Methods                        */
   /* -------------------------------------------- */
 
@@ -556,18 +531,20 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Test the Actor's defense, determining which defense type is used to avoid an attack.
-   * @param {string} defenseType
-   * @param {number} rollTotal
+   * @param {string} defenseType      The defense type to test
+   * @param {number} rollTotal        The rolled total
+   * @param {number} [dc]             An explicit DC to test
    * @returns {AttackRoll.RESULT_TYPES}
    */
-  testDefense(defenseType, rollTotal) {
+  testDefense(defenseType, rollTotal, dc) {
     const d = this.system.defenses;
 
     // Physical Defense
     if ( defenseType === "physical" ) {
+      dc = d.physical;
 
       // Hit
-      if ( rollTotal > d.physical ) return AttackRoll.RESULT_TYPES.HIT;
+      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.HIT;
 
       // Dodge
       const r = twist.random() * d.physical;
@@ -588,7 +565,8 @@ export default class CrucibleActor extends Actor {
 
     // Other Defenses
     else {
-      if ( rollTotal > d[defenseType].total ) return AttackRoll.RESULT_TYPES.EFFECTIVE;
+      if ( defenseType ) dc = d[defenseType].total;
+      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.EFFECTIVE;
       else return AttackRoll.RESULT_TYPES.RESIST;
     }
   }
@@ -615,21 +593,32 @@ export default class CrucibleActor extends Actor {
    */
   prepareSpell(spell) {
     const s = this.system.status;
+    switch ( spell.gesture.id ) {
 
-    // Gesture: Strike
-    if ( spell.gesture.id === "strike" ) {
-      const mh = this.equipment.weapons.mainhand;
-      spell.cost.action = mh.system.actionCost;
-      spell.damage.base = mh.system.damage.weapon;
-      spell.defense = "physical";
-      spell.scaling = new Set([...mh.config.category.scaling.split("."), spell.rune.scaling]);
-      spell.target.distance = mh.config.category.ranged ? 10 : 1;
-    }
+      // Gesture: Strike
+      case "strike":
+        const mh = this.equipment.weapons.mainhand;
+        spell.cost.action = mh.system.actionCost;
+        spell.damage.base = mh.system.damage.weapon;
+        spell.scaling = new Set([...mh.config.category.scaling.split("."), spell.rune.scaling]);
+        spell.target.distance = mh.config.category.ranged ? 10 : 1;
 
-    // Spellblade
-    if ( this.talentIds.has("spellblade000000") && s.hasAttacked && !s.spellblade ) {
-      spell.cost.action -= 1;
-      spell.cost.spellblade = true;
+        // Spellblade Signature
+        if ( this.talentIds.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
+          spell.cost.action -= 1;
+          spell.status.spellblade = true;
+        }
+        break;
+
+      // Gesture: Arrow:
+      case "arrow":
+
+        // Arcane Archer Signature
+        if ( this.talentIds.has("arcanearcher0000") && s.rangedAttack && !s.arcaneArcher ) {
+          spell.cost.action -= 1;
+          spell.status.arcaneArcher = true;
+        }
+        break;
     }
   }
 
@@ -684,7 +673,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Record actor updates
-    if ( spell.cost.spellblade ) action.usage.actorUpdates["system.status.spellblade"] = true;
+    for ( const [k, v] of Object.entries(spell.status) ) action.usage.actorUpdates[`system.status.${k}`] = v;
     action.usage.actorUpdates["flags.crucible.lastSpell"] = spell.id;
     return roll;
   }
@@ -695,26 +684,33 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Roll Data
     const {bonuses, defenseType, healing, resource, skillId} = action.usage;
-    const dc = defenseType ? target.defenses[defenseType].total : target.skills[skillId].passive;
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
-      dc,
-      defenseType
     });
+
+    // Conventional defense
+    if ( defenseType in target.defenses ) {
+      Object.assign(rollData, {defenseType, dc: target.defenses[defenseType].total});
+    }
+
+    // Opposed skill
+    else {
+      Object.assign(rollData, {defenseType: skillId, dc: target.skills[skillId].passive});
+    }
 
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(defenseType, roll.total);
+    roll.data.result = target.testDefense(defenseType, roll.total, rollData.dc);
 
     // Create resulting damage
     if ( roll.data.result === AttackRoll.RESULT_TYPES.EFFECTIVE ) {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: bonuses.multiplier,
-        base: 0,
+        base: bonuses.base ?? 0,
         bonus: bonuses.damageBonus,
         resistance: 0,
         type: bonuses.damageType,
@@ -785,7 +781,7 @@ export default class CrucibleActor extends Actor {
 
       // Overflow morale onto madness (double damage)
       if ( (resourceName === "morale") && (overflow !== 0) ) {
-        const madness = this.resources.madness.value - overflow;
+        const madness = this.system.resources.madness.value - overflow;
         updates["system.resources.madness.value"] = Math.clamped(madness, 0, r.madness.max);
       }
       else if ( resourceName === "madness" ) tookMadness = true;
@@ -896,10 +892,10 @@ export default class CrucibleActor extends Actor {
   async onDealDamage(action, outcomes) {
 
     // Battle Focus
-    if ( this.talentIds.has("battlefocus00000") ) {
+    if ( this.talentIds.has("battlefocus00000") && !this.system.status.battleFocus ) {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.critical || outcome.incapacitated ) {
-          await this.alterResources({"focus": 1}, {}, {statusText: "Battle Focus"});
+          await this.alterResources({"focus": 1}, {"system.status.battleFocus": true}, {statusText: "Battle Focus"});
           break;
         }
       }
@@ -909,8 +905,7 @@ export default class CrucibleActor extends Actor {
     if ( this.talentIds.has("bloodfrenzy00000") && !this.system.status.bloodFrenzy ) {
       for ( const outcome of outcomes.values() ) {
         if ( outcome.critical ) {
-          const statusText = "Blood Frenzy";
-          await this.alterResources({"action": 1}, {"system.status.bloodFrenzy": true}, {statusText});
+          await this.alterResources({"action": 1}, {"system.status.bloodFrenzy": true}, {statusText: "Blood Frenzy"});
           break;
         }
       }
@@ -1000,7 +995,7 @@ export default class CrucibleActor extends Actor {
     await this.applyDamageOverTime();
 
     // Recover resources
-    const updates = {"system.-=status": null}
+    const updates = {"system.status": null}
     if ( !this.isIncapacitated ) updates["system.resources.action.value"] = this.system.resources.action.max;
     return this.update(updates);
   }
@@ -1221,7 +1216,7 @@ export default class CrucibleActor extends Actor {
    */
   async applyBackground(itemData) {
 
-    // Clear an existing ancestry
+    // Clear an existing background
     if ( !itemData ) {
       if ( this.isL0 ) return this.update({"system.details.background": null});
       else throw new Error("Background data not provided");
@@ -1452,7 +1447,7 @@ export default class CrucibleActor extends Actor {
       return ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: item.name,
-        type: game.i18n.localize("ITEM.TypeArmor")
+        type: game.i18n.localize("TYPES.Item.armor")
       }));
     }
 
@@ -1555,8 +1550,13 @@ export default class CrucibleActor extends Actor {
     await super._preCreate(data, options, user);
 
     // Prototype Token configuration
-    if ( this.type === "hero" ) {
-      this.updateSource({prototypeToken: {vision: true, actorLink: true, disposition: 1}});
+    switch ( this.type ) {
+      case "hero":
+        this.updateSource({prototypeToken: {vision: true, actorLink: true, disposition: 1}});
+        break;
+      case "adversary":
+        this.updateSource({prototypeToken: {vision: false, actorLink: false, disposition: -1}});
+        break;
     }
   }
 
@@ -1565,10 +1565,12 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
-    this._displayScrollingStatus(data, options);
-    this._replenishResources(data);
-    this._applyAttributeStatuses(data);
-    this._updateCachedResources();
+    this.#displayScrollingStatus(data, options);
+    if ( game.userId === userId ) {    // Follow-up updates only made by the initiating user
+      this.#replenishResources(data);
+      this.#applyResourceStatuses(data);
+    }
+    this.#updateCachedResources();
 
     // Refresh talent tree
     const tree = game.system.tree;
@@ -1600,14 +1602,13 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Display changes to the Actor as scrolling combat text.
-   * @private
    */
-  _displayScrollingStatus(changed, {statusText}={}) {
-    if ( !changed.system?.attributes ) return;
+  #displayScrollingStatus(changed, {statusText}={}) {
+    if ( !changed.system?.resources ) return;
     const tokens = this.getActiveTokens(true);
     if ( !tokens.length ) return;
     for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
-      if ( changed.system.attributes[resourceName]?.value === undefined ) continue;
+      if ( changed.system.resources[resourceName]?.value === undefined ) continue;
 
       // Get change data
       const resource = SYSTEM.RESOURCES[resourceName];
@@ -1642,13 +1643,13 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    * @private
    */
-  async _applyAttributeStatuses(data) {
-    const attrs = data?.system?.attributes || {};
-    if ( ("health" in attrs) || ("wounds" in attrs) ) {
+  async #applyResourceStatuses(data) {
+    const r = data?.system?.resources || {};
+    if ( ("health" in r) || ("wounds" in r) ) {
       await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated });
       await this.toggleStatusEffect("dead", {active: this.isDead});
     }
-    if ( ("morale" in attrs) || ("madness" in attrs) ) {
+    if ( ("morale" in r) || ("madness" in r) ) {
       await this.toggleStatusEffect("broken", {active: this.isBroken});
       await this.toggleStatusEffect("insane", {active: this.isInsane});
     }
@@ -1660,7 +1661,7 @@ export default class CrucibleActor extends Actor {
    * Update the cached resources for this actor.
    * @private
    */
-  _updateCachedResources() {
+  #updateCachedResources() {
     this._cachedResources = Object.entries(this.system.resources).reduce((obj, [id, {value}]) => {
       obj[id] = value;
       return obj;
@@ -1669,7 +1670,7 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  _replenishResources(data) {
+  #replenishResources(data) {
     const levelChange = foundry.utils.hasProperty(data, "system.advancement.level");
     const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => {
       return foundry.utils.hasProperty(data, `system.abilities.${k}`);
@@ -1677,4 +1678,3 @@ export default class CrucibleActor extends Actor {
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
   }
 }
-

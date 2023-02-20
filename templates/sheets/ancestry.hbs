@@ -2,10 +2,10 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
+        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img">
         <div class="header-content flexrow">
             <h1 class="title">
-                <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
+                <input name="name" type="text" value="{{source.name}}" placeholder="Item Name">
             </h1>
         </div>
     </header>
@@ -37,8 +37,8 @@
             <div class="form-fields">
                 {{#each skills}}
                 <label class="checkbox">
-                    <input type="checkbox" name="system.skills" value="{{this.id}}" {{checked this.checked}}/>
-                    {{this.name}}
+                    <input type="checkbox" name="system.skills" value="{{this.id}}" {{checked this.checked}}>
+                    {{this.label}}
                 </label>
                 {{/each}}
             </div>

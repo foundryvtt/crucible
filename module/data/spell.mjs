@@ -34,6 +34,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
     this.defense = CrucibleSpell.#prepareDefense(this);
     this.damage = CrucibleSpell.#prepareDamage(this, options);
     this.target = CrucibleSpell.#prepareTarget(this);
+    this.status = {};
     if ( this.parent ) this.parent.prepareSpell(this);
   }
 

@@ -413,12 +413,15 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const actor = this.actor;
     state.clear();
 
+    // Classify the number of signature nodes that have been purchased
+    const signatures = CrucibleTalentNode.getSignatureTalents(actor);
+
     // Recursive testing function
     function updateBatch(nodes, defaultState=states.UNLOCKED) {
       const next = [];
       for ( const node of nodes ) {
         if ( state.has(node) ) continue;
-        const s = node.getState(actor) ?? defaultState;
+        const s = node.getState(actor, signatures) ?? defaultState;
         const twin = node.twinNode;
 
         // Record State

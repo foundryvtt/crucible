@@ -402,7 +402,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Assert that the action can be used based on its tags
     try {
-      this.#can();
+      action.#can();
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -416,7 +416,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Pre-execution steps
-    this.#pre(targets)
+    action.#pre(targets)
 
     // Require a spell configuration dialog
     const pool = new StandardCheck(action.usage.bonuses);
@@ -623,7 +623,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @throws      An error if the action cannot be taken
    */
   #can() {
-    const attrs = this.#actor.system.attributes;
+    const r = this.#actor.system.resources;
 
     // Cannot spend action
     if ( this.focusCost && this.#actor.statuses.has("paralyzed" ) ) {
@@ -633,10 +633,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cannot afford action cost
-    if ( this.actionCost > attrs.action.value ) {
+    if ( this.actionCost > r.action.value ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: this.#actor.name,
-        resource: game.i18n.localize("ATTRIBUTES.Action"),
+        resource: SYSTEM.RESOURCES.action.label,
         action: this.name
       }));
     }
@@ -649,10 +649,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cannot afford focus cost
-    if ( this.focusCost > attrs.focus.value ) {
+    if ( this.focusCost > r.focus.value ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: this.#actor.name,
-        resource: game.i18n.localize("ATTRIBUTES.Focus"),
+        resource: SYSTEM.RESOURCES.focus.label,
         action: this.name
       }));
     }

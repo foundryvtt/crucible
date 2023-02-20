@@ -17,7 +17,7 @@ export function bleeding(actor, target, {damageType="piercing"}={}) {
     flags: {
       crucible: {
         dot: {
-          health: actor.attributes.dexterity.value,
+          health: actor.system.abilities.dexterity.value,
           damageType
         }
       }
@@ -35,8 +35,8 @@ export function burning(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.attributes.intellect.value,
-          morale: actor.attributes.intellect.value,
+          health: actor.system.abilities.intellect.value,
+          morale: actor.system.abilities.intellect.value,
           damageType: "fire"
         }
       }
@@ -55,7 +55,7 @@ export function chilled(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: Math.floor(actor.attributes.intellect.value / 2),
+          health: Math.floor(actor.system.abilities.intellect.value / 2),
           damageType: "frost"
         }
       }
@@ -73,7 +73,7 @@ export function corroding(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.attributes.intellect.value,
+          health: actor.system.abilities.intellect.value,
           damageType: "acid"
         }
       }
@@ -91,7 +91,7 @@ export function poisoned(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.attributes.intellect.value,
+          health: actor.system.abilities.intellect.value,
           damageType: "poison"
         }
       }
@@ -110,7 +110,7 @@ export function shocked(actor, target) {
     flags: {
       crucible: {
         dot: {
-          morale: Math.floor(actor.attributes.intellect.value / 2),
+          morale: Math.floor(actor.system.abilities.intellect.value / 2),
           damageType: "lightning"
         }
       }

@@ -1,5 +1,5 @@
 import StandardCheck from "./standard-check.js";
-import {RESOURCES, SYSTEM} from "../config/system.js";
+import {SYSTEM} from "../config/system.js";
 import ActionUseDialog from "./action-use-dialog.mjs";
 
 
@@ -99,7 +99,10 @@ export default class AttackRoll extends StandardCheck {
     }
 
     // Defense label
-    cardData.defenseType = SYSTEM.DEFENSES[this.data.defenseType].label;
+    const dt = this.data.defenseType;
+    if ( dt in SYSTEM.DEFENSES ) cardData.defenseType = SYSTEM.DEFENSES[dt].label;
+    else if ( dt in SYSTEM.SKILLS ) cardData.defenseType = SYSTEM.SKILLS[dt].label;
+    else cardData.defenseType = "DC";
 
     // Outcome label
     cardData.outcome = game.i18n.localize(this.constructor.RESULT_TYPE_LABELS[this.data.result]);
@@ -109,7 +112,7 @@ export default class AttackRoll extends StandardCheck {
       cardData.damageLabel = game.i18n.localize(this.data.damage.healing ? "DICE.Healing" : "DICE.Damage");
       cardData.baseLabel = game.i18n.format("DICE.DamageBase", {type: cardData.damageLabel});
       if ( this.data.damage.healing ) cardData.damageType = SYSTEM.RESOURCES[this.data.damage.healing].label;
-      else cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
+      else if ( this.data.damage.type ) cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
     }
     cardData.hasMultiplier = this.data.damage?.multiplier !== 1;
     return cardData;

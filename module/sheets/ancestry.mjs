@@ -12,7 +12,7 @@ export default class AncestrySheet extends ItemSheet {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "ancestry"],
-      template: `systems/${SYSTEM.id}/templates/sheets/ancestry.html`,
+      template: `systems/${SYSTEM.id}/templates/sheets/ancestry.hbs`,
       resizable: false,
       submitOnChange: false,
       closeOnSubmit: true

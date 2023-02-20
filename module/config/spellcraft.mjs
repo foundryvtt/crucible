@@ -141,7 +141,7 @@ export const GESTURES = Object.seal({
     name: "SPELL.GestureArrow",
     cost: {
       action: 2,
-      focus: 0
+      focus: 1
     },
     damage: {
       base: 10
@@ -266,6 +266,9 @@ export const GESTURES = Object.seal({
     hands: 0,
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "strength",
+    cost: {
+      focus: 1
+    },
     target: {
       type: "single",
       number: 1,
@@ -279,7 +282,7 @@ export const GESTURES = Object.seal({
     img: "icons/magic/light/hand-sparks-smoke-teal.webp",
     cost: {
       action: 1,
-      focus: 0
+      focus: 1
     },
     damage: {
       base: 4
