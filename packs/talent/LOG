@@ -1,8 +1,3 @@
-2023/02/19-21:01:30.155 ab70 Recovering log #188
-2023/02/19-21:01:30.159 ab70 Delete type=0 #188
-2023/02/19-21:01:30.159 ab70 Delete type=3 #186
-2023/02/19-21:01:42.669 24360 Level-0 table #193: started
-2023/02/19-21:01:42.669 24360 Level-0 table #193: 0 bytes OK
-2023/02/19-21:01:42.672 24360 Delete type=0 #191
-2023/02/19-21:01:42.674 24360 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/02/19-21:01:42.674 24360 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/19-21:04:57.790 24dec Recovering log #196
+2023/02/19-21:04:57.794 24dec Delete type=0 #196
+2023/02/19-21:04:57.795 24dec Delete type=3 #194
