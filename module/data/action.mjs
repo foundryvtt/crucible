@@ -453,7 +453,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // If the actor is in combat, incur the cost of the action that was performed
     if ( actor.combatant ) {
-      await actor.alterResources({action: -action.actionCost, focus: -action.focusCost}, action.usage.actorUpdates);
+      await actor.alterResources({
+        action: Math.min(-action.actionCost, 0),
+        focus: Math.min(-action.focusCost, 0)
+      }, action.usage.actorUpdates);
     }
     return results;
   }

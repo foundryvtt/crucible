@@ -1,15 +1,8 @@
-2023/02/19-09:19:47.128 2a570 Recovering log #180
-2023/02/19-09:19:47.132 2a570 Delete type=0 #180
-2023/02/19-09:19:47.132 2a570 Delete type=3 #179
-2023/02/19-20:49:31.369 2e98 Level-0 table #184: started
-2023/02/19-20:49:31.371 2e98 Level-0 table #184: 9268 bytes OK
-2023/02/19-20:49:31.373 2e98 Delete type=0 #182
-2023/02/19-20:49:31.376 2e98 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/02/19-20:49:31.378 2e98 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!shieldcharge0000' @ 577 : 1
-2023/02/19-20:49:31.378 2e98 Compacting 1@1 + 1@2 files
-2023/02/19-20:49:31.381 2e98 Generated table #185@1: 128 keys, 52062 bytes
-2023/02/19-20:49:31.381 2e98 Compacted 1@1 + 1@2 files => 52062 bytes
-2023/02/19-20:49:31.382 2e98 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/02/19-20:49:31.382 2e98 Delete type=2 #170
-2023/02/19-20:49:31.382 2e98 Delete type=2 #184
-2023/02/19-20:49:31.384 2e98 Manual compaction at level-1 from '!items!shieldcharge0000' @ 577 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/19-21:01:30.155 ab70 Recovering log #188
+2023/02/19-21:01:30.159 ab70 Delete type=0 #188
+2023/02/19-21:01:30.159 ab70 Delete type=3 #186
+2023/02/19-21:01:42.669 24360 Level-0 table #193: started
+2023/02/19-21:01:42.669 24360 Level-0 table #193: 0 bytes OK
+2023/02/19-21:01:42.672 24360 Delete type=0 #191
+2023/02/19-21:01:42.674 24360 Manual compaction at level-0 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/19-21:01:42.674 24360 Manual compaction at level-1 from '!items!anticipateharm00' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

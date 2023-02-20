@@ -1,3 +1,8 @@
-2023/02/19-09:17:53.242 2f4cc Recovering log #154
-2023/02/19-09:17:53.246 2f4cc Delete type=0 #154
-2023/02/19-09:17:53.246 2f4cc Delete type=3 #153
+2023/02/19-20:50:30.873 35640 Recovering log #159
+2023/02/19-20:50:30.877 35640 Delete type=0 #159
+2023/02/19-20:50:30.877 35640 Delete type=3 #157
+2023/02/19-21:00:29.065 2e98 Level-0 table #164: started
+2023/02/19-21:00:29.065 2e98 Level-0 table #164: 0 bytes OK
+2023/02/19-21:00:29.066 2e98 Delete type=0 #162
+2023/02/19-21:00:29.067 2e98 Manual compaction at level-0 from '!items!bastardsword0000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/02/19-21:00:29.070 2e98 Manual compaction at level-1 from '!items!bastardsword0000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
