@@ -211,26 +211,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Render the action to a chat message including contained rolls and results
-   * @param {CrucibleActor} actor       The actor performing the action
    * @param {ActionTarget[]} targets    The targets of the action
    * @param {Roll[]} rolls              Dice rolls associated with the action
    * @param {DocumentModificationContext} messageOptions  Context options for chat message creation
    * @returns {Promise<ChatMessage>}    The created chat message document
    */
-  async toMessage(actor, targets, rolls, messageOptions) {
-    targets = targets.map(t => {
-      return {name: t.name, uuid: t.uuid};
-    });
+  async toMessage(targets=[], rolls=[], messageOptions) {
+    const actor = this.#actor;
+    targets = targets.map(t => ({name: t.name, uuid: t.uuid}));
     const tags = this.getTags();
 
     // Render action template
     const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.html", {
       action: this,
-      actor: actor,
+      actor,
       activationTags: tags.activation,
       actionTags: tags.action,
       showTargets: this.target.type !== "self",
-      targets: targets
+      targets
     });
 
     // Create chat message
@@ -441,7 +439,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( action.target.type === "none" ) targets = [null];
     for ( let target of targets ) {
       const rolls = await this.#evaluateAction(actor, action, target);
-      await action.toMessage(actor, target ? [target] : [], rolls, {rollMode});
+      await action.toMessage(target ? [target] : [], rolls, {rollMode});
       results = results.concat(rolls);
     }
 
@@ -600,8 +598,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {number}              The total damage dealt
    */
   static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
-    const damage = (overflow * multiplier) + base + bonus;
-    return Math.clamped(damage - resistance, 1, 2 * damage);
+    const damage = Math.max((overflow * multiplier) + base + bonus, 1);
+    return Math.min(damage - resistance, 2 * damage);
   }
 
   /* -------------------------------------------- */
@@ -720,12 +718,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( "targetDistance" in data ) data.target.distance = data.targetDistance;
 
     // Affect
-    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    if ( data.affectAllies && data.affectEnemies ) data.target.scope = scopes.ALL;
-    else if ( data.affectEnemies ) data.target.scope = scopes.ENEMIES;
-    else if ( data.affectAllies ) data.target.scope = scopes.ALLIES;
-    else if ( data.target.type === "self" ) data.target.scope = scopes.SELF;
-    else data.target.scope = scopes.NONE;
+    if ( data.target.scope === undefined ) {
+      const scopes = SYSTEM.ACTION.TARGET_SCOPES;
+      if ( data.affectAllies && data.affectEnemies ) data.target.scope = scopes.ALL;
+      else if ( data.affectEnemies ) data.target.scope = scopes.ENEMIES;
+      else if ( data.affectAllies ) data.target.scope = scopes.ALLIES;
+      else if ( data.target.type === "self" ) data.target.scope = scopes.SELF;
+      else data.target.scope = scopes.NONE;
+      delete data.affectAllies;
+      delete data.affectEnemies;
+    }
 
     // Effects
     for ( const effectData of data.effects || [] ) {

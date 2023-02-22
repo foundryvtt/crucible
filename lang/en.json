@@ -214,6 +214,8 @@
 "RESOURCES.Action": "Action",
 "RESOURCES.Focus": "Focus",
 
+"RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
+
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",
 "SKILL.Untrained": "Untrained",
 "SKILL.Unspecialized": "Unspecialized",

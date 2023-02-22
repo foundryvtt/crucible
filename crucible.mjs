@@ -47,6 +47,7 @@ import StandardCheck from "./module/dice/standard-check.js";
 import AttackRoll from "./module/dice/attack-roll.mjs";
 
 // Canvas
+import CrucibleRuler from "./module/canvas/ruler.mjs";
 import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
 
 // Helpers
@@ -146,6 +147,9 @@ Hooks.once("init", async function() {
   // Status Effects
   CONFIG.statusEffects = statusEffects;
   CONFIG.specialStatusEffects.BLIND = "blinded";
+
+  // Canvas Configuration
+  CONFIG.Canvas.rulerClass = CrucibleRuler;
 
   // TODO HACK TOKEN ATTRIBUTES
   TokenDocument.getTrackedAttributes = function() {

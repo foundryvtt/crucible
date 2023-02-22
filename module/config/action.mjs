@@ -341,7 +341,7 @@ export const TAGS = {
     tag: "weakened",
     label: "ACTION.TagWeakened",
     tooltip: "ACTION.TagWeakenedTooltip",
-    prepare: (actor, action) => action.usage.bonuses.damageBonus -= 2,
+    prepare: (actor, action) => action.usage.bonuses.damageBonus -= 6,
   },
 
   acid: {

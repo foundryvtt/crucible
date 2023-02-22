@@ -27,6 +27,17 @@ export default class CrucibleCombat extends Combat {
   /* -------------------------------------------- */
 
   /** @override */
+  async _onStartRound() {
+    if ( this.turns.length < 2 ) return;
+    const first = this.turns[0];
+    await first.actor?.alterResources({morale: this.round});
+    const last = this.turns.at(-1);
+    await last.actor?.alterResources({morale: -this.round});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   async _onEndTurn(combatant) {
     return combatant.actor.onEndTurn();
   }
