@@ -159,7 +159,7 @@ export default class StandardCheckDialog extends Dialog {
 
   /** @inheritdoc */
   static async prompt(config={}) {
-    config.callback = html => this._onSubmit(html, config.options.pool);
+    config.callback = this.prototype._onSubmit;
     config.options.jQuery = false;
     config.rejectClose = false;
     return super.prompt(config);
@@ -170,14 +170,13 @@ export default class StandardCheckDialog extends Dialog {
   /**
    * Return dialog submission data as a form data object
    * @param {HTMLElement} html    The rendered dialog HTML
-   * @param {StandardCheck} pool  The check being submitted
    * @returns {StandardCheck}     The processed StandardCheck instance
    * @private
    */
-  static _onSubmit(html, pool) {
+  _onSubmit(html) {
     const form = html.querySelector("form");
     const fd = new FormDataExtended(form)
-    pool.initialize(fd.object);
-    return pool;
+    this.pool.initialize(fd.object);
+    return this.pool;
   }
 }

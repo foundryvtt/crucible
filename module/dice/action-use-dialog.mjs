@@ -65,4 +65,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _getTags() {
     return this.action.getTags();
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onSubmit(html) {
+    const form = html.querySelector("form");
+    const {boons, banes} = (new FormDataExtended(form, {readonly: true})).object;
+    Object.assign(this.action.usage.bonuses, {boons, banes});
+    return this.action;
+  }
 }

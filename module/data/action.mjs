@@ -1,8 +1,6 @@
 import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
-import CrucibleSpell from "./spell.mjs";
-import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
  * @typedef {Object} ActionTarget
@@ -22,9 +20,9 @@ import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 /**
  * @typedef {Object} ActionTarget
  * @property {string} type                  The type of target for the action in ACTION.TARGET_TYPES
- * @property {number} number                The number of targets affected or size of target template
- * @property {number} distance              The allowed distance between the actor and the target(s)
- * @property {number} scope                 The scope of creatures affected by an action
+ * @property {number} [number]              The number of targets affected or size of target template
+ * @property {number} [distance]            The allowed distance between the actor and the target(s)
+ * @property {number} [scope]               The scope of creatures affected by an action
  */
 
 /**
@@ -64,16 +62,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       condition: new fields.StringField(),
-      description: new fields.StringField(),
+      description: new fields.HTMLField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
       }),
-      spell: new fields.SchemaField({
-        rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
-        gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
-        inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
-      }, {required: false, initial: undefined}),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
@@ -86,77 +79,86 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
   }
 
-  /**
-   * Is this Action owned and prepared for a specific Actor?
-   * @type {CrucibleActor}
-   */
-  get actor() {
-    return this.#actor;
-  }
-  #actor;
-
-  /**
-   * Special action configuration from SYSTEM.ACTION.ACTIONS
-   * @type {object}
-   */
-  #config;
-
-  /**
-   * Dice roll bonuses which modify the usage of this action
-   * @type {{actorUpdates: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
-   */
-  usage = {};
-
-  /**
-   * If this Action involves the casting of a Spell, it is referenced here
-   * @type {CrucibleSpell|null}
-   */
-  spell;
-
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _configure({actor, ...options}) {
+    super._configure(options);
+
+    /**
+     * Is this Action owned and prepared for a specific Actor?
+     * @type {CrucibleActor}
+     */
+    Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
+
+    /**
+     * Special action configuration from SYSTEM.ACTION.ACTIONS
+     * @type {object}
+     */
+    Object.defineProperty(this, "config", {value: SYSTEM.ACTION.ACTIONS[this._source.id] || {}, writable: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _initialize(options) {
+    super._initialize(options);
+    this._prepareData();
+    if ( this.actor ) {
+      this._prepareForActor(this.actor);
+      this._prepare();
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /**
-   * Additional data preparation steps for the CrucibleAction.
+   * Prepare data for the Action.
+   * @protected
    */
-  prepareData(actor=null) {
+  _prepareData() {
 
-    // Special configuration
-    this.#actor = actor;
-    this.#config = SYSTEM.ACTION.ACTIONS[this.id] || {};
-
-    // Initialize usage data
-    this.usage = {
+    /**
+     * Dice roll bonuses which modify the usage of this action.
+     * This object is only initialized once and retained through future initialization workflows.
+     * @type {{actorUpdates: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
+     */
+    this.usage = this.usage || {
       actorUpdates: {},
       bonuses: {boons: 0, banes: 0, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
       context: {type: undefined, label: undefined, icon: undefined, tags: new Set()}
     };
 
-    // Configure action data
-    const source = this._source;
-    const item = this.parent?.parent;
-    this.name = source.name || item?.name;
-    this.img = source.img || item?.img;
-    this.tags = new Set([...item?.system.tags || [], ...source.tags]);
-
-    // Effective costs
-    this.actionCost = source.cost.action;
-    this.focusCost = source.cost.focus;
+    // Inherit Talent data
+    const talent = this.parent?.parent;
+    if ( talent ) {
+      this.name ||= talent.name;
+      this.img ||= talent.img;
+    }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare this Action to be used by a specific Actor
-   * @param {CrucibleActor} actor     The actor for whom this action is being prepared
-   * @param {object} bonuses          Special bonuses which apply to this Action usage
+   * Prepare this Action to be used by a specific Actor.
+   * @protected
    */
-  prepareForActor(actor, bonuses={}) {
-    this.prepareData(actor);
-    Object.assign(this.usage.bonuses, bonuses);
-    if ( actor?.statuses.has("broken") ) this.usage.bonuses.banes += 2;
-    this.#prepare(actor);
+  _prepareForActor() {
+    if ( this.actor.statuses.has("broken") ) this.usage.bonuses.banes += 2;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Bind an Action to a specific Actor.
+   * @param {CrucibleActor} actor     The Actor to which the action should be attached
+   * @returns {CrucibleAction}        This action, for chaining
+   */
+  bind(actor) {
+    Object.defineProperty(this, "actor", {value: actor, writable: false});
+    this.reset();
     return this;
   }
 
@@ -189,12 +191,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cost
-    if ( this.#actor ) {
-      if ( this.actionCost > 0 ) tags.activation.ap = `${this.actionCost}A`;
-      if ( this.focusCost > 0 ) tags.activation.fp = `${this.focusCost}F`;
+    if ( this.actor ) {
+      if ( this.cost.action > 0 ) tags.activation.ap = `${this.cost.action}A`;
+      if ( this.cost.focus > 0 ) tags.activation.fp = `${this.cost.focus}F`;
     } else {
-      if ( this.actionCost !== 0 ) tags.activation.ap = `${this.actionCost}A`;
-      if ( this.focusCost !== 0 ) tags.activation.fp = `${this.focusCost}F`;
+      if ( this.cost.action !== 0 ) tags.activation.ap = `${this.cost.action}A`;
+      if ( this.cost.action !== 0 ) tags.activation.fp = `${this.cost.focus}F`;
     }
     if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
 
@@ -217,7 +219,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<ChatMessage>}    The created chat message document
    */
   async toMessage(targets=[], rolls=[], messageOptions) {
-    const actor = this.#actor;
+    const actor = this.actor;
     targets = targets.map(t => ({name: t.name, uuid: t.uuid}));
     const tags = this.getTags();
 
@@ -240,7 +242,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       flags: {
         crucible: {
           action: this.id,
-          spell: this.spell?.id,
           isAttack: rolls.length,
           targets: targets
         }
@@ -261,12 +262,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Get the Actor and the Action
     const actor = ChatMessage.getSpeakerActor(message.speaker);
     let action = actor.actions[flags.action];
-    action = action?.clone({}, {parent: action.parent}) || null;
-    if ( flags.spell ) {
-      const [, rune, gesture, inflection] = flags.spell.split(".");
-      action.#applySpell({rune, gesture, inflection});
-    }
-    else action?.prepareForActor(actor);
+    action = action?.clone({}, {parent: action.parent, actor}) || null;
 
     // Get targets and group rolls by target
     const targets = new Map();
@@ -293,7 +289,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Action confirmation steps
-    await action.#confirm(outcomes);
+    await action._confirm(outcomes);
 
     // Apply damage
     await actor.onDealDamage(action, outcomes);
@@ -384,23 +380,52 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Execute this particular action
-   * @param {CrucibleActor} actor
-   * @param {number} banes
-   * @param {number} boons
+   * Display a configuration prompt which customizes the Action usage.
+   * @param {CrucibleActor[]} targets     Currently selected targets
+   * @returns {Promise<object|null>}      The results of the configuration dialog
+   */
+  async configure(targets) {
+    const pool = new StandardCheck(this.usage.bonuses);
+    return ActionUseDialog.prompt({options: {
+      action: this,
+      actor: this.actor,
+      pool,
+      targets
+    }});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Execute an Action.
+   * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {string} rollMode
    * @param {boolean} dialog
    * @returns {Promise<AttackRoll[]>}
    */
-  async use(actor, {banes=0, boons=0, rollMode, dialog=false}={}) {
+  async use({rollMode, dialog=false}={}) {
+    if ( !this.actor ) {
+      throw new Error("A CrucibleAction may not be used unless it is bound to an Actor");
+    }
+    //
+    const action = this.clone({}, {parent: this.parent, actor: this.actor});
+    return action._use({rollMode, dialog});
+  }
 
-    // Clone the derived action data which may be further transformed throughout the workflow
-    const action = this.clone({}, {parent: this.parent});
-    action.prepareForActor(actor, {banes, boons});
+  /* -------------------------------------------- */
+
+  /**
+   * Execute the cloned action.
+   * @param {string} rollMode
+   * @param {boolean} dialog
+   * @returns {Promise<AttackRoll[]>}
+   * @private
+   */
+  async _use({rollMode, dialog=false}={}) {
 
     // Assert that the action can be used based on its tags
     try {
-      action.#can();
+      this._can();
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -408,53 +433,43 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Assert that required targets are designated
     let targets = [];
     try {
-      targets = action._acquireTargets(actor);
+      targets = this._acquireTargets();
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
 
     // Pre-execution steps
-    action.#pre(targets)
+    this._pre(targets)
 
-    // Require a spell configuration dialog
-    const pool = new StandardCheck(action.usage.bonuses);
-    if ( action.tags.has("spell") ) {
-      if ( dialog || !action.spell ) {
-        const response = await SpellCastDialog.prompt({options: {action, actor, pool, targets}});
-        if ( !response ) return [];
-        action.#applySpell(response);
-        targets = action._acquireTargets(actor); // Reacquire for spell
-      }
-    }
-
-    // Normal action configuration
-    else if ( dialog ) {
-      const response = await ActionUseDialog.prompt({options: {action, actor, pool, targets}});
-      if ( response === null ) return [];
-      Object.assign(action.usage.bonuses, {boons: response.data.boons, banes: response.data.banes});
+    // Prompt for action configuration
+    if ( dialog ) {
+      const configuration = await this.configure(targets);
+      if ( configuration === null ) return [];  // Dialog closed
+      if ( configuration.targets ) targets = configuration.targets;
     }
 
     // Iterate over every designated target
     let results = [];
-    if ( action.target.type === "none" ) targets = [null];
+    if ( this.target.type === "none" ) targets = [null];
     for ( let target of targets ) {
-      const rolls = await this.#evaluateAction(actor, action, target);
-      await action.toMessage(target ? [target] : [], rolls, {rollMode});
+      const rolls = await this._roll(target?.actor);
+      await this._post(target?.actor, rolls);
+      await this.toMessage(target ? [target] : [], rolls, {rollMode});
       results = results.concat(rolls);
     }
 
     // Apply effects if no dice rolls were involved
-    if ( !results.length && action.effects ) {
-      await action.#confirm();
-      await action.confirmEffects(targets);
+    if ( !results.length && this.effects ) {
+      await this._confirm();
+      await this.confirmEffects(targets);
     }
 
     // If the actor is in combat, incur the cost of the action that was performed
-    if ( actor.combatant ) {
-      await actor.alterResources({
-        action: Math.min(-action.actionCost, 0),
-        focus: Math.min(-action.focusCost, 0)
-      }, action.usage.actorUpdates);
+    if ( this.actor.combatant ) {
+      await this.actor.alterResources({
+        action: Math.min(-this.cost.action, 0),
+        focus: Math.min(-this.cost.focus, 0)
+      }, this.usage.actorUpdates);
     }
     return results;
   }
@@ -462,76 +477,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Apply a configured spell as the Action being performed.
-   * @param {CrucibleActor} actor     The actor casting the spell
-   * @param {object} formData         SpellCastDialog form submission data
-   */
-  #applySpell(formData) {
-
-    // Create Spell
-    const {boons, banes, damageType, ...spellData} = formData;
-    this._source.spell = {}; // FIXME bit of a hack
-    const spell = new CrucibleSpell(spellData, {parent: this.#actor, damageType});
-
-    // Update Action
-    this.updateSource({
-      name: spell.name,
-      img: spell.img,
-      description: spell.description,
-      cost: spell.cost,
-      spell: spell.toObject(),
-      target: spell.target,
-    });
-    Object.defineProperty(this, "spell", {value: spell, writable: false, enumerable: false});
-
-    // Update derived Action data
-    this.prepareForActor(this.#actor);
-    Object.assign(this.usage.bonuses, {boons, banes});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Evaluate an action, constructing an array of Roll instances it produces.
-   * @param {CrucibleActor} actor         The actor performing the action
-   * @param {CrucibleAction} action       The action being performed
-   * @param {Token|null} target           A Token target or null
-   * @returns {Promise<StandardCheck[]>}  Performed rolls
-   */
-  async #evaluateAction(actor, action, target) {
-    const config = SYSTEM.ACTION.ACTIONS[action.id] || {};
-
-    // Translate action tags which define a "roll" operation into dice rolls
-    const rolls = await Promise.all(action.tags.reduce((promises, tag) => {
-      const at = SYSTEM.ACTION.TAGS[tag];
-      if ( at.roll instanceof Function ) {
-        const roll = at.roll(actor, action, target?.actor);
-        if ( roll instanceof Promise ) promises.push(roll);
-      }
-      return promises;
-    }, []));
-    if ( config.roll instanceof Function ) await config.roll(actor, action, target?.actor, rolls);
-
-    // Perform post-roll operations for actions which define a "post" operation
-    for ( const tag of action.tags ) {
-      const at = SYSTEM.ACTION.TAGS[tag];
-      if ( at.post instanceof Function ) {
-        await at.post(actor, action, target?.actor, rolls);
-      }
-    }
-    if ( config.post instanceof Function ) await config.post(actor, action, target?.actor, rolls);
-    return rolls;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Acquire the targets for an action activation. For each target track both the Token and the Actor.
-   * @param {CrucibleActor} actor     The Actor using the action.
    * @returns {ActionTarget[]}
    * @private
    */
-  _acquireTargets(actor) {
+  _acquireTargets() {
     if ( !canvas.ready ) return [];
     const userTargets = game.user.targets;
     const mapTokenTargets = t => {
@@ -550,7 +500,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // AOE pulse
       case "pulse":
-        const actorTokens = actor.getActiveTokens(true);
+        const actorTokens = this.actor.getActiveTokens(true);
         if ( !actorTokens.length ) return [];
         const origin = actorTokens[0];
         const r = this.target.distance * canvas.dimensions.size;
@@ -563,7 +513,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Self-target
       case "self":
-        return actor.getActiveTokens(true).map(mapTokenTargets);
+        return this.actor.getActiveTokens(true).map(mapTokenTargets);
 
       // Single targets
       case "single":
@@ -607,12 +557,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * A generator which provides the test conditions for action lifecycle.
    * @returns {Generator<Object|*, void, *>}
+   * @protected
    */
-  * #tests() {
+  * _tests() {
     for ( const t of this.tags ) {
       yield SYSTEM.ACTION.TAGS[t];
     }
-    yield this.#config;
+    yield this.config;
   }
 
   /* -------------------------------------------- */
@@ -620,48 +571,49 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Test whether an action can be performed.
    * @throws      An error if the action cannot be taken
+   * @protected
    */
-  #can() {
-    const r = this.#actor.system.resources;
+  _can() {
+    const r = this.actor.system.resources;
 
     // Cannot spend action
-    if ( this.focusCost && this.#actor.statuses.has("paralyzed" ) ) {
+    if ( this.cost.focus && this.actor.statuses.has("paralyzed" ) ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotSpendAction", {
-        name: this.#actor.name
+        name: this.actor.name
       }))
     }
 
     // Cannot afford action cost
-    if ( this.actionCost > r.action.value ) {
+    if ( this.cost.action > r.action.value ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
-        name: this.#actor.name,
+        name: this.actor.name,
         resource: SYSTEM.RESOURCES.action.label,
         action: this.name
       }));
     }
 
     // Cannot spend focus
-    if ( this.focusCost && this.#actor.statuses.has("broken" ) ) {
+    if ( this.cost.focus && this.actor.statuses.has("broken" ) ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
-        name: this.#actor.name
+        name: this.actor.name
       }))
     }
 
     // Cannot afford focus cost
-    if ( this.focusCost > r.focus.value ) {
+    if ( this.cost.focus > r.focus.value ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
-        name: this.#actor.name,
+        name: this.actor.name,
         resource: SYSTEM.RESOURCES.focus.label,
         action: this.name
       }));
     }
 
     // Test each action tag
-    for ( const test of this.#tests() ) {
+    for ( const test of this._tests() ) {
       if ( !(test.can instanceof Function) ) continue;
-      const can = test.can(this.#actor, this);
+      const can = test.can(this.actor, this);
       if ( can === false ) throw new Error(game.i18n.format("ACTION.WarningCannotUseTag", {
-        name: this.#actor.name,
+        name: this.actor.name,
         action: this.name,
         tag: test.label || ""
       }));
@@ -672,10 +624,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Preparation, the first step in the Action life-cycle.
+   * @protected
    */
-  #prepare() {
-    for ( const test of this.#tests() ) {
-      if ( test.prepare instanceof Function ) test.prepare(this.#actor, this);
+  _prepare() {
+    for ( const test of this._tests() ) {
+      if ( test.prepare instanceof Function ) test.prepare(this.actor, this);
     }
   }
 
@@ -683,10 +636,46 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Pre-execution steps.
+   * @protected
    */
-  #pre(targets) {
-    for ( const test of this.#tests() ) {
-      if ( test.pre instanceof Function ) test.pre(this.#actor, this, targets);
+  _pre(targets) {
+    for ( const test of this._tests() ) {
+      if ( test.pre instanceof Function ) test.pre(this.actor, this, targets);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle execution of dice rolls associated with the Action
+   * @param {CrucibleActor} target
+   * @returns {Promise<AttackRoll[]>}
+   * @protected
+   */
+  async _roll(target) {
+    const rolls = [];
+    for ( const test of this._tests() ) {
+      if ( test.roll instanceof Function ) {
+        const roll = await test.roll(this.actor, this, target);
+        if ( roll instanceof Array ) rolls.push(...roll);
+        else if ( roll ) rolls.push(roll);
+      }
+    }
+    return rolls;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle post-roll modification of the Rolls array
+   * @param {CrucibleActor} target
+   * @param {AttackRoll[]} rolls
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _post(target, rolls) {
+    for ( const test of this._tests() ) {
+      if ( test.post instanceof Function ) await test.post(this.actor, this, target, rolls);
     }
   }
 
@@ -695,11 +684,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Action-specific steps when the outcome is confirmed by a GM user.
    * @param {Map<CrucibleActor, DamageOutcome>} [outcomes]    A mapping of damage outcomes which occurred
+   * @protected
    */
-  async #confirm(outcomes) {
-    for ( const test of this.#tests() ) {
+  async _confirm(outcomes) {
+    for ( const test of this._tests() ) {
       if ( !(test.confirm instanceof Function) ) continue
-      await test.confirm(this.#actor, this, outcomes);
+      await test.confirm(this.actor, this, outcomes);
     }
   }
 

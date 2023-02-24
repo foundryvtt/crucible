@@ -20,7 +20,7 @@ export default {
   "defend": {
     prepare: (actor, action) => {
       if ( actor.talentIds.has("bulwark000000000") && actor.equipment.weapons.shield && !actor.system.status.hasMoved ) {
-        action.actionCost -= 1;
+        action.cost.action -= 1;
         action.usage.actorUpdates["system.status.hasMoved"] = true;
       }
     },
@@ -58,7 +58,7 @@ export default {
   "offhand-strike": {
     prepare: (actor, action) => {
       const {basicStrike, offhandStrike} = actor.system.status;
-      if ( basicStrike && !offhandStrike ) action.actionCost = 0;
+      if ( basicStrike && !offhandStrike ) action.cost.action = 0;
     },
     post: async (actor, action, target) => action.usage.actorUpdates["system.status.offhandStrike"] = true
   },

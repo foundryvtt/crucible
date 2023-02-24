@@ -98,7 +98,8 @@ export default class HeroSheet extends ActorSheet {
 
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
-      return {id: a.id, name: a.name, img: a.img, tags: a.getTags().activation, totalCost: a.actionCost + a.focusCost}
+      const tags = a.getTags().activation;
+      return {id: a.id, name: a.name, img: a.img, tags, totalCost: a.cost.action + a.cost.focus}
     }).sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
 
     // Spellcraft

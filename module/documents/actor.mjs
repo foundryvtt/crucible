@@ -2,6 +2,7 @@ import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.js"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../data/action.mjs";
+import CrucibleSpell from "../data/spell.mjs";
 
 /**
  * @typedef {Object} ActorEquippedWeapons
@@ -228,14 +229,6 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  prepareDerivedData() {
-    this._prepareStatuses();
-  }
-
-
-  /* -------------------------------------------- */
-
   /**
    * Classify the Items in the Actor's inventory to identify current equipment.
    * @returns {ActorEquipment}
@@ -389,16 +382,18 @@ export default class CrucibleActor extends Actor {
 
     // Default actions that every character can do
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
-      const a = new CrucibleAction(ad);
-      if ( (a.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
-      if ( (a.id === "reload") && !this.equipment.weapons.reload ) continue;
-      this.actions[a.id] = a.prepareForActor(this);
+      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+      if ( (ad.id === "reload") && !this.equipment.weapons.reload ) continue;
+      const action = ad.tags.includes("spell")
+        ? CrucibleSpell.getDefault(this, ad)
+        : new CrucibleAction(ad, {actor: this});
+      this.actions[action.id] = action;
     }
 
     // Actions that are unlocked through an owned Talent
-    for ( let t of this.itemTypes.talent ) {
-      for ( let a of t.actions ) {
-        this.actions[a.id] = a.prepareForActor(this);
+    for ( let talent of this.itemTypes.talent ) {
+      for ( const action of talent.actions ) {
+        this.actions[action.id] = action.bind(this);
       }
     }
   }
@@ -595,7 +590,7 @@ export default class CrucibleActor extends Actor {
   async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-    return action.use(this, {dialog: true, ...options});
+    return action.use({dialog: true, ...options});
   }
 
   /* -------------------------------------------- */
@@ -637,18 +632,17 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Cast a certain spell against a target
-   * @param {CrucibleAction} action
+   * @param {CrucibleSpell} spell
    * @param {CrucibleActor} target
    * @param {object} bonuses
    * @returns {Promise<void>}
    */
-  async castSpell(action, target) {
+  async castSpell(spell, target) {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
-    const spell = action.spell;
 
     // Modify boons and banes against this target
-    const defenseType = action.spell.defense;
-    let {boons, banes} = action.usage.bonuses;
+    const defenseType = spell.defense;
+    let {boons, banes} = spell.usage.bonuses;
     const targetBoons = this.getTargetBoons(target, defenseType)
     boons += targetBoons.boons;
     banes += targetBoons.banes;
@@ -684,8 +678,8 @@ export default class CrucibleActor extends Actor {
     }
 
     // Record actor updates
-    for ( const [k, v] of Object.entries(spell.status) ) action.usage.actorUpdates[`system.status.${k}`] = v;
-    action.usage.actorUpdates["flags.crucible.lastSpell"] = spell.id;
+    for ( const [k, v] of Object.entries(spell.status) ) spell.usage.actorUpdates[`system.status.${k}`] = v;
+    spell.usage.actorUpdates["flags.crucible.lastSpell"] = spell.id;
     return roll;
   }
 

@@ -67,6 +67,19 @@ export const TARGET_SCOPES = new Enum({
  */
 function weaponAttack(type="mainhand") {
   return {
+    prepare: (actor, action) => {
+      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      if ( !w ) return;
+      action.cost.action += (w?.system.actionCost || 0);
+      Object.assign(action.usage.bonuses, w.system.actionBonuses);
+      Object.assign(action.usage.context, {
+        type: "weapons",
+        label: "Weapon Tags",
+        icon: "fa-solid fa-swords",
+        hasDice: true
+      });
+      action.usage.context.tags.add(w.name);
+    },
     can: actor => {
       if ( (type === "twoHanded") && !actor.equipment.weapons.twoHanded ) {
         throw new Error("You must have a two-handed weapon equipped")
@@ -76,19 +89,6 @@ function weaponAttack(type="mainhand") {
       if ( w.config.category.reload && !w.system.loaded ) {
         throw new Error("Your weapon requires reloading in order to attack")
       }
-    },
-    prepare: (actor, action) => {
-      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
-      if ( !w ) return; // TODO - we probably shouldn't even attempt data preparation if can is false
-      action.actionCost += (w?.system.actionCost || 0);
-      Object.assign(action.usage.bonuses, w.system.actionBonuses);
-      Object.assign(action.usage.context, {
-        type: "weapons",
-        label: "Weapon Tags",
-        icon: "fa-solid fa-swords",
-        hasDice: true
-      });
-      action.usage.context.tags.add(w.name);
     },
     roll: async (actor, action, target) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
@@ -211,8 +211,8 @@ export const TAGS = {
       if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare: (actor, action) => {
-      if ( !actor.system.status.hasMoved && actor.system.status.canFreeMove ) action.actionCost += 1;
-      if ( actor.statuses.has("slowed") ) action.actionCost += 1;
+      if ( !actor.system.status.hasMoved && actor.system.status.canFreeMove ) action.cost.action += 1;
+      if ( actor.statuses.has("slowed") ) action.cost.action += 1;
     },
     roll: (actor, action, target) => action.usage.actorUpdates["system.status.hasMoved"] = true
   },
@@ -227,7 +227,7 @@ export const TAGS = {
       const canFreeReact = actor.talentIds.has("gladiator0000000") && !actor.system.status.gladiator
         && (action.tags.has("mainhand") || action.tags.has("offhand"));
       if ( canFreeReact ) {
-        action.focusCost = -Infinity;
+        action.cost.focus = -Infinity;
         action.usage.actorUpdates["system.status.gladiator"] = true;
       }
     }

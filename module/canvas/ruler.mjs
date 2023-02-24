@@ -13,7 +13,7 @@ export default class CrucibleRuler extends Ruler {
 
     // Determine movement costs
     const {canFreeMove, hasMoved} = actor.system.status;
-    const firstCost = token.actor.actions.move.actionCost;
+    const firstCost = token.actor.actions.move.cost.action;
     const firstDistance = hasMoved && actor.talentIds.has("distancerunner00") ? 5 : 4;
     const nextCost = !hasMoved && canFreeMove ? firstCost + 1 : firstCost;
     const nextDistance = actor.talentIds.has("distancerunner00") ? 5 : 4;
@@ -45,9 +45,9 @@ export default class CrucibleRuler extends Ruler {
     if ( this.#totalDistance > 0 ) {
 
       // Chat Message
-      const action = token.actor.actions.move.clone({name: `Move ${this.#totalDistance} Spaces (x${this.#actionUses})`});
-      action.prepareForActor(token.actor);
-      action.actionCost = this.#actionCost;
+      const moveName = `Move ${this.#totalDistance} Spaces (x${this.#actionUses})`;
+      const action = token.actor.actions.move.clone({name: moveName}, {actor: token.actor});
+      action.cost.action = this.#actionCost;
       await action.toMessage();
 
       // Spend Action

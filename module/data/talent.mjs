@@ -59,14 +59,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       console.warn(`Talent ${this.parent.name} "${this.parent.id}" does not define a valid talent tree node`);
       node = {requirements: {}}
     }
-
-    // Prepare prerequisites
     this.prerequisites = CrucibleTalent.preparePrerequisites(node.requirements, this.requirements);
-
-    // Prepare Action data
-    for ( let a of this.actions ) {
-      a.prepareData();
-    }
   }
 
   /* -------------------------------------------- */

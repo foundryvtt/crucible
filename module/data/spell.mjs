@@ -1,41 +1,78 @@
+import CrucibleAction from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
+import StandardCheck from "../dice/standard-check.js";
+import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
  * Data and functionality that represents a Spell in the Crucible spellcraft system.
+ *
+ * @property {CrucibleRune} rune
+ * @property {CrucibleGesture} gesture
+ * @property {CrucibleInflection} inflection
+ * @property {number} composition
+ * @property {string} damageType
  */
-export default class CrucibleSpell extends foundry.abstract.DataModel {
+export default class CrucibleSpell extends CrucibleAction {
   static defineSchema() {
     const fields = foundry.data.fields;
-    return {
-      name: new fields.StringField(),
-      img: new fields.FilePathField({categories: ["IMAGE"]}),
-      description: new fields.HTMLField(),
-      rune: new fields.StringField({required: true, choices: SYSTEM.SPELL.RUNES}),
-      gesture: new fields.StringField({required: true, choices: SYSTEM.SPELL.GESTURES}),
-      inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS})
-    }
+    const schema = super.defineSchema();
+    schema.rune = new fields.StringField({required: true, choices: SYSTEM.SPELL.RUNES});
+    schema.gesture = new fields.StringField({required: true, choices: SYSTEM.SPELL.GESTURES});
+    schema.inflection = new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS});
+    schema.composition = new fields.NumberField({choices: Object.values(this.COMPOSITION_STATES)});
+    schema.damageType = new fields.StringField({required: false, choices: SYSTEM.DAMAGE_TYPES, initial: undefined});
+    return schema;
+  }
+
+  /**
+   * Spell composition states.
+   * @enum {number}
+   */
+  static COMPOSITION_STATES = {
+    NONE: 0,
+    COMPOSING: 1,
+    COMPOSED: 2
   }
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
-  _initialize(options) {
-    super._initialize(options);
-    this.id = ["spell", this.rune, this.gesture, this.inflection].filterJoin(".");
+  /** @inheritDoc */
+  _prepareData() {
+    super._prepareData();
+
+    // Spell Composition
     this.rune = SYSTEM.SPELL.RUNES[this.rune];
     this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
     this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
-    this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
-    this.name ||= CrucibleSpell.#getDefaultName(this);
-    this.img ||= this.rune.img;
+
+    // Composed Spell Data
+    if ( this.composition >= CrucibleSpell.COMPOSITION_STATES.COMPOSING ) {
+      this.id = ["spell", this.rune.id, this.gesture.id, this.inflection?.id].filterJoin(".");
+      this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
+      this.name = CrucibleSpell.#getName(this);
+      this.img = this.rune.img;
+    }
+
+    // Derived Spell Attributes
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
     this.cost = CrucibleSpell.#prepareCost(this);
     this.defense = CrucibleSpell.#prepareDefense(this);
-    this.damage = CrucibleSpell.#prepareDamage(this, options);
+    this.damage = CrucibleSpell.#prepareDamage(this);
     this.target = CrucibleSpell.#prepareTarget(this);
     this.status = {};
+
+    // Prepare for Actor
     if ( this.parent ) this.parent.prepareSpell(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareForActor() {
+    super._prepareForActor();
+    this.actor.prepareSpell(this);
   }
 
   /* -------------------------------------------- */
@@ -46,6 +83,13 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
    * @returns {ActionCost}            Configured cost data
    */
   static #prepareCost(spell) {
+
+    // Placeholder cost before composition
+    if ( spell.composition === this.COMPOSITION_STATES.NONE ) {
+      return {action: 1, focus: 1};
+    }
+
+    // Composed spell cost
     const cost = {...spell.gesture.cost};
     if ( spell.inflection ) {
       cost.action += spell.inflection.cost.action;
@@ -76,16 +120,14 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
   /**
    * Prepare damage information for the spell from its components.
    * @param {CrucibleSpell} spell     The spell being prepared
-   * @param {object} options          Options which modify damage preparation
-   * @param {string} [options.damageType]   A special damage type to apply to this spell
    * @returns {DamageData}
    */
-  static #prepareDamage(spell, {damageType}={}) {
+  static #prepareDamage(spell) {
     return {
       base: spell.gesture.damage.base ?? 0,
       bonus: spell.gesture.damage.bonus ?? 0,
       multiplier: 1,
-      type: damageType ?? spell.rune.damageType,
+      type: spell.damageType ?? spell.rune.damageType,
       healing: spell.rune.restoration ? spell.rune.resource : null
     };
   }
@@ -99,6 +141,11 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
    */
   static #prepareTarget(spell) {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
+
+    // No target until composition is complete
+    if ( spell.composition < this.COMPOSITION_STATES.COMPOSED ) return {type: "none"};
+
+    // Specific targeting requirements for the composed spell
     const target = {...spell.gesture.target};
     switch ( target.type ) {
       case "none":
@@ -123,7 +170,7 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
    * Prepare a default name for the spell if a custom name has not been designated.
    * @type {string}
    */
-  static #getDefaultName({rune, gesture, inflection, nameFormat}={}) {
+  static #getName({rune, gesture, inflection, nameFormat}={}) {
     let name = "";
     switch ( nameFormat ) {
       case SYSTEM.SPELL.NAME_FORMATS.NOUN:
@@ -138,27 +185,65 @@ export default class CrucibleSpell extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
-  /*  Rendering                                   */
+  /*  Action Execution Methods                    */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  clone(updateData, context) {
+    updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
+    return super.clone(updateData, context);
+  }
+
   /* -------------------------------------------- */
 
   /**
-   * Obtain an object of tags which describe the Spell.
-   * @returns {ActionTags}
+   * Prepare the default Cast Spell action, populated with the most recently cast spell components.
+   * @param {CrucibleActor} actor       The Actor for whom the spell is being prepared
+   * @param {object} spellData          Initial data for the spell
+   * @returns {CrucibleSpell}           The constructed CrucibleSpell
    */
+  static getDefault(actor, spellData) {
+    const {runes, gestures} = actor.grimoire;
+    const spellId = actor.getFlag("crucible", "lastSpell") || "";
+    const [, rune, gesture, inflection] = spellId.split(".");
+    spellData = foundry.utils.mergeObject(spellData, {
+      rune: spellId ? rune : runes[0].id,
+      gesture: spellId ? gesture : gestures[0].id,
+      inflection: spellId ? inflection : undefined,
+      composition: this.COMPOSITION_STATES.NONE
+    });
+    return new this(spellData, {actor});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async configure(targets) {
+    const pool = new StandardCheck(this.usage.bonuses);
+    const spell = await SpellCastDialog.prompt({options: {
+      action: this,
+      actor: this.actor,
+      pool,
+      targets
+    }});
+    if ( spell === null ) return null;
+
+    // Finalize composition
+    this.updateSource({composition: CrucibleSpell.COMPOSITION_STATES.COMPOSED});
+
+    // Re-acquire targets
+    targets = this._acquireTargets();
+    return {action: spell, targets};
+  }
+
+
+  /* -------------------------------------------- */
+  /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   getTags() {
-    const tags = {
-      activation: {},
-      action: {},
-      context: {}
-    };
-
-    // Activation Tags
-    tags.activation.hands = `${this.gesture.hands}H`;
-    if ( this.cost.action > 0 ) tags.activation.ap = `${this.cost.action}A`;
-    if ( this.cost.focus > 0 ) tags.activation.fp = `${this.cost.focus}F`;
-    if ( !(this.cost.action || this.cost.focus)) tags.activation.free = "Free";
-
-    // Action Tags
+    const tags = super.getTags();
     const damageTypeLabel = this.damage.healing ? SYSTEM.RESOURCES[this.damage.healing].label
       : SYSTEM.DAMAGE_TYPES[this.damage.type].label;
     tags.action.damage = `${this.damage.base} ${damageTypeLabel}`;
