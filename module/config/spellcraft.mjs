@@ -267,7 +267,11 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "strength",
     cost: {
+      action: 2,
       focus: 1
+    },
+    damage: {
+      base: 12
     },
     target: {
       type: "single",

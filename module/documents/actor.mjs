@@ -149,7 +149,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return (this.system.resources.health.value === 0) && (this.system.resources.wounds.value < this.system.resources.wounds.max);
+    return this.system.resources.health.value === 0;
   }
 
   /**
@@ -157,7 +157,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isBroken() {
-    return (this.system.resources.morale.value === 0) && (this.system.resources.madness.value < this.system.resources.madness.max);
+    return this.system.resources.morale.value === 0;
   }
 
   /**
@@ -228,17 +228,30 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  prepareDerivedData() {
+    this._prepareStatuses();
+  }
+
+
+  /* -------------------------------------------- */
+
   /**
    * Classify the Items in the Actor's inventory to identify current equipment.
    * @returns {ActorEquipment}
    * @private
    */
   _prepareEquipment({armor, weapon, accessory}={}) {
-    return {
+    const equipment = {
       armor: this._prepareArmor(armor),
       weapons: this._prepareWeapons(weapon),
       accessories: {} // TODO: Equipped Accessories
     };
+
+    // Flag some equipment-related statuses
+    equipment.canFreeMove = !equipment.armor.system.properties.has("bulky") || this.talentIds.has("armoredefficienc");
+    equipment.unarmored = equipment.armor.system.config.category === "unarmored"
+    return equipment;
   }
 
   /* -------------------------------------------- */
@@ -422,7 +435,7 @@ export default class CrucibleActor extends Actor {
       // Register spellcraft knowledge
       if ( t.system.rune ) {
         this.grimoire.runes.add(SYSTEM.SPELL.RUNES[t.system.rune]);
-        if ( !this.grimoire.gestures.size ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
+        this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
       }
       if ( t.system.gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[t.system.gesture]);
       if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
@@ -598,8 +611,6 @@ export default class CrucibleActor extends Actor {
       // Gesture: Strike
       case "strike":
         const mh = this.equipment.weapons.mainhand;
-        spell.cost.action = mh.system.actionCost;
-        spell.damage.base = mh.system.damage.weapon;
         spell.scaling = new Set([...mh.config.category.scaling.split("."), spell.rune.scaling]);
         spell.target.distance = mh.config.category.ranged ? 10 : 1;
 
@@ -996,8 +1007,14 @@ export default class CrucibleActor extends Actor {
 
     // Recover resources
     const updates = {"system.status": null}
-    if ( !this.isIncapacitated ) updates["system.resources.action.value"] = this.system.resources.action.max;
-    return this.update(updates);
+    const resources = {};
+    if ( !this.isIncapacitated ) {
+      const r = this.system.resources;
+      resources.action = r.action.max;
+      if ( this.talentIds.has("lesserregenerati") && !this.isIncapacitated ) resources.health = 1;
+      if ( this.talentIds.has("irrepressiblespi") && !this.isBroken ) resources.morale = 1;
+    }
+    return this.alterResources(resources, updates);
   }
 
   /* -------------------------------------------- */
@@ -1054,6 +1071,12 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /**
+   * Test whether an ActiveEffect is expired.
+   * @param {ActiveEffect} effect       The effect being tested
+   * @param {boolean} start             Is it the start of the round?
+   * @returns {boolean}
+   */
   #isEffectExpired(effect, start=true) {
     const {startRound, rounds} = effect.duration;
     if ( !Number.isNumeric(rounds) ) return false;
@@ -1061,7 +1084,7 @@ export default class CrucibleActor extends Actor {
     const remaining = (startRound + rounds) - game.combat.round;
 
     // Self effects expire at the beginning of your next turn
-    if ( isSelf ) return remaining <=0;
+    if ( isSelf ) return start && (remaining <= 0);
 
     // Effects from others expire at the end of your turn
     else {
@@ -1646,11 +1669,11 @@ export default class CrucibleActor extends Actor {
   async #applyResourceStatuses(data) {
     const r = data?.system?.resources || {};
     if ( ("health" in r) || ("wounds" in r) ) {
-      await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated });
+      await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated && !this.isDead });
       await this.toggleStatusEffect("dead", {active: this.isDead});
     }
     if ( ("morale" in r) || ("madness" in r) ) {
-      await this.toggleStatusEffect("broken", {active: this.isBroken});
+      await this.toggleStatusEffect("broken", {active: this.isBroken && !this.isInsane });
       await this.toggleStatusEffect("insane", {active: this.isInsane});
     }
   }

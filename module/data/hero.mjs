@@ -313,9 +313,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     }
 
     // Monk
-    if ( talentIds.has("monk000000000000") && (equipment.armor.config.category.id === "unarmored") ) {
-      defenses.dodge.bonus += 2;
-    }
+    if ( talentIds.has("monk000000000000") && equipment.unarmored ) defenses.dodge.bonus += 2;
 
     // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];

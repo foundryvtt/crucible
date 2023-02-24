@@ -122,6 +122,14 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.dualWield
   },
 
+  // Requires One-Handed weapon
+  onehand: {
+    tag: "onehand",
+    label: "ACTION.TagOneHand",
+    tooltip: "ACTION.TagOneHandTooltip",
+    can: (actor, action) => !actor.equipment.weapons.twoHanded
+  },
+
   // Requires Dexterity Weapon
   finesse: {
     tag: "finesse",
@@ -175,7 +183,7 @@ export const TAGS = {
     tag: "unarmored",
     label: "ACTION.TagUnarmored",
     tooltip: "ACTION.TagUnarmoredTooltip",
-    can: (actor, action) => actor.equipment.armor.system.category === "unarmored"
+    can: (actor, action) => actor.equipment.unarmored
   },
 
   // Requires Free Hand
@@ -203,9 +211,7 @@ export const TAGS = {
       if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare: (actor, action) => {
-      const canFreeMove = !actor.system.status.hasMoved
-        && (!actor.equipment.armor.system.properties.has("bulky") || actor.talentIds.has("armoredefficienc"));
-      if ( !canFreeMove ) action.actionCost += 1;
+      if ( !actor.system.status.hasMoved && actor.system.status.canFreeMove ) action.actionCost += 1;
       if ( actor.statuses.has("slowed") ) action.actionCost += 1;
     },
     roll: (actor, action, target) => action.usage.actorUpdates["system.status.hasMoved"] = true
@@ -290,17 +296,6 @@ export const TAGS = {
   /* -------------------------------------------- */
   /*  Attack Modifiers                            */
   /* -------------------------------------------- */
-
-  chain: {
-    tag: "chain",
-    label: "ACTION.TagChain",
-    tooltip: "ACTION.TagChainTooltip",
-    post: async function(actor, action, target, rolls) {
-      if ( !rolls.every(r => r.isSuccess ) ) return;
-      const chain = await actor.equipment.weapons.mainhand.attack(target, action.usage.bonuses);
-      rolls.push(chain);
-    }
-  },
 
   deadly: {
     tag: "deadly",

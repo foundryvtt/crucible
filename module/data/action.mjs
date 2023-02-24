@@ -510,9 +510,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       return promises;
     }, []));
-    if ( config.roll instanceof Function ) {
-      rolls.push(await config.roll(actor, action, target?.actor));
-    }
+    if ( config.roll instanceof Function ) await config.roll(actor, action, target?.actor, rolls);
 
     // Perform post-roll operations for actions which define a "post" operation
     for ( const tag of action.tags ) {

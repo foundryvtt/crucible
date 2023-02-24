@@ -1,13 +1,13 @@
 <aside id="crucible-talent-hud" class="app crucible">
     <header id="talent-hud-header" class="flexcol">
         <div class="tags">
-            <label>Node:</label>
+            <label>{{id}}</label>
             {{#each tags as |tag|}}
             <span class="tag {{tag.class}}">{{tag.label}}</span>
             {{/each}}
         </div>
         <div class="tags">
-            <label>Prerequisites:</label>
+            <label>Prerequisites</label>
             {{#each prerequisites as |req|}}
             <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
             {{/each}}

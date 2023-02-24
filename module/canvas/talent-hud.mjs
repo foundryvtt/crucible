@@ -60,6 +60,7 @@ export default class CrucibleTalentHUD extends Application {
     else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
     const reqs = CrucibleTalent.preparePrerequisites(node.requirements, {});
     return {
+      id: node.id,
       tags,
       prerequisites: CrucibleTalent.testPrerequisites(actor, reqs)
     };

@@ -12,9 +12,7 @@ export default class CrucibleRuler extends Ruler {
     if ( !actor || !actor.combatant ) return true;  // Don't track cost outside of combat
 
     // Determine movement costs
-    const hasMoved = actor.system.status.hasMoved;
-    const armor = actor.equipment.armor;
-    const canFreeMove = !armor.system.properties.has("bulky") || actor.talentIds.has("armoredefficienc");
+    const {canFreeMove, hasMoved} = actor.system.status;
     const firstCost = token.actor.actions.move.actionCost;
     const firstDistance = hasMoved && actor.talentIds.has("distancerunner00") ? 5 : 4;
     const nextCost = !hasMoved && canFreeMove ? firstCost + 1 : firstCost;
@@ -44,7 +42,7 @@ export default class CrucibleRuler extends Ruler {
 
   /** @override */
   async _preMove(token) {
-    if ( this.#actionCost > 0 ) {
+    if ( this.#totalDistance > 0 ) {
 
       // Chat Message
       const action = token.actor.actions.move.clone({name: `Move ${this.#totalDistance} Spaces (x${this.#actionUses})`});
@@ -53,7 +51,11 @@ export default class CrucibleRuler extends Ruler {
       await action.toMessage();
 
       // Spend Action
-      await token.actor.alterResources({action: -this.#actionCost}, {}, {statusText: "Movement"});
+      await token.actor.alterResources(
+        {action: -this.#actionCost},
+        {"system.status.hasMoved": true},
+        {statusText: "Movement"}
+      );
       this.#actionCost = undefined;
     }
   }

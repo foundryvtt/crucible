@@ -50,8 +50,6 @@
 "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for {action}!",
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
 
-"ACTION.TagChain": "Attack Chain",
-"ACTION.TagChainTooltip":  "This action chains multiple attacks together, gaining a final bonus attack if all attacks are successful.",
 "ACTION.TagDeadly": "Deadly",
 "ACTION.TagDeadlyTooltip":  "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
 "ACTION.TagDifficult": "Difficult",
@@ -80,6 +78,8 @@
 "ACTION.TagMainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
 "ACTION.TagMovement": "Movement",
 "ACTION.TagMovementTooltip": "This action allows you to move as part of its activation, including a reduced action point cost for a free movement action per round.",
+"ACTION.TagOneHand": "One-Handed",
+"ACTION.TagOneHandTooltip": "This action requires wielding a one-handed weapon.",
 "ACTION.TagRanged": "Ranged",
 "ACTION.TagRangedTooltip": "This action requires wielding a ranged weapon to perform.",
 "ACTION.TagReaction": "Reaction",

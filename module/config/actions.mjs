@@ -5,10 +5,37 @@ export default {
       await effect.delete();
     }
   },
+  "cadence": {
+    roll: async function(actor, action, target, rolls) {
+      let lastRoll = rolls[0];
+      for ( let i=1; i<=3; i++ ) {
+        if ( !lastRoll.isSuccess ) break;
+        const bonuses = foundry.utils.deepClone(action.usage.bonuses);
+        bonuses.boons += i;
+        lastRoll = await actor.equipment.weapons.mainhand.attack(target, bonuses);
+        rolls.push(lastRoll);
+      }
+    }
+  },
+  "defend": {
+    prepare: (actor, action) => {
+      if ( actor.talentIds.has("bulwark000000000") && actor.equipment.weapons.shield && !actor.system.status.hasMoved ) {
+        action.actionCost -= 1;
+        action.usage.actorUpdates["system.status.hasMoved"] = true;
+      }
+    },
+  },
   "distract": {
     pre: (actor, action) => {
       action.usage.bonuses.multiplier = 0;
       action.usage.bonuses.base = 1;
+    }
+  },
+  "flurry": {
+    roll: async function(actor, action, target, rolls) {
+      if ( !rolls.every(r => r.isSuccess ) ) return;
+      const chain = await actor.equipment.weapons.mainhand.attack(target, action.usage.bonuses);
+      rolls.push(chain);
     }
   },
   "second-wind": {
