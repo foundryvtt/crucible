@@ -13,11 +13,12 @@
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="form-group stacked">
-            <label>Attribute Scaling</label>
-            <div class="form-fields attributes">
+            <label>Ability Scaling ({{abilitySum}})</label>
+            <div class="form-fields abilities">
                 {{#each abilities as |ability id|}}
                 <label>
-                    <input type="number" name="system.attributes.{{id}}" value="{{lookup @root.source.system.attributes id}}">
+                    <input type="number" name="system.abilities.{{id}}" placeholder="-"
+                           value="{{lookup @root.source.system.abilities id}}">
                     {{ability.label}}
                 </label>
                 {{/each}}
@@ -25,7 +26,7 @@
         </div>
 
         <div class="form-group stacked">
-            <label>Resistance Scaling</label>
+            <label>Resistance Scaling ({{resistanceSum}})</label>
             <div class="form-fields resistances">
                 {{#each damageTypes as |damage id|}}
                     <label>

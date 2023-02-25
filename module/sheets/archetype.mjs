@@ -36,7 +36,9 @@ export default class ArchetypeSheet extends ItemSheet {
       item: this.document,
       source: this.document.toObject(),
       abilities: SYSTEM.ABILITIES,
-      damageTypes: SYSTEM.DAMAGE_TYPES
+      abilitySum: Object.values(this.object.system.abilities).reduce((t, n) => t + (n ?? 8), 0),
+      damageTypes: SYSTEM.DAMAGE_TYPES,
+      resistanceSum: Object.values(this.object.system.resistances).reduce((t, n) => t + n, 0)
     };
   }
   /* -------------------------------------------- */

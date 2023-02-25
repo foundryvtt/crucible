@@ -26,7 +26,7 @@ export default class AdversarySheet extends ActorSheet {
     context.systemData = context.data.system;
 
     // Abilities
-    context.abilityScores = this._formatAttributes(this.actor.system.attributes);
+    context.abilityScores = this._formatAbilities(this.actor.system.abilities);
 
     // Resources
     context.resources = this._formatResources(this.actor.system.resources);
@@ -40,16 +40,16 @@ export default class AdversarySheet extends ActorSheet {
 
   /**
    * Format ability scores for display on the Actor sheet.
-   * @param {object} attributes
+   * @param {object} abilities
    * @return {object[]}
    * @private
    */
-  _formatAttributes(attributes) {
+  _formatAbilities(abilities) {
     return Object.entries(SYSTEM.ABILITIES).map(e => {
       let [a, ability] = e;
       const attr = foundry.utils.deepClone(ability);
       attr.id = a;
-      attr.value = attributes[a].value;
+      attr.value = abilities[a].value;
       return attr;
     });
   }

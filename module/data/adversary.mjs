@@ -14,67 +14,71 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     const requiredInteger = {required: true, nullable: false, integer: true};
-    const defenseField = (opts={}) => new fields.SchemaField({
-      base: new fields.NumberField({...requiredInteger, initial: 0, ...opts}),
+    const schema = {};
+
+    // Ability Scores
+    const abilityField = label => new fields.SchemaField({
+      bonus: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+    }, {label});
+    schema.abilities = new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
+      obj[ability.id] = abilityField(ability.label);
+      return obj;
+    }, {}));
+
+    // Defenses
+    const defenseField = label => new fields.SchemaField({
       bonus: new fields.NumberField({...requiredInteger, initial: 0})
-    });
-    const resourceField = (opts={}) => new fields.SchemaField({
-      value: new fields.NumberField({...requiredInteger, initial: 0, min: 0, ...opts})
+    }, {label});
+    schema.defenses = new fields.SchemaField(Object.values(SYSTEM.DEFENSES).reduce((obj, defense) => {
+      if ( defense.id !== "physical" ) obj[defense.id] = defenseField(defense.label);
+      return obj;
+    }, {}));
+
+    // Details
+    schema.details = new fields.SchemaField({
+      archetype: new fields.SchemaField({
+        name: new fields.StringField(),
+        ...CrucibleArchetype.defineSchema()
+      }, {required: false, initial: undefined}),
+      level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
+      category: new fields.StringField({required: true, choices: CrucibleAdversary.CATEGORIES, initial: "humanoid"}),
+      threat: new fields.StringField({required: true, choices: CrucibleAdversary.THREATS, initial: "normal"}),
+      biography: new fields.SchemaField({
+        public: new fields.HTMLField(),
+        private: new fields.HTMLField()
+      })
     });
 
-    return {
-      attributes: new fields.SchemaField({
-        strength: resourceField({max: 20}),
-        toughness: resourceField({max: 20}),
-        dexterity: resourceField({max: 20}),
-        intellect: resourceField({max: 20}),
-        presence: resourceField({max: 20}),
-        wisdom: resourceField({max: 20})
-      }),
-      defenses: new fields.SchemaField({
-        armor: defenseField({min: 0}),
-        dodge: defenseField({min: 0}),
-        parry: defenseField({min: 0}),
-        block: defenseField({min: 0}),
-        fortitude: defenseField({min: 0}),
-        reflex: defenseField({min: 0}),
-        willpower: defenseField({min: 0}),
-      }),
-      resources: new fields.SchemaField({
-        health: resourceField(),
-        morale: resourceField(),
-        action: resourceField(),
-        focus: resourceField(),
-      }),
-      resistances: new fields.SchemaField({
-        bludgeoning: defenseField(),
-        piercing: defenseField(),
-        slashing: defenseField(),
-        poison: defenseField(),
-        acid: defenseField(),
-        fire: defenseField(),
-        frost: defenseField(),
-        lightning: defenseField(),
-        psychic: defenseField(),
-        radiant: defenseField(),
-        unholy: defenseField(),
-        void: defenseField()
-      }),
-      details: new fields.SchemaField({
-        archetype: new fields.SchemaField({
-          name: new fields.StringField(),
-          ...CrucibleArchetype.defineSchema()
-        }, {required: false, initial: undefined}),
-        level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-        category: new fields.StringField({required: true, choices: CrucibleAdversary.CATEGORIES, initial: "humanoid"}),
-        threat: new fields.StringField({required: true, choices: CrucibleAdversary.THREATS, initial: "normal"}),
-        biography: new fields.SchemaField({
-          public: new fields.HTMLField(),
-          private: new fields.HTMLField()
-        })
-      })
-    }
+    // Resistances
+    schema.resistances = new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
+      obj[damageType.id] = defenseField(damageType.label);
+      return obj;
+    }, {}));
+
+    // Resource Pools
+    const resourceField = label => new fields.SchemaField({
+      value: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+    }, {label});
+    schema.resources = new fields.SchemaField(Object.values(SYSTEM.RESOURCES).reduce((obj, resource) => {
+      if ( resource.type === "active" ) obj[resource.id] = resourceField(resource.label);
+      return obj
+    }, {}));
+
+    // Skills
+    const skillField = label => new fields.SchemaField({
+      rank: new fields.NumberField({...requiredInteger, initial: 0, max: 5})
+    }, {label});
+    schema.skills = new fields.SchemaField(Object.values(SYSTEM.SKILLS).reduce((obj, skill) => {
+      obj[skill.id] = skillField(skill.label);
+      return obj;
+    }, {}));
+
+    // Status
+    schema.status = new fields.ObjectField({nullable: true, initial: null});
+    return schema;
   }
+
+  /* -------------------------------------------- */
 
   /**
    * The categories that an adversary may have
@@ -125,18 +129,18 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   #applyArchetype() {
     const {archetype, level, threat} = this.details;
     const factor = CrucibleAdversary.THREAT_SCALING[threat] || 1;
+    const effectiveLevel = (6 + level) * factor;
 
-    // Scale attributes
-    for ( const a of Object.keys(this.attributes) ) {
-      const scale = archetype.attributes[a];
-      this.attributes[a].value = scale === 0 ? 0 : Math.min(1 + Math.floor(((level + 3) * factor) / scale), 20);
+    // Scale abilities
+    for ( const a of Object.keys(this.abilities) ) {
+      const scale = archetype.abilities[a];
+      this.abilities[a].value = (scale === null) ? 0 : Math.floor(effectiveLevel / scale);
     }
 
     // Scale resistances
     for ( const r of Object.keys(this.resistances) ) {
       const scale = archetype.resistances[r];
-      this.resistances[r].base = scale === 0 ? 0
-        : Math.floor(((level + 4) * factor) / Math.abs(scale)) * Math.sign(scale);
+      this.resistances[r].base = scale === 0 ? 0 : Math.floor(effectiveLevel / Math.abs(scale)) * Math.sign(scale);
     }
   }
 
@@ -145,7 +149,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   /** @override */
   prepareDerivedData() {
     this.#prepareResources();
-    this.#prepareMagicDefenses();
+    this.#prepareSaveDefenses();
     this.#prepareResistances();
   }
 
@@ -157,7 +161,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   #prepareResources() {
     const l = this.details.level;
     const r = this.resources;
-    const a = this.attributes;
+    const a = this.abilities;
 
     // Health
     r.health.max = (4 * (l + a.toughness.value)) + (2 * (a.strength.value + a.dexterity.value));
@@ -181,11 +185,11 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   /**
    * Prepare non-physical defense scores.
    */
-  #prepareMagicDefenses() {
+  #prepareSaveDefenses() {
     for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( k === "physical" ) continue;
+      if ( sd.type !== "save" ) continue;
       let d = this.defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.attributes[a].value, SYSTEM.PASSIVE_BASE);
+      d.base = sd.abilities.reduce((t, a) => t + this.abilities[a].value, SYSTEM.PASSIVE_BASE);
       d.total = d.base + d.bonus;
     }
   }

@@ -959,15 +959,20 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Archetype Sheet                           *
  * ------------------------------------------ */
-.crucible.sheet.archetype .attributes {
+.crucible.sheet.archetype .abilities {
   justify-content: space-between;
+}
+.crucible.sheet.archetype .abilities > label {
+  flex: 0 0 60px;
+  padding: 0;
 }
 .crucible.sheet.archetype .resistances {
   justify-content: space-between;
   flex-wrap: wrap;
 }
 .crucible.sheet.archetype .resistances > label {
-  flex: 0 0 80px;
+  flex: 0 0 72px;
+  padding: 0;
 }
 /** ----------------------------------------- *
  *  Armor Sheet                               *
