@@ -34,9 +34,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     const ability = actor.getAbilityBonus([...spell.scaling]);
 
     // Merge context
-    const context = super.getData();
-    return Object.assign(context, {
-      spell: spell,
+    return foundry.utils.mergeObject(super.getData(), {
       hasDice: true,
       ability, runes, gestures, inflections,
       chooseDamageType: spell.rune.id === "kinesis",

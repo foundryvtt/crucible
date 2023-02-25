@@ -196,6 +196,32 @@ export const CATEGORIES = {
       block: 4
     },
     actionCost: 1
+  },
+  talisman1: {
+    id: "talisman1",
+    label: "WEAPON.Talisman1",
+    hands: 1,
+    main: false,
+    off: true,
+    ranged: false,
+    scaling: "presence",
+    damage: {
+      base: 2
+    },
+    actionCost: 1
+  },
+  talisman2: {
+    id: "talisman2",
+    label: "WEAPON.Talisman2",
+    hands: 2,
+    main: true,
+    off: false,
+    ranged: false,
+    scaling: "presence",
+    damage: {
+      base: 6
+    },
+    actionCost: 1
   }
 }
 

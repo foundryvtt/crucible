@@ -107,7 +107,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     super._initialize(options);
     this._prepareData();
     if ( this.actor ) {
-      this._prepareForActor(this.actor);
+      this._prepareForActor();
       this._prepare();
     }
   }
@@ -123,10 +123,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     /**
      * Dice roll bonuses which modify the usage of this action.
      * This object is only initialized once and retained through future initialization workflows.
-     * @type {{actorUpdates: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
+     * @type {{actorUpdates: object, actorFlags: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
      */
     this.usage = this.usage || {
       actorUpdates: {},
+      actorFlags: {},
       bonuses: {boons: 0, banes: 0, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
       context: {type: undefined, label: undefined, icon: undefined, tags: new Set()}
     };
@@ -191,12 +192,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cost
+    const cost = this._trueCost || this.cost;
     if ( this.actor ) {
-      if ( this.cost.action > 0 ) tags.activation.ap = `${this.cost.action}A`;
-      if ( this.cost.focus > 0 ) tags.activation.fp = `${this.cost.focus}F`;
+      if ( cost.action > 0 ) tags.activation.ap = `${cost.action}A`;
+      if ( cost.focus > 0 ) tags.activation.fp = `${cost.focus}F`;
     } else {
-      if ( this.cost.action !== 0 ) tags.activation.ap = `${this.cost.action}A`;
-      if ( this.cost.action !== 0 ) tags.activation.fp = `${this.cost.focus}F`;
+      if ( cost.action !== 0 ) tags.activation.ap = `${cost.action}A`;
+      if ( cost.action !== 0 ) tags.activation.fp = `${cost.focus}F`;
     }
     if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
 
@@ -228,7 +230,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       action: this,
       actor,
       activationTags: tags.activation,
+      hasActionTags: !foundry.utils.isEmpty(tags.action),
       actionTags: tags.action,
+      context: this.usage.context,
       showTargets: this.target.type !== "self",
       targets
     });
@@ -296,6 +300,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Apply effects
     const effects = await action.confirmEffects(targets.keys());
+    for ( const outcome of outcomes.values() ) effects.push(...outcome.effects);
     flagsUpdate.effects = effects.map(e => e.uuid);
 
     // Record confirmation
@@ -338,19 +343,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async #createEffect(effectData, target) {
     effectData = foundry.utils.mergeObject({
+      _id: SYSTEM.EFFECTS.getEffectId(this.id),
       label: this.name,
       description: this.description,
       icon: this.img,
-      origin: this.actor.uuid,
-      flags: {
-        crucible: {
-          action: this.id
-        }
-      }
+      origin: this.actor.uuid
     }, effectData)
 
     // Update an existing effect
-    const existing = target.effects.find(e => e.getFlag("crucible", "action") === this.id);
+    const existing = target.effects.get(effectData._id);
     if ( existing ) {
       effectData.duration ||= {};
       effectData.duration.startRound = game.combat?.round || null;
@@ -358,7 +359,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Create a new effect
-    return ActiveEffect.create(effectData, {parent: target});
+    return ActiveEffect.create(effectData, {parent: target, keepId: true});
   }
 
   /* -------------------------------------------- */
@@ -450,27 +451,39 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Iterate over every designated target
     let results = [];
-    if ( this.target.type === "none" ) targets = [null];
-    for ( let target of targets ) {
-      const rolls = await this._roll(target?.actor);
-      await this._post(target?.actor, rolls);
-      await this.toMessage(target ? [target] : [], rolls, {rollMode});
-      results = results.concat(rolls);
+    if ( this.usage.context.hasDice ) {
+      for ( let target of targets ) {
+        const rolls = await this._roll(target?.actor);
+        await this._post(target?.actor, rolls);
+        await this.toMessage(target ? [target] : [], rolls, {rollMode});
+        results = results.concat(rolls);
+      }
     }
 
-    // Apply effects if no dice rolls were involved
-    if ( !results.length && this.effects ) {
+    // Actions which do not produce rolls
+    else {
+      await this.toMessage(targets);
+    }
+
+    // Apply effects immediately if no dice rolls were involved
+    if ( !results.length ) {
       await this._confirm();
       await this.confirmEffects(targets);
     }
 
     // If the actor is in combat, incur the cost of the action that was performed
     if ( this.actor.combatant ) {
+      const updateData = foundry.utils.mergeObject(this.usage.actorUpdates, {
+        "flags.crucible": this.usage.actorFlags
+      }, {inplace: false});
       await this.actor.alterResources({
         action: Math.min(-this.cost.action, 0),
         focus: Math.min(-this.cost.focus, 0)
-      }, this.usage.actorUpdates);
+      }, updateData);
     }
+
+    // Otherwise, apply Actor flags only
+    else await this.actor.update({"crucible.flags": this.usage.actorFlags});
     return results;
   }
 

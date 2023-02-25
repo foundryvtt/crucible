@@ -73,9 +73,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #initialize() {
 
-    // TODO Development mode
-    this.developmentMode = game.data.options.debug && game.user.isGM;
-
     // Create the HTML canvas element
     Object.defineProperty(this, "canvas", {value: document.createElement("canvas"), writable: false});
     this.canvas.id = "crucible-talent-tree";
@@ -275,7 +272,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @param {CrucibleActor} actor
    */
   async open(actor) {
-    if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.")
+    if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
+    this.developmentMode = !!CONFIG.debug.talentTree;
 
     // Draw the tree (once only)
     await this.draw();

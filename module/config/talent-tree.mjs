@@ -166,10 +166,22 @@ export default class CrucibleTalentNode {
       const twin = node.twinNode;
       if ( twin ) twin.talents.add(talent);
 
-      // Spellcraft Metadata
-      if ( talent.system.rune ) CONFIG.SYSTEM.SPELL.RUNES[talent.system.rune].img = talent.img;
-      if ( talent.system.gesture ) CONFIG.SYSTEM.SPELL.GESTURES[talent.system.gesture].img = talent.img;
-      if ( talent.system.inflection ) CONFIG.SYSTEM.SPELL.INFLECTIONS[talent.system.inflection].img = talent.img;
+      // Update Metadata
+      if ( talent.system.rune ) {
+        const rune = CONFIG.SYSTEM.SPELL.RUNES[talent.system.rune];
+        rune.img = talent.img;
+        rune.description = talent.system.description;
+      }
+      if ( talent.system.gesture ) {
+        const gesture = CONFIG.SYSTEM.SPELL.GESTURES[talent.system.gesture];
+        gesture.img = talent.img;
+        gesture.description = talent.system.description;
+      }
+      if ( talent.system.inflection ) {
+        const inflection = CONFIG.SYSTEM.SPELL.INFLECTIONS[talent.system.inflection];
+        inflection.img = talent.img;
+        inflection.description = talent.system.description;
+      }
     }
   }
 

@@ -351,6 +351,7 @@ export default class CrucibleActor extends Actor {
     weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
 
     // Special Properties
+    weapons.talisman = ["talisman1", "talisman2"].includes(mhCategory.id) || ("talisman1" === ohCategory.id);
     weapons.reload = mhCategory.reload || ohCategory.reload;
     weapons.slow = mh.system.properties.has("oversized") + oh?.system.properties.has("oversized");
     return weapons;
@@ -379,11 +380,13 @@ export default class CrucibleActor extends Actor {
    */
   _prepareActions() {
     this.actions = {};
+    const w = this.equipment.weapons;
 
     // Default actions that every character can do
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
       if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
-      if ( (ad.id === "reload") && !this.equipment.weapons.reload ) continue;
+      if ( (ad.id === "reload") && !w.reload ) continue;
+      if ( (ad.id === "refocus") && !w.talisman ) continue;
       const action = ad.tags.includes("spell")
         ? CrucibleSpell.getDefault(this, ad)
         : new CrucibleAction(ad, {actor: this});
@@ -394,6 +397,16 @@ export default class CrucibleActor extends Actor {
     for ( let talent of this.itemTypes.talent ) {
       for ( const action of talent.actions ) {
         this.actions[action.id] = action.bind(this);
+      }
+    }
+
+    // Most recently cast spell
+    if ( this.actions.cast ) {
+      const spellId = this.getFlag("crucible", "lastSpell") || "";
+      if ( spellId ) {
+        const [, rune, gesture, inflection] = spellId.split(".");
+        const lastSpell = this.actions.cast.clone({rune, gesture, inflection}, {actor: this});
+        this.actions[lastSpell.id] = lastSpell;
       }
     }
   }
@@ -596,41 +609,6 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Actor-specific spell preparation steps.
-   * @param {CrucibleSpell} spell   The spell being prepared
-   */
-  prepareSpell(spell) {
-    const s = this.system.status;
-    switch ( spell.gesture.id ) {
-
-      // Gesture: Strike
-      case "strike":
-        const mh = this.equipment.weapons.mainhand;
-        spell.scaling = new Set([...mh.config.category.scaling.split("."), spell.rune.scaling]);
-        spell.target.distance = mh.config.category.ranged ? 10 : 1;
-
-        // Spellblade Signature
-        if ( this.talentIds.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
-          spell.cost.action -= 1;
-          spell.status.spellblade = true;
-        }
-        break;
-
-      // Gesture: Arrow:
-      case "arrow":
-
-        // Arcane Archer Signature
-        if ( this.talentIds.has("arcanearcher0000") && s.rangedAttack && !s.arcaneArcher ) {
-          spell.cost.action -= 1;
-          spell.status.arcaneArcher = true;
-        }
-        break;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Cast a certain spell against a target
    * @param {CrucibleSpell} spell
    * @param {CrucibleActor} target
@@ -668,7 +646,7 @@ export default class CrucibleActor extends Actor {
         overflow: roll.overflow,
         multiplier: spell.damage.multiplier ?? 1,
         base: spell.damage.base,
-        bonus: spell.damage.bonus ?? 0,
+        bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
         resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
         resource: spell.rune.resource,
         type: spell.damage.type,
@@ -676,10 +654,6 @@ export default class CrucibleActor extends Actor {
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
-
-    // Record actor updates
-    for ( const [k, v] of Object.entries(spell.status) ) spell.usage.actorUpdates[`system.status.${k}`] = v;
-    spell.usage.actorUpdates["flags.crucible.lastSpell"] = spell.id;
     return roll;
   }
 
@@ -731,13 +705,14 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Restore all resource pools to their maximum value.
+   * @param {object} updateData     Additional update data to include in the rest operation
    * @returns {Promise<CrucibleActor>}
    */
-  async rest() {
+  async rest(updateData) {
     const r = this.system.resources;
     if ( r.wounds.value === r.wounds.max ) return this;
     if ( r.madness.value === r.madness.max ) return this;
-    return this.update(this._getRestData());
+    return this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
   }
 
   /* -------------------------------------------- */
@@ -893,6 +868,7 @@ export default class CrucibleActor extends Actor {
    * Additional steps taken when this Actor deals damage to other targets.
    * @param {CrucibleAction} action                           The action performed
    * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
+   * @returns {ActiveEffect[]}                                An array of ActiveEffect documents created
    */
   async onDealDamage(action, outcomes) {
 
@@ -917,8 +893,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Poisoner
-    if ( this.talentIds.has("poisoner00000000") &&
-      this.effects.find(e => e.getFlag("crucible", "action") === "poison-blades") ) {
+    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poison-blades")) ) {
       await this.#applyCriticalEffect("poisoned", action, outcomes);
     }
 
@@ -926,21 +901,18 @@ export default class CrucibleActor extends Actor {
     if ( this.talentIds.has("bloodletter00000") ) {
       const {mainhand, offhand} = this.equipment.weapons;
       const damageTypes = new Set(["piercing", "slashing"]);
-      if ( action.tags.has("mainhand") && damageTypes.has(mainhand.system.damageType) ) {
-        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType: mainhand.system.damageType});
-      }
-      else if ( action.tags.has("offhand") && damageTypes.has(offhand.system.damageType) ) {
-        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType: offhand.system.damageType});
+      if ( (action.tags.has("mainhand") && damageTypes.has(mainhand.system.damageType))
+        || (action.tags.has("offhand") && damageTypes.has(offhand.system.damageType)) ) {
+        const damageType = mainhand.system.damageType;
+        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType});
       }
     }
 
     // Concussive Blows
     if ( this.talentIds.has("concussiveblows0") ) {
       const {mainhand, offhand} = this.equipment.weapons;
-      if ( action.tags.has("mainhand") && (mainhand.system.damageType === "bludgeoning") ) {
-        await this.#applyCriticalEffect("staggered", action, outcomes);
-      }
-      else if ( action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning") ) {
+      if ( (action.tags.has("mainhand") && (mainhand.system.damageType === "bludgeoning"))
+        || (action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning")) ) {
         await this.#applyCriticalEffect("staggered", action, outcomes);
       }
     }
@@ -953,7 +925,7 @@ export default class CrucibleActor extends Actor {
       "surgeweaver00000": {rune: "lightning", effectName: "shocked"},
     }
     for ( const [talentId, {rune, effectName}] of Object.entries(elementalEffects) ) {
-      if ( this.talentIds.has(talentId) && action.spell?.rune.id === rune ) {
+      if ( this.talentIds.has(talentId) && (action.rune.id === rune) ) {
         await this.#applyCriticalEffect(effectName, action, outcomes);
       }
     }
@@ -970,15 +942,16 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async #applyCriticalEffect(effectName, action, outcomes, options={}) {
-    for ( const {target, critical} of outcomes.values() ) {
-      if ( !critical ) continue;
-      const effectData = SYSTEM.EFFECTS[effectName](this, target, options);
-      const existing = target.effects.get(effectData._id);
+    for ( const outcome of outcomes.values() ) {
+      if ( !outcome.critical ) continue;
+      outcome.effects ||= [];
+      const effectData = SYSTEM.EFFECTS[effectName](this, outcome.target, options);
+      const existing = outcome.target.effects.get(effectData._id);
       if ( existing ) {
         effectData.duration.startRound = game.combat?.round || null;
-        await existing.update(effectData);
+        outcome.effects.push(await existing.update(effectData));
       }
-      else await ActiveEffect.create(effectData, {parent: target, keepId: true});
+      else outcome.effects.push(await ActiveEffect.create(effectData, {parent: outcome.target, keepId: true}));
     }
   }
 

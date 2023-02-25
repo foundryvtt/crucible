@@ -211,10 +211,10 @@ export const TAGS = {
       if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare: (actor, action) => {
-      if ( !actor.system.status.hasMoved && actor.system.status.canFreeMove ) action.cost.action += 1;
+      if ( actor.system.status.hasMoved || !actor.equipment.canFreeMove ) action.cost.action += 1;
       if ( actor.statuses.has("slowed") ) action.cost.action += 1;
-    },
-    roll: (actor, action, target) => action.usage.actorUpdates["system.status.hasMoved"] = true
+      action.usage.actorUpdates["system.status.hasMoved"] = true
+    }
   },
 
   // Requires Reaction
@@ -241,6 +241,16 @@ export const TAGS = {
     tag: "spell",
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
+    prepare: (actor, action) => {
+      Object.assign(action.usage.context, {
+        type: "spell",
+        label: "Spell Tags",
+        icon: "fa-solid fa-sparkles"
+      });
+      action.usage.context.tags.add(`Rune: ${action.rune.name}`);
+      action.usage.context.tags.add(`Gesture: ${action.gesture.name}`);
+      if ( action.inflection ) action.usage.context.tags.add(action.inflection.name);
+    },
     roll: (actor, action, target) => {
       action.usage.actorUpdates["system.status.hasCast"] = true;
       return actor.castSpell(action, target)
@@ -533,6 +543,20 @@ export const DEFAULT_ACTIONS = Object.freeze([
         statuses: ["guarded"]
       }
     ],
+    tags: []
+  },
+  {
+    id: "refocus",
+    name: "Recover Focus",
+    img: "icons/magic/light/orb-shadow-blue.webp",
+    description: "Use your equipped Talisman to recover Focus.",
+    target: {
+      type: "self",
+      scope: 1
+    },
+    cost: {
+      action: 2
+    },
     tags: []
   },
   {

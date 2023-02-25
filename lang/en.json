@@ -624,6 +624,8 @@
 "WEAPON.Unarmed": "Unarmed",
 "WEAPON.ShieldLight": "Light Shield",
 "WEAPON.ShieldHeavy": "Heavy Shield",
+"WEAPON.Talisman1": "Talisman (1h)",
+"WEAPON.Talisman2": "Talisman (2h)",
 
 "WEAPON.HandsTwo": "Two-Handed",
 "WEAPON.HandsMain": "Main-Hand",

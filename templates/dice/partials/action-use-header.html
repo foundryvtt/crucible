@@ -24,14 +24,14 @@
     </div>
     {{/if}}
 
-    {{#if hasContextTags}}
+    {{#if context.tags.size}}
     <div class="flexrow">
         <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
-            <i class="{{action.context.icon}}"></i>
+            <i class="{{context.icon}}"></i>
         </label>
-        <div class="tags" data-tag-type="{{action.context.type}}">
-            {{#each action.context.tags as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+        <div class="tags" data-tag-type="{{context.type}}">
+            {{#each context.tags as |label|}}
+            <span class="tag">{{label}}</span>
             {{/each}}
         </div>
     </div>

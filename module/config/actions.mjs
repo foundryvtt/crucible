@@ -1,7 +1,9 @@
+import {SYSTEM} from "./system.js";
+
 export default {
   "beast-shape-revert": {
     confirm: async (actor, action, outcomes) => {
-      const effect = actor.effects.find(e => e.getFlag("crucible", "action") === "beast-shape");
+      const effect = actor.effects.get(SYSTEM.EFFECTS.getEffectId("beast-shape"));
       await effect.delete();
     }
   },
@@ -39,7 +41,7 @@ export default {
     }
   },
   "second-wind": {
-    post: async (actor, action, target) => {
+    confirm: async (actor, action, target) => {
       return actor.alterResources({health: actor.system.abilities.toughness.value}, {}, {statusText: action.name});
     }
   },
@@ -61,6 +63,14 @@ export default {
       if ( basicStrike && !offhandStrike ) action.cost.action = 0;
     },
     post: async (actor, action, target) => action.usage.actorUpdates["system.status.offhandStrike"] = true
+  },
+  "refocus": {
+    confirm: async (actor, action, target) => {
+      const {mainhand: mh, offhand: oh} = actor.equipment.weapons
+      const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
+      const focus = talisman.system.config.category.hands;
+      return actor.alterResources({focus}, {}, {statusText: action.name});
+    }
   },
   "uppercut": {
     can: (actor, action) => {

@@ -10,6 +10,7 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
+      description: new fields.HTMLField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
@@ -68,9 +69,23 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
     const tags = [
       `Tier ${this.tier}`,
       SYSTEM.ABILITIES[this.scaling].label,
-      `${this.damage.base} Damage`,
-      `${this.hands}H`
+
     ];
+
+    // Damage
+    if ( this.damage.base ) tags.push(`${this.damage.base} Damage`);
+
+    // Target
+    if ( this.target.type !== "none" ) {
+      let target = SYSTEM.ACTION.TARGET_TYPES[this.target.type].label;
+      if ( this.target.number > 1 ) target += ` ${this.target.number}`;
+      tags.push(target);
+    }
+
+    // Range
+    if ( this.target.distance ) tags.push(`Range ${this.target.distance}`);
+
+    // Cost
     if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);
     if ( this.cost.focus !== 0 ) tags.push(`${this.cost.focus}F`);
     return tags;

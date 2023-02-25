@@ -1,8 +1,8 @@
 <section class="action spell flexcol">
     <header class="action-header line-item">
         <div class="name">
-            <img class="icon large" src="{{spell.img}}">
-            <h3>{{spell.name}}</h3>
+            <img class="icon large" src="{{action.img}}">
+            <h3>{{action.name}}</h3>
         </div>
         <div class="tags" data-tag-type="activation">
             {{#each activationTags as |label tag|}}
@@ -18,6 +18,19 @@
         </label>
         <div class="tags" data-tag-type="action">
             {{#each actionTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if hasContextTags}}
+    <div class="flexrow">
+        <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
+            <i class="{{action.context.icon}}"></i>
+        </label>
+        <div class="tags" data-tag-type="{{action.context.type}}">
+            {{#each action.context.tags as |label tag|}}
             <span class="tag" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
@@ -41,7 +54,25 @@
         <label>{{localize "SPELL.ComponentRune"}}</label>
         <div class="form-fields">
             <select name="rune" class="component">
-                {{selectOptions runes selected=spell.rune.id nameAttr="id" labelAttr="name"}}
+                {{selectOptions runes selected=action.rune.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "SPELL.ComponentGesture"}}</label>
+        <div class="form-fields">
+            <select name="gesture" class="component">
+                {{selectOptions gestures selected=action.gesture.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "SPELL.ComponentInflection"}}</label>
+        <div class="form-fields">
+            <select name="inflection" class="component">
+                {{selectOptions inflections selected=action.inflection.id blank="" nameAttr="id" labelAttr="name"}}
             </select>
         </div>
     </div>
@@ -51,27 +82,9 @@
         <label>{{localize "SPELL.DamageType"}}</label>
         <div class="form-fields">
             <select name="damageType" class="component">
-                {{selectOptions damageTypes selected=spell.damage.type}}
+                {{selectOptions damageTypes selected=action.damage.type}}
             </select>
         </div>
     </div>
     {{/if}}
-
-    <div class="form-group">
-        <label>{{localize "SPELL.ComponentGesture"}}</label>
-        <div class="form-fields">
-            <select name="gesture" class="component">
-                {{selectOptions gestures selected=spell.gesture.id nameAttr="id" labelAttr="name"}}
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "SPELL.ComponentInflection"}}</label>
-        <div class="form-fields">
-            <select name="inflection" class="component">
-                {{selectOptions inflections selected=spell.inflection.id blank="" nameAttr="id" labelAttr="name"}}
-            </select>
-        </div>
-    </div>
 </section>

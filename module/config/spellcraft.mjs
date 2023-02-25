@@ -12,6 +12,7 @@ export const RUNES = Object.seal({
   courage: {
     id: "courage",
     name: "SPELL.RuneCourage",
+    img: "icons/magic/control/fear-fright-white.webp",
     resource: "morale",
     restoration: true,
     opposed: "mind",
@@ -22,6 +23,7 @@ export const RUNES = Object.seal({
   death: {
     id: "death",
     name: "SPELL.RuneDeath",
+    img: "icons/magic/unholy/hand-claw-fire-blue.webp",
     resource: "health",
     damageType: "unholy",
     opposed: "life",
@@ -32,6 +34,7 @@ export const RUNES = Object.seal({
   earth: {
     id: "earth",
     name: "SPELL.RuneEarth",
+    img: "icons/magic/earth/projectile-boulder-debris.webp",
     resource: "health",
     damageType: "acid",
     opposed: "lightning",
@@ -42,6 +45,7 @@ export const RUNES = Object.seal({
   flame: {
     id: "flame",
     name: "SPELL.RuneFlame",
+    img: "icons/magic/fire/barrier-wall-flame-ring-yellow.webp",
     resource: "health",
     damageType: "fire",
     opposed: "frost",
@@ -52,6 +56,7 @@ export const RUNES = Object.seal({
   frost: {
     id: "frost",
     name: "SPELL.RuneFrost",
+    img: "icons/magic/water/snowflake-ice-snow-white.webp",
     resource: "health",
     damageType: "frost",
     opposed: "flame",
@@ -62,6 +67,7 @@ export const RUNES = Object.seal({
   kinesis: {
     id: "kinesis",
     name: "SPELL.RuneKinesis",
+    img: "icons/magic/movement/pinwheel-turning-blue.webp",
     resource: "health",
     damageType: "slashing",
     opposed: "time",
@@ -72,6 +78,7 @@ export const RUNES = Object.seal({
   life: {
     id: "life",
     name: "SPELL.RuneLife",
+    img: "icons/magic/life/heart-shadow-red.webp",
     resource: "health",
     restoration: true,
     opposed: "death",
@@ -82,6 +89,7 @@ export const RUNES = Object.seal({
   lightning: {
     id: "lightning",
     name: "SPELL.RuneLightning",
+    img: "icons/magic/lightning/bolt-strike-blue.webp",
     resource: "health",
     damageType: "lightning",
     opposed: "earth",
@@ -92,6 +100,7 @@ export const RUNES = Object.seal({
   mind: {
     id: "mind",
     name: "SPELL.RuneMind",
+    img: "icons/magic/control/hypnosis-mesmerism-eye.webp",
     resource: "morale",
     damageType: "psychic",
     opposed: "courage",
@@ -102,6 +111,7 @@ export const RUNES = Object.seal({
   radiance: {
     id: "radiance",
     name: "SPELL.RuneRadiance",
+    img: "icons/magic/light/projectile-beam-yellow.webp",
     resource: "health",
     damageType: "radiant",
     opposed: "void",
@@ -112,6 +122,7 @@ export const RUNES = Object.seal({
   time: {
     id: "time",
     name: "SPELL.RuneTime",
+    img: "icons/magic/time/clock-spinning-gold-pink.webp",
     resource: "morale",
     opposed: "kinesis",
     defense: "willpower",
@@ -121,6 +132,7 @@ export const RUNES = Object.seal({
   void: {
     id: "void",
     name: "SPELL.RuneVoid",
+    img: "icons/magic/unholy/orb-rays-blue.webp",
     resource: "morale",
     damageType: "void",
     opposed: "radiance",
@@ -284,6 +296,7 @@ export const GESTURES = Object.seal({
     id: "touch",
     name: "SPELL.GestureTouch",
     img: "icons/magic/light/hand-sparks-smoke-teal.webp",
+    description: "<p>Touch is one of the most universal somatic gestures. This gesture is easily performed and is typically the first gesture learned by novice spellcasters.</p><p>Touch-based spells cause a small amount of damage or healing, but can be performed quickly requiring less Action than more complex gestures.</p>",
     cost: {
       action: 1,
       focus: 1
@@ -304,7 +317,7 @@ export const GESTURES = Object.seal({
     id: "ward",
     name: "SPELL.GestureWard",
     cost: {
-      action: 2,
+      action: 1,
       focus: 1
     },
     damage: {

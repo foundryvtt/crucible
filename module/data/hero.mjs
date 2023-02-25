@@ -389,7 +389,8 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     // Iterate over resistances
     const hasRunewarden = talentIds.has("runewarden000000");
     for ( let [id, r] of Object.entries(res) ) {
-      if ( hasRunewarden && grimoire.runes.find(r => r.damageType === id) ) r.base += 5;
+      if ( hasRunewarden && (SYSTEM.DAMAGE_TYPES[id].type !== "physical")
+        && grimoire.runes.find(r => r.damageType === id)) r.base += 5;
       r.total = r.base + r.bonus;
     }
   }

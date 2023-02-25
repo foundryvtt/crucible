@@ -61,18 +61,6 @@ export default class CrucibleSpell extends CrucibleAction {
     this.defense = CrucibleSpell.#prepareDefense(this);
     this.damage = CrucibleSpell.#prepareDamage(this);
     this.target = CrucibleSpell.#prepareTarget(this);
-    this.status = {};
-
-    // Prepare for Actor
-    if ( this.parent ) this.parent.prepareSpell(this);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _prepareForActor() {
-    super._prepareForActor();
-    this.actor.prepareSpell(this);
   }
 
   /* -------------------------------------------- */
@@ -83,13 +71,6 @@ export default class CrucibleSpell extends CrucibleAction {
    * @returns {ActionCost}            Configured cost data
    */
   static #prepareCost(spell) {
-
-    // Placeholder cost before composition
-    if ( spell.composition === this.COMPOSITION_STATES.NONE ) {
-      return {action: 1, focus: 1};
-    }
-
-    // Composed spell cost
     const cost = {...spell.gesture.cost};
     if ( spell.inflection ) {
       cost.action += spell.inflection.cost.action;
@@ -185,6 +166,111 @@ export default class CrucibleSpell extends CrucibleAction {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareForActor() {
+    super._prepareForActor();
+    CrucibleSpell.#prepareGesture.call(this);
+
+    // Zero cost for un-composed spells
+    this._trueCost = {...this.cost};
+    if ( this.composition !== CrucibleSpell.COMPOSITION_STATES.COMPOSED ) {
+      this.cost.action = this.cost.focus = 0;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Customize the spell based on the Gesture used.
+   * @this {CrucibleSpell}
+   */
+  static #prepareGesture() {
+    const e = this.actor.equipment;
+    const s = this.actor.system.status;
+    const t = this.actor.talentIds;
+    this.usage.context.hasDice = true; // Has dice by default
+
+    // Specific Gesture handling
+    switch ( this.gesture.id ) {
+
+      // Gesture: Arrow:
+      case "arrow":
+
+        // Arcane Archer Signature
+        if ( t.has("arcanearcher0000") && s.rangedAttack && !s.arcaneArcher ) {
+          this.cost.action -= 1;
+          this.usage.actorUpdates["system.status.arcaneArcher"] = true;
+        }
+        break;
+
+      // Gesture: Strike
+      case "strike":
+        const mh = e.weapons.mainhand;
+        this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);
+        this.target.distance = mh.config.category.ranged ? 10 : 1;
+
+        // Spellblade Signature
+        if ( t.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
+          this.cost.action -= 1;
+          this.usage.actorUpdates["system.status.spellblade"] = true;
+        }
+        break;
+
+      // Gesture: Ward
+      case "ward":
+        // TODO
+        if ( this.damage.healing ) {
+          ui.notifications.warning("Gesture: Ward is not configured for healing Runes yet");
+          break;
+        }
+        this.effects.push({
+          _id: SYSTEM.EFFECTS.getEffectId("ward"),
+          icon: this.gesture.img,
+          duration: {rounds: 1},
+          origin: this.actor.uuid,
+          changes: [
+            {
+              key: `system.resistances.${this.damage.type}.bonus`,
+              value: 6 + this.usage.bonuses.boons - this.usage.bonuses.banes,
+              mode: CONST.ACTIVE_EFFECT_MODES.ADD
+            }
+          ]
+        });
+        this.usage.context.hasDice = false;
+        break;
+
+      // Gesture: Aspect
+      case "aspect":
+        // TODO
+        if ( this.damage.healing ) {
+          ui.notifications.warning("Gesture: Aspect is not configured for healing Runes yet");
+          break;
+        }
+        this.effects.push({
+          _id: SYSTEM.EFFECTS.getEffectId("aspect"),
+          icon: this.gesture.img,
+          duration: {rounds: 6},
+          origin: this.actor.uuid,
+          changes: [
+            {
+              key: `system.resistances.${this.damage.type}.bonus`,
+              value: 2,
+              mode: CONST.ACTIVE_EFFECT_MODES.ADD
+            },
+            {
+              key: `rollBonuses.damage.${this.damage.type}`,
+              value: 2,
+              mode: CONST.ACTIVE_EFFECT_MODES.ADD
+            }
+          ]
+        });
+        this.usage.context.hasDice = false;
+        break;
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -204,14 +290,12 @@ export default class CrucibleSpell extends CrucibleAction {
    */
   static getDefault(actor, spellData) {
     const {runes, gestures} = actor.grimoire;
-    const spellId = actor.getFlag("crucible", "lastSpell") || "";
-    const [, rune, gesture, inflection] = spellId.split(".");
     spellData = foundry.utils.mergeObject(spellData, {
-      rune: spellId ? rune : runes[0].id,
-      gesture: spellId ? gesture : gestures[0].id,
-      inflection: spellId ? inflection : undefined,
+      rune: runes.first()?.id,
+      gesture: gestures.first()?.id,
+      inflection: undefined,
       composition: this.COMPOSITION_STATES.NONE
-    });
+    }, {inplace: false});
     return new this(spellData, {actor});
   }
 
@@ -231,8 +315,19 @@ export default class CrucibleSpell extends CrucibleAction {
     // Finalize composition
     this.updateSource({composition: CrucibleSpell.COMPOSITION_STATES.COMPOSED});
 
+    // Re-test feasibility
+    try {
+      this._can();
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return null;
+    }
+
     // Re-acquire targets
     targets = this._acquireTargets();
+
+    // Record last spell cast
+    this.usage.actorFlags.lastSpell = this.id;
     return {action: spell, targets};
   }
 
@@ -244,11 +339,17 @@ export default class CrucibleSpell extends CrucibleAction {
   /** @inheritDoc */
   getTags() {
     const tags = super.getTags();
-    const damageTypeLabel = this.damage.healing ? SYSTEM.RESOURCES[this.damage.healing].label
-      : SYSTEM.DAMAGE_TYPES[this.damage.type].label;
-    tags.action.damage = `${this.damage.base} ${damageTypeLabel}`;
+
+    // Variable Cost
+    if ( this.composition === CrucibleSpell.COMPOSITION_STATES.NONE ) {
+      tags.activation.ap = "1A+";
+      tags.activation.fp = "1F+"
+    }
+
+    delete tags.action.spell;
     tags.action.scaling = Array.from(this.scaling).map(a => SYSTEM.ABILITIES[a].label).join("/");
-    tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
+    if ( this.damage.healing ) tags.action.healing = "Healing";
+    else tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
     return tags;
   }

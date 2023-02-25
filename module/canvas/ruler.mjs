@@ -12,10 +12,10 @@ export default class CrucibleRuler extends Ruler {
     if ( !actor || !actor.combatant ) return true;  // Don't track cost outside of combat
 
     // Determine movement costs
-    const {canFreeMove, hasMoved} = actor.system.status;
+    const hasMoved = actor.system.status.hasMoved;
     const firstCost = token.actor.actions.move.cost.action;
     const firstDistance = hasMoved && actor.talentIds.has("distancerunner00") ? 5 : 4;
-    const nextCost = !hasMoved && canFreeMove ? firstCost + 1 : firstCost;
+    const nextCost = !hasMoved && actor.equipment.canFreeMove ? firstCost + 1 : firstCost;
     const nextDistance = actor.talentIds.has("distancerunner00") ? 5 : 4;
 
     // Determine total distance and cost
