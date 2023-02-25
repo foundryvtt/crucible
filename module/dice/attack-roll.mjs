@@ -18,9 +18,9 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  * @property {number} base                    The base damage amount
  * @property {number} bonus                   An additive damage bonus
  * @property {number} resistance              A subtracted resistance threshold
- * @property {number} [resource]              The resource targeted
  * @property {string} type                    The type of damage
- * @property {boolean} [healing]              Is the damage provided as restorative healing?
+ * @property {number} [resource]              The resource targeted
+ * @property {boolean} [restoration]          Is this damage applied as restoration?
  */
 
 /**
@@ -109,9 +109,9 @@ export default class AttackRoll extends StandardCheck {
 
     // Damage type
     if ( this.data.damage?.total ) {
-      cardData.damageLabel = game.i18n.localize(this.data.damage.healing ? "DICE.Healing" : "DICE.Damage");
+      cardData.damageLabel = game.i18n.localize(this.data.damage.restoration ? "DICE.Healing" : "DICE.Damage");
       cardData.baseLabel = game.i18n.format("DICE.DamageBase", {type: cardData.damageLabel});
-      if ( this.data.damage.healing ) cardData.damageType = SYSTEM.RESOURCES[this.data.damage.healing].label;
+      if ( this.data.damage.restoration ) cardData.damageType = SYSTEM.RESOURCES[this.data.damage.resource].label;
       else if ( this.data.damage.type ) cardData.damageType = SYSTEM.DAMAGE_TYPES[this.data.damage.type].label;
     }
     cardData.hasMultiplier = this.data.damage?.multiplier !== 1;

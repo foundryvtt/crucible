@@ -37,7 +37,7 @@ export function addChatMessageContextOptions(html, options)  {
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return flags.isAttack && !flags.confirmed && message.rolls.some(r => r.data.damage?.total);
+      return flags.isAttack && !flags.confirmed && message.rolls.some(r => (r.data.damage?.total !== undefined));
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));

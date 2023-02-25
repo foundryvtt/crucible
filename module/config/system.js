@@ -7,6 +7,7 @@ import * as EFFECTS from "./effects.mjs";
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.js";
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
+import {DAMAGE_TYPES} from "./attributes.mjs";
 export const SYSTEM_ID = "crucible";
 
 /* -------------------------------------------- */
@@ -43,7 +44,12 @@ export const COMPENDIUM_PACKS = {
 export const SYSTEM = {
   id: SYSTEM_ID,
   activeCheckFormula: "3d8",
-  ...ATTRIBUTES,
+  ABILITIES: ATTRIBUTES.ABILITIES,
+  DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
+  DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
+  RESOURCES: ATTRIBUTES.RESOURCES,
+  PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
+  DEFENSES: ATTRIBUTES.DEFENSES,
   ACTION,
   ARMOR,
   dice: dice,

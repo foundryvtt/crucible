@@ -334,14 +334,16 @@ export const TAGS = {
     tooltip: "ACTION.TagExposingTooltip",
     prepare: (actor, action) => action.usage.bonuses.boons += 2
   },
-
   harmless: {
     tag: "harmless",
     label: "ACTION.TagHarmless",
     tooltip: "ACTION.TagHarmlessTooltip",
-    prepare: (actor, action) => action.usage.bonuses.multiplier = 0
+    post: async (actor, action, target, rolls) => {
+      for ( const roll of rolls ) {
+        if ( roll.data.damage ) roll.data.damage.total = 0;
+      }
+    }
   },
-
   weakened: {
     tag: "weakened",
     label: "ACTION.TagWeakened",
@@ -435,7 +437,17 @@ export const TAGS = {
     tooltip: "ACTION.TagHealingTooltip",
     prepare: (actor, action) => {
       action.usage.defenseType = "wounds";
-      action.usage.healing = "wounds";
+      action.usage.restoration = true;
+    }
+  },
+
+  rallying: {
+    tag: "rallying",
+    label: "ACTION.TagRallying",
+    tooltip: "ACTION.TagRallyingTooltip",
+    prepare: (actor, action) => {
+      action.usage.defenseType = "madness";
+      action.usage.restoration = true;
     }
   }
 }
@@ -474,7 +486,7 @@ for ( const {id, label} of Object.values(SKILLS) ) {
         icon: "fa-solid fa-cogs",
         hasDice: true
       });
-      action.usage.context.tags.add(skill.label);
+      action.usage.context.tags.add(SKILLS[id].label);
     },
     roll: async (actor, action, target) => actor.skillAttack(action, target)
   }

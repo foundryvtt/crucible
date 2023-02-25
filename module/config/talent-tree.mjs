@@ -426,7 +426,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis1b",
   abilities: ["wisdom"],
-  type: "heal",
+  type: "utility",
   tier: 1,
   connected: ["wis0", "wis1a"]
 });
@@ -608,7 +608,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis2b",
   abilities: ["wisdom"],
-  type: "heal",
+  type: "magic",
   tier: 2,
   distance: 180,
   connected: ["wis1a", "wis1b", "wis2a"]
@@ -617,7 +617,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis2c",
   abilities: ["wisdom"],
-  type: "utility",
+  type: "heal",
   tier: 2,
   connected: ["wis1b", "wis2b"]
 });
@@ -676,7 +676,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "int2b",
   abilities: ["intellect"],
-  type: "attack",
+  type: "magic",
   tier: 2,
   distance: 180,
   connected: ["int1a", "int1b", "int2a"]
@@ -685,7 +685,7 @@ new CrucibleTalentNode({
 const int2c = new CrucibleTalentNode({
   id: "int2c",
   abilities: ["intellect"],
-  type: "defense",
+  type: "heal",
   tier: 2,
   connected: ["int1b", "int2b"]
 });

@@ -14,21 +14,20 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       description: new fields.HTMLField({required: true, blank: true}),
-      skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
-        validate: CrucibleBackground.#validateSkills
-      })
+      skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}))
     };
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * Validate that only 2 skills are chosen
-   * @param {string[]} skills     The chosen skills
-   * @returns {boolean}           Is the array valid
-   */
-  static #validateSkills(skills) {
-    if ( (skills.length !== 2) || (skills[0] === skills[1]) ) {
+  /** @inheritdoc */
+  _validateModel(data) {
+
+    // Skip validation if this is a newly created item that has not yet been populated
+    if ( !data.skills.length ) return;
+
+    // Validate Skills
+    if ( (data.skills.length !== 2) || (data.skills[0] === data.skills[1]) ) {
       throw new Error(game.i18n.localize("BACKGROUND.SkillsWarning"));
     }
   }

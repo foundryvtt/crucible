@@ -227,7 +227,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
       multiplier: multiplier,
       base: this.damage.weapon,
       bonus: this.#getDamageBonus(damageBonus),
-      resistance: target.resistances[this.damageType]?.total ?? 0,
+      resistance: target.getResistance("health", this.damageType),
       type: this.damageType
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);

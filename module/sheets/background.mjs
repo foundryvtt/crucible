@@ -12,7 +12,7 @@ export default class BackgroundSheet extends ItemSheet {
       width: 480,
       height: "auto",
       classes: [SYSTEM.id, "sheet", "item", "background"],
-      template: `systems/${SYSTEM.id}/templates/sheets/background.html`,
+      template: `systems/${SYSTEM.id}/templates/sheets/background.hbs`,
       resizable: false,
       submitOnChange: false,
       closeOnSubmit: true
@@ -93,7 +93,7 @@ export default class BackgroundSheet extends ItemSheet {
       ui.notifications.warn(err);
       throw new Error(err);
     }
-    formData["data.skills"] = skills;
+    formData["system.skills"] = skills;
 
     // Update the item
     return this.object.update(formData);

@@ -38,7 +38,7 @@ import AdversarySheet from "./module/sheets/adversary.mjs";
 import AncestrySheet from "./module/sheets/ancestry.mjs";
 import ArchetypeSheet from "./module/sheets/archetype.mjs";
 import ArmorSheet from "./module/sheets/armor.mjs";
-import BackgroundSheet from "./module/sheets/background.js";
+import BackgroundSheet from "./module/sheets/background.mjs";
 import TalentSheet from "./module/sheets/talent.mjs";
 import WeaponSheet from "./module/sheets/weapon.mjs";
 

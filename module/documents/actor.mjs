@@ -507,6 +507,19 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Get a creature's effective resistance against a certain damage type dealt to a certain resource.
+   * @param {string} resource       The resource targeted in SYSTEM.RESOURCES
+   * @param {string} damageType     The damage type dealt in SYSTEM.DAMAGE_TYPES
+   */
+  getResistance(resource, damageType) {
+    let r = this.resistances[damageType]?.total ?? 0;
+    if ( (resource === "morale") && ( this.statuses.has("resolute") ) ) r += 5;
+    return r;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
@@ -647,10 +660,10 @@ export default class CrucibleActor extends Actor {
         multiplier: spell.damage.multiplier ?? 1,
         base: spell.damage.base,
         bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
-        resistance: target.resistances[spell.rune.damageType]?.total ?? 0,
+        resistance: target.getResistance(spell.rune.resource, spell.damage.type),
         resource: spell.rune.resource,
         type: spell.damage.type,
-        healing: spell.damage.healing
+        restoration: spell.damage.restoration
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
@@ -662,7 +675,7 @@ export default class CrucibleActor extends Actor {
   async skillAttack(action, target) {
 
     // Prepare Roll Data
-    const {bonuses, defenseType, healing, resource, skillId} = action.usage;
+    const {bonuses, defenseType, restoration, resource, skillId} = action.usage;
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
@@ -689,12 +702,12 @@ export default class CrucibleActor extends Actor {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: bonuses.multiplier,
-        base: bonuses.base ?? 0,
+        base: bonuses.skill + (bonuses.base ?? 0),
         bonus: bonuses.damageBonus,
-        resistance: 0,
+        resistance: target.getResistance(resource, bonuses.damageType),
         type: bonuses.damageType,
-        resource: resource ?? "health",
-        healing: healing
+        resource: resource,
+        restoration
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
@@ -735,40 +748,50 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Alter the resource pools of the actor using an object of change data
-   * @param {Object<string, number>} changes      Changes where the keys are resource names and the values are deltas
+   * @param {Object<string, number>} deltas       Changes where the keys are resource names and the values are deltas
    * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
    * @param {object} [options]                    Options which are forwarded to the update method
    * @param {string} [options.statusText]           Custom status text displayed on the Token.
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
-  async alterResources(changes, updates={}, {statusText}={}) {
+  async alterResources(deltas, updates={}, {statusText}={}) {
     const r = this.system.resources;
-    let tookWounds = false;
-    let tookMadness = false;
 
     // Apply resource updates
-    for ( let [resourceName, delta] of Object.entries(changes) ) {
+    const changes = {};
+    for ( let [resourceName, delta] of Object.entries(deltas) ) {
+      if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
       let resource = r[resourceName];
+
+      // Frightened and Diseased
+      if ( (resourceName === "morale") && this.statuses.has("frightened") ) delta = Math.min(delta, 0);
+      else if ( (resourceName === "health") && this.statuses.has("diseased") ) delta = Math.min(delta, 0);
+
+      // Handle overflow
       const uncapped = resource.value + delta;
-      let overflow = Math.min(uncapped, 0);
+      const overflow = Math.min(uncapped, 0);
 
-      // Overflow health onto wounds (double damage)
+      // Health overflows into Wounds
       if ( (resourceName === "health") && (overflow !== 0) ) {
-        tookWounds = true;
-        updates["system.resources.wounds.value"] = Math.clamped(r.wounds.value - overflow, 0, r.wounds.max);
+        changes.wounds ||= {value: r.wounds.value};
+        changes.wounds.value -= overflow;
       }
-      else if ( resourceName === "wounds" ) tookWounds = true;
 
-      // Overflow morale onto madness (double damage)
-      if ( (resourceName === "morale") && (overflow !== 0) ) {
-        const madness = this.system.resources.madness.value - overflow;
-        updates["system.resources.madness.value"] = Math.clamped(madness, 0, r.madness.max);
+      // Morale overflows into Madness
+      else if ( (resourceName === "morale") && (overflow !== 0) ) {
+        changes.madness ||= {value: r.madness.value};
+        changes.madness.value -= overflow;
       }
-      else if ( resourceName === "madness" ) tookMadness = true;
 
-      // Regular update
-      updates[`system.resources.${resourceName}.value`] = Math.clamped(uncapped, 0, resource.max);
+      // Regular updates
+      changes[resourceName].value = uncapped;
     }
+
+    // Constrain and merge changes
+    for ( const [id, obj] of Object.entries(changes) ) {
+      obj.value = Math.clamped(obj.value, 0, r[id].max);
+    }
+    updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
     return this.update(updates, {statusText});
   }
 
@@ -835,7 +858,8 @@ export default class CrucibleActor extends Actor {
       incapacitated: false,
       broken: false,
       critical: false,
-      failure: false
+      failure: false,
+      effects: []
     };
     const resources = outcome.resources = {};
     const direction = reverse ? 1 : -1;
@@ -845,7 +869,7 @@ export default class CrucibleActor extends Actor {
       const damage = roll.data.damage || {};
       const resource = damage.resource ?? "health";
       resources[resource] ??= 0;
-      resources[resource] += ((damage.total ?? 0) * (damage.healing ? -1 : 1) * direction);
+      resources[resource] += ((damage.total ?? 0) * (damage.restoration ? -1 : 1) * direction);
       if ( roll.isCriticalSuccess ) outcome.critical = true;
       else if ( roll.isCriticalFailure) outcome.failure = true;
     }
@@ -893,7 +917,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Poisoner
-    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poison-blades")) ) {
+    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) {
       await this.#applyCriticalEffect("poisoned", action, outcomes);
     }
 
@@ -919,13 +943,17 @@ export default class CrucibleActor extends Actor {
 
     // Elemental Critical Effects
     const elementalEffects = {
-      "dustbinder000000": {rune: "earth", effectName: "corroding"},
-      "pyromancer000000": {rune: "flame", effectName: "burning"},
-      "rimecaller000000": {rune: "frost", effectName: "chilled"},
-      "surgeweaver00000": {rune: "lightning", effectName: "shocked"},
+      dustbinder000000: {rune: "earth", effectName: "corroding"},
+      lightbringer0000: {rune: "radiance", effectName: "irradiated"},
+      mesmer0000000000: {rune: "mind", effectName: "confusion"},
+      necromancer00000: {rune: "death", effectName: "corrupted"},
+      pyromancer000000: {rune: "flame", effectName: "burning"},
+      rimecaller000000: {rune: "frost", effectName: "chilled"},
+      surgeweaver00000: {rune: "lightning", effectName: "shocked"},
+      voidcaller000000: {rune: "void", effectName: "entropy"}
     }
     for ( const [talentId, {rune, effectName}] of Object.entries(elementalEffects) ) {
-      if ( this.talentIds.has(talentId) && (action.rune.id === rune) ) {
+      if ( this.talentIds.has(talentId) && (action.rune?.id === rune) ) {
         await this.#applyCriticalEffect(effectName, action, outcomes);
       }
     }
@@ -992,6 +1020,11 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async onEndTurn() {
+
+    // Conserve Effort
+    if ( this.talentIds.has("conserveeffort00") && this.system.resources.action.value ) {
+      await this.alterResources({focus: 1}, {}, {statusText: "Conserve Effort"});
+    }
 
     // Remove active effects which expire at the end of a turn
     await this.expireEffects(false);
@@ -1465,6 +1498,7 @@ export default class CrucibleActor extends Actor {
     const w2 = this.items.get(offhandId);
     const updates = [];
     let actionCost = 0;
+    const actorUpdates = {};
 
     // Handle un-equipping weapons which are currently equipped
     if ( !equipped ) {
@@ -1521,12 +1555,18 @@ export default class CrucibleActor extends Actor {
       }));
     }
 
+    // Adjust action cost
+    if ( this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
+      actionCost -= 1;
+      actorUpdates["system.status.hasMoved"] = true;
+    }
+
     // Apply the updates
-    if ( this.combatant && actionCost ) {
+    if ( this.combatant ) {
       if ( this.system.resources.action.value < actionCost ) {
         return ui.notifications.warn("WARNING.CannotEquipActionCost", {localize: true});
       }
-      await this.alterResources({action: -actionCost});
+      await this.alterResources({action: -actionCost}, actorUpdates);
     }
     await this.updateEmbeddedDocuments("Item", updates);
   }

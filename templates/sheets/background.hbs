@@ -22,7 +22,7 @@
                 {{#each skills}}
                 <label class="checkbox">
                     <input type="checkbox" name="{{this.id}}" {{checked this.checked}}/>
-                    {{this.name}}
+                    {{this.label}}
                 </label>
                 {{/each}}
             </div>
@@ -30,7 +30,10 @@
         </div>
 
         <footer class="sheet-footer">
-            <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
+            <button type="submit">
+                <i class="fas fa-save"></i>
+                <label>{{localize "Submit"}}</label>
+            </button>
         </footer>
     </section>
 </form>

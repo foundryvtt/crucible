@@ -109,7 +109,7 @@ export default class CrucibleSpell extends CrucibleAction {
       bonus: spell.gesture.damage.bonus ?? 0,
       multiplier: 1,
       type: spell.damageType ?? spell.rune.damageType,
-      healing: spell.rune.restoration ? spell.rune.resource : null
+      restoration: spell.rune.restoration
     };
   }
 

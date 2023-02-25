@@ -36,6 +36,11 @@ export const statusEffects = [
     icon: "systems/crucible/icons/statuses/slowed.svg"
   },
   {
+    id: "disoriented",
+    label: "EFFECT.StatusDisoriented",
+    icon: "systems/crucible/icons/statuses/disoriented.svg"
+  },
+  {
     id: "restrained",
     label: "EFFECT.StatusRestrained",
     icon: "icons/svg/net.svg"

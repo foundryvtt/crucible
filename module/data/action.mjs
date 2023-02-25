@@ -147,7 +147,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepareForActor() {
+    this.usage.bonuses.boons += (this.actor.rollBonuses.boons || 0);
+    this.usage.bonuses.banes += (this.actor.rollBonuses.banes || 0);
     if ( this.actor.statuses.has("broken") ) this.usage.bonuses.banes += 2;
+    if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
   }
 
   /* -------------------------------------------- */
@@ -326,7 +329,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
           effects.push(await this.#createEffect(effectData, this.actor));
           break;
         default:
-          for ( const target of targets ) effects.push(await this.#createEffect(effectData, target));
+          for ( const target of targets ) {
+            if ( target ) effects.push(await this.#createEffect(effectData, target));
+          }
           break;
       }
     }
@@ -468,7 +473,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Apply effects immediately if no dice rolls were involved
     if ( !results.length ) {
       await this._confirm();
-      await this.confirmEffects(targets);
+      await this.confirmEffects(targets.map(t => t.actor));
     }
 
     // If the actor is in combat, incur the cost of the action that was performed
