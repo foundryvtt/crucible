@@ -1,25 +1,3 @@
-2023/02/25-12:30:39.015 8c10 Recovering log #297
-2023/02/25-12:30:39.015 8c10 Level-0 table #299: started
-2023/02/25-12:30:39.016 8c10 Level-0 table #299: 1501 bytes OK
-2023/02/25-12:30:39.020 8c10 Delete type=0 #297
-2023/02/25-12:30:39.020 8c10 Delete type=3 #296
-2023/02/25-17:10:00.443 248c4 Level-0 table #302: started
-2023/02/25-17:10:00.445 248c4 Level-0 table #302: 79236 bytes OK
-2023/02/25-17:10:00.446 248c4 Delete type=0 #300
-2023/02/25-17:10:00.450 248c4 Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!gestureward00000' @ 603 : 1
-2023/02/25-17:10:00.450 248c4 Compacting 3@0 + 0@1 files
-2023/02/25-17:10:00.451 248c4 Generated table #303@0: 140 keys, 57032 bytes
-2023/02/25-17:10:00.451 248c4 Compacted 3@0 + 0@1 files => 57032 bytes
-2023/02/25-17:10:00.452 248c4 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/02/25-17:10:00.452 248c4 Delete type=2 #294
-2023/02/25-17:10:00.452 248c4 Delete type=2 #299
-2023/02/25-17:10:00.453 248c4 Delete type=2 #302
-2023/02/25-17:10:00.458 248c4 Manual compaction at level-0 from '!items!gestureward00000' @ 603 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/02/25-17:10:00.458 248c4 Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!zealoussmite0000' @ 804 : 1
-2023/02/25-17:10:00.458 248c4 Compacting 1@1 + 1@2 files
-2023/02/25-17:10:00.461 248c4 Generated table #304@1: 140 keys, 57032 bytes
-2023/02/25-17:10:00.461 248c4 Compacted 1@1 + 1@2 files => 57032 bytes
-2023/02/25-17:10:00.463 248c4 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/02/25-17:10:00.463 248c4 Delete type=2 #288
-2023/02/25-17:10:00.463 248c4 Delete type=2 #303
-2023/02/25-17:10:00.469 248c4 Manual compaction at level-1 from '!items!zealoussmite0000' @ 804 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/02/25-19:27:33.121 3be8 Recovering log #301
+2023/02/25-19:27:33.125 3be8 Delete type=0 #301
+2023/02/25-19:27:33.125 3be8 Delete type=3 #298

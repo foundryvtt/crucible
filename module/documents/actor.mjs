@@ -197,13 +197,13 @@ export default class CrucibleActor extends Actor {
    * The IDs of purchased talents
    * @type {Set<string>}
    */
-  talentIds;
+  talentIds = this.talentIds || new Set();
 
   /**
    * Currently active status effects
    * @type {Set<string>}
    */
-  statuses;
+  statuses = this.statuses || new Set();
 
   /* -------------------------------------------- */
   /*  Actor Preparation
@@ -243,7 +243,7 @@ export default class CrucibleActor extends Actor {
 
     // Flag some equipment-related statuses
     equipment.canFreeMove = !equipment.armor.system.properties.has("bulky") || this.talentIds.has("armoredefficienc");
-    equipment.unarmored = equipment.armor.system.config.category === "unarmored"
+    equipment.unarmored = equipment.armor.system.category === "unarmored"
     return equipment;
   }
 
@@ -475,24 +475,29 @@ export default class CrucibleActor extends Actor {
   /**
    * Get the number of additional boons or banes you have when attacking a target.
    * @param {CrucibleActor} target  The target being attacked
-   * @param {string} defenseType    The defense type being tested
+   * @param {object} options        Options which customize boons and banes
+   * @param {string} [options.attackType]   A value in weapon, spell, or skill
+   * @param {boolean} [options.ranged]      Is this a ranged attack? or a melee attack?
+   * @param {string} [options.defenseType]  The defense type being tested
    * @returns {{boons: number, banes: number}}  The number of additional boons and banes
    */
-  getTargetBoons(target, defenseType) {
+  getTargetBoons(target, {attackType, ranged=false, defenseType="physical"}={}) {
     let boons = 0;
     let banes = 0;
 
-    // Physical Attacks
-    if ( defenseType === "physical" ) {
+    // Exposed
+    if ( target.statuses.has("exposed") && (attackType !== "skill") ) boons += 2;
 
-      // Exposed
-      if ( target.statuses.has("exposed") ) boons += 2;
+    // Guarded
+    if ( target.statuses.has("guarded") && (attackType !== "skill") ) {
+      if ( target.talentIds.has("testudo000000000") && target.equipment.weapons.shield ) banes += 2;
+      else banes += 1;
+    }
 
-      // Guarded
-      if ( target.statuses.has("guarded") ) {
-        if ( target.talentIds.has("testudo000000000") && target.equipment.weapons.shield ) banes += 2;
-        else banes += 1;
-      }
+    // Prone
+    if ( target.statuses.has("prone") && (attackType !== "skill") ) {
+      if ( ranged ) banes += 2;
+      else boons += 2;
     }
 
     // Initiative Difference
@@ -634,7 +639,11 @@ export default class CrucibleActor extends Actor {
     // Modify boons and banes against this target
     const defenseType = spell.defense;
     let {boons, banes} = spell.usage.bonuses;
-    const targetBoons = this.getTargetBoons(target, defenseType)
+    const targetBoons = this.getTargetBoons(target, {
+      attackType: "spell",
+      defenseType,
+      ranged: spell.rune.target.distance > 1
+    });
     boons += targetBoons.boons;
     banes += targetBoons.banes;
 
@@ -1575,19 +1584,20 @@ export default class CrucibleActor extends Actor {
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  async _preCreate(data, options, user) {
-    await super._preCreate(data, options, user);
-
-    // Prototype Token configuration
-    switch ( this.type ) {
+  /** @override */
+  _applyDefaultTokenSettings(data, {fromCompendium=false}={}) {
+    const defaults = foundry.utils.deepClone(game.settings.get("core", DefaultTokenConfig.SETTING));
+    defaults.bar1 = {attribute: "resources.health"};
+    defaults.bar2 = {attribute: "resources.morale"};
+    switch ( data.type ) {
       case "hero":
-        this.updateSource({prototypeToken: {vision: true, actorLink: true, disposition: 1}});
+        Object.assign(defaults, {vision: true, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        this.updateSource({prototypeToken: {vision: false, actorLink: false, disposition: -1}});
+        Object.assign(defaults, {vision: false, actorLink: false, disposition: -1});
         break;
     }
+    return this.updateSource({prototypeToken: defaults});
   }
 
   /* -------------------------------------------- */

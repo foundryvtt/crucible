@@ -10,13 +10,15 @@ export default {
   cadence: {
     roll: async function(actor, action, target, rolls) {
       let lastRoll = rolls[0];
+      const bonuses = foundry.utils.deepClone(action.usage.bonuses);
+      const cadence = [];
       for ( let i=1; i<=3; i++ ) {
-        if ( !lastRoll.isSuccess ) break;
-        const bonuses = foundry.utils.deepClone(action.usage.bonuses);
-        bonuses.boons += i;
+        if ( lastRoll.isSuccess ) bonuses.boons += 1;
+        else bonuses.banes += 1;
         lastRoll = await actor.equipment.weapons.mainhand.attack(target, bonuses);
-        rolls.push(lastRoll);
+        cadence.push(lastRoll);
       }
+      return cadence;
     }
   },
   clarifyIntent: {
@@ -41,6 +43,15 @@ export default {
     pre: (actor, action) => {
       action.usage.bonuses.multiplier = 0;
       action.usage.bonuses.base = 1;
+    }
+  },
+  executionersStrike: {
+    prepare: (actor, action) => {
+      const w = actor.equipment.weapons.mainhand;
+      action.effects[0] = foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(actor, undefined, {
+        ability: "strength",
+        damageType: w.system.damageType,
+      }), action.effects[0]);
     }
   },
   flurry: {

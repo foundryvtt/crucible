@@ -213,7 +213,11 @@ export const TAGS = {
     prepare: (actor, action) => {
       if ( actor.system.status.hasMoved || !actor.equipment.canFreeMove ) action.cost.action += 1;
       if ( actor.statuses.has("slowed") ) action.cost.action += 1;
+      if ( actor.statuses.has("prone") ) action.cost.action += 1;
       action.usage.actorUpdates["system.status.hasMoved"] = true
+    },
+    confirm: async (actor, action, outcomes) => {
+      if ( actor.statuses.has("prone") ) await actor.toggleStatusEffect("prone", {active: false});
     }
   },
 

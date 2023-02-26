@@ -193,7 +193,11 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
     // Apply additional boons or banes
     const defenseType = "physical";
-    const targetBoons = actor.getTargetBoons(target, defenseType)
+    const targetBoons = actor.getTargetBoons(target, {
+      attackType: "weapon",
+      defenseType,
+      ranged: this.config.category.ranged
+    });
     boons += targetBoons.boons;
     banes += targetBoons.banes;
 

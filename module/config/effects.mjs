@@ -7,7 +7,7 @@ export function getEffectId(label) {
   return label.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
 }
 
-export function bleeding(actor, target, {damageType="piercing"}={}) {
+export function bleeding(actor, target, {ability="dexterity", damageType="piercing"}={}) {
   return {
     _id: getEffectId("Bleeding"),
     label: "Bleeding",
@@ -17,7 +17,7 @@ export function bleeding(actor, target, {damageType="piercing"}={}) {
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.dexterity.value,
+          health: actor.system.abilities[ability].value,
           damageType
         }
       }

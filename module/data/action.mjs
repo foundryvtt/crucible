@@ -674,7 +674,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const rolls = [];
     for ( const test of this._tests() ) {
       if ( test.roll instanceof Function ) {
-        const roll = await test.roll(this.actor, this, target);
+        const roll = await test.roll(this.actor, this, target, rolls);
         if ( roll instanceof Array ) rolls.push(...roll);
         else if ( roll ) rolls.push(roll);
       }

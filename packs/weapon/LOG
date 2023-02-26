@@ -1,22 +1,3 @@
-2023/02/25-12:30:39.008 27454 Recovering log #267
-2023/02/25-12:30:39.012 27454 Delete type=0 #267
-2023/02/25-12:30:39.013 27454 Delete type=3 #266
-2023/02/25-17:10:00.447 248c4 Level-0 table #271: started
-2023/02/25-17:10:00.448 248c4 Level-0 table #271: 8257 bytes OK
-2023/02/25-17:10:00.449 248c4 Delete type=0 #269
-2023/02/25-17:10:00.453 248c4 Manual compaction at level-0 from '!items!arcaneorb0000000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!warlance00000000' @ 140 : 1
-2023/02/25-17:10:00.453 248c4 Compacting 2@0 + 0@1 files
-2023/02/25-17:10:00.455 248c4 Generated table #272@0: 39 keys, 7907 bytes
-2023/02/25-17:10:00.455 248c4 Compacted 2@0 + 0@1 files => 7907 bytes
-2023/02/25-17:10:00.456 248c4 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/02/25-17:10:00.456 248c4 Delete type=2 #264
-2023/02/25-17:10:00.457 248c4 Delete type=2 #271
-2023/02/25-17:10:00.458 248c4 Manual compaction at level-0 from '!items!warlance00000000' @ 140 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/02/25-17:10:00.463 248c4 Manual compaction at level-1 from '!items!arcaneorb0000000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!warlance00000000' @ 218 : 1
-2023/02/25-17:10:00.463 248c4 Compacting 1@1 + 1@2 files
-2023/02/25-17:10:00.466 248c4 Generated table #273@1: 39 keys, 7907 bytes
-2023/02/25-17:10:00.466 248c4 Compacted 1@1 + 1@2 files => 7907 bytes
-2023/02/25-17:10:00.468 248c4 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/02/25-17:10:00.468 248c4 Delete type=2 #106
-2023/02/25-17:10:00.469 248c4 Delete type=2 #272
-2023/02/25-17:10:00.469 248c4 Manual compaction at level-1 from '!items!warlance00000000' @ 218 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/02/25-19:27:33.115 27454 Recovering log #270
+2023/02/25-19:27:33.120 27454 Delete type=0 #270
+2023/02/25-19:27:33.120 27454 Delete type=3 #268
