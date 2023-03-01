@@ -1,7 +1,7 @@
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalent from "../data/talent.mjs";
-import TalentSheet from "../sheets/talent.mjs";
+import TalentSheet from "../applications/sheets/talent.mjs";
 
 /**
  * An Application instance that renders a HUD tooltip in the CrucibleTalentTree

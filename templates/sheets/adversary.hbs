@@ -1,48 +1,56 @@
 <form class="{{cssClass}} flexrow" autocomplete="off">
 
     {{!-- Left Sidebar --}}
-    <section class="sheet-sidebar flexcol">
-        <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img" width="200" height="200"/>
-        <section class="overview">
-
-            {{!-- Current Equipment --}}
-            <div class="equipped">
-                <h2 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h2>
-            </div>
-
-            {{!-- Available Actions --}}
-            <div class="actions">
-                <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
-            </div>
-
-            {{!-- Active Effects --}}
-            <div class="effects">
-                <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
-            </div>
-        </section>
-    </section>
+    {{> "systems/crucible/templates/sheets/partials/actor-sidebar.hbs"}}
 
     {{!-- Main Content --}}
     <section class="sheet-body flexcol">
 
         {{!-- Sheet Header --}}
-        <header class="sheet-header flexrow">
-            <div class="header-content">
-                <div class="title flexrow">
-                    <h1 class="charname">
-                        <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
-                    </h1>
-                    <h2 class="level">
-                        <label>Level</label>
-                        <input type="number" name="system.details.level" value="{{systemData.details.level}}" placeholder="1">
-                    </h2>
+        <header class="sheet-header flexcol">
+            <div class="title flexrow">
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
+                </h1>
+                <label><i class="threat-icon {{threat.icon}}" data-tooltip="{{threat.label}}"></i> Level</label>
+                <div class="controls flexcol">
+                    <a class="control {{#unless canLevelUp}}inactive{{/unless}} increase" data-tooltip="Increase Level" data-action="levelIncrease">
+                        <i class="fas fa-caret-up"></i>
+                    </a>
+                    <a class="control {{#unless canLevelDown}}inactive{{/unless}} decrease" title="Decrease Level" data-action="levelDecrease">
+                        <i class="fas fa-caret-down"></i>
+                    </a>
                 </div>
+                <input class="level" type="number" name="system.details.level" value="{{source.system.details.level}}" placeholder="1">
+            </div>
+
+            <div class="subtitle flexrow">
+                <h2 class="tag taxonomy {{#if incomplete.taxonomy}}incomplete{{/if}}">
+                    <i class="incomplete fas fa-exclamation-triangle" data-tooltip="WALKTHROUGH.ConfigureTaxonomy"></i>
+                    <label>{{taxonomyName}}</label>
+                    <a class="control" data-action="configureTaxonomy"><i class="fa-solid fa-cogs"></i></a>
+                </h2>
+
+                <h2 class="tag archetype {{#if incomplete.archetype}}incomplete{{/if}}">
+                    <i class="incomplete fas fa-exclamation-triangle" data-tooltip="WALKTHROUGH.ConfigureArchetype"></i>
+                    <label>{{archetypeName}}</label>
+                    <a class="control" data-action="configureArchetype"><i class="fa-solid fa-cogs"></i></a>
+                </h2>
+                <span class="flex1"></span>
+                <select class="threat" name="system.details.threat">
+                    {{selectOptions threats selected=source.system.details.threat labelAttr="label"}}
+                </select>
             </div>
         </header>
 
         {{!-- Sheet Navigation --}}
         <nav class="sheet-navigation tabs" data-group="primary">
             <a class="item badge attributes" data-tab="attributes">Attributes</a>
+            <a class="item badge skills" data-tab="skills">Skills</a>
+            <a class="item badge talents" data-tab="talents">Talents</a>
+            <a class="item badge inventory" data-tab="inventory">Inventory</a>
+            <a class="item badge spells" data-tab="spells">Grimoire</a>
+            <a class="item badge biography" data-tab="biography">Biography</a>
         </nav>
 
         {{!-- Attributes Tab --}}
@@ -56,14 +64,13 @@
 
                 {{#each resources as |resource|}}
                 <div class="resource {{resource.id}}">
-                    <h3 class="category-header divider tooltipped">
+                    <h3 class="category-header divider" data-tooltip="{{resource.tooltip}}">
                         <span></span>
                         <label>{{resource.label}}</label>
-                        <div class="tooltip">{{resource.tooltip}}</div>
                         <span></span>
                     </h3>
                     <div class="resource-values flexrow">
-                        <input type="number" name="system.{{resource.id}}.value" value="{{resource.value}}" placeholder="0">
+                        <input type="number" name="system.resources.{{resource.id}}.value" value="{{resource.value}}" placeholder="0">
                         <span class="slash"></span>
                         <span class="input resource-max">{{resource.max}}</span>
                         <div class="bar" style="background: {{resource.color.bg}}">
@@ -97,78 +104,48 @@
                     <span></span>
                     <label>Defenses</label>
                     <span></span>
-                    <a class="button section-lock" data-section="defenses">
-                        <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
-                    </a>
                 </h2>
 
                 {{! Physical Defense --}}
-                <ol class="defense physical flexrow" data-defense="physical">
-                    <li class="defense-title flexrow">
+                <div class="defense physical flexrow" data-defense="physical">
+                    <div class="defense-title flexrow">
                         <h3 class="badge physical">Physical</h3>
-                        <span class="input score">{{systemData.defenses.physical}}</span>
-                    </li>
-                    <li class="math">=</li>
-                    <li class="flexcol">
+                        <span class="input score">{{actor.system.defenses.physical}}</span>
+                    </div>
+                    <span class="math">=</span>
+                    <div class="flexcol">
                         <h4>Armor</h4>
-                        <span class="input score">{{systemData.defenses.armor.total}}</span>
+                        <span class="input score">{{actor.system.defenses.armor.total}}</span>
                         <span class="subtitle">{{armorCategory}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Dodge</h4>
-                        <span class="input score">{{systemData.defenses.dodge.total}}</span>
+                        <span class="input score">{{actor.system.defenses.dodge.total}}</span>
                         <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Parry</h4>
-                        <span class="input score">{{systemData.defenses.parry.total}}</span>
+                        <span class="input score">{{actor.system.defenses.parry.total}}</span>
                         <span class="subtitle">Maximum 6</span>
-                    </li>
-                    <li class="math">+</li>
-                    <li class="flexcol">
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
                         <h4>Block</h4>
-                        <span class="input score">{{systemData.defenses.block.total}}</span>
+                        <span class="input score">{{actor.system.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
-                    </li>
-                </ol>
+                    </div>
+                </div>
 
-                {{! Fortitude Defense --}}
-                <ol class="defense save flexrow" data-defense="fortitude">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge fortitude">Fortitude</h3>
-                        <span class="input score">{{actor.system.defenses.fortitude.total}}</span>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Str</span>
-                        <span class="tag">Con</span>
-                    </li>
-                </ol>
-
-                {{! Reflex Defense --}}
-                <ol class="defense save flexrow" data-defense="reflex">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge reflex">Reflex</h3>
-                        <span class="input score">{{actor.system.defenses.reflex.total}}</span>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Dex</span>
-                        <span class="tag">Int</span>
-                    </li>
-                </ol>
-
-                {{! Willpower Defense --}}
-                <ol class="defense save flexrow" data-defense="willpower">
-                    <li class="defense-title flexrow">
-                        <h3 class="badge willpower">Willpower</h3>
-                        <span class="input score">{{actor.system.defenses.willpower.total}}</span>
-                    </li>
-                    <li class="tags">
-                        <span class="tag">Wis</span>
-                        <span class="tag">Pre</span>
-                    </li>
-                </ol>
+                <div class="save-defenses">
+                    {{#each saveDefenses as |defense|}}
+                        <div class="defense save flexrow" data-defense="{{defense.id}}">
+                            <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
+                            <span class="input score">{{defense.total}}</span>
+                        </div>
+                    {{/each}}
+                </div>
             </section>
 
             {{!-- Resistances --}}
@@ -179,23 +156,124 @@
                     <span></span>
                 </h2>
                 {{#each resistances as |res cat|}}
-                <div class="category {{cat}}">
-                    <h3 class="category-header divider">
-                        <span></span>
-                        <label>{{res.label}}</label>
-                        <span></span>
-                    </h3>
-                    <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
-                        {{#each res.resists as |r id|}}
-                        <li class="resistance flexrow" data-resistance="{{id}}">
-                            <span class="input total">{{r.total}}</span>
-                            <label>{{r.label}}</label>
-                        </li>
-                        {{/each}}
-                    </ol>
-                </div>
+                    <div class="category {{cat}}">
+                        <h3 class="category-header divider">
+                            <span></span>
+                            <label>{{res.label}}</label>
+                            <span></span>
+                        </h3>
+                        <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
+                            {{#each res.resists as |r id|}}
+                                <li class="resistance flexrow" data-resistance="{{id}}">
+                                    <span class="input total">{{r.total}}</span>
+                                    <label>{{r.label}}</label>
+                                </li>
+                            {{/each}}
+                        </ol>
+                    </div>
                 {{/each}}
             </section>
         </div>
+
+        {{!-- Skills Tab --}}
+        <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+            {{#each skillCategories as |category catId|}}
+            <header class="items-header flexrow">
+                <div class="item-name skill-name">
+                    <h4>{{category.label}} Skills</h4>
+                </div>
+                <div class="bonus">Bonus</div>
+                <div class="attributes">Attributes</div>
+                <span>Trained Rank</span>
+                <span class="points">Spent (Cost)</span>
+            </header>
+            <ol class="skills-list">
+                {{#each category.skills as |skill skillId|}}
+                    <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
+                        <div class="name">
+                            <img class="icon" src="{{skill.icon}}">
+                            <h4><a data-tooltip="Roll Check" data-action="skillRoll">{{skill.label}}</a></h4>
+                        </div>
+                        <div class="controls">
+                            <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
+                                <i class="fas fa-cog"></i>
+                            </a>
+                        </div>
+                        <div class="bonus flexrow">
+                            <span class="active highlight" data-tooltip="{{skill.tooltips.value}}">
+                                {{numberFormat skill.score sign=true}}
+                            </span>
+                            <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
+                        </div>
+                        <div class="attributes">
+                            {{#each skill.abilityAbbrs}}
+                            <span class="attribute tag">{{this}}</span>
+                            {{/each}}
+                        </div>
+                        <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
+                            {{#each skill.pips}}
+                            <span class="pip {{this}}"></span>
+                            {{/each}}
+                        </div>
+                        <div class="points flexrow">
+                            <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                            <span class="cumulative">{{skill.spent}}</span>
+                            <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
+                            <a class="control {{#unless skill.canIncrease}}inactive{{/unless}} increase" title="Increase Skill Rank" data-action="skillIncrease">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+            {{/each}}
+        </div>
+
+        {{!-- Talents Tab --}}
+        <div class="tab talents flexcol" data-group="primary" data-tab="talents">
+        {{#each items.talents as |section s|}}
+            {{#if section.items.length}}
+            <header class="items-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>{{section.label}}</h4>
+                </div>
+            </header>
+            <ol class="items-list">
+                {{#each section.items as |item id|}}
+                    <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+                        <div class="name">
+                            <img class="icon" src="{{item.img}}" title="{{item.name}}">
+                            <h4>{{item.name}}</h4>
+                        </div>
+                        <div class="tags">
+                            {{#each item.tags}}
+                                {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                            {{/each}}
+                        </div>
+                        <div class="controls">
+                            <a class="control" data-action="itemEdit" data-tooltip="Edit Talent">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="control" data-action="itemDelete" data-tooltip="Delete Talent">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+            {{/if}}
+        {{/each}}
+        </div>
+
+        {{!-- Inventory Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-inventory.hbs"}}
+
+        {{!-- Grimoire Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-grimoire.hbs"}}
+
+        {{!-- Biography Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-biography.hbs"}}
     </section>
 </form>

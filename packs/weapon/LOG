@@ -1,3 +1,8 @@
-2023/02/25-19:27:33.115 27454 Recovering log #270
-2023/02/25-19:27:33.120 27454 Delete type=0 #270
-2023/02/25-19:27:33.120 27454 Delete type=3 #268
+2023/02/28-21:09:57.741 2deb8 Recovering log #294
+2023/02/28-21:09:57.745 2deb8 Delete type=0 #294
+2023/02/28-21:09:57.745 2deb8 Delete type=3 #293
+2023/02/28-22:30:50.032 30394 Level-0 table #298: started
+2023/02/28-22:30:50.032 30394 Level-0 table #298: 0 bytes OK
+2023/02/28-22:30:50.033 30394 Delete type=0 #296
+2023/02/28-22:30:50.033 30394 Manual compaction at level-0 from '!items!arcaneorb0000000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/02/28-22:30:50.033 30394 Manual compaction at level-1 from '!items!arcaneorb0000000' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)

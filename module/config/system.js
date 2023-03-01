@@ -36,6 +36,35 @@ export const COMPENDIUM_PACKS = {
 
 /* -------------------------------------------- */
 
+/**
+ * The threat levels that an adversary may have.
+ * @enum {number}
+ */
+export const THREAT_LEVELS = {
+  minion: {
+    label: "ADVERSARY.ThreatMinion",
+    scaling: 0.5,
+    icon: "fa-solid fa-chevron-down"
+  },
+  normal: {
+    label: "ADVERSARY.ThreatNormal",
+    scaling: 1.0,
+    icon: "fa-solid fa-chevron-up"
+  },
+  elite: {
+    label: "ADVERSARY.ThreatElite",
+    scaling: 1.5,
+    icon: "fa-solid fa-chevrons-up"
+  },
+  boss: {
+    label: "ADVERSARY.ThreatBoss",
+    scaling: 2.0,
+    icon: "fa-solid fa-skull"
+  }
+};
+
+/* -------------------------------------------- */
+
 
 /**
  * Include all constant definitions within the SYSTEM global export
@@ -62,5 +91,6 @@ export const SYSTEM = {
   SKILL_RANKS,
   SKILLS,
   SPELL,
+  THREAT_LEVELS,
   WEAPON,
 };

@@ -6,6 +6,7 @@ export default class CrucibleCombatant extends Combatant {
   /** @override */
   getInitiativeRoll() {
     const actor = this.actor;
+    const {weapons, armor} = actor.equipment;
 
     // Initiative Boons
     let boons = this.parent.round > 0 ? this.actor.system.resources.action.value : 0;
@@ -13,7 +14,10 @@ export default class CrucibleCombatant extends Combatant {
 
     // Initiative Banes
     let banes = 0;
-    if ( actor.equipment.weapons.slow && !actor.talentIds.has("powerfulphysique") ) banes += 2;
+    if ( !actor.talentIds.has("powerfulphysique") ) {
+      if ( weapons.slow ) banes += 2;
+      if ( armor.system.properties.has("bulky") ) banes += 2;
+    }
     if ( actor.statuses.has("broken") ) banes += 2;
 
     // Construct Initiative Check

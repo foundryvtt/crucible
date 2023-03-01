@@ -166,7 +166,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isDead() {
-    if ( this.type === "npc" ) return this.system.resources.health.value === 0;
+    if ( this.type === "adversary" ) return this.system.resources.health.value === 0;
     return this.system.resources.wounds.value === this.system.resources.wounds.max;
   }
 
@@ -175,6 +175,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isInsane() {
+    if ( this.type === "adversary" ) return false;
     return this.system.resources.madness.value === this.system.resources.madness.max;
   }
 
@@ -219,7 +220,6 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
-    if ( this.type === "adversary" ) return;
     const items = this.itemTypes;
     this._prepareTalents(items);
     this.equipment = this._prepareEquipment(items);
@@ -242,7 +242,7 @@ export default class CrucibleActor extends Actor {
     };
 
     // Flag some equipment-related statuses
-    equipment.canFreeMove = !equipment.armor.system.properties.has("bulky") || this.talentIds.has("armoredefficienc");
+    equipment.canFreeMove = (equipment.armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
     equipment.unarmored = equipment.armor.system.category === "unarmored"
     return equipment;
   }
@@ -433,12 +433,14 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
-    const points = this.system.points.talent;
+    const signatureNames = [];
 
     // Iterate over talents
     for ( const t of talent ) {
       this.talentIds.add(t.id);
-      points.spent += 1; // TODO - every talent costs 1 for now
+
+      // Register signatures
+      if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
 
       // Register spellcraft knowledge
       if ( t.system.rune ) {
@@ -449,10 +451,17 @@ export default class CrucibleActor extends Actor {
       if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
     }
 
+    // Compose Signature Name
+    this.system.details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
+
     // Warn if the Actor does not have a legal build
-    points.available = points.total - points.spent;
-    if ( points.available < 0) {
-      ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
+    if ( this.type === "hero" ) {
+      const points = this.system.points.talent;
+      points.spent = this.talentIds.size; // Every talent costs 1 for now
+      points.available = points.total - points.spent;
+      if ( points.available < 0) {
+        ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
+      }
     }
   }
 
@@ -730,10 +739,8 @@ export default class CrucibleActor extends Actor {
    * @param {object} updateData     Additional update data to include in the rest operation
    * @returns {Promise<CrucibleActor>}
    */
-  async rest(updateData) {
-    const r = this.system.resources;
-    if ( r.wounds.value === r.wounds.max ) return this;
-    if ( r.madness.value === r.madness.max ) return this;
+  async rest(updateData, {allowDead=false}={}) {
+    if ( (this.isDead || this.isInsane) && !allowDead ) return this;
     return this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
   }
 
@@ -750,6 +757,7 @@ export default class CrucibleActor extends Actor {
       const cfg = SYSTEM.RESOURCES[id];
       updates[`system.resources.${id}.value`] = cfg.type === "reserve" ? 0 : resource.max;
     }
+    updates["system.status"] = null;
     return updates;
   }
 
@@ -781,13 +789,13 @@ export default class CrucibleActor extends Actor {
       const overflow = Math.min(uncapped, 0);
 
       // Health overflows into Wounds
-      if ( (resourceName === "health") && (overflow !== 0) ) {
+      if ( (resourceName === "health") && (overflow !== 0) && ("wounds" in r) ) {
         changes.wounds ||= {value: r.wounds.value};
         changes.wounds.value -= overflow;
       }
 
       // Morale overflows into Madness
-      else if ( (resourceName === "morale") && (overflow !== 0) ) {
+      else if ( (resourceName === "morale") && (overflow !== 0) && ("madness" in r) ) {
         changes.madness ||= {value: r.madness.value};
         changes.madness.value -= overflow;
       }
@@ -1308,17 +1316,9 @@ export default class CrucibleActor extends Actor {
       if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
     }
 
-    // Clone the actor and advance level
-    const clone = this.clone();
+    // Commit the update
     const level = Math.clamped(this.level + delta, 0, 24);
     const update = {"system.advancement.level": level};
-    clone.updateSource(update);
-
-    // Update resources and progress
-    Object.assign(update, clone._getRestData());
-    update["system.advancement.progress"] = delta > 0 ? 0 : clone.system.advancement.next;
-
-    // Commit the update
     return this.update(update);
   }
 
@@ -1598,6 +1598,25 @@ export default class CrucibleActor extends Actor {
         break;
     }
     return this.updateSource({prototypeToken: defaults});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preUpdate(data, options, user) {
+    await super._preUpdate(data, options, user);
+
+    // Restore resources when level changes
+    const restProperties = this.type === "hero" ? ["system.advancement.level"]
+      : ["system.details.level", "system.details.threat"]
+    if ( restProperties.some(p => foundry.utils.hasProperty(data, p)) ) {
+      const clone = this.clone();
+      clone.updateSource(data);
+      Object.assign(data, clone._getRestData());
+      if ( this.type === "hero" ) {
+        data["system.advancement.progress"] = clone.level > this.level ? 0 : clone.system.advancement.next;
+      }
+    }
   }
 
   /* -------------------------------------------- */

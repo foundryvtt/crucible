@@ -1,0 +1,45 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <h1 class="title">
+            <input name="name" type="text" value="{{taxonomy.name}}" placeholder="Taxonomy Name"/>
+        </h1>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="form-group stacked">
+            <label>Description</label>
+            <textarea name="description" rows="4">{{{source.description}}}</textarea>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Base Abilities</label>
+            <div class="form-fields abilities">
+                {{#each abilities as |a|}}
+                    <label>
+                        <input type="number" name="abilities.{{a.id}}" placeholder="-" value="{{a.value}}">
+                        {{a.label}}
+                    </label>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Resistance Scaling ({{resistanceSum}})</label>
+            <div class="form-fields resistances">
+                {{#each resistances as |r|}}
+                <label>
+                    <input type="number" name="resistances.{{r.id}}" placeholder="-" value="{{r.value}}">
+                    {{r.label}}
+                </label>
+                {{/each}}
+            </div>
+        </div>
+
+        <footer class="sheet-footer">
+            <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
+        </footer>
+    </section>
+</form>

@@ -209,7 +209,7 @@ export const RESOURCES = Object.freeze({
   focus: {
     id: "focus",
     label: "RESOURCES.Focus",
-    tooltip: "(0.5 &times; Level) + Max(Wisdom, Presence, Intellect)",
+    tooltip: "(0.5 &times; Level) + ([Wisdom + Presence + Intellect] / 3)",
     type: "active",
     color: {
       high: Color.from(0x0066FF),

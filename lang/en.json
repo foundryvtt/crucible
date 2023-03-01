@@ -22,6 +22,11 @@
 "ABILITIES.Wisdom": "Wisdom",
 "ABILITIES.WisdomAbbr": "Wis",
 
+"ADVERSARY.ThreatMinion": "Minion",
+"ADVERSARY.ThreatNormal": "Normal",
+"ADVERSARY.ThreatElite": "Elite",
+"ADVERSARY.ThreatBoss": "Boss",
+
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
@@ -110,6 +115,8 @@
 "ADVANCEMENT.Progress": "Milestone Progress",
 
 "ARCHETYPE.Applied": "Applied the {archetype} archetype to {actor}.",
+"ARCHETYPE.Clear": "Clear Archetype",
+"ARCHETYPE.Configure": "Configure Archetype",
 
 "ARMOR.Bulky": "Bulky",
 "ARMOR.Impenetrable": "Impenetrable",
@@ -194,6 +201,7 @@
 "EFFECT.StatusIncapacitated": "Incapacitated",
 "EFFECT.StatusInsane": "Insane",
 "EFFECT.StatusResolute": "Resolute",
+"EFFECT.StatusMute": "Silenced",
 "EFFECT.StatusSlowed": "Slowed",
 "EFFECT.StatusStaggered": "Staggered",
 
@@ -613,6 +621,10 @@
 
 "TALENT.PointsAvailable": "Points Available",
 
+"TAXONOMY.Applied": "Applied the {taxonomy} Taxonomy to {actor}.",
+"TAXONOMY.Clear": "Clear Taxonomy",
+"TAXONOMY.Configure": "Configure Taxonomy",
+
 "WEAPON.Light1": "Light (1h)",
 "WEAPON.Simple1": "Simple (1h)",
 "WEAPON.Balanced1": "Balanced (1h)",
@@ -670,6 +682,8 @@
 
 "WALKTHROUGH.AddAncestry": "Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
 "WALKTHROUGH.AddBackground": "Choose a Background from the Compendium or Items sidebar and add it via drag-and-drop.",
+"WALKTHROUGH.ConfigureArchetype": "Configure an Archetype for this adversary.",
+"WALKTHROUGH.ConfigureTaxonomy": "Configure a Taxonomy for this adversary.",
 "WALKTHROUGH.AbilityPoints": "Spend available Ability Points by increasing your Ability scores.",
 "WALKTHROUGH.SkillPoints": "Spend available Skill Points by increasing your Skill ranks.",
 "WALKTHROUGH.TalentPoints": "Spend available Talent Points by opening the Talent Tree.",

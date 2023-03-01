@@ -5,9 +5,8 @@
     "hero": {}
   },
   "Item": {
-    "types": ["ancestry", "archetype", "armor", "background", "talent", "weapon"],
+    "types": ["ancestry", "armor", "background", "talent", "weapon"],
     "ancestry": {},
-    "archetype": {},
     "background": {},
     "armor": {},
     "talent": {},

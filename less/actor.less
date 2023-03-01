@@ -31,7 +31,6 @@
   .sheet-body {
     flex: 1;
     height: 100%;
-    min-height: 700px;
   }
 
   /** Section Headers */
@@ -48,7 +47,7 @@
   h3.category-header {
     line-height: 80%;
     text-align: center;
-    color: @colorOlive;
+    color: var(--colorOlive);
     > span {
       top: var(--marginSize);
     }
@@ -67,15 +66,15 @@
   /** Labels and Inputs */
   label {
     font-family: var(--fontFamilySerif);
-    color: @colorOlive;
+    color: var(--colorOlive);
   }
 
   input[type="text"] {
-    border: 1px solid @colorBeige;
+    border: 1px solid var(--colorBeige);
   }
 
   input[type="number"] {
-    border: 1px solid @colorBeige;
+    border: 1px solid var(--colorBeige);
     text-align: center;
   }
 
@@ -97,7 +96,7 @@
 
   // Math Separators
   .math {
-    flex: 0 0 20px;
+    flex: none;
     font-size: var(--fontSizeTitle);
     line-height: inherit;
     text-align: center;
@@ -120,7 +119,7 @@
   .overview {
     margin-top: var(--marginSize);
     padding-right: var(--marginSize);
-    border-right: 1px solid @colorBeige;
+    border-right: 1px solid var(--colorBeige);
     gap: 4px;
 
     /** Overview Containers */
@@ -145,13 +144,21 @@
   /*  Sheet Header                             */
   /* ----------------------------------------- */
 
+  .sheet-header {
+    flex-direction: column; // Overrides core style.css
+    gap: 0;
+  }
+
   /** Sheet Title */
-  .title {
+  .sheet-header .title {
+    width: 100%;
     gap: 0.5rem;
     margin: 0;
-    border-bottom: 1px solid @colorBeige;
+    border-bottom: 1px solid var(--colorBeige);
     font-family: var(--fontFamilySerif);
-    h1.charname {
+
+    // Character Name
+    .charname {
       margin: 0;
       border: none;
       height: var(--titleHeight);
@@ -162,58 +169,29 @@
         padding: 0 0.5rem;
       }
     }
-  }
 
-  /** Advancement Bar */
-  .advancement {
-    flex: 0 0 140px;
-
-    .bar {
-      flex: 0 0 100%;
-      height: 10px;
-      padding: 1px;
-      margin-bottom: 4px;
-      background: #2a3247;
-      border: 1px solid @colorDark;
-      border-radius: 8px;
-
-      .fill {
-        height: 6px;
-        background: #91e5f5;
-        border-radius: 8px;
-      }
+    // Level
+    > label {
+      flex: none;
+      font-size: var(--font-size-28);
     }
-
-    input, span.input {
-      height: 20px;
-      line-height: 20px;
-    }
-  }
-
-  /** Character Level */
-  a.level-up {
-    flex: 0 0 36px;
-    height: 36px;
-    margin: 0;
-    line-height: 36px;
-    font-size: var(--font-size-20);
-    font-weight: bold;
-    color: var(--color-text-hyperlink);
-  }
-  label.level {
-    flex: none;
-    font-size: var(--font-size-28);
-    input {
+    input.level {
+      flex: none;
       width: var(--titleHeight);
       height: var(--titleHeight);
+      font-size: var(--font-size-28);
       line-height: var(--titleHeight);
+      margin-bottom: -2px; // Overlap bottom border
     }
   }
 
   /** Sheet Subtitle */
-  .subtitle {
-    margin: 0.25rem 0;
+  .sheet-header .subtitle {
+    width: 100%;
+    padding: 0.25rem 0;
     gap: 0.25rem;
+
+    // Subtitle Tags
     .tag {
       display: flex;
       flex: none;
@@ -222,13 +200,21 @@
       padding: 0 0.5rem;
       font-size: var(--fontSizeTitle);
       background: rgba(0, 0, 0, 0.05);
-      border: 1px solid @colorBeige;
+      border: 1px solid var(--colorBeige);
       border-radius: 2px;
-      &.inactive {
-        border: 2px dashed @colorBeige;
+      i.incomplete {
+        display: none;
       }
       a.control {
         font-size: var(--font-size-14);
+      }
+    }
+
+    // Incomplete Tags
+    .tag.incomplete {
+      border: 2px dashed var(--colorBeige);
+      > i.incomplete {
+        display: initial;
       }
     }
   }
@@ -243,15 +229,15 @@
     font-family: var(--fontFamilySerif);
     font-size: var(--fontSizeHeader);
     line-height: var(--navHeight);
-    border-bottom: 1px solid @colorBeige;
+    border-bottom: 1px solid var(--colorBeige);
 
     .item {
       flex: auto;
-      color: @colorOlive;
+      color: var(--colorOlive);
     }
 
     .item.active {
-      color: @colorDark;
+      color: var(--colorDark);
       font-weight: bold;
       text-shadow: 0 0 5px #FFF;
     }
@@ -276,7 +262,7 @@
 
   .resource {
     padding: 0 var(--marginSize);
-    border-right: 1px solid @colorFaint;
+    border-right: 1px solid var(--colorFaint);
     &.action {
       border-right: none;
     }
@@ -360,7 +346,7 @@
         margin: 0;
         padding: 0;
         &.inactive {
-          color: @colorBeige;
+          color: var(--colorBeige);
           pointer-events: none;
         }
       }
@@ -391,7 +377,7 @@
       font-size: var(--fontSizeHeader);
       text-align: center;
       font-weight: bold;
-      border: 1px solid @colorBeige;
+      border: 1px solid var(--colorBeige);
     }
 
     .button.reset {
@@ -418,9 +404,6 @@
       }
       > .flexcol {
         align-items: center;
-      }
-      .math {
-        flex: 0 0 24px;
       }
       h3, h4 {
         font-size: var(--fontSizeHeader);
@@ -614,12 +597,12 @@
         height: 16px;
         margin: 0;
         background: rgba(0, 0, 0, 0.05);
-        border: 1px solid @colorTan;
+        border: 1px solid var(--colorTan);
         border-radius: 1px 2px;
         &.trained {
           background: rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 2px #FFF inset;
-          border: 1px solid @colorOlive;
+          border: 1px solid var(--colorOlive);
         }
       }
     }
@@ -640,7 +623,7 @@
       font-weight: bold;
     }
     .passive {
-      color: @colorTan;
+      color: var(--colorTan);
     }
   }
 
@@ -660,7 +643,7 @@
       font-weight: bold;
     }
     .next {
-      color: @colorTan;
+      color: var(--colorTan);
     }
   }
 }
@@ -683,7 +666,7 @@
     margin: 3px 0;
     padding: 0 4px;
     background: rgba(0, 0, 0, 0.05);
-    border: 1px solid @colorBeige;
+    border: 1px solid var(--colorBeige);
   }
 
   .items-list {
@@ -694,15 +677,15 @@
 
     .controls {
       padding-left: 2px;
-      border-left: 1px solid @colorBeige;
+      border-left: 1px solid var(--colorBeige);
     }
   }
 
   // Talent Tree
   .talents .point-pools {
     a.button {
-      color: @colorOlive;
-      border: 1px solid @colorBeige;
+      color: var(--colorOlive);
+      border: 1px solid var(--colorBeige);
       font-size: var(--font-size-14);
       font-weight: bold;
     }

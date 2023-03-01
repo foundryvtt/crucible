@@ -1,0 +1,8 @@
+<div class="tab biography flexcol" data-group="primary" data-tab="biography">
+    <h2 class="section-header divider"><span></span><label>Public Biography</label><span></span></h2>
+    {{editor biography.public target="system.details.biography.public" button=true engine="prosemirror"
+             owner=owner editable=editable}}
+    <h2 class="section-header divider"><span></span><label>Private Biography</label><span></span></h2>
+    {{editor biography.private target="system.details.biography.private" button=true  engine="prosemirror"
+             owner=owner editable=editable}}
+</div>

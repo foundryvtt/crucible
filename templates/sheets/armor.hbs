@@ -1,0 +1,98 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
+        <h1 class="title">
+            <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
+        </h1>
+        <div class="tags header-tags">
+            {{#each tags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="form-group">
+            <label>Category</label>
+            <div class="form-fields">
+                <select name="system.category">
+                    {{selectOptions categories selected=source.system.category labelAttr="label"}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Armor Defense</label>
+            <div class="form-fields">
+                <label>Base</label>
+                {{numberInput source.system.armor.base name="system.armor.base"
+                              min=category.armor.min max=category.armor.max step=1}}
+                <label>Bonus</label>
+                <input type="number" value="{{item.system.armor.bonus}}" disabled/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Dodge Defense</label>
+            <div class="form-fields">
+                <label>Base</label>
+                {{numberInput source.system.dodge.base name="system.dodge.base"
+                              min=category.dodge.min max=category.dodge.max step=1}}
+                <label>Bonus</label>
+                <input type="text" value="{{item.system.dodge.start}} Dexterity" disabled/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Quality</label>
+            <div class="form-fields">
+                <select name="system.quality">
+                    {{selectOptions qualities selected=source.system.quality labelAttr="label"}}
+                </select>
+                <label class="checkbox">
+                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}/> Broken
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Enchantment</label>
+            <div class="form-fields">
+                <select name="system.enchantment">
+                    {{selectOptions enchantments selected=source.system.enchantment labelAttr="label"}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Equipped</label>
+            <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}/>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Armor Properties</label>
+            <div class="form-fields item-properties">
+                {{#each properties as |prop id|}}
+                <label class="checkbox">
+                    <input type="checkbox" name="{{prop.name}}" {{checked prop.checked}}/> {{prop.label}}
+                </label>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="form-group stacked physical-details">
+            <label>Physical Details</label>
+            <div class="form-fields">
+                <label>Quantity</label>
+                <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
+                <label>Weight</label>
+                <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
+                <label>Price</label>
+                <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
+            </div>
+        </div>
+    </section>
+</form>

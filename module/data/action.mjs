@@ -275,8 +275,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = new Map();
     for ( const roll of message.rolls ) {
       if ( !roll.data.target ) continue;
-      const target = fromUuidSync(roll.data.target);
+      let target = fromUuidSync(roll.data.target);
       if ( !target ) continue;
+      if ( target instanceof TokenDocument ) target = target.actor;
       if ( !targets.has(target) ) targets.set(target, [roll]);
       else targets.get(target).push(roll);
     }
@@ -524,8 +525,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         const r = this.target.distance * canvas.dimensions.size;
         const rect = new NormalizedRectangle(origin.data.x - r, origin.data.y - r, origin.w + (2*r), origin.h + (2*r));
         return canvas.tokens.placeables.reduce((arr, t) => {
-          const c = t.center;
-          if ( rect.contains(c.x, c.y) && (t.id !== origin.id) ) arr.push(mapTokenTargets(t));
+          if ( t.id === origin.id ) return arr;
+          const {center: c, w, h} = t;
+          const hitBox = new PIXI.Rectangle(c.x - (w / 2), c.y - (h / 2), w, h);
+          if ( rect.intersects(hitBox) ) arr.push(mapTokenTargets(t));
           return arr;
         }, []);
 

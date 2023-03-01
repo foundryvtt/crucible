@@ -1,8 +1,3 @@
-2023/02/25-12:30:39.000 27454 Recovering log #265
-2023/02/25-12:30:39.004 27454 Delete type=0 #265
-2023/02/25-12:30:39.005 27454 Delete type=3 #264
-2023/02/25-17:10:00.428 248c4 Level-0 table #269: started
-2023/02/25-17:10:00.428 248c4 Level-0 table #269: 0 bytes OK
-2023/02/25-17:10:00.429 248c4 Delete type=0 #267
-2023/02/25-17:10:00.432 248c4 Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
-2023/02/25-17:10:00.432 248c4 Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/02/28-21:09:25.899 303cc Recovering log #285
+2023/02/28-21:09:25.903 303cc Delete type=0 #285
+2023/02/28-21:09:25.903 303cc Delete type=3 #284

@@ -1,0 +1,364 @@
+<form class="{{cssClass}} flexrow" autocomplete="off">
+
+    {{!-- Left Sidebar --}}
+    {{> "systems/crucible/templates/sheets/partials/actor-sidebar.hbs"}}
+
+    {{!-- Main Content --}}
+    <section class="sheet-body flexcol">
+
+        {{!-- Sheet Header --}}
+        <header class="sheet-header flexcol">
+            <div class="title flexrow">
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
+                </h1>
+                {{#if incomplete.level}}
+                <a class="button control level-up" data-action="levelUp" data-tooltip="{{incomplete.levelTooltip}}">
+                    <i class="fa-solid {{incomplete.levelIcon}}"></i>
+                </a>
+                {{/if}}
+                {{#if showMilestones}}
+                <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
+                    <div class="bar"><div class="fill" style="width:{{actor.system.advancement.pct}}%"></div></div>
+                    <input type="number" name="system.advancement.progress" value="{{actor.system.advancement.progress}}"/>
+                    <span class="slash"></span>
+                    <span class="input">{{actor.system.advancement.next}}</span>
+                </div>
+                {{/if}}
+                <label>Level</label>
+                <input class="level" type="number" name="system.advancement.level" value="{{source.system.advancement.level}}"
+                       {{#if isL0}}disabled{{/if}}>
+            </div>
+            <div class="subtitle flexrow">
+                <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive{{/if}}"
+                    {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
+                    {{#if incomplete.ancestry}}
+                    <i class="incomplete fas fa-exclamation-triangle"></i>
+                    {{/if}}
+                    {{ancestryName}}
+                    {{#if incomplete.ancestry}}
+                    <a class="control" data-action="browseCompendium" data-pack="{{packs.ancestry}}" data-tooltip="ANCESTRY.Browse">
+                        <i class="fa-solid fa-plus-circle"></i>
+                    </a>
+                    {{else if isL0}}
+                    <a class="control" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear">
+                        <i class="fas fa-times-circle"></i>
+                    </a>
+                    {{/if}}
+                </h2>
+                <h2 class="background tag flexrow {{#if incomplete.background}}inactive{{/if}}"
+                    {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
+                    {{#if incomplete.background}}
+                    <i class="incomplete fas fa-exclamation-triangle"></i>
+                    {{/if}}
+                    {{backgroundName}}
+                    {{#if incomplete.background}}
+                    <a class="control" data-action="browseCompendium" data-pack="{{packs.background}}" data-tooltip="BACKGROUND.Browse">
+                        <i class="fa-solid fa-plus-circle"></i>
+                    </a>
+                    {{else if isL0}}
+                    <a class="control" data-action="clearBackground" data-tooltip="BACKGROUND.Clear">
+                        <i class="fas fa-times-circle"></i>
+                    </a>
+                    {{/if}}
+                </h2>
+                {{#if actor.system.details.signatureName}}
+                <span class="flex1"></span>
+                <h2 class="signature tag">{{actor.system.details.signatureName}}</h2>
+                {{/if}}
+            </div>
+        </header>
+
+        {{!-- Sheet Navigation --}}
+        <nav class="sheet-navigation tabs" data-group="primary">
+            <a class="item badge attributes" data-tab="attributes" {{#if incomplete.abilities}}data-tooltip="WALKTHROUGH.AbilityPoints"{{/if}}>
+            {{~#if incomplete.abilities~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Attributes</a>
+            <a class="item badge skills" data-tab="skills" {{#if incomplete.skills}}data-tooltip="WALKTHROUGH.SkillPoints"{{/if}}>
+            {{~#if incomplete.skills~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Skills</a>
+            <a class="item badge talents" data-tab="talents" {{#if incomplete.talents}}data-tooltip="WALKTHROUGH.TalentPoints"{{/if}}>
+            {{~#if incomplete.talents~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
+            Talents</a>
+            <a class="item badge inventory" data-tab="inventory">Inventory</a>
+            <a class="item badge spells" data-tab="spells">Grimoire</a>
+            <a class="item badge biography" data-tab="biography">Biography</a>
+        </nav>
+
+        {{!-- Attributes Tab --}}
+        <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+
+            {{!-- Character Resources --}}
+            <section class="resources flexrow">
+                <h2 class="section-header divider">
+                    <span></span><label>Resources</label><span></span>
+                    <a class="button section-lock" data-section="resources">
+                        <i class="fas {{#if sectionLocks.resources}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h2>
+                {{#each resources as |resource|}}
+                <div class="resource {{resource.id}}">
+                    <h3 class="category-header divider" data-tooltip="{{resource.tooltip}}">
+                        <span></span>
+                        <label>{{resource.label}}</label>
+                        <span></span>
+                    </h3>
+                    <div class="resource-values flexrow">
+                        <input type="number" name="system.resources.{{resource.id}}.value" value="{{resource.value}}" placeholder="0">
+                        <span class="slash"></span>
+                        <span class="input resource-max">{{resource.max}}</span>
+                        <div class="bar" style="background: {{resource.color.bg}}">
+                            <div class="fill" style="width:{{resource.pct}}%; background: {{resource.color.fill}}"></div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </section>
+
+            {{!-- Abilities --}}
+            <section class="abilities">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Abilities</label>
+                    <span></span>
+                    <a class="button section-lock" data-section="abilities">
+                        <i class="fas {{#if sectionLocks.abilities}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h2>
+                {{#unless sectionLocks.abilities}}
+                <div class="point-pools flexrow">
+                    {{#if isL0}}
+                    <label>Available</label>
+                    <span class="value highlight">{{points.ability.pool}}</span>
+                    <label>Spent</label>
+                    <span class="value highlight">{{points.ability.bought}}</span>
+                    {{else}}
+                    <label>Available</label>
+                    <span class="value highlight">{{points.ability.available}}</span>
+                    <label>Spent</label>
+                    <span class="value highlight">{{points.ability.spent}}</span>
+                    {{/if}}
+                </div>
+                {{/unless}}
+                <ol class="ability-scores">
+                {{#each abilityScores as |attr|}}
+                    <li class="ability flexrow" data-ability="{{attr.id}}">
+                        <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
+                        {{#unless ../sectionLocks.abilities}}
+                        <div class="controls flexcol">
+                            <a class="control {{#unless attr.canIncrease}}inactive{{/unless}} increase" title="Ability Increase" data-action="abilityIncrease">
+                                <i class="fas fa-caret-up"></i>
+                            </a>
+                            <a class="control {{#unless attr.canDecrease}}inactive{{/unless}} decrease" title="Ability Decrease" data-action="abilityDecrease">
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                        </div>
+                        {{/unless}}
+                        <span class="input score">{{attr.value}}</span>
+                    </li>
+                {{/each}}
+                </ol>
+            </section>
+
+            {{!-- Defenses --}}
+            <section class="defenses">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Defenses</label>
+                    <span></span>
+                    <a class="button section-lock" data-section="defenses">
+                        <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h2>
+
+                {{! Physical Defense --}}
+                <div class="defense physical flexrow" data-defense="physical">
+                    <div class="defense-title flexrow">
+                        <h3 class="badge physical">Physical</h3>
+                        <span class="input score">{{actor.system.defenses.physical}}</span>
+                    </div>
+                    <span class="math">=</span>
+                    <div class="flexcol">
+                        <h4>Armor</h4>
+                        <span class="input score">{{actor.system.defenses.armor.total}}</span>
+                        <span class="subtitle">{{armorCategory}}</span>
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
+                        <h4>Dodge</h4>
+                        <span class="input score">{{actor.system.defenses.dodge.total}}</span>
+                        <span class="subtitle">Maximum {{actor.system.defenses.dodge.max}}</span>
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
+                        <h4>Parry</h4>
+                        <span class="input score">{{actor.system.defenses.parry.total}}</span>
+                        <span class="subtitle">Maximum 6</span>
+                    </div>
+                    <span class="math">+</span>
+                    <div class="flexcol">
+                        <h4>Block</h4>
+                        <span class="input score">{{actor.system.defenses.block.total}}</span>
+                        <span class="subtitle">Maximum 6</span>
+                    </div>
+                </div>
+
+                <div class="save-defenses">
+                    {{#each saveDefenses as |defense|}}
+                    <div class="defense save flexrow" data-defense="{{defense.id}}">
+                        <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
+                        <span class="input score">{{defense.total}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+            </section>
+
+            {{!-- Resistances --}}
+            <section class="damage-resistances flexrow">
+                <h2 class="section-header divider">
+                    <span></span>
+                    <label>Resistances</label>
+                    <span></span>
+                    <a class="button section-lock" data-section="resistances">
+                        <i class="fas {{#if sectionLocks.resistances}}fa-lock{{else}}fa-unlock{{/if}}"></i>
+                    </a>
+                </h2>
+                {{#each resistances as |res cat|}}
+                <div class="category {{cat}}">
+                    <h3 class="category-header divider">
+                        <span></span>
+                        <label>{{res.label}}</label>
+                        <span></span>
+                    </h3>
+                    <ol class="resistances {{cat}}" data-resistance-type="{{cat}}">
+                        {{#each res.resists as |r id|}}
+                        <li class="resistance flexrow" data-resistance="{{id}}">
+                            <span class="input total">{{r.total}}</span>
+                            <label>{{r.label}}</label>
+                            <input type="number" name="system.resistances.{{id}}.bonus" value="{{r.bonus}}"
+                               {{#if @root.sectionLocks.resistances}}disabled{{/if}}/>
+                        </li>
+                        {{/each}}
+                    </ol>
+                </div>
+                {{/each}}
+            </section>
+        </div>
+
+        {{!-- Skills Tab --}}
+        <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+            <div class="point-pools flexrow">
+                <label>Available</label>
+                <span class="value highlight">{{points.skill.available}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.skill.spent}}</span>
+            </div>
+
+            {{!-- Skills List --}}
+            {{#each skillCategories as |category catId|}}
+            <header class="items-header flexrow">
+                <div class="item-name skill-name">
+                    <h4>{{category.label}} Skills</h4>
+                </div>
+                <div class="bonus">Bonus</div>
+                <div class="attributes">Attributes</div>
+                <span>Trained Rank</span>
+                <span class="points">Spent (Cost)</span>
+            </header>
+
+            <ol class="skills-list">
+                {{#each category.skills as |skill skillId|}}
+                <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
+                    <div class="name">
+                        <img class="icon" src="{{skill.icon}}">
+                        <h4><a data-tooltip="Roll Check" data-action="skillRoll">{{skill.label}}</a></h4>
+                    </div>
+                    <div class="controls">
+                        <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                    </div>
+                    <div class="bonus flexrow">
+                        <span class="active highlight" data-tooltip="{{skill.tooltips.value}}">
+                            {{numberFormat skill.score sign=true}}
+                        </span>
+                        <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
+                    </div>
+                    <div class="attributes">
+                        {{#each skill.abilityAbbrs}}
+                        <span class="attribute tag">{{this}}</span>
+                        {{/each}}
+                    </div>
+                    <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
+                        {{#each skill.pips}}
+                        <span class="pip {{this}}"></span>
+                        {{/each}}
+                    </div>
+                    <div class="points flexrow">
+                        <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                        <span class="cumulative">{{skill.spent}}</span>
+                        <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
+                        <a class="control {{#unless skill.canIncrease}}inactive{{/unless}} increase" title="Increase Skill Rank" data-action="skillIncrease">
+                            <i class="fas fa-caret-up"></i>
+                        </a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            {{/each}}
+        </div>
+
+        {{!-- Talents Tab --}}
+        <div class="tab talents flexcol" data-group="primary" data-tab="talents">
+            <div class="point-pools flexrow">
+                <a class="button control" data-action="talentTree">{{talentTreeButton}}</a>
+                <label>Available</label>
+                <span class="value highlight">{{points.talent.available}}</span>
+                <label>Spent</label>
+                <span class="value highlight">{{points.talent.spent}}</span>
+                <a class="button control reset" data-action="talentReset">Reset</a>
+            </div>
+
+            {{#each items.talents as |section s|}}
+            {{#if section.items.length}}
+            <header class="items-header flexrow">
+                <div class="item-name flexrow">
+                    <h4>{{section.label}}</h4>
+                </div>
+            </header>
+            <ol class="items-list">
+                {{#each section.items as |item id|}}
+                <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+                    <div class="name">
+                        <img class="icon" src="{{item.img}}" title="{{item.name}}">
+                        <h4>{{item.name}}</h4>
+                    </div>
+                    <div class="tags">
+                        {{#each item.tags}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                    <div class="controls">
+                        <a class="control" data-action="itemEdit" title="Edit Item">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            {{/if}}
+            {{/each}}
+        </div>
+
+        {{!-- Inventory Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-inventory.hbs"}}
+
+        {{!-- Grimoire Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-grimoire.hbs"}}
+
+        {{!-- Biography Tab --}}
+        {{> "systems/crucible/templates/sheets/partials/actor-biography.hbs"}}
+    </section>
+</form>

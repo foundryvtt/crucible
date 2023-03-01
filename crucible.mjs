@@ -23,6 +23,7 @@ import CrucibleInflection from "./module/data/inflection.mjs";
 import CrucibleRune from "./module/data/rune.mjs";
 import CrucibleSpell from "./module/data/spell.mjs";
 import CrucibleTalent from "./module/data/talent.mjs";
+import CrucibleTaxonomy from "./module/data/taxonomy.mjs";
 import CrucibleWeapon from "./module/data/weapon.mjs";
 
 // Documents
@@ -33,14 +34,17 @@ import CrucibleCombatant from "./module/documents/combatant.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
 
 // Sheets
-import HeroSheet from "./module/sheets/hero.js";
-import AdversarySheet from "./module/sheets/adversary.mjs";
-import AncestrySheet from "./module/sheets/ancestry.mjs";
-import ArchetypeSheet from "./module/sheets/archetype.mjs";
-import ArmorSheet from "./module/sheets/armor.mjs";
-import BackgroundSheet from "./module/sheets/background.mjs";
-import TalentSheet from "./module/sheets/talent.mjs";
-import WeaponSheet from "./module/sheets/weapon.mjs";
+import HeroSheet from "./module/applications/sheets/hero.js";
+import AdversarySheet from "./module/applications/sheets/adversary.mjs";
+import AncestrySheet from "./module/applications/sheets/ancestry.mjs";
+import ArmorSheet from "./module/applications/sheets/armor.mjs";
+import BackgroundSheet from "./module/applications/sheets/background.mjs";
+import TalentSheet from "./module/applications/sheets/talent.mjs";
+import WeaponSheet from "./module/applications/sheets/weapon.mjs";
+
+// Applications
+import ArchetypeConfig from "./module/applications/config/archetype.mjs";
+import TaxonomyConfig from "./module/applications/config/taxonomy.mjs";
 
 // Dice
 import StandardCheck from "./module/dice/standard-check.js";
@@ -67,6 +71,10 @@ Hooks.once("init", async function() {
 
   // Expose the system API
   game.system.api = {
+    applications: {
+      ArchetypeConfig,
+      TaxonomyConfig
+    },
     canvas: {
       CrucibleTalentTree
     },
@@ -87,6 +95,7 @@ Hooks.once("init", async function() {
       CrucibleRune,
       CrucibleSpell,
       CrucibleTalent,
+      CrucibleTaxonomy,
       CrucibleWeapon
     },
     documents: {
@@ -104,7 +113,8 @@ Hooks.once("init", async function() {
       syncTalents
     },
     talents: {
-      CrucibleTalentNode
+      CrucibleTalentNode,
+      nodes: CrucibleTalentNode.nodes
     }
   }
 
@@ -122,7 +132,6 @@ Hooks.once("init", async function() {
   CONFIG.Item.documentClass = CrucibleItem;
   CONFIG.Item.dataModels = {
     ancestry: CrucibleAncestry,
-    archetype: CrucibleArchetype,
     armor: CrucibleArmor,
     background: CrucibleBackground,
     talent: CrucibleTalent,
@@ -130,7 +139,6 @@ Hooks.once("init", async function() {
   };
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, ArchetypeSheet, {types: ["archetype"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});
@@ -175,7 +183,7 @@ Hooks.once("i18nInit", function() {
   // Apply localizations
   const toLocalize = [
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES", "DEFENSES",
-    "RESOURCES", "SKILL_CATEGORIES", "SKILL_RANKS",
+    "RESOURCES", "SKILL_CATEGORIES", "SKILL_RANKS", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
@@ -204,6 +212,10 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.html`,
     `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-grimoire.hbs`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-sidebar.hbs`
   ]);
 });
 

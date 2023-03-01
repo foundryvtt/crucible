@@ -23,6 +23,9 @@ export default class CrucibleArmor extends PhysicalItemData {
       armor: new fields.SchemaField({
         base: new fields.NumberField({integer: true, nullable: false, initial: 0, min: 0}),
       }),
+      dodge: new fields.SchemaField({
+        base: new fields.NumberField({integer: true, nullable: false, initial: 0, min: 0}),
+      }),
     });
   }
 
@@ -66,12 +69,12 @@ export default class CrucibleArmor extends PhysicalItemData {
     this.rarity = quality.rarity + enchantment.rarity;
 
     // Armor Defense
-    this.armor.base = Math.clamped(this.armor.base, category.minArmor, category.maxArmor);
+    this.armor.base = Math.clamped(this.armor.base, category.armor.min, category.armor.max);
     this.armor.bonus = quality.bonus + enchantment.bonus;
 
     // Dodge Defense
-    this.dodge = {start: 2 + Math.floor(this.armor.base / 2)};
-    this.dodge.base = Math.clamped(SYSTEM.PASSIVE_BASE - this.dodge.start, 0, 8);
+    this.dodge.base = Math.clamped(this.dodge.base, category.dodge.min, category.dodge.max);
+    this.dodge.start = category.dodge.start;
 
     // Broken Armor
     if ( this.broken ) {
@@ -96,17 +99,18 @@ export default class CrucibleArmor extends PhysicalItemData {
    * @returns {Object<string, string>}    The tags which describe this weapon
    */
   getTags(scope="full") {
-
-    // Short Tags
-    const tags = {
-      armor: `${this.armor.base + this.armor.bonus} Armor`
-    }
-    if ( scope === "short" ) return tags;
-
-    // Full Tags
+    const tags = {};
     tags.category = this.config.category.label;
     for ( let p of this.properties ) {
       tags[p] = SYSTEM.ARMOR.PROPERTIES[p].label;
+    }
+    tags.armor = `${this.armor.base + this.armor.bonus} Armor`;
+    const actor = this.parent.parent;
+    if ( !actor ) tags.dodge = `${this.dodge.base}+ Dodge`;
+    else {
+      const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.start, 0);
+      tags.dodge = `${this.dodge.base + dodgeBonus} Dodge`;
+      tags.total = `${this.armor.base + this.armor.bonus + this.dodge.base + dodgeBonus} Defense`;
     }
     return tags;
   }

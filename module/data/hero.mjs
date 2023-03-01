@@ -269,8 +269,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = level === 0 ? 0
-      : Math.floor(level / 2) + Math.max(a.wisdom.value, a.presence.value, a.intellect.value);
+    r.focus.max = Math.ceil(level / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
   }
 
@@ -312,9 +311,6 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
       defenses.block.bonus += Math.ceil(abilities.toughness.value / 2);
     }
 
-    // Monk
-    if ( talentIds.has("monk000000000000") && equipment.unarmored ) defenses.dodge.bonus += 2;
-
     // Compute total physical defenses
     const physicalDefenses = ["dodge", "parry", "block", "armor"];
     for ( let pd of physicalDefenses ) {
@@ -331,10 +327,12 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
    * Prepare non-physical defenses.
    */
   #prepareSaveDefenses() {
+    const {equipment, talentIds} = this.parent;
     for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( sd.type !== "save" ) continue;
       let d = this.defenses[k];
       d.base = sd.abilities.reduce((t, a) => t + this.abilities[a].value, SYSTEM.PASSIVE_BASE);
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
       d.total = d.base + d.bonus;
     }
   }
