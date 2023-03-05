@@ -1,8 +1,25 @@
-2023/02/28-21:09:57.748 2e55c Recovering log #326
-2023/02/28-21:09:57.751 2e55c Delete type=0 #326
-2023/02/28-21:09:57.752 2e55c Delete type=3 #325
-2023/02/28-22:30:50.037 30394 Level-0 table #330: started
-2023/02/28-22:30:50.037 30394 Level-0 table #330: 0 bytes OK
-2023/02/28-22:30:50.037 30394 Delete type=0 #328
-2023/02/28-22:30:50.039 30394 Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/02/28-22:30:50.039 30394 Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/03/05-09:19:30.054 23fbc Recovering log #357
+2023/03/05-09:19:30.055 23fbc Level-0 table #359: started
+2023/03/05-09:19:30.056 23fbc Level-0 table #359: 3099 bytes OK
+2023/03/05-09:19:30.059 23fbc Delete type=0 #357
+2023/03/05-09:19:30.060 23fbc Delete type=3 #356
+2023/03/05-14:34:34.538 2ed00 Level-0 table #362: started
+2023/03/05-14:34:34.539 2ed00 Level-0 table #362: 1663 bytes OK
+2023/03/05-14:34:34.540 2ed00 Delete type=0 #360
+2023/03/05-14:34:34.543 2ed00 Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!inflectionquicke' @ 992 : 1
+2023/03/05-14:34:34.543 2ed00 Compacting 3@0 + 0@1 files
+2023/03/05-14:34:34.544 2ed00 Generated table #363@0: 9 keys, 4552 bytes
+2023/03/05-14:34:34.544 2ed00 Compacted 3@0 + 0@1 files => 4552 bytes
+2023/03/05-14:34:34.545 2ed00 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/03/05-14:34:34.545 2ed00 Delete type=2 #350
+2023/03/05-14:34:34.545 2ed00 Delete type=2 #359
+2023/03/05-14:34:34.545 2ed00 Delete type=2 #362
+2023/03/05-14:34:34.548 2ed00 Manual compaction at level-0 from '!items!inflectionquicke' @ 992 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/03/05-14:34:34.548 2ed00 Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!tumblethrough000' @ 999 : 1
+2023/03/05-14:34:34.548 2ed00 Compacting 1@1 + 1@2 files
+2023/03/05-14:34:34.552 2ed00 Generated table #364@1: 145 keys, 60976 bytes
+2023/03/05-14:34:34.552 2ed00 Compacted 1@1 + 1@2 files => 60976 bytes
+2023/03/05-14:34:34.553 2ed00 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/03/05-14:34:34.553 2ed00 Delete type=2 #318
+2023/03/05-14:34:34.553 2ed00 Delete type=2 #363
+2023/03/05-14:34:34.553 2ed00 Manual compaction at level-1 from '!items!tumblethrough000' @ 999 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

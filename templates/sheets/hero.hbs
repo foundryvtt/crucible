@@ -141,22 +141,22 @@
                 </div>
                 {{/unless}}
                 <ol class="ability-scores">
-                {{#each abilityScores as |attr|}}
-                    <li class="ability flexrow" data-ability="{{attr.id}}">
-                        <h4 class="label badge {{attr.id}}">{{attr.label}}</h4>
+                    {{#each abilityScores as |ability|}}
+                    <li class="ability flexrow" data-ability="{{ability.id}}">
+                        <h4 class="label badge {{ability.id}}">{{ability.label}}</h4>
                         {{#unless ../sectionLocks.abilities}}
                         <div class="controls flexcol">
-                            <a class="control {{#unless attr.canIncrease}}inactive{{/unless}} increase" title="Ability Increase" data-action="abilityIncrease">
+                            <a class="control {{#unless ability.canIncrease}}inactive{{/unless}} increase" title="Ability Increase" data-action="abilityIncrease">
                                 <i class="fas fa-caret-up"></i>
                             </a>
-                            <a class="control {{#unless attr.canDecrease}}inactive{{/unless}} decrease" title="Ability Decrease" data-action="abilityDecrease">
+                            <a class="control {{#unless ability.canDecrease}}inactive{{/unless}} decrease" title="Ability Decrease" data-action="abilityDecrease">
                                 <i class="fas fa-caret-down"></i>
                             </a>
                         </div>
                         {{/unless}}
-                        <span class="input score">{{attr.value}}</span>
+                        <span class="input score">{{ability.value}}</span>
                     </li>
-                {{/each}}
+                    {{/each}}
                 </ol>
             </section>
 

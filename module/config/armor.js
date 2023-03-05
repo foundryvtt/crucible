@@ -33,6 +33,12 @@ export const CATEGORIES = {
     label: "ARMOR.Heavy",
     armor: {min: 14, max: 20},
     dodge: {min: 0, max: 3, start: 8}
+  },
+  natural: {
+    id: "natural",
+    label: "ARMOR.Natural",
+    armor: {min: 0, max: 20},
+    dodge: {min: 10, max: 10, start: 0}
   }
 };
 

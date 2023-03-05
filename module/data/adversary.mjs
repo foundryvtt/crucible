@@ -39,6 +39,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     schema.details = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
       archetype: new fields.EmbeddedDataField(CrucibleArchetype),
+      stature: new fields.StringField({required: true, choices: SYSTEM.CREATURE_STATURES, initial: "medium"}),
       taxonomy: new fields.EmbeddedDataField(CrucibleTaxonomy),
       threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"}),
       biography: new fields.SchemaField({
@@ -183,22 +184,21 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
    */
   #prepareResources() {
     const statuses = this.parent.statuses;
-    const {level, threat} = this.details;
-    const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
-    const l = Math.round(level * factor);
+    const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
+    const l = this.details.level * threat.scaling;
     const r = this.resources;
     const a = this.abilities;
 
     // Health
-    r.health.max = (4 * (l + a.toughness.value)) + (2 * (a.strength.value + a.dexterity.value));
+    r.health.max = Math.round(4 * (l + a.toughness.value)) + (2 * (a.strength.value + a.dexterity.value));
     r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = (4 * (l + a.presence.value)) + (2 * (a.intellect.value + a.wisdom.value));
+    r.morale.max = Math.round(4 * (l + a.presence.value)) + (2 * (a.intellect.value + a.wisdom.value));
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Action
-    r.action.max = 3;
+    r.action.max = threat.actionMax;
     if ( statuses.has("stunned") ) r.action.max -= 2;
     else if ( statuses.has("staggered") ) r.action.max -= 1;
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);

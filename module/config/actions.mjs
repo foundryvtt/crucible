@@ -2,7 +2,7 @@ import {SYSTEM} from "./system.js";
 
 export default {
   beastShapeRevert: {
-    confirm: async (actor, action, outcomes) => {
+    confirm: async (actor) => {
       const effect = actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
       await effect.delete();
     }
@@ -62,8 +62,9 @@ export default {
     }
   },
   secondWind: {
-    confirm: async (actor, action, target) => {
-      return actor.alterResources({health: actor.system.abilities.toughness.value}, {}, {statusText: action.name});
+    confirm: async (actor, action, outcomes) => {
+      const self = outcomes.get(actor);
+      self.resources.health = (self.resources.health || 0) + actor.system.abilities.toughness.value;
     }
   },
   shieldBash: {
@@ -83,14 +84,14 @@ export default {
       const {basicStrike, offhandStrike} = actor.system.status;
       if ( basicStrike && !offhandStrike ) action.cost.action = 0;
     },
-    post: async (actor, action, target) => action.usage.actorUpdates["system.status.offhandStrike"] = true
+    post: async (actor, action) => action.usage.actorUpdates["system.status.offhandStrike"] = true
   },
   refocus: {
-    confirm: async (actor, action, target) => {
+    confirm: async (actor, action, outcomes) => {
+      const self = outcomes.get(actor);
       const {mainhand: mh, offhand: oh} = actor.equipment.weapons
       const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
-      const focus = talisman.system.config.category.hands;
-      return actor.alterResources({focus}, {}, {statusText: action.name});
+      self.resources.focus = (self.resources.focus || 0) + talisman.system.config.category.hands;
     }
   },
   uppercut: {
@@ -104,22 +105,23 @@ export default {
     pre: (actor, action) => {
       const cls = getDocumentClass("Item");
       const bite = new cls(CONFIG.SYSTEM.WEAPON.VAMPIRE_BITE, {parent: actor});
-      action.context.weapon = bite;
-      action.context.tags.add("Vampiric Bite");
+      action.usage.weapon = bite;
+      action.usage.context.tags.add("Vampiric Bite");
       foundry.utils.mergeObject(action.usage.bonuses, bite.system.actionBonuses);
-      foundry.utils.mergeObject(action.context, {
+      foundry.utils.mergeObject(action.usage.context, {
         type: "weapons",
         label: "Weapon Tags",
         icon: "fa-solid fa-swords",
         hasDice: true
       });
     },
-    roll: (actor, action, target) => action.context.weapon.attack(target, action.usage.bonuses),
+    roll: (actor, action, target) => action.usage.weapon.attack(target, action.usage.bonuses),
     confirm: async (actor, action, outcomes) => {
+      const self = outcomes.get(actor);
       for ( const outcome of outcomes.values() ) {
-        if ( outcome.total ) {
-          await actor.alterResources({"health": actor.system.abilities.toughness.value}, {}, {statusText: action.name});
-          break;
+        if ( outcome === self ) continue;
+        if ( outcome.rolls.some(r => r.isSuccess) ) {
+          self.resources.health = (self.resources.health || 0) + actor.system.abilities.toughness.value;
         }
       }
     }

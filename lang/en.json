@@ -27,6 +27,14 @@
 "ADVERSARY.ThreatElite": "Elite",
 "ADVERSARY.ThreatBoss": "Boss",
 
+"ACTOR.StatureTiny": "Tiny",
+"ACTOR.StatureSmall": "Small",
+"ACTOR.StatureMedium": "Medium",
+"ACTOR.StatureLarge": "Large",
+"ACTOR.StatureGiant": "Giant",
+"ACTOR.StatureHuge": "Huge",
+"ACTOR.StatureGargantuan": "Gargantuan",
+
 "ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
@@ -116,7 +124,7 @@
 
 "ARCHETYPE.Applied": "Applied the {archetype} archetype to {actor}.",
 "ARCHETYPE.Clear": "Clear Archetype",
-"ARCHETYPE.Configure": "Configure Archetype",
+"ARCHETYPE.Configure": "Archetype",
 
 "ARMOR.Bulky": "Bulky",
 "ARMOR.Impenetrable": "Impenetrable",
@@ -127,6 +135,7 @@
 "ARMOR.Light": "Light Armor",
 "ARMOR.Medium": "Medium Armor",
 "ARMOR.Heavy": "Heavy Armor",
+"ARMOR.Natural": "Natural Armor",
 
 "ATTACK.ResultTypeMiss": "Miss",
 "ATTACK.ResultTypeDodge": "Dodge",
@@ -595,6 +604,8 @@
 "SPELL.GestureTouch": "Touch",
 "SPELL.GestureWard": "Ward",
 
+"SPELL.MetamagicCompose": "Compose",
+"SPELL.MetamagicComposeAdj": "Composed",
 "SPELL.MetamagicExtend": "Extend",
 "SPELL.MetamagicExtendAdj": "Extended",
 "SPELL.MetamagicNegate": "Negate",
@@ -603,6 +614,8 @@
 "SPELL.MetamagicPullAdj": "Attractive",
 "SPELL.MetamagicPush": "Push",
 "SPELL.MetamagicPushAdj": "Repellent",
+"SPELL.MetamagicQuicken": "Quicken",
+"SPELL.MetamagicQuickenAdj": "Quickened",
 
 "TALENT.NodeAttack": "Attack",
 "TALENT.NodeDefense": "Defense",
@@ -623,7 +636,7 @@
 
 "TAXONOMY.Applied": "Applied the {taxonomy} Taxonomy to {actor}.",
 "TAXONOMY.Clear": "Clear Taxonomy",
-"TAXONOMY.Configure": "Configure Taxonomy",
+"TAXONOMY.Configure": "Taxonomy",
 
 "WEAPON.Light1": "Light (1h)",
 "WEAPON.Simple1": "Simple (1h)",

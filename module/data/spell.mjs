@@ -190,11 +190,11 @@ export default class CrucibleSpell extends CrucibleAction {
     const s = this.actor.system.status;
     const t = this.actor.talentIds;
     this.usage.context.hasDice = true; // Has dice by default
-
-    // Specific Gesture handling
     switch ( this.gesture.id ) {
 
-      // Gesture: Arrow:
+      /* -------------------------------------------- */
+      /*  Gesture: Arrow                              */
+      /* -------------------------------------------- */
       case "arrow":
 
         // Arcane Archer Signature
@@ -204,7 +204,27 @@ export default class CrucibleSpell extends CrucibleAction {
         }
         break;
 
-      // Gesture: Strike
+      /* -------------------------------------------- */
+      /*  Gesture: Create                             */
+      /* -------------------------------------------- */
+      case "create":
+        let effectId = SYSTEM.EFFECTS.getEffectId("create")
+        if ( t.has("conjurer00000000") ) {
+          const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));
+          effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
+        }
+        this.effects.push({
+          _id: effectId,
+          icon: this.img,
+          duration: {rounds: 60},
+          origin: this.actor.uuid
+        });
+        this.usage.context.hasDice = false;
+        break;
+
+      /* -------------------------------------------- */
+      /*  Gesture: Strike                             */
+      /* -------------------------------------------- */
       case "strike":
         const mh = e.weapons.mainhand;
         this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);
@@ -217,7 +237,9 @@ export default class CrucibleSpell extends CrucibleAction {
         }
         break;
 
-      // Gesture: Ward
+      /* -------------------------------------------- */
+      /*  Gesture: Ward                               */
+      /* -------------------------------------------- */
       case "ward":
         // TODO
         if ( this.damage.healing ) {
@@ -240,7 +262,9 @@ export default class CrucibleSpell extends CrucibleAction {
         this.usage.context.hasDice = false;
         break;
 
-      // Gesture: Aspect
+      /* -------------------------------------------- */
+      /*  Gesture: Aspect                             */
+      /* -------------------------------------------- */
       case "aspect":
         // TODO
         if ( this.damage.healing ) {
@@ -275,7 +299,7 @@ export default class CrucibleSpell extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  clone(updateData, context) {
+  clone(updateData={}, context) {
     updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
     return super.clone(updateData, context);
   }
@@ -297,6 +321,20 @@ export default class CrucibleSpell extends CrucibleAction {
       composition: this.COMPOSITION_STATES.NONE
     }, {inplace: false});
     return new this(spellData, {actor});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Obtain a Spell instance corresponding to a provided spell ID
+   * @param {string} spellId      The provided spell ID in the format spell.{rune}.{gesture}.{inflection}
+   * @param {object} [context]    Context data applied to the created spell
+   * @returns {CrucibleSpell}     The constructed spell instance
+   */
+  static fromId(spellId, context={}) {
+    const [spell, rune, gesture, inflection] = spellId.split(".");
+    if ( spell !== "spell" ) throw new Error(`Invalid Spell ID: "${spellId}"`);
+    return new this({id: spellId, rune, gesture, inflection, composition: this.COMPOSITION_STATES.COMPOSED}, context);
   }
 
   /* -------------------------------------------- */
@@ -325,9 +363,6 @@ export default class CrucibleSpell extends CrucibleAction {
 
     // Re-acquire targets
     targets = this._acquireTargets();
-
-    // Record last spell cast
-    this.usage.actorFlags.lastSpell = this.id;
     return {action: spell, targets};
   }
 

@@ -51,6 +51,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     await this.#drawTalents();
     this.refresh(); // Set initial display
     this.visible = true;
+    this.eventMode = "passive";
   }
 
   /* -------------------------------------------- */

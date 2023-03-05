@@ -21,7 +21,7 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _validateModel(data) {
+  static validateJoint(data) {
 
     // Skip validation if this is a newly created item that has not yet been populated
     if ( !data.skills.length ) return;

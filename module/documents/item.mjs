@@ -114,31 +114,6 @@ export default class CrucibleItem extends Item {
   }
 
   /* -------------------------------------------- */
-  /*  Dice Rolls                                  */
-  /* -------------------------------------------- */
-
-  roll(options={}) {
-    if ( !this.isOwned ) return false;
-    switch ( this.type ) {
-      case "skill":
-        return this._rollSkillCheck(options);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  async _rollSkillCheck({passive=false}={}) {
-    const formula = `${passive ? SYSTEM.dice.passiveCheck : SYSTEM.activeCheckFormula} + ${this.value}`;
-    const roll = new Roll(formula).roll();
-    const skillName = this.system.path ? `${this.name} (${this.path.name})` : this.name;
-    await roll.toMessage({
-      speaker: {actor: this.actor, user: game.user},
-      flavor: passive ? `Passive ${skillName}` : `${skillName} Skill Check`
-    });
-    return roll;
-  }
-
-  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 

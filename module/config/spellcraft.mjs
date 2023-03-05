@@ -193,8 +193,7 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
-      type: "none",
-      distance: 1
+      type: "self"
     },
     tier: 1
   },
@@ -338,6 +337,24 @@ export const GESTURES = Object.seal({
  * @enum {CrucibleInflection}
  */
 export const INFLECTIONS = Object.seal({
+  compose: {
+    id: "compose",
+    name: "SPELL.MetamagicCompose",
+    cost: {
+      action: 1,
+      focus: -1
+    },
+    tier: 1
+  },
+  quicken: {
+    id: "quicken",
+    name: "SPELL.MetamagicQuicken",
+    cost: {
+      action: -1,
+      focus: 1
+    },
+    tier: 1
+  },
   extend: {
     id: "extend",
     name: "SPELL.MetamagicExtend",

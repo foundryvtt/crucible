@@ -84,16 +84,10 @@ export default class BackgroundSheet extends ItemSheet {
     event.preventDefault();
 
     // Process skills
-    const skills = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
+    formData["system.skills"] = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
       if ( formData[s] === true ) skills.push(s);
       return skills;
     }, []);
-    if ( skills.length !== 2 ) {
-      const err = game.i18n.localize("BACKGROUND.SkillsWarning");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
-    formData["system.skills"] = skills;
 
     // Update the item
     return this.object.update(formData);

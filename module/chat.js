@@ -3,7 +3,7 @@ import CrucibleAction from "./data/action.mjs";
 
 export function addChatMessageContextOptions(html, options)  {
 
-  // Assign difficulty for non-attack rolls
+  // Assign difficulty for skill checks
   options.push({
     name: game.i18n.localize("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
@@ -11,7 +11,7 @@ export function addChatMessageContextOptions(html, options)  {
       if ( !game.user.isGM ) return false;
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return message.isRoll && !flags.isAttack;
+      return message.isRoll && flags.skill;
     },
     callback: li => {
       const message = game.messages.get(li.data("messageId"));
@@ -23,21 +23,19 @@ export function addChatMessageContextOptions(html, options)  {
           roll.data.dc = parseInt(html[0].querySelector('input').value);
           message.update({roll: JSON.stringify(roll)});
         },
-        options: {
-          width: 260
-        }
+        options: {width: 260}
       })
     }
   });
 
-  // Apply damage for attack rolls
+  // Confirm Action usage
   options.push({
     name: game.i18n.localize("DICE.Confirm"),
-    icon: '<i class="fas fa-first-aid"></i>',
+    icon: '<i class="fas fa-hexagon-check"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return flags.isAttack && !flags.confirmed && message.rolls.some(r => (r.data.damage?.total !== undefined));
+      return flags.action && !flags.confirmed;
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
@@ -48,11 +46,11 @@ export function addChatMessageContextOptions(html, options)  {
   // Reverse damage
   options.push({
     name: game.i18n.localize("DICE.Reverse"),
-    icon: '<i class="fas fa-first-aid"></i>',
+    icon: '<i class="fas fa-hexagon-check"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
-      return flags.isAttack && flags.confirmed;
+      return flags.action && flags.confirmed;
     },
     callback: async li => {
       const message = game.messages.get(li.data("messageId"));
@@ -69,8 +67,13 @@ export function addChatMessageContextOptions(html, options)  {
  */
 export function renderChatMessage(message, html, data, options) {
   const flags = message.flags.crucible || {};
-  if ( flags.isAttack && flags.confirmed ) {
-    html.find(".damage-result .target").addClass("applied");
+  if ( flags.action ) {
+    if ( flags.confirmed ) html.find(".damage-result .target").addClass("applied");
+    else {
+      const confirm = $(`<button class="crucible confirm" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
+      html.append(confirm);
+      confirm.click(() => CrucibleAction.confirm(message))
+    }
   }
 }
 

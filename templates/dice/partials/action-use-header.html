@@ -1,7 +1,7 @@
 <section class="action flexcol">
     <header class="action-header line-item">
         <div class="name">
-            <img class="icon large" src="{{action.img}}">
+            <img class="icon" src="{{action.img}}">
             <h3>{{action.name}}</h3>
         </div>
         <div class="tags" data-tag-type="activation">
@@ -32,19 +32,6 @@
         <div class="tags" data-tag-type="{{context.type}}">
             {{#each context.tags as |label|}}
             <span class="tag">{{label}}</span>
-            {{/each}}
-        </div>
-    </div>
-    {{/if}}
-
-    {{#if targets.length}}
-    <div class="flexrow">
-        <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
-            <i class="fa-solid fa-bullseye"></i>
-        </label>
-        <div class="tags" data-tag-type="target">
-            {{#each targets}}
-            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
             {{/each}}
         </div>
     </div>

@@ -30,8 +30,8 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     this.on("pointerout", this.#onPointerOut.bind(this));
     this.on("pointerdown", this.#onClickLeft.bind(this));
     this.on("rightdown", this.#onClickRight.bind(this));
-    this.interactive = true;
-    this.buttonMode = true;
+    this.eventMode = "static";
+    this.cursor = "pointer";
   }
 
   /* -------------------------------------------- */

@@ -90,12 +90,14 @@ export default class CrucibleActorSheet extends ActorSheet {
    * @return {object[]}
    */
   #formatAbilities(abilities) {
-    return Object.entries(SYSTEM.ABILITIES).map(e => {
-      let [a, ability] = e;
-      const attr = foundry.utils.deepClone(ability);
-      attr.id = a;
-      attr.value = abilities[a].value;
-      return attr;
+    return Object.values(SYSTEM.ABILITIES).map(cfg => {
+      const ability = foundry.utils.deepClone(cfg);
+      ability.value = abilities[ability.id].value;
+      if ( this.actor.points ) {
+        ability.canIncrease = this.actor.canPurchaseAbility(ability.id, 1);
+        ability.canDecrease = this.actor.canPurchaseAbility(ability.id, -1);
+      }
+      return ability;
     });
   }
 

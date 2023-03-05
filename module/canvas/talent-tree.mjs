@@ -3,7 +3,6 @@ import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
-import CrucibleTalent from "../data/talent.mjs";
 
 
 export default class CrucibleTalentTree extends PIXI.Container {
@@ -295,6 +294,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Toggle visibility of UI elements
     this.app.renderer.enabled = true;
+    canvas.stage.eventMode = "none";
     this.canvas.hidden = false;
     if ( this.developmentMode ) this.canvas.style.zIndex = 0;
     else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
@@ -319,6 +319,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Toggle visibility of UI elements
     this.app.renderer.enabled = false;
     this.canvas.hidden = true;
+    canvas.stage.eventMode = "passive";
     canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();
   }
@@ -450,6 +451,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   #activateInteractivity() {
+    this.background.eventMode = "passive";
+    this.background.children.forEach(c => c.eventMode = "none");
+    this.nodes.eventMode = "passive";       // Capture hover/click events on nodes
+    this.backdrop.eventMode = "static";     // Capture drag events on the backdrop
+    this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager
     this.interactionManager = new MouseInteractionManager(this, this, {
@@ -471,11 +477,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Handle right-mouse drag events occurring on the Canvas.
-   * @param {PIXI.InteractionEvent} event
+   * @param {PIXI.FederatedEvent} event
    */
   #onDragRightMove(event) {
     const DRAG_SPEED_MODIFIER = 0.8;
-    const {origin, destination} = event.data;
+    const {origin, destination} = event.interactionData;
     const dx = destination.x - origin.x;
     const dy = destination.y - origin.y;
     this.pan({

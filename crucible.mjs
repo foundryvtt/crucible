@@ -182,7 +182,7 @@ Hooks.once("i18nInit", function() {
 
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES", "DEFENSES",
+    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "CREATURE_STATURES", "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "SKILL_CATEGORIES", "SKILL_RANKS", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
@@ -258,17 +258,41 @@ async function packageCompendiumPacks() {
 
 /**
  * Package all Items of a certain type into their appropriate Compendium pack
- * @param itemType
+ * @param {string} itemType
+ * @param {string} folderName
  * @returns {Promise<void>}
  */
-async function packageItemCompendium(itemType) {
+async function packageItemCompendium(itemType, folderName) {
   const pack = game.packs.get(`crucible.${itemType}`);
-  const items = game.items.filter(i => i.type === itemType);
-  const toCreate = items.map(i => i.toCompendium(pack, {keepId: true}));
+  const folder = game.folders.find(f => (f.type === "Item") && (f.name === folderName));
+  if ( !folder ) throw new Error(`Folder "${folderName}" not found`);
+
+  // Unlock the pack for editing
   await pack.configure({locked: false});
+
+  // Delete all existing documents in the pack
   await pack.getDocuments();
   await Item.deleteDocuments([], {pack: pack.collection, deleteAll: true});
-  await Item.createDocuments(toCreate, {pack: pack.collection, keepId: true});
+  await Folder.deleteDocuments(Array.from(pack.folders.keys()), {pack: pack.collection});
+
+  // Identify Folders and Documents to create
+  const folderIds = new Set([folder.id]);
+  const foldersToCreate = folder.getSubfolders().map(folder => {
+    folderIds.add(folder.id);
+    return folder.toCompendium(pack, {clearSort: false, keepId: true})
+  });
+  const documentsToCreate = game.items.reduce((arr, item) => {
+    if ( (item.type === itemType) && folderIds.has(item.folder?.id) ) {
+      arr.push(item.toCompendium(pack, {clearSort: true, keepId: true}));
+    }
+    return arr;
+  }, []);
+
+  // Create Folders and Documents
+  await Folder.createDocuments(foldersToCreate, {pack: pack.collection, keepId: true});
+  await Item.createDocuments(documentsToCreate, {pack: pack.collection, keepId: true});
+
+  // Re-lock the pack
   await pack.configure({locked: true});
 }
 

@@ -37,7 +37,9 @@ export default class AttackRoll extends StandardCheck {
     target: undefined,
     defenseType: "physical",
     result: undefined,
-    damage: undefined
+    damage: undefined,
+    index: undefined,
+    newTarget: false  // FIXME it would be good to handle this a different way
   });
 
   /**

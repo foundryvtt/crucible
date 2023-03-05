@@ -1,4 +1,14 @@
 <div class="dice-roll {{cssClass}}">
+    {{#if data.newTarget}}
+    <div class="flexrow">
+        <label class="tag-icon">
+        <i class="fa-solid fa-bullseye"></i>
+        </label>
+        <div class="tags" data-tag-type="target">
+            <span class="target-link tag" data-uuid="{{target.uuid}}">{{target.name}}</span>
+        </div>
+    </div>
+    {{/if}}
     <div class="dice-result">
         <div class="dice-tooltip">
             <div class="dice-formula">{{formula}}</div>

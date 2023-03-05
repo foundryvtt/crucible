@@ -571,7 +571,14 @@ export default class CrucibleActor extends Actor {
     }
 
     // Execute the roll to chat
-    await sc.toMessage({flavor});
+    await sc.toMessage({
+      flavor,
+      flags: {
+        crucible: {
+          skill: skillId
+        }
+      }
+    });
     return sc;
   }
 
@@ -651,7 +658,7 @@ export default class CrucibleActor extends Actor {
     const targetBoons = this.getTargetBoons(target, {
       attackType: "spell",
       defenseType,
-      ranged: spell.rune.target.distance > 1
+      ranged: spell.gesture.target.distance > 1
     });
     boons += targetBoons.boons;
     banes += targetBoons.banes;
@@ -768,10 +775,11 @@ export default class CrucibleActor extends Actor {
    * @param {Object<string, number>} deltas       Changes where the keys are resource names and the values are deltas
    * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
    * @param {object} [options]                    Options which are forwarded to the update method
+   * @param {boolean} [options.reverse]             Reverse the direction of change?
    * @param {string} [options.statusText]           Custom status text displayed on the Token.
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
-  async alterResources(deltas, updates={}, {statusText}={}) {
+  async alterResources(deltas, updates={}, {reverse=false, statusText}={}) {
     const r = this.system.resources;
 
     // Apply resource updates
@@ -779,6 +787,7 @@ export default class CrucibleActor extends Actor {
     for ( let [resourceName, delta] of Object.entries(deltas) ) {
       if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
       let resource = r[resourceName];
+      if ( reverse ) delta *= -1;
 
       // Frightened and Diseased
       if ( (resourceName === "morale") && this.statuses.has("frightened") ) delta = Math.min(delta, 0);
@@ -846,119 +855,122 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * @typedef {Object} DamageOutcome
-   * @property {CrucibleActor} target   The damage target
-   * @property {AttackRoll[]} rolls     The attack roll instances
-   * @property {object} resources       Damage dealt per target resource
-   * @property {number} total           The total damage applied across all resources
-   * @property {boolean} incapacitated  Did the target become incapacitated?
-   * @property {boolean} broken         Did the target become broken?
-   * @property {boolean} critical       Did the damage contain a Critical Hit
-   * @property {boolean} failure        Did the damage contain a Critical Miss
-   */
+  /*  Action Outcome Management                   */
+  /* -------------------------------------------- */
 
   /**
    * Deal damage to a target. This method requires ownership of the target Actor.
    * Applies resource changes to both the initiating Actor and to affected Targets.
-   * @param {CrucibleActor} target      The target being damaged
-   * @param {AttackRoll[]} rolls        The rolls which produced damage
-   * @param {object} [options]          Options which affect how damage is applied
-   * @param {boolean} [options.reverse]   Reverse damage instead of applying it
-   * @returns {Promise<DamageOutcome>}  The damage outcome
+   * @param {CrucibleActionOutcome} outcome     The Action outcome
+   * @param {object} [options]                  Options which affect how damage is applied
+   * @param {boolean} [options.reverse]           Reverse damage instead of applying it
    */
-  async dealDamage(target, rolls, {reverse=false}={}) {
-    const outcome = {
-      target, rolls,
-      total: undefined,
-      incapacitated: false,
-      broken: false,
-      critical: false,
-      failure: false,
-      effects: []
-    };
-    const resources = outcome.resources = {};
-    const direction = reverse ? 1 : -1;
+  async applyActionOutcome(outcome, {reverse=false}={}) {
+    const wasIncapacitated = this.isIncapacitated;
+    const wasBroken = this.isBroken;
 
-    // Compute total damage
-    for ( const roll of rolls ) {
-      const damage = roll.data.damage || {};
-      const resource = damage.resource ?? "health";
-      resources[resource] ??= 0;
-      resources[resource] += ((damage.total ?? 0) * (damage.restoration ? -1 : 1) * direction);
-      if ( roll.isCriticalSuccess ) outcome.critical = true;
-      else if ( roll.isCriticalFailure) outcome.failure = true;
+    // Apply changes to the Actor
+    await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse});
+    await this.#applyOutcomeEffects(outcome, reverse);
+
+    // Record target state changes
+    if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
+    if ( this.isBroken && !wasBroken ) outcome.broken = true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply or reverse ActiveEffect changes occurring through an action outcome.
+   * @param {CrucibleActionOutcome} outcome     The action outcome
+   * @param {boolean} reverse                   Reverse the effects instead of applying them?
+   * @returns {Promise<void>}
+   */
+  async #applyOutcomeEffects(outcome, reverse=false) {
+    if ( reverse ) {
+      await this.deleteEmbeddedDocuments("ActiveEffect", outcome.effects.map(e => e._id));
+      return;
     }
-    outcome.total = Object.values(resources).reduce((t, d) => t - d, 0);
-
-    // Apply damage to the target
-    const wasIncapacitated = target.isIncapacitated;
-    const wasBroken = target.isBroken;
-    await target.alterResources(resources);
-
-    // Record state changes
-    if ( target.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
-    if ( target.isBroken && !wasBroken ) outcome.broken = true;
-    return outcome;
+    const toCreate = [];
+    for ( const effectData of outcome.effects ) {
+      const existing = this.effects.get(effectData._id);
+      if ( existing ) {
+        effectData.duration ||= {};
+        effectData.duration.startRound = game.combat?.round || null;
+        toCreate.push(foundry.utils.mergeObject(existing.toObject(), effectData));
+      }
+      else toCreate.push(effectData);
+    }
+    await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
   }
 
   /* -------------------------------------------- */
 
   /**
    * Additional steps taken when this Actor deals damage to other targets.
-   * @param {CrucibleAction} action                           The action performed
-   * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
-   * @returns {ActiveEffect[]}                                An array of ActiveEffect documents created
+   * @param {CrucibleAction} action                The action performed
+   * @param {CrucibleActionOutcomes} outcomes      The action outcomes that occurred
    */
-  async onDealDamage(action, outcomes) {
+  onDealDamage(action, outcomes) {
+    const status = this.system.status;
+    const self = outcomes.get(this);
+    const updates = self.actorUpdates;
+    for ( const o of outcomes.values() ) {
+      if ( o === self ) continue;
 
-    // Battle Focus
-    if ( this.talentIds.has("battlefocus00000") && !this.system.status.battleFocus ) {
-      for ( const outcome of outcomes.values() ) {
-        if ( outcome.critical || outcome.incapacitated ) {
-          await this.alterResources({"focus": 1}, {"system.status.battleFocus": true}, {statusText: "Battle Focus"});
-          break;
-        }
+      // Battle Focus // TODO revisit this
+      if ( (o.criticalSuccess || o.incapacitated) && this.talentIds.has("battlefocus00000")
+        && !(status.battleFocus || updates.system?.status?.battleFocus) ) {
+        self.resources.focus = (self.resources.focus || 0) + 1;
+        foundry.utils.setProperty(updates, "system.status.battleFocus", true);
       }
-    }
 
-    // Blood Frenzy
-    if ( this.talentIds.has("bloodfrenzy00000") && !this.system.status.bloodFrenzy ) {
-      for ( const outcome of outcomes.values() ) {
-        if ( outcome.critical ) {
-          await this.alterResources({"action": 1}, {"system.status.bloodFrenzy": true}, {statusText: "Blood Frenzy"});
-          break;
-        }
+      // Blood Frenzy // TODO revisit this
+      if ( o.criticalSuccess && this.talentIds.has("bloodfrenzy00000")
+        && !(status.bloodFrenzy || updates.system?.status?.bloodFrenzy) ) {
+        self.resources.action = (self.resources.action || 0) + 1;
+        foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
       }
+
+      // Critical Hit Effects
+      if ( o.criticalSuccess ) this.#applyCriticalEffects(action, o);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add effects which occur on critical hits to the effects applied by an action outcome.
+   * @param {CrucibleAction} action             The action being performed
+   * @param {CrucibleActionOutcome} outcome     The action outcome which resulted in a critical hit
+   */
+  #applyCriticalEffects(action, outcome) {
+    const {mainhand, offhand} = this.equipment.weapons;
 
     // Poisoner
     if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) {
-      await this.#applyCriticalEffect("poisoned", action, outcomes);
+      outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target))
     }
 
     // Bloodletter
     if ( this.talentIds.has("bloodletter00000") ) {
-      const {mainhand, offhand} = this.equipment.weapons;
       const damageTypes = new Set(["piercing", "slashing"]);
       if ( (action.tags.has("mainhand") && damageTypes.has(mainhand.system.damageType))
         || (action.tags.has("offhand") && damageTypes.has(offhand.system.damageType)) ) {
         const damageType = mainhand.system.damageType;
-        await this.#applyCriticalEffect("bleeding", action, outcomes, {damageType});
+        outcome.effects.push(SYSTEM.EFFECTS.bleeding(this, outcome.target, {damageType}));
       }
     }
 
     // Concussive Blows
     if ( this.talentIds.has("concussiveblows0") ) {
-      const {mainhand, offhand} = this.equipment.weapons;
       if ( (action.tags.has("mainhand") && (mainhand.system.damageType === "bludgeoning"))
         || (action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning")) ) {
-        await this.#applyCriticalEffect("staggered", action, outcomes);
+        outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
       }
     }
 
-    // Elemental Critical Effects
+    // Spell Runes
     const elementalEffects = {
       dustbinder000000: {rune: "earth", effectName: "corroding"},
       lightbringer0000: {rune: "radiance", effectName: "irradiated"},
@@ -971,32 +983,8 @@ export default class CrucibleActor extends Actor {
     }
     for ( const [talentId, {rune, effectName}] of Object.entries(elementalEffects) ) {
       if ( this.talentIds.has(talentId) && (action.rune?.id === rune) ) {
-        await this.#applyCriticalEffect(effectName, action, outcomes);
+        outcome.effects.push(SYSTEM.EFFECTS[effectName](this, outcome.target));
       }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply effects to a target which occur on Critical Hit.
-   * @param {string} effectName                               The named effect in SYSTEM.EFFECTS
-   * @param {CrucibleAction} action                           The action performed
-   * @param {Map<CrucibleActor, DamageOutcome>} outcomes      The damage outcomes that occurred
-   * @param {object} [options]                                Additional options passed to the effect generator
-   * @returns {Promise<void>}
-   */
-  async #applyCriticalEffect(effectName, action, outcomes, options={}) {
-    for ( const outcome of outcomes.values() ) {
-      if ( !outcome.critical ) continue;
-      outcome.effects ||= [];
-      const effectData = SYSTEM.EFFECTS[effectName](this, outcome.target, options);
-      const existing = outcome.target.effects.get(effectData._id);
-      if ( existing ) {
-        effectData.duration.startRound = game.combat?.round || null;
-        outcome.effects.push(await existing.update(effectData));
-      }
-      else outcome.effects.push(await ActiveEffect.create(effectData, {parent: outcome.target, keepId: true}));
     }
   }
 
@@ -1500,7 +1488,7 @@ export default class CrucibleActor extends Actor {
   async equipWeapon({itemId, mainhandId, offhandId, equipped=true}={}) {
     const weapons = this.equipment.weapons;
     let isMHFree = !weapons.mainhand.id;
-    let isOHFree = (weapons.mainhand.config.category.hands === 1) && !weapons.offhand.id;
+    let isOHFree = (weapons.mainhand.config.category.hands < 2) && !weapons.offhand.id;
 
     // Identify the items being requested
     const w1 = this.items.get(mainhandId ?? itemId, {strict: true});

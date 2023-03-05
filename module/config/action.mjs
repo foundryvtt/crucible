@@ -216,7 +216,7 @@ export const TAGS = {
       if ( actor.statuses.has("prone") ) action.cost.action += 1;
       action.usage.actorUpdates["system.status.hasMoved"] = true
     },
-    confirm: async (actor, action, outcomes) => {
+    confirm: async (actor) => {
       if ( actor.statuses.has("prone") ) await actor.toggleStatusEffect("prone", {active: false});
     }
   },
@@ -258,7 +258,8 @@ export const TAGS = {
     roll: (actor, action, target) => {
       action.usage.actorUpdates["system.status.hasCast"] = true;
       return actor.castSpell(action, target)
-    }
+    },
+    post: (actor, action) => action.usage.actorFlags.lastSpell = action.id
   },
 
   /* -------------------------------------------- */

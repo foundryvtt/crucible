@@ -966,8 +966,8 @@ h2.divider span {
 /* ----------------------------------------- */
 /*  Adversary Sheet                          */
 /* ----------------------------------------- */
-.crucible.sheet.adversary .sheet-header select.threat {
-  flex: 0 0 80px;
+.crucible.sheet.adversary .sheet-header select {
+  flex: 0 0 90px;
 }
 .crucible.sheet.adversary .sheet-header .threat-icon {
   font-size: var(--font-size-18);
@@ -1236,10 +1236,6 @@ h2.divider span {
 .crucible .action .action-header {
   flex: none;
 }
-.crucible .action .action-header img.large {
-  height: 48px;
-  flex: 0 0 48px;
-}
 .crucible .action .action-tags {
   display: flex;
   flex-direction: column;
@@ -1254,6 +1250,15 @@ h2.divider span {
   font-style: italic;
   border-top: 1px solid #b5b3a4;
   border-bottom: 1px solid #b5b3a4;
+}
+.crucible.confirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-14);
+  color: var(--colorOlive);
+  line-height: 20px;
+  margin-top: 0.25rem;
 }
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);
