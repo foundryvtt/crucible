@@ -50,7 +50,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       actionTags: tags.action,
       hasActionTags: !foundry.utils.isEmpty(tags.action),
       hasContextTags: action.usage.context?.tags.size > 0,
-      hasDice: action.usage.context.hasDice ?? false,
+      hasDice: action.usage.hasDice ?? false,
       targets: targets
     });
   }

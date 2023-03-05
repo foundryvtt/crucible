@@ -172,6 +172,12 @@ export default class CrucibleSpell extends CrucibleAction {
     super._prepareForActor();
     CrucibleSpell.#prepareGesture.call(this);
 
+    // Blood Magic
+    if ( this.actor.talentIds.has("bloodmagic000000") ) {
+      this.cost.health = (this.cost.focus * 10);
+      this.cost.focus = 0;
+    }
+
     // Zero cost for un-composed spells
     this._trueCost = {...this.cost};
     if ( this.composition !== CrucibleSpell.COMPOSITION_STATES.COMPOSED ) {
@@ -189,7 +195,7 @@ export default class CrucibleSpell extends CrucibleAction {
     const e = this.actor.equipment;
     const s = this.actor.system.status;
     const t = this.actor.talentIds;
-    this.usage.context.hasDice = true; // Has dice by default
+    this.usage.hasDice = true; // Spells involve dice rolls by default
     switch ( this.gesture.id ) {
 
       /* -------------------------------------------- */
@@ -219,7 +225,7 @@ export default class CrucibleSpell extends CrucibleAction {
           duration: {rounds: 60},
           origin: this.actor.uuid
         });
-        this.usage.context.hasDice = false;
+        this.usage.hasDice = false;
         break;
 
       /* -------------------------------------------- */
@@ -254,12 +260,12 @@ export default class CrucibleSpell extends CrucibleAction {
           changes: [
             {
               key: `system.resistances.${this.damage.type}.bonus`,
-              value: 6 + this.usage.bonuses.boons - this.usage.bonuses.banes,
+              value: 5,
               mode: CONST.ACTIVE_EFFECT_MODES.ADD
             }
           ]
         });
-        this.usage.context.hasDice = false;
+        this.usage.hasDice = false;
         break;
 
       /* -------------------------------------------- */
@@ -289,7 +295,7 @@ export default class CrucibleSpell extends CrucibleAction {
             }
           ]
         });
-        this.usage.context.hasDice = false;
+        this.usage.hasDice = false;
         break;
     }
   }
@@ -377,8 +383,9 @@ export default class CrucibleSpell extends CrucibleAction {
 
     // Variable Cost
     if ( this.composition === CrucibleSpell.COMPOSITION_STATES.NONE ) {
-      tags.activation.ap = "1A+";
-      tags.activation.fp = "1F+"
+      if ( tags.activation.ap ) tags.activation.ap += "+";
+      if ( tags.activation.fp ) tags.activation.fp += "+";
+      if ( tags.activation.hp ) tags.activation.hp += "+";
     }
 
     delete tags.action.spell;

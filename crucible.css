@@ -34,6 +34,8 @@
   --colorAction: #FF9900;
   --colorFocusBG: #b2c3ef;
   --colorFocus: #0066FF;
+  --colorHealthBG: #fc6060;
+  --colorHealth: #EE0000;
 }
 .crucible {
   /* Line Items */
@@ -465,6 +467,10 @@ h2.divider span {
 .crucible.sheet.actor .overview .tag.fp {
   background: var(--colorFocusBG);
   border-color: var(--colorFocus);
+}
+.crucible.sheet.actor .overview .tag.hp {
+  background: var(--colorHealthBG);
+  border-color: var(--colorHealth);
 }
 .crucible.sheet.actor .sheet-header {
   flex-direction: column;

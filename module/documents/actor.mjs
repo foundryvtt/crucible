@@ -651,6 +651,7 @@ export default class CrucibleActor extends Actor {
    */
   async castSpell(spell, target) {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
+    if ( !spell.usage.hasDice ) return;
 
     // Modify boons and banes against this target
     const defenseType = spell.defense;
@@ -892,15 +893,17 @@ export default class CrucibleActor extends Actor {
       return;
     }
     const toCreate = [];
+    const toUpdate = [];
     for ( const effectData of outcome.effects ) {
       const existing = this.effects.get(effectData._id);
       if ( existing ) {
         effectData.duration ||= {};
         effectData.duration.startRound = game.combat?.round || null;
-        toCreate.push(foundry.utils.mergeObject(existing.toObject(), effectData));
+        toUpdate.push(effectData);
       }
       else toCreate.push(effectData);
     }
+    await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
     await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
   }
 

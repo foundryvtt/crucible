@@ -71,13 +71,9 @@ function weaponAttack(type="mainhand") {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       if ( !w ) return;
       action.cost.action += (w?.system.actionCost || 0);
+      action.usage.hasDice = true;
       Object.assign(action.usage.bonuses, w.system.actionBonuses);
-      Object.assign(action.usage.context, {
-        type: "weapons",
-        label: "Weapon Tags",
-        icon: "fa-solid fa-swords",
-        hasDice: true
-      });
+      Object.assign(action.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
       action.usage.context.tags.add(w.name);
     },
     can: actor => {
@@ -480,17 +476,13 @@ for ( const {id, label} of Object.values(SKILLS) ) {
     prepare: (actor, action) => {
       action.usage.skillId = id;
       const skill = actor.skills[id];
+      action.usage.hasDice = true;
       Object.assign(action.usage.bonuses, {
         ability: skill.abilityBonus,
         skill: skill.skillBonus,
         enchantment: skill.enchantmentBonus
       });
-      Object.assign(action.usage.context, {
-        type: "skill",
-        label: "Skill Tags",
-        icon: "fa-solid fa-cogs",
-        hasDice: true
-      });
+      Object.assign(action.usage.context, {type: "skill", label: "Skill Tags", icon: "fa-solid fa-cogs"});
       action.usage.context.tags.add(SKILLS[id].label);
     },
     roll: async (actor, action, target) => actor.skillAttack(action, target)

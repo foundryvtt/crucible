@@ -292,9 +292,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.pan({x: 0, y: 0, scale: 1.0});
     this.refresh();
 
-    // Toggle visibility of UI elements
+    // Enable the talent tree canvas
     this.app.renderer.enabled = true;
     canvas.stage.eventMode = "none";
+    this.stage.eventMode = "static";
     this.canvas.hidden = false;
     if ( this.developmentMode ) this.canvas.style.zIndex = 0;
     else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
@@ -316,10 +317,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.hud.clear();
     this.controls.close();
 
-    // Toggle visibility of UI elements
+    // Disable the talent tree canvas
     this.app.renderer.enabled = false;
     this.canvas.hidden = true;
-    canvas.stage.eventMode = "passive";
+    this.stage.eventMode = "none";
+    canvas.stage.eventMode = "static";
     canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();
   }

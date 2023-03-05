@@ -3,18 +3,10 @@ import StandardCheck from "../dice/standard-check.js";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
- * @typedef {Object} ActionTarget
- * @property {string} name                  The target name
- * @property {CrucibleActor} actor          The base actor being targeted
- * @property {TokenDocument} token          A specific token being targeted
- */
-
-/**
  * @typedef {Object} ActionContext
  * @property {string} type                  The type of context provided, i.e. "weapon", "spell", etc...
  * @property {string} label                 A string label providing context info
  * @property {string[]} tags                An array of tags which describe the context
- * @property {boolean} hasDice              Does this action involve the rolling of a dice check?
  */
 
 /**
@@ -23,6 +15,18 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {number} [number]              The number of targets affected or size of target template
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
  * @property {number} [scope]               The scope of creatures affected by an action
+ */
+
+/**
+ * @typedef {Object} ActionUsage
+ * @property {object} actorUpdates          Actor data updates applied when this action is confirmed
+ * @property {object} actorFlags            Actor flag updates applied by this action
+ * @property {object} bonuses               Roll bonuses applied to this action
+ * @property {ActionContext} context        Action usage context
+ * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {string} [defenseType]         A special defense type being targeted
+ * @property {string} [skillId]             The skill ID being used.
+ * @property {CrucibleWeapon} [weapon]      A special weapon being used
  */
 
 /**
@@ -65,11 +69,6 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {ActionTarget} target          Target data for the action
  * @property {ActionCost} cost              Cost data for the action
  * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
- *
- * @property {ActionContext} context        Additional context which defines how the action is being used
- * @property {ActionTarget[]} targets       An array of targets which are affected by the action
- * @property {DiceCheckBonuses} bonuses     Dice check bonuses which apply to this action activation
- * @property {object} actorUpdates          Other Actor data updates to make as part of this Action
  */
 export default class CrucibleAction extends foundry.abstract.DataModel {
   static defineSchema() {
@@ -140,13 +139,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     /**
      * Dice roll bonuses which modify the usage of this action.
      * This object is only initialized once and retained through future initialization workflows.
-     * @type {{actorUpdates: object, actorFlags: object, bonuses: object, context: object, [defenseType]: string, [skillId]: string}}
+     * @type {ActionUsage}
      */
     this.usage = this.usage || {
       actorUpdates: {},
       actorFlags: {},
       bonuses: {boons: 0, banes: 0, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
-      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()}
+      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
+      hasDice: false
     };
 
     // Inherit Talent data
@@ -411,23 +411,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleActionOutcome}           The outcome for the Actor
    */
   #createSelfOutcome(outcomes) {
-    const selfOutcome = outcomes.get(this.actor) || this.#createOutcome(this.actor);
+    const self = outcomes.get(this.actor) || this.#createOutcome(this.actor);
 
     // Record actor updates to apply
-    foundry.utils.mergeObject(selfOutcome.actorUpdates, this.usage.actorUpdates);
+    foundry.utils.mergeObject(self.actorUpdates, this.usage.actorUpdates);
 
-    // Incur action cost
-    if ( this.cost.action ) {
-      selfOutcome.resources.action ||= 0;
-      selfOutcome.resources.action -= this.cost.action;
+    // Incur resource cost
+    for ( const [k, v] of Object.entries(this.cost) ) {
+      self.resources[k] = (self.resources[k] || 0) - v;
     }
-
-    // Incur focus cost
-    if ( this.cost.focus ) {
-      selfOutcome.resources.focus ||= 0;
-      selfOutcome.resources.focus -= this.cost.focus;
-    }
-    return selfOutcome;
+    return self;
   }
 
   /* -------------------------------------------- */
@@ -548,9 +541,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const rolls = [];
     for ( const test of this._tests() ) {
       if ( test.roll instanceof Function ) {
-        const roll = await test.roll(this.actor, this, target, rolls);
-        if ( roll instanceof Array ) rolls.push(...roll);
-        else if ( roll ) rolls.push(roll);
+        let result = await test.roll(this.actor, this, target, rolls);
+        if ( !Array.isArray(result) ) result = [result];
+        for ( const roll of result ) {
+          if ( roll instanceof Roll ) rolls.push(roll);
+        }
       }
     }
     return rolls;
@@ -615,14 +610,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cost
     const cost = this._trueCost || this.cost;
-    if ( this.actor ) {
-      if ( cost.action > 0 ) tags.activation.ap = `${cost.action}A`;
-      if ( cost.focus > 0 ) tags.activation.fp = `${cost.focus}F`;
-    } else {
-      if ( cost.action !== 0 ) tags.activation.ap = `${cost.action}A`;
-      if ( cost.action !== 0 ) tags.activation.fp = `${cost.focus}F`;
-    }
-    if ( !(tags.activation.ap || tags.activation.fp) ) tags.activation.ap = "Free";
+    if ( cost.action && (cost.action !== 0) ) tags.activation.ap = `${cost.action}A`;
+    if ( cost.focus && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
+    if ( cost.health && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
+    if ( !Object.values(cost).some(c => c !== 0) ) tags.activation.ap = "Free";
 
     // Duration
     let duration = 0;

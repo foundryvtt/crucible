@@ -443,7 +443,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "pre1a",
   abilities: ["presence"],
-  type: "utility",
+  type: "magic",
   tier: 1,
   connected: ["pre0", "wispre1"]
 });

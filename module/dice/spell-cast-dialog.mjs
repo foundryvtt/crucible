@@ -35,7 +35,6 @@ export default class SpellCastDialog extends ActionUseDialog {
 
     // Merge context
     return foundry.utils.mergeObject(super.getData(), {
-      hasDice: true,
       ability, runes, gestures, inflections,
       chooseDamageType: spell.rune.id === "kinesis",
       damageTypes: {
