@@ -30,6 +30,7 @@
   --colorTan: #7a7971;
   --colorOlive: #33332e;
   --colorError: #cb2f30;
+  --colorSuccess: #4e832b;
   --colorActionBG: #e7cc9d;
   --colorAction: #FF9900;
   --colorFocusBG: #b2c3ef;
@@ -1254,8 +1255,8 @@ h2.divider span {
   padding: 4px 0;
   font-size: var(--font-size-12);
   font-style: italic;
-  border-top: 1px solid #b5b3a4;
-  border-bottom: 1px solid #b5b3a4;
+  border-top: 1px solid var(--colorBeige);
+  border-bottom: 1px solid var(--colorBeige);
 }
 .crucible.confirm {
   display: flex;
@@ -1265,6 +1266,12 @@ h2.divider span {
   color: var(--colorOlive);
   line-height: 20px;
   margin-top: 0.25rem;
+}
+.message-metadata .confirmed {
+  color: var(--colorSuccess);
+}
+.message-metadata .unconfirmed {
+  color: var(--colorError);
 }
 #chat-log .message .flavor-text {
   font-family: var(--fontFamilySerif);

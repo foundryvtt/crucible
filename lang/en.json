@@ -56,6 +56,8 @@
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",
 "ACTION.Targets": "Targets",
+"ACTION.Confirmed": "Confirmed",
+"ACTION.Unconfirmed": "Unconfirmed",
 "ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}!",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",

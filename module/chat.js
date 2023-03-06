@@ -46,7 +46,7 @@ export function addChatMessageContextOptions(html, options)  {
   // Reverse damage
   options.push({
     name: game.i18n.localize("DICE.Reverse"),
-    icon: '<i class="fas fa-hexagon-check"></i>',
+    icon: '<i class="fas fa-hexagon-xmark"></i>',
     condition: li => {
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
@@ -68,8 +68,12 @@ export function addChatMessageContextOptions(html, options)  {
 export function renderChatMessage(message, html, data, options) {
   const flags = message.flags.crucible || {};
   if ( flags.action ) {
-    if ( flags.confirmed ) html.find(".damage-result .target").addClass("applied");
+    if ( flags.confirmed ) {
+      html.find(".damage-result .target").addClass("applied");
+      html.find(".message-metadata").prepend(`<i class="crucible confirmed fas fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
+    }
     else {
+      html.find(".message-metadata").prepend(`<i class="crucible unconfirmed fas fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
       const confirm = $(`<button class="crucible confirm" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
       html.append(confirm);
       confirm.click(() => CrucibleAction.confirm(message))

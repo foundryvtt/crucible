@@ -186,7 +186,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  clone(updateData, context={}) {
+  clone(updateData={}, context={}) {
     context.parent = this.parent;
     context.actor = this.actor;
     return super.clone(updateData, context);
@@ -198,7 +198,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Display a configuration prompt which customizes the Action usage.
-   * @param {CrucibleActor[]} targets     Currently selected targets
+   * @param {object[]} targets            Currently selected targets
    * @returns {Promise<object|null>}      The results of the configuration dialog
    */
   async configure(targets) {
@@ -222,32 +222,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {string} [options.rollMode]             Which roll mode to apply to the resulting message?
    * @returns {Promise<CrucibleActionOutcomes|undefined>}
    */
-  async use({chatMessage=true, chatMessageOptions={}, dialog=true}={}) {
+  async use(options={}) {
     if ( !this.actor ) throw new Error("A CrucibleAction may not be used unless it is bound to an Actor");
-
-    // Clone the action so that it may be mutated during the workflow
     const action = this.clone({}, {parent: this.parent, actor: this.actor});
-
-    // Evaluate action outcomes
-    const outcomes = await action.#use({dialog});
-    if ( outcomes === null ) return;
-
-    // Record the action as a chat message
-    if ( chatMessage ) await action.toMessage(outcomes, chatMessageOptions);
-
-    // Apply action usage flags (immediately)
-    await this.actor.update({"flags.crucible": action.usage.actorFlags});
-    return outcomes;
+    return action.#use(options);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Execute the cloned action.
-   * @param {boolean} [dialog]
+   * @param {object} [options]                      Options which modify action usage
+   * @param {boolean} [options.chatMessage]         Automatically create a ChatMessage for the action?
+   * @param {boolean} [options.dialog]              Present the user with an action configuration dialog?
+   * @param {string} [options.rollMode]             Which roll mode to apply to the resulting message?
    * @returns {Promise<CrucibleActionOutcomes|null>}
    */
-  async #use({dialog=true}={}) {
+  async #use({chatMessage=true, chatMessageOptions={}, dialog=true}={}) {
 
     // Assert that the action can be used based on its tags
     try {
@@ -291,6 +282,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Track the outcome for the original actor
     outcomes.set(this.actor, this.#createSelfOutcome(outcomes));
+    const confirmed = this.#canAutoConfirm(outcomes);
+
+    // Record the action as a chat message
+    if ( chatMessage ) await this.toMessage(outcomes, {confirmed, ...chatMessageOptions});
+
+    // Apply action usage flags (immediately)
+    await this.actor.update({"flags.crucible": this.usage.actorFlags});
+
+    // Auto-confirm the action?
+    if ( confirmed ) await this.#confirm(outcomes);
     return outcomes;
   }
 
@@ -298,7 +299,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire the targets for an action activation. For each target track both the Token and the Actor.
-   * @returns {ActionTarget[]}
+   * @returns {object[]}
    * @private
    */
   _acquireTargets() {
@@ -358,6 +359,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not yet supported, you must manually target affected tokens.`);
         return Array.from(userTargets).map(mapTokenTargets);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify whether an action can be auto-confirmed by the Actor (User) who initiated it.
+   * Actions may be auto-confirmed if they affect only yourself.
+   * Actions are considered to affect another actor if they contain successful rolls or cause effects.
+   * @param {CrucibleActionOutcomes} outcomes     The outcomes of the Action
+   * @returns {boolean}                           Can it be auto-confirmed?
+   */
+  #canAutoConfirm(outcomes) {
+    const self = outcomes.get(this.actor);
+    for ( const outcome of outcomes.values() ) {
+      if ( outcome === self ) continue;
+      if ( outcome.rolls.some(r => r.isSuccess) || outcome.effects.length ) return false;
+    }
+    return true;
   }
 
   /* -------------------------------------------- */
@@ -567,20 +586,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Action-specific steps when the outcome is confirmed by a GM user.
-   * @param {CrucibleActionOutcomes} [outcomes]    A mapping of damage outcomes which occurred
-   * @protected
-   */
-  async _confirm(outcomes) {
-    for ( const test of this._tests() ) {
-      if ( !(test.confirm instanceof Function) ) continue
-      await test.confirm(this.actor, this, outcomes);
-    }
-  }
-
-  /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
@@ -630,12 +635,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Render the action to a chat message including contained rolls and results
    * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
    * @param {object} options                    Context options for ChatMessage creation
+   * @param {boolean} [options.confirmed]         Were the outcomes auto-confirmed?
    * @returns {Promise<ChatMessage>}            The created ChatMessage document
    */
-  async toMessage(outcomes, options={}) {
+  async toMessage(outcomes, {confirmed=false, ...options}={}) {
 
     // Prepare action data
-    const actionData = {actor: this.actor.uuid, action: this.id, outcomes: []};
+    const actionData = {actor: this.actor.uuid, action: this.id, outcomes: [], confirmed};
     const rolls = [];
     for ( const outcome of outcomes.values() ) {
       const {target, rolls: outcomeRolls, ...outcomeData} = outcome;
@@ -709,19 +715,36 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes.set(target, outcome);
     }
 
+    // Confirm outcomes and record confirmation
+    await action.#confirm(outcomes, {reverse});
+    return message.update({flags: {crucible: flagsUpdate}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Confirm action outcomes, applying actor and active effect changes as a result.
+   * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
+   * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
+   * @param {object} [options]                  Options which affect the confirmation workflow
+   * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
+   * @returns {Promise<void>}
+   */
+  async #confirm(outcomes, {reverse=false}={}) {
+
     // Custom Action confirmation steps
-    await action._confirm(outcomes);
+    for ( const test of this._tests() ) {
+      if ( !(test.confirm instanceof Function) ) continue
+      await test.confirm(this.actor, this, outcomes);
+    }
 
     // Additional Actor-specific consequences
-    actor.onDealDamage(action, outcomes);
+    this.actor.onDealDamage(this, outcomes);
 
     // Apply outcomes
     for ( const outcome of outcomes.values() ) {
       await outcome.target.applyActionOutcome(outcome, {reverse});
     }
-
-    // Record confirmation
-    return message.update({flags: {crucible: flagsUpdate}});
   }
 
   /* -------------------------------------------- */

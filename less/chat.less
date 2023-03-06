@@ -1,3 +1,5 @@
+@import "./variables.less";
+
 .crucible .action {
   gap: 4px;
 
@@ -21,8 +23,8 @@
     padding: 4px 0;
     font-size: var(--font-size-12);
     font-style: italic;
-    border-top: 1px solid @colorBeige;
-    border-bottom: 1px solid @colorBeige;
+    border-top: 1px solid var(--colorBeige);
+    border-bottom: 1px solid var(--colorBeige);
   }
 }
 
@@ -34,4 +36,13 @@
   color: var(--colorOlive);
   line-height: 20px;
   margin-top: 0.25rem;
+}
+
+.message-metadata {
+  .confirmed {
+    color: var(--colorSuccess);
+  }
+  .unconfirmed {
+    color: var(--colorError);
+  }
 }
