@@ -89,13 +89,15 @@ function weaponAttack(type="mainhand") {
     roll: async (actor, action, target) => {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       action.usage.actorUpdates["system.status.hasAttacked"] = true;
-      if ( w.config.category.ranged ) action.usage.actorUpdates["system.status.rangedAttack"] = true;
+      if ( w.config.category.ranged ) {
+        action.usage.actorUpdates["system.status.rangedAttack"] = true;
+        if ( w.config.category.reload ) {
+          action.usage.actorUpdates.items ||= [];
+          action.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
+        }
+      }
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       return w.attack(target, action.usage.bonuses)
-    },
-    post: async actor => {
-      const w = actor.equipment.weapons.mainhand;
-      if ( w.config.category.reload ) await w.update({"system.loaded": false});
     }
   }
 }
@@ -297,10 +299,15 @@ export const TAGS = {
         throw new Error("Your weapons do not require reloading");
       }
     },
-    post: async actor => {
+    prepare: async (actor, action) => {
       const {mainhand: m, offhand: o} = actor.equipment.weapons;
-      if (m.config.category.reload && !m.system.loaded) return m.update({"system.loaded": true});
-      else if (o?.config.category.reload && !o.system.loaded) return o.update({"system.loaded": true});
+      action.usage.actorUpdates.items ||= [];
+      if (m.config.category.reload && !m.system.loaded) {
+        action.usage.actorUpdates.items.push({_id: m.id, "system.loaded": true});
+      }
+      else if (o?.config.category.reload && !o.system.loaded) {
+        action.usage.actorUpdates.items.push({_id: o.id, "system.loaded": true});
+      }
     }
   },
 
