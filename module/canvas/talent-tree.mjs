@@ -389,6 +389,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   deactivateNode() {
     if ( !this.active ) return;
     this.wheel.deactivate();
+    this.active.scale.set(1.0, 1.0);
     this.active = null;
     this.darkenBackground(false);
   }
@@ -460,9 +461,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager
-    this.interactionManager = new MouseInteractionManager(this, this, {
-      clickLeft: false
-    }, {
+    this.interactionManager = new MouseInteractionManager(this, this, {}, {
+      clickLeft: this.#onClickLeft,
       dragRightStart: null,
       dragRightMove: this.#onDragRightMove,
       dragRightDrop: null,
@@ -473,6 +473,17 @@ export default class CrucibleTalentTree extends PIXI.Container {
     window.addEventListener("resize", this.#onResize.bind(this));
     window.addEventListener("wheel", this.#onWheel.bind(this), {passive: false});
     this.#onResize();  // set initial dimensions
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle left-click events on the talent tree
+   * @param {PIXI.FederatedEvent}   event
+   */
+  #onClickLeft(event) {
+    event.stopPropagation();
+    this.deactivateNode();
   }
 
   /* -------------------------------------------- */

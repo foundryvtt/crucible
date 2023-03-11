@@ -2,13 +2,13 @@ import CrucibleAction from "./data/action.mjs";
 
 
 export function addChatMessageContextOptions(html, options)  {
+  if ( !game.user.isGM ) return;
 
   // Assign difficulty for skill checks
   options.push({
     name: game.i18n.localize("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
     condition: li => {
-      if ( !game.user.isGM ) return false;
       const message = game.messages.get(li.data("messageId"));
       const flags = message.flags.crucible || {};
       return message.isRoll && flags.skill;
@@ -74,6 +74,7 @@ export function renderChatMessage(message, html, data, options) {
     }
     else {
       html.find(".message-metadata").prepend(`<i class="crucible unconfirmed fas fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
+      if ( !game.user.isGM ) return;
       const confirm = $(`<button class="crucible confirm" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
       html.append(confirm);
       confirm.click(() => CrucibleAction.confirm(message))

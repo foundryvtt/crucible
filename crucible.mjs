@@ -60,7 +60,6 @@ import * as chat from "./module/chat.js";
 import {localizeSkillConfig} from "./module/config/skills.js";
 import {buildJournalCompendium, renderJournalRules} from "./module/documents/journal.mjs";
 
-
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -171,6 +170,27 @@ Hooks.once("init", async function() {
       value: []
     }
   }
+
+  // Register settings
+  game.settings.register("crucible", "actionAnimations", {
+    name: "Enable Action Animations",
+    hint: "Enable automatic action animations using Sequencer and JB2A. Both modules must be installed and enabled for this feature to work.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true
+  });
+
+  /**
+   * Is animation enabled for the system?
+   * @type {boolean}
+   */
+  Object.defineProperty(game.system, "animationEnabled", {
+    value: game.settings.get("crucible", "actionAnimations")
+      && ["jb2a_patreon", "sequencer"].every(id => game.modules.has(id)),
+    writable: false,
+    configurable: true
+  })
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

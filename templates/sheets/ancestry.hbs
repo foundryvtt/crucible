@@ -60,8 +60,10 @@
             <p class="hint">{{localize "ANCESTRY.ResistanceHint"}}</p>
         </div>
 
+        {{#if isEditable}}
         <footer class="sheet-footer">
             <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
         </footer>
+        {{/if}}
     </section>
 </form>

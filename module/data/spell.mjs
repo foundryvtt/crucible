@@ -372,7 +372,6 @@ export default class CrucibleSpell extends CrucibleAction {
     return {action: spell, targets};
   }
 
-
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
@@ -394,5 +393,120 @@ export default class CrucibleSpell extends CrucibleAction {
     else tags.action.defense = SYSTEM.DEFENSES[this.defense].label;
     tags.action.resource = SYSTEM.RESOURCES[this.rune.resource].label;
     return tags;
+  }
+
+  /* -------------------------------------------- */
+  /*  Animation                                   */
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getAnimationConfiguration() {
+    return CrucibleSpell.ANIMATION_CONFIG[this.gesture.id]?.[this.rune.id];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Configure Sequencer spell animation effects.
+   */
+  static ANIMATION_CONFIG = {
+    arrow: {
+      earth: {
+        src: "jb2a.boulder.toss",
+        scale: 0.6
+      },
+      flame: {
+        src: "jb2a.fire_bolt.orange",
+        wait: -1000
+      },
+      frost: {
+        src: "jb2a.ray_of_frost.blue",
+        wait: -500
+      },
+      lightning: {
+        src: "jb2a.chain_lightning.primary.blue",
+        wait: -1000
+      },
+      death: {
+        src: "jb2a.eldritch_blast.dark_green",
+        wait: -3000
+      },
+      void: {
+        src: "jb2a.eldritch_blast.dark_purple",
+        wait: -3000
+      },
+      radiance: {
+        src: "jb2a.chain_lightning.primary.yellow",
+        wait: -1000
+      },
+      mind: {
+        src: "jb2a.energy_strands.range.multiple.dark_purplered.02"
+      },
+      kinesis: {
+        src: "jb2a.bullet.03.orange",
+        wait: -1000
+      },
+      life: {
+        src: "jb2a.ray_of_frost.green",
+        wait: -500
+      },
+      courage: {
+        src: "jb2a.energy_strands.range.multiple.bluepink.02"
+      },
+      time: {
+        src: "jb2a.guiding_bolt.02.dark_bluewhite"
+      }
+    },
+    touch: {
+      earth: {
+        src: "jb2a.impact.ground_crack.03.green"
+      },
+      flame: {
+        src: "jb2a.fire_bolt.orange",
+        wait: -1000
+      },
+      frost: {
+        src: "jb2a.impact.frost.blue.01"
+      },
+      lightning: {
+        src: "jb2a.chain_lightning.primary.blue02",
+        wait: -1000
+      },
+      courage: {
+        src: "jb2a.healing_generic.200px.blue",
+        sequence: (sequence, config, {targetToken, hit}={}) => {
+          sequence.effect()
+            .file(config.src)
+            .atLocation(targetToken)
+            .playIf(hit)
+            .waitUntilFinished(config.wait ?? 0);
+        },
+        wait: -1000
+      },
+      life: {
+        src: "jb2a.healing_generic.200px.green",
+        sequence: (sequence, config, {targetToken, hit}={}) => {
+          sequence.effect()
+            .file(config.src)
+            .atLocation(targetToken)
+            .playIf(hit)
+            .waitUntilFinished(config.wait ?? 0);
+        },
+        wait: -1000
+      },
+      kinesis: {
+      },
+      time: {
+      },
+      death: {
+      },
+      void: {
+        src: "jb2a.impact.dark_purple.4"
+      },
+      radiance: {
+      },
+      mind: {
+      },
+    }
   }
 }

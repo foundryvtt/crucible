@@ -222,8 +222,8 @@ export default class CrucibleActor extends Actor {
     super.prepareEmbeddedDocuments();
     const items = this.itemTypes;
     this._prepareTalents(items);
-    this.equipment = this._prepareEquipment(items);
     this._prepareEffects();
+    this.equipment = this._prepareEquipment(items);
     this._prepareActions();
   };
 
@@ -242,9 +242,23 @@ export default class CrucibleActor extends Actor {
     };
 
     // Flag some equipment-related statuses
-    equipment.canFreeMove = (equipment.armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
+    equipment.canFreeMove = CrucibleActor.#canFreeMove(this, equipment.armor);
     equipment.unarmored = equipment.armor.system.category === "unarmored"
     return equipment;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether the Actor is able to use a free move once per round.
+   * @param {CrucibleActor} actor   The Actor being evaluated
+   * @param {CrucibleItem} armor    The equipped Armor item.
+   * @returns {boolean}             Can the Actor use a free move?
+   */
+  static #canFreeMove(actor, armor) {
+    if ( actor.statuses.has("prone") ) return false;
+    if ( (armor.system.category === "heavy") && !actor.talentIds.has("armoredefficienc") ) return false;
+    return true;
   }
 
   /* -------------------------------------------- */
@@ -888,10 +902,17 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async #applyOutcomeEffects(outcome, reverse=false) {
+
+    // Reverse effects
     if ( reverse ) {
       await this.deleteEmbeddedDocuments("ActiveEffect", outcome.effects.map(e => e._id));
       return;
     }
+
+    // Don't apply effects if there was not a successful roll
+    if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return;
+
+    // Create new effects or update existing ones
     const toCreate = [];
     const toUpdate = [];
     for ( const effectData of outcome.effects ) {

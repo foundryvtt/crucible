@@ -374,7 +374,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const self = outcomes.get(this.actor);
     for ( const outcome of outcomes.values() ) {
       if ( outcome === self ) continue;
-      if ( outcome.rolls.some(r => r.isSuccess) || outcome.effects.length ) return false;
+      if ( !outcome.rolls.length && outcome.effects.length ) return false; // automatically caused effects
+      if ( outcome.rolls.some(r => r.isSuccess) ) return false; // successful rolls
     }
     return true;
   }
@@ -615,10 +616,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cost
     const cost = this._trueCost || this.cost;
-    if ( cost.action && (cost.action !== 0) ) tags.activation.ap = `${cost.action}A`;
-    if ( cost.focus && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
-    if ( cost.health && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
-    if ( !Object.values(cost).some(c => c !== 0) ) tags.activation.ap = "Free";
+    if ( Number.isFinite(cost.action) && (cost.action !== 0) ) tags.activation.ap = `${cost.action}A`;
+    if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
+    if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
+    if ( !Object.values(cost).some(c => Number.isFinite(c) && (c !== 0)) ) tags.activation.ap = "Free";
 
     // Duration
     let duration = 0;
@@ -702,7 +703,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     /** @type {CrucibleActionOutcomes} */
     const outcomes = new Map();
     for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of flags.outcomes ) {
-      const target = fromUuidSync(targetUuid);
+      let target = fromUuidSync(targetUuid);
+      if ( target instanceof TokenDocument ) target = target.actor;
       const outcome = {target, rolls: outcomeRolls.map(i => message.rolls[i]), ...outcomeData};
       for ( const roll of outcome.rolls ) {
         const damage = roll.data.damage || {};
@@ -741,10 +743,86 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Additional Actor-specific consequences
     this.actor.onDealDamage(this, outcomes);
 
+    // Play animation
+    if ( game.system.animationEnabled && !reverse ) {
+      const animation = this.getAnimationSequence(outcomes);
+      if ( animation ) await animation.play();
+    }
+
     // Apply outcomes
     for ( const outcome of outcomes.values() ) {
       await outcome.target.applyActionOutcome(outcome, {reverse});
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Animation                                   */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a Sequencer animation.
+   * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
+   * @returns {null}
+   */
+  getAnimationSequence(outcomes) {
+    const config = this._getAnimationConfiguration();
+    if ( !config?.src ) return null;
+
+    // Get the origin token
+    const originToken = CrucibleAction.#getTargetToken(this.actor);
+    if ( !originToken ) return null;
+
+    // Create the Sequence and configure it based on the gesture used
+    const sequence = new Sequence();
+
+    // Single target
+    if ( this.target.type === "single" ) {
+      for ( const outcome of outcomes.values() ) {
+        if ( outcome.target === this.actor ) continue;
+        const targetToken = CrucibleAction.#getTargetToken(outcome.target);
+        const hit = outcome.rolls.some(r => r.isSuccess);
+        const wait = config.wait ?? 0;
+        if ( config.sequence instanceof Function ) {
+          config.sequence(sequence, config, {originToken, targetToken, hit});
+        }
+        else sequence.effect()
+          .file(config.src)
+          .atLocation(originToken)
+          .stretchTo(targetToken)
+          .missed(!hit)
+          .waitUntilFinished(wait);
+        if ( config.scale ) sequence.scale(config.scale);
+      }
+    }
+    return sequence;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the animation configuration for this Action.
+   * @protected
+   */
+  _getAnimationConfiguration() {
+
+    // Placeholder
+    if ( this.id === "heavyStrike" ) {
+      return {
+        src: "jb2a.greatclub.fire.red",
+        wait: -1000
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the placeable Token location for a CrucibleActor in the current Scene, if any.
+   * @param {CrucibleActor} actor       The Actor being targeted
+   * @returns {Token|null}
+   */
+  static #getTargetToken(actor) {
+    return (actor.isToken ? actor.token?.object: actor.getActiveTokens(true)[0]) || null;
   }
 
   /* -------------------------------------------- */

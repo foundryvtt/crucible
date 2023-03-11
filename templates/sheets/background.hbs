@@ -29,11 +29,10 @@
             <p class="hint">{{localize "BACKGROUND.SkillsHint"}}</p>
         </div>
 
-        <footer class="sheet-footer">
-            <button type="submit">
-                <i class="fas fa-save"></i>
-                <label>{{localize "Submit"}}</label>
-            </button>
-        </footer>
+        {{#if isEditable}}
+            <footer class="sheet-footer">
+                <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
+            </footer>
+        {{/if}}
     </section>
 </form>
