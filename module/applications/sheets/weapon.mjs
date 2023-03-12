@@ -4,7 +4,7 @@ import { SYSTEM } from "../../config/system.js";
  * A sheet application for displaying and configuring a Weapon type Item.
  * @type {ItemSheet}
  */
-export default class Weapon extends ItemSheet {
+export default class WeaponSheet extends ItemSheet {
 
   /** @inheritdoc */
 	static get defaultOptions() {
@@ -42,6 +42,10 @@ export default class Weapon extends ItemSheet {
       enchantments: SYSTEM.ENCHANTMENT_TIERS,
       usesReload: this.document.config.category.reload,
       tags: this.item.getTags(),
+      animations: SYSTEM.WEAPON.ANIMATION_TYPES.reduce((obj, v) => {
+        obj[v] = v;
+        return obj;
+      }, {})
     };
 
     // Weapon Properties

@@ -110,7 +110,6 @@ export const THREAT_LEVELS = {
 
 /* -------------------------------------------- */
 
-
 /**
  * Include all constant definitions within the SYSTEM global export
  * @type {Object}

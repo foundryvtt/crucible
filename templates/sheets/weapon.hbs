@@ -99,4 +99,13 @@
             <input type="number" value="{{item.system.price}}" disabled>
         </div>
     </div>
+
+    <div class="form-group">
+        <label>Animation Prefix</label>
+        <div class="form-fields">
+            <select name="system.animation">
+                {{selectOptions animations selected=source.system.animation blank=""}}
+            </select>
+        </div>
+    </div>
 </form>

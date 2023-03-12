@@ -812,6 +812,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         wait: -1000
       }
     }
+
+    // Weapon Attacks
+    const isMainhandAttack = ["mainhand", "twohand"].some(t => this.tags.has(t));
+    const isOffhandAttack = this.tags.has("offhand");
+    if ( isMainhandAttack || isOffhandAttack ) {
+      const weapon = this.actor.equipment.weapons[isMainhandAttack ? "mainhand" : "offhand"];
+      return weapon.system.getAnimationConfiguration();
+    }
   }
 
   /* -------------------------------------------- */

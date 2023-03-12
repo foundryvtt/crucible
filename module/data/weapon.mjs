@@ -31,7 +31,8 @@ export default class CrucibleWeapon extends PhysicalItemData {
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(super.defineSchema(), {
       damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
-      loaded: new fields.BooleanField({required: false, initial: undefined})
+      loaded: new fields.BooleanField({required: false, initial: undefined}),
+      animation: new fields.StringField({required: false, choices: SYSTEM.WEAPON.ANIMATION_TYPES, initial: undefined})
     });
   }
 
@@ -290,5 +291,50 @@ export default class CrucibleWeapon extends PhysicalItemData {
     if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
     if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Sequencer animation configuration for this Weapon.
+   * @returns {{src: string}|null}
+   */
+  getAnimationConfiguration() {
+    if ( !this.animation ) return null;
+    let animation = `jb2a.${this.animation}`;
+
+    // Restrict to melee animations
+    if ( !this.config.category.ranged ) {
+      const paths = Sequencer.Database.getPathsUnder(animation);
+      const usage = ["melee", "standard"].find(p => paths.includes(p));
+      if ( !usage ) {
+        console.warn(`Crucible | Unable to find weapon animation usage for ${animation}`);
+        return null
+      }
+      animation += `.${usage}`;
+    }
+
+    // Damage type
+    const paths = Sequencer.Database.getPathsUnder(animation);
+    const damageColors = {
+      bludgeoning: "white",
+      piercing: "white",
+      slashing: "white",
+      poison: "green",
+      acid: "green",
+      fire: "orange",
+      frost: "blue",
+      lightning: "blue",
+      psychic: "purple",
+      radiant: "yellow",
+      unholy: "green",
+      void: "purple"
+    }
+    const typePaths = [this.damageType, damageColors[this.damageType], SYSTEM.DAMAGE_TYPES[this.damageType].type];
+    const typeSuffix = typePaths.find(p => paths.includes(p));
+    if ( typeSuffix ) animation += `.${typeSuffix}`;
+
+    // Return animation config
+    return {src: animation}
   }
 }

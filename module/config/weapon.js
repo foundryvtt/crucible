@@ -304,3 +304,39 @@ export const VAMPIRE_BITE = {
     damageType: "piercing"
   }
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Valid weapon animation types supported by the JB2A library
+ * @type {string[]}
+ */
+export const ANIMATION_TYPES = Object.freeze([
+  "arrow",
+  "bolt",
+  "boomerang",
+  "bullet",
+  "club",
+  "dagger",
+  "dagger",
+  "falchion",
+  "glaive",
+  "greataxe",
+  "greatclub",
+  "greatsword",
+  "halberd",
+  "hammer",
+  "handaxe",
+  "katana",
+  "mace",
+  "maul",
+  "quarterstaff",
+  "rapier",
+  "scimitar",
+  "shortsword",
+  "spear",
+  "sword",
+  "unarmed_strike",
+  "warhammer",
+  "wrench"
+]);
