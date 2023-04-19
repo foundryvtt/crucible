@@ -1654,8 +1654,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onCreateEmbeddedDocuments(...args) {
-    super._onCreateEmbeddedDocuments(...args);
+  _onCreateDescendantDocuments(...args) {
+    super._onCreateDescendantDocuments(...args);
     const tree = game.system.tree;
     if ( tree.actor === this ) tree.refresh();
   }
@@ -1663,8 +1663,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onDeleteEmbeddedDocuments(...args) {
-    super._onDeleteEmbeddedDocuments(...args);
+  _onDeleteDescendantDocuments(...args) {
+    super._onDeleteDescendantDocuments(...args);
     const tree = game.system.tree;
     if ( tree.actor === this ) tree.refresh();
   }

@@ -1,3 +1,8 @@
-2023/03/11-19:46:29.049 147a8 Recovering log #348
-2023/03/11-19:46:29.056 147a8 Delete type=0 #348
-2023/03/11-19:46:29.057 147a8 Delete type=3 #346
+2023/04/19-15:18:45.473 c7f8 Recovering log #400
+2023/04/19-15:18:45.476 c7f8 Delete type=0 #400
+2023/04/19-15:18:45.476 c7f8 Delete type=3 #398
+2023/04/19-15:19:29.678 15cdc Level-0 table #405: started
+2023/04/19-15:19:29.678 15cdc Level-0 table #405: 0 bytes OK
+2023/04/19-15:19:29.679 15cdc Delete type=0 #403
+2023/04/19-15:19:29.681 15cdc Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/04/19-15:19:29.684 15cdc Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)

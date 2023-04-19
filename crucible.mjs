@@ -158,6 +158,9 @@ Hooks.once("init", async function() {
   // Canvas Configuration
   CONFIG.Canvas.rulerClass = CrucibleRuler;
 
+  // Debugging
+  CONFIG.debug.talentTree = true;
+
   // TODO HACK TOKEN ATTRIBUTES
   TokenDocument.getTrackedAttributes = function() {
     return {

@@ -1,30 +1,104 @@
 [Back to Home](../../README.md)
 
-# TODO - Skill Changes
+-------------------------------------
 
-## Exploration Skills
-Stealth
-Awareness
-Pathfinding
-Survival
+# Exploration Skills
+This family of skills has to do with navigation and traversal of the world.
 
-## Knowledge Skills
-Arcana: Elementalism, Occultism, Magitech
-Religion: Theurgy, Diabolism, Thanatology
-Society: History, Politics, Streetwise
-Nature: Druidism, Zoology, Botany
+## Stealth
+1. Infiltrator - Getting into locations you're not supposed to
+2. Safecracker - Getting into locked objects you're not supposed to
+3. Pickpocket - Getting into people's pockets you're not supposed to
 
-## Social Skills
-Bartering
-Deception
-Diplomacy
-Intimidation
+## Awareness
+1. Detective - What happened in the past
+2. Sentinel - What is happening right now
+3. Prescient - What will happen in the near future
 
-## Technical Skills
-Medicine
-Performance
-Crafting: Artificer, Trademaster, Runesmith
-Animal Handling
+## Pathfinding
+1. Tracker - Going where something has gone before
+2. Explorer - Going where nobody has gone before
+3. Cartographer - Knowledge of maps and the art of their creation
+
+## Survival
+1. Hunter - Extracting resources from creatures
+2. Herbalist - Extracting resources from plants
+3. Scavenger - Extracting resources from the environment
+
+-------------------------------------
+
+# Knowledge Skills
+This family of skills has to do with understanding of the natural or metaphysical world.
+
+## Arcana
+1. Elementalist - Knowledge of primal elements 
+2. Occultist - Knowledge of otherworldly or taboo knowledge
+3. Magitech - Knowledge of imbuing arcane potential into physical objects 
+
+## Religion
+1. Theurgist - Spiritual connection to the natural world
+2. Diabolist - Spiritual connection to higher powers *probably needs a less judgmental name*
+3. Thanatologist - Spiritual connection to death and afterlife
+
+## Society
+1. Historian - Knowledge of historical events
+2. Politician - Knowledge of social leadership structures
+3. Streetwise - Knowledge of folklore and common folk
+
+## Nature
+1. Druidism - Knowledge of natural phenomena
+2. Zoologist - Knowledge of creatures
+3. Botanist - Knowledge of plants
+
+-------------------------------------
+
+# Social Skills
+This family of skills has to do with interaction with other people. 
+
+## Bartering
+1. Antiquarian - Identification and appraisal of historical objects
+2. Caravaneer - Logistics and transportation of wares
+3. Negotiator - Acquisitions and sales at advantageous prices
+
+## Deception
+1. Grifter - Specialist in practical cons
+2. Illusionist - Specialist in sleight-of-hand, either magical or mundane
+3. Mesmer - Specialist in psychological manipulation
+
+## Diplomacy
+1. Orator - Persuasion through logical argument
+2. Ambassador - Persuasion through eloquence
+3. Barrister - Persuasion through legal argument
+
+## Intimidation
+1. Strongarm - Intimidation through threat to health
+2. Extortionist - Intimidation through threat to reputation
+3. Operator - Intimidation through manipulation and leverage
+
+-------------------------------------
+
+# Technical Skills
+This family of skills involves the proficiency to create artistic, practical, or magical works.
+
+## Medicine
+1. Chirugeon - Specialist in physical well-being
+2. Counsellor - Specialist in psychological well-being
+3. Apothecary - Specialist in the creation of curatives and remedies
+
+## Performance
+1. Artist - Produces art through visual media
+2. Musician - Produces art through music and song
+3. Athlete - Produces art through physical spectacle
+
+## Tradecraft
+1. Artisan - A master of a specific trade or set of trades
+2. Artificer - A master of technological invention
+3. Runesmith - A master of imbuing arcane potential into physical items
+
+## Creature Handling
+1. Knight - Specialization in riding and mounted activity
+2. Warden - Specialized bond of companionship with a single animal companion
+3. Zoophilist - Specialization in working with many diverse creatures
 
 
 # Character Skills

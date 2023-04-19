@@ -413,7 +413,8 @@ export default class CrucibleSpell extends CrucibleAction {
     arrow: {
       earth: {
         src: "jb2a.boulder.toss",
-        scale: 0.6
+        scale: 0.6,
+        wait: -1500
       },
       flame: {
         src: "jb2a.fire_bolt.orange",

@@ -281,7 +281,7 @@ export default class CrucibleActorSheet extends ActorSheet {
       return {
         id: effect.id,
         icon: effect.icon,
-        label: effect.label,
+        label: effect.name,
         tags: tags
       }
     });
