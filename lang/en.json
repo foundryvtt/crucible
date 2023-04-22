@@ -166,8 +166,8 @@
 "DAMAGE.Slashing": "Slashing",
 "DAMAGE.Acid": "Acid",
 "DAMAGE.Cold": "Cold",
+"DAMAGE.Electricity": "Electricity",
 "DAMAGE.Fire": "Fire",
-"DAMAGE.Lightning": "Lightning",
 "DAMAGE.Poison": "Poison",
 "DAMAGE.Psychic": "Psychic",
 "DAMAGE.Radiant": "Radiant",
@@ -176,7 +176,6 @@
 "DAMAGE.Elemental": "Elemental",
 "DAMAGE.Physical": "Physical",
 "DAMAGE.Spiritual": "Spiritual",
-
 
 "DEFENSES.Armor": "Armor",
 "DEFENSES.Block": "Block",

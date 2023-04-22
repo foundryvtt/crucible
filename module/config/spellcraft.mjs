@@ -91,7 +91,7 @@ export const RUNES = Object.seal({
     name: "SPELL.RuneLightning",
     img: "icons/magic/lightning/bolt-strike-blue.webp",
     resource: "health",
-    damageType: "lightning",
+    damageType: "electricity",
     opposed: "earth",
     defense: "reflex",
     scaling: "intellect",

@@ -106,9 +106,9 @@ export const DAMAGE_TYPES = Object.freeze({
     label: "DAMAGE.Cold",
     type: "elemental"
   },
-  lightning: {
-    id: "lightning",
-    label: "DAMAGE.Lightning",
+  electricity: {
+    id: "electricity",
+    label: "DAMAGE.Electricity",
     type: "elemental"
   },
   psychic: {

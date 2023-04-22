@@ -186,7 +186,7 @@ export function shocked(actor, target) {
       crucible: {
         dot: {
           morale: Math.floor(actor.system.abilities.intellect.value / 2),
-          damageType: "lightning"
+          damageType: "electricity"
         }
       }
     }
