@@ -318,16 +318,16 @@ export default class CrucibleWeapon extends PhysicalItemData {
     const paths = Sequencer.Database.getPathsUnder(animation);
     const damageColors = {
       bludgeoning: "white",
+      corruption: "green",
       piercing: "white",
       slashing: "white",
       poison: "green",
       acid: "green",
       fire: "orange",
-      frost: "blue",
-      lightning: "blue",
+      cold: "blue",
+      electricity: "blue",
       psychic: "purple",
       radiant: "yellow",
-      unholy: "green",
       void: "purple"
     }
     const typePaths = [this.damageType, damageColors[this.damageType], SYSTEM.DAMAGE_TYPES[this.damageType].type];

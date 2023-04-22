@@ -11,6 +11,21 @@
  * }}
  */
 export const ABILITIES = Object.freeze({
+  wisdom: {
+    id: "wisdom",
+    label: "ABILITIES.Wisdom",
+    abbreviation: "ABILITIES.WisdomAbbr"
+  },
+  presence: {
+    id: "presence",
+    label: "ABILITIES.Presence",
+    abbreviation: "ABILITIES.PresenceAbbr"
+  },
+  intellect: {
+    id: "intellect",
+    label: "ABILITIES.Intellect",
+    abbreviation: "ABILITIES.IntellectAbbr"
+  },
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
@@ -25,21 +40,6 @@ export const ABILITIES = Object.freeze({
     id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr"
-  },
-  intellect: {
-    id: "intellect",
-    label: "ABILITIES.Intellect",
-    abbreviation: "ABILITIES.IntellectAbbr"
-  },
-  presence: {
-    id: "presence",
-    label: "ABILITIES.Presence",
-    abbreviation: "ABILITIES.PresenceAbbr"
-  },
-  wisdom: {
-    id: "wisdom",
-    label: "ABILITIES.Wisdom",
-    abbreviation: "ABILITIES.WisdomAbbr"
   }
 });
 
@@ -75,6 +75,11 @@ export const DAMAGE_TYPES = Object.freeze({
     id: "bludgeoning",
     label: "DAMAGE.Bludgeoning",
     type: "physical"
+  },
+  corruption: {
+    id: "corruption",
+    label: "DAMAGE.Corruption",
+    type: "spiritual"
   },
   piercing: {
     id: "piercing",
@@ -119,11 +124,6 @@ export const DAMAGE_TYPES = Object.freeze({
   radiant: {
     id: "radiant",
     label: "DAMAGE.Radiant",
-    type: "spiritual"
-  },
-  unholy: {
-    id: "unholy",
-    label: "DAMAGE.Unholy",
     type: "spiritual"
   },
   void: {
@@ -262,8 +262,15 @@ export const DEFENSES = {
   fortitude: {
     id: "fortitude",
     label: "DEFENSES.Fortitude",
-    abilities: ["strength", "toughness"],
-    tooltip: `${PASSIVE_BASE} + Strength + Toughness`,
+    abilities: ["strength", "wisdom"],
+    tooltip: `${PASSIVE_BASE} + Strength + Wisdom`,
+    type: "save"
+  },
+  willpower: {
+    id: "willpower",
+    label: "DEFENSES.Willpower",
+    abilities: ["toughness", "presence"],
+    tooltip: `${PASSIVE_BASE} + Toughness + Presence`,
     type: "save"
   },
   reflex: {
@@ -271,13 +278,6 @@ export const DEFENSES = {
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
     tooltip: `${PASSIVE_BASE} + Dexterity + Intellect`,
-    type: "save"
-  },
-  willpower: {
-    id: "willpower",
-    label: "DEFENSES.Willpower",
-    abilities: ["wisdom", "presence"],
-    tooltip: `${PASSIVE_BASE} + Wisdom + Presence`,
     type: "save"
   },
   wounds: {

@@ -171,6 +171,16 @@
                     </a>
                 </h2>
 
+                {{! Save Defenses --}}
+                <div class="save-defenses">
+                    {{#each saveDefenses as |defense|}}
+                        <div class="defense save flexrow" data-defense="{{defense.id}}">
+                            <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
+                            <span class="input score">{{defense.total}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+
                 {{! Physical Defense --}}
                 <div class="defense physical flexrow" data-defense="physical">
                     <div class="defense-title flexrow">
@@ -201,15 +211,6 @@
                         <span class="input score">{{actor.system.defenses.block.total}}</span>
                         <span class="subtitle">Maximum 6</span>
                     </div>
-                </div>
-
-                <div class="save-defenses">
-                    {{#each saveDefenses as |defense|}}
-                    <div class="defense save flexrow" data-defense="{{defense.id}}">
-                        <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
-                        <span class="input score">{{defense.total}}</span>
-                    </div>
-                    {{/each}}
                 </div>
             </section>
 

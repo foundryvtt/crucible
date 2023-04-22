@@ -642,7 +642,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "pre2b",
   abilities: ["presence"],
-  type: "heal",
+  type: "magic",
   tier: 2,
   distance: 180,
   connected: ["pre1a", "pre1b", "pre2a"]
@@ -651,7 +651,7 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "pre2c",
   abilities: ["presence"],
-  type: "utility",
+  type: "magic",
   tier: 2,
   connected: ["pre1b", "pre2b"]
 });

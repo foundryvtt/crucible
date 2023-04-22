@@ -905,7 +905,11 @@ export default class CrucibleActor extends Actor {
 
     // Reverse effects
     if ( reverse ) {
-      await this.deleteEmbeddedDocuments("ActiveEffect", outcome.effects.map(e => e._id));
+      const deleteEffectIds = outcome.effects.reduce((arr, e) => {
+        if ( this.effects.has(e._id) ) arr.push(e._id);
+        return arr;
+      }, []);
+      await this.deleteEmbeddedDocuments("ActiveEffect", deleteEffectIds);
       return;
     }
 
@@ -995,17 +999,19 @@ export default class CrucibleActor extends Actor {
     }
 
     // Spell Runes
-    const elementalEffects = {
+    const runeEffects = {
       dustbinder000000: {rune: "earth", effectName: "corroding"},
-      lightbringer0000: {rune: "radiance", effectName: "irradiated"},
-      mesmer0000000000: {rune: "mind", effectName: "confusion"},
-      necromancer00000: {rune: "death", effectName: "corrupted"},
+      lightbringer0000: {rune: "illumination", effectName: "irradiated"},
+      mesmer0000000000: {rune: "control", effectName: "confusion"},
+      necromancer00000: {rune: "death", effectName: "decay"},
       pyromancer000000: {rune: "flame", effectName: "burning"},
       rimecaller000000: {rune: "frost", effectName: "chilled"},
       surgeweaver00000: {rune: "lightning", effectName: "shocked"},
-      voidcaller000000: {rune: "void", effectName: "entropy"}
+      voidcaller000000: {rune: "shadow", effectName: "entropy"},
+      mender0000000000: {rune: "life", effectName: "mending"},
+      inspirator000000: {rune: "spirit", effectName: "inspired"}
     }
-    for ( const [talentId, {rune, effectName}] of Object.entries(elementalEffects) ) {
+    for ( const [talentId, {rune, effectName}] of Object.entries(runeEffects) ) {
       if ( this.talentIds.has(talentId) && (action.rune?.id === rune) ) {
         outcome.effects.push(SYSTEM.EFFECTS[effectName](this, outcome.target));
       }
@@ -1063,6 +1069,8 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Apply damage over time effects which are currently active on the Actor.
+   * Positive damage-over-time is applied as damage and is mitigated by resistance or amplified by vulnerability.
+   * Negative damage-over-time is applied as healing and is unaffected by resistances or vulnerabilities.
    * @returns {Promise<void>}
    */
   async applyDamageOverTime() {
@@ -1073,10 +1081,11 @@ export default class CrucibleActor extends Actor {
       // Categorize damage
       const damage = {};
       for ( const r of Object.keys(SYSTEM.RESOURCES) ) {
-        if ( !(r in dot) ) continue;
-        const d = Math.clamped(dot[r] - this.resistances[dot.damageType].total, 0, 2 * dot[r]);
+        let v = dot[r];
+        if ( !v ) continue;
+        if (  v > 0 ) v = Math.clamped(v - this.resistances[dot.damageType].total, 0, 2 * v);
         damage[r] ||= 0;
-        damage[r] -= d;
+        damage[r] -= v;
       }
       if ( foundry.utils.isEmpty(damage) ) return;
       await this.alterResources(damage, {}, {statusText: effect.label});

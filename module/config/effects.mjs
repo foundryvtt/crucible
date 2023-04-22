@@ -100,10 +100,10 @@ export function corroding(actor, target) {
   }
 }
 
-export function corrupted(actor, target) {
+export function decay(actor, target) {
   return {
-    _id: getEffectId("Corrupted"),
-    label: "Corrupted",
+    _id: getEffectId("Decay"),
+    label: "Decay",
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {rounds: 3},
     origin: actor.uuid,
@@ -111,7 +111,7 @@ export function corrupted(actor, target) {
       crucible: {
         dot: {
           health: actor.system.abilities.wisdom.value,
-          damageType: "unholy"
+          damageType: "corruption"
         }
       }
     }
@@ -155,6 +155,41 @@ export function irradiated(actor, target) {
     }
   }
 }
+
+export function mending(actor, target) {
+  return {
+    _id: getEffectId("Mending"),
+    label: "Mending",
+    icon: "icons/magic/life/cross-beam-green.webp",
+    duration: {rounds: 1},
+    origin: actor.uuid,
+    flags: {
+      crucible: {
+        dot: {
+          health: -actor.system.abilities.wisdom.value
+        }
+      }
+    }
+  }
+}
+
+export function inspired(actor, target) {
+  return {
+    _id: getEffectId("Inspired"),
+    label: "Inspired",
+    icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
+    duration: {rounds: 1},
+    origin: actor.uuid,
+    flags: {
+      crucible: {
+        dot: {
+          morale: -actor.system.abilities.presence.value
+        }
+      }
+    }
+  }
+}
+
 
 export function poisoned(actor, target) {
   return {

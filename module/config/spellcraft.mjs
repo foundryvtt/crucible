@@ -9,26 +9,15 @@ export const NAME_FORMATS = Object.freeze({
  * @enum {CrucibleRune}
  */
 export const RUNES = Object.seal({
-  courage: {
-    id: "courage",
-    name: "SPELL.RuneCourage",
-    img: "icons/magic/control/fear-fright-white.webp",
-    resource: "morale",
-    restoration: true,
-    opposed: "mind",
-    defense: "willpower",
-    scaling: "presence",
-    nameFormat: NAME_FORMATS.NOUN
-  },
   death: {
     id: "death",
     name: "SPELL.RuneDeath",
     img: "icons/magic/unholy/hand-claw-fire-blue.webp",
     resource: "health",
-    damageType: "unholy",
+    damageType: "corruption",
     opposed: "life",
     defense: "fortitude",
-    scaling: "wisdom",
+    scaling: "intellect",
     nameFormat: NAME_FORMATS.NOUN
   },
   earth: {
@@ -39,7 +28,7 @@ export const RUNES = Object.seal({
     damageType: "acid",
     opposed: "lightning",
     defense: "reflex",
-    scaling: "intellect",
+    scaling: "wisdom",
     nameFormat: NAME_FORMATS.ADJ
   },
   flame: {
@@ -61,16 +50,27 @@ export const RUNES = Object.seal({
     damageType: "cold",
     opposed: "flame",
     defense: "fortitude",
-    scaling: "intellect",
+    scaling: "wisdom",
     nameFormat: NAME_FORMATS.NOUN
+  },
+  illumination: {
+    id: "illumination",
+    name: "SPELL.RuneIllumination",
+    img: "icons/magic/light/projectile-beam-yellow.webp",
+    resource: "health",
+    damageType: "radiant",
+    opposed: "shadow",
+    defense: "willpower",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.ADJ
   },
   kinesis: {
     id: "kinesis",
     name: "SPELL.RuneKinesis",
     img: "icons/magic/movement/pinwheel-turning-blue.webp",
     resource: "health",
-    damageType: "slashing",
-    opposed: "time",
+    damageType: "physical",
+    opposed: "stasis",
     defense: "physical",
     scaling: "presence",
     nameFormat: NAME_FORMATS.ADJ
@@ -81,6 +81,7 @@ export const RUNES = Object.seal({
     img: "icons/magic/life/heart-shadow-red.webp",
     resource: "health",
     restoration: true,
+    damageType: "poison",
     opposed: "death",
     defense: "fortitude",
     scaling: "wisdom",
@@ -97,49 +98,51 @@ export const RUNES = Object.seal({
     scaling: "intellect",
     nameFormat: NAME_FORMATS.ADJ
   },
-  mind: {
-    id: "mind",
-    name: "SPELL.RuneMind",
+  control: {
+    id: "control",
+    name: "SPELL.RuneControl",
     img: "icons/magic/control/hypnosis-mesmerism-eye.webp",
     resource: "morale",
     damageType: "psychic",
-    opposed: "courage",
+    opposed: "spirit",
     defense: "willpower",
-    scaling: "presence",
+    scaling: "intellect",
     nameFormat: NAME_FORMATS.NOUN
   },
-  radiance: {
-    id: "radiance",
-    name: "SPELL.RuneRadiance",
-    img: "icons/magic/light/projectile-beam-yellow.webp",
-    resource: "health",
-    damageType: "radiant",
-    opposed: "void",
-    defense: "willpower",
-    scaling: "wisdom",
-    nameFormat: NAME_FORMATS.NOUN
-  },
-  time: {
-    id: "time",
-    name: "SPELL.RuneTime",
-    img: "icons/magic/time/clock-spinning-gold-pink.webp",
-    resource: "morale",
-    opposed: "kinesis",
-    defense: "willpower",
-    scaling: "presence",
-    nameFormat: NAME_FORMATS.ADJ
-  },
-  void: {
-    id: "void",
-    name: "SPELL.RuneVoid",
+  shadow: {
+    id: "shadow",
+    name: "SPELL.RuneShadow",
     img: "icons/magic/unholy/orb-rays-blue.webp",
     resource: "morale",
     damageType: "void",
-    opposed: "radiance",
+    opposed: "illumination",
     defense: "fortitude",
-    scaling: "wisdom",
+    scaling: "presence",
     nameFormat: NAME_FORMATS.ADJ
   },
+  spirit: {
+    id: "spirit",
+    name: "SPELL.RuneSpirit",
+    img: "icons/magic/control/fear-fright-white.webp",
+    resource: "morale",
+    restoration: true,
+    damageType: "psychic",
+    opposed: "control",
+    defense: "willpower",
+    scaling: "presence",
+    nameFormat: NAME_FORMATS.NOUN
+  },
+  stasis: {
+    id: "stasis",
+    name: "SPELL.RuneStasis",
+    img: "icons/magic/time/clock-spinning-gold-pink.webp",
+    resource: "morale",
+    damageType: "physical",
+    opposed: "kinesis",
+    defense: "willpower",
+    scaling: "wisdom",
+    nameFormat: NAME_FORMATS.ADJ
+  }
 });
 
 /**
