@@ -1,3 +1,23 @@
-2023/04/22-10:37:37.559 10a0c Recovering log #412
-2023/04/22-10:37:37.564 10a0c Delete type=0 #412
-2023/04/22-10:37:37.564 10a0c Delete type=3 #410
+2023/04/22-11:00:07.593 100c4 Recovering log #415
+2023/04/22-11:00:07.593 100c4 Level-0 table #417: started
+2023/04/22-11:00:07.595 100c4 Level-0 table #417: 3603 bytes OK
+2023/04/22-11:00:07.598 100c4 Delete type=0 #415
+2023/04/22-11:00:07.598 100c4 Delete type=3 #414
+2023/04/22-11:03:44.832 a384 Level-0 table #420: started
+2023/04/22-11:03:44.832 a384 Level-0 table #420: 0 bytes OK
+2023/04/22-11:03:44.834 a384 Delete type=0 #418
+2023/04/22-11:03:44.835 a384 Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at '!items!orcish0000000000' @ 48 : 0
+2023/04/22-11:03:44.835 a384 Compacting 1@0 + 0@1 files
+2023/04/22-11:03:44.837 a384 Generated table #421@0: 8 keys, 1561 bytes
+2023/04/22-11:03:44.837 a384 Compacted 1@0 + 0@1 files => 1561 bytes
+2023/04/22-11:03:44.838 a384 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/04/22-11:03:44.838 a384 Delete type=2 #417
+2023/04/22-11:03:44.840 a384 Manual compaction at level-0 from '!items!orcish0000000000' @ 48 : 0 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/04/22-11:03:44.840 a384 Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at '!items!orcish0000000000' @ 86 : 1
+2023/04/22-11:03:44.840 a384 Compacting 1@1 + 1@2 files
+2023/04/22-11:03:44.843 a384 Generated table #422@1: 8 keys, 1561 bytes
+2023/04/22-11:03:44.843 a384 Compacted 1@1 + 1@2 files => 1561 bytes
+2023/04/22-11:03:44.843 a384 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/04/22-11:03:44.843 a384 Delete type=2 #37
+2023/04/22-11:03:44.844 a384 Delete type=2 #421
+2023/04/22-11:03:44.847 a384 Manual compaction at level-1 from '!items!orcish0000000000' @ 86 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)

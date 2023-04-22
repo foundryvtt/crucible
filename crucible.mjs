@@ -106,8 +106,7 @@ Hooks.once("init", async function() {
     },
     methods: {
       buildJournalCompendium,
-      packageItemCompendium,
-      packageCompendiumPacks,
+      packageCompendium,
       standardizeItemIds,
       syncTalents
     },
@@ -270,32 +269,25 @@ Hooks.on("renderJournalSheet", renderJournalRules);
 /*  Convenience Functions                       */
 /* -------------------------------------------- */
 
-async function packageCompendiumPacks() {
-  const toPack = ["ancestry", "armor", "background", "talent", "weapon"];
-  for ( const type of toPack ) {
-    await packageItemCompendium(type);
-  }
-}
-
-/* -------------------------------------------- */
-
 /**
- * Package all Items of a certain type into their appropriate Compendium pack
- * @param {string} itemType
+ * Package all documents of a certain type into their appropriate Compendium pack
+ * @param {string} documentName
+ * @param {string} packName
  * @param {string} folderName
  * @returns {Promise<void>}
  */
-async function packageItemCompendium(itemType, folderName) {
-  const pack = game.packs.get(`crucible.${itemType}`);
-  const folder = game.folders.find(f => (f.type === "Item") && (f.name === folderName));
+async function packageCompendium(documentName, packName, folderName) {
+  const pack = game.packs.get(`crucible.${packName}`);
+  const folder = game.folders.find(f => (f.type === documentName) && (f.name === folderName));
   if ( !folder ) throw new Error(`Folder "${folderName}" not found`);
 
   // Unlock the pack for editing
   await pack.configure({locked: false});
 
   // Delete all existing documents in the pack
+  const cls = getDocumentClass(documentName);
   await pack.getDocuments();
-  await Item.deleteDocuments([], {pack: pack.collection, deleteAll: true});
+  await cls.deleteDocuments([], {pack: pack.collection, deleteAll: true});
   await Folder.deleteDocuments(Array.from(pack.folders.keys()), {pack: pack.collection});
 
   // Identify Folders and Documents to create
@@ -304,16 +296,11 @@ async function packageItemCompendium(itemType, folderName) {
     folderIds.add(folder.id);
     return folder.toCompendium(pack, {clearSort: false, keepId: true})
   });
-  const documentsToCreate = game.items.reduce((arr, item) => {
-    if ( (item.type === itemType) && folderIds.has(item.folder?.id) ) {
-      arr.push(item.toCompendium(pack, {clearSort: true, keepId: true}));
-    }
-    return arr;
-  }, []);
+  const documentsToCreate = folder.contents.map(doc => doc.toCompendium(pack, {clearSort: true, keepId: true}));
 
   // Create Folders and Documents
   await Folder.createDocuments(foldersToCreate, {pack: pack.collection, keepId: true});
-  await Item.createDocuments(documentsToCreate, {pack: pack.collection, keepId: true});
+  await cls.createDocuments(documentsToCreate, {pack: pack.collection, keepId: true});
 
   // Re-lock the pack
   await pack.configure({locked: true});

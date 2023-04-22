@@ -35,11 +35,18 @@
       "type": "Item"
     },
     {
-      "name": "weapon",
-      "label": "Weapons",
+      "name": "rules",
+      "label": "System Rules",
       "system": "crucible",
-      "path": "packs/weapon.db",
-      "type": "Item"
+      "path": "packs/rules.db",
+      "type": "JournalEntry"
+    },
+    {
+      "name": "summons",
+      "label": "Summoned Creatures",
+      "system": "crucible",
+      "path": "packs/summons.db",
+      "type": "Actor"
     },
     {
       "name": "talent",
@@ -49,11 +56,11 @@
       "type": "Item"
     },
     {
-      "name": "rules",
-      "label": "System Rules",
+      "name": "weapon",
+      "label": "Weapons",
       "system": "crucible",
-      "path": "packs/rules.db",
-      "type": "JournalEntry"
+      "path": "packs/weapon.db",
+      "type": "Item"
     }
   ],
   "languages": [

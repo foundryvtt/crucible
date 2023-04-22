@@ -1,8 +1,3 @@
-2023/04/22-08:56:29.898 8040 Recovering log #419
-2023/04/22-08:56:29.902 8040 Delete type=0 #419
-2023/04/22-08:56:29.903 8040 Delete type=3 #418
-2023/04/22-10:06:22.637 a28c Level-0 table #423: started
-2023/04/22-10:06:22.637 a28c Level-0 table #423: 0 bytes OK
-2023/04/22-10:06:22.638 a28c Delete type=0 #421
-2023/04/22-10:06:22.639 a28c Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/04/22-10:06:22.639 a28c Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/04/22-10:37:37.567 8040 Recovering log #422
+2023/04/22-10:37:37.570 8040 Delete type=0 #422
+2023/04/22-10:37:37.570 8040 Delete type=3 #420
