@@ -58,7 +58,7 @@ export const RUNES = Object.seal({
     name: "SPELL.RuneFrost",
     img: "icons/magic/water/snowflake-ice-snow-white.webp",
     resource: "health",
-    damageType: "frost",
+    damageType: "cold",
     opposed: "flame",
     defense: "fortitude",
     scaling: "intellect",

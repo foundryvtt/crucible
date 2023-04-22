@@ -1,8 +1,3 @@
-2023/04/19-15:18:45.485 36ac0 Recovering log #446
-2023/04/19-15:18:45.489 36ac0 Delete type=0 #446
-2023/04/19-15:18:45.489 36ac0 Delete type=3 #444
-2023/04/19-15:19:29.687 15cdc Level-0 table #451: started
-2023/04/19-15:19:29.687 15cdc Level-0 table #451: 0 bytes OK
-2023/04/19-15:19:29.688 15cdc Delete type=0 #449
-2023/04/19-15:19:29.690 15cdc Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/04/19-15:19:29.690 15cdc Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/04/22-10:37:37.574 10a0c Recovering log #458
+2023/04/22-10:37:37.578 10a0c Delete type=0 #458
+2023/04/22-10:37:37.578 10a0c Delete type=3 #456

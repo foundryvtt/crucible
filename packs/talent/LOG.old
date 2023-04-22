@@ -1,8 +1,8 @@
-2023/04/18-15:37:27.598 ec30 Recovering log #443
-2023/04/18-15:37:27.603 ec30 Delete type=0 #443
-2023/04/18-15:37:27.603 ec30 Delete type=3 #442
-2023/04/18-16:02:10.720 20a1c Level-0 table #447: started
-2023/04/18-16:02:10.720 20a1c Level-0 table #447: 0 bytes OK
-2023/04/18-16:02:10.721 20a1c Delete type=0 #445
-2023/04/18-16:02:10.722 20a1c Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/04/18-16:02:10.722 20a1c Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/04/22-08:56:29.905 8040 Recovering log #455
+2023/04/22-08:56:29.909 8040 Delete type=0 #455
+2023/04/22-08:56:29.909 8040 Delete type=3 #454
+2023/04/22-10:06:22.638 a28c Level-0 table #459: started
+2023/04/22-10:06:22.638 a28c Level-0 table #459: 0 bytes OK
+2023/04/22-10:06:22.639 a28c Delete type=0 #457
+2023/04/22-10:06:22.639 a28c Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/04/22-10:06:22.640 a28c Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

@@ -56,7 +56,7 @@ export function chilled(actor, target) {
       crucible: {
         dot: {
           health: Math.floor(actor.system.abilities.intellect.value / 2),
-          damageType: "frost"
+          damageType: "cold"
         }
       }
     }

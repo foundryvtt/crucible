@@ -1,7 +1,3 @@
-2023/04/19-15:18:45.486 892c Recovering log #400
-2023/04/19-15:18:45.490 892c Delete type=0 #400
-2023/04/19-15:18:45.490 892c Delete type=3 #398
-2023/04/19-15:19:29.688 15cdc Level-0 table #405: started
-2023/04/19-15:19:29.689 15cdc Level-0 table #405: 31636 bytes OK
-2023/04/19-15:19:29.690 15cdc Delete type=0 #403
-2023/04/19-15:19:29.690 15cdc Manual compaction at level-0 from '!journal!0XUHMkpCZrqz1sfJ' @ 72057594037927935 : 1 .. '!journal.pages!hFUPO7aHDI6DuPvI.LYj7sghAMoQj9FFR' @ 0 : 0; will stop at (end)
+2023/04/22-10:37:37.574 8040 Recovering log #412
+2023/04/22-10:37:37.578 8040 Delete type=0 #412
+2023/04/22-10:37:37.578 8040 Delete type=3 #410

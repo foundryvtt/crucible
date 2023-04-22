@@ -1,6 +1,6 @@
 export {default as ACTIONS} from "./actions.mjs";
 import {SKILLS} from "./skills.js";
-import {RESOURCES} from "./attributes.mjs";
+import {DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
 
 /**
@@ -358,51 +358,9 @@ export const TAGS = {
     prepare: (actor, action) => action.usage.bonuses.damageBonus -= 6,
   },
 
-  acid: {
-    tag: "acid",
-    label: "Acid",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "acid"
-  },
-  fire: {
-    tag: "fire",
-    label: "Fire",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "fire"
-  },
-  frost: {
-    tag: "frost",
-    label: "Frost",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "frost"
-  },
-  lightning: {
-    tag: "lightning",
-    label: "Lightning",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "lightning"
-  },
-  psychic: {
-    tag: "psychic",
-    label: "Psychic",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "psychic"
-  },
-  radiant: {
-    tag: "radiant",
-    label: "Radiant",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "radiant"
-  },
-  unholy: {
-    tag: "unholy",
-    label: "Unholy",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "unholy"
-  },
-  void: {
-    tag: "void",
-    label: "Void",
-    prepare: (actor, action) => action.usage.bonuses.damageType = "void"
-  },
-
   /* -------------------------------------------- */
   /*  Defense Modifiers                           */
   /* -------------------------------------------- */
-
 
   // Target Fortitude
   fortitude: {
@@ -456,6 +414,18 @@ export const TAGS = {
       action.usage.defenseType = "madness";
       action.usage.restoration = true;
     }
+  }
+}
+
+/* -------------------------------------------- */
+/*  Specialized Damage Type                     */
+/* -------------------------------------------- */
+
+for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
+  TAGS[id] = {
+    tag: id,
+    label: label,
+    prepare: (actor, action) => action.usage.bonuses.damageType = id
   }
 }
 
