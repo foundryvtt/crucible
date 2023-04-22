@@ -190,11 +190,11 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     const a = this.abilities;
 
     // Health
-    r.health.max = Math.round(4 * (l + a.toughness.value)) + (2 * (a.strength.value + a.dexterity.value));
+    r.health.max = (6 * level) + (4 * a.toughness.value) + (2 * a.strength.value);
     r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = Math.round(4 * (l + a.presence.value)) + (2 * (a.intellect.value + a.wisdom.value));
+    r.morale.max = (6 * level) + (4 * a.presence.value) + (2 * a.wisdom.value);
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Action

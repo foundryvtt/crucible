@@ -155,7 +155,7 @@ export const RESOURCES = Object.freeze({
     id: "health",
     label: "RESOURCES.Health",
     type: "active",
-    tooltip: "[4 &times; (Level + Toughness)] + [2 &times; (Strength + Dexterity)]",
+    tooltip: "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
     color: {
       high: Color.from(0xEE0000),
       low: Color.from(0xAA0000),
@@ -177,7 +177,7 @@ export const RESOURCES = Object.freeze({
     id: "morale",
     label: "RESOURCES.Morale",
     type: "active",
-    tooltip: "[4 &times; (Level + Presence)] + [2 &times; (Intellect + Wisdom)]",
+    tooltip: "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
     color: {
       high: Color.from(0x9900CC),
       low: Color.from(0x6600AA),

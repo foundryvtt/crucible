@@ -55,7 +55,7 @@ export function chilled(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: Math.floor(actor.system.abilities.intellect.value / 2),
+          health: Math.floor(actor.system.abilities.wisdom.value / 2),
           damageType: "cold"
         }
       }

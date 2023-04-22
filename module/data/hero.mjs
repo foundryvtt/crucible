@@ -247,7 +247,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     const r = this.resources;
 
     // Health
-    r.health.max = (4 * (level + a.toughness.value)) + (2 * (a.strength.value + a.dexterity.value));
+    r.health.max = (6 * level) + (4 * a.toughness.value) + (2 * a.strength.value);
     r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Wounds
@@ -255,7 +255,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     r.wounds.value = Math.clamped(r.wounds.value, 0, r.wounds.max);
 
     // Morale
-    r.morale.max = (4 * (level + a.presence.value)) + (2 * (a.intellect.value + a.wisdom.value));
+    r.morale.max = (6 * level) + (4 * a.presence.value) + (2 * a.wisdom.value);
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Madness

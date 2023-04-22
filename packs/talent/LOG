@@ -1,15 +1,8 @@
-2023/04/22-11:04:05.992 32d1c Recovering log #464
-2023/04/22-11:04:05.995 32d1c Delete type=0 #464
-2023/04/22-11:04:05.995 32d1c Delete type=3 #462
-2023/04/22-13:14:39.248 a384 Level-0 table #469: started
-2023/04/22-13:14:39.249 a384 Level-0 table #469: 9872 bytes OK
-2023/04/22-13:14:39.250 a384 Delete type=0 #467
-2023/04/22-13:14:39.254 a384 Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/04/22-13:14:39.254 a384 Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!voidcaller000000' @ 1028 : 1
-2023/04/22-13:14:39.254 a384 Compacting 1@1 + 1@2 files
-2023/04/22-13:14:39.256 a384 Generated table #470@1: 146 keys, 61506 bytes
-2023/04/22-13:14:39.256 a384 Compacted 1@1 + 1@2 files => 61506 bytes
-2023/04/22-13:14:39.256 a384 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/04/22-13:14:39.258 a384 Delete type=2 #379
-2023/04/22-13:14:39.258 a384 Delete type=2 #469
-2023/04/22-13:14:39.262 a384 Manual compaction at level-1 from '!items!voidcaller000000' @ 1028 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/04/22-13:23:31.255 100c4 Recovering log #468
+2023/04/22-13:23:31.260 100c4 Delete type=0 #468
+2023/04/22-13:23:31.260 100c4 Delete type=3 #466
+2023/04/22-14:07:40.698 a384 Level-0 table #474: started
+2023/04/22-14:07:40.698 a384 Level-0 table #474: 0 bytes OK
+2023/04/22-14:07:40.700 a384 Delete type=0 #472
+2023/04/22-14:07:40.703 a384 Manual compaction at level-0 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/04/22-14:07:40.703 a384 Manual compaction at level-1 from '!items!alchemicalresolv' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
