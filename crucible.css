@@ -1386,15 +1386,23 @@ h2.divider span {
   background: rgba(0, 255, 0, 0.05);
   border: 1px solid green;
 }
-.dice-roll.standard-check.success.critical .check-result {
-  color: green;
-}
 .dice-roll.standard-check.failure .check-result {
   background: rgba(255, 0, 0, 0.05);
   border: 1px solid red;
 }
+.dice-roll.standard-check.deflect .check-result {
+  background: rgba(255, 255, 0, 0.05);
+  border: 1px solid yellow;
+}
 .dice-roll.standard-check.failure.critical .check-result {
+  background: rgba(255, 0, 0, 0.05);
   color: red;
+  border: 1px solid red;
+}
+.dice-roll.standard-check.success.critical .check-result {
+  background: rgba(0, 255, 0, 0.05);
+  color: green;
+  border: 1px solid green;
 }
 /* ----------------------------------------- */
 /*  Roll Dialog                              */

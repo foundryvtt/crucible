@@ -83,7 +83,7 @@ export default class AttackRoll extends StandardCheck {
    * @returns {number}
    */
   get overflow() {
-    return Math.max(this.total - this.data.dc, 0);
+    return this.total - this.data.dc;
   }
 
   /* -------------------------------------------- */
@@ -93,6 +93,10 @@ export default class AttackRoll extends StandardCheck {
   /** @inheritdoc */
   _getChatCardData() {
     const cardData = super._getChatCardData();
+
+    // Attack Result
+    const result = Object.entries(this.constructor.RESULT_TYPES).find(e => e[1] === this.data.result)[0];
+    cardData.cssClass += ` ${result.toLowerCase()}`;
 
     // Target
     if ( this.data.target ) {

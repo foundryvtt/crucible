@@ -70,6 +70,21 @@ export default class CrucibleActor extends Actor {
   grimoire = this.grimoire;
 
   /**
+   * @typedef {Object} CrucibleActorTraining
+   * @property {number} unarmed
+   * @property {number} heavy
+   * @property {number} finesse
+   * @property {number} balanced
+   * @property {number} ranged
+   */
+
+  /**
+   * Trained skill bonuses which the character has.
+   * @type {CrucibleActorTraining}
+   */
+  training = this.training;
+
+  /**
    * The ancestry of the Actor.
    * @returns {*}
    */
@@ -223,9 +238,41 @@ export default class CrucibleActor extends Actor {
     const items = this.itemTypes;
     this._prepareTalents(items);
     this._prepareEffects();
+    this.training = CrucibleActor.#prepareTraining(this);
     this.equipment = this._prepareEquipment(items);
     this._prepareActions();
   };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the levels of equipment training that an Actor has.
+   * @param {CrucibleActor} actor       The Actor being prepared
+   * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
+   */
+  static #prepareTraining(actor) {
+    const training = {
+      unarmed: 0,
+      heavy: 0,
+      finesse: 0,
+      balanced: 0,
+      ranged: 0,
+      shield: 0,
+      talisman: 0
+    };
+    const talents = {
+      finesseweapontra: {finesse: 1, balanced: 1},
+      martialweapontra: {heavy: 1, balanced: 1},
+      unarmedweapontra: {unarmed: 1},
+      projectileweapon: {ranged: 1}
+    };
+    for ( const [talentId, points] of Object.entries(talents) ) {
+      if ( actor.talentIds.has(talentId) ) {
+        for ( const [k, v] of Object.entries(points) ) training[k] += v;
+      }
+    }
+    return training;
+  }
 
   /* -------------------------------------------- */
 
@@ -339,11 +386,13 @@ export default class CrucibleActor extends Actor {
     if ( !weapons.mainhand ) weapons.mainhand = this._getUnarmedWeapon();
     const mh = weapons.mainhand;
     const mhCategory = mh.config.category;
+    mh.system.actionBonuses.skill = this.training[mhCategory.training];
 
     // Offhand Weapon
     if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
     const ohCategory = oh?.config.category || {};
+    if ( oh ) oh.system.actionBonuses.skill = this.training[ohCategory.training];
 
     // Free Hand or Unarmed
     weapons.freehand = (mhCategory.id === "unarmed") || (ohCategory.id === "unarmed");
@@ -381,8 +430,7 @@ export default class CrucibleActor extends Actor {
   _getUnarmedWeapon() {
     const itemCls = getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
-    if ( this.talentIds.has("pugilist00000000") ) data.system.quality = "fine";
-    if ( this.talentIds.has("martialartist000") ) data.system.enchantment = "minor";
+    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
     return new itemCls(data, {parent: this});
   }
 

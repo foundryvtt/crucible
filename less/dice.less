@@ -101,19 +101,36 @@
     }
   }
 
+  // Success
   &.success .check-result {
-    background: rgba(0,255,0,0.05);
+    background: rgb(0 255 0 / 5%);
     border: 1px solid green;
   }
-  &.success.critical .check-result {
-    color: green;
-  }
+
+  // Failure
   &.failure .check-result  {
-    background: rgba(255,0,0,0.05);
+    background: rgb(255 0 0 / 5%);
     border: 1px solid red;
   }
+
+  // Deflection
+  &.deflect .check-result {
+    background: rgb(255 255 0 / 5%);
+    border: 1px solid yellow;
+  }
+
+  // Critical Failure
   &.failure.critical .check-result  {
+    background: rgb(255 0 0 / 5%);
     color: red;
+    border: 1px solid red;
+  }
+
+  // Critical Success
+  &.success.critical .check-result {
+    background: rgb(0 255 0 / 5%);
+    color: green;
+    border: 1px solid green;
   }
 }
 

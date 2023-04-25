@@ -375,7 +375,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const outcome of outcomes.values() ) {
       if ( outcome === self ) continue;
       if ( !outcome.rolls.length && outcome.effects.length ) return false; // automatically caused effects
-      if ( outcome.rolls.some(r => r.isSuccess) ) return false; // successful rolls
+      if ( outcome.rolls.some(r => r.data.damage?.total) ) return false; // dealt damage
     }
     return true;
   }

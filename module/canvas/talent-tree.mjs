@@ -522,7 +522,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @param {WheelEvent} event      The mousewheel event
    */
   #onWheel(event) {
-    if ( this.canvas.hidden ) return;
+    if ( this.canvas.hidden || (event.target?.id !== "crucible-talent-tree") ) return;
     let dz = ( event.delta < 0 ) ? 1.05 : 0.95;
     this.pan({scale: dz * this.stage.scale.x});
   }

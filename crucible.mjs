@@ -64,6 +64,8 @@ import {buildJournalCompendium, renderJournalRules} from "./module/documents/jou
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
+const DEVELOPMENT_MODE = true;
+
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
   CONFIG.SYSTEM = SYSTEM;
@@ -107,6 +109,7 @@ Hooks.once("init", async function() {
     methods: {
       buildJournalCompendium,
       packageCompendium,
+      resetAllActorTalents,
       standardizeItemIds,
       syncTalents
     },
@@ -157,9 +160,6 @@ Hooks.once("init", async function() {
   // Canvas Configuration
   CONFIG.Canvas.rulerClass = CrucibleRuler;
 
-  // Debugging
-  CONFIG.debug.talentTree = true;
-
   // TODO HACK TOKEN ATTRIBUTES
   TokenDocument.getTrackedAttributes = function() {
     return {
@@ -196,6 +196,12 @@ Hooks.once("init", async function() {
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
+
+  // Register development hooks
+  if ( DEVELOPMENT_MODE ) {
+    CONFIG.debug.talentTree = true;
+    registerDevelopmentHooks();
+  }
 });
 
 /* -------------------------------------------- */
@@ -343,14 +349,21 @@ async function standardizeItemIds() {
   await Item.createDocuments(creations, {keepId: true});
 }
 
-// TODO for development
-Hooks.on("preCreateItem", (item, data, options, user) => {
-  if ( !item.parent && !item.id ) {
-    const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
-    item.updateSource({_id: standardId});
-    options.keepId = true;
-  }
-});
+function registerDevelopmentHooks() {
+  Hooks.on("preCreateItem", (item, data, options, user) => {
+    if ( !item.parent && !item.id ) {
+      const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
+      item.updateSource({_id: standardId});
+      options.keepId = true;
+    }
+  });
+
+  Hooks.on("updateItem", async (item, change, options, user) => {
+    if ( item.pack !== CONFIG.SYSTEM.COMPENDIUM_PACKS.talent ) return;
+    await CrucibleTalentNode.initialize();
+    game.system.tree.refresh();
+  })
+}
 
 
 /* -------------------------------------------- */
@@ -361,4 +374,16 @@ async function syncTalents() {
     await actor.syncTalents();
     console.log(`Crucible | Synced talents with latest data for Actor "${actor.name}"`);
   }
+}
+
+async function resetAllActorTalents() {
+  const updates = [];
+  for ( const actor of game.actors ) {
+    const items = actor.items.reduce((arr, item) => {
+      if ( item.type !== "talent" ) arr.push(item.toObject());
+      return arr;
+    }, []);
+    updates.push({_id: actor.id, items});
+  }
+  return Actor.updateDocuments(updates, {recursive: false});
 }

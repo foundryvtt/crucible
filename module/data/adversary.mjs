@@ -185,7 +185,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   #prepareResources() {
     const statuses = this.parent.statuses;
     const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
-    const l = this.details.level * threat.scaling;
+    const level = this.details.level * threat.scaling;
     const r = this.resources;
     const a = this.abilities;
 
@@ -204,7 +204,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = Math.ceil(l / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
+    r.focus.max = Math.ceil(level / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
   }
 

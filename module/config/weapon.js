@@ -26,7 +26,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "unarmed"
   },
   natural: {
     id: "natural",
@@ -38,7 +39,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "unarmed"
   },
   light1: {
     id: "light1",
@@ -50,7 +52,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "finesse"
   },
   simple1: {
     id: "simple1",
@@ -62,7 +65,8 @@ export const CATEGORIES = {
     damage: {
       base: 6
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "heavy"
   },
   balanced1: {
     id: "balanced1",
@@ -74,7 +78,8 @@ export const CATEGORIES = {
     damage: {
       base: 8
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "balanced"
   },
   heavy1: {
     id: "heavy1",
@@ -86,7 +91,8 @@ export const CATEGORIES = {
     damage: {
       base: 8
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "heavy"
   },
   simple2: {
     id: "simple2",
@@ -98,7 +104,8 @@ export const CATEGORIES = {
     damage: {
       base: 10
     },
-    actionCost: 2
+    actionCost: 2,
+    training: "heavy"
   },
   balanced2: {
     id: "balanced2",
@@ -110,7 +117,8 @@ export const CATEGORIES = {
     damage: {
       base: 12
     },
-    actionCost: 2
+    actionCost: 2,
+    training: "balanced"
   },
   heavy2: {
     id: "heavy2",
@@ -122,7 +130,8 @@ export const CATEGORIES = {
     damage: {
       base: 12
     },
-    actionCost: 2
+    actionCost: 2,
+    training: "heavy"
   },
   projectile2: {
     id: "projectile2",
@@ -135,7 +144,8 @@ export const CATEGORIES = {
     damage: {
       base: 8
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "projectile"
   },
   mechanical1: {
     id: "mechanical1",
@@ -149,7 +159,8 @@ export const CATEGORIES = {
     damage: {
       base: 6
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "projectile"
   },
   mechanical2: {
     id: "mechanical2",
@@ -163,7 +174,8 @@ export const CATEGORIES = {
     damage: {
       base: 12
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "projectile"
   },
   shieldLight: {
     id: "shieldLight",
@@ -179,7 +191,8 @@ export const CATEGORIES = {
     defense: {
       block: 2
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "shield"
   },
   shieldHeavy: {
     id: "shieldHeavy",
@@ -195,7 +208,8 @@ export const CATEGORIES = {
     defense: {
       block: 4
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "shield"
   },
   talisman1: {
     id: "talisman1",
@@ -208,7 +222,8 @@ export const CATEGORIES = {
     damage: {
       base: 2
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "talisman"
   },
   talisman2: {
     id: "talisman2",
@@ -221,7 +236,8 @@ export const CATEGORIES = {
     damage: {
       base: 6
     },
-    actionCost: 1
+    actionCost: 1,
+    training: "talisman"
   }
 }
 

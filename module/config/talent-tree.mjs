@@ -153,6 +153,7 @@ export default class CrucibleTalentNode {
    * Initialize all talents from within the designated collection
    */
   static async initialize() {
+    for ( const node of this.nodes.values() ) node.talents.clear();
     const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
     const talents = await pack.getDocuments();
     for ( const talent of talents ) {
@@ -274,11 +275,20 @@ new CrucibleTalentNode(({
 }));
 
 new CrucibleTalentNode({
-  id: "dex0",
+  id: "dex0a",
+  abilities: ["dexterity"],
+  type: "utility",
+  tier: 0,
+  angle: 15,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "dex0b",
   abilities: ["dexterity"],
   type: "attack",
   tier: 0,
-  angle: 30,
+  angle: 45,
   connected: ["origin"]
 });
 
@@ -296,7 +306,16 @@ new CrucibleTalentNode({
   abilities: ["strength"],
   type: "attack",
   tier: 0,
-  angle: 150,
+  angle: 135,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "str0b",
+  abilities: ["strength"],
+  type: "utility",
+  tier: 0,
+  angle: 165,
   connected: ["origin"]
 });
 
@@ -337,7 +356,7 @@ const intdex1 = new CrucibleTalentNode({
   type: "attack",
   tier: 1,
   distance: 180,
-  connected: ["dex0", "int0"]
+  connected: ["dex0a", "dex0b", "int0"]
 });
 
 new CrucibleTalentNode({
@@ -345,7 +364,7 @@ new CrucibleTalentNode({
   abilities: ["dexterity"],
   type: "utility",
   tier: 1,
-  connected: ["dex0", "intdex1"]
+  connected: ["dex0a", "dex0b", "intdex1"]
 });
 
 new CrucibleTalentNode({
@@ -353,7 +372,7 @@ new CrucibleTalentNode({
   abilities: ["dexterity"],
   type: "attack",
   tier: 1,
-  connected: ["dex0", "dex1a"]
+  connected: ["dex0a", "dex0b", "dex1a"]
 });
 
 new CrucibleTalentNode({
@@ -362,7 +381,7 @@ new CrucibleTalentNode({
   type: "move",
   tier: 1,
   distance: 180,
-  connected: ["dex0", "tou0", "dex1b"]
+  connected: ["dex0a", "dex0b", "tou0", "dex1b"]
 });
 
 new CrucibleTalentNode({
@@ -387,7 +406,7 @@ new CrucibleTalentNode({
   type: "move",
   tier: 1,
   distance: 180,
-  connected: ["tou0", "str0", "tou1b"]
+  connected: ["tou0", "str0", "str0b", "tou1b"]
 });
 
 new CrucibleTalentNode({
@@ -395,7 +414,7 @@ new CrucibleTalentNode({
   abilities: ["strength"],
   type: "attack",
   tier: 1,
-  connected: ["str0", "toustr1"]
+  connected: ["str0", "str0b", "toustr1"]
 });
 
 new CrucibleTalentNode({
@@ -403,7 +422,7 @@ new CrucibleTalentNode({
   abilities: ["strength"],
   type: "utility",
   tier: 1,
-  connected: ["str0", "str1a"]
+  connected: ["str0", "str0b", "str1a"]
 });
 
 new CrucibleTalentNode({
@@ -412,7 +431,7 @@ new CrucibleTalentNode({
   type: "attack",
   tier: 1,
   distance: 180,
-  connected: ["str0", "wis0", "str1b"]
+  connected: ["str0", "str0b", "wis0", "str1b"]
 });
 
 new CrucibleTalentNode({

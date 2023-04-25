@@ -221,10 +221,14 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
     // Evaluate the attack roll
     await roll.evaluate({async: true});
-    roll.data.result = target.testDefense(defenseType, roll.total);
+    const r = roll.data.result = target.testDefense(defenseType, roll.total);
 
-    // Miss
-    if ( roll.data.result !== AttackRoll.RESULT_TYPES.HIT ) return roll;
+    // Deflection and Avoidance
+    const {HIT, DEFLECT} = AttackRoll.RESULT_TYPES;
+    if ( r === DEFLECT ) {
+      if ( roll.isCriticalFailure ) return roll;
+    }
+    else if ( r !== HIT ) return roll;
 
     // Damage
     roll.data.damage = {
