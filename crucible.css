@@ -140,6 +140,22 @@
   height: 24px;
   border-radius: 4px;
 }
+.crucible figure.placeholder {
+  position: relative;
+}
+.crucible figure.placeholder::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "PLACEHOLDER";
+  color: white;
+  text-shadow: 1px 1px #000;
+  font-size: 24px;
+}
 /* Tooltips */
 #crucible-tooltip,
 .crucible .tooltip {
@@ -1182,6 +1198,39 @@ h2.divider span {
 .crucible.journal-sheet table td:first-child,
 .crucible.journal-sheet table th:first-child {
   padding-left: 0.25rem;
+}
+/** ----------------------------------------- *
+ *  Skill Page Sheet                          *
+ * ------------------------------------------ */
+.crucible.skill-sheet form {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.crucible.skill-sheet .scrollable {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden auto;
+}
+.crucible.skill-sheet .scrollable h2.divider,
+.crucible.skill-sheet .scrollable div.form-group {
+  margin: 0;
+}
+.crucible.skill-sheet .form-footer {
+  margin: 1rem;
+}
+.crucible.skill figure.right {
+  float: right;
+  margin: 0 0 1rem 1rem;
+}
+.crucible.skill figure.right img {
+  width: 200px;
+  height: 200px;
+  border-radius: 6px;
 }
 .crucible.sheet.skill {
   --headerHeight: 48px;

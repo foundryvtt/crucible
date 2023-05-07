@@ -8,6 +8,7 @@
 "TYPES.Item.background": "Background",
 "TYPES.Item.talent": "Talent",
 "TYPES.Item.weapon": "Weapon",
+"TYPES.JournalEntryPage.skill": "Crucible Skill",
 
 "ABILITIES.Strength": "Strength",
 "ABILITIES.StrengthAbbr": "Str",
@@ -237,15 +238,31 @@
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
+"SKILL.PageSheet": "Crucible Skill",
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",
-"SKILL.Untrained": "Untrained",
-"SKILL.Unspecialized": "Unspecialized",
-"SKILL.Novice": "Novice",
-"SKILL.Apprentice": "Apprentice",
-"SKILL.Journeyman": "Journeyman",
-"SKILL.Master": "Master",
-"SKILL.Grandmaster": "Grandmaster",
-"SKILL.MasterPath": "Master the techniques of your specialization path - achieving the pinnacle of expertise with this skill.",
+
+
+"SKILL.RANKS.Untrained": "Untrained",
+"SKILL.RANKS.UntrainedHint": "You have no formal training in this area. Any success you have in applying this skill is due to common sense or luck.",
+"SKILL.RANKS.Unspecialized": "Unspecialized",
+"SKILL.RANKS.UnspecializedHint": "You have not yet attained a specialization path for this skill.",
+"SKILL.RANKS.Novice": "Novice",
+"SKILL.RANKS.NoviceHint": "You have some formal training or practical experience in the fundamental applications of this skill.",
+"SKILL.RANKS.Apprentice": "Apprentice",
+"SKILL.RANKS.ApprenticeHint": "You have refined and honed the techniques of this skill to a strong functional competence.",
+"SKILL.RANKS.Specialist": "Specialist",
+"SKILL.RANKS.SpecialistHint": "Your proficiency with this skill is heightened by expertise in an advanced specialization path.",
+"SKILL.RANKS.Adept": "Adept",
+"SKILL.RANKS.AdeptHint": "You are a subject matter expert and fluent in all base competencies and applications of this skill.",
+"SKILL.RANKS.Master": "Master",
+"SKILL.RANKS.MasterHint": "You are peerless in your mastery of this skill and of your advanced specialization path.",
+
+"SKILL.CATEGORY.Exploration": "Exploration",
+"SKILL.CATEGORY.ExplorationHint": "Exploration skills pertain to navigation and traversal of the world.",
+"SKILL.CATEGORY.Knowledge": "Knowledge",
+"SKILL.CATEGORY.Social": "Social",
+"SKILL.CATEGORY.Technical": "Technical",
+
 
 "SKILL.ChoosePath": "You must choose a specialization path before advancing this Skill further.",
 "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",

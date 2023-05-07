@@ -1,5 +1,3 @@
-2023/04/24-22:05:51.728 2ba94 Delete type=3 #1
-2023/04/24-22:07:59.223 28bc Level-0 table #5: started
-2023/04/24-22:07:59.224 28bc Level-0 table #5: 38168 bytes OK
-2023/04/24-22:07:59.225 28bc Delete type=0 #3
-2023/04/24-22:07:59.227 28bc Manual compaction at level-0 from '!actors!12tMDEOK6TuhMpv4' @ 72057594037927935 : 1 .. '!folders!94f8jYxYNzjGTyAH' @ 0 : 0; will stop at (end)
+2023/05/07-14:03:10.631 1fdb0 Recovering log #45
+2023/05/07-14:03:10.635 1fdb0 Delete type=0 #45
+2023/05/07-14:03:10.635 1fdb0 Delete type=3 #44

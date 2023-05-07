@@ -1,51 +1,72 @@
 /**
- * The cost in skill points to obtain the next skill rank
- * @type {number[]}
+ * The cost in skill points to obtain the next skill rank.
+ * @enum {Readonly<{
+ *  id: string,
+ *  rank: number,
+ *  label: string,
+ *  description: string,
+ *  cost: number,
+ *  spent: number,
+ *  bonus: number,
+ *  path: boolean
+ * }>}
  */
 export const SKILL_RANKS = {
   0: {
-    label: "SKILL.Untrained",
-    description: "You have no formal training in this area. Any success you have is due to luck.",
+    id: "untrained",
+    rank: 0,
+    label: "SKILL.RANKS.Untrained",
+    description: "SKILL.RANKS.UntrainedHint",
     cost: 0,
     spent: 0,
     bonus: -4,
     path: false
   },
   1: {
-    label: "SKILL.Novice",
-    description: "You have been provided basic instruction or acquired practical experience in the basics of this skill.",
+    id: "novice",
+    rank: 1,
+    label: "SKILL.RANKS.Novice",
+    description: "SKILL.RANKS.NoviceHint",
     cost: 1,
     spent: 1,
     bonus: 0,
     path: false
   },
   2: {
-    label: "SKILL.Apprentice",
-    description: "You have practiced and honed your skills to a strong functional degree.",
+    id: "apprentice",
+    rank: 2,
+    label: "SKILL.RANKS.Apprentice",
+    description: "SKILL.RANKS.ApprenticeHint",
     cost: 1,
     spent: 2,
     bonus: 2,
     path: false
   },
   3: {
-    label: "SKILL.Journeyman",
-    description: "You are a subject matter expert in this area.",
+    id: "specialist",
+    rank: 3,
+    label: "SKILL.RANKS.Specialist",
+    description: "SKILL.RANKS.SpecialistHint",
     cost: 2,
     spent: 4,
     bonus: 4,
     path: true
   },
   4: {
-    label: "SKILL.Master",
-    description: "You are a true master of this skill and its techniques.",
+    id: "adept",
+    rank: 4,
+    label: "SKILL.RANKS.Adept",
+    description: "SKILL.RANKS.AdeptHint",
     cost: 4,
     spent: 8,
     bonus: 8,
     path: false
   },
   5: {
-    label: "SKILL.Grandmaster",
-    description: "You are peerless in your mastery of this area.",
+    id: "master",
+    rank: 5,
+    label: "SKILL.RANKS.Master",
+    description: "SKILL.RANKS.MasterHint",
     cost: 4,
     spent: 12,
     bonus: 12,
@@ -53,30 +74,45 @@ export const SKILL_RANKS = {
   }
 };
 
+/**
+ * A reverse mapping of skill rank IDs to rank numbers.
+ * @enum {Readonly<number>}
+ */
+export const SKILL_RANK_IDS = Object.freeze({
+  untrained: 0,
+  novice: 1,
+  apprentice: 2,
+  specialist: 3,
+  adept: 4,
+  master: 5
+});
 
 /**
- * The cost in skill points to obtain the next skill rank
- * @type {number[]}
+ * The four thematic categories of skills. Each skill belongs to one of these four categories.
+ * @enum {Readonly<{label: string, defaultIcon: string}>}
  */
 export const SKILL_CATEGORIES = {
   "exp": {
-    label: "Exploration",
+    label: "SKILL.CATEGORY.Exploration",
+    hint: "SKILL.CATEGORY.ExplorationHint",
     defaultIcon: "icons/skills/no-exp.jpg"
   },
   "kno": {
-    label: "Knowledge",
+    label: "SKILL.CATEGORY.Knowledge",
+    hint: "SKILL.CATEGORY.KnowledgeHint",
     defaultIcon: "icons/skills/no-kno.jpg"
   },
   "soc": {
-    label: "Social",
+    label: "SKILL.CATEGORY.Social",
+    hint: "SKILL.CATEGORY.SocialHint",
     defaultIcon: "icons/skills/no-soc.jpg"
   },
-  "trd": {
-    label: "Tradecraft",
-    defaultIcon: "icons/skills/no-trd.jpg"
+  "tch": {
+    label: "SKILL.CATEGORY.Technical",
+    hint: "SKILL.CATEGORY.TechnicalHint",
+    defaultIcon: "icons/skills/no-tch.jpg"
   }
 };
-
 
 // The starting outline of each skill. The final structure of the SKILLS const is derived from this data.
 export const SKILLS = {
@@ -167,28 +203,28 @@ export const SKILLS = {
   animal: {
     id: "animal",
     label: "SKILLS.AnimalHandling",
-    category: "trd",
+    category: "tch",
     abilities: ["strength", "wisdom"],
     paths: ["knight", "beastmaster", "warden"]
   },
   craftsmanship: {
     id: "craftsmanship",
     label: "SKILLS.Craftsmanship",
-    category: "trd",
+    category: "tch",
     abilities: ["dexterity", "intellect"],
     paths: ["trademaster", "artificer", "runekeeper"]
   },
   medicine: {
     id: "medicine",
     label: "SKILLS.Medicine",
-    category: "trd",
+    category: "tch",
     abilities: ["toughness", "intellect"],
     paths: ["apothecary", "chirurgeon", "occultist"]
   },
   performance: {
     id: "performance",
     label: "SKILLS.Performance",
-    category: "trd",
+    category: "tch",
     abilities: ["dexterity", "presence"],
     paths: ["musician", "artist", "athlete"]
   },

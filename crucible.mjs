@@ -21,6 +21,7 @@ import CrucibleGesture from "./module/data/gesture.mjs";
 import CrucibleHero from "./module/data/hero.mjs";
 import CrucibleInflection from "./module/data/inflection.mjs";
 import CrucibleRune from "./module/data/rune.mjs";
+import CrucibleSkill from "./module/data/skill.mjs";
 import CrucibleSpell from "./module/data/spell.mjs";
 import CrucibleTalent from "./module/data/talent.mjs";
 import CrucibleTaxonomy from "./module/data/taxonomy.mjs";
@@ -39,6 +40,7 @@ import AdversarySheet from "./module/applications/sheets/adversary.mjs";
 import AncestrySheet from "./module/applications/sheets/ancestry.mjs";
 import ArmorSheet from "./module/applications/sheets/armor.mjs";
 import BackgroundSheet from "./module/applications/sheets/background.mjs";
+import SkillPageSheet from "./module/applications/sheets/skill.mjs";
 import TalentSheet from "./module/applications/sheets/talent.mjs";
 import WeaponSheet from "./module/applications/sheets/weapon.mjs";
 
@@ -49,6 +51,7 @@ import TaxonomyConfig from "./module/applications/config/taxonomy.mjs";
 // Dice
 import StandardCheck from "./module/dice/standard-check.js";
 import AttackRoll from "./module/dice/attack-roll.mjs";
+import {diceSoNiceRollStart} from "./module/dice/dice-so-nice.mjs";
 
 // Canvas
 import CrucibleRuler from "./module/canvas/ruler.mjs";
@@ -149,6 +152,16 @@ Hooks.once("init", async function() {
   CONFIG.ChatMessage.documentClass = CrucibleChatMessage;
   CONFIG.Combat.documentClass = CrucibleCombat;
   CONFIG.Combatant.documentClass = CrucibleCombatant;
+
+  // Journal Document Configuration
+  Object.assign(CONFIG.JournalEntryPage.dataModels, {
+    "skill": CrucibleSkill
+  });
+  DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, SkillPageSheet, {
+    types: ["skill"],
+    makeDefault: true,
+    label: "SKILL.PageSheet"
+  });
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
@@ -270,6 +283,12 @@ Hooks.once("setup", function() {
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.renderChatMessage)
 Hooks.on("renderJournalSheet", renderJournalRules);
+
+/* -------------------------------------------- */
+/*  Module Integrations                         */
+/* -------------------------------------------- */
+
+Hooks.on('diceSoNiceRollStart', diceSoNiceRollStart);
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

@@ -1,8 +1,3 @@
-2023/04/24-22:05:51.729 38308 Recovering log #485
-2023/04/24-22:05:51.733 38308 Delete type=0 #485
-2023/04/24-22:05:51.733 38308 Delete type=3 #482
-2023/04/24-22:07:59.222 28bc Level-0 table #492: started
-2023/04/24-22:07:59.222 28bc Level-0 table #492: 0 bytes OK
-2023/04/24-22:07:59.223 28bc Delete type=0 #490
-2023/04/24-22:07:59.227 28bc Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/04/24-22:07:59.227 28bc Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/07-14:03:10.639 a384 Recovering log #532
+2023/05/07-14:03:10.644 a384 Delete type=0 #532
+2023/05/07-14:03:10.644 a384 Delete type=3 #531

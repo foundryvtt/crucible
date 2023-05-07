@@ -1,8 +1,3 @@
-2023/04/24-22:05:51.707 2ba94 Recovering log #443
-2023/04/24-22:05:51.712 2ba94 Delete type=0 #443
-2023/04/24-22:05:51.712 2ba94 Delete type=3 #441
-2023/04/24-22:07:59.236 28bc Level-0 table #448: started
-2023/04/24-22:07:59.236 28bc Level-0 table #448: 0 bytes OK
-2023/04/24-22:07:59.238 28bc Delete type=0 #446
-2023/04/24-22:07:59.238 28bc Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/04/24-22:07:59.238 28bc Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/05/07-14:03:10.616 1fdb0 Recovering log #488
+2023/05/07-14:03:10.620 1fdb0 Delete type=0 #488
+2023/05/07-14:03:10.620 1fdb0 Delete type=3 #487

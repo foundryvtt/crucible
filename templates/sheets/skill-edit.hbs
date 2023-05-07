@@ -1,0 +1,59 @@
+<form class="crucible-skill-page standard-form">
+    <div class="scrollable">
+        <h2 class="divider">Skill Summary</h2>
+        <div class="form-group">
+            <label>Skill ID</label>
+            <div class="form-fields">
+                <select name="system.skillId">
+                    {{selectOptions skills selected=document.system.skillId labelAttr="label" blank=""}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Skill Overview</label>
+            <textarea name="system.overview">{{document.system.overview}}</textarea>
+        </div>
+
+        <h2 class="divider">Skill Ranks</h2>
+        {{#each ranks as |rank|}}
+        <div class="form-group stacked">
+            <label>{{rank.title}}</label>
+            <textarea name="system.ranks.{{rank.id}}.description">{{rank.description}}</textarea>
+        </div>
+        {{/each}}
+
+
+        {{#each paths as |path pathId|}}
+        <h2 class="divider">{{path.title}}</h2>
+        <div class="form-group">
+            <label>Path ID</label>
+            <div class="form-fields">
+                <input type="text" name="system.paths.{{pathId}}.id" value="{{path.id}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Path Name</label>
+            <div class="form-fields">
+                <input type="text" name="system.paths.{{pathId}}.name" value="{{path.name}}">
+            </div>
+        </div>
+        <div class="form-group stacked">
+            <label>Path Overview</label>
+            <textarea name="system.paths.{{pathId}}.overview">{{path.overview}}</textarea>
+        </div>
+        {{#each path.ranks as |rank rankId|}}
+        <div class="form-group stacked">
+            <label>{{rank.title}}</label>
+            <textarea name="system.paths.{{pathId}}.ranks.{{rankId}}.description">{{rank.description}}</textarea>
+        </div>
+        {{/each}}
+        {{/each}}
+    </div>
+
+    <footer class="form-footer">
+        <button type="submit">
+            <i class="fa-solid fa-save"></i> Save Changes
+        </button>
+    </footer>
+</form>

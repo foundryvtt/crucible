@@ -1,8 +1,3 @@
-2023/04/24-22:05:51.707 14fac Recovering log #440
-2023/04/24-22:05:51.712 14fac Delete type=0 #440
-2023/04/24-22:05:51.712 14fac Delete type=3 #438
-2023/04/24-22:07:59.230 28bc Level-0 table #445: started
-2023/04/24-22:07:59.230 28bc Level-0 table #445: 0 bytes OK
-2023/04/24-22:07:59.231 28bc Delete type=0 #443
-2023/04/24-22:07:59.232 28bc Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
-2023/04/24-22:07:59.232 28bc Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/05/07-14:03:10.616 a384 Recovering log #485
+2023/05/07-14:03:10.621 a384 Delete type=0 #485
+2023/05/07-14:03:10.621 a384 Delete type=3 #484

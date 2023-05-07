@@ -45,8 +45,8 @@ This family of skills has to do with understanding of the natural or metaphysica
 2. Politician - Knowledge of social leadership structures
 3. Streetwise - Knowledge of folklore and common folk
 
-## Nature
-1. Druidism - Knowledge of natural phenomena
+## Naturalism
+1. Druid - Knowledge of natural phenomena
 2. Zoologist - Knowledge of creatures
 3. Botanist - Knowledge of plants
 
@@ -55,7 +55,7 @@ This family of skills has to do with understanding of the natural or metaphysica
 # Social Skills
 This family of skills has to do with interaction with other people. 
 
-## Bartering
+## Mercantilism
 1. Antiquarian - Identification and appraisal of historical objects
 2. Caravaneer - Logistics and transportation of wares
 3. Negotiator - Acquisitions and sales at advantageous prices
@@ -91,14 +91,14 @@ This family of skills involves the proficiency to create artistic, practical, or
 3. Athlete - Produces art through physical spectacle
 
 ## Tradecraft
-1. Artisan - A master of a specific trade or set of trades
-2. Artificer - A master of technological invention
-3. Runesmith - A master of imbuing arcane potential into physical items
+1. Artisan - Manufacturing physical items
+2. Tinkerer - Spontaneous invention
+3. Runesmith - Imbuing arcane potential
 
-## Creature Handling
-1. Knight - Specialization in riding and mounted activity
+## Beastcraft
+1. Cavalier - Specialization in riding and mounted activity
 2. Warden - Specialized bond of companionship with a single animal companion
-3. Zoophilist - Specialization in working with many diverse creatures
+3. Tamer - Specialization in working with many diverse creatures
 
 
 # Character Skills

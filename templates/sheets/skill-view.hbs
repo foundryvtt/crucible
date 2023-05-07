@@ -1,0 +1,32 @@
+{{#if data.title.show}}
+<header class="journal-page-header">
+    <h{{data.title.level}}>{{data.name}}</h{{data.title.level}}>
+    <div class="tags">
+        {{#each tags as |tag|}}
+            <span class="tag" {{#if tag.color}}style="background: {{tag.color}}"{{/if}}>{{tag.label}}</span>
+        {{/each}}
+    </div>
+</header>
+{{/if}}
+
+<section class="journal-page-content">
+    <figure class="right placeholder">
+        <img src="{{skill.icon}}">
+    </figure>
+    <div class="overview">{{{document.system.overview}}}</div>
+
+    <h2 class="divider">Skill Ranks</h2>
+    {{#each ranks as |rank|}}
+    <h4>{{rank.title}}</h4>
+    <div class="overview">{{{rank.description}}}</div>
+    {{/each}}
+
+    {{#each paths as |path|}}
+    <h2 class="divider">{{path.name}}</h2>
+    <div class="overview">{{{path.overview}}}</div>
+    {{#each path.ranks as |rank|}}
+    <h4>{{rank.title}}</h4>
+    <div class="overview">{{{rank.description}}}</div>
+    {{/each}}
+    {{/each}}
+</section>

@@ -1,8 +1,3 @@
-2023/04/24-22:05:51.715 14fac Recovering log #437
-2023/04/24-22:05:51.719 14fac Delete type=0 #437
-2023/04/24-22:05:51.719 14fac Delete type=3 #435
-2023/04/24-22:07:59.208 28bc Level-0 table #442: started
-2023/04/24-22:07:59.208 28bc Level-0 table #442: 0 bytes OK
-2023/04/24-22:07:59.211 28bc Delete type=0 #440
-2023/04/24-22:07:59.216 28bc Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/04/24-22:07:59.219 28bc Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/05/07-14:03:10.623 30c10 Recovering log #482
+2023/05/07-14:03:10.627 30c10 Delete type=0 #482
+2023/05/07-14:03:10.627 30c10 Delete type=3 #481

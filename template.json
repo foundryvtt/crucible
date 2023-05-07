@@ -11,5 +11,9 @@
     "armor": {},
     "talent": {},
     "weapon": {}
+  },
+  "JournalEntryPage": {
+    "types": ["skill"],
+    "skill": {}
   }
 }
