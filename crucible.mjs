@@ -60,7 +60,6 @@ import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
 import * as chat from "./module/chat.js";
-import {localizeSkillConfig} from "./module/config/skills.js";
 import {buildJournalCompendium, renderJournalRules} from "./module/documents/journal.mjs";
 
 /* -------------------------------------------- */
@@ -224,8 +223,9 @@ Hooks.once("i18nInit", function() {
   // Apply localizations
   const toLocalize = [
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "CREATURE_STATURES", "DAMAGE_CATEGORIES", "DEFENSES",
-    "RESOURCES", "SKILL_CATEGORIES", "SKILL_RANKS", "THREAT_LEVELS",
+    "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
+    "SKILL.CATEGORIES", "SKILL.RANKS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
   for ( let c of toLocalize ) {
@@ -236,9 +236,6 @@ Hooks.once("i18nInit", function() {
       if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
     }
   }
-
-  // Pre-localize translations
-  localizeSkillConfig(SYSTEM); // TODO: Make this cleaner
 
   // Pre-localize configuration objects
   preLocalizeConfig();
@@ -265,6 +262,9 @@ Hooks.once("i18nInit", function() {
 /* -------------------------------------------- */
 
 Hooks.once("setup", function() {
+
+  // Initialize Skill Data
+  CrucibleSkill.initialize();
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();

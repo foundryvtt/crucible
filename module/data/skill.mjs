@@ -1,4 +1,4 @@
-import {SKILLS, SKILL_RANKS} from "../config/skills.js";
+import * as SKILL from "../config/skills.mjs";
 
 /**
  * A JournalEntryPage data model for the Skill page type.
@@ -9,9 +9,9 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      skillId: new fields.StringField({required: true, nullable: true, initial: null, choices: SKILLS}),
+      skillId: new fields.StringField({required: true, nullable: true, initial: null, choices: SKILL.SKILLS}),
       overview: new fields.HTMLField(),
-      ranks: new fields.SchemaField(Object.values(SKILL_RANKS).reduce((ranks, rank) => {
+      ranks: new fields.SchemaField(Object.values(SKILL.RANKS).reduce((ranks, rank) => {
         ranks[rank.id] = new fields.SchemaField({
           description: new fields.HTMLField()
         });
@@ -32,5 +32,47 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
         return paths;
       }, {}))
     };
+  }
+
+  /**
+   * Initialize skill configuration for the game system using defined skill data from the SKILL.JOURNAL_ID entry.
+   * @returns {Promise<void>}
+   */
+  static async initialize() {
+    const entry = await fromUuid(SKILL.JOURNAL_ID);
+    for ( const page of entry.pages ) {
+      if ( page.type !== "skill" ) continue;
+      const {skillId, overview, paths, ranks} = page.system;
+      const skill = SKILL.SKILLS[skillId];
+      if ( !skill ) {
+        console.error(`JournalEntryPage skill configuration "${page.id}" does not configure a valid Skill ID.`);
+        continue;
+      }
+      Object.assign(skill, {overview, paths, ranks, label: page.name});
+    }
+
+    // Iterate over all skills making sure that none are undefined
+    for ( const skill of Object.values(SKILL.SKILLS) ) {
+      foundry.utils.mergeObject(skill, {
+        icon: `systems/crucible/icons/skills/${skill.id}.jpg`,
+        overview: "Missing skill overview.",
+        ranks: Object.values(SKILL.RANKS).reduce((ranks, rank) => {
+          ranks[rank.id] = {description: `Missing rank ${rank.rank} description.`}
+          return ranks;
+        }, {}),
+        paths: Array.fromRange(3, 1).reduce((paths, i) => {
+          paths[`path${i}`] = {
+            id: `path${i}`,
+            name: `Specialization ${i}`,
+            overview: "Missing specialization overview.",
+            ranks: ["specialist", "master"].reduce((ranks, rank) => {
+              ranks[rank] = {description: "Missing rank description"};
+              return ranks;
+            }, {})
+          };
+          return paths;
+        }, {})
+      }, {inplace: true, overwrite: false});
+    }
   }
 }

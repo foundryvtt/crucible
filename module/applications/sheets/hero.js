@@ -72,9 +72,9 @@ export default class HeroSheet extends CrucibleActorSheet {
    * @return {*}
    */
   #formatSkills(skills) {
-    const categories = foundry.utils.deepClone(SYSTEM.SKILL_CATEGORIES);
+    const categories = foundry.utils.deepClone(SYSTEM.SKILL.CATEGORIES);
     for ( const skill of Object.values(SYSTEM.SKILLS) ) {
-      const s = foundry.utils.mergeObject(skill, skills[skill.id]);
+      const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
       const category = categories[skill.category];
 
       // Skill data
@@ -88,9 +88,9 @@ export default class HeroSheet extends CrucibleActorSheet {
       s.canDecrease = this.actor.canPurchaseSkill(skill.id, -1);
 
       // Specialization status
-      const path = skill.paths[skill.path] || null;
-      s.rankName = SYSTEM.SKILL_RANKS[skill.rank].label;
-      s.pathName = path ? path.name : game.i18n.localize("SKILL.Unspecialized");
+      const path = skill.paths[s.path] || null;
+      s.rankName = SYSTEM.SKILL.RANKS[s.rank].label;
+      s.pathName = path ? path.name : game.i18n.localize("SKILL.RANKS.Unspecialized");
 
       // Add to category
       category.skills ||= {};

@@ -1,5 +1,5 @@
 export {default as ACTIONS} from "./actions.mjs";
-import {SKILLS} from "./skills.js";
+import {SKILLS} from "./skills.mjs";
 import {DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
 

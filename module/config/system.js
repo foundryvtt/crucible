@@ -1,9 +1,9 @@
 import * as ATTRIBUTES from "./attributes.mjs";
-import {SKILL_CATEGORIES, SKILL_RANKS, SKILLS} from "./skills.js";
 import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
 import * as EFFECTS from "./effects.mjs";
+import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.js";
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
@@ -132,10 +132,9 @@ export const SYSTEM = {
   EFFECTS,
   ENCHANTMENT_TIERS,
   QUALITY_TIERS,
-  SKILL_CATEGORIES,
-  SKILL_RANKS,
-  SKILLS,
   SPELL,
+  SKILL,
+  SKILLS: SKILL.SKILLS, // alias
   THREAT_LEVELS,
   WEAPON,
 };

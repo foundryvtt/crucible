@@ -31,10 +31,8 @@ export default class StandardCheckDialog extends Dialog {
   get title() {
     if ( this.options.title ) return this.options.title;
     const type = this.pool.data.type;
-    if ( type in CONFIG.SYSTEM.SKILLS ) {
-      const skill = CONFIG.SYSTEM.SKILLS[type];
-      return `${skill.name} Skill Check`;
-    }
+    const skill = CONFIG.SYSTEM.SKILLS[type];
+    if ( skill ) return `${skill.name} Skill Check`;
     return "Generic Dice Check";
   }
 

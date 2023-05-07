@@ -187,7 +187,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
   #prepareSkills() {
 
     // Populate all the skills
-    const ranks = SYSTEM.SKILL_RANKS;
+    const ranks = SYSTEM.SKILL.RANKS;
     const ancestry = this.details.ancestry;
     const background = this.details.background;
     let pointsSpent = 0;

@@ -155,7 +155,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
    * Prepare Skills.
    */
   #prepareSkills() {
-    const ranks = SYSTEM.SKILL_RANKS;
+    const ranks = SYSTEM.SKILL.RANKS;
     for ( let [id, skill] of Object.entries(this.skills) ) {
       const config = SYSTEM.SKILLS[id];
       skill.abilityBonus = this.parent.getAbilityBonus(config.abilities);

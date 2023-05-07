@@ -49,7 +49,7 @@ export default class SkillConfig extends DocumentSheet {
     context.trainedRanks = [];
     context.untrainedRanks = [];
     for ( let [i, r] of this.config.ranks.entries() ) {
-        r.label = `${SYSTEM.SKILL_RANKS[i].label} ${this.config.name}`;
+        r.label = `${SYSTEM.SKILL.RANKS[i].label} ${this.config.name}`;
       if ( context.skill.rank >= i ) {
         if ( (context.skill.rank === 0) || (i !== 0) ) context.trainedRanks[i] = r;
       }
@@ -61,7 +61,7 @@ export default class SkillConfig extends DocumentSheet {
     if ( context.path ) {
       for ( let [i, r] of context.path.ranks.entries() ) {
         if ( !r ) continue;
-        r.label = `${SYSTEM.SKILL_RANKS[i].label} ${context.path.name}`;
+        r.label = `${SYSTEM.SKILL.RANKS[i].label} ${context.path.name}`;
         if ( context.skill.rank >= i ) context.trainedRanks[i] = r;
         else context.untrainedRanks[i] = r;
       }

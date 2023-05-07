@@ -1,4 +1,4 @@
-import {SKILLS, SKILL_RANKS, SKILL_RANK_IDS} from "../../config/skills.js";
+import * as SKILL from "../../config/skills.mjs";
 
 /**
  * The application used to view and edit a skill page in the system journal.
@@ -24,8 +24,8 @@ export default class SkillPageSheet extends JournalPageSheet {
   /** @inheritDoc */
   async getData(options={}) {
     const context = await super.getData(options);
-    context.skills = SKILLS;
-    context.skill = SKILLS[context.data.system.skillId];
+    context.skills = SKILL.SKILLS;
+    context.skill = SKILL.SKILLS[context.data.system.skillId];
     context.ranks = this.#prepareRanks(context.data.system.ranks);
     context.paths = this.#preparePaths(context.data.system.paths);
     return context;
@@ -37,9 +37,9 @@ export default class SkillPageSheet extends JournalPageSheet {
    * Prepare skill rank data for rendering.
    */
   #prepareRanks(rankData) {
-    const ranks = foundry.utils.deepClone(SKILL_RANKS);
+    const ranks = foundry.utils.deepClone(SKILL.RANKS);
     for ( const [rankId, {description}] of Object.entries(rankData) ) {
-      const r = ranks[SKILL_RANK_IDS[rankId]];
+      const r = ranks[SKILL.RANK_IDS[rankId]];
       r.title = `${r.label} (Rank ${r.rank})`;
       r.description = description;
     }
@@ -55,7 +55,7 @@ export default class SkillPageSheet extends JournalPageSheet {
     for ( const [i, path] of Object.values(pathData).entries() ) {
       path.title = `Specialization Path ${i+1}`;
       for ( const [rankId, rank] of Object.entries(path.ranks) ) {
-        const {label, rank:n} = SKILL_RANKS[SKILL_RANK_IDS[rankId]];
+        const {label, rank:n} = SKILL.RANKS[SKILL.RANK_IDS[rankId]];
         rank.title = `${label} (Rank ${n})`;
       }
     }
