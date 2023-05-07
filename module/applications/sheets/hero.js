@@ -1,9 +1,9 @@
 import { SYSTEM } from "../../config/system.js";
 import CrucibleActorSheet from "./actor.mjs";
-import SkillConfig from "./skill.js";
+import SkillConfig from "../config/skill.mjs";
 
 /**
- * The ActorSheet class which is used to display an Hero Actor.
+ * The ActorSheet class which is used to display a Hero Actor.
  */
 export default class HeroSheet extends CrucibleActorSheet {
 

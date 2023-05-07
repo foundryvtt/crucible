@@ -48,7 +48,7 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
         console.error(`JournalEntryPage skill configuration "${page.id}" does not configure a valid Skill ID.`);
         continue;
       }
-      Object.assign(skill, {overview, paths, ranks, label: page.name});
+      Object.assign(skill, {overview, paths, ranks, name: page.name, page: page.uuid});
     }
 
     // Iterate over all skills making sure that none are undefined

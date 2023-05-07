@@ -80,7 +80,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
       path: new fields.StringField({required: false, initial: undefined, blank: false})
     }, {label});
     schema.skills = new fields.SchemaField(Object.values(SYSTEM.SKILLS).reduce((obj, skill) => {
-      obj[skill.id] = skillField(skill.label);
+      obj[skill.id] = skillField(skill.name);
       return obj;
     }, {}));
 

@@ -113,8 +113,8 @@
 .crucible span.input {
   text-align: center;
 }
-.crucible input:disabled,
-.crucible input:read-only {
+.crucible input[disabled],
+.crucible input[readonly] {
   border: none;
   pointer-events: none;
 }
@@ -1237,14 +1237,17 @@ h2.divider span {
   --titleHeight: 48px;
 }
 .crucible.sheet.skill .sheet-header {
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
 }
 .crucible.sheet.skill .sheet-header .purchase {
-  flex: 0 0 100px;
+  flex: 0 0 140px;
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: space-around;
+  gap: 0.5rem;
 }
 .crucible.sheet.skill .sheet-header .purchase .rank {
+  flex: 0 0 40px;
   padding: 0 3px;
   border: 1px solid #7a7971;
   border-radius: 3px;

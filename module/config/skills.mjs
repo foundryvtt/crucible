@@ -124,97 +124,97 @@ export let JOURNAL_ID = "JournalEntry.CrucibleSkills00";
 export const SKILLS = {
   acrobatics: {
     id: "acrobatics",
-    label: "SKILLS.Acrobatics",
+    name: "SKILLS.Acrobatics",
     category: "exp",
     abilities: ["strength", "dexterity"]
   },
   perception: {
     id: "perception",
-    label: "SKILLS.Perception",
+    name: "SKILLS.Perception",
     category: "exp",
     abilities: ["intellect", "wisdom"]
   },
   stealth: {
     id: "stealth",
-    label: "SKILLS.Stealth",
+    name: "SKILLS.Stealth",
     category: "exp",
     abilities: ["dexterity", "intellect"]
   },
   survival: {
     id: "survival",
-    label: "SKILLS.Survival",
+    name: "SKILLS.Survival",
     category: "exp",
     abilities: ["toughness", "wisdom"]
   },
   arcana: {
     id: "arcana",
-    label: "SKILLS.Arcana",
+    name: "SKILLS.Arcana",
     category: "kno",
     abilities: ["intellect", "wisdom"]
   },
   investigation: {
     id: "investigation",
-    label: "SKILLS.Investigation",
+    name: "SKILLS.Investigation",
     category: "kno",
     abilities: ["intellect", "presence"]
   },
   lore: {
     id: "lore",
-    label: "SKILLS.Lore",
+    name: "SKILLS.Lore",
     category: "kno",
     abilities: ["intellect", "wisdom"]
   },
   religion: {
     id: "religion",
-    label: "SKILLS.Religion",
+    name: "SKILLS.Religion",
     category: "kno",
     abilities: ["wisdom", "presence"]
   },
   bartering: {
     id: "bartering",
-    label: "SKILLS.Bartering",
+    name: "SKILLS.Bartering",
     category: "soc",
     abilities: ["intellect", "presence"]
   },
   deception: {
     id: "deception",
-    label: "SKILLS.Deception",
+    name: "SKILLS.Deception",
     category: "soc",
     abilities: ["intellect", "presence"]
   },
   diplomacy: {
     id: "diplomacy",
-    label: "SKILLS.Diplomacy",
+    name: "SKILLS.Diplomacy",
     category: "soc",
     abilities: ["wisdom", "presence"]
   },
   intimidation: {
     id: "intimidation",
-    label: "SKILLS.Intimidation",
+    name: "SKILLS.Intimidation",
     category: "soc",
     abilities: ["strength", "presence"]
   },
   animal: {
     id: "animal",
-    label: "SKILLS.AnimalHandling",
+    name: "SKILLS.AnimalHandling",
     category: "tch",
     abilities: ["strength", "wisdom"]
   },
   craftsmanship: {
     id: "craftsmanship",
-    label: "SKILLS.Craftsmanship",
+    name: "SKILLS.Craftsmanship",
     category: "tch",
     abilities: ["dexterity", "intellect"]
   },
   medicine: {
     id: "medicine",
-    label: "SKILLS.Medicine",
+    name: "SKILLS.Medicine",
     category: "tch",
     abilities: ["toughness", "intellect"]
   },
   performance: {
     id: "performance",
-    label: "SKILLS.Performance",
+    name: "SKILLS.Performance",
     category: "tch",
     abilities: ["dexterity", "presence"]
   },

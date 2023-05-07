@@ -68,7 +68,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
       rank: new fields.NumberField({...requiredInteger, initial: 0, max: 5})
     }, {label});
     schema.skills = new fields.SchemaField(Object.values(SYSTEM.SKILLS).reduce((obj, skill) => {
-      obj[skill.id] = skillField(skill.label);
+      obj[skill.id] = skillField(skill.name);
       return obj;
     }, {}));
 
