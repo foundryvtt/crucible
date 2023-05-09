@@ -118,7 +118,7 @@ export const CATEGORIES = {
  * The UUID of the journal entry which provides skill definitions to the system.
  * @type {string}
  */
-export let JOURNAL_ID = "JournalEntry.CrucibleSkills00";
+export let JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00";
 
 // The starting outline of each skill. The final structure of the SKILLS const is derived from this data.
 export const SKILLS = {
