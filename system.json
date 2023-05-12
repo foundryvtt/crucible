@@ -46,7 +46,10 @@
       "label": "Summoned Creatures",
       "system": "crucible",
       "path": "packs/summons",
-      "type": "Actor"
+      "type": "Actor",
+      "ownership": {
+        "PLAYER": "NONE"
+      }
     },
     {
       "name": "pregens",
@@ -60,7 +63,10 @@
       "label": "Talents",
       "system": "crucible",
       "path": "packs/talent",
-      "type": "Item"
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
     },
     {
       "name": "weapon",

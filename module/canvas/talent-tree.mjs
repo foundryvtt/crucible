@@ -258,8 +258,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   #drawCircles() {
     this.edges.drawCircle(0, 0, 800);
-    this.edges.drawCircle(0, 0, 1200);
-    this.edges.drawCircle(0, 0, 1600);
+    this.edges.drawCircle(0, 0, 1400);
+    this.edges.drawCircle(0, 0, 2000);
   }
 
   /* -------------------------------------------- */
