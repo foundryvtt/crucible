@@ -238,6 +238,8 @@
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
+"SHEETS.CrucibleJournal": "Crucible Journal Sheet",
+
 "SKILL.PageSheet": "Crucible Skill",
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",
 

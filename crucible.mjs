@@ -43,6 +43,7 @@ import BackgroundSheet from "./module/applications/sheets/background.mjs";
 import SkillPageSheet from "./module/applications/sheets/skill.mjs";
 import TalentSheet from "./module/applications/sheets/talent.mjs";
 import WeaponSheet from "./module/applications/sheets/weapon.mjs";
+import CrucibleJournalSheet from "./module/applications/sheets/journal.mjs";
 
 // Applications
 import ArchetypeConfig from "./module/applications/config/archetype.mjs";
@@ -156,6 +157,9 @@ Hooks.once("init", async function() {
   Object.assign(CONFIG.JournalEntryPage.dataModels, {
     "skill": CrucibleSkill
   });
+  DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, CrucibleJournalSheet, {
+    label: "SHEETS.CrucibleJournal"
+  })
   DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, SkillPageSheet, {
     types: ["skill"],
     makeDefault: true,

@@ -134,7 +134,8 @@ function _postProcessJournalHTML(entry, config, html) {
  * Add a CSS class to Crucible journal entries so we can render them in style.
  */
 export function renderJournalRules(app, html, data, options) {
-  if (!app.document.getFlag("crucible", "rulesEntry")) return;
   if (!html.hasClass("window-app")) return;
+  if (!app.document.getFlag("crucible", "rulesEntry")) return;
+  if ( app.document.getFlag("core", "sheetClass") === "crucible.CrucibleJournalSheet" ) return;
   html.addClass("crucible");
 }
