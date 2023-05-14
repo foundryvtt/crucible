@@ -1,4 +1,5 @@
 import * as SKILL from "../../config/skills.mjs";
+import {ABILITIES} from "../../config/attributes.mjs";
 
 /**
  * The application used to view and edit a skill page in the system journal.
@@ -26,9 +27,23 @@ export default class SkillPageSheet extends JournalPageSheet {
     const context = await super.getData(options);
     context.skills = SKILL.SKILLS;
     context.skill = SKILL.SKILLS[context.data.system.skillId];
+    context.tags = this.#getTags(context.skill);
     context.ranks = this.#prepareRanks(context.data.system.ranks);
     context.paths = this.#preparePaths(context.data.system.paths);
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  #getTags(skill) {
+    const c = SKILL.CATEGORIES[skill.category];
+    const a1 = ABILITIES[skill.abilities[0]];
+    const a2 = ABILITIES[skill.abilities[1]];
+    return [
+      {type: "category", label: c.label, color: c.color.css + "50"},
+      {type: "ability", label: a1.label, color: a1.color.css + "50"},
+      {type: "ability", label: a2.label, color: a2.color.css + "50"}
+    ]
   }
 
   /* -------------------------------------------- */

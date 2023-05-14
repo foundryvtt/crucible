@@ -1,4 +1,5 @@
 import CrucibleTalent from "../data/talent.mjs";
+import {ABILITIES} from "./attributes.mjs";
 
 export default class CrucibleTalentNode {
   constructor({id, tier=0, type="choice", abilities=[], angle, distance=200, connected=[], twin} = {}) {
@@ -13,7 +14,6 @@ export default class CrucibleTalentNode {
 
     // Create a Ray
     const r = Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier+1));
-    this.#sortAbilities(abilities);
     Object.defineProperties(this, {
       id: {value: id, writable: false, enumerable: true},
       tier: {value: tier, writable: false, enumerable: true},
@@ -25,9 +25,9 @@ export default class CrucibleTalentNode {
 
     // Node color
     for ( const ability of this.abilities ) {
-      if ( !this.color ) this.color = CrucibleTalentNode.ABILITY_COLORS[ability];
+      if ( !this.color ) this.color = ABILITIES[ability].color;
       else {
-        const c2 = CrucibleTalentNode.ABILITY_COLORS[ability].maximize(0.5);
+        const c2 = ABILITIES[ability].color.maximize(0.5);
         this.color = this.color.mix(c2, 0.5);
       }
     }
@@ -47,21 +47,7 @@ export default class CrucibleTalentNode {
     if ( this.type === "signature" ) CrucibleTalentNode.#signature.add(this);
   }
 
-  #sortAbilities(abilities) {
-    const order = Object.keys(CrucibleTalentNode.ABILITY_COLORS);
-    abilities.sort((a, b) => order.indexOf(b) - order.indexOf(a));
-  }
-
   static #counters = {};
-
-  static ABILITY_COLORS = Object.freeze({
-    strength: new Color(0xFF0000),
-    wisdom: new Color(0xFF00FF),
-    presence: new Color(0x0000FF),
-    intellect: new Color(0x00FFFF),
-    dexterity: new Color(0x00FF00),
-    toughness: new Color(0xFFFF00)
-  });
 
   static TIER_LEVELS = Object.freeze({
     0: 0,

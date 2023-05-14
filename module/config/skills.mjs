@@ -95,22 +95,26 @@ export const CATEGORIES = {
   "exp": {
     label: "SKILL.CATEGORY.Exploration",
     hint: "SKILL.CATEGORY.ExplorationHint",
-    defaultIcon: "icons/skills/no-exp.jpg"
+    defaultIcon: "icons/skills/no-exp.jpg",
+    color: Color.from("#458f0f")
   },
   "kno": {
     label: "SKILL.CATEGORY.Knowledge",
     hint: "SKILL.CATEGORY.KnowledgeHint",
-    defaultIcon: "icons/skills/no-kno.jpg"
+    defaultIcon: "icons/skills/no-kno.jpg",
+    color: Color.from("#1f1fab")
   },
   "soc": {
     label: "SKILL.CATEGORY.Social",
     hint: "SKILL.CATEGORY.SocialHint",
-    defaultIcon: "icons/skills/no-soc.jpg"
+    defaultIcon: "icons/skills/no-soc.jpg",
+    color: Color.from("#62108d")
   },
   "tch": {
     label: "SKILL.CATEGORY.Technical",
     hint: "SKILL.CATEGORY.TechnicalHint",
-    defaultIcon: "icons/skills/no-tch.jpg"
+    defaultIcon: "icons/skills/no-tch.jpg",
+    color: Color.from("#be840b")
   }
 };
 
