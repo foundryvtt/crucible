@@ -211,7 +211,7 @@ Hooks.once("init", async function() {
 
   // Register development hooks
   if ( DEVELOPMENT_MODE ) {
-    CONFIG.debug.talentTree = true;
+    CONFIG.debug.talentTree = false;
     registerDevelopmentHooks();
   }
 });

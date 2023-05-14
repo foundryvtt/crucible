@@ -86,6 +86,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
         transparent: false,
         resolution: 1,
         autoDensity: true,
+        background: 0x0b0909,
         antialias: false,  // Not needed because we use SmoothGraphics
         powerPreference: "high-performance" // Prefer high performance GPU for devices with dual graphics cards
     }), writable: false});
@@ -113,7 +114,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Draw Background
     this.backdrop = this.background.addChild(await this.#drawBackdrop());
-    this.bg = this.background.addChild(this.#drawBackground());
 
     // Draw Center
     this.character = this.foreground.addChild(new PIXI.Sprite());
@@ -151,42 +151,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawBackdrop() {
-    const tex = await loadTexture("ui/backgrounds/setup.webp");
+    const tex = await loadTexture("systems/crucible/ui/tree/Background.png");
     const bd = new PIXI.Sprite(tex);
     bd.anchor.set(0.5, 0.5);
-    bd.alpha = 0.25;
     return bd;
-  }
-
-  /* -------------------------------------------- */
-
-  #drawBackground() {
-    const bg = new PIXI.Graphics();
-
-    // Compute hex points
-    const {width, height} = HexagonalGrid.computeDimensions({columns: true, even: true, size: 12000});
-    const ox = width / 2;
-    const oy = height / 2;
-    const points = HexagonalGrid.FLAT_HEX_BORDERS["1"].map(d => [(width * d[0]) - ox, (height * d[1]) - oy]);
-
-    // Sectors
-    bg.lineStyle({color: 0x000000, width: 2});
-    const colors = Object.values(CrucibleTalentNode.ABILITY_COLORS);
-    for ( let i=0; i<points.length; i++ ) {
-      const shape = new PIXI.Polygon([0, 0, ...points.at(i-1), ...points.at(i)]);
-      bg.beginFill(colors[i], 0.06).drawShape(shape).endFill();
-    }
-
-    // Center Hex
-    const cd = HexagonalGrid.computeDimensions({columns: true, even: true, size: 400});
-    const cx = cd.width / 2;
-    const cy = cd.height / 2;
-    const cp = HexagonalGrid.FLAT_HEX_BORDERS["1"].flatMap(d => [(cd.width * d[0]) - cx, (cd.height * d[1]) - cy]);
-    bg.lineStyle({color: 0x000000, width: 2})
-      .beginFill(0x0b0a13, 1.0)
-      .drawPolygon(cp)
-      .endFill();
-    return bg;
   }
 
   /* -------------------------------------------- */

@@ -122,17 +122,19 @@ export let JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00
 
 // The starting outline of each skill. The final structure of the SKILLS const is derived from this data.
 export const SKILLS = {
-  acrobatics: {
-    id: "acrobatics",
-    name: "SKILLS.Acrobatics",
-    category: "exp",
-    abilities: ["strength", "dexterity"]
-  },
-  perception: {
-    id: "perception",
-    name: "SKILLS.Perception",
+
+  // Exploration Skills
+  awareness: {
+    id: "awareness",
+    name: "SKILLS.Awareness",
     category: "exp",
     abilities: ["intellect", "wisdom"]
+  },
+  pathfinding: {
+    id: "pathfinding",
+    name: "SKILLS.Pathfinding",
+    category: "exp",
+    abilities: ["strength", "dexterity"]
   },
   stealth: {
     id: "stealth",
@@ -146,23 +148,13 @@ export const SKILLS = {
     category: "exp",
     abilities: ["toughness", "wisdom"]
   },
+
+  // Knowledge Skills
   arcana: {
     id: "arcana",
     name: "SKILLS.Arcana",
     category: "kno",
-    abilities: ["intellect", "wisdom"]
-  },
-  investigation: {
-    id: "investigation",
-    name: "SKILLS.Investigation",
-    category: "kno",
     abilities: ["intellect", "presence"]
-  },
-  lore: {
-    id: "lore",
-    name: "SKILLS.Lore",
-    category: "kno",
-    abilities: ["intellect", "wisdom"]
   },
   religion: {
     id: "religion",
@@ -170,12 +162,20 @@ export const SKILLS = {
     category: "kno",
     abilities: ["wisdom", "presence"]
   },
-  bartering: {
-    id: "bartering",
-    name: "SKILLS.Bartering",
-    category: "soc",
+  naturalism: {
+    id: "naturalism",
+    name: "SKILLS.Naturalism",
+    category: "kno",
+    abilities: ["wisdom", "toughness"]
+  },
+  society: {
+    id: "society",
+    name: "SKILLS.Society",
+    category: "kno",
     abilities: ["intellect", "presence"]
   },
+
+  // Social Skills
   deception: {
     id: "deception",
     name: "SKILLS.Deception",
@@ -194,15 +194,23 @@ export const SKILLS = {
     category: "soc",
     abilities: ["strength", "presence"]
   },
-  animal: {
-    id: "animal",
-    name: "SKILLS.AnimalHandling",
+  mercantilism: {
+    id: "mercantilism",
+    name: "SKILLS.Mercantilism",
+    category: "soc",
+    abilities: ["intellect", "presence"]
+  },
+
+  // Technical Skills
+  beastcraft: {
+    id: "beastcraft",
+    name: "SKILLS.Beastcraft",
     category: "tch",
     abilities: ["strength", "wisdom"]
   },
-  craftsmanship: {
-    id: "craftsmanship",
-    name: "SKILLS.Craftsmanship",
+  tradecraft: {
+    id: "tradecraft",
+    name: "SKILLS.Tradecraft",
     category: "tch",
     abilities: ["dexterity", "intellect"]
   },
@@ -217,5 +225,5 @@ export const SKILLS = {
     name: "SKILLS.Performance",
     category: "tch",
     abilities: ["dexterity", "presence"]
-  },
+  }
 };
