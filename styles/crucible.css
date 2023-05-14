@@ -56,7 +56,7 @@
   /* Line Items */
 }
 .crucible .window-content {
-  background: url("ui/parchment.jpg") repeat;
+  background: url("../ui/parchment.jpg") repeat;
   font-size: 13px;
   color: #191813;
 }
@@ -772,70 +772,70 @@ h2.divider span {
   background-position: 0 50%;
 }
 .crucible.sheet.actor .badge.attributes {
-  background-image: url("ui/badges/attributes-inactive.png");
+  background-image: url("../ui/badges/attributes-inactive.png");
 }
 .crucible.sheet.actor .badge.attributes.active {
-  background-image: url("ui/badges/attributes-active.png");
+  background-image: url("../ui/badges/attributes-active.png");
 }
 .crucible.sheet.actor .badge.skills {
-  background-image: url("ui/badges/skills-inactive.png");
+  background-image: url("../ui/badges/skills-inactive.png");
 }
 .crucible.sheet.actor .badge.skills.active {
-  background-image: url("ui/badges/skills-active.png");
+  background-image: url("../ui/badges/skills-active.png");
 }
 .crucible.sheet.actor .badge.talents {
-  background-image: url("ui/badges/talents-inactive.png");
+  background-image: url("../ui/badges/talents-inactive.png");
 }
 .crucible.sheet.actor .badge.talents.active {
-  background-image: url("ui/badges/talents-active.png");
+  background-image: url("../ui/badges/talents-active.png");
 }
 .crucible.sheet.actor .badge.inventory {
-  background-image: url("ui/badges/inventory-inactive.png");
+  background-image: url("../ui/badges/inventory-inactive.png");
 }
 .crucible.sheet.actor .badge.inventory.active {
-  background-image: url("ui/badges/inventory-active.png");
+  background-image: url("../ui/badges/inventory-active.png");
 }
 .crucible.sheet.actor .badge.spells {
-  background-image: url("ui/badges/spells-inactive.png");
+  background-image: url("../ui/badges/spells-inactive.png");
 }
 .crucible.sheet.actor .badge.spells.active {
-  background-image: url("ui/badges/spells-active.png");
+  background-image: url("../ui/badges/spells-active.png");
 }
 .crucible.sheet.actor .badge.biography {
-  background-image: url("ui/badges/biography-inactive.png");
+  background-image: url("../ui/badges/biography-inactive.png");
 }
 .crucible.sheet.actor .badge.biography.active {
-  background-image: url("ui/badges/biography-active.png");
+  background-image: url("../ui/badges/biography-active.png");
 }
 .crucible.sheet.actor .badge.strength {
-  background-image: url("ui/badges/strength.png");
+  background-image: url("../ui/badges/strength.png");
 }
 .crucible.sheet.actor .badge.dexterity {
-  background-image: url("ui/badges/dexterity.png");
+  background-image: url("../ui/badges/dexterity.png");
 }
 .crucible.sheet.actor .badge.toughness {
-  background-image: url("ui/badges/toughness.png");
+  background-image: url("../ui/badges/toughness.png");
 }
 .crucible.sheet.actor .badge.intellect {
-  background-image: url("ui/badges/intellect.png");
+  background-image: url("../ui/badges/intellect.png");
 }
 .crucible.sheet.actor .badge.wisdom {
-  background-image: url("ui/badges/wisdom.png");
+  background-image: url("../ui/badges/wisdom.png");
 }
 .crucible.sheet.actor .badge.presence {
-  background-image: url("ui/badges/presence.png");
+  background-image: url("../ui/badges/presence.png");
 }
 .crucible.sheet.actor .badge.physical {
-  background-image: url("ui/badges/physical.png");
+  background-image: url("../ui/badges/physical.png");
 }
 .crucible.sheet.actor .badge.fortitude {
-  background-image: url("ui/badges/fortitude.png");
+  background-image: url("../ui/badges/fortitude.png");
 }
 .crucible.sheet.actor .badge.reflex {
-  background-image: url("ui/badges/reflex.png");
+  background-image: url("../ui/badges/reflex.png");
 }
 .crucible.sheet.actor .badge.willpower {
-  background-image: url("ui/badges/willpower.png");
+  background-image: url("../ui/badges/willpower.png");
 }
 /* -------------------------------------- */
 /*  Skills Tab                            */
