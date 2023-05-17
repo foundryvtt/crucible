@@ -1123,6 +1123,7 @@ h2.divider span {
   --color-frame-bg: #3f3128;
   --color-table-row: #1c1a1a;
   --color-accent: #cf9356;
+  --color-link-text: #f15d3b;
   --color-border-highlight: var(--color-accent);
   --font-h1: "AwerySmallcaps", serif;
   --font-body: "Constantia", serif;
@@ -1140,6 +1141,16 @@ h2.divider span {
   font-family: var(--font-bold);
   font-weight: normal;
   color: var(--color-h1);
+}
+.crucible-new a.content-link,
+.crucible-new a.inline-roll {
+  background: none;
+  border: none;
+  color: var(--color-link-text);
+}
+.crucible-new a.content-link i,
+.crucible-new a.inline-roll i {
+  color: var(--color-link-text);
 }
 .crucible-new table {
   border: none;
@@ -1180,12 +1191,40 @@ h2.divider span {
 .crucible-new ::-webkit-scrollbar-thumb {
   background: var(--color-frame-bg);
 }
+.crucible-new code {
+  color: #d3caf6;
+  border: 1px solid #321e7f;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.crucible-new section.construction {
+  position: relative;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem 0.5rem 80px;
+  border: 1px solid #af6417;
+  border-radius: 8px;
+  color: var(--color-accent);
+}
+.crucible-new section.construction::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  font-family: var(--font-awesome);
+  content: "\f7d9";
+  font-size: 48px;
+  text-align: center;
+  line-height: 80px;
+  width: 80px;
+}
 /** ----------------------------------------- *
  *  Journal Sheet                             *
  * ------------------------------------------ */
 .crucible-new.journal-sheet {
   background: url("../ui/journal/background.png");
   font-family: var(--font-body);
+  letter-spacing: 0.5px;
 }
 .crucible-new.journal-sheet .background-overlay {
   position: absolute;

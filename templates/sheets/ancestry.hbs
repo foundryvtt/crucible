@@ -32,19 +32,6 @@
             <p class="hint">{{localize "ANCESTRY.SecondaryAbilityHint"}}</p>
         </div>
 
-        <div class="form-group stacked skills">
-            <label>{{localize "ANCESTRY.Skills"}}</label>
-            <div class="form-fields">
-                {{#each skills}}
-                <label class="checkbox">
-                    <input type="checkbox" name="system.skills" value="{{this.id}}" {{checked this.checked}}>
-                    {{this.label}}
-                </label>
-                {{/each}}
-            </div>
-            <p class="hint">{{localize "ANCESTRY.SkillsHint"}}</p>
-        </div>
-
         <div class="form-group">
             <label>{{localize "ANCESTRY.Resistance"}}</label>
             <select name="system.resistance">

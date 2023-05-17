@@ -14,6 +14,7 @@
   --color-frame-bg: #3f3128;
   --color-table-row: #1c1a1a;
   --color-accent: #cf9356;
+  --color-link-text: #f15d3b;
   --color-border-highlight: var(--color-accent); // Replace core style
   --font-h1: "AwerySmallcaps", serif;
   --font-body: "Constantia", serif;
@@ -36,18 +37,33 @@
     color: var(--color-h1);
   }
 
+  // Links
+  a.content-link,
+  a.inline-roll {
+    background: none;
+    border: none;
+    color: var(--color-link-text);
+
+    i {
+      color: var(--color-link-text);
+    }
+  }
+
   // Special Headers
 
   // Tables
   table {
     border: none;
     color: var(--color-secondary);
+
     td, th {
       padding: 0.25rem 0.5rem;
     }
+
     thead {
       background: var(--color-table-row);
       border: none;
+
       th {
         line-height: 1.5rem;
         color: var(--color-text);
@@ -57,6 +73,7 @@
         text-shadow: none;
       }
     }
+
     tr:nth-child(even) {
       background-color: var(--color-table-row);
     }
@@ -83,6 +100,37 @@
   ::-webkit-scrollbar-thumb {
     background: var(--color-frame-bg);
   }
+
+  // Code Blocks
+  code {
+    color: #d3caf6;
+    border: 1px solid #321e7f;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  // Construction Block
+  section.construction {
+    position: relative;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem 0.5rem 80px;
+    border: 1px solid #af6417;
+    border-radius: 8px;
+    color: var(--color-accent);
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      font-family: var(--font-awesome);
+      content: "\f7d9";
+      font-size: 48px;
+      text-align: center;
+      line-height: 80px;
+      width: 80px;
+    }
+  }
 }
 
 /** ----------------------------------------- *
@@ -92,6 +140,7 @@
 .crucible-new.journal-sheet {
   background: url("../ui/journal/background.png"); // TODO convert WEBP
   font-family: var(--font-body);
+  letter-spacing: 0.5px;
 
   .background-overlay {
     position: absolute;

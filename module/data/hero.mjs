@@ -188,7 +188,6 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
     // Populate all the skills
     const ranks = SYSTEM.SKILL.RANKS;
-    const ancestry = this.details.ancestry;
     const background = this.details.background;
     let pointsSpent = 0;
 
@@ -198,7 +197,6 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
       // Skill Rank
       let base = 0;
-      if ( ancestry.skills?.includes(id) ) base++;
       if ( background.skills?.includes(id) ) base++;
       skill.rank = Math.max(skill.rank || 0, base);
 

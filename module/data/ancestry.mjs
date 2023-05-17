@@ -16,7 +16,6 @@ export default class CrucibleAncestry extends foundry.abstract.TypeDataModel {
       description: new fields.HTMLField({required: true, blank: true}),
       primary: new fields.StringField({required: false, initial: undefined, choices: SYSTEM.ABILITIES}),
       secondary: new fields.StringField({required: false, initial: undefined, choices: SYSTEM.ABILITIES}),
-      skills: new fields.ArrayField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
       resistance: new fields.StringField({blank: true, choices: SYSTEM.DAMAGE_TYPES}),
       vulnerability: new fields.StringField({blank: true, choices: SYSTEM.DAMAGE_TYPES})
     };
@@ -28,17 +27,12 @@ export default class CrucibleAncestry extends foundry.abstract.TypeDataModel {
   static validateJoint(data) {
 
     // Skip validation if this is a newly created item that has not yet been populated
-    const isNew = !data.primary && !data.secondary && !data.skills.length;
+    const isNew = !data.primary && !data.secondary;
     if ( isNew ) return;
 
     // Validate Abilities
     if ( data.primary === data.secondary ) {
       throw new Error(game.i18n.localize("ANCESTRY.AbilityWarning"));
-    }
-
-    // Validate Skills
-    if ( (data.skills.length !== 2) || (data.skills[0] === data.skills[1]) ) {
-      throw new Error(game.i18n.localize("ANCESTRY.SkillsWarning"));
     }
 
     // Validate Resistances

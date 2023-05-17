@@ -22,12 +22,8 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   static validateJoint(data) {
-
-    // Skip validation if this is a newly created item that has not yet been populated
     if ( !data.skills.length ) return;
-
-    // Validate Skills
-    if ( (data.skills.length !== 2) || (data.skills[0] === data.skills[1]) ) {
+    if ( (data.skills.length !== 4) || ((new Set(data.skills)).size !== 4) ) {
       throw new Error(game.i18n.localize("BACKGROUND.SkillsWarning"));
     }
   }

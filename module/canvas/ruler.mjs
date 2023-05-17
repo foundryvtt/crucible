@@ -7,7 +7,7 @@ export default class CrucibleRuler extends Ruler {
   #totalDistance;
 
   get cost() {
-    return this.#action.cost.action;
+    return this.#action?.cost.action || 0;
   }
 
   /** @inheritDoc */
@@ -73,7 +73,7 @@ export default class CrucibleRuler extends Ruler {
   /** @inheritDoc */
   _drawMeasuredPath() {
     super._drawMeasuredPath();
-    if ( this.#actor?.isOwner ) {
+    if ( this.#actor?.isOwner && this.segments.length ) {
       const label = this.segments.at(-1).label;
       label.tint = this.cost > this.#actor.system.resources.action.value ? 0xDD0011 : 0xFFFFFF;
     }
