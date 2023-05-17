@@ -7,7 +7,6 @@ export default class CrucibleTalentTreeControls extends Application {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "crucible-talent-controls",
-      classes: ["crucible", "app", "flexrow"],
       template: "systems/crucible/templates/hud/talent-tree-controls.hbs",
       popOut: false
     });

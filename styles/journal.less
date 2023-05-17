@@ -5,20 +5,12 @@
 
 // TODO rename .crucible-new to .crucible
 .crucible-new {
-  --color-background: #0b0909;
-  --color-text: #eee8df;
-  --color-secondary: #d7c4a9;
-  --color-header: #cac5ba;
-  --color-sidebar: #cfc7bb;
-  --color-h1: #cfbea2;
-  --color-frame-bg: #3f3128;
-  --color-table-row: #1c1a1a;
-  --color-accent: #cf9356;
-  --color-link-text: #f15d3b;
-  --color-border-highlight: var(--color-accent); // Replace core style
-  --font-h1: "AwerySmallcaps", serif;
-  --font-body: "Constantia", serif;
-  --font-bold: "ConstantiaBold", serif;
+
+  // General Typography
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-size: 0.9375rem; // 15px
+  letter-spacing: 0.5px;
 
   // Standard Headers
   h1,
@@ -30,10 +22,42 @@
     border: none;
   }
 
+  // Divider Headers
+  h1.divider,
+  h2.divider,
+  h3.divider,
+  h4.divider {
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+  }
+  h1.divider::before,
+  h2.divider::before,
+  h3.divider::before,
+  h4.divider::before {
+    flex: 1;
+    content: "";
+    margin-right: 0.5rem;
+    border-top: 2px ridge var(--color-h1);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+  }
+  h1.divider::after,
+  h2.divider::after,
+  h3.divider::after,
+  h4.divider::after {
+    flex: 1;
+    content: "";
+    margin-left: 0.5rem;
+    border-top: 2px ridge var(--color-h1);
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+    mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+  }
+
   // Bold Text
   strong {
-    font-family: var(--font-bold);
-    font-weight: normal;
     color: var(--color-h1);
   }
 
@@ -55,15 +79,13 @@
   table {
     border: none;
     color: var(--color-secondary);
-
     td, th {
       padding: 0.25rem 0.5rem;
+      font-size: var(--font-size-14);
     }
-
     thead {
       background: var(--color-table-row);
       border: none;
-
       th {
         line-height: 1.5rem;
         color: var(--color-text);
@@ -73,7 +95,6 @@
         text-shadow: none;
       }
     }
-
     tr:nth-child(even) {
       background-color: var(--color-table-row);
     }
@@ -82,8 +103,11 @@
   // Blockquote
   blockquote {
     margin: 1rem 0;
-    color: var(--color-secondary);
     border-left: 4px solid var(--color-secondary);
+    font-family: var(--font-quote);
+    font-size: var(--font-size-18);
+    color: var(--color-secondary);
+    letter-spacing: 0;
   }
 
   // Framed Elements
@@ -107,7 +131,27 @@
     border: 1px solid #321e7f;
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: var(--font-size-14);
+  }
+
+  // Tags
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--color-secondary);
+    label {
+      flex: 1;
+      font-size: var(--font-size-14);
+    }
+    .tag {
+      padding: 0 3px;
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: var(--font-size-12);
+      white-space: nowrap;
+    }
   }
 
   // Construction Block
@@ -131,6 +175,68 @@
       width: 80px;
     }
   }
+
+  // Gameplay Example
+  section.gameplay {
+    position: relative;
+    padding: 0.5rem 1.5rem;
+    margin: 1rem 6px;
+    background: #21120e;
+
+    &::before,
+    &::after {
+      display: block;
+      width: calc(100% + 12px);
+      height: 12px;
+      position: absolute;
+      left: -6px;
+      content: "";
+      background: url("../ui/journal/divider-border.png") no-repeat center;
+      background-size: cover;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+    }
+    h4 {
+      margin-top: 0.5rem;
+    }
+    p {
+      font-family: var(--font-quote);
+      font-size: var(--font-size-18);
+      font-style: italic;
+      color: var(--color-tertiary);
+      line-height: 1.25rem;
+      letter-spacing: 0;
+    }
+    strong {
+      font-size: var(--font-size-15);
+      font-style: normal;
+    }
+  }
+
+  // Math Formula
+  section.formula {
+    margin: 1rem 0;
+    padding: 0.5rem 3rem 0.5rem 1.5rem;
+    background: url("../ui/journal/math-full.png") no-repeat center left;
+    background-size: 100% 100%;
+    color: #30030b;
+    font-weight: bold;
+    line-height: 1.25rem;
+    display: flex;
+    gap: 0.25rem;
+    .value,
+    .equals {
+      flex: none;
+    }
+    .equation {
+      flex: 1;
+      word-break: break-word;
+    }
+  }
 }
 
 /** ----------------------------------------- *
@@ -139,8 +245,6 @@
 
 .crucible-new.journal-sheet {
   background: url("../ui/journal/background.png"); // TODO convert WEBP
-  font-family: var(--font-body);
-  letter-spacing: 0.5px;
 
   .background-overlay {
     position: absolute;
@@ -199,10 +303,10 @@
   // Journal Page Content
   .journal-page-content {
     padding: 0 2rem;
-    font-size: 0.9375rem; // 15px scaling
+    font-size: var(--font-size-15);
     line-height: var(--font-size-20);
     text-align: justify;
-    h2, h3, h4 {
+    > h2, > h3, > h4 {
       margin: 2rem 0 1rem;
     }
     h4 {

@@ -1,11 +1,11 @@
-<aside id="crucible-talent-hud" class="app crucible sheet talent">
-    <header class="sheet-header flexrow">
-        <img class="profile" src="{{source.img}}" title="{{source.name}}"/>
+<aside id="crucible-talent-hud" class="crucible-new hud talent">
+    <header class="flexrow">
+        <img class="icon" src="{{source.img}}" title="{{source.name}}"/>
         <h1 class="title">{{source.name}}</h1>
-        <div class="tags header-tags">
-            <label>Prerequisites:</label>
+        <div class="tags">
+            <label>Prerequisites</label>
             {{#each prerequisites as |req|}}
-                <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
+            <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
             {{/each}}
         </div>
     </header>

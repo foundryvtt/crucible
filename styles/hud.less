@@ -12,12 +12,52 @@
 /*  Talent Tree HUD                             */
 /* -------------------------------------------- */
 
-#crucible-talent-hud {
+/** HUD Elements */
+.crucible-new.hud,
+.crucible-new .hud {
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.9);
+  background: url("../ui/journal/background.png"); // TODO convert WEBP
+  border-radius: 8px;
+}
+
+#crucible-talent-hud {
+  --iconSize: 60px;
+  width: min-content;
+  max-width: 400px;
   text-align: left;
-  #talent-hud-header {
+  header {
+    align-items: center;
     gap: 0.5rem;
+    h1 {
+      margin: 0;
+    }
+  }
+  .icon {
+    flex: 0 0 var(--iconSize);
+    height: var(--iconSize);
+    border-radius: 8px;
+  }
+  .tags {
+    flex: 0 0 100%;
+    &:empty {
+      display: none;
+    }
+  }
+  section {
+    margin-top: 0.5rem;
+  }
+  .actions {
+    .icon {
+      --iconSize: 36px;
+    }
+  }
+  .effects {
+    margin: 0.5rem 0;
+    padding: 0;
+    list-style: none;
+    .effect {
+      gap: 0.25rem;
+    }
   }
 }
 
@@ -32,40 +72,45 @@
   justify-content: center;
   z-index: var(--z-index-tooltip);
   pointer-events: none;
+  font-size: var(--font-size-18);
+  color: var(--color-secondary);
   nav {
     width: 100%;
     max-width: 960px;
     align-items: center;
-    padding: 0.5rem 1rem;
     pointer-events: all;
+    padding: 0.5rem 1rem;
   }
-  p.points {
+
+  .points {
+    gap: 0.5rem;
     flex: 0 0 240px;
-    margin: 0;
-    font-size: var(--font-size-20);
+    align-items: center;
+    span.input {
+      flex: none;
+      text-align: center;
+      font-family: var(--font-h1);
+      font-size: var(--font-size-32);
+      color: var(--color-text);
+    }
   }
-  span.input {
-    display: inline-block;
-    width: 36px;
-    text-align: center;
-    background: var(--color-bg-option);
-  }
+
   header.name {
     gap: 0.5rem;
     justify-content: center;
+    align-items: center;
     h2 {
       flex: none;
       margin: 0;
       border: none;
       font-size: var(--font-size-32);
+      color: var(--color-text);
     }
     span.level {
       flex: none;
-      font-family: var(--fontFamilySerif);
-      font-size: var(--font-size-24);
-      color: var(--color-text-light-4);
     }
   }
+
   div.controls {
     flex: 0 0 240px;
     gap: 0.5rem;

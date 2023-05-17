@@ -21,12 +21,14 @@
 @font-face {
   font-family: "Constantia";
   src: url("../fonts/Constantia/Constantia.ttf");
-  font-weight: normal;
+  font-style: normal;
+  font-weight: 400;
 }
 @font-face {
-  font-family: "ConstantiaBold";
+  font-family: "Constantia";
   src: url("../fonts/Constantia/ConstantiaBold.ttf");
-  font-weight: normal;
+  font-style: normal;
+  font-weight: 700;
 }
 
 /* ----------------------------------------- */
@@ -49,6 +51,26 @@
 :root {
   --fontFamilySerif: "CaslonAntique", "Palatino Linotype", serif;
   --fontFamilySans: "Signika", sans-serif;
+}
+
+.crucible-new {
+  --color-background: #0b0909;
+  --color-text: #eee8df;
+  --color-secondary: #d7c4a9;
+  --color-tertiary: #b6967c;
+  --color-header: #cac5ba;
+  --color-sidebar: #cfc7bb;
+  --color-h1: #cfbea2;
+  --color-frame-bg: #3f3128;
+  --color-table-row: #1c1a1a;
+  --color-accent: #cf9356;
+  --color-link-text: #f36739;
+  --color-border-highlight: var(--color-accent); // Replace core style
+  --font-h1: "AwerySmallcaps", serif;
+  --font-body: "Constantia", serif;
+  --font-quote: "CaslonAntique", serif;
+  --font-sans: "Signika", sans-serif;
+  --font-size-15: 0.9375rem;
 }
 
 .crucible {
