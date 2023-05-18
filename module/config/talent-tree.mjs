@@ -283,7 +283,16 @@ new CrucibleTalentNode({
   abilities: ["toughness"],
   type: "defense",
   tier: 0,
-  angle: 90,
+  angle: 75,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "tou0b",
+  abilities: ["toughness"],
+  type: "attack",
+  tier: 0,
+  angle: 105,
   connected: ["origin"]
 });
 
@@ -308,18 +317,36 @@ new CrucibleTalentNode({
 new CrucibleTalentNode({
   id: "wis0",
   abilities: ["wisdom"],
+  type: "utility",
+  tier: 0,
+  angle: 195,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "wis0b",
+  abilities: ["wisdom"],
   type: "magic",
   tier: 0,
-  angle: 210,
+  angle: 225,
   connected: ["origin"]
 });
 
 new CrucibleTalentNode({
   id: "pre0",
   abilities: ["presence"],
+  type: "attack",
+  tier: 0,
+  angle: 255,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "pre0b",
+  abilities: ["presence"],
   type: "magic",
   tier: 0,
-  angle: 270,
+  angle: 285,
   connected: ["origin"]
 });
 
@@ -328,7 +355,16 @@ new CrucibleTalentNode({
   abilities: ["intellect"],
   type: "magic",
   tier: 0,
-  angle: 330,
+  angle: 315,
+  connected: ["origin"]
+});
+
+new CrucibleTalentNode({
+  id: "int0b",
+  abilities: ["intellect"],
+  type: "utility",
+  tier: 0,
+  angle: 345,
   connected: ["origin"]
 });
 
@@ -342,7 +378,7 @@ const intdex1 = new CrucibleTalentNode({
   type: "attack",
   tier: 1,
   distance: 180,
-  connected: ["dex0a", "dex0b", "int0"]
+  connected: ["dex0a", "int0b"]
 });
 
 new CrucibleTalentNode({
@@ -367,7 +403,7 @@ new CrucibleTalentNode({
   type: "move",
   tier: 1,
   distance: 180,
-  connected: ["dex0a", "dex0b", "tou0", "dex1b"]
+  connected: ["dex0b", "tou0", "dex1b"]
 });
 
 new CrucibleTalentNode({
@@ -375,7 +411,7 @@ new CrucibleTalentNode({
   abilities: ["toughness"],
   type: "defense",
   tier: 1,
-  connected: ["tou0", "dextou1"]
+  connected: ["tou0", "tou0b", "dextou1"]
 });
 
 new CrucibleTalentNode({
@@ -383,7 +419,7 @@ new CrucibleTalentNode({
   abilities: ["toughness"],
   type: "heal",
   tier: 1,
-  connected: ["tou0", "tou1a"]
+  connected: ["tou0", "tou0b", "tou1a"]
 });
 
 new CrucibleTalentNode({
@@ -392,7 +428,7 @@ new CrucibleTalentNode({
   type: "move",
   tier: 1,
   distance: 180,
-  connected: ["tou0", "str0", "str0b", "tou1b"]
+  connected: ["tou0b", "str0", "tou1b"]
 });
 
 new CrucibleTalentNode({
@@ -417,23 +453,23 @@ new CrucibleTalentNode({
   type: "attack",
   tier: 1,
   distance: 180,
-  connected: ["str0", "str0b", "wis0", "str1b"]
+  connected: ["str0b", "wis0", "str1b"]
 });
 
 new CrucibleTalentNode({
   id: "wis1a",
   abilities: ["wisdom"],
-  type: "magic",
+  type: "utility",
   tier: 1,
-  connected: ["wis0", "strwis1"]
+  connected: ["wis0", "wis0b", "strwis1"]
 });
 
 new CrucibleTalentNode({
   id: "wis1b",
   abilities: ["wisdom"],
-  type: "utility",
+  type: "magic",
   tier: 1,
-  connected: ["wis0", "wis1a"]
+  connected: ["wis0", "wis0b", "wis1a"]
 });
 
 new CrucibleTalentNode({
@@ -442,23 +478,23 @@ new CrucibleTalentNode({
   type: "magic",
   tier: 1,
   distance: 180,
-  connected: ["wis0", "pre0", "wis1b"]
+  connected: ["wis0b", "pre0", "wis1b"]
 });
 
 new CrucibleTalentNode({
   id: "pre1a",
   abilities: ["presence"],
-  type: "magic",
+  type: "heal",
   tier: 1,
-  connected: ["pre0", "wispre1"]
+  connected: ["pre0", "pre0b", "wispre1"]
 });
 
 new CrucibleTalentNode({
   id: "pre1b",
   abilities: ["presence"],
-  type: "attack",
+  type: "magic",
   tier: 1,
-  connected: ["pre0", "pre1a"]
+  connected: ["pre0", "pre0b", "pre1a"]
 });
 
 new CrucibleTalentNode({
@@ -467,23 +503,23 @@ new CrucibleTalentNode({
   type: "magic",
   tier: 1,
   distance: 180,
-  connected: ["pre0", "int0", "pre1b"]
+  connected: ["pre0b", "int0", "pre1b"]
 });
 
 new CrucibleTalentNode({
   id: "int1a",
   abilities: ["intellect"],
-  type: "move",
+  type: "magic",
   tier: 1,
-  connected: ["int0", "preint1"]
+  connected: ["int0", "int0b", "preint1"]
 });
 
 const int1b = new CrucibleTalentNode({
   id: "int1b",
   abilities: ["intellect"],
-  type: "magic",
+  type: "move",
   tier: 1,
-  connected: ["int0", "int1a"]
+  connected: ["int0", "int0b", "int1a"]
 });
 intdex1.connect(int1b);
 

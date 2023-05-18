@@ -17,7 +17,9 @@
 .crucible-new .hud {
   padding: 1rem;
   background: url("../ui/journal/background.png"); // TODO convert WEBP
+  border: 1px solid var(--color-frame-bg);
   border-radius: 8px;
+  z-index: var(--z-index-tooltip);
 }
 
 #crucible-talent-hud {
@@ -30,6 +32,7 @@
     gap: 0.5rem;
     h1 {
       margin: 0;
+      line-height: 1.5rem;
     }
   }
   .icon {
@@ -49,6 +52,15 @@
   .actions {
     .icon {
       --iconSize: 36px;
+    }
+    .description {
+      margin: 0.5rem 0;
+      > p:first-child {
+        margin-top: 0;
+      }
+      > p:last-child {
+        margin-bottom: 0;
+      }
     }
   }
   .effects {
@@ -70,10 +82,10 @@
   width: 100%;
   bottom: 50px;
   justify-content: center;
-  z-index: var(--z-index-tooltip);
   pointer-events: none;
   font-size: var(--font-size-18);
   color: var(--color-secondary);
+  z-index: calc(var(--z-index-tooltip) - 1);
   nav {
     width: 100%;
     max-width: 960px;

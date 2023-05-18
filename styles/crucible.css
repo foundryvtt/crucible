@@ -1194,6 +1194,7 @@ h2.divider span {
   color: var(--color-link-text);
 }
 .crucible-new table {
+  margin: 1rem 0;
   border: none;
   color: var(--color-secondary);
 }
@@ -1206,7 +1207,7 @@ h2.divider span {
   background: var(--color-table-row);
   border: none;
 }
-.crucible-new table thead th {
+.crucible-new table th {
   line-height: 1.5rem;
   color: var(--color-text);
   font-family: var(--font-h1);
@@ -1875,7 +1876,9 @@ h2.divider span {
 .crucible-new .hud {
   padding: 1rem;
   background: url("../ui/journal/background.png");
+  border: 1px solid var(--color-frame-bg);
   border-radius: 8px;
+  z-index: var(--z-index-tooltip);
 }
 #crucible-talent-hud {
   --iconSize: 60px;
@@ -1889,6 +1892,7 @@ h2.divider span {
 }
 #crucible-talent-hud header h1 {
   margin: 0;
+  line-height: 1.5rem;
 }
 #crucible-talent-hud .icon {
   flex: 0 0 var(--iconSize);
@@ -1907,6 +1911,15 @@ h2.divider span {
 #crucible-talent-hud .actions .icon {
   --iconSize: 36px;
 }
+#crucible-talent-hud .actions .description {
+  margin: 0.5rem 0;
+}
+#crucible-talent-hud .actions .description > p:first-child {
+  margin-top: 0;
+}
+#crucible-talent-hud .actions .description > p:last-child {
+  margin-bottom: 0;
+}
 #crucible-talent-hud .effects {
   margin: 0.5rem 0;
   padding: 0;
@@ -1923,10 +1936,10 @@ h2.divider span {
   width: 100%;
   bottom: 50px;
   justify-content: center;
-  z-index: var(--z-index-tooltip);
   pointer-events: none;
   font-size: var(--font-size-18);
   color: var(--color-secondary);
+  z-index: calc(var(--z-index-tooltip) - 1);
 }
 #crucible-talent-controls nav {
   width: 100%;

@@ -345,7 +345,9 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     const r = this.resources;
     const base = SYSTEM.PASSIVE_BASE;
     d.wounds = {base, total: base + Math.floor(r.wounds.value / 10)};
+    if ( this.parent.talentIds.has("resilient0000000") ) d.wounds.total -= 1;
     d.madness = {base, total: base + Math.floor(r.madness.value / 10)};
+    if ( this.parent.talentIds.has("carefree00000000") ) d.madness.total -= 1;
   }
 
   /* -------------------------------------------- */

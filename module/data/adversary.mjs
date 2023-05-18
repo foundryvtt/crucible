@@ -281,7 +281,9 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     const base = SYSTEM.PASSIVE_BASE;
     const d = this.defenses;
     d.wounds = {base, total: base};
+    if ( this.parent.talentIds.has("resilient0000000") ) d.wounds.total -= 1;
     d.madness = {base, total: base};
+    if ( this.parent.talentIds.has("carefree00000000") ) d.madness.total -= 1;
   }
 
   /* -------------------------------------------- */

@@ -12,9 +12,8 @@ export default {
       let lastRoll = rolls[0];
       const bonuses = foundry.utils.deepClone(action.usage.bonuses);
       const cadence = [];
-      for ( let i=1; i<=3; i++ ) {
+      for ( let i=1; i<=2; i++ ) {
         if ( lastRoll.isSuccess ) bonuses.boons += 1;
-        else bonuses.banes += 1;
         lastRoll = await actor.equipment.weapons.mainhand.attack(target, bonuses);
         cadence.push(lastRoll);
       }
@@ -59,6 +58,19 @@ export default {
       if ( !rolls.every(r => r.isSuccess ) ) return;
       const chain = await actor.equipment.weapons.mainhand.attack(target, action.usage.bonuses);
       rolls.push(chain);
+    }
+  },
+  recover: {
+    can: (actor, action) => {
+      if ( actor.inCombat ) throw new Error("You may not Recover during Combat.");
+    },
+    confirm: async (actor, action, outcomes) => {
+      const self = outcomes.get(actor);
+      const r = actor.system.resources;
+      self.resources.health = r.health.max;
+      self.resources.morale = r.morale.max;
+      self.resources.action = r.action.max;
+      self.resources.focus = r.focus.max;
     }
   },
   secondWind: {
