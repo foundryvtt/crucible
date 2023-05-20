@@ -256,7 +256,8 @@ export default class CrucibleActor extends Actor {
       heavy: 0,
       finesse: 0,
       balanced: 0,
-      ranged: 0,
+      projectile: 0,
+      mechanical: 0,
       shield: 0,
       talisman: 0
     };
@@ -264,7 +265,8 @@ export default class CrucibleActor extends Actor {
       finesseweapontra: {finesse: 1, balanced: 1},
       martialweapontra: {heavy: 1, balanced: 1},
       unarmedweapontra: {unarmed: 1},
-      projectileweapon: {ranged: 1}
+      archerytraining0: {projectile: 1, mechanical: 1},
+      practicedtrigono: {mechanical: 1}
     };
     for ( const [talentId, points] of Object.entries(talents) ) {
       if ( actor.talentIds.has(talentId) ) {
@@ -1077,6 +1079,9 @@ export default class CrucibleActor extends Actor {
    */
   async onBeginTurn() {
 
+    // Clear system statuses
+    await this.update({"system.status": null});
+
     // Remove Active Effects which expire at the start of a turn
     await this.expireEffects(true);
 
@@ -1084,15 +1089,15 @@ export default class CrucibleActor extends Actor {
     await this.applyDamageOverTime();
 
     // Recover resources
-    const updates = {"system.status": null}
     const resources = {};
+    const updates = {};
     if ( !this.isIncapacitated ) {
       const r = this.system.resources;
       resources.action = r.action.max;
       if ( this.talentIds.has("lesserregenerati") && !this.isIncapacitated ) resources.health = 1;
       if ( this.talentIds.has("irrepressiblespi") && !this.isBroken ) resources.morale = 1;
     }
-    return this.alterResources(resources, updates);
+    await this.alterResources(resources, updates);
   }
 
   /* -------------------------------------------- */

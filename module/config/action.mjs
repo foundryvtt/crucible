@@ -445,10 +445,10 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
 /*  Skill Attacks                               */
 /* -------------------------------------------- */
 
-for ( const {id, label} of Object.values(SKILLS) ) {
+for ( const {id, name} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
-    label: label,
+    label: name,
     prepare: (actor, action) => {
       action.usage.skillId = id;
       const skill = actor.skills[id];

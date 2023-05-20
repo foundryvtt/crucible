@@ -13,7 +13,7 @@
             <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
             <h4>{{action.name}}</h4>
             {{#each action.tags as |tags section|}}
-            <div class="tags" data-tag-type="{{section}}">
+            <div class="tags {{section}}" data-tag-type="{{section}}">
                 {{~#each tags as |label tag|}}
                 <span class="tag" data-tag="{{tag}}">{{label}}</span>
                 {{/each~}}

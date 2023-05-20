@@ -30,16 +30,43 @@ export default class CrucibleCombat extends Combat {
   async _onStartRound() {
     if ( this.turns.length < 2 ) return;
     const first = this.turns[0];
-    await first.actor?.alterResources({morale: this.round});
+    const firstActor = first?.actor;
     const last = this.turns.at(-1);
-    await last.actor?.alterResources({morale: -this.round});
+    const lastActor = last?.actor;
+
+    // Impetus
+    const impetusId = "impetus000000000";
+    if ( (this.round === 1) && firstActor?.talentIds.has(impetusId) ) {
+      const impetus = {
+        _id: impetusId,
+        name: "Impetus",
+        icon: "icons/magic/movement/trail-streak-zigzag-yellow.webp",
+        changes: [{key: "system.status.impetus", value: 1, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE}],
+        duration: {
+          combat: this.id,
+          rounds: 0,
+          turns: 1,
+          startRound: 1,
+          startTurn: 0
+        }
+      }
+      if ( firstActor.effects.has(impetusId) ) await firstActor.updateEmbeddedDocuments("ActiveEffect", [impetus]);
+      else await ActiveEffect.create(impetus, {parent: firstActor, keepId: true});
+      first.updateResource();
+    }
+
+    // Modifications to first and last combatant
+    await firstActor?.alterResources({morale: this.round});
+    await lastActor?.alterResources({morale: -this.round});
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   async _onEndTurn(combatant) {
-    return combatant.actor.onEndTurn();
+    await combatant.actor.onEndTurn();
+    combatant.updateResource();
+    this.debounceSetup(); // TODO wish this wasn't needed
   }
 
   /* -------------------------------------------- */

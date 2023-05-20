@@ -365,15 +365,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Identify whether an action can be auto-confirmed by the Actor (User) who initiated it.
-   * Actions may be auto-confirmed if they affect only yourself.
    * Actions are considered to affect another actor if they contain successful rolls or cause effects.
    * @param {CrucibleActionOutcomes} outcomes     The outcomes of the Action
    * @returns {boolean}                           Can it be auto-confirmed?
    */
   #canAutoConfirm(outcomes) {
-    const self = outcomes.get(this.actor);
     for ( const outcome of outcomes.values() ) {
-      if ( outcome === self ) continue;
       if ( !outcome.rolls.length && outcome.effects.length ) return false; // automatically caused effects
       if ( outcome.rolls.some(r => r.data.damage?.total) ) return false; // dealt damage
     }
@@ -604,7 +601,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Action Tags
     for (let t of this.tags) {
       const tag = SYSTEM.ACTION.TAGS[t];
-      if ( tag.label ) tags.action[tag.tag] = tag.label;
+      if ( !tag.label ) continue;
+      else tags.action[tag.tag] = game.i18n.localize(tag.label);
     }
 
     // Target
@@ -778,7 +776,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Single target
     if ( this.target.type === "single" ) {
       for ( const outcome of outcomes.values() ) {
-        if ( outcome.target === this.actor ) continue;
+        if ( !outcome.rolls.length ) continue;
         const targetToken = CrucibleAction.#getTargetToken(outcome.target);
         const hit = outcome.rolls.some(r => r.isSuccess);
         const wait = config.wait ?? 0;

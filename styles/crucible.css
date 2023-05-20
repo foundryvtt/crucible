@@ -131,6 +131,10 @@
   border: 1px solid #b5b3a4;
   border-radius: 4px;
 }
+.crucible .tags.action,
+.crucible .tags.context {
+  flex: 0 0 100%;
+}
 .crucible .tag.unmet {
   background: #111;
   border-color: var(--colorError);
@@ -1128,8 +1132,13 @@ h2.divider span {
   margin: 0.5rem 0 0;
   flex: 0 0 100%;
 }
-.crucible.talent .action .effect {
-  font-size: var(--font-size-11);
+.crucible.talent .effects {
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.crucible.talent .effects .effect {
+  gap: 0.25rem;
 }
 /** ----------------------------------------- *
  *  Crucible V2 Styles                        *
@@ -1890,7 +1899,8 @@ h2.divider span {
   align-items: center;
   gap: 0.5rem;
 }
-#crucible-talent-hud header h1 {
+#crucible-talent-hud header h1,
+#crucible-talent-hud header h4 {
   margin: 0;
   line-height: 1.5rem;
 }

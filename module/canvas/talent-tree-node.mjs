@@ -100,18 +100,22 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   #onPointerOver(event) {
-    // TODO why is this necessary?
+    const tree = game.system.tree;
+    // TODO why are these safeguards necessary?
+    if ( !tree.app.renderer.enabled ) return;
     if ( document.elementFromPoint(event.globalX, event.globalY).id !== "crucible-talent-tree" ) return;
-    game.system.tree.hud.activate(this);
+    tree.hud.activate(this);
     this.scale.set(1.2, 1.2);
   }
 
   /* -------------------------------------------- */
 
   #onPointerOut(event) {
-    // TODO why is this necessary?
+    const tree = game.system.tree;
+    // TODO why are these safeguards necessary?
+    if ( !tree.app.renderer.enabled ) return;
     if ( document.elementFromPoint(event.globalX, event.globalY).id !== "crucible-talent-tree" ) return;
-    game.system.tree.hud.clear();
+    tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
   }

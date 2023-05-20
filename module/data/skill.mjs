@@ -40,6 +40,7 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
    */
   static async initialize() {
     const entry = await fromUuid(SKILL.JOURNAL_ID);
+    game.i18n.translations.SKILLS ||= {};
     for ( const page of entry.pages ) {
       if ( page.type !== "skill" ) continue;
       const {skillId, overview, paths, ranks} = page.system;
@@ -49,6 +50,7 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
         continue;
       }
       Object.assign(skill, {overview, paths, ranks, name: page.name, page: page.uuid});
+      game.i18n.translations.SKILLS[skillId.titleCase()] = page.name; // TODO remove workaround
     }
 
     // Iterate over all skills making sure that none are undefined

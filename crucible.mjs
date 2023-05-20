@@ -35,19 +35,7 @@ import CrucibleCombatant from "./module/documents/combatant.mjs";
 import CrucibleItem from "./module/documents/item.mjs";
 
 // Sheets
-import HeroSheet from "./module/applications/sheets/hero.js";
-import AdversarySheet from "./module/applications/sheets/adversary.mjs";
-import AncestrySheet from "./module/applications/sheets/ancestry.mjs";
-import ArmorSheet from "./module/applications/sheets/armor.mjs";
-import BackgroundSheet from "./module/applications/sheets/background.mjs";
-import SkillPageSheet from "./module/applications/sheets/skill.mjs";
-import TalentSheet from "./module/applications/sheets/talent.mjs";
-import WeaponSheet from "./module/applications/sheets/weapon.mjs";
-import CrucibleJournalSheet from "./module/applications/sheets/journal.mjs";
-
-// Applications
-import ArchetypeConfig from "./module/applications/config/archetype.mjs";
-import TaxonomyConfig from "./module/applications/config/taxonomy.mjs";
+import * as applications from "./module/applications/_module.mjs";
 
 // Dice
 import StandardCheck from "./module/dice/standard-check.js";
@@ -75,10 +63,7 @@ Hooks.once("init", async function() {
 
   // Expose the system API
   game.system.api = {
-    applications: {
-      ArchetypeConfig,
-      TaxonomyConfig
-    },
+    applications,
     canvas: {
       CrucibleTalentTree
     },
@@ -129,8 +114,8 @@ Hooks.once("init", async function() {
     hero: CrucibleHero
   };
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SYSTEM.id, HeroSheet, {types: ["hero"], makeDefault: true});
-  Actors.registerSheet(SYSTEM.id, AdversarySheet, {types: ["adversary"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
@@ -142,11 +127,11 @@ Hooks.once("init", async function() {
     weapon: CrucibleWeapon
   };
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet(SYSTEM.id, AncestrySheet, {types: ["ancestry"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, ArmorSheet, {types: ["armor"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, BackgroundSheet, {types: ["background"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, TalentSheet, {types: ["talent"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, WeaponSheet, {types: ["weapon"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.ArmorSheet, {types: ["armor"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = CrucibleChatMessage;
@@ -157,14 +142,17 @@ Hooks.once("init", async function() {
   Object.assign(CONFIG.JournalEntryPage.dataModels, {
     "skill": CrucibleSkill
   });
-  DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, CrucibleJournalSheet, {
+  DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
     label: "SHEETS.CrucibleJournal"
   })
-  DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, SkillPageSheet, {
+  DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {
     types: ["skill"],
     makeDefault: true,
     label: "SKILL.PageSheet"
   });
+
+  // Core Application Overrides
+  CONFIG.ui.combat = applications.CrucibleCombatTracker;
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);

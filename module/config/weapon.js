@@ -160,7 +160,7 @@ export const CATEGORIES = {
       base: 6
     },
     actionCost: 1,
-    training: "projectile"
+    training: "mechanical"
   },
   mechanical2: {
     id: "mechanical2",
@@ -175,7 +175,7 @@ export const CATEGORIES = {
       base: 12
     },
     actionCost: 1,
-    training: "projectile"
+    training: "mechanical"
   },
   shieldLight: {
     id: "shieldLight",

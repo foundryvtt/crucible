@@ -368,7 +368,12 @@ export default class CrucibleSpell extends CrucibleAction {
     }
 
     // Re-acquire targets
-    targets = this._acquireTargets();
+    try {
+      targets = this._acquireTargets();
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return null;
+    }
     return {action: spell, targets};
   }
 
@@ -459,6 +464,57 @@ export default class CrucibleSpell extends CrucibleAction {
       }
     },
     touch: {
+      earth: {
+        src: "jb2a.impact.ground_crack.03.green"
+      },
+      flame: {
+        src: "jb2a.fire_bolt.orange",
+        wait: -1000
+      },
+      frost: {
+        src: "jb2a.impact.frost.blue.01"
+      },
+      lightning: {
+        src: "jb2a.chain_lightning.primary.blue02",
+        wait: -1000
+      },
+      courage: {
+        src: "jb2a.healing_generic.200px.blue",
+        sequence: (sequence, config, {targetToken, hit}={}) => {
+          sequence.effect()
+            .file(config.src)
+            .atLocation(targetToken)
+            .playIf(hit)
+            .waitUntilFinished(config.wait ?? 0);
+        },
+        wait: -1000
+      },
+      life: {
+        src: "jb2a.healing_generic.200px.green",
+        sequence: (sequence, config, {targetToken, hit}={}) => {
+          sequence.effect()
+            .file(config.src)
+            .atLocation(targetToken)
+            .playIf(hit)
+            .waitUntilFinished(config.wait ?? 0);
+        },
+        wait: -1000
+      },
+      kinesis: {
+      },
+      time: {
+      },
+      death: {
+      },
+      void: {
+        src: "jb2a.impact.dark_purple.4"
+      },
+      radiance: {
+      },
+      mind: {
+      },
+    },
+    influence: {
       earth: {
         src: "jb2a.impact.ground_crack.03.green"
       },

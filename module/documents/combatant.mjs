@@ -3,6 +3,12 @@ import StandardCheck from "../dice/standard-check.js";
 
 export default class CrucibleCombatant extends Combatant {
 
+  /** @inheritDoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+    if ( this.parent.round === 0 ) this.initiative = null;
+  }
+
   /** @override */
   getInitiativeRoll() {
     const actor = this.actor;

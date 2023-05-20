@@ -1,23 +1,5 @@
-2023/05/17-18:40:51.891 1db08 Recovering log #626
-2023/05/17-18:40:51.891 1db08 Level-0 table #628: started
-2023/05/17-18:40:51.892 1db08 Level-0 table #628: 1766 bytes OK
-2023/05/17-18:40:51.896 1db08 Delete type=0 #626
-2023/05/17-18:40:51.896 1db08 Delete type=3 #625
-2023/05/17-22:23:11.865 1aaa0 Level-0 table #631: started
-2023/05/17-22:23:11.865 1aaa0 Level-0 table #631: 0 bytes OK
-2023/05/17-22:23:11.866 1aaa0 Delete type=0 #629
-2023/05/17-22:23:11.869 1aaa0 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!resilient0000000' @ 1343 : 1
-2023/05/17-22:23:11.869 1aaa0 Compacting 1@0 + 0@1 files
-2023/05/17-22:23:11.870 1aaa0 Generated table #632@0: 3 keys, 1527 bytes
-2023/05/17-22:23:11.870 1aaa0 Compacted 1@0 + 0@1 files => 1527 bytes
-2023/05/17-22:23:11.870 1aaa0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/17-22:23:11.871 1aaa0 Delete type=2 #628
-2023/05/17-22:23:11.873 1aaa0 Manual compaction at level-0 from '!items!resilient0000000' @ 1343 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/05/17-22:23:11.873 1aaa0 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!resilient0000000' @ 1346 : 1
-2023/05/17-22:23:11.873 1aaa0 Compacting 1@1 + 1@2 files
-2023/05/17-22:23:11.877 1aaa0 Generated table #633@1: 186 keys, 69380 bytes
-2023/05/17-22:23:11.877 1aaa0 Compacted 1@1 + 1@2 files => 69380 bytes
-2023/05/17-22:23:11.878 1aaa0 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/17-22:23:11.879 1aaa0 Delete type=2 #624
-2023/05/17-22:23:11.879 1aaa0 Delete type=2 #632
-2023/05/17-22:23:11.881 1aaa0 Manual compaction at level-1 from '!items!resilient0000000' @ 1346 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/20-15:11:58.042 23378 Recovering log #659
+2023/05/20-15:11:58.042 23378 Level-0 table #661: started
+2023/05/20-15:11:58.044 23378 Level-0 table #661: 1696 bytes OK
+2023/05/20-15:11:58.048 23378 Delete type=0 #659
+2023/05/20-15:11:58.048 23378 Delete type=3 #658

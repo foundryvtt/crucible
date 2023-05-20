@@ -240,7 +240,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
    */
   #prepareResources() {
     const level = this.advancement.level;
-    const statuses = this.parent.statuses;
+    const {status, statuses} = this.parent;
     const a = this.abilities;
     const r = this.resources;
 
@@ -264,6 +264,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     r.action.max = level > 0 ? 3 : 0;
     if ( statuses.has("stunned") ) r.action.max -= 2;
     else if ( statuses.has("staggered") ) r.action.max -= 1;
+    if ( status.impetus ) r.action.max += 1;
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus

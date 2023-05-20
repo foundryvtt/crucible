@@ -264,6 +264,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.app.renderer.enabled = true;
     canvas.stage.eventMode = "none";
     this.stage.eventMode = "static";
+    this.stage.interactiveChildren = true;
     this.canvas.hidden = false;
     if ( this.developmentMode ) this.canvas.style.zIndex = 0;
     else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
@@ -289,6 +290,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.app.renderer.enabled = false;
     this.canvas.hidden = true;
     this.stage.eventMode = "none";
+    this.stage.interactiveChildren = false;
     canvas.stage.eventMode = "static";
     canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();

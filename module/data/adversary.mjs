@@ -183,7 +183,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
    * Prepare resource pools.
    */
   #prepareResources() {
-    const statuses = this.parent.statuses;
+    const {statuses} = this.parent;
     const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
     const level = this.details.level * threat.scaling;
     const r = this.resources;
