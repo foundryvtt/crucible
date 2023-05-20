@@ -53,6 +53,7 @@
   --font-quote: "CaslonAntique", serif;
   --font-sans: "Signika", sans-serif;
   --font-size-15: 0.9375rem;
+  --color-checkbox-checked: #cf9356;
 }
 .crucible {
   --fontSizeTitle: 20px;
@@ -72,6 +73,349 @@
   --colorFocus: #0066FF;
   --colorHealthBG: #fc6060;
   --colorHealth: #EE0000;
+}
+/** ----------------------------------------- *
+ *  Crucible V2 Styles                        *
+ * ------------------------------------------ */
+.crucible-new {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-size: 0.9375rem;
+  letter-spacing: 0.5px;
+}
+.crucible-new h1,
+.crucible-new h2,
+.crucible-new h3,
+.crucible-new h4 {
+  font-family: var(--font-h1);
+  color: var(--color-h1);
+  border: none;
+}
+.crucible-new h1.divider,
+.crucible-new h2.divider,
+.crucible-new h3.divider,
+.crucible-new h4.divider {
+  clear: both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+.crucible-new h1.divider::before,
+.crucible-new h2.divider::before,
+.crucible-new h3.divider::before,
+.crucible-new h4.divider::before {
+  flex: 1;
+  content: "";
+  margin-right: 0.5rem;
+  border-top: 2px ridge var(--color-h1);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+}
+.crucible-new h1.divider::after,
+.crucible-new h2.divider::after,
+.crucible-new h3.divider::after,
+.crucible-new h4.divider::after {
+  flex: 1;
+  content: "";
+  margin-left: 0.5rem;
+  border-top: 2px ridge var(--color-h1);
+  -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+  mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+}
+.crucible-new strong {
+  color: var(--color-h1);
+}
+.crucible-new a.content-link,
+.crucible-new a.inline-roll {
+  background: none;
+  border: none;
+  color: var(--color-link-text);
+}
+.crucible-new a.content-link i,
+.crucible-new a.inline-roll i {
+  color: var(--color-link-text);
+}
+.crucible-new table {
+  margin: 1rem 0;
+  border: none;
+  color: var(--color-secondary);
+}
+.crucible-new table td,
+.crucible-new table th {
+  padding: 0.25rem 0.5rem;
+  font-size: var(--font-size-14);
+}
+.crucible-new table thead {
+  background: var(--color-table-row);
+  border: none;
+}
+.crucible-new table th {
+  line-height: 1.5rem;
+  color: var(--color-text);
+  font-family: var(--font-h1);
+  font-weight: normal;
+  text-align: left;
+  text-shadow: none;
+}
+.crucible-new table tr:nth-child(even) {
+  background-color: var(--color-table-row);
+}
+.crucible-new blockquote {
+  margin: 1rem 0;
+  border-left: 4px solid var(--color-secondary);
+  font-family: var(--font-quote);
+  font-size: var(--font-size-18);
+  color: var(--color-secondary);
+  letter-spacing: 0;
+}
+.crucible-new .frame-brown {
+  background: var(--color-frame-bg);
+  border-image: url('../ui/journal/button-border.png');
+  border-image-slice: 16;
+  border-image-outset: 2;
+  border-image-width: 8px;
+  color: var(--color-h1);
+}
+.crucible-new ::-webkit-scrollbar-thumb {
+  background: var(--color-frame-bg);
+}
+.crucible-new code {
+  color: #d3caf6;
+  border: 1px solid #321e7f;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: var(--font-size-14);
+}
+.crucible-new .tags {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--color-secondary);
+}
+.crucible-new .tags label {
+  flex: 1;
+  font-size: var(--font-size-14);
+}
+.crucible-new .tags .tag {
+  padding: 0 3px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-12);
+  white-space: nowrap;
+}
+.crucible-new section.construction {
+  position: relative;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem 0.5rem 80px;
+  border: 1px solid #af6417;
+  border-radius: 8px;
+  color: var(--color-accent);
+}
+.crucible-new section.construction::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  font-family: var(--font-awesome);
+  content: "\f7d9";
+  font-size: 48px;
+  text-align: center;
+  line-height: 80px;
+  width: 80px;
+}
+.crucible-new section.gameplay {
+  position: relative;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem 6px;
+  background: #21120e;
+}
+.crucible-new section.gameplay::before,
+.crucible-new section.gameplay::after {
+  display: block;
+  width: calc(100% + 12px);
+  height: 12px;
+  position: absolute;
+  left: -6px;
+  content: "";
+  background: url("../ui/journal/divider-border.png") no-repeat center;
+  background-size: cover;
+}
+.crucible-new section.gameplay::before {
+  top: -6px;
+}
+.crucible-new section.gameplay::after {
+  bottom: -6px;
+}
+.crucible-new section.gameplay h4 {
+  margin-top: 0.5rem;
+}
+.crucible-new section.gameplay p {
+  font-family: var(--font-quote);
+  font-size: var(--font-size-18);
+  font-style: italic;
+  color: var(--color-tertiary);
+  line-height: 1.25rem;
+  letter-spacing: 0;
+}
+.crucible-new section.gameplay strong {
+  font-size: var(--font-size-15);
+  font-style: normal;
+}
+.crucible-new section.formula {
+  margin: 1rem 0;
+  padding: 0.5rem 3rem 0.5rem 1.5rem;
+  background: url("../ui/journal/math-full.png") no-repeat center left;
+  background-size: 100% 100%;
+  color: #30030b;
+  font-weight: bold;
+  line-height: 1.25rem;
+  display: flex;
+  gap: 0.25rem;
+}
+.crucible-new section.formula .value,
+.crucible-new section.formula .equals {
+  flex: none;
+}
+.crucible-new section.formula .equation {
+  flex: 1;
+  word-break: break-word;
+}
+.crucible-new .flexrow {
+  align-items: center;
+}
+.crucible-new .flexcol > * {
+  flex: unset;
+}
+.crucible-new textarea {
+  padding: 0.5rem;
+  background: var(--color-table-row);
+  border: 1px solid var(--color-frame-bg);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-15);
+  color: var(--color-text);
+}
+.crucible-new form .hint {
+  margin: 0.5rem 0;
+  color: var(--color-tertiary);
+}
+.crucible-new a.button {
+  flex: none;
+}
+/* ----------------------------------------- */
+/*  Early Adoption of V2 Theme Rules         */
+/* ----------------------------------------- */
+.crucible-new {
+  /** Labeled Checkboxes */
+}
+.crucible-new input[type="checkbox"] {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.crucible-new input[type="checkbox"]:disabled {
+  cursor: initial;
+}
+.crucible-new input[type="checkbox"]:focus {
+  color: inherit;
+  outline: none;
+}
+.crucible-new input[type="checkbox"]:focus-visible::before {
+  outline: 2px solid var(--color-accent);
+}
+.crucible-new input[type="checkbox"]:checked:focus-visible::before {
+  outline: 2px solid var(--color-accent);
+}
+.crucible-new input[type="checkbox"]::before {
+  font-family: var(--font-awesome);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  content: "\f0c8";
+  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  outline: 1px solid transparent;
+  transition: outline-color 0.5s;
+}
+.crucible-new input[type="checkbox"]:checked::before {
+  color: var(--color-accent);
+  font-weight: bold;
+  content: "\f14a";
+}
+.crucible-new input[type="checkbox"]:disabled::before {
+  color: var(--color-frame-bg);
+}
+.crucible-new label.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  font-size: var(--font-size-12);
+}
+.crucible-new label.checkbox > input[type="checkbox"] {
+  position: unset;
+  height: 100%;
+}
+/* ----------------------------------------- */
+/*  Apps and Sheets                          */
+/* ----------------------------------------- */
+.crucible-new.window-app {
+  background: url("../ui/journal/background.png");
+  border-radius: 12px;
+}
+.crucible-new.window-app .window-header {
+  border-bottom: none;
+  color: var(--color-header);
+}
+.crucible-new.window-app .window-content {
+  padding: 0.5rem 1rem 1rem;
+  background: none;
+  color: var(--color-text);
+}
+.crucible-new.window-app .window-content form {
+  height: 100%;
+}
+.crucible-new.window-app .sheet-header {
+  margin-bottom: 1rem;
+}
+.crucible-new.window-app .sheet-header img.profile {
+  border-radius: 8px;
+}
+.crucible-new.window-app .sheet-header h1 input {
+  border: none;
+  color: inherit;
+}
+.crucible-new.window-app .sheet-body.flexcol {
+  gap: 1rem;
+}
+.crucible-new.window-app .sheet-body.flexcol .form-group {
+  margin: 0;
+}
+.crucible-new.window-app .item-list-entry {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+.crucible-new.window-app .item-list-entry header {
+  gap: 0.5rem;
+}
+.crucible-new.window-app .item-list-entry header .icon {
+  height: 48px;
+  flex: 0 0 48px;
+}
+.crucible-new.window-app .item-list-entry header .title {
+  margin: 0;
+  flex: 1;
+}
+.crucible-new.window-app .item-list-entry .description {
+  font-size: var(--font-size-14);
 }
 .crucible {
   /* Line Items */
@@ -1141,219 +1485,34 @@ h2.divider span {
   gap: 0.25rem;
 }
 /** ----------------------------------------- *
- *  Crucible V2 Styles                        *
+ *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible-new {
-  font-family: var(--font-body);
-  color: var(--color-text);
-  font-size: 0.9375rem;
-  letter-spacing: 0.5px;
+.crucible-new.background .skills .form-fields {
+  flex-wrap: wrap;
+  gap: 0.5rem 0;
 }
-.crucible-new h1,
-.crucible-new h2,
-.crucible-new h3,
-.crucible-new h4 {
-  font-family: var(--font-h1);
-  color: var(--color-h1);
-  border: none;
-}
-.crucible-new h1.divider,
-.crucible-new h2.divider,
-.crucible-new h3.divider,
-.crucible-new h4.divider {
-  clear: both;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
-}
-.crucible-new h1.divider::before,
-.crucible-new h2.divider::before,
-.crucible-new h3.divider::before,
-.crucible-new h4.divider::before {
-  flex: 1;
-  content: "";
-  margin-right: 0.5rem;
-  border-top: 2px ridge var(--color-h1);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 100%);
-}
-.crucible-new h1.divider::after,
-.crucible-new h2.divider::after,
-.crucible-new h3.divider::after,
-.crucible-new h4.divider::after {
-  flex: 1;
-  content: "";
-  margin-left: 0.5rem;
-  border-top: 2px ridge var(--color-h1);
-  -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 100%);
-  mask-image: linear-gradient(270deg, transparent 0%, black 100%);
-}
-.crucible-new strong {
-  color: var(--color-h1);
-}
-.crucible-new a.content-link,
-.crucible-new a.inline-roll {
-  background: none;
-  border: none;
-  color: var(--color-link-text);
-}
-.crucible-new a.content-link i,
-.crucible-new a.inline-roll i {
-  color: var(--color-link-text);
-}
-.crucible-new table {
-  margin: 1rem 0;
-  border: none;
-  color: var(--color-secondary);
-}
-.crucible-new table td,
-.crucible-new table th {
-  padding: 0.25rem 0.5rem;
-  font-size: var(--font-size-14);
-}
-.crucible-new table thead {
-  background: var(--color-table-row);
-  border: none;
-}
-.crucible-new table th {
-  line-height: 1.5rem;
-  color: var(--color-text);
-  font-family: var(--font-h1);
-  font-weight: normal;
+.crucible-new.background .skills .form-fields label {
+  flex: 0 0 25%;
+  margin: 0;
+  padding: 0;
   text-align: left;
-  text-shadow: none;
 }
-.crucible-new table tr:nth-child(even) {
-  background-color: var(--color-table-row);
+.crucible-new.background .skills .form-fields label input {
+  width: 16px;
+  margin: 0;
 }
-.crucible-new blockquote {
-  margin: 1rem 0;
-  border-left: 4px solid var(--color-secondary);
-  font-family: var(--font-quote);
-  font-size: var(--font-size-18);
-  color: var(--color-secondary);
-  letter-spacing: 0;
-}
-.crucible-new .frame-brown {
-  background: var(--color-frame-bg);
-  border-image: url('../ui/journal/button-border.png');
-  border-image-slice: 16;
-  border-image-outset: 2;
-  border-image-width: 8px;
-  color: var(--color-h1);
-}
-.crucible-new ::-webkit-scrollbar-thumb {
-  background: var(--color-frame-bg);
-}
-.crucible-new code {
-  color: #d3caf6;
-  border: 1px solid #321e7f;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  font-size: var(--font-size-14);
-}
-.crucible-new .tags {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  color: var(--color-secondary);
-}
-.crucible-new .tags label {
-  flex: 1;
-  font-size: var(--font-size-14);
-}
-.crucible-new .tags .tag {
-  padding: 0 3px;
-  border: 1px solid var(--color-secondary);
-  border-radius: 4px;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-12);
-  white-space: nowrap;
-}
-.crucible-new section.construction {
-  position: relative;
-  margin: 0.5rem 0;
-  padding: 0.5rem 1rem 0.5rem 80px;
-  border: 1px solid #af6417;
-  border-radius: 8px;
-  color: var(--color-accent);
-}
-.crucible-new section.construction::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  font-family: var(--font-awesome);
-  content: "\f7d9";
-  font-size: 48px;
-  text-align: center;
-  line-height: 80px;
-  width: 80px;
-}
-.crucible-new section.gameplay {
-  position: relative;
-  padding: 0.5rem 1.5rem;
-  margin: 1rem 6px;
-  background: #21120e;
-}
-.crucible-new section.gameplay::before,
-.crucible-new section.gameplay::after {
-  display: block;
-  width: calc(100% + 12px);
-  height: 12px;
-  position: absolute;
-  left: -6px;
-  content: "";
-  background: url("../ui/journal/divider-border.png") no-repeat center;
-  background-size: cover;
-}
-.crucible-new section.gameplay::before {
-  top: -6px;
-}
-.crucible-new section.gameplay::after {
-  bottom: -6px;
-}
-.crucible-new section.gameplay h4 {
-  margin-top: 0.5rem;
-}
-.crucible-new section.gameplay p {
-  font-family: var(--font-quote);
-  font-size: var(--font-size-18);
-  font-style: italic;
-  color: var(--color-tertiary);
-  line-height: 1.25rem;
-  letter-spacing: 0;
-}
-.crucible-new section.gameplay strong {
-  font-size: var(--font-size-15);
-  font-style: normal;
-}
-.crucible-new section.formula {
-  margin: 1rem 0;
-  padding: 0.5rem 3rem 0.5rem 1.5rem;
-  background: url("../ui/journal/math-full.png") no-repeat center left;
-  background-size: 100% 100%;
-  color: #30030b;
-  font-weight: bold;
-  line-height: 1.25rem;
-  display: flex;
-  gap: 0.25rem;
-}
-.crucible-new section.formula .value,
-.crucible-new section.formula .equals {
+.crucible-new.background .talents .talent .tags {
   flex: none;
 }
-.crucible-new section.formula .equation {
-  flex: 1;
-  word-break: break-word;
+.crucible-new.background .talents .droppable {
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--color-tertiary);
+  border-radius: 8px;
+  cursor: pointer;
 }
 /** ----------------------------------------- *
  *  Journal Sheet                             *
  * ------------------------------------------ */
-.crucible-new.journal-sheet {
-  background: url("../ui/journal/background.png");
-}
 .crucible-new.journal-sheet .background-overlay {
   position: absolute;
   top: 0;
@@ -1362,12 +1521,6 @@ h2.divider span {
   border: none;
   object-fit: cover;
   object-position: top right;
-}
-.crucible-new.journal-sheet .window-header {
-  color: var(--color-header);
-}
-.crucible-new.journal-sheet .window-content {
-  color: var(--color-text);
 }
 .crucible-new.journal-sheet .journal-entry-content {
   border: none;

@@ -11,7 +11,8 @@ export default class BackgroundSheet extends ItemSheet {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
       width: 480,
       height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "background"],
+      classes: ["crucible-new", "sheet", "item", "background"],
+      dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}],
       template: `systems/${SYSTEM.id}/templates/sheets/background.hbs`,
       resizable: false,
       submitOnChange: false,
@@ -29,21 +30,74 @@ export default class BackgroundSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData(options) {
     const isEditable = this.isEditable;
     const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
     return {
       cssClass: isEditable ? "editable" : "locked",
       editable: isEditable,
       item: this.document,
+      talents: await BackgroundSheet.#prepareTalents(this.document.system.talents),
       source: this.document.toObject(),
       skills: Object.entries(skills).map(e => {
         let [id, s] = e;
         s.id = id;
-        s.checked = this.document.system.skills.includes(id);
+        s.checked = this.document.system.skills.has(id);
         return s;
       })
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getHeaderButtons() {
+    const buttons = super._getHeaderButtons();
+    for ( const button of buttons ) {
+      button.tooltip = button.label;
+      button.label = "";
+    }
+    return buttons;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare talent data for the Background.
+   * @param {string[]} uuids      The UUIDs of talents associated with this Background.
+   * @returns {Promise<{uuid: string, name: string, img: string}[]>}
+   */
+  static async #prepareTalents(uuids) {
+    const talents = [];
+    for ( const uuid of uuids ) {
+      const talent = await fromUuidSync(uuid)
+      if ( !talent ) continue;
+      talents.push(this.#getTalentHTML(talent));
+    }
+    return talents;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Construct the HTML for a talent displayed on the Background sheet.
+   * @param {CrucibleItem} talent     The talent item being displayed
+   * @returns {string}                The rendered HTML string
+   */
+  static #getTalentHTML(talent) {
+    return `<div class="talent item-list-entry" data-uuid="${talent.uuid}">
+      <header class="talent-header flexrow">
+        <img class="icon" src="${talent.img}" alt="${talent.name}">
+        <h4 class="title">${talent.name}</h4>
+        <div class="tags">${Object.entries(talent.system.getTags()).map(([type, tag]) => {
+          return `<span class="tag" data-tag="${type}">${tag}</span>`;
+        }).join("")}</div>
+        <a class="button remove-talent" data-action="removeTalent" data-tooltip="BACKGROUND.RemoveTalent">
+            <i class="fa-solid fa-times"></i>
+        </a>
+      </header>
+      <div class="description">${talent.system.description}</div>
+    </div>`;
   }
 
   /* -------------------------------------------- */
@@ -72,24 +126,40 @@ export default class BackgroundSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  _onChangeInput(event) {
-    super._onChangeInput(event);
+  async _onChangeInput(event) {
+    await super._onChangeInput(event);
     this._disableSkills();
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _updateObject(event, formData) {
-    event.preventDefault();
+  /** @inheritdoc */
+  async _onDrop(event) {
+    if ( !this.isEditable ) return;
+    const data = TextEditor.getDragEventData(event);
+    if ( data.type !== "Item" ) return;
+    const talent = await fromUuid(data.uuid);
+    if ( talent?.type !== "talent" ) return;
+    const talents = this.element[0].querySelector(".talents");
+    talents.innerHTML = BackgroundSheet.#getTalentHTML(talent);
+    this.setPosition({height: "auto"});
+  }
 
-    // Process skills
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getSubmitData(updateData) {
+    const formData = super._getSubmitData();
+
+    // Skills
     formData["system.skills"] = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
       if ( formData[s] === true ) skills.push(s);
       return skills;
     }, []);
 
-    // Update the item
-    return this.object.update(formData);
+    // Talents
+    const talents = this.element[0].querySelectorAll(".talents .talent");
+    formData["system.talents"] = Array.from(talents).map(t => t.dataset.uuid);
+    return formData;
   }
 }

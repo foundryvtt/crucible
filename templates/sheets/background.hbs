@@ -11,13 +11,15 @@
     </header>
 
     {{!-- Sheet Body --}}
-    <section class="sheet-body">
-        <div class="form-group">
-            <textarea name="system.description" rows="4">{{source.system.description}}</textarea>
+    <section class="sheet-body flexcol">
+
+        <div class="form-group stacked">
+            <h3>{{localize "BACKGROUND.Description"}}</h3>
+            <textarea name="system.description" rows="3">{{source.system.description}}</textarea>
         </div>
 
         <div class="form-group stacked skills">
-            <label>{{localize "BACKGROUND.Skills"}}</label>
+            <h3>{{localize "BACKGROUND.Skills"}}</h3>
             <div class="form-fields">
                 {{#each skills}}
                 <label class="checkbox">
@@ -29,10 +31,23 @@
             <p class="hint">{{localize "BACKGROUND.SkillsHint"}}</p>
         </div>
 
-        {{#if isEditable}}
-            <footer class="sheet-footer">
-                <button type="submit"><i class="fas fa-save"></i> {{localize "Submit"}}</button>
-            </footer>
+        <div class="form-group stacked">
+            <h3>{{localize "BACKGROUND.Talents"}}</h3>
+            <div class="talents">
+                {{#each talents}}{{{this}}}{{else}}
+                <div class="droppable">
+                    <p class="hint">{{localize "BACKGROUND.AddTalentHint"}}</p>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        {{#if editable}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
         {{/if}}
     </section>
 </form>

@@ -1,0 +1,402 @@
+
+/** ----------------------------------------- *
+ *  Crucible V2 Styles                        *
+ * ------------------------------------------ */
+
+// TODO rename .crucible-new to .crucible
+.crucible-new {
+
+  // General Typography
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-size: 0.9375rem; // 15px
+  letter-spacing: 0.5px;
+
+  // Standard Headers
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-h1);
+    color: var(--color-h1);
+    border: none;
+  }
+
+  // Divider Headers
+  h1.divider,
+  h2.divider,
+  h3.divider,
+  h4.divider {
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+  }
+  h1.divider::before,
+  h2.divider::before,
+  h3.divider::before,
+  h4.divider::before {
+    flex: 1;
+    content: "";
+    margin-right: 0.5rem;
+    border-top: 2px ridge var(--color-h1);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, black 100%);
+  }
+  h1.divider::after,
+  h2.divider::after,
+  h3.divider::after,
+  h4.divider::after {
+    flex: 1;
+    content: "";
+    margin-left: 0.5rem;
+    border-top: 2px ridge var(--color-h1);
+    -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+    mask-image: linear-gradient(270deg, transparent 0%, black 100%);
+  }
+
+  // Bold Text
+  strong {
+    color: var(--color-h1);
+  }
+
+  // Links
+  a.content-link,
+  a.inline-roll {
+    background: none;
+    border: none;
+    color: var(--color-link-text);
+
+    i {
+      color: var(--color-link-text);
+    }
+  }
+
+  // Special Headers
+
+  // Tables
+  table {
+    margin: 1rem 0;
+    border: none;
+    color: var(--color-secondary);
+    td, th {
+      padding: 0.25rem 0.5rem;
+      font-size: var(--font-size-14);
+    }
+    thead {
+      background: var(--color-table-row);
+      border: none;
+    }
+    th {
+      line-height: 1.5rem;
+      color: var(--color-text);
+      font-family: var(--font-h1);
+      font-weight: normal;
+      text-align: left;
+      text-shadow: none;
+    }
+    tr:nth-child(even) {
+      background-color: var(--color-table-row);
+    }
+  }
+
+  // Blockquote
+  blockquote {
+    margin: 1rem 0;
+    border-left: 4px solid var(--color-secondary);
+    font-family: var(--font-quote);
+    font-size: var(--font-size-18);
+    color: var(--color-secondary);
+    letter-spacing: 0;
+  }
+
+  // Framed Elements
+  .frame-brown {
+    background: var(--color-frame-bg);
+    border-image: url('../ui/journal/button-border.png');
+    border-image-slice: 16;
+    border-image-outset: 2;
+    border-image-width: 8px;
+    color: var(--color-h1);
+  }
+
+  // Scrollbar
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-frame-bg);
+  }
+
+  // Code Blocks
+  code {
+    color: #d3caf6;
+    border: 1px solid #321e7f;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: var(--font-size-14);
+  }
+
+  // Tags
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--color-secondary);
+    label {
+      flex: 1;
+      font-size: var(--font-size-14);
+    }
+    .tag {
+      padding: 0 3px;
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: var(--font-size-12);
+      white-space: nowrap;
+    }
+  }
+
+  // Construction Block
+  section.construction {
+    position: relative;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem 0.5rem 80px;
+    border: 1px solid #af6417;
+    border-radius: 8px;
+    color: var(--color-accent);
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      font-family: var(--font-awesome);
+      content: "\f7d9";
+      font-size: 48px;
+      text-align: center;
+      line-height: 80px;
+      width: 80px;
+    }
+  }
+
+  // Gameplay Example
+  section.gameplay {
+    position: relative;
+    padding: 0.5rem 1.5rem;
+    margin: 1rem 6px;
+    background: #21120e;
+
+    &::before,
+    &::after {
+      display: block;
+      width: calc(100% + 12px);
+      height: 12px;
+      position: absolute;
+      left: -6px;
+      content: "";
+      background: url("../ui/journal/divider-border.png") no-repeat center;
+      background-size: cover;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+    }
+    h4 {
+      margin-top: 0.5rem;
+    }
+    p {
+      font-family: var(--font-quote);
+      font-size: var(--font-size-18);
+      font-style: italic;
+      color: var(--color-tertiary);
+      line-height: 1.25rem;
+      letter-spacing: 0;
+    }
+    strong {
+      font-size: var(--font-size-15);
+      font-style: normal;
+    }
+  }
+
+  // Math Formula
+  section.formula {
+    margin: 1rem 0;
+    padding: 0.5rem 3rem 0.5rem 1.5rem;
+    background: url("../ui/journal/math-full.png") no-repeat center left;
+    background-size: 100% 100%;
+    color: #30030b;
+    font-weight: bold;
+    line-height: 1.25rem;
+    display: flex;
+    gap: 0.25rem;
+    .value,
+    .equals {
+      flex: none;
+    }
+    .equation {
+      flex: 1;
+      word-break: break-word;
+    }
+  }
+
+  // Default flexrow and flexcol behaviors
+  .flexrow {
+    align-items: center;
+  }
+  .flexcol {
+    > * {
+      flex: unset;
+    }
+  }
+
+  // Form Elements
+  textarea {
+    padding: 0.5rem;
+    background: var(--color-table-row);
+    border: 1px solid var(--color-frame-bg);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: var(--font-size-15);
+    color: var(--color-text);
+  }
+
+  // Form Hints
+  form .hint {
+    margin: 0.5rem 0;
+    color: var(--color-tertiary);
+  }
+
+  // Buttons
+  a.button {
+    flex: none;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Early Adoption of V2 Theme Rules         */
+/* ----------------------------------------- */
+
+.crucible-new {
+  // Checkboxes
+  input[type="checkbox"] {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &:disabled {
+      cursor: initial;
+    }
+    &:focus {
+      color: inherit;
+      outline: none;
+    }
+    &:focus-visible::before {
+      outline: 2px solid var(--color-accent);
+    }
+    &:checked:focus-visible::before {
+      outline: 2px solid var(--color-accent);
+    }
+    &::before {
+      font-family: var(--font-awesome);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-accent);
+      content: "\f0c8";
+      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      outline: 1px solid transparent;
+      transition: outline-color .5s;
+    }
+    &:checked::before {
+      color: var(--color-accent);
+      font-weight: bold;
+      content: "\f14a";
+    }
+    &:disabled::before {
+      color: var(--color-frame-bg);
+    }
+  }
+
+  /** Labeled Checkboxes */
+  label.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    font-size: var(--font-size-12);
+
+    > input[type="checkbox"] {
+      position: unset;
+      height: 100%;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Apps and Sheets                          */
+/* ----------------------------------------- */
+
+
+.crucible-new.window-app {
+  background: url("../ui/journal/background.png"); // TODO convert WEBP
+  border-radius: 12px;
+
+  .window-header {
+    border-bottom: none;
+    color: var(--color-header);
+  }
+
+  .window-content {
+    padding: 0.5rem 1rem 1rem;
+    background: none;
+    color: var(--color-text);
+
+    // Form Applications
+    form {
+      height: 100%;
+    }
+  }
+
+  .sheet-header {
+    margin-bottom: 1rem;
+    img.profile {
+      border-radius: 8px;
+    }
+    h1 input {
+      border: none;
+      color: inherit;
+    }
+  }
+
+  .sheet-body.flexcol {
+    gap: 1rem;
+    .form-group {
+      margin: 0;
+    }
+  }
+
+  .item-list-entry {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    header {
+      gap: 0.5rem;
+      .icon {
+        height: 48px;
+        flex: 0 0 48px;
+      }
+      .title {
+        margin: 0;
+        flex: 1;
+      }
+    }
+    .description {
+      font-size: var(--font-size-14);
+    }
+  }
+}

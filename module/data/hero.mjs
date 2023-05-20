@@ -197,7 +197,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
       // Skill Rank
       let base = 0;
-      if ( background.skills?.includes(id) ) base++;
+      if ( background.skills?.has(id) ) base++;
       skill.rank = Math.max(skill.rank || 0, base);
 
       // Point Cost

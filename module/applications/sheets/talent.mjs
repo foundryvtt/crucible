@@ -31,7 +31,7 @@ export default class TalentSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  getData(options = {}) {
+  async getData(options = {}) {
     const isEditable = this.isEditable;
     const nodeIds = Array.from(CrucibleTalentNode.nodes.keys());
     nodeIds.sort((a, b) => a.localeCompare(b));
@@ -42,7 +42,7 @@ export default class TalentSheet extends ItemSheet {
       item: this.object,
       source: source,
       actions: TalentSheet.prepareActions(this.object.system.actions),
-      tags: this.item.getTags(),
+      tags: this.item.getTags(this.object.system.talents),
       actionsJSON: JSON.stringify(source.system.actions, null, 2),
       requirementsJSON: JSON.stringify(source.system.requirements, null, 2),
       nodes: Object.fromEntries(nodeIds.map(id => [id, id])),
