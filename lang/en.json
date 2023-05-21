@@ -62,6 +62,7 @@
 "ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because their Morale is broken!",
 "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for {action}!",
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
+"ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 
 "ACTION.TagDeadly": "Deadly",
 "ACTION.TagDeadlyTooltip":  "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",

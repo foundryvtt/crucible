@@ -15,6 +15,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {number} [number]              The number of targets affected or size of target template
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
  * @property {number} [scope]               The scope of creatures affected by an action
+ * @property {MeasuredTemplate} [template]  A temporary template document that helps to identify AOE targets
  */
 
 /**
@@ -94,6 +95,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
     }
   }
+
+  /**
+   * A temporary MeasuredTemplate object used to establish targets for this action.
+   * @type {MeasuredTemplate|null}
+   */
+  template = null;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -189,7 +196,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   clone(updateData={}, context={}) {
     context.parent = this.parent;
     context.actor = this.actor;
-    return super.clone(updateData, context);
+    const clone = super.clone(updateData, context);
+    clone.template = this.template;
+    return clone;
   }
 
   /* -------------------------------------------- */
@@ -298,26 +307,33 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * @typedef {Object} ActionUseTarget
+   * @property {Token} token
+   * @property {Actor} actor
+   * @property {string} name
+   * @property {string} uuid
+   */
+
+  /**
    * Acquire the targets for an action activation. For each target track both the Token and the Actor.
-   * @returns {object[]}
+   * @returns {ActionUseTarget[]}
    * @private
    */
   _acquireTargets() {
     if ( !canvas.ready ) return [];
-    const userTargets = game.user.targets;
-    const mapTokenTargets = t => {
-      return {
-        token: t.document,
-        actor: t.actor,
-        uuid: t.actor.uuid,
-        name: t.name
-      }
-    };
     switch ( this.target.type ) {
 
       // No target
       case "none":
         return []
+
+      // Cone, Fan, Blast, Ray, Wall
+      case "cone":
+      case "fan":
+      case "blast":
+      case "ray":
+      case "wall":
+        return this.#acquireTargetsFromTemplate();
 
       // AOE pulse
       case "pulse":
@@ -336,29 +352,85 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Self-target
       case "self":
-        return this.actor.getActiveTokens(true).map(mapTokenTargets);
+        return this.#acquireSelfTargets();
 
       // Single targets
       case "single":
-        if ( userTargets.size < 1 ) {
+        const targets = this.#acquireTargetsFromUser();
+        if ( targets.length < 1 ) {
           throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
             number: this.target.number,
             type: this.target.type,
             action: this.name
           }));
         }
-        else if ( userTargets.size > this.target.number ) {
+        else if ( targets.length > this.target.number ) {
           throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
             number: this.target.number,
             type: this.target.type,
             action: this.name
           }));
         }
-        return Array.from(userTargets).map(mapTokenTargets);
+        return targets;
+
+      // Unknown target type
       default:
-        ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not yet supported, you must manually target affected tokens.`);
-        return Array.from(userTargets).map(mapTokenTargets);
+        ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not supported, 
+        you must manually target affected tokens.`);
+        return this.#acquireTargetsFromUser();
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire target tokens for the originating actor.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireSelfTargets() {
+    return this.actor.getActiveTokens(true).map(t => ({
+      token: t.document,
+      actor: t.actor,
+      uuid: t.actor.uuid,
+      name: t.name
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire target tokens using a temporary measured template.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireTargetsFromTemplate() {
+    const template = this.template;
+    if ( !template ) return [];
+    const {x, y} = template.document;
+    const tokens = canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: o => {
+      const c = o.t.center;
+      return (o.t.actor !== this.actor) && template.shape.contains(c.x - x, c.y - y);
+    }});
+    return Array.from(tokens).map(t => ({
+      token: t.document,
+      actor: t.actor,
+      uuid: t.actor.uuid,
+      name: t.name
+    }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire target tokens based on User targets.
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireTargetsFromUser() {
+    return Array.from(game.user.targets).map(t => ({
+      token: t.document,
+      actor: t.actor,
+      uuid: t.actor.uuid,
+      name: t.name
+    }));
   }
 
   /* -------------------------------------------- */

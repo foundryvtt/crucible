@@ -9,31 +9,71 @@ import Enum from "./enum.mjs";
  */
 export const TARGET_TYPES = Object.freeze({
   none: {
-    label: "None"
+    label: "None",
+    template: null
   },
   self: {
-    label: "Self"
+    label: "Self",
+    template: null
   },
   single: {
-    label: "Single"
+    label: "Single",
+    template: null
   },
   cone: {
-    label: "Cone"
+    label: "Cone",
+    template: {
+      t: "cone",
+      angle: 90,
+      directionDelta: 45,
+      anchor: "self",
+      distanceOffset: 0
+    }
   },
   fan: {
-    label: "Fan"
+    label: "Fan",
+    template: {
+      t: "cone",
+      angle: 120,
+      directionDelta: 45,
+      anchor: "self",
+      distanceOffset: 0
+    }
   },
   pulse: {
-    label: "Pulse"
+    label: "Pulse",
+    template: {
+      t: "circle",
+      anchor: "self",
+      distanceOffset: 0
+    }
   },
   blast: {
-    label: "Blast"
+    label: "Blast",
+    template: {
+      t: "circle",
+      anchor: "vertex",
+      distanceOffset: 0
+    }
   },
   ray: {
-    label: "Ray"
+    label: "Ray",
+    template: {
+      t: "ray",
+      width: 1,
+      directionDelta: 15,
+      anchor: "self",
+      distanceOffset: 0.5
+    }
   },
   wall: {
-    label: "Wall"
+    label: "Wall",
+    template: {
+      t: "rect",
+      width: 1,
+      anchor: "vertex",
+      distanceOffset: 0
+    }
   }
 });
 

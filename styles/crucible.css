@@ -2034,6 +2034,12 @@ h2.divider span {
   margin-top: 4px;
   gap: 4px;
 }
+.roll button.place-template {
+  flex: 0 0 140px;
+  background: none;
+  line-height: 20px;
+  height: auto;
+}
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */
 /* -------------------------------------------- */

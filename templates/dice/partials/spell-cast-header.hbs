@@ -37,18 +37,23 @@
     </div>
     {{/if}}
 
-    {{#if targets.length}}
     <div class="flexrow">
         <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bullseye"></i>
         </label>
         <div class="tags" data-tag-type="target">
+            {{#if requiresTemplate}}
+            <button class="place-template" type="button" data-action="placeTemplate">
+                <i class="fa-solid fa-ruler-combined"></i>
+                Place Template
+            </button>
+            {{else}}
             {{#each targets}}
             <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
             {{/each}}
+            {{/if}}
         </div>
     </div>
-    {{/if}}
 
     <div class="form-group">
         <label>{{localize "SPELL.ComponentRune"}}</label>

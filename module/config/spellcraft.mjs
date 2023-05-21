@@ -208,14 +208,14 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 4
+      base: 6
     },
     hands: 1,
     scaling: "intellect",
     target: {
       type: "fan",
       number: 1,
-      distance: 1
+      distance: 2
     },
     tier: 1
   },
@@ -247,7 +247,7 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 4
+      base: 6
     },
     hands: 1,
     scaling: "intellect",
@@ -304,7 +304,7 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 4
+      base: 6
     },
     hands: 1,
     scaling: "dexterity",

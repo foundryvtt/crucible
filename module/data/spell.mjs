@@ -123,9 +123,6 @@ export default class CrucibleSpell extends CrucibleAction {
   static #prepareTarget(spell) {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
 
-    // No target until composition is complete
-    if ( spell.composition < this.COMPOSITION_STATES.COMPOSED ) return {type: "none"};
-
     // Specific targeting requirements for the composed spell
     const target = {...spell.gesture.target};
     switch ( target.type ) {
@@ -374,7 +371,7 @@ export default class CrucibleSpell extends CrucibleAction {
       ui.notifications.warn(err.message);
       return null;
     }
-    return {action: spell, targets};
+    return {action: this, targets};
   }
 
   /* -------------------------------------------- */
