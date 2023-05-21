@@ -500,8 +500,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {number}              The total damage dealt
    */
   static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
-    const damage = Math.max((overflow * multiplier) + base + bonus, 1);
-    return Math.min(damage - resistance, 2 * damage);
+    const preMitigation = (overflow * multiplier) + base + bonus;
+    if ( preMitigation <= 1 ) return 1; // Never do less than 1 damage
+    return Math.clamped(preMitigation - resistance, 1, 2 * preMitigation);
   }
 
   /* -------------------------------------------- */
