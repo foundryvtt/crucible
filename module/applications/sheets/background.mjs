@@ -1,30 +1,25 @@
 import { SYSTEM } from "../../config/system.js";
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
  * A sheet application for displaying Background type Items
- * @extends {ItemSheet}
+ * @extends ItemSheet
+ * @mixes CrucibleSheet
  */
-export default class BackgroundSheet extends ItemSheet {
+export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /** @inheritdoc */
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 480,
-      height: "auto",
-      classes: ["crucible-new", "sheet", "item", "background"],
-      dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}],
-      template: `systems/${SYSTEM.id}/templates/sheets/background.hbs`,
-      resizable: false,
-      submitOnChange: false,
-      closeOnSubmit: true
+        classes: ["crucible-new", "sheet", "background"],
+        closeOnSubmit: true,
+        dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}],
+        height: "auto",
+        resizable: false,
+        submitOnChange: false,
+        template: `systems/${SYSTEM.id}/templates/sheets/background.hbs`,
+        width: 480
     });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  get title() {
-    return `[Background] ${this.item.name}`;
   }
 
   /* -------------------------------------------- */
@@ -48,28 +43,6 @@ export default class BackgroundSheet extends ItemSheet {
     };
   }
 
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _getHeaderButtons() {
-    const buttons = super._getHeaderButtons();
-    for ( const button of buttons ) {
-      button.tooltip = button.label;
-      button.label = "";
-    }
-    return buttons;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _renderOuter() {
-    const html = await super._renderOuter();
-    const overlaySrc = "systems/crucible/ui/journal/overlay.png"; // TODO convert
-    const overlay = `<img class="background-overlay" src="${overlaySrc}">`
-    html.prepend(overlay);
-    return html;
-  }
 
   /* -------------------------------------------- */
 

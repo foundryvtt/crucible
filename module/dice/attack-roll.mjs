@@ -1,4 +1,4 @@
-import StandardCheck from "./standard-check.js";
+import StandardCheck from "./standard-check.mjs";
 import {SYSTEM} from "../config/system.js";
 import ActionUseDialog from "./action-use-dialog.mjs";
 

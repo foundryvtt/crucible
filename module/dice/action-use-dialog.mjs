@@ -1,5 +1,5 @@
 import {SYSTEM} from "../config/system.js";
-import StandardCheckDialog from "./standard-check-dialog.js";
+import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
  * Prompt the user to activate an action which may involve the rolling of a dice pool.
@@ -39,8 +39,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
-    const context = super.getData();
+  async getData(options) {
+    const context = await super.getData(options);
     const {actor, action, targets} = this.options;
     const tags = this._getTags();
     return foundry.utils.mergeObject(context, {
@@ -75,4 +75,16 @@ export default class ActionUseDialog extends StandardCheckDialog {
     Object.assign(this.action.usage.bonuses, {boons, banes});
     return this.action;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Respond when the set of User Targets changes by re-rendering currently visible action use apps.
+   */
+  static debounceChangeTarget = foundry.utils.debounce(() => {
+    for ( const app of Object.values(ui.windows) ) {
+      if ( !(app instanceof ActionUseDialog) ) continue;
+      app.render();
+    }
+  }, 20);
 }

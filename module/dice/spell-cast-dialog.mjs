@@ -35,7 +35,7 @@ export default class SpellCastDialog extends ActionUseDialog {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  getData() {
+  async getData(options) {
     const spell = this.action;
     const actor = spell.actor;
 
@@ -52,11 +52,12 @@ export default class SpellCastDialog extends ActionUseDialog {
 
     // Target Type
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[spell.target.type];
-    const targets = spell._acquireTargets();
+    const targets = spell.acquireTargets();
     this.#requiresTemplate = !!targetConfig?.template && !spell.template;
 
     // Merge context
-    return foundry.utils.mergeObject(super.getData(), {
+    const context = await super.getData(options);
+    return foundry.utils.mergeObject(context, {
       ability, runes, gestures, inflections,
       chooseDamageType: spell.rune.id === "kinesis",
       damageTypes: {
@@ -192,13 +193,19 @@ export default class SpellCastDialog extends ActionUseDialog {
 
   /**
    * Conclude the template placement workflow on left-click.
-   * @param {Event} event     The mousedown event
+   * @param {Event} event     The mousedown eventt
    */
   #confirmTemplate(event) {
     event.stopPropagation();
     this.action.template = this.#template.object;
+    const targets = this.action.acquireTargets(); // TODO this is clunky, core should provide a bulk setTargets method
+    if ( targets.length ) {
+      for ( const [i, {token}] of targets.entries() ) {
+        token.setTarget(true, {releaseOthers: i === 0, groupSelection: i < targets.length - 1});
+      }
+    } else game.user.targets.clear();
     this.#deactivateTemplate(event);
-    this.render();
+
   }
 
   /* -------------------------------------------- */

@@ -265,6 +265,15 @@
     color: var(--color-text);
   }
 
+  select {
+    background: var(--color-frame-bg);
+    color: var(--color-text);
+    border: none;
+    &::selection {
+      background: var(--color-frame-bg);
+    }
+  }
+
   // Form Hints
   form .hint {
     margin: 0.5rem 0;

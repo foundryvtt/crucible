@@ -39,7 +39,7 @@ export default class StandardCheckDialog extends Dialog {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData(options={}) {
     const data = this.pool.data;
     return {
       ability: data.ability,

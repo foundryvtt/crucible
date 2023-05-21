@@ -45,7 +45,7 @@ export const TARGET_TYPES = Object.freeze({
     template: {
       t: "circle",
       anchor: "self",
-      distanceOffset: 0
+      distanceOffset: 0.5
     }
   },
   blast: {

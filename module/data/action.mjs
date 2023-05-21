@@ -1,5 +1,5 @@
 import {SYSTEM} from "../config/system.js";
-import StandardCheck from "../dice/standard-check.js";
+import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
@@ -259,7 +259,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Assert that required targets are designated
     let targets = [];
     try {
-      targets = this._acquireTargets();
+      targets = this.acquireTargets();
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -316,80 +316,66 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire the targets for an action activation. For each target track both the Token and the Actor.
+   * @param {object} [options]      Options which affect target acquisition
+   * @param {boolean} [options.strict]  Validate that targets conform to the allowed number for the action?
    * @returns {ActionUseTarget[]}
-   * @private
    */
-  _acquireTargets() {
+  acquireTargets({strict=true}={}) {
     if ( !canvas.ready ) return [];
+    let tokens;
     switch ( this.target.type ) {
 
       // No target
       case "none":
         return []
 
-      // Cone, Fan, Blast, Ray, Wall
+      // AOE Template Shapes
       case "cone":
       case "fan":
       case "blast":
+      case "pulse":
       case "ray":
       case "wall":
-        return this.#acquireTargetsFromTemplate();
-
-      // AOE pulse
-      case "pulse":
-        const actorTokens = this.actor.getActiveTokens(true);
-        if ( !actorTokens.length ) return [];
-        const origin = actorTokens[0];
-        const r = this.target.distance * canvas.dimensions.size;
-        const rect = new NormalizedRectangle(origin.data.x - r, origin.data.y - r, origin.w + (2*r), origin.h + (2*r));
-        return canvas.tokens.placeables.reduce((arr, t) => {
-          if ( t.id === origin.id ) return arr;
-          const {center: c, w, h} = t;
-          const hitBox = new PIXI.Rectangle(c.x - (w / 2), c.y - (h / 2), w, h);
-          if ( rect.intersects(hitBox) ) arr.push(mapTokenTargets(t));
-          return arr;
-        }, []);
+        tokens = this.#acquireTargetsFromTemplate();
+        break;
 
       // Self-target
       case "self":
-        return this.#acquireSelfTargets();
+        tokens = this.actor.getActiveTokens(true);
+        break;
 
       // Single targets
       case "single":
-        const targets = this.#acquireTargetsFromUser();
-        if ( targets.length < 1 ) {
-          throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
-            number: this.target.number,
-            type: this.target.type,
-            action: this.name
-          }));
+        tokens = game.user.targets;
+        if ( strict ) {
+          if ( tokens.size < 1 ) {
+            throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
+              number: this.target.number,
+              type: this.target.type,
+              action: this.name
+            }));
+          }
+          else if ( tokens.size > this.target.number ) {
+            throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
+              number: this.target.number,
+              type: this.target.type,
+              action: this.name
+            }));
+          }
         }
-        else if ( targets.length > this.target.number ) {
-          throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
-            number: this.target.number,
-            type: this.target.type,
-            action: this.name
-          }));
-        }
-        return targets;
+        break;
 
       // Unknown target type
       default:
         ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not supported, 
         you must manually target affected tokens.`);
-        return this.#acquireTargetsFromUser();
+        tokens = game.user.targets;
+        break;
     }
-  }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Acquire target tokens for the originating actor.
-   * @returns {ActionUseTarget[]}
-   */
-  #acquireSelfTargets() {
-    return this.actor.getActiveTokens(true).map(t => ({
-      token: t.document,
+    // Convert Tokens to ActionUseTarget objects
+    return Array.from(tokens).map(t => ({
+      token: t,
       actor: t.actor,
       uuid: t.actor.uuid,
       name: t.name
@@ -400,37 +386,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Acquire target tokens using a temporary measured template.
-   * @returns {ActionUseTarget[]}
+   * @returns {Set<Token>}
    */
   #acquireTargetsFromTemplate() {
     const template = this.template;
-    if ( !template ) return [];
+    if ( !template ) return new Set();
     const {x, y} = template.document;
-    const tokens = canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: o => {
+    return canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: o => {
       const c = o.t.center;
       return (o.t.actor !== this.actor) && template.shape.contains(c.x - x, c.y - y);
     }});
-    return Array.from(tokens).map(t => ({
-      token: t.document,
-      actor: t.actor,
-      uuid: t.actor.uuid,
-      name: t.name
-    }));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Acquire target tokens based on User targets.
-   * @returns {ActionUseTarget[]}
-   */
-  #acquireTargetsFromUser() {
-    return Array.from(game.user.targets).map(t => ({
-      token: t.document,
-      actor: t.actor,
-      uuid: t.actor.uuid,
-      name: t.name
-    }));
   }
 
   /* -------------------------------------------- */

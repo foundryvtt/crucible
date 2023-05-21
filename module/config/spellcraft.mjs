@@ -239,6 +239,25 @@ export const GESTURES = Object.seal({
     },
     tier: 1
   },
+  pulse: {
+    id: "pulse",
+    name: "SPELL.GesturePulse",
+    cost: {
+      action: 2,
+      focus: 1
+    },
+    damage: {
+      base: 6
+    },
+    hands: 1,
+    scaling: "presence",
+    target: {
+      type: "pulse",
+      number: 1,
+      distance: 1
+    },
+    tier: 1
+  },
   ray: {
     id: "ray",
     name: "SPELL.GestureRay",

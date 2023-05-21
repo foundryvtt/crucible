@@ -50,6 +50,8 @@
             {{else}}
             {{#each targets}}
             <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
+            {{else}}
+            <span class="tag unmet">No Targets</span>
             {{/each}}
             {{/if}}
         </div>

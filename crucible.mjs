@@ -38,9 +38,7 @@ import CrucibleItem from "./module/documents/item.mjs";
 import * as applications from "./module/applications/_module.mjs";
 
 // Dice
-import StandardCheck from "./module/dice/standard-check.js";
-import AttackRoll from "./module/dice/attack-roll.mjs";
-import {diceSoNiceRollStart} from "./module/dice/dice-so-nice.mjs";
+import * as dice from "./module/dice/_module.mjs";
 
 // Canvas
 import CrucibleRuler from "./module/canvas/ruler.mjs";
@@ -67,10 +65,7 @@ Hooks.once("init", async function() {
     canvas: {
       CrucibleTalentTree
     },
-    dice: {
-      AttackRoll,
-      StandardCheck
-    },
+    dice,
     models: {
       CrucibleAction,
       CrucibleAdversary,
@@ -155,7 +150,7 @@ Hooks.once("init", async function() {
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
 
   // Dice system configuration
-  CONFIG.Dice.rolls.push(StandardCheck, AttackRoll);
+  CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll);
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;
@@ -273,14 +268,15 @@ Hooks.once("setup", function() {
 /* -------------------------------------------- */
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
-Hooks.on("renderChatMessage", chat.renderChatMessage)
+Hooks.on("renderChatMessage", chat.renderChatMessage);
 Hooks.on("renderJournalSheet", renderJournalRules);
+Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 
 /* -------------------------------------------- */
 /*  Module Integrations                         */
 /* -------------------------------------------- */
 
-Hooks.on('diceSoNiceRollStart', diceSoNiceRollStart);
+Hooks.on('diceSoNiceRollStart', dice.diceSoNiceRollStart);
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

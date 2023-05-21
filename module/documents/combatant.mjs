@@ -1,4 +1,4 @@
-import StandardCheck from "../dice/standard-check.js";
+import StandardCheck from "../dice/standard-check.mjs";
 
 
 export default class CrucibleCombatant extends Combatant {

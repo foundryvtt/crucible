@@ -1,29 +1,24 @@
 import { SYSTEM } from "../../config/system.js";
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
  * A sheet application for displaying Ancestry items
- * @extends {ItemSheet}
+ * @extends ItemSheet
+ * @mixes CrucibleSheet
  */
-export default class AncestrySheet extends ItemSheet {
+export default class AncestrySheet extends CrucibleSheetMixin(ItemSheet) {
 
   /** @inheritdoc */
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 480,
+      classes: ["crucible-new", "sheet", "ancestry"],
+      closeOnSubmit: true,
       height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "ancestry"],
-      template: `systems/${SYSTEM.id}/templates/sheets/ancestry.hbs`,
       resizable: false,
       submitOnChange: false,
-      closeOnSubmit: true
+      template: `systems/${SYSTEM.id}/templates/sheets/ancestry.hbs`,
+      width: 480
     });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  get title() {
-    return `[Ancestry] ${this.item.name}`;
   }
 
   /* -------------------------------------------- */

@@ -1,6 +1,6 @@
 import CrucibleAction from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
-import StandardCheck from "../dice/standard-check.js";
+import StandardCheck from "../dice/standard-check.mjs";
 import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
@@ -302,6 +302,14 @@ export default class CrucibleSpell extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  acquireTargets(options={}) {
+    if ( this.composition === CrucibleSpell.COMPOSITION_STATES.COMPOSING ) options.strict = false;
+    return super.acquireTargets(options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   clone(updateData={}, context) {
     updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
     return super.clone(updateData, context);
@@ -366,7 +374,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
     // Re-acquire targets
     try {
-      targets = this._acquireTargets();
+      targets = this.acquireTargets();
     } catch(err) {
       ui.notifications.warn(err.message);
       return null;

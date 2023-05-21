@@ -1,28 +1,29 @@
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
-export default class CrucibleJournalSheet extends JournalSheet {
+/**
+ * Define a custom JournalSheet class used for the Crucible rules journal entries.
+ * @extends JournalSheet
+ * @mixes CrucibleSheet
+ */
+export default class CrucibleJournalSheet extends CrucibleSheetMixin(JournalSheet) {
 
   /** @inheritDoc */
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.template = "systems/crucible/templates/sheets/journal.hbs";
     options.classes.unshift("crucible-new");
     return options;
   }
 
-  async getData(options={}) {
-    const context = await super.getData(options);
-    return Object.assign(context, {
-      overlaySrc: "systems/crucible/ui/journal/overlay.png"  // TODO convert WEBP
-    })
+  /** @override */
+  get title() {
+    return `[${game.i18n.localize("CRUCIBLE.Rules")}] ${this.document.name}`;
   }
 
   /** @inheritDoc */
-  _getHeaderButtons() {
-    const buttons = super._getHeaderButtons();
-    for ( const button of buttons ) {
-      button.tooltip = button.label;
-      button.label = "";
-    }
-    return buttons;
+  async _renderInner(data) {
+    const html = await super._renderInner(data);
+    html.find("input[type='search']").addClass("frame-brown");
+    html.find("button.create").addClass("frame-brown");
+    return html;
   }
 }

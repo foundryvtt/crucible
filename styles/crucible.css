@@ -54,6 +54,7 @@
   --font-sans: "Signika", sans-serif;
   --font-size-15: 0.9375rem;
   --color-checkbox-checked: #cf9356;
+  --color-bg-option: #3f3128;
 }
 .crucible {
   --fontSizeTitle: 20px;
@@ -302,6 +303,14 @@
   font-size: var(--font-size-15);
   color: var(--color-text);
 }
+.crucible-new select {
+  background: var(--color-frame-bg);
+  color: var(--color-text);
+  border: none;
+}
+.crucible-new select::selection {
+  background: var(--color-frame-bg);
+}
 .crucible-new form .hint {
   margin: 0.5rem 0;
   color: var(--color-tertiary);
@@ -494,7 +503,6 @@
   flex: 0 0 100%;
 }
 .crucible .tag.unmet {
-  background: #111;
   border-color: var(--colorError);
   color: var(--colorError);
 }

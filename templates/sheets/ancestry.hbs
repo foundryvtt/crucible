@@ -11,17 +11,18 @@
     </header>
 
     {{!-- Sheet Body --}}
-    <section class="sheet-body">
-        <div class="form-group">
+    <section class="sheet-body flexcol">
+        <div class="form-group stacked">
+            <h3>{{localize "ANCESTRY.Description"}}</h3>
             <textarea name="system.description" rows="4">{{source.system.description}}</textarea>
         </div>
 
+        <h3>{{localize "ANCESTRY.Abilities"}}</h3>
         <div class="form-group ability">
             <label>{{localize "ANCESTRY.PrimaryAbility"}}</label>
             <select name="system.primary">
                 {{selectOptions abilities selected=source.system.primary labelAttr="label"}}
             </select>
-            <p class="hint">{{localize "ANCESTRY.PrimaryAbilityHint"}}</p>
         </div>
 
         <div class="form-group ability">
@@ -29,9 +30,10 @@
             <select name="system.secondary">
                 {{selectOptions abilities selected=source.system.secondary labelAttr="label"}}
             </select>
-            <p class="hint">{{localize "ANCESTRY.SecondaryAbilityHint"}}</p>
+            <p class="hint">{{localize "ANCESTRY.AbilityHint"}}</p>
         </div>
 
+        <h3>{{localize "ANCESTRY.Resistances"}}</h3>
         <div class="form-group">
             <label>{{localize "ANCESTRY.Resistance"}}</label>
             <select name="system.resistance">

@@ -1,5 +1,5 @@
 import { SYSTEM } from "../config/system.js";
-import StandardCheck from "../dice/standard-check.js"
+import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../data/action.mjs";
 import CrucibleSpell from "../data/spell.mjs";
