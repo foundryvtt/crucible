@@ -216,6 +216,12 @@ export default class CrucibleActor extends Actor {
   talentIds = this.talentIds || new Set();
 
   /**
+   * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
+   * @type {Set<string>}
+   */
+  permanentTalentIds;
+
+  /**
    * Currently active status effects
    * @type {Set<string>}
    */
@@ -497,7 +503,18 @@ export default class CrucibleActor extends Actor {
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
+    const details = this.system.details;
     const signatureNames = [];
+
+    // Identify permanent talents from a background, taxonomy, archetype, etc...
+    this.permanentTalentIds = new Set();
+    if ( details.background ) {
+      details.background.talents = details.background.talents.map(uuid => {
+        const talentId = foundry.utils.parseUuid(uuid)?.documentId;
+        if ( talentId ) this.permanentTalentIds.add(talentId);
+        return talentId;
+      });
+    }
 
     // Iterate over talents
     for ( const t of talent ) {
@@ -516,12 +533,12 @@ export default class CrucibleActor extends Actor {
     }
 
     // Compose Signature Name
-    this.system.details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
+    details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
 
     // Warn if the Actor does not have a legal build
     if ( this.type === "hero" ) {
       const points = this.system.points.talent;
-      points.spent = this.talentIds.size; // Every talent costs 1 for now
+      points.spent = this.talentIds.size - this.permanentTalentIds.size;
       points.available = points.total - points.spent;
       if ( points.available < 0) {
         ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
@@ -1217,9 +1234,9 @@ export default class CrucibleActor extends Actor {
       if ( !confirm ) return;
     }
 
-    // Remove all Talent items
+    // Remove all non-permanent talents
     const deleteIds = this.items.reduce((arr, i) => {
-      if ( i.type === "talent" ) arr.push(i.id);
+      if ( (i.type === "talent") && !this.permanentTalentIds.has(i.id) ) arr.push(i.id);
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("Item", deleteIds);
@@ -1332,12 +1349,9 @@ export default class CrucibleActor extends Actor {
 
     // Clear an existing background
     if ( !itemData ) {
-      if ( this.isL0 ) return this.update({"system.details.background": null});
+      if ( this.isL0 ) return this.#clearBackground();
       else throw new Error("Background data not provided");
     }
-
-    const background = foundry.utils.deepClone(itemData.system);
-    background.name = itemData.name;
 
     // Only proceed if we are level 1 with no points already spent
     if ( !this.isL0 || (this.points.skill.spent > 0) ) {
@@ -1346,10 +1360,30 @@ export default class CrucibleActor extends Actor {
       throw new Error(err);
     }
 
+    // Prepare Background data
+    const background = foundry.utils.deepClone(itemData.system);
+    background.name = itemData.name;
+    const talents = await Promise.all(background.talents.map(fromUuid));
+
     // Update the Actor
-    await this.update({"system.details.background": background});
+    await this.update({
+      "system.details.background": background,
+      items: talents.map(t => t.toObject())
+    }, {keepEmbeddedIds: true});
     ui.notifications.info(game.i18n.format("BACKGROUND.Applied", {background: background.name, actor: this.name}));
     return this;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove an assigned background, also removing any talents that the background provided.
+   * @returns {Promise<void>}
+   */
+  async #clearBackground() {
+    const backgroundTalents = Array.from(this.system.details.background?.talents || []);
+    await this.deleteEmbeddedDocuments("Item", backgroundTalents);
+    await this.update({"system.details.background": null});
   }
 
   /* -------------------------------------------- */

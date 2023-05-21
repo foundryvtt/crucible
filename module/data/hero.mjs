@@ -119,8 +119,8 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
   /** @override */
   prepareBaseData() {
-    this.details.ancestry ||= CrucibleAncestry.cleanData();
-    this.details.background ||= CrucibleBackground.cleanData();
+    this.details.ancestry ||= this.schema.getField("details.ancestry").initialize({});
+    this.details.background ||= this.schema.getField("details.background").initialize({});
     this.status ||= {};
     this.#prepareAdvancement();
     this.#prepareAbilities();
@@ -197,7 +197,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
 
       // Skill Rank
       let base = 0;
-      if ( background.skills?.has(id) ) base++;
+      if ( background?.skills.has(id) ) base++;
       skill.rank = Math.max(skill.rank || 0, base);
 
       // Point Cost

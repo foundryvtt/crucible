@@ -143,6 +143,7 @@
 }
 .crucible-new table td,
 .crucible-new table th {
+  text-align: left;
   padding: 0.25rem 0.5rem;
   font-size: var(--font-size-14);
 }
@@ -204,6 +205,10 @@
   font-family: var(--font-sans);
   font-size: var(--font-size-12);
   white-space: nowrap;
+}
+.crucible-new .tags .tag.unmet {
+  border-color: darkred;
+  color: red;
 }
 .crucible-new section.construction {
   position: relative;
@@ -369,17 +374,26 @@
   background: url("../ui/journal/background.png");
   border-radius: 12px;
 }
+.crucible-new.window-app .background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border: none;
+  object-fit: cover;
+  object-position: top right;
+}
 .crucible-new.window-app .window-header {
   border-bottom: none;
   color: var(--color-header);
+}
+.crucible-new.window-app .window-header .window-title {
+  height: 100%;
 }
 .crucible-new.window-app .window-content {
   padding: 0.5rem 1rem 1rem;
   background: none;
   color: var(--color-text);
-}
-.crucible-new.window-app .window-content form {
-  height: 100%;
 }
 .crucible-new.window-app .sheet-header {
   margin-bottom: 1rem;
@@ -1487,6 +1501,9 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
+.crucible-new.background form {
+  height: 100%;
+}
 .crucible-new.background .skills .form-fields {
   flex-wrap: wrap;
   gap: 0.5rem 0;
@@ -1513,15 +1530,6 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Journal Sheet                             *
  * ------------------------------------------ */
-.crucible-new.journal-sheet .background-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  border: none;
-  object-fit: cover;
-  object-position: top right;
-}
 .crucible-new.journal-sheet .journal-entry-content {
   border: none;
   background: none;
@@ -1610,7 +1618,10 @@ h2.divider span {
 .crucible-new.journal-sheet .journal-sidebar.collapsed .action-buttons button.previous {
   margin: 0;
 }
-.crucible-new.journal-sheet .journal-entry-page .edit-container .editor-edit {
+.crucible-new.journal-sheet .journal-entry-pages {
+  flex: 1;
+}
+.crucible-new.journal-sheet .journal-entry-pages .edit-container .editor-edit {
   background: none;
   border: none;
   color: var(--color-text);

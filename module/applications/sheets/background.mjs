@@ -62,6 +62,17 @@ export default class BackgroundSheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _renderOuter() {
+    const html = await super._renderOuter();
+    const overlaySrc = "systems/crucible/ui/journal/overlay.png"; // TODO convert
+    const overlay = `<img class="background-overlay" src="${overlaySrc}">`
+    html.prepend(overlay);
+    return html;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare talent data for the Background.
    * @param {string[]} uuids      The UUIDs of talents associated with this Background.
@@ -70,7 +81,7 @@ export default class BackgroundSheet extends ItemSheet {
   static async #prepareTalents(uuids) {
     const talents = [];
     for ( const uuid of uuids ) {
-      const talent = await fromUuidSync(uuid)
+      const talent = await fromUuid(uuid)
       if ( !talent ) continue;
       talents.push(this.#getTalentHTML(talent));
     }
@@ -105,6 +116,7 @@ export default class BackgroundSheet extends ItemSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    html.on("click", "[data-action]", this.#onClickAction.bind(this));
     this._disableSkills();
   }
 
@@ -133,6 +145,19 @@ export default class BackgroundSheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
+  #onClickAction(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    switch ( button.dataset.action ) {
+      case "removeTalent":
+        const fd = this._getSubmitData();
+        fd["system.talents"] = [];
+        return this._updateObject(event, fd);
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   async _onDrop(event) {
     if ( !this.isEditable ) return;
@@ -140,6 +165,9 @@ export default class BackgroundSheet extends ItemSheet {
     if ( data.type !== "Item" ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) return;
+    if ( talent.system.node.tier !== 0 ) {
+      return ui.notifications.error("BACKGROUND.TalentTierError", {localize: true});
+    }
     const talents = this.element[0].querySelector(".talents");
     talents.innerHTML = BackgroundSheet.#getTalentHTML(talent);
     this.setPosition({height: "auto"});
@@ -148,8 +176,8 @@ export default class BackgroundSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _getSubmitData(updateData) {
-    const formData = super._getSubmitData();
+  _getSubmitData(updateData={}) {
+    const formData = super._getSubmitData(updateData);
 
     // Skills
     formData["system.skills"] = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {

@@ -3,16 +3,6 @@
  * ------------------------------------------ */
 
 .crucible-new.journal-sheet {
-  .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border: none;
-    object-fit: cover;
-    object-position: top right;
-  }
-
   .journal-entry-content {
     border: none;
     background: none;
@@ -118,7 +108,8 @@
     }
   }
 
-  .journal-entry-page {
+  .journal-entry-pages {
+    flex: 1;
     .edit-container {
       .editor-edit {
         background: none;

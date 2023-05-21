@@ -81,6 +81,7 @@
     border: none;
     color: var(--color-secondary);
     td, th {
+      text-align: left;
       padding: 0.25rem 0.5rem;
       font-size: var(--font-size-14);
     }
@@ -152,6 +153,10 @@
       font-family: var(--font-sans);
       font-size: var(--font-size-12);
       white-space: nowrap;
+      &.unmet {
+        border-color: darkred;
+        color: red;
+      }
     }
   }
 
@@ -345,20 +350,28 @@
   background: url("../ui/journal/background.png"); // TODO convert WEBP
   border-radius: 12px;
 
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border: none;
+    object-fit: cover;
+    object-position: top right;
+  }
+
   .window-header {
     border-bottom: none;
     color: var(--color-header);
+    .window-title {
+      height: 100%;
+    }
   }
 
   .window-content {
     padding: 0.5rem 1rem 1rem;
     background: none;
     color: var(--color-text);
-
-    // Form Applications
-    form {
-      height: 100%;
-    }
   }
 
   .sheet-header {

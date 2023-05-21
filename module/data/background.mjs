@@ -29,7 +29,7 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
       throw new Error(game.i18n.localize("BACKGROUND.SkillsWarning"));
     }
     if ( data.talents.length > 1 ) {
-      throw new Error(game.i18n.localize("BACKGROUND.TalentsError"));
+      throw new Error(game.i18n.localize("BACKGROUND.TalentNumberError"));
     }
   }
 

@@ -160,9 +160,10 @@
 "BACKGROUND.RemoveTalent": "Remove Talent",
 "BACKGROUND.Skills": "Acquired Skills",
 "BACKGROUND.SkillsError": "You must choose exactly four skills as background specializations.",
-"BACKGROUND.SkillsHint": "Choose four skills which were acquired as part of your background, each of which will begin with +1 rank.",
+"BACKGROUND.SkillsHint": "Choose four skills which were acquired as part of your background, each of which will begin at Novice rank.",
 "BACKGROUND.Talents": "Acquired Talent",
-"BACKGROUND.TalentsError": "A Background may contain a maximum of one starting Talent.",
+"BACKGROUND.TalentNumberError": "A Background may contain a maximum of one starting Talent.",
+"BACKGROUND.TalentTierError": "Backgrounds may only offer Tier 0 starting Talents.",
 
 "DAMAGE.Acid": "Acid",
 "DAMAGE.Bludgeoning": "Bludgeoning",
