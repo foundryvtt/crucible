@@ -102,6 +102,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   template = null;
 
+  /**
+   * Configure the Dialog class that provides the user with an interface to configure this Action.
+   * @type {typeof ActionUseDialog}
+   */
+  static dialogClass = ActionUseDialog;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -212,12 +218,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async configure(targets) {
     const pool = new StandardCheck(this.usage.bonuses);
-    return ActionUseDialog.prompt({options: {
+   await this.constructor.dialogClass.prompt({options: {
       action: this,
       actor: this.actor,
       pool,
       targets
     }});
+
+    // Re-acquire targets after configuration
+    try {
+      targets = this.acquireTargets();
+    } catch(err) {
+      ui.notifications.warn(err.message);
+      return null;
+    }
+    return {action: this, targets};
   }
 
   /* -------------------------------------------- */
@@ -294,7 +309,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const confirmed = this.#canAutoConfirm(outcomes);
 
     // Record the action as a chat message
-    if ( chatMessage ) await this.toMessage(outcomes, {confirmed, ...chatMessageOptions});
+    if ( chatMessage ) await this.toMessage(outcomes, targets, {confirmed, ...chatMessageOptions});
 
     // Apply action usage flags (immediately)
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
@@ -646,6 +661,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.target.type !== "none" ) {
       let target = SYSTEM.ACTION.TARGET_TYPES[this.target.type].label;
       if ( this.target.number > 1 ) target += ` ${this.target.number}`;
+      if ( this.target.distance > 1 ) target += ` ${this.target.distance}`;
       tags.activation.target = target;
     }
 
@@ -670,11 +686,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Render the action to a chat message including contained rolls and results
    * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
+   * @param {ActionUseTarget[]} targets         Targets affected by this action usage
    * @param {object} options                    Context options for ChatMessage creation
    * @param {boolean} [options.confirmed]         Were the outcomes auto-confirmed?
    * @returns {Promise<ChatMessage>}            The created ChatMessage document
    */
-  async toMessage(outcomes, {confirmed=false, ...options}={}) {
+  async toMessage(outcomes, targets, {confirmed=false, ...options}={}) {
 
     // Prepare action data
     const actionData = {actor: this.actor.uuid, action: this.id, outcomes: [], confirmed};
@@ -693,15 +710,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Render HTML template
     const tags = this.getTags();
-    const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.html", {
-      actor: this.actor,
+    const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.hbs", {
       action: this,
-      outcomes,
-      activationTags: tags.activation,
-      hasActionTags: !foundry.utils.isEmpty(tags.action),
       actionTags: tags.action,
+      activationTags: tags.activation,
+      actor: this.actor,
       context: this.usage.context,
+      hasActionTags: !foundry.utils.isEmpty(tags.action),
+      outcomes,
       showTargets: this.target.type !== "self",
+      targets
     });
 
     // Create chat message

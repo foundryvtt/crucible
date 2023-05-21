@@ -37,7 +37,7 @@ export const TARGET_TYPES = Object.freeze({
       angle: 120,
       directionDelta: 45,
       anchor: "self",
-      distanceOffset: 0
+      distanceOffset: 0.5
     }
   },
   pulse: {

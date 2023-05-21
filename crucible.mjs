@@ -234,8 +234,9 @@ Hooks.once("i18nInit", function() {
 
   // Preload Handlebars Templates
   loadTemplates([
-    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.html`,
+    `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.hbs`,
+    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,

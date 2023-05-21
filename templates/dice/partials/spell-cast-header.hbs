@@ -1,97 +1,37 @@
-<section class="action spell flexcol">
-    <header class="action-header line-item">
-        <div class="name">
-            <img class="icon large" src="{{action.img}}">
-            <h3>{{action.name}}</h3>
-        </div>
-        <div class="tags" data-tag-type="activation">
-            {{#each activationTags as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-            {{/each}}
-        </div>
-    </header>
-
-    {{#if hasActionTags}}
-    <div class="flexrow">
-        <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
-            <i class="fa-solid fa-bolt"></i>
-        </label>
-        <div class="tags" data-tag-type="action">
-            {{#each actionTags as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-            {{/each}}
-        </div>
+<div class="form-group">
+    <label>{{localize "SPELL.ComponentRune"}}</label>
+    <div class="form-fields">
+        <select name="rune" class="component">
+            {{selectOptions runes selected=action.rune.id nameAttr="id" labelAttr="name"}}
+        </select>
     </div>
-    {{/if}}
+</div>
 
-    {{#if hasContextTags}}
-    <div class="flexrow">
-        <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
-            <i class="{{action.context.icon}}"></i>
-        </label>
-        <div class="tags" data-tag-type="{{action.context.type}}">
-            {{#each action.context.tags as |label tag|}}
-            <span class="tag" data-tag="{{tag}}">{{label}}</span>
-            {{/each}}
-        </div>
+<div class="form-group">
+    <label>{{localize "SPELL.ComponentGesture"}}</label>
+    <div class="form-fields">
+        <select name="gesture" class="component">
+            {{selectOptions gestures selected=action.gesture.id nameAttr="id" labelAttr="name"}}
+        </select>
     </div>
-    {{/if}}
+</div>
 
-    <div class="flexrow">
-        <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
-        <i class="fa-solid fa-bullseye"></i>
-        </label>
-        <div class="tags" data-tag-type="target">
-            {{#if requiresTemplate}}
-            <button class="place-template" type="button" data-action="placeTemplate">
-                <i class="fa-solid fa-ruler-combined"></i>
-                Place Template
-            </button>
-            {{else}}
-            {{#each targets}}
-            <span class="target-link tag" data-uuid="{{this.uuid}}">{{this.name}}</span>
-            {{else}}
-            <span class="tag unmet">No Targets</span>
-            {{/each}}
-            {{/if}}
-        </div>
+<div class="form-group">
+    <label>{{localize "SPELL.ComponentInflection"}}</label>
+    <div class="form-fields">
+        <select name="inflection" class="component">
+            {{selectOptions inflections selected=action.inflection.id blank="" nameAttr="id" labelAttr="name"}}
+        </select>
     </div>
+</div>
 
-    <div class="form-group">
-        <label>{{localize "SPELL.ComponentRune"}}</label>
-        <div class="form-fields">
-            <select name="rune" class="component">
-                {{selectOptions runes selected=action.rune.id nameAttr="id" labelAttr="name"}}
-            </select>
-        </div>
+{{#if chooseDamageType}}
+<div class="form-group">
+    <label>{{localize "SPELL.DamageType"}}</label>
+    <div class="form-fields">
+        <select name="damageType" class="component">
+            {{selectOptions damageTypes selected=action.damage.type}}
+        </select>
     </div>
-
-    <div class="form-group">
-        <label>{{localize "SPELL.ComponentGesture"}}</label>
-        <div class="form-fields">
-            <select name="gesture" class="component">
-                {{selectOptions gestures selected=action.gesture.id nameAttr="id" labelAttr="name"}}
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "SPELL.ComponentInflection"}}</label>
-        <div class="form-fields">
-            <select name="inflection" class="component">
-                {{selectOptions inflections selected=action.inflection.id blank="" nameAttr="id" labelAttr="name"}}
-            </select>
-        </div>
-    </div>
-
-    {{#if chooseDamageType}}
-    <div class="form-group">
-        <label>{{localize "SPELL.DamageType"}}</label>
-        <div class="form-fields">
-            <select name="damageType" class="component">
-                {{selectOptions damageTypes selected=action.damage.type}}
-            </select>
-        </div>
-    </div>
-    {{/if}}
-</section>
+</div>
+{{/if}}

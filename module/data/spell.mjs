@@ -1,6 +1,5 @@
 import CrucibleAction from "./action.mjs";
 import {SYSTEM} from "../config/system.js";
-import StandardCheck from "../dice/standard-check.mjs";
 import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
@@ -33,6 +32,9 @@ export default class CrucibleSpell extends CrucibleAction {
     COMPOSING: 1,
     COMPOSED: 2
   }
+
+  /** @override */
+  static dialogClass = SpellCastDialog;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -350,36 +352,11 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   async configure(targets) {
-    const pool = new StandardCheck(this.usage.bonuses);
-    const spell = await SpellCastDialog.prompt({options: {
-      action: this,
-      actor: this.actor,
-      pool,
-      targets
-    }});
-    if ( spell === null ) return null;
-
-    // Finalize composition
+    const result = await super.configure(targets);
     this.updateSource({composition: CrucibleSpell.COMPOSITION_STATES.COMPOSED});
-
-    // Re-test feasibility
-    try {
-      this._can();
-    } catch(err) {
-      ui.notifications.warn(err.message);
-      return null;
-    }
-
-    // Re-acquire targets
-    try {
-      targets = this.acquireTargets();
-    } catch(err) {
-      ui.notifications.warn(err.message);
-      return null;
-    }
-    return {action: this, targets};
+    return result;
   }
 
   /* -------------------------------------------- */

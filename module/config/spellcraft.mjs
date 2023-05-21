@@ -215,7 +215,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "fan",
       number: 1,
-      distance: 2
+      distance: 1
     },
     tier: 1
   },
