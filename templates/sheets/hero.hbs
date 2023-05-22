@@ -30,36 +30,22 @@
                        {{#if isL0}}disabled{{/if}}>
             </div>
             <div class="subtitle flexrow">
-                <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive{{/if}}"
-                    {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
-                    {{#if incomplete.ancestry}}
-                    <i class="incomplete fas fa-exclamation-triangle"></i>
-                    {{/if}}
+                <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive" data-tooltip="WALKTHROUGH.AddAncestry{{/if}}">
                     {{ancestryName}}
                     {{#if incomplete.ancestry}}
-                    <a class="control" data-action="browseCompendium" data-pack="{{packs.ancestry}}" data-tooltip="ANCESTRY.Browse">
-                        <i class="fa-solid fa-plus-circle"></i>
-                    </a>
+                    <i class="control incomplete fa-solid fa-plus-circle" data-action="browseCompendium"
+                       data-pack="{{packs.ancestry}}" data-tooltip="ANCESTRY.Browse"></i>
                     {{else if isL0}}
-                    <a class="control" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear">
-                        <i class="fas fa-times-circle"></i>
-                    </a>
+                    <i class="control fas fa-times-circle" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear"></i>
                     {{/if}}
                 </h2>
-                <h2 class="background tag flexrow {{#if incomplete.background}}inactive{{/if}}"
-                    {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
-                    {{#if incomplete.background}}
-                    <i class="incomplete fas fa-exclamation-triangle"></i>
-                    {{/if}}
+                <h2 class="background tag flexrow {{#if incomplete.background}}inactive" data-tooltip="WALKTHROUGH.AddBackground"{{/if}}">
                     {{backgroundName}}
                     {{#if incomplete.background}}
-                    <a class="control" data-action="browseCompendium" data-pack="{{packs.background}}" data-tooltip="BACKGROUND.Browse">
-                        <i class="fa-solid fa-plus-circle"></i>
-                    </a>
+                    <i class="control incomplete fa-solid fa-plus-circle" data-action="browseCompendium"
+                       data-pack="{{packs.background}}" data-tooltip="BACKGROUND.Browse"></i>
                     {{else if isL0}}
-                    <a class="control" data-action="clearBackground" data-tooltip="BACKGROUND.Clear">
-                        <i class="fas fa-times-circle"></i>
-                    </a>
+                    <i class="control fas fa-times-circle" data-action="clearBackground" data-tooltip="BACKGROUND.Clear"></i>
                     {{/if}}
                 </h2>
                 {{#if actor.system.details.signatureName}}

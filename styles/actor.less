@@ -206,10 +206,8 @@
       background: rgba(0, 0, 0, 0.05);
       border: 1px solid var(--colorBeige);
       border-radius: 2px;
-      i.incomplete {
-        display: none;
-      }
-      a.control {
+      .control {
+        cursor: pointer;
         font-size: var(--font-size-14);
       }
     }
@@ -217,9 +215,6 @@
     // Incomplete Tags
     .tag.incomplete {
       border: 2px dashed var(--colorBeige);
-      > i.incomplete {
-        display: initial;
-      }
     }
   }
 

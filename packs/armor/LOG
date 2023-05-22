@@ -1,3 +1,8 @@
 2023/05/21-12:21:48.254 1c910 Recovering log #612
 2023/05/21-12:21:48.259 1c910 Delete type=0 #612
 2023/05/21-12:21:48.259 1c910 Delete type=3 #611
+2023/05/21-22:39:26.267 39e24 Level-0 table #616: started
+2023/05/21-22:39:26.267 39e24 Level-0 table #616: 0 bytes OK
+2023/05/21-22:39:26.269 39e24 Delete type=0 #614
+2023/05/21-22:39:26.274 39e24 Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/05/21-22:39:26.275 39e24 Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)

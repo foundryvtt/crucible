@@ -306,25 +306,25 @@ export default class CrucibleActorSheet extends ActorSheet {
    */
   async _onClickControl(event) {
     event.preventDefault();
-    const a = event.currentTarget;
-    switch ( a.dataset.action ) {
+    const button = event.currentTarget;
+    switch ( button.dataset.action ) {
       case "effectDelete":
-        this.#onEffectDelete(a);
+        this.#onEffectDelete(button);
         break;
       case "effectEdit":
-        this.#onEffectEdit(a);
+        this.#onEffectEdit(button);
         break;
       case "itemDelete":
-        this.#onItemDelete(a);
+        this.#onItemDelete(button);
         break;
       case "itemEdit":
-        this.#onItemEdit(a);
+        this.#onItemEdit(button);
         break;
       case "itemEquip":
-        this.#onItemEquip(a);
+        this.#onItemEquip(button);
         break;
       case "useAction":
-        await this.actor.useAction(a.closest(".action").dataset.actionId);
+        await this.actor.useAction(button.closest(".action").dataset.actionId);
         break;
     }
   }

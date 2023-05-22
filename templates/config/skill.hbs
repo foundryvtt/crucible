@@ -16,15 +16,15 @@
 
     {{!-- Sheet Body --}}
     <section class="sheet-body flexcol">
-        <blockquote class="info skill-description">
+        <div class="description skill-description">
             {{{config.overview}}}
-        </blockquote>
+        </div>
 
         {{#if displayPath}}
         <h3>Specialization Path: {{path.name}}</h3>
-        <blockquote class="info path-description">
+        <div class="description path-description">
             {{{path.overview}}}
-        </blockquote>
+        </div>
         {{/if}}
 
         {{#if choosePath}}
@@ -33,8 +33,10 @@
             {{#each config.paths as |path id|}}
             <div class="skill-rank">
                 <input class="choose-path" type="radio" name="path" value="{{id}}" {{checked (eq ../skill.path id)}}/>
-                <h4>{{path.name}}</h4>
-                {{{path.overview}}}
+                <h3>{{path.name}}</h3>
+                <div class="description">
+                    {{{path.overview}}}
+                </div>
             </div>
             {{/each}}
         </div>
@@ -44,7 +46,7 @@
         <div class="skill-ranks current-ranks">
             {{#each trainedRanks}}
             <div class="skill-rank">
-                <h4>{{this.label}}.</h4> {{{this.description}}}
+                <h3>{{this.label}}.</h3> {{{this.description}}}
             </div>
             {{/each}}
         </div>
@@ -54,7 +56,7 @@
         <div class="skill-ranks current-ranks">
             {{#each untrainedRanks}}
             <div class="skill-rank">
-                <h4>{{this.label}}.</h4> {{{this.description}}}
+                <h3>{{this.label}}.</h3> {{{this.description}}}
             </div>
             {{/each}}
         </div>
@@ -65,7 +67,7 @@
         <div class="skill-ranks skill-paths">
             {{#each config.paths as |path|}}
             <div class="skill-rank">
-                <h4>{{path.name}}.</h4>
+                <h3>{{path.name}}.</h3>
                 {{{path.overview}}}
             </div>
             {{/each}}

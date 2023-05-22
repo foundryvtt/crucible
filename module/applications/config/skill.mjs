@@ -1,9 +1,10 @@
 import {SYSTEM} from "../../config/system.js";
+import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
 
 /**
  * A configuration application used to advance skill ranks and choose skill specialization for a CrucibleActor.
  */
-export default class SkillConfig extends FormApplication {
+export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
   constructor(actor, skillId, options) {
     super(actor, options);
     this.actor = actor;
@@ -17,9 +18,9 @@ export default class SkillConfig extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 600,
+      width: 660,
       height: "auto",
-      classes: [SYSTEM.id, "sheet", "skill"],
+      classes: ["crucible-new", "sheet", "skill"],
       template: `systems/${SYSTEM.id}/templates/config/skill.hbs`,
       resizable: true,
       scrollY: [".scrollable"],
@@ -96,7 +97,7 @@ export default class SkillConfig extends FormApplication {
    * Handle click events on buttons on the Skill sheet
    * @param {MouseEvent} event    The left-click event
    */
-  #onClickAction(event) {
+  async #onClickAction(event) {
     const btn = event.currentTarget;
     switch ( btn.dataset.action ) {
       case "increase":
@@ -104,7 +105,7 @@ export default class SkillConfig extends FormApplication {
       case "decrease":
         return this.actor.purchaseSkill(this.skillId, -1);
       case "rules":
-        const rulesPage = fromUuidSync(this.config.page)
+        const rulesPage = await fromUuid(this.config.page)
         return rulesPage.parent.sheet.render(true, {pageId: rulesPage.id});
     }
   }

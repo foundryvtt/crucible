@@ -327,7 +327,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     for ( const node of CrucibleTalentNode.nodes.values() ) {
       if ( node.tier < 0 ) continue;
       const state = this.state.get(node);
-      let text = state === 2 ? node.talents.reduce((n, t) => n + this.actor.talentIds.has(t.id), 0) : "";
+      const nPurchased = (state === 2) && node.talents.reduce((n, t) => n + this.actor.talentIds.has(t.id), 0);
+      let text = nPurchased > 1 ? nPurchased : "";
       if ( this.developmentMode ) text = node.talents.size;
       node.icon?.draw({state, text});
       if ( state === 2 ) this.#drawConnections(node, seen);

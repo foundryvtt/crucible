@@ -184,7 +184,7 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("strength")
   },
 
-  // Requires Melee Weapon
+  // Requires a Melee Weapon
   melee: {
     tag: "melee",
     label: "ACTION.TagMelee",
@@ -192,7 +192,7 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.melee
   },
 
-  // Requires Ranged Weapon
+  // Requires a Ranged Weapon
   ranged: {
     tag: "ranged",
     label: "ACTION.TagRanged",
