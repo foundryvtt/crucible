@@ -37,9 +37,16 @@
 {{/if}}
 
 <div class="flexrow">
-    <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
-    <i class="fa-solid fa-bullseye"></i>
+    {{#if template}}
+    <label class="tag-icon" data-tooltip="{{localize "ACTION.TemplateTargets"}}" data-tooltip-direction="LEFT"
+           data-template-uuid="{{template.uuid}}">
+        <i class="fa-solid fa-ruler-combined"></i>
     </label>
+    {{else}}
+    <label class="tag-icon" data-tooltip="{{localize "ACTION.Targets"}}" data-tooltip-direction="LEFT">
+        <i class="fa-solid fa-bullseye"></i>
+    </label>
+    {{/if}}
     <div class="tags" data-tag-type="target">
         {{#if requiresTemplate}}
         <button class="place-template" type="button" data-action="placeTemplate">

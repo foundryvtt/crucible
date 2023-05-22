@@ -1354,11 +1354,11 @@ export default class CrucibleActor extends Actor {
     }
 
     // Only proceed if we are level 1 with no points already spent
-    // if ( !this.isL0 || (this.points.skill.spent > 0) ) {
-    //   const err = game.i18n.localize("BACKGROUND.ApplyError");
-    //   ui.notifications.warn(err);
-    //   throw new Error(err);
-    // }
+    if ( !this.isL0 || (this.points.skill.spent > 0) ) {
+      const err = game.i18n.localize("BACKGROUND.ApplyError");
+      ui.notifications.warn(err);
+      throw new Error(err);
+    }
 
     // Prepare Background data
     const background = foundry.utils.deepClone(itemData.system);

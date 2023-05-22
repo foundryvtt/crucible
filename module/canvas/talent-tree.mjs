@@ -87,7 +87,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
         resolution: 1,
         autoDensity: true,
         background: 0x0b0909,
-        antialias: false,  // Not needed because we use SmoothGraphics
+        antialias: false, // Not needed because we use SmoothGraphics
         powerPreference: "high-performance" // Prefer high performance GPU for devices with dual graphics cards
     }), writable: false});
     Object.defineProperty(this, "stage", {value: this.app.stage, writable: false});
@@ -112,6 +112,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.background = this.addChild(new PIXI.Container());
     this.foreground = this.addChild(new PIXI.Container());
 
+    // Load Textures
+    await this.#loadTextures();
+
     // Draw Background
     this.backdrop = this.background.addChild(await this.#drawBackdrop());
 
@@ -120,7 +123,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
-    this.edges.lineStyle({color: 0x000000, alpha: 0.35, width: 4});
+    this.edges.lineStyle({color: 0x000000, alpha: 0.35, width: 3});
 
     // Active connections
     this.connections = this.background.addChild(new PIXI.Graphics());
@@ -150,8 +153,30 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
+  /**
+   * Load all necessary textures for rendering the talent tree.
+   * @returns {Promise<void[]>}
+   */
+  async #loadTextures() {
+    const toLoad = [
+      "systems/crucible/ui/tree/background.webp",
+      "systems/crucible/ui/tree/wheel.webp"
+    ];
+    const varities = Object.keys(CONFIG.SYSTEM.ABILITIES).concat(["inactive"]);
+    for ( const nodeType in CrucibleTalentTreeNode.NODE_TYPES ) {
+      for ( const variety of varities ) {
+        toLoad.push(`systems/crucible/ui/tree/nodes/${nodeType}-${variety}.webp`);
+      }
+    }
+    return TextureLoader.loader.load(toLoad, {
+      message: game.i18n.format("SCENES.Loading", {name: "Talent Tree"})
+    });
+  }
+
+  /* -------------------------------------------- */
+
   async #drawBackdrop() {
-    const tex = await loadTexture("systems/crucible/ui/tree/Background.png");
+    const tex = getTexture("systems/crucible/ui/tree/background.webp");
     const bd = new PIXI.Sprite(tex);
     bd.anchor.set(0.5, 0.5);
     return bd;
@@ -172,10 +197,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   #drawConnections(node, seen) {
     for ( const c of node.connected ) {
       if ( seen.has(c) || (c.tier < 0) || (this.state.get(c) < 2) ) continue;
-      this.connections.lineStyle({color: 0x000000, width: 8, alpha: 1.0})
-        .moveTo(node.point.x, node.point.y)
-        .lineTo(c.point.x, c.point.y)
-        .lineStyle({color: c.color, width: 4, alpha: 1.0})
+      this.connections.lineStyle({color: c.color, width: 3, alpha: 1.0})
         .moveTo(node.point.x, node.point.y)
         .lineTo(c.point.x, c.point.y);
     }
@@ -199,14 +221,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawNode(node) {
-
-    // Configure the node icon
     const config = {};
-    const icons = CrucibleTalentTreeNode.NODE_TYPE_ICONS;
-    config.texture = await loadTexture(icons[node.type] || icons.default);
     config.borderColor = node.color;
-
-    // Create the Node icon
     const icon = node.icon = new CrucibleTalentTreeNode(node, config);
     await icon.draw();
     this.nodes.addChild(icon);

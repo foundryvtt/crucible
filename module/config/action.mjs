@@ -24,7 +24,7 @@ export const TARGET_TYPES = Object.freeze({
     label: "Cone",
     template: {
       t: "cone",
-      angle: 90,
+      angle: 60,
       directionDelta: 45,
       anchor: "self",
       distanceOffset: 0

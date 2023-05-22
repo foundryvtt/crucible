@@ -214,7 +214,6 @@ export const GESTURES = Object.seal({
     scaling: "intellect",
     target: {
       type: "fan",
-      number: 1,
       distance: 1
     },
     tier: 1
@@ -253,7 +252,6 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "pulse",
-      number: 1,
       distance: 1
     },
     tier: 1
@@ -272,7 +270,6 @@ export const GESTURES = Object.seal({
     scaling: "intellect",
     target: {
       type: "ray",
-      number: 1,
       distance: 6
     },
     tier: 1
@@ -288,7 +285,7 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
-      type: "self",
+      type: "ray",
       distance: 4
     },
     tier: 1

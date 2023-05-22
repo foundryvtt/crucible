@@ -231,7 +231,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       }
     } else game.user.targets.clear();
     this.#deactivateTemplate(event);
-
+    this.render();
   }
 
   /* -------------------------------------------- */

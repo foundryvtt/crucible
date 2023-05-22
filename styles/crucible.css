@@ -2070,7 +2070,7 @@ h2.divider span {
 #crucible-talent-hud {
   --iconSize: 60px;
   width: min-content;
-  max-width: 400px;
+  max-width: 500px;
   text-align: left;
 }
 #crucible-talent-hud header {

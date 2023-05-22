@@ -58,6 +58,7 @@
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",
 "ACTION.Targets": "Targets",
+"ACTION.TemplateTargets": "Template Targets",
 "ACTION.Confirmed": "Confirmed",
 "ACTION.Unconfirmed": "Unconfirmed",
 "ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}!",

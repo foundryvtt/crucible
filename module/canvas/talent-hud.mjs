@@ -55,7 +55,6 @@ export default class CrucibleTalentHUD extends Application {
       {label: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`)}
     ];
     if ( node.twin ) tags.push({label: "Twinned"});
-    tags.push({label: `${node.talents.size} Talents`});
     if ( state === states.BANNED ) tags.push({label: "Banned", class: "unmet"});
     else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
     const reqs = CrucibleTalent.preparePrerequisites(node.requirements, {});
@@ -111,7 +110,6 @@ export default class CrucibleTalentHUD extends Application {
   /** @override */
   setPosition({left, top}={}) {
     const position = {
-      width: this.target instanceof CrucibleTalentTreeNode ? 320 : 460,
       height: undefined,
       left: left,
       top: top

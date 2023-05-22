@@ -13,6 +13,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
   async draw({active, accessible, ...config}={}) {
 
     // Talent State
+    config.borderRadius = 8;
     config.borderColor = active ? this.node.node.color : 0x444444;
     config.alpha = active ? 1.0 : 0.6;
 

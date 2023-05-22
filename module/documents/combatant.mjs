@@ -10,7 +10,7 @@ export default class CrucibleCombatant extends Combatant {
   }
 
   /** @override */
-  getInitiativeRoll() {
+  getInitiativeRoll(formula) {
     const actor = this.actor;
     const {weapons, armor} = actor.equipment;
 

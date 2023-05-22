@@ -8,19 +8,14 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     this.position.set(node.point.x, node.point.y);
   }
 
-  /**cc
-   * The icons used for different node types
-   * @enum {string}
-   */
-  static NODE_TYPE_ICONS = {
-    attack: "systems/crucible/icons/nodes/attack.webp",
-    defense: "systems/crucible/icons/nodes/defense.webp",
-    default: "systems/crucible/icons/nodes/unassigned.webp",
-    heal: "systems/crucible/icons/nodes/healing.webp",
-    magic: "systems/crucible/icons/nodes/magic.webp",
-    move: "systems/crucible/icons/nodes/movement.webp",
-    utility: "systems/crucible/icons/nodes/utility.webp",
-    signature: "systems/crucible/icons/nodes/signature.webp"
+  static NODE_TYPES = {
+    attack: "Attack",
+    defense: "Defense",
+    heal: "Healing",
+    magic: "Spellcraft",
+    move: "Movement",
+    utility: "Utility",
+    signature: "Signature"
   }
 
   /* -------------------------------------------- */
@@ -38,6 +33,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /** @override */
   async draw({state=0, ...config}={}) {
     const states = CrucibleTalentNode.STATES;
+    const variety = state === states.PURCHASED ? this.node.abilities.first() : "inactive";
+    config.texture = getTexture(`systems/crucible/ui/tree/nodes/${this.node.type}-${variety}.webp`);
 
     // Signature nodes
     if ( this.node.type === "signature" ) {
@@ -48,26 +45,55 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     // Node state
     switch ( state ) {
       case states.BANNED:
-        config.borderColor = config.tint = 0x330000;
+        config.alpha = 0.4;
+        config.borderColor = 0x330000;
+        config.borderWidth = 2;
         break;
       case states.PURCHASED:
+        config.alpha = 1.0;
         config.borderColor = this.node.color;
-        config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
+        config.borderWidth = 3;
         break;
       case states.UNLOCKED:
-        config.borderColor = 0x444444;
-        config.tint = this.node.color.mix(new Color(0xFFFFFF), 0.25);
+        config.alpha = 0.4;
+        config.borderColor = 0x827f7d;
+        config.borderWidth = 2;
         break;
       case states.LOCKED:
-        config.borderColor = 0x444444;
-        config.tint = 0xFFFFFF;
+        config.alpha = 0.1;
+        config.borderColor = 0x262322;
+        config.borderWidth = 2;
         break;
     }
-    config.alpha = state === states.PURCHASED ? 1.0 : 0.6;
 
     // Draw Icon
     await super.draw(config);
+
+    // Node interaction
     this.#activateInteraction();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getShape() {
+    const size = this.config.size;
+    const hs = size / 2;
+
+    // Signature nodes = Hexagon
+    if ( this.node.type === "signature" ) {
+      const width = size;
+      const height = size * Math.sqrt(3) / 2;
+      const points = HexagonalGrid.FLAT_HEX_BORDERS[1].reduce((arr, [ox, oy]) => {
+        arr.push((ox * width) - (width / 2));
+        arr.push((oy * height) - (height / 2));
+        return arr;
+      }, []);
+      return new PIXI.Polygon(points);
+    }
+
+    // Regular talent nodes = Circle
+    return new PIXI.Circle(0, 0, hs);
   }
 
   /* -------------------------------------------- */

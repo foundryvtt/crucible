@@ -9,12 +9,20 @@ export default class CrucibleCombat extends Combat {
     const advanceRound = ("round" in data) && (data.round > this.current.round);
     await super._preUpdate(data, options, user);
 
-    // Re-roll Initiative
-    if ( advanceRound ) {
-      const rolls = await this.#updateInitiativeRolls();
-      data.combatants = rolls.map(r => ({_id: r.combatant.id, initiative: r.roll.total}));
-      await this.#postInitiativeMessage(data.round, rolls);
+    // Update Initiative scores for all Combatants
+    if ( !advanceRound ) return;
+    data.combatants = [];
+    const rolls = [];
+    for ( const c of this.combatants ) {
+      const roll = c.getInitiativeRoll();
+      await roll.evaluate();
+      if ( c.actor.isIncapacitated ) roll._total = 0;
+      data.combatants.push({_id: c.id, initiative: roll.total});
+      rolls.push({combatant: c, roll});
     }
+
+    // Post new round Initiative summary
+    await this.#postInitiativeMessage(data.round, rolls);
   }
 
   /* -------------------------------------------- */
@@ -29,10 +37,20 @@ export default class CrucibleCombat extends Combat {
   /** @override */
   async _onStartRound() {
     if ( this.turns.length < 2 ) return;
-    const first = this.turns[0];
-    const firstActor = first?.actor;
-    const last = this.turns.at(-1);
-    const lastActor = last?.actor;
+
+    // Identify the first combatant to act in the round
+    const firstCombatant = this.turns[0];
+    const firstActor = firstCombatant.actor;
+
+    // Identify the last non-incapacitated combatant to act in the round
+    let lastCombatant;
+    for ( let i=this.turns.length-1; i>0; i-- ) {
+      if ( this.turns[i].actor?.isIncapacitated !== true ) {
+        lastCombatant = this.turns[i];
+        break;
+      }
+    }
+    const lastActor = lastCombatant?.actor;
 
     // Impetus
     const impetusId = "impetus000000000";
@@ -55,7 +73,7 @@ export default class CrucibleCombat extends Combat {
       first.updateResource();
     }
 
-    // Modifications to first and last combatant
+    // Morale Escalation
     await firstActor?.alterResources({morale: this.round});
     await lastActor?.alterResources({morale: -this.round});
   }
@@ -67,22 +85,6 @@ export default class CrucibleCombat extends Combat {
     await combatant.actor.onEndTurn();
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * When the Combat encounter advances to a new round, trigger an update of Initiative for every participant.
-   * @returns {Promise<object[]>}       Updated initiative scores for all Combatant documents
-   */
-  async #updateInitiativeRolls() {
-    const rolls = [];
-    for ( const c of this.combatants ) {
-      const r = c.getInitiativeRoll();
-      await r.evaluate();
-      rolls.push({combatant: c, roll: r});
-    }
-    return rolls;
   }
 
   /* -------------------------------------------- */

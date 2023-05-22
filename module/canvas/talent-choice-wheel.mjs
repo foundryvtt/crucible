@@ -10,9 +10,15 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
 
     /**
      * Background graphics for the wheel
+     * @type {PIXI.Sprite}
+     */
+    this.bg = this.addChild(new PIXI.Sprite());
+
+    /**
+     * Edges for showing connections
      * @type {PIXI.Graphics}
      */
-    this.bg = this.addChild(new PIXI.Graphics());
+    this.edges = this.addChild(new PIXI.Graphics());
 
     /**
      * Talents available within this wheel
@@ -48,6 +54,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     this.position.set(node.x, node.y);
     this.radius = node.config.size + 50;
     this.#drawBackground();
+    this.#drawEdges();
     await this.#drawTalents();
     this.refresh(); // Set initial display
     this.visible = true;
@@ -76,14 +83,24 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.clear()
-      .lineStyle({color: this.node.node.color, width: 4})
-      .beginFill(0x000000, 0.9)
+    this.bg.texture = getTexture("systems/crucible/ui/tree/wheel.webp");
+    this.bg.anchor.set(0.5, 0.5);
+    this.bg.width = this.bg.height = this.radius * 2;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Draw connecting edges within the wheel
+   */
+  #drawEdges() {
+    this.edges.clear()
+      .lineStyle({color: this.node.config.borderColor, width: 3})
       .drawCircle(0, 0, this.radius)
       .endFill();
 
     // Set line style for later connecting lines
-    this.bg.lineStyle({color: 0x444444, width: 4});
+    this.edges.lineStyle({color: 0x444444, width: 4});
   }
 
   /* -------------------------------------------- */
@@ -109,7 +126,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       i++;
 
       // Draw connecting line
-      this.bg.moveTo(0, 0).lineTo(icon.x, icon.y);
+      this.edges.moveTo(0, 0).lineTo(icon.x, icon.y);
     }
   }
 
