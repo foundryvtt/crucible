@@ -1,23 +1,8 @@
-2023/05/23-18:00:07.251 71a4 Recovering log #646
-2023/05/23-18:00:07.252 71a4 Level-0 table #648: started
-2023/05/23-18:00:07.254 71a4 Level-0 table #648: 57522 bytes OK
-2023/05/23-18:00:07.259 71a4 Delete type=0 #646
-2023/05/23-18:00:07.259 71a4 Delete type=3 #645
-2023/05/23-18:12:43.394 1d97c Level-0 table #651: started
-2023/05/23-18:12:43.394 1d97c Level-0 table #651: 0 bytes OK
-2023/05/23-18:12:43.395 1d97c Delete type=0 #649
-2023/05/23-18:12:43.396 1d97c Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!warlance00000000' @ 592 : 1
-2023/05/23-18:12:43.396 1d97c Compacting 1@0 + 0@1 files
-2023/05/23-18:12:43.398 1d97c Generated table #652@0: 47 keys, 9312 bytes
-2023/05/23-18:12:43.398 1d97c Compacted 1@0 + 0@1 files => 9312 bytes
-2023/05/23-18:12:43.399 1d97c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/23-18:12:43.399 1d97c Delete type=2 #648
-2023/05/23-18:12:43.399 1d97c Manual compaction at level-0 from '!items!warlance00000000' @ 592 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/05/23-18:12:43.399 1d97c Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!warlance00000000' @ 1329 : 1
-2023/05/23-18:12:43.399 1d97c Compacting 1@1 + 1@2 files
-2023/05/23-18:12:43.401 1d97c Generated table #653@1: 47 keys, 9312 bytes
-2023/05/23-18:12:43.401 1d97c Compacted 1@1 + 1@2 files => 9312 bytes
-2023/05/23-18:12:43.402 1d97c compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/23-18:12:43.402 1d97c Delete type=2 #644
-2023/05/23-18:12:43.402 1d97c Delete type=2 #652
-2023/05/23-18:12:43.406 1d97c Manual compaction at level-1 from '!items!warlance00000000' @ 1329 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:13:05.270 37ca4 Recovering log #650
+2023/05/23-18:13:05.277 37ca4 Delete type=0 #650
+2023/05/23-18:13:05.277 37ca4 Delete type=3 #647
+2023/05/23-18:20:06.755 1d97c Level-0 table #657: started
+2023/05/23-18:20:06.755 1d97c Level-0 table #657: 0 bytes OK
+2023/05/23-18:20:06.757 1d97c Delete type=0 #655
+2023/05/23-18:20:06.759 1d97c Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:20:06.759 1d97c Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
