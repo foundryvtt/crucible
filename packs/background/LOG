@@ -1,15 +1,8 @@
-2023/05/23-16:34:09.631 19554 Recovering log #638
-2023/05/23-16:34:09.638 19554 Delete type=0 #638
-2023/05/23-16:34:09.638 19554 Delete type=3 #637
-2023/05/23-17:13:02.464 4a94c Level-0 table #642: started
-2023/05/23-17:13:02.465 4a94c Level-0 table #642: 3991 bytes OK
-2023/05/23-17:13:02.465 4a94c Delete type=0 #640
-2023/05/23-17:13:02.470 4a94c Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/05/23-17:13:02.471 4a94c Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at '!items!wanderer00000000' @ 91 : 0
-2023/05/23-17:13:02.471 4a94c Compacting 1@1 + 1@2 files
-2023/05/23-17:13:02.472 4a94c Generated table #643@1: 9 keys, 3906 bytes
-2023/05/23-17:13:02.472 4a94c Compacted 1@1 + 1@2 files => 3906 bytes
-2023/05/23-17:13:02.473 4a94c compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/23-17:13:02.473 4a94c Delete type=2 #612
-2023/05/23-17:13:02.473 4a94c Delete type=2 #642
-2023/05/23-17:13:02.476 4a94c Manual compaction at level-1 from '!items!wanderer00000000' @ 91 : 0 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:00:07.226 46994 Recovering log #645
+2023/05/23-18:00:07.231 46994 Delete type=0 #645
+2023/05/23-18:00:07.231 46994 Delete type=3 #644
+2023/05/23-18:12:43.388 1d97c Level-0 table #649: started
+2023/05/23-18:12:43.388 1d97c Level-0 table #649: 0 bytes OK
+2023/05/23-18:12:43.389 1d97c Delete type=0 #647
+2023/05/23-18:12:43.391 1d97c Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:12:43.391 1d97c Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)

@@ -1,15 +1,8 @@
-2023/05/23-16:34:09.624 19554 Recovering log #638
-2023/05/23-16:34:09.628 19554 Delete type=0 #638
-2023/05/23-16:34:09.628 19554 Delete type=3 #637
-2023/05/23-17:13:02.453 4a94c Level-0 table #642: started
-2023/05/23-17:13:02.455 4a94c Level-0 table #642: 4065 bytes OK
-2023/05/23-17:13:02.455 4a94c Delete type=0 #640
-2023/05/23-17:13:02.458 4a94c Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
-2023/05/23-17:13:02.461 4a94c Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at '!items!orcish0000000000' @ 178 : 0
-2023/05/23-17:13:02.461 4a94c Compacting 1@1 + 1@2 files
-2023/05/23-17:13:02.462 4a94c Generated table #643@1: 8 keys, 3985 bytes
-2023/05/23-17:13:02.462 4a94c Compacted 1@1 + 1@2 files => 3985 bytes
-2023/05/23-17:13:02.463 4a94c compacted to: files[ 0 0 2 0 0 0 0 ]
-2023/05/23-17:13:02.463 4a94c Delete type=2 #582
-2023/05/23-17:13:02.463 4a94c Delete type=2 #642
-2023/05/23-17:13:02.466 4a94c Manual compaction at level-1 from '!items!orcish0000000000' @ 178 : 0 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:00:07.218 71a4 Recovering log #645
+2023/05/23-18:00:07.222 71a4 Delete type=0 #645
+2023/05/23-18:00:07.222 71a4 Delete type=3 #644
+2023/05/23-18:12:43.378 1d97c Level-0 table #649: started
+2023/05/23-18:12:43.378 1d97c Level-0 table #649: 0 bytes OK
+2023/05/23-18:12:43.379 1d97c Delete type=0 #647
+2023/05/23-18:12:43.382 1d97c Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/05/23-18:12:43.385 1d97c Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
