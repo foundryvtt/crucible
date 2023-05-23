@@ -2,7 +2,7 @@
   "name": "crucible",
   "title": "Crucible",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.6.2",
+  "version": "0.8.0",
   "author": "Atropos",
   "scripts": [],
   "esmodules": ["crucible.mjs"],
@@ -47,10 +47,7 @@
       "name": "summons",
       "label": "Summoned Creatures",
       "path": "packs/summons",
-      "type": "Actor",
-      "ownership": {
-        "PLAYER": "NONE"
-      }
+      "type": "Actor"
     },
     {
       "name": "pregens",
@@ -75,6 +72,24 @@
       "label": "Weapons",
       "path": "packs/weapon",
       "type": "Item"
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Crucible",
+      "color": "#561206",
+      "packs": [
+        "ancestry",
+        "archetype",
+        "armor",
+        "background",
+        "rules",
+        "summons",
+        "pregens",
+        "talent",
+        "taxonomy",
+        "weapon"
+      ]
     }
   ],
   "languages": [
