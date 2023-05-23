@@ -1,6 +1,4 @@
 import CrucibleActorSheet from "./actor.mjs";
-import ArchetypeConfig from "../config/archetype.mjs";
-import TaxonomyConfig from "../config/taxonomy.mjs";
 
 /**
  * The ActorSheet class which is used to display an Adversary Actor.
@@ -51,12 +49,10 @@ export default class AdversarySheet extends CrucibleActorSheet {
     event.preventDefault();
     const a = event.currentTarget;
     switch ( a.dataset.action ) {
-      case "configureArchetype":
-        new ArchetypeConfig(this.actor.system.details.archetype).render(true);
-        break;
-      case "configureTaxonomy":
-        new TaxonomyConfig(this.actor.system.details.taxonomy).render(true);
-        break;
+      case "viewArchetype":
+        return this.actor._viewDetailItem("archetype", {editable: true});
+      case "viewTaxonomy":
+        return this.actor._viewDetailItem("taxonomy", {editable: true});
       case "levelIncrease":
         await this.actor.update({
           "system.details.level": Math.clamped(this.actor.system.details.level + 1, 0, 24)
@@ -69,5 +65,18 @@ export default class AdversarySheet extends CrucibleActorSheet {
         break;
     }
     return super._onClickControl(event);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDropItemCreate(itemData) {
+    switch (itemData.type) {
+      case "archetype":
+        return this.actor.system.applyArchetype(itemData);
+      case "taxonomy":
+        return this.actor.system.applyTaxonomy(itemData);
+    }
+    return super._onDropItemCreate(itemData);
   }
 }

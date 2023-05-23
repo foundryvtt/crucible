@@ -114,7 +114,7 @@
 
   // Framed Elements
   .frame-brown {
-    background: var(--color-frame-bg);
+    background: var(--color-frame);
     border-image: url('../ui/journal/button-border.png');
     border-image-slice: 16;
     border-image-outset: 2;
@@ -124,7 +124,7 @@
 
   // Scrollbar
   ::-webkit-scrollbar-thumb {
-    background: var(--color-frame-bg);
+    background: var(--color-frame);
   }
 
   // Code Blocks
@@ -258,7 +258,7 @@
   textarea {
     padding: 0.5rem;
     background: var(--color-table-row);
-    border: 1px solid var(--color-frame-bg);
+    border: 1px solid var(--color-frame);
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: var(--font-size-15);
@@ -266,12 +266,23 @@
   }
 
   select {
-    background: var(--color-frame-bg);
+    background: var(--color-frame);
     color: var(--color-text);
     border: none;
     &::selection {
-      background: var(--color-frame-bg);
+      background: var(--color-frame);
     }
+  }
+
+  // Text Inputs
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  input[type="date"],
+  input[type="time"],
+  input[type="search"] {
+    color: var(--color-text);
+    border-color: var(--color-frame);
   }
 
   // Form Hints
@@ -330,7 +341,7 @@
       content: "\f14a";
     }
     &:disabled::before {
-      color: var(--color-frame-bg);
+      color: var(--color-frame);
     }
   }
 

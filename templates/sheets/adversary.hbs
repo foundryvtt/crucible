@@ -25,16 +25,19 @@
             </div>
 
             <div class="subtitle flexrow">
-                <h2 class="tag taxonomy {{#if incomplete.taxonomy}}incomplete{{/if}}">
-                    <i class="incomplete fas fa-exclamation-triangle" data-tooltip="WALKTHROUGH.ConfigureTaxonomy"></i>
-                    <label>{{taxonomyName}}</label>
-                    <a class="control" data-action="configureTaxonomy"><i class="fa-solid fa-cogs"></i></a>
+                <h2 class="taxonomy tag flexrow {{#if incomplete.taxonomy}}inactive" data-tooltip="WALKTHROUGH.ConfigureTaxonomy{{/if}}"
+                        data-action="viewTaxonomy">
+                    {{taxonomyName}}
+                    {{#if incomplete.taxonomy}}
+                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="TAXONOMY.Browse"></i>
+                    {{/if}}
                 </h2>
-
-                <h2 class="tag archetype {{#if incomplete.archetype}}incomplete{{/if}}">
-                    <i class="incomplete fas fa-exclamation-triangle" data-tooltip="WALKTHROUGH.ConfigureArchetype"></i>
-                    <label>{{archetypeName}}</label>
-                    <a class="control" data-action="configureArchetype"><i class="fa-solid fa-cogs"></i></a>
+                <h2 class="archetype tag flexrow {{#if incomplete.archetype}}inactive" data-tooltip="WALKTHROUGH.ConfigureArchetype"{{/if}}"
+                data-action="viewArchetype">
+                    {{archetypeName}}
+                    {{#if incomplete.archetype}}
+                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="ARCHETYPE.Browse"></i>
+                    {{/if}}
                 </h2>
                 <span class="flex1"></span>
                 <select class="stature" name="system.details.stature">

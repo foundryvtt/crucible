@@ -2,23 +2,19 @@ import { SYSTEM } from "../../config/system.js";
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
- * A sheet application for displaying Background type Items
+ * A sheet application for displaying and configuring Items with the Background type.
  * @extends ItemSheet
  * @mixes CrucibleSheet
  */
 export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
+  /** @override */
+  static documentType = "background";
+
   /** @inheritdoc */
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
-        classes: ["crucible-new", "sheet", "background"],
-        closeOnSubmit: true,
-        dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}],
-        height: "auto",
-        resizable: false,
-        submitOnChange: false,
-        template: `systems/${SYSTEM.id}/templates/sheets/background.hbs`,
-        width: 480
+        dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}]
     });
   }
 

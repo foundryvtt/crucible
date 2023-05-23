@@ -43,7 +43,7 @@
   --color-header: #cac5ba;
   --color-sidebar: #cfc7bb;
   --color-h1: #cfbea2;
-  --color-frame-bg: #3f3128;
+  --color-frame: #3f3128;
   --color-table-row: #1c1a1a;
   --color-accent: #cf9356;
   --color-link-text: #f36739;
@@ -172,7 +172,7 @@
   letter-spacing: 0;
 }
 .crucible-new .frame-brown {
-  background: var(--color-frame-bg);
+  background: var(--color-frame);
   border-image: url('../ui/journal/button-border.png');
   border-image-slice: 16;
   border-image-outset: 2;
@@ -180,7 +180,7 @@
   color: var(--color-h1);
 }
 .crucible-new ::-webkit-scrollbar-thumb {
-  background: var(--color-frame-bg);
+  background: var(--color-frame);
 }
 .crucible-new code {
   color: #d3caf6;
@@ -297,19 +297,28 @@
 .crucible-new textarea {
   padding: 0.5rem;
   background: var(--color-table-row);
-  border: 1px solid var(--color-frame-bg);
+  border: 1px solid var(--color-frame);
   border-radius: 8px;
   font-family: var(--font-body);
   font-size: var(--font-size-15);
   color: var(--color-text);
 }
 .crucible-new select {
-  background: var(--color-frame-bg);
+  background: var(--color-frame);
   color: var(--color-text);
   border: none;
 }
 .crucible-new select::selection {
-  background: var(--color-frame-bg);
+  background: var(--color-frame);
+}
+.crucible-new input[type="text"],
+.crucible-new input[type="number"],
+.crucible-new input[type="password"],
+.crucible-new input[type="date"],
+.crucible-new input[type="time"],
+.crucible-new input[type="search"] {
+  color: var(--color-text);
+  border-color: var(--color-frame);
 }
 .crucible-new form .hint {
   margin: 0.5rem 0;
@@ -362,7 +371,7 @@
   content: "\f14a";
 }
 .crucible-new input[type="checkbox"]:disabled::before {
-  color: var(--color-frame-bg);
+  color: var(--color-frame);
 }
 .crucible-new label.checkbox {
   display: flex;
@@ -944,6 +953,9 @@ h2.divider span {
   border: 1px solid var(--colorBeige);
   border-radius: 2px;
 }
+.crucible.sheet.actor .sheet-header .subtitle .tag[data-action] {
+  cursor: pointer;
+}
 .crucible.sheet.actor .sheet-header .subtitle .tag .control {
   cursor: pointer;
   font-size: var(--font-size-14);
@@ -1453,20 +1465,30 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Archetype Sheet                           *
  * ------------------------------------------ */
-.crucible.sheet.archetype .abilities {
+.crucible-new.archetype .abilities,
+.crucible-new.taxonomy .abilities {
   justify-content: space-between;
 }
-.crucible.sheet.archetype .abilities > label {
+.crucible-new.archetype .abilities > label,
+.crucible-new.taxonomy .abilities > label {
   flex: 0 0 60px;
   padding: 0;
 }
-.crucible.sheet.archetype .resistances {
+.crucible-new.archetype .resistances,
+.crucible-new.taxonomy .resistances {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.crucible.sheet.archetype .resistances > label {
-  flex: 0 0 72px;
+.crucible-new.archetype .resistances > label,
+.crucible-new.taxonomy .resistances > label {
+  flex: 0 0 90px;
   padding: 0;
+}
+.crucible-new.archetype .ability-sum,
+.crucible-new.taxonomy .ability-sum,
+.crucible-new.archetype .resistance-sum,
+.crucible-new.taxonomy .resistance-sum {
+  float: right;
 }
 /** ----------------------------------------- *
  *  Armor Sheet                               *
@@ -1589,7 +1611,7 @@ h2.divider span {
 }
 .crucible-new.journal-sheet .journal-sidebar .header-search input {
   margin: 0;
-  background: var(--color-frame-bg);
+  background: var(--color-frame);
   color: var(--color-text);
 }
 .crucible-new.journal-sheet .journal-sidebar .header-search input::placeholder {
@@ -2046,7 +2068,7 @@ h2.divider span {
 .crucible-new .hud {
   padding: 1rem;
   background: url("../ui/journal/background.png");
-  border: 1px solid var(--color-frame-bg);
+  border: 1px solid var(--color-frame);
   border-radius: 8px;
   z-index: var(--z-index-tooltip);
 }

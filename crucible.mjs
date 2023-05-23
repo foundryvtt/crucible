@@ -11,21 +11,7 @@ import CrucibleTalentNode from "./module/config/talent-tree.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
 // Data Models
-import CrucibleAction from "./module/data/action.mjs";
-import CrucibleAdversary from "./module/data/adversary.mjs";
-import CrucibleAncestry from "./module/data/ancestry.mjs";
-import CrucibleArchetype from "./module/data/archetype.mjs";
-import CrucibleArmor from "./module/data/armor.mjs";
-import CrucibleBackground from "./module/data/background.mjs";
-import CrucibleGesture from "./module/data/gesture.mjs";
-import CrucibleHero from "./module/data/hero.mjs";
-import CrucibleInflection from "./module/data/inflection.mjs";
-import CrucibleRune from "./module/data/rune.mjs";
-import CrucibleSkill from "./module/data/skill.mjs";
-import CrucibleSpell from "./module/data/spell.mjs";
-import CrucibleTalent from "./module/data/talent.mjs";
-import CrucibleTaxonomy from "./module/data/taxonomy.mjs";
-import CrucibleWeapon from "./module/data/weapon.mjs";
+import * as models from "./module/data/_module.mjs";
 
 // Documents
 import CrucibleActor from "./module/documents/actor.mjs";
@@ -66,22 +52,7 @@ Hooks.once("init", async function() {
       CrucibleTalentTree
     },
     dice,
-    models: {
-      CrucibleAction,
-      CrucibleAdversary,
-      CrucibleAncestry,
-      CrucibleArchetype,
-      CrucibleArmor,
-      CrucibleBackground,
-      CrucibleGesture,
-      CrucibleHero,
-      CrucibleInflection,
-      CrucibleRune,
-      CrucibleSpell,
-      CrucibleTalent,
-      CrucibleTaxonomy,
-      CrucibleWeapon
-    },
+    models,
     documents: {
       CrucibleActor,
       CrucibleChatMessage,
@@ -105,8 +76,8 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = CrucibleActor;
   CONFIG.Actor.dataModels = {
-    adversary: CrucibleAdversary,
-    hero: CrucibleHero
+    adversary: models.CrucibleAdversary,
+    hero: models.CrucibleHero
   };
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
@@ -115,17 +86,20 @@ Hooks.once("init", async function() {
   // Item document configuration
   CONFIG.Item.documentClass = CrucibleItem;
   CONFIG.Item.dataModels = {
-    ancestry: CrucibleAncestry,
-    armor: CrucibleArmor,
-    background: CrucibleBackground,
-    talent: CrucibleTalent,
-    weapon: CrucibleWeapon
+    ancestry: models.CrucibleAncestry,
+    archetype: models.CrucibleArchetype,
+    armor: models.CrucibleArmor,
+    background: models.CrucibleBackground,
+    talent: models.CrucibleTalent,
+    taxonomy: models.CrucibleTaxonomy,
+    weapon: models.CrucibleWeapon
   };
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Other Document Configuration
@@ -135,7 +109,7 @@ Hooks.once("init", async function() {
 
   // Journal Document Configuration
   Object.assign(CONFIG.JournalEntryPage.dataModels, {
-    "skill": CrucibleSkill
+    "skill": models.CrucibleSkill
   });
   DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
     label: "SHEETS.CrucibleJournal"
@@ -212,6 +186,7 @@ Hooks.once("i18nInit", function() {
     "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "CREATURE_STATURES", "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
+    "ADVERSARY.TAXONOMY_CATEGORIES",
     "SKILL.CATEGORIES", "SKILL.RANKS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
   ];
@@ -228,9 +203,9 @@ Hooks.once("i18nInit", function() {
   preLocalizeConfig();
 
   // Initialize Spellcraft Components
-  CrucibleGesture.initialize();
-  CrucibleInflection.initialize();
-  CrucibleRune.initialize();
+  models.CrucibleGesture.initialize();
+  models.CrucibleInflection.initialize();
+  models.CrucibleRune.initialize();
 
   // Preload Handlebars Templates
   loadTemplates([
@@ -252,7 +227,7 @@ Hooks.once("i18nInit", function() {
 Hooks.once("setup", function() {
 
   // Initialize Skill Data
-  CrucibleSkill.initialize();
+  models.CrucibleSkill.initialize();
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();
@@ -304,17 +279,8 @@ async function packageCompendium(documentName, packName, folderName) {
   await cls.deleteDocuments([], {pack: pack.collection, deleteAll: true});
   await Folder.deleteDocuments(Array.from(pack.folders.keys()), {pack: pack.collection});
 
-  // Identify Folders and Documents to create
-  const folderIds = new Set([folder.id]);
-  const foldersToCreate = folder.getSubfolders().map(folder => {
-    folderIds.add(folder.id);
-    return folder.toCompendium(pack, {clearSort: false, keepId: true})
-  });
-  const documentsToCreate = folder.contents.map(doc => doc.toCompendium(pack, {clearSort: true, keepId: true}));
-
-  // Create Folders and Documents
-  await Folder.createDocuments(foldersToCreate, {pack: pack.collection, keepId: true});
-  await cls.createDocuments(documentsToCreate, {pack: pack.collection, keepId: true});
+  // Export all children of the target folder
+  await folder.exportToCompendium(pack, {keepId: true, keepFolders: true});
 
   // Re-lock the pack
   await pack.configure({locked: true});

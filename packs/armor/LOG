@@ -1,8 +1,15 @@
-2023/05/21-12:21:48.254 1c910 Recovering log #612
-2023/05/21-12:21:48.259 1c910 Delete type=0 #612
-2023/05/21-12:21:48.259 1c910 Delete type=3 #611
-2023/05/21-22:39:26.267 39e24 Level-0 table #616: started
-2023/05/21-22:39:26.267 39e24 Level-0 table #616: 0 bytes OK
-2023/05/21-22:39:26.269 39e24 Delete type=0 #614
-2023/05/21-22:39:26.274 39e24 Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/05/21-22:39:26.275 39e24 Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/05/23-16:34:09.631 bef8 Recovering log #636
+2023/05/23-16:34:09.638 bef8 Delete type=0 #636
+2023/05/23-16:34:09.639 bef8 Delete type=3 #635
+2023/05/23-17:13:02.459 4a94c Level-0 table #640: started
+2023/05/23-17:13:02.460 4a94c Level-0 table #640: 820 bytes OK
+2023/05/23-17:13:02.461 4a94c Delete type=0 #638
+2023/05/23-17:13:02.463 4a94c Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!folders!mLC1TdXCG7bX8VE9' @ 0 : 0; will stop at (end)
+2023/05/23-17:13:02.466 4a94c Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!folders!mLC1TdXCG7bX8VE9' @ 0 : 0; will stop at '!items!studdedleatherar' @ 133 : 0
+2023/05/23-17:13:02.466 4a94c Compacting 1@1 + 1@2 files
+2023/05/23-17:13:02.467 4a94c Generated table #641@1: 3 keys, 590 bytes
+2023/05/23-17:13:02.467 4a94c Compacted 1@1 + 1@2 files => 590 bytes
+2023/05/23-17:13:02.468 4a94c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/05/23-17:13:02.468 4a94c Delete type=2 #328
+2023/05/23-17:13:02.468 4a94c Delete type=2 #640
+2023/05/23-17:13:02.471 4a94c Manual compaction at level-1 from '!items!studdedleatherar' @ 133 : 0 .. '!folders!mLC1TdXCG7bX8VE9' @ 0 : 0; will stop at (end)

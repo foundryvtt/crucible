@@ -6,6 +6,7 @@
 "TYPES.Item.archetype": "Archetype",
 "TYPES.Item.armor": "Armor",
 "TYPES.Item.background": "Background",
+"TYPES.Item.taxonomy": "Taxonomy",
 "TYPES.Item.talent": "Talent",
 "TYPES.Item.weapon": "Weapon",
 "TYPES.JournalEntryPage.skill": "Crucible Skill",
@@ -38,8 +39,9 @@
 "ACTOR.StatureHuge": "Huge",
 "ACTOR.StatureGargantuan": "Gargantuan",
 
+"ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
+
 "ANCESTRY.Abilities": "Ability Scores",
-"ANCESTRY.Applied": "Applied the {ancestry} ancestry to {actor}.",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
 "ANCESTRY.Clear": "Clear Ancestry",
@@ -128,7 +130,6 @@
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 
-"ARCHETYPE.Applied": "Applied the {archetype} archetype to {actor}.",
 "ARCHETYPE.Clear": "Clear Archetype",
 "ARCHETYPE.Configure": "Archetype",
 
@@ -157,7 +158,6 @@
 "ATTRIBUTES.Resistances": "Damage Resistances",
 
 "BACKGROUND.AddTalentHint": "Add a talent to this Background by dragging and dropping from the Talents compendium pack.",
-"BACKGROUND.Applied": "Applied the {background} background to {actor}.",
 "BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
 "BACKGROUND.Browse": "Browse Backgrounds",
 "BACKGROUND.Clear": "Clear Background",
@@ -356,9 +356,18 @@
 
 "TALENT.PointsAvailable": "Points Available",
 
-"TAXONOMY.Applied": "Applied the {taxonomy} Taxonomy to {actor}.",
 "TAXONOMY.Clear": "Clear Taxonomy",
 "TAXONOMY.Configure": "Taxonomy",
+"TAXONOMY.Abilities": "Base Abilities",
+"TAXONOMY.AbilitiesHint": "Define how the ability scores for creatures of this Taxonomy scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Scores with a lower value advance more frequently. For example a score with the value of 2 will increase every 2nd level while a score with a value of 5 will advance every 5 levels.",
+"TAXONOMY.Resistances": "Resistance Scaling",
+"TAXONOMY.ResistancesHint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 and +3. The total across all resistances must sum to zero.",
+"TAXONOMY.Category": "Category",
+
+"TAXONOMY.CategoryBeast": "Beast",
+"TAXONOMY.CategoryGiant": "Giant",
+"TAXONOMY.CategoryHumanoid": "Humanoid",
+"TAXONOMY.CategoryUndead": "Undead",
 
 "WEAPON.Light1": "Light (1h)",
 "WEAPON.Simple1": "Simple (1h)",

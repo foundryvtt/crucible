@@ -1,5 +1,6 @@
 import * as ATTRIBUTES from "./attributes.mjs";
 import * as ACTION from "./action.mjs";
+import * as ADVERSARY from "./adversaries.mjs";
 import * as ARMOR from "./armor.js";
 import * as dice from "./dice.js";
 import * as EFFECTS from "./effects.mjs";
@@ -29,8 +30,10 @@ export const ANCESTRIES = {
  */
 export const COMPENDIUM_PACKS = {
   ancestry: "crucible.ancestry",
+  archetype: "crucible.archetype",
   background: "crucible.background",
-  talent: "crucible.talent"
+  talent: "crucible.talent",
+  taxonomy: "crucible.taxonomy"
 }
 
 /* -------------------------------------------- */
@@ -116,25 +119,26 @@ export const THREAT_LEVELS = {
  */
 export const SYSTEM = {
   id: SYSTEM_ID,
-  activeCheckFormula: "3d8",
   ABILITIES: ATTRIBUTES.ABILITIES,
-  DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
-  DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
-  RESOURCES: ATTRIBUTES.RESOURCES,
-  PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
-  DEFENSES: ATTRIBUTES.DEFENSES,
   ACTION,
-  ARMOR,
-  dice: dice,
+  ADVERSARY,
   ANCESTRIES,
+  ARMOR,
   COMPENDIUM_PACKS,
   CREATURE_STATURES,
+  DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
+  DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
+  DEFENSES: ATTRIBUTES.DEFENSES,
   EFFECTS,
   ENCHANTMENT_TIERS,
+  PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
   QUALITY_TIERS,
-  SPELL,
+  RESOURCES: ATTRIBUTES.RESOURCES,
   SKILL,
   SKILLS: SKILL.SKILLS, // alias
+  SPELL,
   THREAT_LEVELS,
   WEAPON,
+  activeCheckFormula: "3d8",
+  dice: dice
 };

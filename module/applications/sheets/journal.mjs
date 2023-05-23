@@ -7,10 +7,10 @@ import CrucibleSheetMixin from "./crucible-sheet.mjs";
  */
 export default class CrucibleJournalSheet extends CrucibleSheetMixin(JournalSheet) {
 
-  /** @inheritDoc */
+  /** @override */
   static get defaultOptions() {
-    const options = super.defaultOptions;
-    options.classes.unshift("crucible-new");
+    const options = JournalSheet.defaultOptions;
+    options.classes.unshift("crucible-new", "journal-sheet");
     return options;
   }
 

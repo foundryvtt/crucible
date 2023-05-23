@@ -3,7 +3,7 @@ import {SYSTEM} from "../config/system.js";
 /**
  * Define the data schema and functionality of a Taxonomy applied to Adversary creatures.
  */
-export default class CrucibleTaxonomy extends foundry.abstract.DataModel {
+export default class CrucibleTaxonomy extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -15,11 +15,10 @@ export default class CrucibleTaxonomy extends foundry.abstract.DataModel {
     const nullableInteger = {required: true, nullable: true, integer: true};
     const requiredInteger = {required: true, nullable: false, integer: true};
     return {
-      name: new fields.StringField(),
       description: new fields.HTMLField(),
-      category: new fields.StringField({required: true, choices: CrucibleTaxonomy.CATEGORIES, initial: "humanoid"}),
+      category: new fields.StringField({choices: SYSTEM.ADVERSARY.TAXONOMY_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 8})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleTaxonomy.#validateAbilities}),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
@@ -50,18 +49,6 @@ export default class CrucibleTaxonomy extends foundry.abstract.DataModel {
     const sum = Object.values(resistances).reduce((t, n) => t + n, 0);
     if ( sum !== 0 ) throw new Error(`The sum of resistance scaling values must equal zero. Currently ${sum}`);
   }
-
-  /* -------------------------------------------- */
-
-  /**
-   * The categories that an adversary may have
-   * @enum {number}
-   */
-  static CATEGORIES = Object.freeze({
-    beast: "CRUCIBLE.AdversaryCategoryBeast",
-    humanoid: "CRUCIBLE.AdversaryCategoryHumanoid",
-    undead: "CRUCIBLE.AdversaryCategoryUndead"
-  });
 
   /* -------------------------------------------- */
   /*  Properties                                  */

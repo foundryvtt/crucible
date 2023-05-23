@@ -5,11 +5,13 @@
     "hero": {}
   },
   "Item": {
-    "types": ["ancestry", "armor", "background", "talent", "weapon"],
+    "types": ["ancestry", "archetype","armor", "background", "talent", "taxonomy","weapon"],
     "ancestry": {},
+    "archetype": {},
     "background": {},
     "armor": {},
     "talent": {},
+    "taxonomy": {},
     "weapon": {}
   },
   "JournalEntryPage": {

@@ -16,11 +16,14 @@ export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
   /* -------------------------------------------- */
 
   /** @override */
+  static documentType = "skill";
+
+  /* -------------------------------------------- */
+
+  /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 660,
-      height: "auto",
-      classes: ["crucible-new", "sheet", "skill"],
       template: `systems/${SYSTEM.id}/templates/config/skill.hbs`,
       resizable: true,
       scrollY: [".scrollable"],

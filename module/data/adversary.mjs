@@ -1,6 +1,7 @@
 import CrucibleArchetype from "./archetype.mjs";
 import CrucibleTaxonomy from "./taxonomy.mjs";
 import {SYSTEM} from "../config/system.js";
+import CrucibleAncestry from "./ancestry.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
@@ -38,9 +39,17 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     // Details
     schema.details = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
-      archetype: new fields.EmbeddedDataField(CrucibleArchetype),
+      archetype: new fields.SchemaField({
+        name: new fields.StringField({blank: false}),
+        img: new fields.StringField(),
+        ...CrucibleArchetype.defineSchema()
+      }, {required: true, nullable: true, initial: null}),
       stature: new fields.StringField({required: true, choices: SYSTEM.CREATURE_STATURES, initial: "medium"}),
-      taxonomy: new fields.EmbeddedDataField(CrucibleTaxonomy),
+      taxonomy: new fields.SchemaField({
+        name: new fields.StringField({blank: false}),
+        img: new fields.StringField(),
+        ...CrucibleTaxonomy.defineSchema()
+      }, {required: true, nullable: true, initial: null}),
       threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"}),
       biography: new fields.SchemaField({
         public: new fields.HTMLField(),
@@ -319,5 +328,29 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
         && grimoire.runes.find(r => r.damageType === id)) r.base += 5;
       r.total = r.base + r.bonus;
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Apply an Archetype item to this Adversary Actor.
+   * @param {CrucibleItem|object|null} item    An Item document, object of Item data, or null to clear the archetype
+   * @returns {Promise<void>}
+   */
+  async applyArchetype(item) {
+    return this.parent._applyDetailItem(item, "archetype", {canApply: true, canClear: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply a Taxonomy item to this Adversary Actor.
+   * @param {CrucibleItem|object|null} item    An Item document, object of Item data, or null to clear the taxonomy
+   * @returns {Promise<void>}
+   */
+  async applyTaxonomy(item) {
+    return this.parent._applyDetailItem(item, "taxonomy", {canApply: true, canClear: true});
   }
 }

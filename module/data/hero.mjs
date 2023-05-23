@@ -47,10 +47,12 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     schema.details = new fields.SchemaField({
       ancestry: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
+        img: new fields.StringField(),
         ...CrucibleAncestry.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       background: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
+        img: new fields.StringField(),
         ...CrucibleBackground.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       biography: new fields.SchemaField({
@@ -392,5 +394,37 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
         && grimoire.runes.find(r => r.damageType === id)) r.base += 5;
       r.total = r.base + r.bonus;
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Hero Specific Helper Methods                */
+  /* -------------------------------------------- */
+
+  /**
+   * Apply an Ancestry item to this Hero Actor.
+   * @param {object|null} itemData  The ancestry data to apply to the Actor.
+   * @returns {Promise<void>}
+   */
+  async applyAncestry(itemData) {
+    const actor = this.parent;
+    await actor._applyDetailItem(itemData, "ancestry", {
+      canApply: actor.isL0 && !actor.points.ability.spent,
+      canClear: actor.isL0
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply a Background item to this Hero Actor.
+   * @param {object|null} itemData    The background data to apply to the Actor.
+   * @returns {Promise<void>}
+   */
+  async applyBackground(itemData) {
+    const actor = this.parent;
+    await actor._applyDetailItem(itemData, "background", {
+      canApply: actor.isL0 && !actor.points.skill.spent,
+      canClear: actor.isL0
+    });
   }
 }

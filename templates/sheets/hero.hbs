@@ -30,20 +30,20 @@
                        {{#if isL0}}disabled{{/if}}>
             </div>
             <div class="subtitle flexrow">
-                <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive" data-tooltip="WALKTHROUGH.AddAncestry{{/if}}">
+                <h2 class="ancestry tag flexrow {{#if incomplete.ancestry}}inactive" data-tooltip="WALKTHROUGH.AddAncestry{{/if}}"
+                    data-action="viewAncestry">
                     {{ancestryName}}
                     {{#if incomplete.ancestry}}
-                    <i class="control incomplete fa-solid fa-plus-circle" data-action="browseCompendium"
-                       data-pack="{{packs.ancestry}}" data-tooltip="ANCESTRY.Browse"></i>
+                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="ANCESTRY.Browse"></i>
                     {{else if isL0}}
                     <i class="control fas fa-times-circle" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear"></i>
                     {{/if}}
                 </h2>
-                <h2 class="background tag flexrow {{#if incomplete.background}}inactive" data-tooltip="WALKTHROUGH.AddBackground"{{/if}}">
+                <h2 class="background tag flexrow {{#if incomplete.background}}inactive" data-tooltip="WALKTHROUGH.AddBackground"{{/if}}"
+                    data-action="viewBackground">
                     {{backgroundName}}
                     {{#if incomplete.background}}
-                    <i class="control incomplete fa-solid fa-plus-circle" data-action="browseCompendium"
-                       data-pack="{{packs.background}}" data-tooltip="BACKGROUND.Browse"></i>
+                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="BACKGROUND.Browse"></i>
                     {{else if isL0}}
                     <i class="control fas fa-times-circle" data-action="clearBackground" data-tooltip="BACKGROUND.Clear"></i>
                     {{/if}}

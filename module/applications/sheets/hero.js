@@ -133,19 +133,17 @@ export default class HeroSheet extends CrucibleActorSheet {
   /** @inheritDoc */
   async _onClickControl(event) {
     event.preventDefault();
+    event.stopPropagation();
     const a = event.currentTarget;
     switch ( a.dataset.action ) {
       case "abilityDecrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
-      case "browseCompendium":
-        const pack = game.packs.get(a.dataset.pack);
-        return pack.render(true);
       case "clearAncestry":
-        return this.actor.applyAncestry(null);
+        return this.actor.system.applyAncestry(null);
       case "clearBackground":
-        return this.actor.applyBackground(null);
+        return this.actor.system.applyBackground(null);
       case "levelUp":
         game.tooltip.deactivate();
         return this.actor.levelUp(1);
@@ -162,6 +160,10 @@ export default class HeroSheet extends CrucibleActorSheet {
         return this.actor.toggleTalentTree();
       case "talentReset":
         return this.actor.resetTalents();
+      case "viewAncestry":
+        return this.actor._viewDetailItem("ancestry", {editable: false});
+      case "viewBackground":
+        return this.actor._viewDetailItem("background", {editable: false});
     }
     return super._onClickControl(event);
   }
@@ -184,12 +186,10 @@ export default class HeroSheet extends CrucibleActorSheet {
   /** @override */
   async _onDropItemCreate(itemData) {
     switch (itemData.type) {
-      case "archetype":
-        return ui.notifications.error("Archetype items cannot be added to a protagonist Actor.")
       case "ancestry":
-        return this.actor.applyAncestry(itemData);
+        return this.actor.system.applyAncestry(itemData);
       case "background":
-        return this.actor.applyBackground(itemData);
+        return this.actor.system.applyBackground(itemData);
       case "talent":
         return ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
     }

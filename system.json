@@ -16,35 +16,36 @@
     {
       "name": "ancestry",
       "label": "Ancestries",
-      "system": "crucible",
       "path": "packs/ancestry",
+      "type": "Item"
+    },
+    {
+      "name": "archetype",
+      "label": "Archetypes",
+      "path": "packs/archetype",
       "type": "Item"
     },
     {
       "name": "armor",
       "label": "Armor",
-      "system": "crucible",
       "path": "packs/armor",
       "type": "Item"
     },
     {
       "name": "background",
       "label": "Backgrounds",
-      "system": "crucible",
       "path": "packs/background",
       "type": "Item"
     },
     {
       "name": "rules",
       "label": "System Rules",
-      "system": "crucible",
       "path": "packs/rules",
       "type": "JournalEntry"
     },
     {
       "name": "summons",
       "label": "Summoned Creatures",
-      "system": "crucible",
       "path": "packs/summons",
       "type": "Actor",
       "ownership": {
@@ -54,24 +55,24 @@
     {
       "name": "pregens",
       "label": "Pregenerated Heroes",
-      "system": "crucible",
       "path": "packs/pregens",
       "type": "Actor"
     },
     {
       "name": "talent",
       "label": "Talents",
-      "system": "crucible",
       "path": "packs/talent",
-      "type": "Item",
-      "ownership": {
-        "PLAYER": "OBSERVER"
-      }
+      "type": "Item"
+    },
+    {
+      "name": "taxonomy",
+      "label": "Taxonomies",
+      "path": "packs/taxonomy",
+      "type": "Item"
     },
     {
       "name": "weapon",
       "label": "Weapons",
-      "system": "crucible",
       "path": "packs/weapon",
       "type": "Item"
     }

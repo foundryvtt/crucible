@@ -120,31 +120,24 @@ export default class CrucibleItem extends Item {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
-
-    // Prevent creating certain types of items
     if ( this.isOwned ) {
       switch (data.type) {
         case "ancestry":
-          if ( this.parent.type === "hero" ) {
-            await this.parent.applyAncestry(this);
-            options.temporary = true;
-          }
-          return;
+          if ( this.parent.type === "hero" ) await this.parent.system.applyAncestry(this);
+          return false;   // Prevent creation
         case "archetype":
-          if ( this.parent.type === "archetype" ) {
-            await this.parent.applyArchetype(this);
-            options.temporary = true;
-          }
-          return;
+          if ( this.parent.type === "adversary" ) await this.parent.system.applyArchetype(this);
+          return false;   // Prevent creation
         case "background":
-          if ( this.parent.type === "hero" ) {
-            await this.applyBackground(this);
-            options.temporary = true;
-          }
-          return;
+          if ( this.parent.type === "hero" ) await this.parent.system.applyBackground(this);
+          return false;   // Prevent creation
         case "talent":
           options.keepId = true;
           options.keepEmbeddedIds = true;
+          break;          // Allow creation
+        case "taxonomy":
+          if ( this.parent.type === "adversary" ) await this.parent.system.applyTaxonomy(this);
+          return false;   // Prevent creation
       }
     }
   }

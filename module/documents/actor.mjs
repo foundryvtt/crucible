@@ -1310,100 +1310,6 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * When an Ancestry item is dropped on an Actor, apply its contents to the data model
-   * @param {object|null} itemData  The ancestry data to apply to the Actor.
-   * @return {CrucibleActor}        The updated Actor with the new Ancestry applied.
-   */
-  async applyAncestry(itemData) {
-
-    // Clear an existing ancestry
-    if ( !itemData ) {
-      if ( this.isL0 ) return this.update({"system.details.ancestry": null});
-      else throw new Error("Ancestry data not provided");
-    }
-
-    const ancestry = foundry.utils.deepClone(itemData.system);
-    ancestry.name = itemData.name;
-
-    // Only proceed if we are level 1 with no points already spent
-    if ( !this.isL0 || (this.points.skill.spent > 0) || (this.points.ability.spent > 0) ) {
-      const err = game.i18n.localize("ANCESTRY.ApplyError");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
-
-    // Update the Actor
-    await this.update({"system.details.ancestry": ancestry});
-    ui.notifications.info(game.i18n.format("ANCESTRY.Applied", {ancestry: ancestry.name, actor: this.name}));
-    return this;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * When a Background item is dropped on an Actor, apply its contents to the data model
-   * @param {object|null} itemData    The background data to apply to the Actor.
-   * @return {CrucibleActor}          The updated Actor with the new Background applied.
-   */
-  async applyBackground(itemData) {
-
-    // Clear an existing background
-    if ( !itemData ) {
-      if ( this.isL0 ) return this.#clearBackground();
-      else throw new Error("Background data not provided");
-    }
-
-    // Only proceed if we are level 1 with no points already spent
-    if ( !this.isL0 || (this.points.skill.spent > 0) ) {
-      const err = game.i18n.localize("BACKGROUND.ApplyError");
-      ui.notifications.warn(err);
-      throw new Error(err);
-    }
-
-    // Prepare Background data
-    const background = foundry.utils.deepClone(itemData.system);
-    background.name = itemData.name;
-    const talents = await Promise.all(background.talents.map(fromUuid));
-
-    // Update the Actor
-    await this.update({
-      "system.details.background": background,
-      items: talents.map(t => t.toObject())
-    }, {keepEmbeddedIds: true});
-    ui.notifications.info(game.i18n.format("BACKGROUND.Applied", {background: background.name, actor: this.name}));
-    return this;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Remove an assigned background, also removing any talents that the background provided.
-   * @returns {Promise<void>}
-   */
-  async #clearBackground() {
-    const backgroundTalents = Array.from(this.system.details.background?.talents || []);
-    await this.deleteEmbeddedDocuments("Item", backgroundTalents);
-    await this.update({"system.details.background": null});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply data from an Archetype Item to this Actor.
-   * @param {CrucibleItem} item         The Archetype Item to apply
-   * @return {Promise<CrucibleActor>}   The updated Actor with the Archetype applied
-   */
-  async applyArchetype(item) {
-    const archetype = item.toObject().system;
-    archetype.name = item.name;
-    await this.update({"system.details.archetype": archetype});
-    ui.notifications.info(game.i18n.format("ARCHETYPE.Applied", {archetype: item.name, actor: this.name}));
-    return this;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Advance the Actor a certain number of levels (or decrease level with a negative delta).
    * When advancing in level, resources are restored and advancement progress is reset.
    * @param {number} delta                The number of levels to advance or decrease
@@ -1560,6 +1466,93 @@ export default class CrucibleActor extends Actor {
 
     // Can purchase
     return true;
+  }
+
+  /* -------------------------------------------- */
+
+
+  /**
+   * Apply actor detail data.
+   * This is an internal helper method not intended for external use.
+   * @param {CrucibleItem|object|null} item    An Item document, object of Item data, or null to clear data
+   * @param {string} type                     The data type, either "archetype" or "taxonomy"
+   * @param {object} [options]                Options which affect how details are applied
+   * @param {boolean} [options.canApply]        Allow new detail data to be applied?
+   * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _applyDetailItem(item, type, {canApply=true, canClear=false}={}) {
+    if ( !(type in this.system.details) ) {
+      throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
+    }
+
+    // Clear existing data
+    const key = `system.details.${type}`;
+    if ( item === null ) {
+      if ( !canClear ) throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
+      const existing = this.system.details[type];
+      if ( existing.talents?.size ) {
+        const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
+        await this.deleteEmbeddedDocuments("Item", deleteIds);
+      }
+      return this.update({[key]: null});
+    }
+
+    // Verify that a valid item was provided
+    if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
+    const itemData = item instanceof Item ? item.toObject() : foundry.utils.deepClone(item);
+    if ( itemData.type !== type) throw new Error(`You must provide a "${type}" item.`);
+
+    // Prepare update data
+    const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+    const updateData = {[key]: detail};
+    if ( detail.talents?.length ) {
+      updateData.items = [];
+      for ( const uuid of detail.talents ) {
+        const doc = await fromUuid(uuid);
+        if ( doc ) updateData.items.push(doc.toObject());
+      }
+    }
+
+    // Perform the update
+    await this.update(updateData, {keepEmbeddedIds: true});
+    ui.notifications.info(game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name}));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * View actor detail data as an editable item.
+   * This is an internal helper method not intended for external use.
+   * @param {string} type         The data type, either "archetype" or "taxonomy"
+   * @param {object} [options]    Options that configure how the data is viewed
+   * @param {boolean} [options.editable]    Is the detail item editable?
+   * @returns {Promise<void>}
+   * @internal
+   */
+  async _viewDetailItem(type, {editable=false}={}) {
+    if ( !(type in this.system.details) ) {
+      throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
+    }
+    const data = this.toObject().system.details[type];
+
+    // View current data
+    if ( data?.name ) {
+      const cls = getDocumentClass("Item");
+      const item = new cls({
+        name: data.name,
+        img: data.img,
+        type: type,
+        system: foundry.utils.deepClone(data)
+      }, {parent: this});
+      item.sheet.render(true, {editable});
+      return;
+    }
+
+    // Browse compendium pack
+    const pack = game.packs.get(SYSTEM.COMPENDIUM_PACKS[type]);
+    pack.render(true);
   }
 
   /* -------------------------------------------- */

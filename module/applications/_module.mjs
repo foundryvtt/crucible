@@ -1,7 +1,6 @@
 // Config Apps
 export {default as ArchetypeConfig} from "./config/archetype.mjs";
 export {default as SkillConfig} from "./config/skill.mjs";
-export {default as TaxonomyConfig} from "./config/taxonomy.mjs";
 
 // Sheet Apps
 export {default as CrucibleActorSheet} from "./sheets/actor.mjs";
@@ -13,6 +12,7 @@ export {default as HeroSheet} from "./sheets/hero.js";
 export {default as CrucibleJournalSheet} from "./sheets/journal.mjs";
 export {default as SkillPageSheet} from "./sheets/skill.mjs";
 export {default as TalentSheet} from "./sheets/talent.mjs";
+export {default as TaxonomySheet} from "./sheets/taxonomy.mjs";
 export {default as WeaponSheet} from "./sheets/weapon.mjs";
 
 // Sidebar Apps
