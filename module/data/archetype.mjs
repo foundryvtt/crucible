@@ -19,7 +19,9 @@ export default class CrucibleArchetype extends foundry.abstract.DataModel {
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 6})
         return obj;
-      }, {}), {validate: CrucibleArchetype.#validateAbilities})
+      }, {}), {validate: CrucibleArchetype.#validateAbilities}),
+      talents: new fields.SetField(new fields.StringField({required: true},
+        {validate: CrucibleArchetype.#validateUuid}))
     }
   }
 
@@ -32,6 +34,19 @@ export default class CrucibleArchetype extends foundry.abstract.DataModel {
   static #validateAbilities(abilities) {
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
     if ( sum !== 18 ) throw new Error(`The sum of ability scaling values must equal 18. Currently ${sum}`);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Validate that each entry in the talents Set is a UUID.
+   * @param {string} uuid     The candidate value
+   */
+  static #validateUuid(uuid) {
+    const {documentType, documentId} = foundry.utils.parseUuid(uuid);
+    if ( CONST.DOCUMENT_TYPES.includes(documentType) || !foundry.data.validators.isValidId(documentId) ) {
+      throw new Error(`"${uuid}" is not a valid Talent UUID string`);
+    }
   }
 
   /* -------------------------------------------- */

@@ -1,11 +1,10 @@
 // Config Apps
-export {default as ArchetypeConfig} from "./config/archetype.mjs";
 export {default as SkillConfig} from "./config/skill.mjs";
 
 // Sheet Apps
-export {default as CrucibleActorSheet} from "./sheets/actor.mjs";
 export {default as AdversarySheet} from "./sheets/adversary.mjs";
 export {default as AncestrySheet} from "./sheets/ancestry.mjs";
+export {default as ArchetypeSheet} from "./sheets/archetype.mjs";
 export {default as ArmorSheet} from "./sheets/armor.mjs";
 export {default as BackgroundSheet} from "./sheets/background.mjs";
 export {default as HeroSheet} from "./sheets/hero.js";

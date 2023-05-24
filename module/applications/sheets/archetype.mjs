@@ -2,40 +2,39 @@ import { SYSTEM } from "../../config/system.js";
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Background type.
+ * A sheet application for displaying and configuring Items with the Archetype type.
  * @extends ItemSheet
  * @mixes CrucibleSheet
  */
-export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
+export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /** @override */
-  static documentType = "background";
+  static documentType = "archetype";
 
   /** @inheritdoc */
-	static get defaultOptions() {
-	  return foundry.utils.mergeObject(super.defaultOptions, {
-        dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}]
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}]
     });
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async getData(options) {
+  /** @inheritdoc */
+  async getData(options={}) {
     const isEditable = this.isEditable;
-    const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
+    const source = this.document.toObject();
     return {
       cssClass: isEditable ? "editable" : "locked",
       editable: isEditable,
-      item: this.document,
-      source: this.document.toObject(),
-      skills: Object.entries(skills).map(e => {
-        let [id, s] = e;
-        s.id = id;
-        s.checked = this.document.system.skills.has(id);
-        return s;
-      }),
-      talents: await BackgroundSheet.#prepareTalents(this.document.system.talents)
+      item: this.object,
+      source: source,
+      abilities: Object.values(SYSTEM.ABILITIES).map(ability => ({
+        id: ability.id,
+        label: ability.label,
+        value: source.system.abilities[ability.id]
+      })),
+      talents: await ArchetypeSheet.#prepareTalents(this.document.system.talents)
     };
   }
 
@@ -69,8 +68,8 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
         <img class="icon" src="${talent.img}" alt="${talent.name}">
         <h4 class="title">${talent.name}</h4>
         <div class="tags">${Object.entries(talent.system.getTags()).map(([type, tag]) => {
-          return `<span class="tag" data-tag="${type}">${tag}</span>`;
-        }).join("")}</div>
+      return `<span class="tag" data-tag="${type}">${tag}</span>`;
+    }).join("")}</div>
         <a class="button remove-talent" data-action="removeTalent" data-tooltip="BACKGROUND.RemoveTalent">
             <i class="fa-solid fa-times"></i>
         </a>
@@ -81,34 +80,32 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   activateListeners(html) {
     super.activateListeners(html);
     html.on("click", "[data-action]", this.#onClickAction.bind(this));
-    this._disableSkills();
+    this.#updateAbilitySum();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onChangeInput(event) {
+    await super._onChangeInput(event);
+    const name = event.currentTarget.name;
+    if ( name.includes("abilities") ) this.#updateAbilitySum();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Disable skill selection if 2 skills have already been chosen
-   * @private
+   * Update the indicator for whether the ability configuration for the Taxonomy is valid.
    */
-  _disableSkills() {
-    if ( !this.isEditable ) return;
-    const skills = this.element.find(".skills input");
-    const checked = Array.from(skills).reduce((n, s) => n + (s.checked ? 1 : 0), 0);
-    for ( let s of skills ) {
-      s.disabled = ((checked === 4) && !s.checked);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _onChangeInput(event) {
-    await super._onChangeInput(event);
-    this._disableSkills();
+  #updateAbilitySum() {
+    const abilities = this.element.find(".abilities input[type='number']");
+    const sum = Array.from(abilities).reduce((t, input) => t + input.valueAsNumber, 0);
+    const icon = sum === 18 ? "fa-solid fa-check" : "fa-solid fa-times";
+    this.element.find("span.ability-sum").html(`${sum} <i class="${icon}"></i>`);
   }
 
   /* -------------------------------------------- */
@@ -133,11 +130,8 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
     if ( data.type !== "Item" ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) return;
-    if ( talent.system.node.tier !== 0 ) {
-      return ui.notifications.error("BACKGROUND.TalentTierError", {localize: true});
-    }
-    const talents = this.element[0].querySelector(".talents");
-    talents.innerHTML = BackgroundSheet.#getTalentHTML(talent);
+    const talents = this.element[0].querySelector(".talents .droppable");
+    talents.insertAdjacentHTML("beforebegin", ArchetypeSheet.#getTalentHTML(talent));
     this.setPosition({height: "auto"});
   }
 
@@ -146,16 +140,19 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @inheritDoc */
   _getSubmitData(updateData={}) {
     const formData = super._getSubmitData(updateData);
-
-    // Skills
-    formData["system.skills"] = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
-      if ( formData[s] === true ) skills.push(s);
-      return skills;
-    }, []);
-
-    // Talents
     const talents = this.element[0].querySelectorAll(".talents .talent");
     formData["system.talents"] = Array.from(talents).map(t => t.dataset.uuid);
     return formData;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  async _updateObject(event, formData) {
+    if ( this.document.parent instanceof Actor ) {
+      const diff = this.object.updateSource(formData);
+      if ( !foundry.utils.isEmpty(diff) ) return this.actor.system.applyArchetype(this.object);
+    }
+    return this.document.update(formData);
   }
 }

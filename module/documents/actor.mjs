@@ -1486,38 +1486,46 @@ export default class CrucibleActor extends Actor {
     if ( !(type in this.system.details) ) {
       throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
     }
+    if ( (item === null) && !canClear ) {
+      throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
+    }
+    if ( item && !canApply ) {
+      throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
+    }
+    if ( item && (item.type !== type) ) throw new Error(`You must provide a "${type}" item.`);
 
-    // Clear existing data
+    // Prepare data
     const key = `system.details.${type}`;
-    if ( item === null ) {
-      if ( !canClear ) throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
-      const existing = this.system.details[type];
-      if ( existing.talents?.size ) {
-        const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
-        await this.deleteEmbeddedDocuments("Item", deleteIds);
-      }
-      return this.update({[key]: null});
+    const updateData = {};
+    let message;
+
+    // Remove existing talents
+    const existing = this.system.details[type];
+    if ( existing.talents?.size ) {
+      const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
+      await this.deleteEmbeddedDocuments("Item", deleteIds);
     }
 
-    // Verify that a valid item was provided
-    if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
-    const itemData = item instanceof Item ? item.toObject() : foundry.utils.deepClone(item);
-    if ( itemData.type !== type) throw new Error(`You must provide a "${type}" item.`);
+    // Clear the detail data
+    if ( item === null ) updateData[key] = null;
 
-    // Prepare update data
-    const detail = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
-    const updateData = {[key]: detail};
-    if ( detail.talents?.length ) {
-      updateData.items = [];
-      for ( const uuid of detail.talents ) {
-        const doc = await fromUuid(uuid);
-        if ( doc ) updateData.items.push(doc.toObject());
+    // Add new detail data
+    else {
+      const itemData = item instanceof Item ? item.toObject() : foundry.utils.deepClone(item);
+      const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+      if ( detail.talents?.length ) {
+        updateData.items = [];
+        for ( const uuid of detail.talents ) {
+          const doc = await fromUuid(uuid);
+          if ( doc ) updateData.items.push(doc.toObject());
+        }
       }
+      message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
 
     // Perform the update
     await this.update(updateData, {keepEmbeddedIds: true});
-    ui.notifications.info(game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name}));
+    if ( message ) ui.notifications.info(message);
   }
 
   /* -------------------------------------------- */

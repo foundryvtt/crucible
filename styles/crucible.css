@@ -266,7 +266,8 @@
   letter-spacing: 0;
 }
 .crucible-new section.gameplay strong {
-  font-size: var(--font-size-15);
+  font-family: var(--font-body);
+  font-size: var(--font-size-14);
   font-style: normal;
 }
 .crucible-new section.formula {
@@ -385,6 +386,22 @@
   position: unset;
   height: 100%;
 }
+.crucible-new figure.placeholder {
+  position: relative;
+}
+.crucible-new figure.placeholder::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "PLACEHOLDER";
+  color: white;
+  text-shadow: 1px 1px #000;
+  font-size: 24px;
+}
 /* ----------------------------------------- */
 /*  Apps and Sheets                          */
 /* ----------------------------------------- */
@@ -413,6 +430,9 @@
   background: none;
   color: var(--color-text);
 }
+.crucible-new.window-app .window-content > form {
+  height: 100%;
+}
 .crucible-new.window-app .sheet-header {
   margin-bottom: 1rem;
 }
@@ -421,7 +441,7 @@
 }
 .crucible-new.window-app .sheet-header h1 input {
   border: none;
-  color: inherit;
+  color: var(--color-text);
 }
 .crucible-new.window-app .sheet-body.flexcol {
   gap: 1rem;
@@ -553,22 +573,6 @@
   flex: 0 0 24px;
   height: 24px;
   border-radius: 4px;
-}
-.crucible figure.placeholder {
-  position: relative;
-}
-.crucible figure.placeholder::after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  content: "PLACEHOLDER";
-  color: white;
-  text-shadow: 1px 1px #000;
-  font-size: 24px;
 }
 /* Tooltips */
 #crucible-tooltip,
@@ -1467,28 +1471,46 @@ h2.divider span {
  * ------------------------------------------ */
 .crucible-new.archetype .abilities,
 .crucible-new.taxonomy .abilities {
-  justify-content: space-between;
-}
-.crucible-new.archetype .abilities > label,
-.crucible-new.taxonomy .abilities > label {
-  flex: 0 0 60px;
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.5rem;
 }
 .crucible-new.archetype .resistances,
 .crucible-new.taxonomy .resistances {
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.5rem;
 }
-.crucible-new.archetype .resistances > label,
-.crucible-new.taxonomy .resistances > label {
-  flex: 0 0 90px;
-  padding: 0;
+.crucible-new.archetype .abilities label,
+.crucible-new.taxonomy .abilities label,
+.crucible-new.archetype .resistances label,
+.crucible-new.taxonomy .resistances label {
+  padding: 0.25rem;
+  border: 1px solid var(--color-frame);
+  border-radius: 6px;
+}
+.crucible-new.archetype .abilities input,
+.crucible-new.taxonomy .abilities input,
+.crucible-new.archetype .resistances input,
+.crucible-new.taxonomy .resistances input {
+  font-size: var(--font-size-20);
+  border-color: transparent;
 }
 .crucible-new.archetype .ability-sum,
 .crucible-new.taxonomy .ability-sum,
 .crucible-new.archetype .resistance-sum,
 .crucible-new.taxonomy .resistance-sum {
   float: right;
+}
+.crucible-new.archetype .talents,
+.crucible-new.taxonomy .talents {
+  gap: 1rem;
+}
+.crucible-new.archetype .droppable,
+.crucible-new.taxonomy .droppable {
+  padding: 0 1rem;
+  border: 1px dashed var(--color-frame);
+  border-radius: 6px;
 }
 /** ----------------------------------------- *
  *  Armor Sheet                               *
@@ -1526,9 +1548,6 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible-new.background form {
-  height: 100%;
-}
 .crucible-new.background .skills .form-fields {
   flex-wrap: wrap;
   gap: 0.5rem 0;
@@ -1589,7 +1608,6 @@ h2.divider span {
   padding: 0 2rem;
   font-size: var(--font-size-15);
   line-height: var(--font-size-20);
-  text-align: justify;
 }
 .crucible-new.journal-sheet .journal-page-content > h2,
 .crucible-new.journal-sheet .journal-page-content > h3,
@@ -1601,6 +1619,9 @@ h2.divider span {
 }
 .crucible-new.journal-sheet .journal-page-content :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
   margin-top: 2rem;
+}
+.crucible-new.journal-sheet .journal-page-content p {
+  text-align: justify;
 }
 .crucible-new.journal-sheet .journal-sidebar {
   color: var(--color-sidebar);
@@ -1654,32 +1675,24 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Skill Page Sheet                          *
  * ------------------------------------------ */
-.crucible.skill-sheet form {
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.crucible.skill-sheet .scrollable {
+.crucible-new.skill-sheet .scrollable {
   flex: 1;
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
   padding: 1rem;
   overflow: hidden auto;
 }
-.crucible.skill-sheet .scrollable h2.divider,
-.crucible.skill-sheet .scrollable div.form-group {
+.crucible-new.skill-sheet .scrollable h2.divider,
+.crucible-new.skill-sheet .scrollable div.form-group {
   margin: 0;
 }
-.crucible.skill-sheet .form-footer {
+.crucible-new.skill-sheet .form-footer {
   margin: 1rem;
 }
-.crucible.skill figure.right {
+.crucible-new.skill figure.right {
   float: right;
   margin: 0 0 1rem 1rem;
 }
-.crucible.skill figure.right img {
+.crucible-new.skill figure.right img {
   width: 200px;
   height: 200px;
   border-radius: 6px;

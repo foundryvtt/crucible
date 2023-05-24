@@ -52,23 +52,38 @@
 .crucible-new.archetype,
 .crucible-new.taxonomy {
   .abilities {
-    justify-content: space-between;
-    > label {
-      flex: 0 0 60px;
-      padding: 0;
-    }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.5rem;
   }
   .resistances {
-    justify-content: space-between;
-    flex-wrap: wrap;
-    > label {
-      flex: 0 0 90px;
-      padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.5rem;
+  }
+  .abilities,
+  .resistances {
+    label {
+      padding: 0.25rem;
+      border: 1px solid var(--color-frame);
+      border-radius: 6px;
+    }
+    input {
+      font-size: var(--font-size-20);
+      border-color: transparent;
     }
   }
   .ability-sum,
   .resistance-sum {
     float: right;
+  }
+  .talents {
+    gap: 1rem;
+  }
+  .droppable {
+    padding: 0 1rem;
+    border: 1px dashed var(--color-frame);
+    border-radius: 6px;
   }
 }
 
@@ -125,9 +140,6 @@
  *  Background Sheet                          *
  * ------------------------------------------ */
 .crucible-new.background {
-  form {
-    height: 100%;
-  }
   .skills {
     .form-fields {
       flex-wrap: wrap;

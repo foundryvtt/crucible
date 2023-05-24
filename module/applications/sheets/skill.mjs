@@ -9,8 +9,8 @@ export default class SkillPageSheet extends JournalPageSheet {
   /** @inheritDoc */
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.classes.push("crucible", "skill-sheet");
-    options.viewClasses.push("crucible", "skill");
+    options.classes.push("crucible-new", "skill-sheet");
+    options.viewClasses.push("crucible-new", "skill");
     options.scrollY = [".scrollable"];
     return options;
   }

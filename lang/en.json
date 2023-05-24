@@ -132,6 +132,9 @@
 
 "ARCHETYPE.Clear": "Clear Archetype",
 "ARCHETYPE.Configure": "Archetype",
+"ARCHETYPE.Abilities": "Ability Scaling",
+"ARCHETYPE.Talents": "Granted Talents",
+"ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
 
 "ARMOR.Bulky": "Bulky",
 "ARMOR.Impenetrable": "Impenetrable",

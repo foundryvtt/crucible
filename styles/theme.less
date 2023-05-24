@@ -218,7 +218,8 @@
       letter-spacing: 0;
     }
     strong {
-      font-size: var(--font-size-15);
+      font-family: var(--font-body);
+      font-size: var(--font-size-14);
       font-style: normal;
     }
   }
@@ -359,6 +360,24 @@
       height: 100%;
     }
   }
+
+  // Placeholder images
+  figure.placeholder {
+    position: relative;
+    &::after {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      content: "PLACEHOLDER";
+      color: white;
+      text-shadow: 1px 1px #000;
+      font-size: 24px;
+    }
+  }
 }
 
 /* ----------------------------------------- */
@@ -392,6 +411,9 @@
     padding: 0.5rem 1rem 1rem;
     background: none;
     color: var(--color-text);
+    > form {
+      height: 100%;
+    }
   }
 
   .sheet-header {
@@ -401,7 +423,7 @@
     }
     h1 input {
       border: none;
-      color: inherit;
+      color: var(--color-text);
     }
   }
 
