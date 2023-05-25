@@ -140,6 +140,7 @@
   .tags {
     display: flex;
     gap: 0.5rem;
+    justify-content: flex-end;
     align-items: center;
     color: var(--color-secondary);
     label {
@@ -157,6 +158,9 @@
         border-color: darkred;
         color: red;
       }
+    }
+    &:empty {
+      display: none;
     }
   }
 
@@ -327,7 +331,7 @@
       font-family: var(--font-awesome);
       font-size: 1.5rem;
       font-weight: bold;
-      color: var(--color-accent);
+      color: var(--color-frame);
       content: "\f0c8";
       border-radius: 3px;
       width: 20px;
@@ -417,14 +421,33 @@
   }
 
   .sheet-header {
+    --headerHeight: 80px;
+    --titleHeight: 40px;
     margin-bottom: 1rem;
+    gap: 0.5rem;
     img.profile {
+      margin: 0;
       border-radius: 8px;
     }
     h1 input {
+      margin: 0;
       border: none;
       color: var(--color-text);
     }
+    .header-tags {
+      flex: 0 0 100%;
+      justify-content: flex-end;
+      label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  nav.sheet-tabs {
+    margin: 1rem 0;
+    border-color: var(--color-table-row);
+    font-family: var(--font-h1);
+    color: var(--color-h1);
   }
 
   .sheet-body.flexcol {
@@ -434,7 +457,8 @@
     }
   }
 
-  .item-list-entry {
+  /** Line Items - Actions, Talents, etc... */
+  .line-item {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

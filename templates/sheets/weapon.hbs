@@ -14,98 +14,106 @@
     </header>
 
     {{!-- Sheet Body --}}
-    <div class="form-group">
-        <label>Category</label>
-        <div class="form-fields">
-            <select name="system.category">
-                {{selectOptions categories selected=source.system.category labelAttr="label"}}
-            </select>
+    <section class="sheet-body flexcol">
+        <h3>Weapon Configuration</h3>
+        <div class="form-group">
+            <label>Category</label>
+            <div class="form-fields">
+                <select name="system.category">
+                    {{selectOptions categories selected=source.system.category labelAttr="label"}}
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label>Damage Type</label>
-        <div class="form-fields">
-            <select name="system.damageType">
-                {{selectOptions damageTypes selected=source.system.damageType labelAttr="label"}}
-            </select>
+        <div class="form-group">
+            <label>Damage Type</label>
+            <div class="form-fields">
+                <select name="system.damageType">
+                    {{selectOptions damageTypes selected=source.system.damageType labelAttr="label"}}
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label>Quality</label>
-        <div class="form-fields">
-            <select name="system.quality">
-                {{selectOptions qualities selected=source.system.quality labelAttr="label"}}
-            </select>
+        <div class="form-group">
+            <label>Quality</label>
+            <div class="form-fields">
+                <select name="system.quality">
+                    {{selectOptions qualities selected=source.system.quality labelAttr="label"}}
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label>Enchantment</label>
-        <div class="form-fields">
-            <select name="system.enchantment">
-                {{selectOptions enchantments selected=source.system.enchantment labelAttr="label"}}
-            </select>
+        <div class="form-group">
+            <label>Enchantment</label>
+            <div class="form-fields">
+                <select name="system.enchantment">
+                    {{selectOptions enchantments selected=source.system.enchantment labelAttr="label"}}
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label>Weapon Status</label>
-        <div class="form-fields">
-            <label class="checkbox">Equipped
-                <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}>
-            </label>
-            <label class="checkbox">Broken
-                <input type="checkbox" name="system.broken" {{checked source.system.broken}}>
-            </label>
-            {{#if usesReload}}
-            <label class="checkbox">Loaded
-                <input type="checkbox" name="system.loaded" {{checked source.system.loaded}}>
-            </label>
-            {{/if}}
+        <div class="form-group">
+            <label>Weapon Status</label>
+            <div class="form-fields">
+                <label class="checkbox">Equipped
+                    <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}>
+                </label>
+                <label class="checkbox">Broken
+                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}>
+                </label>
+                {{#if usesReload}}
+                <label class="checkbox">Loaded
+                    <input type="checkbox" name="system.loaded" {{checked source.system.loaded}}>
+                </label>
+                {{/if}}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group stacked">
-        <label>Weapon Properties</label>
-        <div class="form-fields item-properties">
-            {{#each properties as |prop id|}}
-            <label class="checkbox">
-                <input type="checkbox" name="{{prop.name}}" {{checked prop.checked}}> {{prop.label}}
-            </label>
-            {{/each}}
+        <div class="form-group stacked">
+            <h3>Weapon Properties</h3>
+            <div class="form-fields item-properties">
+                {{#each properties as |prop id|}}
+                <label class="checkbox">
+                    <input type="checkbox" name="{{prop.name}}" {{checked prop.checked}}> {{prop.label}}
+                </label>
+                {{/each}}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label>Quantity</label>
-        <div class="form-fields">
-            <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}">
+        <div class="form-group">
+            <label>Animation Prefix</label>
+            <div class="form-fields">
+                <select name="system.animation">
+                    {{selectOptions animations selected=source.system.animation blank=""}}
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Unit Weight</label>
-        <div class="form-fields">
-            <input type="number" step="any" name="system.weight" value="{{source.system.weight}}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Currency Price</label>
-        <div class="form-fields">
-            <label>Base</label>
-            <input type="number" step="any" name="system.price" value="{{source.system.price}}">
-            <label>Scaled</label>
-            <input type="number" value="{{item.system.price}}" disabled>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label>Animation Prefix</label>
-        <div class="form-fields">
-            <select name="system.animation">
-                {{selectOptions animations selected=source.system.animation blank=""}}
-            </select>
+        <div class="form-group stacked physical-details">
+            <h3>Physical Details</h3>
+            <div class="form-fields">
+                <label>Quantity</label>
+                <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
+                <label>Weight</label>
+                <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
+            </div>
         </div>
-    </div>
+
+        <div class="form-group stacked physical-details">
+            <div class="form-fields">
+                <label>Price</label>
+                <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
+                <label>Scaled</label>
+                <input type="number" value="{{item.system.price}}" disabled>
+            </div>
+        </div>
+
+        {{#if editable}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
+        {{/if}}
+    </section>
 </form>

@@ -68,13 +68,18 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
 
     // Damage Type
     if ( this.damageType ) {
-      const dt = SYSTEM.DAMAGE_TYPES[this.damageType];
-      tags.push(`${dt.label} Damage`);
+      if ( this.damageType === "physical" ) {
+        tags.push(`${game.i18n.localize("DAMAGE.Physical")} ${game.i18n.localize("DAMAGE.Damage")}`)
+      }
+      else {
+        const dt = SYSTEM.DAMAGE_TYPES[this.damageType];
+        tags.push(`${dt.label} ${game.i18n.localize("DAMAGE.Damage")}`);
+      }
     }
 
     // Restoration
     if ( this.restoration ) {
-      tags.push("Restoration");
+      tags.push(game.i18n.localize("DAMAGE.Restoration"));
     }
     return tags;
   }

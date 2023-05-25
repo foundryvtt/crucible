@@ -1,46 +1,17 @@
 @import "variables.less";
 
-/** ----------------------------------------- *
- *  Item Sheets                               *
- * ------------------------------------------ */
+/* ----------------------------------------- */
+/*  Armor and Weapons                        */
+/* ----------------------------------------- */
 
-.crucible.sheet.item {
-  --headerHeight: 80px;
-  --titleHeight: 40px;
-
-  .sheet-header {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
+.crucible-new.weapon,
+.crucible-new.armor {
   .item-properties {
     justify-content: flex-start;
     flex-wrap: wrap;
     label.checkbox {
       flex: 0 0 80px;
       text-align: left;
-    }
-  }
-}
-
-
-/** ----------------------------------------- *
- *  Background and Ancestry                   *
- * ------------------------------------------ */
-
-.crucible.sheet .form-group.skills {
-  .form-fields {
-    flex-wrap: wrap;
-    gap: 0;
-  }
-  label {
-    flex: 0 0 25%;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    input {
-      width: 16px;
-      margin: 0;
     }
   }
 }

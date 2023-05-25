@@ -218,12 +218,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async configure(targets) {
     const pool = new StandardCheck(this.usage.bonuses);
-   await this.constructor.dialogClass.prompt({options: {
+    const response = await this.constructor.dialogClass.prompt({options: {
       action: this,
       actor: this.actor,
       pool,
       targets
     }});
+    if ( !response ) return null;
 
     // Re-acquire targets after configuration
     try {
@@ -854,7 +855,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       for ( const outcome of outcomes.values() ) {
         if ( !outcome.rolls.length ) continue;
         const targetToken = CrucibleAction.#getTargetToken(outcome.target);
-        const hit = outcome.rolls.some(r => r.isSuccess);
+        const hit = outcome.rolls.some(r => r.data.damage?.total > 0);
         const wait = config.wait ?? 0;
         if ( config.sequence instanceof Function ) {
           config.sequence(sequence, config, {originToken, targetToken, hit});

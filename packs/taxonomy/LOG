@@ -1,3 +1,15 @@
-2023/05/23-18:27:54.117 24464 Recovering log #26
-2023/05/23-18:27:54.121 24464 Delete type=0 #26
-2023/05/23-18:27:54.121 24464 Delete type=3 #24
+2023/05/25-10:40:48.183 8890 Recovering log #59
+2023/05/25-10:40:48.188 8890 Delete type=0 #59
+2023/05/25-10:40:48.188 8890 Delete type=3 #57
+2023/05/25-19:44:30.056 3b7c0 Level-0 table #64: started
+2023/05/25-19:44:30.057 3b7c0 Level-0 table #64: 993 bytes OK
+2023/05/25-19:44:30.058 3b7c0 Delete type=0 #62
+2023/05/25-19:44:30.060 3b7c0 Manual compaction at level-0 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/05/25-19:44:30.063 3b7c0 Manual compaction at level-1 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at '!items!ogre000000000000' @ 5 : 1
+2023/05/25-19:44:30.063 3b7c0 Compacting 1@1 + 1@2 files
+2023/05/25-19:44:30.064 3b7c0 Generated table #65@1: 1 keys, 993 bytes
+2023/05/25-19:44:30.064 3b7c0 Compacted 1@1 + 1@2 files => 993 bytes
+2023/05/25-19:44:30.066 3b7c0 compacted to: files[ 0 0 2 0 0 0 0 ]
+2023/05/25-19:44:30.066 3b7c0 Delete type=2 #11
+2023/05/25-19:44:30.066 3b7c0 Delete type=2 #64
+2023/05/25-19:44:30.066 3b7c0 Manual compaction at level-1 from '!items!ogre000000000000' @ 5 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)

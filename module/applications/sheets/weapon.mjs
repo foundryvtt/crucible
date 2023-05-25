@@ -1,31 +1,15 @@
 import { SYSTEM } from "../../config/system.js";
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
- * A sheet application for displaying and configuring a Weapon type Item.
- * @type {ItemSheet}
+ * A sheet application for displaying and configuring Items with the Weapon type.
+ * @extends ItemSheet
+ * @mixes CrucibleSheet
  */
-export default class WeaponSheet extends ItemSheet {
+export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
 
-  /** @inheritdoc */
-	static get defaultOptions() {
-	  return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 480,
-      height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "weapon"],
-      template: `systems/${SYSTEM.id}/templates/sheets/weapon.hbs`,
-      resizable: false,
-      submitOnChange: true
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  get title() {
-    return `[Weapon] ${this.item.name}`;
-  }
-
-  /* -------------------------------------------- */
+  /** @override */
+  static documentType = "weapon";
 
   /** @inheritdoc */
   async getData(options={}) {

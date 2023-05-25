@@ -1,31 +1,22 @@
 import { SYSTEM } from "../../config/system.js";
 import CrucibleTalentNode from "../../config/talent-tree.mjs";
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
- * A sheet application for displaying Ancestry items
+ * A sheet application for displaying and configuring Items with the Talent type.
+ * @extends ItemSheet
+ * @mixes CrucibleSheet
  */
-export default class TalentSheet extends ItemSheet {
+export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
+
+  /** @override */
+  static documentType = "talent";
 
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 480,
-      height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "talent"],
-      template: `systems/${SYSTEM.id}/templates/sheets/talent.hbs`,
-      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}],
-      resizable: false,
-      submitOnChange: false,
-      submitOnClose: false,
-      closeOnSubmit: false
+      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}]
     });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  get title() {
-    return `[Talent] ${this.item.name}`;
   }
 
   /* -------------------------------------------- */

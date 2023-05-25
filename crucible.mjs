@@ -33,7 +33,6 @@ import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
 import * as chat from "./module/chat.js";
-import {buildJournalCompendium, renderJournalRules} from "./module/documents/journal.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -61,7 +60,6 @@ Hooks.once("init", async function() {
       CrucibleItem,
     },
     methods: {
-      buildJournalCompendium,
       packageCompendium,
       resetAllActorTalents,
       standardizeItemIds,
@@ -246,14 +244,7 @@ Hooks.once("setup", function() {
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.renderChatMessage);
-Hooks.on("renderJournalSheet", renderJournalRules);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
-
-/* -------------------------------------------- */
-/*  Module Integrations                         */
-/* -------------------------------------------- */
-
-Hooks.on('diceSoNiceRollStart', dice.diceSoNiceRollStart);
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

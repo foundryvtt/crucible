@@ -1,29 +1,15 @@
 import { SYSTEM } from "../../config/system.js";
+import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**
- * A sheet application for displaying Armor items
- * @extends {ItemSheet}
+ * A sheet application for displaying and configuring Items with the Armor type.
+ * @extends ItemSheet
+ * @mixes CrucibleSheet
  */
-export default class ArmorSheet extends ItemSheet {
-
-  /** @inheritdoc */
-	static get defaultOptions() {
-	  return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 480,
-      height: "auto",
-      classes: [SYSTEM.id, "sheet", "item", "armor"],
-      template: `systems/${SYSTEM.id}/templates/sheets/armor.hbs`,
-      resizable: false,
-      submitOnChange: true
-    });
-  }
-
-  /* -------------------------------------------- */
+export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /** @override */
-  get title() {
-    return `[Armor] ${this.item.name}`;
-  }
+  static documentType = "armor";
 
   /* -------------------------------------------- */
 

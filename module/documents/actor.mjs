@@ -755,25 +755,30 @@ export default class CrucibleActor extends Actor {
       enchantment: 0,
       banes, boons,
       defenseType,
-      dc: target.defenses[defenseType].total
+      dc: defenseType === "physical" ? target.defenses.physical : target.defenses[defenseType].total
     });
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
     const r = roll.data.result = target.testDefense(defenseType, roll.total);
-    if ( (r === AttackRoll.RESULT_TYPES.HIT) || (r === AttackRoll.RESULT_TYPES.EFFECTIVE) ) {
-      roll.data.damage = {
-        overflow: roll.overflow,
-        multiplier: spell.damage.multiplier ?? 1,
-        base: spell.damage.base,
-        bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
-        resistance: target.getResistance(spell.rune.resource, spell.damage.type),
-        resource: spell.rune.resource,
-        type: spell.damage.type,
-        restoration: spell.damage.restoration
-      };
-      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    }
+
+    // Deflection and Avoidance
+    const {HIT, DEFLECT, EFFECTIVE} = AttackRoll.RESULT_TYPES;
+    if ( ![HIT, DEFLECT, EFFECTIVE].includes(r) ) return roll;
+    if ( (r === DEFLECT) && roll.isCriticalFailure ) return roll;
+
+    // Structure damage
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: spell.damage.multiplier ?? 1,
+      base: spell.damage.base,
+      bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
+      resistance: target.getResistance(spell.rune.resource, spell.damage.type),
+      resource: spell.rune.resource,
+      type: spell.damage.type,
+      restoration: spell.damage.restoration
+    };
+    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;
   }
 
@@ -1266,21 +1271,23 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleItem} talent     The Talent item to add to the Actor
    * @param {object} [options]        Options which configure how the Talent is added
    * @param {boolean} [options.dialog]    Prompt the user with a confirmation dialog?
-   * @returns {Promise<CrucibleItem>} The created talent Item
+   * @returns {Promise<CrucibleItem|null>} The created talent Item or null if no talent was added
    */
   async addTalent(talent, {dialog=false}={}) {
 
     // Ensure the Talent is not already owned
     if ( this.items.find(i => (i.type === "talent") && (i.name === talent.name)) ) {
       const err = game.i18n.format("TALENT.AlreadyOwned", {name: talent.name});
-      return ui.notifications.warn(err);
+      ui.notifications.warn(err);
+      return null;
     }
 
     // Confirm that the Actor meets the requirements to add the Talent
     try {
       talent.system.assertPrerequisites(this);
     } catch(err) {
-      return ui.notifications.warn(err.message);
+      ui.notifications.warn(err.message);
+      return null;
     }
 
     // Confirm that the Actor has sufficient Talent points
@@ -1290,7 +1297,8 @@ export default class CrucibleActor extends Actor {
         name: talent.name,
         cost: 1
       });
-      return ui.notifications.warn(err);
+      ui.notifications.warn(err);
+      return null;
     }
 
     // Confirmation dialog
@@ -1300,7 +1308,7 @@ export default class CrucibleActor extends Actor {
         content: `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`,
         defaultYes: false
       });
-      if ( !confirm ) return;
+      if ( !confirm ) return null;
     }
 
     // Create the talent

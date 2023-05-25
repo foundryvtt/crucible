@@ -59,6 +59,18 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   state = new Map();
 
+  /**
+   * The set of sound files used for UI clicks.
+   * @type {string[]}
+   */
+  static clickSounds = [
+    "systems/crucible/audio/click1.wav",
+    "systems/crucible/audio/click2.wav",
+    "systems/crucible/audio/click3.wav",
+    "systems/crucible/audio/click4.wav",
+    "systems/crucible/audio/click5.wav"
+  ]
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -361,24 +373,36 @@ export default class CrucibleTalentTree extends PIXI.Container {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Play a UI click sound.
+   */
+  playClick() {
+    const src = this.constructor.clickSounds[Math.floor(Math.random() * this.constructor.clickSounds.length)];
+    game.audio.play(src, {volume: 0.2, loop: false});
+  }
+
+  /* -------------------------------------------- */
   /*  Talent Management                           */
   /* -------------------------------------------- */
 
   activateNode(node) {
-    if ( this.active ) this.deactivateNode();
+    if ( this.active ) this.deactivateNode({click: false});
     this.active = node;
     this.wheel.activate(node);
     this.darkenBackground(true);
+    this.playClick();
   }
 
   /* -------------------------------------------- */
 
-  deactivateNode() {
+  deactivateNode({click=true}={}) {
     if ( !this.active ) return;
     this.wheel.deactivate();
     this.active.scale.set(1.0, 1.0);
     this.active = null;
     this.darkenBackground(false);
+    if ( click ) this.playClick();
   }
 
   /* -------------------------------------------- */

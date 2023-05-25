@@ -63,7 +63,7 @@ export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
    * @returns {string}                The rendered HTML string
    */
   static #getTalentHTML(talent) {
-    return `<div class="talent item-list-entry" data-uuid="${talent.uuid}">
+    return `<div class="talent line-item" data-uuid="${talent.uuid}">
       <header class="talent-header flexrow">
         <img class="icon" src="${talent.img}" alt="${talent.name}">
         <h4 class="title">${talent.name}</h4>

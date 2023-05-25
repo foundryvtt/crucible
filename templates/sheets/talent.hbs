@@ -21,12 +21,12 @@
     </nav>
 
     {{!-- Description Tab --}}
-    <section class="tab sheet-body" data-tab="summary">
+    <section class="tab sheet-body flexcol" data-tab="summary">
         {{> "systems/crucible/templates/sheets/partials/talent-summary.hbs"}}
     </section>
 
     <!-- Configuration Tab -->
-    <section class="tab sheet-body" data-tab="config">
+    <section class="tab sheet-body flexcol" data-tab="config">
         <div class="form-group">
             <label>Talent Node</label>
             <select name="system.node">
@@ -76,8 +76,12 @@
             </div>
         </div>
 
-        <footer>
-            <button type="submit">Save Changes</button>
-        </footer>
+        {{#if editable}}
+            <footer class="sheet-footer">
+                <button class="frame-brown" type="submit">
+                    <i class="fas fa-save"></i> {{localize "Save Changes"}}
+                </button>
+            </footer>
+        {{/if}}
     </section>
 </form>

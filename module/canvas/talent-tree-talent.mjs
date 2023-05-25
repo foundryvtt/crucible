@@ -37,23 +37,25 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
-  #onClickLeft(event) {
+  async #onClickLeft(event) {
     event.stopPropagation();
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
     if ( !tree.actor || tree.actor.talentIds.has(this.talent.id) ) return;
-    tree.actor.addTalent(this.talent, {dialog: true});
+    const response = await tree.actor.addTalent(this.talent, {dialog: true});
+    if ( response ) tree.playClick();
   }
 
   /* -------------------------------------------- */
 
-  #onClickRight(event) {
+  async #onClickRight(event) {
     event.stopPropagation();
     const tree = game.system.tree;
     const actor = tree.actor;
     if ( !actor || !actor.talentIds.has(this.talent.id) || actor.permanentTalentIds.has(this.talent.id) ) return;
     const talent = tree.actor.items.get(this.talent.id);
-    return talent.deleteDialog();
+    const response = await talent.deleteDialog();
+    if ( response ) tree.playClick();
   }
 
   /* -------------------------------------------- */

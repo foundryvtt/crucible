@@ -14,7 +14,8 @@
     </header>
 
     {{!-- Sheet Body --}}
-    <section class="sheet-body">
+    <section class="sheet-body flexcol">
+        <h3>Armor Configuration</h3>
         <div class="form-group">
             <label>Category</label>
             <div class="form-fields">
@@ -73,7 +74,7 @@
         </div>
 
         <div class="form-group stacked">
-            <label>Armor Properties</label>
+            <h3>Armor Properties</h3>
             <div class="form-fields item-properties">
                 {{#each properties as |prop id|}}
                 <label class="checkbox">
@@ -84,7 +85,7 @@
         </div>
 
         <div class="form-group stacked physical-details">
-            <label>Physical Details</label>
+            <h3>Physical Details</h3>
             <div class="form-fields">
                 <label>Quantity</label>
                 <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
@@ -94,5 +95,13 @@
                 <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
             </div>
         </div>
+
+        {{#if editable}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
+        {{/if}}
     </section>
 </form>

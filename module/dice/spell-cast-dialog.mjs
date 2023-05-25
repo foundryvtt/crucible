@@ -67,4 +67,15 @@ export default class SpellCastDialog extends ActionUseDialog {
     this.action.updateSource(fd);
     this.render(true, {height: "auto"});
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onSubmit(html) {
+    const form = html.querySelector("form");
+    const {boons, banes, ...composition} = (new FormDataExtended(form, {readonly: true})).object;
+    this.action.updateSource(composition);
+    Object.assign(this.action.usage.bonuses, {boons, banes});
+    return this.action;
+  }
 }

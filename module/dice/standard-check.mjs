@@ -269,7 +269,26 @@ export default class StandardCheck extends Roll {
   async toMessage(messageData, options={}) {
     options.rollMode = options.rollMode || this.data.rollMode;
     messageData.content ||= "";
+    this.#addDiceSoNiceEffects();
     return super.toMessage(messageData, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Augment the Roll with custom DiceSoNice module effects.
+   */
+  #addDiceSoNiceEffects() {
+    for ( const die of this.dice ) {
+      if ( die.faces > 8 ) die.options.sfx = {
+        specialEffect: "PlayAnimationBright",
+        options: {muteSound: true}
+      };
+      if ( die.faces < 8 ) die.options.sfx = {
+        specialEffect: "PlayAnimationDark",
+        options: {muteSound: true}
+      };
+    }
   }
 
   /* -------------------------------------------- */

@@ -4,12 +4,10 @@
 
 {{#if actions.length}}
 <section class="actions">
-    <h3 class="divider">
-        <span></span><label>Actions</label><span></span>
-    </h3>
+    <h3 class="divider">Actions</h3>
     {{#each actions as |action|}}
-    <div class="action" data-action-id="{{this.id}}">
-        <header class="action-header line-item flexrow">
+    <div class="action line-item" data-action-id="{{this.id}}">
+        <header class="action-header flexrow">
             <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
             <h4>{{action.name}}</h4>
             {{#each action.tags as |tags section|}}
