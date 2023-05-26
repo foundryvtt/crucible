@@ -155,6 +155,15 @@ Hooks.once("init", async function() {
     default: true
   });
 
+  game.settings.register("crucible", "autoConfirm", {
+    name: "Allow Auto-Confirmation",
+    hint: "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   /**
    * Is animation enabled for the system?
    * @type {boolean}

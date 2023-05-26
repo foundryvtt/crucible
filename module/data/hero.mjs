@@ -229,9 +229,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
   /** @override */
   prepareDerivedData() {
     this.#prepareResources();
-    this.#preparePhysicalDefenses();
-    this.#prepareSaveDefenses();
-    this.#prepareHealingThresholds();
+    this.parent._prepareDefenses();
     this.#prepareResistances();
   }
 
@@ -274,84 +272,6 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare Physical Defenses.
-   */
-  #preparePhysicalDefenses() {
-    const {abilities, defenses} = this;
-    const {equipment, statuses, talentIds} = this.parent;
-
-    // Armor and Dodge from equipped Armor
-    const armorData = equipment.armor.system;
-    defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus = armorData.armor.bonus;
-    defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.start, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
-
-    // Block and Parry from equipped Weapons
-    const weaponData = [equipment.weapons.mainhand.system];
-    if ( !equipment.weapons.twoHanded ) weaponData.push(equipment.weapons.offhand.system);
-    defenses.block = {base: 0, bonus: 0};
-    defenses.parry = {base: 0, bonus: 0};
-    for ( let wd of weaponData ) {
-      for ( let d of ["block", "parry"] ) {
-        defenses[d].base += wd.defense[d];
-      }
-    }
-
-    // Patient Deflection
-    if ( talentIds.has("patientdeflectio") && equipment.weapons.unarmed ) {
-      defenses.parry.bonus += Math.ceil(abilities.wisdom.value / 2);
-    }
-
-    // Unarmed Blocking
-    if ( talentIds.has("unarmedblocking0") && equipment.weapons.unarmed ) {
-      defenses.block.bonus += Math.ceil(abilities.toughness.value / 2);
-    }
-
-    // Compute total physical defenses
-    const physicalDefenses = ["dodge", "parry", "block", "armor"];
-    for ( let pd of physicalDefenses ) {
-      let d = defenses[pd];
-      d.total = d.base + d.bonus;
-    }
-    if ( statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
-    defenses.physical = physicalDefenses.reduce((v, k) => v + defenses[k].total, 0);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare non-physical defenses.
-   */
-  #prepareSaveDefenses() {
-    const {equipment, talentIds} = this.parent;
-    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( sd.type !== "save" ) continue;
-      let d = this.defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.abilities[a].value, SYSTEM.PASSIVE_BASE);
-      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
-      d.total = d.base + d.bonus;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare healing thresholds for Wounds and Madness.
-   */
-  #prepareHealingThresholds() {
-    const d = this.defenses;
-    const r = this.resources;
-    const base = SYSTEM.PASSIVE_BASE;
-    d.wounds = {base, total: base + Math.floor(r.wounds.value / 10)};
-    if ( this.parent.talentIds.has("resilient0000000") ) d.wounds.total -= 1;
-    d.madness = {base, total: base + Math.floor(r.madness.value / 10)};
-    if ( this.parent.talentIds.has("carefree00000000") ) d.madness.total -= 1;
-  }
 
   /* -------------------------------------------- */
 

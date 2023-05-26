@@ -429,6 +429,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {boolean}                           Can it be auto-confirmed?
    */
   #canAutoConfirm(outcomes) {
+    if ( !game.settings.get("crucible", "autoConfirm") ) return false;
     for ( const outcome of outcomes.values() ) {
       if ( !outcome.rolls.length && outcome.effects.length ) return false; // automatically caused effects
       if ( outcome.rolls.some(r => r.data.damage?.total) ) return false; // dealt damage

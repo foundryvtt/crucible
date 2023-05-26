@@ -113,6 +113,25 @@ export const THREAT_LEVELS = {
 
 /* -------------------------------------------- */
 
+
+export const ACTOR_HOOKS = {
+  prepareResources: {
+    signature: "ACTOR.HOOKS.PrepareResources",
+    argNames: ["resources"]
+  },
+  prepareDefenses: {
+    signature: "ACTOR.HOOKS.PrepareDefenses",
+    argNames: ["defenses"]
+  },
+  prepareResistances: {
+    signature: "ACTOR.HOOKS.PrepareResistances",
+    argNames: ["resistances"]
+  },
+}
+
+
+/* -------------------------------------------- */
+
 /**
  * Include all constant definitions within the SYSTEM global export
  * @type {Object}
@@ -121,6 +140,7 @@ export const SYSTEM = {
   id: SYSTEM_ID,
   ABILITIES: ATTRIBUTES.ABILITIES,
   ACTION,
+  ACTOR_HOOKS,
   ADVERSARY,
   ANCESTRIES,
   ARMOR,

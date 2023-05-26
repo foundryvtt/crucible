@@ -1,0 +1,57 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+        <img class="profile" src="{{action.img}}" title="{{action.name}}" data-edit="img"/>
+        <h1 class="title">
+            <input name="name" type="text" value="{{action.name}}" placeholder="Action Name"/>
+        </h1>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body flexcol">
+        <div class="form-group">
+            <label>Action ID</label>
+            <div class="form-fields">
+                <input type="text" name="id" value="{{action.id}}">
+            </div>
+            <p class="hint">Provide a standardized camel-case alphanumeric identifier for this action.
+                This identifier should be unique across all actions in the system.</p>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Description</label>
+            <textarea name="description" rows="3">{{action.description}}</textarea>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Triggering Condition</label>
+            <textarea name="description" rows="1">{{action.condition}}</textarea>
+        </div>
+
+        <div class="form-group stacked">
+            <label>Action Tags</label>
+            <div class="form-fields">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h3>Activation Cost</h3>
+            <div class="form-fields">
+                <label>Action</label>
+                <input type="number" name="cost.action" value="{{action.cost.action}}">
+                <label>Focus</label>
+                <input type="number" name="cost.focus" value="{{action.cost.focus}}">
+            </div>
+        </div>
+
+        {{#if editable}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
+        {{/if}}
+    </section>
+</form>

@@ -1,5 +1,5 @@
 import CrucibleAction from "./action.mjs";
-import {SYSTEM} from "../config/system.js";
+import {ACTOR_HOOKS, SYSTEM} from "../config/system.js";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 
 /**
@@ -32,7 +32,6 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
  * @property {TalentRankData} nextRank                The next rank in this talent
  * @property {CrucibleAction[]} actions               The actions which have been unlocked by this talent
  * @property {AdvancementPrerequisites} prerequisites The derived prerequisites required for this rank
- * @property {AdvancementPrerequisites} requirements  The derived requirements required for the next rank
  */
 export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   static defineSchema() {
@@ -41,10 +40,13 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       node: new fields.StringField({required: false, choices: () => Array.from(CrucibleTalentNode.nodes.keys())}),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
-      requirements: new fields.ObjectField(),
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
       gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
       inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
+      actorHooks: new fields.ArrayField(new fields.SchemaField({
+        hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR_HOOKS}),
+        fn: new fields.StringField({required: true, blank: false, nullable: false}),
+      }))
     }
   }
 
@@ -59,7 +61,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       console.warn(`Talent ${this.parent.name} "${this.parent.id}" does not define a valid talent tree node`);
       node = {requirements: {}}
     }
-    this.prerequisites = CrucibleTalent.preparePrerequisites(node.requirements, this.requirements);
+    this.prerequisites = CrucibleTalent.preparePrerequisites(node.requirements);
   }
 
   /* -------------------------------------------- */
@@ -67,12 +69,10 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   /**
    * Prepare the data structure of talent prerequisites
    * @param {AdvancementPrerequisites} nodeReqs
-   * @param {AdvancementPrerequisites} talentReqs
    * @returns {AdvancementPrerequisites}
    */
-  static preparePrerequisites(nodeReqs={}, talentReqs={}) {
-    const reqs = foundry.utils.mergeObject(nodeReqs, talentReqs);
-    return Object.entries(foundry.utils.flattenObject(reqs)).reduce((obj, r) => {
+  static preparePrerequisites(nodeReqs={}) {
+    return Object.entries(foundry.utils.flattenObject(nodeReqs)).reduce((obj, r) => {
       const [k, v] = r;
       const o = obj[k] = {value: v};
       if ( k.startsWith("abilities.") ) o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;

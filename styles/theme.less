@@ -300,6 +300,13 @@
   a.button {
     flex: none;
   }
+  button.icon,
+  a.button.icon {
+    flex: none;
+    > i {
+      margin: 0;
+    }
+  }
 }
 
 /* ----------------------------------------- */
@@ -390,6 +397,7 @@
 
 
 .crucible-new.window-app {
+  overflow: hidden;
   background: url("../ui/journal/background.png"); // TODO convert WEBP
   border-radius: 12px;
 
@@ -454,6 +462,9 @@
     gap: 1rem;
     .form-group {
       margin: 0;
+    }
+    .form-group.stacked {
+      gap: 0.5rem;
     }
   }
 

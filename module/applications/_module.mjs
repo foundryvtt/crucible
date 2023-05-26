@@ -1,4 +1,5 @@
 // Config Apps
+export {default as ActionConfig} from "./config/action.mjs";
 export {default as SkillConfig} from "./config/skill.mjs";
 
 // Sheet Apps

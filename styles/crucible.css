@@ -332,6 +332,14 @@
 .crucible-new a.button {
   flex: none;
 }
+.crucible-new button.icon,
+.crucible-new a.button.icon {
+  flex: none;
+}
+.crucible-new button.icon > i,
+.crucible-new a.button.icon > i {
+  margin: 0;
+}
 /* ----------------------------------------- */
 /*  Early Adoption of V2 Theme Rules         */
 /* ----------------------------------------- */
@@ -410,6 +418,7 @@
 /*  Apps and Sheets                          */
 /* ----------------------------------------- */
 .crucible-new.window-app {
+  overflow: hidden;
   background: url("../ui/journal/background.png");
   border-radius: 12px;
   /** Line Items - Actions, Talents, etc... */
@@ -471,6 +480,9 @@
 }
 .crucible-new.window-app .sheet-body.flexcol .form-group {
   margin: 0;
+}
+.crucible-new.window-app .sheet-body.flexcol .form-group.stacked {
+  gap: 0.5rem;
 }
 .crucible-new.window-app .line-item {
   display: flex;
@@ -1527,23 +1539,10 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Talent Sheet                              *
  * ------------------------------------------ */
-.crucible.talent .sheet-header {
-  border-bottom: none;
-}
-.crucible.talent .description {
-  margin: 0.5rem 0;
-}
-.crucible.talent .action .condition {
-  margin: 0.5rem 0 0;
-  flex: 0 0 100%;
-}
-.crucible.talent .effects {
-  margin: 0.5rem 0;
-  padding: 0;
-  list-style: none;
-}
-.crucible.talent .effects .effect {
-  gap: 0.25rem;
+.crucible-new.talent button.delete-hook {
+  width: min-content;
+  line-height: 1.5rem;
+  float: right;
 }
 /** ----------------------------------------- *
  *  Background Sheet                          *

@@ -216,6 +216,12 @@ export default class CrucibleActor extends Actor {
   talentIds = this.talentIds || new Set();
 
   /**
+   * Talent hook functions which apply to this Actor based on their set of owned Talents.
+   * @type {Object<string, function[]>}
+   */
+  talentHooks = {};
+
+  /**
    * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
    * @type {Set<string>}
    */
@@ -502,6 +508,7 @@ export default class CrucibleActor extends Actor {
    */
   _prepareTalents({talent}={}) {
     this.talentIds = new Set();
+    this.talentHooks = {};
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
     const details = this.system.details;
     const signatureNames = [];
@@ -519,6 +526,9 @@ export default class CrucibleActor extends Actor {
     // Iterate over talents
     for ( const t of talent ) {
       this.talentIds.add(t.id);
+
+      // Register hooks
+      for ( const hook of t.system.actorHooks ) this.#registerTalentHook(talent, hook);
 
       // Register signatures
       if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
@@ -543,6 +553,138 @@ export default class CrucibleActor extends Actor {
       if ( points.available < 0) {
         ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
       }
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation Helpers                    */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare defense data for the Actor.
+   * Defines shared logic used by both HeroData and AdversaryData
+   * @internal
+   */
+  _prepareDefenses() {
+    CrucibleActor.#preparePhysicalDefenses(this);
+    CrucibleActor.#prepareSaveDefenses(this);
+    CrucibleActor.#prepareHealingThresholds(this);
+    this.callTalentHooks("prepareDefenses", this.system.defenses);
+    CrucibleActor.#prepareTotalDefenses(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Physical Defenses.
+   */
+  static #preparePhysicalDefenses(actor) {
+    const {equipment} = actor;
+    const {abilities, defenses} = actor.system;
+
+    // Armor and Dodge from equipped Armor
+    const armorData = equipment.armor.system;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus = armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.start, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+
+    // Block and Parry from equipped Weapons
+    const weaponData = [equipment.weapons.mainhand.system];
+    if ( !equipment.weapons.twoHanded ) weaponData.push(equipment.weapons.offhand.system);
+    defenses.block = {base: 0, bonus: 0};
+    defenses.parry = {base: 0, bonus: 0};
+    for ( let wd of weaponData ) {
+      for ( let d of ["block", "parry"] ) {
+        defenses[d].base += wd.defense[d];
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare non-physical defenses.
+   */
+  static #prepareSaveDefenses(actor) {
+    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( sd.type !== "save" ) continue;
+      let d = actor.defenses[k];
+      d.base = sd.abilities.reduce((t, a) => t + actor.abilities[a].value, SYSTEM.PASSIVE_BASE);
+      // TODO
+      if ( (k !== "fortitude") && actor.talentIds.has("monk000000000000") && actor.equipment.unarmored ) d.bonus += 2;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare healing thresholds for Wounds and Madness.
+   */
+  static #prepareHealingThresholds(actor) {
+    const { defenses, resources } = actor.system;
+    const wounds = resources.wounds?.value ?? ((resources.health.max - resources.health.value) * 2);
+    defenses.wounds = {base: SYSTEM.PASSIVE_BASE + Math.floor(wounds / 10), bonus: 0};
+    const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
+    defenses.madness = {base: SYSTEM.PASSIVE_BASE + Math.floor(madness / 10), bonus: 0};
+
+    // TODO
+    if ( actor.talentIds.has("resilient0000000") ) defenses.wounds.bonus -= 1;
+    if ( actor.talentIds.has("carefree00000000") ) defenses.madness.total -= 1;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute total defenses as base + bonus.
+   */
+  static #prepareTotalDefenses(actor) {
+    const defenses = actor.system.defenses;
+
+    // Cannot parry or block while enraged
+    if ( actor.statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
+
+    // Compute defense totals
+    for ( const defense of Object.values(defenses) ) {
+      defense.total = defense.base + defense.bonus;
+    }
+    defenses.physical = {
+      total: defenses.armor.total + defenses.dodge.total + defenses.parry.total + defenses.block.total
+    };
+  }
+
+  /* -------------------------------------------- */
+  /*  Talent Hooks                                */
+  /* -------------------------------------------- */
+
+  /**
+   * Register a hooked function declared by a Talent item.
+   * @param {CrucibleItem} talent   The Talent registering the hook
+   * @param {object} data           Registered hook data
+   * @param {string} data.hook        The hook name
+   * @param {string} data.fn          The hook function
+   */
+  #registerTalentHook(talent, {hook, fn}={}) {
+    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
+    this.talentHooks[hook] ||= [];
+    this.talentHooks[hook].push(new Function("actor", ...hookConfig.argNames, fn));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call all talent hooks registered for a certain event name.
+   * Each registered function is called in sequence.
+   * @param {string} hook     The hook name to call.
+   * @param {...*} args       Arguments passed to the hooked function
+   */
+  callTalentHooks(hook, ...args) {
+    const hooks = this.talentHooks[hook] ||= [];
+    for ( const fn of hooks ) {
+      console.debug(`Calling talent hook for ${hook}`);
+      fn(this, ...args);
     }
   }
 
@@ -755,7 +897,7 @@ export default class CrucibleActor extends Actor {
       enchantment: 0,
       banes, boons,
       defenseType,
-      dc: defenseType === "physical" ? target.defenses.physical : target.defenses[defenseType].total
+      dc: target.defenses[defenseType].total
     });
 
     // Evaluate the result and record the result

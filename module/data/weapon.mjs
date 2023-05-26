@@ -214,7 +214,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
       banes: banes,
       boons: boons,
       defenseType,
-      dc: target.defenses.physical,
+      dc: target.defenses.physical.total,
       criticalSuccessThreshold: this.properties.has("keen") ? 4 : 6,
       criticalFailureThreshold: this.properties.has("reliable") ? 4 : 6
     });

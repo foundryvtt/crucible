@@ -16,8 +16,9 @@
 
     <!-- Configuration Tabs -->
     <nav class="sheet-tabs tabs">
-        <a class="item" data-tab="summary"><i class="fas fa-scroll"></i> Summary</a>
-        <a class="item" data-tab="config"><i class="fas fa-cogs"></i> Configuration</a>
+        <a class="item" data-tab="summary"><i class="fa-solid fa-scroll"></i> Summary</a>
+        <a class="item" data-tab="config"><i class="fa-solid fa-cogs"></i> Configuration</a>
+        <a class="item" data-tab="hooks"><i class="fa-solid fa-code"></i> Hooks</a>
     </nav>
 
     {{!-- Description Tab --}}
@@ -42,11 +43,6 @@
         <div class="form-group stacked">
             <label>Actions JSON</label>
             <textarea name="system.actions" rows="24" data-dtype="JSON">{{actionsJSON}}</textarea>
-        </div>
-
-        <div class="form-group stacked">
-            <label>Requirements JSON</label>
-            <textarea name="system.requirements" rows="6" data-dtype="JSON">{{requirementsJSON}}</textarea>
         </div>
 
         <div class="form-group">
@@ -77,11 +73,51 @@
         </div>
 
         {{#if editable}}
-            <footer class="sheet-footer">
-                <button class="frame-brown" type="submit">
-                    <i class="fas fa-save"></i> {{localize "Save Changes"}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
+        {{/if}}
+    </section>
+
+    <!-- Hooks Tab -->
+    <section class="tab sheet-body flexcol" data-tab="hooks">
+        <p class="hint">Beware. This configuration tab involves advanced features for automating talent effects.
+            Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here
+            unless you are confident in your own knowledge.</p>
+
+        {{#each actorHooks as |hook i|}}
+        <div class="form-group stacked">
+            <label>
+                <code>{{localize hook.label}}</code>
+                <button type="button" class="icon frame-brown delete-hook" data-action="deleteHook">
+                    <i class="fa-solid fa-times"></i>
                 </button>
-            </footer>
+            </label>
+            <input type="hidden" name="system.actorHooks.{{i}}.hook" value="{{hook.hook}}">
+            <textarea name="system.actorHooks.{{i}}.fn" rows="6">{{hook.fn}}</textarea>
+        </div>
+        {{/each}}
+
+        <div class="form-group">
+            <label>Add Hook</label>
+            <div class="form-fields">
+                <select name="addHook">
+                    {{selectOptions actorHookChoices labelAttr="signature" blank="" localize=true}}
+                </select>
+                <button type="button" class="icon frame-brown" data-action="addHook" data-tooltip="Add Hook">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        {{#if editable}}
+        <footer class="sheet-footer">
+            <button class="frame-brown" type="submit">
+                <i class="fas fa-save"></i> {{localize "Save Changes"}}
+            </button>
+        </footer>
         {{/if}}
     </section>
 </form>

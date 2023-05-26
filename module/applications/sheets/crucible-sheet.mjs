@@ -19,10 +19,11 @@ export default function CrucibleSheetMixin(Base) {
       return Object.assign(super.defaultOptions, {
         classes: ["crucible-new", "sheet", this.documentType],
         template: `systems/${SYSTEM.id}/templates/sheets/${this.documentType}.hbs`,
-        closeOnSubmit: true,
         height: "auto",
         resizable: false,
+        closeOnSubmit: true,
         submitOnChange: false,
+        submitOnClose: false,
         width: 480
       });
     }
