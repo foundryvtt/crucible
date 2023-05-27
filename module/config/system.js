@@ -113,7 +113,10 @@ export const THREAT_LEVELS = {
 
 /* -------------------------------------------- */
 
-
+/**
+ * Define the actor preparation hooks which are supported for Talent configuration.
+ * @enum {{signature: string, argNames: string[]}}
+ */
 export const ACTOR_HOOKS = {
   prepareResources: {
     signature: "ACTOR.HOOKS.PrepareResources",

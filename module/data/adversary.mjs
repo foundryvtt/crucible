@@ -183,7 +183,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     this.#prepareResources();
     this.parent._prepareDefenses();
-    this.#prepareResistances();
+    this.parent._prepareResistances();
   }
 
   /* -------------------------------------------- */
@@ -215,42 +215,9 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     // Focus
     r.focus.max = Math.ceil(level / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
+    this.parent.callTalentHooks("prepareResources", r);
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare damage resistances.
-   * Apply special talents which alter base resistances.
-   */
-  #prepareResistances() {
-    const res = this.resistances;
-    const {grimoire, talentIds} = this.parent;
-
-    // Nosferatu
-    if ( talentIds.has("nosferatu0000000") ) res.radiant.base -= 10;
-
-    // Thick Skin
-    if ( talentIds.has("thickskin0000000") ) {
-      res.bludgeoning.base += 2;
-      res.slashing.base += 2;
-      res.piercing.base += 2;
-    }
-
-    // Mental Fortress
-    if ( talentIds.has("mentalfortress00") ) res.psychic.base += 5;
-
-    // Snakeblood
-    if ( talentIds.has("snakeblood000000") ) res.poison.base += 5;
-
-    // Iterate over resistances
-    const hasRunewarden = talentIds.has("runewarden000000");
-    for ( let [id, r] of Object.entries(res) ) {
-      if ( hasRunewarden && (SYSTEM.DAMAGE_TYPES[id].type !== "physical")
-        && grimoire.runes.find(r => r.damageType === id)) r.base += 5;
-      r.total = r.base + r.bonus;
-    }
-  }
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */

@@ -655,6 +655,21 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare resistance data for the Actor.
+   * Defines shared logic used by both HeroData and AdversaryData.
+   * @internal
+   */
+  _prepareResistances() {
+    const resistances = this.system.resistances;
+    this.callTalentHooks("prepareResistances", resistances);
+    for ( const r of Object.values(resistances) ) {
+      r.total = r.base + r.bonus;
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Talent Hooks                                */
   /* -------------------------------------------- */
 

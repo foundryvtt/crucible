@@ -1,15 +1,15 @@
-2023/05/26-10:44:52.386 1bd80 Recovering log #748
-2023/05/26-10:44:52.390 1bd80 Delete type=0 #748
-2023/05/26-10:44:52.390 1bd80 Delete type=3 #746
-2023/05/26-15:03:31.166 2c880 Level-0 table #754: started
-2023/05/26-15:03:31.167 2c880 Level-0 table #754: 2983 bytes OK
-2023/05/26-15:03:31.168 2c880 Delete type=0 #752
-2023/05/26-15:03:31.170 2c880 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/05/26-15:03:31.170 2c880 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!unarmedblocking0' @ 1417 : 1
-2023/05/26-15:03:31.170 2c880 Compacting 1@1 + 1@2 files
-2023/05/26-15:03:31.172 2c880 Generated table #755@1: 192 keys, 73238 bytes
-2023/05/26-15:03:31.172 2c880 Compacted 1@1 + 1@2 files => 73238 bytes
-2023/05/26-15:03:31.173 2c880 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/26-15:03:31.173 2c880 Delete type=2 #750
-2023/05/26-15:03:31.173 2c880 Delete type=2 #754
-2023/05/26-15:03:31.174 2c880 Manual compaction at level-1 from '!items!unarmedblocking0' @ 1417 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/26-15:03:48.004 1bd80 Recovering log #753
+2023/05/26-15:03:48.008 1bd80 Delete type=0 #753
+2023/05/26-15:03:48.008 1bd80 Delete type=3 #751
+2023/05/26-20:40:32.406 2c880 Level-0 table #759: started
+2023/05/26-20:40:32.407 2c880 Level-0 table #759: 4780 bytes OK
+2023/05/26-20:40:32.408 2c880 Delete type=0 #757
+2023/05/26-20:40:32.412 2c880 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/26-20:40:32.412 2c880 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!thickskin0000000' @ 1426 : 1
+2023/05/26-20:40:32.412 2c880 Compacting 1@1 + 1@2 files
+2023/05/26-20:40:32.414 2c880 Generated table #760@1: 192 keys, 73970 bytes
+2023/05/26-20:40:32.414 2c880 Compacted 1@1 + 1@2 files => 73970 bytes
+2023/05/26-20:40:32.415 2c880 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/05/26-20:40:32.415 2c880 Delete type=2 #755
+2023/05/26-20:40:32.415 2c880 Delete type=2 #759
+2023/05/26-20:40:32.415 2c880 Manual compaction at level-1 from '!items!thickskin0000000' @ 1426 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

@@ -1,7 +1,7 @@
-2023/05/25-10:40:48.149 2b22c Recovering log #58
-2023/05/25-10:40:48.155 2b22c Delete type=0 #58
-2023/05/25-10:40:48.155 2b22c Delete type=3 #56
-2023/05/25-19:44:30.041 3b7c0 Level-0 table #63: started
-2023/05/25-19:44:30.041 3b7c0 Level-0 table #63: 0 bytes OK
-2023/05/25-19:44:30.042 3b7c0 Delete type=0 #61
-2023/05/25-19:44:30.044 3b7c0 Manual compaction at level-0 from '!items!berserker0000000' @ 72057594037927935 : 1 .. '!items!fighter000000000' @ 0 : 0; will stop at (end)
+2023/05/26-10:44:52.366 62c4 Recovering log #62
+2023/05/26-10:44:52.370 62c4 Delete type=0 #62
+2023/05/26-10:44:52.370 62c4 Delete type=3 #60
+2023/05/26-15:03:31.160 2c880 Level-0 table #67: started
+2023/05/26-15:03:31.160 2c880 Level-0 table #67: 0 bytes OK
+2023/05/26-15:03:31.161 2c880 Delete type=0 #65
+2023/05/26-15:03:31.163 2c880 Manual compaction at level-0 from '!items!berserker0000000' @ 72057594037927935 : 1 .. '!items!fighter000000000' @ 0 : 0; will stop at (end)
