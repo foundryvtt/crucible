@@ -41,10 +41,6 @@
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 
-"ACTOR.HOOKS.PrepareDefenses": "prepareDefenses(actor, defenses) {}",
-"ACTOR.HOOKS.PrepareResources": "prepareResources(actor, resources) {}",
-"ACTOR.HOOKS.PrepareResistances": "prepareResistances(actor, resistances) {}",
-
 "ANCESTRY.Abilities": "Ability Scores",
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",

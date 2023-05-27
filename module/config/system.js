@@ -118,17 +118,41 @@ export const THREAT_LEVELS = {
  * @enum {{signature: string, argNames: string[]}}
  */
 export const ACTOR_HOOKS = {
+  defendSkillAttack: {
+    argNames: ["action", "origin", "rollData"]
+  },
+  defendSpellAttack: {
+    argNames: ["spell", "origin", "rollData"]
+  },
+  defendWeaponAttack: {
+    argNames: ["weapon", "origin", "rollData"]
+  },
   prepareResources: {
-    signature: "ACTOR.HOOKS.PrepareResources",
     argNames: ["resources"]
   },
   prepareDefenses: {
-    signature: "ACTOR.HOOKS.PrepareDefenses",
     argNames: ["defenses"]
   },
+  prepareInitiativeCheck: {
+    argNames: ["rollData"]
+  },
   prepareResistances: {
-    signature: "ACTOR.HOOKS.PrepareResistances",
     argNames: ["resistances"]
+  },
+  prepareSkillCheck: {
+    argNames: ["skill", "rollData"]
+  },
+  prepareSpellAttack: {
+    argNames: ["spell", "target", "rollData"]
+  },
+  prepareStandardCheck: {
+    argNames: ["rollData"]
+  },
+  prepareTraining: {
+    argNames: ["training"]
+  },
+  prepareWeaponAttack: {
+    argNames: ["weapon", "target", "rollData"]
   },
 }
 

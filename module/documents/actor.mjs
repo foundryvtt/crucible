@@ -217,7 +217,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Talent hook functions which apply to this Actor based on their set of owned Talents.
-   * @type {Object<string, function[]>}
+   * @type {Object<string, {talent: CrucibleTalent, fn: Function}>}
    */
   talentHooks = {};
 
@@ -273,18 +273,7 @@ export default class CrucibleActor extends Actor {
       shield: 0,
       talisman: 0
     };
-    const talents = {
-      finesseweapontra: {finesse: 1, balanced: 1},
-      martialweapontra: {heavy: 1, balanced: 1},
-      unarmedweapontra: {unarmed: 1},
-      archerytraining0: {projectile: 1, mechanical: 1},
-      practicedtrigono: {mechanical: 1}
-    };
-    for ( const [talentId, points] of Object.entries(talents) ) {
-      if ( actor.talentIds.has(talentId) ) {
-        for ( const [k, v] of Object.entries(points) ) training[k] += v;
-      }
-    }
+    actor.callTalentHooks("prepareTraining", training);
     return training;
   }
 
@@ -430,7 +419,8 @@ export default class CrucibleActor extends Actor {
     // Special Properties
     weapons.talisman = ["talisman1", "talisman2"].includes(mhCategory.id) || ("talisman1" === ohCategory.id);
     weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh.system.properties.has("oversized") + oh?.system.properties.has("oversized");
+    weapons.slow = mh.system.properties.has("oversized") ? mhCategory.hands : 0;
+    weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
     return weapons;
   }
 
@@ -528,7 +518,7 @@ export default class CrucibleActor extends Actor {
       this.talentIds.add(t.id);
 
       // Register hooks
-      for ( const hook of t.system.actorHooks ) this.#registerTalentHook(talent, hook);
+      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerTalentHook(this, talent, hook);
 
       // Register signatures
       if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
@@ -675,16 +665,18 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Register a hooked function declared by a Talent item.
+   * @param {CrucibleActor} actor   The Actor being prepared
    * @param {CrucibleItem} talent   The Talent registering the hook
    * @param {object} data           Registered hook data
    * @param {string} data.hook        The hook name
    * @param {string} data.fn          The hook function
+   * @private
    */
-  #registerTalentHook(talent, {hook, fn}={}) {
+  static #registerTalentHook(actor, talent, {hook, fn}={}) {
     const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
-    this.talentHooks[hook] ||= [];
-    this.talentHooks[hook].push(new Function("actor", ...hookConfig.argNames, fn));
+    actor.talentHooks[hook] ||= [];
+    actor.talentHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
   }
 
   /* -------------------------------------------- */
@@ -697,9 +689,14 @@ export default class CrucibleActor extends Actor {
    */
   callTalentHooks(hook, ...args) {
     const hooks = this.talentHooks[hook] ||= [];
-    for ( const fn of hooks ) {
-      console.debug(`Calling talent hook for ${hook}`);
-      fn(this, ...args);
+    for ( const {talent, fn} of hooks ) {
+      console.debug(`Calling ${hook} hook for Talent ${talent.name}`);
+      try {
+        fn(this, ...args);
+      } catch(err) {
+        err.message = `Talent ${talent.name} declared a ${hook} which failed to be evaluated:\n ${err.message}`;
+        console.error(err);
+      }
     }
   }
 
@@ -787,8 +784,8 @@ export default class CrucibleActor extends Actor {
     const skill = this.system.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
 
-    // Create the check roll
-    const sc = new StandardCheck({
+    // Prepare check data
+    const rollData = {
       actorId: this.id,
       banes: banes,
       boons: boons,
@@ -798,7 +795,14 @@ export default class CrucibleActor extends Actor {
       enchantment: skill.enchantmentBonus,
       type: skillId,
       rollMode: rollMode,
-    });
+    };
+
+    // Apply talent hooks
+    this.callTalentHooks("prepareStandardCheck", rollData);
+    this.callTalentHooks("prepareSkillCheck", skill, rollData);
+
+    // Create the check roll
+    const sc = new StandardCheck(rollData);
 
     // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
@@ -881,10 +885,9 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Cast a certain spell against a target
+   * Cast a certain spell against a target.
    * @param {CrucibleSpell} spell
    * @param {CrucibleActor} target
-   * @param {object} bonuses
    * @returns {Promise<void>}
    */
   async castSpell(spell, target) {
@@ -902,8 +905,8 @@ export default class CrucibleActor extends Actor {
     boons += targetBoons.boons;
     banes += targetBoons.banes;
 
-    // Create the Attack Roll instance
-    const roll = new AttackRoll({
+    // Prepare Roll Data
+    const rollData = {
       actorId: this.id,
       spellId: spell.id,
       target: target.uuid,
@@ -913,7 +916,15 @@ export default class CrucibleActor extends Actor {
       banes, boons,
       defenseType,
       dc: target.defenses[defenseType].total
-    });
+    }
+
+    // Call talent hooks
+    this.callTalentHooks("prepareStandardCheck", rollData);
+    this.callTalentHooks("prepareSpellAttack", spell, target, rollData);
+    target.callTalentHooks("defendSpellAttack", spell, this, rollData);
+
+    // Create the Attack Roll instance
+    const roll = new AttackRoll(rollData);
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
@@ -960,6 +971,11 @@ export default class CrucibleActor extends Actor {
     else {
       Object.assign(rollData, {defenseType: skillId, dc: target.skills[skillId].passive});
     }
+
+    // Apply talent hooks
+    this.callTalentHooks("prepareStandardCheck", rollData);
+    this.callTalentHooks("prepareSkillAttack", action, target, rollData);
+    target.callTalentHooks("defendSkillAttack", action, this, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);

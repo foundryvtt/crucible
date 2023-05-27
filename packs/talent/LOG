@@ -1,15 +1,15 @@
-2023/05/26-15:03:48.004 1bd80 Recovering log #753
-2023/05/26-15:03:48.008 1bd80 Delete type=0 #753
-2023/05/26-15:03:48.008 1bd80 Delete type=3 #751
-2023/05/26-20:40:32.406 2c880 Level-0 table #759: started
-2023/05/26-20:40:32.407 2c880 Level-0 table #759: 4780 bytes OK
-2023/05/26-20:40:32.408 2c880 Delete type=0 #757
-2023/05/26-20:40:32.412 2c880 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/05/26-20:40:32.412 2c880 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!thickskin0000000' @ 1426 : 1
-2023/05/26-20:40:32.412 2c880 Compacting 1@1 + 1@2 files
-2023/05/26-20:40:32.414 2c880 Generated table #760@1: 192 keys, 73970 bytes
-2023/05/26-20:40:32.414 2c880 Compacted 1@1 + 1@2 files => 73970 bytes
-2023/05/26-20:40:32.415 2c880 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/26-20:40:32.415 2c880 Delete type=2 #755
-2023/05/26-20:40:32.415 2c880 Delete type=2 #759
-2023/05/26-20:40:32.415 2c880 Manual compaction at level-1 from '!items!thickskin0000000' @ 1426 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/27-12:24:24.580 22e34 Recovering log #762
+2023/05/27-12:24:24.584 22e34 Delete type=0 #762
+2023/05/27-12:24:24.584 22e34 Delete type=3 #761
+2023/05/27-14:03:59.743 31ffc Level-0 table #766: started
+2023/05/27-14:03:59.744 31ffc Level-0 table #766: 9105 bytes OK
+2023/05/27-14:03:59.745 31ffc Delete type=0 #764
+2023/05/27-14:03:59.747 31ffc Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/27-14:03:59.747 31ffc Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!unarmedweapontra' @ 1448 : 1
+2023/05/27-14:03:59.747 31ffc Compacting 1@1 + 1@2 files
+2023/05/27-14:03:59.750 31ffc Generated table #767@1: 194 keys, 75299 bytes
+2023/05/27-14:03:59.750 31ffc Compacted 1@1 + 1@2 files => 75299 bytes
+2023/05/27-14:03:59.751 31ffc compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/05/27-14:03:59.751 31ffc Delete type=2 #760
+2023/05/27-14:03:59.751 31ffc Delete type=2 #766
+2023/05/27-14:03:59.753 31ffc Manual compaction at level-1 from '!items!unarmedweapontra' @ 1448 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

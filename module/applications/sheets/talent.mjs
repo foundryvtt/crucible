@@ -35,7 +35,10 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
       actions: TalentSheet.prepareActions(this.object.system.actions),
       tags: this.item.getTags(this.object.system.talents),
       actionsJSON: JSON.stringify(source.system.actions, null, 2),
-      actorHookChoices: SYSTEM.ACTOR_HOOKS,
+      actorHookChoices: Object.keys(SYSTEM.ACTOR_HOOKS).reduce((obj, k) => {
+        obj[k] = k;
+        return obj;
+      }, {}),
       actorHooks: this.#prepareActorHooks(),
       nodes: Object.fromEntries(nodeIds.map(id => [id, id])),
       runes: SYSTEM.SPELL.RUNES,
@@ -69,7 +72,8 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
   #prepareActorHooks() {
     return this.object.system.actorHooks.map(h => {
       const cfg = SYSTEM.ACTOR_HOOKS[h.hook];
-      return {label: cfg.signature, ...h};
+      const label = `${h.hook}(actor, ${cfg.argNames.join(", ")})`;
+      return {label, ...h};
     });
   }
 

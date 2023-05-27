@@ -202,9 +202,9 @@ export default class CrucibleWeapon extends PhysicalItemData {
     boons += targetBoons.boons;
     banes += targetBoons.banes;
 
-    // Create the Attack Roll instance
+    // Prepare roll data
     const {ability, skill, enchantment} = this.actionBonuses;
-    const roll = new AttackRoll({
+    const rollData = {
       actorId: actor.id,
       itemId: this.parent.id,
       target: target.uuid,
@@ -217,9 +217,15 @@ export default class CrucibleWeapon extends PhysicalItemData {
       dc: target.defenses.physical.total,
       criticalSuccessThreshold: this.properties.has("keen") ? 4 : 6,
       criticalFailureThreshold: this.properties.has("reliable") ? 4 : 6
-    });
+    }
 
-    // Evaluate the attack roll
+    // Call talent hooks
+    actor.callTalentHooks("prepareStandardCheck", rollData);
+    actor.callTalentHooks("prepareWeaponAttack", this, target, rollData);
+    target.callTalentHooks("defendWeaponAttack", this, actor, rollData);
+
+    // Create and evaluate the AttackRoll instance
+    const roll = new AttackRoll(rollData);
     await roll.evaluate({async: true});
     const r = roll.data.result = target.testDefense(defenseType, roll.total);
 

@@ -1,8 +1,8 @@
-2023/05/26-15:03:48.012 239e0 Recovering log #68
-2023/05/26-15:03:48.016 239e0 Delete type=0 #68
-2023/05/26-15:03:48.016 239e0 Delete type=3 #66
-2023/05/26-20:40:32.411 2c880 Level-0 table #73: started
-2023/05/26-20:40:32.411 2c880 Level-0 table #73: 0 bytes OK
-2023/05/26-20:40:32.412 2c880 Delete type=0 #71
-2023/05/26-20:40:32.412 2c880 Manual compaction at level-0 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
-2023/05/26-20:40:32.415 2c880 Manual compaction at level-1 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/05/27-12:24:24.588 7d50 Recovering log #75
+2023/05/27-12:24:24.591 7d50 Delete type=0 #75
+2023/05/27-12:24:24.591 7d50 Delete type=3 #74
+2023/05/27-14:03:59.745 31ffc Level-0 table #79: started
+2023/05/27-14:03:59.745 31ffc Level-0 table #79: 0 bytes OK
+2023/05/27-14:03:59.746 31ffc Delete type=0 #77
+2023/05/27-14:03:59.747 31ffc Manual compaction at level-0 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/05/27-14:03:59.751 31ffc Manual compaction at level-1 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
