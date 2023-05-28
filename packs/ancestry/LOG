@@ -1,8 +1,8 @@
-2023/05/27-12:24:24.558 5584 Recovering log #703
-2023/05/27-12:24:24.562 5584 Delete type=0 #703
-2023/05/27-12:24:24.562 5584 Delete type=3 #702
-2023/05/27-14:03:59.733 31ffc Level-0 table #707: started
-2023/05/27-14:03:59.733 31ffc Level-0 table #707: 0 bytes OK
-2023/05/27-14:03:59.734 31ffc Delete type=0 #705
-2023/05/27-14:03:59.736 31ffc Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
-2023/05/27-14:03:59.737 31ffc Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/05/27-19:53:53.667 5f5c Recovering log #711
+2023/05/27-19:53:53.672 5f5c Delete type=0 #711
+2023/05/27-19:53:53.672 5f5c Delete type=3 #710
+2023/05/27-20:27:35.494 eb0 Level-0 table #715: started
+2023/05/27-20:27:35.495 eb0 Level-0 table #715: 0 bytes OK
+2023/05/27-20:27:35.496 eb0 Delete type=0 #713
+2023/05/27-20:27:35.498 eb0 Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/05/27-20:27:35.498 eb0 Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)

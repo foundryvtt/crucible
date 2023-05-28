@@ -45,12 +45,9 @@ export default class CrucibleActorSheet extends ActorSheet {
 
     // Equipment
     const armor = a.equipment.armor;
-    const {mainhand: mh, offhand: oh, twoHanded: th} = a.equipment.weapons;
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.system.category].label;
     context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.system.category].label;
-    context.featuredEquipment = [{name: mh.name, img: mh.img, tag: [mh.getTags().damage]}];
-    if ( !th ) context.featuredEquipment.push({name: oh.name, img: oh.img, tag: [oh.getTags().damage]});
-    context.featuredEquipment.push({name: armor.name, img: armor.img, tag: armor.getTags().armor});
+    context.featuredEquipment = this._prepareFeaturedEquipment();
 
     // Actions
     context.actions = Object.values(context.actor.actions).map(a => {
@@ -81,6 +78,24 @@ export default class CrucibleActorSheet extends ActorSheet {
     context.incomplete = {}
     return context;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the items of equipment which are showcased at the top of the sidebar.
+   * @returns {{name: string, img: string, tag: string[]}[]}
+   * @protected
+   */
+  _prepareFeaturedEquipment() {
+    const featuredEquipment = [];
+    const {armor, weapons} = this.actor.equipment;
+    const {mainhand: mh, offhand: oh, twoHanded: th} = weapons;
+    featuredEquipment.push({name: mh.name, img: mh.img, tag: [mh.getTags().damage]});
+    if ( oh?.id && !th ) featuredEquipment.push({name: oh.name, img: oh.img, tag: [oh.getTags().damage]})
+    featuredEquipment.push({name: armor.name, img: armor.img, tag: armor.getTags().armor});
+    return featuredEquipment;
+  }
+
 
   /* -------------------------------------------- */
 

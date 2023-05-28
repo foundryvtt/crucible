@@ -38,6 +38,12 @@
       "type": "Item"
     },
     {
+      "name": "adversary-talents",
+      "label": "Adversary Talents",
+      "path": "packs/adversary-talents",
+      "type": "Item"
+    },
+    {
       "name": "rules",
       "label": "System Rules",
       "path": "packs/rules",

@@ -76,9 +76,11 @@ export default class HeroSheet extends CrucibleActorSheet {
     for ( const skill of Object.values(SYSTEM.SKILLS) ) {
       const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
       const category = categories[skill.category];
+      const a1 = SYSTEM.ABILITIES[skill.abilities[0]];
+      const a2 = SYSTEM.ABILITIES[skill.abilities[1]];
 
       // Skill data
-      s.abilityAbbrs = skill.abilities.map(a => SYSTEM.ABILITIES[a].abbreviation);
+      s.abilityAbbrs = [a1.abbreviation, a2.abbreviation];
       s.pips = Array.fromRange(5).map((v, i) => i < s.rank ? "trained" : "untrained");
       s.css = [
         s.rank > 0 ? "trained" : "untrained",
@@ -91,6 +93,12 @@ export default class HeroSheet extends CrucibleActorSheet {
       const path = skill.paths[s.path] || null;
       s.rankName = SYSTEM.SKILL.RANKS[s.rank].label;
       s.pathName = path ? path.name : game.i18n.localize("SKILL.RANKS.Unspecialized");
+
+      // Tooltips
+      s.tooltips = {
+        value: game.i18n.format("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
+        passive: game.i18n.localize("SKILL.TooltipPassive")
+      }
 
       // Add to category
       category.skills ||= {};

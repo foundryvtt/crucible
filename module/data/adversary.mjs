@@ -38,7 +38,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
 
     // Details
     schema.details = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
+      level: new fields.NumberField({...requiredInteger, initial: 0, min: -11}),
       archetype: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
@@ -107,7 +107,20 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     archetype ||= CrucibleArchetype.cleanData();
     taxonomy ||= CrucibleTaxonomy.cleanData();
     const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
-    const abilityLevel = level === 0 ? Math.round(-6 * (2 - factor)) : Math.round(level * factor);
+
+    // Compute threat level
+    let threatLevel = Math.floor(level * factor);
+    let fractionLevel = threatLevel;
+    if ( level === 0 ) {
+      fractionLevel = 0;
+      threatLevel = -12;
+    }
+    else if ( level < 0 ) {
+      fractionLevel = 1 / (1 - level);
+      threatLevel = 1 + Math.ceil(level / factor);
+    }
+    this.details.threatLevel = threatLevel;
+    this.details.fractionLevel = fractionLevel;
 
     // Assign base taxonomy ability scores
     for ( const a of Object.keys(this.abilities) ) {
@@ -123,28 +136,27 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
       return arr;
     }, []).sort((a, b) => b.score - a.score);
 
-    // Apply increases
+    // Conservatively under-apply increases
     let spent = 0;
     for ( const o of order ) {
       const a = this.abilities[o.id];
       o.weight = o.weight / denom;
-      o.raw = abilityLevel * o.weight;
-      const d = o.increases = Math.floor(o.raw);
-      spent += d;
-      a.increases = d;
-      a.value = o.weight ? Math.max(a.base + a.increases, 1) : 0;
+      let delta = Math.floor(threatLevel * o.weight);
+      if ( o.weight === 0 ) delta = 0;            // Don't increase abilities with zero weight
+      else if ( a.base + delta < 1 ) delta = 0;   // Don't decrease below 1
+      o.increases = a.increases = delta;
+      spent += delta;
     }
 
     // Allocate remainder
-    let remainder = abilityLevel - spent;
+    let remainder = threatLevel - spent;
     let n = 1;
     while ( remainder > 0 ) {
       for ( const o of order ) {
         const a = this.abilities[o.id];
-        const nextWeight = (abilityLevel + n) * o.weight;
+        const nextWeight = (threatLevel + n) * o.weight;
         if ( Math.floor(nextWeight) > a.increases ) {
           a.increases++;
-          a.value++;
           remainder--
           if ( !remainder ) break;
         }
@@ -152,8 +164,13 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
       n++;
     }
 
+    // Compute total
+    for ( const a of Object.values(this.abilities) ) {
+      a.value = a.base + a.increases;
+    }
+
     // Resistances
-    const resistanceLevel = (6 + level) * factor;
+    const resistanceLevel = Math.max(6 + threatLevel, 0);
     for ( const r of Object.keys(this.resistances) ) {
       const tr = taxonomy.resistances[r] || 0;
       this.resistances[r].base = tr === 0 ? 0 : Math.floor(resistanceLevel / Math.abs(tr)) * Math.sign(tr);
@@ -194,26 +211,28 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   #prepareResources() {
     const {statuses} = this.parent;
     const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
-    const level = this.details.level * threat.scaling;
+    const l = this.details.fractionLevel;
     const r = this.resources;
     const a = this.abilities;
 
     // Health
-    r.health.max = (6 * level) + (4 * a.toughness.value) + (2 * a.strength.value);
+    r.health.max = Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value);
     r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = (6 * level) + (4 * a.presence.value) + (2 * a.wisdom.value);
+    r.morale.max = Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value);
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Action
     r.action.max = threat.actionMax;
+    if ( l < 1 ) r.action.max -= 1;
     if ( statuses.has("stunned") ) r.action.max -= 2;
     else if ( statuses.has("staggered") ) r.action.max -= 1;
+    r.action.max = Math.max(r.action.max, 0);
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = Math.ceil(level / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
+    r.focus.max = Math.ceil(l / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
     this.parent.callTalentHooks("prepareResources", r);
   }

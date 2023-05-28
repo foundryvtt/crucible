@@ -1,8 +1,22 @@
-2023/05/27-12:24:24.588 7d50 Recovering log #75
-2023/05/27-12:24:24.591 7d50 Delete type=0 #75
-2023/05/27-12:24:24.591 7d50 Delete type=3 #74
-2023/05/27-14:03:59.745 31ffc Level-0 table #79: started
-2023/05/27-14:03:59.745 31ffc Level-0 table #79: 0 bytes OK
-2023/05/27-14:03:59.746 31ffc Delete type=0 #77
-2023/05/27-14:03:59.747 31ffc Manual compaction at level-0 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
-2023/05/27-14:03:59.751 31ffc Manual compaction at level-1 from '!items!hobgoblin0000000' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/05/27-19:53:53.700 11654 Recovering log #84
+2023/05/27-19:53:53.704 11654 Delete type=0 #84
+2023/05/27-19:53:53.704 11654 Delete type=3 #82
+2023/05/27-20:27:35.536 eb0 Level-0 table #88: started
+2023/05/27-20:27:35.536 eb0 Level-0 table #88: 0 bytes OK
+2023/05/27-20:27:35.537 eb0 Delete type=0 #86
+2023/05/27-20:27:35.537 eb0 Manual compaction at level-0 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at '!items!ogre000000000000' @ 9 : 1
+2023/05/27-20:27:35.538 eb0 Compacting 1@0 + 0@1 files
+2023/05/27-20:27:35.540 eb0 Generated table #89@0: 7 keys, 1814 bytes
+2023/05/27-20:27:35.540 eb0 Compacted 1@0 + 0@1 files => 1814 bytes
+2023/05/27-20:27:35.541 eb0 compacted to: files[ 0 1 2 0 0 0 0 ]
+2023/05/27-20:27:35.541 eb0 Delete type=2 #83
+2023/05/27-20:27:35.546 eb0 Manual compaction at level-0 from '!items!ogre000000000000' @ 9 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/05/27-20:27:35.546 eb0 Manual compaction at level-1 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at '!items!ogre000000000000' @ 9 : 1
+2023/05/27-20:27:35.546 eb0 Compacting 1@1 + 2@2 files
+2023/05/27-20:27:35.547 eb0 Generated table #90@1: 7 keys, 1814 bytes
+2023/05/27-20:27:35.547 eb0 Compacted 1@1 + 2@2 files => 1814 bytes
+2023/05/27-20:27:35.548 eb0 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/05/27-20:27:35.548 eb0 Delete type=2 #36
+2023/05/27-20:27:35.548 eb0 Delete type=2 #65
+2023/05/27-20:27:35.549 eb0 Delete type=2 #89
+2023/05/27-20:27:35.551 eb0 Manual compaction at level-1 from '!items!ogre000000000000' @ 9 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)

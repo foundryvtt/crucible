@@ -20,6 +20,7 @@ export default class CrucibleCombat extends Combat {
       data.combatants.push({_id: c.id, initiative: roll.total});
       rolls.push({combatant: c, roll});
     }
+    data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
 
     // Post new round Initiative summary
     await this.#postInitiativeMessage(data.round, rolls);
@@ -74,8 +75,10 @@ export default class CrucibleCombat extends Combat {
     }
 
     // Morale Escalation
-    await firstActor?.alterResources({morale: this.round});
-    await lastActor?.alterResources({morale: -this.round});
+    if ( this.round > 6 ) {
+      await firstActor?.alterResources({morale: this.round});
+      await lastActor?.alterResources({morale: -this.round});
+    }
   }
 
   /* -------------------------------------------- */

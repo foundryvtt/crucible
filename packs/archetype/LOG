@@ -1,7 +1,15 @@
-2023/05/27-12:24:24.558 22e34 Recovering log #73
-2023/05/27-12:24:24.562 22e34 Delete type=0 #73
-2023/05/27-12:24:24.562 22e34 Delete type=3 #72
-2023/05/27-14:03:59.735 31ffc Level-0 table #77: started
-2023/05/27-14:03:59.735 31ffc Level-0 table #77: 0 bytes OK
-2023/05/27-14:03:59.736 31ffc Delete type=0 #75
-2023/05/27-14:03:59.737 31ffc Manual compaction at level-0 from '!items!berserker0000000' @ 72057594037927935 : 1 .. '!items!fighter000000000' @ 0 : 0; will stop at (end)
+2023/05/27-19:53:53.667 47cf0 Recovering log #82
+2023/05/27-19:53:53.672 47cf0 Delete type=0 #82
+2023/05/27-19:53:53.672 47cf0 Delete type=3 #80
+2023/05/27-20:27:35.500 eb0 Level-0 table #86: started
+2023/05/27-20:27:35.501 eb0 Level-0 table #86: 768 bytes OK
+2023/05/27-20:27:35.502 eb0 Delete type=0 #84
+2023/05/27-20:27:35.505 eb0 Manual compaction at level-0 from '!folders!6Up7ddrphLept3RW' @ 72057594037927935 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at '!items!tusker0000000000' @ 17 : 1
+2023/05/27-20:27:35.505 eb0 Compacting 2@0 + 1@1 files
+2023/05/27-20:27:35.506 eb0 Generated table #87@0: 6 keys, 1628 bytes
+2023/05/27-20:27:35.506 eb0 Compacted 2@0 + 1@1 files => 1628 bytes
+2023/05/27-20:27:35.506 eb0 compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/05/27-20:27:35.507 eb0 Delete type=2 #35
+2023/05/27-20:27:35.507 eb0 Delete type=2 #81
+2023/05/27-20:27:35.507 eb0 Delete type=2 #86
+2023/05/27-20:27:35.507 eb0 Manual compaction at level-0 from '!items!tusker0000000000' @ 17 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at (end)

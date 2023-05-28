@@ -1,15 +1,21 @@
-2023/05/27-12:24:24.580 22e34 Recovering log #762
-2023/05/27-12:24:24.584 22e34 Delete type=0 #762
-2023/05/27-12:24:24.584 22e34 Delete type=3 #761
-2023/05/27-14:03:59.743 31ffc Level-0 table #766: started
-2023/05/27-14:03:59.744 31ffc Level-0 table #766: 9105 bytes OK
-2023/05/27-14:03:59.745 31ffc Delete type=0 #764
-2023/05/27-14:03:59.747 31ffc Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/05/27-14:03:59.747 31ffc Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!unarmedweapontra' @ 1448 : 1
-2023/05/27-14:03:59.747 31ffc Compacting 1@1 + 1@2 files
-2023/05/27-14:03:59.750 31ffc Generated table #767@1: 194 keys, 75299 bytes
-2023/05/27-14:03:59.750 31ffc Compacted 1@1 + 1@2 files => 75299 bytes
-2023/05/27-14:03:59.751 31ffc compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/05/27-14:03:59.751 31ffc Delete type=2 #760
-2023/05/27-14:03:59.751 31ffc Delete type=2 #766
-2023/05/27-14:03:59.753 31ffc Manual compaction at level-1 from '!items!unarmedweapontra' @ 1448 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/27-19:53:53.695 5f5c Recovering log #772
+2023/05/27-19:53:53.699 5f5c Delete type=0 #772
+2023/05/27-19:53:53.699 5f5c Delete type=3 #770
+2023/05/27-20:27:35.513 eb0 Level-0 table #776: started
+2023/05/27-20:27:35.513 eb0 Level-0 table #776: 0 bytes OK
+2023/05/27-20:27:35.514 eb0 Delete type=0 #774
+2023/05/27-20:27:35.524 eb0 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!testudo000000000' @ 1464 : 1
+2023/05/27-20:27:35.524 eb0 Compacting 1@0 + 0@1 files
+2023/05/27-20:27:35.525 eb0 Generated table #777@0: 7 keys, 3137 bytes
+2023/05/27-20:27:35.525 eb0 Compacted 1@0 + 0@1 files => 3137 bytes
+2023/05/27-20:27:35.526 eb0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/05/27-20:27:35.526 eb0 Delete type=2 #771
+2023/05/27-20:27:35.527 eb0 Manual compaction at level-0 from '!items!testudo000000000' @ 1464 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/05/27-20:27:35.532 eb0 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!testudo000000000' @ 1466 : 1
+2023/05/27-20:27:35.532 eb0 Compacting 1@1 + 1@2 files
+2023/05/27-20:27:35.534 eb0 Generated table #778@1: 195 keys, 77489 bytes
+2023/05/27-20:27:35.534 eb0 Compacted 1@1 + 1@2 files => 77489 bytes
+2023/05/27-20:27:35.535 eb0 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/05/27-20:27:35.535 eb0 Delete type=2 #767
+2023/05/27-20:27:35.536 eb0 Delete type=2 #777
+2023/05/27-20:27:35.537 eb0 Manual compaction at level-1 from '!items!testudo000000000' @ 1466 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

@@ -140,34 +140,38 @@ export default class CrucibleTalentNode {
    */
   static async initialize() {
     for ( const node of this.nodes.values() ) node.talents.clear();
-    const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
-    const talents = await pack.getDocuments();
-    for ( const talent of talents ) {
-      const node = talent.system.node;
-      if ( !node ) continue;
+    const packs = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
+    for ( const packId of packs ) {
+      if ( !packId ) continue;
+      const pack = game.packs.get(packId);
+      const talents = await pack.getDocuments();
+      for ( const talent of talents ) {
+        const node = talent.system.node;
+        if ( !node ) continue;
 
-      // Register Talents
-      node.talents.add(talent);
+        // Register Talents
+        node.talents.add(talent);
 
-      // Twinned Nodes
-      const twin = node.twinNode;
-      if ( twin ) twin.talents.add(talent);
+        // Twinned Nodes
+        const twin = node.twinNode;
+        if ( twin ) twin.talents.add(talent);
 
-      // Update Metadata
-      if ( talent.system.rune ) {
-        const rune = CONFIG.SYSTEM.SPELL.RUNES[talent.system.rune];
-        rune.img = talent.img;
-        rune.description = talent.system.description;
-      }
-      if ( talent.system.gesture ) {
-        const gesture = CONFIG.SYSTEM.SPELL.GESTURES[talent.system.gesture];
-        gesture.img = talent.img;
-        gesture.description = talent.system.description;
-      }
-      if ( talent.system.inflection ) {
-        const inflection = CONFIG.SYSTEM.SPELL.INFLECTIONS[talent.system.inflection];
-        inflection.img = talent.img;
-        inflection.description = talent.system.description;
+        // Update Metadata
+        if ( talent.system.rune ) {
+          const rune = CONFIG.SYSTEM.SPELL.RUNES[talent.system.rune];
+          rune.img = talent.img;
+          rune.description = talent.system.description;
+        }
+        if ( talent.system.gesture ) {
+          const gesture = CONFIG.SYSTEM.SPELL.GESTURES[talent.system.gesture];
+          gesture.img = talent.img;
+          gesture.description = talent.system.description;
+        }
+        if ( talent.system.inflection ) {
+          const inflection = CONFIG.SYSTEM.SPELL.INFLECTIONS[talent.system.inflection];
+          inflection.img = talent.img;
+          inflection.description = talent.system.description;
+        }
       }
     }
   }

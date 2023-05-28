@@ -11,6 +11,14 @@ export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @override */
   static documentType = "weapon";
 
+  /** @inheritDoc */
+  static get defaultOptions() {
+    return Object.assign(super.defaultOptions, {
+      submitOnChange: true,
+      closeOnSubmit: false
+    });
+  }
+
   /** @inheritdoc */
   async getData(options={}) {
     const isEditable = this.isEditable;

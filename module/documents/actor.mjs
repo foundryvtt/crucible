@@ -618,10 +618,6 @@ export default class CrucibleActor extends Actor {
     defenses.wounds = {base: SYSTEM.PASSIVE_BASE + Math.floor(wounds / 10), bonus: 0};
     const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
     defenses.madness = {base: SYSTEM.PASSIVE_BASE + Math.floor(madness / 10), bonus: 0};
-
-    // TODO
-    if ( actor.talentIds.has("resilient0000000") ) defenses.wounds.bonus -= 1;
-    if ( actor.talentIds.has("carefree00000000") ) defenses.madness.total -= 1;
   }
 
   /* -------------------------------------------- */
@@ -733,22 +729,12 @@ export default class CrucibleActor extends Actor {
     if ( target.statuses.has("exposed") && (attackType !== "skill") ) boons += 2;
 
     // Guarded
-    if ( target.statuses.has("guarded") && (attackType !== "skill") ) {
-      if ( target.talentIds.has("testudo000000000") && target.equipment.weapons.shield ) banes += 2;
-      else banes += 1;
-    }
+    if ( target.statuses.has("guarded") && (attackType !== "skill") ) banes += 1;
 
     // Prone
     if ( target.statuses.has("prone") && (attackType !== "skill") ) {
       if ( ranged ) banes += 2;
       else boons += 2;
-    }
-
-    // Initiative Difference
-    if ( this.talentIds.has("strikefirst00000") ) {
-      const ac = this.combatant;
-      const tc = target.combatant;
-      if ( ac?.initiative > tc?.initiative ) boons += 1;
     }
     return {boons, banes};
   }
@@ -838,13 +824,13 @@ export default class CrucibleActor extends Actor {
 
     // Physical Defense
     if ( defenseType === "physical" ) {
-      dc = d.physical;
+      dc = d.physical.total;
 
       // Hit
       if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.HIT;
 
       // Dodge
-      const r = twist.random() * d.physical;
+      const r = twist.random() * d.physical.total;
       const dodge = d.dodge.total;
       if ( r <= dodge ) return AttackRoll.RESULT_TYPES.DODGE;
 
@@ -1427,11 +1413,14 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async syncTalents() {
-    const pack = game.packs.get(CONFIG.SYSTEM.COMPENDIUM_PACKS.talent);
     const updates = [];
-    for ( const item of this.itemTypes.talent ) {
-      const talent = pack.get(item.id);
-      if ( talent ) updates.push(talent.toObject());
+    const packIds = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
+    for ( const packId of packIds ) {
+      const pack = game.packs.get(packId);
+      for ( const item of this.itemTypes.talent ) {
+        const talent = pack.get(item.id);
+        if ( talent ) updates.push(talent.toObject());
+      }
     }
     return this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
   }
@@ -1682,7 +1671,7 @@ export default class CrucibleActor extends Actor {
 
     // Remove existing talents
     const existing = this.system.details[type];
-    if ( existing.talents?.size ) {
+    if ( existing?.talents?.size ) {
       const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
       await this.deleteEmbeddedDocuments("Item", deleteIds);
     }

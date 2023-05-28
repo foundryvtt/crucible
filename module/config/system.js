@@ -33,6 +33,7 @@ export const COMPENDIUM_PACKS = {
   archetype: "crucible.archetype",
   background: "crucible.background",
   talent: "crucible.talent",
+  talentExtensions: null,
   taxonomy: "crucible.taxonomy"
 }
 

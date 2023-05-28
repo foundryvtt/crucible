@@ -11,6 +11,14 @@ export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @override */
   static documentType = "armor";
 
+  /** @inheritDoc */
+  static get defaultOptions() {
+    return Object.assign(super.defaultOptions, {
+      submitOnChange: true,
+      closeOnSubmit: false
+    });
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritdoc */

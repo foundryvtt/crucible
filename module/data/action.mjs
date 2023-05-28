@@ -832,6 +832,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Delete a measured template if the chat message which originated it is deleted.
+   * @param {ChatMessage} message     The ChatMessage document that will be deleted
+   * @param {object} options          Options which modify message deletion
+   * @param {string} userId           The ID of the deleting user
+   * @returns {Promise<void>}
+   */
+  static async onDeleteChatMessage(message, options, userId) {
+    const template = message.flags.crucible?.template;
+    if ( !template ) return;
+    const templateDoc = await fromUuid(template);
+    if ( templateDoc ) await templateDoc.delete();
+  }
+
+  /* -------------------------------------------- */
   /*  Animation                                   */
   /* -------------------------------------------- */
 

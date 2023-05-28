@@ -17,9 +17,8 @@ export default class StandardCheckDialog extends Dialog {
   /** @override */
 	static get defaultOptions() {
 	  return mergeObject(super.defaultOptions, {
-	    template: `systems/${SYSTEM.id}/templates/dice/standard-check-dialog.html`,
+	    template: `systems/${SYSTEM.id}/templates/dice/standard-check-dialog.hbs`,
       classes: [SYSTEM.id, "roll"],
-      width: game.user.isGM ? 520 : 360,
       submitOnChange: true,
       closeOnSubmit: false
     });
@@ -41,6 +40,8 @@ export default class StandardCheckDialog extends Dialog {
   /** @override */
   async getData(options={}) {
     const data = this.pool.data;
+    const displayGMOptions = false; // TODO temporarily disable for playtest 1
+    options.position = {width: displayGMOptions ? 520 : 360};
     return {
       ability: data.ability,
       banes: data.banes,
@@ -49,7 +50,7 @@ export default class StandardCheckDialog extends Dialog {
       dice: this.pool.dice.map(d => `d${d.faces}`),
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       enchantment: data.enchantment,
-      isGM: game.user.isGM,
+      isGM: displayGMOptions,
       rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
       skill: data.skill

@@ -1,4 +1,5 @@
 import CrucibleActorSheet from "./actor.mjs";
+import {SYSTEM} from "../../config/system.js";
 
 /**
  * The ActorSheet class which is used to display an Adversary Actor.
@@ -23,6 +24,10 @@ export default class AdversarySheet extends CrucibleActorSheet {
     const context = await super.getData(options);
     const {actor: a, source: s} = context;
 
+    // Equipment
+    context.displayMainhand = true;
+    context.displayOffhand = false;
+
     // Taxonomy
     context.incomplete.taxonomy = !s.system.details.taxonomy?.name;
     context.taxonomyName = a.system.details.taxonomy?.name || game.i18n.localize("TAXONOMY.Configure");
@@ -35,9 +40,27 @@ export default class AdversarySheet extends CrucibleActorSheet {
     context.threats = CONFIG.SYSTEM.THREAT_LEVELS;
     context.statures = CONFIG.SYSTEM.CREATURE_STATURES;
     context.threat = context.threats[a.system.details.threat];
+    context.levelDisplay = this.#getLevelDisplay(a.system.details.level);
     context.canLevelUp = a.system.details.level < 24;
-    context.canLevelDown = a.system.details.level > 0;
+    context.canLevelDown = a.system.details.level > -12;
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _prepareFeaturedEquipment() {
+    const featuredEquipment = super._prepareFeaturedEquipment();
+    if ( !this.actor.equipment.weapons.mainhand.id ) featuredEquipment.shift();
+    return featuredEquipment;
+  }
+
+  /* -------------------------------------------- */
+
+  #getLevelDisplay(level) {
+    if ( level > 0 ) return String(level);
+    if ( level === 0 ) return "0";
+    return `1/${1 - level}`;
   }
 
   /* -------------------------------------------- */
@@ -54,17 +77,33 @@ export default class AdversarySheet extends CrucibleActorSheet {
       case "viewTaxonomy":
         return this.actor._viewDetailItem("taxonomy", {editable: true});
       case "levelIncrease":
-        await this.actor.update({
-          "system.details.level": Math.clamped(this.actor.system.details.level + 1, 0, 24)
-        });
-        break;
+        return this.#levelUp();
       case "levelDecrease":
-        await this.actor.update({
-          "system.details.level": Math.clamped(this.actor.system.details.level - 1, 0, 24)
-        });
-        break;
+        return this.#levelDown();
     }
     return super._onClickControl(event);
+  }
+
+  /* -------------------------------------------- */
+
+  #levelUp() {
+    const l = this.actor.system.details.level;
+    let next;
+    if ( l === 0 ) next = -11;
+    else if ( l === -1 ) next = 1;
+    else next = Math.min(l + 1, 24);
+    return this.actor.update({"system.details.level": next});
+  }
+
+  /* -------------------------------------------- */
+
+  #levelDown() {
+    const l = this.actor.system.details.level;
+    let next;
+    if ( l === 1 ) next = -1;
+    else if ( l === -11 ) next = 0;
+    else next = Math.max(l - 1, -11);
+    return this.actor.update({"system.details.level": next});
   }
 
   /* -------------------------------------------- */

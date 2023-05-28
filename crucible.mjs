@@ -254,6 +254,8 @@ Hooks.once("setup", function() {
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("renderChatMessage", chat.renderChatMessage);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
+Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
+
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */
@@ -334,7 +336,8 @@ function registerDevelopmentHooks() {
   });
 
   Hooks.on("updateItem", async (item, change, options, user) => {
-    if ( item.pack !== CONFIG.SYSTEM.COMPENDIUM_PACKS.talent ) return;
+    const talentPacks = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
+    if ( !talentPacks.includes(item.pack)  ) return;
     await CrucibleTalentNode.initialize();
     game.system.tree.refresh();
   })
