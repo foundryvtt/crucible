@@ -1,8 +1,8 @@
-2023/05/31-17:01:15.844 25c64 Recovering log #735
-2023/05/31-17:01:15.847 25c64 Delete type=0 #735
-2023/05/31-17:01:15.848 25c64 Delete type=3 #734
-2023/05/31-22:08:53.404 f1d4 Level-0 table #739: started
-2023/05/31-22:08:53.404 f1d4 Level-0 table #739: 0 bytes OK
-2023/05/31-22:08:53.405 f1d4 Delete type=0 #737
-2023/05/31-22:08:53.408 f1d4 Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/05/31-22:08:53.410 f1d4 Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/01-11:24:27.117 1dfac Recovering log #742
+2023/06/01-11:24:27.121 1dfac Delete type=0 #742
+2023/06/01-11:24:27.121 1dfac Delete type=3 #740
+2023/06/01-12:17:37.589 a2a8 Level-0 table #747: started
+2023/06/01-12:17:37.589 a2a8 Level-0 table #747: 0 bytes OK
+2023/06/01-12:17:37.590 a2a8 Delete type=0 #745
+2023/06/01-12:17:37.592 a2a8 Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/01-12:17:37.592 a2a8 Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
