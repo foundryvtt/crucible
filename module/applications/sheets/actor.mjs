@@ -208,15 +208,18 @@ export default class CrucibleActorSheet extends ActorSheet {
       inventory: {
         equipment: {
           label: "Equipment",
-          items: []
+          items: [],
+          empty: "Equip weapons and armor from your Backpack toggling the shield icon."
         },
         consumables: {
           label: "Consumables",
-          items: []
+          items: [],
+          empty: "Consumable items are not yet supported in the Crucible system Playtest 1."
         },
         backpack: {
           label: "Backpack",
-          items: []
+          items: [],
+          empty: "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
         }
       }
     };

@@ -896,16 +896,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _getAnimationConfiguration() {
-
-    // Placeholder
-    if ( this.id === "heavyStrike" ) {
-      return {
-        src: "jb2a.greatclub.fire.red",
-        wait: -1000
-      }
-    }
-
-    // Weapon Attacks
     const isMainhandAttack = ["mainhand", "twohand"].some(t => this.tags.has(t));
     const isOffhandAttack = this.tags.has("offhand");
     if ( isMainhandAttack || isOffhandAttack ) {
@@ -923,38 +913,5 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   static #getTargetToken(actor) {
     return (actor.isToken ? actor.token?.object: actor.getActiveTokens(true)[0]) || null;
-  }
-
-  /* -------------------------------------------- */
-  /*  Migration and Compatibility                 */
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  static migrateData(data) {
-
-    // Migrate target data
-    if ( "targetType" in data ) data.target.type = data.targetType;
-    if ( "targetNumber" in data ) data.target.number = data.targetNumber;
-    if ( "targetDistance" in data ) data.target.distance = data.targetDistance;
-
-    // Affect
-    if ( data.target.scope === undefined ) {
-      const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-      if ( data.affectAllies && data.affectEnemies ) data.target.scope = scopes.ALL;
-      else if ( data.affectEnemies ) data.target.scope = scopes.ENEMIES;
-      else if ( data.affectAllies ) data.target.scope = scopes.ALLIES;
-      else if ( data.target.type === "self" ) data.target.scope = scopes.SELF;
-      else data.target.scope = scopes.NONE;
-      delete data.affectAllies;
-      delete data.affectEnemies;
-    }
-
-    // Effects
-    for ( const effectData of data.effects || [] ) {
-      if ( "effect" in effectData ) {
-        Object.assign(effectData, effectData.effect);
-        delete effectData.effect;
-      }
-    }
   }
 }

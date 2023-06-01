@@ -147,7 +147,10 @@ export default class CrucibleTalentNode {
       const talents = await pack.getDocuments();
       for ( const talent of talents ) {
         const node = talent.system.node;
-        if ( !node ) continue;
+        if ( !node ) {
+          console.warn(`Talent "${talent.name}" does not configure a valid Talent Tree node.`);
+          continue;
+        }
 
         // Register Talents
         node.talents.add(talent);

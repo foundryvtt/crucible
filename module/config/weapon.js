@@ -354,5 +354,7 @@ export const ANIMATION_TYPES = Object.freeze([
   "sword",
   "unarmed_strike",
   "warhammer",
-  "wrench"
+  "wrench",
+  "bite",
+  "claws"
 ]);

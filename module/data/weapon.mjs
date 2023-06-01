@@ -316,7 +316,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     // Restrict to melee animations
     if ( !this.config.category.ranged ) {
       const paths = Sequencer.Database.getPathsUnder(animation);
-      const usage = ["melee", "standard"].find(p => paths.includes(p));
+      const usage = ["melee", "standard", "200px"].find(p => paths.includes(p));
       if ( !usage ) {
         console.warn(`Crucible | Unable to find weapon animation usage for ${animation}`);
         return null

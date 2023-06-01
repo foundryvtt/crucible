@@ -1417,9 +1417,12 @@ export default class CrucibleActor extends Actor {
     const packIds = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     for ( const packId of packIds ) {
       const pack = game.packs.get(packId);
+      if ( !pack ) continue;
       for ( const item of this.itemTypes.talent ) {
-        const talent = pack.get(item.id);
-        if ( talent ) updates.push(talent.toObject());
+        if ( pack.index.has(item.id) ) {
+          const talent = await pack.getDocument(item.id);
+          if ( talent ) updates.push(talent.toObject());
+        }
       }
     }
     return this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});

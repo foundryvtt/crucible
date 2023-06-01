@@ -217,7 +217,7 @@
 }
 .crucible-new section.construction {
   position: relative;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
   padding: 0.5rem 1rem 0.5rem 80px;
   border: 1px solid #af6417;
   border-radius: 8px;
@@ -235,9 +235,28 @@
   line-height: 80px;
   width: 80px;
 }
+.crucible-new section.foundryvtt {
+  position: relative;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem 0.5rem 120px;
+  border: 1px solid #d74e14;
+  border-radius: 8px;
+}
+.crucible-new section.foundryvtt::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  content: "";
+  width: 120px;
+  height: 100%;
+  background: url("/icons/vtt-512.png") no-repeat;
+  background-size: 100px;
+  background-position: center;
+}
 .crucible-new section.gameplay {
   position: relative;
-  padding: 0.5rem 1.5rem;
+  padding: 1rem 1.5rem;
   margin: 1rem 6px;
   background: #21120e;
 }
