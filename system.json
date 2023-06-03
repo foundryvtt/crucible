@@ -2,8 +2,14 @@
   "name": "crucible",
   "title": "Crucible",
   "description": "This is a work in progress, you shouldn't be using it (yet).",
-  "version": "0.8.0",
-  "author": "Atropos",
+  "version": "0.5.0",
+  "authors": [
+    {
+      "name": "Atropos",
+      "url": "https://foundryvtt.com",
+      "discord": "atropos"
+    }
+  ],
   "scripts": [],
   "esmodules": ["crucible.mjs"],
   "styles": ["styles/crucible.css"],

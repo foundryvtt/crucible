@@ -137,7 +137,13 @@ function weaponAttack(type="mainhand") {
         }
       }
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
-      return w.attack(target, action.usage.bonuses)
+      const rolls = [];
+      const n = action.target.number ?? 1;
+      for ( let i=0; i<n; i++ ) {
+        const r = await w.attack(target, action.usage.bonuses);
+        rolls.push(r);
+      }
+      return rolls;
     }
   }
 }

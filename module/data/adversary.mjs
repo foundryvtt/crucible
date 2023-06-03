@@ -1,7 +1,6 @@
 import CrucibleArchetype from "./archetype.mjs";
 import CrucibleTaxonomy from "./taxonomy.mjs";
 import {SYSTEM} from "../config/system.js";
-import CrucibleAncestry from "./ancestry.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
@@ -80,6 +79,12 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
       obj[skill.id] = skillField(skill.name);
       return obj;
     }, {}));
+
+    // Movement Attributes
+    schema.movement = new fields.SchemaField({
+      stride: new fields.NumberField({...requiredInteger, initial: 4, min: 0}),
+      engagement: new fields.NumberField({...requiredInteger, initial: 1, min: 0})
+    });
 
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});

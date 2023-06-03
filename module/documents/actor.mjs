@@ -656,6 +656,18 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare movement and engagement data for the Actor.
+   * Defines shared logic used by both HeroData and AdversaryData.
+   * @internal
+   */
+  _prepareMovement() {
+    const movement = this.system.movement;
+    this.callTalentHooks("prepareMovement", movement);
+  }
+
+  /* -------------------------------------------- */
   /*  Talent Hooks                                */
   /* -------------------------------------------- */
 
@@ -1860,6 +1872,40 @@ export default class CrucibleActor extends Actor {
       await this.alterResources({action: -actionCost}, actorUpdates);
     }
     await this.updateEmbeddedDocuments("Item", updates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update the Flanking state of this Actor given a set of engaged Tokens.
+   * @param {Set<Token>} engaged      The enemies which this Actor currently has engaged.
+   */
+  async updateFlanking(engaged) {
+    const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
+    const engagement = this.system.movement.engagement;
+    const flanked = engaged.size - engagement;
+    const current = this.effects.get(flankedId);
+
+    // Add flanked effect
+    if ( flanked > 0 ) {
+      const flankedData = {
+        _id: flankedId,
+        name: `${game.i18n.localize("EFFECT.StatusFlanked")} ${flanked}`,
+        description: game.i18n.localize("EFFECT.StatusFlankedDescription"),
+        icon: "systems/crucible/icons/statuses/flanked.svg",
+        statuses: ["flanked"]
+      }
+      if ( current ) {
+        if ( flankedData.name !== current.name ) {
+          await current.update(flankedData);
+          current._displayScrollingStatus(true);
+        }
+      }
+      else await this.createEmbeddedDocuments("ActiveEffect", [flankedData], {keepId: true});
+    }
+
+    // Remove flanked effect
+    else if ( current )  await current.delete();
   }
 
   /* -------------------------------------------- */

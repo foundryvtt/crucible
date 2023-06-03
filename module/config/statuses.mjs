@@ -94,5 +94,10 @@ export const statusEffects = [
     id: "exposed",
     label: "EFFECT.StatusExposed",
     icon: "systems/crucible/icons/statuses/exposed.svg"
+  },
+  {
+    id: "flanked",
+    label: "EFFECT.StatusFlanked",
+    icon: "systems/crucible/icons/statuses/flanked.svg"
   }
 ]

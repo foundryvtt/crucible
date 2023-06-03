@@ -137,6 +137,9 @@ export const ACTOR_HOOKS = {
   prepareInitiativeCheck: {
     argNames: ["rollData"]
   },
+  prepareMovement: {
+    argNames: ["movement"]
+  },
   prepareResistances: {
     argNames: ["resistances"]
   },

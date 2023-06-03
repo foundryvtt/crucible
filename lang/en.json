@@ -222,13 +222,16 @@
 "EFFECT.StatusDisoriented": "Disoriented",
 "EFFECT.StatusEnraged": "Enraged",
 "EFFECT.StatusExposed": "Exposed",
+"EFFECT.StatusFlanked": "Flanked",
 "EFFECT.StatusGuarded": "Guarded",
 "EFFECT.StatusIncapacitated": "Incapacitated",
 "EFFECT.StatusInsane": "Insane",
-"EFFECT.StatusResolute": "Resolute",
 "EFFECT.StatusMute": "Silenced",
+"EFFECT.StatusResolute": "Resolute",
 "EFFECT.StatusSlowed": "Slowed",
 "EFFECT.StatusStaggered": "Staggered",
+
+"EFFECT.StatusFlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
 
 "ITEM.Broken": "Broken",
 

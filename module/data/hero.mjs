@@ -86,6 +86,12 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
       return obj;
     }, {}));
 
+    // Movement Attributes
+    schema.movement = new fields.SchemaField({
+      stride: new fields.NumberField({...requiredInteger, initial: 4, min: 0}),
+      engagement: new fields.NumberField({...requiredInteger, initial: 1, min: 0})
+    });
+
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
     return schema;
@@ -243,6 +249,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     this.#prepareResources();
     this.parent._prepareDefenses();
     this.parent._prepareResistances();
+    this.parent._prepareMovement();
   }
 
   /* -------------------------------------------- */

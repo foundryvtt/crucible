@@ -39,9 +39,14 @@ export default {
     },
   },
   distract: {
-    pre: (actor, action) => {
-      action.usage.bonuses.multiplier = 0;
-      action.usage.bonuses.base = 1;
+    post: async (actor, action, target, rolls) => {
+      for ( const r of rolls ) {
+        if ( r.isSuccess ) {
+          r.data.damage.multiplier = 0;
+          r.data.damage.base = 1;
+          r.data.damage.total = 1;
+        }
+      }
     }
   },
   executionersStrike: {
@@ -105,6 +110,13 @@ export default {
       const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
       self.resources.focus = (self.resources.focus || 0) + talisman.system.config.category.hands;
     }
+  },
+  reload: {
+    prepare: (actor, action) => {
+      const {reloaded} = actor.system.status;
+      if ( actor.talentIds.has("pistoleer0000000") && !reloaded ) action.cost.action = 0;
+    },
+    post: async (actor, action) => action.usage.actorUpdates["system.status.reloaded"] = true
   },
   uppercut: {
     can: (actor, action) => {

@@ -994,6 +994,7 @@ h2.divider span {
   font-size: var(--font-size-28);
   line-height: var(--titleHeight);
   margin-bottom: -2px;
+  text-align: center;
 }
 .crucible.sheet.actor .sheet-header .subtitle {
   width: 100%;

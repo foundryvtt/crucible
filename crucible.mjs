@@ -10,25 +10,16 @@ import {SYSTEM} from "./module/config/system.js";
 import CrucibleTalentNode from "./module/config/talent-tree.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
-// Data Models
-import * as models from "./module/data/_module.mjs";
-
-// Documents
-import CrucibleActor from "./module/documents/actor.mjs";
-import CrucibleChatMessage from "./module/documents/chat-message.mjs";
-import CrucibleCombat from "./module/documents/combat.mjs";
-import CrucibleCombatant from "./module/documents/combatant.mjs";
-import CrucibleItem from "./module/documents/item.mjs";
-
-// Sheets
+// Import Modules
 import * as applications from "./module/applications/_module.mjs";
-
-// Dice
 import * as dice from "./module/dice/_module.mjs";
+import * as documents from "./module/documents/_module.mjs";
+import * as models from "./module/data/_module.mjs";
 
 // Canvas
 import CrucibleRuler from "./module/canvas/ruler.mjs";
 import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
+import CrucibleTokenObject from "./module/canvas/token.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.js";
@@ -52,13 +43,7 @@ Hooks.once("init", async function() {
     },
     dice,
     models,
-    documents: {
-      CrucibleActor,
-      CrucibleChatMessage,
-      CrucibleCombat,
-      CrucibleCombatant,
-      CrucibleItem,
-    },
+    documents,
     methods: {
       packageCompendium,
       resetAllActorTalents,
@@ -72,7 +57,7 @@ Hooks.once("init", async function() {
   }
 
   // Actor document configuration
-  CONFIG.Actor.documentClass = CrucibleActor;
+  CONFIG.Actor.documentClass = documents.CrucibleActor;
   CONFIG.Actor.dataModels = {
     adversary: models.CrucibleAdversary,
     hero: models.CrucibleHero
@@ -82,7 +67,7 @@ Hooks.once("init", async function() {
   Actors.registerSheet(SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
 
   // Item document configuration
-  CONFIG.Item.documentClass = CrucibleItem;
+  CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
     ancestry: models.CrucibleAncestry,
     archetype: models.CrucibleArchetype,
@@ -102,9 +87,11 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Other Document Configuration
-  CONFIG.ChatMessage.documentClass = CrucibleChatMessage;
-  CONFIG.Combat.documentClass = CrucibleCombat;
-  CONFIG.Combatant.documentClass = CrucibleCombatant;
+  CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
+  CONFIG.Combat.documentClass = documents.CrucibleCombat;
+  CONFIG.Combatant.documentClass = documents.CrucibleCombatant;
+  CONFIG.Token.documentClass = documents.CrucibleToken;
+  CONFIG.Token.objectClass = CrucibleTokenObject;
 
   // Journal Document Configuration
   Object.assign(CONFIG.JournalEntryPage.dataModels, {
@@ -131,19 +118,6 @@ Hooks.once("init", async function() {
 
   // Canvas Configuration
   CONFIG.Canvas.rulerClass = CrucibleRuler;
-
-  // TODO HACK TOKEN ATTRIBUTES
-  TokenDocument.getTrackedAttributes = function() {
-    return {
-      bar: [
-        ["resources", "health"],
-        ["resources", "morale"],
-        ["resources", "action"],
-        ["resources", "focus"]
-      ],
-      value: []
-    }
-  }
 
   // Register settings
   game.settings.register("crucible", "actionAnimations", {
@@ -178,11 +152,10 @@ Hooks.once("init", async function() {
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 
-  // Register development hooks
-  if ( DEVELOPMENT_MODE ) {
-    CONFIG.debug.talentTree = false;
-    registerDevelopmentHooks();
-  }
+  // System Debugging Flags
+  CONFIG.debug.talentTree = false;
+  CONFIG.debug.flanking = false;
+  if ( DEVELOPMENT_MODE ) registerDevelopmentHooks();
 });
 
 /* -------------------------------------------- */
