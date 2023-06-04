@@ -154,7 +154,6 @@
 "ATTACK.ResultTypeDeflect": "Deflect",
 "ATTACK.ResultTypeResist": "Resist",
 "ATTACK.ResultTypeHit": "Hit",
-"ATTACK.ResultTypeEffective": "Effective",
 
 "ATTRIBUTES.Abilities": "Ability Scores",
 "ATTRIBUTES.Pools": "Resource Pools",
@@ -403,8 +402,8 @@
 "WEAPON.TagAmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
 "WEAPON.TagBlocking": "Blocking",
 "WEAPON.TagBlockingTooltip": "This weapon provides a bonus to your Block defense.",
-"WEAPON.TagGrasping": "Grasping",
-"WEAPON.TagGraspingTooltip": "This weapon is well-suited towards grappling enemies. IMPORTANT NOTE - grapple mechanics are not yet implemented in the playtest.",
+"WEAPON.TagEngaging": "Engaging",
+"WEAPON.TagEngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
 "WEAPON.TagKeen": "Keen",
 "WEAPON.TagKeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
 "WEAPON.TagOversized": "Oversized",

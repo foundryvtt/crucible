@@ -158,6 +158,7 @@ export default class CrucibleItem extends Item {
    */
   _displayScrollingStatus(changed) {
     if ( !this.isOwned ) return;
+    if ( !["armor", "weapon"].includes(this.type) ) return;
     const tokens = this.actor.getActiveTokens(true);
 
     // Equipment changes

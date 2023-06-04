@@ -1,8 +1,8 @@
-2023/06/03-13:44:42.630 f154 Recovering log #158
-2023/06/03-13:44:42.634 f154 Delete type=0 #158
-2023/06/03-13:44:42.634 f154 Delete type=3 #157
-2023/06/03-16:57:45.879 36c1c Level-0 table #162: started
-2023/06/03-16:57:45.879 36c1c Level-0 table #162: 0 bytes OK
-2023/06/03-16:57:45.880 36c1c Delete type=0 #160
-2023/06/03-16:57:45.884 36c1c Manual compaction at level-0 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
-2023/06/03-16:57:45.884 36c1c Manual compaction at level-1 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!ogre000000000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:35:07.793 2f08 Recovering log #168
+2023/06/04-11:35:07.798 2f08 Delete type=0 #168
+2023/06/04-11:35:07.798 2f08 Delete type=3 #165
+2023/06/04-11:36:12.921 310a4 Level-0 table #175: started
+2023/06/04-11:36:12.921 310a4 Level-0 table #175: 0 bytes OK
+2023/06/04-11:36:12.922 310a4 Delete type=0 #173
+2023/06/04-11:36:12.922 310a4 Manual compaction at level-0 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:36:12.925 310a4 Manual compaction at level-1 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)

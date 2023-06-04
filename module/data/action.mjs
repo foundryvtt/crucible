@@ -1,6 +1,7 @@
 import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import {TARGET_SCOPES} from "../config/action.mjs";
 
 /**
  * @typedef {Object} ActionContext
@@ -414,9 +415,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const template = this.template;
     if ( !template ) return new Set();
     const {x, y} = template.document;
-    return canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: o => {
-      const c = o.t.center;
-      return (o.t.actor !== this.actor) && template.shape.contains(c.x - x, c.y - y);
+    const dispositions = CrucibleAction.#getDispositions(this.target.scope);
+    return canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: ({t: token}) => {
+      if ( token.actor === this.actor ) return false;
+      if ( !dispositions.includes(token.document.disposition) ) return false;
+      const c = token.center;
+      return template.shape.contains(c.x - x, c.y - y);
     }});
   }
 
@@ -438,6 +442,28 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Classify Token dispositions into allied and enemy groups.
+   * @returns {{ally: number[], enemy: number[]}}
+   */
+  static #getDispositions(scope) {
+    const D = CONST.TOKEN_DISPOSITIONS;
+    const S = SYSTEM.ACTION.TARGET_SCOPES;
+    switch ( scope ) {
+      case S.NONE:
+      case S.SELF:
+        return [];
+      case S.ALLIES:
+        return [D.NEUTRAL, D.FRIENDLY];
+      case S.ENEMIES:
+        return [D.HOSTILE];
+      case S.ALL:
+        return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Action Outcome Management                   */
   /* -------------------------------------------- */
 
@@ -445,16 +471,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Translate the action usage result into an outcome to be persisted.
    * @param {CrucibleActor} actor
    * @param {AttackRoll[]} [rolls]
+   * @param {boolean} [effects]
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor, rolls=[]) {
+  #createOutcome(actor, rolls=[], effects=true) {
     return {
       target: actor,
       rolls: rolls,
       resources: {},
       actorUpdates: {},
       effects: this.#attachEffects(actor)
-    }
+    };
   }
 
   /* -------------------------------------------- */
@@ -468,7 +495,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     return this.effects.reduce((effects, {scope, ...effectData}) => {
       scope ??= this.target.scope;
-      if ( (scope === scopes.NONE) || ((target === this.actor) && (scope !== scopes.SELF)) ) return effects;
+      if ( scope === scopes.NONE ) return effects;
+      if ( (target === this.actor) && (scope !== scopes.SELF) ) return effects;
+      if ( (target !== this.actor) && (scope === scopes.SELF) ) return effects;
       effects.push(foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
         label: this.name,

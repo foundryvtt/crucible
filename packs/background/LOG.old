@@ -1,3 +1,8 @@
-2023/06/02-16:10:59.677 2e90c Recovering log #781
-2023/06/02-16:10:59.681 2e90c Delete type=0 #781
-2023/06/02-16:10:59.681 2e90c Delete type=3 #780
+2023/06/04-10:59:17.904 2f08 Recovering log #789
+2023/06/04-10:59:17.908 2f08 Delete type=0 #789
+2023/06/04-10:59:17.908 2f08 Delete type=3 #788
+2023/06/04-11:34:51.618 310a4 Level-0 table #793: started
+2023/06/04-11:34:51.618 310a4 Level-0 table #793: 0 bytes OK
+2023/06/04-11:34:51.619 310a4 Delete type=0 #791
+2023/06/04-11:34:51.619 310a4 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:34:51.619 310a4 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)

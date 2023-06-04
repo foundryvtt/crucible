@@ -1191,6 +1191,20 @@ h2.divider span {
   margin: 0;
   padding: 0;
 }
+.crucible.sheet.actor .miscellaneous {
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.crucible.sheet.actor .miscellaneous > .flexrow {
+  gap: 4px;
+}
+.crucible.sheet.actor .miscellaneous label {
+  line-height: 24px;
+  font-size: var(--fontSizeHeader);
+}
+.crucible.sheet.actor .miscellaneous .input.total {
+  flex: 0 0 24px;
+}
 .crucible.sheet.actor .damage-resistances {
   flex: none;
   align-items: flex-start;

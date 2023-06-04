@@ -180,10 +180,11 @@ export default class CrucibleWeapon extends PhysicalItemData {
    * @param {number} [banes=0]        The number of banes which afflict this attack roll
    * @param {number} [boons=0]        The number of boons which benefit this attack roll
    * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
-   * @param {number} [multiplier=0] An additional damage multiplier which applies to this attack
+   * @param {string} [defenseType]    The defense type targeted by this attack. Physical by default.
+   * @param {number} [multiplier=0]   An additional damage multiplier which applies to this attack
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    */
-  async attack(target, {banes=0, boons=0, multiplier=1, damageBonus=0}={}) {
+  async attack(target, {banes=0, boons=0, multiplier=1, damageBonus=0, defenseType="physical"}={}) {
     const actor = this.parent.actor;
     if ( !actor ) {
       throw new Error("You may only perform a weapon attack using an owned weapon Item.");
@@ -193,7 +194,6 @@ export default class CrucibleWeapon extends PhysicalItemData {
     }
 
     // Apply additional boons or banes
-    const defenseType = "physical";
     const targetBoons = actor.getTargetBoons(target, {
       attackType: "weapon",
       defenseType,

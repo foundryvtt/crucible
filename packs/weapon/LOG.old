@@ -1,3 +1,23 @@
-2023/06/02-16:10:59.708 3b40 Recovering log #785
-2023/06/02-16:10:59.712 3b40 Delete type=0 #785
-2023/06/02-16:10:59.712 3b40 Delete type=3 #784
+2023/06/04-10:59:17.934 2c96c Recovering log #793
+2023/06/04-10:59:17.934 2c96c Level-0 table #795: started
+2023/06/04-10:59:17.935 2c96c Level-0 table #795: 941 bytes OK
+2023/06/04-10:59:17.939 2c96c Delete type=0 #793
+2023/06/04-10:59:17.939 2c96c Delete type=3 #792
+2023/06/04-11:34:51.631 310a4 Level-0 table #798: started
+2023/06/04-11:34:51.631 310a4 Level-0 table #798: 0 bytes OK
+2023/06/04-11:34:51.632 310a4 Delete type=0 #796
+2023/06/04-11:34:51.638 310a4 Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!towershield00000' @ 1343 : 1
+2023/06/04-11:34:51.638 310a4 Compacting 1@0 + 0@1 files
+2023/06/04-11:34:51.639 310a4 Generated table #799@0: 2 keys, 851 bytes
+2023/06/04-11:34:51.639 310a4 Compacted 1@0 + 0@1 files => 851 bytes
+2023/06/04-11:34:51.640 310a4 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/06/04-11:34:51.640 310a4 Delete type=2 #795
+2023/06/04-11:34:51.640 310a4 Manual compaction at level-0 from '!items!towershield00000' @ 1343 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:34:51.645 310a4 Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!towershield00000' @ 1344 : 1
+2023/06/04-11:34:51.645 310a4 Compacting 1@1 + 1@2 files
+2023/06/04-11:34:51.646 310a4 Generated table #800@1: 47 keys, 9376 bytes
+2023/06/04-11:34:51.646 310a4 Compacted 1@1 + 1@2 files => 9376 bytes
+2023/06/04-11:34:51.647 310a4 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/04-11:34:51.647 310a4 Delete type=2 #653
+2023/06/04-11:34:51.647 310a4 Delete type=2 #799
+2023/06/04-11:34:51.649 310a4 Manual compaction at level-1 from '!items!towershield00000' @ 1344 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)

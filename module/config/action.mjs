@@ -139,8 +139,9 @@ function weaponAttack(type="mainhand") {
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       const rolls = [];
       const n = action.target.number ?? 1;
+      const attackOptions = {defenseType: action.usage.defenseType, ...action.usage.bonuses};
       for ( let i=0; i<n; i++ ) {
-        const r = await w.attack(target, action.usage.bonuses);
+        const r = await w.attack(target, attackOptions);
         rolls.push(r);
       }
       return rolls;

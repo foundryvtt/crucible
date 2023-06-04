@@ -255,9 +255,9 @@ export const PROPERTIES = {
     label: "WEAPON.TagBlocking",
     tooltip: "WEAPON.TagBlockingTooltip"
   },
-  grasping: {
-    label: "WEAPON.TagGrasping",
-    tooltip: "WEAPON.TagGraspingTooltip"
+  engaging: {
+    label: "WEAPON.TagEngaging",
+    tooltip: "WEAPON.TagEngagingTooltip"
   },
   keen: {
     label: "WEAPON.TagKeen",

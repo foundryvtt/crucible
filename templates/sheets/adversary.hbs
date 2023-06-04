@@ -152,6 +152,25 @@
                         </div>
                     {{/each}}
                 </div>
+
+                <div class="miscellaneous flexrow">
+                    <div class="stride flexrow">
+                        <span class="input total">{{actor.system.movement.stride}}</span>
+                        <label>Stride</label>
+                    </div>
+                    <div class="engagement flexrow">
+                        <span class="input total">{{actor.system.movement.engagement}}</span>
+                        <label>Engagement</label>
+                    </div>
+                    <div class="wounds flexrow">
+                        <span class="input total">{{actor.system.defenses.wounds.total}}</span>
+                        <label>Healing</label>
+                    </div>
+                    <div class="madness flexrow">
+                        <span class="input total">{{actor.system.defenses.madness.total}}</span>
+                        <label>Rallying</label>
+                    </div>
+                </div>
             </section>
 
             {{!-- Resistances --}}

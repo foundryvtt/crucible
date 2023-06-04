@@ -59,8 +59,7 @@ export default class AttackRoll extends StandardCheck {
     BLOCK: 3,
     DEFLECT: 4,
     RESIST: 5,
-    HIT: 6,
-    EFFECTIVE: 7
+    HIT: 6
   };
 
   /**
@@ -74,8 +73,7 @@ export default class AttackRoll extends StandardCheck {
     [this.RESULT_TYPES.BLOCK]: "ATTACK.ResultTypeBlock",
     [this.RESULT_TYPES.DEFLECT]: "ATTACK.ResultTypeDeflect",
     [this.RESULT_TYPES.RESIST]: "ATTACK.ResultTypeResist",
-    [this.RESULT_TYPES.HIT]: "ATTACK.ResultTypeHit",
-    [this.RESULT_TYPES.EFFECTIVE]: "ATTACK.ResultTypeEffective",
+    [this.RESULT_TYPES.HIT]: "ATTACK.ResultTypeHit"
   }
 
   /**

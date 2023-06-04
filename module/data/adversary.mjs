@@ -206,6 +206,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     this.#prepareResources();
     this.parent._prepareDefenses();
     this.parent._prepareResistances();
+    this.parent._prepareMovement();
   }
 
   /* -------------------------------------------- */

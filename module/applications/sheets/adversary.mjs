@@ -10,7 +10,7 @@ export default class AdversarySheet extends CrucibleActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 720,
-      height: 640,
+      height: 680,
     });
   }
 

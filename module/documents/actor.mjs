@@ -398,8 +398,10 @@ export default class CrucibleActor extends Actor {
     if ( oh ) oh.system.actionBonuses.skill = this.training[ohCategory.training];
 
     // Free Hand or Unarmed
-    weapons.freehand = (mhCategory.id === "unarmed") || (ohCategory.id === "unarmed");
-    weapons.unarmed = (mhCategory.id === "unarmed") && (ohCategory.id === "unarmed");
+    const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
+    const ohFree = ["unarmed", "natural"].includes(ohCategory.id);
+    weapons.freehand = mhFree || ohFree;
+    weapons.unarmed = mhFree && ohFree;
 
     // Shield
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
@@ -664,6 +666,10 @@ export default class CrucibleActor extends Actor {
    */
   _prepareMovement() {
     const movement = this.system.movement;
+    const stature = this.system.details.stature ?? "medium"; // TODO protagonist stature
+    movement.engagement = SYSTEM.CREATURE_STATURES[stature]?.engagement ?? 1;
+    const {shield, offhand} = this.equipment.weapons;
+    if ( shield && offhand.system.properties.has("engaging") ) movement.engagement += 1;
     this.callTalentHooks("prepareMovement", movement);
   }
 
@@ -861,7 +867,7 @@ export default class CrucibleActor extends Actor {
     // Other Defenses
     else {
       if ( defenseType ) dc = d[defenseType].total;
-      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.EFFECTIVE;
+      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.HIT;
       else return AttackRoll.RESULT_TYPES.RESIST;
     }
   }
@@ -929,8 +935,8 @@ export default class CrucibleActor extends Actor {
     const r = roll.data.result = target.testDefense(defenseType, roll.total);
 
     // Deflection and Avoidance
-    const {HIT, DEFLECT, EFFECTIVE} = AttackRoll.RESULT_TYPES;
-    if ( ![HIT, DEFLECT, EFFECTIVE].includes(r) ) return roll;
+    const {HIT, DEFLECT} = AttackRoll.RESULT_TYPES;
+    if ( ![HIT, DEFLECT].includes(r) ) return roll;
     if ( (r === DEFLECT) && roll.isCriticalFailure ) return roll;
 
     // Structure damage
@@ -981,7 +987,7 @@ export default class CrucibleActor extends Actor {
     roll.data.result = target.testDefense(defenseType, roll.total, rollData.dc);
 
     // Create resulting damage
-    if ( roll.data.result === AttackRoll.RESULT_TYPES.EFFECTIVE ) {
+    if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: bonuses.multiplier,
