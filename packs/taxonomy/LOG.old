@@ -1,22 +1,8 @@
-2023/06/04-10:59:17.927 33d08 Recovering log #164
-2023/06/04-10:59:17.927 33d08 Level-0 table #166: started
-2023/06/04-10:59:17.929 33d08 Level-0 table #166: 2476 bytes OK
-2023/06/04-10:59:17.932 33d08 Delete type=0 #164
-2023/06/04-10:59:17.932 33d08 Delete type=3 #163
-2023/06/04-11:34:51.630 310a4 Level-0 table #169: started
-2023/06/04-11:34:51.630 310a4 Level-0 table #169: 0 bytes OK
-2023/06/04-11:34:51.631 310a4 Delete type=0 #167
-2023/06/04-11:34:51.636 310a4 Manual compaction at level-0 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at '!items!werewolf00000000' @ 22 : 1
-2023/06/04-11:34:51.636 310a4 Compacting 1@0 + 0@1 files
-2023/06/04-11:34:51.637 310a4 Generated table #170@0: 2 keys, 1224 bytes
-2023/06/04-11:34:51.637 310a4 Compacted 1@0 + 0@1 files => 1224 bytes
-2023/06/04-11:34:51.638 310a4 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/06/04-11:34:51.638 310a4 Delete type=2 #166
-2023/06/04-11:34:51.640 310a4 Manual compaction at level-0 from '!items!werewolf00000000' @ 22 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
-2023/06/04-11:34:51.643 310a4 Manual compaction at level-1 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at '!items!werewolf00000000' @ 26 : 1
-2023/06/04-11:34:51.643 310a4 Compacting 1@1 + 0@2 files
-2023/06/04-11:34:51.644 310a4 Generated table #171@1: 2 keys, 1224 bytes
-2023/06/04-11:34:51.644 310a4 Compacted 1@1 + 0@2 files => 1224 bytes
-2023/06/04-11:34:51.644 310a4 compacted to: files[ 0 0 2 0 0 0 0 ]
-2023/06/04-11:34:51.645 310a4 Delete type=2 #170
-2023/06/04-11:34:51.649 310a4 Manual compaction at level-1 from '!items!werewolf00000000' @ 26 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:35:07.793 2f08 Recovering log #168
+2023/06/04-11:35:07.798 2f08 Delete type=0 #168
+2023/06/04-11:35:07.798 2f08 Delete type=3 #165
+2023/06/04-11:36:12.921 310a4 Level-0 table #175: started
+2023/06/04-11:36:12.921 310a4 Level-0 table #175: 0 bytes OK
+2023/06/04-11:36:12.922 310a4 Delete type=0 #173
+2023/06/04-11:36:12.922 310a4 Manual compaction at level-0 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
+2023/06/04-11:36:12.925 310a4 Manual compaction at level-1 from '!folders!S6bJLsAeZRhqE9ko' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)

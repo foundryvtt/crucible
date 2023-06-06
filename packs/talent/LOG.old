@@ -1,24 +1,8 @@
-2023/06/04-10:59:17.925 2f08 Recovering log #856
-2023/06/04-10:59:17.925 2f08 Level-0 table #858: started
-2023/06/04-10:59:17.926 2f08 Level-0 table #858: 1606 bytes OK
-2023/06/04-10:59:17.930 2f08 Delete type=0 #856
-2023/06/04-10:59:17.930 2f08 Delete type=3 #855
-2023/06/04-11:34:51.628 310a4 Level-0 table #861: started
-2023/06/04-11:34:51.629 310a4 Level-0 table #861: 1517 bytes OK
-2023/06/04-11:34:51.630 310a4 Delete type=0 #859
-2023/06/04-11:34:51.632 310a4 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!wrestler00000000' @ 1574 : 1
-2023/06/04-11:34:51.632 310a4 Compacting 1@0 + 0@1 files
-2023/06/04-11:34:51.633 310a4 Generated table #862@0: 2 keys, 1606 bytes
-2023/06/04-11:34:51.633 310a4 Compacted 1@0 + 0@1 files => 1606 bytes
-2023/06/04-11:34:51.634 310a4 compacted to: files[ 0 2 1 0 0 0 0 ]
-2023/06/04-11:34:51.634 310a4 Delete type=2 #858
-2023/06/04-11:34:51.640 310a4 Manual compaction at level-0 from '!items!wrestler00000000' @ 1574 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/06/04-11:34:51.640 310a4 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!wrestler00000000' @ 1574 : 1
-2023/06/04-11:34:51.640 310a4 Compacting 2@1 + 1@2 files
-2023/06/04-11:34:51.642 310a4 Generated table #863@1: 206 keys, 82119 bytes
-2023/06/04-11:34:51.642 310a4 Compacted 2@1 + 1@2 files => 82119 bytes
-2023/06/04-11:34:51.642 310a4 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/04-11:34:51.642 310a4 Delete type=2 #854
-2023/06/04-11:34:51.642 310a4 Delete type=2 #861
-2023/06/04-11:34:51.643 310a4 Delete type=2 #862
-2023/06/04-11:34:51.649 310a4 Manual compaction at level-1 from '!items!wrestler00000000' @ 1574 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/04-11:35:07.792 1b584 Recovering log #860
+2023/06/04-11:35:07.796 1b584 Delete type=0 #860
+2023/06/04-11:35:07.796 1b584 Delete type=3 #857
+2023/06/04-11:36:12.920 310a4 Level-0 table #867: started
+2023/06/04-11:36:12.920 310a4 Level-0 table #867: 0 bytes OK
+2023/06/04-11:36:12.921 310a4 Delete type=0 #865
+2023/06/04-11:36:12.922 310a4 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/04-11:36:12.925 310a4 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
