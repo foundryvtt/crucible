@@ -395,17 +395,14 @@
 
   .defenses {
     flex: none;
-    margin-bottom: 4px;
+    margin-bottom: 0.5rem;
+
     .defense {
       align-items: center;
       text-align: center;
       list-style: none;
       padding: 0;
-      margin: calc(var(--marginSize)/2) 0;
-      .defense-title {
-        flex: 0 0 175px;  // Align with Fortitude
-      }
-      > .flexcol {
+      .flexcol {
         align-items: center;
       }
       h3, h4 {
@@ -424,14 +421,25 @@
         white-space: nowrap;
       }
     }
-  }
 
-  .save-defenses {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: var(--marginHalfSize);
-    margin: 0;
-    padding: 0;
+    .physical-defenses {
+      margin: 0.5rem 0;
+      gap: var(--marginSize);
+      .physical-title {
+        flex: 1;
+      }
+      .physical-formula {
+        flex: 2;
+      }
+    }
+
+    .save-defenses {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: var(--marginHalfSize);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
   }
 
   .miscellaneous {

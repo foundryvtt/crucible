@@ -263,6 +263,7 @@ export default class CrucibleActor extends Actor {
    * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
    */
   static #prepareTraining(actor) {
+    const lvl = actor.system.details.fractionLevel ?? actor.system.details.level;
     const training = {
       unarmed: 0,
       heavy: 0,
@@ -271,7 +272,8 @@ export default class CrucibleActor extends Actor {
       projectile: 0,
       mechanical: 0,
       shield: 0,
-      talisman: 0
+      talisman: 0,
+      natural: Math.floor((lvl + 3) / 6)
     };
     actor.callTalentHooks("prepareTraining", training);
     return training;
@@ -753,6 +755,13 @@ export default class CrucibleActor extends Actor {
     if ( target.statuses.has("prone") && (attackType !== "skill") ) {
       if ( ranged ) banes += 2;
       else boons += 2;
+    }
+
+    // Flanked
+    if ( target.statuses.has("flanked") && (attackType !== "skill") ) {
+      const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
+      if ( ae ) boons += ae.getFlag("crucible", "flanked") ?? 1;
+      else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
     }
     return {boons, banes};
   }
@@ -1620,9 +1629,10 @@ export default class CrucibleActor extends Actor {
     delta = Math.sign(delta);
     const skill = this.system.skills[skillId];
     if ( !skill || (delta === 0) ) return false;
+    if ( this.type !== "hero" ) return false; // TODO only heroes can purchase skills currently
 
     // Must Choose Background first
-    if ( !this.ancestry.name || !this.background.name ) {
+    if ( !this.background.name && (delta > 0) ) {
       if ( strict ) throw new Error(game.i18n.localize("WARNING.SkillRequireAncestryBackground"));
       return false;
     }
@@ -1674,6 +1684,7 @@ export default class CrucibleActor extends Actor {
    * @internal
    */
   async _applyDetailItem(item, type, {canApply=true, canClear=false}={}) {
+    canApply = true;
     if ( !(type in this.system.details) ) {
       throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
     }
@@ -1899,7 +1910,13 @@ export default class CrucibleActor extends Actor {
         name: `${game.i18n.localize("EFFECT.StatusFlanked")} ${flanked}`,
         description: game.i18n.localize("EFFECT.StatusFlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
-        statuses: ["flanked"]
+        statuses: ["flanked"],
+        flags: {
+          crucible: {
+            engaged: engaged.size,
+            flanked
+          }
+        }
       }
       if ( current ) {
         if ( flankedData.name !== current.name ) {

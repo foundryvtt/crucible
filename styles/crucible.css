@@ -775,8 +775,7 @@ h2.divider span {
   margin: 0 5px 0 0;
   border: 1px solid #000;
   border-radius: 4px;
-  object-fit: cover;
-  object-position: 0 10%;
+  object-fit: contain;
 }
 .crucible.sheet .highlight {
   background: rgba(0, 0, 0, 0.05);
@@ -1152,19 +1151,15 @@ h2.divider span {
 }
 .crucible.sheet.actor .defenses {
   flex: none;
-  margin-bottom: 4px;
+  margin-bottom: 0.5rem;
 }
 .crucible.sheet.actor .defenses .defense {
   align-items: center;
   text-align: center;
   list-style: none;
   padding: 0;
-  margin: calc(var(--marginSize)/2) 0;
 }
-.crucible.sheet.actor .defenses .defense .defense-title {
-  flex: 0 0 175px;
-}
-.crucible.sheet.actor .defenses .defense > .flexcol {
+.crucible.sheet.actor .defenses .defense .flexcol {
   align-items: center;
 }
 .crucible.sheet.actor .defenses .defense h3,
@@ -1184,11 +1179,21 @@ h2.divider span {
   margin: 0;
   white-space: nowrap;
 }
-.crucible.sheet.actor .save-defenses {
+.crucible.sheet.actor .defenses .physical-defenses {
+  margin: 0.5rem 0;
+  gap: var(--marginSize);
+}
+.crucible.sheet.actor .defenses .physical-defenses .physical-title {
+  flex: 1;
+}
+.crucible.sheet.actor .defenses .physical-defenses .physical-formula {
+  flex: 2;
+}
+.crucible.sheet.actor .defenses .save-defenses {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: var(--marginHalfSize);
-  margin: 0;
+  margin: 0.5rem 0;
   padding: 0;
 }
 .crucible.sheet.actor .miscellaneous {

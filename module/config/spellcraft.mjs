@@ -267,7 +267,7 @@ export const GESTURES = Object.seal({
       base: 6
     },
     hands: 1,
-    scaling: "intellect",
+    scaling: "wisdom",
     target: {
       type: "ray",
       distance: 6
@@ -280,6 +280,9 @@ export const GESTURES = Object.seal({
     cost: {
       action: 1,
       focus: 1
+    },
+    damage: {
+      base: 4
     },
     hands: 0,
     nameFormat: NAME_FORMATS.ADJ,
@@ -365,6 +368,14 @@ export const INFLECTIONS = Object.seal({
     },
     tier: 1
   },
+  determine: {
+    id: "determine",
+    name: "SPELL.MetamagicDetermine",
+    cost: {
+      focus: 1
+    },
+    tier: 1
+  },
   quicken: {
     id: "quicken",
     name: "SPELL.MetamagicQuicken",
@@ -379,6 +390,14 @@ export const INFLECTIONS = Object.seal({
     name: "SPELL.MetamagicExtend",
     cost: {
       action: 1,
+      focus: 1
+    },
+    tier: 1
+  },
+  eluding: {
+    id: "eluding",
+    name: "SPELL.MetamagicElude",
+    cost: {
       focus: 1
     },
     tier: 1

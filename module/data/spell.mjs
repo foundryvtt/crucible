@@ -221,7 +221,7 @@ export default class CrucibleSpell extends CrucibleAction {
         this.effects.push({
           _id: effectId,
           icon: this.img,
-          duration: {rounds: 60},
+          duration: {rounds: 10},
           origin: this.actor.uuid
         });
         this.usage.hasDice = false;
@@ -259,7 +259,7 @@ export default class CrucibleSpell extends CrucibleAction {
           changes: [
             {
               key: `system.resistances.${this.damage.type}.bonus`,
-              value: 5,
+              value: 6,
               mode: CONST.ACTIVE_EFFECT_MODES.ADD
             }
           ]

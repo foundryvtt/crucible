@@ -112,46 +112,50 @@
                     <span></span>
                 </h2>
 
+                {{! Save Defenses --}}
+                <div class="save-defenses">
+                    {{#each saveDefenses as |defense|}}
+                    <div class="defense save flexrow" data-defense="{{defense.id}}">
+                        <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
+                        <span class="input score">{{defense.total}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+
                 {{! Physical Defense --}}
-                <div class="defense physical flexrow" data-defense="physical">
-                    <div class="defense-title flexrow">
+                <div class="physical-defenses defense flexrow" data-defense="physical">
+                    <div class="physical-title flexrow">
                         <h3 class="badge physical">Physical</h3>
                         <span class="input score">{{actor.system.defenses.physical.total}}</span>
                     </div>
-                    <span class="math">=</span>
-                    <div class="flexcol">
-                        <h4>Armor</h4>
-                        <span class="input score">{{actor.system.defenses.armor.total}}</span>
-                        <span class="subtitle">{{armorCategory}}</span>
-                    </div>
-                    <span class="math">+</span>
-                    <div class="flexcol">
-                        <h4>Dodge</h4>
-                        <span class="input score">{{actor.system.defenses.dodge.total}}</span>
-                        <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
-                    </div>
-                    <span class="math">+</span>
-                    <div class="flexcol">
-                        <h4>Parry</h4>
-                        <span class="input score">{{actor.system.defenses.parry.total}}</span>
-                        <span class="subtitle">Maximum 6</span>
-                    </div>
-                    <span class="math">+</span>
-                    <div class="flexcol">
-                        <h4>Block</h4>
-                        <span class="input score">{{actor.system.defenses.block.total}}</span>
-                        <span class="subtitle">Maximum 6</span>
+                    <div class="physical-formula flexrow">
+                        <span class="math">=</span>
+                        <div class="flexcol">
+                            <h4>Armor</h4>
+                            <span class="input score">{{actor.system.defenses.armor.total}}</span>
+                            <span class="subtitle">{{armorCategory}}</span>
+                        </div>
+                        <span class="math">+</span>
+                        <div class="flexcol">
+                            <h4>Dodge</h4>
+                            <span class="input score">{{actor.system.defenses.dodge.total}}</span>
+                            <span class="subtitle">Maximum {{systemData.defenses.dodge.max}}</span>
+                        </div>
+                        <span class="math">+</span>
+                        <div class="flexcol">
+                            <h4>Parry</h4>
+                            <span class="input score">{{actor.system.defenses.parry.total}}</span>
+                            <span class="subtitle">Maximum 6</span>
+                        </div>
+                        <span class="math">+</span>
+                        <div class="flexcol">
+                            <h4>Block</h4>
+                            <span class="input score">{{actor.system.defenses.block.total}}</span>
+                            <span class="subtitle">Maximum 6</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="save-defenses">
-                    {{#each saveDefenses as |defense|}}
-                        <div class="defense save flexrow" data-defense="{{defense.id}}">
-                            <h3 class="badge {{defense.id}}" data-tooltip="{{defense.tooltip}}">{{localize defense.label}}</h3>
-                            <span class="input score">{{defense.total}}</span>
-                        </div>
-                    {{/each}}
-                </div>
 
                 <div class="miscellaneous flexrow">
                     <div class="stride flexrow">
@@ -202,58 +206,7 @@
 
         {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
-            {{#each skillCategories as |category catId|}}
-            <header class="items-header flexrow">
-                <div class="item-name skill-name">
-                    <h4>{{category.label}} Skills</h4>
-                </div>
-                <div class="bonus">Bonus</div>
-                <div class="attributes">Attributes</div>
-                <span>Trained Rank</span>
-                <span class="points">Spent (Cost)</span>
-            </header>
-            <ol class="skills-list">
-                {{#each category.skills as |skill skillId|}}
-                    <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
-                        <div class="name">
-                            <img class="icon" src="{{skill.icon}}">
-                            <h4><a data-tooltip="Roll Check" data-action="skillRoll">{{skill.label}}</a></h4>
-                        </div>
-                        <div class="controls">
-                            <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
-                                <i class="fas fa-cog"></i>
-                            </a>
-                        </div>
-                        <div class="bonus flexrow">
-                            <span class="active highlight" data-tooltip="{{skill.tooltips.value}}">
-                                {{numberFormat skill.score sign=true}}
-                            </span>
-                            <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
-                        </div>
-                        <div class="attributes">
-                            {{#each skill.abilityAbbrs}}
-                            <span class="attribute tag">{{this}}</span>
-                            {{/each}}
-                        </div>
-                        <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
-                            {{#each skill.pips}}
-                            <span class="pip {{this}}"></span>
-                            {{/each}}
-                        </div>
-                        <div class="points flexrow">
-                            <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
-                                <i class="fas fa-caret-down"></i>
-                            </a>
-                            <span class="cumulative">{{skill.spent}}</span>
-                            <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
-                            <a class="control {{#unless skill.canIncrease}}inactive{{/unless}} increase" title="Increase Skill Rank" data-action="skillIncrease">
-                                <i class="fas fa-caret-up"></i>
-                            </a>
-                        </div>
-                    </li>
-                {{/each}}
-            </ol>
-            {{/each}}
+            {{> "systems/crucible/templates/sheets/partials/actor-skills.hbs"}}
         </div>
 
         {{!-- Talents Tab --}}

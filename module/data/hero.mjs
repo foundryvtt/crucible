@@ -202,7 +202,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Skills.
+   * Prepare Skills for a Protagonist.
    */
   #prepareSkills() {
 

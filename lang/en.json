@@ -335,8 +335,12 @@
 
 "SPELL.MetamagicCompose": "Compose",
 "SPELL.MetamagicComposeAdj": "Composed",
+"SPELL.MetamagicDetermine": "Determine",
+"SPELL.MetamagicDetermineAdj": "Determined",
 "SPELL.MetamagicExtend": "Extend",
 "SPELL.MetamagicExtendAdj": "Extended",
+"SPELL.MetamagicElude": "Elude",
+"SPELL.MetamagicEludeAdj": "Eluding",
 "SPELL.MetamagicNegate": "Negate",
 "SPELL.MetamagicNegateAdj": "Negated",
 "SPELL.MetamagicPull": "Pull",
@@ -374,6 +378,7 @@
 "TAXONOMY.CategoryBeast": "Beast",
 "TAXONOMY.CategoryGiant": "Giant",
 "TAXONOMY.CategoryHumanoid": "Humanoid",
+"TAXONOMY.CategoryOutsider": "Outsider",
 "TAXONOMY.CategoryUndead": "Undead",
 
 "WEAPON.Light1": "Light (1h)",

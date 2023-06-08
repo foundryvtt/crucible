@@ -1,6 +1,6 @@
 export {default as ACTIONS} from "./actions.mjs";
 import {SKILLS} from "./skills.mjs";
-import {DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
+import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
 
 /**
@@ -25,7 +25,7 @@ export const TARGET_TYPES = Object.freeze({
     template: {
       t: "cone",
       angle: 60,
-      directionDelta: 45,
+      directionDelta: 15,
       anchor: "self",
       distanceOffset: 0
     }
@@ -139,7 +139,11 @@ function weaponAttack(type="mainhand") {
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       const rolls = [];
       const n = action.target.number ?? 1;
-      const attackOptions = {defenseType: action.usage.defenseType, ...action.usage.bonuses};
+      const attackOptions = {
+        defenseType: action.usage.defenseType,
+        resource: action.usage.resource,
+        ...action.usage.bonuses
+      };
       for ( let i=0; i<n; i++ ) {
         const r = await w.attack(target, attackOptions);
         rolls.push(r);
@@ -448,6 +452,7 @@ export const TAGS = {
     label: "ACTION.TagHealing",
     tooltip: "ACTION.TagHealingTooltip",
     prepare: (actor, action) => {
+      action.usage.resource = "health";
       action.usage.defenseType = "wounds";
       action.usage.restoration = true;
     }
@@ -458,6 +463,7 @@ export const TAGS = {
     label: "ACTION.TagRallying",
     tooltip: "ACTION.TagRallyingTooltip",
     prepare: (actor, action) => {
+      action.usage.resource = "morale";
       action.usage.defenseType = "madness";
       action.usage.restoration = true;
     }
@@ -473,6 +479,18 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     tag: id,
     label: label,
     prepare: (actor, action) => action.usage.bonuses.damageType = id
+  }
+}
+
+/* -------------------------------------------- */
+/*  Specialized Scaling                         */
+/* -------------------------------------------- */
+
+for ( const {id, label} of Object.values(ABILITIES) ) {
+  TAGS[id] = {
+    tag: id,
+    label,
+    prepare: (actor, action) => action.usage.bonuses.ability = actor.getAbilityBonus([id])
   }
 }
 

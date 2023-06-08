@@ -1,8 +1,5 @@
-2023/06/04-11:35:07.792 1b584 Recovering log #860
-2023/06/04-11:35:07.796 1b584 Delete type=0 #860
-2023/06/04-11:35:07.796 1b584 Delete type=3 #857
-2023/06/04-11:36:12.920 310a4 Level-0 table #867: started
-2023/06/04-11:36:12.920 310a4 Level-0 table #867: 0 bytes OK
-2023/06/04-11:36:12.921 310a4 Delete type=0 #865
-2023/06/04-11:36:12.922 310a4 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/06/04-11:36:12.925 310a4 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/07-08:17:14.463 80d0 Recovering log #875
+2023/06/07-08:17:14.463 80d0 Level-0 table #877: started
+2023/06/07-08:17:14.465 80d0 Level-0 table #877: 1557 bytes OK
+2023/06/07-08:17:14.469 80d0 Delete type=0 #875
+2023/06/07-08:17:14.470 80d0 Delete type=3 #874

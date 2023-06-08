@@ -415,10 +415,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const template = this.template;
     if ( !template ) return new Set();
     const {x, y} = template.document;
-    const dispositions = CrucibleAction.#getDispositions(this.target.scope);
+    const targetDispositions = this.#getTargetDispositions();
     return canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
-      if ( !dispositions.includes(token.document.disposition) ) return false;
+      if ( !targetDispositions.includes(token.document.disposition) ) return false;
       const c = token.center;
       return template.shape.contains(c.x - x, c.y - y);
     }});
@@ -447,20 +447,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Classify Token dispositions into allied and enemy groups.
    * @returns {{ally: number[], enemy: number[]}}
    */
-  static #getDispositions(scope) {
+  #getTargetDispositions() {
     const D = CONST.TOKEN_DISPOSITIONS;
     const S = SYSTEM.ACTION.TARGET_SCOPES;
-    switch ( scope ) {
-      case S.NONE:
-      case S.SELF:
-        return [];
-      case S.ALLIES:
-        return [D.NEUTRAL, D.FRIENDLY];
-      case S.ENEMIES:
-        return [D.HOSTILE];
-      case S.ALL:
-        return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
+    const scope = this.target.scope;
+
+    // Some dispositions are universal
+    if ( [S.NONE, S.SELF].includes(scope) ) return [];
+    if ( S.ALL === scope ) return [D.FRIENDLY, D.NEUTRAL, D.HOSTILE];
+
+    // Determine the Actor's disposition
+    let disposition = this.actor.getActiveTokens(true, true)[0]?.disposition ?? this.actor.prototypeToken.disposition;
+
+    // Hostile actors
+    if ( disposition === D.HOSTILE ) {
+      if ( S.ALLIES === scope ) return [D.HOSTILE];
+      else return [D.FRIENDLY, D.NEUTRAL];
     }
+
+    // Non-hostile actors
+    if ( S.ALLIES === scope ) return [D.NEUTRAL, D.FRIENDLY];
+    else return [D.HOSTILE];
   }
 
   /* -------------------------------------------- */

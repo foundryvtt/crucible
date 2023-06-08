@@ -197,7 +197,8 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-grimoire.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-sidebar.hbs`
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-sidebar.hbs`,
+    `systems/${SYSTEM.id}/templates/sheets/partials/actor-skills.hbs`
   ]);
 });
 

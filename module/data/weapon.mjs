@@ -176,15 +176,18 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
   /**
    * Perform a weapon attack action.
+   * TODO: Refactor this to be an Action usage which populates action data and bonuses from the Weapon item.
    * @param {CrucibleActor} target    The target creature being attacked
+   * @param {number} [ability]        Override the default ability bonus for the weapon
    * @param {number} [banes=0]        The number of banes which afflict this attack roll
    * @param {number} [boons=0]        The number of boons which benefit this attack roll
    * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
    * @param {string} [defenseType]    The defense type targeted by this attack. Physical by default.
    * @param {number} [multiplier=0]   An additional damage multiplier which applies to this attack
+   * @param {string} [resource=health] The target resource affected by the attack.
    * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
    */
-  async attack(target, {banes=0, boons=0, multiplier=1, damageBonus=0, defenseType="physical"}={}) {
+  async attack(target, {ability, banes=0, boons=0, multiplier=1, damageBonus=0, defenseType="physical", resource="health"}={}) {
     const actor = this.parent.actor;
     if ( !actor ) {
       throw new Error("You may only perform a weapon attack using an owned weapon Item.");
@@ -203,18 +206,17 @@ export default class CrucibleWeapon extends PhysicalItemData {
     banes += targetBoons.banes;
 
     // Prepare roll data
-    const {ability, skill, enchantment} = this.actionBonuses;
     const rollData = {
       actorId: actor.id,
       itemId: this.parent.id,
       target: target.uuid,
-      ability: ability,
-      skill: skill,
-      enchantment: enchantment,
+      ability: ability ?? this.actionBonuses.ability,
+      skill: this.actionBonuses.skill,
+      enchantment: this.actionBonuses.enchantment,
       banes: banes,
       boons: boons,
       defenseType,
-      dc: target.defenses.physical.total,
+      dc: target.system.defenses[defenseType].total,
       criticalSuccessThreshold: this.properties.has("keen") ? 4 : 6,
       criticalFailureThreshold: this.properties.has("reliable") ? 4 : 6
     }
@@ -242,7 +244,8 @@ export default class CrucibleWeapon extends PhysicalItemData {
       multiplier: multiplier,
       base: this.damage.weapon,
       bonus: this.#getDamageBonus(damageBonus),
-      resistance: target.getResistance("health", this.damageType),
+      resistance: target.getResistance(resource, this.damageType),
+      resource,
       type: this.damageType
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);

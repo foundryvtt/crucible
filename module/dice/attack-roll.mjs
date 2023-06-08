@@ -99,7 +99,7 @@ export default class AttackRoll extends StandardCheck {
     // Target
     if ( this.data.target ) {
       const target = fromUuidSync(this.data.target);
-      cardData.target = {uuid: this.data.target, name: target.name};
+      cardData.target = {uuid: this.data.target, name: target?.name ?? "Unknown"};
     }
 
     // Defense label

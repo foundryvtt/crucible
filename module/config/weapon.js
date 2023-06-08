@@ -40,7 +40,7 @@ export const CATEGORIES = {
       base: 4
     },
     actionCost: 1,
-    training: "unarmed"
+    training: "natural"
   },
   light1: {
     id: "light1",

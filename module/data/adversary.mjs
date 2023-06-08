@@ -37,7 +37,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
 
     // Details
     schema.details = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 0, min: -11}),
+      level: new fields.NumberField({...requiredInteger, initial: 1, min: -11}),
       archetype: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
@@ -178,21 +178,31 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     const resistanceLevel = Math.max(6 + threatLevel, 0);
     for ( const r of Object.keys(this.resistances) ) {
       const tr = taxonomy.resistances[r] || 0;
-      this.resistances[r].base = tr === 0 ? 0 : Math.floor(resistanceLevel / Math.abs(tr)) * Math.sign(tr);
+      if ( tr === 0 ) {
+        this.resistances[r].base = 0;
+        continue;
+      }
+      const scaling = {
+       1: 0.33,
+       2: 0.66,
+       3: 1
+      }[Math.abs(tr)];
+      this.resistances[r].base = Math.floor(resistanceLevel * scaling) * Math.sign(tr);
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare Skills.
+   * Prepare Skills for an Adversary.
    */
   #prepareSkills() {
-    const ranks = SYSTEM.SKILL.RANKS;
+    const skillRank = Math.ceil(this.details.fractionLevel / 6);
     for ( let [id, skill] of Object.entries(this.skills) ) {
+      skill.rank = skillRank; // TODO for now adversaries get auto-rank progression
       const config = SYSTEM.SKILLS[id];
       skill.abilityBonus = this.parent.getAbilityBonus(config.abilities);
-      skill.skillBonus = ranks[skill.rank].bonus;
+      skill.skillBonus = SYSTEM.SKILL.RANKS[skill.rank].bonus;
       skill.enchantmentBonus = 0;
       skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
       skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
@@ -231,7 +241,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
 
     // Action
     r.action.max = threat.actionMax;
-    if ( l < 1 ) r.action.max -= 1;
+    if ( this.details.level < 1 ) r.action.max -= 1;
     if ( statuses.has("stunned") ) r.action.max -= 2;
     else if ( statuses.has("staggered") ) r.action.max -= 1;
     r.action.max = Math.max(r.action.max, 0);

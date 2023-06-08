@@ -1,0 +1,54 @@
+{{!-- Skills List --}}
+{{#each skillCategories as |category catId|}}
+    <header class="items-header flexrow">
+        <div class="item-name skill-name">
+            <h4>{{category.label}} Skills</h4>
+        </div>
+        <div class="bonus">Bonus</div>
+        <div class="attributes">Attributes</div>
+        <span>Trained Rank</span>
+        <span class="points">Spent (Cost)</span>
+    </header>
+
+    <ol class="skills-list">
+        {{#each category.skills as |skill skillId|}}
+            <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
+                <div class="name">
+                    <img class="icon" src="{{skill.icon}}">
+                    <h4><a data-tooltip="Roll Check" data-action="skillRoll">{{skill.name}}</a></h4>
+                </div>
+                <div class="controls">
+                    <a class="control skill-config" title="Configure Skill" data-action="skillConfig">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                <div class="bonus flexrow">
+                        <span class="active highlight" data-tooltip="{{skill.tooltips.value}}">
+                            {{numberFormat skill.score sign=true}}
+                        </span>
+                    <span class="passive" data-tooltip="{{skill.tooltips.passive}}">({{skill.passive}})</span>
+                </div>
+                <div class="attributes">
+                    {{#each skill.abilityAbbrs}}
+                        <span class="attribute tag">{{this}}</span>
+                    {{/each}}
+                </div>
+                <div class="skill-ranks" data-tooltip="{{skill.rankName}}, {{skill.pathName}}">
+                    {{#each skill.pips}}
+                        <span class="pip {{this}}"></span>
+                    {{/each}}
+                </div>
+                <div class="points flexrow">
+                    <a class="control {{#unless skill.canDecrease}}inactive{{/unless}} decrease" title="Decrease Skill Rank" data-action="skillDecrease">
+                        <i class="fas fa-caret-down"></i>
+                    </a>
+                    <span class="cumulative">{{skill.spent}}</span>
+                    <span class="next">{{#if skill.cost}}({{skill.cost}}){{else}}-{{/if}}</span>
+                    <a class="control {{#unless skill.canIncrease}}inactive{{/unless}} increase" title="Increase Skill Rank" data-action="skillIncrease">
+                        <i class="fas fa-caret-up"></i>
+                    </a>
+                </div>
+            </li>
+        {{/each}}
+    </ol>
+{{/each}}

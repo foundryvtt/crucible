@@ -1,5 +1,4 @@
 import CrucibleActorSheet from "./actor.mjs";
-import {SYSTEM} from "../../config/system.js";
 
 /**
  * The ActorSheet class which is used to display an Adversary Actor.
@@ -9,7 +8,7 @@ export default class AdversarySheet extends CrucibleActorSheet {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 720,
+      width: 700,
       height: 680,
     });
   }

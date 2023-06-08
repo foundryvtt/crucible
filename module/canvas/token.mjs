@@ -24,6 +24,7 @@ export default class CrucibleTokenObject extends Token {
    * Update the flanking status of the Token.
    */
   #computeEngagement() {
+    if ( this.actor.isIncapacitated ) return new Set();
 
     // Get grid-appropriate bounds and polygon
     const {engagementBounds, movePolygon} = canvas.grid.isHex
@@ -35,6 +36,7 @@ export default class CrucibleTokenObject extends Token {
     const enemies = canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
+        if ( token.actor.isIncapacitated ) return false; // Ignore incapacitated
         if ( !enemy.includes(token.document.disposition) ) return false; // Only worry about enemies
         const c = token.center;
         return movePolygon.contains(c.x, c.y);
