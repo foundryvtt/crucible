@@ -24,7 +24,7 @@ export default class CrucibleTokenObject extends Token {
    * Update the flanking status of the Token.
    */
   #computeEngagement() {
-    if ( this.actor.isIncapacitated ) return new Set();
+    if ( this.actor?.isIncapacitated ) return new Set();
 
     // Get grid-appropriate bounds and polygon
     const {engagementBounds, movePolygon} = canvas.grid.isHex
