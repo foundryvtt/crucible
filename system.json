@@ -1,8 +1,9 @@
 {
-  "name": "crucible",
+  "id": "crucible",
   "title": "Crucible",
-  "description": "This is a work in progress, you shouldn't be using it (yet).",
+  "description": "Crucible is an innovative and modern tabletop role-playing game system built exclusively for Foundry Virtual Tabletop as a digital platform. From the ground up, Crucible is designed to leverage the unique capabilities of Foundry VTT to provide gamemasters with a powerful toolset and effortless layers of automation, allowing gamemasters and players to focus on what matters most: telling a compelling story.",
   "version": "0.5.0",
+  "url": "https://foundryvtt.com/packages/crucible",
   "authors": [
     {
       "name": "Atropos",
@@ -10,14 +11,12 @@
       "discord": "atropos"
     }
   ],
-  "scripts": [],
-  "esmodules": ["crucible.mjs"],
-  "styles": ["styles/crucible.css"],
-  "background": "systems/crucible/ui/background.webp",
   "compatibility": {
     "minimum": 11,
     "verified": 11
   },
+  "esmodules": ["crucible.mjs"],
+  "styles": ["styles/crucible.css"],
   "packs": [
     {
       "name": "adversary-talents",
@@ -119,8 +118,10 @@
       "path": "lang/en.json"
     }
   ],
+  "background": "systems/crucible/ui/background.webp",
   "socket": true,
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.morale",
-  "url": "https://gitlab.com/foundrynet/crucible"
+  "manifest": "https://foundryvtt.s3.us-west-2.amazonaws.com/modules/crucible/system.json",
+  "protected": true
 }
