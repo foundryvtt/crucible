@@ -124,7 +124,7 @@ export default class CrucibleTokenObject extends Token {
       if ( enemies.has(token) ) continue; // No change
       this.engaged.delete(token);
       token.engaged.delete(this);
-      if ( commit ) token.actor.updateFlanking(token.engaged);
+      if ( commit && token.actor ) token.actor.updateFlanking(token.engaged);
     }
 
     // Add new engaged
@@ -132,11 +132,11 @@ export default class CrucibleTokenObject extends Token {
       if ( this.engaged.has(token) ) continue; // No change
       this.engaged.add(token);
       token.engaged.add(this);
-      if ( commit ) token.actor.updateFlanking(token.engaged);
+      if ( commit && token.actor ) token.actor.updateFlanking(token.engaged);
     }
 
     // Update our own flanking status
-    if ( commit ) this.actor.updateFlanking(this.engaged);
+    if ( commit && this.actor ) this.actor.updateFlanking(this.engaged);
   }
 
   /* -------------------------------------------- */

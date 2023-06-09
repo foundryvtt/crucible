@@ -138,6 +138,13 @@ Hooks.once("init", async function() {
     default: false
   });
 
+  game.settings.register("crucible", "welcome", {
+    scope: "client",
+    config: false,
+    type: Boolean,
+    default: false
+  });
+
   /**
    * Is animation enabled for the system?
    * @type {boolean}
@@ -206,6 +213,9 @@ Hooks.once("i18nInit", function() {
 /*  Ready Hooks                                 */
 /* -------------------------------------------- */
 
+/**
+ * On game setup, configure document data.
+ */
 Hooks.once("setup", function() {
 
   // Initialize Skill Data
@@ -220,6 +230,21 @@ Hooks.once("setup", function() {
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
 });
+
+/* -------------------------------------------- */
+
+/**
+ * On game ready, display the welcome journal if the user has not yet seen it.
+ */
+Hooks.once("ready", async function() {
+  const welcome = game.settings.get("crucible", "welcome");
+  if ( !welcome ) {
+    const entry = await fromUuid("Compendium.crucible.rules.JournalEntry.5SgXrAKS2EnqVggJ");
+    entry.sheet.render(true);
+    game.settings.set("crucible", "welcome", true);
+  }
+});
+
 
 /* -------------------------------------------- */
 /*  Rendering Hooks                             */
