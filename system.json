@@ -20,6 +20,12 @@
   },
   "packs": [
     {
+      "name": "adversary-talents",
+      "label": "Adversary Talents",
+      "path": "packs/adversary-talents",
+      "type": "Item"
+    },
+    {
       "name": "ancestry",
       "label": "Ancestries",
       "path": "packs/ancestry",
@@ -44,27 +50,27 @@
       "type": "Item"
     },
     {
-      "name": "adversary-talents",
-      "label": "Adversary Talents",
-      "path": "packs/adversary-talents",
-      "type": "Item"
-    },
-    {
       "name": "rules",
       "label": "System Rules",
       "path": "packs/rules",
       "type": "JournalEntry"
     },
     {
-      "name": "summons",
-      "label": "Summoned Creatures",
-      "path": "packs/summons",
-      "type": "Actor"
+      "name": "playtest",
+      "label": "Playtest",
+      "path": "packs/playtest",
+      "type": "Adventure"
     },
     {
       "name": "pregens",
       "label": "Pregenerated Heroes",
       "path": "packs/pregens",
+      "type": "Actor"
+    },
+    {
+      "name": "summons",
+      "label": "Summoned Creatures",
+      "path": "packs/summons",
       "type": "Actor"
     },
     {
@@ -91,12 +97,14 @@
       "name": "Crucible",
       "color": "#561206",
       "packs": [
+        "adversary-talents",
         "ancestry",
         "archetype",
         "armor",
         "background",
         "rules",
         "summons",
+        "playtest",
         "pregens",
         "talent",
         "taxonomy",

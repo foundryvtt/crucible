@@ -1,3 +1,16 @@
-2023/06/07-08:17:14.432 25658 Recovering log #183
-2023/06/07-08:17:14.436 25658 Delete type=0 #183
-2023/06/07-08:17:14.436 25658 Delete type=3 #182
+2023/06/08-08:01:33.894 51f0 Recovering log #185
+2023/06/08-08:01:33.894 51f0 Level-0 table #187: started
+2023/06/08-08:01:33.895 51f0 Level-0 table #187: 969 bytes OK
+2023/06/08-08:01:33.899 51f0 Delete type=0 #185
+2023/06/08-08:01:33.899 51f0 Delete type=3 #184
+2023/06/08-16:39:45.828 9a88 Level-0 table #190: started
+2023/06/08-16:39:45.828 9a88 Level-0 table #190: 0 bytes OK
+2023/06/08-16:39:45.829 9a88 Delete type=0 #188
+2023/06/08-16:39:45.834 9a88 Manual compaction at level-0 from '!folders!6Up7ddrphLept3RW' @ 72057594037927935 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at '!items!skirmisher000000' @ 34 : 1
+2023/06/08-16:39:45.834 9a88 Compacting 1@0 + 1@1 files
+2023/06/08-16:39:45.835 9a88 Generated table #191@0: 11 keys, 3450 bytes
+2023/06/08-16:39:45.835 9a88 Compacted 1@0 + 1@1 files => 3450 bytes
+2023/06/08-16:39:45.836 9a88 compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/06/08-16:39:45.836 9a88 Delete type=2 #171
+2023/06/08-16:39:45.836 9a88 Delete type=2 #187
+2023/06/08-16:39:45.836 9a88 Manual compaction at level-0 from '!items!skirmisher000000' @ 34 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at (end)

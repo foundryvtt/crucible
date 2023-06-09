@@ -102,7 +102,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /** @override */
   _onSubmit(html) {
     const form = html.querySelector("form");
-    const {boons, banes} = (new FormDataExtended(form, {readonly: true})).object;
+    const {boons, banes, rollMode} = (new FormDataExtended(form, {readonly: true})).object;
+    this.action.usage.rollMode = rollMode;
     Object.assign(this.action.usage.bonuses, {boons, banes});
     return this.action;
   }

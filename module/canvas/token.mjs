@@ -112,17 +112,19 @@ export default class CrucibleTokenObject extends Token {
 
   /**
    * Update flanking conditions for all actors affected by a Token change.
-   * @param {Set<Token>} [enemies]    An explicitly provided set of engaged enemies, otherwise it will be computed
+   * @param {object} [options]
+   * @param {boolean} [options.commit]      Commit flanking changes by enacting active effect changes
+   * @param {Set<Token>} [options.enemies]  An explicitly provided set of engaged enemies
    */
-  #updateFlanking(enemies) {
-    enemies = this.#computeEngagement();
+  #updateFlanking({commit, enemies}={}) {
+    enemies ||= this.#computeEngagement();
 
     // Iterate over prior engaged
     for ( const token of this.engaged ) {
       if ( enemies.has(token) ) continue; // No change
       this.engaged.delete(token);
       token.engaged.delete(this);
-      token.actor.updateFlanking(token.engaged);
+      if ( commit ) token.actor.updateFlanking(token.engaged);
     }
 
     // Add new engaged
@@ -130,11 +132,11 @@ export default class CrucibleTokenObject extends Token {
       if ( this.engaged.has(token) ) continue; // No change
       this.engaged.add(token);
       token.engaged.add(this);
-      token.actor.updateFlanking(token.engaged);
+      if ( commit ) token.actor.updateFlanking(token.engaged);
     }
 
     // Update our own flanking status
-    this.actor.updateFlanking(this.engaged);
+    if ( commit ) this.actor.updateFlanking(this.engaged);
   }
 
   /* -------------------------------------------- */
@@ -144,10 +146,11 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
-    if ( userId !== game.user.id ) return;
+    const activeGM = game.users.activeGM;
+    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     const enemies = this.engaged;
     this.engaged = new Set();
-    this.#updateFlanking(enemies);
+    this.#updateFlanking({enemies, commit});
   }
 
   /* -------------------------------------------- */
@@ -155,8 +158,9 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
-    if ( userId !== game.user.id ) return;
-    this.#updateFlanking();
+    const activeGM = game.users.activeGM;
+    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+    this.#updateFlanking({commit});
   }
 
   /* -------------------------------------------- */
@@ -164,10 +168,11 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
-    if ( userId !== game.user.id ) return;
+    const activeGM = game.users.activeGM;
+    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     for ( const token of this.engaged ) {
       token.engaged.delete(this);
-      token.actor.updateFlanking(token.engaged);
+      if ( commit ) token.actor.updateFlanking(token.engaged);
     }
     this.engaged.clear();
   }

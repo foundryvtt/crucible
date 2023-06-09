@@ -173,6 +173,8 @@
 "BACKGROUND.TalentNumberError": "A Background may contain a maximum of one starting Talent.",
 "BACKGROUND.TalentTierError": "Backgrounds may only offer Tier 0 starting Talents.",
 
+"COMBAT.WarningCannotChangeRound": "Only a Gamemaster user may change the Combat round.",
+
 "DAMAGE.Damage": "Damage",
 "DAMAGE.Restoration": "Restoration",
 "DAMAGE.Acid": "Acid",

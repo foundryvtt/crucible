@@ -1,5 +1,25 @@
-2023/06/07-08:17:14.463 80d0 Recovering log #875
-2023/06/07-08:17:14.463 80d0 Level-0 table #877: started
-2023/06/07-08:17:14.465 80d0 Level-0 table #877: 1557 bytes OK
-2023/06/07-08:17:14.469 80d0 Delete type=0 #875
-2023/06/07-08:17:14.470 80d0 Delete type=3 #874
+2023/06/08-08:01:33.928 51f0 Recovering log #878
+2023/06/08-08:01:33.929 51f0 Level-0 table #880: started
+2023/06/08-08:01:33.930 51f0 Level-0 table #880: 1983 bytes OK
+2023/06/08-08:01:33.932 51f0 Delete type=0 #878
+2023/06/08-08:01:33.932 51f0 Delete type=3 #876
+2023/06/08-16:39:45.870 9a88 Level-0 table #883: started
+2023/06/08-16:39:45.872 9a88 Level-0 table #883: 20198 bytes OK
+2023/06/08-16:39:45.873 9a88 Delete type=0 #881
+2023/06/08-16:39:45.875 9a88 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!runetime00000000' @ 1586 : 1
+2023/06/08-16:39:45.875 9a88 Compacting 3@0 + 0@1 files
+2023/06/08-16:39:45.876 9a88 Generated table #884@0: 36 keys, 15969 bytes
+2023/06/08-16:39:45.876 9a88 Compacted 3@0 + 0@1 files => 15969 bytes
+2023/06/08-16:39:45.877 9a88 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/06/08-16:39:45.877 9a88 Delete type=2 #877
+2023/06/08-16:39:45.878 9a88 Delete type=2 #880
+2023/06/08-16:39:45.878 9a88 Delete type=2 #883
+2023/06/08-16:39:45.881 9a88 Manual compaction at level-0 from '!items!runetime00000000' @ 1586 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/08-16:39:45.881 9a88 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!runevoid00000000' @ 1607 : 1
+2023/06/08-16:39:45.881 9a88 Compacting 1@1 + 1@2 files
+2023/06/08-16:39:45.884 9a88 Generated table #885@1: 208 keys, 87003 bytes
+2023/06/08-16:39:45.884 9a88 Compacted 1@1 + 1@2 files => 87003 bytes
+2023/06/08-16:39:45.885 9a88 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/08-16:39:45.885 9a88 Delete type=2 #863
+2023/06/08-16:39:45.885 9a88 Delete type=2 #884
+2023/06/08-16:39:45.890 9a88 Manual compaction at level-1 from '!items!runevoid00000000' @ 1607 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

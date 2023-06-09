@@ -73,8 +73,9 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onSubmit(html) {
     const form = html.querySelector("form");
-    const {boons, banes, ...composition} = (new FormDataExtended(form, {readonly: true})).object;
+    const {boons, banes, rollMode, ...composition} = (new FormDataExtended(form, {readonly: true})).object;
     this.action.updateSource(composition);
+    this.action.usage.rollMode = rollMode;
     Object.assign(this.action.usage.bonuses, {boons, banes});
     return this.action;
   }

@@ -1,6 +1,30 @@
 export default class CrucibleCombat extends Combat {
 
   /* -------------------------------------------- */
+  /*  Document Methods                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async previousRound() {
+    if ( !game.user.isGM ) {
+      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      return this;
+    }
+    return super.previousRound();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async nextRound() {
+    if ( !game.user.isGM ) {
+      ui.notifications.warn("COMBAT.WarningCannotChangeRound", {localize: true});
+      return this;
+    }
+    return super.nextRound();
+  }
+
+  /* -------------------------------------------- */
   /*  Database Update Workflows                   */
   /* -------------------------------------------- */
 
@@ -24,6 +48,19 @@ export default class CrucibleCombat extends Combat {
 
     // Post new round Initiative summary
     await this.#postInitiativeMessage(data.round, rolls);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    for ( const c of this.combatants ) {
+      if ( c.actor ) {
+        c.actor.reset();
+        c.actor._sheet?.render(false);
+      }
+    }
   }
 
   /* -------------------------------------------- */

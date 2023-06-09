@@ -26,6 +26,7 @@ import {TARGET_SCOPES} from "../config/action.mjs";
  * @property {object} bonuses               Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
+ * @property {string} [rollMode]            A dice roll mode to apply to the message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             The skill ID being used.
  * @property {CrucibleWeapon} [weapon]      A special weapon being used
@@ -317,7 +318,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Record the action as a chat message
-    if ( chatMessage ) await this.toMessage(outcomes, targets, template, {confirmed, ...chatMessageOptions});
+    if ( chatMessage ) await this.toMessage(outcomes, targets, template, {
+      ...chatMessageOptions,
+      confirmed,
+      rollMode: this.usage.rollMode
+    });
 
     // Apply action usage flags (immediately)
     await this.actor.update({"flags.crucible": this.usage.actorFlags});

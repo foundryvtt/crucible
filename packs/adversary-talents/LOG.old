@@ -1,3 +1,23 @@
-2023/06/07-08:17:14.447 25658 Recovering log #98
-2023/06/07-08:17:14.450 25658 Delete type=0 #98
-2023/06/07-08:17:14.450 25658 Delete type=3 #97
+2023/06/08-08:01:33.908 31b94 Recovering log #100
+2023/06/08-08:01:33.908 31b94 Level-0 table #102: started
+2023/06/08-08:01:33.909 31b94 Level-0 table #102: 1086 bytes OK
+2023/06/08-08:01:33.912 31b94 Delete type=0 #100
+2023/06/08-08:01:33.912 31b94 Delete type=3 #99
+2023/06/08-16:39:45.837 9a88 Level-0 table #105: started
+2023/06/08-16:39:45.837 9a88 Level-0 table #105: 0 bytes OK
+2023/06/08-16:39:45.839 9a88 Delete type=0 #103
+2023/06/08-16:39:45.852 9a88 Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at '!items!packhunter000000' @ 3 : 1
+2023/06/08-16:39:45.852 9a88 Compacting 1@0 + 0@1 files
+2023/06/08-16:39:45.853 9a88 Generated table #106@0: 1 keys, 872 bytes
+2023/06/08-16:39:45.853 9a88 Compacted 1@0 + 0@1 files => 872 bytes
+2023/06/08-16:39:45.854 9a88 compacted to: files[ 0 1 2 0 0 0 0 ]
+2023/06/08-16:39:45.854 9a88 Delete type=2 #102
+2023/06/08-16:39:45.857 9a88 Manual compaction at level-0 from '!items!packhunter000000' @ 3 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
+2023/06/08-16:39:45.865 9a88 Manual compaction at level-1 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at '!items!packhunter000000' @ 6 : 1
+2023/06/08-16:39:45.865 9a88 Compacting 1@1 + 1@2 files
+2023/06/08-16:39:45.866 9a88 Generated table #107@1: 1 keys, 872 bytes
+2023/06/08-16:39:45.866 9a88 Compacted 1@1 + 1@2 files => 872 bytes
+2023/06/08-16:39:45.867 9a88 compacted to: files[ 0 0 2 0 0 0 0 ]
+2023/06/08-16:39:45.867 9a88 Delete type=2 #20
+2023/06/08-16:39:45.867 9a88 Delete type=2 #106
+2023/06/08-16:39:45.870 9a88 Manual compaction at level-1 from '!items!packhunter000000' @ 6 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)

@@ -36,4 +36,37 @@ export default class CrucibleCombatant extends Combatant {
     // Construct Initiative Check
     return new StandardCheck(rollData);
   }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onCreate(data, options, userId) {
+    super._onCreate(data, options, userId);
+    if ( this.actor ) {
+      this.actor.reset();
+      this.actor._sheet?.render(false);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onUpdate(data, options, userId) {
+    super._onUpdate(data, options, userId);
+    if ( this.actor ) {
+      this.actor.reset();
+      this.actor._sheet?.render(false);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    if ( this.actor ) {
+      this.actor.reset();
+      this.actor._sheet?.render(false);
+    }
+  }
 }

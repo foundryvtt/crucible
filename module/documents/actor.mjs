@@ -457,6 +457,7 @@ export default class CrucibleActor extends Actor {
       if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
       if ( (ad.id === "reload") && !w.reload ) continue;
       if ( (ad.id === "refocus") && !w.talisman ) continue;
+      if ( (ad.id === "recover") && this.inCombat ) continue;
       const action = ad.tags.includes("spell")
         ? CrucibleSpell.getDefault(this, ad)
         : new CrucibleAction(ad, {actor: this});
