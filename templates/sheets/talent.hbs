@@ -18,7 +18,9 @@
     <nav class="sheet-tabs tabs">
         <a class="item" data-tab="summary"><i class="fa-solid fa-scroll"></i> Summary</a>
         <a class="item" data-tab="config"><i class="fa-solid fa-cogs"></i> Configuration</a>
+        {{#if showHooks}}
         <a class="item" data-tab="hooks"><i class="fa-solid fa-code"></i> Hooks</a>
+        {{/if}}
     </nav>
 
     {{!-- Description Tab --}}
@@ -82,6 +84,7 @@
     </section>
 
     <!-- Hooks Tab -->
+    {{#if showHooks}}
     <section class="tab sheet-body flexcol" data-tab="hooks">
         <p class="hint">Beware. This configuration tab involves advanced features for automating talent effects.
             Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here
@@ -120,4 +123,5 @@
         </footer>
         {{/if}}
     </section>
+    {{/if}}
 </form>

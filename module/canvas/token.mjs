@@ -24,7 +24,7 @@ export default class CrucibleTokenObject extends Token {
    * Update the flanking status of the Token.
    */
   #computeEngagement() {
-    if ( this.actor?.isIncapacitated ) return new Set();
+    if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return new Set();
 
     // Get grid-appropriate bounds and polygon
     const {engagementBounds, movePolygon} = canvas.grid.isHex
@@ -36,7 +36,7 @@ export default class CrucibleTokenObject extends Token {
     const enemies = canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( token.actor.isIncapacitated ) return false; // Ignore incapacitated
+        if ( token.actor.isIncapacitated || token.actor.isBroken ) return false; // Ignore incapacitated
         if ( !enemy.includes(token.document.disposition) ) return false; // Only worry about enemies
         const c = token.center;
         return movePolygon.contains(c.x, c.y);
@@ -116,7 +116,7 @@ export default class CrucibleTokenObject extends Token {
    * @param {boolean} [options.commit]      Commit flanking changes by enacting active effect changes
    * @param {Set<Token>} [options.enemies]  An explicitly provided set of engaged enemies
    */
-  #updateFlanking({commit, enemies}={}) {
+  updateFlanking({commit, enemies}={}) {
     enemies ||= this.#computeEngagement();
 
     // Iterate over prior engaged
@@ -150,7 +150,7 @@ export default class CrucibleTokenObject extends Token {
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     const enemies = this.engaged;
     this.engaged = new Set();
-    this.#updateFlanking({enemies, commit});
+    this.updateFlanking({enemies, commit});
   }
 
   /* -------------------------------------------- */
@@ -160,7 +160,7 @@ export default class CrucibleTokenObject extends Token {
     super._onUpdate(data, options, userId);
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    this.#updateFlanking({commit});
+    this.updateFlanking({commit});
   }
 
   /* -------------------------------------------- */

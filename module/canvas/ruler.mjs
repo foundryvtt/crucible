@@ -14,9 +14,11 @@ export default class CrucibleRuler extends Ruler {
   _onDragStart(event) {
     super._onDragStart(event);
     const token = this._getMovementToken();
-    if ( !token?.actor ) return false;
-    this.#actor = token.actor;
-    this.#action = this.#actor.actions.move.clone();
+    if ( token?.actor ) {
+      this.#actor = token.actor;
+      this.#action = this.#actor.actions.move.clone();
+    }
+    else this.#actor = this.#action = null;
   }
 
   /* -------------------------------------------- */

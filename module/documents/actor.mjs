@@ -217,7 +217,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Talent hook functions which apply to this Actor based on their set of owned Talents.
-   * @type {Object<string, {talent: CrucibleTalent, fn: Function}>}
+   * @type {Object<string, {talent: CrucibleTalent, fn: Function}[]>}
    */
   talentHooks = {};
 
@@ -523,7 +523,7 @@ export default class CrucibleActor extends Actor {
       this.talentIds.add(t.id);
 
       // Register hooks
-      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerTalentHook(this, talent, hook);
+      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerTalentHook(this, t, hook);
 
       // Register signatures
       if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
@@ -607,7 +607,7 @@ export default class CrucibleActor extends Actor {
       if ( sd.type !== "save" ) continue;
       let d = actor.defenses[k];
       d.base = sd.abilities.reduce((t, a) => t + actor.abilities[a].value, SYSTEM.PASSIVE_BASE);
-      // TODO
+      if ( actor.isIncapacitated ) d.base = SYSTEM.PASSIVE_BASE;
       if ( (k !== "fortitude") && actor.talentIds.has("monk000000000000") && actor.equipment.unarmored ) d.bonus += 2;
     }
   }
@@ -633,13 +633,20 @@ export default class CrucibleActor extends Actor {
   static #prepareTotalDefenses(actor) {
     const defenses = actor.system.defenses;
 
-    // Cannot parry or block while enraged
-    if ( actor.statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
-
     // Compute defense totals
     for ( const defense of Object.values(defenses) ) {
       defense.total = defense.base + defense.bonus;
     }
+
+    // Cannot parry or block while enraged
+    if ( actor.statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
+
+    // Cannot dodge, block, or parry while incapacitated
+    if ( actor.isIncapacitated ) {
+      defenses.dodge.total = defenses.parry.total = defenses.block.total = 0;
+    }
+
+    // Aggregate total Physical Defense
     defenses.physical = {
       total: defenses.armor.total + defenses.dodge.total + defenses.parry.total + defenses.block.total
     };
@@ -705,14 +712,16 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callTalentHooks(hook, ...args) {
+    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.talentHooks[hook] ||= [];
     for ( const {talent, fn} of hooks ) {
       console.debug(`Calling ${hook} hook for Talent ${talent.name}`);
       try {
         fn(this, ...args);
       } catch(err) {
-        err.message = `Talent ${talent.name} declared a ${hook} which failed to be evaluated:\n ${err.message}`;
-        console.error(err);
+        const msg = `The "${hook}" hook defined for Talent "${talent.name}" failed evaluation in Actor [${this.id}]`;
+        console.error(msg, err);
       }
     }
   }
@@ -1401,6 +1410,7 @@ export default class CrucibleActor extends Actor {
    * Toggle display of the Talent Tree.
    */
   async toggleTalentTree(active) {
+    if ( this.type !== "hero" ) return;
     const tree = game.system.tree;
     if ( (tree.actor === this) && (active !== true) ) return game.system.tree.close();
     else if ( active !== false ) return game.system.tree.open(this);
@@ -1976,14 +1986,30 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
+
+    // Locally display scrolling status updates
     this.#displayScrollingStatus(data, options);
-    if ( game.userId === userId ) {    // Follow-up updates only made by the initiating user
+
+    // Apply follow-up database changes only as the initiating user
+    if ( game.userId === userId ) {
       this.#replenishResources(data);
       this.#applyResourceStatuses(data);
     }
+
+    // Update flanking
+    const {wasIncapacitated, wasBroken} = this._cachedResources;
+    if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
+      const tokens = this.getActiveTokens(true);
+      const activeGM = game.users.activeGM;
+      for ( const token of tokens ) token.updateFlanking({
+        commit: (activeGM === game.user) && (activeGM?.viewedScene === canvas.id)
+      })
+    }
+
+    // Update cached resource values
     this.#updateCachedResources();
 
-    // Refresh talent tree
+    // Refresh display of the active talent tree
     const tree = game.system.tree;
     if ( tree.actor === this ) {
       const talentChange = (foundry.utils.hasProperty(data, "system.advancement.level") || ("items" in data));
@@ -2076,7 +2102,10 @@ export default class CrucibleActor extends Actor {
     this._cachedResources = Object.entries(this.system.resources).reduce((obj, [id, {value}]) => {
       obj[id] = value;
       return obj;
-    }, {});
+    }, {
+      wasIncapacitated: this.isIncapacitated,
+      wasBroken: this.isBroken
+    });
   }
 
   /* -------------------------------------------- */

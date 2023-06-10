@@ -599,7 +599,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     id: "recover",
     name: "Recover",
     img: "icons/magic/life/cross-area-circle-green-white.webp",
-    description: "When not actively in combat, recover your Health, Morale, and Focus. This action is only available during Playtest One.",
+    description: "Spend 10 minutes outside of Combat recovering from exertion to fully restore Health, Morale, Action, and Focus.",
     target: {
       type: "self",
       number: 0,

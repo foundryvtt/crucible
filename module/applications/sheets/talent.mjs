@@ -39,6 +39,7 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
         obj[k] = k;
         return obj;
       }, {}),
+      showHooks: game.user.isGM,
       actorHooks: this.#prepareActorHooks(),
       nodes: Object.fromEntries(nodeIds.map(id => [id, id])),
       runes: SYSTEM.SPELL.RUNES,
@@ -98,7 +99,9 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
       }
     }
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.system.actorHooks = Object.values(formData.system.actorHooks || {});
+    if ( "actorHooks" in formData.system ) {
+      formData.system.actorHooks = Object.values(formData.system.actorHooks || {});
+    }
     return formData;
   }
 

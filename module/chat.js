@@ -109,3 +109,23 @@ export async function onChatTargetLinkHover(event) {
   if ( isActive ) token._onHoverIn(event, {hoverOutOthers: false});
   else token._onHoverOut(event);
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Handle keybinding actions to confirm the most recent action in the chat log.
+ * @param {KeyboardEventContext} context    The context data of the event
+ */
+export async function onKeyboardConfirmAction(context) {
+  const messageIds = Array.from(game.messages.keys()).reverse();
+  const now = Date.now();
+  const toConfirm = [];
+  for ( const id of messageIds ) {
+    const message = game.messages.get(id);
+    const seconds = (now - message.timestamp) / 1000;
+    if ( seconds > 60 ) break;
+    const {action, confirmed} = message.flags.crucible || {};
+    if ( action && !confirmed ) toConfirm.unshift(message);
+  }
+  if ( toConfirm.length ) return CrucibleAction.confirm(toConfirm[0]);
+}

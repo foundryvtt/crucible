@@ -33,7 +33,7 @@ const DEVELOPMENT_MODE = true;
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
-  CONFIG.SYSTEM = SYSTEM;
+  globalThis.SYSTEM = CONFIG.SYSTEM = SYSTEM;
 
   // Expose the system API
   game.system.api = {
@@ -145,16 +145,26 @@ Hooks.once("init", async function() {
     default: false
   });
 
+  // Register keybindings
+  game.keybindings.register("crucible", "confirm", {
+    name: "KEYBINDINGS.ConfirmAction",
+    hint: "KEYBINDINGS.ConfirmActionHint",
+    editable: [{key: "KeyX"}],
+    restricted: true,
+    onDown: chat.onKeyboardConfirmAction
+  });
+
   /**
    * Is animation enabled for the system?
    * @type {boolean}
    */
   Object.defineProperty(game.system, "animationEnabled", {
     value: game.settings.get("crucible", "actionAnimations")
-      && ["jb2a_patreon", "sequencer"].every(id => game.modules.has(id)),
+      && game.modules.get("sequencer")?.active
+      && ["JB2A_DnD5e", "jb2a_patreon"].some(id => game.modules.get(id)?.active),
     writable: false,
     configurable: true
-  })
+  });
 
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);

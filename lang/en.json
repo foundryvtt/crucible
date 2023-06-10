@@ -214,6 +214,7 @@
 "DICE.DamageBase": "Base {type}",
 "DICE.DamageBonus": "Action Bonus",
 "DICE.DamageResistance": "Damage Resistance",
+"DICE.DamageVulnerability": "Damage Vulnerability",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
@@ -246,6 +247,9 @@
 "ITEM.QualityFine": "Fine",
 "ITEM.QualitySuperior": "Superior",
 "ITEM.QualityMasterwork": "Masterwork",
+
+"KEYBINDINGS.ConfirmAction": "Confirm Action",
+"KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
 
 "RESOURCES.Health": "Health",
 "RESOURCES.Wounds": "Wounds",

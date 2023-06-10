@@ -197,7 +197,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
    * Prepare Skills for an Adversary.
    */
   #prepareSkills() {
-    const skillRank = Math.ceil(this.details.fractionLevel / 6);
+    const skillRank = Math.min(Math.ceil(this.details.fractionLevel / 6), 5);
     for ( let [id, skill] of Object.entries(this.skills) ) {
       skill.rank = skillRank; // TODO for now adversaries get auto-rank progression
       const config = SYSTEM.SKILLS[id];

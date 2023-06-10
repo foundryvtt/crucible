@@ -1,8 +1,23 @@
-2023/06/08-21:20:19.339 2d190 Recovering log #896
-2023/06/08-21:20:19.343 2d190 Delete type=0 #896
-2023/06/08-21:20:19.343 2d190 Delete type=3 #894
-2023/06/08-21:29:33.595 9a88 Level-0 table #901: started
-2023/06/08-21:29:33.595 9a88 Level-0 table #901: 0 bytes OK
-2023/06/08-21:29:33.596 9a88 Delete type=0 #899
-2023/06/08-21:29:33.596 9a88 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/06/08-21:29:33.596 9a88 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/09-13:19:42.013 12588 Recovering log #911
+2023/06/09-13:19:42.016 12588 Delete type=0 #911
+2023/06/09-13:19:42.016 12588 Delete type=3 #909
+2023/06/09-21:41:29.978 12360 Level-0 table #915: started
+2023/06/09-21:41:29.978 12360 Level-0 table #915: 2547 bytes OK
+2023/06/09-21:41:29.979 12360 Delete type=0 #913
+2023/06/09-21:41:29.981 12360 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!gesturepulse0000' @ 1653 : 1
+2023/06/09-21:41:29.981 12360 Compacting 3@0 + 0@1 files
+2023/06/09-21:41:29.982 12360 Generated table #916@0: 6 keys, 3911 bytes
+2023/06/09-21:41:29.982 12360 Compacted 3@0 + 0@1 files => 3911 bytes
+2023/06/09-21:41:29.983 12360 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/06/09-21:41:29.983 12360 Delete type=2 #907
+2023/06/09-21:41:29.983 12360 Delete type=2 #910
+2023/06/09-21:41:29.984 12360 Delete type=2 #915
+2023/06/09-21:41:29.986 12360 Manual compaction at level-0 from '!items!gesturepulse0000' @ 1653 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/09-21:41:29.986 12360 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!shieldcharge0000' @ 1655 : 1
+2023/06/09-21:41:29.986 12360 Compacting 1@1 + 1@2 files
+2023/06/09-21:41:29.988 12360 Generated table #917@1: 208 keys, 87051 bytes
+2023/06/09-21:41:29.988 12360 Compacted 1@1 + 1@2 files => 87051 bytes
+2023/06/09-21:41:29.988 12360 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/09-21:41:29.989 12360 Delete type=2 #885
+2023/06/09-21:41:29.989 12360 Delete type=2 #916
+2023/06/09-21:41:29.992 12360 Manual compaction at level-1 from '!items!shieldcharge0000' @ 1655 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
