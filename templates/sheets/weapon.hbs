@@ -69,6 +69,17 @@
             </div>
         </div>
 
+        {{#if source.system.equipped}}
+        <div class="form-group">
+            <label>Equipped Slot</label>
+            <div class="form-fields">
+                <select name="system.slot">
+                    {{selectOptions equipmentSlots selected=source.system.slot}}
+                </select>
+            </div>
+        </div>
+        {{/if}}
+
         <div class="form-group stacked">
             <h3>Weapon Properties</h3>
             <div class="form-fields item-properties">
@@ -107,13 +118,5 @@
                 <input type="number" value="{{item.system.price}}" disabled>
             </div>
         </div>
-
-        {{#if editable}}
-        <footer class="sheet-footer">
-            <button class="frame-brown" type="submit">
-                <i class="fas fa-save"></i> {{localize "Save Changes"}}
-            </button>
-        </footer>
-        {{/if}}
     </section>
 </form>

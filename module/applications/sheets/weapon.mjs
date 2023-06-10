@@ -23,6 +23,7 @@ export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
   async getData(options={}) {
     const isEditable = this.isEditable;
     const source = this.document.toObject();
+    const allowedSlots = this.document.system.getAllowedEquipmentSlots();
     const context = {
       cssClass: isEditable ? "editable" : "locked",
       editable: isEditable,
@@ -32,6 +33,10 @@ export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
       damageTypes: SYSTEM.DAMAGE_TYPES,
       qualities: SYSTEM.QUALITY_TIERS,
       enchantments: SYSTEM.ENCHANTMENT_TIERS,
+      equipmentSlots: Object.entries(this.document.system.constructor.WEAPON_SLOTS).reduce((obj, [k, v]) => {
+        if ( allowedSlots.includes(v) ) obj[v] = game.i18n.localize(`WEAPON.SLOTS.${k}`);
+        return obj;
+      }, {}),
       usesReload: this.document.config.category.reload,
       tags: this.item.getTags(),
       animations: SYSTEM.WEAPON.ANIMATION_TYPES.reduce((obj, v) => {

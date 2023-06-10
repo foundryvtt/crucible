@@ -1,3 +1,8 @@
-2023/06/09-21:43:40.512 2eaec Recovering log #845
-2023/06/09-21:43:40.519 2eaec Delete type=0 #845
-2023/06/09-21:43:40.519 2eaec Delete type=3 #843
+2023/06/10-09:14:25.180 1ed04 Recovering log #848
+2023/06/10-09:14:25.186 1ed04 Delete type=0 #848
+2023/06/10-09:14:25.186 1ed04 Delete type=3 #847
+2023/06/10-11:06:49.743 1445c Level-0 table #852: started
+2023/06/10-11:06:49.743 1445c Level-0 table #852: 0 bytes OK
+2023/06/10-11:06:49.743 1445c Delete type=0 #850
+2023/06/10-11:06:49.745 1445c Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/10-11:06:49.749 1445c Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)

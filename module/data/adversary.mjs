@@ -37,7 +37,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
 
     // Details
     schema.details = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 1, min: -11}),
+      level: new fields.NumberField({...requiredInteger, initial: 1, min: -5}),
       archetype: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
@@ -118,7 +118,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     let fractionLevel = threatLevel;
     if ( level === 0 ) {
       fractionLevel = 0;
-      threatLevel = -12;
+      threatLevel = -6;
     }
     else if ( level < 0 ) {
       fractionLevel = 1 / (1 - level);
@@ -227,16 +227,16 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
   #prepareResources() {
     const {statuses} = this.parent;
     const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
-    const l = this.details.fractionLevel;
+    const l = this.details.threatLevel;
     const r = this.resources;
     const a = this.abilities;
 
     // Health
-    r.health.max = Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value);
+    r.health.max = Math.max(Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value), 6);
     r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value);
+    r.morale.max = Math.max(Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value), 6);
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Action
@@ -248,7 +248,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = Math.ceil(l / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
+    r.focus.max = Math.max(Math.ceil(l / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3), 1);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
     this.parent.callTalentHooks("prepareResources", r);
   }

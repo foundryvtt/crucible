@@ -153,6 +153,9 @@ export const ACTOR_HOOKS = {
   prepareSkillCheck: {
     argNames: ["skill", "rollData"]
   },
+  prepareSkillAttack: {
+    argNames: ["action", "target", "rollData"]
+  },
   prepareSpellAttack: {
     argNames: ["spell", "target", "rollData"]
   },

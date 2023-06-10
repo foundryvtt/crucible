@@ -140,6 +140,9 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     const a = this.details.ancestry ||= this.schema.getField("details.ancestry").initialize({});
     this.details.background ||= this.schema.getField("details.background").initialize({});
 
+    // Threat level, for comparison vs. adversaries
+    this.details.threatLevel = this.details.fractionLevel = this.details.level;
+
     // Base Resistances
     const res = this.resistances;
     for ( const r of Object.values(res) ) r.base = 0;

@@ -22,6 +22,17 @@ export default class CrucibleWeapon extends PhysicalItemData {
   /** @override */
   static ITEM_PROPERTIES = SYSTEM.WEAPON.PROPERTIES;
 
+  /**
+   * Designate which equipped slot the weapon is used in.
+   * @enum {Readonly<number>}
+   */
+  static WEAPON_SLOTS = Object.freeze({
+    EITHER: 0,
+    MAINHAND: 1,
+    OFFHAND: 2,
+    TWOHAND: 3
+  });
+
   /* -------------------------------------------- */
   /*  Data Schema                                 */
   /* -------------------------------------------- */
@@ -32,6 +43,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     return foundry.utils.mergeObject(super.defineSchema(), {
       damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
       loaded: new fields.BooleanField({required: false, initial: undefined}),
+      slot: new fields.NumberField({required: true, choices: Object.values(CrucibleWeapon.WEAPON_SLOTS), initial: 0}),
       animation: new fields.StringField({required: false, choices: SYSTEM.WEAPON.ANIMATION_TYPES, initial: undefined})
     });
   }
@@ -98,6 +110,10 @@ export default class CrucibleWeapon extends PhysicalItemData {
     // Weapon Configuration
     this.config = {category, quality, enchantment};
 
+    // Equipment Slot
+    const allowedSlots = this.getAllowedEquipmentSlots();
+    if ( !allowedSlots.includes(this.slot) ) this.slot = allowedSlots[0];
+
     // Weapon Damage
     this.damage = this.#prepareDamage();
 
@@ -122,6 +138,19 @@ export default class CrucibleWeapon extends PhysicalItemData {
       if ( prop.actionCost ) this.actionCost += prop.actionCost;
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
+
+    // Versatile Two-Handed
+    if ( this.properties.has("versatile") && this.slot === CrucibleWeapon.WEAPON_SLOTS.TWOHAND ) {
+      this.damage.base += 2;
+      this.actionCost += 1;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  prepareDerivedData() {
+    this.damage.weapon = this.damage.base + this.damage.quality;
+    if ( this.broken ) this.damage.weapon = Math.floor(this.damage.weapon / 2);
   }
 
   /* -------------------------------------------- */
@@ -137,8 +166,6 @@ export default class CrucibleWeapon extends PhysicalItemData {
       weapon: 0
     };
     if ( this.properties.has("oversized") ) damage.base += 2;
-    damage.weapon = damage.base + damage.quality;
-    if ( this.broken ) damage.weapon = Math.floor(damage.weapon / 2);
     return damage;
   }
 
@@ -276,6 +303,25 @@ export default class CrucibleWeapon extends PhysicalItemData {
   /* -------------------------------------------- */
 
   /**
+   * Identify which equipment slots are allowed for a certain weapon.
+   * @returns {number[]}
+   */
+  getAllowedEquipmentSlots() {
+    const SLOTS = this.constructor.WEAPON_SLOTS;
+    const category = this.config.category;
+    if ( category.hands === 2 ) return [SLOTS.TWOHAND];
+    const slots = [SLOTS.MAINHAND];
+    if ( category.off ) {
+      slots.unshift(SLOTS.EITHER);
+      slots.push(SLOTS.OFFHAND);
+    }
+    if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
+    return slots;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Return an object of string formatted tag data which describes this item type.
    * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
    * @returns {Object<string, string>}    The tags which describe this weapon
@@ -290,14 +336,11 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
     // Weapon Category
     const category = this.config.category;
-    const handsTag = () => {
-      if ( category.hands === 2 ) return "WEAPON.HandsTwo";
-      if ( category.main && category.off ) return "WEAPON.HandsEither";
-      if ( category.main ) return "WEAPON.HandsMain";
-      if ( category.off ) return "WEAPON.HandsOff";
-    }
     tags.category = category.label;
-    tags.hands = game.i18n.localize(handsTag());
+
+    // Equipment Slot
+    const slotKey = Object.entries(CrucibleWeapon.WEAPON_SLOTS).find(([k, v]) => v === this.slot)[0];
+    tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
 
     // Weapon Properties
     if ( this.broken ) tags.broken = game.i18n.localize("ITEM.Broken");

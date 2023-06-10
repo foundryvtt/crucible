@@ -1,3 +1,15 @@
-2023/06/09-21:43:40.503 2f768 Recovering log #914
-2023/06/09-21:43:40.509 2f768 Delete type=0 #914
-2023/06/09-21:43:40.509 2f768 Delete type=3 #912
+2023/06/10-09:14:25.167 1ecf4 Recovering log #919
+2023/06/10-09:14:25.173 1ecf4 Delete type=0 #919
+2023/06/10-09:14:25.173 1ecf4 Delete type=3 #918
+2023/06/10-11:06:49.739 1445c Level-0 table #923: started
+2023/06/10-11:06:49.740 1445c Level-0 table #923: 1072 bytes OK
+2023/06/10-11:06:49.741 1445c Delete type=0 #921
+2023/06/10-11:06:49.744 1445c Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/10-11:06:49.745 1445c Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!martialweapontra' @ 1660 : 1
+2023/06/10-11:06:49.745 1445c Compacting 1@1 + 1@2 files
+2023/06/10-11:06:49.747 1445c Generated table #924@1: 208 keys, 87051 bytes
+2023/06/10-11:06:49.747 1445c Compacted 1@1 + 1@2 files => 87051 bytes
+2023/06/10-11:06:49.748 1445c compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/06/10-11:06:49.748 1445c Delete type=2 #917
+2023/06/10-11:06:49.749 1445c Delete type=2 #923
+2023/06/10-11:06:49.749 1445c Manual compaction at level-1 from '!items!martialweapontra' @ 1660 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

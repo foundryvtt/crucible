@@ -3,6 +3,7 @@ import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../data/action.mjs";
 import CrucibleSpell from "../data/spell.mjs";
+import CrucibleWeapon from "../data/weapon.mjs";
 
 /**
  * @typedef {Object} ActorEquippedWeapons
@@ -351,40 +352,61 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   _prepareWeapons(weaponItems) {
-    const warnSlotInUse = (item, type) => {
+    const slotInUse = (item, type) => {
+      item.updateSource({"system.equipped": false});
       const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.name, item: item.name, type});
       console.warn(w);
     }
 
-    // Identify main-hand and off-hand weapons
-    const weapons = {};
+    // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: []};
+    const slots = CrucibleWeapon.WEAPON_SLOTS;
     for ( let w of weaponItems ) {
-      if ( !w.system.equipped ) continue;
-      const category = w.config.category;
-      if ( (w.hands === 2) ) {
-        equippedWeapons.mh.unshift(w);
-        equippedWeapons.oh.unshift(w);
-      }
-      else if ( category.main && !category.off ) equippedWeapons.mh.push(w);
-      else if ( category.off && !category.main ) equippedWeapons.oh.push(w);
-      else equippedWeapons.either.push(w);
+      const {equipped, slot} = w.system;
+      if ( !equipped ) continue;
+      if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
+      else if ( slot === slots.OFFHAND ) equippedWeapons.oh.unshift(w);
+      else if ( slot === slots.EITHER ) equippedWeapons.either.unshift(w);
     }
     equippedWeapons.either.sort((a, b) => b.system.damage.base - a.system.damage.base);
 
-    // Assign equipped weapons
+    // Assign weapons to equipment slots
+    const weapons = {};
+    let mhOpen = true;
+    let ohOpen = true;
+
+    // Mainhand Weapon
     for ( const w of equippedWeapons.mh ) {
-      if ( weapons.mainhand ) warnSlotInUse(w, "mainhand");
-      else weapons.mainhand = w;
+      if ( !mhOpen ) slotInUse(w, "mainhand");
+      else {
+        weapons.mainhand = w;
+        mhOpen = false;
+        if ( w.system.slot === slots.TWOHAND ) ohOpen = false;
+      }
     }
+
+    // Offhand Weapon
     for ( const w of equippedWeapons.oh ) {
-      if ( weapons.offhand ) warnSlotInUse(w, "offhand");
-      else weapons.offhand = w;
+      if ( !ohOpen ) slotInUse(w, "offhand");
+      else {
+        weapons.offhand = w;
+        ohOpen = false;
+      }
     }
+
+    // Either-hand Weapons
     for ( const w of equippedWeapons.either ) {
-      if ( !weapons.mainhand ) weapons.mainhand = w;
-      else if ( !weapons.offhand ) weapons.offhand = w;
-      else warnSlotInUse(w, "mainhand");
+      if ( mhOpen ) {
+        weapons.mainhand = w;
+        w.system.slot = slots.MAINHAND;
+        mhOpen = false;
+      }
+      else if ( ohOpen ) {
+        weapons.offhand = w;
+        w.system.slot = slots.OFFHAND;
+        ohOpen = false;
+      }
+      else slotInUse(w, "mainhand");
     }
 
     // Mainhand Weapon
@@ -409,7 +431,7 @@ export default class CrucibleActor extends Actor {
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
 
     // Two-Handed
-    weapons.twoHanded = mhCategory.hands === 2;
+    weapons.twoHanded = weapons.mainhand.system.slot === slots.TWOHAND;
 
     // Melee vs. Ranged
     weapons.melee = !mhCategory.ranged;
@@ -603,11 +625,25 @@ export default class CrucibleActor extends Actor {
    * Prepare non-physical defenses.
    */
   static #prepareSaveDefenses(actor) {
+
+    // Defense base is the system passive base of 12
+    const l = actor.system.details.threatLevel;
+    let base = SYSTEM.PASSIVE_BASE;
+
+    // Adversary save penalty plus further reduction for threat level below zero
+    let penalty = 0;
+    if ( actor.type === "adversary" ) {
+      penalty = 2;
+      if ( l < 1 ) penalty += (1 - l);
+    }
+
+    // Prepare save defenses
     for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( sd.type !== "save" ) continue;
       let d = actor.defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + actor.abilities[a].value, SYSTEM.PASSIVE_BASE);
-      if ( actor.isIncapacitated ) d.base = SYSTEM.PASSIVE_BASE;
+      d.base = sd.abilities.reduce((t, a) => t + actor.abilities[a].value, base);
+      if ( actor.isIncapacitated ) d.base = base;
+      d.bonus = 0 - penalty;
       if ( (k !== "fortitude") && actor.talentIds.has("monk000000000000") && actor.equipment.unarmored ) d.bonus += 2;
     }
   }
@@ -1810,9 +1846,10 @@ export default class CrucibleActor extends Actor {
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
   async equipWeapon({itemId, mainhandId, offhandId, equipped=true}={}) {
+    const slots = CrucibleWeapon.WEAPON_SLOTS;
     const weapons = this.equipment.weapons;
     let isMHFree = !weapons.mainhand.id;
-    let isOHFree = (weapons.mainhand.config.category.hands < 2) && !weapons.offhand.id;
+    let isOHFree = (weapons.mainhand.system.slot !== slots.TWOHAND) && !weapons.offhand.id;
 
     // Identify the items being requested
     const w1 = this.items.get(mainhandId ?? itemId, {strict: true});

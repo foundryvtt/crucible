@@ -132,6 +132,10 @@ export default class CrucibleActorSheet extends ActorSheet {
       if ( defense.type !== "save" ) continue;
       const d = foundry.utils.mergeObject(defense, defenses[id]);
       d.id = id;
+      if ( d.bonus !== 0 ) {
+        const sign = d.bonus > 0 ? "+" : "-";
+        d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
+      }
       formatted.push(d);
     }
     return formatted;
@@ -235,8 +239,8 @@ export default class CrucibleActorSheet extends ActorSheet {
         case "armor":
         case "weapon":
           d.tags = i.getTags();
-          d.cssClass = [d.system.equipped ? "equipped" : "unequipped"];
-          if ( d.system.equipped ) sections.inventory.equipment.items.push(d);
+          d.cssClass = [i.system.equipped ? "equipped" : "unequipped"];
+          if ( i.system.equipped ) sections.inventory.equipment.items.push(d);
           else sections.inventory.backpack.items.push(d);
           break;
         case "talent":

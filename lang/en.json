@@ -405,11 +405,6 @@
 "WEAPON.Talisman1": "Talisman (1h)",
 "WEAPON.Talisman2": "Talisman (2h)",
 
-"WEAPON.HandsTwo": "Two-Handed",
-"WEAPON.HandsMain": "Main-Hand",
-"WEAPON.HandsOff": "Off-Hand",
-"WEAPON.HandsEither": "Either Hand",
-
 "WEAPON.TagAmbush": "Ambush",
 "WEAPON.TagAmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
 "WEAPON.TagBlocking": "Blocking",
@@ -432,13 +427,17 @@
 "WEAPON.TagThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
 "WEAPON.TagVersatile": "Versatile",
 "WEAPON.TagVersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
-
 "WEAPON.TagDamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier.",
+
+"WEAPON.SLOTS.EITHER": "Either Hand",
+"WEAPON.SLOTS.MAINHAND": "Main-Hand",
+"WEAPON.SLOTS.OFFHAND": "Off-Hand",
+"WEAPON.SLOTS.TWOHAND": "Two-Handed",
 
 "WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
 "WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",
 "WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",
-"WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because a {type} item is already equipped.",
+"WARNING.CannotEquipSlotInUse": "Actor {actor} cannot equip {item} because the {type} item slot is already in use.",
 "WARNING.CannotEquipActionCost": "You cannot equip weaponry because you have no Action points available.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
