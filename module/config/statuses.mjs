@@ -99,5 +99,15 @@ export const statusEffects = [
     id: "flanked",
     label: "EFFECT.StatusFlanked",
     icon: "systems/crucible/icons/statuses/flanked.svg"
+  },
+  {
+    id: "diseased",
+    label: "EFFECT.StatusDiseased",
+    icon: "icons/svg/acid.svg"
+  },
+  {
+    id: "paralyzed",
+    label: "EFFECT.StatusParalyzed",
+    icon: "icons/svg/paralysis.svg"
   }
 ]

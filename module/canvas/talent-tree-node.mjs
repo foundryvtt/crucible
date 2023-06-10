@@ -1,4 +1,3 @@
-import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentIcon from "./talent-icon.mjs";
 
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
@@ -31,9 +30,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   /** @override */
-  async draw({state=0, ...config}={}) {
-    const states = CrucibleTalentNode.STATES;
-    const variety = state === states.PURCHASED ? this.node.abilities.first() : "inactive";
+  async draw({state, ...config}={}) {
+    const variety = state.purchased ? this.node.abilities.first() : "inactive";
     config.texture = getTexture(`systems/crucible/ui/tree/nodes/${this.node.type}-${variety}.webp`);
 
     // Signature nodes
@@ -42,28 +40,27 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
       config.borderRadius = 80;
     }
 
-    // Node state
-    switch ( state ) {
-      case states.BANNED:
-        config.alpha = 0.4;
-        config.borderColor = 0x330000;
-        config.borderWidth = 2;
-        break;
-      case states.PURCHASED:
-        config.alpha = 1.0;
-        config.borderColor = this.node.color;
-        config.borderWidth = 3;
-        break;
-      case states.UNLOCKED:
-        config.alpha = 0.4;
-        config.borderColor = 0x827f7d;
-        config.borderWidth = 2;
-        break;
-      case states.LOCKED:
-        config.alpha = 0.1;
-        config.borderColor = 0x262322;
-        config.borderWidth = 2;
-        break;
+    // Is the node accessible or not?
+    if ( state.accessible ) {
+      config.alpha = 0.4;
+      config.borderColor = 0x827f7d;
+      config.borderWidth = 2;
+    } else {
+      config.alpha = 0.1;
+      config.borderColor = 0x262322;
+      config.borderWidth = 2;
+    }
+
+    // Has the node been purchased?
+    if ( state.purchased ) {
+      config.alpha = 1.0;
+      config.borderColor = this.node.color;
+      config.borderWidth = 3;
+    }
+
+    // Has the node been banned?
+    if ( state.banned ) {
+      config.borderColor = 0x330000;
     }
 
     // Draw Icon

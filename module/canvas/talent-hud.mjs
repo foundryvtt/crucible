@@ -48,15 +48,14 @@ export default class CrucibleTalentHUD extends Application {
   #getNodeContext() {
     const actor = game.system.tree.actor;
     const node = this.target.node;
-    const states = node.constructor.STATES;
-    const state = game.system.tree.state.get(node) ?? states.LOCKED;
+    const state = game.system.tree.state.get(node);
     const tags = [
       {label: `Tier ${node.tier}`},
       {label: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`)}
     ];
     if ( node.twin ) tags.push({label: "Twinned"});
-    if ( state === states.BANNED ) tags.push({label: "Banned", class: "unmet"});
-    else if ( state === states.LOCKED ) tags.push({label: "Locked", class: "unmet"});
+    if ( state.banned ) tags.push({label: "Banned", class: "unmet"});
+    else if ( !state.unlocked ) tags.push({label: "Locked", class: "unmet"});
     const reqs = CrucibleTalent.preparePrerequisites(node.requirements, {});
     return {
       id: node.id,
@@ -77,13 +76,12 @@ export default class CrucibleTalentHUD extends Application {
     const node = talent.system.node;
 
     // Talent Tags
-    const states = node.constructor.STATES;
     const reqs = CrucibleTalent.testPrerequisites(actor, talent.system.prerequisites);
-    const state = game.system.tree.state.get(node) ?? states.LOCKED;
+    const state = game.system.tree.state.get(node);
 
     // Banned Signature
     if ( node.type === "signature" ) {
-      if ( ((state === states.PURCHASED) && !actor.talentIds.has(talent.id)) || (state === states.BANNED) ) {
+      if ( (state.purchased && !actor.talentIds.has(talent.id)) || state.banned ) {
         reqs.signature = {tag: "Banned", met: false};
       }
     }

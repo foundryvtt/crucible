@@ -126,28 +126,45 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
    */
   assertPrerequisites(actor, strict=true) {
 
-    // Require a connected node
-    if ( (this.node.tier > 0) && !this.node.isConnected(actor) ) {
-      const err = game.i18n.format("TALENT.MissingConnection", {
-        name: this.parent.name
-      });
-      if ( strict ) throw new Error(err);
+    // Ensure the Talent is not already owned
+    if ( actor.items.find(i => (i.type === "talent") && (i.name === this.parent.name)) ) {
+      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.AlreadyOwned", {name: this.parent.name}));
       else return false;
     }
 
-    // Banned signature
-    if ( this.node.type === "signature" ) {
-      if ( this.node.talents.some(t => actor.talentIds.has(t.id)) ) {
-        if ( strict ) throw new Error(game.i18n.localize("TALENT.BlockedSignature"));
-        else return false;
-      }
+    // Require available talent points
+    const points = actor.points.talent;
+    if ( !points.available ) {
+      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.CannotAfford", {
+        name: this.parent.name,
+        cost: 1
+      }));
+      else return false;
+    }
+
+    // Check Node state
+    const state = this.node.getState(actor);
+    state.accessible = (this.node.tier === 0) || this.node.isConnected(actor);
+
+    // Require a connected node
+    if ( !state.accessible ) {
+      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.Inaccessible", {
+        name: this.parent.name
+      }));
+      else return false;
+    }
+
+    // Block banned nodes
+    if ( state.banned ) {
+      if ( strict ) throw new Error(game.i18n.localize("TALENT.WARNINGS.Banned"));
+      else return false;
     }
 
     // Require prerequisite stats
     for ( let [k, v] of Object.entries(this.prerequisites) ) {
       const current = foundry.utils.getProperty(actor.system, k);
       if ( current < v.value ) {
-        const err = game.i18n.format("TALENT.MissingRequirement", {
+        const err = game.i18n.format("TALENT.WARNINGS.Locked", {
           name: this.parent.name,
           requirement: v.label,
           requires: v.value

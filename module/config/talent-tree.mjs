@@ -63,16 +63,6 @@ export default class CrucibleTalentNode {
     3: 15
   };
 
-  /**
-   * The states which a node may have on the tree for a given Actor.
-   * @enum {number}
-   */
-  static STATES = {
-    BANNED: -1,
-    LOCKED: 0,
-    UNLOCKED: 1,
-    PURCHASED: 2
-  }
   /* -------------------------------------------- */
 
   /**
@@ -188,14 +178,15 @@ export default class CrucibleTalentNode {
    * This method only verifies node state independent of other nodes.
    * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
-   * @param {Object<number,Set<CrucibleTalent>>} signatures
-   * @returns {CrucibleTalentNode.STATES}
+   * @param {Object<number,Set<CrucibleTalent>>} [signatures]
+   * @returns {CrucibleTalentNodeState}
    */
   getState(actor, signatures) {
-    if ( this.#isPurchased(actor) ) return CrucibleTalentNode.STATES.PURCHASED;
-    if ( this.#isBanned(actor, signatures) ) return CrucibleTalentNode.STATES.BANNED;
-    const accessible = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
-    if ( !accessible ) return CrucibleTalentNode.STATES.LOCKED;
+    signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
+    const purchased = this.#isPurchased(actor);
+    const banned = !purchased && this.#isBanned(actor, signatures);
+    const unlocked = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    return {accessible: undefined, purchased, banned, unlocked};
   }
 
   /* -------------------------------------------- */

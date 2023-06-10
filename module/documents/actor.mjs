@@ -1478,29 +1478,11 @@ export default class CrucibleActor extends Actor {
    */
   async addTalent(talent, {dialog=false}={}) {
 
-    // Ensure the Talent is not already owned
-    if ( this.items.find(i => (i.type === "talent") && (i.name === talent.name)) ) {
-      const err = game.i18n.format("TALENT.AlreadyOwned", {name: talent.name});
-      ui.notifications.warn(err);
-      return null;
-    }
-
     // Confirm that the Actor meets the requirements to add the Talent
     try {
       talent.system.assertPrerequisites(this);
     } catch(err) {
       ui.notifications.warn(err.message);
-      return null;
-    }
-
-    // Confirm that the Actor has sufficient Talent points
-    const points = this.points.talent;
-    if ( !points.available ) {  // TODO - every talent costs 1 for now
-      const err = game.i18n.format("TALENT.CannotAfford", {
-        name: talent.name,
-        cost: 1
-      });
-      ui.notifications.warn(err);
       return null;
     }
 
@@ -1512,6 +1494,14 @@ export default class CrucibleActor extends Actor {
         defaultYes: false
       });
       if ( !confirm ) return null;
+
+      // Re-confirm after the dialog has been submitted to prevent queuing
+      try {
+        talent.system.assertPrerequisites(this);
+      } catch(err) {
+        ui.notifications.warn(err.message);
+        return null;
+      }
     }
 
     // Create the talent

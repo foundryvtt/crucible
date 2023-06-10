@@ -225,7 +225,7 @@ export default class StandardCheck extends Roll {
     }
 
     // Damage Resistance or Vulnerability
-    if ( this.data.damage.total ) {
+    if ( Number.isNumeric(this.data.damage?.total) ) {
       cardData.resistanceLabel = this.data.damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
       cardData.resistanceValue = Math.abs(this.data.damage.resistance);
     }

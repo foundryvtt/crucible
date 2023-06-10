@@ -5,6 +5,35 @@ import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
 
 
+/**
+ * @typedef {Object} CrucibleTalentNodeState
+ * @property {boolean} [accessible]
+ * @property {boolean} unlocked
+ * @property {boolean} purchased
+ * @property {boolean} banned
+ */
+
+class CrucibleTalentNodeStates extends Map {
+
+  /**
+   * The default Talent node state.
+   * @type {CrucibleTalentNodeState}
+   */
+  static DEFAULT_STATE = Object.freeze({accessible: false, unlocked: false, purchased: false, banned: false});
+
+  /**
+   * @inheritDoc
+   * @returns {CrucibleTalentNodeState}
+   */
+  get(key) {
+    /** @type {CrucibleTalentNodeState} */
+    const state = super.get(key);
+    return state || CrucibleTalentNodeStates.DEFAULT_STATE;
+  }
+}
+
+/* -------------------------------------------- */
+
 export default class CrucibleTalentTree extends PIXI.Container {
   constructor() {
     super();
@@ -55,9 +84,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * A mapping which tracks the current node states
-   * @type {Map<CrucibleTalentNode,number>}
+   * @type {Map<CrucibleTalentNode,CrucibleTalentNodeState>}
    */
-  state = new Map();
+  state = new CrucibleTalentNodeStates();
 
   /**
    * The set of sound files used for UI clicks.
@@ -158,6 +187,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Enable interactivity
     this.#activateInteractivity();
 
+    // Ensure the main Canvas HUD is rendered
+    canvas.hud.render(true);
+
     // Draw initial conditions
     this.refresh();
     this.#drawn = true;
@@ -208,7 +240,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   #drawConnections(node, seen) {
     for ( const c of node.connected ) {
-      if ( seen.has(c) || (c.tier < 0) || (this.state.get(c) < 2) ) continue;
+      if ( seen.has(c) || (c.tier < 0) || !this.state.get(c).purchased ) continue;
       this.connections.lineStyle({color: c.color, width: 3, alpha: 1.0})
         .moveTo(node.point.x, node.point.y)
         .lineTo(c.point.x, c.point.y);
@@ -236,7 +268,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const config = {};
     config.borderColor = node.color;
     const icon = node.icon = new CrucibleTalentTreeNode(node, config);
-    await icon.draw();
     this.nodes.addChild(icon);
   }
 
@@ -264,9 +295,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Open the Talent Tree, binding it to a certain Actor
-   * @param {CrucibleActor} actor
+   * @param {CrucibleActor} actor         The Actor to bind to the talent tree
+   * @param {object} [options]            Options which modify how the talent tree is opened
+   * @param {boolean} [options.resetView]   Reset the view coordinates of the tree to the center?
    */
-  async open(actor) {
+  async open(actor, {resetView=true}={}) {
     if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
     this.developmentMode = !!CONFIG.debug.talentTree;
 
@@ -285,7 +318,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     actor.sheet.minimize();
 
     // Refresh tree state
-    this.pan({x: 0, y: 0, scale: 1.0});
+    this.pan(resetView ? {x: 0, y: 0, scale: 1.0} : {});
     this.refresh();
 
     // Enable the talent tree canvas
@@ -339,11 +372,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
     for ( const node of CrucibleTalentNode.nodes.values() ) {
       if ( node.tier < 0 ) continue;
       const state = this.state.get(node);
-      const nPurchased = (state === 2) && node.talents.reduce((n, t) => n + this.actor.talentIds.has(t.id), 0);
+      const nPurchased = state.purchased && node.talents.reduce((n, t) => n + this.actor.talentIds.has(t.id), 0);
       let text = nPurchased > 1 ? nPurchased : "";
       if ( this.developmentMode ) text = node.talents.size;
       node.icon?.draw({state, text});
-      if ( state === 2 ) this.#drawConnections(node, seen);
+      if ( state.purchased ) this.#drawConnections(node, seen);
       seen.add(node);
     }
 
@@ -362,11 +395,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @param {number} y
    * @param {number} scale
    */
-  pan({x, y, scale}) {
+  pan({x, y, scale}={}) {
     x ??= this.stage.pivot.x;
     y ??= this.stage.pivot.y;
     scale ??= this.stage.scale.x;
-    // TODO - constrain x, y, scale
     this.stage.pivot.set(x, y);
     this.stage.scale.set(scale, scale);
     this.#alignHUD();
@@ -421,7 +453,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @returns {Map<CrucibleTalentNode, number>}
    */
   getActiveNodes() {
-    const states = CrucibleTalentNode.STATES;
     const state = this.state;
     const actor = this.actor;
     state.clear();
@@ -430,33 +461,36 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const signatures = CrucibleTalentNode.getSignatureTalents(actor);
 
     // Recursive testing function
-    function updateBatch(nodes, defaultState=states.UNLOCKED) {
+    function updateBatch(nodes, accessible=false) {
       const next = [];
       for ( const node of nodes ) {
-        if ( state.has(node) ) continue;
-        const s = node.getState(actor, signatures) ?? defaultState;
-        const twin = node.twinNode;
 
-        // Record State
+        // Record Node state
+        if ( state.has(node) ) continue;
+        const s = node.getState(actor, signatures);
+        s.accessible = accessible;
         state.set(node, s);
+
+        // Mirror twin state
+        const twin = node.twinNode;
         if ( twin ) state.set(twin, s);
 
         // Traverse Outwards
-        if ( (node.id === "origin") || (s === states.PURCHASED) ) {
+        if ( (node.id === "origin") || s.purchased ) {
           next.push(...node.connected);
           if ( twin ) next.push(...twin.connected);
         }
       }
 
       // Recursively test
-      if ( next.length ) updateBatch(next);
+      if ( next.length ) updateBatch(next, true);
     }
 
     // Explore outwards from the origin node
-    updateBatch([CrucibleTalentNode.nodes.get("origin")], states.UNLOCKED);
+    updateBatch([CrucibleTalentNode.nodes.get("origin")], true);
 
     // Specifically record the state of all signature nodes
-    updateBatch(CrucibleTalentNode.signature, states.LOCKED);
+    updateBatch(CrucibleTalentNode.signature, false);
     return state;
   }
 

@@ -265,6 +265,15 @@ Hooks.on("renderChatMessage", chat.renderChatMessage);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 
+/**
+ * Actions to take when the main game canvas is re-rendered.
+ * Re-open the talent tree if it was previously open for a certain Actor.
+ */
+Hooks.on("canvasReady", () => {
+  if ( game.system.tree.actor ) {
+    game.system.tree.open(game.system.tree.actor, {resetView: false});
+  }
+})
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */
