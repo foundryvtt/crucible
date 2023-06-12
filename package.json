@@ -1,0 +1,12 @@
+{
+  "name": "crucible",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "compile": "lessc styles/crucible.less styles/crucible.css"
+  },
+  "devDependencies": {
+    "less": "^4.1.3"
+  }
+}

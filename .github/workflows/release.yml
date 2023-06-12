@@ -1,0 +1,78 @@
+# System Release Workflow
+
+# Useful References:
+#   - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+#   - https://docs.github.com/en/actions/learn-github-actions/contexts
+#   - https://docs.github.com/en/actions/learn-github-actions/environment-variables
+#   - https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+#   - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+#   - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+
+name: System Release Build
+
+env:
+  node_version: 18
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.node_version }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: .npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Install dependencies
+        run: npm ci --cache .npm --prefer-offline
+
+      # Compile CSS Styles
+      - name: Compile
+        run: npm run compile
+
+      # Create a "system.zip" archive containing all the system's required files.
+      - name: Create System Archive
+        run: |
+          zip --recurse-paths ./system.zip  \
+            system.json                     \
+            template.json                   \
+            crucible.mjs                    \
+            assets/                         \
+            audio/                          \
+            fonts/                          \
+            icons/                          \
+            lang/                           \
+            module/                         \
+            packs/                          \
+            styles/                         \
+            templates/                      \
+            ui/                             
+
+      # Update the GitHub release with the manifest and system archive files.
+      - name: Update Release With Files
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          name: ${{ github.event.release.name }}
+          draft: ${{ github.event.release.unpublished }}
+          prerelease: ${{ github.event.release.prerelease }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './system.json, ./system.zip'
+          tag: ${{ github.event.release.tag_name }}
+          body: ${{ github.event.release.body }}
