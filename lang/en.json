@@ -133,6 +133,7 @@
 "ARCHETYPE.Clear": "Clear Archetype",
 "ARCHETYPE.Configure": "Archetype",
 "ARCHETYPE.Abilities": "Ability Scaling",
+"ARCHETYPE.AbilitiesHint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Scores with a lower value advance more frequently. For example a score with the value of 2 will increase every 2nd level while a score with a value of 5 will advance every 5 levels.",
 "ARCHETYPE.Talents": "Granted Talents",
 "ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
 
@@ -262,6 +263,12 @@
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
+"SETTINGS.AutoConfirmName": "Action Auto-Confirmation",
+"SETTINGS.AutoConfirmHint": "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
+"SETTINGS.AutoConfirmNone": "No Auto-Confirmation",
+"SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
+"SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
+
 "SHEETS.CrucibleJournal": "Crucible Journal Sheet",
 
 "SKILL.PageSheet": "Crucible Skill",
@@ -377,9 +384,9 @@
 "TAXONOMY.Clear": "Clear Taxonomy",
 "TAXONOMY.Configure": "Taxonomy",
 "TAXONOMY.Abilities": "Base Abilities",
-"TAXONOMY.AbilitiesHint": "Define how the ability scores for creatures of this Taxonomy scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Scores with a lower value advance more frequently. For example a score with the value of 2 will increase every 2nd level while a score with a value of 5 will advance every 5 levels.",
+"TAXONOMY.AbilitiesHint": "Define the initial ability scores for creatures with this Taxonomy. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8.",
 "TAXONOMY.Resistances": "Resistance Scaling",
-"TAXONOMY.ResistancesHint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 and +3. The total across all resistances must sum to zero.",
+"TAXONOMY.ResistancesHint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero.",
 "TAXONOMY.Category": "Category",
 
 "TAXONOMY.CategoryBeast": "Beast",

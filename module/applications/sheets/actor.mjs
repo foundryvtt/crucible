@@ -130,7 +130,7 @@ export default class CrucibleActorSheet extends ActorSheet {
     const formatted = [];
     for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( defense.type !== "save" ) continue;
-      const d = foundry.utils.mergeObject(defense, defenses[id]);
+      const d = foundry.utils.mergeObject(defense, defenses[id], {inplace: false});
       d.id = id;
       if ( d.bonus !== 0 ) {
         const sign = d.bonus > 0 ? "+" : "-";

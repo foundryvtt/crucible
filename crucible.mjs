@@ -130,12 +130,16 @@ Hooks.once("init", async function() {
   });
 
   game.settings.register("crucible", "autoConfirm", {
-    name: "Allow Auto-Confirmation",
-    hint: "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
+    name: "SETTINGS.AutoConfirmName",
+    hint: "SETTINGS.AutoConfirmHint",
     scope: "world",
     config: true,
-    type: Boolean,
-    default: false
+    type: Number,
+    choices: {
+      0: "SETTINGS.AutoConfirmNone",
+      1: "SETTINGS.AutoConfirmSelf",
+      2: "SETTINGS.AutoConfirmAll"
+    },
   });
 
   game.settings.register("crucible", "welcome", {
@@ -261,6 +265,7 @@ Hooks.once("ready", async function() {
 /* -------------------------------------------- */
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("createMessage", chat.onCreateMessage);
 Hooks.on("renderChatMessage", chat.renderChatMessage);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);

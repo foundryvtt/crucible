@@ -105,6 +105,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   template = null;
 
   /**
+   * A mapping of outcomes which occurred from this action, arranged by target.
+   * @type {undefined|CrucibleActionOutcomes}
+   */
+  outcomes;
+
+  /**
    * Configure the Dialog class that provides the user with an interface to configure this Action.
    * @type {typeof ActionUseDialog}
    */
@@ -296,7 +302,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * Outcomes of the action, arranged by target.
      * @type {CrucibleActionOutcomes}
      */
-    const outcomes = new Map();
+    const outcomes = this.outcomes = new Map();
 
     // Iterate over designated targets
     for ( const target of targets ) {
@@ -304,12 +310,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const rolls = await this._roll(actor);
       const outcome = this.#createOutcome(actor, rolls);
       await this._post(outcome);
+      this.#finalizeOutcome(outcome);
       outcomes.set(actor, outcome);
     }
 
     // Track the outcome for the original actor
-    outcomes.set(this.actor, this.#createSelfOutcome(outcomes));
-    const confirmed = !chatMessage || this.#canAutoConfirm(outcomes);
+    outcomes.set(this.actor, this.#createSelfOutcome());
+    const confirmed = !chatMessage || this.canAutoConfirm();
 
     // Create any Measured Template for the action
     let template;
@@ -328,7 +335,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
 
     // Auto-confirm the action?
-    if ( confirmed ) await this.#confirm(outcomes);
+    if ( confirmed ) await this.confirm();
     return outcomes;
   }
 
@@ -434,14 +441,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Identify whether an action can be auto-confirmed by the Actor (User) who initiated it.
    * Actions are considered to affect another actor if they contain successful rolls or cause effects.
-   * @param {CrucibleActionOutcomes} outcomes     The outcomes of the Action
    * @returns {boolean}                           Can it be auto-confirmed?
    */
-  #canAutoConfirm(outcomes) {
-    if ( !game.settings.get("crucible", "autoConfirm") ) return false;
-    for ( const outcome of outcomes.values() ) {
-      if ( !outcome.rolls.length && outcome.effects.length ) return false; // automatically caused effects
-      if ( outcome.rolls.some(r => r.data.damage?.total) ) return false; // dealt damage
+  canAutoConfirm() {
+    const autoConfirm = game.settings.get("crucible", "autoConfirm");
+
+    // No Auto-Confirm or not GM
+    if ( !game.user.isGM || !autoConfirm ) return false;
+
+    // All Actions
+    if ( autoConfirm === 2 ) return true;
+
+    // Non-Offensive Actions Only
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.target === this.actor ) continue;
+      return false;
     }
     return true;
   }
@@ -525,11 +539,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Create the outcome object that applies to the Actor who performed the Action.
-   * @param {CrucibleActionOutcomes} outcomes   Existing outcomes for target creatures
    * @returns {CrucibleActionOutcome}           The outcome for the Actor
    */
-  #createSelfOutcome(outcomes) {
-    const self = outcomes.get(this.actor) || this.#createOutcome(this.actor);
+  #createSelfOutcome() {
+    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor);
 
     // Record actor updates to apply
     foundry.utils.mergeObject(self.actorUpdates, this.usage.actorUpdates);
@@ -539,6 +552,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       self.resources[k] = (self.resources[k] || 0) - v;
     }
     return self;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply final flags to the outcome after post-roll workflows have occurred.
+   * @param {CrucibleActionOutcome} outcome     The outcome being finalized
+   */
+  #finalizeOutcome(outcome) {
+    for ( const roll of outcome.rolls ) {
+      const damage = roll.data.damage || {};
+      const resource = damage.resource ?? "health";
+      outcome.resources[resource] ??= 0;
+      outcome.resources[resource] += (damage.total ?? 0) * (damage.restoration ? 1 : -1);
+      if ( roll.isCriticalSuccess ) outcome.criticalSuccess = true;
+      else if ( roll.isCriticalFailure) outcome.criticalFailure = true;
+    }
   }
 
   /* -------------------------------------------- */
@@ -797,43 +827,44 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Confirm the result of an Action that was recorded as a ChatMessage.
    */
-  static async confirm(message, {reverse=false}={}) {
-    const flags = message.flags.crucible || {};
-    if ( !flags.action ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
+  static async confirm(message, {action, reverse=false}={}) {
+    action ||= this.fromChatMessage(message);
     const flagsUpdate = {confirmed: !reverse};
+    await action.confirm({reverse});
+    return message.update({flags: {crucible: flagsUpdate}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reconstitute an Action from a ChatMessage which contains it.
+   * @param {ChatMessage} message     The ChatMessage instance containing a used Action
+   * @returns {CrucibleAction}        The reconstituted Action instance
+   */
+  static fromChatMessage(message) {
+    const {action: actionId, template: templateId, outcomes} = message.flags.crucible || {};
+    if ( !actionId ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
 
     // Get the Actor and Action
     const actor = ChatMessage.getSpeakerActor(message.speaker);
     let action;
-    if ( flags.action.startsWith("spell.") ) {
-      action = game.system.api.models.CrucibleSpell.fromId(flags.action, {actor});
+    if ( actionId.startsWith("spell.") ) {
+      action = game.system.api.models.CrucibleSpell.fromId(actionId, {actor});
     }
-    else action = actor.actions[flags.action]?.clone() || null;
+    else action = actor.actions[actionId]?.clone() || null;
 
     // Load a MeasuredTemplate associated with this action
-    if ( flags.template ) action.template = fromUuidSync(flags.template)?.object;
+    if ( templateId ) action.template = fromUuidSync(templateId)?.object;
 
     // Re-prepare Action outcomes
-    /** @type {CrucibleActionOutcomes} */
-    const outcomes = new Map();
-    for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of flags.outcomes ) {
+    action.outcomes = new Map();
+    for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of outcomes ) {
       let target = fromUuidSync(targetUuid);
       if ( target instanceof TokenDocument ) target = target.actor;
       const outcome = {target, rolls: outcomeRolls.map(i => message.rolls[i]), ...outcomeData};
-      for ( const roll of outcome.rolls ) {
-        const damage = roll.data.damage || {};
-        const resource = damage.resource ?? "health";
-        outcome.resources[resource] ??= 0;
-        outcome.resources[resource] += (damage.total ?? 0) * (damage.restoration ? 1 : -1);
-        if ( roll.isCriticalSuccess ) outcome.criticalSuccess = true;
-        else if ( roll.isCriticalFailure) outcome.criticalFailure = true;
-      }
-      outcomes.set(target, outcome);
+      action.outcomes.set(target, outcome);
     }
-
-    // Confirm outcomes and record confirmation
-    await action.#confirm(outcomes, {reverse});
-    return message.update({flags: {crucible: flagsUpdate}});
+    return action;
   }
 
   /* -------------------------------------------- */
@@ -841,25 +872,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Confirm action outcomes, applying actor and active effect changes as a result.
    * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
-   * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
    * @param {object} [options]                  Options which affect the confirmation workflow
    * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
    * @returns {Promise<void>}
    */
-  async #confirm(outcomes, {reverse=false}={}) {
+  async confirm({reverse=false}={}) {
+    if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`)
 
     // Custom Action confirmation steps
     for ( const test of this._tests() ) {
       if ( !(test.confirm instanceof Function) ) continue
-      await test.confirm(this.actor, this, outcomes);
+      await test.confirm(this.actor, this, this.outcomes);
     }
 
     // Additional Actor-specific consequences
-    this.actor.onDealDamage(this, outcomes);
+    this.actor.onDealDamage(this, this.outcomes);
 
     // Play animation
     if ( game.system.animationEnabled && !reverse ) {
-      const animation = this.getAnimationSequence(outcomes);
+      const animation = this.getAnimationSequence(this.outcomes);
       if ( animation ) await animation.play();
     }
 
@@ -867,7 +898,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.template?.id ) this.template.document.delete();
 
     // Apply outcomes
-    for ( const outcome of outcomes.values() ) {
+    for ( const outcome of this.outcomes.values() ) {
       await outcome.target.applyActionOutcome(outcome, {reverse});
     }
   }
@@ -894,10 +925,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Prepare a Sequencer animation.
-   * @param {CrucibleActionOutcomes} outcomes   Outcomes that occurred as a result of the Action
    * @returns {null}
    */
-  getAnimationSequence(outcomes) {
+  getAnimationSequence() {
     const config = this._getAnimationConfiguration();
     if ( !config?.src ) return null;
 
@@ -910,10 +940,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Single target
     if ( this.target.type === "single" ) {
-      for ( const outcome of outcomes.values() ) {
+      for ( const outcome of this.outcomes.values() ) {
         if ( !outcome.rolls.length ) continue;
         const targetToken = CrucibleAction.#getTargetToken(outcome.target);
-        const hit = outcome.rolls.some(r => r.data.damage?.total > 0);
+        const hit = outcome.rolls.some(r => r.isSuccess || (r.data.damage?.total > 0));
         const wait = config.wait ?? 0;
         if ( config.sequence instanceof Function ) {
           config.sequence(sequence, config, {originToken, targetToken, hit});

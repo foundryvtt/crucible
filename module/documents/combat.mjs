@@ -108,7 +108,7 @@ export default class CrucibleCombat extends Combat {
       }
       if ( firstActor.effects.has(impetusId) ) await firstActor.updateEmbeddedDocuments("ActiveEffect", [impetus]);
       else await ActiveEffect.create(impetus, {parent: firstActor, keepId: true});
-      first.updateResource();
+      firstCombatant.updateResource();
     }
 
     // Morale Escalation

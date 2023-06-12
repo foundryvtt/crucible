@@ -1346,8 +1346,7 @@ export default class CrucibleActor extends Actor {
     const resources = {};
     const updates = {};
     if ( !this.isIncapacitated ) {
-      const r = this.system.resources;
-      resources.action = r.action.max;
+      resources.action = Infinity; // Try to recover as much action as possible, in case your maximum increases
       if ( this.talentIds.has("lesserregenerati") && !this.isIncapacitated ) resources.health = 1;
       if ( this.talentIds.has("irrepressiblespi") && !this.isBroken ) resources.morale = 1;
     }

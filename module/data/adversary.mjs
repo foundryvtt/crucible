@@ -142,11 +142,12 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     }, []).sort((a, b) => b.score - a.score);
 
     // Conservatively under-apply increases
+    const toSpend = threatLevel - 1;
     let spent = 0;
     for ( const o of order ) {
       const a = this.abilities[o.id];
       o.weight = o.weight / denom;
-      let delta = Math.floor(threatLevel * o.weight);
+      let delta = Math.floor(toSpend * o.weight);
       if ( o.weight === 0 ) delta = 0;            // Don't increase abilities with zero weight
       else if ( a.base + delta < 1 ) delta = 0;   // Don't decrease below 1
       o.increases = a.increases = delta;
@@ -154,7 +155,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     }
 
     // Allocate remainder
-    let remainder = threatLevel - spent;
+    let remainder = toSpend - spent;
     let n = 1;
     while ( remainder > 0 ) {
       for ( const o of order ) {

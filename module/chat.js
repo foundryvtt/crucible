@@ -63,6 +63,24 @@ export function addChatMessageContextOptions(html, options)  {
 /* -------------------------------------------- */
 
 /**
+ * When a new ChatMessage is created, auto-confirm it if the current auto-confirmation settings allow.
+ * @param {ChatMessage} message     The newly created ChatMessage
+ * @param {object} data             Provided message creation data
+ * @param {object} options          Message creation options
+ * @param {string} userId           The creating user ID
+ */
+export function onCreateMessage(message, data, options, userId) {
+  if ( game.user !== game.users.activeGM ) return;
+  const flags = message.flags.crucible || {};
+  if ( !flags.action || flags.confirmed ) return;
+  const action = CrucibleAction.fromChatMessage(message);
+  const canConfirm = action.canAutoConfirm();
+  if ( canConfirm ) CrucibleAction.confirm(message, {action});
+}
+
+/* -------------------------------------------- */
+
+/**
  * Custom alterations to apply when rendering chat message HTML
  */
 export function renderChatMessage(message, html, data, options) {
