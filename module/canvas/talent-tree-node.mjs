@@ -59,7 +59,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     }
 
     // Has the node been banned?
-    if ( state.banned ) {
+    else if ( state.banned ) {
       config.borderColor = 0x330000;
     }
 

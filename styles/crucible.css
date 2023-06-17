@@ -1933,7 +1933,7 @@ h2.divider span {
   background: rgba(255, 0, 0, 0.05);
   border: 1px solid red;
 }
-.dice-roll.standard-check.deflect .check-result {
+.dice-roll.standard-check.glance .check-result {
   background: rgba(255, 255, 0, 0.05);
   border: 1px solid yellow;
 }

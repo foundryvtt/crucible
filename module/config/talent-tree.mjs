@@ -184,7 +184,7 @@ export default class CrucibleTalentNode {
   getState(actor, signatures) {
     signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
     const purchased = this.#isPurchased(actor);
-    const banned = !purchased && this.#isBanned(actor, signatures);
+    const banned = this.#isBanned(actor, signatures);
     const unlocked = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
     return {accessible: undefined, purchased, banned, unlocked};
   }
@@ -218,8 +218,13 @@ export default class CrucibleTalentNode {
    * @returns {boolean}
    */
   #isBanned(actor, signatures) {
-    if ( this.type !== "signature" ) return false;
-    return signatures[this.tier].size >= 2;
+    if ( this.type !== "signature" ) return false;  // Only signature talents get banned
+    const purchased = signatures[this.tier];
+    if ( purchased.size >= 2 ) return true;         // Already purchased 2 signatures at this tier
+    for ( const t of this.talents ) {
+      if ( purchased.has(t) ) return true;          // Already purchased a signature from this node
+    }
+    return false;
   }
 
   /* -------------------------------------------- */

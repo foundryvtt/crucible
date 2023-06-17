@@ -325,7 +325,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Record the action as a chat message
-    if ( chatMessage ) await this.toMessage(outcomes, targets, template, {
+    if ( chatMessage ) await this.toMessage(targets, template, {
       ...chatMessageOptions,
       confirmed,
       rollMode: this.usage.rollMode
@@ -765,14 +765,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Render the action to a chat message including contained rolls and results
-   * @param {CrucibleActionOutcomes} outcomes     Outcomes that occurred as a result of the Action
    * @param {ActionUseTarget[]} targets           Targets affected by this action usage
    * @param {MeasuredTemplateDocument} [template] A measured template created as part of this Action
    * @param {object} options                      Context options for ChatMessage creation
-   * @param {boolean} [options.confirmed]         Were the outcomes auto-confirmed?
+   * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
+   * @param {boolean} [options.temporary]           Create only a temporary in-memory message
    * @returns {Promise<ChatMessage>}              The created ChatMessage document
    */
-  async toMessage(outcomes, targets, template, {confirmed=false, ...options}={}) {
+  async toMessage(targets, template, {confirmed=false, temporary=false, ...options}={}) {
 
     // Prepare action data
     const actionData = {
@@ -783,7 +783,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     };
     if ( template ) actionData.template = template.uuid;
     const rolls = [];
-    for ( const outcome of outcomes.values() ) {
+    for ( const outcome of this.outcomes.values() ) {
       const {target, rolls: outcomeRolls, ...outcomeData} = outcome;
       outcomeData.target = target.uuid;
       outcomeData.rolls = outcomeRolls.map((roll, i) => {
@@ -804,14 +804,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actor: this.actor,
       context: this.usage.context,
       hasActionTags: !foundry.utils.isEmpty(tags.action),
-      outcomes,
+      outcomes: this.outcomes,
       showTargets: this.target.type !== "self",
       targets,
       template
     });
 
     // Create chat message
-    return ChatMessage.create({
+    const messageData = {
       type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
@@ -819,7 +819,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       flags: {
         crucible: actionData
       }
-    }, options);
+    }
+    return temporary ? new ChatMessage(messageData) : ChatMessage.create(messageData, options);
   }
 
   /* -------------------------------------------- */
@@ -928,8 +929,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {null}
    */
   getAnimationSequence() {
+
+    // Confirm that animation paths exist
     const config = this._getAnimationConfiguration();
     if ( !config?.src ) return null;
+    const paths = Sequencer.Database.getPathsUnder(config.src);
+    if ( !paths.length ) return null;
 
     // Get the origin token
     const originToken = CrucibleAction.#getTargetToken(this.actor);

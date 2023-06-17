@@ -274,7 +274,7 @@ export const TAGS = {
     tag: "reaction",
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
-    can: (actor, action) => actor !== game.combat?.combatant.actor,
+    can: (actor, action) => actor !== game.combat?.combatant?.actor,
     prepare: (actor, action) => {
       const canFreeReact = actor.talentIds.has("gladiator0000000") && !actor.system.status.gladiator
         && (action.tags.has("mainhand") || action.tags.has("offhand"));
@@ -570,8 +570,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       distance: 1,
       scope: 3
-    },
-    tags: ["mainhand"]
+    }
   },
   {
     id: "defend",

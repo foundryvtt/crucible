@@ -67,6 +67,8 @@ export default class CrucibleCombat extends Combat {
 
   /** @override */
   async _onStartTurn(combatant) {
+    // FIXME this should be handled by https://github.com/foundryvtt/foundryvtt/issues/9641
+    if ( (this.round === this.previous.round)  && (combatant.id === this.previous.combatantId) ) return;
     return combatant.actor.onBeginTurn();
   }
 

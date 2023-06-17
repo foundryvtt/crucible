@@ -1,15 +1,8 @@
-2023/06/11-17:32:48.049 11390 Recovering log #865
-2023/06/11-17:32:48.053 11390 Delete type=0 #865
-2023/06/11-17:32:48.053 11390 Delete type=3 #864
-2023/06/11-20:54:25.570 7e78 Level-0 table #869: started
-2023/06/11-20:54:25.571 7e78 Level-0 table #869: 1018 bytes OK
-2023/06/11-20:54:25.572 7e78 Delete type=0 #867
-2023/06/11-20:54:25.573 7e78 Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/06/11-20:54:25.576 7e78 Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!katana0000000000' @ 1355 : 1
-2023/06/11-20:54:25.576 7e78 Compacting 1@1 + 1@2 files
-2023/06/11-20:54:25.578 7e78 Generated table #870@1: 47 keys, 9489 bytes
-2023/06/11-20:54:25.578 7e78 Compacted 1@1 + 1@2 files => 9489 bytes
-2023/06/11-20:54:25.579 7e78 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/11-20:54:25.579 7e78 Delete type=2 #857
-2023/06/11-20:54:25.579 7e78 Delete type=2 #869
-2023/06/11-20:54:25.581 7e78 Manual compaction at level-1 from '!items!katana0000000000' @ 1355 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/17-10:54:44.625 2a63c Recovering log #922
+2023/06/17-10:54:44.628 2a63c Delete type=0 #922
+2023/06/17-10:54:44.628 2a63c Delete type=3 #921
+2023/06/17-14:22:25.755 1c6b4 Level-0 table #926: started
+2023/06/17-14:22:25.755 1c6b4 Level-0 table #926: 0 bytes OK
+2023/06/17-14:22:25.756 1c6b4 Delete type=0 #924
+2023/06/17-14:22:25.756 1c6b4 Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/17-14:22:25.760 1c6b4 Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)

@@ -7,6 +7,52 @@ export default {
       await effect.delete();
     }
   },
+  bodyBlock: {
+    can: (actor, action) => {
+      const messageIds = Array.from(game.messages.keys());
+      for ( let i=messageIds.length-1; i>=0; i--) {
+        const message = game.messages.get(messageIds[i]);
+        if ( !message.flags.crucible?.action ) continue;
+        const targetAction = action.constructor.fromChatMessage(message);
+        for ( const outcome of targetAction.outcomes.values() ) {
+          if ( outcome.target.uuid !== actor.uuid ) continue;
+          if ( !targetAction.tags.has("melee") ) {
+            throw new Error("You may only use Body Block against an incoming melee attack.");
+          }
+          if ( message.flags.crucible.confirmed ) {
+            throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
+          }
+          const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+          for ( const r of outcome.rolls ) {
+            if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
+              action.usage.targetAction = message.id;
+              return true;
+            }
+          }
+        }
+        throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
+      }
+    },
+    confirm: async (actor, action) => {
+      const message = game.messages.get(action.usage.targetAction);
+      const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+      const outcomes = message.flags.crucible.outcomes
+      for ( const outcome of outcomes ) {
+        if ( outcome.target !== actor.uuid ) continue;
+        for ( const i of outcome.rolls ) {
+          const roll = message.rolls[i];
+          if ( [results.ARMOR, results.GLANCE].includes(roll.data.result) ) {
+            const damage = roll.data.damage;
+            outcome.resources[damage.resource || "health"] += roll.data.damage.total; // refund damage
+            roll.data.result = results.BLOCK;
+            roll.data.damage = null;
+          }
+        }
+      }
+      const rolls = message.rolls.map(r => r.toJSON());
+      await message.update({rolls, "flags.crucible.outcomes": outcomes}, {diff: false});
+    }
+  },
   cadence: {
     roll: async function(actor, action, target, rolls) {
       let lastRoll = rolls[0];

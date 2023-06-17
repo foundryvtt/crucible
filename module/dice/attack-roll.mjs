@@ -57,9 +57,10 @@ export default class AttackRoll extends StandardCheck {
     DODGE: 1,
     PARRY: 2,
     BLOCK: 3,
-    DEFLECT: 4,
+    ARMOR: 4,
     RESIST: 5,
-    HIT: 6
+    GLANCE: 6,
+    HIT: 7
   };
 
   /**
@@ -67,13 +68,14 @@ export default class AttackRoll extends StandardCheck {
    * @enum {string}
    */
   static RESULT_TYPE_LABELS = {
-    [this.RESULT_TYPES.MISS]: "ATTACK.ResultTypeMiss",
-    [this.RESULT_TYPES.DODGE]: "ATTACK.ResultTypeDodge",
-    [this.RESULT_TYPES.PARRY]: "ATTACK.ResultTypeParry",
-    [this.RESULT_TYPES.BLOCK]: "ATTACK.ResultTypeBlock",
-    [this.RESULT_TYPES.DEFLECT]: "ATTACK.ResultTypeDeflect",
-    [this.RESULT_TYPES.RESIST]: "ATTACK.ResultTypeResist",
-    [this.RESULT_TYPES.HIT]: "ATTACK.ResultTypeHit"
+    [this.RESULT_TYPES.MISS]: "ATTACK.RESULT_TYPES.MISS",
+    [this.RESULT_TYPES.DODGE]: "ATTACK.RESULT_TYPES.DODGE",
+    [this.RESULT_TYPES.PARRY]: "ATTACK.RESULT_TYPES.PARRY",
+    [this.RESULT_TYPES.BLOCK]: "ATTACK.RESULT_TYPES.BLOCK",
+    [this.RESULT_TYPES.ARMOR]: "ATTACK.RESULT_TYPES.ARMOR",
+    [this.RESULT_TYPES.RESIST]: "ATTACK.RESULT_TYPES.RESIST",
+    [this.RESULT_TYPES.GLANCE]: "ATTACK.RESULT_TYPES.GLANCE",
+    [this.RESULT_TYPES.HIT]: "ATTACK.RESULT_TYPES.HIT",
   }
 
   /**

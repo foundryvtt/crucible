@@ -22,7 +22,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * Track data related to a MeasuredTemplate preview for this Action.
    * @type {{object: MeasuredTemplate, activeLayer: CanvasLayer, minimizedSheets: Application[], config: object}}
    */
-  #template = {
+  #targetTemplate = {
     activeLayer: undefined,
     object: undefined,
     minimizedSheets: [],
@@ -158,7 +158,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }, []);
 
     // Store preview template data
-    this.#template = {
+    this.#targetTemplate = {
       activeLayer,
       config: targetConfig,
       object: template,
@@ -175,14 +175,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * Register interactivity for the preview template placement
    */
   #activateTemplate() {
-    this.#template.events = {
+    this.#targetTemplate.events = {
       contextmenu: this.#cancelTemplate.bind(this),
       mousedown: this.#confirmTemplate.bind(this),
       mousemove: this.#moveTemplate.bind(this),
     }
-    canvas.stage.on("mousemove", this.#template.events.mousemove);
-    canvas.stage.on("mousedown", this.#template.events.mousedown);
-    canvas.app.view.addEventListener("contextmenu", this.#template.events.contextmenu);
+    canvas.stage.on("mousemove", this.#targetTemplate.events.mousemove);
+    canvas.stage.on("mousedown", this.#targetTemplate.events.mousedown);
+    canvas.app.view.addEventListener("contextmenu", this.#targetTemplate.events.contextmenu);
   }
 
   /* -------------------------------------------- */
@@ -192,7 +192,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @param {Event} event     An initiating event that leads to workflow deactivation
    */
   #deactivateTemplate(event) {
-    const {object, events, activeLayer} = this.#template;
+    const {object, events, activeLayer} = this.#targetTemplate;
     if ( !object ) return;
     canvas.templates._onDragLeftCancel(event);
     canvas.stage.off("mousemove", events.mousemove);
@@ -203,8 +203,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     activeLayer.activate(event);
 
     // Maximize prior UI windows
-    for ( const app of this.#template.minimizedWindows ) app.maximize();
-    this.#template = {};
+    for ( const app of this.#targetTemplate.minimizedWindows ) app.maximize();
+    this.#targetTemplate = {};
   }
 
   /* -------------------------------------------- */
@@ -226,7 +226,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #confirmTemplate(event) {
     event.stopPropagation();
-    this.action.template = this.#template.object;
+    this.action.template = this.#targetTemplate.object;
     const targets = this.action.acquireTargets(); // TODO this is clunky, core should provide a bulk setTargets method
     if ( targets.length ) {
       for ( const [i, {token}] of targets.entries() ) {
@@ -245,13 +245,13 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #moveTemplate(event) {
     event.stopPropagation();
-    const {config, moveTime, object} = this.#template;
+    const {config, moveTime, object} = this.#targetTemplate;
     const doc = object.document;
 
     // Apply a 16ms throttle
     const now = Date.now();
     if ( now - (moveTime || 0) <= 16 ) return;
-    this.#template.moveTime = now;
+    this.#targetTemplate.moveTime = now;
 
     // Apply mouse cursor position
     const cursor = event.getLocalPosition(canvas.templates);
@@ -266,5 +266,19 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
     object.document.updateSource(update);
     object.renderFlags.set({refreshShape: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Expose an internal method that subclasses can use to clear a target template.
+   * @internal
+   */
+  _clearTargetTemplate() {
+    if ( this.action.template ) {
+      this.#targetTemplate = {};
+      this.action.template = null;
+      game.user.targets.clear();
+    }
   }
 }

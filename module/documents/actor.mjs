@@ -480,6 +480,17 @@ export default class CrucibleActor extends Actor {
       if ( (ad.id === "reload") && !w.reload ) continue;
       if ( (ad.id === "refocus") && !w.talisman ) continue;
       if ( (ad.id === "recover") && this.inCombat ) continue;
+      ad = foundry.utils.deepClone(ad);
+
+      // Customize strike tags
+      if ( ad.id === "strike" ) {
+        ad.tags = [];
+        if ( w.melee ) ad.tags.push("melee");
+        if ( w.ranged ) ad.tags.push("ranged");
+        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
+      }
+
+      // Create the action
       const action = ad.tags.includes("spell")
         ? CrucibleSpell.getDefault(this, ad)
         : new CrucibleAction(ad, {actor: this});
@@ -888,41 +899,47 @@ export default class CrucibleActor extends Actor {
   /**
    * Test the Actor's defense, determining which defense type is used to avoid an attack.
    * @param {string} defenseType      The defense type to test
-   * @param {number} rollTotal        The rolled total
-   * @param {number} [dc]             An explicit DC to test
+   * @param {AttackRoll} roll         The AttackRoll instance
    * @returns {AttackRoll.RESULT_TYPES}
    */
-  testDefense(defenseType, rollTotal, dc) {
+  testDefense(defenseType, roll) {
     const d = this.system.defenses;
+    if ( (defenseType !== "physical") && !(defenseType in d) ) {
+      throw new Error(`Invalid defense type "${defenseType}" passed to Actor#testDefense`);
+    }
+    if ( !(roll instanceof AttackRoll) ) {
+      throw new Error("You must pass an AttackRoll instance to Actor#testDefense");
+    }
+    const results = AttackRoll.RESULT_TYPES;
 
     // Physical Defense
     if ( defenseType === "physical" ) {
-      dc = d.physical.total;
+      const dc = d.physical.total;
 
       // Hit
-      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.HIT;
+      if ( roll.total > dc ) return results.HIT;
 
       // Dodge
       const r = twist.random() * d.physical.total;
       const dodge = d.dodge.total;
-      if ( r <= dodge ) return AttackRoll.RESULT_TYPES.DODGE;
+      if ( r <= dodge ) return results.DODGE;
 
       // Parry
       const parry = dodge + d.parry.total;
-      if ( r <= parry ) return AttackRoll.RESULT_TYPES.PARRY;
+      if ( r <= parry ) return results.PARRY;
 
       // Block
       const block = dodge + d.block.total;
-      if ( r <= block ) return AttackRoll.RESULT_TYPES.BLOCK;
+      if ( r <= block ) return results.BLOCK;
 
       // Armor
-      return AttackRoll.RESULT_TYPES.DEFLECT;
+      return roll.isCriticalFailure ? results.ARMOR : results.GLANCE;
     }
 
     // Other Defenses
     else {
-      if ( defenseType ) dc = d[defenseType].total;
-      if ( rollTotal > dc ) return AttackRoll.RESULT_TYPES.HIT;
+      const dc = d[defenseType].total;
+      if ( roll.total > dc ) return AttackRoll.RESULT_TYPES.HIT;
       else return AttackRoll.RESULT_TYPES.RESIST;
     }
   }
@@ -947,11 +964,11 @@ export default class CrucibleActor extends Actor {
    * Cast a certain spell against a target.
    * @param {CrucibleSpell} spell
    * @param {CrucibleActor} target
-   * @returns {Promise<void>}
+   * @returns {Promise<AttackRoll|null>}
    */
   async castSpell(spell, target) {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
-    if ( !spell.usage.hasDice ) return;
+    if ( !spell.usage.hasDice ) return null;
 
     // Modify boons and banes against this target
     const defenseType = spell.defense;
@@ -987,14 +1004,10 @@ export default class CrucibleActor extends Actor {
 
     // Evaluate the result and record the result
     await roll.evaluate({async: true});
-    const r = roll.data.result = target.testDefense(defenseType, roll.total);
-
-    // Deflection and Avoidance
-    const {HIT, DEFLECT} = AttackRoll.RESULT_TYPES;
-    if ( ![HIT, DEFLECT].includes(r) ) return roll;
-    if ( (r === DEFLECT) && roll.isCriticalFailure ) return roll;
+    const r = roll.data.result = target.testDefense(defenseType, roll);
 
     // Structure damage
+    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
       multiplier: spell.damage.multiplier ?? 1,
@@ -1011,6 +1024,12 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
+  /**
+   * Perform a Skill Attack targeting a specific creature.
+   * @param {CrucibleAction} action       The Skill Attack action being performed
+   * @param {CrucibleActor} target        The target Actor
+   * @returns {Promise<AttackRoll|null>}  A created AttackRoll instance if the action involves a roll, otherwise null
+   */
   async skillAttack(action, target) {
 
     // Prepare Roll Data
@@ -1027,9 +1046,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Opposed skill
-    else {
-      Object.assign(rollData, {defenseType: skillId, dc: target.skills[skillId].passive});
-    }
+    else Object.assign(rollData, {defenseType: skillId, dc: target.skills[skillId].passive});
 
     // Apply talent hooks
     this.callTalentHooks("prepareStandardCheck", rollData);
@@ -1039,7 +1056,7 @@ export default class CrucibleActor extends Actor {
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);
     await roll.evaluate();
-    roll.data.result = target.testDefense(defenseType, roll.total, rollData.dc);
+    roll.data.result = target.testDefense(defenseType, roll);
 
     // Create resulting damage
     if ( roll.data.result === AttackRoll.RESULT_TYPES.HIT ) {

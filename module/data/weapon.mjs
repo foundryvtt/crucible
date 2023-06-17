@@ -256,16 +256,10 @@ export default class CrucibleWeapon extends PhysicalItemData {
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
     await roll.evaluate({async: true});
-    const r = roll.data.result = target.testDefense(defenseType, roll.total);
-
-    // Deflection and Avoidance
-    const {HIT, DEFLECT} = AttackRoll.RESULT_TYPES;
-    if ( r === DEFLECT ) {
-      if ( roll.isCriticalFailure ) return roll;
-    }
-    else if ( r !== HIT ) return roll;
+    const r = roll.data.result = target.testDefense(defenseType, roll);
 
     // Damage
+    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     roll.data.damage = {
       overflow: roll.overflow,
       multiplier: multiplier,

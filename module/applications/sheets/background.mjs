@@ -18,6 +18,12 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
     });
   }
 
+  /**
+   * The template path for the included talent partial.
+   * @type {string}
+   */
+  static includedTalentPartial = "systems/crucible/templates/sheets/partials/included-talent.hbs";
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -35,7 +41,7 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
         s.checked = this.document.system.skills.has(id);
         return s;
       }),
-      talents: await BackgroundSheet.#prepareTalents(this.document.system.talents)
+      talents: await this.#prepareTalents()
     };
   }
 
@@ -43,15 +49,15 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /**
    * Prepare talent data for the Background.
-   * @param {string[]} uuids      The UUIDs of talents associated with this Background.
    * @returns {Promise<{uuid: string, name: string, img: string}[]>}
    */
-  static async #prepareTalents(uuids) {
+  async #prepareTalents() {
+    const uuids = this.document.system.talents;
     const talents = [];
     for ( const uuid of uuids ) {
       const talent = await fromUuid(uuid)
       if ( !talent ) continue;
-      talents.push(this.#getTalentHTML(talent));
+      talents.push(await this.#renderTalentHTML(talent));
     }
     return talents;
   }
@@ -61,22 +67,15 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
   /**
    * Construct the HTML for a talent displayed on the Background sheet.
    * @param {CrucibleItem} talent     The talent item being displayed
-   * @returns {string}                The rendered HTML string
+   * @param {boolean} editable        Is the sheet currently editable?
+   * @returns {Promise<string>}       The rendered HTML string
    */
-  static #getTalentHTML(talent) {
-    return `<div class="talent line-item" data-uuid="${talent.uuid}">
-      <header class="talent-header flexrow">
-        <img class="icon" src="${talent.img}" alt="${talent.name}">
-        <h4 class="title">${talent.name}</h4>
-        <div class="tags">${Object.entries(talent.system.getTags()).map(([type, tag]) => {
-          return `<span class="tag" data-tag="${type}">${tag}</span>`;
-        }).join("")}</div>
-        <a class="button remove-talent" data-action="removeTalent" data-tooltip="BACKGROUND.RemoveTalent">
-            <i class="fa-solid fa-times"></i>
-        </a>
-      </header>
-      <div class="description">${talent.system.description}</div>
-    </div>`;
+  async #renderTalentHTML(talent) {
+    return renderTemplate(this.constructor.includedTalentPartial, {
+      talent,
+      tags: talent.system.getTags(),
+      editable: this.isEditable
+    });
   }
 
   /* -------------------------------------------- */
@@ -137,7 +136,7 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
       return ui.notifications.error("BACKGROUND.TalentTierError", {localize: true});
     }
     const talents = this.element[0].querySelector(".talents");
-    talents.innerHTML = BackgroundSheet.#getTalentHTML(talent);
+    talents.innerHTML = await this.#renderTalentHTML(talent);
     this.setPosition({height: "auto"});
   }
 

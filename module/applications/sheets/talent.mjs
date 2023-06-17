@@ -135,6 +135,7 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
   #onAddHook(event, button) {
     const hook = button.previousElementSibling.value;
     const fd = this._getSubmitData({});
+    fd.system.actorHooks ||= [];
     if ( fd.system.actorHooks.find(h => h.hook === hook ) ) {
       ui.notifications.warn(`${this.object.name} already declares a function for the "${hook}" hook.`);
       return null;
