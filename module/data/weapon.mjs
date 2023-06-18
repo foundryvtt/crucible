@@ -270,7 +270,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
     // Restrict to melee animations
     else if ( !this.config.category.ranged ) {
-      const paths = Sequencer.Database.getPathsUnder(animation);
+      const paths = Sequencer.Database.searchFor(animation);
       const usage = ["melee", "standard", "200px"].find(p => paths.includes(p));
       if ( !usage ) {
         console.warn(`Crucible | Unable to find weapon animation usage for ${animation}`);
@@ -280,7 +280,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     }
 
     // Damage type
-    const paths = Sequencer.Database.getPathsUnder(animation);
+    const paths = Sequencer.Database.searchFor(animation);
     const damageColors = {
       bludgeoning: "white",
       corruption: "green",

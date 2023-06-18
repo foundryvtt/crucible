@@ -797,32 +797,31 @@ export default class CrucibleActor extends Actor {
    * @returns {{boons: number, banes: number}}  The number of additional boons and banes
    */
   applyTargetBoons(target, action, actionType) {
-    let boons = 0;
-    let banes = 0;
+    const bonuses = action.usage.bonuses;
+    bonuses.boons ||= 0;
+    bonuses.banes ||= 0;
+    const ranged = action.target.distance > 1;
+    const isAttack = (actionType !== "skill") && !action.damage?.restoration;
 
     // Exposed
-    if ( target.statuses.has("exposed") && (actionType !== "skill") ) boons += 2;
+    if ( target.statuses.has("exposed") && isAttack ) bonuses.boons += 2;
 
     // Guarded
-    if ( target.statuses.has("guarded") && (actionType !== "skill") ) banes += 1;
+    if ( target.statuses.has("guarded") && isAttack ) bonuses.banes += 1;
 
     // Prone
-    if ( target.statuses.has("prone") && (actionType !== "skill") ) {
-      if ( ranged ) banes += 2;
-      else boons += 2;
+    if ( target.statuses.has("prone") && isAttack ) {
+      if ( ranged ) bonuses.banes += 2;
+      else bonuses.boons += 2;
     }
 
     // Flanked
     if ( target.statuses.has("flanked") && (actionType !== "skill") ) {
       const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-      if ( ae ) boons += ae.getFlag("crucible", "flanked") ?? 1;
+      if ( ae ) bonuses.boons += ae.getFlag("crucible", "flanked") ?? 1;
       else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
     }
-
-    // Apply boons and banes
-    action.usage.boons += boons;
-    action.usage.banes += banes;
-    return {boons: action.usage.boons, banes: action.usage.banes};
+    return bonuses;
   }
 
   /* -------------------------------------------- */
@@ -972,18 +971,9 @@ export default class CrucibleActor extends Actor {
     if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
     if ( !spell.usage.hasDice ) return null;
 
-    // Modify boons and banes against this target
-    const defenseType = spell.defense;
-    let {boons, banes} = spell.usage.bonuses;
-    const targetBoons = this.getTargetBoons(target, {
-      attackType: "spell",
-      defenseType,
-      ranged: spell.gesture.target.distance > 1
-    });
-    boons += targetBoons.boons;
-    banes += targetBoons.banes;
-
     // Prepare Roll Data
+    const defenseType = spell.defense;
+    const {boons, banes} = this.applyTargetBoons(target, spell, "spell");
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
@@ -1036,10 +1026,13 @@ export default class CrucibleActor extends Actor {
 
     // Prepare Roll Data
     const {bonuses, damageType, defenseType, restoration, resource, skillId} = action.usage;
+    const {boons, banes} = this.applyTargetBoons(target, action, "skill");
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
+      boons,
+      banes
     });
 
     // Conventional defense
@@ -1473,7 +1466,6 @@ export default class CrucibleActor extends Actor {
         damage[r] ||= 0;
         damage[r] -= v;
       }
-      if ( foundry.utils.isEmpty(damage) ) return;
       await this.alterResources(damage, {}, {statusText: effect.label});
     }
   }
@@ -2147,11 +2139,11 @@ export default class CrucibleActor extends Actor {
    * Display changes to the Actor as scrolling combat text.
    */
   #displayScrollingStatus(changed, {statusText}={}) {
-    if ( !changed.system?.resources ) return;
+    const resources = changed.system?.resources || {};
     const tokens = this.getActiveTokens(true);
     if ( !tokens.length ) return;
     for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
-      if ( changed.system.resources[resourceName]?.value === undefined ) continue;
+      if ( resources[resourceName]?.value === undefined ) continue;
 
       // Get change data
       const resource = SYSTEM.RESOURCES[resourceName];

@@ -61,7 +61,7 @@ export const TARGET_TYPES = Object.freeze({
     template: {
       t: "ray",
       width: 1,
-      directionDelta: 15,
+      directionDelta: 3,
       anchor: "self",
       distanceOffset: 0.5
     }

@@ -552,7 +552,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Target other
       else {
         if ( scope === scopes.SELF ) return effects;
-        if ( !outcome.rolls.some(r => r.isSuccess) ) return effects;
+        if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return effects;
       }
 
       // Add effect
@@ -579,7 +579,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let applySelfEffects = Array.from(this.outcomes.keys()).length === 0;
     for ( const outcome of this.outcomes.values() ) {
       if ( outcome.target === this.actor ) continue;
-      if ( outcome.rolls.some(r => r.isSuccess) ) applySelfEffects = true;
+      if ( !outcome.rolls.length || outcome.rolls.some(r => r.isSuccess) ) applySelfEffects = true;
     }
 
     // Create the outcome
@@ -975,7 +975,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Confirm that animation paths exist
     const config = this._getAnimationConfiguration();
     if ( !config?.src ) return null;
-    const paths = Sequencer.Database.getPathsUnder(config.src);
+    const paths = Sequencer.Database.searchFor(config.src);
     if ( !paths.length ) return null;
 
     // Get the origin token

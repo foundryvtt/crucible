@@ -230,7 +230,7 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     nameFormat: NAME_FORMATS.ADJ,
-    scaling: "wisdom",
+    scaling: "presence",
     target: {
       type: "single",
       number: 1,

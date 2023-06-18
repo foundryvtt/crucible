@@ -64,6 +64,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     const select = event.currentTarget;
     const form = select.form;
     const fd = (new FormDataExtended(form)).object;
+    this.action.usage = undefined;
     this.action.updateSource(fd);
     this._clearTargetTemplate();
     this.render(true, {height: "auto"});

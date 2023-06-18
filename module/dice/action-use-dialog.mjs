@@ -261,7 +261,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const update = {};
     if ( config.anchor !== "self" ) Object.assign(update, {x, y});
     if ( config.directionDelta ) {
-      const r = new Ray({x: doc.x, y: doc.y}, {x, y});
+      const r = new Ray({x: doc.x, y: doc.y}, {x: cursor.x, y: cursor.y});
       update.direction = Math.toDegrees(r.angle).toNearest(config.directionDelta);
     }
     object.document.updateSource(update);
