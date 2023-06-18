@@ -1,5 +1,3 @@
-import CrucibleAction from "./action.mjs";
-import AttackRoll from "../dice/attack-roll.mjs";
 import PhysicalItemData from "./physical.mjs";
 import { SYSTEM } from "../config/system.js";
 
@@ -7,14 +5,6 @@ import { SYSTEM } from "../config/system.js";
  * Data schema, attributes, and methods specific to Weapon type Items.
  */
 export default class CrucibleWeapon extends PhysicalItemData {
-
-  /** @inheritDoc */
-  _configure(options) {
-    super._configure(options);
-    Object.defineProperties(this.parent, {
-      attack: {value: this.attack.bind(this), writable: false, configurable: true},
-    });
-  }
 
   /** @override */
   static DEFAULT_CATEGORY = "simple1";
@@ -151,6 +141,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
   prepareDerivedData() {
     this.damage.weapon = this.damage.base + this.damage.quality;
     if ( this.broken ) this.damage.weapon = Math.floor(this.damage.weapon / 2);
+
   }
 
   /* -------------------------------------------- */
@@ -160,9 +151,10 @@ export default class CrucibleWeapon extends PhysicalItemData {
    * @returns {{weapon: number, base: number, quality: number}}
    */
   #prepareDamage() {
+    const {category, quality} = this.config;
     const damage = {
-      base: this.config.category.damage.base,
-      quality: this.config.quality.bonus,
+      base: category.damage.base,
+      quality: quality.bonus,
       weapon: 0
     };
     if ( this.properties.has("oversized") ) damage.base += 2;
@@ -201,96 +193,13 @@ export default class CrucibleWeapon extends PhysicalItemData {
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 
-  /**
-   * Perform a weapon attack action.
-   * TODO: Refactor this to be an Action usage which populates action data and bonuses from the Weapon item.
-   * @param {CrucibleActor} target    The target creature being attacked
-   * @param {number} [ability]        Override the default ability bonus for the weapon
-   * @param {number} [banes=0]        The number of banes which afflict this attack roll
-   * @param {number} [boons=0]        The number of boons which benefit this attack roll
-   * @param {number} [damageBonus=0]  An additional damage bonus which applies to this attack
-   * @param {string} [defenseType]    The defense type targeted by this attack. Physical by default.
-   * @param {number} [multiplier=0]   An additional damage multiplier which applies to this attack
-   * @param {string} [resource=health] The target resource affected by the attack.
-   * @returns {Promise<AttackRoll>}   The created AttackRoll which results from attacking once with this weapon
-   */
-  async attack(target, {ability, banes=0, boons=0, multiplier=1, damageBonus=0, defenseType="physical", resource="health"}={}) {
-    const actor = this.parent.actor;
-    if ( !actor ) {
-      throw new Error("You may only perform a weapon attack using an owned weapon Item.");
-    }
-    if ( !target ) {
-      throw new Error("You must provide an Actor as the target for this weapon attack");
-    }
-
-    // Apply additional boons or banes
-    const targetBoons = actor.getTargetBoons(target, {
-      attackType: "weapon",
-      defenseType,
-      ranged: this.config.category.ranged
-    });
-    boons += targetBoons.boons;
-    banes += targetBoons.banes;
-
-    // Prepare roll data
-    const rollData = {
-      actorId: actor.id,
-      itemId: this.parent.id,
-      target: target.uuid,
-      ability: ability ?? this.actionBonuses.ability,
-      skill: this.actionBonuses.skill,
-      enchantment: this.actionBonuses.enchantment,
-      banes: banes,
-      boons: boons,
-      defenseType,
-      dc: target.system.defenses[defenseType].total,
-      criticalSuccessThreshold: this.properties.has("keen") ? 4 : 6,
-      criticalFailureThreshold: this.properties.has("reliable") ? 4 : 6
-    }
-
-    // Call talent hooks
-    actor.callTalentHooks("prepareStandardCheck", rollData);
-    actor.callTalentHooks("prepareWeaponAttack", this, target, rollData);
-    target.callTalentHooks("defendWeaponAttack", this, actor, rollData);
-
-    // Create and evaluate the AttackRoll instance
-    const roll = new AttackRoll(rollData);
-    await roll.evaluate({async: true});
-    const r = roll.data.result = target.testDefense(defenseType, roll);
-
-    // Damage
-    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    roll.data.damage = {
-      overflow: roll.overflow,
-      multiplier: multiplier,
-      base: this.damage.weapon,
-      bonus: this.#getDamageBonus(damageBonus),
-      resistance: target.getResistance(resource, this.damageType),
-      resource,
-      type: this.damageType
-    };
-    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-    return roll;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the damage bonus that should be applied to a weapon attack.
-   * @param {number} bonus      The baseline roll damage bonus
-   * @returns {number}          The final roll damage bonus
-   */
-  #getDamageBonus(bonus=0) {
-    const rb = this.parent.actor.rollBonuses.damage;
-
-    // Category-specific bonuses
+  getDamageBonus() {
     const category = this.config.category;
-    if ( !category.ranged ) bonus += rb.melee ?? 0;
-    if ( category.ranged ) bonus += rb.ranged ?? 0;
-    if ( category.hands === 2 ) bonus += rb.twoHanded ?? 0;
-
-    // Weapon-specific bonuses
-    bonus += rb[this.damageType] ?? 0;
+    let actorBonuses = this.parent.actor?.rollBonuses?.damage || {};
+    let bonus = actorBonuses[this.damageType] ?? 0;
+    if ( !category.ranged ) bonus += (actorBonuses.melee ?? 0);
+    if ( category.ranged ) bonus += (actorBonuses.ranged ?? 0);
+    if ( category.hands === 2 ) bonus += (actorBonuses.twoHanded ?? 0);
     return bonus;
   }
 
@@ -353,8 +262,14 @@ export default class CrucibleWeapon extends PhysicalItemData {
     if ( !this.animation ) return null;
     let animation = `jb2a.${this.animation}`;
 
+    // Implement some special hacky overrides
+    const overrides = {
+      katana: "jb2a.melee_attack.04.katana"
+    }
+    if ( this.animation in overrides ) animation = overrides[this.animation];
+
     // Restrict to melee animations
-    if ( !this.config.category.ranged ) {
+    else if ( !this.config.category.ranged ) {
       const paths = Sequencer.Database.getPathsUnder(animation);
       const usage = ["melee", "standard", "200px"].find(p => paths.includes(p));
       if ( !usage ) {
@@ -385,6 +300,6 @@ export default class CrucibleWeapon extends PhysicalItemData {
     if ( typeSuffix ) animation += `.${typeSuffix}`;
 
     // Return animation config
-    return {src: animation}
+    return {src: animation, wait: -500};
   }
 }

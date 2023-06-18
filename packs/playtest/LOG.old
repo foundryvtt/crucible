@@ -1,3 +1,8 @@
-2023/06/16-15:49:05.043 15660 Recovering log #100
-2023/06/16-15:49:05.047 15660 Delete type=0 #100
-2023/06/16-15:49:05.047 15660 Delete type=3 #99
+2023/06/17-10:54:44.609 2a63c Recovering log #102
+2023/06/17-10:54:44.613 2a63c Delete type=0 #102
+2023/06/17-10:54:44.613 2a63c Delete type=3 #101
+2023/06/17-14:22:25.784 1c6b4 Level-0 table #106: started
+2023/06/17-14:22:25.784 1c6b4 Level-0 table #106: 0 bytes OK
+2023/06/17-14:22:25.787 1c6b4 Delete type=0 #104
+2023/06/17-14:22:25.787 1c6b4 Manual compaction at level-0 from '!adventures!F8AILycmdj2kuOVa' @ 72057594037927935 : 1 .. '!adventures!F8AILycmdj2kuOVa' @ 0 : 0; will stop at (end)
+2023/06/17-14:22:25.787 1c6b4 Manual compaction at level-1 from '!adventures!F8AILycmdj2kuOVa' @ 72057594037927935 : 1 .. '!adventures!F8AILycmdj2kuOVa' @ 0 : 0; will stop at (end)

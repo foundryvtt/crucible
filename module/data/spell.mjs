@@ -251,6 +251,10 @@ export default class CrucibleSpell extends CrucibleAction {
           ui.notifications.warning("Gesture: Ward is not configured for healing Runes yet");
           break;
         }
+        let resistance = 6;
+        if ( this.actor.talentIds.has("runewarden000000") ) {
+          resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);
+        }
         this.effects.push({
           _id: SYSTEM.EFFECTS.getEffectId("ward"),
           icon: this.gesture.img,
@@ -259,7 +263,7 @@ export default class CrucibleSpell extends CrucibleAction {
           changes: [
             {
               key: `system.resistances.${this.damage.type}.bonus`,
-              value: 6,
+              value: resistance,
               mode: CONST.ACTIVE_EFFECT_MODES.ADD
             }
           ]

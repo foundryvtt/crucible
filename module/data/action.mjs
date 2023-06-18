@@ -15,6 +15,7 @@ import {TARGET_SCOPES} from "../config/action.mjs";
  * @property {string} type                  The type of target for the action in ACTION.TARGET_TYPES
  * @property {number} [number]              The number of targets affected or size of target template
  * @property {number} [distance]            The allowed distance between the actor and the target(s)
+ * @property {number} [limit]               Limit the effect to a certain number of targets.
  * @property {number} [scope]               The scope of creatures affected by an action
  * @property {MeasuredTemplate} [template]  A temporary template document that helps to identify AOE targets
  */
@@ -29,7 +30,7 @@ import {TARGET_SCOPES} from "../config/action.mjs";
  * @property {string} [rollMode]            A dice roll mode to apply to the message
  * @property {string} [defenseType]         A special defense type being targeted
  * @property {string} [skillId]             The skill ID being used.
- * @property {CrucibleWeapon} [weapon]      A special weapon being used
+ * @property {CrucibleItem} [weapon]        A specific weapon item being used
  */
 
 /**
@@ -91,7 +92,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         distance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
-          initial: SYSTEM.ACTION.TARGET_SCOPES.NONE})
+          initial: SYSTEM.ACTION.TARGET_SCOPES.NONE}),
+        limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
       }),
       effects: new fields.ArrayField(new fields.ObjectField()),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
@@ -426,14 +428,31 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #acquireTargetsFromTemplate() {
     const template = this.template;
     if ( !template ) return new Set();
+
+    // Get targets from quadtree
     const {x, y} = template.document;
     const targetDispositions = this.#getTargetDispositions();
-    return canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: ({t: token}) => {
+    const targets = canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
-      const c = token.center;
-      return template.shape.contains(c.x - x, c.y - y);
+      const shapePoly = template.shape instanceof PIXI.Polygon ? template.shape : template.shape.toPolygon();
+      const hit = token.getHitRectangle();
+      hit.x -= x;
+      hit.y -= y;
+      const ix = shapePoly.intersectRectangle(hit);
+      return ix.points.length > 0;
     }});
+
+    // Unlimited targets
+    if ( !this.target.limit ) return targets;
+
+    // If the target type is limited in the number of enemies it can affect, sort on proximity to the template origin
+    const distances = Array.from(targets).map(t => ({target: t, distance: new Ray({x, y}, t.center).distance}));
+    distances.sort((a, b) => a.distance - b.distance);
+    return distances.reduce((targets, d, i) => {
+      if ( i < this.target.limit ) targets.add(d.target);
+      return targets;
+    }, new Set());
   }
 
   /* -------------------------------------------- */
@@ -501,29 +520,42 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleActionOutcome}
    */
   #createOutcome(actor, rolls=[], effects=true) {
-    return {
+    const outcome = {
       target: actor,
       rolls: rolls,
       resources: {},
-      actorUpdates: {},
-      effects: this.#attachEffects(actor)
-    };
+      actorUpdates: {}
+    }
+    outcome.effects = effects ? this.#attachEffects(actor, outcome) : [];
+    return outcome;
   }
 
   /* -------------------------------------------- */
 
   /**
    * Apply the effects caused by an Action to targeted Actors when the result is confirmed.
-   * @param {CrucibleActor} target    The target actor
-   * @returns {object[]}              An array of Active Effect data to attach to the outcome
+   * @param {CrucibleActor} target              The target actor
+   * @param {CrucibleActionOutcomes} outcome    The outcome being prepared
+   * @returns {object[]}                        An array of Active Effect data to attach to the outcome
    */
-  #attachEffects(target) {
+  #attachEffects(target, outcome) {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     return this.effects.reduce((effects, {scope, ...effectData}) => {
       scope ??= this.target.scope;
       if ( scope === scopes.NONE ) return effects;
-      if ( (target === this.actor) && (scope !== scopes.SELF) ) return effects;
-      if ( (target !== this.actor) && (scope === scopes.SELF) ) return effects;
+
+      // Self target
+      if ( target === this.actor ) {
+        if ( scope !== scopes.SELF ) return effects;
+      }
+
+      // Target other
+      else {
+        if ( scope === scopes.SELF ) return effects;
+        if ( !outcome.rolls.some(r => r.isSuccess) ) return effects;
+      }
+
+      // Add effect
       effects.push(foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
         label: this.name,
@@ -542,7 +574,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleActionOutcome}           The outcome for the Actor
    */
   #createSelfOutcome() {
-    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor);
+
+    // Determine whether to apply effects
+    let applySelfEffects = Array.from(this.outcomes.keys()).length === 0;
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.target === this.actor ) continue;
+      if ( outcome.rolls.some(r => r.isSuccess) ) applySelfEffects = true;
+    }
+
+    // Create the outcome
+    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor, [], applySelfEffects);
 
     // Record actor updates to apply
     foundry.utils.mergeObject(self.actorUpdates, this.usage.actorUpdates);
@@ -739,10 +780,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Target
     if ( this.target.type !== "none" ) {
-      let target = SYSTEM.ACTION.TARGET_TYPES[this.target.type].label;
-      if ( this.target.number > 1 ) target += ` ${this.target.number}`;
-      if ( this.target.distance > 1 ) target += ` ${this.target.distance}`;
-      tags.activation.target = target;
+      const parts = [SYSTEM.ACTION.TARGET_TYPES[this.target.type].label];
+      if ( this.target.number > 1 ) parts.unshift(this.target.number);
+      if ( this.target.distance > 1 ) parts.push(this.target.distance);
+      if ( this.target.limit > 0 ) parts.push(`Limit ${this.target.limit}`);
+      tags.activation.target = parts.join(" ");
     }
 
     // Cost

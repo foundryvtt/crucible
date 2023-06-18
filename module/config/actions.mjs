@@ -55,13 +55,13 @@ export default {
   },
   cadence: {
     roll: async function(actor, action, target, rolls) {
-      let lastRoll = rolls[0];
-      const bonuses = foundry.utils.deepClone(action.usage.bonuses);
+      let roll = rolls[0];
+      const bonuses = action.usage.bonuses;
       const cadence = [];
       for ( let i=1; i<=2; i++ ) {
-        if ( lastRoll.isSuccess ) bonuses.boons += 1;
-        lastRoll = await actor.equipment.weapons.mainhand.attack(target, bonuses);
-        cadence.push(lastRoll);
+        if ( roll.isSuccess ) bonuses.boons += 1;
+        roll = await actor.weaponAttack(action, target, weapon);
+        cadence.push(roll);
       }
       return cadence;
     }
@@ -71,8 +71,7 @@ export default {
       const roll = rolls[0];
       if ( roll.isSuccess ) {
         roll.data.damage.multiplier = 0;
-        roll.data.damage.base = roll.isCriticalSuccess ? 2 : 1;
-        roll.data.damage.total = game.system.api.models.CrucibleAction.computeDamage(roll.data.damage);
+        roll.data.damage.base = roll.data.damage.total = 1;
       }
     }
   },
@@ -107,8 +106,7 @@ export default {
   flurry: {
     roll: async function(actor, action, target, rolls) {
       if ( !rolls.every(r => r.isSuccess ) ) return;
-      const chain = await actor.equipment.weapons.mainhand.attack(target, action.usage.bonuses);
-      rolls.push(chain);
+      rolls.push(await actor.weaponAttack(action, target, actor.equipment.weapons.mainhand));
     }
   },
   recover: {
@@ -185,7 +183,7 @@ export default {
         hasDice: true
       });
     },
-    roll: (actor, action, target) => action.usage.weapon.attack(target, action.usage.bonuses),
+    roll: (actor, action, target) => actor.weaponAttack(action, target),
     confirm: async (actor, action, outcomes) => {
       const self = outcomes.get(actor);
       for ( const outcome of outcomes.values() ) {

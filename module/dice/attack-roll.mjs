@@ -93,10 +93,7 @@ export default class AttackRoll extends StandardCheck {
   /** @inheritdoc */
   _getChatCardData() {
     const cardData = super._getChatCardData();
-
-    // Attack Result
-    const result = Object.entries(this.constructor.RESULT_TYPES).find(e => e[1] === this.data.result)[0];
-    cardData.cssClass += ` ${result.toLowerCase()}`;
+    cardData.cssClass += ` ${this.#getResultClass()}`;
 
     // Target
     if ( this.data.target ) {
@@ -124,5 +121,14 @@ export default class AttackRoll extends StandardCheck {
     }
     cardData.hasMultiplier = damage?.multiplier !== 1;
     return cardData;
+  }
+
+  /* -------------------------------------------- */
+
+  #getResultClass() {
+    const results = this.constructor.RESULT_TYPES;
+    const result = Object.entries(results).find(e => e[1] === this.data.result);
+    if ( (result[1] === results.GLANCE) && !this.data.damage.total )  return "miss";
+    else return result[0].toLowerCase();
   }
 }

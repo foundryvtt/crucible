@@ -791,36 +791,38 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Get the number of additional boons or banes you have when attacking a target.
-   * @param {CrucibleActor} target  The target being attacked
-   * @param {object} options        Options which customize boons and banes
-   * @param {string} [options.attackType]   A value in weapon, spell, or skill
-   * @param {boolean} [options.ranged]      Is this a ranged attack? or a melee attack?
-   * @param {string} [options.defenseType]  The defense type being tested
+   * @param {CrucibleActor} target    The target being attacked
+   * @param {CrucibleAction} action   The action being performed
+   * @param {string} actionType       The type of action being performed: "weapon", "spell", or "skill
    * @returns {{boons: number, banes: number}}  The number of additional boons and banes
    */
-  getTargetBoons(target, {attackType, ranged=false, defenseType="physical"}={}) {
+  applyTargetBoons(target, action, actionType) {
     let boons = 0;
     let banes = 0;
 
     // Exposed
-    if ( target.statuses.has("exposed") && (attackType !== "skill") ) boons += 2;
+    if ( target.statuses.has("exposed") && (actionType !== "skill") ) boons += 2;
 
     // Guarded
-    if ( target.statuses.has("guarded") && (attackType !== "skill") ) banes += 1;
+    if ( target.statuses.has("guarded") && (actionType !== "skill") ) banes += 1;
 
     // Prone
-    if ( target.statuses.has("prone") && (attackType !== "skill") ) {
+    if ( target.statuses.has("prone") && (actionType !== "skill") ) {
       if ( ranged ) banes += 2;
       else boons += 2;
     }
 
     // Flanked
-    if ( target.statuses.has("flanked") && (attackType !== "skill") ) {
+    if ( target.statuses.has("flanked") && (actionType !== "skill") ) {
       const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
       if ( ae ) boons += ae.getFlag("crucible", "flanked") ?? 1;
       else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
     }
-    return {boons, banes};
+
+    // Apply boons and banes
+    action.usage.boons += boons;
+    action.usage.banes += banes;
+    return {boons: action.usage.boons, banes: action.usage.banes};
   }
 
   /* -------------------------------------------- */
@@ -1033,7 +1035,7 @@ export default class CrucibleActor extends Actor {
   async skillAttack(action, target) {
 
     // Prepare Roll Data
-    const {bonuses, defenseType, restoration, resource, skillId} = action.usage;
+    const {bonuses, damageType, defenseType, restoration, resource, skillId} = action.usage;
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
@@ -1065,13 +1067,74 @@ export default class CrucibleActor extends Actor {
         multiplier: bonuses.multiplier,
         base: bonuses.skill + (bonuses.base ?? 0),
         bonus: bonuses.damageBonus,
-        resistance: target.getResistance(resource, bonuses.damageType),
-        type: bonuses.damageType,
+        resistance: target.getResistance(resource, damageType),
+        type: damageType,
         resource: resource,
         restoration
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Perform an Action which makes an attack using a Weapon.
+   * @param {CrucibleAction} action         The action being performed
+   * @param {CrucibleActor} target          The target being attacked
+   * @param {CrucibleItem} [weapon]         The weapon used in the attack
+   * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
+   */
+  async weaponAttack(action, target, weapon) {
+    const {boons, banes} = this.applyTargetBoons(target, action, "weapon");
+    let {bonuses, damageType, defenseType, resource} = action.usage;
+    weapon ||= action.usage.weapon;
+    defenseType ||= "physical";
+    if ( !weapon || (weapon.type !== "weapon") ) {
+      throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
+    }
+
+    // Compose roll data
+    const {ability, skill, enchantment} = weapon.system.actionBonuses;
+    const rollData = {
+      actorId: this.id,
+      itemId: weapon.id,
+      target: target.uuid,
+      ability,
+      skill,
+      enchantment,
+      banes, boons,
+      defenseType,
+      dc: target.defenses[defenseType].total,
+      criticalSuccessThreshold: weapon.system.properties.has("keen") ? 4 : 6,
+      criticalFailureThreshold: weapon.system.properties.has("reliable") ? 4 : 6
+    }
+
+    // Call talent hooks
+    this.callTalentHooks("prepareStandardCheck", rollData);
+    this.callTalentHooks("prepareWeaponAttack", action, target, rollData);
+    target.callTalentHooks("defendWeaponAttack", action, this, rollData);
+
+    // Create and evaluate the AttackRoll instance
+    const roll = new AttackRoll(rollData);
+    await roll.evaluate({async: true});
+    const r = roll.data.result = target.testDefense(defenseType, roll);
+
+    // Structure damage
+    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
+    resource ||= "health";
+    damageType ||= weapon.system.damageType;
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: bonuses.multiplier ?? 1,
+      base: weapon.system.damage.weapon,
+      bonus: weapon.system.getDamageBonus(),
+      resistance: target.getResistance(resource, damageType),
+      resource,
+      type: damageType
+    };
+    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;
   }
 

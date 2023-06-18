@@ -111,23 +111,23 @@ function weaponAttack(type="mainhand") {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       if ( !w ) return;
       action.cost.action += (w?.system.actionCost || 0);
-      action.usage.hasDice = true;
+      Object.assign(action.usage, {weapon: w, hasDice: true, defenseType: "physical"});
       Object.assign(action.usage.bonuses, w.system.actionBonuses);
       Object.assign(action.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
       action.usage.context.tags.add(w.name);
     },
-    can: actor => {
+    can: (actor, action) => {
       if ( (type === "twoHanded") && !actor.equipment.weapons.twoHanded ) {
         throw new Error("You must have a two-handed weapon equipped")
       }
-      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      const w = action.usage.weapon;
       if ( !w ) return false;
       if ( w.config.category.reload && !w.system.loaded ) {
         throw new Error("Your weapon requires reloading in order to attack")
       }
     },
     roll: async (actor, action, target) => {
-      const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
+      const w = action.usage.weapon;
       action.usage.actorUpdates["system.status.hasAttacked"] = true;
       if ( w.config.category.ranged ) {
         action.usage.actorUpdates["system.status.rangedAttack"] = true;
@@ -139,13 +139,8 @@ function weaponAttack(type="mainhand") {
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       const rolls = [];
       const n = action.target.number ?? 1;
-      const attackOptions = {
-        defenseType: action.usage.defenseType,
-        resource: action.usage.resource,
-        ...action.usage.bonuses
-      };
       for ( let i=0; i<n; i++ ) {
-        const r = await w.attack(target, attackOptions);
+        const r = await actor.weaponAttack(action, target);
         rolls.push(r);
       }
       return rolls;
@@ -478,7 +473,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
   TAGS[id] = {
     tag: id,
     label: label,
-    prepare: (actor, action) => action.usage.bonuses.damageType = id
+    prepare: (actor, action) => action.usage.damageType = id
   }
 }
 

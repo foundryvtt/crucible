@@ -21,6 +21,30 @@ export default class CrucibleTokenObject extends Token {
   /* -------------------------------------------- */
 
   /**
+   * Compute the rectangular area which represents a "hit" against this Token.
+   * @returns {Rectangle}
+   */
+  getHitRectangle() {
+    const s = canvas.scene.dimensions.size;
+    return this.bounds.pad(-(s/2) + 1);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the rectangular area of engagement for the token on a square grid.
+   * @returns {Rectangle}
+   */
+  getEngagementRectangle() {
+    const s = canvas.scene.dimensions.size;
+    const [x0, y0] = canvas.grid.getTopLeft(this.document.x, this.document.y);
+    const {w, h} = this;
+    return new PIXI.Rectangle(x0 - s - 1, y0 - s - 1, w + (2 * s) + 2, h + (2 * s) + 2);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Update the flanking status of the Token.
    */
   #computeEngagement() {
@@ -32,14 +56,15 @@ export default class CrucibleTokenObject extends Token {
       : this.#computeEngagementSquareGrid();
 
     // Identify opposed tokens in the bounds
-    const {ally, enemy} = this.#getDispositions();
+    const {enemy} = this.#getDispositions();
     const enemies = canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( token.actor.isIncapacitated || token.actor.isBroken ) return false; // Ignore incapacitated
         if ( !enemy.includes(token.document.disposition) ) return false; // Only worry about enemies
-        const c = token.center;
-        return movePolygon.contains(c.x, c.y);
+        if ( token.actor?.isIncapacitated || token.actor?.isBroken ) return false; // Ignore incapacitated
+        const hit = token.getHitRectangle();
+        const ix = movePolygon.intersectRectangle(hit); // TODO do something more efficient in the future
+        return ix.points.length > 0;
       }
     });
 
@@ -62,14 +87,7 @@ export default class CrucibleTokenObject extends Token {
    */
   #computeEngagementSquareGrid() {
     const c = this.center;
-    const s = canvas.scene.dimensions.size;
-
-    // Compute a rectangle for the engagement bounds
-    const [x0, y0] = canvas.grid.getTopLeft(c.x, c.y);
-    const engagementBounds = new PIXI.Rectangle(x0 - s, y0 - s, 3 * s, 3 * s);
-    engagementBounds.pad(1); // Epsilon in pixels to ensure that collinear walls are matched
-
-    // Compute a movement polygon which excludes impassible walls
+    const engagementBounds = this.getEngagementRectangle();
     const movePolygon = ClockwiseSweepPolygon.create(c, {
       type: "move",
       boundaryShapes: [engagementBounds],
