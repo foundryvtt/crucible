@@ -110,7 +110,7 @@ export function decay(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.wisdom.value,
+          health: actor.system.abilities.intellect.value,
           damageType: "corruption"
         }
       }

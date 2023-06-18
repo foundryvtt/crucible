@@ -290,7 +290,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = Math.ceil(level / 2) + Math.round((a.wisdom.value + a.presence.value + a.intellect.value) / 3);
+    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
     r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
     this.parent.callTalentHooks("prepareResources", r);
   }

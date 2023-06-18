@@ -1,3 +1,5 @@
-2023/06/17-14:22:40.964 1b3c Recovering log #212
-2023/06/17-14:22:40.968 1b3c Delete type=0 #212
-2023/06/17-14:22:40.968 1b3c Delete type=3 #210
+2023/06/18-09:21:21.741 3fd3c Recovering log #215
+2023/06/18-09:21:21.741 3fd3c Level-0 table #217: started
+2023/06/18-09:21:21.742 3fd3c Level-0 table #217: 1022 bytes OK
+2023/06/18-09:21:21.746 3fd3c Delete type=0 #215
+2023/06/18-09:21:21.746 3fd3c Delete type=3 #214

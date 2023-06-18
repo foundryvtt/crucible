@@ -236,8 +236,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }});
     if ( !response ) return null;
 
-    // Re-acquire targets after configuration
+    // Re-verify eligibility and targets after configuration
     try {
+      this._can();
       targets = this.acquireTargets();
     } catch(err) {
       ui.notifications.warn(err.message);
@@ -619,10 +620,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {DamageData} damage     The component details of the damage dealt
    * @returns {number}              The total damage dealt
    */
-  static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0}={}) {
+  static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0, restoration=false}={}) {
+
+    // Compute damage before any mitigation
     const preMitigation = (overflow * multiplier) + base + bonus;
     if ( preMitigation <= 1 ) return 1; // Never do less than 1 damage
-    return Math.clamped(preMitigation - resistance, 1, 2 * preMitigation);
+
+    // Resistance and Vulnerability does not apply to Restoration
+    const postMitigation = restoration ? preMitigation : preMitigation - resistance;
+
+    // Constrain total damage between 1 and 2x the pre-mitigation value
+    return Math.clamped(postMitigation, 1, 2 * preMitigation);
   }
 
   /* -------------------------------------------- */
@@ -650,9 +658,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _can() {
     const r = this.actor.system.resources;
+    const statuses = this.actor.statuses;
 
     // Cannot spend action
-    if ( this.cost.focus && this.actor.statuses.has("paralyzed" ) ) {
+    if ( this.cost.action && statuses.has("paralyzed" ) ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotSpendAction", {
         name: this.actor.name
       }))
@@ -668,10 +677,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Cannot spend focus
-    if ( this.cost.focus && this.actor.statuses.has("broken" ) ) {
-      throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
-        name: this.actor.name
-      }))
+    if ( this.cost.focus ) {
+      let focusBlock = "";
+      if ( statuses.has("broken") ) focusBlock = "broken";
+      else if ( statuses.has("enraged") && !this.actor.talentIds.has("iramancer0000000") ) focusBlock = "enraged";
+      if ( focusBlock ) throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
+        name: this.actor.name,
+        status: game.i18n.localize(`EFFECT.Status${focusBlock.titleCase()}`)
+      }));
     }
 
     // Cannot afford focus cost

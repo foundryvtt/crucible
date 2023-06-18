@@ -147,6 +147,27 @@ export default class CrucibleWeapon extends PhysicalItemData {
   /* -------------------------------------------- */
 
   /**
+   * Finalize equipped weapons by preparing data which depends on prepared talents or other Actor data.
+   */
+  prepareEquippedData() {
+    const category = this.config.category;
+    const actor = this.parent.actor;
+
+    // Populate equipped skill bonus
+    this.actionBonuses.skill = actor.training[category.training];
+
+    // Populate current damage bonus
+    const actorBonuses = actor.rollBonuses.damage || {};
+    let bonus = actorBonuses[this.damageType] ?? 0;
+    if ( !category.ranged ) bonus += (actorBonuses.melee ?? 0);
+    if ( category.ranged ) bonus += (actorBonuses.ranged ?? 0);
+    if ( category.hands === 2 ) bonus += (actorBonuses.twoHanded ?? 0);
+    this.damage.bonus = bonus;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare damage for the Weapon.
    * @returns {{weapon: number, base: number, quality: number}}
    */
@@ -154,6 +175,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     const {category, quality} = this.config;
     const damage = {
       base: category.damage.base,
+      bonus: 0,
       quality: quality.bonus,
       weapon: 0
     };
@@ -191,18 +213,6 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */
-  /* -------------------------------------------- */
-
-  getDamageBonus() {
-    const category = this.config.category;
-    let actorBonuses = this.parent.actor?.rollBonuses?.damage || {};
-    let bonus = actorBonuses[this.damageType] ?? 0;
-    if ( !category.ranged ) bonus += (actorBonuses.melee ?? 0);
-    if ( category.ranged ) bonus += (actorBonuses.ranged ?? 0);
-    if ( category.hands === 2 ) bonus += (actorBonuses.twoHanded ?? 0);
-    return bonus;
-  }
-
   /* -------------------------------------------- */
 
   /**

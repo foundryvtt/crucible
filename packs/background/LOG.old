@@ -1,8 +1,3 @@
-2023/06/17-10:54:44.601 5dcc Recovering log #913
-2023/06/17-10:54:44.605 5dcc Delete type=0 #913
-2023/06/17-10:54:44.605 5dcc Delete type=3 #912
-2023/06/17-14:22:25.745 1c6b4 Level-0 table #917: started
-2023/06/17-14:22:25.745 1c6b4 Level-0 table #917: 0 bytes OK
-2023/06/17-14:22:25.746 1c6b4 Delete type=0 #915
-2023/06/17-14:22:25.749 1c6b4 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/06/17-14:22:25.749 1c6b4 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/06/17-14:22:40.979 5dcc Recovering log #916
+2023/06/17-14:22:40.984 5dcc Delete type=0 #916
+2023/06/17-14:22:40.984 5dcc Delete type=3 #914

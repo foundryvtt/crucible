@@ -1,10 +1,19 @@
 export default class CrucibleTokenObject extends Token {
 
   /**
-   * Track the set of enemy tokens which are currently engaged.
-   * @type {Set<Token>}
+   * @typedef {Object} CrucibleTokenEngagement
+   * @property {Set<Token>} allies      Allied tokens which are adjacent
+   * @property {Set<Token>} enemies     Enemy tokens which are adjacent
    */
-  engaged = new Set();
+
+  /**
+   * Current engagement status for the Token.
+   * @type {CrucibleTokenEngagement}
+   */
+  engagement = {
+    allies: new Set(),
+    enemies: new Set()
+  };
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
@@ -13,7 +22,7 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   async _draw() {
     await super._draw();
-    this.engaged = this.#computeEngagement();
+    this.engagement = this.#computeEngagement();
   }
 
   /* -------------------------------------------- */
@@ -46,6 +55,7 @@ export default class CrucibleTokenObject extends Token {
 
   /**
    * Update the flanking status of the Token.
+   * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
     if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return new Set();
@@ -56,15 +66,27 @@ export default class CrucibleTokenObject extends Token {
       : this.#computeEngagementSquareGrid();
 
     // Identify opposed tokens in the bounds
-    const {enemy} = this.#getDispositions();
-    const enemies = canvas.tokens.quadtree.getObjects(engagementBounds, {
+    const {ally, enemy} = this.#getDispositions();
+    const enemies = new Set();
+    const allies = new Set();
+    canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( !enemy.includes(token.document.disposition) ) return false; // Only worry about enemies
         if ( token.actor?.isIncapacitated || token.actor?.isBroken ) return false; // Ignore incapacitated
+
+        // Identify friend or foe
+        let targetSet;
+        if ( enemy.includes(token.document.disposition) ) targetSet = enemies;
+        else if ( ally.includes(token.document.disposition) ) targetSet = allies;
+        if ( !targetSet ) return false;
+
+        // Confirm collision against the hit rectangle
         const hit = token.getHitRectangle();
         const ix = movePolygon.intersectRectangle(hit); // TODO do something more efficient in the future
-        return ix.points.length > 0;
+        if (ix.points.length > 0) {
+          targetSet.add(token);
+          return true;
+        }
       }
     });
 
@@ -75,8 +97,14 @@ export default class CrucibleTokenObject extends Token {
         const c = enemy.center;
         canvas.controls.debug.drawCircle(c.x, c.y, canvas.dimensions.size / 6);
       }
+      canvas.controls.debug.beginFill(0x00FF00, 1.0);
+      for ( const ally of allies ) {
+        const c = ally.center;
+        canvas.controls.debug.drawCircle(c.x, c.y, canvas.dimensions.size / 6);
+      }
+      canvas.controls.debug.endFill();
     }
-    return enemies;
+    return {allies, enemies};
   }
 
   /* -------------------------------------------- */
@@ -132,29 +160,21 @@ export default class CrucibleTokenObject extends Token {
    * Update flanking conditions for all actors affected by a Token change.
    * @param {object} [options]
    * @param {boolean} [options.commit]      Commit flanking changes by enacting active effect changes
-   * @param {Set<Token>} [options.enemies]  An explicitly provided set of engaged enemies
+   * @param {CrucibleTokenEngagement} [options.engagement] Pre-computed engagement data for the token
    */
-  updateFlanking({commit, enemies}={}) {
-    enemies ||= this.#computeEngagement();
+  updateFlanking({commit, engagement}={}) {
+    engagement ||= this.#computeEngagement();
+    const toUpdate = this.#applyFlankingUpdates(this.engagement, engagement);
+    this.engagement = engagement; // Save the new state
+    if ( !commit ) return;
 
-    // Iterate over prior engaged
-    for ( const token of this.engaged ) {
-      if ( enemies.has(token) ) continue; // No change
-      this.engaged.delete(token);
-      token.engaged.delete(this);
-      if ( commit && token.actor ) token.actor.updateFlanking(token.engaged);
+    // Update other Actors
+    for ( const token of toUpdate ) {
+      token.actor.commitFlanking(token.engagement);
     }
 
-    // Add new engaged
-    for ( const token of enemies ) {
-      if ( this.engaged.has(token) ) continue; // No change
-      this.engaged.add(token);
-      token.engaged.add(this);
-      if ( commit && token.actor ) token.actor.updateFlanking(token.engaged);
-    }
-
-    // Update our own flanking status
-    if ( commit && this.actor ) this.actor.updateFlanking(this.engaged);
+    // Update our own actor
+    if ( this.actor ) this.actor.commitFlanking(this.engagement);
   }
 
   /* -------------------------------------------- */
@@ -166,8 +186,7 @@ export default class CrucibleTokenObject extends Token {
     super._onCreate(data, options, userId);
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    const enemies = this.engaged;
-    this.engaged = new Set();
+    const enemies = this.engagement;
     this.updateFlanking({enemies, commit});
   }
 
@@ -178,7 +197,8 @@ export default class CrucibleTokenObject extends Token {
     super._onUpdate(data, options, userId);
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    this.updateFlanking({commit});
+    const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
+    if ( flankingChange ) this.updateFlanking({commit});
   }
 
   /* -------------------------------------------- */
@@ -186,12 +206,58 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
+
+    // Apply flanking updates
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    for ( const token of this.engaged ) {
-      token.engaged.delete(this);
-      if ( commit ) token.actor.updateFlanking(token.engaged);
+    const newEngagement = {allies: new Set(), enemies: new Set()};
+    const toUpdate = this.#applyFlankingUpdates(this.engagement, newEngagement);
+    if ( commit ) {
+      for ( const token of toUpdate ) token.actor.commitFlanking(token.engagement);
     }
-    this.engaged.clear();
+    this.engagement = newEngagement;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Process flanking updates applying them symmetrically to other affected tokens
+   * @param {CrucibleTokenEngagement} oldEngagement   Prior engagement for this Token
+   * @param {CrucibleTokenEngagement} newEngagement   New engagement for this Token
+   * @returns {Set<CrucibleTokenObject>}              The set of Tokens whose flanking status changed
+   */
+  #applyFlankingUpdates(oldEngagement, newEngagement) {
+    const updated = new Set();
+
+    // Prior engaged allies
+    for ( const ally of oldEngagement.allies ) {
+      updated.add(ally);
+      if ( newEngagement.allies.has(ally) ) continue;
+      ally.engagement.allies.delete(this);
+    }
+
+    // Prior engaged enemies
+    for ( const enemy of oldEngagement.enemies ) {
+      updated.add(enemy);
+      if ( newEngagement.enemies.has(enemy) ) continue;
+      enemy.engagement.enemies.delete(this);
+    }
+
+    // New engaged allies
+    for ( const ally of newEngagement.allies ) {
+      updated.add(ally);
+      if ( oldEngagement.allies.has(ally) ) continue;
+      ally.engagement.allies.add(this);
+    }
+
+    // New engaged enemies
+    for ( const enemy of newEngagement.enemies ) {
+      updated.add(enemy);
+      if ( oldEngagement.enemies.has(enemy) ) continue;
+      enemy.engagement.enemies.add(this);
+    }
+
+    // Return actors which were updated
+    return updated;
   }
 }

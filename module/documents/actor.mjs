@@ -409,17 +409,15 @@ export default class CrucibleActor extends Actor {
       else slotInUse(w, "mainhand");
     }
 
-    // Mainhand Weapon
+    // Final weapon preparation
     if ( !weapons.mainhand ) weapons.mainhand = this._getUnarmedWeapon();
     const mh = weapons.mainhand;
     const mhCategory = mh.config.category;
-    mh.system.actionBonuses.skill = this.training[mhCategory.training];
-
-    // Offhand Weapon
     if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
     const ohCategory = oh?.config.category || {};
-    if ( oh ) oh.system.actionBonuses.skill = this.training[ohCategory.training];
+    mh.system.prepareEquippedData();
+    oh?.system.prepareEquippedData();
 
     // Free Hand or Unarmed
     const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
@@ -508,8 +506,7 @@ export default class CrucibleActor extends Actor {
     if ( this.actions.cast ) {
       const spellId = this.getFlag("crucible", "lastSpell") || "";
       if ( spellId ) {
-        const [, rune, gesture, inflection] = spellId.split(".");
-        const lastSpell = this.actions.cast.clone({rune, gesture, inflection}, {actor: this});
+        const lastSpell = CrucibleSpell.fromId(spellId, {actor: this});
         this.actions[lastSpell.id] = lastSpell;
       }
     }
@@ -1005,7 +1002,7 @@ export default class CrucibleActor extends Actor {
       multiplier: spell.damage.multiplier ?? 1,
       base: spell.damage.base,
       bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
-      resistance: target.getResistance(spell.rune.resource, spell.damage.type),
+      resistance: spell.damage.restoration ? 0 : target.getResistance(spell.rune.resource, spell.damage.type),
       resource: spell.rune.resource,
       type: spell.damage.type,
       restoration: spell.damage.restoration
@@ -1060,7 +1057,7 @@ export default class CrucibleActor extends Actor {
         multiplier: bonuses.multiplier,
         base: bonuses.skill + (bonuses.base ?? 0),
         bonus: bonuses.damageBonus,
-        resistance: target.getResistance(resource, damageType),
+        resistance: restoration ? 0 : target.getResistance(resource, damageType),
         type: damageType,
         resource: resource,
         restoration
@@ -1118,11 +1115,12 @@ export default class CrucibleActor extends Actor {
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
     resource ||= "health";
     damageType ||= weapon.system.damageType;
+    const weaponDamage = weapon.system.damage;
     roll.data.damage = {
       overflow: roll.overflow,
       multiplier: bonuses.multiplier ?? 1,
-      base: weapon.system.damage.weapon,
-      bonus: weapon.system.getDamageBonus(),
+      base: weaponDamage.weapon,
+      bonus: weaponDamage.bonus,
       resistance: target.getResistance(resource, damageType),
       resource,
       type: damageType
@@ -2004,26 +2002,29 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update the Flanking state of this Actor given a set of engaged Tokens.
-   * @param {Set<Token>} engaged      The enemies which this Actor currently has engaged.
+   * @param {CrucibleTokenEngagement} engaged      The enemies and allies which this Actor currently has engaged.
    */
-  async updateFlanking(engaged) {
+  async commitFlanking(engaged) {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const engagement = this.system.movement.engagement;
-    const flanked = engaged.size - engagement;
+    const allyBonus = engaged.allies.filter(ally => ally.engagement.enemies.intersects(engaged.enemies));
+    const flankedStage = engaged.enemies.size - allyBonus.size - engagement;
     const current = this.effects.get(flankedId);
+    if ( flankedStage === current?.flags.crucible.flanked ) return;
 
     // Add flanked effect
-    if ( flanked > 0 ) {
+    if ( flankedStage > 0 ) {
       const flankedData = {
         _id: flankedId,
-        name: `${game.i18n.localize("EFFECT.StatusFlanked")} ${flanked}`,
+        name: `${game.i18n.localize("EFFECT.StatusFlanked")} ${flankedStage}`,
         description: game.i18n.localize("EFFECT.StatusFlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         flags: {
           crucible: {
-            engaged: engaged.size,
-            flanked
+            engagedEnemies: engaged.enemies.size,
+            engagedAllies: engaged.allies.size,
+            flanked: flankedStage
           }
         }
       }

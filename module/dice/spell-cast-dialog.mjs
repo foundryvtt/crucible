@@ -36,7 +36,7 @@ export default class SpellCastDialog extends ActionUseDialog {
     const context = await super.getData(options);
     return foundry.utils.mergeObject(context, {
       ability, runes, gestures, inflections,
-      chooseDamageType: spell.rune.id === "kinesis",
+      chooseDamageType: spell.rune.damageType === "physical",
       damageTypes: {
         bludgeoning: SYSTEM.DAMAGE_TYPES.bludgeoning.label,
         piercing: SYSTEM.DAMAGE_TYPES.piercing.label,
@@ -75,8 +75,8 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onSubmit(html) {
     const form = html.querySelector("form");
-    const {boons, banes, rollMode, ...composition} = (new FormDataExtended(form, {readonly: true})).object;
-    this.action.updateSource(composition);
+    const {boons, banes, rollMode, ...updates} = (new FormDataExtended(form, {readonly: true})).object;
+    this.action.updateSource({composition: this.action.constructor.COMPOSITION_STATES.COMPOSED, ...updates});
     this.action.usage.rollMode = rollMode;
     Object.assign(this.action.usage.bonuses, {boons, banes});
     return this.action;

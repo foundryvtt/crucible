@@ -55,6 +55,7 @@ export default class CrucibleSpell extends CrucibleAction {
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
       this.name = CrucibleSpell.#getName(this);
       this.img = this.rune.img;
+      this.description = "Weave arcana to create a work of spellcraft." // TODO make dynamic
     }
 
     // Derived Spell Attributes
@@ -232,8 +233,14 @@ export default class CrucibleSpell extends CrucibleAction {
       /* -------------------------------------------- */
       case "strike":
         const mh = e.weapons.mainhand;
+
+        // Melee range
+        this.tags.add("melee");
+        this.target.distance = mh.system.properties.has("reach") ? 2 : 1;
+
+        // Weapon scaling and bonus damage
         this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);
-        this.target.distance = mh.config.category.ranged ? 10 : 1;
+        this.damage.bonus = mh.system.damage.bonus;
 
         // Spellblade Signature
         if ( t.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
@@ -317,7 +324,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @inheritDoc */
   clone(updateData={}, context) {
-    updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
+    if ( !this.composition ) updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
     return super.clone(updateData, context);
   }
 
@@ -351,7 +358,14 @@ export default class CrucibleSpell extends CrucibleAction {
   static fromId(spellId, context={}) {
     const [spell, rune, gesture, inflection] = spellId.split(".");
     if ( spell !== "spell" ) throw new Error(`Invalid Spell ID: "${spellId}"`);
-    return new this({id: spellId, rune, gesture, inflection, composition: this.COMPOSITION_STATES.COMPOSED}, context);
+    return new this({
+      id: spellId,
+      rune,
+      gesture,
+      inflection,
+      composition: this.COMPOSITION_STATES.COMPOSED,
+      tags: ["spell"]
+    }, context);
   }
 
   /* -------------------------------------------- */

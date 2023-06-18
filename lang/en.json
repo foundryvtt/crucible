@@ -66,7 +66,7 @@
 "ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}!",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",
-"ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because their Morale is broken!",
+"ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
 "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for {action}!",
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
