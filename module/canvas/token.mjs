@@ -35,20 +35,21 @@ export default class CrucibleTokenObject extends Token {
    */
   getHitRectangle() {
     const s = canvas.scene.dimensions.size;
-    return this.bounds.pad(-(s/2) + 1);
+    return this.bounds.pad(-s/4);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Compute the rectangular area of engagement for the token on a square grid.
+   * @param {number} distance
    * @returns {Rectangle}
    */
-  getEngagementRectangle() {
-    const s = canvas.scene.dimensions.size;
+  getEngagementRectangle(distance=1) {
+    const s = canvas.scene.dimensions.size * distance;
     const [x0, y0] = canvas.grid.getTopLeft(this.document.x, this.document.y);
     const {w, h} = this;
-    return new PIXI.Rectangle(x0 - s - 1, y0 - s - 1, w + (2 * s) + 2, h + (2 * s) + 2);
+    return new PIXI.Rectangle(x0 - s, y0 - s, w + (2 * s), h + (2 * s));
   }
 
   /* -------------------------------------------- */
@@ -186,8 +187,9 @@ export default class CrucibleTokenObject extends Token {
     super._onCreate(data, options, userId);
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    const enemies = this.engagement;
-    this.updateFlanking({enemies, commit});
+    const engagement = this.engagement; // New engagement
+    this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
+    this.updateFlanking({engagement, commit});
   }
 
   /* -------------------------------------------- */

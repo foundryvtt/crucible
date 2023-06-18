@@ -1,3 +1,7 @@
 2023/06/18-09:21:21.749 3fd3c Recovering log #299
 2023/06/18-09:21:21.753 3fd3c Delete type=0 #299
 2023/06/18-09:21:21.753 3fd3c Delete type=3 #298
+2023/06/18-18:46:34.775 7b6c Level-0 table #303: started
+2023/06/18-18:46:34.775 7b6c Level-0 table #303: 0 bytes OK
+2023/06/18-18:46:34.777 7b6c Delete type=0 #301
+2023/06/18-18:46:34.777 7b6c Manual compaction at level-0 from '!folders!6Up7ddrphLept3RW' @ 72057594037927935 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at (end)

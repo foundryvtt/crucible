@@ -141,11 +141,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const activeLayer = canvas.activeLayer;
 
     // Create a temporary Measured Template document and PlaceableObject
-    const {x, y} = token?.center ?? {x: 1000, y: 1000}; // TODO cursor position?
-    const {id: userId, color: fillColor} = game.user;
-    const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1);
-    const distance = target.distance + (targetConfig.distanceOffset * baseSize);
-    const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
+    const templateData = this.#getTemplateData(token, target, targetConfig);
     const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
 
     // Minimize open windows
@@ -165,6 +161,28 @@ export default class ActionUseDialog extends StandardCheckDialog {
       minimizedWindows
     }
     this.#activateTemplate(template);
+  }
+
+  /* -------------------------------------------- */
+
+  #getTemplateData(token, target, targetConfig) {
+    const {x, y} = token?.center ?? {x: 1000, y: 1000}; // FIXME more sensible fallback?
+    const {id: userId, color: fillColor} = game.user;
+    const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1);
+    const distance = target.distance + (targetConfig.distanceOffset * baseSize);
+    const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
+
+    // Centered Square
+    if ( (targetConfig.t === "rect") && (targetConfig.anchor === "self") ) {
+      const shape = token.getEngagementRectangle(distance);
+      Object.assign(templateData, {
+        x: shape.x,
+        y: shape.y,
+        distance: Math.hypot(shape.width, shape.height) / canvas.dimensions.size,
+        direction: 45
+      })
+    }
+    return templateData;
   }
 
   /* -------------------------------------------- */

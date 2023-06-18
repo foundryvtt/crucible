@@ -1,3 +1,8 @@
 2023/06/18-09:21:21.776 2c5ac Recovering log #300
 2023/06/18-09:21:21.779 2c5ac Delete type=0 #300
 2023/06/18-09:21:21.779 2c5ac Delete type=3 #299
+2023/06/18-18:46:34.801 7b6c Level-0 table #304: started
+2023/06/18-18:46:34.802 7b6c Level-0 table #304: 0 bytes OK
+2023/06/18-18:46:34.803 7b6c Delete type=0 #302
+2023/06/18-18:46:34.805 7b6c Manual compaction at level-0 from '!folders!REYz7fzLYEdBX3A2' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
+2023/06/18-18:46:34.810 7b6c Manual compaction at level-1 from '!folders!REYz7fzLYEdBX3A2' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)

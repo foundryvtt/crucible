@@ -43,9 +43,9 @@ export const TARGET_TYPES = Object.freeze({
   pulse: {
     label: "Pulse",
     template: {
-      t: "circle",
+      t: "rect",
       anchor: "self",
-      distanceOffset: 0.5
+      distanceOffset: 0
     }
   },
   blast: {

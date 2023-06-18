@@ -2007,8 +2007,17 @@ export default class CrucibleActor extends Actor {
   async commitFlanking(engaged) {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const engagement = this.system.movement.engagement;
-    const allyBonus = engaged.allies.filter(ally => ally.engagement.enemies.intersects(engaged.enemies));
-    const flankedStage = engaged.enemies.size - allyBonus.size - engagement;
+
+    // Ally bonus if they share
+    const allyBonus = engaged.allies.reduce((bonus, ally) => {
+      const mutual = ally.engagement.enemies.intersection(engaged.enemies);
+      if ( !mutual.size ) return bonus;
+      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
+      return bonus;
+    }, 0);
+
+    // Compute the flanked stage as engaged enemies minus ally bonus minus engagement threshold
+    const flankedStage = engaged.enemies.size - allyBonus - engagement;
     const current = this.effects.get(flankedId);
     if ( flankedStage === current?.flags.crucible.flanked ) return;
 
