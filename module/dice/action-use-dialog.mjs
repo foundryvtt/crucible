@@ -24,9 +24,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #targetTemplate = {
     activeLayer: undefined,
+    document: undefined,
     object: undefined,
     minimizedSheets: [],
-    config: undefined
+    config: undefined,
+    targets: undefined
   }
 
   /**
@@ -71,7 +73,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasContextTags: action.usage.context?.tags.size > 0,
       hasDice: action.usage.hasDice ?? false,
       requiresTemplate: this.#requiresTemplate,
-      targets: action.acquireTargets()
+      targets: this.#targetTemplate.targets ?? action.acquireTargets()
     });
   }
 
@@ -152,6 +154,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Create a temporary Measured Template document and PlaceableObject
     const templateData = await this.#getTemplateData(token, target, targetConfig);
     const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
+    template.document._object = template; // FIXME this is a bit of a hack
 
     // Minimize open windows
     const minimizedWindows = Object.values(ui.windows).reduce((arr, app) => {
@@ -166,6 +169,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.#targetTemplate = {
       activeLayer,
       config: Object.assign({}, targetConfig, target),
+      document: template.document,
       object: template,
       origin: {x: template.document.x, y: template.document.y},
       minimizedWindows
@@ -229,19 +233,21 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * @param {Event} event     An initiating event that leads to workflow deactivation
    */
   #deactivateTemplate(event) {
-    const {object, events, activeLayer} = this.#targetTemplate;
+    const {document, object, events, activeLayer} = this.#targetTemplate;
     if ( !object ) return;
     canvas.templates._onDragLeftCancel(event);
+    document._object = object; // FIXME workaround
+
+    // Deactivate mouse events
     canvas.stage.off("mousemove", events.mousemove);
     canvas.stage.off("mousedown", events.mousedown);
     canvas.app.view.oncontextmenu = null;
 
-    // Activate the original canvas layer
+    // Restore the original canvas layer
     activeLayer.activate(event);
 
     // Maximize prior UI windows
     for ( const app of this.#targetTemplate.minimizedWindows ) app.maximize();
-    this.#targetTemplate = {};
   }
 
   /* -------------------------------------------- */
@@ -263,8 +269,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #confirmTemplate(event) {
     event.stopPropagation();
-    this.action.template = this.#targetTemplate.object;
-    const targets = this.action.acquireTargets(); // TODO this is clunky, core should provide a bulk setTargets method
+    this.action.template = this.#targetTemplate.document;
+    const targets = this.#targetTemplate.targets = this.action.acquireTargets();
     if ( targets.length ) {
       for ( const [i, {token}] of targets.entries() ) {
         token.setTarget(true, {releaseOthers: i === 0, groupSelection: i < targets.length - 1});

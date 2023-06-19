@@ -238,6 +238,7 @@
 "EFFECT.StatusResolute": "Resolute",
 "EFFECT.StatusSlowed": "Slowed",
 "EFFECT.StatusStaggered": "Staggered",
+"EFFECT.StatusWeakened": "Weakened",
 
 "EFFECT.StatusFlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
 

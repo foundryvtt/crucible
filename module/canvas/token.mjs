@@ -59,7 +59,7 @@ export default class CrucibleTokenObject extends Token {
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return new Set();
+    if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return {allies: new Set(), enemies: new Set()};
 
     // Get grid-appropriate bounds and polygon
     const {engagementBounds, movePolygon} = canvas.grid.isHex
@@ -73,7 +73,7 @@ export default class CrucibleTokenObject extends Token {
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( token.actor?.isIncapacitated || token.actor?.isBroken ) return false; // Ignore incapacitated
+        if ( token.actor?.isBroken || token.actor?.isIncapacitated ) return false;
 
         // Identify friend or foe
         let targetSet;

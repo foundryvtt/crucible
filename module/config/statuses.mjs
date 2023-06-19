@@ -1,9 +1,9 @@
 
 export const statusEffects = [
   {
-    id: "incapacitated",
-    label: "EFFECT.StatusIncapacitated",
-    icon: "icons/svg/unconscious.svg"
+    id: "weakened",
+    label: "EFFECT.StatusWeakened",
+    icon: "systems/crucible/icons/statuses/weakened.svg"
   },
   {
     id: "dead",
@@ -109,5 +109,10 @@ export const statusEffects = [
     id: "paralyzed",
     label: "EFFECT.StatusParalyzed",
     icon: "icons/svg/paralysis.svg"
+  },
+  {
+    id: "inacapacitated",
+    label: "EFFECT.StatusIncapacitated",
+    icon: "icons/svg/unconscious.svg"
   }
 ]

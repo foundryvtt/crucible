@@ -1,23 +1,8 @@
-2023/06/18-09:21:21.773 3fd3c Recovering log #1000
-2023/06/18-09:21:21.773 3fd3c Level-0 table #1002: started
-2023/06/18-09:21:21.774 3fd3c Level-0 table #1002: 4673 bytes OK
-2023/06/18-09:21:21.777 3fd3c Delete type=0 #1000
-2023/06/18-09:21:21.777 3fd3c Delete type=3 #999
-2023/06/18-18:46:34.796 7b6c Level-0 table #1005: started
-2023/06/18-18:46:34.796 7b6c Level-0 table #1005: 0 bytes OK
-2023/06/18-18:46:34.797 7b6c Delete type=0 #1003
-2023/06/18-18:46:34.797 7b6c Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!runewarden000000' @ 1665 : 1
-2023/06/18-18:46:34.798 7b6c Compacting 1@0 + 0@1 files
-2023/06/18-18:46:34.800 7b6c Generated table #1006@0: 4 keys, 2654 bytes
-2023/06/18-18:46:34.800 7b6c Compacted 1@0 + 0@1 files => 2654 bytes
-2023/06/18-18:46:34.801 7b6c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/06/18-18:46:34.801 7b6c Delete type=2 #1002
-2023/06/18-18:46:34.803 7b6c Manual compaction at level-0 from '!items!runewarden000000' @ 1665 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/06/18-18:46:34.805 7b6c Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!runewarden000000' @ 1670 : 1
-2023/06/18-18:46:34.805 7b6c Compacting 1@1 + 1@2 files
-2023/06/18-18:46:34.807 7b6c Generated table #1007@1: 208 keys, 87288 bytes
-2023/06/18-18:46:34.807 7b6c Compacted 1@1 + 1@2 files => 87288 bytes
-2023/06/18-18:46:34.808 7b6c compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/18-18:46:34.808 7b6c Delete type=2 #998
-2023/06/18-18:46:34.808 7b6c Delete type=2 #1006
-2023/06/18-18:46:34.810 7b6c Manual compaction at level-1 from '!items!runewarden000000' @ 1670 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/18-20:26:55.569 38b48 Recovering log #1004
+2023/06/18-20:26:55.572 38b48 Delete type=0 #1004
+2023/06/18-20:26:55.573 38b48 Delete type=3 #1001
+2023/06/18-22:14:32.266 7b6c Level-0 table #1011: started
+2023/06/18-22:14:32.266 7b6c Level-0 table #1011: 0 bytes OK
+2023/06/18-22:14:32.267 7b6c Delete type=0 #1009
+2023/06/18-22:14:32.267 7b6c Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/18-22:14:32.267 7b6c Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

@@ -162,10 +162,10 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Is this Actor incapacitated?
+   * Is this Actor weakened?
    * @type {boolean}
    */
-  get isIncapacitated() {
+  get isWeakened() {
     return this.system.resources.health.value === 0;
   }
 
@@ -193,6 +193,14 @@ export default class CrucibleActor extends Actor {
   get isInsane() {
     if ( this.type === "adversary" ) return false;
     return this.system.resources.madness.value === this.system.resources.madness.max;
+  }
+
+  /**
+   * Is this Actor incapacitated and unable to act?
+   * @type {boolean}
+   */
+  get isIncapacitated() {
+    return this.isDead || this.statuses.has("unconscious") || this.statuses.has("paralyzed");
   }
 
   /**
@@ -309,6 +317,7 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}             Can the Actor use a free move?
    */
   static #canFreeMove(actor, armor) {
+    if ( actor.isWeakened ) return false;
     if ( actor.statuses.has("prone") ) return false;
     if ( (armor.system.category === "heavy") && !actor.talentIds.has("armoredefficienc") ) return false;
     return true;
@@ -827,10 +836,21 @@ export default class CrucibleActor extends Actor {
    * Get a creature's effective resistance against a certain damage type dealt to a certain resource.
    * @param {string} resource       The resource targeted in SYSTEM.RESOURCES
    * @param {string} damageType     The damage type dealt in SYSTEM.DAMAGE_TYPES
+   * @param {boolean} restoration   Does the ability cause restoration?
    */
-  getResistance(resource, damageType) {
+  getResistance(resource, damageType, restoration) {
+    if ( restoration ) return 0;
     let r = this.resistances[damageType]?.total ?? 0;
-    if ( (resource === "morale") && ( this.statuses.has("resolute") ) ) r += 5;
+    switch ( resource ) {
+      case "health":
+        if ( this.isBroken ) r -= 2;
+        if ( this.statuses.has("invulnerable") ) r = Infinity
+        break;
+      case "morale":
+        if ( this.isWeakened ) r -= 2;
+        if ( this.statuses.has("resolute") ) r = Infinity;
+        break;
+    }
     return r;
   }
 
@@ -902,17 +922,19 @@ export default class CrucibleActor extends Actor {
    */
   testDefense(defenseType, roll) {
     const d = this.system.defenses;
-    if ( (defenseType !== "physical") && !(defenseType in d) ) {
+    const s = this.system.skills;
+    if ( (defenseType !== "physical") && !(defenseType in d) && !(defenseType in s) ) {
       throw new Error(`Invalid defense type "${defenseType}" passed to Actor#testDefense`);
     }
     if ( !(roll instanceof AttackRoll) ) {
       throw new Error("You must pass an AttackRoll instance to Actor#testDefense");
     }
     const results = AttackRoll.RESULT_TYPES;
+    let dc;
 
     // Physical Defense
     if ( defenseType === "physical" ) {
-      const dc = d.physical.total;
+      dc = d.physical.total;
 
       // Hit
       if ( roll.total > dc ) return results.HIT;
@@ -935,11 +957,10 @@ export default class CrucibleActor extends Actor {
     }
 
     // Other Defenses
-    else {
-      const dc = d[defenseType].total;
-      if ( roll.total > dc ) return AttackRoll.RESULT_TYPES.HIT;
-      else return AttackRoll.RESULT_TYPES.RESIST;
-    }
+    if ( defenseType in s ) dc = s[defenseType].passive;
+    else dc = d[defenseType].total;
+    if ( roll.total > dc ) return AttackRoll.RESULT_TYPES.HIT;
+    else return AttackRoll.RESULT_TYPES.RESIST;
   }
 
   /* -------------------------------------------- */
@@ -1002,7 +1023,7 @@ export default class CrucibleActor extends Actor {
       multiplier: spell.damage.multiplier ?? 1,
       base: spell.damage.base,
       bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
-      resistance: spell.damage.restoration ? 0 : target.getResistance(spell.rune.resource, spell.damage.type),
+      resistance: target.getResistance(spell.rune.resource, spell.damage.type, spell.damage.restoration),
       resource: spell.rune.resource,
       type: spell.damage.type,
       restoration: spell.damage.restoration
@@ -1022,23 +1043,23 @@ export default class CrucibleActor extends Actor {
   async skillAttack(action, target) {
 
     // Prepare Roll Data
-    const {bonuses, damageType, defenseType, restoration, resource, skillId} = action.usage;
+    let {bonuses, damageType, defenseType, restoration, resource, skillId} = action.usage;
     const {boons, banes} = this.applyTargetBoons(target, action, "skill");
+    let dc;
+    if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
+    else {
+      defenseType = skillId;
+      dc = target.skills[skillId].passive
+    }
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
       target: target.uuid,
       boons,
-      banes
+      banes,
+      defenseType,
+      dc
     });
-
-    // Conventional defense
-    if ( defenseType in target.defenses ) {
-      Object.assign(rollData, {defenseType, dc: target.defenses[defenseType].total});
-    }
-
-    // Opposed skill
-    else Object.assign(rollData, {defenseType: skillId, dc: target.skills[skillId].passive});
 
     // Apply talent hooks
     this.callTalentHooks("prepareStandardCheck", rollData);
@@ -1057,7 +1078,7 @@ export default class CrucibleActor extends Actor {
         multiplier: bonuses.multiplier,
         base: bonuses.skill + (bonuses.base ?? 0),
         bonus: bonuses.damageBonus,
-        resistance: restoration ? 0 : target.getResistance(resource, damageType),
+        resistance: target.getResistance(resource, damageType, restoration),
         type: damageType,
         resource: resource,
         restoration
@@ -1121,7 +1142,7 @@ export default class CrucibleActor extends Actor {
       multiplier: bonuses.multiplier ?? 1,
       base: weaponDamage.weapon,
       bonus: weaponDamage.bonus,
-      resistance: target.getResistance(resource, damageType),
+      resistance: target.getResistance(resource, damageType, false),
       resource,
       type: damageType
     };
@@ -1256,16 +1277,18 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.reverse]           Reverse damage instead of applying it
    */
   async applyActionOutcome(outcome, {reverse=false}={}) {
-    const wasIncapacitated = this.isIncapacitated;
+    const wasWeakened = this.isWeakened;
     const wasBroken = this.isBroken;
+    const wasIncapacitated = this.isIncapacitated;
 
     // Apply changes to the Actor
     await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse});
     await this.#applyOutcomeEffects(outcome, reverse);
 
     // Record target state changes
-    if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
+    if ( this.isWeakened && !wasWeakened ) outcome.weakened = true;
     if ( this.isBroken && !wasBroken ) outcome.broken = true;
+    if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
   }
 
   /* -------------------------------------------- */
@@ -2191,7 +2214,7 @@ export default class CrucibleActor extends Actor {
   async #applyResourceStatuses(data) {
     const r = data?.system?.resources || {};
     if ( ("health" in r) || ("wounds" in r) ) {
-      await this.toggleStatusEffect("incapacitated", {active: this.isIncapacitated && !this.isDead });
+      await this.toggleStatusEffect("weakened", {active: this.isWeakened && !this.isDead });
       await this.toggleStatusEffect("dead", {active: this.isDead});
     }
     if ( ("morale" in r) || ("madness" in r) ) {

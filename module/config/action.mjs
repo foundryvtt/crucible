@@ -318,7 +318,7 @@ export const TAGS = {
     label: "ACTION.TagSummon",
     tooltip: "ACTION.TagSummonTooltip",
     confirm: async (actor, action, outcomes) => {
-      const {x, y} = action.template.document;
+      const {x, y} = action.template;
 
       // Import or reference the Actor to summon
       let summonActor = await fromUuid(action.usage.summon);

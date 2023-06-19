@@ -53,8 +53,9 @@ import {TARGET_SCOPES} from "../config/action.mjs";
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
  * @property {object[]} effects           ActiveEffect data to create on the target Actor
- * @property {boolean} [incapacitated]    Did the target become incapacitated?
+ * @property {boolean} [weakened]         Did the target become weakened?
  * @property {boolean} [broken]           Did the target become broken?
+ * @property {boolean} [incapacitated]    Did the target become incapacitated?
  * @property {boolean} [criticalSuccess]  Did the damage contain a Critical Hit
  * @property {boolean} [criticalFailure]  Did the damage contain a Critical Miss
  */
@@ -323,11 +324,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create any Measured Template for the action
     if ( this.template ) {
-      const templateData = this.template.document.toObject();
+      const templateData = this.template.toObject();
       delete templateData._id;
       const cls = getDocumentClass("MeasuredTemplate");
-      const templateDocument = await cls.create(templateData, {parent: canvas.scene});
-      this.template = templateDocument.object;
+      this.template = await cls.create(templateData, {parent: canvas.scene});
+      await this.template.object.draw();
     }
 
     // Record the action as a chat message
@@ -433,14 +434,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #acquireTargetsFromTemplate() {
     const template = this.template;
     if ( !template ) return new Set();
+    const {bounds, shape} = template.object;
 
     // Get targets from quadtree
-    const {x, y} = template.document;
+    const {x, y} = template;
     const targetDispositions = this.#getTargetDispositions();
-    const targets = canvas.tokens.quadtree.getObjects(template.bounds, {collisionTest: ({t: token}) => {
+    const targets = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
-      const shapePoly = template.shape instanceof PIXI.Polygon ? template.shape : template.shape.toPolygon();
+      const shapePoly = shape instanceof PIXI.Polygon ? shape : shape.toPolygon();
       const hit = token.getHitRectangle();
       hit.x -= x;
       hit.y -= y;
@@ -665,7 +667,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const statuses = this.actor.statuses;
 
     // Cannot spend action
-    if ( this.cost.action && statuses.has("paralyzed" ) ) {
+    if ( this.cost.action && this.actor.isIncapacitated ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotSpendAction", {
         name: this.actor.name
       }))
@@ -913,7 +915,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     else action = actor.actions[actionId]?.clone() || null;
 
     // Load a MeasuredTemplate associated with this action
-    if ( templateId ) action.template = fromUuidSync(templateId)?.object;
+    if ( templateId ) action.template = fromUuidSync(templateId);
 
     // Re-prepare Action outcomes
     action.outcomes = new Map();
@@ -954,7 +956,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Delete any Measured Template that was placed
-    await this.template?.document.delete();
+    if ( this.template ) await this.template.delete();
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {

@@ -74,7 +74,7 @@ export function confusion(actor, target) {
     flags: {
       crucible: {
         dot: {
-          morale: Math.floor(actor.system.abilities.wisdom.value / 2),
+          morale: Math.floor(actor.system.abilities.intellect.value / 2),
           damageType: "psychic"
         }
       }
@@ -92,7 +92,7 @@ export function corroding(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.intellect.value,
+          health: actor.system.abilities.wisdom.value,
           damageType: "acid"
         }
       }
@@ -129,7 +129,7 @@ export function entropy(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: Math.floor(actor.system.abilities.wisdom.value / 2),
+          health: Math.floor(actor.system.abilities.presence.value / 2),
           damageType: "void"
         }
       }
@@ -147,8 +147,8 @@ export function irradiated(actor, target) {
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.wisdom.value,
-          morale: actor.system.abilities.wisdom.value,
+          health: actor.system.abilities.presence.value,
+          morale: actor.system.abilities.presence.value,
           damageType: "radiant"
         }
       }
