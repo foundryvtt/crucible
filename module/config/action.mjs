@@ -331,10 +331,23 @@ export const TAGS = {
       // Create a Token
       let token = await summonActor.getTokenDocument({x, y,
         name: `${actor.name} ${summonActor.name}`,
-        disposition: actor.prototypeToken.disposition
+        disposition: actor.prototypeToken.disposition,
+        delta: {
+          system: {
+            resources: {
+              "health.value": 9e99,
+              "morale.value": 9e99,
+              "action.value": 9e99,
+              "focus.value": 9e99
+            },
+            details: {
+              level: Math.ceil(actor.system.details.threatLevel / 2)
+            }
+          }
+        }
       });
       token = await token.constructor.create(token, {parent: canvas.scene});
-      foundry.utils.setProperty(action.effects[0], "flags.crucible.summon",  token.uuid);
+      foundry.utils.setProperty(outcomes.get(actor).effects[0], "flags.crucible.summon",  token.uuid);
 
       // Create a Combatant
       if ( actor.inCombat ) {

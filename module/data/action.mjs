@@ -551,7 +551,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Self target
       if ( target === this.actor ) {
-        if ( scope !== scopes.SELF ) return effects;
+        if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return effects;
       }
 
       // Target other

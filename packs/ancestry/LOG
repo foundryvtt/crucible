@@ -1,3 +1,8 @@
 2023/06/18-20:26:55.537 3fd3c Recovering log #922
 2023/06/18-20:26:55.541 3fd3c Delete type=0 #922
 2023/06/18-20:26:55.541 3fd3c Delete type=3 #920
+2023/06/18-22:14:32.256 7b6c Level-0 table #927: started
+2023/06/18-22:14:32.256 7b6c Level-0 table #927: 0 bytes OK
+2023/06/18-22:14:32.258 7b6c Delete type=0 #925
+2023/06/18-22:14:32.261 7b6c Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/06/18-22:14:32.261 7b6c Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
