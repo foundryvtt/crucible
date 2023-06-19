@@ -115,6 +115,8 @@
 "ACTION.TagSpellTooltip": "This action involves spellcraft.",
 "ACTION.TagSkill": "Skill",
 "ACTION.TagSkillTooltip": "This action involves a targeted or opposed Skill check.",
+"ACTION.TagSummon": "Summon",
+"ACTION.TagSummonTooltip": "This action summons, calls, or otherwise creates a combatant which joins the encounter.",
 "ACTION.TagTwoHanded": "Two-Handed",
 "ACTION.TagTwoHandedTooltip": "This action requires wielding a two-handed weapon to perform.",
 "ACTION.TagOffHand": "Off-Hand",

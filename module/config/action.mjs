@@ -66,10 +66,18 @@ export const TARGET_TYPES = Object.freeze({
       distanceOffset: 0.5
     }
   },
+  summon: {
+    label: "Summon",
+    template: {
+      t: "rect",
+      anchor: "vertex",
+      distanceOffset: 0
+    }
+  },
   wall: {
     label: "Wall",
     template: {
-      t: "rect",
+      t: "ray",
       width: 1,
       anchor: "vertex",
       distanceOffset: 0
@@ -303,6 +311,41 @@ export const TAGS = {
       return actor.castSpell(action, target)
     },
     post: (actor, action) => action.usage.actorFlags.lastSpell = action.id
+  },
+
+  summon: {
+    tag: "summon",
+    label: "ACTION.TagSummon",
+    tooltip: "ACTION.TagSummonTooltip",
+    confirm: async (actor, action, outcomes) => {
+      const {x, y} = action.template.document;
+
+      // Import or reference the Actor to summon
+      let summonActor = await fromUuid(action.usage.summon);
+      if ( game.actors.has(summonActor.id) ) summonActor = game.actors.get(summonActor.id);
+      else {
+        const summonData = game.actors.fromCompendium(summonActor, {keepId: true});
+        summonActor = await summonActor.constructor.create(summonData, {keepId: true});
+      }
+
+      // Create a Token
+      let token = await summonActor.getTokenDocument({x, y,
+        name: `${actor.name} ${summonActor.name}`,
+        disposition: actor.prototypeToken.disposition
+      });
+      token = await token.constructor.create(token, {parent: canvas.scene});
+      foundry.utils.setProperty(action.effects[0], "flags.crucible.summon",  token.uuid);
+
+      // Create a Combatant
+      if ( actor.inCombat ) {
+        await game.combat.createEmbeddedDocuments("Combatant", [{
+          tokenId: token.id,
+          sceneId: canvas.scene.id,
+          actorId: summonActor.id,
+          initiative: 1
+        }]);
+      }
+    }
   },
 
   /* -------------------------------------------- */

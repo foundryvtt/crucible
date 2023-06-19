@@ -196,7 +196,8 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
-      type: "self"
+      type: "summon",
+      distance: 1
     },
     tier: 1
   },
@@ -427,3 +428,13 @@ export const INFLECTIONS = Object.seal({
     tier: 1
   }
 });
+
+
+export const CREATION_SUMMONS =  {
+  death: "Compendium.crucible.summons.Actor.56puGK932Qc0cowe",
+  earth: "Compendium.crucible.summons.Actor.xTFgTg5Rh2s0s5gZ",
+  flame: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI",
+  frost: "Compendium.crucible.summons.Actor.me5glbOshiijlVUH",
+  lightning: "Compendium.crucible.summons.Actor.Ne25xsSqYijgcrm0",
+  fallback: "Compendium.crucible.summons.Actor.RuNh1bFGiHKdHeKI" // FIXME temporary
+}

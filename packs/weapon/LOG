@@ -1,23 +1,3 @@
-2023/06/18-09:21:21.782 38b48 Recovering log #928
-2023/06/18-09:21:21.782 38b48 Level-0 table #930: started
-2023/06/18-09:21:21.783 38b48 Level-0 table #930: 828 bytes OK
-2023/06/18-09:21:21.787 38b48 Delete type=0 #928
-2023/06/18-09:21:21.788 38b48 Delete type=3 #927
-2023/06/18-18:46:34.803 7b6c Level-0 table #933: started
-2023/06/18-18:46:34.803 7b6c Level-0 table #933: 0 bytes OK
-2023/06/18-18:46:34.804 7b6c Delete type=0 #931
-2023/06/18-18:46:34.808 7b6c Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!katana0000000000' @ 1356 : 1
-2023/06/18-18:46:34.808 7b6c Compacting 1@0 + 0@1 files
-2023/06/18-18:46:34.809 7b6c Generated table #934@0: 1 keys, 828 bytes
-2023/06/18-18:46:34.809 7b6c Compacted 1@0 + 0@1 files => 828 bytes
-2023/06/18-18:46:34.810 7b6c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/06/18-18:46:34.810 7b6c Delete type=2 #930
-2023/06/18-18:46:34.810 7b6c Manual compaction at level-0 from '!items!katana0000000000' @ 1356 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/06/18-18:46:34.810 7b6c Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!katana0000000000' @ 1356 : 1
-2023/06/18-18:46:34.810 7b6c Compacting 1@1 + 1@2 files
-2023/06/18-18:46:34.812 7b6c Generated table #935@1: 47 keys, 9491 bytes
-2023/06/18-18:46:34.812 7b6c Compacted 1@1 + 1@2 files => 9491 bytes
-2023/06/18-18:46:34.812 7b6c compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/18-18:46:34.813 7b6c Delete type=2 #870
-2023/06/18-18:46:34.813 7b6c Delete type=2 #934
-2023/06/18-18:46:34.816 7b6c Manual compaction at level-1 from '!items!katana0000000000' @ 1356 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/18-20:26:55.577 3fd3c Recovering log #932
+2023/06/18-20:26:55.580 3fd3c Delete type=0 #932
+2023/06/18-20:26:55.580 3fd3c Delete type=3 #929

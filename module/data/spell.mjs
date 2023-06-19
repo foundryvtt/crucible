@@ -214,6 +214,13 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Create                             */
       /* -------------------------------------------- */
       case "create":
+        this.tags.add("summon");
+
+        // Identify summoned Actor
+        const summonUUIDs = SYSTEM.SPELL.CREATION_SUMMONS;
+        this.usage.summon = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+
+        // Add summon effect
         let effectId = SYSTEM.EFFECTS.getEffectId("create")
         if ( t.has("conjurer00000000") ) {
           const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));

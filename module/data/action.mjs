@@ -322,13 +322,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const confirmed = !chatMessage || this.canAutoConfirm();
 
     // Create any Measured Template for the action
-    let template;
     if ( this.template ) {
-      template = await this.template.document.clone({}, {save: true});
+      const templateData = this.template.document.toObject();
+      delete templateData._id;
+      const cls = getDocumentClass("MeasuredTemplate");
+      const templateDocument = await cls.create(templateData, {parent: canvas.scene});
+      this.template = templateDocument.object;
     }
 
     // Record the action as a chat message
-    if ( chatMessage ) await this.toMessage(targets, template, {
+    if ( chatMessage ) await this.toMessage(targets, {
       ...chatMessageOptions,
       confirmed,
       rollMode: this.usage.rollMode
@@ -365,6 +368,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // No target
       case "none":
+      case "summon":
         return []
 
       // AOE Template Shapes
@@ -821,13 +825,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Render the action to a chat message including contained rolls and results
    * @param {ActionUseTarget[]} targets           Targets affected by this action usage
-   * @param {MeasuredTemplateDocument} [template] A measured template created as part of this Action
    * @param {object} options                      Context options for ChatMessage creation
    * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
    * @param {boolean} [options.temporary]           Create only a temporary in-memory message
    * @returns {Promise<ChatMessage>}              The created ChatMessage document
    */
-  async toMessage(targets, template, {confirmed=false, temporary=false, ...options}={}) {
+  async toMessage(targets, {confirmed=false, temporary=false, ...options}={}) {
 
     // Prepare action data
     const actionData = {
@@ -836,7 +839,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       confirmed,
       outcomes: [],
     };
-    if ( template ) actionData.template = template.uuid;
+    if ( this.template ) actionData.template = this.template.uuid;
     const rolls = [];
     for ( const outcome of this.outcomes.values() ) {
       const {target, rolls: outcomeRolls, ...outcomeData} = outcome;
@@ -862,7 +865,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       outcomes: this.outcomes,
       showTargets: this.target.type !== "self",
       targets,
-      template
+      template: this.template
     });
 
     // Create chat message
@@ -951,7 +954,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Delete any Measured Template that was placed
-    if ( this.template?.id ) this.template.document.delete();
+    await this.template?.document.delete();
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {

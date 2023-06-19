@@ -140,8 +140,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const token = tokens[0] || null;
     const activeLayer = canvas.activeLayer;
 
+    // TODO find a better place for this?
+    if ( target.type === "summon" ) {
+      const summon = await fromUuid(this.action.usage.summon);
+      if ( summon ) {
+        target.width = summon.prototypeToken.width;
+        target.height = summon.prototypeToken.height;
+      }
+    }
+
     // Create a temporary Measured Template document and PlaceableObject
-    const templateData = this.#getTemplateData(token, target, targetConfig);
+    const templateData = await this.#getTemplateData(token, target, targetConfig);
     const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
 
     // Minimize open windows
@@ -156,8 +165,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Store preview template data
     this.#targetTemplate = {
       activeLayer,
-      config: targetConfig,
+      config: Object.assign({}, targetConfig, target),
       object: template,
+      origin: {x: template.document.x, y: template.document.y},
       minimizedWindows
     }
     this.#activateTemplate(template);
@@ -168,19 +178,28 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #getTemplateData(token, target, targetConfig) {
     const {x, y} = token?.center ?? {x: 1000, y: 1000}; // FIXME more sensible fallback?
     const {id: userId, color: fillColor} = game.user;
+    const s = canvas.dimensions.size;
     const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1);
     const distance = target.distance + (targetConfig.distanceOffset * baseSize);
     const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
 
-    // Centered Square
-    if ( (targetConfig.t === "rect") && (targetConfig.anchor === "self") ) {
+    // Pulse
+    if ( target.type === "pulse" ) {
       const shape = token.getEngagementRectangle(distance);
       Object.assign(templateData, {
         x: shape.x,
         y: shape.y,
-        distance: Math.hypot(shape.width, shape.height) / canvas.dimensions.size,
+        distance: Math.hypot(shape.width, shape.height) / s,
         direction: 45
       })
+    }
+
+    // Summon
+    else if ( target.type === "summon" ) {
+      Object.assign(templateData, {
+        distance: Math.hypot(target.width, target.height),
+        direction: 45
+      });
     }
     return templateData;
   }
@@ -263,25 +282,32 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #moveTemplate(event) {
     event.stopPropagation();
-    const {config, moveTime, object} = this.#targetTemplate;
-    const doc = object.document;
+    const {config, moveTime, object, origin} = this.#targetTemplate;
+    const s = canvas.dimensions.size;
+    const update = {};
 
     // Apply a 16ms throttle
     const now = Date.now();
     if ( now - (moveTime || 0) <= 16 ) return;
     this.#targetTemplate.moveTime = now;
 
-    // Apply mouse cursor position
-    const cursor = event.getLocalPosition(canvas.templates);
-    const [x, y] = canvas.grid.getCenter(cursor.x, cursor.y);
-
-    // Determine template direction
-    const update = {};
-    if ( config.anchor !== "self" ) Object.assign(update, {x, y});
-    if ( config.directionDelta ) {
-      const r = new Ray({x: doc.x, y: doc.y}, {x: cursor.x, y: cursor.y});
-      update.direction = Math.toDegrees(r.angle).toNearest(config.directionDelta);
+    // Identify the mouse cursor position
+    let cursor = event.getLocalPosition(canvas.templates);
+    const ray = new Ray(origin, {x: cursor.x, y: cursor.y});
+    if ( Number.isNumeric(config.distance) ) {
+      const maxDistance = (config.distance * s);
+      if ( ray.distance > maxDistance ) cursor = ray.project((config.distance * s) / ray.distance);
     }
+
+    // Identify the resulting template coordinates
+    let x;
+    let y;
+    if ( config.anchor === "vertex" ) [x, y] = canvas.grid.getTopLeft(cursor.x, cursor.y);
+    else if ( config.anchor === "center" ) [x, y] = canvas.grid.getCenter(cursor.x, cursor.y);
+    if ( x !== undefined ) Object.assign(update, {x, y});
+
+    // Update the pending template and re-render
+    if ( config.directionDelta ) update.direction = Math.toDegrees(ray.angle).toNearest(config.directionDelta);
     object.document.updateSource(update);
     object.renderFlags.set({refreshShape: true});
   }
