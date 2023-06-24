@@ -291,13 +291,17 @@ Hooks.on("canvasReady", () => {
  * Package all documents of a certain type into their appropriate Compendium pack
  * @param {string} documentName
  * @param {string} packName
- * @param {string} folderName
+ * @param {Folder|string} folder
  * @returns {Promise<void>}
  */
-async function packageCompendium(documentName, packName, folderName) {
+async function packageCompendium(documentName, packName, folder) {
   const pack = game.packs.get(`crucible.${packName}`);
-  const folder = game.folders.find(f => (f.type === documentName) && (f.name === folderName));
-  if ( !folder ) throw new Error(`Folder "${folderName}" not found`);
+  if ( typeof folder === "string" ) {
+    folder = game.folders.find(f => (f.type === documentName) && (f.name === folder));
+  }
+  if ( !(folder instanceof Folder) || (folder.type !== documentName) ) {
+    throw new Error("Invalid folder provided to the packageCompendium method");
+  }
 
   // Unlock the pack for editing
   await pack.configure({locked: false});
