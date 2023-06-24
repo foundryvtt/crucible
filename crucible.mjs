@@ -370,9 +370,12 @@ function registerDevelopmentHooks() {
 /* -------------------------------------------- */
 
 async function syncTalents() {
+  const total = game.actors.size;
+  let n = 1;
   for ( const actor of game.actors ) {
-    if ( actor.type !== "hero" ) continue;
     await actor.syncTalents();
+    SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: Math.round(n * 100 / total)});
+    n++;
     console.log(`Crucible | Synced talents with latest data for Actor "${actor.name}"`);
   }
 }

@@ -119,6 +119,7 @@ function weaponAttack(type="mainhand") {
       const w = actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       if ( !w ) return;
       action.cost.action += (w?.system.actionCost || 0);
+      action.target.distance ??= w.system.range;
       Object.assign(action.usage, {weapon: w, hasDice: true, defenseType: "physical"});
       Object.assign(action.usage.bonuses, w.system.actionBonuses);
       Object.assign(action.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
@@ -130,7 +131,7 @@ function weaponAttack(type="mainhand") {
       }
       const w = action.usage.weapon;
       if ( !w ) return false;
-      if ( w.config.category.reload && !w.system.loaded ) {
+      if ( w.config.category.reload && !w.system.loaded && !action.tags.has("reload") ) {
         throw new Error("Your weapon requires reloading in order to attack")
       }
     },
@@ -214,6 +215,30 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.ranged
   },
 
+  // Requires a Projectile Weapon
+  projectile: {
+    tag: "projectile",
+    label: "ACTION.TagProjectile",
+    tooltip: "ACTION.TagProjectileTooltip",
+    can: (actor, action) => {
+      const {mainhand: mh, offhand: oh} = actor.equipment.weapons;
+      if ( action.tags.has("offhand") ) return oh.config.category.training === "projectile";
+      else return mh.config.category.training === "projectile";
+    }
+  },
+
+  // Requires a Mechanical Weapon
+  mechanical: {
+    tag: "mechanical",
+    label: "ACTION.TagMechanical",
+    tooltip: "ACTION.TagMechanicalTooltip",
+    can: (actor, action) => {
+      const {mainhand: mh, offhand: oh} = actor.equipment.weapons;
+      if ( action.tags.has("offhand") ) return oh.config.category.training === "mechanical";
+      else return mh.config.category.training === "mechanical";
+    }
+  },
+
   // Requires Shield
   shield: {
     tag: "shield",
@@ -286,6 +311,18 @@ export const TAGS = {
         action.usage.actorUpdates["system.status.gladiator"] = true;
       }
     }
+  },
+
+  // Requires a Flanked Opponent
+  flanking: {
+    tag: "flanking",
+    label: "ACTION.TagFlanking",
+    tooltip: "ACTION.TagFlankingTooltip",
+    roll: (actor, action, target) => {
+      if ( !target.statuses.has("flanked") ) {
+        throw new Error(`${action.name} requires a flanked target, and ${target.name} does not have the flanked condition.`);
+      }
+    },
   },
 
   /* -------------------------------------------- */
@@ -437,10 +474,10 @@ export const TAGS = {
     prepare: (actor, action) => action.usage.bonuses.damageBonus += 6,
   },
 
-  exposing: {
-    tag: "exposing",
-    label: "ACTION.TagExposing",
-    tooltip: "ACTION.TagExposingTooltip",
+  accurate: {
+    tag: "accurate",
+    label: "ACTION.TagAccurate",
+    tooltip: "ACTION.TagAccurateTooltip",
     prepare: (actor, action) => action.usage.bonuses.boons += 2
   },
   harmless: {

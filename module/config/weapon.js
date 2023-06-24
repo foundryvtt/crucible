@@ -142,9 +142,9 @@ export const CATEGORIES = {
     ranged: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 8
+      base: 10
     },
-    actionCost: 1,
+    actionCost: 2,
     training: "projectile"
   },
   mechanical1: {
@@ -172,7 +172,7 @@ export const CATEGORIES = {
     reload: true,
     scaling: "dexterity",
     damage: {
-      base: 12
+      base: 10
     },
     actionCost: 1,
     training: "mechanical"

@@ -1,7 +1,6 @@
 import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
-import {TARGET_SCOPES} from "../config/action.mjs";
 
 /**
  * @typedef {Object} ActionContext
@@ -83,7 +82,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       name: new fields.StringField(),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       condition: new fields.StringField(),
-      description: new fields.HTMLField(),
+      description: new fields.HTMLField({required: false, initial: undefined}),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
@@ -91,7 +90,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-        distance: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+        distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
           initial: SYSTEM.ACTION.TARGET_SCOPES.NONE}),
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
@@ -178,6 +177,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( talent ) {
       this.name ||= talent.name;
       this.img ||= talent.img;
+      this.description ||= this.parent.description;
     }
   }
 
@@ -311,7 +311,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Iterate over designated targets
     for ( const target of targets ) {
       const actor = target.actor;
-      const rolls = await this._roll(actor);
+
+      // Perform dice rolls for the action
+      let rolls;
+      try {
+        rolls = await this._roll(actor);
+      } catch(err) {
+        return ui.notifications.warn(err.message);
+      }
+
+      // Create outcome for target
       const outcome = this.#createOutcome(actor, rolls);
       await this._post(outcome);
       this.#finalizeOutcome(outcome);
@@ -650,7 +659,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   * _tests() {
     for ( const t of this.tags ) {
-      yield SYSTEM.ACTION.TAGS[t];
+      const tag = SYSTEM.ACTION.TAGS[t];
+      if ( !tag ) continue;
+      yield tag;
     }
     yield this.config;
   }

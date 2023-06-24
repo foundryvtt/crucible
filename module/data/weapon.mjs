@@ -110,6 +110,9 @@ export default class CrucibleWeapon extends PhysicalItemData {
     // Weapon Defense
     this.defense = this.#prepareDefense();
 
+    // Weapon Range
+    this.range = this.#prepareRange();
+
     // Weapon Rarity Score
     this.rarity = quality.rarity + enchantment.rarity;
     this.price = this.price * Math.max(Math.pow(this.rarity, 3), 1);
@@ -195,7 +198,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     if ( this.broken ) return {block: 0, parry: 0};
 
     // Base defense for the category
-    const category = this.config.category
+    const category = this.config.category;
     const defense = {
       block: category.defense?.block ?? 0,
       parry: category.defense?.parry ?? 0
@@ -209,6 +212,19 @@ export default class CrucibleWeapon extends PhysicalItemData {
       defense.block += (category.hands + this.config.enchantment.bonus);
     }
     return defense;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the effective range of the Weapon.
+   * @returns {number}
+   */
+  #prepareRange() {
+    const category = this.config.category;
+    const reach = this.properties.has("reach");
+    if ( category.ranged ) return reach ? 16 : 10;
+    return reach ? 2 : 1;
   }
 
   /* -------------------------------------------- */

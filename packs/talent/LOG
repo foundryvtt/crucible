@@ -1,15 +1,8 @@
-2023/06/19-08:42:03.783 fa0c Recovering log #1010
-2023/06/19-08:42:03.786 fa0c Delete type=0 #1010
-2023/06/19-08:42:03.786 fa0c Delete type=3 #1008
-2023/06/19-10:51:59.245 293c8 Level-0 table #1015: started
-2023/06/19-10:51:59.246 293c8 Level-0 table #1015: 1711 bytes OK
-2023/06/19-10:51:59.247 293c8 Delete type=0 #1013
-2023/06/19-10:51:59.247 293c8 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/06/19-10:51:59.247 293c8 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!voidcaller000000' @ 1679 : 1
-2023/06/19-10:51:59.247 293c8 Compacting 1@1 + 1@2 files
-2023/06/19-10:51:59.249 293c8 Generated table #1016@1: 208 keys, 87410 bytes
-2023/06/19-10:51:59.249 293c8 Compacted 1@1 + 1@2 files => 87410 bytes
-2023/06/19-10:51:59.250 293c8 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/19-10:51:59.250 293c8 Delete type=2 #1007
-2023/06/19-10:51:59.250 293c8 Delete type=2 #1015
-2023/06/19-10:51:59.254 293c8 Manual compaction at level-1 from '!items!voidcaller000000' @ 1679 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/24-11:44:31.632 6d7c Recovering log #1042
+2023/06/24-11:44:31.635 6d7c Delete type=0 #1042
+2023/06/24-11:44:31.637 6d7c Delete type=3 #1040
+2023/06/24-11:45:03.229 f6ac Level-0 table #1048: started
+2023/06/24-11:45:03.229 f6ac Level-0 table #1048: 0 bytes OK
+2023/06/24-11:45:03.230 f6ac Delete type=0 #1046
+2023/06/24-11:45:03.230 f6ac Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/06/24-11:45:03.230 f6ac Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
