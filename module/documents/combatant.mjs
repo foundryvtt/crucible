@@ -14,11 +14,16 @@ export default class CrucibleCombatant extends Combatant {
     const actor = this.actor;
     const {weapons, armor} = actor.equipment;
 
-    // Default boons and banes
-    const boons = this.parent.round > 0 ? this.actor.system.resources.action.value : 0;
-    let banes = weapons.slow;
-    if ( actor.statuses.has("broken") ) banes += 2;
-    if ( armor.system.properties.has("bulky") ) banes += 2;
+    // Initiative boons and banes
+    const boons = {};
+    const banes = {};
+    const action = this.actor.system.resources.action.value;
+    if ( this.parent.round && action ) {
+      boons.action = {label: "Reserved Action", number: action};
+    }
+    if ( weapons.slow ) banes.slow = {label: "Slow Weaponry", number: weapons.slow};
+    if ( actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
+    if ( armor.system.properties.has("bulky") ) banes.bulky = {label: "Bulky Armor", number: 2};
 
     // Prepare roll data
     const rollData = {

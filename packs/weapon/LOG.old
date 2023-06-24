@@ -1,15 +1,8 @@
-2023/06/24-09:15:09.603 e018 Recovering log #966
-2023/06/24-09:15:09.607 e018 Delete type=0 #966
-2023/06/24-09:15:09.607 e018 Delete type=3 #965
-2023/06/24-11:43:22.822 f6ac Level-0 table #970: started
-2023/06/24-11:43:22.823 f6ac Level-0 table #970: 898 bytes OK
-2023/06/24-11:43:22.824 f6ac Delete type=0 #968
-2023/06/24-11:43:22.825 f6ac Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
-2023/06/24-11:43:22.829 f6ac Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at '!items!shortbow00000000' @ 1360 : 1
-2023/06/24-11:43:22.829 f6ac Compacting 1@1 + 1@2 files
-2023/06/24-11:43:22.830 f6ac Generated table #971@1: 47 keys, 9568 bytes
-2023/06/24-11:43:22.830 f6ac Compacted 1@1 + 1@2 files => 9568 bytes
-2023/06/24-11:43:22.831 f6ac compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/06/24-11:43:22.831 f6ac Delete type=2 #952
-2023/06/24-11:43:22.831 f6ac Delete type=2 #970
-2023/06/24-11:43:22.833 f6ac Manual compaction at level-1 from '!items!shortbow00000000' @ 1360 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/24-11:44:31.640 e018 Recovering log #969
+2023/06/24-11:44:31.645 e018 Delete type=0 #969
+2023/06/24-11:44:31.645 e018 Delete type=3 #967
+2023/06/24-11:45:03.230 f6ac Level-0 table #975: started
+2023/06/24-11:45:03.230 f6ac Level-0 table #975: 0 bytes OK
+2023/06/24-11:45:03.231 f6ac Delete type=0 #973
+2023/06/24-11:45:03.235 f6ac Manual compaction at level-0 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)
+2023/06/24-11:45:03.235 f6ac Manual compaction at level-1 from '!folders!9v0ru58f09fO3sE3' @ 72057594037927935 : 1 .. '!items!warlance00000000' @ 0 : 0; will stop at (end)

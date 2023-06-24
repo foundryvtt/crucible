@@ -1,8 +1,8 @@
 <div class="form-group boons">
     <label>Boons</label>
-    <i class="action-button fas fa-arrow-down" data-action="boon-subtract"></i>
-    {{numberInput boons name="boons" step=1 min=0 max=6}}
-    <i class="action-button fas fa-arrow-up" data-action="boon-add"></i>
+    <i class="action-button fas fa-arrow-down {{decreaseBoonsClass}}" data-action="boon-subtract"></i>
+    <input type="number" value="{{totalBoons}}" readonly>
+    <i class="action-button fas fa-arrow-up {{increaseBoonsClass}}" data-action="boon-add"></i>
     <label></label>
 </div>
 
@@ -14,23 +14,23 @@
 
 <div class="form-group banes">
     <label>Banes</label>
-    <i class="action-button fas fa-arrow-down" data-action="bane-subtract"></i>
-    {{numberInput banes name="banes" step=1 min=0 max=6}}
-    <i class="action-button fas fa-arrow-up" data-action="bane-add"></i>
+    <i class="action-button fas fa-arrow-down {{decreaseBanesClass}}" data-action="bane-subtract"></i>
+    <input type="number" value="{{totalBanes}}" readonly>
+    <i class="action-button fas fa-arrow-up {{increaseBanesClass}}" data-action="bane-add"></i>
     <label></label>
 </div>
 
-<ol class="bonuses flexrow">
-    <li class="ability">
+<div class="bonuses flexrow">
+    <div class="ability">
         <label>Ability</label>
         {{numberInput ability name="ability" min=-4 max=12 readonly=true}}
-    </li>
-    <li class="skill">
+    </div>
+    <div class="skill">
         <label>Skill</label>
         {{numberInput skill name="skill" min=-4 max=12 readonly=true}}
-    </li>
-    <li class="enchantment">
+    </div>
+    <div class="enchantment">
         <label>Enchantment</label>
         {{numberInput enchantment name="enchantment" min=-4 max=12 readonly=true}}
-    </li>
-</ol>
+    </div>
+</div>

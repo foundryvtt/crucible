@@ -1,8 +1,8 @@
 <header class="action-header line-item">
-    <div class="name">
+    <header class="name flexrow">
         <img class="icon" src="{{action.img}}">
-        <h3>{{action.name}}</h3>
-    </div>
+        <h3 class="title">{{action.name}}</h3>
+    </header>
     <div class="tags" data-tag-type="activation">
         {{#each activationTags as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
@@ -11,7 +11,7 @@
 </header>
 
 {{#if hasActionTags}}
-<div class="flexrow">
+<div class="flexrow action-tags">
     <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bolt"></i>
     </label>
@@ -24,7 +24,7 @@
 {{/if}}
 
 {{#if context.tags.size}}
-<div class="flexrow">
+<div class="flexrow context-tags">
     <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
         <i class="{{context.icon}}"></i>
     </label>
@@ -36,7 +36,7 @@
 </div>
 {{/if}}
 
-<div class="flexrow">
+<div class="flexrow target-template">
     {{#if template}}
     <label class="tag-icon" data-tooltip="{{localize "ACTION.TemplateTargets"}}" data-tooltip-direction="LEFT"
            data-template-uuid="{{template.uuid}}">
@@ -49,7 +49,7 @@
     {{/if}}
     <div class="tags" data-tag-type="target">
         {{#if requiresTemplate}}
-        <button class="place-template" type="button" data-action="placeTemplate">
+        <button class="place-template frame-brown" type="button" data-action="placeTemplate">
             <i class="fa-solid fa-ruler-combined"></i>
             Place Template
         </button>

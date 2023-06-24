@@ -23,7 +23,9 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @typedef {Object} ActionUsage
  * @property {object} actorUpdates          Actor data updates applied when this action is confirmed
  * @property {object} actorFlags            Actor flag updates applied by this action
- * @property {object} bonuses               Roll bonuses applied to this action
+ * @property {Object<DiceBoon>} boons       Boons applied to this action
+ * @property {Object<DiceBoon>} banes       Banes applied to this action
+ * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {string} [rollMode]            A dice roll mode to apply to the message
@@ -167,7 +169,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.usage = this.usage || {
       actorUpdates: {},
       actorFlags: {},
-      bonuses: {boons: 0, banes: 0, ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
+      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, boons: 0, banes: 0},
+      boons: {},
+      banes: {},
       context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
       hasDice: false
     };
@@ -188,9 +192,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepareForActor() {
-    this.usage.bonuses.boons += (this.actor.rollBonuses.boons || 0);
-    this.usage.bonuses.banes += (this.actor.rollBonuses.banes || 0);
-    if ( this.actor.statuses.has("broken") ) this.usage.bonuses.banes += 2;
+    const {boons, banes} = this.usage;
+    if ( this.actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
     if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
   }
 
@@ -228,11 +231,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<object|null>}      The results of the configuration dialog
    */
   async configure(targets) {
-    const pool = new StandardCheck(this.usage.bonuses);
+    const roll = StandardCheck.fromAction(this);
     const response = await this.constructor.dialogClass.prompt({options: {
       action: this,
       actor: this.actor,
-      pool,
+      roll,
       targets
     }});
     if ( !response ) return null;
@@ -854,11 +857,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     };
     if ( this.template ) actionData.template = this.template.uuid;
     const rolls = [];
+    const hasMultipleTargets = Array.from(this.outcomes.values()).filter(o => o.rolls.length).length > 1;
     for ( const outcome of this.outcomes.values() ) {
       const {target, rolls: outcomeRolls, ...outcomeData} = outcome;
       outcomeData.target = target.uuid;
       outcomeData.rolls = outcomeRolls.map((roll, i) => {
-        roll.data.newTarget = i === 0; // FIXME it would be good to handle this in a different way
+        roll.data.newTarget = hasMultipleTargets && (i === 0);
         roll.data.index = rolls.length;
         rolls.push(roll);
         return roll.data.index;

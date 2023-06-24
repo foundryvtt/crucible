@@ -193,6 +193,7 @@ export default class CrucibleSpell extends CrucibleAction {
    */
   static #prepareGesture() {
     const e = this.actor.equipment;
+    const mh = e.weapons.mainhand;
     const s = this.actor.system.status;
     const t = this.actor.talentIds;
     this.usage.hasDice = true; // Spells involve dice rolls by default
@@ -202,6 +203,10 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Arrow                              */
       /* -------------------------------------------- */
       case "arrow":
+        this.tags.add("ranged");
+
+        // Weapon range
+        if ( mh.config.category.ranged ) this.target.distance = mh.system.range;
 
         // Arcane Archer Signature
         if ( t.has("arcanearcher0000") && s.rangedAttack && !s.arcaneArcher ) {
@@ -239,11 +244,10 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Strike                             */
       /* -------------------------------------------- */
       case "strike":
-        const mh = e.weapons.mainhand;
-
-        // Melee range
         this.tags.add("melee");
-        this.target.distance = mh.system.properties.has("reach") ? 2 : 1;
+
+        // Weapon range
+        if ( mh.config.category.melee ) this.target.distance = mh.system.range;
 
         // Weapon scaling and bonus damage
         this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);

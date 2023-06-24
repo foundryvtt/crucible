@@ -11,7 +11,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       template: `systems/${SYSTEM.id}/templates/dice/action-use-dialog.hbs`,
-      classes: [SYSTEM.id, "sheet", "roll"],
       width: 360,
       submitOnChange: true,
       closeOnSubmit: false
@@ -104,9 +103,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /** @override */
   _onSubmit(html) {
     const form = html.querySelector("form");
-    const {boons, banes, rollMode} = (new FormDataExtended(form, {readonly: true})).object;
-    this.action.usage.rollMode = rollMode;
-    Object.assign(this.action.usage.bonuses, {boons, banes});
+    const fd = (new FormDataExtended(form, {readonly: true})).object;
+    this.action.usage.rollMode = fd.rollMode;
+    if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
+    if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
     return this.action;
   }
 

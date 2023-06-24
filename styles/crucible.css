@@ -509,16 +509,15 @@
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
-.crucible-new.window-app .line-item header {
+.crucible-new.window-app .line-item header.name {
   gap: 0.5rem;
 }
-.crucible-new.window-app .line-item header .icon {
+.crucible-new.window-app .line-item .icon {
   height: 48px;
   flex: 0 0 48px;
 }
-.crucible-new.window-app .line-item header .title {
+.crucible-new.window-app .line-item .title {
   margin: 0;
-  flex: 1;
 }
 .crucible-new.window-app .line-item .description {
   font-size: var(--font-size-14);
@@ -1785,11 +1784,6 @@ h2.divider span {
 .crucible .action .action-header {
   flex: none;
 }
-.crucible .action .action-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
 .crucible .action label.tag-icon {
   flex: none;
 }
@@ -1820,7 +1814,12 @@ h2.divider span {
   font-size: var(--font-size-16);
 }
 #chat-log .dice-rolls {
-  margin-top: 4px;
+  margin-top: 0.5rem;
+}
+#chat-log .dice-rolls .dice-roll + .dice-roll {
+  border-top: 1px solid #b5b3a4;
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
 }
 .dice-roll.standard-check .dice-pool {
   justify-content: space-between;
@@ -1874,11 +1873,6 @@ h2.divider span {
   line-height: 16px;
   display: block;
 }
-.dice-roll.standard-check .dice-tooltip {
-  border-top: 1px solid #b5b3a4;
-  margin: 5px 0;
-  padding: 5px 0 0;
-}
 .dice-roll.standard-check .dice-tooltip .counter {
   display: flex;
   justify-content: space-between;
@@ -1890,6 +1884,38 @@ h2.divider span {
 }
 .dice-roll.standard-check .dice-tooltip .counter span {
   width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+  text-align: center;
+}
+.dice-roll.standard-check .dice-tooltip .boon-details,
+.dice-roll.standard-check .dice-tooltip .bane-details {
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+  margin: 0.25rem 0;
+  border-bottom: 1px solid #b5b3a4;
+}
+.dice-roll.standard-check .dice-tooltip .boon-details h4,
+.dice-roll.standard-check .dice-tooltip .bane-details h4 {
+  font-weight: bold;
+  margin: 0;
+}
+.dice-roll.standard-check .dice-tooltip .boon-details .boon span.label,
+.dice-roll.standard-check .dice-tooltip .bane-details .boon span.label,
+.dice-roll.standard-check .dice-tooltip .boon-details .bane span.label,
+.dice-roll.standard-check .dice-tooltip .bane-details .bane span.label {
+  order: 1;
+  font-size: 16px;
+  font-family: var(--fontFamilySerif);
+}
+.dice-roll.standard-check .dice-tooltip .boon-details .boon input,
+.dice-roll.standard-check .dice-tooltip .bane-details .boon input,
+.dice-roll.standard-check .dice-tooltip .boon-details .bane input,
+.dice-roll.standard-check .dice-tooltip .bane-details .bane input {
+  order: 2;
+  flex: 0 0 20px;
   height: 20px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid #7a7971;
@@ -1950,159 +1976,157 @@ h2.divider span {
 /* ----------------------------------------- */
 /*  Roll Dialog                              */
 /* ----------------------------------------- */
-.roll {
-  --marginSize: 5px;
+.crucible-new.roll {
+  background: url("../ui/journal/grunge.png") no-repeat;
+  background-size: cover;
 }
-.roll button {
-  height: 32px;
+.crucible-new.roll .standard-check {
+  gap: 0.5rem;
 }
-.roll select {
-  height: 30px;
-  width: 100%;
-  background: none;
-  border: 1px solid #b5b3a4;
-}
-.roll input {
+.crucible-new.roll .roller {
+  flex: 2;
+  gap: 0.5rem;
   text-align: center;
-  font-size: 24px;
-  font-weight: bold;
 }
-.roll .form-group {
+.crucible-new.roll .roller .boons,
+.crucible-new.roll .roller .banes {
   margin: 0;
-}
-.roll header.request {
   flex: 0 0 32px;
-  padding: 0 0 var(--marginSize);
-  border-bottom: 1px solid #b5b3a4;
+  font-family: var(--font-h1);
 }
-.roll header.request select {
-  flex: 2;
-}
-.roll header.request .buttons {
-  flex: 1;
-  margin: -1px 0 0 5px;
-}
-.roll .content {
-  margin-top: var(--marginSize);
-}
-.roll .roller {
-  flex: 2;
-  text-align: center;
-}
-.roll .roller .boons,
-.roll .roller .banes {
-  flex: 0 0 32px;
-}
-.roll .roller .boons label,
-.roll .roller .banes label {
-  padding: 0 var(--marginSize);
-  font-family: var(--fontFamilySerif);
-  font-weight: normal;
+.crucible-new.roll .roller .boons label,
+.crucible-new.roll .roller .banes label {
   font-size: 20px;
   line-height: 32px;
   text-align: left;
 }
-.roll .roller .boons input,
-.roll .roller .banes input {
-  flex: 0 0 32px;
-  height: 32px;
+.crucible-new.roll .roller .boons input,
+.crucible-new.roll .roller .banes input {
+  flex: 0 0 36px;
+  height: 36px;
+  font-size: 24px;
 }
-.roll .roller .boons .action-button,
-.roll .roller .banes .action-button {
+.crucible-new.roll .roller .boons .action-button,
+.crucible-new.roll .roller .banes .action-button {
   flex: 0 0 32px;
   margin: 0 3px;
   cursor: pointer;
   font-size: 1.125rem;
 }
-.roll .roller .boons .action-button:hover,
-.roll .roller .banes .action-button:hover {
-  font-weight: bold;
-  text-shadow: 0 0 6px red;
+.crucible-new.roll .roller .boons .action-button.disabled,
+.crucible-new.roll .roller .banes .action-button.disabled {
+  opacity: 0.25;
 }
-.roll .roller .pool {
+.crucible-new.roll .roller .boons .action-button:not(.disabled):hover,
+.crucible-new.roll .roller .banes .action-button:not(.disabled):hover {
+  font-weight: bold;
+  text-shadow: 0 0 6px var(--color-link-text);
+}
+.crucible-new.roll .roller .pool {
   margin: var(--marginSize) 0;
   justify-content: space-evenly;
 }
-.roll .roller .pool .die {
+.crucible-new.roll .roller .pool .die {
   flex: 0 0 64px;
   height: 64px;
   line-height: 64px;
+  font-family: var(--font-h1);
+  color: var(--color-background);
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  text-shadow: 0 0 6px #EEE;
-  filter: drop-shadow(0px 0px 6px #EEE);
+  filter: drop-shadow(0px 0px 6px #000);
 }
-.roll .roller .pool .die.d4 {
+.crucible-new.roll .roller .pool .die.d4 {
   background-image: url("/icons/svg/d4-grey.svg");
 }
-.roll .roller .pool .die.d6 {
+.crucible-new.roll .roller .pool .die.d6 {
   background-image: url("/icons/svg/d6-grey.svg");
 }
-.roll .roller .pool .die.d8 {
+.crucible-new.roll .roller .pool .die.d8 {
   background-image: url("/icons/svg/d8-grey.svg");
 }
-.roll .roller .pool .die.d10 {
+.crucible-new.roll .roller .pool .die.d10 {
   background-image: url("/icons/svg/d10-grey.svg");
 }
-.roll .roller .pool .die.d12 {
+.crucible-new.roll .roller .pool .die.d12 {
   background-image: url("/icons/svg/d12-grey.svg");
 }
-.roll .roller .bonuses {
-  list-style: none;
-  margin: var(--marginSize) 0 0;
-  padding: 0;
+.crucible-new.roll .roller .bonuses {
+  gap: 0.5rem;
 }
-.roll .roller .bonuses li {
-  flex: 1;
-  height: 46px;
-  margin: 0 3px;
+.crucible-new.roll .roller .bonuses input {
+  line-height: 32px;
 }
-.roll .roller .bonuses li label,
-.roll .roller .bonuses li input {
-  display: block;
-  width: 100%;
-}
-.roll .roller .bonuses li label {
-  height: 16px;
-  color: #7a7971;
-  font-family: var(--fontFamilySerif);
-  font-size: 16px;
-}
-.roll .roller .bonuses li input {
-  height: 30px;
-}
-.roll .target {
+.crucible-new.roll .target {
   justify-content: space-between;
   border-left: 1px solid #b5b3a4;
   margin-left: var(--marginSize);
   padding-left: var(--marginSize);
 }
-.roll .target select {
+.crucible-new.roll .target select {
   flex: 0 0 30px;
 }
-.roll .target label.difficulty {
+.crucible-new.roll .target label.difficulty {
   flex: 0 0 16px;
   color: #33332e;
   font-family: var(--fontFamilySerif);
   font-size: 20px;
   text-align: center;
 }
-.roll .target input.dc {
+.crucible-new.roll .target input.dc {
   flex: 0 0 64px;
   width: 64px;
   margin: 0 auto;
 }
-.roll .buttons {
+.crucible-new.roll .details {
+  width: 100%;
   flex: none;
-  margin-top: 4px;
-  gap: 4px;
+  gap: 0.5rem;
 }
-.roll button.place-template {
+.crucible-new.roll .details h4 {
+  margin: 0;
+}
+.crucible-new.roll .details .boon-details,
+.crucible-new.roll .details .bane-details {
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.crucible-new.roll .details .boon-details .boon,
+.crucible-new.roll .details .bane-details .boon,
+.crucible-new.roll .details .boon-details .bane,
+.crucible-new.roll .details .bane-details .bane {
+  gap: 0.5rem;
+  align-items: center;
+}
+.crucible-new.roll .details .boon-details .boon input,
+.crucible-new.roll .details .bane-details .boon input,
+.crucible-new.roll .details .boon-details .bane input,
+.crucible-new.roll .details .bane-details .bane input {
+  flex: 0 0 32px;
+  text-align: center;
+}
+.crucible-new.roll footer.buttons {
+  gap: 0.5rem;
+}
+.crucible-new.roll footer.buttons button,
+.crucible-new.roll footer.buttons select {
+  height: 32px;
+}
+.crucible-new.roll button.place-template {
   flex: 0 0 140px;
   background: none;
   line-height: 20px;
   height: auto;
+}
+.crucible-new.roll .form-group.spell-component label {
+  font-size: var(--font-size-14);
+}
+.crucible-new.roll .form-group.spell-component .form-fields {
+  flex: 2;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */

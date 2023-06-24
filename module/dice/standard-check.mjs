@@ -2,9 +2,18 @@ import { SYSTEM } from "../config/system.js";
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
+ * @typedef {Object} DiceBoon
+ * @property {string} [id]                    An identifier for the source of boon or bane. This is auto-populated.
+ * @property {string} label                   A string label for the source of the boon or bane.
+ * @property {number} number                  The number of boons or banes applied by this source.
+ */
+
+/**
  * @typedef {Object} DiceCheckBonuses
- * @property {number} [boons=0]               A number of advantageous boons, up to a maximum of 6
- * @property {number} [banes=0]               A number of disadvantageous banes, up to a maximum of 6
+ * @property {Object<string, DiceBoon>} [boons] An object of advantageous boons applied to the roll.
+ *                                            Keys of the object are identifiers for sources of boons.
+ * @property {Object<string, DiceBoon>} [banes] An object of disadvantageous banes applied to the roll.
+ *                                            Keys of the object are identifiers for sources of banes.
  * @property {number} [ability=0]             The ability score which modifies the roll, up to a maximum of 12
  * @property {number} [skill=0]               The skill bonus which modifies the roll, up to a maximum of 12
  * @property {number} [enchantment=0]         An enchantment bonus which modifies the roll, up to a maximum of 6
@@ -16,6 +25,8 @@ import StandardCheckDialog from "./standard-check-dialog.mjs";
  * @property {string} actorId                 The ID of the actor rolling the check
  * @property {number} dc                      The target difficulty of the check
  * @property {string} type                    The type of check being performed
+ * @property {number} totalBoons              The computed total number of boons applied to the roll
+ * @property {number} totalBanes              The computed total number of banes applied to the roll
  */
 
 /**
@@ -43,8 +54,8 @@ export default class StandardCheck extends Roll {
   static defaultData = {
     actorId: null,
     ability: 0,
-    banes: 0,
-    boons: 0,
+    banes: {},
+    boons: {},
     dc: 20,
     enchantment: 0,
     skill: 0,
@@ -68,7 +79,7 @@ export default class StandardCheck extends Roll {
    * The HTML template path used to render dice checks of this type
    * @type {string}
    */
-  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-roll.html`;
+  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-roll.hbs`;
 
   /* -------------------------------------------- */
 
@@ -120,12 +131,20 @@ export default class StandardCheck extends Roll {
 
   /** @override */
   _prepareData(data={}) {
-    const current = this.data || Object.assign({}, this.constructor.defaultData);
+    if ( ("boons" in data) && (typeof data.boons !== "object") ) {
+      console.warn("StandardCheck received boons passed as a number instead of an object");
+      data.boons = {special: {label: "Special", number: Number.isNumeric(data.boons) ? data.boons : 0}};
+    }
+    if ( ("banes" in data) && (typeof data.banes !== "object") ) {
+      data.banes = {special: {label: "Special", number: Number.isNumeric(data.banes) ? data.banes : 0}};
+      console.warn("StandardCheck received boons passed as a number instead of an object");
+    }
+    const current = this.data || foundry.utils.deepClone(this.constructor.defaultData);
     for ( let [k, v] of Object.entries(data) ) {
       if ( v === undefined ) delete data[k];
     }
     data = foundry.utils.mergeObject(current, data, {insertKeys: false});
-    this._configureData(data);
+    StandardCheck.#configureData(data);
     return data;
   }
 
@@ -135,15 +154,38 @@ export default class StandardCheck extends Roll {
    * Configure the provided data used to customize this type of Roll
    * @param {object} data     The initially provided data object
    * @returns {object}        The configured data object
-   * @private
    */
-  _configureData(data) {
-    data.banes = Math.clamped(data.banes, 0, SYSTEM.dice.MAX_BOONS);
-    data.boons = Math.clamped(data.boons, 0, SYSTEM.dice.MAX_BOONS);
+  static #configureData(data) {
+
+    // Bonuses
     data.dc = Math.max(data.dc, 0);
     data.ability = Math.clamped(data.ability, 0, 12);
     data.skill = Math.clamped(data.skill, -4, 12);
     data.enchantment = Math.clamped(data.enchantment, 0, 6);
+
+    // Boons and Banes
+    data.totalBoons = StandardCheck.#prepareBoons(data.boons);
+    data.totalBanes = StandardCheck.#prepareBoons(data.banes);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare an object of boons or banes to compute the total which apply to the roll.
+   * @param {Object<string, DiceBoon>} boons    Boons applied to the roll
+   * @returns {number}                          The total number of applied boons
+   */
+  static #prepareBoons(boons) {
+    let total = 0;
+    for ( const [id, boon] of Object.entries(boons) ) {
+      boon.id = id;
+      boon.number ??= 1;
+      if ( (total + boon.number) > SYSTEM.dice.MAX_BOONS ) {
+        boon.number = SYSTEM.dice.MAX_BOONS - total;
+      }
+      total += boon.number;
+    }
+    return total;
   }
 
   /* -------------------------------------------- */
@@ -156,14 +198,14 @@ export default class StandardCheck extends Roll {
 
     // Apply boons from the left
     let d = 0;
-    for (let i = 0; i < data.boons; i++) {
+    for (let i = 0; i < data.totalBoons; i++) {
       pool[d] = pool[d] + SYSTEM.dice.DIE_STEP;
       if (pool[d] === SYSTEM.dice.MAX_DIE) d++;
     }
 
     // Apply banes from the right
     d = 2;
-    for (let i = 0; i < data.banes; i++) {
+    for (let i = 0; i < data.totalBanes; i++) {
       pool[d] = pool[d] - SYSTEM.dice.DIE_STEP;
       if (pool[d] === SYSTEM.dice.MIN_DIE) d--;
     }
@@ -255,8 +297,24 @@ export default class StandardCheck extends Roll {
    * @returns {Promise<StandardCheck|null>}   The resolved check, or null if the dialog was closed
    */
   async dialog({title, flavor, rollMode}={}) {
-    const options = {title, flavor, rollMode, pool: this};
+    const options = {title, flavor, rollMode, roll: this};
     return this.constructor.dialogClass.prompt({title, options});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Construct a StandardCheck instance from a CrucibleAction which involves dice rolls.
+   * @param {CrucibleAction} action   The action from which to construct the check
+   * @returns {StandardCheck}         The constructed check instance
+   */
+  static fromAction(action) {
+    let {boons, banes, bonuses} = action.usage;
+    if ( bonuses.boons > 0 ) boons.special = {label: "Special", number: bonuses.boons};
+    delete bonuses.boons;
+    if ( bonuses.banes > 0 ) banes.special = {label: "Special", number: bonuses.banes};
+    delete bonuses.banes;
+    return new this({boons, banes, ...bonuses});
   }
 
   /* -------------------------------------------- */
@@ -266,7 +324,7 @@ export default class StandardCheck extends Roll {
   /** @inheritdoc */
   toJSON() {
     const data = super.toJSON();
-    data.data = this.data;
+    data.data = foundry.utils.deepClone(this.data);
     return data;
   }
 

@@ -495,19 +495,22 @@
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0.5rem;
-    header {
+    header.name {
       gap: 0.5rem;
-      .icon {
-        height: 48px;
-        flex: 0 0 48px;
-      }
-      .title {
-        margin: 0;
-        flex: 1;
-      }
+    }
+    .icon {
+      height: 48px;
+      flex: 0 0 48px;
+    }
+    .title {
+      margin: 0;
     }
     .description {
       font-size: var(--font-size-14);
+    }
+    .action-tags,
+    .context-tags {
+
     }
   }
 }

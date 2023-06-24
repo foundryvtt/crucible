@@ -800,34 +800,32 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleActor} target    The target being attacked
    * @param {CrucibleAction} action   The action being performed
    * @param {string} actionType       The type of action being performed: "weapon", "spell", or "skill
-   * @returns {{boons: number, banes: number}}  The number of additional boons and banes
+   * @returns {{boons: Object<DiceBoon>, banes: Object<DiceBoon>}}  Configuration of boons and banes
    */
   applyTargetBoons(target, action, actionType) {
-    const bonuses = action.usage.bonuses;
-    bonuses.boons ||= 0;
-    bonuses.banes ||= 0;
+    const {boons, banes} = action.usage;
     const ranged = action.target.distance > 1;
     const isAttack = (actionType !== "skill") && !action.damage?.restoration;
 
     // Exposed
-    if ( target.statuses.has("exposed") && isAttack ) bonuses.boons += 2;
+    if ( target.statuses.has("exposed") && isAttack ) boons.exposed = {label: "Exposed", number: 2};
 
     // Guarded
-    if ( target.statuses.has("guarded") && isAttack ) bonuses.banes += 1;
+    if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};
 
     // Prone
     if ( target.statuses.has("prone") && isAttack ) {
-      if ( ranged ) bonuses.banes += 2;
-      else bonuses.boons += 2;
+      if ( ranged ) banes.prone = {label: "Prone", number: 2};
+      else boons.prone = {label: "Prone", number: 2};
     }
 
     // Flanked
     if ( target.statuses.has("flanked") && (actionType !== "skill") ) {
       const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-      if ( ae ) bonuses.boons += ae.getFlag("crucible", "flanked") ?? 1;
+      if ( ae ) boons.flanked = {label: "Flanked", number: ae.getFlag("crucible", "flanked") ?? 1};
       else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
     }
-    return bonuses;
+    return {boons, banes};
   }
 
   /* -------------------------------------------- */
@@ -860,8 +858,8 @@ export default class CrucibleActor extends Actor {
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
-   * @param {number} [banes]      A number of banes applied to the roll, default is 0
-   * @param {number} [boons]      A number of boons applied to the roll, default is 0
+   * @param {number} [banes]      A number of special banes applied to the roll, default is 0
+   * @param {number} [boons]      A number of special boons applied to the roll, default is 0
    * @param {number} [dc]         A known target DC
    * @param {string} [rollMode]   The roll visibility mode to use, default is the current dropdown choice
    * @param {boolean} [dialog]    Display a dialog window to further configure the roll. Default is false.
@@ -875,8 +873,8 @@ export default class CrucibleActor extends Actor {
     // Prepare check data
     const rollData = {
       actorId: this.id,
-      banes: banes,
-      boons: boons,
+      banes: {},
+      boons: {},
       dc: dc,
       ability: skill.abilityBonus,
       skill: skill.skillBonus,
@@ -884,6 +882,8 @@ export default class CrucibleActor extends Actor {
       type: skillId,
       rollMode: rollMode,
     };
+    if ( boons ) rollData.boons.special = {label: "Special", number: boons};
+    if ( banes ) rollData.banes.special = {label: "Special", number: banes};
 
     // Apply talent hooks
     this.callTalentHooks("prepareStandardCheck", rollData);
@@ -1591,7 +1591,8 @@ export default class CrucibleActor extends Actor {
         }
       }
     }
-    return this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
+    await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
+    await this.update({"_stats.systemVersion": game.system.version});
   }
 
   /* -------------------------------------------- */

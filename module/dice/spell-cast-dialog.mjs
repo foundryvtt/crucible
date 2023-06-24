@@ -9,8 +9,7 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: `systems/${SYSTEM.id}/templates/dice/spell-cast-dialog.hbs`,
-      classes: [SYSTEM.id, "sheet", "roll", "spell"]
+      template: `systems/${SYSTEM.id}/templates/dice/spell-cast-dialog.hbs`
     });
   }
 
@@ -75,10 +74,11 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onSubmit(html) {
     const form = html.querySelector("form");
-    const {boons, banes, rollMode, ...updates} = (new FormDataExtended(form, {readonly: true})).object;
+    const {rollMode, ...updates} = (new FormDataExtended(form, {readonly: true})).object;
     this.action.updateSource({composition: this.action.constructor.COMPOSITION_STATES.COMPOSED, ...updates});
     this.action.usage.rollMode = rollMode;
-    Object.assign(this.action.usage.bonuses, {boons, banes});
+    if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
+    if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
     return this.action;
   }
 }

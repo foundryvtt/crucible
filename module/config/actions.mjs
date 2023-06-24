@@ -56,11 +56,12 @@ export default {
   cadence: {
     roll: async function(actor, action, target, rolls) {
       let roll = rolls[0];
-      const bonuses = action.usage.bonuses;
+      const boons = action.usage.boons;
+      boons.cadence = {label: "Cadence", number: 0};
       const cadence = [];
       for ( let i=1; i<=2; i++ ) {
-        if ( roll.isSuccess ) bonuses.boons += 1;
-        roll = await actor.weaponAttack(action, target, weapon);
+        if ( roll.isSuccess ) boons.cadence.number++;
+        roll = await actor.weaponAttack(action, target);
         cadence.push(roll);
       }
       return cadence;

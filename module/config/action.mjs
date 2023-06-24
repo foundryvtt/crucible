@@ -464,7 +464,7 @@ export const TAGS = {
     tag: "difficult",
     label: "ACTION.TagDifficult",
     tooltip: "ACTION.TagDifficultTooltip",
-    prepare: (actor, action) => action.usage.bonuses.banes += 1
+    prepare: (actor, action) => action.usage.banes.difficult = {label: "ACTION.TagDifficult", number: 1}
   },
 
   empowered: {
@@ -478,7 +478,7 @@ export const TAGS = {
     tag: "accurate",
     label: "ACTION.TagAccurate",
     tooltip: "ACTION.TagAccurateTooltip",
-    prepare: (actor, action) => action.usage.bonuses.boons += 2
+    prepare: (actor, action) => action.usage.boons.accurate = {label: "ACTION.TagAccurate", number: 2}
   },
   harmless: {
     tag: "harmless",

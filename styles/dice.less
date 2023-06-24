@@ -5,7 +5,12 @@
 }
 
 #chat-log .dice-rolls {
-  margin-top: 4px;
+  margin-top: 0.5rem;
+  .dice-roll + .dice-roll {
+    border-top: 1px solid @colorBeige;
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
+  }
 }
 
 .dice-roll.standard-check {
@@ -55,9 +60,6 @@
   }
 
   .dice-tooltip {
-    border-top: 1px solid @colorBeige;
-    margin: 5px 0;
-    padding: 5px 0 0;
     .counter {
       display: flex;
       justify-content: space-between;
@@ -73,6 +75,35 @@
         border: 1px solid @colorTan;
         border-radius: 2px;
         text-align: center;
+      }
+    }
+
+    .boon-details,
+    .bane-details {
+      gap: 0.25rem;
+      padding: 0.25rem 0;
+      margin: 0.25rem 0;
+      border-bottom: 1px solid @colorBeige;
+      h4 {
+        font-weight: bold;
+        margin: 0;
+      }
+      .boon,
+      .bane {
+        span.label {
+          order: 1;
+          font-size: 16px;
+          font-family: var(--fontFamilySerif);
+        }
+        input {
+          order: 2;
+          flex: 0 0 20px;
+          height: 20px;
+          background: rgba(0, 0, 0, 0.05);
+          border: 1px solid @colorTan;
+          border-radius: 2px;
+          text-align: center;
+        }
       }
     }
   }
@@ -138,74 +169,44 @@
 /*  Roll Dialog                              */
 /* ----------------------------------------- */
 
-.roll {
-  --marginSize: 5px;
-  button {
-    height: 32px;
-  }
+.crucible-new.roll {
+  background: url("../ui/journal/grunge.png") no-repeat;
+  background-size: cover;
 
-  select {
-    height: 30px;
-    width: 100%;
-    background: none;
-    border: 1px solid @colorBeige;
-  }
-
-  input {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .form-group {
-    margin: 0;
-  }
-
-  // GM Request Roller
-  header.request {
-    flex: 0 0 32px;
-    padding: 0 0 var(--marginSize);
-    border-bottom: 1px solid @colorBeige;
-    select {
-      flex: 2;
-    }
-    .buttons {
-      flex: 1;
-      margin: -1px 0 0 5px;
-    }
-  }
-
-  .content {
-    margin-top: var(--marginSize);
+  .standard-check {
+    gap: 0.5rem;
   }
 
   .roller {
     flex: 2;
+    gap: 0.5rem;
     text-align: center;
-
     .boons,
     .banes {
+      margin: 0;
       flex: 0 0 32px;
+      font-family: var(--font-h1);
       label {
-        padding: 0 var(--marginSize);
-        font-family: var(--fontFamilySerif);
-        font-weight: normal;
         font-size: 20px;
         line-height: 32px;
         text-align: left;
       }
       input {
-        flex: 0 0 32px;
-        height: 32px;
+        flex: 0 0 36px;
+        height: 36px;
+        font-size: 24px;
       }
       .action-button {
         flex: 0 0 32px;
         margin: 0 3px;
         cursor: pointer;
         font-size: 1.125rem;
-        &:hover {
+        &.disabled {
+          opacity: 0.25;
+        }
+        &:not(.disabled):hover {
           font-weight: bold;
-          text-shadow: 0 0 6px red;
+          text-shadow: 0 0 6px var(--color-link-text);
         }
       }
     }
@@ -217,11 +218,12 @@
         flex: 0 0 64px;
         height: 64px;
         line-height: 64px;
+        font-family: var(--font-h1);
+        color: var(--color-background);
         text-align: center;
         font-size: 24px;
         font-weight: bold;
-        text-shadow: 0 0 6px #EEE;
-        filter: drop-shadow(0px 0px 6px #EEE);
+        filter: drop-shadow(0px 0px 6px #000);
       }
       .die.d4 { background-image: url("/icons/svg/d4-grey.svg"); }
       .die.d6 { background-image: url("/icons/svg/d6-grey.svg"); }
@@ -231,26 +233,9 @@
     }
 
     .bonuses {
-      list-style: none;
-      margin: var(--marginSize) 0 0;
-      padding: 0;
-      li {
-        flex: 1;
-        height: 46px;
-        margin: 0 3px;
-        label, input {
-          display: block;
-          width: 100%;
-        }
-        label {
-          height: 16px;
-          color: @colorTan;
-          font-family: var(--fontFamilySerif);
-          font-size: 16px;
-        }
-        input {
-          height: 30px;
-        }
+      gap: 0.5rem;
+      input {
+        line-height: 32px;
       }
     }
   }
@@ -280,10 +265,38 @@
     }
   }
 
-  .buttons {
+  .details {
+    width: 100%;
     flex: none;
-    margin-top: 4px;
-    gap: 4px;
+    gap: 0.5rem;
+    h4 {
+      margin: 0;
+    }
+    .boon-details,
+    .bane-details {
+      gap: 0.25rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      .boon,
+      .bane {
+        gap: 0.5rem;
+        align-items: center;
+        input {
+          flex: 0 0 32px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  footer.buttons {
+    gap: 0.5rem;
+    button,
+    select {
+      height: 32px;
+    }
   }
 
   // Template placement prompt
@@ -292,5 +305,14 @@
     background: none;
     line-height: 20px;
     height: auto;
+  }
+
+  .form-group.spell-component {
+    label {
+      font-size: var(--font-size-14);
+    }
+    .form-fields {
+      flex: 2;
+    }
   }
 }

@@ -30,6 +30,7 @@ import * as chat from "./module/chat.js";
 /* -------------------------------------------- */
 
 const DEVELOPMENT_MODE = true;
+const SYNC_TALENTS_VERSION = "0.5.5";
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
@@ -214,6 +215,7 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
+    `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,
@@ -257,6 +259,7 @@ Hooks.once("ready", async function() {
     entry.sheet.render(true);
     game.settings.set("crucible", "welcome", true);
   }
+  if ( game.user === game.users.activeGM ) await syncTalents();
 });
 
 
@@ -366,19 +369,37 @@ function registerDevelopmentHooks() {
   })
 }
 
-
 /* -------------------------------------------- */
 
-async function syncTalents() {
+/**
+ * Sync talent data across all actors in the world if their synchronized version is stale.
+ * @param {boolean} [force]   Force syncing even if the actor stats are current
+ * @returns {Promise<void>}
+ */
+async function syncTalents(force=false) {
+  console.groupCollapsed("Crucible | Talent Data Synchronization")
   const total = game.actors.size;
-  let n = 1;
+  let n = 0;
+  let synced = 0;
   for ( const actor of game.actors ) {
-    await actor.syncTalents();
-    SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: Math.round(n * 100 / total)});
     n++;
-    console.log(`Crucible | Synced talents with latest data for Actor "${actor.name}"`);
+    if ( force || foundry.utils.isNewerVersion(game.system.version, actor._stats.systemVersion) ) {
+      try {
+        await actor.syncTalents();
+        console.log(`Crucible | Synchronized talents for Actor "${actor.name}"`);
+        synced++;
+      } catch(err) {
+        console.warn(`Crucible | Talent synchronization failed for Actor "${actor.name}": ${err.message}`);
+      }
+      SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: Math.round(n * 100 / total)});
+    }
   }
+  if ( synced ) SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: 100});
+  console.log(`Crucible | Complete talent synchronization for ${synced} Actors`);
+  console.groupEnd();
 }
+
+/* -------------------------------------------- */
 
 async function resetAllActorTalents() {
   const updates = [];

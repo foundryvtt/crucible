@@ -1,12 +1,13 @@
 <form class="standard-check action flexcol">
-    <section class="action flexcol">
-        {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
-        {{> "systems/crucible/templates/dice/partials/spell-cast-header.hbs"}}
-    </section>
+    {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
+    {{> "systems/crucible/templates/dice/partials/spell-cast-header.hbs"}}
 
     {{#if hasDice}}
     <section class="content roller flexcol">
         {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
+    </section>
+    <section class="details flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
     </section>
     {{/if}}
 
@@ -14,7 +15,7 @@
         <select name="rollMode">
             {{selectOptions rollModes selected=rollMode localize=true}}
         </select>
-        <button type="button" class="dialog-button" data-button="ok">
+        <button type="button" class="dialog-button frame-brown" data-button="ok">
             <i class="fas fa-dice"></i>
             <label>Cast Spell</label>
         </button>

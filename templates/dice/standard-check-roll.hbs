@@ -1,6 +1,6 @@
 <div class="dice-roll {{cssClass}}">
     {{#if data.newTarget}}
-    <div class="flexrow">
+    <div class="roll-target flexrow">
         <label class="tag-icon">
         <i class="fa-solid fa-bullseye"></i>
         </label>
@@ -12,10 +12,13 @@
     <div class="dice-result">
         <div class="dice-tooltip">
             <div class="dice-formula">{{formula}}</div>
+
+            {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" data}}
+
             <div class="dice-pool flexrow">
                 <div class="boons">
                     <i class="fas fa-arrow-up"></i>
-                    <span>{{data.boons}}</span>
+                    <span>{{data.totalBoons}}</span>
                 </div>
                 {{#each pool}}
                 <div class="die {{this.denom}}">
@@ -25,9 +28,10 @@
                 {{/each}}
                 <div class="boons banes">
                     <i class="fas fa-arrow-down"></i>
-                    <span>{{data.banes}}</span>
+                    <span>{{data.totalBanes}}</span>
                 </div>
             </div>
+
             <div class="counter">
                 <label>{{localize "DICE.DiceTotal"}}</label>
                 <span>{{diceTotal}}</span>
