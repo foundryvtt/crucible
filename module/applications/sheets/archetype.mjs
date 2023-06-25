@@ -109,17 +109,23 @@ export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  #onClickAction(event) {
+  async #onClickAction(event) {
     event.preventDefault();
     const button = event.currentTarget;
     switch ( button.dataset.action ) {
       case "removeTalent":
+        button.closest(".talent").remove();
         const fd = this._getSubmitData();
-        const removeUuid = button.closest(".talent").dataset.uuid;
-        fd["system.talents"] ||= [];
-        fd["system.talents"].findSplice(uuid => uuid === removeUuid);
-        return this._updateObject(event, fd);
+        await this._updateObject(event, fd);
+        this.setPosition({height: "auto"});
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDragDrop(selector) {
+    return this.isEditable;
   }
 
   /* -------------------------------------------- */

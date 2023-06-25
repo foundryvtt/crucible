@@ -123,5 +123,5 @@
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.morale",
   "manifest": "https://foundryvtt.s3.us-west-2.amazonaws.com/modules/crucible/system.json",
-  "protected": true
+  "protected": false
 }

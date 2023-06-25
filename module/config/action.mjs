@@ -342,12 +342,12 @@ export const TAGS = {
       action.usage.context.tags.add(`Rune: ${action.rune.name}`);
       action.usage.context.tags.add(`Gesture: ${action.gesture.name}`);
       if ( action.inflection ) action.usage.context.tags.add(action.inflection.name);
+      action.usage.actorFlags.lastSpell = action.id;
     },
     roll: (actor, action, target) => {
       action.usage.actorUpdates["system.status.hasCast"] = true;
       return actor.castSpell(action, target)
-    },
-    post: (actor, action) => action.usage.actorFlags.lastSpell = action.id
+    }
   },
 
   summon: {
@@ -359,9 +359,18 @@ export const TAGS = {
 
       // Import or reference the Actor to summon
       let summonActor = await fromUuid(action.usage.summon);
-      if ( game.actors.has(summonActor.id) ) summonActor = game.actors.get(summonActor.id);
+      const ownership = game.users.reduce((obj, u) => {
+        if ( u.isGM || !actor.testUserPermission(u, "OWNER") ) return obj;
+        obj[u.id] = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
+        return obj;
+      }, {});
+      if ( game.actors.has(summonActor.id) ) {
+        summonActor = game.actors.get(summonActor.id);
+        await summonActor.update({ownership});
+      }
       else {
-        const summonData = game.actors.fromCompendium(summonActor, {keepId: true});
+        const summonData = game.actors.fromCompendium(summonActor, {keepId: true, clearOwnership: true});
+        summonData.ownership = ownership;
         summonActor = await summonActor.constructor.create(summonData, {keepId: true});
       }
 
@@ -384,7 +393,10 @@ export const TAGS = {
         }
       });
       token = await token.constructor.create(token, {parent: canvas.scene});
-      foundry.utils.setProperty(outcomes.get(actor).effects[0], "flags.crucible.summon",  token.uuid);
+
+      // Record summon ID on the active effect
+      const ae = outcomes.get(actor).effects?.[0];
+      if ( ae ) foundry.utils.setProperty(ae, "flags.crucible.summon",  token.uuid);
 
       // Create a Combatant
       if ( actor.inCombat ) {

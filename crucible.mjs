@@ -268,7 +268,7 @@ Hooks.once("ready", async function() {
 /* -------------------------------------------- */
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
-Hooks.on("createMessage", chat.onCreateMessage);
+Hooks.on("createChatMessage", chat.onCreateChatMessage);
 Hooks.on("renderChatMessage", chat.renderChatMessage);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);

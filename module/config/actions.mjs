@@ -130,11 +130,12 @@ export default {
     }
   },
   shieldBash: {
-    can: (actor, action) => {
-      if ( !actor.system.status.basicStrike ) throw new Error("You can only perform Shield Bash after a basic Strike.");
-      if ( actor.system.status.shieldBash ) throw new Error("You cannot use Shield Bash again this Turn.");
-    },
-    post: async (actor, action) => action.usage.actorUpdates["system.status.shieldBash"] = true
+    can: (actor) => {
+      const {basicStrike, lastAction} = actor.system.status;
+      if ( !basicStrike || (lastAction !== "strike") ) {
+        throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
+      }
+    }
   },
   strike: {
     post: async (actor, action, target, rolls) => {
@@ -143,10 +144,12 @@ export default {
   },
   offhandStrike: {
     prepare: (actor, action) => {
-      const {basicStrike, offhandStrike} = actor.system.status;
-      if ( basicStrike && !offhandStrike ) action.cost.action = 0;
-    },
-    post: async (actor, action) => action.usage.actorUpdates["system.status.offhandStrike"] = true
+      const {basicStrike, offhandStrike, lastAction} = actor.system.status;
+      if ( basicStrike && (lastAction === "strike") && !offhandStrike ) {
+        action.cost.action = 0;
+        action.usage.actorUpdates["system.status.offhandStrike"] = true;
+      }
+    }
   },
   refocus: {
     confirm: async (actor, action, outcomes) => {
@@ -164,11 +167,12 @@ export default {
     post: async (actor, action) => action.usage.actorUpdates["system.status.reloaded"] = true
   },
   uppercut: {
-    can: (actor, action) => {
-      if ( !actor.system.status.basicStrike ) throw new Error("You can only perform Uppercut after a basic Strike.");
-      if ( actor.system.status.uppercut ) throw new Error("You cannot use Uppercut again this Turn.");
-    },
-    post: async (actor, action, target) => action.usage.actorUpdates["system.status.uppercut"] = true
+    can: (actor) => {
+      const {basicStrike, lastAction} = actor.system.status;
+      if ( basicStrike && (lastAction !== "strike") ) {
+        throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
+      }
+    }
   },
   vampiricBite: {
     pre: (actor, action) => {

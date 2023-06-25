@@ -290,7 +290,8 @@ export const GESTURES = Object.seal({
     scaling: "dexterity",
     target: {
       type: "ray",
-      distance: 4
+      distance: 4,
+      scope: 1 // self
     },
     tier: 1
   },

@@ -344,7 +344,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Record the action as a chat message
-    if ( chatMessage ) await this.toMessage(targets, {
+    const message = chatMessage && await this.toMessage(targets, {
       ...chatMessageOptions,
       confirmed,
       rollMode: this.usage.rollMode
@@ -354,7 +354,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
 
     // Auto-confirm the action?
-    if ( confirmed ) await this.confirm();
+    if ( confirmed ) {
+      if ( message?.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(message.id);
+      await this.confirm();
+    }
     return outcomes;
   }
 
@@ -606,6 +609,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Record actor updates to apply
     foundry.utils.mergeObject(self.actorUpdates, this.usage.actorUpdates);
+    self.actorUpdates["system.status.lastAction"] = this.id;
 
     // Incur resource cost
     for ( const [k, v] of Object.entries(this.cost) ) {
@@ -807,7 +811,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Action Tags
     for (let t of this.tags) {
       const tag = SYSTEM.ACTION.TAGS[t];
-      if ( !tag.label ) continue;
+      if ( !tag?.label ) continue;
       else tags.action[tag.tag] = game.i18n.localize(tag.label);
     }
 

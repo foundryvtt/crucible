@@ -112,15 +112,23 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  #onClickAction(event) {
+  async #onClickAction(event) {
     event.preventDefault();
     const button = event.currentTarget;
     switch ( button.dataset.action ) {
       case "removeTalent":
+        button.closest(".talent").remove();
         const fd = this._getSubmitData();
-        fd["system.talents"] = [];
-        return this._updateObject(event, fd);
+        await this._updateObject(event, fd);
+        this.setPosition({height: "auto"});
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _canDragDrop(selector) {
+    return this.isEditable;
   }
 
   /* -------------------------------------------- */
@@ -135,8 +143,8 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
     if ( talent.system.node.tier !== 0 ) {
       return ui.notifications.error("BACKGROUND.TalentTierError", {localize: true});
     }
-    const talents = this.element[0].querySelector(".talents");
-    talents.innerHTML = await this.#renderTalentHTML(talent);
+    const talents = this.element[0].querySelector(".talents .droppable");
+    talents.insertAdjacentHTML("beforebegin", await this.#renderTalentHTML(talent));
     this.setPosition({height: "auto"});
   }
 

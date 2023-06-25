@@ -509,7 +509,7 @@
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
-.crucible-new.window-app .line-item header.name {
+.crucible-new.window-app .line-item > header {
   gap: 0.5rem;
 }
 .crucible-new.window-app .line-item .icon {
@@ -1607,6 +1607,9 @@ h2.divider span {
   border: 1px dashed var(--color-tertiary);
   border-radius: 8px;
   cursor: pointer;
+}
+.crucible-new.background .talents .talent + .droppable {
+  display: none;
 }
 /** ----------------------------------------- *
  *  Journal Sheet                             *

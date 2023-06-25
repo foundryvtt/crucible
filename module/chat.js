@@ -69,13 +69,18 @@ export function addChatMessageContextOptions(html, options)  {
  * @param {object} options          Message creation options
  * @param {string} userId           The creating user ID
  */
-export function onCreateMessage(message, data, options, userId) {
+export async function onCreateChatMessage(message, data, options, userId) {
   if ( game.user !== game.users.activeGM ) return;
   const flags = message.flags.crucible || {};
   if ( !flags.action || flags.confirmed ) return;
+
+  // Wait for DSN animation if applicable
+  if ( message.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(message.id);
+
+  // Confirm the message
   const action = CrucibleAction.fromChatMessage(message);
   const canConfirm = action.canAutoConfirm();
-  if ( canConfirm ) CrucibleAction.confirm(message, {action});
+  if ( canConfirm ) await CrucibleAction.confirm(message, {action});
 }
 
 /* -------------------------------------------- */

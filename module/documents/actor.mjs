@@ -282,7 +282,7 @@ export default class CrucibleActor extends Actor {
       mechanical: 0,
       shield: 0,
       talisman: 0,
-      natural: Math.floor((lvl + 3) / 6)
+      natural: Math.floor((lvl + 1) / 4)
     };
     actor.callTalentHooks("prepareTraining", training);
     return training;
@@ -1441,7 +1441,7 @@ export default class CrucibleActor extends Actor {
     const updates = {};
     if ( !this.isIncapacitated ) {
       resources.action = Infinity; // Try to recover as much action as possible, in case your maximum increases
-      if ( this.talentIds.has("lesserregenerati") && !this.isIncapacitated ) resources.health = 1;
+      if ( this.talentIds.has("lesserregenerati") && !this.isWeakened ) resources.health = 1;
       if ( this.talentIds.has("irrepressiblespi") && !this.isBroken ) resources.morale = 1;
     }
     await this.alterResources(resources, updates);

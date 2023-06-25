@@ -241,7 +241,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Deactivate mouse events
     canvas.stage.off("mousemove", events.mousemove);
     canvas.stage.off("mousedown", events.mousedown);
-    canvas.app.view.oncontextmenu = null;
+    canvas.app.view.removeEventListener("contextmenu", events.contextmenu);
 
     // Restore the original canvas layer
     activeLayer.activate(event);

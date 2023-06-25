@@ -141,7 +141,7 @@
 "ARCHETYPE.Clear": "Clear Archetype",
 "ARCHETYPE.Configure": "Archetype",
 "ARCHETYPE.Abilities": "Ability Scaling",
-"ARCHETYPE.AbilitiesHint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Scores with a lower value advance more frequently. For example a score with the value of 2 will increase every 2nd level while a score with a value of 5 will advance every 5 levels.",
+"ARCHETYPE.AbilitiesHint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently.",
 "ARCHETYPE.Talents": "Granted Talents",
 "ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
 

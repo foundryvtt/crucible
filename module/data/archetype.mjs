@@ -17,7 +17,7 @@ export default class CrucibleArchetype extends foundry.abstract.DataModel {
       name: new fields.StringField(),
       description: new fields.HTMLField(),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 6})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 8})
         return obj;
       }, {}), {validate: CrucibleArchetype.#validateAbilities}),
       talents: new fields.SetField(new fields.StringField({required: true},

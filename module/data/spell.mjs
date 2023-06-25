@@ -60,24 +60,24 @@ export default class CrucibleSpell extends CrucibleAction {
 
     // Derived Spell Attributes
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
-    this.cost = CrucibleSpell.#prepareCost(this);
-    this.defense = CrucibleSpell.#prepareDefense(this);
-    this.damage = CrucibleSpell.#prepareDamage(this);
-    this.target = CrucibleSpell.#prepareTarget(this);
+    this.cost = CrucibleSpell.#prepareCost.call(this);
+    this.defense = CrucibleSpell.#prepareDefense.call(this);
+    this.damage = CrucibleSpell.#prepareDamage.call(this);
+    this.target = CrucibleSpell.#prepareTarget.call(this);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare the cost for the spell from its components.
-   * @param {CrucibleSpell} spell     The spell being prepared
-   * @returns {ActionCost}            Configured cost data
+   * @this {CrucibleSpell}      The spell being prepared
+   * @returns {ActionCost}      Configured cost data
    */
-  static #prepareCost(spell) {
-    const cost = {...spell.gesture.cost};
-    if ( spell.inflection ) {
-      cost.action += spell.inflection.cost.action;
-      cost.focus += spell.inflection.cost.focus;
+  static #prepareCost() {
+    const cost = {...this.gesture.cost};
+    if ( this.inflection ) {
+      cost.action += this.inflection.cost.action;
+      cost.focus += this.inflection.cost.focus;
     }
     return cost;
   }
@@ -86,33 +86,33 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare the defense against which this spell is tested.
-   * @param {CrucibleSpell} spell     The spell being prepared
-   * @returns {string}                The defense to test
+   * @this {CrucibleSpell}      The spell being prepared
+   * @returns {string}          The defense to test
    */
-  static #prepareDefense(spell) {
-    if ( spell.rune.restoration ) return {
+  static #prepareDefense() {
+    if ( this.rune.restoration ) return {
       health: "wounds",
       wounds: "wounds",
       morale: "madness",
       madness: "madness"
-    }[spell.rune.resource];
-    else return spell.rune.defense;
+    }[this.rune.resource];
+    else return this.rune.defense;
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare damage information for the spell from its components.
-   * @param {CrucibleSpell} spell     The spell being prepared
-   * @returns {DamageData}
+   * @this {CrucibleSpell}      The spell being prepared
+   * @returns {DamageData}      Prepared damage data
    */
-  static #prepareDamage(spell) {
+  static #prepareDamage() {
     return {
-      base: spell.gesture.damage.base ?? 0,
-      bonus: spell.gesture.damage.bonus ?? 0,
+      base: this.gesture.damage.base ?? 0,
+      bonus: this.gesture.damage.bonus ?? 0,
       multiplier: 1,
-      type: spell.damageType ?? spell.rune.damageType,
-      restoration: spell.rune.restoration
+      type: this.damageType ?? this.rune.damageType,
+      restoration: this.rune.restoration
     };
   }
 
@@ -120,28 +120,29 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare the target data for the Spell based on its components.
-   * @param {CrucibleSpell} spell     The spell being prepared
-   * @returns {ActionTarget}          Configured target data
+   * @this {CrucibleSpell}      The spell being prepared
+   * @returns {ActionTarget}    Configured target data
    */
-  static #prepareTarget(spell) {
+  static #prepareTarget() {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
 
     // Specific targeting requirements for the composed spell
-    const target = {...spell.gesture.target};
+    const target = {...this.gesture.target};
     switch ( target.type ) {
       case "none":
-        target.scope = scopes.NONE;
+        target.scope ??= scopes.NONE;
         break;
       case "self":
-        target.scope = scopes.SELF;
-        break;
-      case "single":
-        target.scope = scopes[spell.rune.restoration ? "ALLIES" : "ENEMIES"];
+      case "summon":
+        target.scope ??= scopes.SELF;
         break;
       default:
-        target.scope = scopes.ALL;
+        target.scope ??= scopes.ENEMIES;
         break;
     }
+
+    // Restoration only affects allies
+    if ( this.rune.restoration ) target.scope ??= scopes.ALLIES;
     return target;
   }
 
@@ -203,15 +204,17 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Arrow                              */
       /* -------------------------------------------- */
       case "arrow":
-        this.tags.add("ranged");
 
         // Weapon range
         if ( mh.config.category.ranged ) this.target.distance = mh.system.range;
 
         // Arcane Archer Signature
-        if ( t.has("arcanearcher0000") && s.rangedAttack && !s.arcaneArcher ) {
-          this.cost.action -= 1;
-          this.usage.actorUpdates["system.status.arcaneArcher"] = true;
+        if ( t.has("arcanearcher0000") ) {
+          if ( mh.config.category.ranged ) this.target.distance = Math.max(this.target.distance, mh.system.range);
+          if ( s.rangedAttack && !s.arcaneArcher ) {
+            this.cost.action -= 1;
+            this.usage.actorUpdates["system.status.arcaneArcher"] = true;
+          }
         }
         break;
 

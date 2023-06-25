@@ -238,13 +238,14 @@ export default class CrucibleWeapon extends PhysicalItemData {
   getAllowedEquipmentSlots() {
     const SLOTS = this.constructor.WEAPON_SLOTS;
     const category = this.config.category;
-    if ( category.hands === 2 ) return [SLOTS.TWOHAND];
-    const slots = [SLOTS.MAINHAND];
-    if ( category.off ) {
-      slots.unshift(SLOTS.EITHER);
-      slots.push(SLOTS.OFFHAND);
+    const slots = [];
+    if ( category.main ) {
+      if ( category.hands === 2 ) return [SLOTS.TWOHAND];
+      if ( category.off ) slots.unshift(SLOTS.EITHER);
+      slots.push(SLOTS.MAINHAND);
+      if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
     }
-    if ( this.properties.has("versatile") ) slots.push(SLOTS.TWOHAND);
+    if ( category.off ) slots.push(SLOTS.OFFHAND);
     return slots;
   }
 
