@@ -93,6 +93,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
+        radius: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
+        multiple: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
           initial: SYSTEM.ACTION.TARGET_SCOPES.NONE}),
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
@@ -192,9 +194,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepareForActor() {
-    const {boons, banes} = this.usage;
-    if ( this.actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
-    if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
+    const {statuses, rollBonuses} = this.actor;
+
+    // Actor status effects
+    if ( statuses.has("broken") ) this.usage.banes.broken = {label: "Broken", number: 2};
+    if ( statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
+
+    // Temporary boons and banes stored as Actor rollBonuses
+    for ( const [id, boon] of Object.entries(rollBonuses.boons) ) this.usage.boons[id] = boon;
+    for ( const [id, bane] of Object.entries(rollBonuses.banes) ) this.usage.banes[id] = bane;
   }
 
   /* -------------------------------------------- */
@@ -577,6 +585,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return effects;
       }
 
+      // Offset effect start round for initiative order
+      effectData.duration ||= {};
+      if ( game.combat ) {
+        effectData.duration.startRound = game.combat.round;
+        effectData.duration.startTurn = 0;
+        const c0 = game.combat.getCombatantByActor(this.actor);
+        const c1 = game.combat.getCombatantByActor(target);
+        if ( c0 && c1 ) {
+          const t0 = c0 && game.combat.turns.indexOf(c0);
+          const t1 = c1 && game.combat.turns.indexOf(c1);
+          if ( t1 < t0 ) effectData.duration.startRound += 1;
+        }
+      }
+
       // Add effect
       effects.push(foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
@@ -821,6 +843,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( this.target.number > 1 ) parts.unshift(this.target.number);
       if ( this.target.distance > 1 ) parts.push(this.target.distance);
       if ( this.target.limit > 0 ) parts.push(`Limit ${this.target.limit}`);
+      if ( this.target.multiple > 1 ) parts.push(`x${this.target.multiple}`);
       tags.activation.target = parts.join(" ");
     }
 

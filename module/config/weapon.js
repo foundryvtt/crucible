@@ -215,7 +215,7 @@ export const CATEGORIES = {
     id: "talisman1",
     label: "WEAPON.Talisman1",
     hands: 1,
-    main: false,
+    main: true,
     off: true,
     ranged: false,
     scaling: "presence",

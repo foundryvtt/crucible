@@ -166,7 +166,7 @@ export const ACTOR_HOOKS = {
     argNames: ["training"]
   },
   prepareWeaponAttack: {
-    argNames: ["weapon", "target", "rollData"]
+    argNames: ["action", "target", "rollData"]
   },
 }
 

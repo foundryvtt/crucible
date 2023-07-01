@@ -1,5 +1,6 @@
 import PhysicalItemData from "./physical.mjs";
 import { SYSTEM } from "../config/system.js";
+import Enum from "../config/enum.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -16,11 +17,11 @@ export default class CrucibleWeapon extends PhysicalItemData {
    * Designate which equipped slot the weapon is used in.
    * @enum {Readonly<number>}
    */
-  static WEAPON_SLOTS = Object.freeze({
-    EITHER: 0,
-    MAINHAND: 1,
-    OFFHAND: 2,
-    TWOHAND: 3
+  static WEAPON_SLOTS = new Enum({
+    EITHER: {value: 0, label: "WEAPON.SLOTS.EITHER"},
+    MAINHAND: {value: 1, label: "WEAPON.SLOTS.MAINHAND"},
+    OFFHAND: {value: 2, label: "WEAPON.SLOTS.OFFHAND"},
+    TWOHAND: {value: 3, label: "WEAPON.SLOTS.TWOHAND"},
   });
 
   /* -------------------------------------------- */
@@ -229,6 +230,33 @@ export default class CrucibleWeapon extends PhysicalItemData {
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the effective weapon damage resulting from a weapon attack.
+   * @param {CrucibleActor} actor       The actor performing the attack action
+   * @param {CrucibleAction} action     The attack action being performed
+   * @param {CrucibleActor} target      The target of the attack action
+   * @param {AttackRoll} roll           The attack roll performed
+   * @returns {DamageData}              Damage data for the roll
+   */
+  getDamage(actor, action, target, roll) {
+    const resource = action.usage.resouce || "health";
+    const type = this.damageType;
+    const multiplier = action.usage.bonuses.multiplier ?? 1;
+    let {weapon: base, bonus} = this.damage;
+    const resistance = target.getResistance(resource, type, false);
+
+    // Configure bonus damage
+    if ( actor.talentIds.has("weakpoints000000") && this.config.category.scaling.includes("dexterity")
+      && (["exposed", "flanked", "unaware"].some(s => target.statuses.has(s))) ) {
+      bonus += 2;
+    }
+
+    // Return prepare damage data
+    return {overflow: roll.overflow, multiplier, base, bonus, resistance, resource, type};
+  }
+
   /* -------------------------------------------- */
 
   /**

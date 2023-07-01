@@ -30,7 +30,6 @@ import * as chat from "./module/chat.js";
 /* -------------------------------------------- */
 
 const DEVELOPMENT_MODE = true;
-const SYNC_TALENTS_VERSION = "0.5.5";
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
@@ -281,7 +280,14 @@ Hooks.on("canvasReady", () => {
   if ( game.system.tree.actor ) {
     game.system.tree.open(game.system.tree.actor, {resetView: false});
   }
-})
+});
+
+Hooks.on("hotbarDrop", async (bar, data, slot) => {
+  if ( data.type === "crucible.action" ) {
+    const macro = await Macro.create(data.macroData);
+    await game.user.assignHotbarMacro(macro, slot);
+  }
+});
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

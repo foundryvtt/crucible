@@ -12,7 +12,7 @@ export function bleeding(actor, target, {ability="dexterity", damageType="pierci
     _id: getEffectId("Bleeding"),
     label: "Bleeding",
     icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -30,7 +30,7 @@ export function burning(actor, target) {
     _id: getEffectId("Burning"),
     label: "Burning",
     icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -49,7 +49,7 @@ export function chilled(actor, target) {
     _id: getEffectId("Chilled"),
     label: "Chilled",
     icon: "icons/magic/water/orb-ice-web.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["slowed"],
     flags: {
@@ -68,7 +68,7 @@ export function confusion(actor, target) {
     _id: getEffectId("Confusion"),
     label: "Confusion",
     icon: "icons/magic/air/air-burst-spiral-pink.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["disoriented"],
     flags: {
@@ -87,7 +87,7 @@ export function corroding(actor, target) {
     _id: getEffectId("Corroding"),
     label: "Corroding",
     icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
-    duration: {rounds: 3},
+    duration: {turns: 3},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -105,7 +105,7 @@ export function decay(actor, target) {
     _id: getEffectId("Decay"),
     label: "Decay",
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
-    duration: {rounds: 3},
+    duration: {turns: 3},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -123,7 +123,7 @@ export function entropy(actor, target) {
     _id: getEffectId("Entropy"),
     label: "Entropy",
     icon: "icons/magic/unholy/orb-swirling-teal.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["frightened"],
     flags: {
@@ -142,7 +142,7 @@ export function irradiated(actor, target) {
     _id: getEffectId("Irradiated"),
     label: "Irradiated",
     icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -161,7 +161,7 @@ export function mending(actor, target) {
     _id: getEffectId("Mending"),
     label: "Mending",
     icon: "icons/magic/life/cross-beam-green.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -178,7 +178,7 @@ export function inspired(actor, target) {
     _id: getEffectId("Inspired"),
     label: "Inspired",
     icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -196,7 +196,7 @@ export function poisoned(actor, target) {
     _id: getEffectId("Poisoned"),
     label: "Poisoned",
     icon: "icons/magic/unholy/orb-smoking-green.webp",
-    duration: {rounds: 6},
+    duration: {turns: 6},
     origin: actor.uuid,
     flags: {
       crucible: {
@@ -214,7 +214,7 @@ export function shocked(actor, target) {
     _id: getEffectId("Shocked"),
     label: "Shocked",
     icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["staggered"],
     flags: {
@@ -233,7 +233,7 @@ export function staggered(actor, target) {
     _id: getEffectId("Staggered"),
     label: "Staggered",
     icon: "icons/skills/melee/strike-hammer-destructive-orange.webp",
-    duration: {rounds: 1},
+    duration: {turns: 1},
     origin: actor.uuid,
     statuses: ["staggered"]
   }

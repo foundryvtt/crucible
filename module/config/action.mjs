@@ -34,7 +34,7 @@ export const TARGET_TYPES = Object.freeze({
     label: "Fan",
     template: {
       t: "cone",
-      angle: 120,
+      angle: 210,
       directionDelta: 45,
       anchor: "self",
       distanceOffset: 0.5
@@ -147,7 +147,7 @@ function weaponAttack(type="mainhand") {
       }
       else action.usage.actorUpdates["system.status.meleeAttack"] = true;
       const rolls = [];
-      const n = action.target.number ?? 1;
+      const n = action.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
         const r = await actor.weaponAttack(action, target);
         rolls.push(r);
@@ -191,11 +191,11 @@ export const TAGS = {
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity")
   },
 
-  // Requires Heavy Weapon
-  heavy: {
+  // Requires Strength Weapon
+  heavy: { // TODO re-id as "brute"
     tag: "heavy",
-    label: "ACTION.TagHeavy",
-    tooltip: "ACTION.TagHeavyTooltip",
+    label: "ACTION.TagBrute",
+    tooltip: "ACTION.TagBruteTooltip",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("strength")
   },
 

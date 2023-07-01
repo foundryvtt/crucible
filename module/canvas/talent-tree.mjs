@@ -513,6 +513,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
       dragRightDrop: null,
       dragRightCancel: null
     }, {
+      application: this.app,
       dragResistance: 25
     }).activate();
 

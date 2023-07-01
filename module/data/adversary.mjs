@@ -114,7 +114,7 @@ export default class CrucibleAdversary extends foundry.abstract.TypeDataModel {
     const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
 
     // Compute threat level
-    let threatLevel = Math.floor(level * factor);
+    let threatLevel = Math.ceil(level * factor);
     let fractionLevel = threatLevel;
     if ( level === 0 ) {
       fractionLevel = 0;

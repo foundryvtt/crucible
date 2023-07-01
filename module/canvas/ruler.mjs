@@ -42,7 +42,6 @@ export default class CrucibleRuler extends Ruler {
     // Determine movement costs
     const hasMoved = actor.system.status.hasMoved;
     let firstDistance = hasMoved && actor.talentIds.has("distancerunner00") ? 5 : 4;
-    if ( actor.statuses.has("prone") ) firstDistance = 1;
     const nextDistance = actor.talentIds.has("distancerunner00") ? 5 : 4;
 
     // Record Costs

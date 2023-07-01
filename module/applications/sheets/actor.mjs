@@ -7,9 +7,11 @@ export default class CrucibleActorSheet extends ActorSheet {
 
   /** @inheritdoc */
   static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
+    const options = super.defaultOptions;
+    options.dragDrop.push({dragSelector: ".actions .action", dropSelector: null});
+    return Object.assign(options, {
       width: 760,
-      height: 740,
+      height: 750,
       classes: [SYSTEM.id, "sheet", "actor", this.actorType],
       template: `systems/${SYSTEM.id}/templates/sheets/${this.actorType}.hbs`,
       resizable: false,
@@ -299,9 +301,23 @@ export default class CrucibleActorSheet extends ActorSheet {
    */
   #formatEffects() {
     return this.actor.effects.map(effect => {
-      const {startRound, rounds} = effect.duration;
+      const {startRound, rounds, turns} = effect.duration;
+      const elapsed = game.combat.round - startRound;
       const tags = {};
-      if ( rounds ) tags.duration = game.combat?.round ? (startRound + rounds - game.combat.round) : rounds;
+
+      // Turn-based duration
+      if ( Number.isFinite(turns) ) {
+        const remaining = game.combat ? turns - elapsed : turns;
+        tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
+      }
+
+      // Round-based duration
+      else if ( Number.isFinite(rounds) ) {
+        const remaining = game.combat ? rounds - elapsed + 1 : rounds;
+        tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
+      }
+
+      // Infinite duration
       else tags.duration = "∞";
       return {
         id: effect.id,
@@ -399,6 +415,28 @@ export default class CrucibleActorSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _onDragStart(event) {
+    const target = event.currentTarget;
+    if ( target.classList.contains("action") ) {
+      const actionId = target.dataset.actionId;
+      const action = this.actor.actions[actionId];
+      if ( !action ) return;
+      const macroData = {
+        type: "script",
+        scope: "actor",
+        name: action.name,
+        img: action.img,
+        command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${actionId}");`
+      };
+      event.dataTransfer.setData("text/plain", JSON.stringify({type: "crucible.action", macroData}));
+      return;
+    }
+    return super._onDragStart(event);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Handle deleting an ActiveEffect within the Actor sheet.
    * @param {HTMLLinkElement} button    The clicked button element
@@ -451,22 +489,25 @@ export default class CrucibleActorSheet extends ActorSheet {
    * Toggle the equipped state of an Owned Item on the Actor
    * @param {HTMLLinkElement} button
    */
-  #onItemEquip(button) {
+  async #onItemEquip(button) {
     const li = button.closest("[data-item-id]");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
     switch ( item.type ) {
       case "armor":
-        return this.actor.equipArmor({
-          itemId: item.id,
-          equipped: !item.system.equipped
-        });
+        try {
+          await this.actor.equipArmor(item.id, {equipped: !item.system.equipped});
+        } catch(err) {
+          ui.notifications.warn(err.message);
+        }
+        break;
       case "weapon":
-        return this.actor.equipWeapon({
-          itemId: item.id,
-          equipped: !item.system.equipped
-        });
+        try {
+          await this.actor.equipWeapon(item.id, {equipped: !item.system.equipped});
+        } catch(err) {
+          ui.notifications.warn(err.message);
+        }
+        break;
     }
   }
 }
-

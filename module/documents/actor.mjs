@@ -52,9 +52,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Temporary roll bonuses this actor has outside the fields of its data model.
-   * @type {{
-   *   damage: Object<string, number>
-   * }}
+   * @type {{[damage]: Object<string, number>, [boons]: Object<string, DiceBoon>, [banes]: Object<string, DiceBoon>}}
    */
   rollBonuses = this.rollBonuses;
 
@@ -248,7 +246,11 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
-    this.rollBonuses = {damage: {}};
+    this.rollBonuses = {
+      damage: {},
+      boons: {},
+      banes: {}
+    };
   }
 
   /* -------------------------------------------- */
@@ -800,11 +802,13 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleActor} target    The target being attacked
    * @param {CrucibleAction} action   The action being performed
    * @param {string} actionType       The type of action being performed: "weapon", "spell", or "skill
+   * @param {boolean} [ranged]        Does this action count as a ranged attack?
    * @returns {{boons: Object<DiceBoon>, banes: Object<DiceBoon>}}  Configuration of boons and banes
    */
-  applyTargetBoons(target, action, actionType) {
-    const {boons, banes} = action.usage;
-    const ranged = action.target.distance > 1;
+  applyTargetBoons(target, action, actionType, ranged) {
+    const boons = foundry.utils.deepClone(action.usage.boons);
+    const banes = foundry.utils.deepClone(action.usage.banes);
+    ranged ??= action.target.distance > 1;
     const isAttack = (actionType !== "skill") && !action.damage?.restoration;
 
     // Exposed
@@ -815,12 +819,12 @@ export default class CrucibleActor extends Actor {
 
     // Prone
     if ( target.statuses.has("prone") && isAttack ) {
-      if ( ranged ) banes.prone = {label: "Prone", number: 2};
-      else boons.prone = {label: "Prone", number: 2};
+      if ( ranged ) banes.prone = {label: "Prone", number: 1};
+      else boons.prone = {label: "Prone", number: 1};
     }
 
     // Flanked
-    if ( target.statuses.has("flanked") && (actionType !== "skill") ) {
+    if ( target.statuses.has("flanked") && isAttack && !ranged ) {
       const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
       if ( ae ) boons.flanked = {label: "Flanked", number: ae.getFlag("crucible", "flanked") ?? 1};
       else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
@@ -980,6 +984,22 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * A wrapper around CrucibleActor#useAction which encapsulates some Macro hotbar behaviors.
+   * @param {CrucibleActor} actor   The Actor which should take action
+   * @param {string} actionId       The Action ID to be performed
+   * @returns {Promise<void>}
+   */
+  static async macroAction(actor, actionId) {
+    if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
+    if ( !(actionId in actor.actions) ) {
+      return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
+    }
+    await actor.useAction(actionId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Cast a certain spell against a target.
    * @param {CrucibleSpell} spell
    * @param {CrucibleActor} target
@@ -1098,11 +1118,10 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
    */
   async weaponAttack(action, target, weapon) {
-    const {boons, banes} = this.applyTargetBoons(target, action, "weapon");
-    let {bonuses, damageType, defenseType, resource} = action.usage;
     weapon ||= action.usage.weapon;
-    defenseType ||= "physical";
-    if ( !weapon || (weapon.type !== "weapon") ) {
+    const {boons, banes} = this.applyTargetBoons(target, action, "weapon", !!weapon.config.category.ranged);
+    const defenseType = action.usage.defenseType || "physical";
+    if ( weapon?.type !== "weapon") {
       throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
     }
 
@@ -1134,19 +1153,10 @@ export default class CrucibleActor extends Actor {
 
     // Structure damage
     if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
-    resource ||= "health";
-    damageType ||= weapon.system.damageType;
-    const weaponDamage = weapon.system.damage;
-    roll.data.damage = {
-      overflow: roll.overflow,
-      multiplier: bonuses.multiplier ?? 1,
-      base: weaponDamage.weapon,
-      bonus: weaponDamage.bonus,
-      resistance: target.getResistance(resource, damageType, false),
-      resource,
-      type: damageType
-    };
+    roll.data.damage = weapon.system.getDamage(this, action, target, roll);
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+
+    // TODO "rollWeaponAttack" hook for final damage adjustments?
     return roll;
   }
 
@@ -1197,8 +1207,18 @@ export default class CrucibleActor extends Actor {
     const changes = {};
     for ( let [resourceName, delta] of Object.entries(deltas) ) {
       if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
-      let resource = r[resourceName];
       if ( reverse ) delta *= -1;
+      let resource = r[resourceName];
+
+      // Handle Infinity
+      if ( delta === Infinity ) {
+        changes[resourceName] = {value: 999999};
+        continue;
+      }
+      else if ( delta === -Infinity ) {
+        changes[resourceName] = {value: -999999};
+        continue;
+      }
 
       // Frightened and Diseased
       if ( (resourceName === "morale") && this.statuses.has("frightened") ) delta = Math.min(delta, 0);
@@ -1319,11 +1339,7 @@ export default class CrucibleActor extends Actor {
     const toUpdate = [];
     for ( const effectData of outcome.effects ) {
       const existing = this.effects.get(effectData._id);
-      if ( existing ) {
-        effectData.duration ||= {};
-        effectData.duration.startRound = game.combat?.round || null;
-        toUpdate.push(effectData);
-      }
+      if ( existing ) toUpdate.push(effectData);
       else toCreate.push(effectData);
     }
     await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
@@ -1390,7 +1406,7 @@ export default class CrucibleActor extends Actor {
 
     // Concussive Blows
     if ( this.talentIds.has("concussiveblows0") ) {
-      if ( (action.tags.has("mainhand") && (mainhand.system.damageType === "bludgeoning"))
+      if ( (["mainhand", "twohand"].some(t => action.tags.has(t)) && (mainhand.system.damageType === "bludgeoning"))
         || (action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning")) ) {
         outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
       }
@@ -1430,7 +1446,7 @@ export default class CrucibleActor extends Actor {
     // Clear system statuses
     await this.update({"system.status": null});
 
-    // Remove Active Effects which expire at the start of a turn
+    // Remove Active Effects which expire at the start of a turn (round)
     await this.expireEffects(true);
 
     // Apply damage-over-time before recovery
@@ -1511,22 +1527,23 @@ export default class CrucibleActor extends Actor {
   /**
    * Test whether an ActiveEffect is expired.
    * @param {ActiveEffect} effect       The effect being tested
-   * @param {boolean} start             Is it the start of the round?
+   * @param {boolean} start             Is it the start of the turn (true) or the end of the turn (false)
    * @returns {boolean}
    */
   #isEffectExpired(effect, start=true) {
-    const {startRound, rounds} = effect.duration;
-    if ( !Number.isNumeric(rounds) ) return false;
-    const isSelf = effect.origin === this.uuid;
-    const remaining = (startRound + rounds) - game.combat.round;
+    const {startRound, rounds, turns} = effect.duration;
+    const elapsed = game.combat.round - startRound + 1;
 
-    // Self effects expire at the beginning of your next turn
-    if ( isSelf ) return start && (remaining <= 0);
+    // Turn-based effects expire at the end of the turn
+    if ( turns > 0 ) {
+      if ( start ) return false;
+      return elapsed >= turns;
+    }
 
-    // Effects from others expire at the end of your turn
-    else {
-      if ( start ) return remaining < 0;
-      else return remaining <= 0;
+    // Round-based effects expire at the start of the turn
+    else if ( rounds > 0 ) {
+      if ( !start ) return false;
+      return elapsed > rounds;
     }
   }
 
@@ -1902,10 +1919,11 @@ export default class CrucibleActor extends Actor {
   /**
    * Equip an owned armor Item.
    * @param {string} itemId       The owned Item id of the Armor to equip
-   * @param {boolean} [equipped]  Is the armor being equipped (true), or unequipped (false)
+   * @param {object} [options]    Options which configure how armor is equipped
+   * @param {boolean} [options.equipped]  Is the armor being equipped (true), or unequipped (false)
    * @return {Promise}            A Promise which resolves once the armor has been equipped or un-equipped
    */
-  async equipArmor({itemId, equipped=true}={}) {
+  async equipArmor(itemId, {equipped=true}={}) {
     const current = this.equipment.armor;
     const item = this.items.get(itemId);
 
@@ -1933,93 +1951,94 @@ export default class CrucibleActor extends Actor {
   /**
    * Equip an owned weapon Item.
    * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
-   * @param {string} [mainhandId] The owned Item id of the Weapon to equip specifically in the mainhand slot.
-   * @param {string} [offhandId]  The owned Item id of the Weapon to equip specifically in the offhand slot.
-   * @param {boolean} [equipped]  Are these weapons being equipped (true), or unequipped (false).
+   * @param {object} [options]    Options which configure how the weapon is equipped.
+   * @param {number} [options.slot]       A specific equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @param {boolean} [options.equipped]  Whether the weapon should be equipped (true) or unequipped (false)
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
-  async equipWeapon({itemId, mainhandId, offhandId, equipped=true}={}) {
-    const slots = CrucibleWeapon.WEAPON_SLOTS;
-    const weapons = this.equipment.weapons;
-    let isMHFree = !weapons.mainhand.id;
-    let isOHFree = (weapons.mainhand.system.slot !== slots.TWOHAND) && !weapons.offhand.id;
+  async equipWeapon(itemId, {slot, equipped=true}={}) {
+    const weapon = this.items.get(itemId, {strict: true});
+    const {actionCost, actorUpdates, itemUpdates} = equipped
+      ? this.#equipWeapon(weapon, slot)
+      : this.#unequipWeapon(weapon);
+    if ( this.combatant ) {
+      await this.alterResources({action: -actionCost}, actorUpdates);
+    }
+    await this.updateEmbeddedDocuments("Item", itemUpdates);
+  }
 
-    // Identify the items being requested
-    const w1 = this.items.get(mainhandId ?? itemId, {strict: true});
-    const w2 = this.items.get(offhandId);
-    const updates = [];
-    let actionCost = 0;
+  /* -------------------------------------------- */
+
+  /**
+   * Identify updates which should be made when un-equipping a weapon.
+   * @param {CrucibleItem} [weapon]     A weapon being unequipped
+   * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
+   */
+  #unequipWeapon(weapon) {
+    const itemUpdates = [];
+    const actorUpdates = {};
+    const actionCost = 0;
+    if ( weapon.system.equipped ) itemUpdates.push({_id: weapon.id, "system.equipped": false});
+    if ( itemUpdates.length ) actorUpdates["system.status.unequippedWeapon"] = true;
+    return {itemUpdates, actionCost, actorUpdates};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify updates which should be made when equipping a weapon.
+   * @param {CrucibleItem} weapon     A weapon being equipped
+   * @param {number} slot             A requested equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
+   */
+  #equipWeapon(weapon, slot) {
+    const category = weapon.config.category;
+    const slots = CrucibleWeapon.WEAPON_SLOTS;
+    const {mainhand, offhand} = this.equipment.weapons;
+
+    // Identify the target equipment slot
+    if ( slot === undefined ) {
+      if ( category.hands === 2 ) slot = slots.TWOHAND;
+      else if ( category.main ) slot = mainhand.id && category.off ? slots.OFFHAND : slots.MAINHAND;
+      else if ( category.off ) slot = slots.OFFHAND;
+    }
+
+    // Confirm the target slot is available
+    let occupied;
+    switch ( slot ) {
+      case slots.TWOHAND:
+        if ( mainhand.id ) occupied = mainhand;
+        else if ( offhand.id ) occupied = offhand;
+        break;
+      case slots.MAINHAND:
+        if ( mainhand.id ) occupied = mainhand;
+        break;
+      case slots.OFFHAND:
+        if ( offhand?.id ) occupied = offhand;
+        break;
+    }
+    if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+      actor: this.name,
+      item: weapon.name,
+      type: game.i18n.localize(slots.label(slot))
+    }));
+
+    // Mark the item update
+    const itemUpdates = [{_id: weapon.id, "system.equipped": true, "system.slot": slot}];
     const actorUpdates = {};
 
-    // Handle un-equipping weapons which are currently equipped
-    if ( !equipped ) {
-      if ( (w1 === weapons.mainhand) || (w1 === weapons.offhand) ) {
-        updates.push({_id: w1.id, "system.equipped": false});
-      }
-      if ( w2 && (w2 === weapons.offhand) ) {
-        updates.push({_id: w2.id, "system.equipped": false});
-      }
-      return this.updateEmbeddedDocuments("Item", updates);
-    }
-
-    // Equip a secondary weapon that can only go in an offhand slot
-    if ( w2 ) {
-      if ( !w2.config.category.off ) {
-        ui.notifications.warn(game.i18n.format("WARNING.CannotEquipInvalidCategory", {
-          actor: this.name,
-          item: w2.name,
-          type: game.i18n.localize("ACTION.TagOffhand")
-        }));
-      }
-      if ( !isOHFree ) {
-        ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
-          actor: this.name,
-          item: w2.name,
-          type: game.i18n.localize("ACTION.TagOffhand")
-        }));
-      }
-      else {
-        isOHFree = false;
-        updates.push({_id: w2.id, "system.equipped": true});
-        actionCost += w2.system.properties.has("ambush") ? 0 : 1;
-      }
-    }
-
-    // Equip the primary weapon in the main-hand slot
-    if ( w1.config.category.main && isMHFree ) {
-      updates.push({_id: w1.id, "system.equipped": true});
-      actionCost += w1.system.properties.has("ambush") ? 0 : 1;
-    }
-
-    // Equip the primary weapon in the off-hand slot
-    else if ( w1.config.category.off && isOHFree ) {
-      updates.push({_id: w1.id, "system.equipped": true});
-      actionCost += w1.system.properties.has("ambush") ? 0 : 1;
-    }
-
-    // Failed to equip
-    else {
-      ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
-        actor: this.name,
-        item: w1.name,
-        type: game.i18n.localize(`ACTION.Tag${w1.config.category.off ? "Off" : "Main"}Hand`)
-      }));
-    }
-
-    // Adjust action cost
+    // Determine action cost
+    let actionCost = 1;
+    if ( weapon.system.properties.has("ambush") ) actionCost -= 1;
     if ( this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
       actionCost -= 1;
       actorUpdates["system.status.hasMoved"] = true;
     }
-
-    // Apply the updates
-    if ( this.combatant ) {
-      if ( this.system.resources.action.value < actionCost ) {
-        return ui.notifications.warn("WARNING.CannotEquipActionCost", {localize: true});
-      }
-      await this.alterResources({action: -actionCost}, actorUpdates);
+    actionCost = Math.max(actionCost, 0);
+    if ( this.system.resources.action.value < actionCost ) {
+      throw new Error(game.i18n.localize("WARNING.CannotEquipActionCost"));
     }
-    await this.updateEmbeddedDocuments("Item", updates);
+    return {itemUpdates, actorUpdates, actionCost};
   }
 
   /* -------------------------------------------- */

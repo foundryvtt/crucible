@@ -180,30 +180,31 @@ export default class ActionUseDialog extends StandardCheckDialog {
   /* -------------------------------------------- */
 
   #getTemplateData(token, target, targetConfig) {
-    const {x, y} = token?.center ?? {x: 1000, y: 1000}; // FIXME more sensible fallback?
+    const {x, y} = token?.center ?? canvas.dimensions.rect.center;
     const {id: userId, color: fillColor} = game.user;
     const s = canvas.dimensions.size;
     const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1);
     const distance = target.distance + (targetConfig.distanceOffset * baseSize);
     const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
-
-    // Pulse
-    if ( target.type === "pulse" ) {
-      const shape = token.getEngagementRectangle(distance);
-      Object.assign(templateData, {
-        x: shape.x,
-        y: shape.y,
-        distance: Math.hypot(shape.width, shape.height) / s,
-        direction: 45
-      })
-    }
-
-    // Summon
-    else if ( target.type === "summon" ) {
-      Object.assign(templateData, {
-        distance: Math.hypot(target.width, target.height),
-        direction: 45
-      });
+    switch ( target.type ) {
+      case "blast":
+        templateData.distance = target.radius ?? 1;
+        break;
+      case "pulse":
+        const shape = token.getEngagementRectangle(distance);
+        Object.assign(templateData, {
+          x: shape.x,
+          y: shape.y,
+          distance: Math.hypot(shape.width, shape.height) / s,
+          direction: 45
+        });
+        break;
+      case "summon":
+        Object.assign(templateData, {
+          distance: Math.hypot(target.width, target.height),
+          direction: 45
+        });
+        break;
     }
     return templateData;
   }
