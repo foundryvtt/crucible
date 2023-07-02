@@ -38,6 +38,7 @@ export default class CrucibleActorSheet extends ActorSheet {
 
     // Abilities, Defenses, Resources, and Resistances
     context.abilityScores = this.#formatAbilities(a.system.abilities);
+    context.physicalDefenses = this.#formatPhysicalDefenses(a.system.defenses);
     context.saveDefenses = this.#formatSaveDefenses(a.system.defenses);
     context.resources = this.#formatResources(a.system.resources);
     context.resistances = this.#formatResistances(a.system.resistances);
@@ -46,9 +47,6 @@ export default class CrucibleActorSheet extends ActorSheet {
     context.items = this.#formatItems(a.items);
 
     // Equipment
-    const armor = a.equipment.armor;
-    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.system.category].label;
-    context.armorCategory = SYSTEM.ARMOR.CATEGORIES[armor.system.category].label;
     context.featuredEquipment = this._prepareFeaturedEquipment();
 
     // Actions
@@ -140,6 +138,42 @@ export default class CrucibleActorSheet extends ActorSheet {
       }
       return ability;
     });
+  }
+  /* -------------------------------------------- */
+
+  /**
+   * Format physical defenses for display in the sheet.
+   * @param {object} defenses     Prepared Actor system defenses
+   * @returns {object[]}          A formatted array of physical defenses
+   */
+  #formatPhysicalDefenses(defenses) {
+    return {
+      total: {
+        value: defenses.physical.total,
+        label: SYSTEM.DEFENSES.physical.label,
+        subtitle: this.actor.equipment.armor.name
+      },
+      armor: {
+        value: defenses.armor.total,
+        label: SYSTEM.DEFENSES.armor.label,
+        pct: Math.round(defenses.armor.total * 100 / defenses.physical.total)
+      },
+      dodge: {
+        value: defenses.dodge.total,
+        label: SYSTEM.DEFENSES.dodge.label,
+        pct: Math.round(defenses.dodge.total * 100 / defenses.physical.total)
+      },
+      parry: {
+        value: defenses.parry.total,
+        label: SYSTEM.DEFENSES.parry.label,
+        pct: Math.round(defenses.parry.total * 100 / defenses.physical.total)
+      },
+      block: {
+        value: defenses.block.total,
+        label: SYSTEM.DEFENSES.block.label,
+        pct: Math.round(defenses.block.total * 100 / defenses.physical.total)
+      }
+    };
   }
 
   /* -------------------------------------------- */

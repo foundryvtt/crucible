@@ -170,33 +170,34 @@
                 {{! Physical Defense --}}
                 <div class="physical-defenses defense flexrow" data-defense="physical">
                     <div class="physical-title flexrow">
-                        <h3 class="badge physical">Physical</h3>
-                        <span class="input score">{{actor.system.defenses.physical.total}}</span>
+                        <h3 class="badge physical">{{physicalDefenses.total.label}}</h3>
+                        <span class="input score">{{physicalDefenses.total.value}}</span>
+                        <span class="subtitle">{{physicalDefenses.total.subtitle}}</span>
                     </div>
                     <div class="physical-formula flexrow">
                         <span class="math">=</span>
                         <div class="flexcol">
-                            <h4>Armor</h4>
-                            <span class="input score">{{actor.system.defenses.armor.total}}</span>
-                            <span class="subtitle">{{armorCategory}}</span>
+                            <h4>{{physicalDefenses.armor.label}}</h4>
+                            <span class="input score">{{physicalDefenses.armor.value}}</span>
+                            <span class="subtitle">{{physicalDefenses.armor.pct}}%</span>
                         </div>
                         <span class="math">+</span>
                         <div class="flexcol">
-                            <h4>Dodge</h4>
-                            <span class="input score">{{actor.system.defenses.dodge.total}}</span>
-                            <span class="subtitle">Maximum {{actor.system.defenses.dodge.max}}</span>
+                            <h4>{{physicalDefenses.dodge.label}}</h4>
+                            <span class="input score">{{physicalDefenses.dodge.value}}</span>
+                            <span class="subtitle">{{physicalDefenses.dodge.pct}}%</span>
                         </div>
                         <span class="math">+</span>
                         <div class="flexcol">
-                            <h4>Parry</h4>
-                            <span class="input score">{{actor.system.defenses.parry.total}}</span>
-                            <span class="subtitle">Maximum 6</span>
+                            <h4>{{physicalDefenses.parry.label}}</h4>
+                            <span class="input score">{{physicalDefenses.parry.value}}</span>
+                            <span class="subtitle">{{physicalDefenses.parry.pct}}%</span>
                         </div>
                         <span class="math">+</span>
                         <div class="flexcol">
-                            <h4>Block</h4>
-                            <span class="input score">{{actor.system.defenses.block.total}}</span>
-                            <span class="subtitle">Maximum 6</span>
+                            <h4>{{physicalDefenses.block.label}}</h4>
+                            <span class="input score">{{physicalDefenses.block.value}}</span>
+                            <span class="subtitle">{{physicalDefenses.block.pct}}%</span>
                         </div>
                     </div>
                 </div>

@@ -1183,7 +1183,11 @@ h2.divider span {
   gap: var(--marginSize);
 }
 .crucible.sheet.actor .defenses .physical-defenses .physical-title {
+  padding-top: 20px;
   flex: 1;
+}
+.crucible.sheet.actor .defenses .physical-defenses .physical-title .subtitle {
+  flex: 0 0 100%;
 }
 .crucible.sheet.actor .defenses .physical-defenses .physical-formula {
   flex: 2;
