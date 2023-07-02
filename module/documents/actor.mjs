@@ -835,8 +835,14 @@ export default class CrucibleActor extends Actor {
     if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};
 
     // Prone
+    if ( this.statuses.has("prone") && isAttack ) {
+      banes.prone = {label: "Prone", number: 1};
+    }
     if ( target.statuses.has("prone") && isAttack ) {
-      if ( ranged ) banes.prone = {label: "Prone", number: 1};
+      if ( ranged ) {
+        if ( "prone" in banes ) banes.prone.number += 1;
+        else banes.prone = {label: "Prone", number: 1};
+      }
       else boons.prone = {label: "Prone", number: 1};
     }
 
@@ -1431,9 +1437,8 @@ export default class CrucibleActor extends Actor {
     const {mainhand, offhand} = this.equipment.weapons;
 
     // Poisoner
-    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades")) ) {
-      outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target))
-    }
+    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"))
+      && action.tags.has("melee") ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
 
     // Bloodletter
     if ( this.talentIds.has("bloodletter00000") ) {
@@ -2033,13 +2038,22 @@ export default class CrucibleActor extends Actor {
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
   async equipWeapon(itemId, {slot, equipped=true}={}) {
+
+    // Identify changes
     const weapon = this.items.get(itemId, {strict: true});
     const {actionCost, actorUpdates, itemUpdates} = equipped
       ? this.#equipWeapon(weapon, slot)
       : this.#unequipWeapon(weapon);
+
+    // Enforce action cost of equipping for Actors that are in combat
     if ( this.combatant ) {
+      if ( this.system.resources.action.value < actionCost ) {
+        throw new Error(game.i18n.localize("WARNING.CannotEquipActionCost"));
+      }
       await this.alterResources({action: -actionCost}, actorUpdates);
     }
+
+    // Update item equipped state
     await this.updateEmbeddedDocuments("Item", itemUpdates);
   }
 
@@ -2111,9 +2125,6 @@ export default class CrucibleActor extends Actor {
       actorUpdates["system.status.hasMoved"] = true;
     }
     actionCost = Math.max(actionCost, 0);
-    if ( this.system.resources.action.value < actionCost ) {
-      throw new Error(game.i18n.localize("WARNING.CannotEquipActionCost"));
-    }
     return {itemUpdates, actorUpdates, actionCost};
   }
 

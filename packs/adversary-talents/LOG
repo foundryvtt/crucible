@@ -1,8 +1,8 @@
-2023/07/02-12:34:23.605 389a4 Recovering log #323
-2023/07/02-12:34:23.608 389a4 Delete type=0 #323
-2023/07/02-12:34:23.608 389a4 Delete type=3 #321
-2023/07/02-12:57:29.687 8700 Level-0 table #328: started
-2023/07/02-12:57:29.687 8700 Level-0 table #328: 0 bytes OK
-2023/07/02-12:57:29.688 8700 Delete type=0 #326
-2023/07/02-12:57:29.692 8700 Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
-2023/07/02-12:57:29.692 8700 Manual compaction at level-1 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
+2023/07/02-17:19:45.951 2f590 Recovering log #331
+2023/07/02-17:19:45.955 2f590 Delete type=0 #331
+2023/07/02-17:19:45.955 2f590 Delete type=3 #329
+2023/07/02-17:20:21.583 8114 Level-0 table #336: started
+2023/07/02-17:20:21.583 8114 Level-0 table #336: 0 bytes OK
+2023/07/02-17:20:21.584 8114 Delete type=0 #334
+2023/07/02-17:20:21.588 8114 Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
+2023/07/02-17:20:21.594 8114 Manual compaction at level-1 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)

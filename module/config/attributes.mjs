@@ -172,7 +172,7 @@ export const RESOURCES = Object.freeze({
     id: "wounds",
     label: "RESOURCES.Wounds",
     type: "reserve",
-    tooltip: "Health &times; 2",
+    tooltip: "Health &times; 1.5",
     color: {
       high: Color.from(0xEE0000),
       low: Color.from(0xAA0000),
@@ -193,7 +193,7 @@ export const RESOURCES = Object.freeze({
   madness: {
     id: "madness",
     label: "RESOURCES.Madness",
-    tooltip: "Morale &times; 2",
+    tooltip: "Morale &times; 1.5",
     type: "reserve",
     color: {
       high: Color.from(0x9900CC),

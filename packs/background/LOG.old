@@ -1,8 +1,8 @@
-2023/07/02-12:02:02.667 2554c Recovering log #1020
-2023/07/02-12:02:02.671 2554c Delete type=0 #1020
-2023/07/02-12:02:02.671 2554c Delete type=3 #1018
-2023/07/02-12:34:02.679 8700 Level-0 table #1025: started
-2023/07/02-12:34:02.680 8700 Level-0 table #1025: 0 bytes OK
-2023/07/02-12:34:02.681 8700 Delete type=0 #1023
-2023/07/02-12:34:02.686 8700 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/07/02-12:34:02.686 8700 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/07/02-12:57:49.045 2554c Recovering log #1028
+2023/07/02-12:57:49.049 2554c Delete type=0 #1028
+2023/07/02-12:57:49.049 2554c Delete type=3 #1026
+2023/07/02-17:18:53.436 8700 Level-0 table #1033: started
+2023/07/02-17:18:53.436 8700 Level-0 table #1033: 0 bytes OK
+2023/07/02-17:18:53.438 8700 Delete type=0 #1031
+2023/07/02-17:18:53.446 8700 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/07/02-17:18:53.446 8700 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
