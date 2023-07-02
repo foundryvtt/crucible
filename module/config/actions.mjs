@@ -84,6 +84,44 @@ export default {
       }
     },
   },
+  delay: {
+    can: (actor, action) => {
+      if ( game.combat?.combatant?.actor !== actor ) {
+        throw new Error("You may only use the Delay action on your own turn in combat.");
+      }
+      if ( actor.flags.crucible?.delay ) {
+        throw new Error("You may not delay your turn again this combat round.");
+      }
+    },
+    display: (actor, action, combatant) => {
+      return !!combatant && (game.combat.combatant === combatant) && !actor.flags.crucible?.delay;
+    },
+    roll: async function(actor, action, target, rolls) {
+      const combatant = game.combat.getCombatantByActor(actor);
+      const maximum = combatant.getDelayMaximum();
+      const response = await Dialog.prompt({
+        title: "Delay Turn",
+        content: `<form class="delay-turn" autocomplete="off">
+            <div class="form-group">
+                <label>Delayed Initiative</label>
+                <input name="initiative" type="number" min="1" max="${maximum}" step="1">
+                <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
+            </div>
+        </form>`,
+        label: "Delay",
+        callback: dialog => dialog.find(`input[name="initiative"]`)[0].valueAsNumber,
+        rejectClose: false
+      });
+      if ( response ) action.usage.initiativeDelay = response;
+    },
+    confirm: async (actor, action) => await actor.delay(action.usage.initiativeDelay)
+  },
+  disengagementStrike: {
+    prepare: (actor, action) => {
+      const w = actor.equipment.weapons.mainhand;
+      action.cost.action -= w.actionCost;
+    }
+  },
   distract: {
     post: async (actor, action, target, rolls) => {
       for ( const r of rolls ) {

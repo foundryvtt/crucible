@@ -67,7 +67,7 @@ export default class CrucibleCombat extends Combat {
 
   /** @override */
   async _onStartTurn(combatant) {
-    return combatant.actor.onBeginTurn();
+    return combatant.actor.onStartTurn();
   }
 
   /* -------------------------------------------- */

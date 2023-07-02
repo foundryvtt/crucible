@@ -230,6 +230,23 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Should this Action be displayed on a character sheet as available for use?
+   * @param {Combatant} [combatant]     The Combatant associated with this actor, if any
+   * @returns {boolean}                 Should the action be displayed?
+   * @private
+   */
+  _displayed(combatant) {
+    combatant ||= game.combat?.getCombatantByActor(this.actor);
+    for ( const test of this._tests() ) {
+      if ( !(test.display instanceof Function) ) continue;
+      if ( test.display(this.actor, this, combatant) === false ) return false;
+    }
+    return true;
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 

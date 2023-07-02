@@ -488,12 +488,11 @@ export default class CrucibleActor extends Actor {
       if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
       if ( (ad.id === "reload") && !w.reload ) continue;
       if ( (ad.id === "refocus") && !w.talisman ) continue;
-      if ( (ad.id === "recover") && this.inCombat ) continue;
       ad = foundry.utils.deepClone(ad);
+      ad.tags ||= [];
 
       // Customize strike tags
-      if ( ad.id === "strike" ) {
-        ad.tags = [];
+      if ( ["strike", "disengagementStrike"].includes(ad.id) ) {
         if ( w.melee ) ad.tags.push("melee");
         if ( w.ranged ) ad.tags.push("ranged");
         ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
@@ -503,6 +502,7 @@ export default class CrucibleActor extends Actor {
       const action = ad.tags.includes("spell")
         ? CrucibleSpell.getDefault(this, ad)
         : new CrucibleAction(ad, {actor: this});
+      action._initialize({});
       this.actions[action.id] = action;
     }
 
@@ -1163,6 +1163,30 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Delay your turn in combat, dropping to a lower initiative value
+   * @param {number} initiative       The target initiative to which the actor is delaying
+   * @param {object} actorUpdates     Additional actor updates that should be persisted as part of the delay action
+   * @returns {Promise<void>}
+   */
+  async delay(initiative, actorUpdates={}) {
+    const combatant = game.combat.getCombatantByActor(this);
+    if ( !combatant ) throw new Error(`Actor [${this.id}] has no Combatant in the currently active Combat.`);
+    const maximum = combatant.getDelayMaximum();
+    if ( !initiative || !Number.isInteger(initiative) || !initiative.between(1, maximum) ) {
+      throw new Error(`You may only delay to an initiative value between 1 and ${maximum}`);
+    }
+    await this.update(foundry.utils.mergeObject(actorUpdates, {"flags.crucible.delay": {
+        round: game.combat.round,
+        from: combatant.initiative,
+        to: initiative
+      }
+    }));
+    await game.combat.update({turn: game.combat.turn, combatants: [{_id: combatant.id, initiative}]}, {diff: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Restore all resource pools to their maximum value.
    * @param {object} updateData     Additional update data to include in the rest operation
    * @returns {Promise<CrucibleActor>}
@@ -1439,9 +1463,17 @@ export default class CrucibleActor extends Actor {
   /**
    * Actions that occur at the beginning of an Actor's turn in Combat.
    * This method is only called for one User who has ownership permission over the Actor.
-   * @returns {Promise<CrucibleActor>}
+   * @returns {Promise<void>}
    */
-  async onBeginTurn() {
+  async onStartTurn() {
+
+    // Re-prepare data and re-render the actor sheet
+    this.reset();
+    this._sheet?.render(false);
+
+    // Skip cases where the actor delayed, and it is now their turn again
+    const {round, from, to} = this.flags.crucible?.delay || {};
+    if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative === to) ) return;
 
     // Clear system statuses
     await this.update({"system.status": null});
@@ -1472,6 +1504,14 @@ export default class CrucibleActor extends Actor {
    */
   async onEndTurn() {
 
+    // Re-prepare data and re-render the actor sheet
+    this.reset();
+    this._sheet?.render(false);
+
+    // Skip cases where the turn is over because the actor delayed
+    const {round, from, to} = this.flags.crucible?.delay || {};
+    if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
+
     // Conserve Effort
     if ( this.talentIds.has("conserveeffort00") && this.system.resources.action.value ) {
       await this.alterResources({focus: 1}, {}, {statusText: "Conserve Effort"});
@@ -1479,6 +1519,25 @@ export default class CrucibleActor extends Actor {
 
     // Remove active effects which expire at the end of a turn
     await this.expireEffects(false);
+
+    // Clear delay flags
+    if ( this.flags.crucible?.delay ) await this.update({"flags.crucible.-=delay": null});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Actions that occur when this Actor leaves a Combat encounter.
+   * @returns {Promise<void>}
+   */
+  async onLeaveCombat() {
+
+    // Clear turn delay flags
+    if ( this.flags.crucible?.delay ) await this.update({"flags.crucible.-=delay": null});
+
+    // Re-prepare data and re-render the actor sheet
+    this.reset();
+    this._sheet?.render(false);
   }
 
   /* -------------------------------------------- */

@@ -302,6 +302,10 @@ export const TAGS = {
     tag: "reaction",
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
+    display: (actor, action, combatant) => {
+      if ( !combatant ) return false;
+      return actor !== game.combat.combatant?.actor;
+    },
     can: (actor, action) => actor !== game.combat?.combatant?.actor,
     prepare: (actor, action) => {
       const canFreeReact = actor.talentIds.has("gladiator0000000") && !actor.system.status.gladiator
@@ -311,6 +315,14 @@ export const TAGS = {
         action.usage.actorUpdates["system.status.gladiator"] = true;
       }
     }
+  },
+
+  // Non-Combat Actions
+  noncombat: {
+    tag: "noncombat",
+    label: "ACTION.TagNonCombat",
+    tooltip: "ACTION.TagNonCombatTooltip",
+    display: (actor, action, combatant) => !combatant
   },
 
   // Requires a Flanked Opponent
@@ -661,22 +673,11 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["movement"]
   },
   {
-    id: "strike",
-    name: "Strike",
-    img: "icons/skills/melee/blade-tip-orange.webp",
-    description: "Attack a single target creature or object with your main-hand weapon.",
-    target: {
-      type: "single",
-      number: 1,
-      distance: 1,
-      scope: 3
-    }
-  },
-  {
     id: "defend",
     name: "Defend",
     img: "icons/magic/defensive/shield-barrier-deflect-teal.webp",
-    description: "You concentrate effort on avoiding harm, heightening your physical defense. You gain the <strong>Guarded</strong> condition until the start of your next Turn.",
+    description: "You concentrate effort on avoiding harm, heightening your physical defense. You gain the "
+      + "<strong>Guarded</strong> condition until the start of your next Turn.",
     target: {
       type: "self",
       number: 0,
@@ -691,8 +692,36 @@ export const DEFAULT_ACTIONS = Object.freeze([
         duration: { rounds: 1 },
         statuses: ["guarded"]
       }
-    ],
-    tags: []
+    ]
+  },
+  {
+    id: "delay",
+    name: "Delay",
+    img: "icons/magic/time/clock-analog-gray.webp",
+    description: "You delay your action until a later point in the Combat round. Choose an Initiative between 1 and "
+      + "the Initiative value of the combatant after you. You will act at this new Initiative value. You may only "
+      + "delay your turn once per round.",
+    target: {
+      type: "self",
+      scope: 1
+    }
+  },
+  {
+    id: "disengagementStrike",
+    name: "Disengagement Strike",
+    img: "icons/skills/melee/blade-tip-orange.webp",
+    description: "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
+    cost: {
+      action: 0,
+      focus: 1
+    },
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1,
+      scope: 3
+    },
+    tags: ["reaction"]
   },
   {
     id: "recover",
@@ -708,7 +737,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: []
+    tags: ["noncombat"]
   },
   {
     id: "refocus",
@@ -721,8 +750,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     cost: {
       action: 2
-    },
-    tags: []
+    }
   },
   {
     id: "reload",
@@ -737,4 +765,17 @@ export const DEFAULT_ACTIONS = Object.freeze([
       type: "self",
     }
   },
+
+  {
+    id: "strike",
+    name: "Strike",
+    img: "icons/skills/melee/blade-tip-orange.webp",
+    description: "Attack a single target creature or object with your main-hand weapon.",
+    target: {
+      type: "single",
+      number: 1,
+      distance: 1,
+      scope: 3
+    }
+  }
 ]);

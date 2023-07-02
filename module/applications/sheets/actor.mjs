@@ -52,10 +52,7 @@ export default class CrucibleActorSheet extends ActorSheet {
     context.featuredEquipment = this._prepareFeaturedEquipment();
 
     // Actions
-    context.actions = Object.values(context.actor.actions).map(a => {
-      const tags = a.getTags().activation;
-      return {id: a.id, name: a.name, img: a.img, tags, totalCost: a.cost.action + a.cost.focus}
-    }).sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
+    context.actions = this._prepareAvailableActions();
 
     // Skills
     context.skillCategories = this.#formatSkills(a.system.skills);
@@ -101,6 +98,30 @@ export default class CrucibleActorSheet extends ActorSheet {
     return featuredEquipment;
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for the set of actions that are displayed on the Available Actions portion of the sheet.
+   * @returns {{img: *, name: *, id: *, totalCost, tags: *}[]}
+   * @protected
+   */
+  _prepareAvailableActions() {
+    const combatant = game.combat?.getCombatantByActor(this.actor);
+    const actions = [];
+    for ( const action of Object.values(this.actor.actions) ) {
+      if ( !action._displayed(combatant) ) continue;
+      const tags = action.getTags().activation;
+      actions.push({
+        id: action.id,
+        name: action.name,
+        img: action.img,
+        tags,
+        totalCost: action.cost.action + action.cost.focus
+      });
+    }
+    actions.sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
+    return actions;
+  }
 
   /* -------------------------------------------- */
 
@@ -302,18 +323,18 @@ export default class CrucibleActorSheet extends ActorSheet {
   #formatEffects() {
     return this.actor.effects.map(effect => {
       const {startRound, rounds, turns} = effect.duration;
-      const elapsed = game.combat.round - startRound;
+      const elapsed = game.combat ? game.combat.round - startRound : 0;
       const tags = {};
 
       // Turn-based duration
       if ( Number.isFinite(turns) ) {
-        const remaining = game.combat ? turns - elapsed : turns;
+        const remaining = turns - elapsed;
         tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
       }
 
       // Round-based duration
       else if ( Number.isFinite(rounds) ) {
-        const remaining = game.combat ? rounds - elapsed + 1 : rounds;
+        const remaining = rounds - elapsed + 1;
         tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
       }
 
