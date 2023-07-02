@@ -249,7 +249,7 @@ export const GESTURES = Object.seal({
     damage: {
       base: 6
     },
-    hands: 1,
+    hands: 2,
     scaling: "presence",
     target: {
       type: "pulse",

@@ -10,6 +10,7 @@ import CrucibleWeapon from "../data/weapon.mjs";
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
  * @property {boolean} freehand
+ * @property {number} spellHands
  * @property {boolean} unarmed
  * @property {boolean} shield
  * @property {boolean} twoHanded
@@ -436,6 +437,17 @@ export default class CrucibleActor extends Actor {
     weapons.freehand = mhFree || ohFree;
     weapons.unarmed = mhFree && ohFree;
 
+    // Hands available for spellcasting
+    weapons.spellHands = mhFree + ohFree;
+    if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
+      weapons.spellHands += mhCategory.hands;
+      weapons.talisman = true;
+    }
+    if ( "talisman1" === ohCategory.id ) {
+      weapons.spellHands += 1;
+      weapons.talisman = true;
+    }
+
     // Shield
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
 
@@ -452,10 +464,15 @@ export default class CrucibleActor extends Actor {
     weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
 
     // Special Properties
-    weapons.talisman = ["talisman1", "talisman2"].includes(mhCategory.id) || ("talisman1" === ohCategory.id);
     weapons.reload = mhCategory.reload || ohCategory.reload;
     weapons.slow = mh.system.properties.has("oversized") ? mhCategory.hands : 0;
     weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
+
+    // Strong Grip
+    if ( this.talentIds.has("stronggrip000000") && weapons.twoHanded ) {
+      weapons.freehand = true;
+      if ( mhCategory.id !== "talisman2" ) weapons.spellHands += 1;
+    }
     return weapons;
   }
 

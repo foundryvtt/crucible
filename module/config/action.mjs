@@ -356,6 +356,12 @@ export const TAGS = {
       if ( action.inflection ) action.usage.context.tags.add(action.inflection.name);
       action.usage.actorFlags.lastSpell = action.id;
     },
+    can: (actor, action) => {
+      if ( action.gesture.hands > actor.equipment.weapons.spellHands ) {
+        throw new Error(`You cannot cast a Spell using the ${action.gesture.name} gesture which requires `
+          + `${action.gesture.hands} free hands for spellcraft.`);
+      }
+    },
     roll: (actor, action, target) => {
       action.usage.actorUpdates["system.status.hasCast"] = true;
       return actor.castSpell(action, target)

@@ -117,6 +117,11 @@ export default {
     confirm: async (actor, action) => await actor.delay(action.usage.initiativeDelay)
   },
   disengagementStrike: {
+    can: (actor) => {
+      for ( const s of ["unaware", "flanked"] ) {
+        if ( actor.statuses.has(s) ) throw new Error(`You may not perform a Disengagement Strike while ${s}.`);
+      }
+    },
     prepare: (actor, action) => {
       const w = actor.equipment.weapons.mainhand;
       action.cost.action -= w.actionCost;
