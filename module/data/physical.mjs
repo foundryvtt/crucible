@@ -1,5 +1,3 @@
-import { SYSTEM } from "../config/system.js";
-
 /**
  * A data structure which is shared by all physical items.
  */

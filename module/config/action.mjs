@@ -357,9 +357,9 @@ export const TAGS = {
       action.usage.actorFlags.lastSpell = action.id;
     },
     can: (actor, action) => {
-      if ( action.gesture.hands > actor.equipment.weapons.spellHands ) {
+      if ( action.cost.hands > actor.equipment.weapons.spellHands ) {
         throw new Error(`You cannot cast a Spell using the ${action.gesture.name} gesture which requires `
-          + `${action.gesture.hands} free hands for spellcraft.`);
+          + `${action.cost.hands} free hands for spellcraft.`);
       }
     },
     roll: (actor, action, target) => {

@@ -1,5 +1,3 @@
-import { SYSTEM } from "../config/system.js";
-
 /**
  * Data schema, attributes, and methods specific to Ancestry type Items.
  */

@@ -7,6 +7,8 @@
 
 // Configuration
 import {SYSTEM} from "./module/config/system.js";
+globalThis.SYSTEM = SYSTEM;
+
 import CrucibleTalentNode from "./module/config/talent-tree.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
@@ -22,8 +24,8 @@ import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
 import CrucibleTokenObject from "./module/canvas/token.mjs";
 
 // Helpers
-import {handleSocketEvent} from "./module/socket.js";
-import * as chat from "./module/chat.js";
+import {handleSocketEvent} from "./module/socket.mjs";
+import * as chat from "./module/chat.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -33,7 +35,8 @@ const DEVELOPMENT_MODE = true;
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
-  globalThis.SYSTEM = CONFIG.SYSTEM = SYSTEM;
+  game.system.CONST = SYSTEM;
+  CrucibleTalentNode.defineTree();
 
   // Expose the system API
   game.system.api = {
@@ -372,7 +375,7 @@ function registerDevelopmentHooks() {
   });
 
   Hooks.on("updateItem", async (item, change, options, user) => {
-    const talentPacks = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
+    const talentPacks = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     if ( !talentPacks.includes(item.pack)  ) return;
     await CrucibleTalentNode.initialize();
     game.system.tree.refresh();

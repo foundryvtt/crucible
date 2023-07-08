@@ -1,5 +1,3 @@
-import { SYSTEM } from "../../config/system.js";
-
 /**
  * A common actor sheet class shared by both Hero and Adversary types.
  */

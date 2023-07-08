@@ -1,5 +1,3 @@
-import {SYSTEM} from "../../config/system.js";
-
 /**
  * Add common functionalities to every Crucible Sheet application which alters their visual style.
  * @param {typeof Application} Base     The base Application class being extended

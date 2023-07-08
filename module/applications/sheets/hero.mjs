@@ -1,4 +1,3 @@
-import { SYSTEM } from "../../config/system.js";
 import CrucibleActorSheet from "./actor.mjs";
 import SkillConfig from "../config/skill.mjs";
 

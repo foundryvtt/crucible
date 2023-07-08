@@ -1,4 +1,3 @@
-import { SYSTEM } from "../../config/system.js";
 import CrucibleTalentNode from "../../config/talent-tree.mjs";
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
 

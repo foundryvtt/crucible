@@ -1,6 +1,5 @@
 import CrucibleArchetype from "./archetype.mjs";
 import CrucibleTaxonomy from "./taxonomy.mjs";
-import {SYSTEM} from "../config/system.js";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.

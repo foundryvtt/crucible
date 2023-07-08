@@ -1,15 +1,8 @@
-2023/07/02-12:57:49.061 2fe90 Recovering log #1120
-2023/07/02-12:57:49.065 2fe90 Delete type=0 #1120
-2023/07/02-12:57:49.065 2fe90 Delete type=3 #1118
-2023/07/02-17:18:53.450 8700 Level-0 table #1125: started
-2023/07/02-17:18:53.451 8700 Level-0 table #1125: 1492 bytes OK
-2023/07/02-17:18:53.452 8700 Delete type=0 #1123
-2023/07/02-17:18:53.454 8700 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/07/02-17:18:53.454 8700 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!ruthlessmomentum' @ 1759 : 1
-2023/07/02-17:18:53.454 8700 Compacting 1@1 + 1@2 files
-2023/07/02-17:18:53.456 8700 Generated table #1126@1: 212 keys, 90076 bytes
-2023/07/02-17:18:53.456 8700 Compacted 1@1 + 1@2 files => 90076 bytes
-2023/07/02-17:18:53.456 8700 compacted to: files[ 0 0 1 0 0 0 0 ]
-2023/07/02-17:18:53.457 8700 Delete type=2 #1109
-2023/07/02-17:18:53.457 8700 Delete type=2 #1125
-2023/07/02-17:18:53.459 8700 Manual compaction at level-1 from '!items!ruthlessmomentum' @ 1759 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/07/06-14:45:02.439 21494 Recovering log #1145
+2023/07/06-14:45:02.442 21494 Delete type=0 #1145
+2023/07/06-14:45:02.442 21494 Delete type=3 #1143
+2023/07/06-14:55:40.186 1fb4 Level-0 table #1150: started
+2023/07/06-14:55:40.186 1fb4 Level-0 table #1150: 0 bytes OK
+2023/07/06-14:55:40.188 1fb4 Delete type=0 #1148
+2023/07/06-14:55:40.190 1fb4 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/07/06-14:55:40.190 1fb4 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

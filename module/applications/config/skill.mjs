@@ -1,4 +1,3 @@
-import {SYSTEM} from "../../config/system.js";
 import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
 
 /**
@@ -9,7 +8,7 @@ export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
     super(actor, options);
     this.actor = actor;
     this.skillId = skillId;
-    this.config = CONFIG.SYSTEM.SKILLS[skillId];
+    this.config = SYSTEM.SKILLS[skillId];
     this.actor.apps[this.appId] = this;
   }
 

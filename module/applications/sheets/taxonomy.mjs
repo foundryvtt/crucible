@@ -1,4 +1,3 @@
-import { SYSTEM } from "../../config/system.js";
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
 
 /**

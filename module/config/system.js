@@ -125,7 +125,10 @@ export const THREAT_LEVELS = {
  * Define the actor preparation hooks which are supported for Talent configuration.
  * @enum {{signature: string, argNames: string[]}}
  */
-export const ACTOR_HOOKS = {
+export const ACTOR_HOOKS = Object.freeze({
+  applyCriticalEffects: {
+    argNames: ["action", "outcome", "self"]
+  },
   defendSkillAttack: {
     argNames: ["action", "origin", "rollData"]
   },
@@ -133,7 +136,7 @@ export const ACTOR_HOOKS = {
     argNames: ["spell", "origin", "rollData"]
   },
   defendWeaponAttack: {
-    argNames: ["weapon", "origin", "rollData"]
+    argNames: ["action", "origin", "rollData"]
   },
   prepareResources: {
     argNames: ["resources"]
@@ -168,7 +171,7 @@ export const ACTOR_HOOKS = {
   prepareWeaponAttack: {
     argNames: ["action", "target", "rollData"]
   },
-}
+});
 
 
 /* -------------------------------------------- */

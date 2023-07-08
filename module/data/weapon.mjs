@@ -243,8 +243,9 @@ export default class CrucibleWeapon extends PhysicalItemData {
   getDamage(actor, action, target, roll) {
     const resource = action.usage.resouce || "health";
     const type = this.damageType;
-    const multiplier = action.usage.bonuses.multiplier ?? 1;
     let {weapon: base, bonus} = this.damage;
+    const multiplier = action.usage.bonuses.multiplier ?? 1;
+    bonus += (action.usage.bonuses.damageBonus ?? 0);
     const resistance = target.getResistance(resource, type, false);
 
     // Configure bonus damage
@@ -326,12 +327,13 @@ export default class CrucibleWeapon extends PhysicalItemData {
     // Restrict to melee animations
     else if ( !this.config.category.ranged ) {
       const paths = Sequencer.Database.searchFor(animation);
-      const usage = ["melee", "standard", "200px"].find(p => paths.includes(p));
-      if ( !usage ) {
-        console.warn(`Crucible | Unable to find weapon animation usage for ${animation}`);
-        return null
-      }
-      animation += `.${usage}`;
+      if ( !paths.length ) return null;
+      const preferredFlavors = ["melee", "standard", "200px"];
+      let usage = paths.find(path => {
+        const flavor = path.slice(animation.length + 1);
+        return preferredFlavors.some(f => flavor.startsWith(f));
+      });
+      animation = usage ?? paths[0];
     }
 
     // Damage type

@@ -1,4 +1,3 @@
-import { SYSTEM } from "../config/system.js";
 import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../data/action.mjs";
@@ -815,6 +814,36 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Prepare an Action to be used by this Actor.
+   * @param {CrucibleAction} action     The action being prepared
+   */
+  prepareAction(action) {
+    const {statuses, rollBonuses} = this;
+    const {banes, boons, cost} = action.usage;
+    const isWeapon = ["mainhand", "offhand", "twohand"].some(t => action.tags.has(t));
+    const isSpell = action.tags.has("spell");
+    const isAttack = isWeapon || isSpell;
+
+    // Actor status effects
+    if ( statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
+    if ( statuses.has("blinded") && isAttack ) banes.blind = {label: "Blinded", number: 2};
+    if ( statuses.has("disoriented") && cost.focus ) cost.focus += 1;
+    if ( statuses.has("prone") && isAttack ) banes.prone = {label: "Prone", number: 1};
+
+    // Temporary boons and banes stored as Actor rollBonuses
+    for ( const [id, boon] of Object.entries(rollBonuses.boons) ) {
+      if ( id in boons ) continue;
+      boons[id] = boon;
+    }
+    for ( const [id, bane] of Object.entries(rollBonuses.banes) ) {
+      if ( id in banes ) continue;
+      banes[id] = bane;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Get the number of additional boons or banes you have when attacking a target.
    * @param {CrucibleActor} target    The target being attacked
    * @param {CrucibleAction} action   The action being performed
@@ -835,9 +864,6 @@ export default class CrucibleActor extends Actor {
     if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};
 
     // Prone
-    if ( this.statuses.has("prone") && isAttack ) {
-      banes.prone = {label: "Prone", number: 1};
-    }
     if ( target.statuses.has("prone") && isAttack ) {
       if ( ranged ) {
         if ( "prone" in banes ) banes.prone.number += 1;
@@ -920,9 +946,9 @@ export default class CrucibleActor extends Actor {
     const sc = new StandardCheck(rollData);
 
     // Prompt the user with a roll dialog
-    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
+    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].name});
     if ( dialog ){
-      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: CONFIG.SYSTEM.SKILLS[skillId].name});
+      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: SYSTEM.SKILLS[skillId].name});
       const response = await sc.dialog({title, flavor, rollMode});
       if ( response === null ) return null;
     }
@@ -1014,10 +1040,10 @@ export default class CrucibleActor extends Actor {
    */
   static async macroAction(actor, actionId) {
     if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
-    if ( !(actionId in actor.actions) ) {
-      return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
-    }
-    await actor.useAction(actionId);
+    let action = actor.actions[actionId];
+    if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpell.fromId(actionId, {actor});
+    if ( !action ) return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
+    await action.use();
   }
 
   /* -------------------------------------------- */
@@ -1253,6 +1279,7 @@ export default class CrucibleActor extends Actor {
     // Apply resource updates
     const changes = {};
     for ( let [resourceName, delta] of Object.entries(deltas) ) {
+      if ( !(resourceName in r) ) continue;
       if ( !(resourceName in changes) ) changes[resourceName] = {value: 0};
       if ( reverse ) delta *= -1;
       let resource = r[resourceName];
@@ -1401,79 +1428,11 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleActionOutcomes} outcomes      The action outcomes that occurred
    */
   onDealDamage(action, outcomes) {
-    const status = this.system.status;
     const self = outcomes.get(this);
-    const updates = self.actorUpdates;
-    for ( const o of outcomes.values() ) {
-      if ( o === self ) continue;
-
-      // Battle Focus // TODO revisit this
-      if ( (o.criticalSuccess || o.incapacitated) && this.talentIds.has("battlefocus00000")
-        && !(status.battleFocus || updates.system?.status?.battleFocus) ) {
-        self.resources.focus = (self.resources.focus || 0) + 1;
-        foundry.utils.setProperty(updates, "system.status.battleFocus", true);
-      }
-
-      // Blood Frenzy // TODO revisit this
-      if ( o.criticalSuccess && this.talentIds.has("bloodfrenzy00000")
-        && !(status.bloodFrenzy || updates.system?.status?.bloodFrenzy) ) {
-        self.resources.action = (self.resources.action || 0) + 1;
-        foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
-      }
-
-      // Critical Hit Effects
-      if ( o.criticalSuccess ) this.#applyCriticalEffects(action, o);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Add effects which occur on critical hits to the effects applied by an action outcome.
-   * @param {CrucibleAction} action             The action being performed
-   * @param {CrucibleActionOutcome} outcome     The action outcome which resulted in a critical hit
-   */
-  #applyCriticalEffects(action, outcome) {
-    const {mainhand, offhand} = this.equipment.weapons;
-
-    // Poisoner
-    if ( this.talentIds.has("poisoner00000000") && this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"))
-      && action.tags.has("melee") ) outcome.effects.push(SYSTEM.EFFECTS.poisoned(this, outcome.target));
-
-    // Bloodletter
-    if ( this.talentIds.has("bloodletter00000") ) {
-      const damageTypes = new Set(["piercing", "slashing"]);
-      if ( (action.tags.has("mainhand") && damageTypes.has(mainhand.system.damageType))
-        || (action.tags.has("offhand") && damageTypes.has(offhand.system.damageType)) ) {
-        const damageType = mainhand.system.damageType;
-        outcome.effects.push(SYSTEM.EFFECTS.bleeding(this, outcome.target, {damageType}));
-      }
-    }
-
-    // Concussive Blows
-    if ( this.talentIds.has("concussiveblows0") ) {
-      if ( (["mainhand", "twohand"].some(t => action.tags.has(t)) && (mainhand.system.damageType === "bludgeoning"))
-        || (action.tags.has("offhand") && (offhand.system.damageType === "bludgeoning")) ) {
-        outcome.effects.push(SYSTEM.EFFECTS.staggered(this, outcome.target));
-      }
-    }
-
-    // Spell Runes
-    const runeEffects = {
-      dustbinder000000: {rune: "earth", effectName: "corroding"},
-      lightbringer0000: {rune: "illumination", effectName: "irradiated"},
-      mesmer0000000000: {rune: "control", effectName: "confusion"},
-      necromancer00000: {rune: "death", effectName: "decay"},
-      pyromancer000000: {rune: "flame", effectName: "burning"},
-      rimecaller000000: {rune: "frost", effectName: "chilled"},
-      surgeweaver00000: {rune: "lightning", effectName: "shocked"},
-      voidcaller000000: {rune: "shadow", effectName: "entropy"},
-      mender0000000000: {rune: "life", effectName: "mending"},
-      inspirator000000: {rune: "spirit", effectName: "inspired"}
-    }
-    for ( const [talentId, {rune, effectName}] of Object.entries(runeEffects) ) {
-      if ( this.talentIds.has(talentId) && (action.rune?.id === rune) ) {
-        outcome.effects.push(SYSTEM.EFFECTS[effectName](this, outcome.target));
+    for ( const outcome of outcomes.values() ) {
+      if ( outcome === self ) continue;
+      if ( outcome.criticalSuccess ) {
+        this.callTalentHooks("applyCriticalEffects", action, outcome, self);
       }
     }
   }
@@ -1678,7 +1637,7 @@ export default class CrucibleActor extends Actor {
    */
   async syncTalents() {
     const updates = [];
-    const packIds = [CONFIG.SYSTEM.COMPENDIUM_PACKS.talent, CONFIG.SYSTEM.COMPENDIUM_PACKS.talentExtensions];
+    const packIds = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     for ( const packId of packIds ) {
       const pack = game.packs.get(packId);
       if ( !pack ) continue;

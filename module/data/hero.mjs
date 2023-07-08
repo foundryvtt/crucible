@@ -1,4 +1,3 @@
-import {SYSTEM} from "../config/system.js";
 import CrucibleAncestry from "./ancestry.mjs";
 import CrucibleBackground from "./background.mjs";
 
@@ -180,7 +179,7 @@ export default class CrucibleHero extends foundry.abstract.TypeDataModel {
     // Ability Scores
     let abilityPointsBought = 0;
     let abilityPointsSpent = 0;
-    for ( let a in CONFIG.SYSTEM.ABILITIES ) {
+    for ( let a in SYSTEM.ABILITIES ) {
       const ability = this.abilities[a];
 
       // Configure initial value

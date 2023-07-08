@@ -1,5 +1,3 @@
-import {SYSTEM} from "../config/system.js";
-
 /**
  * The data structure and functionality of a Metamagic Inflection in the Crucible spellcraft system.
  */

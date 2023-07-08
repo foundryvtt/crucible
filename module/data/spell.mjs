@@ -1,5 +1,4 @@
 import CrucibleAction from "./action.mjs";
-import {SYSTEM} from "../config/system.js";
 import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 
 /**
@@ -75,6 +74,7 @@ export default class CrucibleSpell extends CrucibleAction {
    */
   static #prepareCost() {
     const cost = {...this.gesture.cost};
+    cost.hands = this.gesture.hands;
     if ( this.inflection ) {
       cost.action += this.inflection.cost.action;
       cost.focus += this.inflection.cost.focus;
@@ -125,9 +125,12 @@ export default class CrucibleSpell extends CrucibleAction {
    */
   static #prepareTarget() {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
+    const target = {...this.gesture.target};
+
+    // Restoration runes should affect allies
+    if ( this.rune.restoration ) target.scope ??= scopes.ALLIES;
 
     // Specific targeting requirements for the composed spell
-    const target = {...this.gesture.target};
     switch ( target.type ) {
       case "none":
         target.scope ??= scopes.NONE;
@@ -140,9 +143,6 @@ export default class CrucibleSpell extends CrucibleAction {
         target.scope ??= scopes.ENEMIES;
         break;
     }
-
-    // Restoration only affects allies
-    if ( this.rune.restoration ) target.scope ??= scopes.ALLIES;
     return target;
   }
 
@@ -169,8 +169,8 @@ export default class CrucibleSpell extends CrucibleAction {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _prepareForActor() {
-    super._prepareForActor();
+  _prepare() {
+    super._prepare();
     CrucibleSpell.#prepareGesture.call(this);
 
     // Blood Magic
@@ -209,8 +209,9 @@ export default class CrucibleSpell extends CrucibleAction {
         if ( mh.config.category.ranged ) this.target.distance = mh.system.range;
 
         // Arcane Archer Signature
-        if ( t.has("arcanearcher0000") ) {
-          if ( mh.config.category.ranged ) this.target.distance = Math.max(this.target.distance, mh.system.range);
+        if ( t.has("arcanearcher0000") && mh.config.category.ranged ) {
+          this.target.distance = Math.max(this.target.distance, mh.system.range);
+          this.cost.hands = 0;
           if ( s.rangedAttack && !s.arcaneArcher ) {
             this.cost.action -= 1;
             this.usage.actorUpdates["system.status.arcaneArcher"] = true;
@@ -486,7 +487,8 @@ export default class CrucibleSpell extends CrucibleAction {
         wait: -1000
       },
       frost: {
-        src: "jb2a.impact.frost.blue.01"
+        src: "jb2a.impact.frost.blue.01",
+        wait: -3000
       },
       lightning: {
         src: "jb2a.chain_lightning.primary.blue02",

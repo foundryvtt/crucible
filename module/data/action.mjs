@@ -1,4 +1,3 @@
-import {SYSTEM} from "../config/system.js";
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
@@ -38,6 +37,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @typedef {Object} ActionCost
  * @property {number} action                The cost in action points
  * @property {number} focus                 The cost in focus points
+ * @property {number} [hands]               A number of free hands required
  */
 
 /**
@@ -150,7 +150,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     super._initialize(options);
     this._prepareData();
     if ( this.actor ) {
-      this._prepareForActor();
+      this.actor.prepareAction(this);
       this._prepare();
     }
   }
@@ -185,24 +185,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.img ||= talent.img;
       this.description ||= this.parent.description;
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare this Action to be used by a specific Actor.
-   * @protected
-   */
-  _prepareForActor() {
-    const {statuses, rollBonuses} = this.actor;
-
-    // Actor status effects
-    if ( statuses.has("broken") ) this.usage.banes.broken = {label: "Broken", number: 2};
-    if ( statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
-
-    // Temporary boons and banes stored as Actor rollBonuses
-    for ( const [id, boon] of Object.entries(rollBonuses.boons) ) this.usage.boons[id] = boon;
-    for ( const [id, bane] of Object.entries(rollBonuses.banes) ) this.usage.banes[id] = bane;
   }
 
   /* -------------------------------------------- */
@@ -684,6 +666,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static computeDamage({overflow=1, multiplier=1, base=0, bonus=0, resistance=0, restoration=false}={}) {
 
     // Compute damage before any mitigation
+    if ( overflow < 0 ) multiplier = Math.max(multiplier, 1); // You cannot have an increased multiplier on misses
     const preMitigation = (overflow * multiplier) + base + bonus;
     if ( preMitigation <= 1 ) return 1; // Never do less than 1 damage
 

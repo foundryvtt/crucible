@@ -1,5 +1,3 @@
-import {SYSTEM} from "../config/system.js";
-
 /**
  * Define the data schema and functionality of a Taxonomy applied to Adversary creatures.
  */

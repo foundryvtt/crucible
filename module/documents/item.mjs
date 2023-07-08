@@ -1,5 +1,3 @@
-import { SYSTEM } from "../config/system.js";
-
 /**
  * An Item subclass which handles system specific logic for the Item document type.
  */

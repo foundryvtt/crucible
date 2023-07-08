@@ -1,4 +1,3 @@
-import {SYSTEM} from "../config/system.js";
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**

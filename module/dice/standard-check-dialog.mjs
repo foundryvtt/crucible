@@ -1,5 +1,3 @@
-import { SYSTEM } from "../config/system.js";
-
 /**
  * Prompt the user to perform a Standard Check.
  * @extends {Dialog}
@@ -30,7 +28,7 @@ export default class StandardCheckDialog extends Dialog {
   get title() {
     if ( this.options.title ) return this.options.title;
     const type = this.roll.data.type;
-    const skill = CONFIG.SYSTEM.SKILLS[type];
+    const skill = SYSTEM.SKILLS[type];
     if ( skill ) return `${skill.name} Skill Check`;
     return "Generic Dice Check";
   }

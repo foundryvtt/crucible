@@ -1,4 +1,3 @@
-import { SYSTEM } from "../config/system.js";
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
@@ -79,7 +78,7 @@ export default class StandardCheck extends Roll {
    * The HTML template path used to render dice checks of this type
    * @type {string}
    */
-  static htmlTemplate = `systems/${SYSTEM.id}/templates/dice/standard-check-roll.hbs`;
+  static htmlTemplate = "systems/crucible/templates/dice/standard-check-roll.hbs";
 
   /* -------------------------------------------- */
 

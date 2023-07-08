@@ -8,7 +8,7 @@ export {default as AncestrySheet} from "./sheets/ancestry.mjs";
 export {default as ArchetypeSheet} from "./sheets/archetype.mjs";
 export {default as ArmorSheet} from "./sheets/armor.mjs";
 export {default as BackgroundSheet} from "./sheets/background.mjs";
-export {default as HeroSheet} from "./sheets/hero.js";
+export {default as HeroSheet} from "./sheets/hero.mjs";
 export {default as CrucibleJournalSheet} from "./sheets/journal.mjs";
 export {default as SkillPageSheet} from "./sheets/skill.mjs";
 export {default as TalentSheet} from "./sheets/talent.mjs";

@@ -206,7 +206,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
       "systems/crucible/ui/tree/background.webp",
       "systems/crucible/ui/tree/wheel.webp"
     ];
-    const varities = Object.keys(CONFIG.SYSTEM.ABILITIES).concat(["inactive"]);
+    const varities = Object.keys(SYSTEM.ABILITIES).concat(["inactive"]);
     for ( const nodeType in CrucibleTalentTreeNode.NODE_TYPES ) {
       for ( const variety of varities ) {
         toLoad.push(`systems/crucible/ui/tree/nodes/${nodeType}-${variety}.webp`);

@@ -1,5 +1,4 @@
 import CrucibleAction from "./action.mjs";
-import {ACTOR_HOOKS, SYSTEM} from "../config/system.js";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 
 /**

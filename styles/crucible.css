@@ -191,6 +191,7 @@
 }
 .crucible-new .tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: flex-end;
   align-items: center;
@@ -214,6 +215,9 @@
 }
 .crucible-new .tags:empty {
   display: none;
+}
+.crucible-new .tag-icon {
+  flex: none;
 }
 .crucible-new section.construction {
   position: relative;

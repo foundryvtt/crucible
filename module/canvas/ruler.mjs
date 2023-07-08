@@ -37,7 +37,7 @@ export default class CrucibleRuler extends Ruler {
   #computeCost() {
     const actor = this.#actor;
     if ( !actor ) return;
-    const tag = CONFIG.SYSTEM.ACTION.TAGS.movement;
+    const tag = SYSTEM.ACTION.TAGS.movement;
 
     // Determine movement costs
     const hasMoved = actor.system.status.hasMoved;

@@ -67,6 +67,7 @@ export default class CrucibleCombat extends Combat {
 
   /** @override */
   async _onStartTurn(combatant) {
+    await super._onStartTurn(combatant);
     return combatant.actor.onStartTurn();
   }
 
@@ -74,6 +75,7 @@ export default class CrucibleCombat extends Combat {
 
   /** @override */
   async _onStartRound() {
+    await super._onStartRound();
     if ( this.turns.length < 2 ) return;
 
     // Identify the first combatant to act in the round
@@ -120,8 +122,9 @@ export default class CrucibleCombat extends Combat {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   async _onEndTurn(combatant) {
+    await super._onEndTurn(combatant);
     await combatant.actor.onEndTurn();
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed

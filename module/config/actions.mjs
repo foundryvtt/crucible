@@ -1,5 +1,3 @@
-import {SYSTEM} from "./system.js";
-
 export default {
   beastShapeRevert: {
     confirm: async (actor) => {
@@ -158,12 +156,22 @@ export default {
       if ( actor.inCombat ) throw new Error("You may not Recover during Combat.");
     },
     confirm: async (actor, action, outcomes) => {
+
+      // Expire active effects
+      const toDeleteEffects = actor.effects.reduce((arr, effect) => {
+        if ( effect.id === "weakened00000000" ) arr.push(effect.id);
+        else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
+        else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
+        return arr;
+      }, []);
+      await actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
+
+      // Set resources to recover
       const self = outcomes.get(actor);
-      const r = actor.system.resources;
-      self.resources.health = r.health.max;
-      self.resources.morale = r.morale.max;
-      self.resources.action = r.action.max;
-      self.resources.focus = r.focus.max;
+      self.resources.health = Infinity;
+      self.resources.morale = Infinity;
+      self.resources.action = Infinity;
+      self.resources.focus = Infinity;
     }
   },
   secondWind: {
@@ -220,7 +228,7 @@ export default {
   vampiricBite: {
     pre: (actor, action) => {
       const cls = getDocumentClass("Item");
-      const bite = new cls(CONFIG.SYSTEM.WEAPON.VAMPIRE_BITE, {parent: actor});
+      const bite = new cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent: actor});
       action.usage.weapon = bite;
       action.usage.context.tags.add("Vampiric Bite");
       foundry.utils.mergeObject(action.usage.bonuses, bite.system.actionBonuses);
