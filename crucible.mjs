@@ -26,6 +26,7 @@ import CrucibleTokenObject from "./module/canvas/token.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
+import {initializeSequencer} from "./module/visual-effects/_module.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -291,6 +292,9 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
     await game.user.assignHotbarMacro(macro, slot);
   }
 });
+
+// Sequencer integration
+Hooks.once("sequencer.ready", initializeSequencer);
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

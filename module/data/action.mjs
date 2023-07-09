@@ -877,12 +877,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare action data
     const actionData = {
+      scene: canvas.scene.id,
       actor: this.actor.uuid,
       action: this.id,
       confirmed,
       outcomes: [],
+      template: this.template?.toObject()
     };
-    if ( this.template ) actionData.template = this.template.uuid;
+
     const rolls = [];
     const hasMultipleTargets = Array.from(this.outcomes.values()).filter(o => o.rolls.length).length > 1;
     for ( const outcome of this.outcomes.values() ) {
@@ -945,7 +947,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleAction}        The reconstituted Action instance
    */
   static fromChatMessage(message) {
-    const {action: actionId, template: templateId, outcomes} = message.flags.crucible || {};
+    const {action: actionId, template, outcomes, scene: sceneId} = message.flags.crucible || {};
     if ( !actionId ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
 
     // Get the Actor and Action
@@ -957,7 +959,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     else action = actor.actions[actionId]?.clone() || null;
 
     // Load a MeasuredTemplate associated with this action
-    if ( templateId ) action.template = fromUuidSync(templateId);
+    if ( template ) {
+      const scene = game.scenes.get(sceneId);
+      const existing = scene.templates.get(template.id);
+      if ( existing ) action.template = existing;
+      else {
+        const templateCls = getDocumentClass("MeasuredTemplate");
+        const templateData = foundry.utils.deepClone(template);
+        delete templateData._id;
+        action.template = new templateCls(templateData, {parent: scene});
+      }
+    }
 
     // Re-prepare Action outcomes
     action.outcomes = new Map();
@@ -998,7 +1010,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Delete any Measured Template that was placed
-    if ( this.template ) await this.template.delete();
+    if ( this.template?.id ) await this.template.delete();
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {
@@ -1027,59 +1039,45 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Define an animation sequence ID used for this Action
+   * @returns {object}
+   */
+  get _getAnimationPreset() {
+    return {id: undefined}
+  }
+
+  /**
    * Prepare a Sequencer animation.
-   * @returns {null}
+   * @returns {null|Promise<Sequencer.Sequence>}
    */
   getAnimationSequence() {
-
-    // Confirm that animation paths exist
-    const config = this._getAnimationConfiguration();
-    if ( !config?.src ) return null;
-    const paths = Sequencer.Database.searchFor(config.src);
-    if ( !paths.length ) return null;
+    const {id, ...options} = this._getAnimationPreset();
+    if ( !Sequencer.Presets.get(id) ) return null;
 
     // Get the origin token
     const originToken = CrucibleAction.#getTargetToken(this.actor);
     if ( !originToken ) return null;
 
-    // Create the Sequence and configure it based on the gesture used
+    // Create the sequence
     const sequence = new Sequence();
-
-    // Single target
-    if ( this.target.type === "single" ) {
-      for ( const outcome of this.outcomes.values() ) {
-        if ( !outcome.rolls.length ) continue;
-        const targetToken = CrucibleAction.#getTargetToken(outcome.target);
-        const hit = outcome.rolls.some(r => r.isSuccess || (r.data.damage?.total > 0));
-        const wait = config.wait ?? 0;
-        if ( config.sequence instanceof Function ) {
-          config.sequence(sequence, config, {originToken, targetToken, hit});
+    switch ( this.target.type ) {
+      case "fan":
+        sequence.effect()
+          .preset(id, {template: this.template, ...options})
+          .play()
+        break;
+      case "single":
+        for ( const outcome of this.outcomes.values() ) {
+          if ( !outcome.rolls.length ) continue;
+          const hit = outcome.rolls.some(r => r.isSuccess || (r.data.damage?.total > 0));
+          const targetToken = CrucibleAction.#getTargetToken(outcome.target);
+          sequence.effect()
+            .preset(id, {source: originToken, target: targetToken, missed: !hit, ...options})
+            .play()
         }
-        else sequence.effect()
-          .file(config.src)
-          .atLocation(originToken)
-          .stretchTo(targetToken)
-          .missed(!hit)
-          .waitUntilFinished(wait);
-        if ( config.scale ) sequence.scale(config.scale);
-      }
+        break;
     }
     return sequence;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the animation configuration for this Action.
-   * @protected
-   */
-  _getAnimationConfiguration() {
-    const isMainhandAttack = ["mainhand", "twohand"].some(t => this.tags.has(t));
-    const isOffhandAttack = this.tags.has("offhand");
-    if ( isMainhandAttack || isOffhandAttack ) {
-      const weapon = this.actor.equipment.weapons[isMainhandAttack ? "mainhand" : "offhand"];
-      return weapon.system.getAnimationConfiguration();
-    }
   }
 
   /* -------------------------------------------- */
