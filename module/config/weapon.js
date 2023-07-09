@@ -133,6 +133,20 @@ export const CATEGORIES = {
     actionCost: 2,
     training: "heavy"
   },
+  projectile1: {
+    id: "projectile1",
+    label: "WEAPON.Projectile1",
+    hands: 1,
+    main: true,
+    off: true,
+    ranged: true,
+    scaling: "strength.dexterity",
+    damage: {
+      base: 2
+    },
+    actionCost: 1,
+    training: "projectile"
+  },
   projectile2: {
     id: "projectile2",
     label: "WEAPON.Projectile2",

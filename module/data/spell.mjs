@@ -268,11 +268,18 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Ward                               */
       /* -------------------------------------------- */
       case "ward":
-        // TODO
+        this.usage.hasDice = false;
+
+        // TODO: Enable healing wards
         if ( this.damage.healing ) {
           ui.notifications.warning("Gesture: Ward is not configured for healing Runes yet");
           break;
         }
+
+        // Shield Ward
+        if ( t.has("shieldward000000") && e.weapons.shield ) this.cost.hands = 0;
+
+        // Configure Ward effect
         let resistance = 6;
         if ( this.actor.talentIds.has("runewarden000000") ) {
           resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);
@@ -290,7 +297,6 @@ export default class CrucibleSpell extends CrucibleAction {
             }
           ]
         });
-        this.usage.hasDice = false;
         break;
 
       /* -------------------------------------------- */

@@ -80,7 +80,7 @@ export default class CrucibleCombat extends Combat {
 
     // Identify the first combatant to act in the round
     const firstCombatant = this.turns[0];
-    const firstActor = firstCombatant.actor;
+    const firstActor = firstCombatant?.actor;
 
     // Identify the last non-incapacitated combatant to act in the round
     let lastCombatant;
@@ -113,10 +113,15 @@ export default class CrucibleCombat extends Combat {
       firstCombatant.updateResource();
     }
 
+    // Focused Anticipation
+    if ( firstActor?.talentIds.has("focusedanticipat") ) {
+      await firstActor.alterResources({focus: 1}, {}, {statusText: "Focused Anticipation"});
+    }
+
     // Morale Escalation
     if ( this.round > 6 ) {
-      await firstActor?.alterResources({morale: this.round});
-      await lastActor?.alterResources({morale: -this.round});
+      await firstActor?.alterResources({morale: this.round}, {}, {statusText: "Escalation"});
+      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: "Escalation"});
     }
   }
 
