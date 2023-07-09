@@ -2,7 +2,9 @@
   "id": "crucible",
   "title": "Crucible",
   "description": "Crucible is an innovative and modern tabletop role-playing game system built exclusively for Foundry Virtual Tabletop as a digital platform. From the ground up, Crucible is designed to leverage the unique capabilities of Foundry VTT to provide gamemasters with a powerful toolset and effortless layers of automation, allowing gamemasters and players to focus on what matters most: telling a compelling story.",
-  "version": "0.5.7",
+  "version": "0.5.8",
+  "manifest": "#{MANIFEST}#",
+  "download": "#{DOWNLOAD}#",
   "url": "https://foundryvtt.com/packages/crucible",
   "authors": [
     {
@@ -15,6 +17,7 @@
     "minimum": 11,
     "verified": 11
   },
+  "license": "LICENSE",
   "esmodules": ["crucible.mjs"],
   "styles": ["styles/crucible.css"],
   "packs": [
@@ -121,7 +124,5 @@
   "background": "systems/crucible/ui/background.webp",
   "socket": true,
   "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.morale",
-  "manifest": "https://foundryvtt.s3.us-west-2.amazonaws.com/modules/crucible/system.json",
-  "protected": false
+  "secondaryTokenAttribute": "resources.morale"
 }
