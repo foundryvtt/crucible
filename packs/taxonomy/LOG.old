@@ -1,3 +1,8 @@
-2023/07/08-13:54:09.545 15988 Recovering log #442
-2023/07/08-13:54:09.548 15988 Delete type=0 #442
-2023/07/08-13:54:09.549 15988 Delete type=3 #440
+2023/07/09-14:08:35.038 c470 Recovering log #448
+2023/07/09-14:08:35.041 c470 Delete type=0 #448
+2023/07/09-14:08:35.041 c470 Delete type=3 #446
+2023/07/09-14:32:33.030 25c4c Level-0 table #453: started
+2023/07/09-14:32:33.030 25c4c Level-0 table #453: 0 bytes OK
+2023/07/09-14:32:33.031 25c4c Delete type=0 #451
+2023/07/09-14:32:33.033 25c4c Manual compaction at level-0 from '!folders!REYz7fzLYEdBX3A2' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)
+2023/07/09-14:32:33.033 25c4c Manual compaction at level-1 from '!folders!REYz7fzLYEdBX3A2' @ 72057594037927935 : 1 .. '!items!werewolf00000000' @ 0 : 0; will stop at (end)

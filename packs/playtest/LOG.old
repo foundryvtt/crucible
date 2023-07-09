@@ -1,3 +1,8 @@
-2023/07/08-13:54:09.532 293c0 Recovering log #252
-2023/07/08-13:54:09.536 293c0 Delete type=0 #252
-2023/07/08-13:54:09.536 293c0 Delete type=3 #250
+2023/07/09-14:08:35.026 f5ac Recovering log #258
+2023/07/09-14:08:35.030 f5ac Delete type=0 #258
+2023/07/09-14:08:35.030 f5ac Delete type=3 #256
+2023/07/09-14:32:33.054 25c4c Level-0 table #263: started
+2023/07/09-14:32:33.054 25c4c Level-0 table #263: 0 bytes OK
+2023/07/09-14:32:33.056 25c4c Delete type=0 #261
+2023/07/09-14:32:33.058 25c4c Manual compaction at level-0 from '!adventures!F8AILycmdj2kuOVa' @ 72057594037927935 : 1 .. '!adventures!F8AILycmdj2kuOVa' @ 0 : 0; will stop at (end)
+2023/07/09-14:32:33.058 25c4c Manual compaction at level-1 from '!adventures!F8AILycmdj2kuOVa' @ 72057594037927935 : 1 .. '!adventures!F8AILycmdj2kuOVa' @ 0 : 0; will stop at (end)
