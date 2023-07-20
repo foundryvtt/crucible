@@ -53,7 +53,7 @@ export default class HeroSheet extends CrucibleActorSheet {
     context.backgroundName = s.system.details.background?.name || game.i18n.localize("BACKGROUND.None");
 
     // Talents
-    context.talentTreeButton = game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree";
+    context.talentTreeButton = game.system.tree.actor === a ? game.i18n.localize("TALENT.CloseTree") : game.i18n.localize("TALENT.OpenTree");
 
     // Section locks
     context.sectionLocks = this.#getSectionLocks(context);

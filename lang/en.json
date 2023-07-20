@@ -31,6 +31,8 @@
 "ADVERSARY.ThreatElite": "Elite",
 "ADVERSARY.ThreatBoss": "Boss",
 
+"ACTOR.Level": "Level",
+
 "ACTOR.StatureTiny": "Tiny",
 "ACTOR.StatureSmall": "Small",
 "ACTOR.StatureMedium": "Medium",
@@ -167,9 +169,11 @@
 "ATTACK.RESULT_TYPES.GLANCE": "Glance",
 "ATTACK.RESULT_TYPES.HIT": "Hit",
 
-"ATTRIBUTES.Abilities": "Ability Scores",
+"ATTRIBUTES.Abilities": "Abilities",
+"ATTRIBUTES.Defenses": "Defenses",
 "ATTRIBUTES.Pools": "Resource Pools",
-"ATTRIBUTES.Resistances": "Damage Resistances",
+"ATTRIBUTES.Resistances": "Resistances",
+"ATTRIBUTES.Resources": "Resources",
 
 "BACKGROUND.AddTalentHint": "Add a talent to this Background by dragging and dropping from the Talents compendium pack.",
 "BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
@@ -184,6 +188,9 @@
 "BACKGROUND.Talents": "Acquired Talent",
 "BACKGROUND.TalentNumberError": "A Background may contain a maximum of one starting Talent.",
 "BACKGROUND.TalentTierError": "Backgrounds may only offer Tier 0 starting Talents.",
+
+"BIOGRAPHY.Public": "Public Biography",
+"BIOGRAPHY.Private": "Private Biography",
 
 "COMBAT.WarningCannotChangeRound": "Only a Gamemaster user may change the Combat round.",
 
@@ -215,6 +222,10 @@
 "DEFENSES.Physical": "Physical",
 "DEFENSES.Wounds": "Wounds Threshold",
 "DEFENSES.Madness": "Madness Threshold",
+"DEFENSES.Stride":"Stride",
+"DEFENSES.Engagement":"Engagement",
+"DEFENSES.Healing":"Healing",
+"DEFENSES.Rallying":"Rallying",
 
 "DICE.DiceTotal": "Dice Total",
 "DICE.AbilityBonus": "Ability Bonus",
@@ -250,6 +261,13 @@
 
 "EFFECT.StatusFlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
 
+"ITEM.Backpack": "Backpack",
+"ITEM.BackpackEmpty": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
+"ITEM.Consumable": "Consumable",
+"ITEM.ConsumableEmpty": "Consumable items are not yet supported in the Crucible system Playtest 1.",
+"ITEM.Equipment": "Equipment",
+"ITEM.EquipmentEmpty": "Equip weapons and armor from your Backpack toggling the shield icon.",
+
 "ITEM.Broken": "Broken",
 
 "ITEM.EnchantmentMundane": "Mundane",
@@ -281,6 +299,20 @@
 "SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
 "SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
 
+"SHEET.ActiveEffects": "Active Effects",
+"SHEET.Available": "Available",
+"SHEET.AvailableActions": "Available Actions",
+"SHEET.CurrentEquipment": "Current Equipment",
+"SHEET.Reset": "Reset",
+"SHEET.Spent": "Spent",
+
+"SHEET.TABS.Attributes": "Attributes",
+"SHEET.TABS.Skills": "Skills",
+"SHEET.TABS.Talents": "Talents",
+"SHEET.TABS.Inventory": "Inventory",
+"SHEET.TABS.Grimoire": "Grimoire",
+"SHEET.TABS.Biography": "Biography",
+
 "SHEETS.CrucibleJournal": "Crucible Journal Sheet",
 
 "SKILL.PageSheet": "Crucible Skill",
@@ -308,12 +340,16 @@
 "SKILL.CATEGORY.Social": "Social",
 "SKILL.CATEGORY.Technical": "Technical",
 
+"SKILL.Attributes": "Attributes",
+"SKILL.Bonus": "Bonus",
 "SKILL.ChoosePath": "You must choose a specialization path before advancing this Skill further.",
 "SKILL.CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
 "SKILL.RollFlavor": "{name} rolls a {skill} check",
 "SKILL.RollTitle": "[{name}] {skill} Skill Check",
+"SKILL.Spent": "Spent (Cost)",
 "SKILL.TooltipCheck": "[0.5 &times; ({a1} + {a2})] + Bonus + Enchantment",
 "SKILL.TooltipPassive": "12 + Score",
+"SKILL.TrainedRank": "Trained Rank",
 
 "SPELL.ComponentRune": "Arcane Rune",
 "SPELL.ComponentGesture": "Somatic Gesture",
@@ -377,6 +413,11 @@
 "SPELL.MetamagicQuicken": "Quicken",
 "SPELL.MetamagicQuickenAdj": "Quickened",
 
+"TALENT.ActiveTalents": "Active Abilities",
+"TALENT.PassiveTalents": "Pasive Talents",
+"TALENT.SpellcraftTalents": "Spellcraft Talents",
+"TALENT.OpenTree": "Open Talent Tree",
+"TALENT.CloseTree": "Close Talent Tree",
 "TALENT.NodeAttack": "Attack",
 "TALENT.NodeDefault": "PLACEHOLDER",
 "TALENT.NodeDefense": "Defense",

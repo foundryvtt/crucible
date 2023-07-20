@@ -255,33 +255,33 @@ export default class CrucibleActorSheet extends ActorSheet {
     const sections = {
       talents: {
         active: {
-          label: "Active Abilities",
+          label: game.i18n.localize("TALENT.ActiveTalents"),
           items: []
         },
         passive: {
-          label: "Passive Talents",
+          label: game.i18n.localize("TALENT.PassiveTalents"),
           items: []
         },
         spell: {
-          label: "Spellcraft Talents",
+          label: game.i18n.localize("TALENT.SpellcraftTalents"),
           items: []
         }
       },
       inventory: {
         equipment: {
-          label: "Equipment",
+          label: game.i18n.localize("ITEM.Equipment"),
           items: [],
-          empty: "Equip weapons and armor from your Backpack toggling the shield icon."
+          empty: game.i18n.localize("ITEM.EquipmentEmpty")
         },
         consumables: {
-          label: "Consumables",
+          label: game.i18n.localize("ITEM.Consumable"),
           items: [],
-          empty: "Consumable items are not yet supported in the Crucible system Playtest 1."
+          empty: game.i18n.localize("ITEM.ConsumableEmpty")
         },
         backpack: {
-          label: "Backpack",
+          label: game.i18n.localize("ITEM.Backpack"),
           items: [],
-          empty: "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
+          empty: game.i18n.localize("ITEM.BackpackEmpty")
         }
       }
     };

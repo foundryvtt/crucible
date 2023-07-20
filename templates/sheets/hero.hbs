@@ -25,7 +25,7 @@
                     <span class="input">{{actor.system.advancement.next}}</span>
                 </div>
                 {{/if}}
-                <label>Level</label>
+                <label>{{localize "ACTOR.Level"}}</label>
                 <input class="level" type="number" name="system.advancement.level" value="{{source.system.advancement.level}}"
                        {{#if isL0}}disabled{{/if}}>
             </div>
@@ -59,16 +59,16 @@
         <nav class="sheet-navigation tabs" data-group="primary">
             <a class="item badge attributes" data-tab="attributes" {{#if incomplete.abilities}}data-tooltip="WALKTHROUGH.AbilityPoints"{{/if}}>
             {{~#if incomplete.abilities~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
-            Attributes</a>
+            {{localize "SHEET.TABS.Attributes"}}</a>
             <a class="item badge skills" data-tab="skills" {{#if incomplete.skills}}data-tooltip="WALKTHROUGH.SkillPoints"{{/if}}>
             {{~#if incomplete.skills~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
-            Skills</a>
+            {{localize "SHEET.TABS.Skills"}}</a>
             <a class="item badge talents" data-tab="talents" {{#if incomplete.talents}}data-tooltip="WALKTHROUGH.TalentPoints"{{/if}}>
             {{~#if incomplete.talents~}}<i class="incomplete fas fa-exclamation-triangle"></i>{{/if}}
-            Talents</a>
-            <a class="item badge inventory" data-tab="inventory">Inventory</a>
-            <a class="item badge spells" data-tab="spells">Grimoire</a>
-            <a class="item badge biography" data-tab="biography">Biography</a>
+            {{localize "SHEET.TABS.Talents"}}</a>
+            <a class="item badge inventory" data-tab="inventory">{{localize "SHEET.TABS.Inventory"}}</a>
+            <a class="item badge spells" data-tab="spells">{{localize "SHEET.TABS.Grimoire"}}</a>
+            <a class="item badge biography" data-tab="biography">{{localize "SHEET.TABS.Biography"}}</a>
         </nav>
 
         {{!-- Attributes Tab --}}
@@ -77,7 +77,7 @@
             {{!-- Character Resources --}}
             <section class="resources flexrow">
                 <h2 class="section-header divider">
-                    <span></span><label>Resources</label><span></span>
+                    <span></span><label>{{localize "ATTRIBUTES.Resources"}}</label><span></span>
                     <a class="button section-lock" data-section="resources">
                         <i class="fas {{#if sectionLocks.resources}}fa-lock{{else}}fa-unlock{{/if}}"></i>
                     </a>
@@ -105,7 +105,7 @@
             <section class="abilities">
                 <h2 class="section-header divider">
                     <span></span>
-                    <label>Abilities</label>
+                    <label>{{localize "ATTRIBUTES.Abilities"}}</label>
                     <span></span>
                     <a class="button section-lock" data-section="abilities">
                         <i class="fas {{#if sectionLocks.abilities}}fa-lock{{else}}fa-unlock{{/if}}"></i>
@@ -114,14 +114,14 @@
                 {{#unless sectionLocks.abilities}}
                 <div class="point-pools flexrow">
                     {{#if isL0}}
-                    <label>Available</label>
+                    <label>{{localize "SHEET.Available"}}</label>
                     <span class="value highlight">{{points.ability.pool}}</span>
-                    <label>Spent</label>
+                    <label>{{localize "SHEET.Spent"}}</label>
                     <span class="value highlight">{{points.ability.bought}}</span>
                     {{else}}
-                    <label>Available</label>
+                    <label>{{localize "SHEET.Available"}}</label>
                     <span class="value highlight">{{points.ability.available}}</span>
-                    <label>Spent</label>
+                    <label>{{localize "SHEET.Spent"}}</label>
                     <span class="value highlight">{{points.ability.spent}}</span>
                     {{/if}}
                 </div>
@@ -150,7 +150,7 @@
             <section class="defenses">
                 <h2 class="section-header divider">
                     <span></span>
-                    <label>Defenses</label>
+                    <label>{{localize "ATTRIBUTES.Defenses"}}</label>
                     <span></span>
                     <a class="button section-lock" data-section="defenses">
                         <i class="fas {{#if sectionLocks.defenses}}fa-lock{{else}}fa-unlock{{/if}}"></i>
@@ -204,19 +204,19 @@
 
                 <div class="miscellaneous flexrow">
                     <div class="stride flexrow">
-                        <label>Stride</label>
+                        <label>{{localize "DEFENSES.Stride"}}</label>
                         <span class="input total">{{actor.system.movement.stride}}</span>
                     </div>
                     <div class="engagement flexrow">
-                        <label>Engagement</label>
+                        <label>{{localize "DEFENSES.Engagement"}}</label>
                         <span class="input total">{{actor.system.movement.engagement}}</span>
                     </div>
                     <div class="wounds flexrow">
-                        <label>Healing</label>
+                        <label>{{localize "DEFENSES.Healing"}}</label>
                         <span class="input total">{{actor.system.defenses.wounds.total}}</span>
                     </div>
                     <div class="madness flexrow">
-                        <label>Rallying</label>
+                        <label>{{localize "DEFENSES.Rallying"}}</label>
                         <span class="input total">{{actor.system.defenses.madness.total}}</span>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
             <section class="damage-resistances flexrow">
                 <h2 class="section-header divider">
                     <span></span>
-                    <label>Resistances</label>
+                    <label>{{localize "ATTRIBUTES.Resistances"}}</label>
                     <span></span>
                     <a class="button section-lock" data-section="resistances">
                         <i class="fas {{#if sectionLocks.resistances}}fa-lock{{else}}fa-unlock{{/if}}"></i>
@@ -257,9 +257,9 @@
         {{!-- Skills Tab --}}
         <div class="tab skills flexcol" data-group="primary" data-tab="skills">
             <div class="point-pools flexrow">
-                <label>Available</label>
+                <label>{{localize "SHEET.Available"}}</label>
                 <span class="value highlight">{{points.skill.available}}</span>
-                <label>Spent</label>
+                <label>{{localize "SHEET.Spent"}}</label>
                 <span class="value highlight">{{points.skill.spent}}</span>
             </div>
             {{> "systems/crucible/templates/sheets/partials/actor-skills.hbs"}}
@@ -269,11 +269,11 @@
         <div class="tab talents flexcol" data-group="primary" data-tab="talents">
             <div class="point-pools flexrow">
                 <a class="button control" data-action="talentTree">{{talentTreeButton}}</a>
-                <label>Available</label>
+                <label>{{localize "SHEET.Available"}}</label>
                 <span class="value highlight">{{points.talent.available}}</span>
-                <label>Spent</label>
+                <label>{{localize "SHEET.Spent"}}</label>
                 <span class="value highlight">{{points.talent.spent}}</span>
-                <a class="button control reset" data-action="talentReset">Reset</a>
+                <a class="button control reset" data-action="talentReset">{{localize "SHEET.Reset"}}</a>
             </div>
 
             {{#each items.talents as |section s|}}
