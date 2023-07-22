@@ -187,7 +187,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
     switch ( target.type ) {
       case "blast":
-        templateData.distance = target.radius ?? 1;
+        templateData.distance = target.size ?? 1;
         break;
       case "pulse":
         const shape = token.getEngagementRectangle(distance);

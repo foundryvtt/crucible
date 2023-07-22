@@ -1,8 +1,3 @@
-2023/07/09-14:08:35.001 f5ac Recovering log #366
-2023/07/09-14:08:35.005 f5ac Delete type=0 #366
-2023/07/09-14:08:35.005 f5ac Delete type=3 #364
-2023/07/09-14:32:33.016 25c4c Level-0 table #371: started
-2023/07/09-14:32:33.016 25c4c Level-0 table #371: 0 bytes OK
-2023/07/09-14:32:33.017 25c4c Delete type=0 #369
-2023/07/09-14:32:33.021 25c4c Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
-2023/07/09-14:32:33.021 25c4c Manual compaction at level-1 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)
+2023/07/22-10:42:12.295 39500 Recovering log #389
+2023/07/22-10:42:12.300 39500 Delete type=0 #389
+2023/07/22-10:42:12.300 39500 Delete type=3 #388

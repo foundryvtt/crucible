@@ -157,6 +157,27 @@ function weaponAttack(type="mainhand") {
   }
 }
 
+/* -------------------------------------------- */
+
+/**
+ * Categories of action tags which are supported by the system.
+ * @type {Readonly<Object<string, {label: string}>>}
+ */
+export const TAG_CATEGORIES = Object.freeze({
+  attack: {label: "ACTION.TAG_CATEGORIES.ATTACK"},
+  requirements: {label: "ACTION.TAG_CATEGORIES.REQUIREMENTS"},
+  context: {label: "ACTION.TAG_CATEGORIES.CONTEXT"},
+  modifiers: {label: "ACTION.TAG_CATEGORIES.MODIFIERS"},
+  defenses: {label: "ACTION.TAG_CATEGORIES.DEFENSES"},
+  damage: {label: "ACTION.TAG_CATEGORIES.DAMAGE"},
+  scaling: {label: "ACTION.TAG_CATEGORIES.SCALING"},
+  resources: {label: "ACTION.TAG_CATEGORIES.RESOURCES"},
+  skills: {label: "ACTION.TAG_CATEGORIES.SKILLS"},
+  special: {label: "ACTION.TAG_CATEGORIES.SPECIAL"},
+});
+
+/* -------------------------------------------- */
+
 /**
  * Define special logic for action tag types
  * @enum {ActionTag}
@@ -172,6 +193,7 @@ export const TAGS = {
     tag: "dualwield",
     label: "ACTION.TagDualWield",
     tooltip: "ACTION.TagDualWieldTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.dualWield
   },
 
@@ -180,6 +202,7 @@ export const TAGS = {
     tag: "onehand",
     label: "ACTION.TagOneHand",
     tooltip: "ACTION.TagOneHandTooltip",
+    category: "requirements",
     can: (actor, action) => !actor.equipment.weapons.twoHanded
   },
 
@@ -188,6 +211,7 @@ export const TAGS = {
     tag: "finesse",
     label: "ACTION.TagFinesse",
     tooltip: "ACTION.TagFinesseTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity")
   },
 
@@ -196,6 +220,7 @@ export const TAGS = {
     tag: "heavy",
     label: "ACTION.TagBrute",
     tooltip: "ACTION.TagBruteTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.mainhand.config.category.scaling.includes("strength")
   },
 
@@ -204,6 +229,7 @@ export const TAGS = {
     tag: "melee",
     label: "ACTION.TagMelee",
     tooltip: "ACTION.TagMeleeTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.melee
   },
 
@@ -212,6 +238,7 @@ export const TAGS = {
     tag: "ranged",
     label: "ACTION.TagRanged",
     tooltip: "ACTION.TagRangedTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.ranged
   },
 
@@ -220,6 +247,7 @@ export const TAGS = {
     tag: "projectile",
     label: "ACTION.TagProjectile",
     tooltip: "ACTION.TagProjectileTooltip",
+    category: "requirements",
     can: (actor, action) => {
       const {mainhand: mh, offhand: oh} = actor.equipment.weapons;
       if ( action.tags.has("offhand") ) return oh.config.category.training === "projectile";
@@ -232,6 +260,7 @@ export const TAGS = {
     tag: "mechanical",
     label: "ACTION.TagMechanical",
     tooltip: "ACTION.TagMechanicalTooltip",
+    category: "requirements",
     can: (actor, action) => {
       const {mainhand: mh, offhand: oh} = actor.equipment.weapons;
       if ( action.tags.has("offhand") ) return oh.config.category.training === "mechanical";
@@ -244,6 +273,7 @@ export const TAGS = {
     tag: "shield",
     label: "ACTION.TagShield",
     tooltip: "ACTION.TagShieldTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.shield
   },
 
@@ -252,6 +282,7 @@ export const TAGS = {
     tag: "unarmed",
     label: "ACTION.TagUnarmed",
     tooltip: "ACTION.TagUnarmedTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.weapons.unarmed
   },
 
@@ -260,6 +291,7 @@ export const TAGS = {
     tag: "unarmored",
     label: "ACTION.TagUnarmored",
     tooltip: "ACTION.TagUnarmoredTooltip",
+    category: "requirements",
     can: (actor, action) => actor.equipment.unarmored
   },
 
@@ -268,6 +300,7 @@ export const TAGS = {
     tag: "freehand",
     label: "ACTION.TagFreehand",
     tooltip: "ACTION.TagFreehandTooltip",
+    category: "requirements",
     can: (actor, action) => {
       const weapons = actor.equipment.weapons;
       if ( weapons.twoHanded && actor.talentIds.has("stronggrip000000") ) return true;
@@ -284,6 +317,7 @@ export const TAGS = {
     tag: "movement",
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
+    category: "context",
     can: (actor, action) => {
       if ( actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
@@ -302,6 +336,7 @@ export const TAGS = {
     tag: "reaction",
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
+    category: "context",
     display: (actor, action, combatant) => {
       if ( !combatant ) return false;
       return actor !== game.combat.combatant?.actor;
@@ -322,6 +357,7 @@ export const TAGS = {
     tag: "noncombat",
     label: "ACTION.TagNonCombat",
     tooltip: "ACTION.TagNonCombatTooltip",
+    category: "context",
     display: (actor, action, combatant) => !combatant
   },
 
@@ -330,6 +366,7 @@ export const TAGS = {
     tag: "flanking",
     label: "ACTION.TagFlanking",
     tooltip: "ACTION.TagFlankingTooltip",
+    category: "context",
     roll: (actor, action, target) => {
       if ( !target.statuses.has("flanked") ) {
         throw new Error(`${action.name} requires a flanked target, and ${target.name} does not have the flanked condition.`);
@@ -345,6 +382,7 @@ export const TAGS = {
     tag: "spell",
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
+    category: "attack",
     prepare: (actor, action) => {
       Object.assign(action.usage.context, {
         type: "spell",
@@ -372,6 +410,7 @@ export const TAGS = {
     tag: "summon",
     label: "ACTION.TagSummon",
     tooltip: "ACTION.TagSummonTooltip",
+    category: "special",
     confirm: async (actor, action, outcomes) => {
       const {x, y} = action.template;
 
@@ -436,6 +475,7 @@ export const TAGS = {
     tag: "mainhand",
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
+    category: "attack",
     ...weaponAttack("mainhand")
   },
 
@@ -443,6 +483,7 @@ export const TAGS = {
     tag: "twohand",
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
+    category: "attack",
     ...weaponAttack("twoHanded")
   },
 
@@ -450,6 +491,7 @@ export const TAGS = {
     tag: "offhand",
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
+    category: "attack",
     ...weaponAttack("offhand")
   },
 
@@ -461,6 +503,7 @@ export const TAGS = {
     tag: "Reload",
     label: "ACTION.TagReload",
     tooltip: "ACTION.TagReloadTooltip",
+    category: "special",
     can: actor => {
       const {mainhand: m, offhand: o, reload} = actor.equipment.weapons;
       if ( !reload || (m.system.loaded && (!o || o.system.loaded)) ) {
@@ -487,6 +530,7 @@ export const TAGS = {
     tag: "deadly",
     label: "ACTION.TagDeadly",
     tooltip: "ACTION.TagDeadlyTooltip",
+    category: "modifiers",
     prepare: (actor, action) => action.usage.bonuses.multiplier += 1,
   },
 
@@ -494,6 +538,7 @@ export const TAGS = {
     tag: "difficult",
     label: "ACTION.TagDifficult",
     tooltip: "ACTION.TagDifficultTooltip",
+    category: "modifiers",
     prepare: (actor, action) => action.usage.banes.difficult = {label: "ACTION.TagDifficult", number: 1}
   },
 
@@ -501,6 +546,7 @@ export const TAGS = {
     tag: "empowered",
     label: "ACTION.TagEmpowered",
     tooltip: "ACTION.TagEmpoweredTooltip",
+    category: "modifiers",
     prepare: (actor, action) => action.usage.bonuses.damageBonus += 6,
   },
 
@@ -508,12 +554,14 @@ export const TAGS = {
     tag: "accurate",
     label: "ACTION.TagAccurate",
     tooltip: "ACTION.TagAccurateTooltip",
+    category: "modifiers",
     prepare: (actor, action) => action.usage.boons.accurate = {label: "ACTION.TagAccurate", number: 2}
   },
   harmless: {
     tag: "harmless",
     label: "ACTION.TagHarmless",
     tooltip: "ACTION.TagHarmlessTooltip",
+    category: "modifiers",
     post: async (actor, action, target, rolls) => {
       for ( const roll of rolls ) {
         if ( roll.data.damage ) roll.data.damage.total = 0;
@@ -524,6 +572,7 @@ export const TAGS = {
     tag: "weakened",
     label: "ACTION.TagWeakened",
     tooltip: "ACTION.TagWeakenedTooltip",
+    category: "modifiers",
     prepare: (actor, action) => action.usage.bonuses.damageBonus -= 6,
   },
 
@@ -535,6 +584,7 @@ export const TAGS = {
   fortitude: {
     tag: "fortitude",
     label: "Fortitude",
+    category: "defenses",
     prepare: (actor, action) => {
       action.usage.defenseType = "fortitude";
       action.usage.context.tags.add("Fortitude");
@@ -545,6 +595,7 @@ export const TAGS = {
   reflex: {
     tag: "reflex",
     label: "Reflex",
+    category: "defenses",
     prepare: (actor, action) => {
       action.usage.defenseType = "reflex";
       action.usage.context.tags.add("Reflex");
@@ -555,6 +606,7 @@ export const TAGS = {
   willpower: {
     tag: "willpower",
     label: "Willpower",
+    category: "defenses",
     prepare: (actor, action) => {
       action.usage.defenseType = "willpower";
       action.usage.context.tags.add("Willpower");
@@ -569,6 +621,7 @@ export const TAGS = {
     tag: "healing",
     label: "ACTION.TagHealing",
     tooltip: "ACTION.TagHealingTooltip",
+    category: "damage",
     prepare: (actor, action) => {
       action.usage.resource = "health";
       action.usage.defenseType = "wounds";
@@ -580,6 +633,7 @@ export const TAGS = {
     tag: "rallying",
     label: "ACTION.TagRallying",
     tooltip: "ACTION.TagRallyingTooltip",
+    category: "damage",
     prepare: (actor, action) => {
       action.usage.resource = "morale";
       action.usage.defenseType = "madness";
@@ -596,6 +650,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
   TAGS[id] = {
     tag: id,
     label: label,
+    category: "damage",
     prepare: (actor, action) => action.usage.damageType = id
   }
 }
@@ -608,6 +663,7 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
   TAGS[id] = {
     tag: id,
     label,
+    category: "scaling",
     prepare: (actor, action) => action.usage.bonuses.ability = actor.getAbilityBonus([id])
   }
 }
@@ -620,6 +676,7 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
   TAGS[id] = {
     tag: id,
     label: label,
+    category: "resources",
     prepare: (actor, action) => action.usage.resource = id
   }
 }
@@ -632,6 +689,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
     label: name,
+    category: "skills",
     prepare: (actor, action) => {
       action.usage.skillId = id;
       const skill = actor.skills[id];

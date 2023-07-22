@@ -93,7 +93,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
-        radius: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
+        size: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         multiple: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
           initial: SYSTEM.ACTION.TARGET_SCOPES.NONE}),

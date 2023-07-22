@@ -47,32 +47,33 @@
             <textarea name="system.actions" rows="24" data-dtype="JSON">{{actionsJSON}}</textarea>
         </div>
 
-        <div class="form-group">
-            <label>Arcane Rune</label>
-            <div class="form-fields">
-                <select name="system.rune">
-                    {{selectOptions runes selected=source.system.rune blank=""}}
-                </select>
+        <fieldset>
+            <legend>Spellcraft</legend>
+            <div class="form-group">
+                <label>Arcane Rune</label>
+                <div class="form-fields">
+                    <select name="system.rune">
+                        {{selectOptions runes selected=source.system.rune blank=""}}
+                    </select>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label>Somatic Gesture</label>
-            <div class="form-fields">
-                <select name="system.gesture">
-                    {{selectOptions gestures selected=source.system.gesture blank=""}}
-                </select>
+            <div class="form-group">
+                <label>Somatic Gesture</label>
+                <div class="form-fields">
+                    <select name="system.gesture">
+                        {{selectOptions gestures selected=source.system.gesture blank=""}}
+                    </select>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label>Metamagic Inflection</label>
-            <div class="form-fields">
-                <select name="system.inflection">
-                    {{selectOptions inflections selected=source.system.inflection blank=""}}
-                </select>
+            <div class="form-group">
+                <label>Metamagic Inflection</label>
+                <div class="form-fields">
+                    <select name="system.inflection">
+                        {{selectOptions inflections selected=source.system.inflection blank=""}}
+                    </select>
+                </div>
             </div>
-        </div>
+        </fieldset>
 
         {{#if editable}}
         <footer class="sheet-footer">

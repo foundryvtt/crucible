@@ -26,4 +26,15 @@ export default class Enum {
     const key = keyOrValue in this.#labels ? keyOrValue : this.#values[keyOrValue];
     return this.#labels[key];
   }
+
+  /**
+   * The enum expressed as an object of choices suitable for a <select> input or similar use case.
+   * @returns {Object<string>}
+   */
+  get choices() {
+    return Object.entries(this).reduce((obj, [k, v]) => {
+      obj[v] = this.#labels[k];
+      return obj;
+    }, {});
+  }
 }

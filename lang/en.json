@@ -71,6 +71,17 @@
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 
+"ACTION.TAG_CATEGORIES.ATTACK": "Attack",
+"ACTION.TAG_CATEGORIES.REQUIREMENTS": "Requirements",
+"ACTION.TAG_CATEGORIES.CONTEXT": "Context",
+"ACTION.TAG_CATEGORIES.MODIFIERS": "Modifiers",
+"ACTION.TAG_CATEGORIES.DEFENSES": "Defenses",
+"ACTION.TAG_CATEGORIES.DAMAGE": "Damage",
+"ACTION.TAG_CATEGORIES.SCALING": "Scaling",
+"ACTION.TAG_CATEGORIES.RESOURCES": "Resources",
+"ACTION.TAG_CATEGORIES.SKILLS": "Skills",
+"ACTION.TAG_CATEGORIES.SPECIAL": "Special",
+
 "ACTION.TagDeadly": "Deadly",
 "ACTION.TagDeadlyTooltip":  "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
 "ACTION.TagDifficult": "Difficult",

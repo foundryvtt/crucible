@@ -343,6 +343,7 @@ function preLocalizeConfig() {
   // Action Tags
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
 }
 
 /* -------------------------------------------- */

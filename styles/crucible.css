@@ -44,7 +44,7 @@
   --color-sidebar: #cfc7bb;
   --color-h1: #cfbea2;
   --color-frame: #3f3128;
-  --color-table-row: #1c1a1a;
+  --color-frame-bg: #1c1a1a;
   --color-accent: #cf9356;
   --color-link-text: #f36739;
   --color-border-highlight: var(--color-accent);
@@ -149,7 +149,7 @@
   font-size: var(--font-size-14);
 }
 .crucible-new table thead {
-  background: var(--color-table-row);
+  background: var(--color-frame-bg);
   border: none;
 }
 .crucible-new table th {
@@ -161,7 +161,7 @@
   text-shadow: none;
 }
 .crucible-new table tr:nth-child(even) {
-  background-color: var(--color-table-row);
+  background-color: var(--color-frame-bg);
 }
 .crucible-new blockquote {
   margin: 1rem 0;
@@ -324,7 +324,7 @@
 }
 .crucible-new textarea {
   padding: 0.5rem;
-  background: var(--color-table-row);
+  background: var(--color-frame-bg);
   border: 1px solid var(--color-frame);
   border-radius: 8px;
   font-family: var(--font-body);
@@ -345,11 +345,12 @@
 .crucible-new input[type="date"],
 .crucible-new input[type="time"],
 .crucible-new input[type="search"] {
+  background: var(--color-frame-bg);
   color: var(--color-text);
   border-color: var(--color-frame);
 }
 .crucible-new form .hint {
-  margin: 0.5rem 0;
+  margin: 0;
   color: var(--color-tertiary);
 }
 .crucible-new a.button {
@@ -483,6 +484,7 @@
 .crucible-new.window-app .sheet-header h1 input {
   margin: 0;
   border: none;
+  background: transparent;
   color: var(--color-text);
 }
 .crucible-new.window-app .sheet-header .header-tags {
@@ -494,7 +496,7 @@
 }
 .crucible-new.window-app nav.sheet-tabs {
   margin: 1rem 0;
-  border-color: var(--color-table-row);
+  border-color: var(--color-frame-bg);
   font-family: var(--font-h1);
   color: var(--color-h1);
 }
@@ -502,10 +504,18 @@
   gap: 1rem;
 }
 .crucible-new.window-app .sheet-body.flexcol .form-group {
+  gap: 0.5rem;
   margin: 0;
 }
-.crucible-new.window-app .sheet-body.flexcol .form-group.stacked {
-  gap: 0.5rem;
+.crucible-new.window-app .sheet-body.flexcol fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-frame);
+  border-radius: 6px;
+}
+.crucible-new.window-app .sheet-footer {
+  margin-top: 1rem;
 }
 .crucible-new.window-app .line-item {
   display: flex;
