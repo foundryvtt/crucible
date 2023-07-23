@@ -63,4 +63,19 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
     }
     return groups;
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _updateObject(event, formData) {
+    const clone = this.action.clone();
+    try {
+      clone.updateSource(formData);
+    } catch(err) {
+      return ui.notifications.error(`Invalid Action update: ${err.message}`);
+    }
+    const actions = this.object.toObject().system.actions;
+    actions.findSplice(a => a.id = this.action.id, clone.toObject());
+    return this.object.update({"system.actions": actions});
+  }
 }

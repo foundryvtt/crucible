@@ -1,8 +1,8 @@
-2023/07/22-13:08:44.662 62030 Recovering log #1090
-2023/07/22-13:08:44.667 62030 Delete type=0 #1090
-2023/07/22-13:08:44.667 62030 Delete type=3 #1089
-2023/07/22-15:00:01.798 87bf0 Level-0 table #1094: started
-2023/07/22-15:00:01.798 87bf0 Level-0 table #1094: 0 bytes OK
-2023/07/22-15:00:01.799 87bf0 Delete type=0 #1092
-2023/07/22-15:00:01.800 87bf0 Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/07/22-15:00:01.801 87bf0 Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/07/23-11:46:26.437 7e63c Recovering log #1096
+2023/07/23-11:46:26.441 7e63c Delete type=0 #1096
+2023/07/23-11:46:26.441 7e63c Delete type=3 #1095
+2023/07/23-13:15:23.619 672d4 Level-0 table #1100: started
+2023/07/23-13:15:23.619 672d4 Level-0 table #1100: 0 bytes OK
+2023/07/23-13:15:23.620 672d4 Delete type=0 #1098
+2023/07/23-13:15:23.620 672d4 Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
+2023/07/23-13:15:23.620 672d4 Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)

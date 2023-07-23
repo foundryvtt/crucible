@@ -1,5 +1,6 @@
 import CrucibleTalentNode from "../../config/talent-tree.mjs";
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import ActionConfig from "../config/action.mjs";
 
 /**
  * A sheet application for displaying and configuring Items with the Talent type.
@@ -14,7 +15,8 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}]
+      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}],
+      width: 520
     });
   }
 
@@ -33,7 +35,6 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
       source: source,
       actions: TalentSheet.prepareActions(this.object.system.actions),
       tags: this.item.getTags(this.object.system.talents),
-      actionsJSON: JSON.stringify(source.system.actions, null, 2),
       actorHookChoices: Object.keys(SYSTEM.ACTOR_HOOKS).reduce((obj, k) => {
         obj[k] = k;
         return obj;
@@ -84,19 +85,10 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
     html.find("[data-action]").click(this.#onClickAction.bind(this));
   }
 
-
   /* -------------------------------------------- */
 
   /** @override */
   _getSubmitData(updateData) {
-    const form = this.form;
-    for ( const field of ["system.actions"] ) {
-      try {
-        JSON.parse(form[field].value);
-      } catch(err) {
-        return ui.notifications.error(`Invalid JSON in "${field}" field: ${err.message}`);
-      }
-    }
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
     if ( "actorHooks" in formData.system ) {
       formData.system.actorHooks = Object.values(formData.system.actorHooks || {});
@@ -122,6 +114,12 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
         return this.#onAddHook(event, button);
       case "deleteHook":
         return this.#onDeleteHook(event, button);
+      case "actionAdd":
+        return this.#onActionAdd(event, button);
+      case "actionDelete":
+        return this.#onActionDelete(event, button);
+      case "actionEdit":
+        return this.#onActionEdit(event, button);
     }
   }
 
@@ -154,5 +152,73 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
     const fd = this._getSubmitData({});
     fd.system.actorHooks.findSplice(h => h.hook === hook);
     return this._updateObject(event, fd);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new Action to the Talent.
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  async #onActionAdd(event, button) {
+    const fd = this._getSubmitData({});
+    const actions = this.object.toObject().system.actions;
+
+    // Create a new Action
+    const suffix = actions.length ? actions.length + 1 : "";
+    const actionData = {id: game.system.api.methods.generateId(this.object.name)};
+    if ( actions.length ) {
+      actionData.id += suffix;
+      actionData.name = `${this.object.name} ${suffix}`
+    }
+    const action = new game.system.api.models.CrucibleAction(actionData, {parent: this.object.system});
+
+    // Update the Talent
+    actions.push(action.toObject());
+    fd.system.actions = actions;
+    await this._updateObject(event, fd);
+
+    // Render the action configuration sheet
+    await (new ActionConfig(action)).render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an Action from the Talent.
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  async #onActionDelete(event, button) {
+    const actionId = button.closest(".action").dataset.actionId;
+    const actions = this.object.toObject().system.actions;
+    const action = actions.findSplice(a => a.id === actionId);
+    const confirm = await Dialog.confirm({
+      title: `
+    }Delete Action: ${action.name}`,
+      content: `<p>Are you sure you wish to delete the <strong>${action.name}</strong> action from the <strong>${this.object.name}</strong> Talent?</p>`
+    });
+    if ( confirm ) {
+      const fd = this._getSubmitData({});
+      fd.system.actions = actions;
+      await this._updateObject(event, fd);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit an Action from the Talent.
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  async #onActionEdit(event, button) {
+    const actionId = button.closest(".action").dataset.actionId;
+    const action = this.object.system.actions.find(a => a.id === actionId);
+    await (new ActionConfig(action)).render(true);
   }
 }

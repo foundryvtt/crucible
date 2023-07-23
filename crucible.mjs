@@ -48,6 +48,7 @@ Hooks.once("init", async function() {
     models,
     documents,
     methods: {
+      generateId,
       packageCompendium,
       resetAllActorTalents,
       standardizeItemIds,
@@ -349,6 +350,22 @@ function preLocalizeConfig() {
 /* -------------------------------------------- */
 
 /**
+ * Generate a Crucible-standardized document ID given a provided string title.
+ * @param {string} title      An input string title
+ * @param {number} [length]   A maximum ID length
+ * @returns {string}          A standardized camel-case ID
+ */
+function generateId(title, length) {
+  const id = title.split(" ").map((w, i) => {
+    const p = w.slugify({replacement: "", strict: true});
+    return i ? p.titleCase() : p;
+  }).join("");
+  return Number.isNumeric(length) ? id.slice(0, length).padEnd(length, "0") : id;
+}
+
+/* -------------------------------------------- */
+
+/**
  * Standardize all World item IDs
  * @returns {Promise<void>}
  */
@@ -356,7 +373,7 @@ async function standardizeItemIds() {
   const creations = [];
   const deletions = [];
   for ( const item of game.items ) {
-    const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
+    const standardId = generateId(item.name, 16);
     if ( item.id === standardId ) continue;
     if ( game.items.has(standardId) ) throw new Error(`Standardized system ID ${standardId} is already in use`);
     deletions.push(item.id);
@@ -369,8 +386,7 @@ async function standardizeItemIds() {
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, user) => {
     if ( !item.parent && !item.id ) {
-      const standardId = item.name.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
-      item.updateSource({_id: standardId});
+      item.updateSource({_id: generateId(item.name, 16)});
       options.keepId = true;
     }
   });

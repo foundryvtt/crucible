@@ -398,6 +398,10 @@
 "TALENT.NodeUtility": "Utility",
 "TALENT.PointsAvailable": "Points Available",
 
+"TALENT.Actions.Add": "Add Action",
+"TALENT.Actions.Delete": "Delete Action",
+"TALENT.Actions.Edit": "Edit Action",
+
 "TALENT.WARNINGS.AlreadyOwned": "You already own {name} and cannot add it a second time.",
 "TALENT.WARNINGS.Banned": "You cannot purchase additional Signature talents at this node or tier.",
 "TALENT.WARNINGS.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
