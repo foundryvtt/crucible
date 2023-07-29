@@ -1,4 +1,3 @@
-export {default as ACTIONS} from "./actions.mjs";
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
@@ -803,7 +802,16 @@ export const DEFAULT_ACTIONS = Object.freeze([
         duration: { rounds: 1 },
         statuses: ["guarded"]
       }
-    ]
+    ],
+    _hooks: {
+      prepare() {
+        const a = this.actor;
+        if ( a.talentIds.has("bulwark000000000") && a.equipment.weapons.shield && !a.system.status.hasMoved ) {
+          this.cost.action -= 1;
+          this.usage.actorUpdates["system.status.hasMoved"] = true;
+        }
+      }
+    }
   },
   {
     id: "delay",
@@ -815,6 +823,40 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
       scope: 1
+    },
+    _hooks: {
+      canUse() {
+        if ( game.combat?.combatant?.actor !== this.actor ) {
+          throw new Error("You may only use the Delay action on your own turn in combat.");
+        }
+        if ( this.actor.flags.crucible?.delay ) {
+          throw new Error("You may not delay your turn again this combat round.");
+        }
+      },
+      displayOnSheet(combatant) {
+        return !!combatant && (game.combat.combatant === combatant) && !this.actor.flags.crucible?.delay;
+      },
+      async preActivate(targets) {
+        const combatant = game.combat.getCombatantByActor(this.actor);
+        const maximum = combatant.getDelayMaximum();
+        const response = await Dialog.prompt({
+          title: "Delay Turn",
+          content: `<form class="delay-turn" autocomplete="off">
+            <div class="form-group">
+                <label>Delayed Initiative</label>
+                <input name="initiative" type="number" min="1" max="${maximum}" step="1">
+                <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
+            </div>
+        </form>`,
+          label: "Delay",
+          callback: dialog => dialog.find(`input[name="initiative"]`)[0].valueAsNumber,
+          rejectClose: false
+        });
+        if ( response ) this.usage.initiativeDelay = response;
+      },
+      async confirm() {
+        return this.actor.delay(this.usage.initiativeDelay);
+      }
     }
   },
   {
@@ -832,7 +874,18 @@ export const DEFAULT_ACTIONS = Object.freeze([
       distance: 1,
       scope: 3
     },
-    tags: ["reaction"]
+    tags: ["reaction"],
+    _hooks: {
+      canUse() {
+        for ( const s of ["unaware", "flanked"] ) {
+          if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Disengagement Strike while ${s}.`);
+        }
+      },
+      prepare() {
+        const w = this.actor.equipment.weapons.mainhand;
+        this.cost.action -= w.actionCost;
+      }
+    }
   },
   {
     id: "recover",
@@ -848,7 +901,30 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"]
+    tags: ["noncombat"],
+    _hooks: {
+      canUse() {
+        if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
+      },
+      async confirm() {
+
+        // Expire active effects
+        const toDeleteEffects = this.actor.effects.reduce((arr, effect) => {
+          if ( effect.id === "weakened00000000" ) arr.push(effect.id);
+          else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
+          else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
+          return arr;
+        }, []);
+        await this.actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
+
+        // Set resources to recover
+        const self = this.outcomes.get(this.actor);
+        self.resources.health = Infinity;
+        self.resources.morale = Infinity;
+        self.resources.action = Infinity;
+        self.resources.focus = Infinity;
+      }
+    }
   },
   {
     id: "refocus",
@@ -861,6 +937,14 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     cost: {
       action: 2
+    },
+    _hooks: {
+      async confirm() {
+        const self = this.outcomes.get(this.actor);
+        const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons
+        const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
+        self.resources.focus = (self.resources.focus || 0) + talisman.system.config.category.hands;
+      }
     }
   },
   {
@@ -874,6 +958,16 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["reload"],
     target: {
       type: "self",
+    },
+    _hooks: {
+      prepare() {
+        const a = this.actor;
+        const {reloaded} = a.system.status;
+        if ( a.talentIds.has("pistoleer0000000") && !reloaded ) this.cost.action = 0;
+      },
+      async postActivate() {
+        this.usage.actorUpdates["system.status.reloaded"] = true;
+      }
     }
   },
 
@@ -887,6 +981,13 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       distance: 1,
       scope: 3
+    },
+    _hooks: {
+      async postActivate(outcome) {
+        if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
+          this.usage.actorUpdates["system.status.basicStrike"] = true;
+        }
+      }
     }
   }
 ]);

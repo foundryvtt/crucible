@@ -110,7 +110,7 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
       return ui.notifications.error(`Invalid Action update: ${err.message}`);
     }
     const actions = this.object.toObject().system.actions;
-    actions.findSplice(a => a.id = this.action.id, this.action.toObject());
+    actions.findSplice(a => a.id === this.action.id, this.action.toObject());
     return this.object.update({"system.actions": actions}, {diff: false});
   }
 

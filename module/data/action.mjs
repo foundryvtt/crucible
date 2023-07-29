@@ -131,6 +131,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _initializeSource(source, options) {
+    if ( "_hooks" in source ) {
+      this._hooks = source._hooks;
+      delete source._hooks;
+    }
+    return super._initializeSource(source, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _configure({actor, ...options}) {
     super._configure(options);
 
@@ -139,12 +150,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * @type {CrucibleActor}
      */
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
-
-    /**
-     * Special action configuration from SYSTEM.ACTION.ACTIONS
-     * @type {object}
-     */
-    Object.defineProperty(this, "config", {value: SYSTEM.ACTION.ACTIONS[this._source.id] || {}, writable: false});
   }
 
   /* -------------------------------------------- */
@@ -171,6 +176,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       writable: false,
       configurable: true
     });
+    if ( this._hooks ) {
+      for ( const [hook, fn] of Object.entries(this._hooks) ) this.hooks[hook] = fn;
+    }
 
     // Prepare action for actor
     if ( this.actor ) {
@@ -226,11 +234,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
+  /** @override */
   clone(updateData={}, context={}) {
     context.parent = this.parent;
     context.actor = this.actor;
-    const clone = super.clone(updateData, context);
+    const actionData = foundry.utils.mergeObject(this.toObject(), updateData, {
+      insertKeys: false,
+      performDeletions: true,
+      inplace: true
+    });
+    actionData._hooks = this._hooks;
+    const clone = new this.constructor(actionData, context);
     clone.template = this.template;
     return clone;
   }
@@ -699,7 +713,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !tag ) continue;
       yield tag;
     }
-    yield this.config;
     yield this.hooks;
   }
 
