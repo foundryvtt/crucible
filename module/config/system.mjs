@@ -1,13 +1,13 @@
 import * as ATTRIBUTES from "./attributes.mjs";
 import * as ACTION from "./action.mjs";
 import * as ADVERSARY from "./adversaries.mjs";
-import * as ARMOR from "./armor.js";
-import * as dice from "./dice.js";
+import * as ARMOR from "./armor.mjs";
+import * as dice from "./dice.mjs";
 import * as EFFECTS from "./effects.mjs";
 import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
-import * as WEAPON from "./weapon.js";
-import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.js";
+import * as WEAPON from "./weapon.mjs";
+import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.mjs";
 export const SYSTEM_ID = "crucible";
 
 /* -------------------------------------------- */
@@ -177,6 +177,40 @@ export const ACTOR_HOOKS = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * Define the Action life-cycle hooks which are supported for an Action.
+ * @enum {Readonly<Object<{argNames: string[]}>>}
+ */
+export const ACTION_HOOKS = Object.freeze({
+  prepare: {
+    argNames: []
+  },
+  displayOnSheet: {
+    argNames: ["combatant"]
+  },
+  canUse: {
+    argNames: []
+  },
+  preActivate: {
+    argNames: ["targets"],
+    async: true
+  },
+  roll: {
+    argNames: ["target", "rolls"],
+    async: true
+  },
+  postActivate: {
+    argNames: ["outcome"],
+    async: true
+  },
+  confirm: {
+    argNames: [],
+    async: true
+  }
+});
+
+/* -------------------------------------------- */
+
+/**
  * Include all constant definitions within the SYSTEM global export
  * @type {Object}
  */
@@ -185,6 +219,7 @@ export const SYSTEM = {
   ABILITIES: ATTRIBUTES.ABILITIES,
   ACTION,
   ACTOR_HOOKS,
+  ACTION_HOOKS,
   ADVERSARY,
   ANCESTRIES,
   ARMOR,

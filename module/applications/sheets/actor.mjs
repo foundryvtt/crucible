@@ -105,7 +105,7 @@ export default class CrucibleActorSheet extends ActorSheet {
     const combatant = game.combat?.getCombatantByActor(this.actor);
     const actions = [];
     for ( const action of Object.values(this.actor.actions) ) {
-      if ( !action._displayed(combatant) ) continue;
+      if ( !action._displayOnSheet(combatant) ) continue;
       const tags = action.getTags().activation;
       actions.push({
         id: action.id,

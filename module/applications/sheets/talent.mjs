@@ -70,6 +70,10 @@ export default class TalentSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare data for defined actor hooks attached to the Talent.
+   * @returns {{label: string, hook: string, fn: string}[]}
+   */
   #prepareActorHooks() {
     return this.object.system.actorHooks.map(h => {
       const cfg = SYSTEM.ACTOR_HOOKS[h.hook];

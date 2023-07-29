@@ -85,7 +85,7 @@ export default class CrucibleRuler extends Ruler {
   /** @override */
   _canMove(token) {
     super._canMove(token);
-    this.#action._can();
+    this.#action._canUse();
     return true;
   }
 

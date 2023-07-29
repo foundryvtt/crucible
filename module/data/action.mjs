@@ -100,7 +100,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
       }),
       effects: new fields.ArrayField(new fields.ObjectField()),
-      tags: new fields.SetField(new fields.StringField({required: true, blank: false}))
+      tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
+      actionHooks: new fields.ArrayField(new fields.SchemaField({
+        hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
+        fn: new fields.StringField({required: true, blank: false, nullable: false}),
+      }))
     }
   }
 
@@ -148,7 +152,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /** @inheritDoc */
   _initialize(options) {
     super._initialize(options);
+
+    // Prepare base data
     this._prepareData();
+
+    /**
+     * Configured hook functions invoked by the action
+     * @type {Object<string, {fn: Function}[]>}
+     */
+    Object.defineProperty(this, "hooks", {
+      value: this.actionHooks.reduce((obj, {hook, fn}) => {
+        const config = SYSTEM.ACTION_HOOKS[hook];
+        const fnClass = config.async ? AsyncFunction : Function;
+        if ( config ) obj[hook] = new fnClass(...config.argNames, fn);
+        else console.warn(`Invalid Action hook "${hook}" defined by Action "${this.id}"`)
+        return obj;
+      }, {}),
+      writable: false,
+      configurable: true
+    });
+
+    // Prepare action for actor
     if ( this.actor ) {
       this.actor.prepareAction(this);
       this._prepare();
@@ -212,23 +236,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Should this Action be displayed on a character sheet as available for use?
-   * @param {Combatant} [combatant]     The Combatant associated with this actor, if any
-   * @returns {boolean}                 Should the action be displayed?
-   * @private
-   */
-  _displayed(combatant) {
-    combatant ||= game.combat?.getCombatantByActor(this.actor);
-    for ( const test of this._tests() ) {
-      if ( !(test.display instanceof Function) ) continue;
-      if ( test.display(this.actor, this, combatant) === false ) return false;
-    }
-    return true;
-  }
-
-  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -249,7 +256,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Re-verify eligibility and targets after configuration
     try {
-      this._can();
+      this._canUse();
       targets = this.acquireTargets();
     } catch(err) {
       ui.notifications.warn(err.message);
@@ -289,7 +296,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Assert that the action can be used based on its tags
     try {
-      this._can();
+      this._canUse();
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -303,7 +310,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Pre-execution steps
-    this._pre(targets)
+    await this._preActivate(targets)
 
     // Prompt for action configuration
     if ( dialog ) {
@@ -323,9 +330,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const actor = target.actor;
 
       // Perform dice rolls for the action
-      let rolls;
+      const rolls = [];
       try {
-        rolls = await this._roll(actor);
+        await this._roll(actor, rolls);
       } catch(err) {
         return ui.notifications.warn(err.message);
       }
@@ -693,6 +700,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       yield tag;
     }
     yield this.config;
+    yield this.hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation, the first step in the Action life-cycle.
+   * @protected
+   */
+  _prepare() {
+    for ( const test of this._tests() ) {
+      if ( test.prepare instanceof Function ) test.prepare.call(this);
+    }
   }
 
   /* -------------------------------------------- */
@@ -702,7 +722,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @throws      An error if the action cannot be taken
    * @protected
    */
-  _can() {
+  _canUse() {
     const r = this.actor.system.resources;
     const statuses = this.actor.statuses;
 
@@ -744,8 +764,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Test each action tag
     for ( const test of this._tests() ) {
-      if ( !(test.can instanceof Function) ) continue;
-      const can = test.can(this.actor, this);
+      if ( !(test.canUse instanceof Function) ) continue;
+      const can = test.canUse.call(this);
       if ( can === false ) throw new Error(game.i18n.format("ACTION.WarningCannotUseTag", {
         name: this.actor.name,
         action: this.name,
@@ -757,47 +777,48 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Preparation, the first step in the Action life-cycle.
+   * Should this Action be displayed on a character sheet as available for use?
+   * @param {Combatant} [combatant]     The Combatant associated with this actor, if any
+   * @returns {boolean}                 Should the action be displayed?
+   * @private
+   */
+  _displayOnSheet(combatant) {
+    combatant ||= game.combat?.getCombatantByActor(this.actor);
+    for ( const test of this._tests() ) {
+      if ( !(test.displayOnSheet instanceof Function) ) continue;
+      if ( test.displayOnSheet.call(this, combatant) === false ) return false;
+    }
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Pre-activation steps which happen before the action is evaluated.
+   * This could be used to mutate the array of targets which are affected by the action.
+   * @param {ActionUseTarget[]} targets       The array of targets affected by the action
    * @protected
    */
-  _prepare() {
+  async _preActivate(targets) {
     for ( const test of this._tests() ) {
-      if ( test.prepare instanceof Function ) test.prepare(this.actor, this);
+      if ( test.preActivate instanceof Function ) await test.preActivate.call(this, targets);
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Pre-execution steps.
-   * @protected
-   */
-  _pre(targets) {
-    for ( const test of this._tests() ) {
-      if ( test.pre instanceof Function ) test.pre(this.actor, this, targets);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Handle execution of dice rolls associated with the Action
+   * Handle execution of dice rolls associated with the Action.
    * @param {CrucibleActor} target
-   * @returns {Promise<AttackRoll[]>}
+   * @param {StandardCheck[]} rolls
    * @protected
    */
-  async _roll(target) {
-    const rolls = [];
+  async _roll(target, rolls) {
     for ( const test of this._tests() ) {
       if ( test.roll instanceof Function ) {
-        let result = await test.roll(this.actor, this, target, rolls);
-        if ( !Array.isArray(result) ) result = [result];
-        for ( const roll of result ) {
-          if ( roll instanceof Roll ) rolls.push(roll);
-        }
+        await test.roll.call(this, target, rolls);
       }
     }
-    return rolls;
   }
 
   /* -------------------------------------------- */
@@ -810,8 +831,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async _post(outcome) {
     for ( const test of this._tests() ) {
-      // TODO pass outcome directly
-      if ( test.post instanceof Function ) await test.post(this.actor, this, outcome.target, outcome.rolls);
+      if ( test.postActivate instanceof Function ) {
+        await test.postActivate.call(this, outcome);
+      }
     }
   }
 
@@ -985,7 +1007,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Custom Action confirmation steps
     for ( const test of this._tests() ) {
       if ( !(test.confirm instanceof Function) ) continue
-      await test.confirm(this.actor, this, this.outcomes);
+      await test.confirm.call(this);
     }
 
     // Additional Actor-specific consequences

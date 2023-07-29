@@ -1615,11 +1615,19 @@ h2.divider span {
   text-align: center;
 }
 /** ----------------------------------------- *
+ *  Action Sheet                              *
+ * ------------------------------------------ */
+.crucible-new.action button.delete-hook {
+  width: 28px;
+  line-height: 22px;
+  float: right;
+}
+/** ----------------------------------------- *
  *  Talent Sheet                              *
  * ------------------------------------------ */
 .crucible-new.talent button.delete-hook {
-  width: min-content;
-  line-height: 1.5rem;
+  width: 28px;
+  line-height: 22px;
   float: right;
 }
 .crucible-new.talent .actions .line-item {

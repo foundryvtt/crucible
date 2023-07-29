@@ -1,5 +1,5 @@
 import PhysicalItemData from "./physical.mjs";
-import { SYSTEM } from "../config/system.js";
+import { SYSTEM } from "../config/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Armor type Items.

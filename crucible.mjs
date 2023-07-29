@@ -6,7 +6,7 @@
  */
 
 // Configuration
-import {SYSTEM} from "./module/config/system.js";
+import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
 import CrucibleTalentNode from "./module/config/talent-tree.mjs";
@@ -26,6 +26,9 @@ import CrucibleTokenObject from "./module/canvas/token.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
+
+// TODO: this should be replaced by core
+globalThis.AsyncFunction = (async function() {}).constructor;
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

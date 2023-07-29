@@ -1,5 +1,5 @@
 import PhysicalItemData from "./physical.mjs";
-import { SYSTEM } from "../config/system.js";
+import { SYSTEM } from "../config/system.mjs";
 import Enum from "../config/enum.mjs";
 
 /**

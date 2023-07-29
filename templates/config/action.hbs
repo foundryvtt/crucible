@@ -135,9 +135,38 @@
     </section>
 
     {{!-- Hooks Tab --}}
+    {{#if showHooks}}
     <section class="tab sheet-body flexcol" data-tab="hooks">
-        Hooks tab still to do.
+        <p class="hint"><strong>Beware</strong>. This configuration tab involves advanced features for automating
+            action effects. Mis-configuring data on this tab can have serious consequences. Do not attempt to
+            make changes here unless you are confident in your own knowledge.</p>
+
+        {{#each actionHooks as |hook i|}}
+            <div class="form-group stacked">
+                <label>
+                    <code>{{localize hook.label}}</code>
+                    <button type="button" class="icon frame-brown delete-hook" data-action="deleteHook">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </label>
+                <input type="hidden" name="actionHooks.{{i}}.hook" value="{{hook.hook}}">
+                <textarea name="actionHooks.{{i}}.fn" rows="6">{{hook.fn}}</textarea>
+            </div>
+        {{/each}}
+
+        <div class="form-group">
+            <label>Add Hook</label>
+            <div class="form-fields">
+                <select name="addHook">
+                    {{selectOptions actionHookChoices blank=""}}
+                </select>
+                <button type="button" class="icon frame-brown" data-action="addHook" data-tooltip="Add Hook">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
     </section>
+    {{/if}}
 
     {{!-- Sheet Footer --}}
     {{#if editable}}
