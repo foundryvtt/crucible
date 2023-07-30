@@ -13,9 +13,14 @@
         </div>
     </header>
 
+    {{!-- Sheet Tabs --}}
+    <nav class="sheet-tabs tabs">
+        <a class="item" data-tab="config"><i class="fa-solid fa-cogs"></i> Configuration</a>
+        <a class="item" data-tab="actions"><i class="fa-solid fa-bullseye"></i> Actions</a>
+    </nav>
+
     {{!-- Sheet Body --}}
-    <section class="sheet-body flexcol">
-        <h3>Armor Configuration</h3>
+    <section class="tab sheet-body flexcol" data-tab="config">
         <div class="form-group">
             <label>Category</label>
             <div class="form-fields">
@@ -68,13 +73,22 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Equipped</label>
-            <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}/>
-        </div>
+        <fieldset>
+            <legend>Armor Status</legend>
+            <div class="form-fields item-properties">
+                <label class="checkbox">
+                    <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}>
+                    Equipped
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}>
+                    Broken
+                </label>
+            </div>
+        </fieldset>
 
-        <div class="form-group stacked">
-            <h3>Armor Properties</h3>
+        <fieldset>
+            <legend><h3>Armor Properties</h3></legend>
             <div class="form-fields item-properties">
                 {{#each properties as |prop id|}}
                 <label class="checkbox">
@@ -82,18 +96,55 @@
                 </label>
                 {{/each}}
             </div>
-        </div>
+        </fieldset>
 
-        <div class="form-group stacked physical-details">
-            <h3>Physical Details</h3>
-            <div class="form-fields">
-                <label>Quantity</label>
-                <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
-                <label>Weight</label>
-                <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
-                <label>Price</label>
-                <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
+        <fieldset>
+            <legend><h3>Physical Details</h3></legend>
+            <div class="form-group">
+                <label>Inventory</label>
+                <div class="form-fields">
+                    <label>Quantity</label>
+                    <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
+                    <label>Weight</label>
+                    <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
+                </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label>Value</label>
+                <div class="form-fields">
+                    <label>Price</label>
+                    <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
+                    <label>Scaled</label>
+                    <input type="number" value="{{item.system.price}}" disabled>
+                </div>
+            </div>
+        </fieldset>
+    </section>
+
+    {{!-- Actions Tab --}}
+    <section class="tab sheet-body flexcol" data-tab="actions">
+        <fieldset>
+            <legend>
+                <h3>Actions</h3>
+                <a class="button icon" data-action="actionAdd" data-tooltip="TALENT.Actions.Add">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </legend>
+            {{#each actions as |action|}}
+                <div class="action line-item flexrow" data-action-id="{{action.id}}">
+                    <img class="icon" src="{{action.img}}">
+                    <h4 class="title">{{action.name}}</h4>
+                    <div class="controls">
+                        <a class="button icon" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit">
+                            <i class="fa-solid fa-edit"></i>
+                        </a>
+                        <a class="button icon" data-action="actionDelete" data-tooltip="TALENT.Actions.Delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+        </fieldset>
     </section>
 </form>

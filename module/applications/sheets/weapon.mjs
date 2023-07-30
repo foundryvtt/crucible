@@ -13,10 +13,13 @@ export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @inheritDoc */
   static get defaultOptions() {
     return Object.assign(super.defaultOptions, {
+      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "config"}],
       submitOnChange: true,
       closeOnSubmit: false
     });
   }
+
+  /* -------------------------------------------- */
 
   /** @inheritdoc */
   async getData(options={}) {
@@ -24,6 +27,7 @@ export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
     const source = this.document.toObject();
     const allowedSlots = this.document.system.getAllowedEquipmentSlots();
     const context = {
+      actions: this.constructor.prepareActions(this.document.system.actions),
       cssClass: isEditable ? "editable" : "locked",
       editable: isEditable,
       item: this.document,

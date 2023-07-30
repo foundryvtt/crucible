@@ -81,7 +81,6 @@ export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @inheritdoc */
   activateListeners(html) {
     super.activateListeners(html);
-    html.on("click", "[data-action]", this.#onClickAction.bind(this));
     this.#updateAbilitySum();
   }
 
@@ -108,10 +107,9 @@ export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  async #onClickAction(event) {
-    event.preventDefault();
-    const button = event.currentTarget;
-    switch ( button.dataset.action ) {
+  /** @override */
+  async _handleAction(action, event, button) {
+    switch ( action ) {
       case "removeTalent":
         button.closest(".talent").remove();
         const fd = this._getSubmitData();

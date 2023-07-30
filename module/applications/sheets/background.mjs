@@ -82,7 +82,6 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.on("click", "[data-action]", this.#onClickAction.bind(this));
     this._disableSkills();
   }
 
@@ -111,10 +110,9 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  async #onClickAction(event) {
-    event.preventDefault();
-    const button = event.currentTarget;
-    switch ( button.dataset.action ) {
+  /** @override */
+  async _handleAction(action, event, button) {
+    switch ( action ) {
       case "removeTalent":
         button.closest(".talent").remove();
         const fd = this._getSubmitData();

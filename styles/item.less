@@ -7,8 +7,9 @@
 .crucible-new.weapon,
 .crucible-new.armor {
   .item-properties {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
     label.checkbox {
       flex: 0 0 80px;
       text-align: left;

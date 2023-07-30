@@ -497,9 +497,19 @@ export default class CrucibleActor extends Actor {
    */
   _prepareActions() {
     this.actions = {};
-    const w = this.equipment.weapons;
+    CrucibleActor.#prepareDefaultActions.call(this);
+    CrucibleActor.#prepareTalentActions.call(this);
+    CrucibleActor.#prepareEquipmentActions.call(this);
+  }
 
-    // Default actions that every character can do
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the set of default actions that every character can perform
+   * @this {CrucibleActor}
+   */
+  static #prepareDefaultActions() {
+    const w = this.equipment.weapons;
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
       if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
       if ( (ad.id === "reload") && !w.reload ) continue;
@@ -522,19 +532,43 @@ export default class CrucibleActor extends Actor {
       this.actions[action.id] = action;
     }
 
-    // Actions that are unlocked through an owned Talent
-    for ( let talent of this.itemTypes.talent ) {
-      for ( const action of talent.actions ) {
-        this.actions[action.id] = action.bind(this);
-      }
-    }
-
     // Most recently cast spell
     if ( this.actions.cast ) {
       const spellId = this.getFlag("crucible", "lastSpell") || "";
       if ( spellId ) {
         const lastSpell = CrucibleSpell.fromId(spellId, {actor: this});
         this.actions[lastSpell.id] = lastSpell;
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare actions which are provided via a talent.
+   * @this {CrucibleActor}
+   */
+  static #prepareTalentActions() {
+    const talents = this.itemTypes.talent;
+    for ( let talent of talents ) {
+      for ( const action of talent.actions ) {
+        this.actions[action.id] = action.bind(this);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare actions provided via equipped items.
+   * @this {CrucibleActor}
+   */
+  static #prepareEquipmentActions() {
+    const {weapons, armor} = this.equipment;
+    for ( const item of [armor, weapons.mainhand, weapons.offhand] ) {
+      if ( !item ) continue;
+      for ( const action of item.actions ) {
+        this.actions[action.id] = action.bind(this);
       }
     }
   }

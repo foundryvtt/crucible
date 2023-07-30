@@ -3,6 +3,8 @@ import CrucibleItem from "../../documents/item.mjs";
 
 /**
  * A configuration application used to configure an Action inside a Talent.
+ * @extends DocumentSheet
+ * @mixes CrucibleSheet
  */
 export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   constructor(action, options) {
@@ -52,7 +54,8 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
       showHooks: game.user.isGM,
       actionHooks: this.#prepareActionHooks(),
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
-      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices
+      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
+      effectsJSON: JSON.stringify(this.action.effects, null, 2)
     }
   }
 
@@ -97,6 +100,10 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
     if ( "actionHooks" in formData ) {
       formData.actionHooks = Object.values(formData.actionHooks || {});
     }
+    if ( "effectsJSON" in formData ) {
+      formData.effects = JSON.parse(formData.effectsJSON);
+      delete formData.effectsJSON;
+    }
     return formData;
   }
 
@@ -116,17 +123,9 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
 
   /* -------------------------------------------- */
 
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.find("[data-action]").click(this.#onClickAction.bind(this));
-  }
-
-  /* -------------------------------------------- */
-
-  #onClickAction(event) {
-    event.preventDefault();
-    const button = event.currentTarget;
-    switch ( button.dataset.action ) {
+  /** @override */
+  async _handleAction(action, event, button) {
+    switch ( action ) {
       case "addHook":
         return this.#onAddHook(event, button);
       case "deleteHook":

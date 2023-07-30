@@ -470,11 +470,11 @@
 }
 .crucible-new.window-app .window-content > form {
   height: 100%;
+  gap: 1rem;
 }
 .crucible-new.window-app .sheet-header {
   --headerHeight: 80px;
   --titleHeight: 40px;
-  margin-bottom: 1rem;
   gap: 0.5rem;
 }
 .crucible-new.window-app .sheet-header img.profile {
@@ -495,7 +495,7 @@
   font-weight: bold;
 }
 .crucible-new.window-app nav.sheet-tabs {
-  margin: 1rem 0;
+  margin: 0;
   border-color: var(--color-frame-bg);
   font-family: var(--font-h1);
   color: var(--color-h1);
@@ -1548,8 +1548,9 @@ h2.divider span {
 /* ----------------------------------------- */
 .crucible-new.weapon .item-properties,
 .crucible-new.armor .item-properties {
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 .crucible-new.weapon .item-properties label.checkbox,
 .crucible-new.armor .item-properties label.checkbox {

@@ -13,6 +13,7 @@ export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
   /** @inheritDoc */
   static get defaultOptions() {
     return Object.assign(super.defaultOptions, {
+      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "config"}],
       submitOnChange: true,
       closeOnSubmit: false
     });
@@ -24,6 +25,7 @@ export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
   async getData(options={}) {
     const isEditable = this.isEditable;
     const context = {
+      actions: this.constructor.prepareActions(this.document.system.actions),
       cssClass: isEditable ? "editable" : "locked",
       editable: isEditable,
       item: this.document,

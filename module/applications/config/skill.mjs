@@ -2,6 +2,7 @@ import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
 
 /**
  * A configuration application used to advance skill ranks and choose skill specialization for a CrucibleActor.
+ * @mixes CrucibleSheet
  */
 export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
   constructor(actor, skillId, options) {
@@ -87,21 +88,9 @@ export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.on("click", "[data-action]", this.#onClickAction.bind(this));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Handle click events on buttons on the Skill sheet
-   * @param {MouseEvent} event    The left-click event
-   */
-  async #onClickAction(event) {
-    const btn = event.currentTarget;
-    switch ( btn.dataset.action ) {
+  /** @override */
+  async _handleAction(action, event, button) {
+    switch ( action ) {
       case "increase":
         return this.actor.purchaseSkill(this.skillId, 1);
       case "decrease":
