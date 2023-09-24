@@ -55,7 +55,7 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   async getData(options) {
     await loadTemplates(Object.values(this.constructor.partials));
     return {
-      action: this.action,
+      action: this.action.toObject(), // Configure source data
       editable: this.isEditable,
       tags: this.#prepareTags(),
       actionHookChoices: Object.keys(SYSTEM.ACTION_HOOKS).reduce((obj, k) => {
@@ -130,12 +130,8 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   /** @override */
   _getSubmitData(updateData) {
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    if ( "actionHooks" in formData ) {
-      formData.actionHooks = Object.values(formData.actionHooks || {});
-    }
-    if ( "effects" in formData ) {
-      formData.effects = Object.values(formData.effects || {});
-    }
+    formData.actionHooks = Object.values(formData.actionHooks || {});
+    formData.effects = Object.values(formData.effects || {});
     return formData;
   }
 
@@ -176,12 +172,12 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
    */
   async #onAddEffect(event,button) {
     const html = await renderTemplate(this.constructor.partials.effect, {
-      i: this.action.effects.length,
+      i: foundry.utils.randomID(), // Could be anything
       effect: {
         scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
         placeholder: this.action.name,
         duration: {
-          rounds: 1
+          turns: 1
         },
         statuses: CONFIG.statusEffects
       },
