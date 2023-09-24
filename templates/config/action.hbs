@@ -131,13 +131,13 @@
 
     {{!-- Effects Tab --}}
     <section class="tab sheet-body flexcol" data-tab="effects">
-        <p class="hint"><strong>Beware</strong>. This configuration tab involves advanced features for automating
-            Active Effects linked to Actions. It does not have a visual UI yet and requires manual JSON configuration.
-            Do not attempt to make changes here unless you are confident in your knowledge.</p>
-        <div class="form-group stacked">
-            <label>Effects JSON</label>
-            <textarea name="effectsJSON" rows="12">{{{effectsJSON}}}</textarea>
-        </div>
+        <button type="button" class="frame-brown" data-action="addEffect">
+            <i class="fa-solid fa-plus"></i>
+            <span>{{localize "ACTION.EFFECTS.Add"}}</span>
+        </button>
+        {{#each effects as |effect i|}}
+        {{> (lookup @root.partials "effect") effect=effect i=i targetScopes=@root.targetScopes}}
+        {{/each}}
     </section>
 
     {{!-- Hooks Tab --}}

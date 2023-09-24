@@ -10,7 +10,7 @@ export function getEffectId(label) {
 export function bleeding(actor, target, {ability="dexterity", damageType="piercing"}={}) {
   return {
     _id: getEffectId("Bleeding"),
-    label: "Bleeding",
+    name: "Bleeding",
     icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -28,7 +28,7 @@ export function bleeding(actor, target, {ability="dexterity", damageType="pierci
 export function burning(actor, target) {
   return {
     _id: getEffectId("Burning"),
-    label: "Burning",
+    name: "Burning",
     icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -47,7 +47,7 @@ export function burning(actor, target) {
 export function chilled(actor, target) {
   return {
     _id: getEffectId("Chilled"),
-    label: "Chilled",
+    name: "Chilled",
     icon: "icons/magic/water/orb-ice-web.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -66,7 +66,7 @@ export function chilled(actor, target) {
 export function confusion(actor, target) {
   return {
     _id: getEffectId("Confusion"),
-    label: "Confusion",
+    name: "Confusion",
     icon: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -85,7 +85,7 @@ export function confusion(actor, target) {
 export function corroding(actor, target) {
   return {
     _id: getEffectId("Corroding"),
-    label: "Corroding",
+    name: "Corroding",
     icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
     duration: {turns: 3},
     origin: actor.uuid,
@@ -103,7 +103,7 @@ export function corroding(actor, target) {
 export function decay(actor, target) {
   return {
     _id: getEffectId("Decay"),
-    label: "Decay",
+    name: "Decay",
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {turns: 3},
     origin: actor.uuid,
@@ -121,7 +121,7 @@ export function decay(actor, target) {
 export function entropy(actor, target) {
   return {
     _id: getEffectId("Entropy"),
-    label: "Entropy",
+    name: "Entropy",
     icon: "icons/magic/unholy/orb-swirling-teal.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -140,7 +140,7 @@ export function entropy(actor, target) {
 export function irradiated(actor, target) {
   return {
     _id: getEffectId("Irradiated"),
-    label: "Irradiated",
+    name: "Irradiated",
     icon: "icons/magic/light/beams-rays-orange-purple-large.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -159,7 +159,7 @@ export function irradiated(actor, target) {
 export function mending(actor, target) {
   return {
     _id: getEffectId("Mending"),
-    label: "Mending",
+    name: "Mending",
     icon: "icons/magic/life/cross-beam-green.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -176,7 +176,7 @@ export function mending(actor, target) {
 export function inspired(actor, target) {
   return {
     _id: getEffectId("Inspired"),
-    label: "Inspired",
+    name: "Inspired",
     icon: "icons/magic/light/explosion-star-glow-silhouette.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -194,7 +194,7 @@ export function inspired(actor, target) {
 export function poisoned(actor, target) {
   return {
     _id: getEffectId("Poisoned"),
-    label: "Poisoned",
+    name: "Poisoned",
     icon: "icons/magic/unholy/orb-smoking-green.webp",
     duration: {turns: 6},
     origin: actor.uuid,
@@ -212,7 +212,7 @@ export function poisoned(actor, target) {
 export function shocked(actor, target) {
   return {
     _id: getEffectId("Shocked"),
-    label: "Shocked",
+    name: "Shocked",
     icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -231,7 +231,7 @@ export function shocked(actor, target) {
 export function staggered(actor, target) {
   return {
     _id: getEffectId("Staggered"),
-    label: "Staggered",
+    name: "Staggered",
     icon: "icons/skills/melee/strike-hammer-destructive-orange.webp",
     duration: {turns: 1},
     origin: actor.uuid,

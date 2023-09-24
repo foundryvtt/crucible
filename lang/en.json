@@ -71,6 +71,9 @@
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 
+"ACTION.EFFECTS.Add": "Add Effect",
+"ACTION.EFFECTS.Delete": "Remove Effect",
+
 "ACTION.TAG_CATEGORIES.ATTACK": "Attack",
 "ACTION.TAG_CATEGORIES.REQUIREMENTS": "Requirements",
 "ACTION.TAG_CATEGORIES.CONTEXT": "Context",

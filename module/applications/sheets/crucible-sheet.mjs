@@ -65,7 +65,7 @@ export default function CrucibleSheetMixin(Base) {
     /** @inheritDoc */
     activateListeners(html) {
       super.activateListeners(html);
-      html.find("[data-action]").click(this.#onClickAction.bind(this));
+      html.on("click", "[data-action]", this.#onClickAction.bind(this));
     }
 
     /* -------------------------------------------- */

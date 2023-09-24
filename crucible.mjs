@@ -344,6 +344,9 @@ function preLocalizeConfig() {
     }
   }
 
+  // Statuses
+  localizeConfigObject(CONFIG.statusEffects, ["label"]);
+
   // Action Tags
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);

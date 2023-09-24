@@ -1,0 +1,34 @@
+<fieldset class="effect">
+    <div class="form-group">
+        <label>Effect Name</label>
+        <div class="form-fields">
+            <input type="text" name="effects.{{i}}.name" value="{{effect.name}}" placeholder="{{effect.placeholder}}">
+            <a class="button fa-solid fa-trash" data-action="deleteEffect" data-tooltip="ACTION.EFFECTS.Delete"></a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Effect Scope</label>
+        <div class="form-fields">
+            <select name="effects.{{i}}.scope" data-dtype="Number">
+                {{selectOptions targetScopes selected=effect.scope}}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Statuses</label>
+        <div class="form-fields">
+            <multi-select name="effects.{{i}}.statuses">
+                {{#each effect.statuses as |status|}}
+                    <option value="{{status.id}}" {{status.selected}}>{{status.label}}</option>
+                {{/each}}
+            </multi-select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Duration</label>
+        <div class="form-fields">
+            <input type="number" name="effects.{{i}}.duration.rounds" min="1" step="1" value="{{effect.duration.rounds}}">
+            <label>Rounds</label>
+        </div>
+    </div>
+</fieldset>

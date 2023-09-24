@@ -48,12 +48,20 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  */
 
 /**
+ * @typedef {Object} ActionEffect
+ * @property {string} [name]
+ * @property {number} scope
+ * @property {string[]} statuses
+ * @property {{rounds: number, turns: number}} [duration]
+ */
+
+/**
  * @typedef {Object} CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
- * @property {object[]} effects           ActiveEffect data to create on the target Actor
+ * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
  * @property {boolean} [weakened]         Did the target become weakened?
  * @property {boolean} [broken]           Did the target become broken?
  * @property {boolean} [incapacitated]    Did the target become incapacitated?
@@ -593,6 +601,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     return this.effects.reduce((effects, {scope, ...effectData}) => {
       scope ??= this.target.scope;
       if ( scope === scopes.NONE ) return effects;
+      effectData.name ||= this.name;
 
       // Self target
       if ( target === this.actor ) {
@@ -622,7 +631,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Add effect
       effects.push(foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
-        label: this.name,
         description: this.description,
         icon: this.img,
         origin: this.actor.uuid

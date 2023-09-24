@@ -23,6 +23,16 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
 
   /* -------------------------------------------- */
 
+  /**
+   * Template partials used within this application
+   * @type {{effect: string}}
+   */
+  static partials = {
+    effect: "systems/crucible/templates/config/partials/action-effect.hbs"
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -43,6 +53,7 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
 
   /** @override */
   async getData(options) {
+    await loadTemplates(Object.values(this.constructor.partials));
     return {
       action: this.action,
       editable: this.isEditable,
@@ -55,7 +66,8 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
       actionHooks: this.#prepareActionHooks(),
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
-      effectsJSON: JSON.stringify(this.action.effects, null, 2)
+      effects: this.#prepareEffects(),
+      partials: this.constructor.partials
     }
   }
 
@@ -75,6 +87,27 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
       cat.tags.push({value: tag, label, selected: this.action.tags.has(tag) ? "selected" : ""});
     }
     return groups;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare effects data attached to the action.
+   * @returns {ActionEffect[]}
+   */
+  #prepareEffects() {
+    return this.action.effects.map(effect => {
+      return {...effect,
+        placeholder: this.action.name,
+        statuses: CONFIG.statusEffects.map(s => {
+          return {
+            id: s.id,
+            label: s.label,
+            selected: effect.statuses.includes(s.id) ? "selected" : ""
+          }
+        })
+      }
+    });
   }
 
   /* -------------------------------------------- */
@@ -100,9 +133,8 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
     if ( "actionHooks" in formData ) {
       formData.actionHooks = Object.values(formData.actionHooks || {});
     }
-    if ( "effectsJSON" in formData ) {
-      formData.effects = JSON.parse(formData.effectsJSON);
-      delete formData.effectsJSON;
+    if ( "effects" in formData ) {
+      formData.effects = Object.values(formData.effects || {});
     }
     return formData;
   }
@@ -126,11 +158,49 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   /** @override */
   async _handleAction(action, event, button) {
     switch ( action ) {
+      case "addEffect":
+        return this.#onAddEffect(event, button);
+      case "deleteEffect":
+        return this.#onDeleteEffect(event, button);
       case "addHook":
         return this.#onAddHook(event, button);
       case "deleteHook":
         return this.#onDeleteHook(event, button);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a status effect to the Action.
+   */
+  async #onAddEffect(event,button) {
+    const html = await renderTemplate(this.constructor.partials.effect, {
+      i: this.action.effects.length,
+      effect: {
+        scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
+        placeholder: this.action.name,
+        duration: {
+          rounds: 1
+        },
+        statuses: CONFIG.statusEffects
+      },
+      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices
+    });
+    const section = button.parentElement;
+    section.insertAdjacentHTML("beforeend", html);
+    this.setPosition({height: "auto"});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete a status effect from the Action.
+   */
+  #onDeleteEffect(event, button) {
+    const fieldset = button.closest("fieldset.effect");
+    fieldset.remove();
+    this.setPosition({height: "auto"});
   }
 
   /* -------------------------------------------- */
