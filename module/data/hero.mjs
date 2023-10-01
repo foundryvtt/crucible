@@ -115,6 +115,9 @@ export default class CrucibleHero extends CrucibleActorType {
     // Threat level, for comparison vs. adversaries
     this.details.threatLevel = this.details.fractionLevel = this.advancement.level;
 
+    // All protagonists are "medium" stature, for now
+    this.details.stature = "medium";
+
     // Base Resistances
     const res = this.resistances;
     for ( const r of Object.values(res) ) r.base = 0;

@@ -159,11 +159,23 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    * @override
    */
   prepareDerivedData() {
+
+    // Resource pools
     this._prepareResources();
     this.parent.callTalentHooks("prepareResources", this.resources);
-    this.parent._prepareDefenses();
-    this.parent._prepareResistances();
-    this.parent._prepareMovement();
+
+    // Defenses
+    this.#prepareDefenses();
+    this.parent.callTalentHooks("prepareDefenses", this.defenses);
+    this.#prepareTotalDefenses();
+
+    // Resistances
+    this.parent.callTalentHooks("prepareResistances", this.resistances);
+    this.#prepareTotalResistances();
+
+    // Movement
+    this.#prepareMovement();
+    this.parent.callTalentHooks("prepareMovement", this.movement);
   }
 
   /* -------------------------------------------- */
@@ -204,4 +216,133 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
 
+  /**
+   * Preparation of defenses for all Actor subtypes.
+   * @private
+   */
+  #prepareDefenses() {
+    this.#preparePhysicalDefenses();
+    this.#prepareSaveDefenses();
+    this.#prepareHealingThresholds();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Physical Defenses.
+   */
+  #preparePhysicalDefenses() {
+    const {equipment} = this.parent;
+    const {abilities, defenses} = this;
+
+    // Armor and Dodge from equipped Armor
+    const armorData = equipment.armor.system;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus = armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.start, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+
+    // Block and Parry from equipped Weapons
+    const weaponData = [equipment.weapons.mainhand.system];
+    if ( !equipment.weapons.twoHanded ) weaponData.push(equipment.weapons.offhand.system);
+    defenses.block = {base: 0, bonus: 0};
+    defenses.parry = {base: 0, bonus: 0};
+    for ( let wd of weaponData ) {
+      for ( let d of ["block", "parry"] ) {
+        defenses[d].base += wd.defense[d];
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare non-physical defenses.
+   */
+  #prepareSaveDefenses() {
+
+    // Defense base is the system passive base of 12
+    const l = this.details.threatLevel;
+    let base = SYSTEM.PASSIVE_BASE;
+    const {equipment, talentIds} = this.parent;
+
+    // Adversary save penalty plus further reduction for threat level below zero
+    let penalty = 0;
+    if ( this.parent.type === "adversary" ) {
+      penalty = 2;
+      if ( l < 1 ) penalty += (1 - l);
+    }
+
+    // Prepare save defenses
+    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( sd.type !== "save" ) continue;
+      let d = this.defenses[k];
+      d.base = sd.abilities.reduce((t, a) => t + this.abilities[a].value, base);
+      if ( this.parent.isIncapacitated ) d.base = base;
+      d.bonus = 0 - penalty;
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare healing thresholds for Wounds and Madness.
+   */
+  #prepareHealingThresholds() {
+    const { defenses, resources } = this;
+    const wounds = resources.wounds?.value ?? ((resources.health.max - resources.health.value) * 2);
+    defenses.wounds = {base: SYSTEM.PASSIVE_BASE + Math.floor(wounds / 10), bonus: 0};
+    const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
+    defenses.madness = {base: SYSTEM.PASSIVE_BASE + Math.floor(madness / 10), bonus: 0};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute total defenses as base + bonus.
+   */
+  #prepareTotalDefenses() {
+    const defenses = this.defenses;
+    const {isIncapacitated, statuses} = this.parent;
+
+    // Compute defense totals
+    for ( const defense of Object.values(defenses) ) {
+      defense.total = defense.base + defense.bonus;
+    }
+
+    // Cannot parry or block while enraged
+    if ( statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
+
+    // Cannot dodge, block, or parry while incapacitated
+    if ( isIncapacitated ) defenses.dodge.total = defenses.parry.total = defenses.block.total = 0;
+
+    // Aggregate total Physical Defense
+    defenses.physical = {
+      total: defenses.armor.total + defenses.dodge.total + defenses.parry.total + defenses.block.total
+    };
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation of resistances for all Actor subtypes.
+   */
+  #prepareTotalResistances() {
+    for ( const r of Object.values(this.resistances) ) r.total = r.base + r.bonus;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation of movement for all Actor subtypes.
+   */
+  #prepareMovement() {
+    const movement = this.movement;
+    const stature = this.details.stature;
+    movement.engagement = SYSTEM.CREATURE_STATURES[stature]?.engagement ?? 1;
+    const {shield, offhand} = this.parent.equipment.weapons;
+    if ( shield && offhand.system.properties.has("engaging") ) movement.engagement += 1;
+  }
 }
