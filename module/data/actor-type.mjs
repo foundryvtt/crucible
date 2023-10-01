@@ -1,5 +1,21 @@
+
+/**
+ * @typedef {Object} CrucibleActorSkill
+ * @param {number} rank
+ * @param {string} path
+ * @param {number} [abilityBonus]
+ * @param {number} [skillBonus]
+ * @param {number} [enchantmentBonus]
+ * @param {number} [score]
+ * @param {number} [passive]
+ * @param {number} [spent]
+ * @param {number} [cost]
+ */
+
 /**
  * This class defines data schema, methods, and properties shared by all Actor subtypes in the Crucible system.
+ *
+ * @property {Object<string, CrucibleActorSkill>} skills
  */
 export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
@@ -69,5 +85,70 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
     return schema;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Base data preparation for all Actor subtypes.
+   * @override
+   */
+  prepareBaseData() {
+    this.status ||= {};
+    this._prepareDetails();
+    this._prepareAbilities();
+    this._prepareSkills();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare creature details for all Actor subtypes.
+   * @protected
+   */
+  _prepareDetails() {
+
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare ability scores for all Actor subtypes.
+   * @protected
+   */
+  _prepareAbilities() {
+
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare skills data for all Actor subtypes.
+   * @protected
+   */
+  _prepareSkills() {
+    for ( const skill of Object.entries(this.skills) ) {
+      this._prepareSkill(...skill);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a single Skill for all Actor subtypes.
+   * @param {string} skillId                The ID of the skill being configured
+   * @param {CrucibleActorSkill} skill      Source data of the skill being configured
+   * @protected
+   */
+  _prepareSkill(skillId, skill) {
+    const config = SYSTEM.SKILLS[skillId];
+    const r = skill.rank ||= 0;
+    const ab = skill.abilityBonus = this.parent.getAbilityBonus(config.abilities);
+    const sb = skill.skillBonus = SYSTEM.SKILL.RANKS[r].bonus;
+    const eb = skill.enchantmentBonus = 0;
+    const s = skill.score = ab + sb + eb;
+    skill.passive = SYSTEM.PASSIVE_BASE + s;
   }
 }

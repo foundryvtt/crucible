@@ -55,25 +55,19 @@ export default class CrucibleAdversary extends CrucibleActorType {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
-  /** @override */
-  prepareBaseData() {
-    this.status ||= {};
-    this.#prepareDetails();
-    this.#prepareSkills();
-  }
-
-  /* -------------------------------------------- */
-
   /**
-   * Apply Archetype and Taxonomy scaling to automatically configure attributes and resistances.
+   * Prepare character details for the Adversary subtype specifically.
+   * @override
    */
-  #prepareDetails() {
+  _prepareDetails() {
+
+    // Initialize default archetype and taxonomy data
     let {archetype, level, taxonomy, threat} = this.details;
     archetype ||= CrucibleArchetype.cleanData();
     taxonomy ||= CrucibleTaxonomy.cleanData();
-    const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
 
     // Compute threat level
+    const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
     let threatLevel = Math.ceil(level * factor);
     let fractionLevel = threatLevel;
     if ( level === 0 ) {
@@ -86,6 +80,9 @@ export default class CrucibleAdversary extends CrucibleActorType {
     }
     this.details.threatLevel = threatLevel;
     this.details.fractionLevel = fractionLevel;
+
+    // TODO: Automatic skill progression rank (temporary)
+    this.details._autoSkillRank = Math.min(Math.ceil(this.details.fractionLevel / 6), 5);
 
     // Assign base taxonomy ability scores
     for ( const a of Object.keys(this.abilities) ) {
@@ -155,19 +152,12 @@ export default class CrucibleAdversary extends CrucibleActorType {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Skills for an Adversary.
+   * Prepare a single skill for the Adversary subtype specifically.
+   * @override
    */
-  #prepareSkills() {
-    const skillRank = Math.min(Math.ceil(this.details.fractionLevel / 6), 5);
-    for ( let [id, skill] of Object.entries(this.skills) ) {
-      skill.rank = skillRank; // TODO for now adversaries get auto-rank progression
-      const config = SYSTEM.SKILLS[id];
-      skill.abilityBonus = this.parent.getAbilityBonus(config.abilities);
-      skill.skillBonus = SYSTEM.SKILL.RANKS[skill.rank].bonus;
-      skill.enchantmentBonus = 0;
-      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
-      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
-    }
+  _prepareSkill(skillId, skill) {
+    skill.rank = this.details._autoSkillRank;
+    super._prepareSkill(skillId, skill);
   }
 
   /* -------------------------------------------- */

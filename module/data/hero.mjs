@@ -78,27 +78,8 @@ export default class CrucibleHero extends CrucibleActorType {
 
   /** @override */
   prepareBaseData() {
-    this.status ||= {};
-    this.#prepareDetails();
     this.#prepareAdvancement();
-    this.#prepareAbilities();
-    this.#prepareSkills();
-  }
-
-  /* -------------------------------------------- */
-
-  #prepareDetails() {
-    const a = this.details.ancestry ||= this.schema.getField("details.ancestry").initialize({});
-    this.details.background ||= this.schema.getField("details.background").initialize({});
-
-    // Threat level, for comparison vs. adversaries
-    this.details.threatLevel = this.details.fractionLevel = this.advancement.level;
-
-    // Base Resistances
-    const res = this.resistances;
-    for ( const r of Object.values(res) ) r.base = 0;
-    if ( a.resistance ) res[a.resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
-    if ( a.vulnerability ) res[a.vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
+    super.prepareBaseData();
   }
 
   /* -------------------------------------------- */
@@ -122,9 +103,32 @@ export default class CrucibleHero extends CrucibleActorType {
   /* -------------------------------------------- */
 
   /**
-   * Prepare ability scores.
+   * Prepare character details for the Hero subtype specifically.
+   * @override
    */
-  #prepareAbilities() {
+  _prepareDetails() {
+
+    // Initialize default ancestry or background data
+    const a = this.details.ancestry ||= this.schema.getField("details.ancestry").initialize({});
+    this.details.background ||= this.schema.getField("details.background").initialize({});
+
+    // Threat level, for comparison vs. adversaries
+    this.details.threatLevel = this.details.fractionLevel = this.advancement.level;
+
+    // Base Resistances
+    const res = this.resistances;
+    for ( const r of Object.values(res) ) r.base = 0;
+    if ( a.resistance ) res[a.resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
+    if ( a.vulnerability ) res[a.vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare abilities data for the Hero subtype specifically.
+   * @override
+   */
+  _prepareAbilities() {
     const points = this.points.ability;
     const ancestry = this.details.ancestry;
 
@@ -156,44 +160,42 @@ export default class CrucibleHero extends CrucibleActorType {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Skills for a Protagonist.
+   * Prepare skills data for the Hero subtype specifically.
+   * @override
    */
-  #prepareSkills() {
-
-    // Populate all the skills
-    const ranks = SYSTEM.SKILL.RANKS;
-    const background = this.details.background;
+  _prepareSkills() {
     let pointsSpent = 0;
-
-    // Iterate over skills
-    for ( let [id, skill] of Object.entries(this.skills) ) {
-      const config = SYSTEM.SKILLS[id];
-
-      // Skill Rank
-      let base = 0;
-      if ( background?.skills.has(id) ) base++;
-      skill.rank = Math.max(skill.rank || 0, base);
-
-      // Point Cost
-      const rank = ranks[skill.rank];
-      skill.spent = rank.spent - base;
+    for ( const skill of Object.entries(this.skills) ) {
+      this._prepareSkill(...skill);
       pointsSpent += skill.spent;
-      const next = ranks[skill.rank + 1] || {cost: null};
-      skill.cost = next.cost;
-
-      // Bonuses
-      const attrs = config.abilities.map(a => this.abilities[a].value);
-      skill.abilityBonus = Math.ceil(0.5 * (attrs[0] + attrs[1]));
-      skill.skillBonus = ranks[skill.rank].bonus;
-      skill.enchantmentBonus = 0;
-      skill.score = skill.abilityBonus + skill.skillBonus + skill.enchantmentBonus;
-      skill.passive = SYSTEM.PASSIVE_BASE + skill.score;
     }
-
-    // Update available skill points
     const points = this.points;
     points.skill.spent = pointsSpent;
     points.skill.available = points.skill.total - points.skill.spent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare a single skill for the Hero subtype specifically.
+   * @override
+   */
+  _prepareSkill(skillId, skill) {
+
+    // Adjust base skill rank
+    let base = 0;
+    if ( this.details.background?.skills.has(skillId) ) base++;
+    skill.rank = Math.max(skill.rank || 0, base);
+
+    // Standard skill preparation
+    super._prepareSkill(skillId, skill);
+
+    // Record point cost
+    const ranks = SYSTEM.SKILL.RANKS;
+    const rank = ranks[skill.rank];
+    skill.spent = rank.spent - base;
+    const next = ranks[skill.rank + 1] || {cost: null};
+    skill.cost = next.cost;
   }
 
   /* -------------------------------------------- */
