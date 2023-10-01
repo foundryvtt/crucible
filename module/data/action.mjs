@@ -149,8 +149,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  _configure({actor, ...options}) {
+  /**
+   * One-time configuration of the CrucibleAction as part of construction.
+   * @param {object} [options]            Options passed to the constructor context
+   * @param {CrucibleActor} [options.actor]   A specific actor to whom this action is bound
+   * @param {ActionUsage} [options.usage]     Pre-configured action usage data
+   * @inheritDoc */
+  _configure({actor, usage, ...options}) {
     super._configure(options);
 
     /**
@@ -158,6 +163,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * @type {CrucibleActor}
      */
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
+
+    /**
+     * Dice roll bonuses which modify the usage of this action.
+     * This object is only initialized once and retained through future initialization workflows.
+     * @type {ActionUsage}
+     */
+    Object.defineProperty(this, "usage", {value: usage || {
+      actorUpdates: {},
+      actorFlags: {},
+      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, boons: 0, banes: 0},
+      boons: {},
+      banes: {},
+      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
+      hasDice: false
+    }});
   }
 
   /* -------------------------------------------- */
@@ -202,23 +222,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepareData() {
-
-    /**
-     * Dice roll bonuses which modify the usage of this action.
-     * This object is only initialized once and retained through future initialization workflows.
-     * @type {ActionUsage}
-     */
-    this.usage = this.usage || {
-      actorUpdates: {},
-      actorFlags: {},
-      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, boons: 0, banes: 0},
-      boons: {},
-      banes: {},
-      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
-      hasDice: false
-    };
-
-    // Inherit Talent data
     const talent = this.parent?.parent;
     if ( talent ) {
       this.name ||= talent.name;
@@ -244,14 +247,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /** @override */
   clone(updateData={}, context={}) {
-    context.parent = this.parent;
-    context.actor = this.actor;
     const actionData = foundry.utils.mergeObject(this.toObject(), updateData, {
       insertKeys: false,
       performDeletions: true,
       inplace: true
     });
     actionData._hooks = this._hooks;
+    Object.assign(context, {parent: this.parent, actor: this.actor, usage: this.usage});
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
     return clone;
@@ -770,7 +772,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       else if ( statuses.has("enraged") && !this.actor.talentIds.has("iramancer0000000") ) focusBlock = "enraged";
       if ( focusBlock ) throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
         name: this.actor.name,
-        status: game.i18n.localize(`EFFECT.Status${focusBlock.titleCase()}`)
+        status: game.i18n.localize(`EFFECT.STATUSES.${focusBlock.titleCase()}`)
       }));
     }
 

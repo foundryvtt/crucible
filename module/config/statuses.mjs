@@ -2,117 +2,123 @@
 export const statusEffects = [
   {
     id: "weakened",
-    label: "EFFECT.StatusWeakened",
+    label: "EFFECT.STATUSES.Weakened",
     icon: "systems/crucible/icons/statuses/weakened.svg"
   },
   {
     id: "dead",
-    label: "EFFECT.StatusDead",
+    label: "EFFECT.STATUSES.Dead",
     icon: "icons/svg/skull.svg"
   },
   {
     id: "broken",
-    label: "EFFECT.StatusBroken",
+    label: "EFFECT.STATUSES.Broken",
     icon: "systems/crucible/icons/statuses/broken.svg"
   },
   {
     id: "insane",
-    label: "EFFECT.StatusInsane",
+    label: "EFFECT.STATUSES.Insane",
     icon: "systems/crucible/icons/statuses/insane.svg"
   },
   {
     id: "staggered",
-    label: "EFFECT.StatusStaggered",
+    label: "EFFECT.STATUSES.Staggered",
     icon: "systems/crucible/icons/statuses/staggered.svg"
   },
   {
     id: "stunned",
-    label: "EFFECT.StatusStunned",
+    label: "EFFECT.STATUSES.Stunned",
     icon: "icons/svg/daze.svg"
   },
   {
-    id: "slowed",
-    label: "EFFECT.StatusSlowed",
-    icon: "systems/crucible/icons/statuses/slowed.svg"
-  },
-  {
-    id: "disoriented",
-    label: "EFFECT.StatusDisoriented",
-    icon: "systems/crucible/icons/statuses/disoriented.svg"
-  },
-  {
-    id: "restrained",
-    label: "EFFECT.StatusRestrained",
-    icon: "icons/svg/net.svg"
-  },
-  {
     id: "prone",
-    label: "EFFECT.StatusProne",
+    label: "EFFECT.STATUSES.Prone",
     icon: "icons/svg/falling.svg"
   },
   {
+    id: "restrained",
+    label: "EFFECT.STATUSES.Restrained",
+    icon: "icons/svg/net.svg"
+  },
+  {
+    id: "slowed",
+    label: "EFFECT.STATUSES.Slowed",
+    icon: "systems/crucible/icons/statuses/slowed.svg"
+  },
+  {
+    id: "hastened",
+    label: "EFFECT.STATUSES.Hastened",
+    icon: "systems/crucible/icons/statuses/hastened.svg"
+  },
+  {
+    id: "disoriented",
+    label: "EFFECT.STATUSES.Disoriented",
+    icon: "systems/crucible/icons/statuses/disoriented.svg"
+  },
+
+  {
     id: "blinded",
-    label: "EFFECT.StatusBlind",
+    label: "EFFECT.STATUSES.Blind",
     icon: "icons/svg/blind.svg"
   },
   {
     id: "deafened",
-    label: "EFFECT.StatusDeaf",
+    label: "EFFECT.STATUSES.Deaf",
     icon: "icons/svg/deaf.svg"
   },
   {
     id: "silenced",
-    label: "EFFECT.StatusMute",
+    label: "EFFECT.STATUSES.Mute",
     icon: "icons/svg/silenced.svg"
   },
   {
     id: "enraged",
-    label: "EFFECT.StatusEnraged",
+    label: "EFFECT.STATUSES.Enraged",
     icon: "systems/crucible/icons/statuses/enraged.svg"
   },
   {
     id: "frightened",
-    label: "EFFECT.StatusFear",
+    label: "EFFECT.STATUSES.Fear",
     icon: "icons/svg/terror.svg"
   },
   {
     id: "invisible",
-    label: "EFFECT.StatusInvisible",
+    label: "EFFECT.STATUSES.Invisible",
     icon: "icons/svg/invisible.svg"
   },
   {
     id: "resolute",
-    label: "EFFECT.StatusResolute",
+    label: "EFFECT.STATUSES.Resolute",
     icon: "systems/crucible/icons/statuses/resolute.svg"
   },
   {
     id: "guarded",
-    label: "EFFECT.StatusGuarded",
+    label: "EFFECT.STATUSES.Guarded",
     icon: "systems/crucible/icons/statuses/guarded.svg"
   },
   {
     id: "exposed",
-    label: "EFFECT.StatusExposed",
+    label: "EFFECT.STATUSES.Exposed",
     icon: "systems/crucible/icons/statuses/exposed.svg"
   },
   {
     id: "flanked",
-    label: "EFFECT.StatusFlanked",
+    label: "EFFECT.STATUSES.Flanked",
     icon: "systems/crucible/icons/statuses/flanked.svg"
   },
   {
     id: "diseased",
-    label: "EFFECT.StatusDiseased",
+    label: "EFFECT.STATUSES.Diseased",
     icon: "icons/svg/acid.svg"
   },
   {
     id: "paralyzed",
-    label: "EFFECT.StatusParalyzed",
+    label: "EFFECT.STATUSES.Paralyzed",
     icon: "icons/svg/paralysis.svg"
   },
   {
     id: "inacapacitated",
-    label: "EFFECT.StatusIncapacitated",
+    label: "EFFECT.STATUSES.Incapacitated",
     icon: "icons/svg/unconscious.svg"
   }
 ]

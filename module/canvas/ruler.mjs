@@ -4,7 +4,15 @@ export default class CrucibleRuler extends Ruler {
   #action;
   #actor;
   #actionUses;
-  #totalDistance;
+
+  /**
+   * String labels applied to the measured distance
+   * @type {{cost: string, distance: string}}
+   */
+  #labels = {
+    distance: undefined,
+    cost: undefined
+  }
 
   get cost() {
     return this.#action?.cost.action || 0;
@@ -15,6 +23,7 @@ export default class CrucibleRuler extends Ruler {
     super._onDragStart(event);
     const token = this._getMovementToken();
     if ( token?.actor ) {
+      this.waypoints[0] = event.interactionData.origin = token.center;
       this.#actor = token.actor;
       this.#action = this.#actor.actions.move.clone();
     }
@@ -37,24 +46,12 @@ export default class CrucibleRuler extends Ruler {
   #computeCost() {
     const actor = this.#actor;
     if ( !actor ) return;
-    const tag = SYSTEM.ACTION.TAGS.movement;
-
-    // Determine movement costs
-    const hasMoved = actor.system.status.hasMoved;
-    let firstDistance = hasMoved && actor.talentIds.has("distancerunner00") ? 5 : 4;
-    const nextDistance = actor.talentIds.has("distancerunner00") ? 5 : 4;
-
-    // Record Costs
-    this.#actionUses = 1;
-    if ( this.totalDistance > firstDistance ) {
-      const nextUses = Math.ceil((this.totalDistance - firstDistance) / nextDistance);
-      this.#actionUses += nextUses;
-    }
-
-    // Update cost
-    this.#action.name = this.#actionUses > 1 ? `Move (x${this.#actionUses})` : "Move";
-    this.#action.cost.action = this.#actionUses - 1;
-    tag.prepare.call(this.#action);
+    const {distance, units} = canvas.scene.grid;
+    this.#action.usage.distance = this.totalDistance / distance;
+    SYSTEM.ACTION.TAGS.movement.prepare.call(this.#action);
+    this.#labels.distance = `${this.totalDistance.toNearest(0.01)} ${units}`;
+    const ap = this.#action.cost.action;
+    this.#labels.cost = ap > 0 ? `${ap}AP` : "Free";
   }
 
   /* -------------------------------------------- */
@@ -62,11 +59,8 @@ export default class CrucibleRuler extends Ruler {
   /** @override */
   _getSegmentLabel(segment, totalDistance) {
     if ( !segment.last ) return null;
-    const cost = this.cost;
-    let label = `${totalDistance} ${totalDistance === 1 ? "Space" : "Spaces"}`;
-    if ( !this.#actor?.isOwner ) return label;
-    const costLabel = cost > 0 ? `${cost} AP` : "Free";
-    return `${label} [${costLabel}]`
+    if ( !this.#actor?.isOwner ) return this.#labels.distance;
+    return `${this.#labels.distance} [${this.#labels.cost}]`;
   }
 
   /* -------------------------------------------- */
@@ -82,7 +76,7 @@ export default class CrucibleRuler extends Ruler {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   _canMove(token) {
     super._canMove(token);
     this.#action._canUse();
@@ -93,13 +87,11 @@ export default class CrucibleRuler extends Ruler {
 
   /** @override */
   async _preMove(token) {
-    if ( this.totalDistance > 0 ) {
-      const moveName = `Move ${this.totalDistance} (x${this.#actionUses})`;
-      this.#action.updateSource({
-        name: moveName,
-        "cost.action": this.#actionUses - 1
-      });
-      await this.#action.use({chatMessage: true, dialog: false});
-    }
+    if ( !this.totalDistance ) return;
+    this.#action.updateSource({
+      name: `Move ${this.#labels.distance}`,
+      cost: this.#action.cost
+    });
+    await this.#action.use({chatMessage: true, dialog: false});
   }
 }

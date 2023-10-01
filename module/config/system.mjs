@@ -91,28 +91,28 @@ export const CREATURE_STATURES = {
 export const THREAT_LEVELS = {
   minion: {
     id: "minion",
-    actionMax: 2,
+    actionMax: 6,
     label: "ADVERSARY.ThreatMinion",
     scaling: 0.5,
     icon: "fa-solid fa-chevron-down"
   },
   normal: {
     id: "normal",
-    actionMax: 3,
+    actionMax: 12,
     label: "ADVERSARY.ThreatNormal",
     scaling: 1.0,
     icon: "fa-solid fa-chevron-up"
   },
   elite: {
     id: "elite",
-    actionMax: 4,
+    actionMax: 16,
     label: "ADVERSARY.ThreatElite",
     scaling: 1.5,
     icon: "fa-solid fa-chevrons-up"
   },
   boss: {
     id: "boss",
-    actionMax: 5,
+    actionMax: 20,
     label: "ADVERSARY.ThreatBoss",
     scaling: 2.0,
     icon: "fa-solid fa-skull"

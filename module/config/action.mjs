@@ -337,10 +337,29 @@ export const TAGS = {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare() {
-      const a = this.actor;
-      if ( a.system.status.hasMoved || !a.equipment.canFreeMove ) this.cost.action += 1;
-      if ( a.statuses.has("slowed") ) this.cost.action += 1;
-      this.usage.actorUpdates["system.status.hasMoved"] = true
+      const {equipment, statuses} = this.actor;
+      const {status, movement} = this.actor.system;
+      const stride = movement.stride;
+
+      // Determine the distance traveled and apply distance modifiers
+      let distance = this.usage.distance ??= stride;
+      if ( statuses.has("slowed") ) distance *= 2;
+      if ( statuses.has("hastened") ) distance /= 2;
+      if ( statuses.has("prone") ) distance += 2;
+
+      // Determine the final cost, discounting by available free movement
+      const usedFree = status.movement?.free ?? 0;
+      const remainingFree = equipment.canFreeMove ? Math.max(stride - usedFree, 0) : 0;
+      const free = Math.min(distance, remainingFree);
+      const paid = distance - free;
+      this.cost.action = Math.ceil(paid);
+
+      // Record actor status
+      const priorTotal = status.movement?.total ?? 0;
+      Object.assign(this.usage.actorUpdates, {
+        "system.status.hasMoved": true, // TODO deprecate this in favor of movement.free < stride
+        "system.status.movement": {free: usedFree + free, total: priorTotal + distance}
+      })
     },
     async confirm() {
       if ( this.actor.statuses.has("prone") ) {

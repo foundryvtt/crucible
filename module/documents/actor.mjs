@@ -2002,8 +2002,8 @@ export default class CrucibleActor extends Actor {
     if ( flankedStage > 0 ) {
       const flankedData = {
         _id: flankedId,
-        name: `${game.i18n.localize("EFFECT.StatusFlanked")} ${flankedStage}`,
-        description: game.i18n.localize("EFFECT.StatusFlankedDescription"),
+        name: `${game.i18n.localize("EFFECT.STATUSES.Flanked")} ${flankedStage}`,
+        description: game.i18n.localize("EFFECT.STATUSES.FlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         flags: {
