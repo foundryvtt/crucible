@@ -54,7 +54,7 @@ export default class CrucibleRuler extends Ruler {
     // Update cost
     this.#action.name = this.#actionUses > 1 ? `Move (x${this.#actionUses})` : "Move";
     this.#action.cost.action = this.#actionUses - 1;
-    tag.prepare(actor, this.#action);
+    tag.prepare.call(this.#action);
   }
 
   /* -------------------------------------------- */

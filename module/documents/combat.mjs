@@ -94,7 +94,7 @@ export default class CrucibleCombat extends Combat {
 
     // Impetus
     const impetusId = "impetus000000000";
-    if ( (this.round === 1) && firstActor?.talentIds.has(impetusId) ) {
+    if ( firstActor?.talentIds.has(impetusId) ) {
       const impetus = {
         _id: impetusId,
         name: "Impetus",

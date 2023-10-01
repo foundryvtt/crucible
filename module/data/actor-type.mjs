@@ -199,12 +199,12 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
 
     // Action
-    r.action.max = maxAction ?? 3;
-    if ( l < 1 ) r.action.max -= 1;
-    if ( statuses.has("stunned") ) r.action.max -= 2;
-    else if ( statuses.has("staggered") ) r.action.max -= 1;
+    r.action.max = maxAction ?? 12;
+    if ( l < 1 ) r.action.max -= 4;
+    if ( statuses.has("stunned") ) r.action.max -= 6;
+    else if ( statuses.has("staggered") ) r.action.max -= 3;
     if ( this.status.impetus ) r.action.max += 1;
-    if ( isWeakened ) r.action.max -= 1;
+    if ( isWeakened ) r.action.max -= 6;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
     r.action.value = Math.clamped(r.action.value, 0, r.action.max);
