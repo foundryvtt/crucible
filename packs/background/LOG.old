@@ -1,8 +1,5 @@
-2023/09/24-12:39:53.382 b874 Recovering log #1115
-2023/09/24-12:39:53.385 b874 Delete type=0 #1115
-2023/09/24-12:39:53.385 b874 Delete type=3 #1114
-2023/09/24-14:05:30.235 c954 Level-0 table #1119: started
-2023/09/24-14:05:30.235 c954 Level-0 table #1119: 0 bytes OK
-2023/09/24-14:05:30.236 c954 Delete type=0 #1117
-2023/09/24-14:05:30.236 c954 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/09/24-14:05:30.236 c954 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
+2023/09/24-14:36:54.115 3f914 Recovering log #1122
+2023/09/24-14:36:54.115 3f914 Recovering log #1126
+2023/09/24-14:36:54.118 3f914 Delete type=0 #1122
+2023/09/24-14:36:54.118 3f914 Delete type=0 #1126
+2023/09/24-14:36:54.118 3f914 Delete type=3 #1120

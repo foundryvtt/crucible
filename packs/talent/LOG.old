@@ -1,8 +1,5 @@
-2023/09/24-12:39:53.417 f3dc Recovering log #1211
-2023/09/24-12:39:53.420 f3dc Delete type=0 #1211
-2023/09/24-12:39:53.420 f3dc Delete type=3 #1210
-2023/09/24-14:05:30.239 c954 Level-0 table #1215: started
-2023/09/24-14:05:30.239 c954 Level-0 table #1215: 0 bytes OK
-2023/09/24-14:05:30.240 c954 Delete type=0 #1213
-2023/09/24-14:05:30.241 c954 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/09/24-14:05:30.242 c954 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/09/24-14:36:54.148 22470 Recovering log #1218
+2023/09/24-14:36:54.148 22470 Recovering log #1222
+2023/09/24-14:36:54.151 22470 Delete type=0 #1218
+2023/09/24-14:36:54.151 22470 Delete type=0 #1222
+2023/09/24-14:36:54.151 22470 Delete type=3 #1216
