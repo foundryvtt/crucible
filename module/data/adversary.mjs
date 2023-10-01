@@ -46,7 +46,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
 
     // Adversaries only use active resource pools
     for ( const resource of Object.values(SYSTEM.RESOURCES) ) {
-      if ( resource.type !== "active" ) delete schema[resource.id];
+      if ( resource.type !== "active" ) delete schema.resources.fields[resource.id];
     }
     return schema;
   }
@@ -67,7 +67,8 @@ export default class CrucibleAdversary extends CrucibleActorType {
     taxonomy ||= CrucibleTaxonomy.cleanData();
 
     // Compute threat level
-    const factor = SYSTEM.THREAT_LEVELS[threat]?.scaling || 1;
+    const threatConfig = SYSTEM.THREAT_LEVELS[threat];
+    const factor = threatConfig?.scaling || 1;
     let threatLevel = Math.ceil(level * factor);
     let fractionLevel = threatLevel;
     if ( level === 0 ) {
@@ -83,6 +84,9 @@ export default class CrucibleAdversary extends CrucibleActorType {
 
     // TODO: Automatic skill progression rank (temporary)
     this.details._autoSkillRank = Math.min(Math.ceil(this.details.fractionLevel / 6), 5);
+
+    // Maximum Action pool size
+    this.details.maxAction = threatConfig.actionMax;
 
     // Assign base taxonomy ability scores
     for ( const a of Object.keys(this.abilities) ) {
@@ -159,51 +163,6 @@ export default class CrucibleAdversary extends CrucibleActorType {
     skill.rank = this.details._autoSkillRank;
     super._prepareSkill(skillId, skill);
   }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  prepareDerivedData() {
-    this.#prepareResources();
-    this.parent._prepareDefenses();
-    this.parent._prepareResistances();
-    this.parent._prepareMovement();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare resource pools.
-   */
-  #prepareResources() {
-    const {statuses} = this.parent;
-    const threat = SYSTEM.THREAT_LEVELS[this.details.threat];
-    const l = this.details.threatLevel;
-    const r = this.resources;
-    const a = this.abilities;
-
-    // Health
-    r.health.max = Math.max(Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value), 6);
-    r.health.value = Math.clamped(r.health.value, 0, r.health.max);
-
-    // Morale
-    r.morale.max = Math.max(Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value), 6);
-    r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
-
-    // Action
-    r.action.max = threat.actionMax;
-    if ( this.details.level < 1 ) r.action.max -= 1;
-    if ( statuses.has("stunned") ) r.action.max -= 2;
-    else if ( statuses.has("staggered") ) r.action.max -= 1;
-    r.action.max = Math.max(r.action.max, 0);
-    r.action.value = Math.clamped(r.action.value, 0, r.action.max);
-
-    // Focus
-    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
-    r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
-    this.parent.callTalentHooks("prepareResources", r);
-  }
-
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */

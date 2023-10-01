@@ -92,7 +92,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Base data preparation for all Actor subtypes.
+   * Base data preparation workflows used by all Actor subtypes.
    * @override
    */
   prepareBaseData() {
@@ -151,4 +151,57 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     const s = skill.score = ab + sb + eb;
     skill.passive = SYSTEM.PASSIVE_BASE + s;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Derived data preparation workflows used by all Actor subtypes.
+   * @override
+   */
+  prepareDerivedData() {
+    this._prepareResources();
+    this.parent.callTalentHooks("prepareResources", this.resources);
+    this.parent._prepareDefenses();
+    this.parent._prepareResistances();
+    this.parent._prepareMovement();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Preparation of resource pools for all Actor subtypes.
+   * @protected
+   */
+  _prepareResources() {
+    const {isIncapacitated, isWeakened, statuses} = this.parent;
+    const {maxAction, threatLevel: l} = this.details;
+    const r = this.resources;
+    const a = this.abilities;
+
+    // Health
+    r.health.max = Math.max(Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value), 6);
+    r.health.value = Math.clamped(r.health.value, 0, r.health.max);
+
+    // Morale
+    r.morale.max = Math.max(Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value), 6);
+    r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
+
+    // Action
+    r.action.max = maxAction ?? 3;
+    if ( l < 1 ) r.action.max -= 1;
+    if ( statuses.has("stunned") ) r.action.max -= 2;
+    else if ( statuses.has("staggered") ) r.action.max -= 1;
+    if ( this.status.impetus ) r.action.max += 1;
+    if ( isWeakened ) r.action.max -= 1;
+    if ( isIncapacitated ) r.action.max = 0;
+    r.action.max = Math.max(r.action.max, 0);
+    r.action.value = Math.clamped(r.action.value, 0, r.action.max);
+
+    // Focus
+    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
+    r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
+  }
+
+  /* -------------------------------------------- */
+
 }

@@ -178,7 +178,7 @@ export default class CrucibleHero extends CrucibleActorType {
 
   /**
    * Prepare a single skill for the Hero subtype specifically.
-   * @override
+   * @inheritDoc
    */
   _prepareSkill(skillId, skill) {
 
@@ -200,59 +200,25 @@ export default class CrucibleHero extends CrucibleActorType {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  prepareDerivedData() {
-    this.#prepareResources();
-    this.parent._prepareDefenses();
-    this.parent._prepareResistances();
-    this.parent._prepareMovement();
-  }
-
-  /* -------------------------------------------- */
-
   /**
-   * Prepare resources.
+   * Preparation of resource pools for the Hero subtype specifically.
+   * @inheritDoc
    */
-  #prepareResources() {
-    const level = this.advancement.level;
-    const {status, statuses, isIncapacitated, isWeakened} = this.parent;
-    const a = this.abilities;
+  _prepareResources() {
+    super._prepareResources();
     const r = this.resources;
-
-    // Health
-    r.health.max = (6 * level) + (4 * a.toughness.value) + (2 * a.strength.value);
-    r.health.value = Math.clamped(r.health.value, 0, r.health.max);
 
     // Wounds
     r.wounds.max = Math.ceil(1.5 * r.health.max);
     r.wounds.value = Math.clamped(r.wounds.value, 0, r.wounds.max);
 
-    // Morale
-    r.morale.max = (6 * level) + (4 * a.presence.value) + (2 * a.wisdom.value);
-    r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
-
     // Madness
     r.madness.max = Math.ceil(1.5 * r.morale.max);
     r.madness.value = Math.clamped(r.madness.value, 0, r.madness.max);
-
-    // Action
-    r.action.max = level > 0 ? 3 : 0;
-    if ( statuses.has("stunned") ) r.action.max -= 2;
-    else if ( statuses.has("staggered") ) r.action.max -= 1;
-    if ( status.impetus ) r.action.max += 1;
-    if ( isWeakened ) r.action.max -= 1;
-    if ( isIncapacitated ) r.action.max = 0;
-    r.action.max = Math.max(r.action.max, 0);
-    r.action.value = Math.clamped(r.action.value, 0, r.action.max);
-
-    // Focus
-    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
-    r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
-    this.parent.callTalentHooks("prepareResources", r);
   }
 
   /* -------------------------------------------- */
-  /*  Hero Specific Helper Methods                */
+  /*  Helper Methods                              */
   /* -------------------------------------------- */
 
   /**
