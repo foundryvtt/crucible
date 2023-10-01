@@ -38,6 +38,7 @@ const DEVELOPMENT_MODE = true;
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
+  globalThis.crucible = game.system;
   game.system.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
 
