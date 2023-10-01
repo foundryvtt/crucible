@@ -1,5 +1,7 @@
-2023/09/24-14:36:54.103 3f914 Recovering log #502
-2023/09/24-14:36:54.103 3f914 Recovering log #506
-2023/09/24-14:36:54.106 3f914 Delete type=0 #502
-2023/09/24-14:36:54.106 3f914 Delete type=0 #506
-2023/09/24-14:36:54.106 3f914 Delete type=3 #500
+2023/10/01-12:22:50.404 68d0 Recovering log #507
+2023/10/01-12:22:50.408 68d0 Delete type=0 #507
+2023/10/01-12:22:50.408 68d0 Delete type=3 #504
+2023/10/01-12:42:05.140 1e4a8 Level-0 table #511: started
+2023/10/01-12:42:05.140 1e4a8 Level-0 table #511: 0 bytes OK
+2023/10/01-12:42:05.141 1e4a8 Delete type=0 #509
+2023/10/01-12:42:05.144 1e4a8 Manual compaction at level-0 from '!folders!6Up7ddrphLept3RW' @ 72057594037927935 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at (end)
