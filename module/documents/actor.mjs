@@ -263,7 +263,7 @@ export default class CrucibleActor extends Actor {
     this._prepareEffects();
     this.training = CrucibleActor.#prepareTraining(this);
     this.equipment = this._prepareEquipment(items);
-    this._prepareActions();
+    CrucibleActor.#prepareActions.call(this);
   };
 
   /* -------------------------------------------- */
@@ -492,14 +492,15 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare Actions which the Actor may actively use
-   * @private
+   * Prepare Actions which the Actor may actively use.
+   * @this {CrucibleActor}
    */
-  _prepareActions() {
+  static #prepareActions() {
     this.actions = {};
     CrucibleActor.#prepareDefaultActions.call(this);
     CrucibleActor.#prepareTalentActions.call(this);
     CrucibleActor.#prepareEquipmentActions.call(this);
+    this.callTalentHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
@@ -742,7 +743,7 @@ export default class CrucibleActor extends Actor {
   applyTargetBoons(target, action, actionType, ranged) {
     const boons = foundry.utils.deepClone(action.usage.boons);
     const banes = foundry.utils.deepClone(action.usage.banes);
-    ranged ??= action.target.distance > 1;
+    ranged ??= (action.range.maximum > 3);
     const isAttack = (actionType !== "skill") && !action.damage?.restoration;
 
     // Exposed

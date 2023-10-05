@@ -138,6 +138,9 @@ export const ACTOR_HOOKS = Object.freeze({
   defendWeaponAttack: {
     argNames: ["action", "origin", "rollData"]
   },
+  prepareActions: {
+    argNames: ["actions"]
+  },
   prepareResources: {
     argNames: ["resources"]
   },

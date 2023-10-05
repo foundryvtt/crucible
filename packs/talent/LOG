@@ -1,8 +1,24 @@
-2023/10/01-12:58:01.543 1070c Recovering log #1226
-2023/10/01-12:58:01.546 1070c Delete type=0 #1226
-2023/10/01-12:58:01.546 1070c Delete type=3 #1224
-2023/10/01-19:46:47.501 1e4a8 Level-0 table #1231: started
-2023/10/01-19:46:47.501 1e4a8 Level-0 table #1231: 0 bytes OK
-2023/10/01-19:46:47.502 1e4a8 Delete type=0 #1229
-2023/10/01-19:46:47.503 1e4a8 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
-2023/10/01-19:46:47.503 1e4a8 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/10/05-12:02:45.627 20928 Recovering log #1233
+2023/10/05-12:02:45.627 20928 Level-0 table #1235: started
+2023/10/05-12:02:45.628 20928 Level-0 table #1235: 10297 bytes OK
+2023/10/05-12:02:45.631 20928 Delete type=0 #1233
+2023/10/05-12:02:45.631 20928 Delete type=3 #1232
+2023/10/05-17:36:57.962 3d754 Level-0 table #1238: started
+2023/10/05-17:36:57.963 3d754 Level-0 table #1238: 9013 bytes OK
+2023/10/05-17:36:57.964 3d754 Delete type=0 #1236
+2023/10/05-17:36:57.966 3d754 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!zealoussmite0000' @ 1895 : 1
+2023/10/05-17:36:57.966 3d754 Compacting 2@0 + 0@1 files
+2023/10/05-17:36:57.967 3d754 Generated table #1239@0: 19 keys, 10678 bytes
+2023/10/05-17:36:57.967 3d754 Compacted 2@0 + 0@1 files => 10678 bytes
+2023/10/05-17:36:57.968 3d754 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/10/05-17:36:57.968 3d754 Delete type=2 #1235
+2023/10/05-17:36:57.968 3d754 Delete type=2 #1238
+2023/10/05-17:36:57.968 3d754 Manual compaction at level-0 from '!items!zealoussmite0000' @ 1895 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/10/05-17:36:57.968 3d754 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!zealoussmite0000' @ 1895 : 1
+2023/10/05-17:36:57.968 3d754 Compacting 1@1 + 1@2 files
+2023/10/05-17:36:57.971 3d754 Generated table #1240@1: 214 keys, 99319 bytes
+2023/10/05-17:36:57.971 3d754 Compacted 1@1 + 1@2 files => 99319 bytes
+2023/10/05-17:36:57.971 3d754 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/05-17:36:57.971 3d754 Delete type=2 #1201
+2023/10/05-17:36:57.971 3d754 Delete type=2 #1239
+2023/10/05-17:36:57.975 3d754 Manual compaction at level-1 from '!items!zealoussmite0000' @ 1895 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)

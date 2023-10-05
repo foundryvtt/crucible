@@ -1,5 +1,3 @@
-2023/10/01-12:58:01.480 1351c Log #430: 0 ops saved to Table #431 OK
-2023/10/01-12:58:01.481 1351c Archiving C:\Users\aaclayton\Documents\Foundry\FoundryData\Data\systems\crucible\packs\adversary-talents/000430.log: OK
-2023/10/01-12:58:01.481 1351c Table #361: 2 entries OK
-2023/10/01-12:58:01.482 1351c Archiving C:\Users\aaclayton\Documents\Foundry\FoundryData\Data\systems\crucible\packs\adversary-talents/MANIFEST-000428: OK
-2023/10/01-12:58:01.484 1351c **** Repaired leveldb C:\Users\aaclayton\Documents\Foundry\FoundryData\Data\systems\crucible\packs\adversary-talents; recovered 1 files; 1414 bytes. Some data may have been lost. ****
+2023/10/04-14:26:09.491 14b4 Recovering log #434
+2023/10/04-14:26:09.494 14b4 Delete type=0 #434
+2023/10/04-14:26:09.494 14b4 Delete type=3 #432

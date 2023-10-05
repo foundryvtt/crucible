@@ -59,7 +59,7 @@ export const TARGET_TYPES = Object.freeze({
     label: "Ray",
     template: {
       t: "ray",
-      width: 1,
+      width: 3,
       directionDelta: 3,
       anchor: "self",
       distanceOffset: 0.5
@@ -77,7 +77,7 @@ export const TARGET_TYPES = Object.freeze({
     label: "Wall",
     template: {
       t: "ray",
-      width: 1,
+      width: 3,
       anchor: "vertex",
       distanceOffset: 0
     }
@@ -117,8 +117,17 @@ function weaponAttack(type="mainhand") {
     prepare() {
       const w = this.actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
       if ( !w ) return;
-      this.cost.action += (w?.system.actionCost || 0);
-      this.target.distance ??= w.system.range;
+
+      // Increase action cost
+      if ( this.cost.weapon ) this.cost.action += (w?.system.actionCost || 0);
+
+      // Increase action range
+      if ( this.range.weapon ) {
+        const baseMaximum = this._source.range.maximum ?? 0;
+        this.range.maximum = Math.max(this.range.maximum, baseMaximum + w.system.range);
+      }
+
+      // Configure usage data
       Object.assign(this.usage, {weapon: w, hasDice: true, defenseType: "physical"});
       Object.assign(this.usage.bonuses, w.system.actionBonuses);
       Object.assign(this.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
@@ -796,7 +805,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "none",
       number: 0,
-      distance: 4,
       scope: 1
     },
     tags: ["movement"]
@@ -810,27 +818,17 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
       number: 0,
-      distance: 0,
       scope: 1
     },
     cost: {
-      action: 1
+      action: 3
     },
     effects: [
       {
         duration: { rounds: 1 },
         statuses: ["guarded"]
       }
-    ],
-    _hooks: {
-      prepare() {
-        const a = this.actor;
-        if ( a.talentIds.has("bulwark000000000") && a.equipment.weapons.shield && !a.system.status.hasMoved ) {
-          this.cost.action -= 1;
-          this.usage.actorUpdates["system.status.hasMoved"] = true;
-        }
-      }
-    }
+    ]
   },
   {
     id: "delay",
@@ -884,25 +882,24 @@ export const DEFAULT_ACTIONS = Object.freeze([
     img: "icons/skills/melee/blade-tip-orange.webp",
     description: "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
     cost: {
-      action: 0,
-      focus: 1
+      action: -2,
+      focus: 1,
+      weapon: true
+    },
+    range: {
+      weapon: true
     },
     target: {
       type: "single",
       number: 1,
-      distance: 1,
       scope: 3
     },
-    tags: ["reaction"],
+    tags: ["reaction", "mainhand"],
     _hooks: {
       canUse() {
         for ( const s of ["unaware", "flanked"] ) {
           if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Disengagement Strike while ${s}.`);
         }
-      },
-      prepare() {
-        const w = this.actor.equipment.weapons.mainhand;
-        this.cost.action -= w.actionCost;
       }
     }
   },
@@ -914,7 +911,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
       number: 0,
-      distance: 0,
       scope: 1
     },
     cost: {
@@ -995,11 +991,17 @@ export const DEFAULT_ACTIONS = Object.freeze([
     name: "Strike",
     img: "icons/skills/melee/blade-tip-orange.webp",
     description: "Attack a single target creature or object with your main-hand weapon.",
+    range: {
+      weapon: true
+    },
     target: {
       type: "single",
       number: 1,
-      distance: 1,
       scope: 3
+    },
+    cost: {
+      action: 0,
+      weapon: true
     },
     _hooks: {
       async postActivate(outcome) {

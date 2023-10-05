@@ -9,6 +9,13 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  */
 
 /**
+ * @typedef {Object} ActionRange
+ * @property {number} [minimum]             A minimum distance in feet at which the action may be used
+ * @property {number} [maximum]             A maximum distance in feet at which the action may be used
+ * @property {boolean} weapon               Enforce the maximum range of the used weapon
+ */
+
+/**
  * @typedef {Object} ActionTarget
  * @property {string} type                  The type of target for the action in ACTION.TARGET_TYPES
  * @property {number} [number]              The number of targets affected or size of target template
@@ -80,6 +87,7 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
  * @property {string} img                   An image for the action
  * @property {string} condition             An optional condition which must be met in order for the action to be used
  * @property {string} description           Text description of the action
+ * @property {ActionRange} range            Range data for the action
  * @property {ActionTarget} target          Target data for the action
  * @property {ActionCost} cost              Cost data for the action
  * @property {Set<string>} tags             A set of tags in ACTION.TAGS which apply to this action
@@ -95,12 +103,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       description: new fields.HTMLField({required: false, initial: undefined}),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
+        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        weapon: new fields.BooleanField({initial: false})
+      }),
+      range: new fields.SchemaField({
+        minimum: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
+        maximum: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
+        weapon: new fields.BooleanField({initial: false})
       }),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES, initial: "single"}),
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
-        distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         size: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         multiple: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
@@ -886,7 +899,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.target.type !== "none" ) {
       const parts = [SYSTEM.ACTION.TARGET_TYPES[this.target.type].label];
       if ( this.target.number > 1 ) parts.unshift(this.target.number);
-      if ( this.target.distance > 1 ) parts.push(this.target.distance);
+      if ( this.range.maximum ) {
+        let r = `${this.range.maximum}ft`;
+        if ( this.range.weapon && !this.actor ) r = `+${r}`;
+        parts.push(r);
+      }
       if ( this.target.limit > 0 ) parts.push(`Limit ${this.target.limit}`);
       if ( this.target.multiple > 1 ) parts.push(`x${this.target.multiple}`);
       tags.activation.target = parts.join(" ");
@@ -894,10 +911,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Cost
     const cost = this._trueCost || this.cost;
-    if ( Number.isFinite(cost.action) && (cost.action !== 0) ) tags.activation.ap = `${cost.action}A`;
+    let ap = cost.action ?? 0;
+    if ( cost.weapon && !this.actor ) {  // Un-owned actions which include weapon cost
+      if ( ap > 0 ) tags.activation.ap = `W+${ap}A`;
+      else if ( ap < 0 ) tags.activation.ap = `W${ap}A`;
+      else tags.activation.ap = "W";
+    }
+    else tags.activation.ap = `${ap}A`;
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
-    if ( !Object.values(cost).some(c => Number.isFinite(c) && (c !== 0)) ) tags.activation.ap = "Free";
+    if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp) ) tags.activation.ap = "Free";
 
     // Duration
     let duration = 0;

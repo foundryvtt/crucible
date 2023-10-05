@@ -100,7 +100,12 @@ export function renderChatMessage(message, html, data, options) {
       if ( !game.user.isGM ) return;
       const confirm = $(`<button class="crucible confirm" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
       html.append(confirm);
-      confirm.click(() => CrucibleAction.confirm(message))
+      confirm.click(event => {
+        const button = event.currentTarget;
+        button.disabled = true;
+        button.firstElementChild.className = "fa-solid fa-spinner fa-spin";
+        CrucibleAction.confirm(message);
+      })
     }
   }
 }

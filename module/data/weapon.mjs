@@ -223,9 +223,14 @@ export default class CrucibleWeapon extends PhysicalItemData {
    */
   #prepareRange() {
     const category = this.config.category;
-    const reach = this.properties.has("reach");
-    if ( category.ranged ) return reach ? 16 : 10;
-    return reach ? 2 : 1;
+    let range = category.range;
+    if ( this.properties.has("reach") ) {
+      range += category.ranged ? 20 : 2;
+    }
+    if ( this.properties.has("ambush") ) {
+      range -= category.ranged ? 10 : 1;
+    }
+    return range;
   }
 
   /* -------------------------------------------- */

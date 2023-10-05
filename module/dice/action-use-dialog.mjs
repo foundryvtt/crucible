@@ -134,7 +134,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.#deactivateTemplate(event);
 
     // Reference required data
-    const {actor, target} = this.action;
+    const {actor, range, target} = this.action;
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type]?.template;
     if ( !targetConfig ) return;
     const tokens = actor.getActiveTokens();
@@ -151,7 +151,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Create a temporary Measured Template document and PlaceableObject
-    const templateData = await this.#getTemplateData(token, target, targetConfig);
+    const templateData = await this.#getTemplateData(token, range, target, targetConfig);
     const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
     template.document._object = template; // FIXME this is a bit of a hack
 
@@ -178,12 +178,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
 
-  #getTemplateData(token, target, targetConfig) {
+  #getTemplateData(token, range, target, targetConfig) {
     const {x, y} = token?.center ?? canvas.dimensions.rect.center;
     const {id: userId, color: fillColor} = game.user;
     const s = canvas.dimensions.size;
-    const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1);
-    const distance = target.distance + (targetConfig.distanceOffset * baseSize);
+    const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1) * canvas.dimensions.distance;
+    const distance = (range.maximum ?? 0) + (targetConfig.distanceOffset * baseSize);
     const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
     switch ( target.type ) {
       case "blast":
@@ -198,11 +198,17 @@ export default class ActionUseDialog extends StandardCheckDialog {
           direction: 45
         });
         break;
+      case "ray":
+        templateData.width = target.size ?? targetConfig.width;
+        break;
       case "summon":
         Object.assign(templateData, {
           distance: Math.hypot(target.width, target.height),
           direction: 45
         });
+        break;
+      case "wall":
+        templateData.width = target.size ?? targetConfig.width;
         break;
     }
     return templateData;

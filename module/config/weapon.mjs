@@ -24,9 +24,10 @@ export const CATEGORIES = {
     off: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 4
+      base: 3
     },
-    actionCost: 1,
+    actionCost: 3,
+    range: 3,
     training: "unarmed"
   },
   natural: {
@@ -39,7 +40,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 1,
+    actionCost: 3,
+    range: 3,
     training: "natural"
   },
   light1: {
@@ -52,7 +54,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 1,
+    actionCost: 3,
+    range: 4,
     training: "finesse"
   },
   simple1: {
@@ -63,9 +66,10 @@ export const CATEGORIES = {
     off: true,
     scaling: "strength",
     damage: {
-      base: 6
+      base: 5
     },
-    actionCost: 1,
+    actionCost: 4,
+    range: 4,
     training: "heavy"
   },
   balanced1: {
@@ -76,9 +80,10 @@ export const CATEGORIES = {
     off: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 8
+      base: 6
     },
-    actionCost: 1,
+    actionCost: 4,
+    range: 4,
     training: "balanced"
   },
   heavy1: {
@@ -89,9 +94,10 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength",
     damage: {
-      base: 8
+      base: 7
     },
-    actionCost: 1,
+    actionCost: 5,
+    range: 4,
     training: "heavy"
   },
   simple2: {
@@ -102,9 +108,10 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength",
     damage: {
-      base: 10
+      base: 8
     },
-    actionCost: 2,
+    actionCost: 6,
+    range: 5,
     training: "heavy"
   },
   balanced2: {
@@ -115,9 +122,10 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength.dexterity",
     damage: {
-      base: 12
+      base: 9
     },
-    actionCost: 2,
+    actionCost: 6,
+    range: 5,
     training: "balanced"
   },
   heavy2: {
@@ -128,9 +136,10 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength",
     damage: {
-      base: 12
+      base: 10
     },
-    actionCost: 2,
+    actionCost: 7,
+    range: 5,
     training: "heavy"
   },
   projectile1: {
@@ -142,9 +151,10 @@ export const CATEGORIES = {
     ranged: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 2
+      base: 4
     },
-    actionCost: 1,
+    actionCost: 3,
+    range: 30,
     training: "projectile"
   },
   projectile2: {
@@ -156,9 +166,10 @@ export const CATEGORIES = {
     ranged: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 10
+      base: 9
     },
-    actionCost: 2,
+    actionCost: 6,
+    range: 120,
     training: "projectile"
   },
   mechanical1: {
@@ -171,9 +182,10 @@ export const CATEGORIES = {
     reload: true,
     scaling: "dexterity",
     damage: {
-      base: 6
+      base: 7
     },
-    actionCost: 1,
+    actionCost: 2,
+    range: 30,
     training: "mechanical"
   },
   mechanical2: {
@@ -188,7 +200,8 @@ export const CATEGORIES = {
     damage: {
       base: 10
     },
-    actionCost: 1,
+    actionCost: 4,
+    range: 120,
     training: "mechanical"
   },
   shieldLight: {
@@ -200,12 +213,13 @@ export const CATEGORIES = {
     ranged: false,
     scaling: "strength.dexterity",
     damage: {
-      base: 2
+      base: 3
     },
     defense: {
       block: 2
     },
-    actionCost: 1,
+    actionCost: 3,
+    range: 3,
     training: "shield"
   },
   shieldHeavy: {
@@ -217,12 +231,13 @@ export const CATEGORIES = {
     ranged: false,
     scaling: "strength",
     damage: {
-      base: 4
+      base: 5
     },
     defense: {
       block: 4
     },
-    actionCost: 1,
+    actionCost: 4,
+    range: 3,
     training: "shield"
   },
   talisman1: {
@@ -234,9 +249,10 @@ export const CATEGORIES = {
     ranged: false,
     scaling: "presence",
     damage: {
-      base: 2
+      base: 4
     },
-    actionCost: 1,
+    actionCost: 4,
+    range: 30,
     training: "talisman"
   },
   talisman2: {
@@ -250,7 +266,8 @@ export const CATEGORIES = {
     damage: {
       base: 6
     },
-    actionCost: 1,
+    actionCost: 6,
+    range: 30,
     training: "talisman"
   }
 }

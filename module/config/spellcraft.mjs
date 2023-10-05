@@ -302,8 +302,9 @@ export const GESTURES = Object.seal({
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "strength",
     cost: {
-      action: 2,
-      focus: 1
+      action: 0,
+      focus: 1,
+      weapon: true
     },
     damage: {
       base: 12

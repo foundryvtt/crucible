@@ -54,8 +54,11 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   /** @override */
   async getData(options) {
     await loadTemplates(Object.values(this.constructor.partials));
+    const action = this.action.toObject();
+    action.name ||= this.object.name;
+    action.img ||= this.object.img;
     return {
-      action: this.action.toObject(), // Configure source data
+      action,
       editable: this.isEditable,
       tags: this.#prepareTags(),
       actionHookChoices: Object.keys(SYSTEM.ACTION_HOOKS).reduce((obj, k) => {
@@ -132,6 +135,8 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
     const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
     formData.actionHooks = Object.values(formData.actionHooks || {});
     formData.effects = Object.values(formData.effects || {});
+    if ( formData.name === this.object.name ) formData.name = "";
+    if ( formData.img === this.object.img ) formData.img = "";
     return formData;
   }
 

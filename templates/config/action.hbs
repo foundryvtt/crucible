@@ -39,34 +39,46 @@
             <p class="hint">Additional reference text which clarifies the prerequisite triggering conditions under which an action may be used.</p>
         </div>
 
-        <div class="form-group stacked">
-            <h3>Action Tags</h3>
-            <div class="form-fields">
-                <multi-select name="tags">
-                    {{#each tags as |optgroup|}}
-                    <optgroup label="{{optgroup.label}}">
-                        {{#each optgroup.tags as |tag|}}
-                        <option value="{{tag.value}}" {{tag.selected}}>{{tag.label}}</option>
+        <fieldset>
+            <legend>Action Tags</legend>
+            <div class="form-group stacked">
+                <div class="form-fields">
+                    <multi-select name="tags">
+                        {{#each tags as |optgroup|}}
+                        <optgroup label="{{optgroup.label}}">
+                            {{#each optgroup.tags as |tag|}}
+                                <option value="{{tag.value}}" {{tag.selected}}>{{tag.label}}</option>
+                            {{/each}}
+                        </optgroup>
                         {{/each}}
-                    </optgroup>
-                    {{/each}}
-                </multi-select>
+                    </multi-select>
+                </div>
+                <p class="hint">Add tags which define the requirements, behavior, and modifiers of this action.
+                    The order of tags matters as later tags will take priority over earlier ones if they modify the
+                    same properties of the action.</p>
             </div>
-            <p class="hint">Add tags which define the requirements, behavior, and modifiers of this action.
-                The order of tags matters as later tags will take priority over earlier ones if they modify the
-                same properties of the action.</p>
-        </div>
+        </fieldset>
 
-        <div class="form-group">
-            <h3>Activation Cost</h3>
-            <div class="form-fields">
-                <label>Action</label>
-                <input type="number" name="cost.action" value="{{action.cost.action}}">
-                <label>Focus</label>
-                <input type="number" name="cost.focus" value="{{action.cost.focus}}">
+        <fieldset>
+            <legend>Action Cost</legend>
+            <div class="form-group">
+                <label>Activation Cost</label>
+                <div class="form-fields">
+                    <label>Action</label>
+                    <input type="number" name="cost.action" value="{{action.cost.action}}">
+                    <label>Focus</label>
+                    <input type="number" name="cost.focus" value="{{action.cost.focus}}">
+                </div>
+                <p class="hint">Configure the cost of using this action in Action Points and Focus Points.</p>
             </div>
-            <p class="hint">Configure the cost of using this action in Action Points and Focus Points.</p>
-        </div>
+            <div class="form-group">
+                <label>Add Weapon Cost</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="cost.weapon" {{checked action.cost.weapon}}>
+                </div>
+                <p class="hint">Is the equipped weapon's Action Point cost added to the cost for this Action?</p>
+            </div>
+        </fieldset>
     </section>
 
     {{!-- Target Tab --}}
@@ -80,40 +92,55 @@
             </div>
             <p class="hint">Which disposition of targets are affected by this action?</p>
         </div>
-        <div class="form-group">
-            <label>Target Type</label>
-            <div class="form-fields">
-                <select name="target.type">
-                    {{selectOptions targetTypes selected=action.target.type labelAttr="label"}}
-                </select>
-            </div>
-            <p class="hint">Which type of target or area is affected by this action?</p>
-        </div>
-        <div class="form-group">
-            <label>Target Number</label>
-            <div class="form-fields">
-                <input type="number" name="target.number" value="{{action.target.number}}" min="0" step="1">
-            </div>
-            <p class="hint">How many of the selected target type are affected by this action?</p>
-        </div>
-        <div class="form-group">
-            <label>Maximum Distance</label>
-            <div class="form-fields">
-                <input type="number" name="target.distance" value="{{action.target.distance}}" min="0" step="1">
-            </div>
-            <p class="hint">What is the maximum distance at which this action can be performed?</p>
-        </div>
+
         <fieldset>
-            <legend>Advanced</legend>
+            <legend>Range</legend>
             <div class="form-group">
-                <label>Target Size</label>
+                <label>Distance (ft)</label>
                 <div class="form-fields">
-                    <input type="number" name="target.radius" value="{{action.target.radius}}" min="0" step="1">
+                    <label>Minimum</label>
+                    <input type="number" name="range.minimum" value="{{action.range.minimum}}" min="0" step="1">
+                    <label>Maximum</label>
+                    <input type="number" name="range.maximum" value="{{action.range.maximum}}" min="0" step="1">
                 </div>
-                <p class="hint">Certain target types are further modified by a size in grid spaces.</p>
+                <p class="hint">Define a minimum or maximum range in feet at which this action may be performed.</p>
             </div>
             <div class="form-group">
-                <label>Target Limitation</label>
+                <label>Use Weapon Range</label>
+                <div class="form-fields">
+                    <input type="checkbox" name="range.weapon" {{checked action.range.weapon}}>
+                </div>
+                <p class="hint">The range of this action is defined by the effective range of the used weapon.</p>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Target</legend>
+            <div class="form-group">
+                <label>Target Type</label>
+                <div class="form-fields">
+                    <select name="target.type">
+                        {{selectOptions targetTypes selected=action.target.type labelAttr="label"}}
+                    </select>
+                </div>
+                <p class="hint">Which type of target or area is affected by this action?</p>
+            </div>
+            <div class="form-group">
+                <label>Target Number</label>
+                <div class="form-fields">
+                    <input type="number" name="target.number" value="{{action.target.number}}" min="0" step="1">
+                </div>
+                <p class="hint">How many of the selected target type are affected by this action?</p>
+            </div>
+            <div class="form-group">
+                <label>Target Size (ft)</label>
+                <div class="form-fields">
+                    <input type="number" name="target.size" value="{{action.target.size}}" min="0" step="1">
+                </div>
+                <p class="hint">Certain target types are further modified by a size in feet.</p>
+            </div>
+            <div class="form-group">
+                <label>Maximum Targets</label>
                 <div class="form-fields">
                     <input type="number" name="target.limit" value="{{action.target.limit}}" min="0" step="1">
                 </div>

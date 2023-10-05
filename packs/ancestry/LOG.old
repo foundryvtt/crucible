@@ -1,8 +1,3 @@
-2023/10/01-12:22:50.398 1351c Recovering log #1127
-2023/10/01-12:22:50.401 1351c Delete type=0 #1127
-2023/10/01-12:22:50.401 1351c Delete type=3 #1124
-2023/10/01-12:42:05.138 1e4a8 Level-0 table #1131: started
-2023/10/01-12:42:05.138 1e4a8 Level-0 table #1131: 0 bytes OK
-2023/10/01-12:42:05.139 1e4a8 Delete type=0 #1129
-2023/10/01-12:42:05.144 1e4a8 Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
-2023/10/01-12:42:05.144 1e4a8 Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/10/04-14:26:09.497 2b130 Recovering log #1134
+2023/10/04-14:26:09.499 2b130 Delete type=0 #1134
+2023/10/04-14:26:09.499 2b130 Delete type=3 #1132

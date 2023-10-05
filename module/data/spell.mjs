@@ -206,11 +206,11 @@ export default class CrucibleSpell extends CrucibleAction {
       case "arrow":
 
         // Weapon range
-        if ( mh.config.category.ranged ) this.target.distance = mh.system.range;
+        if ( mh.config.category.ranged ) this.range.maximum = mh.system.range;
 
         // Arcane Archer Signature
         if ( t.has("arcanearcher0000") && mh.config.category.ranged ) {
-          this.target.distance = Math.max(this.target.distance, mh.system.range);
+          this.range.maximum = Math.max(this.range.maximum, mh.system.range);
           this.cost.hands = 0;
           if ( s.rangedAttack && !s.arcaneArcher ) {
             this.cost.action -= 1;
@@ -251,7 +251,7 @@ export default class CrucibleSpell extends CrucibleAction {
         this.tags.add("melee");
 
         // Weapon range
-        if ( mh.config.category.melee ) this.target.distance = mh.system.range;
+        if ( mh.config.category.melee ) this.range.maximum = mh.system.range;
 
         // Weapon scaling and bonus damage
         this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);
