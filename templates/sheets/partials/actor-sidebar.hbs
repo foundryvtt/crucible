@@ -4,7 +4,7 @@
 
         {{!-- Current Equipment --}}
         <div class="equipped">
-            <h2 class="section-header divider"><span></span><label>Current Equipment</label><span></span></h2>
+            <h2 class="section-header divider"><span></span><label>{{localize "SHEET.CurrentEquipment"}}</label><span></span></h2>
             {{#each featuredEquipment as |e|}}
                 <div class="equipped line-item">
                     <div class="name">
@@ -20,7 +20,7 @@
 
         {{!-- Available Actions --}}
         <div class="actions">
-            <h2 class="section-header divider"><span></span><label>Available Actions</label><span></span></h2>
+            <h2 class="section-header divider"><span></span><label>{{localize "SHEET.AvailableActions"}}</label><span></span></h2>
             {{#each actions}}
                 <div class="action line-item" data-action-id="{{this.id}}">
                     <div class="name" data-action="useAction">
@@ -38,7 +38,7 @@
 
         {{!-- Active Effects --}}
         <div class="effects">
-            <h2 class="section-header divider"><span></span><label>Active Effects</label><span></span></h2>
+            <h2 class="section-header divider"><span></span><label>{{localize "SHEET.ActiveEffects"}}</label><span></span></h2>
             {{#each effects as |effect|}}
                 <div class="effect line-item" data-effect-id="{{effect.id}}">
                     <div class="name">
