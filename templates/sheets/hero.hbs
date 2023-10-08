@@ -205,7 +205,8 @@
                 <div class="miscellaneous flexrow">
                     <div class="stride flexrow">
                         <label>Stride</label>
-                        <span class="input total">{{actor.system.movement.stride}}</span>
+                        <input type="number" name="system.movement.stride" value="{{actor.system.movement.stride}}"
+                               step="1" min="0" {{#if sectionLocks.defenses}}disabled{{/if}}>
                     </div>
                     <div class="engagement flexrow">
                         <label>Engagement</label>

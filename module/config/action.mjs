@@ -145,15 +145,15 @@ function weaponAttack(type="mainhand") {
     },
     async roll(target, rolls) {
       const w = this.usage.weapon;
-      this.usage.actorUpdates["system.status.hasAttacked"] = true;
+      this.usage.actorStatus.hasAttacked = true;
       if ( w.config.category.ranged ) {
-        this.usage.actorUpdates["system.status.rangedAttack"] = true;
+        this.usage.actorStatus.rangedAttack = true;
         if ( w.config.category.reload ) {
           this.usage.actorUpdates.items ||= [];
           this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
         }
       }
-      else this.usage.actorUpdates["system.status.meleeAttack"] = true;
+      else this.usage.actorStatus.meleeAttack = true;
       const n = this.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
         const r = await this.actor.weaponAttack(this, target);
@@ -356,19 +356,20 @@ export const TAGS = {
       if ( statuses.has("hastened") ) distance /= 2;
       if ( statuses.has("prone") ) distance += 2;
 
-      // Determine the final cost, discounting by available free movement
-      const usedFree = status.movement?.free ?? 0;
-      const remainingFree = equipment.canFreeMove ? Math.max(stride - usedFree, 0) : 0;
-      const free = Math.min(distance, remainingFree);
+      // Determine the amount of movement that is free vs. paid
+      const prior = status.movement || {free: 0, total: 0, bonus: 0};
+      const remainingFree = (stride * 4) - prior.free;
+      const free = equipment.canFreeMove ? Math.min(distance, remainingFree) : 0;
       const paid = distance - free;
-      this.cost.action = Math.ceil(paid);
+
+      // TODO distance runner increases "paid stride" AFTER free movement
+      this.cost.action = Math.ceil(paid / stride);
 
       // Record actor status
-      const priorTotal = status.movement?.total ?? 0;
-      Object.assign(this.usage.actorUpdates, {
-        "system.status.hasMoved": true, // TODO deprecate this in favor of movement.free < stride
-        "system.status.movement": {free: usedFree + free, total: priorTotal + distance}
-      })
+      this.usage.actorStatus = {
+        hasMoved: true,
+        movement: {free: prior.free + free, total: prior.total + distance, bonus: prior.bonus}
+      }
     },
     async confirm() {
       if ( this.actor.statuses.has("prone") ) {
@@ -396,7 +397,7 @@ export const TAGS = {
         && (this.tags.has("mainhand") || this.tags.has("offhand"));
       if ( canFreeReact ) {
         this.cost.focus = -Infinity;
-        this.usage.actorUpdates["system.status.gladiator"] = true;
+        this.usage.actorStatus.gladiator = true;
       }
     }
   },
@@ -454,7 +455,7 @@ export const TAGS = {
       }
     },
     async roll(target, rolls) {
-      this.usage.actorUpdates["system.status.hasCast"] = true;
+      this.usage.actorStatus.hasCast = true;
       const cast = await this.actor.castSpell(this, target);
       rolls.push(cast);
     }
@@ -981,7 +982,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
         if ( a.talentIds.has("pistoleer0000000") && !reloaded ) this.cost.action = 0;
       },
       async postActivate() {
-        this.usage.actorUpdates["system.status.reloaded"] = true;
+        this.usage.actorStatus.reloaded = true;
       }
     }
   },
@@ -1006,7 +1007,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     _hooks: {
       async postActivate(outcome) {
         if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
-          this.usage.actorUpdates["system.status.basicStrike"] = true;
+          this.usage.actorStatus.basicStrike = true;
         }
       }
     }

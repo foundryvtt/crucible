@@ -214,7 +214,7 @@ export default class CrucibleSpell extends CrucibleAction {
           this.cost.hands = 0;
           if ( s.rangedAttack && !s.arcaneArcher ) {
             this.cost.action -= 1;
-            this.usage.actorUpdates["system.status.arcaneArcher"] = true;
+            this.usage.actorStatus.arcaneArcher = true;
           }
         }
         break;
@@ -260,7 +260,7 @@ export default class CrucibleSpell extends CrucibleAction {
         // Spellblade Signature
         if ( t.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
           this.cost.action -= 1;
-          this.usage.actorUpdates["system.status.spellblade"] = true;
+          this.usage.actorStatus.spellblade = true;
         }
         break;
 

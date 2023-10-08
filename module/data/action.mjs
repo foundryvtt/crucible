@@ -27,8 +27,9 @@ import ActionUseDialog from "../dice/action-use-dialog.mjs";
 
 /**
  * @typedef {Object} ActionUsage
- * @property {object} actorUpdates          Actor data updates applied when this action is confirmed
- * @property {object} actorFlags            Actor flag updates applied by this action
+ * @property {object} actorStatus           Actor status updates applied when the action is confirmed
+ * @property {object} actorUpdates          Other non-status actor data updates applied when this action is confirmed
+ * @property {object} actorFlags            Actor flag updates applied when this action is used (not confirmed)
  * @property {Object<DiceBoon>} boons       Boons applied to this action
  * @property {Object<DiceBoon>} banes       Banes applied to this action
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
@@ -183,8 +184,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * @type {ActionUsage}
      */
     Object.defineProperty(this, "usage", {value: usage || {
-      actorUpdates: {},
       actorFlags: {},
+      actorStatus: {},
+      actorUpdates: {},
       bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, boons: 0, banes: 0},
       boons: {},
       banes: {},
@@ -673,8 +675,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor, [], applySelfEffects);
 
     // Record actor updates to apply
-    foundry.utils.mergeObject(self.actorUpdates, this.usage.actorUpdates);
-    self.actorUpdates["system.status.lastAction"] = this.id;
+    const u = self.actorUpdates;
+    foundry.utils.mergeObject(u, foundry.utils.expandObject(this.usage.actorUpdates));
+    u.system ||= {};
+    if ( u.system.status ) {
+      console.error(`Crucible | "system.status" key present in action.usage.actorUpdates: ${this.name}`);
+    }
+    u.system.status = Object.assign(u.system.status || {}, {lastAction: this.id},
+      foundry.utils.expandObject(this.usage.actorStatus));
 
     // Incur resource cost
     for ( const [k, v] of Object.entries(this.cost) ) {

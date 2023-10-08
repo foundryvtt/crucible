@@ -1917,7 +1917,7 @@ export default class CrucibleActor extends Actor {
     const actorUpdates = {};
     const actionCost = 0;
     if ( weapon.system.equipped ) itemUpdates.push({_id: weapon.id, "system.equipped": false});
-    if ( itemUpdates.length ) actorUpdates["system.status.unequippedWeapon"] = true;
+    if ( itemUpdates.length ) foundry.utils.setProperty(actorUpdates, "system.status.unequippedWeapon", true);
     return {itemUpdates, actionCost, actorUpdates};
   }
 
@@ -1966,11 +1966,11 @@ export default class CrucibleActor extends Actor {
     const actorUpdates = {};
 
     // Determine action cost
-    let actionCost = 1;
+    let actionCost = 3;
     if ( weapon.system.properties.has("ambush") ) actionCost -= 1;
     if ( this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
-      actionCost -= 1;
-      actorUpdates["system.status.hasMoved"] = true;
+      actionCost = 0;
+      foundry.utils.setProperty(actorUpdates, "system.status.hasMoved", true);
     }
     actionCost = Math.max(actionCost, 0);
     return {itemUpdates, actorUpdates, actionCost};

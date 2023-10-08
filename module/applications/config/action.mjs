@@ -100,6 +100,7 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
    */
   #prepareEffects() {
     return this.action.effects.map(effect => {
+      effect.statuses ||= [];
       return {...effect,
         placeholder: this.action.name,
         statuses: CONFIG.statusEffects.map(s => {

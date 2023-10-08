@@ -46,10 +46,9 @@ export default class CrucibleRuler extends Ruler {
   #computeCost() {
     const actor = this.#actor;
     if ( !actor ) return;
-    const {distance, units} = canvas.scene.grid;
-    this.#action.usage.distance = this.totalDistance / distance;
+    this.#action.usage.distance = this.totalDistance;
     SYSTEM.ACTION.TAGS.movement.prepare.call(this.#action);
-    this.#labels.distance = `${this.totalDistance.toNearest(0.01)} ${units}`;
+    this.#labels.distance = `${this.totalDistance.toFixed(2)} ${canvas.scene.grid.units}`;
     const ap = this.#action.cost.action;
     this.#labels.cost = ap > 0 ? `${ap}AP` : "Free";
   }
