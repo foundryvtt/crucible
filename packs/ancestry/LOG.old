@@ -1,3 +1,8 @@
-2023/10/07-14:35:01.595 15390 Recovering log #1144
-2023/10/07-14:35:01.598 15390 Delete type=0 #1144
-2023/10/07-14:35:01.598 15390 Delete type=3 #1142
+2023/10/07-20:18:49.122 277fc Recovering log #1147
+2023/10/07-20:18:49.125 277fc Delete type=0 #1147
+2023/10/07-20:18:49.125 277fc Delete type=3 #1146
+2023/10/07-20:37:03.391 fcf4 Level-0 table #1151: started
+2023/10/07-20:37:03.391 fcf4 Level-0 table #1151: 0 bytes OK
+2023/10/07-20:37:03.392 fcf4 Delete type=0 #1149
+2023/10/07-20:37:03.395 fcf4 Manual compaction at level-0 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)
+2023/10/07-20:37:03.396 fcf4 Manual compaction at level-1 from '!items!devilkin00000000' @ 72057594037927935 : 1 .. '!items!orcish0000000000' @ 0 : 0; will stop at (end)

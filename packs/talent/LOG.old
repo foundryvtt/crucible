@@ -1,3 +1,24 @@
-2023/10/07-14:35:01.653 15390 Recovering log #1243
-2023/10/07-14:35:01.657 15390 Delete type=0 #1243
-2023/10/07-14:35:01.657 15390 Delete type=3 #1241
+2023/10/07-20:18:49.173 277fc Recovering log #1247
+2023/10/07-20:18:49.173 277fc Level-0 table #1249: started
+2023/10/07-20:18:49.174 277fc Level-0 table #1249: 4968 bytes OK
+2023/10/07-20:18:49.177 277fc Delete type=0 #1247
+2023/10/07-20:18:49.177 277fc Delete type=3 #1246
+2023/10/07-20:37:03.406 fcf4 Level-0 table #1252: started
+2023/10/07-20:37:03.408 fcf4 Level-0 table #1252: 771 bytes OK
+2023/10/07-20:37:03.410 fcf4 Delete type=0 #1250
+2023/10/07-20:37:03.414 fcf4 Manual compaction at level-0 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!preparedness0000' @ 1944 : 1
+2023/10/07-20:37:03.414 fcf4 Compacting 2@0 + 0@1 files
+2023/10/07-20:37:03.415 fcf4 Generated table #1253@0: 7 keys, 4049 bytes
+2023/10/07-20:37:03.415 fcf4 Compacted 2@0 + 0@1 files => 4049 bytes
+2023/10/07-20:37:03.416 fcf4 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/10/07-20:37:03.416 fcf4 Delete type=2 #1249
+2023/10/07-20:37:03.416 fcf4 Delete type=2 #1252
+2023/10/07-20:37:03.418 fcf4 Manual compaction at level-0 from '!items!preparedness0000' @ 1944 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
+2023/10/07-20:37:03.419 fcf4 Manual compaction at level-1 from '!folders!08mOaWGw5rYKejer' @ 72057594037927935 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at '!items!vowofanimus00000' @ 1933 : 1
+2023/10/07-20:37:03.419 fcf4 Compacting 1@1 + 1@2 files
+2023/10/07-20:37:03.422 fcf4 Generated table #1254@1: 214 keys, 99639 bytes
+2023/10/07-20:37:03.422 fcf4 Compacted 1@1 + 1@2 files => 99639 bytes
+2023/10/07-20:37:03.422 fcf4 compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/10/07-20:37:03.422 fcf4 Delete type=2 #1245
+2023/10/07-20:37:03.422 fcf4 Delete type=2 #1253
+2023/10/07-20:37:03.426 fcf4 Manual compaction at level-1 from '!items!vowofanimus00000' @ 1933 : 1 .. '!items!zealoussmite0000' @ 0 : 0; will stop at (end)
