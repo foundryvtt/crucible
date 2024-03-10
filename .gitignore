@@ -11,3 +11,4 @@ node_modules/
 # Foundry VTT
 crucible.lock
 signature.json
+packs/
