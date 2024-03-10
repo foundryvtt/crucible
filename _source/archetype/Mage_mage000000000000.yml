@@ -1,0 +1,37 @@
+name: Mage
+type: archetype
+img: icons/magic/fire/barrier-wall-flame-ring-blue.webp
+system:
+  description: A magic user which wields flame and electricity in battle.
+  abilities:
+    wisdom: 3
+    presence: 4
+    intellect: 5
+    strength: 2
+    toughness: 2
+    dexterity: 2
+  talents:
+    - Compendium.crucible.talent.Item.runeflame0000000
+    - Compendium.crucible.talent.Item.runelightning000
+    - Compendium.crucible.talent.Item.gesturefan000000
+    - Compendium.crucible.talent.Item.gesturearrow0000
+    - Compendium.crucible.talent.Item.counterspell0000
+    - Compendium.crucible.talent.Item.recognizespellcr
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685656712818
+  modifiedTime: 1685738625970
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: mage000000000000
+sort: 0
+_key: '!items!mage000000000000'
+

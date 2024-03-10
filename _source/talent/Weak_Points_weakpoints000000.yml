@@ -1,0 +1,28 @@
+name: Weak Points
+type: talent
+_id: weakpoints000000
+img: icons/skills/melee/strike-sword-stabbed-brown.webp
+system:
+  node: dex1a
+  description: >-
+    You identify moments of opportunity to strike at an enemy's weak points.
+    When attacking a target that is <strong>Unaware</strong>,
+    <strong>Flanked</strong>, or <strong>Exposed</strong> using Finesse
+    weaponry, you gain +2 damage to any Strike.
+  actions: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.6
+  coreVersion: '12.317'
+  createdTime: 1675006594889
+  modifiedTime: 1688234584724
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: F5y85kE9ocaa5R4R
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!weakpoints000000'
+

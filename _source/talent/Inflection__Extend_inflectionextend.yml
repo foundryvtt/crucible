@@ -1,0 +1,39 @@
+name: 'Inflection: Extend'
+type: talent
+img: icons/magic/time/clock-stopwatch-white-blue.webp
+system:
+  node: preint1
+  description: >-
+    <p>Enhance the duration of a spell, increasing the duration of its effect.
+    For spells which are instantaneous, any corresponding status conditions that
+    they cause are increased in duration.</p>
+
+    <section class="construction">
+
+    <p>Effect duration increases from the Extend inflection are not yet
+    automated in Playtest 1. This inflection is included as an example of the
+    intended direction for the Spellcraft system.</p>
+
+    </section>
+  actions: []
+  inflection: extend
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.inflectionextend
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675016923097
+  modifiedTime: 1686254753643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: inflectionextend
+folder: mFfsius4gpT45Q2R
+sort: 200000
+_key: '!items!inflectionextend'
+

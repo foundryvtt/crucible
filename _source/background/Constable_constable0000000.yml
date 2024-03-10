@@ -1,0 +1,32 @@
+_id: constable0000000
+name: Constable
+type: background
+img: icons/tools/scribal/magnifying-glass.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    You were part of a law enforcement organization. You learned how to remain
+    vigilant to your surroundings, work within complex social structures, and
+    affect an imposing presence.
+  skills:
+    - awareness
+    - pathfinding
+    - society
+    - intimidation
+  talents:
+    - Compendium.crucible.talent.Item.intimidator00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420032
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!constable0000000'
+

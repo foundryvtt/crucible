@@ -1,7 +1,0 @@
-2023/10/08-14:48:09.665 21308 Recovering log #530
-2023/10/08-14:48:09.668 21308 Delete type=0 #530
-2023/10/08-14:48:09.668 21308 Delete type=3 #528
-2023/10/08-16:08:04.811 1a3e4 Level-0 table #535: started
-2023/10/08-16:08:04.811 1a3e4 Level-0 table #535: 0 bytes OK
-2023/10/08-16:08:04.812 1a3e4 Delete type=0 #533
-2023/10/08-16:08:04.813 1a3e4 Manual compaction at level-0 from '!folders!6Up7ddrphLept3RW' @ 72057594037927935 : 1 .. '!items!tusker0000000000' @ 0 : 0; will stop at (end)

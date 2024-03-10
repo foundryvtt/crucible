@@ -1,0 +1,17 @@
+name: Light
+sorting: m
+folder: null
+type: Item
+_id: kjHb0FCE2nJe6Dtx
+sort: -100000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1676343855163
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!kjHb0FCE2nJe6Dtx'
+

@@ -1,0 +1,33 @@
+folder: Md0gbb0qzKkjEDju
+name: Mental Fortress
+type: talent
+img: icons/magic/holy/barrier-shield-winged-blue.webp
+system:
+  node: pre2a
+  description: >-
+    Your strong will makes you exceedingly difficult to influence. You gain +1
+    to your Willpower defense and +5 Psychic resistance.
+  actions: []
+  actorHooks:
+    - hook: prepareResistances
+      fn: resistances.psychic.base += 5;
+    - hook: prepareDefenses
+      fn: defenses.willpower.bonus += 1;
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.mentalfortress00
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1676169451542
+  modifiedTime: 1685147386853
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: mentalfortress00
+sort: 100000
+_key: '!items!mentalfortress00'
+

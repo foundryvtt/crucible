@@ -1,0 +1,34 @@
+name: Sling
+type: weapon
+img: icons/weapons/slings/slingshot-wood.webp
+system:
+  category: projectile1
+  quantity: 1
+  weight: 2
+  price: 20
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reliable
+  damageType: bludgeoning
+  slot: 0
+effects: []
+folder: Pe27j9LY8Nmygkqt
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1688923969559
+  modifiedTime: 1688924097633
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: sling00000000000
+sort: 0
+_key: '!items!sling00000000000'
+

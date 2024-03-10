@@ -1,0 +1,38 @@
+name: 'Gesture: Influence'
+type: talent
+img: icons/magic/light/orbs-firefly-hand-yellow.webp
+system:
+  node: pre1b
+  description: >-
+    <p>Intensify an arcane phenomenon at close range. Influence could be used
+    with the Flame rune to set a target ablaze or with the Stasis rune to sap
+    their Morale.</p>
+
+    <p>The Influence gesture is a more powerful evolution of the basic Touch
+    gesture that is learned with any Rune.</p>
+
+    <p>The Influence gesture scales using <strong>Presence</strong> and targets
+    a <strong>single</strong> adjacent creature, dealing 12 base damage on a
+    successful attack.</p>
+  actions: []
+  gesture: influence
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gestureinfluence
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686255817791
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gestureinfluence
+folder: D14x9AJ0TgXKtnzu
+sort: 500000
+_key: '!items!gestureinfluence'
+

@@ -1,0 +1,32 @@
+_id: performer0000000
+name: Performer
+type: background
+img: icons/skills/movement/ball-spinning-blue.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    You were a travelling entertainer. You learned to be comfortable attending a
+    variety of social functions, how to play to your audience, embellishing
+    details of your performance to evoke particular emotional responses.
+  skills:
+    - society
+    - deception
+    - diplomacy
+    - performance
+  talents:
+    - Compendium.crucible.talent.Item.inspireheroism00
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420030
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!performer0000000'
+

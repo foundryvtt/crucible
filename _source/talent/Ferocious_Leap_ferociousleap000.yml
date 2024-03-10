@@ -1,0 +1,53 @@
+name: Ferocious Leap
+type: talent
+_id: ferociousleap000
+img: icons/magic/movement/portal-vortex-orange.webp
+system:
+  node: toustr1
+  description: >-
+    You leap powerfully into battle to deliver a punishing blow to a nearby
+    enemy.
+  actions:
+    - id: ferociousLeap
+      description: >-
+        You leap up to 10 feet and perform a Strike against an enemy within
+        melee range of where you land. Your movement ignores difficult terrain
+        and is not blocked by enemy creatures.
+      tags:
+        - mainhand
+        - melee
+        - movement
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      condition: ''
+      range:
+        maximum: 10
+        weapon: true
+        minimum: 4
+      actionHooks: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674960403832
+  modifiedTime: 1696791664586
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: MqZKCMx5KrZQffGU
+sort: 125000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!ferociousleap000'
+

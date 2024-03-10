@@ -1,7 +1,0 @@
-2023/10/07-20:18:49.116 45bbc Recovering log #448
-2023/10/07-20:18:49.119 45bbc Delete type=0 #448
-2023/10/07-20:18:49.119 45bbc Delete type=3 #447
-2023/10/07-20:37:03.389 fcf4 Level-0 table #452: started
-2023/10/07-20:37:03.390 fcf4 Level-0 table #452: 0 bytes OK
-2023/10/07-20:37:03.391 fcf4 Delete type=0 #450
-2023/10/07-20:37:03.394 fcf4 Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)

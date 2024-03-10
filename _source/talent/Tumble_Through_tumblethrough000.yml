@@ -1,0 +1,60 @@
+folder: MqZKCMx5KrZQffGU
+name: Tumble Through
+type: talent
+img: icons/skills/movement/ball-spinning-blue.webp
+system:
+  node: dex2c
+  description: >-
+    You can use your athleticism in dangerous situations to escape harm or
+    bypass enemy combatants.
+  actions:
+    - id: tumble
+      name: Tumble
+      description: >-
+        <p>Make a <strong>Pathfinding</strong> skill Attack against an adjacent
+        enemy contested by your target's <strong>Reflex</strong> defense.</p>
+
+        <p>On a success you may move up to twice your <strong>Stride</strong>,
+        including the ability to pass through your target enemy's space, without
+        provoking any <strong>Disengagement</strong> reactions.</p>
+
+        <p>On a failure your movement is blocked and your remain in your current
+        position.</p>
+      tags:
+        - harmless
+        - reflex
+        - pathfinding
+      cost:
+        action: 3
+        focus: 0
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 2
+      effects: []
+      img: null
+      condition: ''
+      range:
+        maximum: 6
+        weapon: false
+      actionHooks: []
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.tumblethrough000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677967995645
+  modifiedTime: 1696793535553
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: tumblethrough000
+sort: -400000
+_key: '!items!tumblethrough000'
+

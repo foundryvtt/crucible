@@ -1,0 +1,30 @@
+folder: mFfsius4gpT45Q2R
+name: 'Inflection: Elude'
+type: talent
+_id: inflectionelude0
+img: icons/magic/movement/trail-streak-zigzag-teal.webp
+system:
+  node: dex2a
+  description: >-
+    <p>Enhance a spell to make it more difficult for an enemy to retaliate
+    against its casting. This spell does not provide any opportunity to make
+    reactions that involve Strike attacks, regardless of the results of the
+    spell.</p>
+  actions: []
+  inflection: eluding
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1686255677273
+  modifiedTime: 1686357160494
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!inflectionelude0'
+

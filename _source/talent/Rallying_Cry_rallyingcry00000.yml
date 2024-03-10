@@ -1,0 +1,52 @@
+name: Rallying Cry
+type: talent
+img: icons/creatures/abilities/mouth-teeth-human.webp
+system:
+  node: pre1a
+  description: >-
+    You are a battlefield leader, using your presence and voice to harden the
+    resolve of your allies.
+  actions:
+    - id: rallyingCry
+      description: >-
+        You emit a courageous bellow that inspires Allies within 3 spaces of you
+        to remain stalwart in the face of danger. You perform an Intimidation
+        skill test against the Madness threshold of your allies. On a success,
+        affected allies become Resolute for one Round.
+      tags:
+        - intimidation
+        - rallying
+        - harmless
+      cost:
+        action: 1
+        focus: 1
+      target:
+        type: pulse
+        number: 1
+        distance: 3
+        scope: 2
+      effects:
+        - duration:
+            rounds: 1
+          statuses:
+            - resolute
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.rallyingcry00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675737507781
+  modifiedTime: 1686188740522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: rallyingcry00000
+folder: 2MFixpDJ379KOogE
+sort: -75000
+_key: '!items!rallyingcry00000'
+

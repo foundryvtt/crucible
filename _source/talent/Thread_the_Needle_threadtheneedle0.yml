@@ -1,0 +1,55 @@
+name: Thread the Needle
+type: talent
+_id: threadtheneedle0
+img: icons/skills/ranged/projectile-spiral-gray.webp
+system:
+  node: intdex1
+  description: >-
+    You concentrate to fire a shot into the swirl of melee. This attack benefits
+    from <strong>Flanking</strong> as if it were a melee attack.
+  actions:
+    - id: threadTheNeedle
+      name: ''
+      img: null
+      condition: ''
+      description: >-
+        You fire a precise shot into melee combat, targeting an enemy which is
+        engaged by one of your allies.
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      range:
+        maximum: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      tags:
+        - mainhand
+        - ranged
+      actionHooks:
+        - hook: roll
+          fn: >-
+            const boons = this.actor.applyTargetBoons(target, this, "weapon",
+            false).boons;
+
+            if ( boons.flanked ) rolls[0].data.boons.flanked = boons.flanked;
+effects: []
+folder: i7P1uwWcECj5KWfY
+sort: -300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1688235930869
+  modifiedTime: 1696795169778
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!threadtheneedle0'
+

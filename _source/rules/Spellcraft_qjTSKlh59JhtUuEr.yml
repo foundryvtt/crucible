@@ -1,0 +1,462 @@
+folder: MMeWpMmsLOblp07U
+name: Spellcraft
+_id: qjTSKlh59JhtUuEr
+pages:
+  - sort: 100000
+    name: Spellcraft Overview
+    type: text
+    _id: X8XCei6YrpnGyFc2
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Spellcraft</strong> is the particular art and theory of magic
+        as implemented in the Crucible system. Proficiecy with spellcraft
+        advances through Talents that are learned as part of character
+        progression. The Crucible spellcraft system is designed to be dynamic
+        and generative, allowing players who wish to focus their character on
+        spellcasting to improvise and discover effective combinations and
+        applications for their magical abilities.</p><section
+        class="construction"><p>The Spellcraft system is still a
+        work-in-progress and, while functional, is expected to undergo
+        substantial revision and iteration in future Crucible releases. The
+        implementation of the Spellcraft system in Playtest One should provide
+        insight into its mechanics and planned functionality.</p></section><h2
+        class="divider">Masterful Composition</h2><p>Spellcraft allows
+        characters to manifest magic by composing a spell using a
+        @UUID[.p3hKRiZN3x0DEtyG]{Rune}, @UUID[.lhrYInsQ2f0YfhTu]{Gesture}, and
+        optionally an
+        @UUID[.ELOcfx6LPZMh74y8]{Inflection}.</p><ul><li><p><strong>Runes</strong>
+        represent the base magical essence (such as Spirit or Flame),
+        metaphysical concepts that combine to form the laws of
+        reality.</p></li><li><p><strong>Gestures</strong> represent the forming
+        of the rune into a spell, using physical motion as a somatic component
+        which shape (such as Create or Arrow) a Rune's power, causing it to act
+        in a specific way.</p></li><li><p><strong>Inflections</strong> represent
+        a further change or modification (such as Quicken or Pull), and use
+        vocalization to alter how a spell is formed.</p></li></ul><p>As your
+        character learns Talents which provide Spellcraft components, these
+        components will appear on the Grimoire tab of your character sheet and
+        become usable through the <strong>Cast a Spell</strong> action. The
+        process of learning components and discovering new spell combinations is
+        intended to provide a rewarding experience of magical experimentation
+        and narrative development for characters which invest into
+        Spellcraft.</p><p>It is useful to think of the rules and structure of
+        the Spellcraft system linguistically. If you think of a spell as a
+        sentence, each spell must have a Rune (noun) and a Gesture (verb), and
+        may optionally include an Inflection (adjective/adverb) that modifies
+        either.</p><p>Spells which attack an opponent follow the rules of
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.lZfPVvBSsCEqlte4]{Attack
+        Rolls}, with changes to the Ability Bonus and Base Damage of the attack
+        depending on the combination of Rune and Gesture used.</p><section
+        class="gameplay"><h4>Example: Zarajah the Pyromancer</h4><p>Zarajah is
+        an ambitious Level 6 sorcerer who strives to master the arts of
+        elemental magic. Zarajah knows the runes for <strong>Flame</strong>,
+        <strong>Kinesis</strong>, and <strong>Lightning</strong> as well as
+        gestures for <strong>Touch</strong> (automatically learned),
+        <strong>Influence</strong>, and <strong>Arrow</strong>. Additionally,
+        Zarajah has also learned the <strong>Quicken</strong> inflection. Using
+        these components, Zarajah has access to 18 different combinations which
+        form Spells.</p><p>Zarajah's favorite spell is <strong>Quickened Arrow
+        of Flame</strong> which allows her to hurl a projectile of arcane fire
+        at a single target up to 10 spaces distant at the cost of <strong>1
+        Action</strong> and <strong>2 Focus</strong> points. The Flame rune
+        targets <strong>Reflex</strong> defense and deals <strong>Fire
+        Damage</strong> to <strong>Health</strong>. Arrow and Flame both scale
+        using <strong>Intellect</strong>, so the effectiveness of this spell
+        scales using only Intellect as a single ability score.</p><p>When
+        Zarajah casts a <strong>Quickened Arrow of Flame</strong> towards a
+        swooping Manticore, she rolls a <strong>28</strong> on her spell attack
+        roll, beating the Manticore's Reflex defense of <strong>21</strong>.
+        This <strong>7 Overflow Damage</strong> is increased by the <strong>10
+        Base Damage</strong> of the Arrow gesture, resulting in a total of
+        <strong>17 Fire Damage</strong> dealt to the foe.</p><p>Since this
+        attack is also a Critical Hit, the Manticore bursts into flame due to
+        Zarajah's <strong>Pyromancer</strong> talent which inflicts the
+        <strong>Burning</strong> condition causing additional
+        damage-over-time.</p></section><h2>The Cost of Magic</h2><p>Every magic
+        spell has a cost- whether used within a combat situation or for
+        out-of-combat benefits. Generally, this cost is paid in the form of
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FmmADsI9qo1uIIT3#capacity-for-action]{Focus
+        Points}, though in some situations the cost may use other resources or
+        have other requirements.</p><p>As you construct your spells, the cost of
+        the spell in Action Points and Focus Points may change based on your
+        choice of @UUID[.p3hKRiZN3x0DEtyG]{Rune},
+        @UUID[.lhrYInsQ2f0YfhTu]{Gesture} and
+        @UUID[.ELOcfx6LPZMh74y8]{Inflection}.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684374993517
+      modifiedTime: 1686261047076
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.X8XCei6YrpnGyFc2'
+  - sort: 200000
+    name: Runes
+    type: text
+    _id: p3hKRiZN3x0DEtyG
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Runes are the most basic metaphysical concept of magic. They are
+        forces of nature, the building blocks of reality as we understand it.
+        Understanding the Runes and their place in the way the world functions
+        allows those with sufficient training to exert a level of influence over
+        the Runes, using @UUID[.lhrYInsQ2f0YfhTu]{Gestures} to manifest powerful
+        displays of magical prowess.</p><p>There are six Chaotic Runes and six
+        Orderly Runes, forming a natural opposition to one another. Lesser Runes
+        which are more closely associated with tangible, elemental forces (such
+        as Flame and Frost, Life and Death), and Greater Runes which represent
+        more abstract forces (such as Control and Spirit, Kinesis and
+        Stasis).</p><h2 class="divider">Chaotic Runes</h2><p><strong>Lesser
+        Runes</strong></p><ul><li><p>Flame - The chaotic force of elemental,
+        thermal energy. The Flame rune governs fire and heat. It is opposed by
+        the orderly rune of Frost.</p></li><li><p>Life - The chaotic force of
+        creation, responsible for all living matter. The Life rune governs
+        health and matters relating to biological growth. It is opposed by the
+        orderly rune of Death.</p></li><li><p>Lightning - The chaotic force of
+        raw, electrical energy. The Lightning rune governs sources of electrical
+        energy and electrical discharge. It is opposed by the orderly rune of
+        Earth.</p></li></ul><p><strong>Greater
+        Runes</strong></p><ul><li><p>Illumination - The chaotic force of light
+        and positive energy. The Illumination rune governs light and all of its
+        properties. It is opposed by the orderly rune of
+        Shadow.</p></li><li><p>Spirit - The chaotic force of emotion and
+        willfulness. The Spirit rune governs matters related to emotional
+        well-being as well as the soul. It is opposed by the orderly rune of
+        Control.</p></li><li><p>Kinesis - The chaotic force of space and
+        physical movement. The Kinesis rune governs all things related to the
+        act of movement and physicality. It is opposed by the orderly rune of
+        Stasis.</p></li></ul><h2 class="divider">Orderly
+        Runes</h2><p><strong>Lesser Runes</strong></p><ul><li><p>Death - The
+        orderly force of destruction, responsible for the decay of all matter.
+        The Death rune governs decay and destruction. It is opposed by the
+        chaotic rune of Life.</p></li><li><p>Earth - The orderly force of
+        elemental earth, responsible for physical matter. The Earth rune governs
+        health and matters relating to biological growth. It is opposed by the
+        chaotic rune of Lightning.</p></li><li><p>Frost - The orderly force of
+        elemental, thermal energy. The Frost rune governs sources of ice and
+        cold. It is opposed by the chaotic rune of
+        Flame.</p></li></ul><p><strong>Greater
+        Runes</strong></p><ul><li><p>Control - The orderly force of discipline
+        and the mind. The Control rune governs thought, logic and reason. It is
+        opposed by the chaotic rune of Spirit.</p></li><li><p>Shadow - The
+        orderly force of darkness and negative energy. The Shadow rune governs
+        darkness and all of its properties. It is opposed by the chaotic rune of
+        Illumination.</p></li><li><p>Stasis - The orderly force of immutability
+        and potential energy. The Stasis rune governs all things related to
+        permanence and resistance to change. It is opposed by the chaotic rune
+        of Kinesis.</p></li></ul><h2 class="divider">Runic Mechanics</h2><p>The
+        choice of Rune used in the casting of a spell affects or determines a
+        variety of aspects of the resulting spellcraft.</p><ul><li><p>The
+        conceptual essence of the magic.</p></li></ul><ul><li><p>Which other
+        Rune is in opposition to this Spell.</p></li><li><p>One
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Ability
+        Score} which defines half of the Spell Attack scaling
+        formula.</p></li><li><p>The
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.alkVSDmt0ec5HBfE]{Defense}
+        against which the spell is tested.</p></li><li><p>A
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.FmmADsI9qo1uIIT3]{Resource}
+        the spell affects.</p></li><li><p>The
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.XDx0e2rZWcHLcfBt#damage-types]{Damage
+        Type} that is dealt by the spell.</p></li></ul><p>The Runes in the
+        Crucible system have the following Damage Types, Target Defenses, and
+        Opposed Runes:</p><table><tbody><tr><th><p>Intellect
+        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runemind00000000]{Control}</p></td><td><p>Psychic</p></td><td><p>Willpower</p></td><td><p>Spirit</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runedeath0000000]{Death}</p></td><td><p>Corruption</p></td><td><p>Fortitude</p></td><td><p>Life</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeflame0000000]{Flame}</p></td><td><p>Fire</p></td><td><p>Reflex</p></td><td><p>Frost</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runelightning000]{Lightning}</p></td><td><p>Electricity</p></td><td><p>Reflex</p></td><td><p>Earth</p></td></tr><tr><th><p>Presence
+        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeradiance0000]{Illumination}</p></td><td><p>Radiant</p></td><td><p>Willpower</p></td><td><p>Shadow</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runekinesis00000]{Kinesis}</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Stasis</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runevoid00000000]{Shadow}</p></td><td><p>Void</p></td><td><p>Fortitude</p></td><td><p>Illumination</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runecourage00000]{Spirit}</p></td><td><p>Psychic*</p></td><td><p>Willpower</p></td><td><p>Control</p></td></tr><tr><th><p>Wisdom
+        Runes</p></th><th><p>Damage Type</p></th><th><p>Target
+        Defense</p></th><th><p>Opposition</p></th></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runeearth0000000]{Earth}</p></td><td><p>Acid</p></td><td><p>Reflex</p></td><td><p>Lightning</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runefrost0000000]{Frost}</p></td><td><p>Cold</p></td><td><p>Fortitude</p></td><td><p>Flame</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runelife00000000]{Life}</p></td><td><p>Poison*</p></td><td><p>Fortitude</p></td><td><p>Death</p></td></tr><tr><td><p>@UUID[Compendium.crucible.talent.Item.runetime00000000]{Stasis}</p></td><td><p>Physical</p></td><td><p>Physical</p></td><td><p>Kinesis</p></td></tr></tbody><tfoot><tr><td
+        colspan="4">* - Rune is used primarily for Restoration rather than for
+        Damage.</td></tr></tfoot></table>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.3
+      coreVersion: '12.317'
+      createdTime: 1684375014492
+      modifiedTime: 1687026223560
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.p3hKRiZN3x0DEtyG'
+  - sort: 300000
+    name: Gestures
+    type: text
+    _id: lhrYInsQ2f0YfhTu
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Gestures are the physical, somatic components required to invoke a
+        rune for Spellcraft purposes. Gestures determine the shape a spell will
+        take as it is translated from the raw magical energies governed by a
+        Rune into a manifestation of that power. Gestures set particular
+        properties of a magical spell, usually the cost in Action and Focus
+        points, range (or size), targeting type, and shape. Gestures also
+        determine one-half of the scaling damage formula, with Rune as the other
+        half.</p><h2>Arrow</h2><p><em>1 Hand, 2 Action, 1 Focus</em></p><p>Hurl
+        a projectile of magical power at a distant target. This might use the
+        Lightning Rune to hurl a lightning bolt, or the Shadow rune to hurl a
+        ball of devouring darkness.</p><h2>Aspect</h2><p><em>1 Hand, 2 Action, 1
+        Focus</em></p><p>Infuse the essence of a Rune into the self, empowering
+        the physical form or psyche.</p><p>When you assume a certain Aspect, you
+        become more closely attuned to the damage type of the Rune used in your
+        spell. You gain <strong>+2 Resistance</strong> to that damage type, and
+        deal an additional <strong>+2 Damage</strong> whenever dealing damage of
+        that type.</p><h2>Create</h2><p><em>2 Hands, 2 Action, 1
+        Focus</em></p><p>Coalesce arcane power into tangible form, conjuring a
+        <strong>Creation</strong> which appears in an adjacent space and joins
+        Combat at Initiative 1.</p><p>Your Creation is a Minion of half your own
+        Level chosen from the Summoned Creatures compendium pack corresponding
+        to the Rune used in the spell.</p><h2>Fan</h2><p><em>1 Hand, 2 Action, 1
+        Focus</em></p><p>Focus the essence of a rune into a sweeping or
+        splintered arc to strike multiple targets in close proximity. If used
+        with Earth, this might hurl a spray of stone in an arc, while using it
+        with Kinesis might carve a slice across multiple
+        foes.</p><h2>Influence</h2><p><em>1 Hand, 2 Action, 1
+        Focus</em></p><p>Channel concentrated arcane energy through a single
+        target via touch. If used with the rune of Life this would create a
+        powerful healing effect, while used with the touch of Lightning would
+        provide a powerful jolt of Electrical damage.</p><h2>Pulse</h2><p><em>2
+        Hands, 2 Action, 1 Focus</em></p><p>Emit a burst of Runic power in a
+        circular wave that travels outward, with you at its center. A Pulse of
+        Spirit might be used to bolster Morale for your allies, while a Death
+        pulse might be used to deal Corruption damage to a group of enemies
+        gathered around you.</p><h2>Ray</h2><p><em>1 Hand, 2 Action, 1
+        Focus</em></p><p>Focus the power of a Rune into a single point,
+        expelling its energy into a ranged beam which rapidly travels a short
+        distance to a targeted area. If used with Life this might restore the HP
+        of a distant ally steadily over time, while Frost might emit a beam that
+        freezes a target in place.</p><h2>Step</h2><p><em>0 Hands , 1 Action, 1
+        Focus</em></p><p>Infuse runic power into a movement, crossing physical
+        and spatial boundaries. Move 4 spaces in a straight line, dealing minor
+        damage to enemies or applying restoration to allies in your
+        path.</p><h2>Strike</h2><p><em>0 Hands, 2 Action, 1
+        Focus</em></p><p>Empower a close-range attack with the essence of a
+        Rune. This rune performs a melee weapon attack targeting the defense and
+        dealing damage of the Rune used in the spell.</p><h2>Touch</h2><p><em>1
+        Hand, 1 Action, 1 Focus</em></p><p>Manifest the power of a Rune to pass
+        its essence through physical contact. Used with Death this might deal
+        damage to a target within arm's reach, while using it with Control might
+        cause the target you touch to do your bidding.</p><h2>Ward</h2><p><em>1
+        Hand, 1 Action, 1 Focus</em></p><p>Focus the power of a Rune into a
+        protective barrier, shielding yourselves and others from harmful
+        effects. When used with the Kinesis rune the Ward reduces incoming
+        damage from a chosen physical damage type while combination with the
+        Death rune protects against Corruption damage.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.6
+      coreVersion: '12.317'
+      createdTime: 1684375020833
+      modifiedTime: 1688315548834
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.lhrYInsQ2f0YfhTu'
+  - sort: 400000
+    name: Inflections
+    type: text
+    _id: ELOcfx6LPZMh74y8
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Inflections are optional verbal components that modify spell effects,
+        often amplifying or substituting certain properties a spell may have.
+        Inflections can alter nearly any property that a Rune or Gesture
+        provides to a spell, and may have additional effects on the spell's
+        purpose.</p><section class="construction"><p>While some inflections have
+        been implemented for Playtest 1, more Inflections are intended for
+        future phases. Some of the Inflections listed below may not be fully
+        implemented or automated at this
+        time.</p></section><h2>Compose</h2><p><em><strong>(+1 Action, -1
+        Focus)</strong></em></p><p>Enhance a spell by taking extra time in its
+        formation, reducing other resource costs in exchange. The Compose
+        inflection reduces the <strong>Focus</strong> cost of a spell by 1 while
+        increasing its <strong>Action</strong> cost by 1 in
+        exchange.</p><h2>Determine</h2><p><em><strong>(+1
+        Focus)</strong></em></p><p>Enhance a spell to make it more difficult to
+        counter. Any attempt to Counter-Spell this spell is made with +2
+        Banes.</p><h2>Extend</h2><p><em><strong>(+1 Action, +1
+        Focus)</strong></em></p><p>Enhance the duration of a spell, increasing
+        the duration of its effect. For spells which are instantaneous, any
+        corresponding status conditions that they cause are increased in
+        duration.</p><section class="construction"><p>Effect duration increases
+        from the Extend inflection are not yet automated in Playtest 1. This
+        inflection is included as an example of the intended direction for the
+        Spellcraft system.</p></section><h2>Elude</h2><p><em><strong>(+1
+        Focus)</strong></em></p><p>Enhance a spell to make it more difficult for
+        an enemy to retaliate against its casting. This spell does not provide
+        any opportunity to make reactions that involve Strike attacks,
+        regardless of the results of the
+        spell.</p><h2>Negate</h2><p><em><strong>(+1
+        Focus)</strong></em></p><p>Invert the effect of a spell. An Inverted
+        Life Touch spell which normally heals a target deals Poison damage
+        instead. An Inverted Death Ward spell inflicts vulnerability to
+        Corruption damage upon an adjacent enemy.</p><section
+        class="construction"><p>The effects of the Negate inflection are not yet
+        automated for Playtest 1. This inflection is included as an example of
+        the intended direction for the Spellcraft
+        system.</p></section><h2>Pull</h2><p><em><strong>(+1
+        Focus)</strong></em></p><p>Empower a spell to attract affected creatures
+        toward the caster. Creatures affected by a spell with the Pull
+        inflection move 1 space closer towards the spellcaster if that
+        destination space is unoccupied.</p><h2>Push</h2><p><em><strong>(+1
+        Focus)</strong></em></p><p>Empower a spell to repel affected creatures
+        away from the caster. Creatures affected by a spell with the Push
+        inflection move 1 space away from the spellcaster if that destination
+        space is unoccupied.</p><h2>Quicken</h2><p><em><strong>(-1 Action, +1
+        Focus)</strong></em></p><p>Enhance a spell by hastening the speed with
+        which it can be cast, at the expense of increased Focus. The Quicken
+        inflection reduces the <strong>Action</strong> cost of a spell by 1
+        while increasing its <strong>Focus</strong> cost by 1 in exchange.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684375027780
+      modifiedTime: 1686357166636
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.ELOcfx6LPZMh74y8'
+  - sort: 500000
+    name: Iconic Spells
+    type: text
+    _id: IP3VYtuMPiMYNqhT
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Crucible features a variety of Iconic Spells which can be discovered
+        when combining certain Rune, Gesture, and Inflection combinations
+        thUnder construction block that explains the high-level concept of
+        iconic spells - certain combinations of Rune + Gesture + Inflection
+        trigger an iconic combo which have special effects above and beyond what
+        the auto-generated spell would be.</p><section
+        class="construction"><p>Iconic Spells have not been included in this
+        playtest.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684375035098
+      modifiedTime: 1686193904976
+      lastModifiedBy: JMECHdsPmLGGi1RC
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.IP3VYtuMPiMYNqhT'
+  - sort: 600000
+    name: Countermagic
+    type: text
+    _id: W8Yx6CtcNKCuw3cq
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Countermagic is the art of magical defence, weaving opposing
+        spellcraft to negate the spell being cast by an opponent. Constructing a
+        proper counterspell requires a degree of magical knowledge and an
+        ability to process that knowledge in an asymmetric way, as you may not
+        always have all the information needed to build your opposition
+        correctly. Someone with a deep understanding of magic may be able to
+        easily identify the telltale signs of specific Runes being used,
+        identify a gesture, or interpret an inflection and glean the purpose of
+        a spell. Someone practiced in Countermagic may find unique ways to
+        disrupt a spell being cast, including sapping the magical energies from
+        it at inception.</p><section class="construction"><p>The Counterspell
+        sub-system has not been included in this playtest.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684973762830
+      modifiedTime: 1686193770669
+      lastModifiedBy: JMECHdsPmLGGi1RC
+    _key: '!journal.pages!qjTSKlh59JhtUuEr.W8Yx6CtcNKCuw3cq'
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalSheet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.6
+  coreVersion: '12.317'
+  createdTime: 1684374985562
+  modifiedTime: 1688315548834
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 107032
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!qjTSKlh59JhtUuEr'
+

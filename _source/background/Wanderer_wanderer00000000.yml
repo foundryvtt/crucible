@@ -1,0 +1,34 @@
+_id: wanderer00000000
+name: Wanderer
+type: background
+img: icons/environment/wilderness/portal.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    Yours has been an itinerant life. You enjoy nothing more than the feeling of
+    a cart or mount below you, watching some foreign sky slowly pass above you.
+    You learned to pay careful attention to your surroundings and their needs,
+    to tend the creatures on which you rely, and to make do with what you can
+    find.
+  skills:
+    - awareness
+    - survival
+    - naturalism
+    - beastcraft
+  talents:
+    - Compendium.crucible.talent.Item.perspicacity0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420012
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!wanderer00000000'
+

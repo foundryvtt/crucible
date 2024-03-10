@@ -1,0 +1,44 @@
+name: Concussive Blows
+type: talent
+_id: concussiveblows0
+img: icons/skills/melee/strike-hammer-destructive-orange.webp
+system:
+  node: str2b
+  description: >-
+    <p>Your physical power wielding melee weapons which deal Bludgeoning damage
+    can cause the <strong>Staggered</strong> condition on Critical Hits which
+    deal damage to Health.</p>
+
+    <p>The Staggered effect lasts for 1 round and reduces your target's maximum
+    Action by 1.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Must damage health
+        const damageHealth = outcome.resources.health < 0;
+        if ( !damageHealth ) return;
+
+        // Must deal bludgeoning damage
+        const dt = action.usage.weapon?.system.damageType;
+        if ( dt !== "bludgeoning" ) return;
+
+        // Apply stagger
+        const stagger = SYSTEM.EFFECTS.staggered(actor, outcome.target);
+        outcome.effects.push(stagger);
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1676756257189
+  modifiedTime: 1688827683206
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!concussiveblows0'
+

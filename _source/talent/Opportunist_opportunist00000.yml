@@ -1,0 +1,29 @@
+name: Opportunist
+type: talent
+_id: opportunist00000
+img: icons/skills/melee/spear-tips-three-green.webp
+system:
+  node: dex1a
+  description: >-
+    <p>You sieze any opportunity you can to capitalize on an enemy who turns
+    their back on you. You may make a <strong>Disengagement Attack</strong> even
+    if you are otherwise <strong>Fully Engaged</strong>, but you do so without
+    the 2 Boons that would ordinarily apply to such an attack.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: aB808IWOdgwmFCIF
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685584102660
+  modifiedTime: 1685585124568
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!opportunist00000'
+

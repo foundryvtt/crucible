@@ -1,0 +1,34 @@
+name: 'Gesture: Step'
+type: talent
+img: icons/magic/movement/chevrons-down-yellow.webp
+system:
+  node: dex2a
+  description: >-
+    <p>Infuse runic power into a movement, crossing physical and spatial
+    boundaries. Move 4 spaces in a straight line, dealing minor damage to
+    enemies or applying restoration to allies in your path.</p>
+
+    <p>The Step gesture scales with <strong>Dexterity</strong>, targets a line
+    with distance 4, dealing 4 base damage on a successful attack.</p>
+  actions: []
+  gesture: step
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gesturestep00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686253104890
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gesturestep00000
+folder: D14x9AJ0TgXKtnzu
+sort: 700000
+_key: '!items!gesturestep00000'
+

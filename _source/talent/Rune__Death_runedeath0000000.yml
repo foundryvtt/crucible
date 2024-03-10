@@ -1,0 +1,35 @@
+name: 'Rune: Death'
+type: talent
+img: icons/magic/unholy/hand-claw-fire-blue.webp
+system:
+  node: int0
+  description: >-
+    <p>The orderly force of destruction, responsible for the decay of all
+    matter. The Death rune governs decay and destruction. It is opposed by the
+    chaotic rune of Life.</p>
+
+    <p>The Death rune scales using <strong>Intellect</strong>, targets
+    <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage to
+    <strong>Health</strong>.</p>
+  actions: []
+  rune: death
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.runedeath0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674698661050
+  modifiedTime: 1686250815719
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: runedeath0000000
+folder: Dy9HnwadNE3kSZ4f
+sort: 200000
+_key: '!items!runedeath0000000'
+

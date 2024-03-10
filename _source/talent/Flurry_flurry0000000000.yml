@@ -1,0 +1,61 @@
+_id: flurry0000000000
+name: Flurry
+type: talent
+img: icons/skills/melee/blade-tips-triple-steel.webp
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.CANFHQxFjIJwgEYK
+system:
+  node: dex1b
+  description: >-
+    A martial technique using two weapons to overwhelm a single target with a
+    relentless sequence of attacks. You strike once with each weapon. If both
+    strikes were successful, you strike again with your mainhand weapon.
+  actions:
+    - id: flurry
+      name: ''
+      img: null
+      condition: ''
+      description: You unleash a relentless sequence of blows to overwhelm your target.
+      tags:
+        - mainhand
+        - offhand
+        - dualwield
+        - melee
+      cost:
+        action: 0
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects: []
+      actionHooks:
+        - hook: roll
+          fn: >-
+            if ( !rolls.every(r => r.isSuccess ) ) return;
+
+            const bonus = await this.actor.weaponAttack(this, target,
+            this.actor.equipment.weapons.mainhand)
+
+            rolls.push(bonus);
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420020
+  modifiedTime: 1696555953313
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: cW6bwHXBB9pMcwva
+sort: 300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!flurry0000000000'
+

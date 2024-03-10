@@ -1,0 +1,28 @@
+name: Preparedness
+type: talent
+img: icons/sundries/survival/rope-wrapped-purple.webp
+system:
+  node: wis0
+  description: >-
+    You seem to always be prepared for the moment at hand. You may sacrifice
+    your free movement for the Round to instead equip an Item from your
+    inventory without spending any Action points.
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.preparedness0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677354662797
+  modifiedTime: 1696724730740
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: preparedness0000
+folder: MqZKCMx5KrZQffGU
+sort: 112500
+_key: '!items!preparedness0000'
+

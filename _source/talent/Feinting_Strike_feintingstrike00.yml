@@ -1,0 +1,51 @@
+_id: feintingstrike00
+name: Feinting Strike
+type: talent
+img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.vIhvItiKYuiqaSp9
+system:
+  node: intdex1
+  description: >-
+    A two-weapon technique which makes a feint with your primary weapon, leaving
+    your target Exposed for an attack with your off-hand weapon.
+  actions:
+    - id: feintingStrike
+      tags:
+        - offhand
+        - dualwield
+        - melee
+        - accurate
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      condition: ''
+      description: ''
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420023
+  modifiedTime: 1696555947216
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: cW6bwHXBB9pMcwva
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!feintingstrike00'
+

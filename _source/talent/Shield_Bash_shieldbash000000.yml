@@ -1,0 +1,66 @@
+name: Shield Bash
+type: talent
+img: icons/skills/melee/shield-block-bash-blue.webp
+system:
+  node: tou0b
+  description: >-
+    You are practiced at fighting with weapon and shield. Following a Strike
+    with your weapon, you can slam your shield into your target causing the
+    <strong>Staggered</strong> condition.
+  actions:
+    - id: shieldBash
+      condition: ''
+      description: >-
+        You slam your shield into the enemy you just attacked with a Strike,
+        causing the <strong>Staggered</strong> condition on a hit.
+      tags:
+        - offhand
+        - melee
+        - shield
+      cost:
+        action: 0
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: null
+          statuses:
+            - staggered
+      name: ''
+      img: null
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const {basicStrike, lastAction} = this.actor.system.status;
+            if ( !basicStrike || (lastAction !== "strike") ) {
+              throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
+            }
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.shieldbash000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1676759658894
+  modifiedTime: 1696556030107
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: shieldbash000000
+folder: 08mOaWGw5rYKejer
+sort: 100000
+_key: '!items!shieldbash000000'
+

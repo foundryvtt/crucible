@@ -1,0 +1,95 @@
+folder: MMeWpMmsLOblp07U
+name: Talents
+_id: veKSDiOWHLaF7Gok
+pages:
+  - sort: 100000
+    name: Talent Tree Overview
+    type: text
+    _id: OmJNyYrgeaTwYE7L
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Talents represent unique combinations of abilities a particular
+        character may have, and provide a level of customization and progression
+        beyond skill advancement. Talents allow characters to define their role
+        more clearly as they advance, growing steadily in power. Newly created
+        characters begin with a small number of Talent Points, gaining more
+        points at each level.</p><p>You can access the Talent Tree for a
+        character at any time by opening the Talents tab and clicking the "Open
+        Talent Tree" button.</p><section class="foundryvtt"><p>Interaction with
+        the talent tree is similar to interaction with Scenes in ordinary
+        Foundry VTT usage. Pan the tree using right-click and drag, and use
+        mouse-wheel to zoom in and out. Left clicking any Node will expand it to
+        reveal the Talents it may contain.</p><p>Left-clicking a Talent
+        purchases that talent if you have points available, while right-clicking
+        it will remove that talent from your character.</p><p>You may reset your
+        purchases on the Talent Tree at any time by clicking the Reset button at
+        the bottom.</p></section><h2 class="divider">Tree
+        Layout</h2><p>Crucible's Talent Tree is divided into six sections, with
+        each section representing a different
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Ability}
+        which affects scaling and other aspects of those
+        talents.</p><figure><img class="noborder"
+        src="systems/crucible/assets/journals/talent-explainer.webp"
+        /><figcaption>The Talent Tree is divided into sextants based on
+        Abilities</figcaption></figure><p>The Talent Tree is composed of several
+        subcomponents which help you plot growth and progression for your
+        character.</p><h2 class="divider">Nodes</h2><p>Each sextant of the
+        Talent tree is composed of a number of <strong>Nodes</strong> which can
+        contain one or more <strong>Talents</strong>. A Node which lie closer to
+        the border between two sextants will often feature abilities which
+        relate to the themes of both ability scores.</p><p>Starting Nodes occur
+        at the inner-most ring, and contain talents that are often prerequisites
+        for later talents in the tree. These starter talents are best thought of
+        as the first steps in defining what makes your character different from
+        another in terms of their specific set of special abilities.</p><h2
+        class="divider">Talents</h2><p>Talents are the smallest unit of the
+        talent tree. Each talent grants your character-specific abilities or
+        bonuses. Many Talents have requirements which must be met before they
+        can be purchased, such as attaining a certain level of Ability bonus or
+        degree of training in a Skill.</p><h2 class="divider">Signature
+        Talents</h2><p>Talent nodes at the outer edges of the Talent Tree
+        contain <strong>Signature Talents</strong>, powerful bonuses that
+        "Spellblade" or "Dread Lord" which offer iconic abilities. Signature
+        Talents represent the culmination of the abilities required to select
+        them, and are mirrored across two ability scores. Taking a Signature
+        Talent forms a bridge to its paired ability score, allowing you to
+        continue your path of progression into that sextant regardless of
+        whether you have already purchased lower-tier Talents.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684372579176
+      modifiedTime: 1686269370954
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!veKSDiOWHLaF7Gok.OmJNyYrgeaTwYE7L'
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalSheet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1684372575644
+  modifiedTime: 1686269370954
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 106250
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!veKSDiOWHLaF7Gok'
+

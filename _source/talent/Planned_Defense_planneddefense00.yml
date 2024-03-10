@@ -1,0 +1,43 @@
+name: Planned Defense
+type: talent
+_id: planneddefense00
+img: icons/magic/defensive/shield-barrier-blades-teal.webp
+system:
+  node: wis1a
+  description: >-
+    You exert strong battlefield judgment to prepare your defenses against the
+    attacks of your foes. Any enemy which acts after you in
+    <strong>Initiative</strong> order suffers 1 Bane to their spell or weapon
+    attacks against you.
+  actions: []
+  actorHooks:
+    - hook: defendWeaponAttack
+      fn: |-
+        const ac = actor.combatant;
+        const oc = origin.combatant;
+        if ( ac?.initiative > oc?.initiative ) 
+          rollData.banes.plannedDefense = {label: "Planned Defense", number: 1};
+    - hook: defendSpellAttack
+      fn: >-
+        const ac = actor.combatant;
+
+        const oc = origin.combatant;
+
+        if ( ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense =
+        {label: "Planned Defense", number: 1};
+effects: []
+folder: BevAJzzLeFbSaVic
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1685214851183
+  modifiedTime: 1687632109820
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!planneddefense00'
+

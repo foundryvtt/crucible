@@ -1,0 +1,34 @@
+_id: torch00000000000
+name: Torch
+type: weapon
+img: icons/sundries/lights/torch-brown-lit.webp
+effects: []
+folder: pUXcL0pnY3FlKwj8
+flags:
+  core: {}
+system:
+  category: simple1
+  quantity: 1
+  weight: 1
+  price: 0
+  quality: shoddy
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  damageType: fire
+  broken: false
+  animation: wrench
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420013
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!torch00000000000'
+

@@ -1,0 +1,31 @@
+_id: acolyte000000000
+name: Acolyte
+type: background
+img: icons/magic/holy/chalice-glowing-gold.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    You were a person of faith. You learned how to live selflessly in service to
+    others or in pursuit of a higher ideal.
+  skills:
+    - awareness
+    - religion
+    - society
+    - medicine
+  talents:
+    - Compendium.crucible.talent.Item.runecourage00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420032
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!acolyte000000000'
+

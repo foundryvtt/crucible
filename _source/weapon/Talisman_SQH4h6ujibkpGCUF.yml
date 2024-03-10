@@ -1,0 +1,17 @@
+name: Talisman
+sorting: a
+folder: null
+type: Item
+_id: SQH4h6ujibkpGCUF
+sort: 200000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1677293447326
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!SQH4h6ujibkpGCUF'
+

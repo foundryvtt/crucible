@@ -1,0 +1,34 @@
+name: Berserker
+type: archetype
+img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+system:
+  description: A rage-fueled warrior which prefers two-handed attacks using Heavy weapons.
+  abilities:
+    wisdom: 2
+    presence: 3
+    intellect: 1
+    strength: 5
+    toughness: 5
+    dexterity: 2
+  talents:
+    - Compendium.crucible.talent.Item.heavystrike00000
+    - Compendium.crucible.talent.Item.thickskin0000000
+    - Compendium.crucible.talent.Item.berserker0000000
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1684888350310
+  modifiedTime: 1685217691170
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: berserker0000000
+sort: 100000
+_key: '!items!berserker0000000'
+

@@ -1,0 +1,58 @@
+_id: ruthlessmomentum
+name: Ruthless Momentum
+type: talent
+img: icons/skills/melee/strikes-sword-scimitar.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.pHRUZ8Zfv5E0TcH2
+system:
+  node: toustr1
+  description: >-
+    You relish the carnage you can cause with a two-handed weapon. After
+    defeating a foe, you continue your attack with ruthless momentum, moving to
+    strike another enemy at reduced cost.
+  actions:
+    - id: ruthlessMomentum
+      name: ''
+      img: null
+      condition: You incapacitate an enemy with a melee attack.
+      description: >-
+        <p>After defeating an enemy, you may move up to your
+        <strong>Stride</strong> and attack another foe within melee range.</p>
+      cost:
+        action: -2
+        focus: 1
+        weapon: true
+      range:
+        maximum: 4
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      tags:
+        - twohand
+        - melee
+        - movement
+      actionHooks:
+        - hook: prepare
+          fn: |-
+            if ( this.actor ) {
+              this.range.maximum = this.actor.system.movement.stride;
+            }
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420011
+  modifiedTime: 1696793298090
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: MqZKCMx5KrZQffGU
+sort: -300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!ruthlessmomentum'
+

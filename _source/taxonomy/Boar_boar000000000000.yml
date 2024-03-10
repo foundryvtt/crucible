@@ -1,0 +1,45 @@
+name: Boar
+type: taxonomy
+_id: boar000000000000
+img: icons/creatures/abilities/fang-tooth-blood-red.webp
+system:
+  description: >-
+    Mammals with thick hide, dangerous tusks, and a powerful low-seated center
+    of mass.
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 6
+    toughness: 5
+    dexterity: 3
+  resistances:
+    bludgeoning: 2
+    corruption: 0
+    piercing: -2
+    slashing: 2
+    poison: 0
+    acid: 0
+    fire: -2
+    cold: 0
+    electricity: 0
+    psychic: 0
+    radiant: 0
+    void: 0
+effects: []
+folder: wTcQjW37uAKhpMQL
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685230545477
+  modifiedTime: 1686144279502
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!boar000000000000'
+

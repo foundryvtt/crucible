@@ -1,0 +1,56 @@
+name: Provocateur
+type: talent
+img: icons/magic/control/mouth-smile-deception-purple.webp
+system:
+  node: pre0
+  description: >-
+    You specialize in barbed repartee crafted to highlight your opponent's
+    shortcomings. In combat you can launch quips which provoke your foes.
+  actions:
+    - id: scathingMockery
+      name: Scathing Mockery
+      condition: Your target can hear and understand you.
+      description: >-
+        You exaggerate your opponent's shortcomings with a scathing bon mot,
+        performing a Diplomacy skill attack against your target's Willpower. On
+        a success they suffer modest Psychic damage to Morale and become Enraged
+        for 1 Round.
+      tags:
+        - diplomacy
+        - willpower
+        - psychic
+        - morale
+        - weakened
+      cost:
+        action: 1
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 10
+        scope: 3
+      effects:
+        - duration:
+            rounds: 1
+          statuses:
+            - enraged
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.provocateur00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1676927134720
+  modifiedTime: 1684351434111
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: provocateur00000
+folder: 2MFixpDJ379KOogE
+sort: -200000
+_key: '!items!provocateur00000'
+

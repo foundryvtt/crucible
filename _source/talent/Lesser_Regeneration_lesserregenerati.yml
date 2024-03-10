@@ -1,0 +1,27 @@
+name: Lesser Regeneration
+type: talent
+_id: lesserregenerati
+img: icons/magic/life/crosses-trio-red.webp
+system:
+  node: tou1b
+  description: >-
+    Your prodigious hardiness conveys a supernatural capability to recover from
+    wounds quickly. At the start of your turn if you are not Weakened you gain
+    +1 Health.
+  actions: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.5
+  coreVersion: '12.317'
+  createdTime: 1674841031697
+  modifiedTime: 1687704886801
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: qrB8E2SHs322zTil
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!lesserregenerati'
+

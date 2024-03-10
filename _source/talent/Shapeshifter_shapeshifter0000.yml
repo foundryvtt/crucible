@@ -1,0 +1,85 @@
+folder: fOYHlZJEWUukD7yr
+name: Shapeshifter
+type: talent
+img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
+system:
+  node: touwis3
+  description: >-
+    <p>You possess supernatural ability to transform your body into the shapes
+    of beasts.</p>
+
+    <p>You undergo a transformation where you assume the form of a beast that
+    you are familiar with and which is half your level or less. While
+    transformed you have the exact 
+
+    attributes and abilities of the chosen beast.</p>
+
+    <p>Your equipment is magically incorporated into the form that you take,
+    however you gain no benefit from that equipment while transformed.</p>
+
+    <p>If your bestial form becomes Incapacitated you revert back to your normal
+    form with any excess damage becoming Wounds. If your Morale is Broken while
+    in beast form your transformation ends and any excess damage becomes
+    Madness.</p>
+  actions:
+    - id: beastShape
+      name: Beast Shape
+      description: >-
+        You assume the form of a beast that you are familiar with of one-half
+        your level or less.
+      tags: []
+      cost:
+        action: 3
+        focus: 3
+      target:
+        type: self
+        scope: 1
+        number: 1
+        distance: 1
+      effects:
+        - scope: 1
+          duration:
+            rounds: 60
+      img: null
+      actionHooks: []
+    - id: beastShapeRevert
+      name: Revert Shape
+      description: You end your bestial transformation, returning to your normal form.
+      tags: []
+      cost:
+        action: 3
+        focus: 0
+      target:
+        type: self
+        scope: 1
+        number: 1
+        distance: 1
+      effects: []
+      img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
+      condition: ''
+      actionHooks:
+        - hook: confirm
+          fn: >-
+            const effect =
+            this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
+
+            await effect.delete();
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.shapeshifter0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.8
+  coreVersion: '12.317'
+  createdTime: 1676167347186
+  modifiedTime: 1690660625468
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: shapeshifter0000
+sort: 353125
+_key: '!items!shapeshifter0000'
+

@@ -1,0 +1,35 @@
+_id: paddedarmor00000
+name: Padded Armor
+type: armor
+img: icons/equipment/chest/robe-layered-white.webp
+effects: []
+folder: kjHb0FCE2nJe6Dtx
+flags: {}
+system:
+  category: light
+  quantity: 1
+  weight: 4
+  price: 15
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  armor:
+    base: 3
+  broken: false
+  dodge:
+    base: 9
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420022
+  modifiedTime: 1684879928796
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!paddedarmor00000'
+

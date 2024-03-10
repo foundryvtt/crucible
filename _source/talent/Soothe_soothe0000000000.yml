@@ -1,0 +1,53 @@
+name: Soothe
+type: talent
+_id: soothe0000000000
+img: icons/magic/life/heart-cross-strong-blue.webp
+system:
+  node: pre1a
+  description: >-
+    You administer a soothing Performance which rallies your allies, restoring
+    Morale.
+  actions:
+    - id: soothe
+      description: >-
+        You perform a calming verse, benefiting all allies who can perceive you
+        within 12 feet. Make a <strong>Performance Check</strong> against the
+        Madness threshold of each ally. On success, each ally's Morale is
+        restored.
+      tags:
+        - rallying
+        - morale
+        - performance
+      cost:
+        action: 6
+        focus: 1
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+      effects: []
+      name: ''
+      img: null
+      condition: ''
+      range:
+        maximum: 12
+        weapon: false
+      actionHooks: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1675017944331
+  modifiedTime: 1696795574319
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 4Ll3b4Q4us2mp4Fu
+sort: -50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!soothe0000000000'
+

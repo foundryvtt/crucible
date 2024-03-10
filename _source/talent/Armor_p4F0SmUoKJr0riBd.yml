@@ -1,0 +1,17 @@
+name: Armor
+sorting: a
+folder: Ahu22t6uN2vkixC7
+type: Item
+_id: p4F0SmUoKJr0riBd
+sort: 100000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682386690755
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!p4F0SmUoKJr0riBd'
+

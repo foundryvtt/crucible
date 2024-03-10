@@ -1,0 +1,33 @@
+name: Archer
+type: archetype
+_id: archer0000000000
+img: icons/weapons/bows/shortbow-white.webp
+system:
+  description: Ranged combatants with training is the use of bows.
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 3
+    strength: 4
+    toughness: 2
+    dexterity: 5
+  talents:
+    - Compendium.crucible.talent.Item.archerytraining0
+    - Compendium.crucible.talent.Item.precisionshot000
+    - Compendium.crucible.talent.Item.evasiveshot00000
+effects: []
+folder: 6Up7ddrphLept3RW
+sort: 300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685738036284
+  modifiedTime: 1685738623416
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!archer0000000000'
+

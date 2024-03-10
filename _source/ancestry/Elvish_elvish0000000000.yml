@@ -1,0 +1,31 @@
+_id: elvish0000000000
+name: Elvish
+type: ancestry
+img: icons/magic/nature/leaf-rune-glow-green.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: intellect
+  secondary: dexterity
+  resistance: radiant
+  vulnerability: corruption
+  description: >-
+    Graceful in movement and swift in thought, you were born a long-lived elf.
+    Your slight and nimble frame and sculpted features are the inherited traits
+    of a people for whom elegance is a way of life. Your predisposition toward
+    quick-thinking and precise movement the evolutionary results of hundreds of
+    years of tradition.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420031
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!elvish0000000000'
+

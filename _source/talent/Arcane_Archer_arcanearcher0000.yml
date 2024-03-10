@@ -1,0 +1,34 @@
+name: Arcane Archer
+type: talent
+img: icons/skills/ranged/arrows-flying-salvo-blue-light.webp
+system:
+  node: intdex3
+  description: >-
+    <p>Your skill with archery can shape your spellcraft, partially substituting
+    for the somatic gestures of traditional spellcasting. With a ranged weapon
+    equipped you ignore the free-hand requirement for casting spells that use
+    the <strong>Arrow</strong> gesture.</p>
+
+    <p>After performing a <strong>Strike</strong> with a projectile weapon, you
+    may cast a spell using the <strong>Arrow</strong> gesture during the same
+    Turn with Action Cost reduced by 1.</p>
+  actions: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.arcanearcher0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1676830120357
+  modifiedTime: 1688836503207
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: arcanearcher0000
+folder: fOYHlZJEWUukD7yr
+sort: 100000
+_key: '!items!arcanearcher0000'
+

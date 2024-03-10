@@ -1,0 +1,34 @@
+_id: rapier0000000000
+name: Rapier
+type: weapon
+img: icons/weapons/swords/sword-guard-gold-red.webp
+effects: []
+folder: pUXcL0pnY3FlKwj8
+flags: {}
+system:
+  category: light1
+  quantity: 1
+  weight: 4
+  price: 40
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - parrying
+  description: ''
+  damageType: piercing
+  broken: false
+  animation: rapier
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420013
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!rapier0000000000'
+

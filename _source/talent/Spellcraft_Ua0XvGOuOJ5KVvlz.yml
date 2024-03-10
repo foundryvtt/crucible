@@ -1,0 +1,17 @@
+name: Spellcraft
+sorting: a
+folder: null
+type: Item
+_id: Ua0XvGOuOJ5KVvlz
+sort: 1300000
+color: '#3a2c58'
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682387469635
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!Ua0XvGOuOJ5KVvlz'
+

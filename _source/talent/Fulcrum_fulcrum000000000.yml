@@ -1,0 +1,47 @@
+folder: fOYHlZJEWUukD7yr
+name: Fulcrum
+type: talent
+img: icons/magic/symbols/chevron-elipse-circle-blue.webp
+system:
+  node: inttou3
+  description: >-
+    Balance, positioning, and leverage are your greatest allies in combat. You
+    know how to use a foe's momentum against them and that a small redirection
+    in force can turn the tide of battle.
+  actions:
+    - id: conserveMomentum
+      name: Conserve Momentum
+      condition: You Block, Parry, or Dodge an incoming melee Strike.
+      description: >-
+        You redirect the force of a melee attack which misses you, pivoting it
+        to instead hit some other adjacent enemy. Your attacker must re-roll
+        their attack targetting their ally instead.
+      tags:
+        - reaction
+      cost:
+        focus: 1
+        action: 0
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 3
+      effects: []
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685204774844
+  modifiedTime: 1685205206505
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: fulcrum000000000
+sort: 0
+_key: '!items!fulcrum000000000'
+

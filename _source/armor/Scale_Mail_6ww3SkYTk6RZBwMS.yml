@@ -1,0 +1,36 @@
+_id: 6ww3SkYTk6RZBwMS
+name: Scale Mail
+type: armor
+img: icons/equipment/chest/breastplate-banded-steel-studded.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: medium
+  quantity: 1
+  weight: 40
+  price: 100
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  armor:
+    base: 13
+  broken: false
+  dodge:
+    base: 4
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420024
+  modifiedTime: 1684879928796
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: HVRX1hdeNtvlHbQs
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!6ww3SkYTk6RZBwMS'
+

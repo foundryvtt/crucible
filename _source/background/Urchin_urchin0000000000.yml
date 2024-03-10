@@ -1,0 +1,33 @@
+_id: urchin0000000000
+name: Urchin
+type: background
+img: icons/skills/social/theft-pickpocket-bribery-brown.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    Few learn to survive the way you did. Yours was a harsh education in
+    distrust. You learned to watch others for the telltale signs of danger or
+    disloyalty, to avoid the attention of others, scavenging for scraps of food
+    on the streets of some urban sprawl.
+  skills:
+    - awareness
+    - stealth
+    - survival
+    - deception
+  talents:
+    - Compendium.crucible.talent.Item.diversionist0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420027
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!urchin0000000000'
+

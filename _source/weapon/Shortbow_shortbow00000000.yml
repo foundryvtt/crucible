@@ -1,0 +1,34 @@
+_id: shortbow00000000
+name: Shortbow
+type: weapon
+img: icons/weapons/bows/shortbow-leather.webp
+effects: []
+folder: Pe27j9LY8Nmygkqt
+flags: {}
+system:
+  category: projectile2
+  quantity: 1
+  weight: 4
+  price: 40
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reliable
+  description: ''
+  damageType: piercing
+  broken: false
+  animation: arrow
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1674942420018
+  modifiedTime: 1688924096217
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 600000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!shortbow00000000'
+

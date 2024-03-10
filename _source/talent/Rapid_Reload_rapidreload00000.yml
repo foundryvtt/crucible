@@ -1,0 +1,46 @@
+_id: rapidreload00000
+name: Rapid Reload
+type: talent
+img: icons/skills/ranged/bullet-sparks-yellow.webp
+effects: []
+flags: {}
+system:
+  node: dex2b
+  description: >-
+    You focus deeply and calm your nerves to reload your mechanical weapon with
+    exceptional haste.
+  actions:
+    - id: rapidReload
+      name: ''
+      img: null
+      condition: ''
+      description: You quickly reload your mechanical weapon.
+      cost:
+        action: 1
+        focus: 1
+        weapon: false
+      range:
+        maximum: 0
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+      effects: []
+      tags:
+        - Reload
+      actionHooks: []
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420011
+  modifiedTime: 1696794185464
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: i7P1uwWcECj5KWfY
+sort: 25000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!rapidreload00000'
+

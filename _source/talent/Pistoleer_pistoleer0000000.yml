@@ -1,0 +1,47 @@
+name: Pistoleer
+type: talent
+_id: pistoleer0000000
+img: icons/skills/targeting/crosshair-bars-yellow.webp
+system:
+  node: dexpre3
+  description: >-
+    Your familiarity with mechanical firearms is unmatched. You can perform the
+    Reload action for free once per Round.
+  actions:
+    - id: salvo
+      name: Salvo
+      img: icons/skills/ranged/bullets-triple-ball-yellow.webp
+      condition: ''
+      description: >-
+        You fire a barrage of attacks using a one-handed mechanical weapon,
+        shooting three times at a target without the need to reload in-between
+        shots.
+      tags:
+        - ranged
+        - onehand
+        - mainhand
+      cost:
+        action: 2
+        focus: 1
+      target:
+        type: single
+        multiple: 3
+        distance: 1
+        scope: 0
+      effects: []
+effects: []
+folder: fOYHlZJEWUukD7yr
+sort: 275000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1685814629967
+  modifiedTime: 1688835972993
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!pistoleer0000000'
+

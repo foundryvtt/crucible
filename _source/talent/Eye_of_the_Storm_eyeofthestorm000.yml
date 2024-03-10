@@ -1,0 +1,27 @@
+name: Eye of the Storm
+type: talent
+_id: eyeofthestorm000
+img: icons/magic/water/wave-water-explosion.webp
+system:
+  node: wispre2
+  description: >-
+    After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
+    against an enemy that you allowed to act before you that Round.
+  actions: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675015447186
+  modifiedTime: 1682387522464
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: BevAJzzLeFbSaVic
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!eyeofthestorm000'
+

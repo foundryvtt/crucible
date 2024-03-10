@@ -1,0 +1,35 @@
+_id: glaive0000000000
+name: Glaive
+type: weapon
+img: icons/weapons/polearms/glaive-simple.webp
+effects: []
+folder: bvWJheBtuW1LmkAy
+flags: {}
+system:
+  category: balanced2
+  quantity: 1
+  weight: 8
+  price: 60
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - parrying
+    - reach
+  description: ''
+  damageType: slashing
+  broken: false
+  animation: glaive
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420014
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!glaive0000000000'
+

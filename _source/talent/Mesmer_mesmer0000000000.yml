@@ -1,0 +1,42 @@
+name: Mesmer
+type: talent
+_id: mesmer0000000000
+img: icons/magic/air/air-burst-spiral-pink.webp
+system:
+  node: int2c
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Control. Spells which use
+    this Rune cause the Confusion condition on Critical Hits.</p>
+
+    <p>The Confusion effect lasts for 1 Round, deals half your Intellect score
+    as Psychic damage to Morale, and applies the Disoriented condition.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Control rune
+        if ( action.rune?.id !== "control" ) return;
+
+        // Require damage to Morale
+        const damageMorale = outcome.resources.morale < 0;
+        if ( !damageMorale ) return;
+
+        // Apply Confused effect
+        const confused = SYSTEM.EFFECTS.confusion(actor, outcome.target);
+        outcome.effects.push(confused);
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: -300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1677357449776
+  modifiedTime: 1688828194839
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!mesmer0000000000'
+

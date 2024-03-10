@@ -1,0 +1,31 @@
+folder: SMe30RkoLutLr4ef
+name: Snakeblood
+type: talent
+img: icons/creatures/reptiles/serpent-horned-green.webp
+system:
+  node: tou2a
+  description: >-
+    Your supernatural toughness makes you resistant to venoms and toxins. You
+    gain +5 Resistance to Poison damage.
+  actions: []
+  actorHooks:
+    - hook: prepareResistances
+      fn: resistances.poison.base += 5;
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.snakeblood000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1676170092902
+  modifiedTime: 1685147410396
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: snakeblood000000
+sort: 100000
+_key: '!items!snakeblood000000'
+

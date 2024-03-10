@@ -1,0 +1,35 @@
+_id: dagger0000000000
+name: Dagger
+type: weapon
+img: icons/weapons/daggers/dagger-straight-blue.webp
+effects: []
+folder: pUXcL0pnY3FlKwj8
+flags: {}
+system:
+  category: light1
+  quantity: 1
+  weight: 1
+  price: 5
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+    - thrown
+  description: ''
+  damageType: piercing
+  broken: false
+  animation: dagger
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420023
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!dagger0000000000'
+

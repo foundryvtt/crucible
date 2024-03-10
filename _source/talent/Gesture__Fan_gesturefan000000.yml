@@ -1,0 +1,36 @@
+name: 'Gesture: Fan'
+type: talent
+img: icons/magic/water/projectile-bolts-salvo-blue.webp
+system:
+  node: int1a
+  description: >-
+    <p>Focus the essence of a rune into a sweeping or splintered arc to strike
+    multiple targets in close proximity. If used with Earth, this might hurl a
+    spray of stone in an arc, while using it with Kinesis might carve a slice
+    across multiple foes.</p>
+
+    <p>The Fan gesture scales using <strong>Intellect</strong> and targets a 120
+    degree cone with distance 1, dealing 6 base damage on a successful
+    attack.</p>
+  actions: []
+  gesture: fan
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gesturefan000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686252136778
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gesturefan000000
+folder: D14x9AJ0TgXKtnzu
+sort: 400000
+_key: '!items!gesturefan000000'
+

@@ -1,0 +1,59 @@
+name: Dirty Tricks
+type: talent
+img: icons/magic/earth/projectile-boulder-dust.webp
+system:
+  node: dextou2
+  description: >-
+    You have pouches of sand and dust that you use to temporarily distract or
+    blind an enemy.
+  actions:
+    - id: dirtyTricks
+      description: >-
+        You fling debris into the eyes of an enemy. If the Strike is successful,
+        they are Blinded until the end of their next Turn.
+      tags:
+        - freehand
+        - harmless
+        - reflex
+        - deception
+      cost:
+        action: 3
+        focus: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: null
+          statuses:
+            - blinded
+      name: ''
+      img: null
+      condition: ''
+      range:
+        maximum: 4
+        weapon: false
+      actionHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.dirtytricks00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674963544371
+  modifiedTime: 1696556312156
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: dirtytricks00000
+folder: yXCB4M7hR4QB6Rx7
+sort: 100000
+_key: '!items!dirtytricks00000'
+

@@ -1,0 +1,18 @@
+name: Unarmed
+type: Item
+sorting: a
+sort: 0
+color: null
+flags: {}
+_id: Or65MVkMdOIVRUqb
+folder: null
+description: ''
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1676665250423
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!Or65MVkMdOIVRUqb'
+

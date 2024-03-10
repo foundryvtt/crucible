@@ -1,0 +1,47 @@
+folder: null
+name: Tusk Charge
+type: talent
+img: icons/skills/movement/arrow-upward-blue.webp
+system:
+  description: >-
+    The Boar lowers its head and charges with frantic speed, it's tusks
+    protruding from beneath a drooling gullet.
+  actions:
+    - id: tuskCharge
+      description: >-
+        Charge in a direct line between 3 and 6 spaces and make a Strike against
+        the first creature you encounter. If successful, the target is knocked
+        Prone.
+      tags:
+        - melee
+        - mainhand
+      cost:
+        action: 1
+        focus: 0
+      target:
+        type: ray
+        number: 1
+        distance: 6
+        scope: 3
+      effects:
+        - scope: 3
+          statuses:
+            - prone
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1685231228591
+  modifiedTime: 1688835593752
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: tuskcharge000000
+sort: 0
+_key: '!items!tuskcharge000000'
+

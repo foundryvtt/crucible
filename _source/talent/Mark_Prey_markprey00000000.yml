@@ -1,0 +1,59 @@
+name: Mark Prey
+type: talent
+img: icons/skills/targeting/crosshair-mark-rough-pink.webp
+system:
+  node: dex2b
+  description: >-
+    You fire a special shot which deals reduced damage, but explodes in luminous
+    powder clearly marking your target.
+  actions:
+    - id: markPrey
+      description: >-
+        You Strike using a special shot. If your attack is successful the target
+        is <strong>Exposed</strong> for the next 3 Turns.
+      tags:
+        - mainhand
+        - ranged
+        - difficult
+        - harmless
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects:
+        - name: Marked
+          scope: 3
+          duration:
+            turns: 3
+          statuses:
+            - exposed
+      name: ''
+      img: null
+      condition: ''
+      range:
+        maximum: 0
+        weapon: true
+      actionHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.markprey00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674962663358
+  modifiedTime: 1696793900154
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+folder: i7P1uwWcECj5KWfY
+_id: markprey00000000
+sort: 0
+_key: '!items!markprey00000000'
+

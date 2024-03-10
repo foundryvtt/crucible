@@ -1,0 +1,53 @@
+name: Assassin
+type: talent
+img: icons/magic/death/skull-humanoid-white-blue.webp
+system:
+  node: intdex3
+  description: >-
+    <p>You specialize in bringing death the the unwary. Any Strike or Spell
+    attack against an <strong>Unaware</strong> target becomes
+    <strong>Deadly</strong>.</p>
+
+    <p>An Unaware creature hit by your attack may not alert its allies until its
+    own turn in Combat.</p>
+  actions:
+    - id: markForDeath
+      name: Mark For Death
+      img: icons/magic/death/skull-humanoid-white-blue.webp
+      condition: You are unobserved.
+      description: >-
+        You spend 1 minute studying a creature. Perform a Knowledge Test about
+        your target. If successful, you learn all damage types against which the
+        target is Vulnerable. Your minimum Initiative during the first round of
+        Combat becomes one greater than the Initiative of your marked
+        target.</p>
+      tags: []
+      cost:
+        action: 0
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.assassin00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675624985133
+  modifiedTime: 1685891199830
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: assassin00000000
+folder: fOYHlZJEWUukD7yr
+sort: 200000
+_key: '!items!assassin00000000'
+

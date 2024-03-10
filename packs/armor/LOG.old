@@ -1,8 +1,0 @@
-2023/10/07-20:18:49.134 277fc Recovering log #1146
-2023/10/07-20:18:49.137 277fc Delete type=0 #1146
-2023/10/07-20:18:49.137 277fc Delete type=3 #1145
-2023/10/07-20:37:03.394 fcf4 Level-0 table #1150: started
-2023/10/07-20:37:03.394 fcf4 Level-0 table #1150: 0 bytes OK
-2023/10/07-20:37:03.395 fcf4 Delete type=0 #1148
-2023/10/07-20:37:03.396 fcf4 Manual compaction at level-0 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)
-2023/10/07-20:37:03.398 fcf4 Manual compaction at level-1 from '!folders!HVRX1hdeNtvlHbQs' @ 72057594037927935 : 1 .. '!items!studdedleatherar' @ 0 : 0; will stop at (end)

@@ -1,0 +1,28 @@
+name: Distance Runner
+type: talent
+_id: distancerunner00
+img: icons/skills/movement/feet-winged-boots-brown.webp
+system:
+  node: dextou1
+  description: >-
+    You are adept at covering distance quickly. Your <strong>Stride</strong>
+    increases by 1.
+  actorHooks:
+    - hook: prepareMovement
+      fn: movement.stride += 1;
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674841266259
+  modifiedTime: 1696704733922
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: MqZKCMx5KrZQffGU
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!distancerunner00'
+

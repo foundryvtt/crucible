@@ -1,0 +1,53 @@
+_id: disarmingstrike0
+name: Disarming Strike
+type: talent
+img: icons/skills/melee/hand-grip-staff-teal.webp
+effects: []
+flags: {}
+system:
+  node: str0
+  description: >-
+    A martial technique which attempts to disarm your opponent, forcing them to
+    drop an object held in one of their hands.
+  actions:
+    - id: disarmingStrike
+      name: ''
+      img: null
+      condition: An adjacent enemy which is carrying an object that can be dropped.
+      description: >-
+        You make a Strike attack, expertly pivoting your weapon to force your
+        target to drop an object they are carrying. This technique is Difficult
+        to perform and deals reduced damage.
+      tags:
+        - mainhand
+        - melee
+        - difficult
+        - weakened
+      cost:
+        action: 0
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420033
+  modifiedTime: 1696555977314
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: ePNIUQxdOsY7GSKo
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!disarmingstrike0'
+

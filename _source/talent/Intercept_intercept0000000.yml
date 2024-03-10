@@ -1,0 +1,64 @@
+name: Intercept
+type: talent
+img: icons/skills/melee/shield-block-gray-orange.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: tou0
+  description: >-
+    You protect your allies, intercepting blows that might otherwise be directed
+    towards your companions.
+  actions:
+    - id: intercept
+      condition: An enemy moves into or through your Engagement radius.
+      description: >-
+        <p>You intercept the path of an enemy which enters your
+        <strong>Engagement</strong> radius, immediatly moving up to your
+        <strong>Stride</strong> and interposing yourself to block their
+        path.</p>
+
+
+        <p>If the enemy moves out of your Engagement radius or attacks any other
+        creature during their turn, you may make a <strong>Disengagement
+        Strike</strong> against them.</p>
+      tags:
+        - movement
+        - reaction
+      cost:
+        action: 0
+        focus: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      range:
+        maximum: 4
+        weapon: false
+      actionHooks:
+        - hook: prepare
+          fn: |-
+            if ( this.actor ) {
+              this.range.maximum = this.actor.system.movement.stride;
+            }
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674702266686
+  modifiedTime: 1696792400797
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: intercept0000000
+folder: MqZKCMx5KrZQffGU
+sort: -100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!intercept0000000'
+

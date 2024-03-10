@@ -1,0 +1,840 @@
+name: Fizzit
+type: hero
+img: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
+system:
+  abilities:
+    wisdom:
+      base: 3
+      increases: 1
+      bonus: 0
+    presence:
+      base: 2
+      increases: 1
+      bonus: 0
+    intellect:
+      base: 2
+      increases: 1
+      bonus: 0
+    strength:
+      base: 0
+      increases: 0
+      bonus: 0
+    toughness:
+      base: 2
+      increases: 2
+      bonus: 0
+    dexterity:
+      base: 0
+      increases: 0
+      bonus: 0
+  advancement:
+    level: 6
+    progress: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    ancestry:
+      primary: intellect
+      secondary: dexterity
+      resistance: electricity
+      vulnerability: acid
+      description: >-
+        Yours was a birth of exuberant celebration. Your diminutive body and
+        delicate features are paired with an almost supernatural propensity for
+        discovery. The traditions of your people embrace a lust for life and the
+        importance of quick-thinking and quick-action.
+      name: Gnome
+      img: icons/commodities/tech/cog-brass.webp
+    background:
+      description: >-
+        You were always most at home in a library or classroom. Your studies
+        focused on unravelling the mysteries of the world around you, and there
+        are few theoretical subjects with which you are not already familiar.
+      skills:
+        - arcana
+        - religion
+        - naturalism
+        - medicine
+      talents:
+        - Compendium.crucible.talent.Item.intuitweakness00
+      name: Scholar
+      img: icons/magic/symbols/star-inverted-yellow.webp
+    biography:
+      public: ''
+      private: ''
+  resistances:
+    bludgeoning:
+      bonus: 0
+    corruption:
+      bonus: 0
+    piercing:
+      bonus: 0
+    slashing:
+      bonus: 0
+    poison:
+      bonus: 0
+    acid:
+      bonus: 0
+    fire:
+      bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
+    psychic:
+      bonus: 0
+    radiant:
+      bonus: 0
+    void:
+      bonus: 0
+  resources:
+    health:
+      value: 58
+    wounds:
+      value: 0
+    morale:
+      value: 62
+    madness:
+      value: 0
+    action:
+      value: 3
+    focus:
+      value: 8
+  skills:
+    awareness:
+      rank: 2
+    pathfinding:
+      rank: 0
+    stealth:
+      rank: 1
+    survival:
+      rank: 0
+    arcana:
+      rank: 3
+      path: path1
+    religion:
+      rank: 0
+    naturalism:
+      rank: 0
+    society:
+      rank: 0
+    deception:
+      rank: 0
+    diplomacy:
+      rank: 3
+      path: path2
+    intimidation:
+      rank: 0
+    mercantilism:
+      rank: 0
+    beastcraft:
+      rank: 0
+    tradecraft:
+      rank: 0
+    medicine:
+      rank: 0
+    performance:
+      rank: 2
+  status: null
+  movement:
+    stride: 4
+    engagement: 1
+prototypeToken:
+  name: Fizzit
+  displayName: 30
+  actorLink: true
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
+    scaleX: 0.7
+    scaleY: 0.7
+    offsetX: 0
+    offsetY: 0
+    rotation: 0
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 1
+  height: 1
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.75
+    angle: 360
+    bright: 0
+    color: '#ff8800'
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0.2
+    contrast: 0.1
+    shadows: 0
+    animation:
+      type: torch
+      speed: 2
+      intensity: 2
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: false
+    priority: 0
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: []
+  flags: {}
+  randomImg: false
+  hexagonalShape: 0
+  locked: false
+  occludable:
+    radius: 0
+items:
+  - name: Intuit Weakness
+    type: talent
+    _id: intuitweakness00
+    img: icons/magic/perception/orb-eye-scrying.webp
+    system:
+      node: int0b
+      description: >-
+        You calm your mind and study the physiology of your foe, seeking a
+        vulnerability in its defenses. The Gamemaster performs a passive
+        <strong>Knowledge Test</strong> against the enemy. If successful you
+        learn one Damage type that the creature is vulnerable to, if any.
+      actions:
+        - id: intuitWeakness
+          description: >-
+            You still your mind and study the physiology of your foe, attempting
+            to identify a vulnerability in its defenses.
+          tags: []
+          cost:
+            action: 1
+            focus: 1
+          target:
+            type: single
+            number: 1
+            distance: 10
+            scope: 0
+          effects: []
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674696771693
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: 2MFixpDJ379KOogE
+    sort: -50000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.intuitweakness00'
+  - name: 'Rune: Frost'
+    type: talent
+    img: icons/magic/water/snowflake-ice-snow-white.webp
+    system:
+      node: wis0b
+      description: >-
+        <p>The orderly force of elemental, thermal energy. The Frost rune
+        governs sources of ice and cold. It is opposed by the chaotic rune of
+        Flame.</p>
+
+        <p>The Frost rune scales using <strong>Wisdom</strong>, targets
+        <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: frost
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runefrost0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runefrost0000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 500000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.runefrost0000000'
+  - name: 'Gesture: Create'
+    type: talent
+    img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
+    system:
+      node: wis1b
+      description: >-
+        <p>Coalesce arcane power into tangible form, conjuring a
+        <strong>Creation</strong> which appears in an adjacent space and joins
+        Combat at Initiative 1.</p>
+
+        <p>Your Creation is a Minion of half your own Level chosen from the
+        Summoned Creatures compendium pack corresponding to the Rune used in the
+        spell.</p>
+
+        <p>The Creation lasts for <strong>10 Rounds</strong>. You may only have
+        one active Creation, casting another spell using the Create gesture
+        replaces your previous Creation.</p>
+      actions: []
+      gesture: create
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.gesturecreate000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674842056708
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturecreate000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 300000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.gesturecreate000'
+  - name: 'Rune: Earth'
+    type: talent
+    img: icons/magic/earth/projectile-boulder-debris.webp
+    system:
+      node: wis0b
+      description: >-
+        <p>The orderly force of elemental earth, responsible for physical
+        matter. The Earth rune governs health and matters relating to biological
+        growth. It is opposed by the chaotic rune of Lightning.</p>
+
+        <p>The Earth rune scales using <strong>Wisdom</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: earth
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runeearth0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runeearth0000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 300000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.runeearth0000000'
+  - name: Rimecaller
+    type: talent
+    img: icons/magic/water/orb-ice-web.webp
+    system:
+      node: wis2b
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Frost. Spells which use
+        this Rune cause the Chilled condition on Critical Hits.</p>
+
+        <p>The Chilled effect lasts for 1 Round, deals half your Wisdom  score
+        as Frost damage to Health, and applies the Slowed condition.</p>
+      actions: []
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.rimecaller000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676596394053
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: rimecaller000000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: -225000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.rimecaller000000'
+  - name: Conjurer
+    type: talent
+    img: icons/magic/symbols/runes-star-orange-purple.webp
+    system:
+      description: >-
+        You are a master of Conjuration and the Gesture of Creation to manifest
+        arcane energy as physical form. You can maintain up to 3 such creations
+        simultaneously rather than only one.
+      actions: []
+      node: wisint3
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.conjurer00000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675740927729
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: conjurer00000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 0
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.conjurer00000000'
+  - name: 'Rune: Flame'
+    type: talent
+    img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
+    system:
+      node: int0
+      description: >-
+        <p>The chaotic force of elemental, thermal energy. The Flame rune
+        governs fire and heat. It is opposed by the orderly rune of Frost.</p>
+
+        <p>The Flame rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Fire</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: flame
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runeflame0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runeflame0000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 400000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.runeflame0000000'
+  - folder: 4Ll3b4Q4us2mp4Fu
+    name: Steadfast
+    type: talent
+    img: icons/magic/life/heart-red-blue.webp
+    system:
+      node: wis2c
+      description: >-
+        Your patient resolve allows you to endure psychologically grueling
+        ordeals with steadfast determination.
+      actions:
+        - id: steadfastResolve
+          name: Steadfast Resolve
+          condition: ''
+          description: >-
+            You harden yourself against demoralization. Your Morale is increased
+            by your Wisdom score and you temporarily gain the Resolute
+            condition.
+          tags: []
+          cost:
+            action: 1
+            focus: 2
+          target:
+            type: self
+            scope: 1
+            number: 1
+            distance: 1
+          effects:
+            - duration:
+                rounds: 1
+              statuses:
+                - resolute
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.steadfast0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676168488294
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: steadfast0000000
+    sort: -200000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.steadfast0000000'
+  - name: 'Gesture: Ward'
+    type: talent
+    img: icons/magic/defensive/shield-barrier-glowing-blue.webp
+    system:
+      node: tou2b
+      description: >-
+        <p>Focus the power of a Rune into a protective barrier, shielding
+        yourselves and others from harmful effects. When used with the Kinesis
+        rune the Ward reduces incoming damage from a chosen physical damage type
+        while combination with the Death rune protects against Corruption
+        damage.</p>
+
+        <p>Your Ward provides <strong>+6 Resistance</strong> against the damage
+        type of the Rune used in the spell. The Ward lasts for 1 Round.</p>
+
+        <p>You may only have a single Ward at a time. Casting another spell
+        using the Ward gesture replaces your prior Ward.</p>
+      actions: []
+      gesture: ward
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.gestureward00000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675654257211
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: gestureward00000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 900000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.gestureward00000'
+  - _id: inspireheroism00
+    name: Inspire Heroism
+    type: talent
+    img: icons/skills/social/intimidation-impressing.webp
+    effects: []
+    flags:
+      core:
+        sourceId: Item.V4stscWtnt2GFRY2
+    system:
+      node: pre0b
+      description: >-
+        Your courageous presence inspires your nearby allies to strike with
+        confidence.
+      actions:
+        - id: inspireHeroism
+          name: Inspire Heroism
+          img: icons/skills/social/intimidation-impressing.webp
+          condition: ''
+          description: >-
+            Each ally, excluding yourself, within 3 spaces gains +1 Boon to
+            actions performed until the end of their next Turn.
+          tags: []
+          cost:
+            action: 1
+            focus: 1
+          target:
+            type: pulse
+            number: 1
+            distance: 3
+            scope: 2
+          effects:
+            - duration:
+                rounds: 1
+              changes:
+                - key: rollBonuses.boons
+                  value: 1
+                  mode: 2
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420014
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: 4Ll3b4Q4us2mp4Fu
+    sort: -300000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.inspireheroism00'
+  - _id: m3SqjoIVfZhZQbxB
+    name: Fine Ring Mail
+    type: armor
+    img: icons/equipment/chest/breastplate-layered-leather-studded-black.webp
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.armor.Item.1lTOzjUX4bUNDQFc
+    system:
+      category: medium
+      quantity: 1
+      weight: 30
+      price: 60
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description: ''
+      armor:
+        base: 9
+      broken: false
+      dodge:
+        base: 6
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420030
+      modifiedTime: 1686234244486
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: HVRX1hdeNtvlHbQs
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.m3SqjoIVfZhZQbxB'
+  - _id: 85rWiXg65Wadyiec
+    name: Fine Shortsword
+    type: weapon
+    img: icons/weapons/swords/sword-guard.webp
+    effects: []
+    folder: pUXcL0pnY3FlKwj8
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.shortsword000000
+    system:
+      category: balanced1
+      quantity: 1
+      weight: 6
+      price: 40
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - parrying
+      description: ''
+      damageType: slashing
+      broken: false
+      animation: shortsword
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420021
+      modifiedTime: 1686234252092
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.85rWiXg65Wadyiec'
+  - folder: SQH4h6ujibkpGCUF
+    name: Fine Arcane Orb
+    type: weapon
+    _id: 0SQ8HlAq9ZZi3rOe
+    img: icons/commodities/materials/glass-orb-blue-gold.webp
+    system:
+      category: talisman1
+      quantity: 1
+      weight: 3
+      price: 60
+      quality: fine
+      broken: false
+      enchantment: mundane
+      equipped: true
+      properties: []
+      damageType: void
+      slot: 0
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.arcaneorb0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1677292780874
+      modifiedTime: 1686234235479
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.0SQ8HlAq9ZZi3rOe'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      node: int0
+      description: >-
+        <p>The chaotic force of raw, electrical energy. The Lightning rune
+        governs sources of electrical energy and electrical discharge. It is
+        opposed by the orderly rune of Earth.</p>
+
+        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: lightning
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runelightning000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runelightning000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 900000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.runelightning000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      node: int1a
+      description: >-
+        <p>Hurl a projectile of magical power at a distant target. This might
+        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
+        hurl a ball of devouring darkness.</p>
+
+        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
+        a <strong>single</strong> creature up to a distance of 10 spaces,
+        dealing 10 base damage on a successful attack.</p>
+      actions: []
+      gesture: arrow
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.gesturearrow0000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674842056708
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturearrow0000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 100000
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.gesturearrow0000'
+  - name: Runewarden
+    type: talent
+    img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
+    system:
+      node: wistou3
+      description: >-
+        <p>Your mastery of the arcane makes you more resilient to elemental and
+        spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
+        half your Wisdom for each Elemental or Spiritual damage type where you
+        know the Arcane Rune attuned to that damage type.</p>
+
+        <p>When you use the <strong>Ward</strong> gesture, the Resistance
+        provided by your Ward also increases by half your Wisdom.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareResistances
+          fn: |-
+            for ( const [id, r] of Object.entries(resistances) ) {
+              if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
+              if ( actor.grimoire.runes.find(r => r.damageType === id) )  {
+                r.base += Math.ceil(actor.abilities.wisdom.value / 2);
+              }
+            }
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.runewarden000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675735561453
+      modifiedTime: 1687634077141
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: runewarden000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 306250
+    _key: '!actors.items!vOikx6BYTl8Ee4Yw.runewarden000000'
+effects: []
+folder: xoE3iSbPfFPlq6wD
+flags:
+  crucible:
+    lastSpell: spell.flame.arrow
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1685653957072
+  modifiedTime: 1687636350891
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: vOikx6BYTl8Ee4Yw
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!vOikx6BYTl8Ee4Yw'
+

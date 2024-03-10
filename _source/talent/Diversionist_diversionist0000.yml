@@ -1,0 +1,58 @@
+name: Diversionist
+type: talent
+_id: diversionist0000
+img: icons/skills/social/peace-luck-insult.webp
+system:
+  node: pre0
+  description: >-
+    You specialize in subterfuge to distract or trick your opponent during
+    combat.
+  actions:
+    - id: distract
+      name: Distract
+      condition: Your target can see you or hear and understand you.
+      description: >-
+        You perform some pretensive action that is designed to dissemble and
+        deceive your opponent. Make a Deception skill attack against your
+        target. On a success they lose 1 Focus point.
+      tags:
+        - void
+        - focus
+        - deception
+      cost:
+        action: 1
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 10
+        scope: 0
+      effects: []
+      img: icons/skills/social/peace-luck-insult.webp
+      actionHooks:
+        - hook: postActivate
+          fn: |-
+            for ( const r of outcome.rolls ) {
+              if ( r.isSuccess ) {
+                r.data.damage.multiplier = 0;
+                r.data.damage.base = 1;
+                r.data.damage.total = 1;
+              }
+            }
+  requirements: {}
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.8
+  coreVersion: '12.317'
+  createdTime: 1676837085147
+  modifiedTime: 1690660769327
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!diversionist0000'
+

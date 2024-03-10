@@ -1,0 +1,28 @@
+name: Opportunistic Spellcraft
+type: talent
+_id: opportunisticspe
+img: icons/magic/unholy/strike-hand-glow-pink.webp
+system:
+  node: int2a
+  description: >-
+    <p>Your quick thinking can weave magic to exploit brief windows of
+    opportunity. You may make a <strong>Disengagement Attack</strong> using the
+    <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: aB808IWOdgwmFCIF
+sort: 300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685584334888
+  modifiedTime: 1685585091041
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!opportunisticspe'
+

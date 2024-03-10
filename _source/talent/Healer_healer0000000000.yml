@@ -1,0 +1,34 @@
+name: Healer
+type: talent
+img: icons/magic/life/heart-hand-gold-green-light.webp
+system:
+  node: wispre3
+  description: >-
+    You are unparalleled at manipulating vital arcana to treat injuries. When
+    healing allies using the Rune of Life you gain +2 boons to your roll and
+    your spellcraft cannot be Counterspelled.
+  actions: []
+  actorHooks:
+    - hook: prepareSpellAttack
+      fn: >-
+        if ( spell.rune.id === "life" ) rollData.boons.healer = {label:
+        "Healer", number: 2};
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.healer0000000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1675741049748
+  modifiedTime: 1687631825713
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: healer0000000000
+folder: fOYHlZJEWUukD7yr
+sort: -100000
+_key: '!items!healer0000000000'
+

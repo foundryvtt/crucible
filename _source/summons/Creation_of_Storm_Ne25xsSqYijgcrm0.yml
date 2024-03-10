@@ -1,0 +1,360 @@
+folder: 5oBBNdq95OvvXx3e
+name: Creation of Storm
+type: adversary
+img: systems/crucible/assets/tokens/creations/Storm.webp
+system:
+  abilities:
+    strength:
+      bonus: 0
+    toughness:
+      bonus: 0
+    dexterity:
+      bonus: 0
+    intellect:
+      bonus: 0
+    presence:
+      bonus: 0
+    wisdom:
+      bonus: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    reflex:
+      bonus: 0
+    willpower:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    level: -1
+    archetype:
+      description: ''
+      abilities:
+        strength: 4
+        toughness: 4
+        dexterity: 4
+        intellect: 3
+        presence: 2
+        wisdom: 1
+      name: Creation
+    taxonomy:
+      description: ''
+      category: humanoid
+      abilities:
+        strength: 2
+        toughness: 3
+        dexterity: 4
+        intellect: 5
+        presence: 2
+        wisdom: 2
+      resistances:
+        bludgeoning: 2
+        piercing: 2
+        slashing: 2
+        poison: 0
+        acid: -2
+        fire: 0
+        psychic: 0
+        radiant: -1
+        void: -2
+        cold: -2
+        electricity: 1
+        corruption: 0
+      name: Storm Elemental
+    threat: minion
+    biography:
+      public: ''
+      private: ''
+    stature: small
+  resistances:
+    bludgeoning:
+      bonus: 0
+    piercing:
+      bonus: 0
+    slashing:
+      bonus: 0
+    poison:
+      bonus: 0
+    acid:
+      bonus: 0
+    fire:
+      bonus: 0
+    psychic:
+      bonus: 0
+    radiant:
+      bonus: 0
+    void:
+      bonus: 0
+    corruption:
+      bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
+  resources:
+    health:
+      value: 19
+    morale:
+      value: 13
+    action:
+      value: 1
+    focus:
+      value: 4
+  skills:
+    acrobatics:
+      rank: 0
+    perception:
+      rank: 0
+    stealth:
+      rank: 0
+    survival:
+      rank: 0
+    arcana:
+      rank: 0
+    investigation:
+      rank: 0
+    lore:
+      rank: 0
+    religion:
+      rank: 0
+    bartering:
+      rank: 0
+    deception:
+      rank: 0
+    diplomacy:
+      rank: 0
+    intimidation:
+      rank: 0
+    animal:
+      rank: 0
+    craftsmanship:
+      rank: 0
+    medicine:
+      rank: 0
+    performance:
+      rank: 0
+  status: null
+prototypeToken:
+  name: Creation of Storm
+  displayName: 30
+  actorLink: false
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/creations/Storm.webp
+    scaleX: 0.9
+    scaleY: 0.9
+    offsetX: 0
+    offsetY: 0
+    rotation: 0
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 1
+  height: 1
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: -1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.75
+    angle: 360
+    bright: 0
+    color: '#ff8800'
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0.2
+    contrast: 0.1
+    shadows: 0
+    animation:
+      type: torch
+      speed: 2
+      intensity: 2
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: false
+    priority: 0
+  sight:
+    enabled: false
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: []
+  flags: {}
+  randomImg: false
+  hexagonalShape: 0
+  locked: false
+  occludable:
+    radius: 0
+items:
+  - folder: 3KAfetslMjSVGaqx
+    name: Elemental Armor
+    type: armor
+    _id: kxuUSxeLhkQ5J1Nn
+    img: icons/magic/defensive/shield-barrier-glowing-triangle-purple-orange.webp
+    system:
+      category: natural
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      properties: []
+      armor:
+        base: 3
+      dodge:
+        base: 10
+    effects: []
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.livingflame00000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1677965383866
+      modifiedTime: 1677966347928
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!Ne25xsSqYijgcrm0.kxuUSxeLhkQ5J1Nn'
+  - folder: MXhSyruFpcxbRhgJ
+    name: Voltaic Claw
+    type: weapon
+    _id: Qu8kL7eiBNkcOXpn
+    img: icons/magic/lightning/projectile-orb-blue.webp
+    system:
+      category: natural
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      properties: []
+      damageType: electricity
+    effects: []
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.flametouch000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1677965044710
+      modifiedTime: 1682175456965
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!Ne25xsSqYijgcrm0.Qu8kL7eiBNkcOXpn'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      node: int1b
+      description: >-
+        <p>You learn the Arrow gesture, allowing you to hurl a directed bolt of
+        arcane power towards a distant target.</p>
+
+        <p>The Arrow gesture deals damage corresponding to the Rune used to a
+        single enemy target at range.</p>
+      actions: []
+      requirements: {}
+      gesture: arrow
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.gesturearrow0000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1674842056708
+      modifiedTime: 1677966374363
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturearrow0000
+    folder: null
+    sort: 6100000
+    _key: '!actors.items!Ne25xsSqYijgcrm0.gesturearrow0000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      node: int0
+      description: >-
+        You learn Rune of Lightning, allowing you to control volatile arcane
+        surges of electricity.
+      actions: []
+      requirements: {}
+      rune: lightning
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runelightning000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1677966377392
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runelightning000
+    folder: null
+    sort: 10700000
+    _key: '!actors.items!Ne25xsSqYijgcrm0.runelightning000'
+effects: []
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1677963742821
+  modifiedTime: 1686342480099
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: Ne25xsSqYijgcrm0
+sort: 125000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!Ne25xsSqYijgcrm0'
+

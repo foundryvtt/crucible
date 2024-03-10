@@ -1,0 +1,36 @@
+name: Bastard Sword
+type: weapon
+img: icons/weapons/swords/greatsword-crossguard-silver.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: heavy1
+  quantity: 1
+  weight: 12
+  price: 80
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - oversized
+    - versatile
+  description: ''
+  damageType: slashing
+  broken: false
+  animation: sword
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.2
+  coreVersion: '12.317'
+  createdTime: 1674942420026
+  modifiedTime: 1686531133628
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: bastardsword0000
+folder: pUXcL0pnY3FlKwj8
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!bastardsword0000'
+

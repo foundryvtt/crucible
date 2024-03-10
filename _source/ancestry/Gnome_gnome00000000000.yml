@@ -1,0 +1,30 @@
+_id: gnome00000000000
+name: Gnome
+type: ancestry
+img: icons/commodities/tech/cog-brass.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: intellect
+  secondary: dexterity
+  resistance: electricity
+  vulnerability: acid
+  description: >-
+    Yours was a birth of exuberant celebration. Your diminutive body and
+    delicate features are paired with an almost supernatural propensity for
+    discovery. The traditions of your people embrace a lust for life and the
+    importance of quick-thinking and quick-action.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420027
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!gnome00000000000'
+

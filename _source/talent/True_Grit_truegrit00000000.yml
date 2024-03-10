@@ -1,0 +1,30 @@
+name: True Grit
+type: talent
+_id: truegrit00000000
+img: icons/magic/symbols/mask-yellow-orange.webp
+system:
+  node: tou1a
+  description: >-
+    <p>Your physical tenacity allows you to remain composed while surrounded by
+    foes. Your <strong>Engagement</strong> increases by +1, allowing you to
+    simultaneously engage more adjacent foes.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareMovement
+      fn: movement.engagement += 1;
+effects: []
+folder: aB808IWOdgwmFCIF
+sort: 275000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685824842320
+  modifiedTime: 1685825489875
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!truegrit00000000'
+

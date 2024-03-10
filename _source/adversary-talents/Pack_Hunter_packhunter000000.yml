@@ -1,0 +1,34 @@
+name: Pack Hunter
+type: talent
+img: icons/creatures/abilities/paw-print-orange.webp
+system:
+  description: >-
+    <p>The Hyena is a pack hunter, relying on its allies to flank and harrass a
+    target to render it exposed to further harm.</p><p>This creature adds one
+    additional Boon to all melee attacks against a target that is
+    <strong>Flanked</strong>.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareWeaponAttack
+      fn: |-
+        if ( target.statuses.has("flanked") ) {
+          rollData.boons.packHunter = {label: "Pack Hunter", number: 1};
+        }
+effects: []
+folder: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1685286272355
+  modifiedTime: 1688835584640
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: packhunter000000
+sort: 0
+_key: '!items!packhunter000000'
+

@@ -1,0 +1,47 @@
+_id: artfulparry00000
+name: Artful Parry
+type: talent
+img: icons/skills/melee/weapons-crossed-swords-white-blue.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: intdex2
+  description: When you Dodge a melee attack you can focus to instead Parry the attack.
+  actions:
+    - id: artfulParry
+      name: Artful Parry
+      img: icons/skills/melee/weapons-crossed-swords-white-blue.webp
+      condition: You Dodge an incoming melee Strike.
+      description: >-
+        You anticipate dodging an attack, and instead intentionally Parry the
+        blow.
+      tags:
+        - reaction
+      cost:
+        action: 0
+        focus: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+      actionHooks: []
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420030
+  modifiedTime: 1696453125682
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: iD0N4Q5xDZqsf354
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!artfulparry00000'
+

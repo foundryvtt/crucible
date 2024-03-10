@@ -1,0 +1,34 @@
+_id: pistol0000000000
+name: Pistol
+type: weapon
+img: icons/weapons/guns/gun-pistol-flintlock-metal.webp
+effects: []
+folder: Pe27j9LY8Nmygkqt
+flags: {}
+system:
+  category: mechanical1
+  quantity: 1
+  weight: 4
+  price: 150
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  damageType: piercing
+  broken: false
+  loaded: false
+  animation: bullet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1674942420018
+  modifiedTime: 1688924096217
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 500000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!pistol0000000000'
+

@@ -1,0 +1,33 @@
+_id: clawhammer000000
+name: Claw Hammer
+type: weapon
+img: icons/weapons/hammers/hammer-war-spiked.webp
+effects: []
+folder: pUXcL0pnY3FlKwj8
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 6
+  price: 40
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  damageType: bludgeoning
+  broken: false
+  animation: hammer
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420017
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!clawhammer000000'
+

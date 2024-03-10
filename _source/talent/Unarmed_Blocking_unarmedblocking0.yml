@@ -1,0 +1,35 @@
+name: Unarmed Blocking
+type: talent
+_id: unarmedblocking0
+img: icons/magic/earth/strike-fist-stone-light.webp
+system:
+  node: dextou2
+  description: >-
+    Your honed reflexes and physical toughness allow you to block enemy blows
+    using your bare arms. While <strong>Unarmed</strong>, half your Toughness
+    score contributes to your <strong>Block</strong> defense.
+  actions: []
+  actorHooks:
+    - hook: prepareDefenses
+      fn: |-
+        const weapons = actor.equipment.weapons;
+        if ( weapons.unarmed ) {
+          const toughness = actor.system.abilities.toughness.value;
+          defenses.block.bonus += Math.ceil(toughness / 2);
+        }
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1674959487279
+  modifiedTime: 1685125789302
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 8Vb0F5R7DMUrvhfw
+sort: -50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!unarmedblocking0'
+

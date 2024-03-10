@@ -1,0 +1,49 @@
+name: Dual Wield
+type: talent
+img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+system:
+  node: dex0b
+  description: >-
+    You are adept at fighting with two weapons simultaneously. You can weave
+    attacks together to strike more rapidly than possible with a single weapon.
+  actions:
+    - id: offhandStrike
+      name: Offhand Strike
+      description: You make rapid follow-up Strike with your offhand weapon.
+      tags:
+        - offhand
+      cost:
+        action: -1
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects: []
+      img: null
+      condition: ''
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.dualwield0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1676425968128
+  modifiedTime: 1696555934023
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dualwield0000000
+folder: cW6bwHXBB9pMcwva
+sort: 100000
+_key: '!items!dualwield0000000'
+

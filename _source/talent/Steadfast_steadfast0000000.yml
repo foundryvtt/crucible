@@ -1,0 +1,56 @@
+folder: 4Ll3b4Q4us2mp4Fu
+name: Steadfast
+type: talent
+img: icons/magic/life/heart-red-blue.webp
+system:
+  node: wis2c
+  description: >-
+    Your patient resolve allows you to endure psychologically grueling ordeals
+    with steadfast determination.
+  actions:
+    - id: steadfastResolve
+      name: Steadfast Resolve
+      condition: ''
+      description: >-
+        You harden yourself against demoralization. Your Morale is increased by
+        your Wisdom score and you temporarily gain the Resolute condition.
+      tags: []
+      cost:
+        action: 2
+        focus: 1
+        weapon: false
+      target:
+        type: self
+        scope: 1
+        number: 1
+      effects:
+        - name: ''
+          scope: 0
+          duration:
+            turns: null
+          statuses:
+            - resolute
+      img: null
+      range:
+        maximum: 0
+        weapon: false
+      actionHooks: []
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.steadfast0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1676168488294
+  modifiedTime: 1696795612773
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: steadfast0000000
+sort: -200000
+_key: '!items!steadfast0000000'
+

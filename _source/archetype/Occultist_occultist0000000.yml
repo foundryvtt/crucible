@@ -1,0 +1,35 @@
+name: Occultist
+type: archetype
+_id: occultist0000000
+img: icons/magic/death/skull-cattle-totem-glow-red.webp
+system:
+  description: Magic users who practice spellcraft using otherworldly and eldritch forces.
+  abilities:
+    wisdom: 4
+    presence: 5
+    intellect: 4
+    strength: 1
+    toughness: 2
+    dexterity: 2
+  talents:
+    - Compendium.crucible.talent.Item.runedeath0000000
+    - Compendium.crucible.talent.Item.runecourage00000
+    - Compendium.crucible.talent.Item.runevoid00000000
+    - Compendium.crucible.talent.Item.gestureinfluence
+    - Compendium.crucible.talent.Item.gestureray000000
+effects: []
+folder: 6Up7ddrphLept3RW
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685738637867
+  modifiedTime: 1685830841369
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!occultist0000000'
+

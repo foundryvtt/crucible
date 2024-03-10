@@ -1,0 +1,45 @@
+name: Hyena
+type: taxonomy
+_id: canine0000000000
+img: icons/creatures/abilities/paw-glowing-yellow.webp
+system:
+  description: >-
+    Mammals from the hyena family. Hyenas are carnivorous pack hunters with
+    powerful necks and jaws.
+  category: beast
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 2
+    strength: 5
+    toughness: 4
+    dexterity: 4
+  resistances:
+    bludgeoning: 0
+    corruption: 0
+    piercing: 0
+    slashing: 0
+    poison: 0
+    acid: 2
+    fire: 2
+    cold: -2
+    electricity: -2
+    psychic: 0
+    radiant: 0
+    void: 0
+effects: []
+folder: wTcQjW37uAKhpMQL
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685216953220
+  modifiedTime: 1686144314040
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!canine0000000000'
+

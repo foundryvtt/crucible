@@ -1,0 +1,31 @@
+folder: qAL3mvNAtEIemAia
+name: Tusker
+type: archetype
+_id: tusker0000000000
+img: icons/creatures/abilities/fang-tooth-blood-red.webp
+system:
+  description: Beasts that fight using their own mass, momentum, and sharpened tusks.
+  abilities:
+    wisdom: 1
+    presence: 3
+    intellect: 1
+    strength: 5
+    toughness: 5
+    dexterity: 3
+  talents:
+    - Compendium.crucible.adversary-talents.Item.tuskcharge000000
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685230805102
+  modifiedTime: 1685231689632
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!tusker0000000000'
+

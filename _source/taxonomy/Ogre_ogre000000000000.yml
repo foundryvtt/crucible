@@ -1,0 +1,46 @@
+folder: S6bJLsAeZRhqE9ko
+name: Ogre
+type: taxonomy
+img: icons/creatures/unholy/demon-fire-horned-mask.webp
+system:
+  description: >-
+    Hulking giantkin which are reknowned for their brute strength and direct
+    problem-solving approach.
+  category: giant
+  abilities:
+    wisdom: 3
+    presence: 2
+    intellect: 1
+    strength: 5
+    toughness: 5
+    dexterity: 2
+  resistances:
+    bludgeoning: 2
+    corruption: 0
+    piercing: 0
+    slashing: 0
+    poison: 2
+    acid: 0
+    fire: -2
+    cold: 0
+    electricity: 0
+    psychic: -2
+    radiant: 0
+    void: 0
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.5
+  coreVersion: '12.317'
+  createdTime: 1684855210087
+  modifiedTime: 1687702395410
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: ogre000000000000
+sort: 100000
+_key: '!items!ogre000000000000'
+

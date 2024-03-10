@@ -1,0 +1,56 @@
+name: Berserker
+type: talent
+img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+system:
+  node: toustr3
+  description: >-
+    You revel in the thrill of combat, hurling yourself into the fray with
+    reckless abandon.
+  actions:
+    - id: berserkerRage
+      name: Berserker Rage
+      condition: >-
+        You have suffered damage to your Health pool since your last turn in
+        Combat.
+      description: >-
+        You become Enraged. While Enraged you deal 4 additional damage on all
+        melee attacks. You may attempt to end the effect on your own turn by
+        succeeding on a Willpower test against a DC of 20. The effect ends
+        automatically when Combat is concluded.
+      tags: []
+      cost:
+        action: 1
+        focus: 0
+      target:
+        type: self
+        scope: 1
+        number: 1
+        distance: 1
+      effects:
+        - scope: 1
+          changes:
+            - key: rollBonuses.damage.melee
+              value: 4
+              mode: 2
+          statuses:
+            - enraged
+  requirements: {}
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.berserker0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1674936288328
+  modifiedTime: 1685115436659
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: berserker0000000
+folder: fOYHlZJEWUukD7yr
+sort: 400000
+_key: '!items!berserker0000000'
+

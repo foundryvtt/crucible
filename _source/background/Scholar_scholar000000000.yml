@@ -1,0 +1,32 @@
+_id: scholar000000000
+name: Scholar
+type: background
+img: icons/magic/symbols/star-inverted-yellow.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    You were always most at home in a library or classroom. Your studies focused
+    on unravelling the mysteries of the world around you, and there are few
+    theoretical subjects with which you are not already familiar.
+  skills:
+    - arcana
+    - religion
+    - naturalism
+    - medicine
+  talents:
+    - Compendium.crucible.talent.Item.intuitweakness00
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420028
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!scholar000000000'
+

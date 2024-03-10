@@ -1,0 +1,50 @@
+_id: fanofarrows00000
+name: Fan of Arrows
+type: talent
+img: icons/skills/ranged/bow-arrows-blue.webp
+effects: []
+flags: {}
+system:
+  node: dex1b
+  description: >-
+    This difficult ranged weaponry technique allows you to fire a multiple shots
+    with your weapon in a sweeping cone, each targeting a different enemy in the
+    area of effect.
+  actions:
+    - id: fanOfArrows
+      name: ''
+      img: null
+      condition: ''
+      description: >-
+        <p>You fire multiple projectiles from your ranged weapon in an arc,
+        striking all enemy targets within a 40 foot cone.</p>
+      cost:
+        action: 2
+        focus: 1
+        weapon: true
+      range:
+        maximum: 40
+        weapon: false
+      target:
+        type: cone
+        number: 1
+        scope: 3
+      effects: []
+      tags:
+        - ranged
+        - difficult
+      actionHooks: []
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420029
+  modifiedTime: 1696793934359
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: i7P1uwWcECj5KWfY
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!fanofarrows00000'
+

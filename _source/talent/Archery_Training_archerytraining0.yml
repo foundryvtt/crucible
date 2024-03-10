@@ -1,0 +1,34 @@
+name: Archery Training
+type: talent
+_id: archerytraining0
+img: icons/weapons/bows/shortbow-white.webp
+system:
+  node: dex0a
+  description: >-
+    <p>You are educated and trained in the arts of projectile weaponry like
+    bows, crossbows, firearms, and slings.</p>
+
+    <p>You gain a +1 Skill bonus to attacks using ranged weapons in the
+    <strong>Projectile</strong> or <strong>Mechanical</strong> category.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareTraining
+      fn: |-
+        training.projectile += 1;
+        training.mechanical += 1;
+effects: []
+folder: FQAUMNkcagdBLURJ
+sort: 25000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1684461652834
+  modifiedTime: 1685209355982
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!archerytraining0'
+

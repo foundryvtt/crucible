@@ -1,0 +1,29 @@
+name: Subtle Extrication
+type: talent
+_id: subtleextricatio
+img: icons/magic/air/wind-stream-blue-gray.webp
+system:
+  node: wis2a
+  description: >-
+    <p>You understand how to move away from an opponent without exposing
+    yourself to the worst attacks in return. Any <strong>Disengagement
+    Attack</strong> against you is performed without the 2 Boons that would
+    ordinarily apply to such an attack.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: aB808IWOdgwmFCIF
+sort: 250000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685584801159
+  modifiedTime: 1685585149997
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!subtleextricatio'
+

@@ -1,0 +1,49 @@
+name: Dervish
+type: talent
+img: icons/skills/melee/maneuver-daggers-paired-orange.webp
+system:
+  node: dexstr3
+  description: >-
+    You are specialized in fighting with two weapons. In combat you become a
+    whirlwind of weapons, deadly to any foes who approach.
+  actions:
+    - id: whirlwind
+      name: Whirlwind
+      img: icons/skills/melee/swords-triple-orange.webp
+      description: >-
+        You become a cyclone of whirling weaponry, striking every adjacent
+        creature.
+      tags:
+        - melee
+        - dualwield
+        - mainhand
+        - offhand
+      cost:
+        action: 1
+        focus: 0
+      target:
+        type: pulse
+        number: 1
+        distance: 1
+        scope: 3
+      effects: []
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.dervish000000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675607983807
+  modifiedTime: 1686074353361
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dervish000000000
+folder: fOYHlZJEWUukD7yr
+sort: 375000
+_key: '!items!dervish000000000'
+

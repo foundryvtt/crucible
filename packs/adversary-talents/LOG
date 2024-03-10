@@ -1,7 +1,0 @@
-2023/10/08-14:48:09.654 21308 Recovering log #451
-2023/10/08-14:48:09.657 21308 Delete type=0 #451
-2023/10/08-14:48:09.657 21308 Delete type=3 #449
-2023/10/08-16:08:04.805 1a3e4 Level-0 table #456: started
-2023/10/08-16:08:04.805 1a3e4 Level-0 table #456: 0 bytes OK
-2023/10/08-16:08:04.807 1a3e4 Delete type=0 #454
-2023/10/08-16:08:04.811 1a3e4 Manual compaction at level-0 from '!items!packhunter000000' @ 72057594037927935 : 1 .. '!items!tuskcharge000000' @ 0 : 0; will stop at (end)

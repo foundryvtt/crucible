@@ -1,0 +1,35 @@
+_id: katana0000000000
+name: Katana
+type: weapon
+img: icons/weapons/swords/sword-katana.webp
+effects: []
+folder: pUXcL0pnY3FlKwj8
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 6
+  price: 70
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - keen
+    - versatile
+  description: ''
+  damageType: slashing
+  broken: false
+  animation: katana
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.3
+  coreVersion: '12.317'
+  createdTime: 1674942420033
+  modifiedTime: 1687027374264
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!katana0000000000'
+

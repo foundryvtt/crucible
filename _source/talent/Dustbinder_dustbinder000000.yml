@@ -1,0 +1,44 @@
+name: Dustbinder
+type: talent
+img: icons/magic/earth/orb-stone-smoke-teal.webp
+system:
+  node: wis2b
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Earth. Spells which use
+    this Rune cause the Corroding condition on Critical Hits.</p>
+
+    <p>The Corroding effect lasts for 3 Rounds and deals your Wisdom score as
+    Acid damage to Health each Round.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Earth rune
+        if ( action.rune?.id !== "earth" ) return;
+
+        // Require damage to Health
+        const damageHealth = outcome.resources.health < 0;
+        if ( !damageHealth ) return;
+
+        // Apply Corroding effect
+        const corroding = SYSTEM.EFFECTS.corroding(actor, outcome.target);
+        outcome.effects.push(corroding);
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.dustbinder000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1676596843579
+  modifiedTime: 1688828029364
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dustbinder000000
+folder: c0nl6X8tp4Of0Y4O
+sort: -100000
+_key: '!items!dustbinder000000'
+

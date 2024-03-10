@@ -1,0 +1,30 @@
+name: Conjurer
+type: talent
+img: icons/magic/symbols/runes-star-orange-purple.webp
+system:
+  description: >-
+    You are a master of Conjuration and the Gesture of Creation to manifest
+    arcane energy as physical form. You can maintain up to 3 such creations
+    simultaneously rather than only one.
+  actions: []
+  requirements: {}
+  node: wisint3
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.conjurer00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675740927729
+  modifiedTime: 1682386859993
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: conjurer00000000
+folder: fOYHlZJEWUukD7yr
+sort: 0
+_key: '!items!conjurer00000000'
+

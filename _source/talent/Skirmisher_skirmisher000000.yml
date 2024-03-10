@@ -1,0 +1,26 @@
+name: Skirmisher
+type: talent
+_id: skirmisher000000
+img: icons/skills/movement/arrow-upward-yellow.webp
+system:
+  node: dextou1
+  description: >-
+    <p>You are adept at entering and exiting the fray. When moving out of the
+    <strong>Engagement</strong> radius of an enemy, that enemy has 2 Banes to
+    any <strong>Disengagement Strike</strong> against you.
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674841504645
+  modifiedTime: 1696793352667
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: MqZKCMx5KrZQffGU
+sort: 106250
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!skirmisher000000'
+

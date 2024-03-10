@@ -1,0 +1,45 @@
+name: Tactician
+type: talent
+_id: tactician0000000
+img: icons/sundries/flags/banner-symbol-axe-red.webp
+system:
+  node: preint3
+  description: >-
+    You are a cunning battlefield tactician, able to organize and direct your
+    allies to act with increased effectiveness.
+  actions:
+    - id: tacticalPlan
+      name: Tactical Plan
+      description: >-
+        Using 10 words or fewer, describe a course of action to an ally who acts
+        after you in Initiative order. If that ally carries out your described
+        plan later in the same Round, they gain +2 Boons on any dice rolls
+        associated with that plan. The Gamemaster may arbitrate whether or not
+        the plan was followed.
+      tags: []
+      cost:
+        action: 2
+        focus: 0
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675020119928
+  modifiedTime: 1682388092517
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: fOYHlZJEWUukD7yr
+sort: 225000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!tactician0000000'
+

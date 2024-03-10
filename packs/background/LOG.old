@@ -1,8 +1,0 @@
-2023/10/07-20:18:49.139 45bbc Recovering log #1147
-2023/10/07-20:18:49.142 45bbc Delete type=0 #1147
-2023/10/07-20:18:49.143 45bbc Delete type=3 #1146
-2023/10/07-20:37:03.395 fcf4 Level-0 table #1151: started
-2023/10/07-20:37:03.395 fcf4 Level-0 table #1151: 0 bytes OK
-2023/10/07-20:37:03.396 fcf4 Delete type=0 #1149
-2023/10/07-20:37:03.398 fcf4 Manual compaction at level-0 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)
-2023/10/07-20:37:03.400 fcf4 Manual compaction at level-1 from '!items!acolyte000000000' @ 72057594037927935 : 1 .. '!items!wanderer00000000' @ 0 : 0; will stop at (end)

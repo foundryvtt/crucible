@@ -1,0 +1,42 @@
+name: Powerful Physique
+type: talent
+img: icons/skills/social/intimidation-impressing.webp
+system:
+  node: str2a
+  description: >-
+    You can wield weapons with the Slow trait and wear Armor with the Bulky
+    trait without suffering Banes to your Initiative rolls.
+  actions: []
+  actorHooks:
+    - hook: prepareInitiativeCheck
+      fn: >-
+        const {weapons, armor} = actor.equipment;
+
+        const slowBanes = rollData.banes.slow;
+
+        if ( weapons.slow && slowBanes ) slowBanes.number -= weapons.slow;
+
+
+        const bulkyBanes = rollData.banes.bulky;
+
+        if ( armor.system.properties.has("bulky") && bulkyBanes )
+        bulkyBanes.number -= 2;
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.powerfulphysique
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1675014203613
+  modifiedTime: 1687632194596
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: powerfulphysique
+folder: p4F0SmUoKJr0riBd
+sort: 0
+_key: '!items!powerfulphysique'
+

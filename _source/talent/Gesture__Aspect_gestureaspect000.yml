@@ -1,0 +1,41 @@
+name: 'Gesture: Aspect'
+type: talent
+img: icons/magic/control/silhouette-hold-change-green.webp
+system:
+  node: pre1b
+  description: >-
+    <p>Infuse the essence of a Rune into the self, empowering your own physical
+    form or psyche.</p>
+
+
+    <p>When you assume a certain Aspect, you become more closely attuned to the
+    damage type of the Rune used in your spell. You gain <strong>+2
+    Resistance</strong> to that damage type, and deal an additional <strong>+2
+    Damage</strong> whenever dealing damage of that type.</p>
+
+
+    <p>Your Aspect lasts for <strong>6 Rounds</strong>. You may only have one
+    active Aspect, casting another spell using the Aspect gesture replaces the
+    previous effect.</p>
+  actions: []
+  gesture: aspect
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gestureaspect000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686251752890
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gestureaspect000
+folder: D14x9AJ0TgXKtnzu
+sort: 200000
+_key: '!items!gestureaspect000'
+

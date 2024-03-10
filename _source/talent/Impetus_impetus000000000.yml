@@ -1,0 +1,28 @@
+name: Impetus
+type: talent
+_id: impetus000000000
+img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+system:
+  node: int1b
+  description: >-
+    You are gifted at exploiting the slowness with which others think. If you
+    are first in Initiative order for the first round of Combat, you gain +1
+    Action during your turn.
+  actions: []
+  requirements: {}
+effects: []
+folder: BevAJzzLeFbSaVic
+sort: -75000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1684461808776
+  modifiedTime: 1684464745341
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!impetus000000000'
+

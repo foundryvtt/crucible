@@ -1,0 +1,43 @@
+name: Voidcaller
+type: talent
+_id: voidcaller000000
+img: icons/magic/unholy/orb-swirling-teal.webp
+system:
+  node: pre2c
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Shadow. Spells which use
+    this Rune cause the Entropy condition on Critical Hits.</p>
+
+    <p>The Entropy effect lasts for 1 Round, deals half your Presence score as
+    Void damage to Morale, and applies the Frightened condition.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Shadow rune
+        if ( action.rune?.id !== "shadow" ) return;
+
+        // Require damage to Morale
+        const damageHealth = outcome.resources.health < 0;
+        const damageMorale = outcome.resources.morale < 0;
+        if ( !(damageHealth || damageMorale) ) return;
+
+        // Apply Entropy effect
+        const entropy = SYSTEM.EFFECTS.entropy(actor, outcome.target);
+        outcome.effects.push(entropy);
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: 31250
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1677358555167
+  modifiedTime: 1688828385776
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!voidcaller000000'
+

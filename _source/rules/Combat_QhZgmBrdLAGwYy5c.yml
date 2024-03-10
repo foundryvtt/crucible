@@ -1,0 +1,719 @@
+_id: QhZgmBrdLAGwYy5c
+name: Combat
+folder: MMeWpMmsLOblp07U
+flags:
+  crucible:
+    rulesEntry: true
+  core:
+    viewMode: 2
+    sheetClass: crucible.CrucibleJournalSheet
+pages:
+  - name: Conditions
+    type: text
+    title:
+      show: true
+      level: 1
+    text:
+      format: 1
+      content: >-
+        <p><strong>Conditions</strong> are temporary status effects which apply
+        to a character. These conditions modify what actions the character can
+        take, its resource pools, or the way that certain rules are applied to
+        that character. This page separates Conditions into two categories;
+        Statuses which describe the character's state of being and
+        Damage-Over-Time which are detrimental or ameliorating effects which
+        apply at the beginning of the character's <strong>Turn</strong> in
+        Combat.</p><p>The following conditions can apply to creatures when
+        specific circumstances are met.</p><h2 class="divider">Health
+        Statuses</h2><h4>Weakened</h4><p>A creature that is
+        <strong>Weakened</strong> is vulnerable to taking deadly wounds.
+        Protagonists become Weakened when they reach zero Health. Any further
+        damage to Health taken while Weakened increases Wounds.</p><p>While a
+        creature is Weakened, it suffers -1 to maximum Action, loses access to a
+        free Movement action, and suffers an additional <strong>2
+        Vulnerability</strong> to any <strong>Morale</strong> damage
+        sustained.</p><h4>Dead</h4><p>When a protagonist's Wounds reach their
+        maximum value, or when an adversary's Health reaches zero, that
+        character is <strong>Dead</strong>. A creature which is Dead is also
+        treated as <strong>Incapacitated</strong>, can no longer Rest, and
+        cannot be revived except by magical means.</p><h4>Diseased</h4><p>A
+        creature that is <strong>Diseased</strong> cannot recover Health or heal
+        Wounds for the duration of the Diseased
+        effect.</p><h4>Invulnerable</h4><p>A creature that is
+        <strong>Invulnerable</strong> is temporarily immune to Health or Wounds
+        damage.</p><h2 class="divider">Morale Statuses</h2><h4>Broken</h4><p>A
+        creature that is <strong>Broken</strong> is vulnerable to psychological
+        trauma. Protagonists become Broken when they reach zero Morale. Any
+        further damage to Morale taken while Broken increases
+        Madness.</p><p>While a creature is Broken it cannot expend
+        <strong>Focus</strong>, actions it takes suffer from <strong>+2
+        Banes</strong>, and it suffers an additional <strong>2
+        Vulnerability</strong> to any <strong>Health</strong> damage
+        sustained.</p><p>Creatures which are Broken cannot contribute towards
+        Flanking. Non-player Adversaries which become Broken will attempt to
+        flee the battle unless they lack instincts of self-preservation or
+        escape seems impossible.</p><h4>Insane</h4><p>When a protagonist's
+        Madness reaches its maximum value, that character is
+        <strong>Insane</strong>. A character which is Insane may no longer be
+        controlled by its player and is controlled by the Gamemaster. This
+        condition cannot be healed or cured except by magical
+        means.</p><h4>Frightened</h4><p>A creature that is
+        <strong>Frightened</strong> cannot recover Morale or heal Madness for
+        the duration of the Frightened effect.</p><h4>Resolute</h4><p>A creature
+        which is <strong>Resolute</strong> is temporarily immune to Morale or
+        Madness damage.</p><h2 class="divider">Other
+        Conditions</h2><h4>Enraged</h4><p>When a creature is
+        <strong>Enraged</strong>, it behaves recklessly and is less able to
+        defend itself. An <strong>Enraged</strong> creature's Block and Parry
+        defenses become zero and that creature cannot expend
+        Focus.</p><h4>Exposed</h4><p>Some attacks can leave an enemy temporarily
+        vulnerable. When a creature is <strong>Exposed</strong> attacks against
+        it gain +2 Boons.</p><h4>Flanked</h4><p>When a creature is
+        <strong>Engaged</strong> by multiple foes which are its own size or
+        larger and those foes are located on opposite sides of its square, the
+        creature is considered to be <strong>Flanked</strong>.</p><p>When
+        attacking a creature that is your size or smaller that is currently
+        <strong>Flanked</strong>, you gain a number of <strong>Boons</strong> to
+        Attack abilities equal to the number of flanking allies (excluding
+        yourself).</p><h4>Incapacitated</h4><p>When a creature is entirely
+        unable to act, it is <strong>Inacapacitated</strong>. When a target is
+        Incapacitated, its <strong>Dodge, Block, </strong>and<strong>
+        Parry</strong> defenses become zero and it no longer benefits from
+        <strong>Ability Score</strong> bonuses to <strong>Fortitude, Willpower,
+        </strong>or Reflex defense. It cannot contribute to Flanking or
+        otherwise aid allies.</p><h4>Prone</h4><p>A creature that has been
+        knocked to the ground, or has voluntarily thrown itself to the ground is
+        considered <strong>Prone</strong>. While Prone, melee attacks against
+        the target benefit from +1 Boon while ranged attacks against the target
+        suffer from +1 Bane. Returning to your feet from a Prone position
+        requires the use of a Movement action.</p><h4>Staggered</h4><p>A
+        creature that is <strong>Staggered</strong> temporarily has 1 fewer
+        Action Point available than normal.</p><h4>Stunned</h4><p>A creature
+        that is <strong>Stunned</strong> temporarily has 2 fewer Action Points
+        available than normal.</p><h4>Paralyzed</h4><p>A creature that is
+        <strong>Paralyzed</strong> is unable to perform Actions until the
+        paralysis is ended. During this time the target is
+        <strong>Incapacitated</strong>.</p><h4>Slowed</h4><p>A creature that is
+        <strong>Slowed</strong> pays a +1 Action cost for any Action that
+        involves Movement, including the free Move action each Turn which costs
+        1 AP instead.</p><h4>Restrained</h4><p>A creature that is
+        <strong>Restrained</strong> is unable to perform any Action which
+        involves Movement.</p><h4>Disoriented</h4><p>A creature that is
+        <strong>Disoriented </strong>incurs a +1 Focus cost to all Actions which
+        require Focus.</p><h4>Guarded</h4><p>Some terrain or abilities may
+        temporarily harden a creature's defenses. When a creature is
+        <strong>Guarded </strong>attacks against it suffer +1
+        Banes.</p><h4>Unaware</h4><p>A creature that is <strong>Unaware</strong>
+        acts in combat at Initiative 1 and cannot perform Reactions.</p><h2
+        class="divider">Damage-Over-Time</h2><p>Some types of damage deal
+        additional delayed damage. The following conditions cause damage that
+        occurs at the start of a character's turn.</p><h4>Bleeding</h4><p>A
+        <strong>Bleeding </strong>creature suffers additional Piercing or
+        Slashing damage, depending on the triggering damage type, at the start
+        of its subsequent turns.</p><h4>Poisoned</h4><p>A
+        <strong>Poisoned</strong> creature suffers additional Poison damage at
+        the start of its subsequent turns.</p><h4>Corroding</h4><p>A
+        <strong>Corroding</strong> creature suffers additional Acid damage at
+        the start of its subsequent turns.</p><h4>Burning</h4><p>A
+        <strong>Burning</strong> creature suffers additional Fire damage at the
+        start of its subsequent turns.</p><h4>Freezing</h4><p>A
+        <strong>Freezing</strong> creature suffers additional Cold damage at the
+        start of its subsequent turns.</p><h4>Irradiated</h4><p>An
+        <strong>Irradiated</strong> creature suffers additional Radiant damage
+        at the start of its subsequent turns.</p><h4>Decaying</h4><p>A
+        <strong>Decaying </strong>creature suffers additional Corruption damage
+        at the start of its subsequent turns.</p>
+      markdown: ''
+    _id: USjhhuOGsLTXQM9v
+    image: {}
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    sort: 600000
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.6
+      coreVersion: '12.317'
+      createdTime: null
+      modifiedTime: 1688232584608
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.USjhhuOGsLTXQM9v'
+  - name: Initiative and Turn Order
+    type: text
+    title:
+      show: true
+      level: 1
+    text:
+      format: 1
+      content: >-
+        <p><strong>Initiative</strong> reflects your character's swiftness of
+        mind and body - corresponding to how quickly you are able to act in a
+        situation where time is of the essence. Your character's initiative
+        during combat is determined by your Dexterity and Intellect attributes,
+        any passive Initiative Bonus you may have, any situational bonus which
+        allows you to react faster than usual, and an element of random
+        chance.</p><h2 class="divider">Rounds and Turns</h2><p>Each combat
+        encounter is divided into <strong>Rounds</strong> and
+        <strong>Turns</strong>. A <strong>Round</strong> refers to a single set
+        of choices made by the characters in the encounter, where each character
+        gets to act in an order defined by their <strong>Initiative</strong>.
+        Each round loosely represents 10 seconds of real time, where 6 rounds of
+        combat occur each minute of the encounter's duration. A
+        <strong>Turn</strong> represents the actions taken by the one character
+        whose turn it is to act in the initiative order.</p><h2
+        class="divider">Initiative Calculation</h2><p>Your initiative is
+        determined by:</p><section class="formula"><p
+        class="value">Initiative</p><p class="equals">=</p><p
+        class="equation">3d8[Boons,Banes] + ((Dexterity + Intellect) /
+        2)</p></section><p>A situational bonus to initiative could result from
+        you getting the drop on an enemy, or benefiting from a magical spell
+        which hastens your reactions, alternatively you could face a situational
+        penalty to initiative if your reactions are dulled or slowed by
+        alchemical or magical effects.</p><p>Each round of combat you have a
+        pool of Action Points which you may elect to spend in various ways. If
+        you are not immobilized or incapacitated, any unspent Action Points at
+        the end of each round are defined as action reserves which each add a
+        <strong>Boon</strong> to your Initiative roll for the following
+        round.</p><blockquote><p>Re-rolling initiative every round introduces
+        greater tactical challenge for players who cannot rely completely upon
+        always acting before or after the same foes each round of combat. Being
+        able to convert unspent action points into an initiative bonus in the
+        subsequent round can also promote creative tactical solutions to a
+        variety of combat challenges.</p></blockquote><h4>Automatic
+        Initiative</h4><p>Since <strong>Initiative</strong> automatically
+        updates every <strong>Round</strong> of combat, players do not roll for
+        Initiative themselves. Instead this process is automated that every
+        character's initiative roll is automatically performed in order to
+        maintain a satisfying pace to combat encounters.</p><h4>Incapacitated
+        Combatants</h4><p>Combatants who are <strong>Incapacitated</strong> or
+        <strong>Dead</strong> are automatically placed at Initiative 0 and their
+        turns come last in each Round.</p><h2 class="divider">Escalation and
+        Morale</h2><p>As the tension of combat escalates - so too do the
+        consequences on <strong>Morale</strong> for combatants. After 6 Rounds
+        of Combat at the start of each subsequent round, the combatant with the
+        highest <strong>Initiative</strong> result gains additional Morale equal
+        to the numbered <strong>Round</strong> of combat. The combatant with the
+        lowest Initiative result (excluding Incapacitated and Dead combatants)
+        loses Morale equal to the numbered Round of combat.</p>
+      markdown: ''
+    _id: DPrsFbPo3tD7TJ5g
+    image: {}
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    sort: 100000
+    ownership:
+      default: -1
+    flags:
+      core:
+        sourceId: JournalEntry.PJyL1BtYpx7ikDxT.JournalEntryPage.DPrsFbPo3tD7TJ5g
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: null
+      modifiedTime: 1685224458034
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.DPrsFbPo3tD7TJ5g'
+  - name: Attack Rolls
+    type: text
+    title:
+      show: true
+      level: 1
+    text:
+      format: 1
+      content: >-
+        <p>An <strong>Attack Roll</strong> is performed by making a
+        <strong>Standard Check</strong> tested against a certain <strong>Defense
+        Score</strong> of the target creature. Attack Rolls are made when the
+        effectiveness of an ability is evaluated in opposition to an opponent.
+        Attack Rolls apply to weapon attacks, spell casts, healing abilities,
+        and even some skill checks which are performed in combat.</p><p>The
+        player whose character is performing the Attack is always the one to
+        make the roll, while the effectiveness of the defending character or
+        creature is based on their defense scores. The Attack Roll uses the same
+        modified dice pool as a Standard Check, expressed as:</p><section
+        class="formula"><p class="value">Attack Roll</p><p
+        class="equals">=</p><p class="equation">3d8[+Boons, -Banes] + Ability
+        Modifier + Skill Bonus + Enchantment Bonus</p></section><p>The 3d8 dice
+        pool is modified by <strong>Boons</strong> and <strong>Banes</strong>.
+        The ability modifier for the attack roll is determined by the scaling
+        formula of the weapon type being used. The Skill Bonus for the attack
+        roll is determined by the character's training in that particular weapon
+        type. The Enchantment Bonus for the roll is determined by the magical
+        properties (if any) of the weapon being used.</p><h2
+        class="divider">Determining Attack Outcomes</h2><p>The attack is a hit
+        if the result of the Attack Roll exceeds the Defense score of the
+        target. If the result of the attack roll is less than the Defense score,
+        the attack is ineffective. For attacks which target Physical Defense the
+        nature of the miss (Deflected, Blocked, Dodged, or Parried) is further
+        determined by the component Physical Defense scores of the target
+        creature.</p><h2 class="divider">Overflow and Damage</h2><p>The amount
+        by which the Attack Roll exceeded the Defense score is called
+        <strong>Overflow</strong>. This Overflow amount is multiplied by a
+        <strong>Damage Multiplier</strong> which is usually 1, but occasionally
+        higher or lower. Then any additive <strong>Damage Bonus</strong> is
+        applied, and lastly any <strong>Resistance</strong> possessed by the
+        target creature is subtracted from the result.</p><section
+        class="formula"><p class="value">Overflow</p><p class="equals">=</p><p
+        class="equation">Attack Roll - Defense Score</p></section><section
+        class="formula"><p class="value">Damage</p><p class="equals">=</p><p
+        class="equation">(Overflow × Damage Multiplier) + Damage Bonus - Target
+        Resistance</p></section><p>While Damage Resistance is a powerful way for
+        creatures to reduce incoming damage, such damage cannot be mitigated
+        entirely. Abilities which deal direct (immediate) damage that surpass
+        the target's Defense Score always deal at least 1 point of damage to
+        their target Resource.</p><p>Abilities which deal indirect
+        damage-over-time, however, can have the effects of that indirect damage
+        reduced to zero by Resistance.</p><h2 class="divider">Critical Hits and
+        Misses</h2><p>If the Attack Roll exceeds the Defense Score by an amount
+        greater than the attacker's Critical Hit Threshold (6 in most cases) it
+        becomes a <strong>Critical Hit</strong>. Similarly if the Attack Roll is
+        lower than the Defense Score by an amount greater than the attacker's
+        Critical Miss Threshold (6 in most cases) it becomes a <strong>Critical
+        Miss</strong>.</p><p>A Critical Hit does not directly increase the
+        damage of an attack - although because of the way that Overflow
+        contributes to total damage, Critical Hits always deal more damage than
+        normal hits.</p><p>Critical Hits and Critical Misses present
+        opportunities for other things to occur. Many talents allow your
+        character to cause special effects when achieving a Critical Hit, or to
+        react to an enemy if an incoming attack is a Critical Miss.</p><section
+        class="gameplay"><h4>Critical Hit Effects</h4><p>Zenith the Monk has
+        both the <strong>Concussive Blows</strong> and <strong>Battle
+        Focus</strong> talents. Zenith rolls a <strong>29</strong> on a Strike
+        attack against a terrible Swamp Troll with a <strong>19 Physical
+        Defense</strong>. This attack results in a <strong>Critical Hit</strong>
+        and as a result the Swamp Troll is <strong>Staggered</strong> because of
+        the Concussive Blows talent and Zenith recovers <strong>+1
+        Focus</strong> because of the Battle Focus talent.</p></section>
+      markdown: ''
+    _id: lZfPVvBSsCEqlte4
+    image: {}
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    sort: 500000
+    ownership:
+      default: -1
+    flags:
+      core:
+        sourceId: JournalEntry.rQ8H74v0bMnhu4xA.JournalEntryPage.lZfPVvBSsCEqlte4
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: null
+      modifiedTime: 1686356373225
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.lZfPVvBSsCEqlte4'
+  - sort: 400000
+    name: Movement
+    type: text
+    _id: KGXiKFUWrPgb7wsx
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Movement</strong> is one of the most important actions that
+        characters in Crucible will perform in combat. The Crucible system is
+        designed for combat encounters that take place on a square grid where
+        each grid space conceptually represents 5 square feet of
+        space.</p><section class="foundryvtt"><p>Distances in the Crucible
+        system are defined in unitless measure. Scenes in Foundry Virtual
+        Tabletop must be configured to have <strong>Grid Distance</strong> of
+        <strong>1</strong>. Additional options or flexibility for allowing for
+        unit-based Scene distance configuration will be added in the
+        future.</p></section><p>Many combat actions a character can perform
+        involve the <strong>Movement</strong> tag. Such actions allow you to
+        move a certain number of spaces as part of using that
+        action.</p><section class="construction"><p>We plan to add equal support
+        for hexagonal grids as part of the full system but encourage users to
+        use square grids for the purposes of the playtest.</p><p>Additionally,
+        it is our eventual goal that characters have a <strong>Stride</strong>
+        attribute which modifies their base movement speed and allows for
+        certain creators or characters to cover ground slower or faster than
+        others.</p></section><p>There are no facing mechanics in Crucible,
+        meaning that it does not matter which direction your Token is facing on
+        the map, your character is able to perceive and act in a full 360 degree
+        radius unless otherwise limited by some special effect or
+        condition.</p><h2 class="divider">Free Movement</h2><p>Each creature has
+        the opportunity to perform one free <strong>Movement</strong> action per
+        round of Combat. This means that the first Action performed each round
+        which involves the Movement tag is discounted at -1 Action Point cost.
+        This will typically make the action free to perform, but in some cases
+        may simply reduce its overall cost.</p><p>Free Movement is not available
+        to creatures wearing <strong>Heavy </strong>armor or those who are
+        <strong>Prone</strong>. Additionally, the <strong>Slowed</strong>
+        condition increases the cost of Movement actions, however the first such
+        movement per round is still discounted.</p><h2
+        class="divider">Terrain</h2><section class="construction"><p>Crucible
+        will eventually support declaring certain grid spaces as difficult
+        terrain which slow movement while traversing them. Movement costs are
+        doubled within difficult terrain. Until automation for this feature is
+        added, difficult terrain can be applied manually to movement costs
+        however the current Patreon playtest ignores the presence of difficult
+        terrain.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
+        or obstacles can be counted as Cover - providing additional protection
+        from incoming Spell or Weapon attacks. When a direct single-target
+        attack passes through such an obstacle, the target of the attack is in
+        Cover. Cover is classified according to the following
+        types:</p><table><thead><tr><th><p>Cover Type</p></th><th><p>Banes to
+        Attacks</p></th></tr></thead><tbody><tr><td><p>Complete
+        Cover</p></td><td><p>Direct attacks not
+        possible</p></td></tr><tr><td><p>Hard Cover</p></td><td><p>+4
+        Banes</p></td></tr><tr><td><p>Partial Hard Cover</p></td><td><p>+2
+        Banes</p></td></tr><tr><td><p>Soft Cover</p></td><td><p>+1
+        Banes</p></td></tr></tbody></table><p>Area of effect attacks from
+        abilities with target types like Cone, Blast, or Pulse ignore the
+        effects of Cover.</p><section class="construction"><p>In the future,
+        definition of cover and automation of banes occurring from cover may be
+        automated in the Crucible system. For the time being, Banes added due to
+        Cover should be added manually when attack rolls are
+        made.</p></section><h2 class="divider">Engagement and
+        Flanking</h2><p><strong>Engagement</strong> describes the number of
+        opposing Combatants that you can simultaneously battle against without
+        becoming more vulnerable. For most characters, Engagement is
+        1.</p><p>When a creature is adjacent to a number of enemies equal to or
+        greater than their Engagement score, they are said to be <strong>Fully
+        Engaged</strong>. Some conditions or action prerequisites may only occur
+        when a creature is Fully Engaged.</p><p>Flanking occurs when you and
+        your allies team up to combat an opponent. When a creature is
+        <strong>Engaged</strong> with a number of creatures greater than its
+        <strong>Engagement</strong> score it has the <strong>Flanked</strong>
+        condition. The Flanked condition has multiple stages, and each stage of
+        Flanked contributes +1 Boon to attack rolls made against that
+        creature.</p><section class="formula"><p class="value">Flanked
+        Stage</p><p class="equals">=</p><p class="equation">Number of Engaged
+        Enemies<br />- Engagement Score<br />- Engagement Bonus from Adjacent
+        Allies</p></section><section class="gameplay"><p>Krag, a heavily armored
+        fighter, has an <strong>Engagement</strong> score of <strong>3</strong>,
+        with bonuses from his <strong>True Grit</strong> talent and from his
+        Heater Shield with the <strong>Engaging</strong> property. Krag can
+        engage with three opposing combatants simultaneously without them
+        acquiring any Flanking bonus against him. However if Krag is surrounded
+        by five Goblins, he would have the <strong>Flanked 2</strong> condition
+        and each Goblin's attacks would benefit from <strong>+2 Boons (5 engaged
+        enemies - 3 Engagement)</strong>.</p></section><p>While having more
+        Engaged enemies increases your Flanked condition, having adjacent allies
+        who are supporting you can nullify flanking. Allies contribute their own
+        <strong>Engagement</strong> as a bonus to yours if you share enemies in
+        common that you are both Engaged with.</p><section
+        class="gameplay"><p>Krag, from our previous example, is still surrounded
+        by 5 Goblins and is <strong>Flanked 2</strong>. His ally Jinora comes to
+        join the fray. Jinora has an <strong>Engagement</strong> score of
+        <strong>2</strong>. When Jinora moves next to Krag, and into a position
+        where Jinora can engage at least 2 of the Goblins, Krag's Flanked
+        condition is removed because Jinora's 2 Engagement adds to Krag's own
+        Engagement score, allowing Krag to engage up to 5
+        enemies.</p></section><section class="foundryvtt"><p>A status effect
+        condition when a creature is <strong>Flanked</strong> is automatically
+        computed and added whenever a character moves into or out of
+        <strong>Engagement</strong> with other adversaries. The Flanked effect
+        automatically applies the correct number of boons to attack rolls
+        against the Flanked creature.</p></section><h2>Disengagement</h2><p>When
+        an opponent attempts to disengage from you in melee combat it becomes
+        temporarily vulnerable, allowing you to perform a <strong>Disengagement
+        Strike</strong>, an attack with your mainhand weapon which costs 1 Focus
+        point to perform. You may not make a Disengagement Attack if you are
+        <strong>Unaware</strong> of the enemy moving away or if you are
+        <strong>Flanked</strong> by other remaining opponents.</p><section
+        class="gameplay"><p>The Goblins in our previous example have decided
+        that Krag is too tough and it is advisable to disengage in search of
+        more vulnerable prey. Two of the four goblins may move away from Krag
+        without reciprocity, because Krag is otherwise <strong>Fully
+        Engaged</strong> and therefore cannot retaliate. When the third goblin
+        moves away, however, Krag spends 1 Focus point to perform a
+        <strong>Disengagement Strike</strong>, burying his battle axe in the
+        back of the retreating evildoer!</p></section><p>There is a safe means
+        of retreating from melee combat, which is to <strong>Move
+        Cautiously</strong>. This mode of movement only permits you to move a
+        single space, but it denies enemies with whom you were previously
+        engaged the opportunity to perform a <strong>Disengagement
+        Attack</strong>.</p><h2 class="divider">Concealment and
+        Surprise</h2><p>The <strong>Stealth</strong> skill, paired with
+        concealment from terrain are mechanics which allow creatures to be
+        undetected by their enemies. Enemies may be <strong>Unaware</strong>, a
+        status condition which render them more vulnerable to attacks. Creatures
+        that are Unaware act at Initiative 1 in Combat, last aside for
+        Incapacitated creatures. Once a creature is no longer Unaware, they roll
+        Initiative and act as normal for subsequent rounds of
+        combat.</p><section class="construction"><p>Complete mechanics, status
+        conditions, and automation for stealth, concealment, unaware opponents,
+        and surprise will be developed and added in future phases of
+        development.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.6
+      coreVersion: '12.317'
+      createdTime: 1684374473225
+      modifiedTime: 1688314019892
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.KGXiKFUWrPgb7wsx'
+  - sort: 550000
+    name: Skill Attacks
+    type: text
+    _id: 3roqI6RmgNNbQ5R9
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Skill Attacks</strong> are Actions which involve use of one
+        of Crucible's 16
+        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills}
+        in a tactical way during combat. Actions which use a Skill in this way
+        perform the Skill Attack by rolling a Skill Test opposed by the target's
+        passive score in the same Skill.</p><section class="gameplay"><p>Krag
+        wants to use his intimidating demeanor to break the Morale of some
+        attacking Goblins. Krag, an Adept in the Intimidation skill, uses the
+        <strong>Intimidate</strong> Action targeting a nearby Goblin and rolls
+        the Skill Attack, producing a total result of <strong>27</strong>
+        compared to the Goblin's passive Intimidation score of
+        <strong>14</strong>. This success results in <strong>17 Void
+        Damage</strong> dealt to the Goblin's Morale, causing it to become
+        Broken and attempt to flee.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684374509565
+      modifiedTime: 1686014099234
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.3roqI6RmgNNbQ5R9'
+  - sort: 575000
+    name: Reactions
+    type: text
+    _id: 2a1IVqTgJiZjOM75
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Reactions</strong> are a special type of Action which can
+        only be taken on some other creature's turn in combat. Reactions have
+        specific triggering conditions like <em>you dodge an melee Strike
+        attack<strong> </strong></em>or <em>an ally you can see achieves a
+        critical hit</em>. Reactions require spending Action or Focus points,
+        and therefore cannot be performed if you do not have the required
+        resources - even if the condition for the reaction is otherwise
+        met.</p><p>A creature is unable to perform Reactions if they are
+        <strong>Unaware</strong> or <strong>Incapacitated</strong>.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684374521577
+      modifiedTime: 1686014633443
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.2a1IVqTgJiZjOM75'
+  - sort: 350000
+    name: Actions
+    type: text
+    _id: 2U2k8WcnB1gbPLfd
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Actions</strong> encompass the activities, techniques,
+        spellcraft, and attacks which are performed during a combat encounter.
+        Actions modify, either positively or negatively, the resource pools of
+        combatants until the encounter is resolved.</p><h2
+        class="divider">Action Attributes</h2><p>Actions have the following
+        properties which explain how they are used.</p><h4>Action
+        Cost</h4><p>Most actions incur a cost in <strong>Action Points</strong>.
+        Action Points signify and represent the time and physical exertion
+        required in order to perform an action in the midst of
+        combat.</p><h4>Focus Cost</h4><p>Some actions may incur a cost in
+        <strong>Focus Points</strong>. Focus Points signify and represent the
+        mental energy and concentration needed to perform exceptional feats of
+        heroism, spellcraft, or martial prowess.</p><h4>Action Tags</h4><p>The
+        functionality of Actions relies on a large set of tags which describe
+        how that action behaves. Each tag can change certain aspects of the
+        Action like it's prerequisites, it's target, the type of damage it
+        deals, what type of dice roll is applied, whether Boons or Banes are
+        added to the roll, and more. A table of Action Tags is listed at the
+        bottom of this page.</p><h4>Target Type</h4><p>Each action defines a
+        specific target type which describes the affected creatures or
+        area-of-effect of the action. A list of possible target types is
+        provided in the following section.</p><h4>Target Scope</h4><p>In
+        addition to the range and area of effect of the Action described by the
+        target type, each Action defines a target scope which defines which
+        creature dispositions it can affect. Action scopes include "all
+        creatures", "allies only", "enemies only", "self
+        only".</p><h4>Activation Condition</h4><p>Certain actions may require a
+        specific triggering condition to be met in order for the action to be
+        eligible for use. If present, this prerequisite condition will be listed
+        on the action, for example, the <strong>Defensive Roll</strong> action
+        has an activation condition <em>You Dodge an incoming melee
+        Strike</em>.</p><h4>Applied Effects</h4><p>Certain Actions may apply
+        Active Effects to creatures they affect. Any effects applied by the
+        Action will be listed on its card with a stated duration in combat Turns
+        or Rounds. Some effects last until otherwise removed, having unlimited
+        duration.</p><h2 class="divider">Target Types</h2><h4>Blast</h4><p>This
+        action affects creatures within a circular area of effect centered on a
+        grid space chosen by the character performing the action. The Blast
+        action also specifies a <strong>Size</strong> which describes the radius
+        of effect and a <strong>Distance</strong> which describes the maximum
+        range between the originating character and the chosen center-point of
+        the blast.</p><h4>Cone</h4><p>This action affects creatures within a
+        narrow cone of effect. The Cone originates at the center of the grid
+        space of the character performing the action. The Cone has an angle of
+        60 degrees and a specified <strong>Distance</strong> which describes the
+        range of the ability in grid spaces. Cone templates may be placed at 45
+        degree increments only.</p><h4>Fan</h4><p>This action affects creatures
+        with a broad cone of effect. The Fan originates at the center of the
+        grid space of the character performing the action. The Fan has an angle
+        of 120 degrees and a specified <strong>Distance</strong> which describes
+        the range of the ability in grid spaces. Fan templates may be placed at
+        45 degree increments only.</p><h4>None</h4><p>This action has no
+        specific target. It may cause certain effects to occur but those effects
+        are not specific to any particular creature. This target type is not
+        typically used.</p><h4>Pulse</h4><p>This action affects creatures in a
+        circular area of effect centered on the character performing the action.
+        The Pulse has a specified <strong>Distance</strong> which describes the
+        radius of the ability in grid spaces.</p><h4>Ray</h4><p>This action
+        affects creatures in a straight line originating from the character
+        performing the action. The Ray has a specified <strong>Distance</strong>
+        which describes the length of its effect in grid
+        spaces.</p><h4>Self</h4><p>This action only involves or affects the
+        character or creature which performs it. Self-target abilities affect no
+        other creatures and have no range requirement.</p><h4>Single</h4><p>This
+        action targets some number of individual creatures other than the
+        creature which performs it. Single target actions also specify a
+        <strong>Number</strong> which describes the number of creatures targeted
+        and a <strong>Distance</strong> which describes the range of the ability
+        in grid spaces.</p><h4>Wall</h4><p>This action targets creatures in a
+        straight line perpendicular to the character performing the action.
+        Actions of the Wall type also specify a <strong>Size</strong> which
+        describes the breadth of the wall and a <strong>Distance</strong> which
+        describes the maximum range at which the center of the wall may be
+        placed.</p><h2 class="divider">Action Tags</h2><table><thead><tr><th
+        style="width:30%">Tag</th><th>Rules
+        Effect</th></tr></thead><tbody><tr><td><p>Dual
+        Wield</p></td><td><p>Requires one-handed or unarmed weapons equipped in
+        both hands.</p></td></tr><tr><td><p>One Handed</p></td><td><p>Requires
+        use of a one-handed
+        weapon.</p></td></tr><tr><td><p>Finesse</p></td><td><p>Requires use of a
+        melee weapon that scales using
+        Dexterity.</p></td></tr><tr><td><p>Heavy</p></td><td><p>Requires use of
+        a melee weapon that scales using
+        Strength.</p></td></tr><tr><td><p>Melee</p></td><td><p>Requires use of a
+        melee weapon.</p></td></tr><tr><td><p>Ranged</p></td><td><p>Requires use
+        of a ranged
+        weapon.</p></td></tr><tr><td><p>Shield</p></td><td><p>Requires a shield
+        equipped.</p></td></tr><tr><td><p>Unarmed</p></td><td><p>Requires both
+        hands to be
+        empty.</p></td></tr><tr><td><p>Unarmored</p></td><td><p>Requires no
+        armor to be
+        equipped.</p></td></tr><tr><td><p>Freehand</p></td><td><p>Requires at
+        least one hand to be
+        empty.</p></td></tr><tr><td><p>Movement</p></td><td><p>Involves movement
+        and benefits from reduced movement cost once per
+        turn.</p></td></tr><tr><td><p>Reaction</p></td><td><p>Can only be
+        performed on some other creature's
+        turn.</p></td></tr><tr><td><p>Spell</p></td><td><p>Involves casting a
+        spell.</p></td></tr><tr><td><p>Mainhand</p></td><td><p>Involves
+        performing a weapon attack with the mainhand-equipped
+        weapon.</p></td></tr><tr><td><p>Twohand</p></td><td><p>Involves
+        performing a weapon attack with a two-handed equipped
+        weapon.</p></td></tr><tr><td><p>Offhand</p></td><td><p>Involves
+        performing a weapon attack with the offhand-equipped
+        weapon.</p></td></tr><tr><td><p>Reload</p></td><td><p>Reloads a ranged
+        weapon that requires
+        reloading.</p></td></tr><tr><td><p>Deadly</p></td><td><p>Gains a +1
+        damage overflow
+        multiplier.</p></td></tr><tr><td><p>Difficult</p></td><td><p>Incurs +1
+        Bane.</p></td></tr><tr><td><p>Empowered</p></td><td><p>Increases base
+        damage by +6.</p></td></tr><tr><td><p>Exposing</p></td><td><p>Adds +2
+        Boons.</p></td></tr><tr><td><p>Harmless</p></td><td><p>Always deals zero
+        damage.</p></td></tr><tr><td><p>Weakened</p></td><td><p>Reduces base
+        damage by -6.</p></td></tr><tr><td><p>Fortitude</p></td><td><p>Targets
+        Fortitude defense.</p></td></tr><tr><td><p>Reflex</p></td><td><p>Targets
+        Reflex defense.</p></td></tr><tr><td><p>Willpower</p></td><td><p>Targets
+        Willpower
+        defense.</p></td></tr><tr><td><p>Healing</p></td><td><p>Targets Wounds
+        Threshold defense and restores damage as healing to
+        Health.</p></td></tr><tr><td><p>Rallying</p></td><td><p>Targets Madness
+        Threshold defense and restores damage as healing to
+        Morale.</p></td></tr><tr><td><p>&lt;Damage Type&gt;</p></td><td><p>Deals
+        damage as &lt;Damage
+        Type&gt;.</p></td></tr><tr><td><p>&lt;Resource&gt;</p></td><td><p>Applies
+        damage or healing to
+        &lt;Resource&gt;.</p></td></tr><tr><td><p>&lt;Skill&gt;</p></td><td><p>Performs
+        a skill attack using &lt;Skill&gt;.</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1684374854931
+      modifiedTime: 1684721315135
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.2U2k8WcnB1gbPLfd'
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.6
+  coreVersion: '12.317'
+  createdTime: 1676601214201
+  modifiedTime: 1688314019892
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!QhZgmBrdLAGwYy5c'
+

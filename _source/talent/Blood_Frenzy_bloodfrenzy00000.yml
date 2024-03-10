@@ -1,0 +1,54 @@
+folder: pvclaELBSimFnNMJ
+name: Blood Frenzy
+type: talent
+img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
+system:
+  node: str2a
+  description: >-
+    Your battle lust spurs you to feats of heightened action. When you achieve a
+    <strong>Critical Hit</strong> that deals damage to Health you immediately
+    gain +1 Action. This benefit may only happen once per Round.
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: >-
+        // Must damage health
+
+        const damageHealth = outcome.resources.health < 0;
+
+        if ( !damageHealth ) return;
+
+
+        // Can only happen once per round
+
+        const updates = self.actorUpdates;
+
+        const hasStatus = actor.status.bloodFrenzy ||
+        updates.system?.status?.bloodFrenzy;
+
+        if ( hasStatus ) return;
+
+
+        // Increase Action
+
+        self.resources.action = (self.resources.action || 0) + 1;
+
+        foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.bloodfrenzy00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1676156132430
+  modifiedTime: 1688827029911
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: bloodfrenzy00000
+sort: 100000
+_key: '!items!bloodfrenzy00000'
+

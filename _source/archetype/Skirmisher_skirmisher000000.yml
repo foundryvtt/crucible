@@ -1,0 +1,35 @@
+name: Skirmisher
+type: archetype
+_id: skirmisher000000
+img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+system:
+  description: >-
+    A relentless and determined melee combatant that uses a mix of agility and
+    power to subdue foes.
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 2
+    strength: 4
+    toughness: 4
+    dexterity: 4
+  talents:
+    - Compendium.crucible.talent.Item.dualwield0000000
+    - Compendium.crucible.talent.Item.flurry0000000000
+    - Compendium.crucible.talent.Item.skirmisher000000
+effects: []
+folder: 6Up7ddrphLept3RW
+sort: 25000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1686145201526
+  modifiedTime: 1686145392340
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!skirmisher000000'
+

@@ -1,0 +1,35 @@
+_id: leatherarmor0000
+name: Leather Armor
+type: armor
+img: icons/equipment/chest/vest-leather-brown.webp
+effects: []
+folder: kjHb0FCE2nJe6Dtx
+flags: {}
+system:
+  category: light
+  quantity: 1
+  weight: 6
+  price: 30
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description: ''
+  armor:
+    base: 5
+  broken: false
+  dodge:
+    base: 8
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420023
+  modifiedTime: 1684879928796
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!leatherarmor0000'
+

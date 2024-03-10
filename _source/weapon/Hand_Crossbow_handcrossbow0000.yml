@@ -1,0 +1,35 @@
+_id: handcrossbow0000
+name: Hand Crossbow
+type: weapon
+img: icons/weapons/crossbows/crossbow-loaded-black.webp
+effects: []
+folder: Pe27j9LY8Nmygkqt
+flags: {}
+system:
+  category: mechanical1
+  quantity: 1
+  weight: 4
+  price: 100
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+  description: ''
+  damageType: piercing
+  broken: false
+  loaded: true
+  animation: bolt
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.8
+  coreVersion: '12.317'
+  createdTime: 1674942420028
+  modifiedTime: 1690731757814
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!handcrossbow0000'
+

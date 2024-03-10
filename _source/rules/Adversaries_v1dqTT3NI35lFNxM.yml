@@ -1,0 +1,214 @@
+folder: MMeWpMmsLOblp07U
+name: Adversaries
+_id: v1dqTT3NI35lFNxM
+pages:
+  - sort: 100000
+    name: Overview
+    type: text
+    _id: WH0YSVcYo09aHNZ2
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Adversaries</strong> in Crucible are the non-player
+        characters which populate and inhabit the world. Despite the name, not
+        all adversaries are antagonistic in nature, we simply use the term
+        "Adversary" to refer to non-player actors in the
+        system.</p><p>Adversaries share most mechanical concepts in common with
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.DjePpoV2oJenlyTf]{Overview}
+        (player characters) including Ability Scores, Resources, Defenses,
+        Skills, Resistances, and Talents, but adversaries progress somewhat
+        differently than player characters.</p><p><strong>Threat Level
+        </strong>describes the degree of mechanical challenge posed by a certain
+        Adversary and is defined by the product of <strong>Level</strong> and
+        <strong>Threat Category</strong>. An adversaries attributes and
+        difficulty scale with higher level and higher Threat
+        Category.</p><section class="formula"><p class="value">Threat
+        Level</p><p class="equals">=</p><p class="equation">Level × Threat
+        Multiplier</p></section><h2 class="divider">Threat
+        Categories</h2><p>Each Threat Category contributes a multiplier to the
+        effective <strong>Threat Level</strong> of the Adversary and also
+        determines the number of
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.2U2k8WcnB1gbPLfd]{Action
+        Points} that the Adversary has in combat. The Threat Categories in the
+        Crucible system are:</p><table><thead><tr><th>Threat
+        Category</th><th>Threat Multiplier</th><th>Action Points</th><th
+        style="width:50%">Description</th></tr></thead><tbody><tr><td>Minion</td><td>×
+        0.5</td><td>2</td><td>Weaker than average foes at a given level, minions
+        are less dangerous and more easily dispatched - but may be numerous in
+        quantity.</td></tr><tr><td><p>Normal</p></td><td>×
+        1</td><td>3</td><td>The standard level of difficulty and challenge for a
+        certain level.</td></tr><tr><td>Elite</td><td>×
+        1.5</td><td>4</td><td>Stronger than average foes at a given level,
+        elites are more dangerous and more difficult to dispatch. Elites are
+        more rarely encountered.</td></tr><tr><td>Boss</td><td>×
+        2</td><td>5</td><td>Especially dangerous enemies which represent the
+        ultimate degree of challenge at a certain level. Most encounters do not
+        contain a boss.</td></tr></tbody></table><h2 class="divider">Attribute
+        Scaling</h2><p>Where Protagonists feature an <strong>Ancestry</strong>
+        and <strong>Background</strong>, instead Adversaries use the concepts of
+        @UUID[.qSeJNy28eK9axO7C]{Taxonomy} and
+        @UUID[.O8IesdQo8SQpIKbo]{Archetype}, both of which define how the
+        attributes of the Adversary progress as it increases in Threat
+        Level.</p><h2 class="divider">Adversary Talents</h2><p>Adversaries may
+        be assigned additional Talents in addition to those automatically
+        provided by their Archetype.</p><section
+        class="construction"><p>Eventually there may be some rules limiting the
+        number and tier of Talents that an Adversary may have, but for the time
+        being it is acceptable for Adversaries to have any talents that the
+        Gamemaster wishes to give them in addition to the Talents automatically
+        provided by their Archetype.</p></section><h2 class="divider">Adversary
+        Skills</h2><p>Adversaries share the same set of 16
+        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills}
+        which are available to protagonist characters.</p><section
+        class="construction"><p>For the initial Playtest 1 - adversaries gain
+        skill progression automatically. This is not envisioned as the long run
+        solution for skill progression which will eventually be tied to Taxonomy
+        and Archetype scaling.</p></section><h2 class="divider">Defeating
+        Adversaries</h2><p>Adversaries do not have <strong>Wounds</strong> or
+        <strong>Madness</strong> pools like Protagonist characters, instead
+        their ability to withstand harm is determined entirely by
+        <strong>Health</strong> and <strong>Morale</strong>.</p><p>When an
+        Adversary <strong>Health</strong> pool reaches zero it becomes
+        <strong>Dead</strong>, and takes no further action during the
+        encounter.</p><section class="construction"><p>It will eventually be
+        possible to subdue an Adversary non-lethally, but these mechanics are
+        not yet developed for Playtest One.</p></section><p>When Adversary
+        <strong>Morale</strong> reaches zero it becomes <strong>Broken</strong>.
+        A Broken Adversary will attempt to flee the battlefield unless they lack
+        instincts of self-preservation or the possibility of escape seems
+        impossible - in which case they will continue to fight to the death.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.1
+      coreVersion: '12.317'
+      createdTime: 1684375058270
+      modifiedTime: 1686419794448
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!v1dqTT3NI35lFNxM.WH0YSVcYo09aHNZ2'
+  - sort: 200000
+    name: Taxonomy
+    type: text
+    _id: qSeJNy28eK9axO7C
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Taxonomy</strong> classifies the biology of an
+        <strong>Adversary</strong> in Crucible. Each Taxonomy defines base
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}
+        which determine baseline attributes and
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.XDx0e2rZWcHLcfBt]{Resistances}
+        which define how damage resistances scale with threat level.</p><section
+        class="gameplay"><h4>Example: Hobgoblin Taxonomy</h4><p>Hobgoblins are
+        humanoids which typically congregate in martial societies which are
+        orderly and disciplined. Hobgoblins are both cunning and uncompromising,
+        making dangerous foes or powerful allies.</p><p>The Hobgoblin Taxonomy
+        defines scaling weights such that Strength, Intellect, and Toughness
+        evolve more frequently while Wisdom, Presence, and Dexterity evolve more
+        slowly.</p></section><p>Many different Adversaries will use the same
+        Taxonomy, for example a Level 3 <strong>Hobgoblin Archer</strong>, Level
+        4 <strong>Hobgoblin Fighter</strong>, and a Level 6 <strong>Hobgoblin
+        Witch Doctor</strong>. Each of these adversaries might have a different
+        @UUID[.O8IesdQo8SQpIKbo]{Archetype} and therefore have different
+        attributes and talents, but they would all share a common progression
+        from their shared Hobgoblin Taxonomy.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: 1684375066136
+      modifiedTime: 1684895944722
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!v1dqTT3NI35lFNxM.qSeJNy28eK9axO7C'
+  - sort: 300000
+    name: Archetype
+    type: text
+    _id: O8IesdQo8SQpIKbo
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Archetype</strong> defines the skills and combat style of an
+        <strong>Adversary</strong> in Crucible. Each Archetype defines scaling
+        weights for
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}
+        and provides a set of
+        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok.JournalEntryPage.OmJNyYrgeaTwYE7L]{Talents}
+        which are automatically applied to Adversaries of that
+        Archetype.</p><section class="gameplay"><h4>Example: Fighter
+        Archetype</h4><p>Hardened melee combatants expert at weilding one-handed
+        weaponry, shield, and heavy armor.</p><p>The Fighter Archetype defines
+        scaling weights such that emphasize faster progression of Strength and
+        Toughness, normal progression of Presence and Dexterity, and slower
+        progression of Wisdom and Intellect.</p><p>Furthermore, the Fighter
+        Archetype provides the <strong>Martial Weapon Training</strong>,
+        <strong>Bulwark</strong>, and <strong>Armored Efficiency</strong>
+        talents.</p></section><p>Many different Adversaries will use the same
+        Archetype. For example a Level 2 <strong>Bandit Fighter</strong>, a
+        Level 4 <strong>Hobgoblin Fighter</strong>, and a Level 7
+        <strong>Hellguard</strong> all share the Fighter Archetype, but they
+        each have different Taxonomies and therefore have different attributes
+        and talents, but all share a common aspect of progression due to the
+        Fighter Archetype.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: 1684375072170
+      modifiedTime: 1684895957472
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!v1dqTT3NI35lFNxM.O8IesdQo8SQpIKbo'
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalSheet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.1
+  coreVersion: '12.317'
+  createdTime: 1684375053686
+  modifiedTime: 1686419794448
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 109375
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!v1dqTT3NI35lFNxM'
+

@@ -1,0 +1,35 @@
+name: 'Rune: Earth'
+type: talent
+img: icons/magic/earth/projectile-boulder-debris.webp
+system:
+  node: wis0b
+  description: >-
+    <p>The orderly force of elemental earth, responsible for physical matter.
+    The Earth rune governs health and matters relating to biological growth. It
+    is opposed by the chaotic rune of Lightning.</p>
+
+    <p>The Earth rune scales using <strong>Wisdom</strong>, targets
+    <strong>Reflex</strong>, and deals <strong>Acid</strong> damage to
+    <strong>Health</strong>.</p>
+  actions: []
+  rune: earth
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.runeearth0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674698661050
+  modifiedTime: 1686250858154
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: runeearth0000000
+folder: Dy9HnwadNE3kSZ4f
+sort: 300000
+_key: '!items!runeearth0000000'
+

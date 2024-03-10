@@ -1,0 +1,36 @@
+name: 'Rune: Kinesis'
+type: talent
+img: icons/magic/movement/pinwheel-turning-blue.webp
+system:
+  node: pre2b
+  description: >-
+    <p>The chaotic force of space and physical movement. The Kinesis rune
+    governs all things related to the act of movement and physicality. It is
+    opposed by the orderly rune of Stasis.</p>
+
+    <p>The Kinesis rune scales using <strong>Presence</strong>, targets
+    <strong>Physical</strong> defense, and deals <strong>Bludgeoning</strong>,
+    <strong>Piercing</strong>, or <strong>Slashing</strong> damage to
+    <strong>Health</strong>.</p>
+  actions: []
+  rune: kinesis
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.runekinesis00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675704765802
+  modifiedTime: 1686251120502
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: runekinesis00000
+folder: Dy9HnwadNE3kSZ4f
+sort: 700000
+_key: '!items!runekinesis00000'
+

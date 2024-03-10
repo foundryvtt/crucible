@@ -1,0 +1,46 @@
+name: Orc
+type: taxonomy
+_id: orc0000000000000
+img: icons/creatures/unholy/demon-fire-horned-mask.webp
+system:
+  description: >-
+    Savage and warlike humanoids which generally form clan-like warbands. What
+    Orcs lack in cunning they make up for with determination, grit, and prudent
+    judgment.
+  category: humanoid
+  abilities:
+    wisdom: 3
+    presence: 2
+    intellect: 2
+    strength: 4
+    toughness: 4
+    dexterity: 3
+  resistances:
+    bludgeoning: 0
+    corruption: 0
+    piercing: 0
+    slashing: 0
+    poison: 2
+    acid: 0
+    fire: -2
+    cold: 2
+    electricity: 0
+    psychic: -2
+    radiant: 0
+    void: 0
+effects: []
+folder: XE2BjE0vCGKPdZU7
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685830637472
+  modifiedTime: 1686145364691
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!orc0000000000000'
+

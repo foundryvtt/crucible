@@ -1,0 +1,39 @@
+name: 'Inflection: Negate'
+type: talent
+img: icons/magic/unholy/orb-beam-pink.webp
+system:
+  node: preint1
+  description: >-
+    <p>Invert the effect of a spell. An Inverted Life Touch spell which normally
+    heals a target deals Poison damage instead. An Inverted Death Ward spell
+    inflicts vulnerability to Corruption damage upon an adjacent enemy.</p>
+
+    <section class="construction">
+
+    <p>The effects of the Negate inflection are not yet automated for Playtest
+    1. This inflection is included as an example of the intended direction for
+    the Spellcraft system.</p>
+
+    </section>
+  actions: []
+  inflection: negate
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.inflectionnegate
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675017043175
+  modifiedTime: 1686254754595
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: inflectionnegate
+folder: mFfsius4gpT45Q2R
+sort: 300000
+_key: '!items!inflectionnegate'
+

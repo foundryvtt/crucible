@@ -1,0 +1,859 @@
+folder: xoE3iSbPfFPlq6wD
+name: Eliorwen
+type: hero
+img: systems/crucible/assets/tokens/heroes/ElfRanger.webp
+system:
+  abilities:
+    wisdom:
+      base: 1
+      increases: 0
+      bonus: 0
+    presence:
+      base: 1
+      increases: 0
+      bonus: 0
+    intellect:
+      base: 1
+      increases: 1
+      bonus: 0
+    strength:
+      base: 1
+      increases: 2
+      bonus: 0
+    toughness:
+      base: 2
+      increases: 1
+      bonus: 0
+    dexterity:
+      base: 3
+      increases: 1
+      bonus: 0
+  advancement:
+    level: 6
+    progress: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    ancestry:
+      primary: intellect
+      secondary: dexterity
+      resistance: radiant
+      vulnerability: corruption
+      description: >-
+        Graceful in movement and swift in thought, you were born a long-lived
+        elf. Your slight and nimble frame and sculpted features are the
+        inherited traits of a people for whom elegance is a way of life. Your
+        predisposition toward quick-thinking and precise movement the
+        evolutionary results of hundreds of years of tradition.
+      name: Elvish
+      img: icons/magic/nature/leaf-rune-glow-green.webp
+    background:
+      description: >-
+        Yours has been an itinerant life. You enjoy nothing more than the
+        feeling of a cart or mount below you, watching some foreign sky slowly
+        pass above you. You learned to pay careful attention to your
+        surroundings and their needs, to tend the creatures on which you rely,
+        and to make do with what you can find.
+      skills:
+        - awareness
+        - survival
+        - naturalism
+        - beastcraft
+      talents:
+        - Compendium.crucible.talent.Item.perspicacity0000
+      name: Wanderer
+      img: icons/environment/wilderness/portal.webp
+    biography:
+      public: ''
+      private: ''
+  resistances:
+    bludgeoning:
+      bonus: 0
+    corruption:
+      bonus: 0
+    piercing:
+      bonus: 0
+    slashing:
+      bonus: 0
+    poison:
+      bonus: 0
+    acid:
+      bonus: 0
+    fire:
+      bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
+    psychic:
+      bonus: 0
+    radiant:
+      bonus: 0
+    void:
+      bonus: 0
+  resources:
+    health:
+      value: 60
+    wounds:
+      value: 0
+    morale:
+      value: 48
+    madness:
+      value: 0
+    action:
+      value: 3
+    focus:
+      value: 5
+  skills:
+    awareness:
+      rank: 3
+    pathfinding:
+      rank: 3
+    stealth:
+      rank: 2
+    survival:
+      rank: 2
+    arcana:
+      rank: 0
+    religion:
+      rank: 0
+    naturalism:
+      rank: 2
+    society:
+      rank: 0
+    deception:
+      rank: 0
+    diplomacy:
+      rank: 0
+    intimidation:
+      rank: 0
+    mercantilism:
+      rank: 0
+    beastcraft:
+      rank: 2
+    tradecraft:
+      rank: 0
+    medicine:
+      rank: 0
+    performance:
+      rank: 0
+  movement:
+    stride: 4
+    engagement: 1
+  status: null
+prototypeToken:
+  name: Eliorwen
+  displayName: 30
+  actorLink: true
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
+    scaleX: 1
+    scaleY: 1
+    offsetX: 0
+    offsetY: 0
+    rotation: 0
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 1
+  height: 1
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.75
+    angle: 360
+    bright: 0
+    color: '#ff8800'
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0.2
+    contrast: 0.1
+    shadows: 0
+    animation:
+      type: torch
+      speed: 2
+      intensity: 2
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: false
+    priority: 0
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: []
+  flags: {}
+  randomImg: false
+  hexagonalShape: 0
+  locked: false
+  occludable:
+    radius: 0
+items:
+  - name: Perspicacity
+    type: talent
+    _id: perspicacity0000
+    img: icons/magic/sonic/bell-alarm-red-purple.webp
+    system:
+      node: int0b
+      description: >-
+        <p>You have heightened insight into aspects of your surroundings. You
+        gain +2 Boons to any <strong>Awareness</strong> skill test which does
+        not rely upon eyesight.</p>
+      actions: []
+      actorHooks: []
+    effects: []
+    folder: 2MFixpDJ379KOogE
+    sort: -275000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1684459952440
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.perspicacity0000'
+  - name: Archery Training
+    type: talent
+    _id: archerytraining0
+    img: icons/weapons/bows/shortbow-white.webp
+    system:
+      node: dex0a
+      description: >-
+        <p>You are educated and trained in the arts of projectile weaponry like
+        bows, crossbows, firearms, and slings.</p>
+
+        <p>You gain a +1 Skill bonus to attacks using ranged weapons in the
+        <strong>Projectile</strong> or <strong>Mechanical</strong> category.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareTraining
+          fn: |-
+            training.projectile += 1;
+            training.mechanical += 1;
+    effects: []
+    folder: FQAUMNkcagdBLURJ
+    sort: 25000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1684461652834
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.archerytraining0'
+  - _id: precisionshot000
+    name: Precision Shot
+    type: talent
+    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+    effects: []
+    flags: {}
+    system:
+      node: dex0b
+      description: >-
+        You take time to steady your aim and target the weakest point of a foe.
+        You may only get one shot, but you make it count.
+      actions:
+        - id: precisionShot
+          condition: ''
+          description: You steady your aim and fire a single accurate shot.
+          tags:
+            - ranged
+            - mainhand
+            - accurate
+            - deadly
+          cost:
+            action: 1
+            focus: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+          effects: []
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420026
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: i7P1uwWcECj5KWfY
+    sort: -100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.precisionshot000'
+  - _id: fanofarrows00000
+    name: Fan of Arrows
+    type: talent
+    img: icons/skills/ranged/bow-arrows-blue.webp
+    effects: []
+    flags: {}
+    system:
+      node: dex1b
+      description: >-
+        This difficult ranged weaponry technique allows you to fire a multiple
+        shots with your weapon in a sweeping fan, each targeting a different
+        enemy in the area of effect.
+      actions:
+        - id: fanOfArrows
+          description: You fire projectiles in a fan, each targeting a different enemy.
+          tags:
+            - ranged
+            - projectile
+            - mainhand
+            - difficult
+          cost:
+            action: 1
+            focus: 0
+          target:
+            type: fan
+            number: 1
+            distance: 3
+            scope: 3
+          effects: []
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420029
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: i7P1uwWcECj5KWfY
+    sort: 100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.fanofarrows00000'
+  - name: Strike First
+    type: talent
+    _id: strikefirst00000
+    img: icons/skills/melee/sword-winged-holy-orange.webp
+    system:
+      node: dex1a
+      description: >-
+        Shoot first, ask questions later. You gain <strong>+1 Boon</strong> on
+        any Strike or Spell attack against an enemy whose initiative score is
+        lower than your own.
+      actions: []
+      actorHooks:
+        - hook: prepareWeaponAttack
+          fn: >-
+            const ac = actor.combatant;
+
+            const tc = target.combatant;
+
+            if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst =
+            {label: "Strike First", number: 1};
+        - hook: prepareSpellAttack
+          fn: >-
+            const ac = actor.combatant;
+
+            const tc = target.combatant;
+
+            if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst =
+            {label: "Strike First", number: 1};
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675015905002
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: BevAJzzLeFbSaVic
+    sort: -100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.strikefirst00000'
+  - name: Preternatural Instinct
+    type: talent
+    _id: preternaturalins
+    img: icons/magic/movement/trail-streak-zigzag-teal.webp
+    system:
+      node: intdex2
+      description: >-
+        Your quickness of mind and body are equally impressive. You gain +2
+        Boons to all Initiative checks.
+      actions: []
+      actorHooks:
+        - hook: prepareInitiativeCheck
+          fn: >-
+            rollData.boons.preternaturalInstinct = {label: "Preternatural
+            Instinct", number: 2};
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674959752544
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: BevAJzzLeFbSaVic
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.preternaturalins'
+  - name: Impetus
+    type: talent
+    _id: impetus000000000
+    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+    system:
+      node: int1b
+      description: >-
+        You are gifted at exploiting the slowness with which others think. If
+        you are first in Initiative order for the first round of Combat, you
+        gain +1 Action during your turn.
+      actions: []
+      actorHooks: []
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -75000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1684461808776
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.impetus000000000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      node: int1a
+      description: >-
+        <p>Hurl a projectile of magical power at a distant target. This might
+        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
+        hurl a ball of devouring darkness.</p>
+
+        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
+        a <strong>single</strong> creature up to a distance of 10 spaces,
+        dealing 10 base damage on a successful attack.</p>
+      actions: []
+      gesture: arrow
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.gesturearrow0000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674842056708
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: gesturearrow0000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 100000
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.gesturearrow0000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      node: int0
+      description: >-
+        <p>The chaotic force of raw, electrical energy. The Lightning rune
+        governs sources of electrical energy and electrical discharge. It is
+        opposed by the orderly rune of Earth.</p>
+
+        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: lightning
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runelightning000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runelightning000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 900000
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.runelightning000'
+  - name: Arcane Archer
+    type: talent
+    img: icons/skills/ranged/arrows-flying-salvo-blue-light.webp
+    system:
+      node: intdex3
+      description: >-
+        <p>Your skill with archery can shape your spellcraft, partially
+        substituting for the somatic gestures of traditional spellcasting.</p>
+
+        <p>After performing a <strong>Strike</strong> with a projectile weapon,
+        you may cast a spell using the <strong>Arrow</strong> gesture during the
+        same Turn with Action Cost reduced by 1.</p>
+      actions: []
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.arcanearcher0000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676830120357
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: arcanearcher0000
+    folder: fOYHlZJEWUukD7yr
+    sort: 100000
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.arcanearcher0000'
+  - name: Surgeweaver
+    type: talent
+    img: icons/magic/lightning/bolt-strike-forked-blue.webp
+    system:
+      node: int2b
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Lightning. Spells which
+        use this Rune cause the Shocked condition on Critical Hits.</p>
+
+        <p>The Shocked effect lasts for 1 Round, deals half your Intellect score
+        as Lightning damage to Morale, and applies the Staggered condition.</p>
+      actions: []
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.surgeweaver00000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676596789321
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: surgeweaver00000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: 37500
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.surgeweaver00000'
+  - name: Mark Prey
+    type: talent
+    img: icons/skills/targeting/crosshair-mark-rough-pink.webp
+    system:
+      node: dex2b
+      description: >-
+        You fire a special shot which deals reduced damage, but explodes in
+        luminous powder clearly marking your target.
+      actions:
+        - id: markPrey
+          description: >-
+            You Strike using a special shot. If your attack is successful the
+            target is Exposed for the remainder of the encounter.
+          tags:
+            - ranged
+            - mainhand
+            - difficult
+            - harmless
+          cost:
+            action: 0
+            focus: 1
+          target:
+            type: single
+            number: 1
+            scope: 3
+          effects:
+            - scope: 3
+              statuses:
+                - exposed
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.markprey00000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674962663358
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    folder: i7P1uwWcECj5KWfY
+    _id: markprey00000000
+    sort: 0
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.markprey00000000'
+  - _id: vynKFusXJlxUBpdg
+    name: Fine Longbow
+    type: weapon
+    img: icons/weapons/bows/longbow-leather-green.webp
+    effects: []
+    folder: Pe27j9LY8Nmygkqt
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.longbow000000000
+    system:
+      category: projectile2
+      quantity: 1
+      weight: 6
+      price: 50
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - reach
+      description: ''
+      damageType: piercing
+      broken: false
+      animation: arrow
+      slot: 3
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420014
+      modifiedTime: 1687618596887
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.vynKFusXJlxUBpdg'
+  - _id: UTvMYzzI2FASOVCG
+    name: Fine Studded Leather Armor
+    type: armor
+    img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
+    effects: []
+    folder: kjHb0FCE2nJe6Dtx
+    flags:
+      core:
+        sourceId: Compendium.crucible.armor.Item.studdedleatherar
+    system:
+      category: light
+      quantity: 1
+      weight: 10
+      price: 45
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description: ''
+      armor:
+        base: 7
+      broken: false
+      dodge:
+        base: 7
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420015
+      modifiedTime: 1686234002791
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.UTvMYzzI2FASOVCG'
+  - _id: B19Qq0519ZXpMhlE
+    name: Scimitar
+    type: weapon
+    img: icons/weapons/swords/scimitar-worn-blue.webp
+    effects: []
+    folder: pUXcL0pnY3FlKwj8
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.scimitar00000000
+    system:
+      category: balanced1
+      quantity: 1
+      weight: 6
+      price: 40
+      quality: standard
+      enchantment: mundane
+      equipped: false
+      properties: []
+      description: ''
+      damageType: slashing
+      broken: false
+      animation: scimitar
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420016
+      modifiedTime: 1685740484194
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.B19Qq0519ZXpMhlE'
+  - _id: LjFSM9SCqSb26KoB
+    name: Scimitar
+    type: weapon
+    img: icons/weapons/swords/scimitar-worn-blue.webp
+    effects: []
+    folder: pUXcL0pnY3FlKwj8
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.scimitar00000000
+    system:
+      category: balanced1
+      quantity: 1
+      weight: 6
+      price: 40
+      quality: standard
+      enchantment: mundane
+      equipped: false
+      properties: []
+      description: ''
+      damageType: slashing
+      broken: false
+      animation: scimitar
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420016
+      modifiedTime: 1685740484816
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.LjFSM9SCqSb26KoB'
+  - name: Intellectual Superiority
+    type: talent
+    _id: intellectualsupe
+    img: icons/magic/light/projectile-smoke-blue-light.webp
+    system:
+      node: int2a
+      description: >-
+        It is sometimes a marvel how slowly others around you think. You gain
+        <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
+        lower than you in Initiative order.
+      actions: []
+      actorHooks:
+        - hook: prepareWeaponAttack
+          fn: >-
+            const ac = actor.combatant;
+
+            const tc = target.combatant;
+
+            if ( ac?.initiative > tc?.initiative )
+            rollData.boons.intellectualSuperiority = {label: "Intellectual
+            Superiority", number: 1};
+        - hook: prepareSpellAttack
+          fn: >-
+            const ac = actor.combatant;
+
+            const tc = target.combatant;
+
+            if ( ac?.initiative > tc?.initiative )
+            rollData.boons.intellectualSuperiority = {label: "Intellectual
+            Superiority", number: 1};
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -50000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1684460412134
+      modifiedTime: 1687634076573
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!3nHQrIU9vj5vIfSU.intellectualsupe'
+effects: []
+flags:
+  crucible:
+    lastSpell: spell.lightning.arrow
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1685740255095
+  modifiedTime: 1687636350891
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: 3nHQrIU9vj5vIfSU
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!3nHQrIU9vj5vIfSU'
+

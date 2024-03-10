@@ -1,0 +1,57 @@
+_id: shieldcharge0000
+name: Shield Charge
+type: talent
+img: icons/skills/movement/arrow-upward-white.webp
+effects: []
+flags: {}
+system:
+  node: toustr1
+  description: >-
+    A defensive technique in which you drive forward, slamming and pushing foes
+    out of your path. You charge up to 6 spaces in a straight line and perform
+    an offhand shield <strong>Strike</strong> against each successive foe along
+    your path.
+  actions:
+    - id: shieldCharge
+      description: >-
+        <p>You charge forward in a straight line, making attacks against each
+        successive foe. Any creature Critically Hit by the attack may be pushed
+        into an adjacent space of your choosing.</p><p>You may not end your
+        charge in the same space as another creature.</p>
+      tags:
+        - offhand
+        - melee
+        - shield
+        - movement
+      cost:
+        action: 6
+        focus: 1
+        weapon: true
+      target:
+        type: ray
+        number: 1
+        scope: 3
+        size: 3
+      effects: []
+      name: ''
+      img: null
+      condition: ''
+      actionHooks: []
+      range:
+        maximum: 20
+        weapon: false
+  actorHooks: []
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420012
+  modifiedTime: 1696533205112
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 08mOaWGw5rYKejer
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!shieldcharge0000'
+

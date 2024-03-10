@@ -1,0 +1,54 @@
+name: Vow of Animus
+type: talent
+_id: vowofanimus00000
+img: icons/magic/death/skull-humanoid-white-red.webp
+system:
+  node: strwis2
+  description: >-
+    You swear a vow to destroy a specific character or creature. You gain +2
+    Boons to Strike or Spell attacks against to subject of your vow. You may
+    only swear such a vow against one enemy at a time. Swearing a new vow
+    relinquishes your prior vow.
+  actions:
+    - id: vowOfAnimus
+      name: ''
+      img: null
+      condition: ''
+      description: >-
+        You vow to vanquish a specific foe who becomes the subject of your
+        animus.
+      cost:
+        action: 1
+        focus: 3
+        weapon: false
+      range:
+        maximum: 20
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: 60
+      tags:
+        - harmless
+      actionHooks: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1675012907813
+  modifiedTime: 1696704490137
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: F5y85kE9ocaa5R4R
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!vowofanimus00000'
+

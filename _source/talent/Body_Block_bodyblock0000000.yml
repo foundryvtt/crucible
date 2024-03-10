@@ -1,0 +1,71 @@
+_id: bodyblock0000000
+name: Body Block
+type: talent
+img: icons/skills/melee/shield-block-gray-orange.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: tou2a
+  description: >-
+    You lean into an attack which was otherwise defended with your Armor,
+    converting its result into a Block instead.
+  actions:
+    - id: bodyBlock
+      condition: You defend against a melee attack with your Armor or as a Glance.
+      description: >-
+        An attack which otherwise is defended by your Armor or produced a
+        Glancing blow is converted to a Block and deals no damage.
+      tags:
+        - reaction
+      cost:
+        action: 0
+        focus: 1
+      target:
+        type: self
+        scope: 0
+        number: 1
+      effects: []
+      name: Body Block
+      img: icons/skills/melee/shield-block-gray-orange.webp
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const messageIds = Array.from(game.messages.keys());
+            for ( let i=messageIds.length-1; i>=0; i--) {
+              const message = game.messages.get(messageIds[i]);
+              if ( !message.flags.crucible?.action ) continue;
+              const targetAction = this.constructor.fromChatMessage(message);
+              for ( const outcome of targetAction.outcomes.values() ) {
+                if ( outcome.target.uuid !== actor.uuid ) continue;
+                if ( !targetAction.tags.has("melee") ) {
+                  throw new Error("You may only use Body Block against an incoming melee attack.");
+                }
+                if ( message.flags.crucible.confirmed ) {
+                  throw new Error("The attack against you has already been confirmed and can no longer be blocked.");
+                }
+                const results = game.system.api.dice.AttackRoll.RESULT_TYPES;
+                for ( const r of outcome.rolls ) {
+                  if ( [results.ARMOR, results.GLANCE].includes(r.data.result) ) {
+                    this.usage.targetAction = message.id;
+                    return true;
+                  }
+                }
+              }
+              throw new Error("You may only use Body Block after an attack against you is defended by Armor or Glance.");
+            }
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.8
+  coreVersion: '12.317'
+  createdTime: 1674942420028
+  modifiedTime: 1690660661004
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 8Vb0F5R7DMUrvhfw
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!bodyblock0000000'
+

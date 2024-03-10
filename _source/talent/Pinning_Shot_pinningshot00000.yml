@@ -1,0 +1,56 @@
+name: Pinning Shot
+type: talent
+_id: pinningshot00000
+img: icons/skills/ranged/arrow-strike-glowing-teal.webp
+system:
+  node: intdex1
+  description: >-
+    You fire a tactically placed shot to pin your target against a nearby
+    surface.
+  actions:
+    - id: pinningShot
+      condition: A hard surface immediately behind your target.
+      description: >-
+        <p>You Strike from distance. If hit, your target is
+        <strong>Restrained</strong> until the end of their next Turn.</p>
+      tags:
+        - mainhand
+        - ranged
+        - difficult
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: 1
+          statuses:
+            - restrained
+      name: ''
+      img: null
+      range:
+        maximum: 0
+        weapon: true
+      actionHooks: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674962141351
+  modifiedTime: 1696794046656
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: i7P1uwWcECj5KWfY
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!pinningshot00000'
+

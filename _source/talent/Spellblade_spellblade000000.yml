@@ -1,0 +1,34 @@
+folder: fOYHlZJEWUukD7yr
+name: Spellblade
+type: talent
+img: icons/weapons/swords/sword-winged-pink.webp
+system:
+  description: >-
+    <p>You are an arcane warrior who can weave together Strike and Spell relying
+    on both martial and arcane techniques in battle. The physical strikes of
+    your weaponry partially substitute for the somatic gestures of traditional
+    spellcraft.</p>
+
+    <p>After performing a Strike attack, the Action cost of the next Spell you
+    cast during the same Turn is reduced by 1.</p>
+  actions: []
+  requirements: {}
+  node: strint3
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.spellblade000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1676174105935
+  modifiedTime: 1682388018074
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: spellblade000000
+sort: 250000
+_key: '!items!spellblade000000'
+

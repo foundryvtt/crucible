@@ -1,0 +1,52 @@
+name: Backstab
+type: talent
+img: icons/skills/melee/strike-dagger-white-orange.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.pHRUZ8Zfv5E0TcH2
+system:
+  node: intdex1
+  description: >-
+    You focus your cunning instincts on exploiting the weak points of a flanked
+    target. You identify an opportunity and strike with deadly efficiency.
+  actions:
+    - id: backstab
+      condition: You are attacking a target with the Flanked condition.
+      description: You perform a deadly Strike against a Flanked target.
+      tags:
+        - mainhand
+        - finesse
+        - melee
+        - flanking
+        - deadly
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420011
+  modifiedTime: 1696555964780
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: backstab00000000
+folder: Xg1Jww0K0CK7vUo1
+sort: 100000
+_key: '!items!backstab00000000'
+

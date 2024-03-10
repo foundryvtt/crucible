@@ -1,0 +1,84 @@
+name: Poisoner
+type: talent
+img: icons/skills/melee/strike-dagger-poison-green.webp
+system:
+  node: intdex3
+  description: >-
+    You can apply Poison to weapons which deal Slashing or Piercing damage. You
+    deal an additional +2 damage whenever you deal Poison damage and your
+    Strikes cause the <strong>Poisoned</strong> condition on Critical Strikes
+    which deal damage to Health.
+  actions:
+    - id: poisonBlades
+      name: Poison Blades
+      description: >-
+        You nimbly lather your blades in toxic alchemical oils which apply the
+        Poisoned condition on Critical Strikes.
+      tags:
+        - melee
+      cost:
+        action: 2
+        focus: 0
+      target:
+        type: self
+        number: 1
+        distance: 1
+        scope: 1
+      effects:
+        - duration:
+            rounds: 60
+          changes:
+            - key: rollBonuses.damage.poison
+              value: 2
+              mode: 2
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: >-
+        // Must damage health
+
+        const damageHealth = outcome.resources.health < 0;
+
+        if ( !damageHealth ) return;
+
+
+        // Active effect must be active
+
+        const hasEffect =
+        actor.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"));
+
+        if ( !hasEffect ) return;
+
+
+        // Requires piercing or slashing damage with a melee action
+
+        if ( !action.tags.has("melee") ) return;
+
+        const dt = action.usage.weapon?.system.damageType;
+
+        if ( !["piercing", "slashing"].includes(dt) ) return;
+
+
+        // Apply the poisoned condition
+
+        const poisoned = SYSTEM.EFFECTS.poisoned(actor, outcome.target);
+
+        outcome.effects.push(poisoned);
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.poisoner00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1675734757901
+  modifiedTime: 1688827693847
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: poisoner00000000
+folder: fOYHlZJEWUukD7yr
+sort: 312500
+_key: '!items!poisoner00000000'
+

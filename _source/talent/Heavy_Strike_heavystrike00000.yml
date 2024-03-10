@@ -1,0 +1,51 @@
+name: Heavy Strike
+type: talent
+img: icons/skills/melee/strike-hammer-destructive-blue.webp
+system:
+  node: str0
+  description: You are proficient in wielding heavy weapons to deliver punishing blows.
+  actions:
+    - id: heavyStrike
+      condition: ''
+      description: >-
+        You put your full strength into a single devastating blow. Your Strike
+        is Empowered to deal additional damage, if it hits.
+      tags:
+        - mainhand
+        - heavy
+        - melee
+        - empowered
+      cost:
+        action: 2
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.heavystrike00000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677372287118
+  modifiedTime: 1696555995043
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: heavystrike00000
+folder: tRHknqOEBLR808Cb
+sort: 100000
+_key: '!items!heavystrike00000'
+

@@ -1,0 +1,50 @@
+_id: defensiveroll000
+name: Defensive Roll
+type: talent
+img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: dex2c
+  description: >-
+    When you Dodge a melee attack you can focus to extend your evasion into a
+    defensive roll, moving one space in any direction.
+  actions:
+    - id: defensiveRoll
+      name: Defensive Roll
+      img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+      condition: You Dodge an incoming melee Strike.
+      description: >-
+        You dodge an attack, rolling away from danger and moving one space in
+        any direction.
+      tags:
+        - movement
+        - reaction
+      cost:
+        action: 0
+        focus: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+      actionHooks: []
+  actorHooks: []
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420027
+  modifiedTime: 1696453075245
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: JzAnF4yKIgvElwCJ
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!defensiveroll000'
+

@@ -1,0 +1,50 @@
+name: Overwatch
+type: talent
+img: icons/skills/targeting/target-strike-triple-blue.webp
+system:
+  node: dexwis3
+  description: >-
+    You are an expert in combat against magic users. You know how to conserve
+    energy and strike at the precise moment to thwart their incantation.
+  actions:
+    - id: disruptingShot
+      name: Disrupting Shot
+      condition: Your target is casting a spell.
+      description: >-
+        When an enemy you can see casts a spell, you may react to Strike that
+        target. The technique is difficult to perform, but on a Critical Hit the
+        target's spell is interrupted and the magic is lost.
+      tags:
+        - reaction
+        - ranged
+        - mainhand
+        - difficult
+      cost:
+        action: 0
+        focus: 2
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.overwatch0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675561152244
+  modifiedTime: 1682387684727
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: overwatch0000000
+folder: fOYHlZJEWUukD7yr
+sort: 360938
+_key: '!items!overwatch0000000'
+

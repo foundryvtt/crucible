@@ -1,0 +1,17 @@
+name: 'Spellcraft: Inflection'
+sorting: a
+folder: Ua0XvGOuOJ5KVvlz
+type: Item
+_id: mFfsius4gpT45Q2R
+sort: 0
+color: '#3a2c58'
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682387472496
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!mFfsius4gpT45Q2R'
+

@@ -1,0 +1,37 @@
+name: Fighter
+type: archetype
+img: icons/skills/melee/sword-shield-stylized-white.webp
+system:
+  description: >-
+    Hardened melee combatants expert at weilding one-handed weaponry, shield,
+    and heavy armor.
+  abilities:
+    wisdom: 2
+    presence: 3
+    intellect: 2
+    strength: 4
+    toughness: 4
+    dexterity: 3
+  talents:
+    - Compendium.crucible.talent.Item.martialweapontra
+    - Compendium.crucible.talent.Item.bulwark000000000
+    - Compendium.crucible.talent.Item.armoredefficienc
+    - Compendium.crucible.talent.Item.legsweep00000000
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1684889541198
+  modifiedTime: 1685738018324
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: fighter000000000
+sort: 200000
+_key: '!items!fighter000000000'
+

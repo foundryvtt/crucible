@@ -1,0 +1,55 @@
+name: Lunge
+type: talent
+img: icons/skills/melee/strike-polearm-light-orange.webp
+system:
+  node: dex0b
+  description: >-
+    You dart forward nimbly, making a strike with sudden and unexpected
+    swiftness.
+  actions:
+    - id: lunge
+      condition: ''
+      description: >-
+        You make a darting attack, performing a difficult Strike against a
+        single foe with an increased range of +3 feet. You do not move from your
+        current position nor does this attack provoke any disengagement.
+      tags:
+        - mainhand
+        - finesse
+        - melee
+        - difficult
+      cost:
+        action: 0
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      name: ''
+      img: null
+      actionHooks: []
+      range:
+        maximum: 3
+        weapon: true
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.lunge00000000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677376322131
+  modifiedTime: 1696540693586
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: lunge00000000000
+folder: Xg1Jww0K0CK7vUo1
+sort: 0
+_key: '!items!lunge00000000000'
+

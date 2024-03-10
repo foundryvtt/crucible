@@ -1,0 +1,43 @@
+name: Intuit Weakness
+type: talent
+_id: intuitweakness00
+img: icons/magic/perception/orb-eye-scrying.webp
+system:
+  node: int0b
+  description: >-
+    You calm your mind and study the physiology of your foe, seeking a
+    vulnerability in its defenses. The Gamemaster performs a passive
+    <strong>Knowledge Test</strong> against the enemy. If successful you learn
+    one Damage type that the creature is vulnerable to, if any.
+  actions:
+    - id: intuitWeakness
+      description: >-
+        You still your mind and study the physiology of your foe, attempting to
+        identify a vulnerability in its defenses.
+      tags: []
+      cost:
+        action: 1
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 10
+        scope: 0
+      effects: []
+  actorHooks: []
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674696771693
+  modifiedTime: 1685819933593
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 2MFixpDJ379KOogE
+sort: -50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!intuitweakness00'
+

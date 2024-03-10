@@ -1,0 +1,17 @@
+name: Melee
+sorting: a
+folder: null
+type: Item
+_id: 9ZEcuYEomBQ0JDbj
+sort: 500000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682387469635
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!9ZEcuYEomBQ0JDbj'
+

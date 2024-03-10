@@ -1,0 +1,47 @@
+name: Inquisitor
+type: talent
+_id: inquisitor000000
+img: icons/magic/holy/projectiles-blades-salvo-yellow.webp
+system:
+  node: strwis3
+  description: >-
+    You are an expert in combat against magic users. You know how to conserve
+    energy and strike at the precise moment to thwart their incantation.
+  actions:
+    - id: inquisitorsStrike
+      name: Inquisitor's Strike
+      condition: Your target is casting a spell.
+      description: >-
+        When an enemy within your Engagement radius whom you can see casts a
+        spell, you may react to Strike that target. On a Critical Hit the
+        target's spell is interrupted and the magic is lost.
+      tags:
+        - reaction
+        - melee
+        - mainhand
+      cost:
+        action: 0
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675136660798
+  modifiedTime: 1682387426679
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: fOYHlZJEWUukD7yr
+sort: 362500
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!inquisitor000000'
+

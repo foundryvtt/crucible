@@ -1,0 +1,31 @@
+_id: devilkin00000000
+name: Devilkin
+type: ancestry
+img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: strength
+  secondary: presence
+  resistance: fire
+  vulnerability: radiant
+  description: >-
+    You were born with unexpected magical influence over your creation. Your
+    physical appearance shows tell-tale signs that the superstitious associate
+    with planar beings- crimson flesh, ineffective wings or horns, reptilian
+    eyes. Your dislike of light and preternatural resistance to fire does little
+    to dissuade people from thinking you are an actual devil.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420025
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!devilkin00000000'
+

@@ -1,0 +1,53 @@
+name: Zealous Smite
+type: talent
+_id: zealoussmite0000
+img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
+system:
+  node: strwis1
+  description: >-
+    You can imbue righteous power into your blows against an enemy that has been
+    made vulnerable.
+  actions:
+    - id: zealousSmite
+      condition: You are attacking an Exposed enemy with a Heavy weapon.
+      description: >-
+        You channel zealous fervor into a deadly Strike. Any damage dealt
+        becomes Radiant
+      tags:
+        - mainhand
+        - heavy
+        - melee
+        - deadly
+        - radiant
+      cost:
+        action: 0
+        focus: 2
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects: []
+      name: ''
+      img: null
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674952856305
+  modifiedTime: 1696556008304
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: tRHknqOEBLR808Cb
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!zealoussmite0000'
+

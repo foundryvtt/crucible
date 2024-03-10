@@ -1,0 +1,34 @@
+name: 'Gesture: Pulse'
+type: talent
+_id: gesturepulse0000
+img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+system:
+  node: pre2c
+  description: >-
+    <p>Emit a burst of Runic power in a circular wave that travels outward, with
+    you at its center. A Pulse of Spirit might be used to bolster Morale for
+    your allies, while a Death pulse might be used to deal Corruption damage to
+    a group of enemies gathered around you.</p>
+
+    <p>The Pulse gesture scales using <strong>Presence</strong> and targets a
+    360 degree radius with distance 1, dealing 6 base damage on a successful
+    attack.</p>
+  actions: []
+  gesture: pulse
+  actorHooks: []
+effects: []
+folder: D14x9AJ0TgXKtnzu
+sort: 1000000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1684686470274
+  modifiedTime: 1686311910684
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!gesturepulse0000'
+

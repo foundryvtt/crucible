@@ -1,0 +1,35 @@
+name: 'Gesture: Strike'
+type: talent
+img: icons/magic/fire/dagger-rune-enchant-flame-red.webp
+system:
+  node: str2c
+  description: >-
+    <p>Empower a close-range attack with the essence of a Rune. This rune
+    performs a melee weapon attack targeting the defense and dealing damage of
+    the Rune used in the spell.</p>
+
+    <p>The Strike gesture scales using <strong>Strength</strong> and targets a
+    <strong>single</strong> adjacent creature, dealing 12 base damage on a
+    successful attack.</p>
+  actions: []
+  gesture: strike
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gesturearrowcopy
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686253964582
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gesturestrike000
+folder: D14x9AJ0TgXKtnzu
+sort: 800000
+_key: '!items!gesturestrike000'
+

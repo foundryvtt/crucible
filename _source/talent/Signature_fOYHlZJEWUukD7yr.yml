@@ -1,0 +1,17 @@
+name: Signature
+sorting: a
+folder: null
+type: Item
+_id: fOYHlZJEWUukD7yr
+sort: 400000
+color: '#273f5d'
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682387469635
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!fOYHlZJEWUukD7yr'
+

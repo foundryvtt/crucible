@@ -1,0 +1,34 @@
+name: 'Rune: Life'
+type: talent
+img: icons/magic/life/heart-shadow-red.webp
+system:
+  node: wis0b
+  description: >-
+    <p>The chaotic force of creation, responsible for all living matter. The
+    Life rune governs health and matters relating to biological growth. It is
+    opposed by the orderly rune of Death.</p>
+
+    <p>The Life rune scales using <strong>Wisdom</strong> and provides
+    <strong>Restoration</strong> of <strong>Health</strong>.</p>
+  actions: []
+  rune: life
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.runelife00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674698661050
+  modifiedTime: 1686251185460
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: runelife00000000
+folder: Dy9HnwadNE3kSZ4f
+sort: 800000
+_key: '!items!runelife00000000'
+

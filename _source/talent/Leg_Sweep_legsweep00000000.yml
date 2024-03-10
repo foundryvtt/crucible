@@ -1,0 +1,59 @@
+name: Leg Sweep
+type: talent
+img: icons/skills/melee/strike-sword-slashing-red.webp
+system:
+  node: str1a
+  description: You know how to use your weaponry to put your opponent off-balance.
+  actions:
+    - id: legSweep
+      condition: ''
+      description: >-
+        You make a Strike attack, swinging low to knock your opponent
+        off-balance. This technique is difficult to execute and deals reduced
+        damage, but if successful knocks your enemy Prone.
+      tags:
+        - mainhand
+        - melee
+        - difficult
+        - weakened
+      cost:
+        action: 0
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: null
+          statuses:
+            - prone
+      name: ''
+      img: null
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.legsweep00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677373689894
+  modifiedTime: 1696555983733
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: legsweep00000000
+folder: ePNIUQxdOsY7GSKo
+sort: 200000
+_key: '!items!legsweep00000000'
+

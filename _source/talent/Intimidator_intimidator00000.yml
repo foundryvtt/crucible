@@ -1,0 +1,46 @@
+name: Intimidator
+type: talent
+_id: intimidator00000
+img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+system:
+  node: pre0
+  description: >-
+    You specialize in exerting your intimidating presence to break the morale of
+    your foes.
+  actions:
+    - id: intimidate
+      name: Intimidate
+      description: >-
+        You physically intimidate an enemy that is within your engagement range,
+        performing an Intimidation skill attack against your target. On a
+        success they sustain Void damage to Morale.
+      tags:
+        - intimidation
+        - void
+        - morale
+      cost:
+        action: 1
+        focus: 1
+      target:
+        type: single
+        number: 1
+        distance: 1
+        scope: 0
+      effects: []
+  requirements: {}
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: -100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1676839298208
+  modifiedTime: 1684521795274
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!intimidator00000'
+

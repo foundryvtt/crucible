@@ -1,0 +1,38 @@
+name: 'Gesture: Create'
+type: talent
+img: icons/magic/nature/plant-sproud-hands-dirt-green.webp
+system:
+  node: wis1b
+  description: >-
+    <p>Coalesce arcane power into tangible form, conjuring a
+    <strong>Creation</strong> which appears in an adjacent space and joins
+    Combat at Initiative 1.</p>
+
+    <p>Your Creation is a Minion of half your own Level chosen from the Summoned
+    Creatures compendium pack corresponding to the Rune used in the spell.</p>
+
+    <p>The Creation lasts for <strong>10 Rounds</strong>. You may only have one
+    active Creation, casting another spell using the Create gesture replaces
+    your previous Creation.</p>
+  actions: []
+  gesture: create
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.gesturecreate000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674842056708
+  modifiedTime: 1686255844919
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: gesturecreate000
+folder: D14x9AJ0TgXKtnzu
+sort: 300000
+_key: '!items!gesturecreate000'
+

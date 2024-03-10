@@ -1,0 +1,309 @@
+name: Equipment
+_id: e33DSvx0cfa7fey6
+pages:
+  - sort: 100000
+    name: Weapons
+    type: text
+    _id: LYj7sghAMoQj9FFR
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Weapons</strong> are a specific Item type which represents
+        items that are wielded in a character's hands and used in combat. The
+        Crucible system provides the basic rules for creating and classifying
+        weapons, and also provides an array of pre-defined weapon types which
+        are typically observed in a fantasy role-playing game. These weapons can
+        be browsed in the <strong>Weapons </strong>Compendium
+        pack.</p><p>Weapons all have the following attributes, in addition to
+        those shared by all items:</p><h4>Category</h4><p>The category of a
+        weapon establishes certain parameters about how that weapon may be used.
+        How many hands does it require to wield? Is it a melee weapon or a
+        ranged weapon? Does it require ammunition? Which ability scores modify
+        its usage? And more. The possible weapon categories are listed in the
+        table below.</p><h4>Damage Type</h4><p>Each weapon deals a specific
+        damage type when it inflicts damage in combat.</p><h4>Weapon
+        Properties</h4><p>Weapons may have a number of special properties which
+        instill that item with special rules functionality described in the
+        table below.</p><h2 class="divider">Weapon Categories</h2><p>The
+        following table lists the categories of weapons supported in the
+        Crucible game system.</p><table><thead><tr><th
+        style="width:25%">One-Handed Melee</th><th style="width:30%">Ability
+        Scaling</th><th style="width:10%">Base Damage</th><th
+        style="width:10%">Action
+        Cost</th><th>Special</th></tr></thead><tbody><tr><td>Unarmed</td><td>Strength,
+        Dexterity</td><td>4</td><td>1</td><td></td></tr><tr><td>Natural</td><td>Strength</td><td>4</td><td>1</td><td></td></tr><tr><td>Light
+        (1h)</td><td>Dexterity</td><td>4</td><td>1</td><td></td></tr><tr><td>Simple
+        (1h)</td><td>Strength</td><td>6</td><td>1</td><td></td></tr><tr><td>Balanced
+        (1h)</td><td>Strength,
+        Dexterity</td><td>8</td><td>1</td><td></td></tr><tr><td>Heavy
+        (1h)</td><td>Strength</td><td>8</td><td>1</td><td></td></tr><tr><th>Two-Handed
+        Melee</th><th>Attack Scaling</th><th>Base Damage</th><th>Action
+        Cost</th><th>Special</th></tr><tr><td>Simple
+        (2h)</td><td>Strength</td><td>10</td><td>2</td><td></td></tr><tr><td>Balanced
+        (2h)</td><td>Strength,
+        Dexterity</td><td>12</td><td>2</td><td></td></tr><tr><td>Heavy
+        (2h)</td><td>Strength</td><td>12</td><td>2</td><td></td></tr><tr><th>Ranged</th><th>Attack
+        Scaling</th><th>Base Damage</th><th>Action
+        Cost</th><th>Special</th></tr><tr><td>Projectile (2h)</td><td>Strength,
+        Dexterity</td><td>8</td><td>1</td><td></td></tr><tr><td>Mechanical
+        (1h)</td><td>Dexterity</td><td>6</td><td>1</td><td>Reload</td></tr><tr><td>Mechanical
+        (2h)</td><td>Dexterity</td><td>12</td><td>1</td><td>Reload</td></tr><tr><th>Offhand
+        Only</th><th>Attack Scaling</th><th>Base Damage</th><th>Action
+        Cost</th><th>Special</th></tr><tr><td>Light Shield</td><td>Strength,
+        Dexterity</td><td>2</td><td>1</td><td>+2 Block</td></tr><tr><td>Heavy
+        Shield</td><td>Strength</td><td>4</td><td>1</td><td>+4
+        Block</td></tr><tr><td>Spell Focus</td><td>Intellect, Presence,
+        Wisdom</td><td>0</td><td>1</td><td>Recover
+        Focus</td></tr></tbody></table><h2 class="divider">Quality
+        Tier</h2><p><strong>Quality</strong> of a Weapon describes its
+        craftsmanship, materials, and condition. Quality tiers provide an
+        additional bonus to the base damage of the weapon and contribute towards
+        its Rarity score.</p><table><thead><tr><th>Quality Tier</th><th>Damage
+        Bonus</th><th>Rarity
+        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><p>The
+        quality tier of a weapon is established at its time of initial creation
+        and can never be increased after that point.</p><h4>Broken
+        Weapons</h4><p>During the course of use, or over the passage of time,
+        weapons may become <strong>Broken</strong>. Weapons which are Broken
+        deal half their normal damage and cannot contribute to Block or Parry
+        defenses. Repairing a Broken weapon restores it to its original quality
+        tier or a lesser quality tier depending on the result of the
+        <strong>Tradecraft </strong>skill check to repair the weapon.</p><h2
+        class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
+        a Weapon describes its level of magical imbuement. Enchantment tiers
+        provide an additional bonus to attack rolls of the weapon and contribute
+        towards its Rarity score.</p><table><thead><tr><th>Enchantment
+        Tier</th><th>Attack Bonus</th><th>Rarity
+        Modifier</th></tr></thead><tbody><tr><td>Mundane</td><td>0</td><td>0</td></tr><tr><td>Minor</td><td>+1</td><td>+2</td></tr><tr><td>Major</td><td>+2</td><td>+4</td></tr><tr><td>Legendary</td><td>+3</td><td>+6</td></tr></tbody></table><h2
+        class="divider">Special Properties</h2><p>Some weapons may have one (or
+        in very rare cases multiple) of the following special properties. Each
+        of these properties adds a +1 Rarity modifier to the weapon.</p><section
+        class="construction"><p>Several of the following properties, denoted
+        with an <strong>*</strong> after their name, are not yet fully automated
+        in the first Crucible Playtest system
+        yet.</p></section><h4>Oversized</h4><p>This weapon is large for its
+        category and is unwieldy in combat without special training. The weapon
+        gains an additional +2 bonus to base damage but is slow and provides +2
+        Banes to Initiative rolls.</p><h4>Reach*</h4><p>This weapon is lengthy
+        and offers twice the normal attack range. The base damage of the weapon
+        is decreased by 2 but the range of strikes which can be made with the
+        weapon is increased by 1 space for melee weapons or 6 spaces for ranged
+        weapons.</p><h4>Parrying</h4><p>This weapon provides a bonus to Parry
+        defense while equipped and not Broken. The bonus is +1 for one-handed
+        weapons and +2 for two-handed weapons, plus the enchantment bonus of the
+        weapon.</p><h4>Blocking</h4><p>This weapon provides a bonus to Block
+        defense while equipped and not Broken. The bonus is +1 for one-handed
+        weapons and +2 for two-handed weapons, plus the enchantment bonus of the
+        weapon.</p><h4>Versatile*</h4><p>This normally one-handed weapon can be
+        used effectively with two hands. While equipped without any item in the
+        off-hand its base damage is increased by +6 and Action cost is increased
+        by +1.</p><h4>Thrown*</h4><p>This weapon can be used to Strike at range
+        up to a distance of 6 spaces. When used to Strike a target that is not
+        within melee range, the Weapon becomes unequipped and must be retrieved
+        before it can be used again.</p><h4>Keen</h4><p>This weapon is capable
+        of achieving particularly deadly strikes. The critical hit threshold of
+        the weapon is reduced by 2 making it more likely that successful Strikes
+        yield a critical hit.</p><h4>Reliable</h4><p>This weapon is trustworthy
+        and almost never produces spectacularly bad outcomes. The critical
+        failure threshold of the weapon is reduced by 2 making it less likely
+        that unsuccessful Strikes yield a critical
+        miss.</p><h4>Ambush</h4><p>This weapon can be easily concealed and
+        retrieved quickly. This weapon may be drawn for free during your own
+        turn or as part of a Reaction.</p><h4>Engaging</h4><p>This weapon is
+        designed to better allow you to combat multiple foes, increasing your
+        Engagement by +1.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: null
+      modifiedTime: 1685828566846
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!e33DSvx0cfa7fey6.LYj7sghAMoQj9FFR'
+  - sort: 0
+    name: Equipment Overview
+    type: text
+    _id: 6QxbcLoOhUkXTbAj
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Equipment</strong> refers to the belongings, weaponry, armor,
+        potions, adventuring equipment, and other types of items which could be
+        carried by a character or found somewhere within the world.</p><section
+        class="construction"><p>The Crucible system will eventually support a
+        number of different item types, but at the moment for initial
+        playtesting only <strong>Armor</strong> and <strong>Weapon</strong>
+        types are implemented.</p></section><p>Equipment types share a few
+        properties in common across all types:</p><h4>Weight</h4><p>Each item
+        has a per-unit weight, expressed in pounds.</p><h4>Base Cost</h4><p>The
+        base cost of an item establishes the basis for any cost scaling which
+        later applies. For some items the base cost and scaled cost are always
+        the same, but some items can have a true value many times greater than
+        the item's base cost.</p><h4>Physical Quality</h4><p>Many items may be
+        assigned a quality tier which reflects the manufacturing quality or
+        natural rarity of a certain commodity.</p><h4>Enchantment
+        Tier</h4><p>Items which can be augmented with magic have an enchantment
+        tier which reflects the potency of magic that is imbued into the
+        item.</p><h4>Rarity</h4><p>Item rarity quantifies the uniqueness of the
+        item relative to it's most common form. Items with higher manufactured
+        quality, stronger magical enchantment, or rare properties will have a
+        higher rarity value and therefore a greater value.</p><h2
+        class="divider">Item Value Scaling</h2><p>The base cost of a weapon is
+        defined by its Standard quality, Mundane enchantment variety. The
+        currency cost of the weapon scales with its Rarity score according to
+        the following formula:</p><section class="formula"><p class="value">Item
+        Value</p><p class="equals">=</p><p class="equation">(1 + (Rarity^3) ×
+        Base Cost</p></section><section class="gameplay"><p>Suppose a
+        <strong>Standard</strong> quality and unenchanted
+        <strong>Mundane</strong> Longsword has a base cost of 50. The same type
+        of weapon crafted at <strong>Masterwork</strong> quality would cost
+        3200. If a <strong>Legendary</strong> enchantment were added to the
+        weapon, it would then cost 25,650. A true fortune!</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: 1684891238587
+      modifiedTime: 1685634046609
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!e33DSvx0cfa7fey6.6QxbcLoOhUkXTbAj'
+  - sort: 200000
+    name: Armor
+    type: text
+    _id: JTsl6ENdxSDW765Q
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Armor</strong> are items which can be worn to provide
+        protection against attacks or environmental hazards. The Crucible system
+        provides a framework and rules for creating and classifying Armor, and
+        also provides an assortment of predefined Armor types which are typical
+        to a fantasy role-playing setting. These Armors can be browsed in the
+        Armor Compendium pack.</p><p>Armor in Crucible has the following
+        attributes, in addition to properties shared by all
+        items:</p><h4>Category</h4><p>The category of armor establishes certain
+        parameters about how that armor is used. What is it's weight category?
+        How much physical protection does it afford? How capable of nimble
+        movement is someone while wearing it? Supported Armor categories are
+        listed in a table below.</p><h4>Armor Defense</h4><p>Each piece of Armor
+        provides a certain amount of Armor defense, bounded by the range allowed
+        by its category. This Armor defense contributes directly towards
+        Physical Defense when the item is equipped.</p><h4>Dodge
+        Defense</h4><p>Each piece of Armor provides a baseline amount of Dodge
+        defense, bounded by the range allowed by its category. This base Dodge
+        defense contributes directly towards Physical Defense when the item is
+        equipped.</p><h4>Dodge Scaling Threshold</h4><p>In addition to base
+        Dodge defense, each piece of Armor can yield additional Dodge Defense
+        depending on the wearer's Dexterity in excess of a certain Dodge Scaling
+        Threshold.</p><section class="formula"><p class="value">Defense</p><p
+        class="equals">=</p><p class="equation">Armor Defense + Base Dodge +
+        (Dexterity - Dodge Scaling Threshold)</p></section><section
+        class="gameplay"><p>Scale Mail is medium armor which offers <strong>13
+        Armor Defense</strong> and <strong>4 Base Dodge Defense</strong>. As
+        Medium Armor, the effectiveness of Scale Mail will continue to improve
+        if the wearer has more than <strong>4 Dexterity</strong>, it's
+        <strong>Dodge Scaling Threshold</strong>. When Jex, a nimble Halfling
+        fighter with 7 Dexterity, dons Scale Mail armor they benefit from a
+        total Physical Defense of 20.</p></section><h2 class="divider">Armor
+        Categories</h2><p>The following table lists the categories of Armor
+        supported in the Crucible game system.</p><table><thead><tr><th>Armor
+        Category</th><th>Armor Defense</th><th>Base Dodge</th><th>Dodge
+        Scaling</th></tr></thead><tbody><tr><td>Unarmored</td><td>0</td><td>10</td><td>0
+        Dex</td></tr><tr><td>Light</td><td>1-7</td><td>7-9</td><td>2
+        Dex</td></tr><tr><td>Medium</td><td>8-13</td><td>4-6</td><td>4
+        Dex</td></tr><tr><td>Heavy</td><td>14-20</td><td>0-3</td><td>8
+        Dex</td></tr><tr><td>Natural</td><td>0-20</td><td>10</td><td>0
+        Dex</td></tr></tbody></table><p>Note that wearing <strong>Heavy
+        Armor</strong> does not permit a free <strong>Move</strong> action each
+        turn as other armor types do.</p><h2 class="divider">Quality
+        Tier</h2><p><strong>Quality</strong> of Armor describes its
+        craftsmanship, materials, and condition. Quality tiers provide an
+        additional bonus to Armor defense and increase item rarity. The quality
+        tier of Armor is established at its time of initial creation and can
+        never be increased after that point.</p><table><thead><tr><th>Quality
+        Tier</th><th>Armor Bonus</th><th>Rarity
+        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><h4>Broken
+        Armor</h4><p>During the course of use, or over the passage of time,
+        Armor may become <strong>Broken</strong>. Armor which is Broken only
+        benefits from half its normal Armor defense.</p><h2
+        class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
+        Armor describes its level of magical imbuement. Enchantment provides
+        further increases to Armor defense and increases item rarity. Armor can
+        be enchanted after its original creation or have its enchantment
+        improved.</p><table><thead><tr><th>Enchantment Tier</th><th>Armor
+        Bonus</th><th>Rarity
+        Modifier</th></tr></thead><tbody><tr><td>Mundane</td><td>0</td><td>0</td></tr><tr><td>Minor</td><td>+1</td><td>+2</td></tr><tr><td>Major</td><td>+2</td><td>+4</td></tr><tr><td>Legendary</td><td>+3</td><td>+6</td></tr></tbody></table><h2
+        class="divider">Special Properties</h2><p>Some Armor may have one (or in
+        very rare cases multiple) of the following special properties. Each of
+        these properties adds a +1 Rarity modifier to the
+        Armor.</p><h4>Bulky</h4><p>Armor that is <strong>Bulky</strong> is
+        cumbersome to wield and conveys a penalty of +2 Banes to all Initiative
+        rolls.</p><h4>Organic</h4><p>Armor that is <strong>Organic</strong> is
+        physically part of the creature that "wears" it and such armor cannot be
+        removed.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.3
+      coreVersion: '12.317'
+      createdTime: 1685633109339
+      modifiedTime: 1687044049985
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!e33DSvx0cfa7fey6.JTsl6ENdxSDW765Q'
+folder: MMeWpMmsLOblp07U
+flags:
+  crucible:
+    rulesEntry: true
+  core:
+    sheetClass: crucible.CrucibleJournalSheet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.3
+  coreVersion: '12.317'
+  createdTime: 1676659579008
+  modifiedTime: 1687044049985
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 107813
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!e33DSvx0cfa7fey6'
+

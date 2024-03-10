@@ -1,0 +1,36 @@
+name: 'Gesture: Ray'
+type: talent
+img: icons/magic/light/beam-rays-orange.webp
+system:
+  node: wis1b
+  description: >-
+    <p>Focus the power of a Rune into a single point, expelling its energy into
+    a ranged beam which rapidly travels a short distance to a targeted area. If
+    used with Life this might restore the HP of a distant ally steadily over
+    time, while Frost might emit a beam that freezes a target in place.</p>
+
+    <p>The Ray gesture scales using <strong>Wisdom</strong> and targets a line
+    emanating from the caster at distance 6, dealing 6 base damage on a
+    successful attack.</p>
+  actions: []
+  gesture: ray
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.gestureray000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675608839856
+  modifiedTime: 1686252836131
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: gestureray000000
+folder: D14x9AJ0TgXKtnzu
+sort: 600000
+_key: '!items!gestureray000000'
+

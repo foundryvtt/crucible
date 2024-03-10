@@ -1,0 +1,28 @@
+name: Perspicacity
+type: talent
+_id: perspicacity0000
+img: icons/magic/sonic/bell-alarm-red-purple.webp
+system:
+  node: int0b
+  description: >-
+    <p>You have heightened insight into aspects of your surroundings. You gain
+    +2 Boons to any <strong>Awareness</strong> skill test which does not rely
+    upon eyesight.</p>
+  actions: []
+  requirements: {}
+effects: []
+folder: 2MFixpDJ379KOogE
+sort: -275000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1684459952440
+  modifiedTime: 1684460206371
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!perspicacity0000'
+

@@ -1,0 +1,45 @@
+name: Lightbringer
+type: talent
+img: icons/magic/light/beams-rays-orange-purple-large.webp
+system:
+  node: pre2c
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Illumination. Spells which
+    use this Rune cause the Irradiated condition on Critical Hits.</p>
+
+    <p>The Irradiated effect lasts for 1 Round and deals your Presence score as
+    Radiant damage to both Health and Morale.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Illumination rune
+        if ( action.rune?.id !== "illumination" ) return;
+
+        // Require damage to Health
+        const damageHealth = outcome.resources.health < 0;
+        const damageMorale = outcome.resources.morale < 0;
+        if ( !(damageHealth || damageMorale) ) return;
+
+        // Apply Irradiated effect
+        const irradiated = SYSTEM.EFFECTS.irradiated(actor, outcome.target);
+        outcome.effects.push(irradiated);
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.lightbringer0000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1677356823203
+  modifiedTime: 1688828148602
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: lightbringer0000
+folder: c0nl6X8tp4Of0Y4O
+sort: -200000
+_key: '!items!lightbringer0000'
+

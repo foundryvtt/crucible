@@ -1,0 +1,866 @@
+folder: xoE3iSbPfFPlq6wD
+name: Duurath
+type: hero
+img: systems/crucible/assets/tokens/heroes/DwarfPaladin.webp
+system:
+  abilities:
+    wisdom:
+      base: 1
+      increases: 0
+      bonus: 0
+    presence:
+      base: 2
+      increases: 2
+      bonus: 0
+    intellect:
+      base: 1
+      increases: 0
+      bonus: 0
+    strength:
+      base: 3
+      increases: 2
+      bonus: 0
+    toughness:
+      base: 1
+      increases: 1
+      bonus: 0
+    dexterity:
+      base: 1
+      increases: 0
+      bonus: 0
+  advancement:
+    level: 6
+    progress: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    ancestry:
+      primary: toughness
+      secondary: wisdom
+      resistance: acid
+      vulnerability: psychic
+      description: >-
+        Like your parents before you, you were born with the enduring fortitude
+        of the Dwarves. Your stout stature and burly physical appearance are the
+        hallmarks of a people born of earth and stone. A legacy of physical
+        resilience is yours to inherit, for in your breast beats a heart of
+        stone.
+      name: Dwarven
+      img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+    background:
+      description: >-
+        You were part of a law enforcement organization. You learned how to
+        remain vigilant to your surroundings, work within complex social
+        structures, and affect an imposing presence.
+      skills:
+        - awareness
+        - pathfinding
+        - society
+        - intimidation
+      talents:
+        - Compendium.crucible.talent.Item.intimidator00000
+      name: Constable
+      img: icons/tools/scribal/magnifying-glass.webp
+    biography:
+      public: ''
+      private: ''
+  resistances:
+    bludgeoning:
+      bonus: 0
+    corruption:
+      bonus: 0
+    piercing:
+      bonus: 0
+    slashing:
+      bonus: 0
+    poison:
+      bonus: 0
+    acid:
+      bonus: 0
+    fire:
+      bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
+    psychic:
+      bonus: 0
+    radiant:
+      bonus: 0
+    void:
+      bonus: 0
+  resources:
+    health:
+      value: 68
+    wounds:
+      value: 0
+    morale:
+      value: 62
+    madness:
+      value: 0
+    action:
+      value: 3
+    focus:
+      value: 5
+  skills:
+    awareness:
+      rank: 2
+    pathfinding:
+      rank: 2
+    stealth:
+      rank: 0
+    survival:
+      rank: 2
+    arcana:
+      rank: 0
+    religion:
+      rank: 0
+    naturalism:
+      rank: 0
+    society:
+      rank: 2
+    deception:
+      rank: 0
+    diplomacy:
+      rank: 0
+    intimidation:
+      rank: 3
+      path: path1
+    mercantilism:
+      rank: 0
+    beastcraft:
+      rank: 0
+    tradecraft:
+      rank: 2
+    medicine:
+      rank: 2
+      path: path2
+    performance:
+      rank: 0
+  status: null
+  movement:
+    stride: 4
+    engagement: 1
+prototypeToken:
+  name: Duurath
+  displayName: 30
+  actorLink: true
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/heroes/DwarfPaladin.webp
+    scaleX: 1
+    scaleY: 1
+    offsetX: 0
+    offsetY: 0
+    rotation: 0
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 1
+  height: 1
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.75
+    angle: 360
+    bright: 0
+    color: '#ff8800'
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0.2
+    contrast: 0.1
+    shadows: 0
+    animation:
+      type: torch
+      speed: 2
+      intensity: 2
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: false
+    priority: 0
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: []
+  flags: {}
+  randomImg: false
+  hexagonalShape: 0
+  locked: false
+  occludable:
+    radius: 0
+items:
+  - name: Bulwark
+    type: talent
+    img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
+    system:
+      node: tou0
+      description: >-
+        You have expertise in using a Shield to defend a fixed position. You can
+        use the Defend action for free instead of a free Move action once per
+        Turn.
+      actions: []
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.bulwark000000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1677209859186
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: bulwark000000000
+    folder: 8Vb0F5R7DMUrvhfw
+    sort: -100000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.bulwark000000000'
+  - name: Martial Weapon Training
+    type: talent
+    _id: martialweapontra
+    img: icons/skills/melee/sword-shield-stylized-white.webp
+    system:
+      node: str0b
+      description: >-
+        <p>You are educated and trained in the arts of wielding weapons which
+        require a combination of physical brawn and martial proficiency.</p>
+
+        <p>You gain a +1 Skill bonus to attacks using melee weapons in the
+        <strong>Simple</strong>, <strong>Heavy</strong>, or
+        <strong>Balanced</strong> categories.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareTraining
+          fn: |-
+            training.heavy += 1;
+            training.balanced += 1;
+    effects: []
+    folder: FQAUMNkcagdBLURJ
+    sort: 125000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1682263814426
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.martialweapontra'
+  - _id: 3Xyqe5StbjuW0Wmf
+    name: Fine War Hammer
+    type: weapon
+    img: icons/weapons/hammers/hammer-war-rounding.webp
+    effects: []
+    folder: pUXcL0pnY3FlKwj8
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.warhammer0000000
+    system:
+      category: heavy1
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - versatile
+      description: ''
+      damageType: bludgeoning
+      broken: false
+      animation: warhammer
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420018
+      modifiedTime: 1686233921370
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.3Xyqe5StbjuW0Wmf'
+  - _id: 9qZjvKdySb6zLy6R
+    name: Fine Splint Mail
+    type: armor
+    img: icons/equipment/chest/breastplate-layered-steel-black.webp
+    effects: []
+    folder: mLC1TdXCG7bX8VE9
+    flags:
+      core:
+        sourceId: Compendium.crucible.armor.Item.splintmail000000
+    system:
+      category: heavy
+      quantity: 1
+      weight: 55
+      price: 200
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - bulky
+      description: ''
+      armor:
+        base: 17
+      broken: false
+      dodge:
+        base: 2
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420027
+      modifiedTime: 1686233913308
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.9qZjvKdySb6zLy6R'
+  - name: 'Gesture: Ward'
+    type: talent
+    img: icons/magic/defensive/shield-barrier-glowing-blue.webp
+    system:
+      node: tou2b
+      description: >-
+        <p>Focus the power of a Rune into a protective barrier, shielding
+        yourselves and others from harmful effects. When used with the Kinesis
+        rune the Ward reduces incoming damage from a chosen physical damage type
+        while combination with the Death rune protects against Corruption
+        damage.</p>
+
+        <p>Your Ward provides <strong>+6 Resistance</strong> against the damage
+        type of the Rune used in the spell. The Ward lasts for 1 Round.</p>
+
+        <p>You may only have a single Ward at a time. Casting another spell
+        using the Ward gesture replaces your prior Ward.</p>
+      actions: []
+      gesture: ward
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.gestureward00000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675654257211
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: gestureward00000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 900000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.gestureward00000'
+  - name: Dread Lord
+    type: talent
+    img: icons/magic/death/skull-horned-worn-fire-blue.webp
+    system:
+      node: toupre3
+      description: >-
+        You exude a terrible presence on the battlefield which tests the morale
+        of nearby enemies that behold you, breaking the resolve of the
+        weak-willed.
+      actions:
+        - id: formidablePresence
+          name: Formidable Presence
+          description: >-
+            You make an Intimidation skill attack against the Willpower defense
+            of enemies within 3 spaces, dealing Void damage to Morale and
+            causing the Frightened condition for 1 Round to those whose defense
+            you overcome.
+          tags:
+            - intimidation
+            - willpower
+            - void
+            - morale
+          cost:
+            action: 1
+            focus: 2
+          target:
+            type: pulse
+            number: 1
+            distance: 3
+            scope: 3
+          effects:
+            - duration:
+                rounds: 1
+              scope: 3
+              statuses:
+                - frightened
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.dreadlord0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675737631782
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: dreadlord0000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 350000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.dreadlord0000000'
+  - name: Cadence
+    type: talent
+    img: icons/skills/melee/strikes-sword-triple-gray.webp
+    system:
+      node: str1a
+      description: >-
+        You are drilled in performing sequences of melee attacks with rhythmic
+        precision.
+      actions:
+        - id: cadence
+          name: Cadence
+          condition: ''
+          description: >-
+            You perform 3 Strike attacks against a single opponent. Each
+            successful Strike adds an accumulating +1 Boon subsequent attacks.
+          tags:
+            - melee
+            - onehand
+            - mainhand
+          cost:
+            action: 2
+            focus: 1
+          target:
+            type: single
+            number: 1
+            distance: 1
+            scope: 3
+          effects: []
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.cadence000000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1677208371269
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: cadence000000000
+    folder: SAZROgHuRagTzjCu
+    sort: 100000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.cadence000000000'
+  - _id: shieldcharge0000
+    name: Shield Charge
+    type: talent
+    img: icons/skills/movement/arrow-upward-white.webp
+    effects: []
+    flags: {}
+    system:
+      node: toustr1
+      description: >-
+        A defensive technique in which you drive forward, slamming and pushing
+        foes out of your path. You charge up to 6 spaces in a straight line and
+        perform an offhand shield <strong>Strike</strong> against each
+        successive foe along your path.
+      actions:
+        - id: shieldCharge
+          description: >-
+            <p>You charge forward in a straight line, making attacks against
+            each successive foe. Any creature Critically Hit by the attack may
+            be pushed into an adjacent space of your choosing.</p><p>You may not
+            end your charge in the same space as another creature.</p>
+          tags:
+            - melee
+            - movement
+            - shield
+            - offhand
+          cost:
+            action: 1
+            focus: 1
+          target:
+            type: ray
+            number: 1
+            distance: 6
+            scope: 3
+          effects: []
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420012
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: 08mOaWGw5rYKejer
+    sort: 200000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.shieldcharge0000'
+  - name: Second Wind
+    type: talent
+    img: icons/magic/life/cross-area-circle-green-white.webp
+    effects: []
+    flags:
+      core:
+        sourceId: Item.V4stscWtnt2GFRY2
+    system:
+      node: tou1b
+      description: >-
+        Your physical hardiness allows you to push yourself beyond conventional
+        limits.
+      actions:
+        - id: secondWind
+          name: Second Wind
+          condition: ''
+          description: You focus your energy and recover your Toughness score in Health.
+          tags:
+            - healing
+          cost:
+            action: 0
+            focus: 2
+          target:
+            type: self
+            number: 0
+            distance: 1
+            scope: 1
+          effects: []
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674702266686
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    folder: qrB8E2SHs322zTil
+    _id: secondwind000000
+    sort: -100000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.secondwind000000'
+  - name: Counter Strike
+    type: talent
+    img: icons/skills/melee/shield-block-bash-yellow.webp
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.counterstrike000
+    system:
+      node: tou2c
+      description: >-
+        Using this shield technique you may react when you
+        <strong>Block</strong> a melee attack to retaliate against that attacker
+        making a <strong>Strike</strong> with your primary weapon.
+      actions:
+        - id: counterStrike
+          name: Counter Strike
+          img: icons/skills/melee/shield-block-bash-yellow.webp
+          condition: You Block an incoming melee Strike.
+          description: >-
+            You react when blocking an incoming melee attack to retaliate with a
+            Strike of your own.
+          tags:
+            - reaction
+            - melee
+            - mainhand
+          cost:
+            action: -1
+            focus: 1
+          target:
+            type: single
+            number: 1
+            distance: 1
+            scope: 3
+          effects: []
+      actorHooks: []
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420025
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: counterstrike000
+    folder: 8Vb0F5R7DMUrvhfw
+    sort: 0
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.counterstrike000'
+  - name: Hold Fast
+    type: talent
+    _id: holdfast00000000
+    img: icons/equipment/shield/buckler-iron-cross-gray.webp
+    system:
+      node: toustr2
+      description: >-
+        <p>You are a calm anchor in the swirling sea of combat. Your
+        <strong>Engagement</strong> increases by +1, allowing you to
+        simultaneously engage more adjacent foes.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareMovement
+          fn: movement.engagement += 1;
+    effects: []
+    folder: aB808IWOdgwmFCIF
+    sort: 100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1685583955388
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.holdfast00000000'
+  - name: True Grit
+    type: talent
+    _id: truegrit00000000
+    img: icons/magic/symbols/mask-yellow-orange.webp
+    system:
+      node: tou1a
+      description: >-
+        <p>Your physical tenacity allows you to remain composed while surrounded
+        by foes. Your <strong>Engagement</strong> increases by +1, allowing you
+        to simultaneously engage more adjacent foes.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareMovement
+          fn: movement.engagement += 1;
+    effects: []
+    folder: aB808IWOdgwmFCIF
+    sort: 275000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1685824842320
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.truegrit00000000'
+  - _id: VsFk36A6L3qQ3mod
+    name: Fine Heater Shield
+    type: weapon
+    img: icons/equipment/shield/heater-steel-worn.webp
+    effects: []
+    folder: 9v0ru58f09fO3sE3
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.heatershield0000
+    system:
+      category: shieldLight
+      quantity: 1
+      weight: 6
+      price: 30
+      quality: fine
+      enchantment: mundane
+      equipped: true
+      properties:
+        - engaging
+      description: ''
+      damageType: bludgeoning
+      broken: false
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674942420010
+      modifiedTime: 1687190501761
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.VsFk36A6L3qQ3mod'
+  - name: 'Rune: Kinesis'
+    type: talent
+    img: icons/magic/movement/pinwheel-turning-blue.webp
+    system:
+      node: pre2b
+      description: >-
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and physicality. It is
+        opposed by the orderly rune of Stasis.</p>
+
+        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
+        <strong>Physical</strong> defense, and deals
+        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+      actions: []
+      rune: kinesis
+      actorHooks: []
+    effects: []
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags:
+      core:
+        sourceId: Item.runekinesis00000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675704765802
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: runekinesis00000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 700000
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.runekinesis00000'
+  - name: Intimidator
+    type: talent
+    _id: intimidator00000
+    img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+    system:
+      node: pre0
+      description: >-
+        You specialize in exerting your intimidating presence to break the
+        morale of your foes.
+      actions:
+        - id: intimidate
+          name: Intimidate
+          description: >-
+            You physically intimidate an enemy that is within your engagement
+            range, performing an Intimidation skill attack against your target.
+            On a success they sustain Void damage to Morale.
+          tags:
+            - intimidation
+            - void
+            - morale
+          cost:
+            action: 1
+            focus: 1
+          target:
+            type: single
+            number: 1
+            distance: 1
+            scope: 0
+          effects: []
+      actorHooks: []
+    effects: []
+    folder: 2MFixpDJ379KOogE
+    sort: -100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676839298208
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.intimidator00000'
+  - name: Concussive Blows
+    type: talent
+    _id: concussiveblows0
+    img: icons/skills/melee/strike-hammer-destructive-orange.webp
+    system:
+      node: str2b
+      description: >-
+        <p>Your physical power wielding melee weapons which deal Bludgeoning
+        damage can cause the <strong>Staggered</strong> condition on Critical
+        Hits.</p>
+
+        <p>The Staggered effect lasts for 1 round and reduces your target's
+        maximum Action by 1.</p>
+      actions: []
+      actorHooks: []
+    effects: []
+    folder: c0nl6X8tp4Of0Y4O
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1676756257189
+      modifiedTime: 1687634075806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!wvaoj9WGrzAdFR8F.concussiveblows0'
+effects: []
+flags:
+  crucible: {}
+  core: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1685652423955
+  modifiedTime: 1687636350891
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: wvaoj9WGrzAdFR8F
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!wvaoj9WGrzAdFR8F'
+

@@ -1,0 +1,18 @@
+name: Ranged
+type: Item
+sorting: a
+sort: 175000
+color: null
+flags: {}
+_id: Pe27j9LY8Nmygkqt
+folder: null
+description: ''
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1676665259468
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!Pe27j9LY8Nmygkqt'
+

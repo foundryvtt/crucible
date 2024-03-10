@@ -1,0 +1,31 @@
+name: War Mage
+type: talent
+img: icons/magic/defensive/barrier-shield-dome-deflect-teal.webp
+system:
+  description: >-
+    Your spellcraft is honed as a weapon of war to thwart the incantations of
+    other magi. You may ask the Gamemaster if you know a Rune capable of
+    countering an enemy spell, even if you do not recognize the spell being
+    cast. You gain +2 Boons to any Counterspell attempt.
+  actions: []
+  requirements: {}
+  node: preint3
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.warmage000000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675644340947
+  modifiedTime: 1682388097229
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: warmage000000000
+folder: fOYHlZJEWUukD7yr
+sort: 237500
+_key: '!items!warmage000000000'
+

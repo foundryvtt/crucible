@@ -1,0 +1,42 @@
+name: Necromancer
+type: talent
+_id: necromancer00000
+img: icons/magic/unholy/strike-beam-blood-red-purple.webp
+system:
+  node: int2b
+  description: >-
+    <p>You are highly skilled in weaving the Rune of Death. Spells which use
+    this Rune cause the Corrupted condition on Critical Hits.</p>
+
+    <p>The Corrupted effect lasts for 3 Rounds and deals your Intellect score as
+    Corruption damage to Health each Round.</p>
+  actions: []
+  actorHooks:
+    - hook: applyCriticalEffects
+      fn: |-
+        // Require Death rune
+        if ( action.rune?.id !== "death" ) return;
+
+        // Require damage to Health
+        const damageHealth = outcome.resources.health < 0;
+        if ( !damageHealth ) return;
+
+        // Apply Decay effect
+        const decay = SYSTEM.EFFECTS.decay(actor, outcome.target);
+        outcome.effects.push(decay);
+effects: []
+folder: c0nl6X8tp4Of0Y4O
+sort: -250000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.7
+  coreVersion: '12.317'
+  createdTime: 1677357187162
+  modifiedTime: 1688828236555
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!necromancer00000'
+

@@ -1,0 +1,31 @@
+folder: qAL3mvNAtEIemAia
+name: Pack Member
+type: archetype
+_id: packmember000000
+img: icons/creatures/abilities/paw-glowing-yellow.webp
+system:
+  description: Beasts that hunt in packs.
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 4
+    strength: 3
+    toughness: 3
+    dexterity: 4
+  talents:
+    - Compendium.crucible.adversary-talents.Item.packhunter000000
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1685217713904
+  modifiedTime: 1685286430521
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!packmember000000'
+

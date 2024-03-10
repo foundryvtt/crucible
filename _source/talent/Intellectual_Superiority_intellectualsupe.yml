@@ -1,0 +1,46 @@
+name: Intellectual Superiority
+type: talent
+_id: intellectualsupe
+img: icons/magic/light/projectile-smoke-blue-light.webp
+system:
+  node: int2a
+  description: >-
+    It is sometimes a marvel how slowly others around you think. You gain
+    <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
+    lower than you in Initiative order.
+  actions: []
+  actorHooks:
+    - hook: prepareWeaponAttack
+      fn: >-
+        const ac = actor.combatant;
+
+        const tc = target.combatant;
+
+        if ( ac?.initiative > tc?.initiative )
+        rollData.boons.intellectualSuperiority = {label: "Intellectual
+        Superiority", number: 1};
+    - hook: prepareSpellAttack
+      fn: >-
+        const ac = actor.combatant;
+
+        const tc = target.combatant;
+
+        if ( ac?.initiative > tc?.initiative )
+        rollData.boons.intellectualSuperiority = {label: "Intellectual
+        Superiority", number: 1};
+effects: []
+folder: BevAJzzLeFbSaVic
+sort: -50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1684460412134
+  modifiedTime: 1687632033574
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!intellectualsupe'
+

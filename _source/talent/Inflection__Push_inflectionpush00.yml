@@ -1,0 +1,31 @@
+name: 'Inflection: Push'
+type: talent
+img: icons/magic/sonic/projectile-shock-wave-blue.webp
+system:
+  node: wispre1
+  description: >-
+    <p>Empower a spell to repel affected creatures away from the caster.
+    Creatures affected by a spell with the Push inflection move 1 space away
+    from the spellcaster if that destination space is unoccupied.</p>
+  actions: []
+  inflection: push
+  actorHooks: []
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.inflectionpush00
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675016611028
+  modifiedTime: 1686256378551
+  lastModifiedBy: JMECHdsPmLGGi1RC
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: inflectionpush00
+folder: mFfsius4gpT45Q2R
+sort: 500000
+_key: '!items!inflectionpush00'
+

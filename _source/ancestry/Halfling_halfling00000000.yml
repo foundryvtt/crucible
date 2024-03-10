@@ -1,0 +1,30 @@
+_id: halfling00000000
+name: Halfling
+type: ancestry
+img: icons/magic/control/buff-luck-fortune-green.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: dexterity
+  secondary: wisdom
+  resistance: psychic
+  vulnerability: cold
+  description: >-
+    You were raised in a creche surrounded by other halflings. Your lilliputian
+    stature, thick-soled hairy feet, and the swiftness of your mind and body are
+    what your people are most known for. Yours is a people for whom education
+    and tradition are paramount.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420028
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!halfling00000000'
+

@@ -1,0 +1,67 @@
+name: Clarify Intent
+type: talent
+img: icons/skills/targeting/crosshair-arrowhead-blue.webp
+system:
+  node: preint2
+  description: >-
+    You use apply your situational awareness and persuasiveness to rapidly
+    communicate a plan of action to an ally.
+  actions:
+    - id: clarifyIntent
+      description: >-
+        You explain your intentions to an ally within 3 spaces. Make an
+        <strong>Diplomacy</strong> skill attack against your ally's Madness
+        Threshold. If successful they gain +1 <strong>Focus</strong> and +1
+        <strong>Boon</strong> to actions made within the next Round.
+      tags:
+        - rallying
+        - focus
+        - diplomacy
+      cost:
+        action: 2
+        focus: 0
+      target:
+        type: single
+        number: 1
+        distance: 3
+        scope: 2
+      effects:
+        - duration:
+            rounds: 1
+          changes:
+            - key: rollBonuses.boons.clarifyIntent.number
+              value: 1
+              mode: 5
+            - key: rollBonuses.boons.clarifyIntent.label
+              value: Clarify Intent
+              mode: 5
+      name: Clarify Intent
+      img: icons/skills/targeting/crosshair-arrowhead-blue.webp
+      condition: ''
+      actionHooks:
+        - hook: postActivate
+          fn: |-
+            const roll = outcome.rolls[0];
+            if ( roll.isSuccess ) {
+              roll.data.damage.multiplier = 0;
+              roll.data.damage.base = roll.data.damage.total = 1;
+            }
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.clarifyintent000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.8
+  coreVersion: '12.317'
+  createdTime: 1677347458957
+  modifiedTime: 1690660739634
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: clarifyintent000
+folder: 2MFixpDJ379KOogE
+sort: 100000
+_key: '!items!clarifyintent000'
+

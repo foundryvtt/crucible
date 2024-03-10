@@ -1,0 +1,35 @@
+name: 'Rune: Shadow'
+type: talent
+img: icons/magic/unholy/orb-rays-blue.webp
+system:
+  node: pre2b
+  description: >-
+    <p>The orderly force of darkness and negative energy. The Shadow rune
+    governs darkness and all of its properties. It is opposed by the chaotic
+    rune of Illumination.</p>
+
+    <p>The Shadow rune scales using <strong>Presence</strong>, targets
+    <strong>Fortitude</strong>, and deals <strong>Void</strong> damage to
+    <strong>Morale</strong>.</p>
+  actions: []
+  rune: shadow
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.runevoid00000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675649793776
+  modifiedTime: 1686251295763
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: runevoid00000000
+folder: Dy9HnwadNE3kSZ4f
+sort: 1000000
+_key: '!items!runevoid00000000'
+

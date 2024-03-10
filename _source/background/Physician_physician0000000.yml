@@ -1,0 +1,33 @@
+folder: 5piCK2JWjY34nSY3
+name: Physician
+type: background
+_id: physician0000000
+img: icons/magic/life/cross-flared-green.webp
+system:
+  description: >-
+    You were a healer or medical professional of some variety. You have spent a
+    portion of your life learning medical science, and you have a propensity for
+    noticing illness in others. You know how to treat wounds, diseases, and how
+    to identify their sources.
+  skills:
+    - awareness
+    - naturalism
+    - society
+    - medicine
+  talents:
+    - Compendium.crucible.talent.Item.runelife00000000
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1677350949941
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!physician0000000'
+

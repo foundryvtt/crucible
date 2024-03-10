@@ -1,0 +1,17 @@
+name: 'Gesture: Create'
+sorting: a
+folder: null
+type: Actor
+_id: 5oBBNdq95OvvXx3e
+sort: 0
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '11.299'
+  createdTime: null
+  modifiedTime: 1685225216079
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!5oBBNdq95OvvXx3e'
+

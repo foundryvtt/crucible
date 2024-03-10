@@ -1,0 +1,29 @@
+name: Conserve Effort
+type: talent
+img: icons/magic/time/arrows-circling-pink.webp
+system:
+  node: wispre2
+  description: >-
+    You find calmness and focus in conserving your effort in battle. When you
+    end your Turn with un-spent Action you gain +1 Focus.
+  actions: []
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.conserveeffort00
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1677356252137
+  modifiedTime: 1682386853160
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: conserveeffort00
+folder: qHUCrqkzuPHtBkbG
+sort: 150000
+_key: '!items!conserveeffort00'
+

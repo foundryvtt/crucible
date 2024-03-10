@@ -1,0 +1,34 @@
+_id: halberd000000000
+name: Halberd
+type: weapon
+img: icons/weapons/polearms/halberd-curved-steel.webp
+effects: []
+folder: bvWJheBtuW1LmkAy
+flags: {}
+system:
+  category: heavy2
+  quantity: 1
+  weight: 8
+  price: 90
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reach
+  description: ''
+  damageType: slashing
+  broken: false
+  animation: halberd
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420026
+  modifiedTime: 1684877890643
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!halberd000000000'
+

@@ -1,0 +1,31 @@
+_id: human00000000000
+name: Human
+type: ancestry
+img: icons/skills/social/diplomacy-handshake.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: presence
+  secondary: toughness
+  resistance: ''
+  description: >-
+    Found amid countless conditions and far-flung places, you were born an
+    ever-adaptable human. Tall or short, thin, muscular, or rotund, your
+    physical appearance is nothing if not varied. Humans are most known for a
+    genetic predisposition toward determination, with traditions that drive a
+    stubborn will to survive.
+  vulnerability: ''
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420025
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!human00000000000'
+

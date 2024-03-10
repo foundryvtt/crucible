@@ -1,0 +1,33 @@
+_id: soldier000000000
+name: Soldier
+type: background
+img: icons/environment/people/infantry.webp
+effects: []
+folder: 5piCK2JWjY34nSY3
+flags: {}
+system:
+  description: >-
+    You were a rank-and-file member of a military organization of some variety.
+    Discipline made you a survivor and emphasized the importance of
+    demonstrating strength and dominance over others, and years on horseback or
+    marching taught you how to handle all manner of terrain.
+  skills:
+    - pathfinding
+    - survival
+    - intimidation
+    - beastcraft
+  talents:
+    - Compendium.crucible.talent.Item.martialweapontra
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420015
+  modifiedTime: 1684876104522
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!soldier000000000'
+

@@ -1,0 +1,32 @@
+name: 'Inflection: Compose'
+type: talent
+img: icons/magic/symbols/arrowhead-green.webp
+system:
+  node: wispre1
+  description: >-
+    <p>Enhance a spell by taking extra time in its formation, reducing other
+    resource costs in exchange. The Compose inflection reduces the
+    <strong>Focus</strong> cost of a spell by 1 while increasing its
+    <strong>Action</strong> cost by 1 in exchange.</p>
+  actions: []
+  inflection: compose
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.inflectioncompos
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1676608867154
+  modifiedTime: 1686254348318
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: inflectioncompos
+folder: mFfsius4gpT45Q2R
+sort: 100000
+_key: '!items!inflectioncompos'
+

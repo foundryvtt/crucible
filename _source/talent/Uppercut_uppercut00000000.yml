@@ -1,0 +1,58 @@
+name: Uppercut
+type: talent
+img: icons/skills/melee/strike-sword-gray.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.pHRUZ8Zfv5E0TcH2
+system:
+  node: str0
+  description: >-
+    A two-handed weapon technique where you swing your weapon upwards, making a
+    second Strike with the backswing of your weapon.
+  actions:
+    - id: uppercut
+      name: ''
+      img: null
+      condition: Your Strike attack did not result in a Critical Miss.
+      description: >-
+        Following a basic Strike attack, you can attack the same target again
+        with the backswing of your weapon, making a second Strike.
+      tags:
+        - twohand
+        - melee
+      cost:
+        action: -3
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const {basicStrike, lastAction} = this.actor.system.status;
+            if ( !basicStrike || (lastAction !== "strike") ) {
+              throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
+            }
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420027
+  modifiedTime: 1696556138888
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+folder: yQPNpmhq761VzMZe
+_id: uppercut00000000
+sort: -50000
+_key: '!items!uppercut00000000'
+

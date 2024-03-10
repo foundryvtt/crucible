@@ -1,0 +1,33 @@
+name: 'Rune: Frost'
+type: talent
+img: icons/magic/water/snowflake-ice-snow-white.webp
+system:
+  node: wis0b
+  description: >-
+    <p>The orderly force of elemental, thermal energy. The Frost rune governs
+    sources of ice and cold. It is opposed by the chaotic rune of Flame.</p>
+
+    <p>The Frost rune scales using <strong>Wisdom</strong>, targets
+    <strong>Fortitude</strong>, and deals <strong>Cold</strong> damage to
+    <strong>Health</strong>.</p>
+  actions: []
+  rune: frost
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.runefrost0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.3
+  coreVersion: '12.317'
+  createdTime: 1674698661050
+  modifiedTime: 1687026199243
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: runefrost0000000
+folder: Dy9HnwadNE3kSZ4f
+sort: 500000
+_key: '!items!runefrost0000000'
+

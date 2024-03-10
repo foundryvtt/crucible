@@ -1,0 +1,62 @@
+name: Extoll Deeds
+type: talent
+img: icons/tools/instruments/harp-gold-glowing.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: pre1a
+  description: >-
+    You inspire courage within your allies by extolling the heroic deeds of a
+    companion. You may react by composing a verse, making a quip, or shouting a
+    battle cry when an ally you can see <strong>Incapacitates</strong> or
+    achieves a <strong>Critical Hit</strong> against an enemy creature. The
+    celebration of these heroic deeds restores the Morale of your allies within
+    6 spaces.
+  actions:
+    - id: extollDeeds
+      condition: >-
+        An ally whom you can see slays or scores a critical hit against an
+        enemy.
+      description: >-
+        You compose a verse, make a quip, or shout a battle cry to extoll the
+        heroic deeds of one of your allies. Make a <strong>Performance</strong>
+        check against your allies' Madness threshold, restoring Morale to those
+        who can perceive your performance.
+      tags:
+        - reaction
+        - rallying
+        - morale
+        - performance
+      cost:
+        action: 1
+        focus: 1
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+      effects: []
+      name: ''
+      img: null
+      range:
+        maximum: 0
+        weapon: false
+      actionHooks: []
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420024
+  modifiedTime: 1696795509232
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: extolldeeds00000
+folder: 4Ll3b4Q4us2mp4Fu
+sort: 0
+_key: '!items!extolldeeds00000'
+

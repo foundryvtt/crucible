@@ -1,0 +1,27 @@
+name: Safecracker
+type: talent
+_id: safecracker00000
+img: icons/sundries/misc/lock-open-yellow.webp
+system:
+  node: dex1a
+  description: >-
+    You are skilled in the arts of disarming traps and picking locks. You gain
+    +1 Boon on Crafting checks to disable a device or open a lock.
+  actions: []
+  requirements: {}
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675021250520
+  modifiedTime: 1682388191262
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 2MFixpDJ379KOogE
+sort: -300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!safecracker00000'
+

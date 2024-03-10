@@ -1,0 +1,63 @@
+name: Cadence
+type: talent
+img: icons/skills/melee/strikes-sword-triple-gray.webp
+system:
+  node: str1a
+  description: >-
+    You are drilled in performing sequences of melee attacks with rhythmic
+    precision.
+  actions:
+    - id: cadence
+      name: ''
+      condition: ''
+      description: >-
+        You perform 3 Strike attacks against a single opponent. Each successful
+        Strike adds an accumulating +1 Boon subsequent attacks.
+      tags:
+        - mainhand
+        - onehand
+        - melee
+      cost:
+        action: 6
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      img: null
+      actionHooks:
+        - hook: roll
+          fn: |-
+            let roll = rolls[0];
+            const boons = this.usage.boons;
+            boons.cadence = {label: "Cadence", number: 0};
+            for ( let i=1; i<=2; i++ ) {
+              if ( roll.isSuccess ) boons.cadence.number++;
+              roll = await this.actor.weaponAttack(this, target);
+              rolls.push(roll);
+            }
+      range:
+        weapon: true
+        maximum: 0
+  requirements: {}
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.cadence000000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677208371269
+  modifiedTime: 1696556015233
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: cadence000000000
+folder: SAZROgHuRagTzjCu
+sort: 100000
+_key: '!items!cadence000000000'
+

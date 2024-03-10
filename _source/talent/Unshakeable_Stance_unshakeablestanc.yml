@@ -1,0 +1,30 @@
+name: Unshakeable Stance
+type: talent
+img: icons/magic/earth/construct-stone.webp
+system:
+  node: toustr2
+  description: >-
+    You cannot be unvoluntarily Moved or knocked Prone by any action that is not
+    a Critical Success rolled by an enemy or a Critical Failure rolled by
+    yourself.
+  actions: []
+  requirements: {}
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.unshakeablestanc
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1675014674373
+  modifiedTime: 1682388134480
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: unshakeablestanc
+folder: SMe30RkoLutLr4ef
+sort: 0
+_key: '!items!unshakeablestanc'
+

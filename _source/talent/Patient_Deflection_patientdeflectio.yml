@@ -1,0 +1,36 @@
+name: Patient Deflection
+type: talent
+img: icons/magic/earth/strike-fist-stone.webp
+effects: []
+flags:
+  core: {}
+system:
+  node: wis2a
+  description: >-
+    Your expertise with martial arts allows you to dodge or deflect blows as
+    effectively as a heavily armored fighter. While unarmed, half your Wisdom
+    score contributes to your Parry defense.
+  actions: []
+  actorHooks:
+    - hook: prepareDefenses
+      fn: |-
+        const weapons = actor.equipment.weapons;
+        if ( weapons.unarmed ) {
+          const wisdom = actor.system.abilities.wisdom.value;
+          defenses.parry.bonus += Math.ceil(wisdom / 2);
+        }
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1674942420013
+  modifiedTime: 1685124271640
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: iD0N4Q5xDZqsf354
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: patientdeflectio
+sort: 200000
+_key: '!items!patientdeflectio'
+

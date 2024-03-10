@@ -1,0 +1,53 @@
+name: Mnemonic Realization
+type: talent
+_id: mnemonicrealizat
+img: icons/magic/perception/eye-ringed-green.webp
+system:
+  node: int2a
+  description: >-
+    <p>Your sharpened mind is full of secrets and techniques to remember them.
+    Once per Day you may focus your thoughts and attempt to recall a word that
+    sparks your memory.</p>
+
+    <p>The Gamemaster must provide you with a one-word clue that is appropriate
+    for your direction of inquiry. It is left to Gamemaster discretion how
+    direct or vague to be with the clue they provide.</p>
+  actions:
+    - id: mnemonicRealization
+      description: >-
+        You survey your memories attempting to recall a clue for your current
+        situation.
+      tags: []
+      cost:
+        action: 1
+        focus: 2
+        weapon: false
+      target:
+        type: self
+        number: 0
+        scope: 1
+      effects: []
+      name: ''
+      img: null
+      condition: ''
+      range:
+        maximum: 0
+        weapon: false
+      actionHooks: []
+  requirements: {}
+effects: []
+folder: F5y85kE9ocaa5R4R
+sort: 50000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1684460628269
+  modifiedTime: 1696704335055
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!mnemonicrealizat'
+

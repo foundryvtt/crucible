@@ -1,0 +1,36 @@
+_id: splintmail000000
+name: Splint Mail
+type: armor
+img: icons/equipment/chest/breastplate-layered-steel-black.webp
+effects: []
+folder: mLC1TdXCG7bX8VE9
+flags: {}
+system:
+  category: heavy
+  quantity: 1
+  weight: 55
+  price: 200
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - bulky
+  description: ''
+  armor:
+    base: 17
+  broken: false
+  dodge:
+    base: 2
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420027
+  modifiedTime: 1684879928796
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!splintmail000000'
+

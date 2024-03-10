@@ -1,0 +1,17 @@
+name: Skills
+sorting: a
+folder: null
+type: Item
+_id: 2MFixpDJ379KOogE
+sort: 1000000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.298'
+  createdTime: null
+  modifiedTime: 1684460152362
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!2MFixpDJ379KOogE'
+

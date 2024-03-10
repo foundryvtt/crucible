@@ -1,0 +1,17 @@
+name: Medium
+sorting: m
+folder: null
+type: Item
+_id: HVRX1hdeNtvlHbQs
+sort: 0
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.1
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1675011329373
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!HVRX1hdeNtvlHbQs'
+

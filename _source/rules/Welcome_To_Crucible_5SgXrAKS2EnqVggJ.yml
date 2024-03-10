@@ -1,0 +1,334 @@
+name: Welcome To Crucible
+_id: 5SgXrAKS2EnqVggJ
+pages:
+  - sort: 100000
+    name: What is Crucible
+    type: text
+    _id: 5FU3galBRwerqm5Y
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Crucible</strong> is an innovative and modern role-playing
+        game (RPG) system built exclusively for <strong>Foundry Virtual
+        Tabletop</strong> as a digital platform. From the ground up, Crucible is
+        designed to leverage the unique capabilities of Foundry VTT to provide
+        gamemasters with a powerful toolset and effortless layers of automation,
+        allowing gamemasters and players to focus on what matters most:
+        <em>telling a compelling story</em>.</p><p>The central focus of Crucible
+        is meaningful and varied character advancement through a class-less
+        system with multiple pillars of character progression. The Crucible
+        system and its dice mechanics allow for crunchy and tactically rich
+        encounters featuring combat, exploration, problem-solving, or social
+        challenges.</p><p>Crucible is both a role-playing game and a software
+        engine. The rules of the game are applied with consistency and
+        automation. The system is built specifically for virtual tabletop use to
+        eliminate cumbersome bookkeeping that appears in other similarly crunchy
+        pen-and-paper systems.</p><h2 class="divider">Development
+        Status</h2><p>Crucible is now available for its initial <strong>Patreon
+        Playtest</strong> which provides the community with a first look at the
+        system, design pillars, and intended direction. The system is moderately
+        functional, but still early in development. All areas of the system are
+        works-in-progress and some areas are not yet developed at all. This
+        playtest offers a chance for us to collect early feedback and share our
+        work with the community. Please approach it with an open mind and an
+        understanding that what you are seeing is still a long way from a
+        finished product.</p><section class="construction"><p>Blocks like this
+        one in the system documentation highlight areas of the system that still
+        require substantial development. These are intended to make you aware of
+        areas that are intentionally unfinished at this
+        time.</p></section><p>Development of Crucible is two-pronged with an
+        equal focus on developing the system mechanics of the roleplaying game
+        and the software implementation of those mechanics simultaneously. As
+        the game mechanics evolve, new developments of the game system will
+        enable those features for use in testing. The playtest process allows us
+        to solicit and benefit from feedback that helps us iterate on the game
+        rules and the user experience in Foundry Virtual Tabletop. We anticipate
+        hosting multiple rounds of feedback, each focusing on a different aspect
+        of the game experience.</p><h2 class="divider">Playtest One</h2><p>The
+        first playtest,
+        @UUID[Compendium.crucible.playtest.Adventure.F8AILycmdj2kuOVa]{Playtest
+        1 - The Ring of Valor}, is focused on
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
+        Creation} and
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c]{Combat
+        Encounters}. This playtest provides an abbreviated introduction to the
+        Crucible game system, covering character creation, dice mechanics,
+        combat encounters, and level advancement. The playtest begins at level 1
+        and advances characters through level 6 allowing them to evolve and
+        advance their character between each challenge of the test.</p><section
+        class="construction"><p>Please note that the rules and mechanics
+        featured in this playtest are not final. Most talents, skills, and rules
+        will be further refined during later phases of
+        development.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      PQhsT89HTP8uxjkQ: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684020732888
+      modifiedTime: 1686269864285
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.5FU3galBRwerqm5Y'
+  - sort: 200000
+    name: System Cornerstones
+    type: text
+    _id: 196OpDVQ0gaolFUe
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Crucible is built with the following cornerstones and design
+        principles in mind.</p><h2>Consequential Character Progression</h2><p>A
+        primary goal for Crucible is to provide systems for meaningful,
+        exciting, and impactful character progression. Creating and advancing a
+        character in Crucible should be enjoyable and impactful as you gain
+        access to new capabilities that tangibly evolve your playstyle and
+        character persona.</p><h2>Strategic Grid-Based Combat</h2><p>Game
+        mechanics in Crucible are designed for application to encounter or area
+        maps with a structured grid which defines distances and positions of
+        characters to create tactical choices about movement during combat.
+        Movement actions and costs, engagement, flanking, cover, area-of-effect
+        abilities, and more are all ways to add tactical nuance and dynamism to
+        combat.</p><h2>Consistently Automated Mechanics</h2><p>A key goal for
+        Crucible is to design and implement mechanics which are seamlessly
+        automated or theoretically capable of seamless automation. We don't want
+        automation that distracts from gameplay with the need for bookkeeping -
+        but we also want the underlying game mechanics which are automated to be
+        understandable to players at the table. We don't want mechanics which
+        are inscrutable simply because we have a layer of automation in front of
+        them. In Crucible you will find game mechanics which are elegantly and
+        intuitively designed, but our approach to full automation of those
+        mechanics means you can stay focused on the fun of
+        roleplaying.</p><h2>Bring Your Own Story</h2><p>Crucible is optimized
+        and designed with extended-form narrative in mind. While it can be used
+        for one-shot adventures, the system's mechanics are intended to play out
+        over months or years of game sessions.</p><p>Crucible provides
+        relatively little rule-based guidance around narrative, personal
+        character story, or the development of intrapersonal relationships -
+        deliberately leaving these narrative pillars for the Game Master and
+        players to explore using whatever setting or storytelling style they
+        most prefer.</p><p>Crucible intentionally does not define a canonical
+        setting. The system provides Gamemasters with tools to apply the system
+        to a variety of settings. As a general rule of thumb, Crucible will work
+        best in a gritty fantasy setting but it can be adapted for other genres
+        and tones.</p><h2>Ease of Powerful Use</h2><p>Crucible is designed to be
+        a system which is easy to learn and easy to use. Gamemasters should feel
+        empowered to tell the stories they want to tell, and players to play the
+        characters they want to play. We want game mechanics in Crucible to be
+        crunchy and strategic while being presented to players in a way that is
+        intuitive and fun to engage with.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      PQhsT89HTP8uxjkQ: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684020740713
+      modifiedTime: 1686269235920
+      lastModifiedBy: JMECHdsPmLGGi1RC
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.196OpDVQ0gaolFUe'
+  - sort: 400000
+    name: Providing Feedback
+    type: text
+    _id: 4Ggutuh9uzhcEXSK
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>As part of the playtest process, we ask users to submit feedback on
+        their experience with Crucible. This data will be collected and collated
+        to help us identify areas of the game which need improvement, collect
+        bugs that need to be fixed, and help us prioritize the development of
+        new features. There are two supported methods for providing
+        feedback:</p><h3>Formal Feedback via Google Forms</h3><p>We have
+        configured a <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSd70XUeY_G3VDwlrEArSk1twTiw2xo0wJuQV6BcttmYRQcesg/viewform"
+        title="Crucible Feedback - Playtest One">simple feedback form</a> which
+        users can use to submit feedback on their experience. This form is the
+        best way to provide feedback directly, as it goes straight to those
+        developing Crucible in an organized manner.</p><h3>General Feedback via
+        Discord</h3><p>The Foundry Virtual Tabletop community <a
+        href="https://discord.gg/foundryvtt">Discord</a> server is a primary hub
+        for discussion and feedback for Foundry Virtual Tabletop, and we've
+        configured a dedicated channel for playtest feedback. We have a
+        dedicated channel for playtest feedback, and we encourage users to join
+        the server and participate in the discussion. Please join the discussion
+        in the <strong>#crucible</strong> channel of our Discord server.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      PQhsT89HTP8uxjkQ: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684020793428
+      modifiedTime: 1686269197317
+      lastModifiedBy: JMECHdsPmLGGi1RC
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.4Ggutuh9uzhcEXSK'
+  - sort: 0
+    name: Cover
+    type: image
+    _id: hQL7peZEfaAwWXAv
+    title:
+      show: false
+      level: 1
+    image:
+      caption: ''
+    text:
+      format: 1
+    video:
+      controls: true
+      volume: 0.5
+    src: systems/crucible/ui/crucible-text-dark.png
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.6.2
+      coreVersion: '12.317'
+      createdTime: 1684269584990
+      modifiedTime: 1684269625857
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.hQL7peZEfaAwWXAv'
+  - sort: 425000
+    name: Credits
+    type: text
+    _id: tK1GSC4Z58QDFj8k
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Crucible is created by the <strong>Foundry Virtual Tabletop
+        </strong>team. In particular:</p><ul><li>Andrew (Atropos) - System lead,
+        game design, and software development.</li><li>Caeora - Artwork, Tokens,
+        and UI/UX design. Find more at <a
+        href="https://www.patreon.com/caeora/">https://www.patreon.com/caeora/</a></li><li>Shane
+        (Anathema) - Writing, editing, and playtest scenario
+        development.</li><li>Drew (Drewzelle) - Talent icons.</li></ul><h2
+        class="divider">Community Contributions</h2><p>We are grateful to the
+        following community members for their contributions to the
+        system:</p><ul><li>RedReign - Brainstorming and design
+        discussions.</li><li>JDW - Assistance with
+        @UUID[Compendium.crucible.rules.JournalEntry.j9Nus4RQXHAd0NqQ.JournalEntryPage.POsbUPz2axlketya]{Dice
+        So Nice} animation integration.</li><li>Wasp - Assistance with
+        @UUID[Compendium.crucible.rules.JournalEntry.j9Nus4RQXHAd0NqQ.JournalEntryPage.xxV2qdt25nm8mBXt]{Sequencer
+        and JB2A} animation integration.</li><li>Alex (TheMADCartographer) -
+        Permission for us to make use of the <strong>Crucible</strong> name for
+        this game system.</li></ul>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1684375157534
+      modifiedTime: 1686269383445
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.tK1GSC4Z58QDFj8k'
+  - sort: 450000
+    name: License
+    type: text
+    _id: k0fKzx0pV04sP7JA
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>At the time of this playtest, Crucible is being released exclusively
+        to a select group of Foundry Virtual Tabletop users including our
+        Patreon membership and a number of hand-picked users from our
+        community.</p><p>During these initial playtests, Crucible does not
+        provide a license which can be used to create third party content or to
+        modify the system or its rules.</p><p>It is our intent in the future to
+        provide a favourable license which others may use both for creating
+        addons and third-party content that they may share for both commercial
+        and non-commercial purposes. The codebase for the system will be a
+        separate license from the license for producing content using the
+        system.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      JMECHdsPmLGGi1RC: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1686266954300
+      modifiedTime: 1686269380632
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.k0fKzx0pV04sP7JA'
+folder: z0IT31iKpgcA3QYr
+flags:
+  exportSource:
+    world: crucible
+    system: crucible
+    coreVersion: '11.296'
+    systemVersion: 0.6.2
+  core:
+    sheetClass: crucible.CrucibleJournalSheet
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1684020691763
+  modifiedTime: 1686269864285
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: -100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!5SgXrAKS2EnqVggJ'
+

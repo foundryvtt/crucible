@@ -1,0 +1,413 @@
+folder: aoXDBsBdhTAww10u
+name: Agnath
+type: hero
+img: systems/crucible/assets/tokens/heroes/OrcWarlock.webp
+system:
+  abilities:
+    wisdom:
+      base: 1
+      increases: 0
+      bonus: 0
+    presence:
+      base: 1
+      increases: 0
+      bonus: 0
+    intellect:
+      base: 2
+      increases: 0
+      bonus: 0
+    strength:
+      base: 2
+      increases: 0
+      bonus: 0
+    toughness:
+      base: 2
+      increases: 0
+      bonus: 0
+    dexterity:
+      base: 1
+      increases: 0
+      bonus: 0
+  advancement:
+    level: 1
+    progress: 0
+  defenses:
+    armor:
+      bonus: 0
+    block:
+      bonus: 0
+    dodge:
+      bonus: 0
+    parry:
+      bonus: 0
+    fortitude:
+      bonus: 0
+    willpower:
+      bonus: 0
+    reflex:
+      bonus: 0
+    wounds:
+      bonus: 0
+    madness:
+      bonus: 0
+  details:
+    ancestry:
+      primary: strength
+      secondary: toughness
+      resistance: cold
+      vulnerability: fire
+      description: >-
+        Your birth was marked by the stars and traditions of a proud and
+        enduring people. Your tall and well-toned body and natural propensity
+        for toughness has origins amid a people exposed to the relentless
+        struggle of a harsh northern clime. Your people are known for their
+        strength and resilience above all else.
+      name: Orcish
+      img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+    background:
+      description: >-
+        You were a rank-and-file member of a military organization of some
+        variety. Discipline made you a survivor and emphasized the importance of
+        demonstrating strength and dominance over others, and years on horseback
+        or marching taught you how to handle all manner of terrain.
+      skills:
+        - pathfinding
+        - survival
+        - intimidation
+        - beastcraft
+      talents:
+        - Compendium.crucible.talent.Item.martialweapontra
+      name: Soldier
+      img: icons/environment/people/infantry.webp
+    biography:
+      public: ''
+      private: ''
+  resistances:
+    bludgeoning:
+      bonus: 0
+    corruption:
+      bonus: 0
+    piercing:
+      bonus: 0
+    slashing:
+      bonus: 0
+    poison:
+      bonus: 0
+    acid:
+      bonus: 0
+    fire:
+      bonus: 0
+    cold:
+      bonus: 0
+    electricity:
+      bonus: 0
+    psychic:
+      bonus: 0
+    radiant:
+      bonus: 0
+    void:
+      bonus: 0
+  resources:
+    health:
+      value: 32
+    wounds:
+      value: 0
+    morale:
+      value: 18
+    madness:
+      value: 0
+    action:
+      value: 3
+    focus:
+      value: 4
+  skills:
+    awareness:
+      rank: 1
+    pathfinding:
+      rank: 0
+    stealth:
+      rank: 0
+    survival:
+      rank: 2
+    arcana:
+      rank: 0
+    religion:
+      rank: 0
+    naturalism:
+      rank: 0
+    society:
+      rank: 0
+    deception:
+      rank: 0
+    diplomacy:
+      rank: 0
+    intimidation:
+      rank: 0
+    mercantilism:
+      rank: 0
+    beastcraft:
+      rank: 0
+    tradecraft:
+      rank: 0
+    medicine:
+      rank: 0
+    performance:
+      rank: 0
+  movement:
+    stride: 4
+    engagement: 1
+  status: null
+prototypeToken:
+  name: Agnath
+  displayName: 30
+  actorLink: true
+  appendNumber: false
+  prependAdjective: false
+  texture:
+    src: systems/crucible/assets/tokens/heroes/OrcWarlock.webp
+    scaleX: 1
+    scaleY: 1
+    offsetX: 0
+    offsetY: 0
+    rotation: 0
+    tint: '#ffffff'
+    anchorX: 0.5
+    anchorY: 0.5
+    fit: contain
+    alphaThreshold: 0.75
+  width: 1
+  height: 1
+  lockRotation: false
+  rotation: 0
+  alpha: 1
+  disposition: 1
+  displayBars: 40
+  bar1:
+    attribute: resources.health
+  bar2:
+    attribute: resources.morale
+  light:
+    alpha: 0.75
+    angle: 360
+    bright: 0
+    color: '#ff8800'
+    coloration: 1
+    dim: 0
+    attenuation: 0.5
+    luminosity: 0.5
+    saturation: 0.2
+    contrast: 0.1
+    shadows: 0
+    animation:
+      type: torch
+      speed: 2
+      intensity: 2
+      reverse: false
+    darkness:
+      min: 0
+      max: 1
+    negative: false
+    priority: 0
+  sight:
+    enabled: true
+    range: 0
+    angle: 360
+    visionMode: basic
+    color: null
+    attenuation: 0.1
+    brightness: 0
+    saturation: 0
+    contrast: 0
+  detectionModes: []
+  flags: {}
+  randomImg: false
+  hexagonalShape: 0
+  locked: false
+  occludable:
+    radius: 0
+items:
+  - name: Martial Weapon Training
+    type: talent
+    _id: martialweapontra
+    img: icons/skills/melee/sword-shield-stylized-white.webp
+    system:
+      node: str0b
+      description: >-
+        <p>You are educated and trained in the arts of wielding weapons which
+        require a combination of physical brawn and martial proficiency.</p>
+
+        <p>You gain a +1 Skill bonus to attacks using melee weapons in the
+        <strong>Simple</strong>, <strong>Heavy</strong>, or
+        <strong>Balanced</strong> categories.</p>
+      actions: []
+      actorHooks:
+        - hook: prepareTraining
+          fn: |-
+            training.heavy += 1;
+            training.balanced += 1;
+    effects: []
+    folder: FQAUMNkcagdBLURJ
+    sort: 125000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1682263814426
+      modifiedTime: 1687634074681
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!actors.items!iPMperuo6ZvBLnp9.martialweapontra'
+  - name: Strong Grip
+    type: talent
+    _id: stronggrip000000
+    img: icons/skills/melee/hand-grip-sword-orange.webp
+    system:
+      node: str1b
+      description: >-
+        Your grasp of your weaponry is firm and unyielding. You can perform
+        Actions which require a free hand while wielding a two-handed weapon.
+        Attempts to Disarm you are made with +2 Banes.
+      actions: []
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1675008661147
+      modifiedTime: 1687634074681
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    folder: yQPNpmhq761VzMZe
+    sort: -100000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!iPMperuo6ZvBLnp9.stronggrip000000'
+  - name: 'Rune: Death'
+    type: talent
+    img: icons/magic/unholy/hand-claw-fire-blue.webp
+    system:
+      node: int0
+      description: >-
+        <p>The orderly force of destruction, responsible for the decay of all
+        matter. The Death rune governs decay and destruction. It is opposed by
+        the chaotic rune of Life.</p>
+
+        <p>The Death rune scales using <strong>Intellect</strong>, targets
+        <strong>Fortitude</strong>, and deals <strong>Corruption</strong> damage
+        to <strong>Health</strong>.</p>
+      actions: []
+      rune: death
+      actorHooks: []
+    effects: []
+    flags:
+      core:
+        sourceId: Compendium.crucible.talent.runedeath0000000
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.4
+      coreVersion: '12.317'
+      createdTime: 1674698661050
+      modifiedTime: 1687634074681
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _id: runedeath0000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 200000
+    _key: '!actors.items!iPMperuo6ZvBLnp9.runedeath0000000'
+  - _id: ZKTHoQXGY0mBBq7B
+    name: Greatsword
+    type: weapon
+    img: icons/weapons/swords/greatsword-crossguard-flanged-red.webp
+    effects: []
+    folder: bvWJheBtuW1LmkAy
+    flags:
+      core:
+        sourceId: Compendium.crucible.weapon.Item.greatsword000000
+    system:
+      category: heavy2
+      quantity: 1
+      weight: 12
+      price: 90
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties: []
+      description: ''
+      damageType: slashing
+      broken: false
+      animation: greatsword
+      slot: 0
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420024
+      modifiedTime: 1686231277752
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!iPMperuo6ZvBLnp9.ZKTHoQXGY0mBBq7B'
+  - _id: f4uwtWGdrCKeoxb7
+    name: Splint Mail
+    type: armor
+    img: icons/equipment/chest/breastplate-layered-steel-black.webp
+    effects: []
+    folder: mLC1TdXCG7bX8VE9
+    flags:
+      core:
+        sourceId: Compendium.crucible.armor.Item.splintmail000000
+    system:
+      category: heavy
+      quantity: 1
+      weight: 55
+      price: 200
+      quality: standard
+      enchantment: mundane
+      equipped: true
+      properties:
+        - bulky
+      description: ''
+      armor:
+        base: 17
+      broken: false
+      dodge:
+        base: 2
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '12.317'
+      createdTime: 1674942420027
+      modifiedTime: 1686231290834
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    sort: 0
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    _key: '!actors.items!iPMperuo6ZvBLnp9.f4uwtWGdrCKeoxb7'
+effects: []
+flags:
+  core: {}
+  crucible: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1686231111928
+  modifiedTime: 1687636350891
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: iPMperuo6ZvBLnp9
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!actors!iPMperuo6ZvBLnp9'
+

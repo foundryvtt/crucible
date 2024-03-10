@@ -1,0 +1,18 @@
+name: Shields
+type: Item
+sorting: a
+sort: 187500
+color: null
+flags: {}
+_id: 9v0ru58f09fO3sE3
+folder: null
+description: ''
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.292'
+  createdTime: null
+  modifiedTime: 1676665261050
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!9v0ru58f09fO3sE3'
+

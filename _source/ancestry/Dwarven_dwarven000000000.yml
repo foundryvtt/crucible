@@ -1,0 +1,30 @@
+_id: dwarven000000000
+name: Dwarven
+type: ancestry
+img: icons/weapons/hammers/hammer-double-glowing-yellow.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: toughness
+  secondary: wisdom
+  resistance: acid
+  vulnerability: psychic
+  description: >-
+    Like your parents before you, you were born with the enduring fortitude of
+    the Dwarves. Your stout stature and burly physical appearance are the
+    hallmarks of a people born of earth and stone. A legacy of physical
+    resilience is yours to inherit, for in your breast beats a heart of stone.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420012
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!dwarven000000000'
+

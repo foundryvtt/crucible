@@ -1,0 +1,34 @@
+name: Thick Skin
+type: talent
+img: icons/magic/defensive/armor-stone-skin.webp
+system:
+  node: tou1a
+  description: >-
+    Your physical toughness makes you more resistant to harm. You gain +2
+    Resistance to Bludgeoning, Slashing, and Piercing damage.
+  actions: []
+  actorHooks:
+    - hook: prepareResistances
+      fn: |-
+        resistances.bludgeoning.base += 2;
+        resistances.slashing.base += 2;
+        resistances.piercing.base += 2;
+effects: []
+folder: SMe30RkoLutLr4ef
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.thickskin0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1676169285945
+  modifiedTime: 1685147332959
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: thickskin0000000
+sort: -100000
+_key: '!items!thickskin0000000'
+

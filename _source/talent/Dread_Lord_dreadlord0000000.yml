@@ -1,0 +1,54 @@
+name: Dread Lord
+type: talent
+img: icons/magic/death/skull-horned-worn-fire-blue.webp
+system:
+  node: toupre3
+  description: >-
+    You exude a terrible presence on the battlefield which tests the morale of
+    nearby enemies that behold you, breaking the resolve of the weak-willed.
+  actions:
+    - id: formidablePresence
+      name: Formidable Presence
+      description: >-
+        You make an Intimidation skill attack against the Willpower defense of
+        enemies within 3 spaces, dealing Void damage to Morale and causing the
+        Frightened condition for 1 Round to those whose defense you overcome.
+      tags:
+        - intimidation
+        - willpower
+        - void
+        - morale
+      cost:
+        action: 1
+        focus: 2
+      target:
+        type: pulse
+        number: 1
+        distance: 3
+        scope: 3
+      effects:
+        - duration:
+            rounds: 1
+          scope: 3
+          statuses:
+            - frightened
+  actorHooks: []
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.dreadlord0000000
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1675737631782
+  modifiedTime: 1685838880323
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dreadlord0000000
+folder: fOYHlZJEWUukD7yr
+sort: 350000
+_key: '!items!dreadlord0000000'
+

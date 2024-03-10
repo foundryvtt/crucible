@@ -1,0 +1,30 @@
+name: Seasoned Veteran
+type: talent
+_id: seasonedveteran0
+img: icons/magic/symbols/chevron-elipse-circle-blue.webp
+system:
+  node: strwis2
+  description: >-
+    <p>You battlefield experience makes you accustomed to engaging multiple
+    foes. Your <strong>Engagement</strong> increases by +1, allowing you to
+    simultaneously engage more adjacent foes.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareMovement
+      fn: movement.engagement += 1;
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1675013806159
+  modifiedTime: 1687273313957
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: aB808IWOdgwmFCIF
+sort: 262500
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!seasonedveteran0'
+

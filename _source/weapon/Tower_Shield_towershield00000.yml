@@ -1,0 +1,35 @@
+_id: towershield00000
+name: Tower Shield
+type: weapon
+img: icons/equipment/shield/wardoor-wooden-boss-brown.webp
+effects: []
+folder: 9v0ru58f09fO3sE3
+flags:
+  core: {}
+system:
+  category: shieldHeavy
+  quantity: 1
+  weight: 12
+  price: 80
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - engaging
+    - oversized
+  description: ''
+  damageType: bludgeoning
+  broken: false
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1674942420024
+  modifiedTime: 1685828447126
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!towershield00000'
+

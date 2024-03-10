@@ -1,0 +1,62 @@
+name: Sundering Strike
+type: talent
+img: icons/skills/melee/shield-damaged-broken-gold.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.vIhvItiKYuiqaSp9
+system:
+  node: str2b
+  description: >-
+    A martial technique in which you attack the weak points of an enemy's
+    defenses, attempting to expose them to further harm. This attack is
+    difficult to perform and deals reduced damage, but leaves your target
+    Exposed to physical strikes for the remainder of the encounter.
+  actions:
+    - id: sunderingStrike
+      name: ''
+      img: null
+      condition: ''
+      description: >-
+        You strike with your weapon, targeting the weakest points of the enemy's
+        defenses - leaving them Exposed to further harm for the remainder of the
+        encounter.
+      tags:
+        - mainhand
+        - melee
+        - difficult
+      cost:
+        action: 2
+        focus: 0
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: null
+          statuses:
+            - exposed
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420034
+  modifiedTime: 1696556001959
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+folder: tRHknqOEBLR808Cb
+_id: sunderingstrike0
+sort: 0
+_key: '!items!sunderingstrike0'
+

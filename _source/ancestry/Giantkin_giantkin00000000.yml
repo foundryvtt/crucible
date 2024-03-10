@@ -1,0 +1,31 @@
+_id: giantkin00000000
+name: Giantkin
+type: ancestry
+img: icons/environment/wilderness/tree-oak.webp
+effects: []
+folder: cvTY534vgfLqkvXj
+flags: {}
+system:
+  primary: wisdom
+  secondary: toughness
+  resistance: acid
+  vulnerability: electricity
+  description: >-
+    Elemental forces presided over your birth, instilling you with supernatural
+    vigor. Your large frame and muscular build often lead others to believe you
+    are an unthinking mass of muscle, but yours is a people known most for their
+    physical resilience and the deep well of their knowledge. You have inherited
+    the strength of mountains.
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '12.317'
+  createdTime: 1674942420030
+  modifiedTime: 1684876098205
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!giantkin00000000'
+

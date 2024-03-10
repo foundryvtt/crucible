@@ -1,0 +1,161 @@
+_id: KBDiQbnSfnRYG7mi
+name: Dice Mechanics
+folder: MMeWpMmsLOblp07U
+flags:
+  crucible:
+    rulesEntry: true
+  core:
+    viewMode: 2
+    sheetClass: crucible.CrucibleJournalSheet
+pages:
+  - name: Dice Mechanics
+    type: text
+    title:
+      show: false
+      level: 1
+    text:
+      format: 1
+      content: >-
+        <p>Crucible uses the standard set of role-playing game dice; relying
+        upon 4, 6, 8, 10, 12, and 20-sided dice for various rolls. These dice
+        are referred to as <strong>d4</strong>, <strong>d6</strong>,
+        <strong>d8</strong>, <strong>d10</strong>, and <strong>d12</strong>,
+        where a number that precedes the die type represents the quantity of
+        that die to roll, for example <strong>4d6</strong> provides instruction
+        to roll four six-sided dice.</p><blockquote><p>Crucible is designed
+        specifically for Foundry Virtual Tabletop, but its dice mechanics are
+        possible to play outside of a digital environment, albeit with a fairly
+        high level of bookkeeping required.</p></blockquote><p>When your
+        character performs heroic actions within the world, whether they be
+        feats of martial prowess or clever social maneuvers, the outcomes of the
+        attempted action are discovered by rolling dice.</p><h2
+        class="divider">Standard Check</h2><p>The standard approach towards
+        determining the outcome of a dice check in Crucible uses a dice pool
+        comprised of three dice, typically 3d8, which are added together. The
+        exact dice used in the pool are modified depending on the
+        <strong>Boons</strong> or <strong>Banes</strong> which apply to the
+        roll. Added to the result of these three dice are Ability, Skill, and
+        Enchantment bonuses which further increase the value of the result. This
+        type of dice roll is referred to as a <strong>Standard
+        Check</strong>.</p><section class="formula"><p class="value">Standard
+        Check</p><p class="equals">=</p><p class="equation">3d8[Boons,Banes] +
+        Ability Bonus + Skill Bonus + Enchantment Bonus</p></section>
+      markdown: ''
+    _id: WpBewuNfFJp1ZJRt
+    image: {}
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    sort: 0
+    ownership:
+      default: -1
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: null
+      modifiedTime: 1684894768806
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!KBDiQbnSfnRYG7mi.WpBewuNfFJp1ZJRt'
+  - sort: 100000
+    name: Boons and Banes
+    type: text
+    _id: Qme1mM71Jn950Zsf
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <blockquote><p>A goblin desperately thrusts at an armored human with its
+        damaged, dull blade. An enchanter wishes to haggle with a merchant she
+        has magically charmed. A soldier swings his hammer at the head of a
+        dazed, concussed ogre. When performing a check, a character may find
+        some favorable circumstances shift the odds in their favor. Other
+        disadvantageous circumstances will hinder a character's odds of
+        success.</p></blockquote><p>Circumstances which apply beneficial or
+        detrimental forces upon the likelihood of a check being successful are
+        represented as <strong>Boons</strong> and <strong>Banes</strong>,
+        respectively. The number of boons and banes to be applied to a roll are
+        determined before a roll is made, as they directly affect the
+        composition of the dice pool that is used. A single dice pool roll can
+        have no more than 6 boons and 6 banes affecting it.</p><h2
+        class="divider">Boons</h2><p>Each <strong>Boon</strong> applied to the
+        check increments the denomination of the first die in the pool by +2, to
+        a maximum of <strong>d12</strong>. If a die is already a d12 due to
+        other boons, the increase is applied to the next die in the pool. In
+        practical terms, boons upgrade dice making them bigger and more
+        effective.</p><h2 class="divider">Banes</h2><p>Each
+        <strong>Bane</strong> applied to the check decrements the denomination
+        of the last die in the pool by -2, to a minimum of <strong>d4</strong>.
+        If a die is already a d4 due to other banes, the decrease is applied to
+        the next die in the pool. In practical terms, banes downgrade dice
+        making them smaller and less effective.</p><h2
+        class="divider">Mitigating Circumstances</h2><p>Because boons and banes
+        start at opposite ends of the dice pool, they can both affect changes to
+        the same roll. For example, a check made with with 2 Boons and 2 Banes
+        would result in a dice pool of <strong>1d12 + 1d8 + 1d4</strong>. If
+        more than four Boons and more than four Banes are present their effects
+        will begin to cancel each other out.</p><section
+        class="gameplay"><h4>Example: Added Boons</h4><p>Suppose Albert, a naval
+        captain, has his ship boarded by pirates. By fortunate circumstance, the
+        fierce rocking of the ship has toppled one of the invaders over on the
+        deck of his ship. Advancing towards the sprawling pirate, Albert draws
+        his blade and slashes down upon the unwelcome guest. Attacking a Prone
+        creature confers <strong>2 boons</strong> to Albert's attack
+        roll.</p><p>These two boons upgrade the first die in the
+        <strong>3d8</strong> dice pool twice, from a <strong>d8</strong> to a
+        <strong>d12</strong>, resulting in a dice pool of <strong>1d12 + 1d8 +
+        1d8</strong>.</p></section><p>Boons or banes resulting from
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.USjhhuOGsLTXQM9v]{Conditions}
+        like <strong>Prone</strong> will be handled automatically by layers of
+        automation in the Crucible software, but additional boons may always be
+        awarded by the Gamemaster prior to any roll as ways to reward players
+        for creative problem solving or inspirational roleplay.</p><section
+        class="gameplay"><h4>Example: Both Boons and Banes</h4><p>Dariel is an
+        intrepid outdoorswoman with the Journeyman rank in Survival with a
+        Herbalist specialization. She wishes to identify a herb that may be used
+        to treat poison after an arduous day of traveling. Her specialization as
+        a Herbalist gives her <strong>1 Boon</strong> to the roll to identify
+        the correct herb, but her state of exhaustion gives her <strong>2
+        Banes</strong> to her roll. The boon upgrades the first die in the pool
+        to a <strong>d10</strong>, and the two banes downgrade the third die to
+        a <strong>d4</strong>, resulting in a dice pool of <strong>1d10 + 1d8 +
+        1d4</strong>.</p></section><p>Mathematically, each Boon increases the
+        expected result of its die by 1 and each Bane decreases the expected
+        result of its die by 1.</p>
+      markdown: ''
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system: {}
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.8.0
+      coreVersion: '12.317'
+      createdTime: 1684374120469
+      modifiedTime: 1684893796895
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!KBDiQbnSfnRYG7mi.Qme1mM71Jn950Zsf'
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1684343824437
+  modifiedTime: 1684894768806
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!journal!KBDiQbnSfnRYG7mi'
+

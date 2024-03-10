@@ -1,0 +1,54 @@
+name: Alchemical Resolve
+type: talent
+img: icons/skills/toxins/bottle-open-vapors-pink.webp
+system:
+  description: >-
+    You rapidly apply alchemical vapours which instill your ally with
+    supplemental bravery in the face of horror.
+  actions:
+    - id: alchemicalResolve
+      condition: ''
+      description: >-
+        You rapidly bolster the Morale of an ally within 4 feet by applying
+        vapours. Perform a <strong>Medicine Check</strong> against the target's
+        Madness Threshold. Successful checks restore Morale.
+      tags:
+        - rallying
+        - morale
+        - medicine
+      cost:
+        action: 6
+        focus: 0
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects: []
+      name: ''
+      img: null
+      range:
+        maximum: 4
+        weapon: false
+      actionHooks: []
+  requirements: {}
+  node: int2c
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sourceId: Item.alchemicalresolv
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1677354070473
+  modifiedTime: 1696795461577
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: alchemicalresolv
+folder: 4Ll3b4Q4us2mp4Fu
+sort: 100000
+_key: '!items!alchemicalresolv'
+

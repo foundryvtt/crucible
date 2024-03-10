@@ -1,0 +1,54 @@
+_id: counterevade0000
+name: Counter Evade
+type: talent
+img: icons/skills/melee/maneuver-greatsword-yellow.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: dex2b
+  description: >-
+    Using this evasive technique you may react when you Dodge a melee attack to
+    retaliate against that attacker by making an empowered Strike with your
+    primary weapon.
+  actions:
+    - id: counterEvade
+      name: ''
+      img: null
+      condition: You Dodge an incoming melee Strike.
+      description: >-
+        You react after dodging an incoming melee attack to retaliate with a
+        Strike of your own.
+      tags:
+        - mainhand
+        - melee
+        - reaction
+      cost:
+        action: -2
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects: []
+      actionHooks: []
+      range:
+        maximum: 0
+        weapon: true
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420019
+  modifiedTime: 1696555902323
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: JzAnF4yKIgvElwCJ
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!counterevade0000'
+

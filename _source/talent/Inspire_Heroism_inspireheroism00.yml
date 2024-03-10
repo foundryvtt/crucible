@@ -1,0 +1,53 @@
+_id: inspireheroism00
+name: Inspire Heroism
+type: talent
+img: icons/skills/social/intimidation-impressing.webp
+effects: []
+flags:
+  core:
+    sourceId: Item.V4stscWtnt2GFRY2
+system:
+  node: pre0b
+  description: >-
+    Your courageous presence inspires your nearby allies to strike with
+    confidence.
+  actions:
+    - id: inspireHeroism
+      name: ''
+      img: null
+      condition: ''
+      description: >-
+        Each ally, excluding yourself, within 3 spaces gains +1 Boon to actions
+        performed until the end of their next Turn.
+      tags: []
+      cost:
+        action: 4
+        focus: 1
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+      effects:
+        - name: ''
+          scope: 0
+          duration:
+            turns: 1
+      range:
+        maximum: 0
+        weapon: false
+      actionHooks: []
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420014
+  modifiedTime: 1696795531208
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 4Ll3b4Q4us2mp4Fu
+sort: -300000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!inspireheroism00'
+

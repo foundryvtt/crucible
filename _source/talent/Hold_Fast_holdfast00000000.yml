@@ -1,0 +1,30 @@
+name: Hold Fast
+type: talent
+_id: holdfast00000000
+img: icons/equipment/shield/buckler-iron-cross-gray.webp
+system:
+  node: toustr2
+  description: >-
+    <p>You are a calm anchor in the swirling sea of combat. Your
+    <strong>Engagement</strong> increases by +1, allowing you to simultaneously
+    engage more adjacent foes.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareMovement
+      fn: movement.engagement += 1;
+effects: []
+folder: aB808IWOdgwmFCIF
+sort: 100000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.0
+  coreVersion: '12.317'
+  createdTime: 1685583955388
+  modifiedTime: 1685825500035
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!holdfast00000000'
+

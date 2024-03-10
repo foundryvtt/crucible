@@ -1,0 +1,47 @@
+name: Operator
+type: talent
+_id: operator00000000
+img: icons/magic/water/water-drop-swirl-blue.webp
+system:
+  node: inttou3
+  description: >-
+    <p>You have ice in your veins and remain cool under pressure. Your physical
+    toughness and mental acuity allow you to hone the danger of your situation
+    to achieve the greatest results when the stakes are highest.</p> 
+
+    <p>While in combat and not Incapacitated, you gain +1 Boon to all checks
+    when you have less than 50% of your maximum Health remaining. You gain +2
+    Boons to all checks when you have less than 25% of your maximum Health
+    remaining.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareStandardCheck
+      fn: >-
+        if ( !actor.inCombat || !game.combat.started || actor.isIncapacitated )
+        return;
+
+        const health = actor.system.resources.health;
+
+        if ( health.value < Math.ceil(health.max * 0.25) ) {
+          rollData.boons.operator= {label: "Operator", number: 2};
+        }
+
+        else if ( health.value < Math.ceil(health.max * 0.5) ) {
+          rollData.boons.operator= {label: "Operator", number: 1};
+        }
+effects: []
+folder: fOYHlZJEWUukD7yr
+sort: 304688
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1685205248821
+  modifiedTime: 1687632083067
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!operator00000000'
+

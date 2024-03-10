@@ -1,0 +1,59 @@
+_id: stunningstrike00
+name: Stunning Strike
+type: talent
+img: icons/magic/lightning/fist-unarmed-strike-blue.webp
+effects: []
+flags:
+  core:
+    sourceId: Compendium.crucible.talent.CANFHQxFjIJwgEYK
+system:
+  node: strwis1
+  description: >-
+    An challenging unarmed technique which targets vital pressure points on the
+    bodies of your adversaries. You unleash a debilitating strike which, if
+    successful, leaves your enemy Stunned.
+  actions:
+    - id: stunningStrike
+      condition: ''
+      description: You strike a vital pressure point, attempting to stun your enemy.
+      tags:
+        - mainhand
+        - unarmed
+        - difficult
+        - fortitude
+      cost:
+        action: 0
+        focus: 1
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 0
+      effects:
+        - name: ''
+          scope: 3
+          duration:
+            turns: null
+          statuses:
+            - stunned
+      name: ''
+      img: null
+      range:
+        maximum: 0
+        weapon: true
+      actionHooks: []
+  requirements: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.9
+  coreVersion: '12.317'
+  createdTime: 1674942420016
+  modifiedTime: 1696556348877
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: yXCB4M7hR4QB6Rx7
+sort: 175000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!stunningstrike00'
+

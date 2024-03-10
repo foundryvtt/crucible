@@ -1,0 +1,31 @@
+name: Preternatural Instinct
+type: talent
+_id: preternaturalins
+img: icons/magic/movement/trail-streak-zigzag-teal.webp
+system:
+  node: intdex2
+  description: >-
+    Your quickness of mind and body are equally impressive. You gain +2 Boons to
+    all Initiative checks.
+  actions: []
+  actorHooks:
+    - hook: prepareInitiativeCheck
+      fn: >-
+        rollData.boons.preternaturalInstinct = {label: "Preternatural Instinct",
+        number: 2};
+effects: []
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.5.4
+  coreVersion: '12.317'
+  createdTime: 1674959752544
+  modifiedTime: 1687632233695
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: BevAJzzLeFbSaVic
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_key: '!items!preternaturalins'
+

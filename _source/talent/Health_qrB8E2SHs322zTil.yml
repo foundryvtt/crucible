@@ -1,0 +1,17 @@
+name: Health
+sorting: a
+folder: aDzkPaU5XlBu3mgO
+type: Item
+_id: qrB8E2SHs322zTil
+sort: 200000
+color: null
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.6.2
+  coreVersion: '11.295'
+  createdTime: null
+  modifiedTime: 1682386828145
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!qrB8E2SHs322zTil'
+

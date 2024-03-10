@@ -1,0 +1,32 @@
+name: Carefree
+type: talent
+_id: carefree00000000
+img: icons/commodities/flowers/clover.webp
+system:
+  node: pre1a
+  description: >-
+    <p>You are able to compartmentalize and brush off setbacks, providing a
+    remarkable ability to recover from damage to your Morale.</p>
+
+    <p>Your <strong>Madness Threshold</strong> is reduced by 1, making you
+    easier to heal.</p>
+  actions: []
+  actorHooks:
+    - hook: prepareDefenses
+      fn: defenses.madness.bonus -= 1;
+effects: []
+folder: 4Ll3b4Q4us2mp4Fu
+sort: -75000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  systemId: crucible
+  systemVersion: 0.8.0
+  coreVersion: '12.317'
+  createdTime: 1684359825428
+  modifiedTime: 1685211839877
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!carefree00000000'
+
