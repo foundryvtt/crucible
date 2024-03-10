@@ -3,7 +3,7 @@ import CrucibleAction from "./action.mjs";
 /**
  * A data structure which is shared by all physical items.
  */
-export default class PhysicalItemData extends foundry.abstract.TypeDataModel {
+export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -20,6 +20,12 @@ export default class PhysicalItemData extends foundry.abstract.TypeDataModel {
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction))
     }
   }
+
+  /**
+   * A prefix used to automatically localize the label and hint properties of this data model.
+   * @type {string[]}
+   */
+  static LOCALIZATION_PATHS = ["ITEM.FIELDS"];
 
   /**
    * The default category for new items of this type

@@ -13,3 +13,4 @@ export {default as CrucibleSpell} from "./spell.mjs";
 export {default as CrucibleTalent} from "./talent.mjs";
 export {default as CrucibleTaxonomy} from "./taxonomy.mjs";
 export {default as CrucibleWeapon} from "./weapon.mjs";
+export {default as CruciblePhysicalItem} from "./physical.mjs"

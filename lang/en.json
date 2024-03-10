@@ -1,15 +1,23 @@
 {
-"TYPES.Actor.adversary": "Adversary",
-"TYPES.Actor.hero": "Protagonist",
-"TYPES.Actor.npc": "Background Character",
-"TYPES.Item.ancestry": "Ancestry",
-"TYPES.Item.archetype": "Archetype",
-"TYPES.Item.armor": "Armor",
-"TYPES.Item.background": "Background",
-"TYPES.Item.taxonomy": "Taxonomy",
-"TYPES.Item.talent": "Talent",
-"TYPES.Item.weapon": "Weapon",
-"TYPES.JournalEntryPage.skill": "Crucible Skill",
+"TYPES": {
+  "Actor": {
+    "adversary": "Adversary",
+    "hero": "Protagonist",
+    "npc": "Background Character"
+  },
+  "Item": {
+    "ancestry": "Ancestry",
+    "archetype": "Archetype",
+    "armor": "Armor",
+    "background": "Background",
+    "taxonomy": "Taxonomy",
+    "talent": "Talent",
+    "weapon": "Weapon"
+  },
+  "JournalEntryPage": {
+    "skill": "Crucible Skill"
+  }
+},
 
 "CRUCIBLE.Rules": "Crucible Rules",
 
@@ -161,16 +169,33 @@
 "ARCHETYPE.Talents": "Granted Talents",
 "ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
 
-"ARMOR.Bulky": "Bulky",
-"ARMOR.Impenetrable": "Impenetrable",
-"ARMOR.Flexible": "Flexible",
-"ARMOR.Magical": "Magical",
-"ARMOR.Organic": "Organic",
-"ARMOR.Unarmored": "Unarmored",
-"ARMOR.Light": "Light Armor",
-"ARMOR.Medium": "Medium Armor",
-"ARMOR.Heavy": "Heavy Armor",
-"ARMOR.Natural": "Natural Armor",
+"ARMOR": {
+  "FIELDS": {
+    "armor": {
+      "label": "Armor Defense",
+      "base": {
+        "label": "Base Armor"
+      }
+    },
+    "dodge": {
+      "label": "Dodge Defense",
+      "base": {
+        "label": "Base Dodge"
+      }
+    }
+  },
+  "CATEGORIES": {
+    "UNARMORED": "Unarmored",
+    "LIGHT": "Light Armor",
+    "MEDIUM": "Medium Armor",
+    "HEAVY": "Heavy Armor",
+    "NATURAL": "Natural Armor"
+  },
+  "PROPERTIES": {
+    "BULKY": "Bulky",
+    "ORGANIC": "Organic"
+  }
+},
 
 "ATTACK.RESULT_TYPES.MISS": "Miss",
 "ATTACK.RESULT_TYPES.DODGE": "Dodge",
@@ -272,7 +297,44 @@
 "EFFECT.STATUSES.Weakened": "Weakened",
 "EFFECT.STATUSES.FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
 
-"ITEM.Broken": "Broken",
+"ITEM": {
+  "FIELDS": {
+    "category": {
+      "label": "Category"
+    },
+    "quantity": {
+      "label": "Quantity"
+    },
+    "weight": {
+      "label": "Weight"
+    },
+    "price": {
+      "label": "Base Price",
+      "scaled": "Scaled Price"
+    },
+    "quality": {
+      "label": "Quality"
+    },
+    "broken": {
+      "label": "Broken"
+    },
+    "enchantment": {
+      "label": "Enchantment Tier"
+    },
+    "equipped": {
+      "label": "Equipped"
+    },
+    "properties": {
+      "label": "Item Properties"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "actions": {
+      "label": "Item Actions"
+    }
+  }
+},
 
 "ITEM.EnchantmentMundane": "Mundane",
 "ITEM.EnchantmentMinor": "Minor",

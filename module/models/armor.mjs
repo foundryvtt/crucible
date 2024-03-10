@@ -1,16 +1,19 @@
-import PhysicalItemData from "./physical.mjs";
+import CruciblePhysicalItem from "./physical.mjs";
 import { SYSTEM } from "../config/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Armor type Items.
  */
-export default class CrucibleArmor extends PhysicalItemData {
+export default class CrucibleArmor extends CruciblePhysicalItem {
 
   /** @override */
   static DEFAULT_CATEGORY = "medium";
 
   /** @override */
   static ITEM_PROPERTIES = SYSTEM.ARMOR.PROPERTIES;
+
+  /** @override */
+  static LOCALIZATION_PATHS = ["ITEM.FIELDS", "ARMOR.FIELDS"];
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -53,8 +56,8 @@ export default class CrucibleArmor extends PhysicalItemData {
   prepareBaseData() {
 
     // Armor Category
-    const categories = SYSTEM.ARMOR.CATEGORIES;
-    const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
+    const categoryId = this.category in SYSTEM.ARMOR.CATEGORIES ? this.category : this.constructor.DEFAULT_CATEGORY;
+    const category = SYSTEM.ARMOR.CATEGORIES[categoryId];
 
     // Armor Quality
     const qualities = SYSTEM.QUALITY_TIERS;

@@ -1,11 +1,11 @@
-import PhysicalItemData from "./physical.mjs";
+import CruciblePhysicalItem from "./physical.mjs";
 import { SYSTEM } from "../config/system.mjs";
 import Enum from "../config/enum.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
  */
-export default class CrucibleWeapon extends PhysicalItemData {
+export default class CrucibleWeapon extends CruciblePhysicalItem {
 
   /** @override */
   static DEFAULT_CATEGORY = "simple1";
@@ -307,7 +307,7 @@ export default class CrucibleWeapon extends PhysicalItemData {
     tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
 
     // Weapon Properties
-    if ( this.broken ) tags.broken = game.i18n.localize("ITEM.Broken");
+    if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
     if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
     return tags;

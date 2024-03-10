@@ -185,8 +185,13 @@ Hooks.once("init", async function() {
 });
 
 /* -------------------------------------------- */
+/*  Localization                                */
+/* -------------------------------------------- */
 
 Hooks.once("i18nInit", function() {
+
+  // Pre-localize data models
+  preLocalizeDataModels();
 
   // Apply localizations
   const toLocalize = [
@@ -228,6 +233,50 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/sheets/partials/actor-skills.hbs`
   ]);
 });
+
+/* -------------------------------------------- */
+
+/**
+ * Perform one-time localization of data model definitions which localizes their label and hint properties.
+ */
+function preLocalizeDataModels() {
+  for ( const model of Object.values(crucible.api.models) ) {
+    if ( !model.LOCALIZATION_PATHS ) continue;
+    const rules = {};
+    for ( const path of model.LOCALIZATION_PATHS ) {
+      Object.assign(rules, foundry.utils.getProperty(game.i18n.translations, path));
+    }
+    model.schema.apply(function() {
+      const k = this.fieldPath.replace("system.", "");
+      const field = foundry.utils.getProperty(rules, k);
+      if ( field?.label ) this.label = game.i18n.localize(field.label);
+      if ( field?.hint ) this.hint = game.i18n.localize(field.hint);
+    });
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Perform one-time configuration of system configuration objects.
+ */
+function preLocalizeConfig() {
+  const localizeConfigObject = (obj, keys) => {
+    for ( let o of Object.values(obj) ) {
+      for ( let k of keys ) {
+        o[k] = game.i18n.localize(o[k]);
+      }
+    }
+  }
+
+  // Statuses
+  localizeConfigObject(CONFIG.statusEffects, ["label"]);
+
+  // Action Tags
+  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
+  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
+  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
+}
 
 /* -------------------------------------------- */
 /*  Ready Hooks                                 */
@@ -329,27 +378,6 @@ async function packageCompendium(documentName, packName, folder) {
 
   // Re-lock the pack
   await pack.configure({locked: true});
-}
-
-/* -------------------------------------------- */
-
-
-function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys) => {
-    for ( let o of Object.values(obj) ) {
-      for ( let k of keys ) {
-        o[k] = game.i18n.localize(o[k]);
-      }
-    }
-  }
-
-  // Statuses
-  localizeConfigObject(CONFIG.statusEffects, ["label"]);
-
-  // Action Tags
-  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
-  localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
-  localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
 }
 
 /* -------------------------------------------- */
