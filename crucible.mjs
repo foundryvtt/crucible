@@ -27,9 +27,6 @@ import CrucibleTokenObject from "./module/canvas/token.mjs";
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
 
-// TODO: this should be replaced by core
-globalThis.AsyncFunction = (async function() {}).constructor;
-
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */

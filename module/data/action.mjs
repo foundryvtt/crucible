@@ -211,7 +211,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     Object.defineProperty(this, "hooks", {
       value: this.actionHooks.reduce((obj, {hook, fn}) => {
         const config = SYSTEM.ACTION_HOOKS[hook];
-        const fnClass = config.async ? AsyncFunction : Function;
+        const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
         if ( config ) obj[hook] = new fnClass(...config.argNames, fn);
         else console.warn(`Invalid Action hook "${hook}" defined by Action "${this.id}"`)
         return obj;
