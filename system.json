@@ -139,6 +139,12 @@
       "skill": {}
     }
   },
+  "grid": {
+    "type": 1,
+    "distance": 1,
+    "units": "ft",
+    "diagonals": 4
+  },
   "background": "systems/crucible/ui/background.webp",
   "socket": true,
   "primaryTokenAttribute": "resources.health",
