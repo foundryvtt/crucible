@@ -15,37 +15,38 @@ export const ABILITIES = Object.freeze({
     id: "wisdom",
     label: "ABILITIES.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
-    color: new Color(0xFF00FF)
+    color: new Color("#FF00FF")
   },
   presence: {
     id: "presence",
     label: "ABILITIES.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
-    color: new Color(0x0000FF)
+    color: new Color("#0000FF")
   },
   intellect: {
     id: "intellect",
     label: "ABILITIES.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
-    color: new Color(0x00FFFF)
+    color: new Color("#00FFFF")
   },
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
-    color: new Color(0xFF0000)
+    color: new Color("#FF0000")
   },
   toughness: {
     id: "toughness",
     label: "ABILITIES.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
-    color: new Color(0xFFFF00)
+    color: new Color("#FFFF00")
   },
   dexterity: {
     id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
-    color: new Color(0x00FF00)
+    color: new Color("#00FF00")
+
   }
 });
 

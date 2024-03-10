@@ -266,7 +266,8 @@ Hooks.once("ready", async function() {
     entry.sheet.render(true);
     game.settings.set("crucible", "welcome", true);
   }
-  if ( game.user === game.users.activeGM ) await syncTalents();
+  // FIXME bring this back with a migration version
+  // if ( game.user === game.users.activeGM ) await syncTalents();
 });
 
 

@@ -179,6 +179,35 @@ export default class CrucibleTokenObject extends Token {
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  _getShiftedPosition(dx, dy) {
+    const {x, y, width, height} = this.document;
+    const distance = Math.min(width, height, 5);
+
+    // Get target offset
+    const start = this.center;
+    const o = canvas.grid.getOffset(start);
+    if ( dx < 0 ) o.j -= distance;
+    else if ( dx > 0 ) o.j += distance;
+    if ( dy < 0 ) o.i -= distance;
+    else if ( dy > 0 ) o.i += distance;
+
+    // Test collision center-to-center
+    const targetCenter = canvas.grid.getCenterPoint(o);
+    const collides = CONFIG.Canvas.polygonBackends.move.testCollision(start, targetCenter, {
+      type: "move",
+      mode: "any"
+    });
+    if ( collides ) return {x, y};
+
+    // Get top-left
+    o.j -= Math.floor(width / 2);
+    o.i -= Math.floor(height / 2);
+    return canvas.grid.getTopLeftPoint(o);
+  }
+
+  /* -------------------------------------------- */
   /*  Socket Listeners and Handlers               */
   /* -------------------------------------------- */
 
@@ -196,7 +225,18 @@ export default class CrucibleTokenObject extends Token {
 
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
+
+    // Token movement speed
+    const positionChange = ("x" in data) || ("y" in data);
+    if ( positionChange ) {
+      options.animation ||= {};
+      options.animation.movementSpeed = this.actor.system.movement.stride * 4;
+    }
+
+    // Standard Token update workflow
     super._onUpdate(data, options, userId);
+
+    // Flanking Updates
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
