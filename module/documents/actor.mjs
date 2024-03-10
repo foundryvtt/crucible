@@ -1,8 +1,8 @@
 import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
-import CrucibleAction from "../data/action.mjs";
-import CrucibleSpell from "../data/spell.mjs";
-import CrucibleWeapon from "../data/weapon.mjs";
+import CrucibleAction from "../models/action.mjs";
+import CrucibleSpell from "../models/spell.mjs";
+import CrucibleWeapon from "../models/weapon.mjs";
 
 /**
  * @typedef {Object} ActorEquippedWeapons
@@ -1209,7 +1209,7 @@ export default class CrucibleActor extends Actor {
 
     // Constrain and merge changes
     for ( const [id, obj] of Object.entries(changes) ) {
-      obj.value = Math.clamped(obj.value, 0, r[id].max);
+      obj.value = Math.clamp(obj.value, 0, r[id].max);
     }
     updates = foundry.utils.mergeObject(updates, {"system.resources": changes});
     return this.update(updates, {statusText});
@@ -1428,7 +1428,7 @@ export default class CrucibleActor extends Actor {
       for ( const r of Object.keys(SYSTEM.RESOURCES) ) {
         let v = dot[r];
         if ( !v ) continue;
-        if (  v > 0 ) v = Math.clamped(v - this.resistances[dot.damageType].total, 0, 2 * v);
+        if (  v > 0 ) v = Math.clamp(v - this.resistances[dot.damageType].total, 0, 2 * v);
         damage[r] ||= 0;
         damage[r] -= v;
       }
@@ -1607,7 +1607,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Commit the update
-    const level = Math.clamped(this.level + delta, 0, 24);
+    const level = Math.clamp(this.level + delta, 0, 24);
     const update = {"system.advancement.level": level};
     return this.update(update);
   }
@@ -2139,7 +2139,7 @@ export default class CrucibleActor extends Actor {
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
       const text = `${delta.signedString()} ${statusText ?? resource.label}`;
-      const pct = Math.clamped(Math.abs(delta) / attr.max, 0, 1);
+      const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
       const fontSize = (24 + (24 * pct)) * (canvas.dimensions.size / 100).toNearest(0.25); // Range between [24, 48]
       const healSign = resource.type === "active" ? 1 : -1;
       const fillColor = resource.color[Math.sign(delta) === healSign ? "heal" : "high"];

@@ -726,7 +726,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const postMitigation = restoration ? preMitigation : preMitigation - resistance;
 
     // Constrain total damage between 1 and 2x the pre-mitigation value
-    return Math.clamped(postMitigation, 1, 2 * preMitigation);
+    return Math.clamp(postMitigation, 1, 2 * preMitigation);
   }
 
   /* -------------------------------------------- */

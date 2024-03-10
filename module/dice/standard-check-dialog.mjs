@@ -146,7 +146,7 @@ export default class StandardCheckDialog extends Dialog {
   static #modifyBoons(boons, delta) {
     boons.special ||= {label: "Special", number: 0};
     const total = Object.values(boons).reduce((t, b) => t + (b.id === "special" ? 0 : b.number), 0);
-    boons.special.number = Math.clamped(boons.special.number + delta, 0, SYSTEM.dice.MAX_BOONS - total);
+    boons.special.number = Math.clamp(boons.special.number + delta, 0, SYSTEM.dice.MAX_BOONS - total);
     return boons;
   }
 

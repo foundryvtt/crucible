@@ -56,8 +56,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   /** @override */
   prepareBaseData() {
     let node = this.node = CrucibleTalentNode.nodes.get(this._source.node);
-    if ( !node ) node = {requirements: {}}
-    this.prerequisites = CrucibleTalent.preparePrerequisites(node.requirements);
+    this.prerequisites = CrucibleTalent.preparePrerequisites(node?.requirements || {});
   }
 
   /* -------------------------------------------- */

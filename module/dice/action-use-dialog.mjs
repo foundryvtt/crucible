@@ -312,11 +312,10 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Identify the resulting template coordinates
-    let x;
-    let y;
-    if ( config.anchor === "vertex" ) [x, y] = canvas.grid.getTopLeft(cursor.x, cursor.y);
-    else if ( config.anchor === "center" ) [x, y] = canvas.grid.getCenter(cursor.x, cursor.y);
-    if ( x !== undefined ) Object.assign(update, {x, y});
+    let p;
+    if ( config.anchor === "vertex" ) p = canvas.grid.getTopLeftPoint(cursor);
+    else if ( config.anchor === "center" ) p = canvas.grid.getCenterPoint(cursor);
+    if ( p !== undefined ) Object.assign(update, p);
 
     // Update the pending template and re-render
     if ( config.directionDelta ) update.direction = Math.toDegrees(ray.angle).toNearest(config.directionDelta);

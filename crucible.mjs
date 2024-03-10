@@ -16,7 +16,7 @@ import {statusEffects} from "./module/config/statuses.mjs";
 import * as applications from "./module/applications/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
-import * as models from "./module/data/_module.mjs";
+import * as models from "./module/models/_module.mjs";
 
 // Canvas
 import CrucibleRuler from "./module/canvas/ruler.mjs";

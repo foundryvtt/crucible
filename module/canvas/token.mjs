@@ -47,9 +47,9 @@ export default class CrucibleTokenObject extends Token {
    */
   getEngagementRectangle(distance=1) {
     const s = canvas.scene.dimensions.size * distance;
-    const [x0, y0] = canvas.grid.getTopLeft(this.document.x, this.document.y);
+    const p0 = canvas.grid.getTopLeftPoint(this.document);
     const {w, h} = this;
-    return new PIXI.Rectangle(x0 - s, y0 - s, w + (2 * s), h + (2 * s));
+    return new PIXI.Rectangle(p0.x - s, p0.y - s, w + (2 * s), h + (2 * s));
   }
 
   /* -------------------------------------------- */
@@ -62,7 +62,7 @@ export default class CrucibleTokenObject extends Token {
     if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return {allies: new Set(), enemies: new Set()};
 
     // Get grid-appropriate bounds and polygon
-    const {engagementBounds, movePolygon} = canvas.grid.isHex
+    const {engagementBounds, movePolygon} = canvas.grid.isHexagonal
       ? this.#computeEngagementHexGrid()
       : this.#computeEngagementSquareGrid();
 

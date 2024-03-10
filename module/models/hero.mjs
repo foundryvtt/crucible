@@ -97,7 +97,7 @@ export default class CrucibleHero extends CrucibleActorType {
     };
     adv.progress = adv.progress ?? 0;
     adv.next = (2 * adv.level) + 1;
-    adv.pct = Math.clamped(Math.round(adv.progress * 100 / adv.next), 0, 100);
+    adv.pct = Math.clamp(Math.round(adv.progress * 100 / adv.next), 0, 100);
   }
 
   /* -------------------------------------------- */
@@ -145,7 +145,7 @@ export default class CrucibleHero extends CrucibleActorType {
       ability.initial = 1;
       if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAbilityStart;
       else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAbilityStart;
-      ability.value = Math.clamped(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
+      ability.value = Math.clamp(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
 
       // Track points spent
       abilityPointsBought += ability.base;
@@ -213,11 +213,11 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Wounds
     r.wounds.max = Math.ceil(1.5 * r.health.max);
-    r.wounds.value = Math.clamped(r.wounds.value, 0, r.wounds.max);
+    r.wounds.value = Math.clamp(r.wounds.value, 0, r.wounds.max);
 
     // Madness
     r.madness.max = Math.ceil(1.5 * r.morale.max);
-    r.madness.value = Math.clamped(r.madness.value, 0, r.madness.max);
+    r.madness.value = Math.clamp(r.madness.value, 0, r.madness.max);
   }
 
   /* -------------------------------------------- */

@@ -69,11 +69,11 @@ export default class CrucibleArmor extends PhysicalItemData {
     this.rarity = quality.rarity + enchantment.rarity;
 
     // Armor Defense
-    this.armor.base = Math.clamped(this.armor.base, category.armor.min, category.armor.max);
+    this.armor.base = Math.clamp(this.armor.base, category.armor.min, category.armor.max);
     this.armor.bonus = quality.bonus + enchantment.bonus;
 
     // Dodge Defense
-    this.dodge.base = Math.clamped(this.dodge.base, category.dodge.min, category.dodge.max);
+    this.dodge.base = Math.clamp(this.dodge.base, category.dodge.min, category.dodge.max);
     this.dodge.start = category.dodge.start;
 
     // Broken Armor

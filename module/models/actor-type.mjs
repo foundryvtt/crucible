@@ -192,11 +192,11 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
     // Health
     r.health.max = Math.max(Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value), 6);
-    r.health.value = Math.clamped(r.health.value, 0, r.health.max);
+    r.health.value = Math.clamp(r.health.value, 0, r.health.max);
 
     // Morale
     r.morale.max = Math.max(Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value), 6);
-    r.morale.value = Math.clamped(r.morale.value, 0, r.morale.max);
+    r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action
     r.action.max = maxAction ?? 12;
@@ -207,11 +207,11 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     if ( isWeakened ) r.action.max -= 6;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
-    r.action.value = Math.clamped(r.action.value, 0, r.action.max);
+    r.action.value = Math.clamp(r.action.value, 0, r.action.max);
 
     // Focus
     r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
-    r.focus.value = Math.clamped(r.focus.value, 0, r.focus.max);
+    r.focus.value = Math.clamp(r.focus.value, 0, r.focus.max);
   }
 
   /* -------------------------------------------- */

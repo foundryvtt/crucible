@@ -1,4 +1,4 @@
-import CrucibleAction from "./data/action.mjs";
+import CrucibleAction from "./models/action.mjs";
 
 
 export function addChatMessageContextOptions(html, options)  {
