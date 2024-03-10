@@ -44,7 +44,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR_HOOKS}),
-        fn: new fields.StringField({required: true, blank: false, nullable: false}),
+        fn: new fields.StringField({required: true, blank: false, nullable: false, gmOnly: true}),
       }))
     }
   }

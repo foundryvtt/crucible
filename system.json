@@ -131,7 +131,9 @@
       "archetype": {},
       "armor": {},
       "background": {},
-      "talent": {},
+      "talent": {
+        "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
+      },
       "taxonomy": {},
       "weapon": {}
     },

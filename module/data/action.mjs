@@ -125,7 +125,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
       actionHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
-        fn: new fields.StringField({required: true, blank: false, nullable: false}),
+        fn: new fields.StringField({required: true, blank: false, nullable: false, gmOnly: true}),
       }))
     }
   }
