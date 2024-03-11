@@ -19,7 +19,13 @@
   }
 },
 
-"CRUCIBLE.Rules": "Crucible Rules",
+"CRUCIBLE": {
+  "Base": "Base",
+  "Bonus": "Bonus",
+  "Rules": "Crucible Rules",
+  "Scaling": "Scaling",
+  "Scaled": "Scaled"
+},
 
 "ABILITIES.Strength": "Strength",
 "ABILITIES.StrengthAbbr": "Str",
@@ -172,16 +178,19 @@
 "ARMOR": {
   "FIELDS": {
     "armor": {
-      "label": "Armor Defense",
+      "label": "Armor",
       "base": {
         "label": "Base Armor"
       }
     },
     "dodge": {
-      "label": "Dodge Defense",
+      "label": "Dodge",
       "base": {
         "label": "Base Dodge"
       }
+    },
+    "properties": {
+      "label": "Armor Properties"
     }
   },
   "CATEGORIES": {
@@ -190,6 +199,16 @@
     "MEDIUM": "Medium Armor",
     "HEAVY": "Heavy Armor",
     "NATURAL": "Natural Armor"
+  },
+  "SHEET": {
+    "CONFIGURATION": "Configuration",
+    "ACTIONS": "Actions",
+    "DEFENSES": "Armor Defenses",
+    "EQUIPMENT": "Equipment Details",
+    "ARMOR_BONUS": "Armor Bonus",
+    "DODGE_SCALING": "Dexterity Scaling",
+    "SCALED_PRICE": "Scaled Price",
+    "TYPE": "Armor Type"
   },
   "PROPERTIES": {
     "BULKY": "Bulky",
@@ -309,8 +328,7 @@
       "label": "Weight"
     },
     "price": {
-      "label": "Base Price",
-      "scaled": "Scaled Price"
+      "label": "Base Price"
     },
     "quality": {
       "label": "Quality"

@@ -2,9 +2,9 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img"/>
+        <img class="profile" src="{{source.img}}" alt="{{source.name}}" data-edit="img">
         <h1 class="title">
-            <input name="name" type="text" value="{{source.name}}" placeholder="Item Name"/>
+            {{formInput item.schema.fields.name value=source.name placeholder="Item Name"}}
         </h1>
         <div class="tags header-tags">
             {{#each tags as |label tag|}}
@@ -15,110 +15,32 @@
 
     {{!-- Sheet Tabs --}}
     <nav class="sheet-tabs tabs">
-        <a class="item" data-tab="config"><i class="fa-solid fa-cogs"></i> Configuration</a>
-        <a class="item" data-tab="actions"><i class="fa-solid fa-bullseye"></i> Actions</a>
+        <a class="item" data-tab="config"><i class="fa-solid fa-cogs"></i> {{localize "ARMOR.SHEET.CONFIGURATION"}}</a>
+        <a class="item" data-tab="actions"><i class="fa-solid fa-bullseye"></i> {{localize "ARMOR.SHEET.ACTIONS"}}</a>
     </nav>
 
-    {{!-- Sheet Body --}}
+    {{!-- Configuration Tab --}}
     <section class="tab sheet-body flexcol" data-tab="config">
-        <div class="form-group">
-            <label>Category</label>
-            <div class="form-fields">
-                <select name="system.category">
-                    {{selectOptions categories selected=source.system.category labelAttr="label"}}
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Armor Defense</label>
-            <div class="form-fields">
-                <label>Base</label>
-                {{numberInput source.system.armor.base name="system.armor.base"
-                              min=category.armor.min max=category.armor.max step=1}}
-                <label>Bonus</label>
-                <input type="number" value="{{item.system.armor.bonus}}" disabled/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Dodge Defense</label>
-            <div class="form-fields">
-                <label>Base</label>
-                {{numberInput source.system.dodge.base name="system.dodge.base"
-                              min=category.dodge.min max=category.dodge.max step=1}}
-                <label>Bonus</label>
-                <input type="text" value="{{item.system.dodge.start}} Dexterity" disabled/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Quality</label>
-            <div class="form-fields">
-                <select name="system.quality">
-                    {{selectOptions qualities selected=source.system.quality labelAttr="label"}}
-                </select>
-                <label class="checkbox">
-                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}/> Broken
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Enchantment</label>
-            <div class="form-fields">
-                <select name="system.enchantment">
-                    {{selectOptions enchantments selected=source.system.enchantment labelAttr="label"}}
-                </select>
-            </div>
-        </div>
-
         <fieldset>
-            <legend>Armor Status</legend>
-            <div class="form-fields item-properties">
-                <label class="checkbox">
-                    <input type="checkbox" name="system.equipped" {{checked source.system.equipped}}>
-                    Equipped
-                </label>
-                <label class="checkbox">
-                    <input type="checkbox" name="system.broken" {{checked source.system.broken}}>
-                    Broken
-                </label>
-            </div>
+            <legend>{{localize "ARMOR.SHEET.TYPE"}}</legend>
+            {{formField fields.category value=source.system.category}}
+            {{formField fields.quality value=source.system.quality}}
+            {{formField fields.enchantment value=source.system.enchantment}}
         </fieldset>
-
         <fieldset>
-            <legend><h3>Armor Properties</h3></legend>
-            <div class="form-fields item-properties">
-                {{#each properties as |prop id|}}
-                <label class="checkbox">
-                    <input type="checkbox" name="{{prop.name}}" {{checked prop.checked}}/> {{prop.label}}
-                </label>
-                {{/each}}
-            </div>
+            <legend>{{localize "ARMOR.SHEET.DEFENSES"}}</legend>
+            {{formField fields.armor value=source.system.armor widget=armorWidget}}
+            {{formField fields.dodge value=source.system.dodge widget=dodgeWidget}}
         </fieldset>
-
-        <fieldset>
-            <legend><h3>Physical Details</h3></legend>
-            <div class="form-group">
-                <label>Inventory</label>
-                <div class="form-fields">
-                    <label>Quantity</label>
-                    <input type="number" step="any" name="system.quantity" value="{{source.system.quantity}}"/>
-                    <label>Weight</label>
-                    <input type="number" step="any" name="system.weight" value="{{source.system.weight}}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Value</label>
-                <div class="form-fields">
-                    <label>Price</label>
-                    <input type="number" step="any" name="system.price" value="{{source.system.price}}"/>
-                    <label>Scaled</label>
-                    <input type="number" value="{{item.system.price}}" disabled>
-                </div>
-            </div>
+        {{formField fields.properties value=item.system.properties widget=propertiesWidget}}
+        <fieldset class="item-fieldset item-equipment">
+            <legend>{{localize "ARMOR.SHEET.EQUIPMENT"}}</legend>
+            {{formField fields.equipped value=source.system.equipped}}
+            {{formField fields.broken value=source.system.broken}}
+            {{formField fields.quantity value=source.system.quantity classes="slim"}}
+            {{formField fields.weight value=source.system.weight classes="slim"}}
+            {{formField fields.price value=source.system.price classes="slim"}}
+            {{formField scaledPrice value=item.system.price classes="slim" disabled=true}}
         </fieldset>
     </section>
 
@@ -133,7 +55,7 @@
             </legend>
             {{#each actions as |action|}}
                 <div class="action line-item flexrow" data-action-id="{{action.id}}">
-                    <img class="icon" src="{{action.img}}">
+                    <img class="icon" src="{{action.img}}" alt="{{action.name}}">
                     <h4 class="title">{{action.name}}</h4>
                     <div class="controls">
                         <a class="button icon" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit">

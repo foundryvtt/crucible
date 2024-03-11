@@ -7,6 +7,9 @@ import { SYSTEM } from "../config/system.mjs";
 export default class CrucibleArmor extends CruciblePhysicalItem {
 
   /** @override */
+  static ITEM_CATEGORIES = SYSTEM.ARMOR.CATEGORIES;
+
+  /** @override */
   static DEFAULT_CATEGORY = "medium";
 
   /** @override */

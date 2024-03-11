@@ -6,14 +6,29 @@
 
 .crucible-new.weapon,
 .crucible-new.armor {
-  .item-properties {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    label.checkbox {
-      flex: 0 0 80px;
-      text-align: left;
+  .form-group.defense {
+    .form-fields {
+      flex: 8;
+      display: grid;
+      grid-template-columns: 1fr 64px 1fr 64px;
     }
+  }
+  .item-fieldset {
+    display: grid;
+    gap: 0.5rem 1rem;
+    label {
+      font-size: var(--font-size-12);
+      color: var(--color-secondary);
+    }
+    .form-fields {
+      flex: 0;
+    }
+  }
+  .item-properties {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .item-equipment {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

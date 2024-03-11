@@ -7,7 +7,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      category: new fields.StringField({required: true, blank: false, initial: this.DEFAULT_CATEGORY}),
+      category: new fields.StringField({required: true, choices: this.ITEM_CATEGORIES, initial: this.DEFAULT_CATEGORY}),
       quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 0}),
       weight: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
       price: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
@@ -26,6 +26,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {string[]}
    */
   static LOCALIZATION_PATHS = ["ITEM.FIELDS"];
+
+  /**
+   * Allowed categories for this item type.
+   * @type {Record<string, {id: string, label: string}>}
+   */
+  static ITEM_CATEGORIES;
 
   /**
    * The default category for new items of this type
