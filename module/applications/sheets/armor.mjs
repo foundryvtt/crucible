@@ -1,4 +1,3 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
 import CrucibleBaseItemSheet from "./base-item.mjs";
 
 export default class ArmorSheet extends CrucibleBaseItemSheet {
@@ -18,7 +17,6 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     Object.assign(context, {
-      actions: [],
       armorWidget: this.#armorWidget.bind(this),
       dodgeWidget: this.#dodgeWidget.bind(this),
       propertiesWidget: this.#propertiesWidget.bind(this),
@@ -130,13 +128,13 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
 
   /* -------------------------------------------- */
 
-  // TODO this needs to be made app v2 compatible
-  // _getSubmitData(updateData={}) {
-  //   const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-  //   formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
-  //     if ( p[1] === true ) arr.push(p[0]);
-  //     return arr;
-  //   }, []);
-  //   return formData;
-  // }
+  /** @inheritDoc */
+  _prepareSubmitData(formData) {
+    const submitData = super._prepareSubmitData(formData);
+    submitData.system.properties = Object.entries(submitData.system.properties).reduce((arr, p) => {
+      if ( p[1] === true ) arr.push(p[0]);
+      return arr;
+    }, []);
+    return submitData;
+  }
 }

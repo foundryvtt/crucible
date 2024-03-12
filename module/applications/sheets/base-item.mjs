@@ -1,3 +1,5 @@
+import ActionConfig from "../config/action.mjs";
+
 const _apps = foundry.applications;
 
 /**
@@ -12,6 +14,16 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
     position: {
       width: 520,
       height: "auto"
+    },
+    actions: {
+      "actionAdd": CrucibleBaseItemSheet.#onActionAdd,
+      "actionDelete": CrucibleBaseItemSheet.#onActionDelete,
+      "actionEdit": CrucibleBaseItemSheet.#onActionEdit
+    },
+    form: {
+      handler: CrucibleBaseItemSheet.#onSubmit,
+      submitOnChange: true,
+      closeOnSubmit: false
     }
   };
 
@@ -55,14 +67,16 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
 
   /** @override */
   async _prepareContext(options) {
-    return {
+    const context = {
       item: this.document,
       source: this.document.toObject(),
       fields: this.document.system.schema.fields,
       tabs: this._getTabs(),
-      tags: this.document.getTags(),
-      actions: [] // TODO
+      tags: this.document.getTags()
     };
+    const actions = this.document.system.actions;
+    if ( actions ) context.actions = this.constructor.prepareActions(actions);
+    return context;
   }
 
   /* -------------------------------------------- */
@@ -84,5 +98,131 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
    */
   _getTabs() {
     return {}
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare an array of actions for sheet rendering.
+   * @param {CrucibleAction[]} actions    The actions being rendered
+   * @returns {object[]}                  An object of data suitable for sheet rendering
+   */
+  static prepareActions(actions) {
+    return actions.map(action => ({
+      id: action.id,
+      name: action.name,
+      img: action.img,
+      condition: action.condition,
+      description: action.description,
+      tags: action.getTags(),
+      effects: action.effects.map(effect => ({
+        name: action.name,
+        tags: {
+          scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || action.target.scope)}`,
+          duration: effect.duration?.rounds ? `${effect.duration.rounds}R` : "Until Ended"
+        }
+      }))
+    }));
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /**
+   * Process form submission for the sheet
+   * @this {CrucibleBaseItemSheet}                The handler is called with the application as its bound scope
+   * @param {SubmitEvent} event                   The originating form submission event
+   * @param {HTMLFormElement} form                The form element that was submitted
+   * @param {FormDataExtended} formData           Processed data for the submitted form
+   * @returns {Promise<void>}
+   */
+  static async #onSubmit(event, form, formData) {
+    const submitData = this._prepareSubmitData(formData);
+    await this.document.update(submitData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data used to update the Item upon form submission.
+   * @param {FormDataExtended} formData           Submitted form data
+   * @returns {object}                            Prepared submission data as an object
+   * @protected
+   */
+  _prepareSubmitData(formData) {
+    return foundry.utils.expandObject(formData.object);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new Action to the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @returns {Promise<void>}
+   */
+  static async #onActionAdd(event) {
+    // TODO
+    // const fd = this._getSubmitData({});
+    // const actions = this.object.toObject().system.actions;
+    //
+    // // Create a new Action
+    // const suffix = actions.length ? actions.length + 1 : "";
+    // const actionData = {id: game.system.api.methods.generateId(this.object.name)};
+    // if ( actions.length ) {
+    //   actionData.id += suffix;
+    //   actionData.name = `${this.object.name} ${suffix}`
+    // }
+    // const action = new game.system.api.models.CrucibleAction(actionData, {parent: this.object.system});
+    //
+    // // Update the Talent
+    // actions.push(action.toObject());
+    // fd.system.actions = actions;
+    // await this._updateObject(event, fd);
+    //
+    // // Render the action configuration sheet
+    // await (new ActionConfig(action)).render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete an Action from the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onActionDelete(event, button) {
+    // TODO
+  //   const actionId = button.closest(".action").dataset.actionId;
+  //   const actions = this.object.toObject().system.actions;
+  //   const action = actions.findSplice(a => a.id === actionId);
+  //   const confirm = await Dialog.confirm({
+  //     title: `
+  // }Delete Action: ${action.name}`,
+  //     content: `<p>Are you sure you wish to delete the <strong>${action.name}</strong> action from the <strong>${this.object.name}</strong> Talent?</p>`
+  //   });
+  //   if ( confirm ) {
+  //     const fd = this._getSubmitData({});
+  //     fd.system.actions = actions;
+  //     await this._updateObject(event, fd);
+  //   }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit an Action from the Item.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event          The initiating click event
+   * @param {HTMLAnchorElement} button    The clicked button element
+   * @returns {Promise<void>}
+   */
+  static async #onActionEdit(event, button) {
+    const actionId = button.closest(".action").dataset.actionId;
+    const action = this.document.system.actions.find(a => a.id === actionId);
+    await (new ActionConfig(action)).render(true);
   }
 }
