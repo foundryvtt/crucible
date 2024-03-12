@@ -24,7 +24,12 @@
   "Bonus": "Bonus",
   "Rules": "Crucible Rules",
   "Scaling": "Scaling",
-  "Scaled": "Scaled"
+  "Scaled": "Scaled",
+
+  "SHEETS": {
+    "Armor": "Crucible Armor Sheet",
+    "Journal": "Crucible Journal Sheet"
+  }
 },
 
 "ABILITIES.Strength": "Strength",
@@ -382,8 +387,6 @@
 "SETTINGS.AutoConfirmNone": "No Auto-Confirmation",
 "SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
 "SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
-
-"SHEETS.CrucibleJournal": "Crucible Journal Sheet",
 
 "SKILL.PageSheet": "Crucible Skill",
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",

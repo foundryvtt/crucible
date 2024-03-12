@@ -32,19 +32,6 @@
 }
 
 /* ----------------------------------------- */
-/*  LESS Variables                           */
-/* ----------------------------------------- */
-
-@colorDark: #191813;
-@colorFaint: #c9c7b8;
-@colorBeige: #b5b3a4;
-@colorTan: #7a7971;
-@colorOlive: #33332e;
-@colorCrimson: #44191A;
-@borderGroove: 2px groove #eeede0;
-@sheetBackground: url("../ui/parchment.jpg") repeat;
-
-/* ----------------------------------------- */
 /*  CSS Variables                            */
 /* ----------------------------------------- */
 
@@ -53,9 +40,10 @@
   --fontFamilySans: "Signika", sans-serif;
 }
 
-.crucible-new {
+.crucible {
   --color-background: #0b0909;
   --color-text: #eee8df;
+  --color-primary: var(--color-text);
   --color-secondary: #d7c4a9;
   --color-tertiary: #b6967c;
   --color-header: #cac5ba;
@@ -75,28 +63,4 @@
   // V10 Core Overrides
   --color-checkbox-checked: #cf9356;
   --color-bg-option: #3f3128;
-}
-
-.crucible {
-  --fontSizeTitle: 20px;
-  --fontSizeHeader: 16px;
-  --fontSizeMain: 14px;
-  --fontSizeSmall: 12px;
-
-  // Colors
-  --colorDark: #191813;
-  --colorBeige: #b5b3a4;
-  --colorFaint: #c9c7b8;
-  --colorTan: #7a7971;
-  --colorOlive: #33332e;
-
-  --colorError: #cb2f30;
-  --colorSuccess: #4e832b;
-
-  --colorActionBG: #e7cc9d;
-  --colorAction: #FF9900;
-  --colorFocusBG: #b2c3ef;
-  --colorFocus: #0066FF;
-  --colorHealthBG: #fc6060;
-  --colorHealth: #EE0000;
 }
