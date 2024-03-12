@@ -83,9 +83,17 @@ Hooks.once("init", async function() {
     weapon: models.CrucibleWeapon
   };
   Items.unregisterSheet("core", ItemSheet);
+
+  // V2 Registrations
+  DocumentSheetConfig.registerSheet(Item, "crucible", applications.ArmorSheet, {
+    types: ["armor"],
+    makeDefault: true,
+    label: "CRUCIBLE.SHEETS.Armor"
+  });
+
+  // V1 Registrations
   Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
@@ -104,7 +112,7 @@ Hooks.once("init", async function() {
     "skill": models.CrucibleSkill
   });
   DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
-    label: "SHEETS.CrucibleJournal"
+    label: "CRUCIBLE.SHEETS.Journal"
   })
   DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {
     types: ["skill"],

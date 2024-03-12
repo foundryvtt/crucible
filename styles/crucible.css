@@ -26,18 +26,16 @@
   font-weight: 700;
 }
 /* ----------------------------------------- */
-/*  LESS Variables                           */
-/* ----------------------------------------- */
-/* ----------------------------------------- */
 /*  CSS Variables                            */
 /* ----------------------------------------- */
 :root {
   --fontFamilySerif: "CaslonAntique", "Palatino Linotype", serif;
   --fontFamilySans: "Signika", sans-serif;
 }
-.crucible-new {
+.crucible {
   --color-background: #0b0909;
   --color-text: #eee8df;
+  --color-primary: var(--color-text);
   --color-secondary: #d7c4a9;
   --color-tertiary: #b6967c;
   --color-header: #cac5ba;
@@ -56,56 +54,37 @@
   --color-checkbox-checked: #cf9356;
   --color-bg-option: #3f3128;
 }
-.crucible {
-  --fontSizeTitle: 20px;
-  --fontSizeHeader: 16px;
-  --fontSizeMain: 14px;
-  --fontSizeSmall: 12px;
-  --colorDark: #191813;
-  --colorBeige: #b5b3a4;
-  --colorFaint: #c9c7b8;
-  --colorTan: #7a7971;
-  --colorOlive: #33332e;
-  --colorError: #cb2f30;
-  --colorSuccess: #4e832b;
-  --colorActionBG: #e7cc9d;
-  --colorAction: #FF9900;
-  --colorFocusBG: #b2c3ef;
-  --colorFocus: #0066FF;
-  --colorHealthBG: #fc6060;
-  --colorHealth: #EE0000;
-}
 /** ----------------------------------------- *
  *  Crucible V2 Styles                        *
  * ------------------------------------------ */
-.crucible-new {
+.crucible {
   font-family: var(--font-body);
   color: var(--color-text);
   font-size: 0.9375rem;
   letter-spacing: 0.5px;
 }
-.crucible-new h1,
-.crucible-new h2,
-.crucible-new h3,
-.crucible-new h4 {
+.crucible h1,
+.crucible h2,
+.crucible h3,
+.crucible h4 {
   font-family: var(--font-h1);
   color: var(--color-h1);
   border: none;
 }
-.crucible-new h1.divider,
-.crucible-new h2.divider,
-.crucible-new h3.divider,
-.crucible-new h4.divider {
+.crucible h1.divider,
+.crucible h2.divider,
+.crucible h3.divider,
+.crucible h4.divider {
   clear: both;
   display: flex;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
 }
-.crucible-new h1.divider::before,
-.crucible-new h2.divider::before,
-.crucible-new h3.divider::before,
-.crucible-new h4.divider::before {
+.crucible h1.divider::before,
+.crucible h2.divider::before,
+.crucible h3.divider::before,
+.crucible h4.divider::before {
   flex: 1;
   content: "";
   margin-right: 0.5rem;
@@ -113,10 +92,10 @@
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 100%);
   mask-image: linear-gradient(90deg, transparent 0%, black 100%);
 }
-.crucible-new h1.divider::after,
-.crucible-new h2.divider::after,
-.crucible-new h3.divider::after,
-.crucible-new h4.divider::after {
+.crucible h1.divider::after,
+.crucible h2.divider::after,
+.crucible h3.divider::after,
+.crucible h4.divider::after {
   flex: 1;
   content: "";
   margin-left: 0.5rem;
@@ -124,35 +103,35 @@
   -webkit-mask-image: linear-gradient(270deg, transparent 0%, black 100%);
   mask-image: linear-gradient(270deg, transparent 0%, black 100%);
 }
-.crucible-new strong {
+.crucible strong {
   color: var(--color-h1);
 }
-.crucible-new a.content-link,
-.crucible-new a.inline-roll {
+.crucible a.content-link,
+.crucible a.inline-roll {
   background: none;
   border: none;
   color: var(--color-link-text);
 }
-.crucible-new a.content-link i,
-.crucible-new a.inline-roll i {
+.crucible a.content-link i,
+.crucible a.inline-roll i {
   color: var(--color-link-text);
 }
-.crucible-new table {
+.crucible table {
   margin: 1rem 0;
   border: none;
   color: var(--color-secondary);
 }
-.crucible-new table td,
-.crucible-new table th {
+.crucible table td,
+.crucible table th {
   text-align: left;
   padding: 0.25rem 0.5rem;
   font-size: var(--font-size-14);
 }
-.crucible-new table thead {
+.crucible table thead {
   background: var(--color-frame-bg);
   border: none;
 }
-.crucible-new table th {
+.crucible table th {
   line-height: 1.5rem;
   color: var(--color-text);
   font-family: var(--font-h1);
@@ -160,10 +139,10 @@
   text-align: left;
   text-shadow: none;
 }
-.crucible-new table tr:nth-child(even) {
+.crucible table tr:nth-child(even) {
   background-color: var(--color-frame-bg);
 }
-.crucible-new blockquote {
+.crucible blockquote {
   margin: 1rem 0;
   border-left: 4px solid var(--color-secondary);
   font-family: var(--font-quote);
@@ -171,7 +150,7 @@
   color: var(--color-secondary);
   letter-spacing: 0;
 }
-.crucible-new .frame-brown {
+.crucible .frame-brown {
   background: var(--color-frame);
   border-image: url('../ui/journal/button-border.png');
   border-image-slice: 16;
@@ -179,47 +158,48 @@
   border-image-width: 8px;
   color: var(--color-h1);
 }
-.crucible-new ::-webkit-scrollbar-thumb {
+.crucible ::-webkit-scrollbar-thumb {
   background: var(--color-frame);
 }
-.crucible-new code {
+.crucible code {
   color: #d3caf6;
   border: 1px solid #321e7f;
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
   font-size: var(--font-size-14);
 }
-.crucible-new .tags {
+.crucible .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.5rem;
+  gap: 0.25rem;
   justify-content: flex-end;
   align-items: center;
-  color: var(--color-secondary);
+  color: var(--color-text);
 }
-.crucible-new .tags label {
+.crucible .tags label {
   flex: 1;
   font-size: var(--font-size-14);
 }
-.crucible-new .tags .tag {
-  padding: 0 3px;
-  border: 1px solid var(--color-secondary);
+.crucible .tags .tag {
+  padding: 1px 4px;
+  background: var(--color-background);
+  border: 1px solid var(--color-cool-4);
   border-radius: 4px;
   font-family: var(--font-sans);
   font-size: var(--font-size-12);
   white-space: nowrap;
 }
-.crucible-new .tags .tag.unmet {
+.crucible .tags .tag.unmet {
   border-color: darkred;
   color: red;
 }
-.crucible-new .tags:empty {
+.crucible .tags:empty {
   display: none;
 }
-.crucible-new .tag-icon {
+.crucible .tag-icon {
   flex: none;
 }
-.crucible-new section.construction {
+.crucible section.construction {
   position: relative;
   margin: 1rem 0;
   padding: 0.5rem 1rem 0.5rem 80px;
@@ -227,7 +207,7 @@
   border-radius: 8px;
   color: var(--color-accent);
 }
-.crucible-new section.construction::before {
+.crucible section.construction::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -239,14 +219,14 @@
   line-height: 80px;
   width: 80px;
 }
-.crucible-new section.foundryvtt {
+.crucible section.foundryvtt {
   position: relative;
   margin: 1rem 0;
   padding: 0.5rem 1rem 0.5rem 120px;
   border: 1px solid #d74e14;
   border-radius: 8px;
 }
-.crucible-new section.foundryvtt::before {
+.crucible section.foundryvtt::before {
   position: absolute;
   left: 0;
   top: 0;
@@ -258,14 +238,14 @@
   background-size: 100px;
   background-position: center;
 }
-.crucible-new section.gameplay {
+.crucible section.gameplay {
   position: relative;
   padding: 1rem 1.5rem;
   margin: 1rem 6px;
   background: #21120e;
 }
-.crucible-new section.gameplay::before,
-.crucible-new section.gameplay::after {
+.crucible section.gameplay::before,
+.crucible section.gameplay::after {
   display: block;
   width: calc(100% + 12px);
   height: 12px;
@@ -275,16 +255,16 @@
   background: url("../ui/journal/divider-border.png") no-repeat center;
   background-size: cover;
 }
-.crucible-new section.gameplay::before {
+.crucible section.gameplay::before {
   top: -6px;
 }
-.crucible-new section.gameplay::after {
+.crucible section.gameplay::after {
   bottom: -6px;
 }
-.crucible-new section.gameplay h4 {
+.crucible section.gameplay h4 {
   margin-top: 0.5rem;
 }
-.crucible-new section.gameplay p {
+.crucible section.gameplay p {
   font-family: var(--font-quote);
   font-size: var(--font-size-18);
   font-style: italic;
@@ -292,12 +272,12 @@
   line-height: 1.25rem;
   letter-spacing: 0;
 }
-.crucible-new section.gameplay strong {
+.crucible section.gameplay strong {
   font-family: var(--font-body);
   font-size: var(--font-size-14);
   font-style: normal;
 }
-.crucible-new section.formula {
+.crucible section.formula {
   margin: 1rem 0;
   padding: 0.5rem 3rem 0.5rem 1.5rem;
   background: url("../ui/journal/math-full.png") no-repeat center left;
@@ -308,21 +288,21 @@
   display: flex;
   gap: 0.25rem;
 }
-.crucible-new section.formula .value,
-.crucible-new section.formula .equals {
+.crucible section.formula .value,
+.crucible section.formula .equals {
   flex: none;
 }
-.crucible-new section.formula .equation {
+.crucible section.formula .equation {
   flex: 1;
   word-break: break-word;
 }
-.crucible-new .flexrow {
+.crucible .flexrow {
   align-items: center;
 }
-.crucible-new .flexcol > * {
+.crucible .flexcol > * {
   flex: unset;
 }
-.crucible-new textarea {
+.crucible textarea {
   padding: 0.5rem;
   background: var(--color-frame-bg);
   border: 1px solid var(--color-frame);
@@ -331,65 +311,65 @@
   font-size: var(--font-size-15);
   color: var(--color-text);
 }
-.crucible-new select {
+.crucible select {
   background: var(--color-frame);
   color: var(--color-text);
   border: none;
 }
-.crucible-new select::selection {
+.crucible select::selection {
   background: var(--color-frame);
 }
-.crucible-new input[type="text"],
-.crucible-new input[type="number"],
-.crucible-new input[type="password"],
-.crucible-new input[type="date"],
-.crucible-new input[type="time"],
-.crucible-new input[type="search"] {
+.crucible input[type="text"],
+.crucible input[type="number"],
+.crucible input[type="password"],
+.crucible input[type="date"],
+.crucible input[type="time"],
+.crucible input[type="search"] {
   background: var(--color-frame-bg);
   color: var(--color-text);
   border-color: var(--color-frame);
 }
-.crucible-new form .hint {
+.crucible form .hint {
   margin: 0;
   color: var(--color-tertiary);
 }
-.crucible-new a.button {
+.crucible a.button {
   flex: none;
 }
-.crucible-new button.icon,
-.crucible-new a.button.icon {
+.crucible button.icon,
+.crucible a.button.icon {
   flex: none;
 }
-.crucible-new button.icon > i,
-.crucible-new a.button.icon > i {
+.crucible button.icon > i,
+.crucible a.button.icon > i {
   margin: 0;
 }
 /* ----------------------------------------- */
 /*  Early Adoption of V2 Theme Rules         */
 /* ----------------------------------------- */
-.crucible-new {
+.crucible {
   /** Labeled Checkboxes */
 }
-.crucible-new input[type="checkbox"] {
+.crucible input[type="checkbox"] {
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-.crucible-new input[type="checkbox"]:disabled {
+.crucible input[type="checkbox"]:disabled {
   cursor: initial;
 }
-.crucible-new input[type="checkbox"]:focus {
+.crucible input[type="checkbox"]:focus {
   color: inherit;
   outline: none;
 }
-.crucible-new input[type="checkbox"]:focus-visible::before {
+.crucible input[type="checkbox"]:focus-visible::before {
   outline: 2px solid var(--color-accent);
 }
-.crucible-new input[type="checkbox"]:checked:focus-visible::before {
+.crucible input[type="checkbox"]:checked:focus-visible::before {
   outline: 2px solid var(--color-accent);
 }
-.crucible-new input[type="checkbox"]::before {
+.crucible input[type="checkbox"]::before {
   font-family: var(--font-awesome);
   font-size: 1.5rem;
   font-weight: bold;
@@ -402,15 +382,15 @@
   outline: 1px solid transparent;
   transition: outline-color 0.5s;
 }
-.crucible-new input[type="checkbox"]:checked::before {
+.crucible input[type="checkbox"]:checked::before {
   color: var(--color-accent);
   font-weight: bold;
   content: "\f14a";
 }
-.crucible-new input[type="checkbox"]:disabled::before {
+.crucible input[type="checkbox"]:disabled::before {
   color: var(--color-frame);
 }
-.crucible-new label.checkbox {
+.crucible label.checkbox {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -418,14 +398,14 @@
   margin: 0;
   font-size: var(--font-size-12);
 }
-.crucible-new label.checkbox > input[type="checkbox"] {
+.crucible label.checkbox > input[type="checkbox"] {
   position: unset;
   height: 100%;
 }
-.crucible-new figure.placeholder {
+.crucible figure.placeholder {
   position: relative;
 }
-.crucible-new figure.placeholder::after {
+.crucible figure.placeholder::after {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -439,15 +419,15 @@
   font-size: 24px;
 }
 /* ----------------------------------------- */
-/*  Apps and Sheets                          */
+/*  Application V1 Styles - DEPRECATE        */
 /* ----------------------------------------- */
-.crucible-new.window-app {
+.crucible.window-app {
   overflow: hidden;
   background: url("../ui/journal/background.png");
   border-radius: 12px;
   /** Line Items - Actions, Talents, etc... */
 }
-.crucible-new.window-app .background-overlay {
+.crucible.window-app .background-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -456,218 +436,112 @@
   object-fit: cover;
   object-position: top right;
 }
-.crucible-new.window-app .window-header {
+.crucible.window-app .window-header {
   border-bottom: none;
   color: var(--color-header);
 }
-.crucible-new.window-app .window-header .window-title {
+.crucible.window-app .window-header .window-title {
   height: 100%;
 }
-.crucible-new.window-app .window-content {
+.crucible.window-app .window-content {
+  font-size: 13px;
   padding: 0.5rem 1rem 1rem;
   background: none;
   color: var(--color-text);
 }
-.crucible-new.window-app .window-content > form {
+.crucible.window-app .window-content > form {
   height: 100%;
   gap: 1rem;
 }
-.crucible-new.window-app .sheet-header {
-  --headerHeight: 80px;
-  --titleHeight: 40px;
+.crucible.window-app .sheet-header {
   gap: 0.5rem;
 }
-.crucible-new.window-app .sheet-header img.profile {
+.crucible.window-app .sheet-header img.profile {
   margin: 0;
   border-radius: 8px;
 }
-.crucible-new.window-app .sheet-header h1 input {
+.crucible.window-app .sheet-header h1 input {
   margin: 0;
   border: none;
   background: transparent;
   color: var(--color-text);
 }
-.crucible-new.window-app .sheet-header .header-tags {
+.crucible.window-app .sheet-header .header-tags {
   flex: 0 0 100%;
   justify-content: flex-end;
 }
-.crucible-new.window-app .sheet-header .header-tags label {
+.crucible.window-app .sheet-header .header-tags label {
   font-weight: bold;
 }
-.crucible-new.window-app nav.sheet-tabs {
+.crucible.window-app nav.sheet-tabs {
   margin: 0;
   border-color: var(--color-frame-bg);
   font-family: var(--font-h1);
   color: var(--color-h1);
 }
-.crucible-new.window-app .sheet-body.flexcol {
+.crucible.window-app .sheet-body.flexcol {
   gap: 1rem;
 }
-.crucible-new.window-app .sheet-body.flexcol .form-group {
+.crucible.window-app .sheet-body.flexcol .form-group {
   gap: 0.5rem;
   margin: 0;
 }
-.crucible-new.window-app .sheet-body.flexcol .form-group.slim .form-fields > label {
+.crucible.window-app .sheet-body.flexcol .form-group.slim .form-fields > label {
   color: var(--color-secondary);
 }
-.crucible-new.window-app .sheet-body.flexcol .form-group.slim .form-fields input {
+.crucible.window-app .sheet-body.flexcol .form-group.slim .form-fields input {
   text-align: center;
 }
-.crucible-new.window-app fieldset {
+.crucible.window-app fieldset {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   border: 1px solid var(--color-frame);
   border-radius: 6px;
 }
-.crucible-new.window-app fieldset legend {
+.crucible.window-app fieldset legend {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0 0.5rem;
 }
-.crucible-new.window-app fieldset legend h3 {
+.crucible.window-app fieldset legend h3 {
   display: inline;
   margin: 0;
 }
-.crucible-new.window-app .sheet-footer {
+.crucible.window-app .sheet-footer {
   margin-top: 1rem;
 }
-.crucible-new.window-app .line-item {
+.crucible.window-app .line-item {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 0.5rem;
 }
-.crucible-new.window-app .line-item > header {
+.crucible.window-app .line-item > header {
   gap: 0.5rem;
 }
-.crucible-new.window-app .line-item img.icon {
+.crucible.window-app .line-item img.icon {
   height: 48px;
   width: 48px;
   flex: 0 0 48px;
 }
-.crucible-new.window-app .line-item .title {
+.crucible.window-app .line-item .title {
   color: var(--color-text);
   margin: 0;
 }
-.crucible-new.window-app .line-item .description {
+.crucible.window-app .line-item .description {
   font-size: var(--font-size-14);
 }
-.crucible-new.window-app .line-item .controls {
+.crucible.window-app .line-item .controls {
   flex: none;
   display: flex;
   gap: 0.5rem;
   font-size: var(--font-size-14);
   color: var(--color-secondary);
 }
-.crucible-new.window-app .line-item .header-tags {
+.crucible.window-app .line-item .header-tags {
   gap: 0.5rem;
-}
-.crucible {
-  /* Line Items */
-}
-.crucible .window-content {
-  background: url("../ui/parchment.jpg") repeat;
-  font-size: 13px;
-  color: #191813;
-}
-.crucible h1 {
-  font-family: var(--fontFamilySerif);
-  font-size: 32px;
-}
-.crucible h2 {
-  font-family: var(--fontFamilySerif);
-  font-size: 24px;
-}
-.crucible h3 {
-  font-family: var(--fontFamilySerif);
-  font-size: 18px;
-  border: none;
-}
-.crucible h4 {
-  font-family: var(--fontFamilySerif);
-  font-size: 16px;
-}
-.crucible p {
-  margin: 0.25em 0;
-}
-.crucible .flexrow {
-  align-items: center;
-}
-.crucible .tags {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 2px;
-  font-size: var(--font-size-10);
-}
-.crucible .tags label {
-  font-size: var(--font-size-12);
-  flex: 1;
-}
-.crucible .tags .tag {
-  flex: none;
-}
-.crucible span.tag {
-  display: inline-block;
-  padding: 0 3px;
-  font-family: var(--fontFamilySans);
-  font-size: var(--font-size-11);
-  line-height: var(--font-size-16);
-  text-align: center;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #b5b3a4;
-  border-radius: 4px;
-}
-.crucible .tags.action,
-.crucible .tags.context {
-  flex: 0 0 100%;
-}
-.crucible .tag.unmet {
-  border-color: var(--colorError);
-  color: var(--colorError);
-}
-.crucible input,
-.crucible select,
-.crucible span.input {
-  border: 1px solid #b5b3a4;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.05);
-  color: #191813;
-}
-.crucible input,
-.crucible span.input {
-  text-align: center;
-}
-.crucible input[disabled],
-.crucible input[readonly] {
-  border: none;
-  pointer-events: none;
-}
-.crucible .line-item {
-  display: flex;
-  align-items: center;
-  padding: 2px 0;
-  gap: 4px;
-}
-.crucible .line-item .name {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.crucible .line-item .name h3,
-.crucible .line-item .name h4 {
-  line-height: 1rem;
-  margin: 0;
-}
-.crucible .line-item .icon {
-  flex: 0 0 24px;
-  height: 24px;
-  border-radius: 4px;
 }
 /* Tooltips */
 #crucible-tooltip,
@@ -685,7 +559,7 @@
   font-weight: normal;
   text-align: left;
   text-shadow: none;
-  color: #c9c7b8;
+  color: var(--color-primary);
   border-radius: 3px;
   box-shadow: 0 0 4px #000;
   z-index: 999;
@@ -714,113 +588,17 @@
 .crucible .tooltipped:hover > .tooltip {
   display: block;
 }
-h1.divider,
-h2.divider,
-h3.divider,
-h4.divider {
-  display: flex;
-  text-align: center;
-  border: none;
-}
-h1.divider label,
-h2.divider label,
-h3.divider label,
-h4.divider label {
-  padding: 0 8px;
-  white-space: nowrap;
-}
-h1.divider span,
-h2.divider span,
-h3.divider span,
-h4.divider span {
-  flex: 1;
-  position: relative;
-  top: 12px;
-  pointer-events: none;
-  -moz-background-size: 100% 1px;
-  background-size: 100% 1px;
-  background-position: 0 0, 0 100%;
-  background-repeat: no-repeat;
-}
-h1.divider span:nth-of-type(1),
-h2.divider span:nth-of-type(1),
-h3.divider span:nth-of-type(1),
-h4.divider span:nth-of-type(1) {
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(#33332e));
-  background-image: -webkit-linear-gradient(180deg, transparent, #33332e);
-  background-image: -moz-linear-gradient(180deg, transparent, #33332e);
-  background-image: -o-linear-gradient(180deg, transparent, #33332e);
-  background-image: linear-gradient(90deg, transparent, #33332e);
-}
-h1.divider span:nth-of-type(2),
-h2.divider span:nth-of-type(2),
-h3.divider span:nth-of-type(2),
-h4.divider span:nth-of-type(2) {
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#33332e), to(transparent));
-  background-image: -webkit-linear-gradient(180deg, #33332e, transparent);
-  background-image: -moz-linear-gradient(180deg, #33332e, transparent);
-  background-image: -o-linear-gradient(180deg, #33332e, transparent);
-  background-image: linear-gradient(90deg, #33332e, transparent);
-}
-h1.divider span {
-  top: 18px;
-}
-h2.divider span {
-  top: 16px;
-}
 .crucible.sheet {
-  --headerHeight: 50px;
-  --profileSize: 50px;
-  /** Sheet Header */
-  /** Sheet Profile Image */
   /* Highlight Boxes */
   /* Control Buttons */
   /** Incompletion Warnings */
 }
-.crucible.sheet h1,
-.crucible.sheet h2,
-.crucible.sheet h3,
-.crucible.sheet h4 {
-  margin: 0;
-}
-.crucible.sheet .sheet-header {
-  flex: 0 0 var(--headerHeight);
-  gap: 4px;
-  border-bottom: 1px solid #b5b3a4;
-}
-.crucible.sheet .sheet-header .title {
-  flex: 3;
-  height: var(--titleHeight);
-  border: none;
-}
-.crucible.sheet .sheet-header .title input {
-  height: 100%;
-  width: 100%;
-  text-align: left;
-  margin: 0;
-}
-.crucible.sheet .sheet-header .header-tags {
-  flex: 0 0 100%;
-}
-.crucible.sheet .sheet-header .header-tags label {
-  font-weight: bold;
-  margin-right: 5px;
-}
 .crucible.sheet nav.sheet-tabs {
   flex: none;
 }
-.crucible.sheet img.profile {
-  flex: 0 0 var(--profileSize);
-  width: var(--profileSize);
-  height: var(--profileSize);
-  margin: 0 5px 0 0;
-  border: 1px solid #000;
-  border-radius: 4px;
-  object-fit: contain;
-}
 .crucible.sheet .highlight {
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #c9c7b8;
+  border: 1px solid var(--color-primary);
   border-radius: 3px;
 }
 .crucible.sheet .window-content a.button,
@@ -829,12 +607,12 @@ h2.divider span {
   min-width: 20px;
   margin: 0;
   padding: 0;
-  color: #7a7971;
+  color: var(--color-tertiary);
   text-align: center;
 }
 .crucible.sheet .window-content a.button.active,
 .crucible.sheet .window-content a.control.active {
-  color: #191813;
+  color: var(--color-frame-bg);
 }
 .crucible.sheet .window-content a.button.inactive,
 .crucible.sheet .window-content a.control.inactive {
@@ -846,10 +624,10 @@ h2.divider span {
   border-radius: 3px;
 }
 .crucible.sheet .window-content a.button:hover {
-  border: 1px solid #7a7971;
+  border: 1px solid var(--color-tertiary);
   box-shadow: 0 0 4px #FFF;
   text-shadow: none;
-  color: #191813;
+  color: var(--color-frame-bg);
 }
 .crucible.sheet .incomplete {
   margin-left: 2px;
@@ -858,11 +636,103 @@ h2.divider span {
   text-shadow: 0 0 4px #FFF;
 }
 /* ----------------------------------------- */
+/*  Application V2 Styles                    */
+/* ----------------------------------------- */
+.crucible.application {
+  background: var(--color-cool-5);
+}
+.crucible.application .window-header .window-title {
+  font-family: var(--font-h1);
+  color: var(--color-secondary);
+}
+.crucible.application .window-header .header-control {
+  color: var(--color-secondary);
+}
+.crucible.application .background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border: none;
+  object-fit: cover;
+  object-position: top right;
+}
+.crucible.application .window-content {
+  padding: 0;
+}
+/* ----------------------------------------- */
+/*  DocumentSheet V2 Styles                  */
+/* ----------------------------------------- */
+.crucible.sheet .sheet-header {
+  --sheet-header-height: 50px;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.crucible.sheet .sheet-header img.profile {
+  flex: 0 0 var(--sheet-header-height);
+  width: var(--sheet-header-height);
+  height: var(--sheet-header-height);
+  margin: 0;
+  border: 1px solid var(--color-cool-5);
+  border-radius: 4px;
+  object-fit: contain;
+}
+.crucible.sheet .sheet-header .title {
+  flex: 3;
+  height: var(--sheet-header-height);
+  border: none;
+}
+.crucible.sheet .sheet-header .title input {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0 0.5rem;
+  background: var(--color-cool-5-75);
+  border-color: var(--color-cool-4);
+  border-radius: 4px;
+}
+.crucible.sheet .sheet-header .header-tags {
+  flex: 0 0 100%;
+}
+.crucible.sheet nav.sheet-tabs {
+  margin: 0;
+  background: var(--color-cool-5-50);
+  border-color: var(--color-cool-4);
+  font-family: var(--font-h1);
+  font-size: var(--font-size-15);
+  color: var(--color-secondary);
+}
+.crucible.sheet .sheet-body {
+  padding: 1rem;
+  gap: 1rem;
+}
+.crucible.sheet fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-frame);
+  border-radius: 6px;
+}
+.crucible.sheet fieldset legend {
+  font-family: var(--font-h1);
+  font-size: var(--font-size-15);
+  color: var(--color-h1);
+}
+.crucible.sheet .form-group {
+  margin: 0;
+}
+.crucible.sheet .form-group.slim .form-fields > label {
+  color: var(--color-secondary);
+}
+.crucible.sheet .form-group.slim .form-fields input {
+  text-align: center;
+}
+/* ----------------------------------------- */
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
 .crucible.sheet.actor {
   --sidebarWidth: 200px;
-  --profileSize: 200px;
+  --profile-size: 200px;
   --marginSize: 8px;
   --marginHalfSize: calc(var(--marginSize) / 2);
   --titleHeight: 40px;
@@ -1477,7 +1347,7 @@ h2.divider span {
   padding: 1px;
   margin-bottom: 4px;
   background: #2a3247;
-  border: 1px solid #191813;
+  border: 1px solid var(--color-tertiary);
   border-radius: 8px;
 }
 .crucible.sheet.hero .advancement .bar .fill {
@@ -1552,76 +1422,82 @@ h2.divider span {
 /* ----------------------------------------- */
 /*  Armor and Weapons                        */
 /* ----------------------------------------- */
-.crucible-new.weapon .form-group.defense .form-fields,
-.crucible-new.armor .form-group.defense .form-fields {
+.crucible.weapon .form-group.defense .form-fields,
+.crucible.armor .form-group.defense .form-fields {
   flex: 8;
   display: grid;
   grid-template-columns: 1fr 64px 1fr 64px;
 }
-.crucible-new.weapon .item-fieldset,
-.crucible-new.armor .item-fieldset {
+.crucible.weapon .item-properties,
+.crucible.armor .item-properties,
+.crucible.weapon .item-equipment,
+.crucible.armor .item-equipment {
   display: grid;
   gap: 0.5rem 1rem;
 }
-.crucible-new.weapon .item-fieldset label,
-.crucible-new.armor .item-fieldset label {
+.crucible.weapon .item-properties label,
+.crucible.armor .item-properties label,
+.crucible.weapon .item-equipment label,
+.crucible.armor .item-equipment label {
   font-size: var(--font-size-12);
   color: var(--color-secondary);
 }
-.crucible-new.weapon .item-fieldset .form-fields,
-.crucible-new.armor .item-fieldset .form-fields {
+.crucible.weapon .item-properties .form-fields,
+.crucible.armor .item-properties .form-fields,
+.crucible.weapon .item-equipment .form-fields,
+.crucible.armor .item-equipment .form-fields {
   flex: 0;
 }
-.crucible-new.weapon .item-properties,
-.crucible-new.armor .item-properties {
+.crucible.weapon .item-properties,
+.crucible.armor .item-properties {
   grid-template-columns: repeat(4, 1fr);
 }
-.crucible-new.weapon .item-equipment,
-.crucible-new.armor .item-equipment {
+.crucible.weapon .item-equipment,
+.crucible.armor .item-equipment {
   grid-template-columns: repeat(2, 1fr);
 }
 /** ----------------------------------------- *
  *  Archetype Sheet                           *
  * ------------------------------------------ */
-.crucible-new.archetype .abilities,
-.crucible-new.taxonomy .abilities {
+.crucible.archetype .abilities,
+.crucible.taxonomy .abilities {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 0.5rem;
 }
-.crucible-new.archetype .resistances,
-.crucible-new.taxonomy .resistances {
+.crucible.archetype .resistances,
+.crucible.taxonomy .resistances {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 0.5rem;
 }
-.crucible-new.archetype .abilities label,
-.crucible-new.taxonomy .abilities label,
-.crucible-new.archetype .resistances label,
-.crucible-new.taxonomy .resistances label {
+.crucible.archetype .abilities label,
+.crucible.taxonomy .abilities label,
+.crucible.archetype .resistances label,
+.crucible.taxonomy .resistances label {
   padding: 0.25rem;
   border: 1px solid var(--color-frame);
   border-radius: 6px;
 }
-.crucible-new.archetype .abilities input,
-.crucible-new.taxonomy .abilities input,
-.crucible-new.archetype .resistances input,
-.crucible-new.taxonomy .resistances input {
+.crucible.archetype .abilities input,
+.crucible.taxonomy .abilities input,
+.crucible.archetype .resistances input,
+.crucible.taxonomy .resistances input {
   font-size: var(--font-size-20);
   border-color: transparent;
 }
-.crucible-new.archetype .ability-sum,
-.crucible-new.taxonomy .ability-sum,
-.crucible-new.archetype .resistance-sum,
-.crucible-new.taxonomy .resistance-sum {
+.crucible.archetype .ability-sum,
+.crucible.taxonomy .ability-sum,
+.crucible.archetype .resistance-sum,
+.crucible.taxonomy .resistance-sum {
   float: right;
 }
-.crucible-new.archetype .talents,
-.crucible-new.taxonomy .talents {
+.crucible.archetype .talents,
+.crucible.taxonomy .talents {
   gap: 1rem;
 }
-.crucible-new.archetype .droppable,
-.crucible-new.taxonomy .droppable {
+.crucible.archetype .droppable,
+.crucible.taxonomy .droppable {
   padding: 0 1rem;
   border: 1px dashed var(--color-frame);
   border-radius: 6px;
@@ -1641,7 +1517,7 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Action Sheet                              *
  * ------------------------------------------ */
-.crucible-new.action button.delete-hook {
+.crucible.action button.delete-hook {
   width: 28px;
   line-height: 22px;
   float: right;
@@ -1649,54 +1525,54 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Talent Sheet                              *
  * ------------------------------------------ */
-.crucible-new.talent button.delete-hook {
+.crucible.talent button.delete-hook {
   width: 28px;
   line-height: 22px;
   float: right;
 }
-.crucible-new.talent .actions .line-item {
+.crucible.talent .actions .line-item {
   flex-direction: column;
 }
-.crucible-new.talent .actions .action-header h4 {
+.crucible.talent .actions .action-header h4 {
   flex: none;
 }
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible-new.background .skills .form-fields {
+.crucible.background .skills .form-fields {
   flex-wrap: wrap;
   gap: 0.5rem 0;
 }
-.crucible-new.background .skills .form-fields label {
+.crucible.background .skills .form-fields label {
   flex: 0 0 25%;
   margin: 0;
   padding: 0;
   text-align: left;
 }
-.crucible-new.background .skills .form-fields label input {
+.crucible.background .skills .form-fields label input {
   width: 16px;
   margin: 0;
 }
-.crucible-new.background .talents .talent .tags {
+.crucible.background .talents .talent .tags {
   flex: none;
 }
-.crucible-new.background .talents .droppable {
+.crucible.background .talents .droppable {
   padding: 0.5rem 1rem;
   border: 1px dashed var(--color-tertiary);
   border-radius: 8px;
   cursor: pointer;
 }
-.crucible-new.background .talents .talent + .droppable {
+.crucible.background .talents .talent + .droppable {
   display: none;
 }
 /** ----------------------------------------- *
  *  Journal Sheet                             *
  * ------------------------------------------ */
-.crucible-new.journal-sheet .journal-entry-content {
+.crucible.journal-sheet .journal-entry-content {
   border: none;
   background: none;
 }
-.crucible-new.journal-sheet .journal-header {
+.crucible.journal-sheet .journal-header {
   position: relative;
   padding-bottom: 60px;
   margin-bottom: 20px;
@@ -1704,14 +1580,14 @@ h2.divider span {
   background-repeat: no-repeat;
   background-position: bottom center;
 }
-.crucible-new.journal-sheet .journal-header .title {
+.crucible.journal-sheet .journal-header .title {
   background: none;
   border: none;
   font-family: var(--font-h1);
   font-size: 2.25rem;
   color: var(--color-h1);
 }
-.crucible-new.journal-sheet .journal-page-header {
+.crucible.journal-sheet .journal-page-header {
   position: relative;
   padding-bottom: 40px;
   margin-bottom: 20px;
@@ -1719,55 +1595,55 @@ h2.divider span {
   background-repeat: no-repeat;
   background-position: bottom center;
 }
-.crucible-new.journal-sheet .journal-page-header h1 {
+.crucible.journal-sheet .journal-page-header h1 {
   text-align: center;
 }
-.crucible-new.journal-sheet .journal-page-content {
+.crucible.journal-sheet .journal-page-content {
   padding: 0 2rem;
   font-size: var(--font-size-15);
   line-height: var(--font-size-20);
 }
-.crucible-new.journal-sheet .journal-page-content > h2,
-.crucible-new.journal-sheet .journal-page-content > h3,
-.crucible-new.journal-sheet .journal-page-content > h4 {
+.crucible.journal-sheet .journal-page-content > h2,
+.crucible.journal-sheet .journal-page-content > h3,
+.crucible.journal-sheet .journal-page-content > h4 {
   margin: 2rem 0 1rem;
 }
-.crucible-new.journal-sheet .journal-page-content h4 {
+.crucible.journal-sheet .journal-page-content h4 {
   font-size: var(--font-size-18);
 }
-.crucible-new.journal-sheet .journal-page-content :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+.crucible.journal-sheet .journal-page-content :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
   margin-top: 2rem;
 }
-.crucible-new.journal-sheet .journal-page-content p {
+.crucible.journal-sheet .journal-page-content p {
   text-align: justify;
 }
-.crucible-new.journal-sheet .journal-sidebar {
+.crucible.journal-sheet .journal-sidebar {
   color: var(--color-sidebar);
 }
-.crucible-new.journal-sheet .journal-sidebar .header-search {
+.crucible.journal-sheet .journal-sidebar .header-search {
   margin: 0.5rem;
   gap: 0.5rem;
 }
-.crucible-new.journal-sheet .journal-sidebar .header-search input {
+.crucible.journal-sheet .journal-sidebar .header-search input {
   margin: 0;
   background: var(--color-frame);
   color: var(--color-text);
 }
-.crucible-new.journal-sheet .journal-sidebar .header-search input::placeholder {
+.crucible.journal-sheet .journal-sidebar .header-search input::placeholder {
   color: var(--color-h1);
 }
-.crucible-new.journal-sheet .journal-sidebar .pages-list .headings li:last-child {
+.crucible.journal-sheet .journal-sidebar .pages-list .headings li:last-child {
   margin: 0;
 }
-.crucible-new.journal-sheet .journal-sidebar .action-buttons {
+.crucible.journal-sheet .journal-sidebar .action-buttons {
   margin: 1rem 0;
   gap: 0.5rem;
 }
-.crucible-new.journal-sheet .journal-sidebar .action-buttons button.create {
+.crucible.journal-sheet .journal-sidebar .action-buttons button.create {
   margin: 0;
 }
-.crucible-new.journal-sheet .journal-sidebar .action-buttons button.next,
-.crucible-new.journal-sheet .journal-sidebar .action-buttons button.previous {
+.crucible.journal-sheet .journal-sidebar .action-buttons button.next,
+.crucible.journal-sheet .journal-sidebar .action-buttons button.previous {
   margin: 0;
   color: transparent;
   border: none;
@@ -1775,17 +1651,17 @@ h2.divider span {
   background-size: contain;
   background-position: center;
 }
-.crucible-new.journal-sheet .journal-sidebar .action-buttons button.next {
+.crucible.journal-sheet .journal-sidebar .action-buttons button.next {
   background-image: url("../ui/journal/arrow-right.png");
 }
-.crucible-new.journal-sheet .journal-sidebar.collapsed .action-buttons button.next,
-.crucible-new.journal-sheet .journal-sidebar.collapsed .action-buttons button.previous {
+.crucible.journal-sheet .journal-sidebar.collapsed .action-buttons button.next,
+.crucible.journal-sheet .journal-sidebar.collapsed .action-buttons button.previous {
   margin: 0;
 }
-.crucible-new.journal-sheet .journal-entry-pages {
+.crucible.journal-sheet .journal-entry-pages {
   flex: 1;
 }
-.crucible-new.journal-sheet .journal-entry-pages .edit-container .editor-edit {
+.crucible.journal-sheet .journal-entry-pages .edit-container .editor-edit {
   background: none;
   border: none;
   color: var(--color-text);
@@ -1793,43 +1669,43 @@ h2.divider span {
 /** ----------------------------------------- *
  *  Skill Page Sheet                          *
  * ------------------------------------------ */
-.crucible-new.skill-sheet .scrollable {
+.crucible.skill-sheet .scrollable {
   flex: 1;
   gap: 1rem;
   padding: 1rem;
   overflow: hidden auto;
 }
-.crucible-new.skill-sheet .scrollable h2.divider,
-.crucible-new.skill-sheet .scrollable div.form-group {
+.crucible.skill-sheet .scrollable h2.divider,
+.crucible.skill-sheet .scrollable div.form-group {
   margin: 0;
 }
-.crucible-new.skill-sheet .form-footer {
+.crucible.skill-sheet .form-footer {
   margin: 1rem;
 }
-.crucible-new.skill figure.right {
+.crucible.skill figure.right {
   float: right;
   margin: 0 0 1rem 1rem;
 }
-.crucible-new.skill figure.right img {
+.crucible.skill figure.right img {
   width: 200px;
   height: 200px;
   border-radius: 6px;
 }
-.crucible-new.sheet.skill {
+.crucible.sheet.skill {
   --headerHeight: 48px;
   --titleHeight: 48px;
 }
-.crucible-new.sheet.skill .sheet-header {
+.crucible.sheet.skill .sheet-header {
   margin-bottom: 1rem;
 }
-.crucible-new.sheet.skill .sheet-header .purchase {
+.crucible.sheet.skill .sheet-header .purchase {
   flex: 0 0 140px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
 }
-.crucible-new.sheet.skill .sheet-header .purchase .rank {
+.crucible.sheet.skill .sheet-header .purchase .rank {
   flex: 0 0 40px;
   padding: 0 3px;
   border: 1px solid var(--color-tertiary);
@@ -1838,23 +1714,23 @@ h2.divider span {
   font-size: 28px;
   text-align: center;
 }
-.crucible-new.sheet.skill .description {
+.crucible.sheet.skill .description {
   font-size: var(--font-size-14);
 }
-.crucible-new.sheet.skill .sheet-body {
+.crucible.sheet.skill .sheet-body {
   max-height: 80vh;
   overflow-y: auto;
 }
-.crucible-new.sheet.skill input.choose-path {
+.crucible.sheet.skill input.choose-path {
   margin: 0;
   height: 16px;
   position: relative;
   top: 3px;
 }
-.crucible-new.sheet.skill .skill-ranks .skill-rank {
+.crucible.sheet.skill .skill-ranks .skill-rank {
   padding: 0.5rem 0;
 }
-.crucible-new.sheet.skill .skill-ranks .skill-rank h3 {
+.crucible.sheet.skill .skill-ranks .skill-rank h3 {
   display: inline;
 }
 .crucible .action {
@@ -1898,7 +1774,7 @@ h2.divider span {
   margin-top: 0.5rem;
 }
 #chat-log .dice-rolls .dice-roll + .dice-roll {
-  border-top: 1px solid #b5b3a4;
+  border-top: 1px solid var(--color-secondary);
   margin-top: 0.5rem;
   padding-top: 0.25rem;
 }
@@ -1923,7 +1799,7 @@ h2.divider span {
   width: 100%;
   left: 0;
   bottom: -5px;
-  color: #33332e;
+  color: var(--color-tertiary);
   font-size: 12px;
   line-height: 16px;
 }
@@ -1967,7 +1843,7 @@ h2.divider span {
   width: 20px;
   height: 20px;
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #7a7971;
+  border: 1px solid var(--color-tertiary);
   border-radius: 2px;
   text-align: center;
 }
@@ -1976,7 +1852,7 @@ h2.divider span {
   gap: 0.25rem;
   padding: 0.25rem 0;
   margin: 0.25rem 0;
-  border-bottom: 1px solid #b5b3a4;
+  border-bottom: 1px solid var(--color-secondary);
 }
 .dice-roll.standard-check .dice-tooltip .boon-details h4,
 .dice-roll.standard-check .dice-tooltip .bane-details h4 {
@@ -1999,7 +1875,7 @@ h2.divider span {
   flex: 0 0 20px;
   height: 20px;
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #7a7971;
+  border: 1px solid var(--color-tertiary);
   border-radius: 2px;
   text-align: center;
 }
@@ -2013,7 +1889,7 @@ h2.divider span {
 .dice-roll.standard-check .check-result .target,
 .dice-roll.standard-check .damage-result .target {
   position: absolute;
-  color: #33332e;
+  color: var(--color-tertiary);
   font-weight: normal;
   font-size: 14px;
 }
@@ -2057,57 +1933,57 @@ h2.divider span {
 /* ----------------------------------------- */
 /*  Roll Dialog                              */
 /* ----------------------------------------- */
-.crucible-new.roll {
+.crucible.roll {
   background: url("../ui/journal/grunge.png") no-repeat;
   background-size: cover;
 }
-.crucible-new.roll .standard-check {
+.crucible.roll .standard-check {
   gap: 0.5rem;
 }
-.crucible-new.roll .roller {
+.crucible.roll .roller {
   flex: 2;
   gap: 0.5rem;
   text-align: center;
 }
-.crucible-new.roll .roller .boons,
-.crucible-new.roll .roller .banes {
+.crucible.roll .roller .boons,
+.crucible.roll .roller .banes {
   margin: 0;
   flex: 0 0 32px;
   font-family: var(--font-h1);
 }
-.crucible-new.roll .roller .boons label,
-.crucible-new.roll .roller .banes label {
+.crucible.roll .roller .boons label,
+.crucible.roll .roller .banes label {
   font-size: 20px;
   line-height: 32px;
   text-align: left;
 }
-.crucible-new.roll .roller .boons input,
-.crucible-new.roll .roller .banes input {
+.crucible.roll .roller .boons input,
+.crucible.roll .roller .banes input {
   flex: 0 0 36px;
   height: 36px;
   font-size: 24px;
 }
-.crucible-new.roll .roller .boons .action-button,
-.crucible-new.roll .roller .banes .action-button {
+.crucible.roll .roller .boons .action-button,
+.crucible.roll .roller .banes .action-button {
   flex: 0 0 32px;
   margin: 0 3px;
   cursor: pointer;
   font-size: 1.125rem;
 }
-.crucible-new.roll .roller .boons .action-button.disabled,
-.crucible-new.roll .roller .banes .action-button.disabled {
+.crucible.roll .roller .boons .action-button.disabled,
+.crucible.roll .roller .banes .action-button.disabled {
   opacity: 0.25;
 }
-.crucible-new.roll .roller .boons .action-button:not(.disabled):hover,
-.crucible-new.roll .roller .banes .action-button:not(.disabled):hover {
+.crucible.roll .roller .boons .action-button:not(.disabled):hover,
+.crucible.roll .roller .banes .action-button:not(.disabled):hover {
   font-weight: bold;
   text-shadow: 0 0 6px var(--color-link-text);
 }
-.crucible-new.roll .roller .pool {
+.crucible.roll .roller .pool {
   margin: var(--marginSize) 0;
   justify-content: space-evenly;
 }
-.crucible-new.roll .roller .pool .die {
+.crucible.roll .roller .pool .die {
   flex: 0 0 64px;
   height: 64px;
   line-height: 64px;
@@ -2118,95 +1994,95 @@ h2.divider span {
   font-weight: bold;
   filter: drop-shadow(0px 0px 6px #000);
 }
-.crucible-new.roll .roller .pool .die.d4 {
+.crucible.roll .roller .pool .die.d4 {
   background-image: url("/icons/svg/d4-grey.svg");
 }
-.crucible-new.roll .roller .pool .die.d6 {
+.crucible.roll .roller .pool .die.d6 {
   background-image: url("/icons/svg/d6-grey.svg");
 }
-.crucible-new.roll .roller .pool .die.d8 {
+.crucible.roll .roller .pool .die.d8 {
   background-image: url("/icons/svg/d8-grey.svg");
 }
-.crucible-new.roll .roller .pool .die.d10 {
+.crucible.roll .roller .pool .die.d10 {
   background-image: url("/icons/svg/d10-grey.svg");
 }
-.crucible-new.roll .roller .pool .die.d12 {
+.crucible.roll .roller .pool .die.d12 {
   background-image: url("/icons/svg/d12-grey.svg");
 }
-.crucible-new.roll .roller .bonuses {
+.crucible.roll .roller .bonuses {
   gap: 0.5rem;
 }
-.crucible-new.roll .roller .bonuses input {
+.crucible.roll .roller .bonuses input {
   line-height: 32px;
 }
-.crucible-new.roll .target {
+.crucible.roll .target {
   justify-content: space-between;
-  border-left: 1px solid #b5b3a4;
+  border-left: 1px solid var(--color-secondary);
   margin-left: var(--marginSize);
   padding-left: var(--marginSize);
 }
-.crucible-new.roll .target select {
+.crucible.roll .target select {
   flex: 0 0 30px;
 }
-.crucible-new.roll .target label.difficulty {
+.crucible.roll .target label.difficulty {
   flex: 0 0 16px;
-  color: #33332e;
+  color: var(--color-tertiary);
   font-family: var(--fontFamilySerif);
   font-size: 20px;
   text-align: center;
 }
-.crucible-new.roll .target input.dc {
+.crucible.roll .target input.dc {
   flex: 0 0 64px;
   width: 64px;
   margin: 0 auto;
 }
-.crucible-new.roll .details {
+.crucible.roll .details {
   width: 100%;
   flex: none;
   gap: 0.5rem;
 }
-.crucible-new.roll .details h4 {
+.crucible.roll .details h4 {
   margin: 0;
 }
-.crucible-new.roll .details .boon-details,
-.crucible-new.roll .details .bane-details {
+.crucible.roll .details .boon-details,
+.crucible.roll .details .bane-details {
   gap: 0.25rem;
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
-.crucible-new.roll .details .boon-details .boon,
-.crucible-new.roll .details .bane-details .boon,
-.crucible-new.roll .details .boon-details .bane,
-.crucible-new.roll .details .bane-details .bane {
+.crucible.roll .details .boon-details .boon,
+.crucible.roll .details .bane-details .boon,
+.crucible.roll .details .boon-details .bane,
+.crucible.roll .details .bane-details .bane {
   gap: 0.5rem;
   align-items: center;
 }
-.crucible-new.roll .details .boon-details .boon input,
-.crucible-new.roll .details .bane-details .boon input,
-.crucible-new.roll .details .boon-details .bane input,
-.crucible-new.roll .details .bane-details .bane input {
+.crucible.roll .details .boon-details .boon input,
+.crucible.roll .details .bane-details .boon input,
+.crucible.roll .details .boon-details .bane input,
+.crucible.roll .details .bane-details .bane input {
   flex: 0 0 32px;
   text-align: center;
 }
-.crucible-new.roll footer.buttons {
+.crucible.roll footer.buttons {
   gap: 0.5rem;
 }
-.crucible-new.roll footer.buttons button,
-.crucible-new.roll footer.buttons select {
+.crucible.roll footer.buttons button,
+.crucible.roll footer.buttons select {
   height: 32px;
 }
-.crucible-new.roll button.place-template {
+.crucible.roll button.place-template {
   flex: 0 0 140px;
   background: none;
   line-height: 20px;
   height: auto;
 }
-.crucible-new.roll .form-group.spell-component label {
+.crucible.roll .form-group.spell-component label {
   font-size: var(--font-size-14);
 }
-.crucible-new.roll .form-group.spell-component .form-fields {
+.crucible.roll .form-group.spell-component .form-fields {
   flex: 2;
 }
 /* -------------------------------------------- */
@@ -2220,8 +2096,8 @@ h2.divider span {
 /*  Talent Tree HUD                             */
 /* -------------------------------------------- */
 /** HUD Elements */
-.crucible-new.hud,
-.crucible-new .hud {
+.crucible.hud,
+.crucible .hud {
   padding: 1rem;
   background: url("../ui/journal/background.png");
   border: 1px solid var(--color-frame);

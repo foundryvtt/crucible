@@ -3,8 +3,7 @@
  *  Crucible V2 Styles                        *
  * ------------------------------------------ */
 
-// TODO rename .crucible-new to .crucible
-.crucible-new {
+.crucible {
 
   // General Typography
   font-family: var(--font-body);
@@ -73,8 +72,6 @@
     }
   }
 
-  // Special Headers
-
   // Tables
   table {
     margin: 1rem 0;
@@ -140,17 +137,18 @@
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 0.5rem;
+    gap: 0.25rem;
     justify-content: flex-end;
     align-items: center;
-    color: var(--color-secondary);
+    color: var(--color-text);
     label {
       flex: 1;
       font-size: var(--font-size-14);
     }
     .tag {
-      padding: 0 3px;
-      border: 1px solid var(--color-secondary);
+      padding: 1px 4px;
+      background: var(--color-background);
+      border: 1px solid var(--color-cool-4);
       border-radius: 4px;
       font-family: var(--font-sans);
       font-size: var(--font-size-12);
@@ -340,7 +338,7 @@
 /*  Early Adoption of V2 Theme Rules         */
 /* ----------------------------------------- */
 
-.crucible-new {
+.crucible {
   // Checkboxes
   input[type="checkbox"] {
     cursor: pointer;
@@ -419,11 +417,10 @@
 }
 
 /* ----------------------------------------- */
-/*  Apps and Sheets                          */
+/*  Application V1 Styles - DEPRECATE        */
 /* ----------------------------------------- */
 
-
-.crucible-new.window-app {
+.crucible.window-app {
   overflow: hidden;
   background: url("../ui/journal/background.png"); // TODO convert WEBP
   border-radius: 12px;
@@ -447,6 +444,7 @@
   }
 
   .window-content {
+    font-size: 13px;
     padding: 0.5rem 1rem 1rem;
     background: none;
     color: var(--color-text);
@@ -457,8 +455,6 @@
   }
 
   .sheet-header {
-    --headerHeight: 80px;
-    --titleHeight: 40px;
     gap: 0.5rem;
     img.profile {
       margin: 0;
@@ -561,3 +557,37 @@
   }
 }
 
+/* Tooltips */
+#crucible-tooltip,
+.crucible .tooltip {
+  display: none;
+  width: max-content;
+  max-width: 320px;
+  line-height: 16px;
+  position: absolute;
+  top: 120%;
+  padding: 2px 5px;
+  background: rgba(0, 0, 0, 0.95);
+  font-family: "Signika", serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  text-shadow: none;
+  color: var(--color-primary);
+  border-radius: 3px;
+  box-shadow: 0 0 4px #000;
+  z-index: 999;
+  &.left { left: 0; }
+  &.right { right: 0; }
+  &.center { left: calc(100% - 180px); }
+}
+// Global tooltip
+#crucible-tooltip {
+  position: absolute;
+  &.active { display: block }
+}
+// Relative tooltip
+.crucible .tooltipped {
+  position: relative;
+  &:hover > .tooltip { display: block; }
+}

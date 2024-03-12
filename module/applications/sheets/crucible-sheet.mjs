@@ -17,7 +17,7 @@ export default function CrucibleSheetMixin(Base) {
     /** @inheritDoc */
     static get defaultOptions() {
       return Object.assign(super.defaultOptions, {
-        classes: ["crucible-new", "sheet", this.documentType],
+        classes: ["crucible", "sheet", this.documentType],
         template: `systems/${SYSTEM.id}/templates/sheets/${this.documentType}.hbs`,
         height: "auto",
         resizable: false,

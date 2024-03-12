@@ -1,42 +1,47 @@
 import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import CrucibleBaseItemSheet from "./base-item.mjs";
 
-/**
- * A sheet application for displaying and configuring Items with the Armor type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
- */
-export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
-
-  /** @override */
-  static documentType = "armor";
+export default class ArmorSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
-  static get defaultOptions() {
-    return Object.assign(super.defaultOptions, {
-      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "config"}],
-      submitOnChange: true,
-      closeOnSubmit: false
-    });
+  static DEFAULT_OPTIONS = {
+    classes: ["armor"]
+  };
+
+  static {
+    this.PARTS.config.template = `systems/crucible/templates/sheets/partials/armor-config.hbs`
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  async getData(options={}) {
-    const {actions, schema} = this.document.system;
-    const source = this.document.toObject();
-    return {
-      item: this.document,
-      source,
-      fields: schema.fields,
-      actions: this.constructor.prepareActions(actions),
-      cssClass: this.isEditable ? "editable" : "locked",
-      tags: this.document.getTags(),
+  /** @override */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    Object.assign(context, {
+      actions: [],
       armorWidget: this.#armorWidget.bind(this),
       dodgeWidget: this.#dodgeWidget.bind(this),
       propertiesWidget: this.#propertiesWidget.bind(this),
       scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")})
-    };
+    });
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getTabs() {
+    const tabs = {
+      config: {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ARMOR.SHEET.CONFIGURATION",
+        active: false, cssClass: ""},
+      actions: {id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ARMOR.SHEET.ACTIONS",
+        active: false, cssClass: ""}
+    }
+    for ( const v of Object.values(tabs) ) {
+      v.active = this.tabGroups[v.group] === v.id;
+      v.cssClass = v.active ? "active" : "";
+    }
+    return tabs;
   }
 
   /* -------------------------------------------- */
@@ -85,7 +90,7 @@ export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
    * A custom form field widget used to render armor properties.
    */
   #propertiesWidget(field, groupConfig, inputConfig) {
-    const widget = ArmorSheet.#createElement("fieldset", {className: "item-fieldset item-properties"});
+    const widget = ArmorSheet.#createElement("fieldset", {className: "item-properties"});
     widget.appendChild(ArmorSheet.#createElement("legend", {innerText: field.label}));
     Object.entries(SYSTEM.ARMOR.PROPERTIES).map(([id, prop]) => {
       const f = new foundry.data.fields.BooleanField({label: prop.label}, {name: id, parent: field});
@@ -125,13 +130,13 @@ export default class ArmorSheet extends CrucibleSheetMixin(ItemSheet) {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  _getSubmitData(updateData={}) {
-    const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
-      if ( p[1] === true ) arr.push(p[0]);
-      return arr;
-    }, []);
-    return formData;
-  }
+  // TODO this needs to be made app v2 compatible
+  // _getSubmitData(updateData={}) {
+  //   const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
+  //   formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
+  //     if ( p[1] === true ) arr.push(p[0]);
+  //     return arr;
+  //   }, []);
+  //   return formData;
+  // }
 }

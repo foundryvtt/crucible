@@ -4,8 +4,8 @@
 /*  Armor and Weapons                        */
 /* ----------------------------------------- */
 
-.crucible-new.weapon,
-.crucible-new.armor {
+.crucible.weapon,
+.crucible.armor {
   .form-group.defense {
     .form-fields {
       flex: 8;
@@ -13,7 +13,8 @@
       grid-template-columns: 1fr 64px 1fr 64px;
     }
   }
-  .item-fieldset {
+  .item-properties,
+  .item-equipment {
     display: grid;
     gap: 0.5rem 1rem;
     label {
@@ -36,8 +37,8 @@
  *  Archetype Sheet                           *
  * ------------------------------------------ */
 
-.crucible-new.archetype,
-.crucible-new.taxonomy {
+.crucible.archetype,
+.crucible.taxonomy {
   .abilities {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -95,7 +96,7 @@
  *  Action Sheet                              *
  * ------------------------------------------ */
 
-.crucible-new.action {
+.crucible.action {
   button.delete-hook {
     width: 28px;
     line-height: 22px; // 28px height
@@ -107,7 +108,7 @@
  *  Talent Sheet                              *
  * ------------------------------------------ */
 
-.crucible-new.talent {
+.crucible.talent {
 
   // Delete Hook
   button.delete-hook {
@@ -130,7 +131,7 @@
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible-new.background {
+.crucible.background {
   .skills {
     .form-fields {
       flex-wrap: wrap;

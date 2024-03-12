@@ -10,7 +10,7 @@ export default class CrucibleJournalSheet extends CrucibleSheetMixin(JournalShee
   /** @override */
   static get defaultOptions() {
     const options = JournalSheet.defaultOptions;
-    options.classes.unshift("crucible-new", "journal-sheet");
+    options.classes.unshift("crucible", "journal-sheet");
     return options;
   }
 

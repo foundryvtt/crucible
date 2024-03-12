@@ -1,0 +1,122 @@
+
+/* ----------------------------------------- */
+/*  Application V2 Styles                    */
+/* ----------------------------------------- */
+
+.crucible.application {
+  background: var(--color-cool-5);
+
+  .window-header {
+    .window-title {
+      font-family: var(--font-h1);
+      color: var(--color-secondary);
+    }
+    .header-control {
+      color: var(--color-secondary);
+    }
+  }
+
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border: none;
+    object-fit: cover;
+    object-position: top right;
+  }
+
+  .window-content {
+    padding: 0;
+  }
+}
+
+/* ----------------------------------------- */
+/*  DocumentSheet V2 Styles                  */
+/* ----------------------------------------- */
+
+.crucible.sheet {
+
+  // Sheet Header
+  .sheet-header {
+    --sheet-header-height: 50px;
+    gap: 0.5rem;
+    padding: 1rem;
+
+    // Profile Image
+    img.profile {
+      flex: 0 0 var(--sheet-header-height);
+      width: var(--sheet-header-height);
+      height: var(--sheet-header-height);
+      margin: 0;
+      border: 1px solid var(--color-cool-5);
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    // Document Name
+    .title {
+      flex: 3;
+      height: var(--sheet-header-height);
+      border: none;
+      input {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0 0.5rem;
+        background: var(--color-cool-5-75); // TODO should this become "input standard"?
+        border-color: var(--color-cool-4);
+        border-radius: 4px;
+      }
+    }
+
+    // Document Tags
+    .header-tags {
+      flex: 0 0 100%;
+    }
+  }
+
+  // Sheet Tabs
+  nav.sheet-tabs {
+    margin: 0;
+    background: var(--color-cool-5-50);
+    border-color: var(--color-cool-4);
+    font-family: var(--font-h1);
+    font-size: var(--font-size-15);
+    color: var(--color-secondary);
+  }
+
+  // Sheet Body
+  .sheet-body {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  // Form Elements
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid var(--color-frame);
+    border-radius: 6px;
+    legend {
+      font-family: var(--font-h1);
+      font-size: var(--font-size-15);
+      color: var(--color-h1);
+    }
+  }
+
+  .form-group {
+    margin: 0;
+    &.slim {
+      .form-fields {
+        > label {
+          color: var(--color-secondary);
+        }
+        input {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
