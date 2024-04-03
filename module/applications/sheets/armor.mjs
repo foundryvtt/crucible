@@ -7,13 +7,16 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
     classes: ["armor"]
   };
 
-  static {
-    this.PARTS.config.template = `systems/crucible/templates/sheets/partials/armor-config.hbs`
-  }
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {
+    config: {
+      template: `systems/crucible/templates/sheets/partials/armor-config.hbs`
+    }
+  }, {inplace: false});
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     Object.assign(context, {
@@ -30,6 +33,8 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   /** @override */
   _getTabs() {
     const tabs = {
+      description: {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ARMOR.SHEET.DESCRIPTION",
+        active: false, cssClass: ""},
       config: {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ARMOR.SHEET.CONFIGURATION",
         active: false, cssClass: ""},
       actions: {id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ARMOR.SHEET.ACTIONS",
@@ -129,8 +134,8 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _prepareSubmitData(formData) {
-    const submitData = super._prepareSubmitData(formData);
+  _prepareSubmitData(_event, _form, formData) {
+    const submitData = foundry.utils.expandObject(formData.object);
     submitData.system.properties = Object.entries(submitData.system.properties).reduce((arr, p) => {
       if ( p[1] === true ) arr.push(p[0]);
       return arr;

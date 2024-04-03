@@ -129,13 +129,17 @@
     "Item": {
       "ancestry": {},
       "archetype": {},
-      "armor": {},
+      "armor": {
+        "htmlFields": ["description.public", "description.secret"]
+      },
       "background": {},
       "talent": {
         "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
       },
       "taxonomy": {},
-      "weapon": {}
+      "weapon": {
+        "htmlFields": ["description.public", "description.secret"]
+      }
     },
     "JournalEntryPage": {
       "skill": {}

@@ -1,24 +1,25 @@
-<section class="tab sheet-body flexcol {{tabs.actions.cssClass}}" data-tab="actions" data-group="sheet">
+<section class="tab sheet-body flexcol {{tabs.actions.cssClass}}"
+         data-tab="{{tabs.actions.id}}" data-group="{{tabs.actions.group}}">
     <fieldset>
         <legend>
-            <h3>Actions</h3>
+            <span>Actions</span>
             <a class="button icon" data-action="actionAdd" data-tooltip="TALENT.Actions.Add">
                 <i class="fa-solid fa-plus"></i>
             </a>
         </legend>
         {{#each actions as |action|}}
-            <div class="action line-item flexrow" data-action-id="{{action.id}}">
-                <img class="icon" src="{{action.img}}" alt="{{action.name}}">
-                <h4 class="title">{{action.name}}</h4>
-                <div class="controls">
-                    <a class="button icon" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit">
-                        <i class="fa-solid fa-edit"></i>
-                    </a>
-                    <a class="button icon" data-action="actionDelete" data-tooltip="TALENT.Actions.Delete">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </div>
+        <div class="action line-item flexrow" data-action-id="{{action.id}}">
+            <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+            <h4 class="title">{{action.name}}</h4>
+            <div class="controls">
+                <a class="button icon" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit">
+                    <i class="fa-solid fa-edit"></i>
+                </a>
+                <a class="button icon" data-action="actionDelete" data-tooltip="TALENT.Actions.Delete">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
             </div>
+        </div>
         {{/each}}
     </fieldset>
 </section>

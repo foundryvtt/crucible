@@ -16,7 +16,10 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       enchantment: new fields.StringField({required: true, choices: SYSTEM.ENCHANTMENT_TIERS, initial: "mundane"}),
       equipped: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
-      description: new fields.StringField(),
+      description: new fields.SchemaField({
+        public: new fields.HTMLField(),
+        secret: new fields.HTMLField()
+      }),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction))
     }
   }

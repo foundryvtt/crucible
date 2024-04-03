@@ -208,6 +208,7 @@
   "SHEET": {
     "CONFIGURATION": "Configuration",
     "ACTIONS": "Actions",
+    "DESCRIPTION": "Description",
     "DEFENSES": "Armor Defenses",
     "EQUIPMENT": "Equipment Details",
     "ARMOR_BONUS": "Armor Bonus",
@@ -351,7 +352,14 @@
       "label": "Item Properties"
     },
     "description": {
-      "label": "Description"
+      "public": {
+        "label": "Public Description",
+        "hint": "A description of this item which is visible to any user with at least OBSERVER permission."
+      },
+      "secret": {
+        "label": "Secret Description",
+        "hint": "A description of this item which is only visible to Gamemaster users."
+      }
     },
     "actions": {
       "label": "Item Actions"

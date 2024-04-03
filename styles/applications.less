@@ -4,9 +4,16 @@
 /* ----------------------------------------- */
 
 .crucible.application {
+  --color-header-background: transparent;
+  --color-form-label: var(--color-h1);
+  --color-form-label-hover: var(--color-primary);
+  --color-form-hint: var(--color-tertiary);
+  --color-form-hint-hover: var(--color-secondary);
   background: var(--color-cool-5);
+  gap: 0;
 
   .window-header {
+    border-bottom: none;
     .window-title {
       font-family: var(--font-h1);
       color: var(--color-secondary);
@@ -56,15 +63,16 @@
 
     // Document Name
     .title {
-      flex: 3;
       height: var(--sheet-header-height);
       border: none;
       input {
+        display: block;
         height: 100%;
         width: 100%;
         margin: 0;
         padding: 0 0.5rem;
-        background: var(--color-cool-5-75); // TODO should this become "input standard"?
+        font-size: var(--font-size-24);
+        background: var(--color-cool-5-75);
         border-color: var(--color-cool-4);
         border-radius: 4px;
       }
@@ -78,6 +86,7 @@
 
   // Sheet Tabs
   nav.sheet-tabs {
+    flex: 0 0 40px;
     margin: 0;
     background: var(--color-cool-5-50);
     border-color: var(--color-cool-4);
@@ -101,8 +110,8 @@
     border-radius: 6px;
     legend {
       font-family: var(--font-h1);
-      font-size: var(--font-size-15);
       color: var(--color-h1);
+      font-weight: normal;
     }
   }
 

@@ -5,7 +5,7 @@ const _apps = foundry.applications;
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
  */
-export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicationMixin(_apps.sheets.ItemSheetV2) {
+export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicationMixin(_apps.sheets.ItemSheet) {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -21,9 +21,7 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
       "actionEdit": CrucibleBaseItemSheet.#onActionEdit
     },
     form: {
-      handler: CrucibleBaseItemSheet.#onSubmit,
-      submitOnChange: true,
-      closeOnSubmit: false
+      submitOnChange: true
     }
   };
 
@@ -37,6 +35,10 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
       id: "tabs",
       template: "systems/crucible/templates/sheets/partials/item-tabs.hbs"
     },
+    description: {
+      id: "description",
+      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
+    },
     config: {
       id: "config",
       template: undefined // Populated by subclass
@@ -49,7 +51,7 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
 
   /** @override */
   tabGroups = {
-    sheet: "config"
+    sheet: "description"
   }
 
   /* -------------------------------------------- */
@@ -127,33 +129,6 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
-  /* -------------------------------------------- */
-
-  /**
-   * Process form submission for the sheet
-   * @this {CrucibleBaseItemSheet}                The handler is called with the application as its bound scope
-   * @param {SubmitEvent} event                   The originating form submission event
-   * @param {HTMLFormElement} form                The form element that was submitted
-   * @param {FormDataExtended} formData           Processed data for the submitted form
-   * @returns {Promise<void>}
-   */
-  static async #onSubmit(event, form, formData) {
-    const submitData = this._prepareSubmitData(formData);
-    await this.document.update(submitData);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare data used to update the Item upon form submission.
-   * @param {FormDataExtended} formData           Submitted form data
-   * @returns {object}                            Prepared submission data as an object
-   * @protected
-   */
-  _prepareSubmitData(formData) {
-    return foundry.utils.expandObject(formData.object);
-  }
-
   /* -------------------------------------------- */
 
   /**

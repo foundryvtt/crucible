@@ -639,7 +639,16 @@
 /*  Application V2 Styles                    */
 /* ----------------------------------------- */
 .crucible.application {
+  --color-header-background: transparent;
+  --color-form-label: var(--color-h1);
+  --color-form-label-hover: var(--color-primary);
+  --color-form-hint: var(--color-tertiary);
+  --color-form-hint-hover: var(--color-secondary);
   background: var(--color-cool-5);
+  gap: 0;
+}
+.crucible.application .window-header {
+  border-bottom: none;
 }
 .crucible.application .window-header .window-title {
   font-family: var(--font-h1);
@@ -678,15 +687,16 @@
   object-fit: contain;
 }
 .crucible.sheet .sheet-header .title {
-  flex: 3;
   height: var(--sheet-header-height);
   border: none;
 }
 .crucible.sheet .sheet-header .title input {
+  display: block;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0 0.5rem;
+  font-size: var(--font-size-24);
   background: var(--color-cool-5-75);
   border-color: var(--color-cool-4);
   border-radius: 4px;
@@ -695,6 +705,7 @@
   flex: 0 0 100%;
 }
 .crucible.sheet nav.sheet-tabs {
+  flex: 0 0 40px;
   margin: 0;
   background: var(--color-cool-5-50);
   border-color: var(--color-cool-4);
@@ -715,8 +726,8 @@
 }
 .crucible.sheet fieldset legend {
   font-family: var(--font-h1);
-  font-size: var(--font-size-15);
   color: var(--color-h1);
+  font-weight: normal;
 }
 .crucible.sheet .form-group {
   margin: 0;
@@ -1440,6 +1451,7 @@
 .crucible.weapon .item-equipment label,
 .crucible.armor .item-equipment label {
   font-size: var(--font-size-12);
+  font-weight: normal;
   color: var(--color-secondary);
 }
 .crucible.weapon .item-properties .form-fields,
