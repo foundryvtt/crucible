@@ -206,9 +206,6 @@
     "NATURAL": "Natural Armor"
   },
   "SHEET": {
-    "CONFIGURATION": "Configuration",
-    "ACTIONS": "Actions",
-    "DESCRIPTION": "Description",
     "DEFENSES": "Armor Defenses",
     "EQUIPMENT": "Equipment Details",
     "ARMOR_BONUS": "Armor Bonus",
@@ -364,6 +361,13 @@
     "actions": {
       "label": "Item Actions"
     }
+  },
+  "TABS": {
+    "CONFIGURATION": "Configuration",
+    "ACTIONS": "Actions",
+    "DESCRIPTION": "Description",
+    "PUBLIC": "Public Description",
+    "PRIVATE": "Private Description"
   }
 },
 

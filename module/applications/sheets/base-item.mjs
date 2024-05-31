@@ -1,18 +1,17 @@
 import ActionConfig from "../config/action.mjs";
-
-const _apps = foundry.applications;
+const {api, sheets} = foundry.applications;
 
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
  */
-export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicationMixin(_apps.sheets.ItemSheet) {
+export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemSheetV2) {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["crucible", "standard-form"],
     tag: "form",
     position: {
-      width: 520,
+      width: 560,
       height: "auto"
     },
     actions: {
@@ -33,7 +32,7 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
     },
     tabs: {
       id: "tabs",
-      template: "systems/crucible/templates/sheets/partials/item-tabs.hbs"
+      template: "templates/generic/tab-navigation.hbs"
     },
     description: {
       id: "description",
@@ -49,9 +48,21 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
     }
   }
 
+  static TABS = {
+    sheet: [
+      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.DESCRIPTION"},
+      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.CONFIGURATION"},
+    ],
+    description: [
+      {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
+      {id: "private", group: "description", label: "ITEM.TABS.PRIVATE"}
+    ]
+  }
+
   /** @override */
   tabGroups = {
-    sheet: "description"
+    sheet: "description",
+    description: "public"
   }
 
   /* -------------------------------------------- */
@@ -69,37 +80,49 @@ export default class CrucibleBaseItemSheet extends _apps.api.HandlebarsApplicati
 
   /** @override */
   async _prepareContext(options) {
-    const context = {
+    const tabGroups = this._getTabs();
+    return {
       item: this.document,
       source: this.document.toObject(),
       fields: this.document.system.schema.fields,
-      tabs: this._getTabs(),
+      tabGroups,
+      tabs: tabGroups.sheet,
+      tabsPartial: this.constructor.PARTS.tabs.template,
       tags: this.document.getTags()
     };
-    const actions = this.document.system.actions;
-    if ( actions ) context.actions = this.constructor.prepareActions(actions);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _preparePartContext(partId, context) {
+    switch ( partId ) {
+      case "actions":
+        const actions = this.document.system.actions;
+        if ( actions ) context.actions = this.constructor.prepareActions(actions);
+        break;
+    }
     return context;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * @typedef {Object} CrucibleSheetTab
-   * @property {string} id
-   * @property {string} group
-   * @property {string} icon
-   * @property {string} label
-   * @property {boolean} active
-   * @property {string} cssClass
-   */
-
-  /**
    * Configure the tabs used by this sheet, if any.
-   * @returns {Record<string, CrucibleSheetTab>}
+   * @returns {Record<string, Record<string, ApplicationTab>>}
    * @protected
    */
   _getTabs() {
-    return {}
+    const tabs = {};
+    for ( const [groupId, config] of Object.entries(this.constructor.TABS) ) {
+      const group = {};
+      for ( const t of config ) {
+        const active = this.tabGroups[t.group] === t.id;
+        group[t.id] = Object.assign({active, cssClass: active ? "active" : ""}, t);
+      }
+      tabs[groupId] = group;
+    }
+    return tabs;
   }
 
   /* -------------------------------------------- */

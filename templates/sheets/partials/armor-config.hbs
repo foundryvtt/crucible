@@ -1,4 +1,5 @@
-<section class="tab sheet-body flexcol {{tabs.config.cssClass}}" data-tab="config" data-group="sheet">
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset>
         <legend>{{localize "ARMOR.SHEET.TYPE"}}</legend>
         {{formField fields.category value=source.system.category}}

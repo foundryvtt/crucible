@@ -1,5 +1,16 @@
 <section class="tab sheet-body flexcol {{tabs.description.cssClass}}"
          data-tab="{{tabs.description.id}}" data-group="{{tabs.description.group}}">
-    {{formField fields.description.fields.public value=source.system.description.public height=200 stacked=true toggled=true}}
-    {{formField fields.description.fields.secret value=source.system.description.secret height=200 stacked=true toggled=true}}
+    {{> (lookup @root "tabsPartial") tabs=tabGroups.description }}
+
+    <section class="tab flexcol {{tabGroups.description.public.cssClass}}"
+            data-tab="{{tabGroups.description.public.id}}" data-group="{{tabGroups.description.public.group}}">
+        {{formInput fields.description.fields.public value=source.system.description.public height=300}}
+        <p class="hint">{{fields.description.fields.public.hint}}</p>
+    </section>
+
+    <section class="tab flexcol {{tabGroups.description.private.cssClass}}"
+             data-tab="{{tabGroups.description.private.id}}" data-group="{{tabGroups.description.private.group}}">
+        {{formInput fields.description.fields.secret value=source.system.description.secret height=300}}
+        <p class="hint">{{fields.description.fields.secret.hint}}</p>
+    </section>
 </section>

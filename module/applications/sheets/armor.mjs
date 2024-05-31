@@ -14,6 +14,12 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
     }
   }, {inplace: false});
 
+  /** @inheritDoc */
+  static TABS = foundry.utils.deepClone(super.TABS);
+  static {
+    this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"})
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -26,25 +32,6 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
       scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")})
     });
     return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _getTabs() {
-    const tabs = {
-      description: {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ARMOR.SHEET.DESCRIPTION",
-        active: false, cssClass: ""},
-      config: {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ARMOR.SHEET.CONFIGURATION",
-        active: false, cssClass: ""},
-      actions: {id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ARMOR.SHEET.ACTIONS",
-        active: false, cssClass: ""}
-    }
-    for ( const v of Object.values(tabs) ) {
-      v.active = this.tabGroups[v.group] === v.id;
-      v.cssClass = v.active ? "active" : "";
-    }
-    return tabs;
   }
 
   /* -------------------------------------------- */
@@ -126,7 +113,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
     widget.appendChild(ArmorSheet.#createElement("label", {innerText: field.label}));
     const fields = widget.appendChild(ArmorSheet.#createElement("div", {className: "form-fields"}));
     fields.appendChild(ArmorSheet.#createElement("label", {innerText: field.fields.base.label}));
-    fields.appendChild(field.fields.base.toInput({value: inputConfig.value.base, min: config.min,
+    fields.appendChild(foundry.applications.fields.createNumberInput({value: inputConfig.value.base, min: config.min,
       max: config.max, step: 1}));
     return {widget, fields}
   }

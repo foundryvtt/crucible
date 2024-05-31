@@ -313,107 +313,6 @@
     color: var(--color-text);
     border-color: var(--color-frame);
   }
-
-  // Form Hints
-  form .hint {
-    margin: 0;
-    color: var(--color-tertiary);
-  }
-
-  // Buttons
-  a.button {
-    flex: none;
-  }
-  // TODO: should be core styles
-  button.icon,
-  a.button.icon {
-    flex: none;
-    > i {
-      margin: 0;
-    }
-  }
-}
-
-/* ----------------------------------------- */
-/*  Early Adoption of V2 Theme Rules         */
-/* ----------------------------------------- */
-
-.crucible {
-  // Checkboxes
-  input[type="checkbox"] {
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    &:disabled {
-      cursor: initial;
-    }
-    &:focus {
-      color: inherit;
-      outline: none;
-    }
-    &:focus-visible::before {
-      outline: 2px solid var(--color-accent);
-    }
-    &:checked:focus-visible::before {
-      outline: 2px solid var(--color-accent);
-    }
-    &::before {
-      font-family: var(--font-awesome);
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--color-frame);
-      content: "\f0c8";
-      border-radius: 3px;
-      width: 20px;
-      height: 20px;
-      flex: 0 0 20px;
-      outline: 1px solid transparent;
-      transition: outline-color .5s;
-    }
-    &:checked::before {
-      color: var(--color-accent);
-      font-weight: bold;
-      content: "\f14a";
-    }
-    &:disabled::before {
-      color: var(--color-frame);
-    }
-  }
-
-  /** Labeled Checkboxes */
-  label.checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0;
-    margin: 0;
-    font-size: var(--font-size-12);
-
-    > input[type="checkbox"] {
-      position: unset;
-      height: 100%;
-    }
-  }
-
-  // Placeholder images
-  figure.placeholder {
-    position: relative;
-    &::after {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      content: "PLACEHOLDER";
-      color: white;
-      text-shadow: 1px 1px #000;
-      font-size: 24px;
-    }
-  }
 }
 
 /* ----------------------------------------- */
@@ -498,29 +397,6 @@
         }
       }
     }
-  }
-
-  // TODO this should be core V2 styles?
-  fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border: 1px solid var(--color-frame);
-    border-radius: 6px;
-    legend {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0 0.5rem;
-      h3 {
-        display: inline;
-        margin: 0;
-      }
-    }
-  }
-
-  .sheet-footer {
-    margin-top: 1rem;
   }
 
   /** Line Items - Actions, Talents, etc... */

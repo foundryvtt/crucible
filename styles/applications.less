@@ -86,19 +86,31 @@
 
   // Sheet Tabs
   nav.sheet-tabs {
-    flex: 0 0 40px;
     margin: 0;
-    background: var(--color-cool-5-50);
     border-color: var(--color-cool-4);
     font-family: var(--font-h1);
-    font-size: var(--font-size-15);
     color: var(--color-secondary);
+    > a {
+      cursor: pointer; // FIXME should this be core?
+    }
   }
 
   // Sheet Body
   .sheet-body {
     padding: 1rem;
     gap: 1rem;
+  }
+
+  // Description tab specifically
+  .tab[data-tab=description] {
+    padding: 0;
+    gap: 0;
+    .sheet-tabs {
+      border-top: none;
+    }
+    section.tab {
+      padding: 1rem;
+    }
   }
 
   // Form Elements
