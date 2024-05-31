@@ -170,6 +170,11 @@
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
+"ACTION.ACTIONS": {
+  "DELETE": "Delete Action: {name}",
+  "DELETE_CONFIRM": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?"
+},
+
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 

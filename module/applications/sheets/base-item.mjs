@@ -1,4 +1,3 @@
-import ActionConfig from "../config/action.mjs";
 const {api, sheets} = foundry.applications;
 
 /**
@@ -154,6 +153,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
+  #getSubmitData(event) {
+    const fd = new FormDataExtended(this.element);
+    return this._prepareSubmitData(event, this.element, fd);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Add a new Action to the Item.
    * @this {CrucibleBaseItemSheet}
@@ -161,26 +167,25 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #onActionAdd(event) {
-    // TODO
-    // const fd = this._getSubmitData({});
-    // const actions = this.object.toObject().system.actions;
-    //
-    // // Create a new Action
-    // const suffix = actions.length ? actions.length + 1 : "";
-    // const actionData = {id: game.system.api.methods.generateId(this.object.name)};
-    // if ( actions.length ) {
-    //   actionData.id += suffix;
-    //   actionData.name = `${this.object.name} ${suffix}`
-    // }
-    // const action = new game.system.api.models.CrucibleAction(actionData, {parent: this.object.system});
-    //
-    // // Update the Talent
-    // actions.push(action.toObject());
-    // fd.system.actions = actions;
-    // await this._updateObject(event, fd);
-    //
-    // // Render the action configuration sheet
-    // await (new ActionConfig(action)).render(true);
+    const fd = this.#getSubmitData(event);
+    const actions = this.document.system.toObject().actions;
+
+    // Configure Action data
+    const suffix = actions.length ? actions.length + 1 : "";
+    const actionData = {id: crucible.api.methods.generateId(this.document.name)};
+    if ( actions.length ) {
+      actionData.id += suffix;
+      actionData.name = `${this.object.name} ${suffix}`
+    }
+
+    // Add data to the actions array
+    actions.push(crucible.api.models.CrucibleAction.cleanData(actionData));
+    fd.system.actions = actions;
+    await this.document.update(fd);
+
+    // Render the action configuration sheet
+    const action = this.document.actions.find(a => a.id === actionData.id);
+    await action.sheet.render(true);
   }
 
   /* -------------------------------------------- */
@@ -193,20 +198,29 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #onActionDelete(event, button) {
-    // TODO
-  //   const actionId = button.closest(".action").dataset.actionId;
-  //   const actions = this.object.toObject().system.actions;
-  //   const action = actions.findSplice(a => a.id === actionId);
-  //   const confirm = await Dialog.confirm({
-  //     title: `
-  // }Delete Action: ${action.name}`,
-  //     content: `<p>Are you sure you wish to delete the <strong>${action.name}</strong> action from the <strong>${this.object.name}</strong> Talent?</p>`
-  //   });
-  //   if ( confirm ) {
-  //     const fd = this._getSubmitData({});
-  //     fd.system.actions = actions;
-  //     await this._updateObject(event, fd);
-  //   }
+    const actionId = button.closest(".action").dataset.actionId;
+    const idx = this.document.system.actions.findIndex(a => a.id === actionId);
+    const action = this.document.system.actions[idx];
+    if ( !action ) throw new Error(`Invalid Action id "${actionId}" requested for deletion`);
+
+    // Prompt for confirmation
+    const confirm = await api.DialogV2.confirm({
+      title: game.i18n.format("ACTION.ACTIONS.DELETE", {name: action.name}),
+      content: `<p>${game.i18n.format("ACTION.ACTIONS.DELETE_CONFIRM", {
+        name: action.name, 
+        parent: this.document.name,
+        type: game.i18n.localize(CONFIG.Item.typeLabels[this.document.type])
+      })}</p>`
+    });
+    if ( !confirm ) return;
+    if ( action.sheet.rendered ) action.sheet.close();
+
+    // Remove the action and save
+    const fd = this.#getSubmitData(event);
+    const actions = this.document.system.toObject().actions;
+    actions.splice(idx, 1);
+    fd.system.actions = actions;
+    await this.document.update(fd);
   }
 
   /* -------------------------------------------- */
@@ -221,6 +235,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   static async #onActionEdit(event, button) {
     const actionId = button.closest(".action").dataset.actionId;
     const action = this.document.system.actions.find(a => a.id === actionId);
-    await (new ActionConfig(action)).render(true);
+    await action.sheet.render(true);
   }
 }

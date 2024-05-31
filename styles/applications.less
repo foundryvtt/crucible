@@ -140,4 +140,38 @@
       }
     }
   }
+
+  /** Line Items - Actions, Talents, etc... */
+  .line-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    > header {
+      gap: 0.5rem;
+    }
+    img.icon {
+      height: 48px;
+      width: 48px;
+      flex: 0 0 48px;
+    }
+    .title {
+      margin: 0;
+      font-size: var(--font-size-16);
+      color: var(--color-text);
+    }
+    .description {
+      font-size: var(--font-size-14);
+    }
+    .controls {
+      flex: none;
+      display: flex;
+      gap: 0.5rem;
+      font-size: var(--font-size-14);
+      color: var(--color-secondary);
+    }
+    .header-tags {
+      gap: 0.5rem;
+    }
+  }
 }

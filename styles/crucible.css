@@ -331,7 +331,6 @@
   overflow: hidden;
   background: url("../ui/journal/background.png");
   border-radius: 12px;
-  /** Line Items - Actions, Talents, etc... */
 }
 .crucible.window-app .background-overlay {
   position: absolute;
@@ -397,37 +396,6 @@
 }
 .crucible.window-app .sheet-body.flexcol .form-group.slim .form-fields input {
   text-align: center;
-}
-.crucible.window-app .line-item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
-}
-.crucible.window-app .line-item > header {
-  gap: 0.5rem;
-}
-.crucible.window-app .line-item img.icon {
-  height: 48px;
-  width: 48px;
-  flex: 0 0 48px;
-}
-.crucible.window-app .line-item .title {
-  color: var(--color-text);
-  margin: 0;
-}
-.crucible.window-app .line-item .description {
-  font-size: var(--font-size-14);
-}
-.crucible.window-app .line-item .controls {
-  flex: none;
-  display: flex;
-  gap: 0.5rem;
-  font-size: var(--font-size-14);
-  color: var(--color-secondary);
-}
-.crucible.window-app .line-item .header-tags {
-  gap: 0.5rem;
 }
 /* Tooltips */
 #crucible-tooltip,
@@ -558,6 +526,9 @@
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
 /* ----------------------------------------- */
+.crucible.sheet {
+  /** Line Items - Actions, Talents, etc... */
+}
 .crucible.sheet .sheet-header {
   --sheet-header-height: 50px;
   gap: 0.5rem;
@@ -633,6 +604,38 @@
 }
 .crucible.sheet .form-group.slim .form-fields input {
   text-align: center;
+}
+.crucible.sheet .line-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+.crucible.sheet .line-item > header {
+  gap: 0.5rem;
+}
+.crucible.sheet .line-item img.icon {
+  height: 48px;
+  width: 48px;
+  flex: 0 0 48px;
+}
+.crucible.sheet .line-item .title {
+  margin: 0;
+  font-size: var(--font-size-16);
+  color: var(--color-text);
+}
+.crucible.sheet .line-item .description {
+  font-size: var(--font-size-14);
+}
+.crucible.sheet .line-item .controls {
+  flex: none;
+  display: flex;
+  gap: 0.5rem;
+  font-size: var(--font-size-14);
+  color: var(--color-secondary);
+}
+.crucible.sheet .line-item .header-tags {
+  gap: 0.5rem;
 }
 /* ----------------------------------------- */
 /*  Actor Sheet                              */

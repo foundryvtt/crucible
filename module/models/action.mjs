@@ -1,5 +1,6 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
+import ActionConfig from "../applications/config/action.mjs";
 
 /**
  * @typedef {Object} ActionContext
@@ -147,6 +148,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {typeof ActionUseDialog}
    */
   static dialogClass = ActionUseDialog;
+
+  /**
+   * A sheet used to configure this Action.
+   * @returns {*}
+   */
+  get sheet() {
+    this.#sheet ||= new ActionConfig(this);
+    return this.#sheet;
+  }
+
+  #sheet;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
