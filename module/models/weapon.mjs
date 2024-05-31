@@ -8,21 +8,16 @@ import Enum from "../config/enum.mjs";
 export default class CrucibleWeapon extends CruciblePhysicalItem {
 
   /** @override */
+  static ITEM_CATEGORIES = SYSTEM.WEAPON.CATEGORIES;
+
+  /** @override */
   static DEFAULT_CATEGORY = "simple1";
 
   /** @override */
   static ITEM_PROPERTIES = SYSTEM.WEAPON.PROPERTIES;
 
-  /**
-   * Designate which equipped slot the weapon is used in.
-   * @enum {Readonly<number>}
-   */
-  static WEAPON_SLOTS = new Enum({
-    EITHER: {value: 0, label: "WEAPON.SLOTS.EITHER"},
-    MAINHAND: {value: 1, label: "WEAPON.SLOTS.MAINHAND"},
-    OFFHAND: {value: 2, label: "WEAPON.SLOTS.OFFHAND"},
-    TWOHAND: {value: 3, label: "WEAPON.SLOTS.TWOHAND"},
-  });
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ITEM", "WEAPON"];
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -34,7 +29,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
     return foundry.utils.mergeObject(super.defineSchema(), {
       damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
       loaded: new fields.BooleanField({required: false, initial: undefined}),
-      slot: new fields.NumberField({required: true, choices: Object.values(CrucibleWeapon.WEAPON_SLOTS), initial: 0}),
+      slot: new fields.NumberField({required: true, choices: () => SYSTEM.WEAPON.SLOTS.choices, initial: 0}),
       animation: new fields.StringField({required: false, choices: SYSTEM.WEAPON.ANIMATION_TYPES, initial: undefined})
     });
   }
@@ -100,6 +95,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
 
     // Weapon Configuration
     this.config = {category, quality, enchantment};
+    this.rarity = quality.rarity + enchantment.rarity;
 
     // Equipment Slot
     const allowedSlots = this.getAllowedEquipmentSlots();
@@ -113,10 +109,6 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
 
     // Weapon Range
     this.range = this.#prepareRange();
-
-    // Weapon Rarity Score
-    this.rarity = quality.rarity + enchantment.rarity;
-    this.price = this.price * Math.max(Math.pow(this.rarity, 3), 1);
 
     // Action bonuses and cost
     this.actionBonuses = this.parent.actor ? {
@@ -134,7 +126,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
     }
 
     // Versatile Two-Handed
-    if ( this.properties.has("versatile") && this.slot === CrucibleWeapon.WEAPON_SLOTS.TWOHAND ) {
+    if ( this.properties.has("versatile") && this.slot === SYSTEM.WEAPON.SLOTS.TWOHAND ) {
       this.damage.base += 2;
       this.actionCost += 1;
     }
@@ -142,9 +134,14 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
   prepareDerivedData() {
     this.damage.weapon = this.damage.base + this.damage.quality;
-    if ( this.broken ) this.damage.weapon = Math.floor(this.damage.weapon / 2);
+    if ( this.broken ) {
+      this.damage.weapon = Math.floor(this.damage.weapon / 2);
+      this.rarity -= 2;
+    }
+    this.price = this._preparePrice();
 
   }
 
@@ -270,7 +267,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
    * @returns {number[]}
    */
   getAllowedEquipmentSlots() {
-    const SLOTS = this.constructor.WEAPON_SLOTS;
+    const SLOTS = SYSTEM.WEAPON.SLOTS;
     const category = this.config.category;
     const slots = [];
     if ( category.main ) {
@@ -303,7 +300,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
     tags.category = category.label;
 
     // Equipment Slot
-    const slotKey = Object.entries(CrucibleWeapon.WEAPON_SLOTS).find(([k, v]) => v === this.slot)[0];
+    const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
     tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
 
     // Weapon Properties

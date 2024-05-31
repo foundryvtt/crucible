@@ -47,10 +47,14 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     }
   }
 
+  /**
+   * Define the structure of tabs used by this Item Sheet.
+   * @type {Record<string, Record<string, ApplicationTab>>}
+   */
   static TABS = {
     sheet: [
       {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.DESCRIPTION"},
-      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.CONFIGURATION"},
+      {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.CONFIGURATION"}
     ],
     description: [
       {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
@@ -147,6 +151,22 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         }
       }))
     }));
+  }
+
+  /* -------------------------------------------- */
+  /*  HTML Rendering Helpers
+  /* -------------------------------------------- */
+
+  /**
+   * A helper for quickly creating HTML elements.
+   * @returns {HTMLElement}
+   * @internal
+   */
+  static _createElement(tagName, {innerText, className}={}) {
+    const el = document.createElement(tagName);
+    if ( innerText ) el.innerText = innerText;
+    if ( className ) el.className = className;
+    return el;
   }
 
   /* -------------------------------------------- */

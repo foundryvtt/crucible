@@ -533,52 +533,80 @@
 "TAXONOMY.CategoryOutsider": "Outsider",
 "TAXONOMY.CategoryUndead": "Undead",
 
-"WEAPON.Light1": "Light (1h)",
-"WEAPON.Simple1": "Simple (1h)",
-"WEAPON.Balanced1": "Balanced (1h)",
-"WEAPON.Heavy1": "Heavy (1h)",
-"WEAPON.Simple2": "Simple (2h)",
-"WEAPON.Balanced2": "Balanced (2h)",
-"WEAPON.Heavy2": "Heavy (2h)",
-"WEAPON.Projectile1": "Projectile (1h)",
-"WEAPON.Projectile2": "Projectile (2h)",
-"WEAPON.Mechanical1": "Mechanical (1h)",
-"WEAPON.Mechanical2": "Mechanical (2h)",
-"WEAPON.Natural": "Natural",
-"WEAPON.Unarmed": "Unarmed",
-"WEAPON.ShieldLight": "Light Shield",
-"WEAPON.ShieldHeavy": "Heavy Shield",
-"WEAPON.Talisman1": "Talisman (1h)",
-"WEAPON.Talisman2": "Talisman (2h)",
-
-"WEAPON.TagAmbush": "Ambush",
-"WEAPON.TagAmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
-"WEAPON.TagBlocking": "Blocking",
-"WEAPON.TagBlockingTooltip": "This weapon provides a bonus to your Block defense.",
-"WEAPON.TagEngaging": "Engaging",
-"WEAPON.TagEngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
-"WEAPON.TagKeen": "Keen",
-"WEAPON.TagKeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
-"WEAPON.TagOversized": "Oversized",
-"WEAPON.TagOversizedTooltip": "This item is over-sized or otherwise cumbersome to wield, preventing you from acting quickly. You have +2 banes to Initiative while this item is equipped.",
-"WEAPON.TagParrying": "Parrying",
-"WEAPON.TagParryingTooltip": "This weapon provides a bonus to your Parry defense.",
-"WEAPON.TagReach": "Reach",
-"WEAPON.TagReachTooltip": "This weapon provides a larger than normal effective range. You are able to perform basic Strike attacks at twice your normal range.",
-"WEAPON.TagReload": "Reload",
-"WEAPON.TagReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
-"WEAPON.TagReliable": "Reliable",
-"WEAPON.TagReliableTooltip": "This weapon is trustworthy and almost never produces spectacularly bad outcomes. The critical failure threshold of the weapon is reduced by 2 making it less likely that unsuccessful Strikes yield a critical miss.",
-"WEAPON.TagThrown": "Thrown",
-"WEAPON.TagThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
-"WEAPON.TagVersatile": "Versatile",
-"WEAPON.TagVersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
-"WEAPON.TagDamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier.",
-
-"WEAPON.SLOTS.EITHER": "Either Hand",
-"WEAPON.SLOTS.MAINHAND": "Main-Hand",
-"WEAPON.SLOTS.OFFHAND": "Off-Hand",
-"WEAPON.SLOTS.TWOHAND": "Two-Handed",
+"WEAPON": {
+  "CATEGORIES": {
+    "LIGHT1": "Light (1h)",
+    "SIMPLE1": "Simple (1h)",
+    "BALANCED1": "Balanced (1h)",
+    "HEAVY1": "Heavy (1h)",
+    "SIMPLE2": "Simple (2h)",
+    "BALANCED2": "Balanced (2h)",
+    "HEAVY2": "Heavy (2h)",
+    "PROJECTILE1": "Projectile (1h)",
+    "PROJECTILE2": "Projectile (2h)",
+    "MECHANICAL1": "Mechanical (1h)",
+    "MECHANICAL2": "Mechanical (2h)",
+    "NATURAL": "Natural",
+    "UNARMED": "Unarmed",
+    "SHIELD_LIGHT": "Light Shield",
+    "SHIELD_HEAVY": "Heavy Shield",
+    "TALISMAN1": "Talisman (1h)",
+    "TALISMAN2": "Talisman (2h)"
+  },
+  "FIELDS": {
+    "damageType": {
+      "label": "Damage Type",
+      "hint": "Configure the type of damage dealt by this weapon."
+    },
+    "loaded": {
+      "label": "Loaded",
+      "hint": "If this weapon requires loading, track whether it is currently loaded."
+    },
+    "slot": {
+      "label": "Equipped Slot",
+      "hint": "Specify which equipment slot this weapon is equipped in."
+    },
+    "animation": {
+      "label": "Weapon Animation Prefix",
+      "hint": "If using Crucible with JB2A animation integration, specify which animation prefix is used for this weapon."
+    }
+  },
+  "TAGS": {
+    "Ambush": "Ambush",
+    "AmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
+    "Blocking": "Blocking",
+    "BlockingTooltip": "This weapon provides a bonus to your Block defense.",
+    "Engaging": "Engaging",
+    "EngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
+    "Keen": "Keen",
+    "KeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
+    "Oversized": "Oversized",
+    "OversizedTooltip": "This item is over-sized or otherwise cumbersome to wield, preventing you from acting quickly. You have +2 banes to Initiative while this item is equipped.",
+    "Parrying": "Parrying",
+    "ParryingTooltip": "This weapon provides a bonus to your Parry defense.",
+    "Reach": "Reach",
+    "ReachTooltip": "This weapon provides a larger than normal effective range. You are able to perform basic Strike attacks at twice your normal range.",
+    "Reload": "Reload",
+    "ReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
+    "Reliable": "Reliable",
+    "ReliableTooltip": "This weapon is trustworthy and almost never produces spectacularly bad outcomes. The critical failure threshold of the weapon is reduced by 2 making it less likely that unsuccessful Strikes yield a critical miss.",
+    "Thrown": "Thrown",
+    "ThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
+    "Versatile": "Versatile",
+    "VersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
+    "DamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier."
+  },
+  "SHEET": {
+    "EQUIPMENT": "Weapon Details",
+    "TYPE": "Weapon Type"
+  },
+  "SLOTS": {
+    "EITHER": "Either Hand",
+    "MAINHAND": "Main-Hand",
+    "OFFHAND": "Off-Hand",
+    "TWOHAND": "Two-Handed"
+  }
+},
 
 "WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
 "WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",

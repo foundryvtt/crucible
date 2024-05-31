@@ -371,7 +371,7 @@ export default class CrucibleActor extends Actor {
 
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: []};
-    const slots = CrucibleWeapon.WEAPON_SLOTS;
+    const slots = SYSTEM.WEAPON.SLOTS;
     for ( let w of weaponItems ) {
       const {equipped, slot} = w.system;
       if ( !equipped ) continue;
@@ -1881,7 +1881,7 @@ export default class CrucibleActor extends Actor {
    * Equip an owned weapon Item.
    * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
    * @param {object} [options]    Options which configure how the weapon is equipped.
-   * @param {number} [options.slot]       A specific equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @param {number} [options.slot]       A specific equipment slot in SYSTEM.WEAPON.SLOTS
    * @param {boolean} [options.equipped]  Whether the weapon should be equipped (true) or unequipped (false)
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
@@ -1926,12 +1926,12 @@ export default class CrucibleActor extends Actor {
   /**
    * Identify updates which should be made when equipping a weapon.
    * @param {CrucibleItem} weapon     A weapon being equipped
-   * @param {number} slot             A requested equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
    * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
    */
   #equipWeapon(weapon, slot) {
     const category = weapon.config.category;
-    const slots = CrucibleWeapon.WEAPON_SLOTS;
+    const slots = SYSTEM.WEAPON.SLOTS;
     const {mainhand, offhand} = this.equipment.weapons;
 
     // Identify the target equipment slot

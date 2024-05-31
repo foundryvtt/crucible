@@ -22,15 +22,20 @@
       font-weight: normal;
       color: var(--color-secondary);
     }
-    .form-fields {
-      flex: 0;
-    }
   }
   .item-properties {
-    grid-template-columns: repeat(4, 1fr);
+    multi-checkbox {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
   .item-equipment {
     grid-template-columns: repeat(2, 1fr);
+    .slot {
+      grid-column: 1 / span 2;
+    }
+    .reload {
+      grid-column: 2;
+    }
   }
 }
 

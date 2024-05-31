@@ -56,5 +56,17 @@
   --font-size-15: 0.9375rem;
 
   // Form Styles
-  --color-fieldset-border: #3f3128;
+  input, select {
+    --input-background-color: var(--color-frame-bg);
+    --input-border-color: var(--color-frame);
+    --input-text-color: var(--color-text);
+    --color-select-option-bg:  var(--color-frame);
+    &:focus {
+      --input-text-color: var(--color-text);
+    }
+    &:disabled {
+      --input-text-color: var(--color-secondary);
+    }
+  }
+  --color-fieldset-border: var(--color-frame);
 }

@@ -47,7 +47,22 @@
   --font-quote: "CaslonAntique", serif;
   --font-sans: "Signika", sans-serif;
   --font-size-15: 0.9375rem;
-  --color-fieldset-border: #3f3128;
+  --color-fieldset-border: var(--color-frame);
+}
+.crucible input,
+.crucible select {
+  --input-background-color: var(--color-frame-bg);
+  --input-border-color: var(--color-frame);
+  --input-text-color: var(--color-text);
+  --color-select-option-bg: var(--color-frame);
+}
+.crucible input:focus,
+.crucible select:focus {
+  --input-text-color: var(--color-text);
+}
+.crucible input:disabled,
+.crucible select:disabled {
+  --input-text-color: var(--color-secondary);
 }
 /** ----------------------------------------- *
  *  Crucible V2 Styles                        *
@@ -299,30 +314,11 @@
 }
 .crucible textarea {
   padding: 0.5rem;
-  background: var(--color-frame-bg);
   border: 1px solid var(--color-frame);
   border-radius: 8px;
   font-family: var(--font-body);
   font-size: var(--font-size-15);
   color: var(--color-text);
-}
-.crucible select {
-  background: var(--color-frame);
-  color: var(--color-text);
-  border: none;
-}
-.crucible select::selection {
-  background: var(--color-frame);
-}
-.crucible input[type="text"],
-.crucible input[type="number"],
-.crucible input[type="password"],
-.crucible input[type="date"],
-.crucible input[type="time"],
-.crucible input[type="search"] {
-  background: var(--color-frame-bg);
-  color: var(--color-text);
-  border-color: var(--color-frame);
 }
 /* ----------------------------------------- */
 /*  Application V1 Styles - DEPRECATE        */
@@ -1353,19 +1349,21 @@
   font-weight: normal;
   color: var(--color-secondary);
 }
-.crucible.weapon .item-properties .form-fields,
-.crucible.armor .item-properties .form-fields,
-.crucible.weapon .item-equipment .form-fields,
-.crucible.armor .item-equipment .form-fields {
-  flex: 0;
-}
-.crucible.weapon .item-properties,
-.crucible.armor .item-properties {
+.crucible.weapon .item-properties multi-checkbox,
+.crucible.armor .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
 }
 .crucible.weapon .item-equipment,
 .crucible.armor .item-equipment {
   grid-template-columns: repeat(2, 1fr);
+}
+.crucible.weapon .item-equipment .slot,
+.crucible.armor .item-equipment .slot {
+  grid-column: 1 / span 2;
+}
+.crucible.weapon .item-equipment .reload,
+.crucible.armor .item-equipment .reload {
+  grid-column: 2;
 }
 /** ----------------------------------------- *
  *  Archetype Sheet                           *

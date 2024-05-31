@@ -1,5 +1,8 @@
 import CrucibleBaseItemSheet from "./base-item.mjs";
 
+/**
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "armor" type.
+ */
 export default class ArmorSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
@@ -8,11 +11,9 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   };
 
   /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    config: {
-      template: `systems/crucible/templates/sheets/partials/armor-config.hbs`
-    }
-  }, {inplace: false});
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {config: {
+    template: `systems/crucible/templates/sheets/partials/armor-config.hbs`
+  }}, {inplace: false});
 
   /** @inheritDoc */
   static TABS = foundry.utils.deepClone(super.TABS);
@@ -42,7 +43,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   #armorWidget(field, groupConfig, inputConfig) {
     const config = this.document.system.config.category.armor;
     const {widget, fields} = ArmorSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
-    fields.appendChild(ArmorSheet.#createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.ARMOR_BONUS")}));
+    fields.appendChild(ArmorSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.ARMOR_BONUS")}));
     const armorBonus = this.document.system.armor.bonus;
     fields.appendChild(foundry.applications.fields.createNumberInput({value: armorBonus, disabled: true}));
     return widget;
@@ -56,7 +57,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   #dodgeWidget(field, groupConfig, inputConfig) {
     const config = this.document.system.config.category.dodge;
     const {widget, fields} = ArmorSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
-    fields.appendChild(ArmorSheet.#createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.DODGE_SCALING")}));
+    fields.appendChild(ArmorSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.DODGE_SCALING")}));
     const dodgeStart = `${this.document.system.dodge.start} ${crucible.CONST.ABILITIES.dexterity.abbreviation}`;
     fields.appendChild(foundry.applications.fields.createTextInput({value: dodgeStart, disabled: true}));
     return widget;
@@ -65,41 +66,14 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   /* -------------------------------------------- */
 
   /**
-   * A custom status checkbox widget.
-   */
-  #statusWidget(field, groupConfig, inputConfig) {
-    const checkbox = document.createElement("label");
-    checkbox.className = "checkbox";
-    checkbox.replaceChildren(field.toInput(inputConfig), document.createTextNode(field.label));
-    return checkbox;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * A custom form field widget used to render armor properties.
+   * Render the properties field as a multi-checkboxes element.
+   * @returns {HTMLMultiCheckboxElement}
    */
   #propertiesWidget(field, groupConfig, inputConfig) {
-    const widget = ArmorSheet.#createElement("fieldset", {className: "item-properties"});
-    widget.appendChild(ArmorSheet.#createElement("legend", {innerText: field.label}));
-    Object.entries(SYSTEM.ARMOR.PROPERTIES).map(([id, prop]) => {
-      const f = new foundry.data.fields.BooleanField({label: prop.label}, {name: id, parent: field});
-      widget.appendChild(this.#statusWidget(f, {}, {value: inputConfig.value.has(id)}));
-    });
-    return widget;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * A helper for quickly creating HTML elements.
-   * @returns {HTMLElement}
-   */
-  static #createElement(tagName, {innerText, className}={}) {
-    const el = document.createElement(tagName);
-    if ( innerText ) el.innerText = innerText;
-    if ( className ) el.className = className;
-    return el;
+    inputConfig.name = field.fieldPath;
+    inputConfig.options = Object.entries(SYSTEM.ARMOR.PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
+    inputConfig.type = "checkboxes";
+    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 
   /* -------------------------------------------- */
@@ -109,24 +83,12 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
    * @returns {widget: HTMLDivElement, fields: HTMLDivElement}
    */
   static #createDefenseWidget(field, groupConfig, inputConfig, config) {
-    const widget = ArmorSheet.#createElement("div", {className: "form-group slim defense"});
-    widget.appendChild(ArmorSheet.#createElement("label", {innerText: field.label}));
-    const fields = widget.appendChild(ArmorSheet.#createElement("div", {className: "form-fields"}));
-    fields.appendChild(ArmorSheet.#createElement("label", {innerText: field.fields.base.label}));
+    const widget = ArmorSheet._createElement("div", {className: "form-group slim defense"});
+    widget.appendChild(ArmorSheet._createElement("label", {innerText: field.label}));
+    const fields = widget.appendChild(ArmorSheet._createElement("div", {className: "form-fields"}));
+    fields.appendChild(ArmorSheet._createElement("label", {innerText: field.fields.base.label}));
     fields.appendChild(foundry.applications.fields.createNumberInput({value: inputConfig.value.base, min: config.min,
       max: config.max, step: 1}));
     return {widget, fields}
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _prepareSubmitData(_event, _form, formData) {
-    const submitData = foundry.utils.expandObject(formData.object);
-    submitData.system.properties = Object.entries(submitData.system.properties).reduce((arr, p) => {
-      if ( p[1] === true ) arr.push(p[0]);
-      return arr;
-    }, []);
-    return submitData;
   }
 }

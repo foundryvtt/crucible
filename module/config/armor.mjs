@@ -45,7 +45,7 @@ export const CATEGORIES = {
 
 /**
  * The boolean properties which a piece of Armor can have.
- * @type {Record<string, {label: string}>}
+ * @type {Record<string, {label: string, [rarity]: number}>}
  */
 export const PROPERTIES = {
   bulky: {

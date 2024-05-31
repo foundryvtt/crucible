@@ -47,4 +47,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {string[]}
    */
   static ITEM_PROPERTIES = [];
+
+  /* -------------------------------------------- */
+
+  _preparePrice() {
+    const rarity = this.rarity;
+    if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
+    else return this.price * Math.pow(rarity + 1, 3);
+  }
 }

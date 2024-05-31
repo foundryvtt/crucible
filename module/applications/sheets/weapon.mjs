@@ -1,71 +1,58 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import CrucibleBaseItemSheet from "./base-item.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Weapon type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "weapon" type.
  */
-export default class WeaponSheet extends CrucibleSheetMixin(ItemSheet) {
-
-  /** @override */
-  static documentType = "weapon";
+export default class WeaponSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
-  static get defaultOptions() {
-    return Object.assign(super.defaultOptions, {
-      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "config"}],
-      submitOnChange: true,
-      closeOnSubmit: false
-    });
+  static DEFAULT_OPTIONS = {
+    classes: ["weapon"]
+  };
+
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {config: {
+    template: `systems/crucible/templates/sheets/partials/weapon-config.hbs`
+  }}, {inplace: false});
+
+  /** @inheritDoc */
+  static TABS = foundry.utils.deepClone(super.TABS);
+  static {
+    this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"})
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  async getData(options={}) {
-    const isEditable = this.isEditable;
-    const source = this.document.toObject();
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
     const allowedSlots = this.document.system.getAllowedEquipmentSlots();
-    const context = {
-      actions: this.constructor.prepareActions(this.document.system.actions),
-      cssClass: isEditable ? "editable" : "locked",
-      editable: isEditable,
-      item: this.document,
-      source: source,
-      categories: SYSTEM.WEAPON.CATEGORIES,
-      damageTypes: SYSTEM.DAMAGE_TYPES,
-      qualities: SYSTEM.QUALITY_TIERS,
-      enchantments: SYSTEM.ENCHANTMENT_TIERS,
-      equipmentSlots: Object.entries(this.document.system.constructor.WEAPON_SLOTS).reduce((obj, [k, v]) => {
-        if ( allowedSlots.includes(v) ) obj[v] = game.i18n.localize(`WEAPON.SLOTS.${k}`);
-        return obj;
-      }, {}),
+    Object.assign(context, {
+      equipmentSlots: Object.entries(SYSTEM.WEAPON.SLOTS.choices).reduce((arr, [value, label]) => {
+        arr.push({value, label, disabled: !allowedSlots.includes(Number(value))});
+        return arr;
+      }, []),
       usesReload: this.document.config.category.reload,
-      tags: this.item.getTags(),
+      propertiesWidget: this.#propertiesWidget.bind(this),
+      scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")}),
       animations: SYSTEM.WEAPON.ANIMATION_TYPES.reduce((obj, v) => {
         obj[v] = v;
         return obj;
       }, {})
-    };
-
-    // Weapon Properties
-    context.properties = {};
-    for ( let [id, prop] of Object.entries(SYSTEM.WEAPON.PROPERTIES) ) {
-      const checked = source.system.properties.includes(id);
-      context.properties[id] = {id, name: `system.properties.${id}`, label: prop.label, checked};
-    }
+    });
     return context;
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  _getSubmitData(updateData={}) {
-    const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.system.properties = Object.entries(formData.system.properties).reduce((arr, p) => {
-      if ( p[1] === true ) arr.push(p[0]);
-      return arr;
-    }, []);
-    return formData;
+  /**
+   * Render the properties field as a multi-checkboxes element.
+   * @returns {HTMLMultiCheckboxElement}
+   */
+  #propertiesWidget(field, groupConfig, inputConfig) {
+    inputConfig.name = field.fieldPath;
+    inputConfig.options = Object.entries(SYSTEM.WEAPON.PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
+    inputConfig.type = "checkboxes";
+    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 }
