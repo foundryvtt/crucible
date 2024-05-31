@@ -60,20 +60,40 @@
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 
-"ANCESTRY.Abilities": "Ability Scores",
+"ANCESTRY": {
+  "FIELDS": {
+    "description": {
+      "label": "Ancestry Description"
+    },
+    "primary": {
+      "label": "Primary Ability",
+      "hint": "Select a primary ability score which begins at 3."
+    },
+    "secondary": {
+      "label": "Secondary Ability",
+      "hint": "Select a secondary ability score which begins at 2."
+    },
+    "resistance": {
+      "label": "Damage Resistance",
+      "hint": "A biological Resistance (+3) to a certain damage type."
+    },
+    "vulnerability": {
+      "label": "Damage Vulnerability",
+      "hint": "A biological Vulnerability (-3) to a certain damage type."
+    }
+  },
+  "SHEET": {
+    "ABILITIES": "Ability Scores",
+    "RESISTANCES": "Resistances and Vulnerabilities",
+    "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
+    "ABILITY_WARNING": "The primary and secondary Abilities for an Ancestry may not be the same.",
+    "RESISTANCE_WARNING": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
+  }
+},
+
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
 "ANCESTRY.Clear": "Clear Ancestry",
-"ANCESTRY.Description": "Description",
-"ANCESTRY.PrimaryAbility": "Primary Ability",
-"ANCESTRY.AbilityHint": "Select one primary Ability Score begins at 3 and a secondary Ability Score which begins at 2.",
-"ANCESTRY.SecondaryAbility": "Secondary Ability",
-"ANCESTRY.AbilityWarning": "The primary and secondary abilities for an ancestry may not be the same.",
-"ANCESTRY.Resistance": "Damage Resistance",
-"ANCESTRY.Resistances": "Resistances and Vulnerabilities",
-"ANCESTRY.Vulnerability": "Damage Vulnerability",
-"ANCESTRY.ResistanceHint": "This ancestry may have a biological Resistance (+5) and Vulnerability (-5) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
-"ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
 "ANCESTRY.None": "Choose Ancestry",
 
 "ACTION.Action": "Action",
@@ -372,7 +392,7 @@
     "ACTIONS": "Actions",
     "DESCRIPTION": "Description",
     "PUBLIC": "Public Description",
-    "PRIVATE": "Private Description"
+    "SECRET": "Secret Description"
   }
 },
 

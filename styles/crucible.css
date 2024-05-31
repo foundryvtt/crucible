@@ -570,16 +570,6 @@
   padding: 1rem;
   gap: 1rem;
 }
-.crucible.sheet .tab[data-tab=description] {
-  padding: 0;
-  gap: 0;
-}
-.crucible.sheet .tab[data-tab=description] .sheet-tabs {
-  border-top: none;
-}
-.crucible.sheet .tab[data-tab=description] section.tab {
-  padding: 1rem;
-}
 .crucible.sheet fieldset {
   display: flex;
   flex-direction: column;
@@ -1364,6 +1354,19 @@
 .crucible.weapon .item-equipment .reload,
 .crucible.armor .item-equipment .reload {
   grid-column: 2;
+}
+.crucible.weapon .tab[data-tab=description],
+.crucible.armor .tab[data-tab=description] {
+  padding: 0;
+  gap: 0;
+}
+.crucible.weapon .tab[data-tab=description] .sheet-tabs,
+.crucible.armor .tab[data-tab=description] .sheet-tabs {
+  border-top: none;
+}
+.crucible.weapon .tab[data-tab=description] section.tab,
+.crucible.armor .tab[data-tab=description] section.tab {
+  padding: 1rem;
 }
 /** ----------------------------------------- *
  *  Archetype Sheet                           *

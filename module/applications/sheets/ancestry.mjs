@@ -1,41 +1,24 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import CrucibleBaseItemSheet from "./base-item.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Ancestry type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "ancestry" type.
  */
-export default class AncestrySheet extends CrucibleSheetMixin(ItemSheet) {
+export default class AncestrySheet extends CrucibleBaseItemSheet {
 
-  /** @override */
-  static documentType = "ancestry";
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["ancestry"]
+  };
 
-  /* -------------------------------------------- */
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {
+    config: {template: "systems/crucible/templates/sheets/partials/ancestry-config.hbs"},
+    description: {template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"}
+    }, {inplace: false});
 
-  /** @inheritdoc */
-  async getData(options={}) {
-    const isEditable = this.isEditable;
-    return {
-      cssClass: isEditable ? "editable" : "locked",
-      editable: isEditable,
-      item: this.document,
-      source: this.document.toObject(),
-      abilities: SYSTEM.ABILITIES,
-      damageTypes: SYSTEM.DAMAGE_TYPES
-    };
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
-    const clone = this.document.clone();
-    try {
-      clone.updateSource(formData);
-    } catch(err) {
-      ui.notifications.warn(err);
-      throw err;
-    }
-    return super._updateObject(event, formData);
+  /** @inheritDoc */
+  static TABS = foundry.utils.deepClone(super.TABS);
+  static {
+    delete this.TABS.description;
   }
 }

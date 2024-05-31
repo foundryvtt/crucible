@@ -58,7 +58,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     ],
     description: [
       {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
-      {id: "private", group: "description", label: "ITEM.TABS.PRIVATE"}
+      {id: "secret", group: "description", label: "ITEM.TABS.SECRET"}
     ]
   }
 
@@ -86,6 +86,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const tabGroups = this._getTabs();
     return {
       item: this.document,
+      isEditable: this.isEditable,
+      fieldDisabled: this.isEditable ? "" : "disabled",
       source: this.document.toObject(),
       fields: this.document.system.schema.fields,
       tabGroups,
