@@ -132,10 +132,12 @@
   /** Line Items - Actions, Talents, etc... */
   .line-item {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    flex-direction: column;
     gap: 0.5rem;
-    > header {
+    header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
       gap: 0.5rem;
     }
     img.icon {

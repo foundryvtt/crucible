@@ -1,6 +1,20 @@
 @import "variables.less";
 
 /* ----------------------------------------- */
+/*  All Items                                */
+/* ----------------------------------------- */
+
+.crucible.item {
+  .item-properties {
+    display: grid;
+    gap: 0.5rem 1rem;
+    multi-checkbox {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+/* ----------------------------------------- */
 /*  Armor and Weapons                        */
 /* ----------------------------------------- */
 
@@ -13,23 +27,17 @@
       grid-template-columns: 1fr 64px 1fr 64px;
     }
   }
-  .item-properties,
+
+  // Equipment Attributes
   .item-equipment {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem 1rem;
     label {
       font-size: var(--font-size-12);
       font-weight: normal;
       color: var(--color-secondary);
     }
-  }
-  .item-properties {
-    multi-checkbox {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  .item-equipment {
-    grid-template-columns: repeat(2, 1fr);
     .slot {
       grid-column: 1 / span 2;
     }
@@ -94,23 +102,6 @@
 }
 
 /** ----------------------------------------- *
- *  Armor Sheet                               *
- * ------------------------------------------ */
-
-.crucible.sheet.armor {
-  .resistance {
-    flex: 0 0 50%;
-    margin: 0 0 3px;
-    padding: 0 6px;
-
-    > input {
-      flex: 0 0 64px;
-      text-align: center;
-    }
-  }
-}
-
-/** ----------------------------------------- *
  *  Action Sheet                              *
  * ------------------------------------------ */
 
@@ -149,23 +140,8 @@
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
+
 .crucible.background {
-  .skills {
-    .form-fields {
-      flex-wrap: wrap;
-      gap: 0.5rem 0;
-      label {
-        flex: 0 0 25%;
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        input {
-          width: 16px;
-          margin: 0;
-        }
-      }
-    }
-  }
   .talents {
     .talent .tags {
       flex: none;

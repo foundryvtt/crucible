@@ -72,6 +72,7 @@ export default class CrucibleArmor extends CruciblePhysicalItem {
 
     // Armor Configuration
     this.config = {category, quality, enchantment};
+    this.rarity = quality.rarity + enchantment.rarity;
 
     // Armor Defense
     this.armor.base = Math.clamp(this.armor.base, category.armor.min, category.armor.max);

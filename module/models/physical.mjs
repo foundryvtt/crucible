@@ -25,12 +25,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   }
 
   /**
-   * A prefix used to automatically localize the label and hint properties of this data model.
-   * @type {string[]}
-   */
-  static LOCALIZATION_PATHS = ["ITEM.FIELDS"];
-
-  /**
    * Allowed categories for this item type.
    * @type {Record<string, {id: string, label: string}>}
    */

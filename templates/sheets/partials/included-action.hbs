@@ -1,0 +1,13 @@
+<div class="action line-item" data-action-id="{{action.id}}">
+    <header class="flexrow">
+        <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+        <h4 class="title">{{action.name}}</h4>
+        {{#if isEditable}}
+        <div class="controls">
+            <a class="button icon fa-solid fa-edit" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit"></a>
+            <a class="button icon fa-solid fa-trash" data-action="actionDelete" data-tooltip="TALENT.Actions.Delete"></a>
+        </div>
+        {{/if}}
+    </header>
+    <div class="description">{{{action.description}}}</div>
+</div>

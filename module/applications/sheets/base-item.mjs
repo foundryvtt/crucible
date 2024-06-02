@@ -7,7 +7,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["crucible", "standard-form"],
+    classes: ["crucible", "item", "standard-form"],
     tag: "form",
     position: {
       width: 560,
@@ -43,7 +43,10 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     actions: {
       id: "actions",
-      template: "systems/crucible/templates/sheets/partials/item-actions.hbs"
+      template: "systems/crucible/templates/sheets/partials/item-actions.hbs",
+      templates: [
+        "systems/crucible/templates/sheets/partials/included-action.hbs"
+      ]
     }
   }
 
@@ -93,6 +96,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       tabGroups,
       tabs: tabGroups.sheet,
       tabsPartial: this.constructor.PARTS.tabs.template,
+      actionPartial: this.constructor.PARTS.actions.templates[0],
       tags: this.document.getTags()
     };
   }
@@ -175,7 +179,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  #getSubmitData(event) {
+  _getSubmitData(event) {
     const fd = new FormDataExtended(this.element);
     return this._prepareSubmitData(event, this.element, fd);
   }
@@ -189,7 +193,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #onActionAdd(event) {
-    const fd = this.#getSubmitData(event);
+    const fd = this._getSubmitData(event);
     const actions = this.document.system.toObject().actions;
 
     // Configure Action data
@@ -238,7 +242,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( action.sheet.rendered ) action.sheet.close();
 
     // Remove the action and save
-    const fd = this.#getSubmitData(event);
+    const fd = this._getSubmitData(event);
     const actions = this.document.system.toObject().actions;
     actions.splice(idx, 1);
     fd.system.actions = actions;

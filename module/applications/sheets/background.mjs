@@ -1,47 +1,65 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import CrucibleBaseItemSheet from "./base-item.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Background type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "background" type.
  */
-export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
+export default class BackgroundSheet extends CrucibleBaseItemSheet {
+
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["background"],
+    actions: {
+      removeTalent: BackgroundSheet.#onRemoveTalent
+    }
+  };
+
+  /**
+   * The partial template used to render an included talent.
+   * @type {string}
+   */
+  static talentPartial = "systems/crucible/templates/sheets/partials/included-talent.hbs";
+
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {
+    config: {
+      template: "systems/crucible/templates/sheets/partials/background-config.hbs",
+      templates: [this.talentPartial]
+    },
+    description: {template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"},
+  }, {inplace: false});
+
+  /** @inheritDoc */
+  static TABS = foundry.utils.deepClone(super.TABS);
+  static {
+    delete this.TABS.description;
+  }
 
   /** @override */
   static documentType = "background";
 
-  /** @inheritdoc */
-	static get defaultOptions() {
-	  return foundry.utils.mergeObject(super.defaultOptions, {
-        dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}]
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    return Object.assign(context, {
+      skillsInput: this.#skillsInput.bind(this),
+      talents: await this.#prepareTalents()
     });
   }
 
-  /**
-   * The template path for the included talent partial.
-   * @type {string}
-   */
-  static includedTalentPartial = "systems/crucible/templates/sheets/partials/included-talent.hbs";
-
   /* -------------------------------------------- */
 
-  /** @override */
-  async getData(options) {
-    const isEditable = this.isEditable;
+  /**
+   * Render the skills as a multi-checkbox element.
+   * @returns {HTMLMultiCheckboxElement}
+   */
+  #skillsInput(field, inputConfig) {
     const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
-    return {
-      cssClass: isEditable ? "editable" : "locked",
-      editable: isEditable,
-      item: this.document,
-      source: this.document.toObject(),
-      skills: Object.entries(skills).map(e => {
-        let [id, s] = e;
-        s.id = id;
-        s.checked = this.document.system.skills.has(id);
-        return s;
-      }),
-      talents: await this.#prepareTalents()
-    };
+    inputConfig.name = field.fieldPath;
+    inputConfig.options = Object.entries(skills).map(([id, s]) => ({value: id, label: s.name}));
+    inputConfig.type = "checkboxes";
+    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 
   /* -------------------------------------------- */
@@ -56,7 +74,8 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
     for ( const uuid of uuids ) {
       const talent = await fromUuid(uuid)
       if ( !talent ) continue;
-      talents.push(await this.#renderTalentHTML(talent));
+      const talentHTML = await this.#renderTalentHTML(talent);
+      talents.push(talentHTML);
     }
     return talents;
   }
@@ -70,96 +89,66 @@ export default class BackgroundSheet extends CrucibleSheetMixin(ItemSheet) {
    * @returns {Promise<string>}       The rendered HTML string
    */
   async #renderTalentHTML(talent) {
-    return renderTemplate(this.constructor.includedTalentPartial, {
-      talent,
-      tags: talent.system.getTags(),
-      editable: this.isEditable
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
-    this._disableSkills();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Disable skill selection if 2 skills have already been chosen
-   * @private
-   */
-  _disableSkills() {
-    if ( !this.isEditable ) return;
-    const skills = this.element.find(".skills input");
-    const checked = Array.from(skills).reduce((n, s) => n + (s.checked ? 1 : 0), 0);
-    for ( let s of skills ) {
-      s.disabled = ((checked === 4) && !s.checked);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _onChangeInput(event) {
-    await super._onChangeInput(event);
-    this._disableSkills();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _handleAction(action, event, button) {
-    switch ( action ) {
-      case "removeTalent":
-        button.closest(".talent").remove();
-        const fd = this._getSubmitData();
-        await this._updateObject(event, fd);
-        this.setPosition({height: "auto"});
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _canDragDrop(selector) {
-    return this.isEditable;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onDrop(event) {
-    if ( !this.isEditable ) return;
-    const data = TextEditor.getDragEventData(event);
-    if ( data.type !== "Item" ) return;
-    const talent = await fromUuid(data.uuid);
-    if ( talent?.type !== "talent" ) return;
-    if ( talent.system.node.tier !== 0 ) {
-      return ui.notifications.error("BACKGROUND.TalentTierError", {localize: true});
-    }
-    const talents = this.element[0].querySelector(".talents .droppable");
-    talents.insertAdjacentHTML("beforebegin", await this.#renderTalentHTML(talent));
-    this.setPosition({height: "auto"});
+    const tags = talent.system.getTags();
+    return renderTemplate(this.constructor.talentPartial, {talent, tags, editable: this.isEditable});
   }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _getSubmitData(updateData={}) {
-    const formData = super._getSubmitData(updateData);
+  _onRender(context, options) {
+    super._onRender(context, options);
+    if ( !this.isEditable ) return;
+    const dropZone = this.element.querySelector(".talent-drop");
+    dropZone.addEventListener("drop", this.#onDropTalent.bind(this));
+  }
 
-    // Skills
-    formData["system.skills"] = Object.keys(SYSTEM.SKILLS).reduce((skills, s) => {
-      if ( formData[s] === true ) skills.push(s);
-      return skills;
-    }, []);
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
 
-    // Talents
-    const talents = this.element[0].querySelectorAll(".talents .talent");
-    formData["system.talents"] = Array.from(talents).map(t => t.dataset.uuid);
-    return formData;
+  /**
+   * Handle drop events for a talent added to the Background sheet.
+   * @param {DragEvent} event
+   * @returns {Promise<*>}
+   */
+  async #onDropTalent(event) {
+    const dropZone = event.currentTarget;
+    const data = TextEditor.getDragEventData(event);
+    if ( data.type !== "Item" ) return;
+    const talent = await fromUuid(data.uuid);
+    if ( talent?.type !== "talent" ) return;
+    if ( talent.system.node.tier !== 0 ) {
+      return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
+    }
+    const talentHTML = await this.#renderTalentHTML(talent);
+    dropZone.insertAdjacentHTML("beforebegin", talentHTML);
+    dropZone.remove();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing a talent from the Background sheet.
+   * @this {BackgroundSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onRemoveTalent(event) {
+    const talent = event.target.closest(".talent");
+    talent.remove();
+    const submitData = this._getSubmitData(event);
+    await this.document.update(submitData);
+    this.render(); // TODO why is this necessary, shouldn't the document update do it?
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareSubmitData(event, form, formData) {
+    const submitData = super._prepareSubmitData(event, form, formData);
+    const talents = form.querySelectorAll(".talents .talent");
+    submitData.system.talents = Array.from(talents).map(t => t.dataset.uuid);
+    return submitData;
   }
 }

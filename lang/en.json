@@ -257,19 +257,35 @@
 "ATTRIBUTES.Pools": "Resource Pools",
 "ATTRIBUTES.Resistances": "Damage Resistances",
 
-"BACKGROUND.AddTalentHint": "Add a talent to this Background by dragging and dropping from the Talents compendium pack.",
-"BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
-"BACKGROUND.Browse": "Browse Backgrounds",
-"BACKGROUND.Clear": "Clear Background",
-"BACKGROUND.Description": "Description",
-"BACKGROUND.None": "Choose Background",
-"BACKGROUND.RemoveTalent": "Remove Talent",
-"BACKGROUND.Skills": "Acquired Skills",
-"BACKGROUND.SkillsError": "You must choose exactly four skills as background specializations.",
-"BACKGROUND.SkillsHint": "Choose four skills which were acquired as part of your background, each of which will begin at Novice rank.",
-"BACKGROUND.Talents": "Acquired Talent",
-"BACKGROUND.TalentNumberError": "A Background may contain a maximum of one starting Talent.",
-"BACKGROUND.TalentTierError": "Backgrounds may only offer Tier 0 starting Talents.",
+"BACKGROUND": {
+  "FIELDS": {
+    "description": {
+      "label": "Background Description"
+    },
+    "skills": {
+      "label": "Acquired Skills",
+      "hint": "Choose four skills which were acquired as part of your Background, each of which will begin at Novice rank."
+    },
+    "talents": {
+      "label": "Acquired Talents",
+      "hint": "Configure one or more talents which this Background receives automatically."
+    }
+  },
+  "SHEET": {
+    "BROWSE": "Browse Backgrounds",
+    "CLEAR": "Clear Background",
+    "CHOOSE": "Choose Background",
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."
+  },
+  "ERRORS": {
+    "APPLY": "You may only apply a background to a level 0 character with no spent skill points.",
+    "SKILLS_NUMBER": "A Background must not provide more than four acquired Skills.",
+    "TALENT_NUMBER": "A Background may contain a maximum of one starting Talent.",
+    "TALENT_TIER": "Backgrounds may only offer Tier 0 starting Talents."
+  }
+},
 
 "COMBAT.WarningCannotChangeRound": "Only a Gamemaster user may change the Combat round.",
 

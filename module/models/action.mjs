@@ -253,7 +253,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( talent ) {
       this.name ||= talent.name;
       this.img ||= talent.img;
-      this.description ||= this.parent.description;
+      if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
   }
 

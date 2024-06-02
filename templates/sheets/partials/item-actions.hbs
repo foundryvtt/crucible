@@ -8,19 +8,7 @@
             </a>
         </legend>
         {{#each actions as |action|}}
-        <div class="action line-item flexrow" data-action-id="{{action.id}}">
-            <img class="icon" src="{{action.img}}" alt="{{action.name}}">
-            <h4 class="title">{{action.name}}</h4>
-            <div class="controls">
-                <a class="button icon" data-action="actionEdit" data-tooltip="TALENT.Actions.Edit">
-                    <i class="fa-solid fa-edit"></i>
-                </a>
-                <a class="button icon" data-action="actionDelete" data-tooltip="TALENT.Actions.Delete">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-            </div>
-        </div>
+        {{> (lookup @root "actionPartial") action=action isEditable=@root.isEditable}}
         {{/each}}
     </fieldset>
 </section>
-

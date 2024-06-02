@@ -593,11 +593,13 @@
 }
 .crucible.sheet .line-item {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-direction: column;
   gap: 0.5rem;
 }
-.crucible.sheet .line-item > header {
+.crucible.sheet .line-item header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 0.5rem;
 }
 .crucible.sheet .line-item img.icon {
@@ -1316,6 +1318,16 @@
   border-bottom: none;
 }
 /* ----------------------------------------- */
+/*  All Items                                */
+/* ----------------------------------------- */
+.crucible.item .item-properties {
+  display: grid;
+  gap: 0.5rem 1rem;
+}
+.crucible.item .item-properties multi-checkbox {
+  grid-template-columns: repeat(4, 1fr);
+}
+/* ----------------------------------------- */
 /*  Armor and Weapons                        */
 /* ----------------------------------------- */
 .crucible.weapon .form-group.defense .form-fields,
@@ -1324,28 +1336,17 @@
   display: grid;
   grid-template-columns: 1fr 64px 1fr 64px;
 }
-.crucible.weapon .item-properties,
-.crucible.armor .item-properties,
 .crucible.weapon .item-equipment,
 .crucible.armor .item-equipment {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem 1rem;
 }
-.crucible.weapon .item-properties label,
-.crucible.armor .item-properties label,
 .crucible.weapon .item-equipment label,
 .crucible.armor .item-equipment label {
   font-size: var(--font-size-12);
   font-weight: normal;
   color: var(--color-secondary);
-}
-.crucible.weapon .item-properties multi-checkbox,
-.crucible.armor .item-properties multi-checkbox {
-  grid-template-columns: repeat(4, 1fr);
-}
-.crucible.weapon .item-equipment,
-.crucible.armor .item-equipment {
-  grid-template-columns: repeat(2, 1fr);
 }
 .crucible.weapon .item-equipment .slot,
 .crucible.armor .item-equipment .slot {
@@ -1415,18 +1416,6 @@
   border-radius: 6px;
 }
 /** ----------------------------------------- *
- *  Armor Sheet                               *
- * ------------------------------------------ */
-.crucible.sheet.armor .resistance {
-  flex: 0 0 50%;
-  margin: 0 0 3px;
-  padding: 0 6px;
-}
-.crucible.sheet.armor .resistance > input {
-  flex: 0 0 64px;
-  text-align: center;
-}
-/** ----------------------------------------- *
  *  Action Sheet                              *
  * ------------------------------------------ */
 .crucible.action button.delete-hook {
@@ -1451,20 +1440,6 @@
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible.background .skills .form-fields {
-  flex-wrap: wrap;
-  gap: 0.5rem 0;
-}
-.crucible.background .skills .form-fields label {
-  flex: 0 0 25%;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
-.crucible.background .skills .form-fields label input {
-  width: 16px;
-  margin: 0;
-}
 .crucible.background .talents .talent .tags {
   flex: none;
 }

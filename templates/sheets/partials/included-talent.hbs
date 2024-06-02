@@ -3,14 +3,15 @@
         <img class="icon" src="{{talent.img}}" alt="{{talent.name}}">
         <h4 class="title">{{talent.name}}</h4>
         <div class="tags">
-        {{#each tags as |tag type|}}
+            {{#each tags as |tag type|}}
             <span class="tag" data-tag="{{type}}">{{tag}}</span>
-        {{/each}}
+            {{/each}}
         </div>
         {{#if editable}}
-        <a class="button remove-talent" data-action="removeTalent" data-tooltip="BACKGROUND.RemoveTalent">
-            <i class="fa-solid fa-times"></i>
-        </a>
+        <div class="controls">
+            <a class="button icon fa-solid fa-times remove-talent" data-action="removeTalent"
+               data-tooltip="BACKGROUND.SHEET.TALENT_REMOVE"></a>
+        </div>
         {{/if}}
     </header>
     <div class="description">{{{talent.system.description}}}</div>
