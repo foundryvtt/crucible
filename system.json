@@ -127,16 +127,25 @@
       "adversary": {}
     },
     "Item": {
-      "ancestry": {},
-      "archetype": {},
+      "ancestry": {
+        "htmlFields": ["description"]
+      },
+      "archetype": {
+        "htmlFields": ["description"]
+      },
       "armor": {
         "htmlFields": ["description.public", "description.secret"]
       },
-      "background": {},
+      "background": {
+        "htmlFields": ["description"]
+      },
       "talent": {
+        "htmlFields": ["description"],
         "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
       },
-      "taxonomy": {},
+      "taxonomy": {
+        "htmlFields": ["description"]
+      },
       "weapon": {
         "htmlFields": ["description.public", "description.secret"]
       }

@@ -1,0 +1,31 @@
+<section class="tab sheet-body flexcol {{tabs.hooks.cssClass}}" data-tab="{{tabs.hooks.id}}" data-group="{{tabs.hooks.group}}">
+
+
+    {{#each actorHooks as |hook i|}}
+    <div class="line-item hook">
+        <header class="flexrow">
+            <code>{{localize hook.label}}</code>
+            <div class="controls">
+                <button type="button" class="icon fa-solid fa-times frame-brown" data-action="hookDelete"
+                        data-tooltip="TALENT.ACTIONS.HOOK_DELETE"></button>
+            </div>
+            <input type="hidden" name="system.actorHooks.{{i}}.hook" value="{{hook.hook}}">
+        </header>
+        <textarea name="system.actorHooks.{{i}}.fn" rows="6">{{hook.fn}}</textarea>
+    </div>
+    {{/each}}
+
+    <fieldset>
+        <legend>{{localize "TALENT.HOOKS.REGISTER"}}</legend>
+        <div class="form-group">
+            <div class="form-fields">
+                <select name="addHook">
+                    {{selectOptions actorHookChoices blank=""}}
+                </select>
+                <button type="button" class="icon fa-solid fa-plus frame-brown" data-action="hookAdd"
+                        data-tooltip="TALENT.ACTIONS.HOOK_ADD"></button>
+            </div>
+            <p class="hint">{{fields.actorHooks.hint}}</p>
+        </div>
+    </fieldset>
+</section>

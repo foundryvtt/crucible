@@ -64,6 +64,23 @@
 .crucible select:disabled {
   --input-text-color: var(--color-secondary);
 }
+/* ----------------------------------------- */
+/*  Light Theme (NOT USED YET)               */
+/* ----------------------------------------- */
+.theme-light .crucible.UNUSED {
+  --color-background: #cac5ba;
+  --color-text: #000000;
+  --color-secondary: #0b0909;
+  --color-tertiary: #1c1a1a;
+  --color-frame-bg: var(--color-cool-5-25);
+  --color-frame: #938c9a;
+  --color-h1: #000000;
+}
+.theme-light .crucible.UNUSED.application {
+  --color-header-background: transparent;
+  --background-texture: url("../ui/journal/background-light.webp");
+  --background-overlay: url("../ui/journal/overlay-light.webp");
+}
 /** ----------------------------------------- *
  *  Crucible V2 Styles                        *
  * ------------------------------------------ */
@@ -494,27 +511,35 @@
   --color-form-label-hover: var(--color-primary);
   --color-form-hint: var(--color-tertiary);
   --color-form-hint-hover: var(--color-secondary);
-  background: var(--color-cool-5);
+  --background-texture: url("../ui/journal/background-texture.webp");
+  --background-overlay: url("../ui/journal/overlay-dark.webp");
+  background: var(--background-texture) no-repeat;
+  background-size: cover;
   gap: 0;
+}
+.crucible.application::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--background-overlay) no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
 }
 .crucible.application .window-header {
   border-bottom: none;
 }
 .crucible.application .window-header .window-title {
   font-family: var(--font-h1);
-  color: var(--color-secondary);
+  font-size: var(--font-size-14);
+  color: var(--color-primary);
 }
 .crucible.application .window-header .header-control {
   color: var(--color-secondary);
-}
-.crucible.application .background-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  border: none;
-  object-fit: cover;
-  object-position: top right;
 }
 .crucible.application .window-content {
   padding: 0;
@@ -549,10 +574,9 @@
   width: 100%;
   margin: 0;
   padding: 0 0.5rem;
+  background: var(--color-cool-5-50);
+  border: none;
   font-size: var(--font-size-24);
-  background: var(--color-cool-5-75);
-  border-color: var(--color-cool-4);
-  border-radius: 4px;
 }
 .crucible.sheet .sheet-header .header-tags {
   flex: 0 0 100%;
@@ -1414,28 +1438,6 @@
   padding: 0 1rem;
   border: 1px dashed var(--color-frame);
   border-radius: 6px;
-}
-/** ----------------------------------------- *
- *  Action Sheet                              *
- * ------------------------------------------ */
-.crucible.action button.delete-hook {
-  width: 28px;
-  line-height: 22px;
-  float: right;
-}
-/** ----------------------------------------- *
- *  Talent Sheet                              *
- * ------------------------------------------ */
-.crucible.talent button.delete-hook {
-  width: 28px;
-  line-height: 22px;
-  float: right;
-}
-.crucible.talent .actions .line-item {
-  flex-direction: column;
-}
-.crucible.talent .actions .action-header h4 {
-  flex: none;
 }
 /** ----------------------------------------- *
  *  Background Sheet                          *

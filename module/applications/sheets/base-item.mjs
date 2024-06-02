@@ -5,6 +5,9 @@ const {api, sheets} = foundry.applications;
  */
 export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemSheetV2) {
 
+  /** @override */
+  static documentType = "base";
+
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["crucible", "item", "standard-form"],
@@ -14,9 +17,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       height: "auto"
     },
     actions: {
-      "actionAdd": CrucibleBaseItemSheet.#onActionAdd,
-      "actionDelete": CrucibleBaseItemSheet.#onActionDelete,
-      "actionEdit": CrucibleBaseItemSheet.#onActionEdit
+      actionAdd: CrucibleBaseItemSheet.#onActionAdd,
+      actionDelete: CrucibleBaseItemSheet.#onActionDelete,
+      actionEdit: CrucibleBaseItemSheet.#onActionEdit
     },
     form: {
       submitOnChange: true
@@ -69,17 +72,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   tabGroups = {
     sheet: "description",
     description: "public"
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _renderFrame(options) {
-    const frame = await super._renderFrame(options);
-    const src = "systems/crucible/ui/journal/overlay.webp";
-    const overlay = `<img class="background-overlay" alt="Background Overlay" src="${src}">`;
-    frame.insertAdjacentHTML("afterbegin", overlay);
-    return frame;
   }
 
   /* -------------------------------------------- */

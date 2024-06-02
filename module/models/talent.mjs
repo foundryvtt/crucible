@@ -2,6 +2,17 @@ import CrucibleAction from "./action.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 
 /**
+ * @typedef {Object} TalentData
+ * @property {string} node
+ * @property {string} description
+ * @property {CrucibleAction[]} actions   The actions which have been unlocked by this talent
+ * @property {string} [rune]
+ * @property {string} [gesture]
+ * @property {string} [inflection]
+ * @property {{hook: string, fn: function}} actorHooks
+ */
+
+/**
  * @typedef {Object} TalentRankData
  * @property {string} description
  * @property {number} tier
@@ -25,18 +36,20 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
 
 /**
  * The data schema of a Talent type Item in the Crucible system.
- *
+ * @mixes {TalentData}
  * @property {TalentRankData} currentRank             The current rank in this talent
  * @property {number} cost                            The action point cost to have obtained the current rank
  * @property {TalentRankData} nextRank                The next rank in this talent
- * @property {CrucibleAction[]} actions               The actions which have been unlocked by this talent
  * @property {AdvancementPrerequisites} prerequisites The derived prerequisites required for this rank
  */
 export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
+
+  /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      node: new fields.StringField({required: false, choices: () => Array.from(CrucibleTalentNode.nodes.keys())}),
+      node: new fields.StringField({required: true, blank: true,
+        choices: () => Array.from(CrucibleTalentNode.nodes.keys())}),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
@@ -44,10 +57,13 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR_HOOKS}),
-        fn: new fields.StringField({required: true, blank: false, nullable: false, gmOnly: true}),
+        fn: new fields.JavaScriptField({async: true, gmOnly: true})
       }))
     }
   }
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["TALENT"];
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */

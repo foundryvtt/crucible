@@ -407,6 +407,7 @@
     "CONFIGURATION": "Configuration",
     "ACTIONS": "Actions",
     "DESCRIPTION": "Description",
+    "HOOKS": "Hooks",
     "PUBLIC": "Public Description",
     "SECRET": "Secret Description"
   }
@@ -535,25 +536,66 @@
 "SPELL.MetamagicQuicken": "Quicken",
 "SPELL.MetamagicQuickenAdj": "Quickened",
 
-"TALENT.NodeAttack": "Attack",
-"TALENT.NodeDefault": "PLACEHOLDER",
-"TALENT.NodeDefense": "Defense",
-"TALENT.NodeHeal": "Healing",
-"TALENT.NodeMagic": "Magic",
-"TALENT.NodeMove": "Movement",
-"TALENT.NodeSignature": "Signature",
-"TALENT.NodeUtility": "Utility",
-"TALENT.PointsAvailable": "Points Available",
+"TALENT": {
+  "FIELDS": {
+    "node": {
+      "label": "Talent Node",
+      "hint": "Assign this Talent to be purchased from a particular node in the Talent Tree."
+    },
+    "description": {
+      "label": "Talent Description"
+    },
+    "actions": {
+      "label": "Granted Actions",
+      "hint": "Associate Actions which are available to characters which possess this Talent."
+    },
+    "rune": {
+      "label": "Rune",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Rune."
+    },
+    "gesture": {
+      "label": "Gesture",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Gesture."
+    },
+    "inflection": {
+      "label": "Inflection",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Inflection."
+    },
+    "actorHooks": {
+      "label": "Hooked Functions",
+      "hint": "This configuration tab involves advanced features for automating talent effects. Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here unless you are confident in your own knowledge."
+    }
+  },
+  "ACTIONS": {
+    "ACTION_ADD": "Add Action",
+    "ACTION_DELETE": "Delete Action",
+    "ACTION_EDIT": "Edit Action",
+    "HOOK_ADD": "Add Hook",
+    "HOOK_DELETE": "Delete Hook"
+  },
+  "WARNINGS": {
+    "AlreadyOwned": "You already own {name} and cannot add it a second time.",
+    "Banned": "You cannot purchase additional Signature talents at this node or tier.",
+    "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+    "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
+    "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}."
+  },
+  "HOOKS": {
+    "REGISTER": "Register Hook Function",
+    "GROUP_PREPARATION": "Actor Data Preparation",
+    "GROUP_ACTION": "Action Usage"
+  },
 
-"TALENT.Actions.Add": "Add Action",
-"TALENT.Actions.Delete": "Delete Action",
-"TALENT.Actions.Edit": "Edit Action",
-
-"TALENT.WARNINGS.AlreadyOwned": "You already own {name} and cannot add it a second time.",
-"TALENT.WARNINGS.Banned": "You cannot purchase additional Signature talents at this node or tier.",
-"TALENT.WARNINGS.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
-"TALENT.WARNINGS.Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
-"TALENT.WARNINGS.Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
+  "NodeAttack": "Attack",
+  "NodeDefault": "PLACEHOLDER",
+  "NodeDefense": "Defense",
+  "NodeHeal": "Healing",
+  "NodeMagic": "Magic",
+  "NodeMove": "Movement",
+  "NodeSignature": "Signature",
+  "NodeUtility": "Utility",
+  "PointsAvailable": "Points Available"
+},
 
 "TAXONOMY.Clear": "Clear Taxonomy",
 "TAXONOMY.Configure": "Taxonomy",

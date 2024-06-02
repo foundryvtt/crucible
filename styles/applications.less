@@ -9,34 +9,44 @@
   --color-form-label-hover: var(--color-primary);
   --color-form-hint: var(--color-tertiary);
   --color-form-hint-hover: var(--color-secondary);
-  background: var(--color-cool-5);
+  --background-texture: url("../ui/journal/background-texture.webp");
+  --background-overlay: url("../ui/journal/overlay-dark.webp");
+
+  background: var(--background-texture) no-repeat;
+  background-size: cover;
   gap: 0;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--background-overlay) no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+  }
 
   .window-header {
     border-bottom: none;
     .window-title {
       font-family: var(--font-h1);
-      color: var(--color-secondary);
+      font-size: var(--font-size-14);
+      color: var(--color-primary);
     }
     .header-control {
       color: var(--color-secondary);
     }
   }
 
-  .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    border: none;
-    object-fit: cover;
-    object-position: top right;
-  }
-
   .window-content {
     padding: 0;
   }
 }
+
 
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -71,10 +81,9 @@
         width: 100%;
         margin: 0;
         padding: 0 0.5rem;
+        background: var(--color-cool-5-50);
+        border: none;
         font-size: var(--font-size-24);
-        background: var(--color-cool-5-75);
-        border-color: var(--color-cool-4);
-        border-radius: 4px;
       }
     }
 
