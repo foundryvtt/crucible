@@ -90,7 +90,7 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
     super._onRender(context, options);
     if ( !this.isEditable ) return;
     const dropZone = this.element.querySelector(".talent-drop");
-    dropZone.addEventListener("drop", this.#onDropTalent.bind(this));
+    dropZone?.addEventListener("drop", this.#onDropTalent.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -108,7 +108,7 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
     if ( data.type !== "Item" ) return;
     const talent = await fromUuid(data.uuid);
     if ( talent?.type !== "talent" ) return;
-    if ( talent.system.node.tier !== 0 ) {
+    if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
     }
     const talentHTML = await this.#renderTalentHTML(talent);

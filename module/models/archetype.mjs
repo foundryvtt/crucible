@@ -1,7 +1,7 @@
 /**
  * Define the data schema and functionality of an Archetype applied to Adversary creatures.
  */
-export default class CrucibleArchetype extends foundry.abstract.DataModel {
+export default class CrucibleArchetype extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -12,7 +12,6 @@ export default class CrucibleArchetype extends foundry.abstract.DataModel {
     const fields = foundry.data.fields;
     const nullableInteger = {required: true, nullable: true, integer: true};
     return {
-      name: new fields.StringField(),
       description: new fields.HTMLField(),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 8})
@@ -22,6 +21,9 @@ export default class CrucibleArchetype extends foundry.abstract.DataModel {
         {validate: CrucibleArchetype.#validateUuid}))
     }
   }
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ARCHETYPE"];
 
   /* -------------------------------------------- */
 

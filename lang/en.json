@@ -198,12 +198,26 @@
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 
-"ARCHETYPE.Clear": "Clear Archetype",
-"ARCHETYPE.Configure": "Archetype",
-"ARCHETYPE.Abilities": "Ability Scaling",
-"ARCHETYPE.AbilitiesHint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently.",
-"ARCHETYPE.Talents": "Granted Talents",
-"ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
+"ARCHETYPE": {
+  "FIELDS": {
+    "abilities": {
+      "label": "Ability Scaling",
+      "hint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently."
+    },
+    "talents": {
+      "label": "Granted Talents",
+      "hint": "Configure one or more talents which this Archetype receives automatically."
+    }
+  },
+  "SHEET": {
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack."
+  },
+  "ACTIONS": {
+    "CLEAR": "Clear Archetype"
+  }
+},
 
 "ARMOR": {
   "FIELDS": {

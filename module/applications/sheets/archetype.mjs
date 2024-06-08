@@ -1,162 +1,100 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import BackgroundSheet from "./background.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Archetype type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "archetype" type.
  */
-export default class ArchetypeSheet extends CrucibleSheetMixin(ItemSheet) {
+export default class ArchetypeSheet extends BackgroundSheet {
 
-  /** @override */
-  static documentType = "archetype";
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["archetype"]
+  };
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      dragDrop: [{dragSelector: null, dropSelector: ".talents .droppable"}]
-    });
-  }
-
-  /**
-   * The template path for the included talent partial.
-   * @type {string}
-   */
-  static includedTalentPartial = "systems/crucible/templates/sheets/partials/included-talent.hbs";
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {
+    config: {
+      template: "systems/crucible/templates/sheets/partials/archetype-config.hbs"
+    }
+  }, {inplace: false});
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  async getData(options={}) {
-    const isEditable = this.isEditable;
-    const source = this.document.toObject();
-    return {
-      cssClass: isEditable ? "editable" : "locked",
-      editable: isEditable,
-      item: this.object,
-      source: source,
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    return Object.assign(context, {
       abilities: Object.values(SYSTEM.ABILITIES).map(ability => ({
+        field: context.fields.abilities.fields[ability.id],
         id: ability.id,
         label: ability.label,
-        value: source.system.abilities[ability.id]
-      })),
-      talents: await this.#prepareTalents()
-    };
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare talent data for the Archetype.
-   * @returns {Promise<{uuid: string, name: string, img: string}[]>}
-   */
-  async #prepareTalents() {
-    const uuids = this.document.system.talents;
-    const talents = [];
-    for ( const uuid of uuids ) {
-      const talent = await fromUuid(uuid)
-      if ( !talent ) continue;
-      talents.push(await this.#renderTalentHTML(talent));
-    }
-    return talents;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Construct the HTML for a talent displayed on the Background sheet.
-   * @param {CrucibleItem} talent     The talent item being displayed
-   * @param {boolean} editable        Is the sheet currently editable?
-   * @returns {Promise<string>}       The rendered HTML string
-   */
-  async #renderTalentHTML(talent) {
-    return renderTemplate(this.constructor.includedTalentPartial, {
-      talent,
-      tags: talent.system.getTags(),
-      editable: this.isEditable
+        value: context.source.system.abilities[ability.id]
+      }))
     });
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
     this.#updateAbilitySum();
   }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _onChangeInput(event) {
-    await super._onChangeInput(event);
-    const name = event.currentTarget.name;
-    if ( name.includes("abilities") ) this.#updateAbilitySum();
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
+    const group = event.target.closest(".form-group");
+    if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Update the indicator for whether the ability configuration for the Taxonomy is valid.
+   * Update the indicator for whether the ability configuration for the Archetype is valid.
    */
   #updateAbilitySum() {
-    const abilities = this.element.find(".abilities input[type='number']");
-    const sum = Array.from(abilities).reduce((t, input) => t + input.valueAsNumber, 0);
-    const icon = sum === 18 ? "fa-solid fa-check" : "fa-solid fa-times";
-    this.element.find("span.ability-sum").html(`${sum} <i class="${icon}"></i>`);
+    const abilities = this.element.querySelector(".abilities");
+    const inputs = abilities.querySelectorAll("input[type=number]");
+    const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, 0);
+    const valid = total === 18;
+    const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
+    const span = abilities.querySelector(".sum");
+    span.innerHTML = `${total} <i class="${icon}"></i>`;
+    span.classList.toggle("invalid", !valid);
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _handleAction(action, event, button) {
-    switch ( action ) {
-      case "removeTalent":
-        button.closest(".talent").remove();
-        const fd = this._getSubmitData();
-        await this._updateObject(event, fd);
-        this.setPosition({height: "auto"});
+  _prepareSubmitData(event, form, formData) {
+    const submitData = foundry.utils.expandObject(formData.object);
+    const fields = this.document.system.schema.fields;
+    if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
+      delete submitData.system.abilities;
     }
+    const talents = form.querySelectorAll(".talents .talent");
+    submitData.system.talents = Array.from(talents).map(t => t.dataset.uuid);
+    return submitData;
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _canDragDrop(selector) {
-    return this.isEditable;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onDrop(event) {
-    if ( !this.isEditable ) return;
-    const data = TextEditor.getDragEventData(event);
-    if ( data.type !== "Item" ) return;
-    const talent = await fromUuid(data.uuid);
-    if ( talent?.type !== "talent" ) return;
-    const talents = this.element[0].querySelector(".talents .droppable");
-    talents.insertAdjacentHTML("beforebegin", await this.#renderTalentHTML(talent));
-    this.setPosition({height: "auto"});
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _getSubmitData(updateData={}) {
-    const formData = super._getSubmitData(updateData);
-    const talents = this.element[0].querySelectorAll(".talents .talent");
-    formData["system.talents"] = Array.from(talents).map(t => t.dataset.uuid);
-    return formData;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
+  /**
+   * Process form submission for the sheet
+   * @this {ArchetypeSheet}                       The handler is called with the application as its bound scope
+   * @param {SubmitEvent} event                   The originating form submission event
+   * @param {HTMLFormElement} form                The form element that was submitted
+   * @param {FormDataExtended} formData           Processed data for the submitted form
+   * @returns {Promise<void>}
+   */
+  static async #onSubmit(event, form, formData) {
+    const submitData = this._prepareSubmitData(event, form, formData);
     if ( this.document.parent instanceof Actor ) {
-      const diff = this.object.updateSource(formData);
-      if ( !foundry.utils.isEmpty(diff) ) return this.actor.system.applyArchetype(this.object);
+      const diff = this.document.updateSource(submitData, {dryRun: true});
+      if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyArchetype(this.document);
     }
-    return this.document.update(formData);
+    else await this.document.update(submitData);
   }
 }
