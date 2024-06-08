@@ -65,31 +65,34 @@
 
 .crucible.archetype,
 .crucible.taxonomy {
-  .abilities {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0.5rem;
-  }
-  .resistances {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 0.5rem;
-  }
   .abilities,
   .resistances {
-    label {
-      padding: 0.25rem;
-      border: 1px solid var(--color-frame);
-      border-radius: 6px;
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 0.5rem;
+      label {
+        padding: 0.25rem;
+        border: 1px solid var(--color-frame);
+        border-radius: 6px;
+      }
+      input {
+        --input-border-color: transparent;
+        font-size: var(--font-size-18);
+      }
     }
-    input {
-      font-size: var(--font-size-20);
-      border-color: transparent;
+    .sum {
+      margin-left: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid green;
+      border-radius: 4px;
+      &.invalid {
+        border-color: red;
+      }
     }
   }
-  .ability-sum,
-  .resistance-sum {
-    float: right;
+  .resistances .form-fields {
+    grid-template-columns: repeat(4, 1fr);
   }
   .talents {
     gap: 1rem;

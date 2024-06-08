@@ -1,7 +1,7 @@
 export const TAXONOMY_CATEGORIES = {
-  beast: "TAXONOMY.CategoryBeast",
-  giant: "TAXONOMY.CategoryGiant",
-  humanoid: "TAXONOMY.CategoryHumanoid",
-  outsider: "TAXONOMY.CategoryOutsider",
-  undead: "TAXONOMY.CategoryUndead"
+  beast: "TAXONOMY.CATEGORIES.BEAST",
+  giant: "TAXONOMY.CATEGORIES.GIANT",
+  humanoid: "TAXONOMY.CATEGORIES.HUMANOID",
+  outsider: "TAXONOMY.CATEGORIES.OUTSIDER",
+  undead: "TAXONOMY.CATEGORIES.UNDEAD"
 };

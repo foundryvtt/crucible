@@ -1,45 +1,51 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
+import CrucibleBaseItemSheet from "./base-item.mjs";
 
 /**
- * A sheet application for displaying and configuring Items with the Taxonomy type.
- * @extends ItemSheet
- * @mixes CrucibleSheet
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "taxonomy" type.
  */
-export default class TaxonomySheet extends CrucibleSheetMixin(ItemSheet) {
+export default class TaxonomySheet extends CrucibleBaseItemSheet {
 
-  /** @override */
-  static documentType = "taxonomy";
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["taxonomy"],
+    form: {
+      handler: TaxonomySheet.#onSubmit
+    }
+  };
+
+  /** @inheritDoc */
+  static PARTS = foundry.utils.mergeObject(super.PARTS, {
+    config: {
+      template: "systems/crucible/templates/sheets/partials/taxonomy-config.hbs"
+    }
+  }, {inplace: false});
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  async getData(options={}) {
-    const isEditable = this.isEditable;
-    const source = this.document.toObject();
-    return {
-      cssClass: isEditable ? "editable" : "locked",
-      editable: isEditable,
-      item: this.object,
-      source,
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    return Object.assign(context, {
       abilities: Object.values(SYSTEM.ABILITIES).map(ability => ({
+        field: context.fields.abilities.fields[ability.id],
         id: ability.id,
         label: ability.label,
-        value: source.system.abilities[ability.id]
+        value: context.source.system.abilities[ability.id]
       })),
-      categories: SYSTEM.ADVERSARY.TAXONOMY_CATEGORIES,
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).map(damage => ({
+        field: context.fields.resistances.fields[damage.id],
         id: damage.id,
         label: damage.label,
-        value: source.system.resistances[damage.id]
+        value: context.source.system.resistances[damage.id]
       }))
-    };
+    });
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
     this.#updateAbilitySum();
     this.#updateResistanceSum();
   }
@@ -47,11 +53,11 @@ export default class TaxonomySheet extends CrucibleSheetMixin(ItemSheet) {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async _onChangeInput(event) {
-    await super._onChangeInput(event);
-    const name = event.currentTarget.name;
-    if ( name.includes("abilities") ) this.#updateAbilitySum();
-    else if ( name.includes("resistances") ) this.#updateResistanceSum();
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
+    const group = event.target.closest(".form-group");
+    if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
+    else if ( group?.classList.contains("resistances") ) this.#updateResistanceSum();
   }
 
   /* -------------------------------------------- */
@@ -60,10 +66,14 @@ export default class TaxonomySheet extends CrucibleSheetMixin(ItemSheet) {
    * Update the indicator for whether the ability configuration for the Taxonomy is valid.
    */
   #updateAbilitySum() {
-    const abilities = this.element.find(".abilities input[type='number']");
-    const sum = Array.from(abilities).reduce((t, input) => t + input.valueAsNumber, 0);
-    const icon = sum === 18 ? "fa-solid fa-check" : "fa-solid fa-times";
-    this.element.find("span.ability-sum").html(`${sum} <i class="${icon}"></i>`);
+    const abilities = this.element.querySelector(".abilities");
+    const inputs = abilities.querySelectorAll("input[type=number]");
+    const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, 0);
+    const valid = total === 18;
+    const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
+    const span = abilities.querySelector(".sum");
+    span.innerHTML = `${total} <i class="${icon}"></i>`;
+    span.classList.toggle("invalid", !valid);
   }
 
   /* -------------------------------------------- */
@@ -72,20 +82,47 @@ export default class TaxonomySheet extends CrucibleSheetMixin(ItemSheet) {
    * Update the indicator for whether the resistance configuration for the Taxonomy is valid.
    */
   #updateResistanceSum() {
-    const resistances = this.element.find(".resistances input[type='number']");
-    const sum = Array.from(resistances).reduce((t, input) => t + input.valueAsNumber, 0);
-    const icon = sum === 0 ? "fa-solid fa-check" : "fa-solid fa-times";
-    this.element.find("span.resistance-sum").html(`${sum} <i class="${icon}"></i>`);
+    const resistances = this.element.querySelector(".resistances");
+    const inputs = resistances.querySelectorAll("input[type=number]");
+    const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, 0);
+    const valid = total === 0;
+    const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
+    const span = resistances.querySelector(".sum");
+    span.innerHTML = `${total} <i class="${icon}"></i>`;
+    span.classList.toggle("invalid", !valid);
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
-    if ( this.document.parent instanceof Actor ) {
-      const diff = this.object.updateSource(formData);
-      if ( !foundry.utils.isEmpty(diff) ) return this.actor.system.applyTaxonomy(this.object);
+  /** @override */
+  _prepareSubmitData(event, form, formData) {
+    const submitData = foundry.utils.expandObject(formData.object);
+    const fields = this.document.system.schema.fields;
+    if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
+      delete submitData.system.abilities;
     }
-    return this.document.update(formData);
+    if ( fields.resistances.validate(submitData.system.resistances) !== undefined ) {
+      delete submitData.system.resistances;
+    }
+    return submitData;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Process form submission for the sheet
+   * @this {TaxonomySheet}                        The handler is called with the application as its bound scope
+   * @param {SubmitEvent} event                   The originating form submission event
+   * @param {HTMLFormElement} form                The form element that was submitted
+   * @param {FormDataExtended} formData           Processed data for the submitted form
+   * @returns {Promise<void>}
+   */
+  static async #onSubmit(event, form, formData) {
+    const submitData = this._prepareSubmitData(event, form, formData);
+    if ( this.document.parent instanceof Actor ) {
+      const diff = this.document.updateSource(submitData, {dryRun: true});
+      if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyTaxonomy(this.document);
+    }
+    else await this.document.update(submitData);
   }
 }

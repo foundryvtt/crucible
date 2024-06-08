@@ -19,7 +19,6 @@ export default class TalentSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    description: {template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"},
     config: {template: "systems/crucible/templates/sheets/partials/talent-config.hbs"},
     hooks: {
       id: "hooks",

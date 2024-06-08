@@ -26,6 +26,9 @@ export default class CrucibleTaxonomy extends foundry.abstract.TypeDataModel {
     }
   }
 
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["TAXONOMY"];
+
   /* -------------------------------------------- */
 
   /**

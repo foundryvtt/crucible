@@ -597,19 +597,32 @@
   "PointsAvailable": "Points Available"
 },
 
-"TAXONOMY.Clear": "Clear Taxonomy",
-"TAXONOMY.Configure": "Taxonomy",
-"TAXONOMY.Abilities": "Base Abilities",
-"TAXONOMY.AbilitiesHint": "Define the initial ability scores for creatures with this Taxonomy. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8.",
-"TAXONOMY.Resistances": "Resistance Scaling",
-"TAXONOMY.ResistancesHint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero.",
-"TAXONOMY.Category": "Category",
-
-"TAXONOMY.CategoryBeast": "Beast",
-"TAXONOMY.CategoryGiant": "Giant",
-"TAXONOMY.CategoryHumanoid": "Humanoid",
-"TAXONOMY.CategoryOutsider": "Outsider",
-"TAXONOMY.CategoryUndead": "Undead",
+"TAXONOMY": {
+  "FIELDS": {
+    "abilities": {
+      "label": "Base Abilities",
+      "hint": "Define the initial ability scores for creatures with this Taxonomy. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8."
+    },
+    "category": {
+      "label": "Category",
+      "hint": "The category of creature that this Taxonomy belongs to."
+    },
+    "resistances": {
+      "label": "Resistance Scaling",
+      "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero."
+    }
+  },
+  "CATEGORIES": {
+    "BEAST": "Beast",
+    "GIANT": "Giant",
+    "HUMANOID": "Humanoid",
+    "OUTSIDER": "Outsider",
+    "UNDEAD": "Undead"
+  },
+  "ACTIONS": {
+    "CLEAR": "Clear Taxonomy"
+  }
+},
 
 "WEAPON": {
   "CATEGORIES": {

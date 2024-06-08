@@ -397,6 +397,9 @@
   font-family: var(--font-h1);
   color: var(--color-h1);
 }
+.crucible.window-app nav.sheet-tabs a {
+  padding: 0.5rem 0.25rem;
+}
 .crucible.window-app .sheet-body.flexcol {
   gap: 1rem;
 }
@@ -459,9 +462,6 @@
   /* Highlight Boxes */
   /* Control Buttons */
   /** Incompletion Warnings */
-}
-.crucible.sheet nav.sheet-tabs {
-  flex: none;
 }
 .crucible.sheet .highlight {
   background: rgba(0, 0, 0, 0.05);
@@ -586,9 +586,6 @@
   border-color: var(--color-cool-4);
   font-family: var(--font-h1);
   color: var(--color-secondary);
-}
-.crucible.sheet nav.sheet-tabs > a {
-  cursor: pointer;
 }
 .crucible.sheet .sheet-body {
   padding: 1rem;
@@ -1330,18 +1327,6 @@
   height: 16px;
 }
 /* ----------------------------------------- */
-/*  Archetype Config                         */
-/* ----------------------------------------- */
-.crucible.sheet.archetype .sheet-header {
-  border-bottom: none;
-}
-/* ----------------------------------------- */
-/*  Taxonomy Config                          */
-/* ----------------------------------------- */
-.crucible.sheet.taxonomy .sheet-header {
-  border-bottom: none;
-}
-/* ----------------------------------------- */
 /*  All Items                                */
 /* ----------------------------------------- */
 .crucible.item .item-properties {
@@ -1396,38 +1381,47 @@
 /** ----------------------------------------- *
  *  Archetype Sheet                           *
  * ------------------------------------------ */
-.crucible.archetype .abilities,
-.crucible.taxonomy .abilities {
+.crucible.archetype .abilities .form-fields,
+.crucible.taxonomy .abilities .form-fields,
+.crucible.archetype .resistances .form-fields,
+.crucible.taxonomy .resistances .form-fields {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 0.5rem;
 }
-.crucible.archetype .resistances,
-.crucible.taxonomy .resistances {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0.5rem;
-}
-.crucible.archetype .abilities label,
-.crucible.taxonomy .abilities label,
-.crucible.archetype .resistances label,
-.crucible.taxonomy .resistances label {
+.crucible.archetype .abilities .form-fields label,
+.crucible.taxonomy .abilities .form-fields label,
+.crucible.archetype .resistances .form-fields label,
+.crucible.taxonomy .resistances .form-fields label {
   padding: 0.25rem;
   border: 1px solid var(--color-frame);
   border-radius: 6px;
 }
-.crucible.archetype .abilities input,
-.crucible.taxonomy .abilities input,
-.crucible.archetype .resistances input,
-.crucible.taxonomy .resistances input {
-  font-size: var(--font-size-20);
-  border-color: transparent;
+.crucible.archetype .abilities .form-fields input,
+.crucible.taxonomy .abilities .form-fields input,
+.crucible.archetype .resistances .form-fields input,
+.crucible.taxonomy .resistances .form-fields input {
+  --input-border-color: transparent;
+  font-size: var(--font-size-18);
 }
-.crucible.archetype .ability-sum,
-.crucible.taxonomy .ability-sum,
-.crucible.archetype .resistance-sum,
-.crucible.taxonomy .resistance-sum {
-  float: right;
+.crucible.archetype .abilities .sum,
+.crucible.taxonomy .abilities .sum,
+.crucible.archetype .resistances .sum,
+.crucible.taxonomy .resistances .sum {
+  margin-left: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid green;
+  border-radius: 4px;
+}
+.crucible.archetype .abilities .sum.invalid,
+.crucible.taxonomy .abilities .sum.invalid,
+.crucible.archetype .resistances .sum.invalid,
+.crucible.taxonomy .resistances .sum.invalid {
+  border-color: red;
+}
+.crucible.archetype .resistances .form-fields,
+.crucible.taxonomy .resistances .form-fields {
+  grid-template-columns: repeat(4, 1fr);
 }
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {

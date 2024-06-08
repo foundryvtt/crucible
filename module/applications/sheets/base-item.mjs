@@ -5,9 +5,6 @@ const {api, sheets} = foundry.applications;
  */
 export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemSheetV2) {
 
-  /** @override */
-  static documentType = "base";
-
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     classes: ["crucible", "item", "standard-form"],
@@ -38,18 +35,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
+      template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"
     },
     config: {
       id: "config",
       template: undefined // Populated by subclass
-    },
-    actions: {
-      id: "actions",
-      template: "systems/crucible/templates/sheets/partials/item-actions.hbs",
-      templates: [
-        "systems/crucible/templates/sheets/partials/included-action.hbs"
-      ]
     }
   }
 
@@ -61,18 +51,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     sheet: [
       {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ITEM.TABS.DESCRIPTION"},
       {id: "config", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.CONFIGURATION"}
-    ],
-    description: [
-      {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
-      {id: "secret", group: "description", label: "ITEM.TABS.SECRET"}
     ]
   }
 
   /** @override */
-  tabGroups = {
-    sheet: "description",
-    description: "public"
-  }
+  tabGroups = {sheet: "description"}
 
   /* -------------------------------------------- */
 
@@ -88,7 +71,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       tabGroups,
       tabs: tabGroups.sheet,
       tabsPartial: this.constructor.PARTS.tabs.template,
-      actionPartial: this.constructor.PARTS.actions.templates[0],
       tags: this.document.getTags()
     };
   }

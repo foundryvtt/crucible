@@ -24,18 +24,8 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
     config: {
       template: "systems/crucible/templates/sheets/partials/background-config.hbs",
       templates: [this.talentPartial]
-    },
-    description: {template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"},
+    }
   }, {inplace: false});
-
-  /** @inheritDoc */
-  static TABS = foundry.utils.deepClone(super.TABS);
-  static {
-    delete this.TABS.description;
-  }
-
-  /** @override */
-  static documentType = "background";
 
   /* -------------------------------------------- */
 
