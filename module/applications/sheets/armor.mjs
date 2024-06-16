@@ -7,39 +7,17 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["armor"]
+    item: {
+      type: "weapon",
+      includesActions: true,
+      advancedDescription: true
+    }
   };
 
-  /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    description: {
-      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
-    },
-    config: {
-      template: `systems/crucible/templates/sheets/partials/armor-config.hbs`
-    },
-    actions: {
-      id: "actions",
-      template: "systems/crucible/templates/sheets/partials/item-actions.hbs",
-      templates: [
-        "systems/crucible/templates/sheets/partials/included-action.hbs"
-      ]
-    }
-  }, {inplace: false});
-
-  /** @inheritDoc */
-  static TABS = foundry.utils.mergeObject(super.TABS, {
-    description: [
-      {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
-      {id: "secret", group: "description", label: "ITEM.TABS.SECRET"}
-    ]
-  }, {inplace: false});
+  // Initialize subclass options
   static {
-    this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"})
+    this._initializeItemSheetClass()
   }
-
-  /** @inheritDoc */
-  tabGroups = {sheet: "description", description: "public"};
 
   /* -------------------------------------------- */
 
@@ -47,7 +25,6 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     Object.assign(context, {
-      actionPartial: this.constructor.PARTS.actions.templates[0],
       armorWidget: this.#armorWidget.bind(this),
       dodgeWidget: this.#dodgeWidget.bind(this),
       propertiesWidget: this.#propertiesWidget.bind(this),

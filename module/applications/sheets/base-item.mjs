@@ -16,12 +16,26 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     actions: {
       actionAdd: CrucibleBaseItemSheet.#onActionAdd,
       actionDelete: CrucibleBaseItemSheet.#onActionDelete,
-      actionEdit: CrucibleBaseItemSheet.#onActionEdit
+      actionEdit: CrucibleBaseItemSheet.#onActionEdit,
+      hookAdd: CrucibleBaseItemSheet.#onHookAdd,
+      hookDelete: CrucibleBaseItemSheet.#onHookDelete
     },
     form: {
       submitOnChange: true
+    },
+    item: {
+      type: undefined, // Defined by subclass
+      includesActions: false,
+      includesHooks: false,
+      advancedDescription: false
     }
   };
+
+  /**
+   * A template path used to render a single action.
+   * @type {string}
+   */
+  static ACTION_PARTIAL = "systems/crucible/templates/sheets/partials/included-action.hbs";
 
   /** @override */
   static PARTS = {
@@ -35,11 +49,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/partials/item-description-basic.hbs"
+      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
     },
     config: {
       id: "config",
-      template: undefined // Populated by subclass
+      template: undefined // Populated during _initializeItemSheetClass
     }
   }
 
@@ -55,7 +69,64 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   }
 
   /** @override */
-  tabGroups = {sheet: "description"}
+  tabGroups = {
+    sheet: "description",
+    description: "public" // Used by advancedDescription
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * A method which can be called by subclasses in a static initialization block to refine configuration options at the
+   * class level.
+   */
+  static _initializeItemSheetClass() {
+    const item = this.DEFAULT_OPTIONS.item;
+    this.PARTS = foundry.utils.deepClone(this.PARTS);
+    this.TABS = foundry.utils.deepClone(this.TABS);
+
+    // Item Type Configuration
+    this.DEFAULT_OPTIONS.classes = [this.DEFAULT_OPTIONS.item.type];
+    this.PARTS.config.template = `systems/crucible/templates/sheets/partials/${item.type}-config.hbs`;
+
+    // Includes Actions
+    if ( item.includesActions ) {
+      this.PARTS.actions = {
+        id: "actions",
+        template: "systems/crucible/templates/sheets/partials/item-actions.hbs",
+        templates: [this.ACTION_PARTIAL]
+      }
+      this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"});
+    }
+
+    // Includes Hooks
+    if ( item.includesHooks ) {
+      this.PARTS.hooks = {
+        id: "hooks",
+        template: "systems/crucible/templates/sheets/partials/item-hooks.hbs"
+      }
+      this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
+    }
+
+    // Advanced Description
+    if ( item.advancedDescription ) {
+      this.PARTS.description.template = "systems/crucible/templates/sheets/partials/item-description-advanced.hbs";
+      this.TABS.description = [
+        {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
+        {id: "secret", group: "description", label: "ITEM.TABS.SECRET"}
+      ];
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    if ( this.options.item.includesHooks && !game.user.isGM ) {
+      options.parts.findSplice(p => p === "hooks");
+    }
+  }
 
   /* -------------------------------------------- */
 
@@ -81,11 +152,37 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   async _preparePartContext(partId, context) {
     switch ( partId ) {
       case "actions":
+        context.actionPartial = this.constructor.ACTION_PARTIAL;
         const actions = this.document.system.actions;
-        if ( actions ) context.actions = this.constructor.prepareActions(actions);
+        context.actions = this.constructor.prepareActions(actions);
+        break;
+      case "hooks":
+        context.actorHooks = this.#prepareActorHooks();
+        context.actorHookChoices = Object.entries(SYSTEM.ACTOR_HOOKS).map(([hookId, cfg]) => ({
+          value: hookId,
+          label: hookId,
+          group: game.i18n.localize(cfg.group),
+          disabled: hookId in context.actorHooks
+        }));
         break;
     }
     return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for the actor hooks currently registered by this item.
+   * @returns {Record<string, {label: string, signature: string, argNames: string[]}>}
+   */
+  #prepareActorHooks() {
+    const hooks = {};
+    for ( const h of this.document.system.actorHooks ) {
+      const cfg = SYSTEM.ACTOR_HOOKS[h.hook];
+      const label = `${h.hook}(actor, ${cfg.argNames.join(", ")})`;
+      hooks[h.hook] = {label, ...h};
+    }
+    return hooks;
   }
 
   /* -------------------------------------------- */
@@ -105,6 +202,9 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       }
       tabs[groupId] = group;
     }
+
+    // Suppress GM access to hooks
+    if ( !game.user.isGM ) delete tabs.sheet.hooks;
     return tabs;
   }
 
@@ -153,9 +253,26 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
+  /**
+   * Prepare submission data for the form when needed as a side effect of some other workflow.
+   * @param {Event} event
+   * @returns {object}
+   * @protected
+   */
   _getSubmitData(event) {
     const fd = new FormDataExtended(this.element);
     return this._prepareSubmitData(event, this.element, fd);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _processFormData(event, form, formData) {
+    const submitData = foundry.utils.expandObject(formData.object);
+    if ( this.options.item.includesHooks ) {
+      submitData.system.actorHooks = Object.values(submitData.system.actorHooks || {});
+    }
+    return submitData;
   }
 
   /* -------------------------------------------- */
@@ -236,5 +353,40 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const actionId = button.closest(".action").dataset.actionId;
     const action = this.document.system.actions.find(a => a.id === actionId);
     await action.sheet.render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new hooked function to this Talent.
+   * @this {TalentSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onHookAdd(event) {
+    const hook = event.target.previousElementSibling.value
+    const submitData = this._getSubmitData(event);
+    submitData.system.actorHooks ||= [];
+    if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {
+      ui.notifications.warn(`${this.document.name} already declares a function for the "${hook}" hook.`);
+      return;
+    }
+    submitData.system.actorHooks.push({hook, fn: "// Hook code here"});
+    await this.document.update(submitData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Delete a hooked function from this Talent.
+   * @this {TalentSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onHookDelete(event) {
+    const hook = event.target.closest(".hook").querySelector("input[type=hidden]").value;
+    const submitData = this._getSubmitData(event);
+    submitData.system.actorHooks.findSplice(h => h.hook === hook);
+    await this.document.update(submitData);
   }
 }

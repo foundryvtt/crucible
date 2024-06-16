@@ -7,15 +7,15 @@ export default class ArchetypeSheet extends BackgroundSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["archetype"]
+    item: {
+      type: "archetype"
+    }
   };
 
-  /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    config: {
-      template: "systems/crucible/templates/sheets/partials/archetype-config.hbs"
-    }
-  }, {inplace: false});
+  // Initialize subclass options
+  static {
+    this._initializeItemSheetClass()
+  }
 
   /* -------------------------------------------- */
 
@@ -67,9 +67,9 @@ export default class ArchetypeSheet extends BackgroundSheet {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _prepareSubmitData(event, form, formData) {
-    const submitData = foundry.utils.expandObject(formData.object);
+  /** @inheritDoc */
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
     if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
       delete submitData.system.abilities;
@@ -81,20 +81,13 @@ export default class ArchetypeSheet extends BackgroundSheet {
 
   /* -------------------------------------------- */
 
-  /**
-   * Process form submission for the sheet
-   * @this {ArchetypeSheet}                       The handler is called with the application as its bound scope
-   * @param {SubmitEvent} event                   The originating form submission event
-   * @param {HTMLFormElement} form                The form element that was submitted
-   * @param {FormDataExtended} formData           Processed data for the submitted form
-   * @returns {Promise<void>}
-   */
-  static async #onSubmit(event, form, formData) {
-    const submitData = this._prepareSubmitData(event, form, formData);
+  /** @inheritDoc */
+  async _processSubmitData(event, form, submitData) {
     if ( this.document.parent instanceof Actor ) {
       const diff = this.document.updateSource(submitData, {dryRun: true});
       if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyArchetype(this.document);
+      return;
     }
-    else await this.document.update(submitData);
+    return super._processFormData(event, form, submitData);
   }
 }

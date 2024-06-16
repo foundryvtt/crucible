@@ -7,18 +7,10 @@ export default class TaxonomySheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["taxonomy"],
-    form: {
-      handler: TaxonomySheet.#onSubmit
+    item: {
+      type: "taxonomy"
     }
   };
-
-  /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    config: {
-      template: "systems/crucible/templates/sheets/partials/taxonomy-config.hbs"
-    }
-  }, {inplace: false});
 
   /* -------------------------------------------- */
 
@@ -95,8 +87,8 @@ export default class TaxonomySheet extends CrucibleBaseItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  _prepareSubmitData(event, form, formData) {
-    const submitData = foundry.utils.expandObject(formData.object);
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
     if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
       delete submitData.system.abilities;
@@ -109,20 +101,13 @@ export default class TaxonomySheet extends CrucibleBaseItemSheet {
 
   /* -------------------------------------------- */
 
-  /**
-   * Process form submission for the sheet
-   * @this {TaxonomySheet}                        The handler is called with the application as its bound scope
-   * @param {SubmitEvent} event                   The originating form submission event
-   * @param {HTMLFormElement} form                The form element that was submitted
-   * @param {FormDataExtended} formData           Processed data for the submitted form
-   * @returns {Promise<void>}
-   */
-  static async #onSubmit(event, form, formData) {
-    const submitData = this._prepareSubmitData(event, form, formData);
+  /** @inheritDoc */
+  async _processSubmitData(event, form, submitData) {
     if ( this.document.parent instanceof Actor ) {
       const diff = this.document.updateSource(submitData, {dryRun: true});
       if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyTaxonomy(this.document);
+      return;
     }
-    else await this.document.update(submitData);
+    return super._processFormData(event, form, submitData);
   }
 }

@@ -7,9 +7,11 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["background"],
     actions: {
       removeTalent: BackgroundSheet.#onRemoveTalent
+    },
+    item: {
+      type: "background"
     }
   };
 
@@ -18,14 +20,6 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
    * @type {string}
    */
   static talentPartial = "systems/crucible/templates/sheets/partials/included-talent.hbs";
-
-  /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    config: {
-      template: "systems/crucible/templates/sheets/partials/background-config.hbs",
-      templates: [this.talentPartial]
-    }
-  }, {inplace: false});
 
   /* -------------------------------------------- */
 
@@ -135,8 +129,8 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _prepareSubmitData(event, form, formData) {
-    const submitData = super._prepareSubmitData(event, form, formData);
+  _processFormData(event, form, formData) {
+    const submitData = super._processFormData(event, form, formData);
     const talents = form.querySelectorAll(".talents .talent");
     submitData.system.talents = Array.from(talents).map(t => t.dataset.uuid);
     return submitData;

@@ -1,0 +1,24 @@
+<section class="tab sheet-body flexcol {{tabs.description.cssClass}}"
+         data-tab="{{tabs.description.id}}" data-group="{{tabs.description.group}}">
+    {{> (lookup @root "tabsPartial") tabs=tabGroups.description }}
+
+    <section class="tab flexcol {{tabGroups.description.public.cssClass}}"
+            data-tab="{{tabGroups.description.public.id}}" data-group="{{tabGroups.description.public.group}}">
+        {{#if isEditable}}
+        {{formInput fields.description.fields.public value=source.system.description.public height=300}}
+        <p class="hint">{{fields.description.fields.public.hint}}</p>
+        {{else}}
+        <article class="scrollable">{{{source.system.description.public}}}</article>
+        {{/if}}
+    </section>
+
+    <section class="tab flexcol {{tabGroups.description.secret.cssClass}}"
+             data-tab="{{tabGroups.description.secret.id}}" data-group="{{tabGroups.description.secret.group}}">
+        {{#if isEditable}}
+        {{formInput fields.description.fields.secret value=source.system.description.secret height=300}}
+        <p class="hint">{{fields.description.fields.secret.hint}}</p>
+        {{else}}
+        <article class="scrollable">{{{source.system.description.secret}}}</article>
+        {{/if}}
+    </section>
+</section>

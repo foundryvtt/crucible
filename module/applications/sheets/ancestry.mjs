@@ -7,11 +7,13 @@ export default class AncestrySheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["ancestry"]
+    item: {
+      type: "ancestry"
+    }
   };
 
-  /** @inheritDoc */
-  static PARTS = foundry.utils.mergeObject(super.PARTS, {
-    config: {template: "systems/crucible/templates/sheets/partials/ancestry-config.hbs"}
-  }, {inplace: false});
+  // Initialize subclass options
+  static {
+    this._initializeItemSheetClass()
+  }
 }
