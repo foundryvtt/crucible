@@ -1,0 +1,43 @@
+<section class="sheet-header flexcol">
+    <header class="title flexrow">
+        <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
+        {{#if incomplete.level}}
+        <a class="button control level-up fa-solid fa-plus" data-action="levelUp"
+           data-tooltip="{{incomplete.levelTooltip}}"></a>
+        {{/if}}
+        <label class="level">Level</label>
+        {{formInput fields.advancement.fields.level value=source.system.advancement.level type="number" disabled=isL0}}
+    </header>
+
+    <div class="subtitle flexrow">
+        <h2 class="ancestry flexrow {{#if incomplete.ancestry}}inactive{{/if}}" data-action="viewAncestry"
+            {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
+            {{ancestryName}}
+            {{#if incomplete.ancestry}}
+            <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="ANCESTRY.Browse"></i>
+            {{else if isL0}}
+            <i class="control fas fa-times-circle" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear"></i>
+            {{/if}}
+        </h2>
+        <h2 class="background flexrow {{#if incomplete.background}}inactive{{/if}}" data-action="viewBackground"
+            {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
+            {{backgroundName}}
+            {{#if incomplete.background}}
+            <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="BACKGROUND.Browse"></i>
+            {{else if isL0}}
+            <i class="control fas fa-times-circle" data-action="clearBackground" data-tooltip="BACKGROUND.Clear"></i>
+            {{/if}}
+        </h2>
+        {{#if actor.system.details.signatureName}}
+        <h2 class="signature">{{actor.system.details.signatureName}}</h2>
+        {{/if}}
+        {{#if showMilestones}}
+        <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
+            <div class="bar"><div class="fill" style="width:{{actor.system.advancement.pct}}%"></div></div>
+            <input type="number" name="system.advancement.progress" value="{{actor.system.advancement.progress}}">
+            <span class="slash"></span>
+            <span class="input">{{actor.system.advancement.next}}</span>
+        </div>
+        {{/if}}
+    </div>
+</section>

@@ -241,12 +241,7 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-grimoire.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-sidebar.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-skills.hbs`
+    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`
   ]);
 });
 

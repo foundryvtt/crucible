@@ -103,7 +103,6 @@
 
   // Sheet Body
   .sheet-body {
-    padding: 1rem;
     gap: 1rem;
   }
 
@@ -137,19 +136,23 @@
 
   /** Line Items - Actions, Talents, etc... */
   .line-item {
+    --icon-size: 48px;
+
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
     header {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
+      align-items: center;
       gap: 0.5rem;
     }
     img.icon {
-      height: 48px;
-      width: 48px;
-      flex: 0 0 48px;
+      height: var(--icon-size);
+      width: var(--icon-size);
+      flex: 0 0 var(--icon-size);
     }
     .title {
       margin: 0;

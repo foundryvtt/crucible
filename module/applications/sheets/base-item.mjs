@@ -55,7 +55,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       id: "config",
       template: undefined // Populated during _initializeItemSheetClass
     }
-  }
+  };
 
   /**
    * Define the structure of tabs used by this Item Sheet.
@@ -188,7 +188,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * Configure the tabs used by this sheet, if any.
+   * Configure the tabs used by this sheet.
    * @returns {Record<string, Record<string, ApplicationTab>>}
    * @protected
    */

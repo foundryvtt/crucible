@@ -50,13 +50,30 @@
 "ADVERSARY.ThreatElite": "Elite",
 "ADVERSARY.ThreatBoss": "Boss",
 
-"ACTOR.StatureTiny": "Tiny",
-"ACTOR.StatureSmall": "Small",
-"ACTOR.StatureMedium": "Medium",
-"ACTOR.StatureLarge": "Large",
-"ACTOR.StatureGiant": "Giant",
-"ACTOR.StatureHuge": "Huge",
-"ACTOR.StatureGargantuan": "Gargantuan",
+"ACTOR": {
+  "TABS": {
+    "ATTRIBUTES": "Attributes",
+    "SKILLS": "Skills",
+    "TALENTS": "Talents",
+    "INVENTORY": "Inventory",
+    "SPELLS": "Spells",
+    "BIOGRAPHY": "Biography"
+  },
+  "LABELS": {
+    "CURRENT_EQUIPMENT": "Current Equipment",
+    "AVAILABLE_ACTIONS": "Available Actions",
+    "ACTIVE_EFFECTS": "Active Effects"
+  },
+  "STATURES": {
+    "TINY": "Tiny",
+    "SMALL": "Small",
+    "MEDIUM": "Medium",
+    "LARGE": "Large",
+    "GIANT": "Giant",
+    "HUGE": "Huge",
+    "GARGANTUAN": "Gargantuan"
+  }
+},
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 

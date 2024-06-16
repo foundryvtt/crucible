@@ -44,80 +44,15 @@ export default class CrucibleActorSheet extends ActorSheet {
     // Owned Items
     context.items = this.#formatItems(a.items);
 
-    // Equipment
-    context.featuredEquipment = this._prepareFeaturedEquipment();
-
-    // Actions
-    context.actions = this._prepareAvailableActions();
 
     // Skills
     context.skillCategories = this.#formatSkills(a.system.skills);
 
     // Spellcraft
     context.grimoire = this.#formatGrimoire();
-
-    // Active Effects
-    context.effects = this.#formatEffects();
-
-    // HTML Biography
-    context.biography = {};
-    context.biography.public = await TextEditor.enrichHTML(s.system.details.biography.public, {
-      secrets: a.isOwner,
-      async: true,
-      relativeTo: a
-    });
-    context.biography.private = await TextEditor.enrichHTML(s.system.details.biography.private, {
-      secrets: a.isOwner,
-      async: true,
-      relativeTo: a
-    });
-
-    // Creation Tasks
-    context.incomplete = {}
     return context;
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the items of equipment which are showcased at the top of the sidebar.
-   * @returns {{name: string, img: string, tag: string[]}[]}
-   * @protected
-   */
-  _prepareFeaturedEquipment() {
-    const featuredEquipment = [];
-    const {armor, weapons} = this.actor.equipment;
-    const {mainhand: mh, offhand: oh, twoHanded: th} = weapons;
-    featuredEquipment.push({name: mh.name, img: mh.img, tag: [mh.getTags().damage]});
-    if ( oh?.id && !th ) featuredEquipment.push({name: oh.name, img: oh.img, tag: [oh.getTags().damage]})
-    featuredEquipment.push({name: armor.name, img: armor.img, tag: armor.getTags().armor});
-    return featuredEquipment;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare data for the set of actions that are displayed on the Available Actions portion of the sheet.
-   * @returns {{img: *, name: *, id: *, totalCost, tags: *}[]}
-   * @protected
-   */
-  _prepareAvailableActions() {
-    const combatant = game.combat?.getCombatantByActor(this.actor);
-    const actions = [];
-    for ( const action of Object.values(this.actor.actions) ) {
-      if ( !action._displayOnSheet(combatant) ) continue;
-      const tags = action.getTags().activation;
-      actions.push({
-        id: action.id,
-        name: action.name,
-        img: action.img,
-        tags,
-        totalCost: action.cost.action + action.cost.focus
-      });
-    }
-    actions.sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
-    return actions;
-  }
 
   /* -------------------------------------------- */
 
@@ -344,41 +279,6 @@ export default class CrucibleActorSheet extends ActorSheet {
       grimoire[k].known = v;
     }
     return grimoire;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Format ActiveEffect data required for rendering the sheet
-   * @returns {object[]}
-   */
-  #formatEffects() {
-    return this.actor.effects.map(effect => {
-      const {startRound, rounds, turns} = effect.duration;
-      const elapsed = game.combat ? game.combat.round - startRound : 0;
-      const tags = {};
-
-      // Turn-based duration
-      if ( Number.isFinite(turns) ) {
-        const remaining = turns - elapsed;
-        tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
-      }
-
-      // Round-based duration
-      else if ( Number.isFinite(rounds) ) {
-        const remaining = rounds - elapsed + 1;
-        tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
-      }
-
-      // Infinite duration
-      else tags.duration = "∞";
-      return {
-        id: effect.id,
-        icon: effect.icon,
-        label: effect.name,
-        tags: tags
-      }
-    });
   }
 
   /* -------------------------------------------- */

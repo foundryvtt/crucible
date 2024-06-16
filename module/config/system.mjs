@@ -45,37 +45,37 @@ export const COMPENDIUM_PACKS = {
  */
 export const CREATURE_STATURES = {
   tiny: {
-    label: "ACTOR.StatureTiny",
+    label: "ACTOR.STATURES.TINY",
     grid: 0.5,
     engagement: 0
   },
   small: {
-    label: "ACTOR.StatureSmall",
+    label: "ACTOR.STATURES.SMALL",
     grid: 1,
     engagement: 1
   },
   medium: {
-    label: "ACTOR.StatureMedium",
+    label: "ACTOR.STATURES.MEDIUM",
     grid: 1,
     engagement: 1
   },
   large: {
-    label: "ACTOR.StatureLarge",
+    label: "ACTOR.STATURES.LARGE",
     grid: 1,
     engagement: 2
   },
   giant: {
-    label: "ACTOR.StatureGiant",
+    label: "ACTOR.STATURES.GIANT",
     grid: 2,
     engagement: 3
   },
   huge: {
-    label: "ACTOR.StatureHuge",
+    label: "ACTOR.STATURES.HUGE",
     grid: 3,
     engagement: 4
   },
   gargantuan: {
-    label: "ACTOR.StatureGargantuan",
+    label: "ACTOR.STATURES.GARGANTUAN",
     grid: 4,
     engagement: 5
   }
