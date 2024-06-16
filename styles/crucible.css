@@ -25,6 +25,13 @@
   font-style: normal;
   font-weight: 700;
 }
+@font-face {
+  font-family: 'Vollkorn';
+  font-stretch: 120%;
+  font-style: normal;
+  font-weight: 300 800;
+  src: url("../fonts/vollkorn/Vollkorn-VariableFont_wght.ttf") format('truetype');
+}
 /* ----------------------------------------- */
 /*  CSS Variables                            */
 /* ----------------------------------------- */
@@ -44,7 +51,7 @@
   --color-link-text: #f36739;
   --color-border-highlight: var(--color-accent);
   --font-h1: "AwerySmallcaps", serif;
-  --font-body: "Constantia", serif;
+  --font-body: "Vollkorn", serif;
   --font-quote: "CaslonAntique", serif;
   --font-sans: "Signika", sans-serif;
   --font-size-15: 0.9375rem;
@@ -210,8 +217,8 @@
 }
 .crucible .tags .tag {
   padding: 1px 4px;
-  background: var(--color-background);
-  border: 1px solid var(--color-cool-4);
+  background: var(--color-frame-bg-75);
+  border: 1px solid var(--color-frame);
   border-radius: 4px;
   font-family: var(--font-sans);
   font-size: var(--font-size-12);
@@ -765,7 +772,6 @@
   right: calc(-1 * (var(--tab-size) + 4px));
   top: 90px;
   padding: 4px 4px 4px 0;
-  margin: 0;
   gap: var(--margin-half);
   border: none;
   overflow: hidden;
@@ -798,8 +804,112 @@
   opacity: 1;
 }
 .crucible.sheet.actor .sheet-body {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   height: 100%;
+  gap: 2rem 0;
+}
+.crucible.sheet.actor .tab.attributes {
+  display: grid;
+  grid-template-rows: 100px 200px 1fr;
+  grid-template-columns: 3fr 2fr;
+  gap: calc(var(--margin-size) * 1.5) var(--margin-size);
+  padding-bottom: var(--margin-size);
+  /** Resources */
+  /** Abilities */
+}
+.crucible.sheet.actor .tab.attributes .attribute-section {
+  border: 1px solid var(--color-frame);
+  border-radius: 6px;
+  position: relative;
+  padding: 1rem 0 0;
+  align-items: center;
+}
+.crucible.sheet.actor .tab.attributes .attribute-section > h3 {
+  box-sizing: content-box;
+  position: absolute;
+  margin: 0;
+  padding: 0 1rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  top: -0.75rem;
+  font-size: var(--font-size-14);
+  color: var(--color-primary);
+  background: var(--color-frame-bg);
+  border: 1px solid var(--color-frame);
+  border-radius: 3px;
+}
+.crucible.sheet.actor .tab.attributes .resources {
+  grid-column: 1;
+  grid-row: 1;
+  justify-content: center;
+}
+.crucible.sheet.actor .tab.attributes .abilities {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 100px);
+  justify-items: center;
+}
+.crucible.sheet.actor .tab.attributes .abilities .ability {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  background: url("../ui/abilities/frame.svg") no-repeat center;
+  background-size: cover;
+}
+.crucible.sheet.actor .tab.attributes .abilities .ability .label {
+  position: absolute;
+  top: -4px;
+  font-size: var(--font-size-10);
+  margin: 0;
+}
+.crucible.sheet.actor .tab.attributes .abilities .ability .input {
+  font-size: var(--font-size-24);
+  font-family: var(--font-h1);
+}
+.crucible.sheet.actor .tab.attributes .abilities .ability::before {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: var(--ability-icon) no-repeat center;
+  background-size: 54px;
+}
+.crucible.sheet.actor .tab.attributes .abilities .strength {
+  --ability-icon: url("../ui/abilities/strength.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .toughness {
+  --ability-icon: url("../ui/abilities/toughness.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .dexterity {
+  --ability-icon: url("../ui/abilities/dexterity.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .wisdom {
+  --ability-icon: url("../ui/abilities/wisdom.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .presence {
+  --ability-icon: url("../ui/abilities/presence.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .intellect {
+  --ability-icon: url("../ui/abilities/intellect.svg");
+}
+.crucible.sheet.actor .tab.attributes .abilities .controls {
+  display: none;
+}
+.crucible.sheet.actor .tab.attributes .defenses {
+  justify-content: center;
+}
+.crucible.sheet.actor .tab.attributes .resistances {
+  grid-column: 1 / span 2;
+  justify-content: center;
 }
 /* ----------------------------------------- */
 /*  All Items                                */

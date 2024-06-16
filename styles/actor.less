@@ -26,6 +26,7 @@
 
   .sheet-header {
     padding: 0;
+
     header.title {
       gap: var(--margin-half);
       input {
@@ -126,7 +127,6 @@
     right: calc(-1 * (var(--tab-size) + 4px));
     top: 90px;
     padding: 4px 4px 4px 0;
-    margin: 0;
     gap: var(--margin-half);
     border: none;
     overflow: hidden;
@@ -166,7 +166,120 @@
   /* ----------------------------------------- */
 
   .sheet-body {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     height: 100%;
+    gap: 2rem 0;
+  }
+
+  .tab.attributes {
+    display: grid;
+    grid-template-rows: 100px 200px 1fr;
+    grid-template-columns: 3fr 2fr;
+    gap: calc(var(--margin-size) * 1.5) var(--margin-size);
+    padding-bottom: var(--margin-size);
+
+    .attribute-section {
+      border: 1px solid var(--color-frame);
+      border-radius: 6px;
+      position: relative;
+      padding: 1rem 0 0;
+      align-items: center;
+
+      > h3 {
+        box-sizing: content-box;
+        position: absolute;
+        margin: 0;
+        padding: 0 1rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        top: -0.75rem;
+        font-size: var(--font-size-14);
+        color: var(--color-primary);
+        background: var(--color-frame-bg);
+        border: 1px solid var(--color-frame);
+        border-radius: 3px;
+      }
+    }
+
+    /** Resources */
+    .resources {
+      grid-column: 1;
+      grid-row: 1;
+      justify-content: center;
+    }
+
+    /** Abilities */
+    .abilities {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 100px);
+      justify-items: center;
+
+      .ability {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        background: url("../ui/abilities/frame.svg") no-repeat center;
+        background-size: cover;
+
+        .label {
+          position: absolute;
+          top: -4px;
+          font-size: var(--font-size-10);
+          margin: 0;
+        }
+        .input {
+          font-size: var(--font-size-24);
+          font-family: var(--font-h1);
+        }
+        &::before {
+          display: block;
+          position: absolute;
+          pointer-events: none;
+          content: "";
+          width: 80px;
+          height: 80px;
+          background: var(--ability-icon) no-repeat center;
+          background-size: 54px;
+        }
+      }
+      .strength {
+        --ability-icon: url("../ui/abilities/strength.svg");
+      }
+      .toughness {
+        --ability-icon: url("../ui/abilities/toughness.svg");
+      }
+      .dexterity {
+        --ability-icon: url("../ui/abilities/dexterity.svg");
+      }
+      .wisdom {
+        --ability-icon: url("../ui/abilities/wisdom.svg");
+      }
+      .presence {
+        --ability-icon: url("../ui/abilities/presence.svg");
+      }
+      .intellect {
+        --ability-icon: url("../ui/abilities/intellect.svg");
+      }
+      .controls {
+        display: none; // FIXME temporarily hidden
+      }
+    }
+
+    .defenses {
+      justify-content: center;
+    }
+
+    .resistances {
+      grid-column: 1 / span 2;
+      justify-content: center;
+    }
   }
 }

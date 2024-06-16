@@ -35,7 +35,7 @@ export default class CrucibleActorSheet extends ActorSheet {
     const s = context.source = context.data;
 
     // Abilities, Defenses, Resources, and Resistances
-    context.abilityScores = this.#formatAbilities(a.system.abilities);
+
     context.physicalDefenses = this.#formatPhysicalDefenses(a.system.defenses);
     context.saveDefenses = this.#formatSaveDefenses(a.system.defenses);
     context.resources = this.#formatResources(a.system.resources);
@@ -53,25 +53,6 @@ export default class CrucibleActorSheet extends ActorSheet {
     return context;
   }
 
-
-  /* -------------------------------------------- */
-
-  /**
-   * Format ability scores for display on the Actor sheet.
-   * @param {object} abilities
-   * @return {object[]}
-   */
-  #formatAbilities(abilities) {
-    return Object.values(SYSTEM.ABILITIES).map(cfg => {
-      const ability = foundry.utils.deepClone(cfg);
-      ability.value = abilities[ability.id].value;
-      if ( this.actor.points ) {
-        ability.canIncrease = this.actor.canPurchaseAbility(ability.id, 1);
-        ability.canDecrease = this.actor.canPurchaseAbility(ability.id, -1);
-      }
-      return ability;
-    });
-  }
   /* -------------------------------------------- */
 
   /**
