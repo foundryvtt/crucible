@@ -101,6 +101,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fields: this.document.system.schema.fields,
       incomplete: {},
       isEditable: this.isEditable,
+      resources: this.#prepareResources(),
       source: this.document.toObject(),
       tabGroups,
       tabs: tabGroups.sheet
@@ -236,5 +237,23 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       public: await TextEditor.enrichHTML(biography.public, context),
       private: await TextEditor.enrichHTML(biography.private, context)
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare and format the display of resource attributes on the actor sheet.
+   * @returns {Record<string, {id: string, pct: number, color: {bg: string, fill: string}}>}
+   */
+  #prepareResources() {
+    const resources = {};
+    for ( const [id, resource] of Object.entries(this.document.system.resources) ) {
+      const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
+      r.id = id;
+      r.pct = Math.round(r.value * 100 / r.max);
+      r.cssPct = `--resource-pct: ${100 - r.pct}%`;
+      resources[r.id] = r;
+    }
+    return resources;
   }
 }

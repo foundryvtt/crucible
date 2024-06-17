@@ -46,6 +46,8 @@
   --color-h1: #cfbea2;
   --color-frame: #3f3128;
   --color-frame-bg: #1c1a1a;
+  --color-frame-bg-25: rgba(28, 26, 26, 0.25);
+  --color-frame-bg-50: rgba(28, 26, 26, 0.5);
   --color-frame-bg-75: rgba(28, 26, 26, 0.75);
   --color-accent: #cf9356;
   --color-link-text: #f36739;
@@ -693,7 +695,7 @@
 }
 .crucible.sheet.actor .sheet-header header.title input {
   height: var(--sheet-header-height);
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-frame-bg-50);
   padding: 0.5rem;
   border: none;
   font-family: var(--font-h1);
@@ -731,7 +733,7 @@
 }
 .crucible.sheet.actor .sheet-sidebar img.profile {
   border: none;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--color-frame-bg-50);
 }
 .crucible.sheet.actor .sheet-sidebar h2.divider {
   margin: 0;
@@ -812,7 +814,7 @@
 }
 .crucible.sheet.actor .tab.attributes {
   display: grid;
-  grid-template-rows: 100px 200px 1fr;
+  grid-template-rows: 140px 160px 1fr;
   grid-template-columns: 3fr 2fr;
   gap: calc(var(--margin-size) * 1.5) var(--margin-size);
   padding-bottom: var(--margin-size);
@@ -820,7 +822,7 @@
   /** Abilities */
 }
 .crucible.sheet.actor .tab.attributes .attribute-section {
-  border: 1px solid var(--color-frame);
+  background: var(--color-frame-bg-50);
   border-radius: 6px;
   position: relative;
   padding: 1rem 0 0;
@@ -837,13 +839,87 @@
   font-size: var(--font-size-14);
   color: var(--color-primary);
   background: var(--color-frame-bg);
-  border: 1px solid var(--color-frame);
   border-radius: 3px;
 }
 .crucible.sheet.actor .tab.attributes .resources {
   grid-column: 1;
   grid-row: 1;
   justify-content: center;
+  padding: 0 0.5rem;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource {
+  --resource-pct: 0%;
+  position: relative;
+  flex: 0 0 100px;
+  height: 100px;
+  background: var(--resource-bg) no-repeat center;
+  background-size: auto 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .label {
+  position: absolute;
+  font-size: var(--font-size-11);
+  background: var(--color-frame-bg);
+  padding: 2px 6px;
+  margin: 0;
+  z-index: 1;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .label.above {
+  top: -12px;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .label.below {
+  bottom: -12px;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool {
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool input {
+  flex: 0 0 30px;
+  height: 24px;
+  background: none;
+  padding: 0 0.25rem;
+  border: none;
+  text-align: center;
+  font-size: var(--font-size-20);
+  font-family: var(--font-h1);
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool .total,
+.crucible.sheet.actor .tab.attributes .resources .resource .pool .sep {
+  font-family: var(--font-h1);
+  font-size: var(--font-size-16);
+  color: var(--color-secondary);
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool .sep {
+  flex: none;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool .total {
+  flex: 0 0 30px;
+  text-align: center;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource::before {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: var(--resource-fill) no-repeat center;
+  background-size: auto 100px;
+  z-index: 0;
+  clip-path: inset(var(--resource-pct) 0px 0px 0px);
+  transition: clip-path 1s;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource.health {
+  --resource-bg: url("../ui/resources/health-bg.png");
+  --resource-fill: url("../ui/resources/health-fill.png");
+}
+.crucible.sheet.actor .tab.attributes .resources .resource.morale {
+  --resource-bg: url("../ui/resources/morale-bg.png");
+  --resource-fill: url("../ui/resources/morale-fill.png");
 }
 .crucible.sheet.actor .tab.attributes .abilities {
   grid-column: 2;
@@ -865,8 +941,10 @@
 }
 .crucible.sheet.actor .tab.attributes .abilities .ability .label {
   position: absolute;
-  top: -4px;
-  font-size: var(--font-size-10);
+  top: -8px;
+  background: var(--color-frame-bg);
+  padding: 2px 6px;
+  font-size: var(--font-size-11);
   margin: 0;
 }
 .crucible.sheet.actor .tab.attributes .abilities .ability .input {

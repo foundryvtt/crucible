@@ -38,7 +38,6 @@ export default class CrucibleActorSheet extends ActorSheet {
 
     context.physicalDefenses = this.#formatPhysicalDefenses(a.system.defenses);
     context.saveDefenses = this.#formatSaveDefenses(a.system.defenses);
-    context.resources = this.#formatResources(a.system.resources);
     context.resistances = this.#formatResistances(a.system.resistances);
 
     // Owned Items
@@ -110,30 +109,6 @@ export default class CrucibleActorSheet extends ActorSheet {
       formatted.push(d);
     }
     return formatted;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Format the display of resource attributes on the actor sheet
-   * @param {object} resources       The ActorData.system.resources object
-   */
-  #formatResources(resources) {
-    return Object.entries(resources).map(([id, resource]) => {
-      const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
-      r.id = id;
-      r.pct = Math.round(r.value * 100 / r.max);
-
-      // Determine resource bar color
-      const p = r.pct / 100;
-      const c0 = r.color.low.rgb;
-      const c1 = r.color.high.rgb;
-      const bg = c0.map(c => c * 0.25 * 255);
-      const fill = c1.map((c, i) => ((c * p) + (c0[i] * (1-p))) * 255);
-      r.color.bg = `rgb(${bg.join(",")})`;
-      r.color.fill = `rgb(${fill.join(",")})`;
-      return r;
-    });
   }
 
   /* -------------------------------------------- */
