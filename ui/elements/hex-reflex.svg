@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 67 76">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #d8d8d8;
+        stroke-width: .5px;
+      }
+
+      .cls-2 {
+        fill: #d8d8d8;
+        fill-rule: evenodd;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Defenses">
+    <g id="Workboard">
+      <g id="Reflex">
+        <g id="Quickness">
+          <polygon id="Path" class="cls-1" points="1 20 1 55.7 33.5 74.7 66 55.7 66 20 33.5 1 1 20"/>
+          <polygon id="Rectangle" class="cls-2" points="16 12.5 33.5 2.3 51 12.5 33.5 7.4 16 12.5"/>
+          <polygon id="Rectangle-2" data-name="Rectangle" class="cls-2" points="16 63.3 33.5 73.5 51 63.3 33.5 67.7 16 63.3"/>
+          <g id="Group">
+            <polygon id="Path-6" class="cls-2" points="13 14.3 2.1 20.7 2.1 37.9 3.1 37.9 3.1 21.3 13.3 15.3 13.8 16.5 18.9 12.5 13 14.3"/>
+            <polygon id="Path-6-2" data-name="Path-6" class="cls-2" points="13 61.5 2.1 55 2.1 37.9 3.1 37.9 3.1 54.4 13.3 60.4 13.8 59.2 18.9 63.2 13 61.5"/>
+          </g>
+          <g id="Group-2" data-name="Group">
+            <polygon id="Path-6-3" data-name="Path-6" class="cls-2" points="53.9 14.3 64.9 20.7 64.9 37.9 63.9 37.9 63.9 21.3 53.6 15.3 53.2 16.5 48.1 12.5 53.9 14.3"/>
+            <polygon id="Path-6-4" data-name="Path-6" class="cls-2" points="53.9 61.5 64.9 55 64.9 37.9 63.9 37.9 63.9 54.4 53.6 60.4 53.2 59.2 48.1 63.2 53.9 61.5"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

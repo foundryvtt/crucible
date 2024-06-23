@@ -10,7 +10,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     classes: ["crucible", "actor", "standard-form"],
     tag: "form",
     position: {
-      width: 800,
+      width: 900,
       height: 720
     },
     actions: {},
@@ -95,6 +95,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       actions: this.#prepareAvailableActions(),
       actor: this.document,
       biography: this.#prepareBiography(),
+      defenses: this.#prepareDefenses(),
       effects: this.#prepareActiveEffects(),
       featuredEquipment: this.#prepareFeaturedEquipment(),
       fieldDisabled: this.isEditable ? "" : "disabled",
@@ -147,6 +148,83 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     });
     abilities.sort((a, b) => a.sheetOrder - b.sheetOrder);
     return abilities;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare enriched biography HTML for the actor.
+   * @returns {Promise<{private: string, public: string}>}
+   */
+  async #prepareBiography() {
+    const biography = this.document.system.details.biography;
+    const context = {relativeTo: this.document, secrets: this.document.isOwner};
+    return {
+      public: await TextEditor.enrichHTML(biography.public, context),
+      private: await TextEditor.enrichHTML(biography.private, context)
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare and structure data used to render defenses.
+   * @returns {Record<string, object>}
+   */
+  #prepareDefenses() {
+    const data = this.document.system.defenses;
+
+    // Physical defenses
+    const defenses = {
+      physical: {
+        value: data.physical.total,
+        label: SYSTEM.DEFENSES.physical.label,
+        subtitle: this.actor.equipment.armor.name,
+        components: {
+          armor: {
+            value: data.armor.total,
+            label: SYSTEM.DEFENSES.armor.label,
+            pct: Math.round(data.armor.total * 100 / data.physical.total),
+            cssClass: data.armor.total > 0 ? "active" : "inactive",
+            separator: "="
+          },
+          dodge: {
+            value: data.dodge.total,
+            label: SYSTEM.DEFENSES.dodge.label,
+            pct: Math.round(data.dodge.total * 100 / data.physical.total),
+            cssClass: data.dodge.total > 0 ? "active" : "inactive",
+            separator: "+"
+          },
+          parry: {
+            value: data.parry.total,
+            label: SYSTEM.DEFENSES.parry.label,
+            pct: Math.round(data.parry.total * 100 / data.physical.total),
+            cssClass: data.parry.total > 0 ? "active" : "inactive",
+            separator: "+"
+          },
+          block: {
+            value: data.block.total,
+            label: SYSTEM.DEFENSES.block.label,
+            pct: Math.round(data.block.total * 100 / data.physical.total),
+            cssClass: data.block.total > 0 ? "active" : "inactive",
+            separator: "+"
+          }
+        }
+      },
+    };
+
+    // Non-physical defenses
+    for ( const [id, defense] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( defense.type === "physical" ) continue;
+      const d = foundry.utils.mergeObject(defense, data[id], {inplace: false});
+      d.id = id;
+      if ( d.bonus !== 0 ) {
+        const sign = d.bonus > 0 ? "+" : "-";
+        d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
+      }
+      defenses[id] = d;
+    }
+    return defenses;
   }
 
   /* -------------------------------------------- */
@@ -227,32 +305,48 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
-   * Prepare enriched biography HTML for the actor.
-   * @returns {Promise<{private: string, public: string}>}
-   */
-  async #prepareBiography() {
-    const biography = this.document.system.details.biography;
-    const context = {relativeTo: this.document, secrets: this.document.isOwner};
-    return {
-      public: await TextEditor.enrichHTML(biography.public, context),
-      private: await TextEditor.enrichHTML(biography.private, context)
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Prepare and format the display of resource attributes on the actor sheet.
    * @returns {Record<string, {id: string, pct: number, color: {bg: string, fill: string}}>}
    */
   #prepareResources() {
     const resources = {};
-    for ( const [id, resource] of Object.entries(this.document.system.resources) ) {
+    const rs = this.document.system.resources;
+
+    // Pools
+    for ( const [id, resource] of Object.entries(rs) ) {
       const r = foundry.utils.mergeObject(SYSTEM.RESOURCES[id], resource, {inplace: false});
       r.id = id;
       r.pct = Math.round(r.value * 100 / r.max);
       r.cssPct = `--resource-pct: ${100 - r.pct}%`;
       resources[r.id] = r;
+    }
+
+    // Action
+    resources.action.pips = [];
+    const maxAction = Math.min(resources.action.max, 6);
+    for ( let i=1; i<=maxAction; i++ ) {
+      const full = resources.action.value >= i;
+      const double = (resources.action.value - 6) >= i;
+      const cssClass = [full ? "full" : "", double ? "double" : ""].filterJoin(" ");
+      resources.action.pips.push({full, double, cssClass});
+    }
+
+    // Focus
+    resources.focus.pips = [];
+    const maxFocus = Math.min(resources.focus.max, 12);
+    for ( let i=1; i<=maxFocus; i++ ) {
+      const full = resources.focus.value >= i;
+      const double = (resources.focus.value - 12) >= i;
+      const cssClass = [full ? "full" : "", double ? "double" : ""].filterJoin(" ");
+      resources.focus.pips.push({full, double, cssClass});
+    }
+
+    // Heroism
+    resources.heroism.pips = [];
+    for ( let i=1; i<=3; i++ ) {
+      const full = resources.heroism.value >= i;
+      const cssClass = full ? "full" : "";
+      resources.heroism.pips.push({full, double: false, cssClass});
     }
     return resources;
   }

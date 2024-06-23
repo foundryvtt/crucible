@@ -458,12 +458,15 @@
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
 
-"RESOURCES.Health": "Health",
-"RESOURCES.Wounds": "Wounds",
-"RESOURCES.Morale": "Morale",
-"RESOURCES.Madness": "Madness",
-"RESOURCES.Action": "Action",
-"RESOURCES.Focus": "Focus",
+"RESOURCES": {
+  "HEALTH": "Health",
+  "WOUNDS": "Wounds",
+  "MORALE": "Morale",
+  "MADNESS": "Madness",
+  "ACTION": "Action",
+  "FOCUS": "Focus",
+  "HEROISM": "Heroism"
+},
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 

@@ -687,6 +687,16 @@
   gap: var(--margin-size);
   padding: 0 var(--margin-size);
 }
+.crucible.sheet.actor.minimized,
+.crucible.sheet.actor.minimizing,
+.crucible.sheet.actor.maximizing {
+  overflow: hidden;
+}
+.crucible.sheet.actor.minimized .window-content,
+.crucible.sheet.actor.minimizing .window-content,
+.crucible.sheet.actor.maximizing .window-content {
+  overflow: hidden;
+}
 .crucible.sheet.actor .sheet-header {
   padding: 0;
 }
@@ -720,7 +730,8 @@
   flex: none;
   margin: 0;
   font-size: var(--font-size-14);
-  padding: 0.5rem;
+  line-height: 24px;
+  padding: 0 0.5rem;
   background: var(--color-frame-bg-75);
   border: 1px solid var(--color-frame);
   border-radius: 4px;
@@ -814,12 +825,20 @@
 }
 .crucible.sheet.actor .tab.attributes {
   display: grid;
-  grid-template-rows: 140px 160px 1fr;
-  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 140px 200px 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: calc(var(--margin-size) * 1.5) var(--margin-size);
   padding-bottom: var(--margin-size);
   /** Resources */
   /** Abilities */
+  /** Defenses */
+}
+.crucible.sheet.actor .tab.attributes h4.label {
+  flex: none;
+  font-size: var(--font-size-11);
+  background: var(--color-frame-bg);
+  padding: 2px 6px;
+  margin: 0;
 }
 .crucible.sheet.actor .tab.attributes .attribute-section {
   background: var(--color-frame-bg-50);
@@ -846,31 +865,28 @@
   grid-row: 1;
   justify-content: center;
   padding: 0 0.5rem;
+  /** Pool Resources */
+  /** Economy Resources */
 }
 .crucible.sheet.actor .tab.attributes .resources .resource {
   --resource-pct: 0%;
   position: relative;
   flex: 0 0 100px;
-  height: 100px;
+  height: 100%;
   background: var(--resource-bg) no-repeat center;
-  background-size: auto 100px;
+  background-size: 80px;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .label {
   position: absolute;
-  font-size: var(--font-size-11);
-  background: var(--color-frame-bg);
-  padding: 2px 6px;
-  margin: 0;
   z-index: 1;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .label.above {
-  top: -12px;
+  top: 0.5rem;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .label.below {
-  bottom: -12px;
+  bottom: 0.5rem;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool {
   z-index: 1;
@@ -879,18 +895,17 @@
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool input {
   flex: 0 0 30px;
-  height: 24px;
+  height: 1.25em;
   background: none;
   padding: 0 0.25rem;
   border: none;
   text-align: center;
-  font-size: var(--font-size-20);
   font-family: var(--font-h1);
+  font-size: inherit;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool .total,
 .crucible.sheet.actor .tab.attributes .resources .resource .pool .sep {
   font-family: var(--font-h1);
-  font-size: var(--font-size-16);
   color: var(--color-secondary);
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool .sep {
@@ -900,18 +915,48 @@
   flex: 0 0 30px;
   text-align: center;
 }
+.crucible.sheet.actor .tab.attributes .resources .resource .pool.short {
+  font-size: var(--font-size-20);
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .pool.long {
+  font-size: var(--font-size-14);
+}
 .crucible.sheet.actor .tab.attributes .resources .resource::before {
   display: block;
   position: absolute;
   pointer-events: none;
   content: "";
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   background: var(--resource-fill) no-repeat center;
-  background-size: auto 100px;
+  background-size: 80px;
   z-index: 0;
   clip-path: inset(var(--resource-pct) 0px 0px 0px);
   transition: clip-path 1s;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .threshold {
+  position: absolute;
+  bottom: 12px;
+  flex: none;
+  width: 32px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url("../ui/elements/hex-plain.svg") no-repeat center;
+  background-size: 32px;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .threshold .value {
+  font-size: var(--font-size-16);
+  font-family: var(--font-h1);
+  color: var(--color-secondary);
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .threshold.wounds {
+  right: -12px;
+}
+.crucible.sheet.actor .tab.attributes .resources .resource .threshold.madness {
+  left: -12px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource.health {
   --resource-bg: url("../ui/resources/health-bg.png");
@@ -921,12 +966,77 @@
   --resource-bg: url("../ui/resources/morale-bg.png");
   --resource-fill: url("../ui/resources/morale-fill.png");
 }
+.crucible.sheet.actor .tab.attributes .resources .economy {
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0 0.5rem;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency {
+  width: 100%;
+  align-items: center;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .points {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .points input {
+  flex: 0 0 16px;
+  height: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  text-align: center;
+  font-size: var(--font-size-12);
+  font-family: var(--font-sans);
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .points span.max {
+  flex: 0 0 16px;
+  font-family: var(--font-sans);
+  color: var(--color-secondary);
+  font-size: var(--font-size-12);
+  text-align: center;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .pips {
+  flex: 0 0 100px;
+  justify-content: center;
+  gap: 4px 0;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .pips .pip {
+  flex: 0 0 14px;
+  height: 14px;
+  border: 1px solid var(--color-frame);
+  border-radius: 7px;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .pips .pip.double {
+  border-color: var(--resource-color);
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .currency .pips .full::before {
+  display: block;
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin: 2px;
+  background: var(--resource-color);
+  border-radius: 4px;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .action {
+  --resource-color: #FF9900;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .focus {
+  --resource-color: #0066FF;
+}
+.crucible.sheet.actor .tab.attributes .resources .economy .heroism {
+  --resource-color: #ff0059;
+}
 .crucible.sheet.actor .tab.attributes .abilities {
   grid-column: 2;
   grid-row: 1 / span 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(3, 100px);
+  grid-template-rows: repeat(3, 1fr);
   justify-items: center;
 }
 .crucible.sheet.actor .tab.attributes .abilities .ability {
@@ -942,10 +1052,6 @@
 .crucible.sheet.actor .tab.attributes .abilities .ability .label {
   position: absolute;
   top: -8px;
-  background: var(--color-frame-bg);
-  padding: 2px 6px;
-  font-size: var(--font-size-11);
-  margin: 0;
 }
 .crucible.sheet.actor .tab.attributes .abilities .ability .input {
   font-size: var(--font-size-24);
@@ -983,7 +1089,85 @@
   display: none;
 }
 .crucible.sheet.actor .tab.attributes .defenses {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+.crucible.sheet.actor .tab.attributes .defenses .defense {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+.crucible.sheet.actor .tab.attributes .defenses .defense .label {
+  position: absolute;
+  top: 0;
+}
+.crucible.sheet.actor .tab.attributes .defenses .defense .value {
+  font-size: var(--font-size-24);
+  font-family: var(--font-h1);
+}
+.crucible.sheet.actor .tab.attributes .defenses .defense .pct {
+  position: absolute;
+  bottom: 0;
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical {
+  width: 100%;
+  padding: 0 1rem;
+  justify-content: space-between;
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical > * {
+  flex: none;
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .total {
+  width: 60px;
+  height: 100px;
+  background: url("../ui/elements/hex-willpower.svg") no-repeat center;
+  background-size: 60px;
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .sep {
+  color: var(--color-h1);
+  font-size: var(--font-size-20);
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .component {
+  width: 40px;
+  height: 80px;
+  background: url("../ui/elements/hex-plain.svg") no-repeat center;
+  background-size: 40px;
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .component .value {
+  font-size: var(--font-size-18);
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .component .pct {
+  font-size: var(--font-size-10);
+  font-family: var(--font-sans);
+}
+.crucible.sheet.actor .tab.attributes .defenses .physical .component.inactive {
+  opacity: 0.5;
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical {
+  width: 100%;
+  padding: 0 1rem;
+  justify-content: space-evenly;
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical > * {
+  flex: none;
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .defense {
+  width: 60px;
+  height: 100px;
+  background: var(--defense-icon) no-repeat center;
+  background-size: 60px;
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .fortitude {
+  --defense-icon: url("../ui/elements/hex-fortitude.svg");
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .willpower {
+  --defense-icon: url("../ui/elements/hex-willpower.svg");
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .reflex {
+  --defense-icon: url("../ui/elements/hex-reflex.svg");
 }
 .crucible.sheet.actor .tab.attributes .resistances {
   grid-column: 1 / span 2;
@@ -1287,7 +1471,6 @@
   display: inline;
 }
 .crucible .action {
-  gap: 4px;
   /** Action Header */
   /** Text Description */
 }

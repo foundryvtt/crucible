@@ -2,7 +2,6 @@ import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpell from "../models/spell.mjs";
-import CrucibleWeapon from "../models/weapon.mjs";
 
 /**
  * @typedef {Object} ActorEquippedWeapons

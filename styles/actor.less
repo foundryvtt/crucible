@@ -20,6 +20,16 @@
     padding: 0 var(--margin-size);
   }
 
+  // Hide overflow on minimize
+  &.minimized,
+  &.minimizing,
+  &.maximizing {
+    overflow: hidden;
+    .window-content {
+      overflow: hidden;
+    }
+  }
+
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
@@ -56,7 +66,8 @@
         flex: none;
         margin: 0;
         font-size: var(--font-size-14);
-        padding: 0.5rem;
+        line-height: 24px;
+        padding: 0 0.5rem;
         background: var(--color-frame-bg-75);
         border: 1px solid var(--color-frame);
         border-radius: 4px;
@@ -175,10 +186,18 @@
 
   .tab.attributes {
     display: grid;
-    grid-template-rows: 140px 160px 1fr;
-    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 140px 200px 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: calc(var(--margin-size) * 1.5) var(--margin-size);
     padding-bottom: var(--margin-size);
+
+    h4.label {
+      flex: none;
+      font-size: var(--font-size-11);
+      background: var(--color-frame-bg);
+      padding: 2px 6px;
+      margin: 0;
+    }
 
     .attribute-section {
       background: var(--color-frame-bg-50);
@@ -209,29 +228,25 @@
       justify-content: center;
       padding: 0 0.5rem;
 
+      /** Pool Resources */
       .resource {
         --resource-pct: 0%;
         position: relative;
         flex: 0 0 100px;
-        height: 100px;
+        height: 100%;
         background: var(--resource-bg) no-repeat center;
-        background-size: auto 100px;
+        background-size: 80px;
         justify-content: center;
         align-items: center;
-        gap: 0.25rem;
 
         .label {
           position: absolute;
-          font-size: var(--font-size-11);
-          background: var(--color-frame-bg);
-          padding: 2px 6px;
-          margin: 0;
           z-index: 1;
           &.above {
-            top: -12px;
+            top: 0.5rem;
           }
           &.below {
-            bottom: -12px;
+            bottom: 0.5rem;
           }
         }
         .pool {
@@ -240,18 +255,17 @@
           align-items: center;
           input {
             flex: 0 0 30px;
-            height: 24px;
+            height: 1.25em;
             background: none;
             padding: 0 0.25rem;
             border: none;
             text-align: center;
-            font-size: var(--font-size-20);
             font-family: var(--font-h1);
+            font-size: inherit;
           }
           .total,
           .sep {
             font-family: var(--font-h1);
-            font-size: var(--font-size-16);
             color: var(--color-secondary);
           }
           .sep {
@@ -261,19 +275,56 @@
             flex: 0 0 30px;
             text-align: center;
           }
+
+          // Short Term: Health, Morale
+          &.short {
+            font-size: var(--font-size-20);
+          }
+
+          // Long Term: Wounds, Madness
+          &.long {
+            font-size: var(--font-size-14);
+          }
         }
+
+        // Resource Fill
         &::before {
           display: block;
           position: absolute;
           pointer-events: none;
           content: "";
-          width: 100px;
-          height: 100px;
+          width: 100%;
+          height: 100%;
           background: var(--resource-fill) no-repeat center;
-          background-size: auto 100px;
+          background-size: 80px;
           z-index: 0;
           clip-path: inset(var(--resource-pct) 0px 0px 0px);
           transition: clip-path 1s;
+        }
+
+        .threshold {
+          position: absolute;
+          bottom: 12px;
+          flex: none;
+          width: 32px;
+          height: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: url("../ui/elements/hex-plain.svg") no-repeat center;
+          background-size: 32px;
+          .value {
+            font-size: var(--font-size-16);
+            font-family: var(--font-h1);
+            color: var(--color-secondary);
+          }
+          &.wounds {
+            right: -12px;
+          }
+          &.madness {
+            left: -12px;
+          }
         }
       }
       .resource.health {
@@ -284,6 +335,73 @@
         --resource-bg: url("../ui/resources/morale-bg.png");
         --resource-fill: url("../ui/resources/morale-fill.png");
       }
+
+      /** Economy Resources */
+      .economy {
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 0 0.5rem;
+        .currency {
+          width: 100%;
+          align-items: center;
+          .points {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            input {
+              flex: 0 0 16px;
+              height: 16px;
+              padding: 0;
+              background: none;
+              border: none;
+              text-align: center;
+              font-size: var(--font-size-12);
+              font-family: var(--font-sans);
+            }
+            span.max {
+              flex: 0 0 16px;
+              font-family: var(--font-sans);
+              color: var(--color-secondary);
+              font-size: var(--font-size-12);
+              text-align: center;
+            }
+          }
+          .pips {
+            flex: 0 0 100px;
+            justify-content: center;
+            gap: 4px 0;
+            .pip {
+              flex: 0 0 14px;
+              height: 14px;
+              border: 1px solid var(--color-frame);
+              border-radius: 7px;
+              &.double {
+                border-color: var(--resource-color);
+              }
+            }
+            .full::before {
+              display: block;
+              content: "";
+              width: 8px;
+              height: 8px;
+              margin: 2px;
+              background: var(--resource-color);
+              border-radius: 4px;
+            }
+          }
+        }
+        .action {
+          --resource-color: #FF9900;
+        }
+        .focus {
+          --resource-color: #0066FF;
+        }
+        .heroism {
+          --resource-color: #ff0059;
+        }
+      }
     }
 
     /** Abilities */
@@ -292,7 +410,7 @@
       grid-row: 1 / span 2;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, 100px);
+      grid-template-rows: repeat(3, 1fr);
       justify-items: center;
 
       .ability {
@@ -308,10 +426,6 @@
         .label {
           position: absolute;
           top: -8px;
-          background: var(--color-frame-bg);
-          padding: 2px 6px;
-          font-size: var(--font-size-11);
-          margin: 0;
         }
         .input {
           font-size: var(--font-size-24);
@@ -351,8 +465,90 @@
       }
     }
 
+    /** Defenses */
     .defenses {
+      display: flex;
+      flex-direction: column;
       justify-content: center;
+
+      .defense {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        .label {
+          position: absolute;
+          top: 0;
+        }
+        .value {
+          font-size: var(--font-size-24);
+          font-family: var(--font-h1);
+        }
+        .pct {
+          position: absolute;
+          bottom: 0;
+        }
+      }
+
+      .physical {
+        width: 100%;
+        padding: 0 1rem;
+        justify-content: space-between;
+        > * {
+          flex: none;
+        }
+        .total {
+          width: 60px;
+          height: 100px;
+          background: url("../ui/elements/hex-willpower.svg") no-repeat center;
+          background-size: 60px;
+        }
+        .sep {
+          color: var(--color-h1);
+          font-size: var(--font-size-20);
+        }
+        .component {
+          width: 40px;
+          height: 80px;
+          background: url("../ui/elements/hex-plain.svg") no-repeat center;
+          background-size: 40px;
+          .value {
+            font-size: var(--font-size-18);
+          }
+          .pct {
+            font-size: var(--font-size-10);
+            font-family: var(--font-sans);
+          }
+          &.inactive {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      .magical {
+        width: 100%;
+        padding: 0 1rem;
+        justify-content: space-evenly;
+        > * {
+          flex: none;
+        }
+        .defense {
+          width: 60px;
+          height: 100px;
+          background: var(--defense-icon) no-repeat center;
+          background-size: 60px;
+        }
+        .fortitude {
+          --defense-icon: url("../ui/elements/hex-fortitude.svg");
+        }
+        .willpower {
+          --defense-icon: url("../ui/elements/hex-willpower.svg");
+        }
+        .reflex {
+          --defense-icon: url("../ui/elements/hex-reflex.svg");
+        }
+      }
     }
 
     .resistances {
