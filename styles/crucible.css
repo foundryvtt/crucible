@@ -52,6 +52,10 @@
   --color-accent: #cf9356;
   --color-link-text: #f36739;
   --color-border-highlight: var(--color-accent);
+  --color-damage-vulnerability: #641010;
+  --color-damage-vulnerability-border: #dc3232;
+  --color-damage-resistance: #236212;
+  --color-damage-resistance-border: #51c433;
   --font-h1: "AwerySmallcaps", serif;
   --font-body: "Vollkorn", serif;
   --font-quote: "CaslonAntique", serif;
@@ -699,6 +703,7 @@
   overflow: hidden;
 }
 .crucible.sheet.actor .sheet-header {
+  --sheet-header-height: 40;
   padding: 0;
 }
 .crucible.sheet.actor .sheet-header header.title {
@@ -706,14 +711,14 @@
 }
 .crucible.sheet.actor .sheet-header header.title input {
   height: var(--sheet-header-height);
+  width: initial;
   background: var(--color-frame-bg-50);
   border: none;
   font-family: var(--font-h1);
   font-size: var(--font-size-24);
 }
 .crucible.sheet.actor .sheet-header header.title .charname {
-  flex: 1;
-  margin-right: 3rem;
+  margin-right: 2rem;
   padding: 0 0.5rem;
 }
 .crucible.sheet.actor .sheet-header header.title .level,
@@ -721,8 +726,9 @@
   flex: none;
 }
 .crucible.sheet.actor .sheet-header header.title .level + input {
-  text-align: center;
   flex: 0 0 var(--sheet-header-height);
+  padding: 0;
+  text-align: center;
 }
 .crucible.sheet.actor .sheet-header div.subtitle {
   gap: var(--margin-half);
@@ -775,7 +781,7 @@
   margin-left: -3px;
 }
 .crucible.sheet.actor .sheet-sidebar .line-item .tags .tag {
-  font-size: var(--font-size-11);
+  font-size: var(--font-size-10);
 }
 .crucible.sheet.actor .sheet-tabs {
   --tab-size: 32px;
@@ -822,7 +828,7 @@
   flex-direction: column;
   flex: 1;
   height: 100%;
-  gap: 2rem 0;
+  gap: 1.5rem 0;
 }
 .crucible.sheet.actor .tab.attributes {
   display: grid;
@@ -833,6 +839,7 @@
   /** Resources */
   /** Abilities */
   /** Defenses */
+  /** Resistances */
 }
 .crucible.sheet.actor .tab.attributes h4.label {
   flex: none;
@@ -957,7 +964,7 @@
   right: -12px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .threshold.madness {
-  left: -12px;
+  left: -16px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource.health {
   --resource-bg: url("../ui/resources/health-bg.png");
@@ -1173,6 +1180,82 @@
 .crucible.sheet.actor .tab.attributes .resistances {
   grid-column: 1 / span 2;
   justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1rem 0;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance-group {
+  align-items: center;
+  gap: 0.25rem;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance {
+  width: 100%;
+  align-items: center;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance h4.label {
+  width: min-content;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance .resistance-bar {
+  width: 100%;
+  height: 12px;
+  margin: 6px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid var(--color-frame);
+  border-right: 1px solid var(--color-frame);
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance .resistance-bar::before {
+  content: "";
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 6px;
+  border-top: 1px solid var(--color-frame);
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance .resistance-bar .value {
+  flex: 0 0 24px;
+  height: 24px;
+  background: url("../ui/elements/hex-plain-filled.svg") no-repeat center;
+  background-size: auto 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: var(--font-size-12);
+  z-index: 1;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance .resistance-bar .bar {
+  position: absolute;
+  height: 8px;
+  max-width: 50%;
+  border: 1px solid;
+  border-radius: 2px;
+  z-index: 0;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.none {
+  opacity: 0.5;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.none .bar {
+  display: none;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.res .value {
+  background: url("../ui/elements/hex-resistance.svg") no-repeat center;
+  background-size: auto 24px;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.res .bar {
+  left: 50%;
+  background: var(--color-damage-resistance);
+  border: 1px solid var(--color-damage-resistance-border);
+  border-left: none;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.vuln .value {
+  background: url("../ui/elements/hex-vulnerability.svg") no-repeat center;
+  background-size: auto 24px;
+}
+.crucible.sheet.actor .tab.attributes .resistances .resistance.vuln .bar {
+  right: 50%;
+  background: var(--color-damage-vulnerability);
+  border: 1px solid var(--color-damage-vulnerability-border);
+  border-right: none;
 }
 /* ----------------------------------------- */
 /*  All Items                                */

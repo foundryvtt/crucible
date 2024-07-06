@@ -35,20 +35,21 @@
   /* ----------------------------------------- */
 
   .sheet-header {
+    --sheet-header-height: 40;
     padding: 0;
 
     header.title {
       gap: var(--margin-half);
       input {
         height: var(--sheet-header-height);
+        width: initial;
         background: var(--color-frame-bg-50);
         border: none;
         font-family: var(--font-h1);
         font-size: var(--font-size-24);
       }
       .charname {
-        flex: 1;
-        margin-right: 3rem;
+        margin-right: 2rem;
         padding: 0 0.5rem;
       }
       .level,
@@ -56,8 +57,9 @@
         flex: none;
       }
       .level + input {
-        text-align: center;
         flex: 0 0 var(--sheet-header-height);
+        padding: 0;
+        text-align: center;
       }
     }
     div.subtitle {
@@ -84,17 +86,14 @@
     height: 100%;
     gap: var(--margin-half);
     overflow: hidden;
-
     img.profile {
       border: none;
       background: var(--color-frame-bg-50);
     }
-
     h2.divider {
       margin: 0;
       font-size: var(--font-size-14);
     }
-
     .item-list {
       overflow: hidden auto;
       display: flex;
@@ -102,7 +101,6 @@
       gap: var(--margin-half);
       max-height: 200px;
     }
-
     .line-item {
       --icon-size: 32px;
       flex-direction: row;
@@ -118,7 +116,7 @@
       .tags {
         margin-left: -3px; // align padding and border
         .tag {
-          font-size: var(--font-size-11);
+          font-size: var(--font-size-10);
         }
       }
     }
@@ -181,7 +179,7 @@
     flex-direction: column;
     flex: 1;
     height: 100%;
-    gap: 2rem 0;
+    gap: 1.5rem 0;
   }
 
   .tab.attributes {
@@ -323,7 +321,7 @@
             right: -12px;
           }
           &.madness {
-            left: -12px;
+            left: -16px; // FIXME why is this different than wounds?
           }
         }
       }
@@ -551,9 +549,91 @@
       }
     }
 
+    /** Resistances */
     .resistances {
       grid-column: 1 / span 2;
       justify-content: center;
+      gap: 1rem;
+      padding: 1rem 1rem 0;
+      .resistance-group {
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .resistance {
+        width: 100%;
+        align-items: center;
+        h4.label {
+          width: min-content;
+        }
+        .resistance-bar {
+          width: 100%;
+          height: 12px;
+          margin: 6px 0;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-left: 1px solid var(--color-frame);
+          border-right: 1px solid var(--color-frame);
+          &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            position: absolute;
+            top: 6px;
+            border-top: 1px solid var(--color-frame);
+          }
+          .value {
+            flex: 0 0 24px;
+            height: 24px;
+            background: url("../ui/elements/hex-plain-filled.svg") no-repeat center;
+            background-size: auto 24px;
+            line-height: 24px;
+            text-align: center;
+            font-size: var(--font-size-12);
+            z-index: 1;
+          }
+          .bar {
+            position: absolute;
+            height: 8px;
+            max-width: 50%;
+            border: 1px solid;
+            border-radius: 2px;
+            z-index: 0;
+          }
+        }
+        &.none {
+          opacity: 0.5;
+          .bar {
+            display: none;
+          }
+        }
+        &.res {
+          .value {
+            background: url("../ui/elements/hex-resistance.svg") no-repeat center;
+            background-size: auto 24px;
+          }
+          .bar {
+            left: 50%;
+            background: var(--color-damage-resistance);
+            border: 1px solid var(--color-damage-resistance-border);
+            border-left: none;
+          }
+
+        }
+        &.vuln {
+          .value {
+            background: url("../ui/elements/hex-vulnerability.svg") no-repeat center;
+            background-size: auto 24px;
+          }
+          .bar {
+            right: 50%;
+            background: var(--color-damage-vulnerability);
+            border: 1px solid var(--color-damage-vulnerability-border);
+            border-right: none;
+          }
+        }
+      }
     }
   }
 }

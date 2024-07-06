@@ -11,7 +11,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     tag: "form",
     position: {
       width: 900,
-      height: 720
+      height: 740
     },
     actions: {},
     form: {
@@ -313,8 +313,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const resistances = foundry.utils.deepClone(SYSTEM.DAMAGE_CATEGORIES);
     for ( const c of Object.values(resistances) ) c.resistances = [];
     const rs = this.document.system.resistances;
+    const barCap = this.document.level * 2;
     for ( const [id, d] of Object.entries(SYSTEM.DAMAGE_TYPES) ) {
       const r = Object.assign({}, d, rs[id]);
+      r.cssClass = r.total < 0 ? "vuln" : (r.total > 0 ? "res" : "none");
+      const p = Math.min(Math.abs(r.total) / barCap, 1);
+      r.barPct = `${p * 50}%`;
       resistances[d.type].resistances.push(r);
     }
     return resistances;

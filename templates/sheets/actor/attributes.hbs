@@ -133,6 +133,19 @@
 
     <div class="attribute-section resistances flexrow">
         <h3>Resistances</h3>
+        {{#each resistances as |group|}}
+        <div class="resistance-group flexcol">
+            {{#each group.resistances as |r|}}
+            <div class="resistance flexcol {{r.cssClass}}" data-resistance="{{r.id}}">
+                <h4 class="label">{{r.label}}</h4>
+                <div class="resistance-bar">
+                    <span class="value">{{r.total}}</span>
+                    <span class="bar" style="width:{{r.barPct}}"></span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
     </div>
 
 </section>
