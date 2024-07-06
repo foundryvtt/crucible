@@ -14,6 +14,14 @@ export default class CrucibleRuler extends Ruler {
     cost: undefined
   }
 
+  /**
+   * An array of offsets relative to the grid position of the token center which define the full base size of the token.
+   * @type {[number, number][]}
+   */
+  #footprint = [];
+
+  #highlighted = new Set();
+
   get cost() {
     return this.#action?.cost.action || 0;
   }
@@ -21,13 +29,32 @@ export default class CrucibleRuler extends Ruler {
   /** @inheritDoc */
   _onDragStart(event) {
     super._onDragStart(event);
-    const token = this._getMovementToken();
-    if ( token?.actor ) {
-      this.waypoints[0] = event.interactionData.origin = token.center;
-      this.#actor = token.actor;
+    if ( this.token?.actor ) {
+      this.waypoints[0] = event.interactionData.origin = this.token.center;
+      this.#actor = this.token.actor;
       this.#action = this.#actor.actions.move.clone();
+      this.#identifyFootprint();
     }
     else this.#actor = this.#action = null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify the grid offsets which comprise the token footprint relative to the measurement origin.
+   */
+  #identifyFootprint() {
+    this.#footprint.length = 0;
+    const {width, height} = this.token.document;
+    const center = canvas.grid.getOffset(this.waypoints[0]);
+    const origin = canvas.grid.getOffset(this.token);
+    const i0 = origin.i - center.i;
+    const j0 = origin.j - center.j;
+    for ( let i=i0; i<i0+height; i++ ) {
+      for ( let j=j0; j<j0+width; j++ ) {
+        this.#footprint.push([i, j]);
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -70,6 +97,25 @@ export default class CrucibleRuler extends Ruler {
     if ( this.#actor?.isOwner && this.segments.length ) {
       const label = this.segments.at(-1).label;
       label.tint = this.cost > this.#actor.system.resources.action.value ? 0xDD0011 : 0xFFFFFF;
+    }
+    this.#highlighted.clear();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _highlightMeasurementSegment(segment) {
+    if ( segment.teleport ) return;
+    const path = canvas.grid.getDirectPath([segment.ray.A, segment.ray.B]);
+    for ( const offset of path ) {
+      for ( const d of this.#footprint ) {
+        const o = {i: offset.i + d[0], j: offset.j + d[1]};
+        const k = `${o.i}.${o.j}`;
+        if ( this.#highlighted.has(k) ) continue;
+        this.#highlighted.add(k);
+        const p = canvas.grid.getTopLeftPoint(o);
+        canvas.interface.grid.highlightPosition(this.name, {...p, color: this.color});
+      }
     }
   }
 
