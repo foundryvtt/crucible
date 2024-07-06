@@ -35,14 +35,12 @@ export default class CrucibleActorSheet extends ActorSheet {
     const s = context.source = context.data;
 
     // Abilities, Defenses, Resources, and Resistances
-
     context.physicalDefenses = this.#formatPhysicalDefenses(a.system.defenses);
     context.saveDefenses = this.#formatSaveDefenses(a.system.defenses);
     context.resistances = this.#formatResistances(a.system.resistances);
 
     // Owned Items
     context.items = this.#formatItems(a.items);
-
 
     // Skills
     context.skillCategories = this.#formatSkills(a.system.skills);

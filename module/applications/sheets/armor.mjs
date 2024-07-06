@@ -8,7 +8,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     item: {
-      type: "weapon",
+      type: "armor",
       includesActions: true,
       advancedDescription: true
     }

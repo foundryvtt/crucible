@@ -102,6 +102,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fields: this.document.system.schema.fields,
       incomplete: {},
       isEditable: this.isEditable,
+      resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
       source: this.document.toObject(),
       tabGroups,
@@ -300,6 +301,23 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         tags: tags
       }
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare and format resistance data for rendering.
+   * @return {{physical: object[], elemental: object[], spiritual: object[]}}
+   */
+  #prepareResistances() {
+    const resistances = foundry.utils.deepClone(SYSTEM.DAMAGE_CATEGORIES);
+    for ( const c of Object.values(resistances) ) c.resistances = [];
+    const rs = this.document.system.resistances;
+    for ( const [id, d] of Object.entries(SYSTEM.DAMAGE_TYPES) ) {
+      const r = Object.assign({}, d, rs[id]);
+      resistances[d.type].resistances.push(r);
+    }
+    return resistances;
   }
 
   /* -------------------------------------------- */

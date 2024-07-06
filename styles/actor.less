@@ -42,7 +42,6 @@
       input {
         height: var(--sheet-header-height);
         background: var(--color-frame-bg-50);
-        padding: 0.5rem;
         border: none;
         font-family: var(--font-h1);
         font-size: var(--font-size-24);
@@ -50,6 +49,7 @@
       .charname {
         flex: 1;
         margin-right: 3rem;
+        padding: 0 0.5rem;
       }
       .level,
       a.button {
@@ -57,7 +57,7 @@
       }
       .level + input {
         text-align: center;
-        flex: 0 0 48px;
+        flex: 0 0 var(--sheet-header-height);
       }
     }
     div.subtitle {

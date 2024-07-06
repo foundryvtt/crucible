@@ -56,7 +56,7 @@
 
   // Sheet Header
   .sheet-header {
-    --sheet-header-height: 50px;
+    --sheet-header-height: 80px;
     gap: 0.5rem;
     padding: 1rem;
 
@@ -71,9 +71,14 @@
       object-fit: contain;
     }
 
+    .name {
+      height: var(--sheet-header-height);
+      gap: 0.25rem;
+    }
+
     // Document Name
     .title {
-      height: var(--sheet-header-height);
+      flex: 1;
       border: none;
       input {
         display: block;
@@ -85,11 +90,6 @@
         border: none;
         font-size: var(--font-size-24);
       }
-    }
-
-    // Document Tags
-    .header-tags {
-      flex: 0 0 100%;
     }
   }
 
