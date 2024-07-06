@@ -1272,12 +1272,22 @@
 }
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 1;
+  justify-content: center;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror {
   flex: 1;
   width: 100%;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror .editor-content {
+  padding: 0 1rem;
+}
+.crucible.sheet.actor .tab.biography .appearance {
+  align-items: flex-start;
+}
+.crucible.sheet.actor .tab.biography .appearance > prose-mirror {
+  flex: 4;
+}
+.crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
 }
 /* ----------------------------------------- */

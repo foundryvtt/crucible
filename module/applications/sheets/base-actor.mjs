@@ -44,6 +44,22 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       id: "attributes",
       template: "systems/crucible/templates/sheets/actor/attributes.hbs"
     },
+    skills: {
+      id: "skills",
+      template: "systems/crucible/templates/sheets/actor/skills.hbs"
+    },
+    talents: {
+      id: "talents",
+      template: "systems/crucible/templates/sheets/actor/talents.hbs"
+    },
+    inventory: {
+      id: "inventory",
+      template: "systems/crucible/templates/sheets/actor/inventory.hbs"
+    },
+    spells: {
+      id: "spells",
+      template: "systems/crucible/templates/sheets/actor/spells.hbs"
+    },
     biography: {
       id: "biography",
       template: "systems/crucible/templates/sheets/actor/biography.hbs"
@@ -161,6 +177,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const biography = this.document.system.details.biography;
     const context = {relativeTo: this.document, secrets: this.document.isOwner};
     return {
+      appearance: await TextEditor.enrichHTML(biography.appearance, context),
       public: await TextEditor.enrichHTML(biography.public, context),
       private: await TextEditor.enrichHTML(biography.private, context)
     }

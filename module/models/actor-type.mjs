@@ -87,6 +87,9 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     return schema;
   }
 
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ACTOR"];
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */

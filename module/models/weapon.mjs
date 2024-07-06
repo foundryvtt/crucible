@@ -1,6 +1,5 @@
 import CruciblePhysicalItem from "./physical.mjs";
 import { SYSTEM } from "../config/system.mjs";
-import Enum from "../config/enum.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.

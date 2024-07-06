@@ -51,6 +51,30 @@
 "ADVERSARY.ThreatBoss": "Boss",
 
 "ACTOR": {
+  "FIELDS": {
+    "details": {
+      "biography": {
+        "appearance": {
+          "label": "Appearance"
+        },
+        "public": {
+          "label": "Public Biography"
+        },
+        "private": {
+          "label": "Private Biography"
+        },
+        "age": {
+          "label": "Age"
+        },
+        "height": {
+          "label": "Height"
+        },
+        "weight": {
+          "label": "Weight"
+        }
+      }
+    }
+  },
   "TABS": {
     "ATTRIBUTES": "Attributes",
     "SKILLS": "Skills",

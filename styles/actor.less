@@ -654,12 +654,22 @@
     gap: 1.5rem;
     .sheet-section {
       flex: 1;
+      justify-content: center;
       prose-mirror {
         flex: 1;
         width: 100%;
         .editor-content {
           padding: 0 1rem;
         }
+      }
+    }
+    .appearance {
+      align-items: flex-start;
+      > prose-mirror {
+        flex: 4;
+      }
+      > div {
+        padding: 0 1rem;
       }
     }
   }

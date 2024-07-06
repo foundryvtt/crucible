@@ -41,9 +41,13 @@ export default class CrucibleHero extends CrucibleActorType {
         ...CrucibleBackground.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       biography: new fields.SchemaField({
+        appearance: new fields.HTMLField(),
+        age: new fields.StringField(),
+        height: new fields.StringField(),
+        weight: new fields.StringField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
-      })
+      }),
     });
     return schema;
   }

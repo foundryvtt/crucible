@@ -1,40 +1,4 @@
-<div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
-{{#each items.inventory as |section s|}}
-    <header class="items-header flexrow">
-        <div class="item-name flexrow">
-            <h4>{{section.label}}</h4>
-        </div>
-    </header>
-    <ol class="items-list">
-        {{#each section.items as |item id|}}
-        <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
-            <div class="name">
-                <img class="icon" src="{{item.img}}" title="{{item.name}}">
-                <h4>
-                    {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
-                    {{~item.name~}}
-                </h4>
-            </div>
-            <div class="tags">
-                {{#each item.tags}}
-                    {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                {{/each}}
-            </div>
-            <div class="controls">
-                <a class="control equipped-state" data-action="itemEquip" title="Equip Item">
-                    <i class="fas fa-shield-alt"></i>
-                </a>
-                <a class="control" data-action="itemEdit" title="Edit Item">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="control" data-action="itemDelete" title="Delete Item">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </div>
-        </li>
-        {{else}}
-        <li class="notes">{{section.empty}}</li>
-        {{/each}}
-    </ol>
-{{/each}}
-</div>
+<section class="tab flexcol {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
+         data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
+    <p>Inventory Tab</p>
+</section>

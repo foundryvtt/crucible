@@ -123,7 +123,9 @@
   ],
   "documentTypes": {
     "Actor": {
-      "hero": {},
+      "hero": {
+        "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
+      },
       "adversary": {}
     },
     "Item": {
