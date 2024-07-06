@@ -30,6 +30,41 @@
     }
   }
 
+  // Sheet body
+  .sheet-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    height: 100%;
+  }
+
+  /* ----------------------------------------- */
+  /*  General Styles                           */
+  /* ----------------------------------------- */
+
+  .sheet-section {
+    background: var(--color-frame-bg-50);
+    border-radius: 6px;
+    position: relative;
+    padding: 1rem 0 0;
+    align-items: center;
+
+    > h3 {
+      box-sizing: content-box;
+      position: absolute;
+      margin: 0;
+      padding: 0 1rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      top: -0.75rem;
+      font-size: var(--font-size-14);
+      color: var(--color-primary);
+      background: var(--color-frame-bg);
+      border-radius: 3px;
+    }
+  }
+
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
@@ -167,27 +202,20 @@
         }
       }
     }
-
   }
 
   /* ----------------------------------------- */
-  /*  Sheet Body                               */
+  /*  Attributes Tab                           */
   /* ----------------------------------------- */
-
-  .sheet-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    gap: 1.5rem 0;
-  }
 
   .tab.attributes {
-    display: grid;
     grid-template-rows: 140px 200px 1fr;
     grid-template-columns: 2fr 1fr;
     gap: calc(var(--margin-size) * 1.5) var(--margin-size);
     padding-bottom: var(--margin-size);
+    &.active {
+      display: grid;
+    }
 
     h4.label {
       flex: none;
@@ -195,28 +223,6 @@
       background: var(--color-frame-bg);
       padding: 2px 6px;
       margin: 0;
-    }
-
-    .attribute-section {
-      background: var(--color-frame-bg-50);
-      border-radius: 6px;
-      position: relative;
-      padding: 1rem 0 0;
-      align-items: center;
-
-      > h3 {
-        box-sizing: content-box;
-        position: absolute;
-        margin: 0;
-        padding: 0 1rem;
-        height: 1.5rem;
-        line-height: 1.5rem;
-        top: -0.75rem;
-        font-size: var(--font-size-14);
-        color: var(--color-primary);
-        background: var(--color-frame-bg);
-        border-radius: 3px;
-      }
     }
 
     /** Resources */
@@ -554,7 +560,7 @@
       grid-column: 1 / span 2;
       justify-content: center;
       gap: 1rem;
-      padding: 1rem 1rem 0;
+      padding: 1rem;
       .resistance-group {
         align-items: center;
         gap: 0.25rem;
@@ -632,6 +638,27 @@
             border: 1px solid var(--color-damage-vulnerability-border);
             border-right: none;
           }
+        }
+      }
+    }
+  }
+
+
+  /* ----------------------------------------- */
+  /*  Biography Tab                            */
+  /* ----------------------------------------- */
+
+  .tab.biography {
+    flex: 1;
+    padding: 1rem 0;
+    gap: 1.5rem;
+    .sheet-section {
+      flex: 1;
+      prose-mirror {
+        flex: 1;
+        width: 100%;
+        .editor-content {
+          padding: 0 1rem;
         }
       }
     }

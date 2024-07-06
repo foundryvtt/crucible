@@ -94,7 +94,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       abilityScores: this.#prepareAbilities(),
       actions: this.#prepareAvailableActions(),
       actor: this.document,
-      biography: this.#prepareBiography(),
+      biography: await this.#prepareBiography(),
       defenses: this.#prepareDefenses(),
       effects: this.#prepareActiveEffects(),
       featuredEquipment: this.#prepareFeaturedEquipment(),

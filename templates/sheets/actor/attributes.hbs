@@ -1,7 +1,7 @@
-<section class="tab sheet-body flexcol {{tabs.attributes.id}} {{tabs.attributes.cssClass}}"
+<section class="tab {{tabs.attributes.id}} {{tabs.attributes.cssClass}}"
          data-tab="{{tabs.attributes.id}}" data-group="{{tabs.attributes.group}}">
 
-    <div class="attribute-section resources flexrow">
+    <div class="sheet-section resources flexrow">
         <h3>Resources</h3>
         <div class="resource health flexcol" style="{{resources.health.cssPct}}">
             <h4 class="label above" data-tooltip="{{resources.health.tooltip}}">{{resources.health.label}}</h4>
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <div class="attribute-section abilities">
+    <div class="sheet-section abilities">
         <h3>Abilities</h3>
         {{#each abilityScores as |ability|}}
         <div class="ability {{ability.id}} {{ability.type}} flexcol" data-ability="{{ability.id}}">
@@ -99,7 +99,7 @@
         {{/each}}
     </div>
 
-    <div class="attribute-section defenses">
+    <div class="sheet-section defenses">
         <h3>Defenses</h3>
         <div class="physical flexrow">
             <div class="defense total">
@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <div class="attribute-section resistances flexrow">
+    <div class="sheet-section resistances flexrow">
         <h3>Resistances</h3>
         {{#each resistances as |group|}}
         <div class="resistance-group flexcol">
