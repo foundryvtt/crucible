@@ -35,6 +35,13 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const context = await super._prepareContext(options);
     const {actor: a, source: s, incomplete: i} = context;
 
+    // Expand Context
+    Object.assign(context, {
+      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.None"),
+      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.None"),
+      talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree"
+    });
+
     // Incomplete Tasks
     const {isL0} = a;
     context.points = a.system.points;
@@ -48,10 +55,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       levelOne: isL0,
       levelUp: (a.system.advancement.pct === 100)
     });
-
-    // Ancestry and Background names
-    context.ancestryName = s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.None");
-    context.backgroundName = s.system.details.background?.name || game.i18n.localize("BACKGROUND.None");
 
     // i.any = i.ancestry || i.background || i.abilities || i.skills || i.talents;
     // if ( isL0 ) i.levelTooltip = `WALKTHROUGH.Level${i.any ? "Zero" : "One"}`;

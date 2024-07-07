@@ -65,6 +65,14 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   /** @override */
   static LOCALIZATION_PREFIXES = ["TALENT"];
 
+  /**
+   * Is this a signature talent?
+   * @type {boolean}
+   */
+  get isSignature() {
+    return this.node.type === "signature";
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */

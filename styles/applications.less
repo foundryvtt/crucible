@@ -45,8 +45,24 @@
   .window-content {
     padding: 0;
   }
-}
 
+  // Buttons
+  button,
+  .button,
+  .control {
+    --button-text-color: var(--color-tertiary);
+    --button-background-color: transparent;
+    --button-border-color: transparent;
+    --button-hover-background-color: var(--color-frame-bg-75);
+    --button-hover-border-color: var(--color-frame);
+    --button-hover-text-color: var(--color-primary);
+    &.framed {
+      --button-text-color: var(--color-secondary);
+      --button-background-color: var(--color-frame-bg-75);
+      --button-border-color: var(--color-frame);
+    }
+  }
+}
 
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -114,6 +130,7 @@
     border: 1px solid var(--color-frame);
     border-radius: 6px;
     legend {
+      display: flex;
       font-family: var(--font-h1);
       color: var(--color-h1);
       font-weight: normal;
@@ -174,7 +191,6 @@
       align-items: center;
       .control {
         font-size: var(--font-size-10);
-        color: var(--color-tertiary);
         padding: 0.25rem;
       }
     }

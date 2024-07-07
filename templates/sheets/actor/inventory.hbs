@@ -1,20 +1,20 @@
 <section class="tab flexcol {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
          data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
     {{#each inventory as |section s|}}
-    <div class="sheet-section">
+    <div class="sheet-section item-section flexcol">
         <h3>{{section.label}}</h3>
-        <ol class="items-list flexcol scrollable">
+        <ol class="items-list scrollable">
             {{#each section.items as |item id|}}
-            <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+            <li class="line-item {{item.cssClass}}" data-item-id="{{item.id}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
                 <header>
                     <h4 class="title">
-                        {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
+                        {{#if item.showStack}}<span class="stack">({{item.quantity}}) </span>{{/if}}
                         {{~item.name~}}
                     </h4>
                     <div class="tags">
                         {{#each item.tags}}
-                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
                         {{/each}}
                     </div>
                 </header>

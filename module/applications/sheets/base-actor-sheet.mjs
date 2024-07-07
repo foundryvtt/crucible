@@ -277,6 +277,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #prepareItems() {
     const sections = {
       talents: {
+        signature: {label: "Signature Talents", items: []},
         active: {label: "Active Abilities", items: []},
         passive: {label: "Passive Talents", items: []},
         spell: {label: "Spellcraft Talents", items: []}
@@ -289,36 +290,45 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Iterate over items and organize them
     for ( let i of this.document.items ) {
-      const d = i.toObject();
-      d.showStack = d.system?.quantity && (d.system.quantity !== 1);
-      switch(d.type) {
+      const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags()};
+      let section;
+      switch(i.type) {
         case "armor":
         case "weapon":
-          d.tags = i.getTags();
-          d.cssClass = [i.system.equipped ? "equipped" : "unequipped"];
-          if ( i.system.equipped ) sections.inventory.equipment.items.push(d);
-          else sections.inventory.backpack.items.push(d);
+          Object.assign(d, {
+            quantity: i.system.quantity,
+            showStack: i.system?.quantity && (i.system.quantity !== 1),
+            cssClass: i.system.equipped ? "equipped" : "unequipped"
+          })
+          if ( i.system.equipped ) section = sections.inventory.equipment;
+          else section = sections.inventory.backpack;
           break;
         case "talent":
-          d.tags = {};
+          d.tier = i.system.node.tier;
           const action = i.actions.at(0);
           const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
+          if ( i.system.isSignature ) section = sections.talents.signature;
           if ( action ) {
             const tags = action.getTags();
             d.tags = Object.assign({}, tags.action, tags.activation);
-            sections.talents.active.items.push(d);
+            section ||= sections.talents.active;
           }
-          else if ( spellComp ) sections.talents.spell.items.push(d);
-          else sections.talents.passive.items.push(d);
+          else if ( spellComp ) section ||= sections.talents.spell;
+          else section ||= sections.talents.passive;
           break;
       }
+      if ( section ) section.items.push(d);
     }
 
-    // Sort each array
-    for ( let section of Object.values(sections) ) {
-      for ( let heading of Object.values(section) ) {
-        heading.items.sort((a, b) => a.name.localeCompare(b.name));
-      }
+    // Sort inventory
+    for ( const heading of Object.values(sections.inventory) ) {
+      heading.items.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    // Sort talents
+    for ( const [id, heading] of Object.entries(sections.talents) ) {
+      if ( !heading.items.length ) delete sections.talents[id];
+      heading.items.sort((a, b) => (a.tier - b.tier) || a.name.localeCompare(b.name));
     }
     return sections;
   }

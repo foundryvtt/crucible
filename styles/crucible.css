@@ -352,82 +352,6 @@
   font-size: var(--font-size-15);
   color: var(--color-text);
 }
-/* ----------------------------------------- */
-/*  Application V1 Styles - DEPRECATE        */
-/* ----------------------------------------- */
-.crucible.window-app {
-  overflow: hidden;
-  background: url("../ui/journal/background.png");
-  border-radius: 12px;
-}
-.crucible.window-app .background-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  border: none;
-  object-fit: cover;
-  object-position: top right;
-}
-.crucible.window-app .window-header {
-  border-bottom: none;
-  color: var(--color-header);
-}
-.crucible.window-app .window-header .window-title {
-  height: 100%;
-}
-.crucible.window-app .window-content {
-  font-size: 13px;
-  padding: 0.5rem 1rem 1rem;
-  background: none;
-  color: var(--color-text);
-}
-.crucible.window-app .window-content > form {
-  height: 100%;
-  gap: 1rem;
-}
-.crucible.window-app .sheet-header {
-  gap: 0.5rem;
-}
-.crucible.window-app .sheet-header img.profile {
-  margin: 0;
-  border-radius: 8px;
-}
-.crucible.window-app .sheet-header h1 input {
-  margin: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text);
-}
-.crucible.window-app .sheet-header .header-tags {
-  flex: 0 0 100%;
-  justify-content: flex-end;
-}
-.crucible.window-app .sheet-header .header-tags label {
-  font-weight: bold;
-}
-.crucible.window-app nav.sheet-tabs {
-  margin: 0;
-  border-color: var(--color-frame-bg);
-  font-family: var(--font-h1);
-  color: var(--color-h1);
-}
-.crucible.window-app nav.sheet-tabs a {
-  padding: 0.5rem 0.25rem;
-}
-.crucible.window-app .sheet-body.flexcol {
-  gap: 1rem;
-}
-.crucible.window-app .sheet-body.flexcol .form-group {
-  gap: 0.5rem;
-  margin: 0;
-}
-.crucible.window-app .sheet-body.flexcol .form-group.slim .form-fields > label {
-  color: var(--color-secondary);
-}
-.crucible.window-app .sheet-body.flexcol .form-group.slim .form-fields input {
-  text-align: center;
-}
 /* Tooltips */
 #crucible-tooltip,
 .crucible .tooltip {
@@ -473,50 +397,6 @@
 .crucible .tooltipped:hover > .tooltip {
   display: block;
 }
-.crucible.sheet {
-  /* Highlight Boxes */
-  /* Control Buttons */
-  /** Incompletion Warnings */
-}
-.crucible.sheet .highlight {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--color-primary);
-  border-radius: 3px;
-}
-.crucible.sheet .window-content a.button,
-.crucible.sheet .window-content a.control {
-  display: inline-block;
-  min-width: 20px;
-  margin: 0;
-  padding: 0;
-  color: var(--color-tertiary);
-  text-align: center;
-}
-.crucible.sheet .window-content a.button.active,
-.crucible.sheet .window-content a.control.active {
-  color: var(--color-frame-bg);
-}
-.crucible.sheet .window-content a.button.inactive,
-.crucible.sheet .window-content a.control.inactive {
-  pointer-events: none;
-  opacity: 0.5;
-}
-.crucible.sheet .window-content a.button {
-  border: 1px solid transparent;
-  border-radius: 3px;
-}
-.crucible.sheet .window-content a.button:hover {
-  border: 1px solid var(--color-tertiary);
-  box-shadow: 0 0 4px #FFF;
-  text-shadow: none;
-  color: var(--color-frame-bg);
-}
-.crucible.sheet .incomplete {
-  margin-left: 2px;
-  font-size: var(--fontSizeMain);
-  color: var(--color-text-hyperlink);
-  text-shadow: 0 0 4px #FFF;
-}
 /* ----------------------------------------- */
 /*  Application V2 Styles                    */
 /* ----------------------------------------- */
@@ -558,6 +438,23 @@
 }
 .crucible.application .window-content {
   padding: 0;
+}
+.crucible.application button,
+.crucible.application .button,
+.crucible.application .control {
+  --button-text-color: var(--color-tertiary);
+  --button-background-color: transparent;
+  --button-border-color: transparent;
+  --button-hover-background-color: var(--color-frame-bg-75);
+  --button-hover-border-color: var(--color-frame);
+  --button-hover-text-color: var(--color-primary);
+}
+.crucible.application button.framed,
+.crucible.application .button.framed,
+.crucible.application .control.framed {
+  --button-text-color: var(--color-secondary);
+  --button-background-color: var(--color-frame-bg-75);
+  --button-border-color: var(--color-frame);
 }
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -614,6 +511,7 @@
   border-radius: 6px;
 }
 .crucible.sheet fieldset legend {
+  display: flex;
   font-family: var(--font-h1);
   color: var(--color-h1);
   font-weight: normal;
@@ -667,7 +565,6 @@
 }
 .crucible.sheet .line-item .controls .control {
   font-size: var(--font-size-10);
-  color: var(--color-tertiary);
   padding: 0.25rem;
 }
 .crucible.sheet .line-item .tags {
@@ -702,11 +599,11 @@
   /*  Biography Tab                            */
   /* ----------------------------------------- */
   /* ----------------------------------------- */
-  /*  Inventory Tab                            */
+  /*  Inventory and Talents Tabs               */
   /* ----------------------------------------- */
 }
 .crucible.sheet.actor .window-content {
-  overflow: visible;
+  overflow: visible hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -728,10 +625,11 @@
   flex-direction: column;
   justify-content: flex-start;
   flex: 1;
-  gap: 1.5rem 1rem;
+  gap: 0 1rem;
   height: 100%;
 }
 .crucible.sheet.actor .tab {
+  padding: 1.5rem 0 1rem;
   gap: 1.5rem;
 }
 .crucible.sheet.actor .sheet-section {
@@ -739,7 +637,13 @@
   border-radius: 6px;
   position: relative;
   padding: 1.5rem 1rem 1rem;
+}
+.crucible.sheet.actor .sheet-section.flexcol {
+  width: 100%;
   align-items: center;
+}
+.crucible.sheet.actor .sheet-section.flexrow {
+  justify-content: center;
 }
 .crucible.sheet.actor .sheet-section > h3 {
   box-sizing: content-box;
@@ -1303,7 +1207,6 @@
 }
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 1;
-  justify-content: center;
   padding: 1rem 0 0;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror {
@@ -1328,17 +1231,55 @@
 .crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
 }
-.crucible.sheet.actor .tab.inventory .sheet-section {
+.crucible.sheet.actor .tab.inventory .item-section,
+.crucible.sheet.actor .tab.talents .item-section {
   padding: 1rem;
 }
-.crucible.sheet.actor .tab.inventory ol.items-list {
+.crucible.sheet.actor .tab.inventory ol.items-list,
+.crucible.sheet.actor .tab.talents ol.items-list {
+  width: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
   gap: 1rem;
 }
-.crucible.sheet.actor .tab.inventory ol.items-list li {
-  margin: 0;
+.crucible.sheet.actor .tab.inventory ol.items-list li,
+.crucible.sheet.actor .tab.talents ol.items-list li {
+  margin: 0 0 0.5rem;
+}
+.crucible.sheet.actor .tab.inventory ol.items-list li:last-child,
+.crucible.sheet.actor .tab.talents ol.items-list li:last-child {
+  margin-bottom: 0;
+}
+.crucible.sheet.actor .tab.talents .header-section {
+  padding: 0 1rem;
+}
+.crucible.sheet.actor .tab.talents .header-section a.button {
+  font-size: var(--font-size-12);
+  padding: 0.25rem 0.5rem;
+  flex: none;
+}
+.crucible.sheet.actor .tab.talents .header-section a.button.framed {
+  --button-border-color: var(--color-frame);
+  --button-background-color: var(--color-frame-bg-75);
+  --button-text-color: var(--color-primary);
+}
+.crucible.sheet.actor .tab.talents .header-section .point-pools {
+  justify-content: flex-end;
+  font-size: var(--font-size-12);
+  gap: 0.5rem;
+}
+.crucible.sheet.actor .tab.talents .header-section .point-pools .label {
+  flex: none;
+  color: var(--color-secondary);
+}
+.crucible.sheet.actor .tab.talents .header-section .point-pools .value {
+  flex: 0 0 24px;
+  height: 24px;
+  background: url("../ui/elements/hex-plain.svg") no-repeat center;
+  background-size: auto 24px;
+  line-height: 24px;
+  text-align: center;
 }
 /* ----------------------------------------- */
 /*  All Items                                */

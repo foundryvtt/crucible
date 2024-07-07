@@ -12,7 +12,7 @@
   overflow: visible;
 
   .window-content {
-    overflow: visible;
+    overflow: visible hidden;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -36,11 +36,12 @@
     flex-direction: column;
     justify-content: flex-start;
     flex: 1;
-    gap: 1.5rem 1rem;
+    gap: 0 1rem;
     height: 100%;
   }
 
   .tab {
+    padding: 1.5rem 0 1rem;
     gap: 1.5rem;
   }
 
@@ -53,7 +54,15 @@
     border-radius: 6px;
     position: relative;
     padding: 1.5rem 1rem 1rem;
-    align-items: center;
+
+    &.flexcol {
+      width: 100%;
+      align-items: center;
+    }
+
+    &.flexrow {
+      justify-content: center;
+    }
 
     > h3 {
       box-sizing: content-box;
@@ -676,7 +685,6 @@
     padding: 1rem 0;
     .sheet-section {
       flex: 1;
-      justify-content: center;
       padding: 1rem 0 0;
       prose-mirror {
         flex: 1;
@@ -704,20 +712,58 @@
   }
 
   /* ----------------------------------------- */
-  /*  Inventory Tab                            */
+  /*  Inventory and Talents Tabs               */
   /* ----------------------------------------- */
 
-  .tab.inventory {
-    .sheet-section {
+  .tab.inventory,
+  .tab.talents {
+    .item-section {
       padding: 1rem;
     }
     ol.items-list {
+      width: 100%;
       list-style: none;
       padding: 0;
       margin: 0;
       gap: 1rem;
       li {
-        margin: 0;
+        margin: 0 0 0.5rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .tab.talents {
+    .header-section {
+      padding: 0 1rem;
+      a.button {
+        font-size: var(--font-size-12);
+        padding: 0.25rem 0.5rem;
+        flex: none;
+      }
+      a.button.framed {
+        --button-border-color: var(--color-frame);
+        --button-background-color: var(--color-frame-bg-75);
+        --button-text-color: var(--color-primary);
+      }
+      .point-pools {
+        justify-content: flex-end;
+        font-size: var(--font-size-12);
+        gap: 0.5rem;
+        .label {
+          flex: none;
+          color: var(--color-secondary);
+        }
+        .value {
+          flex: 0 0 24px;
+          height: 24px;
+          background: url("../ui/elements/hex-plain.svg") no-repeat center;
+          background-size: auto 24px;
+          line-height: 24px;
+          text-align: center;
+        }
       }
     }
   }
