@@ -738,7 +738,7 @@
   background: var(--color-frame-bg-50);
   border-radius: 6px;
   position: relative;
-  padding: 1rem 0 0;
+  padding: 1.5rem 1rem 1rem;
   align-items: center;
 }
 .crucible.sheet.actor .sheet-section > h3 {
@@ -753,6 +753,13 @@
   color: var(--color-primary);
   background: var(--color-frame-bg);
   border-radius: 3px;
+}
+.crucible.sheet.actor h4.label {
+  flex: none;
+  font-size: var(--font-size-11);
+  background: var(--color-frame-bg);
+  padding: 2px 6px;
+  margin: 0;
 }
 .crucible.sheet.actor .sheet-header {
   --sheet-header-height: 40;
@@ -794,6 +801,23 @@
   background: var(--color-frame-bg-75);
   border: 1px solid var(--color-frame);
   border-radius: 4px;
+}
+.crucible.sheet.actor .sheet-header div.metadata {
+  justify-content: flex-end;
+}
+.crucible.sheet.actor .sheet-header div.metadata div.size {
+  flex: none;
+  gap: 0.25rem;
+  margin-right: 0.5rem;
+}
+.crucible.sheet.actor .sheet-header div.metadata div.size span.value {
+  flex: none;
+  width: 24px;
+  background: url("../ui/elements/hex-plain.svg") no-repeat center;
+  background-size: 24px;
+  font-family: var(--font-h1);
+  font-size: var(--font-size-16);
+  padding: 0.25rem 0.5rem;
 }
 .crucible.sheet.actor .sheet-sidebar {
   flex: 0 0 var(--sidebar-width);
@@ -871,13 +895,6 @@
 }
 .crucible.sheet.actor .tab.attributes.active {
   display: grid;
-}
-.crucible.sheet.actor .tab.attributes h4.label {
-  flex: none;
-  font-size: var(--font-size-11);
-  background: var(--color-frame-bg);
-  padding: 2px 6px;
-  margin: 0;
 }
 .crucible.sheet.actor .tab.attributes .resources {
   grid-column: 1;
@@ -964,10 +981,10 @@
   align-items: center;
   justify-content: center;
   background: url("../ui/elements/hex-plain.svg") no-repeat center;
-  background-size: 32px;
+  background-size: auto 32px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .threshold .value {
-  font-size: var(--font-size-16);
+  font-size: var(--font-size-12);
   font-family: var(--font-h1);
   color: var(--color-secondary);
 }
@@ -1057,6 +1074,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
+  padding: 1.5rem 0 0;
 }
 .crucible.sheet.actor .tab.attributes .abilities .ability {
   position: relative;
@@ -1133,7 +1151,6 @@
 }
 .crucible.sheet.actor .tab.attributes .defenses .physical {
   width: 100%;
-  padding: 0 1rem;
   justify-content: space-between;
 }
 .crucible.sheet.actor .tab.attributes .defenses .physical > * {
@@ -1167,32 +1184,47 @@
 }
 .crucible.sheet.actor .tab.attributes .defenses .magical {
   width: 100%;
-  padding: 0 1rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .crucible.sheet.actor .tab.attributes .defenses .magical > * {
   flex: none;
 }
 .crucible.sheet.actor .tab.attributes .defenses .magical .defense {
   width: 60px;
-  height: 100px;
-  background: var(--defense-icon) no-repeat center;
-  background-size: 60px;
+  height: 80px;
+  padding: 16px 0 0;
+  background: var(--defense-icon) no-repeat bottom center;
+  background-size: auto 64px;
 }
-.crucible.sheet.actor .tab.attributes .defenses .magical .fortitude {
+.crucible.sheet.actor .tab.attributes .defenses .magical .defense.fortitude {
   --defense-icon: url("../ui/elements/hex-fortitude.svg");
 }
-.crucible.sheet.actor .tab.attributes .defenses .magical .willpower {
+.crucible.sheet.actor .tab.attributes .defenses .magical .defense.willpower {
   --defense-icon: url("../ui/elements/hex-willpower.svg");
 }
-.crucible.sheet.actor .tab.attributes .defenses .magical .reflex {
+.crucible.sheet.actor .tab.attributes .defenses .magical .defense.reflex {
   --defense-icon: url("../ui/elements/hex-reflex.svg");
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .extra {
+  --defense-icon: url("../ui/elements/hex-plain.svg");
+  width: 32px;
+  height: 64px;
+  align-self: flex-end;
+  padding: 16px 0;
+  background-size: auto 32px;
+  background-position: center;
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .extra .value {
+  font-size: var(--font-size-12);
+}
+.crucible.sheet.actor .tab.attributes .defenses .magical .extra .label {
+  bottom: 0;
+  top: unset;
 }
 .crucible.sheet.actor .tab.attributes .resistances {
   grid-column: 1 / span 2;
   justify-content: center;
   gap: 1rem;
-  padding: 1rem;
 }
 .crucible.sheet.actor .tab.attributes .resistances .resistance-group {
   align-items: center;
@@ -1201,9 +1233,6 @@
 .crucible.sheet.actor .tab.attributes .resistances .resistance {
   width: 100%;
   align-items: center;
-}
-.crucible.sheet.actor .tab.attributes .resistances .resistance h4.label {
-  width: min-content;
 }
 .crucible.sheet.actor .tab.attributes .resistances .resistance .resistance-bar {
   width: 100%;
@@ -1275,6 +1304,7 @@
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 1;
   justify-content: center;
+  padding: 1rem 0 0;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror {
   flex: 1;
@@ -1282,6 +1312,12 @@
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror .editor-content {
   padding: 0 1rem;
+}
+.crucible.sheet.actor .tab.biography .sheet-section prose-mirror button.toggle {
+  right: 1rem;
+  background: var(--color-frame-bg);
+  border-color: var(--color-frame);
+  color: var(--color-secondary);
 }
 .crucible.sheet.actor .tab.biography .appearance {
   align-items: flex-start;

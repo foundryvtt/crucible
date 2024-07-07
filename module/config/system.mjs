@@ -40,51 +40,6 @@ export const COMPENDIUM_PACKS = {
 /* -------------------------------------------- */
 
 /**
- * The statures which a creature type may have.
- * @enum {{label: string, grid: number}}
- */
-export const CREATURE_STATURES = {
-  tiny: {
-    label: "ACTOR.STATURES.TINY",
-    grid: 0.5,
-    engagement: 0
-  },
-  small: {
-    label: "ACTOR.STATURES.SMALL",
-    grid: 1,
-    engagement: 1
-  },
-  medium: {
-    label: "ACTOR.STATURES.MEDIUM",
-    grid: 1,
-    engagement: 1
-  },
-  large: {
-    label: "ACTOR.STATURES.LARGE",
-    grid: 1,
-    engagement: 2
-  },
-  giant: {
-    label: "ACTOR.STATURES.GIANT",
-    grid: 2,
-    engagement: 3
-  },
-  huge: {
-    label: "ACTOR.STATURES.HUGE",
-    grid: 3,
-    engagement: 4
-  },
-  gargantuan: {
-    label: "ACTOR.STATURES.GARGANTUAN",
-    grid: 4,
-    engagement: 5
-  }
-}
-
-
-/* -------------------------------------------- */
-
-/**
  * The threat levels that an adversary may have.
  * @enum {number}
  */
@@ -247,7 +202,6 @@ export const SYSTEM = {
   ANCESTRIES,
   ARMOR,
   COMPENDIUM_PACKS,
-  CREATURE_STATURES,
   DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,

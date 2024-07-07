@@ -12,6 +12,7 @@ export default class CrucibleAncestry extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       description: new fields.HTMLField(),
+      size: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 3}),
       primary: new fields.StringField({required: false, initial: undefined, choices: SYSTEM.ABILITIES}),
       secondary: new fields.StringField({required: false, initial: undefined, choices: SYSTEM.ABILITIES}),
       resistance: new fields.StringField({blank: true, choices: SYSTEM.DAMAGE_TYPES}),

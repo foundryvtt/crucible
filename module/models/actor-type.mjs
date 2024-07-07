@@ -347,12 +347,8 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    */
   #prepareMovement() {
     const movement = this.movement;
-
-    // Stride and free movement
-    movement.free = (movement.stride * 4)
-
-    const stature = this.details.stature;
-    movement.engagement = SYSTEM.CREATURE_STATURES[stature]?.engagement ?? 1;
+    movement.free = movement.stride;
+    movement.engagement = Math.max(this.size - 2, 0);
     const {shield, offhand} = this.parent.equipment.weapons;
     if ( shield && offhand.system.properties.has("engaging") ) movement.engagement += 1;
   }

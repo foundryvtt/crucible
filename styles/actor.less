@@ -52,7 +52,7 @@
     background: var(--color-frame-bg-50);
     border-radius: 6px;
     position: relative;
-    padding: 1rem 0 0;
+    padding: 1.5rem 1rem 1rem;
     align-items: center;
 
     > h3 {
@@ -68,6 +68,14 @@
       background: var(--color-frame-bg);
       border-radius: 3px;
     }
+  }
+
+  h4.label {
+    flex: none;
+    font-size: var(--font-size-11);
+    background: var(--color-frame-bg);
+    padding: 2px 6px;
+    margin: 0;
   }
 
   /* ----------------------------------------- */
@@ -113,6 +121,23 @@
         background: var(--color-frame-bg-75);
         border: 1px solid var(--color-frame);
         border-radius: 4px;
+      }
+    }
+    div.metadata {
+      justify-content: flex-end;
+      div.size {
+        flex: none;
+        gap: 0.25rem;
+        margin-right: 0.5rem;
+        span.value {
+          flex: none;
+          width: 24px;
+          background: url("../ui/elements/hex-plain.svg") no-repeat center;
+          background-size: 24px;
+          font-family: var(--font-h1);
+          font-size: var(--font-size-16);
+          padding: 0.25rem 0.5rem;
+        }
       }
     }
   }
@@ -208,14 +233,6 @@
       display: grid;
     }
 
-    h4.label {
-      flex: none;
-      font-size: var(--font-size-11);
-      background: var(--color-frame-bg);
-      padding: 2px 6px;
-      margin: 0;
-    }
-
     /** Resources */
     .resources {
       grid-column: 1;
@@ -308,9 +325,9 @@
           align-items: center;
           justify-content: center;
           background: url("../ui/elements/hex-plain.svg") no-repeat center;
-          background-size: 32px;
+          background-size: auto 32px;
           .value {
-            font-size: var(--font-size-16);
+            font-size: var(--font-size-12);
             font-family: var(--font-h1);
             color: var(--color-secondary);
           }
@@ -407,6 +424,7 @@
       grid-template-columns: 1fr 1fr;
       grid-template-rows: repeat(3, 1fr);
       justify-items: center;
+      padding: 1.5rem 0 0;
 
       .ability {
         position: relative;
@@ -488,7 +506,6 @@
 
       .physical {
         width: 100%;
-        padding: 0 1rem;
         justify-content: space-between;
         > * {
           flex: none;
@@ -523,25 +540,45 @@
 
       .magical {
         width: 100%;
-        padding: 0 1rem;
-        justify-content: space-evenly;
+        justify-content: space-between;
         > * {
           flex: none;
         }
+
+        // Fortitude, Reflex, and Willpower
         .defense {
           width: 60px;
-          height: 100px;
-          background: var(--defense-icon) no-repeat center;
-          background-size: 60px;
+          height: 80px;
+          padding: 16px 0 0;
+          background: var(--defense-icon) no-repeat bottom center;
+          background-size: auto 64px;
+          &.fortitude {
+            --defense-icon: url("../ui/elements/hex-fortitude.svg");
+          }
+          &.willpower {
+            --defense-icon: url("../ui/elements/hex-willpower.svg");
+          }
+          &.reflex {
+            --defense-icon: url("../ui/elements/hex-reflex.svg");
+          }
         }
-        .fortitude {
-          --defense-icon: url("../ui/elements/hex-fortitude.svg");
-        }
-        .willpower {
-          --defense-icon: url("../ui/elements/hex-willpower.svg");
-        }
-        .reflex {
-          --defense-icon: url("../ui/elements/hex-reflex.svg");
+
+        // Stride and Engagement
+        .extra {
+          --defense-icon: url("../ui/elements/hex-plain.svg");
+          width: 32px;
+          height: 64px;
+          align-self: flex-end;
+          padding: 16px 0;
+          background-size: auto 32px;
+          background-position: center;
+          .value {
+            font-size: var(--font-size-12);
+          }
+          .label {
+            bottom: 0;
+            top: unset;
+          }
         }
       }
     }
@@ -551,7 +588,6 @@
       grid-column: 1 / span 2;
       justify-content: center;
       gap: 1rem;
-      padding: 1rem;
       .resistance-group {
         align-items: center;
         gap: 0.25rem;
@@ -559,9 +595,6 @@
       .resistance {
         width: 100%;
         align-items: center;
-        h4.label {
-          width: min-content;
-        }
         .resistance-bar {
           width: 100%;
           height: 12px;
@@ -644,11 +677,18 @@
     .sheet-section {
       flex: 1;
       justify-content: center;
+      padding: 1rem 0 0;
       prose-mirror {
         flex: 1;
         width: 100%;
         .editor-content {
           padding: 0 1rem;
+        }
+        button.toggle {
+          right: 1rem;
+          background: var(--color-frame-bg);
+          border-color: var(--color-frame);
+          color: var(--color-secondary);
         }
       }
     }

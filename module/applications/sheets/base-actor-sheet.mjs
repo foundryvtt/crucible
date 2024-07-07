@@ -13,7 +13,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       width: 900,
       height: 740
     },
-    actions: {},
+    actions: {
+      itemEdit: CrucibleBaseActorSheet.#onItemEdit,
+      itemEquip: CrucibleBaseActorSheet.#onItemEquip,
+      itemDelete: CrucibleBaseActorSheet.#onItemDelete
+    },
     form: {
       submitOnChange: true
     },
@@ -243,6 +247,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         const sign = d.bonus > 0 ? "+" : "-";
         d.tooltip += ` ${sign} ${Math.abs(d.bonus)}`;
       }
+      if ( ["wounds", "madness"].includes(id) ) d.tooltip = `${d.label}<br>${d.tooltip}`;
       defenses[id] = d;
     }
     return defenses;
@@ -445,5 +450,70 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       resources.heroism.pips.push({full, double: false, cssClass});
     }
     return resources;
+  }
+
+  /* -------------------------------------------- */
+  /*  Action Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemEdit(event) {
+    const item = this.#getEventItem(event);
+    await item.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemEquip(event) {
+    const item = this.#getEventItem(event);
+    switch ( item.type ) {
+      case "armor":
+        try {
+          await this.actor.equipArmor(item.id, {equipped: !item.system.equipped});
+        } catch(err) {
+          ui.notifications.warn(err.message);
+        }
+        break;
+      case "weapon":
+        try {
+          await this.actor.equipWeapon(item.id, {equipped: !item.system.equipped});
+        } catch(err) {
+          ui.notifications.warn(err.message);
+        }
+        break;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemDelete(event) {
+    const item = this.#getEventItem(event);
+    await item.deleteDialog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the Item document associated with an action event.
+   * @param {PointerEvent} event
+   * @returns {CrucibleItem0}
+   */
+  #getEventItem(event) {
+    const itemId = event.target.closest(".line-item")?.dataset.itemId;
+    return this.actor.items.get(itemId, {strict: true});
   }
 }

@@ -151,6 +151,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The size of the actor.
+   * @type {number}
+   */
+  get size() {
+    return this.system.size;
+  }
+
+  /**
    * The prepared object of actor status data
    * @returns {ActorRoundStatus}
    */
@@ -1952,6 +1960,7 @@ export default class CrucibleActor extends Actor {
         break;
       case slots.OFFHAND:
         if ( offhand?.id ) occupied = offhand;
+        else if ( mainhand.config.category.hands === 2 ) occupied = mainhand;
         break;
     }
     if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
@@ -1965,13 +1974,11 @@ export default class CrucibleActor extends Actor {
     const actorUpdates = {};
 
     // Determine action cost
-    let actionCost = 3;
-    if ( weapon.system.properties.has("ambush") ) actionCost -= 1;
-    if ( this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
+    let actionCost = weapon.system.properties.has("ambush") ? 0 : 1;
+    if ( actionCost && this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
       actionCost = 0;
       foundry.utils.setProperty(actorUpdates, "system.status.hasMoved", true);
     }
-    actionCost = Math.max(actionCost, 0);
     return {itemUpdates, actorUpdates, actionCost};
   }
 

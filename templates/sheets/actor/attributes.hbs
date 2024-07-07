@@ -116,6 +116,11 @@
             {{/each}}
         </div>
         <div class="magical flexrow">
+            <div class="defense extra engagement">
+                <span class="value">{{actor.system.movement.engagement}}</span>
+                <h4 class="label" data-tooltip="ACTOR.FIELDS.movement.engagement.tooltip">
+                    {{fields.movement.fields.engagement.label}}</h4>
+            </div>
             <div class="defense fortitude">
                 <h4 class="label" data-tooltip="{{defenses.fortitude.tooltip}}">{{defenses.fortitude.label}}</h4>
                 <span class="value">{{defenses.fortitude.total}}</span>
@@ -127,6 +132,11 @@
             <div class="defense reflex">
                 <h4 class="label" data-tooltip="{{defenses.reflex.tooltip}}">{{defenses.reflex.label}}</h4>
                 <span class="value">{{defenses.reflex.total}}</span>
+            </div>
+            <div class="defense extra stride">
+                <span class="value">{{actor.system.movement.stride}}</span>
+                <h4 class="label" data-tooltip="ACTOR.FIELDS.movement.stride.tooltip">
+                    {{fields.movement.fields.stride.label}}</h4>
             </div>
         </div>
     </div>

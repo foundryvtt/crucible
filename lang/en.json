@@ -72,6 +72,20 @@
         "weight": {
           "label": "Weight"
         }
+      },
+      "size": {
+        "label": "Size Modifier",
+        "hint": "A modifier which increases or decreases the character's size relative to their base size."
+      }
+    },
+    "movement": {
+      "stride": {
+        "label": "Stride",
+        "tooltip": "Movement Distance per AP"
+      },
+      "engagement": {
+        "label": "Engage",
+        "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
       }
     }
   },
@@ -88,16 +102,8 @@
     "AVAILABLE_ACTIONS": "Available Actions",
     "ACTIVE_EFFECTS": "Active Effects",
     "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
-    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
-  },
-  "STATURES": {
-    "TINY": "Tiny",
-    "SMALL": "Small",
-    "MEDIUM": "Medium",
-    "LARGE": "Large",
-    "GIANT": "Giant",
-    "HUGE": "Huge",
-    "GARGANTUAN": "Gargantuan"
+    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
+    "SIZE": "Size"
   }
 },
 
@@ -107,6 +113,10 @@
   "FIELDS": {
     "description": {
       "label": "Ancestry Description"
+    },
+    "size": {
+      "label": "Size",
+      "tooltip": "Ancestry Size in Grid Spaces"
     },
     "primary": {
       "label": "Primary Ability",
@@ -372,8 +382,8 @@
 "DEFENSES.Reflex": "Reflex",
 "DEFENSES.Willpower": "Willpower",
 "DEFENSES.Physical": "Physical",
-"DEFENSES.Wounds": "Wounds Threshold",
-"DEFENSES.Madness": "Madness Threshold",
+"DEFENSES.Wounds": "Wounds Healing Threshold",
+"DEFENSES.Madness": "Madness Healing Threshold",
 
 "DICE.DiceTotal": "Dice Total",
 "DICE.AbilityBonus": "Ability Bonus",

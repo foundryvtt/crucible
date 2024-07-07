@@ -30,6 +30,7 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Details
     schema.details = new fields.SchemaField({
+      size: new fields.NumberField({required: true, integer: true, nullable: false, initial: 0}),
       ancestry: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
@@ -47,7 +48,7 @@ export default class CrucibleHero extends CrucibleActorType {
         weight: new fields.StringField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
-      }),
+      })
     });
     return schema;
   }
@@ -76,6 +77,12 @@ export default class CrucibleHero extends CrucibleActorType {
    */
   points;
 
+  /**
+   * Hero actor size is determined by their ancestry and size modifier.
+   * @type {number}
+   */
+  size;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -83,6 +90,7 @@ export default class CrucibleHero extends CrucibleActorType {
   /** @override */
   prepareBaseData() {
     this.#prepareAdvancement();
+    this.size = this.details.ancestry.size + this.details.size;
     super.prepareBaseData();
   }
 
