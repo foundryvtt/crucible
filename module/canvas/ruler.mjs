@@ -20,6 +20,10 @@ export default class CrucibleRuler extends Ruler {
    */
   #footprint = [];
 
+  /**
+   * A set of grid offsets which have already been highlighted.
+   * @type {Set<string>}
+   */
   #highlighted = new Set();
 
   get cost() {

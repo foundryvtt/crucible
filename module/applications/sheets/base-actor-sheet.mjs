@@ -106,6 +106,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /** @override */
   async _prepareContext(options) {
     const tabGroups = this.#getTabs();
+    const {inventory, talents} = this.#prepareItems();
     return {
       abilityScores: this.#prepareAbilities(),
       actions: this.#prepareAvailableActions(),
@@ -117,12 +118,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fieldDisabled: this.isEditable ? "" : "disabled",
       fields: this.document.system.schema.fields,
       incomplete: {},
+      inventory,
       isEditable: this.isEditable,
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
       source: this.document.toObject(),
       tabGroups,
-      tabs: tabGroups.sheet
+      tabs: tabGroups.sheet,
+      talents
     };
   }
 
@@ -259,6 +262,60 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( oh?.id && !th ) featuredEquipment.push({name: oh.name, img: oh.img, tag: [oh.getTags().damage]})
     featuredEquipment.push({name: armor.name, img: armor.img, tag: armor.getTags().armor});
     return featuredEquipment;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare rendering data for items owned by the Actor.
+   */
+  #prepareItems() {
+    const sections = {
+      talents: {
+        active: {label: "Active Abilities", items: []},
+        passive: {label: "Passive Talents", items: []},
+        spell: {label: "Spellcraft Talents", items: []}
+      },
+      inventory: {
+        equipment: {label: "Equipment", items: [], empty: game.i18n.localize("ACTOR.LABELS.EQUIPMENT_HINT")},
+        backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
+      }
+    };
+
+    // Iterate over items and organize them
+    for ( let i of this.document.items ) {
+      const d = i.toObject();
+      d.showStack = d.system?.quantity && (d.system.quantity !== 1);
+      switch(d.type) {
+        case "armor":
+        case "weapon":
+          d.tags = i.getTags();
+          d.cssClass = [i.system.equipped ? "equipped" : "unequipped"];
+          if ( i.system.equipped ) sections.inventory.equipment.items.push(d);
+          else sections.inventory.backpack.items.push(d);
+          break;
+        case "talent":
+          d.tags = {};
+          const action = i.actions.at(0);
+          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
+          if ( action ) {
+            const tags = action.getTags();
+            d.tags = Object.assign({}, tags.action, tags.activation);
+            sections.talents.active.items.push(d);
+          }
+          else if ( spellComp ) sections.talents.spell.items.push(d);
+          else sections.talents.passive.items.push(d);
+          break;
+      }
+    }
+
+    // Sort each array
+    for ( let section of Object.values(sections) ) {
+      for ( let heading of Object.values(section) ) {
+        heading.items.sort((a, b) => a.name.localeCompare(b.name));
+      }
+    }
+    return sections;
   }
 
   /* -------------------------------------------- */

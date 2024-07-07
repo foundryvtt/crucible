@@ -34,9 +34,14 @@
   .sheet-body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex: 1;
+    gap: 1.5rem 1rem;
     height: 100%;
+  }
+
+  .tab {
+    gap: 1.5rem;
   }
 
   /* ----------------------------------------- */
@@ -137,22 +142,9 @@
       max-height: 200px;
     }
     .line-item {
-      --icon-size: 32px;
-      flex-direction: row;
-      header {
-        flex-direction: column;
-        gap: 0;
-        align-items: flex-start;
-        h4.title {
-          font-size: var(--font-size-12);
-          line-height: 1rem;
-        }
-      }
-      .tags {
-        margin-left: -3px; // align padding and border
-        .tag {
-          font-size: var(--font-size-10);
-        }
+      .title {
+        font-size: var(--font-size-12);
+        line-height: 1rem;
       }
     }
   }
@@ -211,7 +203,6 @@
   .tab.attributes {
     grid-template-rows: 140px 200px 1fr;
     grid-template-columns: 2fr 1fr;
-    gap: calc(var(--margin-size) * 1.5) var(--margin-size);
     padding-bottom: var(--margin-size);
     &.active {
       display: grid;
@@ -643,7 +634,6 @@
     }
   }
 
-
   /* ----------------------------------------- */
   /*  Biography Tab                            */
   /* ----------------------------------------- */
@@ -651,7 +641,6 @@
   .tab.biography {
     flex: 1;
     padding: 1rem 0;
-    gap: 1.5rem;
     .sheet-section {
       flex: 1;
       justify-content: center;
@@ -670,6 +659,25 @@
       }
       > div {
         padding: 0 1rem;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Inventory Tab                            */
+  /* ----------------------------------------- */
+
+  .tab.inventory {
+    .sheet-section {
+      padding: 1rem;
+    }
+    ol.items-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 1rem;
+      li {
+        margin: 0;
       }
     }
   }

@@ -39,9 +39,6 @@ export default class CrucibleActorSheet extends ActorSheet {
     context.saveDefenses = this.#formatSaveDefenses(a.system.defenses);
     context.resistances = this.#formatResistances(a.system.resistances);
 
-    // Owned Items
-    context.items = this.#formatItems(a.items);
-
     // Skills
     context.skillCategories = this.#formatSkills(a.system.skills);
 
@@ -134,84 +131,6 @@ export default class CrucibleActorSheet extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  /**
-   * Structure owned items for display on the actor sheet.
-   * @param {CrucibleItem[]} items        The array of owned items
-   */
-  #formatItems(items) {
-
-    // Define placeholder structure
-    const sections = {
-      talents: {
-        active: {
-          label: "Active Abilities",
-          items: []
-        },
-        passive: {
-          label: "Passive Talents",
-          items: []
-        },
-        spell: {
-          label: "Spellcraft Talents",
-          items: []
-        }
-      },
-      inventory: {
-        equipment: {
-          label: "Equipment",
-          items: [],
-          empty: "Equip weapons and armor from your Backpack toggling the shield icon."
-        },
-        consumables: {
-          label: "Consumables",
-          items: [],
-          empty: "Consumable items are not yet supported in the Crucible system Playtest 1."
-        },
-        backpack: {
-          label: "Backpack",
-          items: [],
-          empty: "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
-        }
-      }
-    };
-
-    // Iterate over items and organize them
-    for ( let i of items ) {
-      const d = i.toObject();
-      d.showStack = d.system?.quantity && (d.system.quantity !== 1);
-      switch(d.type) {
-        case "armor":
-        case "weapon":
-          d.tags = i.getTags();
-          d.cssClass = [i.system.equipped ? "equipped" : "unequipped"];
-          if ( i.system.equipped ) sections.inventory.equipment.items.push(d);
-          else sections.inventory.backpack.items.push(d);
-          break;
-        case "talent":
-          d.tags = {};
-          const action = i.actions.at(0);
-          const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
-          if ( action ) {
-            const tags = action.getTags();
-            d.tags = Object.assign({}, tags.action, tags.activation);
-            sections.talents.active.items.push(d);
-          }
-          else if ( spellComp ) sections.talents.spell.items.push(d);
-          else sections.talents.passive.items.push(d);
-          break;
-      }
-    }
-
-    // Sort each array
-    for ( let section of Object.values(sections) ) {
-      for ( let heading of Object.values(section) ) {
-        heading.items.sort((a, b) => a.name.localeCompare(b.name));
-      }
-    }
-
-    // Return the prepared sections
-    return sections;
-  }
 
   /* -------------------------------------------- */
 

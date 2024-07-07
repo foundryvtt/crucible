@@ -1,4 +1,34 @@
 <section class="tab flexcol {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
          data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
-    <p>Inventory Tab</p>
+    {{#each inventory as |section s|}}
+    <div class="sheet-section">
+        <h3>{{section.label}}</h3>
+        <ol class="items-list flexcol scrollable">
+            {{#each section.items as |item id|}}
+            <li class="line-item {{item.cssClass}}" data-item-id="{{item._id}}">
+                <img class="icon" src="{{item.img}}" alt="{{item.name}}">
+                <header>
+                    <h4 class="title">
+                        {{#if item.showStack}}<span class="stack">({{item.system.quantity}}) </span>{{/if}}
+                        {{~item.name~}}
+                    </h4>
+                    <div class="tags">
+                        {{#each item.tags}}
+                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                        {{/each}}
+                    </div>
+                </header>
+                <div class="controls">
+                    <a class="button control equipped-state fa-solid fa-shield-alt" data-action="itemEquip"
+                       data-tooltip="Equip Item"></a>
+                    <a class="button control fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></a>
+                    <a class="button control fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Item"></a>
+                </div>
+            </li>
+            {{else}}
+            <li class="notes">{{section.empty}}</li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
 </section>

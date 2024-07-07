@@ -19,6 +19,20 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
+
+  .line-item.action,
+  .line-item.talent {
+    flex-direction: column;
+    header {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .title {
+      flex: 1;
+    }
+  }
 }
 
 /* ----------------------------------------- */

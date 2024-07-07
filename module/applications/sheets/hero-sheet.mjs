@@ -1,5 +1,4 @@
-import CrucibleBaseActorSheet from "./base-actor.mjs";
-import SkillConfig from "../config/skill.mjs";
+import CrucibleBaseActorSheet from "./base-actor-sheet.mjs";
 
 /**
  * A CrucibleBaseActorSheet subclass used to configure Actors of the "hero" type.

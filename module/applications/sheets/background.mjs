@@ -15,6 +15,11 @@ export default class BackgroundSheet extends CrucibleBaseItemSheet {
     }
   };
 
+  // Initialize subclass options
+  static {
+    this._initializeItemSheetClass()
+  }
+
   /**
    * The partial template used to render an included talent.
    * @type {string}

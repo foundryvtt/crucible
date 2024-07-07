@@ -86,7 +86,9 @@
   "LABELS": {
     "CURRENT_EQUIPMENT": "Current Equipment",
     "AVAILABLE_ACTIONS": "Available Actions",
-    "ACTIVE_EFFECTS": "Active Effects"
+    "ACTIVE_EFFECTS": "Active Effects",
+    "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
+    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
   },
   "STATURES": {
     "TINY": "Tiny",
