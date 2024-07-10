@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Physical Attributes</title>
+    <defs>
+        <polygon id="path-1" points="15.4500529 30.5184794 15.4500529 68.9356533 50.4775653 89.4565217 85.5050778 68.9356533 85.5022988 30.5184794 50.4771022 10"></polygon>
+        <filter x="-20.0%" y="-17.7%" width="140.0%" height="135.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="7" operator="erode" in="SourceAlpha" result="shadowSpreadInner1"></feMorphology>
+            <feGaussianBlur stdDeviation="9.5" in="shadowSpreadInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="19.0751311%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#DBDBDB" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#B4B4B4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Abilities" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Attributes-with-Inner-Glow" transform="translate(-100.000000, -192.000000)">
+            <g id="Physical-Attributes" transform="translate(100.000000, 192.000000)">
+                <polygon id="Path" stroke="#D8D8D8" stroke-width="0.681818182" transform="translate(50.500000, 50.500000) rotate(90.000000) translate(-50.500000, -50.500000) " points="13 29.9500013 13 71.0474431 50.5 93 88 71.0474431 87.9970248 29.9500013 50.4995041 8"></polygon>
+                <g id="Path">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use stroke="#B4B4B4" stroke-width="1" xlink:href="#path-1"></use>
+                </g>
+                <circle id="Oval" stroke="url(#linearGradient-3)" cx="50" cy="50" r="49.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

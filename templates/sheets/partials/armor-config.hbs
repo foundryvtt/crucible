@@ -1,0 +1,30 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "ARMOR.SHEET.TYPE"}}</legend>
+        {{formField fields.category value=source.system.category}}
+        {{formField fields.quality value=source.system.quality}}
+        {{formField fields.enchantment value=source.system.enchantment}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "ARMOR.SHEET.DEFENSES"}}</legend>
+        {{formField fields.armor value=source.system.armor widget=armorWidget}}
+        {{formField fields.dodge value=source.system.dodge widget=dodgeWidget}}
+    </fieldset>
+
+    <fieldset class="item-properties" {{fieldDisabled}}>
+        <legend>{{fields.properties.label}}</legend>
+        {{formField fields.properties value=item.system.properties widget=propertiesWidget}}
+    </fieldset>
+
+    <fieldset class="item-equipment" {{fieldDisabled}}>
+        <legend>{{localize "ARMOR.SHEET.EQUIPMENT"}}</legend>
+        {{formField fields.equipped value=source.system.equipped}}
+        {{formField fields.broken value=source.system.broken}}
+        {{formField fields.quantity value=source.system.quantity classes="slim"}}
+        {{formField fields.weight value=source.system.weight classes="slim"}}
+        {{formField fields.price value=source.system.price classes="slim"}}
+        {{formField scaledPrice value=item.system.price classes="slim" disabled=true}}
+    </fieldset>
+</section>

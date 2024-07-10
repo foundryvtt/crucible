@@ -25,7 +25,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
         img: new fields.StringField(),
         ...CrucibleArchetype.defineSchema()
       }, {required: true, nullable: true, initial: null}),
-      stature: new fields.StringField({required: true, choices: SYSTEM.CREATURE_STATURES, initial: "medium"}),
+      size: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 3}),
       taxonomy: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),

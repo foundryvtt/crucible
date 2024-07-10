@@ -123,19 +123,34 @@
   ],
   "documentTypes": {
     "Actor": {
-      "hero": {},
+      "hero": {
+        "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
+      },
       "adversary": {}
     },
     "Item": {
-      "ancestry": {},
-      "archetype": {},
-      "armor": {},
-      "background": {},
+      "ancestry": {
+        "htmlFields": ["description"]
+      },
+      "archetype": {
+        "htmlFields": ["description"]
+      },
+      "armor": {
+        "htmlFields": ["description.public", "description.secret"]
+      },
+      "background": {
+        "htmlFields": ["description"]
+      },
       "talent": {
+        "htmlFields": ["description"],
         "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
       },
-      "taxonomy": {},
-      "weapon": {}
+      "taxonomy": {
+        "htmlFields": ["description"]
+      },
+      "weapon": {
+        "htmlFields": ["description.public", "description.secret"]
+      }
     },
     "JournalEntryPage": {
       "skill": {}

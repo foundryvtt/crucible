@@ -1,0 +1,63 @@
+<section class="sheet-sidebar flexcol">
+    <img class="profile" src="{{source.img}}" title="{{source.name}}" data-edit="img" width="200" height="200">
+
+    {{!-- Current Equipment --}}
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.CURRENT_EQUIPMENT"}}</h2>
+    <div class="item-list equipped">
+        {{#each featuredEquipment as |e|}}
+        <div class="equipped line-item">
+            <img class="icon" src="{{e.img}}" alt="{{e.name}}">
+            <header>
+                <h4 class="title">{{this.name}}</h4>
+                <div class="tags">
+                    <span class="tag">{{e.tag}}</span>
+                </div>
+            </header>
+        </div>
+        {{/each}}
+    </div>
+
+    {{!-- Available Actions --}}
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.AVAILABLE_ACTIONS"}}</h2>
+    <div class="item-list actions">
+        {{#each actions}}
+        <div class="action line-item" data-action-id="{{this.id}}">
+            <img class="icon" src="{{this.img}}" alt="{{this.name}}">
+            <header>
+                <h4 class="title" data-action="useAction"><a>{{this.name}}</a></h4>
+                <div class="tags">
+                    {{#each this.tags as |label tag|}}
+                        <span class="tag {{tag}}">{{label}}</span>
+                    {{/each}}
+                </div>
+            </header>
+        </div>
+        {{/each}}
+    </div>
+
+    {{!-- Active Effects --}}
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.ACTIVE_EFFECTS"}}</h2>
+    <div class="item-list effects">
+        {{#each effects as |effect|}}
+        <div class="effect line-item" data-effect-id="{{effect.id}}">
+            <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
+            <header>
+                <h4 class="title">{{effect.label}}</h4>
+                <div class="tags">
+                    {{#each effect.tags as |label tag|}}
+                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                    {{/each}}
+                </div>
+            </header>
+            <div class="controls">
+                <a class="control" data-action="effectEdit" data-tooltip="Edit Effect">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="control" data-action="effectDelete" data-tooltip="Delete Effect">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        {{/each}}
+        </div>
+    </div>
+</section>

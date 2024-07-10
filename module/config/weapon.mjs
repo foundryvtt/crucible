@@ -10,6 +10,8 @@
  * @property {number} actionCost          The action point cost to strike with this weapon
  */
 
+import Enum from "./enum.mjs";
+
 /**
  * Enumerate the weapon categories which are allowed by the system.
  * Record certain mechanical metadata which applies to weapons in each category.
@@ -18,7 +20,7 @@
 export const CATEGORIES = {
   unarmed: {
     id: "unarmed",
-    label: "WEAPON.Unarmed",
+    label: "WEAPON.CATEGORIES.UNARMED",
     hands: 1,
     main: true,
     off: true,
@@ -32,7 +34,7 @@ export const CATEGORIES = {
   },
   natural: {
     id: "natural",
-    label: "WEAPON.Natural",
+    label: "WEAPON.CATEGORIES.NATURAL",
     hands: 0,
     main: true,
     off: true,
@@ -46,7 +48,7 @@ export const CATEGORIES = {
   },
   light1: {
     id: "light1",
-    label: "WEAPON.Light1",
+    label: "WEAPON.CATEGORIES.LIGHT1",
     hands: 1,
     main: true,
     off: true,
@@ -60,7 +62,7 @@ export const CATEGORIES = {
   },
   simple1: {
     id: "simple1",
-    label: "WEAPON.Simple1",
+    label: "WEAPON.CATEGORIES.SIMPLE1",
     hands: 1,
     main: true,
     off: true,
@@ -74,7 +76,7 @@ export const CATEGORIES = {
   },
   balanced1: {
     id: "balanced1",
-    label: "WEAPON.Balanced1",
+    label: "WEAPON.CATEGORIES.BALANCED1",
     hands: 1,
     main: true,
     off: true,
@@ -88,7 +90,7 @@ export const CATEGORIES = {
   },
   heavy1: {
     id: "heavy1",
-    label: "WEAPON.Heavy1",
+    label: "WEAPON.CATEGORIES.HEAVY1",
     hands: 1,
     main: true,
     off: false,
@@ -102,7 +104,7 @@ export const CATEGORIES = {
   },
   simple2: {
     id: "simple2",
-    label: "WEAPON.Simple2",
+    label: "WEAPON.CATEGORIES.SIMPLE2",
     hands: 2,
     main: true,
     off: false,
@@ -116,7 +118,7 @@ export const CATEGORIES = {
   },
   balanced2: {
     id: "balanced2",
-    label: "WEAPON.Balanced2",
+    label: "WEAPON.CATEGORIES.BALANCED2",
     hands: 2,
     main: true,
     off: false,
@@ -130,7 +132,7 @@ export const CATEGORIES = {
   },
   heavy2: {
     id: "heavy2",
-    label: "WEAPON.Heavy2",
+    label: "WEAPON.CATEGORIES.HEAVY2",
     hands: 2,
     main: true,
     off: false,
@@ -144,7 +146,7 @@ export const CATEGORIES = {
   },
   projectile1: {
     id: "projectile1",
-    label: "WEAPON.Projectile1",
+    label: "WEAPON.CATEGORIES.PROJECTILE1",
     hands: 1,
     main: true,
     off: true,
@@ -159,7 +161,7 @@ export const CATEGORIES = {
   },
   projectile2: {
     id: "projectile2",
-    label: "WEAPON.Projectile2",
+    label: "WEAPON.CATEGORIES.PROJECTILE2",
     hands: 2,
     main: true,
     off: false,
@@ -174,7 +176,7 @@ export const CATEGORIES = {
   },
   mechanical1: {
     id: "mechanical1",
-    label: "WEAPON.Mechanical1",
+    label: "WEAPON.CATEGORIES.MECHANICAL1",
     hands: 1,
     main: true,
     off: true,
@@ -190,7 +192,7 @@ export const CATEGORIES = {
   },
   mechanical2: {
     id: "mechanical2",
-    label: "WEAPON.Mechanical2",
+    label: "WEAPON.CATEGORIES.MECHANICAL2",
     hands: 2,
     main: true,
     off: false,
@@ -206,7 +208,7 @@ export const CATEGORIES = {
   },
   shieldLight: {
     id: "shieldLight",
-    label: "WEAPON.ShieldLight",
+    label: "WEAPON.CATEGORIES.SHIELD_LIGHT",
     hands: 1,
     main: false,
     off: true,
@@ -224,7 +226,7 @@ export const CATEGORIES = {
   },
   shieldHeavy: {
     id: "shieldHeavy",
-    label: "WEAPON.ShieldHeavy",
+    label: "WEAPON.CATEGORIES.SHIELD_HEAVY",
     hands: 1,
     main: false,
     off: true,
@@ -242,7 +244,7 @@ export const CATEGORIES = {
   },
   talisman1: {
     id: "talisman1",
-    label: "WEAPON.Talisman1",
+    label: "WEAPON.CATEGORIES.TALISMAN1",
     hands: 1,
     main: true,
     off: true,
@@ -257,7 +259,7 @@ export const CATEGORIES = {
   },
   talisman2: {
     id: "talisman2",
-    label: "WEAPON.Talisman2",
+    label: "WEAPON.CATEGORIES.TALISMAN2",
     hands: 2,
     main: true,
     off: false,
@@ -270,8 +272,7 @@ export const CATEGORIES = {
     range: 30,
     training: "talisman"
   }
-}
-
+};
 
 /**
  * The boolean properties which a Weapon may have.
@@ -279,46 +280,57 @@ export const CATEGORIES = {
  */
 export const PROPERTIES = {
   ambush: {
-    label: "WEAPON.TagAmbush",
-    tooltip: "WEAPON.TagAmbushTooltip"
+    label: "WEAPON.TAGS.Ambush",
+    tooltip: "WEAPON.TAGS.AmbushTooltip"
   },
   blocking: {
-    label: "WEAPON.TagBlocking",
-    tooltip: "WEAPON.TagBlockingTooltip"
+    label: "WEAPON.TAGS.Blocking",
+    tooltip: "WEAPON.TAGS.BlockingTooltip"
   },
   engaging: {
-    label: "WEAPON.TagEngaging",
-    tooltip: "WEAPON.TagEngagingTooltip"
+    label: "WEAPON.TAGS.Engaging",
+    tooltip: "WEAPON.TAGS.EngagingTooltip"
   },
   keen: {
-    label: "WEAPON.TagKeen",
-    tooltip: "WEAPON.TagKeenTooltip"
+    label: "WEAPON.TAGS.Keen",
+    tooltip: "WEAPON.TAGS.KeenTooltip"
   },
   oversized: {
-    label: "WEAPON.TagOversized",
-    tooltip: "WEAPON.TagOversizedTooltip"
+    label: "WEAPON.TAGS.Oversized",
+    tooltip: "WEAPON.TAGS.OversizedTooltip"
   },
   parrying: {
-    label: "WEAPON.TagParrying",
-    tooltip: "WEAPON.TagParryingTooltip"
+    label: "WEAPON.TAGS.Parrying",
+    tooltip: "WEAPON.TAGS.ParryingTooltip"
   },
   reach: {
-    label: "WEAPON.TagReach",
-    tooltip: "WEAPON.TagReachTooltip"
+    label: "WEAPON.TAGS.Reach",
+    tooltip: "WEAPON.TAGS.ReachTooltip"
   },
   reliable: {
-    label: "WEAPON.TagReliable",
-    tooltip: "WEAPON.TagReliableTooltip"
+    label: "WEAPON.TAGS.Reliable",
+    tooltip: "WEAPON.TAGS.ReliableTooltip"
   },
   thrown: {
-    label: "WEAPON.TagThrown",
-    tooltip: "WEAPON.TagThrownTooltip"
+    label: "WEAPON.TAGS.Thrown",
+    tooltip: "WEAPON.TAGS.ThrownTooltip"
   },
   versatile: {
-    label: "WEAPON.TagVersatile",
-    tooltip: "WEAPON.TagVersatileTooltip"
+    label: "WEAPON.TAGS.Versatile",
+    tooltip: "WEAPON.TAGS.VersatileTooltip"
   }
-}
+};
+
+/**
+ * Designate which equipped slot the weapon is used in.
+ * @type {Enum<number>}
+ */
+export const SLOTS = new Enum({
+  EITHER: {value: 0, label: "WEAPON.SLOTS.EITHER"},
+  MAINHAND: {value: 1, label: "WEAPON.SLOTS.MAINHAND"},
+  OFFHAND: {value: 2, label: "WEAPON.SLOTS.OFFHAND"},
+  TWOHAND: {value: 3, label: "WEAPON.SLOTS.TWOHAND"}
+});
 
 /**
  * The configuration of the default unarmed Weapon.

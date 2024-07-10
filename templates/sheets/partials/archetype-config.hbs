@@ -1,0 +1,29 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset class="form-group abilities">
+        <legend>{{fields.abilities.label}} <span class="sum"></span></legend>
+        <div class="form-fields">
+            {{#each abilities as |a|}}
+            <label>
+                {{formInput a.field value=a.value type="number"}}
+                {{a.label}}
+            </label>
+            {{/each}}
+        </div>
+        <p class="hint">{{fields.abilities.hint}}</p>
+    </fieldset>
+
+    <fieldset class="talents" {{fieldDisabled}}>
+        <legend>{{fields.talents.label}}</legend>
+        {{#each talents}}
+        {{{this}}}
+        {{else}}
+        <div class="talent-drop droppable">
+            <p class="hint">{{localize "ARCHETYPE.SHEET.TALENT_DROP"}}</p>
+        </div>
+        {{/each}}
+        <p class="hint">{{fields.talents.hint}}</p>
+    </fieldset>
+</section>
+

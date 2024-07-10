@@ -37,7 +37,7 @@ export default class AdversarySheet extends CrucibleActorSheet {
 
     // Level and Threat
     context.threats = SYSTEM.THREAT_LEVELS;
-    context.statures = SYSTEM.CREATURE_STATURES;
+    // context.statures = SYSTEM.CREATURE_STATURES; TODO REMOVE
     context.threat = context.threats[a.system.details.threat];
     context.levelDisplay = this.#getLevelDisplay(a.system.details.level);
     context.canLevelUp = a.system.details.level < 24;

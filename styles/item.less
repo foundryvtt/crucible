@@ -1,11 +1,46 @@
 @import "variables.less";
 
 /* ----------------------------------------- */
+/*  All Items                                */
+/* ----------------------------------------- */
+
+.crucible.item {
+  --margin-size: 1rem;
+  --margin-half: calc(var(--margin-size) / 2);
+
+  .sheet-body {
+    padding: var(--margin-size);
+  }
+
+  .item-properties {
+    display: grid;
+    gap: 0.5rem 1rem;
+    multi-checkbox {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .line-item.action,
+  .line-item.talent {
+    flex-direction: column;
+    header {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .title {
+      flex: 1;
+    }
+  }
+}
+
+/* ----------------------------------------- */
 /*  Armor and Weapons                        */
 /* ----------------------------------------- */
 
-.crucible-new.weapon,
-.crucible-new.armor {
+.crucible.weapon,
+.crucible.armor {
   .form-group.defense {
     .form-fields {
       flex: 8;
@@ -13,22 +48,35 @@
       grid-template-columns: 1fr 64px 1fr 64px;
     }
   }
-  .item-fieldset {
+
+  // Equipment Attributes
+  .item-equipment {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem 1rem;
     label {
       font-size: var(--font-size-12);
+      font-weight: normal;
       color: var(--color-secondary);
     }
-    .form-fields {
-      flex: 0;
+    .slot {
+      grid-column: 1 / span 2;
+    }
+    .reload {
+      grid-column: 2;
     }
   }
-  .item-properties {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .item-equipment {
-    grid-template-columns: repeat(2, 1fr);
+
+  // Tabbed descriptions
+  .tab[data-tab=description] {
+    padding: 0;
+    gap: 0;
+    .sheet-tabs {
+      border-top: none;
+    }
+    section.tab {
+      padding: 1rem;
+    }
   }
 }
 
@@ -36,33 +84,36 @@
  *  Archetype Sheet                           *
  * ------------------------------------------ */
 
-.crucible-new.archetype,
-.crucible-new.taxonomy {
-  .abilities {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0.5rem;
-  }
-  .resistances {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 0.5rem;
-  }
+.crucible.archetype,
+.crucible.taxonomy {
   .abilities,
   .resistances {
-    label {
-      padding: 0.25rem;
-      border: 1px solid var(--color-frame);
-      border-radius: 6px;
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 0.5rem;
+      label {
+        padding: 0.25rem;
+        border: 1px solid var(--color-frame);
+        border-radius: 6px;
+      }
+      input {
+        --input-border-color: transparent;
+        font-size: var(--font-size-18);
+      }
     }
-    input {
-      font-size: var(--font-size-20);
-      border-color: transparent;
+    .sum {
+      margin-left: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid green;
+      border-radius: 4px;
+      &.invalid {
+        border-color: red;
+      }
     }
   }
-  .ability-sum,
-  .resistance-sum {
-    float: right;
+  .resistances .form-fields {
+    grid-template-columns: repeat(4, 1fr);
   }
   .talents {
     gap: 1rem;
@@ -75,78 +126,10 @@
 }
 
 /** ----------------------------------------- *
- *  Armor Sheet                               *
- * ------------------------------------------ */
-
-.crucible.sheet.armor {
-  .resistance {
-    flex: 0 0 50%;
-    margin: 0 0 3px;
-    padding: 0 6px;
-
-    > input {
-      flex: 0 0 64px;
-      text-align: center;
-    }
-  }
-}
-
-/** ----------------------------------------- *
- *  Action Sheet                              *
- * ------------------------------------------ */
-
-.crucible-new.action {
-  button.delete-hook {
-    width: 28px;
-    line-height: 22px; // 28px height
-    float: right;
-  }
-}
-
-/** ----------------------------------------- *
- *  Talent Sheet                              *
- * ------------------------------------------ */
-
-.crucible-new.talent {
-
-  // Delete Hook
-  button.delete-hook {
-    width: 28px;
-    line-height: 22px; // 28px height
-    float: right;
-  }
-
-  // Actions Summary
-  .actions {
-    .line-item {
-      flex-direction: column;
-    }
-    .action-header h4 {
-      flex: none;
-    }
-  }
-}
-
-/** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
-.crucible-new.background {
-  .skills {
-    .form-fields {
-      flex-wrap: wrap;
-      gap: 0.5rem 0;
-      label {
-        flex: 0 0 25%;
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        input {
-          width: 16px;
-          margin: 0;
-        }
-      }
-    }
-  }
+
+.crucible.background {
   .talents {
     .talent .tags {
       flex: none;

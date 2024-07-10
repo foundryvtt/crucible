@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 67 76">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #d8d8d8;
+        stroke-width: .5px;
+      }
+
+      .cls-2 {
+        fill: #d8d8d8;
+        fill-rule: evenodd;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Defenses">
+    <g id="Workboard">
+      <g id="Fortitude">
+        <polygon id="Path" class="cls-1" points="1 20 1 55.7 33.5 74.7 66 55.7 66 20 33.5 1 1 20"/>
+        <polygon id="Rectangle" class="cls-2" points="33.5 63.6 38 71 33.5 73.6 29 71 33.5 63.6"/>
+        <polygon id="Rectangle-2" data-name="Rectangle" class="cls-2" points="33.5 12.3 38 4.9 33.5 2.3 29 4.9 33.5 12.3"/>
+        <g id="Group">
+          <polygon id="Path-2" class="cls-2" points="2 55.1 2 45.2 9.6 59.5 2 55.1"/>
+          <polygon id="Path-2-2" data-name="Path-2" class="cls-2" points="2 20.6 2 30.5 9.6 16.2 2 20.6"/>
+        </g>
+        <polygon id="Path-2-3" data-name="Path-2" class="cls-2" points="64.9 55.1 64.9 45.2 57.3 59.5 64.9 55.1"/>
+        <polygon id="Path-2-4" data-name="Path-2" class="cls-2" points="64.9 20.6 64.9 30.5 57.3 16.2 64.9 20.6"/>
+      </g>
+    </g>
+  </g>
+</svg>

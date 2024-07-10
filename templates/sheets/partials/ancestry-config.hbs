@@ -1,0 +1,16 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+    {{log fields}}
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "ANCESTRY.SHEET.ABILITIES"}}</legend>
+        {{formField fields.primary value=source.system.primary}}
+        {{formField fields.secondary value=source.system.secondary}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "ANCESTRY.SHEET.RESISTANCES"}}</legend>
+        {{formField fields.resistance value=source.system.resistance}}
+        {{formField fields.vulnerability value=source.system.vulnerability}}
+        <p class="hint">{{localize "ANCESTRY.SHEET.RESISTANCE_HINT"}}</p>
+    </fieldset>
+</section>

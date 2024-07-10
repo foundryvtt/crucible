@@ -62,7 +62,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     // Resource Pools
     schema.resources = new fields.SchemaField(Object.values(SYSTEM.RESOURCES).reduce((obj, resource) => {
       obj[resource.id] = new fields.SchemaField({
-        value: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+        value: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: resource.max})
       }, {label: resource.label});
       return obj
     }, {}));
@@ -86,6 +86,9 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     schema.status = new fields.ObjectField({nullable: true, initial: null});
     return schema;
   }
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ACTOR"];
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -199,12 +202,12 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action
-    r.action.max = maxAction ?? 12;
-    if ( l < 1 ) r.action.max -= 4;
-    if ( statuses.has("stunned") ) r.action.max -= 6;
-    else if ( statuses.has("staggered") ) r.action.max -= 3;
+    r.action.max = maxAction ?? 6;
+    if ( l < 1 ) r.action.max -= 2; // Weak NPCs
+    if ( statuses.has("stunned") ) r.action.max -= 3;
+    else if ( statuses.has("staggered") ) r.action.max -= 1;
     if ( this.status.impetus ) r.action.max += 1;
-    if ( isWeakened ) r.action.max -= 6;
+    if ( isWeakened ) r.action.max -= 3;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
     r.action.value = Math.clamp(r.action.value, 0, r.action.max);
@@ -212,6 +215,10 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     // Focus
     r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
     r.focus.value = Math.clamp(r.focus.value, 0, r.focus.max);
+
+    // Heroism
+    r.heroism.max = 3;
+    r.heroism.value = Math.clamp(r.heroism.value, 0, 3);
   }
 
   /* -------------------------------------------- */
@@ -340,12 +347,8 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    */
   #prepareMovement() {
     const movement = this.movement;
-
-    // Stride and free movement
-    movement.free = (movement.stride * 4)
-
-    const stature = this.details.stature;
-    movement.engagement = SYSTEM.CREATURE_STATURES[stature]?.engagement ?? 1;
+    movement.free = movement.stride;
+    movement.engagement = Math.max(this.size - 2, 0);
     const {shield, offhand} = this.parent.equipment.weapons;
     if ( shield && offhand.system.properties.has("engaging") ) movement.engagement += 1;
   }

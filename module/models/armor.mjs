@@ -16,7 +16,7 @@ export default class CrucibleArmor extends CruciblePhysicalItem {
   static ITEM_PROPERTIES = SYSTEM.ARMOR.PROPERTIES;
 
   /** @override */
-  static LOCALIZATION_PATHS = ["ITEM.FIELDS", "ARMOR.FIELDS"];
+  static LOCALIZATION_PREFIXES = ["ITEM", "ARMOR"];
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -82,17 +82,23 @@ export default class CrucibleArmor extends CruciblePhysicalItem {
     this.dodge.base = Math.clamp(this.dodge.base, category.dodge.min, category.dodge.max);
     this.dodge.start = category.dodge.start;
 
-    // Broken Armor
-    if ( this.broken ) {
-      this.armor.base = Math.floor(this.armor.base / 2);
-      this.armor.bonus = Math.floor(this.armor.bonus / 2);
-    }
-
     // Armor Properties
     for ( let p of this.properties ) {
       const prop = SYSTEM.ARMOR.PROPERTIES[p];
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  prepareDerivedData() {
+    if ( this.broken ) {
+      this.armor.base = Math.floor(this.armor.base / 2);
+      this.armor.bonus = Math.floor(this.armor.bonus / 2);
+      this.rarity -= 2;
+    }
+    this.price = this._preparePrice();
   }
 
   /* -------------------------------------------- */

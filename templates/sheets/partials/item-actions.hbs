@@ -1,0 +1,14 @@
+<section class="tab sheet-body flexcol {{tabs.actions.cssClass}}"
+         data-tab="{{tabs.actions.id}}" data-group="{{tabs.actions.group}}">
+    <fieldset>
+        <legend>
+            <span>Actions</span>
+            <a class="button icon" data-action="actionAdd" data-tooltip="TALENT.Actions.Add">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </legend>
+        {{#each actions as |action|}}
+        {{> (lookup @root "actionPartial") action=action isEditable=@root.isEditable}}
+        {{/each}}
+    </fieldset>
+</section>

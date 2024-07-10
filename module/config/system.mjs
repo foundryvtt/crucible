@@ -40,51 +40,6 @@ export const COMPENDIUM_PACKS = {
 /* -------------------------------------------- */
 
 /**
- * The statures which a creature type may have.
- * @enum {{label: string, grid: number}}
- */
-export const CREATURE_STATURES = {
-  tiny: {
-    label: "ACTOR.StatureTiny",
-    grid: 0.5,
-    engagement: 0
-  },
-  small: {
-    label: "ACTOR.StatureSmall",
-    grid: 1,
-    engagement: 1
-  },
-  medium: {
-    label: "ACTOR.StatureMedium",
-    grid: 1,
-    engagement: 1
-  },
-  large: {
-    label: "ACTOR.StatureLarge",
-    grid: 1,
-    engagement: 2
-  },
-  giant: {
-    label: "ACTOR.StatureGiant",
-    grid: 2,
-    engagement: 3
-  },
-  huge: {
-    label: "ACTOR.StatureHuge",
-    grid: 3,
-    engagement: 4
-  },
-  gargantuan: {
-    label: "ACTOR.StatureGargantuan",
-    grid: 4,
-    engagement: 5
-  }
-}
-
-
-/* -------------------------------------------- */
-
-/**
  * The threat levels that an adversary may have.
  * @enum {number}
  */
@@ -126,54 +81,74 @@ export const THREAT_LEVELS = {
  * @enum {{signature: string, argNames: string[]}}
  */
 export const ACTOR_HOOKS = Object.freeze({
+
+  // Action Usage
+  prepareStandardCheck: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["rollData"]
+  },
+  prepareWeaponAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "target", "rollData"]
+  },
   applyCriticalEffects: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "outcome", "self"]
   },
   defendSkillAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
   defendSpellAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["spell", "origin", "rollData"]
   },
   defendWeaponAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
+
+  // Data Preparation
   prepareActions: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["actions"]
   },
   prepareResources: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["resources"]
   },
   prepareDefenses: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["defenses"]
   },
   prepareInitiativeCheck: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["rollData"]
   },
   prepareMovement: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["movement"]
   },
   prepareResistances: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["resistances"]
   },
   prepareSkillCheck: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["skill", "rollData"]
   },
   prepareSkillAttack: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["action", "target", "rollData"]
   },
   prepareSpellAttack: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["spell", "target", "rollData"]
   },
-  prepareStandardCheck: {
-    argNames: ["rollData"]
-  },
   prepareTraining: {
+    group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["training"]
-  },
-  prepareWeaponAttack: {
-    argNames: ["action", "target", "rollData"]
-  },
+  }
 });
 
 
@@ -227,7 +202,6 @@ export const SYSTEM = {
   ANCESTRIES,
   ARMOR,
   COMPENDIUM_PACKS,
-  CREATURE_STATURES,
   DAMAGE_CATEGORIES: ATTRIBUTES.DAMAGE_CATEGORIES,
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,

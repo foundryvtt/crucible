@@ -16,16 +16,13 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       enchantment: new fields.StringField({required: true, choices: SYSTEM.ENCHANTMENT_TIERS, initial: "mundane"}),
       equipped: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
-      description: new fields.StringField(),
+      description: new fields.SchemaField({
+        public: new fields.HTMLField(),
+        secret: new fields.HTMLField()
+      }),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction))
     }
   }
-
-  /**
-   * A prefix used to automatically localize the label and hint properties of this data model.
-   * @type {string[]}
-   */
-  static LOCALIZATION_PATHS = ["ITEM.FIELDS"];
 
   /**
    * Allowed categories for this item type.
@@ -44,4 +41,12 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
    * @type {string[]}
    */
   static ITEM_PROPERTIES = [];
+
+  /* -------------------------------------------- */
+
+  _preparePrice() {
+    const rarity = this.rarity;
+    if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
+    else return this.price * Math.pow(rarity + 1, 3);
+  }
 }

@@ -2,7 +2,6 @@ import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpell from "../models/spell.mjs";
-import CrucibleWeapon from "../models/weapon.mjs";
 
 /**
  * @typedef {Object} ActorEquippedWeapons
@@ -149,6 +148,14 @@ export default class CrucibleActor extends Actor {
    */
   get skills() {
     return this.system.skills;
+  }
+
+  /**
+   * The size of the actor.
+   * @type {number}
+   */
+  get size() {
+    return this.system.size;
   }
 
   /**
@@ -371,7 +378,7 @@ export default class CrucibleActor extends Actor {
 
     // Identify equipped weapons which may populate weapon slots
     const equippedWeapons = {mh: [], oh: [], either: []};
-    const slots = CrucibleWeapon.WEAPON_SLOTS;
+    const slots = SYSTEM.WEAPON.SLOTS;
     for ( let w of weaponItems ) {
       const {equipped, slot} = w.system;
       if ( !equipped ) continue;
@@ -1881,7 +1888,7 @@ export default class CrucibleActor extends Actor {
    * Equip an owned weapon Item.
    * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
    * @param {object} [options]    Options which configure how the weapon is equipped.
-   * @param {number} [options.slot]       A specific equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @param {number} [options.slot]       A specific equipment slot in SYSTEM.WEAPON.SLOTS
    * @param {boolean} [options.equipped]  Whether the weapon should be equipped (true) or unequipped (false)
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
@@ -1926,12 +1933,12 @@ export default class CrucibleActor extends Actor {
   /**
    * Identify updates which should be made when equipping a weapon.
    * @param {CrucibleItem} weapon     A weapon being equipped
-   * @param {number} slot             A requested equipment slot in CrucibleWeapon.WEAPON_SLOTS
+   * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
    * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
    */
   #equipWeapon(weapon, slot) {
     const category = weapon.config.category;
-    const slots = CrucibleWeapon.WEAPON_SLOTS;
+    const slots = SYSTEM.WEAPON.SLOTS;
     const {mainhand, offhand} = this.equipment.weapons;
 
     // Identify the target equipment slot
@@ -1953,6 +1960,7 @@ export default class CrucibleActor extends Actor {
         break;
       case slots.OFFHAND:
         if ( offhand?.id ) occupied = offhand;
+        else if ( mainhand.config.category.hands === 2 ) occupied = mainhand;
         break;
     }
     if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
@@ -1966,13 +1974,11 @@ export default class CrucibleActor extends Actor {
     const actorUpdates = {};
 
     // Determine action cost
-    let actionCost = 3;
-    if ( weapon.system.properties.has("ambush") ) actionCost -= 1;
-    if ( this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
+    let actionCost = weapon.system.properties.has("ambush") ? 0 : 1;
+    if ( actionCost && this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
       actionCost = 0;
       foundry.utils.setProperty(actorUpdates, "system.status.hasMoved", true);
     }
-    actionCost = Math.max(actionCost, 0);
     return {itemUpdates, actorUpdates, actionCost};
   }
 

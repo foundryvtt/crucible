@@ -12,31 +12,37 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
     return {
       description: new fields.HTMLField({required: true, blank: true}),
-      skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
-      talents: new fields.SetField(new fields.StringField({required: true},
-        {validate: CrucibleBackground.#validateUuid}))
+      skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
+        validate: CrucibleBackground.#validateSkills
+      }),
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}), {
+        validate: CrucibleBackground.#validateTalents
+      })
     };
   }
 
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["BACKGROUND"];
+
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static validateJoint(data) {
-    if ( !data.skills.length && !data.talents.length ) return; // Newly created backgrounds
-    if ( (data.skills.length !== 4) || ((new Set(data.skills)).size !== 4) ) {
-      throw new Error(game.i18n.localize("BACKGROUND.SkillsWarning"));
-    }
-    if ( data.talents.length > 1 ) {
-      throw new Error(game.i18n.localize("BACKGROUND.TalentNumberError"));
-    }
+  /**
+   * Validate that the Skills assigned to this Background are appropriate.
+   * @param {string[]} skills     The assigned skill IDs
+   * @throws {Error}              An error if too many skills are assigned
+   */
+  static #validateSkills(skills) {
+    if ( skills.length > 4 ) throw new Error(game.i18n.localize("BACKGROUND.ERRORS.SKILLS_NUMBER"));
   }
 
   /* -------------------------------------------- */
 
-  static #validateUuid(uuid) {
-    const {documentType, documentId} = foundry.utils.parseUuid(uuid);
-    if ( CONST.DOCUMENT_TYPES.includes(documentType) || !foundry.data.validators.isValidId(documentId) ) {
-      throw new Error(`"${uuid}" is not a valid Talent UUID string`);
-    }
+  /**
+   * Validate that the Talents assigned to this Background are appropriate.
+   * @param {string[]} talents    The assigned talent UUIDs
+   * @throws {Error}              An error if too many talents are assigned
+   */
+  static #validateTalents(talents) {
+    if ( talents.length > 1 ) throw new Error(game.i18n.localize("BACKGROUND.ERRORS.TALENT_NUMBER"));
   }
 }

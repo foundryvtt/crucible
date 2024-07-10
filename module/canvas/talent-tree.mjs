@@ -314,7 +314,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.actor = actor;
     const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
     this.#drawCharacter(actorTexture);
-    await actor.sheet._render(false, {left: 20, top: 20});
+    await actor.sheet.render(false, {left: 20, top: 20});
     actor.sheet.minimize();
 
     // Refresh tree state

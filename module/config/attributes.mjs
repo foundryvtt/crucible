@@ -15,38 +15,49 @@ export const ABILITIES = Object.freeze({
     id: "wisdom",
     label: "ABILITIES.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
-    color: new Color("#FF00FF")
+    type: "mental",
+    color: new Color("#FF00FF"),
+    sheetOrder: 2
   },
   presence: {
     id: "presence",
     label: "ABILITIES.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
-    color: new Color("#0000FF")
+    type: "mental",
+    color: new Color("#0000FF"),
+    sheetOrder: 4
   },
   intellect: {
     id: "intellect",
     label: "ABILITIES.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
-    color: new Color("#00FFFF")
+    type: "mental",
+    color: new Color("#00FFFF"),
+    sheetOrder: 6
   },
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
-    color: new Color("#FF0000")
+    type: "physical",
+    color: new Color("#FF0000"),
+    sheetOrder: 1
   },
   toughness: {
     id: "toughness",
     label: "ABILITIES.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
-    color: new Color("#FFFF00")
+    type: "physical",
+    color: new Color("#FFFF00"),
+    sheetOrder: 3
   },
   dexterity: {
     id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
-    color: new Color("#00FF00")
-
+    type: "physical",
+    color: new Color("#00FF00"),
+    sheetOrder: 5
   }
 });
 
@@ -160,7 +171,7 @@ export const DAMAGE_TYPES = Object.freeze({
 export const RESOURCES = Object.freeze({
   health: {
     id: "health",
-    label: "RESOURCES.Health",
+    label: "RESOURCES.HEALTH",
     type: "active",
     tooltip: "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
     color: {
@@ -171,7 +182,7 @@ export const RESOURCES = Object.freeze({
   },
   wounds: {
     id: "wounds",
-    label: "RESOURCES.Wounds",
+    label: "RESOURCES.WOUNDS",
     type: "reserve",
     tooltip: "Health &times; 1.5",
     color: {
@@ -182,7 +193,7 @@ export const RESOURCES = Object.freeze({
   },
   morale: {
     id: "morale",
-    label: "RESOURCES.Morale",
+    label: "RESOURCES.MORALE",
     type: "active",
     tooltip: "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
     color: {
@@ -193,7 +204,7 @@ export const RESOURCES = Object.freeze({
   },
   madness: {
     id: "madness",
-    label: "RESOURCES.Madness",
+    label: "RESOURCES.MADNESS",
     tooltip: "Morale &times; 1.5",
     type: "reserve",
     color: {
@@ -204,25 +215,27 @@ export const RESOURCES = Object.freeze({
   },
   action: {
     id: "action",
-    label: "RESOURCES.Action",
+    label: "RESOURCES.ACTION",
     tooltip: "3 + Action Bonus",
     type: "active",
-    color: {
-      high: Color.from(0xFF9900),
-      low: Color.from(0xCC6600),
-      heal: Color.from(0xFF9900)
-    }
+    color: Color.from("#FF9900"),
+    max: 12
   },
   focus: {
     id: "focus",
-    label: "RESOURCES.Focus",
+    label: "RESOURCES.FOCUS",
     tooltip: "(Wisdom + Presence + Intellect) / 2",
     type: "active",
-    color: {
-      high: Color.from(0x0066FF),
-      low: Color.from(0x0033CC),
-      heal: Color.from(0x0066FF)
-    }
+    color: Color.from("#0066FF"),
+    max: 24
+  },
+  heroism: {
+    id: "heroism",
+    label: "RESOURCES.HEROISM",
+    tooltip: "Maximum 3",
+    type: "active",
+    color: Color.from("#ff0059"),
+    max: 3
   }
 });
 

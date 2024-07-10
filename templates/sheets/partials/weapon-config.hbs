@@ -1,0 +1,27 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "WEAPON.SHEET.TYPE"}}</legend>
+        {{formField fields.category value=source.system.category}}
+        {{formField fields.quality value=source.system.quality}}
+        {{formField fields.enchantment value=source.system.enchantment}}
+        {{formField fields.damageType value=source.system.damageType hint=false}}
+    </fieldset>
+
+    <fieldset class="item-properties" {{fieldDisabled}}>
+        <legend>{{fields.properties.label}}</legend>
+        {{formField fields.properties value=item.system.properties widget=propertiesWidget}}
+    </fieldset>
+
+    <fieldset class="item-equipment" {{fieldDisabled}}>
+        <legend>{{localize "WEAPON.SHEET.EQUIPMENT"}}</legend>
+        {{#if source.system.equipped}}{{formField fields.slot value=source.system.slot options=equipmentSlots classes="slot" hint=false}}{{/if}}
+        {{formField fields.equipped value=source.system.equipped}}
+        {{formField fields.broken value=source.system.broken}}
+        {{#if usesReload}}{{formField fields.loaded value=source.system.loaded hint=false classes="reload"}}{{/if}}
+        {{formField fields.quantity value=source.system.quantity classes="slim"}}
+        {{formField fields.weight value=source.system.weight classes="slim"}}
+        {{formField fields.price value=source.system.price classes="slim"}}
+        {{formField scaledPrice value=item.system.price classes="slim" disabled=true}}
+    </fieldset>
+</section>

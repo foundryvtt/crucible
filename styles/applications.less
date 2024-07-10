@@ -1,0 +1,204 @@
+
+/* ----------------------------------------- */
+/*  Application V2 Styles                    */
+/* ----------------------------------------- */
+
+.crucible.application {
+  --color-header-background: transparent;
+  --color-form-label: var(--color-h1);
+  --color-form-label-hover: var(--color-primary);
+  --color-form-hint: var(--color-tertiary);
+  --color-form-hint-hover: var(--color-secondary);
+  --background-texture: url("../ui/journal/background-texture.webp");
+  --background-overlay: url("../ui/journal/overlay-dark.webp");
+
+  background: var(--background-texture) no-repeat;
+  background-size: cover;
+  gap: 0;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--background-overlay) no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+  }
+
+  .window-header {
+    border-bottom: none;
+    .window-title {
+      font-family: var(--font-h1);
+      font-size: var(--font-size-14);
+      color: var(--color-primary);
+    }
+    .header-control {
+      color: var(--color-secondary);
+    }
+  }
+
+  .window-content {
+    padding: 0;
+  }
+
+  // Buttons
+  button,
+  .button,
+  .control {
+    --button-text-color: var(--color-tertiary);
+    --button-background-color: transparent;
+    --button-border-color: transparent;
+    --button-hover-background-color: var(--color-frame-bg-75);
+    --button-hover-border-color: var(--color-frame);
+    --button-hover-text-color: var(--color-primary);
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+    &.framed {
+      --button-text-color: var(--color-secondary);
+      --button-background-color: var(--color-frame-bg-75);
+      --button-border-color: var(--color-frame);
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  DocumentSheet V2 Styles                  */
+/* ----------------------------------------- */
+
+.crucible.sheet {
+
+  // Sheet Header
+  .sheet-header {
+    --sheet-header-height: 80px;
+    gap: 0.5rem;
+    padding: 1rem;
+
+    // Profile Image
+    img.profile {
+      flex: 0 0 var(--sheet-header-height);
+      width: var(--sheet-header-height);
+      height: var(--sheet-header-height);
+      margin: 0;
+      border: 1px solid var(--color-cool-5);
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    .name {
+      height: var(--sheet-header-height);
+      gap: 0.25rem;
+    }
+
+    // Document Name
+    .title {
+      flex: 1;
+      border: none;
+      input {
+        display: block;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0 0.5rem;
+        background: var(--color-cool-5-50);
+        border: none;
+        font-size: var(--font-size-24);
+      }
+    }
+  }
+
+  // Sheet Tabs
+  nav.sheet-tabs {
+    margin: 0;
+    border-color: var(--color-cool-4);
+    font-family: var(--font-h1);
+    color: var(--color-secondary);
+  }
+
+  // Sheet Body
+  .sheet-body {
+    gap: 1rem;
+  }
+
+  // Form Elements
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid var(--color-frame);
+    border-radius: 6px;
+    legend {
+      display: flex;
+      font-family: var(--font-h1);
+      color: var(--color-h1);
+      font-weight: normal;
+    }
+  }
+
+  .form-group {
+    margin: 0;
+    &.slim {
+      .form-fields {
+        > label {
+          color: var(--color-secondary);
+        }
+        input {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  /** Line Items - Actions, Talents, etc... */
+  .line-item {
+    --icon-size: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    header {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      overflow: hidden;
+      gap: 2px;
+    }
+    img.icon {
+      height: var(--icon-size);
+      width: var(--icon-size);
+      flex: 0 0 var(--icon-size);
+    }
+    .title {
+      width: 100%;
+      margin: 0;
+      font-size: var(--font-size-14);
+      color: var(--color-text);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .description {
+      font-size: var(--font-size-14);
+    }
+    .controls {
+      flex: none;
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+      .control {
+        font-size: var(--font-size-10);
+        padding: 0.25rem;
+      }
+    }
+    .tags {
+      margin-left: -3px; // align padding and border
+      gap: 0.5rem;
+    }
+  }
+}

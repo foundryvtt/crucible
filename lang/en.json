@@ -24,7 +24,12 @@
   "Bonus": "Bonus",
   "Rules": "Crucible Rules",
   "Scaling": "Scaling",
-  "Scaled": "Scaled"
+  "Scaled": "Scaled",
+
+  "SHEETS": {
+    "Armor": "Crucible Armor Sheet",
+    "Journal": "Crucible Journal Sheet"
+  }
 },
 
 "ABILITIES.Strength": "Strength",
@@ -45,30 +50,103 @@
 "ADVERSARY.ThreatElite": "Elite",
 "ADVERSARY.ThreatBoss": "Boss",
 
-"ACTOR.StatureTiny": "Tiny",
-"ACTOR.StatureSmall": "Small",
-"ACTOR.StatureMedium": "Medium",
-"ACTOR.StatureLarge": "Large",
-"ACTOR.StatureGiant": "Giant",
-"ACTOR.StatureHuge": "Huge",
-"ACTOR.StatureGargantuan": "Gargantuan",
+"ACTOR": {
+  "FIELDS": {
+    "details": {
+      "biography": {
+        "appearance": {
+          "label": "Appearance"
+        },
+        "public": {
+          "label": "Public Biography"
+        },
+        "private": {
+          "label": "Private Biography"
+        },
+        "age": {
+          "label": "Age"
+        },
+        "height": {
+          "label": "Height"
+        },
+        "weight": {
+          "label": "Weight"
+        }
+      },
+      "size": {
+        "label": "Size Modifier",
+        "hint": "A modifier which increases or decreases the character's size relative to their base size."
+      }
+    },
+    "movement": {
+      "stride": {
+        "label": "Stride",
+        "tooltip": "Movement Distance per AP"
+      },
+      "engagement": {
+        "label": "Engage",
+        "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
+      }
+    }
+  },
+  "TABS": {
+    "ATTRIBUTES": "Attributes",
+    "SKILLS": "Skills",
+    "TALENTS": "Talents",
+    "INVENTORY": "Inventory",
+    "SPELLS": "Spells",
+    "BIOGRAPHY": "Biography"
+  },
+  "LABELS": {
+    "CURRENT_EQUIPMENT": "Current Equipment",
+    "AVAILABLE_ACTIONS": "Available Actions",
+    "ACTIVE_EFFECTS": "Active Effects",
+    "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
+    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
+    "SIZE": "Size"
+  }
+},
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 
-"ANCESTRY.Abilities": "Ability Scores",
+"ANCESTRY": {
+  "FIELDS": {
+    "description": {
+      "label": "Ancestry Description"
+    },
+    "size": {
+      "label": "Size",
+      "tooltip": "Ancestry Size in Grid Spaces"
+    },
+    "primary": {
+      "label": "Primary Ability",
+      "hint": "Select a primary ability score which begins at 3."
+    },
+    "secondary": {
+      "label": "Secondary Ability",
+      "hint": "Select a secondary ability score which begins at 2."
+    },
+    "resistance": {
+      "label": "Damage Resistance",
+      "hint": "A biological Resistance (+3) to a certain damage type."
+    },
+    "vulnerability": {
+      "label": "Damage Vulnerability",
+      "hint": "A biological Vulnerability (-3) to a certain damage type."
+    }
+  },
+  "SHEET": {
+    "ABILITIES": "Ability Scores",
+    "RESISTANCES": "Resistances and Vulnerabilities",
+    "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
+    "ABILITY_WARNING": "The primary and secondary Abilities for an Ancestry may not be the same.",
+    "RESISTANCE_WARNING": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
+  }
+},
+
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 "ANCESTRY.Browse": "Browse Ancestries",
 "ANCESTRY.Clear": "Clear Ancestry",
-"ANCESTRY.Description": "Description",
-"ANCESTRY.PrimaryAbility": "Primary Ability",
-"ANCESTRY.AbilityHint": "Select one primary Ability Score begins at 3 and a secondary Ability Score which begins at 2.",
-"ANCESTRY.SecondaryAbility": "Secondary Ability",
-"ANCESTRY.AbilityWarning": "The primary and secondary abilities for an ancestry may not be the same.",
-"ANCESTRY.Resistance": "Damage Resistance",
-"ANCESTRY.Resistances": "Resistances and Vulnerabilities",
-"ANCESTRY.Vulnerability": "Damage Vulnerability",
-"ANCESTRY.ResistanceHint": "This ancestry may have a biological Resistance (+5) and Vulnerability (-5) to two damage types. An ancestry may not have a resistance without also having a vulnerability.",
-"ANCESTRY.ResistanceWarning": "You must choose both a resistance and a vulnerability if you select either.",
 "ANCESTRY.None": "Choose Ancestry",
 
 "ACTION.Action": "Action",
@@ -165,15 +243,34 @@
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
+"ACTION.ACTIONS": {
+  "DELETE": "Delete Action: {name}",
+  "DELETE_CONFIRM": "Are you sure you wish to delete the <strong>{name}</strong> action from the <strong>{parent}</strong> {type}?"
+},
+
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 
-"ARCHETYPE.Clear": "Clear Archetype",
-"ARCHETYPE.Configure": "Archetype",
-"ARCHETYPE.Abilities": "Ability Scaling",
-"ARCHETYPE.AbilitiesHint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently.",
-"ARCHETYPE.Talents": "Granted Talents",
-"ARCHETYPE.AddTalentHint": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack.",
+"ARCHETYPE": {
+  "FIELDS": {
+    "abilities": {
+      "label": "Ability Scaling",
+      "hint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently."
+    },
+    "talents": {
+      "label": "Granted Talents",
+      "hint": "Configure one or more talents which this Archetype receives automatically."
+    }
+  },
+  "SHEET": {
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack."
+  },
+  "ACTIONS": {
+    "CLEAR": "Clear Archetype"
+  }
+},
 
 "ARMOR": {
   "FIELDS": {
@@ -201,8 +298,6 @@
     "NATURAL": "Natural Armor"
   },
   "SHEET": {
-    "CONFIGURATION": "Configuration",
-    "ACTIONS": "Actions",
     "DEFENSES": "Armor Defenses",
     "EQUIPMENT": "Equipment Details",
     "ARMOR_BONUS": "Armor Bonus",
@@ -229,19 +324,35 @@
 "ATTRIBUTES.Pools": "Resource Pools",
 "ATTRIBUTES.Resistances": "Damage Resistances",
 
-"BACKGROUND.AddTalentHint": "Add a talent to this Background by dragging and dropping from the Talents compendium pack.",
-"BACKGROUND.ApplyError": "You may only apply a background to a level 0 character with no spent skill points.",
-"BACKGROUND.Browse": "Browse Backgrounds",
-"BACKGROUND.Clear": "Clear Background",
-"BACKGROUND.Description": "Description",
-"BACKGROUND.None": "Choose Background",
-"BACKGROUND.RemoveTalent": "Remove Talent",
-"BACKGROUND.Skills": "Acquired Skills",
-"BACKGROUND.SkillsError": "You must choose exactly four skills as background specializations.",
-"BACKGROUND.SkillsHint": "Choose four skills which were acquired as part of your background, each of which will begin at Novice rank.",
-"BACKGROUND.Talents": "Acquired Talent",
-"BACKGROUND.TalentNumberError": "A Background may contain a maximum of one starting Talent.",
-"BACKGROUND.TalentTierError": "Backgrounds may only offer Tier 0 starting Talents.",
+"BACKGROUND": {
+  "FIELDS": {
+    "description": {
+      "label": "Background Description"
+    },
+    "skills": {
+      "label": "Acquired Skills",
+      "hint": "Choose four skills which were acquired as part of your Background, each of which will begin at Novice rank."
+    },
+    "talents": {
+      "label": "Acquired Talents",
+      "hint": "Configure one or more talents which this Background receives automatically."
+    }
+  },
+  "SHEET": {
+    "BROWSE": "Browse Backgrounds",
+    "CLEAR": "Clear Background",
+    "CHOOSE": "Choose Background",
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."
+  },
+  "ERRORS": {
+    "APPLY": "You may only apply a background to a level 0 character with no spent skill points.",
+    "SKILLS_NUMBER": "A Background must not provide more than four acquired Skills.",
+    "TALENT_NUMBER": "A Background may contain a maximum of one starting Talent.",
+    "TALENT_TIER": "Backgrounds may only offer Tier 0 starting Talents."
+  }
+},
 
 "COMBAT.WarningCannotChangeRound": "Only a Gamemaster user may change the Combat round.",
 
@@ -271,8 +382,8 @@
 "DEFENSES.Reflex": "Reflex",
 "DEFENSES.Willpower": "Willpower",
 "DEFENSES.Physical": "Physical",
-"DEFENSES.Wounds": "Wounds Threshold",
-"DEFENSES.Madness": "Madness Threshold",
+"DEFENSES.Wounds": "Wounds Healing Threshold",
+"DEFENSES.Madness": "Madness Healing Threshold",
 
 "DICE.DiceTotal": "Dice Total",
 "DICE.AbilityBonus": "Ability Bonus",
@@ -346,11 +457,26 @@
       "label": "Item Properties"
     },
     "description": {
-      "label": "Description"
+      "public": {
+        "label": "Public Description",
+        "hint": "A description of this item which is visible to any user with at least OBSERVER permission."
+      },
+      "secret": {
+        "label": "Secret Description",
+        "hint": "A description of this item which is only visible to Gamemaster users."
+      }
     },
     "actions": {
       "label": "Item Actions"
     }
+  },
+  "TABS": {
+    "CONFIGURATION": "Configuration",
+    "ACTIONS": "Actions",
+    "DESCRIPTION": "Description",
+    "HOOKS": "Hooks",
+    "PUBLIC": "Public Description",
+    "SECRET": "Secret Description"
   }
 },
 
@@ -368,12 +494,15 @@
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
 
-"RESOURCES.Health": "Health",
-"RESOURCES.Wounds": "Wounds",
-"RESOURCES.Morale": "Morale",
-"RESOURCES.Madness": "Madness",
-"RESOURCES.Action": "Action",
-"RESOURCES.Focus": "Focus",
+"RESOURCES": {
+  "HEALTH": "Health",
+  "WOUNDS": "Wounds",
+  "MORALE": "Morale",
+  "MADNESS": "Madness",
+  "ACTION": "Action",
+  "FOCUS": "Focus",
+  "HEROISM": "Heroism"
+},
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
@@ -382,8 +511,6 @@
 "SETTINGS.AutoConfirmNone": "No Auto-Confirmation",
 "SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
 "SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
-
-"SHEETS.CrucibleJournal": "Crucible Journal Sheet",
 
 "SKILL.PageSheet": "Crucible Skill",
 "SKILL.SheetTitle": "[{actor}] {skill} Skill",
@@ -479,86 +606,168 @@
 "SPELL.MetamagicQuicken": "Quicken",
 "SPELL.MetamagicQuickenAdj": "Quickened",
 
-"TALENT.NodeAttack": "Attack",
-"TALENT.NodeDefault": "PLACEHOLDER",
-"TALENT.NodeDefense": "Defense",
-"TALENT.NodeHeal": "Healing",
-"TALENT.NodeMagic": "Magic",
-"TALENT.NodeMove": "Movement",
-"TALENT.NodeSignature": "Signature",
-"TALENT.NodeUtility": "Utility",
-"TALENT.PointsAvailable": "Points Available",
+"TALENT": {
+  "FIELDS": {
+    "node": {
+      "label": "Talent Node",
+      "hint": "Assign this Talent to be purchased from a particular node in the Talent Tree."
+    },
+    "description": {
+      "label": "Talent Description"
+    },
+    "actions": {
+      "label": "Granted Actions",
+      "hint": "Associate Actions which are available to characters which possess this Talent."
+    },
+    "rune": {
+      "label": "Rune",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Rune."
+    },
+    "gesture": {
+      "label": "Gesture",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Gesture."
+    },
+    "inflection": {
+      "label": "Inflection",
+      "hint": "Obtaining this talent grants knowledge of a specific spellcraft Inflection."
+    },
+    "actorHooks": {
+      "label": "Hooked Functions",
+      "hint": "This configuration tab involves advanced features for automating talent effects. Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here unless you are confident in your own knowledge."
+    }
+  },
+  "ACTIONS": {
+    "ACTION_ADD": "Add Action",
+    "ACTION_DELETE": "Delete Action",
+    "ACTION_EDIT": "Edit Action",
+    "HOOK_ADD": "Add Hook",
+    "HOOK_DELETE": "Delete Hook"
+  },
+  "WARNINGS": {
+    "AlreadyOwned": "You already own {name} and cannot add it a second time.",
+    "Banned": "You cannot purchase additional Signature talents at this node or tier.",
+    "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
+    "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
+    "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}."
+  },
+  "HOOKS": {
+    "REGISTER": "Register Hook Function",
+    "GROUP_PREPARATION": "Actor Data Preparation",
+    "GROUP_ACTION": "Action Usage"
+  },
 
-"TALENT.Actions.Add": "Add Action",
-"TALENT.Actions.Delete": "Delete Action",
-"TALENT.Actions.Edit": "Edit Action",
+  "NodeAttack": "Attack",
+  "NodeDefault": "PLACEHOLDER",
+  "NodeDefense": "Defense",
+  "NodeHeal": "Healing",
+  "NodeMagic": "Magic",
+  "NodeMove": "Movement",
+  "NodeSignature": "Signature",
+  "NodeUtility": "Utility",
+  "PointsAvailable": "Points Available"
+},
 
-"TALENT.WARNINGS.AlreadyOwned": "You already own {name} and cannot add it a second time.",
-"TALENT.WARNINGS.Banned": "You cannot purchase additional Signature talents at this node or tier.",
-"TALENT.WARNINGS.CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
-"TALENT.WARNINGS.Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
-"TALENT.WARNINGS.Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
+"TAXONOMY": {
+  "FIELDS": {
+    "abilities": {
+      "label": "Base Abilities",
+      "hint": "Define the initial ability scores for creatures with this Taxonomy. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8."
+    },
+    "category": {
+      "label": "Category",
+      "hint": "The category of creature that this Taxonomy belongs to."
+    },
+    "resistances": {
+      "label": "Resistance Scaling",
+      "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero."
+    }
+  },
+  "CATEGORIES": {
+    "BEAST": "Beast",
+    "GIANT": "Giant",
+    "HUMANOID": "Humanoid",
+    "OUTSIDER": "Outsider",
+    "UNDEAD": "Undead"
+  },
+  "ACTIONS": {
+    "CLEAR": "Clear Taxonomy"
+  }
+},
 
-"TAXONOMY.Clear": "Clear Taxonomy",
-"TAXONOMY.Configure": "Taxonomy",
-"TAXONOMY.Abilities": "Base Abilities",
-"TAXONOMY.AbilitiesHint": "Define the initial ability scores for creatures with this Taxonomy. Allocate 18 points across all Ability scores. Each ability score must be between zero and 8.",
-"TAXONOMY.Resistances": "Resistance Scaling",
-"TAXONOMY.ResistancesHint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero.",
-"TAXONOMY.Category": "Category",
-
-"TAXONOMY.CategoryBeast": "Beast",
-"TAXONOMY.CategoryGiant": "Giant",
-"TAXONOMY.CategoryHumanoid": "Humanoid",
-"TAXONOMY.CategoryOutsider": "Outsider",
-"TAXONOMY.CategoryUndead": "Undead",
-
-"WEAPON.Light1": "Light (1h)",
-"WEAPON.Simple1": "Simple (1h)",
-"WEAPON.Balanced1": "Balanced (1h)",
-"WEAPON.Heavy1": "Heavy (1h)",
-"WEAPON.Simple2": "Simple (2h)",
-"WEAPON.Balanced2": "Balanced (2h)",
-"WEAPON.Heavy2": "Heavy (2h)",
-"WEAPON.Projectile1": "Projectile (1h)",
-"WEAPON.Projectile2": "Projectile (2h)",
-"WEAPON.Mechanical1": "Mechanical (1h)",
-"WEAPON.Mechanical2": "Mechanical (2h)",
-"WEAPON.Natural": "Natural",
-"WEAPON.Unarmed": "Unarmed",
-"WEAPON.ShieldLight": "Light Shield",
-"WEAPON.ShieldHeavy": "Heavy Shield",
-"WEAPON.Talisman1": "Talisman (1h)",
-"WEAPON.Talisman2": "Talisman (2h)",
-
-"WEAPON.TagAmbush": "Ambush",
-"WEAPON.TagAmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
-"WEAPON.TagBlocking": "Blocking",
-"WEAPON.TagBlockingTooltip": "This weapon provides a bonus to your Block defense.",
-"WEAPON.TagEngaging": "Engaging",
-"WEAPON.TagEngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
-"WEAPON.TagKeen": "Keen",
-"WEAPON.TagKeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
-"WEAPON.TagOversized": "Oversized",
-"WEAPON.TagOversizedTooltip": "This item is over-sized or otherwise cumbersome to wield, preventing you from acting quickly. You have +2 banes to Initiative while this item is equipped.",
-"WEAPON.TagParrying": "Parrying",
-"WEAPON.TagParryingTooltip": "This weapon provides a bonus to your Parry defense.",
-"WEAPON.TagReach": "Reach",
-"WEAPON.TagReachTooltip": "This weapon provides a larger than normal effective range. You are able to perform basic Strike attacks at twice your normal range.",
-"WEAPON.TagReload": "Reload",
-"WEAPON.TagReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
-"WEAPON.TagReliable": "Reliable",
-"WEAPON.TagReliableTooltip": "This weapon is trustworthy and almost never produces spectacularly bad outcomes. The critical failure threshold of the weapon is reduced by 2 making it less likely that unsuccessful Strikes yield a critical miss.",
-"WEAPON.TagThrown": "Thrown",
-"WEAPON.TagThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
-"WEAPON.TagVersatile": "Versatile",
-"WEAPON.TagVersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
-"WEAPON.TagDamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier.",
-
-"WEAPON.SLOTS.EITHER": "Either Hand",
-"WEAPON.SLOTS.MAINHAND": "Main-Hand",
-"WEAPON.SLOTS.OFFHAND": "Off-Hand",
-"WEAPON.SLOTS.TWOHAND": "Two-Handed",
+"WEAPON": {
+  "CATEGORIES": {
+    "LIGHT1": "Light (1h)",
+    "SIMPLE1": "Simple (1h)",
+    "BALANCED1": "Balanced (1h)",
+    "HEAVY1": "Heavy (1h)",
+    "SIMPLE2": "Simple (2h)",
+    "BALANCED2": "Balanced (2h)",
+    "HEAVY2": "Heavy (2h)",
+    "PROJECTILE1": "Projectile (1h)",
+    "PROJECTILE2": "Projectile (2h)",
+    "MECHANICAL1": "Mechanical (1h)",
+    "MECHANICAL2": "Mechanical (2h)",
+    "NATURAL": "Natural",
+    "UNARMED": "Unarmed",
+    "SHIELD_LIGHT": "Light Shield",
+    "SHIELD_HEAVY": "Heavy Shield",
+    "TALISMAN1": "Talisman (1h)",
+    "TALISMAN2": "Talisman (2h)"
+  },
+  "FIELDS": {
+    "damageType": {
+      "label": "Damage Type",
+      "hint": "Configure the type of damage dealt by this weapon."
+    },
+    "loaded": {
+      "label": "Loaded",
+      "hint": "If this weapon requires loading, track whether it is currently loaded."
+    },
+    "slot": {
+      "label": "Equipped Slot",
+      "hint": "Specify which equipment slot this weapon is equipped in."
+    },
+    "animation": {
+      "label": "Weapon Animation Prefix",
+      "hint": "If using Crucible with JB2A animation integration, specify which animation prefix is used for this weapon."
+    }
+  },
+  "TAGS": {
+    "Ambush": "Ambush",
+    "AmbushTooltip": "This weapon is well-suited to striking before your opponents get a chance to react. When attacking a target lower than you in the initiative order you gain +1 Boon.",
+    "Blocking": "Blocking",
+    "BlockingTooltip": "This weapon provides a bonus to your Block defense.",
+    "Engaging": "Engaging",
+    "EngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
+    "Keen": "Keen",
+    "KeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
+    "Oversized": "Oversized",
+    "OversizedTooltip": "This item is over-sized or otherwise cumbersome to wield, preventing you from acting quickly. You have +2 banes to Initiative while this item is equipped.",
+    "Parrying": "Parrying",
+    "ParryingTooltip": "This weapon provides a bonus to your Parry defense.",
+    "Reach": "Reach",
+    "ReachTooltip": "This weapon provides a larger than normal effective range. You are able to perform basic Strike attacks at twice your normal range.",
+    "Reload": "Reload",
+    "ReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
+    "Reliable": "Reliable",
+    "ReliableTooltip": "This weapon is trustworthy and almost never produces spectacularly bad outcomes. The critical failure threshold of the weapon is reduced by 2 making it less likely that unsuccessful Strikes yield a critical miss.",
+    "Thrown": "Thrown",
+    "ThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
+    "Versatile": "Versatile",
+    "VersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
+    "DamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier."
+  },
+  "SHEET": {
+    "EQUIPMENT": "Weapon Details",
+    "TYPE": "Weapon Type"
+  },
+  "SLOTS": {
+    "EITHER": "Either Hand",
+    "MAINHAND": "Main-Hand",
+    "OFFHAND": "Off-Hand",
+    "TWOHAND": "Two-Handed"
+  }
+},
 
 "WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
 "WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",

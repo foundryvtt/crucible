@@ -26,6 +26,7 @@ import CrucibleTokenObject from "./module/canvas/token.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
+import Enum from "./module/config/enum.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -83,9 +84,17 @@ Hooks.once("init", async function() {
     weapon: models.CrucibleWeapon
   };
   Items.unregisterSheet("core", ItemSheet);
+
+  // V2 Registrations
+  DocumentSheetConfig.registerSheet(Item, "crucible", applications.ArmorSheet, {
+    types: ["armor"],
+    makeDefault: true,
+    label: "CRUCIBLE.SHEETS.Armor"
+  });
+
+  // V1 Registrations
   Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.ArmorSheet, {types: ["armor"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
@@ -104,7 +113,7 @@ Hooks.once("init", async function() {
     "skill": models.CrucibleSkill
   });
   DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
-    label: "SHEETS.CrucibleJournal"
+    label: "CRUCIBLE.SHEETS.Journal"
   })
   DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {
     types: ["skill"],
@@ -191,20 +200,26 @@ Hooks.once("init", async function() {
 
 Hooks.once("i18nInit", function() {
 
-  // Pre-localize data models
-  preLocalizeDataModels();
-
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "CREATURE_STATURES", "DAMAGE_CATEGORIES", "DEFENSES",
+    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "ADVERSARY.TAXONOMY_CATEGORIES",
     "SKILL.CATEGORIES", "SKILL.RANKS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES"
+    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.SLOTS"
   ];
   for ( let c of toLocalize ) {
     const conf = foundry.utils.getProperty(SYSTEM, c);
+
+    // Special handling for enums
+    if ( conf instanceof Enum ) {
+      for ( const [k, l] of Object.entries(conf.labels) ) conf.labels[k] = game.i18n.localize(l);
+      Object.freeze(conf.labels);
+      continue;
+    }
+
+    // Other objects
     for ( let [k, v] of Object.entries(conf) ) {
       if ( v.label ) v.label = game.i18n.localize(v.label);
       if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
@@ -226,35 +241,9 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/dice/partials/spell-cast-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-biography.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-inventory.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-grimoire.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-sidebar.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/actor-skills.hbs`
+    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`
   ]);
 });
-
-/* -------------------------------------------- */
-
-/**
- * Perform one-time localization of data model definitions which localizes their label and hint properties.
- */
-function preLocalizeDataModels() {
-  for ( const model of Object.values(crucible.api.models) ) {
-    if ( !model.LOCALIZATION_PATHS ) continue;
-    const rules = {};
-    for ( const path of model.LOCALIZATION_PATHS ) {
-      Object.assign(rules, foundry.utils.getProperty(game.i18n.translations, path));
-    }
-    model.schema.apply(function() {
-      const k = this.fieldPath.replace("system.", "");
-      const field = foundry.utils.getProperty(rules, k);
-      if ( field?.label ) this.label = game.i18n.localize(field.label);
-      if ( field?.hint ) this.hint = game.i18n.localize(field.hint);
-    });
-  }
-}
 
 /* -------------------------------------------- */
 

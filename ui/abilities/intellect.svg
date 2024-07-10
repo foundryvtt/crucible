@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="67px" height="76px" viewBox="0 0 67 76" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Intellect</title>
+    <defs>
+        <polygon id="path-1" points="1.50046954e-13 19.0400362 5.2332647e-14 54.6890902 32.5 73.7313433 65 54.6890902 64.9974215 19.0400362 32.4995702 2.92265353e-15"></polygon>
+        <filter x="-10.4%" y="-9.2%" width="120.8%" height="118.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="2" operator="erode" in="SourceAlpha" result="shadowSpreadInner1"></feMorphology>
+            <feGaussianBlur stdDeviation="5" in="shadowSpreadInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.592156863   0 0 0 0 0.592156863  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Abilities" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Attributes-with-Inner-Glow" transform="translate(-517.000000, -54.000000)">
+            <g id="Intellect" transform="translate(518.000000, 55.000000)">
+                <g id="Quickness" transform="translate(0.000000, 0.000000)">
+                    <g id="Path">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use stroke="#D8D8D8" stroke-width="0.5" xlink:href="#path-1"></use>
+                    </g>
+                    <polygon id="Rectangle" fill="#D8D8D8" points="15 11.5356187 32.5 1.29499817 50 11.5356187 32.5 6.41530846"></polygon>
+                    <polygon id="Rectangle" fill="#D8D8D8" transform="translate(32.500000, 67.415308) scale(1, -1) translate(-32.500000, -67.415308) " points="15 72.5356187 32.5 62.2949982 50 72.5356187 32.5 68.1018081"></polygon>
+                    <g id="Group" transform="translate(1.084358, 11.535619)" fill="#D8D8D8">
+                        <polygon id="Path-6" points="10.9458548 1.73934632 5.63988402e-14 8.15011934 5.56657139e-14 25.3300529 0.982766515 25.3300529 0.982766515 8.79308338 11.2501143 2.77586961 11.7002029 3.98010111 16.7999176 -1.01432731e-13"></polygon>
+                        <polygon id="Path-6" transform="translate(8.399959, 37.995079) scale(1, -1) translate(-8.399959, -37.995079) " points="10.9458548 27.0693992 -6.01980078e-15 33.4801722 -6.01980078e-15 50.6601058 0.982766515 50.6601058 0.982766515 34.1231363 11.2501143 28.1059225 11.7002029 29.310154 16.7999176 25.3300529"></polygon>
+                    </g>
+                    <g id="Group" transform="translate(55.484317, 36.865672) scale(-1, 1) translate(-55.484317, -36.865672) translate(47.084358, 11.535619)" fill="#D8D8D8">
+                        <polygon id="Path-6" points="10.9458548 1.73934632 5.63988402e-14 8.15011934 5.56657139e-14 25.3300529 0.982766515 25.3300529 0.982766515 8.79308338 11.2501143 2.77586961 11.7002029 3.98010111 16.7999176 -1.01432731e-13"></polygon>
+                        <polygon id="Path-6" transform="translate(8.399959, 37.995079) scale(1, -1) translate(-8.399959, -37.995079) " points="10.9458548 27.0693992 -6.01980078e-15 33.4801722 -6.01980078e-15 50.6601058 0.982766515 50.6601058 0.982766515 34.1231363 11.2501143 28.1059225 11.7002029 29.310154 16.7999176 25.3300529"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

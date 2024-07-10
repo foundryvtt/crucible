@@ -1,0 +1,20 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+    <fieldset class="item-properties" {{fieldDisabled}}>
+        <legend>{{fields.skills.label}}</legend>
+        {{formInput fields.skills value=source.system.skills input=skillsInput}}
+        <p class="hint">{{fields.skills.hint}}</p>
+    </fieldset>
+
+    <fieldset class="talents" {{fieldDisabled}}>
+        <legend>{{fields.talents.label}}</legend>
+        {{#each talents}}
+        {{{this}}}
+        {{else}}
+        <div class="talent-drop droppable">
+            <p class="hint">{{localize "BACKGROUND.SHEET.TALENT_DROP"}}</p>
+        </div>
+        {{/each}}
+        <p class="hint">{{fields.talents.hint}}</p>
+    </fieldset>
+</section>

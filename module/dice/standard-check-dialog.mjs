@@ -16,7 +16,7 @@ export default class StandardCheckDialog extends Dialog {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
 	    template: `systems/${SYSTEM.id}/templates/dice/standard-check-dialog.hbs`,
-        classes: ["crucible-new", "roll"],
+        classes: ["crucible", "roll"],
         submitOnChange: true,
         closeOnSubmit: false
       });
