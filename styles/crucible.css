@@ -36,7 +36,7 @@
 /*  CSS Variables                            */
 /* ----------------------------------------- */
 .crucible {
-  --color-background: #0b0909;
+  --background: #0b0909;
   --color-text: #eee8df;
   --color-primary: var(--color-text);
   --color-secondary: #d7c4a9;
@@ -82,6 +82,7 @@
 /*  Light Theme (NOT USED YET)               */
 /* ----------------------------------------- */
 .theme-light .crucible.UNUSED {
+  --background: #cac5ba;
   --color-background: #cac5ba;
   --color-text: #000000;
   --color-secondary: #0b0909;
@@ -448,6 +449,8 @@
   --button-hover-background-color: var(--color-frame-bg-75);
   --button-hover-border-color: var(--color-frame);
   --button-hover-text-color: var(--color-primary);
+  padding: 0.25rem 0.5rem;
+  text-align: center;
 }
 .crucible.application button.framed,
 .crucible.application .button.framed,
@@ -1256,7 +1259,6 @@
 }
 .crucible.sheet.actor .tab.talents .header-section a.button {
   font-size: var(--font-size-12);
-  padding: 0.25rem 0.5rem;
   flex: none;
 }
 .crucible.sheet.actor .tab.talents .header-section a.button.framed {
@@ -1847,7 +1849,7 @@
   height: 64px;
   line-height: 64px;
   font-family: var(--font-h1);
-  color: var(--color-background);
+  color: var(--background);
   text-align: center;
   font-size: 24px;
   font-weight: bold;
