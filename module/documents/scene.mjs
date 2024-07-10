@@ -1,10 +1,16 @@
+/**
+ * A Scene subclass which extends the base Scene document with some Crucible-specific functionalities.
+ */
 export default class CrucibleScene extends Scene {
 
   /** @inheritDoc */
   prepareBaseData() {
     if ( !(this.grid instanceof foundry.grid.BaseGrid) ) {
-      this.grid.size = this._source.grid.size / 5;
-      this.grid.distance = this._source.grid.distance / 5;
+      const g = this._source.grid;
+      if ( (g.units === "ft") && (g.distance === 5) ) {
+        this.grid.size = g.size / 5;
+        this.grid.distance = 1;
+      }
     }
     super.prepareBaseData();
   }
