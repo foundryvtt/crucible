@@ -95,6 +95,7 @@ Hooks.once("init", async function() {
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
   CONFIG.Combat.documentClass = documents.CrucibleCombat;
   CONFIG.Combatant.documentClass = documents.CrucibleCombatant;
+  CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = CrucibleTokenObject;
 
