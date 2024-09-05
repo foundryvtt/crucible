@@ -3,6 +3,7 @@ import CrucibleItem from "../../documents/item.mjs";
 
 /**
  * A configuration application used to configure an Action inside a Talent.
+ * TODO ApplicationV2
  * @extends DocumentSheet
  * @mixes CrucibleSheet
  */

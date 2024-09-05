@@ -16,7 +16,7 @@
 
     {{#each talents as |section s|}}
     <div class="sheet-section item-section flexcol">
-        <h3>{{section.label}}</h3>
+        <h3 class="section-header">{{section.label}}</h3>
         <ol class="items-list">
             {{#each section.items as |item id|}}
             <li class="line-item {{item.cssClass}}" data-item-id="{{item.id}}">

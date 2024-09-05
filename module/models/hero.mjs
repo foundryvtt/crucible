@@ -180,8 +180,8 @@ export default class CrucibleHero extends CrucibleActorType {
    */
   _prepareSkills() {
     let pointsSpent = 0;
-    for ( const skill of Object.entries(this.skills) ) {
-      this._prepareSkill(...skill);
+    for ( const [skillId, skill] of Object.entries(this.skills) ) {
+      this._prepareSkill(skillId, skill);
       pointsSpent += skill.spent;
     }
     const points = this.points;

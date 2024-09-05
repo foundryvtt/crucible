@@ -451,6 +451,12 @@
   --button-hover-text-color: var(--color-primary);
   padding: 0.25rem 0.5rem;
   text-align: center;
+  opacity: 0.5;
+}
+.crucible.application button:hover,
+.crucible.application .button:hover,
+.crucible.application .control:hover {
+  opacity: 1;
 }
 .crucible.application button.framed,
 .crucible.application .button.framed,
@@ -515,6 +521,7 @@
 }
 .crucible.sheet fieldset legend {
   display: flex;
+  align-items: center;
   font-family: var(--font-h1);
   color: var(--color-h1);
   font-weight: normal;
@@ -570,10 +577,6 @@
   font-size: var(--font-size-10);
   padding: 0.25rem;
 }
-.crucible.sheet .line-item .tags {
-  margin-left: -3px;
-  gap: 0.5rem;
-}
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
@@ -602,7 +605,10 @@
   /*  Biography Tab                            */
   /* ----------------------------------------- */
   /* ----------------------------------------- */
-  /*  Inventory and Talents Tabs               */
+  /*  Inventory, Talents, Skills               */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Skills Tab                               */
   /* ----------------------------------------- */
 }
 .crucible.sheet.actor .window-content {
@@ -632,6 +638,7 @@
   height: 100%;
 }
 .crucible.sheet.actor .tab {
+  position: relative;
   padding: 1.5rem 0 1rem;
   gap: 1.5rem;
 }
@@ -1234,54 +1241,136 @@
 .crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
 }
-.crucible.sheet.actor .tab.inventory .item-section,
-.crucible.sheet.actor .tab.talents .item-section {
-  padding: 1rem;
-}
-.crucible.sheet.actor .tab.inventory ol.items-list,
-.crucible.sheet.actor .tab.talents ol.items-list {
-  width: 100%;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 1rem;
-}
-.crucible.sheet.actor .tab.inventory ol.items-list li,
-.crucible.sheet.actor .tab.talents ol.items-list li {
-  margin: 0 0 0.5rem;
-}
-.crucible.sheet.actor .tab.inventory ol.items-list li:last-child,
-.crucible.sheet.actor .tab.talents ol.items-list li:last-child {
-  margin-bottom: 0;
-}
-.crucible.sheet.actor .tab.talents .header-section {
+.crucible.sheet.actor .tab.inventory .header-section,
+.crucible.sheet.actor .tab.talents .header-section,
+.crucible.sheet.actor .tab.skills .header-section {
   padding: 0 1rem;
 }
-.crucible.sheet.actor .tab.talents .header-section a.button {
+.crucible.sheet.actor .tab.inventory .header-section a.button,
+.crucible.sheet.actor .tab.talents .header-section a.button,
+.crucible.sheet.actor .tab.skills .header-section a.button {
   font-size: var(--font-size-12);
   flex: none;
 }
-.crucible.sheet.actor .tab.talents .header-section a.button.framed {
+.crucible.sheet.actor .tab.inventory .header-section a.button.framed,
+.crucible.sheet.actor .tab.talents .header-section a.button.framed,
+.crucible.sheet.actor .tab.skills .header-section a.button.framed {
   --button-border-color: var(--color-frame);
   --button-background-color: var(--color-frame-bg-75);
   --button-text-color: var(--color-primary);
 }
-.crucible.sheet.actor .tab.talents .header-section .point-pools {
+.crucible.sheet.actor .tab.inventory .point-pools,
+.crucible.sheet.actor .tab.talents .point-pools,
+.crucible.sheet.actor .tab.skills .point-pools {
   justify-content: flex-end;
   font-size: var(--font-size-12);
   gap: 0.5rem;
 }
-.crucible.sheet.actor .tab.talents .header-section .point-pools .label {
+.crucible.sheet.actor .tab.inventory .point-pools .label,
+.crucible.sheet.actor .tab.talents .point-pools .label,
+.crucible.sheet.actor .tab.skills .point-pools .label {
   flex: none;
   color: var(--color-secondary);
 }
-.crucible.sheet.actor .tab.talents .header-section .point-pools .value {
+.crucible.sheet.actor .tab.inventory .point-pools .value,
+.crucible.sheet.actor .tab.talents .point-pools .value,
+.crucible.sheet.actor .tab.skills .point-pools .value {
   flex: 0 0 24px;
   height: 24px;
   background: url("../ui/elements/hex-plain.svg") no-repeat center;
   background-size: auto 24px;
   line-height: 24px;
   text-align: center;
+}
+.crucible.sheet.actor .tab.inventory .item-section,
+.crucible.sheet.actor .tab.talents .item-section,
+.crucible.sheet.actor .tab.skills .item-section {
+  padding: 1rem;
+}
+.crucible.sheet.actor .tab.inventory .item-section .notes,
+.crucible.sheet.actor .tab.talents .item-section .notes,
+.crucible.sheet.actor .tab.skills .item-section .notes {
+  color: var(--color-tertiary);
+}
+.crucible.sheet.actor .tab.inventory ol.items-list,
+.crucible.sheet.actor .tab.talents ol.items-list,
+.crucible.sheet.actor .tab.skills ol.items-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.crucible.sheet.actor .tab.inventory ol.items-list li,
+.crucible.sheet.actor .tab.talents ol.items-list li,
+.crucible.sheet.actor .tab.skills ol.items-list li {
+  margin: 0;
+}
+.crucible.sheet.actor .tab.skills h4.title {
+  flex: none;
+  width: auto;
+}
+.crucible.sheet.actor .tab.skills a.control.icon {
+  flex: none;
+}
+.crucible.sheet.actor .tab.skills .point-pools {
+  width: 100%;
+  position: absolute;
+  right: 1.5rem;
+  top: 0.75rem;
+  z-index: 1;
+}
+.crucible.sheet.actor .tab.skills .bonus {
+  flex: 0 0 60px;
+}
+.crucible.sheet.actor .tab.skills .bonus span.value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  background: url("../ui/elements/hex-plain.svg") no-repeat center;
+  background-size: auto 100%;
+}
+.crucible.sheet.actor .tab.skills .bonus span.passive {
+  flex: none;
+  text-align: center;
+  font-size: var(--font-size-10);
+  font-family: var(--font-sans);
+  color: var(--color-secondary);
+}
+.crucible.sheet.actor .tab.skills .ranks {
+  flex: 0 0 180px;
+  gap: 0.25rem;
+  justify-content: center;
+}
+.crucible.sheet.actor .tab.skills .pips {
+  flex: 0 0 80px;
+  justify-content: space-between;
+  gap: 4px 0;
+}
+.crucible.sheet.actor .tab.skills .pips .pip {
+  flex: 0 0 14px;
+  height: 14px;
+  border: 1px solid var(--color-frame);
+  border-radius: 7px;
+}
+.crucible.sheet.actor .tab.skills .pips .trained::before {
+  display: block;
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin: 2px;
+  background: var(--skill-color);
+  border-radius: 4px;
+}
+.crucible.sheet.actor .tab.skills .cost {
+  flex: none;
+  text-align: center;
+  font-size: var(--font-size-10);
+  font-family: var(--font-sans);
+  color: var(--color-secondary);
 }
 /* ----------------------------------------- */
 /*  All Items                                */

@@ -2,6 +2,7 @@ import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
 
 /**
  * A configuration application used to advance skill ranks and choose skill specialization for a CrucibleActor.
+ * TODO ApplicationV2
  * @mixes CrucibleSheet
  */
 export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {

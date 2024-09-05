@@ -58,6 +58,10 @@
     --button-hover-text-color: var(--color-primary);
     padding: 0.25rem 0.5rem;
     text-align: center;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1.0;
+    }
     &.framed {
       --button-text-color: var(--color-secondary);
       --button-background-color: var(--color-frame-bg-75);
@@ -133,6 +137,7 @@
     border-radius: 6px;
     legend {
       display: flex;
+      align-items: center;
       font-family: var(--font-h1);
       color: var(--color-h1);
       font-weight: normal;
@@ -195,10 +200,6 @@
         font-size: var(--font-size-10);
         padding: 0.25rem;
       }
-    }
-    .tags {
-      margin-left: -3px; // align padding and border
-      gap: 0.5rem;
     }
   }
 }

@@ -20,6 +20,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
    * Lock sections of the character sheet to prevent them from being inadvertently edited
    * @type {{abilities: boolean, defenses: boolean, resistances: boolean, resources: boolean}}
    * @private
+   * TODO re-add?
    */
   _sectionLocks = {
     abilities: true,
@@ -85,15 +86,15 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   //   if ( context.incomplete.abilities ) locks.abilities = false;
   //   return locks;
   // }
-  //
-  // /* -------------------------------------------- */
-  //
-  // /** @override */
-  // async close(options) {
-  //   await super.close(options);
-  //   await this.actor.toggleTalentTree(false);
-  // }
-  //
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async close(options) {
+    await super.close(options);
+    await this.actor.toggleTalentTree(false);
+  }
+
   // /* -------------------------------------------- */
   // /*  Event Listeners and Handlers                */
   // /* -------------------------------------------- */
@@ -104,46 +105,44 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   //   html.find("a.section-lock").click(this.#onToggleSectionLock.bind(this));
   // }
   //
-  // /* -------------------------------------------- */
-  //
-  // /** @inheritDoc */
-  // async _onClickControl(event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   const a = event.currentTarget;
-  //   switch ( a.dataset.action ) {
-  //     case "abilityDecrease":
-  //       return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
-  //     case "abilityIncrease":
-  //       return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
-  //     case "clearAncestry":
-  //       return this.actor.system.applyAncestry(null);
-  //     case "clearBackground":
-  //       return this.actor.system.applyBackground(null);
-  //     case "levelUp":
-  //       game.tooltip.deactivate();
-  //       return this.actor.levelUp(1);
-  //     case "skillConfig":
-  //       const skillId = a.closest(".skill").dataset.skill;
-  //       return new SkillConfig(this.actor, skillId).render(true);
-  //     case "skillDecrease":
-  //       return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, -1);
-  //     case "skillIncrease":
-  //       return this.actor.purchaseSkill(a.closest(".skill").dataset.skill, 1);
-  //     case "skillRoll":
-  //       return this.actor.rollSkill(a.closest(".skill").dataset.skill, {dialog: true});
-  //     case "talentTree":
-  //       return this.actor.toggleTalentTree();
-  //     case "talentReset":
-  //       return this.actor.resetTalents();
-  //     case "viewAncestry":
-  //       return this.actor._viewDetailItem("ancestry", {editable: false});
-  //     case "viewBackground":
-  //       return this.actor._viewDetailItem("background", {editable: false});
-  //   }
-  //   return super._onClickControl(event);
-  // }
-  //
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onClickAction(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+    switch ( target.dataset.action ) {
+      // case "abilityDecrease":
+      //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
+      // case "abilityIncrease":
+      //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
+      // case "clearAncestry":
+      //   return this.actor.system.applyAncestry(null);
+      // case "clearBackground":
+      //   return this.actor.system.applyBackground(null);
+      // case "levelUp":
+      //   game.tooltip.deactivate();
+      //   return this.actor.levelUp(1);
+      // case "skillConfig":
+      //   const skillId = a.closest(".skill").dataset.skill;
+      //   return new SkillConfig(this.actor, skillId).render(true);
+      case "skillDecrease":
+        return this.actor.purchaseSkill(target.closest(".skill").dataset.skill, -1);
+      case "skillIncrease":
+        return this.actor.purchaseSkill(target.closest(".skill").dataset.skill, 1);
+      case "skillRoll":
+        return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
+      case "talentTree":
+        return this.actor.toggleTalentTree();
+      // case "talentReset":
+      //   return this.actor.resetTalents();
+      // case "viewAncestry":
+      //   return this.actor._viewDetailItem("ancestry", {editable: false});
+      // case "viewBackground":
+      //   return this.actor._viewDetailItem("background", {editable: false});
+    }
+  }
+
   // /* -------------------------------------------- */
   //
   // /**

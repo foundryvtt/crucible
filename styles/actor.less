@@ -41,6 +41,7 @@
   }
 
   .tab {
+    position: relative;
     padding: 1.5rem 0 1rem;
     gap: 1.5rem;
   }
@@ -712,30 +713,12 @@
   }
 
   /* ----------------------------------------- */
-  /*  Inventory and Talents Tabs               */
+  /*  Inventory, Talents, Skills               */
   /* ----------------------------------------- */
 
   .tab.inventory,
-  .tab.talents {
-    .item-section {
-      padding: 1rem;
-    }
-    ol.items-list {
-      width: 100%;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 1rem;
-      li {
-        margin: 0 0 0.5rem;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-
-  .tab.talents {
+  .tab.talents,
+  .tab.skills {
     .header-section {
       padding: 0 1rem;
       a.button {
@@ -747,23 +730,119 @@
         --button-background-color: var(--color-frame-bg-75);
         --button-text-color: var(--color-primary);
       }
-      .point-pools {
-        justify-content: flex-end;
-        font-size: var(--font-size-12);
-        gap: 0.5rem;
-        .label {
-          flex: none;
-          color: var(--color-secondary);
-        }
-        .value {
-          flex: 0 0 24px;
-          height: 24px;
-          background: url("../ui/elements/hex-plain.svg") no-repeat center;
-          background-size: auto 24px;
-          line-height: 24px;
-          text-align: center;
-        }
+    }
+    .point-pools {
+      justify-content: flex-end;
+      font-size: var(--font-size-12);
+      gap: 0.5rem;
+      .label {
+        flex: none;
+        color: var(--color-secondary);
       }
+      .value {
+        flex: 0 0 24px;
+        height: 24px;
+        background: url("../ui/elements/hex-plain.svg") no-repeat center;
+        background-size: auto 24px;
+        line-height: 24px;
+        text-align: center;
+      }
+    }
+
+    .item-section {
+      padding: 1rem;
+      .notes {
+        color: var(--color-tertiary);
+      }
+    }
+    ol.items-list {
+      width: 100%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      li {
+        margin: 0;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Skills Tab                               */
+  /* ----------------------------------------- */
+
+  .tab.skills {
+    h4.title {
+      flex: none;
+      width: auto;
+    }
+    a.control.icon {
+      flex: none;
+    }
+
+    // Special case display for available and spent
+    .point-pools {
+      width: 100%;
+      position: absolute;
+      right: 1.5rem;
+      top: 0.75rem;
+      z-index: 1;
+    }
+
+    // Score and passive bonus
+    .bonus {
+      flex: 0 0 60px;
+      span.value {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        background: url("../ui/elements/hex-plain.svg") no-repeat center;
+        background-size: auto 100%;
+      }
+      span.passive {
+        flex: none;
+        text-align: center;
+        font-size: var(--font-size-10);
+        font-family: var(--font-sans);
+        color: var(--color-secondary);
+      }
+    }
+
+    // Skill ranks
+    .ranks {
+      flex: 0 0 180px;
+      gap: 0.25rem;
+      justify-content: center;
+    }
+    .pips {
+      flex: 0 0 80px;
+      justify-content: space-between;
+      gap: 4px 0;
+      .pip {
+        flex: 0 0 14px;
+        height: 14px;
+        border: 1px solid var(--color-frame);
+        border-radius: 7px;
+      }
+      .trained::before {
+        display: block;
+        content: "";
+        width: 8px;
+        height: 8px;
+        margin: 2px;
+        background: var(--skill-color);
+        border-radius: 4px;
+      }
+    }
+    .cost {
+      flex: none;
+      text-align: center;
+      font-size: var(--font-size-10);
+      font-family: var(--font-sans);
+      color: var(--color-secondary);
     }
   }
 }

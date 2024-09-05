@@ -22,7 +22,7 @@ export default class CrucibleRuler extends Ruler {
 
   /**
    * A set of grid offsets which have already been highlighted.
-   * @type {Set<string>}
+   * @type {Set<number>}
    */
   #highlighted = new Set();
 
@@ -114,7 +114,7 @@ export default class CrucibleRuler extends Ruler {
     for ( const offset of path ) {
       for ( const d of this.#footprint ) {
         const o = {i: offset.i + d[0], j: offset.j + d[1]};
-        const k = `${o.i}.${o.j}`;
+        const k = (o.i << 16) + o.j;
         if ( this.#highlighted.has(k) ) continue;
         this.#highlighted.add(k);
         const p = canvas.grid.getTopLeftPoint(o);
