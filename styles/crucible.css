@@ -2141,32 +2141,44 @@
   align-items: center;
   gap: 0.5rem;
 }
-#crucible-talent-hud header h1,
-#crucible-talent-hud header h4 {
+#crucible-talent-hud header h1 {
   margin: 0;
-  line-height: 1.5rem;
+  font-size: var(--font-size-24);
+}
+#crucible-talent-hud .talent-tags {
+  flex: 0 0 100%;
 }
 #crucible-talent-hud .icon {
   flex: 0 0 var(--iconSize);
   height: var(--iconSize);
   border-radius: 8px;
 }
-#crucible-talent-hud .tags {
-  flex: 0 0 100%;
-}
 #crucible-talent-hud section {
   margin-top: 0.5rem;
 }
-#crucible-talent-hud .actions .icon {
+#crucible-talent-hud .line-item.action {
+  gap: 0.5rem;
+}
+#crucible-talent-hud .line-item.action .icon {
   --iconSize: 36px;
 }
-#crucible-talent-hud .actions .description {
-  margin: 0.5rem 0;
+#crucible-talent-hud .line-item.action h4 {
+  margin: 0;
+  font-size: var(--font-size-20);
 }
-#crucible-talent-hud .actions .description > p:first-child {
+#crucible-talent-hud .line-item.action .action-tags {
+  gap: 0.25rem;
+}
+#crucible-talent-hud .line-item.action .action-tags .tags {
+  justify-content: flex-start;
+}
+#crucible-talent-hud .line-item.action .description {
+  margin: 0;
+}
+#crucible-talent-hud .line-item.action .description > p:first-child {
   margin-top: 0;
 }
-#crucible-talent-hud .actions .description > p:last-child {
+#crucible-talent-hud .line-item.action .description > p:last-child {
   margin-bottom: 0;
 }
 #crucible-talent-hud .effects {
@@ -2175,6 +2187,10 @@
   list-style: none;
 }
 #crucible-talent-hud .effects .effect {
+  gap: 0.25rem;
+}
+#crucible-talent-hud .effects .effect-tags {
+  justify-content: flex-start;
   gap: 0.25rem;
 }
 /* -------------------------------------------- */
@@ -2196,6 +2212,9 @@
   align-items: center;
   pointer-events: all;
   padding: 0.5rem 1rem;
+}
+#crucible-talent-controls nav button {
+  height: 2rem;
 }
 #crucible-talent-controls .points {
   gap: 0.5rem;

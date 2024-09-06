@@ -2,7 +2,7 @@
     <header class="flexrow">
         <img class="icon" src="{{source.img}}" title="{{source.name}}"/>
         <h1 class="title">{{source.name}}</h1>
-        <div class="tags">
+        <div class="talent-tags tags">
             <label>Prerequisites</label>
             {{#each prerequisites as |req|}}
             <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>

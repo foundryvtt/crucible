@@ -31,28 +31,41 @@
   header {
     align-items: center;
     gap: 0.5rem;
-    h1, h4 {
+    h1 {
       margin: 0;
-      line-height: 1.5rem;
+      font-size: var(--font-size-24);
     }
+  }
+  .talent-tags {
+    flex: 0 0 100%;
   }
   .icon {
     flex: 0 0 var(--iconSize);
     height: var(--iconSize);
     border-radius: 8px;
   }
-  .tags {
-    flex: 0 0 100%;
-  }
   section {
     margin-top: 0.5rem;
   }
-  .actions {
+
+  // Talent Actions
+  .line-item.action {
+    gap: 0.5rem;
     .icon {
       --iconSize: 36px;
     }
+    h4 {
+      margin: 0;
+      font-size: var(--font-size-20);
+    }
+    .action-tags {
+      gap: 0.25rem;
+      .tags {
+        justify-content: flex-start;
+      }
+    }
     .description {
-      margin: 0.5rem 0;
+      margin: 0;
       > p:first-child {
         margin-top: 0;
       }
@@ -66,6 +79,10 @@
     padding: 0;
     list-style: none;
     .effect {
+      gap: 0.25rem;
+    }
+    .effect-tags {
+      justify-content: flex-start;
       gap: 0.25rem;
     }
   }
@@ -90,6 +107,9 @@
     align-items: center;
     pointer-events: all;
     padding: 0.5rem 1rem;
+    button {
+      height: 2rem;
+    }
   }
 
   .points {

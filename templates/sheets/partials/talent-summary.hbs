@@ -6,20 +6,20 @@
 <section class="actions">
     <h3 class="divider">Actions</h3>
     {{#each actions as |action|}}
-    <div class="action line-item" data-action-id="{{this.id}}">
+    <div class="action line-item flexcol" data-action-id="{{this.id}}">
         <header class="action-header flexrow">
             <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
             <h4>{{action.name}}</h4>
-            <div class="header-tags flexcol">
-                {{#each action.tags as |tags section|}}
-                <div class="tags {{section}}" data-tag-type="{{section}}">
-                    {{~#each tags as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each~}}
-                </div>
-                {{/each}}
-            </div>
         </header>
+        <div class="action-tags flexcol">
+            {{#each action.tags as |tags section|}}
+            <div class="tags {{section}}" data-tag-type="{{section}}">
+                {{~#each tags as |label tag|}}
+                <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                {{/each~}}
+            </div>
+            {{/each}}
+        </div>
         {{#if action.condition}}
         <p class="condition">
             <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
@@ -29,9 +29,9 @@
         {{#if action.effects.length}}
         <ol class="effects">
             {{#each action.effects as |effect|}}
-            <li class="effect line-item flexrow">
+            <li class="effect line-item flexcol">
                 <div class="name"><strong>Causes Effect:</strong> {{action.name}}</div>
-                <div class="tags">
+                <div class="effect-tags tags">
                     {{#each effect.tags as |label tag|}}
                     <span class="tag" data-tag="{{tag}}">{{label}}</span>
                     {{/each}}

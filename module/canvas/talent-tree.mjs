@@ -314,8 +314,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.actor = actor;
     const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
     this.#drawCharacter(actorTexture);
-    await actor.sheet.render(false, {left: 20, top: 20});
-    actor.sheet.minimize();
+    await actor.sheet.render({force: false, left: 20, top: 20});
+    if ( actor.sheet.rendered ) actor.sheet.minimize();
 
     // Refresh tree state
     this.pan(resetView ? {x: 0, y: 0, scale: 1.0} : {});
@@ -411,7 +411,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   playClick() {
     const src = this.constructor.clickSounds[Math.floor(Math.random() * this.constructor.clickSounds.length)];
-    game.audio.play(src, {volume: 0.2, loop: false});
+    game.audio.play(src, {volume: 0.2, loop: false, context: game.audio.interface});
   }
 
   /* -------------------------------------------- */

@@ -24,7 +24,7 @@
                 </header>
                 <div class="bonus flexrow">
                     <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
-                    <span class="passive" data-tooltip="{{skill.tooltips.passive}}">{{skill.passive}}</span>
+                    <span class="passive" data-tooltip="Passive: {{skill.tooltips.passive}}">{{skill.passive}}</span>
                 </div>
                 <div class="ranks flexrow">
                     <a class="button icon fa-solid fa-caret-down {{#unless skill.canDecrease}}invisible{{/unless}}"
@@ -34,7 +34,9 @@
                     </div>
                     <a class="button icon fa-solid fa-caret-up {{#unless skill.canIncrease}}invisible{{/unless}}"
                        data-tooltip="Increase Skill Rank" data-action="skillIncrease"></a>
-                    <span class="cost">{{#if skill.cost}}({{numberFormat skill.cost sign=true}}){{else}}-{{/if}}</span>
+                    <span class="cost" data-tooltip="Cost to Increase">
+                        {{#if skill.cost}}({{numberFormat skill.cost sign=true}}){{else}}-{{/if}}
+                    </span>
                 </div>
                 <a class="button icon fa-solid fa-cog" data-tooltip="Configure Skill" data-action="skillConfig"></a>
             </li>
