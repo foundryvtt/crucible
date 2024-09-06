@@ -23,10 +23,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676830120357
   modifiedTime: 1688836503207
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.arcanearcher0000
+  duplicateSource: null
 _id: arcanearcher0000
 folder: fOYHlZJEWUukD7yr
 sort: 100000

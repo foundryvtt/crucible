@@ -36,9 +36,11 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676756257189
   modifiedTime: 1688827683206
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _key: '!items!concussiveblows0'
 

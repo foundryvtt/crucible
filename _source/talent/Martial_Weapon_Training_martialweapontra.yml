@@ -27,9 +27,11 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.1
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1682263814426
   modifiedTime: 1686404975105
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _key: '!items!martialweapontra'
 

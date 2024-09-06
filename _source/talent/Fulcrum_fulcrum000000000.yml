@@ -37,10 +37,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1685204774844
   modifiedTime: 1685205206505
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: fulcrum000000000
 sort: 0
 _key: '!items!fulcrum000000000'

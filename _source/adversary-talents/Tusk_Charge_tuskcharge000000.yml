@@ -37,10 +37,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1685231228591
   modifiedTime: 1688835593752
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: tuskcharge000000
 sort: 0
 _key: '!items!tuskcharge000000'

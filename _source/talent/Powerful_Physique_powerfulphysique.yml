@@ -28,10 +28,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1675014203613
   modifiedTime: 1687632194596
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Compendium.crucible.talent.powerfulphysique
+  duplicateSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

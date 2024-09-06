@@ -210,9 +210,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: 'Rune: Flame'
     type: talent
@@ -232,10 +240,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674698661050
       modifiedTime: 1677964976672
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.runeflame0000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -261,10 +271,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674842056708
       modifiedTime: 1677964990283
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.gesturefan000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -299,10 +311,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1677965044710
       modifiedTime: 1677965120101
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.flametouch000000
+      duplicateSource: null
     _key: '!actors.items!RuNh1bFGiHKdHeKI.vk1SK4IwNZkxQEQL'
   - folder: 3KAfetslMjSVGaqx
     name: Elemental Armor
@@ -334,20 +348,24 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1677965383866
       modifiedTime: 1677965883327
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.livingflame00000
+      duplicateSource: null
     _key: '!actors.items!RuNh1bFGiHKdHeKI.kxuUSxeLhkQ5J1Nn'
 effects: []
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1677963742821
   modifiedTime: 1686342469555
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 200000
 ownership:
   default: 0

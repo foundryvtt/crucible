@@ -37,9 +37,11 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1685216953220
   modifiedTime: 1686144314040
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _key: '!items!canine0000000000'
 

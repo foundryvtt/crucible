@@ -26,9 +26,11 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1682260960299
   modifiedTime: 1685209296031
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _key: '!items!finesseweapontra'
 

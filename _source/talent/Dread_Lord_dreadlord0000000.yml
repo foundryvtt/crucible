@@ -43,10 +43,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1675737631782
   modifiedTime: 1685838880323
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.dreadlord0000000
+  duplicateSource: null
 _id: dreadlord0000000
 folder: fOYHlZJEWUukD7yr
 sort: 350000

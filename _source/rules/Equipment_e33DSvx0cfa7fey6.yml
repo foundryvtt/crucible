@@ -128,10 +128,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1685828566846
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!e33DSvx0cfa7fey6.LYj7sghAMoQj9FFR'
   - sort: 0
     name: Equipment Overview
@@ -188,10 +190,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684891238587
       modifiedTime: 1685634046609
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!e33DSvx0cfa7fey6.6QxbcLoOhUkXTbAj'
   - sort: 200000
     name: Armor
@@ -283,10 +287,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1685633109339
       modifiedTime: 1687044049985
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!e33DSvx0cfa7fey6.JTsl6ENdxSDW765Q'
 folder: MMeWpMmsLOblp07U
 flags:
@@ -297,10 +303,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.3
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676659579008
   modifiedTime: 1687044049985
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 107813
 ownership:
   default: 0

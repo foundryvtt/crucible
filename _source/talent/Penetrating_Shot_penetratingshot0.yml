@@ -43,9 +43,11 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.9
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1687616511078
   modifiedTime: 1696793980053
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _key: '!items!penetratingshot0'
 

@@ -17,10 +17,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1675016427487
   modifiedTime: 1686256271178
   lastModifiedBy: JMECHdsPmLGGi1RC
+  compendiumSource: Compendium.crucible.talent.inflectionpull00
+  duplicateSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

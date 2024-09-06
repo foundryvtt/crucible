@@ -222,9 +222,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: Martial Weapon Training
     type: talent
@@ -255,10 +263,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1682263814426
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!iPMperuo6ZvBLnp9.martialweapontra'
   - name: Strong Grip
     type: talent
@@ -277,10 +287,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1675008661147
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
     ownership:
@@ -310,10 +322,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674698661050
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.runedeath0000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -347,10 +361,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420024
       modifiedTime: 1686231277752
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.greatsword000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -384,10 +400,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420027
       modifiedTime: 1686231290834
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.armor.Item.splintmail000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -400,10 +418,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1686231111928
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: iPMperuo6ZvBLnp9
 sort: 0
 ownership:

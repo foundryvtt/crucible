@@ -22,10 +22,12 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1674942420030
   modifiedTime: 1684879928796
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 folder: HVRX1hdeNtvlHbQs
 _id: ringmailcopy0000
 sort: 0

@@ -81,10 +81,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.8
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676157758719
   modifiedTime: 1690660943327
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.nosferatu0000000
+  duplicateSource: null
 _id: nosferatu0000000
 sort: 325000
 _key: '!items!nosferatu0000000'

@@ -24,10 +24,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1688924033877
   modifiedTime: 1688924096217
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: dartgun000000000
 sort: 200000
 _key: '!items!dartgun000000000'

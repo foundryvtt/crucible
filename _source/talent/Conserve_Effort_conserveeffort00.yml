@@ -18,10 +18,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1677356252137
   modifiedTime: 1682386853160
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.conserveeffort00
+  duplicateSource: null
 _id: conserveeffort00
 folder: qHUCrqkzuPHtBkbG
 sort: 150000

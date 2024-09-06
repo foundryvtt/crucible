@@ -23,10 +23,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676169451542
   modifiedTime: 1685147386853
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.mentalfortress00
+  duplicateSource: null
 _id: mentalfortress00
 sort: 100000
 _key: '!items!mentalfortress00'

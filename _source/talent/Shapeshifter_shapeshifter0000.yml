@@ -75,10 +75,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.8
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676167347186
   modifiedTime: 1690660625468
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.shapeshifter0000
+  duplicateSource: null
 _id: shapeshifter0000
 sort: 353125
 _key: '!items!shapeshifter0000'

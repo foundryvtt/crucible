@@ -44,10 +44,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676156132430
   modifiedTime: 1688827029911
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.bloodfrenzy00000
+  duplicateSource: null
 _id: bloodfrenzy00000
 sort: 100000
 _key: '!items!bloodfrenzy00000'

@@ -14,7 +14,9 @@ system:
   enchantment: mundane
   equipped: false
   properties: []
-  description: ''
+  description:
+    public: <p>Chain Mail public description.</p>
+    secret: <p>Chain Mail secret description.</p>
   armor:
     base: 15
   broken: false
@@ -22,11 +24,13 @@ system:
     base: 3
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.317'
+  systemVersion: 0.6.0
+  coreVersion: '12.325'
   createdTime: 1674942420025
-  modifiedTime: 1684879928796
+  modifiedTime: 1717175697406
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 0
 ownership:
   default: 0

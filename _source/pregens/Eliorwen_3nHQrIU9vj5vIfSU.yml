@@ -223,9 +223,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: Perspicacity
     type: talent
@@ -249,10 +257,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684459952440
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!3nHQrIU9vj5vIfSU.perspicacity0000'
   - name: Archery Training
     type: talent
@@ -282,10 +292,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684461652834
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!3nHQrIU9vj5vIfSU.archerytraining0'
   - _id: precisionshot000
     name: Precision Shot
@@ -319,10 +331,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420026
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: i7P1uwWcECj5KWfY
     sort: -100000
     ownership:
@@ -362,10 +376,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420029
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: i7P1uwWcECj5KWfY
     sort: 100000
     ownership:
@@ -405,10 +421,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1675015905002
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: BevAJzzLeFbSaVic
     sort: -100000
     ownership:
@@ -435,10 +453,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674959752544
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: BevAJzzLeFbSaVic
     sort: 0
     ownership:
@@ -467,10 +487,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684461808776
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!3nHQrIU9vj5vIfSU.impetus000000000'
   - name: 'Gesture: Arrow'
     type: talent
@@ -495,10 +517,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674842056708
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.gesturearrow0000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -529,10 +553,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674698661050
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.runelightning000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -564,10 +590,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1676830120357
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.arcanearcher0000
+      duplicateSource: null
     _id: arcanearcher0000
     folder: fOYHlZJEWUukD7yr
     sort: 100000
@@ -595,10 +623,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1676596789321
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.surgeweaver00000
+      duplicateSource: null
     _id: surgeweaver00000
     folder: c0nl6X8tp4Of0Y4O
     sort: 37500
@@ -640,10 +670,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674962663358
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.markprey00000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -678,10 +710,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420014
       modifiedTime: 1687618596887
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.longbow000000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -714,10 +748,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420015
       modifiedTime: 1686234002791
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.armor.Item.studdedleatherar
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -749,10 +785,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420016
       modifiedTime: 1685740484194
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.scimitar00000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -784,10 +822,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420016
       modifiedTime: 1685740484816
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.scimitar00000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -833,10 +873,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684460412134
       modifiedTime: 1687634076573
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!3nHQrIU9vj5vIfSU.intellectualsupe'
 effects: []
 flags:
@@ -846,10 +888,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1685740255095
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: 3nHQrIU9vj5vIfSU
 sort: 0
 ownership:

@@ -221,9 +221,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: Intimidator
     type: talent
@@ -265,10 +273,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1676839298208
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!nPOVNsOFhqA7SUud.intimidator00000'
   - name: Martial Weapon Training
     type: talent
@@ -299,10 +309,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1682263814426
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!actors.items!nPOVNsOFhqA7SUud.martialweapontra'
   - name: Bulwark
     type: talent
@@ -325,10 +337,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1677209859186
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.bulwark000000000
+      duplicateSource: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
     sort: -100000
@@ -360,10 +374,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420018
       modifiedTime: 1686233957370
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -395,10 +411,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420010
       modifiedTime: 1686233960189
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.heatershield0000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -430,10 +448,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420024
       modifiedTime: 1686233970989
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      duplicateSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -446,10 +466,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1686231927873
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: nPOVNsOFhqA7SUud
 sort: 0
 ownership:

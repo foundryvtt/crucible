@@ -15,10 +15,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1675009666381
   modifiedTime: 1682386434848
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
+  duplicateSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

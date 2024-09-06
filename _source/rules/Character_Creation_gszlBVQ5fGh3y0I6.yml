@@ -63,10 +63,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1686270670752
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.RHCy135mF4EN1mWZ'
   - name: Ancestry
     type: text
@@ -146,10 +148,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1686270110923
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.ovqgeiXHPrdiUXci'
   - name: Background
     type: text
@@ -218,10 +222,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1686270152619
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.uCwStnXHoUCV2TrK'
   - name: Overview
     type: text
@@ -334,10 +340,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1688332725418
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.DjePpoV2oJenlyTf'
   - name: Resources
     type: text
@@ -408,10 +416,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1686356742727
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.FmmADsI9qo1uIIT3'
   - sort: 400000
     name: Resistances
@@ -475,10 +485,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1684891159518
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.XDx0e2rZWcHLcfBt'
   - sort: 500000
     name: Level Advancement
@@ -550,10 +562,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684372703418
       modifiedTime: 1684372755253
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.9p9MYP9Y0MEWEpSv'
   - sort: 350000
     name: Defenses
@@ -669,18 +683,22 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.1
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684615998505
       modifiedTime: 1686418892604
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.alkVSDmt0ec5HBfE'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676600838396
   modifiedTime: 1688332725418
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 0
 ownership:
   default: 0

@@ -220,9 +220,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: Intuit Weakness
     type: talent
@@ -256,10 +264,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674696771693
       modifiedTime: 1687634077040
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: 2MFixpDJ379KOogE
     sort: -50000
     ownership:
@@ -289,10 +299,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674842056708
       modifiedTime: 1687634077040
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.gesturearrow0000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -322,10 +334,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674698661050
       modifiedTime: 1687634077040
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.runeflame0000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -359,10 +373,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420030
       modifiedTime: 1686234263205
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.armor.Item.1lTOzjUX4bUNDQFc
+      duplicateSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -396,10 +412,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420021
       modifiedTime: 1686234267203
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.shortsword000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -429,10 +447,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1677292780874
       modifiedTime: 1686234270646
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.arcaneorb0000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -444,10 +464,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1686232488381
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: TffJlCvt39DEhFX7
 sort: 0
 ownership:

@@ -55,10 +55,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: null
       modifiedTime: 1684894768806
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!KBDiQbnSfnRYG7mi.WpBewuNfFJp1ZJRt'
   - sort: 100000
     name: Boons and Banes
@@ -141,18 +143,22 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684374120469
       modifiedTime: 1684893796895
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!KBDiQbnSfnRYG7mi.Qme1mM71Jn950Zsf'
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1684343824437
   modifiedTime: 1684894768806
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 0
 ownership:
   default: 0

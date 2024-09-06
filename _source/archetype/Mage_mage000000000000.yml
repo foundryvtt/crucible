@@ -27,10 +27,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1685656712818
   modifiedTime: 1685738625970
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: mage000000000000
 sort: 0
 _key: '!items!mage000000000000'

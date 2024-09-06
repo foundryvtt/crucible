@@ -222,9 +222,17 @@ prototypeToken:
   flags: {}
   randomImg: false
   hexagonalShape: 0
-  locked: false
   occludable:
     radius: 0
+  ring:
+    enabled: false
+    colors:
+      ring: null
+      background: null
+    effects: 1
+    subject:
+      scale: 1
+      texture: null
 items:
   - name: 'Rune: Life'
     type: talent
@@ -248,10 +256,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674698661050
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.talent.runelife00000000
+      duplicateSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -282,10 +292,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1676608867154
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Item.inflectioncompos
+      duplicateSource: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -324,10 +336,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1675017944331
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -50000
     ownership:
@@ -360,10 +374,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1677293085873
       modifiedTime: 1686234338492
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.weapon.Item.magestaff0000000
+      duplicateSource: null
     sort: 0
     ownership:
       default: 0
@@ -395,10 +411,12 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1674942420024
       modifiedTime: 1686234346975
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      duplicateSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -411,10 +429,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1686232748166
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: z8PYWkq3bxce7vwb
 sort: 0
 ownership:

@@ -43,10 +43,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.9
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1677354070473
   modifiedTime: 1696795461577
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.alchemicalresolv
+  duplicateSource: null
 _id: alchemicalresolv
 folder: 4Ll3b4Q4us2mp4Fu
 sort: 100000

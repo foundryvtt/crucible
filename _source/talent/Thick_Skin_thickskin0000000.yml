@@ -24,10 +24,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676169285945
   modifiedTime: 1685147332959
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.thickskin0000000
+  duplicateSource: null
 _id: thickskin0000000
 sort: -100000
 _key: '!items!thickskin0000000'

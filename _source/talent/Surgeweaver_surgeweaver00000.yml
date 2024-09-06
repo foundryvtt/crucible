@@ -34,10 +34,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1676596789321
   modifiedTime: 1688828344241
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.surgeweaver00000
+  duplicateSource: null
 _id: surgeweaver00000
 folder: c0nl6X8tp4Of0Y4O
 sort: 37500

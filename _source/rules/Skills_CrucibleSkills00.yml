@@ -176,10 +176,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683472874811
       modifiedTime: 1684075217371
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.tBFTQMxT6xTPg8TS'
   - sort: 200000
     name: Pathfinding
@@ -338,10 +340,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744116198
       modifiedTime: 1684075337134
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.J0FXxjw8OKOQOtwT'
   - sort: 300000
     name: Stealth
@@ -496,10 +500,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744125556
       modifiedTime: 1683748628481
       lastModifiedBy: PQhsT89HTP8uxjkQ
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.O2jmcYabEbqgxgLm'
   - sort: 400000
     name: Survival
@@ -656,10 +662,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744134022
       modifiedTime: 1684882138743
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.gr6RsRxppPcIiKat'
   - sort: 500000
     name: Arcana
@@ -810,10 +818,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744497135
       modifiedTime: 1683891895217
       lastModifiedBy: PQhsT89HTP8uxjkQ
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.1XkdTDKQiY8hQjb9'
   - sort: 600000
     name: Naturalism
@@ -964,10 +974,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744507585
       modifiedTime: 1684075541217
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.YOsSCyK1YO5DYeGi'
   - sort: 700000
     name: Religion
@@ -1110,10 +1122,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744518787
       modifiedTime: 1684975722269
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.XvI3RY9zuYJIkfZl'
   - sort: 800000
     name: Society
@@ -1266,10 +1280,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744529088
       modifiedTime: 1684075554479
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.y3bDt4HWg3S09U7c'
   - sort: 900000
     name: Deception
@@ -1416,10 +1432,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744545423
       modifiedTime: 1684076115156
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.kOBG6OuTnvGwmU1W'
   - sort: 1000000
     name: Diplomacy
@@ -1564,10 +1582,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744558127
       modifiedTime: 1684884760207
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.W2UTXlsZn2TLQYt2'
   - sort: 1100000
     name: Mercantilism
@@ -1686,10 +1706,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744679611
       modifiedTime: 1684886832627
       lastModifiedBy: BMFfY18bVtQazbbO
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.RJ85nR4Z5UbxPwh7'
   - sort: 1200000
     name: Beastcraft
@@ -1838,10 +1860,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744747294
       modifiedTime: 1684882711438
       lastModifiedBy: BMFfY18bVtQazbbO
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.6GUcJ1WnL8hAQpWb'
   - sort: 1300000
     name: Medicine
@@ -1988,10 +2012,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744837421
       modifiedTime: 1684076142381
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.hLLuHPQ028FFVyoE'
   - sort: 1400000
     name: Performance
@@ -2158,10 +2184,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683744851575
       modifiedTime: 1684888466083
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.m7H5V1e5EVe4YlxD'
   - sort: 1500000
     name: Tradecraft
@@ -2307,10 +2335,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683745103364
       modifiedTime: 1684890005275
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.djl3cL0Ng0rRgs2X'
   - sort: 1050000
     name: Intimidation
@@ -2446,10 +2476,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1683892875812
       modifiedTime: 1683894297423
       lastModifiedBy: PQhsT89HTP8uxjkQ
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.WUZTmZFkysEiHU2T'
   - sort: 0
     name: Skills Overview
@@ -2610,10 +2642,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684891180952
       modifiedTime: 1686194256352
       lastModifiedBy: JMECHdsPmLGGi1RC
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.QQaQfv1cakIKltNz'
 flags:
   crucible:
@@ -2628,10 +2662,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1683472545451
   modifiedTime: 1686194256352
   lastModifiedBy: JMECHdsPmLGGi1RC
+  compendiumSource: null
+  duplicateSource: null
 sort: 100000
 ownership:
   default: 0

@@ -19,13 +19,16 @@ system:
   damageType: slashing
   broken: false
   animation: sword
+  actions: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.2
-  coreVersion: '12.317'
+  systemVersion: 0.6.0
+  coreVersion: '12.325'
   createdTime: 1674942420026
-  modifiedTime: 1686531133628
+  modifiedTime: 1717175851168
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 _id: bastardsword0000
 folder: pUXcL0pnY3FlKwj8
 sort: 0

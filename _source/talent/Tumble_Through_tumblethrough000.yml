@@ -50,10 +50,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.9
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1677967995645
   modifiedTime: 1696793535553
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: Item.tumblethrough000
+  duplicateSource: null
 _id: tumblethrough000
 sort: -400000
 _key: '!items!tumblethrough000'

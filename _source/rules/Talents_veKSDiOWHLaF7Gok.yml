@@ -72,10 +72,12 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.317'
+      coreVersion: '12.325'
       createdTime: 1684372579176
       modifiedTime: 1686269370954
       lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: null
+      duplicateSource: null
     _key: '!journal.pages!veKSDiOWHLaF7Gok.OmJNyYrgeaTwYE7L'
 flags:
   core:
@@ -83,10 +85,12 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.317'
+  coreVersion: '12.325'
   createdTime: 1684372575644
   modifiedTime: 1686269370954
   lastModifiedBy: AnoypGxxNIMOS0XY
+  compendiumSource: null
+  duplicateSource: null
 sort: 106250
 ownership:
   default: 0

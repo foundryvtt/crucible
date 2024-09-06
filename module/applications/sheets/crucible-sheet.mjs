@@ -52,7 +52,7 @@ export default function CrucibleSheetMixin(Base) {
     /** @inheritDoc */
     async _renderOuter() {
       const html = await super._renderOuter();
-      const overlaySrc = "systems/crucible/ui/journal/overlay.png"; // TODO convert
+      const overlaySrc = "systems/crucible/ui/journal/overlay-dark.webp";
       const overlay = `<img class="background-overlay" src="${overlaySrc}">`
       html.prepend(overlay);
       return html;
