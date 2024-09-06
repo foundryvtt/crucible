@@ -49,7 +49,8 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
         console.error(`JournalEntryPage skill configuration "${page.id}" does not configure a valid Skill ID.`);
         continue;
       }
-      Object.assign(skill, {overview, paths, ranks, name: page.name, page: page.uuid});
+      Object.assign(skill, {overview, ranks, name: page.name, page: page.uuid, paths: {}});
+      for ( const p of Object.values(paths) ) skill.paths[p.id] = p;
       SYSTEM.ACTION.TAGS[skillId].label = page.name;
     }
 
@@ -62,19 +63,19 @@ export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
           ranks[rank.id] = {description: `Missing rank ${rank.rank} description.`}
           return ranks;
         }, {}),
-        paths: Array.fromRange(3, 1).reduce((paths, i) => {
-          paths[`path${i}`] = {
-            id: `path${i}`,
-            name: `Specialization ${i}`,
-            overview: "Missing specialization overview.",
-            ranks: ["specialist", "master"].reduce((ranks, rank) => {
-              ranks[rank] = {description: "Missing rank description"};
-              return ranks;
-            }, {})
-          };
-          return paths;
-        }, {})
       }, {inplace: true, overwrite: false});
+      if ( foundry.utils.isEmpty(skill.paths) ) skill.paths = Array.fromRange(3, 1).reduce((paths, i) => {
+        paths[`path${i}`] = {
+          id: `path${i}`,
+          name: `Specialization ${i}`,
+          overview: "Missing specialization overview.",
+          ranks: ["specialist", "master"].reduce((ranks, rank) => {
+            ranks[rank] = {description: "Missing rank description"};
+            return ranks;
+          }, {})
+        };
+        return paths;
+      }, {});
     }
   }
 }

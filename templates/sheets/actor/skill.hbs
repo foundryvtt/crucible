@@ -29,8 +29,12 @@
         {{#if choosePath}}
         <h2 class="divider">Select Specialization</h2>
         <div class="skill-ranks current-ranks">
-            {{#each config.paths as |path id|}}
-            <h3>{{path.name}}</h3>
+            {{#each config.paths as |path|}}
+            <h3>
+                <a class="button icon choose-path {{path.actionIcon}}" data-action="choosePath" data-path="{{path.id}}"
+                   data-tooltip="{{path.actionTooltip}}"></a>
+                {{path.name}}
+            </h3>
             {{{path.overview}}}
             {{/each}}
         </div>

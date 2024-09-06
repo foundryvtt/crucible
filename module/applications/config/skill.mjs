@@ -9,7 +9,7 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
   constructor({skillId, ...options}={}) {
     super(options);
     this.skillId = skillId;
-    this.config = SYSTEM.SKILLS[skillId];
+    this.config = foundry.utils.deepClone(SYSTEM.SKILLS[skillId]);
   }
 
   /** @inheritDoc */
@@ -17,11 +17,17 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
     classes: ["crucible", "skill", "standard-form"],
     tag: "form",
     position: {width: 600, height: "auto"},
-    actions: {},
+    actions: {
+      choosePath: this.#onChoosePath,
+      rules: this.#onRules,
+      decrease: this.#onDecrease,
+      increase: this.#onIncrease,
+    },
     sheetConfig: false,
     form: {
       submitOnChange: true
-    }
+    },
+
   };
 
   /** @override */
@@ -66,6 +72,12 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
       untrainedRanks: []
     };
 
+    // Specialization Choice
+    for ( const path of Object.values(this.config.paths) ) {
+      path.actionIcon = skill.path === path.id ? "fa-regular fa-circle-check" : "fa-regular fa-circle";
+      path.actionTooltip = skill.path === path.id ? "Clear Specialization" : "Choose Specialization";
+    }
+
     // Categorize skill ranks as trained or untrained
     for ( const rank of Object.values(SYSTEM.SKILL.RANKS) ) {
       const r = foundry.utils.deepClone(rank);
@@ -83,27 +95,49 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  /** @override */
-  _processFormData(event, form, formData) {
-    debugger;
-    // Object.assign(formData, {
-    //   [`system.skills.${this.skillId}.path`]: this.form.path.value
-    // });
-    return formData;
+  /**
+   * @this {SkillConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onChoosePath(event) {
+    const pathId = event.target.dataset.path;
+    const skill = this.actor.skills[this.skillId];
+    const path = skill.path === pathId ? null : pathId;
+    await this.actor.update({[`system.skills.${this.skillId}.path`]: path});
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async _handleAction(action, event, button) {
-    switch ( action ) {
-      case "increase":
-        return this.actor.purchaseSkill(this.skillId, 1);
-      case "decrease":
-        return this.actor.purchaseSkill(this.skillId, -1);
-      case "rules":
-        const rulesPage = await fromUuid(this.config.page)
-        return rulesPage.parent.sheet.render(true, {pageId: rulesPage.id});
-    }
+  /**
+   * @this {SkillConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onRules(event) {
+    const rulesPage = await fromUuid(this.config.page);
+    rulesPage.parent.sheet.render(true, {pageId: rulesPage.id}); // TODO move to app v2
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {SkillConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static #onDecrease(event) {
+    this.actor.purchaseSkill(this.skillId, -1);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {SkillConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static #onIncrease(event) {
+    this.actor.purchaseSkill(this.skillId, 1);
   }
 }
