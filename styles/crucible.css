@@ -2247,3 +2247,14 @@
   flex: 0 0 240px;
   gap: 0.5rem;
 }
+/**
+ * TODO: A collection of temporary rules that should be removed in V13
+ */
+.prosemirror menu .pm-dropdown {
+  background: var(--color-control-bg);
+  color: var(--color-cool-5);
+}
+.prosemirror menu .pm-dropdown > span {
+  text-align: left;
+  align-self: unset;
+}

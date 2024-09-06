@@ -605,4 +605,196 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const itemId = event.target.closest(".line-item")?.dataset.itemId;
     return this.actor.items.get(itemId, {strict: true});
   }
+
+  /* -------------------------------------------- */
+  /*  Drag and Drop                               */
+  /*  TODO: Remove this entire section once V13   */
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onRender(_context, _options) {
+    if ( !game.user.isGM ) return;
+    new DragDrop({
+      dragSelector: '.draggable',
+      dropSelector: null,
+      callbacks: {
+        dragstart: this._onDragStart.bind(this),
+        dragover: this._onDragOver.bind(this),
+        drop: this._onDrop.bind(this)
+      }
+    }).bind(this.element);
+  }
+
+  /**
+   * An event that occurs when a drag workflow begins for a draggable item on the sheet.
+   * @param {DragEvent} event       The initiating drag start event
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDragStart(event) {
+    const li = event.currentTarget;
+    if ( "link" in event.target.dataset ) return;
+    let dragData;
+
+    // Owned Items
+    if ( li.dataset.itemId ) {
+      const item = this.actor.items.get(li.dataset.itemId);
+      dragData = item.toDragData();
+    }
+
+    // Active Effect
+    if ( li.dataset.effectId ) {
+      const effect = this.actor.effects.get(li.dataset.effectId);
+      dragData = effect.toDragData();
+    }
+
+    // Set data transfer
+    if ( !dragData ) return;
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * An event that occurs when a drag workflow moves over a drop target.
+   * @param {DragEvent} event
+   * @protected
+   */
+  _onDragOver(event) {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * An event that occurs when data is dropped into a drop target.
+   * @param {DragEvent} event
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDrop(event) {
+    const data = TextEditor.getDragEventData(event);
+    const actor = this.actor;
+    const allowed = Hooks.call("dropActorSheetData", actor, this, data);
+    if ( allowed === false ) return;
+
+    // Dropped Documents
+    const documentClass = getDocumentClass(data.type);
+    if ( documentClass ) {
+      const document = await documentClass.fromDropData(data);
+      await this._onDropDocument(event, document);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped document on the ActorSheet
+   * @param {DragEvent} event         The initiating drop event
+   * @param {Document} document       The resolved Document class
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropDocument(event, document) {
+    switch ( document.documentName ) {
+      case "ActiveEffect":
+        return this._onDropActiveEffect(event, /** @type ActiveEffect */ document);
+      case "Actor":
+        return this._onDropActor(event, /** @type Actor */ document);
+      case "Item":
+        return this._onDropItem(event, /** @type Item */ document);
+      case "Folder":
+        return this._onDropFolder(event, /** @type Folder */ document);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped Active Effect on the Actor Sheet.
+   * The default implementation creates an Active Effect embedded document on the Actor.
+   * @param {DragEvent} event       The initiating drop event
+   * @param {ActiveEffect} effect   The dropped ActiveEffect document
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropActiveEffect(event, effect) {
+    if ( !this.actor.isOwner ) return;
+    if ( !effect || (effect.target === this.actor) ) return;
+    const keepId = !this.actor.effects.has(item.id);
+    await ActiveEffect.create(effect.toObject(), {parent: this.actor, keepId});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped Actor on the Actor Sheet.
+   * @param {DragEvent} event     The initiating drop event
+   * @param {Actor} actor         The dropped Actor document
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropActor(event, actor) {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped Item on the Actor Sheet.
+   * @param {DragEvent} event     The initiating drop event
+   * @param {Item} item           The dropped Item document
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropItem(event, item) {
+    if ( !this.actor.isOwner ) return;
+    if ( this.actor.uuid === item.parent?.uuid ) return this._onSortItem(event, item);
+    const keepId = !this.actor.items.has(item.id);
+    await Item.create(item.toObject(), {parent: this.actor, keepId});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped Folder on the Actor Sheet.
+   * @param {DragEvent} event     The initiating drop event
+   * @param {object} data         Extracted drag transfer data
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDropFolder(event, data) {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings.
+   * @param {DragEvent} event     The initiating drop event
+   * @param {Item} item           The dropped Item document
+   * @protected
+   */
+  _onSortItem(event, item) {
+    const items = this.actor.items;
+    const source = items.get(item.id);
+
+    // Confirm the drop target
+    const dropTarget = event.target.closest("[data-item-id]");
+    if ( !dropTarget ) return;
+    const target = items.get(dropTarget.dataset.itemId);
+    if ( source.id === target.id ) return;
+
+    // Identify sibling items based on adjacent HTML elements
+    const siblings = [];
+    for ( let el of dropTarget.parentElement.children ) {
+      const siblingId = el.dataset.itemId;
+      if ( siblingId && (siblingId !== source.id) ) siblings.push(items.get(el.dataset.itemId));
+    }
+
+    // Perform the sort
+    const sortUpdates = SortingHelpers.performIntegerSort(source, {target, siblings});
+    const updateData = sortUpdates.map(u => {
+      const update = u.update;
+      update._id = u.target._id;
+      return update;
+    });
+
+    // Perform the update
+    return this.actor.updateEmbeddedDocuments("Item", updateData);
+  }
 }
