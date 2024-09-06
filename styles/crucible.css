@@ -624,12 +624,13 @@
   /* ----------------------------------------- */
 }
 .crucible.sheet.actor .window-content {
-  overflow: visible hidden;
+  overflow: visible;
+  height: calc(100% - var(--header-height));
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: var(--margin-size);
-  padding: var(--margin-half) var(--margin-size);
+  padding: 0 var(--margin-size) var(--margin-size);
 }
 .crucible.sheet.actor.minimized,
 .crucible.sheet.actor.minimizing,
@@ -691,7 +692,7 @@
   margin: 0;
 }
 .crucible.sheet.actor .sheet-header {
-  --sheet-header-height: 40;
+  --sheet-header-height: 40px;
   padding: 0;
 }
 .crucible.sheet.actor .sheet-header header.title {

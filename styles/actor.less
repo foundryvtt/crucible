@@ -12,12 +12,13 @@
   overflow: visible;
 
   .window-content {
-    overflow: visible hidden;
+    overflow: visible;
+    height: calc(100% - var(--header-height));
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: var(--margin-size);
-    padding: var(--margin-half) var(--margin-size); // Top and bottom padding allow for hover glow on elements
+    padding: 0 var(--margin-size) var(--margin-size);
   }
 
   // Hide overflow on minimize
@@ -98,7 +99,7 @@
   /* ----------------------------------------- */
 
   .sheet-header {
-    --sheet-header-height: 40;
+    --sheet-header-height: 40px;
     padding: 0;
 
     header.title {

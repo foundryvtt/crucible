@@ -11,7 +11,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     tag: "form",
     position: {
       width: 900,
-      height: 740
+      height: 750
     },
     actions: {
       itemEdit: CrucibleBaseActorSheet.#onItemEdit,
