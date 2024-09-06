@@ -1,21 +1,20 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
-
+<div>
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
         <img class="profile" src="{{config.icon}}" title="{{config.name}}"/>
         <div class="header-content flexrow">
             <h1 class="title">{{config.name}}</h1>
             <div class="purchase">
-                <a class="button icon" data-action="rules"><i class="fa-solid fa-book-open"></i></a>
-                <a class="button icon" data-action="decrease"><i class="fas fa-minus"></i></a>
+                <a class="button icon fa-solid fa-book-open" data-action="rules"></a>
+                <a class="button icon fa-solid fa-minus" data-action="decrease"></a>
                 <span class="rank">{{skill.rank}}</span>
-                <a class="button icon" data-action="increase"><i class="fas fa-plus"></i></a>
+                <a class="button icon fa-solid fa-plus" data-action="increase"></a>
             </div>
         </div>
     </header>
 
     {{!-- Sheet Body --}}
-    <section class="sheet-body flexcol">
+    <section class="sheet-body flexcol scrollable">
         <div class="description skill-description">
             {{{config.overview}}}
         </div>
@@ -31,13 +30,8 @@
         <h2 class="divider">Select Specialization</h2>
         <div class="skill-ranks current-ranks">
             {{#each config.paths as |path id|}}
-            <div class="skill-rank">
-                <input class="choose-path" type="radio" name="path" value="{{id}}" {{checked (eq ../skill.path id)}}/>
-                <h3>{{path.name}}</h3>
-                <div class="description">
-                    {{{path.overview}}}
-                </div>
-            </div>
+            <h3>{{path.name}}</h3>
+            {{{path.overview}}}
             {{/each}}
         </div>
         {{/if}}
@@ -45,9 +39,8 @@
         <h2 class="divider">Acquired Ranks</h2>
         <div class="skill-ranks current-ranks">
             {{#each trainedRanks}}
-            <div class="skill-rank">
-                <h3>{{this.label}}.</h3> {{{this.description}}}
-            </div>
+            <h3>{{this.label}}</h3>
+            {{{this.description}}}
             {{/each}}
         </div>
 
@@ -55,9 +48,8 @@
         <h2 class="divider">Unacquired Ranks</h2>
         <div class="skill-ranks current-ranks">
             {{#each untrainedRanks}}
-            <div class="skill-rank">
-                <h3>{{this.label}}.</h3> {{{this.description}}}
-            </div>
+            <h3>{{this.label}}</h3>
+            {{{this.description}}}
             {{/each}}
         </div>
         {{/if}}
@@ -66,12 +58,10 @@
         <h2 class="divider">Specialization Paths</h2>
         <div class="skill-ranks skill-paths">
             {{#each config.paths as |path|}}
-            <div class="skill-rank">
-                <h3>{{path.name}}.</h3>
-                {{{path.overview}}}
-            </div>
+            <h3>{{path.name}}</h3>
+            {{{path.overview}}}
             {{/each}}
         </div>
         {{/if}}
     </section>
-</form>
+</div>

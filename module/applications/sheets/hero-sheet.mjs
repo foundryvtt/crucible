@@ -1,4 +1,5 @@
 import CrucibleBaseActorSheet from "./base-actor-sheet.mjs";
+import SkillConfig from "../config/skill.mjs";
 
 /**
  * A CrucibleBaseActorSheet subclass used to configure Actors of the "hero" type.
@@ -14,19 +15,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
   static {
     this._initializeActorSheetClass();
-  }
-
-  /**
-   * Lock sections of the character sheet to prevent them from being inadvertently edited
-   * @type {{abilities: boolean, defenses: boolean, resistances: boolean, resources: boolean}}
-   * @private
-   * TODO re-add?
-   */
-  _sectionLocks = {
-    abilities: true,
-    defenses: true,
-    resistances: true,
-    resources: true
   }
 
   /* -------------------------------------------- */
@@ -56,36 +44,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       levelOne: isL0,
       levelUp: (a.system.advancement.pct === 100)
     });
-
-    // i.any = i.ancestry || i.background || i.abilities || i.skills || i.talents;
-    // if ( isL0 ) i.levelTooltip = `WALKTHROUGH.Level${i.any ? "Zero" : "One"}`;
-    // else i.levelTooltip = "WALKTHROUGH.LevelUp";
-    // i.levelIcon = i.levelOne ? "fa-exclamation-triangle" : "fa-circle-plus";
-    // context.isL0 = isL0;
-    // context.showMilestones = a.system.advancement.level.between(1, 23);
-    //
-    // // Compendium Packs
-    // context.packs = SYSTEM.COMPENDIUM_PACKS;
-
-    //
-    // // Talents
-    // context.talentTreeButton = game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree";
-    //
-    // // Section locks
-    // context.sectionLocks = this.#getSectionLocks(context);
     return context;
   }
-
-  // /* -------------------------------------------- */
-  //
-  // /**
-  //  * Update section locks to automatically unlock sections where the user needs to provide input.
-  //  */
-  // #getSectionLocks(context) {
-  //   const locks = foundry.utils.deepClone(this._sectionLocks);
-  //   if ( context.incomplete.abilities ) locks.abilities = false;
-  //   return locks;
-  // }
 
   /* -------------------------------------------- */
 
@@ -95,16 +55,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     await this.actor.toggleTalentTree(false);
   }
 
-  // /* -------------------------------------------- */
-  // /*  Event Listeners and Handlers                */
-  // /* -------------------------------------------- */
-  //
-  // /** @override */
-  // activateListeners(html) {
-  //   super.activateListeners(html);
-  //   html.find("a.section-lock").click(this.#onToggleSectionLock.bind(this));
-  // }
-  //
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   /** @override */
@@ -123,9 +75,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       // case "levelUp":
       //   game.tooltip.deactivate();
       //   return this.actor.levelUp(1);
-      // case "skillConfig":
-      //   const skillId = a.closest(".skill").dataset.skill;
-      //   return new SkillConfig(this.actor, skillId).render(true);
+      case "skillConfig":
+        const skillConfig = new SkillConfig({document: this.actor, skillId: target.closest(".skill").dataset.skill})
+        await skillConfig.render({force: true});
+        break;
       case "skillDecrease":
         return this.actor.purchaseSkill(target.closest(".skill").dataset.skill, -1);
       case "skillIncrease":
@@ -143,21 +96,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     }
   }
 
-  // /* -------------------------------------------- */
-  //
-  // /**
-  //  * Handle toggling the locked state of a specific sheet section
-  //  * @param {Event} event   The originating click event
-  //  */
-  // #onToggleSectionLock(event) {
-  //   event.preventDefault()
-  //   const a = event.currentTarget;
-  //   this._sectionLocks[a.dataset.section] = !this._sectionLocks[a.dataset.section];
-  //   this.render();
-  // }
-  //
-  // /* -------------------------------------------- */
-  //
+  /* -------------------------------------------- */
+
   // /** @override */
   // async _onDropItemCreate(itemData) {
   //   switch (itemData.type) {

@@ -1,49 +1,59 @@
-import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
+const {api} = foundry.applications;
 
 /**
  * A configuration application used to advance skill ranks and choose skill specialization for a CrucibleActor.
- * TODO ApplicationV2
- * @mixes CrucibleSheet
+ * @extends {DocumentSheetV2}
+ * @mixes {HandlebarsApplication}
  */
-export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
-  constructor(actor, skillId, options) {
-    super(actor, options);
-    this.actor = actor;
+export default class SkillConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
+  constructor({skillId, ...options}={}) {
+    super(options);
     this.skillId = skillId;
     this.config = SYSTEM.SKILLS[skillId];
-    this.actor.apps[this.appId] = this;
   }
 
-  /* -------------------------------------------- */
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["crucible", "skill", "standard-form"],
+    tag: "form",
+    position: {width: 600, height: "auto"},
+    actions: {},
+    sheetConfig: false,
+    form: {
+      submitOnChange: true
+    }
+  };
 
   /** @override */
-  static documentType = "skill";
+  static PARTS = {
+    skill: {
+      root: true,
+      template: "systems/crucible/templates/sheets/actor/skill.hbs",
+      scrollable: [".sheet-body"]
+    }
+  };
 
   /* -------------------------------------------- */
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      width: 660,
-      template: `systems/${SYSTEM.id}/templates/config/skill.hbs`,
-      resizable: true,
-      scrollY: [".scrollable"],
-      submitOnChange: true,
-      closeOnSubmit: false
-    });
+  /**
+   * A convenience reference to the Actor Document.
+   * @returns {CrucibleActor}
+   */
+  get actor() {
+    return this.document;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   get title() {
-    return game.i18n.format("SKILL.SheetTitle", {actor: this.object.name, skill: this.config.name});
+    return game.i18n.format("SKILL.SheetTitle", {actor: this.document.name, skill: this.config.name});
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
+  async _prepareContext(options) {
     const skill = this.actor.skills[this.skillId];
     const context = {
       skill,
@@ -66,25 +76,20 @@ export default class SkillConfig extends CrucibleSheetMixin(FormApplication) {
       }
       else context.untrainedRanks[r.rank] = r;
     }
-
-    // TODO add specialization paths
     return context;
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  _getSubmitData(updateData={}) {
-    return Object.assign(updateData || {}, {
-      [`system.skills.${this.skillId}.path`]: this.form.path.value
-    })
-  }
-
+  /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   /** @override */
-  async _updateObject(event, formData) {
-    return this.actor.update(formData);
+  _processFormData(event, form, formData) {
+    debugger;
+    // Object.assign(formData, {
+    //   [`system.skills.${this.skillId}.path`]: this.form.path.value
+    // });
+    return formData;
   }
 
   /* -------------------------------------------- */
