@@ -1,5 +1,6 @@
 /**
  * A common actor sheet class shared by both Hero and Adversary types.
+ * TODO delete this as soon as the adversary sheet is moved to CrucibleBaseActorSheet
  */
 export default class CrucibleActorSheet extends ActorSheet {
 
@@ -128,9 +129,6 @@ export default class CrucibleActorSheet extends ActorSheet {
       return categories;
     }, categories);
   }
-
-  /* -------------------------------------------- */
-
 
   /* -------------------------------------------- */
 

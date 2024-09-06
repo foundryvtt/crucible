@@ -128,6 +128,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       resources: this.#prepareResources(),
       skillCategories: this.#prepareSkills(),
       source: this.document.toObject(),
+      spells: this.#prepareSpells(),
       tabGroups,
       tabs: tabGroups.sheet,
       talents
@@ -396,6 +397,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Format categories of the spells tab.
+   * @returns {{
+   *  runes: {label: string, known: Set<CrucibleRune>},
+   *  inflections: {label: string, known: Set<CrucibleInflection>},
+   *  gestures: {label: string, known: Set<CrucibleGesture>}
+   * }}
+   */
+  #prepareSpells() {
+    const spells = {
+      runes: {label: game.i18n.localize("SPELL.ComponentRunePl")},
+      gestures: {label: game.i18n.localize("SPELL.ComponentGesturePl")},
+      inflections: {label: game.i18n.localize("SPELL.ComponentInflectionPl")},
+      signature: {label: game.i18n.localize("SPELL.SignaturePl")},
+    }
+    for ( const [k, v] of Object.entries(this.actor.grimoire) ) spells[k].known = v;
+    return spells;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare and format resistance data for rendering.
    * @return {{physical: object[], elemental: object[], spiritual: object[]}}
    */
@@ -501,9 +523,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       s.canDecrease = this.actor.canPurchaseSkill(skill.id, -1);
 
       // Specialization status
+      s.rankTags = [SYSTEM.SKILL.RANKS[s.rank].label];
       const path = skill.paths[s.path] || null;
-      s.rankName = SYSTEM.SKILL.RANKS[s.rank].label;
-      s.pathName = path ? path.name : game.i18n.localize("SKILL.RANKS.Unspecialized");
+      if ( path ) s.rankTags.push(path.name);
+      s.hexClass = skill.abilities.sort().join("-");
 
       // Tooltips
       s.tooltips = {

@@ -9,9 +9,9 @@
     "extractPacks": "node build.mjs extract"
   },
   "devDependencies": {
-    "@foundryvtt/foundryvtt-cli": "^1.0.2",
+    "@foundryvtt/foundryvtt-cli": "^1.0.3",
     "commander": "^11.1.0",
-    "less": "^4.1.3"
+    "less": "^4.2.0"
   },
   "author": "Foundry Gaming, LLC",
   "license": "UNLICENSED"

@@ -59,6 +59,10 @@
     padding: 0.25rem 0.5rem;
     text-align: center;
     opacity: 0.5;
+    &:disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
     &:hover {
       opacity: 1.0;
     }
@@ -66,6 +70,10 @@
       --button-text-color: var(--color-secondary);
       --button-background-color: var(--color-frame-bg-75);
       --button-border-color: var(--color-frame);
+    }
+    &.invisible {
+      visibility: hidden;
+      pointer-events: none;
     }
   }
 }

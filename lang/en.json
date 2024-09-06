@@ -545,8 +545,13 @@
 "SKILL.TooltipPassive": "12 + Score",
 
 "SPELL.ComponentRune": "Arcane Rune",
+"SPELL.ComponentRunePl": "Arcane Runes",
 "SPELL.ComponentGesture": "Somatic Gesture",
+"SPELL.ComponentGesturePl": "Somatic Gestures",
 "SPELL.ComponentInflection": "Metamagic Inflection",
+"SPELL.ComponentInflectionPl": "Metamagic Inflections",
+"SPELL.Signature": "Signature Spell",
+"SPELL.SignaturePl": "Signature Spells",
 "SPELL.DamageType": "Damage Type",
 
 "SPELL.NameFormatNoun": "{gesture} of {rune}",

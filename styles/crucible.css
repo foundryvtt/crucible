@@ -453,6 +453,12 @@
   text-align: center;
   opacity: 0.5;
 }
+.crucible.application button:disabled,
+.crucible.application .button:disabled,
+.crucible.application .control:disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
 .crucible.application button:hover,
 .crucible.application .button:hover,
 .crucible.application .control:hover {
@@ -464,6 +470,12 @@
   --button-text-color: var(--color-secondary);
   --button-background-color: var(--color-frame-bg-75);
   --button-border-color: var(--color-frame);
+}
+.crucible.application button.invisible,
+.crucible.application .button.invisible,
+.crucible.application .control.invisible {
+  visibility: hidden;
+  pointer-events: none;
 }
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -617,7 +629,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   gap: var(--margin-size);
-  padding: 0 var(--margin-size);
+  padding: var(--margin-half) var(--margin-size);
 }
 .crucible.sheet.actor.minimized,
 .crucible.sheet.actor.minimizing,
@@ -641,6 +653,9 @@
   position: relative;
   padding: 1.5rem 0 1rem;
   gap: 1.5rem;
+}
+.crucible.sheet.actor a.button.icon {
+  font-size: var(--font-size-12);
 }
 .crucible.sheet.actor .sheet-section {
   background: var(--color-frame-bg-50);
@@ -1243,38 +1258,41 @@
 }
 .crucible.sheet.actor .tab.inventory .header-section,
 .crucible.sheet.actor .tab.talents .header-section,
-.crucible.sheet.actor .tab.skills .header-section {
+.crucible.sheet.actor .tab.skills .header-section,
+.crucible.sheet.actor .tab.spells .header-section {
   padding: 0 1rem;
 }
 .crucible.sheet.actor .tab.inventory .header-section a.button,
 .crucible.sheet.actor .tab.talents .header-section a.button,
-.crucible.sheet.actor .tab.skills .header-section a.button {
-  font-size: var(--font-size-12);
+.crucible.sheet.actor .tab.skills .header-section a.button,
+.crucible.sheet.actor .tab.spells .header-section a.button {
   flex: none;
 }
-.crucible.sheet.actor .tab.inventory .header-section a.button.framed,
-.crucible.sheet.actor .tab.talents .header-section a.button.framed,
-.crucible.sheet.actor .tab.skills .header-section a.button.framed {
-  --button-border-color: var(--color-frame);
-  --button-background-color: var(--color-frame-bg-75);
-  --button-text-color: var(--color-primary);
+.crucible.sheet.actor .tab.inventory .header-section a.framed,
+.crucible.sheet.actor .tab.talents .header-section a.framed,
+.crucible.sheet.actor .tab.skills .header-section a.framed,
+.crucible.sheet.actor .tab.spells .header-section a.framed {
+  font-size: var(--font-size-12);
 }
 .crucible.sheet.actor .tab.inventory .point-pools,
 .crucible.sheet.actor .tab.talents .point-pools,
-.crucible.sheet.actor .tab.skills .point-pools {
+.crucible.sheet.actor .tab.skills .point-pools,
+.crucible.sheet.actor .tab.spells .point-pools {
   justify-content: flex-end;
   font-size: var(--font-size-12);
   gap: 0.5rem;
 }
 .crucible.sheet.actor .tab.inventory .point-pools .label,
 .crucible.sheet.actor .tab.talents .point-pools .label,
-.crucible.sheet.actor .tab.skills .point-pools .label {
+.crucible.sheet.actor .tab.skills .point-pools .label,
+.crucible.sheet.actor .tab.spells .point-pools .label {
   flex: none;
   color: var(--color-secondary);
 }
 .crucible.sheet.actor .tab.inventory .point-pools .value,
 .crucible.sheet.actor .tab.talents .point-pools .value,
-.crucible.sheet.actor .tab.skills .point-pools .value {
+.crucible.sheet.actor .tab.skills .point-pools .value,
+.crucible.sheet.actor .tab.spells .point-pools .value {
   flex: 0 0 24px;
   height: 24px;
   background: url("../ui/elements/hex-plain.svg") no-repeat center;
@@ -1284,17 +1302,20 @@
 }
 .crucible.sheet.actor .tab.inventory .item-section,
 .crucible.sheet.actor .tab.talents .item-section,
-.crucible.sheet.actor .tab.skills .item-section {
+.crucible.sheet.actor .tab.skills .item-section,
+.crucible.sheet.actor .tab.spells .item-section {
   padding: 1rem;
 }
 .crucible.sheet.actor .tab.inventory .item-section .notes,
 .crucible.sheet.actor .tab.talents .item-section .notes,
-.crucible.sheet.actor .tab.skills .item-section .notes {
+.crucible.sheet.actor .tab.skills .item-section .notes,
+.crucible.sheet.actor .tab.spells .item-section .notes {
   color: var(--color-tertiary);
 }
 .crucible.sheet.actor .tab.inventory ol.items-list,
 .crucible.sheet.actor .tab.talents ol.items-list,
-.crucible.sheet.actor .tab.skills ol.items-list {
+.crucible.sheet.actor .tab.skills ol.items-list,
+.crucible.sheet.actor .tab.spells ol.items-list {
   width: 100%;
   list-style: none;
   padding: 0;
@@ -1305,7 +1326,8 @@
 }
 .crucible.sheet.actor .tab.inventory ol.items-list li,
 .crucible.sheet.actor .tab.talents ol.items-list li,
-.crucible.sheet.actor .tab.skills ol.items-list li {
+.crucible.sheet.actor .tab.skills ol.items-list li,
+.crucible.sheet.actor .tab.spells ol.items-list li {
   margin: 0;
 }
 .crucible.sheet.actor .tab.skills h4.title {
@@ -1324,14 +1346,15 @@
 }
 .crucible.sheet.actor .tab.skills .bonus {
   flex: 0 0 60px;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 .crucible.sheet.actor .tab.skills .bonus span.value {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 32px;
-  background: url("../ui/elements/hex-plain.svg") no-repeat center;
-  background-size: auto 100%;
+  flex: 0 0 40px;
 }
 .crucible.sheet.actor .tab.skills .bonus span.passive {
   flex: none;
@@ -1371,6 +1394,60 @@
   font-size: var(--font-size-10);
   font-family: var(--font-sans);
   color: var(--color-secondary);
+}
+.crucible.sheet.actor .hex {
+  --hex-bg: url("../ui/elements/hex-plain.svg");
+  --hex-rotation: 0;
+  position: relative;
+}
+.crucible.sheet.actor .hex::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--hex-bg) no-repeat center;
+  background-size: auto 100%;
+  transform: rotate(var(--hex-rotation));
+}
+.crucible.sheet.actor .hex.dexterity-intellect {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: -120deg;
+}
+.crucible.sheet.actor .hex.dexterity-strength {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: -60deg;
+}
+.crucible.sheet.actor .hex.dexterity-presence {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 180deg;
+}
+.crucible.sheet.actor .hex.intellect-presence {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: 180deg;
+}
+.crucible.sheet.actor .hex.intellect-toughness {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: -120deg;
+}
+.crucible.sheet.actor .hex.intellect-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 120deg;
+}
+.crucible.sheet.actor .hex.presence-strength {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 60deg;
+}
+.crucible.sheet.actor .hex.presence-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: 120deg;
+}
+.crucible.sheet.actor .hex.strength-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 0;
+}
+.crucible.sheet.actor .hex.toughness-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 0;
 }
 /* ----------------------------------------- */
 /*  All Items                                */

@@ -1,4 +1,24 @@
 <section class="tab flexcol {{tabs.spells.id}} {{tabs.spells.cssClass}}"
          data-tab="{{tabs.spells.id}}" data-group="{{tabs.spells.group}}">
-    <p>Spells Tab</p>
+
+    {{#each spells as |section id|}}
+    <div class="sheet-section item-section flexcol">
+        <h3 class="section-header">{{section.label}}</h3>
+        <ol class="items-list">
+            {{#each section.known as |item|}}
+            <li class="line-item" data-component="{{item.id}}">
+                <img class="icon" src="{{item.img}}" alt="{{item.name}}">
+                <header>
+                    <h4 class="title">{{item.name}}</h4>
+                    <div class="tags">
+                        {{#each item.tags as |tag|}}<span class="tag">{{tag}}</span>{{/each}}
+                    </div>
+                </header>
+            </li>
+            {{else}}
+            <li class="notes">No {{section.label}} Known.</li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
 </section>

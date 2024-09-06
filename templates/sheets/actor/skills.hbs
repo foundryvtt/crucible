@@ -16,28 +16,27 @@
             <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.name}}">
                 <header>
-                    <h4 class="title" data-tooltip="Roll Check" data-action="skillRoll">{{skill.name}}</h4>
+                    <h4 class="title" data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.name}}</a></h4>
                     <div class="tags">
-                        <span class="rank tag">{{skill.rankName}}</span>
-                        <span class="path tag">{{skill.pathName}}</span>
+                        {{#each skill.rankTags as |tag|}}<span class="rank tag">{{tag}}</span>{{/each}}
                         {{#each skill.abilityAbbrs}}<span class="attribute tag">{{this}}</span>{{/each}}
                     </div>
                 </header>
                 <div class="bonus flexrow">
-                    <span class="value" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
+                    <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
                     <span class="passive" data-tooltip="{{skill.tooltips.passive}}">{{skill.passive}}</span>
                 </div>
                 <div class="ranks flexrow">
-                    <a class="button control icon fa-solid fa-caret-down {{#unless skill.canDecrease}}inactive{{/unless}}"
+                    <a class="button icon fa-solid fa-caret-down {{#unless skill.canDecrease}}invisible{{/unless}}"
                        data-tooltip="Decrease Skill Rank" data-action="skillDecrease"></a>
                     <div class="pips flexrow">
                         {{#each skill.pips}}<span class="pip {{this}}"></span>{{/each}}
                     </div>
-                    <a class="button control icon fa-solid fa-caret-up {{#unless skill.canIncrease}}inactive{{/unless}} increase"
+                    <a class="button icon fa-solid fa-caret-up {{#unless skill.canIncrease}}invisible{{/unless}}"
                        data-tooltip="Increase Skill Rank" data-action="skillIncrease"></a>
                     <span class="cost">{{#if skill.cost}}({{numberFormat skill.cost sign=true}}){{else}}-{{/if}}</span>
                 </div>
-                <a class="button control icon fa-solid fa-cog" data-tooltip="Configure Skill" data-action="skillConfig"></a>
+                <a class="button icon fa-solid fa-cog" data-tooltip="Configure Skill" data-action="skillConfig"></a>
             </li>
             {{/each}}
         </ol>
