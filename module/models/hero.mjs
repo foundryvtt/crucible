@@ -90,7 +90,7 @@ export default class CrucibleHero extends CrucibleActorType {
   /** @override */
   prepareBaseData() {
     this.#prepareAdvancement();
-    this.size = this.details.ancestry.size + this.details.size;
+    this.size = (this.details.ancestry?.size || 3) + this.details.size;
     super.prepareBaseData();
   }
 
@@ -199,7 +199,7 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Adjust base skill rank
     let base = 0;
-    if ( this.details.background?.skills.has(skillId) ) base++;
+    if ( this.details.background?.skills?.has(skillId) ) base++;
     skill.rank = Math.max(skill.rank || 0, base);
 
     // Standard skill preparation
@@ -238,12 +238,12 @@ export default class CrucibleHero extends CrucibleActorType {
 
   /**
    * Apply an Ancestry item to this Hero Actor.
-   * @param {object|null} itemData  The ancestry data to apply to the Actor.
+   * @param {CrucibleItem} ancestry     The ancestry Item to apply to the Actor.
    * @returns {Promise<void>}
    */
-  async applyAncestry(itemData) {
+  async applyAncestry(ancestry) {
     const actor = this.parent;
-    await actor._applyDetailItem(itemData, "ancestry", {
+    await actor._applyDetailItem(ancestry, {
       canApply: actor.isL0 && !actor.points.ability.spent,
       canClear: actor.isL0
     });
@@ -253,12 +253,12 @@ export default class CrucibleHero extends CrucibleActorType {
 
   /**
    * Apply a Background item to this Hero Actor.
-   * @param {object|null} itemData    The background data to apply to the Actor.
+   * @param {CrucibleItem} background     The background Item to apply to the Actor.
    * @returns {Promise<void>}
    */
-  async applyBackground(itemData) {
+  async applyBackground(background) {
     const actor = this.parent;
-    await actor._applyDetailItem(itemData, "background", {
+    await actor._applyDetailItem(background, {
       canApply: actor.isL0 && !actor.points.skill.spent,
       canClear: actor.isL0
     });

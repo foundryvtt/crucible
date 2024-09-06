@@ -136,6 +136,9 @@
     }
   },
   "SHEET": {
+    "BROWSE": "Browse Ancestries",
+    "CHOOSE": "Choose Ancestry",
+    "CLEAR": "Clear Ancestry",
     "ABILITIES": "Ability Scores",
     "RESISTANCES": "Resistances and Vulnerabilities",
     "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
@@ -145,9 +148,6 @@
 },
 
 "ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
-"ANCESTRY.Browse": "Browse Ancestries",
-"ANCESTRY.Clear": "Clear Ancestry",
-"ANCESTRY.None": "Choose Ancestry",
 
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",

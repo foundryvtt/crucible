@@ -26,8 +26,8 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
     // Expand Context
     Object.assign(context, {
-      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.None"),
-      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.None"),
+      ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.CHOOSE"),
+      backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.CHOOSE"),
       talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree"
     });
 
@@ -68,10 +68,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       // case "abilityIncrease":
       //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
-      // case "clearAncestry":
-      //   return this.actor.system.applyAncestry(null);
-      // case "clearBackground":
-      //   return this.actor.system.applyBackground(null);
       // case "levelUp":
       //   game.tooltip.deactivate();
       //   return this.actor.levelUp(1);
@@ -89,25 +85,31 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         return this.actor.toggleTalentTree();
       // case "talentReset":
       //   return this.actor.resetTalents();
-      // case "viewAncestry":
-      //   return this.actor._viewDetailItem("ancestry", {editable: false});
-      // case "viewBackground":
-      //   return this.actor._viewDetailItem("background", {editable: false});
+      case "viewAncestry":
+        await this.actor._viewDetailItem("ancestry", {editable: false});
+        break;
+      case "viewBackground":
+        await this.actor._viewDetailItem("background", {editable: false});
+        break;
     }
   }
 
   /* -------------------------------------------- */
 
-  // /** @override */
-  // async _onDropItemCreate(itemData) {
-  //   switch (itemData.type) {
-  //     case "ancestry":
-  //       return this.actor.system.applyAncestry(itemData);
-  //     case "background":
-  //       return this.actor.system.applyBackground(itemData);
-  //     case "talent":
-  //       return ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
-  //   }
-  //   return super._onDropItemCreate(itemData);
-  // }
+  /** @inheritDoc */
+  async _onDropItem(event, item) {
+    if ( !this.actor.isOwner ) return;
+    switch (item.type) {
+      case "ancestry":
+        await this.actor.system.applyAncestry(item);
+        return;
+      case "background":
+        await this.actor.system.applyBackground(item);
+        return;
+      case "talent":
+        ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
+        return;
+    }
+    return super._onDropItem(event, item);
+  }
 }

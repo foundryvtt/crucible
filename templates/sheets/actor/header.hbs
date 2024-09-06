@@ -12,21 +12,11 @@
     <div class="subtitle flexrow">
         <h2 class="ancestry flexrow {{#if incomplete.ancestry}}inactive{{/if}}" data-action="viewAncestry"
             {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
-            {{ancestryName}}
-            {{#if incomplete.ancestry}}
-            <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="ANCESTRY.Browse"></i>
-            {{else if isL0}}
-            <i class="control fas fa-times-circle" data-action="clearAncestry" data-tooltip="ANCESTRY.Clear"></i>
-            {{/if}}
+            <a>{{#if incomplete.ancestry}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{ancestryName}}</a>
         </h2>
         <h2 class="background flexrow {{#if incomplete.background}}inactive{{/if}}" data-action="viewBackground"
             {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
-            {{backgroundName}}
-            {{#if incomplete.background}}
-            <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="BACKGROUND.Browse"></i>
-            {{else if isL0}}
-            <i class="control fas fa-times-circle" data-action="clearBackground" data-tooltip="BACKGROUND.Clear"></i>
-            {{/if}}
+            <a>{{#if incomplete.background}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{backgroundName}}</a>
         </h2>
         {{#if actor.system.details.signatureName}}
         <h2 class="signature">{{actor.system.details.signatureName}}</h2>

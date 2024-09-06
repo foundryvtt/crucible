@@ -609,7 +609,7 @@ export default class CrucibleActor extends Actor {
 
     // Identify permanent talents from a background, taxonomy, archetype, etc...
     this.permanentTalentIds = new Set();
-    if ( details.background ) {
+    if ( details.background?.talents ) {
       details.background.talents = details.background.talents.map(uuid => {
         const talentId = foundry.utils.parseUuid(uuid)?.documentId;
         if ( talentId ) this.permanentTalentIds.add(talentId);
@@ -1758,26 +1758,27 @@ export default class CrucibleActor extends Actor {
   /**
    * Apply actor detail data.
    * This is an internal helper method not intended for external use.
-   * @param {CrucibleItem|object|null} item    An Item document, object of Item data, or null to clear data
-   * @param {string} type                     The data type, either "archetype" or "taxonomy"
+   * @param {CrucibleItem} item               An Item document, object of Item data, or null to clear data
    * @param {object} [options]                Options which affect how details are applied
    * @param {boolean} [options.canApply]        Allow new detail data to be applied?
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, type, {canApply=true, canClear=false}={}) {
-    canApply = true;
-    if ( !(type in this.system.details) ) {
+  async _applyDetailItem(item, {canApply=true, canClear=false}={}) {
+    const type = item.type;
+    if ( !canApply ) {
+      throw new Error(`You are not allowed to apply this ${type} item to Actor type ${this.type}`);
+    }
+    if ( !(item.type in this.system.details) ) {
       throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
     }
-    if ( (item === null) && !canClear ) {
+    if ( !item && !canClear ) {
       throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
     }
     if ( item && !canApply ) {
       throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
     }
-    if ( item && (item.type !== type) ) throw new Error(`You must provide a "${type}" item.`);
 
     // Prepare data
     const key = `system.details.${type}`;
@@ -1792,11 +1793,11 @@ export default class CrucibleActor extends Actor {
     }
 
     // Clear the detail data
-    if ( item === null ) updateData[key] = null;
+    if ( !item ) updateData[key] = null;
 
     // Add new detail data
     else {
-      const itemData = item instanceof Item ? item.toObject() : foundry.utils.deepClone(item);
+      const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
       if ( detail.talents?.length ) {
         updateData.items = [];
@@ -1844,8 +1845,10 @@ export default class CrucibleActor extends Actor {
     }
 
     // Browse compendium pack
-    const pack = game.packs.get(SYSTEM.COMPENDIUM_PACKS[type]);
-    pack.render(true);
+    if ( this.isL0 || !data?.name ) {
+      const pack = game.packs.get(SYSTEM.COMPENDIUM_PACKS[type]);
+      pack.render(true);
+    }
   }
 
   /* -------------------------------------------- */
