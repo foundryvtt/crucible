@@ -1,11 +1,8 @@
-import CrucibleSheetMixin from "./crucible-sheet.mjs";
-
 /**
  * Define a custom JournalSheet class used for the Crucible rules journal entries.
  * @extends JournalSheet
- * @mixes CrucibleSheet
  */
-export default class CrucibleJournalSheet extends CrucibleSheetMixin(JournalSheet) {
+export default class CrucibleJournalSheet extends JournalSheet {
 
   /** @override */
   static get defaultOptions() {

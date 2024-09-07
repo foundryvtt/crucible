@@ -1620,12 +1620,20 @@
  *  Journal Sheet                             *
  * ------------------------------------------ */
 .crucible.journal-sheet {
-  background: url("../ui/journal/background-texture.webp") repeat;
+  --background-overlay: url("../ui/journal/overlay-dark.webp");
+  --background-texture: url("../ui/journal/background-texture.webp");
+  background: var(--background-texture) repeat;
 }
-.crucible.journal-sheet .background-overlay {
+.crucible.journal-sheet::before {
+  display: block;
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
+  background: var(--background-overlay) no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  opacity: 0.75;
   z-index: -1;
 }
 .crucible.journal-sheet .window-content {
