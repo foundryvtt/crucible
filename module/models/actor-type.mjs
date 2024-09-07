@@ -78,8 +78,9 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
     // Movement Attributes
     schema.movement = new fields.SchemaField({
-      stride: new fields.NumberField({...requiredInteger, initial: 4, min: 0}),
-      engagement: new fields.NumberField({...requiredInteger, initial: 1, min: 0})
+      sizeBonus: new fields.NumberField({...requiredInteger, initial: 0}),
+      strideBonus: new fields.NumberField({...requiredInteger, initial: 0}),
+      engagementBonus: new fields.NumberField({...requiredInteger, initial: 0})
     });
 
     // Status
@@ -343,13 +344,13 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Preparation of movement for all Actor subtypes.
+   * Preparation of derived movement for all Actor subtypes.
    */
   #prepareMovement() {
-    const movement = this.movement;
-    movement.free = movement.stride;
-    movement.engagement = Math.max(this.size - 2, 0);
+    const m = this.movement;
+    m.free = m.stride;
+    m.engagement = Math.max(m.size - 2, 0);
     const {shield, offhand} = this.parent.equipment.weapons;
-    if ( shield && offhand.system.properties.has("engaging") ) movement.engagement += 1;
+    if ( shield && offhand.system.properties.has("engaging") ) m.engagement += 1;
   }
 }

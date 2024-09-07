@@ -72,20 +72,32 @@
         "weight": {
           "label": "Weight"
         }
-      },
-      "size": {
-        "label": "Size Modifier",
-        "hint": "A modifier which increases or decreases the character's size relative to their base size."
       }
     },
     "movement": {
+      "size": {
+        "label": "Size",
+        "tooltip": "The number of grid spaces squared occupied by this creature."
+      },
+      "sizeBonus": {
+        "label": "Size Bonus",
+        "hint": "An additive modifier to the base size of the creature defined by Ancestry or Taxonomy."
+      },
       "stride": {
         "label": "Stride",
-        "tooltip": "Movement Distance per AP"
+        "tooltip": "Movement distance per spent Action Point."
+      },
+      "strideBonus": {
+        "label": "Stride Bonus",
+        "hint": "An additive modifier to Stride speed of the Actor defined by Ancestry or Taxonomy."
       },
       "engagement": {
-        "label": "Engage",
+        "label": "Engagement",
         "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
+      },
+      "engagementBonus": {
+        "label": "Engagement Bonus",
+        "hint": "An additive modifier to base engagement."
       }
     }
   },
@@ -116,7 +128,11 @@
     },
     "size": {
       "label": "Size",
-      "tooltip": "Ancestry Size in Grid Spaces"
+      "hint": "The size of this ancestry in grid spaces."
+    },
+    "stride": {
+      "label": "Stride",
+      "hint": "The starting movement speed of this Ancestry in grid spaces."
     },
     "primary": {
       "label": "Primary Ability",

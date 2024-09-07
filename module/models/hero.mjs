@@ -30,7 +30,6 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Details
     schema.details = new fields.SchemaField({
-      size: new fields.NumberField({required: true, integer: true, nullable: false, initial: 0}),
       ancestry: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
@@ -91,7 +90,20 @@ export default class CrucibleHero extends CrucibleActorType {
   prepareBaseData() {
     this.#prepareAdvancement();
     this.size = (this.details.ancestry?.size || 3) + this.details.size;
+    this.#prepareBaseMovement();
     super.prepareBaseData();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare base movement attributes that are defined by the Hero's Ancestry and bonuses.
+   */
+  #prepareBaseMovement() {
+    const m = this.movement;
+    const {size=3, stride=4} = this.details.ancestry || {};
+    m.size = size + m.sizeBonus;
+    m.stride = stride + m.strideBonus;
   }
 
   /* -------------------------------------------- */
@@ -126,9 +138,6 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Threat level, for comparison vs. adversaries
     this.details.threatLevel = this.details.fractionLevel = this.advancement.level;
-
-    // All protagonists are "medium" stature, for now
-    this.details.stature = "medium";
 
     // Base Resistances
     const res = this.resistances;

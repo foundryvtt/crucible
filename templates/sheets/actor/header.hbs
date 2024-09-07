@@ -10,11 +10,11 @@
     </header>
 
     <div class="subtitle flexrow">
-        <h2 class="ancestry flexrow {{#if incomplete.ancestry}}inactive{{/if}}" data-action="viewAncestry"
+        <h2 class="ancestry flexrow {{#if incomplete.ancestry}}inactive{{/if}}" data-action="chooseAncestry"
             {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
             <a>{{#if incomplete.ancestry}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{ancestryName}}</a>
         </h2>
-        <h2 class="background flexrow {{#if incomplete.background}}inactive{{/if}}" data-action="viewBackground"
+        <h2 class="background flexrow {{#if incomplete.background}}inactive{{/if}}" data-action="chooseBackground"
             {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
             <a>{{#if incomplete.background}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{backgroundName}}</a>
         </h2>

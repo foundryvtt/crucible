@@ -151,11 +151,11 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * The size of the actor.
+   * A convenience reference to the size of the Actor.
    * @type {number}
    */
   get size() {
-    return this.system.size;
+    return this.system.movement.size;
   }
 
   /**

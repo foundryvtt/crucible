@@ -1,6 +1,12 @@
 <section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
-    {{log fields}}
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "ANCESTRY.SHEET.STATURE"}}</legend>
+        {{formField fields.size value=source.system.size}}
+        {{formField fields.stride value=source.system.stride}}
+    </fieldset>
+
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "ANCESTRY.SHEET.ABILITIES"}}</legend>
         {{formField fields.primary value=source.system.primary}}

@@ -10,6 +10,11 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   static DEFAULT_OPTIONS = {
     actor: {
       type: "hero"
+    },
+    actions: {
+      editAncestry: HeroSheet.#onEditAncestry,
+      editBackground: HeroSheet.#onEditBackground,
+      levelUp: HeroSheet.#onLevelUp
     }
   };
 
@@ -68,9 +73,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
       // case "abilityIncrease":
       //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
-      // case "levelUp":
-      //   game.tooltip.deactivate();
-      //   return this.actor.levelUp(1);
       case "skillConfig":
         const skillConfig = new SkillConfig({document: this.actor, skillId: target.closest(".skill").dataset.skill})
         await skillConfig.render({force: true});
@@ -85,12 +87,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         return this.actor.toggleTalentTree();
       // case "talentReset":
       //   return this.actor.resetTalents();
-      case "viewAncestry":
-        await this.actor._viewDetailItem("ancestry", {editable: false});
-        break;
-      case "viewBackground":
-        await this.actor._viewDetailItem("background", {editable: false});
-        break;
     }
   }
 
@@ -112,4 +108,44 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     }
     return super._onDropItem(event, item);
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click action to level up.
+   * @this {HeroSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onLevelUp(event) {
+    game.tooltip.deactivate();
+    await this.actor.levelUp(1);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click action to choose or edit your Ancestry.
+   * @this {HeroSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEditAncestry(event) {
+    await this.actor._viewDetailItem("ancestry", {editable: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click action to choose or edit your Background.
+   * @this {HeroSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEditBackground(event) {
+    await this.actor._viewDetailItem("background", {editable: false});
+  }
+
+  /* -------------------------------------------- */
+
 }
