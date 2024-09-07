@@ -4,7 +4,8 @@
 /*  All Items                                */
 /* ----------------------------------------- */
 
-.crucible.item {
+.crucible.item,
+.crucible.action {
   --margin-size: 1rem;
   --margin-half: calc(var(--margin-size) / 2);
 
@@ -142,6 +143,19 @@
     }
     .talent + .droppable {
       display: none;
+    }
+  }
+}
+
+/** ----------------------------------------- *
+ *  Action                                    *
+ * ------------------------------------------ */
+
+.crucible.action {
+  fieldset.hook label {
+    gap: 0.25rem;
+    button {
+      flex: 0;
     }
   }
 }

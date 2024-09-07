@@ -1,0 +1,10 @@
+<fieldset class="hook">
+    <div class="form-group stacked">
+        <label class="flexrow">
+            <code>{{localize hook.label}}</code>
+            <button type="button" class="icon frame-brown fa-solid fa-times" data-action="deleteHook"></button>
+        </label>
+        <input type="hidden" name="actionHooks.{{i}}.hook" value="{{hook.hook}}">
+        <textarea name="actionHooks.{{i}}.fn" rows="6" {{#if disableHooks}}disabled{{/if}}>{{hook.fn~}}</textarea>
+    </div>
+</fieldset>

@@ -50,6 +50,102 @@
 "ADVERSARY.ThreatElite": "Elite",
 "ADVERSARY.ThreatBoss": "Boss",
 
+"ACTION": {
+  "FIELDS": {
+    "cost": {
+      "label": "Action Cost",
+      "hint": "Configure the cost of using this action in Action Points, Focus Points, or Heroism.",
+      "action": {
+        "label": "Action",
+        "hint": "The base cost of this action in Action points."
+      },
+      "focus": {
+        "label": "Focus",
+        "hint": "The base cost of this action in Focus points."
+      },
+      "heroism": {
+        "label": "Heroism",
+        "hint": "The base cost of this action in Heroism points."
+      },
+      "weapon": {
+        "label": "Add Weapon Cost",
+        "hint": "Is the equipped weapon's Action Point cost added to the cost for this Action?"
+      }
+    },
+    "id": {
+      "label": "Identifier",
+      "hint": "Provide a standardized camel-case alphanumeric identifier for this action. This identifier should be unique across all actions in the system."
+    },
+    "condition": {
+      "label": "Triggering Condition",
+      "hint": "Additional reference text which clarifies the prerequisite triggering conditions under which an action may be used."
+    },
+    "description": {
+      "label": "Action Description",
+      "hint": "A text description of how the action functions mechanically."
+    },
+    "tags": {
+      "label": "Action Tags",
+      "hint": "Add tags which define the requirements, behavior, and modifiers of this action. The order of tags matters as later tags will take priority over earlier ones if they modify the same properties of the action."
+    },
+    "target": {
+      "label": "Action Target",
+      "scope": {
+        "label": "Affected Scope",
+        "hint": "Which disposition of targets are affected by this action?"
+      },
+      "type": {
+        "label": "Target Type",
+        "hint": "Which type of target or area is affected by this action?"
+      },
+      "number": {
+        "label": "Target Number",
+        "hint": "How many of the selected target type are affected by this action?"
+      },
+      "size": {
+        "label": "Target Size",
+        "hint": "Certain target types are further modified by a size in feet."
+      },
+      "limit": {
+        "label": "Maximum Targets",
+        "hint": "Limit the effect of this action to a maximum number of individual target characters? By default, all targets will be affected."
+      },
+      "multiple": {
+        "label": "Multiple Applications",
+        "hint": "Apply the effects of this action multiple times per target? By default, the action will apply once per target."
+      }
+    },
+    "range": {
+      "label": "Action Range",
+      "hint": "Define a minimum or maximum range in feet at which this action may be performed.",
+      "minimum": {
+        "label": "Minimum"
+      },
+      "maximum": {
+        "label": "Maximum"
+      },
+      "weapon": {
+        "label": "Use Weapon Range",
+        "hint": "The range of this action is defined by the effective range of the used weapon."
+      }
+    },
+    "actionHooks": {
+      "label": "Action Hooks",
+      "hint": "BEWARE! Action hooks are an ADVANCED feature for automating action mechanics. Mis-configuring these hooks can have serious consequences. Do not attempt to make changes unless you are confident in your own knowledge."
+    }
+  },
+  "SHEET": {
+    "TITLE": "Action"
+  },
+  "TABS": {
+    "DESCRIPTION": "Description",
+    "USAGE": "Usage",
+    "TARGET": "Target",
+    "EFFECTS": "Effects",
+    "HOOKS": "Hooks"
+  }
+},
+
 "ACTOR": {
   "FIELDS": {
     "details": {
@@ -93,6 +189,7 @@
       },
       "engagement": {
         "label": "Engagement",
+        "labelShort": "Engage",
         "tooltip": "Number of Enemies Engaged<br>(Size - 2) + Engagement Bonus"
       },
       "engagementBonus": {

@@ -27,7 +27,6 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
     form: {
       submitOnChange: true
     },
-
   };
 
   /** @override */

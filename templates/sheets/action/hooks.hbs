@@ -1,0 +1,21 @@
+<section class="tab sheet-body flexcol {{tabs.hooks.cssClass}}"
+         data-group="{{tabs.hooks.group}}" data-tab="{{tabs.hooks.id}}">
+
+    {{#each actionHooks as |hook i|}}
+    {{> (lookup @root "hookPartial") hook=hook i=i disableHooks=@root.disableHooks}}
+    {{/each}}
+
+    {{#unless disableHooks}}
+    <fieldset class="add-hook">
+        <legend>{{fields.actionHooks.label}}</legend>
+        <div class="form-group">
+            <label>Add Hook</label>
+            <div class="form-fields">
+                <select>{{selectOptions actionHookChoices blank=""}}</select>
+                <button type="button" class="icon frame-brown fa-solid fa-plus" data-action="addHook" data-tooltip="Add Hook"></button>
+            </div>
+        </div>
+        <p class="hint">{{fields.actionHooks.hint}}</p>
+    </fieldset>
+    {{/unless}}
+</section>

@@ -1,0 +1,10 @@
+<section class="tab sheet-body flexcol {{tabs.effects.cssClass}}"
+         data-group="{{tabs.effects.group}}" data-tab="{{tabs.effects.id}}">
+    <button type="button" class="frame-brown" data-action="addEffect">
+        <i class="fa-solid fa-plus"></i>
+        <span>{{localize "ACTION.EFFECTS.Add"}}</span>
+    </button>
+    {{#each effects as |effect i|}}
+    {{> (lookup @root "effectPartial") effect=effect i=i targetScopes=@root.targetScopes}}
+    {{/each}}
+</section>

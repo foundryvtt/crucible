@@ -1,96 +1,179 @@
-import CrucibleSheetMixin from "../sheets/crucible-sheet.mjs";
+const {api} = foundry.applications;
 import CrucibleItem from "../../documents/item.mjs";
 
 /**
  * A configuration application used to configure an Action inside a Talent.
- * TODO ApplicationV2
- * @extends DocumentSheet
- * @mixes CrucibleSheet
+ * This application is used to configure an Action that is owned by an Item.
+ * @extends {DocumentSheetV2}
+ * @mixes {HandlebarsApplication}
  */
-export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
-  constructor(action, options) {
-    if ( !(action.parent.parent instanceof CrucibleItem) ) {
+export default class ActionConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
+  constructor({action, ...options}={}) {
+    const document = action.parent.parent;
+    if ( !(document instanceof CrucibleItem) ) {
       throw new Error("You may only use the ActionConfig sheet to configure an Action that belongs to an Item.");
     }
-    super(action.parent.parent, options);
+    super({document, ...options});
     this.action = action;
-    this.talent = action.parent;
+    this.talent = action.parent; // TODO is this right? What about actions on Weapons?
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  static documentType = "action";
-
-  /* -------------------------------------------- */
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["crucible", "action", "standard-form"],
+    tag: "form",
+    position: {width: 600, height: "auto"},
+    actions: {
+      editImage: ActionConfig.#onEditImage,
+      addEffect: ActionConfig.#onAddEffect,
+      deleteEffect: ActionConfig.#onDeleteEffect,
+      addHook: ActionConfig.#onAddHook,
+      deleteHook: ActionConfig.#onDeleteHook
+    },
+    form: {
+      submitOnChange: true
+    },
+    sheetConfig: false
+  };
 
   /**
-   * Template partials used within this application
-   * @type {{effect: string}}
+   * A template partial used for rendering an Active Effect inside an Action.
+   * @type {string}
    */
-  static partials = {
-    effect: "systems/crucible/templates/config/partials/action-effect.hbs"
-  }
+  static ACTIVE_EFFECT_PARTIAL = "systems/crucible/templates/sheets/action/effect.hbs";
 
-  /* -------------------------------------------- */
+  /**
+   * A template partial used for rendering a Hook inside an Action.
+   * @type {string}
+   */
+  static HOOK_PARTIAL = "systems/crucible/templates/sheets/action/hook.hbs";
 
   /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: `systems/${SYSTEM.id}/templates/config/action.hbs`,
-      width: 520,
-      tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "usage"}]
-    });
+  static PARTS = {
+    header: {
+      id: "header",
+      template: "systems/crucible/templates/sheets/action/header.hbs",
+    },
+    tabs: {
+      id: "tabs",
+      template: "templates/generic/tab-navigation.hbs"
+    },
+    description: {
+      id: "description",
+      template: "systems/crucible/templates/sheets/action/description.hbs",
+    },
+    usage: {
+      id: "usage",
+      template: "systems/crucible/templates/sheets/action/usage.hbs",
+    },
+    target: {
+      id: "target",
+      template: "systems/crucible/templates/sheets/action/target.hbs",
+    },
+    effects: {
+      id: "effects",
+      template: "systems/crucible/templates/sheets/action/effects.hbs",
+      templates: [ActionConfig.ACTIVE_EFFECT_PARTIAL]
+    },
+    hooks: {
+      id: "hooks",
+      template: "systems/crucible/templates/sheets/action/hooks.hbs",
+      templates: [ActionConfig.HOOK_PARTIAL]
+    }
+  };
+
+  /**
+   * Define the structure of tabs used by this Action Sheet.
+   * @type {Record<string, Array<Record<string, ApplicationTab>>>}
+   */
+  static TABS = {
+    sheet: [
+      {id: "description", group: "sheet", icon: "fa-solid fa-book", label: "ACTION.TABS.DESCRIPTION"},
+      {id: "usage", group: "sheet", icon: "fa-solid fa-cogs", label: "ACTION.TABS.USAGE"},
+      {id: "target", group: "sheet", icon: "fa-solid fa-bullseye", label: "ACTION.TABS.TARGET"},
+      {id: "effects", group: "sheet", icon: "fa-solid fa-hourglass-clock", label: "ACTION.TABS.EFFECTS"},
+      {id: "hooks", group: "sheet", icon: "fa-solid fa-code", label: "ACTION.TABS.HOOKS"}
+    ]
   }
 
+  /** @override */
+  tabGroups = {
+    sheet: "description"
+  };
 
   /* -------------------------------------------- */
   /** @override */
   get title() {
-    return `[${game.i18n.localize("ACTION.Action")}] ${this.action.name}`;
+    return `${game.i18n.localize("ACTION.SHEET.TITLE")}: ${this.action.name}`;
   }
 
   /* -------------------------------------------- */
+  /*  Rendering                                   */
+  /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
-    await loadTemplates(Object.values(this.constructor.partials));
+  async _prepareContext(_options) {
     const action = this.action.toObject();
-    action.name ||= this.object.name;
-    action.img ||= this.object.img;
+    action.name ||= this.document.name;
+    action.img ||= this.document.img;
     return {
       action,
       editable: this.isEditable,
-      tags: this.#prepareTags(),
       actionHookChoices: Object.keys(SYSTEM.ACTION_HOOKS).reduce((obj, k) => {
         obj[k] = k;
         return obj;
       }, {}),
-      showHooks: game.user.isGM,
+      disableHooks: !game.user.isGM,
       actionHooks: this.#prepareActionHooks(),
+      fields: this.action.constructor.schema.fields,
+      tabs: this.#prepareTabs().sheet,
+      headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
+      tags: this.#prepareTags(),
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       effects: this.#prepareEffects(),
-      partials: this.constructor.partials
+      effectPartial: ActionConfig.ACTIVE_EFFECT_PARTIAL,
+      hookPartial: ActionConfig.HOOK_PARTIAL
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Configure the tabs used by this sheet.
+   * @returns {Record<string, Record<string, ApplicationTab>>}
+   */
+  #prepareTabs() {
+    const tabs = {};
+    for ( const [groupId, config] of Object.entries(this.constructor.TABS) ) {
+      const group = {};
+      for ( const t of config ) {
+        const active = this.tabGroups[t.group] === t.id;
+        group[t.id] = Object.assign({active, cssClass: active ? "active" : ""}, t);
+      }
+      tabs[groupId] = group;
+    }
+    if ( !game.user.isGM ) delete tabs.sheet.hooks;
+    return tabs;
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare tag options and selections for the Action.
-   * @returns {Object<string, {label: string, tags: {value: string, label: string, selected: boolean}[]}[]>}
+   * @returns {FormSelectOption[]>}
    */
   #prepareTags() {
-    const groups = {};
-    for ( const [category, {label}] of Object.entries(SYSTEM.ACTION.TAG_CATEGORIES) ) {
-      groups[category] = {label, tags: []};
+    const tags = [];
+    for ( const t of Object.values(SYSTEM.ACTION.TAGS) ) {
+      const cat = SYSTEM.ACTION.TAG_CATEGORIES[t.category];
+      const group = cat?.label;
+      const selected = this.action.tags.has(t.tag);
+      tags.push({value: t.tag, label: t.label, group, selected});
     }
-    for ( const {tag, label, category} of Object.values(SYSTEM.ACTION.TAGS) ) {
-      const cat = groups[category];
-      cat.tags.push({value: tag, label, selected: this.action.tags.has(tag) ? "selected" : ""});
-    }
-    return groups;
+    return tags;
   }
 
   /* -------------------------------------------- */
@@ -124,61 +207,102 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
   #prepareActionHooks() {
     return this.action.actionHooks.map(h => {
       const cfg = SYSTEM.ACTION_HOOKS[h.hook];
-      const args = ["action", ...cfg.argNames];
-      const label = `${cfg.async ? "async " : ""}${h.hook}(action, ${args.join(", ")})`;
+      const label = this.#getHookLabel(h.hook, cfg);
       return {label, ...h};
     });
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _getSubmitData(updateData) {
-    const formData = foundry.utils.expandObject(super._getSubmitData(updateData));
-    formData.actionHooks = Object.values(formData.actionHooks || {});
-    formData.effects = Object.values(formData.effects || {});
-    if ( formData.name === this.object.name ) formData.name = "";
-    if ( formData.img === this.object.img ) formData.img = "";
-    return formData;
+  #getHookLabel(hookId, cfg) {
+    const args = ["action", ...cfg.argNames].join(", ");
+    return `${cfg.async ? "async " : ""}${hookId}(${args})`;
+  }
+
+  /* -------------------------------------------- */
+  /*  Form Submission                             */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onChangeForm(formConfig, event) {
+    if ( !event.target.name ) return;
+    return super._onChangeForm(formConfig, event);
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _updateObject(event, formData) {
+  _processFormData(event, form, formData) {
+    const submitData = foundry.utils.expandObject(formData.object);
+    submitData.actionHooks = Object.values(submitData.actionHooks || {});
+    submitData.effects = Object.values(submitData.effects || {});
+    const actions = this.document.toObject().system.actions;
     try {
-      this.action.updateSource(formData);
+      const a = this.action.clone();
+      a.updateSource(submitData);
+      actions.findSplice(a => a.id === this.action.id, a.toObject());
     } catch(err) {
-      return ui.notifications.error(`Invalid Action update: ${err.message}`);
+      throw new Error("Invalid Action Update", {cause: err});
     }
-    const actions = this.object.toObject().system.actions;
-    actions.findSplice(a => a.id === this.action.id, this.action.toObject());
-    return this.object.update({"system.actions": actions}, {diff: false});
+    return {system: {actions}};
   }
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async _handleAction(action, event, button) {
-    switch ( action ) {
-      case "addEffect":
-        return this.#onAddEffect(event, button);
-      case "deleteEffect":
-        return this.#onDeleteEffect(event, button);
-      case "addHook":
-        return this.#onAddHook(event, button);
-      case "deleteHook":
-        return this.#onDeleteHook(event, button);
-    }
+  /**
+   * Submit a document update based on the processed form data.
+   * @param {SubmitEvent} event                   The originating form submission event
+   * @param {HTMLFormElement} form                The form element that was submitted
+   * @param {object} submitData                   Processed and validated form data to be used for a document update
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _processSubmitData(event, form, submitData) {
+    await this.document.update(submitData, {diff: false});
+    this.action = this.document.system.actions.find(a => a.id === this.action.id);
+    await this.render();
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /**
+   * Edit the Action image.
+   * TODO Port this to DocumentSheetV2 and remove this in V13.
+   * @this {ActionConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEditImage(event) {
+    const attr = event.target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document, attr);
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      callback: path => {
+        event.target.src = path;
+        if ( this.options.form.submitOnChange ) {
+          const submit = new Event("submit");
+          this.element.dispatchEvent(submit);
+        }
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10
+    });
+    await fp.browse();
   }
 
   /* -------------------------------------------- */
 
   /**
    * Add a status effect to the Action.
+   * @this {ActionConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
    */
-  async #onAddEffect(event,button) {
-    const html = await renderTemplate(this.constructor.partials.effect, {
+  static async #onAddEffect(event) {
+    const html = await renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, {
       i: foundry.utils.randomID(), // Could be anything
       effect: {
         scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
@@ -190,50 +314,63 @@ export default class ActionConfig extends CrucibleSheetMixin(DocumentSheet) {
       },
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices
     });
-    const section = button.parentElement;
+    const section = event.target.parentElement;
     section.insertAdjacentHTML("beforeend", html);
-    this.setPosition({height: "auto"});
+    const submit = new Event("submit");
+    this.element.dispatchEvent(submit);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Delete a status effect from the Action.
+   * @this {ActionConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
    */
-  #onDeleteEffect(event, button) {
-    const fieldset = button.closest("fieldset.effect");
+  static async #onDeleteEffect(event) {
+    const fieldset = event.target.closest("fieldset.effect");
     fieldset.remove();
-    this.setPosition({height: "auto"});
+    const submit = new Event("submit");
+    this.element.dispatchEvent(submit);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Add a new hook function to the Action.
-   * @returns {Promise<CrucibleItem|null>}
+   * @this {ActionConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
    */
-  #onAddHook(event, button) {
-    const hook = button.previousElementSibling.value;
-    const fd = this._getSubmitData({});
-    fd.actionHooks ||= [];
-    if ( fd.actionHooks.find(h => h.hook === hook ) ) {
-      ui.notifications.warn(`${this.object.name} already declares a function for the "${hook}" hook.`);
-      return null;
-    }
-    fd.actionHooks.push({hook, fn: "// Hook code here"});
-    return this._updateObject(event, fd);
+  static async #onAddHook(event) {
+    const hookId = event.target.previousElementSibling.value;
+    const html = await renderTemplate(this.constructor.HOOK_PARTIAL, {
+      i: foundry.utils.randomID(), // Could be anything
+      hook: {
+        label: this.#getHookLabel(hookId, SYSTEM.ACTION_HOOKS[hookId]),
+        hook: hookId,
+        fn: "// Hook code here"
+      }
+    });
+    const section = event.target.closest("fieldset");
+    section.insertAdjacentHTML("beforebegin", html);
+    const submit = new Event("submit");
+    this.element.dispatchEvent(submit);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Delete a hook function from the Action.
-   * @returns {Promise<CrucibleItem|null>}
+   * @this {ActionConfig}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
    */
-  #onDeleteHook(event, button) {
-    const hook = button.closest(".form-group").querySelector(`input[type="hidden"]`).value;
-    const fd = this._getSubmitData({});
-    fd.actionHooks.findSplice(h => h.hook === hook);
-    return this._updateObject(event, fd);
+  static async #onDeleteHook(event) {
+    const hook = event.target.closest(".hook");
+    hook.remove();
+    const submit = new Event("submit");
+    this.element.dispatchEvent(submit);
   }
 }

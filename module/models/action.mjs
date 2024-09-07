@@ -106,11 +106,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
         weapon: new fields.BooleanField({initial: false})
       }),
       range: new fields.SchemaField({
-        minimum: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
-        maximum: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
+        minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
+        maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
         weapon: new fields.BooleanField({initial: false})
       }),
       target: new fields.SchemaField({
@@ -118,8 +119,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         number: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
         size: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         multiple: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
-        scope: new fields.NumberField({required: true, choices: Object.values(SYSTEM.ACTION.TARGET_SCOPES),
-          initial: SYSTEM.ACTION.TARGET_SCOPES.NONE}),
+        scope: new fields.NumberField({required: true, initial: SYSTEM.ACTION.TARGET_SCOPES.NONE,
+          choices: SYSTEM.ACTION.TARGET_SCOPES.choices}),
         limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
       }),
       effects: new fields.ArrayField(new fields.ObjectField()),
@@ -130,6 +131,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }))
     }
   }
+
+  /**
+   * A set of localization prefix paths which are used by this data model.
+   * @type {string[]}
+   */
+  static LOCALIZATION_PREFIXES = ["ACTION"];
 
   /**
    * A temporary MeasuredTemplate object used to establish targets for this action.
@@ -154,7 +161,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {*}
    */
   get sheet() {
-    this.#sheet ||= new ActionConfig(this);
+    this.#sheet ||= new ActionConfig({action: this});
     return this.#sheet;
   }
 

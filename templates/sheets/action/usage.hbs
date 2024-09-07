@@ -1,0 +1,15 @@
+<section class="tab sheet-body flexcol {{tabs.usage.cssClass}}"
+         data-group="{{tabs.usage.group}}" data-tab="{{tabs.usage.id}}">
+    <fieldset>
+        <legend>{{fields.tags.label}}</legend>
+        {{formField fields.tags label="" value=action.tags options=tags}}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{fields.cost.label}}</legend>
+        {{formField fields.cost.fields.action value=action.cost.action}}
+        {{formField fields.cost.fields.focus value=action.cost.focus}}
+        {{formField fields.cost.fields.heroism value=action.cost.heroism}}
+        {{formField fields.cost.fields.weapon value=action.cost.weapon}}
+    </fieldset>
+</section>

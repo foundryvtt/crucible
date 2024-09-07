@@ -163,7 +163,7 @@ export default function CrucibleSheetMixin(Base) {
       await this._updateObject(event, fd);
 
       // Render the action configuration sheet
-      await (new ActionConfig(action)).render(true);
+      await (new ActionConfig({action})).render({force: true});
     }
 
     /* -------------------------------------------- */
@@ -201,7 +201,7 @@ export default function CrucibleSheetMixin(Base) {
     async #onActionEdit(event, button) {
       const actionId = button.closest(".action").dataset.actionId;
       const action = this.object.system.actions.find(a => a.id === actionId);
-      await (new ActionConfig(action)).render(true);
+      await (new ActionConfig({action})).render({force: true});
     }
   }
 }

@@ -521,6 +521,9 @@
   font-family: var(--font-h1);
   color: var(--color-secondary);
 }
+.crucible.sheet nav.sheet-tabs > a {
+  padding: 8px 0;
+}
 .crucible.sheet .sheet-body {
   gap: 1rem;
 }
@@ -1453,33 +1456,43 @@
 /* ----------------------------------------- */
 /*  All Items                                */
 /* ----------------------------------------- */
-.crucible.item {
+.crucible.item,
+.crucible.action {
   --margin-size: 1rem;
   --margin-half: calc(var(--margin-size) / 2);
 }
-.crucible.item .sheet-body {
+.crucible.item .sheet-body,
+.crucible.action .sheet-body {
   padding: var(--margin-size);
 }
-.crucible.item .item-properties {
+.crucible.item .item-properties,
+.crucible.action .item-properties {
   display: grid;
   gap: 0.5rem 1rem;
 }
-.crucible.item .item-properties multi-checkbox {
+.crucible.item .item-properties multi-checkbox,
+.crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
 }
 .crucible.item .line-item.action,
-.crucible.item .line-item.talent {
+.crucible.action .line-item.action,
+.crucible.item .line-item.talent,
+.crucible.action .line-item.talent {
   flex-direction: column;
 }
 .crucible.item .line-item.action header,
-.crucible.item .line-item.talent header {
+.crucible.action .line-item.action header,
+.crucible.item .line-item.talent header,
+.crucible.action .line-item.talent header {
   width: 100%;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
 }
 .crucible.item .line-item.action .title,
-.crucible.item .line-item.talent .title {
+.crucible.action .line-item.action .title,
+.crucible.item .line-item.talent .title,
+.crucible.action .line-item.talent .title {
   flex: 1;
 }
 /* ----------------------------------------- */
@@ -1593,6 +1606,15 @@
 }
 .crucible.background .talents .talent + .droppable {
   display: none;
+}
+/** ----------------------------------------- *
+ *  Action                                    *
+ * ------------------------------------------ */
+.crucible.action fieldset.hook label {
+  gap: 0.25rem;
+}
+.crucible.action fieldset.hook label button {
+  flex: 0;
 }
 /** ----------------------------------------- *
  *  Journal Sheet                             *

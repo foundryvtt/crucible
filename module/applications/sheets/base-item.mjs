@@ -18,7 +18,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionDelete: CrucibleBaseItemSheet.#onActionDelete,
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
       hookAdd: CrucibleBaseItemSheet.#onHookAdd,
-      hookDelete: CrucibleBaseItemSheet.#onHookDelete
+      hookDelete: CrucibleBaseItemSheet.#onHookDelete,
+      editImage: CrucibleBaseItemSheet.#onEditImage
     },
     form: {
       submitOnChange: true
@@ -59,7 +60,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Define the structure of tabs used by this Item Sheet.
-   * @type {Record<string, Record<string, ApplicationTab>>}
+   * @type {Record<string, Array<Record<string, ApplicationTab>>>}
    */
   static TABS = {
     sheet: [
@@ -273,6 +274,34 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       submitData.system.actorHooks = Object.values(submitData.system.actorHooks || {});
     }
     return submitData;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit the Item image.
+   * TODO Port this to DocumentSheetV2 and remove this in V13.
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEditImage(event) {
+    const attr = event.target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document, attr);
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      callback: path => {
+        event.target.src = path;
+        if ( this.options.form.submitOnChange ) {
+          const submit = new Event("submit");
+          this.element.dispatchEvent(submit);
+        }
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10
+    });
+    await fp.browse();
   }
 
   /* -------------------------------------------- */
