@@ -22,9 +22,9 @@
     <div class="item-list actions">
         {{#each actions}}
         <div class="action line-item" data-action-id="{{this.id}}">
-            <img class="icon" src="{{this.img}}" alt="{{this.name}}">
+            <img class="icon draggable action-drag" src="{{this.img}}" alt="{{this.name}}" draggable="true">
             <header>
-                <h4 class="title" data-action="useAction"><a>{{this.name}}</a></h4>
+                <h4 class="title" data-action="actionUse"><a>{{this.name}}</a></h4>
                 <div class="tags">
                     {{#each this.tags as |label tag|}}
                         <span class="tag {{tag}}">{{label}}</span>

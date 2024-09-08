@@ -42,6 +42,7 @@
   }
 
   .tab {
+    flex: 1;
     position: relative;
     padding: 1.5rem 0 1rem;
     gap: 1.5rem;
@@ -49,6 +50,7 @@
 
   // Icon buttons
   a.button.icon {
+    flex: none;
     font-size: var(--font-size-12);
   }
 
@@ -696,15 +698,15 @@
 
   .tab.biography {
     flex: 1;
-    padding: 1rem 0;
+    padding: 1rem 0 0;
     .sheet-section {
       flex: 1;
-      padding: 1rem 0 0;
+      padding: 1.5rem 0.5rem 0.5rem;
       prose-mirror {
         flex: 1;
         width: 100%;
-        .editor-content {
-          padding: 0 1rem;
+        menu {
+          padding: 0;
         }
         button.toggle {
           right: 1rem;
@@ -777,6 +779,15 @@
       li {
         margin: 0;
       }
+    }
+  }
+
+  .tab.inventory {
+    .inventory-create {
+      position: absolute;
+      width: 32px;
+      bottom: 0;
+      right: 0;
     }
   }
 

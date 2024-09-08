@@ -654,11 +654,13 @@
   height: 100%;
 }
 .crucible.sheet.actor .tab {
+  flex: 1;
   position: relative;
   padding: 1.5rem 0 1rem;
   gap: 1.5rem;
 }
 .crucible.sheet.actor a.button.icon {
+  flex: none;
   font-size: var(--font-size-12);
 }
 .crucible.sheet.actor .sheet-section {
@@ -1239,18 +1241,18 @@
 }
 .crucible.sheet.actor .tab.biography {
   flex: 1;
-  padding: 1rem 0;
+  padding: 1rem 0 0;
 }
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 1;
-  padding: 1rem 0 0;
+  padding: 1.5rem 0.5rem 0.5rem;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror {
   flex: 1;
   width: 100%;
 }
-.crucible.sheet.actor .tab.biography .sheet-section prose-mirror .editor-content {
-  padding: 0 1rem;
+.crucible.sheet.actor .tab.biography .sheet-section prose-mirror menu {
+  padding: 0;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror button.toggle {
   right: 1rem;
@@ -1340,6 +1342,12 @@
 .crucible.sheet.actor .tab.skills ol.items-list li,
 .crucible.sheet.actor .tab.spells ol.items-list li {
   margin: 0;
+}
+.crucible.sheet.actor .tab.inventory .inventory-create {
+  position: absolute;
+  width: 32px;
+  bottom: 0;
+  right: 0;
 }
 .crucible.sheet.actor .tab.skills h4.title {
   flex: none;
@@ -2300,11 +2308,14 @@
 /**
  * TODO: A collection of temporary rules that should be removed in V13
  */
-.prosemirror menu .pm-dropdown {
+.crucible prose-mirror menu {
+  padding: 0;
+}
+.crucible prose-mirror menu .pm-dropdown {
   background: var(--color-control-bg);
   color: var(--color-cool-5);
 }
-.prosemirror menu .pm-dropdown > span {
+.crucible prose-mirror menu .pm-dropdown > span {
   text-align: left;
   align-self: unset;
 }

@@ -14,9 +14,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       height: 750
     },
     actions: {
+      actionUse: CrucibleBaseActorSheet.#onActionUse,
+      itemCreate: CrucibleBaseActorSheet.#onItemCreate,
       itemEdit: CrucibleBaseActorSheet.#onItemEdit,
       itemEquip: CrucibleBaseActorSheet.#onItemEquip,
-      itemDelete: CrucibleBaseActorSheet.#onItemDelete
+      itemDelete: CrucibleBaseActorSheet.#onItemDelete,
+      effectCreate: CrucibleBaseActorSheet.#onEffectCreate,
+      effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
+      effectDelete: CrucibleBaseActorSheet.#onEffectDelete
     },
     form: {
       submitOnChange: true
@@ -553,6 +558,42 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
+  static async #onActionUse(event) {
+    const actionId = event.target.closest(".action").dataset.actionId;
+    await this.actor.useAction(actionId);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemCreate(event) {
+    const cls = getDocumentClass("Item");
+    await cls.createDialog({type: "weapon"}, {parent: this.document, pack: this.document.pack});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemDelete(event) {
+    const item = this.#getEventItem(event);
+    await item.deleteDialog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
   static async #onItemEdit(event) {
     const item = this.#getEventItem(event);
     await item.sheet.render({force: true});
@@ -588,21 +629,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
-   * @this {CrucibleBaseActorSheet}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
-   */
-  static async #onItemDelete(event) {
-    const item = this.#getEventItem(event);
-    await item.deleteDialog();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Get the Item document associated with an action event.
    * @param {PointerEvent} event
-   * @returns {CrucibleItem0}
+   * @returns {CrucibleItem}
    */
   #getEventItem(event) {
     const itemId = event.target.closest(".line-item")?.dataset.itemId;
@@ -610,8 +639,57 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEffectCreate(event) {
+    const cls = getDocumentClass("ActiveEffect");
+    await cls.createDialog({}, {parent: this.document, pack: this.document.pack});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEffectDelete(event) {
+    const effect = this.#getEventEffect(event);
+    await effect.deleteDialog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEffectEdit(event) {
+    const effect = this.#getEventEffect(event);
+    await effect.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the ActiveEffect document associated with an action event.
+   * @param {PointerEvent} event
+   * @returns {ActiveEffect}
+   */
+  #getEventEffect(event) {
+    const effectId = event.target.closest(".active-effect")?.dataset.effectId;
+    return this.actor.effects.get(effectId, {strict: true});
+  }
+
+  /* -------------------------------------------- */
   /*  Drag and Drop                               */
-  /*  TODO: Remove this entire section once V13   */
+  /*  TODO: Remove this entire section once V13
+  /*  TODO: Keep the Action -> macro part of _onDragStart
   /* -------------------------------------------- */
 
   /** @override */
@@ -649,6 +727,23 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     if ( li.dataset.effectId ) {
       const effect = this.actor.effects.get(li.dataset.effectId);
       dragData = effect.toDragData();
+    }
+
+    // Action
+    if ( li.classList.contains("action-drag") ) {
+      const actionId = li.closest(".action").dataset.actionId;
+      const action = this.actor.actions[actionId];
+      if ( !action ) return;
+      dragData = {
+        type: "crucible.action",
+        macroData: {
+          type: "script",
+          scope: "actor",
+          name: action.name,
+          img: action.img,
+          command: `game.system.api.documents.CrucibleActor.macroAction(actor, "${actionId}");`
+        }
+      };
     }
 
     // Set data transfer
