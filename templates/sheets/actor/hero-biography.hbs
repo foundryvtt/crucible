@@ -1,0 +1,27 @@
+<section class="tab flexcol {{tabs.biography.id}} {{tabs.biography.cssClass}}"
+         data-tab="{{tabs.biography.id}}" data-group="{{tabs.biography.group}}">
+    <div class="sheet-section flexrow appearance">
+        <h3>{{fields.details.fields.biography.fields.appearance.label}}</h3>
+        {{formInput fields.details.fields.biography.fields.appearance value=source.system.details.biography.appearance
+                    enriched=biography.appearance toggled=true compact=true}}
+        <div class="standard-form">
+            {{formGroup fields.details.fields.biography.fields.age value=source.system.details.biography.age
+                        classes="slim"}}
+            {{formGroup fields.details.fields.biography.fields.height value=source.system.details.biography.height
+                        classes="slim"}}
+            {{formGroup fields.details.fields.biography.fields.weight value=source.system.details.biography.weight
+                        classes="slim"}}
+        </div>
+    </div>
+    <div class="sheet-section flexcol">
+        <h3>{{fields.details.fields.biography.fields.public.label}}</h3>
+        {{formInput fields.details.fields.biography.fields.public value=source.system.details.biography.public
+                    enriched=biography.public toggled=true}}
+    </div>
+    <div class="sheet-section flexcol">
+        <h3>{{fields.details.fields.biography.fields.private.label}}</h3>
+        {{formInput fields.details.fields.biography.fields.private value=source.system.details.biography.private
+                    enriched=biography.private toggled=true}}
+    </div>
+</section>
+

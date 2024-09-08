@@ -46,28 +46,28 @@ export const COMPENDIUM_PACKS = {
 export const THREAT_LEVELS = {
   minion: {
     id: "minion",
-    actionMax: 6,
+    actionMax: 4,
     label: "ADVERSARY.ThreatMinion",
     scaling: 0.5,
     icon: "fa-solid fa-chevron-down"
   },
   normal: {
     id: "normal",
-    actionMax: 12,
+    actionMax: 6,
     label: "ADVERSARY.ThreatNormal",
     scaling: 1.0,
     icon: "fa-solid fa-chevron-up"
   },
   elite: {
     id: "elite",
-    actionMax: 16,
+    actionMax: 8,
     label: "ADVERSARY.ThreatElite",
     scaling: 1.5,
     icon: "fa-solid fa-chevrons-up"
   },
   boss: {
     id: "boss",
-    actionMax: 20,
+    actionMax: 10,
     label: "ADVERSARY.ThreatBoss",
     scaling: 2.0,
     icon: "fa-solid fa-skull"

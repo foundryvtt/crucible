@@ -376,12 +376,11 @@
     }
   },
   "SHEET": {
+    "CHOOSE": "Choose Archetype",
+    "CLEAR": "Clear Archetype",
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack."
-  },
-  "ACTIONS": {
-    "CLEAR": "Clear Archetype"
   }
 },
 
@@ -807,7 +806,8 @@
     "OUTSIDER": "Outsider",
     "UNDEAD": "Undead"
   },
-  "ACTIONS": {
+  "SHEET": {
+    "CHOOSE": "Choose Taxonomy",
     "CLEAR": "Clear Taxonomy"
   }
 },

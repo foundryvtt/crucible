@@ -281,7 +281,7 @@ export default class CrucibleActor extends Actor {
    * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
    */
   static #prepareTraining(actor) {
-    const lvl = actor.system.details.fractionLevel ?? actor.system.details.level;
+    const lvl = actor.system.advancement.fractionLevel ?? actor.system.advancement.level;
     const training = {
       unarmed: 0,
       heavy: 0,
@@ -2065,7 +2065,7 @@ export default class CrucibleActor extends Actor {
 
     // Restore resources when level changes
     const restProperties = this.type === "hero" ? ["system.advancement.level"]
-      : ["system.details.level", "system.details.threat"]
+      : ["system.advancement.level", "system.advancement.threat"]
     if ( restProperties.some(p => foundry.utils.hasProperty(data, p)) ) {
       const clone = this.clone();
       clone.updateSource(data);
@@ -2087,6 +2087,8 @@ export default class CrucibleActor extends Actor {
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
+      this.#updateSize();
+      // TODO update size of active tokens
       this.#replenishResources(data);
       this.#applyResourceStatuses(data);
     }
@@ -2184,6 +2186,30 @@ export default class CrucibleActor extends Actor {
     if ( ("morale" in r) || ("madness" in r) ) {
       await this.toggleStatusEffect("broken", {active: this.isBroken && !this.isInsane });
       await this.toggleStatusEffect("insane", {active: this.isInsane});
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update the size of Tokens for this Actor.
+   * @returns {Promise<void>}
+   */
+  async #updateSize() {
+
+    // Prototype token size
+    if ( this.size !== this.prototypeToken.width ) {
+      await this.update({prototypeToken: {width: this.size, height: this.size}});
+    }
+
+    // Active token sizes
+    if ( canvas.scene ) {
+      const tokens = this.getActiveTokens();
+      const updates = [];
+      for ( const token of tokens ) {
+        if ( token.width !== this.size ) updates.push({_id: token.id, width: this.size, height: this.size});
+      }
+      await canvas.scene.updateEmbeddedDocuments("Token", updates);
     }
   }
 

@@ -47,7 +47,9 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       talents: context.points.talent.available,
       level: isL0 || (a.system.advancement.pct === 100),
       levelOne: isL0,
-      levelUp: (a.system.advancement.pct === 100)
+      levelUp: (a.system.advancement.pct === 100),
+      canPurchaseTalents: true,
+      canPurchaseSkills: true
     });
     return context;
   }
@@ -92,25 +94,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  async _onDropItem(event, item) {
-    if ( !this.actor.isOwner ) return;
-    switch (item.type) {
-      case "ancestry":
-        await this.actor.system.applyAncestry(item);
-        return;
-      case "background":
-        await this.actor.system.applyBackground(item);
-        return;
-      case "talent":
-        ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
-        return;
-    }
-    return super._onDropItem(event, item);
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * Handle click action to level up.
    * @this {HeroSheet}
@@ -147,5 +130,23 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   }
 
   /* -------------------------------------------- */
+  /*  Drag and Drop                               */
+  /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onDropItem(event, item) {
+    if ( !this.actor.isOwner ) return;
+    switch (item.type) {
+      case "ancestry":
+        await this.actor.system.applyAncestry(item);
+        return;
+      case "background":
+        await this.actor.system.applyBackground(item);
+        return;
+      case "talent":
+        ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
+        return;
+    }
+    return super._onDropItem(event, item);
+  }
 }

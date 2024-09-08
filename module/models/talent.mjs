@@ -70,7 +70,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isSignature() {
-    return this.node.type === "signature";
+    return this.node?.type === "signature";
   }
 
   /* -------------------------------------------- */

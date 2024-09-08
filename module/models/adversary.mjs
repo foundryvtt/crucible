@@ -17,22 +17,26 @@ export default class CrucibleAdversary extends CrucibleActorType {
     const requiredInteger = {required: true, nullable: false, integer: true};
     const schema = super.defineSchema();
 
+    // Advancement
+    schema.advancement = new fields.SchemaField({
+      level: new fields.NumberField({...requiredInteger, initial: 0, min: -5, max: 24, label: "ADVANCEMENT.Level"}),
+      threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"})
+    });
+
     // Details
     schema.details = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 1, min: -5}),
       archetype: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
         ...CrucibleArchetype.defineSchema()
       }, {required: true, nullable: true, initial: null}),
-      size: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 3}),
       taxonomy: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
         ...CrucibleTaxonomy.defineSchema()
       }, {required: true, nullable: true, initial: null}),
-      threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"}),
       biography: new fields.SchemaField({
+        appearance: new fields.HTMLField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       })
@@ -55,6 +59,27 @@ export default class CrucibleAdversary extends CrucibleActorType {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /** @override */
+  prepareBaseData() {
+    this.size = (this.details.taxonomy?.size || 3) + this.details.size;
+    this.#prepareBaseMovement();
+    super.prepareBaseData();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare base movement attributes that are defined by the Adversary's Taxonomy.
+   */
+  #prepareBaseMovement() {
+    const m = this.movement;
+    const {size=3, stride=4} = this.details.taxonomy || {};
+    m.size = size + m.sizeBonus;
+    m.stride = stride + m.strideBonus;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare character details for the Adversary subtype specifically.
    * @override
@@ -62,7 +87,8 @@ export default class CrucibleAdversary extends CrucibleActorType {
   _prepareDetails() {
 
     // Initialize default archetype and taxonomy data
-    let {archetype, level, taxonomy, threat} = this.details;
+    let {archetype, taxonomy} = this.details;
+    let {level, threat} = this.advancement;
     archetype ||= CrucibleArchetype.cleanData();
     taxonomy ||= CrucibleTaxonomy.cleanData();
 
@@ -79,14 +105,11 @@ export default class CrucibleAdversary extends CrucibleActorType {
       fractionLevel = 1 / (1 - level);
       threatLevel = 1 + Math.ceil(level / factor);
     }
-    this.details.threatLevel = threatLevel;
-    this.details.fractionLevel = fractionLevel;
-
+    this.advancement.threatLevel = threatLevel;
+    this.advancement.fractionLevel = fractionLevel;
     // TODO: Automatic skill progression rank (temporary)
-    this.details._autoSkillRank = Math.min(Math.ceil(this.details.fractionLevel / 6), 5);
-
-    // Maximum Action pool size
-    this.details.maxAction = threatConfig.actionMax;
+    this.advancement._autoSkillRank = Math.min(Math.ceil(this.advancement.fractionLevel / 6), 5);
+    this.advancement.maxAction = threatConfig.actionMax;
 
     // Assign base taxonomy ability scores
     for ( const a of Object.keys(this.abilities) ) {
@@ -160,7 +183,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
    * @override
    */
   _prepareSkill(skillId, skill) {
-    skill.rank = this.details._autoSkillRank;
+    skill.rank = this.advancement._autoSkillRank;
     super._prepareSkill(skillId, skill);
   }
 

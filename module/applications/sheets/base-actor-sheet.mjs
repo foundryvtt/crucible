@@ -42,11 +42,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     },
     header: {
       id: "header",
-      template: "systems/crucible/templates/sheets/actor/header.hbs"
+      template: undefined  // Defined during _initializeActorSheetClass
     },
     attributes: {
       id: "attributes",
-      template: "systems/crucible/templates/sheets/actor/attributes.hbs"
+      template: undefined  // Defined during _initializeActorSheetClass
     },
     skills: {
       id: "skills",
@@ -66,7 +66,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     },
     biography: {
       id: "biography",
-      template: "systems/crucible/templates/sheets/actor/biography.hbs"
+      template: undefined  // Defined during _initializeActorSheetClass
     }
   };
 
@@ -99,6 +99,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static _initializeActorSheetClass() {
     const actor = this.DEFAULT_OPTIONS.actor;
     this.PARTS = foundry.utils.deepClone(this.PARTS);
+    this.PARTS.header.template = `systems/crucible/templates/sheets/actor/${actor.type}-header.hbs`;
+    this.PARTS.attributes.template = `systems/crucible/templates/sheets/actor/${actor.type}-attributes.hbs`;
+    this.PARTS.biography.template = `systems/crucible/templates/sheets/actor/${actor.type}-biography.hbs`;
     this.TABS = foundry.utils.deepClone(this.TABS);
     this.DEFAULT_OPTIONS.classes = [actor.type];
   }
@@ -306,7 +309,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           else section = sections.inventory.backpack;
           break;
         case "talent":
-          d.tier = i.system.node.tier;
+          d.tier = i.system.node?.tier || 0;
           const action = i.actions.at(0);
           const spellComp = i.system.rune || i.system.gesture || i.system.inflection;
           if ( i.system.isSignature ) section = sections.talents.signature;

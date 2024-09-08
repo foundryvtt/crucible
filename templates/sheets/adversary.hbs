@@ -1,51 +1,5 @@
 <form class="{{cssClass}} flexrow" autocomplete="off">
 
-    {{!-- Left Sidebar --}}
-    {{> "systems/crucible/templates/sheets/partials/actor-sidebar.hbs"}}
-
-    {{!-- Main Content --}}
-    <section class="sheet-body flexcol">
-
-        {{!-- Sheet Header --}}
-        <header class="sheet-header flexcol">
-            <div class="title flexrow">
-                <h1 class="charname">
-                    <input name="name" type="text" value="{{actor.name}}" placeholder="Actor Name">
-                </h1>
-                <label><i class="threat-icon {{threat.icon}}" data-tooltip="{{threat.label}}"></i> Level</label>
-                <div class="controls flexcol">
-                    <a class="control {{#unless canLevelUp}}inactive{{/unless}} increase" data-tooltip="Increase Level" data-action="levelIncrease">
-                        <i class="fas fa-caret-up"></i>
-                    </a>
-                    <a class="control {{#unless canLevelDown}}inactive{{/unless}} decrease" title="Decrease Level" data-action="levelDecrease">
-                        <i class="fas fa-caret-down"></i>
-                    </a>
-                </div>
-                <input class="level" type="text" name="system.details.level" value="{{levelDisplay}}" disabled>
-            </div>
-
-            <div class="subtitle flexrow">
-                <h2 class="taxonomy tag flexrow {{#if incomplete.taxonomy}}inactive" data-tooltip="WALKTHROUGH.ConfigureTaxonomy{{/if}}"
-                        data-action="viewTaxonomy">
-                    {{taxonomyName}}
-                    {{#if incomplete.taxonomy}}
-                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="TAXONOMY.Browse"></i>
-                    {{/if}}
-                </h2>
-                <h2 class="archetype tag flexrow {{#if incomplete.archetype}}inactive" data-tooltip="WALKTHROUGH.ConfigureArchetype"{{/if}}"
-                data-action="viewArchetype">
-                    {{archetypeName}}
-                    {{#if incomplete.archetype}}
-                    <i class="control incomplete fa-solid fa-plus-circle" data-tooltip="ARCHETYPE.Browse"></i>
-                    {{/if}}
-                </h2>
-                <span class="flex1"></span>
-                <select class="threat" name="system.details.threat">
-                    {{selectOptions threats selected=source.system.details.threat labelAttr="label"}}
-                </select>
-            </div>
-        </header>
-
         {{!-- Sheet Navigation --}}
         <nav class="sheet-navigation tabs" data-group="primary">
             <a class="item badge attributes" data-tab="attributes">Attributes</a>

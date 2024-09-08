@@ -190,7 +190,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    */
   _prepareResources() {
     const {isIncapacitated, isWeakened, statuses} = this.parent;
-    const {maxAction, threatLevel: l} = this.details;
+    const {threatLevel: l, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;
 
@@ -203,12 +203,11 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action
-    r.action.max = maxAction ?? 6;
-    if ( l < 1 ) r.action.max -= 2; // Weak NPCs
-    if ( statuses.has("stunned") ) r.action.max -= 3;
-    else if ( statuses.has("staggered") ) r.action.max -= 1;
+    r.action.max = maxAction;
+    if ( statuses.has("stunned") ) r.action.max -= 4;
+    else if ( statuses.has("staggered") ) r.action.max -= 2;
     if ( this.status.impetus ) r.action.max += 1;
-    if ( isWeakened ) r.action.max -= 3;
+    if ( isWeakened ) r.action.max -= 2;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
     r.action.value = Math.clamp(r.action.value, 0, r.action.max);

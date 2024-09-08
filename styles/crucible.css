@@ -714,10 +714,11 @@
   padding: 0 0.5rem;
 }
 .crucible.sheet.actor .sheet-header header.title .level,
+.crucible.sheet.actor .sheet-header header.title .controls,
 .crucible.sheet.actor .sheet-header header.title a.button {
   flex: none;
 }
-.crucible.sheet.actor .sheet-header header.title .level + input {
+.crucible.sheet.actor .sheet-header header.title input:last-child {
   flex: 0 0 var(--sheet-header-height);
   padding: 0;
   text-align: center;
@@ -737,6 +738,10 @@
 }
 .crucible.sheet.actor .sheet-header div.metadata {
   justify-content: flex-end;
+  gap: 0.5rem;
+}
+.crucible.sheet.actor .sheet-header div.metadata select {
+  flex: 0 0 120px;
 }
 .crucible.sheet.actor .sheet-header div.metadata div.size {
   flex: none;
@@ -761,6 +766,8 @@
 .crucible.sheet.actor .sheet-sidebar img.profile {
   border: none;
   background: var(--color-frame-bg-50);
+  border-radius: 4px;
+  object-fit: contain;
 }
 .crucible.sheet.actor .sheet-sidebar h2.divider {
   margin: 0;
@@ -938,8 +945,8 @@
 .crucible.sheet.actor .tab.attributes .resources .economy {
   height: 100%;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 0 0.5rem;
+  gap: 0.5rem;
+  padding: 1.25rem 0 0;
 }
 .crucible.sheet.actor .tab.attributes .resources .economy .currency {
   width: 100%;
@@ -1349,7 +1356,7 @@
   z-index: 1;
 }
 .crucible.sheet.actor .tab.skills .bonus {
-  flex: 0 0 60px;
+  flex: 0 0 80px;
   justify-content: flex-end;
   gap: 0.5rem;
 }
@@ -1361,7 +1368,7 @@
   flex: 0 0 40px;
 }
 .crucible.sheet.actor .tab.skills .bonus span.passive {
-  flex: none;
+  flex: 0 0 20px;
   text-align: center;
   font-size: var(--font-size-10);
   font-family: var(--font-sans);
