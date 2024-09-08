@@ -353,6 +353,60 @@
   font-size: var(--font-size-15);
   color: var(--color-text);
 }
+.crucible .hex {
+  --hex-bg: url("../ui/elements/hex-plain.svg");
+  --hex-rotation: 0;
+  position: relative;
+}
+.crucible .hex::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--hex-bg) no-repeat center;
+  background-size: auto 100%;
+  transform: rotate(var(--hex-rotation));
+}
+.crucible .hex.dexterity-intellect {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: -120deg;
+}
+.crucible .hex.dexterity-strength {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: -60deg;
+}
+.crucible .hex.dexterity-presence {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 180deg;
+}
+.crucible .hex.intellect-presence {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: 180deg;
+}
+.crucible .hex.intellect-toughness {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: -120deg;
+}
+.crucible .hex.intellect-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 120deg;
+}
+.crucible .hex.presence-strength {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 60deg;
+}
+.crucible .hex.presence-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+  --hex-rotation: 120deg;
+}
+.crucible .hex.strength-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 0;
+}
+.crucible .hex.toughness-wisdom {
+  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+  --hex-rotation: 0;
+}
 /* Tooltips */
 #crucible-tooltip,
 .crucible .tooltip {
@@ -1414,60 +1468,6 @@
   font-family: var(--font-sans);
   color: var(--color-secondary);
 }
-.crucible.sheet.actor .hex {
-  --hex-bg: url("../ui/elements/hex-plain.svg");
-  --hex-rotation: 0;
-  position: relative;
-}
-.crucible.sheet.actor .hex::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: var(--hex-bg) no-repeat center;
-  background-size: auto 100%;
-  transform: rotate(var(--hex-rotation));
-}
-.crucible.sheet.actor .hex.dexterity-intellect {
-  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
-  --hex-rotation: -120deg;
-}
-.crucible.sheet.actor .hex.dexterity-strength {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: -60deg;
-}
-.crucible.sheet.actor .hex.dexterity-presence {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: 180deg;
-}
-.crucible.sheet.actor .hex.intellect-presence {
-  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
-  --hex-rotation: 180deg;
-}
-.crucible.sheet.actor .hex.intellect-toughness {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: -120deg;
-}
-.crucible.sheet.actor .hex.intellect-wisdom {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: 120deg;
-}
-.crucible.sheet.actor .hex.presence-strength {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: 60deg;
-}
-.crucible.sheet.actor .hex.presence-wisdom {
-  --hex-bg: url("../ui/elements/hex-accent-2b.svg");
-  --hex-rotation: 120deg;
-}
-.crucible.sheet.actor .hex.strength-wisdom {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: 0;
-}
-.crucible.sheet.actor .hex.toughness-wisdom {
-  --hex-bg: url("../ui/elements/hex-accent-2c.svg");
-  --hex-rotation: 0;
-}
 /* ----------------------------------------- */
 /*  All Items                                */
 /* ----------------------------------------- */
@@ -2018,86 +2018,121 @@
 /*  Roll Dialog                              */
 /* ----------------------------------------- */
 .crucible.roll {
-  background: url("../ui/journal/grunge.png") no-repeat;
-  background-size: cover;
+  /** Boons and Banes */
+  /** Dice Pool Visualization */
+  /** Dice Roll Bonuses */
+  /** Boon and Bane Details */
 }
 .crucible.roll .standard-check {
-  gap: 0.5rem;
+  padding: 1rem;
+  gap: 1rem;
+}
+.crucible.roll .hex .label {
+  position: absolute;
+  bottom: -1rem;
+  margin: 0;
+  padding: 2px 6px;
+  font-size: var(--font-size-11);
+  background: var(--color-frame-bg);
 }
 .crucible.roll .roller {
   flex: 2;
-  gap: 0.5rem;
+  gap: 1rem;
   text-align: center;
 }
-.crucible.roll .roller .boons,
-.crucible.roll .roller .banes {
+.crucible.roll .modifiers {
+  padding: 0 0 1rem;
+  justify-content: space-between;
+}
+.crucible.roll .modifiers .boons,
+.crucible.roll .modifiers .banes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.crucible.roll .modifiers .boons .hex,
+.crucible.roll .modifiers .banes .hex {
+  flex: 0 0 48px;
+  height: 48px;
   margin: 0;
-  flex: 0 0 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.crucible.roll .modifiers .boons .hex .value,
+.crucible.roll .modifiers .banes .hex .value {
   font-family: var(--font-h1);
-}
-.crucible.roll .roller .boons label,
-.crucible.roll .roller .banes label {
-  font-size: 20px;
-  line-height: 32px;
-  text-align: left;
-}
-.crucible.roll .roller .boons input,
-.crucible.roll .roller .banes input {
-  flex: 0 0 36px;
-  height: 36px;
   font-size: 24px;
+  font-weight: normal;
 }
-.crucible.roll .roller .boons .action-button,
-.crucible.roll .roller .banes .action-button {
+.crucible.roll .modifiers .boons button,
+.crucible.roll .modifiers .banes button {
+  width: 32px;
   flex: 0 0 32px;
-  margin: 0 3px;
-  cursor: pointer;
-  font-size: 1.125rem;
+  font-size: 16px;
+  opacity: 1;
 }
-.crucible.roll .roller .boons .action-button.disabled,
-.crucible.roll .roller .banes .action-button.disabled {
+.crucible.roll .modifiers .boons button:disabled,
+.crucible.roll .modifiers .banes button:disabled {
   opacity: 0.25;
 }
-.crucible.roll .roller .boons .action-button:not(.disabled):hover,
-.crucible.roll .roller .banes .action-button:not(.disabled):hover {
-  font-weight: bold;
-  text-shadow: 0 0 6px var(--color-link-text);
-}
-.crucible.roll .roller .pool {
+.crucible.roll .pool {
   margin: var(--marginSize) 0;
   justify-content: space-evenly;
 }
-.crucible.roll .roller .pool .die {
+.crucible.roll .pool .die {
   flex: 0 0 64px;
   height: 64px;
   line-height: 64px;
   font-family: var(--font-h1);
-  color: var(--background);
+  color: var(--color-primary);
   text-align: center;
   font-size: 24px;
-  font-weight: bold;
   filter: drop-shadow(0px 0px 6px #000);
 }
-.crucible.roll .roller .pool .die.d4 {
-  background-image: url("/icons/svg/d4-grey.svg");
+.crucible.roll .pool .die::before {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: var(--die-bg) no-repeat;
+  background-size: 100%;
+  background-position: center;
+  opacity: 0.2;
+  z-index: -1;
 }
-.crucible.roll .roller .pool .die.d6 {
-  background-image: url("/icons/svg/d6-grey.svg");
+.crucible.roll .pool .die.d4 {
+  --die-bg: url("/icons/svg/d4-grey.svg");
 }
-.crucible.roll .roller .pool .die.d8 {
-  background-image: url("/icons/svg/d8-grey.svg");
+.crucible.roll .pool .die.d6 {
+  --die-bg: url("/icons/svg/d6-grey.svg");
 }
-.crucible.roll .roller .pool .die.d10 {
-  background-image: url("/icons/svg/d10-grey.svg");
+.crucible.roll .pool .die.d8 {
+  --die-bg: url("/icons/svg/d8-grey.svg");
 }
-.crucible.roll .roller .pool .die.d12 {
-  background-image: url("/icons/svg/d12-grey.svg");
+.crucible.roll .pool .die.d10 {
+  --die-bg: url("/icons/svg/d10-grey.svg");
 }
-.crucible.roll .roller .bonuses {
-  gap: 0.5rem;
+.crucible.roll .pool .die.d12 {
+  --die-bg: url("/icons/svg/d12-grey.svg");
 }
-.crucible.roll .roller .bonuses input {
-  line-height: 32px;
+.crucible.roll .bonuses {
+  justify-content: space-evenly;
+  padding: 0 0 1rem;
+}
+.crucible.roll .bonuses .bonus {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 48px;
+  height: 48px;
+  line-height: 48px;
+}
+.crucible.roll .bonuses .value {
+  font-size: var(--font-size-20);
 }
 .crucible.roll .target {
   justify-content: space-between;
@@ -2127,14 +2162,11 @@
 }
 .crucible.roll .details h4 {
   margin: 0;
+  font-size: var(--font-size-18);
 }
 .crucible.roll .details .boon-details,
 .crucible.roll .details .bane-details {
   gap: 0.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
 }
 .crucible.roll .details .boon-details .boon,
 .crucible.roll .details .bane-details .boon,
@@ -2143,19 +2175,25 @@
   gap: 0.5rem;
   align-items: center;
 }
-.crucible.roll .details .boon-details .boon input,
-.crucible.roll .details .bane-details .boon input,
-.crucible.roll .details .boon-details .bane input,
-.crucible.roll .details .bane-details .bane input {
+.crucible.roll .details .boon-details .boon .hex,
+.crucible.roll .details .bane-details .boon .hex,
+.crucible.roll .details .boon-details .bane .hex,
+.crucible.roll .details .bane-details .bane .hex {
   flex: 0 0 32px;
-  text-align: center;
-}
-.crucible.roll footer.buttons {
-  gap: 0.5rem;
-}
-.crucible.roll footer.buttons button,
-.crucible.roll footer.buttons select {
   height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crucible.roll .form-footer {
+  gap: 1rem;
+}
+.crucible.roll .form-footer button,
+.crucible.roll .form-footer select {
+  height: 32px;
+}
+.crucible.roll .form-footer button {
+  opacity: 1;
 }
 .crucible.roll button.place-template {
   flex: 0 0 140px;

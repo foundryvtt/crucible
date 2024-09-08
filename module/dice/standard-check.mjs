@@ -296,8 +296,12 @@ export default class StandardCheck extends Roll {
    * @returns {Promise<StandardCheck|null>}   The resolved check, or null if the dialog was closed
    */
   async dialog({title, flavor, rollMode}={}) {
-    const options = {title, flavor, rollMode, roll: this};
-    return this.constructor.dialogClass.prompt({title, options});
+    return this.constructor.dialogClass.prompt({
+      window: {title},
+      flavor,
+      rollMode,
+      roll: this
+    });
   }
 
   /* -------------------------------------------- */

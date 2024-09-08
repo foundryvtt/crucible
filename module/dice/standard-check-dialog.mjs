@@ -1,8 +1,26 @@
+const {DialogV2} = foundry.applications.api;
+
 /**
  * Prompt the user to perform a Standard Check.
- * @extends {Dialog}
+ * @extends {DialogV2}
  */
-export default class StandardCheckDialog extends Dialog {
+export default class StandardCheckDialog extends DialogV2 {
+
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    id: "dialog-{id}",
+    classes: ["crucible", "dialog", "roll"],
+    window: {
+      contentTag: "form",
+      contentClasses: ["standard-form", "standard-check"]
+    }
+  };
+
+  /**
+   * The template path used to render the Dialog.
+   * @type {string}
+   */
+  static #TEMPLATE = "systems/crucible/templates/dice/standard-check-dialog.hbs";
 
   /**
    * A StandardCheck dice pool instance which organizes the data for this dialog
@@ -10,23 +28,9 @@ export default class StandardCheckDialog extends Dialog {
    */
   roll = this.options.roll;
 
-  /* -------------------------------------------- */
-
-  /** @override */
-	static get defaultOptions() {
-	  return foundry.utils.mergeObject(super.defaultOptions, {
-	    template: `systems/${SYSTEM.id}/templates/dice/standard-check-dialog.hbs`,
-        classes: ["crucible", "roll"],
-        submitOnChange: true,
-        closeOnSubmit: false
-      });
-	}
-
-  /* -------------------------------------------- */
-
   /** @override */
   get title() {
-    if ( this.options.title ) return this.options.title;
+    if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
     if ( skill ) return `${skill.name} Skill Check`;
@@ -35,8 +39,28 @@ export default class StandardCheckDialog extends Dialog {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.buttons = {
+      roll: {action: "roll", label: "Roll", icon: "fa-solid fa-dice", callback: this._onRoll.bind(this)},
+      request: {action: "request", label: "Request", callback: this._onRequest.bind(this)}
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preFirstRender(context, options) {
+    await getTemplate(StandardCheckDialog.#TEMPLATE);
+    await super._preFirstRender(context, options);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
-  async getData(options={}) {
+  async _prepareContext(options) {
     const data = this.roll.data;
     const displayGMOptions = false; // TODO temporarily disable for playtest 1
     options.position = {width: displayGMOptions ? 520 : 360};
@@ -47,17 +71,34 @@ export default class StandardCheckDialog extends Dialog {
       isGM: displayGMOptions,
       rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
-      increaseBoonsClass: data.totalBoons < SYSTEM.dice.MAX_BOONS ? "" : "disabled",
-      decreaseBoonsClass: data.totalBoons > 0 ? "" : "disabled",
-      increaseBanesClass: data.totalBanes < SYSTEM.dice.MAX_BOONS ? "" : "disabled",
-      decreaseBanesClass: data.totalBanes > 0 ? "" : "disabled"
+      canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
+      canDecreaseBoons: data.totalBoons > 0,
+      canIncreaseBanes: data.totalBanes < SYSTEM.dice.MAX_BOONS,
+      canDecreaseBanes: data.totalBanes > 0
     });
   }
 
   /* -------------------------------------------- */
 
+  /** @override */
+  async _renderHTML(context, _options) {
+    const html = await renderTemplate(StandardCheckDialog.#TEMPLATE, context);
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return Array.from(div.children);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _replaceHTML(result, content, _options) {
+    content.replaceChildren(...result);
+  }
+
+  /* -------------------------------------------- */
+
   /**
-   * Get the text label for a dice roll DC
+   * Get the text label for a roll DC.
    * @param {number} dc    The difficulty check for the test
    * @return {{dc: number, label: string, tier: number}}
    * @private
@@ -78,23 +119,41 @@ export default class StandardCheckDialog extends Dialog {
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
-    html.find('[data-action]').click(this._onClickAction.bind(this));
-    html.find('label[data-action]').contextmenu(this._onClickAction.bind(this));
-    html.find('select[name="tier"]').change(this._onChangeDifficultyTier.bind(this));
-    super.activateListeners(html);
+  _onRender(_context, _options) {
+    const form = this.element.querySelector("form.window-content");
+    form.addEventListener("submit", event => this._onSubmit(event.submitter, event));
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /**
+   * Resolve dialog submission to enact a Roll.
+   * @returns {StandardCheck}
+   * @protected
+   */
+  _onRoll(_event, _button, _dialog) {
+    return this.roll;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Handle execution of one of the dialog roll actions
-   * @private
+   * Resolve dialog submission to request a Roll.
+   * @returns {StandardCheck}
+   * @protected
    */
-  _onClickAction(event) {
-    event.preventDefault();
-    const action = event.currentTarget.dataset.action;
-    const form = event.currentTarget.closest("form");
+  _onRequest(_event, _button, _dialog) {
+    return this.roll; // TODO implement this
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _onClickAction(event, target) {
+    const action = target.dataset.action;
+    const form = this.element.querySelector("form");
     const rollData = this.roll.data;
     switch ( action ) {
       case "boon-add":
@@ -109,7 +168,7 @@ export default class StandardCheckDialog extends Dialog {
       case "bane-subtract":
         this.roll.initialize({banes: StandardCheckDialog.#modifyBoons(rollData.banes, -1)});
         return this.render(false, {height: "auto"});
-      case "request":
+      case "request": // TODO
         this._updatePool(form);
         this.roll.request({
           title: this.title,
@@ -119,20 +178,6 @@ export default class StandardCheckDialog extends Dialog {
         ui.notifications.info(`Requested a ${rollData.type} check be made by ${actor.name}.`);
         return this.close();
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Handle changes to the difficulty tier select input
-   * @param {Event} event           The event which triggers on select change
-   * @private
-   */
-  _onChangeDifficultyTier(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this._updatePool({dc: parseInt(event.target.value)});
-    return this.render();
   }
 
   /* -------------------------------------------- */
@@ -148,6 +193,21 @@ export default class StandardCheckDialog extends Dialog {
     const total = Object.values(boons).reduce((t, b) => t + (b.id === "special" ? 0 : b.number), 0);
     boons.special.number = Math.clamp(boons.special.number + delta, 0, SYSTEM.dice.MAX_BOONS - total);
     return boons;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle changes to the difficulty tier select input
+   * TODO support this
+   * @param {Event} event           The event which triggers on select change
+   * @private
+   */
+  _onChangeDifficultyTier(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._updatePool({dc: parseInt(event.target.value)});
+    return this.render();
   }
 
   /* -------------------------------------------- */
@@ -170,24 +230,7 @@ export default class StandardCheckDialog extends Dialog {
 
   /** @inheritdoc */
   static async prompt(config={}) {
-    config.callback = this.prototype._onSubmit;
-    config.options.jQuery = false;
     config.rejectClose = false;
     return super.prompt(config);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Return dialog submission data as a form data object
-   * @param {HTMLElement} html    The rendered dialog HTML
-   * @returns {StandardCheck}     The processed StandardCheck instance
-   * @private
-   */
-  _onSubmit(html) {
-    const form = html.querySelector("form");
-    const fd = new FormDataExtended(form)
-    this.roll.initialize(fd.object);
-    return this.roll;
   }
 }

@@ -1,42 +1,38 @@
-<form class="standard-check flexcol">
-    <section class="content flexrow">
-        <section class="roller flexcol">
-            {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
-        </section>
+<section class="roller flexcol">
+    {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
+</section>
 
-        {{#if isGM}}
-        <section class="target flexcol">
-            <select name="tier">
-                {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Assign Difficulty"}}
-            </select>
-            {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
-            <label class="difficulty">{{difficulty.label}}</label>
-            <select name="rollMode">
-                {{selectOptions rollModes selected=rollMode localize=true}}
-            </select>
-        </section>
-        {{/if}}
-    </section>
+{{#if isGM}}
+<section class="target flexcol">
+    <select name="tier">
+        {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Assign Difficulty"}}
+    </select>
+    {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
+    <label class="difficulty">{{difficulty.label}}</label>
+    <select name="rollMode">
+        {{selectOptions rollModes selected=rollMode localize=true}}
+    </select>
+</section>
+{{/if}}
 
-    <section class="details flexcol">
-        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
-    </section>
+<section class="details flexcol">
+    {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
+</section>
 
-    <footer class="buttons flexrow">
-        {{#unless isGM}}
-        <select name="rollMode">
-            {{selectOptions rollModes selected=rollMode localize=true}}
-        </select>
-        {{/unless}}
-        <button type="button" class="dialog-button frame-brown" data-button="ok">
-            <i class="fas fa-dice"></i>
-            <label>Roll Check</label>
-        </button>
-        {{#if isGM}}
-        <button type="button" class="action-button frame-brown" data-action="request">
-            <i class="fas fa-arrow-right"></i>
-            <label>Request Roll</label>
-        </button>
-        {{/if}}
-    </footer>
-</form>
+<footer class="form-footer">
+    {{#unless isGM}}
+    <select name="rollMode">
+        {{selectOptions rollModes selected=rollMode localize=true}}
+    </select>
+    {{/unless}}
+    <button type="submit" class="dialog-button frame-brown" data-action="roll">
+        <i class="fas fa-dice"></i>
+        <label>Roll Check</label>
+    </button>
+    {{#if isGM}}
+    <button type="submit" class="action-button frame-brown" data-action="request">
+        <i class="fas fa-arrow-right"></i>
+        <label>Request Roll</label>
+    </button>
+    {{/if}}
+</footer>

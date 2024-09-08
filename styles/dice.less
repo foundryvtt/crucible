@@ -170,73 +170,109 @@
 /* ----------------------------------------- */
 
 .crucible.roll {
-  background: url("../ui/journal/grunge.png") no-repeat;
-  background-size: cover;
-
   .standard-check {
-    gap: 0.5rem;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  // Hex labels
+  .hex .label {
+    position: absolute;
+    bottom: -1rem;
+    margin: 0;
+    padding: 2px 6px;
+    font-size: var(--font-size-11);
+    background: var(--color-frame-bg);
   }
 
   .roller {
     flex: 2;
-    gap: 0.5rem;
+    gap: 1rem;
     text-align: center;
-    .boons,
-    .banes {
-      margin: 0;
-      flex: 0 0 32px;
-      font-family: var(--font-h1);
-      label {
-        font-size: 20px;
-        line-height: 32px;
-        text-align: left;
+  }
+
+  /** Boons and Banes */
+  .modifiers {
+    padding: 0 0 1rem;
+    justify-content: space-between;
+    .boons, .banes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .hex {
+        flex: 0 0 48px;
+        height: 48px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        .value {
+          font-family: var(--font-h1);
+          font-size: 24px;
+          font-weight: normal;
+        }
       }
-      input {
-        flex: 0 0 36px;
-        height: 36px;
-        font-size: 24px;
-      }
-      .action-button {
+      button {
+        width: 32px;
         flex: 0 0 32px;
-        margin: 0 3px;
-        cursor: pointer;
-        font-size: 1.125rem;
-        &.disabled {
+        font-size: 16px;
+        opacity: 1.0;
+        &:disabled {
           opacity: 0.25;
         }
-        &:not(.disabled):hover {
-          font-weight: bold;
-          text-shadow: 0 0 6px var(--color-link-text);
-        }
       }
     }
+  }
 
-    .pool {
-      margin: var(--marginSize) 0;
-      justify-content: space-evenly;
-      .die {
-        flex: 0 0 64px;
-        height: 64px;
-        line-height: 64px;
-        font-family: var(--font-h1);
-        color: var(--background);
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        filter: drop-shadow(0px 0px 6px #000);
+  /** Dice Pool Visualization */
+  .pool {
+    margin: var(--marginSize) 0;
+    justify-content: space-evenly;
+    .die {
+      flex: 0 0 64px;
+      height: 64px;
+      line-height: 64px;
+      font-family: var(--font-h1);
+      color: var(--color-primary);
+      text-align: center;
+      font-size: 24px;
+      filter: drop-shadow(0px 0px 6px #000);
+      &::before {
+        display: block;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: var(--die-bg) no-repeat;
+        background-size: 100%;
+        background-position: center;
+        opacity: 0.2;
+        z-index: -1;
       }
-      .die.d4 { background-image: url("/icons/svg/d4-grey.svg"); }
-      .die.d6 { background-image: url("/icons/svg/d6-grey.svg"); }
-      .die.d8 { background-image: url("/icons/svg/d8-grey.svg"); }
-      .die.d10 { background-image: url("/icons/svg/d10-grey.svg"); }
-      .die.d12 { background-image: url("/icons/svg/d12-grey.svg"); }
     }
+    .die.d4 { --die-bg: url("/icons/svg/d4-grey.svg"); }
+    .die.d6 { --die-bg: url("/icons/svg/d6-grey.svg"); }
+    .die.d8 { --die-bg: url("/icons/svg/d8-grey.svg"); }
+    .die.d10 { --die-bg: url("/icons/svg/d10-grey.svg"); }
+    .die.d12 { --die-bg: url("/icons/svg/d12-grey.svg"); }
+  }
 
-    .bonuses {
-      gap: 0.5rem;
-      input {
-        line-height: 32px;
-      }
+  /** Dice Roll Bonuses */
+  .bonuses {
+    justify-content: space-evenly;
+    padding: 0 0 1rem;
+    .bonus {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 0 0 48px;
+      height: 48px;
+      line-height: 48px;
+    }
+    .value {
+      font-size: var(--font-size-20);
     }
   }
 
@@ -265,37 +301,40 @@
     }
   }
 
+  /** Boon and Bane Details */
   .details {
     width: 100%;
     flex: none;
     gap: 0.5rem;
     h4 {
       margin: 0;
+      font-size: var(--font-size-18);
     }
     .boon-details,
     .bane-details {
       gap: 0.25rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      width: 100%;
       .boon,
       .bane {
         gap: 0.5rem;
         align-items: center;
-        input {
+        .hex {
           flex: 0 0 32px;
-          text-align: center;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
   }
 
-  footer.buttons {
-    gap: 0.5rem;
-    button,
-    select {
+  .form-footer {
+    gap: 1rem;
+    button, select {
       height: 32px;
+    }
+    button {
+      opacity: 1.0;
     }
   }
 

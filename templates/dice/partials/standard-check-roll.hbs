@@ -1,9 +1,24 @@
-<div class="form-group boons">
-    <label>Boons</label>
-    <i class="action-button fas fa-arrow-down {{decreaseBoonsClass}}" data-action="boon-subtract"></i>
-    <input type="number" value="{{totalBoons}}" readonly>
-    <i class="action-button fas fa-arrow-up {{increaseBoonsClass}}" data-action="boon-add"></i>
-    <label></label>
+<div class="form-group modifiers">
+    <div class="boons">
+        <button type="button" class="icon fa-solid fa-arrow-down" {{#unless canDecreaseBoons}}disabled{{/unless}}
+                data-action="boon-subtract"></button>
+        <div class="hex boons-hex">
+            <span class="value">{{totalBoons}}</span>
+            <h4 class="label">Boons</h4>
+        </div>
+        <button type="button" class="icon fa-solid fa-arrow-up"  {{#unless canIncreaseBoons}}disabled{{/unless}}
+                data-action="boon-add"></button>
+    </div>
+    <div class="banes">
+        <button type="button" class="icon fa-solid fa-arrow-down" {{#unless canDecreaseBanes}}disabled{{/unless}}
+                data-action="bane-subtract"></button>
+        <div class="hex banes-hex">
+            <span class="value">{{totalBanes}}</span>
+            <h4 class="label">Banes</h4>
+        </div>
+        <button type="button" class="icon fa-solid fa-arrow-up"  {{#unless canIncreaseBanes}}disabled{{/unless}}
+                data-action="bane-add"></button>
+    </div>
 </div>
 
 <div class="pool flexrow">
@@ -12,25 +27,17 @@
     {{/each}}
 </div>
 
-<div class="form-group banes">
-    <label>Banes</label>
-    <i class="action-button fas fa-arrow-down {{decreaseBanesClass}}" data-action="bane-subtract"></i>
-    <input type="number" value="{{totalBanes}}" readonly>
-    <i class="action-button fas fa-arrow-up {{increaseBanesClass}}" data-action="bane-add"></i>
-    <label></label>
-</div>
-
 <div class="bonuses flexrow">
-    <div class="ability">
-        <label>Ability</label>
-        {{numberInput ability name="ability" min=-4 max=12 readonly=true}}
+    <div class="bonus ability hex">
+        <h4 class="label">Ability</h4>
+        <span class="value ability">{{ability}}</span>
     </div>
-    <div class="skill">
-        <label>Skill</label>
-        {{numberInput skill name="skill" min=-4 max=12 readonly=true}}
+    <div class="bonus enchantment hex">
+        <h4 class="label">Enchantment</h4>
+        <span class="value enchantment">{{enchantment}}</span>
     </div>
-    <div class="enchantment">
-        <label>Enchantment</label>
-        {{numberInput enchantment name="enchantment" min=-4 max=12 readonly=true}}
+    <div class="bonus skill hex">
+        <h4 class="label">Skill</h4>
+        <span class="value skill">{{skill}}</span>
     </div>
 </div>

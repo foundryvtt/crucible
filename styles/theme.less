@@ -292,6 +292,62 @@
     font-size: var(--font-size-15);
     color: var(--color-text);
   }
+
+  // Bordered hexes
+  .hex {
+    --hex-bg: url("../ui/elements/hex-plain.svg");
+    --hex-rotation: 0;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--hex-bg) no-repeat center;
+      background-size: auto 100%;
+      transform: rotate(var(--hex-rotation));
+    }
+    &.dexterity-intellect {
+      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-rotation: -120deg;
+    }
+    &.dexterity-strength {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: -60deg;
+    }
+    &.dexterity-presence {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: 180deg;
+    }
+    &.intellect-presence {
+      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-rotation: 180deg;
+    }
+    &.intellect-toughness {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: -120deg;
+    }
+    &.intellect-wisdom {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: 120deg;
+    }
+    &.presence-strength {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: 60deg;
+    }
+    &.presence-wisdom {
+      --hex-bg: url("../ui/elements/hex-accent-2b.svg");
+      --hex-rotation: 120deg;
+    }
+    &.strength-wisdom {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: 0;
+    }
+    &.toughness-wisdom {
+      --hex-bg: url("../ui/elements/hex-accent-2c.svg");
+      --hex-rotation: 0;
+    }
+  }
 }
 
 /* Tooltips */
