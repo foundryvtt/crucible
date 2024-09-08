@@ -293,7 +293,7 @@ export default class StandardCheck extends Roll {
    * @param {string} title      The title of the roll request
    * @param {string} flavor     Any flavor text attached to the roll
    * @param {string} rollMode   The requested roll mode
-   * @returns {Promise<StandardCheck|null>}   The resolved check, or null if the dialog was closed
+   * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
    */
   async dialog({title, flavor, rollMode}={}) {
     return this.constructor.dialogClass.prompt({

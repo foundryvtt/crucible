@@ -5,6 +5,11 @@ const {DialogV2} = foundry.applications.api;
  * @extends {DialogV2}
  */
 export default class StandardCheckDialog extends DialogV2 {
+  constructor({roll, rollMode, ...options}={}) {
+    super(options);
+    this.roll = roll;
+    this.rollMode = rollMode;
+  }
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -26,7 +31,13 @@ export default class StandardCheckDialog extends DialogV2 {
    * A StandardCheck dice pool instance which organizes the data for this dialog
    * @type {StandardCheck}
    */
-  roll = this.options.roll;
+  roll;
+
+  /**
+   * The selected roll mode for this particular roll.
+   * @type {string}
+   */
+  rollMode;
 
   /** @override */
   get title() {
@@ -69,7 +80,7 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulty: this._getDifficulty(data.dc),
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       isGM: displayGMOptions,
-      rollMode: this.options.rollMode || game.settings.get("core", "rollMode"),
+      rollMode: this.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
@@ -122,6 +133,10 @@ export default class StandardCheckDialog extends DialogV2 {
   _onRender(_context, _options) {
     const form = this.element.querySelector("form.window-content");
     form.addEventListener("submit", event => this._onSubmit(event.submitter, event));
+    // TODO this should be removed in V13 when form.window-content is supported natively
+    if ( game.release.generation < 13 ) {
+      form.addEventListener("change", this._onChangeForm.bind(this, this.options.form));
+    }
   }
 
   /* -------------------------------------------- */
@@ -134,6 +149,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @protected
    */
   _onRoll(_event, _button, _dialog) {
+    this.roll.data.rollMode = this.rollMode;
     return this.roll;
   }
 
@@ -145,7 +161,15 @@ export default class StandardCheckDialog extends DialogV2 {
    * @protected
    */
   _onRequest(_event, _button, _dialog) {
-    return this.roll; // TODO implement this
+    return null; // TODO implement this
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onChangeForm(formConfig, event) {
+    if ( event.target.name === "rollMode" ) this.rollMode = event.target.value;
+    super._onChangeForm(formConfig, event);
   }
 
   /* -------------------------------------------- */

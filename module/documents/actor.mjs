@@ -850,14 +850,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Execute the roll to chat
-    await sc.toMessage({
-      flavor,
-      flags: {
-        crucible: {
-          skill: skillId
-        }
-      }
-    });
+    await sc.toMessage({flavor, flags: {crucible: {skill: skillId}}});
     return sc;
   }
 
