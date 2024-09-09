@@ -1,4 +1,4 @@
-<div class="dice-roll {{cssClass}}">
+<div class="{{cssClass}}">
     {{#if data.newTarget}}
     <div class="roll-target flexrow">
         <label class="tag-icon">
@@ -12,49 +12,41 @@
     <div class="dice-result">
         <div class="dice-tooltip">
             <div class="dice-formula">{{formula}}</div>
-
-            {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" data}}
-
-            <div class="dice-pool flexrow">
-                <div class="boons">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>{{data.totalBoons}}</span>
-                </div>
+            <section class="details flexcol">
+                {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" data}}
+            </section>
+            <div class="pool flexrow">
                 {{#each pool}}
                 <div class="die {{this.denom}}">
-                    <span class="denom">{{this.denom}}</span>
-                    {{this.result}}
+                    <span class="result">{{this.result}}</span>
+                    <h4 class="label">{{this.denom}}</h4>
                 </div>
                 {{/each}}
-                <div class="boons banes">
-                    <i class="fas fa-arrow-down"></i>
-                    <span>{{data.totalBanes}}</span>
-                </div>
             </div>
 
             <div class="counter">
                 <label>{{localize "DICE.DiceTotal"}}</label>
-                <span>{{diceTotal}}</span>
+                <span class="hex">{{diceTotal}}</span>
             </div>
             <div class="counter">
                 <label>{{localize "DICE.AbilityBonus"}}</label>
-                <span>{{data.ability}}</span>
+                <span class="hex">{{data.ability}}</span>
             </div>
             <div class="counter">
                 <label>{{localize "DICE.SkillBonus"}}</label>
-                <span>{{data.skill}}</span>
+                <span class="hex">{{data.skill}}</span>
             </div>
             <div class="counter">
                 <label>{{localize "DICE.EnchantmentBonus"}}</label>
-                <span>{{data.enchantment}}</span>
+                <span class="hex">{{data.enchantment}}</span>
             </div>
         </div>
 
         <h4 class="dice-total check-result">
             <span class="outcome">{{outcome}}</span>
-            <span>{{total}}</span>
+            <span class="result hex">{{total}}</span>
             {{#if isGM}}
-            <span class="target">{{defenseType}} {{defenseValue}}</span>
+            <span class="dc">{{defenseType}} {{defenseValue}}</span>
             {{/if}}
         </h4>
 

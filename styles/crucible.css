@@ -56,6 +56,9 @@
   --color-damage-vulnerability-border: #dc3232;
   --color-damage-resistance: #236212;
   --color-damage-resistance-border: #51c433;
+  --color-result-bad: #641010;
+  --color-result-good: #236212;
+  --color-result-warn: #a98d0b;
   --font-h1: "AwerySmallcaps", serif;
   --font-body: "Vollkorn", serif;
   --font-quote: "CaslonAntique", serif;
@@ -357,6 +360,10 @@
   --hex-bg: url("../ui/elements/hex-plain.svg");
   --hex-rotation: 0;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
 }
 .crucible .hex::before {
   content: "";
@@ -366,6 +373,7 @@
   background: var(--hex-bg) no-repeat center;
   background-size: auto 100%;
   transform: rotate(var(--hex-rotation));
+  z-index: -1;
 }
 .crucible .hex.dexterity-intellect {
   --hex-bg: url("../ui/elements/hex-accent-2b.svg");
@@ -1818,6 +1826,41 @@
   position: relative;
   top: 3px;
 }
+/* -------------------------------------------- */
+/*  Chat Cards                                  */
+/* -------------------------------------------- */
+.crucible.chat-message {
+  --background-texture: url("../ui/journal/background-texture.webp");
+  background: var(--background-texture) repeat;
+  border: none;
+  margin: 0.5rem 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+.crucible.chat-message .message-header {
+  font-size: var(--font-size-12);
+  color: var(--color-tertiary);
+}
+.crucible.chat-message .flavor-text {
+  font-size: var(--font-size-12);
+  color: var(--color-secondary);
+  border-top: 1px solid var(--color-cool-4);
+  padding-top: 0.25rem;
+  margin-top: 0.25rem;
+}
+.crucible.chat-message.whisper {
+  background: #090b13;
+  border: 1px solid #7b8cc7;
+}
+.crucible.chat-message.blind {
+  background: #130913;
+  border: 1px solid #977dcc;
+}
+.crucible.chat-message .crucible.dice-roll .pool .die {
+  --die-size: 48px;
+}
+/* -------------------------------------------- */
+/*  Chat Actions                                */
+/* -------------------------------------------- */
 .crucible .action {
   /** Action Header */
   /** Text Description */
@@ -1850,184 +1893,108 @@
 .message-metadata .unconfirmed {
   color: var(--colorError);
 }
-#chat-log .message .flavor-text {
-  font-family: var(--font-body);
-  font-size: var(--font-size-16);
-}
-#chat-log .dice-rolls {
-  margin-top: 0.5rem;
-}
-#chat-log .dice-rolls .dice-roll + .dice-roll {
-  border-top: 1px solid var(--color-secondary);
-  margin-top: 0.5rem;
-  padding-top: 0.25rem;
-}
-.dice-roll.standard-check .dice-pool {
-  justify-content: space-between;
-  margin: 10px 0;
-}
-.dice-roll.standard-check .die {
-  position: relative;
-  flex: 0 0 48px;
-  height: 48px;
-  line-height: 48px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0 0 6px #EEE;
-  background-size: 48px 48px;
-  filter: drop-shadow(0px 0px 6px #EEE);
-}
-.dice-roll.standard-check .die .denom {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: -5px;
-  color: var(--color-tertiary);
-  font-size: 12px;
-  line-height: 16px;
-}
-.dice-roll.standard-check .die.d4 {
-  background-image: url("/icons/svg/d4-grey.svg");
-}
-.dice-roll.standard-check .die.d6 {
-  background-image: url("/icons/svg/d6-grey.svg");
-}
-.dice-roll.standard-check .die.d8 {
-  background-image: url("/icons/svg/d8-grey.svg");
-}
-.dice-roll.standard-check .die.d10 {
-  background-image: url("/icons/svg/d10-grey.svg");
-}
-.dice-roll.standard-check .die.d12 {
-  background-image: url("/icons/svg/d12-grey.svg");
-}
-.dice-roll.standard-check .boons {
-  position: relative;
-  flex: 0 0 48px;
-  text-align: center;
-  padding: 8px 0;
-}
-.dice-roll.standard-check .boons i,
-.dice-roll.standard-check .boons span {
-  height: 16px;
-  line-height: 16px;
-  display: block;
-}
-.dice-roll.standard-check .dice-tooltip .counter {
-  display: flex;
-  justify-content: space-between;
-  padding: 2px 0;
-}
-.dice-roll.standard-check .dice-tooltip .counter label {
-  font-size: 16px;
-  font-family: var(--font-body);
-}
-.dice-roll.standard-check .dice-tooltip .counter span {
-  width: 20px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--color-tertiary);
-  border-radius: 2px;
-  text-align: center;
-}
-.dice-roll.standard-check .dice-tooltip .boon-details,
-.dice-roll.standard-check .dice-tooltip .bane-details {
-  gap: 0.25rem;
-  padding: 0.25rem 0;
-  margin: 0.25rem 0;
-  border-bottom: 1px solid var(--color-secondary);
-}
-.dice-roll.standard-check .dice-tooltip .boon-details h4,
-.dice-roll.standard-check .dice-tooltip .bane-details h4 {
-  font-weight: bold;
-  margin: 0;
-}
-.dice-roll.standard-check .dice-tooltip .boon-details .boon span.label,
-.dice-roll.standard-check .dice-tooltip .bane-details .boon span.label,
-.dice-roll.standard-check .dice-tooltip .boon-details .bane span.label,
-.dice-roll.standard-check .dice-tooltip .bane-details .bane span.label {
-  order: 1;
-  font-size: 16px;
-  font-family: var(--font-body);
-}
-.dice-roll.standard-check .dice-tooltip .boon-details .boon input,
-.dice-roll.standard-check .dice-tooltip .bane-details .boon input,
-.dice-roll.standard-check .dice-tooltip .boon-details .bane input,
-.dice-roll.standard-check .dice-tooltip .bane-details .bane input {
-  order: 2;
-  flex: 0 0 20px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--color-tertiary);
-  border-radius: 2px;
-  text-align: center;
-}
-.dice-roll.standard-check .check-result,
-.dice-roll.standard-check .damage-result {
-  position: relative;
-  margin: 5px 0 0;
-}
-.dice-roll.standard-check .check-result .outcome,
-.dice-roll.standard-check .damage-result .outcome,
-.dice-roll.standard-check .check-result .target,
-.dice-roll.standard-check .damage-result .target {
-  position: absolute;
-  color: var(--color-tertiary);
-  font-weight: normal;
-  font-size: 14px;
-}
-.dice-roll.standard-check .check-result .outcome,
-.dice-roll.standard-check .damage-result .outcome {
-  left: 5px;
-}
-.dice-roll.standard-check .check-result .target,
-.dice-roll.standard-check .damage-result .target {
-  right: 5px;
-}
-.dice-roll.standard-check .check-result .applied:before,
-.dice-roll.standard-check .damage-result .applied:before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  margin-right: 3px;
-  content: "\f00c";
-}
-.dice-roll.standard-check.success .check-result {
-  background: rgba(0, 255, 0, 0.05);
-  border: 1px solid green;
-}
-.dice-roll.standard-check.failure .check-result {
-  background: rgba(255, 0, 0, 0.05);
-  border: 1px solid red;
-}
-.dice-roll.standard-check.glance .check-result {
-  background: rgba(255, 255, 0, 0.05);
-  border: 1px solid yellow;
-}
-.dice-roll.standard-check.failure.critical .check-result {
-  background: rgba(255, 0, 0, 0.05);
-  color: red;
-  border: 1px solid red;
-}
-.dice-roll.standard-check.success.critical .check-result {
-  background: rgba(0, 255, 0, 0.05);
-  color: green;
-  border: 1px solid green;
-}
-/* ----------------------------------------- */
-/*  Roll Dialog                              */
-/* ----------------------------------------- */
-.crucible.roll {
+.crucible.dice-roll {
+  /** Expanded Tooltip */
   /** Boons and Banes */
   /** Dice Pool Visualization */
   /** Dice Roll Bonuses */
   /** Boon and Bane Details */
 }
-.crucible.roll .standard-check {
+.crucible.dice-roll .standard-check {
   padding: 1rem;
   gap: 1rem;
 }
-.crucible.roll .hex .label {
+.crucible.dice-roll .dice-tooltip {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.crucible.dice-roll .dice-tooltip .dice-formula {
+  margin: 0;
+  font-size: var(--font-size-12);
+  border: 1px solid var(--color-cool-4);
+  box-shadow: none;
+}
+.crucible.dice-roll .dice-tooltip .counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-12);
+  margin: -0.2rem 0;
+}
+.crucible.dice-roll .dice-tooltip .counter label {
+  color: var(--color-secondary);
+}
+.crucible.dice-roll .dice-tooltip .counter .hex {
+  width: 24px;
+  height: 24px;
+  border: none;
+  color: var(--color-primary);
+}
+.crucible.dice-roll .dice-tooltip.expanded {
+  display: flex !important;
+}
+.crucible.dice-roll .dice-total {
+  height: 24px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: none;
+}
+.crucible.dice-roll .dice-total .result {
+  --hex-bg: url("../ui/elements/hex-plain-filled.svg");
+  flex: 0 0 40px;
+  height: 40px;
+  font-size: var(--font-size-20);
+  font-weight: normal;
+  z-index: 0;
+}
+.crucible.dice-roll .dice-total .outcome,
+.crucible.dice-roll .dice-total .dc {
+  flex: 1;
+  overflow: visible;
+  text-wrap: none;
+  color: var(--color-secondary);
+  font-size: var(--font-size-11);
+  font-weight: normal;
+}
+.crucible.dice-roll .dice-total .outcome {
+  text-align: right;
+}
+.crucible.dice-roll .dice-total .dc {
+  text-align: left;
+}
+.crucible.dice-roll .dice-total .applied:before {
+  font-family: var(--font-awesome);
+  font-weight: 900;
+  margin-right: 3px;
+  content: "\f00c";
+}
+.crucible.dice-roll.success .dice-total {
+  background: rgba(0, 255, 0, 0.03);
+  border: 1px solid var(--color-result-good);
+}
+.crucible.dice-roll.failure .dice-total {
+  background: rgba(255, 0, 0, 0.03);
+  border: 1px solid var(--color-result-bad);
+}
+.crucible.dice-roll.glance .dice-total {
+  background: rgba(255, 255, 0, 0.03);
+  border: 1px solid var(--color-result-warn);
+}
+.crucible.dice-roll.failure.critical .dice-total {
+  background: rgba(255, 0, 0, 0.03);
+  color: #ff3724;
+  border: 1px solid var(--color-result-bad);
+}
+.crucible.dice-roll.success.critical .dice-total {
+  background: rgba(0, 255, 0, 0.03);
+  color: #12cb3f;
+  border: 1px solid var(--color-result-good);
+}
+.crucible.dice-roll .hex .label {
   position: absolute;
   bottom: -1rem;
   margin: 0;
@@ -2035,63 +2002,61 @@
   font-size: var(--font-size-11);
   background: var(--color-frame-bg);
 }
-.crucible.roll .roller {
+.crucible.dice-roll .roller {
   flex: 2;
   gap: 1rem;
   text-align: center;
 }
-.crucible.roll .modifiers {
+.crucible.dice-roll .modifiers {
   padding: 0 0 1rem;
   justify-content: space-between;
 }
-.crucible.roll .modifiers .boons,
-.crucible.roll .modifiers .banes {
+.crucible.dice-roll .modifiers .boons,
+.crucible.dice-roll .modifiers .banes {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.crucible.roll .modifiers .boons .hex,
-.crucible.roll .modifiers .banes .hex {
+.crucible.dice-roll .modifiers .boons .hex,
+.crucible.dice-roll .modifiers .banes .hex {
   flex: 0 0 48px;
   height: 48px;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 1rem;
 }
-.crucible.roll .modifiers .boons .hex .value,
-.crucible.roll .modifiers .banes .hex .value {
+.crucible.dice-roll .modifiers .boons .hex .value,
+.crucible.dice-roll .modifiers .banes .hex .value {
   font-family: var(--font-h1);
   font-size: 24px;
   font-weight: normal;
 }
-.crucible.roll .modifiers .boons button,
-.crucible.roll .modifiers .banes button {
+.crucible.dice-roll .modifiers .boons button,
+.crucible.dice-roll .modifiers .banes button {
   width: 32px;
   flex: 0 0 32px;
   font-size: 16px;
   opacity: 1;
 }
-.crucible.roll .modifiers .boons button:disabled,
-.crucible.roll .modifiers .banes button:disabled {
+.crucible.dice-roll .modifiers .boons button:disabled,
+.crucible.dice-roll .modifiers .banes button:disabled {
   opacity: 0.25;
 }
-.crucible.roll .pool {
-  margin: var(--marginSize) 0;
+.crucible.dice-roll .pool {
   justify-content: space-evenly;
 }
-.crucible.roll .pool .die {
-  flex: 0 0 64px;
-  height: 64px;
-  line-height: 64px;
+.crucible.dice-roll .pool .die {
+  --die-size: 64px;
+  position: relative;
+  flex: 0 0 var(--die-size);
+  height: var(--die-size);
+  line-height: var(--die-size);
   font-family: var(--font-h1);
   color: var(--color-primary);
   text-align: center;
   font-size: 24px;
   filter: drop-shadow(0px 0px 6px #000);
 }
-.crucible.roll .pool .die::before {
+.crucible.dice-roll .pool .die::before {
   display: block;
   position: absolute;
   content: "";
@@ -2103,26 +2068,36 @@
   opacity: 0.2;
   z-index: -1;
 }
-.crucible.roll .pool .die.d4 {
+.crucible.dice-roll .pool .die h4.label {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  flex: none;
+  width: 100%;
+  font-size: var(--font-size-11);
+  color: var(--color-secondary);
+  line-height: 1em;
+}
+.crucible.dice-roll .pool .die.d4 {
   --die-bg: url("/icons/svg/d4-grey.svg");
 }
-.crucible.roll .pool .die.d6 {
+.crucible.dice-roll .pool .die.d6 {
   --die-bg: url("/icons/svg/d6-grey.svg");
 }
-.crucible.roll .pool .die.d8 {
+.crucible.dice-roll .pool .die.d8 {
   --die-bg: url("/icons/svg/d8-grey.svg");
 }
-.crucible.roll .pool .die.d10 {
+.crucible.dice-roll .pool .die.d10 {
   --die-bg: url("/icons/svg/d10-grey.svg");
 }
-.crucible.roll .pool .die.d12 {
+.crucible.dice-roll .pool .die.d12 {
   --die-bg: url("/icons/svg/d12-grey.svg");
 }
-.crucible.roll .bonuses {
+.crucible.dice-roll .bonuses {
   justify-content: space-evenly;
   padding: 0 0 1rem;
 }
-.crucible.roll .bonuses .bonus {
+.crucible.dice-roll .bonuses .bonus {
   position: relative;
   display: flex;
   justify-content: center;
@@ -2131,80 +2106,96 @@
   height: 48px;
   line-height: 48px;
 }
-.crucible.roll .bonuses .value {
+.crucible.dice-roll .bonuses .value {
   font-size: var(--font-size-20);
 }
-.crucible.roll .target {
+.crucible.dice-roll .target {
   justify-content: space-between;
   border-left: 1px solid var(--color-secondary);
   margin-left: var(--marginSize);
   padding-left: var(--marginSize);
 }
-.crucible.roll .target select {
+.crucible.dice-roll .target select {
   flex: 0 0 30px;
 }
-.crucible.roll .target label.difficulty {
+.crucible.dice-roll .target label.difficulty {
   flex: 0 0 16px;
   color: var(--color-tertiary);
   font-family: var(--font-body);
   font-size: 20px;
   text-align: center;
 }
-.crucible.roll .target input.dc {
+.crucible.dice-roll .target input.dc {
   flex: 0 0 64px;
   width: 64px;
   margin: 0 auto;
 }
-.crucible.roll .details {
+.crucible.dice-roll .details {
   width: 100%;
   flex: none;
-  gap: 0.5rem;
-}
-.crucible.roll .details h4 {
-  margin: 0;
-  font-size: var(--font-size-18);
-}
-.crucible.roll .details .boon-details,
-.crucible.roll .details .bane-details {
   gap: 0.25rem;
 }
-.crucible.roll .details .boon-details .boon,
-.crucible.roll .details .bane-details .boon,
-.crucible.roll .details .boon-details .bane,
-.crucible.roll .details .bane-details .bane {
+.crucible.dice-roll .details h4 {
+  margin: 0;
+  font-size: var(--font-size-16);
+}
+.crucible.dice-roll .details .boon-details,
+.crucible.dice-roll .details .bane-details {
+  gap: 0.25rem;
+  font-size: var(--font-size-12);
+}
+.crucible.dice-roll .details .boon-details .boon,
+.crucible.dice-roll .details .bane-details .boon,
+.crucible.dice-roll .details .boon-details .bane,
+.crucible.dice-roll .details .bane-details .bane {
   gap: 0.5rem;
   align-items: center;
 }
-.crucible.roll .details .boon-details .boon .hex,
-.crucible.roll .details .bane-details .boon .hex,
-.crucible.roll .details .boon-details .bane .hex,
-.crucible.roll .details .bane-details .bane .hex {
-  flex: 0 0 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.crucible.dice-roll .details .boon-details .boon .hex,
+.crucible.dice-roll .details .bane-details .boon .hex,
+.crucible.dice-roll .details .boon-details .bane .hex,
+.crucible.dice-roll .details .bane-details .bane .hex {
+  flex: 0 0 24px;
+  height: 24px;
 }
-.crucible.roll .form-footer {
+.crucible.dice-roll .details .boon-details .boon .type,
+.crucible.dice-roll .details .bane-details .boon .type,
+.crucible.dice-roll .details .boon-details .bane .type,
+.crucible.dice-roll .details .bane-details .bane .type {
+  flex: none;
+  color: var(--color-tertiary);
+  font-size: var(--font-size-11);
+}
+.crucible.dice-roll .difficulty .form-fields {
+  gap: 0.5rem;
+}
+.crucible.dice-roll .difficulty .form-fields input {
+  flex: 0 0 40px;
+}
+.crucible.dice-roll .form-footer {
   gap: 1rem;
 }
-.crucible.roll .form-footer button,
-.crucible.roll .form-footer select {
+.crucible.dice-roll .form-footer button,
+.crucible.dice-roll .form-footer select {
+  flex: 1;
   height: 32px;
 }
-.crucible.roll .form-footer button {
+.crucible.dice-roll .form-footer button {
   opacity: 1;
 }
-.crucible.roll button.place-template {
+.crucible.dice-roll .standard-form .form-footer {
+  flex-wrap: wrap;
+}
+.crucible.dice-roll button.place-template {
   flex: 0 0 140px;
   background: none;
   line-height: 20px;
   height: auto;
 }
-.crucible.roll .form-group.spell-component label {
+.crucible.dice-roll .form-group.spell-component label {
   font-size: var(--font-size-14);
 }
-.crucible.roll .form-group.spell-component .form-fields {
+.crucible.dice-roll .form-group.spell-component .form-fields {
   flex: 2;
 }
 /* -------------------------------------------- */

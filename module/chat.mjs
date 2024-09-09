@@ -89,6 +89,7 @@ export async function onCreateChatMessage(message, data, options, userId) {
  * Custom alterations to apply when rendering chat message HTML
  */
 export function renderChatMessage(message, html, data, options) {
+  if ( message.rolls[0] instanceof crucible.api.dice.StandardCheck ) html.addClass("crucible");
   const flags = message.flags.crucible || {};
   if ( flags.action ) {
     if ( flags.confirmed ) {

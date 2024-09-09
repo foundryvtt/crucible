@@ -78,7 +78,7 @@ export default class StandardCheck extends Roll {
    * The HTML template path used to render dice checks of this type
    * @type {string}
    */
-  static htmlTemplate = "systems/crucible/templates/dice/standard-check-roll.hbs";
+  static CHAT_TEMPLATE = "systems/crucible/templates/dice/standard-check-chat.hbs";
 
   /* -------------------------------------------- */
 
@@ -219,26 +219,30 @@ export default class StandardCheck extends Roll {
   /* -------------------------------------------- */
 
   /** @override */
-  async render(chatOptions={}) {
-    if ( chatOptions.isPrivate ) return "";
-    return renderTemplate(this.constructor.htmlTemplate, this._getChatCardData());
+  async render(chatOptions) {
+    return renderTemplate(this.constructor.CHAT_TEMPLATE, this._getChatCardData(chatOptions));
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare the data object used to render the StandardCheck object to an HTML template
+   * @param {object} options
+   * @param {string} [options.flavor]
+   * @param {boolean} [options.isPrivate=false]
    * @returns {object}      A prepared context object that is used to render the HTML template
-   * @private
+   * @protected
    */
-  _getChatCardData() {
+  _getChatCardData({flavor, isPrivate=false}={}) {
     const cardData = {
-      css: [SYSTEM.id, "standard-check"],
+      cssClass: [SYSTEM.id, "dice-roll", "standard-check"],
       data: this.data,
       defenseType: "DC",
       defenseValue: this.data.dc,
       diceTotal: this.dice.reduce((t, d) => t + d.total, 0),
+      isPrivate,
       isGM: game.user.isGM,
+      flavor,
       formula: this.formula,
       outcome: "Unknown",
       pool: this.dice.map(d => ({denom: `d${d.faces}`, result: d.total})),
@@ -249,18 +253,18 @@ export default class StandardCheck extends Roll {
     if ( this.data.dc ) {
       if ( this.isSuccess ) {
         cardData.outcome = "Success";
-        cardData.css.push("success");
+        cardData.cssClass.push("success");
         if ( this.isCriticalSuccess ) {
           cardData.outcome = "Critical " + cardData.outcome;
-          cardData.css.push("critical");
+          cardData.cssClass.push("critical");
         }
       }
       else {
         cardData.outcome = "Failure";
-        cardData.css.push("failure");
+        cardData.cssClass.push("failure");
         if ( this.isCriticalFailure ) {
           cardData.outcome = "Critical " + cardData.outcome;
-          cardData.css.push("critical");
+          cardData.cssClass.push("critical");
         }
       }
     }
@@ -270,8 +274,7 @@ export default class StandardCheck extends Roll {
       cardData.resistanceLabel = this.data.damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
       cardData.resistanceValue = Math.abs(this.data.damage.resistance);
     }
-
-    cardData.cssClass = cardData.css.join(" ");
+    cardData.cssClass = cardData.cssClass.join(" ");
     return cardData;
   }
 

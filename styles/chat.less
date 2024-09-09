@@ -1,5 +1,49 @@
 @import "./variables.less";
 
+/* -------------------------------------------- */
+/*  Chat Cards                                  */
+/* -------------------------------------------- */
+
+.crucible.chat-message {
+  --background-texture: url("../ui/journal/background-texture.webp");
+  background: var(--background-texture) repeat;
+  border: none;
+  margin: 0.5rem 0.25rem;
+  padding: 0.25rem 0.5rem;
+
+  .message-header {
+    font-size: var(--font-size-12);
+    color: var(--color-tertiary);
+  }
+
+  .flavor-text {
+    font-size: var(--font-size-12);
+    color: var(--color-secondary);
+    border-top: 1px solid var(--color-cool-4);
+    padding-top: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  &.whisper {
+    background: #090b13;
+    border: 1px solid #7b8cc7;
+  }
+  &.blind {
+    background: #130913;
+    border: 1px solid #977dcc;
+  }
+
+  // Smaller die icons
+  .crucible.dice-roll .pool .die {
+    --die-size: 48px;
+  }
+}
+
+
+/* -------------------------------------------- */
+/*  Chat Actions                                */
+/* -------------------------------------------- */
+
 .crucible .action {
 
   /** Action Header */

@@ -298,6 +298,10 @@
     --hex-bg: url("../ui/elements/hex-plain.svg");
     --hex-rotation: 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
     &::before {
       content: "";
       position: absolute;
@@ -306,6 +310,7 @@
       background: var(--hex-bg) no-repeat center;
       background-size: auto 100%;
       transform: rotate(var(--hex-rotation));
+      z-index: -1;
     }
     &.dexterity-intellect {
       --hex-bg: url("../ui/elements/hex-accent-2b.svg");

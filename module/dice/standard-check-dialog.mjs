@@ -14,7 +14,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     id: "dialog-{id}",
-    classes: ["crucible", "dialog", "roll"],
+    classes: ["crucible", "dialog", "dice-roll"],
     window: {
       contentTag: "form",
       contentClasses: ["standard-form", "standard-check"]
@@ -73,15 +73,15 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
-    const displayGMOptions = false; // TODO temporarily disable for playtest 1
-    options.position = {width: displayGMOptions ? 520 : 360};
+    options.position = {width: 360};
     return Object.assign({}, data, {
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
-      isGM: displayGMOptions,
+      isGM: game.user.isGM,
       rollMode: this.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
+      showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
       canIncreaseBanes: data.totalBanes < SYSTEM.dice.MAX_BOONS,
@@ -169,6 +169,21 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
     if ( event.target.name === "rollMode" ) this.rollMode = event.target.value;
+
+    // Difficulty Tier
+    else if ( event.target.name === "difficultyTier" ) {
+      const dc = Number(event.target.value) || null;
+      if ( Number.isNumeric(dc) ) {
+        event.target.parentElement.querySelector(`input[name="dc"]`).value = dc;
+        this.roll.data.dc = dc;
+      }
+    }
+
+    // Difficulty Class
+    else if ( event.target.name === "dc" ) {
+      event.target.parentElement.querySelector(`select[name="difficultyTier"]`).value = "";
+      this.roll.data.dc = event.target.valueAsNumber;
+    }
     super._onChangeForm(formConfig, event);
   }
 

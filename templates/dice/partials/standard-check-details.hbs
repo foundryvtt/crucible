@@ -1,25 +1,24 @@
 {{#if totalBoons}}
 <div class="boon-details flexcol">
-    <h4 class="divider">Boons</h4>
     {{#each boons as |boon|}}
     {{#if boon.number}}
     <div class="boon flexrow">
         <span class="hex value">{{boon.number}}</span>
         <span class="label">{{localize boon.label}}</span>
+        <span class="type"><i class="fa-solid fa-arrow-up"></i> Boon</span>
     </div>
     {{/if}}
     {{/each}}
-    </ul>
 </div>
 {{/if}}
 {{#if totalBanes}}
 <div class="bane-details flexcol">
-    <h4 class="divider">Banes</h4>
     {{#each banes as |bane|}}
     {{#if bane.number}}
     <div class="bane flexrow">
         <span class="hex value">{{bane.number}}</span>
         <span class="label">{{localize bane.label}}</span>
+        <span class="type"><i class="fa-solid fa-arrow-down"></i> Bane</span>
     </div>
     {{/if}}
     {{/each}}
