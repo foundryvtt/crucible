@@ -94,12 +94,12 @@ export function renderChatMessage(message, html, data, options) {
   if ( flags.action ) {
     if ( flags.confirmed ) {
       html.find(".damage-result .target").addClass("applied");
-      html.find(".message-metadata").prepend(`<i class="crucible confirmed fas fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
+      html.find(".message-metadata").prepend(`<i class="confirmed fa-solid fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
     }
     else {
-      html.find(".message-metadata").prepend(`<i class="crucible unconfirmed fas fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
+      html.find(".message-metadata").prepend(`<i class="unconfirmed fa-solid fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
       if ( !game.user.isGM ) return;
-      const confirm = $(`<button class="crucible confirm" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
+      const confirm = $(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
       html.append(confirm);
       confirm.click(event => {
         const button = event.currentTarget;

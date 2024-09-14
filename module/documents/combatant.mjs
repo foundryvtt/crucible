@@ -39,6 +39,7 @@ export default class CrucibleCombatant extends Combatant {
     actor.callTalentHooks("prepareInitiativeCheck", rollData);
 
     // Construct Initiative Check
+    // TODO this needs to be an InitiativeCheck with custom rendering
     return new StandardCheck(rollData);
   }
 

@@ -10,17 +10,23 @@
     </div>
     {{/if}}
     <div class="dice-result">
-        <div class="dice-tooltip">
+
+        <h4 class="dice-total check-result">
+            <span class="outcome">{{outcome}}</span>
+            <span class="result hex">{{total}}</span>
+            <span class="target">{{#if isGM}}{{defenseType}} {{defenseValue}}{{/if}}</span>
+        </h4>
+        <div class="dice-tooltip check-tooltip flexcol">
             <div class="dice-formula">{{formula}}</div>
             <section class="details flexcol">
                 {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs" data}}
             </section>
             <div class="pool flexrow">
                 {{#each pool}}
-                <div class="die {{this.denom}}">
-                    <span class="result">{{this.result}}</span>
-                    <h4 class="label">{{this.denom}}</h4>
-                </div>
+                    <div class="die {{this.denom}}">
+                        <span class="result">{{this.result}}</span>
+                        <h4 class="label">{{this.denom}}</h4>
+                    </div>
                 {{/each}}
             </div>
 
@@ -42,39 +48,31 @@
             </div>
         </div>
 
-        <h4 class="dice-total check-result">
-            <span class="outcome">{{outcome}}</span>
-            <span class="result hex">{{total}}</span>
-            {{#if isGM}}
-            <span class="dc">{{defenseType}} {{defenseValue}}</span>
-            {{/if}}
+        {{#if data.damage.total}}
+        <h4 class="dice-total damage-result">
+            <span class="outcome">{{damageLabel}}</span>
+            <span class="result hex">{{data.damage.total}}</span>
+            <span class="target">{{damageType}}</span>
         </h4>
 
-        {{#if data.damage.total}}
-        <div class="dice-tooltip">
+        <div class="dice-tooltip damage-tooltip flexcol">
             <div class="counter">
                 <label>{{localize "DICE.DamageOverflow"}}{{#if hasMultiplier}} (x{{data.damage.multiplier}}){{/if}}</label>
-                <span>{{data.damage.overflow}}</span>
+                <span class="hex">{{data.damage.overflow}}</span>
             </div>
             <div class="counter">
                 <label>{{baseLabel}}</label>
-                <span>{{data.damage.base}}</span>
+                <span class="hex">{{data.damage.base}}</span>
             </div>
             <div class="counter">
                 <label>{{localize "DICE.DamageBonus"}}</label>
-                <span>{{data.damage.bonus}}</span>
+                <span class="hex">{{data.damage.bonus}}</span>
             </div>
             <div class="counter">
                 <label>{{localize resistanceLabel}}</label>
-                <span>{{resistanceValue}}</span>
+                <span class="hex">{{resistanceValue}}</span>
             </div>
         </div>
-
-        <h4 class="dice-total damage-result">
-            <span class="outcome">{{damageLabel}}</span>
-            <span>{{data.damage.total}}</span>
-            <span class="target">{{damageType}}</span>
-        </h4>
         {{/if}}
     </div>
 </div>

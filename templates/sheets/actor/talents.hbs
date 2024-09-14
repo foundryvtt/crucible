@@ -22,14 +22,14 @@
             {{#each section.items as |item id|}}
             <li class="line-item {{item.cssClass}}" data-item-id="{{item.id}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
-                <header>
-                    <h4 class="title">{{item.name}}</h4>
+                <div class="title">
+                    <h4>{{item.name}}</h4>
                     <div class="tags">
                         {{#each item.tags}}
                         {{#if this}}<span class="tag">{{this}}</span>{{/if}}
                         {{/each}}
                     </div>
-                </header>
+                </div>
                 <div class="controls">
                     <a class="button icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></a>
                 </div>

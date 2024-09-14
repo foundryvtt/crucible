@@ -168,49 +168,83 @@
       }
     }
   }
+}
 
-  /** Line Items - Actions, Talents, etc... */
-  .line-item {
-    --icon-size: 32px;
+
+/* ----------------------------------------- */
+/*  Line Items: Actions, Talents, etc...     */
+/* ----------------------------------------- */
+
+.crucible .line-item {
+  --icon-size: 32px;
+  --title-font-size: var(--font-size-14);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .icon {
+    height: var(--icon-size);
+    width: var(--icon-size);
+    flex: none;
+  }
+  .title {
+    flex: 1;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-
-    header {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      align-items: flex-start;
-      overflow: hidden;
-      gap: 2px;
-    }
-    img.icon {
-      height: var(--icon-size);
-      width: var(--icon-size);
-      flex: 0 0 var(--icon-size);
-    }
-    .title {
-      width: 100%;
+    flex-direction: column;
+    h4 {
+      flex: none;
       margin: 0;
-      font-size: var(--font-size-14);
+      font-size: var(--title-font-size);
       color: var(--color-text);
       overflow: hidden;
       white-space: nowrap;
     }
-    .description {
-      font-size: var(--font-size-14);
-    }
-    .controls {
+    .tags {
+      width: 100%;
       flex: none;
-      display: flex;
-      gap: 0.25rem;
-      align-items: center;
-      .control {
-        font-size: var(--font-size-10);
-        padding: 0.25rem;
-      }
+      justify-content: flex-start;
+      margin: 0;
+    }
+  }
+
+  /** Optional Full-Width Header */
+  header {
+    display: flex;
+    flex: none;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /** Description */
+  .description {
+    flex: none;
+    width: 100%;
+    height: auto;
+    font-size: var(--font-size-12);
+    color: var(--color-secondary);
+    > p:first-child {
+      margin-top: 0;
+    }
+    > p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /** Controls */
+  .controls {
+    flex: none;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    .control {
+      font-size: var(--font-size-10);
+      padding: 0.25rem;
     }
   }
 }

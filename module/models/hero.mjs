@@ -101,7 +101,7 @@ export default class CrucibleHero extends CrucibleActorType {
    */
   #prepareBaseMovement() {
     const m = this.movement;
-    const {size=3, stride=4} = this.details.ancestry || {};
+    const {size=3, stride=10} = this.details.ancestry || {};
     m.size = size + m.sizeBonus;
     m.stride = stride + m.strideBonus;
   }

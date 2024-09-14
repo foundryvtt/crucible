@@ -244,6 +244,7 @@
 }
 .crucible .tag-icon {
   flex: none;
+  font-size: 10px;
 }
 .crucible section.construction {
   position: relative;
@@ -542,9 +543,6 @@
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
 /* ----------------------------------------- */
-.crucible.sheet {
-  /** Line Items - Actions, Talents, etc... */
-}
 .crucible.sheet .sheet-header {
   --sheet-header-height: 80px;
   gap: 0.5rem;
@@ -612,45 +610,75 @@
 .crucible.sheet .form-group.slim .form-fields input {
   text-align: center;
 }
-.crucible.sheet .line-item {
+/* ----------------------------------------- */
+/*  Line Items: Actions, Talents, etc...     */
+/* ----------------------------------------- */
+.crucible .line-item {
   --icon-size: 32px;
+  --title-font-size: var(--font-size-14);
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
+  /** Optional Full-Width Header */
+  /** Description */
+  /** Controls */
 }
-.crucible.sheet .line-item header {
+.crucible .line-item .icon {
+  height: var(--icon-size);
+  width: var(--icon-size);
+  flex: none;
+}
+.crucible .line-item .title {
   flex: 1;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  overflow: hidden;
-  gap: 2px;
 }
-.crucible.sheet .line-item img.icon {
-  height: var(--icon-size);
-  width: var(--icon-size);
-  flex: 0 0 var(--icon-size);
-}
-.crucible.sheet .line-item .title {
-  width: 100%;
+.crucible .line-item .title h4 {
+  flex: none;
   margin: 0;
-  font-size: var(--font-size-14);
+  font-size: var(--title-font-size);
   color: var(--color-text);
   overflow: hidden;
   white-space: nowrap;
 }
-.crucible.sheet .line-item .description {
-  font-size: var(--font-size-14);
+.crucible .line-item .title .tags {
+  width: 100%;
+  flex: none;
+  justify-content: flex-start;
+  margin: 0;
 }
-.crucible.sheet .line-item .controls {
+.crucible .line-item header {
+  display: flex;
+  flex: none;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.crucible .line-item .description {
+  flex: none;
+  width: 100%;
+  height: auto;
+  font-size: var(--font-size-12);
+  color: var(--color-secondary);
+}
+.crucible .line-item .description > p:first-child {
+  margin-top: 0;
+}
+.crucible .line-item .description > p:last-child {
+  margin-bottom: 0;
+}
+.crucible .line-item .controls {
   flex: none;
   display: flex;
   gap: 0.25rem;
   align-items: center;
 }
-.crucible.sheet .line-item .controls .control {
+.crucible .line-item .controls .control {
   font-size: var(--font-size-10);
   padding: 0.25rem;
 }
@@ -1411,13 +1439,6 @@
   bottom: 0;
   right: 0;
 }
-.crucible.sheet.actor .tab.skills h4.title {
-  flex: none;
-  width: auto;
-}
-.crucible.sheet.actor .tab.skills a.control.icon {
-  flex: none;
-}
 .crucible.sheet.actor .tab.skills .point-pools {
   width: 100%;
   position: absolute;
@@ -1426,9 +1447,8 @@
   z-index: 1;
 }
 .crucible.sheet.actor .tab.skills .bonus {
-  flex: 0 0 80px;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  flex: 0 0 70px;
+  justify-content: center;
 }
 .crucible.sheet.actor .tab.skills .bonus span.value {
   display: flex;
@@ -1445,8 +1465,7 @@
   color: var(--color-secondary);
 }
 .crucible.sheet.actor .tab.skills .ranks {
-  flex: 0 0 180px;
-  gap: 0.25rem;
+  flex: 0 0 170px;
   justify-content: center;
 }
 .crucible.sheet.actor .tab.skills .pips {
@@ -1496,27 +1515,6 @@
 .crucible.item .item-properties multi-checkbox,
 .crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
-}
-.crucible.item .line-item.action,
-.crucible.action .line-item.action,
-.crucible.item .line-item.talent,
-.crucible.action .line-item.talent {
-  flex-direction: column;
-}
-.crucible.item .line-item.action header,
-.crucible.action .line-item.action header,
-.crucible.item .line-item.talent header,
-.crucible.action .line-item.talent header {
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-}
-.crucible.item .line-item.action .title,
-.crucible.action .line-item.action .title,
-.crucible.item .line-item.talent .title,
-.crucible.action .line-item.talent .title {
-  flex: 1;
 }
 /* ----------------------------------------- */
 /*  Armor and Weapons                        */
@@ -1834,7 +1832,7 @@
   background: var(--background-texture) repeat;
   border: none;
   margin: 0.5rem 0.25rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem 0.5rem;
 }
 .crucible.chat-message .message-header {
   font-size: var(--font-size-12);
@@ -1893,6 +1891,9 @@
 .message-metadata .unconfirmed {
   color: var(--colorError);
 }
+/* ----------------------------------------- */
+/*  Dice Roll                                */
+/* ----------------------------------------- */
 .crucible.dice-roll {
   /** Expanded Tooltip */
   /** Boons and Banes */
@@ -1905,8 +1906,8 @@
   gap: 1rem;
 }
 .crucible.dice-roll .dice-tooltip {
-  display: none;
-  flex-direction: column;
+  margin: 1rem 0;
+  flex: none;
   gap: 0.5rem;
 }
 .crucible.dice-roll .dice-tooltip .dice-formula {
@@ -1936,7 +1937,7 @@
 }
 .crucible.dice-roll .dice-total {
   height: 24px;
-  margin: 8px 0;
+  margin: 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1952,7 +1953,7 @@
   z-index: 0;
 }
 .crucible.dice-roll .dice-total .outcome,
-.crucible.dice-roll .dice-total .dc {
+.crucible.dice-roll .dice-total .target {
   flex: 1;
   overflow: visible;
   text-wrap: none;
@@ -1963,14 +1964,15 @@
 .crucible.dice-roll .dice-total .outcome {
   text-align: right;
 }
-.crucible.dice-roll .dice-total .dc {
+.crucible.dice-roll .dice-total .target {
   text-align: left;
 }
-.crucible.dice-roll .dice-total .applied:before {
+.crucible.dice-roll .dice-total .applied::after {
+  float: right;
+  content: "\f00c";
   font-family: var(--font-awesome);
   font-weight: 900;
-  margin-right: 3px;
-  content: "\f00c";
+  margin-right: 0.25rem;
 }
 .crucible.dice-roll.success .dice-total {
   background: rgba(0, 255, 0, 0.03);
@@ -2109,27 +2111,6 @@
 .crucible.dice-roll .bonuses .value {
   font-size: var(--font-size-20);
 }
-.crucible.dice-roll .target {
-  justify-content: space-between;
-  border-left: 1px solid var(--color-secondary);
-  margin-left: var(--marginSize);
-  padding-left: var(--marginSize);
-}
-.crucible.dice-roll .target select {
-  flex: 0 0 30px;
-}
-.crucible.dice-roll .target label.difficulty {
-  flex: 0 0 16px;
-  color: var(--color-tertiary);
-  font-family: var(--font-body);
-  font-size: 20px;
-  text-align: center;
-}
-.crucible.dice-roll .target input.dc {
-  flex: 0 0 64px;
-  width: 64px;
-  margin: 0 auto;
-}
 .crucible.dice-roll .details {
   width: 100%;
   flex: none;
@@ -2198,6 +2179,32 @@
 .crucible.dice-roll .form-group.spell-component .form-fields {
   flex: 2;
 }
+/* ----------------------------------------- */
+/*  Action Roll                              */
+/* ----------------------------------------- */
+.crucible.action-roll .line-item {
+  --icon-size: 48px;
+  --title-font-size: var(--font-size-24);
+}
+.crucible.action-roll .line-item .title {
+  gap: 0.5rem;
+}
+.crucible.action-roll .line-item .full-tags {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* ----------------------------------------- */
+/*  Initiative Report                        */
+/* ----------------------------------------- */
+.crucible.dice-roll.initiative {
+  flex-direction: column;
+}
+.crucible.dice-roll.initiative h3 {
+  margin: 0;
+  text-align: center;
+}
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */
 /* -------------------------------------------- */
@@ -2242,31 +2249,6 @@
 }
 #crucible-talent-hud section {
   margin-top: 0.5rem;
-}
-#crucible-talent-hud .line-item.action {
-  gap: 0.5rem;
-}
-#crucible-talent-hud .line-item.action .icon {
-  --iconSize: 36px;
-}
-#crucible-talent-hud .line-item.action h4 {
-  margin: 0;
-  font-size: var(--font-size-20);
-}
-#crucible-talent-hud .line-item.action .action-tags {
-  gap: 0.25rem;
-}
-#crucible-talent-hud .line-item.action .action-tags .tags {
-  justify-content: flex-start;
-}
-#crucible-talent-hud .line-item.action .description {
-  margin: 0;
-}
-#crucible-talent-hud .line-item.action .description > p:first-child {
-  margin-top: 0;
-}
-#crucible-talent-hud .line-item.action .description > p:last-child {
-  margin-bottom: 0;
 }
 #crucible-talent-hud .effects {
   margin: 0.5rem 0;

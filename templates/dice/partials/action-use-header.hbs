@@ -1,17 +1,17 @@
-<header class="action-header line-item">
-    <header class="name flexrow">
-        <img class="icon" src="{{action.img}}">
-        <h3 class="title">{{action.name}}</h3>
-    </header>
-    <div class="tags" data-tag-type="activation">
-        {{#each activationTags as |label tag|}}
-        <span class="tag" data-tag="{{tag}}">{{label}}</span>
-        {{/each}}
+<header class="action-header">
+    <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+    <div class="title">
+        <h4>{{action.name}}</h4>
+        <div class="tags" data-tag-type="activation">
+            {{#each activationTags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each}}
+        </div>
     </div>
 </header>
 
 {{#if hasActionTags}}
-<div class="flexrow action-tags">
+<div class="action-tags full-tags">
     <label class="tag-icon" data-tooltip="Action Tags" data-tooltip-direction="LEFT">
         <i class="fa-solid fa-bolt"></i>
     </label>
@@ -24,7 +24,7 @@
 {{/if}}
 
 {{#if context.tags.size}}
-<div class="flexrow context-tags">
+<div class="context-tags full-tags">
     <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
         <i class="{{context.icon}}"></i>
     </label>
@@ -36,7 +36,8 @@
 </div>
 {{/if}}
 
-<div class="flexrow target-template">
+{{#if hasTargets}}
+<div class="target-template full-tags">
     {{#if template}}
     <label class="tag-icon" data-tooltip="{{localize "ACTION.TemplateTargets"}}" data-tooltip-direction="LEFT"
            data-template-uuid="{{template.uuid}}">
@@ -62,10 +63,12 @@
         {{/if}}
     </div>
 </div>
+{{/if}}
 
-<div class="action-description">
+<div class="description">
     {{#if action.condition}}
     <p class="condition"><strong>{{localize "ACTION.Condition"}}:</strong> {{{action.condition}}}</p>
     {{/if}}
     <p>{{{action.description}}}</p>
 </div>
+

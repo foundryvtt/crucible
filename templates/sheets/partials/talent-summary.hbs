@@ -8,10 +8,10 @@
     {{#each actions as |action|}}
     <div class="action line-item flexcol" data-action-id="{{this.id}}">
         <header class="action-header flexrow">
-            <img class="icon" src="{{action.img}}" title="{{action.name}}"/>
+            <img class="icon" src="{{action.img}}" alt="{{action.name}}"/>
             <h4>{{action.name}}</h4>
         </header>
-        <div class="action-tags flexcol">
+        <div class="full-tags">
             {{#each action.tags as |tags section|}}
             <div class="tags {{section}}" data-tag-type="{{section}}">
                 {{~#each tags as |label tag|}}

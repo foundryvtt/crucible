@@ -698,13 +698,13 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Compute the ability score bonus for a given scaling mode
+   * Compute the ability score bonus for a given scaling mode.
    * @param {string[]} scaling    How is the ability bonus computed?
    * @returns {number}            The ability bonus
    */
   getAbilityBonus(scaling) {
     const abilities = this.system.abilities;
-    return Math.ceil(scaling.reduce((x, t) => x + abilities[t].value, 0) / scaling.length);
+    return Math.round(scaling.reduce((x, t) => x + abilities[t].value, 0) / (scaling.length * 2));
   }
 
   /* -------------------------------------------- */

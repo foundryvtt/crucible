@@ -358,7 +358,7 @@ export const TAGS = {
 
       // Determine the amount of movement that is free vs. paid
       const prior = status.movement || {free: 0, total: 0, bonus: 0};
-      const remainingFree = (stride * 4) + prior.bonus - prior.free;
+      const remainingFree = stride + prior.bonus - prior.free;
       const free = equipment.canFreeMove ? Math.min(distance, remainingFree) : 0;
       const paid = distance - free;
       this.cost.action = Math.ceil(paid / stride);

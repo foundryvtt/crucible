@@ -36,18 +36,24 @@ export default class CrucibleCombat extends Combat {
     // Update Initiative scores for all Combatants
     if ( !advanceRound ) return;
     data.combatants = [];
-    const rolls = [];
+    const results = [];
     for ( const c of this.combatants ) {
       const roll = c.getInitiativeRoll();
       await roll.evaluate();
       if ( c.actor.isIncapacitated ) roll._total = 0;
       data.combatants.push({_id: c.id, initiative: roll.total});
-      rolls.push({combatant: c, roll});
+      results.push({
+        id: c.id,
+        name: c.name,
+        combatant: c,
+        initiative: roll.total,
+        roll
+      });
     }
     data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
 
     // Post new round Initiative summary
-    await this.#postInitiativeMessage(data.round, rolls);
+    await this.#postInitiativeMessage(data.round, results);
   }
 
   /* -------------------------------------------- */
@@ -137,14 +143,12 @@ export default class CrucibleCombat extends Combat {
 
   /* -------------------------------------------- */
 
-  #postInitiativeMessage(round, rolls) {
-    const entries = rolls.map(r => {
-      return {id: r.combatant.id, name: r.combatant.name, roll: r.roll, initiative: r.roll.total}
-    });
-    entries.sort(this._sortCombatants);
+  #postInitiativeMessage(round, results) {
+    results.sort(this._sortCombatants);
+    const rolls = results.map(e => e.roll);
 
     // Format table rows
-    const rows = entries.map(i => {
+    const rows = results.map(i => {
       const rd = i.roll.data;
       const modifiers = [
         rd.ability.signedString(),
@@ -157,7 +161,7 @@ export default class CrucibleCombat extends Combat {
     // Create the Chat Message
     return ChatMessage.create({
       content: `
-      <section class="crucible roll initiative">
+      <section class="crucible dice-roll initiative">
       <h3>Round ${round} - Initiative Rolls</h3>
       <table>
         <thead>
@@ -172,6 +176,7 @@ export default class CrucibleCombat extends Combat {
         </tbody>
       </table>
       </section>`,
+      rolls,
       speaker: ChatMessage.getSpeaker({user: game.user}),
       "flags.crucible.isInitiativeReport": true
     });

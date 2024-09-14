@@ -8,12 +8,14 @@
             {{#each section.known as |item|}}
             <li class="line-item" data-component="{{item.id}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
-                <header>
-                    <h4 class="title">{{item.name}}</h4>
+                <div class="title">
+                    <h4>{{item.name}}</h4>
                     <div class="tags">
-                        {{#each item.tags as |tag|}}<span class="tag">{{tag}}</span>{{/each}}
+                        {{#each item.tags as |tag|}}
+                        <span class="tag">{{tag}}</span>
+                        {{/each}}
                     </div>
-                </header>
+                </div>
             </li>
             {{else}}
             <li class="notes">No {{section.label}} Known.</li>

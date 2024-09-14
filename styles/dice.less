@@ -1,3 +1,9 @@
+
+
+/* ----------------------------------------- */
+/*  Dice Roll                                */
+/* ----------------------------------------- */
+
 .crucible.dice-roll {
   .standard-check {
     padding: 1rem;
@@ -6,8 +12,8 @@
 
   /** Expanded Tooltip */
   .dice-tooltip {
-    display: none;
-    flex-direction: column;
+    margin: 1rem 0;
+    flex: none;
     gap: 0.5rem;
     .dice-formula {
       margin: 0;
@@ -39,7 +45,7 @@
   // Check Result
   .dice-total {
     height: 24px;
-    margin: 8px 0;
+    margin: 1rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +59,7 @@
       font-weight: normal;
       z-index: 0;
     }
-    .outcome, .dc {
+    .outcome, .target {
       flex: 1;
       overflow: visible;
       text-wrap: none;
@@ -64,14 +70,17 @@
     .outcome {
       text-align: right;
     }
-    .dc {
+    .target {
       text-align: left;
     }
-    .applied:before {
+
+    // Confirmation mark
+    .applied::after {
+      float: right;
+      content: "\f00c";
       font-family: var(--font-awesome);
       font-weight: 900;
-      margin-right: 3px;
-      content: "\f00c";
+      margin-right: 0.25rem;
     }
   }
 
@@ -216,31 +225,6 @@
     }
   }
 
-  .target {
-    justify-content: space-between;
-    border-left: 1px solid var(--color-secondary);
-    margin-left: var(--marginSize);
-    padding-left: var(--marginSize);
-
-    select {
-      flex: 0 0 30px;
-    }
-
-    label.difficulty {
-      flex: 0 0 16px;
-      color: var(--color-tertiary);
-      font-family: var(--font-body);
-      font-size: 20px;
-      text-align: center;
-    }
-
-    input.dc {
-      flex: 0 0 64px;
-      width: 64px;
-      margin: 0 auto;
-    }
-  }
-
   /** Boon and Bane Details */
   .details {
     width: 100%;
@@ -308,5 +292,37 @@
     .form-fields {
       flex: 2;
     }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Action Roll                              */
+/* ----------------------------------------- */
+
+.crucible.action-roll {
+  .line-item {
+    --icon-size: 48px;
+    --title-font-size: var(--font-size-24);
+    .title {
+      gap: 0.5rem;
+    }
+    .full-tags {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Initiative Report                        */
+/* ----------------------------------------- */
+
+.crucible.dice-roll.initiative {
+  flex-direction: column;
+  h3 {
+    margin: 0;
+    text-align: center;
   }
 }

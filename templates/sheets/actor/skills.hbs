@@ -17,13 +17,13 @@
             {{#each category.skills as |skill skillId|}}
             <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.name}}">
-                <header>
-                    <h4 class="title" data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.name}}</a></h4>
-                    <div class="tags">
-                        {{#each skill.rankTags as |tag|}}<span class="rank tag">{{tag}}</span>{{/each}}
-                        {{#each skill.abilityAbbrs}}<span class="attribute tag">{{this}}</span>{{/each}}
-                    </div>
-                </header>
+                <div class="title">
+                    <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.name}}</a></h4>
+                </div>
+                <div class="tags">
+                    {{#each skill.rankTags as |tag|}}<span class="rank tag">{{tag}}</span>{{/each}}
+                    {{#each skill.abilityAbbrs}}<span class="attribute tag">{{this}}</span>{{/each}}
+                </div>
                 <div class="bonus flexrow">
                     <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
                     <span class="passive" data-tooltip="Passive: {{skill.tooltips.passive}}">{{skill.passive}}</span>

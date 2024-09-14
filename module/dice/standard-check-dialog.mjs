@@ -13,11 +13,13 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    id: "dialog-{id}",
     classes: ["crucible", "dialog", "dice-roll"],
     window: {
       contentTag: "form",
       contentClasses: ["standard-form", "standard-check"]
+    },
+    position: {
+      width: 360
     }
   };
 
@@ -25,7 +27,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * The template path used to render the Dialog.
    * @type {string}
    */
-  static #TEMPLATE = "systems/crucible/templates/dice/standard-check-dialog.hbs";
+  static TEMPLATE = "systems/crucible/templates/dice/standard-check-dialog.hbs";
 
   /**
    * A StandardCheck dice pool instance which organizes the data for this dialog
@@ -64,7 +66,7 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   async _preFirstRender(context, options) {
-    await getTemplate(StandardCheckDialog.#TEMPLATE);
+    await getTemplate(this.constructor.TEMPLATE);
     await super._preFirstRender(context, options);
   }
 
@@ -73,7 +75,6 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
-    options.position = {width: 360};
     return Object.assign({}, data, {
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
@@ -93,17 +94,14 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @override */
   async _renderHTML(context, _options) {
-    const html = await renderTemplate(StandardCheckDialog.#TEMPLATE, context);
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return Array.from(div.children);
+    return renderTemplate(this.constructor.TEMPLATE, context);
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   _replaceHTML(result, content, _options) {
-    content.replaceChildren(...result);
+    content.innerHTML = result;
   }
 
   /* -------------------------------------------- */

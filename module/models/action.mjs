@@ -304,12 +304,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async configure(targets) {
     const roll = StandardCheck.fromAction(this);
-    const response = await this.constructor.dialogClass.prompt({options: {
+    const response = await this.constructor.dialogClass.prompt({
       action: this,
       actor: this.actor,
       roll,
       targets
-    }});
+    });
     if ( !response ) return null;
 
     // Re-verify eligibility and targets after configuration

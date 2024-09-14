@@ -1,20 +1,27 @@
 import StandardCheckDialog from "./standard-check-dialog.mjs";
 
 /**
- * Prompt the user to activate an action which may involve the rolling of a dice pool.
+ * Prompt the user to activate an action which may involve the rolling of a standard dice pool.
  * @extends {StandardCheckDialog}
  */
 export default class ActionUseDialog extends StandardCheckDialog {
-
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: `systems/${SYSTEM.id}/templates/dice/action-use-dialog.hbs`,
-      width: 360,
-      submitOnChange: true,
-      closeOnSubmit: false
-    });
+  constructor({action, actor, targets, ...options}) {
+    super(options);
+    this.action = action;
+    this.actor = actor;
+    this.targets = targets;
   }
+
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    classes: ["action-roll"],
+    position: {
+      width: 400
+    }
+  };
+
+  /** @override */
+  static TEMPLATE = "systems/crucible/templates/dice/action-use-dialog.hbs";
 
   /**
    * Track data related to a MeasuredTemplate preview for this Action.
@@ -35,43 +42,50 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   #requiresTemplate = false;
 
-  /* -------------------------------------------- */
-
   /**
    * The Action being performed
    * @type {CrucibleAction}
    */
-  get action() {
-    return this.options.action;
-  }
+  action;
+
+  /**
+   * The Actor performing the action.
+   * @type {CrucibleActor}
+   */
+  actor;
+
+  /**
+   * The Tokens which are targeted by the action.
+   * @type {CrucibleToken[]}
+   */
+  targets;
 
   /* -------------------------------------------- */
 
   /** @override */
   get title() {
-    const {actor, action} = this.options;
-    return `[${actor.name}] ${action.name}`
+    return `[${this.actor.name}] ${this.action.name}`
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
-    const context = await super.getData(options);
-    const {actor, action} = this.options;
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
     const tags = this._getTags();
-    const targetConfig = SYSTEM.ACTION.TARGET_TYPES[action.target.type];
-    this.#requiresTemplate = !!targetConfig?.template && !action.template
+    const targetConfig = SYSTEM.ACTION.TARGET_TYPES[this.action.target.type];
+    this.#requiresTemplate = !!targetConfig?.template && !this.action.template
     return foundry.utils.mergeObject(context, {
-      action: action,
-      actor: actor,
+      action: this.action,
+      actor: this.actor,
       activationTags: tags.activation,
       actionTags: tags.action,
       hasActionTags: !foundry.utils.isEmpty(tags.action),
-      hasContextTags: action.usage.context?.tags.size > 0,
-      hasDice: action.usage.hasDice ?? false,
+      hasContextTags: this.action.usage.context?.tags.size > 0,
+      hasDice: this.action.usage.hasDice ?? false,
+      hasTargets: !["self", "none"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,
-      targets: this.#targetTemplate.targets ?? action.acquireTargets()
+      targets: this.#targetTemplate.targets ?? this.action.acquireTargets()
     });
   }
 
@@ -87,28 +101,23 @@ export default class ActionUseDialog extends StandardCheckDialog {
   }
 
   /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.find("button.place-template").click(this.#onPlaceTemplate.bind(this));
-    for ( const button of html.find(".dialog-button") ) {
-      if ( this.#requiresTemplate ) button.disabled = true;
-    }
-  }
-
+  /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  /** @override */
-  _onSubmit(html) {
-    const form = html.querySelector("form");
-    const fd = (new FormDataExtended(form, {readonly: true})).object;
-    this.action.usage.rollMode = fd.rollMode;
+  /**
+   * Resolve dialog submission to enact a Roll.
+   * @returns {StandardCheck}
+   * @protected
+   */
+  _onRoll(_event, _button, _dialog) {
+    this.action.usage.rollMode = this.rollMode;
     if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
     if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
     return this.action;
   }
 
+  /* -------------------------------------------- */
+  /*  Target Management                           */
   /* -------------------------------------------- */
 
   /**
@@ -121,6 +130,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
   }, 20);
 
+  /* -------------------------------------------- */
+  /*  Measured Template Management                */
   /* -------------------------------------------- */
 
   /**
@@ -214,8 +225,6 @@ export default class ActionUseDialog extends StandardCheckDialog {
     return templateData;
   }
 
-  /* -------------------------------------------- */
-  /*  Preview Template Management                 */
   /* -------------------------------------------- */
 
   /**

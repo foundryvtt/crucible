@@ -18,20 +18,8 @@ import Enum from "./enum.mjs";
  * @enum {WeaponCategory}
  */
 export const CATEGORIES = {
-  unarmed: {
-    id: "unarmed",
-    label: "WEAPON.CATEGORIES.UNARMED",
-    hands: 1,
-    main: true,
-    off: true,
-    scaling: "strength.dexterity",
-    damage: {
-      base: 3
-    },
-    actionCost: 3,
-    range: 3,
-    training: "unarmed"
-  },
+
+  // Natural Attacks
   natural: {
     id: "natural",
     label: "WEAPON.CATEGORIES.NATURAL",
@@ -42,9 +30,25 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 3,
-    range: 3,
+    actionCost: 2,
+    range: 0,
     training: "natural"
+  },
+
+  // One-Handed Melee
+  unarmed: {
+    id: "unarmed",
+    label: "WEAPON.CATEGORIES.UNARMED",
+    hands: 1,
+    main: true,
+    off: true,
+    scaling: "strength.dexterity",
+    damage: {
+      base: 3
+    },
+    actionCost: 2,
+    range: 0,
+    training: "unarmed"
   },
   light1: {
     id: "light1",
@@ -56,8 +60,8 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 3,
-    range: 4,
+    actionCost: 2,
+    range: 1,
     training: "finesse"
   },
   simple1: {
@@ -70,23 +74,9 @@ export const CATEGORIES = {
     damage: {
       base: 5
     },
-    actionCost: 4,
-    range: 4,
+    actionCost: 2,
+    range: 1,
     training: "heavy"
-  },
-  balanced1: {
-    id: "balanced1",
-    label: "WEAPON.CATEGORIES.BALANCED1",
-    hands: 1,
-    main: true,
-    off: true,
-    scaling: "strength.dexterity",
-    damage: {
-      base: 6
-    },
-    actionCost: 4,
-    range: 4,
-    training: "balanced"
   },
   heavy1: {
     id: "heavy1",
@@ -96,12 +86,28 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength",
     damage: {
-      base: 7
+      base: 5
     },
-    actionCost: 5,
-    range: 4,
+    actionCost: 2,
+    range: 2,
     training: "heavy"
   },
+  balanced1: {
+    id: "balanced1",
+    label: "WEAPON.CATEGORIES.BALANCED1",
+    hands: 1,
+    main: true,
+    off: false,
+    scaling: "strength.dexterity",
+    damage: {
+      base: 6
+    },
+    actionCost: 2,
+    range: 2,
+    training: "balanced"
+  },
+
+  // Two-Handed Melee
   simple2: {
     id: "simple2",
     label: "WEAPON.CATEGORIES.SIMPLE2",
@@ -110,10 +116,24 @@ export const CATEGORIES = {
     off: false,
     scaling: "strength",
     damage: {
+      base: 7
+    },
+    actionCost: 3,
+    range: 3,
+    training: "heavy"
+  },
+  heavy2: {
+    id: "heavy2",
+    label: "WEAPON.CATEGORIES.HEAVY2",
+    hands: 2,
+    main: true,
+    off: false,
+    scaling: "strength",
+    damage: {
       base: 8
     },
-    actionCost: 6,
-    range: 5,
+    actionCost: 3,
+    range: 3,
     training: "heavy"
   },
   balanced2: {
@@ -126,24 +146,12 @@ export const CATEGORIES = {
     damage: {
       base: 9
     },
-    actionCost: 6,
-    range: 5,
+    actionCost: 3,
+    range: 3,
     training: "balanced"
   },
-  heavy2: {
-    id: "heavy2",
-    label: "WEAPON.CATEGORIES.HEAVY2",
-    hands: 2,
-    main: true,
-    off: false,
-    scaling: "strength",
-    damage: {
-      base: 10
-    },
-    actionCost: 7,
-    range: 5,
-    training: "heavy"
-  },
+
+  // One-Handed Ranged
   projectile1: {
     id: "projectile1",
     label: "WEAPON.CATEGORIES.PROJECTILE1",
@@ -153,94 +161,11 @@ export const CATEGORIES = {
     ranged: true,
     scaling: "strength.dexterity",
     damage: {
-      base: 4
-    },
-    actionCost: 3,
-    range: 30,
-    training: "projectile"
-  },
-  projectile2: {
-    id: "projectile2",
-    label: "WEAPON.CATEGORIES.PROJECTILE2",
-    hands: 2,
-    main: true,
-    off: false,
-    ranged: true,
-    scaling: "strength.dexterity",
-    damage: {
-      base: 9
-    },
-    actionCost: 6,
-    range: 120,
-    training: "projectile"
-  },
-  mechanical1: {
-    id: "mechanical1",
-    label: "WEAPON.CATEGORIES.MECHANICAL1",
-    hands: 1,
-    main: true,
-    off: true,
-    ranged: true,
-    reload: true,
-    scaling: "dexterity",
-    damage: {
-      base: 7
-    },
-    actionCost: 2,
-    range: 30,
-    training: "mechanical"
-  },
-  mechanical2: {
-    id: "mechanical2",
-    label: "WEAPON.CATEGORIES.MECHANICAL2",
-    hands: 2,
-    main: true,
-    off: false,
-    ranged: true,
-    reload: true,
-    scaling: "dexterity",
-    damage: {
-      base: 10
-    },
-    actionCost: 4,
-    range: 120,
-    training: "mechanical"
-  },
-  shieldLight: {
-    id: "shieldLight",
-    label: "WEAPON.CATEGORIES.SHIELD_LIGHT",
-    hands: 1,
-    main: false,
-    off: true,
-    ranged: false,
-    scaling: "strength.dexterity",
-    damage: {
-      base: 3
-    },
-    defense: {
-      block: 2
-    },
-    actionCost: 3,
-    range: 3,
-    training: "shield"
-  },
-  shieldHeavy: {
-    id: "shieldHeavy",
-    label: "WEAPON.CATEGORIES.SHIELD_HEAVY",
-    hands: 1,
-    main: false,
-    off: true,
-    ranged: false,
-    scaling: "strength",
-    damage: {
       base: 5
     },
-    defense: {
-      block: 4
-    },
-    actionCost: 4,
-    range: 3,
-    training: "shield"
+    actionCost: 2,
+    range: 60,
+    training: "projectile"
   },
   talisman1: {
     id: "talisman1",
@@ -253,9 +178,42 @@ export const CATEGORIES = {
     damage: {
       base: 4
     },
-    actionCost: 4,
+    actionCost: 2,
     range: 30,
     training: "talisman"
+  },
+  mechanical1: {
+    id: "mechanical1",
+    label: "WEAPON.CATEGORIES.MECHANICAL1",
+    hands: 1,
+    main: true,
+    off: true,
+    ranged: true,
+    reload: true,
+    scaling: "dexterity",
+    damage: {
+      base: 6
+    },
+    actionCost: 2,
+    range: 60,
+    training: "mechanical"
+  },
+
+  // Two-Handed Ranged
+  projectile2: {
+    id: "projectile2",
+    label: "WEAPON.CATEGORIES.PROJECTILE2",
+    hands: 2,
+    main: true,
+    off: false,
+    ranged: true,
+    scaling: "strength.dexterity",
+    damage: {
+      base: 8
+    },
+    actionCost: 3,
+    range: 120,
+    training: "projectile"
   },
   talisman2: {
     id: "talisman2",
@@ -268,10 +226,65 @@ export const CATEGORIES = {
     damage: {
       base: 6
     },
-    actionCost: 6,
+    actionCost: 3,
     range: 30,
     training: "talisman"
-  }
+  },
+  mechanical2: {
+    id: "mechanical2",
+    label: "WEAPON.CATEGORIES.MECHANICAL2",
+    hands: 2,
+    main: true,
+    off: false,
+    ranged: true,
+    reload: true,
+    scaling: "dexterity",
+    damage: {
+      base: 8
+    },
+    actionCost: 2,
+    range: 120,
+    training: "mechanical"
+  },
+
+  // Shields
+  shieldLight: {
+    id: "shieldLight",
+    label: "WEAPON.CATEGORIES.SHIELD_LIGHT",
+    hands: 1,
+    main: false,
+    off: true,
+    ranged: false,
+    scaling: "dexterity",
+    damage: {
+      base: 2
+    },
+    defense: {
+      block: 2
+    },
+    actionCost: 2,
+    range: 0,
+    training: "shield"
+  },
+  shieldHeavy: {
+    id: "shieldHeavy",
+    label: "WEAPON.CATEGORIES.SHIELD_HEAVY",
+    hands: 1,
+    main: false,
+    off: true,
+    ranged: false,
+    scaling: "strength",
+    damage: {
+      base: 4
+    },
+    defense: {
+      block: 4
+    },
+    actionCost: 3,
+    range: 1,
+    training: "shield"
+  },
+
 };
 
 /**

@@ -7,12 +7,12 @@
         {{#each featuredEquipment as |e|}}
         <div class="equipped line-item">
             <img class="icon" src="{{e.img}}" alt="{{e.name}}">
-            <header>
-                <h4 class="title">{{this.name}}</h4>
+            <div class="title">
+                <h4>{{this.name}}</h4>
                 <div class="tags">
                     <span class="tag">{{e.tag}}</span>
                 </div>
-            </header>
+            </div>
         </div>
         {{/each}}
     </div>
@@ -23,14 +23,14 @@
         {{#each actions}}
         <div class="action line-item" data-action-id="{{this.id}}">
             <img class="icon draggable action-drag" src="{{this.img}}" alt="{{this.name}}" draggable="true">
-            <header>
-                <h4 class="title" data-action="actionUse"><a>{{this.name}}</a></h4>
+            <div class="title">
+                <h4 data-action="actionUse"><a>{{this.name}}</a></h4>
                 <div class="tags">
                     {{#each this.tags as |label tag|}}
-                        <span class="tag {{tag}}">{{label}}</span>
+                    <span class="tag {{tag}}">{{label}}</span>
                     {{/each}}
                 </div>
-            </header>
+            </div>
         </div>
         {{/each}}
     </div>
@@ -41,14 +41,14 @@
         {{#each effects as |effect|}}
         <div class="effect line-item" data-effect-id="{{effect.id}}">
             <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
-            <header>
-                <h4 class="title">{{effect.label}}</h4>
+            <div class="title">
+                <h4>{{effect.label}}</h4>
                 <div class="tags">
                     {{#each effect.tags as |label tag|}}
-                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
                     {{/each}}
                 </div>
-            </header>
+            </div>
             <div class="controls">
                 <a class="control" data-action="effectEdit" data-tooltip="Edit Effect">
                     <i class="fas fa-edit"></i>

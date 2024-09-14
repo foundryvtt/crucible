@@ -7,8 +7,8 @@
             {{#each section.items as |item id|}}
             <li class="line-item {{item.cssClass}}" data-item-id="{{item.id}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
-                <header>
-                    <h4 class="title">
+                <div class="title">
+                    <h4 >
                         {{#if item.showStack}}<span class="stack">({{item.quantity}}) </span>{{/if}}
                         {{~item.name~}}
                     </h4>
@@ -17,7 +17,7 @@
                         {{#if this}}<span class="tag">{{this}}</span>{{/if}}
                         {{/each}}
                     </div>
-                </header>
+                </div>
                 <div class="controls">
                     <a class="button icon equipped-state fa-solid fa-shield-alt" data-action="itemEquip"
                        data-tooltip="Equip Item"></a>

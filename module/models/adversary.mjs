@@ -73,7 +73,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
    */
   #prepareBaseMovement() {
     const m = this.movement;
-    const {size=3, stride=4} = this.details.taxonomy || {};
+    const {size=3, stride=10} = this.details.taxonomy || {};
     m.size = size + m.sizeBonus;
     m.stride = stride + m.strideBonus;
   }
@@ -95,7 +95,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
     // Compute threat level
     const threatConfig = SYSTEM.THREAT_LEVELS[threat];
     const factor = threatConfig?.scaling || 1;
-    let threatLevel = Math.ceil(level * factor);
+    let threatLevel = Math.floor(level * factor);
     let fractionLevel = threatLevel;
     if ( level === 0 ) {
       fractionLevel = 0;
@@ -103,7 +103,7 @@ export default class CrucibleAdversary extends CrucibleActorType {
     }
     else if ( level < 0 ) {
       fractionLevel = 1 / (1 - level);
-      threatLevel = 1 + Math.ceil(level / factor);
+      threatLevel = Math.floor(level / factor);
     }
     this.advancement.threatLevel = threatLevel;
     this.advancement.fractionLevel = fractionLevel;
@@ -111,67 +111,89 @@ export default class CrucibleAdversary extends CrucibleActorType {
     this.advancement._autoSkillRank = Math.min(Math.ceil(this.advancement.fractionLevel / 6), 5);
     this.advancement.maxAction = threatConfig.actionMax;
 
-    // Assign base taxonomy ability scores
-    for ( const a of Object.keys(this.abilities) ) {
-      this.abilities[a].base = taxonomy.abilities[a];
+    // Scale attributes
+    this.#scaleAbilities(taxonomy, archetype);
+    this.#scaleResistances(taxonomy);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Scale adversary abilities according to their threat level, taxonomy, and archetype.
+   * @param taxonomy
+   * @param archetype
+   */
+  #scaleAbilities(taxonomy, archetype) {
+
+    // Assign base Taxonomy ability scores
+    for ( const k in SYSTEM.ABILITIES ) {
+      const a = this.abilities[k];
+      a.base = taxonomy.abilities[k];
+      a.increases = 0;
+      a.value = a.base;
     }
 
-    // Compute archetype scaling
-    let denom = 0;
-    const order = Object.keys(SYSTEM.ABILITIES).reduce((arr, k) => {
-      const weight = this.abilities[k].base ? archetype.abilities[k] : 0; // Zero base gets zero weight
-      denom += weight;
-      arr.push({id: k, score: taxonomy.abilities[k] + archetype.abilities[k], weight});
-      return arr;
-    }, []).sort((a, b) => b.score - a.score);
+    // Identify points to spend
+    let toSpend = this.advancement.threatLevel - 1;
 
-    // Conservatively under-apply increases
-    const toSpend = threatLevel - 1;
+    // Compute Archetype scaling weights
+    const weights = {};
+    let wTotal = 0;
+    for ( const k in SYSTEM.ABILITIES ) {
+      weights[k] = this.advancement.threatLevel > 0 ? archetype.abilities[k] : (8 - archetype.abilities[k]);
+      wTotal += weights[k];
+    }
+
+    // Pass 1: Unconstrained Increases
     let spent = 0;
-    for ( const o of order ) {
-      const a = this.abilities[o.id];
-      o.weight = o.weight / denom;
-      let delta = Math.floor(toSpend * o.weight);
-      if ( o.weight === 0 ) delta = 0;            // Don't increase abilities with zero weight
-      else if ( a.base + delta < 1 ) delta = 0;   // Don't decrease below 1
-      o.increases = a.increases = delta;
+    for ( const k in SYSTEM.ABILITIES ) {
+      weights[k] /= wTotal;
+      const a = this.abilities[k];
+      a.desired = a.base + (toSpend * weights[k]);
+      let d = Math.round(Math.abs(toSpend) * weights[k]) * Math.sign(toSpend);
+      a.increases = Math.clamp(d, 1 - a.value, 18 - a.value);
+      a.value = a.base + a.increases;
+      spent += a.increases;
+    }
+    if ( spent === toSpend ) return;
+
+    // Pass 2: Iterative Assignment
+    const delta = Math.sign(toSpend - spent);
+    const order = [];
+    for ( const k in SYSTEM.ABILITIES ) {
+      const a = this.abilities[k];
+      const capped = delta > 0 ? a.value === 18 : a.value === 1;
+      if ( !capped ) order.push([k, a.desired, a.value]);
+    }
+    while ( spent !== toSpend ) {
+      if ( !order.length ) break;                                           // No uncapped abilities remaining
+      if ( delta > 0 ) order.sort((a, b) => (b[1] - b[2]) - (a[1] - a[2]))  // Increase farthest below desired value
+      else order.sort((a, b) => (a[1] - a[2]) - (b[1] - b[2]));             // Reduce farthest above desired value
+      const target = order[0];
+      const a = this.abilities[target[0]];
+      a.increases += delta;
+      target[2] = a.value += delta;
+      const capped = delta > 0 ? a.value === 18 : a.value === 1;
+      if ( capped ) order.shift();
       spent += delta;
     }
+  }
 
-    // Allocate remainder
-    let remainder = toSpend - spent;
-    let n = 1;
-    while ( remainder > 0 ) {
-      for ( const o of order ) {
-        const a = this.abilities[o.id];
-        const nextWeight = (threatLevel + n) * o.weight;
-        if ( Math.floor(nextWeight) > a.increases ) {
-          a.increases++;
-          remainder--
-          if ( !remainder ) break;
-        }
-      }
-      n++;
-    }
+  /* -------------------------------------------- */
 
-    // Compute total
-    for ( const a of Object.values(this.abilities) ) {
-      a.value = a.base + a.increases;
-    }
-
-    // Resistances
-    const resistanceLevel = Math.max(6 + threatLevel, 0);
+  /**
+   * Scale adversary resistances according to their threat level and taxonomy.
+   * @param taxonomy
+   */
+  #scaleResistances(taxonomy) {
+    const resistanceLevel = Math.max(6 + this.advancement.threatLevel, 0);
     for ( const r of Object.keys(this.resistances) ) {
       const tr = taxonomy.resistances[r] || 0;
       if ( tr === 0 ) {
         this.resistances[r].base = 0;
         continue;
       }
-      const scaling = {
-       1: 0.33,
-       2: 0.66,
-       3: 1
-      }[Math.abs(tr)];
+      const scaling = {1: 0.33, 2: 0.66, 3: 1}[Math.abs(tr)];
       this.resistances[r].base = Math.floor(resistanceLevel * scaling) * Math.sign(tr);
     }
   }

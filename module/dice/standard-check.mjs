@@ -218,22 +218,19 @@ export default class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
-  /** @override */
+  /**
+   * FIXME remove this override in v13+
+   * @override
+   */
   async render(chatOptions) {
-    return renderTemplate(this.constructor.CHAT_TEMPLATE, this._getChatCardData(chatOptions));
+    const chatData = await this._prepareChatRenderContext(chatOptions);
+    return renderTemplate(this.constructor.CHAT_TEMPLATE, chatData);
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare the data object used to render the StandardCheck object to an HTML template
-   * @param {object} options
-   * @param {string} [options.flavor]
-   * @param {boolean} [options.isPrivate=false]
-   * @returns {object}      A prepared context object that is used to render the HTML template
-   * @protected
-   */
-  _getChatCardData({flavor, isPrivate=false}={}) {
+  /** @override */
+  async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
     const cardData = {
       cssClass: [SYSTEM.id, "dice-roll", "standard-check"],
       data: this.data,

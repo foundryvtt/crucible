@@ -1,20 +1,24 @@
-<form class="standard-check action flexcol">
-    {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
+<form>
+    <div class="action line-item">
+        {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
+    </div>
 
     {{#if hasDice}}
-    <section class="content roller flexcol">
+    <section class="roller flexcol">
         {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
     </section>
+    {{#if showDetails}}
     <section class="details flexcol">
         {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
     </section>
     {{/if}}
+    {{/if}}
 
-    <footer class="buttons flexrow">
+    <footer class="form-footer">
         <select name="rollMode">
             {{selectOptions rollModes selected=rollMode localize=true}}
         </select>
-        <button type="button" class="dialog-button frame-brown" data-button="ok">
+        <button type="submit" class="dialog-button frame-brown" data-action="roll">
             <i class="fas fa-dice"></i>
             <label>Use Action</label>
         </button>

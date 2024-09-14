@@ -90,8 +90,8 @@ export default class AttackRoll extends StandardCheck {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _getChatCardData() {
-    const cardData = super._getChatCardData();
+  async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
+    const cardData = await super._prepareChatRenderContext();
     cardData.cssClass += ` ${this.#getResultClass()}`;
 
     // Target
@@ -124,6 +124,10 @@ export default class AttackRoll extends StandardCheck {
 
   /* -------------------------------------------- */
 
+  /**
+   * Get the attack roll result CSS class.
+   * @returns {string}
+   */
   #getResultClass() {
     const results = this.constructor.RESULT_TYPES;
     const result = Object.entries(results).find(e => e[1] === this.data.result);
