@@ -41,8 +41,8 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
       canLevelDown: level > -5,
-      canPurchaseTalents: false,
-      canPurchaseSkills: false
+      skills: false, // TODO adversaries cannot purchase skills for now
+      talents: false // TODO adversaries cannot purchase talents for now
     });
 
     // Incomplete Tasks

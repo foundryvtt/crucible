@@ -376,6 +376,9 @@
   transform: rotate(var(--hex-rotation));
   z-index: -1;
 }
+.crucible .hex.filled {
+  --hex-bg: url("../ui/elements/hex-plain-filled.svg");
+}
 .crucible .hex.dexterity-intellect {
   --hex-bg: url("../ui/elements/hex-accent-2b.svg");
   --hex-rotation: -120deg;
@@ -814,8 +817,13 @@
 }
 .crucible.sheet.actor .sheet-header header.title .level,
 .crucible.sheet.actor .sheet-header header.title .controls,
-.crucible.sheet.actor .sheet-header header.title a.button {
+.crucible.sheet.actor .sheet-header header.title a.level-up {
   flex: none;
+}
+.crucible.sheet.actor .sheet-header header.title a.level-up {
+  opacity: 1;
+  height: 28px;
+  border: 1px solid var(--color-warm-1);
 }
 .crucible.sheet.actor .sheet-header header.title input:last-child {
   flex: 0 0 var(--sheet-header-height);
@@ -834,6 +842,9 @@
   background: var(--color-frame-bg-75);
   border: 1px solid var(--color-frame);
   border-radius: 4px;
+}
+.crucible.sheet.actor .sheet-header div.subtitle h2.incomplete {
+  border-color: var(--color-warm-1);
 }
 .crucible.sheet.actor .sheet-header div.metadata {
   justify-content: flex-end;
@@ -1161,8 +1172,38 @@
 .crucible.sheet.actor .tab.attributes .abilities .intellect {
   --ability-icon: url("../ui/abilities/intellect.svg");
 }
-.crucible.sheet.actor .tab.attributes .abilities .controls {
-  display: none;
+.crucible.sheet.actor .tab.attributes .abilities a.button {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: -10px;
+  opacity: 1;
+}
+.crucible.sheet.actor .tab.attributes .abilities a.button.decrease {
+  left: -10px;
+}
+.crucible.sheet.actor .tab.attributes .abilities a.button.increase {
+  right: -10px;
+}
+.crucible.sheet.actor .tab.attributes .abilities .point-pools {
+  position: absolute;
+  padding: 0 0 0 0.5rem;
+  bottom: -0.5rem;
+  z-index: 1;
+  font-size: var(--font-size-12);
+  justify-content: center;
+  background: var(--color-frame-bg);
+  gap: 0.5rem;
+}
+.crucible.sheet.actor .tab.attributes .abilities .point-pools .label {
+  flex: none;
+  color: var(--color-secondary);
+}
+.crucible.sheet.actor .tab.attributes .abilities .point-pools .value {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: -2px -12px -2px 0;
 }
 .crucible.sheet.actor .tab.attributes .defenses {
   display: flex;
@@ -1342,11 +1383,14 @@
 }
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 1;
-  padding: 1.5rem 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror {
   flex: 1;
   width: 100%;
+}
+.crucible.sheet.actor .tab.biography .sheet-section prose-mirror.active {
+  margin-top: 0.5rem;
 }
 .crucible.sheet.actor .tab.biography .sheet-section prose-mirror menu {
   padding: 0;
@@ -1360,8 +1404,10 @@
 .crucible.sheet.actor .tab.biography .appearance {
   align-items: flex-start;
 }
-.crucible.sheet.actor .tab.biography .appearance > prose-mirror {
-  flex: 4;
+.crucible.sheet.actor .tab.biography .appearance fieldset {
+  flex: 0 0 150px;
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-12);
 }
 .crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
@@ -1370,7 +1416,7 @@
 .crucible.sheet.actor .tab.talents .header-section,
 .crucible.sheet.actor .tab.skills .header-section,
 .crucible.sheet.actor .tab.spells .header-section {
-  padding: 0 1rem;
+  justify-content: space-between;
 }
 .crucible.sheet.actor .tab.inventory .header-section a.button,
 .crucible.sheet.actor .tab.talents .header-section a.button,
@@ -1391,6 +1437,11 @@
   justify-content: flex-end;
   font-size: var(--font-size-12);
   gap: 0.5rem;
+  z-index: 1;
+  padding: 1px 0.5rem;
+  box-sizing: content-box;
+  background: var(--color-frame-bg);
+  border-radius: 3px;
 }
 .crucible.sheet.actor .tab.inventory .point-pools .label,
 .crucible.sheet.actor .tab.talents .point-pools .label,
@@ -1446,12 +1497,15 @@
   bottom: 0;
   right: 0;
 }
+.crucible.sheet.actor .tab.talents .point-pools {
+  flex: none;
+  width: 200px;
+}
 .crucible.sheet.actor .tab.skills .point-pools {
-  width: 100%;
+  width: 160px;
   position: absolute;
-  right: 1.5rem;
+  right: 1rem;
   top: 0.75rem;
-  z-index: 1;
 }
 .crucible.sheet.actor .tab.skills .bonus {
   flex: 0 0 70px;
@@ -1501,6 +1555,15 @@
   font-size: var(--font-size-10);
   font-family: var(--font-sans);
   color: var(--color-secondary);
+}
+/* ----------------------------------------- */
+/*  Character Creation Tooltip               */
+/* ----------------------------------------- */
+#tooltip.creation-steps {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: var(--font-size-13);
+  font-family: var(--font-serif);
 }
 /* ----------------------------------------- */
 /*  All Items                                */

@@ -2,19 +2,23 @@
     <header class="title flexrow">
         <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
         {{#if incomplete.level}}
-        <a class="button icon level-up fa-solid fa-plus" data-action="levelUp"
-           data-tooltip="{{incomplete.levelTooltip}}"></a>
+        <a class="button icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
+           data-tooltip="Level Up!"></a>
+        {{else if incomplete.creation}}
+        <a class="button icon level-up fa-solid fa-triangle-exclamation incomplete" data-action="levelUp"
+           data-tooltip="{{incomplete.creationTooltip}}" data-tooltip-class="creation-steps"></a>
         {{/if}}
         <label class="level">Level</label>
-        {{formInput fields.advancement.fields.level value=source.system.advancement.level type="number" disabled=isL0}}
+        {{formInput fields.advancement.fields.level value=source.system.advancement.level type="number"
+                    disabled=incomplete.isL0}}
     </header>
 
     <div class="subtitle flexrow">
-        <h2 class="ancestry flexrow {{#if incomplete.ancestry}}inactive{{/if}}" data-action="chooseAncestry"
+        <h2 class="ancestry flexrow {{#if incomplete.ancestry}}incomplete{{/if}}" data-action="editAncestry"
             {{#if incomplete.ancestry}}data-tooltip="WALKTHROUGH.AddAncestry"{{/if}}>
             <a>{{#if incomplete.ancestry}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{ancestryName}}</a>
         </h2>
-        <h2 class="background flexrow {{#if incomplete.background}}inactive{{/if}}" data-action="chooseBackground"
+        <h2 class="background flexrow {{#if incomplete.background}}incomplete{{/if}}" data-action="editBackground"
             {{#if incomplete.background}}data-tooltip="WALKTHROUGH.AddBackground"{{/if}}>
             <a>{{#if incomplete.background}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{backgroundName}}</a>
         </h2>

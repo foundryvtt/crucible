@@ -21,7 +21,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       itemDelete: CrucibleBaseActorSheet.#onItemDelete,
       effectCreate: CrucibleBaseActorSheet.#onEffectCreate,
       effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
-      effectDelete: CrucibleBaseActorSheet.#onEffectDelete
+      effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
+      editImage: CrucibleBaseActorSheet.#onEditImage // TODO remove in v13
     },
     form: {
       submitOnChange: true
@@ -684,6 +685,34 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #getEventEffect(event) {
     const effectId = event.target.closest(".active-effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Edit the Actor profile image.
+   * TODO: Remove this in V13
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEditImage(event) {
+    const attr = event.target.dataset.edit;
+    const current = foundry.utils.getProperty(this.document, attr);
+    const fp = new FilePicker({
+      current,
+      type: "image",
+      callback: path => {
+        event.target.src = path;
+        if ( this.options.form.submitOnChange ) {
+          const submit = new Event("submit");
+          this.element.dispatchEvent(submit);
+        }
+      },
+      top: this.position.top + 40,
+      left: this.position.left + 10
+    });
+    await fp.browse();
   }
 
   /* -------------------------------------------- */

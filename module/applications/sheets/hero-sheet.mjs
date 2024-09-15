@@ -45,12 +45,19 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       abilities: context.points.ability.requireInput,
       skills: context.points.skill.available,
       talents: context.points.talent.available,
-      level: isL0 || (a.system.advancement.pct === 100),
-      levelOne: isL0,
-      levelUp: (a.system.advancement.pct === 100),
-      canPurchaseTalents: true,
-      canPurchaseSkills: true
+      isL0: isL0
     });
+    i.creation = i.ancestry || i.background || i.abilities || i.skills || i.talents;
+    i.level = isL0 ? !i.creation : (a.system.advancement.pct === 100);
+    if ( i.creation ) {
+      i.creationTooltip = "<p>Character Creation Incomplete!</p><ol>";
+      if ( i.ancestry ) i.creationTooltip += "<li>Select Ancestry</li>";
+      if ( i.background ) i.creationTooltip += "<li>Select Background</li>";
+      if ( i.abilities ) i.creationTooltip += "<li>Spend Ability Points</li>";
+      if ( i.skills ) i.creationTooltip += "<li>Spend Skill Points</li>";
+      if ( i.talents ) i.creationTooltip += "<li>Spend Talent Points</li>";
+      i.creationTooltip += "</ol>";
+    }
     return context;
   }
 
@@ -71,10 +78,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     event.preventDefault();
     event.stopPropagation();
     switch ( target.dataset.action ) {
-      // case "abilityDecrease":
-      //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, -1);
-      // case "abilityIncrease":
-      //   return this.actor.purchaseAbility(a.closest(".ability").dataset.ability, 1);
+      case "abilityDecrease":
+        return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, -1);
+      case "abilityIncrease":
+        return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, 1);
       case "skillConfig":
         const skillConfig = new SkillConfig({document: this.actor, skillId: target.closest(".skill").dataset.skill})
         await skillConfig.render({force: true});

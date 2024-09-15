@@ -2,6 +2,7 @@ import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpell from "../models/spell.mjs";
+const {DialogV2} = foundry.applications.api;
 
 /**
  * @typedef {Object} ActorEquippedWeapons
@@ -1502,10 +1503,15 @@ export default class CrucibleActor extends Actor {
 
     // Prompt for confirmation
     if ( dialog ) {
-      const confirm = await Dialog.confirm({
-        title: `Reset Talents: ${this.name}`,
+      const confirm = await DialogV2.confirm({
+        window: {
+          title: `Reset Talents: ${this.name}`,
+          icon: "fa-solid fa-undo"
+        },
         content: `<p>Are you sure you wish to reset all Talents?</p>`,
-        defaultYes: false
+        yes: {
+          default: true
+        }
       });
       if ( !confirm ) return;
     }

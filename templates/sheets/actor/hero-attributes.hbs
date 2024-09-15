@@ -86,17 +86,27 @@
         {{#each abilityScores as |ability|}}
         <div class="ability {{ability.id}} {{ability.type}} flexcol" data-ability="{{ability.id}}">
             <h4 class="label">{{ability.label}}</h4>
-            {{#unless ../sectionLocks.abilities}}
-            <div class="controls flexcol">
-                <a class="control fa-solid fa-caret-up {{#unless ability.canIncrease}}inactive{{/unless}} increase"
-                   title="Ability Increase" data-action="abilityIncrease"></a>
-                <a class="control fa-solid fa-caret-down {{#unless ability.canDecrease}}inactive{{/unless}} decrease"
-                   title="Ability Decrease" data-action="abilityDecrease"></a>
-            </div>
-            {{/unless}}
             <span class="input score">{{ability.value}}</span>
+            {{#if ability.canDecrease}}
+            <a class="button icon fa-solid fa-caret-down decrease" data-action="abilityDecrease"
+               data-tooltip="Decrease {{ability.label}}" data-tooltip-direction="LEFT"></a>
+            {{/if}}
+            {{#if ability.canIncrease}}
+            <a class="button icon fa-solid fa-caret-up increase" data-action="abilityIncrease"
+               data-tooltip="Increase {{ability.label}}" data-tooltip-direction="RIGHT"></a>
+            {{/if}}
         </div>
         {{/each}}
+        {{#if points.ability.requireInput}}
+        <footer class="footer-section point-pools flexrow">
+            <span class="label">Ability Points</span>
+            {{#if points.ability.pool}}
+            <span class="value hex filled">{{points.ability.pool}}</span>
+            {{else if points.ability.available}}
+            <span class="value hex filled">{{points.ability.available}}</span>
+            {{/if}}
+        </footer>
+        {{/if}}
     </div>
 
     <div class="sheet-section defenses">

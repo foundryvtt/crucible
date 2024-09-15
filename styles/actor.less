@@ -120,8 +120,13 @@
       }
       .level,
       .controls,
-      a.button {
+      a.level-up {
         flex: none;
+      }
+      a.level-up {
+        opacity: 1.0;
+        height: 28px;
+        border: 1px solid var(--color-warm-1);
       }
       input:last-child {
         flex: 0 0 var(--sheet-header-height);
@@ -140,6 +145,9 @@
         background: var(--color-frame-bg-75);
         border: 1px solid var(--color-frame);
         border-radius: 4px;
+      }
+      h2.incomplete {
+        border-color: var(--color-warm-1);
       }
     }
     div.metadata {
@@ -498,8 +506,38 @@
       .intellect {
         --ability-icon: url("../ui/abilities/intellect.svg");
       }
-      .controls {
-        display: none; // FIXME temporarily hidden
+
+      // Control Buttons
+      a.button {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        top: -10px;
+        opacity: 1.0;
+        &.decrease { left: -10px; }
+        &.increase { right: -10px; }
+      }
+
+      // Ability Point Pool
+      .point-pools {
+        position: absolute;
+        padding: 0 0 0 0.5rem;
+        bottom: -0.5rem;
+        z-index: 1;
+        font-size: var(--font-size-12);
+        justify-content: center;
+        background: var(--color-frame-bg);
+        gap: 0.5rem;
+        .label {
+          flex: none;
+          color: var(--color-secondary);
+        }
+        .value {
+          flex: none;
+          width: 24px;
+          height: 24px;
+          margin: -2px -12px -2px 0;
+        }
       }
     }
 
@@ -701,10 +739,13 @@
     padding: 1rem 0 0;
     .sheet-section {
       flex: 1;
-      padding: 1.5rem 0.5rem 0.5rem;
+      padding: 0.5rem;
       prose-mirror {
         flex: 1;
         width: 100%;
+        &.active {
+          margin-top: 0.5rem;
+        }
         menu {
           padding: 0;
         }
@@ -718,8 +759,10 @@
     }
     .appearance {
       align-items: flex-start;
-      > prose-mirror {
-        flex: 4;
+      fieldset {
+        flex: 0 0 150px;
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-12);
       }
       > div {
         padding: 0 1rem;
@@ -736,7 +779,7 @@
   .tab.skills,
   .tab.spells {
     .header-section {
-      padding: 0 1rem;
+      justify-content: space-between;
       a.button {
         flex: none;
       }
@@ -748,6 +791,11 @@
       justify-content: flex-end;
       font-size: var(--font-size-12);
       gap: 0.5rem;
+      z-index: 1;
+      padding: 1px 0.5rem;
+      box-sizing: content-box;
+      background: var(--color-frame-bg);
+      border-radius: 3px;
       .label {
         flex: none;
         color: var(--color-secondary);
@@ -791,6 +839,13 @@
     }
   }
 
+  .tab.talents {
+    .point-pools {
+      flex: none;
+      width: 200px;
+    }
+  }
+
   /* ----------------------------------------- */
   /*  Skills Tab                               */
   /* ----------------------------------------- */
@@ -799,11 +854,10 @@
 
     // Special case display for available and spent
     .point-pools {
-      width: 100%;
+      width: 160px;
       position: absolute;
-      right: 1.5rem;
+      right: 1rem;
       top: 0.75rem;
-      z-index: 1;
     }
 
     // Score and passive bonus
@@ -859,4 +913,15 @@
       color: var(--color-secondary);
     }
   }
+}
+
+/* ----------------------------------------- */
+/*  Character Creation Tooltip               */
+/* ----------------------------------------- */
+
+#tooltip.creation-steps {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: var(--font-size-13);
+  font-family: var(--font-serif);
 }

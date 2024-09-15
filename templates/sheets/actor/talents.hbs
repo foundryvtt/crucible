@@ -1,7 +1,7 @@
 <section class="tab {{tabs.talents.id}} flexcol scrollable {{tabs.talents.cssClass}}"
          data-tab="{{tabs.talents.id}}" data-group="{{tabs.talents.group}}">
 
-    {{#if canPurchaseTalents}}
+    {{#if incomplete.talents}}
     <div class="header-section flexrow">
         <a class="button framed" data-action="talentTree" data-tooltip="Toggle Talent Tree">
             <i class="fa-solid fa-diagram-project"></i> {{talentTreeButtonText}}</a>

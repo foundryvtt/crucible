@@ -1,7 +1,7 @@
 <section class="tab {{tabs.skills.id}} flexcol scrollable {{tabs.skills.cssClass}}"
          data-tab="{{tabs.skills.id}}" data-group="{{tabs.skills.group}}">
 
-    {{#if canPurchaseSkills}}
+    {{#if incomplete.skills}}
     <div class="point-pools flexrow">
         <span class="label">Available</span>
         <span class="value">{{points.skill.available}}</span>
