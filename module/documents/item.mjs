@@ -162,12 +162,11 @@ export default class CrucibleItem extends Item {
     // Equipment changes
     if ( changed.system?.equipped !== undefined ) {
       const text = `${changed.system.equipped ? "+" : "-"}(${this.name})`;
-      const fontSize = 24 * (canvas.dimensions.size / 100).toNearest(0.25);
       for ( let token of tokens ) {
         canvas.interface.createScrollingText(token.center, text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
           direction: CONST.TEXT_ANCHOR_POINTS[changed.system.equipped ? "TOP" : "BOTTOM"],
-          fontSize: fontSize,
+          fontSize: 36,
           stroke: 0x000000,
           strokeThickness: 4
         });

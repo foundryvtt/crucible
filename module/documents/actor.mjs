@@ -526,7 +526,7 @@ export default class CrucibleActor extends Actor {
       ad.tags ||= [];
 
       // Customize strike tags
-      if ( ["strike", "disengagementStrike"].includes(ad.id) ) {
+      if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
         if ( w.melee ) ad.tags.push("melee");
         if ( w.ranged ) ad.tags.push("ranged");
         ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
@@ -2144,7 +2144,7 @@ export default class CrucibleActor extends Actor {
       if ( delta === 0 ) continue;
       const text = `${delta.signedString()} ${statusText ?? resource.label}`;
       const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
-      const fontSize = (24 + (24 * pct)) * (canvas.dimensions.size / 100).toNearest(0.25); // Range between [24, 48]
+      const fontSize = 36 + (36 * pct); // Range between [36, 64]
       const healSign = resource.type === "active" ? 1 : -1;
       const fillColor = resource.color[Math.sign(delta) === healSign ? "heal" : "high"];
 

@@ -299,6 +299,8 @@
 "ACTION.TagDualWieldTooltip":  "This action requires wielding two separate weapons or being entirely unarmed to perform.",
 "ACTION.TagEmpowered": "Empowered",
 "ACTION.TagEmpoweredTooltip": "This action is powerful and deals additional damage, gaining a +2 damage bonus if successful.",
+"ACTION.TagExposing": "Exposing",
+"ACTION.TagExposingTooltip":  "This action leaves your target off-balance, temporarily affecting them with the Exposed condition.",
 "ACTION.TagAccurate": "Accurate",
 "ACTION.TagAccurateTooltip": "This action is particularly accurate. You gain 2 additional Boons when performing the action.",
 "ACTION.TagFinesse": "Finesse",

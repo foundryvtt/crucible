@@ -270,9 +270,9 @@
         --resource-pct: 0%;
         position: relative;
         flex: 0 0 100px;
-        height: 100%;
+        height: 114px;
         background: var(--resource-bg) no-repeat center;
-        background-size: 80px;
+        background-size: 100px;
         justify-content: center;
         align-items: center;
 
@@ -280,10 +280,10 @@
           position: absolute;
           z-index: 1;
           &.above {
-            top: 0.5rem;
+            top: -0.5rem;
           }
           &.below {
-            bottom: 0.5rem;
+            bottom: -0.5rem;
           }
         }
         .pool {
@@ -333,7 +333,7 @@
           width: 100%;
           height: 100%;
           background: var(--resource-fill) no-repeat center;
-          background-size: 80px;
+          background-size: 100px;
           z-index: 0;
           clip-path: inset(var(--resource-pct) 0px 0px 0px);
           transition: clip-path 1s;
@@ -341,7 +341,7 @@
 
         .threshold {
           position: absolute;
-          bottom: 12px;
+          bottom: -8px;
           flex: none;
           width: 32px;
           height: 40px;
@@ -360,7 +360,7 @@
             right: -12px;
           }
           &.madness {
-            left: -16px; // FIXME why is this different than wounds?
+            left: -12px;
           }
         }
       }

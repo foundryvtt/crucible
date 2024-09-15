@@ -236,14 +236,20 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
     const submitData = foundry.utils.expandObject(formData.object);
     submitData.actionHooks = Object.values(submitData.actionHooks || {});
     submitData.effects = Object.values(submitData.effects || {});
-    const actions = this.document.toObject().system.actions;
+
+    // Validate Action Data
+    let actionData;
     try {
       const a = this.action.clone();
       a.updateSource(submitData);
-      actions.findSplice(a => a.id === this.action.id, a.toObject());
+      actionData = a.toObject();
     } catch(err) {
       throw new Error("Invalid Action Update", {cause: err});
     }
+
+    // Construct Database Update
+    const actions = this.document.system.toObject().actions;
+    actions.findSplice(a => a.id === this.action.id, actionData);
     return {system: {actions}};
   }
 
@@ -259,7 +265,8 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
    */
   async _processSubmitData(event, form, submitData) {
     await this.document.update(submitData, {diff: false});
-    this.action = this.document.system.actions.find(a => a.id === this.action.id);
+    const actionData = submitData.system.actions.find(a => a.id === this.action.id);
+    this.action.updateSource(actionData);
     await this.render();
   }
 

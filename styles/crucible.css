@@ -610,6 +610,9 @@
 .crucible.sheet .form-group.slim .form-fields input {
   text-align: center;
 }
+.crucible.sheet prose-mirror {
+  font-size: 13px;
+}
 /* ----------------------------------------- */
 /*  Line Items: Actions, Talents, etc...     */
 /* ----------------------------------------- */
@@ -664,7 +667,7 @@
   width: 100%;
   height: auto;
   font-size: var(--font-size-12);
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 .crucible .line-item .description > p:first-child {
   margin-top: 0;
@@ -681,6 +684,10 @@
 .crucible .line-item .controls .control {
   font-size: var(--font-size-10);
   padding: 0.25rem;
+}
+.crucible .line-item.hook textarea {
+  font-family: monospace;
+  font-size: 12px;
 }
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
@@ -940,9 +947,9 @@
   --resource-pct: 0%;
   position: relative;
   flex: 0 0 100px;
-  height: 100%;
+  height: 114px;
   background: var(--resource-bg) no-repeat center;
-  background-size: 80px;
+  background-size: 100px;
   justify-content: center;
   align-items: center;
 }
@@ -951,10 +958,10 @@
   z-index: 1;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .label.above {
-  top: 0.5rem;
+  top: -0.5rem;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .label.below {
-  bottom: 0.5rem;
+  bottom: -0.5rem;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool {
   z-index: 1;
@@ -997,14 +1004,14 @@
   width: 100%;
   height: 100%;
   background: var(--resource-fill) no-repeat center;
-  background-size: 80px;
+  background-size: 100px;
   z-index: 0;
   clip-path: inset(var(--resource-pct) 0px 0px 0px);
   transition: clip-path 1s;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .threshold {
   position: absolute;
-  bottom: 12px;
+  bottom: -8px;
   flex: none;
   width: 32px;
   height: 40px;
@@ -1024,7 +1031,7 @@
   right: -12px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .threshold.madness {
-  left: -16px;
+  left: -12px;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource.health {
   --resource-bg: url("../ui/resources/health-bg.png");
@@ -2182,12 +2189,8 @@
 /* ----------------------------------------- */
 /*  Action Roll                              */
 /* ----------------------------------------- */
-.crucible.action-roll .line-item {
-  --icon-size: 48px;
-  --title-font-size: var(--font-size-24);
-}
-.crucible.action-roll .line-item .title {
-  gap: 0.5rem;
+.crucible.action-roll {
+  margin-bottom: 0.5rem;
 }
 .crucible.action-roll .line-item .full-tags {
   flex: 0 0 100%;

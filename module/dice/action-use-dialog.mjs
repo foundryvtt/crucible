@@ -17,6 +17,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
     classes: ["action-roll"],
     position: {
       width: 400
+    },
+    window: {
+      minimizable: true
+    },
+    actions: {
+      placeTemplate: ActionUseDialog.#onPlaceTemplate
     }
   };
 
@@ -136,10 +142,11 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * Handle left-click events to begin the template targeting workflow
-   * @param {Event} event      The originating click event
+   * @this {ActionUseDialog}
+   * @param {Event} event
+   * @returns {Promise<void>}
    */
-  async #onPlaceTemplate(event) {
-    event.preventDefault();
+  static async #onPlaceTemplate(event) {
 
     // Deactivate any previous template preview
     this.#deactivateTemplate(event);
@@ -167,13 +174,19 @@ export default class ActionUseDialog extends StandardCheckDialog {
     template.document._object = template; // FIXME this is a bit of a hack
 
     // Minimize open windows
-    const minimizedWindows = Object.values(ui.windows).reduce((arr, app) => {
+    const minimizedWindows = [];
+    for ( const app of Object.values(ui.windows) ) {
       if ( !app.minimized ) {
         app.minimize();
-        arr.push(app);
+        minimizedWindows.push(app);
       }
-      return arr;
-    }, []);
+    }
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( !app.minimized ) {
+        app.minimize();
+        minimizedWindows.push(app);
+      }
+    }
 
     // Store preview template data
     this.#targetTemplate = {

@@ -168,6 +168,11 @@
       }
     }
   }
+
+  // Text Editors
+  prose-mirror {
+    font-size: 13px;
+  }
 }
 
 
@@ -227,7 +232,7 @@
     width: 100%;
     height: auto;
     font-size: var(--font-size-12);
-    color: var(--color-secondary);
+    color: var(--color-primary);
     > p:first-child {
       margin-top: 0;
     }
@@ -245,6 +250,13 @@
     .control {
       font-size: var(--font-size-10);
       padding: 0.25rem;
+    }
+  }
+
+  &.hook {
+    textarea {
+      font-family: monospace;
+      font-size: 12px;
     }
   }
 }

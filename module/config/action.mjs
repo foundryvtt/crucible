@@ -609,7 +609,15 @@ export const TAGS = {
       this.usage.bonuses.damageBonus += 6;
     },
   },
-
+  exposing: {
+    tag: "exposing",
+    label: "ACTION.TagExposing",
+    tooltip: "ACTION.TagExposingTooltip",
+    category: "modifiers",
+    prepare() {
+      this.usage.boons.exposed = {label: "EFFECT.STATUSES.Exposed", number: 2};
+    }
+  },
   accurate: {
     tag: "accurate",
     label: "ACTION.TagAccurate",
@@ -820,7 +828,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 1
     },
     cost: {
-      action: 3
+      action: 2
     },
     effects: [
       {
@@ -876,12 +884,12 @@ export const DEFAULT_ACTIONS = Object.freeze([
     }
   },
   {
-    id: "disengagementStrike",
-    name: "Disengagement Strike",
+    id: "reactiveStrike",
+    name: "Reactive Strike",
     img: "icons/skills/melee/blade-tip-orange.webp",
     description: "Perform a strike when an enemy leaves your engagement and you are not fully engaged.",
     cost: {
-      action: -2,
+      action: -1,
       focus: 1,
       weapon: true
     },
@@ -893,11 +901,11 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       scope: 3
     },
-    tags: ["reaction", "mainhand"],
+    tags: ["reaction"], // Added to in #prepareDefaultActions
     _hooks: {
       canUse() {
         for ( const s of ["unaware", "flanked"] ) {
-          if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Disengagement Strike while ${s}.`);
+          if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
         }
       }
     }
@@ -967,7 +975,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     img: "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
     description: "Reload a ranged weapon which features a reloading time.",
     cost: {
-      action: 1
+      action: 2
     },
     tags: ["reload"],
     target: {

@@ -34,7 +34,9 @@ export default class CrucibleScene extends Scene {
 
     // Define Scene dimensions
     return {
-      width, height, size: grid.size,
+      width, height,
+      size: grid.size,
+      uiSize: sourceGrid.size,
       rect: {x: 0, y: 0, width, height},
       sceneX, sceneY, sceneWidth, sceneHeight,
       sceneRect: {x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight},

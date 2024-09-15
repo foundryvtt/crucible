@@ -321,7 +321,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const actionData = {id: crucible.api.methods.generateId(this.document.name)};
     if ( actions.length ) {
       actionData.id += suffix;
-      actionData.name = `${this.object.name} ${suffix}`
+      actionData.name = `${this.document.name} ${suffix}`
     }
 
     // Add data to the actions array
