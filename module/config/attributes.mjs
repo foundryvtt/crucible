@@ -175,9 +175,9 @@ export const RESOURCES = Object.freeze({
     type: "active",
     tooltip: "(6 &times; Level) + (4 &times; Toughness) + (2 &times; Strength)",
     color: {
-      high: Color.from(0xEE0000),
-      low: Color.from(0xAA0000),
-      heal: Color.from(0x00EE00)
+      high: Color.from("#d72828"),
+      low: Color.from("#5e0000"),
+      heal: Color.from("#48c248")
     },
   },
   wounds: {
@@ -186,9 +186,9 @@ export const RESOURCES = Object.freeze({
     type: "reserve",
     tooltip: "Health &times; 1.5",
     color: {
-      high: Color.from(0xEE0000),
-      low: Color.from(0xAA0000),
-      heal: Color.from(0x00EE00)
+      high: Color.from("#d72828"),
+      low: Color.from("#5e0000"),
+      heal: Color.from("#48c248")
     },
   },
   morale: {
@@ -197,9 +197,9 @@ export const RESOURCES = Object.freeze({
     type: "active",
     tooltip: "(6 &times; Level) + (4 &times; Presence) + (2 &times; Wisdom)",
     color: {
-      high: Color.from(0x9900CC),
-      low: Color.from(0x6600AA),
-      heal: Color.from(0x9900CC)
+      high: Color.from("#7550ff"),
+      low: Color.from("#3c037e"),
+      heal: Color.from("#cd4fff")
     }
   },
   madness: {
@@ -208,9 +208,9 @@ export const RESOURCES = Object.freeze({
     tooltip: "Morale &times; 1.5",
     type: "reserve",
     color: {
-      high: Color.from(0x9900CC),
-      low: Color.from(0x6600AA),
-      heal: Color.from(0x9900CC)
+      high: Color.from("#7550ff"),
+      low: Color.from("#3c037e"),
+      heal: Color.from("#cd4fff")
     }
   },
   action: {
@@ -226,7 +226,7 @@ export const RESOURCES = Object.freeze({
     label: "RESOURCES.FOCUS",
     tooltip: "(Wisdom + Presence + Intellect) / 2",
     type: "active",
-    color: Color.from("#0066FF"),
+    color: Color.from("#3385ff"),
     max: 24
   },
   heroism: {

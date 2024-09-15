@@ -25,6 +25,92 @@ export default class CrucibleTokenObject extends Token {
     this.engagement = this.#computeEngagement();
   }
 
+  /**
+   * @override
+   * TODO remove in V13+ if core supports better UI scale
+   */
+  _drawTarget(options={}) {
+    return super._drawTarget({...options, size: 0.5});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  drawBars() {
+    super.drawBars();
+    if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
+    this.#drawResources();
+    if ( !this.bars.alphaFilter ) {
+      this.bars.alphaFilter = new PIXI.filters.AlphaFilter();
+      this.bars.filters = [this.bars.alphaFilter];
+    }
+    this.bars.alphaFilter.alpha = 0.6;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @override
+   * TODO remove in V13+ if core supports better UI scale
+   */
+  _drawBar(number, bar, data) {
+    const val = Number(data.value);
+    const pct = Math.clamp(val, 0, data.max) / data.max;
+
+    // Determine sizing
+    const {width, height} = this.getSize();
+    const bw = width;
+    const bh = number === 0 ? 8 : 6;
+    const bs = 1;
+
+    // Determine the color to use
+    const colors = number === 0 ? SYSTEM.RESOURCES.health.color : SYSTEM.RESOURCES.morale.color;
+    const color = colors.low.mix(colors.high, pct);
+
+    // Draw bar
+    bar.clear();
+    bar.lineStyle(bs, 0x000000, 1.0);
+    bar.beginFill(0x000000, 0.5).drawRect(0, 0, bw, bh, 3);
+    bar.beginFill(color, 1.0).drawRect(0, 0, pct * bw, bh, 2);
+
+    // Set position
+    const posY = number === 0 ? height - 8: height - 14;
+    bar.position.set(0, posY);
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Draw resource pips as part of the token bars.
+   */
+  #drawResources() {
+    if ( !this.bars.resources ) {
+      this.bars.resources = this.bars.addChild(new PIXI.Graphics());
+      this.bars.resources.position.set(0, 0);
+    }
+    const r = this.bars.resources;
+    r.clear();
+    const {action, focus} = this.actor.system.resources;
+    const {width, height} = this.getSize();
+
+    // Action Pips
+    const ac = SYSTEM.RESOURCES.action.color;
+    r.beginFill(ac, 1.0).lineStyle({color: 0x000000, width: 1});
+    for ( let i=0; i<action.value; i++ ) {
+      r.drawCircle(6 + (i * 10), height - 8, 3);
+    }
+    r.endFill();
+
+    // Focus Pips
+    const fc = SYSTEM.RESOURCES.focus.color;
+    r.beginFill(fc, 1.0).lineStyle({color: 0x000000, width: 1});
+    for ( let i=0; i<focus.value; i++ ) {
+      r.drawCircle(width - 6 - (i * 10), height - 14, 3);
+    }
+    r.endFill();
+  }
+
   /* -------------------------------------------- */
   /*  Engagement and Flanking                     */
   /* -------------------------------------------- */
@@ -59,12 +145,10 @@ export default class CrucibleTokenObject extends Token {
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.actor?.isIncapacitated || this.actor?.isBroken ) return {allies: new Set(), enemies: new Set()};
-
-    // Get grid-appropriate bounds and polygon
-    const {engagementBounds, movePolygon} = canvas.grid.isHexagonal
-      ? this.#computeEngagementHexGrid()
-      : this.#computeEngagementSquareGrid();
+    if ( this.actor?.isIncapacitated || this.actor?.isBroken || canvas.grid.isHexagonal ) {
+      return {allies: new Set(), enemies: new Set()};
+    }
+    const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
 
     // Identify opposed tokens in the bounds
     const {ally, enemy} = this.#getDispositions();
@@ -128,16 +212,6 @@ export default class CrucibleTokenObject extends Token {
   /* -------------------------------------------- */
 
   /**
-   * Compute the bounds and eligible polygon for flanking on a hexagonal grid.
-   * @returns {{engagementBounds: Rectangle, movePolygon: PointSourcePolygon}}
-   */
-  #computeEngagementHexGrid() {
-    throw new Error("Not yet implemented");
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Classify Token dispositions into allied and enemy groups.
    * @returns {{ally: number[], enemy: number[]}}
    */
@@ -176,35 +250,6 @@ export default class CrucibleTokenObject extends Token {
 
     // Update our own actor
     if ( this.actor ) this.actor.commitFlanking(this.engagement);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _getShiftedPosition(dx, dy) {
-    const {x, y, width, height} = this.document;
-    const distance = Math.min(width, height, 5);
-
-    // Get target offset
-    const start = this.center;
-    const o = canvas.grid.getOffset(start);
-    if ( dx < 0 ) o.j -= distance;
-    else if ( dx > 0 ) o.j += distance;
-    if ( dy < 0 ) o.i -= distance;
-    else if ( dy > 0 ) o.i += distance;
-
-    // Test collision center-to-center
-    const targetCenter = canvas.grid.getCenterPoint(o);
-    const collides = CONFIG.Canvas.polygonBackends.move.testCollision(start, targetCenter, {
-      type: "move",
-      mode: "any"
-    });
-    if ( collides ) return {x, y};
-
-    // Get top-left
-    o.j -= Math.floor(width / 2);
-    o.i -= Math.floor(height / 2);
-    return canvas.grid.getTopLeftPoint(o);
   }
 
   /* -------------------------------------------- */
