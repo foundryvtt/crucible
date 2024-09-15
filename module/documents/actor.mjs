@@ -2063,15 +2063,16 @@ export default class CrucibleActor extends Actor {
     await super._preUpdate(data, options, user);
 
     // Restore resources when level changes
-    const restProperties = this.type === "hero" ? ["system.advancement.level"]
-      : ["system.advancement.level", "system.advancement.threat"]
-    if ( restProperties.some(p => foundry.utils.hasProperty(data, p)) ) {
+    const a1 = data.system.advancement;
+    if ( !a1 ) return;
+    const a0 = this._source.system.advancement;
+    const resetResourceKeys = this.type === "hero" ? ["level"] : ["level", "threat"];
+    const resetResources = resetResourceKeys.some(k => (k in a1) && (a1[k] !== a0[k]));
+    if ( resetResources ) {
       const clone = this.clone();
       clone.updateSource(data);
       Object.assign(data, clone._getRestData());
-      if ( this.type === "hero" ) {
-        data["system.advancement.progress"] = clone.level > this.level ? 0 : clone.system.advancement.next;
-      }
+      if ( this.type === "hero" ) a1.progress = clone.level > this.level ? 0 : clone.system.advancement.next;
     }
   }
 

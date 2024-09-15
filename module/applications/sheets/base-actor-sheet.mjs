@@ -146,6 +146,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _attachFrameListeners() {
+    super._attachFrameListeners();
+    this.element.addEventListener("focusin", this.#onFocusIn.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Configure the tabs used by this sheet.
    * @returns {Record<string, Record<string, ApplicationTab>>}
@@ -552,6 +560,42 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
   /*  Action Event Handlers                       */
+  /* -------------------------------------------- */
+
+  /**
+   * Select input text when the element is focused.
+   * @param {FocusEvent} event
+   */
+  #onFocusIn(event) {
+    if ( (event.target.tagName === "INPUT") && (event.target.type === "number") ) {
+      event.target.type = "text";
+      event.target.classList.add("number-input");
+      event.target.select();
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onChangeForm(formConfig, event) {
+
+    // Support relative input for number fields
+    if ( event.target.name && event.target.classList.contains("number-input") ) {
+      if ( ["+", "-"].includes(event.target.value[0]) ) {
+        const v0 = foundry.utils.getProperty(this.document, event.target.name);
+        const delta = Number(event.target.value);
+        event.target.type = "number";
+        event.target.valueAsNumber = v0 + delta;
+      }
+      else if ( event.target.value[0] === "=" ) {
+        const value = Number(event.target.value.slice(1));
+        event.target.type = "number";
+        event.target.valueAsNumber = value;
+      }
+    }
+    super._onChangeForm(formConfig, event);
+  }
+
   /* -------------------------------------------- */
 
   /**
