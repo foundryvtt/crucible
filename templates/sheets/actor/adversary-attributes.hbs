@@ -61,14 +61,6 @@
         {{#each abilityScores as |ability|}}
         <div class="ability {{ability.id}} {{ability.type}} flexcol" data-ability="{{ability.id}}">
             <h4 class="label">{{ability.label}}</h4>
-            {{#unless ../sectionLocks.abilities}}
-            <div class="controls flexcol">
-                <a class="control fa-solid fa-caret-up {{#unless ability.canIncrease}}inactive{{/unless}} increase"
-                   title="Ability Increase" data-action="abilityIncrease"></a>
-                <a class="control fa-solid fa-caret-down {{#unless ability.canDecrease}}inactive{{/unless}} decrease"
-                   title="Ability Decrease" data-action="abilityDecrease"></a>
-            </div>
-            {{/unless}}
             <span class="input score">{{ability.value}}</span>
         </div>
         {{/each}}

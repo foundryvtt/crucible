@@ -1497,6 +1497,9 @@
   bottom: 0;
   right: 0;
 }
+.crucible.sheet.actor .tab.talents .header-section {
+  margin-bottom: -1rem;
+}
 .crucible.sheet.actor .tab.talents .point-pools {
   flex: none;
   width: 200px;

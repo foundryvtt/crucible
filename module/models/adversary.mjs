@@ -96,19 +96,12 @@ export default class CrucibleAdversary extends CrucibleActorType {
     const threatConfig = SYSTEM.THREAT_LEVELS[threat];
     const factor = threatConfig?.scaling || 1;
     let threatLevel = Math.floor(level * factor);
-    let fractionLevel = threatLevel;
-    if ( level === 0 ) {
-      fractionLevel = 0;
-      threatLevel = -6;
-    }
-    else if ( level < 0 ) {
-      fractionLevel = 1 / (1 - level);
-      threatLevel = Math.floor(level / factor);
-    }
+    if ( level === 0 ) threatLevel = -6;
+    else if ( level < 0 ) threatLevel = Math.floor(level / factor);
     this.advancement.threatLevel = threatLevel;
-    this.advancement.fractionLevel = fractionLevel;
+
     // TODO: Automatic skill progression rank (temporary)
-    this.advancement._autoSkillRank = Math.min(Math.ceil(this.advancement.fractionLevel / 6), 5);
+    this.advancement._autoSkillRank = Math.clamp(Math.ceil(threatLevel / 6), 0, 5);
     this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes

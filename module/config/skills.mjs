@@ -15,8 +15,8 @@ export const RANKS = {
   0: {
     id: "untrained",
     rank: 0,
-    label: "SKILL.RANKS.Untrained",
-    description: "SKILL.RANKS.UntrainedHint",
+    label: "SKILL.RANKS.UNTRAINED.label",
+    description: "SKILL.RANKS.UNTRAINED.hint",
     cost: 0,
     spent: 0,
     bonus: -4,
@@ -25,8 +25,8 @@ export const RANKS = {
   1: {
     id: "novice",
     rank: 1,
-    label: "SKILL.RANKS.Novice",
-    description: "SKILL.RANKS.NoviceHint",
+    label: "SKILL.RANKS.NOVICE.label",
+    description: "SKILL.RANKS.NOVICE.hint",
     cost: 1,
     spent: 1,
     bonus: 0,
@@ -35,8 +35,8 @@ export const RANKS = {
   2: {
     id: "apprentice",
     rank: 2,
-    label: "SKILL.RANKS.Apprentice",
-    description: "SKILL.RANKS.ApprenticeHint",
+    label: "SKILL.RANKS.APPRENTICE.label",
+    description: "SKILL.RANKS.APPRENTICE.hint",
     cost: 1,
     spent: 2,
     bonus: 2,
@@ -45,8 +45,8 @@ export const RANKS = {
   3: {
     id: "specialist",
     rank: 3,
-    label: "SKILL.RANKS.Specialist",
-    description: "SKILL.RANKS.SpecialistHint",
+    label: "SKILL.RANKS.SPECIALIST.label",
+    description: "SKILL.RANKS.SPECIALIST.hint",
     cost: 2,
     spent: 4,
     bonus: 4,
@@ -55,8 +55,8 @@ export const RANKS = {
   4: {
     id: "adept",
     rank: 4,
-    label: "SKILL.RANKS.Adept",
-    description: "SKILL.RANKS.AdeptHint",
+    label: "SKILL.RANKS.ADEPT.label",
+    description: "SKILL.RANKS.ADEPT.hint",
     cost: 4,
     spent: 8,
     bonus: 8,
@@ -65,8 +65,8 @@ export const RANKS = {
   5: {
     id: "master",
     rank: 5,
-    label: "SKILL.RANKS.Master",
-    description: "SKILL.RANKS.MasterHint",
+    label: "SKILL.RANKS.MASTER.label",
+    description: "SKILL.RANKS.MASTER.hint",
     cost: 4,
     spent: 12,
     bonus: 12,
@@ -88,33 +88,100 @@ export const RANK_IDS = Object.freeze({
 });
 
 /**
- * The four thematic categories of skills. Each skill belongs to one of these four categories.
- * @enum {Readonly<{label: string, defaultIcon: string}>}
+ * The thematic categories of skills. Each skill belongs to one of these categories.
+ * @type {Record<string, {label: string, hint: string, defaultIcon: string, color: Color}>}
  */
 export const CATEGORIES = {
   "exp": {
-    label: "SKILL.CATEGORY.Exploration",
-    hint: "SKILL.CATEGORY.ExplorationHint",
+    label: "SKILL.CATEGORY.EXPLORATION.label",
+    hint: "SKILL.CATEGORY.EXPLORATION.hint",
     defaultIcon: "icons/skills/no-exp.jpg",
-    color: Color.from("#458f0f")
+    color: Color.from("#81cc44")
   },
   "kno": {
-    label: "SKILL.CATEGORY.Knowledge",
-    hint: "SKILL.CATEGORY.KnowledgeHint",
+    label: "SKILL.CATEGORY.KNOWLEDGE.label",
+    hint: "SKILL.CATEGORY.KNOWLEDGE.hint",
     defaultIcon: "icons/skills/no-kno.jpg",
-    color: Color.from("#1f1fab")
+    color: Color.from("#6c6cff")
   },
   "soc": {
-    label: "SKILL.CATEGORY.Social",
-    hint: "SKILL.CATEGORY.SocialHint",
+    label: "SKILL.CATEGORY.SOCIAL.label",
+    hint: "SKILL.CATEGORY.SOCIAL.hint",
     defaultIcon: "icons/skills/no-soc.jpg",
-    color: Color.from("#62108d")
+    color: Color.from("#ab3fe8")
+  }
+};
+
+/**
+ * The skills configured for the system.
+ * @type {Record<string, {id: string, category: string, abilities: [string, string]}>}
+ */
+export const SKILLS = {
+
+  // Exploration Skills
+  athletics: {
+    id: "athletics",
+    category: "exp",
+    abilities: ["strength", "dexterity"]
   },
-  "tch": {
-    label: "SKILL.CATEGORY.Technical",
-    hint: "SKILL.CATEGORY.TechnicalHint",
-    defaultIcon: "icons/skills/no-tch.jpg",
-    color: Color.from("#be840b")
+  awareness: {
+    id: "awareness",
+    category: "exp",
+    abilities: ["intellect", "wisdom"]
+  },
+  stealth: {
+    id: "stealth",
+    category: "exp",
+    abilities: ["dexterity", "intellect"]
+  },
+  wilderness: {
+    id: "wilderness",
+    category: "exp",
+    abilities: ["toughness", "wisdom"]
+  },
+
+  // Knowledge Skills
+  arcana: {
+    id: "arcana",
+    category: "kno",
+    abilities: ["intellect", "presence"]
+  },
+  medicine: {
+    id: "medicine",
+    category: "kno",
+    abilities: ["toughness", "wisdom"]
+  },
+  science: {
+    id: "science",
+    category: "kno",
+    abilities: ["intellect", "wisdom"]
+  },
+  society: {
+    id: "society",
+    category: "kno",
+    abilities: ["presence", "wisdom"]
+  },
+
+  // Social Skills
+  deception: {
+    id: "deception",
+    category: "soc",
+    abilities: ["intellect", "presence"]
+  },
+  diplomacy: {
+    id: "diplomacy",
+    category: "soc",
+    abilities: ["wisdom", "presence"]
+  },
+  intimidation: {
+    id: "intimidation",
+    category: "soc",
+    abilities: ["strength", "presence"]
+  },
+  performance: {
+    id: "performance",
+    category: "soc",
+    abilities: ["dexterity", "presence"]
   }
 };
 
@@ -123,111 +190,3 @@ export const CATEGORIES = {
  * @type {string}
  */
 export let JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00";
-
-// The starting outline of each skill. The final structure of the SKILLS const is derived from this data.
-export const SKILLS = {
-
-  // Exploration Skills
-  awareness: {
-    id: "awareness",
-    name: "SKILLS.Awareness",
-    category: "exp",
-    abilities: ["intellect", "wisdom"]
-  },
-  pathfinding: {
-    id: "pathfinding",
-    name: "SKILLS.Pathfinding",
-    category: "exp",
-    abilities: ["strength", "dexterity"]
-  },
-  stealth: {
-    id: "stealth",
-    name: "SKILLS.Stealth",
-    category: "exp",
-    abilities: ["dexterity", "intellect"]
-  },
-  survival: {
-    id: "survival",
-    name: "SKILLS.Survival",
-    category: "exp",
-    abilities: ["toughness", "wisdom"]
-  },
-
-  // Knowledge Skills
-  arcana: {
-    id: "arcana",
-    name: "SKILLS.Arcana",
-    category: "kno",
-    abilities: ["intellect", "presence"]
-  },
-  religion: {
-    id: "religion",
-    name: "SKILLS.Religion",
-    category: "kno",
-    abilities: ["wisdom", "presence"]
-  },
-  naturalism: {
-    id: "naturalism",
-    name: "SKILLS.Naturalism",
-    category: "kno",
-    abilities: ["wisdom", "toughness"]
-  },
-  society: {
-    id: "society",
-    name: "SKILLS.Society",
-    category: "kno",
-    abilities: ["intellect", "presence"]
-  },
-
-  // Social Skills
-  deception: {
-    id: "deception",
-    name: "SKILLS.Deception",
-    category: "soc",
-    abilities: ["intellect", "presence"]
-  },
-  diplomacy: {
-    id: "diplomacy",
-    name: "SKILLS.Diplomacy",
-    category: "soc",
-    abilities: ["wisdom", "presence"]
-  },
-  intimidation: {
-    id: "intimidation",
-    name: "SKILLS.Intimidation",
-    category: "soc",
-    abilities: ["strength", "presence"]
-  },
-  mercantilism: {
-    id: "mercantilism",
-    name: "SKILLS.Mercantilism",
-    category: "soc",
-    abilities: ["intellect", "presence"]
-  },
-
-  // Technical Skills
-  beastcraft: {
-    id: "beastcraft",
-    name: "SKILLS.Beastcraft",
-    category: "tch",
-    abilities: ["strength", "wisdom"]
-  },
-  tradecraft: {
-    id: "tradecraft",
-    name: "SKILLS.Tradecraft",
-    category: "tch",
-    abilities: ["dexterity", "intellect"]
-  },
-  medicine: {
-    id: "medicine",
-    name: "SKILLS.Medicine",
-    category: "tch",
-    abilities: ["toughness", "intellect"]
-  },
-  performance: {
-    id: "performance",
-    name: "SKILLS.Performance",
-    category: "tch",
-    abilities: ["dexterity", "presence"]
-  }
-};

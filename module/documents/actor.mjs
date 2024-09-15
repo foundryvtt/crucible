@@ -282,7 +282,6 @@ export default class CrucibleActor extends Actor {
    * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
    */
   static #prepareTraining(actor) {
-    const lvl = actor.system.advancement.fractionLevel ?? actor.system.advancement.level;
     const training = {
       unarmed: 0,
       heavy: 0,
@@ -292,7 +291,7 @@ export default class CrucibleActor extends Actor {
       mechanical: 0,
       shield: 0,
       talisman: 0,
-      natural: Math.floor((lvl + 1) / 4)
+      natural: Math.clamp(Math.floor((actor.system.advancement.level + 1) / 4), 0, 3) // TODO temporary
     };
     actor.callTalentHooks("prepareTraining", training);
     return training;
@@ -1650,10 +1649,11 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}           Can the ability score be changed?
    */
   canPurchaseAbility(ability, delta=1) {
+    if ( !this.system.points ) return false;
     delta = Math.sign(delta);
     const points = this.points.ability;
     const a = this.system.abilities[ability];
-    if ( !a || !delta ) return;
+    if ( !a || !delta ) return false;
 
     // Case 1 - Point Buy
     if ( this.isL0 ) {

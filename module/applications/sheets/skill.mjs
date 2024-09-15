@@ -36,6 +36,7 @@ export default class SkillPageSheet extends JournalPageSheet {
   /* -------------------------------------------- */
 
   #getTags(skill) {
+    if ( !skill?.category ) return {};
     const c = SKILL.CATEGORIES[skill.category];
     const a1 = ABILITIES[skill.abilities[0]];
     const a2 = ABILITIES[skill.abilities[1]];

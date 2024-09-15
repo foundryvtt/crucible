@@ -183,10 +183,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const abilities = Object.values(SYSTEM.ABILITIES).map(cfg => {
       const ability = foundry.utils.deepClone(cfg);
       ability.value = a[ability.id].value;
-      if ( this.actor.points ) {
-        ability.canIncrease = this.actor.canPurchaseAbility(ability.id, 1);
-        ability.canDecrease = this.actor.canPurchaseAbility(ability.id, -1);
-      }
+      ability.canIncrease = this.actor.canPurchaseAbility(ability.id, 1);
+      ability.canDecrease = this.actor.canPurchaseAbility(ability.id, -1);
       return ability;
     });
     abilities.sort((a, b) => a.sheetOrder - b.sheetOrder);
