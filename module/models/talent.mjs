@@ -31,7 +31,7 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
  */
 
 /**
- * @typedef {Object<AdvancementPrerequisite>} AdvancementPrerequisites
+ * @typedef {Record<string, AdvancementPrerequisite>} AdvancementPrerequisites
  */
 
 /**
@@ -48,8 +48,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      node: new fields.StringField({required: true, blank: true,
-        choices: () => Array.from(CrucibleTalentNode.nodes.keys())}),
+      node: new fields.StringField({required: true, blank: true, choices: () => CrucibleTalentNode.getChoices()}),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
@@ -73,34 +72,81 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
     return this.node?.type === "signature";
   }
 
+  /**
+   * A talent tree node other than the primary one for this talent which is also unlocked.
+   * @type {CrucibleTalentNode|null}
+   */
+  get teleportNode() {
+    return this.#teleportNode;
+  }
+  #teleportNode = null;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /**
+   * Initialize this Talent as belonging to the Talent Tree.
+   */
+  initializeTree() {
+    const node = this.node;
+    const talent = this.parent;
+    if ( !node ) throw new Error(`Talent "${talent.name}" does not configure a valid Talent Tree node "${this._source.node}".`);
+
+    // Register Talents
+    node.talents.add(talent);
+
+    // Update Metadata
+    if ( this.rune ) {
+      const rune = SYSTEM.SPELL.RUNES[this.rune];
+      rune.img = this.img;
+      rune.description = this.description;
+    }
+    if ( this.gesture ) {
+      const gesture = SYSTEM.SPELL.GESTURES[this.gesture];
+      gesture.img = this.img;
+      gesture.description = this.description;
+    }
+    if ( this.inflection ) {
+      const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
+      inflection.img = this.img;
+      inflection.description = this.description;
+    }
+
+    // Teleport Node
+    if ( node.type === "signature" ) {
+      const group = node.groups?.[this._source.node];
+      if ( group ) {
+        this.#teleportNode = CrucibleTalentNode.nodes.get(group.teleport);
+        this.#teleportNode.talents.add(talent);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   prepareBaseData() {
-    let node = this.node = CrucibleTalentNode.nodes.get(this._source.node);
-    this.prerequisites = CrucibleTalent.preparePrerequisites(node?.requirements || {});
+    this.node = CrucibleTalentNode.nodes.get(this._source.node);
+    this.prerequisites = this.#preparePrerequisites();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare the data structure of talent prerequisites
-   * @param {AdvancementPrerequisites} nodeReqs
+   * Customize prerequisites for this specific Talent that may differ from the prerequisites of its Node.
    * @returns {AdvancementPrerequisites}
    */
-  static preparePrerequisites(nodeReqs={}) {
-    return Object.entries(foundry.utils.flattenObject(nodeReqs)).reduce((obj, r) => {
-      const [k, v] = r;
-      const o = obj[k] = {value: v};
-      if ( k.startsWith("abilities.") ) o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;
-      else if ( k === "advancement.level" ) o.label = "Level"
-      else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
-      else o.label = k;
-      o.tag = `${o.label} ${o.value}`;
-      return obj;
-    }, {});
+  #preparePrerequisites() {
+    if ( !this.node ) return {};
+    const requirements = foundry.utils.deepClone(this.node.requirements);
+    const group = this.node.groups?.[this._source.node];
+    if ( group ) {
+      for ( const a of group.abilities ) {
+        requirements[`abilities.${a}.value`] = this.node.tier + 2;
+      }
+    }
+    return CrucibleTalentNode.preparePrerequisites(requirements);
   }
 
   /* -------------------------------------------- */

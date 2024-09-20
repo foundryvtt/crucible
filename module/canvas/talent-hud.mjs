@@ -1,5 +1,6 @@
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
+import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalent from "../models/talent.mjs";
 import TalentSheet from "../applications/sheets/talent.mjs";
 
@@ -53,10 +54,9 @@ export default class CrucibleTalentHUD extends Application {
       {label: `Tier ${node.tier}`},
       {label: game.i18n.localize(`TALENT.Node${node.type.titleCase()}`)}
     ];
-    if ( node.twin ) tags.push({label: "Twinned"});
     if ( state.banned ) tags.push({label: "Banned", class: "unmet"});
     else if ( !state.unlocked ) tags.push({label: "Locked", class: "unmet"});
-    const reqs = CrucibleTalent.preparePrerequisites(node.requirements, {});
+    const reqs = CrucibleTalentNode.preparePrerequisites(node.requirements);
     return {
       id: node.id,
       tags,

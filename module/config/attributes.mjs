@@ -16,48 +16,54 @@ export const ABILITIES = Object.freeze({
     label: "ABILITIES.Wisdom",
     abbreviation: "ABILITIES.WisdomAbbr",
     type: "mental",
-    color: new Color("#FF00FF"),
-    sheetOrder: 2
+    color: Color.from("#FF00FF"),
+    sheetOrder: 2,
+    nodeId: "wis"
   },
   presence: {
     id: "presence",
     label: "ABILITIES.Presence",
     abbreviation: "ABILITIES.PresenceAbbr",
     type: "mental",
-    color: new Color("#0000FF"),
-    sheetOrder: 4
+    color: Color.from("#0000FF"),
+    sheetOrder: 4,
+    nodeId: "pre"
   },
   intellect: {
     id: "intellect",
     label: "ABILITIES.Intellect",
     abbreviation: "ABILITIES.IntellectAbbr",
     type: "mental",
-    color: new Color("#00FFFF"),
-    sheetOrder: 6
+    color: Color.from("#00FFFF"),
+    sheetOrder: 6,
+    nodeId: "int"
   },
   strength: {
     id: "strength",
     label: "ABILITIES.Strength",
     abbreviation: "ABILITIES.StrengthAbbr",
     type: "physical",
-    color: new Color("#FF0000"),
-    sheetOrder: 1
+    color: Color.from("#FF0000"),
+    sheetOrder: 1,
+    nodeId: "str"
   },
   toughness: {
     id: "toughness",
     label: "ABILITIES.Toughness",
     abbreviation: "ABILITIES.ToughnessAbbr",
     type: "physical",
-    color: new Color("#FFFF00"),
-    sheetOrder: 3
+    color: Color.from("#FFFF00"),
+    sheetOrder: 3,
+    nodeId: "tou"
   },
   dexterity: {
     id: "dexterity",
     label: "ABILITIES.Dexterity",
     abbreviation: "ABILITIES.DexterityAbbr",
     type: "physical",
-    color: new Color("#00FF00"),
-    sheetOrder: 5
+    color: Color.from("#00FF00"),
+    sheetOrder: 5,
+    nodeId: "dex"
   }
 });
 

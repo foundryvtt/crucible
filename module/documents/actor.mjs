@@ -2063,7 +2063,7 @@ export default class CrucibleActor extends Actor {
     await super._preUpdate(data, options, user);
 
     // Restore resources when level changes
-    const a1 = data.system.advancement;
+    const a1 = data.system?.advancement;
     if ( !a1 ) return;
     const a0 = this._source.system.advancement;
     const resetResourceKeys = this.type === "hero" ? ["level"] : ["level", "threat"];

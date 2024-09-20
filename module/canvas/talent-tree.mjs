@@ -231,7 +231,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
   #drawCharacter(texture) {
     if ( !this.actor ) return this.character.visible = false;
     if ( texture ) this.character.texture = texture;
-    this.character.width = this.character.height = 200;
+    this.character.height = 200;
+    this.character.scale.x = this.character.scale.y;
     this.character.anchor.set(0.5, 0.5);
     this.character.visible = true;
   }
@@ -257,7 +258,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
       this.#drawEdges(node, seen);
       seen.add(node);
       next.push(...node.connected);
-      if ( node.twin ) next.push(CrucibleTalentNode.nodes.get(node.twin));
     }
     if ( next.length ) await this.#drawNodes(next, seen);
   }
@@ -284,7 +284,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   #drawCircles() {
-    this.edges.drawCircle(0, 0, 800);
+    // this.edges.drawCircle(0, 0, 800);
     this.edges.drawCircle(0, 0, 1400);
     this.edges.drawCircle(0, 0, 2000);
   }
@@ -474,14 +474,16 @@ export default class CrucibleTalentTree extends PIXI.Container {
         s.accessible = accessible;
         state.set(node, s);
 
-        // Mirror twin state
-        const twin = node.twinNode;
-        if ( twin ) state.set(twin, s);
-
         // Traverse Outwards
         if ( (node.id === "origin") || s.purchased ) {
           next.push(...node.connected);
-          if ( twin ) next.push(...twin.connected);
+
+          // Signature Teleport Nodes
+          if ( node.type === "signature" ) {
+            for ( const t of node.talents ) {
+              // next.push(t.system.teleportNode);
+            }
+          }
         }
       }
 
