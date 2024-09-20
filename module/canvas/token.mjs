@@ -1,5 +1,10 @@
 export default class CrucibleTokenObject extends Token {
 
+  /** @inheritDoc */
+  static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
+    refreshFlanking: {}
+  });
+
   /**
    * @typedef {Object} CrucibleTokenEngagement
    * @property {Set<Token>} allies      Allied tokens which are adjacent
@@ -15,6 +20,12 @@ export default class CrucibleTokenObject extends Token {
     enemies: new Set()
   };
 
+  /**
+   * Should the next flanking update be responsible for committing Active Effect changes?
+   * @type {boolean}
+   */
+  #commitFlanking = false;
+
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
@@ -24,6 +35,16 @@ export default class CrucibleTokenObject extends Token {
     await super._draw();
     this.engagement = this.#computeEngagement();
   }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _applyRenderFlags(flags) {
+    super._applyRenderFlags(flags);
+    if ( flags.refreshFlanking ) this.#updateFlanking();
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * @override
@@ -133,7 +154,7 @@ export default class CrucibleTokenObject extends Token {
    */
   getEngagementRectangle(distance=1) {
     const s = canvas.scene.dimensions.size * distance;
-    const p0 = canvas.grid.getTopLeftPoint(this.document);
+    const p0 = canvas.grid.getTopLeftPoint(this.document._source); // Non-animated?
     const {w, h} = this;
     return new PIXI.Rectangle(p0.x - s, p0.y - s, w + (2 * s), h + (2 * s));
   }
@@ -145,7 +166,7 @@ export default class CrucibleTokenObject extends Token {
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.actor?.isIncapacitated || this.actor?.isBroken || canvas.grid.isHexagonal ) {
+    if ( this.isPreview || this.actor?.isIncapacitated || this.actor?.isBroken || canvas.grid.isHexagonal ) {
       return {allies: new Set(), enemies: new Set()};
     }
     const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
@@ -232,18 +253,28 @@ export default class CrucibleTokenObject extends Token {
   /* -------------------------------------------- */
 
   /**
-   * Update flanking conditions for all actors affected by a Token change.
-   * @param {object} [options]
-   * @param {boolean} [options.commit]      Commit flanking changes by enacting active effect changes
-   * @param {CrucibleTokenEngagement} [options.engagement] Pre-computed engagement data for the token
+   * Set the render flag to schedule a flanking refresh.
    */
-  updateFlanking({commit, engagement}={}) {
-    engagement ||= this.#computeEngagement();
+  refreshFlanking(commit) {
+    const activeGM = game.users.activeGM;
+    commit ??= (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+    if ( commit ) this.#commitFlanking = true;
+    this.renderFlags.set({refreshFlanking: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update flanking conditions for all actors affected by a Token change.
+   */
+  #updateFlanking() {
+    const engagement = this.#computeEngagement();
     const toUpdate = this.#applyFlankingUpdates(this.engagement, engagement);
     this.engagement = engagement; // Save the new state
-    if ( !commit ) return;
 
     // Update other Actors
+    if ( !this.#commitFlanking ) return;
+    this.#commitFlanking = false;
     for ( const token of toUpdate ) {
       token.actor.commitFlanking(token.engagement);
     }
@@ -260,10 +291,8 @@ export default class CrucibleTokenObject extends Token {
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
     const activeGM = game.users.activeGM;
-    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    const engagement = this.engagement; // New engagement
     this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
-    this.updateFlanking({engagement, commit});
+    this.refreshFlanking();
   }
 
   /* -------------------------------------------- */
@@ -282,10 +311,8 @@ export default class CrucibleTokenObject extends Token {
     super._onUpdate(data, options, userId);
 
     // Flanking Updates
-    const activeGM = game.users.activeGM;
-    const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
-    if ( flankingChange ) this.updateFlanking({commit});
+    if ( flankingChange ) this.refreshFlanking();
   }
 
   /* -------------------------------------------- */

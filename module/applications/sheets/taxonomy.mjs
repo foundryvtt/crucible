@@ -12,6 +12,10 @@ export default class TaxonomySheet extends CrucibleBaseItemSheet {
     }
   };
 
+  static {
+    this._initializeItemSheetClass()
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -97,17 +101,5 @@ export default class TaxonomySheet extends CrucibleBaseItemSheet {
       delete submitData.system.resistances;
     }
     return submitData;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _processSubmitData(event, form, submitData) {
-    if ( this.document.parent instanceof Actor ) {
-      const diff = this.document.updateSource(submitData, {dryRun: true});
-      if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyTaxonomy(this.document);
-      return;
-    }
-    return super._processFormData(event, form, submitData);
   }
 }

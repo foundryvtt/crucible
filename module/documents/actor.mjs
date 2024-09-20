@@ -2097,10 +2097,8 @@ export default class CrucibleActor extends Actor {
     const {wasIncapacitated, wasBroken} = this._cachedResources;
     if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
       const tokens = this.getActiveTokens(true);
-      const activeGM = game.users.activeGM;
-      for ( const token of tokens ) token.updateFlanking({
-        commit: (activeGM === game.user) && (activeGM?.viewedScene === canvas.id)
-      })
+      const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+      for ( const token of tokens ) token.refreshFlanking(commit);
     }
 
     // Update cached resource values

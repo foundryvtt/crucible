@@ -34,15 +34,13 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
     Object.assign(context, {
       archetypeName: a.system.details.archetype?.name || game.i18n.localize("ARCHETYPE.SHEET.CHOOSE"),
       taxonomyName: a.system.details.taxonomy?.name || game.i18n.localize("TAXONOMY.SHEET.CHOOSE"),
-      displayMainhand: true, // TODO do I need this?
-      displayOffhand: false, // TODO do I need this?
+      canPurchaseTalents: false,
+      canPurchaseSkills: false,
       threats: SYSTEM.THREAT_LEVELS,
       threat: SYSTEM.THREAT_LEVELS[threat],
       levelDisplay: this.#getLevelDisplay(level),
       canLevelUp: level < 24,
       canLevelDown: level > -5,
-      skills: false, // TODO adversaries cannot purchase skills for now
-      talents: false // TODO adversaries cannot purchase talents for now
     });
 
     // Incomplete Tasks
