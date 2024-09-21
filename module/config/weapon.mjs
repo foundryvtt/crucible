@@ -31,7 +31,7 @@ export const CATEGORIES = {
       base: 4
     },
     actionCost: 2,
-    range: 0,
+    range: 1,
     training: "natural"
   },
 
@@ -47,7 +47,7 @@ export const CATEGORIES = {
       base: 3
     },
     actionCost: 2,
-    range: 0,
+    range: 1,
     training: "unarmed"
   },
   light1: {
@@ -61,7 +61,7 @@ export const CATEGORIES = {
       base: 4
     },
     actionCost: 2,
-    range: 1,
+    range: 2,
     training: "finesse"
   },
   simple1: {
@@ -75,7 +75,7 @@ export const CATEGORIES = {
       base: 5
     },
     actionCost: 2,
-    range: 1,
+    range: 2,
     training: "heavy"
   },
   heavy1: {
@@ -89,7 +89,7 @@ export const CATEGORIES = {
       base: 5
     },
     actionCost: 2,
-    range: 2,
+    range: 3,
     training: "heavy"
   },
   balanced1: {
@@ -103,7 +103,7 @@ export const CATEGORIES = {
       base: 6
     },
     actionCost: 2,
-    range: 2,
+    range: 3,
     training: "balanced"
   },
 
@@ -119,7 +119,7 @@ export const CATEGORIES = {
       base: 7
     },
     actionCost: 3,
-    range: 3,
+    range: 4,
     training: "heavy"
   },
   heavy2: {
@@ -133,7 +133,7 @@ export const CATEGORIES = {
       base: 8
     },
     actionCost: 3,
-    range: 3,
+    range: 4,
     training: "heavy"
   },
   balanced2: {
@@ -147,7 +147,7 @@ export const CATEGORIES = {
       base: 9
     },
     actionCost: 3,
-    range: 3,
+    range: 4,
     training: "balanced"
   },
 
@@ -263,7 +263,7 @@ export const CATEGORIES = {
       block: 2
     },
     actionCost: 2,
-    range: 0,
+    range: 1,
     training: "shield"
   },
   shieldHeavy: {

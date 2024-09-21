@@ -186,9 +186,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * One-time configuration of the CrucibleAction as part of construction.
    * @param {object} [options]            Options passed to the constructor context
    * @param {CrucibleActor} [options.actor]   A specific actor to whom this action is bound
+   * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
    * @param {ActionUsage} [options.usage]     Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor, usage, ...options}) {
+  _configure({actor=null, token=null, usage, ...options}) {
     super._configure(options);
 
     /**
@@ -196,6 +197,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * @type {CrucibleActor}
      */
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
+
+    /**
+     * A specific Token which is performing the Action.
+     * @type {CrucibleTokenObject}
+     */
+    Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
 
     /**
      * Dice roll bonuses which modify the usage of this action.
@@ -329,14 +336,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * Execute an Action.
    * The action is cloned so that its data may be transformed throughout the workflow.
    * @param {object} [options]                      Options which modify action usage
-   * @param {boolean} [options.chatMessage]         Automatically create a ChatMessage for the action?
-   * @param {boolean} [options.dialog]              Present the user with an action configuration dialog?
-   * @param {string} [options.rollMode]             Which roll mode to apply to the resulting message?
+   * @param {CrucibleTokenObject} [options.token]     A specific Token which is performing the action
+   * @param {boolean} [options.chatMessage]           Automatically create a ChatMessage for the action?
+   * @param {boolean} [options.dialog]                Present the user with an action configuration dialog?
+   * @param {string} [options.rollMode]               Which roll mode to apply to the resulting message?
    * @returns {Promise<CrucibleActionOutcomes|undefined>}
    */
-  async use(options={}) {
+  async use({token, ...options}={}) {
     if ( !this.actor ) throw new Error("A CrucibleAction may not be used unless it is bound to an Actor");
-    const action = this.clone({}, {parent: this.parent, actor: this.actor});
+
+    // Infer the Token performing the Action
+    if ( !token ) {
+      let tokens = this.actor.getActiveTokens();
+      if ( tokens.length > 1 ) tokens = tokens.filter(t => t.controlled);
+      if ( tokens.length === 1 ) token = tokens[0];
+      if ( tokens.length > 1 ) {
+        throw new Error(`Multiple tokens controlled for Actor "${this.actor.name}"`);
+      }
+    }
+
+    // Use a clone of the Action
+    const action = this.clone({}, {parent: this.parent, actor: this.actor, token});
     return action.#use(options);
   }
 
@@ -491,6 +511,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
               type: this.target.type,
               action: this.name
             }));
+          }
+        }
+
+        // Test target range
+        if ( this.token ) {
+          for ( const token of tokens ) {
+            const range = crucible.api.grid.getLinearRangeCost(this.token, token);
+            if ( this.range.minimum && (range.distance < this.range.minimum) ) {
+              throw new Error(game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum}));
+            }
+            if ( this.range.maximum && (range.distance > this.range.maximum) ) {
+              throw new Error(game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum}));
+            }
           }
         }
         break;

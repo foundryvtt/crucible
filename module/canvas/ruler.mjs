@@ -75,11 +75,10 @@ export default class CrucibleRuler extends Ruler {
    * Compute the cost of the measured move
    */
   #computeCost() {
-    const actor = this.#actor;
-    if ( !actor ) return;
+    this.#labels.distance = `${this.totalDistance.toFixed(2)} ${canvas.scene.grid.units}`;
+    if ( !this.#action ) return;
     this.#action.usage.distance = this.totalDistance;
     SYSTEM.ACTION.TAGS.movement.prepare.call(this.#action);
-    this.#labels.distance = `${this.totalDistance.toFixed(2)} ${canvas.scene.grid.units}`;
     const ap = this.#action.cost.action;
     this.#labels.cost = ap > 0 ? `${ap}AP` : "Free";
   }
@@ -89,7 +88,7 @@ export default class CrucibleRuler extends Ruler {
   /** @override */
   _getSegmentLabel(segment, totalDistance) {
     if ( !segment.last ) return null;
-    if ( !this.#actor?.isOwner ) return this.#labels.distance;
+    if ( !this.#action ) return this.#labels.distance;
     return `${this.#labels.distance} [${this.#labels.cost}]`;
   }
 
@@ -141,6 +140,6 @@ export default class CrucibleRuler extends Ruler {
       name: `Move ${this.#labels.distance}`,
       cost: this.#action.cost
     });
-    await this.#action.use({chatMessage: true, dialog: false});
+    await this.#action.use({token, chatMessage: true, dialog: false});
   }
 }

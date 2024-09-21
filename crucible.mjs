@@ -22,6 +22,7 @@ import * as models from "./module/models/_module.mjs";
 import CrucibleRuler from "./module/canvas/ruler.mjs";
 import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
 import CrucibleTokenObject from "./module/canvas/token.mjs";
+import * as grid from "./module/canvas/grid.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -47,6 +48,7 @@ Hooks.once("init", async function() {
       CrucibleTalentTree
     },
     dice,
+    grid,
     models,
     documents,
     methods: {

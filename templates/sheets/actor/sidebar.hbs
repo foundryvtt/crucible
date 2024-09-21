@@ -11,7 +11,7 @@
             <div class="title">
                 <h4>{{this.name}}</h4>
                 <div class="tags">
-                    <span class="tag">{{e.tag}}</span>
+                    {{#each e.tags}}<span class="tag">{{this}}</span>{{/each}}
                 </div>
             </div>
         </div>

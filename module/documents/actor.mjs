@@ -437,6 +437,11 @@ export default class CrucibleActor extends Actor {
     mh.system.prepareEquippedData();
     oh?.system.prepareEquippedData();
 
+    // Range
+    const ranges = [mh.system.range];
+    if ( oh ) ranges.push(oh.system.range);
+    weapons.maxRange = Math.max(...ranges);
+
     // Free Hand or Unarmed
     const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
     const ohFree = ["unarmed", "natural"].includes(ohCategory.id);
@@ -2086,6 +2091,7 @@ export default class CrucibleActor extends Actor {
     const {wasIncapacitated, wasBroken} = this._cachedResources;
     if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
       const tokens = this.getActiveTokens(true);
+      const activeGM = game.users.activeGM;
       const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
       for ( const token of tokens ) token.refreshFlanking(commit);
     }
