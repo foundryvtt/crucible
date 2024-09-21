@@ -325,9 +325,8 @@ Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
  * Re-open the talent tree if it was previously open for a certain Actor.
  */
 Hooks.on("canvasReady", () => {
-  if ( game.system.tree.actor ) {
-    game.system.tree.open(game.system.tree.actor, {resetView: false});
-  }
+  if ( game.system.tree.actor ) game.system.tree.open(game.system.tree.actor, {resetView: false});
+  for ( const token of canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {
@@ -335,6 +334,24 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
     const macro = await Macro.create(data.macroData);
     await game.user.assignHotbarMacro(macro, slot);
   }
+});
+
+Hooks.on("getSceneControlButtons", controls => {
+  const tokens = controls.find(c => c.name === "token");
+  tokens.tools.push({
+    name: "debugFlanking",
+    title: "Visualize Flanking",
+    icon: "fa-solid fa-circles-overlap",
+    toggle: true,
+    active: false,
+    onClick: active => {
+      CONFIG.debug.flanking = active
+      for ( const token of canvas.tokens.controlled ) {
+        if ( active ) token._visualizeEngagement(token.engagement);
+        else token._clearEngagementVisualization();
+      }
+    }
+  });
 });
 
 /* -------------------------------------------- */

@@ -727,7 +727,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @returns {ActiveEffect}
    */
   #getEventEffect(event) {
-    const effectId = event.target.closest(".active-effect")?.dataset.effectId;
+    const effectId = event.target.closest(".effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
   }
 

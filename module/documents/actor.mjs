@@ -471,7 +471,7 @@ export default class CrucibleActor extends Actor {
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh.system.properties.has("oversized") ? mhCategory.hands : 0;
+    weapons.slow = mh.system.properties.has("oversized") ? 1 : 0;
     weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
 
     // Strong Grip
@@ -715,7 +715,7 @@ export default class CrucibleActor extends Actor {
    */
   prepareAction(action) {
     const {statuses, rollBonuses} = this;
-    const {banes, boons, cost} = action.usage;
+    const {banes, boons} = action.usage;
     const isWeapon = ["mainhand", "offhand", "twohand"].some(t => action.tags.has(t));
     const isSpell = action.tags.has("spell");
     const isAttack = isWeapon || isSpell;
@@ -723,7 +723,7 @@ export default class CrucibleActor extends Actor {
     // Actor status effects
     if ( statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
     if ( statuses.has("blinded") && isAttack ) banes.blind = {label: "Blinded", number: 2};
-    if ( statuses.has("disoriented") && cost.focus ) cost.focus += 1;
+    if ( statuses.has("disoriented") && action.cost.focus ) action.cost.focus += 1;
     if ( statuses.has("prone") && isAttack ) banes.prone = {label: "Prone", number: 1};
 
     // Temporary boons and banes stored as Actor rollBonuses
@@ -1988,22 +1988,11 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update the Flanking state of this Actor given a set of engaged Tokens.
-   * @param {CrucibleTokenEngagement} engaged      The enemies and allies which this Actor currently has engaged.
+   * @param {CrucibleTokenEngagement} engagement      The enemies and allies which this Actor currently has engaged.
    */
-  async commitFlanking(engaged) {
+  async commitFlanking(engagement) {
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
-    const engagement = this.system.movement.engagement;
-
-    // Ally bonus if they share
-    const allyBonus = engaged.allies.reduce((bonus, ally) => {
-      const mutual = ally.engagement.enemies.intersection(engaged.enemies);
-      if ( !mutual.size ) return bonus;
-      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
-      return bonus;
-    }, 0);
-
-    // Compute the flanked stage as engaged enemies minus ally bonus minus engagement threshold
-    const flankedStage = engaged.enemies.size - allyBonus - engagement;
+    const flankedStage = engagement.flanked;
     const current = this.effects.get(flankedId);
     if ( flankedStage === current?.flags.crucible.flanked ) return;
 
@@ -2017,8 +2006,8 @@ export default class CrucibleActor extends Actor {
         statuses: ["flanked"],
         flags: {
           crucible: {
-            engagedEnemies: engaged.enemies.size,
-            engagedAllies: engaged.allies.size,
+            engagedEnemies: engagement.enemies.size,
+            engagedAllies: engagement.allies.size,
             flanked: flankedStage
           }
         }

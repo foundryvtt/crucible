@@ -203,6 +203,14 @@ export default class CrucibleAdversary extends CrucibleActorType {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareMovement() {
+    super._prepareMovement();
+    this.movement.engagement += Math.max(this.movement.size - 3, 0);
+  }
+
+  /* -------------------------------------------- */
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 

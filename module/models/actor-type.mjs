@@ -178,7 +178,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     this.#prepareTotalResistances();
 
     // Movement
-    this.#prepareMovement();
+    this._prepareMovement();
     this.parent.callTalentHooks("prepareMovement", this.movement);
   }
 
@@ -345,10 +345,10 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
   /**
    * Preparation of derived movement for all Actor subtypes.
    */
-  #prepareMovement() {
+  _prepareMovement() {
     const m = this.movement;
     m.free = m.stride;
-    m.engagement = Math.max(m.size - 2, 1);
+    m.engagement = 1; // Default engagement is size-2 with a minimum of 1.
     const {shield, offhand} = this.parent.equipment.weapons;
     if ( shield && offhand.system.properties.has("engaging") ) m.engagement += 1;
   }

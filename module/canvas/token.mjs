@@ -9,6 +9,9 @@ export default class CrucibleTokenObject extends Token {
    * @typedef {Object} CrucibleTokenEngagement
    * @property {Set<Token>} allies      Allied tokens which are adjacent
    * @property {Set<Token>} enemies     Enemy tokens which are adjacent
+   * @property {PIXI.Rectangle} engagementBounds
+   * @property {PIXI.Polygon} movePolygon
+   * @property {number} allyBonus
    */
 
   /**
@@ -26,16 +29,14 @@ export default class CrucibleTokenObject extends Token {
    */
   #commitFlanking = false;
 
+  /**
+   * A Graphics object in the debug layer which displays engagement for this token.
+   * @type {PIXI.Graphics}
+   */
+  #engagementDebug;
+
   /* -------------------------------------------- */
   /*  Rendering                                   */
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _draw() {
-    await super._draw();
-    this.engagement = this.#computeEngagement();
-  }
-
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -133,6 +134,56 @@ export default class CrucibleTokenObject extends Token {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * @override
+   * TODO remove in V13+ if core supports better UI scale
+   */
+  _refreshEffects() {
+    let i = 0;
+    const size = Math.round(canvas.scene._source.grid.size / 10) * 2; // Unmodified grid size
+    const rows = Math.floor(this.h / size);
+    const bg = this.effects.bg.clear().beginFill(0x000000, 0.40).lineStyle(1.0, 0x000000);
+    for ( const effect of this.effects.children ) {
+      if ( effect === bg ) continue;
+
+      // Overlay effect
+      if ( effect === this.effects.overlay ) {
+        const {width, height} = this.getSize();
+        const size = Math.min(width * 0.6, height * 0.6);
+        effect.width = effect.height = size;
+        effect.position = this.getCenterPoint({x: 0, y: 0});
+        effect.anchor.set(0.5, 0.5);
+      }
+
+      // Status effect
+      else {
+        effect.width = effect.height = size;
+        effect.x = Math.floor(i / rows) * size;
+        effect.y = (i % rows) * size;
+        bg.drawRoundedRect(effect.x + 1, effect.y + 1, size - 2, size - 2, 2);
+        i++;
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onControl(options) {
+    super._onControl(options);
+    if ( CONFIG.debug.flanking ) this._visualizeEngagement(this.engagement);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onRelease(options) {
+    super._onRelease(options);
+    this._clearEngagementVisualization();
+  }
+
+  /* -------------------------------------------- */
   /*  Engagement and Flanking                     */
   /* -------------------------------------------- */
 
@@ -175,6 +226,7 @@ export default class CrucibleTokenObject extends Token {
     const {ally, enemy} = this.#getDispositions();
     const enemies = new Set();
     const allies = new Set();
+    const engagement = {allies, enemies, engagementBounds, movePolygon};
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
@@ -196,21 +248,19 @@ export default class CrucibleTokenObject extends Token {
       }
     });
 
+    // Compute allied reinforcement bonus
+    engagement.value = this.actor.system.movement.engagement;
+    engagement.allyBonus = allies.reduce((bonus, ally) => {
+      const mutual = ally.engagement.enemies.intersection(enemies);
+      if ( !mutual.size ) return bonus;
+      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
+      return bonus;
+    }, 0);
+    engagement.flanked = Math.max(enemies.size - engagement.allyBonus - engagement.value, 0);
+
     // Debug visualize enemies
-    if ( CONFIG.debug.flanking ) {
-      canvas.controls.debug.beginFill(0xFF0000, 1.0);
-      for ( const enemy of enemies ) {
-        const c = enemy.center;
-        canvas.controls.debug.drawCircle(c.x, c.y, canvas.dimensions.size / 6);
-      }
-      canvas.controls.debug.beginFill(0x00FF00, 1.0);
-      for ( const ally of allies ) {
-        const c = ally.center;
-        canvas.controls.debug.drawCircle(c.x, c.y, canvas.dimensions.size / 6);
-      }
-      canvas.controls.debug.endFill();
-    }
-    return {allies, enemies};
+    this._visualizeEngagement(engagement);
+    return engagement;
   }
 
   /* -------------------------------------------- */
@@ -222,11 +272,7 @@ export default class CrucibleTokenObject extends Token {
   #computeEngagementSquareGrid() {
     const c = this.center;
     const engagementBounds = this.getEngagementRectangle();
-    const movePolygon = ClockwiseSweepPolygon.create(c, {
-      type: "move",
-      boundaryShapes: [engagementBounds],
-      debug: CONFIG.debug.flanking
-    });
+    const movePolygon = ClockwiseSweepPolygon.create(c, {type: "move", boundaryShapes: [engagementBounds]});
     return {engagementBounds, movePolygon};
   }
 
@@ -290,7 +336,6 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
-    const activeGM = game.users.activeGM;
     this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
     this.refreshFlanking();
   }
@@ -373,5 +418,74 @@ export default class CrucibleTokenObject extends Token {
 
     // Return actors which were updated
     return updated;
+  }
+
+  /* -------------------------------------------- */
+  /*  Debugging and Visualization                 */
+  /* -------------------------------------------- */
+
+  /**
+   * Draw the visualization of Token engagement.
+   * @param engagement
+   * @internal
+   */
+  _visualizeEngagement(engagement) {
+    if ( !CONFIG.debug.flanking ) return;
+    if ( !this.#engagementDebug ) {
+      this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
+
+      // Enemies Text
+      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.enemies.anchor.set(0.5, 1);
+
+      // Engagement Text
+      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.engagement.anchor.set(0.5, 0);
+
+      // Flanked Text
+      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 32})));
+      this.#engagementDebug.flanked.anchor.set(0.5, 0.5);
+    }
+    const e = this.#engagementDebug.clear();
+
+    // Movement polygon
+    e.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0}).drawShape(engagement.movePolygon).endFill();
+
+    // Enemy bounds
+    e.beginFill(0xFF0000, 0.1).lineStyle({width: 2, color: 0xFF0000, alpha: 1.0});
+    for ( const enemy of engagement.enemies ) e.drawShape(enemy.bounds);
+    e.endFill();
+
+    // Ally bounds
+    e.beginFill(0x00FF00, 0.1).lineStyle({width: 2, color: 0x00FF00, alpha: 1.0});
+    for ( const ally of engagement.allies ) e.drawShape(ally.bounds);
+    e.endFill();
+
+    // Flanking State
+    const {x, y} = this.document._source;
+    const {x: cx, y: cy} = this.getCenterPoint({x, y});
+    this.#engagementDebug.enemies.text = `${engagement.enemies.size} Enemies`;
+    this.#engagementDebug.enemies.position.set(cx, y);
+    this.#engagementDebug.enemies.visible = true;
+    this.#engagementDebug.engagement.text = `Engagement ${engagement.value + engagement.allyBonus}`;
+    this.#engagementDebug.engagement.position.set(cx, y + this.h);
+    this.#engagementDebug.engagement.visible = true;
+    this.#engagementDebug.flanked.text = `Flanked ${engagement.flanked}`;
+    this.#engagementDebug.flanked.position.set(cx, cy);
+    this.#engagementDebug.flanked.visible = true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clear the visualization of Token engagement.
+   * @internal
+   */
+  _clearEngagementVisualization() {
+    if ( !this.#engagementDebug ) return;
+    this.#engagementDebug.clear();
+    this.#engagementDebug.enemies.visible = false;
+    this.#engagementDebug.engagement.visible = false;
+    this.#engagementDebug.flanked.visible = false;
   }
 }

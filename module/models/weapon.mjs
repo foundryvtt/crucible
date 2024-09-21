@@ -294,6 +294,9 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
     if ( this.config.category.reload && !this.loaded ) tags.damage = "Reload";
     if ( scope === "short" ) return tags;
 
+    // Range
+    tags.range = `Range ${this.range}`;
+
     // Weapon Category
     const category = this.config.category;
     tags.category = category.label;
