@@ -174,7 +174,7 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
   #prepareDamage() {
     const {category, quality} = this.config;
     const damage = {
-      base: category.damage.base,
+      base: category.damage,
       bonus: 0,
       quality: quality.bonus,
       weapon: 0
@@ -220,12 +220,8 @@ export default class CrucibleWeapon extends CruciblePhysicalItem {
   #prepareRange() {
     const category = this.config.category;
     let range = category.range;
-    if ( this.properties.has("reach") ) {
-      range += category.ranged ? 20 : 2;
-    }
-    if ( this.properties.has("ambush") ) {
-      range -= category.ranged ? 10 : 1;
-    }
+    if ( this.properties.has("reach") ) range += category.ranged ? 20 : 2;
+    if ( this.properties.has("ambush") ) range = Math.max(range - (category.ranged ? 10 : 1), 1);
     return range;
   }
 

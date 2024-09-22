@@ -477,13 +477,16 @@ async function syncTalents(force=false) {
 /* -------------------------------------------- */
 
 async function resetAllActorTalents() {
-  const updates = [];
   for ( const actor of game.actors ) {
-    const items = actor.items.reduce((arr, item) => {
-      if ( item.type !== "talent" ) arr.push(item.toObject());
-      return arr;
-    }, []);
-    updates.push({_id: actor.id, items});
+    const deleteIds = [];
+    for ( const item of actor.items ) {
+      if ( item.type !== "talent" ) continue;
+      if ( actor.system.details.ancestry?.talents?.has(item.id) ) continue;
+      if ( actor.system.details.background?.talents?.has(item.id) ) continue;
+      if ( actor.system.details.archetype?.talents?.has(item.id) ) continue;
+      if ( actor.system.details.taxonomy?.talents?.has(item.id) ) continue;
+      deleteIds.add(item.id);
+    }
+    await actor.deleteEmbeddedDocuments("Item", deleteIds);
   }
-  return Actor.updateDocuments(updates, {recursive: false});
 }

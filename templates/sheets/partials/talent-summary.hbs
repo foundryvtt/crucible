@@ -6,25 +6,43 @@
 <section class="actions">
     <h3 class="divider">Actions</h3>
     {{#each actions as |action|}}
-    <div class="action line-item flexcol" data-action-id="{{this.id}}">
-        <header class="action-header flexrow">
-            <img class="icon" src="{{action.img}}" alt="{{action.name}}"/>
-            <h4>{{action.name}}</h4>
-        </header>
-        <div class="full-tags">
-            {{#each action.tags as |tags section|}}
-            <div class="tags {{section}}" data-tag-type="{{section}}">
-                {{~#each tags as |label tag|}}
-                <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                {{/each~}}
+    <div class="action line-item" data-action-id="{{this.id}}">
+        <header class="action-header">
+            <img class="icon" src="{{action.img}}" alt="{{action.name}}">
+            <div class="title">
+                <h4>{{action.name}}</h4>
+                {{#unless tags.activation.empty}}
+                <div class="tags">
+                    {{#each tags.activation as |label tag|}}
+                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                    {{/each}}
+                </div>
+                {{/unless}}
             </div>
+        </header>
+
+        {{#unless tags.action.empty}}
+        <div class="tags" data-tag-type="action">
+            {{#each tags.action as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
+        {{/unless}}
+
+        {{#unless tags.context.empty}}
+        <div class="tags" data-tag-type="{{context.type}}">
+            {{#each tags.context as |label|}}
+            <span class="tag">{{label}}</span>
+            {{/each}}
+        </div>
+        {{/unless}}
+
         {{#if action.condition}}
         <p class="condition">
             <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
         </p>
         {{/if}}
+
         <div class="description">{{{action.description}}}</div>
         {{#if action.effects.length}}
         <ol class="effects">

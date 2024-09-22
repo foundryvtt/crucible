@@ -83,6 +83,22 @@ import ActionConfig from "../applications/config/action.mjs";
  */
 
 /**
+ * An object used to represent a set of tags.
+ */
+class ActionTagGroup {
+  constructor({icon, tooltip}) {
+    Object.defineProperties(this, {
+      icon: {value: icon},
+      tooltip: {value: tooltip}
+    });
+  }
+
+  get empty() {
+    return foundry.utils.isEmpty(this);
+  }
+}
+
+/**
  * The data schema used for an Action within a talent Item
  * @property {string} id                    The action identifier
  * @property {string} name                  The action name
@@ -943,9 +959,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   getTags() {
     const tags = {
-      activation: {},
-      action: {},
-      context: {}
+      activation: new ActionTagGroup({icon: "fa-solid fa-banner", tooltip: "Activation Tags"}),
+      action: new ActionTagGroup({icon: "fa-solid fa-lightning-bolt", tooltip: "Action Tags"}),
+      context: new ActionTagGroup({icon: "fa-solid fa-bullseye", tooltip: "Context Tags"}),
     };
 
     // Action Tags

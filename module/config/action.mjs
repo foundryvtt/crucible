@@ -858,7 +858,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
         }
       },
       displayOnSheet(combatant) {
-        return !!combatant && (game.combat.combatant === combatant) && !this.actor.flags.crucible?.delay;
+        if ( !combatant || this.actor.flags.crucible?.delay || (game.combat.combatant !== combatant) ) return false;
+        return game.combat.turn < (game.combat.turns.length - 1); // Not already last
       },
       async preActivate(targets) {
         const combatant = game.combat.getCombatantByActor(this.actor);

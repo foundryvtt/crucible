@@ -890,6 +890,9 @@
   gap: var(--margin-half);
   max-height: 200px;
 }
+.crucible.sheet.actor .sheet-sidebar .line-item {
+  flex-wrap: nowrap;
+}
 .crucible.sheet.actor .sheet-sidebar .line-item .title {
   font-size: var(--font-size-12);
   line-height: 1rem;
@@ -1705,9 +1708,9 @@
  *  Action                                    *
  * ------------------------------------------ */
 .crucible.action fieldset.hook label {
-  gap: 0.25rem;
+  flex: 1;
 }
-.crucible.action fieldset.hook label button {
+.crucible.action fieldset.hook button {
   flex: 0;
 }
 /** ----------------------------------------- *
@@ -2294,42 +2297,30 @@
   z-index: var(--z-index-tooltip);
 }
 #crucible-talent-hud {
-  --iconSize: 60px;
   min-width: 320px;
   width: min-content;
   max-width: 600px;
   text-align: left;
+  pointer-events: all;
 }
-#crucible-talent-hud header {
+#crucible-talent-hud > header {
   align-items: center;
   gap: 0.5rem;
 }
-#crucible-talent-hud header h1 {
+#crucible-talent-hud > header h1 {
   margin: 0;
   font-size: var(--font-size-24);
 }
-#crucible-talent-hud .talent-tags {
-  flex: 0 0 100%;
-}
-#crucible-talent-hud .icon {
-  flex: 0 0 var(--iconSize);
-  height: var(--iconSize);
+#crucible-talent-hud > header .icon {
+  flex: 0 0 60px;
+  height: 60px;
   border-radius: 8px;
 }
-#crucible-talent-hud section {
-  margin-top: 0.5rem;
-}
-#crucible-talent-hud .effects {
-  margin: 0.5rem 0;
-  padding: 0;
-  list-style: none;
-}
-#crucible-talent-hud .effects .effect {
-  gap: 0.25rem;
-}
-#crucible-talent-hud .effects .effect-tags {
-  justify-content: flex-start;
-  gap: 0.25rem;
+#crucible-talent-hud .full-tags {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Controls                        */

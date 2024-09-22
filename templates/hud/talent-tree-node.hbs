@@ -6,8 +6,7 @@
             <span class="tag {{tag.class}}">{{tag.label}}</span>
             {{/each}}
         </div>
-        <div class="tags">
-            <label>Prerequisites</label>
+        <div class="tags prerequisites">
             {{#each prerequisites as |req|}}
             <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
             {{/each}}

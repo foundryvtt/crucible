@@ -5,8 +5,8 @@
  * @property {number} hands               The number of hands required, 1 or 2
  * @property {boolean} main               Can this weapon be used in the main-hand
  * @property {boolean} off                Can this weapon be used in the off-hand
- * @property {string} scaling             What scaling formula does this weapon use? "str", "dex", or "strdex"
- * @property {{base: number, [multiplier]: number}} damage  The damage attributes of the weapon
+ * @property {string} scaling             What scaling formula does this weapon use?
+ * @property {number} damage              Base damage for the weapon category
  * @property {number} actionCost          The action point cost to strike with this weapon
  */
 
@@ -27,10 +27,8 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength",
-    damage: {
-      base: 4
-    },
     actionCost: 2,
+    damage: 3,
     range: 1,
     training: "natural"
   },
@@ -43,10 +41,8 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength.dexterity",
-    damage: {
-      base: 3
-    },
     actionCost: 2,
+    damage: 3,
     range: 1,
     training: "unarmed"
   },
@@ -57,11 +53,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "dexterity",
-    damage: {
-      base: 4
-    },
     actionCost: 2,
-    range: 2,
+    damage: 3,
+    range: 1,
     training: "finesse"
   },
   simple1: {
@@ -71,25 +65,9 @@ export const CATEGORIES = {
     main: true,
     off: true,
     scaling: "strength",
-    damage: {
-      base: 5
-    },
+    damage: 4,
     actionCost: 2,
-    range: 2,
-    training: "heavy"
-  },
-  heavy1: {
-    id: "heavy1",
-    label: "WEAPON.CATEGORIES.HEAVY1",
-    hands: 1,
-    main: true,
-    off: false,
-    scaling: "strength",
-    damage: {
-      base: 5
-    },
-    actionCost: 2,
-    range: 3,
+    range: 1,
     training: "heavy"
   },
   balanced1: {
@@ -99,12 +77,22 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength.dexterity",
-    damage: {
-      base: 6
-    },
+    damage: 4,
     actionCost: 2,
-    range: 3,
+    range: 2,
     training: "balanced"
+  },
+  heavy1: {
+    id: "heavy1",
+    label: "WEAPON.CATEGORIES.HEAVY1",
+    hands: 1,
+    main: true,
+    off: false,
+    scaling: "strength",
+    damage: 6,
+    actionCost: 3,
+    range: 2,
+    training: "heavy"
   },
 
   // Two-Handed Melee
@@ -115,25 +103,9 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength",
-    damage: {
-      base: 7
-    },
     actionCost: 3,
-    range: 4,
-    training: "heavy"
-  },
-  heavy2: {
-    id: "heavy2",
-    label: "WEAPON.CATEGORIES.HEAVY2",
-    hands: 2,
-    main: true,
-    off: false,
-    scaling: "strength",
-    damage: {
-      base: 8
-    },
-    actionCost: 3,
-    range: 4,
+    damage: 6,
+    range: 2,
     training: "heavy"
   },
   balanced2: {
@@ -143,12 +115,22 @@ export const CATEGORIES = {
     main: true,
     off: false,
     scaling: "strength.dexterity",
-    damage: {
-      base: 9
-    },
+    damage: 6,
     actionCost: 3,
-    range: 4,
+    range: 3,
     training: "balanced"
+  },
+  heavy2: {
+    id: "heavy2",
+    label: "WEAPON.CATEGORIES.HEAVY2",
+    hands: 2,
+    main: true,
+    off: false,
+    scaling: "strength",
+    damage: 8,
+    actionCost: 4,
+    range: 3,
+    training: "heavy"
   },
 
   // One-Handed Ranged
@@ -160,10 +142,8 @@ export const CATEGORIES = {
     off: true,
     ranged: true,
     scaling: "strength.dexterity",
-    damage: {
-      base: 5
-    },
     actionCost: 2,
+    damage: 4,
     range: 60,
     training: "projectile"
   },
@@ -175,10 +155,8 @@ export const CATEGORIES = {
     off: true,
     ranged: false,
     scaling: "presence",
-    damage: {
-      base: 4
-    },
     actionCost: 2,
+    damage: 2,
     range: 30,
     training: "talisman"
   },
@@ -191,10 +169,8 @@ export const CATEGORIES = {
     ranged: true,
     reload: true,
     scaling: "dexterity",
-    damage: {
-      base: 6
-    },
     actionCost: 2,
+    damage: 4,
     range: 60,
     training: "mechanical"
   },
@@ -208,10 +184,8 @@ export const CATEGORIES = {
     off: false,
     ranged: true,
     scaling: "strength.dexterity",
-    damage: {
-      base: 8
-    },
     actionCost: 3,
+    damage: 6,
     range: 120,
     training: "projectile"
   },
@@ -223,10 +197,8 @@ export const CATEGORIES = {
     off: false,
     ranged: false,
     scaling: "presence",
-    damage: {
-      base: 6
-    },
     actionCost: 3,
+    damage: 3,
     range: 30,
     training: "talisman"
   },
@@ -239,10 +211,8 @@ export const CATEGORIES = {
     ranged: true,
     reload: true,
     scaling: "dexterity",
-    damage: {
-      base: 8
-    },
     actionCost: 2,
+    damage: 6,
     range: 120,
     training: "mechanical"
   },
@@ -256,13 +226,11 @@ export const CATEGORIES = {
     off: true,
     ranged: false,
     scaling: "dexterity",
-    damage: {
-      base: 2
-    },
+    actionCost: 2,
+    damage: 2,
     defense: {
       block: 2
     },
-    actionCost: 2,
     range: 1,
     training: "shield"
   },
@@ -274,14 +242,12 @@ export const CATEGORIES = {
     off: true,
     ranged: false,
     scaling: "strength",
-    damage: {
-      base: 4
-    },
+    actionCost: 2,
+    damage: 3,
+    range: 1,
     defense: {
       block: 4
     },
-    actionCost: 3,
-    range: 1,
     training: "shield"
   },
 
