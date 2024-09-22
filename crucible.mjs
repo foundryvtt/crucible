@@ -135,6 +135,7 @@ Hooks.once("init", async function() {
 
   // Canvas Configuration
   CONFIG.Canvas.rulerClass = CrucibleRuler;
+  CONFIG.Token.hudClass = applications.CrucibleTokenHUD;
 
   // Register settings
   game.settings.register("crucible", "actionAnimations", {

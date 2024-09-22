@@ -19,3 +19,7 @@ export {default as WeaponSheet} from "./sheets/weapon.mjs";
 
 // Sidebar Apps
 export {default as CrucibleCombatTracker} from "./sidebar/combat-tracker.mjs";
+
+// Canvas Apps
+export {default as CrucibleTokenHUD} from "./hud/token-hud.mjs";
+
