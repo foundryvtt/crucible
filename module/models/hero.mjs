@@ -138,6 +138,7 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Threat level
     this.advancement.threatLevel = this.advancement.level;
+    this.advancement.threatFactor = 1;
 
     // Base Resistances
     const res = this.resistances;

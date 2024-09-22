@@ -888,7 +888,12 @@
   display: flex;
   flex-direction: column;
   gap: var(--margin-half);
-  max-height: 200px;
+}
+.crucible.sheet.actor .sheet-sidebar .item-list.equipment {
+  flex: none;
+}
+.crucible.sheet.actor .sheet-sidebar .item-list.actions {
+  flex: 1;
 }
 .crucible.sheet.actor .sheet-sidebar .line-item {
   flex-wrap: nowrap;
@@ -1415,28 +1420,16 @@
 .crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
 }
-.crucible.sheet.actor .tab.inventory .header-section,
-.crucible.sheet.actor .tab.talents .header-section,
-.crucible.sheet.actor .tab.skills .header-section,
-.crucible.sheet.actor .tab.spells .header-section {
+.crucible.sheet.actor .tab.secondary .header-section {
   justify-content: space-between;
 }
-.crucible.sheet.actor .tab.inventory .header-section a.button,
-.crucible.sheet.actor .tab.talents .header-section a.button,
-.crucible.sheet.actor .tab.skills .header-section a.button,
-.crucible.sheet.actor .tab.spells .header-section a.button {
+.crucible.sheet.actor .tab.secondary .header-section a.button {
   flex: none;
 }
-.crucible.sheet.actor .tab.inventory .header-section a.framed,
-.crucible.sheet.actor .tab.talents .header-section a.framed,
-.crucible.sheet.actor .tab.skills .header-section a.framed,
-.crucible.sheet.actor .tab.spells .header-section a.framed {
+.crucible.sheet.actor .tab.secondary .header-section a.framed {
   font-size: var(--font-size-12);
 }
-.crucible.sheet.actor .tab.inventory .point-pools,
-.crucible.sheet.actor .tab.talents .point-pools,
-.crucible.sheet.actor .tab.skills .point-pools,
-.crucible.sheet.actor .tab.spells .point-pools {
+.crucible.sheet.actor .tab.secondary .point-pools {
   justify-content: flex-end;
   font-size: var(--font-size-12);
   gap: 0.5rem;
@@ -1446,17 +1439,11 @@
   background: var(--color-frame-bg);
   border-radius: 3px;
 }
-.crucible.sheet.actor .tab.inventory .point-pools .label,
-.crucible.sheet.actor .tab.talents .point-pools .label,
-.crucible.sheet.actor .tab.skills .point-pools .label,
-.crucible.sheet.actor .tab.spells .point-pools .label {
+.crucible.sheet.actor .tab.secondary .point-pools .label {
   flex: none;
   color: var(--color-secondary);
 }
-.crucible.sheet.actor .tab.inventory .point-pools .value,
-.crucible.sheet.actor .tab.talents .point-pools .value,
-.crucible.sheet.actor .tab.skills .point-pools .value,
-.crucible.sheet.actor .tab.spells .point-pools .value {
+.crucible.sheet.actor .tab.secondary .point-pools .value {
   flex: 0 0 24px;
   height: 24px;
   background: url("../ui/elements/hex-plain.svg") no-repeat center;
@@ -1464,22 +1451,13 @@
   line-height: 24px;
   text-align: center;
 }
-.crucible.sheet.actor .tab.inventory .item-section,
-.crucible.sheet.actor .tab.talents .item-section,
-.crucible.sheet.actor .tab.skills .item-section,
-.crucible.sheet.actor .tab.spells .item-section {
+.crucible.sheet.actor .tab.secondary .item-section {
   padding: 1rem;
 }
-.crucible.sheet.actor .tab.inventory .item-section .notes,
-.crucible.sheet.actor .tab.talents .item-section .notes,
-.crucible.sheet.actor .tab.skills .item-section .notes,
-.crucible.sheet.actor .tab.spells .item-section .notes {
+.crucible.sheet.actor .tab.secondary .item-section .notes {
   color: var(--color-tertiary);
 }
-.crucible.sheet.actor .tab.inventory ol.items-list,
-.crucible.sheet.actor .tab.talents ol.items-list,
-.crucible.sheet.actor .tab.skills ol.items-list,
-.crucible.sheet.actor .tab.spells ol.items-list {
+.crucible.sheet.actor .tab.secondary ol.items-list {
   width: 100%;
   list-style: none;
   padding: 0;
@@ -1488,10 +1466,7 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.crucible.sheet.actor .tab.inventory ol.items-list li,
-.crucible.sheet.actor .tab.talents ol.items-list li,
-.crucible.sheet.actor .tab.skills ol.items-list li,
-.crucible.sheet.actor .tab.spells ol.items-list li {
+.crucible.sheet.actor .tab.secondary ol.items-list li {
   margin: 0;
 }
 .crucible.sheet.actor .tab.inventory .inventory-create {
@@ -2321,6 +2296,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+#crucible-talent-hud .effects {
+  margin: 0;
+  padding: 0;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Controls                        */

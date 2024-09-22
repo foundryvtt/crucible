@@ -200,6 +200,8 @@
   },
   "TABS": {
     "ATTRIBUTES": "Attributes",
+    "ACTIONS": "Actions",
+    "EFFECTS": "Effects",
     "SKILLS": "Skills",
     "TALENTS": "Talents",
     "INVENTORY": "Inventory",
@@ -208,8 +210,7 @@
   },
   "LABELS": {
     "CURRENT_EQUIPMENT": "Current Equipment",
-    "AVAILABLE_ACTIONS": "Available Actions",
-    "ACTIVE_EFFECTS": "Active Effects",
+    "FAVORITE_ACTIONS": "Favorite Actions",
     "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
     "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
     "SIZE": "Size"

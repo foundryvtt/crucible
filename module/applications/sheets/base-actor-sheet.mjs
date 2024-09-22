@@ -14,6 +14,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       height: 750
     },
     actions: {
+      actionFavorite: CrucibleBaseActorSheet.#onActionFavorite,
+      actionEdit: CrucibleBaseActorSheet.#onActionEdit,
       actionUse: CrucibleBaseActorSheet.#onActionUse,
       itemCreate: CrucibleBaseActorSheet.#onItemCreate,
       itemEdit: CrucibleBaseActorSheet.#onItemEdit,
@@ -22,6 +24,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectCreate: CrucibleBaseActorSheet.#onEffectCreate,
       effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
+      effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
       editImage: CrucibleBaseActorSheet.#onEditImage // TODO remove in v13
     },
     form: {
@@ -54,6 +57,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       id: "attributes",
       template: undefined  // Defined during _initializeActorSheetClass
     },
+    actions:{
+      id: "actions",
+      template: "systems/crucible/templates/sheets/actor/actions.hbs"
+    },
+    inventory: {
+      id: "inventory",
+      template: "systems/crucible/templates/sheets/actor/inventory.hbs"
+    },
     skills: {
       id: "skills",
       template: "systems/crucible/templates/sheets/actor/skills.hbs"
@@ -62,13 +73,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       id: "talents",
       template: "systems/crucible/templates/sheets/actor/talents.hbs"
     },
-    inventory: {
-      id: "inventory",
-      template: "systems/crucible/templates/sheets/actor/inventory.hbs"
-    },
     spells: {
       id: "spells",
       template: "systems/crucible/templates/sheets/actor/spells.hbs"
+    },
+    effects:{
+      id: "effects",
+      template: "systems/crucible/templates/sheets/actor/effects.hbs"
     },
     biography: {
       id: "biography",
@@ -83,11 +94,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static TABS = {
     sheet: [
       {id: "attributes", group: "sheet", label: "ACTOR.TABS.ATTRIBUTES"},
+      {id: "actions", group: "sheet", label: "ACTOR.TABS.ACTIONS"},
+      {id: "inventory", group: "sheet", label: "ACTOR.TABS.INVENTORY"},
       {id: "skills", group: "sheet", label: "ACTOR.TABS.SKILLS"},
       {id: "talents", group: "sheet", label: "ACTOR.TABS.TALENTS"},
-      {id: "inventory", group: "sheet", label: "ACTOR.TABS.INVENTORY"},
       {id: "spells", group: "sheet", label: "ACTOR.TABS.SPELLS"},
-      {id: "biography", group: "sheet", label: "ACTOR.TABS.BIOGRAPHY"},
+      {id: "effects", group: "sheet", label: "ACTOR.TABS.EFFECTS"},
+      {id: "biography", group: "sheet", label: "ACTOR.TABS.BIOGRAPHY"}
     ]
   }
 
@@ -120,15 +133,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   async _prepareContext(options) {
     const tabGroups = this.#getTabs();
     const {inventory, talents} = this.#prepareItems();
+    const {sections: actions, favorites: favoriteActions} = this.#prepareActions();
     return {
       abilityScores: this.#prepareAbilities(),
-      actions: this.#prepareAvailableActions(),
+      actions,
       actor: this.document,
       biography: await this.#prepareBiography(),
       canPurchaseTalents: true,
       canPurchaseSkills: true,
       defenses: this.#prepareDefenses(),
       effects: this.#prepareActiveEffects(),
+      favoriteActions,
       featuredEquipment: this.#prepareFeaturedEquipment(),
       fieldDisabled: this.isEditable ? "" : "disabled",
       fields: this.document.system.schema.fields,
@@ -361,59 +376,121 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Prepare data for the set of actions that are displayed on the Available Actions portion of the sheet.
-   * @returns {{img: *, name: *, id: *, totalCost, tags: *}[]}
+   * @returns {{sections: Record<string, {label: string, actions: object[]}>, favorites: object[]}}
    */
-  #prepareAvailableActions() {
+  #prepareActions() {
+    const sections = {
+      general: {label: "General Actions", actions: []},
+      movement: {label: "Movement Actions", actions: []},
+      melee: {label: "Melee Actions", actions: []},
+      ranged: {label: "Ranged Actions", actions: []},
+      spell: {label: "Spellcraft Actions", actions: []},
+      reaction: {label: "Reactions", actions: []}
+    };
     const combatant = game.combat?.getCombatantByActor(this.actor);
-    const actions = [];
+    const favorites = [];
+
+    // Iterate over all Actions
     for ( const action of Object.values(this.actor.actions) ) {
-      if ( !action._displayOnSheet(combatant) ) continue;
-      const tags = action.getTags().activation;
-      actions.push({
+      const a = {
         id: action.id,
         name: action.name,
         img: action.img,
-        tags,
-        totalCost: action.cost.action + action.cost.focus
-      });
+        tags: action.getTags().activation,
+        canEdit: !!action.parent,
+        favorite: action.isFavorite ? {icon: "fa-solid fa-star", tooltip: "Remove Favorite"} :
+          {icon: "fa-regular fa-star", tooltip: "Add Favorite"}
+      }
+
+      // Classify actions
+      let section = "general";
+      const sectionPriority = ["reaction", "spell", "movement", "ranged", "melee"];
+      for ( const p of sectionPriority ) {
+        if ( action.tags.has(p) ) {
+          section = p;
+          break;
+        }
+      }
+      sections[section].actions.push(a);
+
+      // Favorite actions which are able to be currently used
+      if ( action.isFavorite && action._displayOnSheet(combatant) ) favorites.push(a);
     }
-    actions.sort((a, b) => (a.totalCost - b.totalCost) || (a.name.localeCompare(b.name)));
-    return actions;
+
+    // Sort each section
+    for ( const [k, section] of Object.entries(sections) ) {
+      if ( !section.actions.length ) delete sections[k];
+      else section.actions.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    favorites.sort((a, b) => a.name.localeCompare(b.name));
+    return {sections, favorites};
   }
 
   /* -------------------------------------------- */
 
   /**
    * Format ActiveEffect data required for rendering the sheet
-   * @returns {object[]}
+   * @returns {Record<string, {label: string, effects: object[]}>}
    */
   #prepareActiveEffects() {
-    return this.actor.effects.map(effect => {
+    const sections = {
+      temporary: {label: "Temporary Effects", effects: []},
+      persistent: {label: "Persistent Effects", effects: []},
+      disabled: {label: "Disabled Effects", effects: []}
+    };
+
+    // Categorize and prepare effects
+    for ( const effect of this.actor.effects ) {
       const {startRound, rounds, turns} = effect.duration;
       const elapsed = game.combat ? game.combat.round - startRound : 0;
       const tags = {};
+      let section = "persistent";
+      let t;
 
       // Turn-based duration
       if ( Number.isFinite(turns) ) {
+        section = "temporary";
         const remaining = turns - elapsed;
+        t = remaining;
         tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
       }
 
       // Round-based duration
       else if ( Number.isFinite(rounds) ) {
+        section = "temporary";
         const remaining = rounds - elapsed + 1;
+        t = 1000000 * remaining;
         tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
       }
 
-      // Infinite duration
-      else tags.duration = "∞";
-      return {
+      // Persistent
+      else {
+        t = Infinity;
+        tags.duration = "∞";
+      }
+
+      // Disabled Effects
+      if ( effect.disabled ) section = "disabled";
+
+      // Add effect to section
+      const e = {
         id: effect.id,
         icon: effect.icon,
-        label: effect.name,
-        tags: tags
-      }
-    });
+        name: effect.name,
+        tags: tags,
+        disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "Enable Effect"}
+          : {icon: "fa-solid fa-toggle-on", tooltip: "Disable Effect"},
+        t
+      };
+      sections[section].effects.push(e);
+    }
+
+    // Sort
+    for ( const [k, section] of Object.entries(sections) ) {
+      if ( !section.effects.length ) delete sections[k];
+      else section.effects.sort((a, b) => (a.t - b.t) || (a.name.localeCompare(b.name)));
+    }
+    return sections;
   }
 
   /* -------------------------------------------- */
@@ -608,6 +685,35 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
+  static async #onActionEdit(event) {
+    const actionId = event.target.closest(".action").dataset.actionId;
+    const action = this.actor.actions[actionId];
+    if ( !action.parent ) return;
+    await action.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onActionFavorite(event) {
+    const actionId = event.target.closest(".action").dataset.actionId;
+    const favorites = this.actor.system.favorites.filter(id => (id in this.actor.actions));
+    if ( favorites.has(actionId) ) favorites.delete(actionId);
+    else favorites.add(actionId);
+    await this.actor.update({"system.favorites": favorites});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
   static async #onActionUse(event) {
     const actionId = event.target.closest(".action").dataset.actionId;
     await this.actor.useAction(actionId);
@@ -722,6 +828,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static async #onEffectEdit(event) {
     const effect = this.#getEventEffect(event);
     await effect.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onEffectToggle(event) {
+    const effect = this.#getEventEffect(event);
+    await effect.update({disabled: !effect.disabled});
   }
 
   /* -------------------------------------------- */

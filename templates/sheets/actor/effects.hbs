@@ -1,0 +1,29 @@
+<section class="tab secondary scrollable {{tabs.effects.id}} flexcol {{tabs.effects.cssClass}}"
+         data-tab="{{tabs.effects.id}}" data-group="{{tabs.effects.group}}">
+
+    {{#each effects as |section|}}
+    <div class="sheet-section item-section flexcol">
+        <h3 class="section-header">{{section.label}}</h3>
+        <ol class="items-list">
+            {{#each section.effects as |effect|}}
+            <li class="line-item effect" data-effect-id="{{effect.id}}">
+                <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
+                <div class="title">
+                    <h4>{{effect.name}}</h4>
+                    <div class="tags">
+                        {{#each effect.tags as |label tag|}}
+                        <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="controls">
+                    <a class="button icon {{effect.disabled.icon}}" data-action="effectToggle" data-tooltip="{{effect.disabled.tooltip}}"></a>
+                    <a class="button icon fa-solid fa-edit" data-action="effectEdit" data-tooltip="Edit Effect"></a>
+                    <a class="button icon fa-solid fa-trash" data-action="effectDelete" data-tooltip="Delete Effect"></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
+</section>

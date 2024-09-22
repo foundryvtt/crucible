@@ -1,0 +1,31 @@
+<section class="tab secondary scrollable {{tabs.actions.id}} flexcol {{tabs.actions.cssClass}}"
+         data-tab="{{tabs.actions.id}}" data-group="{{tabs.actions.group}}">
+
+    {{#each actions as |section|}}
+    <div class="sheet-section item-section flexcol">
+        <h3 class="section-header">{{section.label}}</h3>
+        <ol class="items-list">
+            {{#each section.actions as |action|}}
+            <li class="line-item action" data-action-id="{{action.id}}">
+                <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true">
+                <div class="title">
+                    <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
+                    <div class="tags">
+                        {{#each action.tags as |label tag|}}
+                        <span class="tag {{tag}}">{{label}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="controls">
+                    {{#if action.canEdit}}
+                        <a class="button icon fa-solid fa-edit" data-action="actionEdit" data-tooltip="Edit Action"></a>
+                    {{/if}}
+                    <a class="button icon favorite {{favorite.icon}}" data-action="actionFavorite"
+                       data-tooltip="{{favorite.tooltip}}"></a>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/each}}
+</section>

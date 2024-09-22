@@ -228,8 +228,8 @@ export const TAGS = {
   },
 
   // Requires Strength Weapon
-  heavy: { // TODO re-id as "brute"
-    tag: "heavy",
+  brute: {
+    tag: "brute",
     label: "ACTION.TagBrute",
     tooltip: "ACTION.TagBruteTooltip",
     category: "requirements",
@@ -608,15 +608,6 @@ export const TAGS = {
     prepare() {
       this.usage.bonuses.damageBonus += 6;
     },
-  },
-  exposing: {
-    tag: "exposing",
-    label: "ACTION.TagExposing",
-    tooltip: "ACTION.TagExposingTooltip",
-    category: "modifiers",
-    prepare() {
-      this.usage.boons.exposed = {label: "EFFECT.STATUSES.Exposed", number: 2};
-    }
   },
   accurate: {
     tag: "accurate",

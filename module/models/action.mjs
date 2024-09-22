@@ -183,6 +183,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   #sheet;
 
+  /**
+   * Is this Action a favorite of the Actor which owns it?
+   * @type {boolean}
+   */
+  get isFavorite() {
+    return this.actor?.system.favorites.has(this.id);
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */

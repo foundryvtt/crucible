@@ -758,9 +758,6 @@ export default class CrucibleActor extends Actor {
     ranged ??= (action.range.maximum > 3);
     const isAttack = (actionType !== "skill") && !action.damage?.restoration;
 
-    // Exposed
-    if ( target.statuses.has("exposed") && isAttack ) boons.exposed = {label: "Exposed", number: 2};
-
     // Guarded
     if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};
 

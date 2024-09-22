@@ -18,47 +18,21 @@
         {{/each}}
     </div>
 
-    {{!-- Available Actions --}}
-    <h2 class="section-header divider">{{localize "ACTOR.LABELS.AVAILABLE_ACTIONS"}}</h2>
+    {{!-- Favorite Actions --}}
+    <h2 class="section-header divider">{{localize "ACTOR.LABELS.FAVORITE_ACTIONS"}}</h2>
     <div class="item-list actions">
-        {{#each actions}}
-        <div class="action line-item" data-action-id="{{this.id}}">
-            <img class="icon draggable action-drag" src="{{this.img}}" alt="{{this.name}}" draggable="true">
+        {{#each favoriteActions as |action|}}
+        <div class="action line-item" data-action-id="{{action.id}}">
+            <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true">
             <div class="title">
-                <h4 data-action="actionUse"><a>{{this.name}}</a></h4>
+                <h4 data-action="actionUse"><a>{{action.name}}</a></h4>
                 <div class="tags">
-                    {{#each this.tags as |label tag|}}
+                    {{#each action.tags as |label tag|}}
                     <span class="tag {{tag}}">{{label}}</span>
                     {{/each}}
                 </div>
             </div>
         </div>
         {{/each}}
-    </div>
-
-    {{!-- Active Effects --}}
-    <h2 class="section-header divider">{{localize "ACTOR.LABELS.ACTIVE_EFFECTS"}}</h2>
-    <div class="item-list effects">
-        {{#each effects as |effect|}}
-        <div class="effect line-item" data-effect-id="{{effect.id}}">
-            <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
-            <div class="title">
-                <h4>{{effect.label}}</h4>
-                <div class="tags">
-                    {{#each effect.tags as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="controls">
-                <a class="control" data-action="effectEdit" data-tooltip="Edit Effect">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="control" data-action="effectDelete" data-tooltip="Delete Effect">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </div>
-        {{/each}}
-        </div>
     </div>
 </section>

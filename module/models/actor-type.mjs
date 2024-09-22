@@ -85,6 +85,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
+    schema.favorites = new fields.SetField(new fields.StringField({blank: false}));
     return schema;
   }
 
@@ -190,16 +191,17 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    */
   _prepareResources() {
     const {isIncapacitated, isWeakened, statuses} = this.parent;
-    const {threatLevel: l, maxAction=6} = this.advancement;
+    const {level: l, threatFactor, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;
 
     // Health
-    r.health.max = Math.max(Math.ceil(6 * l) + (4 * a.toughness.value) + (2 * a.strength.value), 6);
+    let levelBase = Math.max(Math.ceil(6 * l), 6);
+    r.health.max = (levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * threatFactor;
     r.health.value = Math.clamp(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = Math.max(Math.ceil(6 * l) + (4 * a.presence.value) + (2 * a.wisdom.value), 6);
+    r.morale.max = (levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * threatFactor;
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action
@@ -239,7 +241,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    * Prepare Physical Defenses.
    */
   #preparePhysicalDefenses() {
-    const {equipment} = this.parent;
+    const {equipment, statuses} = this.parent;
     const {abilities, defenses} = this;
 
     // Armor and Dodge from equipped Armor
@@ -260,6 +262,9 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
         defenses[d].base += wd.defense[d];
       }
     }
+
+    // Status Conditions
+    if ( statuses.has("exposed") ) defenses.armor.base = Math.max(defenses.armor.base - 2, 0);
   }
 
   /* -------------------------------------------- */

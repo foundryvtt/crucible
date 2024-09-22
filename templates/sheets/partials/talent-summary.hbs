@@ -47,8 +47,10 @@
         {{#if action.effects.length}}
         <ol class="effects">
             {{#each action.effects as |effect|}}
-            <li class="effect line-item flexcol">
-                <div class="name"><strong>Causes Effect:</strong> {{action.name}}</div>
+            <li class="effect line-item">
+                <div class="title">
+                    <h4>Effect: <span class="effect-name">{{action.name}}</span></h4>
+                </div>
                 <div class="effect-tags tags">
                     {{#each effect.tags as |label tag|}}
                     <span class="tag" data-tag="{{tag}}">{{label}}</span>
