@@ -166,7 +166,7 @@ export const ACTION_HOOKS = Object.freeze({
     argNames: ["combatant"]
   },
   canUse: {
-    argNames: []
+    argNames: ["targets"]
   },
   preActivate: {
     argNames: ["targets"],

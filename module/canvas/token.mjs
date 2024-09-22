@@ -221,12 +221,11 @@ export default class CrucibleTokenObject extends Token {
       return {allies: new Set(), enemies: new Set()};
     }
     const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
-
-    // Identify opposed tokens in the bounds
     const {ally, enemy} = this.#getDispositions();
     const enemies = new Set();
     const allies = new Set();
-    const engagement = {allies, enemies, engagementBounds, movePolygon};
+    const value = this.actor.system.movement.engagement;
+    const engagement = {allies, enemies, engagementBounds, movePolygon, value};
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
@@ -247,20 +246,52 @@ export default class CrucibleTokenObject extends Token {
         }
       }
     });
-
-    // Compute allied reinforcement bonus
-    engagement.value = this.actor.system.movement.engagement;
-    engagement.allyBonus = allies.reduce((bonus, ally) => {
-      const mutual = ally.engagement.enemies.intersection(enemies);
-      if ( !mutual.size ) return bonus;
-      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
-      return bonus;
-    }, 0);
-    engagement.flanked = Math.max(enemies.size - engagement.allyBonus - engagement.value, 0);
-
-    // Debug visualize enemies
-    this._visualizeEngagement(engagement);
+    this.constructor.computeFlanking(engagement);
     return engagement;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Process engagement updates applying them symmetrically to other affected tokens.
+   * @param {CrucibleTokenEngagement} oldEngagement   Prior engagement for this Token
+   * @param {CrucibleTokenEngagement} newEngagement   New engagement for this Token
+   * @returns {Set<CrucibleTokenObject>}              The set of Tokens whose flanking status changed
+   */
+  #applyEngagementUpdates(oldEngagement, newEngagement) {
+    const updated = new Set();
+
+    // Prior engaged allies
+    for ( const ally of oldEngagement.allies ) {
+      updated.add(ally);
+      if ( newEngagement.allies.has(ally) ) continue;
+      ally.engagement.allies.delete(this);
+    }
+
+    // Prior engaged enemies
+    for ( const enemy of oldEngagement.enemies ) {
+      updated.add(enemy);
+      if ( newEngagement.enemies.has(enemy) ) continue;
+      enemy.engagement.enemies.delete(this);
+    }
+
+    // New engaged allies
+    for ( const ally of newEngagement.allies ) {
+      updated.add(ally);
+      if ( oldEngagement.allies.has(ally) ) continue;
+      ally.engagement.allies.add(this);
+    }
+
+    // New engaged enemies
+    for ( const enemy of newEngagement.enemies ) {
+      updated.add(enemy);
+      if ( oldEngagement.enemies.has(enemy) ) continue;
+      enemy.engagement.enemies.add(this);
+    }
+
+    // Recompute flanked state
+    for ( const token of updated ) this.constructor.computeFlanking(token.engagement);
+    return updated;
   }
 
   /* -------------------------------------------- */
@@ -315,8 +346,11 @@ export default class CrucibleTokenObject extends Token {
    */
   #updateFlanking() {
     const engagement = this.#computeEngagement();
-    const toUpdate = this.#applyFlankingUpdates(this.engagement, engagement);
+    const toUpdate = this.#applyEngagementUpdates(this.engagement, engagement);
     this.engagement = engagement; // Save the new state
+
+    // Debug visualize enemies
+    this._visualizeEngagement(engagement);
 
     // Update other Actors
     if ( !this.#commitFlanking ) return;
@@ -327,6 +361,22 @@ export default class CrucibleTokenObject extends Token {
 
     // Update our own actor
     if ( this.actor ) this.actor.commitFlanking(this.engagement);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the Flanked stage for a certain engagement state.
+   * @param {CrucibleTokenEngagement} engagement
+   */
+  static computeFlanking(engagement) {
+    engagement.allyBonus = engagement.allies.reduce((bonus, ally) => {
+      const mutual = ally.engagement.enemies.intersection(engagement.enemies);
+      if ( !mutual.size ) return bonus;
+      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
+      return bonus;
+    }, 0);
+    engagement.flanked = Math.max(engagement.enemies.size - engagement.allyBonus - engagement.value, 0);
   }
 
   /* -------------------------------------------- */
@@ -370,54 +420,11 @@ export default class CrucibleTokenObject extends Token {
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
     const newEngagement = {allies: new Set(), enemies: new Set()};
-    const toUpdate = this.#applyFlankingUpdates(this.engagement, newEngagement);
+    const toUpdate = this.#applyEngagementUpdates(this.engagement, newEngagement);
     if ( commit ) {
       for ( const token of toUpdate ) token.actor.commitFlanking(token.engagement);
     }
     this.engagement = newEngagement;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Process flanking updates applying them symmetrically to other affected tokens
-   * @param {CrucibleTokenEngagement} oldEngagement   Prior engagement for this Token
-   * @param {CrucibleTokenEngagement} newEngagement   New engagement for this Token
-   * @returns {Set<CrucibleTokenObject>}              The set of Tokens whose flanking status changed
-   */
-  #applyFlankingUpdates(oldEngagement, newEngagement) {
-    const updated = new Set();
-
-    // Prior engaged allies
-    for ( const ally of oldEngagement.allies ) {
-      updated.add(ally);
-      if ( newEngagement.allies.has(ally) ) continue;
-      ally.engagement.allies.delete(this);
-    }
-
-    // Prior engaged enemies
-    for ( const enemy of oldEngagement.enemies ) {
-      updated.add(enemy);
-      if ( newEngagement.enemies.has(enemy) ) continue;
-      enemy.engagement.enemies.delete(this);
-    }
-
-    // New engaged allies
-    for ( const ally of newEngagement.allies ) {
-      updated.add(ally);
-      if ( oldEngagement.allies.has(ally) ) continue;
-      ally.engagement.allies.add(this);
-    }
-
-    // New engaged enemies
-    for ( const enemy of newEngagement.enemies ) {
-      updated.add(enemy);
-      if ( oldEngagement.enemies.has(enemy) ) continue;
-      enemy.engagement.enemies.add(this);
-    }
-
-    // Return actors which were updated
-    return updated;
   }
 
   /* -------------------------------------------- */

@@ -313,10 +313,6 @@ export default class StandardCheck extends Roll {
    */
   static fromAction(action) {
     let {boons, banes, bonuses} = action.usage;
-    if ( bonuses.boons > 0 ) boons.special = {label: "Special", number: bonuses.boons};
-    delete bonuses.boons;
-    if ( bonuses.banes > 0 ) banes.special = {label: "Special", number: bonuses.banes};
-    delete bonuses.banes;
     return new this({boons, banes, ...bonuses});
   }
 

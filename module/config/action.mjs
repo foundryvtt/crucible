@@ -133,7 +133,7 @@ function weaponAttack(type="mainhand") {
       Object.assign(this.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
       this.usage.context.tags.add(w.name);
     },
-    canUse() {
+    canUse(_targets) {
       if ( (type === "twoHanded") && !this.actor.equipment.weapons.twoHanded ) {
         throw new Error("You must have a two-handed weapon equipped")
       }
@@ -200,7 +200,7 @@ export const TAGS = {
     label: "ACTION.TagDualWield",
     tooltip: "ACTION.TagDualWieldTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.dualWield;
     }
   },
@@ -211,7 +211,7 @@ export const TAGS = {
     label: "ACTION.TagOneHand",
     tooltip: "ACTION.TagOneHandTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return !this.actor.equipment.weapons.twoHanded;
     }
   },
@@ -222,7 +222,7 @@ export const TAGS = {
     label: "ACTION.TagFinesse",
     tooltip: "ACTION.TagFinesseTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity");
     }
   },
@@ -233,7 +233,7 @@ export const TAGS = {
     label: "ACTION.TagBrute",
     tooltip: "ACTION.TagBruteTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.mainhand.config.category.scaling.includes("strength");
     }
   },
@@ -244,7 +244,7 @@ export const TAGS = {
     label: "ACTION.TagMelee",
     tooltip: "ACTION.TagMeleeTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.melee;
     }
   },
@@ -255,7 +255,7 @@ export const TAGS = {
     label: "ACTION.TagRanged",
     tooltip: "ACTION.TagRangedTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.ranged;
     }
   },
@@ -266,7 +266,7 @@ export const TAGS = {
     label: "ACTION.TagProjectile",
     tooltip: "ACTION.TagProjectileTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return oh.config.category.training === "projectile";
       else return mh.config.category.training === "projectile";
@@ -279,7 +279,7 @@ export const TAGS = {
     label: "ACTION.TagMechanical",
     tooltip: "ACTION.TagMechanicalTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return oh.config.category.training === "mechanical";
       else return mh.config.category.training === "mechanical";
@@ -292,7 +292,7 @@ export const TAGS = {
     label: "ACTION.TagShield",
     tooltip: "ACTION.TagShieldTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.shield;
     }
   },
@@ -303,7 +303,7 @@ export const TAGS = {
     label: "ACTION.TagUnarmed",
     tooltip: "ACTION.TagUnarmedTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.weapons.unarmed;
     }
   },
@@ -314,7 +314,7 @@ export const TAGS = {
     label: "ACTION.TagUnarmored",
     tooltip: "ACTION.TagUnarmoredTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       return this.actor.equipment.unarmored;
     }
   },
@@ -325,7 +325,7 @@ export const TAGS = {
     label: "ACTION.TagFreehand",
     tooltip: "ACTION.TagFreehandTooltip",
     category: "requirements",
-    canUse() {
+    canUse(_targets) {
       const weapons = this.actor.equipment.weapons;
       if ( weapons.twoHanded && this.actor.talentIds.has("stronggrip000000") ) return true;
       return weapons.freehand;
@@ -342,7 +342,7 @@ export const TAGS = {
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
     category: "context",
-    canUse() {
+    canUse(_targets) {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare() {
@@ -386,7 +386,7 @@ export const TAGS = {
       if ( !combatant ) return false;
       return this.actor !== game.combat.combatant?.actor;
     },
-    canUse() {
+    canUse(_targets) {
       return this.actor !== game.combat?.combatant?.actor;
     },
     prepare() {
@@ -417,7 +417,7 @@ export const TAGS = {
     label: "ACTION.TagFlanking",
     tooltip: "ACTION.TagFlankingTooltip",
     category: "context",
-    async preActivate(targets) {
+    canUse(targets) {
       for ( const {actor} of targets ) {
         if ( !actor.statuses.has("flanked") ) {
           throw new Error(`${this.name} requires a flanked target. Target "${actor.name}" is not flanked.`);
@@ -446,7 +446,7 @@ export const TAGS = {
       if ( this.inflection ) this.usage.context.tags.add(this.inflection.name);
       this.usage.actorFlags.lastSpell = this.id;
     },
-    canUse() {
+    canUse(_targets) {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`You cannot cast a Spell using the ${this.gesture.name} gesture which requires `
           + `${this.cost.hands} free hands for spellcraft.`);
@@ -558,7 +558,7 @@ export const TAGS = {
     label: "ACTION.TagReload",
     tooltip: "ACTION.TagReloadTooltip",
     category: "special",
-    canUse() {
+    canUse(_targets) {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
       if ( !reload || (m.system.loaded && (!o || o.system.loaded)) ) {
         throw new Error("Your weapons do not require reloading");
@@ -849,7 +849,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 1
     },
     _hooks: {
-      canUse() {
+      canUse(_targets) {
         if ( game.combat?.combatant?.actor !== this.actor ) {
           throw new Error("You may only use the Delay action on your own turn in combat.");
         }
@@ -904,7 +904,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     tags: ["reaction"], // Added to in #prepareDefaultActions
     _hooks: {
-      canUse() {
+      canUse(_targets) {
         for ( const s of ["unaware", "flanked"] ) {
           if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
         }
@@ -926,7 +926,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     tags: ["noncombat"],
     _hooks: {
-      canUse() {
+      canUse(_targets) {
         if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
       },
       async confirm() {

@@ -229,7 +229,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       actorFlags: {},
       actorStatus: {},
       actorUpdates: {},
-      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1, boons: 0, banes: 0},
+      bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
       boons: {},
       banes: {},
       context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
@@ -285,6 +285,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.img ||= talent.img;
       if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
+
+    // Reset bonuses
+    Object.assign(this.usage.bonuses, {
+      ability: 0,
+      skill: 0,
+      enchantment: 0,
+      damageBonus: 0,
+      multiplier: 1
+    });
   }
 
   /* -------------------------------------------- */
@@ -337,8 +346,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Re-verify eligibility and targets after configuration
     try {
-      this._canUse();
       targets = this.acquireTargets();
+      this._canUse(targets);
     } catch(err) {
       ui.notifications.warn(err.message);
       return null;
@@ -388,17 +397,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async #use({chatMessage=true, chatMessageOptions={}, dialog=true}={}) {
 
-    // Assert that the action can be used based on its tags
-    try {
-      this._canUse();
-    } catch(err) {
-      return ui.notifications.warn(err.message);
-    }
-
     // Assert that required targets are designated
     let targets = [];
     try {
       targets = this.acquireTargets();
+    } catch(err) {
+      return ui.notifications.warn(err.message);
+    }
+
+    // Assert that the action can be used based on its tags
+    try {
+      this._canUse(targets);
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -831,10 +840,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Test whether an action can be performed.
-   * @throws      An error if the action cannot be taken
+   * @param {ActionUseTarget[]} targets       The array of targets designated for the action
+   * @throws {Error}                          An error if the action cannot be taken
    * @protected
    */
-  _canUse() {
+  _canUse(targets=[]) {
     const r = this.actor.system.resources;
     const statuses = this.actor.statuses;
 
@@ -877,7 +887,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Test each action tag
     for ( const test of this._tests() ) {
       if ( !(test.canUse instanceof Function) ) continue;
-      const can = test.canUse.call(this);
+      const can = test.canUse.call(this, targets);
       if ( can === false ) throw new Error(game.i18n.format("ACTION.WarningCannotUseTag", {
         name: this.actor.name,
         action: this.name,
