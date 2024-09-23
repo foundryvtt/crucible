@@ -99,7 +99,7 @@ export const TARGET_SCOPES = new Enum({
 /* -------------------------------------------- */
 
 /**
- * @typedef {Object}    ActionTag
+ * @typedef ActionTag
  * @property {string} tag
  * @property {string} label
  * @property {Function} [prepare]
@@ -111,6 +111,8 @@ export const TARGET_SCOPES = new Enum({
 
 /**
  * A generalized helper which populates tags for mainhand, offhand, and twoHanded tags.
+ * @param {"mainhand"|"offhand"|"twoHanded"} type
+ * @returns {Partial<ActionTag>}
  */
 function weaponAttack(type="mainhand") {
   return {

@@ -202,7 +202,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
 
     // Require available talent points
     const points = actor.points.talent;
-    if ( !points.available ) {
+    if ( points.available < 1 ) {
       if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.CannotAfford", {
         name: this.parent.name,
         cost: 1

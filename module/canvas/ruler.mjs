@@ -1,9 +1,17 @@
 
 export default class CrucibleRuler extends Ruler {
 
-  #action;
-  #actor;
-  #actionUses;
+  /**
+   * The Movement action being measured, or null.
+   * @type {CrucibleAction|null}
+   */
+  #action = null;
+
+  /**
+   * A reference to the Actor who is moving, or null.
+   * @type {CrucibleActor|null}
+   */
+  #actor = null;
 
   /**
    * String labels applied to the measured distance
@@ -30,16 +38,54 @@ export default class CrucibleRuler extends Ruler {
     return this.#action?.cost.action || 0;
   }
 
-  /** @inheritDoc */
-  _onDragStart(event) {
-    super._onDragStart(event);
+  /* -------------------------------------------- */
+
+  /**
+   * Identify measurement origin.
+   * Measurement origin is either (1) unsnapped, (2) a Token center, or (3) a grid space center.
+   * @override
+   */
+  _getMeasurementOrigin(point, {snap=true}={}) {
+    if ( !snap ) return {x: point.x, y: point.y};
     if ( this.token?.actor ) {
-      this.waypoints[0] = event.interactionData.origin = this.token.center;
+      point = this.token.center;
+      const isEven = this.token.actor.size % 2 === 0;
+      const mode = CONST.GRID_SNAPPING_MODES[isEven ? "VERTEX" : "CENTER"];
+      return canvas.grid.getSnappedPoint(point, {mode})
+    }
+    else return canvas.grid.getCenterPoint(point);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Identify measurement origin.
+   * Measurement destination is either (1) unsnapped, (2) a Token center, or (3) a grid space center.
+   * @override
+   */
+  _getMeasurementDestination(point, {snap=true}={}) {
+    if ( !snap ) return {x: point.x, y: point.y};
+    if ( this.token?.actor ) {
+      const isEven = this.token.actor.size % 2 === 0;
+      const mode = CONST.GRID_SNAPPING_MODES[isEven ? "VERTEX" : "CENTER"];
+      return canvas.grid.getSnappedPoint(point, {mode})
+    }
+    else return canvas.grid.getCenterPoint(point);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _startMeasurement(origin, options={}) {
+    super._startMeasurement(origin, options);
+    this.#footprint.length = 0;
+    this.#actor = null;
+    this.#action = null;
+    if ( this.token?.actor ) {
       this.#actor = this.token.actor;
       this.#action = this.#actor.actions.move.clone();
       this.#identifyFootprint();
     }
-    else this.#actor = this.#action = null;
   }
 
   /* -------------------------------------------- */
@@ -108,7 +154,7 @@ export default class CrucibleRuler extends Ruler {
 
   /** @override */
   _highlightMeasurementSegment(segment) {
-    if ( segment.teleport ) return;
+    if ( !this.token || segment.teleport ) return; // No highlight
     const path = canvas.grid.getDirectPath([segment.ray.A, segment.ray.B]);
     for ( const offset of path ) {
       for ( const d of this.#footprint ) {
@@ -127,7 +173,7 @@ export default class CrucibleRuler extends Ruler {
   /** @inheritDoc */
   _canMove(token) {
     super._canMove(token);
-    this.#action._canUse();
+    if ( this.#action ) this.#action._canUse();
     return true;
   }
 
@@ -135,7 +181,7 @@ export default class CrucibleRuler extends Ruler {
 
   /** @override */
   async _preMove(token) {
-    if ( !this.totalDistance ) return;
+    if ( !this.totalDistance || !this.#action ) return;
     this.#action.updateSource({
       name: `Move ${this.#labels.distance}`,
       cost: this.#action.cost

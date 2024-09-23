@@ -1659,14 +1659,14 @@ export default class CrucibleActor extends Actor {
 
     // Case 1 - Point Buy
     if ( this.isL0 ) {
-      if ( (delta > 0) && ((a.base === 3) || !points.pool) ) return false;
+      if ( (delta > 0) && ((a.base === 3) || (points.pool < 1)) ) return false;
       else if ( (delta < 0) && (a.base === 0) ) return false;
       return true;
     }
 
     // Case 2 - Regular Increase
     else {
-      if ( (delta > 0) && ((a.value === 12) || !points.available) ) return false;
+      if ( (delta > 0) && ((a.value === 12) || (points.available < 1)) ) return false;
       else if ( (delta < 0) && (a.increases === 0) ) return false;
       return true;
     }

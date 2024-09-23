@@ -988,7 +988,7 @@
   align-items: center;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool input {
-  flex: 0 0 30px;
+  flex: 0 0 40%;
   height: 1.25em;
   background: none;
   padding: 0 0.25rem;
@@ -1006,7 +1006,7 @@
   flex: none;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool .total {
-  flex: 0 0 30px;
+  flex: 0 0 40%;
   text-align: center;
 }
 .crucible.sheet.actor .tab.attributes .resources .resource .pool.short {
