@@ -716,16 +716,20 @@
 
   "Iconic": "Iconic Spell",
   "IconicPl": "Iconic Spells",
+  "IconicNone": "No unlocked Iconic Spell slots.",
   "DamageType": "Damage Type",
   "NameFormatNoun": "{gesture} of {rune}",
   "NameFormatAdj": "{rune} {gesture}",
   "COMPONENTS": {
     "Rune": "Arcane Rune",
     "RunePl": "Arcane Runes",
+    "RuneNone": "No Arcane Runes known.",
     "Gesture": "Somatic Gesture",
     "GesturePl": "Somatic Gestures",
+    "GestureNone": "No Somatic Gestures known.",
     "Inflection": "Metamagic Inflection",
-    "InflectionPl": "Metamagic Inflections"
+    "InflectionPl": "Metamagic Inflections",
+    "InflectionNone": "No Metamagic Inflections known."
   },
   "RUNES": {
     "Spirit": "Spirit",
@@ -810,6 +814,10 @@
     "inflection": {
       "label": "Inflection",
       "hint": "Obtaining this talent grants knowledge of a specific spellcraft Inflection."
+    },
+    "iconicSpells": {
+      "label": "Iconic Spells",
+      "hint": "A number of Iconic Spell slots that are granted by this Talent."
     },
     "actorHooks": {
       "label": "Hooked Functions",

@@ -150,6 +150,14 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       case "background":
         await this.actor.system.applyBackground(item);
         return;
+      case "spell":
+        try {
+          this.actor.canLearnIconicSpell(item);
+        } catch(err) {
+          ui.notifications.warn(err.message);
+          return;
+        }
+        break;
       case "talent":
         ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
         return;

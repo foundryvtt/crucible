@@ -48,12 +48,13 @@ export default class CrucibleSpell extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Confirm whether this Iconic Spell satisfies the prerequisites to be known by the Actor that owns it?
+   * Test whether a certain Actor can know an Iconic Spell.
+   * @param {CrucibleActor} actor
    * @returns {boolean}
    * @internal
    */
-  _prepareIsKnown() {
-    const grimoire = this.parent.parent.grimoire;
+  canKnowSpell(actor) {
+    const grimoire = actor.grimoire;
     for ( const runeId of this.runes ) {
       const rune = SYSTEM.SPELL.RUNES[runeId];
       if ( !grimoire.runes.has(rune) ) return false;

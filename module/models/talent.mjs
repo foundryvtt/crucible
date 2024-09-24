@@ -54,6 +54,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
       gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
       inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
+      iconicSpells: new fields.NumberField({required: true, nullable: false, initial: 0, integer: true, min: 0}),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR_HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})
@@ -161,6 +162,10 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
     const tags = {};
     for ( let [k, v] of Object.entries(this.prerequisites || {}) ) {
       tags[k] = `${v.label} ${v.value}`;
+    }
+    if ( this.iconicSpells ) {
+      tags.iconicSpells = this.iconicSpells === 1 ? game.i18n.localize("SPELL.Iconic")
+        : `${this.iconicSpells} ${game.i18n.localize("SPELL.IconicPl")}`;
     }
     return tags;
   }

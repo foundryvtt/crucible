@@ -122,6 +122,14 @@ export default class CrucibleItem extends Item {
         case "background":
           if ( this.parent.type === "hero" ) await this.parent.system.applyBackground(this);
           return false;   // Prevent creation
+        case "spell":
+          try {
+            this.parent.canLearnIconicSpell(this);
+          } catch(err) {
+            return false;
+          }
+          options.keepId = true;
+          break;
         case "talent":
           options.keepId = true;
           options.keepEmbeddedIds = true;

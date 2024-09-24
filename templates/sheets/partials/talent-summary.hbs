@@ -2,6 +2,12 @@
     {{{source.system.description}}}
 </section>
 
+{{#if source.system.iconicSpells}}
+<p class="iconic-spells">
+    <strong>{{localize "SPELL.IconicPl"}}:</strong> {{source.name}} grants {{source.system.iconicSpells}} Iconic Spell slots.
+</p>
+{{/if}}
+
 {{#if actions.length}}
 <section class="actions">
     <h3 class="divider">Actions</h3>
@@ -44,6 +50,7 @@
         {{/if}}
 
         <div class="description">{{{action.description}}}</div>
+
         {{#if action.effects.length}}
         <ol class="effects">
             {{#each action.effects as |effect|}}

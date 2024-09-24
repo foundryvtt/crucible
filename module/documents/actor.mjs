@@ -64,7 +64,13 @@ export default class CrucibleActor extends Actor {
 
   /**
    * The spellcraft components known by this Actor
-   * @type {{runes: Set<CrucibleRune>, inflections: Set<CrucibleInflection>, gestures: Set<CrucibleGesture>}}
+   * @type {{
+   *   runes: Set<CrucibleRune>,
+   *   inflections: Set<CrucibleInflection>,
+   *   gestures: Set<CrucibleGesture>,
+   *   iconicSlots: number,
+   *   iconicSpells: CrucibleItem[]
+   * }}
    */
   grimoire = this.grimoire;
 
@@ -597,7 +603,7 @@ export default class CrucibleActor extends Actor {
   static #prepareTalents(talents) {
     this.talentIds = new Set();
     this.actorHooks = {};
-    this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
+    this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
     const details = this.system.details;
     const signatureNames = [];
 
@@ -628,6 +634,7 @@ export default class CrucibleActor extends Actor {
       }
       if ( t.system.gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[t.system.gesture]);
       if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
+      if ( t.system.iconicSpells ) this.grimoire.iconicSlots += t.system.iconicSpells;
     }
 
     // Compose Signature Name
@@ -653,7 +660,8 @@ export default class CrucibleActor extends Actor {
    */
   static #prepareSpells(spells) {
     for ( const spell of spells ) {
-      spell.system.isKnown = spell.system._prepareIsKnown();
+      spell.system.isKnown = spell.system.canKnowSpell(this);
+      this.grimoire.iconicSpells.push(spell);
       for ( const hook of spell.system.actorHooks ) CrucibleActor.#registerActorHook(this, spell, hook);
     }
   }
@@ -1504,6 +1512,26 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
   /*  Character Creation Methods                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether an Actor is able to learn a new Iconic Spell.
+   * @param {CrucibleItem} spell    The spell desired to know
+   * @throws {Error}                An error if the Actor cannot learn the spell
+   */
+  canLearnIconicSpell(spell) {
+    const {iconicSpells, iconicSlots} = this.grimoire;
+    if ( iconicSpells.length >= iconicSlots ) {
+      throw new Error(`Actor ${this.name} does not have any available Iconic Spell slots.`)
+    }
+    if ( this.items.get(spell._id) ) {
+      throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
+    }
+    if ( requireKnowledge && !spell.system.canKnowSpell(this) ) {
+      throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
+    }
+  }
+
   /* -------------------------------------------- */
 
   /**

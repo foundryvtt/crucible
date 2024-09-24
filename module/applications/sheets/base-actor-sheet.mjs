@@ -516,16 +516,31 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * }}
    */
   #prepareSpells(iconicSpells) {
+    const {runes, gestures, inflections, iconicSlots} = this.actor.grimoire;
     const spells = {
-      runes: {label: game.i18n.localize("SPELL.COMPONENTS.RunePl")},
-      gestures: {label: game.i18n.localize("SPELL.COMPONENTS.GesturePl")},
-      inflections: {label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl")},
-      iconicSpells: {label: iconicSpells.label, known: iconicSpells.items}
+      runes: {
+        label: game.i18n.localize("SPELL.COMPONENTS.RunePl"),
+        known: runes,
+        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.RuneNone")
+      },
+      gestures: {
+        label: game.i18n.localize("SPELL.COMPONENTS.GesturePl"),
+        known: gestures,
+        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.GestureNone")
+      },
+      inflections: {
+        label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl"),
+        known: inflections,
+        emptyLabel: game.i18n.localize("SPELL.COMPONENTS.InflectionNone")
+      },
+      iconicSpells: {
+        label: iconicSpells.label,
+        known: iconicSpells.items,
+        emptyLabel: game.i18n.localize("SPELL.IconicNone")
+      }
     }
-    for ( const [k, v] of Object.entries(this.actor.grimoire) ) spells[k].known = v;
 
-    // Available Iconic Slots
-    const iconicSlots = 0; // TODO have this be based on your purchased talents.
+    // Placeholder Iconic Slots
     if ( iconicSlots > iconicSpells.items.length ) {
       for ( let i=iconicSpells.items.length; i<iconicSlots; i++ ) {
         spells.iconicSpells.known.push({
