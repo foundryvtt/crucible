@@ -357,6 +357,10 @@ export const TAGS = {
       if ( statuses.has("slowed") ) distance *= 2;
       if ( statuses.has("hastened") ) distance /= 2;
       if ( statuses.has("prone") ) distance += 2;
+      if ( statuses.has("restrained") ) {
+        this.cost.action = Infinity;
+        return;
+      }
 
       // Determine the amount of movement that is free vs. paid
       const prior = status.movement || {total: 0, last: 0, free: (equipment.canFreeMove && !status.hasMoved)};

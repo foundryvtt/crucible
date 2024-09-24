@@ -126,7 +126,9 @@ export default class CrucibleRuler extends Ruler {
     this.#action.usage.distance = this.totalDistance;
     SYSTEM.ACTION.TAGS.movement.prepare.call(this.#action);
     const ap = this.#action.cost.action;
-    this.#labels.cost = ap > 0 ? `${ap}AP` : "Free";
+    if ( ap === 0 ) this.#labels.cost = "Free";
+    else if ( ap === Infinity ) this.#labels.cost = "Impossible";
+    else this.#labels.cost = `${ap}AP`;
   }
 
   /* -------------------------------------------- */
