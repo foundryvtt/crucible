@@ -1527,7 +1527,7 @@ export default class CrucibleActor extends Actor {
     if ( this.items.get(spell._id) ) {
       throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
     }
-    if ( requireKnowledge && !spell.system.canKnowSpell(this) ) {
+    if ( !spell.system.canKnowSpell(this) ) {
       throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
     }
   }

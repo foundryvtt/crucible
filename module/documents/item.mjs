@@ -101,7 +101,7 @@ export default class CrucibleItem extends Item {
    * @returns {Record<string, string>}    The tags which describe this Item
    */
   getTags(scope="full") {
-    return this.system.getTags(scope) ?? {};
+    return this.system.getTags?.(scope) || {};
   }
 
   /* -------------------------------------------- */
