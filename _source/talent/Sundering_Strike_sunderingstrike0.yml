@@ -6,51 +6,52 @@ flags:
   core:
     sourceId: Item.vIhvItiKYuiqaSp9
 system:
-  node: str2b
+  node: str3b
   description: >-
-    A martial technique in which you attack the weak points of an enemy's
-    defenses, attempting to expose them to further harm. This attack is
-    difficult to perform and deals reduced damage, but leaves your target
-    Exposed to physical strikes for the remainder of the encounter.
+    <p>You know a martial technique to exploit the weakest points of an enemy's
+    defenses, exposing them to further harm.</p>
   actions:
     - id: sunderingStrike
-      name: ''
-      img: null
+      name: Sundering Strike
+      img: icons/skills/melee/shield-damaged-broken-gold.webp
       condition: ''
       description: >-
-        You strike with your weapon, targeting the weakest points of the enemy's
-        defenses - leaving them Exposed to further harm for the remainder of the
-        encounter.
+        <p>You make a <strong>Strike</strong> with your mainhand weapon which,
+        if successful, applies the <strong>Exposed </strong>condition to your
+        target for 3 rounds. This attack is <strong>Difficult</strong> to
+        perform and deals reduced damage.</p>
       tags:
-        - mainhand
         - melee
+        - mainhand
         - difficult
       cost:
-        action: 2
-        focus: 0
+        action: 0
+        focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 0
       effects:
-        - name: ''
+        - name: Sundered Armor
           scope: 3
-          duration:
-            turns: null
           statuses:
             - exposed
+          duration:
+            turns: 3
       actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420034
-  modifiedTime: 1696556001959
+  modifiedTime: 1727028679201
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null

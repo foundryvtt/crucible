@@ -5,18 +5,19 @@ img: icons/magic/water/wave-water-explosion.webp
 system:
   node: wispre2
   description: >-
-    After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
-    against an enemy that you allowed to act before you that Round.
+    <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
+    against an enemy that you allowed to act before you that Round.</p><p>TODO:
+    Needs automation. For now apply boons manually.</p>
   actions: []
   requirements: {}
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675015447186
-  modifiedTime: 1682387522464
+  modifiedTime: 1726929189197
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

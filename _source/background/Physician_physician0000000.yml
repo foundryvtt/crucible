@@ -5,25 +5,25 @@ _id: physician0000000
 img: icons/magic/life/cross-flared-green.webp
 system:
   description: >-
-    You were a healer or medical professional of some variety. You have spent a
-    portion of your life learning medical science, and you have a propensity for
-    noticing illness in others. You know how to treat wounds, diseases, and how
-    to identify their sources.
+    <p>You were a healer or medical professional of some variety. You have spent
+    a portion of your life learning medical science, and you have a propensity
+    for noticing illness in others. You know how to treat wounds, diseases, and
+    how to identify their sources.</p>
   skills:
     - awareness
-    - naturalism
-    - society
     - medicine
+    - society
+    - science
   talents:
     - Compendium.crucible.talent.Item.runelife00000000
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677350949941
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428682844
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

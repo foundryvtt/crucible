@@ -2,10 +2,10 @@ name: Dervish
 type: talent
 img: icons/skills/melee/maneuver-daggers-paired-orange.webp
 system:
-  node: dexstr3
+  node: sig3.dexterity.strength
   description: >-
-    You are specialized in fighting with two weapons. In combat you become a
-    whirlwind of weapons, deadly to any foes who approach.
+    <p>You are specialized in fighting with two weapons. In combat you become a
+    whirlwind of weapons, deadly to any foes who approach.</p>
   actions:
     - id: whirlwind
       name: Whirlwind
@@ -37,10 +37,10 @@ flags:
     sourceId: Item.dervish000000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675607983807
-  modifiedTime: 1686074353361
+  modifiedTime: 1726705826151
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dervish000000000
   duplicateSource: null

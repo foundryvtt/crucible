@@ -14,17 +14,17 @@ system:
   enchantment: mundane
   equipped: false
   properties:
-    - reach
+    - parrying
   description: ''
   damageType: slashing
   broken: false
   animation: halberd
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420026
-  modifiedTime: 1684877890643
+  modifiedTime: 1726930697690
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

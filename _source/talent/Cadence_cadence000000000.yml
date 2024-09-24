@@ -4,44 +4,28 @@ img: icons/skills/melee/strikes-sword-triple-gray.webp
 system:
   node: str1a
   description: >-
-    You are drilled in performing sequences of melee attacks with rhythmic
-    precision.
-  actions:
-    - id: cadence
-      name: ''
-      condition: ''
-      description: >-
-        You perform 3 Strike attacks against a single opponent. Each successful
-        Strike adds an accumulating +1 Boon subsequent attacks.
-      tags:
-        - mainhand
-        - onehand
-        - melee
-      cost:
-        action: 6
-        focus: 1
-        weapon: true
-      target:
-        type: single
-        number: 1
-        scope: 3
-      effects: []
-      img: null
-      actionHooks:
-        - hook: roll
-          fn: |-
-            let roll = rolls[0];
-            const boons = this.usage.boons;
-            boons.cadence = {label: "Cadence", number: 0};
-            for ( let i=1; i<=2; i++ ) {
-              if ( roll.isSuccess ) boons.cadence.number++;
-              roll = await this.actor.weaponAttack(this, target);
-              rolls.push(roll);
-            }
-      range:
-        weapon: true
-        maximum: 0
+    <p>You are drilled in performing sequences of melee attacks with rhythmic
+    precision. When you <strong>Strike</strong> multiple times in sequence using
+    a one-handed melee weapon you gain a stacking <strong>+1 Boon</strong> for
+    each successive attack.</p><p></p>
+  actions: []
   requirements: {}
+  actorHooks:
+    - hook: prepareWeaponAttack
+      fn: >-
+        // Increment Cadence Count
+
+        const status = actor.status;
+
+        const {actorStatus, boons} = action.usage;
+
+        actorStatus.cadence = (status.cadence ?? 0) + 1;
+
+
+        // Add Boons
+
+        if ( status.cadence ) rollData.boons.cadence = {label: "Cadence",
+        number: status.cadence};
 effects: []
 ownership:
   default: 0
@@ -51,10 +35,10 @@ flags:
     sourceId: Item.cadence000000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677208371269
-  modifiedTime: 1696556015233
+  modifiedTime: 1727057874097
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.cadence000000000
   duplicateSource: null

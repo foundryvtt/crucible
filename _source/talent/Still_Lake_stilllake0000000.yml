@@ -5,9 +5,10 @@ img: icons/magic/water/orb-water-transparent.webp
 system:
   node: wis2a
   description: >-
-    <p>Your life experiences provide serenity that allows you to rise above the
-    emotional manipulation of others. Skill attacks against you using Skills in
-    the Social category suffer <strong>+2 Banes.</strong></p>
+    <p>Your life experiences provide serenity that allows you to resist the
+    attempted manipulation of others.</p><p><strong>Skill Attacks</strong>
+    against you from any of the <strong>Social</strong> skills are made with
+    <strong>2 Banes</strong>.</p>
   actions: []
   actorHooks:
     - hook: defendSkillAttack
@@ -23,10 +24,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685821347312
-  modifiedTime: 1687632265997
+  modifiedTime: 1726367748069
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

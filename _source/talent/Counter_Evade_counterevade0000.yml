@@ -9,25 +9,26 @@ flags:
 system:
   node: dex2b
   description: >-
-    Using this evasive technique you may react when you Dodge a melee attack to
-    retaliate against that attacker by making an empowered Strike with your
-    primary weapon.
+    <p>You are practiced in evasive fighting styles which use an enemy's missed
+    attack to devise an opening to counter-attack.</p>
   actions:
     - id: counterEvade
-      name: ''
-      img: null
+      name: Counter Evade
+      img: icons/skills/melee/maneuver-greatsword-yellow.webp
       condition: You Dodge an incoming melee Strike.
       description: >-
-        You react after dodging an incoming melee attack to retaliate with a
-        Strike of your own.
+        <p>When you defend against a melee attack with a <strong>Dodge</strong>,
+        you may expend <strong>Focus</strong> to retaliate with a reduced-cost
+        <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
-        - mainhand
         - melee
         - reaction
+        - mainhand
       cost:
         action: -2
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -35,15 +36,16 @@ system:
       effects: []
       actionHooks: []
       range:
-        maximum: 0
+        maximum: 1
         weapon: true
+        minimum: null
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420019
-  modifiedTime: 1696555902323
+  modifiedTime: 1726367499297
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

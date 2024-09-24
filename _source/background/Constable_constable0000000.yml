@@ -7,22 +7,22 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    You were part of a law enforcement organization. You learned how to remain
-    vigilant to your surroundings, work within complex social structures, and
-    affect an imposing presence.
+    <p>You were part of a law enforcement organization. You learned how to
+    remain vigilant to your surroundings, work within complex social structures,
+    and affect an imposing presence.</p>
   skills:
     - awareness
-    - pathfinding
     - society
     - intimidation
+    - athletics
   talents:
     - Compendium.crucible.talent.Item.intimidator00000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420032
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428641878
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

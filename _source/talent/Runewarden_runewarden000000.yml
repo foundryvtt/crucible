@@ -2,15 +2,14 @@ name: Runewarden
 type: talent
 img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
 system:
-  node: wistou3
+  node: sig3.toughness.wisdom
   description: >-
     <p>Your mastery of the arcane makes you more resilient to elemental and
     spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
     half your Wisdom for each Elemental or Spiritual damage type where you know
-    the Arcane Rune attuned to that damage type.</p>
-
-    <p>When you use the <strong>Ward</strong> gesture, the Resistance provided
-    by your Ward also increases by half your Wisdom.</p>
+    the Arcane Rune attuned to that damage type.</p><p>When you use the
+    <strong>Ward</strong> gesture, the Resistance provided by your Ward also
+    increases by half your Wisdom.</p>
   actions: []
   actorHooks:
     - hook: prepareResistances
@@ -30,10 +29,10 @@ flags:
     sourceId: Item.runewarden000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.3
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675735561453
-  modifiedTime: 1687026910689
+  modifiedTime: 1726782770974
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.runewarden000000
   duplicateSource: null

@@ -7,23 +7,23 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    You were a rank-and-file member of a military organization of some variety.
-    Discipline made you a survivor and emphasized the importance of
+    <p>You were a rank-and-file member of a military organization of some
+    variety. Discipline made you a survivor and emphasized the importance of
     demonstrating strength and dominance over others, and years on horseback or
-    marching taught you how to handle all manner of terrain.
+    marching taught you how to handle all manner of terrain.</p>
   skills:
-    - pathfinding
-    - survival
+    - athletics
+    - wilderness
     - intimidation
-    - beastcraft
+    - society
   talents:
     - Compendium.crucible.talent.Item.martialweapontra
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420015
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428880053
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

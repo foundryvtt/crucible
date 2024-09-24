@@ -11,17 +11,19 @@ system:
   resistance: fire
   vulnerability: radiant
   description: >-
-    You were born with unexpected magical influence over your creation. Your
+    <p>You were born with unexpected magical influence over your creation. Your
     physical appearance shows tell-tale signs that the superstitious associate
     with planar beings- crimson flesh, ineffective wings or horns, reptilian
     eyes. Your dislike of light and preternatural resistance to fire does little
-    to dissuade people from thinking you are an actual devil.
+    to dissuade people from thinking you are an actual devil.</p>
+  size: 4
+  stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420025
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325288774
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

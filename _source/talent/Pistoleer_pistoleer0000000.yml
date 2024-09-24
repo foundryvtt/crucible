@@ -3,10 +3,10 @@ type: talent
 _id: pistoleer0000000
 img: icons/skills/targeting/crosshair-bars-yellow.webp
 system:
-  node: dexpre3
+  node: sig3.intellect.dexterity
   description: >-
-    Your familiarity with mechanical firearms is unmatched. You can perform the
-    Reload action for free once per Round.
+    <p>Your familiarity with mechanical firearms is unmatched. You can perform
+    the Reload action for free once per Round.</p>
   actions:
     - id: salvo
       name: Salvo
@@ -38,10 +38,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685814629967
-  modifiedTime: 1688835972993
+  modifiedTime: 1726705957725
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

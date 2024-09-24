@@ -11,16 +11,18 @@ system:
   resistance: electricity
   vulnerability: acid
   description: >-
-    Yours was a birth of exuberant celebration. Your diminutive body and
+    <p>Yours was a birth of exuberant celebration. Your diminutive body and
     delicate features are paired with an almost supernatural propensity for
     discovery. The traditions of your people embrace a lust for life and the
-    importance of quick-thinking and quick-action.
+    importance of quick-thinking and quick-action.</p>
+  size: 3
+  stride: 8
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420027
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325314106
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

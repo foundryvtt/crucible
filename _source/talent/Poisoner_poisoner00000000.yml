@@ -2,12 +2,12 @@ name: Poisoner
 type: talent
 img: icons/skills/melee/strike-dagger-poison-green.webp
 system:
-  node: intdex3
+  node: sig3.intellect.dexterity
   description: >-
-    You can apply Poison to weapons which deal Slashing or Piercing damage. You
-    deal an additional +2 damage whenever you deal Poison damage and your
+    <p>You can apply Poison to weapons which deal Slashing or Piercing damage.
+    You deal an additional +2 damage whenever you deal Poison damage and your
     Strikes cause the <strong>Poisoned</strong> condition on Critical Strikes
-    which deal damage to Health.
+    which deal damage to Health.</p>
   actions:
     - id: poisonBlades
       name: Poison Blades
@@ -72,10 +72,10 @@ flags:
     sourceId: Item.poisoner00000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675734757901
-  modifiedTime: 1688827693847
+  modifiedTime: 1726782758923
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.poisoner00000000
   duplicateSource: null

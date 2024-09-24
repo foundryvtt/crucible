@@ -183,170 +183,6 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.tBFTQMxT6xTPg8TS'
-  - sort: 200000
-    name: Pathfinding
-    type: skill
-    _id: J0FXxjw8OKOQOtwT
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: pathfinding
-      overview: >-
-        <p>The Pathfinding skill represents the ability to climb, run, jump,
-        swim, analyze terrain, and otherwise conquer barriers to movement. </p>
-
-
-        <p>Most people are capable of finding their way around the world to some
-        degree, but those trained in Pathfinding learn to treat terrain as a
-        puzzle to be solved.</p>
-      ranks:
-        untrained:
-          description: >-
-            You have no capability with planning the easiest or fastest way to
-            traverse terrain, and difficult terrain poses a significant
-            challenge to you.
-        novice:
-          description: >-
-            You have received training in the basics of pathfinding. You know
-            whether a surface can support your weight or not, how to find
-            handholds while climbing, and how to distribute your weight when
-            swimming to prevent extra weight from dragging you down. You know
-            how to run for distance, and how to pace yourself to avoid
-            exhaustion.
-        apprentice:
-          description: >-
-            The world is an obstacle course. You know how to identify the
-            easiest or fastest path to traverse a given terrain, how to climb
-            difficult surfaces, and how to swim in rough waters. You know how to
-            run for extended periods of time, and how to pace yourself to avoid
-            exhaustion.
-        specialist:
-          description: >-
-            Choose a specialization path for your Pathfinding training. You may
-            choose either: Tracker, Explorer, or Cartographer.
-        adept:
-          description: >-
-            Adept Pathfinders are capable of navigating the world with ease.
-            They are able to climb nearly any surface, swim safely in even
-            unknown waters, and run for extended periods of time without tiring.
-            They are able to identify the easiest path to traverse a given
-            terrain, and guide others through the shortest and safest ways to
-            avoid obstacles.
-        master:
-          description: >-
-            You have perfected your Pathfinding by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            Trackers are experts at identifying the easiest path to follow, and
-            are able to identify the signs left behind by the passage of others.
-            A Tracker can spot signs left behind by movement, and how recently
-            the path was travelled. 
-
-
-            Master Trackers inherently spot the signs that a trail has been
-            travelled before; a cracked twig, a disturbed stone, a piece of
-            thread left behind on a thorn, the slight depression of soil or sand
-            from a footprint. Even the most carefully concealed path leaves
-            signs for a Master Tracker to follow.
-          ranks:
-            specialist:
-              description: >-
-                A Specialist Tracker gains +2 boons to pathfinding rolls related
-                to tracking others and on critical success may be able to
-                identify to a certainty who left the trail.
-            master:
-              description: >-
-                A Master Tracker may roll Awareness with +2 boons to identify
-                the shortest course by which to intercept a target they are
-                tracking.
-          id: tracker
-          name: Tracker
-        path2:
-          overview: >-
-            Every new piece of terrain is just one more challenge, and Explorers
-            love the challenge of a new environment. Explorers are uniquely
-            specialized in finding the easiest way to traverse complex terrain,
-            turning difficult climbing surfaces or inhospitable environments
-            into a playground. 
-
-
-            For a Master Explorer, obstacles can actually aid movement rather
-            than hinder it. A Master Explorer has learned to conserve their
-            momentum when moving through their environment, smoothly
-            transitioning from one form of motion to another. They are able to
-            identify the easiest path to traverse a given terrain, and guide
-            others through the shortest and safest ways to avoid obstacles.
-          ranks:
-            specialist:
-              description: >-
-                A Specialist Explorer gains +2 boons to pathfinding rolls
-                related to climbing, swimming, or otherwise navigating through
-                difficult terrain.
-            master:
-              description: >-
-                When leading others in climbing, running, jumping, or otherwise
-                navigating difficult terrain the party gains +2 boons to their
-                pathfinding rolls, and if a critical failure occurs the Master
-                Explorer may spend a focus point to intervene, turning the
-                failure into a success.
-          id: explorer
-          name: Explorer
-        path3:
-          overview: >-
-            Cartographers take the long view of Pathfinding. Where others might
-            specialize in finding the quickest way to navigate their immediate
-            surroundings, Cartographers plan for the long term. No mere
-            mapmakers, cartographers identify terrain challenges with respect to
-            long-distance journies, shortening the time required for travel and
-            identifying the best routes to take to avoid danger. 
-
-
-            Master Cartographers are uniquely capable of planning a long journey
-            in such a way that it trivializes the dangers faced and effort
-            needed. A Master Cartographer knows inherently how to skirt the most
-            dangerous regions, how to avoid terrain burdened by bad weather,
-            where best to resupply along the way, and how to predict and
-            identify shortcuts.
-          ranks:
-            specialist:
-              description: >-
-                A Specialist Cartographer gains +2 boons to pathfinding rolls
-                related to distance travel, and all travel the party undertakes
-                with a Cartographer present has its duration shortened by 25%.
-            master:
-              description: >-
-                A party with a Master Cartographer has the travel distance for
-                their destinations shortened by 50% and the likelihood of random
-                encounters reduced by 50%. A Master Cartographer may roll
-                Pathfinding with +2 boon at the start of each day's travel to
-                identify a shortcut, shortening the distance needed to be
-                travelled by a half day each time.
-          id: cartographer
-          name: Cartographer
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
-      createdTime: 1683744116198
-      modifiedTime: 1684075337134
-      lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.J0FXxjw8OKOQOtwT'
   - sort: 300000
     name: Stealth
     type: skill
@@ -507,168 +343,6 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.O2jmcYabEbqgxgLm'
-  - sort: 400000
-    name: Survival
-    type: skill
-    _id: gr6RsRxppPcIiKat
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: survival
-      overview: >-
-        <p>Those skilled in Survival learn to create shelter where there is
-        none, identify which water is safe to drink and which is not, and locate
-        sources of food in even the most inhospitable places.</p>
-
-
-        <p>To some degree, the ability to survive is a matter of common sense.
-        Anyone can find a rocky outcropping to keep the rain from their heads, a
-        river to drink from, or an apple hanging from a tree. However, true
-        survivalists know that there is a difference between thinking that your
-        needs have been met, and knowing that they have.</p>
-      ranks:
-        untrained:
-          description: >-
-            If your food, water, or shelter did not come from a common,
-            reputable source, you have no means to determine to any degree of
-            certainty if it is safe. You have trouble setting up even a basic
-            camp unaided.
-        novice:
-          description: >-
-            You have received training in the basics of survival. You know how
-            to find and construct safe shelter from the elements, to start a
-            fire for warmth, to keep cool in hot environments. You can find
-            safe, drinkable water in most places, and how to identify which
-            plants and animals can serve as safe food sources.
-        apprentice:
-          description: >-
-            Your time in the wilderness is a matter of comfort rather than
-            hardship. Camps you prepare are often comfortable and secured
-            against intrusion, and even when you are without food and water you
-            are capable of finding enough to sustain yourself. You know how to
-            separate harmful plants from helpful ones, and how to mask the signs
-            of your camp and trail to avoid detection.
-        specialist:
-          description: >-
-            Choose a specialization path for your Survival training. You may
-            choose either: Hunter, Herbalist, or Scavenger.
-        adept:
-          description: >-
-            Adepts Survivalists can make nearly any environment seem comfortable
-            and hospitable. They know how to avoid the worst dangers in in the
-            wilderness, how to prepare nearly invisible campsites, compose fine
-            meals from foraged food, and how to protect against exposure to the
-            worst conditions.
-        master:
-          description: >-
-            You have perfected your Survival by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            <p>Hunter training focuses on the more resource-minded approach to
-            animal handling. Hunters learn how to track and hunt animals without
-            alerting them, how to execute them humanely, and how to fabricate
-            their remains to use every part of the animal. </p>
-
-
-            <p>Master Hunters are capable of producing reliable food and
-            materials from even some of the most dangerous prey.</p>
-          ranks:
-            specialist:
-              description: >-
-                Specialist Hunters gain +2 boons to survival rolls related to
-                hunting, butchering, or skinning creatures. Meat prepared by a
-                hunter lasts twice as long before spoiling.
-            master:
-              description: >-
-                Successful survival checks to hunt guarantee a sufficient amount
-                of food to feed the entire party for three days, as well as a
-                useable portion of leather and bone for crafters to use.
-          id: hunter
-          name: Hunter
-        path2:
-          overview: >-
-            <p>Herbalists focus on the more beneficial aspects of plantlife and
-            horticulture. They can readily identify poisonous and medicinal
-            plants and roots, and tell the minute differences between edible and
-            inedible plantlife. </p>
-
-
-            <p>Master Herbalists can find a use for almost any leaf, stem, root
-            or grass imaginable. They are capable of producing reliable food,
-            medicines, and toxins from even some of the most unlikely
-            plants.</p>
-          ranks:
-            specialist:
-              description: >-
-                Specialist Herbalists gain +2 boons to survival rolls related to
-                finding plants with particular properties, or to identify the
-                nature of a plant. Herbalists are capable of locating sufficient
-                vegetable matter to sustain themselves if no food source is
-                available.
-            master:
-              description: >-
-                Master Herbalists can prepare a simple brewed liquid that
-                provides a +1 boon or bane to all rolls for the next day, or
-                locate enough food to feed the entire party for three days.
-                TODO: FILL THE VALUES HERE. An herbalist may produce a simple
-                herbal paste that when consumed restores (SOME AMOUNT OF HP)
-                over the course of (PERIOD).
-          id: herbalist
-          name: Herbalist
-        path3:
-          overview: >-
-            <p>Scavengers thrive on making use of what may be on hand; one
-            person's trash can be another's treasure, after all. A Scavenger is
-            capable of making use of the discarded and unwanted pieces left
-            behind by others. They learn to break things down to their component
-            parts, and to salvage usable materials from discarded or ruined
-            equipment or foodstuffs.</p>
-
-
-            <p>Master Scavengers are uniquely capable of finding a use for
-            almost anything. A thread from a discarded cloak can serve to sew a
-            wound shut, the bones of a fish can make a suitable broth to enhance
-            a meal. </p>
-          ranks:
-            specialist:
-              description: >-
-                A Scavenger gains +2 boons to survival rolls related to
-                salvaging useable parts from discarded items or food sources.
-            master:
-              description: >-
-                TODO: FILL THE VALUES HERE. A Master Scavenger can always locate
-                at least one source of ammunition for ranged weapons, and may
-                enhance meals prepared by others causing them to grant (Bonus
-                HP? Bonus resistance?) for (PERIOD). Additionally, Master
-                Scavengers may use Survival to administer makeshift repairs to
-                broken items or equipment, rendering them temporarily usable
-                until real repairs can be enacted.
-          id: scavenger
-          name: Scavenger
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
-      createdTime: 1683744134022
-      modifiedTime: 1684882138743
-      lastModifiedBy: JMECHdsPmLGGi1RC
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.gr6RsRxppPcIiKat'
   - sort: 500000
     name: Arcana
     type: skill
@@ -825,310 +499,6 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.1XkdTDKQiY8hQjb9'
-  - sort: 600000
-    name: Naturalism
-    type: skill
-    _id: YOsSCyK1YO5DYeGi
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: naturalism
-      overview: >-
-        Naturalism is primarily a skill used for determining weather patterns,
-        understanding the behavior of animals, and enhancing capabilities with
-        environmental survival. Those skilled in Naturalism dedicate their lives
-        to the study of weather, animals, plants, and other environmental
-        phenomena. The study of Naturalism is often a solitary one, and those
-        who pursue it are often more comfortable in the company of animals than
-        people.
-      ranks:
-        untrained:
-          description: >-
-            You are utterly disinterested in nature, and have no knowledge of
-            the natural world other than what you might encounter daily.
-        novice:
-          description: >-
-            You have a reasonable capability of reading cloud patterns to
-            predict the weather, interpret the behaviour of animals. You know
-            what preparations can be made to reduce the impact of environmental
-            conditions on yourself and your party. You can identify and separate
-            the signs of particular common wildlife from monstrous creatures.
-        apprentice:
-          description: >-
-            Your training in Naturalism is advanced and you can read the signs
-            of weather changes even in environments that may not be familiar to
-            you. Based on climate and plant growth you can accurately guess what
-            animals and monstrous creatures may be endemic to a region, and you
-            know how to identify the presence of common monstrous creatures from
-            their tracks, leavings and other signs. You are familliar with the
-            weaknesses of common creatures, and have studied the magical and
-            alchemical properties of rare plants sufficiently to identify them.
-            You can identify common illnesses in plantlife and animals, and know
-            several of the common remedies for those illnesses.
-        specialist:
-          description: >-
-            Choose a specialization path for your Naturalism training. You may
-            choose either: Environmentalist, Zoologist, or Botanist.
-        adept:
-          description: >-
-            Your capability with Naturalism is nearly unmatched. You are very
-            rarely surprised by changes in the weather or environment, know most
-            of the common weaknesses, resistances, and causes of illness in all
-            living creatures, and there are only a handful of plants which you
-            might have trouble identifying with just a little study. You are
-            able to read the signs and evidence of animal and plantlife in an
-            environment to guage how healthy both might be, and can predict
-            populations of both flora and fauna of every kind within your
-            current region.
-        master:
-          description: >-
-            You have perfected your Naturalism by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            For Environmentalists the world is an open book, and their study of
-            nature focuses almost exclusively on learning to examine the
-            environment for signs of change. Environmentalists are more easily
-            able to identify and predict the weather, and are inherently
-            familiar with the variety of biomes that might occur in most
-            regions.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Environmentalists gain +2 boons to any rolls related
-                to prediction of the weather or planning for environmental
-                survival.
-            master:
-              description: >-
-                Master Environmentalists no longer need to roll to predict the
-                weather, and their party gains +2 boons to any preparation rolls
-                related to environmental survival. A party which includes a
-                Master Environmentalist may double the time it takes for extreme
-                environmental conditions to begin to take effect.
-          id: environmentalist
-          name: Environmentalist
-        path2:
-          overview: >-
-            The training for Zoologists is almost wholly focused on the study of
-            animals, and they have an unparalleled knowledge of animal
-            behaviour. Zoologists can predict the type of animals that will be
-            present in any given biome, and identify signs of disease or
-            discontent in animal populations very quickly. While they may not be
-            specifically experienced in direct handling of animals, they know
-            the treatments and remedies for animal illnesses and the particular
-            resistances and weaknesses of most monstrous creatures.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Zoologists gain +2 boons to any rolls related to
-                animal behaviour, and the Zoologist may spend an action point to
-                analyze monsters and animals to identify their weaknesses and
-                resistances.
-            master:
-              description: >-
-                Master Zoologists no longer need to roll to identify weaknesses
-                or resistances in creatures, and their party inherently gains +2
-                boons to any animal handling rolls related to interaction with
-                creatures, animals or otherwise.
-          id: zoologist
-          name: Zoologist
-        path3:
-          overview: >-
-            Botanists are experts in the study of plants, and their training
-            focuses on maintaining the good health of a variety of flora.
-            Botanists document and research the magical properties associated
-            with certain plants and their use in magical and medicinal
-            preparations. Most Botanists are skilled herbalists, capable of
-            identifying signs of disease in plantlife, and know how to prepare
-            remedies for many common illnesses and ailments, if not how to apply
-            them.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Botanists gain +2 boons to any rolls related to
-                plantlife, including identification of magical and alchemical
-                properties of plant-based remedies, toxins, and compounds. They
-                may also identify the presence and cause of disease in plants
-                and the suggested course to treat them.
-            master:
-              description: >-
-                Master Botanists no longer need to roll to identify the
-                alchemical or magical properties of plants, and any plant-based
-                magical or alchemical preparations created by their party
-                members double in effectiveness.
-          id: botanist
-          name: Botanist
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
-      createdTime: 1683744507585
-      modifiedTime: 1684075541217
-      lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.YOsSCyK1YO5DYeGi'
-  - sort: 700000
-    name: Religion
-    type: skill
-    _id: XvI3RY9zuYJIkfZl
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: religion
-      overview: >-
-        Religion is the study of spirits, deities, order, chaos, and their
-        influence upon the world. It covers knowledge related to spiritual
-        beliefs, societal traditions and rituals, and the study of the way
-        spirits of lesser and higher power interact with the world. Religion is
-        the skill used to communicate with spiritual beings, to understand the
-        effects of divine spells and rituals and the effects they have.
-      ranks:
-        untrained:
-          description: >-
-            Everything you've heard about spirits, gods, and devils you've heard
-            in passing. You are completely disinterested in religious rites,
-            rituals, and beliefs.
-        novice:
-          description: >-
-            You have received an education in the fundamentals of spiritual
-            knowledge. You know how to identify the signs of spirits, both
-            lesser and greater, and can identify whether something has been
-            influenced more by chaos or by order. You know the names of most
-            prominent deities, and their associated religious figures and
-            rituals. You can communicate with those who worship a particular
-            spirit or deity without embarassing yourself.
-        apprentice:
-          description: >-
-            There are few deities and spirits which you have not heard of. You
-            know some of the basic rituals to invoke and communicate with
-            spirits, and with sufficient time you could likely perform rituals
-            to ward against them. You know how to navigate the turbulent social
-            waters of religious discussion, and can identify the religious
-            beliefs of others with just a few questions.
-        specialist:
-          description: >-
-            Choose a specialization path for your Religion training. You may
-            choose either: Animist, Theist, or Traditionalist.
-        adept:
-          description: >-
-            The breadth of your knowledge of religion is expansive. You
-            understand the origin and meanings of even the most rare and obscure
-            rituals and scriptures. You maintain a mental list of all the common
-            religious titles, greetings, and minor rituals related to every
-            known faith. Where others might have trouble identifying particular
-            spirits or deities, you can identify them by name quite easily and
-            know many of the weaknesses and resistances associated with them.
-        master:
-          description: >-
-            You have perfected your Religion by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            Animists are taught that all living beings have a spirit, and that
-            the spirits of all living beings are connected to the world around
-            them. They are trained to identify the presence of, and commune
-            with, the spirits of all living beings, those with corporeal forms
-            and those without. Animists focus upon the lesser spirits, those not
-            concerned with the greater machinations of Order and Chaos.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Animists gain +2 boons to Religion rolls related to
-                identifying the presence or leavings lesser spirits, and may
-                roll their Religion skill to see, communicate with, summon, or
-                dismiss lesser spirits.
-            master:
-              description: >-
-                Master Animists no longer need to roll to see, touch, or speak
-                to spirits. When conducting rituals to summon, command, or
-                banish particular spirits their rolls gain +2 boons.
-          id: animist
-          name: Animist
-        path2:
-          overview: >-
-            Theists dedicate their field of study to the greater spirits and
-            deities which serve the forces of Chaos and Order, the rituals which
-            surround them, and the effects they have upon the world. Theists are
-            taught that the greater spirits and deities are the true source of
-            power in the world, and that the lesser spirits are merely a
-            reflection of their power.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Theists gain +2 boons to Religion rolls related to
-                the determining evidence of greater planar involvement, and +1
-                resistance to void and radiant damage.
-            master:
-              description: >-
-                TODO: ADD VALUE. Master Theists gain +2 boons to all rolls
-                related to social interaction with chaotic or orderly divine
-                beings. As a daily ritual, they may roll Religion to bolster the
-                spirits of their allies and themselves, increasing their
-                resistance to either void or radiant damage by (X) until the
-                next day.
-          id: theist
-          name: Theist
-        path3:
-          overview: >-
-            A Traditionalist focuses on the rituals and traditions of the mortal
-            world, eschewing the study of planar beings and spirits.
-            Traditionalists are taught that the spirits and deities are merely a
-            reflection of the beliefs of the mortal world, and that the true
-            power of the world lies in the hands of the mortal beings who
-            inhabit it. Traditionalists maintain the hearts and minds others by
-            performing rituals and ceremonies which reinforce the beliefs of
-            those around them.
-          ranks:
-            specialist:
-              description: >-
-                Specialist traditionalists improve the actions of their allies
-                by reinforcing their belief in themselves. They may spend an
-                action point to grant an ally +2 boons to their next roll.
-            master:
-              description: >-
-                Master Traditionalists are a passive beacon of faith for those
-                around them. They may use a simple Religion check to restore
-                sanity or morale to an ally on the brink of collapse, even in
-                the absence of other resource restoring abilities.
-          id: traditionalist
-          name: Traditionalist
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
-      createdTime: 1683744518787
-      modifiedTime: 1684975722269
-      lastModifiedBy: JMECHdsPmLGGi1RC
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.XvI3RY9zuYJIkfZl'
   - sort: 800000
     name: Society
     type: skill
@@ -1589,284 +959,6 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.W2UTXlsZn2TLQYt2'
-  - sort: 1100000
-    name: Mercantilism
-    type: skill
-    _id: RJ85nR4Z5UbxPwh7
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: mercantilism
-      overview: >-
-        Mercantilism is rolled for the purposes of negotiating trades, bartering
-        or better prices, and sourcing goods and services at favourable prices.
-        For now, this skill is a placeholder to be added to at a future date.
-      ranks:
-        untrained:
-          description: >-
-            You are unfamiliar with the workings of the marketplace and have no
-            specialized knowledge or expertise and frequently pay too much for
-            the items you purchase.
-        novice:
-          description: >-
-            You have a basic understanding of the principles of mercantilism,
-            including how to source goods and services, barter for better
-            prices, and assess the value of goods and services. You also have an
-            understanding of basic trading laws and regulations.
-        apprentice:
-          description: >-
-            Your mercantile knowledge has advanced beyond the basics, allowing
-            you to appraise goods more accurately and negotiate trades more
-            effectively. You are familiar with the customs and expectations of
-            different trading cultures beyond just their laws and regulations.
-        specialist:
-          description: >-
-            Choose a specialization path for your Tradecraft training. You may
-            choose either: Antiquarian, Caravaneer, or Trader.
-        adept:
-          description: >-
-            At this degree of Mercantilism training, you are able to appraise
-            items with remarkable accuracy and can negotiate trades on favorable
-            terms with ease. You can identify fraudulent goods or services from
-            across a market, and avoid scams without thinking about it.
-        master:
-          description: >-
-            You have perfected your Mercantilism by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            Antiquarians are experts in the field of buying and selling ancient
-            artifacts. They have a keen eye for spotting fakes, and can often
-            identify  the quality of an item with a quick inspection.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Antiquarians gain +2 boons to Mercantilism rolls when
-                haggling for ancient artifacts, or generally determining the
-                value of an item.
-            master:
-              description: >-
-                Specialist Antiquarians gain +4 boons to Mercantilism rolls when
-                haggling for ancient artifacts, or generally determining the
-                value of an item.
-          id: antiquarian
-          name: Antiquarian
-        path2:
-          overview: >-
-            Caravaneers are experts in the art of overland trade, and are able
-            to get the best prices for their goods by transporting them to
-            markets with high demand. Caravaneers are able to find the best
-            routes for their caravans, and have a good understanding of the ebb
-            and flow of markets.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Caravaneers gain +2 boons to Mercantilism rolls when
-                dealing with the logistics of overland travel, managing
-                caravans, or planning out profitable trade routes.
-            master:
-              description: >-
-                Specialist Caravaneers gain +4 boons to Mercantilism rolls when
-                dealing with the logistics of overland travel, managing
-                caravans, or planning out profitable trade routes.
-          id: caravaneer
-          name: Caravaneer
-        path3:
-          overview: >-
-            Traders are able to source goods and services at favorable prices,
-            and are experts at negotiating trades, especially in bulk.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Traders gain +2 boons to Mercantilism rolls when
-                sourcing goods and services, or making deals for large volumes
-                of material.
-            master:
-              description: >-
-                Master Traders gain +4 boons to Mercantilism rolls when sourcing
-                goods and services, or making deals for large volumes of
-                material.
-          id: trader
-          name: Trader
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags:
-      core:
-        sourceId: JournalEntry.aOVmtaejq7nwOe2K.JournalEntryPage.RJ85nR4Z5UbxPwh7
-    _stats:
-      systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
-      createdTime: 1683744679611
-      modifiedTime: 1684886832627
-      lastModifiedBy: BMFfY18bVtQazbbO
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.RJ85nR4Z5UbxPwh7'
-  - sort: 1200000
-    name: Beastcraft
-    type: skill
-    _id: 6GUcJ1WnL8hAQpWb
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: beastcraft
-      overview: >-
-        Those who train in Beastcraft learn the art of handling, breeding,
-        riding, training, and caring for animals. Beastcraft is a broad skill,
-        common amongst farmers, hunters, and those who practice animal medicine.
-      ranks:
-        untrained:
-          description: >-
-            You have no particular knack for doing much more than petting a
-            domesticated animal. You might be able to sit on a horse and pull
-            the reins to steer, but you aren't particularly good at it.
-        novice:
-          description: >-
-            You have learned the basics of handling and caring for animals. You
-            know how much food and water most common domesticated animals
-            require, common grooming practices, and the basic principles of
-            riding and steering mounts common to your culture.
-        apprentice:
-          description: >-
-            Your training in beastcraft exceeded the basics, branching out to
-            cover animal husbandry and training, as well as the basics of animal
-            medicine. You know how to train animals to perform simple tasks, and
-            the basics of animal breeding. You know how to treat common ailments
-            and injuries in animals, and principles of taming wild animals.
-        specialist:
-          description: >-
-            Choose a specialization path for your Beastcraft training. You may
-            choose either: 
-
-            Cavalier, Warden, or Tamer.
-        adept:
-          description: >-
-            At this degree of Beastcraft training, you find the handling of even
-            the most exotic creatures to be facile. You can comfortably ride and
-            control any creature large enough to mount, are capable of calming
-            even monstrous creatures sufficiently to approach and attempt to
-            tame them, and the training of domesticated creatures comes easy to
-            you. You are capable of treating obscure diseases and
-            life-threatening injuries in animals sufficiently to pull them back
-            from the brink of death.
-        master:
-          description: >-
-            You have perfected your Beastcraft by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            The Cavalier learns to become as comfortable in the saddle as they
-            are on their own feet. They learn to ride and fight from horseback,
-            and all aspects of caring for their mounts. They learn to fight in
-            concert with their chosen beasts, to train them, treat their wounds,
-            and nurture the special bond they have formed. A Cavalier's mount is
-            more than just a pet, it is a comrade in arms.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Cavaliers gain +2 boons to rolls related to riding,
-                training, treating or otherwise caring for mounted beasts.
-                Provided a Cavalier has enough room to maneuver may use their
-                mount in combat without penalty to attack rolls.
-            master:
-              description: >-
-                Master Cavaliers are no longer restricted in their actions while
-                mounted. They may additionally urge their mount into a charge,
-                gaining +2 boons to their next attack roll and moving up to
-                twelve squares to attack their target. The Cavalier's mount may
-                act independently of the Cavalier, trampling, biting, or kicking
-                opponents as appropriate during the Cavalier's turn.
-          id: cavalier
-          name: Cavalier
-        path2:
-          overview: >-
-            Wardens form a special bond with one or more creatures,
-            simultaneously becoming their caretaker and dependent upon them. A
-            warden and their companion form a fearsome team, focused on
-            protecting one another and working in concert to achieve their
-            goals. Wardens are master tamers and trainers of animals, sharing a
-            degree of skill with their companions and relying upon them both in
-            and out of combat.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Wardens form a special bond with their chosen
-                companion, allowing them to communicate with one another without
-                the need for words. A Warden's companion may perform any skill
-                that the Warden has achieved at least an "Apprentice" level of
-                training in, though the companion refrains from participation in
-                combat situations except if the Warden is in dire need.
-            master:
-              description: >-
-                A Master Warden's companion joins them in combat, fighting to
-                protect them and their allies. The companion acts during the
-                Warden's turn, taking actions and making attacks as appropriate.
-                The warden may spend a focus point to command their companion to
-                undertake particular special actions at the GM's discretion.
-          id: warden
-          name: Warden
-        path3:
-          overview: >-
-            The Herder is a master of animal husbandry, able to train and care
-            for all manner of beasts, see to their health, and handle large
-            numbers of animals efficiently. Moreover, Herder's understand how to
-            tame, socialize, breed and raise animals for use as work animals,
-            whatever shape that may take for the creature. Though not healers,
-            Herders understand the basics of tending to sickness and injury in
-            herds of beasts better than most.
-          ranks:
-            specialist:
-              description: >-
-                Specialist Herders can apply Beastcraft to groups of animals
-                without difficulty and can calm, rile up, or command them as one
-                entity. They also gain improved result from any attempts to
-                treat injured or ill creatures using Beastcraft thanks to their
-                expanded veterinary knowledge.
-            master:
-              description: >-
-                A master Herder's control of animals is second to none, and they
-                can oversee a farm's worth of creatures, or a large work team of
-                animals such as dogs, horses, ox or similar. These creatures are
-                often happier and healthier than animals is less competent
-                hands. A pack or herd of animals that has been regularly tended
-                by a Herder is more responsive to that Herder's Beastcraft
-                actions.
-          id: herder
-          name: Herder
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
-      createdTime: 1683744747294
-      modifiedTime: 1684882711438
-      lastModifiedBy: BMFfY18bVtQazbbO
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.6GUcJ1WnL8hAQpWb'
   - sort: 1300000
     name: Medicine
     type: skill
@@ -2191,157 +1283,6 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.m7H5V1e5EVe4YlxD'
-  - sort: 1500000
-    name: Tradecraft
-    type: skill
-    _id: djl3cL0Ng0rRgs2X
-    title:
-      show: true
-      level: 1
-    image: {}
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: null
-    system:
-      skillId: tradecraft
-      overview: >-
-        Those who train in Tradecraft learn the art of manufacturing, crafting
-        and repairing items, the technical skill of working with common tools.
-        Tradecraft is a broad skill, common amongst artisans, smiths, and those
-        who work with their hands for a living.
-      ranks:
-        untrained:
-          description: >-
-            You have no particular aptitude for working with your hands. You
-            might be able to hammer a nail into a piece of wood, but you're not
-            particularly good at it.
-        novice:
-          description: >-
-            You have learned the basics of simple crafting. You know how to use
-            common tools, how to make basic repairs for most common items and
-            equipment, and make simple modifications to items without ruining
-            them.
-        apprentice:
-          description: >-
-            Your training in tradecraft has exceeded the basics, branching out
-            to cover a variety of trades and crafts. Their are very few tools
-            with which you are unfamiliar, and you know how to make complex
-            repairs. With a little effort you can modify even the most complex
-            equipment and machinery. You know at least the basic principles of a
-            wide number of trades, such as carpentry, blacksmithing, or
-            tailoring, but their deeper secrets might elude you.
-        specialist:
-          description: >-
-            Choose a specialization path for your Tradecraft training. You may
-            choose either: Artisan, Crafter, or Tinker.
-        adept:
-          description: >-
-            At this degree of Tradecraft training, you find the crafting and
-            repair of even the most complex items to be trivial. You know the
-            complexities of every trade from blacksmithing through tailoring,
-            and with the right tools you could probably produce a good example
-            of some of the most complex pieces of equipment. Repairing or
-            modifying most items and equipment is facile for you.
-        master:
-          description: >-
-            You have perfected your Tradecraft by mastering your chosen
-            specialization.
-      paths:
-        path1:
-          overview: >-
-            <p>Artisans specialize in the production of equipment and items
-            intended for physical use by others. The armor and weapons,
-            instruments and tools produced by artisans are of impressive quality
-            and durability, reliable in their use.</p>
-
-            <p>A Master artisan focuses on production quality, having elevated
-            their understanding of their craft to an art. Whatever they produce
-            is often of unparalleled quality.</p>
-          ranks:
-            specialist:
-              description: >-
-                Specialist Artisans gain +2 boons to rolls related to the
-                creation of items, and all items crafted by them are of
-                exceptional quality. The Artisan also gains +2 boons to any
-                checks related to selling or bartering their wares.
-            master:
-              description: >-
-                Master Artisans' creations are works of art, and in addition to
-                the bonuses granted by being a Specialist, they may spend an
-                additional focus point when making an item to improve its
-                quality by one level.
-          id: artisan
-          name: Artisan
-        path2:
-          overview: >-
-            <p>A Runesmith focuses on enhancing existing equipment and items by
-            imbuing them with magical Runes, bestowing magical properties
-            through careful inscription. </p>
-
-            <p>Master Runesmiths are unparalleled when it comes to enchanted
-            items. Through careful study and ritual precision, Master Runesmiths
-            are able to achieve the crafting of wondrous magical artifacts of
-            immense power. </p>
-          ranks:
-            specialist:
-              description: >-
-                Specialist Runesmiths gain +2 boons to rolls related to
-                enhancing items. They can bestow effects of Lesser Runes on an
-                existing weapon or piece of armor, granting it unique magical
-                effects.
-            master:
-              description: >-
-                Master Runesmiths are able to harness even the Greater runes in
-                their enchanting of items and equipment, and given enough time
-                can add additional properties such as ritual effects normally
-                associated with gestures and inflections. A Master Runesmith may
-                spend a focus point to quickly recharge magical items.
-          id: runesmith
-          name: Runesmith
-        path3:
-          overview: >-
-            <p>The Tinker is a master of item modification and improvised
-            invention, producing items with an eye toward efficiency- if not
-            durability. Tinkers use whatever they might have on hand to produce
-            simple, but effective, goods of a more questionable quality.</p>
-
-
-            <p>Master Tinkers are able to change the function or form of
-            existing items on a whim, creating wholly new items as a result.</p>
-          ranks:
-            specialist:
-              description: >-
-                Specialist Tinkerers gain +2 boons to rolls related to modifying
-                or repairing existing items. They may substitute any tool they
-                need for any task, allowing them to craft items without access
-                to proper tools or materials.
-            master:
-              description: >-
-                Master Tinkerers are capable of crafting almost anything from
-                existing components, and can modify items with incredible speed
-                and precision. They may also spend a focus point to craft a
-                unique item from existing components immediately, but the
-                durability of the item is sacrificed in the process, reducing
-                the quality by one level.
-          id: tinker
-          name: Tinker
-    ownership:
-      default: -1
-      PQhsT89HTP8uxjkQ: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
-      createdTime: 1683745103364
-      modifiedTime: 1684890005275
-      lastModifiedBy: JMECHdsPmLGGi1RC
-      compendiumSource: null
-      duplicateSource: null
-    _key: '!journal.pages!CrucibleSkills00.djl3cL0Ng0rRgs2X'
   - sort: 1050000
     name: Intimidation
     type: skill
@@ -2649,6 +1590,408 @@ pages:
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.QQaQfv1cakIKltNz'
+  - sort: 50000
+    name: Athletics
+    type: skill
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system:
+      skillId: athletics
+      overview: >-
+        <p>The Pathfinding skill represents the ability to climb, run, jump,
+        swim, analyze terrain, and otherwise conquer barriers to movement. </p>
+
+
+        <p>Most people are capable of finding their way around the world to some
+        degree, but those trained in Pathfinding learn to treat terrain as a
+        puzzle to be solved.</p>
+      ranks:
+        untrained:
+          description: >-
+            You have no capability with planning the easiest or fastest way to
+            traverse terrain, and difficult terrain poses a significant
+            challenge to you.
+        novice:
+          description: >-
+            You have received training in the basics of pathfinding. You know
+            whether a surface can support your weight or not, how to find
+            handholds while climbing, and how to distribute your weight when
+            swimming to prevent extra weight from dragging you down. You know
+            how to run for distance, and how to pace yourself to avoid
+            exhaustion.
+        apprentice:
+          description: >-
+            The world is an obstacle course. You know how to identify the
+            easiest or fastest path to traverse a given terrain, how to climb
+            difficult surfaces, and how to swim in rough waters. You know how to
+            run for extended periods of time, and how to pace yourself to avoid
+            exhaustion.
+        specialist:
+          description: >-
+            Choose a specialization path for your Pathfinding training. You may
+            choose either: Tracker, Explorer, or Cartographer.
+        adept:
+          description: >-
+            Adept Pathfinders are capable of navigating the world with ease.
+            They are able to climb nearly any surface, swim safely in even
+            unknown waters, and run for extended periods of time without tiring.
+            They are able to identify the easiest path to traverse a given
+            terrain, and guide others through the shortest and safest ways to
+            avoid obstacles.
+        master:
+          description: >-
+            You have perfected your Pathfinding by mastering your chosen
+            specialization.
+      paths:
+        path1:
+          overview: >-
+            Trackers are experts at identifying the easiest path to follow, and
+            are able to identify the signs left behind by the passage of others.
+            A Tracker can spot signs left behind by movement, and how recently
+            the path was travelled. 
+
+
+            Master Trackers inherently spot the signs that a trail has been
+            travelled before; a cracked twig, a disturbed stone, a piece of
+            thread left behind on a thorn, the slight depression of soil or sand
+            from a footprint. Even the most carefully concealed path leaves
+            signs for a Master Tracker to follow.
+          ranks:
+            specialist:
+              description: >-
+                A Specialist Tracker gains +2 boons to pathfinding rolls related
+                to tracking others and on critical success may be able to
+                identify to a certainty who left the trail.
+            master:
+              description: >-
+                A Master Tracker may roll Awareness with +2 boons to identify
+                the shortest course by which to intercept a target they are
+                tracking.
+          id: tracker
+          name: Tracker
+        path2:
+          overview: >-
+            Every new piece of terrain is just one more challenge, and Explorers
+            love the challenge of a new environment. Explorers are uniquely
+            specialized in finding the easiest way to traverse complex terrain,
+            turning difficult climbing surfaces or inhospitable environments
+            into a playground. 
+
+
+            For a Master Explorer, obstacles can actually aid movement rather
+            than hinder it. A Master Explorer has learned to conserve their
+            momentum when moving through their environment, smoothly
+            transitioning from one form of motion to another. They are able to
+            identify the easiest path to traverse a given terrain, and guide
+            others through the shortest and safest ways to avoid obstacles.
+          ranks:
+            specialist:
+              description: >-
+                A Specialist Explorer gains +2 boons to pathfinding rolls
+                related to climbing, swimming, or otherwise navigating through
+                difficult terrain.
+            master:
+              description: >-
+                When leading others in climbing, running, jumping, or otherwise
+                navigating difficult terrain the party gains +2 boons to their
+                pathfinding rolls, and if a critical failure occurs the Master
+                Explorer may spend a focus point to intervene, turning the
+                failure into a success.
+          id: explorer
+          name: Explorer
+        path3:
+          overview: >-
+            Cartographers take the long view of Pathfinding. Where others might
+            specialize in finding the quickest way to navigate their immediate
+            surroundings, Cartographers plan for the long term. No mere
+            mapmakers, cartographers identify terrain challenges with respect to
+            long-distance journies, shortening the time required for travel and
+            identifying the best routes to take to avoid danger. 
+
+
+            Master Cartographers are uniquely capable of planning a long journey
+            in such a way that it trivializes the dangers faced and effort
+            needed. A Master Cartographer knows inherently how to skirt the most
+            dangerous regions, how to avoid terrain burdened by bad weather,
+            where best to resupply along the way, and how to predict and
+            identify shortcuts.
+          ranks:
+            specialist:
+              description: >-
+                A Specialist Cartographer gains +2 boons to pathfinding rolls
+                related to distance travel, and all travel the party undertakes
+                with a Cartographer present has its duration shortened by 25%.
+            master:
+              description: >-
+                A party with a Master Cartographer has the travel distance for
+                their destinations shortened by 50% and the likelihood of random
+                encounters reduced by 50%. A Master Cartographer may roll
+                Pathfinding with +2 boon at the start of each day's travel to
+                identify a shortcut, shortening the distance needed to be
+                travelled by a half day each time.
+          id: cartographer
+          name: Cartographer
+    ownership:
+      default: -1
+      PQhsT89HTP8uxjkQ: 3
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: >-
+        Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.J0FXxjw8OKOQOtwT
+      coreVersion: '12.331'
+      systemId: crucible
+      systemVersion: 0.6.0
+      createdTime: 1726427583933
+      modifiedTime: 1726427749800
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: 66MmDe432p8auE6d
+    _key: '!journal.pages!CrucibleSkills00.66MmDe432p8auE6d'
+  - sort: 400000
+    name: Wilderness
+    type: skill
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    system:
+      skillId: wilderness
+      overview: >-
+        <p>Those skilled in Survival learn to create shelter where there is
+        none, identify which water is safe to drink and which is not, and locate
+        sources of food in even the most inhospitable places.</p>
+
+
+        <p>To some degree, the ability to survive is a matter of common sense.
+        Anyone can find a rocky outcropping to keep the rain from their heads, a
+        river to drink from, or an apple hanging from a tree. However, true
+        survivalists know that there is a difference between thinking that your
+        needs have been met, and knowing that they have.</p>
+      ranks:
+        untrained:
+          description: >-
+            If your food, water, or shelter did not come from a common,
+            reputable source, you have no means to determine to any degree of
+            certainty if it is safe. You have trouble setting up even a basic
+            camp unaided.
+        novice:
+          description: >-
+            You have received training in the basics of survival. You know how
+            to find and construct safe shelter from the elements, to start a
+            fire for warmth, to keep cool in hot environments. You can find
+            safe, drinkable water in most places, and how to identify which
+            plants and animals can serve as safe food sources.
+        apprentice:
+          description: >-
+            Your time in the wilderness is a matter of comfort rather than
+            hardship. Camps you prepare are often comfortable and secured
+            against intrusion, and even when you are without food and water you
+            are capable of finding enough to sustain yourself. You know how to
+            separate harmful plants from helpful ones, and how to mask the signs
+            of your camp and trail to avoid detection.
+        specialist:
+          description: >-
+            Choose a specialization path for your Survival training. You may
+            choose either: Hunter, Herbalist, or Scavenger.
+        adept:
+          description: >-
+            Adepts Survivalists can make nearly any environment seem comfortable
+            and hospitable. They know how to avoid the worst dangers in in the
+            wilderness, how to prepare nearly invisible campsites, compose fine
+            meals from foraged food, and how to protect against exposure to the
+            worst conditions.
+        master:
+          description: >-
+            You have perfected your Survival by mastering your chosen
+            specialization.
+      paths:
+        path1:
+          overview: >-
+            <p>Hunter training focuses on the more resource-minded approach to
+            animal handling. Hunters learn how to track and hunt animals without
+            alerting them, how to execute them humanely, and how to fabricate
+            their remains to use every part of the animal. </p>
+
+
+            <p>Master Hunters are capable of producing reliable food and
+            materials from even some of the most dangerous prey.</p>
+          ranks:
+            specialist:
+              description: >-
+                Specialist Hunters gain +2 boons to survival rolls related to
+                hunting, butchering, or skinning creatures. Meat prepared by a
+                hunter lasts twice as long before spoiling.
+            master:
+              description: >-
+                Successful survival checks to hunt guarantee a sufficient amount
+                of food to feed the entire party for three days, as well as a
+                useable portion of leather and bone for crafters to use.
+          id: hunter
+          name: Hunter
+        path2:
+          overview: >-
+            <p>Herbalists focus on the more beneficial aspects of plantlife and
+            horticulture. They can readily identify poisonous and medicinal
+            plants and roots, and tell the minute differences between edible and
+            inedible plantlife. </p>
+
+
+            <p>Master Herbalists can find a use for almost any leaf, stem, root
+            or grass imaginable. They are capable of producing reliable food,
+            medicines, and toxins from even some of the most unlikely
+            plants.</p>
+          ranks:
+            specialist:
+              description: >-
+                Specialist Herbalists gain +2 boons to survival rolls related to
+                finding plants with particular properties, or to identify the
+                nature of a plant. Herbalists are capable of locating sufficient
+                vegetable matter to sustain themselves if no food source is
+                available.
+            master:
+              description: >-
+                Master Herbalists can prepare a simple brewed liquid that
+                provides a +1 boon or bane to all rolls for the next day, or
+                locate enough food to feed the entire party for three days.
+                TODO: FILL THE VALUES HERE. An herbalist may produce a simple
+                herbal paste that when consumed restores (SOME AMOUNT OF HP)
+                over the course of (PERIOD).
+          id: herbalist
+          name: Herbalist
+        path3:
+          overview: >-
+            <p>Scavengers thrive on making use of what may be on hand; one
+            person's trash can be another's treasure, after all. A Scavenger is
+            capable of making use of the discarded and unwanted pieces left
+            behind by others. They learn to break things down to their component
+            parts, and to salvage usable materials from discarded or ruined
+            equipment or foodstuffs.</p>
+
+
+            <p>Master Scavengers are uniquely capable of finding a use for
+            almost anything. A thread from a discarded cloak can serve to sew a
+            wound shut, the bones of a fish can make a suitable broth to enhance
+            a meal. </p>
+          ranks:
+            specialist:
+              description: >-
+                A Scavenger gains +2 boons to survival rolls related to
+                salvaging useable parts from discarded items or food sources.
+            master:
+              description: >-
+                TODO: FILL THE VALUES HERE. A Master Scavenger can always locate
+                at least one source of ammunition for ranged weapons, and may
+                enhance meals prepared by others causing them to grant (Bonus
+                HP? Bonus resistance?) for (PERIOD). Additionally, Master
+                Scavengers may use Survival to administer makeshift repairs to
+                broken items or equipment, rendering them temporarily usable
+                until real repairs can be enacted.
+          id: scavenger
+          name: Scavenger
+    ownership:
+      default: -1
+      PQhsT89HTP8uxjkQ: 3
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: >-
+        Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.gr6RsRxppPcIiKat
+      coreVersion: '12.331'
+      systemId: crucible
+      systemVersion: 0.6.0
+      createdTime: 1726427677634
+      modifiedTime: 1726427734709
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _id: ZoGpLdSJPmjlH8bz
+    _key: '!journal.pages!CrucibleSkills00.ZoGpLdSJPmjlH8bz'
+  - sort: 1500000
+    name: Science
+    type: skill
+    _id: vhbFWUXxWUdiODJn
+    system:
+      skillId: science
+      overview: ''
+      ranks:
+        untrained:
+          description: ''
+        novice:
+          description: ''
+        apprentice:
+          description: ''
+        specialist:
+          description: ''
+        adept:
+          description: ''
+        master:
+          description: ''
+      paths:
+        path1:
+          overview: ''
+          ranks:
+            specialist:
+              description: ''
+            master:
+              description: ''
+          id: ''
+          name: ''
+        path2:
+          overview: ''
+          ranks:
+            specialist:
+              description: ''
+            master:
+              description: ''
+          id: ''
+          name: ''
+        path3:
+          overview: ''
+          ranks:
+            specialist:
+              description: ''
+            master:
+              description: ''
+          id: ''
+          name: ''
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      coreVersion: '12.331'
+      systemId: crucible
+      systemVersion: 0.6.0
+      createdTime: 1726429303576
+      modifiedTime: 1726429387591
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!CrucibleSkills00.vhbFWUXxWUdiODJn'
 flags:
   crucible:
     rulesEntry: true

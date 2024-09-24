@@ -3,11 +3,11 @@ name: Fulcrum
 type: talent
 img: icons/magic/symbols/chevron-elipse-circle-blue.webp
 system:
-  node: inttou3
+  node: sig3.toughness.intellect
   description: >-
-    Balance, positioning, and leverage are your greatest allies in combat. You
-    know how to use a foe's momentum against them and that a small redirection
-    in force can turn the tide of battle.
+    <p>Balance, positioning, and leverage are your greatest allies in combat.
+    You know how to use a foe's momentum against them and that a small
+    redirection in force can turn the tide of battle.</p>
   actions:
     - id: conserveMomentum
       name: Conserve Momentum
@@ -36,10 +36,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685204774844
-  modifiedTime: 1685205206505
+  modifiedTime: 1726783363940
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

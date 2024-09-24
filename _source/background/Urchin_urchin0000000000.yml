@@ -7,23 +7,23 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    Few learn to survive the way you did. Yours was a harsh education in
+    <p>Few learn to survive the way you did. Yours was a harsh education in
     distrust. You learned to watch others for the telltale signs of danger or
     disloyalty, to avoid the attention of others, scavenging for scraps of food
-    on the streets of some urban sprawl.
+    on the streets of some urban sprawl.</p>
   skills:
     - awareness
     - stealth
-    - survival
     - deception
+    - performance
   talents:
     - Compendium.crucible.talent.Item.diversionist0000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420027
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428756068
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

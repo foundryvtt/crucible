@@ -3,13 +3,13 @@ type: talent
 img: icons/skills/melee/weapons-crossed-swords-yellow-teal.webp
 system:
   description: >-
-    Your bravado inspires your allies and cowes your enemies. When you Dodge or
-    Parry a Strike, the attacker loses Morale equal to your Presence attribute.
-    When you achieve a Critical Hit, all nearby allies who can see you gain
-    Morale equal to your Presence attribute.
+    <p>Your bravado inspires your allies and cowes your enemies. When you Dodge
+    or Parry a Strike, the attacker loses Morale equal to your Presence
+    attribute. When you achieve a Critical Hit, all nearby allies who can see
+    you gain Morale equal to your Presence attribute.</p>
   actions: []
   requirements: {}
-  node: dexpre3
+  node: sig3.dexterity.presence
 effects: []
 ownership:
   default: 0
@@ -19,10 +19,10 @@ flags:
     sourceId: Item.swashbuckler0000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675626189295
-  modifiedTime: 1682388090698
+  modifiedTime: 1726782838153
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.swashbuckler0000
   duplicateSource: null

@@ -7,22 +7,22 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    You were always most at home in a library or classroom. Your studies focused
-    on unravelling the mysteries of the world around you, and there are few
-    theoretical subjects with which you are not already familiar.
+    <p>You were always most at home in a library or classroom. Your studies
+    focused on unravelling the mysteries of the world around you, and there are
+    few theoretical subjects with which you are not already familiar.</p>
   skills:
     - arcana
-    - religion
-    - naturalism
     - medicine
+    - science
+    - awareness
   talents:
     - Compendium.crucible.talent.Item.intuitweakness00
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420028
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428707316
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

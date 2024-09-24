@@ -11,17 +11,19 @@ system:
   resistance: acid
   vulnerability: electricity
   description: >-
-    Elemental forces presided over your birth, instilling you with supernatural
-    vigor. Your large frame and muscular build often lead others to believe you
-    are an unthinking mass of muscle, but yours is a people known most for their
-    physical resilience and the deep well of their knowledge. You have inherited
-    the strength of mountains.
+    <p>Elemental forces presided over your birth, instilling you with
+    supernatural vigor. Your large frame and muscular build often lead others to
+    believe you are an unthinking mass of muscle, but yours is a people known
+    most for their physical resilience and the deep well of their knowledge. You
+    have inherited the strength of mountains.</p>
+  size: 5
+  stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420030
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325310062
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

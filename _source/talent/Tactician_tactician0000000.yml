@@ -3,10 +3,10 @@ type: talent
 _id: tactician0000000
 img: icons/sundries/flags/banner-symbol-axe-red.webp
 system:
-  node: preint3
+  node: sig3.presence.intellect
   description: >-
-    You are a cunning battlefield tactician, able to organize and direct your
-    allies to act with increased effectiveness.
+    <p>You are a cunning battlefield tactician, able to organize and direct your
+    allies to act with increased effectiveness.</p>
   actions:
     - id: tacticalPlan
       name: Tactical Plan
@@ -31,10 +31,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675020119928
-  modifiedTime: 1682388092517
+  modifiedTime: 1726706024109
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

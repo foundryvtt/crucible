@@ -11,17 +11,19 @@ system:
   resistance: radiant
   vulnerability: corruption
   description: >-
-    Graceful in movement and swift in thought, you were born a long-lived elf.
-    Your slight and nimble frame and sculpted features are the inherited traits
-    of a people for whom elegance is a way of life. Your predisposition toward
-    quick-thinking and precise movement the evolutionary results of hundreds of
-    years of tradition.
+    <p>Graceful in movement and swift in thought, you were born a long-lived
+    elf. Your slight and nimble frame and sculpted features are the inherited
+    traits of a people for whom elegance is a way of life. Your predisposition
+    toward quick-thinking and precise movement the evolutionary results of
+    hundreds of years of tradition.</p>
+  stride: 10
+  size: 4
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420031
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325304557
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -4,45 +4,46 @@ _id: zealoussmite0000
 img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
 system:
   node: strwis1
-  description: >-
-    You can imbue righteous power into your blows against an enemy that has been
-    made vulnerable.
+  description: <p>You can imbue righteous power into your blow with a heavy weapon.</p>
   actions:
     - id: zealousSmite
       condition: You are attacking an Exposed enemy with a Heavy weapon.
       description: >-
-        You channel zealous fervor into a deadly Strike. Any damage dealt
-        becomes Radiant
+        <p>You <strong>Strike</strong> using a Strength-based weapon. The attack
+        becomes <strong>Deadly</strong> and any damage dealt is
+        <strong>Radiant</strong>.</p>
       tags:
-        - mainhand
-        - heavy
+        - brute
         - melee
+        - mainhand
         - deadly
         - radiant
       cost:
         action: 0
-        focus: 2
+        focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 0
       effects: []
-      name: ''
-      img: null
+      name: Zealous Smite
+      img: icons/magic/fire/dagger-rune-enchant-flame-blue-yellow.webp
       actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674952856305
-  modifiedTime: 1696556008304
+  modifiedTime: 1727056763614
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

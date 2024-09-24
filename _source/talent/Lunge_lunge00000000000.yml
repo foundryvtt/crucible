@@ -10,29 +10,32 @@ system:
     - id: lunge
       condition: ''
       description: >-
-        You make a darting attack, performing a difficult Strike against a
-        single foe with an increased range of +3 feet. You do not move from your
-        current position nor does this attack provoke any disengagement.
+        <p>You <strong>Strike</strong> with your mainhand weapon against a
+        single foe with an increased range of <strong>+2 feet</strong>. The
+        attack is <strong>Difficult</strong>, but you do not move from your
+        current position nor does this attack provoke any Disengagement.</p>
       tags:
-        - mainhand
         - finesse
         - melee
+        - mainhand
         - difficult
       cost:
         action: 0
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Lunge
+      img: icons/skills/melee/strike-polearm-light-orange.webp
       actionHooks: []
       range:
-        maximum: 3
+        maximum: 2
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 ownership:
@@ -43,10 +46,10 @@ flags:
     sourceId: Item.lunge00000000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677376322131
-  modifiedTime: 1696540693586
+  modifiedTime: 1727017887785
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.lunge00000000000
   duplicateSource: null

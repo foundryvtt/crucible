@@ -3,24 +3,18 @@ name: Shapeshifter
 type: talent
 img: icons/creatures/mammals/beast-horned-scaled-glowing-orange.webp
 system:
-  node: touwis3
+  node: sig3.toughness.wisdom
   description: >-
     <p>You possess supernatural ability to transform your body into the shapes
-    of beasts.</p>
-
-    <p>You undergo a transformation where you assume the form of a beast that
-    you are familiar with and which is half your level or less. While
-    transformed you have the exact 
-
-    attributes and abilities of the chosen beast.</p>
-
-    <p>Your equipment is magically incorporated into the form that you take,
-    however you gain no benefit from that equipment while transformed.</p>
-
-    <p>If your bestial form becomes Incapacitated you revert back to your normal
-    form with any excess damage becoming Wounds. If your Morale is Broken while
-    in beast form your transformation ends and any excess damage becomes
-    Madness.</p>
+    of beasts.</p><p>You undergo a transformation where you assume the form of a
+    beast that you are familiar with and which is half your level or less. While
+    transformed you have the exact attributes and abilities of the chosen
+    beast.</p><p>Your equipment is magically incorporated into the form that you
+    take, however you gain no benefit from that equipment while
+    transformed.</p><p>If your bestial form becomes Incapacitated you revert
+    back to your normal form with any excess damage becoming Wounds. If your
+    Morale is Broken while in beast form your transformation ends and any excess
+    damage becomes Madness.</p>
   actions:
     - id: beastShape
       name: Beast Shape
@@ -74,10 +68,10 @@ flags:
     sourceId: Item.shapeshifter0000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676167347186
-  modifiedTime: 1690660625468
+  modifiedTime: 1726783321779
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null

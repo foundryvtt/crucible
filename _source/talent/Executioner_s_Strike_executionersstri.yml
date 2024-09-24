@@ -3,8 +3,8 @@ type: talent
 _id: executionersstri
 img: icons/skills/melee/strike-axe-blood-red.webp
 system:
-  node: str2b
-  description: You deliver a single decisive strike against a wounded enemy.
+  node: str3a
+  description: <p>You deliver a single decisive strike against a wounded enemy.</p>
   actions:
     - id: executionersStrike
       condition: Your target is Bloodied.
@@ -52,10 +52,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675011742969
-  modifiedTime: 1696556072220
+  modifiedTime: 1727018000910
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

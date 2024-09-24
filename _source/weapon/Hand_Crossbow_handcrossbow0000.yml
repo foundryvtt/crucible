@@ -13,8 +13,7 @@ system:
   quality: standard
   enchantment: mundane
   equipped: false
-  properties:
-    - ambush
+  properties: []
   description: ''
   damageType: piercing
   broken: false
@@ -22,10 +21,10 @@ system:
   animation: bolt
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420028
-  modifiedTime: 1690731757814
+  modifiedTime: 1726930540740
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

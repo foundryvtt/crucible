@@ -11,16 +11,18 @@ system:
     - id: pinningShot
       condition: A hard surface immediately behind your target.
       description: >-
-        <p>You Strike from distance. If hit, your target is
+        <p>You <strong>Strike</strong> from distance. The attack is
+        <strong>Difficult</strong>, however if your target is it it becomes
         <strong>Restrained</strong> until the end of their next Turn.</p>
       tags:
-        - mainhand
         - ranged
+        - mainhand
         - difficult
       cost:
         action: 0
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -32,20 +34,21 @@ system:
             turns: 1
           statuses:
             - restrained
-      name: ''
-      img: null
+      name: Pinning Shot
+      img: icons/skills/ranged/arrow-strike-glowing-teal.webp
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
       actionHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674962141351
-  modifiedTime: 1696794046656
+  modifiedTime: 1727145827457
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

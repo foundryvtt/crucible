@@ -14,7 +14,6 @@ system:
   enchantment: mundane
   equipped: false
   properties:
-    - parrying
     - reach
   description: ''
   damageType: slashing
@@ -22,10 +21,10 @@ system:
   animation: glaive
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420014
-  modifiedTime: 1684877890643
+  modifiedTime: 1726930676481
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

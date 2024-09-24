@@ -5,10 +5,9 @@ system:
   node: pre2c
   description: >-
     <p>You are highly skilled in weaving the Rune of Illumination. Spells which
-    use this Rune cause the Irradiated condition on Critical Hits.</p>
-
-    <p>The Irradiated effect lasts for 1 Round and deals your Presence score as
-    Radiant damage to both Health and Morale.</p>
+    use this Rune cause the Irradiated condition on Critical Hits.</p><p>The
+    Irradiated effect lasts for 1 Round and deals your Presence score as Radiant
+    damage to both Health and Morale.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -16,7 +15,7 @@ system:
         // Require Illumination rune
         if ( action.rune?.id !== "illumination" ) return;
 
-        // Require damage to Health
+        // Require damage to Health or Morale
         const damageHealth = outcome.resources.health < 0;
         const damageMorale = outcome.resources.morale < 0;
         if ( !(damageHealth || damageMorale) ) return;
@@ -33,10 +32,10 @@ flags:
     sourceId: Item.lightbringer0000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677356823203
-  modifiedTime: 1688828148602
+  modifiedTime: 1726365073904
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.lightbringer0000
   duplicateSource: null

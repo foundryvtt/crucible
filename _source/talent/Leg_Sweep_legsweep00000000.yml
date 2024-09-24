@@ -3,23 +3,28 @@ type: talent
 img: icons/skills/melee/strike-sword-slashing-red.webp
 system:
   node: str1a
-  description: You know how to use your weaponry to put your opponent off-balance.
+  description: >-
+    <p>You use a heavy weapon to sweep your enemy off balance, swinging low to
+    knock them from their feet.</p>
   actions:
     - id: legSweep
       condition: ''
       description: >-
-        You make a Strike attack, swinging low to knock your opponent
-        off-balance. This technique is difficult to execute and deals reduced
-        damage, but if successful knocks your enemy Prone.
+        <p>You make a <strong>Strike</strong> attack with your mainhand weapon.
+        This technique is <strong>Difficult</strong> to execute and deals
+        reduced damage, but if successful renders your target
+        <strong>Prone</strong>.</p>
       tags:
-        - mainhand
+        - brute
         - melee
+        - mainhand
         - difficult
         - weakened
       cost:
         action: 0
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -31,12 +36,13 @@ system:
             turns: null
           statuses:
             - prone
-      name: ''
-      img: null
+      name: Leg Sweep
+      img: icons/skills/melee/strike-sword-slashing-red.webp
       actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 ownership:
@@ -47,15 +53,15 @@ flags:
     sourceId: Item.legsweep00000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677373689894
-  modifiedTime: 1696555983733
+  modifiedTime: 1727018512480
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.legsweep00000000
   duplicateSource: null
 _id: legsweep00000000
-folder: ePNIUQxdOsY7GSKo
-sort: 200000
+folder: tRHknqOEBLR808Cb
+sort: 75000
 _key: '!items!legsweep00000000'
 

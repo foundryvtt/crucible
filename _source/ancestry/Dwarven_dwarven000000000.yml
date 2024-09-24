@@ -11,16 +11,19 @@ system:
   resistance: acid
   vulnerability: psychic
   description: >-
-    Like your parents before you, you were born with the enduring fortitude of
-    the Dwarves. Your stout stature and burly physical appearance are the
+    <p>Like your parents before you, you were born with the enduring fortitude
+    of the Dwarves. Your stout stature and burly physical appearance are the
     hallmarks of a people born of earth and stone. A legacy of physical
-    resilience is yours to inherit, for in your breast beats a heart of stone.
+    resilience is yours to inherit, for in your breast beats a heart of
+    stone.</p>
+  size: 4
+  stride: 8
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420012
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325292651
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

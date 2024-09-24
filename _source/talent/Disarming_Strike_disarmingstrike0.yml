@@ -5,28 +5,32 @@ img: icons/skills/melee/hand-grip-staff-teal.webp
 effects: []
 flags: {}
 system:
-  node: str0
+  node: str2b
   description: >-
-    A martial technique which attempts to disarm your opponent, forcing them to
-    drop an object held in one of their hands.
+    <p>A martial technique designed to disarm your opponent, forcing them to
+    drop an object held in one of their hands.</p>
   actions:
     - id: disarmingStrike
-      name: ''
-      img: null
-      condition: An adjacent enemy which is carrying an object that can be dropped.
+      name: Disarming Strike
+      img: icons/skills/melee/hand-grip-staff-teal.webp
+      condition: ''
       description: >-
-        You make a Strike attack, expertly pivoting your weapon to force your
-        target to drop an object they are carrying. This technique is Difficult
-        to perform and deals reduced damage.
+        <p>You make a <strong>Strike </strong>against a the
+        <strong>Reflex</strong> defense of a single target. The technique is
+        <strong>Difficult</strong> to perform and deals reduced damage. If
+        successful, the target is forced to unqeuip a held item of your choosing
+        that is not secured.</p>
       tags:
-        - mainhand
         - melee
+        - mainhand
         - difficult
         - weakened
+        - reflex
       cost:
         action: 0
-        focus: 0
+        focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -34,15 +38,16 @@ system:
       effects: []
       actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420033
-  modifiedTime: 1696555977314
+  modifiedTime: 1727018267979
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

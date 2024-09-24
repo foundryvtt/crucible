@@ -9,24 +9,36 @@ system:
   actions:
     - id: tuskCharge
       description: >-
-        Charge in a direct line between 3 and 6 spaces and make a Strike against
+        <p>Charge in a direct line up to your Stride and make a Strike against
         the first creature you encounter. If successful, the target is knocked
-        Prone.
+        Prone.</p>
       tags:
         - melee
         - mainhand
       cost:
         action: 1
         focus: 0
+        heroism: 0
+        weapon: true
       target:
         type: ray
         number: 1
-        distance: 6
         scope: 3
       effects:
-        - scope: 3
+        - name: ''
+          scope: 3
           statuses:
             - prone
+          duration:
+            turns: null
+      name: Tusk Charge
+      img: icons/skills/movement/arrow-upward-blue.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: 10
+        weapon: false
+      actionHooks: []
   actorHooks: []
 effects: []
 ownership:
@@ -36,10 +48,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685231228591
-  modifiedTime: 1688835593752
+  modifiedTime: 1726796582666
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

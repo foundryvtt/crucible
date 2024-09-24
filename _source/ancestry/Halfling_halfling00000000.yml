@@ -11,16 +11,18 @@ system:
   resistance: psychic
   vulnerability: cold
   description: >-
-    You were raised in a creche surrounded by other halflings. Your lilliputian
-    stature, thick-soled hairy feet, and the swiftness of your mind and body are
-    what your people are most known for. Yours is a people for whom education
-    and tradition are paramount.
+    <p>You were raised in a creche surrounded by other halflings. Your
+    lilliputian stature, thick-soled hairy feet, and the swiftness of your mind
+    and body are what your people are most known for. Yours is a people for whom
+    education and tradition are paramount.</p>
+  size: 3
+  stride: 8
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420028
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325317950
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

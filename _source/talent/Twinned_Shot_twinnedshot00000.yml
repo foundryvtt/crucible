@@ -3,31 +3,37 @@ type: talent
 _id: twinnedshot00000
 img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
 system:
-  node: dex1b
-  description: You prepare two shots to fire simultaneously at a single target.
+  node: dex0b
+  description: <p>You prepare two shots to fire simultaneously at a single target.</p>
   actions:
     - id: twinnedShot
       tags:
-        - mainhand
         - ranged
         - projectile
+        - mainhand
+        - difficult
       cost:
-        action: 3
+        action: 1
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         multiple: 2
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Twinned Shot
+      img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
       condition: ''
-      description: ''
+      description: >-
+        <p>Using this <strong>Difficult</strong> technique, you fire two
+        projectiles at once making two <strong>Strike</strong> attacks against
+        the same target.</p>
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
       actionHooks: []
 effects: []
 folder: i7P1uwWcECj5KWfY
@@ -38,10 +44,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1687615283427
-  modifiedTime: 1696795231399
+  modifiedTime: 1726971415146
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

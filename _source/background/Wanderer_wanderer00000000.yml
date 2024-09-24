@@ -7,24 +7,24 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    Yours has been an itinerant life. You enjoy nothing more than the feeling of
-    a cart or mount below you, watching some foreign sky slowly pass above you.
-    You learned to pay careful attention to your surroundings and their needs,
-    to tend the creatures on which you rely, and to make do with what you can
-    find.
+    <p>Yours has been an itinerant life. You enjoy nothing more than the feeling
+    of a cart or mount below you, watching some foreign sky slowly pass above
+    you. You learned to pay careful attention to your surroundings and their
+    needs, to tend the creatures on which you rely, and to make do with what you
+    can find.</p>
   skills:
+    - athletics
     - awareness
-    - survival
-    - naturalism
-    - beastcraft
+    - wilderness
+    - medicine
   talents:
     - Compendium.crucible.talent.Item.perspicacity0000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420012
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428787230
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -9,38 +9,61 @@ flags:
 system:
   node: intdex1
   description: >-
-    A two-weapon technique which makes a feint with your primary weapon, leaving
-    your target Exposed for an attack with your off-hand weapon.
+    <p>A two-weapon technique which makes a feint with your primary weapon,
+    exposing your target for an off-hand attack.</p>
   actions:
     - id: feintingStrike
       tags:
-        - offhand
         - dualwield
         - melee
-        - accurate
+        - offhand
+        - deception
       cost:
-        action: 0
-        focus: 1
+        action: 1
+        focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Feinting Strike
+      img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      description: ''
-      actionHooks: []
+      description: >-
+        <p>You feint with your mainhand weapon, making a
+        <strong>Deception</strong> attack against the target's
+        <strong>Reflex</strong> defense. You immediately make a
+        <strong>Strike</strong> with your <strong>offhand</strong>
+        weapon.</p><p>If your Deception was successful, you gain <strong>+2
+        Boons</strong> to your Strike and it deals an additional <strong>+6
+        Damage</strong>.</p>
+      actionHooks:
+        - hook: roll
+          fn: |-
+            this.usage.defenseType = "reflex";
+            const deception = await this.actor.skillAttack(this, target);
+            if ( deception.data.damage ) deception.data.damage.total = 0;
+            if ( deception.isSuccess ) {
+              this.usage.boons.feintingStrike = {label: "Feinting Strike", number: 2};
+              this.usage.bonuses.damageBonus += 6;
+            }
+            const offhand = this.actor.equipment.weapons.offhand;
+            this.usage.defenseType = "physical";
+            const attack = await this.actor.weaponAttack(this, target, offhand);
+            rolls[0] = deception;
+            rolls[1] = attack;
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420023
-  modifiedTime: 1696555947216
+  modifiedTime: 1726967621841
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null

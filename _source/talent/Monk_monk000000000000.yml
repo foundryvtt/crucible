@@ -3,15 +3,12 @@ type: talent
 _id: monk000000000000
 img: icons/magic/earth/strike-fist-stone-gray.webp
 system:
-  node: dexwis3
+  node: sig3.dexterity.wisdom
   description: >-
     <p>You balance monastic discipline with expertise in martial arts, balancing
-    attack and defense in harmony.</p>
-
-    <p>While Unarmored, you gain a +2 bonus to your Reflex and Willpower
-    defenses.</p>
-
-    <p>While Unarmed you can use the Double Punch action.</p>
+    attack and defense in harmony.</p><p>While Unarmored, you gain a +2 bonus to
+    your Reflex and Willpower defenses.</p><p>While Unarmed you can use the
+    Double Punch action.</p>
   actions:
     - id: doublePunch
       name: Double Punch
@@ -35,10 +32,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675136908649
-  modifiedTime: 1682387677091
+  modifiedTime: 1726705916467
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

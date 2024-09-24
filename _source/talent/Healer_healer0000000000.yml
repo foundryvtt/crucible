@@ -2,11 +2,11 @@ name: Healer
 type: talent
 img: icons/magic/life/heart-hand-gold-green-light.webp
 system:
-  node: wispre3
+  node: sig3.wisdom.presence
   description: >-
-    You are unparalleled at manipulating vital arcana to treat injuries. When
+    <p>You are unparalleled at manipulating vital arcana to treat injuries. When
     healing allies using the Rune of Life you gain +2 boons to your roll and
-    your spellcraft cannot be Counterspelled.
+    your spellcraft cannot be Counterspelled.</p>
   actions: []
   actorHooks:
     - hook: prepareSpellAttack
@@ -22,10 +22,10 @@ flags:
     sourceId: Item.healer0000000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675741049748
-  modifiedTime: 1687631825713
+  modifiedTime: 1726705877826
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.healer0000000000
   duplicateSource: null

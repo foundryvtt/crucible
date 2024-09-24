@@ -3,13 +3,13 @@ type: talent
 img: icons/magic/defensive/barrier-shield-dome-deflect-teal.webp
 system:
   description: >-
-    Your spellcraft is honed as a weapon of war to thwart the incantations of
+    <p>Your spellcraft is honed as a weapon of war to thwart the incantations of
     other magi. You may ask the Gamemaster if you know a Rune capable of
     countering an enemy spell, even if you do not recognize the spell being
-    cast. You gain +2 Boons to any Counterspell attempt.
+    cast. You gain +2 Boons to any Counterspell attempt.</p>
   actions: []
   requirements: {}
-  node: preint3
+  node: sig3.presence.intellect
 effects: []
 ownership:
   default: 0
@@ -19,10 +19,10 @@ flags:
     sourceId: Item.warmage000000000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675644340947
-  modifiedTime: 1682388097229
+  modifiedTime: 1726706038154
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.warmage000000000
   duplicateSource: null

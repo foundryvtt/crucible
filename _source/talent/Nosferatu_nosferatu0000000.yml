@@ -3,16 +3,13 @@ name: Nosferatu
 type: talent
 img: icons/magic/death/mouth-bite-fangs-vampire.webp
 system:
-  node: toupre3
+  node: sig3.dexterity.toughness
   description: >-
     <p>You are afflicted with a rare blood mutation which allows your wounds to
-    rapidly heal through hematophagy.</p>
-
-    <p>You can restore your Health by biting a living target. This attack is
-    made with a Superior Natural weapon which scales using Strength and deals
-    Piercing damage.</p>
-
-    <p>Your vulnerability to Radiant damage increases by 10.</p>
+    rapidly heal through hematophagy.</p><p>You can restore your Health by
+    biting a living target. This attack is made with a Superior Natural weapon
+    which scales using Strength and deals Piercing damage.</p><p>Your
+    vulnerability to Radiant damage increases by 10.</p>
   actions:
     - id: vampiricBite
       name: Vampiric Bite
@@ -80,10 +77,10 @@ flags:
     sourceId: Item.nosferatu0000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676157758719
-  modifiedTime: 1690660943327
+  modifiedTime: 1726783512928
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null

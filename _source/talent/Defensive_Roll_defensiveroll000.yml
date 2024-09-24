@@ -9,16 +9,17 @@ flags:
 system:
   node: dex2c
   description: >-
-    When you Dodge a melee attack you can focus to extend your evasion into a
-    defensive roll, moving one space in any direction.
+    <p>You are a nimble skirmisher, always in movement to stay one step ahead of
+    your enemies in combat.</p>
   actions:
     - id: defensiveRoll
       name: Defensive Roll
       img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
       condition: You Dodge an incoming melee Strike.
       description: >-
-        You dodge an attack, rolling away from danger and moving one space in
-        any direction.
+        <p>When you <strong>Dodge</strong> a melee attack you can expend
+        <strong>Focus</strong> to leap into a defensive roll, moving up to your
+        <strong>Size</strong> in any direction.</p>
       tags:
         - movement
         - reaction
@@ -26,20 +27,24 @@ system:
         action: 0
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
       effects: []
       actionHooks: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
   actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420027
-  modifiedTime: 1696453075245
+  modifiedTime: 1726367667502
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

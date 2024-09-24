@@ -2,14 +2,12 @@ name: Assassin
 type: talent
 img: icons/magic/death/skull-humanoid-white-blue.webp
 system:
-  node: intdex3
+  node: sig3.intellect.dexterity
   description: >-
     <p>You specialize in bringing death the the unwary. Any Strike or Spell
     attack against an <strong>Unaware</strong> target becomes
-    <strong>Deadly</strong>.</p>
-
-    <p>An Unaware creature hit by your attack may not alert its allies until its
-    own turn in Combat.</p>
+    <strong>Deadly</strong>.</p><p>An Unaware creature hit by your attack may
+    not alert its allies until its own turn in Combat.</p>
   actions:
     - id: markForDeath
       name: Mark For Death
@@ -41,10 +39,10 @@ flags:
     sourceId: Item.assassin00000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675624985133
-  modifiedTime: 1685891199830
+  modifiedTime: 1726705782432
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.assassin00000000
   duplicateSource: null

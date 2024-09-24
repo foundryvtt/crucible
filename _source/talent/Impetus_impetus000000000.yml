@@ -5,9 +5,9 @@ img: icons/magic/movement/trail-streak-zigzag-yellow.webp
 system:
   node: int1b
   description: >-
-    You are gifted at exploiting the slowness with which others think. If you
-    are first in Initiative order for the first round of Combat, you gain +1
-    Action during your turn.
+    <p>You are gifted at exploiting the slowness with which others think. If you
+    are first in Initiative order during a round of Combat, you gain +1 current
+    and maximum Action.</p>
   actions: []
   requirements: {}
 effects: []
@@ -19,10 +19,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1684461808776
-  modifiedTime: 1684464745341
+  modifiedTime: 1726929302547
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

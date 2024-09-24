@@ -12,19 +12,21 @@ system:
     second Strike with the backswing of your weapon.
   actions:
     - id: uppercut
-      name: ''
-      img: null
-      condition: Your Strike attack did not result in a Critical Miss.
+      name: Uppercut
+      img: icons/skills/melee/strike-sword-gray.webp
+      condition: ''
       description: >-
-        Following a basic Strike attack, you can attack the same target again
-        with the backswing of your weapon, making a second Strike.
+        <p>Following a basic Strike attack which did not critically miss, you
+        <strong>Strike</strong> the same target again with the backswing of your
+        weapon at reduced <strong>Action</strong> cost.</p>
       tags:
-        - twohand
         - melee
+        - twohand
       cost:
-        action: -3
+        action: -2
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -38,15 +40,16 @@ system:
               throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
             }
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420027
-  modifiedTime: 1696556138888
+  modifiedTime: 1727144708119
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

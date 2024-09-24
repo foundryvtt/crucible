@@ -4,29 +4,45 @@ img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
 system:
   node: dex0b
   description: >-
-    You are adept at fighting with two weapons simultaneously. You can weave
-    attacks together to strike more rapidly than possible with a single weapon.
+    <p>You are adept at fighting with two weapons simultaneously. You can weave
+    attacks together to strike more rapidly than possible with a single
+    weapon.</p>
   actions:
     - id: offhandStrike
       name: Offhand Strike
-      description: You make rapid follow-up Strike with your offhand weapon.
+      description: >-
+        <p>Immediately after you perform a basic Strike with your mainhand
+        weapon, you make a reduced-cost fullow-up <strong>Strike</strong> with
+        your <strong>offhand</strong> weapon.</p>
       tags:
         - offhand
       cost:
         action: -1
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 0
       effects: []
-      img: null
+      img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      actionHooks: []
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const {basicStrike, lastAction} = this.actor.system.status;
+            if ( !basicStrike || (lastAction !== "strike") ) {
+              throw new Error("You may only perform an Offhand Strike after a basic Strike which did not critically miss.");
+            }
+        - hook: displayOnSheet
+          fn: |-
+            const {lastAction} = this.actor.system.status;
+            return lastAction === "strike";
       range:
-        maximum: 0
+        maximum: 1
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 ownership:
@@ -37,10 +53,10 @@ flags:
     sourceId: Item.dualwield0000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676425968128
-  modifiedTime: 1696555934023
+  modifiedTime: 1726963268441
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dualwield0000000
   duplicateSource: null

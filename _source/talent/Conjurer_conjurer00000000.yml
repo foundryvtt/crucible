@@ -3,12 +3,12 @@ type: talent
 img: icons/magic/symbols/runes-star-orange-purple.webp
 system:
   description: >-
-    You are a master of Conjuration and the Gesture of Creation to manifest
+    <p>You are a master of Conjuration and the Gesture of Creation to manifest
     arcane energy as physical form. You can maintain up to 3 such creations
-    simultaneously rather than only one.
+    simultaneously rather than only one.</p>
   actions: []
   requirements: {}
-  node: wisint3
+  node: sig3.wisdom.presence
 effects: []
 ownership:
   default: 0
@@ -18,10 +18,10 @@ flags:
     sourceId: Item.conjurer00000000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675740927729
-  modifiedTime: 1682386859993
+  modifiedTime: 1726783410506
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.conjurer00000000
   duplicateSource: null

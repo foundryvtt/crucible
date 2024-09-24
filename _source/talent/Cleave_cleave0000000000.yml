@@ -14,33 +14,37 @@ system:
     multiple enemies in its path.
   actions:
     - id: cleave
-      description: A ferocious two-handed swing cleaves through foes in a 120 degree arc.
+      description: >-
+        <p>A ferocious two-handed swing cleaves through foes in a 120 degree
+        arc.</p>
       tags:
-        - twohand
         - melee
+        - twohand
       cost:
-        action: 5
+        action: 2
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: fan
         number: 1
-        scope: 3
+        scope: 4
       effects: []
-      name: ''
-      img: null
+      name: Cleave
+      img: icons/skills/melee/strike-sword-steel-yellow.webp
       condition: ''
       range:
-        maximum: 0
+        maximum: 1
         weapon: true
+        minimum: null
       actionHooks: []
   actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420032
-  modifiedTime: 1696556055922
+  modifiedTime: 1727144583115
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

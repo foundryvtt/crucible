@@ -10,18 +10,20 @@ system:
   secondary: toughness
   resistance: ''
   description: >-
-    Found amid countless conditions and far-flung places, you were born an
+    <p>Found amid countless conditions and far-flung places, you were born an
     ever-adaptable human. Tall or short, thin, muscular, or rotund, your
     physical appearance is nothing if not varied. Humans are most known for a
     genetic predisposition toward determination, with traditions that drive a
-    stubborn will to survive.
+    stubborn will to survive.</p>
   vulnerability: ''
+  size: 4
+  stride: 10
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420025
-  modifiedTime: 1684876098205
+  modifiedTime: 1726325326496
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

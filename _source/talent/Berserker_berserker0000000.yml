@@ -2,10 +2,10 @@ name: Berserker
 type: talent
 img: icons/magic/unholy/silhouette-evil-horned-giant.webp
 system:
-  node: toustr3
+  node: sig3.toughness.strength
   description: >-
-    You revel in the thrill of combat, hurling yourself into the fray with
-    reckless abandon.
+    <p>You revel in the thrill of combat, hurling yourself into the fray with
+    reckless abandon.</p>
   actions:
     - id: berserkerRage
       name: Berserker Rage
@@ -41,10 +41,10 @@ flags:
     sourceId: Compendium.crucible.talent.berserker0000000
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674936288328
-  modifiedTime: 1685115436659
+  modifiedTime: 1726705804307
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.berserker0000000
   duplicateSource: null

@@ -8,35 +8,42 @@ flags:
     sourceId: Item.V4stscWtnt2GFRY2
 system:
   node: intdex2
-  description: When you Dodge a melee attack you can focus to instead Parry the attack.
+  description: >-
+    <p>You anticipate dodging an attack, intercepting it to intentionally Parry
+    the strike.</p><p></p>
   actions:
     - id: artfulParry
       name: Artful Parry
       img: icons/skills/melee/weapons-crossed-swords-white-blue.webp
       condition: You Dodge an incoming melee Strike.
       description: >-
-        You anticipate dodging an attack, and instead intentionally Parry the
-        blow.
+        <p>When you defend against a melee attack using the
+        <strong>Dodge</strong> defense, you can react and expend
+        <strong>Focus</strong> to instead <strong>Parry</strong> the attack.</p>
       tags:
         - reaction
       cost:
         action: 0
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
       effects: []
       actionHooks: []
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420030
-  modifiedTime: 1696453125682
+  modifiedTime: 1726367843243
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

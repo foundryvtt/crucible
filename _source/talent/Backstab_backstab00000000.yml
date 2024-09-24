@@ -6,41 +6,47 @@ flags:
   core:
     sourceId: Item.pHRUZ8Zfv5E0TcH2
 system:
-  node: intdex1
+  node: dex1b
   description: >-
-    You focus your cunning instincts on exploiting the weak points of a flanked
-    target. You identify an opportunity and strike with deadly efficiency.
+    <p>You focus your cunning instincts on exploiting the weak points of a
+    flanked target. You identify an opportunity and strike with deadly
+    efficiency.</p>
   actions:
     - id: backstab
       condition: You are attacking a target with the Flanked condition.
-      description: You perform a deadly Strike against a Flanked target.
+      description: >-
+        <p>You <strong>Strike</strong> with your mainhand weapon against a
+        <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
+        damage.</p>
       tags:
-        - mainhand
         - finesse
         - melee
         - flanking
+        - mainhand
         - deadly
       cost:
         action: 0
-        focus: 1
+        focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Backstab
+      img: icons/skills/melee/strike-dagger-white-orange.webp
       actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420011
-  modifiedTime: 1696555964780
+  modifiedTime: 1726971509688
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

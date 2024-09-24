@@ -8,40 +8,43 @@ flags:
 system:
   node: tou2c
   description: >-
-    Using this shield technique you may react when you <strong>Block</strong> a
-    melee attack to retaliate against that attacker making a
-    <strong>Strike</strong> with your primary weapon.
+    <p>You are trained to transition between defending with your shield and a
+    swift counter-attack.</p>
   actions:
     - id: counterStrike
-      name: ''
-      img: null
+      name: Counter Strike
+      img: icons/skills/melee/shield-block-bash-yellow.webp
       condition: You Block an incoming melee Strike.
       description: >-
-        You react when blocking an incoming melee attack to retaliate with a
-        Strike of your own.
+        <p>When you defend against a melee attack with a <strong>Block</strong>
+        you may expend <strong>Focus</strong> to retaliate with a reduced-cost
+        <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
-        - mainhand
         - melee
         - reaction
+        - mainhand
       cost:
-        action: -2
+        action: -1
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
-        distance: 1
         scope: 3
       effects: []
       actionHooks: []
       range:
         weapon: true
+        minimum: null
+        maximum: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420025
-  modifiedTime: 1696531857496
+  modifiedTime: 1726367473968
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.counterstrike000
   duplicateSource: null

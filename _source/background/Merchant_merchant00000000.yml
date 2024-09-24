@@ -7,22 +7,22 @@ folder: 5piCK2JWjY34nSY3
 flags: {}
 system:
   description: >-
-    You were a travelling salesperson or tended a small shop. You spent a
+    <p>You were a travelling salesperson or tended a small shop. You spent a
     significant portion of your time learning the art of negotiation with people
-    from all walks of life, and where the boundaries of the best deal lay.
+    from all walks of life, and where the boundaries of the best deal lay.</p>
   skills:
+    - science
     - society
     - diplomacy
-    - mercantilism
-    - tradecraft
+    - awareness
   talents:
     - Compendium.crucible.talent.Item.preparedness0000
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420028
-  modifiedTime: 1684876104522
+  modifiedTime: 1726428664573
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
