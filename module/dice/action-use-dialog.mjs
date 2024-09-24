@@ -130,9 +130,8 @@ export default class ActionUseDialog extends StandardCheckDialog {
    * Respond when the set of User Targets changes by re-rendering currently visible action use apps.
    */
   static debounceChangeTarget = foundry.utils.debounce(() => {
-    for ( const app of Object.values(ui.windows) ) {
-      if ( !(app instanceof ActionUseDialog) ) continue;
-      app.render();
+    for ( const app of foundry.applications.instances.values() ) {
+      if ( app instanceof ActionUseDialog ) app.render();
     }
   }, 20);
 

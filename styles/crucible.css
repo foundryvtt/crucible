@@ -1951,6 +1951,7 @@
   /** Dice Pool Visualization */
   /** Dice Roll Bonuses */
   /** Boon and Bane Details */
+  /** Spell Components */
 }
 .crucible.dice-roll .standard-check {
   padding: 1rem;
@@ -2224,10 +2225,11 @@
   line-height: 20px;
   height: auto;
 }
-.crucible.dice-roll .form-group.spell-component label {
-  font-size: var(--font-size-14);
+.crucible.dice-roll .spell-component {
+  font-size: var(--font-size-12);
+  line-height: 1.25em;
 }
-.crucible.dice-roll .form-group.spell-component .form-fields {
+.crucible.dice-roll .spell-component > label {
   flex: 2;
 }
 /* ----------------------------------------- */

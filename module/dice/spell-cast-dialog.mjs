@@ -5,17 +5,14 @@ import ActionUseDialog from "./action-use-dialog.mjs";
  */
 export default class SpellCastDialog extends ActionUseDialog {
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: `systems/${SYSTEM.id}/templates/dice/spell-cast-dialog.hbs`
-    });
-  }
+  /** @override */
+  static TEMPLATE = "systems/crucible/templates/dice/spell-cast-dialog.hbs";
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  async getData(options) {
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
     const spell = this.action;
     const actor = spell.actor;
 
@@ -31,7 +28,6 @@ export default class SpellCastDialog extends ActionUseDialog {
     const ability = actor.getAbilityBonus([...spell.scaling]);
 
     // Merge context
-    const context = await super.getData(options);
     return foundry.utils.mergeObject(context, {
       ability, runes, gestures, inflections,
       chooseDamageType: spell.rune.damageType === "physical",
@@ -46,38 +42,23 @@ export default class SpellCastDialog extends ActionUseDialog {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  activateListeners(html) {
-    super.activateListeners(html);
-    html.find("select.component").change(this.#onChangeComponent.bind(this));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Update the dialog when spell components are changed.
-   * @param {Event} event     The input change event
-   */
-  #onChangeComponent(event) {
-    event.preventDefault();
-    const select = event.currentTarget;
-    const form = select.form;
-    const fd = (new FormDataExtended(form)).object;
-    this.action.usage = undefined;
-    this.action.updateSource(fd);
-    this._clearTargetTemplate();
-    this.render(true, {height: "auto"});
+  _onChangeForm(formConfig, event) {
+    if ( event.target.name === "component" ) {
+      this.action.usage = undefined;
+      this.action.updateSource({[event.target.name]: event.target.value});
+      this._clearTargetTemplate();
+    }
+    return super._onChangeForm(formConfig, event);
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  _onSubmit(html) {
-    const form = html.querySelector("form");
-    const {rollMode, ...updates} = (new FormDataExtended(form, {readonly: true})).object;
-    this.action.updateSource({composition: this.action.constructor.COMPOSITION_STATES.COMPOSED, ...updates});
-    this.action.usage.rollMode = rollMode;
-    if ( "special" in this.roll.data.boons ) this.action.usage.boons.special = this.roll.data.boons.special;
-    if ( "special" in this.roll.data.banes ) this.action.usage.banes.special = this.roll.data.banes.special;
-    return this.action;
+  _onRoll(event, button, dialog) {
+    const form = event.target;
+    const {rune, gesture, inflection} = (new FormDataExtended(form)).object;
+    const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
+    this.action.updateSource({composition, rune, gesture, inflection});
+    return super._onRoll(event, button, dialog);
   }
 }

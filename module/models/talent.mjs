@@ -99,17 +99,17 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
     // Update Metadata
     if ( this.rune ) {
       const rune = SYSTEM.SPELL.RUNES[this.rune];
-      rune.img = this.img;
+      rune.img = talent.img;
       rune.description = this.description;
     }
     if ( this.gesture ) {
       const gesture = SYSTEM.SPELL.GESTURES[this.gesture];
-      gesture.img = this.img;
+      gesture.img = talent.img;
       gesture.description = this.description;
     }
     if ( this.inflection ) {
       const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
-      inflection.img = this.img;
+      inflection.img = talent.img;
       inflection.description = this.description;
     }
 

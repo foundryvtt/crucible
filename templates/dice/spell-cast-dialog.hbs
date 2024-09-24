@@ -1,6 +1,45 @@
-<form class="standard-check action flexcol">
-    {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
-    {{> "systems/crucible/templates/dice/partials/spell-cast-header.hbs"}}
+<form>
+    <div class="action line-item">
+        {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
+    </div>
+
+    <div class="form-group spell-component">
+        <label>{{localize "SPELL.ComponentRune"}}</label>
+        <div class="form-fields">
+            <select name="rune" class="component">
+                {{selectOptions runes selected=action.rune.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group spell-component">
+        <label>{{localize "SPELL.ComponentGesture"}}</label>
+        <div class="form-fields">
+            <select name="gesture" class="component">
+                {{selectOptions gestures selected=action.gesture.id nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group spell-component">
+        <label>{{localize "SPELL.ComponentInflection"}}</label>
+        <div class="form-fields">
+            <select name="inflection" class="component">
+                {{selectOptions inflections selected=action.inflection.id blank="" nameAttr="id" labelAttr="name"}}
+            </select>
+        </div>
+    </div>
+
+    {{#if chooseDamageType}}
+        <div class="form-group spell-component">
+            <label>{{localize "SPELL.DamageType"}}</label>
+            <div class="form-fields">
+                <select name="damageType" class="component">
+                    {{selectOptions damageTypes selected=action.damage.type}}
+                </select>
+            </div>
+        </div>
+    {{/if}}
 
     {{#if hasDice}}
     <section class="content roller flexcol">
@@ -11,11 +50,11 @@
     </section>
     {{/if}}
 
-    <footer class="buttons flexrow">
+    <footer class="form-footer">
         <select name="rollMode">
             {{selectOptions rollModes selected=rollMode localize=true}}
         </select>
-        <button type="button" class="dialog-button frame-brown" data-button="ok">
+        <button type="submit" class="dialog-button frame-brown" data-action="roll">
             <i class="fas fa-dice"></i>
             <label>Cast Spell</label>
         </button>

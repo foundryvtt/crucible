@@ -359,16 +359,12 @@ export const TAGS = {
       if ( statuses.has("prone") ) distance += 2;
 
       // Determine the amount of movement that is free vs. paid
-      const prior = status.movement || {free: 0, total: 0, bonus: 0};
-      const remainingFree = stride + prior.bonus - prior.free;
-      const free = equipment.canFreeMove ? Math.min(distance, remainingFree) : 0;
-      const paid = distance - free;
-      this.cost.action = Math.ceil(paid / stride);
-
-      // Record actor status
+      const prior = status.movement || {total: 0, last: 0, free: (equipment.canFreeMove && !status.hasMoved)};
+      const free = prior.free ? stride : 0;
+      this.cost.action = Math.ceil(Math.max(distance - free, 0) / stride);
       this.usage.actorStatus = {
         hasMoved: true,
-        movement: {free: prior.free + free, total: prior.total + distance, bonus: prior.bonus}
+        movement: {total: prior.total + distance, last: distance, free: false}
       }
     },
     async confirm() {
@@ -787,6 +783,8 @@ for ( const {id, name} of Object.values(SKILLS) ) {
  * @type {object[]}
  */
 export const DEFAULT_ACTIONS = Object.freeze([
+
+  // Cast Spell
   {
     id: "cast",
     name: "Cast Spell",
@@ -797,6 +795,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       type: "none",
     }
   },
+
+  // Basic Movement
   {
     id: "move",
     name: "Move",
@@ -809,6 +809,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     tags: ["movement"]
   },
+
+  // Defend
   {
     id: "defend",
     name: "Defend",
@@ -830,6 +832,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       }
     ]
   },
+
+  // Delay
   {
     id: "delay",
     name: "Delay",
@@ -877,6 +881,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       }
     }
   },
+
+  // Reactive Strike
   {
     id: "reactiveStrike",
     name: "Reactive Strike",
@@ -904,6 +910,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       }
     }
   },
+
+  // Recover
   {
     id: "recover",
     name: "Recover",
@@ -922,26 +930,16 @@ export const DEFAULT_ACTIONS = Object.freeze([
       canUse(_targets) {
         if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
       },
+      displayOnSheet(combatant) {
+        return !combatant;
+      },
       async confirm() {
-
-        // Expire active effects
-        const toDeleteEffects = this.actor.effects.reduce((arr, effect) => {
-          if ( effect.id === "weakened00000000" ) arr.push(effect.id);
-          else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-          else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
-          return arr;
-        }, []);
-        await this.actor.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
-
-        // Set resources to recover
-        const self = this.outcomes.get(this.actor);
-        self.resources.health = Infinity;
-        self.resources.morale = Infinity;
-        self.resources.action = Infinity;
-        self.resources.focus = Infinity;
+        await this.actor.rest();
       }
     }
   },
+
+  // Refocus
   {
     id: "refocus",
     name: "Recover Focus",
@@ -963,6 +961,8 @@ export const DEFAULT_ACTIONS = Object.freeze([
       }
     }
   },
+
+  // Reload
   {
     id: "reload",
     name: "Reload Weapon",
@@ -987,6 +987,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     }
   },
 
+  // Basic Strike
   {
     id: "strike",
     name: "Strike",

@@ -530,6 +530,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Single targets
       case "single":
         tokens = game.user.targets;
+        if ( tokens.has(this.token) ) throw new Error(game.i18n.localize("ACTION.WarningCannotTargetSelf"));
         if ( strict ) {
           if ( tokens.size < 1 ) {
             throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {

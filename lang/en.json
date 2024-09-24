@@ -275,6 +275,7 @@
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",
 "ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
 "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for {action}!",
+"ACTION.WarningCannotTargetSelf": "You cannot target yourself with this Action!",
 "ACTION.WarningIncorrectTargets": "You may only designate up to {number} {type} targets for {action}!",
 "ACTION.WarningRequireTemplate": "You must place a Measured Template to indicate the area of effect of {action}.",
 "ACTION.WarningMinimumRange": "A selected target is closer than the minimum range of {min} feet.",

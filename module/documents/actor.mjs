@@ -1128,12 +1128,25 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Restore all resource pools to their maximum value.
-   * @param {object} updateData     Additional update data to include in the rest operation
-   * @returns {Promise<CrucibleActor>}
+   * @param {object} [updateData={}]      Additional update data to include in the rest operation
+   * @param {object} [options={}]         Options which modify the rest
+   * @param {boolean} [options.allowDead=false]   Allow dead actors to rest?
+   * @returns {Promise<void>}
    */
-  async rest(updateData, {allowDead=false}={}) {
-    if ( (this.isDead || this.isInsane) && !allowDead ) return this;
-    return this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
+  async rest(updateData={}, {allowDead=false}={}) {
+    if ( (this.isDead || this.isInsane) && !allowDead ) return;
+
+    // Expire Active Effects
+    const toDeleteEffects = this.effects.reduce((arr, effect) => {
+      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
+      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
+      else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
+      return arr;
+    }, []);
+    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
+
+    // Recover Resources
+    await this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
   }
 
   /* -------------------------------------------- */
