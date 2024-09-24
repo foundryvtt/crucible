@@ -220,10 +220,7 @@ export default class CrucibleTalentNode {
    * @returns {boolean}                   Is the node connected?
    */
   isConnected(actor) {
-    for ( const c of this.connected ) {
-      if ( c._isPurchased(actor) ) return true;
-    }
-    // TODO support teleport nodes
+    for ( const c of this.connected ) if ( c._isPurchased(actor) ) return true;
     return false;
   }
 

@@ -212,7 +212,7 @@ export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
 
     // Check Node state
     const state = this.node.getState(actor);
-    state.accessible = (this.node.tier === 0) || this.node.isConnected(actor);
+    state.accessible = (this.node.tier === 0) || this.node.isConnected(actor) || this.teleportNode?.isConnected(actor);
 
     // Require a connected node
     if ( !state.accessible ) {

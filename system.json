@@ -70,9 +70,9 @@
       "type": "Actor"
     },
     {
-      "name": "spells",
+      "name": "spell",
       "label": "Iconic Spells",
-      "path": "packs/spells",
+      "path": "packs/spell",
       "type": "Item"
     },
     {
@@ -104,20 +104,46 @@
     {
       "name": "Crucible",
       "color": "#561206",
+      "folders": [
+        {
+          "name": "Adversary Options",
+          "color": "#380d05",
+          "packs": [
+            "adversary-talents",
+            "archetype",
+            "taxonomy"
+          ]
+        },
+        {
+          "name": "Character Options",
+          "color": "#380d05",
+          "packs": [
+            "ancestry",
+            "background",
+            "spell",
+            "talent"
+          ]
+        },
+        {
+          "name": "Actors",
+          "color": "#380d05",
+          "packs": [
+            "pregens",
+            "summons"
+          ]
+        },
+        {
+          "name": "Equipment",
+          "color": "#380d05",
+          "packs": [
+            "armor",
+            "weapon"
+          ]
+        }
+      ],
       "packs": [
-        "adversary-talents",
-        "ancestry",
-        "archetype",
-        "armor",
-        "background",
         "rules",
-        "spells",
-        "summons",
-        "playtest",
-        "pregens",
-        "talent",
-        "taxonomy",
-        "weapon"
+        "playtest"
       ]
     }
   ],

@@ -32,6 +32,8 @@ export const COMPENDIUM_PACKS = {
   ancestry: "crucible.ancestry",
   archetype: "crucible.archetype",
   background: "crucible.background",
+  spell: "crucible.spells",
+  spellExtensions: null,
   talent: "crucible.talent",
   talentExtensions: null,
   taxonomy: "crucible.taxonomy"
