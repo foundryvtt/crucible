@@ -48,7 +48,7 @@ export default class CrucibleSpell extends CrucibleAction {
     this.gesture = SYSTEM.SPELL.GESTURES[this.gesture];
     this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
 
-    // Composed Spell Data
+    // Composed Spell
     if ( this.composition >= CrucibleSpell.COMPOSITION_STATES.COMPOSING ) {
       this.id = ["spell", this.rune.id, this.gesture.id, this.inflection?.id].filterJoin(".");
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
@@ -348,14 +348,32 @@ export default class CrucibleSpell extends CrucibleAction {
    * @param {object} spellData          Initial data for the spell
    * @returns {CrucibleSpell}           The constructed CrucibleSpell
    */
-  static getDefault(actor, spellData) {
+  static getDefault(actor, spellData={}) {
+
+    // Repeat Last Spell
+    const lastSpell = actor.flags.crucible.lastSpell;
+    if ( lastSpell ) {
+      try {
+        const last = this.fromId(lastSpell, {actor});
+        last._canUse([]);
+        return last;
+      } catch(err) {
+        console.warn(err);
+      }
+    }
+
+    // Cast New Spell
     const {runes, gestures} = actor.grimoire;
-    spellData = foundry.utils.mergeObject(spellData, {
-      rune: runes.first()?.id,
-      gesture: gestures.first()?.id,
+    const rune = runes.first()?.id;
+    const gesture = gestures.first()?.id;
+    Object.assign(spellData, {
+      id: `spell.${rune}.${gesture}`,
+      rune,
+      gesture,
       inflection: undefined,
-      composition: this.COMPOSITION_STATES.NONE
-    }, {inplace: false});
+      composition: this.COMPOSITION_STATES.NONE,
+      tags: ["spell"]
+    });
     return new this(spellData, {actor});
   }
 

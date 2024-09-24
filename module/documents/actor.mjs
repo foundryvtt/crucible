@@ -538,20 +538,9 @@ export default class CrucibleActor extends Actor {
       }
 
       // Create the action
-      const action = ad.tags.includes("spell")
-        ? CrucibleSpell.getDefault(this, ad)
-        : new CrucibleAction(ad, {actor: this});
+      const action = new CrucibleAction(ad, {actor: this});
       action._initialize({});
       this.actions[action.id] = action;
-    }
-
-    // Most recently cast spell
-    if ( this.actions.cast ) {
-      const spellId = this.getFlag("crucible", "lastSpell") || "";
-      if ( spellId ) {
-        const lastSpell = CrucibleSpell.fromId(spellId, {actor: this});
-        this.actions[lastSpell.id] = lastSpell;
-      }
     }
   }
 

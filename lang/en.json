@@ -501,8 +501,8 @@
 "DEFENSES.Reflex": "Reflex",
 "DEFENSES.Willpower": "Willpower",
 "DEFENSES.Physical": "Physical",
-"DEFENSES.Wounds": "Wounds Healing Threshold",
-"DEFENSES.Madness": "Madness Healing Threshold",
+"DEFENSES.Wounds": "Wounds",
+"DEFENSES.Madness": "Madness",
 
 "DICE.DiceTotal": "Dice Total",
 "DICE.AbilityBonus": "Ability Bonus",

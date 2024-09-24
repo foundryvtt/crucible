@@ -443,6 +443,7 @@ export const TAGS = {
         label: "Spell Tags",
         icon: "fa-solid fa-sparkles"
       });
+      this.usage.context.tags.clear();
       this.usage.context.tags.add(`Rune: ${this.rune.name}`);
       this.usage.context.tags.add(`Gesture: ${this.gesture.name}`);
       if ( this.inflection ) this.usage.context.tags.add(this.inflection.name);
@@ -456,6 +457,7 @@ export const TAGS = {
     },
     async roll(target, rolls) {
       this.usage.actorStatus.hasCast = true;
+      this.usage.actorFlags.lastSpell = this.id;
       const cast = await this.actor.castSpell(this, target);
       rolls.push(cast);
     }
@@ -794,7 +796,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     name: "Cast Spell",
     img: "icons/magic/air/air-smoke-casting.webp",
     description: "Weave arcana to create a work of spellcraft.",
-    tags: ["spell"],
+    tags: [],
     target: {
       type: "none",
     }

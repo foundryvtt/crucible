@@ -43,12 +43,12 @@ export default class SpellCastDialog extends ActionUseDialog {
 
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
-    if ( event.target.name === "component" ) {
-      this.action.usage = undefined;
+    super._onChangeForm(formConfig, event);
+    if ( ["rune", "gesture", "inflection"].includes(event.target.name) ) {
       this.action.updateSource({[event.target.name]: event.target.value});
       this._clearTargetTemplate();
+      this.render({window: {title: this.title}});
     }
-    return super._onChangeForm(formConfig, event);
   }
 
   /* -------------------------------------------- */

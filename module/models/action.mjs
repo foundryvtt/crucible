@@ -2,6 +2,7 @@ import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import ActionConfig from "../applications/config/action.mjs";
 
+
 /**
  * @typedef {Object} ActionContext
  * @property {string} type                  The type of context provided, i.e. "weapon", "spell", etc...
@@ -377,6 +378,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async use({token, ...options}={}) {
     if ( !this.actor ) throw new Error("A CrucibleAction may not be used unless it is bound to an Actor");
+
+    // Redirect to spellcasting
+    if ( this.id === "cast" ) {
+      const spell = crucible.api.models.CrucibleSpell.getDefault(this.actor);
+      return spell.use({token, ...options});
+    }
 
     // Infer the Token performing the Action
     if ( !token ) {
