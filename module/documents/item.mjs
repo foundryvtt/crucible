@@ -98,17 +98,10 @@ export default class CrucibleItem extends Item {
   /**
    * Provide an array of detail tags which are shown in each item description
    * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
-   * @returns {Object<string, string>}    The tags which describe this Item
+   * @returns {Record<string, string>}    The tags which describe this Item
    */
   getTags(scope="full") {
-    switch ( this.type ) {
-      case "armor":
-      case "talent":
-      case "weapon":
-        return this.system.getTags(scope);
-      default:
-        return {};
-    }
+    return this.system.getTags(scope) ?? {};
   }
 
   /* -------------------------------------------- */

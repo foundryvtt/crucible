@@ -295,6 +295,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
 
+    // Prepare Effects
+    for ( const effect of this.effects ) {
+      effect.name ||= this.name;
+      effect.img ||= this.img;
+      effect.tags = {
+        scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope)}`,
+        duration: effect.duration?.turns ? `${effect.duration.turns}R` : "Until Ended"
+      }
+    }
+
     // Reset bonuses
     Object.assign(this.usage.bonuses, {
       ability: 0,
@@ -1201,7 +1211,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Apply outcomes
     for ( const outcome of this.outcomes.values() ) {
-      await outcome.target.applyActionOutcome(outcome, {reverse});
+      await outcome.target.applyActionOutcome(this, outcome, {reverse});
     }
   }
 

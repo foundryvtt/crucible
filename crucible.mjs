@@ -81,6 +81,7 @@ Hooks.once("init", async function() {
     archetype: models.CrucibleArchetype,
     armor: models.CrucibleArmor,
     background: models.CrucibleBackground,
+    spell: models.CrucibleSpell,
     talent: models.CrucibleTalent,
     taxonomy: models.CrucibleTaxonomy,
     weapon: models.CrucibleWeapon
@@ -98,6 +99,7 @@ Hooks.once("init", async function() {
   Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});

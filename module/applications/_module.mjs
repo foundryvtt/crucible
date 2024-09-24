@@ -13,6 +13,7 @@ export {default as BackgroundSheet} from "./sheets/background.mjs";
 export {default as HeroSheet} from "./sheets/hero-sheet.mjs";
 export {default as CrucibleJournalSheet} from "./sheets/journal.mjs";
 export {default as SkillPageSheet} from "./sheets/skill.mjs";
+export {default as SpellSheet} from "./sheets/spell.mjs";
 export {default as TalentSheet} from "./sheets/talent.mjs";
 export {default as TaxonomySheet} from "./sheets/taxonomy.mjs";
 export {default as WeaponSheet} from "./sheets/weapon.mjs";

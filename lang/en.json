@@ -10,6 +10,7 @@
     "archetype": "Archetype",
     "armor": "Armor",
     "background": "Background",
+    "spell": "Iconic Spell",
     "taxonomy": "Taxonomy",
     "talent": "Talent",
     "weapon": "Weapon"
@@ -359,7 +360,8 @@
 "ACTION.TagUnarmedTooltip": "This action requires you to be fully unarmed in order to perform.",
 "ACTION.TagUnarmored": "Unarmored",
 "ACTION.TagUnarmoredTooltip": "This action requires you to be unarmored in order to perform.",
-
+"ACTION.TagIconicSpell": "Iconic Spell",
+"ACTION.TagIconicSpellTooltip": "This action is an Iconic Spell learned through mastery of its components.",
 "ACTION.TagTargetTooltip": "The target type, distance, and number which applies to this action.",
 "ACTION.TagCostTooltip": "The Action Point or Focus Point cost of using this action.",
 
@@ -686,72 +688,103 @@
   "TooltipPassive": "12 + Score"
 },
 
-"SPELL.ComponentRune": "Arcane Rune",
-"SPELL.ComponentRunePl": "Arcane Runes",
-"SPELL.ComponentGesture": "Somatic Gesture",
-"SPELL.ComponentGesturePl": "Somatic Gestures",
-"SPELL.ComponentInflection": "Metamagic Inflection",
-"SPELL.ComponentInflectionPl": "Metamagic Inflections",
-"SPELL.Signature": "Signature Spell",
-"SPELL.SignaturePl": "Signature Spells",
-"SPELL.DamageType": "Damage Type",
+"SPELL": {
+  "FIELDS": {
+    "description": {
+      "label": "Spell Description"
+    },
+    "actions": {
+      "label": "Granted Actions",
+      "hint": "Associate Actions which are available to characters which know this Iconic Spell."
+    },
+    "runes": {
+      "label": "Runes",
+      "hint": "The set of Runes which must be known in order to learn this Iconic Spell."
+    },
+    "gestures": {
+      "label": "Gestures",
+      "hint": "The set of Gestures which must be known in order to learn this Iconic Spell."
+    },
+    "inflections": {
+      "label": "Inflections",
+      "hint": "The set of Inflections which must be known in order to learn this Iconic Spell."
+    }
+  },
+  "SHEET": {
+    "KNOWLEDGE": "Required Knowledge"
+  },
 
-"SPELL.NameFormatNoun": "{gesture} of {rune}",
-"SPELL.NameFormatAdj": "{rune} {gesture}",
-
-"SPELL.RuneSpirit": "Spirit",
-"SPELL.RuneSpiritAdj": "Spirited",
-"SPELL.RuneDeath": "Death",
-"SPELL.RuneDeathAdj": "Deathly",
-"SPELL.RuneEarth": "Earth",
-"SPELL.RuneEarthAdj": "Earthen",
-"SPELL.RuneFlame": "Flame",
-"SPELL.RuneFlameAdj": "Flaming",
-"SPELL.RuneFrost": "Frost",
-"SPELL.RuneFrostAdj": "Icy",
-"SPELL.RuneIllumination": "Illumination",
-"SPELL.RuneIlluminationAdj": "Illuminated",
-"SPELL.RuneKinesis": "Kinesis",
-"SPELL.RuneKinesisAdj": "Kinetic",
-"SPELL.RuneLife": "Life",
-"SPELL.RuneLifeAdj": "Vital",
-"SPELL.RuneLightning": "Lightning",
-"SPELL.RuneLightningAdj": "Voltaic",
-"SPELL.RuneControl": "Control",
-"SPELL.RuneControlAdj": "Controlling",
-"SPELL.RuneShadow": "Shadow",
-"SPELL.RuneShadowAdj": "Umbral",
-"SPELL.RuneStasis": "Stasis",
-"SPELL.RuneStasisAdj": "Static",
-
-"SPELL.GestureArrow": "Arrow",
-"SPELL.GestureAspect": "Aspect",
-"SPELL.GestureCreate": "Creation",
-"SPELL.GestureFan": "Fan",
-"SPELL.GestureInfluence": "Influence",
-"SPELL.GesturePulse": "Pulse",
-"SPELL.GestureRay": "Ray",
-"SPELL.GestureStep": "Step",
-"SPELL.GestureStrike": "Strike",
-"SPELL.GestureTouch": "Touch",
-"SPELL.GestureWard": "Ward",
-
-"SPELL.MetamagicCompose": "Compose",
-"SPELL.MetamagicComposeAdj": "Composed",
-"SPELL.MetamagicDetermine": "Determine",
-"SPELL.MetamagicDetermineAdj": "Determined",
-"SPELL.MetamagicExtend": "Extend",
-"SPELL.MetamagicExtendAdj": "Extended",
-"SPELL.MetamagicElude": "Elude",
-"SPELL.MetamagicEludeAdj": "Eluding",
-"SPELL.MetamagicNegate": "Negate",
-"SPELL.MetamagicNegateAdj": "Negated",
-"SPELL.MetamagicPull": "Pull",
-"SPELL.MetamagicPullAdj": "Attractive",
-"SPELL.MetamagicPush": "Push",
-"SPELL.MetamagicPushAdj": "Repellent",
-"SPELL.MetamagicQuicken": "Quicken",
-"SPELL.MetamagicQuickenAdj": "Quickened",
+  "Iconic": "Iconic Spell",
+  "IconicPl": "Iconic Spells",
+  "DamageType": "Damage Type",
+  "NameFormatNoun": "{gesture} of {rune}",
+  "NameFormatAdj": "{rune} {gesture}",
+  "COMPONENTS": {
+    "Rune": "Arcane Rune",
+    "RunePl": "Arcane Runes",
+    "Gesture": "Somatic Gesture",
+    "GesturePl": "Somatic Gestures",
+    "Inflection": "Metamagic Inflection",
+    "InflectionPl": "Metamagic Inflections"
+  },
+  "RUNES": {
+    "Spirit": "Spirit",
+    "SpiritAdj": "Spirited",
+    "Death": "Death",
+    "DeathAdj": "Deathly",
+    "Earth": "Earth",
+    "EarthAdj": "Earthen",
+    "Flame": "Flame",
+    "FlameAdj": "Flaming",
+    "Frost": "Frost",
+    "FrostAdj": "Icy",
+    "Illumination": "Illumination",
+    "IlluminationAdj": "Illuminated",
+    "Kinesis": "Kinesis",
+    "KinesisAdj": "Kinetic",
+    "Life": "Life",
+    "LifeAdj": "Vital",
+    "Lightning": "Lightning",
+    "LightningAdj": "Voltaic",
+    "Control": "Control",
+    "ControlAdj": "Controlling",
+    "Shadow": "Shadow",
+    "ShadowAdj": "Umbral",
+    "Stasis": "Stasis",
+    "StasisAdj": "Static"
+  },
+  "GESTURES": {
+    "Arrow": "Arrow",
+    "Aspect": "Aspect",
+    "Create": "Creation",
+    "Fan": "Fan",
+    "Influence": "Influence",
+    "Pulse": "Pulse",
+    "Ray": "Ray",
+    "Step": "Step",
+    "Strike": "Strike",
+    "Touch": "Touch",
+    "Ward": "Ward"
+  },
+  "INFLECTIONS": {
+    "Compose": "Compose",
+    "ComposeAdj": "Composed",
+    "Determine": "Determine",
+    "DetermineAdj": "Determined",
+    "Extend": "Extend",
+    "ExtendAdj": "Extended",
+    "Elude": "Elude",
+    "EludeAdj": "Eluding",
+    "Negate": "Negate",
+    "NegateAdj": "Negated",
+    "Pull": "Pull",
+    "PullAdj": "Attractive",
+    "Push": "Push",
+    "PushAdj": "Repellent",
+    "Quicken": "Quicken",
+    "QuickenAdj": "Quickened"
+  }
+},
 
 "TALENT": {
   "FIELDS": {

@@ -11,7 +11,7 @@ export const NAME_FORMATS = Object.freeze({
 export const RUNES = Object.seal({
   death: {
     id: "death",
-    name: "SPELL.RuneDeath",
+    name: "SPELL.RUNES.Death",
     img: "icons/magic/unholy/hand-claw-fire-blue.webp",
     resource: "health",
     damageType: "corruption",
@@ -22,7 +22,7 @@ export const RUNES = Object.seal({
   },
   earth: {
     id: "earth",
-    name: "SPELL.RuneEarth",
+    name: "SPELL.RUNES.Earth",
     img: "icons/magic/earth/projectile-boulder-debris.webp",
     resource: "health",
     damageType: "acid",
@@ -33,7 +33,7 @@ export const RUNES = Object.seal({
   },
   flame: {
     id: "flame",
-    name: "SPELL.RuneFlame",
+    name: "SPELL.RUNES.Flame",
     img: "icons/magic/fire/barrier-wall-flame-ring-yellow.webp",
     resource: "health",
     damageType: "fire",
@@ -44,7 +44,7 @@ export const RUNES = Object.seal({
   },
   frost: {
     id: "frost",
-    name: "SPELL.RuneFrost",
+    name: "SPELL.RUNES.Frost",
     img: "icons/magic/water/snowflake-ice-snow-white.webp",
     resource: "health",
     damageType: "cold",
@@ -55,7 +55,7 @@ export const RUNES = Object.seal({
   },
   illumination: {
     id: "illumination",
-    name: "SPELL.RuneIllumination",
+    name: "SPELL.RUNES.Illumination",
     img: "icons/magic/light/projectile-beam-yellow.webp",
     resource: "health",
     damageType: "radiant",
@@ -66,7 +66,7 @@ export const RUNES = Object.seal({
   },
   kinesis: {
     id: "kinesis",
-    name: "SPELL.RuneKinesis",
+    name: "SPELL.RUNES.Kinesis",
     img: "icons/magic/movement/pinwheel-turning-blue.webp",
     resource: "health",
     damageType: "physical",
@@ -77,7 +77,7 @@ export const RUNES = Object.seal({
   },
   life: {
     id: "life",
-    name: "SPELL.RuneLife",
+    name: "SPELL.RUNES.Life",
     img: "icons/magic/life/heart-shadow-red.webp",
     resource: "health",
     restoration: true,
@@ -89,7 +89,7 @@ export const RUNES = Object.seal({
   },
   lightning: {
     id: "lightning",
-    name: "SPELL.RuneLightning",
+    name: "SPELL.RUNES.Lightning",
     img: "icons/magic/lightning/bolt-strike-blue.webp",
     resource: "health",
     damageType: "electricity",
@@ -100,7 +100,7 @@ export const RUNES = Object.seal({
   },
   control: {
     id: "control",
-    name: "SPELL.RuneControl",
+    name: "SPELL.RUNES.Control",
     img: "icons/magic/control/hypnosis-mesmerism-eye.webp",
     resource: "morale",
     damageType: "psychic",
@@ -111,7 +111,7 @@ export const RUNES = Object.seal({
   },
   shadow: {
     id: "shadow",
-    name: "SPELL.RuneShadow",
+    name: "SPELL.RUNES.Shadow",
     img: "icons/magic/unholy/orb-rays-blue.webp",
     resource: "morale",
     damageType: "void",
@@ -122,7 +122,7 @@ export const RUNES = Object.seal({
   },
   spirit: {
     id: "spirit",
-    name: "SPELL.RuneSpirit",
+    name: "SPELL.RUNES.Spirit",
     img: "icons/magic/control/fear-fright-white.webp",
     resource: "morale",
     restoration: true,
@@ -134,7 +134,7 @@ export const RUNES = Object.seal({
   },
   stasis: {
     id: "stasis",
-    name: "SPELL.RuneStasis",
+    name: "SPELL.RUNES.Stasis",
     img: "icons/magic/time/clock-spinning-gold-pink.webp",
     resource: "morale",
     damageType: "physical",
@@ -153,7 +153,7 @@ export const RUNES = Object.seal({
 export const GESTURES = Object.seal({
   arrow: {
     id: "arrow",
-    name: "SPELL.GestureArrow",
+    name: "SPELL.GESTURES.Arrow",
     cost: {
       action: 3,
       focus: 1
@@ -174,7 +174,7 @@ export const GESTURES = Object.seal({
   },
   aspect: {
     id: "aspect",
-    name: "SPELL.GestureAspect",
+    name: "SPELL.GESTURES.Aspect",
     cost: {
       action: 2,
       focus: 1
@@ -189,7 +189,7 @@ export const GESTURES = Object.seal({
   },
   create: {
     id: "create",
-    name: "SPELL.GestureCreate",
+    name: "SPELL.GESTURES.Create",
     cost: {
       action: 4,
       focus: 1
@@ -207,7 +207,7 @@ export const GESTURES = Object.seal({
   },
   fan: {
     id: "fan",
-    name: "SPELL.GestureFan",
+    name: "SPELL.GESTURES.Fan",
     cost: {
       action: 3,
       focus: 1
@@ -227,7 +227,7 @@ export const GESTURES = Object.seal({
   },
   influence: {
     id: "influence",
-    name: "SPELL.GestureInfluence",
+    name: "SPELL.GESTURES.Influence",
     cost: {
       action: 3,
       focus: 1
@@ -248,7 +248,7 @@ export const GESTURES = Object.seal({
   },
   pulse: {
     id: "pulse",
-    name: "SPELL.GesturePulse",
+    name: "SPELL.GESTURES.Pulse",
     cost: {
       action: 4,
       focus: 1
@@ -269,7 +269,7 @@ export const GESTURES = Object.seal({
   },
   ray: {
     id: "ray",
-    name: "SPELL.GestureRay",
+    name: "SPELL.GESTURES.Ray",
     cost: {
       action: 4,
       focus: 1
@@ -290,7 +290,7 @@ export const GESTURES = Object.seal({
   },
   step: {
     id: "step",
-    name: "SPELL.GestureStep",
+    name: "SPELL.GESTURES.Step",
     cost: {
       action: 1,
       focus: 1
@@ -313,7 +313,7 @@ export const GESTURES = Object.seal({
   },
   strike: {
     id: "strike",
-    name: "SPELL.GestureStrike",
+    name: "SPELL.GESTURES.Strike",
     cost: {
       action: 0,
       focus: 1,
@@ -335,7 +335,7 @@ export const GESTURES = Object.seal({
   },
   touch: {
     id: "touch",
-    name: "SPELL.GestureTouch",
+    name: "SPELL.GESTURES.Touch",
     img: "icons/magic/light/hand-sparks-smoke-teal.webp",
     description: "<p>Touch is one of the most universal somatic gestures. This gesture is easily performed and is typically the first gesture learned by novice spellcasters.</p><p>Touch-based spells cause a small amount of damage or healing, but can be performed quickly requiring less Action than more complex gestures.</p>",
     cost: {
@@ -357,7 +357,7 @@ export const GESTURES = Object.seal({
   },
   ward: {
     id: "ward",
-    name: "SPELL.GestureWard",
+    name: "SPELL.GESTURES.Ward",
     cost: {
       action: 2,
       focus: 1
@@ -382,7 +382,7 @@ export const GESTURES = Object.seal({
 export const INFLECTIONS = Object.seal({
   compose: {
     id: "compose",
-    name: "SPELL.MetamagicCompose",
+    name: "SPELL.INFLECTIONS.Compose",
     cost: {
       action: 1,
       focus: -1
@@ -391,7 +391,7 @@ export const INFLECTIONS = Object.seal({
   },
   determine: {
     id: "determine",
-    name: "SPELL.MetamagicDetermine",
+    name: "SPELL.INFLECTIONS.Determine",
     cost: {
       focus: 1
     },
@@ -399,7 +399,7 @@ export const INFLECTIONS = Object.seal({
   },
   quicken: {
     id: "quicken",
-    name: "SPELL.MetamagicQuicken",
+    name: "SPELL.INFLECTIONS.Quicken",
     cost: {
       action: -1,
       focus: 1
@@ -408,7 +408,7 @@ export const INFLECTIONS = Object.seal({
   },
   extend: {
     id: "extend",
-    name: "SPELL.MetamagicExtend",
+    name: "SPELL.INFLECTIONS.Extend",
     cost: {
       action: 1,
       focus: 1
@@ -417,7 +417,7 @@ export const INFLECTIONS = Object.seal({
   },
   eluding: {
     id: "eluding",
-    name: "SPELL.MetamagicElude",
+    name: "SPELL.INFLECTIONS.Elude",
     cost: {
       focus: 1
     },
@@ -425,7 +425,7 @@ export const INFLECTIONS = Object.seal({
   },
   negate: {
     id: "negate",
-    name: "SPELL.MetamagicNegate",
+    name: "SPELL.INFLECTIONS.Negate",
     cost: {
       focus: 1
     },
@@ -433,7 +433,7 @@ export const INFLECTIONS = Object.seal({
   },
   pull: {
     id: "pull",
-    name: "SPELL.MetamagicPull",
+    name: "SPELL.INFLECTIONS.Pull",
     cost: {
       focus: 1
     },
@@ -441,7 +441,7 @@ export const INFLECTIONS = Object.seal({
   },
   push: {
     id: "push",
-    name: "SPELL.MetamagicPush",
+    name: "SPELL.INFLECTIONS.Push",
     cost: {
       focus: 1
     },

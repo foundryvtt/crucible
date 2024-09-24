@@ -190,7 +190,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 
-  .icon {
+  img.icon {
     height: var(--icon-size);
     width: var(--icon-size);
     flex: none;
@@ -247,9 +247,21 @@
     display: flex;
     gap: 0.25rem;
     align-items: center;
-    .control {
-      font-size: var(--font-size-10);
-      padding: 0.25rem;
+  }
+  .button.icon {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-size-10);
+    padding: 0.25rem;
+  }
+
+  /** Applied Effects */
+  .effects {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    .effect {
+      --icon-size: 24px;
     }
   }
 

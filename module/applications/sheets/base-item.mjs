@@ -224,13 +224,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       condition: action.condition,
       description: action.description,
       tags: action.getTags(),
-      effects: action.effects.map(effect => ({
-        name: action.name,
-        tags: {
-          scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || action.target.scope)}`,
-          duration: effect.duration?.rounds ? `${effect.duration.rounds}R` : "Until Ended"
-        }
-      }))
+      effects: action.effects
     }));
   }
 

@@ -4,7 +4,7 @@
  * @returns {string}        The standardized ID
  */
 export function getEffectId(label) {
-  return label.slugify({replacement: "", strict: true}).slice(0, 16).padEnd(16, "0");
+  return label.slugify({replacement: "", lowercase: false, strict: true}).slice(0, 16).padEnd(16, "0");
 }
 
 export function bleeding(actor, target, {ability="dexterity", damageType="piercing"}={}) {

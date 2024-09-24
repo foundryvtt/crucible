@@ -463,6 +463,13 @@ export const TAGS = {
     }
   },
 
+  // Iconic Spell
+  iconicSpell: {
+    tag: "iconicSpell",
+    label: "ACTION.TagIconicSpell",
+    tooltip: "ACTION.TagSpellTooltip"
+  },
+
   summon: {
     tag: "summon",
     label: "ACTION.TagSummon",

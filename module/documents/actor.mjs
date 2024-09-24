@@ -234,7 +234,7 @@ export default class CrucibleActor extends Actor {
    * Talent hook functions which apply to this Actor based on their set of owned Talents.
    * @type {Object<string, {talent: CrucibleTalent, fn: Function}[]>}
    */
-  talentHooks = {};
+  actorHooks = {};
 
   /**
    * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
@@ -267,10 +267,11 @@ export default class CrucibleActor extends Actor {
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
     const items = this.itemTypes;
-    this._prepareTalents(items);
+    CrucibleActor.#prepareTalents.call(this, items.talent);
+    CrucibleActor.#prepareSpells.call(this, items.spell);
     this._prepareEffects();
-    this.training = CrucibleActor.#prepareTraining(this);
-    this.equipment = this._prepareEquipment(items);
+    this.training = CrucibleActor.#prepareTraining.call(this);
+    this.equipment = CrucibleActor.#prepareEquipment.call(this, items);
     CrucibleActor.#prepareActions.call(this);
   };
 
@@ -278,10 +279,10 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Compute the levels of equipment training that an Actor has.
-   * @param {CrucibleActor} actor       The Actor being prepared
+   * @this {CrucbileActor}
    * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
    */
-  static #prepareTraining(actor) {
+  static #prepareTraining() {
     const training = {
       unarmed: 0,
       heavy: 0,
@@ -291,9 +292,9 @@ export default class CrucibleActor extends Actor {
       mechanical: 0,
       shield: 0,
       talisman: 0,
-      natural: Math.clamp(Math.floor((actor.system.advancement.level + 1) / 4), 0, 3) // TODO temporary
+      natural: Math.clamp(Math.floor((this.system.advancement.level + 1) / 4), 0, 3) // TODO temporary
     };
-    actor.callTalentHooks("prepareTraining", training);
+    this.callActorHooks("prepareTraining", training);
     return training;
   }
 
@@ -301,10 +302,14 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Classify the Items in the Actor's inventory to identify current equipment.
+   * @this {CrucibleActor}
+   * @param {object} items
+   * @param {CrucibleItem[]} items.armor
+   * @param {CrucibleItem[]} items.weapon
+   * @param {CrucibleItem[]} items.accessory
    * @returns {ActorEquipment}
-   * @private
    */
-  _prepareEquipment({armor, weapon, accessory}={}) {
+  static #prepareEquipment({armor, weapon, accessory}={}) {
     const equipment = {
       armor: this._prepareArmor(armor),
       weapons: this._prepareWeapons(weapon),
@@ -510,9 +515,21 @@ export default class CrucibleActor extends Actor {
   static #prepareActions() {
     this.actions = {};
     CrucibleActor.#prepareDefaultActions.call(this);
-    CrucibleActor.#prepareTalentActions.call(this);
-    CrucibleActor.#prepareEquipmentActions.call(this);
-    this.callTalentHooks("prepareActions", this.actions);
+    for ( const item of this.items ) {
+      switch ( item.type ) {
+        case "talent":
+          CrucibleActor.#registerItemActions.call(this, item);
+          break;
+        case "weapon":
+        case "armor":
+          if ( item.system.equipped ) CrucibleActor.#registerItemActions.call(this, item);
+          break;
+        case "spell":
+          CrucibleActor.#registerItemActions.call(this, item);
+          break;
+      }
+    }
+    this.callActorHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
@@ -547,31 +564,13 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare actions which are provided via a talent.
+   * Register and bind Actions provided by an Item.
    * @this {CrucibleActor}
+   * @param {CrucibleItem} item
    */
-  static #prepareTalentActions() {
-    const talents = this.itemTypes.talent;
-    for ( let talent of talents ) {
-      for ( const action of talent.actions ) {
-        this.actions[action.id] = action.bind(this);
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare actions provided via equipped items.
-   * @this {CrucibleActor}
-   */
-  static #prepareEquipmentActions() {
-    const {weapons, armor} = this.equipment;
-    for ( const item of [armor, weapons.mainhand, weapons.offhand] ) {
-      if ( !item ) continue;
-      for ( const action of item.actions ) {
-        this.actions[action.id] = action.bind(this);
-      }
+  static #registerItemActions(item) {
+    for ( const action of item.actions ) {
+      this.actions[action.id] = action.bind(this);
     }
   }
 
@@ -592,11 +591,12 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Prepare owned Talent items that the Actor has unlocked
-   * @private
+   * @this {CrucibleActor}
+   * @param {CrucibleItem[]} talents
    */
-  _prepareTalents({talent}={}) {
+  static #prepareTalents(talents) {
     this.talentIds = new Set();
-    this.talentHooks = {};
+    this.actorHooks = {};
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set()};
     const details = this.system.details;
     const signatureNames = [];
@@ -612,11 +612,11 @@ export default class CrucibleActor extends Actor {
     }
 
     // Iterate over talents
-    for ( const t of talent ) {
+    for ( const t of talents ) {
       this.talentIds.add(t.id);
 
       // Register hooks
-      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerTalentHook(this, t, hook);
+      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
 
       // Register signatures
       if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
@@ -645,6 +645,20 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare iconic spells.
+   * @this {CrucibleActor}
+   * @param {CrucibleItem[]} spells
+   */
+  static #prepareSpells(spells) {
+    for ( const spell of spells ) {
+      spell.system.isKnown = spell.system._prepareIsKnown();
+      for ( const hook of spell.system.actorHooks ) CrucibleActor.#registerActorHook(this, spell, hook);
+    }
+  }
+
+  /* -------------------------------------------- */
   /*  Talent Hooks                                */
   /* -------------------------------------------- */
 
@@ -657,25 +671,25 @@ export default class CrucibleActor extends Actor {
    * @param {string} data.fn          The hook function
    * @private
    */
-  static #registerTalentHook(actor, talent, {hook, fn}={}) {
+  static #registerActorHook(actor, talent, {hook, fn}={}) {
     const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
-    actor.talentHooks[hook] ||= [];
-    actor.talentHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
+    actor.actorHooks[hook] ||= [];
+    actor.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Call all talent hooks registered for a certain event name.
+   * Call all actor hooks registered for a certain event name.
    * Each registered function is called in sequence.
    * @param {string} hook     The hook name to call.
    * @param {...*} args       Arguments passed to the hooked function
    */
-  callTalentHooks(hook, ...args) {
+  callActorHooks(hook, ...args) {
     const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
-    const hooks = this.talentHooks[hook] ||= [];
+    const hooks = this.actorHooks[hook] ||= [];
     for ( const {talent, fn} of hooks ) {
       console.debug(`Calling ${hook} hook for Talent ${talent.name}`);
       try {
@@ -826,8 +840,8 @@ export default class CrucibleActor extends Actor {
     if ( banes ) rollData.banes.special = {label: "Special", number: banes};
 
     // Apply talent hooks
-    this.callTalentHooks("prepareStandardCheck", rollData);
-    this.callTalentHooks("prepareSkillCheck", skill, rollData);
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareSkillCheck", skill, rollData);
 
     // Create the check roll
     const sc = new StandardCheck(rollData);
@@ -954,9 +968,9 @@ export default class CrucibleActor extends Actor {
     }
 
     // Call talent hooks
-    this.callTalentHooks("prepareStandardCheck", rollData);
-    this.callTalentHooks("prepareSpellAttack", spell, target, rollData);
-    target.callTalentHooks("defendSpellAttack", spell, this, rollData);
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareSpellAttack", spell, target, rollData);
+    target.callActorHooks("defendSpellAttack", spell, this, rollData);
 
     // Create the Attack Roll instance
     const roll = new AttackRoll(rollData);
@@ -1011,9 +1025,9 @@ export default class CrucibleActor extends Actor {
     });
 
     // Apply talent hooks
-    this.callTalentHooks("prepareStandardCheck", rollData);
-    this.callTalentHooks("prepareSkillAttack", action, target, rollData);
-    target.callTalentHooks("defendSkillAttack", action, this, rollData);
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareSkillAttack", action, target, rollData);
+    target.callActorHooks("defendSkillAttack", action, this, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);
@@ -1071,9 +1085,9 @@ export default class CrucibleActor extends Actor {
     }
 
     // Call talent hooks
-    this.callTalentHooks("prepareStandardCheck", rollData);
-    this.callTalentHooks("prepareWeaponAttack", action, target, rollData);
-    target.callTalentHooks("defendWeaponAttack", action, this, rollData);
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareWeaponAttack", action, target, rollData);
+    target.callActorHooks("defendWeaponAttack", action, this, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -1259,14 +1273,21 @@ export default class CrucibleActor extends Actor {
   /**
    * Deal damage to a target. This method requires ownership of the target Actor.
    * Applies resource changes to both the initiating Actor and to affected Targets.
+   * @param {CrucibleAction} action             The Action being applied
    * @param {CrucibleActionOutcome} outcome     The Action outcome
    * @param {object} [options]                  Options which affect how damage is applied
    * @param {boolean} [options.reverse]           Reverse damage instead of applying it
    */
-  async applyActionOutcome(outcome, {reverse=false}={}) {
+  async applyActionOutcome(action, outcome, {reverse=false}={}) {
     const wasWeakened = this.isWeakened;
     const wasBroken = this.isBroken;
     const wasIncapacitated = this.isIncapacitated;
+
+    // Prune effects if the attack was unsuccessful
+    if ( !reverse && outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) outcome.effects.length = 0;
+
+    // Call applyActionOutcome actor hooks
+    this.callActorHooks("applyActionOutcome", action, outcome, {reverse});
 
     // Apply changes to the Actor
     await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse});
@@ -1276,6 +1297,7 @@ export default class CrucibleActor extends Actor {
     if ( this.isWeakened && !wasWeakened ) outcome.weakened = true;
     if ( this.isBroken && !wasBroken ) outcome.broken = true;
     if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
+
   }
 
   /* -------------------------------------------- */
@@ -1298,17 +1320,17 @@ export default class CrucibleActor extends Actor {
       return;
     }
 
-    // Don't apply effects if there was not a successful roll
-    if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return;
-
     // Create new effects or update existing ones
     const toCreate = [];
     const toUpdate = [];
+    const toDelete = [];
     for ( const effectData of outcome.effects ) {
       const existing = this.effects.get(effectData._id);
-      if ( existing ) toUpdate.push(effectData);
+      if ( existing && effectData._delete ) toDelete.push(effectData._id);
+      else if ( existing ) toUpdate.push(effectData);
       else toCreate.push(effectData);
     }
+    await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
     await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
   }
@@ -1325,7 +1347,7 @@ export default class CrucibleActor extends Actor {
     for ( const outcome of outcomes.values() ) {
       if ( outcome === self ) continue;
       if ( outcome.criticalSuccess ) {
-        this.callTalentHooks("applyCriticalEffects", action, outcome, self);
+        this.callActorHooks("applyCriticalEffects", action, outcome, self);
       }
     }
   }

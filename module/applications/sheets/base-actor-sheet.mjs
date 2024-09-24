@@ -132,7 +132,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /** @override */
   async _prepareContext(options) {
     const tabGroups = this.#getTabs();
-    const {inventory, talents} = this.#prepareItems();
+    const {inventory, talents, iconicSpells} = this.#prepareItems();
     const {sections: actions, favorites: favoriteActions} = this.#prepareActions();
     return {
       abilityScores: this.#prepareAbilities(),
@@ -154,7 +154,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       resources: this.#prepareResources(),
       skillCategories: this.#prepareSkills(),
       source: this.document.toObject(),
-      spells: this.#prepareSpells(),
+      spells: this.#prepareSpells(iconicSpells),
       tabGroups,
       tabs: tabGroups.sheet,
       talents
@@ -324,7 +324,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       inventory: {
         equipment: {label: "Equipment", items: [], empty: game.i18n.localize("ACTOR.LABELS.EQUIPMENT_HINT")},
         backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
-      }
+      },
+      iconicSpells: {label: game.i18n.localize("SPELL.IconicPl"), items: []}
     };
 
     // Iterate over items and organize them
@@ -355,6 +356,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           else if ( spellComp ) section ||= sections.talents.spell;
           else section ||= sections.talents.passive;
           break;
+        case "spell":
+          d.isItem = true;
+          section = sections.iconicSpells;
+          break;
       }
       if ( section ) section.items.push(d);
     }
@@ -380,12 +385,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareActions() {
     const sections = {
-      general: {label: "General Actions", actions: []},
-      movement: {label: "Movement Actions", actions: []},
-      melee: {label: "Melee Actions", actions: []},
-      ranged: {label: "Ranged Actions", actions: []},
+      attack: {label: "Attack Actions", actions: []},
       spell: {label: "Spellcraft Actions", actions: []},
-      reaction: {label: "Reactions", actions: []}
+      reaction: {label: "Reactions", actions: []},
+      movement: {label: "Movement Actions", actions: []},
+      general: {label: "General Actions", actions: []}
     };
     const combatant = game.combat?.getCombatantByActor(this.actor);
     const favorites = [];
@@ -404,10 +408,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
       // Classify actions
       let section = "general";
-      const sectionPriority = ["reaction", "spell", "movement", "ranged", "melee"];
-      for ( const p of sectionPriority ) {
-        if ( action.tags.has(p) ) {
-          section = p;
+      const tagMapping = {
+        reaction: "reaction",
+        spell: "spell",
+        iconicSpell: "spell",
+        movement: "movement",
+        melee: "attack",
+        ranged: "attack"
+      };
+      for ( const [tag, sectionId] of Object.entries(tagMapping) ) {
+        if ( action.tags.has(tag) ) {
+          section = sectionId;
           break;
         }
       }
@@ -497,20 +508,36 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Format categories of the spells tab.
+   * @param {{label: string, items: CrucibleItem[]}} iconicSpells
    * @returns {{
    *  runes: {label: string, known: Set<CrucibleRune>},
    *  inflections: {label: string, known: Set<CrucibleInflection>},
    *  gestures: {label: string, known: Set<CrucibleGesture>}
    * }}
    */
-  #prepareSpells() {
+  #prepareSpells(iconicSpells) {
     const spells = {
-      runes: {label: game.i18n.localize("SPELL.ComponentRunePl")},
-      gestures: {label: game.i18n.localize("SPELL.ComponentGesturePl")},
-      inflections: {label: game.i18n.localize("SPELL.ComponentInflectionPl")},
-      signature: {label: game.i18n.localize("SPELL.SignaturePl")},
+      runes: {label: game.i18n.localize("SPELL.COMPONENTS.RunePl")},
+      gestures: {label: game.i18n.localize("SPELL.COMPONENTS.GesturePl")},
+      inflections: {label: game.i18n.localize("SPELL.COMPONENTS.InflectionPl")},
+      iconicSpells: {label: iconicSpells.label, known: iconicSpells.items}
     }
     for ( const [k, v] of Object.entries(this.actor.grimoire) ) spells[k].known = v;
+
+    // Available Iconic Slots
+    const iconicSlots = 0; // TODO have this be based on your purchased talents.
+    if ( iconicSlots > iconicSpells.items.length ) {
+      for ( let i=iconicSpells.items.length; i<iconicSlots; i++ ) {
+        spells.iconicSpells.known.push({
+          id: `iconicSlot${i}`,
+          name: "Available Slot",
+          img: "icons/magic/symbols/question-stone-yellow.webp",
+          cssClass: "iconic-slot",
+          tags: {},
+          isItem: false
+        });
+      }
+    }
     return spells;
   }
 

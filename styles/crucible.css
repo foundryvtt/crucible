@@ -631,8 +631,9 @@
   /** Optional Full-Width Header */
   /** Description */
   /** Controls */
+  /** Applied Effects */
 }
-.crucible .line-item .icon {
+.crucible .line-item img.icon {
   height: var(--icon-size);
   width: var(--icon-size);
   flex: none;
@@ -684,9 +685,19 @@
   gap: 0.25rem;
   align-items: center;
 }
-.crucible .line-item .controls .control {
+.crucible .line-item .button.icon {
+  width: 24px;
+  height: 24px;
   font-size: var(--font-size-10);
   padding: 0.25rem;
+}
+.crucible .line-item .effects {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.crucible .line-item .effects .effect {
+  --icon-size: 24px;
 }
 .crucible .line-item.hook textarea {
   font-family: monospace;
@@ -1509,6 +1520,7 @@
 .crucible.sheet.actor .tab.skills .ranks {
   flex: 0 0 170px;
   justify-content: center;
+  gap: 4px;
 }
 .crucible.sheet.actor .tab.skills .pips {
   flex: 0 0 80px;
@@ -2298,10 +2310,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-#crucible-talent-hud .effects {
-  margin: 0;
-  padding: 0;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Controls                        */

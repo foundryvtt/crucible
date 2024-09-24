@@ -107,6 +107,10 @@ export const ACTOR_HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
+  applyActionOutcome: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "outcome", "options"]
+  },
 
   // Data Preparation
   prepareActions: {

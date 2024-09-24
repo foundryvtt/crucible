@@ -167,20 +167,20 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
 
     // Resource pools
     this._prepareResources();
-    this.parent.callTalentHooks("prepareResources", this.resources);
+    this.parent.callActorHooks("prepareResources", this.resources);
 
     // Defenses
     this.#prepareDefenses();
-    this.parent.callTalentHooks("prepareDefenses", this.defenses);
+    this.parent.callActorHooks("prepareDefenses", this.defenses);
     this.#prepareTotalDefenses();
 
     // Resistances
-    this.parent.callTalentHooks("prepareResistances", this.resistances);
+    this.parent.callActorHooks("prepareResistances", this.resistances);
     this.#prepareTotalResistances();
 
     // Movement
     this._prepareMovement();
-    this.parent.callTalentHooks("prepareMovement", this.movement);
+    this.parent.callActorHooks("prepareMovement", this.movement);
   }
 
   /* -------------------------------------------- */
