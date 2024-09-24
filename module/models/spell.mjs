@@ -63,6 +63,7 @@ export default class CrucibleSpell extends CrucibleAction {
     this.defense = CrucibleSpell.#prepareDefense.call(this);
     this.damage = CrucibleSpell.#prepareDamage.call(this);
     this.target = CrucibleSpell.#prepareTarget.call(this);
+    this.range = this.gesture.range;
   }
 
   /* -------------------------------------------- */
@@ -170,8 +171,8 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @inheritDoc */
   _prepare() {
-    super._prepare();
     CrucibleSpell.#prepareGesture.call(this);
+    super._prepare();
 
     // Blood Magic
     if ( this.actor.talentIds.has("bloodmagic000000") ) {
@@ -204,13 +205,8 @@ export default class CrucibleSpell extends CrucibleAction {
       /*  Gesture: Arrow                              */
       /* -------------------------------------------- */
       case "arrow":
-
-        // Weapon range
-        if ( mh.config.category.ranged ) this.range.maximum = mh.system.range;
-
-        // Arcane Archer Signature
         if ( t.has("arcanearcher0000") && mh.config.category.ranged ) {
-          this.range.maximum = Math.max(this.range.maximum, mh.system.range);
+          this.range.weapon = true;
           this.cost.hands = 0;
           if ( s.rangedAttack && !s.arcaneArcher ) {
             this.cost.action -= 1;
@@ -249,12 +245,7 @@ export default class CrucibleSpell extends CrucibleAction {
       /* -------------------------------------------- */
       case "strike":
         this.tags.add("melee");
-
-        // Weapon range
-        if ( mh.config.category.melee ) this.range.maximum = mh.system.range;
-
-        // Weapon scaling and bonus damage
-        this.scaling = new Set([...mh.config.category.scaling.split("."), this.rune.scaling]);
+        this.scaling = new Set(mh.config.category.scaling.split("."));
         this.damage.bonus = mh.system.damage.bonus;
 
         // Spellblade Signature
@@ -280,7 +271,7 @@ export default class CrucibleSpell extends CrucibleAction {
         if ( t.has("shieldward000000") && e.weapons.shield ) this.cost.hands = 0;
 
         // Configure Ward effect
-        let resistance = 6;
+        let resistance = this.gesture.damage.base;
         if ( this.actor.talentIds.has("runewarden000000") ) {
           resistance += Math.ceil(this.actor.abilities.wisdom.value / 2);
         }

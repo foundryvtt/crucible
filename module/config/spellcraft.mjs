@@ -155,18 +155,20 @@ export const GESTURES = Object.seal({
     id: "arrow",
     name: "SPELL.GestureArrow",
     cost: {
-      action: 2,
+      action: 3,
       focus: 1
     },
     damage: {
-      base: 10
+      base: 8
     },
     hands: 1,
+    range: {
+      maximum: 60
+    },
     scaling: "intellect",
     target: {
       type: "single",
-      number: 1,
-      distance: 10
+      number: 1
     },
     tier: 1
   },
@@ -189,15 +191,17 @@ export const GESTURES = Object.seal({
     id: "create",
     name: "SPELL.GestureCreate",
     cost: {
-      action: 2,
+      action: 4,
       focus: 1
     },
     hands: 2,
+    range: {
+      maximum: 10
+    },
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "wisdom",
     target: {
-      type: "summon",
-      distance: 1
+      type: "summon"
     },
     tier: 1
   },
@@ -205,17 +209,19 @@ export const GESTURES = Object.seal({
     id: "fan",
     name: "SPELL.GestureFan",
     cost: {
-      action: 2,
+      action: 3,
       focus: 1
     },
     damage: {
       base: 6
     },
     hands: 1,
+    range: {
+      maximum: 6
+    },
     scaling: "intellect",
     target: {
-      type: "fan",
-      distance: 1
+      type: "fan"
     },
     tier: 1
   },
@@ -223,19 +229,20 @@ export const GESTURES = Object.seal({
     id: "influence",
     name: "SPELL.GestureInfluence",
     cost: {
-      action: 2,
+      action: 3,
       focus: 1
     },
     damage: {
       base: 12
     },
     hands: 1,
+    range: {
+      maximum: 1
+    },
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "presence",
     target: {
-      type: "single",
-      number: 1,
-      distance: 1
+      type: "single"
     },
     tier: 1
   },
@@ -243,17 +250,20 @@ export const GESTURES = Object.seal({
     id: "pulse",
     name: "SPELL.GesturePulse",
     cost: {
-      action: 2,
+      action: 4,
       focus: 1
     },
     damage: {
       base: 6
     },
     hands: 2,
+    range: {
+      maximum: 0
+    },
     scaling: "presence",
     target: {
       type: "pulse",
-      distance: 1
+      size: 6
     },
     tier: 1
   },
@@ -261,17 +271,20 @@ export const GESTURES = Object.seal({
     id: "ray",
     name: "SPELL.GestureRay",
     cost: {
-      action: 2,
+      action: 4,
       focus: 1
     },
     damage: {
       base: 6
     },
     hands: 1,
+    range: {
+      maximum: 0
+    },
     scaling: "wisdom",
     target: {
       type: "ray",
-      distance: 6
+      size: 30
     },
     tier: 1
   },
@@ -283,24 +296,24 @@ export const GESTURES = Object.seal({
       focus: 1
     },
     damage: {
-      base: 4
+      base: 2
     },
     hands: 0,
+    range: {
+      maximum: 0
+    },
     nameFormat: NAME_FORMATS.ADJ,
     scaling: "dexterity",
     target: {
       type: "ray",
-      distance: 4,
-      scope: 1 // self
+      distance: 20,
+      scope: 4 // All
     },
     tier: 1
   },
   strike: {
     id: "strike",
     name: "SPELL.GestureStrike",
-    hands: 0,
-    nameFormat: NAME_FORMATS.ADJ,
-    scaling: "strength",
     cost: {
       action: 0,
       focus: 1,
@@ -309,10 +322,14 @@ export const GESTURES = Object.seal({
     damage: {
       base: 12
     },
+    hands: 0,
+    range: {
+      weapon: true
+    },
+    nameFormat: NAME_FORMATS.ADJ,
+    scaling: "strength",
     target: {
-      type: "single",
-      number: 1,
-      distance: 1
+      type: "single"
     },
     tier: 1
   },
@@ -322,18 +339,19 @@ export const GESTURES = Object.seal({
     img: "icons/magic/light/hand-sparks-smoke-teal.webp",
     description: "<p>Touch is one of the most universal somatic gestures. This gesture is easily performed and is typically the first gesture learned by novice spellcasters.</p><p>Touch-based spells cause a small amount of damage or healing, but can be performed quickly requiring less Action than more complex gestures.</p>",
     cost: {
-      action: 1,
+      action: 2,
       focus: 1
     },
     damage: {
       base: 6
     },
     hands: 1,
+    range: {
+      maximum: 1
+    },
     scaling: "dexterity",
     target: {
-      type: "single",
-      number: 1,
-      distance: 1
+      type: "single"
     },
     tier: 1
   },
@@ -341,7 +359,7 @@ export const GESTURES = Object.seal({
     id: "ward",
     name: "SPELL.GestureWard",
     cost: {
-      action: 1,
+      action: 2,
       focus: 1
     },
     damage: {

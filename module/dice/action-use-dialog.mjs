@@ -91,8 +91,23 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasDice: this.action.usage.hasDice ?? false,
       hasTargets: !["self", "none"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,
-      targets: this.#targetTemplate.targets ?? this.action.acquireTargets()
+      targets: this.#prepareTargets()
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   *
+   * @returns {ActionUseTarget[]}
+   */
+  #prepareTargets() {
+    const targets = this.#targetTemplate.targets ?? this.action.acquireTargets({strict: false});
+    for ( const t of targets ) {
+      t.cssClass = t.error ? "unmet" : "";
+      t.tooltip = t.error ?? null;
+    }
+    return targets;
   }
 
   /* -------------------------------------------- */
@@ -297,7 +312,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
   #confirmTemplate(event) {
     event.stopPropagation();
     this.action.template = this.#targetTemplate.document;
-    const targets = this.#targetTemplate.targets = this.action.acquireTargets();
+    const targets = this.#targetTemplate.targets = this.action.acquireTargets({strict: false});
     if ( targets.length ) {
       for ( const [i, {token}] of targets.entries() ) {
         token.setTarget(true, {releaseOthers: i === 0, groupSelection: i < targets.length - 1});

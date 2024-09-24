@@ -7,23 +7,30 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
+      nameFormat: new fields.NumberField({required: false, choices: Object.values(SYSTEM.SPELL.NAME_FORMATS),
+        initial: undefined}),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       description: new fields.HTMLField(),
       cost: new fields.SchemaField({
         action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0})
+        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
+        weapon: new fields.BooleanField({initial: false})
+      }),
+      range: new fields.SchemaField({
+        minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
+        maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
+        weapon: new fields.BooleanField({initial: false})
       }),
       damage: new fields.SchemaField({
         base: new fields.NumberField({required: true, integer: true, min: 0})
       }),
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
-      nameFormat: new fields.NumberField({required: false, choices: Object.values(SYSTEM.SPELL.NAME_FORMATS),
-        initial: undefined}),
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
       target: new fields.SchemaField({
         type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES}),
         number: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
-        distance: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined})
+        size: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined})
       }),
       tier: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3})
     }
@@ -67,7 +74,6 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
     const tags = [
       `Tier ${this.tier}`,
       SYSTEM.ABILITIES[this.scaling].label,
-
     ];
 
     // Damage
@@ -81,11 +87,12 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
     }
 
     // Range
-    if ( this.target.distance ) tags.push(`Range ${this.target.distance}`);
+    if ( this.range.maximum ) tags.push(`Range ${this.range.maximum}`);
 
     // Cost
     if ( this.cost.action !== 0 ) tags.push(`${this.cost.action}A`);
     if ( this.cost.focus !== 0 ) tags.push(`${this.cost.focus}F`);
+    if ( this.cost.heroism !== 0 ) tags.push(`${this.cost.heroism}H`);
     return tags;
   }
 }

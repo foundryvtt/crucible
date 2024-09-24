@@ -354,7 +354,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Re-verify eligibility and targets after configuration
     try {
-      targets = this.acquireTargets();
+      targets = this.acquireTargets({strict: true});
       this._canUse(targets);
     } catch(err) {
       ui.notifications.warn(err.message);
@@ -405,10 +405,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async #use({chatMessage=true, chatMessageOptions={}, dialog=true}={}) {
 
-    // Assert that required targets are designated
+    // Acquire initially designated targets
     let targets = [];
     try {
-      targets = this.acquireTargets();
+      targets = this.acquireTargets({strict: false});
     } catch(err) {
       return ui.notifications.warn(err.message);
     }
@@ -494,6 +494,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @property {Actor} actor
    * @property {string} name
    * @property {string} uuid
+   * @property {string} [error]
    */
 
   /**
@@ -530,35 +531,63 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       // Single targets
       case "single":
         tokens = game.user.targets;
-        if ( tokens.has(this.token) ) throw new Error(game.i18n.localize("ACTION.WarningCannotTargetSelf"));
-        if ( strict ) {
-          if ( tokens.size < 1 ) {
-            throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
-              number: this.target.number,
-              type: this.target.type,
-              action: this.name
-            }));
-          }
-          else if ( tokens.size > this.target.number ) {
-            throw new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
-              number: this.target.number,
-              type: this.target.type,
-              action: this.name
-            }));
-          }
+
+        // Too few targets
+        if ( tokens.size < 1 ) {
+          if ( strict ) throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
+            number: this.target.number,
+            type: this.target.type,
+            action: this.name
+          }));
+          return [];
         }
 
-        // Test target range
-        if ( this.token ) {
-          for ( const token of tokens ) {
+        // Too many targets
+        else if ( tokens.size > this.target.number ) {
+          const err = new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
+            number: this.target.number,
+            type: this.target.type,
+            action: this.name
+          }));
+          if ( strict ) throw err;
+          return Array.from(tokens).map(t => ({
+            token: t,
+            actor: t.actor,
+            uuid: t.actor.uuid,
+            name: t.name,
+            error: err.message
+          }));
+        }
+
+        // Test each target
+        const targets = [];
+        for ( const token of tokens ) {
+          const t = {token, actor: token.actor, uuid: token.actor.uuid, name: token.name};
+          targets.push(t);
+
+          // Cannot target self
+          if ( token === this.token ) {
+            const err = new Error(game.i18n.localize("ACTION.WarningCannotTargetSelf"));
+            if ( strict ) throw err;
+            else t.error = err.message;
+            continue;
+          }
+
+          // Range
+          if ( this.token ) {
             const range = crucible.api.grid.getLinearRangeCost(this.token, token);
             if ( this.range.minimum && (range.distance < this.range.minimum) ) {
-              throw new Error(game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum}));
+              const err = new Error(game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum}));
+              if ( strict ) throw err;
+              else t.error = err.message;
             }
             if ( this.range.maximum && (range.distance > this.range.maximum) ) {
-              throw new Error(game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum}));
+              const err = new Error(game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum}));
+              if ( strict ) throw err;
+              else t.error = err.message;
             }
           }
+          return targets;
         }
         break;
 
@@ -589,6 +618,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const template = this.template;
     if ( !template ) return new Set();
     const {bounds, shape} = template.object;
+    const shapePoly = shape instanceof PIXI.Polygon ? shape : shape.toPolygon();
 
     // Get targets from quadtree
     const {x, y} = template;
@@ -596,7 +626,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const targets = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
-      const shapePoly = shape instanceof PIXI.Polygon ? shape : shape.toPolygon();
       const hit = token.getHitRectangle();
       hit.x -= x;
       hit.y -= y;
