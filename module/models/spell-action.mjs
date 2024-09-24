@@ -10,7 +10,7 @@ import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
  * @property {number} composition
  * @property {string} damageType
  */
-export default class CrucibleSpell extends CrucibleAction {
+export default class CrucibleSpellAction extends CrucibleAction {
   static defineSchema() {
     const fields = foundry.data.fields;
     const schema = super.defineSchema();
@@ -49,20 +49,20 @@ export default class CrucibleSpell extends CrucibleAction {
     this.inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
 
     // Composed Spell
-    if ( this.composition >= CrucibleSpell.COMPOSITION_STATES.COMPOSING ) {
+    if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {
       this.id = ["spell", this.rune.id, this.gesture.id, this.inflection?.id].filterJoin(".");
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
-      this.name = CrucibleSpell.#getName(this);
+      this.name = CrucibleSpellAction.#getName(this);
       this.img = this.rune.img;
       this.description = "Weave arcana to create a work of spellcraft." // TODO make dynamic
     }
 
     // Derived Spell Attributes
     this.scaling = new Set([this.rune.scaling, this.gesture.scaling]);
-    this.cost = CrucibleSpell.#prepareCost.call(this);
-    this.defense = CrucibleSpell.#prepareDefense.call(this);
-    this.damage = CrucibleSpell.#prepareDamage.call(this);
-    this.target = CrucibleSpell.#prepareTarget.call(this);
+    this.cost = CrucibleSpellAction.#prepareCost.call(this);
+    this.defense = CrucibleSpellAction.#prepareDefense.call(this);
+    this.damage = CrucibleSpellAction.#prepareDamage.call(this);
+    this.target = CrucibleSpellAction.#prepareTarget.call(this);
     this.range = this.gesture.range;
   }
 
@@ -70,8 +70,8 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare the cost for the spell from its components.
-   * @this {CrucibleSpell}      The spell being prepared
-   * @returns {ActionCost}      Configured cost data
+   * @this {CrucibleSpellAction}  The spell being prepared
+   * @returns {ActionCost}        Configured cost data
    */
   static #prepareCost() {
     const cost = {...this.gesture.cost};
@@ -87,8 +87,8 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare the defense against which this spell is tested.
-   * @this {CrucibleSpell}      The spell being prepared
-   * @returns {string}          The defense to test
+   * @this {CrucibleSpellAction}  The spell being prepared
+   * @returns {string}            The defense to test
    */
   static #prepareDefense() {
     if ( this.rune.restoration ) return {
@@ -104,8 +104,8 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare damage information for the spell from its components.
-   * @this {CrucibleSpell}      The spell being prepared
-   * @returns {DamageData}      Prepared damage data
+   * @this {CrucibleSpellAction}  The spell being prepared
+   * @returns {DamageData}        Prepared damage data
    */
   static #prepareDamage() {
     return {
@@ -121,8 +121,8 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Prepare the target data for the Spell based on its components.
-   * @this {CrucibleSpell}      The spell being prepared
-   * @returns {ActionTarget}    Configured target data
+   * @this {CrucibleSpellAction}    The spell being prepared
+   * @returns {ActionTarget}        Configured target data
    */
   static #prepareTarget() {
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
@@ -171,7 +171,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @inheritDoc */
   _prepare() {
-    CrucibleSpell.#prepareGesture.call(this);
+    CrucibleSpellAction.#prepareGesture.call(this);
     super._prepare();
 
     // Blood Magic
@@ -182,7 +182,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
     // Zero cost for un-composed spells
     this._trueCost = {...this.cost};
-    if ( this.composition !== CrucibleSpell.COMPOSITION_STATES.COMPOSED ) {
+    if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
       this.cost.action = this.cost.focus = 0;
     }
   }
@@ -191,7 +191,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Customize the spell based on the Gesture used.
-   * @this {CrucibleSpell}
+   * @this {CrucibleSpellAction}
    */
   static #prepareGesture() {
     const e = this.actor.equipment;
@@ -328,7 +328,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @inheritDoc */
   acquireTargets(options={}) {
-    if ( this.composition === CrucibleSpell.COMPOSITION_STATES.COMPOSING ) options.strict = false;
+    if ( this.composition === CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) options.strict = false;
     return super.acquireTargets(options);
   }
 
@@ -336,7 +336,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @inheritDoc */
   clone(updateData={}, context) {
-    if ( !this.composition ) updateData.composition = CrucibleSpell.COMPOSITION_STATES.COMPOSING;
+    if ( !this.composition ) updateData.composition = CrucibleSpellAction.COMPOSITION_STATES.COMPOSING;
     return super.clone(updateData, context);
   }
 
@@ -346,12 +346,12 @@ export default class CrucibleSpell extends CrucibleAction {
    * Prepare the default Cast Spell action, populated with the most recently cast spell components.
    * @param {CrucibleActor} actor       The Actor for whom the spell is being prepared
    * @param {object} spellData          Initial data for the spell
-   * @returns {CrucibleSpell}           The constructed CrucibleSpell
+   * @returns {CrucibleSpellAction}     The constructed CrucibleSpellAction
    */
   static getDefault(actor, spellData={}) {
 
     // Repeat Last Spell
-    const lastSpell = actor.flags.crucible.lastSpell;
+    const lastSpell = actor.flags.crucible?.lastSpell;
     if ( lastSpell ) {
       try {
         const last = this.fromId(lastSpell, {actor});
@@ -381,9 +381,9 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /**
    * Obtain a Spell instance corresponding to a provided spell ID
-   * @param {string} spellId      The provided spell ID in the format spell.{rune}.{gesture}.{inflection}
-   * @param {object} [context]    Context data applied to the created spell
-   * @returns {CrucibleSpell}     The constructed spell instance
+   * @param {string} spellId          The provided spell ID in the format spell.{rune}.{gesture}.{inflection}
+   * @param {object} [context]        Context data applied to the created spell
+   * @returns {CrucibleSpellAction}   The constructed spell instance
    */
   static fromId(spellId, context={}) {
     const [spell, rune, gesture, inflection] = spellId.split(".");
@@ -403,7 +403,7 @@ export default class CrucibleSpell extends CrucibleAction {
   /** @inheritDoc */
   async configure(targets) {
     const result = await super.configure(targets);
-    this.updateSource({composition: CrucibleSpell.COMPOSITION_STATES.COMPOSED});
+    this.updateSource({composition: CrucibleSpellAction.COMPOSITION_STATES.COMPOSED});
     return result;
   }
 
@@ -416,7 +416,7 @@ export default class CrucibleSpell extends CrucibleAction {
     const tags = super.getTags();
 
     // Variable Cost
-    if ( this.composition === CrucibleSpell.COMPOSITION_STATES.NONE ) {
+    if ( this.composition === CrucibleSpellAction.COMPOSITION_STATES.NONE ) {
       if ( tags.activation.ap ) tags.activation.ap += "+";
       if ( tags.activation.fp ) tags.activation.fp += "+";
       if ( tags.activation.hp ) tags.activation.hp += "+";
@@ -436,7 +436,7 @@ export default class CrucibleSpell extends CrucibleAction {
 
   /** @override */
   _getAnimationConfiguration() {
-    return CrucibleSpell.ANIMATION_CONFIG[this.gesture.id]?.[this.rune.id];
+    return CrucibleSpellAction.ANIMATION_CONFIG[this.gesture.id]?.[this.rune.id];
   }
 
   /* -------------------------------------------- */

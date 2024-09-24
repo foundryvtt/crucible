@@ -1,7 +1,7 @@
 import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
-import CrucibleSpell from "../models/spell.mjs";
+import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -921,7 +921,7 @@ export default class CrucibleActor extends Actor {
   static async macroAction(actor, actionId) {
     if ( !actor ) return ui.notifications.warn("You must have a Token controlled to use this Macro");
     let action = actor.actions[actionId];
-    if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpell.fromId(actionId, {actor});
+    if ( !action && actionId.startsWith("spell.") ) action = CrucibleSpellAction.fromId(actionId, {actor});
     if ( !action ) return ui.notifications.warn(`Actor "${actor.name}" does not have the action "${actionId}"`);
     await action.use();
   }
@@ -930,7 +930,7 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Cast a certain spell against a target.
-   * @param {CrucibleSpell} spell
+   * @param {CrucibleSpellAction} spell
    * @param {CrucibleActor} target
    * @returns {Promise<AttackRoll|null>}
    */

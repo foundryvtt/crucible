@@ -381,7 +381,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Redirect to spellcasting
     if ( this.id === "cast" ) {
-      const spell = crucible.api.models.CrucibleSpell.getDefault(this.actor);
+      const spell = crucible.api.models.CrucibleSpellAction.getDefault(this.actor);
       return spell.use({token, ...options});
     }
 
@@ -1151,7 +1151,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const actor = ChatMessage.getSpeakerActor(message.speaker);
     let action;
     if ( actionId.startsWith("spell.") ) {
-      action = game.system.api.models.CrucibleSpell.fromId(actionId, {actor});
+      action = game.system.api.models.CrucibleSpellAction.fromId(actionId, {actor});
     }
     else action = actor.actions[actionId]?.clone() || null;
 

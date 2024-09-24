@@ -9,7 +9,7 @@ export {default as CrucibleHero} from "./hero.mjs";
 export {default as CrucibleInflection} from "./inflection.mjs";
 export {default as CrucibleRune} from "./rune.mjs";
 export {default as CrucibleSkill} from "./skill.mjs";
-export {default as CrucibleSpell} from "./spell.mjs";
+export {default as CrucibleSpellAction} from "./spell-action.mjs";
 export {default as CrucibleTalent} from "./talent.mjs";
 export {default as CrucibleTaxonomy} from "./taxonomy.mjs";
 export {default as CrucibleWeapon} from "./weapon.mjs";

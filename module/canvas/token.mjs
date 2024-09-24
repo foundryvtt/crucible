@@ -217,7 +217,7 @@ export default class CrucibleTokenObject extends Token {
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.isPreview || this.actor?.isIncapacitated || this.actor?.isBroken || canvas.grid.isHexagonal ) {
+    if ( this.isPreview || !this.actor || this.actor?.isIncapacitated || this.actor?.isBroken || !canvas.grid.isSquare ) {
       return {allies: new Set(), enemies: new Set()};
     }
     const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
