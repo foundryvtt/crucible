@@ -21,8 +21,7 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
       range: actionSchema.range,
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
-      target: actionSchema.target,
-      tier: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3})
+      target: actionSchema.target
     }
   }
 
@@ -32,6 +31,7 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
   _initialize() {
     super._initialize();
     this.name = game.i18n.localize(this.name);
+    this.target.scope = SYSTEM.ACTION.TARGET_TYPES[this.target.type].scope;
   }
 
   /* -------------------------------------------- */
@@ -61,10 +61,7 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
    * @returns {string[]}
    */
   get tags() {
-    const tags = [
-      `Tier ${this.tier}`,
-      SYSTEM.ABILITIES[this.scaling].label,
-    ];
+    const tags = [SYSTEM.ABILITIES[this.scaling].label];
 
     // Damage
     if ( this.damage.base ) tags.push(`${this.damage.base} Damage`);

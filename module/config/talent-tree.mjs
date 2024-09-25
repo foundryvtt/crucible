@@ -805,7 +805,7 @@ export default class CrucibleTalentNode {
         "sig3.toughness.presence": {abilities: ["toughness", "presence"], teleport: "sig3.presence"},
         "sig3.toughness.intellect": {abilities: ["toughness", "intellect"], teleport: "sig3.intellect"}
       }});
-    new CrucibleTalentNode({id: "tou3b", type: "attack", abilities: ["toughness"], tier: 3,
+    new CrucibleTalentNode({id: "tou3b", type: "defense", abilities: ["toughness"], tier: 3,
       connected: ["tou2b", "tou2c", "toustr2", "sig3.toughness"]})
 
     // Strength Quadrant
@@ -830,7 +830,7 @@ export default class CrucibleTalentNode {
       connected: ["wis2a", "wis2b", "wis2c", "wis3a"], groups: {
         "sig3.wisdom.intellect": {abilities: ["wisdom", "intellect"], teleport: "sig3.intellect"},
       }});
-    new CrucibleTalentNode({id: "wis3b", type: "attack", abilities: ["wisdom"], tier: 3,
+    new CrucibleTalentNode({id: "wis3b", type: "magic", abilities: ["wisdom"], tier: 3,
       connected: ["wis2b", "wis2c", "wispre2", "sig3.wisdom"]})
 
     // Presence Quadrant
@@ -840,13 +840,13 @@ export default class CrucibleTalentNode {
       connected: ["wispre2", "pre2a", "pre2b", "sig3.wisdom.presence"]});
     new CrucibleTalentNode({id: "sig3.presence", type: "signature", abilities: ["presence"], tier: 3, point: {x: 0, y: -800},
       connected: ["pre2a", "pre2b", "pre2c", "pre3a"], groups: {}});
-    new CrucibleTalentNode({id: "pre3b", type: "attack", abilities: ["presence"], tier: 3,
+    new CrucibleTalentNode({id: "pre3b", type: "magic", abilities: ["presence"], tier: 3,
       connected: ["pre2b", "pre2c", "preint2", "sig3.presence"]})
 
     // Intellect Quadrant
     new CrucibleTalentNode({id: "sig3.presence.intellect", abilities: ["presence", "intellect"], type: "signature",
       tier: 3, connected: ["pre2c", "preint2", "int2a", "pre3b"]});
-    new CrucibleTalentNode({id: "int3a", type: "attack", abilities: ["intellect"], tier: 3,
+    new CrucibleTalentNode({id: "int3a", type: "magic", abilities: ["intellect"], tier: 3,
       connected: ["preint2", "int2a", "int2b", "sig3.presence.intellect"]});
     new CrucibleTalentNode({id: "sig3.intellect", type: "signature", abilities: ["intellect"], tier: 3,
       point: {x: 692, y: -400}, connected: ["int2a", "int2b", "int2c", "int3a"], groups: {}});
@@ -889,7 +889,7 @@ export default class CrucibleTalentNode {
       {id: "wis4d", abilities: ["wisdom"], type: "attack", connected: ["sig3.wisdom", "wis3b", "sig3.wisdom.presence", "wis4c"]},
 
       // Presence Quadrant
-      {id: "wispre4", abilities: ["wisdom", "presence"], type: "attack", connected: ["wis3b", "sig3.wisdom.presence", "pre3a", "wis4d"]},
+      {id: "wispre4", abilities: ["wisdom", "presence"], type: "magic", connected: ["wis3b", "sig3.wisdom.presence", "pre3a", "wis4d"]},
       {id: "pre4a", abilities: ["presence"], type: "attack", connected: ["sig3.wisdom.presence", "pre3a", "sig3.presence", "wispre4"]},
       {id: "pre4b", abilities: ["presence"], type: "attack", connected: ["pre3a", "sig3.presence", "pre4a"]},
       {id: "pre4c", abilities: ["presence"], type: "attack", connected: ["sig3.presence", "pre3b", "pre4b"]},

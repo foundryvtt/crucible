@@ -169,8 +169,7 @@ export const GESTURES = Object.seal({
     target: {
       type: "single",
       number: 1
-    },
-    tier: 1
+    }
   },
   aspect: {
     id: "aspect",
@@ -184,8 +183,7 @@ export const GESTURES = Object.seal({
     scaling: "wisdom",
     target: {
       type: "self"
-    },
-    tier: 1
+    }
   },
   create: {
     id: "create",
@@ -202,8 +200,7 @@ export const GESTURES = Object.seal({
     scaling: "wisdom",
     target: {
       type: "summon"
-    },
-    tier: 1
+    }
   },
   fan: {
     id: "fan",
@@ -221,10 +218,8 @@ export const GESTURES = Object.seal({
     },
     scaling: "intellect",
     target: {
-      type: "fan",
-      scope: 4 // All
-    },
-    tier: 1
+      type: "fan"
+    }
   },
   influence: {
     id: "influence",
@@ -244,8 +239,7 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "single"
-    },
-    tier: 1
+    }
   },
   pulse: {
     id: "pulse",
@@ -264,10 +258,8 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "pulse",
-      size: 6,
-      scope: 4 // All
-    },
-    tier: 1
+      size: 6
+    }
   },
   ray: {
     id: "ray",
@@ -286,10 +278,8 @@ export const GESTURES = Object.seal({
     scaling: "wisdom",
     target: {
       type: "ray",
-      size: 1,
-      scope: 4 // All
-    },
-    tier: 1
+      size: 1
+    }
   },
   step: {
     id: "step",
@@ -309,10 +299,8 @@ export const GESTURES = Object.seal({
     scaling: "dexterity",
     target: {
       type: "ray",
-      distance: 20,
-      scope: 4 // All
-    },
-    tier: 1
+      distance: 20
+    }
   },
   strike: {
     id: "strike",
@@ -333,8 +321,7 @@ export const GESTURES = Object.seal({
     scaling: "strength",
     target: {
       type: "single"
-    },
-    tier: 1
+    }
   },
   touch: {
     id: "touch",
@@ -355,8 +342,7 @@ export const GESTURES = Object.seal({
     scaling: "dexterity",
     target: {
       type: "single"
-    },
-    tier: 1
+    }
   },
   ward: {
     id: "ward",
@@ -372,8 +358,7 @@ export const GESTURES = Object.seal({
     scaling: "toughness",
     target: {
       type: "self"
-    },
-    tier: 1
+    }
   }
 });
 
@@ -389,16 +374,14 @@ export const INFLECTIONS = Object.seal({
     cost: {
       action: 1,
       focus: -1
-    },
-    tier: 1
+    }
   },
   determine: {
     id: "determine",
     name: "SPELL.INFLECTIONS.Determine",
     cost: {
       focus: 1
-    },
-    tier: 1
+    }
   },
   quicken: {
     id: "quicken",
@@ -406,8 +389,7 @@ export const INFLECTIONS = Object.seal({
     cost: {
       action: -1,
       focus: 1
-    },
-    tier: 1
+    }
   },
   extend: {
     id: "extend",
@@ -415,40 +397,48 @@ export const INFLECTIONS = Object.seal({
     cost: {
       action: 1,
       focus: 1
-    },
-    tier: 1
+    }
   },
   eluding: {
     id: "eluding",
     name: "SPELL.INFLECTIONS.Elude",
     cost: {
       focus: 1
-    },
-    tier: 1
+    }
   },
   negate: {
     id: "negate",
     name: "SPELL.INFLECTIONS.Negate",
     cost: {
       focus: 1
-    },
-    tier: 1
+    }
   },
   pull: {
     id: "pull",
     name: "SPELL.INFLECTIONS.Pull",
     cost: {
       focus: 1
-    },
-    tier: 1
+    }
   },
   push: {
     id: "push",
     name: "SPELL.INFLECTIONS.Push",
     cost: {
       focus: 1
+    }
+  },
+  reshape: {
+    id: "reshape",
+    name: "SPELL.INFLECTIONS.Reshape",
+    cost: {
+      focus: 2
     },
-    tier: 1
+    hooks: {
+      prepare() {
+        if ( this.damage.restoration ) this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ALLIES;
+        else this.target.scope = SYSTEM.ACTION.TARGET_SCOPES.ENEMIES;
+      }
+    }
   }
 });
 

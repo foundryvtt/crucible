@@ -35,9 +35,25 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /** @override */
   static dialogClass = SpellCastDialog;
 
+
+  /* -------------------------------------------- */
+  /*  Action Lifecycle                            */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  * _tests() {
+    if ( this.rune.hooks ) yield this.rune.hooks;
+    if ( this.gesture.hooks ) yield this.gesture.hooks;
+    if ( this.inflection?.hooks ) yield this.inflection.hooks;
+    yield* super._tests();
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
+
+
+
 
   /** @inheritDoc */
   _prepareData() {
@@ -62,7 +78,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this.cost = CrucibleSpellAction.#prepareCost.call(this);
     this.defense = CrucibleSpellAction.#prepareDefense.call(this);
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
-    this.target = CrucibleSpellAction.#prepareTarget.call(this);
+    this.target = {...this.gesture.target};
     this.range = this.gesture.range;
   }
 
@@ -120,36 +136,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the target data for the Spell based on its components.
-   * @this {CrucibleSpellAction}    The spell being prepared
-   * @returns {ActionTarget}        Configured target data
-   */
-  static #prepareTarget() {
-    const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    const target = {...this.gesture.target};
-
-    // Restoration runes should affect allies
-    if ( this.rune.restoration ) target.scope ??= scopes.ALLIES;
-
-    // Specific targeting requirements for the composed spell
-    switch ( target.type ) {
-      case "none":
-        target.scope ??= scopes.NONE;
-        break;
-      case "self":
-      case "summon":
-        target.scope ??= scopes.SELF;
-        break;
-      default:
-        target.scope ??= scopes.ENEMIES;
-        break;
-    }
-    return target;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Prepare a default name for the spell if a custom name has not been designated.
    * @type {string}
    */
@@ -191,6 +177,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
   /**
    * Customize the spell based on the Gesture used.
+   * TODO I think this should be handled as a `prepare` hook on the gesture config itself?
    * @this {CrucibleSpellAction}
    */
   static #prepareGesture() {

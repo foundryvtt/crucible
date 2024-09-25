@@ -3,86 +3,6 @@ import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
 
 /**
- * The allowed target types which an Action may have.
- * @enum {{label: string}}
- */
-export const TARGET_TYPES = Object.freeze({
-  none: {
-    label: "None",
-    template: null
-  },
-  self: {
-    label: "Self",
-    template: null
-  },
-  single: {
-    label: "Single",
-    template: null
-  },
-  cone: {
-    label: "Cone",
-    template: {
-      t: "cone",
-      angle: 60,
-      directionDelta: 15,
-      anchor: "self",
-      addSize: true
-    }
-  },
-  fan: {
-    label: "Fan",
-    template: {
-      t: "cone",
-      angle: 210,
-      directionDelta: 45,
-      anchor: "self",
-      addSize: true
-    }
-  },
-  pulse: {
-    label: "Pulse",
-    template: {
-      t: "circle",
-      anchor: "self",
-      addSize: true
-    }
-  },
-  blast: {
-    label: "Blast",
-    template: {
-      t: "circle",
-      anchor: "vertex"
-    }
-  },
-  ray: {
-    label: "Ray",
-    template: {
-      t: "ray",
-      width: 1,
-      directionDelta: 3,
-      anchor: "self",
-      addSize: true
-    }
-  },
-  summon: {
-    label: "Summon",
-    template: {
-      t: "rect",
-      direction: 45, // Square
-      anchor: "vertex"
-    }
-  },
-  wall: {
-    label: "Wall",
-    template: {
-      t: "ray",
-      width: 2,
-      anchor: "center"
-    }
-  }
-});
-
-/**
  * The scope of creatures affected by an action.
  * @enum {number}
  */
@@ -92,6 +12,96 @@ export const TARGET_SCOPES = new Enum({
   ALLIES: {value: 2, label: "Allies"},
   ENEMIES: {value: 3, label: "Enemies"},
   ALL: {value: 4, label: "All"}
+});
+
+/**
+ * The allowed target types which an Action may have.
+ * @enum {{label: string}}
+ */
+export const TARGET_TYPES = Object.freeze({
+  none: {
+    label: "None",
+    template: null,
+    scope: TARGET_SCOPES.NONE
+  },
+  self: {
+    label: "Self",
+    template: null,
+    scope: TARGET_SCOPES.SELF
+  },
+  single: {
+    label: "Single",
+    template: null,
+    scope: TARGET_SCOPES.ALL
+  },
+  cone: {
+    label: "Cone",
+    template: {
+      t: "cone",
+      angle: 60,
+      directionDelta: 15,
+      anchor: "self",
+      addSize: true
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  fan: {
+    label: "Fan",
+    template: {
+      t: "cone",
+      angle: 210,
+      directionDelta: 45,
+      anchor: "self",
+      addSize: true
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  pulse: {
+    label: "Pulse",
+    template: {
+      t: "circle",
+      anchor: "self",
+      addSize: true
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  blast: {
+    label: "Blast",
+    template: {
+      t: "circle",
+      anchor: "vertex"
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  ray: {
+    label: "Ray",
+    template: {
+      t: "ray",
+      width: 1,
+      directionDelta: 3,
+      anchor: "self",
+      addSize: true
+    },
+    scope: TARGET_SCOPES.ALL
+  },
+  summon: {
+    label: "Summon",
+    template: {
+      t: "rect",
+      direction: 45, // Square
+      anchor: "vertex"
+    },
+    scope: TARGET_SCOPES.SELF
+  },
+  wall: {
+    label: "Wall",
+    template: {
+      t: "ray",
+      width: 2,
+      anchor: "center"
+    },
+    scope: TARGET_SCOPES.ALL
+  }
 });
 
 /* -------------------------------------------- */

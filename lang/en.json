@@ -786,7 +786,9 @@
     "Push": "Push",
     "PushAdj": "Repellent",
     "Quicken": "Quicken",
-    "QuickenAdj": "Quickened"
+    "QuickenAdj": "Quickened",
+    "Reshape": "Reshape",
+    "ReshapeAdj": "Shaped"
   }
 },
 
