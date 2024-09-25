@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #1c1a1a;
+        fill: none;
         stroke: #d8d8d8;
         stroke-width: .5px;
       }
@@ -15,7 +15,7 @@
       <g id="Defenses">
         <g id="Workboard">
           <g id="Armor">
-            <polygon id="Path" class="cls-1" points="2.5 10.1 2.5 27.9 19.5 37.5 35.5 27.9 35.5 10.1 19.5 .5 2.5 10.1"/>
+            <polygon id="Path" class="cls-1" points="10.1 35.5 27.9 35.5 37.5 18.5 27.9 2.5 10.1 2.5 .5 18.5 10.1 35.5"/>
           </g>
         </g>
       </g>

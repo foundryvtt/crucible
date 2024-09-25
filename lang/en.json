@@ -517,9 +517,11 @@
 "DICE.DamageBonus": "Action Bonus",
 "DICE.DamageResistance": "Damage Resistance",
 "DICE.DamageVulnerability": "Damage Vulnerability",
+"DICE.DamageTotal": "Damage Total",
 "DICE.Healing": "Healing",
 "DICE.Confirm": "Confirm",
 "DICE.Reverse": "Reverse",
+"DICE.RollTotal": "Roll Total",
 "DICE.SetDifficulty": "Set Difficulty",
 
 "EFFECT.STATUSES.Blind": "Blinded",

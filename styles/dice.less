@@ -5,6 +5,8 @@
 /* ----------------------------------------- */
 
 .crucible.dice-roll {
+  margin: 0;
+
   .standard-check {
     padding: 1rem;
     gap: 1rem;
@@ -12,21 +14,18 @@
 
   /** Expanded Tooltip */
   .dice-tooltip {
-    margin: 1rem 0;
     flex: none;
     gap: 0.5rem;
-    .dice-formula {
-      margin: 0;
-      font-size: var(--font-size-12);
-      border: 1px solid var(--color-cool-4);
-      box-shadow: none;
+    .roll-breakdown {
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--color-frame);
     }
     .counter {
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: var(--font-size-12);
-      margin: -0.2rem 0;
       label {
         color: var(--color-secondary);
       }
@@ -36,6 +35,14 @@
         border: none;
         color: var(--color-primary);
       }
+      .tag {
+        width: 24px;
+        text-align: center;
+      }
+      &.total {
+        margin: -0.2rem 0 0;
+        font-weight: bold;
+      }
     }
     &.expanded {
       display: flex !important; // FIXME fight core jquery
@@ -44,17 +51,14 @@
 
   // Check Result
   .dice-total {
-    height: 24px;
-    margin: 1rem 0;
+    height: 20px;
+    margin: 0.5rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.25rem;
     box-shadow: none;
     .result {
-      --hex-bg: url("../ui/elements/hex-plain-filled.svg");
-      flex: 0 0 40px;
-      height: 40px;
       font-size: var(--font-size-20);
       font-weight: normal;
       z-index: 0;
@@ -84,36 +88,65 @@
     }
   }
 
+  // Check Result
+  .check-result {
+    z-index: 1;
+    background: var(--check-bg-color);
+    border: 1px solid var(--check-border-color);
+    .result {
+      --hex-bg: url("../ui/elements/hex-plain-filled-flat.svg");
+      font-size: var(--font-size-16);
+      flex: 0 0 32px;
+      height: 32px;
+    }
+  }
+
+  // Damage Result
+  .damage-result {
+    z-index: 0;
+    border: none;
+    margin: -2px 0 1rem;
+    .result {
+      font-size: var(--font-size-20);
+      flex: 0 0 48px;
+      height: 48px;
+      &::before {
+        background-position-y: -4px;
+        opacity: 0.2;
+      }
+    }
+  }
+
   // Success
-  &.success .dice-total {
-    background: rgb(0 255 0 / 3%);
-    border: 1px solid var(--color-result-good);
+  &.success .check-result {
+    --check-bg-color: rgb(0 8 0);
+    --check-border-color: var(--color-result-good);
   }
 
   // Failure
-  &.failure .dice-total  {
-    background: rgb(255 0 0 / 3%);
-    border: 1px solid var(--color-result-bad);
+  &.failure .check-result  {
+    --check-bg-color: rgb(8 0 0);
+    --check-border-color: var(--color-result-bad);
   }
 
   // Deflection
-  &.glance .dice-total {
-    background: rgb(255 255 0 / 3%);
-    border: 1px solid var(--color-result-warn);
+  &.glance .check-result {
+    --check-bg-color: rgb(8 8 0);
+    --check-border-color: var(--color-result-warn);
   }
 
   // Critical Failure
-  &.failure.critical .dice-total  {
-    background: rgb(255 0 0 / 3%);
+  &.failure.critical .check-result  {
+    --check-bg-color: rgb(8 0 0);
+    --check-border-color: var(--color-result-bad);
     color: #ff3724;
-    border: 1px solid var(--color-result-bad);
   }
 
   // Critical Success
-  &.success.critical .dice-total {
-    background: rgb(0 255 0 / 3%);
+  &.success.critical .check-result {
+    --check-bg-color: rgb(0 8 0);
+    --check-border-color: var(--color-result-good);
     color: #12cb3f;
-    border: 1px solid var(--color-result-good);
   }
 
   // Hex labels
@@ -165,6 +198,7 @@
 
   /** Dice Pool Visualization */
   .pool {
+    padding: 0.5rem 0;
     justify-content: space-evenly;
     .die {
       --die-size: 64px;
@@ -242,9 +276,13 @@
       .bane {
         gap: 0.5rem;
         align-items: center;
-        .hex {
+        .label {
+          flex: 1;
+          color: var(--color-secondary);
+        }
+        .value {
           flex: 0 0 24px;
-          height: 24px;
+          text-align: center;
         }
         .type {
           flex: none;

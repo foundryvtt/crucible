@@ -3,9 +3,9 @@
     {{#each boons as |boon|}}
     {{#if boon.number}}
     <div class="boon flexrow">
-        <span class="hex value">{{boon.number}}</span>
         <span class="label">{{localize boon.label}}</span>
         <span class="type"><i class="fa-solid fa-arrow-up"></i> Boon</span>
+        <span class="value">{{boon.number}}</span>
     </div>
     {{/if}}
     {{/each}}
@@ -16,9 +16,9 @@
     {{#each banes as |bane|}}
     {{#if bane.number}}
     <div class="bane flexrow">
-        <span class="hex value">{{bane.number}}</span>
         <span class="label">{{localize bane.label}}</span>
         <span class="type"><i class="fa-solid fa-arrow-down"></i> Bane</span>
+        <span class="value">{{bane.number}}</span>
     </div>
     {{/if}}
     {{/each}}
