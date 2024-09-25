@@ -1,9 +1,12 @@
+import CrucibleAction from "./action.mjs";
+
 /**
  * The data structure and functionality of a Somatic Gesture in the Crucible spellcraft system.
  */
 export default class CrucibleGesture extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
+    const actionSchema = CrucibleAction.defineSchema();
     return {
       id: new fields.StringField({required: true, blank: false}),
       name: new fields.StringField(),
@@ -11,27 +14,14 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
         initial: undefined}),
       img: new fields.FilePathField({categories: ["IMAGE"]}),
       description: new fields.HTMLField(),
-      cost: new fields.SchemaField({
-        action: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        focus: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        heroism: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0}),
-        weapon: new fields.BooleanField({initial: false})
-      }),
-      range: new fields.SchemaField({
-        minimum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
-        maximum: new fields.NumberField({required: true, nullable: true, integer: true, min: 1, initial: null}),
-        weapon: new fields.BooleanField({initial: false})
-      }),
+      cost: actionSchema.cost,
       damage: new fields.SchemaField({
         base: new fields.NumberField({required: true, integer: true, min: 0})
       }),
       hands: new fields.NumberField({required: true, integer: true, min: 0, max: 2}),
+      range: actionSchema.range,
       scaling: new fields.StringField({required: true, choices: SYSTEM.ABILITIES}),
-      target: new fields.SchemaField({
-        type: new fields.StringField({required: true, choices: SYSTEM.ACTION.TARGET_TYPES}),
-        number: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined}),
-        size: new fields.NumberField({required: false, nullable: false, integer: true, min: 0, initial: undefined})
-      }),
+      target: actionSchema.target,
       tier: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, max: 3})
     }
   }

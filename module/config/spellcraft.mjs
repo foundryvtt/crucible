@@ -221,7 +221,8 @@ export const GESTURES = Object.seal({
     },
     scaling: "intellect",
     target: {
-      type: "fan"
+      type: "fan",
+      scope: 4 // All
     },
     tier: 1
   },
@@ -263,7 +264,8 @@ export const GESTURES = Object.seal({
     scaling: "presence",
     target: {
       type: "pulse",
-      size: 6
+      size: 6,
+      scope: 4 // All
     },
     tier: 1
   },
@@ -279,12 +281,13 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     range: {
-      maximum: 0
+      maximum: 30
     },
     scaling: "wisdom",
     target: {
       type: "ray",
-      size: 30
+      size: 1,
+      scope: 4 // All
     },
     tier: 1
   },

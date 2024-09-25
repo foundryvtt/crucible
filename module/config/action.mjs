@@ -26,7 +26,7 @@ export const TARGET_TYPES = Object.freeze({
       angle: 60,
       directionDelta: 15,
       anchor: "self",
-      distanceOffset: 0
+      addSize: true
     }
   },
   fan: {
@@ -36,50 +36,48 @@ export const TARGET_TYPES = Object.freeze({
       angle: 210,
       directionDelta: 45,
       anchor: "self",
-      distanceOffset: 0.5
+      addSize: true
     }
   },
   pulse: {
     label: "Pulse",
     template: {
-      t: "rect",
+      t: "circle",
       anchor: "self",
-      distanceOffset: 0
+      addSize: true
     }
   },
   blast: {
     label: "Blast",
     template: {
       t: "circle",
-      anchor: "vertex",
-      distanceOffset: 0
+      anchor: "vertex"
     }
   },
   ray: {
     label: "Ray",
     template: {
       t: "ray",
-      width: 3,
+      width: 1,
       directionDelta: 3,
       anchor: "self",
-      distanceOffset: 0.5
+      addSize: true
     }
   },
   summon: {
     label: "Summon",
     template: {
       t: "rect",
-      anchor: "vertex",
-      distanceOffset: 0
+      direction: 45, // Square
+      anchor: "vertex"
     }
   },
   wall: {
     label: "Wall",
     template: {
       t: "ray",
-      width: 3,
-      anchor: "vertex",
-      distanceOffset: 0
+      width: 2,
+      anchor: "center"
     }
   }
 });
@@ -451,15 +449,14 @@ export const TAGS = {
     },
     canUse(_targets) {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
-        throw new Error(`You cannot cast a Spell using the ${this.gesture.name} gesture which requires `
-          + `${this.cost.hands} free hands for spellcraft.`);
+        throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
       }
     },
     async roll(target, rolls) {
       this.usage.actorStatus.hasCast = true;
       this.usage.actorFlags.lastSpell = this.id;
       const cast = await this.actor.castSpell(this, target);
-      rolls.push(cast);
+      if ( cast ) rolls.push(cast);
     }
   },
 
@@ -467,7 +464,21 @@ export const TAGS = {
   iconicSpell: {
     tag: "iconicSpell",
     label: "ACTION.TagIconicSpell",
-    tooltip: "ACTION.TagSpellTooltip"
+    tooltip: "ACTION.TagSpellTooltip",
+    prepare() {
+      for ( const gestureId of this.parent.gestures ) {
+        const gesture = SYSTEM.SPELL.GESTURES[gestureId];
+        this.cost.hands = Math.max(this.cost.hands, gesture.hands);
+      }
+    },
+    canUse(_targets) {
+      if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
+        throw new Error(`The ${this.name} spell requires ${this.cost.hands} free hands for spellcraft.`);
+      }
+    },
+    async roll(target, rolls) {
+      this.usage.actorStatus.hasCast = true;
+    }
   },
 
   summon: {

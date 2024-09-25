@@ -38,11 +38,11 @@ export default class CrucibleSpell extends foundry.abstract.TypeDataModel {
    * @inheritDoc
    */
   _initializeSource(source, options) {
+    super._initializeSource(source, options);
     for ( const action of source.actions ) {
-      action.tags ||= [];
-      action.tags.push("iconicSpell");
+      action.tags[0] = "iconicSpell"; // Potentially fragile?
     }
-    return super._initializeSource(source, options);
+    return source;
   }
 
   /* -------------------------------------------- */

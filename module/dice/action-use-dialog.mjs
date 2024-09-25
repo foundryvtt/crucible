@@ -216,37 +216,33 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
 
-  #getTemplateData(token, range, target, targetConfig) {
+  /**
+   * Prepare Measured Template data for a certain candidate action
+   */
+  #getTemplateData(token, range, target, targetTemplateConfig) {
     const {x, y} = token?.center ?? canvas.dimensions.rect.center;
     const {id: userId, color: fillColor} = game.user;
-    const s = canvas.dimensions.size;
-    const baseSize = Math.max(token?.document.width ?? 1, token?.document.height ?? 1) * canvas.dimensions.distance;
-    const distance = (range.maximum ?? 0) + (targetConfig.distanceOffset * baseSize);
-    const templateData = {user: userId, x, y, fillColor, distance, ...targetConfig};
-    switch ( target.type ) {
-      case "blast":
-        templateData.distance = target.size ?? 1;
+
+    // Prepare Template Data
+    let maxRange = range.maximum ?? 0;
+    let addRange = 0;
+    if ( token && targetTemplateConfig.addSize ) addRange = (token.actor.size / 2);
+    const templateData = {user: userId, x, y, fillColor, ...targetTemplateConfig};
+
+    // Shape Specific Overrides
+    switch ( targetTemplateConfig.t ) {
+      case "circle":
+        templateData.distance = (target.size ?? maxRange) + addRange;
         break;
-      case "pulse":
-        const shape = token.getEngagementRectangle(distance);
-        Object.assign(templateData, {
-          x: shape.x,
-          y: shape.y,
-          distance: Math.hypot(shape.width, shape.height) / s,
-          direction: 45
-        });
+      case "cone":
+        templateData.distance = (target.size ?? maxRange) + addRange;
         break;
       case "ray":
-        templateData.width = target.size ?? targetConfig.width;
+        templateData.distance = maxRange + addRange;
+        templateData.width = target.size ?? targetTemplateConfig.width;
         break;
-      case "summon":
-        Object.assign(templateData, {
-          distance: Math.hypot(target.width, target.height),
-          direction: 45
-        });
-        break;
-      case "wall":
-        templateData.width = target.size ?? targetConfig.width;
+      case "rect":
+        templateData.distance = Math.sqrt(2) * ((target.size ?? 1) + addRange);
         break;
     }
     return templateData;

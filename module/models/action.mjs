@@ -192,6 +192,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     return this.actor?.system.favorites.has(this.id);
   }
 
+  /**
+   * Does this Action require a Template target
+   * @type {boolean}
+   */
+  get requiresTemplate() {
+    return !!SYSTEM.ACTION.TARGET_TYPES[this.target.type]?.template;
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -294,6 +302,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       this.img ||= talent.img;
       if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
+
+    // Prepare Cost
+    this.cost.hands = 0; // Number of free hands required
 
     // Prepare Effects
     for ( const effect of this.effects ) {
@@ -522,125 +533,66 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   acquireTargets({strict=true}={}) {
     if ( !canvas.ready ) return [];
-    let tokens;
-    switch ( this.target.type ) {
+    let targets;
 
-      // No target
-      case "none":
-      case "summon":
-        return []
-
-      // AOE Template Shapes
-      case "cone":
-      case "fan":
-      case "blast":
-      case "pulse":
-      case "ray":
-      case "wall":
-        tokens = this.#acquireTargetsFromTemplate();
-        break;
-
-      // Self-target
-      case "self":
-        tokens = this.actor.getActiveTokens(true);
-        break;
-
-      // Single targets
-      case "single":
-        tokens = game.user.targets;
-
-        // Too few targets
-        if ( tokens.size < 1 ) {
-          if ( strict ) throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
-            number: this.target.number,
-            type: this.target.type,
-            action: this.name
-          }));
-          return [];
-        }
-
-        // Too many targets
-        else if ( tokens.size > this.target.number ) {
-          const err = new Error(game.i18n.format("ACTION.WarningIncorrectTargets", {
-            number: this.target.number,
-            type: this.target.type,
-            action: this.name
-          }));
-          if ( strict ) throw err;
-          return Array.from(tokens).map(t => ({
-            token: t,
-            actor: t.actor,
-            uuid: t.actor.uuid,
-            name: t.name,
-            error: err.message
-          }));
-        }
-
-        // Test each target
-        const targets = [];
-        for ( const token of tokens ) {
-          const t = {token, actor: token.actor, uuid: token.actor.uuid, name: token.name};
-          targets.push(t);
-
-          // Cannot target self
-          if ( token === this.token ) {
-            const err = new Error(game.i18n.localize("ACTION.WarningCannotTargetSelf"));
-            if ( strict ) throw err;
-            else t.error = err.message;
-            continue;
-          }
-
-          // Range
-          if ( this.token ) {
-            const range = crucible.api.grid.getLinearRangeCost(this.token, token);
-            if ( this.range.minimum && (range.distance < this.range.minimum) ) {
-              const err = new Error(game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum}));
-              if ( strict ) throw err;
-              else t.error = err.message;
-            }
-            if ( this.range.maximum && (range.distance > this.range.maximum) ) {
-              const err = new Error(game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum}));
-              if ( strict ) throw err;
-              else t.error = err.message;
-            }
-          }
-          return targets;
-        }
-        break;
-
-      // Unknown target type
-      default:
-        ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not supported, 
-        you must manually target affected tokens.`);
-        tokens = game.user.targets;
-        break;
+    // Acquire Template Targets
+    if ( this.requiresTemplate ) {
+      targets = this.#acquireTargetsFromTemplate();
     }
 
-    // Convert Tokens to ActionUseTarget objects
-    return Array.from(tokens).map(t => ({
-      token: t,
-      actor: t.actor,
-      uuid: t.actor.uuid,
-      name: t.name
-    }));
+    // Other Target Types
+    else {
+      switch ( this.target.type ) {
+        case "none": case "summon":
+          return []
+        case "self":
+          targets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
+          break;
+        case "single":
+          targets = this.#acquireSingleTargets(strict);
+          break;
+        default:
+          ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not 
+            yet supported, you must manually target affected tokens.`);
+          targets = Array.from(game.user.targets).map(CrucibleAction.#getTargetFromToken);
+          break;
+      }
+    }
+
+    // Throw an error if any target had an error
+    for ( const target of targets ) {
+      if ( target.error && strict ) throw new Error(target.error);
+    }
+    return targets;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Convert a Token into a ActionUseTarget data structure.
+   * @param {Token} token
+   * @returns {ActionUseTarget}
+   */
+  static #getTargetFromToken(token) {
+    return {token, actor: token.actor, uuid: token.actor.uuid, name: token.name};
   }
 
   /* -------------------------------------------- */
 
   /**
    * Acquire target tokens using a temporary measured template.
-   * @returns {Set<Token>}
+   * @returns {ActionUseTarget[]}
    */
   #acquireTargetsFromTemplate() {
     const template = this.template;
-    if ( !template ) return new Set();
+    if ( !template ) return [];
     const {bounds, shape} = template.object;
     const shapePoly = shape instanceof PIXI.Polygon ? shape : shape.toPolygon();
 
     // Get targets from quadtree
     const {x, y} = template;
     const targetDispositions = this.#getTargetDispositions();
-    const targets = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
+    const tokens = canvas.tokens.quadtree.getObjects(bounds, {collisionTest: ({t: token}) => {
       if ( token.actor === this.actor ) return false;
       if ( !targetDispositions.includes(token.document.disposition) ) return false;
       const hit = token.getHitRectangle();
@@ -650,16 +602,68 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return ix.points.length > 0;
     }});
 
+    // Convert to target data structure
+    const targets = Array.from(tokens).map(CrucibleAction.#getTargetFromToken);
+
     // Unlimited targets
     if ( !this.target.limit ) return targets;
 
     // If the target type is limited in the number of enemies it can affect, sort on proximity to the template origin
-    const distances = Array.from(targets).map(t => ({target: t, distance: new Ray({x, y}, t.center).distance}));
-    distances.sort((a, b) => a.distance - b.distance);
-    return distances.reduce((targets, d, i) => {
-      if ( i < this.target.limit ) targets.add(d.target);
-      return targets;
-    }, new Set());
+    for ( const t of targets ) t._distance = new Ray({x, y}, t.token.center).distance;
+    targets.sort((a, b) => a._distance - b._distance);
+    return targets.slice(0, this.target.limit);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Acquire and validate the targets for a Single target action.
+   * @param {boolean} strict
+   * @returns {ActionUseTarget[]}
+   */
+  #acquireSingleTargets(strict) {
+    const tokens = game.user.targets;
+    let errorAll;
+
+    // Too few targets
+    if ( tokens.size < 1 ) {
+      if ( strict ) throw new Error(game.i18n.format("ACTION.WarningInvalidTarget", {
+        number: this.target.number,
+        type: this.target.type,
+        action: this.name
+      }));
+      return [];
+    }
+
+    // Too many targets
+    if ( tokens.size > this.target.number ) {
+      errorAll = game.i18n.format("ACTION.WarningIncorrectTargets", {
+        number: this.target.number,
+        type: this.target.type,
+        action: this.name
+      });
+    }
+
+    // Test each target
+    const targets = [];
+    for ( const token of tokens ) {
+      const t = CrucibleAction.#getTargetFromToken(token);
+      if ( errorAll ) t.error = errorAll;
+      targets.push(t);
+      if ( !this.token ) continue;
+      if ( token === this.token ) {
+        t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
+        continue;
+      }
+      const range = crucible.api.grid.getLinearRangeCost(this.token, token);
+      if ( this.range.minimum && (range.distance < this.range.minimum) ) {
+        t.error ||= game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum});
+      }
+      if ( this.range.maximum && (range.distance > this.range.maximum) ) {
+        t.error ||= game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum});
+      }
+    }
+    return targets;
   }
 
   /* -------------------------------------------- */
@@ -1062,6 +1066,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp) ) tags.activation.ap = "Free";
+    if ( cost.hands ) tags.activation.hands = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
 
     // Duration
     let duration = 0;
