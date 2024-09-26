@@ -342,6 +342,22 @@ export const TAGS = {
     }
   },
 
+  // After a Basic Strike
+  afterStrike: {
+    tag: "afterStrike",
+    label: "ACTION.TagAfterStrike",
+    tooltip: "ACTION.TagActorStrikeTooltip",
+    category: "requirements",
+    canUse(_targets) {
+      if ( !this.actor.system.status.basicStrike ) {
+        throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
+      }
+    },
+    displayOnSheet(_combatant) {
+      return !!this.actor.system.status.basicStrike;
+    }
+  },
+
   /* -------------------------------------------- */
   /*  Context Requirements                        */
   /* -------------------------------------------- */

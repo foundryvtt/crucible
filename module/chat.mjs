@@ -91,6 +91,8 @@ export async function onCreateChatMessage(message, data, options, userId) {
 export function renderChatMessage(message, html, data, options) {
   const flags = message.flags.crucible || {};
   if ( flags.action || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) html.addClass("crucible");
+
+  // Action Cards
   if ( flags.action ) {
     if ( flags.confirmed ) {
       html.find(".damage-result .target").addClass("applied");
@@ -108,6 +110,11 @@ export function renderChatMessage(message, html, data, options) {
         CrucibleAction.confirm(message);
       })
     }
+  }
+
+  // Initiative Report
+  if ( flags.isInitiativeReport ) {
+    html.find(".dice-rolls").remove();
   }
 }
 

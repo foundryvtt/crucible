@@ -296,6 +296,8 @@
 "ACTION.TAG_CATEGORIES.SKILLS": "Skills",
 "ACTION.TAG_CATEGORIES.SPECIAL": "Special",
 
+"ACTION.TagAfterStrike": "After Strike",
+"ACTION.TagAfterStrikeTooltip": "This action may only be performed immediately after a basic Strike attack which did not critically miss.",
 "ACTION.TagDeadly": "Deadly",
 "ACTION.TagDeadlyTooltip":  "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
 "ACTION.TagDifficult": "Difficult",
@@ -829,9 +831,9 @@
     }
   },
   "ACTIONS": {
-    "ACTION_ADD": "Add Action",
-    "ACTION_DELETE": "Delete Action",
-    "ACTION_EDIT": "Edit Action",
+    "ADD": "Add Action",
+    "DELETE": "Delete Action",
+    "EDIT": "Edit Action",
     "HOOK_ADD": "Add Hook",
     "HOOK_DELETE": "Delete Hook"
   },

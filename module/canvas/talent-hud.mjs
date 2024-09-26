@@ -81,9 +81,7 @@ export default class CrucibleTalentHUD extends Application {
 
     // Banned Signature
     if ( node.type === "signature" ) {
-      if ( (state.purchased && !actor.talentIds.has(talent.id)) || state.banned ) {
-        reqs.signature = {tag: "Banned", met: false};
-      }
+      if ( state.banned && !state.purchased ) reqs.signature = {tag: "Banned", met: false};
     }
 
     // Return context

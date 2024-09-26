@@ -1,5 +1,12 @@
 export default class CrucibleCombat extends Combat {
 
+  /**
+   * The prior amount of Heroism that has already been awarded.
+   * TODO this needs to move to be a combat flag, but it cannot until I fix a bug with combat audio alerts
+   * @type {number}
+   */
+  #priorHeroism = game.settings.get("crucible", "heroism") || 0;
+
   /* -------------------------------------------- */
   /*  Document Methods                            */
   /* -------------------------------------------- */
@@ -129,6 +136,9 @@ export default class CrucibleCombat extends Combat {
       await firstActor?.alterResources({morale: this.round}, {}, {statusText: "Escalation"});
       await lastActor?.alterResources({morale: -this.round}, {}, {statusText: "Escalation"});
     }
+
+    // Award Heroism!
+    await this.#awardHeroism();
   }
 
   /* -------------------------------------------- */
@@ -139,6 +149,41 @@ export default class CrucibleCombat extends Combat {
     await combatant.actor.onEndTurn();
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * As a Gamemaster, award Heroism points to the party, if applicable.
+   * @returns {Promise<void>}
+   */
+  async #awardHeroism() {
+
+    // Reset Heroism
+    if ( this.round === 1 ) {
+      this.#priorHeroism = 0;
+      return game.settings.set("crucible", "heroism", 0);
+    }
+
+    const protagonistLevels = this.combatants.reduce((arr, c) => {
+      if ( c.actor?.type === "hero" ) arr.push(c.actor.level);
+      return arr;
+    }, []);
+    const heroismRequired = protagonistLevels.reduce((h, l) => h + l * 12, 0);
+    const priorAwarded = Math.floor(this.#priorHeroism / heroismRequired);
+
+    const heroism = game.settings.get("crucible", "heroism") || 0;
+    this.#priorHeroism = heroism;
+    const earned = Math.floor(heroism / heroismRequired);
+
+    const toAward = earned - priorAwarded;
+    if ( toAward <= 0 ) return;
+
+    // Award
+    for ( const c of this.combatants ) {
+      if ( c.actor?.type !== "hero" ) continue;
+      await c.actor.alterResources({heroism: toAward}, {}, {statusText: "Heroism!"});
+    }
   }
 
   /* -------------------------------------------- */
@@ -162,8 +207,7 @@ export default class CrucibleCombat extends Combat {
     return ChatMessage.create({
       content: `
       <section class="crucible dice-roll initiative">
-      <h3>Round ${round} - Initiative Rolls</h3>
-      <table>
+      <table class="initiative-table">
         <thead>
           <tr>
               <th>Combatant</th>
@@ -177,7 +221,7 @@ export default class CrucibleCombat extends Combat {
       </table>
       </section>`,
       rolls,
-      speaker: ChatMessage.getSpeaker({user: game.user}),
+      speaker: {user: game.user, alias: `Initiative - Round ${round}`},
       "flags.crucible.isInitiativeReport": true
     });
   }

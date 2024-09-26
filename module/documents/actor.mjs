@@ -1173,6 +1173,7 @@ export default class CrucibleActor extends Actor {
       const cfg = SYSTEM.RESOURCES[id];
       updates[`system.resources.${id}.value`] = cfg.type === "reserve" ? 0 : resource.max;
     }
+    updates["system.resources.heroism.value"] = 0;
     updates["system.status"] = null;
     return updates;
   }
@@ -1300,6 +1301,7 @@ export default class CrucibleActor extends Actor {
     // Apply changes to the Actor
     await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse});
     await this.#applyOutcomeEffects(outcome, reverse);
+    await this.#trackHeroismDamage(outcome.resources, reverse);
 
     // Record target state changes
     if ( this.isWeakened && !wasWeakened ) outcome.weakened = true;
@@ -1341,6 +1343,23 @@ export default class CrucibleActor extends Actor {
     await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
     await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
     await this.createEmbeddedDocuments("ActiveEffect", toCreate, {keepId: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Track the amount of damage or healing dealt during the combat encounter.
+   * @param {Record<string, number>} resources
+   * @param {boolean} reverse
+   */
+  async #trackHeroismDamage(resources, reverse) {
+    if ( !game.combat.active ) return;
+    let delta = 0;
+    for ( const r of ["health", "wounds", "morale", "madness"] ) delta += (resources[r] || 0);
+    if ( delta === 0 ) return;
+    if ( reverse ) delta *= -1;
+    const heroism = Math.max((game.settings.get("crucible", "heroism") || 0) + delta, 0);
+    await game.settings.set("crucible", "heroism", heroism);
   }
 
   /* -------------------------------------------- */

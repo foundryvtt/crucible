@@ -317,6 +317,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Reset bonuses
+    this.usage.actorStatus.basicStrike = false; // Set later, if true
     Object.assign(this.usage.bonuses, {
       ability: 0,
       skill: 0,
@@ -507,6 +508,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
 
     // Auto-confirm the action?
+    // TODO move auto-confirm to be a GM action on chat message creation
     if ( confirmed ) {
       if ( message?.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(message.id);
       await this.confirm();
@@ -1064,8 +1066,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     else tags.activation.ap = `${ap}A`;
     if ( Number.isFinite(cost.focus) && (cost.focus !== 0) ) tags.activation.fp = `${cost.focus}F`;
-    if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.hp = `${cost.health}H`; // e.g. Blood Magic
-    if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp) ) tags.activation.ap = "Free";
+    if ( Number.isFinite(cost.heroism) && cost.heroism ) tags.activation.hp = `${cost.heroism}H`;
+    if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.health = `${cost.health}HP`; // e.g. Blood Magic
+    if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) tags.activation.hands = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
 
     // Duration

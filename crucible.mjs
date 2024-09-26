@@ -178,6 +178,14 @@ Hooks.once("init", async function() {
     onDown: chat.onKeyboardConfirmAction
   });
 
+  // TODO this needs to change to a Combat flag
+  game.settings.register("crucible", "heroism", {
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0
+  });
+
   /**
    * Is animation enabled for the system?
    * @type {boolean}

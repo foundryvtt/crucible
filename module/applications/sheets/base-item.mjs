@@ -319,13 +319,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     }
 
     // Add data to the actions array
-    actions.push(crucible.api.models.CrucibleAction.cleanData(actionData));
+    const action = new crucible.api.models.CrucibleAction(actionData, {parent: this.document.system});
+    actions.push(action.toObject());
     fd.system.actions = actions;
     await this.document.update(fd);
 
     // Render the action configuration sheet
-    const action = this.document.actions.find(a => a.id === actionData.id);
-    await action.sheet.render(true);
+    await action.sheet.render({force: true});
   }
 
   /* -------------------------------------------- */

@@ -2298,12 +2298,8 @@
 /* ----------------------------------------- */
 /*  Initiative Report                        */
 /* ----------------------------------------- */
-.crucible.dice-roll.initiative {
-  flex-direction: column;
-}
-.crucible.dice-roll.initiative h3 {
+.crucible.dice-roll.initiative .initiative-table {
   margin: 0;
-  text-align: center;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */
