@@ -132,45 +132,30 @@ export default class CrucibleAdversary extends CrucibleActorType {
     // Compute Archetype scaling weights
     const weights = {};
     let wTotal = 0;
-    const maxA = this.advancement.threatLevel <= 0 ? Math.max(...Object.values(archetype.abilities)) : undefined;
     for ( const k in SYSTEM.ABILITIES ) {
-      const w = this.advancement.threatLevel > 0 ? archetype.abilities[k] : (maxA + 1 - archetype.abilities[k]);
+      const w = archetype.abilities[k];
       weights[k] = Math.pow(w, 2);
       wTotal += weights[k];
     }
 
-    // Pass 1: Unconstrained Increases
-    let spent = 0;
-    for ( const k in SYSTEM.ABILITIES ) {
-      weights[k] /= wTotal;
-      const a = this.abilities[k];
-      a.desired = a.base + (toSpend * weights[k]);
-      let d = Math.round(Math.abs(toSpend) * weights[k]) * Math.sign(toSpend);
-      a.increases = Math.clamp(d, 1 - a.value, 18 - a.value);
-      a.value = a.base + a.increases;
-      spent += a.increases;
-    }
-    if ( spent === toSpend ) return;
+    const delta = Math.sign(toSpend);
 
-    // Pass 2: Iterative Assignment
-    const delta = Math.sign(toSpend - spent);
-    const order = [];
-    for ( const k in SYSTEM.ABILITIES ) {
-      const a = this.abilities[k];
-      const capped = delta > 0 ? a.value === 18 : a.value === 1;
-      if ( !capped ) order.push([k, a.desired, a.value]);
-    }
-    while ( spent !== toSpend ) {
-      if ( !order.length ) break;                                           // No uncapped abilities remaining
-      if ( delta > 0 ) order.sort((a, b) => (b[1] - b[2]) - (a[1] - a[2]))  // Increase farthest below desired value
-      else order.sort((a, b) => (a[1] - a[2]) - (b[1] - b[2]));             // Reduce farthest above desired value
-      const target = order[0];
-      const a = this.abilities[target[0]];
-      a.increases += delta;
-      target[2] = a.value += delta;
-      const capped = delta > 0 ? a.value === 18 : a.value === 1;
-      if ( capped ) order.shift();
-      spent += delta;
+    for (let i = 0; i < Math.abs(toSpend); i++) {
+      let mostDivergingWeightedScore = Infinity * delta;
+      let mostDivergingAbility;
+      for ( const ability in SYSTEM.ABILITIES ) {
+        const score = this.abilities[ability].value;
+        const weightedScore = score / weights[ability];
+        if (
+          (toSpend > 0 && weightedScore < mostDivergingWeightedScore && score < 18) 
+          || (toSpend < 0 && weightedScore > mostDivergingWeightedScore && score > 1)
+        ) {
+          mostDivergingWeightedScore = weightedScore;
+          mostDivergingAbility = ability;
+        }
+      }
+      this.abilities[mostDivergingAbility].increases += delta;
+      this.abilities[mostDivergingAbility].value += delta;
     }
   }
 
