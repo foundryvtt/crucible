@@ -932,7 +932,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @override */
   _onRender(_context, _options) {
-    if ( !game.user.isGM ) return;
     new DragDrop({
       dragSelector: '.draggable',
       dropSelector: null,

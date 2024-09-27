@@ -169,26 +169,22 @@
         "htmlFields": ["description"]
       },
       "armor": {
-        "htmlFields": ["description.public", "description.secret"],
-        "gmOnlyFields": ["actions.actionHooks.fn"]
+        "htmlFields": ["description.public", "description.secret"]
       },
       "background": {
         "htmlFields": ["description"]
       },
       "spell": {
-        "htmlFields": ["description"],
-        "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
+        "htmlFields": ["description"]
       },
       "talent": {
-        "htmlFields": ["description"],
-        "gmOnlyFields": ["actorHooks.fn", "actions.actionHooks.fn"]
+        "htmlFields": ["description"]
       },
       "taxonomy": {
         "htmlFields": ["description"]
       },
       "weapon": {
-        "htmlFields": ["description.public", "description.secret"],
-        "gmOnlyFields": ["actions.actionHooks.fn"]
+        "htmlFields": ["description.public", "description.secret"]
       }
     },
     "JournalEntryPage": {

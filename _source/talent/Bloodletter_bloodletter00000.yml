@@ -2,14 +2,12 @@ name: Bloodletter
 type: talent
 img: icons/skills/wounds/blood-spurt-spray-red.webp
 system:
-  node: dex2b
+  node: dex3a
   description: >-
     <p>Your precision with weapons which deal Slashing or Piercing damage can
     cause the Bleeding condition on Critical Hits which deal damage to
-    Health.</p>
-
-    <p>The Bleeding effect lasts for 1 round and deals your Dexterity score as
-    additional damage to Health.</p>
+    Health.</p><p>The Bleeding effect lasts for 1 round and deals your Dexterity
+    score as additional damage to Health.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -43,10 +41,10 @@ flags:
     sourceId: Item.bloodletter00000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676687155877
-  modifiedTime: 1688827706155
+  modifiedTime: 1727454019878
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.bloodletter00000
   duplicateSource: null
