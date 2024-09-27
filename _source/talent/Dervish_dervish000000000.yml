@@ -11,22 +11,30 @@ system:
       name: Whirlwind
       img: icons/skills/melee/swords-triple-orange.webp
       description: >-
-        You become a cyclone of whirling weaponry, striking every adjacent
-        creature.
+        <p>You become a cyclone of whirling weaponry, making
+        <strong>Strike</strong> attacks with both weapons against every enemy
+        within range.</p>
       tags:
-        - melee
         - dualwield
+        - melee
         - mainhand
         - offhand
       cost:
-        action: 1
+        action: 6
         focus: 0
+        heroism: 1
+        weapon: false
       target:
         type: pulse
         number: 1
-        distance: 1
         scope: 3
       effects: []
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      actionHooks: []
   actorHooks: []
 effects: []
 ownership:
@@ -40,7 +48,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1675607983807
-  modifiedTime: 1726705826151
+  modifiedTime: 1727322029245
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dervish000000000
   duplicateSource: null

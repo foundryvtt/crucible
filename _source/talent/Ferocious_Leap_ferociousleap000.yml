@@ -10,28 +10,29 @@ system:
   actions:
     - id: ferociousLeap
       description: >-
-        You leap up to 10 feet and perform a Strike against an enemy within
+        <p>You leap up to 10 feet and perform a Strike against an enemy within
         melee range of where you land. Your movement ignores difficult terrain
-        and is not blocked by enemy creatures.
+        and is not blocked by enemy creatures.</p>
       tags:
-        - mainhand
         - melee
         - movement
+        - mainhand
       cost:
         action: 0
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Ferocious Leap
+      img: icons/magic/movement/portal-vortex-orange.webp
       condition: ''
       range:
         maximum: 10
-        weapon: true
+        weapon: false
         minimum: 4
       actionHooks: []
   requirements: {}
@@ -39,10 +40,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674960403832
-  modifiedTime: 1696791664586
+  modifiedTime: 1727404644650
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -9,7 +9,7 @@ system:
     surface.
   actions:
     - id: pinningShot
-      condition: A hard surface immediately behind your target.
+      condition: ''
       description: >-
         <p>You <strong>Strike</strong> from distance. The attack is
         <strong>Difficult</strong>, however if your target is it it becomes
@@ -28,12 +28,12 @@ system:
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Pinning Shot
           scope: 3
-          duration:
-            turns: 1
           statuses:
             - restrained
+          duration:
+            turns: 1
       name: Pinning Shot
       img: icons/skills/ranged/arrow-strike-glowing-teal.webp
       range:
@@ -48,7 +48,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1674962141351
-  modifiedTime: 1727145827457
+  modifiedTime: 1727387896831
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

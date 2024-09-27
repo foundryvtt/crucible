@@ -92,16 +92,9 @@ pages:
             handled it.
           ranks:
             specialist:
-              description: >-
-                A Detective gains +2 boons to awareness rolls related to search
-                checks and GMs are encouraged to provide them with information
-                about the location which might not be immediately obvious to
-                others.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A Master Detective shortens search times for their party by 50%,
-                and a Detective treats any investigative awareness check with a
-                difficulty below 20 as if it were automatically successful.
+              description: Specialization mechanics will be added in a later playtest.
           id: detective
           name: Detective
         path2:
@@ -125,16 +118,9 @@ pages:
             ability to detect the presence of others.
           ranks:
             specialist:
-              description: >-
-                A Sentinel gains +2 boons to awareness rolls related to
-                identifying dangers and hazards, and may ignore any penalties to
-                awareness checks that would be imposed by fatigue.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Opponents attempting to ambush a party containing a Master
-                Sentinel gain +2 banes to their attempts, and even if an ambush
-                is successful the Sentinel does not count as surprised, instead
-                taking the first position in initiative.
+              description: Specialization mechanics will be added in a later playtest.
           id: sentinel
           name: Sentinel
         path3:
@@ -154,19 +140,9 @@ pages:
             order to affect the outcome of events.
           ranks:
             specialist:
-              description: >-
-                A Prescient gains +2 boons to awareness rolls related to
-                predicting the behavior of others, and when aiding allies in the
-                execution of a complex plan each ally gains one +2 boon to be
-                applied (once) to any single check performed as part of the plan
-                at their choosing.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                During the start of any combat, a Master Prescient and their
-                party may reposition themselves, moving up to three spaces in
-                any direction. If an ally would fail an awareness roll, a
-                Prescient may intervene on their behalf, allowing them to
-                reroll- once.
+              description: Specialization mechanics will be added in a later playtest.
           id: prescient
           name: Prescient
     ownership:
@@ -175,10 +151,10 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683472874811
-      modifiedTime: 1684075217371
+      modifiedTime: 1727446901252
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -251,30 +227,20 @@ pages:
       paths:
         path1:
           overview: >-
-            Infiltrators are masters of traditional stealth, manipulating light
-            and shadow to hide from visual observation, and using their
-            environment to mask the sounds of their passage.
-
-
-            A Master Infiltrator needs little more than a passing shadow to hide
-            themselves, and their movements are dangerously silent even on the
-            most unforgivingly noisy surfaces. They have learned to mask not
-            only their own movements, but the movements of others, protecting
-            them from observation.
+            Few are as capable of blending in as the Chameleon. Chameleons focus
+            their education on the art of blending in with their surroundings,
+            using crowds and disguise to camouflage their presence. A Master
+            Chameleon is capable of blending into nearly any crowd, and can
+            assume a convincing disguise for nearly any role. In any given
+            environment, they seem to others to simply belong. They exude a
+            confident nonchalance which extends to their friends and allies.
           ranks:
             specialist:
-              description: >-
-                Specialist Infiltrators gain +2 boons to stealth rolls related
-                to hiding or silent movement.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                When a Master Infiltrator rolls to hide or move silently, their
-                roll is considered as acting for the entire party. Additionally,
-                in unlit areas, Master Infiltrators are considered as unobserved
-                to anyone who is has not trained awareness to at least an
-                Apprentice level.
-          id: infiltrator
-          name: Infiltrator
+              description: Specialization mechanics will be added in a later playtest.
+          id: chameleon
+          name: Chameleon
         path2:
           overview: >-
             Few are as capable of blending in as the Chameleon. Chameleons focus
@@ -288,19 +254,11 @@ pages:
             confident nonchalance which extends to their friends and allies.
           ranks:
             specialist:
-              description: >-
-                Awareness checks to detect a Chameleon (whether blending into a
-                crowd or using disguise) receive +2 banes.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Awareness checks to detect a Chameleon's party when blending
-                into a crowd or using disguises receive +2 banes. While
-                disguised, a Master Chameleon may convincingly mimic the voice,
-                body language, and mannerisms of their assumed persona, adding
-                +2 boons to any social skills appropriate to their disguised
-                role.
-          id: chameleon
-          name: Chameleon
+              description: Specialization mechanics will be added in a later playtest.
+          id: infiltrator
+          name: Infiltrator
         path3:
           overview: >-
             Rogues tend to learn some of the more security-minded aspects of
@@ -316,17 +274,9 @@ pages:
             heavily guarded locations.
           ranks:
             specialist:
-              description: >-
-                Specialist Rogues gain +2 boons to stealth rolls related to
-                bypassing locks, disabling traps, and may use stealth to
-                pickpocket others.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A Master Rogue does not need to roll to bypass a lock rated at a
-                difficulty of 25 or lower. Additionally, if a target's awareness
-                is not trained to a level of at least Apprentice, a Master Rogue
-                may add or remove a single item from the target's inventory
-                without needing to roll.
+              description: Specialization mechanics will be added in a later playtest.
           id: rogue
           name: Rogue
     ownership:
@@ -335,11 +285,11 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744125556
-      modifiedTime: 1683748628481
-      lastModifiedBy: PQhsT89HTP8uxjkQ
+      modifiedTime: 1727447108601
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.O2jmcYabEbqgxgLm'
@@ -360,142 +310,135 @@ pages:
     system:
       skillId: arcana
       overview: >-
-        <p>Arcana is the study of magic, metaphysics, and the arcane. It covers
-        the study of runic theory, the history of magic, and the study of
-        magical ritual. Arcana is the skill used to understand the effects
-        magical spells, rituals, and items have upon the world.</p>
+        <p>Whether the focus of the education is magical or religious in nature,
+        Arcana encompasses the study of esoteric knowledge. Students of Arcana
+        learn fundamental principles of metaphysics, study spiritual beings and
+        deities, runic theory and ritual, the nature of chaos and order, and the
+        history of how magical and spiritual forces impact societies and
+        cultures. Arcana is the skill used to understand arcane and divine
+        spells, the nature of spiritual beings, and any academic knowledge that
+        may be related to either magic or religion.</p>
 
-        <p>The average person may be aware of the existence of magic in the
-        abstract sense, may have even seen it used, but they have no real
-        understanding of how it works, or what it is capable of.</p>
+        <p>The average person, even an adherent to a religious faith, may be
+        aware of the existence of magic in the abstract sense, may have even
+        seen it used, but they have no real understanding of how it works or
+        what it is capable of when wielded by practiced hands. 
+
+        </p>
       ranks:
         untrained:
           description: >-
-            You have no understanding of magic beyond what you've heard in song
-            and story.
+            You have no understanding of magic or metaphysical knowledge beyond
+            what you've heard in song and story.
         novice:
           description: >-
-            Your education covered many of the basics of magical theory. You
-            know many of the more prominent magical theories, and have an
-            understanding of the lesser runes and what they govern. You have a
-            rudimentary understanding of the principle grammar of magic, enough
-            to identify which lesser rune a spell or ritual may use, as well as
-            the gesture (if not the inflection).
+            Your education covered the fundamentals of metaphysics and magical
+            theory, the relationship between the runes, the opposing nature of
+            order and chaos, and a cursory introduction to spiritual beings
+            including the most commonly known deified and demonized figures of
+            worship. Your rudimentary understanding of the principle grammar of
+            magic is sufficient to identify which lesser rune a spell or ritual
+            may be using, as well as the gesture used (if not the inflection).
+            You can identify whether a figure is influenced more by chaos or by
+            order, and can spot the signs of common spirits (both lesser and
+            greater). You know enough about religious customs to communicate
+            with those who worship a particular spirit or deity without
+            embarrassing yourself.
         apprentice:
           description: >-
-            The principles and theories of the arcane are an open book to you.
-            You know all the common magical theories, the names of famous
-            theorists, the lesser and greater runes. With sufficient time to
-            study a magical object or ritual, you might be able to discern its
-            purpose and the runes which it draws from. You know the grammar of
-            magic sufficiently to identify the rune, gesture, and inflection of
-            a spell or ritual.
+            The principles and theories of arcano-spiritual metaphysics are an
+            open book to you, but you still have a lot left to learn. There are
+            few deities and spirits of which you have not heard, and you have a
+            studious grasp on the common magical theories as well as the
+            principles associated with each of the lesser and greater runes. You
+            know some of the basic rituals to invoke and communicate with
+            spirits, and with sufficient time you could likely prepare a ritual
+            to ward against them. With sufficient time to study a magical object
+            or ritual, you might be able to discern its purpose and the runes
+            from which it draws. You know the grammar of magic sufficiently to
+            identify the rune, gesture, and inflection of a spell or ritual, or
+            whether a spiritual entity comes from chaotic or orderly origins.You
+            know how to navigate the turbulent waters of religious or magical
+            academic discussion, and can identify the religious beliefs of
+            others with just a few questions.
         specialist:
           description: >-
             Choose a specialization path for your Arcana training. You may
             choose either:  Elementalist, Occulstist, or Technocrat.
         adept:
           description: >-
-            Your knowledge of magical theory is a vast ocean, and you have at
-            least passing familiarity with even the most obscure rituals. You
-            can reference lesser-known magical theorists by name, summarize
-            their theories and the counter-arguments related to them, and you
-            are able to identify the presence of magic almost as if it is a
-            sixth sense. The workings of most magical spells, rituals, and items
-            are an open book to you.
+            Your knowledge of magical theory is a vast ocean, the breadth of
+            your religious education expansive. It might take you a little time
+            to study, but you understand the origin and meanings of the most
+            rare and obscure rituals, scriptures, and magical theories. You can
+            reference lesser-known magical theorists by name, summarize their
+            theories and the counter-arguments related to them, and you are able
+            to identify the presence of magic almost as if it is a sixth sense.
+            Where others might have trouble identifying particular spirits or
+            deities, you can identify them by name quite easily, and know many
+            of the common weaknesses and resistances associated with them. The
+            workings of most magical spells, rituals, and items are an open book
+            to you.
         master:
           description: >-
-            You have perfected your Arcana by mastering your chosen
+            You have perfect command of Arcana by mastering your chosen
             specialization.
       paths:
         path1:
           overview: >-
-            <p>Elementalists focus their studies on the lesser runes, their
-            presence in the world, and how they interact with each other.
-            Elementalists are taught that the lesser runes are the building
-            blocks of all magic, and that their proximity to reality is what
-            gives them their power.</p>
+            An Elementalist pursues and practices traditional arcane knowledge
+            which focuses on understanding and mastery of the runic essences
+            from which magic is derived. Elementalists have the greatest
+            understanding of magical theory and the metaphysical laws of
+            spellcraft.
           ranks:
             specialist:
-              description: >-
-                <p>A Specialist Elementalist gains +2 boons to Arcana rolls
-                related to identification of magical items and rituals involving
-                the lesser runes, and may transcribe existing rituals which use
-                lesser runes as during downtime without the need to roll.
-                Specialist Elementalists gain +2 boons for any roll related to
-                rituals involving the lesser runes.</p>
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Elementalists may immediately identify any magical item,
-                ritual, or spell which uses a lesser rune. If a party member is
-                casting a spell or ritual which uses a lesser rune, a Master
-                Elementalist may spend an action point to amplify the magic,
-                adding +2 boons to the roll.
+              description: Specialization mechanics will be added in a later playtest.
           id: elementalist
           name: Elementalist
         path2:
           overview: >-
-            <p>Occultists seek the deeper knowledge of the greater runes, and
-            the secrets they hold. Occultists are taught that the greater runes
-            are the true source of magic, and that the lesser runes are merely a
-            rippling reflection of the greater runes in the world. </p>
+            A Primalist focuses on understanding how magic interacts with the
+            land and living creatures. Primalists have a less precise
+            understanding of traditional theory, but a deepened attunement to
+            fundamental sources of magical energy which can cultivate, empower,
+            or destroy. Primalists are more likely to recognize loci of magical
+            energy or to understand the motivations behind a particular work of
+            spellcraft.
           ranks:
             specialist:
-              description: >-
-                <p>A specialist Occultist gains +2 boons to arcana rolls related
-                to the identification of magical items and rituals involving the
-                greater runes, and may transcribe existing rituals which use
-                greater runes during downtime without the need to roll.
-                Specialist Occultists gain +2 boons for any roll related to
-                rituals involving the greater runes.</p>
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Occultists may immediately identify any magical item,
-                ritual, or spell which uses a greater rune. If a party member is
-                casting a spell or ritual which uses a greater rune, a Master
-                Occultist may spend an action point to amplify the magic, adding
-                +2 boons to the roll.
-          id: occultist
-          name: Occultist
+              description: Specialization mechanics will be added in a later playtest.
+          id: primalist
+          name: Primalist
         path3:
           overview: >-
-            <p>Technocrats believe that the runes are merely a tool to be used,
-            that the abstract understanding of lesser and greater runes is just
-            an insufficiently understood representation of scientific law, and
-            that magic is the will of the caster. For a Technocrat, the runes
-            are merely a means of focusing the will of the caster, and with
-            sufficient engineering, they can be used to create scientific
-            marvels.</p>
+            Theurgists focus on the deeply spiritual nature of magic and its
+            relationship to the divine and to the soul. Theurgists focus heavily
+            on understanding matters of life and afterlife. Theurgists also tend
+            to be experts in knowledge of divine beings, religious rites, and
+            symbolic ceremonies.
           ranks:
             specialist:
-              description: >-
-                <p>Specialist technocrats gain +2 boons to any rolls related to
-                the use of magical items. Using the crafting system (NOT YET
-                IMPLEMENTED), a specialist technocrat may use any lesser rune
-                they know to create magical items which use those principles.
-                </p>
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master technocrats amplify the effects of any magical item they
-                are using, doubling its properties. A master Technocrat may roll
-                arcana to temporarily disrupt the magical effects of a target
-                magical item or device for up to three rounds. Using the
-                crafting system (NOT YET IMPLEMENTED), a master technocrat may
-                use any greater rune they know to create magical items which use
-                those principles.
-          id: technocrat
-          name: Technocrat
+              description: Specialization mechanics will be added in a later playtest.
+          id: theurgist
+          name: Theurgist
     ownership:
       default: -1
       PQhsT89HTP8uxjkQ: 3
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744497135
-      modifiedTime: 1683891895217
-      lastModifiedBy: PQhsT89HTP8uxjkQ
+      modifiedTime: 1727448032769
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.1XkdTDKQiY8hQjb9'
@@ -516,19 +459,16 @@ pages:
     system:
       skillId: society
       overview: >-
-        The Society skill is most often used for the purposes of research, to
-        gather details about a social situation, or to augment social rolls in
-        future interactions. Those educated in the workings of Society study the
-        factors which contribute to social structures. Society is rolled to
-        establish historical or socio-political context, to identify the social
-        rank of particular individuals, or to otherwise draw connections between
-        a person or place and its most likely contributors. 
-
-
-
-        Those who study Society are often more capable of using that knowledge
-        to gain the upper hand in social situations, though they are not
-        necessarily more charismatic or socially adept--merely better informed.
+        The Society skill is most often used for the purposes of research or
+        understanding into the nuanced aspects of a social situation. Those
+        educated in the workings of Society study the factors which contribute
+        to social structures. Knowledge of Society is used to establish
+        historical or socio-political context, to identify the social rank of
+        particular individuals, or to otherwise draw connections between a
+        person or place and its most likely contributors. Those who study
+        Society are often more capable of using that knowledge to gain the upper
+        hand in social situations, though they are not necessarily more
+        charismatic or socially adept – merely better informed.
       ranks:
         untrained:
           description: You are blissfully unaware of historical events and social context.
@@ -581,19 +521,9 @@ pages:
             the breadth of their knowledge to aid others in their recall.
           ranks:
             specialist:
-              description: >-
-                Specialist Historians gain +2 boons to any rolls for identifying
-                ancient magical items or devices, and if a magical item is of
-                historical significance they do not need to roll to identify it.
-                A historian's party gains +1 boon to all rolls related to
-                academic research.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Historians grant their party the benefit of their
-                knowledge, extending their +2 boons to rolls for identifying
-                ancient magical items or devices to their entire party. In
-                addition, any research attempts conducted by the party of a
-                Master Historian are completed in half the expected time.
+              description: Specialization mechanics will be added in a later playtest.
           id: historian
           name: Historian
         path2:
@@ -607,15 +537,9 @@ pages:
             knowledge to apply leverage and influence for their own ends.
           ranks:
             specialist:
-              description: >-
-                Specialist Politicians gain +2 boons to deception and diplomacy
-                rolls related to negotiation with political figures, and also
-                when making speeches to pursuade crowds.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Politicians can spend a focus point to drastically sway
-                the opinion of a crowd, increasing the roll for a political
-                speech to an instantaneous success.
+              description: Specialization mechanics will be added in a later playtest.
           id: politician
           name: Politician
         path3:
@@ -629,18 +553,9 @@ pages:
             where the aristocracy fear to tread.
           ranks:
             specialist:
-              description: >-
-                Specialist Scoundrels gain +2 boons to diplomacy and
-                intimidation rolls related to social interaction with the
-                criminal underworld, and may communicate with elements of the
-                criminal underworld using a peculiar variety of slang and
-                hand-signals known only to the more rigorous criminals.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Scoundrels no longer need to roll to locate a safehouse,
-                a fence, black market, or other criminal services, and the price
-                for information and items only available through the criminal
-                underworld are reduced by 50%.
+              description: Specialization mechanics will be added in a later playtest.
           id: scoundrel
           name: Scoundrel
     ownership:
@@ -649,10 +564,10 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744529088
-      modifiedTime: 1684075554479
+      modifiedTime: 1727449855402
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -736,14 +651,9 @@ pages:
             others simply want to believe.
           ranks:
             specialist:
-              description: >-
-                Specialist Grifters gain +2 boons to any Social rolls related to
-                manipulation of others in service of an established lie.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Attempts to detect lies told by Master Grifters suffer +2 banes,
-                and a party which includes a Master Grifter gains +2 boons to
-                any rolls related to deception.
+              description: Specialization mechanics will be added in a later playtest.
           id: grifter
           name: Grifter
         path2:
@@ -757,19 +667,9 @@ pages:
             items.
           ranks:
             specialist:
-              description: >-
-                If a Specialist Counterfeiter has created a forged document or
-                item, any attempts to verify its authenticity suffer -2 banes.
-                Similarly, Specialist Counterfeiters gain +2 boons to any
-                attempts to determine if an object is an original or a forgery.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Forgeries created by a Master Counterfeiter can only be detected
-                as fakes by someone directly involved with the creation of the
-                original item or document. Additionally, a Master Counterfeiter
-                may spend an action point to create a convincing forgery of any
-                document or item very quickly, even if they have never seen the
-                original.
+              description: Specialization mechanics will be added in a later playtest.
           id: counterfeiter
           name: Counterfeiter
         path3:
@@ -782,17 +682,9 @@ pages:
             truth quite like a Mentalist.
           ranks:
             specialist:
-              description: >-
-                Specialist Mentalists gain +2 boons to any rolls for identifying
-                deception, and may roll either Deception or Awareness for the
-                purposes of interpreting the intentions of others.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Mentalists passively identify lies if the roll does not
-                exceed 20 or greater. Additionally, a Master Mentalist may use
-                their unique skill at interpreting body language to force a
-                target to answer a question truthfully if their deception check
-                exceeds the target's Willpower.
+              description: Specialization mechanics will be added in a later playtest.
           id: mentalist
           name: Mentalist
     ownership:
@@ -801,10 +693,10 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744545423
-      modifiedTime: 1684076115156
+      modifiedTime: 1727449906763
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -878,17 +770,9 @@ pages:
             emotional reactions in large groups of people.
           ranks:
             specialist:
-              description: >-
-                Specialist Orators gain +2 boons to any Social rolls related to
-                influencing others through public speaking, and may roll
-                diplomacy to use their speech to inspire a specific emotional
-                reaction in an audience.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                TODO: ADD VALUE HERE. Any attempts to resist the emotional
-                effects of a Master Orator's speech suffer +2 banes, and unless
-                a target's willpower is greater than <VALUE> they automatically
-                find an orator's words compelling and agreeable.
+              description: Specialization mechanics will be added in a later playtest.
           id: orator
           name: Orator
         path2:
@@ -900,16 +784,9 @@ pages:
             mediators, compromise is the best solution to any problem.
           ranks:
             specialist:
-              description: >-
-                Specialist Mediators gain +2 boons to any Social rolls related
-                to conflict resolution, and may roll Diplomacy to reduce
-                feelings of a particular emotion in others, calming rage or
-                reducing fear.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A Master Mediator may spend a focus point to force a target to a
-                state of emotional calm, and the first attempt to take violent
-                action in the presence of a Master Mediator suffers +2 banes.
+              description: Specialization mechanics will be added in a later playtest.
           id: mediator
           name: Mediator
         path3:
@@ -928,21 +805,9 @@ pages:
             words.</p>
           ranks:
             specialist:
-              description: >-
-                Specialist Critics gain +2 boons to any Social rolls convince
-                individuals they are wrong. They may roll Diplomacy to instill
-                doubt in a target, reducing the target's morale by the Critic's
-                level if successful.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Parties with a Master Critic are conditioned to ignore the
-                logical arguments commmonly used to break belief and shatter
-                morale, any party with a master Critic gains +2 Willpower in
-                cases where an attack would negatively affect Morale. In
-                addition, a Master Critic may spend a focus point to force a
-                target into a state of emotional confusion, applying the
-                Disoriented condition to the target until the end of their next
-                turn.
+              description: Specialization mechanics will be added in a later playtest.
           id: critic
           name: Critic
     ownership:
@@ -951,15 +816,15 @@ pages:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744558127
-      modifiedTime: 1684884760207
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727449919086
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.W2UTXlsZn2TLQYt2'
-  - sort: 1300000
+  - sort: 650000
     name: Medicine
     type: skill
     _id: hLLuHPQ028FFVyoE
@@ -976,53 +841,57 @@ pages:
     system:
       skillId: medicine
       overview: >-
-        Medicine is used most commonly as a skill to treat injury and diseases
-        in other people, but it is a specific subset of biological study which
-        takes a holistic view toward treatment and maintenance of the physical
-        and mental health of others. Those who practice medicine are most
-        commonly healers, surgeons, counselors or apothecaries and dedicate
-        their lives to the study of the body and mind.
+        <p>The study of Medicine is a practical one, with a focus on studying
+        the mechanical, biological components that make up living creatures, the
+        ailments that can afflict them, and the ways to best treat injury and
+        illness alike.</p>
+
+        <p>While anyone might know that an injured knee makes it difficult to
+        walk, that a persistent cough means you might be sick, or that wrapping
+        cloth around a cut finger helps to stop it from bleeding, those with
+        training in Medicine know exactly how to provide support to broken or
+        injured anatomy, what treatments can best be used to relieve an illness
+        that causes a cough, or how best to bandage a wound.</p>
       ranks:
         untrained:
           description: >-
-            You are not particularly skilled with even the basics of treating a
-            wound, and are likely to do more harm than good if you attempt to
-            treat an injury or disease.
+            You are utterly unfamiliar with anything more than the basics of how
+            your own body works, treating injuries is a foreign concept,
+            sometimes people just get sick and you either get better or you
+            don't.
         novice:
           description: >-
-            You have learned the basics of first aid and know how best to
-            sanitize and treat most common wounds. With the right tools you
-            could sew a wound shut safely or set a broken bone, and you know how
-            to correctly dose most common medical concoctions. If you had to,
-            you could probably even perform a simple surgery, if you had
-            assistance from more skilled practitioners.
+            Your medical education has only just begun, and most of your
+            knowledge is still theoretical. You’ve learned the basics of
+            treating common wounds and illnesses, and keep a running list of
+            known alchemical and herbal compounds that can be used for treating
+            particular illnesses. With a little time studying an injured,
+            diseased, or otherwise ill individual you can perform a basic
+            diagnosis and treat accordingly.
         apprentice:
           description: >-
-            You know many common ailments and the most effective way to treat
-            and cure them. You are confident in your ability to treat most
-            wounds without risk of infection, and you have a sufficient
-            understanding of surgical practices to perform most common surgeries
-            without assistance. With adequate time to study and research, you
-            could likely diagnose and treat illnesses that you have never
-            encountered before. You are familiar with prevailing theories of
-            mental illness, and know how to identify the signs of advancing
-            madness in others, and how to alievate the symptoms of some of the
-            more common common infestations of the mind.
+            You've served as a student to someone with a great deal of
+            experience in the dissection of bodies, and perhaps have assisted in
+            the deconstruction of a once-living creature yourself. You
+            understand the basic principles of musculoskeletal systems, and how
+            to identify common illnesses and diseases at a glance. With some
+            study, you could probably identify and treat more rare diseases and
+            illnesses. You have a theoretical knowledge of how to perform simple
+            surgical procedures, but perhaps have not done so yourself.
         specialist:
           description: >-
             Choose a specialization path for your Society training. You may
-            choose either: Chirurgeon, Counsellor, or Apothecary.
+            choose either: Chirurgeon, Counsellor, or Occultist.
         adept:
           description: >-
-            The body and mind hide very few mysteries for you. You are uniquely
-            capable of treating even the most exotic of diseases and injuries
-            within the bodies and minds of others. Even in the face of unknown
-            conditions, you are able to very quickly diagnose an issue and take
-            action to correct it. You can stabilize patients on the verge of
-            death, perform complex surgical operations to reattach dismembered
-            limbs or transplant organs. You know how best to diagnose even
-            uncommon mental afflictions, and you know what compounds and
-            medicines can best treat even the most dire illnesses.
+            Your capability with Medicine is nearly unmatched. Given a little
+            time studying the subject, you can identify disease and illness no
+            matter how rare, and the cause and treatment of injury is an open
+            book to you. With a practiced hand, you can complete common surgical
+            procedures such as amputation without significant risk to your
+            patient’s life. You can treat even the most traumatic injuries
+            effortlessly, and you can quickly recall the best alchemical and
+            herbal compounds to use to relieve injury, pain, and illness.
         master:
           description: >-
             You have perfected your Medicine by mastering your chosen
@@ -1030,24 +899,15 @@ pages:
       paths:
         path1:
           overview: >-
-            Chirurgeons specialize in the upkeep up the physical form. Tending
+            Chirurgeons specialize in the upkeep of the physical form. Tending
             to the wounds and injuries of others, they are often found on the
             battlefield, in the halls of a medical institution, or in rare cases
             black markets and back alleys.
           ranks:
             specialist:
-              description: >-
-                Specialist Chirurgeons gain +2 boons to rolls related to
-                treating wounds, injuries, or illness in the physical body. In
-                emergency cases, a Chirurgeon can spend an action point to
-                immediately stabilize a dying character.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Chirurgeons gain an additional action point which can be
-                used exclusively for medical treatment, and gain +2 boons to any
-                rolls related to performing complex surgery. Treating the wounds
-                of others restores an additional amount of health equal to the
-                Chirurgeon's level.
+              description: Specialization mechanics will be added in a later playtest.
           id: chirurgeon
           name: Chirurgeon
         path2:
@@ -1061,52 +921,35 @@ pages:
             military institutions.
           ranks:
             specialist:
-              description: >-
-                Specialist Counsellors gain +2 boons to rolls related to
-                treating madness or improving morale. If an attack would deal
-                damage to the Counsellor's morale or madness resources, they
-                reduce the amount of that damage by the level of their Medicine
-                skill.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Parties containing a Master Counsellor gain the Counsellor's
-                level and skill in medicine as a bonus to their maximum morale
-                and madness resources.
+              description: Specialization mechanics will be added in a later playtest.
           id: counsellor
           name: Counsellor
         path3:
           overview: >-
-            Apothecaries focus their skill upon brewing and distilling medicinal
-            compounds and concoctions. With the right minerals, solutions, and
-            plant matter they are uniquely capable of creating a wide variety of
-            medicines and poisons. Apothecaries tend to peddle their wares from
-            their own shops and market stalls, though some can be found
-            occupying roles within aristocratic courts or hospitals.
+            Occultists turn their fascination and study over the corporeal body
+            towards the supernatural, seeking to understand not only what is
+            ordinary but what is extraordinary. Occultists have a fascination
+            with death and its prevention, and conditions of the blood or humors
+            that can empower physical capabilities or influence the mind.
           ranks:
             specialist:
-              description: >-
-                Specialist Apothecaries produce medicines using the (NOT YET
-                IMPLEMENTED) crafting system and gain +2 boons to any rolls
-                related to identifying the effects of unknown substances.
-                Medicines and toxins administred by an Apothecary are more
-                effective, adding the Apothecary's level as additional healing
-                or damage to the effect of the medicine.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Parties containing a Master Apothecary double the effects of any
-                medicines or toxins.
-          id: apothecary
-          name: Apothecary
+              description: Specialization mechanics will be added in a later playtest.
+          id: occultist
+          name: Occultist
     ownership:
       default: -1
       PQhsT89HTP8uxjkQ: 3
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744837421
-      modifiedTime: 1684076142381
+      modifiedTime: 1727449369081
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -1195,19 +1038,9 @@ pages:
             halls of aristocratic courts, or in the homes of the wealthy. </p>
           ranks:
             specialist:
-              description: >-
-                Specialist Artists gain +2 boons for any rolls related to
-                creating a written or visual work of art, and the time required
-                for them to complete crafting rolls related to visual or written
-                art is reduced by 50%.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master artists require less effort to produce their works: any
-                written or visual art created by a Master artist only requires
-                10% of the time to create that it might take others. In
-                addition, the presence of a Master artist grants their party +2
-                boons to any crafting rolls related to the written word or
-                visual art.
+              description: Specialization mechanics will be added in a later playtest.
           id: artist
           name: Artist
         path2:
@@ -1225,61 +1058,37 @@ pages:
             are legendary, spoken and sung the world over.</p>
           ranks:
             specialist:
-              description: >-
-                Specialist Minstrels gain +2 boons to any action related to
-                performing a song or story, and may spend a focus point to use
-                their music or a story to inspire a specific target, increasing
-                the target's morale by the Minstrel's level.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                The presence of a master Minstrel grants their allies a bonus to
-                their maximum Morale equal to the Minstrel's level. In addition,
-                a master Minstrel may spend the time to create a new composition
-                designed to inspire a certain emotional reaction, granting +2
-                boons to a specific future Social roll made by a member of their
-                party.
+              description: Specialization mechanics will be added in a later playtest.
           id: minstrel
           name: Minstrel
         path3:
           overview: >-
-            <p>Athletes specialize in providing physical entertainment through
-            use of movement and physical spectacle. Gymnastic displays of
-            acrobatics, feats of strength, juggling, dancing and even
-            performative combat all fall within the domain of the Athlete.
-            Athletes are most commonly found in travelling caravans of other
-            performers and entertainers.</p>
-
-            <p>Master Athletes are a sight to behold, performing incredible
-            feats of strength, moving with unparalleled grace and fluidity, and
-            performing acts of precision which defy belief all to the elation of
-            their audiences.</p>
+            Trendsetters specialize in the performative art of influencing
+            others, either intentionally or unconsciously. As a Trendsetter,
+            your actions are more likely to be admired or imitated by those who
+            are impressed by your bearing, attitude, fashion, or poise. A
+            Trendsetter is able to use their skills to be more impactful in
+            social situations or to influence events from afar.
           ranks:
             specialist:
-              description: >-
-                Specialist Athletes gain +2 boons to any rolls related to
-                performing a physical spectacle. In addition, if they would fail
-                a roll related to physical displays of strength or dexterity,
-                such as climbing (pathfinding), they may spend a focus point to
-                reroll (once).
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A Master Athlete inspires confidence in their party, granting +2
-                boons to all rolls related to physical performance. In addition,
-                they no longer reroll a failed roll, but may instead spend that
-                focus point to succeed instead.
-          id: athlete
-          name: Athlete
+              description: Specialization mechanics will be added in a later playtest.
+          id: trendsetter
+          name: Trendsetter
     ownership:
       default: -1
       PQhsT89HTP8uxjkQ: 3
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.8.0
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683744851575
-      modifiedTime: 1684888466083
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727450594900
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.m7H5V1e5EVe4YlxD'
@@ -1355,15 +1164,9 @@ pages:
             violence to get what they want.
           ranks:
             specialist:
-              description: >-
-                Specialist Oppressors gain +2 boons to any social rolls related
-                to overt displays of violence, such as breaking objects or
-                threatening others.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Oppressors exhude an aura of menace, the first attack
-                anyone makes against them in combat suffers +1 bane, and any
-                attempts to intimidate an Oppressor suffer +2 banes.
+              description: Specialization mechanics will be added in a later playtest.
           id: oppressor
           name: Oppressor
         path2:
@@ -1375,15 +1178,9 @@ pages:
             which their target holds most dear.
           ranks:
             specialist:
-              description: >-
-                Specialist Extortionists gain +2 boons to rolls related to
-                researching a subject for exploitable weaknesses.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Extortionists no longer need to roll to research a target
-                for exploitable weaknesses, they are able to read them plainly
-                on their target's face. Master extortionists may reroll a failed
-                attempt to intimidate a target, once.
+              description: Specialization mechanics will be added in a later playtest.
           id: extortionist
           name: Extortionist
         path3:
@@ -1395,17 +1192,9 @@ pages:
             threatening them.
           ranks:
             specialist:
-              description: >-
-                Specialist Operators gain +2 boons to social manipulation when
-                attempting to provoke a target into a specific violent or
-                fearful reaction.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Operators gain +1 boons to attack rolls made against a
-                target they have successfully intimidated or struck in combat at
-                least once, as their attacks inspire fear in their foes. In
-                addition, they may spend one focus point to forego rolling
-                intimidation to provoke an attack or inspire fear in a target.
+              description: Specialization mechanics will be added in a later playtest.
           id: operator
           name: Operator
     ownership:
@@ -1416,11 +1205,11 @@ pages:
         sourceId: JournalEntry.aOVmtaejq7nwOe2K.JournalEntryPage.WUZTmZFkysEiHU2T
     _stats:
       systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '12.325'
+      systemVersion: 0.6.0
+      coreVersion: '12.331'
       createdTime: 1683892875812
-      modifiedTime: 1683894297423
-      lastModifiedBy: PQhsT89HTP8uxjkQ
+      modifiedTime: 1727449931409
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.WUZTmZFkysEiHU2T'
@@ -1444,11 +1233,12 @@ pages:
         significant changes to skill progression, as well as their
         specializations and bonuses. You may notice some Skills have indicators
         of intended changes left in place. Skills presented in Playtest 1 should
-        not be considered final.</p></section><h2>Skill Progression</h2><p>Each
-        Skill begins at a rank of Untrained, and has a maximum value of Master.
-        As player characters advance in level, they earn additional points that
-        can be spent to advance their training in particular skills. Each Skill
-        follows the same progression path:</p><table><tbody><tr><th
+        not be considered final.</p></section><h2 class="divider">Skill
+        Progression</h2><p>Each Skill begins at a rank of Untrained, and has a
+        maximum value of Master. As player characters advance in level, they
+        earn additional points that can be spent to advance their training in
+        particular skills. Each Skill follows the same progression
+        path:</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>0</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
@@ -1471,11 +1261,12 @@ pages:
         data-colwidth="50"><p>5</p></td><td><p>Master</p></td><td><p>You have
         mastered this skill. There is nothing more to learn about it, and your
         specialization grants you additional
-        benefits.</p></td></tr></tbody></table><h2>Skill Checks</h2><p>There are
-        often situations that require a character to confirm their capabilities.
-        At any time GM may call for a S<strong>kill Check</strong>- a simple
-        roll to test whether you have sufficient skill to perform an action or
-        recall some piece of information. Each skill is associated with two
+        benefits.</p></td></tr></tbody></table><h2 class="divider">Skill
+        Checks</h2><p>There are often situations that require a character to
+        confirm their capabilities. At any time GM may call for a S<strong>kill
+        Check</strong>- a simple roll to test whether you have sufficient skill
+        to perform an action or recall some piece of information. Each skill is
+        associated with two
         @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}.</p><section
         class="foundryvtt"><p>You can roll a skill check at any time from the
         skill tab of your character sheet, simply by clicking on the skill
@@ -1499,24 +1290,24 @@ pages:
         abilities adds an Ability bonus of <strong>7</strong>. Albert also
         happens to have a magical set of nautical charts which grant a +2
         enchantment bonus, pushing the result of the roll to
-        <strong>26</strong>.</p></section><h2>Table:
+        <strong>26</strong>.</p></section><h2 class="divider">Table:
         Skills</h2><table><tbody><tr><th
         data-colwidth="285"><p>Skill</p></th><th
         data-colwidth="91"><p>Category</p></th><th data-colwidth="74"><p>Ability
         One</p></th><th data-colwidth="84"><p>Ability Two</p></th></tr><tr><td
+        data-colwidth="285"><p>@UUID[.66MmDe432p8auE6d]{Athletics}</p></td><td
+        data-colwidth="91"><p>Exploration</p></td><td
+        data-colwidth="74"><p>Dexterity</p></td><td
+        data-colwidth="84"><p>Strength</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.tBFTQMxT6xTPg8TS]{Awareness}</p></td><td
         data-colwidth="91"><p>Exploration</p></td><td
         data-colwidth="74"><p>Intellect</p></td><td
         data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.J0FXxjw8OKOQOtwT]{Pathfinding}</p></td><td
-        data-colwidth="91"><p>Exploration</p></td><td
-        data-colwidth="74"><p>Strength</p></td><td
-        data-colwidth="84"><p>Dexterity</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.O2jmcYabEbqgxgLm]{Stealth}</p></td><td
         data-colwidth="91"><p>Exploration</p></td><td
         data-colwidth="74"><p>Dexterity</p></td><td
         data-colwidth="84"><p>Intellect</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.gr6RsRxppPcIiKat]{Survival}</p></td><td
+        data-colwidth="285"><p>@UUID[.ZoGpLdSJPmjlH8bz]{Wilderness}</p></td><td
         data-colwidth="91"><p>Exploration</p></td><td
         data-colwidth="74"><p>Toughness</p></td><td
         data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
@@ -1524,50 +1315,34 @@ pages:
         data-colwidth="91"><p>Knowledge</p></td><td
         data-colwidth="74"><p>Intellect</p></td><td
         data-colwidth="84"><p>Presence</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.YOsSCyK1YO5DYeGi]{Naturalism}</p></td><td
+        data-colwidth="285"><p>@UUID[.hLLuHPQ028FFVyoE]{Medicine}</p></td><td
         data-colwidth="91"><p>Knowledge</p></td><td
-        data-colwidth="74"><p>Wisdom</p></td><td
-        data-colwidth="84"><p>Toughness</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.XvI3RY9zuYJIkfZl]{Religion}</p></td><td
-        data-colwidth="91"><p>Knowledge</p></td><td
-        data-colwidth="74"><p>Wisdom</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.y3bDt4HWg3S09U7c]{Society}</p></td><td
+        data-colwidth="74"><p>Toughness</p></td><td
+        data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
+        data-colwidth="285"><p>@UUID[.vhbFWUXxWUdiODJn]{Science}</p></td><td
         data-colwidth="91"><p>Knowledge</p></td><td
         data-colwidth="74"><p>Intellect</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
+        data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
+        data-colwidth="285"><p>@UUID[.y3bDt4HWg3S09U7c]{Society}</p></td><td
+        data-colwidth="91"><p>Knowledge</p></td><td
+        data-colwidth="74"><p>Presence</p></td><td
+        data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.kOBG6OuTnvGwmU1W]{Deception}</p></td><td
         data-colwidth="91"><p>Social</p></td><td
         data-colwidth="74"><p>Intellect</p></td><td
         data-colwidth="84"><p>Presence</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.W2UTXlsZn2TLQYt2]{Diplomacy}</p></td><td
         data-colwidth="91"><p>Social</p></td><td
-        data-colwidth="74"><p>Wisdom</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
+        data-colwidth="74"><p>Presence</p></td><td
+        data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.WUZTmZFkysEiHU2T]{Intimidation}</p></td><td
         data-colwidth="91"><p>Social</p></td><td
-        data-colwidth="74"><p>Strength</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.RJ85nR4Z5UbxPwh7]{Mercantilism}</p></td><td
-        data-colwidth="91"><p>Social</p></td><td
-        data-colwidth="74"><p>Intellect</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.6GUcJ1WnL8hAQpWb]{Beastcraft}</p></td><td
-        data-colwidth="91"><p>Technical</p></td><td
-        data-colwidth="74"><p>Strength</p></td><td
-        data-colwidth="84"><p>Wisdom</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.hLLuHPQ028FFVyoE]{Medicine}</p></td><td
-        data-colwidth="91"><p>Technical</p></td><td
-        data-colwidth="74"><p>Toughness</p></td><td
-        data-colwidth="84"><p>Intellect</p></td></tr><tr><td
+        data-colwidth="74"><p>Presence</p></td><td
+        data-colwidth="84"><p>Strength</p></td></tr><tr><td
         data-colwidth="285"><p>@UUID[.m7H5V1e5EVe4YlxD]{Performance}</p></td><td
-        data-colwidth="91"><p>Technical</p></td><td
+        data-colwidth="91"><p>Social</p></td><td
         data-colwidth="74"><p>Dexterity</p></td><td
-        data-colwidth="84"><p>Presence</p></td></tr><tr><td
-        data-colwidth="285"><p>@UUID[.djl3cL0Ng0rRgs2X]{Tradecraft}</p></td><td
-        data-colwidth="91"><p>Technical</p></td><td
-        data-colwidth="74"><p>Dexterity</p></td><td
-        data-colwidth="84"><p>Intellect</p></td></tr></tbody></table>
+        data-colwidth="84"><p>Presence</p></td></tr></tbody></table>
       markdown: ''
     video:
       controls: true
@@ -1583,10 +1358,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684891180952
-      modifiedTime: 1686194256352
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727451865056
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!CrucibleSkills00.QQaQfv1cakIKltNz'
@@ -1606,139 +1381,79 @@ pages:
     system:
       skillId: athletics
       overview: >-
-        <p>The Pathfinding skill represents the ability to climb, run, jump,
-        swim, analyze terrain, and otherwise conquer barriers to movement. </p>
-
-
-        <p>Most people are capable of finding their way around the world to some
-        degree, but those trained in Pathfinding learn to treat terrain as a
-        puzzle to be solved.</p>
+        The Athletics skill represents the ability to undertake and surmount
+        physical challenges. These could involve traversal of difficult terrain
+        like climbing, running, or swimming, or could involve feats of strength,
+        endurance, or flexibility.
       ranks:
         untrained:
-          description: >-
-            You have no capability with planning the easiest or fastest way to
-            traverse terrain, and difficult terrain poses a significant
-            challenge to you.
+          description: You have no noteworthy capability to undertake physical challenges.
         novice:
           description: >-
-            You have received training in the basics of pathfinding. You know
-            whether a surface can support your weight or not, how to find
-            handholds while climbing, and how to distribute your weight when
-            swimming to prevent extra weight from dragging you down. You know
-            how to run for distance, and how to pace yourself to avoid
-            exhaustion.
+            You have received training in basic athleticism. You know whether a
+            surface can support your weight or not, how to find handholds while
+            climbing, and how to distribute your weight for buoyancy when
+            swimming. You know how to run for distance, and how to pace yourself
+            to avoid exhaustion.
         apprentice:
           description: >-
             The world is an obstacle course. You know how to identify the
             easiest or fastest path to traverse a given terrain, how to climb
             difficult surfaces, and how to swim in rough waters. You know how to
-            run for extended periods of time, and how to pace yourself to avoid
-            exhaustion.
+            push yourself to maximize your speed for short periods of time, and
+            how to pace yourself to avoid exhaustion over longer distances.
         specialist:
           description: >-
             Choose a specialization path for your Pathfinding training. You may
             choose either: Tracker, Explorer, or Cartographer.
         adept:
           description: >-
-            Adept Pathfinders are capable of navigating the world with ease.
-            They are able to climb nearly any surface, swim safely in even
-            unknown waters, and run for extended periods of time without tiring.
-            They are able to identify the easiest path to traverse a given
-            terrain, and guide others through the shortest and safest ways to
-            avoid obstacles.
+            Those adept at athletics are capable of navigating the world with
+            ease. They are able to climb nearly any surface, swim safely in even
+            the most troubled waters, and run for extended periods of time
+            without tiring. They are able to identify the easiest path to
+            traverse given terrain, and guide others through the shortest and
+            safest ways to avoid obstacles.
         master:
-          description: >-
-            You have perfected your Pathfinding by mastering your chosen
-            specialization.
+          description: Master specialization details will be added later.
       paths:
         path1:
           overview: >-
-            Trackers are experts at identifying the easiest path to follow, and
-            are able to identify the signs left behind by the passage of others.
-            A Tracker can spot signs left behind by movement, and how recently
-            the path was travelled. 
-
-
-            Master Trackers inherently spot the signs that a trail has been
-            travelled before; a cracked twig, a disturbed stone, a piece of
-            thread left behind on a thorn, the slight depression of soil or sand
-            from a footprint. Even the most carefully concealed path leaves
-            signs for a Master Tracker to follow.
+            Marathoners are athletes who have achieved the pinnacle of endurance
+            to push themselves longer and farther than is ordinarily possible.
           ranks:
             specialist:
-              description: >-
-                A Specialist Tracker gains +2 boons to pathfinding rolls related
-                to tracking others and on critical success may be able to
-                identify to a certainty who left the trail.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A Master Tracker may roll Awareness with +2 boons to identify
-                the shortest course by which to intercept a target they are
-                tracking.
-          id: tracker
-          name: Tracker
+              description: Specialization mechanics will be added in a later playtest.
+          id: marathoner
+          name: Marathoner
         path2:
           overview: >-
-            Every new piece of terrain is just one more challenge, and Explorers
-            love the challenge of a new environment. Explorers are uniquely
-            specialized in finding the easiest way to traverse complex terrain,
-            turning difficult climbing surfaces or inhospitable environments
-            into a playground. 
-
-
-            For a Master Explorer, obstacles can actually aid movement rather
-            than hinder it. A Master Explorer has learned to conserve their
-            momentum when moving through their environment, smoothly
-            transitioning from one form of motion to another. They are able to
-            identify the easiest path to traverse a given terrain, and guide
-            others through the shortest and safest ways to avoid obstacles.
+            Traceurs are athletes who have specialized in nimbleness and uncanny
+            traversal of their environment. A Traceur can navigate obstacles
+            with ease by running, leaping, climbing, rolling, or other feats of
+            acrobatics.
           ranks:
             specialist:
-              description: >-
-                A Specialist Explorer gains +2 boons to pathfinding rolls
-                related to climbing, swimming, or otherwise navigating through
-                difficult terrain.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                When leading others in climbing, running, jumping, or otherwise
-                navigating difficult terrain the party gains +2 boons to their
-                pathfinding rolls, and if a critical failure occurs the Master
-                Explorer may spend a focus point to intervene, turning the
-                failure into a success.
-          id: explorer
-          name: Explorer
+              description: Specialization mechanics will be added in a later playtest.
+          id: traceur
+          name: Traceur
         path3:
           overview: >-
-            Cartographers take the long view of Pathfinding. Where others might
-            specialize in finding the quickest way to navigate their immediate
-            surroundings, Cartographers plan for the long term. No mere
-            mapmakers, cartographers identify terrain challenges with respect to
-            long-distance journies, shortening the time required for travel and
-            identifying the best routes to take to avoid danger. 
-
-
-            Master Cartographers are uniquely capable of planning a long journey
-            in such a way that it trivializes the dangers faced and effort
-            needed. A Master Cartographer knows inherently how to skirt the most
-            dangerous regions, how to avoid terrain burdened by bad weather,
-            where best to resupply along the way, and how to predict and
-            identify shortcuts.
+            Wrestlers are athletes who have specialized in techniques to exert
+            physical force, control, and leverage over a situation. These
+            athletes can lift or carry heavier objects or persevere in contests
+            of strength where others would falter.
           ranks:
             specialist:
-              description: >-
-                A Specialist Cartographer gains +2 boons to pathfinding rolls
-                related to distance travel, and all travel the party undertakes
-                with a Cartographer present has its duration shortened by 25%.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                A party with a Master Cartographer has the travel distance for
-                their destinations shortened by 50% and the likelihood of random
-                encounters reduced by 50%. A Master Cartographer may roll
-                Pathfinding with +2 boon at the start of each day's travel to
-                identify a shortcut, shortening the distance needed to be
-                travelled by a half day each time.
-          id: cartographer
-          name: Cartographer
+              description: Specialization mechanics will be added in a later playtest.
+          id: wrestler
+          name: Wrestler
     ownership:
       default: -1
       PQhsT89HTP8uxjkQ: 3
@@ -1752,7 +1467,7 @@ pages:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726427583933
-      modifiedTime: 1726427749800
+      modifiedTime: 1727446693754
       lastModifiedBy: AnoypGxxNIMOS0XY
     _id: 66MmDe432p8auE6d
     _key: '!journal.pages!CrucibleSkills00.66MmDe432p8auE6d'
@@ -1772,16 +1487,17 @@ pages:
     system:
       skillId: wilderness
       overview: >-
-        <p>Those skilled in Survival learn to create shelter where there is
+        <p>Those skilled in Wilderness learn to create shelter where there is
         none, identify which water is safe to drink and which is not, and locate
-        sources of food in even the most inhospitable places.</p>
-
+        sources of food in even the most inhospitable places, and to otherwise
+        survive in harsh environments.</p>
 
         <p>To some degree, the ability to survive is a matter of common sense.
         Anyone can find a rocky outcropping to keep the rain from their heads, a
-        river to drink from, or an apple hanging from a tree. However, true
-        survivalists know that there is a difference between thinking that your
-        needs have been met, and knowing that they have.</p>
+        river to drink from, or an apple hanging from a tree. However, those
+        most familiar with the wilderness know that there is a difference
+        between thinking that your needs have been met, and knowing that they
+        have.</p>
       ranks:
         untrained:
           description: >-
@@ -1791,10 +1507,10 @@ pages:
             camp unaided.
         novice:
           description: >-
-            You have received training in the basics of survival. You know how
-            to find and construct safe shelter from the elements, to start a
-            fire for warmth, to keep cool in hot environments. You can find
-            safe, drinkable water in most places, and how to identify which
+            You have received training in the basics of wilderness survival. You
+            know how to find and construct safe shelter from the elements, to
+            start a fire for warmth, to keep cool in hot environments. You can
+            find safe, drinkable water in most places, and how to identify which
             plants and animals can serve as safe food sources.
         apprentice:
           description: >-
@@ -1806,101 +1522,67 @@ pages:
             of your camp and trail to avoid detection.
         specialist:
           description: >-
-            Choose a specialization path for your Survival training. You may
+            Choose a specialization path for your Wilderness training. You may
             choose either: Hunter, Herbalist, or Scavenger.
         adept:
           description: >-
-            Adepts Survivalists can make nearly any environment seem comfortable
-            and hospitable. They know how to avoid the worst dangers in in the
-            wilderness, how to prepare nearly invisible campsites, compose fine
-            meals from foraged food, and how to protect against exposure to the
-            worst conditions.
+            Those adept at Wilderness survival can make nearly any environment
+            seem comfortable and hospitable. They know how to avoid the worst
+            dangers in the wilderness, how to prepare nearly invisible
+            campsites, compose fine meals from foraged food, and how to protect
+            against exposure to the worst conditions.
         master:
           description: >-
-            You have perfected your Survival by mastering your chosen
+            You have perfected the Wilderness skill by mastering your chosen
             specialization.
       paths:
         path1:
           overview: >-
-            <p>Hunter training focuses on the more resource-minded approach to
+            Hunter training focuses on the more resource-minded approach to
             animal handling. Hunters learn how to track and hunt animals without
             alerting them, how to execute them humanely, and how to fabricate
-            their remains to use every part of the animal. </p>
-
-
-            <p>Master Hunters are capable of producing reliable food and
-            materials from even some of the most dangerous prey.</p>
+            their remains to use every part of the animal. Master Hunters are
+            capable of producing reliable food and materials from even some of
+            the most dangerous prey.
           ranks:
             specialist:
-              description: >-
-                Specialist Hunters gain +2 boons to survival rolls related to
-                hunting, butchering, or skinning creatures. Meat prepared by a
-                hunter lasts twice as long before spoiling.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Successful survival checks to hunt guarantee a sufficient amount
-                of food to feed the entire party for three days, as well as a
-                useable portion of leather and bone for crafters to use.
+              description: Specialization mechanics will be added in a later playtest.
           id: hunter
           name: Hunter
         path2:
           overview: >-
-            <p>Herbalists focus on the more beneficial aspects of plantlife and
+            Herbalists focus on the more beneficial aspects of plant life and
             horticulture. They can readily identify poisonous and medicinal
             plants and roots, and tell the minute differences between edible and
-            inedible plantlife. </p>
-
-
-            <p>Master Herbalists can find a use for almost any leaf, stem, root
-            or grass imaginable. They are capable of producing reliable food,
-            medicines, and toxins from even some of the most unlikely
-            plants.</p>
+            inedible plantlife. Master Herbalists can find a use for almost any
+            leaf, stem, root or grass imaginable. They are capable of producing
+            reliable food, medicines, and toxins from even some of the most
+            unlikely plants.
           ranks:
             specialist:
-              description: >-
-                Specialist Herbalists gain +2 boons to survival rolls related to
-                finding plants with particular properties, or to identify the
-                nature of a plant. Herbalists are capable of locating sufficient
-                vegetable matter to sustain themselves if no food source is
-                available.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                Master Herbalists can prepare a simple brewed liquid that
-                provides a +1 boon or bane to all rolls for the next day, or
-                locate enough food to feed the entire party for three days.
-                TODO: FILL THE VALUES HERE. An herbalist may produce a simple
-                herbal paste that when consumed restores (SOME AMOUNT OF HP)
-                over the course of (PERIOD).
+              description: Specialization mechanics will be added in a later playtest.
           id: herbalist
           name: Herbalist
         path3:
           overview: >-
-            <p>Scavengers thrive on making use of what may be on hand; one
-            person's trash can be another's treasure, after all. A Scavenger is
-            capable of making use of the discarded and unwanted pieces left
-            behind by others. They learn to break things down to their component
-            parts, and to salvage usable materials from discarded or ruined
-            equipment or foodstuffs.</p>
-
-
-            <p>Master Scavengers are uniquely capable of finding a use for
-            almost anything. A thread from a discarded cloak can serve to sew a
-            wound shut, the bones of a fish can make a suitable broth to enhance
-            a meal. </p>
+            Scavengers thrive on making use of what may be on hand; one person's
+            trash can be another's treasure, after all. A Scavenger is capable
+            of making use of the discarded and unwanted pieces left behind by
+            others. They learn to break things down to their component parts,
+            and to salvage usable materials from discarded or ruined equipment
+            or foodstuffs. Master Scavengers are uniquely capable of finding a
+            use for almost anything. A thread from a discarded cloak can serve
+            to sew a wound shut, the bones of a fish can make a suitable broth
+            to enhance a meal.
           ranks:
             specialist:
-              description: >-
-                A Scavenger gains +2 boons to survival rolls related to
-                salvaging useable parts from discarded items or food sources.
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: >-
-                TODO: FILL THE VALUES HERE. A Master Scavenger can always locate
-                at least one source of ammunition for ranged weapons, and may
-                enhance meals prepared by others causing them to grant (Bonus
-                HP? Bonus resistance?) for (PERIOD). Additionally, Master
-                Scavengers may use Survival to administer makeshift repairs to
-                broken items or equipment, rendering them temporarily usable
-                until real repairs can be enacted.
+              description: Specialization mechanics will be added in a later playtest.
           id: scavenger
           name: Scavenger
     ownership:
@@ -1916,58 +1598,112 @@ pages:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726427677634
-      modifiedTime: 1726427734709
+      modifiedTime: 1727447272432
       lastModifiedBy: AnoypGxxNIMOS0XY
     _id: ZoGpLdSJPmjlH8bz
     _key: '!journal.pages!CrucibleSkills00.ZoGpLdSJPmjlH8bz'
-  - sort: 1500000
+  - sort: 725000
     name: Science
     type: skill
     _id: vhbFWUXxWUdiODJn
     system:
       skillId: science
-      overview: ''
+      overview: >-
+        <p>Science is concerned with physical phenomena and examining the world
+        through the lens of logic, reason, mathematics, and the use of
+        structured observation. A student of science learns to posit and confirm
+        theories, analyze the construction of physical objects and machines, and
+        apply mathematical thinking.</p>
+
+        <p>
+
+        The average person might know that wheels are round, or that it's easier
+        to lift something if you wedge a lever underneath one corner of it, but
+        a scientist understands the reasons why. Those with training in Science
+        know how to use their understanding of physics to create and make use of
+        simple machines, perform complex mathematical calculations, and deduce
+        the purposes of more complex constructions they might find.</p>
       ranks:
         untrained:
-          description: ''
+          description: >-
+            You are utterly unfamiliar with even basic scientific theory, and
+            your understanding of logic and mathematical concepts are minimal at
+            best.
         novice:
-          description: ''
+          description: >-
+            You've learned to study the world around you through structured
+            observation, and your pursuit of mathematical concepts has led you
+            to realize that the world can be understood through math. You are
+            familiar with the principles of basic physics, and know how to
+            construct and use simple machines for the purposes of making
+            physical tasks easier. You know some of the more commonly understood
+            scientific theories, and given suitable time to study more complex
+            machines you might be able to at least operate them.
         apprentice:
-          description: ''
+          description: >-
+            Your education in science has progressed beyond the introductory
+            stages. You have a solid understanding of the fundamentals and have
+            a grasp of some of the more rare scientific theories. You know how
+            to operate complex machinery, and given enough time might be able to
+            successfully design and construct some more advanced machines. Your
+            understanding of mathematics has surpassed the basics, and you now
+            have a grasp of more theoretical math.
         specialist:
-          description: ''
+          description: >-
+            Choose a specialization path for your Science training. You may
+            choose either: Inventor, Polymath, or Theorist.
         adept:
-          description: ''
+          description: >-
+            You possess one of the foremost scientific minds. You are capable of
+            performing complex mathematical calculations in your mind, can
+            design and construct complex machines, and are capable of
+            understanding and using some of the most complex structures and
+            machines without the need to study them. Reason and logic are the
+            weapons you wield to understand the world around you.
         master:
-          description: ''
+          description: Specialization mechanics will be added in a later playtest.
       paths:
         path1:
-          overview: ''
+          overview: >-
+            Inventors channel their scientific knowledge towards paths of
+            discovery, looking for new ways to solve problems or to better
+            understand the world. As an Inventor, you have the capacity to
+            devise practical and theoretically viable solutions to complex
+            problems.
           ranks:
             specialist:
-              description: ''
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: ''
-          id: ''
-          name: ''
+              description: Specialization mechanics will be added in a later playtest.
+          id: inventor
+          name: Inventor
         path2:
-          overview: ''
+          overview: >-
+            Polymaths pursue a broad range of understanding across all
+            scientific domains, rather than a specialized emphasis on any
+            particular area. As a Polymath you have some modest familiarity or
+            even expertise with every aspect of worldly or otherworldly
+            knowledge.
           ranks:
             specialist:
-              description: ''
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: ''
-          id: ''
-          name: ''
+              description: Specialization mechanics will be added in a later playtest.
+          id: polymath
+          name: Polymath
         path3:
-          overview: ''
+          overview: >-
+            Theorists are preeminent experts in problem solving, identifying or
+            understanding the solutions to seemingly intractable problems. As a
+            Theorist you can accurately assess the physical properties of items
+            and accurately predict their behavior according to natural laws.
           ranks:
             specialist:
-              description: ''
+              description: Specialization mechanics will be added in a later playtest.
             master:
-              description: ''
-          id: ''
-          name: ''
+              description: Specialization mechanics will be added in a later playtest.
+          id: theorist
+          name: Theorist
     title:
       show: true
       level: 1
@@ -1989,7 +1725,7 @@ pages:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726429303576
-      modifiedTime: 1726429387591
+      modifiedTime: 1727449420509
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!CrucibleSkills00.vhbFWUXxWUdiODJn'
 flags:

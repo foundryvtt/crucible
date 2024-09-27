@@ -2,7 +2,7 @@ name: Skeleton
 type: taxonomy
 img: icons/magic/death/undead-skeleton-worn-blue.webp
 system:
-  description: Undeathly denizens fashioned of bone and sinew.
+  description: <p>Undeathly denizens fashioned of bone and sinew.</p>
   category: undead
   abilities:
     wisdom: 3
@@ -24,6 +24,8 @@ system:
     psychic: 0
     radiant: -2
     void: 0
+  size: 4
+  stride: 8
 effects: []
 folder: REYz7fzLYEdBX3A2
 ownership:
@@ -33,10 +35,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1686180658805
-  modifiedTime: 1686180865616
+  modifiedTime: 1727379008614
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

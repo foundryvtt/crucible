@@ -15,24 +15,26 @@ system:
   actions:
     - id: mnemonicRealization
       description: >-
-        You survey your memories attempting to recall a clue for your current
-        situation.
+        <p>You survey your memories attempting to recall a clue for your current
+        situation.</p>
       tags: []
       cost:
-        action: 1
-        focus: 2
+        action: 3
+        focus: 1
         weapon: false
+        heroism: 0
       target:
         type: self
         number: 0
         scope: 1
       effects: []
-      name: ''
-      img: null
+      name: Mnemonic Realization
+      img: icons/magic/perception/eye-ringed-green.webp
       condition: ''
       range:
-        maximum: 0
+        maximum: 1
         weapon: false
+        minimum: null
       actionHooks: []
   requirements: {}
 effects: []
@@ -44,10 +46,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1684460628269
-  modifiedTime: 1696704335055
+  modifiedTime: 1727320896168
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

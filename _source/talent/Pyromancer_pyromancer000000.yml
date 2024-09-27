@@ -2,13 +2,12 @@ name: Pyromancer
 type: talent
 img: icons/magic/fire/projectile-smoke-swirl-red.webp
 system:
-  node: int2b
+  node: int3a
   description: >-
     <p>You are highly skilled in weaving the Rune of Flame. Spells which use
-    this Rune cause Burning on Critical Hits.</p>
-
-    <p>The Burning effect lasts for 1 Round and deals your Intellect score as
-    Fire damage to both Health and Morale.</p>
+    this Rune cause Burning on Critical Hits.</p><p>The Burning effect lasts for
+    1 Round and deals your Intellect score as Fire damage to both Health and
+    Morale.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -32,10 +31,10 @@ flags:
     sourceId: Item.pyromancer000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676596211950
-  modifiedTime: 1688828089101
+  modifiedTime: 1727280174329
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pyromancer000000
   duplicateSource: null

@@ -12,21 +12,22 @@ system:
     limits.
   actions:
     - id: secondWind
-      name: ''
+      name: Second Wind
       condition: ''
-      description: You focus your energy and recover your Toughness score in Health.
+      description: <p>You focus your energy and recover your Toughness score in Health.</p>
       tags:
         - healing
       cost:
         action: 2
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: self
         number: 0
         scope: 1
       effects: []
-      img: null
+      img: icons/magic/life/cross-area-circle-green-white.webp
       actionHooks:
         - hook: confirm
           fn: >-
@@ -35,15 +36,16 @@ system:
             self.resources.health = (self.resources.health || 0) +
             this.actor.system.abilities.toughness.value;
       range:
-        maximum: 0
+        maximum: null
         weapon: false
+        minimum: null
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674702266686
-  modifiedTime: 1696795414872
+  modifiedTime: 1727321798935
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

@@ -92,8 +92,8 @@ pages:
         a secondary ability score which begins at <strong>2</strong>. All other
         ability scores begin at <strong>1</strong>.</p><h4>Damage Resistance and
         Vulnerability</h4><p>Ancestries may optionally add both a Damage
-        Resistance (<strong>+5</strong>) and a Damage Vulnerability
-        (<strong>-5</strong>) to two different damage types. Some Ancestries
+        Resistance (<strong>+3</strong>) and a Damage Vulnerability
+        (<strong>-3</strong>) to two different damage types. Some Ancestries
         have neither Resistance nor Vulnerability to any damage
         type.</p><h4>Ancestral Talents</h4><section class="construction"><p>We
         intend for Ancestries to each have an initial ancestral Talent; a
@@ -109,10 +109,10 @@ pages:
         Every Ancestry may either have both a Resistance and a Vulnerability, or
         neither.</p><h2>Example Ancestries</h2><p>Crucible provides the
         following Ancestries for the purposes of playtesting which are familiar
-        to typical fantasy role-playing settings. The default ancestries
-        included are presented in the following
-        table:</p><table><thead><tr><th>Ancestry</th><th>Primary Ability
-        (+3)</th><th>Secondary Ability (+2)</th><th>Damage
+        to typical fantasy role-playing settings. A collection of sample
+        ancestries which are provided for the initial playtest are presented in
+        the following table:</p><table><thead><tr><th>Ancestry</th><th>Primary
+        Ability (+3)</th><th>Secondary Ability (+2)</th><th>Damage
         Resistance</th><th>Damage
         Vulnerability</th></tr></thead><tbody><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.human00000000000]{Human}</p></td><td><p>Presence</p></td><td><p>Toughness</p></td><td><p>None</p></td><td><p>None</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.elvish0000000000]{Elvish}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Radiant</p></td><td><p>Corruption</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.dwarven000000000]{Dwarven}</p></td><td><p>Toughness</p></td><td><p>Wisdom</p></td><td><p>Acid</p></td><td><p>Psychic</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.orcish0000000000]{Orcish}</p></td><td><p>Strength</p></td><td><p>Toughness</p></td><td><p>Cold</p></td><td><p>Fire</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.giantkin00000000]{Giantkin}</p></td><td><p>Wisdom</p></td><td><p>Toughness</p></td><td><p>Acid</p></td><td><p>Electricity</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.gnome00000000000]{Gnome}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Electricity</p></td><td><p>Acid</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.halfling00000000]{Halfling}</p></td><td><p>Dexterity</p></td><td><p>Wisdom</p></td><td><p>Psychic</p></td><td><p>Cold</p></td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.devilkin00000000]{Devilkin}</p></td><td><p>Strength</p></td><td><p>Presence</p></td><td><p>Fire</p></td><td><p>Radiant</p></td></tr></tbody></table><h2
         class="divider">Flexible Ancestry</h2><p>Role-playing games inspire and
@@ -148,10 +148,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1686270110923
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727451143883
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.ovqgeiXHPrdiUXci'
@@ -246,8 +246,8 @@ pages:
         capabilities are truly legendary. Character advancement in Crucible is
         level-based. Increases in level grant additional Ability, Skill, and
         Talent points to spend which increase a character's power and
-        capabilities. The maximum character level in Crucible is
-        <strong>24</strong>.</p><p>If organizing a gameplay experience that
+        capabilities. The maximum character level in Crucible is anticipated to
+        be <strong>18</strong>.</p><p>If organizing a gameplay experience that
         seeks to tell the origin story of heroes, starting your game at Level 1
         is the recommended choice. If, however, you want to jump into an
         adventure with characters who are already established champions,
@@ -292,7 +292,7 @@ pages:
         1</strong> the starting ability scores which you purchased can no longer
         be changed, but these ability scores may still be increased over time as
         you continue to level up.</p><h2 class="divider">Step 3 - Spend Skill
-        Points</h2><p>Each character can invest into 16 different
+        Points</h2><p>Each character can invest into 12 different
         @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.QQaQfv1cakIKltNz]{Skills}
         which represent various competencies and techniques that your character
         has mastered. Every character will begin with four Skill ranks which
@@ -340,9 +340,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1688332725418
+      modifiedTime: 1727451089691
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -379,26 +379,30 @@ pages:
         begins to suffer Madness. If the Madness meter reaches its maximum, the
         character becomes <strong>Insane</strong>.</p><h2
         class="divider">Capacity for Action</h2><p>Two resource pools define a
-        character's ability to take action during game situations.</p><h4>Action
-        Points</h4><p>The pool of <strong>Action Points</strong> defines a
+        character's ability to take action during game
+        situations.</p><h4>Action</h4><p><strong>Action </strong>describes a
         character's capacity for rapid action during each round of a combat
-        encounter. Characters typically have a pool of 3 action points, all
-        three of which replenish at the start of their turn in
-        combat.</p><h4>Focus Points</h4><p>The pool of <strong>Focus
-        Points</strong> defines a character's capacity for extraordinary feats
-        of heroism or magic. A character's Focus Points are replenished when
-        they successfully rest, but during the midst of combat a Focus Point
-        pool must be used thoughtfully as it will not normally replenish.</p><h2
-        class="divider">Recovering Resources</h2><p>During Combat, Health and
-        Morale may only be recovered by Actions or Talents which provide
-        <strong>Restoration</strong>. Outside of Combat, it is possible to use
-        the <strong>Recover</strong> action which consumes 10 minutes of time
-        and fully replenishes your Health, Morale, Action, and Focus
-        pools.</p><p>In order to reduce the accumulation of Wounds or Madness,
-        long-term <strong>Rest</strong> is required.</p><section
-        class="construction"><p>Rest mechanics are not implemented in Playtest
-        One. The means and rate at which Wounds and Madness are reduced will be
-        more fully articulated in a later phase of development.</p></section>
+        encounter. Characters typically have a pool of 6 Action, all three of
+        which replenish at the start of their turn in
+        combat.</p><h4>Focus</h4><p><strong>Focus</strong> describes a
+        character's capacity for extraordinary feats of heroism or magic. A
+        character's Focus is replenished when they successfully rest, but during
+        the midst of combat Focus must be used thoughtfully as it will not
+        naturally replenish.</p><h4>Heroism</h4><p><strong>Heroism</strong> is a
+        special generated resource that allows you to perform spectacular feats
+        of magic or heroic prowess. Heroism is earned over the course of —
+        typically longer — combat encounters allowing you to narratively unleash
+        your most powerful abilities once the tension of battle has
+        peaked!</p><h2 class="divider">Recovering Resources</h2><p>During
+        Combat, Health and Morale may only be recovered by Actions or Talents
+        which provide <strong>Restoration</strong>. Outside of Combat, it is
+        possible to use the <strong>Recover</strong> action which consumes 10
+        minutes of time and fully replenishes your Health, Morale, Action, and
+        Focus pools.</p><p>In order to reduce the accumulation of Wounds or
+        Madness, long-term <strong>Rest</strong> is required. Rest mechanics are
+        not implemented in Playtest One. The means and rate at which Wounds and
+        Madness are reduced will be more fully articulated in a later phase of
+        development.</p>
       markdown: ''
     _id: FmmADsI9qo1uIIT3
     image: {}
@@ -416,9 +420,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1686356742727
+      modifiedTime: 1727451339512
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

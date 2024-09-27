@@ -12,8 +12,8 @@ system:
     area of effect.
   actions:
     - id: fanOfArrows
-      name: ''
-      img: null
+      name: Fan of Arrows
+      img: icons/skills/ranged/bow-arrows-blue.webp
       condition: ''
       description: >-
         <p>You fire multiple projectiles from your ranged weapon in an arc,
@@ -22,9 +22,11 @@ system:
         action: 2
         focus: 1
         weapon: true
+        heroism: 0
       range:
-        maximum: 40
-        weapon: false
+        maximum: null
+        weapon: true
+        minimum: null
       target:
         type: cone
         number: 1
@@ -36,10 +38,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420029
-  modifiedTime: 1696793934359
+  modifiedTime: 1727321470592
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

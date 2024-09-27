@@ -10,6 +10,7 @@ system:
   actions: []
   requirements: {}
   node: sig3.presence.intellect
+  iconicSpells: 2
 effects: []
 ownership:
   default: 0
@@ -22,7 +23,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1675644340947
-  modifiedTime: 1726706038154
+  modifiedTime: 1727211418296
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.warmage000000000
   duplicateSource: null

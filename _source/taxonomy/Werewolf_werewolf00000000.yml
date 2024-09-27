@@ -3,7 +3,7 @@ type: taxonomy
 _id: werewolf00000000
 img: icons/creatures/mammals/wolf-shadow-black.webp
 system:
-  description: Lycanthropic shapeshifters who walk as men but take wolven form.
+  description: <p>Lycanthropic shapeshifters who walk as men but take wolven form.</p>
   category: humanoid
   abilities:
     wisdom: 2
@@ -25,6 +25,8 @@ system:
     psychic: 0
     radiant: 0
     void: 0
+  size: 6
+  stride: 12
 effects: []
 folder: XE2BjE0vCGKPdZU7
 sort: 150000
@@ -34,10 +36,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685839711891
-  modifiedTime: 1686149427734
+  modifiedTime: 1727403977261
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -3,13 +3,12 @@ type: talent
 _id: inspirator000000
 img: icons/magic/light/explosion-star-glow-silhouette.webp
 system:
-  node: pre2c
+  node: pre3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Spirit. Spells which use
-    this Rune cause the Inspired condition on Critical Hits.</p>
-
-    <p>The Inspired effect lasts for 1 Round and deals your Presence score as
-    restoration to Morale.</p>
+    this Rune cause the Inspired condition on Critical Hits.</p><p>The Inspired
+    effect lasts for 1 Round and deals your Presence score as restoration to
+    Morale.</p>
   actions: []
   requirements: {}
 effects: []
@@ -21,10 +20,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1682183546597
-  modifiedTime: 1682387351035
+  modifiedTime: 1727280115330
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

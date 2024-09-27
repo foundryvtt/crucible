@@ -4,15 +4,51 @@ img: icons/magic/life/heart-hand-gold-green-light.webp
 system:
   node: sig3.wisdom.presence
   description: >-
-    <p>You are unparalleled at manipulating vital arcana to treat injuries. When
-    healing allies using the Rune of Life you gain +2 boons to your roll and
-    your spellcraft cannot be Counterspelled.</p>
-  actions: []
+    <p>You are unparalleled at manipulating vital arcana to treat injuries. You
+    learn <strong>Rune: Life</strong> if you do not already know it. When
+    healing allies using the Rune of Life you gain <strong>+2 Boons</strong> to
+    your roll.</p>
+  actions:
+    - id: fontOfLife
+      img: icons/magic/life/heart-hand-gold-green-light.webp
+      cost:
+        action: 2
+        focus: 0
+        heroism: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 2
+        size: 20
+      effects:
+        - name: Font of Life
+          scope: 1
+          statuses: []
+          duration:
+            turns: 3
+      tags:
+        - healing
+        - health
+      actionHooks: []
+      name: Font of Life
+      condition: ''
+      description: >-
+        <p>You bring forth an aura of life-giving magic. Immediately upon
+        activation and at the start of your turn for <strong>3 Rounds</strong>
+        every ally within 20 feet heals for an amount equal to your
+        <strong>Wisdom</strong> score.</p>
   actorHooks:
     - hook: prepareSpellAttack
       fn: >-
         if ( spell.rune.id === "life" ) rollData.boons.healer = {label:
         "Healer", number: 2};
+  iconicSpells: 1
+  rune: life
 effects: []
 ownership:
   default: 0
@@ -21,16 +57,16 @@ flags:
   core:
     sourceId: Item.healer0000000000
 _stats:
-  systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '12.331'
-  createdTime: 1675741049748
-  modifiedTime: 1726705877826
-  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-_id: healer0000000000
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727311608001
+  modifiedTime: 1727311608001
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: fOYHlZJEWUukD7yr
-sort: -100000
+_id: healer0000000000
+sort: 0
 _key: '!items!healer0000000000'
 

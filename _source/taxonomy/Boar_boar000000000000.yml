@@ -4,8 +4,8 @@ _id: boar000000000000
 img: icons/creatures/abilities/fang-tooth-blood-red.webp
 system:
   description: >-
-    Mammals with thick hide, dangerous tusks, and a powerful low-seated center
-    of mass.
+    <p>Mammals with thick hide, dangerous tusks, and a powerful low-seated
+    center of mass.</p>
   category: beast
   abilities:
     wisdom: 1
@@ -36,10 +36,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685230545477
-  modifiedTime: 1686144279502
+  modifiedTime: 1727364800894
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

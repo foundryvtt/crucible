@@ -52,7 +52,7 @@ system:
       img: icons/magic/symbols/elements-air-earth-fire-water.webp
     stature: small
     taxonomy:
-      description: Undeathly denizens fashioned of bone and sinew.
+      description: <p>Undeathly denizens fashioned of bone and sinew.</p>
       category: undead
       abilities:
         wisdom: 3
@@ -76,6 +76,8 @@ system:
         void: 0
       name: Skeleton
       img: icons/magic/death/undead-skeleton-worn-blue.webp
+      size: 4
+      stride: 8
     threat: minion
     biography:
       public: ''
@@ -107,13 +109,13 @@ system:
       bonus: 0
   resources:
     health:
-      value: 27
+      value: 15
     morale:
-      value: 19
+      value: 11
     action:
-      value: 1
+      value: 4
     focus:
-      value: 3
+      value: 4
   skills:
     awareness:
       rank: 0
@@ -150,7 +152,11 @@ system:
   movement:
     stride: 4
     engagement: 1
+    sizeBonus: -1
   status: null
+  advancement:
+    level: 1
+    threat: minion
 prototypeToken:
   name: Creation of Death
   displayName: 30
@@ -169,8 +175,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 1
-  height: 1
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -368,10 +374,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1686181185927
-  modifiedTime: 1686342290858
+  modifiedTime: 1727379198908
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

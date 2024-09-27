@@ -20,37 +20,40 @@ system:
         An ally whom you can see slays or scores a critical hit against an
         enemy.
       description: >-
-        You compose a verse, make a quip, or shout a battle cry to extoll the
+        <p>You compose a verse, make a quip, or shout a battle cry to extoll the
         heroic deeds of one of your allies. Make a <strong>Performance</strong>
         check against your allies' Madness threshold, restoring Morale to those
-        who can perceive your performance.
+        who can perceive your performance.</p>
       tags:
         - reaction
         - rallying
         - morale
         - performance
       cost:
-        action: 1
+        action: 2
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: pulse
         number: 1
         scope: 2
+        size: 10
       effects: []
-      name: ''
-      img: null
+      name: Extoll Deeds
+      img: icons/tools/instruments/harp-gold-glowing.webp
       range:
-        maximum: 0
+        maximum: null
         weapon: false
+        minimum: null
       actionHooks: []
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420024
-  modifiedTime: 1696795509232
+  modifiedTime: 1727321858874
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

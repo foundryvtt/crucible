@@ -13,36 +13,41 @@ system:
     confidence.
   actions:
     - id: inspireHeroism
-      name: ''
-      img: null
+      name: Inspire Heroism
+      img: icons/skills/social/intimidation-impressing.webp
       condition: ''
       description: >-
-        Each ally, excluding yourself, within 3 spaces gains +1 Boon to actions
-        performed until the end of their next Turn.
+        <p>Each ally, excluding yourself, within <strong>10 Feet</strong> gains
+        <strong>+1 Boon</strong> to actions performed until the end of their
+        next Turn.</p>
       tags: []
       cost:
-        action: 4
+        action: 3
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: pulse
         number: 1
         scope: 2
+        size: 10
       effects:
-        - name: ''
+        - name: Inspire Heroism
           scope: 0
+          statuses: []
           duration:
             turns: 1
       range:
-        maximum: 0
+        maximum: null
         weapon: false
+        minimum: null
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420014
-  modifiedTime: 1696795531208
+  modifiedTime: 1727321898757
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

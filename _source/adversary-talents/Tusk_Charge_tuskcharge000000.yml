@@ -25,7 +25,7 @@ system:
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Tusk Charge
           scope: 3
           statuses:
             - prone
@@ -36,10 +36,14 @@ system:
       condition: ''
       range:
         minimum: null
-        maximum: 10
+        maximum: null
         weapon: false
-      actionHooks: []
+      actionHooks:
+        - hook: prepare
+          fn: this.range.maximum = this.actor.system.movement.stride
   actorHooks: []
+  node: ''
+  iconicSpells: 0
 effects: []
 ownership:
   default: 0
@@ -47,15 +51,15 @@ ownership:
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '12.331'
-  createdTime: 1685231228591
-  modifiedTime: 1726796582666
-  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
-_id: tuskcharge000000
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727362018628
+  modifiedTime: 1727362018628
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: tuskCharge000000
 sort: 0
-_key: '!items!tuskcharge000000'
+_key: '!items!tuskCharge000000'
 

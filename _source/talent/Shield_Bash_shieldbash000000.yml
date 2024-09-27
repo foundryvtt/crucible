@@ -4,46 +4,43 @@ img: icons/skills/melee/shield-block-bash-blue.webp
 system:
   node: tou0b
   description: >-
-    You are practiced at fighting with weapon and shield. Following a Strike
-    with your weapon, you can slam your shield into your target causing the
-    <strong>Staggered</strong> condition.
+    <p>You are practiced at fighting with shield, using it to slam into and
+    imbalance your foes.</p>
   actions:
     - id: shieldBash
       condition: ''
       description: >-
-        You slam your shield into the enemy you just attacked with a Strike,
-        causing the <strong>Staggered</strong> condition on a hit.
+        <p>Following a basic Strike with your mainhand weapon, you
+        <strong>Strike</strong> with your shield, causing the
+        <strong>Staggered</strong> condition for one Round.</p>
       tags:
-        - offhand
         - melee
         - shield
+        - offhand
+        - afterStrike
       cost:
         action: 0
         focus: 0
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 0
       effects:
-        - name: ''
+        - name: Shield Bash
           scope: 3
-          duration:
-            turns: null
           statuses:
             - staggered
-      name: ''
-      img: null
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const {basicStrike, lastAction} = this.actor.system.status;
-            if ( !basicStrike || (lastAction !== "strike") ) {
-              throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
-            }
+          duration:
+            turns: 1
+      name: Shield Bash
+      img: icons/skills/melee/shield-block-bash-blue.webp
+      actionHooks: []
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 ownership:
@@ -54,10 +51,10 @@ flags:
     sourceId: Item.shieldbash000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676759658894
-  modifiedTime: 1696556030107
+  modifiedTime: 1727291285571
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.shieldbash000000
   duplicateSource: null

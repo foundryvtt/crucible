@@ -11,6 +11,7 @@ system:
   actions: []
   inflection: compose
   actorHooks: []
+  iconicSpells: 1
 effects: []
 ownership:
   default: 0
@@ -20,10 +21,10 @@ flags:
     sourceId: Item.inflectioncompos
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676608867154
-  modifiedTime: 1686254348318
+  modifiedTime: 1727211369935
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.inflectioncompos
   duplicateSource: null

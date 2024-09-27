@@ -172,7 +172,7 @@ pages:
         determined by:</p><section class="formula"><p
         class="value">Initiative</p><p class="equals">=</p><p
         class="equation">3d8[Boons,Banes] + ((Dexterity + Intellect) /
-        2)</p></section><p>A situational bonus to initiative could result from
+        4)</p></section><p>A situational bonus to initiative could result from
         you getting the drop on an enemy, or benefiting from a magical spell
         which hastens your reactions, alternatively you could face a situational
         penalty to initiative if your reactions are dulled or slowed by
@@ -219,9 +219,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1685224458034
+      modifiedTime: 1727451419065
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -333,45 +333,48 @@ pages:
       format: 1
       content: >-
         <p><strong>Movement</strong> is one of the most important actions that
-        characters in Crucible will perform in combat. The Crucible system is
-        designed for combat encounters that take place on a square grid where
-        each grid space conceptually represents 5 square feet of
-        space.</p><section class="foundryvtt"><p>Distances in the Crucible
-        system are defined in feet. The grid size of Scenes in Foundry Virtual
-        Tabletop will be automatically adjusted to have a subgrid with distance
-        units of <strong>1 foot</strong>.</p><p>Measurement distance is computed
-        using the <strong>Exact √2</strong> diagonal measurement
+        characters in Crucible will perform in combat. </p><p>Movement and
+        positioning in Crucible uses a fine-grained 1 foot grid which provides
+        excellent features like tactically significant movement and positioning,
+        meaningful differences in creature sizes and weapon ranges, and
+        intuitive areas of effect.</p><section class="foundryvtt"><p>Distances
+        in the Crucible system are defined in feet. The grid size of Scenes in
+        Foundry Virtual Tabletop will be automatically adjusted to have a
+        subgrid with distance units of <strong>1
+        foot</strong>.</p><p>Measurement distance is computed using the
+        <strong>Exact √2</strong> diagonal measurement
         mode.</p></section><p>Many combat actions a character can perform
         involve the <strong>Movement</strong> tag. Such actions allow you to
-        move a certain number of spaces as part of using that
-        action.</p><p>There are no facing mechanics in Crucible, meaning that it
-        does not matter which direction your Token is facing on the map, your
-        character is able to perceive and act in a full 360 degree radius unless
-        otherwise limited by some special effect or condition.</p><section
-        class="construction"><p>We may explore adding directional facing
-        mechanics in the future.</p></section><h2 class="divider">Free
-        Movement</h2><p>Each creature has the opportunity to perform one free
-        <strong>Movement</strong> action per round of Combat. This means that
-        the first Action performed each round which involves the Movement tag is
-        discounted at -1 Action Point cost. This will typically make the action
-        free to perform, but in some cases may simply reduce its overall
-        cost.</p><p>Free Movement is not available to creatures wearing
-        <strong>Heavy </strong>armor or those who are <strong>Prone</strong>.
-        Additionally, the <strong>Slowed</strong> condition increases the cost
-        of Movement actions, however the first such movement per round is still
-        discounted.</p><h2 class="divider">Terrain</h2><section
-        class="construction"><p>Crucible will eventually support declaring
-        certain grid spaces as difficult terrain which slow movement while
-        traversing them. Movement costs are doubled within difficult terrain.
-        Until automation for this feature is added, difficult terrain can be
-        applied manually to movement costs however the current Patreon playtest
-        ignores the presence of difficult terrain.</p></section><h2
-        class="divider">Cover</h2><p>Certain terrain or obstacles can be counted
-        as Cover - providing additional protection from incoming Spell or Weapon
-        attacks. When a direct single-target attack passes through such an
-        obstacle, the target of the attack is in Cover. Cover is classified
-        according to the following types:</p><table><thead><tr><th><p>Cover
-        Type</p></th><th><p>Banes to
+        move a certain number of feet up to our equal to your character's
+        <strong>Stride</strong> attribute. The distance allowed by a
+        <strong>Movement </strong>action cannot be broken up or interrupted.
+        There is no leftover movement saved across actions if you move less than
+        your Stride.</p><p>There are no facing mechanics in Crucible, meaning
+        that it does not matter which direction your Token is facing on the map,
+        your character is able to perceive and act in a full 360 degree radius
+        unless otherwise limited by some special effect or condition.</p><h2
+        class="divider">Free Movement</h2><p>Each creature has the opportunity
+        to perform one free <strong>Movement</strong> action per round of
+        Combat. This means that the first Action performed each round which
+        involves the Movement tag is discounted at -1 Action cost. This will
+        typically make the action free to perform, but in some cases may simply
+        reduce its overall cost.</p><p>Free Movement is not available to
+        creatures wearing <strong>Heavy </strong>armor or those who are
+        <strong>Prone</strong>. Additionally, the <strong>Slowed</strong>
+        condition increases the cost of Movement actions, however the first such
+        movement per round is still discounted.</p><h2
+        class="divider">Terrain</h2><section class="construction"><p>Crucible
+        will eventually support declaring certain grid spaces as difficult
+        terrain which slow movement while traversing them. Movement costs are
+        doubled within difficult terrain. Until automation for this feature is
+        added, difficult terrain can be applied manually to movement costs
+        however the current Alpha Playtest ignores the presence of difficult
+        terrain.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
+        or obstacles can be counted as Cover - providing additional protection
+        from incoming Spell or Weapon attacks. When a direct single-target
+        attack passes through such an obstacle, the target of the attack is in
+        Cover. Cover is classified according to the following
+        types:</p><table><thead><tr><th><p>Cover Type</p></th><th><p>Banes to
         Attacks</p></th></tr></thead><tbody><tr><td><p>Complete
         Cover</p></td><td><p>Direct attacks not
         possible</p></td></tr><tr><td><p>Hard Cover</p></td><td><p>+4
@@ -397,7 +400,7 @@ pages:
       systemVersion: 0.5.6
       coreVersion: '12.331'
       createdTime: 1684374473225
-      modifiedTime: 1726942684486
+      modifiedTime: 1727451640183
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -663,7 +666,13 @@ pages:
         is adjacent to multiple enemies where the number of engaged enemies
         equals or exceeds their Engagement score, that character is said to be
         <strong>Fully Engaged</strong>. Some conditions or action prerequisites
-        may only occur when a creature is Fully Engaged.</p><h2
+        may only occur when a creature is Fully Engaged.</p><section
+        class="foundryvtt"><p>To help visualize how Engagement and Flanking
+        mechanics works, there is a special toggle that can be used in
+        the<strong> Tokens Layer</strong> of the <strong>Scene Controls
+        </strong>UI on the left side of the screen. While enabled, the
+        Engagement rectangles and flanked status of a creature will be
+        visualized to help understand its current status.</p></section><h2
         class="divider">Flanking</h2><p>Flanking occurs when you and your allies
         team up to combat an opponent. When a creature is
         <strong>Engaged</strong> with a number of creatures greater than its
@@ -734,7 +743,7 @@ pages:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726930849493
-      modifiedTime: 1726931742924
+      modifiedTime: 1727453069118
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.akwDfoFV3AWbOSI6'
   - sort: 700000

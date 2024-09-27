@@ -2,7 +2,7 @@ name: Lightbringer
 type: talent
 img: icons/magic/light/beams-rays-orange-purple-large.webp
 system:
-  node: pre2c
+  node: pre3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Illumination. Spells which
     use this Rune cause the Irradiated condition on Critical Hits.</p><p>The
@@ -35,7 +35,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1677356823203
-  modifiedTime: 1726365073904
+  modifiedTime: 1727280120762
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.lightbringer0000
   duplicateSource: null

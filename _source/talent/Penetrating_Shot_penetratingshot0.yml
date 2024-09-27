@@ -10,28 +10,30 @@ system:
   actions:
     - id: penetratingShot
       tags:
-        - mainhand
         - ranged
         - mechanical
+        - mainhand
         - weakened
       cost:
-        action: 2
+        action: 1
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: ray
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Penetrating Shot
+      img: icons/skills/ranged/projectile-explosion-black-orange.webp
       condition: ''
       description: >-
         <p>You fire a shot which penetrates through multiple targets in a direct
         line.</p>
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
       actionHooks: []
 effects: []
 folder: i7P1uwWcECj5KWfY
@@ -42,10 +44,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1687616511078
-  modifiedTime: 1696793980053
+  modifiedTime: 1727321506145
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

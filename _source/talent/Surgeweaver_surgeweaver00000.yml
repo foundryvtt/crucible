@@ -2,13 +2,12 @@ name: Surgeweaver
 type: talent
 img: icons/magic/lightning/bolt-strike-forked-blue.webp
 system:
-  node: int2b
+  node: int3a
   description: >-
     <p>You are highly skilled in weaving the Rune of Lightning. Spells which use
-    this Rune cause the Shocked condition on Critical Hits.</p>
-
-    <p>The Shocked effect lasts for 1 Round, deals half your Intellect score as
-    Lightning damage to Morale, and applies the Staggered condition.</p>
+    this Rune cause the Shocked condition on Critical Hits.</p><p>The Shocked
+    effect lasts for 1 Round, deals half your Intellect score as Lightning
+    damage to Morale, and applies the Staggered condition.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -33,10 +32,10 @@ flags:
     sourceId: Item.surgeweaver00000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676596789321
-  modifiedTime: 1688828344241
+  modifiedTime: 1727280180262
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.surgeweaver00000
   duplicateSource: null

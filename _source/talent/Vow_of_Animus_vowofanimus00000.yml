@@ -11,26 +11,29 @@ system:
     relinquishes your prior vow.
   actions:
     - id: vowOfAnimus
-      name: ''
-      img: null
+      name: Vow of Animus
+      img: icons/magic/death/skull-humanoid-white-red.webp
       condition: ''
       description: >-
-        You vow to vanquish a specific foe who becomes the subject of your
-        animus.
+        <p>You vow to vanquish a specific foe who becomes the subject of your
+        animus.</p>
       cost:
-        action: 1
-        focus: 3
+        action: 2
+        focus: 2
         weapon: false
+        heroism: 0
       range:
         maximum: 20
         weapon: false
+        minimum: null
       target:
         type: single
         number: 1
         scope: 0
       effects:
-        - name: ''
+        - name: Vow of Animus
           scope: 3
+          statuses: []
           duration:
             turns: 60
       tags:
@@ -40,10 +43,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675012907813
-  modifiedTime: 1696704490137
+  modifiedTime: 1727320902724
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

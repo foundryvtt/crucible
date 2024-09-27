@@ -13,6 +13,7 @@ system:
   actions: []
   inflection: eluding
   actorHooks: []
+  iconicSpells: 1
 effects: []
 sort: 0
 ownership:
@@ -21,10 +22,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1686255677273
-  modifiedTime: 1686357160494
+  modifiedTime: 1727211380364
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

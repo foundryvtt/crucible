@@ -31,39 +31,40 @@ pages:
         table below.</p><h2 class="divider">Weapon Categories</h2><p>The
         following table lists the categories of weapons supported in the
         Crucible game system.</p><table><thead><tr><th
-        style="width:25%">One-Handed Melee</th><th style="width:30%">Ability
-        Scaling</th><th style="width:10%">Base Damage</th><th
-        style="width:10%">Action
-        Cost</th><th>Special</th></tr></thead><tbody><tr><td>Unarmed</td><td>Strength,
-        Dexterity</td><td>4</td><td>1</td><td></td></tr><tr><td>Natural</td><td>Strength</td><td>4</td><td>1</td><td></td></tr><tr><td>Light
-        (1h)</td><td>Dexterity</td><td>4</td><td>1</td><td></td></tr><tr><td>Simple
-        (1h)</td><td>Strength</td><td>6</td><td>1</td><td></td></tr><tr><td>Balanced
-        (1h)</td><td>Strength,
-        Dexterity</td><td>8</td><td>1</td><td></td></tr><tr><td>Heavy
-        (1h)</td><td>Strength</td><td>8</td><td>1</td><td></td></tr><tr><th>Two-Handed
-        Melee</th><th>Attack Scaling</th><th>Base Damage</th><th>Action
-        Cost</th><th>Special</th></tr><tr><td>Simple
-        (2h)</td><td>Strength</td><td>10</td><td>2</td><td></td></tr><tr><td>Balanced
-        (2h)</td><td>Strength,
-        Dexterity</td><td>12</td><td>2</td><td></td></tr><tr><td>Heavy
-        (2h)</td><td>Strength</td><td>12</td><td>2</td><td></td></tr><tr><th>Ranged</th><th>Attack
-        Scaling</th><th>Base Damage</th><th>Action
-        Cost</th><th>Special</th></tr><tr><td>Projectile (2h)</td><td>Strength,
-        Dexterity</td><td>8</td><td>1</td><td></td></tr><tr><td>Mechanical
-        (1h)</td><td>Dexterity</td><td>6</td><td>1</td><td>Reload</td></tr><tr><td>Mechanical
-        (2h)</td><td>Dexterity</td><td>12</td><td>1</td><td>Reload</td></tr><tr><th>Offhand
-        Only</th><th>Attack Scaling</th><th>Base Damage</th><th>Action
-        Cost</th><th>Special</th></tr><tr><td>Light Shield</td><td>Strength,
-        Dexterity</td><td>2</td><td>1</td><td>+2 Block</td></tr><tr><td>Heavy
-        Shield</td><td>Strength</td><td>4</td><td>1</td><td>+4
-        Block</td></tr><tr><td>Spell Focus</td><td>Intellect, Presence,
-        Wisdom</td><td>0</td><td>1</td><td>Recover
-        Focus</td></tr></tbody></table><h2 class="divider">Quality
-        Tier</h2><p><strong>Quality</strong> of a Weapon describes its
-        craftsmanship, materials, and condition. Quality tiers provide an
-        additional bonus to the base damage of the weapon and contribute towards
-        its Rarity score.</p><table><thead><tr><th>Quality Tier</th><th>Damage
-        Bonus</th><th>Rarity
+        style="width:30%">One-Handed Melee</th><th
+        style="width:20%">Scaling</th><th style="width:10%">Range</th><th
+        style="width:10%">Action</th><th
+        style="width:10%">Damage</th><th>Special</th></tr></thead><tbody><tr><td>Natural</td><td>STR</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Unarmed</td><td>STR,DEX</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Light
+        (1h)</td><td>DEX</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Simple
+        (1h)</td><td>STR</td><td>1</td><td>2</td><td>4</td><td></td></tr><tr><td>Balanced
+        (1h)</td><td>STR,
+        DEX</td><td>2</td><td>2</td><td>4</td><td></td></tr><tr><td>Heavy
+        (1h)</td><td>STR</td><td>2</td><td>3</td><td>6</td><td></td></tr><tr><th>Two-Handed
+        Melee</th><th style="width:20%">Scaling</th><th
+        style="width:10%">Range</th><th style="width:10%">Action</th><th
+        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Simple
+        (2h)</td><td>STR</td><td>2</td><td>3</td><td>6</td><td></td></tr><tr><td>Balanced
+        (2h)</td><td>STR,DEX</td><td>3</td><td>3</td><td>6</td><td></td></tr><tr><td>Heavy
+        (2h)</td><td>STR</td><td>3</td><td>4</td><td>8</td><td></td></tr><tr><th>Ranged</th><th
+        style="width:20%">Scaling</th><th style="width:10%">Range</th><th
+        style="width:10%">Action</th><th
+        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Projectile
+        (1h)</td><td>STR,DEX</td><td>60</td><td>2</td><td>4</td><td></td></tr><tr><td>Talisman
+        (1h)</td><td>PRE</td><td>30</td><td>2</td><td>2</td><td>Refocus</td></tr><tr><td>Mechanical
+        (1h)</td><td>DEX</td><td>60</td><td>2</td><td>4</td><td>Reload</td></tr><tr><td>Projectile
+        (2h)</td><td>STR,DEX</td><td>120</td><td>3</td><td>6</td><td></td></tr><tr><td>Talisman
+        (2h)</td><td>PRE</td><td>30</td><td>3</td><td>3</td><td>Refocus</td></tr><tr><td>Mechanical
+        (2h)</td><td>DEX</td><td>120</td><td>2</td><td>6</td><td>Reload</td></tr><tr><th>Offhand
+        Only</th><th style="width:20%">Scaling</th><th
+        style="width:10%">Range</th><th style="width:10%">Action</th><th
+        style="width:10%">Damage</th><th>Special</th></tr><tr><td>Light
+        Shield</td><td>DEX</td><td>1</td><td>2</td><td>2</td><td>Block</td></tr><tr><td>Heavy
+        Shield</td><td>STR</td><td>1</td><td>2</td><td>3</td><td>Block</td></tr></tbody></table><h2
+        class="divider">Quality Tier</h2><p><strong>Quality</strong> of a Weapon
+        describes its craftsmanship, materials, and condition. Quality tiers
+        provide an additional bonus to the base damage of the weapon and
+        contribute towards its Rarity score.</p><table><thead><tr><th>Quality
+        Tier</th><th>Damage Bonus</th><th>Rarity
         Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><p>The
         quality tier of a weapon is established at its time of initial creation
         and can never be increased after that point.</p><h4>Broken
@@ -88,11 +89,10 @@ pages:
         yet.</p></section><h4>Oversized</h4><p>This weapon is large for its
         category and is unwieldy in combat without special training. The weapon
         gains an additional +2 bonus to base damage but is slow and provides +2
-        Banes to Initiative rolls.</p><h4>Reach*</h4><p>This weapon is lengthy
-        and offers twice the normal attack range. The base damage of the weapon
-        is decreased by 2 but the range of strikes which can be made with the
-        weapon is increased by 1 space for melee weapons or 6 spaces for ranged
-        weapons.</p><h4>Parrying</h4><p>This weapon provides a bonus to Parry
+        Banes to Initiative rolls.</p><h4>Reach</h4><p>This weapon is lengthy
+        and offers an expanded attack range. The range of melee weapons is
+        increased by +2 feet. Ranged weapons are expanded by +20
+        feet.</p><h4>Parrying</h4><p>This weapon provides a bonus to Parry
         defense while equipped and not Broken. The bonus is +1 for one-handed
         weapons and +2 for two-handed weapons, plus the enchantment bonus of the
         weapon.</p><h4>Blocking</h4><p>This weapon provides a bonus to Block
@@ -100,9 +100,9 @@ pages:
         weapons and +2 for two-handed weapons, plus the enchantment bonus of the
         weapon.</p><h4>Versatile*</h4><p>This normally one-handed weapon can be
         used effectively with two hands. While equipped without any item in the
-        off-hand its base damage is increased by +6 and Action cost is increased
+        off-hand its base damage is increased by +2 and Action cost is increased
         by +1.</p><h4>Thrown*</h4><p>This weapon can be used to Strike at range
-        up to a distance of 6 spaces. When used to Strike a target that is not
+        up to a distance of 20 feet. When used to Strike a target that is not
         within melee range, the Weapon becomes unequipped and must be retrieved
         before it can be used again.</p><h4>Keen</h4><p>This weapon is capable
         of achieving particularly deadly strikes. The critical hit threshold of
@@ -128,9 +128,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1685828566846
+      modifiedTime: 1727452844080
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

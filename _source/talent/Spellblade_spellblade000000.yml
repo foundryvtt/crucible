@@ -7,11 +7,13 @@ system:
     <p>You are an arcane warrior who can weave together Strike and Spell relying
     on both martial and arcane techniques in battle. The physical strikes of
     your weaponry partially substitute for the somatic gestures of traditional
-    spellcraft.</p><p>After performing a Strike attack, the Action cost of the
-    next Spell you cast during the same Turn is reduced by 1.</p>
+    spellcraft.</p><p>After performing a <strong>Strike</strong> attack, the
+    cost of the next Spell you cast during the same Turn is reduced by <strong>1
+    Action</strong>.</p>
   actions: []
   requirements: {}
   node: sig3.strength.intellect
+  iconicSpells: 1
 effects: []
 ownership:
   default: 0
@@ -24,7 +26,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1676174105935
-  modifiedTime: 1726782828136
+  modifiedTime: 1727382273396
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.spellblade000000
   duplicateSource: null

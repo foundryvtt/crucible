@@ -12,32 +12,31 @@ system:
       name: Tumble
       description: >-
         <p>Make a <strong>Pathfinding</strong> skill Attack against an adjacent
-        enemy contested by your target's <strong>Reflex</strong> defense.</p>
-
-        <p>On a success you may move up to twice your <strong>Stride</strong>,
-        including the ability to pass through your target enemy's space, without
-        provoking any <strong>Disengagement</strong> reactions.</p>
-
-        <p>On a failure your movement is blocked and your remain in your current
-        position.</p>
+        enemy contested by your target's <strong>Reflex</strong>
+        defense.</p><p>On a success you may move up to twice your
+        <strong>Stride</strong>, including the ability to pass through your
+        target enemy's space, without provoking any
+        <strong>Disengagement</strong> reactions.</p><p>On a failure your
+        movement is blocked and your remain in your current position.</p>
       tags:
         - harmless
         - reflex
-        - pathfinding
       cost:
         action: 3
         focus: 0
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 2
       effects: []
-      img: null
+      img: icons/skills/movement/ball-spinning-blue.webp
       condition: ''
       range:
-        maximum: 6
+        maximum: null
         weapon: false
+        minimum: null
       actionHooks: []
   requirements: {}
 effects: []
@@ -49,10 +48,10 @@ flags:
     sourceId: Item.tumblethrough000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677967995645
-  modifiedTime: 1696793535553
+  modifiedTime: 1727321436693
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.tumblethrough000
   duplicateSource: null

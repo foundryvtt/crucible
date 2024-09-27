@@ -12,6 +12,7 @@ system:
     the <strong>Arrow</strong> gesture during the same Turn with Action Cost
     reduced by 1.</p>
   actions: []
+  iconicSpells: 1
 effects: []
 ownership:
   default: 0
@@ -24,7 +25,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1676830120357
-  modifiedTime: 1726705772349
+  modifiedTime: 1727211448609
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.arcanearcher0000
   duplicateSource: null

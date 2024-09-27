@@ -14,28 +14,30 @@ system:
     strike another enemy at reduced cost.
   actions:
     - id: ruthlessMomentum
-      name: ''
-      img: null
+      name: Ruthless Momentum
+      img: icons/skills/melee/strikes-sword-scimitar.webp
       condition: You incapacitate an enemy with a melee attack.
       description: >-
         <p>After defeating an enemy, you may move up to your
         <strong>Stride</strong> and attack another foe within melee range.</p>
       cost:
-        action: -2
+        action: -1
         focus: 1
         weapon: true
+        heroism: 0
       range:
-        maximum: 4
-        weapon: false
+        maximum: null
+        weapon: true
+        minimum: null
       target:
         type: single
         number: 1
         scope: 3
       effects: []
       tags:
-        - twohand
         - melee
         - movement
+        - twohand
       actionHooks:
         - hook: prepare
           fn: |-
@@ -44,10 +46,10 @@ system:
             }
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420011
-  modifiedTime: 1696793298090
+  modifiedTime: 1727321351530
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

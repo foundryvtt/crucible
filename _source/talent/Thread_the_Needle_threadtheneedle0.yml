@@ -9,27 +9,29 @@ system:
     from <strong>Flanking</strong> as if it were a melee attack.
   actions:
     - id: threadTheNeedle
-      name: ''
-      img: null
+      name: Thread the Needle
+      img: icons/skills/ranged/projectile-spiral-gray.webp
       condition: ''
       description: >-
-        You fire a precise shot into melee combat, targeting an enemy which is
-        engaged by one of your allies.
+        <p>You fire a precise shot into melee combat, targeting an enemy which
+        is engaged by one of your allies.</p>
       cost:
         action: 0
         focus: 1
         weapon: true
+        heroism: 0
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
       target:
         type: single
         number: 1
         scope: 3
       effects: []
       tags:
-        - mainhand
         - ranged
+        - mainhand
       actionHooks:
         - hook: roll
           fn: >-
@@ -46,10 +48,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1688235930869
-  modifiedTime: 1696795169778
+  modifiedTime: 1727321697271
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

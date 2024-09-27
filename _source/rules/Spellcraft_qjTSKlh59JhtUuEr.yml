@@ -99,9 +99,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684374993517
-      modifiedTime: 1686261047076
+      modifiedTime: 1727451918945
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -387,14 +387,20 @@ pages:
     text:
       format: 1
       content: >-
-        <p>Crucible features a variety of Iconic Spells which can be discovered
-        when combining certain Rune, Gesture, and Inflection combinations
-        thUnder construction block that explains the high-level concept of
-        iconic spells - certain combinations of Rune + Gesture + Inflection
-        trigger an iconic combo which have special effects above and beyond what
-        the auto-generated spell would be.</p><section
-        class="construction"><p>Iconic Spells have not been included in this
-        playtest.</p></section>
+        <p>In addition to Composed Spells, investment into spellcraft talents
+        unlocks Iconic Spell slots which provide a limited number of special
+        spells which you know. These Iconic Spells have specialized effects
+        which are not otherwise possible via the Composed Spell system and cover
+        the breadth of magical capability that a system like Crucible
+        requires.</p><h2 class="divider">Learning Iconic Spells</h2><p>Each
+        character has a certain number of Iconic Spell slots — initially zero.
+        When learning certain spellcraft talents, you will gain an additional
+        Iconic Spell slot which can then be populated with an Iconic Spell
+        provided you possess the prerequisite knowledge to learn it.</p><h2
+        class="divider">Replacing Iconic Spells</h2><p>When your character
+        advances in level you may — if you wish — remove one known Iconic Spell
+        from your repetoire, freeing that spell slot to be filled with an
+        alternative Iconic Spell.</p>
     video:
       controls: true
       volume: 0.5
@@ -407,10 +413,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684375035098
-      modifiedTime: 1686193904976
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727452042292
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.IP3VYtuMPiMYNqhT'

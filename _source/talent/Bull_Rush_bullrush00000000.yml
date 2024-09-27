@@ -10,37 +10,38 @@ system:
   actions:
     - id: bullrush
       description: >-
-        Make a Pathfinding skill Attack against an adjacent enemy contested by
-        your target's Fortitude defense. On a success you may move up to your
+        <p>Make a Pathfinding skill Attack against an adjacent enemy contested
+        by your target's Fortitude defense. On a success you may move up to your
         <strong>Stride</strong> directly through the enemy's space. Your enemy
         is knocked Prone and may not make any attack of opportunity against you.
         On a failure your movement is blocked and your remain in your current
-        position.
+        position.</p>
       tags:
         - harmless
         - fortitude
-        - pathfinding
       cost:
         action: 3
         focus: 0
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Bull Rush
           scope: 3
-          duration:
-            turns: null
           statuses:
             - prone
-      name: ''
-      img: null
+          duration:
+            turns: null
+      name: Bull Rush
+      img: icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp
       condition: ''
       range:
-        maximum: 6
+        maximum: 10
         weapon: false
+        minimum: null
       actionHooks: []
 effects: []
 folder: MqZKCMx5KrZQffGU
@@ -51,10 +52,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677968575791
-  modifiedTime: 1696704673966
+  modifiedTime: 1727321101126
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

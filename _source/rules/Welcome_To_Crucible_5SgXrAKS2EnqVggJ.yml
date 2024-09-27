@@ -14,21 +14,21 @@ pages:
       content: >-
         <p><strong>Crucible</strong> is an innovative and modern role-playing
         game (RPG) system built exclusively for <strong>Foundry Virtual
-        Tabletop</strong> as a digital platform. From the ground up, Crucible is
-        designed to leverage the unique capabilities of Foundry VTT to provide
-        gamemasters with a powerful toolset and effortless layers of automation,
-        allowing gamemasters and players to focus on what matters most:
-        <em>telling a compelling story</em>.</p><p>The central focus of Crucible
-        is meaningful and varied character advancement through a class-less
-        system with multiple pillars of character progression. The Crucible
-        system and its dice mechanics allow for crunchy and tactically rich
-        encounters featuring combat, exploration, problem-solving, or social
-        challenges.</p><p>Crucible is both a role-playing game and a software
-        engine. The rules of the game are applied with consistency and
-        automation. The system is built specifically for virtual tabletop use to
-        eliminate cumbersome bookkeeping that appears in other similarly crunchy
-        pen-and-paper systems.</p><h2 class="divider">Development
-        Status</h2><p>Crucible is now available for its initial <strong>Patreon
+        Tabletop</strong> as a digital platform.</p><p>Crucible is designed from
+        the ground up to leverage the unique capabilities of Foundry Virtual
+        Tabletop to create exciting and fast-paced gameplay that allow
+        gamemasters and players to focus on what matters most: <em>telling a
+        compelling story</em>.</p><p>At the heart of Crucible is meaningful and
+        empowering character advancement through a class-less system with
+        multiple pillars of character progression. The system’s dice mechanics
+        allow for crunchy and tactically rich encounters featuring combat,
+        exploration, or social challenges.</p><p>Crucible is both a role-playing
+        game and a software engine. The game system offers a deep level of
+        mechanical sophistication, but its rules are entirely encoded to be
+        applied with consistency and automation. The system is built
+        intentionally to eliminate the cumbersome bookkeeping that is prevalent
+        in high-crunch pen-and-paper systems.</p><h2 class="divider">Development
+        Status</h2><p>Crucible is now available for an initial <strong>Alpha
         Playtest</strong> which provides the community with a first look at the
         system, design pillars, and intended direction. The system is moderately
         functional, but still early in development. All areas of the system are
@@ -76,9 +76,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684020732888
-      modifiedTime: 1686269864285
+      modifiedTime: 1727451007990
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -169,14 +169,10 @@ pages:
         their experience with Crucible. This data will be collected and collated
         to help us identify areas of the game which need improvement, collect
         bugs that need to be fixed, and help us prioritize the development of
-        new features. There are two supported methods for providing
-        feedback:</p><h3>Formal Feedback via Google Forms</h3><p>We have
-        configured a <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSd70XUeY_G3VDwlrEArSk1twTiw2xo0wJuQV6BcttmYRQcesg/viewform"
-        title="Crucible Feedback - Playtest One">simple feedback form</a> which
-        users can use to submit feedback on their experience. This form is the
-        best way to provide feedback directly, as it goes straight to those
-        developing Crucible in an organized manner.</p><h3>General Feedback via
+        new features. </p><h3>Formal Feedback via Google Forms</h3><section
+        class="construction"><p>We are not collecting feedback form responses
+        <em>at this time</em> but will be re-opening the feedback form as part
+        of a subsequent playtest update.</p></section><h3>General Feedback via
         Discord</h3><p>The Foundry Virtual Tabletop community <a
         href="https://discord.gg/foundryvtt">Discord</a> server is a primary hub
         for discussion and feedback for Foundry Virtual Tabletop, and we've
@@ -196,10 +192,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684020793428
-      modifiedTime: 1686269197317
-      lastModifiedBy: JMECHdsPmLGGi1RC
+      modifiedTime: 1727360755310
+      lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.4Ggutuh9uzhcEXSK'
@@ -253,7 +249,8 @@ pages:
         development.</li><li>Drew (Drewzelle) - Talent icons.</li></ul><h2
         class="divider">Community Contributions</h2><p>We are grateful to the
         following community members for their contributions to the
-        system:</p><ul><li>RedReign - Brainstorming and design
+        system:</p><ul><li>Maalvi - UI design and interface
+        elements.</li><li>RedReign - Brainstorming and design
         discussions.</li><li>JDW - Assistance with
         @UUID[Compendium.crucible.rules.JournalEntry.j9Nus4RQXHAd0NqQ.JournalEntryPage.POsbUPz2axlketya]{Dice
         So Nice} animation integration.</li><li>Wasp - Assistance with
@@ -273,9 +270,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684375157534
-      modifiedTime: 1686269383445
+      modifiedTime: 1727360803282
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

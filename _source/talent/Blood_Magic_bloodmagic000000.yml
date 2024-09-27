@@ -3,21 +3,21 @@ type: talent
 _id: bloodmagic000000
 img: icons/skills/wounds/blood-drip-droplet-red.webp
 system:
-  node: tou2b
+  node: tou3a
   description: >-
-    You rely upon occult techniques to transform physical pain into arcane
+    <p>You rely upon occult techniques to transform physical pain into arcane
     potential. You cast spells by spending Health instead of Focus. When casting
-    a spell each point of Focus costs 10 points of Health.
+    a spell each point of Focus costs 10 points of Health.</p>
   actions: []
   requirements: {}
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674957908610
-  modifiedTime: 1688925849919
+  modifiedTime: 1727279950883
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

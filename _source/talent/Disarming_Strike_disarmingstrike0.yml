@@ -19,7 +19,8 @@ system:
         <strong>Reflex</strong> defense of a single target. The technique is
         <strong>Difficult</strong> to perform and deals reduced damage. If
         successful, the target is forced to unqeuip a held item of your choosing
-        that is not secured.</p>
+        that is not secured.</p><p><strong>TODO: Add automation for the Disarm
+        effect.</strong></p>
       tags:
         - melee
         - mainhand
@@ -47,7 +48,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1674942420033
-  modifiedTime: 1727018267979
+  modifiedTime: 1727290559900
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

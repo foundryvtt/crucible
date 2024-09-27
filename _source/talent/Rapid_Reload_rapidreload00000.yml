@@ -11,17 +11,19 @@ system:
     exceptional haste.
   actions:
     - id: rapidReload
-      name: ''
-      img: null
+      name: Rapid Reload
+      img: icons/skills/ranged/bullet-sparks-yellow.webp
       condition: ''
-      description: You quickly reload your mechanical weapon.
+      description: <p>You quickly reload your mechanical weapon.</p>
       cost:
         action: 1
         focus: 1
         weapon: false
+        heroism: 0
       range:
-        maximum: 0
+        maximum: null
         weapon: false
+        minimum: null
       target:
         type: self
         number: 1
@@ -32,10 +34,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420011
-  modifiedTime: 1696794185464
+  modifiedTime: 1727321599240
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

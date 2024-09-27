@@ -5,16 +5,17 @@ img: icons/skills/social/peace-luck-insult.webp
 system:
   node: pre0
   description: >-
-    You specialize in subterfuge to distract or trick your opponent during
-    combat.
+    <p>You specialize in using subterfuge to distract or trick your opponent
+    during combat.</p>
   actions:
     - id: distract
       name: Distract
-      condition: Your target can see you or hear and understand you.
+      condition: ''
       description: >-
-        You perform some pretensive action that is designed to dissemble and
-        deceive your opponent. Make a Deception skill attack against your
-        target. On a success they lose 1 Focus point.
+        <p>You make a <strong>Deception</strong> based <strong>Skill
+        Attack</strong> against the <strong>Willpower </strong>defense of a
+        target within 30 feet which can see or hear you. On a success, the
+        target loses <strong>1 Focus</strong>.</p>
       tags:
         - void
         - focus
@@ -22,10 +23,11 @@ system:
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 10
         scope: 0
       effects: []
       img: icons/skills/social/peace-luck-insult.webp
@@ -39,6 +41,10 @@ system:
                 r.data.damage.total = 1;
               }
             }
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
   requirements: {}
 effects: []
 folder: 2MFixpDJ379KOogE
@@ -49,10 +55,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676837085147
-  modifiedTime: 1690660769327
+  modifiedTime: 1727384244635
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

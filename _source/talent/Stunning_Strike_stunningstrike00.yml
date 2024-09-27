@@ -15,40 +15,44 @@ system:
   actions:
     - id: stunningStrike
       condition: ''
-      description: You strike a vital pressure point, attempting to stun your enemy.
+      description: >-
+        <p>You <strong>Strike</strong> a vital pressure point, inflicting
+        <strong>Stun</strong> on your enemy for 1 Round if successful.</p>
       tags:
-        - mainhand
         - unarmed
+        - mainhand
         - difficult
         - fortitude
       cost:
         action: 0
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 0
       effects:
-        - name: ''
+        - name: Stunning Strike
           scope: 3
-          duration:
-            turns: null
           statuses:
             - stunned
-      name: ''
-      img: null
+          duration:
+            turns: 1
+      name: Stunning Strike
+      img: icons/magic/lightning/fist-unarmed-strike-blue.webp
       range:
-        maximum: 0
+        maximum: 1
         weapon: true
+        minimum: null
       actionHooks: []
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674942420016
-  modifiedTime: 1696556348877
+  modifiedTime: 1727320853441
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null

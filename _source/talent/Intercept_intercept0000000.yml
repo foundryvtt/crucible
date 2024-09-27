@@ -16,13 +16,10 @@ system:
       description: >-
         <p>You intercept the path of an enemy which enters your
         <strong>Engagement</strong> radius, immediatly moving up to your
-        <strong>Stride</strong> and interposing yourself to block their
-        path.</p>
-
-
-        <p>If the enemy moves out of your Engagement radius or attacks any other
-        creature during their turn, you may make a <strong>Disengagement
-        Strike</strong> against them.</p>
+        <strong>Stride</strong> to interpose yourself and block their
+        path.</p><p>If the enemy moves out of your Engagement radius or attacks
+        any other creature during their turn, you may make a
+        <strong>Disengagement Strike</strong> against them.</p>
       tags:
         - movement
         - reaction
@@ -30,16 +27,18 @@ system:
         action: 0
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects: []
-      name: ''
-      img: null
+      name: Intercept
+      img: icons/skills/melee/shield-block-gray-orange.webp
       range:
         maximum: 4
         weapon: false
+        minimum: null
       actionHooks:
         - hook: prepare
           fn: |-
@@ -49,10 +48,10 @@ system:
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674702266686
-  modifiedTime: 1696792400797
+  modifiedTime: 1727321305591
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

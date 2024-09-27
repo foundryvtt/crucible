@@ -9,30 +9,31 @@ system:
     - id: executionersStrike
       condition: Your target is Bloodied.
       description: >-
-        You deliver a Deadly Strike with a two-handed heavy weapon. If your
+        <p>You deliver a Deadly Strike with a two-handed heavy weapon. If your
         attack is successful, your opponent also suffers the Bleeding condition
         for 3 Rounds, taking additional damage each Round equal to your Strength
-        score.
+        score.</p>
       tags:
-        - twohand
-        - heavy
         - melee
+        - twohand
         - deadly
       cost:
-        action: 1
+        action: 0
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Executioner's Strike
           scope: 3
+          statuses: []
           duration:
             turns: null
-      name: ''
-      img: null
+      name: Executioner's Strike
+      img: icons/skills/melee/strike-axe-blood-red.webp
       actionHooks:
         - hook: prepare
           fn: >-
@@ -45,8 +46,9 @@ system:
               damageType: w.system.damageType,
             }), this.effects[0]);
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
   requirements: {}
 effects: []
 flags: {}
@@ -55,7 +57,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1675011742969
-  modifiedTime: 1727018000910
+  modifiedTime: 1727320533169
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

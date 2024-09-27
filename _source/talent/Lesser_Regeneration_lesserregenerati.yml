@@ -5,18 +5,18 @@ img: icons/magic/life/crosses-trio-red.webp
 system:
   node: tou1b
   description: >-
-    Your prodigious hardiness conveys a supernatural capability to recover from
-    wounds quickly. At the start of your turn if you are not Weakened you gain
-    +1 Health.
+    <p>Your prodigious hardiness conveys a supernatural capability to recover
+    from wounds quickly. At the start of your turn if you are not Weakened you
+    gain <strong>+1 Health</strong>.</p>
   actions: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.5
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674841031697
-  modifiedTime: 1687704886801
+  modifiedTime: 1727321776898
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

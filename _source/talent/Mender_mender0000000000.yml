@@ -3,13 +3,11 @@ type: talent
 _id: mender0000000000
 img: icons/magic/life/cross-beam-green.webp
 system:
-  node: wis2b
+  node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Life. Spells which use this
-    Rune cause the Mending condition on Critical Hits.</p>
-
-    <p>The Mending effect lasts for 1 Round and deals your Wisdom score as
-    restoration to Health.</p>
+    Rune cause the Mending condition on Critical Hits.</p><p>The Mending effect
+    lasts for 1 Round and deals your Wisdom score as restoration to Health.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -33,10 +31,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1682181078484
-  modifiedTime: 1688828433477
+  modifiedTime: 1727280051092
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -2,13 +2,12 @@ name: Rimecaller
 type: talent
 img: icons/magic/water/orb-ice-web.webp
 system:
-  node: wis2b
+  node: wis3b
   description: >-
     <p>You are highly skilled in weaving the Rune of Frost. Spells which use
-    this Rune cause the Chilled condition on Critical Hits.</p>
-
-    <p>The Chilled effect lasts for 1 Round, deals half your Wisdom  score as
-    Frost damage to Health, and applies the Slowed condition.</p>
+    this Rune cause the Chilled condition on Critical Hits.</p><p>The Chilled
+    effect lasts for 1 Round, deals half your Wisdom score as Frost damage to
+    Health, and applies the Slowed condition.</p>
   actions: []
   actorHooks:
     - hook: applyCriticalEffects
@@ -32,10 +31,10 @@ flags:
     sourceId: Item.rimecaller000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1676596394053
-  modifiedTime: 1688828268969
+  modifiedTime: 1727280058131
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.rimecaller000000
   duplicateSource: null

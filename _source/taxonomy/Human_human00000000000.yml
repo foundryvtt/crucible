@@ -4,7 +4,7 @@ type: taxonomy
 _id: human00000000000
 img: icons/skills/social/wave-halt-stop.webp
 system:
-  description: Humans are adaptable, determined, and versatile.
+  description: <p>Humans are adaptable, determined, and versatile.</p>
   category: humanoid
   abilities:
     wisdom: 3
@@ -26,6 +26,7 @@ system:
     psychic: 0
     radiant: 0
     void: 0
+  size: 4
 effects: []
 sort: 0
 ownership:
@@ -34,10 +35,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1686183320823
-  modifiedTime: 1686183396181
+  modifiedTime: 1727367115464
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

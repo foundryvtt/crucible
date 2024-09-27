@@ -14,36 +14,38 @@ system:
     - id: combatMedicine
       condition: ''
       description: >-
-        You rapidly treat the wounds of an ally within 4 feet. Perform a
+        <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
         <strong>Medicine Check</strong> against the target's Wounds Threshold.
         Your ally's Health is increased by the amount of the Roll in excess of
-        the threshold.
+        the threshold.</p>
       tags:
         - healing
         - health
         - medicine
       cost:
-        action: 6
+        action: 3
         focus: 0
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 2
       effects: []
-      name: ''
-      img: null
+      name: Combat Medicine
+      img: icons/magic/life/heart-glowing-red.webp
       range:
         maximum: 4
         weapon: false
+        minimum: null
       actionHooks: []
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674702266686
-  modifiedTime: 1696795381639
+  modifiedTime: 1727321754196
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

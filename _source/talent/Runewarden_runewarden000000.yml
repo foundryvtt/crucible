@@ -20,6 +20,7 @@ system:
             r.base += Math.ceil(actor.abilities.wisdom.value / 2);
           }
         }
+  iconicSpells: 1
 effects: []
 ownership:
   default: 0
@@ -32,7 +33,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1675735561453
-  modifiedTime: 1726782770974
+  modifiedTime: 1727211428705
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.runewarden000000
   duplicateSource: null

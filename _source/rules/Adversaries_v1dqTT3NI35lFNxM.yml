@@ -61,26 +61,27 @@ pages:
         being it is acceptable for Adversaries to have any talents that the
         Gamemaster wishes to give them in addition to the Talents automatically
         provided by their Archetype.</p></section><h2 class="divider">Adversary
-        Skills</h2><p>Adversaries share the same set of 16
+        Skills</h2><p>Adversaries share the same set of 12
         @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills}
         which are available to protagonist characters.</p><section
-        class="construction"><p>For the initial Playtest 1 - adversaries gain
-        skill progression automatically. This is not envisioned as the long run
-        solution for skill progression which will eventually be tied to Taxonomy
-        and Archetype scaling.</p></section><h2 class="divider">Defeating
-        Adversaries</h2><p>Adversaries do not have <strong>Wounds</strong> or
-        <strong>Madness</strong> pools like Protagonist characters, instead
-        their ability to withstand harm is determined entirely by
-        <strong>Health</strong> and <strong>Morale</strong>.</p><p>When an
-        Adversary <strong>Health</strong> pool reaches zero it becomes
-        <strong>Dead</strong>, and takes no further action during the
-        encounter.</p><section class="construction"><p>It will eventually be
-        possible to subdue an Adversary non-lethally, but these mechanics are
-        not yet developed for Playtest One.</p></section><p>When Adversary
-        <strong>Morale</strong> reaches zero it becomes <strong>Broken</strong>.
-        A Broken Adversary will attempt to flee the battlefield unless they lack
-        instincts of self-preservation or the possibility of escape seems
-        impossible - in which case they will continue to fight to the death.</p>
+        class="construction"><p>For the initial Alpha Playtest - adversaries
+        gain skill progression automatically. This is not envisioned as the long
+        run solution for skill progression which will eventually be tied to
+        Taxonomy and Archetype scaling.</p></section><h2
+        class="divider">Defeating Adversaries</h2><p>Adversaries do not have
+        <strong>Wounds</strong> or <strong>Madness</strong> pools like
+        Protagonist characters, instead their ability to withstand harm is
+        determined entirely by <strong>Health</strong> and
+        <strong>Morale</strong>.</p><p>When an Adversary <strong>Health</strong>
+        pool reaches zero it becomes <strong>Dead</strong>, and takes no further
+        action during the encounter.</p><section class="construction"><p>It will
+        eventually be possible to subdue an Adversary non-lethally, but these
+        mechanics are not yet developed for Playtest One.</p></section><p>When
+        Adversary <strong>Morale</strong> reaches zero it becomes
+        <strong>Broken</strong>. A Broken Adversary will attempt to flee the
+        battlefield unless they lack instincts of self-preservation or the
+        possibility of escape seems impossible - in which case they will
+        continue to fight to the death.</p>
     video:
       controls: true
       volume: 0.5
@@ -93,9 +94,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.1
-      coreVersion: '12.325'
+      coreVersion: '12.331'
       createdTime: 1684375058270
-      modifiedTime: 1686419794448
+      modifiedTime: 1727452965659
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

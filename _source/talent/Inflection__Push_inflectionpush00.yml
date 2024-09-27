@@ -10,17 +10,18 @@ system:
   actions: []
   inflection: push
   actorHooks: []
+  iconicSpells: 1
 effects: []
 flags:
   core:
     sourceId: Compendium.crucible.talent.inflectionpush00
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1675016611028
-  modifiedTime: 1686256378551
-  lastModifiedBy: JMECHdsPmLGGi1RC
+  modifiedTime: 1727211397791
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionpush00
   duplicateSource: null
 ownership:

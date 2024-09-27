@@ -15,6 +15,7 @@ system:
         weapon, you make a reduced-cost fullow-up <strong>Strike</strong> with
         your <strong>offhand</strong> weapon.</p>
       tags:
+        - afterStrike
         - offhand
       cost:
         action: -1
@@ -28,17 +29,7 @@ system:
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const {basicStrike, lastAction} = this.actor.system.status;
-            if ( !basicStrike || (lastAction !== "strike") ) {
-              throw new Error("You may only perform an Offhand Strike after a basic Strike which did not critically miss.");
-            }
-        - hook: displayOnSheet
-          fn: |-
-            const {lastAction} = this.actor.system.status;
-            return lastAction === "strike";
+      actionHooks: []
       range:
         maximum: 1
         weapon: true
@@ -56,7 +47,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1676425968128
-  modifiedTime: 1726963268441
+  modifiedTime: 1727291224452
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dualwield0000000
   duplicateSource: null

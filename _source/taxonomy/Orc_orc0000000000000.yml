@@ -4,9 +4,9 @@ _id: orc0000000000000
 img: icons/creatures/unholy/demon-fire-horned-mask.webp
 system:
   description: >-
-    Savage and warlike humanoids which generally form clan-like warbands. What
-    Orcs lack in cunning they make up for with determination, grit, and prudent
-    judgment.
+    <p>Savage and warlike humanoids which generally form clan-like warbands.
+    What Orcs lack in cunning they make up for with determination, grit, and
+    prudent judgment.</p>
   category: humanoid
   abilities:
     wisdom: 3
@@ -28,6 +28,7 @@ system:
     psychic: -2
     radiant: 0
     void: 0
+  size: 4
 effects: []
 folder: XE2BjE0vCGKPdZU7
 sort: 200000
@@ -37,10 +38,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1685830637472
-  modifiedTime: 1686145364691
+  modifiedTime: 1727365008083
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -11,6 +11,7 @@ system:
   actions: []
   inflection: determine
   actorHooks: []
+  iconicSpells: 1
 effects: []
 sort: 0
 ownership:
@@ -19,10 +20,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1686255592536
-  modifiedTime: 1686255705033
+  modifiedTime: 1727211376345
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

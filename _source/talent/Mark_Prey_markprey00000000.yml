@@ -9,17 +9,18 @@ system:
   actions:
     - id: markPrey
       description: >-
-        You Strike using a special shot. If your attack is successful the target
-        is <strong>Exposed</strong> for the next 3 Turns.
+        <p>You Strike using a special shot. If your attack is successful the
+        target is <strong>Exposed</strong> for the next 3 Turns.</p>
       tags:
-        - mainhand
         - ranged
+        - mainhand
         - difficult
         - harmless
       cost:
         action: 0
         focus: 1
         weapon: true
+        heroism: 0
       target:
         type: single
         number: 1
@@ -31,12 +32,13 @@ system:
             turns: 3
           statuses:
             - exposed
-      name: ''
-      img: null
+      name: Mark Prey
+      img: icons/skills/targeting/crosshair-mark-rough-pink.webp
       condition: ''
       range:
-        maximum: 0
+        maximum: null
         weapon: true
+        minimum: null
       actionHooks: []
 effects: []
 flags:
@@ -44,10 +46,10 @@ flags:
     sourceId: Compendium.crucible.talent.markprey00000000
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1674962663358
-  modifiedTime: 1696793900154
+  modifiedTime: 1727321489675
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null

@@ -4,8 +4,8 @@ type: taxonomy
 img: icons/creatures/unholy/demon-fire-horned-mask.webp
 system:
   description: >-
-    Hulking giantkin which are reknowned for their brute strength and direct
-    problem-solving approach.
+    <p>Hulking giantkin which are reknowned for their brute strength and direct
+    problem-solving approach.</p>
   category: giant
   abilities:
     wisdom: 3
@@ -27,6 +27,8 @@ system:
     psychic: -2
     radiant: 0
     void: 0
+  size: 6
+  stride: 10
 effects: []
 ownership:
   default: 0
@@ -35,10 +37,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.5
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1684855210087
-  modifiedTime: 1687702395410
+  modifiedTime: 1727364997635
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

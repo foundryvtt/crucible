@@ -3,12 +3,11 @@ type: talent
 _id: necromancer00000
 img: icons/magic/unholy/strike-beam-blood-red-purple.webp
 system:
-  node: int2b
+  node: int3a
   description: >-
     <p>You are highly skilled in weaving the Rune of Death. Spells which use
-    this Rune cause the Corrupted condition on Critical Hits.</p>
-
-    <p>The Corrupted effect lasts for 3 Rounds and deals your Intellect score as
+    this Rune cause the Corrupted condition on Critical Hits.</p><p>The
+    Corrupted effect lasts for 3 Rounds and deals your Intellect score as
     Corruption damage to Health each Round.</p>
   actions: []
   actorHooks:
@@ -33,10 +32,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677357187162
-  modifiedTime: 1688828236555
+  modifiedTime: 1727280169174
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
