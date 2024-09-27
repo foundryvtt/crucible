@@ -176,10 +176,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // TODO find a better place for this?
     if ( target.type === "summon" ) {
       const summon = await fromUuid(this.action.usage.summon);
-      if ( summon ) {
-        target.width = summon.prototypeToken.width;
-        target.height = summon.prototypeToken.height;
-      }
+      if ( summon ) target.size = summon.size;
     }
 
     // Create a temporary Measured Template document and PlaceableObject

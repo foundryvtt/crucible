@@ -132,8 +132,10 @@ export default class CrucibleAdversary extends CrucibleActorType {
     // Compute Archetype scaling weights
     const weights = {};
     let wTotal = 0;
+    const maxA = this.advancement.threatLevel <= 0 ? Math.max(...Object.values(archetype.abilities)) : undefined;
     for ( const k in SYSTEM.ABILITIES ) {
-      weights[k] = this.advancement.threatLevel > 0 ? archetype.abilities[k] : (8 - archetype.abilities[k]);
+      const w = this.advancement.threatLevel > 0 ? archetype.abilities[k] : (maxA + 1 - archetype.abilities[k]);
+      weights[k] = Math.pow(w, 2);
       wTotal += weights[k];
     }
 

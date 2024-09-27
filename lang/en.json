@@ -688,7 +688,7 @@
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
-  "TooltipCheck": "[0.5 &times; ({a1} + {a2})] + Bonus + Enchantment",
+  "TooltipCheck": "[({a1} + {a2}) / 4] + Bonus + Enchantment",
   "TooltipPassive": "12 + Score"
 },
 
@@ -874,6 +874,12 @@
     "resistances": {
       "label": "Resistance Scaling",
       "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero."
+    },
+    "size": {
+      "label": "Size"
+    },
+    "stride": {
+      "label": "Stride"
     }
   },
   "CATEGORIES": {

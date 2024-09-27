@@ -85,8 +85,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
     widget.appendChild(ArmorSheet._createElement("label", {innerText: field.label}));
     const fields = widget.appendChild(ArmorSheet._createElement("div", {className: "form-fields"}));
     fields.appendChild(ArmorSheet._createElement("label", {innerText: field.fields.base.label}));
-    fields.appendChild(foundry.applications.fields.createNumberInput({value: inputConfig.value.base, min: config.min,
-      max: config.max, step: 1}));
+    fields.appendChild(field.fields.base.toInput({value: inputConfig.value.base}));
     return {widget, fields}
   }
 }

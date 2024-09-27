@@ -160,6 +160,12 @@ export default class CrucibleSpellAction extends CrucibleAction {
     CrucibleSpellAction.#prepareGesture.call(this);
     super._prepare();
 
+    // Add Weapon cost
+    if ( this.cost.weapon ) {
+      const w = this.actor.equipment.weapons.mainhand;
+      this.cost.action += (w?.system.actionCost || 0);
+    }
+
     // Blood Magic
     if ( this.actor.talentIds.has("bloodmagic000000") ) {
       this.cost.health = (this.cost.focus * 10);

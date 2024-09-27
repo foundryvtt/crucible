@@ -88,6 +88,6 @@ export default class ArchetypeSheet extends BackgroundSheet {
       if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyArchetype(this.document);
       return;
     }
-    return super._processFormData(event, form, submitData);
+    return super._processSubmitData(event, form, submitData);
   }
 }

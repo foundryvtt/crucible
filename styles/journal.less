@@ -147,7 +147,9 @@
  *  Skill Page Sheet                          *
  * ------------------------------------------ */
 
-.crucible.skill-sheet {
+.crucible-skill-page {
+  height: 100%;
+  overflow: hidden;
   .scrollable {
     flex: 1;
     gap: 1rem;
@@ -159,11 +161,15 @@
     }
   }
   .form-footer {
+    flex: none;
     margin: 1rem;
   }
 }
 
 .crucible.skill {
+  .overview > p {
+    text-align: left;
+  }
   figure.right {
     float: right;
     margin: 0 0 1rem 1rem;

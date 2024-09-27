@@ -237,9 +237,6 @@ export default class CrucibleTalentNode {
     if ( this.type !== "signature" ) return false;  // Only signature talents get banned
     const purchased = signatures[this.tier];
     if ( purchased.size >= 2 ) return true;         // Already purchased 2 signatures at this tier
-    for ( const t of this.talents ) {
-      if ( purchased.has(t) ) return true;          // Already purchased a signature from this node
-    }
     return false;
   }
 

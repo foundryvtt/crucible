@@ -605,6 +605,7 @@
   font-weight: normal;
 }
 .crucible.sheet .form-group {
+  width: 100%;
   margin: 0;
 }
 .crucible.sheet .form-group.slim .form-fields > label {
@@ -1228,6 +1229,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .crucible.sheet.actor .tab.attributes .defenses .defense {
   display: flex;
@@ -1824,18 +1826,26 @@
 /** ----------------------------------------- *
  *  Skill Page Sheet                          *
  * ------------------------------------------ */
-.crucible.skill-sheet .scrollable {
+.crucible-skill-page {
+  height: 100%;
+  overflow: hidden;
+}
+.crucible-skill-page .scrollable {
   flex: 1;
   gap: 1rem;
   padding: 1rem;
   overflow: hidden auto;
 }
-.crucible.skill-sheet .scrollable h2.divider,
-.crucible.skill-sheet .scrollable div.form-group {
+.crucible-skill-page .scrollable h2.divider,
+.crucible-skill-page .scrollable div.form-group {
   margin: 0;
 }
-.crucible.skill-sheet .form-footer {
+.crucible-skill-page .form-footer {
+  flex: none;
   margin: 1rem;
+}
+.crucible.skill .overview > p {
+  text-align: left;
 }
 .crucible.skill figure.right {
   float: right;

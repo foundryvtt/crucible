@@ -1,7 +1,12 @@
 <section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
-    {{formGroup fields.category value=source.system.category}}
+    <fieldset class="form-group physical">
+        <legend>Physiology</legend>
+        {{formGroup fields.category value=source.system.category hint=null}}
+        {{formGroup fields.size value=source.system.size classes="slim"}}
+        {{formGroup fields.stride value=source.system.stride classes="slim"}}
+    </fieldset>
 
     <fieldset class="form-group abilities">
         <legend>{{fields.abilities.label}} <span class="sum"></span></legend>

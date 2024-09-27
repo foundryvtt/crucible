@@ -89,6 +89,7 @@ export const TARGET_TYPES = Object.freeze({
     template: {
       t: "rect",
       direction: 45, // Square
+      size: 3,
       anchor: "vertex"
     },
     scope: TARGET_SCOPES.SELF
