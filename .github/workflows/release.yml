@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --cache .npm --prefer-offline
 
-      # Compile CSS Styles
+      # Compile Database Packs and CSS
       - name: Compile
         run: npm run compile
 
