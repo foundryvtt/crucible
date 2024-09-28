@@ -1674,10 +1674,10 @@ export default class CrucibleActor extends Actor {
 
     // Confirm that character creation is complete
     if (!this.system.details.ancestry?.name) {
-      game.packs.get(SYSTEM.COMPENDIUM_PACKS.ancestry).render(true)
+      this._viewDetailItem("ancestry", {editable: false});
       return ui.notifications.warn("WALKTHROUGH.AddAncestry", {localize: true});
     } else if (!this.system.details.background?.name) {
-      game.packs.get(SYSTEM.COMPENDIUM_PACKS.background).render(true)
+      this._viewDetailItem("background", {editable: false});
       return ui.notifications.warn("WALKTHROUGH.AddBackground", {localize: true});
     } else if (this.points.ability.requireInput) {
       this.sheet.changeTab("attributes", "sheet");
