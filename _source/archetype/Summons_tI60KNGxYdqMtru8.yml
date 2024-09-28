@@ -1,0 +1,20 @@
+name: Summons
+sorting: a
+folder: null
+type: Item
+_id: tI60KNGxYdqMtru8
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727549748704
+  modifiedTime: 1727549748704
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!tI60KNGxYdqMtru8'
+

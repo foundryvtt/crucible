@@ -38,8 +38,8 @@ system:
     level: -1
     archetype:
       description: >-
-        A magically fashioned and conjured creation corresponding to a
-        particular arcane essence.
+        <p>A magically fashioned and conjured creation corresponding to a
+        particular arcane essence.</p>
       abilities:
         wisdom: 1
         presence: 2
@@ -152,7 +152,7 @@ system:
   movement:
     stride: 4
     engagement: 1
-    sizeBonus: -1
+    sizeBonus: -2
   status: null
   advancement:
     level: 1
@@ -175,8 +175,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 3
-  height: 3
+  width: 2
+  height: 2
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -377,7 +377,7 @@ _stats:
   systemVersion: 0.6.0
   coreVersion: '12.331'
   createdTime: 1686181185927
-  modifiedTime: 1727379198908
+  modifiedTime: 1727550485687
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

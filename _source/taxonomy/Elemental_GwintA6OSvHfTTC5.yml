@@ -1,0 +1,20 @@
+name: Elemental
+sorting: a
+folder: null
+type: Item
+_id: GwintA6OSvHfTTC5
+description: ''
+sort: 0
+color: null
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727549830635
+  modifiedTime: 1727549830635
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!GwintA6OSvHfTTC5'
+
