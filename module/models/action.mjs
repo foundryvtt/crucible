@@ -353,6 +353,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     Object.assign(context, {parent: this.parent, actor: this.actor, usage: this.usage});
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
+
+    // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
+    if ( this.actor ) this.actor.callActorHooks("prepareActions", {[clone.id]: clone});
     return clone;
   }
 
