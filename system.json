@@ -15,7 +15,7 @@
   ],
   "compatibility": {
     "minimum": 12,
-    "verified": 12
+    "verified": 13
   },
   "license": "LICENSE",
   "esmodules": ["crucible.mjs"],

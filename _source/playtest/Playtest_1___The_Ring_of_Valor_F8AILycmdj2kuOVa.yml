@@ -20844,7 +20844,7 @@ scenes:
     _stats:
       systemId: crucible
       systemVersion: 0.5.9
-      coreVersion: '13.331'
+      coreVersion: '12.331'
       createdTime: 1685215895819
       modifiedTime: 1726147852271
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -20881,7 +20881,7 @@ scenes:
             _stats:
               compendiumSource: null
               duplicateSource: null
-              coreVersion: '13.331'
+              coreVersion: '12.331'
               systemId: crucible
               systemVersion: 0.6.0
               createdTime: 1725916867896

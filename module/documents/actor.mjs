@@ -1353,7 +1353,7 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} reverse
    */
   async #trackHeroismDamage(resources, reverse) {
-    if ( !game.combat.active ) return;
+    if ( !game.combat?.active ) return;
     let delta = 0;
     for ( const r of ["health", "wounds", "morale", "madness"] ) delta += (resources[r] || 0);
     if ( delta === 0 ) return;

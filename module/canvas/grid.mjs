@@ -54,11 +54,15 @@ export function getTargetAreaPolygon(origin, offsets) {
  * Test linear range between an attacker and a target.
  * @param {CrucibleTokenObject} attacker
  * @param {CrucibleTokenObject} target
+ * @returns {number} The linear distance between attacker and target
  */
 export function getLinearRangeCost(attacker, target) {
+  const ab = attacker.bounds;
+  const tb = target.bounds;
+  if ( ab.overlaps(tb) ) return 0;
   const r = new Ray(attacker.center, target.center);
-  const xAttacker = attacker.bounds.segmentIntersections(r.A, r.B)[0];
-  const xTarget = target.bounds.segmentIntersections(r.A, r.B)[0];
-  return canvas.grid.measurePath([xAttacker, xTarget]);
+  const xAttacker = ab.segmentIntersections(r.A, r.B)[0];
+  const xTarget = tb.segmentIntersections(r.A, r.B)[0];
+  return canvas.grid.measurePath([xAttacker, xTarget]).distance;
 }
 
