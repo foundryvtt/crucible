@@ -243,11 +243,11 @@
     },
     "resistance": {
       "label": "Damage Resistance",
-      "hint": "A biological Resistance (+3) to a certain damage type."
+      "hint": "A biological Resistance (+5) to a certain damage type."
     },
     "vulnerability": {
       "label": "Damage Vulnerability",
-      "hint": "A biological Vulnerability (-3) to a certain damage type."
+      "hint": "A biological Vulnerability (-5) to a certain damage type."
     }
   },
   "SHEET": {
