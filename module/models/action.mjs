@@ -656,7 +656,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( token === this.token ) {
+      if ( (token === this.token) && !this.damage.restoration ) {
         t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
         continue;
       }
