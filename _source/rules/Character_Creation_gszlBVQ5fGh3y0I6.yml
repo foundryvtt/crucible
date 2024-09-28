@@ -382,7 +382,7 @@ pages:
         character's ability to take action during game
         situations.</p><h4>Action</h4><p><strong>Action </strong>describes a
         character's capacity for rapid action during each round of a combat
-        encounter. Characters typically have a pool of 6 Action, all three of
+        encounter. Characters typically have a pool of 6 Action, all six of
         which replenish at the start of their turn in
         combat.</p><h4>Focus</h4><p><strong>Focus</strong> describes a
         character's capacity for extraordinary feats of heroism or magic. A
@@ -509,7 +509,7 @@ pages:
       content: >-
         <p>Each time you gain a character level after level 1 you can further
         advance your character's powers and capabilities. Each level grants
-        you:</p><ul><li>1 Attribute Point which can increase one of your Ability
+        you:</p><ul><li>1 Ability Point which can increase one of your Ability
         scores by one.</li><li>2 Skill Points which can be used to purchase
         additional ranks in Skills.</li><li>2 Talent Points which can be used to
         purchase new character Talents.</li></ul><p>After gaining a level you
