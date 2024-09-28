@@ -364,7 +364,7 @@ pages:
         specialist:
           description: >-
             Choose a specialization path for your Arcana training. You may
-            choose either:  Elementalist, Occulstist, or Technocrat.
+            choose either:  Elementalist, Primalist, or Theurgist.
         adept:
           description: >-
             Your knowledge of magical theory is a vast ocean, the breadth of
@@ -747,7 +747,7 @@ pages:
             level of confidence that others find convincing.
         specialist:
           description: >-
-            Choose a specialization path for your Society training. You may
+            Choose a specialization path for your Diplomacy training. You may
             choose either: Orator, Mediator, or Critic.
         adept:
           description: >-
@@ -880,7 +880,7 @@ pages:
             surgical procedures, but perhaps have not done so yourself.
         specialist:
           description: >-
-            Choose a specialization path for your Society training. You may
+            Choose a specialization path for your Medicine training. You may
             choose either: Chirurgeon, Counsellor, or Occultist.
         adept:
           description: >-
@@ -1007,7 +1007,7 @@ pages:
         specialist:
           description: >-
             Choose a specialization path for your Performance training. You may
-            choose either: Artist, Minstrel, or Athlete.
+            choose either: Artist, Minstrel, or Trendsetter.
         adept:
           description: >-
             You have achieved a level of near mastery over all manner of
@@ -1139,7 +1139,7 @@ pages:
             take.
         specialist:
           description: >-
-            Choose a specialization path for your Society training. You may
+            Choose a specialization path for your Intimidation training. You may
             choose either: Oppressor, Extortionist, or Operator.
         adept:
           description: >-
@@ -1404,8 +1404,8 @@ pages:
             how to pace yourself to avoid exhaustion over longer distances.
         specialist:
           description: >-
-            Choose a specialization path for your Pathfinding training. You may
-            choose either: Tracker, Explorer, or Cartographer.
+            Choose a specialization path for your Athletics training. You may
+            choose either: Marathoner, Traceur, or Wrestler.
         adept:
           description: >-
             Those adept at athletics are capable of navigating the world with
