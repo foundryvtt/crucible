@@ -657,11 +657,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
         continue;
       }
-      const range = crucible.api.grid.getLinearRangeCost(this.token, token);
-      if ( this.range.minimum && (range.distance < this.range.minimum) ) {
+      const distance = this.token.bounds.overlaps(token.bounds)? 0: crucible.api.grid.getLinearRangeCost(this.token, token).distance;
+      if ( this.range.minimum && (distance < this.range.minimum) ) {
         t.error ||= game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum});
       }
-      if ( this.range.maximum && (range.distance > this.range.maximum) ) {
+      if ( this.range.maximum && (distance > this.range.maximum) ) {
         t.error ||= game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum});
       }
     }
