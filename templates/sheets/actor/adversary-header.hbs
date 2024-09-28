@@ -16,12 +16,12 @@
     </header>
 
     <div class="subtitle flexrow">
-        <h2 class="taxonomy flexrow {{#if incomplete.taxonomy}}inactive{{/if}}" data-action="chooseTaxonomy"
-            {{#if incomplete.taxonomy}}data-tooltip="WALKTHROUGH.AddTaxonomy"{{/if}}>
+        <h2 class="taxonomy flexrow {{#if incomplete.taxonomy}}inactive{{/if}}" data-action="editTaxonomy"
+            {{#if incomplete.taxonomy}}data-tooltip="WALKTHROUGH.ConfigureTaxonomy"{{/if}}>
             <a>{{#if incomplete.taxonomy}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{taxonomyName}}</a>
         </h2>
-        <h2 class="archetype flexrow {{#if incomplete.archetype}}inactive{{/if}}" data-action="chooseArchetype"
-            {{#if incomplete.archetype}}data-tooltip="WALKTHROUGH.AddArchetype"{{/if}}>
+        <h2 class="archetype flexrow {{#if incomplete.archetype}}inactive{{/if}}" data-action="editArchetype"
+            {{#if incomplete.archetype}}data-tooltip="WALKTHROUGH.ConfigureArchetype"{{/if}}>
             <a>{{#if incomplete.archetype}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{archetypeName}}</a>
         </h2>
         <div class="metadata flexrow">
