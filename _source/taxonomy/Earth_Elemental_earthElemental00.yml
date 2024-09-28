@@ -1,0 +1,47 @@
+folder: GwintA6OSvHfTTC5
+name: Earth Elemental
+type: taxonomy
+img: icons/magic/earth/construct-stone-long-arms.webp
+system:
+  description: <p>Elemental creatures corresponding to the element of Earth.</p>
+  size: 4
+  stride: 10
+  category: elemental
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 3
+    strength: 5
+    toughness: 4
+    dexterity: 2
+  resistances:
+    bludgeoning: 2
+    corruption: -3
+    piercing: 3
+    slashing: 3
+    poison: 2
+    acid: 2
+    fire: 0
+    cold: -3
+    electricity: 0
+    psychic: -3
+    radiant: 0
+    void: -3
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727550052597
+  modifiedTime: 1727550411670
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: earthElemental00
+sort: 100000
+_key: '!items!earthElemental00'
+

@@ -75,7 +75,7 @@ export const CATEGORIES = {
     label: "WEAPON.CATEGORIES.BALANCED1",
     hands: 1,
     main: true,
-    off: false,
+    off: true,
     scaling: "strength.dexterity",
     damage: 4,
     actionCost: 2,

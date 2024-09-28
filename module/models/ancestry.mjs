@@ -35,13 +35,13 @@ export default class CrucibleAncestry extends foundry.abstract.TypeDataModel {
 
     // Validate Abilities
     if ( data.primary === data.secondary ) {
-      throw new Error(game.i18n.localize("ANCESTRY.AbilityWarning"));
+      throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ABILITIES"));
     }
 
     // Validate Resistances
     if ( (data.resistance && (!data.vulnerability || (data.vulnerability === data.resistance)))
       || (data.vulnerability && (!data.resistance || (data.resistance === data.vulnerability)))) {
-      throw new Error(game.i18n.localize("ANCESTRY.ResistanceWarning"));
+      throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES"));
     }
   }
 }

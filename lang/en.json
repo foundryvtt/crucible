@@ -243,11 +243,11 @@
     },
     "resistance": {
       "label": "Damage Resistance",
-      "hint": "A biological Resistance (+3) to a certain damage type."
+      "hint": "A biological Resistance (+5) to a certain damage type."
     },
     "vulnerability": {
       "label": "Damage Vulnerability",
-      "hint": "A biological Vulnerability (-3) to a certain damage type."
+      "hint": "A biological Vulnerability (-5) to a certain damage type."
     }
   },
   "SHEET": {
@@ -257,9 +257,11 @@
     "ABILITIES": "Ability Scores",
     "RESISTANCES": "Resistances and Vulnerabilities",
     "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
-    "ABILITY_WARNING": "The primary and secondary Abilities for an Ancestry may not be the same.",
-    "RESISTANCE_WARNING": "The chosen Resistance and Vulnerability for an Ancestry may not be the same.",
     "STATURE": "Ancestry Stature"
+  },
+  "WARNINGS": {
+    "ABILITIES": "The primary and secondary Abilities for an Ancestry may not be the same.",
+    "RESISTANCES": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
   }
 },
 
@@ -884,6 +886,7 @@
   },
   "CATEGORIES": {
     "BEAST": "Beast",
+    "ELEMENTAL": "Elemental",
     "GIANT": "Giant",
     "HUMANOID": "Humanoid",
     "OUTSIDER": "Outsider",

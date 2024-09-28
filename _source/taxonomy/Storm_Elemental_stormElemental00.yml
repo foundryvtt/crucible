@@ -1,0 +1,47 @@
+folder: GwintA6OSvHfTTC5
+name: Storm Elemental
+type: taxonomy
+img: icons/magic/lightning/bolt-strike-clouds-blue.webp
+system:
+  description: <p>Elemental creatures corresponding to the element of Lightning.</p>
+  size: 4
+  stride: 10
+  category: elemental
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 5
+    strength: 2
+    toughness: 3
+    dexterity: 4
+  resistances:
+    bludgeoning: 2
+    corruption: -2
+    piercing: 2
+    slashing: 2
+    poison: 0
+    acid: -2
+    fire: 0
+    cold: -2
+    electricity: 3
+    psychic: 0
+    radiant: -2
+    void: -1
+effects: []
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727550411653
+  modifiedTime: 1727550411670
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: stormElemental00
+sort: 300000
+_key: '!items!stormElemental00'
+

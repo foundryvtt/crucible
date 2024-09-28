@@ -34,11 +34,11 @@ pages:
         style="width:30%">One-Handed Melee</th><th
         style="width:20%">Scaling</th><th style="width:10%">Range</th><th
         style="width:10%">Action</th><th
-        style="width:10%">Damage</th><th>Special</th></tr></thead><tbody><tr><td>Natural</td><td>STR</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Unarmed</td><td>STR,DEX</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Light
-        (1h)</td><td>DEX</td><td>1</td><td>2</td><td>3</td><td></td></tr><tr><td>Simple
-        (1h)</td><td>STR</td><td>1</td><td>2</td><td>4</td><td></td></tr><tr><td>Balanced
+        style="width:10%">Damage</th><th>Special</th></tr></thead><tbody><tr><td>Natural</td><td>STR</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Unarmed</td><td>STR,DEX</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Light
+        (1h)</td><td>DEX</td><td>1</td><td>2</td><td>3</td><td>Offhand</td></tr><tr><td>Simple
+        (1h)</td><td>STR</td><td>1</td><td>2</td><td>4</td><td>Offhand</td></tr><tr><td>Balanced
         (1h)</td><td>STR,
-        DEX</td><td>2</td><td>2</td><td>4</td><td></td></tr><tr><td>Heavy
+        DEX</td><td>2</td><td>2</td><td>4</td><td>Offhand</td></tr><tr><td>Heavy
         (1h)</td><td>STR</td><td>2</td><td>3</td><td>6</td><td></td></tr><tr><th>Two-Handed
         Melee</th><th style="width:20%">Scaling</th><th
         style="width:10%">Range</th><th style="width:10%">Action</th><th
@@ -130,7 +130,7 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '12.331'
       createdTime: null
-      modifiedTime: 1727452844080
+      modifiedTime: 1727548475512
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

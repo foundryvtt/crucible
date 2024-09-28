@@ -397,9 +397,9 @@ export default class CrucibleTokenObject extends Token {
 
     // Token movement speed
     const positionChange = ("x" in data) || ("y" in data);
-    if ( positionChange ) {
+    if ( positionChange && this.actor ) {
       options.animation ||= {};
-      options.animation.movementSpeed = this.actor.system.movement.stride * 4;
+      options.animation.movementSpeed = (this.actor.system.movement.stride * 2);
     }
 
     // Standard Token update workflow

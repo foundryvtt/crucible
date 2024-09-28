@@ -353,6 +353,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     Object.assign(context, {parent: this.parent, actor: this.actor, usage: this.usage});
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
+
+    // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
+    if ( this.actor ) this.actor.callActorHooks("prepareActions", {[clone.id]: clone});
     return clone;
   }
 
@@ -653,15 +656,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( token === this.token ) {
+      if ( (token === this.token) && !this.damage.restoration ) {
         t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
         continue;
       }
       const range = crucible.api.grid.getLinearRangeCost(this.token, token);
-      if ( this.range.minimum && (range.distance < this.range.minimum) ) {
+      if ( this.range.minimum && (range < this.range.minimum) ) {
         t.error ||= game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum});
       }
-      if ( this.range.maximum && (range.distance > this.range.maximum) ) {
+      if ( this.range.maximum && (range > this.range.maximum) ) {
         t.error ||= game.i18n.format("ACTION.WarningMaximumRange", {max: this.range.maximum});
       }
     }

@@ -163,6 +163,7 @@ export const GESTURES = Object.seal({
     },
     hands: 1,
     range: {
+      minimum: 1,
       maximum: 60
     },
     scaling: "intellect",

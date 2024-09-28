@@ -1353,7 +1353,7 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} reverse
    */
   async #trackHeroismDamage(resources, reverse) {
-    if ( !game.combat.active ) return;
+    if ( !game.combat?.active ) return;
     let delta = 0;
     for ( const r of ["health", "wounds", "morale", "madness"] ) delta += (resources[r] || 0);
     if ( delta === 0 ) return;
@@ -2108,20 +2108,21 @@ export default class CrucibleActor extends Actor {
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
-  /** @override */
-  _applyDefaultTokenSettings(data, {fromCompendium=false}={}) {
-    const defaults = foundry.utils.deepClone(game.settings.get("core", DefaultTokenConfig.SETTING));
-    defaults.bar1 = {attribute: "resources.health"};
-    defaults.bar2 = {attribute: "resources.morale"};
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+
+    // Automatic Prototype Token configuration
+    const prototypeToken = {bar1: {attribute: "resources.health"}, bar2: {attribute: "resources.morale"}};
     switch ( data.type ) {
       case "hero":
-        Object.assign(defaults, {vision: true, actorLink: true, disposition: 1});
+        Object.assign(prototypeToken, {vision: true, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        Object.assign(defaults, {vision: false, actorLink: false, disposition: -1});
+        Object.assign(prototypeToken, {vision: false, actorLink: false, disposition: -1});
         break;
     }
-    return this.updateSource({prototypeToken: defaults});
+    this.updateSource({prototypeToken});
   }
 
   /* -------------------------------------------- */

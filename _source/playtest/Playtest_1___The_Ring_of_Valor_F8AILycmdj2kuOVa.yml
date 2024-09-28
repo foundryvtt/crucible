@@ -932,6 +932,12 @@ actors:
         threat: elite
       favorites:
         - hammerToss
+        - grapple
+        - heavyStrike
+        - legSweep
+        - strike
+        - reactiveStrike
+        - defend
     prototypeToken:
       name: Anvil
       displayName: 30
@@ -1465,7 +1471,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1685831615922
-      modifiedTime: 1727377063667
+      modifiedTime: 1727549676476
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2100,7 +2106,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1685830625262
-      modifiedTime: 1727377066344
+      modifiedTime: 1727468008859
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2267,6 +2273,7 @@ actors:
         - cast
         - defend
         - refocus
+        - strike
     prototypeToken:
       name: Orivech
       displayName: 30
@@ -2803,7 +2810,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686183305269
-      modifiedTime: 1727379401722
+      modifiedTime: 1727549684412
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6550,7 +6557,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686233123616
-      modifiedTime: 1727406958113
+      modifiedTime: 1727465112385
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.YAA8Vb6h2kAAmg8d
       duplicateSource: null
@@ -7435,7 +7442,7 @@ actors:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1727381797456
-      modifiedTime: 1727454131193
+      modifiedTime: 1727547828445
       lastModifiedBy: AnoypGxxNIMOS0XY
     ownership:
       default: 2
@@ -8505,7 +8512,7 @@ actors:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1727453878928
-      modifiedTime: 1727454123072
+      modifiedTime: 1727468009584
       lastModifiedBy: AnoypGxxNIMOS0XY
     ownership:
       default: 2
@@ -8687,6 +8694,7 @@ actors:
         - rallyingCry
         - intimidate
         - secondWind
+        - defend
     prototypeToken:
       name: Duurath
       displayName: 30
@@ -8780,7 +8788,7 @@ actors:
           price: 0
           quality: fine
           enchantment: mundane
-          equipped: true
+          equipped: false
           properties:
             - versatile
           description:
@@ -8790,7 +8798,7 @@ actors:
           broken: false
           animation: warhammer
           actions: []
-          slot: 0
+          slot: 1
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
           duplicateSource: null
@@ -8798,7 +8806,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: null
-          modifiedTime: 1727454225592
+          modifiedTime: 1727466136343
           lastModifiedBy: AnoypGxxNIMOS0XY
         sort: 0
         ownership:
@@ -8920,8 +8928,8 @@ actors:
                 maximum: null
                 weapon: false
               actionHooks: []
-          actorHooks: []
           iconicSpells: 0
+          actorHooks: []
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -8936,28 +8944,28 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
+          modifiedTime: 1727546498650
+          lastModifiedBy: AnoypGxxNIMOS0XY
       - name: Shield Bash
         type: talent
         img: icons/skills/melee/shield-block-bash-blue.webp
         system:
           node: tou0b
           description: >-
-            You are practiced at fighting with weapon and shield. Following a
-            Strike with your weapon, you can slam your shield into your target
-            causing the <strong>Staggered</strong> condition.
+            <p>You are practiced at fighting with shield, using it to slam into
+            and imbalance your foes.</p>
           actions:
             - id: shieldBash
               condition: ''
               description: >-
-                You slam your shield into the enemy you just attacked with a
-                Strike, causing the <strong>Staggered</strong> condition on a
-                hit.
+                <p>Following a basic Strike with your mainhand weapon, you
+                <strong>Strike</strong> with your shield, causing the
+                <strong>Staggered</strong> condition for one Round.</p>
               tags:
-                - offhand
                 - melee
                 - shield
+                - offhand
+                - afterStrike
               cost:
                 action: 0
                 focus: 0
@@ -8968,27 +8976,21 @@ actors:
                 number: 1
                 scope: 0
               effects:
-                - name: ''
+                - name: Shield Bash
                   scope: 3
-                  duration:
-                    turns: null
                   statuses:
                     - staggered
-              name: ''
-              img: null
-              actionHooks:
-                - hook: canUse
-                  fn: |-
-                    const {basicStrike, lastAction} = this.actor.system.status;
-                    if ( !basicStrike || (lastAction !== "strike") ) {
-                      throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
-                    }
+                  duration:
+                    turns: 1
+              name: Shield Bash
+              img: icons/skills/melee/shield-block-bash-blue.webp
+              actionHooks: []
               range:
-                maximum: 1
+                maximum: null
                 weapon: true
                 minimum: null
-          actorHooks: []
           iconicSpells: 0
+          actorHooks: []
         effects: []
         ownership:
           default: 0
@@ -9003,8 +9005,8 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
+          modifiedTime: 1727546498650
+          lastModifiedBy: AnoypGxxNIMOS0XY
         _id: shieldbash000000
         folder: 08mOaWGw5rYKejer
         sort: 100000
@@ -9022,11 +9024,11 @@ actors:
             conventional limits.
           actions:
             - id: secondWind
-              name: ''
+              name: Second Wind
               condition: ''
               description: >-
-                You focus your energy and recover your Toughness score in
-                Health.
+                <p>You focus your energy and recover your Toughness score in
+                Health.</p>
               tags:
                 - healing
               cost:
@@ -9039,7 +9041,7 @@ actors:
                 number: 0
                 scope: 1
               effects: []
-              img: null
+              img: icons/magic/life/cross-area-circle-green-white.webp
               actionHooks:
                 - hook: confirm
                   fn: >-
@@ -9048,11 +9050,11 @@ actors:
                     self.resources.health = (self.resources.health || 0) +
                     this.actor.system.abilities.toughness.value;
               range:
-                maximum: 1
+                maximum: null
                 weapon: false
                 minimum: null
-          actorHooks: []
           iconicSpells: 0
+          actorHooks: []
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -9060,8 +9062,8 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: null
-          modifiedTime: null
-          lastModifiedBy: null
+          modifiedTime: 1727546498650
+          lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
           AnoypGxxNIMOS0XY: 3
@@ -9104,7 +9106,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400222043
-          modifiedTime: 1727400222043
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gestureward00000
         folder: D14x9AJ0TgXKtnzu
@@ -9183,7 +9185,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400231352
-          modifiedTime: 1727400231352
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: 8Vb0F5R7DMUrvhfw
         sort: 100000
@@ -9240,7 +9242,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400232781
-          modifiedTime: 1727400232781
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -9287,7 +9289,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400287236
-          modifiedTime: 1727400287236
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runewarden000000
         folder: fOYHlZJEWUukD7yr
@@ -9351,7 +9353,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400520819
-          modifiedTime: 1727400520819
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: dreadlord0000000
         folder: fOYHlZJEWUukD7yr
@@ -9388,7 +9390,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400529277
-          modifiedTime: 1727400529277
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runekinesis00000
         folder: Dy9HnwadNE3kSZ4f
@@ -9449,7 +9451,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400574128
-          modifiedTime: 1727400574128
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: rallyingcry00000
         folder: 2MFixpDJ379KOogE
@@ -9491,7 +9493,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400595642
-          modifiedTime: 1727400595642
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: bulwark000000000
         folder: 8Vb0F5R7DMUrvhfw
@@ -9524,7 +9526,7 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400598476
-          modifiedTime: 1727400598476
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: 8Vb0F5R7DMUrvhfw
         sort: -25000
@@ -9560,8 +9562,118 @@ actors:
           systemId: crucible
           systemVersion: 0.6.0
           createdTime: 1727400602876
-          modifiedTime: 1727400602876
+          modifiedTime: 1727546498650
           lastModifiedBy: AnoypGxxNIMOS0XY
+      - _id: sai0000000000000
+        name: Sai
+        type: weapon
+        img: icons/weapons/daggers/dagger-simple-black.webp
+        effects: []
+        folder: pUXcL0pnY3FlKwj8
+        flags: {}
+        system:
+          category: light1
+          quantity: 1
+          weight: 3
+          price: 40
+          quality: standard
+          enchantment: mundane
+          equipped: false
+          properties:
+            - parrying
+          description:
+            public: ''
+            secret: ''
+          damageType: piercing
+          broken: false
+          animation: dagger
+          actions: []
+          slot: 1
+        _stats:
+          compendiumSource: Compendium.crucible.weapon.Item.sai0000000000000
+          duplicateSource: null
+          coreVersion: '12.331'
+          systemId: crucible
+          systemVersion: 0.6.0
+          createdTime: 1727465578548
+          modifiedTime: 1727465644471
+          lastModifiedBy: AnoypGxxNIMOS0XY
+        sort: 0
+        ownership:
+          default: 0
+          AnoypGxxNIMOS0XY: 3
+      - _id: 2KNz0fAIcWSSRQaN
+        name: Earth Breaker
+        type: weapon
+        img: icons/weapons/hammers/hammer-war-rounding.webp
+        effects: []
+        folder: null
+        flags: {}
+        system:
+          category: heavy1
+          quantity: 1
+          weight: 0
+          price: 30
+          quality: superior
+          enchantment: minor
+          equipped: true
+          properties:
+            - versatile
+          description:
+            public: ''
+            secret: ''
+          damageType: bludgeoning
+          broken: false
+          animation: warhammer
+          slot: 1
+          actions:
+            - id: breakEarth
+              name: Break Earth
+              img: icons/weapons/hammers/hammer-war-rounding.webp
+              condition: ''
+              description: >-
+                <p>You slam Earth Breaker into the ground, knocking enemies in
+                front of you Prone if your attack exceeds their
+                <strong>Reflex</strong> defense.</p>
+              cost:
+                action: 0
+                focus: 1
+                heroism: 0
+                weapon: true
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              target:
+                type: cone
+                number: 1
+                scope: 4
+                size: 10
+              effects:
+                - name: Break Earth
+                  scope: 3
+                  statuses:
+                    - prone
+                  duration:
+                    turns: null
+              tags:
+                - mainhand
+                - reflex
+                - melee
+              actionHooks: []
+        _stats:
+          compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
+          duplicateSource: null
+          coreVersion: '12.331'
+          systemId: crucible
+          systemVersion: 0.6.0
+          createdTime: 1727466133743
+          modifiedTime: 1727466158568
+          lastModifiedBy: AnoypGxxNIMOS0XY
+        sort: 100000
+        ownership:
+          default: 0
+          AnoypGxxNIMOS0XY: 3
     effects: []
     flags:
       core:
@@ -9574,7 +9686,7 @@ actors:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1727400179378
-      modifiedTime: 1727454146622
+      modifiedTime: 1727546925070
       lastModifiedBy: AnoypGxxNIMOS0XY
     ownership:
       default: 2
@@ -11435,7 +11547,7 @@ actors:
       core:
         sourceId: Compendium.crucible.pregens.Actor.KPz0rV5N33tNGM7Q
       crucible:
-        lastSpell: spell.lightning.arrow
+        lastSpell: spell.frost.create
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.KPz0rV5N33tNGM7Q
       duplicateSource: Actor.TffJlCvt39DEhFX7
@@ -11443,7 +11555,7 @@ actors:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1727455170340
-      modifiedTime: 1727455319107
+      modifiedTime: 1727470740029
       lastModifiedBy: AnoypGxxNIMOS0XY
     ownership:
       default: 2
@@ -12309,7 +12421,7 @@ actors:
       core:
         sourceId: Compendium.crucible.pregens.Actor.KUUvQxrd7q6wwrBi
       crucible:
-        lastSpell: spell.life.influence
+        lastSpell: spell.life.ray.compose
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.KUUvQxrd7q6wwrBi
       duplicateSource: Actor.z8PYWkq3bxce7vwb
@@ -12317,7 +12429,7 @@ actors:
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1727455326708
-      modifiedTime: 1727455452448
+      modifiedTime: 1727546925661
       lastModifiedBy: AnoypGxxNIMOS0XY
     ownership:
       default: 2
@@ -14824,7 +14936,7 @@ actors:
         madness:
           value: 0
         action:
-          value: 6
+          value: 4
         focus:
           value: 5
         heroism:
@@ -15256,7 +15368,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686231753904
-      modifiedTime: 1727387564348
+      modifiedTime: 1727467696472
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.OUuxlqpD2DrSxkCx
       duplicateSource: null
@@ -15428,7 +15540,8 @@ actors:
         strideBonus: 0
         engagementBonus: 0
       status: null
-      favorites: []
+      favorites:
+        - strike
     prototypeToken:
       name: Duurath
       displayName: 30
@@ -15820,7 +15933,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686231927873
-      modifiedTime: 1727387551007
+      modifiedTime: 1727461330827
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.BckoBMBnF2relFpA
       duplicateSource: null
@@ -16332,7 +16445,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686232354753
-      modifiedTime: 1727406986367
+      modifiedTime: 1727465052433
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.A4FnvlxT8yKR7t1X
       duplicateSource: null
@@ -17442,9 +17555,9 @@ actors:
         madness:
           value: 0
         action:
-          value: 6
+          value: 5
         focus:
-          value: 4
+          value: 3
         heroism:
           value: 0
       skills:
@@ -17476,7 +17589,9 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: intimidate
+        basicStrike: false
       favorites:
         - cleave
         - strike
@@ -17824,7 +17939,7 @@ actors:
       systemVersion: 0.6.0
       coreVersion: '12.331'
       createdTime: 1686232920753
-      modifiedTime: 1727387551007
+      modifiedTime: 1727467731482
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.RwnRYbNJvvnAltwC
       duplicateSource: null
@@ -18285,10 +18400,10 @@ journal:
           content: >-
             <p>In this final challenge, 4 Level 6 heroes come head-to-head with
             a rival adventuring party comprised of 4 Level 6
-            heroes.</p><ul><li><p>@UUID[Actor.wvaoj9WGrzAdFR8F]{Duurath} (Level
-            6)</p></li><li><p>@UUID[Actor.iKBmWjmzLSXzKWZA]{Belladonna} (Level
-            6)</p></li><li><p>@UUID[Actor.3nHQrIU9vj5vIfSU]{Eliorwen} (Level
-            6)</p></li><li><p>@UUID[Actor.pMhIgLaVXtBahNLH]{Kagura} (Level
+            heroes.</p><ul><li><p>@UUID[Actor.iLUfMcYjAbZFY4CJ]{Duurath} (Level
+            6)</p></li><li><p>@UUID[Actor.0crVYYsPvV9KDEJ2]{Belladonna} (Level
+            6)</p></li><li><p>@UUID[Actor.2lvTCCOj4dnBI774]{Eliorwen} (Level
+            6)</p></li><li><p>@UUID[Actor.Il4NDaNBdHNcjJ9d]{Kagura} (Level
             6)</p></li></ul><p><strong>Protagonist Threat</strong>: 4 × 6 =
             24</p><p><strong>Adversary Threat</strong>: 4 × 6 =
             24</p><p><strong>Encounter Difficulty</strong>: Deadly</p><h2
@@ -18360,8 +18475,8 @@ journal:
           systemVersion: 0.5.0
           coreVersion: '12.331'
           createdTime: 1684281721532
-          modifiedTime: 1727405022181
-          lastModifiedBy: AnoypGxxNIMOS0XY
+          modifiedTime: 1727456053632
+          lastModifiedBy: KBUJiE82h2v1Pp6F
           compendiumSource: null
           duplicateSource: null
       - sort: 800000
@@ -18463,105 +18578,13 @@ scenes:
     tokenVision: true
     drawings: []
     tokens:
-      - name: Belladonna
+      - name: Duurath
         displayName: 30
         actorLink: true
         appendNumber: false
         prependAdjective: false
         texture:
-          src: systems/crucible/assets/tokens/heroes/HumanAssassin.webp
-          scaleX: 1
-          scaleY: 1
-          offsetX: 0
-          offsetY: 0
-          rotation: 0
-          tint: '#ffffff'
-          anchorX: 0.5
-          anchorY: 0.5
-          fit: contain
-          alphaThreshold: 0.75
-        width: 4
-        height: 4
-        lockRotation: false
-        rotation: 315
-        alpha: 1
-        disposition: 1
-        displayBars: 40
-        bar1:
-          attribute: resources.health
-        bar2:
-          attribute: resources.morale
-        light:
-          alpha: 0.75
-          angle: 360
-          bright: 0
-          color: '#ff8800'
-          coloration: 1
-          dim: 0
-          attenuation: 0.5
-          luminosity: 0.5
-          saturation: 0.2
-          contrast: 0.1
-          shadows: 0
-          animation:
-            type: torch
-            speed: 2
-            intensity: 2
-            reverse: false
-          darkness:
-            min: 0
-            max: 1
-          negative: false
-          priority: 0
-        sight:
-          enabled: true
-          range: 0
-          angle: 360
-          visionMode: basic
-          color: null
-          attenuation: 0.1
-          brightness: 0
-          saturation: 0
-          contrast: 0
-        detectionModes: []
-        flags: {}
-        hexagonalShape: 0
-        occludable:
-          radius: 0
-        ring:
-          enabled: false
-          colors:
-            ring: null
-            background: null
-          effects: 1
-          subject:
-            scale: 1
-            texture: null
-        actorId: hfOaEbw4ObPXu6Qa
-        hidden: false
-        sort: 6
-        _id: XZ5PaZYmbzJgQmKr
-        delta:
-          _id: sJXoPDshDZUgSywY
-          system: {}
-          items: []
-          effects: []
-          flags: {}
-          name: null
-          type: null
-          img: null
-        x: 5120
-        'y': 2960
-        elevation: 0
-        locked: false
-        _regions: []
-      - name: Agnath
-        displayName: 30
-        actorLink: true
-        appendNumber: false
-        prependAdjective: false
-        texture:
-          src: systems/crucible/assets/tokens/heroes/OrcWarlock.webp
+          src: systems/crucible/assets/tokens/heroes/DwarfPaladin.webp
           scaleX: 1
           scaleY: 1
           offsetX: 0
@@ -18629,12 +18652,12 @@ scenes:
           subject:
             scale: 1
             texture: null
-        actorId: iPMperuo6ZvBLnp9
+        actorId: iLUfMcYjAbZFY4CJ
         hidden: false
-        sort: 7
-        _id: kpSmfTFzRSRZTPXh
+        sort: 0
+        _id: wVFqwoorT9aOxftx
         delta:
-          _id: Kqa2XoQbiJG5dtDJ
+          _id: Nk8Cz3UuMosh7VEx
           system: {}
           items: []
           effects: []
@@ -18642,18 +18665,18 @@ scenes:
           name: null
           type: null
           img: null
-        x: 5320
-        'y': 3440
+        x: 4840
+        'y': 4400
         elevation: 0
         locked: false
         _regions: []
-      - name: Duurath
+      - name: Eliorwen
         displayName: 30
         actorLink: true
         appendNumber: false
         prependAdjective: false
         texture:
-          src: systems/crucible/assets/tokens/heroes/DwarfPaladin.webp
+          src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
           scaleX: 1
           scaleY: 1
           offsetX: 0
@@ -18667,7 +18690,7 @@ scenes:
         width: 4
         height: 4
         lockRotation: false
-        rotation: 0
+        rotation: 180
         alpha: 1
         disposition: 1
         displayBars: 40
@@ -18721,12 +18744,12 @@ scenes:
           subject:
             scale: 1
             texture: null
-        actorId: nPOVNsOFhqA7SUud
+        actorId: 2lvTCCOj4dnBI774
         hidden: false
-        sort: 8
-        _id: S3PJxQkfurejJRaz
+        sort: 1
+        _id: 5vyeeBeZbZo2R4On
         delta:
-          _id: Pa2LRKEQ5KKpOD7s
+          _id: Q5rX4XE6f2h2mTYq
           system: {}
           items: []
           effects: []
@@ -18734,100 +18757,8 @@ scenes:
           name: null
           type: null
           img: null
-        x: 5320
-        'y': 3200
-        elevation: 0
-        locked: false
-        _regions: []
-      - name: Fizzit
-        displayName: 30
-        actorLink: true
-        appendNumber: false
-        prependAdjective: false
-        texture:
-          src: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
-          scaleX: 1
-          scaleY: 1
-          offsetX: 0
-          offsetY: 0
-          rotation: 0
-          tint: '#ffffff'
-          anchorX: 0.5
-          anchorY: 0.5
-          fit: contain
-          alphaThreshold: 0.75
-        width: 3
-        height: 3
-        lockRotation: false
-        rotation: 135
-        alpha: 1
-        disposition: 1
-        displayBars: 40
-        bar1:
-          attribute: resources.health
-        bar2:
-          attribute: resources.morale
-        light:
-          alpha: 0.75
-          angle: 360
-          bright: 0
-          color: '#ff8800'
-          coloration: 1
-          dim: 0
-          attenuation: 0.5
-          luminosity: 0.5
-          saturation: 0.2
-          contrast: 0.1
-          shadows: 0
-          animation:
-            type: torch
-            speed: 2
-            intensity: 2
-            reverse: false
-          darkness:
-            min: 0
-            max: 1
-          negative: false
-          priority: 0
-        sight:
-          enabled: true
-          range: 0
-          angle: 360
-          visionMode: basic
-          color: null
-          attenuation: 0.1
-          brightness: 0
-          saturation: 0
-          contrast: 0
-        detectionModes: []
-        flags: {}
-        hexagonalShape: 0
-        occludable:
-          radius: 0
-        ring:
-          enabled: false
-          colors:
-            ring: null
-            background: null
-          effects: 0
-          subject:
-            scale: 1
-            texture: null
-        actorId: TffJlCvt39DEhFX7
-        hidden: false
-        sort: 10
-        _id: Ys12QHFkst92m1AQ
-        delta:
-          _id: 1sLxUw7i0bO2ifyJ
-          system: {}
-          items: []
-          effects: []
-          flags: {}
-          name: null
-          type: null
-          img: null
-        x: 5560
-        'y': 3720
+        x: 5160
+        'y': 4400
         elevation: 0
         locked: false
         _regions: []
@@ -18905,12 +18836,12 @@ scenes:
           subject:
             scale: 1
             texture: null
-        actorId: z8PYWkq3bxce7vwb
+        actorId: Il4NDaNBdHNcjJ9d
         hidden: false
-        sort: 11
-        _id: aL8FAJY0S66czDlw
+        sort: 2
+        _id: ymBOx6ffIsc29s5H
         delta:
-          _id: hdbrMeXRZmP5yB7U
+          _id: qXJHiJPp2Q3x8Tzi
           system: {}
           items: []
           effects: []
@@ -18918,8 +18849,284 @@ scenes:
           name: null
           type: null
           img: null
-        x: 5080
-        'y': 3680
+        x: 5520
+        'y': 4400
+        elevation: 0
+        locked: false
+        _regions: []
+      - name: Belladonna
+        displayName: 30
+        actorLink: true
+        appendNumber: false
+        prependAdjective: false
+        texture:
+          src: systems/crucible/assets/tokens/heroes/HumanAssassin.webp
+          scaleX: 1
+          scaleY: 1
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 4
+        height: 4
+        lockRotation: false
+        rotation: 180
+        alpha: 1
+        disposition: 1
+        displayBars: 40
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: true
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        hexagonalShape: 0
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 1
+          subject:
+            scale: 1
+            texture: null
+        actorId: 0crVYYsPvV9KDEJ2
+        hidden: false
+        sort: 3
+        _id: f8nsQ0MBay7Cfkyy
+        delta:
+          _id: YyukQqKh4yHToetI
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+        x: 5840
+        'y': 4400
+        elevation: 0
+        locked: false
+        _regions: []
+      - name: Agnath
+        displayName: 30
+        actorLink: true
+        appendNumber: false
+        prependAdjective: false
+        texture:
+          src: systems/crucible/assets/tokens/heroes/OrcWarlock.webp
+          scaleX: 1
+          scaleY: 1
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 4
+        height: 4
+        lockRotation: false
+        rotation: 180
+        alpha: 1
+        disposition: 1
+        displayBars: 40
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: true
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        hexagonalShape: 0
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 1
+          subject:
+            scale: 1
+            texture: null
+        actorId: B40EKua2Q7zQ8CFZ
+        hidden: false
+        sort: 4
+        _id: tRy2LL8mZnjeyKD9
+        delta:
+          _id: 8pLXnzfGK4y0oAtR
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+        x: 5840
+        'y': 4600
+        elevation: 0
+        locked: false
+        _regions: []
+      - name: Fizzit
+        displayName: 30
+        actorLink: true
+        appendNumber: false
+        prependAdjective: false
+        texture:
+          src: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
+          scaleX: 1
+          scaleY: 1
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 3
+        height: 3
+        lockRotation: false
+        rotation: 180
+        alpha: 1
+        disposition: 1
+        displayBars: 40
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: true
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        hexagonalShape: 0
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 0
+          subject:
+            scale: 1
+            texture: null
+        actorId: lP2MOJyk5oHs6oSS
+        hidden: false
+        sort: 5
+        _id: f9iW1gfTF2J3gyh1
+        delta:
+          _id: zJpXnE71ZDpm7JMt
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+        x: 5447
+        'y': 4617
         elevation: 0
         locked: false
         _regions: []
@@ -18943,7 +19150,7 @@ scenes:
         width: 4
         height: 4
         lockRotation: false
-        rotation: 315
+        rotation: 180
         alpha: 1
         disposition: 1
         displayBars: 40
@@ -18997,12 +19204,12 @@ scenes:
           subject:
             scale: 1
             texture: null
-        actorId: vT1UpPCVxKRg2A1J
+        actorId: L0qEPpUQBZQPCxN3
         hidden: false
-        sort: 0
-        _id: zT7G2nyGhpxRKVjX
+        sort: 6
+        _id: FhkahWVKKbsjdpdW
         delta:
-          _id: U2LU3zwAyGR5p0y8
+          _id: KiLPobirIquex7jp
           system: {}
           items: []
           effects: []
@@ -19011,7 +19218,7 @@ scenes:
           type: null
           img: null
         x: 4840
-        'y': 3320
+        'y': 4600
         elevation: 0
         locked: false
         _regions: []
@@ -19035,7 +19242,7 @@ scenes:
         width: 4
         height: 4
         lockRotation: false
-        rotation: 45
+        rotation: 180
         alpha: 1
         disposition: 1
         displayBars: 40
@@ -19089,12 +19296,12 @@ scenes:
           subject:
             scale: 1
             texture: null
-        actorId: sqTUaPrXpwCzk3xs
+        actorId: tCBBi3Kyc3M4KHGZ
         hidden: false
-        sort: 18
-        _id: jIsJuz9idwDVyciU
+        sort: 7
+        _id: dZ5dcZbXsT6r5TAg
         delta:
-          _id: Pt6LKFMiMIZsCzEE
+          _id: ddN7wbPQI8YIcsBC
           system: {}
           items: []
           effects: []
@@ -19102,135 +19309,12 @@ scenes:
           name: null
           type: null
           img: null
-        x: 5560
-        'y': 2960
+        x: 5237
+        'y': 4580
         elevation: 0
         locked: false
         _regions: []
-      - name: Eliorwen
-        displayName: 30
-        actorLink: true
-        appendNumber: false
-        prependAdjective: false
-        texture:
-          src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
-          scaleX: 1
-          scaleY: 1
-          offsetX: 0
-          offsetY: 0
-          rotation: 0
-          tint: '#ffffff'
-          anchorX: 0.5
-          anchorY: 0.5
-          fit: contain
-          alphaThreshold: 0.75
-        width: 4
-        height: 4
-        lockRotation: false
-        rotation: 90
-        alpha: 1
-        disposition: 1
-        displayBars: 40
-        bar1:
-          attribute: resources.health
-        bar2:
-          attribute: resources.morale
-        light:
-          alpha: 0.75
-          angle: 360
-          bright: 0
-          color: '#ff8800'
-          coloration: 1
-          dim: 0
-          attenuation: 0.5
-          luminosity: 0.5
-          saturation: 0.2
-          contrast: 0.1
-          shadows: 0
-          animation:
-            type: torch
-            speed: 2
-            intensity: 2
-            reverse: false
-          darkness:
-            min: 0
-            max: 1
-          negative: false
-          priority: 0
-        sight:
-          enabled: true
-          range: 0
-          angle: 360
-          visionMode: basic
-          color: null
-          attenuation: 0.1
-          brightness: 0
-          saturation: 0
-          contrast: 0
-        detectionModes: []
-        flags: {}
-        hexagonalShape: 0
-        occludable:
-          radius: 0
-        ring:
-          enabled: false
-          colors:
-            ring: null
-            background: null
-          effects: 1
-          subject:
-            scale: 1
-            texture: null
-        actorId: kSGFBe6ZaLDC8wRy
-        hidden: false
-        sort: 19
-        _id: dk79WGjoxOujIVCn
-        delta:
-          _id: RQ8OogN1J2BUAWHv
-          system: {}
-          items: []
-          effects: []
-          flags: {}
-          name: null
-          type: null
-          img: null
-        x: 5800
-        'y': 3320
-        elevation: 0
-        locked: false
-        _regions: []
-    lights:
-      - _id: T9y7bDUW1o64VLo6
-        x: 4200
-        'y': 2900
-        rotation: 0
-        walls: true
-        vision: false
-        config:
-          alpha: 0.5
-          angle: 360
-          bright: 1.65
-          coloration: 1
-          dim: 3.29
-          attenuation: 0.5
-          luminosity: 0.5
-          saturation: 0
-          contrast: 0
-          shadows: 0
-          animation:
-            type: null
-            speed: 5
-            intensity: 5
-            reverse: false
-          darkness:
-            min: 0
-            max: 1
-          color: null
-          negative: false
-          priority: 0
-        hidden: false
-        flags: {}
-        elevation: 0
+    lights: []
     notes: []
     sounds: []
     templates: []
@@ -20853,43 +20937,7 @@ scenes:
     foreground: null
     thumb: worlds/crucible/assets/scenes/jExUw9bjtj7qx2gW-thumb.webp
     weather: ''
-    regions:
-      - name: Region
-        color: '#cc5c28'
-        shapes:
-          - type: rectangle
-            x: 4400
-            'y': 2360
-            width: 390
-            height: 400
-            rotation: 0
-            hole: false
-        _id: X4huYdX2ogF4x5QR
-        elevation:
-          bottom: null
-          top: null
-        behaviors:
-          - name: Execute Script
-            type: executeScript
-            _id: Y48qQcTiZ60c7LdD
-            system:
-              events:
-                - regionBoundary
-              source: console.log("foos");
-            disabled: false
-            flags: {}
-            _stats:
-              compendiumSource: null
-              duplicateSource: null
-              coreVersion: '13.331'
-              systemId: crucible
-              systemVersion: 0.6.0
-              createdTime: 1725916867896
-              modifiedTime: 1725916898638
-              lastModifiedBy: AnoypGxxNIMOS0XY
-        visibility: 0
-        locked: false
-        flags: {}
+    regions: []
     fog:
       exploration: true
       reset: 1696791117064
@@ -20982,7 +21030,7 @@ folders:
       createdTime: null
       modifiedTime: 1686269655413
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Folder.fbyOxizw6hvlQoMg
+      compendiumSource: null
       duplicateSource: null
     description: ''
   - name: Day 1
@@ -21126,7 +21174,7 @@ folders:
       createdTime: null
       modifiedTime: null
       lastModifiedBy: null
-      compendiumSource: Folder.aoXDBsBdhTAww10u
+      compendiumSource: null
       duplicateSource: null
     description: ''
   - name: Level 6
@@ -21139,7 +21187,7 @@ folders:
     color: null
     flags: {}
     _stats:
-      compendiumSource: Folder.2tdnCBbxNPNuhxzT
+      compendiumSource: null
       duplicateSource: null
       coreVersion: '12.331'
       systemId: crucible
@@ -21155,7 +21203,7 @@ _stats:
   systemVersion: 0.5.8
   coreVersion: '12.331'
   createdTime: 1686269830475
-  modifiedTime: 1727455841478
+  modifiedTime: 1727550694835
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

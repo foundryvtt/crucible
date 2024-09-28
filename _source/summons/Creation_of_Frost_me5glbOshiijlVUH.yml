@@ -48,8 +48,8 @@ system:
         wisdom: 1
       name: Creation
     taxonomy:
-      description: ''
-      category: humanoid
+      description: <p>Elemental creatures corresponding to the element of Frost.</p>
+      category: elemental
       abilities:
         strength: 4
         toughness: 5
@@ -58,19 +58,21 @@ system:
         presence: 1
         wisdom: 3
       resistances:
-        bludgeoning: 0
-        piercing: -2
-        slashing: 2
+        bludgeoning: -1
+        piercing: 0
+        slashing: 1
         poison: 0
         acid: 0
-        fire: -1
+        fire: -2
         psychic: 0
         radiant: -2
-        void: 2
-        cold: 1
+        void: 1
+        cold: 3
         corruption: 0
         electricity: 0
       name: Frost Elemental
+      size: 4
+      img: icons/magic/water/elemental-water.webp
     threat: minion
     biography:
       public: ''
@@ -103,11 +105,11 @@ system:
       bonus: 0
   resources:
     health:
-      value: 31
+      value: 17
     morale:
-      value: 11
+      value: 7
     action:
-      value: 1
+      value: 4
     focus:
       value: 3
   skills:
@@ -144,6 +146,11 @@ system:
     performance:
       rank: 0
   status: null
+  movement:
+    sizeBonus: -2
+  advancement:
+    level: 1
+    threat: minion
 prototypeToken:
   name: Creation of Frost
   displayName: 30
@@ -162,8 +169,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 1
-  height: 1
+  width: 2
+  height: 2
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -361,10 +368,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.6.0
+  coreVersion: '12.331'
   createdTime: 1677963742821
-  modifiedTime: 1686342474411
+  modifiedTime: 1727550299311
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
