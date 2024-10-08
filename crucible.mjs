@@ -349,21 +349,36 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
 });
 
 Hooks.on("getSceneControlButtons", controls => {
-  const tokens = controls.find(c => c.name === "token");
-  tokens.tools.push({
+  const flankingTool = {
     name: "debugFlanking",
     title: "Visualize Flanking",
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
-    active: false,
-    onClick: active => {
+    active: false
+  };
+  if ( game.release.generation >= 13 ) {
+    flankingTool.onChange = (_event, active) => {
       CONFIG.debug.flanking = active
       for ( const token of canvas.tokens.controlled ) {
         if ( active ) token._visualizeEngagement(token.engagement);
         else token._clearEngagementVisualization();
       }
     }
-  });
+    controls.tokens.tools.debugFlanking = flankingTool;
+  }
+
+  // TODO remove when V12 is no longer supported
+  else {
+    flankingTool.onClick = active => {
+      CONFIG.debug.flanking = active
+      for ( const token of canvas.tokens.controlled ) {
+        if ( active ) token._visualizeEngagement(token.engagement);
+        else token._clearEngagementVisualization();
+      }
+    }
+    const tokens = controls.find(c => c.name === "token");
+    tokens.tools.push(flankingTool);
+  }
 });
 
 /* -------------------------------------------- */

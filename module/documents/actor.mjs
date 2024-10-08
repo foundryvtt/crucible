@@ -369,7 +369,9 @@ export default class CrucibleActor extends Actor {
    */
   _getUnarmoredArmor() {
     const itemCls = getDocumentClass("Item");
-    return new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+    const armor = new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+    armor.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return armor
   }
 
   /* -------------------------------------------- */
@@ -509,7 +511,9 @@ export default class CrucibleActor extends Actor {
     const itemCls = getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
-    return new itemCls(data, {parent: this});
+    const unarmed = new itemCls(data, {parent: this});
+    unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return unarmed;
   }
 
   /* -------------------------------------------- */
