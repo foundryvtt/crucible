@@ -306,7 +306,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Draw the tree (once only)
     await this.draw();
     for ( const layer of canvas.layers ) {
-      if ( layer.hud?.clear instanceof Function ) layer.hud.clear();
+      if ( layer.hud ) layer.hud.close();
     }
     this.darkenBackground(false);
 
@@ -331,7 +331,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.stage.interactiveChildren = true;
     this.canvas.hidden = false;
     if ( this.developmentMode ) this.canvas.style.zIndex = 0;
-    else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
+    else canvas.hud.element.style.zIndex = 9999;  // Move HUD above our canvas
   }
 
   /* -------------------------------------------- */
@@ -356,7 +356,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.stage.eventMode = "none";
     this.stage.interactiveChildren = false;
     canvas.stage.eventMode = "static";
-    canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
+    canvas.hud.element.style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();
   }
 
@@ -586,7 +586,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * Align the position of the HUD layer to the current position of the canvas
    */
   #alignHUD() {
-    const hud = canvas.hud.element[0];
+    const hud = canvas.hud.element;
     const {x, y} = this.getGlobalPosition();
     const scale = this.stage.scale.x;
     hud.style.left = `${x}px`;
