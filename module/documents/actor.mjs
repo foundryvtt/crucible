@@ -1677,15 +1677,21 @@ export default class CrucibleActor extends Actor {
     if ( delta === 0 ) return;
 
     // Confirm that character creation is complete
-    if ( this.isL0 ) {
-      const steps = [
-        this.system.details.ancestry?.name,
-        this.system.details.background?.name,
-        !this.points.ability.requireInput,
-        !this.points.skill.available,
-        !this.points.talent.available
-      ];
-      if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
+    if (!this.system.details.ancestry?.name) {
+      this._viewDetailItem("ancestry", {editable: false});
+      return ui.notifications.warn("WALKTHROUGH.AddAncestry", {localize: true});
+    } else if (!this.system.details.background?.name) {
+      this._viewDetailItem("background", {editable: false});
+      return ui.notifications.warn("WALKTHROUGH.AddBackground", {localize: true});
+    } else if (this.points.ability.requireInput) {
+      this.sheet.changeTab("attributes", "sheet");
+      return ui.notifications.warn("WALKTHROUGH.AbilityPoints", {localize: true});
+    } else if (this.points.skill.available) {
+      this.sheet.changeTab("skills", "sheet");
+      return ui.notifications.warn("WALKTHROUGH.SkillPoints", {localize: true});
+    } else if (this.points.talent.available) {
+      this.sheet.changeTab("talents", "sheet");
+      return ui.notifications.warn("WALKTHROUGH.TalentPoints", {localize: true});
     }
 
     // Commit the update
