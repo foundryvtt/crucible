@@ -34,12 +34,10 @@ export default class CrucibleScene extends Scene {
 
     // Define Scene dimensions
     return {
-      width, height,
-      size: grid.size,
-      uiSize: sourceGrid.size,
-      rect: {x: 0, y: 0, width, height},
+      width, height, size: grid.size,
+      rect: new PIXI.Rectangle(0, 0, width, height),
       sceneX, sceneY, sceneWidth, sceneHeight,
-      sceneRect: {x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight},
+      sceneRect: new PIXI.Rectangle(sceneX, sceneY, sceneWidth, sceneHeight),
       distance: grid.distance,
       distancePixels: grid.size / grid.distance,
       ratio: sceneWidth / sceneHeight,
