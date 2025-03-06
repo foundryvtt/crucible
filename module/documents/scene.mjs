@@ -3,11 +3,14 @@
  */
 export default class CrucibleScene extends Scene {
 
+  useMicrogrid = false;
+
   /** @inheritDoc */
   prepareBaseData() {
     if ( !(this.grid instanceof foundry.grid.BaseGrid) ) {
       const g = this._source.grid;
       if ( (g.units === "ft") && (g.distance === 5) ) {
+        this.useMicrogrid = true;
         this.grid.size = g.size / 5;
         this.grid.distance = 1;
       }
@@ -19,31 +22,20 @@ export default class CrucibleScene extends Scene {
 
   /** @override */
   getDimensions() {
+    const dimensions = super.getDimensions();
+    if ( !this.useMicrogrid ) return dimensions;
 
-    // Get Scene data
-    const grid = this.grid;
-    const sceneWidth = this.width;
-    const sceneHeight = this.height;
-
-    // Compute the correct grid sizing
-    const sourceGrid = new grid.constructor({...grid, size: this._source.grid.size, distance: this._source.grid.distance});
-    const dimensions = sourceGrid.calculateDimensions(sceneWidth, sceneHeight, this.padding);
-    const {width, height} = dimensions;
-    const sceneX = dimensions.x - this.background.offsetX;
-    const sceneY = dimensions.y - this.background.offsetY;
-
-    // Define Scene dimensions
-    return {
-      width, height, size: grid.size,
-      rect: new PIXI.Rectangle(0, 0, width, height),
-      sceneX, sceneY, sceneWidth, sceneHeight,
-      sceneRect: new PIXI.Rectangle(sceneX, sceneY, sceneWidth, sceneHeight),
-      distance: grid.distance,
-      distancePixels: grid.size / grid.distance,
-      ratio: sceneWidth / sceneHeight,
-      maxR: Math.hypot(width, height),
-      rows: dimensions.rows * 5,
-      columns: dimensions.columns * 5
-    };
+    // Preserve scene positioning and offset using the source grid
+    const {grid, width, height, padding} = this._source;
+    const sourceGrid = new this.grid.constructor(grid);
+    const sourceDimensions = sourceGrid.calculateDimensions(width, height, padding);
+    const {x: sx, y: sy, width: sw, height: sh} = sourceDimensions;
+    Object.assign(dimensions, {
+      rect: new PIXI.Rectangle(0, 0, sw, sh),
+      sceneRect: new PIXI.Rectangle(sx, sy, sw, sh),
+      sceneX: sx,
+      sceneY: sy
+    });
+    return dimensions;
   }
 }

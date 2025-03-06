@@ -565,9 +565,6 @@
   font-family: var(--font-h1);
   color: var(--color-secondary);
 }
-.crucible.sheet nav.sheet-tabs > a {
-  padding: 8px 0;
-}
 .crucible.sheet .sheet-body {
   gap: 1rem;
 }
@@ -798,7 +795,6 @@
 }
 .crucible.sheet.actor .sheet-header header.title input {
   height: var(--sheet-header-height);
-  width: initial;
   background: var(--color-frame-bg-50);
   border: none;
   font-family: var(--font-h1);
