@@ -4,15 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "compile":"npm run compilePacks && npm run compileCSS",
+    "compile": "npm run compilePacks && npm run compileCSS",
     "compileCSS": "lessc styles/crucible.less styles/crucible.css",
     "compilePacks": "node build.mjs compile",
     "extractPacks": "node build.mjs extract"
   },
   "devDependencies": {
-    "@foundryvtt/foundryvtt-cli": "^1.0.3",
-    "commander": "^11.1.0",
-    "less": "^4.2.0"
+    "@foundryvtt/foundryvtt-cli": "^1.0.4",
+    "commander": "^13.1.0",
+    "less": "^4.2.2"
   },
   "author": "Foundry Gaming, LLC",
   "license": "UNLICENSED"
