@@ -235,4 +235,18 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   async applyTaxonomy(item) {
     return this.parent._applyDetailItem(item, "taxonomy", {canApply: true, canClear: true});
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare tags displayed about this Hero Actor.
+   * @returns {Record<string, string>}
+   */
+  getTags() {
+    const tags = {};
+    tags.level = `Threat Level ${this.advancement.threatLevel}`;
+    tags.archetype = this.details.archetype?.name || "No Archetype";
+    tags.taxonomy = this.details.taxonomy?.name || "No Taxonomy";
+    return tags;
+  }
 }

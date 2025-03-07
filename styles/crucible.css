@@ -527,9 +527,13 @@
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
 /* ----------------------------------------- */
-.crucible.sheet .sheet-header {
+.crucible.sheet {
   --sheet-header-height: 80px;
-  gap: 0.5rem;
+  --sheet-header-gap: 0.5rem 0.5rem;
+  --sheet-body-gap: 1.5rem;
+}
+.crucible.sheet .sheet-header {
+  gap: var(--sheet-header-gap);
   padding: 1rem;
 }
 .crucible.sheet .sheet-header img.profile {
@@ -543,11 +547,12 @@
 }
 .crucible.sheet .sheet-header .name {
   height: var(--sheet-header-height);
-  gap: 0.25rem;
+  gap: var(--sheet-header-gap);
 }
 .crucible.sheet .sheet-header .title {
   flex: 1;
   border: none;
+  margin: 0;
 }
 .crucible.sheet .sheet-header .title input {
   display: block;
@@ -616,11 +621,13 @@
   height: var(--icon-size);
   width: var(--icon-size);
   flex: none;
+  object-fit: contain;
 }
 .crucible .line-item .title {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 .crucible .line-item .title h4 {
   flex: none;
@@ -690,10 +697,12 @@
   --profile-size: 200px;
   --margin-size: 1rem;
   --margin-half: calc(var(--margin-size) / 2);
+  --sheet-header-height: 40px;
   overflow: visible;
   /* ----------------------------------------- */
   /*  General Styles                           */
   /* ----------------------------------------- */
+  /** Items Lists */
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
@@ -724,6 +733,8 @@
   flex-wrap: nowrap;
   gap: var(--margin-size);
   padding: 0 var(--margin-size) var(--margin-size);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .crucible.sheet.actor.minimized,
 .crucible.sheet.actor.minimizing,
@@ -740,7 +751,7 @@
   flex-direction: column;
   justify-content: flex-start;
   flex: 1;
-  gap: 0 1rem;
+  gap: var(--sheet-body-gap);
   height: 100%;
 }
 .crucible.sheet.actor .tab {
@@ -786,8 +797,19 @@
   padding: 2px 6px;
   margin: 0;
 }
+.crucible.sheet.actor ol.items-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.crucible.sheet.actor ol.items-list li {
+  margin: 0;
+}
 .crucible.sheet.actor .sheet-header {
-  --sheet-header-height: 40px;
   padding: 0;
 }
 .crucible.sheet.actor .sheet-header header.title {
@@ -1447,18 +1469,6 @@
 .crucible.sheet.actor .tab.secondary .item-section .notes {
   color: var(--color-tertiary);
 }
-.crucible.sheet.actor .tab.secondary ol.items-list {
-  width: 100%;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.crucible.sheet.actor .tab.secondary ol.items-list li {
-  margin: 0;
-}
 .crucible.sheet.actor .tab.inventory .inventory-create {
   position: absolute;
   width: 32px;
@@ -1527,6 +1537,88 @@
   font-size: var(--font-size-10);
   font-family: var(--font-sans);
   color: var(--color-secondary);
+}
+/* ----------------------------------------- */
+/*  Group Sheet                              */
+/* ----------------------------------------- */
+.crucible.sheet.actor-group {
+  --sheet-header-height: 80px;
+  /** Movement Speeds */
+  /** Members List */
+}
+.crucible.sheet.actor-group .window-content {
+  flex-direction: column;
+}
+.crucible.sheet.actor-group .sheet-header {
+  flex: none;
+  width: 100%;
+  height: var(--sheet-header-height);
+}
+.crucible.sheet.actor-group .sheet-header img.profile {
+  border: none;
+}
+.crucible.sheet.actor-group .sheet-section.movement {
+  align-items: flex-start;
+}
+.crucible.sheet.actor-group .sheet-section.movement .movement-speed {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  padding: 16px 0 0;
+  justify-content: center;
+  align-items: center;
+  background: var(--movement-icon) no-repeat bottom center;
+  background-size: auto 64px;
+}
+.crucible.sheet.actor-group .sheet-section.movement .movement-speed.land {
+  --movement-icon: url("../ui/elements/hex-willpower.svg");
+}
+.crucible.sheet.actor-group .sheet-section.movement .movement-speed.water {
+  --movement-icon: url("../ui/elements/hex-fortitude.svg");
+}
+.crucible.sheet.actor-group .sheet-section.movement .movement-speed.air {
+  --movement-icon: url("../ui/elements/hex-reflex.svg");
+}
+.crucible.sheet.actor-group .sheet-section.movement .movement-speed .label {
+  position: absolute;
+  top: 0;
+}
+.crucible.sheet.actor-group .sheet-section.movement .travel-pace {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+.crucible.sheet.actor-group .members {
+  flex: 1;
+}
+.crucible.sheet.actor-group .members .line-item {
+  --icon-size: 48px;
+}
+.crucible.sheet.actor-group .members .resources {
+  flex: 1;
+  gap: 0.25rem;
+}
+.crucible.sheet.actor-group .members .resources .resource {
+  gap: 0.5rem;
+}
+.crucible.sheet.actor-group .members .resources .resource .label {
+  flex: 0 0 32px;
+  font-size: var(--font-size-12);
+  text-align: center;
+}
+.crucible.sheet.actor-group .members .resources .resource .bar {
+  flex: 1;
+  height: 12px;
+  padding: 2px;
+  background: var(--color-cool-5);
+  border-radius: 4px;
+}
+.crucible.sheet.actor-group .members .resources .resource .bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
 }
 /* ----------------------------------------- */
 /*  Character Creation Tooltip               */
@@ -1800,8 +1892,10 @@
   height: 200px;
   border-radius: 6px;
 }
-.crucible.sheet.skill .sheet-header {
+.crucible.sheet.skill {
   --sheet-header-height: 48px;
+}
+.crucible.sheet.skill .sheet-header {
   padding: 0 1.5rem;
 }
 .crucible.sheet.skill .sheet-header h1.title {

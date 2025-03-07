@@ -231,15 +231,21 @@
     },
     "members": {
       "label": "Group Members",
+      "one": "Member",
+      "other": "Members",
       "actor.label": "Actor ID",
       "quantity.label": "Actor Quantity"
     },
     "movement": {
+      "label": "Movement Speed",
       "pace.label": "Travel Pace",
       "land.label": "Land Speed",
       "water.label": "Water Speed",
       "air.label": "Air Speed"
     }
+  },
+  "LABELS": {
+    "medianLevel": "Median Level"
   }
 },
 

@@ -2152,16 +2152,16 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update flanking
-    const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
-    if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
-      const tokens = this.getActiveTokens(true);
-      const activeGM = game.users.activeGM;
-      const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-      for ( const token of tokens ) token.refreshFlanking(commit);
+    if ( this.system._cachedResources ) {
+      const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
+      if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
+        const tokens = this.getActiveTokens(true);
+        const activeGM = game.users.activeGM;
+        const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+        for ( const token of tokens ) token.refreshFlanking(commit);
+      }
+      this.system._updateCachedResources?.();
     }
-
-    // Update cached resource values
-    this.system._updateCachedResources?.();
 
     // Refresh display of the active talent tree
     const tree = game.system.tree;
@@ -2280,5 +2280,17 @@ export default class CrucibleActor extends Actor {
       return foundry.utils.hasProperty(data, `system.abilities.${k}`);
     });
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
+  }
+
+  /* -------------------------------------------- */
+  /*  Rendering Helpers                           */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare tags displayed about this Actor.
+   * @returns {Record<string, string>}
+   */
+  getTags() {
+    return this.system.getTags?.() || {};
   }
 }

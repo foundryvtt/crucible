@@ -273,4 +273,17 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       canClear: actor.isL0
     });
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare tags displayed about this Hero Actor.
+   * @returns {Record<string, string>}
+   */
+  getTags() {
+    const tags = {};
+    tags.level = `Level ${this.advancement.level}`;
+    tags.signatureName = this.details.signatureName || "Unspecialized";
+    return tags;
+  }
 }

@@ -15,7 +15,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Group Members
     schema.members = new fields.ArrayField(new fields.SchemaField({
-      actor: new fields.ForeignDocumentField(foundry.documents.BaseActor),
+      actorId: new fields.DocumentIdField({nullable: false}),
       quantity: new fields.NumberField({...requiredInteger, min: 1, initial: 1})
     }));
 
@@ -45,8 +45,54 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTOR.GROUP"];
 
+  /**
+   * The median level of the group
+   * @type {number}
+   */
+  medianLevel;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /**
+   * Derived data prepared for group actors.
+   * @override
+   */
+  prepareDerivedData() {
+    const levels = [];
+    for ( const m of this.members ) {
+      m.actor = game.actors.get(m.actorId);
+      if ( !m.actor ) continue;
+      for ( let i=0; i<m.quantity; i++ ) levels.push(m.actor.level);
+    }
+
+    // Median member level
+    const nl = levels.length;
+    levels.sort();
+    let medianLevel = levels[Math.floor((nl-1) / 2)];
+    if ( levels.length % 2 !== 0 ) medianLevel = (medianLevel + levels[Math.ceil((nl-1) / 2)]) / 2;
+    this.medianLevel = medianLevel;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare tags displayed about this group Actor.
+   * @returns {Record<string, string>}
+   */
+  getTags() {
+    const tags = {};
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+
+    // Member Count
+    const membersLabel = `ACTOR.GROUP.FIELDS.members.${plurals.select(this.members.length)}`;
+    tags.members = `${this.members.length} ${game.i18n.localize(membersLabel)}`;
+
+    // Median Level
+    if ( this.members.length ) {
+      tags.level = `${game.i18n.localize("ACTOR.GROUP.LABELS.medianLevel")} ${this.medianLevel}`;
+    }
+    return tags;
+  }
 }

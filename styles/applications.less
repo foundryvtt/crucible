@@ -88,11 +88,13 @@
 /* ----------------------------------------- */
 
 .crucible.sheet {
+  --sheet-header-height: 80px;
+  --sheet-header-gap: 0.5rem 0.5rem;
+  --sheet-body-gap: 1.5rem;
 
   // Sheet Header
   .sheet-header {
-    --sheet-header-height: 80px;
-    gap: 0.5rem;
+    gap: var(--sheet-header-gap);
     padding: 1rem;
 
     // Profile Image
@@ -108,13 +110,14 @@
 
     .name {
       height: var(--sheet-header-height);
-      gap: 0.25rem;
+      gap: var(--sheet-header-gap);
     }
 
     // Document Name
     .title {
       flex: 1;
       border: none;
+      margin: 0;
       input {
         display: block;
         height: 100%;
@@ -197,11 +200,13 @@
     height: var(--icon-size);
     width: var(--icon-size);
     flex: none;
+    object-fit: contain;
   }
   .title {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 0.25rem;
     h4 {
       flex: none;
       margin: 0;

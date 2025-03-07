@@ -5,6 +5,7 @@ export {default as SkillConfig} from "./config/skill.mjs";
 // Sheet Apps
 export {default as CrucibleBaseItemSheet} from "./sheets/base-item.mjs";
 export {default as CrucibleBaseActorSheet} from "./sheets/base-actor-sheet.mjs";
+export {default as CrucibleGroupActorSheet} from "./sheets/actor-group-sheet.mjs";
 export {default as AdversarySheet} from "./sheets/adversary-sheet.mjs";
 export {default as AncestrySheet} from "./sheets/ancestry.mjs";
 export {default as ArchetypeSheet} from "./sheets/archetype.mjs";

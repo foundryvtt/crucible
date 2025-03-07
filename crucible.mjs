@@ -74,6 +74,7 @@ Hooks.once("init", async function() {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
   Actors.registerSheet(SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
+  Actors.registerSheet(SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;

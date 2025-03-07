@@ -2,28 +2,33 @@ import {freezeEnum} from "./enum.mjs";
 
 /**
  * The travel paces which are possible for group actors.
- * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", {id: string, label: string, modifier: number}>}
+ * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", {id: string, label: string, modifier: number, icon: string}>}
  */
 export const TRAVEL_PACES = freezeEnum({
   hidden: {
     label: "TRAVEL_PACES.HIDDEN",
-    modifier: -1
+    modifier: -1,
+    icon: "fa-backward-fast"
   },
   slow: {
     label: "TRAVEL_PACES.SLOW",
-    modifier: -0.5
+    modifier: -0.5,
+    icon: "fa-backward"
   },
   normal: {
     label: "TRAVEL_PACES.NORMAL",
-    modifier: 0
+    modifier: 0,
+    icon: "fa-equals"
   },
   fast: {
     label: "TRAVEL_PACES.FAST",
-    modifier: 0.5
+    modifier: 0.5,
+    icon: "fa-forward"
   },
   reckless: {
     label: "TRAVEL_PACES.RECKLESS",
-    modifier: 1
+    modifier: 1,
+    icon: "fa-forward-fast"
   }
 });
 
