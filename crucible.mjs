@@ -67,8 +67,9 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
   CONFIG.Actor.dataModels = {
-    adversary: models.CrucibleAdversary,
-    hero: models.CrucibleHero
+    adversary: models.CrucibleAdversaryActor,
+    hero: models.CrucibleHeroActor,
+    group: models.CrucibleGroupActor
   };
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});

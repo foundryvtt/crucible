@@ -17,7 +17,7 @@
  *
  * @property {Object<string, CrucibleActorSkill>} skills
  */
-export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
+export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -92,6 +92,13 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTOR"];
 
+  /**
+   * Prior resource values that can be used to establish diffs.
+   * @type {Record<string, value>}
+   * @internal
+   */
+  _cachedResources = {};
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -110,12 +117,36 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Derived data preparation workflows used by all Actor subtypes.
+   * @override
+   */
+  prepareDerivedData() {
+
+    // Resource pools
+    this._prepareResources();
+    this.parent.callActorHooks("prepareResources", this.resources);
+
+    // Defenses
+    this.#prepareDefenses();
+    this.parent.callActorHooks("prepareDefenses", this.defenses);
+    this.#prepareTotalDefenses();
+
+    // Resistances
+    this.parent.callActorHooks("prepareResistances", this.resistances);
+    this.#prepareTotalResistances();
+
+    // Movement
+    this._prepareMovement();
+    this.parent.callActorHooks("prepareMovement", this.movement);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare creature details for all Actor subtypes.
    * @protected
    */
-  _prepareDetails() {
-
-  }
+  _prepareDetails() {}
 
   /* -------------------------------------------- */
 
@@ -123,9 +154,7 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
    * Prepare ability scores for all Actor subtypes.
    * @protected
    */
-  _prepareAbilities() {
-
-  }
+  _prepareAbilities() {}
 
   /* -------------------------------------------- */
 
@@ -155,32 +184,6 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     const eb = skill.enchantmentBonus = 0;
     const s = skill.score = ab + sb + eb;
     skill.passive = SYSTEM.PASSIVE_BASE + s;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Derived data preparation workflows used by all Actor subtypes.
-   * @override
-   */
-  prepareDerivedData() {
-
-    // Resource pools
-    this._prepareResources();
-    this.parent.callActorHooks("prepareResources", this.resources);
-
-    // Defenses
-    this.#prepareDefenses();
-    this.parent.callActorHooks("prepareDefenses", this.defenses);
-    this.#prepareTotalDefenses();
-
-    // Resistances
-    this.parent.callActorHooks("prepareResistances", this.resistances);
-    this.#prepareTotalResistances();
-
-    // Movement
-    this._prepareMovement();
-    this.parent.callActorHooks("prepareMovement", this.movement);
   }
 
   /* -------------------------------------------- */
@@ -356,5 +359,18 @@ export default class CrucibleActorType extends foundry.abstract.TypeDataModel {
     m.engagement = 1; // Default engagement is size-2 with a minimum of 1.
     const {shield, offhand} = this.parent.equipment.weapons;
     if ( shield && offhand.system.properties.has("engaging") ) m.engagement += 1;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update cached resources for this Actor.
+   * @internal
+   */
+  _updateCachedResources() {
+    for ( const k in this.schema.fields.resources.fields ) this._cachedResources[k] = this._source.resources[k];
+    this._cachedResources.wasIncapacitated = this.parent.isIncapacitated;
+    this._cachedResources.wasBroken = this.parent.isIncapacitated;
+    return this._cachedResources;
   }
 }

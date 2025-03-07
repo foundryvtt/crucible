@@ -743,35 +743,37 @@
   .tab.biography {
     flex: 1;
     padding: 1rem 0 0;
+
     .sheet-section {
-      flex: 1;
+      flex: 2;
       padding: 0.5rem;
-      prose-mirror {
+      &.appearance {
+        align-items: flex-start;
         flex: 1;
-        width: 100%;
-        &.active {
-          margin-top: 0.5rem;
+        fieldset {
+          flex: 0 0 150px;
+          padding: 0.5rem 1rem;
+          font-size: var(--font-size-12);
         }
-        menu {
-          padding: 0;
-        }
-        button.toggle {
-          right: 1rem;
-          background: var(--color-frame-bg);
-          border-color: var(--color-frame);
-          color: var(--color-secondary);
+        > div {
+          padding: 0 1rem;
         }
       }
     }
-    .appearance {
-      align-items: flex-start;
-      fieldset {
-        flex: 0 0 150px;
-        padding: 0.5rem 1rem;
-        font-size: var(--font-size-12);
+
+    prose-mirror {
+      flex: 1;
+      width: 100%;
+      &.active {
+        margin-top: 0.5rem;
       }
-      > div {
-        padding: 0 1rem;
+      button.toggle {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+      }
+      .editor-content {
+        overflow: hidden auto;
       }
     }
   }

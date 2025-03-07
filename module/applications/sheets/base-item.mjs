@@ -159,7 +159,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         break;
       case "hooks":
         context.actorHooks = this.#prepareActorHooks();
-        context.actorHookChoices = Object.entries(SYSTEM.ACTOR_HOOKS).map(([hookId, cfg]) => ({
+        context.actorHookChoices = Object.entries(SYSTEM.ACTOR.HOOKS).map(([hookId, cfg]) => ({
           value: hookId,
           label: hookId,
           group: game.i18n.localize(cfg.group),
@@ -179,7 +179,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   #prepareActorHooks() {
     const hooks = {};
     for ( const h of this.document.system.actorHooks ) {
-      const cfg = SYSTEM.ACTOR_HOOKS[h.hook];
+      const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
       const label = `${h.hook}(actor, ${cfg.argNames.join(", ")})`;
       hooks[h.hook] = {label, ...h};
     }

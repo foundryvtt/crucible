@@ -3,7 +3,7 @@
   "Actor": {
     "adversary": "Adversary",
     "hero": "Protagonist",
-    "npc": "Background Character"
+    "group": "Group"
   },
   "Item": {
     "ancestry": "Ancestry",
@@ -215,6 +215,31 @@
     "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
     "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
     "SIZE": "Size"
+  }
+},
+
+"ACTOR.GROUP": {
+  "FIELDS": {
+    "advancement": {
+      "milestones.label": "Milestones Earned"
+    },
+    "details": {
+      "biography": {
+        "public.label": "Public Biography",
+        "private.label": "Private Biography"
+      }
+    },
+    "members": {
+      "label": "Group Members",
+      "actor.label": "Actor ID",
+      "quantity.label": "Actor Quantity"
+    },
+    "movement": {
+      "pace.label": "Travel Pace",
+      "land.label": "Land Speed",
+      "water.label": "Water Speed",
+      "air.label": "Air Speed"
+    }
   }
 },
 
@@ -897,6 +922,14 @@
     "CLEAR": "Clear Taxonomy",
     "STATURE": "Taxonomy Stature"
   }
+},
+
+"TRAVEL_PACES": {
+  "HIDDEN": "Hidden",
+  "SLOW": "Cautious",
+  "NORMAL": "Normal",
+  "FAST": "Hurried",
+  "RECKLESS": "Reckless"
 },
 
 "WEAPON": {

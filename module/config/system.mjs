@@ -7,6 +7,8 @@ import * as EFFECTS from "./effects.mjs";
 import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
+import * as ACTOR from "./actor.mjs";
+
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.mjs";
 export const SYSTEM_ID = "crucible";
 
@@ -79,88 +81,6 @@ export const THREAT_LEVELS = {
 /* -------------------------------------------- */
 
 /**
- * Define the actor preparation hooks which are supported for Talent configuration.
- * @enum {{signature: string, argNames: string[]}}
- */
-export const ACTOR_HOOKS = Object.freeze({
-
-  // Action Usage
-  prepareStandardCheck: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["rollData"]
-  },
-  prepareWeaponAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "target", "rollData"]
-  },
-  applyCriticalEffects: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "outcome", "self"]
-  },
-  defendSkillAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "origin", "rollData"]
-  },
-  defendSpellAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["spell", "origin", "rollData"]
-  },
-  defendWeaponAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "origin", "rollData"]
-  },
-  applyActionOutcome: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "outcome", "options"]
-  },
-
-  // Data Preparation
-  prepareActions: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["actions"]
-  },
-  prepareResources: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["resources"]
-  },
-  prepareDefenses: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["defenses"]
-  },
-  prepareInitiativeCheck: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["rollData"]
-  },
-  prepareMovement: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["movement"]
-  },
-  prepareResistances: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["resistances"]
-  },
-  prepareSkillCheck: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["skill", "rollData"]
-  },
-  prepareSkillAttack: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["action", "target", "rollData"]
-  },
-  prepareSpellAttack: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["spell", "target", "rollData"]
-  },
-  prepareTraining: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["training"]
-  }
-});
-
-
-/* -------------------------------------------- */
-
-/**
  * Define the Action life-cycle hooks which are supported for an Action.
  * @enum {Readonly<Object<{argNames: string[]}>>}
  */
@@ -202,7 +122,7 @@ export const SYSTEM = {
   id: SYSTEM_ID,
   ABILITIES: ATTRIBUTES.ABILITIES,
   ACTION,
-  ACTOR_HOOKS,
+  ACTOR,
   ACTION_HOOKS,
   ADVERSARY,
   ANCESTRIES,

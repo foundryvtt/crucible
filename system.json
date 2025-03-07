@@ -159,7 +159,12 @@
       "hero": {
         "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
       },
-      "adversary": {}
+      "adversary": {
+        "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
+      },
+      "group": {
+        "htmlFields": ["details.biography.public", "details.biography.private"]
+      }
     },
     "Item": {
       "ancestry": {

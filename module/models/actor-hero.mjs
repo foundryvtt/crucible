@@ -1,11 +1,11 @@
-import CrucibleActorType from "./actor-type.mjs";
+import CrucibleBaseActor from "./actor-base.mjs";
 import CrucibleAncestry from "./ancestry.mjs";
 import CrucibleBackground from "./background.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Hero type Actors.
  */
-export default class CrucibleHero extends CrucibleActorType {
+export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -19,7 +19,7 @@ export default class CrucibleHero extends CrucibleActorType {
 
     // Extra validation for abilities
     for ( const abilityField of Object.values(schema.abilities.fields) ) {
-      abilityField.options.validate = CrucibleHero.#validateAttribute;
+      abilityField.options.validate = CrucibleHeroActor.#validateAttribute;
     }
 
     // Advancement

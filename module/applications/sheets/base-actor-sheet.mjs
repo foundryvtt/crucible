@@ -11,7 +11,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     tag: "form",
     position: {
       width: 900,
-      height: 750
+      height: 760
     },
     actions: {
       actionFavorite: CrucibleBaseActorSheet.#onActionFavorite,
@@ -167,7 +167,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   _attachFrameListeners() {
     super._attachFrameListeners();
     this.element.addEventListener("focusin", this.#onFocusIn.bind(this));
-  }
+  }W
 
   /* -------------------------------------------- */
 
@@ -342,6 +342,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           })
           if ( i.system.equipped ) section = sections.inventory.equipment;
           else section = sections.inventory.backpack;
+          break;
+        case "base":
+        case "loot":
+          section = sections.inventory.backpack;
           break;
         case "talent":
           d.tier = i.system.node?.tier || 0;
@@ -543,14 +547,15 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Placeholder Iconic Slots
     if ( iconicSlots > iconicSpells.items.length ) {
       for ( let i=iconicSpells.items.length; i<iconicSlots; i++ ) {
-        spells.iconicSpells.known.push({
+        const spell = {
           id: `iconicSlot${i}`,
-          name: "Available Slot",
+          name: "foo",
           img: "icons/magic/symbols/question-stone-yellow.webp",
           cssClass: "iconic-slot",
           tags: {},
           isItem: false
-        });
+        };
+        spells.iconicSpells.known.push(spell);
       }
     }
     return spells;

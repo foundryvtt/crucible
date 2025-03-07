@@ -345,6 +345,7 @@ export default class CrucibleTokenObject extends Token {
    * Update flanking conditions for all actors affected by a Token change.
    */
   #updateFlanking() {
+    if ( !this.actor || (this.actor.type === "group") ) return;
     const engagement = this.#computeEngagement();
     const toUpdate = this.#applyEngagementUpdates(this.engagement, engagement);
     this.engagement = engagement; // Save the new state
@@ -360,7 +361,7 @@ export default class CrucibleTokenObject extends Token {
     }
 
     // Update our own actor
-    if ( this.actor ) this.actor.commitFlanking(this.engagement);
+    this.actor.commitFlanking(this.engagement);
   }
 
   /* -------------------------------------------- */
@@ -438,7 +439,7 @@ export default class CrucibleTokenObject extends Token {
    * @internal
    */
   _visualizeEngagement(engagement) {
-    if ( !CONFIG.debug.flanking ) return;
+    if ( !CONFIG.debug.flanking || !this.parent.useMicrogrid ) return;
     if ( !this.#engagementDebug ) {
       this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
 

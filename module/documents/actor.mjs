@@ -39,9 +39,9 @@ const {DialogV2} = foundry.applications.api;
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
-  constructor(data, context) {
-    super(data, context);
-    this.#updateCachedResources();
+  constructor(...args) {
+    super(...args);
+    this.system._updateCachedResources?.();
   }
 
   /**
@@ -225,12 +225,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Track resource values prior to updates to capture differential changes.
-   * @enum {number}
-   */
-  _cachedResources;
-
-  /**
    * The IDs of purchased talents
    * @type {Set<string>}
    */
@@ -260,11 +254,7 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
-    this.rollBonuses = {
-      damage: {},
-      boons: {},
-      banes: {}
-    };
+    this.rollBonuses = {damage: {}, boons: {}, banes: {}};
   }
 
   /* -------------------------------------------- */
@@ -272,6 +262,7 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
+    if ( this.type === "group" ) return;
     const items = this.itemTypes;
     CrucibleActor.#prepareTalents.call(this, items.talent);
     CrucibleActor.#prepareSpells.call(this, items.spell);
@@ -684,7 +675,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   static #registerActorHook(actor, talent, {hook, fn}={}) {
-    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
     actor.actorHooks[hook] ||= [];
     actor.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
@@ -699,7 +690,7 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callActorHooks(hook, ...args) {
-    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.actorHooks[hook] ||= [];
     for ( const {talent, fn} of hooks ) {
@@ -2161,7 +2152,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update flanking
-    const {wasIncapacitated, wasBroken} = this._cachedResources;
+    const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
     if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
       const tokens = this.getActiveTokens(true);
       const activeGM = game.users.activeGM;
@@ -2170,7 +2161,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update cached resource values
-    this.#updateCachedResources();
+    this.system._updateCachedResources?.();
 
     // Refresh display of the active talent tree
     const tree = game.system.tree;
@@ -2206,8 +2197,10 @@ export default class CrucibleActor extends Actor {
   #displayScrollingStatus(changed, {statusText}={}) {
     const resources = changed.system?.resources || {};
     const tokens = this.getActiveTokens(true);
-    if ( !tokens.length ) return;
-    for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
+    if ( !tokens.length || !this.system._cachedResources ) return;
+
+    // Display resource changes
+    for ( let [resourceName, prior] of Object.entries(this.system._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
 
       // Get change data
@@ -2277,22 +2270,6 @@ export default class CrucibleActor extends Actor {
       }
       await canvas.scene.updateEmbeddedDocuments("Token", updates);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Update the cached resources for this actor.
-   * @private
-   */
-  #updateCachedResources() {
-    this._cachedResources = Object.entries(this.system.resources).reduce((obj, [id, {value}]) => {
-      obj[id] = value;
-      return obj;
-    }, {
-      wasIncapacitated: this.isIncapacitated,
-      wasBroken: this.isBroken
-    });
   }
 
   /* -------------------------------------------- */

@@ -1,11 +1,11 @@
-import CrucibleActorType from "./actor-type.mjs";
+import CrucibleBaseActor from "./actor-base.mjs";
 import CrucibleArchetype from "./archetype.mjs";
 import CrucibleTaxonomy from "./taxonomy.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
  */
-export default class CrucibleAdversary extends CrucibleActorType {
+export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
