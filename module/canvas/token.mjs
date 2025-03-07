@@ -386,6 +386,7 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
     this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
     this.refreshFlanking();
   }
@@ -394,6 +395,8 @@ export default class CrucibleTokenObject extends Token {
 
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
+    super._onUpdate(data, options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
 
     // Token movement speed
     const positionChange = ("x" in data) || ("y" in data);
@@ -401,9 +404,6 @@ export default class CrucibleTokenObject extends Token {
       options.animation ||= {};
       options.animation.movementSpeed = (this.actor.system.movement.stride * 2);
     }
-
-    // Standard Token update workflow
-    super._onUpdate(data, options, userId);
 
     // Flanking Updates
     const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
@@ -415,6 +415,7 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
 
     // Apply flanking updates
     const activeGM = game.users.activeGM;
