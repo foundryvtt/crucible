@@ -81,6 +81,12 @@
     --button-text-color: var(--color-secondary);
     opacity: 1.0;
   }
+
+  prose-mirror button {
+    padding: revert;
+    text-align: revert;
+    opacity: revert;
+  }
 }
 
 /* ----------------------------------------- */
@@ -177,7 +183,25 @@
 
   // Text Editors
   prose-mirror {
-    font-size: 13px;
+    height: 100%;
+    max-height: 600px;
+    min-height: 200px;
+    font-size: var(--font-size-14);
+    position: relative;
+    button.toggle {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      &:disabled {
+        visibility: hidden;
+      }
+    }
+    .editor-container {
+      margin: 0;
+    }
+    .editor-content {
+      overflow: hidden auto;
+    }
   }
 }
 

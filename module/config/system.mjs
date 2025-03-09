@@ -21,7 +21,7 @@ export const SYSTEM_ID = "crucible";
 export const ANCESTRIES = {
   primaryAbilityStart: 3,
   secondaryAbilityStart: 2,
-  resistanceAmount: 5
+  resistanceAmount: 3
 }
 
 /* -------------------------------------------- */

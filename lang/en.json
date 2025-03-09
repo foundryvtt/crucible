@@ -2,7 +2,7 @@
 "TYPES": {
   "Actor": {
     "adversary": "Adversary",
-    "hero": "Protagonist",
+    "hero": "Hero",
     "group": "Group"
   },
   "Item": {
@@ -256,47 +256,55 @@
     "description": {
       "label": "Ancestry Description"
     },
-    "size": {
-      "label": "Size",
-      "hint": "The size of this ancestry in grid spaces."
+    "movement": {
+      "label": "Movement and Stature",
+      "size": {
+        "label": "Size",
+        "hint": "The size of this ancestry in grid spaces."
+      },
+      "stride": {
+        "label": "Stride",
+        "hint": "The starting movement speed of this Ancestry in grid spaces."
+      }
     },
-    "stride": {
-      "label": "Stride",
-      "hint": "The starting movement speed of this Ancestry in grid spaces."
+    "abilities": {
+      "label": "Ability Scores",
+      "primary": {
+        "label": "Primary Ability",
+        "hint": "Select a primary ability score which begins at 3."
+      },
+      "secondary": {
+        "label": "Secondary Ability",
+        "hint": "Select a secondary ability score which begins at 2."
+      }
     },
-    "primary": {
-      "label": "Primary Ability",
-      "hint": "Select a primary ability score which begins at 3."
+    "resistances": {
+      "label": "Damage Resistances",
+      "hint": "You must choose both a Resistance and a Vulnerability if you select either.",
+      "resistance": {
+        "label": "Damage Resistance",
+        "hint": "A biological Resistance (+3) to a certain damage type."
+      },
+      "vulnerability": {
+        "label": "Damage Vulnerability",
+        "hint": "A biological Vulnerability (-3) to a certain damage type."
+      }
     },
-    "secondary": {
-      "label": "Secondary Ability",
-      "hint": "Select a secondary ability score which begins at 2."
-    },
-    "resistance": {
-      "label": "Damage Resistance",
-      "hint": "A biological Resistance (+5) to a certain damage type."
-    },
-    "vulnerability": {
-      "label": "Damage Vulnerability",
-      "hint": "A biological Vulnerability (-5) to a certain damage type."
+    "talents": {
+      "label": "Talent Progression"
     }
   },
   "SHEET": {
     "BROWSE": "Browse Ancestries",
     "CHOOSE": "Choose Ancestry",
-    "CLEAR": "Clear Ancestry",
-    "ABILITIES": "Ability Scores",
-    "RESISTANCES": "Resistances and Vulnerabilities",
-    "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
-    "STATURE": "Ancestry Stature"
+    "CLEAR": "Clear Ancestry"
   },
   "WARNINGS": {
     "ABILITIES": "The primary and secondary Abilities for an Ancestry may not be the same.",
-    "RESISTANCES": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
+    "RESISTANCES_BOTH": "You must assign both Resistance and Vulnerability if defining either.",
+    "RESISTANCES_DIFFERENT": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
   }
 },
-
-"ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",

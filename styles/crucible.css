@@ -44,6 +44,7 @@
   --font-h1: "AwerySmallcaps", serif;
   --font-h2: "AwerySmallcaps", serif;
   --font-h3: "AwerySmallcaps", serif;
+  --font-h3-size: var(--font-size-24);
   --font-body: "Vollkorn", serif;
   --font-quote: "CaslonAntique", serif;
   --font-sans: "Signika", sans-serif;
@@ -524,6 +525,11 @@
   --button-text-color: var(--color-secondary);
   opacity: 1;
 }
+.crucible.application prose-mirror button {
+  padding: revert;
+  text-align: revert;
+  opacity: revert;
+}
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
 /* ----------------------------------------- */
@@ -598,7 +604,25 @@
   text-align: center;
 }
 .crucible.sheet prose-mirror {
-  font-size: 13px;
+  height: 100%;
+  max-height: 600px;
+  min-height: 200px;
+  font-size: var(--font-size-14);
+  position: relative;
+}
+.crucible.sheet prose-mirror button.toggle {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+}
+.crucible.sheet prose-mirror button.toggle:disabled {
+  visibility: hidden;
+}
+.crucible.sheet prose-mirror .editor-container {
+  margin: 0;
+}
+.crucible.sheet prose-mirror .editor-content {
+  overflow: hidden auto;
 }
 /* ----------------------------------------- */
 /*  Line Items: Actions, Talents, etc...     */
@@ -1423,14 +1447,6 @@
 }
 .crucible.sheet.actor .tab.biography prose-mirror.active {
   margin-top: 0.5rem;
-}
-.crucible.sheet.actor .tab.biography prose-mirror button.toggle {
-  position: absolute;
-  top: -12px;
-  right: -12px;
-}
-.crucible.sheet.actor .tab.biography prose-mirror .editor-content {
-  overflow: hidden auto;
 }
 .crucible.sheet.actor .tab.secondary .header-section {
   justify-content: space-between;

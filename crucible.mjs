@@ -79,7 +79,7 @@ Hooks.once("init", async function() {
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
-    ancestry: models.CrucibleAncestry,
+    ancestry: models.CrucibleAncestryItem,
     archetype: models.CrucibleArchetype,
     armor: models.CrucibleArmor,
     background: models.CrucibleBackground,
@@ -98,7 +98,7 @@ Hooks.once("init", async function() {
   });
 
   // V1 Registrations
-  Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
+  Items.registerSheet(SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
   Items.registerSheet(SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});

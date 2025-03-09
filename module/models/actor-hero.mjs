@@ -1,5 +1,5 @@
 import CrucibleBaseActor from "./actor-base.mjs";
-import CrucibleAncestry from "./ancestry.mjs";
+import CrucibleAncestryItem from "./item-ancestry.mjs";
 import CrucibleBackground from "./background.mjs";
 
 /**
@@ -33,7 +33,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       ancestry: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
-        ...CrucibleAncestry.defineSchema()
+        ...CrucibleAncestryItem.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       background: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
@@ -89,9 +89,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /** @override */
   prepareBaseData() {
     this.#prepareAdvancement();
-    this.size = (this.details.ancestry?.size || 3) + this.details.size;
-    this.#prepareBaseMovement();
     super.prepareBaseData();
+    this.#prepareBaseMovement();
   }
 
   /* -------------------------------------------- */
@@ -101,9 +100,10 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   #prepareBaseMovement() {
     const m = this.movement;
-    const {size=3, stride=10} = this.details.ancestry || {};
+    const {size, stride} = this.details.ancestry.movement;
     m.size = size + m.sizeBonus;
     m.stride = stride + m.strideBonus;
+    this.size = m.size; // TODO this shouldn't exist maybe?
   }
 
   /* -------------------------------------------- */
@@ -132,8 +132,13 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   _prepareDetails() {
 
-    // Initialize default ancestry or background data
-    const a = this.details.ancestry ||= this.schema.getField("details.ancestry").initialize({});
+    // Default Ancestry data
+    if ( !this.details.ancestry ) {
+      const ancestryDefaults = crucible.api.models.CrucibleAncestryItem.schema.getInitialValue();
+      this.details.ancestry = this.schema.getField("details.ancestry").initialize(ancestryDefaults);
+    }
+
+    // Default Background data
     this.details.background ||= this.schema.getField("details.background").initialize({});
 
     // Threat level
@@ -143,8 +148,11 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     // Base Resistances
     const res = this.resistances;
     for ( const r of Object.values(res) ) r.base = 0;
-    if ( a.resistance ) res[a.resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
-    if ( a.vulnerability ) res[a.vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
+
+    // Ancestry Resistances
+    const {resistance, vulnerability} = this.details.ancestry.resistances;
+    if ( resistance ) res[resistance].base += SYSTEM.ANCESTRIES.resistanceAmount;
+    if ( vulnerability ) res[vulnerability].base -= SYSTEM.ANCESTRIES.resistanceAmount;
   }
 
   /* -------------------------------------------- */
@@ -155,7 +163,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   _prepareAbilities() {
     const points = this.points.ability;
-    const ancestry = this.details.ancestry;
+    const {primary, secondary} = this.details.ancestry.abilities;
 
     // Ability Scores
     let abilityPointsBought = 0;
@@ -165,8 +173,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
       // Configure initial value
       ability.initial = 1;
-      if ( a === ancestry.primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAbilityStart;
-      else if ( a === ancestry.secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAbilityStart;
+      if ( a === primary ) ability.initial = SYSTEM.ANCESTRIES.primaryAbilityStart;
+      else if ( a === secondary ) ability.initial = SYSTEM.ANCESTRIES.secondaryAbilityStart;
       ability.value = Math.clamp(ability.initial + ability.base + ability.increases + ability.bonus, 0, 12);
 
       // Track points spent
@@ -285,5 +293,15 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     tags.level = `Level ${this.advancement.level}`;
     tags.signatureName = this.details.signatureName || "Unspecialized";
     return tags;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+    if ( source.details?.ancestry ) CrucibleAncestryItem.migrateData(source.details.ancestry);
   }
 }

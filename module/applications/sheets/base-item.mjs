@@ -134,11 +134,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   /** @override */
   async _prepareContext(options) {
     const tabGroups = this._getTabs();
+    const source = this.document.toObject();
     return {
       item: this.document,
+      source,
+      system: source.system,
       isEditable: this.isEditable,
       fieldDisabled: this.isEditable ? "" : "disabled",
-      source: this.document.toObject(),
       fields: this.document.system.schema.fields,
       tabGroups,
       tabs: tabGroups.sheet,
@@ -156,6 +158,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actionPartial = this.constructor.ACTION_PARTIAL;
         const actions = this.document.system.actions;
         context.actions = this.constructor.prepareActions(actions);
+        break;
+      case "description":
+        context.descriptionHTML = await TextEditor.enrichHTML(context.source.system.description, {
+          relativeTo: this.document,
+          secrets: this.document.isOwner
+        });
         break;
       case "hooks":
         context.actorHooks = this.#prepareActorHooks();

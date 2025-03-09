@@ -5,6 +5,9 @@ export default class CrucibleJournalEntrySheet extends foundry.applications.shee
 
   /** @override */
   static DEFAULT_OPTIONS = {
+    position: {
+      width: 1080
+    },
     classes: ["crucible", "themed", "theme-dark"]
   };
 
