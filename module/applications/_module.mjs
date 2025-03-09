@@ -9,7 +9,7 @@ export {default as CrucibleGroupActorSheet} from "./sheets/actor-group-sheet.mjs
 export {default as AdversarySheet} from "./sheets/adversary-sheet.mjs";
 
 // Item Sheets
-export {default as CrucibleBaseItemSheet} from "./sheets/base-item.mjs";
+export {default as CrucibleBaseItemSheet} from "./sheets/item-base-sheet.mjs";
 export {default as CrucibleAncestryItemSheet} from "./sheets/item-ancestry-sheet.mjs";
 
 export {default as ArchetypeSheet} from "./sheets/archetype.mjs";

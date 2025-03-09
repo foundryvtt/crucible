@@ -1,0 +1,14 @@
+<section class="tab sheet-body flexcol {{tabs.talents.cssClass}}"
+         data-tab="{{tabs.talents.id}}" data-group="{{tabs.talents.group}}">
+    <p class="hint">{{fields.talents.hint}}</p>
+    <div class="talents-list flexcol scrollable">
+        {{#each talents}}
+        {{> (lookup @root "talentPartial") talent=this isEditable=@root.isEditable}}
+        {{/each}}
+    </div>
+    {{#if isEditable}}
+    <div class="talent-drop droppable">
+        <p class="hint">{{localize "ITEM.SHEET.TALENT_DROP"}}</p>
+    </div>
+    {{/if}}
+</section>

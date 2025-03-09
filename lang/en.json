@@ -291,7 +291,8 @@
       }
     },
     "talents": {
-      "label": "Talent Progression"
+      "label": "Talent Progression",
+      "hint": "Configure one or more Talents that this Ancestry receives automatically."
     }
   },
   "SHEET": {
@@ -429,10 +430,7 @@
   },
   "SHEET": {
     "CHOOSE": "Choose Archetype",
-    "CLEAR": "Clear Archetype",
-    "TALENT_ADD": "Add Talent",
-    "TALENT_REMOVE": "Remove Talent",
-    "TALENT_DROP": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack."
+    "CLEAR": "Clear Archetype"
   }
 },
 
@@ -642,7 +640,13 @@
     "DESCRIPTION": "Description",
     "HOOKS": "Hooks",
     "PUBLIC": "Public Description",
-    "SECRET": "Secret Description"
+    "SECRET": "Secret Description",
+    "TALENTS": "Talents"
+  },
+  "SHEET": {
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area."
   }
 },
 

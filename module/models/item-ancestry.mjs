@@ -26,8 +26,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         resistance: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES}),
         vulnerability: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES})
       }, {validate: CrucibleAncestryItem.#validateResistances}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}), {
-        validate: CrucibleAncestryItem.#validateTalents})
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
     };
   }
 
@@ -60,17 +59,6 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     if ( !res && !vuln ) return;
     if ( res === vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES_DIFFERENT"));
     if ( !res !== !vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES_BOTH"));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Validate that the Talents assigned to this Background are appropriate.
-   * @param {string[]} talents    The assigned talent UUIDs
-   * @throws {Error}              An error if too many talents are assigned
-   */
-  static #validateTalents(talents) {
-    if ( talents.length > 1 ) throw new Error(game.i18n.localize("BACKGROUND.ERRORS.TALENT_NUMBER"));
   }
 
   /* -------------------------------------------- */

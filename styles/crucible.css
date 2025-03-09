@@ -698,7 +698,7 @@
 .crucible .line-item .button.icon {
   width: 24px;
   height: 24px;
-  font-size: var(--font-size-10);
+  font-size: var(--font-size-12);
   padding: 0.25rem;
 }
 .crucible .line-item .effects {
@@ -1652,6 +1652,7 @@
 .crucible.action {
   --margin-size: 1rem;
   --margin-half: calc(var(--margin-size) / 2);
+  /** Talent Progression Items */
 }
 .crucible.item .sheet-body,
 .crucible.action .sheet-body {
@@ -1665,6 +1666,18 @@
 .crucible.item .item-properties multi-checkbox,
 .crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
+}
+.crucible.item .talents-list,
+.crucible.action .talents-list {
+  max-height: 600px;
+  gap: 1.5rem;
+}
+.crucible.item .droppable,
+.crucible.action .droppable {
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--color-form-hint);
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 /* ----------------------------------------- */
 /*  Armor and Weapons                        */
@@ -1757,26 +1770,11 @@
 .crucible.taxonomy .talents {
   gap: 1rem;
 }
-.crucible.archetype .droppable,
-.crucible.taxonomy .droppable {
-  padding: 0 1rem;
-  border: 1px dashed var(--color-frame);
-  border-radius: 6px;
-}
 /** ----------------------------------------- *
  *  Background Sheet                          *
  * ------------------------------------------ */
 .crucible.background .talents .talent .tags {
   flex: none;
-}
-.crucible.background .talents .droppable {
-  padding: 0.5rem 1rem;
-  border: 1px dashed var(--color-tertiary);
-  border-radius: 8px;
-  cursor: pointer;
-}
-.crucible.background .talents .talent + .droppable {
-  display: none;
 }
 /** ----------------------------------------- *
  *  Action                                    *

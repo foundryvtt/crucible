@@ -3,16 +3,16 @@
     <div class="title">
         <h4>{{talent.name}}</h4>
         <div class="tags">
-            {{#each tags as |tag type|}}
+            {{#each talent.tags as |tag type|}}
             <span class="tag" data-tag="{{type}}">{{tag}}</span>
             {{/each}}
         </div>
     </div>
-    {{#if editable}}
+    {{#if isEditable}}
     <div class="controls">
         <a class="button icon fa-solid fa-times remove-talent" data-action="removeTalent"
-           data-tooltip="BACKGROUND.SHEET.TALENT_REMOVE"></a>
+           data-tooltip="ITEM.SHEET.TALENT_REMOVE"></a>
     </div>
     {{/if}}
-    <div class="description">{{{talent.system.description}}}</div>
+    <div class="description">{{{talent.description}}}</div>
 </div>

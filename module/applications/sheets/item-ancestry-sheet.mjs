@@ -1,9 +1,9 @@
-import CrucibleBaseItemSheet from "./base-item.mjs";
+import CrucibleActorDetailsItemSheet from "./item-actor-details-sheet.mjs";
 
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "ancestry" type.
  */
-export default class CrucibleAncestryItemSheet extends CrucibleBaseItemSheet {
+export default class CrucibleAncestryItemSheet extends CrucibleActorDetailsItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -16,8 +16,6 @@ export default class CrucibleAncestryItemSheet extends CrucibleBaseItemSheet {
   static {
     this._initializeItemSheetClass()
   }
-
-  // TODO support talents on the Ancestry sheet.
 
   /* -------------------------------------------- */
 

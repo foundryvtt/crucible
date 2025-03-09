@@ -20,6 +20,18 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
+
+  /** Talent Progression Items */
+  .talents-list {
+    max-height: 600px;
+    gap: 1.5rem;
+  }
+  .droppable {
+    padding: 0.5rem 1rem;
+    border: 1px dashed var(--color-form-hint);
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
 }
 
 /* ----------------------------------------- */
@@ -105,11 +117,6 @@
   .talents {
     gap: 1rem;
   }
-  .droppable {
-    padding: 0 1rem;
-    border: 1px dashed var(--color-frame);
-    border-radius: 6px;
-  }
 }
 
 /** ----------------------------------------- *
@@ -120,15 +127,6 @@
   .talents {
     .talent .tags {
       flex: none;
-    }
-    .droppable {
-      padding: 0.5rem 1rem;
-      border: 1px dashed var(--color-tertiary);
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .talent + .droppable {
-      display: none;
     }
   }
 }

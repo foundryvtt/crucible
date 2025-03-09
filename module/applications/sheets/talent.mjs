@@ -1,5 +1,4 @@
-import CrucibleTalentNode from "../../config/talent-tree.mjs";
-import CrucibleBaseItemSheet from "./base-item.mjs";
+import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
 
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "talent" type.
