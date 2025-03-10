@@ -1849,14 +1849,18 @@ export default class CrucibleActor extends Actor {
     }
 
     // Prepare data
-    const key = `system.details.${type}`;
+    const key = `system.details.==${type}`;
     const updateData = {};
     let message;
 
     // Remove existing talents
     const existing = this.system.details[type];
     if ( existing?.talents?.size ) {
-      const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
+      const deleteIds = Array.from(existing.talents).reduce((arr, uuid) => {
+        const documentId = foundry.utils.parseUuid(uuid);
+        if ( this.items.has(documentId) ) arr.push(documentId);
+        return arr;
+      }, []);
       await this.deleteEmbeddedDocuments("Item", deleteIds);
     }
 
