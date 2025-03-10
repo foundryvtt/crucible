@@ -1444,9 +1444,7 @@
 .crucible.sheet.actor .tab.biography prose-mirror {
   flex: 1;
   width: 100%;
-}
-.crucible.sheet.actor .tab.biography prose-mirror.active {
-  margin-top: 0.5rem;
+  min-height: unset;
 }
 .crucible.sheet.actor .tab.secondary .header-section {
   justify-content: space-between;

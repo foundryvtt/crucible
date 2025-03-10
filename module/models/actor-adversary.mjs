@@ -61,7 +61,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /** @override */
   prepareBaseData() {
-    this.size = (this.details.taxonomy?.size || 3) + this.details.size;
     this.#prepareBaseMovement();
     super.prepareBaseData();
   }

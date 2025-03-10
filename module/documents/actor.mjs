@@ -604,12 +604,13 @@ export default class CrucibleActor extends Actor {
 
     // Identify permanent talents from a background, taxonomy, archetype, etc...
     this.permanentTalentIds = new Set();
-    if ( details.background?.talents ) {
-      details.background.talents = details.background.talents.map(uuid => {
-        const talentId = foundry.utils.parseUuid(uuid)?.documentId;
-        if ( talentId ) this.permanentTalentIds.add(talentId);
-        return talentId;
-      });
+    const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
+    for ( const s of permanentTalentSources ) {
+      if ( !s?.talents ) continue;
+      for ( const uuid of s.talents ) {
+        const {documentId} = foundry.utils.parseUuid(uuid);
+        if ( documentId ) this.permanentTalentIds.add(documentId);
+      }
     }
 
     // Iterate over talents

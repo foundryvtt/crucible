@@ -76,12 +76,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   points;
 
-  /**
-   * Hero actor size is determined by their ancestry and size modifier.
-   * @type {number}
-   */
-  size;
-
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
