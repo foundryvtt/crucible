@@ -29,6 +29,51 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
 import Enum from "./module/config/enum.mjs";
 
+
+// VFX
+import {
+  AnimationSystem,
+  arrowBlueConfig,
+  BloomRoot,
+  ComponentMesh,
+  ComponentShader,
+  COMPONENTS,
+  Behavior,
+  Component,
+  BEHAVIORS,
+} from "./module/effects-engine/_module.mjs"
+
+const vfx = {
+  AnimationSystem,
+  BloomRoot,
+  ComponentMesh,
+  Behavior,
+  Component,
+  config: {
+    COMPONENTS,
+    BEHAVIORS,
+  },
+  samples: {
+    arrowBlueConfig,
+  },
+}
+
+globalThis.vfx = vfx
+
+/* -------------------------------------------- */
+/*  VFX System Shader initialization            */
+/* -------------------------------------------- */
+
+Hooks.once("canvasConfig", function () {
+  ComponentShader.registerPlugin()
+  CONFIG.Canvas.transcoders.basis = true
+})
+
+// Debugging
+Hooks.once("ready", () => {
+  globalThis.__PIXI_APP__ = game.canvas.app
+})
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
