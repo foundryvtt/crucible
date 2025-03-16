@@ -8,9 +8,9 @@ export {default as CrucibleGroupActor} from "./actor-group.mjs";
 
 // Items
 export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
+export {default as CrucibleBackgroundItem} from "./item-background.mjs";
 export {default as CrucibleArchetype} from "./archetype.mjs";
 export {default as CrucibleArmor} from "./armor.mjs";
-export {default as CrucibleBackground} from "./background.mjs";
 export {default as CrucibleGesture} from "./gesture.mjs";
 export {default as CrucibleInflection} from "./inflection.mjs";
 export {default as CrucibleRune} from "./rune.mjs";

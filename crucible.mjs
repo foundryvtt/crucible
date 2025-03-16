@@ -71,10 +71,6 @@ Hooks.once("init", async function() {
     hero: models.CrucibleHeroActor,
     group: models.CrucibleGroupActor
   };
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
-  Actors.registerSheet(SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
-  Actors.registerSheet(SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
@@ -82,29 +78,17 @@ Hooks.once("init", async function() {
     ancestry: models.CrucibleAncestryItem,
     archetype: models.CrucibleArchetype,
     armor: models.CrucibleArmor,
-    background: models.CrucibleBackground,
+    background: models.CrucibleBackgroundItem,
     spell: models.CrucibleSpell,
     talent: models.CrucibleTalent,
     taxonomy: models.CrucibleTaxonomy,
     weapon: models.CrucibleWeapon
   };
-  Items.unregisterSheet("core", ItemSheet);
 
-  // V2 Registrations
-  DocumentSheetConfig.registerSheet(Item, "crucible", applications.ArmorSheet, {
-    types: ["armor"],
-    makeDefault: true,
-    label: "CRUCIBLE.SHEETS.Armor"
+  // JournalEntryPage document configuration
+  Object.assign(CONFIG.JournalEntryPage.dataModels, {
+    "skill": models.CrucibleSkill
   });
-
-  // V1 Registrations
-  Items.registerSheet(SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
@@ -114,18 +98,23 @@ Hooks.once("init", async function() {
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = CrucibleTokenObject;
 
-  // Journal Document Configuration
-  Object.assign(CONFIG.JournalEntryPage.dataModels, {
-    "skill": models.CrucibleSkill
-  });
-  DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
-    label: "CRUCIBLE.SHEETS.Journal"
-  })
-  DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {
-    types: ["skill"],
-    makeDefault: true,
-    label: "SKILL.PageSheet"
-  });
+  // Sheet Registrations
+  const sheets = foundry.applications.apps.DocumentSheetConfig;
+  sheets.unregisterSheet(Actor, "core", ActorSheet);
+  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], makeDefault: true});
+  sheets.unregisterSheet(Item, "core", ItemSheet);
+  sheets.registerSheet(Item, SYSTEM.id, applications.ArmorSheet, {label: "CRUCIBLE.SHEETS.Armor", types: ["armor"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
+  sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+  sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {label: "SKILL.PageSheet", types: ["skill"], makeDefault: true});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
@@ -254,7 +243,7 @@ Hooks.once("i18nInit", function() {
   models.CrucibleRune.initialize();
 
   // Preload Handlebars Templates
-  loadTemplates([
+  foundry.applications.handlebars.loadTemplates([
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,

@@ -156,7 +156,10 @@ export default class CrucibleTalentNode {
     angle ??= n * CrucibleTalentNode.TIER_ANGLES[tier];
 
     // Create a Ray
-    if ( !point ) point = Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier + 1)).B;
+    if ( !point ) {
+      const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier + 1));
+      point = ray.B;
+    }
 
     // Define node attributes
     Object.defineProperties(this, {

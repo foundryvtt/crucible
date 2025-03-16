@@ -1,6 +1,6 @@
 import CrucibleBaseActor from "./actor-base.mjs";
 import CrucibleAncestryItem from "./item-ancestry.mjs";
-import CrucibleBackground from "./background.mjs";
+import CrucibleBackgroundItem from "./item-background.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Hero type Actors.
@@ -38,7 +38,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       background: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
-        ...CrucibleBackground.defineSchema()
+        ...CrucibleBackgroundItem.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       biography: new fields.SchemaField({
         appearance: new fields.HTMLField(),

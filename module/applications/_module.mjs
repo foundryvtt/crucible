@@ -11,10 +11,10 @@ export {default as AdversarySheet} from "./sheets/adversary-sheet.mjs";
 // Item Sheets
 export {default as CrucibleBaseItemSheet} from "./sheets/item-base-sheet.mjs";
 export {default as CrucibleAncestryItemSheet} from "./sheets/item-ancestry-sheet.mjs";
+export {default as CrucibleBackgroundItemSheet} from "./sheets/item-background-sheet.mjs";
 
 export {default as ArchetypeSheet} from "./sheets/archetype.mjs";
 export {default as ArmorSheet} from "./sheets/armor.mjs";
-export {default as BackgroundSheet} from "./sheets/background.mjs";
 export {default as HeroSheet} from "./sheets/hero-sheet.mjs";
 export {default as CrucibleJournalSheet} from "./sheets/journal.mjs";
 export {default as SkillPageSheet} from "./sheets/skill.mjs";

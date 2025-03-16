@@ -1,7 +1,7 @@
 /**
  * Data schema, attributes, and methods specific to Background type Items.
  */
-export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
+export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -13,11 +13,8 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
     return {
       description: new fields.HTMLField({required: true, blank: true}),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
-        validate: CrucibleBackground.#validateSkills
-      }),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}), {
-        validate: CrucibleBackground.#validateTalents
-      })
+        validate: CrucibleBackgroundItem.#validateSkills}),
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
     };
   }
 
@@ -33,16 +30,5 @@ export default class CrucibleBackground extends foundry.abstract.TypeDataModel {
    */
   static #validateSkills(skills) {
     if ( skills.length > 4 ) throw new Error(game.i18n.localize("BACKGROUND.ERRORS.SKILLS_NUMBER"));
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Validate that the Talents assigned to this Background are appropriate.
-   * @param {string[]} talents    The assigned talent UUIDs
-   * @throws {Error}              An error if too many talents are assigned
-   */
-  static #validateTalents(talents) {
-    if ( talents.length > 1 ) throw new Error(game.i18n.localize("BACKGROUND.ERRORS.TALENT_NUMBER"));
   }
 }

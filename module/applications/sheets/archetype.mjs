@@ -1,4 +1,4 @@
-import BackgroundSheet from "./background.mjs";
+import BackgroundSheet from "./item-background-sheet.mjs";
 
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "archetype" type.

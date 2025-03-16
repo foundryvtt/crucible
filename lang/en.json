@@ -493,7 +493,7 @@
     },
     "skills": {
       "label": "Acquired Skills",
-      "hint": "Choose four skills which were acquired as part of your Background, each of which will begin at Novice rank."
+      "hint": "Choose up to four skills which were acquired as part of your Background, each of which will begin at Novice rank."
     },
     "talents": {
       "label": "Acquired Talents",
