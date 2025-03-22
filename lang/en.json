@@ -28,8 +28,19 @@
   "Scaled": "Scaled",
 
   "SHEETS": {
+    "Adversary": "Crucible Adversary Sheet",
+    "Ancestry": "Crucible Ancestry Sheet",
+    "Archetype": "Crucible Archetype Sheet",
     "Armor": "Crucible Armor Sheet",
-    "Journal": "Crucible Journal Sheet"
+    "Background": "Crucible Background Sheet",
+    "Group": "Crucible Group Sheet",
+    "Hero": "Crucible Hero Sheet",
+    "Journal": "Crucible Journal Sheet",
+    "Skill": "Crucible Skill Sheet",
+    "Spell": "Crucible Spell Sheet",
+    "Talent": "Crucible Talent Sheet",
+    "Taxonomy": "Crucible Taxonomy Sheet",
+    "Weapon": "Crucible Weapon Sheet"
   }
 },
 

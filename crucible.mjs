@@ -28,6 +28,7 @@ import * as grid from "./module/canvas/grid.mjs";
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
 import Enum from "./module/config/enum.mjs";
+import CrucibleTaxonomyItemSheet from "./module/applications/sheets/item-taxonomy-sheet.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -76,12 +77,12 @@ Hooks.once("init", async function() {
   CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
     ancestry: models.CrucibleAncestryItem,
-    archetype: models.CrucibleArchetype,
+    archetype: models.CrucibleArchetypeItem,
     armor: models.CrucibleArmor,
     background: models.CrucibleBackgroundItem,
     spell: models.CrucibleSpell,
     talent: models.CrucibleTalent,
-    taxonomy: models.CrucibleTaxonomy,
+    taxonomy: models.CrucibleTaxonomyItem,
     weapon: models.CrucibleWeapon
   };
 
@@ -101,20 +102,23 @@ Hooks.once("init", async function() {
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
   sheets.unregisterSheet(Actor, "core", ActorSheet);
-  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
+
   sheets.unregisterSheet(Item, "core", ItemSheet);
-  sheets.registerSheet(Item, SYSTEM.id, applications.ArmorSheet, {label: "CRUCIBLE.SHEETS.Armor", types: ["armor"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
+  // TODO rename classes
+  sheets.registerSheet(Item, SYSTEM.id, applications.ArmorSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.SpellSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.TalentSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+
   sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
-  sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {label: "SKILL.PageSheet", types: ["skill"], makeDefault: true});
+  sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {types: ["skill"], label: "CRUCIBLE.SHEETS.Skill", makeDefault: true});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;

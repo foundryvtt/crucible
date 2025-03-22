@@ -1,7 +1,7 @@
 /**
  * Define the data schema and functionality of a Taxonomy applied to Adversary creatures.
  */
-export default class CrucibleTaxonomy extends foundry.abstract.TypeDataModel {
+export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -20,11 +20,12 @@ export default class CrucibleTaxonomy extends foundry.abstract.TypeDataModel {
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 6})
         return obj;
-      }, {}), {validate: CrucibleTaxonomy.#validateAbilities}),
+      }, {}), {validate: CrucibleTaxonomyItem.#validateAbilities}),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
         obj[damageType.id] = new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3});
         return obj;
-      }, {}), {validate: CrucibleTaxonomy.#validateResistances})
+      }, {}), {validate: CrucibleTaxonomyItem.#validateResistances}),
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
     }
   }
 

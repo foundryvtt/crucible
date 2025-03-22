@@ -1,6 +1,6 @@
 import CrucibleBaseActor from "./actor-base.mjs";
-import CrucibleArchetype from "./archetype.mjs";
-import CrucibleTaxonomy from "./taxonomy.mjs";
+import CrucibleTaxonomyItem from "./item-taxonomy.mjs";
+import CrucibleArchetypeItem from "./item-archetype.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Adversary type Actors.
@@ -28,12 +28,12 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       archetype: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
-        ...CrucibleArchetype.defineSchema()
+        ...CrucibleArchetypeItem.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       taxonomy: new fields.SchemaField({
         name: new fields.StringField({blank: false}),
         img: new fields.StringField(),
-        ...CrucibleTaxonomy.defineSchema()
+        ...CrucibleTaxonomyItem.defineSchema()
       }, {required: true, nullable: true, initial: null}),
       biography: new fields.SchemaField({
         appearance: new fields.HTMLField(),
@@ -88,8 +88,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Initialize default archetype and taxonomy data
     let {archetype, taxonomy} = this.details;
     let {level, threat} = this.advancement;
-    archetype ||= CrucibleArchetype.cleanData();
-    taxonomy ||= CrucibleTaxonomy.cleanData();
+    archetype ||= CrucibleArchetypeItem.cleanData();
+    taxonomy ||= CrucibleTaxonomyItem.cleanData();
 
     // Compute threat level
     const threatConfig = SYSTEM.THREAT_LEVELS[threat];
@@ -221,7 +221,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @returns {Promise<void>}
    */
   async applyArchetype(item) {
-    return this.parent._applyDetailItem(item, "archetype", {canApply: true, canClear: true});
+    return this.parent._applyDetailItem(item, {canApply: true, canClear: true});
   }
 
   /* -------------------------------------------- */
@@ -232,7 +232,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @returns {Promise<void>}
    */
   async applyTaxonomy(item) {
-    return this.parent._applyDetailItem(item, "taxonomy", {canApply: true, canClear: true});
+    return this.parent._applyDetailItem(item, {canApply: true, canClear: true});
   }
 
   /* -------------------------------------------- */

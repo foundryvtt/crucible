@@ -1,3 +1,5 @@
+import {SYSTEM} from "../config/system.mjs";
+
 /**
  * Data schema, attributes, and methods specific to Ancestry type Items.
  */
@@ -89,6 +91,20 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       }, {})
     };
     return this.parent.clone({type: "taxonomy", "==system": system}, {keepId: true, save: false});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Return an object of string formatted tag data which describes this item type.
+   * @returns {Record<string, string>}    The tags which describe this Ancestry
+   */
+  getTags() {
+    const tags = {};
+    if ( this.abilities.primary ) tags.a1 = SYSTEM.ABILITIES[this.abilities.primary].label;
+    if ( this.abilities.secondary ) tags.a2 = SYSTEM.ABILITIES[this.abilities.secondary].label;
+    tags.size = `Size ${this.movement.size}`;
+    return tags;
   }
 
   /* -------------------------------------------- */
