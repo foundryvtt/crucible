@@ -3,7 +3,7 @@ import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "talent" type.
  */
-export default class TalentSheet extends CrucibleBaseItemSheet {
+export default class CrucibleTalentItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {

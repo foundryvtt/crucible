@@ -3,7 +3,7 @@ import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "armor" type.
  */
-export default class ArmorSheet extends CrucibleBaseItemSheet {
+export default class CrucibleArmorItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -40,8 +40,8 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
    */
   #armorWidget(field, groupConfig, inputConfig) {
     const config = this.document.system.config.category.armor;
-    const {widget, fields} = ArmorSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
-    fields.appendChild(ArmorSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.ARMOR_BONUS")}));
+    const {widget, fields} = CrucibleArmorItemSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
+    fields.appendChild(CrucibleArmorItemSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.ARMOR_BONUS")}));
     const armorBonus = this.document.system.armor.bonus;
     fields.appendChild(foundry.applications.fields.createNumberInput({value: armorBonus, disabled: true}));
     return widget;
@@ -54,8 +54,8 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
    */
   #dodgeWidget(field, groupConfig, inputConfig) {
     const config = this.document.system.config.category.dodge;
-    const {widget, fields} = ArmorSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
-    fields.appendChild(ArmorSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.DODGE_SCALING")}));
+    const {widget, fields} = CrucibleArmorItemSheet.#createDefenseWidget(field, groupConfig, inputConfig, config);
+    fields.appendChild(CrucibleArmorItemSheet._createElement("label", {innerText: game.i18n.localize("ARMOR.SHEET.DODGE_SCALING")}));
     const dodgeStart = `${this.document.system.dodge.start} ${crucible.CONST.ABILITIES.dexterity.abbreviation}`;
     fields.appendChild(foundry.applications.fields.createTextInput({value: dodgeStart, disabled: true}));
     return widget;
@@ -81,10 +81,10 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
    * @returns {widget: HTMLDivElement, fields: HTMLDivElement}
    */
   static #createDefenseWidget(field, groupConfig, inputConfig, config) {
-    const widget = ArmorSheet._createElement("div", {className: "form-group slim defense"});
-    widget.appendChild(ArmorSheet._createElement("label", {innerText: field.label}));
-    const fields = widget.appendChild(ArmorSheet._createElement("div", {className: "form-fields"}));
-    fields.appendChild(ArmorSheet._createElement("label", {innerText: field.fields.base.label}));
+    const widget = CrucibleArmorItemSheet._createElement("div", {className: "form-group slim defense"});
+    widget.appendChild(CrucibleArmorItemSheet._createElement("label", {innerText: field.label}));
+    const fields = widget.appendChild(CrucibleArmorItemSheet._createElement("div", {className: "form-fields"}));
+    fields.appendChild(CrucibleArmorItemSheet._createElement("label", {innerText: field.fields.base.label}));
     fields.appendChild(field.fields.base.toInput({value: inputConfig.value.base}));
     return {widget, fields}
   }

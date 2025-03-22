@@ -204,14 +204,14 @@ export default class CrucibleTalentNode {
    * This method only verifies node state independent of other nodes.
    * It does not, therefore, know whether a node is accessible.
    * @param {CrucibleActor} actor
-   * @param {Object<number,Set<CrucibleTalent>>} [signatures]
+   * @param {Object<number,Set<CrucibleTalentItem>>} [signatures]
    * @returns {CrucibleTalentNodeState}
    */
   getState(actor, signatures) {
     signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
     const purchased = this._isPurchased(actor);
     const banned = this.#isBanned(actor, signatures);
-    const unlocked = Object.values(CrucibleTalent.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    const unlocked = Object.values(CrucibleTalentItem.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
     return {accessible: undefined, purchased, banned, unlocked};
   }
 
@@ -233,7 +233,7 @@ export default class CrucibleTalentNode {
    * Is a signature node banned because the user has selected some other Signature node which shares an ability score.
    * Nodes which have been purchased have already been categorized as purchased.
    * @param {CrucibleActor} actor
-   * @param {Object<number,Set<CrucibleTalent>>} signatures
+   * @param {Object<number,Set<CrucibleTalentItem>>} signatures
    * @returns {boolean}
    */
   #isBanned(actor, signatures) {

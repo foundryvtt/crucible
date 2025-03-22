@@ -28,12 +28,6 @@ import * as grid from "./module/canvas/grid.mjs";
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
 import Enum from "./module/config/enum.mjs";
-import CrucibleTaxonomyItemSheet from "./module/applications/sheets/item-taxonomy-sheet.mjs";
-import CrucibleArmorItem from "./module/models/item-armor.mjs";
-import CrucibleSpellItem from "./module/models/item-spell.mjs";
-import CrucibleTalentItem from "./module/models/item-talent.mjs";
-import CrucibleSpellcraftRune from "./module/models/spellcraft-rune.mjs";
-import CrucibleSpellcraftInflection from "./module/models/spellcraft-inflection.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -106,21 +100,20 @@ Hooks.once("init", async function() {
 
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
-  sheets.unregisterSheet(Actor, "core", ActorSheet);
+  sheets.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);
   sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
   sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
   sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
 
-  sheets.unregisterSheet(Item, "core", ItemSheet);
+  sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
-  // TODO rename classes
-  sheets.registerSheet(Item, SYSTEM.id, applications.ArmorSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.SpellSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.TalentSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
-  sheets.registerSheet(Item, SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
   sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {types: ["skill"], label: "CRUCIBLE.SHEETS.Skill", makeDefault: true});
@@ -356,29 +349,14 @@ Hooks.on("getSceneControlButtons", controls => {
     toggle: true,
     active: false
   };
-  if ( game.release.generation >= 13 ) {
-    flankingTool.onChange = (_event, active) => {
-      CONFIG.debug.flanking = active
-      for ( const token of canvas.tokens.controlled ) {
-        if ( active ) token._visualizeEngagement(token.engagement);
-        else token._clearEngagementVisualization();
-      }
+  flankingTool.onChange = (_event, active) => {
+    CONFIG.debug.flanking = active
+    for ( const token of canvas.tokens.controlled ) {
+      if ( active ) token._visualizeEngagement(token.engagement);
+      else token._clearEngagementVisualization();
     }
-    controls.tokens.tools.debugFlanking = flankingTool;
   }
-
-  // TODO remove when V12 is no longer supported
-  else {
-    flankingTool.onClick = active => {
-      CONFIG.debug.flanking = active
-      for ( const token of canvas.tokens.controlled ) {
-        if ( active ) token._visualizeEngagement(token.engagement);
-        else token._clearEngagementVisualization();
-      }
-    }
-    const tokens = controls.find(c => c.name === "token");
-    tokens.tools.push(flankingTool);
-  }
+  controls.tokens.tools.debugFlanking = flankingTool;
 });
 
 /* -------------------------------------------- */
@@ -454,14 +432,14 @@ async function standardizeItemIds() {
 }
 
 function registerDevelopmentHooks() {
-  Hooks.on("preCreateItem", (item, data, options, user) => {
+  Hooks.on("preCreateItem", (item, data, options, _user) => {
     if ( !item.parent && !item.id ) {
       item.updateSource({_id: generateId(item.name, 16)});
       options.keepId = true;
     }
   });
 
-  Hooks.on("updateItem", async (item, change, options, user) => {
+  Hooks.on("updateItem", async (item, _change, _options, _user) => {
     const talentPacks = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     if ( !talentPacks.includes(item.pack)  ) return;
     await CrucibleTalentNode.initialize();

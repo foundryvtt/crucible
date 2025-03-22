@@ -413,7 +413,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Add a new hooked function to this Talent.
-   * @this {TalentSheet}
+   * @this {CrucibleTalentItemSheet}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
@@ -433,7 +433,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Delete a hooked function from this Talent.
-   * @this {TalentSheet}
+   * @this {CrucibleTalentItemSheet}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */

@@ -3,7 +3,7 @@ import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "weapon" type.
  */
-export default class WeaponSheet extends CrucibleBaseItemSheet {
+export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {

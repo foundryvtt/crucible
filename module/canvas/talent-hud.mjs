@@ -2,7 +2,7 @@ import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentItem from "../models/item-talent.mjs";
-import TalentSheet from "../applications/sheets/talent.mjs";
+import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 
 /**
  * An Application instance that renders a HUD tooltip in the CrucibleTalentTree
@@ -60,7 +60,7 @@ export default class CrucibleTalentHUD extends Application {
     return {
       id: node.id,
       tags,
-      prerequisites: CrucibleTalent.testPrerequisites(actor, reqs)
+      prerequisites: CrucibleTalentItem.testPrerequisites(actor, reqs)
     };
   }
 
@@ -76,7 +76,7 @@ export default class CrucibleTalentHUD extends Application {
     const node = talent.system.node;
 
     // Talent Tags
-    const reqs = CrucibleTalent.testPrerequisites(actor, talent.system.prerequisites);
+    const reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites);
     const state = game.system.tree.state.get(node);
 
     // Banned Signature
@@ -87,7 +87,7 @@ export default class CrucibleTalentHUD extends Application {
     // Return context
     return {
       source: talent.toObject(),
-      actions: TalentSheet.prepareActions(talent.system.actions),
+      actions: CrucibleTalentItemSheet.prepareActions(talent.system.actions),
       prerequisites: reqs
     }
   }
