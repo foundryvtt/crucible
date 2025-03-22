@@ -36,13 +36,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * A template path used to render a single action.
    * @type {string}
    */
-  static ACTION_PARTIAL = "systems/crucible/templates/sheets/partials/included-action.hbs";
+  static ACTION_PARTIAL = "systems/crucible/templates/sheets/item/included-action.hbs";
 
   /** @override */
   static PARTS = {
     header: {
       id: "header",
-      template: "systems/crucible/templates/sheets/partials/item-header.hbs"
+      template: "systems/crucible/templates/sheets/item/item-header.hbs"
     },
     tabs: {
       id: "tabs",
@@ -50,11 +50,11 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
+      template: "systems/crucible/templates/sheets/item/item-description.hbs"
     },
     secrets: { // Used by hasAdvancedDescription
       id: "secrets",
-      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
+      template: "systems/crucible/templates/sheets/item/item-description.hbs"
     },
     config: {
       id: "config",
@@ -91,13 +91,13 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
     // Item Type Configuration
     this.DEFAULT_OPTIONS.classes = [this.DEFAULT_OPTIONS.item.type];
-    this.PARTS.config.template = `systems/crucible/templates/sheets/partials/${item.type}-config.hbs`;
+    this.PARTS.config.template = `systems/crucible/templates/sheets/item/${item.type}-config.hbs`;
 
     // Includes Actions
     if ( item.includesActions ) {
       this.PARTS.actions = {
         id: "actions",
-        template: "systems/crucible/templates/sheets/partials/item-actions.hbs",
+        template: "systems/crucible/templates/sheets/item/item-actions.hbs",
         templates: [this.ACTION_PARTIAL]
       }
       this.TABS.sheet.push({id: "actions", group: "sheet", icon: "fa-solid fa-bullseye", label: "ITEM.TABS.ACTIONS"});
@@ -107,7 +107,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( item.includesHooks ) {
       this.PARTS.hooks = {
         id: "hooks",
-        template: "systems/crucible/templates/sheets/partials/item-hooks.hbs"
+        template: "systems/crucible/templates/sheets/item/item-hooks.hbs"
       }
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
     }

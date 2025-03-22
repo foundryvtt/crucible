@@ -20,14 +20,14 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * The template partial used to render an included talent.
    * @type {string}
    */
-  static INCLUDED_TALENT_TEMPLATE = "systems/crucible/templates/sheets/partials/included-talent.hbs";
+  static INCLUDED_TALENT_TEMPLATE = "systems/crucible/templates/sheets/item/included-talent.hbs";
 
   /** @override */
   static PARTS = {
     ...super.PARTS,
     talents: {
       id: "talents",
-      template: "systems/crucible/templates/sheets/partials/item-talents.hbs",
+      template: "systems/crucible/templates/sheets/item/item-talents.hbs",
       templates: [this.INCLUDED_TALENT_TEMPLATE],
       scrollable: [".talents-list"]
     }

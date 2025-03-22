@@ -1735,13 +1735,17 @@
   padding: 0.25rem;
   border: 1px solid var(--color-frame);
   border-radius: 6px;
+  text-align: center;
 }
 .crucible.archetype .abilities .form-fields input,
 .crucible.taxonomy .abilities .form-fields input,
 .crucible.archetype .resistances .form-fields input,
 .crucible.taxonomy .resistances .form-fields input {
+  --input-height: 24px;
   --input-border-color: transparent;
+  margin-bottom: 0.25rem;
   font-size: var(--font-size-18);
+  text-align: center;
 }
 .crucible.archetype .abilities .sum,
 .crucible.taxonomy .abilities .sum,

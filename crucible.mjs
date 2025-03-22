@@ -251,7 +251,7 @@ Hooks.once("i18nInit", function() {
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`
+    `systems/${SYSTEM.id}/templates/sheets/item/talent-summary.hbs`
   ]);
 });
 
