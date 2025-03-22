@@ -329,7 +329,7 @@ export const UNARMED_DATA = {
 
 /**
  * A special weapon configuration used for Nosferatu bite attack.
- * @type {CrucibleWeapon}
+ * @type {CrucibleWeaponItem}
  */
 export const VAMPIRE_BITE = {
   name: "Vampire Bite",

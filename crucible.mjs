@@ -29,6 +29,9 @@ import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
 import Enum from "./module/config/enum.mjs";
 import CrucibleTaxonomyItemSheet from "./module/applications/sheets/item-taxonomy-sheet.mjs";
+import CrucibleArmorItem from "./module/models/item-armor.mjs";
+import CrucibleSpellItem from "./module/models/item-spell.mjs";
+import CrucibleTalentItem from "./module/models/item-talent.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -78,12 +81,12 @@ Hooks.once("init", async function() {
   CONFIG.Item.dataModels = {
     ancestry: models.CrucibleAncestryItem,
     archetype: models.CrucibleArchetypeItem,
-    armor: models.CrucibleArmor,
+    armor: models.CrucibleArmorItem,
     background: models.CrucibleBackgroundItem,
-    spell: models.CrucibleSpell,
-    talent: models.CrucibleTalent,
+    spell: models.CrucibleSpellItem,
+    talent: models.CrucibleTalentItem,
     taxonomy: models.CrucibleTaxonomyItem,
-    weapon: models.CrucibleWeapon
+    weapon: models.CrucibleWeaponItem
   };
 
   // JournalEntryPage document configuration

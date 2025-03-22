@@ -8,16 +8,16 @@ export {default as CrucibleGroupActor} from "./actor-group.mjs";
 
 // Items
 export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
-export {default as CrucibleBackgroundItem} from "./item-background.mjs";
 export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";
-export {default as CrucibleArmor} from "./armor.mjs";
+export {default as CrucibleArmorItem} from "./item-armor.mjs";
+export {default as CrucibleBackgroundItem} from "./item-background.mjs";
 export {default as CrucibleGesture} from "./gesture.mjs";
 export {default as CrucibleInflection} from "./inflection.mjs";
+export {default as CruciblePhysicalItem} from "./item-physical.mjs"
 export {default as CrucibleRune} from "./rune.mjs";
 export {default as CrucibleSkill} from "./skill.mjs";
-export {default as CrucibleSpell} from "./spell.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";
-export {default as CrucibleTalent} from "./talent.mjs";
+export {default as CrucibleSpellItem} from "./item-spell.mjs";
+export {default as CrucibleTalentItem} from "./item-talent.mjs";
 export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
-export {default as CrucibleWeapon} from "./weapon.mjs";
-export {default as CruciblePhysicalItem} from "./physical.mjs"
+export {default as CrucibleWeaponItem} from "./item-weapon.mjs";

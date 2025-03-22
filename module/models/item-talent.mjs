@@ -42,7 +42,7 @@ import CrucibleTalentNode from "../config/talent-tree.mjs";
  * @property {TalentRankData} nextRank                The next rank in this talent
  * @property {AdvancementPrerequisites} prerequisites The derived prerequisites required for this rank
  */
-export default class CrucibleTalent extends foundry.abstract.TypeDataModel {
+export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static defineSchema() {

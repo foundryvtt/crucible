@@ -1,10 +1,10 @@
-import CruciblePhysicalItem from "./physical.mjs";
+import CruciblePhysicalItem from "./item-physical.mjs";
 import { SYSTEM } from "../config/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Armor type Items.
  */
-export default class CrucibleArmor extends CruciblePhysicalItem {
+export default class CrucibleArmorItem extends CruciblePhysicalItem {
 
   /** @override */
   static ITEM_CATEGORIES = SYSTEM.ARMOR.CATEGORIES;

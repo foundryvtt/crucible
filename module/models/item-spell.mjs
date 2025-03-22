@@ -3,7 +3,7 @@ import CrucibleAction from "./action.mjs";
 /**
  * An Item subtype that defines an Iconic Spell composition.
  */
-export default class CrucibleSpell extends foundry.abstract.TypeDataModel {
+export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static defineSchema() {

@@ -1,4 +1,4 @@
-import CrucibleTalent from "../models/talent.mjs";
+import CrucibleTalentItem from "../models/item-talent.mjs";
 import {ABILITIES} from "./attributes.mjs";
 
 export default class CrucibleTalentNode {

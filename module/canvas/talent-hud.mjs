@@ -1,7 +1,7 @@
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
-import CrucibleTalent from "../models/talent.mjs";
+import CrucibleTalentItem from "../models/item-talent.mjs";
 import TalentSheet from "../applications/sheets/talent.mjs";
 
 /**
