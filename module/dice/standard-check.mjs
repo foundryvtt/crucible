@@ -218,17 +218,6 @@ export default class StandardCheck extends Roll {
 
   /* -------------------------------------------- */
 
-  /**
-   * FIXME remove this override in v13+
-   * @override
-   */
-  async render(chatOptions) {
-    const chatData = await this._prepareChatRenderContext(chatOptions);
-    return renderTemplate(this.constructor.CHAT_TEMPLATE, chatData);
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
   async _prepareChatRenderContext({flavor, isPrivate=false}={}) {
     const cardData = {

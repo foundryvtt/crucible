@@ -47,16 +47,6 @@ export default class CrucibleTokenObject extends Token {
 
   /* -------------------------------------------- */
 
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
-  _drawTarget(options={}) {
-    return super._drawTarget({...options, size: 0.5});
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
   drawBars() {
     super.drawBars();
@@ -71,16 +61,13 @@ export default class CrucibleTokenObject extends Token {
 
   /* -------------------------------------------- */
 
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
+  /** @override */
   _drawBar(number, bar, data) {
     const val = Number(data.value);
     const pct = Math.clamp(val, 0, data.max) / data.max;
 
     // Determine sizing
-    const {width, height} = this.getSize();
+    const {width, height} = this.document.getSize();
     const bw = width;
     const bh = number === 0 ? 8 : 6;
     const bs = 1;
@@ -131,40 +118,6 @@ export default class CrucibleTokenObject extends Token {
       r.drawCircle(width - 6 - (i * 10), height - 14, 3);
     }
     r.endFill();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
-  _refreshEffects() {
-    let i = 0;
-    const size = Math.round(canvas.scene._source.grid.size / 10) * 2; // Unmodified grid size
-    const rows = Math.floor(this.h / size);
-    const bg = this.effects.bg.clear().beginFill(0x000000, 0.40).lineStyle(1.0, 0x000000);
-    for ( const effect of this.effects.children ) {
-      if ( effect === bg ) continue;
-
-      // Overlay effect
-      if ( effect === this.effects.overlay ) {
-        const {width, height} = this.getSize();
-        const size = Math.min(width * 0.6, height * 0.6);
-        effect.width = effect.height = size;
-        effect.position = this.getCenterPoint({x: 0, y: 0});
-        effect.anchor.set(0.5, 0.5);
-      }
-
-      // Status effect
-      else {
-        effect.width = effect.height = size;
-        effect.x = Math.floor(i / rows) * size;
-        effect.y = (i % rows) * size;
-        bg.drawRoundedRect(effect.x + 1, effect.y + 1, size - 2, size - 2, 2);
-        i++;
-      }
-    }
   }
 
   /* -------------------------------------------- */

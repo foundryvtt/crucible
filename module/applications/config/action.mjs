@@ -26,7 +26,6 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
     tag: "form",
     position: {width: 600, height: "auto"},
     actions: {
-      editImage: ActionConfig.#onEditImage,
       addEffect: ActionConfig.#onAddEffect,
       deleteEffect: ActionConfig.#onDeleteEffect,
       addHook: ActionConfig.#onAddHook,
@@ -285,34 +284,6 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
-  /* -------------------------------------------- */
-
-  /**
-   * Edit the Action image.
-   * TODO Port this to DocumentSheetV2 and remove this in V13.
-   * @this {ActionConfig}
-   * @param {PointerEvent} event
-   * @returns {Promise<void>}
-   */
-  static async #onEditImage(event) {
-    const attr = event.target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document, attr);
-    const fp = new FilePicker({
-      current,
-      type: "image",
-      callback: path => {
-        event.target.src = path;
-        if ( this.options.form.submitOnChange ) {
-          const submit = new Event("submit");
-          this.element.dispatchEvent(submit);
-        }
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10
-    });
-    await fp.browse();
-  }
-
   /* -------------------------------------------- */
 
   /**

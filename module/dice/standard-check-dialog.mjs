@@ -131,10 +131,6 @@ export default class StandardCheckDialog extends DialogV2 {
   _onRender(_context, _options) {
     const form = this.element.querySelector("form.window-content");
     form.addEventListener("submit", event => this._onSubmit(event.submitter, event));
-    // TODO this should be removed in V13 when form.window-content is supported natively
-    if ( game.release.generation < 13 ) {
-      form.addEventListener("change", this._onChangeForm.bind(this, this.options.form));
-    }
   }
 
   /* -------------------------------------------- */
