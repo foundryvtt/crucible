@@ -10,8 +10,14 @@ export default class WeaponSheet extends CrucibleBaseItemSheet {
     item: {
       type: "weapon",
       includesActions: true,
-      advancedDescription: true
+      hasAdvancedDescription: true
     }
+  };
+
+  /** @inheritDoc */
+  static PARTS = {
+    ...super.PARTS,
+
   };
 
   // Initialize subclass options

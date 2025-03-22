@@ -6,10 +6,8 @@
 .crucible.sheet.actor {
   --sidebar-width: 200px;
   --profile-size: 200px;
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
   --sheet-header-height: 40px;
-
+  --sheet-body-gap: 1.5rem;
   overflow: visible;
 
   .window-content {
@@ -40,15 +38,19 @@
     flex-direction: column;
     justify-content: flex-start;
     flex: 1;
-    gap: var(--sheet-body-gap);
     height: 100%;
+    padding: 0;
   }
 
   .tab {
     flex: 1;
     position: relative;
-    padding: 1.5rem 0 1rem;
-    gap: 1.5rem;
+    gap: var(--sheet-body-gap);
+    padding-top: 1rem;
+    margin-top: -1rem;
+    &.scrollable {
+      padding-right: calc(1rem - var(--scroll-margin));
+    }
   }
 
   // Icon buttons

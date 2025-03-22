@@ -10,7 +10,7 @@ export default class ArmorSheet extends CrucibleBaseItemSheet {
     item: {
       type: "armor",
       includesActions: true,
-      advancedDescription: true
+      hasAdvancedDescription: true
     }
   };
 

@@ -18,7 +18,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
       description: new fields.SchemaField({
         public: new fields.HTMLField(),
-        secret: new fields.HTMLField()
+        private: new fields.HTMLField()
       }),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction))
     }

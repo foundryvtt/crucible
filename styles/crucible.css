@@ -453,6 +453,8 @@
   --color-form-hint-hover: var(--color-secondary);
   --background-texture: url("../ui/journal/background-texture.webp");
   --background-overlay: url("../ui/journal/overlay-dark.webp");
+  --margin-size: 1rem;
+  --margin-half: 0.5rem;
   background: var(--background-texture) no-repeat;
   background-size: cover;
   gap: 0;
@@ -525,10 +527,39 @@
   --button-text-color: var(--color-secondary);
   opacity: 1;
 }
+.crucible.application prose-mirror {
+  height: 100%;
+  max-height: 600px;
+  min-height: 200px;
+}
+.crucible.application prose-mirror[toggled] {
+  position: relative;
+  padding: var(--margin-size);
+  margin: calc(-1 * var(--margin-size));
+}
+.crucible.application prose-mirror[toggled] button.toggle {
+  position: absolute;
+  top: 12px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+.crucible.application prose-mirror[toggled] button.toggle:disabled {
+  visibility: hidden;
+}
 .crucible.application prose-mirror button {
   padding: revert;
   text-align: revert;
   opacity: revert;
+}
+.crucible.application prose-mirror .editor-container {
+  margin: 0;
+}
+.crucible.application prose-mirror .editor-content,
+.crucible.application article.editor-content {
+  overflow: hidden auto;
+  font-size: var(--font-size-14);
 }
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -536,7 +567,7 @@
 .crucible.sheet {
   --sheet-header-height: 80px;
   --sheet-header-gap: 0.5rem 0.5rem;
-  --sheet-body-gap: 1.5rem;
+  --sheet-body-gap: 0.5rem 1rem;
 }
 .crucible.sheet .sheet-header {
   gap: var(--sheet-header-gap);
@@ -577,7 +608,8 @@
   color: var(--color-secondary);
 }
 .crucible.sheet .sheet-body {
-  gap: 1rem;
+  padding: var(--sheet-body-gap);
+  gap: var(--sheet-body-gap);
 }
 .crucible.sheet fieldset {
   display: flex;
@@ -602,27 +634,6 @@
 }
 .crucible.sheet .form-group.slim .form-fields input {
   text-align: center;
-}
-.crucible.sheet prose-mirror {
-  height: 100%;
-  max-height: 600px;
-  min-height: 200px;
-  font-size: var(--font-size-14);
-  position: relative;
-}
-.crucible.sheet prose-mirror button.toggle {
-  position: absolute;
-  top: -12px;
-  right: -12px;
-}
-.crucible.sheet prose-mirror button.toggle:disabled {
-  visibility: hidden;
-}
-.crucible.sheet prose-mirror .editor-container {
-  margin: 0;
-}
-.crucible.sheet prose-mirror .editor-content {
-  overflow: hidden auto;
 }
 /* ----------------------------------------- */
 /*  Line Items: Actions, Talents, etc...     */
@@ -719,9 +730,8 @@
 .crucible.sheet.actor {
   --sidebar-width: 200px;
   --profile-size: 200px;
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
   --sheet-header-height: 40px;
+  --sheet-body-gap: 1.5rem;
   overflow: visible;
   /* ----------------------------------------- */
   /*  General Styles                           */
@@ -775,14 +785,18 @@
   flex-direction: column;
   justify-content: flex-start;
   flex: 1;
-  gap: var(--sheet-body-gap);
   height: 100%;
+  padding: 0;
 }
 .crucible.sheet.actor .tab {
   flex: 1;
   position: relative;
-  padding: 1.5rem 0 1rem;
-  gap: 1.5rem;
+  gap: var(--sheet-body-gap);
+  padding-top: 1rem;
+  margin-top: -1rem;
+}
+.crucible.sheet.actor .tab.scrollable {
+  padding-right: calc(1rem - var(--scroll-margin));
 }
 .crucible.sheet.actor a.button.icon {
   flex: none;
@@ -1648,13 +1662,7 @@
 /* ----------------------------------------- */
 .crucible.item,
 .crucible.action {
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
   /** Talent Progression Items */
-}
-.crucible.item .sheet-body,
-.crucible.action .sheet-body {
-  padding: var(--margin-size);
 }
 .crucible.item .item-properties,
 .crucible.action .item-properties {
@@ -1705,19 +1713,6 @@
 .crucible.weapon .item-equipment .reload,
 .crucible.armor .item-equipment .reload {
   grid-column: 2;
-}
-.crucible.weapon .tab[data-tab=description],
-.crucible.armor .tab[data-tab=description] {
-  padding: 0;
-  gap: 0;
-}
-.crucible.weapon .tab[data-tab=description] .sheet-tabs,
-.crucible.armor .tab[data-tab=description] .sheet-tabs {
-  border-top: none;
-}
-.crucible.weapon .tab[data-tab=description] section.tab,
-.crucible.armor .tab[data-tab=description] section.tab {
-  padding: 1rem;
 }
 /** ----------------------------------------- *
  *  Archetype Sheet                           *

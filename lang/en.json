@@ -625,7 +625,7 @@
         "label": "Public Description",
         "hint": "A description of this item which is visible to any user with at least OBSERVER permission."
       },
-      "secret": {
+      "private": {
         "label": "Secret Description",
         "hint": "A description of this item which is only visible to Gamemaster users."
       }
@@ -639,8 +639,7 @@
     "ACTIONS": "Actions",
     "DESCRIPTION": "Description",
     "HOOKS": "Hooks",
-    "PUBLIC": "Public Description",
-    "SECRET": "Secret Description",
+    "SECRETS": "Secrets",
     "TALENTS": "Talents"
   },
   "SHEET": {

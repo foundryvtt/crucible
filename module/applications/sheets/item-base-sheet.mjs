@@ -28,7 +28,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       type: undefined, // Defined by subclass
       includesActions: false,
       includesHooks: false,
-      advancedDescription: false
+      hasAdvancedDescription: false
     }
   };
 
@@ -52,6 +52,10 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       id: "description",
       template: "systems/crucible/templates/sheets/partials/item-description.hbs"
     },
+    secrets: { // Used by hasAdvancedDescription
+      id: "secrets",
+      template: "systems/crucible/templates/sheets/partials/item-description.hbs"
+    },
     config: {
       id: "config",
       template: undefined // Populated during _initializeItemSheetClass
@@ -71,8 +75,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /** @override */
   tabGroups = {
-    sheet: "description",
-    description: "public" // Used by advancedDescription
+    sheet: "description"
   };
 
   /* -------------------------------------------- */
@@ -109,14 +112,12 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
     }
 
-    // Advanced Description
-    if ( item.advancedDescription ) {
-      this.PARTS.description.template = "systems/crucible/templates/sheets/partials/item-description-advanced.hbs";
-      this.TABS.description = [
-        {id: "public", group: "description", label: "ITEM.TABS.PUBLIC"},
-        {id: "secret", group: "description", label: "ITEM.TABS.SECRET"}
-      ];
+    // Advanced description
+    if ( item.hasAdvancedDescription ) {
+      this.TABS.sheet.splice(this.TABS.sheet.findIndex(t => t.id === "description") + 1, 0,
+        {id: "secrets", group: "sheet", icon: "fa-solid fa-user-secret", label: "ITEM.TABS.SECRETS"})
     }
+    else delete this.PARTS.secrets;
   }
 
   /* -------------------------------------------- */
@@ -160,10 +161,32 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actions = this.constructor.prepareActions(actions);
         break;
       case "description":
-        context.descriptionHTML = await TextEditor.enrichHTML(context.source.system.description, {
-          relativeTo: this.document,
-          secrets: this.document.isOwner
-        });
+        if ( this.options.item.hasAdvancedDescription ) {
+          const src = context.source.system.description.public;
+          context.description = {
+            tab: context.tabs.description,
+            field: context.fields.description.fields.public,
+            value: src,
+            html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+          }
+        } else {
+          const src = context.source.system.description;
+          context.description = {
+            tab: context.tabs.description,
+            field: context.fields.description,
+            value: src,
+            html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+          }
+        }
+        break;
+      case "secrets":
+        const src = context.source.system.description.private;
+        context.description = {
+          tab: context.tabs.secrets,
+          field: context.fields.description.fields.private,
+          value: src,
+          html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+        }
         break;
       case "hooks":
         context.actorHooks = this.#prepareActorHooks();

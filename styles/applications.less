@@ -11,6 +11,8 @@
   --color-form-hint-hover: var(--color-secondary);
   --background-texture: url("../ui/journal/background-texture.webp");
   --background-overlay: url("../ui/journal/overlay-dark.webp");
+  --margin-size: 1rem;
+  --margin-half: 0.5rem;
 
   background: var(--background-texture) no-repeat;
   background-size: cover;
@@ -82,10 +84,47 @@
     opacity: 1.0;
   }
 
-  prose-mirror button {
-    padding: revert;
-    text-align: revert;
-    opacity: revert;
+  // Text Editors
+  prose-mirror {
+    height: 100%;
+    max-height: 600px;
+    min-height: 200px;
+
+    // Toggled editors
+    &[toggled] {
+      position: relative;
+      padding: var(--margin-size);
+      margin: calc(-1 * var(--margin-size)); // Allow for limited overflow
+      button.toggle {
+        position: absolute;
+        top: 12px;
+        right: 4px;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        &:disabled {
+          visibility: hidden;
+        }
+      }
+    }
+
+    // Menu buttons
+    button {
+      padding: revert;
+      text-align: revert;
+      opacity: revert;
+    }
+
+    // Contents
+    .editor-container {
+      margin: 0;
+    }
+  }
+
+  prose-mirror .editor-content,
+  article.editor-content {
+    overflow: hidden auto;
+    font-size: var(--font-size-14);
   }
 }
 
@@ -96,7 +135,7 @@
 .crucible.sheet {
   --sheet-header-height: 80px;
   --sheet-header-gap: 0.5rem 0.5rem;
-  --sheet-body-gap: 1.5rem;
+  --sheet-body-gap: 0.5rem 1rem;
 
   // Sheet Header
   .sheet-header {
@@ -147,7 +186,8 @@
 
   // Sheet Body
   .sheet-body {
-    gap: 1rem;
+    padding: var(--sheet-body-gap);
+    gap: var(--sheet-body-gap);
   }
 
   // Form Elements
@@ -178,29 +218,6 @@
           text-align: center;
         }
       }
-    }
-  }
-
-  // Text Editors
-  prose-mirror {
-    height: 100%;
-    max-height: 600px;
-    min-height: 200px;
-    font-size: var(--font-size-14);
-    position: relative;
-    button.toggle {
-      position: absolute;
-      top: -12px;
-      right: -12px;
-      &:disabled {
-        visibility: hidden;
-      }
-    }
-    .editor-container {
-      margin: 0;
-    }
-    .editor-content {
-      overflow: hidden auto;
     }
   }
 }

@@ -6,13 +6,6 @@
 
 .crucible.item,
 .crucible.action {
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
-
-  .sheet-body {
-    padding: var(--margin-size);
-  }
-
   .item-properties {
     display: grid;
     gap: 0.5rem 1rem;
@@ -63,18 +56,6 @@
     }
     .reload {
       grid-column: 2;
-    }
-  }
-
-  // Tabbed descriptions
-  .tab[data-tab=description] {
-    padding: 0;
-    gap: 0;
-    .sheet-tabs {
-      border-top: none;
-    }
-    section.tab {
-      padding: 1rem;
     }
   }
 }
