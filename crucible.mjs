@@ -32,6 +32,8 @@ import CrucibleTaxonomyItemSheet from "./module/applications/sheets/item-taxonom
 import CrucibleArmorItem from "./module/models/item-armor.mjs";
 import CrucibleSpellItem from "./module/models/item-spell.mjs";
 import CrucibleTalentItem from "./module/models/item-talent.mjs";
+import CrucibleSpellcraftRune from "./module/models/spellcraft-rune.mjs";
+import CrucibleSpellcraftInflection from "./module/models/spellcraft-inflection.mjs";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -91,7 +93,7 @@ Hooks.once("init", async function() {
 
   // JournalEntryPage document configuration
   Object.assign(CONFIG.JournalEntryPage.dataModels, {
-    "skill": models.CrucibleSkill
+    "skill": models.CrucibleSkillPage
   });
 
   // Other Document Configuration
@@ -245,9 +247,9 @@ Hooks.once("i18nInit", function() {
   preLocalizeConfig();
 
   // Initialize Spellcraft Components
-  models.CrucibleGesture.initialize();
-  models.CrucibleInflection.initialize();
-  models.CrucibleRune.initialize();
+  models.CrucibleSpellcraftGesture.initialize();
+  models.CrucibleSpellcraftInflection.initialize();
+  models.CrucibleSpellcraftRune.initialize();
 
   // Preload Handlebars Templates
   foundry.applications.handlebars.loadTemplates([
@@ -291,7 +293,7 @@ function preLocalizeConfig() {
 Hooks.once("setup", function() {
 
   // Initialize Skill Data
-  models.CrucibleSkill.initialize();
+  models.CrucibleSkillPage.initialize();
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();

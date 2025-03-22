@@ -1,7 +1,7 @@
 /**
  * The data structure and functionality of a Metamagic Inflection in the Crucible spellcraft system.
  */
-export default class CrucibleInflection extends foundry.abstract.DataModel {
+export default class CrucibleSpellcraftInflection extends foundry.abstract.DataModel {
   constructor({hooks={}, ...data}, options) {
     super(data, options);
     this.hooks = Object.freeze(hooks);
@@ -44,7 +44,7 @@ export default class CrucibleInflection extends foundry.abstract.DataModel {
   static initialize() {
     const inflections = SYSTEM.SPELL.INFLECTIONS;
     for ( const [k, v] of Object.entries(inflections) ) {
-      inflections[k] = new CrucibleInflection(v);
+      inflections[k] = new CrucibleSpellcraftInflection(v);
     }
     Object.freeze(inflections);
   }

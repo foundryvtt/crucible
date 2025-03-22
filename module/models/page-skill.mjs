@@ -3,7 +3,7 @@ import * as SKILL from "../config/skills.mjs";
 /**
  * A JournalEntryPage data model for the Skill page type.
  */
-export default class CrucibleSkill extends foundry.abstract.TypeDataModel {
+export default class CrucibleSkillPage extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static defineSchema() {

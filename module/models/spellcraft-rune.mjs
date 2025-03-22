@@ -1,7 +1,7 @@
 /**
  * The data structure and functionality of an Arcane Rune in the Crucible spellcraft system.
  */
-export default class CrucibleRune extends foundry.abstract.DataModel {
+export default class CrucibleSpellcraftRune extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -39,7 +39,7 @@ export default class CrucibleRune extends foundry.abstract.DataModel {
   static initialize() {
     const runes = SYSTEM.SPELL.RUNES;
     for ( const [k, v] of Object.entries(runes) ) {
-      runes[k] = new CrucibleRune(v);
+      runes[k] = new CrucibleSpellcraftRune(v);
     }
     Object.freeze(runes);
   }

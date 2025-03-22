@@ -513,9 +513,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Format categories of the spells tab.
    * @param {{label: string, items: CrucibleItem[]}} iconicSpells
    * @returns {{
-   *  runes: {label: string, known: Set<CrucibleRune>},
-   *  inflections: {label: string, known: Set<CrucibleInflection>},
-   *  gestures: {label: string, known: Set<CrucibleGesture>}
+   *  runes: {label: string, known: Set<CrucibleSpellcraftRune>},
+   *  inflections: {label: string, known: Set<CrucibleSpellcraftInflection>},
+   *  gestures: {label: string, known: Set<CrucibleSpellcraftGesture>}
    * }}
    */
   #prepareSpells(iconicSpells) {

@@ -65,9 +65,9 @@ export default class CrucibleActor extends Actor {
   /**
    * The spellcraft components known by this Actor
    * @type {{
-   *   runes: Set<CrucibleRune>,
-   *   inflections: Set<CrucibleInflection>,
-   *   gestures: Set<CrucibleGesture>,
+   *   runes: Set<CrucibleSpellcraftRune>,
+   *   inflections: Set<CrucibleSpellcraftInflection>,
+   *   gestures: Set<CrucibleSpellcraftGesture>,
    *   iconicSlots: number,
    *   iconicSpells: CrucibleItem[]
    * }}

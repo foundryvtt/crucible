@@ -3,7 +3,7 @@ import CrucibleAction from "./action.mjs";
 /**
  * The data structure and functionality of a Somatic Gesture in the Crucible spellcraft system.
  */
-export default class CrucibleGesture extends foundry.abstract.DataModel {
+export default class CrucibleSpellcraftGesture extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     const actionSchema = CrucibleAction.defineSchema();
@@ -42,7 +42,7 @@ export default class CrucibleGesture extends foundry.abstract.DataModel {
   static initialize() {
     const gestures = SYSTEM.SPELL.GESTURES;
     for ( const [k, v] of Object.entries(gestures) ) {
-      gestures[k] = new CrucibleGesture(v);
+      gestures[k] = new CrucibleSpellcraftGesture(v);
     }
     Object.freeze(gestures);
   }
