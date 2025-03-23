@@ -2,7 +2,7 @@ name: Heavy Strike
 type: talent
 img: icons/skills/melee/strike-hammer-destructive-blue.webp
 system:
-  node: str0
+  node: str0a
   description: >-
     <p>You know how to use a heavy weapon to deliver punishing blows, putting
     your entire strength behind every swing.</p>

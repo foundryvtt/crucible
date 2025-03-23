@@ -1,5 +1,5 @@
 import CrucibleAction from "./action.mjs";
-import CrucibleTalentNode from "../config/talent-tree.mjs";
+import CrucibleTalentNode from "../config/talent-node.mjs";
 
 /**
  * @typedef {Object} TalentData

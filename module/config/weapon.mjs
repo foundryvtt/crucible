@@ -26,7 +26,7 @@ export const CATEGORIES = {
     hands: 0,
     main: true,
     off: true,
-    scaling: "strength",
+    scaling: "strength.toughness",
     actionCost: 2,
     damage: 3,
     range: 1,

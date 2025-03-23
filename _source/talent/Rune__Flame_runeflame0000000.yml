@@ -2,7 +2,7 @@ name: 'Rune: Flame'
 type: talent
 img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
 system:
-  node: int0
+  node: int0a
   description: >-
     <p>The chaotic force of elemental, thermal energy. The Flame rune governs
     fire and heat. It is opposed by the orderly rune of Frost.</p>

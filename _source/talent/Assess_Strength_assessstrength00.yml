@@ -3,7 +3,7 @@ type: talent
 _id: assessstrength00
 img: icons/magic/fire/flame-burning-eye.webp
 system:
-  node: wis0
+  node: wis0a
   description: >-
     <p>You take a moment to observe a creature which you can see and develop
     intuition about its areas of strength.</p>

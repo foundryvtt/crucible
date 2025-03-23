@@ -2,7 +2,7 @@ name: Preparedness
 type: talent
 img: icons/sundries/survival/rope-wrapped-purple.webp
 system:
-  node: wis0
+  node: wis0a
   description: >-
     You seem to always be prepared for the moment at hand. You may sacrifice
     your free movement for the Round to instead equip an Item from your

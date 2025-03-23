@@ -3,7 +3,7 @@ type: talent
 _id: swipe00000000000
 img: icons/skills/melee/strike-axe-red.webp
 system:
-  node: str0
+  node: str0a
   description: >-
     You perform a broad swipe with your weapon, hitting two adjacent targets
     within your weapon range.

@@ -908,15 +908,16 @@
     "GROUP_PREPARATION": "Actor Data Preparation",
     "GROUP_ACTION": "Action Usage"
   },
-
-  "NodeAttack": "Attack",
-  "NodeDefault": "PLACEHOLDER",
-  "NodeDefense": "Defense",
-  "NodeHeal": "Healing",
-  "NodeMagic": "Magic",
-  "NodeMove": "Movement",
-  "NodeSignature": "Signature",
-  "NodeUtility": "Utility",
+  "NODES": {
+    "ATTACK": "Attack",
+    "DEFENSE": "Defense",
+    "HEALING": "Healing",
+    "SPELL": "Spellcraft",
+    "MOVEMENT": "Movement",
+    "UTILITY": "Utility",
+    "SIGNATURE": "Signature",
+    "TRAINING": "Training"
+  },
   "PointsAvailable": "Points Available"
 },
 

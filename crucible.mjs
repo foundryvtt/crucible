@@ -9,7 +9,7 @@
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
-import CrucibleTalentNode from "./module/config/talent-tree.mjs";
+import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
 // Import Modules
@@ -475,6 +475,7 @@ async function syncTalents(force=false) {
   if ( synced ) SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: 100});
   console.log(`Crucible | Complete talent synchronization for ${synced} Actors`);
   console.groupEnd();
+  foundry.utils.debouncedReload();
 }
 
 /* -------------------------------------------- */

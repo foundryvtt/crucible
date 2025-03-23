@@ -1,4 +1,4 @@
-import CrucibleTalentNode from "../config/talent-tree.mjs";
+import CrucibleTalentNode from "../config/talent-node.mjs";
 import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
@@ -207,9 +207,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
       "systems/crucible/ui/tree/wheel.webp"
     ];
     const varities = Object.keys(SYSTEM.ABILITIES).concat(["inactive"]);
-    for ( const nodeType in CrucibleTalentTreeNode.NODE_TYPES ) {
+    for ( const type of Object.values(SYSTEM.TALENT.NODE_TYPES) ) {
       for ( const variety of varities ) {
-        toLoad.push(`systems/crucible/ui/tree/nodes/${nodeType}-${variety}.webp`);
+        toLoad.push(`systems/crucible/ui/tree/nodes/${type.icon}-${variety}.webp`);
       }
     }
     return foundry.canvas.TextureLoader.loader.load(toLoad, {

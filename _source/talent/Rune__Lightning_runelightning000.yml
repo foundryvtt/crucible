@@ -2,7 +2,7 @@ name: 'Rune: Lightning'
 type: talent
 img: icons/magic/lightning/bolt-strike-blue.webp
 system:
-  node: int0
+  node: int0a
   description: >-
     <p>The chaotic force of raw, electrical energy. The Lightning rune governs
     sources of electrical energy and electrical discharge. It is opposed by the

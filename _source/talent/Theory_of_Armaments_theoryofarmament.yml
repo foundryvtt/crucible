@@ -3,7 +3,7 @@ type: talent
 _id: theoryofarmament
 img: icons/weapons/swords/sword-machete-white.webp
 system:
-  node: wis0
+  node: wis0a
   description: >-
     The theory and physics of combat are a matter of study for you. You gain a
     +1 Skill Bonus to attacks using weapons in the <strong>Balanced</strong> or

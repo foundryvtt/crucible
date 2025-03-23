@@ -1,12 +1,30 @@
 import CrucibleTalentItem from "../models/item-talent.mjs";
 import {ABILITIES} from "./attributes.mjs";
 
+/**
+ * @typedef TalentNodeConfig
+ * @property {string} id
+ * @property {number} tier
+ * @property {string} type
+ * @property {string[]} abilities
+ * @property {string[]} connected
+ * @property {null|Record<string, {abilities: string[], teleport: string}>} group
+ * @property {Point} [point]
+ */
+
+/**
+ * A class which manages the data structure for each node on the Crucible talent tree.
+ */
 export default class CrucibleTalentNode {
-  constructor({id, tier=0, type="choice", abilities=[], angle, distance=200, connected=[], groups=null, point}={}) {
-    if ( CrucibleTalentNode.#nodes.has(id) ) {
-      throw new Error(`CrucibleTalentNode id "${id}" is already defined.`);
+  /**
+   * Construct a talent node by providing its configuration data.
+   * @param {TalentNodeConfig} config
+   */
+  constructor(config) {
+    if ( CrucibleTalentNode.#nodes.has(config.id) ) {
+      throw new Error(`CrucibleTalentNode id "${config.id}" is already defined.`);
     }
-    this.#initializeNode({id, tier, type, abilities, angle, distance, connected, point, groups});
+    this.#initializeNode(config);
   }
 
   static #counters = {};
@@ -18,28 +36,6 @@ export default class CrucibleTalentNode {
     3: 3,
     4: 5,
   });
-
-  static TIER_ANGLES = {
-    0: 60,
-    1: 20,
-    2: 15,
-    3: 15,
-    4: 12
-  };
-
-  /**
-   * TODO remove this
-   */
-  static SIGNATURE_GROUPS = {
-    3: {
-      dexterity: "sig3.dexterity",
-      toughness: "sig3.toughness",
-      strength: "sig3.strength",
-      wisdom: "sig3.wisdom",
-      presence: "sig3.presence",
-      intellect: "sig3.intellect"
-    }
-  }
 
   /* -------------------------------------------- */
 
@@ -143,22 +139,45 @@ export default class CrucibleTalentNode {
 
   /* -------------------------------------------- */
 
-  #initializeNode({id, tier, type, abilities, angle, distance, connected, point, groups}) {
+  /**
+   * Initialize configuration data for the node.
+   * @param {TalentNodeConfig} config
+   */
+  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, point}={}) {
+
+    // Node type and tier configuration
+    const nodeType = SYSTEM.TALENT.NODE_TYPES[type];
+    if ( !nodeType ) throw new Error(`Invalid talent node type "${type}" for node "${id}"`);
+    const nodeTier = SYSTEM.TALENT.NODE_TIERS[tier];
+    if ( !nodeTier ) throw new Error(`Invalid talent node tier "${tier}" for node "${id}"`);
+
+    // Verify connections
     for ( const node of connected ) {
       const n = CrucibleTalentNode.#nodes.get(node);
       if ( !n ) throw new Error(`CrucibleTalentNode parent "${node}" has not yet been defined`);
       n.connect(this);
     }
 
-    // Determine the angle
+    // Increment node counter
     CrucibleTalentNode.#counters[tier] ??= 0;
     const n = CrucibleTalentNode.#counters[tier]++;
-    angle ??= n * CrucibleTalentNode.TIER_ANGLES[tier];
 
-    // Create a Ray
+    // Determine the point
+    // TODO deprecate passing in point
     if ( !point ) {
-      const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), distance * (tier + 1));
+      const angle = nodeTier.offset + (n * nodeTier.angle);
+      const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), nodeTier.distance);
       point = ray.B;
+    }
+
+    // Node color
+    let color;
+    for ( const ability of abilities ) {
+      if ( !color ) color = ABILITIES[ability].color;
+      else {
+        const c2 = ABILITIES[ability].color.maximize(0.5);
+        color = color.mix(c2, 0.5);
+      }
     }
 
     // Define node attributes
@@ -166,19 +185,14 @@ export default class CrucibleTalentNode {
       id: {value: id, writable: false, enumerable: true},
       tier: {value: tier, writable: false, enumerable: true},
       type: {value: type, writable: false, enumerable: true},
+      typeLabel: {value: nodeType.label, writable: false, enumerable: true},
+      style: {value: nodeType.style, writable: false, enumerable: true},
+      iconPrefix: {value: nodeType.icon, writable: false, enumerable: true},
       abilities: {value: new Set(abilities), writable: false, enumerable: true},
       point: {value: point, writable: false, enumerable: true},
-      groups: {value: groups, writable: false, enumerable: true}
+      groups: {value: groups, writable: false, enumerable: true},
+      color: {value: color, writable: false, enumerable: true},
     });
-
-    // Node color
-    for ( const ability of this.abilities ) {
-      if ( !this.color ) this.color = ABILITIES[ability].color;
-      else {
-        const c2 = ABILITIES[ability].color.maximize(0.5);
-        this.color = this.color.mix(c2, 0.5);
-      }
-    }
 
     // Define prerequisites
     this.prerequisites = CrucibleTalentNode.preparePrerequisites(this.requirements);
@@ -317,17 +331,15 @@ export default class CrucibleTalentNode {
 
     new CrucibleTalentNode(({
       id: "origin",
-      type: "root",
-      tier: -1,
-      angle: 0
+      type: "training",
+      tier: "root"
     }));
 
     new CrucibleTalentNode({
       id: "dex0a",
       abilities: ["dexterity"],
-      type: "utility",
+      type: "training",
       tier: 0,
-      angle: 15,
       connected: ["origin"]
     });
 
@@ -336,97 +348,86 @@ export default class CrucibleTalentNode {
       abilities: ["dexterity"],
       type: "attack",
       tier: 0,
-      angle: 45,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
-      id: "tou0",
+      id: "tou0a",
       abilities: ["toughness"],
-      type: "defense",
+      type: "training",
       tier: 0,
-      angle: 75,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
       id: "tou0b",
       abilities: ["toughness"],
-      type: "attack",
+      type: "defense",
       tier: 0,
-      angle: 105,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
-      id: "str0",
+      id: "str0a",
       abilities: ["strength"],
       type: "attack",
       tier: 0,
-      angle: 135,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
       id: "str0b",
       abilities: ["strength"],
-      type: "utility",
+      type: "training",
       tier: 0,
-      angle: 165,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
-      id: "wis0",
+      id: "wis0a",
       abilities: ["wisdom"],
-      type: "utility",
+      type: "training",
       tier: 0,
-      angle: 195,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
       id: "wis0b",
       abilities: ["wisdom"],
-      type: "magic",
+      type: "spell",
       tier: 0,
-      angle: 225,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
-      id: "pre0",
+      id: "pre0a",
       abilities: ["presence"],
-      type: "attack",
+      type: "training",
       tier: 0,
-      angle: 255,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
       id: "pre0b",
       abilities: ["presence"],
-      type: "magic",
+      type: "spell",
       tier: 0,
-      angle: 285,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
-      id: "int0",
+      id: "int0a",
       abilities: ["intellect"],
-      type: "magic",
+      type: "spell",
       tier: 0,
-      angle: 315,
       connected: ["origin"]
     });
 
     new CrucibleTalentNode({
       id: "int0b",
       abilities: ["intellect"],
-      type: "utility",
+      type: "training",
       tier: 0,
-      angle: 345,
       connected: ["origin"]
     });
 
@@ -463,7 +464,7 @@ export default class CrucibleTalentNode {
       abilities: ["dexterity", "toughness"],
       type: "move",
       tier: 1,
-      connected: ["dex0b", "tou0", "dex1b"]
+      connected: ["dex0b", "tou0a", "dex1b"]
     });
 
     new CrucibleTalentNode({
@@ -471,7 +472,7 @@ export default class CrucibleTalentNode {
       abilities: ["toughness"],
       type: "defense",
       tier: 1,
-      connected: ["tou0", "tou0b", "dextou1"]
+      connected: ["tou0a", "tou0b", "dextou1"]
     });
 
     new CrucibleTalentNode({
@@ -479,7 +480,7 @@ export default class CrucibleTalentNode {
       abilities: ["toughness"],
       type: "heal",
       tier: 1,
-      connected: ["tou0", "tou0b", "tou1a"]
+      connected: ["tou0a", "tou0b", "tou1a"]
     });
 
     new CrucibleTalentNode({
@@ -487,7 +488,7 @@ export default class CrucibleTalentNode {
       abilities: ["toughness", "strength"],
       type: "move",
       tier: 1,
-      connected: ["tou0b", "str0", "tou1b"]
+      connected: ["tou0b", "str0a", "tou1b"]
     });
 
     new CrucibleTalentNode({
@@ -495,7 +496,7 @@ export default class CrucibleTalentNode {
       abilities: ["strength"],
       type: "attack",
       tier: 1,
-      connected: ["str0", "str0b", "toustr1"]
+      connected: ["str0a", "str0b", "toustr1"]
     });
 
     new CrucibleTalentNode({
@@ -503,7 +504,7 @@ export default class CrucibleTalentNode {
       abilities: ["strength"],
       type: "utility",
       tier: 1,
-      connected: ["str0", "str0b", "str1a"]
+      connected: ["str0a", "str0b", "str1a"]
     });
 
     new CrucibleTalentNode({
@@ -511,7 +512,7 @@ export default class CrucibleTalentNode {
       abilities: ["strength", "wisdom"],
       type: "attack",
       tier: 1,
-      connected: ["str0b", "wis0", "str1b"]
+      connected: ["str0b", "wis0a", "str1b"]
     });
 
     new CrucibleTalentNode({
@@ -519,23 +520,23 @@ export default class CrucibleTalentNode {
       abilities: ["wisdom"],
       type: "utility",
       tier: 1,
-      connected: ["wis0", "wis0b", "strwis1"]
+      connected: ["wis0a", "wis0b", "strwis1"]
     });
 
     new CrucibleTalentNode({
       id: "wis1b",
       abilities: ["wisdom"],
-      type: "magic",
+      type: "spell",
       tier: 1,
-      connected: ["wis0", "wis0b", "wis1a"]
+      connected: ["wis0a", "wis0b", "wis1a"]
     });
 
     new CrucibleTalentNode({
       id: "wispre1",
       abilities: ["wisdom", "presence"],
-      type: "magic",
+      type: "spell",
       tier: 1,
-      connected: ["wis0b", "pre0", "wis1b"]
+      connected: ["wis0b", "pre0a", "wis1b"]
     });
 
     new CrucibleTalentNode({
@@ -543,31 +544,31 @@ export default class CrucibleTalentNode {
       abilities: ["presence"],
       type: "heal",
       tier: 1,
-      connected: ["pre0", "pre0b", "wispre1"]
+      connected: ["pre0a", "pre0b", "wispre1"]
     });
 
     new CrucibleTalentNode({
       id: "pre1b",
       abilities: ["presence"],
-      type: "magic",
+      type: "spell",
       tier: 1,
-      connected: ["pre0", "pre0b", "pre1a"]
+      connected: ["pre0a", "pre0b", "pre1a"]
     });
 
     new CrucibleTalentNode({
       id: "preint1",
       abilities: ["presence", "intellect"],
-      type: "magic",
+      type: "spell",
       tier: 1,
-      connected: ["pre0b", "int0", "pre1b"]
+      connected: ["pre0b", "int0a", "pre1b"]
     });
 
     new CrucibleTalentNode({
       id: "int1a",
       abilities: ["intellect"],
-      type: "magic",
+      type: "spell",
       tier: 1,
-      connected: ["int0", "int0b", "preint1"]
+      connected: ["int0a", "int0b", "preint1"]
     });
 
     const int1b = new CrucibleTalentNode({
@@ -575,7 +576,7 @@ export default class CrucibleTalentNode {
       abilities: ["intellect"],
       type: "move",
       tier: 1,
-      connected: ["int0", "int0b", "int1a"]
+      connected: ["int0a", "int0b", "int1a"]
     });
     intdex1.connect(int1b);
 
@@ -594,7 +595,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "dex2a",
       abilities: ["dexterity"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["dex1a", "intdex2"]
     });
@@ -634,7 +635,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "tou2b",
       abilities: ["toughness"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["tou1a", "tou1b", "tou2a"]
     });
@@ -674,7 +675,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "str2c",
       abilities: ["strength"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["str1b", "str2b"]
     });
@@ -698,7 +699,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "wis2b",
       abilities: ["wisdom"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["wis1a", "wis1b", "wis2a"]
     });
@@ -730,7 +731,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "pre2b",
       abilities: ["presence"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["pre1a", "pre1b", "pre2a"]
     });
@@ -738,7 +739,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "pre2c",
       abilities: ["presence"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["pre1b", "pre2b"]
     });
@@ -762,7 +763,7 @@ export default class CrucibleTalentNode {
     new CrucibleTalentNode({
       id: "int2b",
       abilities: ["intellect"],
-      type: "magic",
+      type: "spell",
       tier: 2,
       connected: ["int1a", "int1b", "int2a"]
     });
@@ -830,7 +831,7 @@ export default class CrucibleTalentNode {
       connected: ["wis2a", "wis2b", "wis2c", "wis3a"], groups: {
         "sig3.wisdom.intellect": {abilities: ["wisdom", "intellect"], teleport: "sig3.intellect"},
       }});
-    new CrucibleTalentNode({id: "wis3b", type: "magic", abilities: ["wisdom"], tier: 3,
+    new CrucibleTalentNode({id: "wis3b", type: "spell", abilities: ["wisdom"], tier: 3,
       connected: ["wis2b", "wis2c", "wispre2", "sig3.wisdom"]})
 
     // Presence Quadrant
@@ -840,13 +841,13 @@ export default class CrucibleTalentNode {
       connected: ["wispre2", "pre2a", "pre2b", "sig3.wisdom.presence"]});
     new CrucibleTalentNode({id: "sig3.presence", type: "signature", abilities: ["presence"], tier: 3, point: {x: 0, y: -800},
       connected: ["pre2a", "pre2b", "pre2c", "pre3a"], groups: {}});
-    new CrucibleTalentNode({id: "pre3b", type: "magic", abilities: ["presence"], tier: 3,
+    new CrucibleTalentNode({id: "pre3b", type: "spell", abilities: ["presence"], tier: 3,
       connected: ["pre2b", "pre2c", "preint2", "sig3.presence"]})
 
     // Intellect Quadrant
     new CrucibleTalentNode({id: "sig3.presence.intellect", abilities: ["presence", "intellect"], type: "signature",
       tier: 3, connected: ["pre2c", "preint2", "int2a", "pre3b"]});
-    new CrucibleTalentNode({id: "int3a", type: "magic", abilities: ["intellect"], tier: 3,
+    new CrucibleTalentNode({id: "int3a", type: "spell", abilities: ["intellect"], tier: 3,
       connected: ["preint2", "int2a", "int2b", "sig3.presence.intellect"]});
     new CrucibleTalentNode({id: "sig3.intellect", type: "signature", abilities: ["intellect"], tier: 3,
       point: {x: 692, y: -400}, connected: ["int2a", "int2b", "int2c", "int3a"], groups: {}});
@@ -889,7 +890,7 @@ export default class CrucibleTalentNode {
       {id: "wis4d", abilities: ["wisdom"], type: "attack", connected: ["sig3.wisdom", "wis3b", "sig3.wisdom.presence", "wis4c"]},
 
       // Presence Quadrant
-      {id: "wispre4", abilities: ["wisdom", "presence"], type: "magic", connected: ["wis3b", "sig3.wisdom.presence", "pre3a", "wis4d"]},
+      {id: "wispre4", abilities: ["wisdom", "presence"], type: "spell", connected: ["wis3b", "sig3.wisdom.presence", "pre3a", "wis4d"]},
       {id: "pre4a", abilities: ["presence"], type: "attack", connected: ["sig3.wisdom.presence", "pre3a", "sig3.presence", "wispre4"]},
       {id: "pre4b", abilities: ["presence"], type: "attack", connected: ["pre3a", "sig3.presence", "pre4a"]},
       {id: "pre4c", abilities: ["presence"], type: "attack", connected: ["sig3.presence", "pre3b", "pre4b"]},

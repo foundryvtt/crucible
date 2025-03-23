@@ -8,6 +8,7 @@ import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
 import * as ACTOR from "./actor.mjs";
+import * as TALENT from "./talents.mjs";
 
 import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.mjs";
 export const SYSTEM_ID = "crucible";
@@ -139,6 +140,7 @@ export const SYSTEM = {
   SKILL,
   SKILLS: SKILL.SKILLS, // alias
   SPELL,
+  TALENT,
   THREAT_LEVELS,
   WEAPON,
   activeCheckFormula: "3d8",

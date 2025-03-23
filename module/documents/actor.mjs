@@ -1600,15 +1600,17 @@ export default class CrucibleActor extends Actor {
    */
   async syncTalents() {
     const updates = [];
-    const packIds = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
-    for ( const packId of packIds ) {
-      const pack = game.packs.get(packId);
-      if ( !pack ) continue;
-      for ( const item of this.itemTypes.talent ) {
-        if ( pack.index.has(item.id) ) {
-          const talent = await pack.getDocument(item.id);
-          if ( talent ) updates.push(talent.toObject());
-        }
+    const packs = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions].reduce((arr, id) => {
+      const pack = game.packs.get(id);
+      if ( pack ) arr.push(pack);
+      return arr;
+    }, []);
+    for ( const item of this._source.items ) {
+      if ( item.type !== "talent" ) continue;
+      for ( const pack of packs ) {
+        if ( !pack.index.has(item._id) ) continue;
+        const talent = await pack.getDocument(item._id);
+        if ( talent ) updates.push(talent.toObject());
       }
     }
     await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
