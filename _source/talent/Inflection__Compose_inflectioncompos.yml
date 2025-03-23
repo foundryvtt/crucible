@@ -17,17 +17,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.inflectioncompos
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1676608867154
   modifiedTime: 1727211369935
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.inflectioncompos
   duplicateSource: null
+  exportSource: null
 _id: inflectioncompos
 folder: mFfsius4gpT45Q2R
 sort: 100000

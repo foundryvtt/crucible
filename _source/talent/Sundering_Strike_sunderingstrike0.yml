@@ -3,8 +3,7 @@ type: talent
 img: icons/skills/melee/shield-damaged-broken-gold.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.vIhvItiKYuiqaSp9
+  core: {}
 system:
   node: str3b
   description: >-
@@ -49,12 +48,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420034
   modifiedTime: 1727028679201
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

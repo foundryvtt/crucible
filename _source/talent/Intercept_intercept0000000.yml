@@ -3,8 +3,7 @@ type: talent
 img: icons/skills/melee/shield-block-gray-orange.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.V4stscWtnt2GFRY2
+  core: {}
 system:
   node: tou0a
   description: >-
@@ -49,12 +48,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674702266686
   modifiedTime: 1727321305591
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
+  exportSource: null
 _id: intercept0000000
 folder: MqZKCMx5KrZQffGU
 sort: -100000

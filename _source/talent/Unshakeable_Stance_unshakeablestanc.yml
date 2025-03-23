@@ -11,17 +11,17 @@ system:
   requirements: {}
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.unshakeablestanc
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1675014674373
   modifiedTime: 1682388134480
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.unshakeablestanc
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

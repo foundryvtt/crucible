@@ -20,11 +20,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1685584334888
   modifiedTime: 1685585091041
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _key: '!items!opportunisticspe'
 

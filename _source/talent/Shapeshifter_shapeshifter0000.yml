@@ -64,17 +64,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.shapeshifter0000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1676167347186
   modifiedTime: 1726783321779
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
+  exportSource: null
 _id: shapeshifter0000
 sort: 353125
 _key: '!items!shapeshifter0000'

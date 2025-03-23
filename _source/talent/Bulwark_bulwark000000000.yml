@@ -24,17 +24,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.bulwark000000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1677209859186
   modifiedTime: 1726365488023
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.bulwark000000000
   duplicateSource: null
+  exportSource: null
 _id: bulwark000000000
 folder: 8Vb0F5R7DMUrvhfw
 sort: -100000

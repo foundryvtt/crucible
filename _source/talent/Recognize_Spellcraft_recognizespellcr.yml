@@ -15,17 +15,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.recognizespellcr
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1675644092055
   modifiedTime: 1682387829986
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.recognizespellcr
   duplicateSource: null
+  exportSource: null
 _id: recognizespellcr
 folder: Uk4FgmLsNJc62zCJ
 sort: 50000

@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/strike-sword-steel-yellow.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.pHRUZ8Zfv5E0TcH2
+  core: {}
 system:
   node: str1a
   description: >-
@@ -42,12 +41,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420032
   modifiedTime: 1727144583115
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
+  exportSource: null
 folder: yQPNpmhq761VzMZe
 sort: 100000
 ownership:

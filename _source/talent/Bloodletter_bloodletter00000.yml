@@ -37,17 +37,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.bloodletter00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1676687155877
   modifiedTime: 1727454019878
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.bloodletter00000
   duplicateSource: null
+  exportSource: null
 _id: bloodletter00000
 folder: c0nl6X8tp4Of0Y4O
 sort: 100000

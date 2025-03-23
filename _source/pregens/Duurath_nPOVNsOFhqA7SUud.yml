@@ -220,7 +220,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -232,6 +231,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: Intimidator
     type: talent
@@ -273,12 +277,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676839298208
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!nPOVNsOFhqA7SUud.intimidator00000'
   - name: Martial Weapon Training
     type: talent
@@ -309,12 +314,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1682263814426
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!nPOVNsOFhqA7SUud.martialweapontra'
   - name: Bulwark
     type: talent
@@ -332,17 +338,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.bulwark000000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677209859186
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.bulwark000000000
       duplicateSource: null
+      exportSource: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
     sort: -100000
@@ -354,8 +360,7 @@ items:
     effects: []
     folder: pUXcL0pnY3FlKwj8
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.warhammer0000000
+      core: {}
     system:
       category: heavy1
       quantity: 1
@@ -374,12 +379,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420018
       modifiedTime: 1686233957370
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -392,8 +398,7 @@ items:
     effects: []
     folder: 9v0ru58f09fO3sE3
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.heatershield0000
+      core: {}
     system:
       category: shieldLight
       quantity: 1
@@ -411,12 +416,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420010
       modifiedTime: 1686233960189
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.heatershield0000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -428,8 +434,7 @@ items:
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      core: {}
     system:
       category: medium
       quantity: 1
@@ -448,12 +453,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420024
       modifiedTime: 1686233970989
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
       duplicateSource: null
+      exportSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -466,12 +472,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686231927873
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: nPOVNsOFhqA7SUud
 sort: 0
 ownership:

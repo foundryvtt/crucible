@@ -40,17 +40,17 @@ system:
       actionHooks: []
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.dirtytricks00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.9
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1674963544371
   modifiedTime: 1696556312156
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.dirtytricks00000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

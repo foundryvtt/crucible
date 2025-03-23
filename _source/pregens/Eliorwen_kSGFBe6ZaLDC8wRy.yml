@@ -222,7 +222,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -234,6 +233,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: Perspicacity
     type: talent
@@ -257,12 +261,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684459952440
       modifiedTime: 1687634076865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.perspicacity0000'
   - name: Archery Training
     type: talent
@@ -292,12 +297,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684461652834
       modifiedTime: 1687634076865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.archerytraining0'
   - _id: precisionshot000
     name: Precision Shot
@@ -331,12 +337,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420026
       modifiedTime: 1687634076865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: i7P1uwWcECj5KWfY
     sort: -100000
     ownership:
@@ -350,8 +357,7 @@ items:
     effects: []
     folder: Pe27j9LY8Nmygkqt
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.longbow000000000
+      core: {}
     system:
       category: projectile2
       quantity: 1
@@ -370,12 +376,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420014
       modifiedTime: 1687618584859
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.longbow000000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -388,8 +395,7 @@ items:
     effects: []
     folder: pUXcL0pnY3FlKwj8
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.scimitar00000000
+      core: {}
     system:
       category: balanced1
       quantity: 1
@@ -407,12 +413,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420016
       modifiedTime: 1686234022989
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.scimitar00000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -425,8 +432,7 @@ items:
     effects: []
     folder: kjHb0FCE2nJe6Dtx
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.studdedleatherar
+      core: {}
     system:
       category: light
       quantity: 1
@@ -445,12 +451,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420015
       modifiedTime: 1686234032865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.studdedleatherar
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -462,12 +469,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686232354753
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: kSGFBe6ZaLDC8wRy
 sort: 0
 ownership:

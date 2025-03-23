@@ -35,12 +35,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727550052597
   modifiedTime: 1727550411670
   lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
 _id: earthElemental00
 sort: 100000
 _key: '!items!earthElemental00'

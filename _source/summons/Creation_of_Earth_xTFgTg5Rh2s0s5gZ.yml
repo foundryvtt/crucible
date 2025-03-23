@@ -215,7 +215,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -227,6 +226,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Elemental Armor
@@ -253,17 +257,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.livingflame00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965383866
       modifiedTime: 1677965883327
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.livingflame00000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!xTFgTg5Rh2s0s5gZ.kxuUSxeLhkQ5J1Nn'
   - folder: MXhSyruFpcxbRhgJ
     name: Earthen Claw
@@ -287,17 +291,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.flametouch000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965044710
       modifiedTime: 1677966182273
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.flametouch000000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!xTFgTg5Rh2s0s5gZ.Qu8kL7eiBNkcOXpn'
   - name: 'Rune: Earth'
     type: talent
@@ -312,17 +316,17 @@ items:
       rune: earth
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runeearth0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1677966243922
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runeearth0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -346,17 +350,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.gestureray000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675608839856
       modifiedTime: 1677966251264
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.gestureray000000
       duplicateSource: null
+      exportSource: null
     _id: gestureray000000
     folder: null
     sort: 6600000
@@ -367,12 +371,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1677963742821
   modifiedTime: 1727550268213
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: xTFgTg5Rh2s0s5gZ
 sort: 100000
 ownership:

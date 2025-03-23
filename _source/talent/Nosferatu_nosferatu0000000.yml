@@ -73,17 +73,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.nosferatu0000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1676157758719
   modifiedTime: 1726783512928
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
+  exportSource: null
 _id: nosferatu0000000
 sort: 325000
 _key: '!items!nosferatu0000000'

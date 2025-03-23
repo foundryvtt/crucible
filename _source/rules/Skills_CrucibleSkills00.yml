@@ -152,12 +152,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683472874811
       modifiedTime: 1727446901252
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.tBFTQMxT6xTPg8TS'
   - sort: 300000
     name: Stealth
@@ -286,12 +288,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744125556
       modifiedTime: 1727447108601
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.O2jmcYabEbqgxgLm'
   - sort: 500000
     name: Arcana
@@ -435,12 +439,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744497135
       modifiedTime: 1727448032769
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.1XkdTDKQiY8hQjb9'
   - sort: 800000
     name: Society
@@ -565,12 +571,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744529088
       modifiedTime: 1727449855402
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.y3bDt4HWg3S09U7c'
   - sort: 900000
     name: Deception
@@ -694,12 +702,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744545423
       modifiedTime: 1727449906763
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.kOBG6OuTnvGwmU1W'
   - sort: 1000000
     name: Diplomacy
@@ -817,12 +827,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744558127
       modifiedTime: 1727449919086
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.W2UTXlsZn2TLQYt2'
   - sort: 650000
     name: Medicine
@@ -947,12 +959,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744837421
       modifiedTime: 1727449369081
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.hLLuHPQ028FFVyoE'
   - sort: 1400000
     name: Performance
@@ -1085,12 +1099,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683744851575
       modifiedTime: 1727450594900
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.m7H5V1e5EVe4YlxD'
   - sort: 1050000
     name: Intimidation
@@ -1201,17 +1217,18 @@ pages:
       default: -1
       PQhsT89HTP8uxjkQ: 3
     flags:
-      core:
-        sourceId: JournalEntry.aOVmtaejq7nwOe2K.JournalEntryPage.WUZTmZFkysEiHU2T
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1683892875812
       modifiedTime: 1727449931409
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.aOVmtaejq7nwOe2K.JournalEntryPage.WUZTmZFkysEiHU2T
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.WUZTmZFkysEiHU2T'
   - sort: 0
     name: Skills Overview
@@ -1358,12 +1375,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684891180952
       modifiedTime: 1727451865056
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.QQaQfv1cakIKltNz'
   - sort: 50000
     name: Athletics
@@ -1463,13 +1482,15 @@ pages:
       compendiumSource: null
       duplicateSource: >-
         Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.J0FXxjw8OKOQOtwT
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726427583933
       modifiedTime: 1727446693754
       lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
     _id: 66MmDe432p8auE6d
+    category: null
     _key: '!journal.pages!CrucibleSkills00.66MmDe432p8auE6d'
   - sort: 400000
     name: Wilderness
@@ -1594,13 +1615,15 @@ pages:
       compendiumSource: null
       duplicateSource: >-
         Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.gr6RsRxppPcIiKat
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726427677634
       modifiedTime: 1727447272432
       lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
     _id: ZoGpLdSJPmjlH8bz
+    category: null
     _key: '!journal.pages!CrucibleSkills00.ZoGpLdSJPmjlH8bz'
   - sort: 725000
     name: Science
@@ -1721,35 +1744,39 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726429303576
       modifiedTime: 1727449420509
       lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
+    category: null
     _key: '!journal.pages!CrucibleSkills00.vhbFWUXxWUdiODJn'
 flags:
   crucible:
     rulesEntry: true
   core:
     sheetClass: crucible.CrucibleJournalSheet
-  exportSource:
-    world: crucible
-    system: crucible
-    coreVersion: '11.296'
-    systemVersion: 0.6.2
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1683472545451
   modifiedTime: 1686194256352
   lastModifiedBy: JMECHdsPmLGGi1RC
   compendiumSource: null
   duplicateSource: null
+  exportSource:
+    worldId: crucible
+    uuid: null
+    coreVersion: '11.296'
+    systemId: crucible
+    systemVersion: 0.6.2
 sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!CrucibleSkills00'
 

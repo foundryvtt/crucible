@@ -10,17 +10,17 @@ system:
   requirements: {}
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.Item.beastmaster00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1675009666381
   modifiedTime: 1726783336798
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

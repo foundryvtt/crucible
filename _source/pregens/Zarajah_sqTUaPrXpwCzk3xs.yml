@@ -222,7 +222,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -234,6 +233,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - _id: inspireheroism00
     name: Inspire Heroism
@@ -241,8 +245,7 @@ items:
     img: icons/skills/social/intimidation-impressing.webp
     effects: []
     flags:
-      core:
-        sourceId: Item.V4stscWtnt2GFRY2
+      core: {}
     system:
       node: pre0b
       description: >-
@@ -276,12 +279,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420014
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.V4stscWtnt2GFRY2
       duplicateSource: null
+      exportSource: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
     ownership:
@@ -305,17 +309,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runeflame0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runeflame0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -344,17 +348,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.gestureinfluence
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674842056708
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.gestureinfluence
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -383,17 +387,17 @@ items:
       slot: 0
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.magestaff0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677293085873
       modifiedTime: 1686234441745
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.magestaff0000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -405,8 +409,7 @@ items:
     img: icons/equipment/chest/breastplate-layered-leather-studded-black.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.1lTOzjUX4bUNDQFc
+      core: {}
     system:
       category: medium
       quantity: 1
@@ -425,12 +428,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420030
       modifiedTime: 1686234458321
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.1lTOzjUX4bUNDQFc
       duplicateSource: null
+      exportSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -443,12 +447,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686233123616
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: sqTUaPrXpwCzk3xs
 sort: 0
 ownership:

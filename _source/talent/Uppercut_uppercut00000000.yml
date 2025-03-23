@@ -3,8 +3,7 @@ type: talent
 img: icons/skills/melee/strike-sword-gray.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.pHRUZ8Zfv5E0TcH2
+  core: {}
 system:
   node: str0a
   description: >-
@@ -42,12 +41,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420027
   modifiedTime: 1727291273104
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

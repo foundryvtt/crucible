@@ -138,12 +138,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1688232584608
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.USjhhuOGsLTXQM9v'
   - name: Initiative and Turn Order
     type: text
@@ -214,17 +216,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.PJyL1BtYpx7ikDxT.JournalEntryPage.DPrsFbPo3tD7TJ5g
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1727451419065
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.PJyL1BtYpx7ikDxT.JournalEntryPage.DPrsFbPo3tD7TJ5g
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.DPrsFbPo3tD7TJ5g'
   - name: Attack Rolls
     type: text
@@ -309,17 +312,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.rQ8H74v0bMnhu4xA.JournalEntryPage.lZfPVvBSsCEqlte4
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1686356373225
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.rQ8H74v0bMnhu4xA.JournalEntryPage.lZfPVvBSsCEqlte4
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.lZfPVvBSsCEqlte4'
   - sort: 400000
     name: Movement
@@ -398,12 +402,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684374473225
       modifiedTime: 1727451640183
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.KGXiKFUWrPgb7wsx'
   - sort: 550000
     name: Skill Attacks
@@ -442,12 +448,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684374509565
       modifiedTime: 1686014099234
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.3roqI6RmgNNbQ5R9'
   - sort: 575000
     name: Reactions
@@ -481,12 +489,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684374521577
       modifiedTime: 1686014633443
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.2a1IVqTgJiZjOM75'
   - sort: 350000
     name: Actions
@@ -638,12 +648,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684374854931
       modifiedTime: 1684721315135
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.2U2k8WcnB1gbPLfd'
   - sort: 450000
     name: Engagement and Flanking
@@ -739,12 +751,14 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726930849493
       modifiedTime: 1727453069118
       lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.akwDfoFV3AWbOSI6'
   - sort: 700000
     name: Concealment and Surprise
@@ -780,25 +794,29 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726931005153
       modifiedTime: 1726931008942
       lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
+    category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.1fAJeBGIEaMnsi5A'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1676601214201
   modifiedTime: 1688314019892
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 50000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!QhZgmBrdLAGwYy5c'
 

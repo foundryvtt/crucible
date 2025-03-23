@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/blade-tips-triple-steel.webp
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.CANFHQxFjIJwgEYK
+  core: {}
 system:
   node: dex1b
   description: >-
@@ -44,12 +43,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420020
   modifiedTime: 1727142969047
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
+  exportSource: null
 folder: cW6bwHXBB9pMcwva
 sort: 300000
 ownership:

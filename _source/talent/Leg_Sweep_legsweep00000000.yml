@@ -49,17 +49,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.legsweep00000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1677373689894
   modifiedTime: 1727018512480
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.legsweep00000000
   duplicateSource: null
+  exportSource: null
 _id: legsweep00000000
 folder: tRHknqOEBLR808Cb
 sort: 75000

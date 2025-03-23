@@ -68,17 +68,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.poisoner00000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1675734757901
   modifiedTime: 1726782758923
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.poisoner00000000
   duplicateSource: null
+  exportSource: null
 _id: poisoner00000000
 folder: fOYHlZJEWUukD7yr
 sort: 312500

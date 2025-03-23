@@ -25,12 +25,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1674942420025
   modifiedTime: 1717175697406
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 0
 ownership:
   default: 0

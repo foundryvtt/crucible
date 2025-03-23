@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/maneuver-greatsword-yellow.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.V4stscWtnt2GFRY2
+  core: {}
 system:
   node: dex2b
   description: >-
@@ -43,12 +42,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420019
   modifiedTime: 1726367499297
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
+  exportSource: null
 folder: JzAnF4yKIgvElwCJ
 sort: 100000
 ownership:

@@ -24,12 +24,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1684888350310
   modifiedTime: 1685217691170
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: berserker0000000
 sort: 100000
 _key: '!items!berserker0000000'

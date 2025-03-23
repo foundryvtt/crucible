@@ -20,17 +20,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.gestureray000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1675608839856
   modifiedTime: 1686252836131
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureray000000
   duplicateSource: null
+  exportSource: null
 _id: gestureray000000
 folder: D14x9AJ0TgXKtnzu
 sort: 600000

@@ -3,8 +3,7 @@ type: talent
 img: icons/tools/instruments/harp-gold-glowing.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.V4stscWtnt2GFRY2
+  core: {}
 system:
   node: pre1a
   description: >-
@@ -51,12 +50,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420024
   modifiedTime: 1727321858874
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

@@ -76,12 +76,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684020732888
       modifiedTime: 1727451007990
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.5FU3galBRwerqm5Y'
   - sort: 200000
     name: System Cornerstones
@@ -147,12 +149,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684020740713
       modifiedTime: 1686269235920
       lastModifiedBy: JMECHdsPmLGGi1RC
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.196OpDVQ0gaolFUe'
   - sort: 400000
     name: Providing Feedback
@@ -192,12 +196,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684020793428
       modifiedTime: 1727360755310
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.4Ggutuh9uzhcEXSK'
   - sort: 0
     name: Cover
@@ -222,12 +228,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684269584990
       modifiedTime: 1684269625857
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.hQL7peZEfaAwWXAv'
   - sort: 425000
     name: Credits
@@ -270,12 +278,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684375157534
       modifiedTime: 1727360803282
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.tK1GSC4Z58QDFj8k'
   - sort: 450000
     name: License
@@ -312,34 +322,38 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1686266954300
       modifiedTime: 1686269380632
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.k0fKzx0pV04sP7JA'
 folder: z0IT31iKpgcA3QYr
 flags:
-  exportSource:
-    world: crucible
-    system: crucible
-    coreVersion: '11.296'
-    systemVersion: 0.6.2
   core:
     sheetClass: crucible.CrucibleJournalSheet
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1684020691763
   modifiedTime: 1686269864285
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource:
+    worldId: crucible
+    uuid: null
+    coreVersion: '11.296'
+    systemId: crucible
+    systemVersion: 0.6.2
 sort: -100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!5SgXrAKS2EnqVggJ'
 

@@ -221,7 +221,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -233,6 +232,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: Intimidator
     type: talent
@@ -274,12 +278,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676839298208
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!Z8LHgAlhpAuSkMPp.intimidator00000'
   - name: Martial Weapon Training
     type: talent
@@ -310,12 +315,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1682263814426
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!Z8LHgAlhpAuSkMPp.martialweapontra'
   - _id: cleave0000000000
     name: Cleave
@@ -323,8 +329,7 @@ items:
     img: icons/skills/melee/strike-sword-steel-yellow.webp
     effects: []
     flags:
-      core:
-        sourceId: Item.pHRUZ8Zfv5E0TcH2
+      core: {}
     system:
       node: str1a
       description: >-
@@ -352,12 +357,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420032
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.pHRUZ8Zfv5E0TcH2
       duplicateSource: null
+      exportSource: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
     ownership:
@@ -398,12 +404,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674960403832
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: MqZKCMx5KrZQffGU
     sort: 125000
     ownership:
@@ -427,17 +434,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.bloodfrenzy00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676156132430
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.bloodfrenzy00000
       duplicateSource: null
+      exportSource: null
     _id: bloodfrenzy00000
     sort: 100000
     _key: '!actors.items!Z8LHgAlhpAuSkMPp.bloodfrenzy00000'
@@ -480,17 +487,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.berserker0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674936288328
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.berserker0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -523,17 +530,17 @@ items:
             bulkyBanes.number -= 2;
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.powerfulphysique
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675014203613
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.powerfulphysique
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -581,12 +588,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675011742969
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: yQPNpmhq761VzMZe
     sort: 0
     ownership:
@@ -598,8 +606,7 @@ items:
     img: icons/skills/melee/strike-sword-gray.webp
     effects: []
     flags:
-      core:
-        sourceId: Item.pHRUZ8Zfv5E0TcH2
+      core: {}
     system:
       node: str0
       description: >-
@@ -629,12 +636,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420027
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.pHRUZ8Zfv5E0TcH2
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -658,17 +666,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.armoredefficienc
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676829084233
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.armoredefficienc
       duplicateSource: null
+      exportSource: null
     _id: armoredefficienc
     folder: p4F0SmUoKJr0riBd
     sort: 100000
@@ -690,12 +698,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674841031697
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: qrB8E2SHs322zTil
     sort: 0
     ownership:
@@ -723,17 +732,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.thickskin0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676169285945
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.thickskin0000000
       duplicateSource: null
+      exportSource: null
     _id: thickskin0000000
     sort: -100000
     _key: '!actors.items!Z8LHgAlhpAuSkMPp.thickskin0000000'
@@ -750,17 +759,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.unshakeablestanc
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675014674373
       modifiedTime: 1687634079495
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.unshakeablestanc
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -775,8 +784,7 @@ items:
     effects: []
     folder: bvWJheBtuW1LmkAy
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.greataxe00000000
+      core: {}
     system:
       category: heavy2
       quantity: 1
@@ -794,12 +802,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420015
       modifiedTime: 1686234382961
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.greataxe00000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -812,8 +821,7 @@ items:
     effects: []
     folder: mLC1TdXCG7bX8VE9
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.splintmail000000
+      core: {}
     system:
       category: heavy
       quantity: 1
@@ -833,12 +841,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420027
       modifiedTime: 1686234391939
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.splintmail000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -852,12 +861,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686141942462
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: Z8LHgAlhpAuSkMPp
 sort: 0
 ownership:

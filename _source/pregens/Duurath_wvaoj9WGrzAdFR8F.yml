@@ -222,7 +222,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -234,6 +233,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: Bulwark
     type: talent
@@ -251,17 +255,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.bulwark000000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677209859186
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.bulwark000000000
       duplicateSource: null
+      exportSource: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
     sort: -100000
@@ -295,12 +299,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1682263814426
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!wvaoj9WGrzAdFR8F.martialweapontra'
   - _id: 3Xyqe5StbjuW0Wmf
     name: Fine War Hammer
@@ -309,8 +314,7 @@ items:
     effects: []
     folder: pUXcL0pnY3FlKwj8
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.warhammer0000000
+      core: {}
     system:
       category: heavy1
       quantity: 1
@@ -329,12 +333,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420018
       modifiedTime: 1686233921370
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -347,8 +352,7 @@ items:
     effects: []
     folder: mLC1TdXCG7bX8VE9
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.splintmail000000
+      core: {}
     system:
       category: heavy
       quantity: 1
@@ -368,12 +372,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420027
       modifiedTime: 1686233913308
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.splintmail000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -404,17 +409,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.gestureward00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675654257211
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.gestureward00000
       duplicateSource: null
+      exportSource: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
     sort: 900000
@@ -461,17 +466,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.dreadlord0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675737631782
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.dreadlord0000000
       duplicateSource: null
+      exportSource: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
     sort: 350000
@@ -510,17 +515,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.cadence000000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677208371269
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.cadence000000000
       duplicateSource: null
+      exportSource: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
     sort: 100000
@@ -563,12 +568,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420012
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: 08mOaWGw5rYKejer
     sort: 200000
     ownership:
@@ -580,8 +586,7 @@ items:
     img: icons/magic/life/cross-area-circle-green-white.webp
     effects: []
     flags:
-      core:
-        sourceId: Item.V4stscWtnt2GFRY2
+      core: {}
     system:
       node: tou1b
       description: >-
@@ -607,12 +612,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674702266686
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.V4stscWtnt2GFRY2
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -625,8 +631,7 @@ items:
     img: icons/skills/melee/shield-block-bash-yellow.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.counterstrike000
+      core: {}
     system:
       node: tou2c
       description: >-
@@ -658,12 +663,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420025
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.counterstrike000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -695,12 +701,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1685583955388
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!wvaoj9WGrzAdFR8F.holdfast00000000'
   - name: True Grit
     type: talent
@@ -726,12 +733,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1685824842320
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!wvaoj9WGrzAdFR8F.truegrit00000000'
   - _id: VsFk36A6L3qQ3mod
     name: Fine Heater Shield
@@ -740,8 +748,7 @@ items:
     effects: []
     folder: 9v0ru58f09fO3sE3
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.heatershield0000
+      core: {}
     system:
       category: shieldLight
       quantity: 1
@@ -759,12 +766,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420010
       modifiedTime: 1687190501761
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.heatershield0000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -792,17 +800,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.runekinesis00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675704765802
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.runekinesis00000
       duplicateSource: null
+      exportSource: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
     sort: 700000
@@ -847,12 +855,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676839298208
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!wvaoj9WGrzAdFR8F.intimidator00000'
   - name: Concussive Blows
     type: talent
@@ -879,12 +888,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676756257189
       modifiedTime: 1687634075806
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!wvaoj9WGrzAdFR8F.concussiveblows0'
 effects: []
 flags:
@@ -893,12 +903,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1685652423955
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: wvaoj9WGrzAdFR8F
 sort: 0
 ownership:
