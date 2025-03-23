@@ -4,6 +4,8 @@ import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
+/** @import {TRAINING_TYPES} from "../config/talents.mjs"; */
+
 /**
  * @typedef {Object} ActorEquippedWeapons
  * @property {CrucibleItem} mainhand
@@ -75,17 +77,8 @@ export default class CrucibleActor extends Actor {
   grimoire = this.grimoire;
 
   /**
-   * @typedef {Object} CrucibleActorTraining
-   * @property {number} unarmed
-   * @property {number} heavy
-   * @property {number} finesse
-   * @property {number} balanced
-   * @property {number} ranged
-   */
-
-  /**
    * Trained skill bonuses which the character has.
-   * @type {CrucibleActorTraining}
+   * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
    */
   training = this.training;
 
@@ -265,35 +258,12 @@ export default class CrucibleActor extends Actor {
     if ( this.type === "group" ) return;
     const items = this.itemTypes;
     CrucibleActor.#prepareTalents.call(this, items.talent);
+    this.callActorHooks("prepareTraining", this.training);
     CrucibleActor.#prepareSpells.call(this, items.spell);
     this._prepareEffects();
-    this.training = CrucibleActor.#prepareTraining.call(this);
     this.equipment = CrucibleActor.#prepareEquipment.call(this, items);
     CrucibleActor.#prepareActions.call(this);
   };
-
-  /* -------------------------------------------- */
-
-  /**
-   * Compute the levels of equipment training that an Actor has.
-   * @this {CrucbileActor}
-   * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
-   */
-  static #prepareTraining() {
-    const training = {
-      unarmed: 0,
-      heavy: 0,
-      finesse: 0,
-      balanced: 0,
-      projectile: 0,
-      mechanical: 0,
-      shield: 0,
-      talisman: 0,
-      natural: Math.clamp(Math.floor((this.system.advancement.level + 1) / 4), 0, 3) // TODO temporary
-    };
-    this.callActorHooks("prepareTraining", training);
-    return training;
-  }
 
   /* -------------------------------------------- */
 
@@ -599,6 +569,7 @@ export default class CrucibleActor extends Actor {
     this.talentIds = new Set();
     this.actorHooks = {};
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
+    this.training = {};
     const details = this.system.details;
     const signatureNames = [];
 
@@ -616,21 +587,28 @@ export default class CrucibleActor extends Actor {
     // Iterate over talents
     for ( const t of talents ) {
       this.talentIds.add(t.id);
+      const {actorHooks, node, training, gesture, inflection, rune, iconicSpells} = t.system;
 
       // Register hooks
-      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
+      for ( const hook of actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
 
       // Register signatures
-      if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
+      if ( node?.type === "signature" ) signatureNames.push(t.name);
+
+      // Register training ranks
+      if ( training.type ) {
+        this.training[training.type] ??= 0;
+        this.training[training.type] = Math.max(this.training[training.type], training.rank ?? 0);
+      }
 
       // Register spellcraft knowledge
-      if ( t.system.rune ) {
-        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[t.system.rune]);
+      if ( rune ) {
+        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[rune]);
         this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
       }
-      if ( t.system.gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[t.system.gesture]);
-      if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
-      if ( t.system.iconicSpells ) this.grimoire.iconicSlots += t.system.iconicSpells;
+      if ( gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[gesture]);
+      if ( inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[inflection]);
+      if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
     }
 
     // Compose Signature Name

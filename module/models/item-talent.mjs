@@ -55,6 +55,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
       inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
       iconicSpells: new fields.NumberField({required: true, nullable: false, initial: 0, integer: true, min: 0}),
+      training: new fields.SchemaField({
+        type: new fields.StringField({required: true, blank: true, choices: SYSTEM.TALENT.TRAINING_TYPES, initial: ""}),
+        rank: new fields.NumberField({required: true, nullable: true, choices: SYSTEM.TALENT.TRAINING_RANKS, initial: null})
+      }),
       actorHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
         fn: new fields.JavaScriptField({async: true, gmOnly: true})

@@ -13,4 +13,11 @@
         {{formGroup fields.inflection value=source.system.inflection valueAttr="id" labelAttr="name"}}
         {{formGroup fields.iconicSpells value=source.system.iconicSpells}}
     </fieldset>
+
+    <fieldset>
+        <legend>{{fields.training.label}}</legend>
+        <p class="hint">{{fields.training.hint}}</p>
+        {{formGroup fields.training.fields.type value=source.system.training.type blank=""}}
+        {{formGroup fields.training.fields.rank value=source.system.training.rank blank=""}}
+    </fieldset>
 </section>

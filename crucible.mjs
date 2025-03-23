@@ -208,15 +208,19 @@ Hooks.once("i18nInit", function() {
 
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES", "DEFENSES",
+    ["ABILITIES", ["abbreviation", "label"]],
+    "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
+    "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "ADVERSARY.TAXONOMY_CATEGORIES",
-    "SKILL.CATEGORIES", "SKILL.RANKS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.SLOTS"
+    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
   for ( let c of toLocalize ) {
-    const conf = foundry.utils.getProperty(SYSTEM, c);
+    let key = c;
+    let attrs = ["label"];
+    if ( Array.isArray(c) ) [key, attrs] = c;
+    const conf = foundry.utils.getProperty(SYSTEM, key);
 
     // Special handling for enums
     if ( conf instanceof Enum ) {
@@ -227,9 +231,17 @@ Hooks.once("i18nInit", function() {
 
     // Other objects
     for ( let [k, v] of Object.entries(conf) ) {
-      if ( v.label ) v.label = game.i18n.localize(v.label);
-      if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
-      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+      if ( typeof v === "object" ) {
+        for ( const attr of attrs ) {
+          if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
+          else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
+        }
+        Object.freeze(v);
+      }
+      else {
+        if ( typeof v === "function" ) conf[k] = v();
+        else if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+      }
     }
   }
 
@@ -259,21 +271,27 @@ Hooks.once("i18nInit", function() {
  * Perform one-time configuration of system configuration objects.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys) => {
+  const localizeConfigObject = (obj, keys, freeze=true) => {
     for ( let o of Object.values(obj) ) {
       for ( let k of keys ) {
-        o[k] = game.i18n.localize(o[k]);
+        const v = o[k];
+        if ( typeof v === "function" ) o[k] = v();
+        else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
       }
+      if ( freeze ) Object.freeze(o);
     }
   }
 
-  // Statuses
   localizeConfigObject(CONFIG.statusEffects, ["label"]);
-
-  // Action Tags
-  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
+  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
+  localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
+  localizeConfigObject(SYSTEM.SKILL.RANKS, ["label", "description"]);
+  localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
+  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
 }
 
 /* -------------------------------------------- */

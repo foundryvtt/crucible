@@ -711,6 +711,20 @@
       "hint": "Social skills pertain to your character's ability to interact with other people or groups."
     }
   },
+  "LABELS": {
+    "athletics": "Athletics",
+    "awareness": "Awareness",
+    "stealth": "Stealth",
+    "wilderness": "Wilderness",
+    "arcana": "Arcana",
+    "medicine": "Medicine",
+    "science": "Science",
+    "society": "Society",
+    "deception": "Deception",
+    "diplomacy": "Diplomacy",
+    "intimidation": "Intimidation",
+    "performance": "Performance"
+  },
   "RANKS": {
     "UNTRAINED": {
       "label": "Untrained",
@@ -887,6 +901,12 @@
     "actorHooks": {
       "label": "Hooked Functions",
       "hint": "This configuration tab involves advanced features for automating talent effects. Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here unless you are confident in your own knowledge."
+    },
+    "training": {
+      "label": "Provided Training",
+      "hint": "Does this talent provide some rank of training in a particular area?",
+      "type.label": "Training Type",
+      "rank.label": "Training Rank"
     }
   },
   "ACTIONS": {
@@ -913,10 +933,23 @@
     "DEFENSE": "Defense",
     "HEALING": "Healing",
     "SPELL": "Spellcraft",
-    "MOVEMENT": "Movement",
+    "MOVE": "Movement",
     "UTILITY": "Utility",
     "SIGNATURE": "Signature",
     "TRAINING": "Training"
+  },
+  "TRAINING": {
+    "SKILL": "Skill Training",
+    "WEAPON": "Weapon Training",
+    "CRAFT": "Tradecraft Training",
+    "SPELL": "Spellcraft Training"
+  },
+  "RANKS": {
+    "UNTRAINED": "Untrained",
+    "NOVICE": "Novice",
+    "JOURNEYMAN": "Journeyman",
+    "ADEPT": "Adept",
+    "MASTER": "Master"
   },
   "PointsAvailable": "Points Available"
 },
@@ -967,23 +1000,19 @@
 
 "WEAPON": {
   "CATEGORIES": {
-    "LIGHT1": "Light (1h)",
-    "SIMPLE1": "Simple (1h)",
-    "BALANCED1": "Balanced (1h)",
-    "HEAVY1": "Heavy (1h)",
-    "SIMPLE2": "Simple (2h)",
-    "BALANCED2": "Balanced (2h)",
-    "HEAVY2": "Heavy (2h)",
-    "PROJECTILE1": "Projectile (1h)",
-    "PROJECTILE2": "Projectile (2h)",
-    "MECHANICAL1": "Mechanical (1h)",
-    "MECHANICAL2": "Mechanical (2h)",
+    "CATEGORY_HANDS": "{category} ({hands}h)",
+    "LIGHT": "Light",
+    "SIMPLE": "Simple",
+    "BALANCED": "Balanced",
+    "HEAVY": "Heavy",
+    "PROJECTILE": "Projectile",
+    "MECHANICAL": "Mechanical",
     "NATURAL": "Natural",
     "UNARMED": "Unarmed",
+    "SHIELD": "Shield",
     "SHIELD_LIGHT": "Light Shield",
     "SHIELD_HEAVY": "Heavy Shield",
-    "TALISMAN1": "Talisman (1h)",
-    "TALISMAN2": "Talisman (2h)"
+    "TALISMAN": "Talisman"
   },
   "FIELDS": {
     "damageType": {

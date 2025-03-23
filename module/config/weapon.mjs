@@ -8,16 +8,43 @@
  * @property {string} scaling             What scaling formula does this weapon use?
  * @property {number} damage              Base damage for the weapon category
  * @property {number} actionCost          The action point cost to strike with this weapon
+ * @property {WeaponTrainingTypes[]} training Training categories which apply skill bonuses to this weapon category
  */
 
 import Enum from "./enum.mjs";
 
 /**
+ * @typedef {"talisman"|"heavy"|"light"|"mechanical"|"natural"|"projectile"|"shield"|"simple"|"unarmed"} WeaponTrainingTypes
+ */
+
+/**
+ * Training categories which apply to weapons.
+ * @type {Record<WeaponTrainingTypes, {label: string}>}
+ **/
+export const TRAINING = Object.freeze({
+  talisman: {label: "WEAPON.CATEGORIES.TALISMAN"},
+  heavy: {label: "WEAPON.CATEGORIES.HEAVY"},
+  light: {label: "WEAPON.CATEGORIES.LIGHT"},
+  mechanical: {label: "WEAPON.CATEGORIES.MECHANICAL"},
+  natural: {label: "WEAPON.CATEGORIES.NATURAL"},
+  projectile: {label: "WEAPON.CATEGORIES.PROJECTILE"},
+  shield: {label: "WEAPON.CATEGORIES.SHIELD"},
+  simple: {label: "WEAPON.CATEGORIES.SIMPLE"},
+  unarmed: {label: "WEAPON.CATEGORIES.UNARMED"}
+});
+
+// Helper function for labeling categories
+const label = (category, hands) => {
+  category = game.i18n.localize(category);
+  return game.i18n.format("WEAPON.CATEGORIES.CATEGORY_HANDS", {category, hands});
+}
+
+/**
  * Enumerate the weapon categories which are allowed by the system.
  * Record certain mechanical metadata which applies to weapons in each category.
- * @enum {WeaponCategory}
+ * @type {Record<string, WeaponCategory>}
  */
-export const CATEGORIES = {
+export const CATEGORIES = Object.freeze({
 
   // Natural Attacks
   natural: {
@@ -30,7 +57,7 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 3,
     range: 1,
-    training: "natural"
+    training: ["natural"]
   },
 
   // One-Handed Melee
@@ -44,11 +71,11 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 3,
     range: 1,
-    training: "unarmed"
+    training: ["unarmed"]
   },
   light1: {
     id: "light1",
-    label: "WEAPON.CATEGORIES.LIGHT1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.LIGHT", 1),
     hands: 1,
     main: true,
     off: true,
@@ -56,11 +83,11 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 3,
     range: 1,
-    training: "finesse"
+    training: ["light"]
   },
   simple1: {
     id: "simple1",
-    label: "WEAPON.CATEGORIES.SIMPLE1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.SIMPLE", 1),
     hands: 1,
     main: true,
     off: true,
@@ -68,11 +95,11 @@ export const CATEGORIES = {
     damage: 4,
     actionCost: 2,
     range: 1,
-    training: "heavy"
+    training: ["heavy"]
   },
   balanced1: {
     id: "balanced1",
-    label: "WEAPON.CATEGORIES.BALANCED1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.BALANCED", 1),
     hands: 1,
     main: true,
     off: true,
@@ -80,11 +107,11 @@ export const CATEGORIES = {
     damage: 4,
     actionCost: 2,
     range: 2,
-    training: "balanced"
+    training: ["heavy", "light"]
   },
   heavy1: {
     id: "heavy1",
-    label: "WEAPON.CATEGORIES.HEAVY1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.HEAVY", 1),
     hands: 1,
     main: true,
     off: false,
@@ -92,13 +119,13 @@ export const CATEGORIES = {
     damage: 6,
     actionCost: 3,
     range: 2,
-    training: "heavy"
+    training: ["heavy"]
   },
 
   // Two-Handed Melee
   simple2: {
     id: "simple2",
-    label: "WEAPON.CATEGORIES.SIMPLE2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.SIMPLE", 2),
     hands: 2,
     main: true,
     off: false,
@@ -106,11 +133,11 @@ export const CATEGORIES = {
     actionCost: 3,
     damage: 6,
     range: 2,
-    training: "heavy"
+    training: ["heavy"]
   },
   balanced2: {
     id: "balanced2",
-    label: "WEAPON.CATEGORIES.BALANCED2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.BALANCED", 2),
     hands: 2,
     main: true,
     off: false,
@@ -118,11 +145,11 @@ export const CATEGORIES = {
     damage: 6,
     actionCost: 3,
     range: 3,
-    training: "balanced"
+    training: ["light", "heavy"]
   },
   heavy2: {
     id: "heavy2",
-    label: "WEAPON.CATEGORIES.HEAVY2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.HEAVY", 2),
     hands: 2,
     main: true,
     off: false,
@@ -130,13 +157,13 @@ export const CATEGORIES = {
     damage: 8,
     actionCost: 4,
     range: 3,
-    training: "heavy"
+    training: ["heavy"]
   },
 
   // One-Handed Ranged
   projectile1: {
     id: "projectile1",
-    label: "WEAPON.CATEGORIES.PROJECTILE1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.PROJECTILE", 1),
     hands: 1,
     main: true,
     off: true,
@@ -145,11 +172,11 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 4,
     range: 60,
-    training: "projectile"
+    training: ["projectile"]
   },
   talisman1: {
     id: "talisman1",
-    label: "WEAPON.CATEGORIES.TALISMAN1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.TALISMAN", 1),
     hands: 1,
     main: true,
     off: true,
@@ -158,11 +185,11 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 2,
     range: 30,
-    training: "talisman"
+    training: ["talisman"]
   },
   mechanical1: {
     id: "mechanical1",
-    label: "WEAPON.CATEGORIES.MECHANICAL1",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.MECHANICAL", 1),
     hands: 1,
     main: true,
     off: true,
@@ -172,13 +199,13 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 4,
     range: 60,
-    training: "mechanical"
+    training: ["mechanical"]
   },
 
   // Two-Handed Ranged
   projectile2: {
     id: "projectile2",
-    label: "WEAPON.CATEGORIES.PROJECTILE2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.PROJECTILE", 2),
     hands: 2,
     main: true,
     off: false,
@@ -187,11 +214,11 @@ export const CATEGORIES = {
     actionCost: 3,
     damage: 6,
     range: 120,
-    training: "projectile"
+    training: ["projectile"]
   },
   talisman2: {
     id: "talisman2",
-    label: "WEAPON.CATEGORIES.TALISMAN2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.TALISMAN", 2),
     hands: 2,
     main: true,
     off: false,
@@ -200,11 +227,11 @@ export const CATEGORIES = {
     actionCost: 3,
     damage: 3,
     range: 30,
-    training: "talisman"
+    training: ["talisman"]
   },
   mechanical2: {
     id: "mechanical2",
-    label: "WEAPON.CATEGORIES.MECHANICAL2",
+    label: label.bind(globalThis, "WEAPON.CATEGORIES.MECHANICAL", 2),
     hands: 2,
     main: true,
     off: false,
@@ -214,7 +241,7 @@ export const CATEGORIES = {
     actionCost: 2,
     damage: 6,
     range: 120,
-    training: "mechanical"
+    training: ["mechanical"]
   },
 
   // Shields
@@ -232,7 +259,7 @@ export const CATEGORIES = {
       block: 2
     },
     range: 1,
-    training: "shield"
+    training: ["shield"]
   },
   shieldHeavy: {
     id: "shieldHeavy",
@@ -248,10 +275,9 @@ export const CATEGORIES = {
     defense: {
       block: 4
     },
-    training: "shield"
-  },
-
-};
+    training: ["shield"]
+  }
+});
 
 /**
  * The boolean properties which a Weapon may have.

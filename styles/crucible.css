@@ -2394,6 +2394,9 @@
   --title-font-size: var(--font-size-18);
   --icon-size: 60px;
 }
+#crucible-talent-hud > .line-item .title h2 {
+  white-space: normal;
+}
 #crucible-talent-hud > .line-item h3.divider {
   font-size: var(--title-font-size);
 }

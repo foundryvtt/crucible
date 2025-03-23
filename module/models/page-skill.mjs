@@ -51,7 +51,6 @@ export default class CrucibleSkillPage extends foundry.abstract.TypeDataModel {
       }
       Object.assign(skill, {overview, ranks, name: page.name, page: page.uuid, paths: {}});
       for ( const p of Object.values(paths) ) skill.paths[p.id] = p;
-      SYSTEM.ACTION.TAGS[skillId].label = page.name;
     }
 
     // Iterate over all skills making sure that none are undefined
