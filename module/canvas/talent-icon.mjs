@@ -31,8 +31,8 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.border = this.addChild(new PIXI.Graphics());
 
     // Number
-    const textStyle = PreciseText.getTextStyle({fontSize: 24});
-    this.number = this.addChild(new PreciseText("", textStyle));
+    const textStyle = foundry.canvas.containers.PreciseText.getTextStyle({fontSize: 24});
+    this.number = this.addChild(new foundry.canvas.containers.PreciseText("", textStyle));
     this.number.anchor.set(0.5, 0.5);
     this.number.position.set(this.config.size / 3, -this.config.size / 3);
   }

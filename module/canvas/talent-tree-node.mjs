@@ -32,7 +32,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /** @override */
   async draw({state, ...config}={}) {
     const variety = state.purchased ? this.node.abilities.first() : "inactive";
-    config.texture = getTexture(`systems/crucible/ui/tree/nodes/${this.node.type}-${variety}.webp`);
+    config.texture = foundry.canvas.getTexture(`systems/crucible/ui/tree/nodes/${this.node.type}-${variety}.webp`);
 
     // Signature nodes
     if ( this.node.type === "signature" ) {

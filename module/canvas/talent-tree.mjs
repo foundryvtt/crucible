@@ -212,7 +212,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
         toLoad.push(`systems/crucible/ui/tree/nodes/${nodeType}-${variety}.webp`);
       }
     }
-    return TextureLoader.loader.load(toLoad, {
+    return foundry.canvas.TextureLoader.loader.load(toLoad, {
       message: game.i18n.format("SCENES.Loading", {name: "Talent Tree"})
     });
   }
@@ -220,7 +220,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawBackdrop() {
-    const tex = getTexture("systems/crucible/ui/tree/background.webp");
+    const tex = foundry.canvas.getTexture("systems/crucible/ui/tree/background.webp");
     const bd = new PIXI.Sprite(tex);
     bd.anchor.set(0.5, 0.5);
     return bd;
@@ -305,14 +305,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Draw the tree (once only)
     await this.draw();
-    for ( const layer of canvas.layers ) {
-      if ( layer.hud ) layer.hud.clear();
-    }
+    for ( const layer of canvas.layers ) layer.hud?.close();
     this.darkenBackground(false);
 
     // Associate Actor
     this.actor = actor;
-    const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
+    const actorTexture = this.actor ? await foundry.canvas.loadTexture(this.actor.img) : undefined;
     this.#drawCharacter(actorTexture);
     await actor.sheet.render({force: false, left: 20, top: 20});
     if ( actor.sheet.rendered ) {
@@ -511,7 +509,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager
-    this.interactionManager = new MouseInteractionManager(this, this, {}, {
+    this.interactionManager = new foundry.canvas.interaction.MouseInteractionManager(this, this, {}, {
       clickLeft: this.#onClickLeft,
       dragRightStart: null,
       dragRightMove: this.#onDragRightMove,

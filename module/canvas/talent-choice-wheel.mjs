@@ -83,7 +83,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.texture = getTexture("systems/crucible/ui/tree/wheel.webp");
+    this.bg.texture = foundry.canvas.getTexture("systems/crucible/ui/tree/wheel.webp");
     this.bg.anchor.set(0.5, 0.5);
     this.bg.width = this.bg.height = this.radius * 2;
   }
@@ -120,7 +120,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       const position = tier1.pointAtAngle((i * a) - (Math.PI / 2));
       const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
         borderColor: this.node.node.color,
-        texture: await loadTexture(talent.img)
+        texture: await foundry.canvas.loadTexture(talent.img)
       });
       this.talents.addChild(icon);
       i++;

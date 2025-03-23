@@ -101,7 +101,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const r = this.bars.resources;
     r.clear();
     const {action, focus} = this.actor.system.resources;
-    const {width, height} = this.getSize();
+    const {width, height} = this.document.getSize();
 
     // Action Pips
     const ac = SYSTEM.RESOURCES.action.color;
@@ -256,7 +256,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   #computeEngagementSquareGrid() {
     const c = this.center;
     const engagementBounds = this.getEngagementRectangle();
-    const movePolygon = ClockwiseSweepPolygon.create(c, {type: "move", boundaryShapes: [engagementBounds]});
+    const movePolygon = foundry.canvas.geometry.ClockwiseSweepPolygon.create(c, {
+      type: "move",
+      boundaryShapes: [engagementBounds]
+    });
     return {engagementBounds, movePolygon};
   }
 
@@ -393,19 +396,20 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   _visualizeEngagement(engagement) {
     if ( !CONFIG.debug.flanking || !this.parent.useMicrogrid ) return;
+    const PT = foundry.canvas.containers.PreciseText;
     if ( !this.#engagementDebug ) {
       this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
 
       // Enemies Text
-      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
       this.#engagementDebug.enemies.anchor.set(0.5, 1);
 
       // Engagement Text
-      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
       this.#engagementDebug.engagement.anchor.set(0.5, 0);
 
       // Flanked Text
-      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 32})));
+      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 32})));
       this.#engagementDebug.flanked.anchor.set(0.5, 0.5);
     }
     const e = this.#engagementDebug.clear();
