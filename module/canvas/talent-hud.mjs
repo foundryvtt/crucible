@@ -3,19 +3,33 @@ import CrucibleTalentTreeTalent from "./talent-tree-talent.mjs";
 import CrucibleTalentNode from "../config/talent-tree.mjs";
 import CrucibleTalentItem from "../models/item-talent.mjs";
 import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
+const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 
 /**
  * An Application instance that renders a HUD tooltip in the CrucibleTalentTree
  */
-export default class CrucibleTalentHUD extends Application {
+export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(ApplicationV2) {
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      id: "crucible-talent-hud",
-      popOut: false
-    });
+  /** @inheritDoc */
+  static DEFAULT_OPTIONS = {
+    id: "crucible-talent-hud",
+    classes: ["crucible", "hud"],
+    tag: "aside",
+    window: {
+      frame: false
+    }
   }
+
+  /** @override */
+  static PARTS = {
+    node: {
+      template: "systems/crucible/templates/hud/talent-tree-node.hbs"
+    },
+    talent: {
+      template: "systems/crucible/templates/hud/talent-tree-talent.hbs",
+      templates: ["systems/crucible/templates/sheets/item/talent-summary.hbs"]
+    }
+  };
 
   /**
    * The target of the HUD, either a Node or a Talent
@@ -26,16 +40,17 @@ export default class CrucibleTalentHUD extends Application {
   /* -------------------------------------------- */
 
   /** @override */
-  get template() {
-    const path = "systems/crucible/templates/hud"
-    const template = this.target instanceof CrucibleTalentTreeNode ? "talent-tree-node.hbs" : "talent-tree-talent.hbs";
-    return `${path}/${template}`;
+  _configureRenderParts(options) {
+    const parts = foundry.utils.deepClone(this.constructor.PARTS);
+    if ( this.target instanceof CrucibleTalentTreeNode ) delete parts.talent;
+    else delete parts.node;
+    return parts;
   }
 
   /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  getData(options = {}) {
+  /** @inheritDoc */
+  async _prepareContext(_options) {
     if ( this.target instanceof CrucibleTalentTreeNode ) return this.#getNodeContext();
     else return this.#getTalentContext();
   }
@@ -95,22 +110,34 @@ export default class CrucibleTalentHUD extends Application {
   /* -------------------------------------------- */
 
   /** @override */
-  _injectHTML(html) {
+  _insertElement(element) {
+    const existing = document.getElementById(element.id);
+    if ( existing ) existing.replaceWith(element);
     const hud = document.getElementById("hud");
-    hud.appendChild(html[0]);
-    this._element = html;
+    hud.appendChild(element);
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  setPosition({left, top}={}) {
-    const position = {
-      height: undefined,
-      left: left,
-      top: top
-    };
-    this.element.css(position);
+  _replaceHTML(result, content, options) {
+    content.replaceChildren(); // Always clear
+    super._replaceHTML(result, content, options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _updatePosition({left, top}={}) {
+    return {width: "auto", height: "auto", left, top, scale: 1.0};
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onRender(options) {
+    super._onRender(options);
+    this.element.classList.remove("hidden");
   }
 
   /* -------------------------------------------- */
@@ -122,28 +149,24 @@ export default class CrucibleTalentHUD extends Application {
    */
   async activate(target) {
     this.target = target;
-    const options = {
+    const position = {
       left: target.x + (target.width / 2) + 10,
       top: target.y + - (target.height / 2)
     };
     if ( target instanceof CrucibleTalentTreeTalent ) {
-      options.left += target.node.x;
-      options.top += target.node.y;
+      position.left += target.node.x;
+      position.top += target.node.y;
     }
-    return this._render(true, options);
+    return this.render({force: true, position});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Clear the HUD
+   * Temporarily hide the HUD element.
    */
   clear() {
-    let states = this.constructor.RENDER_STATES;
-    if ( this._state <= states.NONE ) return;
-    this._state = states.CLOSING;
-    this.element.hide();
-    this._element = null;
-    this._state = states.NONE;
+    if ( !this.rendered ) return;
+    this.element.classList.add("hidden");
   }
 }

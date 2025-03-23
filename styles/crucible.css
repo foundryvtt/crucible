@@ -667,6 +667,9 @@
   flex-direction: column;
   gap: 0.25rem;
 }
+.crucible .line-item .title h1,
+.crucible .line-item .title h2,
+.crucible .line-item .title h3,
 .crucible .line-item .title h4 {
   flex: none;
   margin: 0;
@@ -2380,30 +2383,19 @@
   z-index: var(--z-index-tooltip);
 }
 #crucible-talent-hud {
-  min-width: 320px;
+  min-width: 360px;
   width: min-content;
   max-width: 600px;
   text-align: left;
+  font-size: var(--font-size-14);
   pointer-events: all;
 }
-#crucible-talent-hud > header {
-  align-items: center;
-  gap: 0.5rem;
+#crucible-talent-hud > .line-item {
+  --title-font-size: var(--font-size-18);
+  --icon-size: 60px;
 }
-#crucible-talent-hud > header h1 {
-  margin: 0;
-  font-size: var(--font-size-24);
-}
-#crucible-talent-hud > header .icon {
-  flex: 0 0 60px;
-  height: 60px;
-  border-radius: 8px;
-}
-#crucible-talent-hud .full-tags {
-  flex: 0 0 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#crucible-talent-hud > .line-item h3.divider {
+  font-size: var(--title-font-size);
 }
 /* -------------------------------------------- */
 /*  Talent Tree Controls                        */

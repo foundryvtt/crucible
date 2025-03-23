@@ -306,7 +306,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Draw the tree (once only)
     await this.draw();
     for ( const layer of canvas.layers ) {
-      if ( layer.hud ) layer.hud.close();
+      if ( layer.hud ) layer.hud.clear();
     }
     this.darkenBackground(false);
 
@@ -347,7 +347,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Deactivate UI
     this.wheel.deactivate();
-    this.hud.clear();
+    this.hud.close();
     this.controls.close();
 
     // Disable the talent tree canvas

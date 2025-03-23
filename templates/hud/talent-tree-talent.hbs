@@ -1,12 +1,14 @@
-<aside id="crucible-talent-hud" class="crucible hud talent">
+<div class="talent line-item">
     <header class="flexrow">
         <img class="icon" src="{{source.img}}" title="{{source.name}}"/>
-        <h1 class="title">{{source.name}}</h1>
-        <div class="talent-tags tags prerequisites">
-            {{#each prerequisites as |req|}}
-            <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
-            {{/each}}
+        <div class="title">
+            <h2>{{source.name}}</h2>
+            <div class="talent-tags tags prerequisites">
+                {{~#each prerequisites as |req|}}
+                <span class="tag {{#unless req.met}}unmet{{/unless}}">{{req.tag}}</span>
+                {{/each~}}
+            </div>
         </div>
     </header>
     {{> "systems/crucible/templates/sheets/item/talent-summary.hbs"}}
-</aside>
+</div>

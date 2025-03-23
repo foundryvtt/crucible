@@ -1,4 +1,4 @@
-export default class CrucibleTokenObject extends Token {
+export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
   /** @inheritDoc */
   static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
