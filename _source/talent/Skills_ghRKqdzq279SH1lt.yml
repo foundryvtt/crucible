@@ -1,0 +1,19 @@
+type: Item
+folder: FQAUMNkcagdBLURJ
+name: Skills
+color: '#671313'
+sorting: a
+_id: ghRKqdzq279SH1lt
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.338'
+  systemId: crucible
+  systemVersion: 0.7.0-dev
+  lastModifiedBy: null
+_key: '!folders!ghRKqdzq279SH1lt'
+

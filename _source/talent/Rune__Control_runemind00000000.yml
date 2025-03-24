@@ -2,7 +2,7 @@ name: 'Rune: Control'
 type: talent
 img: icons/magic/control/hypnosis-mesmerism-eye.webp
 system:
-  node: int2b
+  node: int0a
   description: >-
     <p>The orderly force of discipline and the mind. The Control rune governs
     thought, logic and reason. It is opposed by the chaotic rune of Spirit.</p>
@@ -18,10 +18,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674698661050
-  modifiedTime: 1686250776298
+  modifiedTime: 1742749371846
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runemind00000000
   duplicateSource: null

@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: pre0b
+  node: pre1a
   description: >-
     Your courageous presence inspires your nearby allies to strike with
     confidence.
@@ -43,10 +43,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674942420014
-  modifiedTime: 1727321898757
+  modifiedTime: 1742749356109
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

@@ -2,7 +2,7 @@ name: 'Rune: Kinesis'
 type: talent
 img: icons/magic/movement/pinwheel-turning-blue.webp
 system:
-  node: pre2b
+  node: pre0b
   description: >-
     <p>The chaotic force of space and physical movement. The Kinesis rune
     governs all things related to the act of movement and physicality. It is
@@ -23,10 +23,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675704765802
-  modifiedTime: 1686251120502
+  modifiedTime: 1742749317471
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.runekinesis00000
   duplicateSource: null
