@@ -52,7 +52,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
 
     // Set position
     this.position.set(node.x, node.y);
-    this.radius = node.config.size + 50;
+    this.radius = node.config.size + 40;
     this.#drawBackground();
     this.#drawEdges();
     await this.#drawTalents();
@@ -112,12 +112,12 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
   async #drawTalents() {
     const talents = this.node.node.talents;
     const tier1 = new PIXI.Circle(0, 0, this.radius);
-    const a = 2 * Math.PI / talents.size;
+    const a = (2 * Math.PI) / talents.size;
 
     // Iterate over talents
     let i = 0;
     for ( const talent of talents ) {
-      const position = tier1.pointAtAngle((i * a) - (Math.PI / 2));
+      const position = tier1.pointAtAngle((i * a) - (Math.PI / 2) + (a/2));
       const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
         borderColor: this.node.node.color,
         texture: await foundry.canvas.loadTexture(talent.img)

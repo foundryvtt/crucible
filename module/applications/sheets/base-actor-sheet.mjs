@@ -318,6 +318,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         signature: {label: "Signature Talents", items: []},
         active: {label: "Active Abilities", items: []},
         passive: {label: "Passive Talents", items: []},
+        training: {label: "Training Talents", items: []},
         spell: {label: "Spellcraft Talents", items: []}
       },
       inventory: {
@@ -357,6 +358,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
             section ||= sections.talents.active;
           }
           else if ( spellComp ) section ||= sections.talents.spell;
+          else if ( i.system.training.type ) section ||= sections.talents.training;
           else section ||= sections.talents.passive;
           break;
         case "spell":

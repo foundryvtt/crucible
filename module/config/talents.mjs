@@ -14,9 +14,9 @@ export const NODE_TYPES = Object.freeze({
   heal: {label: "TALENT.NODES.HEALING", style: "rect", icon: "heal"},
   spell: {label: "TALENT.NODES.SPELL", style: "rect", icon: "magic"},
   move: {label: "TALENT.NODES.MOVEMENT", style: "rect", icon: "move"},
-  utility: {label: "TALENT.NODES.UTILITY", style: "hex", icon: "utility"},
+  utility: {label: "TALENT.NODES.UTILITY", style: "rect", icon: "utility"},
   signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "signature"},
-  training: {label: "TALENT.NODES.TRAINING", style: "circle", icon: "utility"}
+  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "utility"}
 });
 
 /**

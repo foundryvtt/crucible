@@ -12,8 +12,21 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
   /** @override */
   async draw({active, accessible, ...config}={}) {
 
+    // Style
+    const {actions, rune, gesture, inflection, iconicSpells, training} = this.talent.system;
+    if ( actions.length ) {
+      this.config.shape = "rect";
+      this.config.borderRadius = this.config.size / 6;
+    }
+    else if ( rune || gesture || inflection || iconicSpells ) {
+      this.config.shape = "hex";
+    }
+    else if ( training.type && training.rank ) {
+      this.config.shape = "hex";
+    }
+    else this.config.shape = "circle";
+
     // Talent State
-    config.borderRadius = 8;
     config.borderColor = active ? this.node.node.color : 0x444444;
     config.alpha = active ? 1.0 : 0.6;
 

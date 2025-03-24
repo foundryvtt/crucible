@@ -27,17 +27,24 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // Configure based on node style
     switch ( this.node.style ) {
-      case "largeHex":
-        config.size = 80;
-        config.borderRadius = 80;
+      case "circle":
+        config.shape = "circle";
+        config.size = 48;
+        config.borderRadius = config.size / 2;
+        break;
+      case "hex":
+        config.shape = "hex";
+        config.size = 48;
         break;
       case "rect":
+        config.shape = "rect";
         config.size = 48;
         config.borderRadius = config.size / 6;
         break;
-      case "circle":
-        config.size = 48;
-        config.borderRadius = config.size / 2;
+      case "largeHex":
+        config.shape = "hex";
+        config.size = 80;
+        config.borderRadius = 80;
         break;
     }
 
@@ -45,11 +52,9 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     if ( state.accessible ) {
       config.alpha = 0.4;
       config.borderColor = 0x827f7d;
-      config.borderWidth = 2;
     } else {
       config.alpha = 0.1;
       config.borderColor = 0x262322;
-      config.borderWidth = 2;
     }
 
     // Has the node been purchased?
@@ -69,33 +74,6 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // Node interaction
     this.#activateInteraction();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _getShape() {
-    const {size, borderRadius: br} = this.config;
-    const hs = size / 2;
-    switch ( this.node.style ) {
-      case "rect":
-        return new PIXI.RoundedRectangle(-hs, -hs, size, size, br);
-      case "circle":
-        return new PIXI.Circle(0, 0, hs);
-      case "hex":
-      case "largeHex":
-        const borders = [[0, 0.5], [0.25, 0], [0.75, 0], [1, 0.5], [0.75, 1], [0.25, 1]];
-        const width = size;
-        const height = size * Math.sqrt(3) / 2;
-        const points = borders.reduce((arr, [ox, oy]) => {
-          arr.push((ox * width) - (width / 2));
-          arr.push((oy * height) - (height / 2));
-          return arr;
-        }, []);
-        return new PIXI.Polygon(points);
-      default:
-        return new PIXI.Circle(0, 0, hs);
-    }
   }
 
   /* -------------------------------------------- */
