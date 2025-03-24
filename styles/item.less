@@ -6,19 +6,24 @@
 
 .crucible.item,
 .crucible.action {
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
-
-  .sheet-body {
-    padding: var(--margin-size);
-  }
-
   .item-properties {
     display: grid;
     gap: 0.5rem 1rem;
     multi-checkbox {
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  /** Talent Progression Items */
+  .talents-list {
+    max-height: 600px;
+    gap: 1.5rem;
+  }
+  .droppable {
+    padding: 0.5rem 1rem;
+    border: 1px dashed var(--color-form-hint);
+    border-radius: 0.5rem;
+    cursor: pointer;
   }
 }
 
@@ -53,18 +58,6 @@
       grid-column: 2;
     }
   }
-
-  // Tabbed descriptions
-  .tab[data-tab=description] {
-    padding: 0;
-    gap: 0;
-    .sheet-tabs {
-      border-top: none;
-    }
-    section.tab {
-      padding: 1rem;
-    }
-  }
 }
 
 /** ----------------------------------------- *
@@ -83,10 +76,14 @@
         padding: 0.25rem;
         border: 1px solid var(--color-frame);
         border-radius: 6px;
+        text-align: center;
       }
       input {
+        --input-height: 24px;
         --input-border-color: transparent;
+        margin-bottom: 0.25rem;
         font-size: var(--font-size-18);
+        text-align: center;
       }
     }
     .sum {
@@ -105,11 +102,6 @@
   .talents {
     gap: 1rem;
   }
-  .droppable {
-    padding: 0 1rem;
-    border: 1px dashed var(--color-frame);
-    border-radius: 6px;
-  }
 }
 
 /** ----------------------------------------- *
@@ -120,15 +112,6 @@
   .talents {
     .talent .tags {
       flex: none;
-    }
-    .droppable {
-      padding: 0.5rem 1rem;
-      border: 1px dashed var(--color-tertiary);
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .talent + .droppable {
-      display: none;
     }
   }
 }

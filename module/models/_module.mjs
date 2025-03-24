@@ -1,17 +1,28 @@
+// Actions
 export {default as CrucibleAction} from "./action.mjs";
-export {default as CrucibleAdversary} from "./adversary.mjs";
-export {default as CrucibleAncestry} from "./ancestry.mjs";
-export {default as CrucibleArchetype} from "./archetype.mjs";
-export {default as CrucibleArmor} from "./armor.mjs";
-export {default as CrucibleBackground} from "./background.mjs";
-export {default as CrucibleGesture} from "./gesture.mjs";
-export {default as CrucibleHero} from "./hero.mjs";
-export {default as CrucibleInflection} from "./inflection.mjs";
-export {default as CrucibleRune} from "./rune.mjs";
-export {default as CrucibleSkill} from "./skill.mjs";
-export {default as CrucibleSpell} from "./spell.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";
-export {default as CrucibleTalent} from "./talent.mjs";
-export {default as CrucibleTaxonomy} from "./taxonomy.mjs";
-export {default as CrucibleWeapon} from "./weapon.mjs";
-export {default as CruciblePhysicalItem} from "./physical.mjs"
+
+// Actor
+export {default as CrucibleBaseActor} from "./actor-base.mjs";
+export {default as CrucibleAdversaryActor} from "./actor-adversary.mjs";
+export {default as CrucibleHeroActor} from "./actor-hero.mjs";
+export {default as CrucibleGroupActor} from "./actor-group.mjs";
+
+// Item
+export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
+export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";
+export {default as CrucibleArmorItem} from "./item-armor.mjs";
+export {default as CrucibleBackgroundItem} from "./item-background.mjs";
+export {default as CruciblePhysicalItem} from "./item-physical.mjs"
+export {default as CrucibleSpellItem} from "./item-spell.mjs";
+export {default as CrucibleTalentItem} from "./item-talent.mjs";
+export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
+export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
+
+// JournalEntryPage
+export {default as CrucibleSkillPage} from "./page-skill.mjs";
+
+// Spellcraft
+export {default as CrucibleSpellcraftRune} from "./spellcraft-rune.mjs";
+export {default as CrucibleSpellcraftGesture} from "./spellcraft-gesture.mjs";
+export {default as CrucibleSpellcraftInflection} from "./spellcraft-inflection.mjs";

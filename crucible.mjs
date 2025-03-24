@@ -9,7 +9,7 @@
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
-import CrucibleTalentNode from "./module/config/talent-tree.mjs";
+import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 
 // Import Modules
@@ -67,42 +67,28 @@ Hooks.once("init", async function() {
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
   CONFIG.Actor.dataModels = {
-    adversary: models.CrucibleAdversary,
-    hero: models.CrucibleHero
+    adversary: models.CrucibleAdversaryActor,
+    hero: models.CrucibleHeroActor,
+    group: models.CrucibleGroupActor
   };
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(SYSTEM.id, applications.HeroSheet, {types: ["hero"], makeDefault: true});
-  Actors.registerSheet(SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], makeDefault: true});
 
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
-    ancestry: models.CrucibleAncestry,
-    archetype: models.CrucibleArchetype,
-    armor: models.CrucibleArmor,
-    background: models.CrucibleBackground,
-    spell: models.CrucibleSpell,
-    talent: models.CrucibleTalent,
-    taxonomy: models.CrucibleTaxonomy,
-    weapon: models.CrucibleWeapon
+    ancestry: models.CrucibleAncestryItem,
+    archetype: models.CrucibleArchetypeItem,
+    armor: models.CrucibleArmorItem,
+    background: models.CrucibleBackgroundItem,
+    spell: models.CrucibleSpellItem,
+    talent: models.CrucibleTalentItem,
+    taxonomy: models.CrucibleTaxonomyItem,
+    weapon: models.CrucibleWeaponItem
   };
-  Items.unregisterSheet("core", ItemSheet);
 
-  // V2 Registrations
-  DocumentSheetConfig.registerSheet(Item, "crucible", applications.ArmorSheet, {
-    types: ["armor"],
-    makeDefault: true,
-    label: "CRUCIBLE.SHEETS.Armor"
+  // JournalEntryPage document configuration
+  Object.assign(CONFIG.JournalEntryPage.dataModels, {
+    "skill": models.CrucibleSkillPage
   });
-
-  // V1 Registrations
-  Items.registerSheet(SYSTEM.id, applications.AncestrySheet, {types: ["ancestry"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.ArchetypeSheet, {types: ["archetype"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.BackgroundSheet, {types: ["background"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.SpellSheet, {types: ["spell"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.TalentSheet, {types: ["talent"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.TaxonomySheet, {types: ["taxonomy"], makeDefault: true});
-  Items.registerSheet(SYSTEM.id, applications.WeaponSheet, {types: ["weapon"], makeDefault: true});
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
@@ -112,18 +98,25 @@ Hooks.once("init", async function() {
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = CrucibleTokenObject;
 
-  // Journal Document Configuration
-  Object.assign(CONFIG.JournalEntryPage.dataModels, {
-    "skill": models.CrucibleSkill
-  });
-  DocumentSheetConfig.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {
-    label: "CRUCIBLE.SHEETS.Journal"
-  })
-  DocumentSheetConfig.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {
-    types: ["skill"],
-    makeDefault: true,
-    label: "SKILL.PageSheet"
-  });
+  // Sheet Registrations
+  const sheets = foundry.applications.apps.DocumentSheetConfig;
+  sheets.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);
+  sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
+  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
+
+  sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
+
+  sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
+  sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {types: ["skill"], label: "CRUCIBLE.SHEETS.Skill", makeDefault: true});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
@@ -215,15 +208,19 @@ Hooks.once("i18nInit", function() {
 
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "ARMOR.CATEGORIES", "ARMOR.PROPERTIES", "DAMAGE_CATEGORIES", "DEFENSES",
+    ["ABILITIES", ["abbreviation", "label"]],
+    "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
+    "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "ADVERSARY.TAXONOMY_CATEGORIES",
-    "SKILL.CATEGORIES", "SKILL.RANKS",
-    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.SLOTS"
+    "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
   for ( let c of toLocalize ) {
-    const conf = foundry.utils.getProperty(SYSTEM, c);
+    let key = c;
+    let attrs = ["label"];
+    if ( Array.isArray(c) ) [key, attrs] = c;
+    const conf = foundry.utils.getProperty(SYSTEM, key);
 
     // Special handling for enums
     if ( conf instanceof Enum ) {
@@ -234,29 +231,37 @@ Hooks.once("i18nInit", function() {
 
     // Other objects
     for ( let [k, v] of Object.entries(conf) ) {
-      if ( v.label ) v.label = game.i18n.localize(v.label);
-      if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
-      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+      if ( typeof v === "object" ) {
+        for ( const attr of attrs ) {
+          if ( typeof v[attr] === "function" ) v[attr] = v[attr]();
+          else if ( typeof v[attr] === "string" ) v[attr] = game.i18n.localize(v[attr]);
+        }
+        Object.freeze(v);
+      }
+      else {
+        if ( typeof v === "function" ) conf[k] = v();
+        else if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+      }
     }
   }
 
   // Localize models
-  Localization.localizeDataModel(models.CrucibleAction)
+  foundry.helpers.Localization.localizeDataModel(models.CrucibleAction)
 
   // Pre-localize configuration objects
   preLocalizeConfig();
 
   // Initialize Spellcraft Components
-  models.CrucibleGesture.initialize();
-  models.CrucibleInflection.initialize();
-  models.CrucibleRune.initialize();
+  models.CrucibleSpellcraftGesture.initialize();
+  models.CrucibleSpellcraftInflection.initialize();
+  models.CrucibleSpellcraftRune.initialize();
 
   // Preload Handlebars Templates
-  loadTemplates([
+  foundry.applications.handlebars.loadTemplates([
     `systems/${SYSTEM.id}/templates/dice/partials/action-use-header.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-roll.hbs`,
     `systems/${SYSTEM.id}/templates/dice/partials/standard-check-details.hbs`,
-    `systems/${SYSTEM.id}/templates/sheets/partials/talent-summary.hbs`
+    `systems/${SYSTEM.id}/templates/sheets/item/talent-summary.hbs`
   ]);
 });
 
@@ -266,21 +271,27 @@ Hooks.once("i18nInit", function() {
  * Perform one-time configuration of system configuration objects.
  */
 function preLocalizeConfig() {
-  const localizeConfigObject = (obj, keys) => {
+  const localizeConfigObject = (obj, keys, freeze=true) => {
     for ( let o of Object.values(obj) ) {
       for ( let k of keys ) {
-        o[k] = game.i18n.localize(o[k]);
+        const v = o[k];
+        if ( typeof v === "function" ) o[k] = v();
+        else if ( typeof v === "string" ) o[k] = game.i18n.localize(v);
       }
+      if ( freeze ) Object.freeze(o);
     }
   }
 
-  // Statuses
   localizeConfigObject(CONFIG.statusEffects, ["label"]);
-
-  // Action Tags
-  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
+  localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
+  localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
+  localizeConfigObject(SYSTEM.SKILL.RANKS, ["label", "description"]);
+  localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
+  localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
+  localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
 }
 
 /* -------------------------------------------- */
@@ -293,7 +304,7 @@ function preLocalizeConfig() {
 Hooks.once("setup", function() {
 
   // Initialize Skill Data
-  models.CrucibleSkill.initialize();
+  models.CrucibleSkillPage.initialize();
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();
@@ -349,21 +360,21 @@ Hooks.on("hotbarDrop", async (bar, data, slot) => {
 });
 
 Hooks.on("getSceneControlButtons", controls => {
-  const tokens = controls.find(c => c.name === "token");
-  tokens.tools.push({
+  const flankingTool = {
     name: "debugFlanking",
     title: "Visualize Flanking",
     icon: "fa-solid fa-circles-overlap",
     toggle: true,
-    active: false,
-    onClick: active => {
-      CONFIG.debug.flanking = active
-      for ( const token of canvas.tokens.controlled ) {
-        if ( active ) token._visualizeEngagement(token.engagement);
-        else token._clearEngagementVisualization();
-      }
+    active: false
+  };
+  flankingTool.onChange = (_event, active) => {
+    CONFIG.debug.flanking = active
+    for ( const token of canvas.tokens.controlled ) {
+      if ( active ) token._visualizeEngagement(token.engagement);
+      else token._clearEngagementVisualization();
     }
-  });
+  }
+  controls.tokens.tools.debugFlanking = flankingTool;
 });
 
 /* -------------------------------------------- */
@@ -439,14 +450,14 @@ async function standardizeItemIds() {
 }
 
 function registerDevelopmentHooks() {
-  Hooks.on("preCreateItem", (item, data, options, user) => {
+  Hooks.on("preCreateItem", (item, data, options, _user) => {
     if ( !item.parent && !item.id ) {
       item.updateSource({_id: generateId(item.name, 16)});
       options.keepId = true;
     }
   });
 
-  Hooks.on("updateItem", async (item, change, options, user) => {
+  Hooks.on("updateItem", async (item, _change, _options, _user) => {
     const talentPacks = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     if ( !talentPacks.includes(item.pack)  ) return;
     await CrucibleTalentNode.initialize();
@@ -482,6 +493,7 @@ async function syncTalents(force=false) {
   if ( synced ) SceneNavigation.displayProgressBar({label: "Synchronizing Talent Data", pct: 100});
   console.log(`Crucible | Complete talent synchronization for ${synced} Actors`);
   console.groupEnd();
+  foundry.utils.debouncedReload();
 }
 
 /* -------------------------------------------- */

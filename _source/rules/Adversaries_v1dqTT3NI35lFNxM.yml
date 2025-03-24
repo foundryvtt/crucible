@@ -94,12 +94,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.1
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684375058270
       modifiedTime: 1727452965659
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!v1dqTT3NI35lFNxM.WH0YSVcYo09aHNZ2'
   - sort: 200000
     name: Taxonomy
@@ -144,12 +146,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375066136
       modifiedTime: 1684895944722
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!v1dqTT3NI35lFNxM.qSeJNy28eK9axO7C'
   - sort: 300000
     name: Archetype
@@ -196,12 +200,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375072170
       modifiedTime: 1684895957472
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!v1dqTT3NI35lFNxM.O8IesdQo8SQpIKbo'
 flags:
   core:
@@ -209,15 +215,17 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.1
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1684375053686
   modifiedTime: 1686419794448
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 109375
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!v1dqTT3NI35lFNxM'
 

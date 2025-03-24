@@ -23,12 +23,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1688315033294
   modifiedTime: 1688315087645
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: grimoire00000000
 sort: 200000
 _key: '!items!grimoire00000000'

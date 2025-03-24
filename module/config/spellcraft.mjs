@@ -5,8 +5,8 @@ export const NAME_FORMATS = Object.freeze({
 
 /**
  * The Arcane Runes which exist in the Crucible spellcraft system.
- * These config objects are instantiated as CrucibleRune instances during system initialization.
- * @enum {CrucibleRune}
+ * These config objects are instantiated as CrucibleSpellcraftRune instances during system initialization.
+ * @enum {object}
  */
 export const RUNES = Object.seal({
   death: {
@@ -147,8 +147,8 @@ export const RUNES = Object.seal({
 
 /**
  * The Somatic Gestures which exist in the Crucible spellcraft system.
- * These config objects are instantiated as CrucibleGesture instances during system initialization.
- * @enum {CrucibleGesture}
+ * These config objects are instantiated as CrucibleSpellcraftGesture instances during system initialization.
+ * @enum {object}
  */
 export const GESTURES = Object.seal({
   arrow: {
@@ -365,8 +365,8 @@ export const GESTURES = Object.seal({
 
 /**
  * The Metamagic Inflections which exist in the Crucible spellcraft system.
- * These config objects are instantiated as CrucibleInflection instances during system initialization.
- * @enum {CrucibleInflection}
+ * These config objects are instantiated as CrucibleSpellcraftInflection instances during system initialization.
+ * @enum {object}
  */
 export const INFLECTIONS = Object.seal({
   compose: {

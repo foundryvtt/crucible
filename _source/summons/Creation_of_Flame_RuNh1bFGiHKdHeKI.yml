@@ -216,7 +216,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -228,6 +227,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: 'Rune: Flame'
     type: talent
@@ -242,17 +246,17 @@ items:
       rune: flame
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runeflame0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1677964976672
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runeflame0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -273,17 +277,17 @@ items:
       gesture: fan
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.gesturefan000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674842056708
       modifiedTime: 1677964990283
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.gesturefan000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -313,17 +317,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.flametouch000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965044710
       modifiedTime: 1677965120101
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.flametouch000000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!RuNh1bFGiHKdHeKI.vk1SK4IwNZkxQEQL'
   - folder: 3KAfetslMjSVGaqx
     name: Elemental Armor
@@ -350,29 +354,30 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.livingflame00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965383866
       modifiedTime: 1677965883327
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.livingflame00000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!RuNh1bFGiHKdHeKI.kxuUSxeLhkQ5J1Nn'
 effects: []
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1677963742821
   modifiedTime: 1727550278311
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 200000
 ownership:
   default: 0

@@ -1,12 +1,11 @@
 /**
  * Extend and replace the core CombatTracker class to add Crucible-specific UI customizations.
  */
-export default class CrucibleCombatTracker extends CombatTracker {
+export default class CrucibleCombatTracker extends foundry.applications.sidebar.tabs.CombatTracker {
 
   /** @inheritDoc */
-  async _renderInner(data) {
-    const html = await super._renderInner(data);
-    for ( const i of html.find(".combatant-control.roll") ) i.remove();
-    return html;
+  _onRender(options) {
+    super._onRender(options);
+    for ( const i of this.element.querySelectorAll(".combatant-control.roll") ) i.remove();
   }
 }

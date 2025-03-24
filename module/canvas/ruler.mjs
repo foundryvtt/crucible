@@ -1,5 +1,5 @@
 
-export default class CrucibleRuler extends Ruler {
+export default class CrucibleRuler extends foundry.canvas.interaction.Ruler {
 
   /**
    * The Movement action being measured, or null.

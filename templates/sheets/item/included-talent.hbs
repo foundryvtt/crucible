@@ -1,0 +1,18 @@
+<div class="talent line-item" data-uuid="{{talent.uuid}}">
+    <img class="icon" src="{{talent.img}}" alt="{{talent.name}}">
+    <div class="title">
+        <h4>{{talent.name}}</h4>
+        <div class="tags">
+            {{#each talent.tags as |tag type|}}
+            <span class="tag" data-tag="{{type}}">{{tag}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{#if isEditable}}
+    <div class="controls">
+        <a class="button icon fa-solid fa-times remove-talent" data-action="removeTalent"
+           data-tooltip="ITEM.SHEET.TALENT_REMOVE"></a>
+    </div>
+    {{/if}}
+    <div class="description">{{{talent.description}}}</div>
+</div>

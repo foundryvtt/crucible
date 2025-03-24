@@ -35,12 +35,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375117406
       modifiedTime: 1685231930525
       lastModifiedBy: JMECHdsPmLGGi1RC
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!j9Nus4RQXHAd0NqQ.POsbUPz2axlketya'
   - sort: 200000
     name: Sequencer and JB2A
@@ -82,12 +84,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375126195
       modifiedTime: 1686264525548
       lastModifiedBy: JMECHdsPmLGGi1RC
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!j9Nus4RQXHAd0NqQ.xxV2qdt25nm8mBXt'
   - sort: 0
     name: Modules in General
@@ -119,12 +123,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1685999358989
       modifiedTime: 1685999476358
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!j9Nus4RQXHAd0NqQ.gXn1vSsngfbsdGNv'
 flags:
   core:
@@ -132,15 +138,17 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1684375110280
   modifiedTime: 1686264525548
   lastModifiedBy: JMECHdsPmLGGi1RC
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!j9Nus4RQXHAd0NqQ'
 

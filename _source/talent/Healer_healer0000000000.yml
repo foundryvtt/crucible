@@ -54,17 +54,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.healer0000000000
+  core: {}
 _stats:
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727311608001
   modifiedTime: 1727311608001
   lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
 folder: fOYHlZJEWUukD7yr
 _id: healer0000000000
 sort: 0

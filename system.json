@@ -2,7 +2,7 @@
   "id": "crucible",
   "title": "Crucible",
   "description": "Crucible is an innovative and modern tabletop role-playing game system built exclusively for Foundry Virtual Tabletop as a digital platform. From the ground up, Crucible is designed to leverage the unique capabilities of Foundry VTT to provide gamemasters with a powerful toolset and effortless layers of automation, allowing gamemasters and players to focus on what matters most: telling a compelling story.",
-  "version": "0.6.1",
+  "version": "0.7.0-dev",
   "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#",
   "url": "https://foundryvtt.com/packages/crucible",
@@ -14,8 +14,8 @@
     }
   ],
   "compatibility": {
-    "minimum": 12,
-    "verified": 13
+    "minimum": 13,
+    "verified": 13.334
   },
   "license": "LICENSE",
   "esmodules": ["crucible.mjs"],
@@ -159,7 +159,12 @@
       "hero": {
         "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
       },
-      "adversary": {}
+      "adversary": {
+        "htmlFields": ["details.biography.public", "details.biography.private", "details.biography.appearance"]
+      },
+      "group": {
+        "htmlFields": ["details.biography.public", "details.biography.private"]
+      }
     },
     "Item": {
       "ancestry": {
@@ -172,6 +177,9 @@
         "htmlFields": ["description.public", "description.secret"]
       },
       "background": {
+        "htmlFields": ["description"]
+      },
+      "loot": {
         "htmlFields": ["description"]
       },
       "spell": {

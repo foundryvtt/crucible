@@ -7,11 +7,6 @@ flags:
   core:
     viewMode: 2
     sheetClass: crucible.CrucibleJournalSheet
-  exportSource:
-    world: crucible
-    system: crucible
-    coreVersion: '11.296'
-    systemVersion: 0.6.2
 pages:
   - name: Abilities
     type: text
@@ -63,12 +58,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1686270670752
       lastModifiedBy: JMECHdsPmLGGi1RC
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.RHCy135mF4EN1mWZ'
   - name: Ancestry
     type: text
@@ -143,17 +140,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.ufNQdK2ZfNU6R05g.JournalEntryPage.ovqgeiXHPrdiUXci
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1727451143883
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.ufNQdK2ZfNU6R05g.JournalEntryPage.ovqgeiXHPrdiUXci
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.ovqgeiXHPrdiUXci'
   - name: Background
     type: text
@@ -217,17 +215,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1686270152619
       lastModifiedBy: JMECHdsPmLGGi1RC
-      compendiumSource: null
+      compendiumSource: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.uCwStnXHoUCV2TrK'
   - name: Overview
     type: text
@@ -335,17 +334,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.ZlemzCIzl2XrKHBT.JournalEntryPage.DjePpoV2oJenlyTf
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1727451089691
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.ZlemzCIzl2XrKHBT.JournalEntryPage.DjePpoV2oJenlyTf
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.DjePpoV2oJenlyTf'
   - name: Resources
     type: text
@@ -415,17 +415,18 @@ pages:
     ownership:
       default: -1
     flags:
-      core:
-        sourceId: JournalEntry.q2cIo1vxu2LMdPeS.JournalEntryPage.FmmADsI9qo1uIIT3
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1727451339512
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
+      compendiumSource: JournalEntry.q2cIo1vxu2LMdPeS.JournalEntryPage.FmmADsI9qo1uIIT3
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.FmmADsI9qo1uIIT3'
   - sort: 400000
     name: Resistances
@@ -489,12 +490,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: null
       modifiedTime: 1684891159518
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.XDx0e2rZWcHLcfBt'
   - sort: 500000
     name: Level Advancement
@@ -566,12 +569,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684372703418
       modifiedTime: 1684372755253
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.9p9MYP9Y0MEWEpSv'
   - sort: 350000
     name: Defenses
@@ -687,25 +692,34 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.1
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684615998505
       modifiedTime: 1686418892604
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.alkVSDmt0ec5HBfE'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1676600838396
   modifiedTime: 1688332725418
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource:
+    worldId: crucible
+    uuid: null
+    coreVersion: '11.296'
+    systemId: crucible
+    systemVersion: 0.6.2
 sort: 0
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!gszlBVQ5fGh3y0I6'
 

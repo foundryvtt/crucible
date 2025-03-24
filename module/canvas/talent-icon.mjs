@@ -11,9 +11,9 @@ export default class CrucibleTalentIcon extends PIXI.Container {
       alpha: 1.0,
       backgroundColor: 0x000000,
       borderColor: undefined,
-      borderWidth: 3,
+      borderWidth: 2,
       borderRadius: undefined,
-      size: 50,
+      size: 48,
       text: undefined,
       texture: undefined,
       tint: 0xFFFFFF
@@ -31,8 +31,8 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.border = this.addChild(new PIXI.Graphics());
 
     // Number
-    const textStyle = PreciseText.getTextStyle({fontSize: 24});
-    this.number = this.addChild(new PreciseText("", textStyle));
+    const textStyle = foundry.canvas.containers.PreciseText.getTextStyle({fontSize: 24});
+    this.number = this.addChild(new foundry.canvas.containers.PreciseText("", textStyle));
     this.number.anchor.set(0.5, 0.5);
     this.number.position.set(this.config.size / 3, -this.config.size / 3);
   }
@@ -87,10 +87,27 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * @protected
    */
   _getShape() {
-    const {size, borderRadius} = this.config;
-    return new PIXI.RoundedRectangle(size/-2, size/-2, size, size, borderRadius);
+    const {shape, size, borderRadius: br} = this.config;
+    const hs = size / 2;
+    switch ( shape ) {
+      case "rect":
+        return new PIXI.RoundedRectangle(-hs, -hs, size, size, br);
+      case "circle":
+        return new PIXI.Circle(0, 0, hs);
+      case "hex":
+        const borders = [[0, 0.5], [0.25, 0], [0.75, 0], [1, 0.5], [0.75, 1], [0.25, 1]];
+        const width = size * 2 / Math.sqrt(3)
+        const height = size;
+        const points = borders.reduce((arr, [ox, oy]) => {
+          arr.push((ox * width) - (width / 2));
+          arr.push((oy * height) - (height / 2));
+          return arr;
+        }, []);
+        return new PIXI.Polygon(points);
+      default:
+        return new PIXI.Circle(0, 0, hs);
+    }
   }
-
 
   /* -------------------------------------------- */
 
@@ -110,7 +127,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    */
   _drawBorder() {
     const {borderColor, borderWidth} = this.config;
-    this.border.clear().lineStyle({alignment: 1, color: borderColor, width: borderWidth}).drawShape(this.shape);
+    this.border.clear().lineStyle({alignment: 0.5, color: borderColor, width: borderWidth}).drawShape(this.shape);
   }
 }
 CrucibleTalentIcon.greyscaleFilter.desaturate();

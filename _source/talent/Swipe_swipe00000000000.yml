@@ -3,7 +3,7 @@ type: talent
 _id: swipe00000000000
 img: icons/skills/melee/strike-axe-red.webp
 system:
-  node: str0
+  node: str0a
   description: >-
     You perform a broad swipe with your weapon, hitting two adjacent targets
     within your weapon range.
@@ -43,11 +43,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1688230630765
   modifiedTime: 1727320704645
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _key: '!items!swipe00000000000'
 

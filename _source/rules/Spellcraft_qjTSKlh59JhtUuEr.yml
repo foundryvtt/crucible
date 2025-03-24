@@ -99,12 +99,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684374993517
       modifiedTime: 1727451918945
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.X8XCei6YrpnGyFc2'
   - sort: 200000
     name: Runes
@@ -202,12 +204,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375014492
       modifiedTime: 1687026223560
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.p3hKRiZN3x0DEtyG'
   - sort: 300000
     name: Gestures
@@ -290,12 +294,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375020833
       modifiedTime: 1688315548834
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.lhrYInsQ2f0YfhTu'
   - sort: 400000
     name: Inflections
@@ -369,12 +375,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684375027780
       modifiedTime: 1686357166636
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.ELOcfx6LPZMh74y8'
   - sort: 500000
     name: Iconic Spells
@@ -413,12 +421,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.331'
+      coreVersion: '13.338'
       createdTime: 1684375035098
       modifiedTime: 1727452042292
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.IP3VYtuMPiMYNqhT'
   - sort: 600000
     name: Countermagic
@@ -455,12 +465,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684973762830
       modifiedTime: 1686193770669
       lastModifiedBy: JMECHdsPmLGGi1RC
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
+    category: null
     _key: '!journal.pages!qjTSKlh59JhtUuEr.W8Yx6CtcNKCuw3cq'
 flags:
   core:
@@ -468,15 +480,17 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1684374985562
   modifiedTime: 1688315548834
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 sort: 107032
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+categories: []
 _key: '!journal!qjTSKlh59JhtUuEr'
 

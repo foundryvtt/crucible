@@ -1,0 +1,13 @@
+<header class="sheet-header flexrow">
+    <img class="profile" src="{{source.img}}" alt="{{source.name}}" data-action="editImage" data-edit="img">
+    <div class="name flexcol">
+        <h1 class="title">
+            {{formInput item.schema.fields.name value=source.name placeholder="Item Name"}}
+        </h1>
+        <div class="tags header-tags">
+            {{~#each tags as |label tag|}}
+            <span class="tag" data-tag="{{tag}}">{{label}}</span>
+            {{/each~}}
+        </div>
+    </div>
+</header>

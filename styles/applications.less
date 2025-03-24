@@ -11,6 +11,8 @@
   --color-form-hint-hover: var(--color-secondary);
   --background-texture: url("../ui/journal/background-texture.webp");
   --background-overlay: url("../ui/journal/overlay-dark.webp");
+  --margin-size: 1rem;
+  --margin-half: 0.5rem;
 
   background: var(--background-texture) no-repeat;
   background-size: cover;
@@ -76,6 +78,54 @@
       pointer-events: none;
     }
   }
+
+  .header-control button {
+    --button-text-color: var(--color-secondary);
+    opacity: 1.0;
+  }
+
+  // Text Editors
+  prose-mirror {
+    height: 100%;
+    max-height: 600px;
+    min-height: 200px;
+
+    // Toggled editors
+    &[toggled] {
+      position: relative;
+      padding: var(--margin-size);
+      margin: calc(-1 * var(--margin-size)); // Allow for limited overflow
+      button.toggle {
+        position: absolute;
+        top: 12px;
+        right: 4px;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        &:disabled {
+          visibility: hidden;
+        }
+      }
+    }
+
+    // Menu buttons
+    button {
+      padding: revert;
+      text-align: revert;
+      opacity: revert;
+    }
+
+    // Contents
+    .editor-container {
+      margin: 0;
+    }
+  }
+
+  prose-mirror .editor-content,
+  article.editor-content {
+    overflow: hidden auto;
+    font-size: var(--font-size-14);
+  }
 }
 
 /* ----------------------------------------- */
@@ -83,14 +133,15 @@
 /* ----------------------------------------- */
 
 .crucible.sheet {
+  --sheet-header-height: 80px;
+  --sheet-header-gap: 0.5rem 0.5rem;
+  --sheet-body-gap: 0.5rem 1rem;
 
   // Sheet Header
   .sheet-header {
-    --sheet-header-height: 80px;
-    gap: 0.5rem;
-    padding: 1rem;
-
-    // Profile Image
+    gap: var(--sheet-header-gap);
+    padding: 0 var(--margin-size);
+    margin-bottom: var(--margin-half);
     img.profile {
       flex: 0 0 var(--sheet-header-height);
       width: var(--sheet-header-height);
@@ -100,19 +151,17 @@
       border-radius: 4px;
       object-fit: contain;
     }
-
     .name {
       height: var(--sheet-header-height);
-      gap: 0.25rem;
+      gap: var(--sheet-header-gap);
+      justify-content: center;
     }
-
-    // Document Name
     .title {
-      flex: 1;
       border: none;
+      margin: 0;
       input {
         display: block;
-        height: 100%;
+        height: 60px;
         width: 100%;
         margin: 0;
         padding: 0 0.5rem;
@@ -121,22 +170,22 @@
         font-size: var(--font-size-24);
       }
     }
+    .header-tags:empty {
+      display: none;
+    }
   }
 
   // Sheet Tabs
   nav.sheet-tabs {
-    margin: 0;
     border-color: var(--color-cool-4);
     font-family: var(--font-h1);
     color: var(--color-secondary);
-    > a {
-      padding: 8px 0; // No horizontal padding since we use flex gap
-    }
   }
 
   // Sheet Body
   .sheet-body {
-    gap: 1rem;
+    padding: var(--sheet-body-gap);
+    gap: var(--sheet-body-gap);
   }
 
   // Form Elements
@@ -169,11 +218,6 @@
       }
     }
   }
-
-  // Text Editors
-  prose-mirror {
-    font-size: 13px;
-  }
 }
 
 
@@ -195,12 +239,14 @@
     height: var(--icon-size);
     width: var(--icon-size);
     flex: none;
+    object-fit: contain;
   }
   .title {
     flex: 1;
     display: flex;
     flex-direction: column;
-    h4 {
+    gap: 0.25rem;
+    h1, h2, h3, h4 {
       flex: none;
       margin: 0;
       font-size: var(--title-font-size);
@@ -252,7 +298,7 @@
   .button.icon {
     width: 24px;
     height: 24px;
-    font-size: var(--font-size-10);
+    font-size: var(--font-size-12);
     padding: 0.25rem;
   }
 

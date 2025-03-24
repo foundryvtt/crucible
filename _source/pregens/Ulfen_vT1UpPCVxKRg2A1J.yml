@@ -220,7 +220,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -232,6 +231,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: Intimidator
     type: talent
@@ -273,12 +277,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676839298208
       modifiedTime: 1687634079811
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!vT1UpPCVxKRg2A1J.intimidator00000'
   - name: Martial Weapon Training
     type: talent
@@ -309,12 +314,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1682263814426
       modifiedTime: 1687634079811
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!vT1UpPCVxKRg2A1J.martialweapontra'
   - _id: cleave0000000000
     name: Cleave
@@ -322,8 +328,7 @@ items:
     img: icons/skills/melee/strike-sword-steel-yellow.webp
     effects: []
     flags:
-      core:
-        sourceId: Item.pHRUZ8Zfv5E0TcH2
+      core: {}
     system:
       node: str1a
       description: >-
@@ -351,12 +356,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420032
       modifiedTime: 1687634079811
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.pHRUZ8Zfv5E0TcH2
       duplicateSource: null
+      exportSource: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
     ownership:
@@ -369,8 +375,7 @@ items:
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      core: {}
     system:
       category: medium
       quantity: 1
@@ -389,12 +394,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420024
       modifiedTime: 1686234401695
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
       duplicateSource: null
+      exportSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -408,8 +414,7 @@ items:
     effects: []
     folder: bvWJheBtuW1LmkAy
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.greataxe00000000
+      core: {}
     system:
       category: heavy2
       quantity: 1
@@ -427,12 +432,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420015
       modifiedTime: 1686234409780
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.greataxe00000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -444,12 +450,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686232920753
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: vT1UpPCVxKRg2A1J
 sort: 0
 ownership:

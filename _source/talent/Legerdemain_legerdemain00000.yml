@@ -10,17 +10,17 @@ system:
   requirements: {}
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.legerdemain00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1674964121869
   modifiedTime: 1682387726333
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.legerdemain00000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

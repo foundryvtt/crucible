@@ -1,0 +1,40 @@
+folder: x4BWwSD07nbEGSA0
+name: Diplomacy Novice
+type: talent
+_id: diplomacyNovice0
+img: systems/crucible/icons/skills/diplomacy.jpg
+system:
+  node: pre0a
+  description: >-
+    <p><span style="font-family:Vollkorn, serif">You know the basics of debate
+    and how to use rhetorical devices to make your arguments more convincing.
+    You gain the <strong>Novice</strong> rank in the <strong>Diplomacy
+    </strong>skill and are no longer considered <strong>Untrained</strong> in
+    that skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
+    how to leverage emotion in your words to inspire others or sway their
+    opinions. You can make a convincing argument, and you can generally steer
+    others to agree with your point of view.</span></p>
+  actions: []
+  iconicSpells: 0
+  training:
+    type: diplomacy
+    rank: 1
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.338'
+  systemId: crucible
+  systemVersion: 0.7.0-dev
+  createdTime: 1742762812489
+  modifiedTime: 1742762884675
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!diplomacyNovice0'
+

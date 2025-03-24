@@ -221,7 +221,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -233,6 +232,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: 'Rune: Life'
     type: talent
@@ -251,17 +255,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runelife00000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runelife00000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -287,17 +291,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.inflectioncompos
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676608867154
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.inflectioncompos
       duplicateSource: null
+      exportSource: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -336,12 +340,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675017944331
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -50000
     ownership:
@@ -369,17 +374,17 @@ items:
       slot: 0
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.magestaff0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677293085873
       modifiedTime: 1686234338492
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.magestaff0000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -391,8 +396,7 @@ items:
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      core: {}
     system:
       category: medium
       quantity: 1
@@ -411,12 +415,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420024
       modifiedTime: 1686234346975
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
       duplicateSource: null
+      exportSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -429,12 +434,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1686232748166
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: z8PYWkq3bxce7vwb
 sort: 0
 ownership:

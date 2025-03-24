@@ -221,7 +221,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -233,6 +232,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Deathly Armor
@@ -259,17 +263,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.livingflame00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965383866
       modifiedTime: 1686181459865
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.livingflame00000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!56puGK932Qc0cowe.mRRdlP89QJPwBeHp'
   - folder: MXhSyruFpcxbRhgJ
     name: Bony Claws
@@ -293,17 +297,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.flametouch000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677965044710
       modifiedTime: 1686181629480
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.flametouch000000
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!56puGK932Qc0cowe.EBS39VwHFZ4jvcMK'
   - name: 'Rune: Death'
     type: talent
@@ -316,17 +320,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runedeath0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1686181711374
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runedeath0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -347,17 +351,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.gesturefan000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674842056708
       modifiedTime: 1686181719057
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.gesturefan000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -375,12 +379,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1686181185927
   modifiedTime: 1727550485687
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: 56puGK932Qc0cowe
 sort: 112500
 _key: '!actors!56puGK932Qc0cowe'

@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.vIhvItiKYuiqaSp9
+  core: {}
 system:
   node: intdex1
   description: >-
@@ -61,12 +60,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420023
   modifiedTime: 1726967621841
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
+  exportSource: null
 folder: cW6bwHXBB9pMcwva
 sort: 200000
 ownership:

@@ -2,7 +2,7 @@ name: 'Rune: Flame'
 type: talent
 img: icons/magic/fire/barrier-wall-flame-ring-yellow.webp
 system:
-  node: int0
+  node: int0a
   description: >-
     <p>The chaotic force of elemental, thermal energy. The Flame rune governs
     fire and heat. It is opposed by the orderly rune of Frost.</p>
@@ -15,17 +15,17 @@ system:
   actorHooks: []
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.runeflame0000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1674698661050
   modifiedTime: 1686250946477
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runeflame0000000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

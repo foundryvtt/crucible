@@ -220,7 +220,6 @@ prototypeToken:
   detectionModes: []
   flags: {}
   randomImg: false
-  hexagonalShape: 0
   occludable:
     radius: 0
   ring:
@@ -232,6 +231,11 @@ prototypeToken:
     subject:
       scale: 1
       texture: null
+  turnMarker:
+    mode: 1
+    animation: null
+    src: null
+    disposition: false
 items:
   - name: 'Rune: Life'
     type: talent
@@ -250,17 +254,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runelife00000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runelife00000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -286,17 +290,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.inflectioncompos
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1676608867154
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.inflectioncompos
       duplicateSource: null
+      exportSource: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -335,12 +339,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675017944331
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -50000
     ownership:
@@ -384,12 +389,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1685214851183
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!pMhIgLaVXtBahNLH.planneddefense00'
   - name: 'Gesture: Influence'
     type: talent
@@ -412,17 +418,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.gestureinfluence
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674842056708
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.gestureinfluence
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -458,12 +464,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1684686470274
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!pMhIgLaVXtBahNLH.gesturepulse0000'
   - name: Mender
     type: talent
@@ -489,12 +496,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1682181078484
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!pMhIgLaVXtBahNLH.mender0000000000'
   - name: 'Rune: Spirit'
     type: talent
@@ -513,17 +521,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runecourage00000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runecourage00000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -549,17 +557,17 @@ items:
       actorHooks: []
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.talent.runefrost0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.talent.runefrost0000000
       duplicateSource: null
+      exportSource: null
     ownership:
       default: 0
       AnoypGxxNIMOS0XY: 3
@@ -590,17 +598,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.gestureray000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675608839856
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.gestureray000000
       duplicateSource: null
+      exportSource: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
     sort: 600000
@@ -628,12 +636,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1685584801159
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
+      exportSource: null
     _key: '!actors.items!pMhIgLaVXtBahNLH.subtleextricatio'
   - name: Conserve Effort
     type: talent
@@ -650,17 +659,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.conserveeffort00
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677356252137
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.conserveeffort00
       duplicateSource: null
+      exportSource: null
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
     sort: 150000
@@ -685,17 +694,17 @@ items:
       default: 0
       AnoypGxxNIMOS0XY: 3
     flags:
-      core:
-        sourceId: Item.healer0000000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1675741049748
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Item.healer0000000000
       duplicateSource: null
+      exportSource: null
     _id: healer0000000000
     folder: fOYHlZJEWUukD7yr
     sort: -100000
@@ -721,17 +730,17 @@ items:
       slot: 0
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.weapon.Item.magestaff0000000
+      core: {}
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1677293085873
       modifiedTime: 1686234357371
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.weapon.Item.magestaff0000000
       duplicateSource: null
+      exportSource: null
     sort: 0
     ownership:
       default: 0
@@ -743,8 +752,7 @@ items:
     img: icons/equipment/chest/breastplate-banded-steel-studded.webp
     effects: []
     flags:
-      core:
-        sourceId: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
+      core: {}
     system:
       category: medium
       quantity: 1
@@ -763,12 +771,13 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '12.325'
+      coreVersion: '13.338'
       createdTime: 1674942420024
       modifiedTime: 1686234363446
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS
       duplicateSource: null
+      exportSource: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
@@ -784,12 +793,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1685740866723
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _id: pMhIgLaVXtBahNLH
 sort: 0
 ownership:

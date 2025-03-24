@@ -116,26 +116,30 @@ export const CATEGORIES = {
  * The skills configured for the system.
  * @type {Record<string, {id: string, category: string, abilities: [string, string]}>}
  */
-export const SKILLS = {
+export const SKILLS = Object.freeze({
 
   // Exploration Skills
   athletics: {
     id: "athletics",
+    label: "SKILL.LABELS.athletics",
     category: "exp",
     abilities: ["strength", "dexterity"]
   },
   awareness: {
     id: "awareness",
+    label: "SKILL.LABELS.awareness",
     category: "exp",
     abilities: ["intellect", "wisdom"]
   },
   stealth: {
     id: "stealth",
+    label: "SKILL.LABELS.stealth",
     category: "exp",
     abilities: ["dexterity", "intellect"]
   },
   wilderness: {
     id: "wilderness",
+    label: "SKILL.LABELS.wilderness",
     category: "exp",
     abilities: ["toughness", "wisdom"]
   },
@@ -143,21 +147,25 @@ export const SKILLS = {
   // Knowledge Skills
   arcana: {
     id: "arcana",
+    label: "SKILL.LABELS.arcana",
     category: "kno",
     abilities: ["intellect", "presence"]
   },
   medicine: {
     id: "medicine",
+    label: "SKILL.LABELS.medicine",
     category: "kno",
     abilities: ["toughness", "wisdom"]
   },
   science: {
     id: "science",
+    label: "SKILL.LABELS.science",
     category: "kno",
     abilities: ["intellect", "wisdom"]
   },
   society: {
     id: "society",
+    label: "SKILL.LABELS.society",
     category: "kno",
     abilities: ["presence", "wisdom"]
   },
@@ -165,25 +173,29 @@ export const SKILLS = {
   // Social Skills
   deception: {
     id: "deception",
+    label: "SKILL.LABELS.deception",
     category: "soc",
     abilities: ["intellect", "presence"]
   },
   diplomacy: {
     id: "diplomacy",
+    label: "SKILL.LABELS.diplomacy",
     category: "soc",
     abilities: ["wisdom", "presence"]
   },
   intimidation: {
     id: "intimidation",
+    label: "SKILL.LABELS.intimidation",
     category: "soc",
     abilities: ["strength", "presence"]
   },
   performance: {
     id: "performance",
+    label: "SKILL.LABELS.performance",
     category: "soc",
     abilities: ["dexterity", "presence"]
   }
-};
+});
 
 /**
  * The UUID of the journal entry which provides skill definitions to the system.

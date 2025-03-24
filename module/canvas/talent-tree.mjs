@@ -1,4 +1,4 @@
-import CrucibleTalentNode from "../config/talent-tree.mjs";
+import CrucibleTalentNode from "../config/talent-node.mjs";
 import CrucibleTalentTreeControls from "./talent-tree-controls.mjs";
 import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
@@ -207,12 +207,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
       "systems/crucible/ui/tree/wheel.webp"
     ];
     const varities = Object.keys(SYSTEM.ABILITIES).concat(["inactive"]);
-    for ( const nodeType in CrucibleTalentTreeNode.NODE_TYPES ) {
+    for ( const type of Object.values(SYSTEM.TALENT.NODE_TYPES) ) {
       for ( const variety of varities ) {
-        toLoad.push(`systems/crucible/ui/tree/nodes/${nodeType}-${variety}.webp`);
+        toLoad.push(`systems/crucible/ui/tree/nodes/${type.icon}-${variety}.webp`);
       }
     }
-    return TextureLoader.loader.load(toLoad, {
+    return foundry.canvas.TextureLoader.loader.load(toLoad, {
       message: game.i18n.format("SCENES.Loading", {name: "Talent Tree"})
     });
   }
@@ -220,7 +220,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawBackdrop() {
-    const tex = getTexture("systems/crucible/ui/tree/background.webp");
+    const tex = foundry.canvas.getTexture("systems/crucible/ui/tree/background.webp");
     const bd = new PIXI.Sprite(tex);
     bd.anchor.set(0.5, 0.5);
     return bd;
@@ -305,14 +305,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Draw the tree (once only)
     await this.draw();
-    for ( const layer of canvas.layers ) {
-      if ( layer.hud?.clear instanceof Function ) layer.hud.clear();
-    }
+    for ( const layer of canvas.layers ) layer.hud?.close();
     this.darkenBackground(false);
 
     // Associate Actor
     this.actor = actor;
-    const actorTexture = this.actor ? await loadTexture(this.actor.img) : undefined;
+    const actorTexture = this.actor ? await foundry.canvas.loadTexture(this.actor.img) : undefined;
     this.#drawCharacter(actorTexture);
     await actor.sheet.render({force: false, left: 20, top: 20});
     if ( actor.sheet.rendered ) {
@@ -331,7 +329,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.stage.interactiveChildren = true;
     this.canvas.hidden = false;
     if ( this.developmentMode ) this.canvas.style.zIndex = 0;
-    else canvas.hud.element[0].style.zIndex = 9999;  // Move HUD above our canvas
+    else canvas.hud.element.style.zIndex = 9999;  // Move HUD above our canvas
   }
 
   /* -------------------------------------------- */
@@ -347,7 +345,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Deactivate UI
     this.wheel.deactivate();
-    this.hud.clear();
+    this.hud.close();
     this.controls.close();
 
     // Disable the talent tree canvas
@@ -356,7 +354,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.stage.eventMode = "none";
     this.stage.interactiveChildren = false;
     canvas.stage.eventMode = "static";
-    canvas.hud.element[0].style.zIndex = ""; // Move HUD back to normal
+    canvas.hud.element.style.zIndex = ""; // Move HUD back to normal
     canvas.hud.align();
   }
 
@@ -511,7 +509,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager
-    this.interactionManager = new MouseInteractionManager(this, this, {}, {
+    this.interactionManager = new foundry.canvas.interaction.MouseInteractionManager(this, this, {}, {
       clickLeft: this.#onClickLeft,
       dragRightStart: null,
       dragRightMove: this.#onDragRightMove,
@@ -586,7 +584,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * Align the position of the HUD layer to the current position of the canvas
    */
   #alignHUD() {
-    const hud = canvas.hud.element[0];
+    const hud = canvas.hud.element;
     const {x, y} = this.getGlobalPosition();
     const scale = this.stage.scale.x;
     hud.style.left = `${x}px`;

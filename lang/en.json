@@ -2,8 +2,8 @@
 "TYPES": {
   "Actor": {
     "adversary": "Adversary",
-    "hero": "Protagonist",
-    "npc": "Background Character"
+    "hero": "Hero",
+    "group": "Group"
   },
   "Item": {
     "ancestry": "Ancestry",
@@ -28,8 +28,19 @@
   "Scaled": "Scaled",
 
   "SHEETS": {
+    "Adversary": "Crucible Adversary Sheet",
+    "Ancestry": "Crucible Ancestry Sheet",
+    "Archetype": "Crucible Archetype Sheet",
     "Armor": "Crucible Armor Sheet",
-    "Journal": "Crucible Journal Sheet"
+    "Background": "Crucible Background Sheet",
+    "Group": "Crucible Group Sheet",
+    "Hero": "Crucible Hero Sheet",
+    "Journal": "Crucible Journal Sheet",
+    "Skill": "Crucible Skill Sheet",
+    "Spell": "Crucible Spell Sheet",
+    "Talent": "Crucible Talent Sheet",
+    "Taxonomy": "Crucible Taxonomy Sheet",
+    "Weapon": "Crucible Weapon Sheet"
   }
 },
 
@@ -218,6 +229,37 @@
   }
 },
 
+"ACTOR.GROUP": {
+  "FIELDS": {
+    "advancement": {
+      "milestones.label": "Milestones Earned"
+    },
+    "details": {
+      "biography": {
+        "public.label": "Public Biography",
+        "private.label": "Private Biography"
+      }
+    },
+    "members": {
+      "label": "Group Members",
+      "one": "Member",
+      "other": "Members",
+      "actor.label": "Actor ID",
+      "quantity.label": "Actor Quantity"
+    },
+    "movement": {
+      "label": "Movement Speed",
+      "pace.label": "Travel Pace",
+      "land.label": "Land Speed",
+      "water.label": "Water Speed",
+      "air.label": "Air Speed"
+    }
+  },
+  "LABELS": {
+    "medianLevel": "Median Level"
+  }
+},
+
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
 
 "ANCESTRY": {
@@ -225,47 +267,56 @@
     "description": {
       "label": "Ancestry Description"
     },
-    "size": {
-      "label": "Size",
-      "hint": "The size of this ancestry in grid spaces."
+    "movement": {
+      "label": "Movement and Stature",
+      "size": {
+        "label": "Size",
+        "hint": "The size of this ancestry in grid spaces."
+      },
+      "stride": {
+        "label": "Stride",
+        "hint": "The starting movement speed of this Ancestry in grid spaces."
+      }
     },
-    "stride": {
-      "label": "Stride",
-      "hint": "The starting movement speed of this Ancestry in grid spaces."
+    "abilities": {
+      "label": "Ability Scores",
+      "primary": {
+        "label": "Primary Ability",
+        "hint": "Select a primary ability score which begins at 3."
+      },
+      "secondary": {
+        "label": "Secondary Ability",
+        "hint": "Select a secondary ability score which begins at 2."
+      }
     },
-    "primary": {
-      "label": "Primary Ability",
-      "hint": "Select a primary ability score which begins at 3."
+    "resistances": {
+      "label": "Damage Resistances",
+      "hint": "You must choose both a Resistance and a Vulnerability if you select either.",
+      "resistance": {
+        "label": "Damage Resistance",
+        "hint": "A biological Resistance (+3) to a certain damage type."
+      },
+      "vulnerability": {
+        "label": "Damage Vulnerability",
+        "hint": "A biological Vulnerability (-3) to a certain damage type."
+      }
     },
-    "secondary": {
-      "label": "Secondary Ability",
-      "hint": "Select a secondary ability score which begins at 2."
-    },
-    "resistance": {
-      "label": "Damage Resistance",
-      "hint": "A biological Resistance (+5) to a certain damage type."
-    },
-    "vulnerability": {
-      "label": "Damage Vulnerability",
-      "hint": "A biological Vulnerability (-5) to a certain damage type."
+    "talents": {
+      "label": "Talent Progression",
+      "hint": "Configure one or more Talents that this Ancestry receives automatically."
     }
   },
   "SHEET": {
     "BROWSE": "Browse Ancestries",
     "CHOOSE": "Choose Ancestry",
-    "CLEAR": "Clear Ancestry",
-    "ABILITIES": "Ability Scores",
-    "RESISTANCES": "Resistances and Vulnerabilities",
-    "RESISTANCE_HINT": "You must choose both a Resistance and a Vulnerability if you select either.",
-    "STATURE": "Ancestry Stature"
+    "CLEAR": "Clear Ancestry"
   },
   "WARNINGS": {
     "ABILITIES": "The primary and secondary Abilities for an Ancestry may not be the same.",
-    "RESISTANCES": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
+    "RESISTANCES_BOTH": "You must assign both Resistance and Vulnerability if defining either.",
+    "RESISTANCES_DIFFERENT": "The chosen Resistance and Vulnerability for an Ancestry may not be the same."
   }
 },
-
-"ANCESTRY.ApplyError": "You may only apply an ancestry to a level 0 character with no spent skill or ability points.",
 
 "ACTION.Action": "Action",
 "ACTION.Condition": "Condition",
@@ -390,10 +441,7 @@
   },
   "SHEET": {
     "CHOOSE": "Choose Archetype",
-    "CLEAR": "Clear Archetype",
-    "TALENT_ADD": "Add Talent",
-    "TALENT_REMOVE": "Remove Talent",
-    "TALENT_DROP": "Add a talent to this Archetype by dragging and dropping from the Talents compendium pack."
+    "CLEAR": "Clear Archetype"
   }
 },
 
@@ -456,7 +504,7 @@
     },
     "skills": {
       "label": "Acquired Skills",
-      "hint": "Choose four skills which were acquired as part of your Background, each of which will begin at Novice rank."
+      "hint": "Choose up to four skills which were acquired as part of your Background, each of which will begin at Novice rank."
     },
     "talents": {
       "label": "Acquired Talents",
@@ -528,31 +576,35 @@
 "DICE.RollTotal": "Roll Total",
 "DICE.SetDifficulty": "Set Difficulty",
 
-"EFFECT.STATUSES.Blind": "Blinded",
-"EFFECT.STATUSES.Broken": "Broken",
-"EFFECT.STATUSES.Dead": "Dead",
-"EFFECT.STATUSES.Deaf": "Deafened",
-"EFFECT.STATUSES.Diseased": "Diseased",
-"EFFECT.STATUSES.Disoriented": "Disoriented",
-"EFFECT.STATUSES.Enraged": "Enraged",
-"EFFECT.STATUSES.Exposed": "Exposed",
-"EFFECT.STATUSES.Fear": "Frightened",
-"EFFECT.STATUSES.Flanked": "Flanked",
-"EFFECT.STATUSES.Guarded": "Guarded",
-"EFFECT.STATUSES.Hastened": "Hastened",
-"EFFECT.STATUSES.Incapacitated": "Incapacitated",
-"EFFECT.STATUSES.Insane": "Insane",
-"EFFECT.STATUSES.Invisible": "Invisible",
-"EFFECT.STATUSES.Stunned": "Stunned",
-"EFFECT.STATUSES.Mute": "Silenced",
-"EFFECT.STATUSES.Paralyzed": "Paralyzed",
-"EFFECT.STATUSES.Prone": "Prone",
-"EFFECT.STATUSES.Resolute": "Resolute",
-"EFFECT.STATUSES.Restrained": "Restrained",
-"EFFECT.STATUSES.Slowed": "Slowed",
-"EFFECT.STATUSES.Staggered": "Staggered",
-"EFFECT.STATUSES.Weakened": "Weakened",
-"EFFECT.STATUSES.FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!",
+"ACTIVE_EFFECT": {
+  "STATUSES": {
+    "Blind": "Blinded",
+    "Broken": "Broken",
+    "Dead": "Dead",
+    "Deaf": "Deafened",
+    "Diseased": "Diseased",
+    "Disoriented": "Disoriented",
+    "Enraged": "Enraged",
+    "Exposed": "Exposed",
+    "Fear": "Frightened",
+    "Flanked": "Flanked",
+    "Guarded": "Guarded",
+    "Hastened": "Hastened",
+    "Incapacitated": "Incapacitated",
+    "Insane": "Insane",
+    "Invisible": "Invisible",
+    "Stunned": "Stunned",
+    "Mute": "Silenced",
+    "Paralyzed": "Paralyzed",
+    "Prone": "Prone",
+    "Resolute": "Resolute",
+    "Restrained": "Restrained",
+    "Slowed": "Slowed",
+    "Staggered": "Staggered",
+    "Weakened": "Weakened",
+    "FlankedDescription": "You are flanked by multiple enemies who gain additional Boons to their attacks!"
+  }
+},
 
 "ITEM": {
   "FIELDS": {
@@ -588,7 +640,7 @@
         "label": "Public Description",
         "hint": "A description of this item which is visible to any user with at least OBSERVER permission."
       },
-      "secret": {
+      "private": {
         "label": "Secret Description",
         "hint": "A description of this item which is only visible to Gamemaster users."
       }
@@ -602,8 +654,13 @@
     "ACTIONS": "Actions",
     "DESCRIPTION": "Description",
     "HOOKS": "Hooks",
-    "PUBLIC": "Public Description",
-    "SECRET": "Secret Description"
+    "SECRETS": "Secrets",
+    "TALENTS": "Talents"
+  },
+  "SHEET": {
+    "TALENT_ADD": "Add Talent",
+    "TALENT_REMOVE": "Remove Talent",
+    "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area."
   }
 },
 
@@ -653,6 +710,20 @@
       "label" : "Social",
       "hint": "Social skills pertain to your character's ability to interact with other people or groups."
     }
+  },
+  "LABELS": {
+    "athletics": "Athletics",
+    "awareness": "Awareness",
+    "stealth": "Stealth",
+    "wilderness": "Wilderness",
+    "arcana": "Arcana",
+    "medicine": "Medicine",
+    "science": "Science",
+    "society": "Society",
+    "deception": "Deception",
+    "diplomacy": "Diplomacy",
+    "intimidation": "Intimidation",
+    "performance": "Performance"
   },
   "RANKS": {
     "UNTRAINED": {
@@ -830,6 +901,12 @@
     "actorHooks": {
       "label": "Hooked Functions",
       "hint": "This configuration tab involves advanced features for automating talent effects. Mis-configuring data on this tab can have serious consequences. Do not attempt to make changes here unless you are confident in your own knowledge."
+    },
+    "training": {
+      "label": "Provided Training",
+      "hint": "Does this talent provide some rank of training in a particular area?",
+      "type.label": "Training Type",
+      "rank.label": "Training Rank"
     }
   },
   "ACTIONS": {
@@ -851,15 +928,29 @@
     "GROUP_PREPARATION": "Actor Data Preparation",
     "GROUP_ACTION": "Action Usage"
   },
-
-  "NodeAttack": "Attack",
-  "NodeDefault": "PLACEHOLDER",
-  "NodeDefense": "Defense",
-  "NodeHeal": "Healing",
-  "NodeMagic": "Magic",
-  "NodeMove": "Movement",
-  "NodeSignature": "Signature",
-  "NodeUtility": "Utility",
+  "NODES": {
+    "ATTACK": "Attack",
+    "DEFENSE": "Defense",
+    "HEALING": "Healing",
+    "SPELL": "Spellcraft",
+    "MOVE": "Movement",
+    "UTILITY": "Utility",
+    "SIGNATURE": "Signature",
+    "TRAINING": "Training"
+  },
+  "TRAINING": {
+    "SKILL": "Skill Training",
+    "WEAPON": "Weapon Training",
+    "CRAFT": "Tradecraft Training",
+    "SPELL": "Spellcraft Training"
+  },
+  "RANKS": {
+    "UNTRAINED": "Untrained",
+    "NOVICE": "Novice",
+    "JOURNEYMAN": "Journeyman",
+    "ADEPT": "Adept",
+    "MASTER": "Master"
+  },
   "PointsAvailable": "Points Available"
 },
 
@@ -899,25 +990,29 @@
   }
 },
 
+"TRAVEL_PACES": {
+  "HIDDEN": "Hidden",
+  "SLOW": "Cautious",
+  "NORMAL": "Normal",
+  "FAST": "Hurried",
+  "RECKLESS": "Reckless"
+},
+
 "WEAPON": {
   "CATEGORIES": {
-    "LIGHT1": "Light (1h)",
-    "SIMPLE1": "Simple (1h)",
-    "BALANCED1": "Balanced (1h)",
-    "HEAVY1": "Heavy (1h)",
-    "SIMPLE2": "Simple (2h)",
-    "BALANCED2": "Balanced (2h)",
-    "HEAVY2": "Heavy (2h)",
-    "PROJECTILE1": "Projectile (1h)",
-    "PROJECTILE2": "Projectile (2h)",
-    "MECHANICAL1": "Mechanical (1h)",
-    "MECHANICAL2": "Mechanical (2h)",
+    "CATEGORY_HANDS": "{category} ({hands}h)",
+    "LIGHT": "Light",
+    "SIMPLE": "Simple",
+    "BALANCED": "Balanced",
+    "HEAVY": "Heavy",
+    "PROJECTILE": "Projectile",
+    "MECHANICAL": "Mechanical",
     "NATURAL": "Natural",
     "UNARMED": "Unarmed",
+    "SHIELD": "Shield",
     "SHIELD_LIGHT": "Light Shield",
     "SHIELD_HEAVY": "Heavy Shield",
-    "TALISMAN1": "Talisman (1h)",
-    "TALISMAN2": "Talisman (2h)"
+    "TALISMAN": "Talisman"
   },
   "FIELDS": {
     "damageType": {

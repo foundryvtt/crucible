@@ -7,16 +7,6 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     this.position.set(node.point.x, node.point.y);
   }
 
-  static NODE_TYPES = {
-    attack: "Attack",
-    defense: "Defense",
-    heal: "Healing",
-    magic: "Spellcraft",
-    move: "Movement",
-    utility: "Utility",
-    signature: "Signature"
-  }
-
   /* -------------------------------------------- */
 
   /**
@@ -32,23 +22,39 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /** @override */
   async draw({state, ...config}={}) {
     const variety = state.purchased ? this.node.abilities.first() : "inactive";
-    config.texture = getTexture(`systems/crucible/ui/tree/nodes/${this.node.type}-${variety}.webp`);
+    const src = `systems/crucible/ui/tree/nodes/${this.node.iconPrefix}-${variety}.webp`;
+    config.texture = foundry.canvas.getTexture(src);
 
-    // Signature nodes
-    if ( this.node.type === "signature" ) {
-      config.size = 80;
-      config.borderRadius = 80;
+    // Configure based on node style
+    switch ( this.node.style ) {
+      case "circle":
+        config.shape = "circle";
+        config.size = 48;
+        config.borderRadius = config.size / 2;
+        break;
+      case "hex":
+        config.shape = "hex";
+        config.size = 48;
+        break;
+      case "rect":
+        config.shape = "rect";
+        config.size = 48;
+        config.borderRadius = config.size / 6;
+        break;
+      case "largeHex":
+        config.shape = "hex";
+        config.size = 80;
+        config.borderRadius = 80;
+        break;
     }
 
     // Is the node accessible or not?
     if ( state.accessible ) {
       config.alpha = 0.4;
       config.borderColor = 0x827f7d;
-      config.borderWidth = 2;
     } else {
       config.alpha = 0.1;
       config.borderColor = 0x262322;
-      config.borderWidth = 2;
     }
 
     // Has the node been purchased?
@@ -68,30 +74,6 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // Node interaction
     this.#activateInteraction();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _getShape() {
-    const size = this.config.size;
-    const hs = size / 2;
-    const borders = [[0, 0.5], [0.25, 0], [0.75, 0], [1, 0.5], [0.75, 1], [0.25, 1]];
-
-    // Signature nodes = Hexagon
-    if ( this.node.type === "signature" ) {
-      const width = size;
-      const height = size * Math.sqrt(3) / 2;
-      const points = borders.reduce((arr, [ox, oy]) => {
-        arr.push((ox * width) - (width / 2));
-        arr.push((oy * height) - (height / 2));
-        return arr;
-      }, []);
-      return new PIXI.Polygon(points);
-    }
-
-    // Regular talent nodes = Circle
-    return new PIXI.Circle(0, 0, hs);
   }
 
   /* -------------------------------------------- */

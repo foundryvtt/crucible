@@ -1,4 +1,4 @@
-export default class CrucibleTokenObject extends Token {
+export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
   /** @inheritDoc */
   static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
@@ -47,16 +47,6 @@ export default class CrucibleTokenObject extends Token {
 
   /* -------------------------------------------- */
 
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
-  _drawTarget(options={}) {
-    return super._drawTarget({...options, size: 0.5});
-  }
-
-  /* -------------------------------------------- */
-
   /** @override */
   drawBars() {
     super.drawBars();
@@ -71,16 +61,13 @@ export default class CrucibleTokenObject extends Token {
 
   /* -------------------------------------------- */
 
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
+  /** @override */
   _drawBar(number, bar, data) {
     const val = Number(data.value);
     const pct = Math.clamp(val, 0, data.max) / data.max;
 
     // Determine sizing
-    const {width, height} = this.getSize();
+    const {width, height} = this.document.getSize();
     const bw = width;
     const bh = number === 0 ? 8 : 6;
     const bs = 1;
@@ -114,7 +101,7 @@ export default class CrucibleTokenObject extends Token {
     const r = this.bars.resources;
     r.clear();
     const {action, focus} = this.actor.system.resources;
-    const {width, height} = this.getSize();
+    const {width, height} = this.document.getSize();
 
     // Action Pips
     const ac = SYSTEM.RESOURCES.action.color;
@@ -131,40 +118,6 @@ export default class CrucibleTokenObject extends Token {
       r.drawCircle(width - 6 - (i * 10), height - 14, 3);
     }
     r.endFill();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * @override
-   * TODO remove in V13+ if core supports better UI scale
-   */
-  _refreshEffects() {
-    let i = 0;
-    const size = Math.round(canvas.scene._source.grid.size / 10) * 2; // Unmodified grid size
-    const rows = Math.floor(this.h / size);
-    const bg = this.effects.bg.clear().beginFill(0x000000, 0.40).lineStyle(1.0, 0x000000);
-    for ( const effect of this.effects.children ) {
-      if ( effect === bg ) continue;
-
-      // Overlay effect
-      if ( effect === this.effects.overlay ) {
-        const {width, height} = this.getSize();
-        const size = Math.min(width * 0.6, height * 0.6);
-        effect.width = effect.height = size;
-        effect.position = this.getCenterPoint({x: 0, y: 0});
-        effect.anchor.set(0.5, 0.5);
-      }
-
-      // Status effect
-      else {
-        effect.width = effect.height = size;
-        effect.x = Math.floor(i / rows) * size;
-        effect.y = (i % rows) * size;
-        bg.drawRoundedRect(effect.x + 1, effect.y + 1, size - 2, size - 2, 2);
-        i++;
-      }
-    }
   }
 
   /* -------------------------------------------- */
@@ -303,7 +256,10 @@ export default class CrucibleTokenObject extends Token {
   #computeEngagementSquareGrid() {
     const c = this.center;
     const engagementBounds = this.getEngagementRectangle();
-    const movePolygon = ClockwiseSweepPolygon.create(c, {type: "move", boundaryShapes: [engagementBounds]});
+    const movePolygon = foundry.canvas.geometry.ClockwiseSweepPolygon.create(c, {
+      type: "move",
+      boundaryShapes: [engagementBounds]
+    });
     return {engagementBounds, movePolygon};
   }
 
@@ -345,6 +301,7 @@ export default class CrucibleTokenObject extends Token {
    * Update flanking conditions for all actors affected by a Token change.
    */
   #updateFlanking() {
+    if ( !this.actor || (this.actor.type === "group") ) return;
     const engagement = this.#computeEngagement();
     const toUpdate = this.#applyEngagementUpdates(this.engagement, engagement);
     this.engagement = engagement; // Save the new state
@@ -360,7 +317,7 @@ export default class CrucibleTokenObject extends Token {
     }
 
     // Update our own actor
-    if ( this.actor ) this.actor.commitFlanking(this.engagement);
+    this.actor.commitFlanking(this.engagement);
   }
 
   /* -------------------------------------------- */
@@ -386,6 +343,7 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
     this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
     this.refreshFlanking();
   }
@@ -394,6 +352,8 @@ export default class CrucibleTokenObject extends Token {
 
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
+    super._onUpdate(data, options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
 
     // Token movement speed
     const positionChange = ("x" in data) || ("y" in data);
@@ -401,9 +361,6 @@ export default class CrucibleTokenObject extends Token {
       options.animation ||= {};
       options.animation.movementSpeed = (this.actor.system.movement.stride * 2);
     }
-
-    // Standard Token update workflow
-    super._onUpdate(data, options, userId);
 
     // Flanking Updates
     const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
@@ -415,6 +372,7 @@ export default class CrucibleTokenObject extends Token {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
+    if ( !canvas.scene.useMicrogrid ) return;
 
     // Apply flanking updates
     const activeGM = game.users.activeGM;
@@ -437,20 +395,21 @@ export default class CrucibleTokenObject extends Token {
    * @internal
    */
   _visualizeEngagement(engagement) {
-    if ( !CONFIG.debug.flanking ) return;
+    if ( !CONFIG.debug.flanking || !this.parent.useMicrogrid ) return;
+    const PT = foundry.canvas.containers.PreciseText;
     if ( !this.#engagementDebug ) {
       this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
 
       // Enemies Text
-      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.enemies = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
       this.#engagementDebug.enemies.anchor.set(0.5, 1);
 
       // Engagement Text
-      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 20})));
+      this.#engagementDebug.engagement = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 20})));
       this.#engagementDebug.engagement.anchor.set(0.5, 0);
 
       // Flanked Text
-      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PreciseText("", PreciseText.getTextStyle({fontSize: 32})));
+      this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 32})));
       this.#engagementDebug.flanked.anchor.set(0.5, 0.5);
     }
     const e = this.#engagementDebug.clear();

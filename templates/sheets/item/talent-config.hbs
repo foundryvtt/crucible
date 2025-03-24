@@ -1,0 +1,23 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset>
+        <legend>Talent Configuration</legend>
+        {{formGroup fields.node value=source.system.node options=nodes blank="" sort=true}}
+    </fieldset>
+
+    <fieldset>
+        <legend>Spellcraft</legend>
+        {{formGroup fields.rune value=source.system.rune valueAttr="id" labelAttr="name"}}
+        {{formGroup fields.gesture value=source.system.gesture valueAttr="id" labelAttr="name"}}
+        {{formGroup fields.inflection value=source.system.inflection valueAttr="id" labelAttr="name"}}
+        {{formGroup fields.iconicSpells value=source.system.iconicSpells}}
+    </fieldset>
+
+    <fieldset>
+        <legend>{{fields.training.label}}</legend>
+        <p class="hint">{{fields.training.hint}}</p>
+        {{formGroup fields.training.fields.type value=source.system.training.type blank=""}}
+        {{formGroup fields.training.fields.rank value=source.system.training.rank blank=""}}
+    </fieldset>
+</section>

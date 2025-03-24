@@ -2,7 +2,7 @@ name: Provocateur
 type: talent
 img: icons/magic/control/mouth-smile-deception-purple.webp
 system:
-  node: pre0
+  node: pre0a
   description: >-
     You specialize in barbed repartee crafted to highlight your opponent's
     shortcomings. In combat you can launch quips which provoke your foes.
@@ -40,17 +40,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.provocateur00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1676927134720
   modifiedTime: 1684351434111
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.provocateur00000
   duplicateSource: null
+  exportSource: null
 _id: provocateur00000
 folder: 2MFixpDJ379KOogE
 sort: -200000

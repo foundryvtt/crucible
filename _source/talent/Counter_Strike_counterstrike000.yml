@@ -3,8 +3,7 @@ type: talent
 img: icons/skills/melee/shield-block-bash-yellow.webp
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.counterstrike000
+  core: {}
 system:
   node: tou2c
   description: >-
@@ -42,12 +41,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420025
   modifiedTime: 1726367473968
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.counterstrike000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

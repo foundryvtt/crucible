@@ -4,6 +4,8 @@ import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
+/** @import {TRAINING_TYPES} from "../config/talents.mjs"; */
+
 /**
  * @typedef {Object} ActorEquippedWeapons
  * @property {CrucibleItem} mainhand
@@ -39,9 +41,9 @@ const {DialogV2} = foundry.applications.api;
  * The Actor document subclass in the Crucible system which extends the behavior of the base Actor class.
  */
 export default class CrucibleActor extends Actor {
-  constructor(data, context) {
-    super(data, context);
-    this.#updateCachedResources();
+  constructor(...args) {
+    super(...args);
+    this.system._updateCachedResources?.();
   }
 
   /**
@@ -65,9 +67,9 @@ export default class CrucibleActor extends Actor {
   /**
    * The spellcraft components known by this Actor
    * @type {{
-   *   runes: Set<CrucibleRune>,
-   *   inflections: Set<CrucibleInflection>,
-   *   gestures: Set<CrucibleGesture>,
+   *   runes: Set<CrucibleSpellcraftRune>,
+   *   inflections: Set<CrucibleSpellcraftInflection>,
+   *   gestures: Set<CrucibleSpellcraftGesture>,
    *   iconicSlots: number,
    *   iconicSpells: CrucibleItem[]
    * }}
@@ -75,17 +77,8 @@ export default class CrucibleActor extends Actor {
   grimoire = this.grimoire;
 
   /**
-   * @typedef {Object} CrucibleActorTraining
-   * @property {number} unarmed
-   * @property {number} heavy
-   * @property {number} finesse
-   * @property {number} balanced
-   * @property {number} ranged
-   */
-
-  /**
    * Trained skill bonuses which the character has.
-   * @type {CrucibleActorTraining}
+   * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
    */
   training = this.training;
 
@@ -225,12 +218,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Track resource values prior to updates to capture differential changes.
-   * @enum {number}
-   */
-  _cachedResources;
-
-  /**
    * The IDs of purchased talents
    * @type {Set<string>}
    */
@@ -260,11 +247,7 @@ export default class CrucibleActor extends Actor {
 
   /** @override */
   prepareBaseData() {
-    this.rollBonuses = {
-      damage: {},
-      boons: {},
-      banes: {}
-    };
+    this.rollBonuses = {damage: {}, boons: {}, banes: {}};
   }
 
   /* -------------------------------------------- */
@@ -272,37 +255,15 @@ export default class CrucibleActor extends Actor {
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
+    if ( this.type === "group" ) return;
     const items = this.itemTypes;
     CrucibleActor.#prepareTalents.call(this, items.talent);
+    this.callActorHooks("prepareTraining", this.training);
     CrucibleActor.#prepareSpells.call(this, items.spell);
     this._prepareEffects();
-    this.training = CrucibleActor.#prepareTraining.call(this);
     this.equipment = CrucibleActor.#prepareEquipment.call(this, items);
     CrucibleActor.#prepareActions.call(this);
   };
-
-  /* -------------------------------------------- */
-
-  /**
-   * Compute the levels of equipment training that an Actor has.
-   * @this {CrucbileActor}
-   * @returns {CrucibleActorTraining}   Prepared training ranks in various equipment categories
-   */
-  static #prepareTraining() {
-    const training = {
-      unarmed: 0,
-      heavy: 0,
-      finesse: 0,
-      balanced: 0,
-      projectile: 0,
-      mechanical: 0,
-      shield: 0,
-      talisman: 0,
-      natural: Math.clamp(Math.floor((this.system.advancement.level + 1) / 4), 0, 3) // TODO temporary
-    };
-    this.callActorHooks("prepareTraining", training);
-    return training;
-  }
 
   /* -------------------------------------------- */
 
@@ -369,7 +330,9 @@ export default class CrucibleActor extends Actor {
    */
   _getUnarmoredArmor() {
     const itemCls = getDocumentClass("Item");
-    return new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+    const armor = new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
+    armor.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return armor
   }
 
   /* -------------------------------------------- */
@@ -509,7 +472,9 @@ export default class CrucibleActor extends Actor {
     const itemCls = getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
-    return new itemCls(data, {parent: this});
+    const unarmed = new itemCls(data, {parent: this});
+    unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return unarmed;
   }
 
   /* -------------------------------------------- */
@@ -604,37 +569,46 @@ export default class CrucibleActor extends Actor {
     this.talentIds = new Set();
     this.actorHooks = {};
     this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
+    this.training = {};
     const details = this.system.details;
     const signatureNames = [];
 
     // Identify permanent talents from a background, taxonomy, archetype, etc...
     this.permanentTalentIds = new Set();
-    if ( details.background?.talents ) {
-      details.background.talents = details.background.talents.map(uuid => {
-        const talentId = foundry.utils.parseUuid(uuid)?.documentId;
-        if ( talentId ) this.permanentTalentIds.add(talentId);
-        return talentId;
-      });
+    const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
+    for ( const s of permanentTalentSources ) {
+      if ( !s?.talents ) continue;
+      for ( const uuid of s.talents ) {
+        const {documentId} = foundry.utils.parseUuid(uuid);
+        if ( documentId ) this.permanentTalentIds.add(documentId);
+      }
     }
 
     // Iterate over talents
     for ( const t of talents ) {
       this.talentIds.add(t.id);
+      const {actorHooks, node, training, gesture, inflection, rune, iconicSpells} = t.system;
 
       // Register hooks
-      for ( const hook of t.system.actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
+      for ( const hook of actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
 
       // Register signatures
-      if ( t.system.node?.type === "signature" ) signatureNames.push(t.name);
+      if ( node?.type === "signature" ) signatureNames.push(t.name);
+
+      // Register training ranks
+      if ( training.type ) {
+        this.training[training.type] ??= 0;
+        this.training[training.type] = Math.max(this.training[training.type], training.rank ?? 0);
+      }
 
       // Register spellcraft knowledge
-      if ( t.system.rune ) {
-        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[t.system.rune]);
+      if ( rune ) {
+        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[rune]);
         this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
       }
-      if ( t.system.gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[t.system.gesture]);
-      if ( t.system.inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[t.system.inflection]);
-      if ( t.system.iconicSpells ) this.grimoire.iconicSlots += t.system.iconicSpells;
+      if ( gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[gesture]);
+      if ( inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[inflection]);
+      if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
     }
 
     // Compose Signature Name
@@ -680,7 +654,7 @@ export default class CrucibleActor extends Actor {
    * @private
    */
   static #registerActorHook(actor, talent, {hook, fn}={}) {
-    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
     actor.actorHooks[hook] ||= [];
     actor.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
@@ -695,7 +669,7 @@ export default class CrucibleActor extends Actor {
    * @param {...*} args       Arguments passed to the hooked function
    */
   callActorHooks(hook, ...args) {
-    const hookConfig = SYSTEM.ACTOR_HOOKS[hook];
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.actorHooks[hook] ||= [];
     for ( const {talent, fn} of hooks ) {
@@ -1604,15 +1578,17 @@ export default class CrucibleActor extends Actor {
    */
   async syncTalents() {
     const updates = [];
-    const packIds = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
-    for ( const packId of packIds ) {
-      const pack = game.packs.get(packId);
-      if ( !pack ) continue;
-      for ( const item of this.itemTypes.talent ) {
-        if ( pack.index.has(item.id) ) {
-          const talent = await pack.getDocument(item.id);
-          if ( talent ) updates.push(talent.toObject());
-        }
+    const packs = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions].reduce((arr, id) => {
+      const pack = game.packs.get(id);
+      if ( pack ) arr.push(pack);
+      return arr;
+    }, []);
+    for ( const item of this._source.items ) {
+      if ( item.type !== "talent" ) continue;
+      for ( const pack of packs ) {
+        if ( !pack.index.has(item._id) ) continue;
+        const talent = await pack.getDocument(item._id);
+        if ( talent ) updates.push(talent.toObject());
       }
     }
     await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
@@ -1859,14 +1835,18 @@ export default class CrucibleActor extends Actor {
     }
 
     // Prepare data
-    const key = `system.details.${type}`;
+    const key = `system.details.==${type}`;
     const updateData = {};
     let message;
 
     // Remove existing talents
     const existing = this.system.details[type];
     if ( existing?.talents?.size ) {
-      const deleteIds = Array.from(existing.talents).filter(id => this.items.has(id));
+      const deleteIds = Array.from(existing.talents).reduce((arr, uuid) => {
+        const documentId = foundry.utils.parseUuid(uuid);
+        if ( this.items.has(documentId) ) arr.push(documentId);
+        return arr;
+      }, []);
       await this.deleteEmbeddedDocuments("Item", deleteIds);
     }
 
@@ -2079,8 +2059,8 @@ export default class CrucibleActor extends Actor {
     if ( flankedStage > 0 ) {
       const flankedData = {
         _id: flankedId,
-        name: `${game.i18n.localize("EFFECT.STATUSES.Flanked")} ${flankedStage}`,
-        description: game.i18n.localize("EFFECT.STATUSES.FlankedDescription"),
+        name: `${game.i18n.localize("ACTIVE_EFFECT.STATUSES.Flanked")} ${flankedStage}`,
+        description: game.i18n.localize("ACTIVE_EFFECT.STATUSES.FlankedDescription"),
         icon: "systems/crucible/icons/statuses/flanked.svg",
         statuses: ["flanked"],
         flags: {
@@ -2163,16 +2143,16 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update flanking
-    const {wasIncapacitated, wasBroken} = this._cachedResources;
-    if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
-      const tokens = this.getActiveTokens(true);
-      const activeGM = game.users.activeGM;
-      const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-      for ( const token of tokens ) token.refreshFlanking(commit);
+    if ( this.system._cachedResources ) {
+      const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
+      if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
+        const tokens = this.getActiveTokens(true);
+        const activeGM = game.users.activeGM;
+        const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+        for ( const token of tokens ) token.refreshFlanking(commit);
+      }
+      this.system._updateCachedResources?.();
     }
-
-    // Update cached resource values
-    this.#updateCachedResources();
 
     // Refresh display of the active talent tree
     const tree = game.system.tree;
@@ -2208,8 +2188,10 @@ export default class CrucibleActor extends Actor {
   #displayScrollingStatus(changed, {statusText}={}) {
     const resources = changed.system?.resources || {};
     const tokens = this.getActiveTokens(true);
-    if ( !tokens.length ) return;
-    for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
+    if ( !tokens.length || !this.system._cachedResources ) return;
+
+    // Display resource changes
+    for ( let [resourceName, prior] of Object.entries(this.system._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
 
       // Get change data
@@ -2283,27 +2265,23 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Update the cached resources for this actor.
-   * @private
-   */
-  #updateCachedResources() {
-    this._cachedResources = Object.entries(this.system.resources).reduce((obj, [id, {value}]) => {
-      obj[id] = value;
-      return obj;
-    }, {
-      wasIncapacitated: this.isIncapacitated,
-      wasBroken: this.isBroken
-    });
-  }
-
-  /* -------------------------------------------- */
-
   #replenishResources(data) {
     const levelChange = foundry.utils.hasProperty(data, "system.advancement.level");
     const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => {
       return foundry.utils.hasProperty(data, `system.abilities.${k}`);
     });
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
+  }
+
+  /* -------------------------------------------- */
+  /*  Rendering Helpers                           */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare tags displayed about this Actor.
+   * @returns {Record<string, string>}
+   */
+  getTags() {
+    return this.system.getTags?.() || {};
   }
 }

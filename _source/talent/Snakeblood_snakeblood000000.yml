@@ -16,17 +16,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.snakeblood000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1676170092902
   modifiedTime: 1685147410396
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.snakeblood000000
   duplicateSource: null
+  exportSource: null
 _id: snakeblood000000
 sort: 100000
 _key: '!items!snakeblood000000'

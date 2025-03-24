@@ -3,7 +3,7 @@ type: talent
 _id: intimidator00000
 img: icons/magic/death/skull-humanoid-crown-white-blue.webp
 system:
-  node: pre0
+  node: pre0a
   description: >-
     You specialize in exerting your intimidating presence to break the morale of
     your foes.
@@ -38,11 +38,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.2
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1676839298208
   modifiedTime: 1684521795274
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _key: '!items!intimidator00000'
 

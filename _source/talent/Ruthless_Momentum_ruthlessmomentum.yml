@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/strikes-sword-scimitar.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.pHRUZ8Zfv5E0TcH2
+  core: {}
 system:
   node: toustr1
   description: >-
@@ -47,12 +46,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420011
   modifiedTime: 1727321351530
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
+  exportSource: null
 folder: MqZKCMx5KrZQffGU
 sort: -300000
 ownership:

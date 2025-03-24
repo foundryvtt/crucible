@@ -2,7 +2,7 @@ name: 'Rune: Illumination'
 type: talent
 img: icons/magic/light/projectile-beam-yellow.webp
 system:
-  node: pre2b
+  node: pre0b
   description: >-
     <p>The chaotic force of light and positive energy. The Illumination rune
     governs light and all of its properties. It is opposed by the orderly rune
@@ -16,17 +16,17 @@ system:
   actorHooks: []
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.runeradiance0000
+  core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.338'
   createdTime: 1674698661050
-  modifiedTime: 1686251054936
+  modifiedTime: 1742749341388
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runeradiance0000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

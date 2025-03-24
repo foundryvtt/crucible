@@ -1,0 +1,22 @@
+<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+         data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{fields.movement.label}}</legend>
+        {{formField fields.movement.fields.size value=system.movement.size classes="slim"}}
+        {{formField fields.movement.fields.stride value=system.movement.stride classes="slim"}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{fields.abilities.label}}</legend>
+        {{formField fields.abilities.fields.primary value=system.abilities.primary classes="slim"}}
+        {{formField fields.abilities.fields.secondary value=system.abilities.secondary classes="slim"}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{fields.resistances.label}}</legend>
+        <p class="hint">{{localize fields.resistances.hint}}</p>
+        {{formField fields.resistances.fields.resistance value=system.resistances.resistance classes="slim"}}
+        {{formField fields.resistances.fields.vulnerability value=system.resistances.vulnerability classes="slim"}}
+    </fieldset>
+</section>

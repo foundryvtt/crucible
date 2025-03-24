@@ -4,8 +4,7 @@ type: talent
 img: icons/magic/lightning/fist-unarmed-strike-blue.webp
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.CANFHQxFjIJwgEYK
+  core: {}
 system:
   node: strwis1
   description: >-
@@ -50,12 +49,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420016
   modifiedTime: 1727320853441
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null
+  exportSource: null
 folder: yXCB4M7hR4QB6Rx7
 sort: 175000
 ownership:

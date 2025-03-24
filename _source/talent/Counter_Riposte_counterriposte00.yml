@@ -4,8 +4,7 @@ type: talent
 img: icons/skills/melee/strike-polearm-glowing-white.webp
 effects: []
 flags:
-  core:
-    sourceId: Item.V4stscWtnt2GFRY2
+  core: {}
 system:
   node: str2b
   description: >-
@@ -44,12 +43,13 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674942420020
   modifiedTime: 1726368197835
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null
+  exportSource: null
 folder: iD0N4Q5xDZqsf354
 sort: 0
 ownership:

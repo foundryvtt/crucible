@@ -4,9 +4,9 @@ import SpellCastDialog from "../dice/spell-cast-dialog.mjs";
 /**
  * Data and functionality that represents a Spell in the Crucible spellcraft system.
  *
- * @property {CrucibleRune} rune
- * @property {CrucibleGesture} gesture
- * @property {CrucibleInflection} inflection
+ * @property {CrucibleSpellcraftRune} rune
+ * @property {CrucibleSpellcraftGesture} gesture
+ * @property {CrucibleSpellcraftInflection} inflection
  * @property {number} composition
  * @property {string} damageType
  */

@@ -53,12 +53,13 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727362018628
   modifiedTime: 1727362018628
   lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
 _id: tuskCharge000000
 sort: 0
 _key: '!items!tuskCharge000000'

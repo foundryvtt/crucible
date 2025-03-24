@@ -1,0 +1,41 @@
+folder: x4BWwSD07nbEGSA0
+name: Wilderness Novice
+type: talent
+_id: wildernessNovice
+img: systems/crucible/icons/skills/wilderness.jpg
+system:
+  node: tou0a
+  description: >-
+    <p><span style="font-family:Vollkorn, serif">You have received training in
+    the basics of wilderness survival and traversal. You gain the
+    <strong>Novice</strong> rank in the <strong>Wilderness </strong>skill and
+    are no longer considered <strong>Untrained</strong> in that
+    skill.</span></p><p><span style="font-family:Vollkorn, serif">You know how
+    to find and construct safe shelter from the elements, to start a fire for
+    warmth, to keep cool in hot environments. You can find safe, drinkable water
+    in most places, and how to identify which plants and animals can serve as
+    safe food sources.</span></p>
+  actions: []
+  iconicSpells: 0
+  training:
+    type: wilderness
+    rank: 1
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.338'
+  systemId: crucible
+  systemVersion: 0.7.0-dev
+  createdTime: 1742761908046
+  modifiedTime: 1742761957721
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!wildernessNovice'
+

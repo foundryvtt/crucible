@@ -132,6 +132,8 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
   async _onDropItem(event, item) {
     if ( !this.actor.isOwner ) return;
     switch (item.type) {
+      case "ancestry":
+        return this.actor.system.applyTaxonomy(item.system.toTaxonomy());
       case "archetype":
         return this.actor.system.applyArchetype(item);
       case "taxonomy":

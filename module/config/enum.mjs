@@ -1,5 +1,6 @@
 /**
  * An object structure used for an enum with keys, values, and labels.
+ * TODO deprecate this
  * @template {any} ValueType
  */
 export default class Enum {
@@ -46,4 +47,26 @@ export default class Enum {
       return obj;
     }, {});
   }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Deep freeze an enumeration, ensuring it has certain required properties.
+ * @returns {Record<string, object>}
+ */
+export function freezeEnum(record) {
+  for ( const [k, v] of Object.entries(record) ) {
+    v.id = k;
+    v.label ??= k;
+    Object.freeze(v);
+  }
+  Object.defineProperty(record, "choices", {
+    get() {
+      debugger;
+      Object.values(this).map(v => ({value: v.id, label: v.label, group: v.group}));
+    }
+  });
+  Object.freeze(record);
+  return record;
 }

@@ -6,9 +6,8 @@
 .crucible.sheet.actor {
   --sidebar-width: 200px;
   --profile-size: 200px;
-  --margin-size: 1rem;
-  --margin-half: calc(var(--margin-size) / 2);
-
+  --sheet-header-height: 40px;
+  --sheet-body-gap: 1.5rem;
   overflow: visible;
 
   .window-content {
@@ -19,6 +18,8 @@
     flex-wrap: nowrap;
     gap: var(--margin-size);
     padding: 0 var(--margin-size) var(--margin-size);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   // Hide overflow on minimize
@@ -37,15 +38,19 @@
     flex-direction: column;
     justify-content: flex-start;
     flex: 1;
-    gap: 0 1rem;
     height: 100%;
+    padding: 0;
   }
 
   .tab {
     flex: 1;
     position: relative;
-    padding: 1.5rem 0 1rem;
-    gap: 1.5rem;
+    gap: var(--sheet-body-gap);
+    padding-top: 1rem;
+    margin-top: -1rem;
+    &.scrollable {
+      padding-right: calc(1rem - var(--scroll-margin));
+    }
   }
 
   // Icon buttons
@@ -96,19 +101,31 @@
     margin: 0;
   }
 
+  /** Items Lists */
+  ol.items-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    li {
+      margin: 0;
+    }
+  }
+
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
 
   .sheet-header {
-    --sheet-header-height: 40px;
     padding: 0;
 
     header.title {
       gap: var(--margin-half);
       input {
         height: var(--sheet-header-height);
-        width: initial;
         background: var(--color-frame-bg-50);
         border: none;
         font-family: var(--font-h1);
@@ -744,36 +761,28 @@
   .tab.biography {
     flex: 1;
     padding: 1rem 0 0;
+
     .sheet-section {
-      flex: 1;
+      flex: 2;
       padding: 0.5rem;
-      prose-mirror {
+      &.appearance {
+        align-items: flex-start;
         flex: 1;
-        width: 100%;
-        &.active {
-          margin-top: 0.5rem;
+        fieldset {
+          flex: 0 0 150px;
+          padding: 0.5rem 1rem;
+          font-size: var(--font-size-12);
         }
-        menu {
-          padding: 0;
-        }
-        button.toggle {
-          right: 1rem;
-          background: var(--color-frame-bg);
-          border-color: var(--color-frame);
-          color: var(--color-secondary);
+        > div {
+          padding: 0 1rem;
         }
       }
     }
-    .appearance {
-      align-items: flex-start;
-      fieldset {
-        flex: 0 0 150px;
-        padding: 0.5rem 1rem;
-        font-size: var(--font-size-12);
-      }
-      > div {
-        padding: 0 1rem;
-      }
+
+    prose-mirror {
+      flex: 1;
+      width: 100%;
+      min-height: unset;
     }
   }
 
@@ -818,18 +827,6 @@
       padding: 1rem;
       .notes {
         color: var(--color-tertiary);
-      }
-    }
-    ol.items-list {
-      width: 100%;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      li {
-        margin: 0;
       }
     }
   }
@@ -919,6 +916,93 @@
       font-size: var(--font-size-10);
       font-family: var(--font-sans);
       color: var(--color-secondary);
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Group Sheet                              */
+/* ----------------------------------------- */
+
+.crucible.sheet.actor-group {
+  --sheet-header-height: 80px;
+
+  .window-content {
+    flex-direction: column;
+  }
+  .sheet-header {
+    flex: none;
+    width: 100%;
+    height: var(--sheet-header-height);
+    img.profile {
+      border: none;
+    }
+  }
+
+  /** Movement Speeds */
+  .sheet-section.movement {
+    align-items: flex-start;
+    .movement-speed {
+      position: relative;
+      width: 60px;
+      height: 80px;
+      padding: 16px 0 0;
+      justify-content: center;
+      align-items: center;
+      background: var(--movement-icon) no-repeat bottom center;
+      background-size: auto 64px;
+      &.land {
+        --movement-icon: url("../ui/elements/hex-willpower.svg");
+      }
+      &.water {
+        --movement-icon: url("../ui/elements/hex-fortitude.svg");
+      }
+      &.air {
+        --movement-icon: url("../ui/elements/hex-reflex.svg");
+      }
+      .label {
+        position: absolute;
+        top: 0;
+      }
+    }
+    .travel-pace {
+      position: relative;
+      width: 60px;
+      height: 80px;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  /** Members List */
+  .members {
+    flex: 1;
+    .line-item {
+      --icon-size: 48px;
+    }
+    .resources {
+      flex: 1;
+      gap: 0.25rem;
+      .resource {
+        gap: 0.5rem;
+        .label {
+          flex: 0 0 32px;
+          font-size: var(--font-size-12);
+          text-align: center;
+        }
+        .bar {
+          flex: 1;
+          height: 12px;
+          padding: 2px;
+          background: var(--color-cool-5);
+          border-radius: 4px;
+        }
+        .bar-fill {
+          display: block;
+          height: 100%;
+          border-radius: 3px;
+        }
+      }
     }
   }
 }

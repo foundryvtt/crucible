@@ -935,7 +935,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       else if ( statuses.has("enraged") && !this.actor.talentIds.has("iramancer0000000") ) focusBlock = "enraged";
       if ( focusBlock ) throw new Error(game.i18n.format("ACTION.WarningCannotSpendFocus", {
         name: this.actor.name,
-        status: game.i18n.localize(`EFFECT.STATUSES.${focusBlock.titleCase()}`)
+        status: game.i18n.localize(`ACTIVE_EFFECT.STATUSES.${focusBlock.titleCase()}`)
       }));
     }
 

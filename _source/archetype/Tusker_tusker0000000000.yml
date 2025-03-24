@@ -25,11 +25,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1685230805102
   modifiedTime: 1727362224291
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _key: '!items!tusker0000000000'
 

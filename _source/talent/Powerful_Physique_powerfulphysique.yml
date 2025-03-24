@@ -23,17 +23,17 @@ system:
         bulkyBanes.number -= 2;
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.powerfulphysique
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1675014203613
   modifiedTime: 1687632194596
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.powerfulphysique
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

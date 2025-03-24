@@ -42,17 +42,17 @@ system:
       actionHooks: []
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.markprey00000000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1674962663358
   modifiedTime: 1727321489675
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

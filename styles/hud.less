@@ -23,29 +23,21 @@
 }
 
 #crucible-talent-hud {
-  min-width: 320px;
+  min-width: 360px;
   width: min-content;
   max-width: 600px;
   text-align: left;
+  font-size: var(--font-size-14);
   pointer-events: all;
-  > header {
-    align-items: center;
-    gap: 0.5rem;
-    h1 {
-      margin: 0;
-      font-size: var(--font-size-24);
+  > .line-item {
+    --title-font-size: var(--font-size-18);
+    --icon-size: 60px;
+    .title h2 {
+      white-space: normal; // Allow wrapping
     }
-    .icon {
-      flex: 0 0 60px;
-      height: 60px;
-      border-radius: 8px;
+    h3.divider {
+      font-size: var(--title-font-size);
     }
-  }
-  .full-tags {
-    flex: 0 0 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 }
 

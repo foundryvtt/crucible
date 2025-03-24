@@ -3,7 +3,7 @@ type: talent
 _id: diversionist0000
 img: icons/skills/social/peace-luck-insult.webp
 system:
-  node: pre0
+  node: pre0a
   description: >-
     <p>You specialize in using subterfuge to distract or trick your opponent
     during combat.</p>
@@ -56,11 +56,12 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '12.331'
+  coreVersion: '13.338'
   createdTime: 1676837085147
   modifiedTime: 1727384244635
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
+  exportSource: null
 _key: '!items!diversionist0000'
 

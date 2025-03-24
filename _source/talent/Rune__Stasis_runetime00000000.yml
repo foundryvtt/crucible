@@ -2,7 +2,7 @@ name: 'Rune: Stasis'
 type: talent
 img: icons/magic/control/debuff-chains-orb-movement-blue.webp
 system:
-  node: wis2b
+  node: wis0b
   description: >-
     <p>The orderly force of immutability and potential energy. The Stasis rune
     governs all things related to permanence and resistance to change. It is
@@ -20,17 +20,17 @@ ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
 flags:
-  core:
-    sourceId: Item.runetime00000000
+  core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '12.325'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.338'
   createdTime: 1675704940930
-  modifiedTime: 1686251361526
+  modifiedTime: 1742749300253
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.runetime00000000
   duplicateSource: null
+  exportSource: null
 _id: runetime00000000
 folder: Dy9HnwadNE3kSZ4f
 sort: 1200000

@@ -27,17 +27,17 @@ system:
         outcome.effects.push(inspired);
 effects: []
 flags:
-  core:
-    sourceId: Compendium.crucible.talent.runecourage00000
+  core: {}
 _stats:
   systemId: crucible
   systemVersion: 0.5.7
-  coreVersion: '12.325'
+  coreVersion: '13.338'
   createdTime: 1674698661050
   modifiedTime: 1688828469050
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.runecourage00000
   duplicateSource: null
+  exportSource: null
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
