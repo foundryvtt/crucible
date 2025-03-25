@@ -1,0 +1,31 @@
+{"frames": {
+
+"Background":
+{
+	"frame": {"x":0,"y":0,"w":8000,"h":8000},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8000,"h":8000},
+	"sourceSize": {"w":8000,"h":8000},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"SignatureFrame":
+{
+	"frame": {"x":0,"y":8002,"w":136,"h":158},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":3,"w":136,"h":158},
+	"sourceSize": {"w":164,"h":164},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "Tree0.webp",
+	"format": "RGBA8888",
+	"size": {"w":8192,"h":8192},
+	"scale": "1",
+	"related_multi_packs": [ "Tree1.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:d3edcb59500b1d35a33b056236fc61b2:669331ce5d3fb02011018afd4b4ae48a:7c7c359800afeaa37927d7f5aaa3aac5$"
+}
+}

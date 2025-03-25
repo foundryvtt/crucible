@@ -4,12 +4,13 @@ import {ABILITIES} from "./attributes.mjs";
 /**
  * @typedef TalentNodeConfig
  * @property {string} id
- * @property {number} tier
+ * @property {number|"root"} tier
  * @property {string} type
  * @property {string[]} abilities
  * @property {string[]} connected
- * @property {null|Record<string, {abilities: string[], teleport: string}>} group
- * @property {Point} [point]
+ * @property {number} distance
+ * @property {number} angle
+ * @property {null|Record<string, {abilities: string[], teleport: string}>} [group=null]
  */
 
 /**
@@ -26,8 +27,6 @@ export default class CrucibleTalentNode {
     }
     this.#initializeNode(config);
   }
-
-  static #counters = {};
 
   static TIER_LEVELS = Object.freeze({
     0: 0,
@@ -143,7 +142,7 @@ export default class CrucibleTalentNode {
    * Initialize configuration data for the node.
    * @param {TalentNodeConfig} config
    */
-  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, point}={}) {
+  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, angle, distance}={}) {
 
     // Node type and tier configuration
     const nodeType = SYSTEM.TALENT.NODE_TYPES[type];
@@ -158,17 +157,9 @@ export default class CrucibleTalentNode {
       n.connect(this);
     }
 
-    // Increment node counter
-    CrucibleTalentNode.#counters[tier] ??= 0;
-    const n = CrucibleTalentNode.#counters[tier]++;
-
     // Determine the point
-    // TODO deprecate passing in point
-    if ( !point ) {
-      const angle = nodeTier.offset + (n * nodeTier.angle);
-      const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), nodeTier.distance);
-      point = ray.B;
-    }
+    const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), distance);
+    const point = ray.B;
 
     // Node color
     let color;
@@ -336,539 +327,198 @@ export default class CrucibleTalentNode {
    * Define the talent tree nodes used by the system.
    */
   static defineTree() {
+    new CrucibleTalentNode(({
+      id: "origin",
+      type: "training",
+      tier: "root",
+      abilities: ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"],
+      connected: [],
+      group: null,
+      distance: 0,
+      angle: 0
+    }));
+
+    const createNodes = (nodes, {tier, angleOffset, angleDelta, distance}) => {
+      let ns = -1;
+      let sextant = "";
+      let angle = 0;
+      for ( const n of nodes ) {
+        if ( n.abilities[0] !== sextant ) {
+          sextant = n.abilities[0];
+          ns++;
+          angle = (ns * 60) + angleOffset;
+        }
+        new CrucibleTalentNode({...n, tier, angle, distance});
+        angle += angleDelta;
+      }
+    };
 
     /* -------------------------------------------- */
     /*  Tier 0: Level 0                             */
     /* -------------------------------------------- */
 
-    new CrucibleTalentNode(({
-      id: "origin",
-      type: "training",
-      tier: "root"
-    }));
-
-    new CrucibleTalentNode({
-      id: "dex0a",
-      abilities: ["dexterity"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dex0b",
-      abilities: ["dexterity"],
-      type: "attack",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou0a",
-      abilities: ["toughness"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou0b",
-      abilities: ["toughness"],
-      type: "defense",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str0a",
-      abilities: ["strength"],
-      type: "attack",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str0b",
-      abilities: ["strength"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis0a",
-      abilities: ["wisdom"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis0b",
-      abilities: ["wisdom"],
-      type: "spell",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre0a",
-      abilities: ["presence"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre0b",
-      abilities: ["presence"],
-      type: "spell",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "int0a",
-      abilities: ["intellect"],
-      type: "spell",
-      tier: 0,
-      connected: ["origin"]
-    });
-
-    new CrucibleTalentNode({
-      id: "int0b",
-      abilities: ["intellect"],
-      type: "training",
-      tier: 0,
-      connected: ["origin"]
-    });
+    const TIER_0 = [
+      {id: "dex0a", abilities: ["dexterity"], type: "training", connected: ["origin"]},
+      {id: "dex0b", abilities: ["dexterity"], type: "attack", connected: ["origin"]},
+      {id: "tou0a", abilities: ["toughness"], type: "training", connected: ["origin"]},
+      {id: "tou0b", abilities: ["toughness"], type: "defense", connected: ["origin"]},
+      {id: "str0a", abilities: ["strength"], type: "attack", connected: ["origin"]},
+      {id: "str0b", abilities: ["strength"], type: "training", connected: ["origin"]},
+      {id: "wis0a", abilities: ["wisdom"], type: "training", connected: ["origin"]},
+      {id: "wis0b", abilities: ["wisdom"], type: "spell", connected: ["origin"]},
+      {id: "pre0a", abilities: ["presence"], type: "training", connected: ["origin"]},
+      {id: "pre0b", abilities: ["presence"], type: "spell", connected: ["origin"]},
+      {id: "int0a", abilities: ["intellect"], type: "spell", connected: ["origin"]},
+      {id: "int0b", abilities: ["intellect"], type: "training", connected: ["origin"]}
+    ];
+    createNodes(TIER_0, {tier: 0, angleOffset: 15, angleDelta: 30, distance: 200});
 
     /* -------------------------------------------- */
     /*  Tier 1: Level 1                             */
     /* -------------------------------------------- */
 
-    const intdex1 = new CrucibleTalentNode({
-      id: "intdex1",
-      abilities: ["intellect", "dexterity"],
-      type: "attack",
-      tier: 1,
-      connected: ["dex0a", "int0b"]
-    });
+    const TIER_1A = [
+      {id: "dex1a", abilities: ["dexterity"], type: "utility", connected: ["dex0a", "dex0b"]},
+      {id: "dex1b", abilities: ["dexterity"], type: "attack", connected: ["dex0a", "dex0b", "dex1a"]},
+      {id: "tou1a", abilities: ["toughness"], type: "defense", connected: ["tou0a", "tou0b"]},
+      {id: "tou1b", abilities: ["toughness"], type: "heal", connected: ["tou0a", "tou0b", "tou1a"]},
+      {id: "str1a", abilities: ["strength"], type: "attack", connected: ["str0a", "str0b"]},
+      {id: "str1b", abilities: ["strength"], type: "utility", connected: ["str0a", "str0b", "str1a"]},
+      {id: "wis1a", abilities: ["wisdom"], type: "utility", connected: ["wis0a", "wis0b"]},
+      {id: "wis1b", abilities: ["wisdom"], type: "spell", connected: ["wis0a", "wis0b", "wis1a"]},
+      {id: "pre1a", abilities: ["presence"], type: "heal", connected: ["pre0a", "pre0b"]},
+      {id: "pre1b", abilities: ["presence"], type: "spell", connected: ["pre0a", "pre0b", "pre1a"]},
+      {id: "int1a", abilities: ["intellect"], type: "spell", connected: ["int0a", "int0b"]},
+      {id: "int1b", abilities: ["intellect"], type: "move", connected: ["int0a", "int0b", "int1a"]}
+    ];
+    createNodes(TIER_1A, {tier: 1, angleOffset: 20, angleDelta: 20, distance: 320});
 
-    new CrucibleTalentNode({
-      id: "dex1a",
-      abilities: ["dexterity"],
-      type: "utility",
-      tier: 1,
-      connected: ["dex0a", "dex0b", "intdex1"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dex1b",
-      abilities: ["dexterity"],
-      type: "attack",
-      tier: 1,
-      connected: ["dex0a", "dex0b", "dex1a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dextou1",
-      abilities: ["dexterity", "toughness"],
-      type: "move",
-      tier: 1,
-      connected: ["dex0b", "tou0a", "dex1b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou1a",
-      abilities: ["toughness"],
-      type: "defense",
-      tier: 1,
-      connected: ["tou0a", "tou0b", "dextou1"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou1b",
-      abilities: ["toughness"],
-      type: "heal",
-      tier: 1,
-      connected: ["tou0a", "tou0b", "tou1a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "toustr1",
-      abilities: ["toughness", "strength"],
-      type: "move",
-      tier: 1,
-      connected: ["tou0b", "str0a", "tou1b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str1a",
-      abilities: ["strength"],
-      type: "attack",
-      tier: 1,
-      connected: ["str0a", "str0b", "toustr1"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str1b",
-      abilities: ["strength"],
-      type: "utility",
-      tier: 1,
-      connected: ["str0a", "str0b", "str1a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "strwis1",
-      abilities: ["strength", "wisdom"],
-      type: "attack",
-      tier: 1,
-      connected: ["str0b", "wis0a", "str1b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis1a",
-      abilities: ["wisdom"],
-      type: "utility",
-      tier: 1,
-      connected: ["wis0a", "wis0b", "strwis1"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis1b",
-      abilities: ["wisdom"],
-      type: "spell",
-      tier: 1,
-      connected: ["wis0a", "wis0b", "wis1a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wispre1",
-      abilities: ["wisdom", "presence"],
-      type: "spell",
-      tier: 1,
-      connected: ["wis0b", "pre0a", "wis1b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre1a",
-      abilities: ["presence"],
-      type: "heal",
-      tier: 1,
-      connected: ["pre0a", "pre0b", "wispre1"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre1b",
-      abilities: ["presence"],
-      type: "spell",
-      tier: 1,
-      connected: ["pre0a", "pre0b", "pre1a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "preint1",
-      abilities: ["presence", "intellect"],
-      type: "spell",
-      tier: 1,
-      connected: ["pre0b", "int0a", "pre1b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "int1a",
-      abilities: ["intellect"],
-      type: "spell",
-      tier: 1,
-      connected: ["int0a", "int0b", "preint1"]
-    });
-
-    const int1b = new CrucibleTalentNode({
-      id: "int1b",
-      abilities: ["intellect"],
-      type: "move",
-      tier: 1,
-      connected: ["int0a", "int0b", "int1a"]
-    });
-    intdex1.connect(int1b);
+    const TIER_1B = [
+      {id: "intdex1", abilities: ["intellect", "dexterity"], type: "attack", connected: ["int1b", "dex1a"]},
+      {id: "dextou1", abilities: ["dexterity", "toughness"], type: "move", connected: ["dex1b", "tou1a"]},
+      {id: "toustr1", abilities: ["toughness", "strength"], type: "move", connected: ["tou1b", "str1a"]},
+      {id: "strwis1", abilities: ["strength", "wisdom"], type: "attack", connected: ["str1b", "wis1a"]},
+      {id: "wispre1", abilities: ["wisdom", "presence"], type: "spell", connected: ["wis1b", "pre1a"]},
+      {id: "preint1", abilities: ["presence", "intellect"], type: "spell", connected: ["pre1b", "int1a"]},
+    ];
+    createNodes(TIER_1B, {tier: 1, angleOffset: 0, angleDelta: 60, distance: 360});
 
     /* -------------------------------------------- */
-    /*  Tier 2: Level 2                             */
+    /*  Tier 3: Level 2                             */
     /* -------------------------------------------- */
 
-    const intdex2 = new CrucibleTalentNode({
-      id: "intdex2",
-      abilities: ["intellect", "dexterity"],
-      type: "utility",
-      tier: 2,
-      connected: ["int1b", "intdex1", "dex1a"]
-    });
+    const TIER_2A = [
+      {id: "dex2a", abilities: ["dexterity"], type: "spell", connected: ["dex1a"]},
+      {id: "dex2b", abilities: ["dexterity"], type: "attack", connected: ["dex1a", "dex1b", "dex2a"]},
+      {id: "dex2c", abilities: ["dexterity"], type: "move", connected: ["dex1b", "dex2b"]},
+      {id: "tou2a", abilities: ["toughness"], type: "defense", connected: ["tou1a"]},
+      {id: "tou2b", abilities: ["toughness"], type: "spell", connected: ["tou1a", "tou1b", "tou2a"]},
+      {id: "tou2c", abilities: ["toughness"], type: "attack", connected: ["tou1b", "tou2b"]},
+      {id: "str2a", abilities: ["strength"], type: "utility", connected: ["str1a"]},
+      {id: "str2b", abilities: ["strength"], type: "attack", connected: ["str1a", "str1b", "str2a"]},
+      {id: "str2c", abilities: ["strength"], type: "spell", connected: ["str1b", "str2b"]},
+      {id: "wis2a", abilities: ["wisdom"], type: "defense", connected: ["wis1a"]},
+      {id: "wis2b", abilities: ["wisdom"], type: "spell", connected: ["wis1a", "wis1b", "wis2a"]},
+      {id: "wis2c", abilities: ["wisdom"], type: "heal", connected: ["wis1b", "wis2b"]},
+      {id: "pre2a", abilities: ["presence"], type: "defense", connected: ["pre1a"]},
+      {id: "pre2b", abilities: ["presence"], type: "spell", connected: ["pre1a", "pre1b", "pre2a"]},
+      {id: "pre2c", abilities: ["presence"], type: "spell", connected: ["pre1b", "pre2b"]},
+      {id: "int2a", abilities: ["intellect"], type: "utility", connected: ["int1a"]},
+      {id: "int2b", abilities: ["intellect"], type: "spell", connected: ["int1a", "int1b", "int2a"]},
+      {id: "int2c", abilities: ["intellect"], type: "heal", connected: ["int1b", "int2b"]}
+    ];
+    createNodes(TIER_2A, {tier: 2, angleOffset: 15, angleDelta: 15, distance: 440});
 
-    new CrucibleTalentNode({
-      id: "dex2a",
-      abilities: ["dexterity"],
-      type: "spell",
-      tier: 2,
-      connected: ["dex1a", "intdex2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dex2b",
-      abilities: ["dexterity"],
-      type: "attack",
-      tier: 2,
-      connected: ["dex1a", "dex1b", "dex2a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dex2c",
-      abilities: ["dexterity"],
-      type: "move",
-      tier: 2,
-      connected: ["dex1b", "dex2b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "dextou2",
-      abilities: ["dexterity", "toughness"],
-      type: "defense",
-      tier: 2,
-      connected: ["dex1b", "dextou1", "tou1a", "dex2c"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou2a",
-      abilities: ["toughness"],
-      type: "defense",
-      tier: 2,
-      connected: ["tou1a", "dextou2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou2b",
-      abilities: ["toughness"],
-      type: "spell",
-      tier: 2,
-      connected: ["tou1a", "tou1b", "tou2a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "tou2c",
-      abilities: ["toughness"],
-      type: "attack",
-      tier: 2,
-      connected: ["tou1b", "tou2b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "toustr2",
-      abilities: ["toughness", "strength"],
-      type: "defense",
-      tier: 2,
-      connected: ["tou1b", "toustr1", "str1a", "tou2c"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str2a",
-      abilities: ["strength"],
-      type: "utility",
-      tier: 2,
-      connected: ["str1a", "toustr2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str2b",
-      abilities: ["strength"],
-      type: "attack",
-      tier: 2,
-      connected: ["str1a", "str1b", "str2a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "str2c",
-      abilities: ["strength"],
-      type: "spell",
-      tier: 2,
-      connected: ["str1b", "str2b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "strwis2",
-      abilities: ["strength", "wisdom"],
-      type: "utility",
-      tier: 2,
-      connected: ["str1b", "strwis1", "wis1a", "str2c"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis2a",
-      abilities: ["wisdom"],
-      type: "defense",
-      tier: 2,
-      connected: ["wis1a", "strwis2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis2b",
-      abilities: ["wisdom"],
-      type: "spell",
-      tier: 2,
-      connected: ["wis1a", "wis1b", "wis2a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wis2c",
-      abilities: ["wisdom"],
-      type: "heal",
-      tier: 2,
-      connected: ["wis1b", "wis2b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "wispre2",
-      abilities: ["wisdom", "presence"],
-      type: "utility",
-      tier: 2,
-      connected: ["wis1b", "wispre1", "pre1a", "wis2c"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre2a",
-      abilities: ["presence"],
-      type: "defense",
-      tier: 2,
-      connected: ["pre1a", "wispre2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre2b",
-      abilities: ["presence"],
-      type: "spell",
-      tier: 2,
-      connected: ["pre1a", "pre1b", "pre2a"]
-    });
-
-    new CrucibleTalentNode({
-      id: "pre2c",
-      abilities: ["presence"],
-      type: "spell",
-      tier: 2,
-      connected: ["pre1b", "pre2b"]
-    });
-
-    new CrucibleTalentNode({
-      id: "preint2",
-      abilities: ["presence", "intellect"],
-      type: "utility",
-      tier: 2,
-      connected: ["pre1b", "preint1", "int1a", "pre2c"]
-    });
-
-    new CrucibleTalentNode({
-      id: "int2a",
-      abilities: ["intellect"],
-      type: "utility",
-      tier: 2,
-      connected: ["int1a", "preint2"]
-    });
-
-    new CrucibleTalentNode({
-      id: "int2b",
-      abilities: ["intellect"],
-      type: "spell",
-      tier: 2,
-      connected: ["int1a", "int1b", "int2a"]
-    });
-
-    const int2c = new CrucibleTalentNode({
-      id: "int2c",
-      abilities: ["intellect"],
-      type: "heal",
-      tier: 2,
-      connected: ["int1b", "int2b"]
-    });
-    intdex2.connect(int2c);
+    const TIER_2B = [
+      {id: "intdex2", abilities: ["intellect", "dexterity"], type: "utility", connected: ["int2c", "dex2a"]},
+      {id: "dextou2", abilities: ["dexterity", "toughness"], type: "defense", connected: ["dex2c", "tou2a"]},
+      {id: "toustr2", abilities: ["toughness", "strength"], type: "defense", connected: ["tou2c", "str2a"]},
+      {id: "strwis2", abilities: ["strength", "wisdom"], type: "utility", connected: ["str2c", "wis2a"]},
+      {id: "wispre2", abilities: ["wisdom", "presence"], type: "utility", connected: ["wis2c", "pre2a"]},
+      {id: "preint2", abilities: ["presence", "intellect"], type: "utility", connected: ["pre2c", "int2a"]}
+    ];
+    createNodes(TIER_2B, {tier: 2, angleOffset: 0, angleDelta: 60, distance: 480});
 
     /* -------------------------------------------- */
-    /*  Tier 3: Level 3 (Signature)                 */
+    /*  Tier 6: Level 3 (Signature)                 */
     /* -------------------------------------------- */
 
     // Dexterity Quadrant
     const sig3intdex = new CrucibleTalentNode({id: "sig3.intellect.dexterity", abilities: ["intellect", "dexterity"],
-      type: "signature", tier: 3, connected: ["int2c", "intdex2", "dex2a"]});
-    new CrucibleTalentNode({id: "dex3a", type: "attack", abilities: ["dexterity"], tier: 3,
+      type: "signature", tier: 6, connected: ["int2c", "intdex2", "dex2a"]});
+    new CrucibleTalentNode({id: "dex3a", type: "attack", abilities: ["dexterity"], tier: 6,
       connected: ["intdex2", "dex2a", "dex2b", "sig3.intellect.dexterity"]});
-    new CrucibleTalentNode({id: "sig3.dexterity", type: "signature", abilities: ["dexterity"], tier: 3,
+    new CrucibleTalentNode({id: "sig3.dexterity", type: "signature", abilities: ["dexterity"], tier: 6,
       point: {x: 692, y: 400}, teleport: true, connected: ["dex2a", "dex2b", "dex2c", "dex3a"], groups: {
         "sig3.dexterity.strength": {abilities: ["dexterity", "strength"], teleport: "sig3.strength"},
         "sig3.dexterity.wisdom": {abilities: ["dexterity", "wisdom"], teleport: "sig3.wisdom"},
         "sig3.dexterity.presence": {abilities: ["dexterity", "presence"], teleport: "sig3.presence"}
       }});
-    new CrucibleTalentNode({id: "dex3b", type: "attack", abilities: ["dexterity"], tier: 3,
+    new CrucibleTalentNode({id: "dex3b", type: "attack", abilities: ["dexterity"], tier: 6,
       connected: ["dex2b", "dex2c", "dextou2", "sig3.dexterity"]})
 
     // Toughness Quadrant
     new CrucibleTalentNode({id: "sig3.dexterity.toughness", abilities: ["dexterity", "toughness"], type: "signature",
-      tier: 3, connected: ["dex2c", "dextou2", "tou2a", "dex3b"]});
-    new CrucibleTalentNode({id: "tou3a", type: "attack", abilities: ["toughness"], tier: 3,
+      tier: 6, connected: ["dex2c", "dextou2", "tou2a", "dex3b"]});
+    new CrucibleTalentNode({id: "tou3a", type: "attack", abilities: ["toughness"], tier: 6,
       connected: ["dextou2", "tou2a", "tou2b", "sig3.dexterity.toughness"]});
-    new CrucibleTalentNode({id: "sig3.toughness", type: "signature", abilities: ["toughness"], tier: 3, point: {x: 0, y: 800},
+    new CrucibleTalentNode({id: "sig3.toughness", type: "signature", abilities: ["toughness"], tier: 6, point: {x: 0, y: 800},
       teleport: true, connected: ["tou2a", "tou2b", "tou2c", "tou3a"], groups: {
         "sig3.toughness.wisdom": {abilities: ["toughness", "wisdom"], teleport: "sig3.wisdom"},
         "sig3.toughness.presence": {abilities: ["toughness", "presence"], teleport: "sig3.presence"},
         "sig3.toughness.intellect": {abilities: ["toughness", "intellect"], teleport: "sig3.intellect"}
       }});
-    new CrucibleTalentNode({id: "tou3b", type: "defense", abilities: ["toughness"], tier: 3,
+    new CrucibleTalentNode({id: "tou3b", type: "defense", abilities: ["toughness"], tier: 6,
       connected: ["tou2b", "tou2c", "toustr2", "sig3.toughness"]})
 
     // Strength Quadrant
     new CrucibleTalentNode({id: "sig3.toughness.strength", abilities: ["toughness", "strength"], type: "signature",
-      tier: 3, connected: ["tou2c", "toustr2", "str2a", "tou3b"]});
-    new CrucibleTalentNode({id: "str3a", type: "attack", abilities: ["strength"], tier: 3,
+      tier: 6, connected: ["tou2c", "toustr2", "str2a", "tou3b"]});
+    new CrucibleTalentNode({id: "str3a", type: "attack", abilities: ["strength"], tier: 6,
       connected: ["toustr2", "str2a", "str2b", "sig3.toughness.strength"]});
-    new CrucibleTalentNode({id: "sig3.strength", type: "signature", abilities: ["strength"], tier: 3,
+    new CrucibleTalentNode({id: "sig3.strength", type: "signature", abilities: ["strength"], tier: 6,
       point: {x: -692, y: 400}, connected: ["str2a", "str2b", "str2c", "str3a"], groups: {
         "sig3.strength.presence": {abilities: ["strength", "presence"], teleport: "sig3.presence"},
         "sig3.strength.intellect": {abilities: ["strength", "intellect"], teleport: "sig3.intellect"}
       }});
-    new CrucibleTalentNode({id: "str3b", type: "attack", abilities: ["strength"], tier: 3,
+    new CrucibleTalentNode({id: "str3b", type: "attack", abilities: ["strength"], tier: 6,
       connected: ["str2b", "str2c", "strwis2", "sig3.strength"]})
 
     // Wisdom Quadrant
-    new CrucibleTalentNode({id: "sig3.strength.wisdom", abilities: ["strength", "wisdom"], type: "signature", tier: 3,
+    new CrucibleTalentNode({id: "sig3.strength.wisdom", abilities: ["strength", "wisdom"], type: "signature", tier: 6,
       connected: ["str2c", "strwis2", "wis2a", "str3b"]});
-    new CrucibleTalentNode({id: "wis3a", type: "attack", abilities: ["wisdom"], tier: 3,
+    new CrucibleTalentNode({id: "wis3a", type: "attack", abilities: ["wisdom"], tier: 6,
       connected: ["strwis2", "wis2a", "wis2b", "sig3.strength.wisdom"]});
-    new CrucibleTalentNode({id: "sig3.wisdom", type: "signature", abilities: ["wisdom"], tier: 3, point: {x: -692, y: -400},
+    new CrucibleTalentNode({id: "sig3.wisdom", type: "signature", abilities: ["wisdom"], tier: 6, point: {x: -692, y: -400},
       connected: ["wis2a", "wis2b", "wis2c", "wis3a"], groups: {
         "sig3.wisdom.intellect": {abilities: ["wisdom", "intellect"], teleport: "sig3.intellect"},
       }});
-    new CrucibleTalentNode({id: "wis3b", type: "spell", abilities: ["wisdom"], tier: 3,
+    new CrucibleTalentNode({id: "wis3b", type: "spell", abilities: ["wisdom"], tier: 6,
       connected: ["wis2b", "wis2c", "wispre2", "sig3.wisdom"]})
 
     // Presence Quadrant
-    new CrucibleTalentNode({id: "sig3.wisdom.presence", abilities: ["wisdom", "presence"], type: "signature", tier: 3,
+    new CrucibleTalentNode({id: "sig3.wisdom.presence", abilities: ["wisdom", "presence"], type: "signature", tier: 6,
       connected: ["wis2c", "wispre2", "pre2a", "wis3b"]});
-    new CrucibleTalentNode({id: "pre3a", type: "spell", abilities: ["presence"], tier: 3,
+    new CrucibleTalentNode({id: "pre3a", type: "spell", abilities: ["presence"], tier: 6,
       connected: ["wispre2", "pre2a", "pre2b", "sig3.wisdom.presence"]});
-    new CrucibleTalentNode({id: "sig3.presence", type: "signature", abilities: ["presence"], tier: 3, point: {x: 0, y: -800},
+    new CrucibleTalentNode({id: "sig3.presence", type: "signature", abilities: ["presence"], tier: 6, point: {x: 0, y: -800},
       connected: ["pre2a", "pre2b", "pre2c", "pre3a"], groups: {}});
-    new CrucibleTalentNode({id: "pre3b", type: "spell", abilities: ["presence"], tier: 3,
+    new CrucibleTalentNode({id: "pre3b", type: "spell", abilities: ["presence"], tier: 6,
       connected: ["pre2b", "pre2c", "preint2", "sig3.presence"]})
 
     // Intellect Quadrant
     new CrucibleTalentNode({id: "sig3.presence.intellect", abilities: ["presence", "intellect"], type: "signature",
-      tier: 3, connected: ["pre2c", "preint2", "int2a", "pre3b"]});
-    new CrucibleTalentNode({id: "int3a", type: "spell", abilities: ["intellect"], tier: 3,
+      tier: 6, connected: ["pre2c", "preint2", "int2a", "pre3b"]});
+    new CrucibleTalentNode({id: "int3a", type: "spell", abilities: ["intellect"], tier: 6,
       connected: ["preint2", "int2a", "int2b", "sig3.presence.intellect"]});
-    new CrucibleTalentNode({id: "sig3.intellect", type: "signature", abilities: ["intellect"], tier: 3,
+    new CrucibleTalentNode({id: "sig3.intellect", type: "signature", abilities: ["intellect"], tier: 6,
       point: {x: 692, y: -400}, connected: ["int2a", "int2b", "int2c", "int3a"], groups: {}});
-    const int3b = new CrucibleTalentNode({id: "int3b", type: "attack", abilities: ["intellect"], tier: 3,
+    const int3b = new CrucibleTalentNode({id: "int3b", type: "attack", abilities: ["intellect"], tier: 6,
       connected: ["int2b", "int2c", "intdex2", "sig3.intellect"]})
     sig3intdex.connect(int3b);
 
     /* -------------------------------------------- */
-    /*  Tier 4: Level 5                             */
+    /*  Tier 7: Level 5                             */
     /* -------------------------------------------- */
 
     const TIER_4 = [
@@ -915,7 +565,7 @@ export default class CrucibleTalentNode {
       {id: "int4c", abilities: ["intellect"], type: "attack", connected: ["sig3.intellect", "int3b", "int4b"]},
       {id: "int4d", abilities: ["intellect"], type: "attack", connected: ["sig3.intellect", "int3b", "sig3.intellect.dexterity", "int4c"]},
     ];
-    for ( const n of TIER_4 ) new CrucibleTalentNode({...n, tier: 4});
+    for ( const n of TIER_4 ) new CrucibleTalentNode({...n, tier: 7});
     CrucibleTalentNode.nodes.get("intdex4").connect(CrucibleTalentNode.nodes.get("int4d"));
   }
 }

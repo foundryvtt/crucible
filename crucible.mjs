@@ -14,15 +14,10 @@ import {statusEffects} from "./module/config/statuses.mjs";
 
 // Import Modules
 import * as applications from "./module/applications/_module.mjs";
+import * as canvas from "./module/canvas/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import * as models from "./module/models/_module.mjs";
-
-// Canvas
-import CrucibleRuler from "./module/canvas/ruler.mjs";
-import CrucibleTalentTree from "./module/canvas/talent-tree.mjs";
-import CrucibleTokenObject from "./module/canvas/token.mjs";
-import * as grid from "./module/canvas/grid.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -44,11 +39,8 @@ Hooks.once("init", async function() {
   // Expose the system API
   game.system.api = {
     applications,
-    canvas: {
-      CrucibleTalentTree
-    },
+    canvas,
     dice,
-    grid,
     models,
     documents,
     methods: {
@@ -96,7 +88,7 @@ Hooks.once("init", async function() {
   CONFIG.Combatant.documentClass = documents.CrucibleCombatant;
   CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;
-  CONFIG.Token.objectClass = CrucibleTokenObject;
+  CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
 
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
@@ -129,7 +121,7 @@ Hooks.once("init", async function() {
   CONFIG.specialStatusEffects.BLIND = "blinded";
 
   // Canvas Configuration
-  CONFIG.Canvas.rulerClass = CrucibleRuler;
+  CONFIG.Canvas.rulerClass = canvas.CrucibleRuler;
   CONFIG.Token.hudClass = applications.CrucibleTokenHUD;
 
   // Register settings
@@ -310,7 +302,7 @@ Hooks.once("setup", function() {
   CrucibleTalentNode.initialize();
 
   // Create Talent Tree canvas
-  game.system.tree = new CrucibleTalentTree();
+  game.system.tree = new canvas.tree.CrucibleTalentTree();
 
   // Activate window listeners
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
@@ -349,7 +341,7 @@ Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
  */
 Hooks.on("canvasReady", () => {
   if ( game.system.tree.actor ) game.system.tree.open(game.system.tree.actor, {resetView: false});
-  for ( const token of canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+  for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
 });
 
 Hooks.on("hotbarDrop", async (bar, data, slot) => {
@@ -369,7 +361,7 @@ Hooks.on("getSceneControlButtons", controls => {
   };
   flankingTool.onChange = (_event, active) => {
     CONFIG.debug.flanking = active
-    for ( const token of canvas.tokens.controlled ) {
+    for ( const token of globalThis.canvas.tokens.controlled ) {
       if ( active ) token._visualizeEngagement(token.engagement);
       else token._clearEngagementVisualization();
     }

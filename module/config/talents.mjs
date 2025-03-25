@@ -24,12 +24,15 @@ export const NODE_TYPES = Object.freeze({
  * @type {Readonly<Record<"root"|0|1|2|3|4, {level: number, ability: number, angle: number, offset: number}>>}
  */
 export const NODE_TIERS = Object.freeze({
-  "root": {level: 0, ability: 0, distance: 0, angle: 0, offset: 0},
-  0: {level: 0, ability: 3, distance: 200, angle: 30, offset: 15},
-  1: {level: 1, ability: 4, distance: 400, angle: 20, offset: 0},
-  2: {level: 2, ability: 5, distance: 600, angle: 15, offset: 0},
-  3: {level: 3, ability: 6, distance: 800, angle: 15, offset: 0},
-  4: {level: 4, ability: 7, distance: 1000, angle: 12, offset: 0},
+  "root": {level: 0, ability: 0},
+  0: {level: 0, ability: 3},
+  1: {level: 1, ability: 4},
+  2: {level: 2, ability: 5},
+  3: {level: 3, ability: 6},
+  4: {level: 4, ability: 7},
+  5: {level: 5, ability: 8},
+  6: {level: 6, ability: 9},
+  7: {level: 7, ability: 10},
 });
 
 /**

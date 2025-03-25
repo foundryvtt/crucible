@@ -466,7 +466,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const c = this.center;
     const r = this.actor.equipment.weapons.maxRange + Math.floor(this.actor.size / 2);
     const range = new PIXI.Polygon(canvas.grid.getCircle(c, r));
-    const offsets = crucible.api.grid.getTargetAreaOffsets(c, range);
+    const offsets = crucible.api.canvas.grid.getTargetAreaOffsets(c, range);
     g.beginFill(0xFF0000, 0.1);
     const s = canvas.dimensions.size;
     for ( const o of offsets ) {
