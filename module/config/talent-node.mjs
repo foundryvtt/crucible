@@ -223,7 +223,7 @@ export default class CrucibleTalentNode {
    */
   getState(actor, signatures) {
     signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
-    const purchased = this._isPurchased(actor);
+    const purchased = this.isPurchased(actor);
     const banned = this.#isBanned(actor, signatures);
     const unlocked = Object.values(CrucibleTalentItem.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
     return {accessible: undefined, purchased, banned, unlocked};
@@ -237,7 +237,7 @@ export default class CrucibleTalentNode {
    * @returns {boolean}                   Is the node connected?
    */
   isConnected(actor) {
-    for ( const c of this.connected ) if ( c._isPurchased(actor) ) return true;
+    for ( const c of this.connected ) if ( c.isPurchased(actor) ) return true;
     return false;
   }
 
@@ -259,7 +259,19 @@ export default class CrucibleTalentNode {
 
   /* -------------------------------------------- */
 
-  _isPurchased(actor) {
+  /**
+   * Has this talent node been purchased by an Actor?
+   * @param {CrucibleActor} actor
+   * @returns {boolean}
+   */
+  isPurchased(actor) {
+
+    // Purchased as an empty node
+    if ( !this.talents.size ) {
+      return actor.system.advancement.talentNodes.has(this.id);
+    }
+
+    // Purchased via talents
     for ( const t of this.talents ) {
       if ( actor.talentIds.has(t.id) ) return true;
     }
@@ -837,7 +849,7 @@ export default class CrucibleTalentNode {
     // Presence Quadrant
     new CrucibleTalentNode({id: "sig3.wisdom.presence", abilities: ["wisdom", "presence"], type: "signature", tier: 3,
       connected: ["wis2c", "wispre2", "pre2a", "wis3b"]});
-    new CrucibleTalentNode({id: "pre3a", type: "attack", abilities: ["presence"], tier: 3,
+    new CrucibleTalentNode({id: "pre3a", type: "spell", abilities: ["presence"], tier: 3,
       connected: ["wispre2", "pre2a", "pre2b", "sig3.wisdom.presence"]});
     new CrucibleTalentNode({id: "sig3.presence", type: "signature", abilities: ["presence"], tier: 3, point: {x: 0, y: -800},
       connected: ["pre2a", "pre2b", "pre2c", "pre3a"], groups: {}});

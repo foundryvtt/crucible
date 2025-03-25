@@ -25,7 +25,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     // Advancement
     schema.advancement = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 24, label: "ADVANCEMENT.Level"}),
-      progress: new fields.NumberField({...requiredInteger, initial: 0, min: 0, label: "ADVANCEMENT.Progress"})
+      progress: new fields.NumberField({...requiredInteger, initial: 0, min: 0, label: "ADVANCEMENT.Progress"}),
+      talentNodes: new fields.SetField(new fields.StringField({required: true, blank: false})) // TODO temporary
     });
 
     // Details

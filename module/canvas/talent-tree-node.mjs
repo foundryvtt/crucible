@@ -26,7 +26,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     config.texture = foundry.canvas.getTexture(src);
 
     // Configure based on node style
-    switch ( this.node.style ) {
+    const style = this.node.talents.size ? this.node.style : "circle";
+    switch (style ) {
       case "circle":
         config.shape = "circle";
         config.size = 48;
@@ -93,10 +94,19 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     event.stopPropagation();
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
+
+    // Empty Nodes
+    if ( !this.node.talents.size ) {
+      return this.#onToggleEmptyNode();
+    }
+
+    // Deactivate Node
     if ( this.isActive ) {
       tree.deactivateNode();
       this.#onPointerOut(event);
     }
+
+    // Activate Node
     else {
       this.#onPointerOver(event);
       tree.activateNode(this);
@@ -124,6 +134,31 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Toggle ownership of an empty node.
+   * @returns {Promise<void>}
+   */
+  async #onToggleEmptyNode() {
+    const actor = game.system.tree.actor;
+    const purchased = this.node.isPurchased(actor);
+    if ( !purchased && !actor.points.talent.available ) return;
+    const talents = new Set(actor.system.advancement.talentNodes);
+    const msg = purchased ? `<p>Remove point spent on empty node "${this.node.id}"?</p>`
+      : `<p>Spend talent point to purchase empty node "${this.node.id}"?</p>`;
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {
+        title: "Purchase Talent Node?"
+      },
+      content: msg
+    });
+    if ( !confirm ) return;
+    if ( purchased ) talents.delete(this.node.id);
+    else talents.add(this.node.id);
+    await actor.update({"system.advancement.talentNodes": talents});
   }
 }
 

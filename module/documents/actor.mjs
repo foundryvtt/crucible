@@ -617,7 +617,7 @@ export default class CrucibleActor extends Actor {
     // Warn if the Actor does not have a legal build
     if ( this.type === "hero" ) {
       const points = this.system.points.talent;
-      points.spent = this.talentIds.size - this.permanentTalentIds.size;
+      points.spent = this.talentIds.size - this.permanentTalentIds.size + this.system.advancement.talentNodes.size;
       points.available = points.total - points.spent;
       if ( points.available < 0) {
         ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
@@ -2151,7 +2151,8 @@ export default class CrucibleActor extends Actor {
     // Refresh display of the active talent tree
     const tree = game.system.tree;
     if ( tree.actor === this ) {
-      const talentChange = (foundry.utils.hasProperty(data, "system.advancement.level") || ("items" in data));
+      const talentChange = foundry.utils.hasProperty(data, "system.advancement.level") ||
+        foundry.utils.hasProperty(data, "system.advancement.talentNodes") || ("items" in data);
       if ( talentChange ) tree.refresh();
     }
   }
