@@ -71,6 +71,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     ];
     if ( state.banned ) tags.push({label: "Banned", class: "unmet"});
     else if ( !state.unlocked ) tags.push({label: "Locked", class: "unmet"});
+    if ( !node.talents.size ) tags.push({label: "Empty", class: "unmet"});
     const reqs = CrucibleTalentNode.preparePrerequisites(node.requirements);
     return {
       id: node.id,

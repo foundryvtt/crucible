@@ -52,6 +52,37 @@ export default class CrucibleTalentNode {
   /* -------------------------------------------- */
 
   /**
+   * Is this node passive?
+   * Passive nodes contain no Talents which provide Actions.
+   * @type {boolean}
+   */
+  get isPassive() {
+    if ( (this.type === "signature") || (this.type === "training") ) return false; // Never passive
+    for ( const t of this.talents ) {
+      if ( t.actions.length ) return false;
+      const {rune, gesture, inflection} = t.system;
+      if ( rune || gesture || inflection ) return false; // Spellcraft components count as active
+    }
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Is this node a training node?
+   * @type {boolean}
+   */
+  get isTraining() {
+    if ( this.type === "training" ) return true;
+    for ( const t of this.talents ) {
+      if ( t.system.training.type ) return true;
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Get the valid node identifiers which can be referenced by a Talent.
    * @returns {FormSelectOption[]}
    */

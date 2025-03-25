@@ -83,7 +83,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.texture = foundry.canvas.getTexture("systems/crucible/ui/tree/wheel.webp");
+    this.bg.texture = crucible.tree.spritesheet.wheel;
     this.bg.anchor.set(0.5, 0.5);
     this.bg.width = this.bg.height = this.radius * 2;
   }

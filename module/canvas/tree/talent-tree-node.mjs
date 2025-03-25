@@ -25,7 +25,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     config.texture = game.system.tree.spritesheet[`${this.node.iconPrefix}-${variety}`];
 
     // Configure based on node style
-    const style = this.node.talents.size ? this.node.style : "circle";
+    let style = this.node.style;
+    if ( this.node.isPassive ) style = this.node.isTraining ? "hex" : "circle";
     switch (style ) {
       case "circle":
         config.shape = "circle";
@@ -55,6 +56,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     } else {
       config.alpha = 0.1;
       config.borderColor = 0x262322;
+    }
+
+    // Does the node contain no talents?
+    if ( !this.node.talents.size ) {
+      config.borderColor = Color.from("#210d45");
     }
 
     // Has the node been purchased?
