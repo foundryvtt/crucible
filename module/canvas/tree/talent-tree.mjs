@@ -170,7 +170,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
-    this.edges.lineStyle({color: 0x000000, alpha: 0.35, width: 3});
+    this.edges.lineStyle({color: 0x000000, alpha: 0.6, width: 2, alignment: 0.5});
 
     // Active connections
     this.connections = this.background.addChild(new PIXI.Graphics());
@@ -208,15 +208,15 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @returns {Promise<void[]>}
    */
   async #loadTextures() {
-    const toLoad = [
-      "systems/crucible/ui/tree/Tree0.json",
-      "systems/crucible/ui/tree/Tree1.json"
-    ];
-    await foundry.canvas.TextureLoader.loader.load(toLoad, {maxConcurrent: 1});
+    const toLoad = ["systems/crucible/ui/tree/Tree0.json"];
+    await foundry.canvas.TextureLoader.loader.load(toLoad);
     for ( const path of toLoad ) {
       const spritesheet = foundry.canvas.getTexture(path);
-      for ( const [asset, texture] of Object.entries(spritesheet.textures) ) {
-        this.spritesheet[asset] = texture;
+      const spritesheets = [spritesheet, ...spritesheet.linkedSheets];
+      for ( const sheet of spritesheets ) {
+        for ( const [asset, texture] of Object.entries(sheet.textures) ) {
+          this.spritesheet[asset] = texture;
+        }
       }
     }
   }
