@@ -1,5 +1,6 @@
 import {SKILLS} from "./skills.mjs";
 import {TRAINING as WEAPON_TRAINING} from "./weapon.mjs";
+import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
 
 /**
  * The types of talent nodes which are supported.
@@ -57,6 +58,10 @@ export const TRAINING_TYPES = Object.freeze({
   }, {}),
   ...Object.entries(WEAPON_TRAINING).reduce((obj, [id, cfg]) => {
     obj[id] = {group: "TALENT.TRAINING.WEAPON", label: cfg.label};
+    return obj;
+  }, {}),
+  ...Object.entries(CRAFTING_TRAINING).reduce((obj, [id, cfg]) => {
+    obj[id] = {group: "TALENT.TRAINING.CRAFT", label: cfg.label};
     return obj;
   }, {})
 });

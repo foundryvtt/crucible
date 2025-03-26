@@ -1,9 +1,9 @@
 type: Item
-folder: i7WposibCJ94XpuD
-name: Novice
-color: '#922020'
+folder: FQAUMNkcagdBLURJ
+name: Tradecraft
+color: '#671313'
 sorting: a
-_id: 8tgAATkzqqmaQtvV
+_id: nNjAJGgLtLFXtTab
 description: ''
 sort: 0
 flags: {}
@@ -14,7 +14,6 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  modifiedTime: 1742951565801
-_key: '!folders!8tgAATkzqqmaQtvV'
+  lastModifiedBy: null
+_key: '!folders!nNjAJGgLtLFXtTab'
 

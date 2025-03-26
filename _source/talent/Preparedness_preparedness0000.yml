@@ -2,7 +2,7 @@ name: Preparedness
 type: talent
 img: icons/sundries/survival/rope-wrapped-purple.webp
 system:
-  node: wis0a
+  node: wis2a
   description: >-
     You seem to always be prepared for the moment at hand. You may sacrifice
     your free movement for the Round to instead equip an Item from your
@@ -15,10 +15,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1677354662797
-  modifiedTime: 1696724730740
+  modifiedTime: 1742953984576
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.preparedness0000
   duplicateSource: null

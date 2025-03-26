@@ -709,6 +709,10 @@
     "SOCIAL": {
       "label" : "Social",
       "hint": "Social skills pertain to your character's ability to interact with other people or groups."
+    },
+    "CRAFTING": {
+      "label": "Tradecraft",
+      "hint": "Artisanal skills reflecting your character's ability to create items or equipment."
     }
   },
   "LABELS": {
@@ -723,7 +727,15 @@
     "deception": "Deception",
     "diplomacy": "Diplomacy",
     "intimidation": "Intimidation",
-    "performance": "Performance"
+    "performance": "Performance",
+    "smithing": "Smithing",
+    "tailoring": "Tailoring",
+    "fletching": "Fletching",
+    "jewelcraft": "Jewelcraft",
+    "runeweaving": "Runeweaving",
+    "alchemy": "Alchemy",
+    "cooking": "Cooking",
+    "enchanting": "Enchanting"
   },
   "RANKS": {
     "UNTRAINED": {

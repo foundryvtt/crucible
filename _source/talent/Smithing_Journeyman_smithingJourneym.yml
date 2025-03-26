@@ -1,0 +1,32 @@
+name: Smithing Journeyman
+folder: nNjAJGgLtLFXtTab
+type: talent
+system:
+  node: str4c
+  training:
+    rank: 2
+    type: smithing
+  description: ''
+  actions: []
+  iconicSpells: 0
+  actorHooks: []
+img: icons/svg/item-bag.svg
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.338'
+  systemId: crucible
+  systemVersion: 0.7.0-dev
+  createdTime: 1742954600515
+  modifiedTime: 1742954677251
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: smithingJourneym
+_key: '!items!smithingJourneym'
+
