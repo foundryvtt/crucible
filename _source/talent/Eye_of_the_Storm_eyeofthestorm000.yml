@@ -3,7 +3,7 @@ type: talent
 _id: eyeofthestorm000
 img: icons/magic/water/wave-water-explosion.webp
 system:
-  node: wispre2
+  node: wis4c
   description: >-
     <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell attack
     against an enemy that you allowed to act before you that Round.</p><p>TODO:
@@ -14,10 +14,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675015447186
-  modifiedTime: 1726929189197
+  modifiedTime: 1742948767483
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

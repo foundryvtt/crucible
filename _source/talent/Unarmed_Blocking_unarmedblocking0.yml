@@ -3,7 +3,7 @@ type: talent
 _id: unarmedblocking0
 img: icons/magic/earth/strike-fist-stone-light.webp
 system:
-  node: dextou2
+  node: tou3a
   description: >-
     Your honed reflexes and physical toughness allow you to block enemy blows
     using your bare arms. While <strong>Unarmed</strong>, half your Toughness
@@ -21,10 +21,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674959487279
-  modifiedTime: 1685125789302
+  modifiedTime: 1742938917834
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

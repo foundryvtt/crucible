@@ -2,7 +2,7 @@ name: 'Inflection: Quicken'
 type: talent
 img: icons/magic/time/hourglass-tilted-glowing-gold.webp
 system:
-  node: preint1
+  node: preint2
   description: >-
     <p>Enhance a spell by hastening the speed with which it can be cast, at the
     expense of increased Focus. The Quicken inflection reduces the
@@ -20,10 +20,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1676608815319
-  modifiedTime: 1727211401544
+  modifiedTime: 1742935464151
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.inflectionquicke
   duplicateSource: null

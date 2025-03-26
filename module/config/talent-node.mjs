@@ -29,14 +29,6 @@ export default class CrucibleTalentNode {
     this.#initializeNode(config);
   }
 
-  static TIER_LEVELS = Object.freeze({
-    0: 0,
-    1: 0,
-    2: 2,
-    3: 3,
-    4: 5,
-  });
-
   /* -------------------------------------------- */
 
   /**
@@ -127,21 +119,6 @@ export default class CrucibleTalentNode {
    */
   icon;
 
-  /**
-   * The minimum character requirements needed to unlock this Talent.
-   * @type {Object<string, number>}
-   */
-  get requirements() {
-    const reqs = {
-      "advancement.level": CrucibleTalentNode.TIER_LEVELS[this.tier]
-    }
-    const ad = this.groups ? 1 : this.abilities.size - 1;
-    for ( const ability of this.abilities ) {
-      reqs[`abilities.${ability}.value`] = this.tier + 3 - ad;
-    }
-    return reqs;
-  }
-
   connect(node) {
     this.connected.add(node);
     node.connected.add(this);
@@ -218,6 +195,7 @@ export default class CrucibleTalentNode {
     });
 
     // Define prerequisites
+    this.requirements = this.#getRequirements();
     this.prerequisites = CrucibleTalentNode.preparePrerequisites(this.requirements);
 
     // Standard Nodes
@@ -230,6 +208,18 @@ export default class CrucibleTalentNode {
         }
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  #getRequirements() {
+    const tierConfig = SYSTEM.TALENT.NODE_TIERS[this.tier];
+    const reqs = {"advancement.level": tierConfig.level};
+    const discount = (this.abilities.size > 1) && !this.groups ? 1 : 0;
+    for ( const ability of this.abilities ) {
+      reqs[`abilities.${ability}.value`] = Math.max(tierConfig.ability - discount, 1);
+    }
+    return reqs;
   }
 
   /* -------------------------------------------- */
@@ -374,5 +364,18 @@ export default class CrucibleTalentNode {
       }
     };
     for ( const {nodes, ...config} of TREE_CONFIG ) createNodes(nodes, config);
+
+    // Empty nodes for each tier to hold placeholder talents
+    for ( let i=1; i<=18; i++ ) {
+      new CrucibleTalentNode({
+        id: `none${i}`,
+        type: "utility",
+        tier: i,
+        abilities: ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"],
+        connected: [],
+        angle: 0,
+        distance: 0
+      });
+    }
   }
 }

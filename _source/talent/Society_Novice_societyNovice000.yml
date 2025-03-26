@@ -1,4 +1,4 @@
-folder: x4BWwSD07nbEGSA0
+folder: ghRKqdzq279SH1lt
 name: Society Novice
 type: talent
 _id: societyNovice000
@@ -23,7 +23,7 @@ system:
     rank: 1
   actorHooks: []
 effects: []
-sort: 0
+sort: 360000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -36,7 +36,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742762477493
-  modifiedTime: 1742762543856
+  modifiedTime: 1742947368523
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!societyNovice000'
 

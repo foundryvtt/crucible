@@ -1,7 +1,6 @@
 folder: 8tgAATkzqqmaQtvV
 name: Unarmed Combat Training
 type: talent
-_id: unarmedCombatTra
 img: icons/skills/melee/unarmed-punch-fist-white.webp
 system:
   node: str0b
@@ -28,8 +27,9 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  createdTime: 1742760280996
-  modifiedTime: 1742760340061
+  createdTime: 1742951427779
+  modifiedTime: 1742951499753
   lastModifiedBy: AnoypGxxNIMOS0XY
+_id: unarmedCombatTra
 _key: '!items!unarmedCombatTra'
 

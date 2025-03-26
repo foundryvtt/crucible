@@ -1,4 +1,4 @@
-folder: x4BWwSD07nbEGSA0
+folder: ghRKqdzq279SH1lt
 name: Arcana Novice
 type: talent
 _id: arcanaNovice0000
@@ -41,7 +41,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742762195596
-  modifiedTime: 1742762250589
+  modifiedTime: 1742947368523
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!arcanaNovice0000'
 

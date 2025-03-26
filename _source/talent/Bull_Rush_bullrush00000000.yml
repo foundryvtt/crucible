@@ -10,15 +10,16 @@ system:
   actions:
     - id: bullrush
       description: >-
-        <p>Make a Pathfinding skill Attack against an adjacent enemy contested
-        by your target's Fortitude defense. On a success you may move up to your
-        <strong>Stride</strong> directly through the enemy's space. Your enemy
-        is knocked Prone and may not make any attack of opportunity against you.
-        On a failure your movement is blocked and your remain in your current
-        position.</p>
+        <p>Make an <strong>Athletics </strong>skill Attack against an adjacent
+        enemy contested by your target's Fortitude defense. On a success you may
+        move up to your <strong>Stride</strong> directly through the enemy's
+        space. Your enemy is knocked Prone and may not make any attack of
+        opportunity against you. On a failure your movement is blocked and your
+        remain in your current position.</p>
       tags:
         - harmless
         - fortitude
+        - athletics
       cost:
         action: 3
         focus: 0
@@ -52,10 +53,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1677968575791
-  modifiedTime: 1727321101126
+  modifiedTime: 1742939141792
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

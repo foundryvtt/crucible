@@ -3,7 +3,7 @@ type: talent
 _id: planneddefense00
 img: icons/magic/defensive/shield-barrier-blades-teal.webp
 system:
-  node: wis1a
+  node: wis2a
   description: >-
     You exert strong battlefield judgment to prepare your defenses against the
     attacks of your foes. Any enemy which acts after you in
@@ -34,10 +34,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1685214851183
-  modifiedTime: 1687632109820
+  modifiedTime: 1742935786344
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

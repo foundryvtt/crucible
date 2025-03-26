@@ -21,18 +21,29 @@ export const NODE_TYPES = Object.freeze({
 
 /**
  * Configuration for each tier of the tree.
- * @type {Readonly<Record<"root"|0|1|2|3|4, {level: number, ability: number, angle: number, offset: number}>>}
+ * @type {Readonly<Record<"root"|number, {level: number, ability: number}>>}
  */
 export const NODE_TIERS = Object.freeze({
   "root": {level: 0, ability: 0},
   0: {level: 0, ability: 3},
   1: {level: 1, ability: 4},
-  2: {level: 2, ability: 5},
-  3: {level: 3, ability: 6},
-  4: {level: 4, ability: 7},
-  5: {level: 5, ability: 8},
-  6: {level: 6, ability: 9},
-  7: {level: 7, ability: 10},
+  2: {level: 2, ability: 4},
+  3: {level: 3, ability: 5},
+  4: {level: 4, ability: 5},
+  5: {level: 5, ability: 6},
+  6: {level: 6, ability: 6},
+  7: {level: 7, ability: 7},
+  8: {level: 8, ability: 7},
+  9: {level: 9, ability: 8},
+  10: {level: 10, ability: 8},
+  11: {level: 11, ability: 9},
+  12: {level: 12, ability: 9},
+  13: {level: 13, ability: 10},
+  14: {level: 14, ability: 10},
+  15: {level: 15, ability: 11},
+  16: {level: 16, ability: 11},
+  17: {level: 17, ability: 12},
+  18: {level: 18, ability: 12}
 });
 
 /**

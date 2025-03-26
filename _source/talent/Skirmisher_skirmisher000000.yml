@@ -3,7 +3,7 @@ type: talent
 _id: skirmisher000000
 img: icons/skills/movement/arrow-upward-yellow.webp
 system:
-  node: dextou1
+  node: dex3b
   description: >-
     <p>You are adept at entering and exiting the fray. When moving out of the
     <strong>Engagement</strong> radius of an enemy, that enemy has 2 Banes to
@@ -12,10 +12,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674841504645
-  modifiedTime: 1696793352667
+  modifiedTime: 1742939232829
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -3,7 +3,7 @@ type: talent
 _id: anticipateharm00
 img: icons/magic/movement/trail-streak-impact-blue.webp
 system:
-  node: intdex2
+  node: intdex4
   description: >-
     Your keen reflexes and acuity allow you to anticipate imminent danger and
     react to avoid it.
@@ -39,10 +39,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674961306089
-  modifiedTime: 1696704573321
+  modifiedTime: 1742936603324
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -2,7 +2,7 @@ name: Counter Spell
 type: talent
 img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
 system:
-  node: preint1
+  node: preint4
   description: >-
     <p>You can attempt to unravel and negate the spellcraft of other mages.</p>
 
@@ -47,10 +47,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675644858016
-  modifiedTime: 1686250020668
+  modifiedTime: 1742935539724
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.counterspell0000
   duplicateSource: null

@@ -20,16 +20,14 @@ system:
         enemy.
       description: >-
         <p>You compose a verse, make a quip, or shout a battle cry to extoll the
-        heroic deeds of one of your allies. Make a <strong>Performance</strong>
-        check against your allies' Madness threshold, restoring Morale to those
-        who can perceive your performance.</p>
+        heroic deeds of one of your allies. All allies near to you regain
+        <strong>Morale</strong> equal to half your <strong>Presence</strong>
+        score.</p>
       tags:
         - reaction
         - rallying
-        - morale
-        - performance
       cost:
-        action: 2
+        action: 1
         focus: 1
         weapon: false
         heroism: 0
@@ -45,14 +43,20 @@ system:
         maximum: null
         weapon: false
         minimum: null
-      actionHooks: []
+      actionHooks:
+        - hook: confirm
+          fn: |-
+            for ( const outcome of this.outcomes.values() ) {
+              if ( outcome.target === this.actor ) continue;
+              outcome.resources.morale = Math.ceil(this.actor.system.abilities.presence.value / 2);
+            }
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674942420024
-  modifiedTime: 1727321858874
+  modifiedTime: 1742950410983
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

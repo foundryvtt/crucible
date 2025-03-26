@@ -3,7 +3,7 @@ type: talent
 _id: evasiveshot00000
 img: icons/skills/ranged/person-archery-bow-attack-orange.webp
 system:
-  node: dex2c
+  node: dex3a
   description: >-
     <p>You are an expert at firing shots with ranged weaponry while evading
     enemy attacks. After performing a ranged weapon attack, you gain your
@@ -21,10 +21,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674960395033
-  modifiedTime: 1696791431567
+  modifiedTime: 1742939220839
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -2,7 +2,7 @@ name: Clarify Intent
 type: talent
 img: icons/skills/targeting/crosshair-arrowhead-blue.webp
 system:
-  node: preint2
+  node: preint1
   description: >-
     You use apply your situational awareness and persuasiveness to rapidly
     communicate a plan of action to an ally.
@@ -54,10 +54,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1677347458957
-  modifiedTime: 1690660739634
+  modifiedTime: 1742935500296
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.clarifyintent000
   duplicateSource: null

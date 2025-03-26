@@ -2,7 +2,7 @@ name: 'Inflection: Compose'
 type: talent
 img: icons/magic/symbols/arrowhead-green.webp
 system:
-  node: wispre1
+  node: wispre2
   description: >-
     <p>Enhance a spell by taking extra time in its formation, reducing other
     resource costs in exchange. The Compose inflection reduces the
@@ -20,10 +20,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1676608867154
-  modifiedTime: 1727211369935
+  modifiedTime: 1742935564454
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.inflectioncompos
   duplicateSource: null

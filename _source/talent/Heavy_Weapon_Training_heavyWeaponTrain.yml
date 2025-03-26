@@ -1,7 +1,6 @@
 folder: 8tgAATkzqqmaQtvV
 name: Heavy Weapon Training
 type: talent
-_id: heavyWeaponTrain
 img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
 system:
   node: str0b
@@ -16,7 +15,7 @@ system:
     rank: 1
   actorHooks: []
 effects: []
-sort: 100000
+sort: 150000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -28,8 +27,9 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  createdTime: 1742759960043
-  modifiedTime: 1742779668524
+  createdTime: 1742951427779
+  modifiedTime: 1742951551718
   lastModifiedBy: AnoypGxxNIMOS0XY
+_id: heavyWeaponTrain
 _key: '!items!heavyWeaponTrain'
 

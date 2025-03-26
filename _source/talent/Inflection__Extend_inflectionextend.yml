@@ -2,7 +2,7 @@ name: 'Inflection: Extend'
 type: talent
 img: icons/magic/time/clock-stopwatch-white-blue.webp
 system:
-  node: preint1
+  node: preint2
   description: >-
     <p>Enhance the duration of a spell, increasing the duration of its effect.
     For spells which are instantaneous, any corresponding status conditions that
@@ -19,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675016923097
-  modifiedTime: 1727211384543
+  modifiedTime: 1742935478402
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionextend
   duplicateSource: null

@@ -3,7 +3,7 @@ type: talent
 _id: soothe0000000000
 img: icons/magic/life/heart-cross-strong-blue.webp
 system:
-  node: pre1a
+  node: pre2c
   description: >-
     You administer a soothing Performance which rallies your allies, restoring
     Morale.
@@ -42,10 +42,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675017944331
-  modifiedTime: 1727321921777
+  modifiedTime: 1742937728689
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -5,13 +5,13 @@ img: icons/skills/movement/ball-spinning-blue.webp
 system:
   node: dex2c
   description: >-
-    You can use your athleticism in dangerous situations to escape harm or
-    bypass enemy combatants.
+    <p>You can use your athleticism in dangerous situations to escape harm or
+    bypass enemy combatants.</p>
   actions:
     - id: tumble
       name: Tumble
       description: >-
-        <p>Make a <strong>Pathfinding</strong> skill Attack against an adjacent
+        <p>Make a <strong>Athletics </strong>skill Attack against an adjacent
         enemy contested by your target's <strong>Reflex</strong>
         defense.</p><p>On a success you may move up to twice your
         <strong>Stride</strong>, including the ability to pass through your
@@ -21,6 +21,7 @@ system:
       tags:
         - harmless
         - reflex
+        - athletics
       cost:
         action: 3
         focus: 0
@@ -47,10 +48,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1677967995645
-  modifiedTime: 1727321436693
+  modifiedTime: 1742939186737
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.tumblethrough000
   duplicateSource: null

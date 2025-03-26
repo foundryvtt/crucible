@@ -5,7 +5,7 @@ img: icons/skills/ranged/bullet-sparks-yellow.webp
 effects: []
 flags: {}
 system:
-  node: dex2b
+  node: dex3a
   description: >-
     You focus deeply and calm your nerves to reload your mechanical weapon with
     exceptional haste.
@@ -34,10 +34,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674942420011
-  modifiedTime: 1727321599240
+  modifiedTime: 1742939305464
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

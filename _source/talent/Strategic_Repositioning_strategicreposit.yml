@@ -2,7 +2,7 @@ name: Strategic Repositioning
 type: talent
 img: icons/sundries/gaming/chess-knight-white.webp
 system:
-  node: int1b
+  node: int2c
   description: >-
     <p>You are always thinking ahead about where to position yourself should
     danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
@@ -19,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675741470187
-  modifiedTime: 1727321391331
+  modifiedTime: 1742937126583
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.strategicreposit
   duplicateSource: null

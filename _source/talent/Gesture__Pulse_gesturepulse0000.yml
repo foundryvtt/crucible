@@ -3,7 +3,7 @@ type: talent
 _id: gesturepulse0000
 img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
 system:
-  node: pre2c
+  node: pre2b
   description: >-
     <p>Emit a burst of Runic power in a circular wave that travels outward, with
     you at its center. A Pulse of Spirit might be used to bolster Morale for
@@ -25,10 +25,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1684686470274
-  modifiedTime: 1686311910684
+  modifiedTime: 1742935338540
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

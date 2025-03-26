@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: tou2a
+  node: toustr2
   description: >-
     You lean into an attack which was otherwise defended with your Armor,
     converting its result into a Block instead.
@@ -56,10 +56,10 @@ system:
             }
 _stats:
   systemId: crucible
-  systemVersion: 0.5.8
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674942420028
-  modifiedTime: 1690660661004
+  modifiedTime: 1742936870563
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

@@ -3,36 +3,47 @@ type: talent
 _id: intuitweakness00
 img: icons/magic/perception/orb-eye-scrying.webp
 system:
-  node: int0b
+  node: int1b
   description: >-
-    You calm your mind and study the physiology of your foe, seeking a
-    vulnerability in its defenses. The Gamemaster performs a passive
-    <strong>Knowledge Test</strong> against the enemy. If successful you learn
-    one Damage type that the creature is vulnerable to, if any.
+    <p>You calm your mind and study the physiology of your foe, seeking a
+    vulnerability in its defenses.</p><p>Perform a <strong>Knowledge
+    Test</strong> using an appropriate Skill chosen by the Gamemaster. On a
+    success, you learn the Damage type that the creature has the greatest
+    vulnerability towards, if any. On a Critical Success you learn the two
+    Damage types which have the largest vulnerability.</p>
   actions:
     - id: intuitWeakness
       description: >-
-        You still your mind and study the physiology of your foe, attempting to
-        identify a vulnerability in its defenses.
+        <p>You still your mind and study the physiology of your foe, attempting
+        to identify a vulnerability in its defenses.</p>
       tags: []
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 10
         scope: 0
       effects: []
+      name: Intuit Weakness
+      img: icons/magic/perception/orb-eye-scrying.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674696771693
-  modifiedTime: 1685819933593
+  modifiedTime: 1742936418289
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

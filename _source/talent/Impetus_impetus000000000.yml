@@ -3,7 +3,7 @@ type: talent
 _id: impetus000000000
 img: icons/magic/movement/trail-streak-zigzag-yellow.webp
 system:
-  node: int1b
+  node: intdex4
   description: >-
     <p>You are gifted at exploiting the slowness with which others think. If you
     are first in Initiative order during a round of Combat, you gain +1 current
@@ -19,10 +19,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1684461808776
-  modifiedTime: 1726929302547
+  modifiedTime: 1742936139750
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: intdex2
+  node: dex2b
   description: >-
     <p>You anticipate dodging an attack, intercepting it to intentionally Parry
     the strike.</p><p></p>
@@ -39,10 +39,10 @@ system:
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674942420030
-  modifiedTime: 1726367843243
+  modifiedTime: 1742939340469
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

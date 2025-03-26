@@ -34,7 +34,7 @@ system:
         minimum: null
       actionHooks: []
   requirements: {}
-  node: int2c
+  node: int2a
 effects: []
 ownership:
   default: 0
@@ -43,10 +43,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1677354070473
-  modifiedTime: 1727321818135
+  modifiedTime: 1742937141253
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.alchemicalresolv
   duplicateSource: null

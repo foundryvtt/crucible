@@ -3,7 +3,7 @@ type: talent
 _id: distancerunner00
 img: icons/skills/movement/feet-winged-boots-brown.webp
 system:
-  node: dextou1
+  node: dex3b
   description: >-
     You are adept at covering distance quickly. Your <strong>Stride</strong>
     increases by 1.
@@ -14,10 +14,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674841266259
-  modifiedTime: 1696704733922
+  modifiedTime: 1742939204145
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

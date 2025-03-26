@@ -5,7 +5,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: int2c
+  node: wis2c
   description: >-
     Your knowledge and skill in Medicine covers the rapid triage, diagnosis, and
     treatment of wounds.
@@ -41,10 +41,10 @@ system:
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1674702266686
-  modifiedTime: 1727321754196
+  modifiedTime: 1742937190014
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

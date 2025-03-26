@@ -15,18 +15,27 @@ system:
   actions:
     - id: assessStrength
       description: >-
-        You observe a creature you can see to assess it's notable areas of
-        strength.
+        <p>You observe a creature you can see to assess it's notable areas of
+        strength.</p>
       tags: []
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 10
         scope: 0
       effects: []
+      name: Assess Strength
+      img: icons/magic/fire/flame-burning-eye.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   actorHooks: []
 effects: []
 folder: 2MFixpDJ379KOogE
@@ -40,7 +49,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1685819534072
-  modifiedTime: 1742749245894
+  modifiedTime: 1742936418285
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

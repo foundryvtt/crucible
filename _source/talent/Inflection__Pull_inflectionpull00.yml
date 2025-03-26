@@ -2,7 +2,7 @@ name: 'Inflection: Pull'
 type: talent
 img: icons/skills/movement/arrow-down-pink.webp
 system:
-  node: wispre1
+  node: wispre2
   description: >-
     <p>Empower a spell to attract affected creatures toward the caster.
     Creatures affected by a spell with the Pull inflection move 1 space closer
@@ -16,10 +16,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675016427487
-  modifiedTime: 1727211393392
+  modifiedTime: 1742935571389
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.inflectionpull00
   duplicateSource: null

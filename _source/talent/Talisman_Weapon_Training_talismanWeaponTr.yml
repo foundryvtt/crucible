@@ -1,7 +1,6 @@
 folder: 8tgAATkzqqmaQtvV
 name: Talisman Weapon Training
 type: talent
-_id: talismanWeaponTr
 img: icons/weapons/polearms/trident-fork-white.webp
 system:
   node: pre0a
@@ -28,8 +27,9 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  createdTime: 1742760788449
-  modifiedTime: 1742760948244
+  createdTime: 1742951427779
+  modifiedTime: 1742951499753
   lastModifiedBy: AnoypGxxNIMOS0XY
+_id: talismanWeaponTr
 _key: '!items!talismanWeaponTr'
 

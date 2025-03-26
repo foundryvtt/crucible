@@ -1,14 +1,13 @@
 folder: 8tgAATkzqqmaQtvV
 name: Light Weapon Training
 type: talent
-_id: lightWeaponTrain
 img: icons/weapons/swords/sword-simple-white.webp
 system:
   node: dex0a
   description: >-
     <p>You have a basic education in the use of finesse weaponry. You are no
     longer treated as <strong>Untrained</strong> with weapons in the
-    <strong>Light</strong>, or <strong>Balanced</strong> categories.</p>
+    <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
   actions: []
   iconicSpells: 0
   training:
@@ -28,8 +27,9 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  createdTime: 1742760032111
-  modifiedTime: 1742760163337
+  createdTime: 1742951427779
+  modifiedTime: 1742951694050
   lastModifiedBy: AnoypGxxNIMOS0XY
+_id: lightWeaponTrain
 _key: '!items!lightWeaponTrain'
 

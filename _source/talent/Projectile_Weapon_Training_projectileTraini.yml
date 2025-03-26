@@ -1,7 +1,6 @@
 folder: 8tgAATkzqqmaQtvV
 name: Projectile Weapon Training
 type: talent
-_id: projectileWeapon
 img: icons/weapons/bows/shortbow-white.webp
 system:
   node: dex0a
@@ -28,8 +27,9 @@ _stats:
   coreVersion: '13.338'
   systemId: crucible
   systemVersion: 0.7.0-dev
-  createdTime: 1742760104349
-  modifiedTime: 1742760164919
+  createdTime: 1742952035173
+  modifiedTime: 1742952091118
   lastModifiedBy: AnoypGxxNIMOS0XY
-_key: '!items!projectileWeapon'
+_id: projectileTraini
+_key: '!items!projectileTraini'
 

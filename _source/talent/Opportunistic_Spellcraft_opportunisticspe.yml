@@ -3,7 +3,7 @@ type: talent
 _id: opportunisticspe
 img: icons/magic/unholy/strike-hand-glow-pink.webp
 system:
-  node: int2a
+  node: int2b
   description: >-
     <p>Your quick thinking can weave magic to exploit brief windows of
     opportunity. You may make a <strong>Disengagement Attack</strong> using the
@@ -19,10 +19,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1685584334888
-  modifiedTime: 1685585091041
+  modifiedTime: 1742935840155
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

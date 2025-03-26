@@ -9,7 +9,7 @@ system:
     Rune.
   actions: []
   requirements: {}
-  node: int2a
+  node: int2b
 effects: []
 ownership:
   default: 0
@@ -18,10 +18,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675644092055
-  modifiedTime: 1682387829986
+  modifiedTime: 1742935853662
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.recognizespellcr
   duplicateSource: null

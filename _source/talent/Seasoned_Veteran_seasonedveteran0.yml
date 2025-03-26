@@ -3,7 +3,7 @@ type: talent
 _id: seasonedveteran0
 img: icons/magic/symbols/chevron-elipse-circle-blue.webp
 system:
-  node: strwis2
+  node: strwis4
   description: >-
     <p>You battlefield experience makes you accustomed to engaging multiple
     foes. Your <strong>Engagement</strong> increases by +1, allowing you to
@@ -16,10 +16,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
+  systemVersion: 0.7.0-dev
   coreVersion: '13.338'
   createdTime: 1675013806159
-  modifiedTime: 1687273313957
+  modifiedTime: 1742939431379
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
