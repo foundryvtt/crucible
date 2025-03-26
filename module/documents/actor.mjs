@@ -7,30 +7,6 @@ const {DialogV2} = foundry.applications.api;
 /** @import {TRAINING_TYPES} from "../config/talents.mjs"; */
 
 /**
- * @typedef {Object} ActorEquippedWeapons
- * @property {CrucibleItem} mainhand
- * @property {CrucibleItem} offhand
- * @property {boolean} freehand
- * @property {number} spellHands
- * @property {boolean} unarmed
- * @property {boolean} shield
- * @property {boolean} twoHanded
- * @property {boolean} melee
- * @property {boolean} ranged
- * @property {boolean} dualWield
- * @property {boolean} dualMelee
- * @property {boolean} dualRanged
- * @property {boolean} slow
- */
-
-/**
- * @typedef {Object} ActorEquipment
- * @property {CrucibleItem} armor
- * @property {ActorEquippedWeapons} weapons
- * @property {CrucibleItem[]} accessories
- */
-
-/**
  * @typedef {Object}   ActorRoundStatus
  * @property {boolean} hasMoved
  * @property {boolean} hasAttacked
@@ -59,30 +35,6 @@ export default class CrucibleActor extends Actor {
   rollBonuses = this.rollBonuses;
 
   /**
-   * Track the Items which are currently equipped for the Actor.
-   * @type {ActorEquipment}
-   */
-  equipment = this.equipment;
-
-  /**
-   * The spellcraft components known by this Actor
-   * @type {{
-   *   runes: Set<CrucibleSpellcraftRune>,
-   *   inflections: Set<CrucibleSpellcraftInflection>,
-   *   gestures: Set<CrucibleSpellcraftGesture>,
-   *   iconicSlots: number,
-   *   iconicSpells: CrucibleItem[]
-   * }}
-   */
-  grimoire = this.grimoire;
-
-  /**
-   * Trained skill bonuses which the character has.
-   * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
-   */
-  training = this.training;
-
-  /**
    * The ancestry of the Actor.
    * @returns {*}
    */
@@ -99,11 +51,28 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * Talent hook functions which apply to this Actor based on their set of owned Talents.
+   */
+  get actorHooks() {
+    console.warn("Should CrucibleActor#actorHooks exist?");
+    return this.system.actorHooks;
+  }
+
+  /**
    * The background of the Actor.
    * @returns {*}
    */
   get background() {
     return this.system.details.background;
+  }
+
+  /**
+   * Is this Actor currently in the active Combat encounter?
+   * @type {boolean}
+   */
+  get combatant() {
+    if ( this.isToken ) return game.combat?.combatants.find(c => c.tokenId === this.token.id);
+    return game.combat?.combatants.find(c => c.actorId === this.id);
   }
 
   /**
@@ -115,55 +84,17 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * A convenience reference to the Actor level.
-   * @type {number}
+   * Current equipment state for the Actor.
    */
-  get level() {
-    return this.system.advancement.level;
+  get equipment() {
+    return this.system.equipment;
   }
 
   /**
-   * Is this actor currently "level zero"
-   * @returns {boolean}
+   * Known spells and spellcraft components for the Actor.
    */
-  get isL0() {
-    return this.system.advancement.level === 0;
-  }
-
-  get points() {
-    return this.system.points;
-  }
-
-  /**
-   * The prepared object of actor resistances
-   * @returns {object}
-   */
-  get resistances() {
-    return this.system.resistances;
-  }
-
-  /**
-   * The prepared object of actor skills
-   * @returns {object}
-   */
-  get skills() {
-    return this.system.skills;
-  }
-
-  /**
-   * A convenience reference to the size of the Actor.
-   * @type {number}
-   */
-  get size() {
-    return this.system.movement.size;
-  }
-
-  /**
-   * The prepared object of actor status data
-   * @returns {ActorRoundStatus}
-   */
-  get status() {
-    return this.system.status;
+  get grimoire() {
+    return this.system.grimoire;
   }
 
   /**
@@ -209,37 +140,72 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Is this Actor currently in the active Combat encounter?
-   * @type {boolean}
+   * Is this actor currently "level zero"
+   * @returns {boolean}
    */
-  get combatant() {
-    if ( this.isToken ) return game.combat?.combatants.find(c => c.tokenId === this.token.id);
-    return game.combat?.combatants.find(c => c.actorId === this.id);
+  get isL0() {
+    return this.system.advancement.level === 0;
   }
 
   /**
-   * The IDs of purchased talents
-   * @type {Set<string>}
+   * A convenience reference to the Actor level.
+   * @type {number}
    */
-  talentIds = this.talentIds || new Set();
+  get level() {
+    return this.system.advancement.level;
+  }
+
+  get points() {
+    return this.system.points;
+  }
 
   /**
-   * Talent hook functions which apply to this Actor based on their set of owned Talents.
-   * @type {Object<string, {talent: CrucibleTalent, fn: Function}[]>}
+   * The prepared object of actor resistances
+   * @returns {object}
    */
-  actorHooks = {};
+  get resistances() {
+    return this.system.resistances;
+  }
 
   /**
-   * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
-   * @type {Set<string>}
+   * The prepared object of actor skills
+   * @returns {object}
    */
-  permanentTalentIds;
+  get skills() {
+    return this.system.skills;
+  }
 
   /**
-   * Currently active status effects
-   * @type {Set<string>}
+   * A convenience reference to the size of the Actor.
+   * @type {number}
    */
-  statuses = this.statuses || new Set();
+  get size() {
+    return this.system.movement.size;
+  }
+
+  /**
+   * The prepared object of actor status data
+   * @returns {ActorRoundStatus}
+   */
+  get status() {
+    return this.system.status;
+  }
+
+  /**
+   * Prepared training data for the Actor.
+   */
+  get training() {
+    console.warn("Should CrucibleActor#training exist?");
+    return this.system.training;
+  }
+
+  /**
+   * The IDs of purchased talents.
+   */
+  get talentIds() {
+    console.warn("Should CrucibleActor#talentIds exist?");
+    return this.system.talentIds;
+  }
 
   /* -------------------------------------------- */
   /*  Actor Preparation
@@ -257,225 +223,10 @@ export default class CrucibleActor extends Actor {
     super.prepareEmbeddedDocuments();
     if ( this.type === "group" ) return;
     const items = this.itemTypes;
-    CrucibleActor.#prepareTalents.call(this, items.talent);
-    this.callActorHooks("prepareTraining", this.training);
-    CrucibleActor.#prepareSpells.call(this, items.spell);
-    this._prepareEffects();
-    this.equipment = CrucibleActor.#prepareEquipment.call(this, items);
+    this.system.prepareItems(items);
+    // TODO
     CrucibleActor.#prepareActions.call(this);
   };
-
-  /* -------------------------------------------- */
-
-  /**
-   * Classify the Items in the Actor's inventory to identify current equipment.
-   * @this {CrucibleActor}
-   * @param {object} items
-   * @param {CrucibleItem[]} items.armor
-   * @param {CrucibleItem[]} items.weapon
-   * @param {CrucibleItem[]} items.accessory
-   * @returns {ActorEquipment}
-   */
-  static #prepareEquipment({armor, weapon, accessory}={}) {
-    const equipment = {
-      armor: this._prepareArmor(armor),
-      weapons: this._prepareWeapons(weapon),
-      accessories: {} // TODO: Equipped Accessories
-    };
-
-    // Flag some equipment-related statuses
-    equipment.canFreeMove = CrucibleActor.#canFreeMove(this, equipment.armor);
-    equipment.unarmored = equipment.armor.system.category === "unarmored"
-    return equipment;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Determine whether the Actor is able to use a free move once per round.
-   * @param {CrucibleActor} actor   The Actor being evaluated
-   * @param {CrucibleItem} armor    The equipped Armor item.
-   * @returns {boolean}             Can the Actor use a free move?
-   */
-  static #canFreeMove(actor, armor) {
-    if ( actor.isWeakened ) return false;
-    if ( actor.statuses.has("prone") ) return false;
-    if ( (armor.system.category === "heavy") && !actor.talentIds.has("armoredefficienc") ) return false;
-    return true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the Armor item that this Actor has equipped.
-   * @param {CrucibleItem[]} armorItems       The armor type Items in the Actor's inventory
-   * @returns {CrucibleItem}                  The armor Item which is equipped
-   * @private
-   */
-  _prepareArmor(armorItems) {
-    let armors = armorItems.filter(i => i.system.equipped);
-    if ( armors.length > 1 ) {
-      ui.notifications.warn(`Actor ${this.name} has more than one equipped armor.`);
-      armors = armors[0];
-    }
-    return armors[0] || this._getUnarmoredArmor();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the default unarmored Armor item used by this Actor if they do not have other equipped armor.
-   * @returns {CrucibleItem}
-   * @private
-   */
-  _getUnarmoredArmor() {
-    const itemCls = getDocumentClass("Item");
-    const armor = new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this});
-    armor.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
-    return armor
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the Armor item that this Actor has equipped.
-   * @param {CrucibleItem[]} weaponItems      The Weapon type Items in the Actor's inventory
-   * @returns {EquippedWeapons}               The currently equipped weaponry for the Actor
-   * @private
-   */
-  _prepareWeapons(weaponItems) {
-    const slotInUse = (item, type) => {
-      item.updateSource({"system.equipped": false});
-      const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.name, item: item.name, type});
-      console.warn(w);
-    }
-
-    // Identify equipped weapons which may populate weapon slots
-    const equippedWeapons = {mh: [], oh: [], either: []};
-    const slots = SYSTEM.WEAPON.SLOTS;
-    for ( let w of weaponItems ) {
-      const {equipped, slot} = w.system;
-      if ( !equipped ) continue;
-      if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
-      else if ( slot === slots.OFFHAND ) equippedWeapons.oh.unshift(w);
-      else if ( slot === slots.EITHER ) equippedWeapons.either.unshift(w);
-    }
-    equippedWeapons.either.sort((a, b) => b.system.damage.base - a.system.damage.base);
-
-    // Assign weapons to equipment slots
-    const weapons = {};
-    let mhOpen = true;
-    let ohOpen = true;
-
-    // Mainhand Weapon
-    for ( const w of equippedWeapons.mh ) {
-      if ( !mhOpen ) slotInUse(w, "mainhand");
-      else {
-        weapons.mainhand = w;
-        mhOpen = false;
-        if ( w.system.slot === slots.TWOHAND ) ohOpen = false;
-      }
-    }
-
-    // Offhand Weapon
-    for ( const w of equippedWeapons.oh ) {
-      if ( !ohOpen ) slotInUse(w, "offhand");
-      else {
-        weapons.offhand = w;
-        ohOpen = false;
-      }
-    }
-
-    // Either-hand Weapons
-    for ( const w of equippedWeapons.either ) {
-      if ( mhOpen ) {
-        weapons.mainhand = w;
-        w.system.slot = slots.MAINHAND;
-        mhOpen = false;
-      }
-      else if ( ohOpen ) {
-        weapons.offhand = w;
-        w.system.slot = slots.OFFHAND;
-        ohOpen = false;
-      }
-      else slotInUse(w, "mainhand");
-    }
-
-    // Final weapon preparation
-    if ( !weapons.mainhand ) weapons.mainhand = this._getUnarmedWeapon();
-    const mh = weapons.mainhand;
-    const mhCategory = mh.config.category;
-    if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
-    const oh = weapons.offhand;
-    const ohCategory = oh?.config.category || {};
-    mh.system.prepareEquippedData();
-    oh?.system.prepareEquippedData();
-
-    // Range
-    const ranges = [mh.system.range];
-    if ( oh ) ranges.push(oh.system.range);
-    weapons.maxRange = Math.max(...ranges);
-
-    // Free Hand or Unarmed
-    const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
-    const ohFree = ["unarmed", "natural"].includes(ohCategory.id);
-    weapons.freehand = mhFree || ohFree;
-    weapons.unarmed = mhFree && ohFree;
-
-    // Hands available for spellcasting
-    weapons.spellHands = mhFree + ohFree;
-    if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
-      weapons.spellHands += mhCategory.hands;
-      weapons.talisman = true;
-    }
-    if ( "talisman1" === ohCategory.id ) {
-      weapons.spellHands += 1;
-      weapons.talisman = true;
-    }
-
-    // Shield
-    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
-
-    // Two-Handed
-    weapons.twoHanded = weapons.mainhand.system.slot === slots.TWOHAND;
-
-    // Melee vs. Ranged
-    weapons.melee = !mhCategory.ranged;
-    weapons.ranged = !!mhCategory.ranged;
-
-    // Dual Wielding
-    weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
-    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
-    weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
-
-    // Special Properties
-    weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh.system.properties.has("oversized") ? 1 : 0;
-    weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
-
-    // Strong Grip
-    if ( this.talentIds.has("stronggrip000000") && weapons.twoHanded ) {
-      weapons.freehand = true;
-      if ( mhCategory.id !== "talisman2" ) weapons.spellHands += 1;
-    }
-    return weapons;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the default unarmed weapon used by this Actor if they do not have other weapons equipped.
-   * @returns {CrucibleItem}
-   * @private
-   */
-  _getUnarmedWeapon() {
-    const itemCls = getDocumentClass("Item");
-    const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
-    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
-    const unarmed = new itemCls(data, {parent: this});
-    unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
-    return unarmed;
-  }
 
   /* -------------------------------------------- */
 
@@ -545,121 +296,10 @@ export default class CrucibleActor extends Actor {
     }
   }
 
-  /* -------------------------------------------- */
 
-  /**
-   * Prepare current Active Effects.
-   * @private
-   */
-  _prepareEffects() {
-    this.statuses = new Set();
-    for ( const effect of this.effects ) {
-      for ( const status of effect.statuses ) this.statuses.add(status);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare owned Talent items that the Actor has unlocked
-   * @this {CrucibleActor}
-   * @param {CrucibleItem[]} talents
-   */
-  static #prepareTalents(talents) {
-    this.talentIds = new Set();
-    this.actorHooks = {};
-    this.grimoire = {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
-    this.training = {};
-    const details = this.system.details;
-    const signatureNames = [];
-
-    // Identify permanent talents from a background, taxonomy, archetype, etc...
-    this.permanentTalentIds = new Set();
-    const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
-    for ( const s of permanentTalentSources ) {
-      if ( !s?.talents ) continue;
-      for ( const uuid of s.talents ) {
-        const {documentId} = foundry.utils.parseUuid(uuid);
-        if ( documentId ) this.permanentTalentIds.add(documentId);
-      }
-    }
-
-    // Iterate over talents
-    for ( const t of talents ) {
-      this.talentIds.add(t.id);
-      const {actorHooks, node, training, gesture, inflection, rune, iconicSpells} = t.system;
-
-      // Register hooks
-      for ( const hook of actorHooks ) CrucibleActor.#registerActorHook(this, t, hook);
-
-      // Register signatures
-      if ( node?.type === "signature" ) signatureNames.push(t.name);
-
-      // Register training ranks
-      if ( training.type ) {
-        this.training[training.type] ??= 0;
-        this.training[training.type] = Math.max(this.training[training.type], training.rank ?? 0);
-      }
-
-      // Register spellcraft knowledge
-      if ( rune ) {
-        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[rune]);
-        this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
-      }
-      if ( gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[gesture]);
-      if ( inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[inflection]);
-      if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
-    }
-
-    // Compose Signature Name
-    details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
-
-    // Warn if the Actor does not have a legal build
-    if ( this.type === "hero" ) {
-      const points = this.system.points.talent;
-      points.spent = this.talentIds.size - this.permanentTalentIds.size + this.system.advancement.talentNodes.size;
-      points.available = points.total - points.spent;
-      if ( points.available < 0) {
-        ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
-      }
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare iconic spells.
-   * @this {CrucibleActor}
-   * @param {CrucibleItem[]} spells
-   */
-  static #prepareSpells(spells) {
-    for ( const spell of spells ) {
-      spell.system.isKnown = spell.system.canKnowSpell(this);
-      this.grimoire.iconicSpells.push(spell);
-      for ( const hook of spell.system.actorHooks ) CrucibleActor.#registerActorHook(this, spell, hook);
-    }
-  }
 
   /* -------------------------------------------- */
   /*  Talent Hooks                                */
-  /* -------------------------------------------- */
-
-  /**
-   * Register a hooked function declared by a Talent item.
-   * @param {CrucibleActor} actor   The Actor being prepared
-   * @param {CrucibleItem} talent   The Talent registering the hook
-   * @param {object} data           Registered hook data
-   * @param {string} data.hook        The hook name
-   * @param {string} data.fn          The hook function
-   * @private
-   */
-  static #registerActorHook(actor, talent, {hook, fn}={}) {
-    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
-    if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
-    actor.actorHooks[hook] ||= [];
-    actor.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
-  }
-
   /* -------------------------------------------- */
 
   /**
@@ -1520,7 +1160,7 @@ export default class CrucibleActor extends Actor {
     if ( this.items.get(spell._id) ) {
       throw new Error(`Actor ${this.name} already knows the ${spell.name} Iconic Spell.`);
     }
-    if ( !spell.system.canKnowSpell(this) ) {
+    if ( !spell.system.canKnowSpell(this.system.grimoire) ) {
       throw new Error(`Actor ${this.name} does not satisfy the knowledge requirements to learn the ${spell.name} Iconic Spell.`);
     }
   }
@@ -1654,7 +1294,6 @@ export default class CrucibleActor extends Actor {
         this.system.details.ancestry?.name,
         this.system.details.background?.name,
         !this.points.ability.requireInput,
-        !this.points.skill.available,
         !this.points.talent.available
       ];
       if ( !steps.every(k => k) ) return ui.notifications.warn("WALKTHROUGH.LevelZeroIncomplete", {localize: true});
@@ -1728,6 +1367,7 @@ export default class CrucibleActor extends Actor {
    * @return {Promise}
    */
   async purchaseSkill(skillId, delta=1) {
+    return; // TODO remove skill purchasing
     delta = Math.sign(delta);
     const skill = this.system.skills[skillId];
     if ( !skill ) return;
@@ -1757,47 +1397,7 @@ export default class CrucibleActor extends Actor {
    * @throws                      In strict mode, an error if the skill cannot be purchased
    */
   canPurchaseSkill(skillId, delta=1, strict=false) {
-    delta = Math.sign(delta);
-    const skill = this.system.skills[skillId];
-    if ( !skill || (delta === 0) ) return false;
-    if ( this.type !== "hero" ) return false; // TODO only heroes can purchase skills currently
-
-    // Must Choose Background first
-    if ( !this.background.name && (delta > 0) ) {
-      if ( strict ) throw new Error(game.i18n.localize("WARNING.SkillRequireAncestryBackground"));
-      return false;
-    }
-
-    // Decreasing Skill
-    if ( delta < 0 ) {
-      if ( skill.rank === 0 ) {
-        if ( strict ) throw new Error("Cannot decrease skill rank");
-        return false;
-      }
-      return true;
-    }
-
-    // Maximum Rank
-    if ( skill.rank === 5 ) {
-      if ( strict ) throw new Error("Skill already at maximum");
-      return false;
-    }
-
-    // Require Specialization
-    if ( (skill.rank === 3) && !skill.path ) {
-      if ( strict ) throw new Error(game.i18n.localize(`SKILL.ChoosePath`));
-      return false;
-    }
-
-    // Cannot Afford
-    const p = this.points.skill;
-    if ( p.available < skill.cost ) {
-      if ( strict ) throw new Error(game.i18n.format(`SKILL.CantAfford`, {cost: skill.cost, points: p.available}));
-      return false;
-    }
-
-    // Can purchase
-    return true;
+    return false; // TODO remove skill purchasing
   }
 
   /* -------------------------------------------- */

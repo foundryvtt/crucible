@@ -1,15 +1,6 @@
 <section class="tab secondary {{tabs.skills.id}} flexcol {{tabs.skills.cssClass}}"
          data-tab="{{tabs.skills.id}}" data-group="{{tabs.skills.group}}">
 
-    {{#if incomplete.skills}}
-    <div class="point-pools flexrow">
-        <span class="label">Available</span>
-        <span class="value">{{points.skill.available}}</span>
-        <span class="label">Spent</span>
-        <span class="value">{{points.skill.spent}}</span>
-    </div>
-    {{/if}}
-
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
         <h3 class="section-header">{{category.label}} Skills</h3>

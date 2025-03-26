@@ -48,13 +48,11 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Test whether a certain Actor can know an Iconic Spell.
-   * @param {CrucibleActor} actor
+   * Test whether a spell can be known based on the contents of a grimoire?
+   * @param {CrucibleActorGrimoire} grimoire
    * @returns {boolean}
-   * @internal
    */
-  canKnowSpell(actor) {
-    const grimoire = actor.grimoire;
+  canKnowSpell(grimoire) {
     for ( const runeId of this.runes ) {
       const rune = SYSTEM.SPELL.RUNES[runeId];
       if ( !grimoire.runes.has(rune) ) return false;

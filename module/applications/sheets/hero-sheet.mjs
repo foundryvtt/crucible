@@ -43,18 +43,16 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       ancestry: !s.system.details.ancestry?.name,
       background: !s.system.details.background?.name,
       abilities: context.points.ability.requireInput,
-      skills: context.points.skill.available,
       talents: context.points.talent.available,
       isL0: isL0
     });
-    i.creation = i.ancestry || i.background || i.abilities || i.skills || i.talents;
+    i.creation = i.ancestry || i.background || i.abilities || i.talents;
     i.level = isL0 ? !i.creation : (a.system.advancement.pct === 100);
     if ( i.creation ) {
       i.creationTooltip = "<p>Character Creation Incomplete!</p><ol>";
       if ( i.ancestry ) i.creationTooltip += "<li>Select Ancestry</li>";
       if ( i.background ) i.creationTooltip += "<li>Select Background</li>";
       if ( i.abilities ) i.creationTooltip += "<li>Spend Ability Points</li>";
-      if ( i.skills ) i.creationTooltip += "<li>Spend Skill Points</li>";
       if ( i.talents ) i.creationTooltip += "<li>Spend Talent Points</li>";
       i.creationTooltip += "</ol>";
     }

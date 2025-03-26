@@ -113,8 +113,16 @@ export const CATEGORIES = {
 };
 
 /**
+ * @typedef CrucibleSkillConfig
+ * @property {string} id
+ * @property {string} label
+ * @property {string} category
+ * @property {[string, string]} abilities
+ */
+
+/**
  * The skills configured for the system.
- * @type {Record<string, {id: string, category: string, abilities: [string, string]}>}
+ * @type {Record<string, CrucibleSkillConfig>}
  */
 export const SKILLS = Object.freeze({
 

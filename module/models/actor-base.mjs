@@ -1,21 +1,48 @@
+/**
+ * @typedef CrucibleActorEquipment
+ * @property {CrucibleItem} armor
+ * @property {CrucibleActorEquippedWeapons} weapons
+ * @property {CrucibleItem[]} accessories
+ */
 
 /**
- * @typedef {Object} CrucibleActorSkill
- * @param {number} rank
- * @param {string} path
- * @param {number} [abilityBonus]
- * @param {number} [skillBonus]
- * @param {number} [enchantmentBonus]
- * @param {number} [score]
- * @param {number} [passive]
- * @param {number} [spent]
- * @param {number} [cost]
+ * @typedef CrucibleActorEquippedWeapons
+ * @property {CrucibleItem} mainhand
+ * @property {CrucibleItem} offhand
+ * @property {boolean} freehand
+ * @property {number} spellHands
+ * @property {boolean} unarmed
+ * @property {boolean} shield
+ * @property {boolean} twoHanded
+ * @property {boolean} melee
+ * @property {boolean} ranged
+ * @property {boolean} dualWield
+ * @property {boolean} dualMelee
+ * @property {boolean} dualRanged
+ * @property {boolean} slow
+ */
+
+/**
+ * @typedef CrucibleActorSkill
+ * @property {number} rank
+ * @property {number} abilityBonus
+ * @property {number} skillBonus
+ * @property {number} enchantmentBonus
+ * @property {number} score
+ * @property {number} passive
+ */
+
+/**
+ * @typedef CrucibleActorGrimoire
+ * @property {Set<CrucibleSpellcraftRune>} runes
+ * @property {Set<CrucibleSpellcraftGesture>} gestures
+ * @property {Set<CrucibleSpellcraftInflection>} inflections
+ * @property {number} iconicSlots
+ * @property {CrucibleItem[]} iconicSpells
  */
 
 /**
  * This class defines data schema, methods, and properties shared by all Actor subtypes in the Crucible system.
- *
- * @property {Object<string, CrucibleActorSkill>} skills
  */
 export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
@@ -67,15 +94,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       return obj
     }, {}));
 
-    // Skills
-    schema.skills = new fields.SchemaField(Object.values(SYSTEM.SKILLS).reduce((obj, skill) => {
-      obj[skill.id] = new fields.SchemaField({
-        rank: new fields.NumberField({...requiredInteger, initial: 0, max: 5}),
-        path: new fields.StringField({required: false, initial: undefined, blank: false})
-      }, {label: skill.name})
-      return obj;
-    }, {}));
-
     // Movement Attributes
     schema.movement = new fields.SchemaField({
       sizeBonus: new fields.NumberField({...requiredInteger, initial: 0}),
@@ -92,6 +110,52 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /** @override */
   static LOCALIZATION_PREFIXES = ["ACTOR"];
 
+  /* -------------------------------------------- */
+  /*  Derived Data Attributes                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Talent hook functions which apply to this Actor based on their set of owned Talents.
+   * @type {Object<string, {talent: CrucibleItem, fn: Function}[]>}
+   */
+  actorHooks = this["actorHooks"];
+
+  /**
+   * Track the Items which are currently equipped for the Actor.
+   * @type {CrucibleActorEquipment}
+   */
+  equipment = this["equipment"];
+
+  /**
+   * The grimoire of known spellcraft components.
+   * @type {CrucibleActorGrimoire}
+   */
+  grimoire = this["grimoire"];
+
+  /**
+   * A set of Talent IDs which cannot be removed from this Actor because they come from other sources.
+   * @type {Set<string>}
+   */
+  permanentTalentIds = this["permanentTalentIds"];
+
+  /**
+   * Prepared skill data for the Actor.
+   * @type {Record<string, CrucibleActorSkill>}
+   */
+  skills = this["skills"];
+
+  /**
+   * The IDs of purchased talents.
+   * @type {Set<string>}
+   */
+  talentIds = this["talentIds"];
+
+  /**
+   * Prepared training data for the Actor.
+   * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
+   */
+  training = this["training"];
+
   /**
    * Prior resource values that can be used to establish diffs.
    * @type {Record<string, value>}
@@ -100,24 +164,376 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _cachedResources = {};
 
   /* -------------------------------------------- */
-  /*  Data Preparation                            */
+  /*  Base Data Preparation                       */
   /* -------------------------------------------- */
 
   /**
-   * Base data preparation workflows used by all Actor subtypes.
+   * Base data preparation workflows for each Actor subtype.
    * @override
    */
   prepareBaseData() {
-    this.status ||= {};
+    this.#clear();
     this._prepareDetails();
     this._prepareAbilities();
-    this._prepareSkills();
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Derived data preparation workflows used by all Actor subtypes.
+   * Clear derived Actor data, preserving references to existing objects.
+   */
+  #clear() {
+    this.actorHooks ||= {};
+    for ( const k in this.actorHooks ) delete this.actorHooks[k];
+    this.equipment ||= {};
+    for ( const k in this.equipment ) delete this.equipment[k];
+    this.talentIds ||= new Set();
+    this.talentIds.clear();
+    this.grimoire ||= {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
+    this.grimoire.runes.clear();
+    this.grimoire.gestures.clear();
+    this.grimoire.inflections.clear();
+    this.grimoire.iconicSlots = 0;
+    this.grimoire.iconicSpells.length = 0;
+    this.permanentTalentIds ||= new Set();
+    this.permanentTalentIds.clear();
+    this.training ||= {};
+    for ( const k in this.training ) delete this.training[k];
+    this.skills ||= {};
+    for ( const k in this.skills ) delete this.skills[k];
+    this.status ||= {};
+    for ( const k in this.status ) delete this.status[k];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare creature details for all Actor subtypes.
+   * @protected
+   */
+  _prepareDetails() {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare ability scores for all Actor subtypes.
+   * @protected
+   */
+  _prepareAbilities() {}
+
+  /* -------------------------------------------- */
+  /*  Embedded Document Preparation               */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare embedded Item documents for this Actor subtype.
+   * @param {Record<string, CrucibleItem[]>} items
+   */
+  prepareItems(items) {
+    this.#prepareTalents(items.talent);
+    this.#prepareSkills();
+    // FIXME should delete the prepareTraining hook
+    this.parent.callActorHooks("prepareTraining", this.training);
+    this.#prepareSpells(items.spell);
+    this.#prepareEquipment(items);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare owned Talent items that the Actor has unlocked
+   * @param {CrucibleItem[]} talents
+   */
+  #prepareTalents(talents) {
+    const details = this.details;
+    const signatureNames = [];
+
+    // Identify permanent talents from a background, taxonomy, archetype, etc...
+    const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
+    for ( const s of permanentTalentSources ) {
+      if ( !s?.talents ) continue;
+      for ( const uuid of s.talents ) {
+        const {documentId} = foundry.utils.parseUuid(uuid);
+        if ( documentId ) this.permanentTalentIds.add(documentId);
+      }
+    }
+
+    // Iterate over talents
+    for ( const t of talents ) {
+      this.talentIds.add(t.id);
+      const {actorHooks, node, training, gesture, inflection, rune, iconicSpells} = t.system;
+
+      // Register hooks
+      for ( const hook of actorHooks ) this._registerActorHook(t, hook);
+
+      // Register signatures
+      if ( node?.type === "signature" ) signatureNames.push(t.name);
+
+      // Register training ranks
+      if ( training.type ) {
+        this.training[training.type] ??= 0;
+        this.training[training.type] = Math.max(this.training[training.type], training.rank ?? 0);
+      }
+
+      // Register spellcraft knowledge
+      if ( rune ) {
+        this.grimoire.runes.add(SYSTEM.SPELL.RUNES[rune]);
+        this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES.touch);
+      }
+      if ( gesture ) this.grimoire.gestures.add(SYSTEM.SPELL.GESTURES[gesture]);
+      if ( inflection ) this.grimoire.inflections.add(SYSTEM.SPELL.INFLECTIONS[inflection]);
+      if ( iconicSpells ) this.grimoire.iconicSlots += iconicSpells;
+    }
+
+    // Compose Signature Name
+    details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
+
+    // Warn if the Actor does not have a legal build
+    if ( this.type === "hero" ) {
+      const points = this.points.talent;
+      points.spent = this.talentIds.size - this.permanentTalentIds.size + this.advancement.talentNodes.size;
+      points.available = points.total - points.spent;
+      // FIXME this should not create a ui.notification directly, but should store the warning to render on the sheet
+      if ( points.available < 0) {
+        ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare skills data for all Actor subtypes.
+   */
+  #prepareSkills() {
+    for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
+      this.skills[skillId] = this._prepareSkill(config);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare iconic spells known by this Actor.
+   * @param {CrucibleItem[]} spells
+   */
+  #prepareSpells(spells) {
+    for ( const spell of spells ) {
+      spell.system.isKnown = spell.system.canKnowSpell(this.grimoire);
+      this.grimoire.iconicSpells.push(spell);
+      for ( const hook of spell.system.actorHooks ) this._registerActorHook(spell, hook);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Classify the Items in the Actor's inventory to identify current equipment.
+   * @param {Record<string, CrucibleItem[]>} items
+   * @param {CrucibleItem[]} items.armor
+   * @param {CrucibleItem[]} items.weapon
+   * @param {CrucibleItem[]} items.accessory
+   * @returns {CrucibleActorEquipment}
+   */
+  #prepareEquipment({armor: armorItems, weapon: weaponItems, accessory: accessoryItems}={}) {
+    const armor = this._prepareArmor(armorItems);
+    const weapons = this._prepareWeapons(weaponItems);
+    const accessories = []; // TODO Equipped Accessories
+    const canFreeMove = this.#canFreeMove(armor);
+    const unarmored = armor.system.category === "unarmored";
+    Object.assign(this.equipment, {armor, weapons, accessories, canFreeMove, unarmored});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Armor item that this Actor has equipped.
+   * @param {CrucibleItem[]} armorItems       The armor type Items in the Actor's inventory
+   * @returns {CrucibleItem}                  The armor Item which is equipped
+   * @private
+   */
+  _prepareArmor(armorItems) {
+    let armors = armorItems.filter(i => i.system.equipped);
+    if ( armors.length > 1 ) {
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than one equipped armor.`);
+      armors = armors[0];
+    }
+    return armors[0] || this.#getUnarmoredArmor();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the default unarmored Armor item used by this Actor if they do not have other equipped armor.
+   * @returns {CrucibleItem}
+   */
+  #getUnarmoredArmor() {
+    const itemCls = getDocumentClass("Item");
+    const armor = new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this.parent});
+    armor.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return armor;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether the Actor is able to use a free move once per round.
+   * @param {CrucibleItem} armor    The equipped Armor item.
+   * @returns {boolean}             Can the Actor use a free move?
+   */
+  #canFreeMove(armor) {
+    if ( this.parent.isWeakened ) return false;
+    if ( this.parent.statuses.has("prone") ) return false;
+    return (armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Armor item that this Actor has equipped.
+   * @param {CrucibleItem[]} weaponItems      The Weapon type Items in the Actor's inventory
+   * @returns {CrucibleActorEquippedWeapons}  The currently equipped weaponry for the Actor
+   * @private
+   */
+  _prepareWeapons(weaponItems) {
+    const slotInUse = (item, type) => {
+      item.updateSource({"system.equipped": false});
+      const w = game.i18n.format("WARNING.CannotEquipSlotInUse", {actor: this.parent.name, item: item.name, type});
+      console.warn(w);
+    }
+
+    // Identify equipped weapons which may populate weapon slots
+    const equippedWeapons = {mh: [], oh: [], either: []};
+    const slots = SYSTEM.WEAPON.SLOTS;
+    for ( let w of weaponItems ) {
+      const {equipped, slot} = w.system;
+      if ( !equipped ) continue;
+      if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
+      else if ( slot === slots.OFFHAND ) equippedWeapons.oh.unshift(w);
+      else if ( slot === slots.EITHER ) equippedWeapons.either.unshift(w);
+    }
+    equippedWeapons.either.sort((a, b) => b.system.damage.base - a.system.damage.base);
+
+    // Assign weapons to equipment slots
+    const weapons = {};
+    let mhOpen = true;
+    let ohOpen = true;
+
+    // Mainhand Weapon
+    for ( const w of equippedWeapons.mh ) {
+      if ( !mhOpen ) slotInUse(w, "mainhand");
+      else {
+        weapons.mainhand = w;
+        mhOpen = false;
+        if ( w.system.slot === slots.TWOHAND ) ohOpen = false;
+      }
+    }
+
+    // Offhand Weapon
+    for ( const w of equippedWeapons.oh ) {
+      if ( !ohOpen ) slotInUse(w, "offhand");
+      else {
+        weapons.offhand = w;
+        ohOpen = false;
+      }
+    }
+
+    // Either-hand Weapons
+    for ( const w of equippedWeapons.either ) {
+      if ( mhOpen ) {
+        weapons.mainhand = w;
+        w.system.slot = slots.MAINHAND;
+        mhOpen = false;
+      }
+      else if ( ohOpen ) {
+        weapons.offhand = w;
+        w.system.slot = slots.OFFHAND;
+        ohOpen = false;
+      }
+      else slotInUse(w, "mainhand");
+    }
+
+    // Final weapon preparation
+    if ( !weapons.mainhand ) weapons.mainhand = this.#getUnarmedWeapon();
+    const mh = weapons.mainhand;
+    const mhCategory = mh.config.category;
+    if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this.#getUnarmedWeapon() : null;
+    const oh = weapons.offhand;
+    const ohCategory = oh?.config.category || {};
+    mh.system.prepareEquippedData();
+    oh?.system.prepareEquippedData();
+
+    // Range
+    const ranges = [mh.system.range];
+    if ( oh ) ranges.push(oh.system.range);
+    weapons.maxRange = Math.max(...ranges);
+
+    // Free Hand or Unarmed
+    const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
+    const ohFree = ["unarmed", "natural"].includes(ohCategory.id);
+    weapons.freehand = mhFree || ohFree;
+    weapons.unarmed = mhFree && ohFree;
+
+    // Hands available for spellcasting
+    weapons.spellHands = mhFree + ohFree;
+    if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
+      weapons.spellHands += mhCategory.hands;
+      weapons.talisman = true;
+    }
+    if ( "talisman1" === ohCategory.id ) {
+      weapons.spellHands += 1;
+      weapons.talisman = true;
+    }
+
+    // Shield
+    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
+
+    // Two-Handed
+    weapons.twoHanded = weapons.mainhand.system.slot === slots.TWOHAND;
+
+    // Melee vs. Ranged
+    weapons.melee = !mhCategory.ranged;
+    weapons.ranged = !!mhCategory.ranged;
+
+    // Dual Wielding
+    weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
+    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
+    weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
+
+    // Special Properties
+    weapons.reload = mhCategory.reload || ohCategory.reload;
+    weapons.slow = mh.system.properties.has("oversized") ? 1 : 0;
+    weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
+
+    // Strong Grip
+    if ( this.talentIds.has("stronggrip000000") && weapons.twoHanded ) {
+      weapons.freehand = true;
+      if ( mhCategory.id !== "talisman2" ) weapons.spellHands += 1;
+    }
+    return weapons;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the default unarmed weapon used by this Actor if they do not have other weapons equipped.
+   * @returns {CrucibleItem}
+   */
+  #getUnarmedWeapon() {
+    const itemCls = getDocumentClass("Item");
+    const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
+    if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
+    const unarmed = new itemCls(data, {parent: this.parent});
+    unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
+    return unarmed;
+  }
+
+  /* -------------------------------------------- */
+  /*  Derived Data Preparation                    */
+  /* -------------------------------------------- */
+
+  /**
+   * Derived data preparation workflows for each Actor subtype.
    * @override
    */
   prepareDerivedData() {
@@ -143,47 +559,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare creature details for all Actor subtypes.
+   * Prepare a single Skill.
+   * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
+   * @returns {CrucibleActorSkill}
    * @protected
    */
-  _prepareDetails() {}
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare ability scores for all Actor subtypes.
-   * @protected
-   */
-  _prepareAbilities() {}
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare skills data for all Actor subtypes.
-   * @protected
-   */
-  _prepareSkills() {
-    for ( const skill of Object.entries(this.skills) ) {
-      this._prepareSkill(...skill);
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare a single Skill for all Actor subtypes.
-   * @param {string} skillId                The ID of the skill being configured
-   * @param {CrucibleActorSkill} skill      Source data of the skill being configured
-   * @protected
-   */
-  _prepareSkill(skillId, skill) {
-    const config = SYSTEM.SKILLS[skillId];
-    const r = skill.rank ||= 0;
-    const ab = skill.abilityBonus = this.parent.getAbilityBonus(config.abilities);
-    const sb = skill.skillBonus = SYSTEM.SKILL.RANKS[r].bonus;
-    const eb = skill.enchantmentBonus = 0;
-    const s = skill.score = ab + sb + eb;
-    skill.passive = SYSTEM.PASSIVE_BASE + s;
+  _prepareSkill(config) {
+    const rank = this.training[config.id] ?? 0;
+    const abilityBonus = this.parent.getAbilityBonus(config.abilities);
+    const skillBonus = SYSTEM.SKILL.RANKS[rank].bonus;
+    const enchantmentBonus = 0;
+    const score = abilityBonus + skillBonus + enchantmentBonus;
+    const passive = SYSTEM.PASSIVE_BASE + score;
+    return {rank, abilityBonus, skillBonus, enchantmentBonus, score, passive};
   }
 
   /* -------------------------------------------- */
@@ -372,5 +760,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this._cachedResources.wasIncapacitated = this.parent.isIncapacitated;
     this._cachedResources.wasBroken = this.parent.isIncapacitated;
     return this._cachedResources;
+  }
+
+  /* -------------------------------------------- */
+  /*  Actor Hooks                                 */
+  /* -------------------------------------------- */
+
+  /**
+   * Register a hooked function declared by a Talent item.
+   * @param {CrucibleItem} talent   The Talent registering the hook
+   * @param {object} data           Registered hook data
+   * @param {string} data.hook        The hook name
+   * @param {string} data.fn          The hook function
+   * @internal
+   */
+  _registerActorHook(talent, {hook, fn}={}) {
+    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
+    if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
+    this.actorHooks[hook] ||= [];
+    this.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
   }
 }

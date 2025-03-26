@@ -70,9 +70,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /**
    * Advancement points that are available to spend and have been spent.
    * @type {{
-   *   ability: {pool: number, total: number, bought: number, spent: number, available: number },
-   *   skill: {total: number, spent: number, available: number },
-   *   talent: {total: number, spent: number, available: number }
+   *   ability: {pool: number, total: number, bought: number, spent: number, available: number},
+   *   talent: {total: number, spent: number, available: number}
    * }}
    */
   points;
@@ -104,15 +103,14 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /**
-   * Compute the available points which can be spent to advance this character
+   * Compute the available points which can be spent to advance this character.
    */
   #prepareAdvancement() {
     const adv = this.advancement;
     const effectiveLevel = Math.max(adv.level, 1) - 1;
     this.points = {
-      ability: { pool: 9, total: effectiveLevel, bought: null, spent: null, available: null },
-      skill: { total: 2 + (effectiveLevel*2), spent: null, available: null },
-      talent: { total: 2 + (effectiveLevel*2), spent: 0, available: null }
+      ability: {pool: 9, total: effectiveLevel, bought: 0, spent: 0, available: 0},
+      talent: {total: 3 + (effectiveLevel*3), spent: 0, available: 0}
     };
     adv.progress = adv.progress ?? 0;
     adv.next = (2 * adv.level) + 1;
@@ -188,47 +186,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare skills data for the Hero subtype specifically.
-   * @override
-   */
-  _prepareSkills() {
-    let pointsSpent = 0;
-    for ( const [skillId, skill] of Object.entries(this.skills) ) {
-      this._prepareSkill(skillId, skill);
-      pointsSpent += skill.spent;
-    }
-    const points = this.points;
-    points.skill.spent = pointsSpent;
-    points.skill.available = points.skill.total - points.skill.spent;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare a single skill for the Hero subtype specifically.
-   * @inheritDoc
-   */
-  _prepareSkill(skillId, skill) {
-
-    // Adjust base skill rank
-    let base = 0;
-    if ( this.details.background?.skills?.has(skillId) ) base++;
-    skill.rank = Math.max(skill.rank || 0, base);
-
-    // Standard skill preparation
-    super._prepareSkill(skillId, skill);
-
-    // Record point cost
-    const ranks = SYSTEM.SKILL.RANKS;
-    const rank = ranks[skill.rank];
-    skill.spent = rank.spent - base;
-    const next = ranks[skill.rank + 1] || {cost: null};
-    skill.cost = next.cost;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Preparation of resource pools for the Hero subtype specifically.
    * @inheritDoc
    */
@@ -272,7 +229,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   async applyBackground(background) {
     const actor = this.parent;
     await actor._applyDetailItem(background, {
-      canApply: actor.isL0 && !actor.points.skill.spent,
+      canApply: actor.isL0,
       canClear: actor.isL0
     });
   }

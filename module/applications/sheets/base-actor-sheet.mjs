@@ -95,8 +95,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       {id: "attributes", group: "sheet", label: "ACTOR.TABS.ATTRIBUTES"},
       {id: "actions", group: "sheet", label: "ACTOR.TABS.ACTIONS"},
       {id: "inventory", group: "sheet", label: "ACTOR.TABS.INVENTORY"},
-      {id: "skills", group: "sheet", label: "ACTOR.TABS.SKILLS"},
       {id: "talents", group: "sheet", label: "ACTOR.TABS.TALENTS"},
+      {id: "skills", group: "sheet", label: "ACTOR.TABS.SKILLS"},
       {id: "spells", group: "sheet", label: "ACTOR.TABS.SPELLS"},
       {id: "effects", group: "sheet", label: "ACTOR.TABS.EFFECTS"},
       {id: "biography", group: "sheet", label: "ACTOR.TABS.BIOGRAPHY"}

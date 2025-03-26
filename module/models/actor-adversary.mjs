@@ -198,9 +198,10 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * Prepare a single skill for the Adversary subtype specifically.
    * @override
    */
-  _prepareSkill(skillId, skill) {
-    skill.rank = this.advancement._autoSkillRank;
-    super._prepareSkill(skillId, skill);
+  _prepareSkill(config) {
+    const skill = super._prepareSkill(config);
+    skill.rank = this.advancement._autoSkillRank; // TODO verify or remove this
+    return skill;
   }
 
   /* -------------------------------------------- */
