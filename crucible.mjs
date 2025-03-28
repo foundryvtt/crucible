@@ -121,8 +121,9 @@ Hooks.once("init", async function() {
   CONFIG.specialStatusEffects.BLIND = "blinded";
 
   // Canvas Configuration
-  CONFIG.Canvas.rulerClass = canvas.CrucibleRuler;
+  CONFIG.Token.rulerClass = canvas.CrucibleTokenRuler;
   CONFIG.Token.hudClass = applications.CrucibleTokenHUD;
+  CONFIG.Token.movement.defaultSpeed = 20;
 
   // Register settings
   game.settings.register("crucible", "actionAnimations", {
