@@ -170,19 +170,19 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.isPreview || !this.actor || this.actor?.isIncapacitated || this.actor?.isBroken || !canvas.grid.isSquare ) {
-      return {allies: new Set(), enemies: new Set()};
-    }
+    if ( this.isPreview || !this.actor || !canvas.grid.isSquare ) return {allies: new Set(), enemies: new Set()};
+    const {isIncapacitated, isBroken, movement} = this.actor.system;
+    if ( isIncapacitated || isBroken ) return {allies: new Set(), enemies: new Set()};
     const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
     const {ally, enemy} = this.#getDispositions();
     const enemies = new Set();
     const allies = new Set();
-    const value = this.actor.system.movement.engagement;
+    const value = movement.engagement;
     const engagement = {allies, enemies, engagementBounds, movePolygon, value};
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( token.actor?.isBroken || token.actor?.isIncapacitated ) return false;
+        if ( token.actor?.system.isBroken || token.actor?.isIncapacitated ) return false;
 
         // Identify friend or foe
         let targetSet;

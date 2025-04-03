@@ -52,6 +52,13 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   medianLevel;
 
   /* -------------------------------------------- */
+  /*  Embedded Document Preparation               */
+  /* -------------------------------------------- */
+
+  /** @override */
+  prepareItems(items) {}
+
+  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 

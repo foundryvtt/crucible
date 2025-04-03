@@ -41,6 +41,8 @@
  * @property {CrucibleItem[]} iconicSpells
  */
 
+import CrucibleAction from "./action.mjs";
+
 /**
  * This class defines data schema, methods, and properties shared by all Actor subtypes in the Crucible system.
  */
@@ -115,6 +117,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Track the Actions which this Actor has available to use
+   * @type {Object<string, CrucibleAction>}
+   */
+  actions = this["actions"];
+
+  /**
    * Talent hook functions which apply to this Actor based on their set of owned Talents.
    * @type {Object<string, {talent: CrucibleItem, fn: Function}[]>}
    */
@@ -137,6 +145,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {Set<string>}
    */
   permanentTalentIds = this["permanentTalentIds"];
+
+  /**
+   * Temporary roll bonuses this actor has outside the fields of its data model.
+   * @type {{[damage]: Object<string, number>, [boons]: Object<string, DiceBoon>, [banes]: Object<string, DiceBoon>}}
+   */
+  rollBonuses = this["rollBonuses"];
 
   /**
    * Prepared skill data for the Actor.
@@ -164,6 +178,42 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _cachedResources = {};
 
   /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Is this Actor weakened?
+   * @type {boolean}
+   */
+  get isWeakened() {
+    return this.resources.health.value === 0;
+  }
+
+  /**
+   * Is this Actor broken?
+   * @type {boolean}
+   */
+  get isBroken() {
+    return this.resources.morale.value === 0;
+  }
+
+  /**
+   * Is this Actor dead?
+   * @type {boolean}
+   */
+  get isDead() {
+    return this.resources.wounds.value === this.resources.wounds.max;
+  }
+
+  /**
+   * Is this Actor insane?
+   * @type {boolean}
+   */
+  get isInsane() {
+    return this.system.resources.madness.value === this.system.resources.madness.max;
+  }
+
+  /* -------------------------------------------- */
   /*  Base Data Preparation                       */
   /* -------------------------------------------- */
 
@@ -183,10 +233,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Clear derived Actor data, preserving references to existing objects.
    */
   #clear() {
-    this.actorHooks ||= {};
-    for ( const k in this.actorHooks ) delete this.actorHooks[k];
-    this.equipment ||= {};
-    for ( const k in this.equipment ) delete this.equipment[k];
+    const createOrEmpty = name => {
+      this[name] ||= {};
+      for ( const k in this[name] ) delete this[name][k];
+    }
+    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "training", "skills", "status"];
+    for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
     this.grimoire ||= {runes: new Set(), gestures: new Set(), inflections: new Set(), iconicSlots: 0, iconicSpells: []};
@@ -197,12 +249,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.grimoire.iconicSpells.length = 0;
     this.permanentTalentIds ||= new Set();
     this.permanentTalentIds.clear();
-    this.training ||= {};
-    for ( const k in this.training ) delete this.training[k];
-    this.skills ||= {};
-    for ( const k in this.skills ) delete this.skills[k];
-    this.status ||= {};
-    for ( const k in this.status ) delete this.status[k];
+    Object.assign(this.rollBonuses, {damage: {}, boons: {}, banes: {}});
   }
 
   /* -------------------------------------------- */
@@ -232,10 +279,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   prepareItems(items) {
     this.#prepareTalents(items.talent);
     this.#prepareSkills();
-    // FIXME should delete the prepareTraining hook
-    this.parent.callActorHooks("prepareTraining", this.training);
+    this.parent.callActorHooks("prepareTraining", this.training); // FIXME maybe delete this hook?
     this.#prepareSpells(items.spell);
     this.#prepareEquipment(items);
+    this.#prepareActions(items);
+    this.parent.callActorHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
@@ -526,6 +574,63 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const unarmed = new itemCls(data, {parent: this.parent});
     unarmed.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
     return unarmed;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Actions which this Actor may actively use.
+   */
+  #prepareActions(items) {
+    this.#prepareDefaultActions();
+    for ( const item of items.talent ) this.#registerItemActions(item);
+    for ( const item of items.weapon ) {
+      if ( item.system.equipped ) this.#registerItemActions(item);
+    }
+    for ( const item of items.armor ) {
+      if ( item.system.equipped ) this.#registerItemActions(item);
+    }
+    for ( const item of items.spell ) this.#registerItemActions(item);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the set of default actions that every Actor can perform.
+   */
+  #prepareDefaultActions() {
+    const w = this.equipment.weapons;
+    for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
+      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+      if ( (ad.id === "reload") && !w.reload ) continue;
+      if ( (ad.id === "refocus") && !w.talisman ) continue;
+      ad = foundry.utils.deepClone(ad);
+      ad.tags ||= [];
+
+      // Customize strike tags
+      if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
+        if ( w.melee ) ad.tags.push("melee");
+        if ( w.ranged ) ad.tags.push("ranged");
+        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
+      }
+
+      // Create the action
+      const action = new CrucibleAction(ad, {actor: this.parent});
+      action._initialize({});
+      this.actions[action.id] = action;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Register and bind Actions provided by an Item.
+   * @param {CrucibleItem} item
+   */
+  #registerItemActions(item) {
+    for ( const action of item.actions ) {
+      this.actions[action.id] = action.bind(this.parent);
+    }
   }
 
   /* -------------------------------------------- */

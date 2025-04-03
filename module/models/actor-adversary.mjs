@@ -56,6 +56,20 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /** @override */
+  get isDead() {
+    return this.resources.health.value === 0;
+  }
+
+  /** @override */
+  get isInsane() {
+    return false;
+  }
+
+  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 

@@ -23,16 +23,11 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Track the Actions which this Actor has available to use
-   * @type {Object<string, CrucibleAction>}
+   * The Actions which this Actor has available to use.
    */
-  actions = this["actions"];
-
-  /**
-   * Temporary roll bonuses this actor has outside the fields of its data model.
-   * @type {{[damage]: Object<string, number>, [boons]: Object<string, DiceBoon>, [banes]: Object<string, DiceBoon>}}
-   */
-  rollBonuses = this.rollBonuses;
+  get actions() {
+    return this.system.actions;
+  }
 
   /**
    * The ancestry of the Actor.
@@ -98,37 +93,11 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Is this Actor weakened?
-   * @type {boolean}
+   * Is this actor currently "level zero"
+   * @returns {boolean}
    */
-  get isWeakened() {
-    return this.system.resources.health.value === 0;
-  }
-
-  /**
-   * Is this Actor broken?
-   * @type {boolean}
-   */
-  get isBroken() {
-    return this.system.resources.morale.value === 0;
-  }
-
-  /**
-   * Is this Actor dead?
-   * @type {boolean}
-   */
-  get isDead() {
-    if ( this.type === "adversary" ) return this.system.resources.health.value === 0;
-    return this.system.resources.wounds.value === this.system.resources.wounds.max;
-  }
-
-  /**
-   * Is this Actor insane?
-   * @type {boolean}
-   */
-  get isInsane() {
-    if ( this.type === "adversary" ) return false;
-    return this.system.resources.madness.value === this.system.resources.madness.max;
+  get isL0() {
+    return this.system.advancement.level === 0;
   }
 
   /**
@@ -136,15 +105,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return this.isDead || this.statuses.has("unconscious") || this.statuses.has("paralyzed");
-  }
-
-  /**
-   * Is this actor currently "level zero"
-   * @returns {boolean}
-   */
-  get isL0() {
-    return this.system.advancement.level === 0;
+    return this.system.isDead || this.statuses.has("unconscious") || this.statuses.has("paralyzed");
   }
 
   /**
@@ -165,6 +126,14 @@ export default class CrucibleActor extends Actor {
    */
   get resistances() {
     return this.system.resistances;
+  }
+
+  /**
+   * Temporary roll bonuses this actor has outside the fields of its data model.
+   */
+  get rollBonuses() {
+    console.warn("Should CrucibleActor#rollBonuses exist?");
+    return this.system.rollBonuses;
   }
 
   /**
@@ -208,95 +177,15 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
-  /*  Actor Preparation
-  /* -------------------------------------------- */
-
-  /** @override */
-  prepareBaseData() {
-    this.rollBonuses = {damage: {}, boons: {}, banes: {}};
-  }
-
+  /*  Data Preparation                            */
   /* -------------------------------------------- */
 
   /** @inheritdoc */
   prepareEmbeddedDocuments() {
     super.prepareEmbeddedDocuments();
-    if ( this.type === "group" ) return;
     const items = this.itemTypes;
     this.system.prepareItems(items);
-    // TODO
-    CrucibleActor.#prepareActions.call(this);
   };
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare Actions which the Actor may actively use.
-   * @this {CrucibleActor}
-   */
-  static #prepareActions() {
-    this.actions = {};
-    CrucibleActor.#prepareDefaultActions.call(this);
-    for ( const item of this.items ) {
-      switch ( item.type ) {
-        case "talent":
-          CrucibleActor.#registerItemActions.call(this, item);
-          break;
-        case "weapon":
-        case "armor":
-          if ( item.system.equipped ) CrucibleActor.#registerItemActions.call(this, item);
-          break;
-        case "spell":
-          CrucibleActor.#registerItemActions.call(this, item);
-          break;
-      }
-    }
-    this.callActorHooks("prepareActions", this.actions);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the set of default actions that every character can perform
-   * @this {CrucibleActor}
-   */
-  static #prepareDefaultActions() {
-    const w = this.equipment.weapons;
-    for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
-      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
-      if ( (ad.id === "reload") && !w.reload ) continue;
-      if ( (ad.id === "refocus") && !w.talisman ) continue;
-      ad = foundry.utils.deepClone(ad);
-      ad.tags ||= [];
-
-      // Customize strike tags
-      if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
-        if ( w.melee ) ad.tags.push("melee");
-        if ( w.ranged ) ad.tags.push("ranged");
-        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
-      }
-
-      // Create the action
-      const action = new CrucibleAction(ad, {actor: this});
-      action._initialize({});
-      this.actions[action.id] = action;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Register and bind Actions provided by an Item.
-   * @this {CrucibleActor}
-   * @param {CrucibleItem} item
-   */
-  static #registerItemActions(item) {
-    for ( const action of item.actions ) {
-      this.actions[action.id] = action.bind(this);
-    }
-  }
-
-
 
   /* -------------------------------------------- */
   /*  Talent Hooks                                */
@@ -759,7 +648,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    */
   async rest(updateData={}, {allowDead=false}={}) {
-    if ( (this.isDead || this.isInsane) && !allowDead ) return;
+    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
 
     // Expire Active Effects
     const toDeleteEffects = this.effects.reduce((arr, effect) => {
@@ -902,8 +791,8 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [options.reverse]           Reverse damage instead of applying it
    */
   async applyActionOutcome(action, outcome, {reverse=false}={}) {
-    const wasWeakened = this.isWeakened;
-    const wasBroken = this.isBroken;
+    const wasWeakened = this.system.isWeakened;
+    const wasBroken = this.system.isBroken;
     const wasIncapacitated = this.isIncapacitated;
 
     // Prune effects if the attack was unsuccessful
@@ -918,8 +807,8 @@ export default class CrucibleActor extends Actor {
     await this.#trackHeroismDamage(outcome.resources, reverse);
 
     // Record target state changes
-    if ( this.isWeakened && !wasWeakened ) outcome.weakened = true;
-    if ( this.isBroken && !wasBroken ) outcome.broken = true;
+    if ( this.system.isWeakened && !wasWeakened ) outcome.weakened = true;
+    if ( this.system.isBroken && !wasBroken ) outcome.broken = true;
     if ( this.isIncapacitated && !wasIncapacitated ) outcome.incapacitated = true;
 
   }
@@ -1026,8 +915,8 @@ export default class CrucibleActor extends Actor {
     const updates = {};
     if ( !this.isIncapacitated ) {
       resources.action = Infinity; // Try to recover as much action as possible, in case your maximum increases
-      if ( this.talentIds.has("lesserregenerati") && !this.isWeakened ) resources.health = 1;
-      if ( this.talentIds.has("irrepressiblespi") && !this.isBroken ) resources.morale = 1;
+      if ( this.talentIds.has("lesserregenerati") && !this.system.isWeakened ) resources.health = 1;
+      if ( this.talentIds.has("irrepressiblespi") && !this.system.isBroken ) resources.morale = 1;
     }
     await this.alterResources(resources, updates);
   }
@@ -1739,7 +1628,7 @@ export default class CrucibleActor extends Actor {
     // Update flanking
     if ( this.system._cachedResources ) {
       const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
-      if ( (this.isIncapacitated !== wasIncapacitated) || (this.isBroken !== wasBroken) ) {
+      if ( (this.isIncapacitated !== wasIncapacitated) || (this.system.isBroken !== wasBroken) ) {
         const tokens = this.getActiveTokens(true);
         const activeGM = game.users.activeGM;
         const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
@@ -1825,12 +1714,12 @@ export default class CrucibleActor extends Actor {
   async #applyResourceStatuses(data) {
     const r = data?.system?.resources || {};
     if ( ("health" in r) || ("wounds" in r) ) {
-      await this.toggleStatusEffect("weakened", {active: this.isWeakened && !this.isDead });
-      await this.toggleStatusEffect("dead", {active: this.isDead});
+      await this.toggleStatusEffect("weakened", {active: this.system.isWeakened && !this.system.isDead });
+      await this.toggleStatusEffect("dead", {active: this.system.isDead});
     }
     if ( ("morale" in r) || ("madness" in r) ) {
-      await this.toggleStatusEffect("broken", {active: this.isBroken && !this.isInsane });
-      await this.toggleStatusEffect("insane", {active: this.isInsane});
+      await this.toggleStatusEffect("broken", {active: this.system.isBroken && !this.system.isInsane });
+      await this.toggleStatusEffect("insane", {active: this.system.isInsane});
     }
   }
 

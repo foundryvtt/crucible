@@ -12,8 +12,7 @@ cd {FOUNDRY_VTT_DATA_DIR}/systems
 git clone https://github.com/foundryvtt/crucible.git
 cd crucible
 npm install
-npm run compilePacks
-npm run compileCSS
+npm run compile
 ```
 
 # Contribution Policy
