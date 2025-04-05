@@ -305,13 +305,13 @@ flags:
   crucible:
     rulesEntry: true
   core:
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
   systemVersion: 0.5.3
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1676659579008
-  modifiedTime: 1687044049985
+  modifiedTime: 1743861696596
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

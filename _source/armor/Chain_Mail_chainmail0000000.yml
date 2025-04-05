@@ -18,16 +18,16 @@ system:
     public: <p>Chain Mail public description.</p>
     secret: <p>Chain Mail secret description.</p>
   armor:
-    base: 15
+    base: 14
   broken: false
   dodge:
     base: 3
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.339'
   createdTime: 1674942420025
-  modifiedTime: 1717175697406
+  modifiedTime: 1743871157493
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

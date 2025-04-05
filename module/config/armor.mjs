@@ -3,7 +3,7 @@
  * @property {string} id
  * @property {string} label
  * @property {{min: number, max: number}} armor
- * @property {{min: number, max: number, start: number}} dodge
+ * @property {{scaling: number, base: (number) => number}} dodge
  */
 
 /**
@@ -15,31 +15,31 @@ export const CATEGORIES = {
     id: "unarmored",
     label: "ARMOR.CATEGORIES.UNARMORED",
     armor: {min: 0, max: 0},
-    dodge: {min: 10, max: 10, start: 0}
+    dodge: {scaling: 0, base: _a => 8}
   },
   light: {
     id: "light",
     label: "ARMOR.CATEGORIES.LIGHT",
-    armor: {min: 2, max: 7},
-    dodge: {min: 7, max: 9, start: 2}
+    armor: {min: 4, max: 8},
+    dodge: {scaling: 4, base: a => 10 - Math.floor(a / 2)}
   },
   medium: {
     id: "medium",
     label: "ARMOR.CATEGORIES.MEDIUM",
-    armor: {min: 8, max: 13},
-    dodge: {min: 4, max: 6, start: 4}
+    armor: {min: 9, max: 13},
+    dodge: {scaling: 6, base: a => 10 - Math.floor((a+1) / 2)}
   },
   heavy: {
     id: "heavy",
     label: "ARMOR.CATEGORIES.HEAVY",
-    armor: {min: 14, max: 20},
-    dodge: {min: 0, max: 3, start: 8}
+    armor: {min: 14, max: 18},
+    dodge: {scaling: 8, base: a => 10 - Math.floor((a+2) / 2)}
   },
   natural: {
     id: "natural",
     label: "ARMOR.CATEGORIES.NATURAL",
-    armor: {min: 0, max: 20},
-    dodge: {min: 10, max: 10, start: 0}
+    armor: {min: 4, max: 18},
+    dodge: {scaling: 8, base: a => 10 - Math.floor(a / 2)}
   }
 };
 
@@ -58,15 +58,14 @@ export const PROPERTIES = {
 
 /**
  * Data representing the default "unarmored" armor item.
- * @type {object}
+ * @type {ItemData}
  */
 export const UNARMORED_DATA = {
   name: "Unarmored",
   img: "icons/equipment/chest/shirt-simple-white.webp",
   type: "armor",
-  data: {
+  system: {
     category: "unarmored",
-    armor: {base: 0, bonus: 0},
-    dodge: {base: 10, bonus: 0, start: 0}
+    armor: 0
   }
 };

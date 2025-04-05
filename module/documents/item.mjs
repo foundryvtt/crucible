@@ -1,7 +1,7 @@
 /**
  * An Item subclass which handles system specific logic for the Item document type.
  */
-export default class CrucibleItem extends Item {
+export default class CrucibleItem extends foundry.documents.Item {
 
   /* -------------------------------------------- */
   /*  Item Attributes                             */

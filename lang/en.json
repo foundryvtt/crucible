@@ -453,12 +453,6 @@
         "label": "Base Armor"
       }
     },
-    "dodge": {
-      "label": "Dodge",
-      "base": {
-        "label": "Base Dodge"
-      }
-    },
     "properties": {
       "label": "Armor Properties"
     }
@@ -474,6 +468,8 @@
     "DEFENSES": "Armor Defenses",
     "EQUIPMENT": "Equipment Details",
     "ARMOR_BONUS": "Armor Bonus",
+    "DODGE": "Dodge",
+    "DODGE_BASE": "Base Dodge",
     "DODGE_SCALING": "Dexterity Scaling",
     "SCALED_PRICE": "Scaled Price",
     "TYPE": "Armor Type"

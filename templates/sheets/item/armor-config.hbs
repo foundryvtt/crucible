@@ -9,8 +9,24 @@
 
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "ARMOR.SHEET.DEFENSES"}}</legend>
-        {{formField fields.armor value=source.system.armor widget=armorWidget}}
-        {{formField fields.dodge value=source.system.dodge widget=dodgeWidget}}
+        <div class="form-group slim defense">
+            <label>{{fields.armor.label}}</label>
+            <div class="form-fields">
+                <label>{{fields.armor.fields.base.label}}</label>
+                {{formInput fields.armor.fields.base value=source.system.armor.base type="number"}}
+                <label>{{localize "ARMOR.SHEET.ARMOR_BONUS"}}</label>
+                <input type="number" value="{{item.system.armor.bonus}}" readonly>
+            </div>
+        </div>
+        <div class="form-group slim defense">
+            <label>{{localize "ARMOR.SHEET.DODGE"}}</label>
+            <div class="form-fields">
+                <label>{{localize "ARMOR.SHEET.DODGE_BASE"}}</label>
+                <input type="number" value="{{item.system.dodge.base}}" readonly>
+                <label>{{localize "ARMOR.SHEET.DODGE_SCALING"}}</label>
+                <input type="number" value="{{item.system.dodge.scaling}}" readonly>
+            </div>
+        </div>
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>

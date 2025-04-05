@@ -15,16 +15,16 @@ system:
   properties: []
   description: ''
   armor:
-    base: 11
+    base: 9
   broken: false
   dodge:
     base: 5
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.339'
   createdTime: 1674942420030
-  modifiedTime: 1684879928796
+  modifiedTime: 1743871118310
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

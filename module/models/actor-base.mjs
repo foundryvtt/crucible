@@ -406,20 +406,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than one equipped armor.`);
       armors = armors[0];
     }
-    return armors[0] || this.#getUnarmoredArmor();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the default unarmored Armor item used by this Actor if they do not have other equipped armor.
-   * @returns {CrucibleItem}
-   */
-  #getUnarmoredArmor() {
-    const itemCls = getDocumentClass("Item");
-    const armor = new itemCls(SYSTEM.ARMOR.UNARMORED_DATA, {parent: this.parent});
-    armor.prepareData(); // Needs to be explicitly called since we are in the middle of Actor preparation
-    return armor;
+    return armors[0] || crucible.api.models.CrucibleArmorItem.getUnarmoredArmor(this.parent);
   }
 
   /* -------------------------------------------- */
@@ -745,8 +732,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     defenses.armor.base = armorData.armor.base;
     defenses.armor.bonus = armorData.armor.bonus;
     defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.start, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.start);
+    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
 
     // Block and Parry from equipped Weapons
     const weaponData = [equipment.weapons.mainhand.system];

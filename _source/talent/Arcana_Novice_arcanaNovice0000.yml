@@ -37,11 +37,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742762195596
-  modifiedTime: 1742947368523
+  modifiedTime: 1743709857563
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!arcanaNovice0000'
 
