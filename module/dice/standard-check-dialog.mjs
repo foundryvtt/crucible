@@ -46,7 +46,7 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
-    if ( skill ) return `${skill.name} Skill Check`;
+    if ( skill ) return `${skill.label} Skill Check`;
     return "Generic Dice Check";
   }
 

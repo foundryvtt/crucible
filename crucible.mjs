@@ -77,11 +77,6 @@ Hooks.once("init", async function() {
     weapon: models.CrucibleWeaponItem
   };
 
-  // JournalEntryPage document configuration
-  Object.assign(CONFIG.JournalEntryPage.dataModels, {
-    "skill": models.CrucibleSkillPage
-  });
-
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
   CONFIG.Combat.documentClass = documents.CrucibleCombat;
@@ -108,7 +103,6 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
   sheets.registerSheet(JournalEntry, SYSTEM.id, applications.CrucibleJournalSheet, {label: "CRUCIBLE.SHEETS.Journal"});
-  sheets.registerSheet(JournalEntryPage, SYSTEM.id, applications.SkillPageSheet, {types: ["skill"], label: "CRUCIBLE.SHEETS.Skill", makeDefault: true});
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
@@ -279,7 +273,6 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
-  localizeConfigObject(SYSTEM.SKILL.RANKS, ["label", "description"]);
   localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
@@ -295,9 +288,6 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
-  // Initialize Skill Data
-  models.CrucibleSkillPage.initialize();
-
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();
 
@@ -305,6 +295,7 @@ Hooks.once("setup", function() {
   game.system.tree = new canvas.tree.CrucibleTalentTree();
 
   // Activate window listeners
+  // TODO v13 refactor
   $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
 });
 

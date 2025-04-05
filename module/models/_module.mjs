@@ -19,9 +19,6 @@ export {default as CrucibleTalentItem} from "./item-talent.mjs";
 export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";
 export {default as CrucibleWeaponItem} from "./item-weapon.mjs";
 
-// JournalEntryPage
-export {default as CrucibleSkillPage} from "./page-skill.mjs";
-
 // Spellcraft
 export {default as CrucibleSpellcraftRune} from "./spellcraft-rune.mjs";
 export {default as CrucibleSpellcraftGesture} from "./spellcraft-gesture.mjs";

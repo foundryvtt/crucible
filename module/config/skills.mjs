@@ -1,93 +1,3 @@
-/**
- * The cost in skill points to obtain the next skill rank.
- * TODO deleteme
- * @enum {Readonly<{
- *  id: string,
- *  rank: number,
- *  label: string,
- *  description: string,
- *  cost: number,
- *  spent: number,
- *  bonus: number,
- *  path: boolean
- * }>}
- */
-export const RANKS = {
-  0: {
-    id: "untrained",
-    rank: 0,
-    label: "SKILL.RANKS.UNTRAINED.label",
-    description: "SKILL.RANKS.UNTRAINED.hint",
-    cost: 0,
-    spent: 0,
-    bonus: -4,
-    path: false
-  },
-  1: {
-    id: "novice",
-    rank: 1,
-    label: "SKILL.RANKS.NOVICE.label",
-    description: "SKILL.RANKS.NOVICE.hint",
-    cost: 1,
-    spent: 1,
-    bonus: 0,
-    path: false
-  },
-  2: {
-    id: "apprentice",
-    rank: 2,
-    label: "SKILL.RANKS.APPRENTICE.label",
-    description: "SKILL.RANKS.APPRENTICE.hint",
-    cost: 1,
-    spent: 2,
-    bonus: 2,
-    path: false
-  },
-  3: {
-    id: "specialist",
-    rank: 3,
-    label: "SKILL.RANKS.SPECIALIST.label",
-    description: "SKILL.RANKS.SPECIALIST.hint",
-    cost: 2,
-    spent: 4,
-    bonus: 4,
-    path: true
-  },
-  4: {
-    id: "adept",
-    rank: 4,
-    label: "SKILL.RANKS.ADEPT.label",
-    description: "SKILL.RANKS.ADEPT.hint",
-    cost: 4,
-    spent: 8,
-    bonus: 8,
-    path: false
-  },
-  5: {
-    id: "master",
-    rank: 5,
-    label: "SKILL.RANKS.MASTER.label",
-    description: "SKILL.RANKS.MASTER.hint",
-    cost: 4,
-    spent: 12,
-    bonus: 12,
-    path: true
-  }
-};
-
-/**
- * A reverse mapping of skill rank IDs to rank numbers.
- * TODO deleteme
- * @enum {Readonly<number>}
- */
-export const RANK_IDS = Object.freeze({
-  untrained: 0,
-  novice: 1,
-  apprentice: 2,
-  specialist: 3,
-  adept: 4,
-  master: 5
-});
 
 /**
  * The thematic categories of skills. Each skill belongs to one of these categories.
@@ -132,24 +42,28 @@ export const SKILLS = Object.freeze({
   athletics: {
     id: "athletics",
     label: "SKILL.LABELS.athletics",
+    icon: "systems/crucible/icons/skills/athletics.jpg",
     category: "exp",
     abilities: ["strength", "dexterity"]
   },
   awareness: {
     id: "awareness",
     label: "SKILL.LABELS.awareness",
+    icon: "systems/crucible/icons/skills/awareness.jpg",
     category: "exp",
     abilities: ["intellect", "wisdom"]
   },
   stealth: {
     id: "stealth",
     label: "SKILL.LABELS.stealth",
+    icon: "systems/crucible/icons/skills/stealth.jpg",
     category: "exp",
     abilities: ["dexterity", "intellect"]
   },
   wilderness: {
     id: "wilderness",
     label: "SKILL.LABELS.wilderness",
+    icon: "systems/crucible/icons/skills/wilderness.jpg",
     category: "exp",
     abilities: ["toughness", "wisdom"]
   },
@@ -158,52 +72,60 @@ export const SKILLS = Object.freeze({
   arcana: {
     id: "arcana",
     label: "SKILL.LABELS.arcana",
+    icon: "systems/crucible/icons/skills/arcana.jpg",
     category: "kno",
-    abilities: ["intellect", "presence"]
+    abilities: ["presence", "intellect"]
   },
   medicine: {
     id: "medicine",
     label: "SKILL.LABELS.medicine",
+    icon: "systems/crucible/icons/skills/medicine.jpg",
     category: "kno",
-    abilities: ["toughness", "wisdom"]
+    abilities: ["wisdom", "toughness"]
   },
   science: {
     id: "science",
     label: "SKILL.LABELS.science",
+    icon: "systems/crucible/icons/skills/science.jpg",
     category: "kno",
     abilities: ["intellect", "wisdom"]
   },
   society: {
     id: "society",
     label: "SKILL.LABELS.society",
+    icon: "systems/crucible/icons/skills/society.jpg",
     category: "kno",
-    abilities: ["presence", "wisdom"]
+    abilities: ["wisdom", "presence"]
   },
 
   // Social Skills
   deception: {
     id: "deception",
     label: "SKILL.LABELS.deception",
+    icon: "systems/crucible/icons/skills/deception.jpg",
     category: "soc",
     abilities: ["intellect", "presence"]
   },
   diplomacy: {
     id: "diplomacy",
     label: "SKILL.LABELS.diplomacy",
+    icon: "systems/crucible/icons/skills/diplomacy.jpg",
     category: "soc",
     abilities: ["wisdom", "presence"]
   },
   intimidation: {
     id: "intimidation",
     label: "SKILL.LABELS.intimidation",
+    icon: "systems/crucible/icons/skills/intimidation.jpg",
     category: "soc",
-    abilities: ["strength", "presence"]
+    abilities: ["presence", "toughness"]
   },
   performance: {
     id: "performance",
     label: "SKILL.LABELS.performance",
+    icon: "systems/crucible/icons/skills/performance.jpg",
     category: "soc",
-    abilities: ["dexterity", "presence"]
+    abilities: ["presence", "dexterity"]
   }
 });
 

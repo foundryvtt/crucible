@@ -358,9 +358,9 @@ export default class CrucibleActor extends Actor {
     const sc = new StandardCheck(rollData);
 
     // Prompt the user with a roll dialog
-    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].name});
+    const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ){
-      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: SYSTEM.SKILLS[skillId].name});
+      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
       const response = await sc.dialog({title, flavor, rollMode});
       if ( response === null ) return null;
     }

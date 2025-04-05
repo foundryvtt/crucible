@@ -6,9 +6,9 @@
         <ol class="items-list" style="--skill-color:{{category.color.css}}">
             {{#each category.skills as |skill skillId|}}
             <li class="skill line-item" data-skill="{{skillId}}">
-                <img class="icon" src="{{skill.icon}}" alt="{{skill.name}}">
+                <img class="icon" src="{{skill.icon}}" alt="{{skill.label}}">
                 <div class="title">
-                    <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.name}}</a></h4>
+                    <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.label}}</a></h4>
                 </div>
                 <div class="tags abilities">
                     {{#each skill.abilityAbbrs}}

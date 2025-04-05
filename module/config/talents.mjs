@@ -69,6 +69,7 @@ export const TRAINING_TYPES = Object.freeze({
 
 /**
  * @typedef CrucibleTrainingRank
+ * @property {string} id
  * @property {number} rank
  * @property {string} label
  * @property {number} bonus
@@ -80,28 +81,42 @@ export const TRAINING_TYPES = Object.freeze({
  */
 export const TRAINING_RANKS = Object.freeze({
   untrained: {
+    id: "untrained",
     rank: 0,
     label: "TALENT.RANKS.UNTRAINED",
     bonus: -4
   },
   trained: {
+    id: "trained",
     rank: 1,
     label: "TALENT.RANKS.TRAINED",
     bonus: 0
   },
   proficient: {
+    id: "proficient",
     rank: 2,
     label: "TALENT.RANKS.PROFICIENT",
     bonus: 1,
   },
   expert: {
+    id: "expert",
     rank: 3,
     label: "TALENT.RANKS.EXPERT",
     bonus: 2
   },
   master: {
+    id: "master",
     rank: 4,
     label: "TALENT.RANKS.MASTER",
     bonus: 3
   }
 });
+
+/**
+ * A reverse mapping of training rank integers to rank IDs.
+ * @type {Readonly<Record<0|1|2|3|4, CrucibleTrainingRank>>}
+ */
+export const TRAINING_RANK_VALUES = Object.freeze(Object.values(TRAINING_RANKS)).reduce((obj, e) => {
+  obj[e.rank] = e;
+  return obj;
+}, {});

@@ -4,6 +4,7 @@ const {api} = foundry.applications;
  * A configuration application used to advance skill ranks and choose skill specialization for a CrucibleActor.
  * @extends {DocumentSheetV2}
  * @mixes {HandlebarsApplication}
+ * TODO delete or refactor
  */
 export default class SkillConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
   constructor({skillId, ...options}={}) {
@@ -78,7 +79,7 @@ export default class SkillConfig extends api.HandlebarsApplicationMixin(api.Docu
     }
 
     // Categorize skill ranks as trained or untrained
-    for ( const rank of Object.values(SYSTEM.SKILL.RANKS) ) {
+    for ( const rank of Object.values(SYSTEM.TALENT.TRAINING_RANKS) ) {
       const r = foundry.utils.deepClone(rank);
       r.label = `${r.label} ${this.config.name}`;
       r.description = this.config.ranks[r.id].description;

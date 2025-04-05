@@ -659,7 +659,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareSkill(config) {
     const rank = this.training[config.id] ?? 0;
     const abilityBonus = this.parent.getAbilityBonus(config.abilities);
-    const skillBonus = SYSTEM.SKILL.RANKS[rank].bonus;
+    const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;
     const enchantmentBonus = 0;
     const score = abilityBonus + skillBonus + enchantmentBonus;
     const passive = SYSTEM.PASSIVE_BASE + score;

@@ -21,7 +21,6 @@ export {default as CrucibleWeaponItemSheet} from "./sheets/item-weapon-sheet.mjs
 
 // Journal Sheets
 export {default as CrucibleJournalSheet} from "./sheets/journal.mjs";
-export {default as SkillPageSheet} from "./sheets/skill.mjs";
 
 // Sidebar Apps
 export {default as CrucibleCombatTracker} from "./sidebar/combat-tracker.mjs";

@@ -857,7 +857,7 @@
   .tab.skills {
     .skill {
       display: grid;
-      grid-template-columns: auto 100px 60px 70px 64px 1fr auto; // .icon .title .abilities .bonus .ranks .training .control
+      grid-template-columns: auto 140px 60px 60px 72px 1fr auto; // .icon .title .abilities .bonus .ranks .training .control
       gap: 1rem;
     }
 
@@ -882,6 +882,9 @@
 
     .tags.abilities {
       justify-content: center;
+      span:first-child {
+        color: var(--color-text-emphatic);
+      }
     }
 
     // Skill ranks

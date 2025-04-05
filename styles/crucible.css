@@ -1519,7 +1519,7 @@
 }
 .crucible.sheet.actor .tab.skills .skill {
   display: grid;
-  grid-template-columns: auto 100px 60px 70px 64px 1fr auto;
+  grid-template-columns: auto 140px 60px 60px 72px 1fr auto;
   gap: 1rem;
 }
 .crucible.sheet.actor .tab.skills .bonus {
@@ -1541,6 +1541,9 @@
 }
 .crucible.sheet.actor .tab.skills .tags.abilities {
   justify-content: center;
+}
+.crucible.sheet.actor .tab.skills .tags.abilities span:first-child {
+  color: var(--color-text-emphatic);
 }
 .crucible.sheet.actor .tab.skills .ranks {
   justify-content: space-between;
@@ -2027,6 +2030,7 @@
   gap: 1rem;
 }
 .crucible.dice-roll .dice-tooltip {
+  display: none;
   flex: none;
   gap: 0.5rem;
 }
@@ -2058,8 +2062,8 @@
   margin: -0.2rem 0 0;
   font-weight: bold;
 }
-.crucible.dice-roll .dice-tooltip.expanded {
-  display: flex !important;
+.crucible.dice-roll.expanded .dice-tooltip {
+  display: flex;
 }
 .crucible.dice-roll .dice-total {
   height: 20px;

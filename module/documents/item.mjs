@@ -32,77 +32,8 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
-  /*  Item Data Preparation                       */
+  /*  Data Preparation                            */
   /* -------------------------------------------- */
-
-  /** @override */
-  prepareBaseData() {
-    switch ( this.type ) {
-      case "skill":
-        this.system.config = SYSTEM.skills.skills[this.system.skill] || {};
-        break;
-    }
-    return super.prepareBaseData();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  prepareDerivedData() {
-    switch ( this.type ) {
-      case "skill":
-        return this._prepareSkillData();
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare additional data for Skill type Items.
-   */
-  _prepareSkillData() {
-    const skill = this.config || {};
-
-    // Copy and merge skill data
-    this.name = skill.name;
-    this.img = skill.icon;
-    this.category = skill.category;
-    this.abilities = skill.abilities;
-
-    // Skill rank
-    let current = null;
-    let next = null;
-    this.ranks = foundry.utils.deepClone(skill.ranks).map(r => {
-      r.purchased = (r.rank > 0) && (r.rank <= this.rank);
-      if ( r.rank === this.rank ) current = r;
-      else if ( r.rank === this.rank + 1 ) next = r;
-      return r;
-    });
-    this.currentRank = current;
-    this.nextRank = next;
-
-    // Skill progression paths
-    let path = null;
-    this.paths = foundry.utils.deepClone(skill.paths).map(p => {
-      p.active = p.id === this.path;
-      if ( p.active ) path = p;
-      return p;
-    });
-    this.path = path;
-  }
-
-  /* -------------------------------------------- */
-  /*  Helper Methods                              */
-  /* -------------------------------------------- */
-
-  /**
-   * Provide an array of detail tags which are shown in each item description
-   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
-   * @returns {Record<string, string>}    The tags which describe this Item
-   */
-  getTags(scope="full") {
-    return this.system.getTags?.(scope) || {};
-  }
 
   /* -------------------------------------------- */
   /*  Database Workflows                          */
@@ -147,6 +78,19 @@ export default class CrucibleItem extends foundry.documents.Item {
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);
     return super._onUpdate(data, options, userId);
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Provide an array of detail tags which are shown in each item description
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
+   * @returns {Record<string, string>}    The tags which describe this Item
+   */
+  getTags(scope="full") {
+    return this.system.getTags?.(scope) || {};
   }
 
   /* -------------------------------------------- */
