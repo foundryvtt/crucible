@@ -633,29 +633,27 @@ pages:
         represent physical resistance and mental resilience respectively.
         Fortitude defense is calculated as:</p><section class="formula"><p
         class="value">Fortitude Defense</p><p class="equals">=</p><p
-        class="equation">12 + Strength + Wisdom +
+        class="equation">12 + ((Strength + Wisdom) / 2) + Fortitude
         Bonus</p></section><h4>Willpower</h4><p><strong>Willpower
         Defense</strong> describes a character's ability to withstand mental or
         emotional attacks. Willpower is modified by <strong>Toughness</strong>
         and <strong>Presence</strong> which represent physical grit and mental
         determination respectively. Willpower defense is calculated
         as:</p><section class="formula"><p class="value">Willpower Defense</p><p
-        class="equals">=</p><p class="equation">12 + Toughness + Presence +
-        Bonus</p></section><h4>Reflex</h4><p><strong>Reflex Defense</strong>
-        describes a character's ability to avoid harm that would otherwise occur
-        in a specific area. Reflex is modified by <strong>Dexterity</strong> and
-        <strong>Intellect</strong> which represent quickness of body and
-        rapidity of thought respectively. Reflex defense is calculated
-        as:</p><section class="formula"><p class="value">Reflex Defense</p><p
-        class="equals">=</p><p class="equation">12 + Dexterity + Intellect +
+        class="equals">=</p><p class="equation">12 + ((Toughness + Presence) /
+        2) + Willpower Bonus</p></section><h4>Reflex</h4><p><strong>Reflex
+        Defense</strong> describes a character's ability to avoid harm that
+        would otherwise occur in a specific area. Reflex is modified by
+        <strong>Dexterity</strong> and <strong>Intellect</strong> which
+        represent quickness of body and rapidity of thought respectively. Reflex
+        defense is calculated as:</p><section class="formula"><p
+        class="value">Reflex Defense</p><p class="equals">=</p><p
+        class="equation">12 + ((Dexterity + Intellect) / 2) + Reflex
         Bonus</p></section><p>Note that Reflex is typically used as the defense
         type for intangible - but otherwise physical - sources of harm, while
         Physical Defense is used to defend against tangible
         attacks.</p><h4>Defense Bonuses</h4><p>Bonuses to these non-physical
-        defenses may be obtained through Talents or magical Equipment. Adversary
-        creatures have a -2 penalty to these defenses to compensate for their
-        comparatively advantaged Ability score progression. This penalty
-        increases for Adversaries with threat level below 1.</p><h2
+        defenses may be obtained through Talents or magical Equipment.</p><h2
         class="divider">Restoration Thresholds</h2><p><strong>Restoration
         Thresholds</strong> describe a pair of defenses which dictate how
         challenging it is to restore a creature's resources through healing or
@@ -692,9 +690,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.1
-      coreVersion: '13.338'
+      coreVersion: '13.339'
       createdTime: 1684615998505
-      modifiedTime: 1686418892604
+      modifiedTime: 1743882203601
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

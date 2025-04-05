@@ -1519,7 +1519,7 @@
 }
 .crucible.sheet.actor .tab.skills .skill {
   display: grid;
-  grid-template-columns: auto 140px 60px 60px 72px 1fr auto;
+  grid-template-columns: auto 140px 60px 60px 72px 1fr;
   gap: 1rem;
 }
 .crucible.sheet.actor .tab.skills .bonus {

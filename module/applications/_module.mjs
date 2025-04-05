@@ -1,6 +1,5 @@
 // Config Apps
 export {default as ActionConfig} from "./config/action.mjs";
-export {default as SkillConfig} from "./config/skill.mjs";
 
 // Actor Sheets
 export {default as CrucibleBaseActorSheet} from "./sheets/base-actor-sheet.mjs";

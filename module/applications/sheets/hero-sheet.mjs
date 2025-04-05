@@ -1,5 +1,4 @@
 import CrucibleBaseActorSheet from "./base-actor-sheet.mjs";
-import SkillConfig from "../config/skill.mjs";
 
 /**
  * A CrucibleBaseActorSheet subclass used to configure Actors of the "hero" type.
@@ -80,10 +79,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, 1);
-      case "skillConfig":
-        const skillConfig = new SkillConfig({document: this.actor, skillId: target.closest(".skill").dataset.skill})
-        await skillConfig.render({force: true});
-        break;
       case "skillRoll":
         return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
       case "talentTree":

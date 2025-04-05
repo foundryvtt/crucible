@@ -756,26 +756,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Prepare non-physical defenses.
    */
   #prepareSaveDefenses() {
-
-    // Defense base is the system passive base of 12
-    const l = this.details.threatLevel;
-    let base = SYSTEM.PASSIVE_BASE;
     const {equipment, talentIds} = this.parent;
 
-    // Adversary save penalty plus further reduction for threat level below zero
-    let penalty = 0;
-    if ( this.parent.type === "adversary" ) {
-      penalty = 2;
-      if ( l < 1 ) penalty += (1 - l);
-    }
+    // Defense base is the system passive base of 12
+    const base = SYSTEM.PASSIVE_BASE;
+    const penalty = Math.min(this.advancement.level, 0);
 
     // Prepare save defenses
     for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
       if ( sd.type !== "save" ) continue;
       let d = this.defenses[k];
-      d.base = sd.abilities.reduce((t, a) => t + this.abilities[a].value, base);
-      if ( this.parent.isIncapacitated ) d.base = base;
-      d.bonus = 0 - penalty;
+      d.base = base;
+      if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
+      d.bonus = penalty;
       if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
     }
   }
