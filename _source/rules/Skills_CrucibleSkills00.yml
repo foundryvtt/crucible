@@ -1757,14 +1757,14 @@ flags:
   crucible:
     rulesEntry: true
   core:
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1683472545451
-  modifiedTime: 1686194256352
-  lastModifiedBy: JMECHdsPmLGGi1RC
+  modifiedTime: 1743873962149
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource:

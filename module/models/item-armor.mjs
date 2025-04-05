@@ -74,11 +74,11 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
 
     // Armor Defense
     this.armor.base = Math.clamp(this.armor.base, category.armor.min, category.armor.max);
-    this.armor.bonus = quality.bonus + enchantment.bonus;
+    this.armor.bonus = quality.bonus;
 
     // Dodge Defense
     this.dodge ||= {};
-    this.dodge.base = category.dodge.base(this.armor.base);
+    this.dodge.base = category.dodge.base(this.armor.base) + enchantment.bonus;
     this.dodge.scaling = category.dodge.scaling;
 
     // Armor Properties

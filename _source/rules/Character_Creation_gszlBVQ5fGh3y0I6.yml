@@ -6,7 +6,7 @@ flags:
     rulesEntry: true
   core:
     viewMode: 2
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 pages:
   - name: Abilities
     type: text
@@ -704,9 +704,9 @@ pages:
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1676600838396
-  modifiedTime: 1688332725418
+  modifiedTime: 1743873799983
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

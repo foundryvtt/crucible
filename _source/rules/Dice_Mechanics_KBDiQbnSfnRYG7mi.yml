@@ -6,7 +6,7 @@ flags:
     rulesEntry: true
   core:
     viewMode: 2
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 pages:
   - name: Dice Mechanics
     type: text
@@ -157,9 +157,9 @@ pages:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1684343824437
-  modifiedTime: 1684894768806
+  modifiedTime: 1743873939774
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

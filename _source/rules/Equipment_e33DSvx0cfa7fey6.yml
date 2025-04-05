@@ -213,72 +213,92 @@ pages:
       format: 1
       content: >-
         <p><strong>Armor</strong> are items which can be worn to provide
-        protection against attacks or environmental hazards. The Crucible system
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.alkVSDmt0ec5HBfE#physical-defense]{Physical
+        Defense} against attacks or environmental hazards. The Crucible system
         provides a framework and rules for creating and classifying Armor, and
         also provides an assortment of predefined Armor types which are typical
         to a fantasy role-playing setting. These Armors can be browsed in the
-        Armor Compendium pack.</p><p>Armor in Crucible has the following
-        attributes, in addition to properties shared by all
-        items:</p><h4>Category</h4><p>The category of armor establishes certain
-        parameters about how that armor is used. What is it's weight category?
-        How much physical protection does it afford? How capable of nimble
-        movement is someone while wearing it? Supported Armor categories are
-        listed in a table below.</p><h4>Armor Defense</h4><p>Each piece of Armor
-        provides a certain amount of Armor defense, bounded by the range allowed
-        by its category. This Armor defense contributes directly towards
-        Physical Defense when the item is equipped.</p><h4>Dodge
-        Defense</h4><p>Each piece of Armor provides a baseline amount of Dodge
-        defense, bounded by the range allowed by its category. This base Dodge
-        defense contributes directly towards Physical Defense when the item is
-        equipped.</p><h4>Dodge Scaling Threshold</h4><p>In addition to base
-        Dodge defense, each piece of Armor can yield additional Dodge Defense
-        depending on the wearer's Dexterity in excess of a certain Dodge Scaling
-        Threshold.</p><section class="formula"><p class="value">Defense</p><p
-        class="equals">=</p><p class="equation">Armor Defense + Base Dodge +
-        (Dexterity - Dodge Scaling Threshold)</p></section><section
-        class="gameplay"><p>Scale Mail is medium armor which offers <strong>13
-        Armor Defense</strong> and <strong>4 Base Dodge Defense</strong>. As
-        Medium Armor, the effectiveness of Scale Mail will continue to improve
-        if the wearer has more than <strong>4 Dexterity</strong>, it's
-        <strong>Dodge Scaling Threshold</strong>. When Jex, a nimble Halfling
-        fighter with 7 Dexterity, dons Scale Mail armor they benefit from a
-        total Physical Defense of 20.</p></section><h2 class="divider">Armor
-        Categories</h2><p>The following table lists the categories of Armor
-        supported in the Crucible game system.</p><table><thead><tr><th>Armor
-        Category</th><th>Armor Defense</th><th>Base Dodge</th><th>Dodge
-        Scaling</th></tr></thead><tbody><tr><td>Unarmored</td><td>0</td><td>10</td><td>0
-        Dex</td></tr><tr><td>Light</td><td>1-7</td><td>7-9</td><td>2
-        Dex</td></tr><tr><td>Medium</td><td>8-13</td><td>4-6</td><td>4
-        Dex</td></tr><tr><td>Heavy</td><td>14-20</td><td>0-3</td><td>8
-        Dex</td></tr><tr><td>Natural</td><td>0-20</td><td>10</td><td>0
-        Dex</td></tr></tbody></table><p>Note that wearing <strong>Heavy
-        Armor</strong> does not permit a free <strong>Move</strong> action each
-        turn as other armor types do.</p><h2 class="divider">Quality
-        Tier</h2><p><strong>Quality</strong> of Armor describes its
-        craftsmanship, materials, and condition. Quality tiers provide an
-        additional bonus to Armor defense and increase item rarity. The quality
-        tier of Armor is established at its time of initial creation and can
-        never be increased after that point.</p><table><thead><tr><th>Quality
-        Tier</th><th>Armor Bonus</th><th>Rarity
-        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><h4>Broken
-        Armor</h4><p>During the course of use, or over the passage of time,
-        Armor may become <strong>Broken</strong>. Armor which is Broken only
-        benefits from half its normal Armor defense.</p><h2
+        Armor Compendium pack.</p><h2 class="divider">Armor
+        Categories</h2><p>The category of armor establishes certain parameters
+        about how that armor is used. What is it's weight category? How much
+        physical protection does it afford? How capable of nimble movement is
+        someone while wearing it? Supported Armor categories are listed in a
+        table below. The following table lists the categories of Armor supported
+        in the Crucible game system.</p><table><thead><tr><th>Armor
+        Category</th><th>Base Armor</th><th>Base Dodge</th><th>Scaling
+        Threshold</th></tr></thead><tbody><tr><td>Unarmored</td><td>0</td><td>8</td><td>0
+        Dex</td></tr><tr><td>Light</td><td>4-8</td><td>6-8</td><td>4
+        Dex</td></tr><tr><td>Medium</td><td>9-13</td><td>3-5</td><td>6
+        Dex</td></tr><tr><td>Heavy</td><td>14-18</td><td>0-2</td><td>8
+        Dex</td></tr><tr><td>Natural</td><td>0-18</td><td>0-8</td><td>0
+        Dex</td></tr></tbody></table><p>The total <strong>Physical
+        Defense</strong> contributed by the piece of Armor is equal to the sum
+        of Armor and Dodge components.</p><section class="formula"><p
+        class="value">Physical Defense</p><p class="equals">=</p><p
+        class="equation">Base Armor + Bonus Armor + Base Dodge + Bonus
+        Dodge</p></section><section
+        class="gameplay"><p>@UUID[Compendium.crucible.armor.Item.6ww3SkYTk6RZBwMS]{Scale
+        Mail} is Medium Armor which offers <strong>13 Armor Defense</strong> and
+        <strong>3 Base Dodge Defense</strong>. As Medium Armor, the
+        effectiveness of Scale Mail will continue to improve if the wearer has
+        more than <strong>6 Dexterity</strong>, it's <strong>Scaling
+        Threshold</strong>. When Jex, a nimble fighter with <strong>8
+        Dexterity</strong>, dons Scale Mail armor they benefit from a total
+        <strong>Physical Defense</strong> of <strong>18 (13 Armor + 5
+        Dodge)</strong>.</p><p>When Jex returns to the city from adventuring,
+        they purchase a <strong>Fine Quality</strong> set of Scale Mail with a
+        <strong>Minor Enchantment</strong>. Jex' total <strong>Physical
+        Defense</strong> improves to <strong>20 (14 Armor + 6
+        Dodge)</strong>.</p></section><p>Wearing <strong>Heavy Armor</strong>
+        does not permit a free <strong>Move</strong> action each turn as other
+        armor types do unless the character has a specific Talent which negates
+        this penalty.</p><h2 class="divider">Armor Defense</h2><p>Each piece of
+        Armor provides a certain amount of Base Armor defense, bounded by the
+        range allowed by its category. This Armor defense contributes directly
+        towards Physical Defense when the item is equipped. In addition to Base
+        Armor, the piece of armor may offer Bonus Armor according to its Quality
+        tier which is described below.</p><h2 class="divider">Dodge
+        Defense</h2><p>Each piece of Armor provides a baseline amount of Dodge
+        defense. The amount of base dodge defense provided by the armor is
+        defined according to a formula specific to its category.</p><section
+        class="formula"><p class="value">Base Dodge (Light)</p><p
+        class="equals">=</p><p class="equation">10 - (Base Armor / 2)</p><p
+        class="value">Base Dodge (Medium)</p><p class="equals">=</p><p
+        class="equation">10 - ((Base Armor-1) / 2)</p><p class="value">Base
+        Dodge (Heavy)</p><p class="equals">=</p><p class="equation">10 - ((Base
+        Armor-2) / 2)</p><p class="value">Base Dodge (Natural)</p><p
+        class="equals">=</p><p class="equation">10 - (Base Armor /
+        2)</p></section><p>In addition to Base Dodge defense, each piece of
+        Armor can yield additional Bonus Dodge defense depending on the wearer's
+        Dexterity ability score exceeds a certain Dodge Scaling Threshold. Bonus
+        Dodge is also increased by the item's Enchantment Tier which is
+        described below.</p><section class="formula"><p class="value">Bonus
+        Dodge</p><p class="equals">=</p><p class="equation">Max(Dexterity -
+        Scaling Threshold, 0) + Enchantment Bonus</p></section><h2
+        class="divider">Quality Tier</h2><p><strong>Quality</strong> of Armor
+        describes its craftsmanship, materials, and condition. Quality tiers
+        provide an additional bonus to Armor defense and increase item rarity.
+        The quality tier of Armor is established at its time of initial creation
+        and can never be increased after that
+        point.</p><table><thead><tr><th>Quality Tier</th><th>Bonus
+        Armor</th><th>Rarity
+        Modifier</th></tr></thead><tbody><tr><td>Shoddy</td><td>-2</td><td>-1</td></tr><tr><td>Standard</td><td>0</td><td>0</td></tr><tr><td>Fine</td><td>+1</td><td>+1</td></tr><tr><td>Superior</td><td>+2</td><td>+2</td></tr><tr><td>Masterwork</td><td>+3</td><td>+4</td></tr></tbody></table><h2
         class="divider">Enchantment Tier</h2><p><strong>Enchantment</strong> of
         Armor describes its level of magical imbuement. Enchantment provides
-        further increases to Armor defense and increases item rarity. Armor can
-        be enchanted after its original creation or have its enchantment
-        improved.</p><table><thead><tr><th>Enchantment Tier</th><th>Armor
-        Bonus</th><th>Rarity
+        further increases to Bonus Dodge defense and increases item rarity.
+        Armor can be enchanted after its original creation or have its
+        enchantment improved.</p><table><thead><tr><th>Enchantment
+        Tier</th><th>Bonus Dodge</th><th>Rarity
         Modifier</th></tr></thead><tbody><tr><td>Mundane</td><td>0</td><td>0</td></tr><tr><td>Minor</td><td>+1</td><td>+2</td></tr><tr><td>Major</td><td>+2</td><td>+4</td></tr><tr><td>Legendary</td><td>+3</td><td>+6</td></tr></tbody></table><h2
+        class="divider">Broken Armor</h2><p>During the course of use, or over
+        the passage of time, Armor may become <strong>Broken</strong>. Armor
+        which is Broken only benefits from half its normal Armor Defense.</p><h2
         class="divider">Special Properties</h2><p>Some Armor may have one (or in
         very rare cases multiple) of the following special properties. Each of
         these properties adds a +1 Rarity modifier to the
         Armor.</p><h4>Bulky</h4><p>Armor that is <strong>Bulky</strong> is
         cumbersome to wield and conveys a penalty of +2 Banes to all Initiative
-        rolls.</p><h4>Organic</h4><p>Armor that is <strong>Organic</strong> is
-        physically part of the creature that "wears" it and such armor cannot be
-        removed.</p>
+        rolls.</p>
     video:
       controls: true
       volume: 0.5
@@ -291,9 +311,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '13.338'
+      coreVersion: '13.339'
       createdTime: 1685633109339
-      modifiedTime: 1687044049985
+      modifiedTime: 1743873822439
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null

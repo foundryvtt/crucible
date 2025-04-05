@@ -211,13 +211,13 @@ pages:
     _key: '!journal.pages!v1dqTT3NI35lFNxM.O8IesdQo8SQpIKbo'
 flags:
   core:
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
   systemVersion: 0.5.1
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1684375053686
-  modifiedTime: 1686419794448
+  modifiedTime: 1743873992907
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

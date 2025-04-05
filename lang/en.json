@@ -470,7 +470,7 @@
     "ARMOR_BONUS": "Armor Bonus",
     "DODGE": "Dodge",
     "DODGE_BASE": "Base Dodge",
-    "DODGE_SCALING": "Dexterity Scaling",
+    "DODGE_SCALING": "Scaling Threshold",
     "SCALED_PRICE": "Scaled Price",
     "TYPE": "Armor Type"
   },

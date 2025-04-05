@@ -331,16 +331,63 @@ pages:
       exportSource: null
     category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.k0fKzx0pV04sP7JA'
+  - sort: 412500
+    name: Module Recommendations
+    type: text
+    _id: 4qUKqJIWIdJNHdjb
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>As with any game system in Foundry Virtual Tabletop, Modules can
+        enhance and augment the quality of gameplay experience. We do, however,
+        request that testers of the initial Crucible Playtest try out the game
+        system in a module-light environment in order to ensure that your
+        experience and your feedback is appropriate and specific to the
+        functionality of the Crucible system. Your playtest feedback will be
+        more useful to us if you have fewer modules installed.</p><h2
+        class="divider">Dice So Nice</h2><p>The Crucible game system is designed
+        with use of the <a href="https://foundryvtt.com/packages/dice-so-nice/"
+        target="_blank">Dice So Nice</a> module in mind. When rolling, Crucible
+        leverages the features of Dice So Nice to give a positive glow effect to
+        any roll which contain Boons, and similarly a negative glow effect to
+        any rolls which have Banes.</p><figure><img class="noborder"
+        src="systems/crucible/assets/banners/dsn-banner.webp" /></figure><p>We
+        strongly recommend the use of Dice So Nice when playing Crucible.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.339'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      createdTime: 1743873856457
+      modifiedTime: 1743873922814
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!5SgXrAKS2EnqVggJ.4qUKqJIWIdJNHdjb'
 folder: z0IT31iKpgcA3QYr
 flags:
   core:
-    sheetClass: crucible.CrucibleJournalSheet
+    sheetClass: crucible.CrucibleJournalEntrySheet
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.338'
+  coreVersion: '13.339'
   createdTime: 1684020691763
-  modifiedTime: 1686269864285
+  modifiedTime: 1743873793125
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

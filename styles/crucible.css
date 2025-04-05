@@ -107,6 +107,7 @@
 .crucible h4.divider {
   clear: both;
   display: flex;
+  margin: 1.5em 0 1em;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
@@ -272,8 +273,8 @@
 }
 .crucible section.gameplay {
   position: relative;
-  padding: 1rem 1.5rem;
-  margin: 1rem 6px;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
   background: #21120e;
 }
 .crucible section.gameplay::before,
@@ -298,7 +299,7 @@
 }
 .crucible section.gameplay p {
   font-family: var(--font-quote);
-  font-size: var(--font-size-18);
+  font-size: 1.0625rem;
   font-style: italic;
   color: var(--color-tertiary);
   line-height: 1.25rem;
@@ -317,16 +318,15 @@
   color: #30030b;
   font-weight: bold;
   line-height: 1.25rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   gap: 0.25rem;
 }
-.crucible section.formula .value,
-.crucible section.formula .equals {
-  flex: none;
-}
 .crucible section.formula .equation {
-  flex: 1;
   word-break: break-word;
+}
+.crucible section.formula.multiline {
+  grid-template-columns: 1fr auto 2fr;
 }
 .crucible textarea {
   padding: 0.5rem;
