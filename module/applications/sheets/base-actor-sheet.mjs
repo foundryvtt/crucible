@@ -139,7 +139,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       actor: this.document,
       biography: await this.#prepareBiography(),
       canPurchaseTalents: true,
-      canPurchaseSkills: true,
       defenses: this.#prepareDefenses(),
       effects: this.#prepareActiveEffects(),
       favoriteActions,
@@ -661,13 +660,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
       // Skill data
       s.abilityAbbrs = [a1.abbreviation, a2.abbreviation];
-      s.pips = Array.fromRange(5).map((v, i) => i < s.rank ? "trained" : "untrained");
-      s.css = [
-        s.rank > 0 ? "trained" : "untrained",
-        s.path ? "specialized" : "unspecialized"
-      ].join(" ");
-      s.canIncrease = this.actor.canPurchaseSkill(skill.id, 1);
-      s.canDecrease = this.actor.canPurchaseSkill(skill.id, -1);
+      s.pips = Array.fromRange(4).map((v, i) => i < s.rank ? "trained" : "untrained");
 
       // Specialization status
       s.rankTags = [SYSTEM.SKILL.RANKS[s.rank].label];

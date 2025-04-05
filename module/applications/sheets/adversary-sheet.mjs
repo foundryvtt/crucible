@@ -35,7 +35,6 @@ export default class AdversarySheet extends CrucibleBaseActorSheet {
       archetypeName: a.system.details.archetype?.name || game.i18n.localize("ARCHETYPE.SHEET.CHOOSE"),
       taxonomyName: a.system.details.taxonomy?.name || game.i18n.localize("TAXONOMY.SHEET.CHOOSE"),
       canPurchaseTalents: false,
-      canPurchaseSkills: false,
       threats: SYSTEM.THREAT_LEVELS,
       threat: SYSTEM.THREAT_LEVELS[threat],
       levelDisplay: this.#getLevelDisplay(level),

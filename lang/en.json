@@ -954,9 +954,9 @@
   },
   "RANKS": {
     "UNTRAINED": "Untrained",
-    "NOVICE": "Novice",
-    "JOURNEYMAN": "Journeyman",
-    "ADEPT": "Adept",
+    "TRAINED": "Trained",
+    "PROFICIENT": "Proficient",
+    "EXPERT": "Expert",
     "MASTER": "Master"
   },
   "PointsAvailable": "Points Available"

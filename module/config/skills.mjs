@@ -1,5 +1,6 @@
 /**
  * The cost in skill points to obtain the next skill rank.
+ * TODO deleteme
  * @enum {Readonly<{
  *  id: string,
  *  rank: number,
@@ -76,6 +77,7 @@ export const RANKS = {
 
 /**
  * A reverse mapping of skill rank IDs to rank numbers.
+ * TODO deleteme
  * @enum {Readonly<number>}
  */
 export const RANK_IDS = Object.freeze({

@@ -1,35 +1,31 @@
 <section class="tab secondary {{tabs.skills.id}} flexcol {{tabs.skills.cssClass}}"
          data-tab="{{tabs.skills.id}}" data-group="{{tabs.skills.group}}">
-
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
         <h3 class="section-header">{{category.label}} Skills</h3>
-        <ol class="items-list skills-list" style="--skill-color:{{category.color.css}}">
+        <ol class="items-list" style="--skill-color:{{category.color.css}}">
             {{#each category.skills as |skill skillId|}}
-            <li class="skill line-item {{skill.css}}" data-skill="{{skillId}}">
+            <li class="skill line-item" data-skill="{{skillId}}">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.name}}">
                 <div class="title">
                     <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.name}}</a></h4>
                 </div>
-                <div class="tags">
-                    {{#each skill.rankTags as |tag|}}<span class="rank tag">{{tag}}</span>{{/each}}
-                    {{#each skill.abilityAbbrs}}<span class="attribute tag">{{this}}</span>{{/each}}
+                <div class="tags abilities">
+                    {{#each skill.abilityAbbrs}}
+                    <span class="attribute tag">{{this}}</span>
+                    {{/each}}
                 </div>
                 <div class="bonus flexrow">
                     <span class="value hex {{skill.hexClass}}" data-tooltip="{{skill.tooltips.value}}">{{numberFormat skill.score sign=true}}</span>
                     <span class="passive" data-tooltip="Passive: {{skill.tooltips.passive}}">{{skill.passive}}</span>
                 </div>
                 <div class="ranks flexrow">
-                    <a class="button icon fa-solid fa-caret-down {{#unless skill.canDecrease}}invisible{{/unless}}"
-                       data-tooltip="Decrease Skill Rank" data-action="skillDecrease"></a>
-                    <div class="pips flexrow">
-                        {{#each skill.pips}}<span class="pip {{this}}"></span>{{/each}}
-                    </div>
-                    <a class="button icon fa-solid fa-caret-up {{#unless skill.canIncrease}}invisible{{/unless}}"
-                       data-tooltip="Increase Skill Rank" data-action="skillIncrease"></a>
-                    <span class="cost" data-tooltip="Cost to Increase">
-                        {{#if skill.cost}}({{numberFormat skill.cost sign=true}}){{else}}-{{/if}}
-                    </span>
+                    {{#each skill.pips}}<span class="pip {{this}}"></span>{{/each}}
+                </div>
+                <div class="tags training">
+                    {{#each skill.rankTags as |tag|}}
+                    <span class="rank tag">{{tag}}</span>
+                    {{/each}}
                 </div>
                 <a class="button icon fa-solid fa-cog" data-tooltip="Configure Skill" data-action="skillConfig"></a>
             </li>

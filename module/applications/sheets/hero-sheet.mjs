@@ -84,10 +84,6 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         const skillConfig = new SkillConfig({document: this.actor, skillId: target.closest(".skill").dataset.skill})
         await skillConfig.render({force: true});
         break;
-      case "skillDecrease":
-        return this.actor.purchaseSkill(target.closest(".skill").dataset.skill, -1);
-      case "skillIncrease":
-        return this.actor.purchaseSkill(target.closest(".skill").dataset.skill, 1);
       case "skillRoll":
         return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
       case "talentTree":

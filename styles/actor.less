@@ -855,18 +855,14 @@
   /* ----------------------------------------- */
 
   .tab.skills {
-
-    // Special case display for available and spent
-    .point-pools {
-      width: 160px;
-      position: absolute;
-      right: 1rem;
-      top: 0.75rem;
+    .skill {
+      display: grid;
+      grid-template-columns: auto 100px 60px 70px 64px 1fr auto; // .icon .title .abilities .bonus .ranks .training .control
+      gap: 1rem;
     }
 
     // Score and passive bonus
     .bonus {
-      flex: 0 0 70px;
       justify-content: center;
       span.value {
         display: flex;
@@ -884,16 +880,13 @@
       }
     }
 
+    .tags.abilities {
+      justify-content: center;
+    }
+
     // Skill ranks
     .ranks {
-      flex: 0 0 170px;
-      justify-content: center;
-      gap: 4px;
-    }
-    .pips {
-      flex: 0 0 80px;
       justify-content: space-between;
-      gap: 4px 0;
       .pip {
         flex: 0 0 14px;
         height: 14px;
@@ -910,12 +903,9 @@
         border-radius: 4px;
       }
     }
-    .cost {
-      flex: none;
-      text-align: center;
-      font-size: var(--font-size-10);
-      font-family: var(--font-sans);
-      color: var(--color-secondary);
+
+    .tags.training {
+      justify-content: flex-start;
     }
   }
 }

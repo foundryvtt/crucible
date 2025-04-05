@@ -1517,14 +1517,12 @@
   flex: none;
   width: 200px;
 }
-.crucible.sheet.actor .tab.skills .point-pools {
-  width: 160px;
-  position: absolute;
-  right: 1rem;
-  top: 0.75rem;
+.crucible.sheet.actor .tab.skills .skill {
+  display: grid;
+  grid-template-columns: auto 100px 60px 70px 64px 1fr auto;
+  gap: 1rem;
 }
 .crucible.sheet.actor .tab.skills .bonus {
-  flex: 0 0 70px;
   justify-content: center;
 }
 .crucible.sheet.actor .tab.skills .bonus span.value {
@@ -1541,23 +1539,19 @@
   font-family: var(--font-sans);
   color: var(--color-secondary);
 }
-.crucible.sheet.actor .tab.skills .ranks {
-  flex: 0 0 170px;
+.crucible.sheet.actor .tab.skills .tags.abilities {
   justify-content: center;
-  gap: 4px;
 }
-.crucible.sheet.actor .tab.skills .pips {
-  flex: 0 0 80px;
+.crucible.sheet.actor .tab.skills .ranks {
   justify-content: space-between;
-  gap: 4px 0;
 }
-.crucible.sheet.actor .tab.skills .pips .pip {
+.crucible.sheet.actor .tab.skills .ranks .pip {
   flex: 0 0 14px;
   height: 14px;
   border: 1px solid var(--color-frame);
   border-radius: 7px;
 }
-.crucible.sheet.actor .tab.skills .pips .trained::before {
+.crucible.sheet.actor .tab.skills .ranks .trained::before {
   display: block;
   content: "";
   width: 8px;
@@ -1566,12 +1560,8 @@
   background: var(--skill-color);
   border-radius: 4px;
 }
-.crucible.sheet.actor .tab.skills .cost {
-  flex: none;
-  text-align: center;
-  font-size: var(--font-size-10);
-  font-family: var(--font-sans);
-  color: var(--color-secondary);
+.crucible.sheet.actor .tab.skills .tags.training {
+  justify-content: flex-start;
 }
 /* ----------------------------------------- */
 /*  Group Sheet                              */

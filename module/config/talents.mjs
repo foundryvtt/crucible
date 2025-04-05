@@ -66,13 +66,42 @@ export const TRAINING_TYPES = Object.freeze({
   }, {})
 });
 
+
+/**
+ * @typedef CrucibleTrainingRank
+ * @property {number} rank
+ * @property {string} label
+ * @property {number} bonus
+ */
+
 /**
  * The possible training ranks.
- * @type {Readonly<Record<1|2|3|4, {label: string}>>}
+ * @type {Readonly<Record<string, CrucibleTrainingRank>>}
  */
 export const TRAINING_RANKS = Object.freeze({
-  1: {label: "TALENT.RANKS.NOVICE"},
-  2: {label: "TALENT.RANKS.JOURNEYMAN"},
-  3: {label: "TALENT.RANKS.ADEPT"},
-  4: {label: "TALENT.RANKS.MASTER"},
+  untrained: {
+    rank: 0,
+    label: "TALENT.RANKS.UNTRAINED",
+    bonus: -4
+  },
+  trained: {
+    rank: 1,
+    label: "TALENT.RANKS.TRAINED",
+    bonus: 0
+  },
+  proficient: {
+    rank: 2,
+    label: "TALENT.RANKS.PROFICIENT",
+    bonus: 1,
+  },
+  expert: {
+    rank: 3,
+    label: "TALENT.RANKS.EXPERT",
+    bonus: 2
+  },
+  master: {
+    rank: 4,
+    label: "TALENT.RANKS.MASTER",
+    bonus: 3
+  }
 });

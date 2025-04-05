@@ -18,6 +18,6 @@
         <legend>{{fields.training.label}}</legend>
         <p class="hint">{{fields.training.hint}}</p>
         {{formGroup fields.training.fields.type value=source.system.training.type blank=""}}
-        {{formGroup fields.training.fields.rank value=source.system.training.rank blank=""}}
+        {{formGroup fields.training.fields.rank value=source.system.training.rank options=trainingRanks blank=""}}
     </fieldset>
 </section>

@@ -1249,48 +1249,6 @@ export default class CrucibleActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Purchase a skill rank increase or decrease for the Actor
-   * @param {string} skillId      The skill id to increase
-   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
-   * @return {Promise}
-   */
-  async purchaseSkill(skillId, delta=1) {
-    return; // TODO remove skill purchasing
-    delta = Math.sign(delta);
-    const skill = this.system.skills[skillId];
-    if ( !skill ) return;
-
-    // Assert that the skill can be purchased
-    try {
-      this.canPurchaseSkill(skillId, delta, true);
-    } catch (err) {
-      return ui.notifications.warn(err);
-    }
-
-    // Adjust rank
-    const rank = skill.rank + delta;
-    const update = {[`system.skills.${skillId}.rank`]: rank};
-    if ( rank === 3 ) update[`system.skills.${skillId}.path`] = null;
-    return this.update(update);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Test whether this Actor can modify a Skill rank in a certain direction.
-   * @param {string} skillId      A skill in SKILLS
-   * @param {number} delta        A number in [-1, 1] for the direction of the purchase
-   * @param {boolean} strict      In strict mode an error message is thrown if the skill cannot be changed
-   * @returns {boolean}           In non-strict mode, a boolean for whether the rank can be purchased
-   * @throws                      In strict mode, an error if the skill cannot be purchased
-   */
-  canPurchaseSkill(skillId, delta=1, strict=false) {
-    return false; // TODO remove skill purchasing
-  }
-
-  /* -------------------------------------------- */
-
 
   /**
    * Apply actor detail data.
