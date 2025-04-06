@@ -1099,11 +1099,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Prepare action data
     const actionData = {
       actor: this.actor.uuid,
-      action: this.id,
+      action: this.toObject(),
       confirmed,
       outcomes: [],
     };
+
+    // Record template reference
     if ( this.template ) actionData.template = this.template.uuid;
+
+    // Record outcomes
     const rolls = [];
     const hasMultipleTargets = Array.from(this.outcomes.values()).filter(o => o.rolls.length).length > 1;
     for ( const outcome of this.outcomes.values() ) {
@@ -1163,19 +1167,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Reconstitute an Action from a ChatMessage which contains it.
    * @param {ChatMessage} message     The ChatMessage instance containing a used Action
-   * @returns {CrucibleAction}        The reconstituted Action instance
+   * @returns {CrucibleAction|null}   The reconstituted Action instance
    */
   static fromChatMessage(message) {
-    const {action: actionId, template: templateId, outcomes} = message.flags.crucible || {};
-    if ( !actionId ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
-
-    // Get the Actor and Action
+    const {action: actionData, template: templateId, outcomes} = message.flags.crucible || {};
+    if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
     const actor = ChatMessage.getSpeakerActor(message.speaker);
+
+    // Rebuild action from explicit data
     let action;
+    const actionId = actionData.id;
     if ( actionId.startsWith("spell.") ) {
       action = game.system.api.models.CrucibleSpellAction.fromId(actionId, {actor});
     }
-    else action = actor.actions[actionId]?.clone() || null;
+    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone();
+    else action = new this(actionData, {actor});
 
     // Load a MeasuredTemplate associated with this action
     if ( templateId ) action.template = fromUuidSync(templateId);

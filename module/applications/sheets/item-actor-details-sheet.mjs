@@ -63,16 +63,20 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    */
   async _prepareTalents() {
     const uuids = this.document.system.talents;
-    const talents = await Promise.all(uuids.map(fromUuid));
-    return talents.map(talent => {
-      return {
-        uuid: talent.uuid,
-        name: talent.name,
-        img: talent.img,
-        description: talent.system.description,
-        tags: talent.getTags()
-      }
-    });
+    const promises = [];
+    for ( const uuid of uuids ) {
+      promises.push(fromUuid(uuid).then(talent => {
+        if ( !talent ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
+        return {
+          uuid,
+          name: talent.name,
+          img: talent.img,
+          description: talent.system.description,
+          tags: talent.getTags()
+        }
+      }));
+    }
+    return Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -116,7 +120,6 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talent = event.target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
-    if ( !talents.has(uuid) ) return;
     talents.delete(uuid);
     await this.document.update({"system.talents": [...talents]});
   }

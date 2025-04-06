@@ -1395,23 +1395,12 @@ export default class CrucibleActor extends Actor {
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
   async equipWeapon(itemId, {slot, equipped=true}={}) {
-
-    // Identify changes
     const weapon = this.items.get(itemId, {strict: true});
-    const {actionCost, actorUpdates, itemUpdates} = equipped
-      ? this.#equipWeapon(weapon, slot)
-      : this.#unequipWeapon(weapon);
-
-    // Enforce action cost of equipping for Actors that are in combat
-    if ( this.combatant ) {
-      if ( this.system.resources.action.value < actionCost ) {
-        throw new Error(game.i18n.localize("WARNING.CannotEquipActionCost"));
-      }
-      await this.alterResources({action: -actionCost}, actorUpdates);
-    }
-
-    // Update item equipped state
-    await this.updateEmbeddedDocuments("Item", itemUpdates);
+    const action = equipped ? this.#equipWeapon(weapon, slot) : this.#unequipWeapon(weapon);
+    // If in combat, use the action
+    if ( this.inCombat ) await action.use();
+    // Otherwise make the updates directly
+    else await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
   }
 
   /* -------------------------------------------- */
@@ -1419,15 +1408,21 @@ export default class CrucibleActor extends Actor {
   /**
    * Identify updates which should be made when un-equipping a weapon.
    * @param {CrucibleItem} [weapon]     A weapon being unequipped
-   * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
+   * @returns {CrucibleAction|null}
    */
   #unequipWeapon(weapon) {
-    const itemUpdates = [];
-    const actorUpdates = {};
-    const actionCost = 0;
-    if ( weapon.system.equipped ) itemUpdates.push({_id: weapon.id, "system.equipped": false});
-    if ( itemUpdates.length ) foundry.utils.setProperty(actorUpdates, "system.status.unequippedWeapon", true);
-    return {itemUpdates, actionCost, actorUpdates};
+    if ( !weapon.system.equipped ) return null;
+    const action = new CrucibleAction({
+      id: "equipWeapon",
+      name: "Unequip Weapon",
+      img: weapon.img,
+      cost: {action: 0},
+      description: `Unequip the ${weapon.name}.`,
+      target: {type: "self", scope: 1}
+    }, {actor: this});
+    Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
+    Object.assign(action.usage.actorUpdates, {items: [{_id: weapon.id, "system.equipped": false}]});
+    return action;
   }
 
   /* -------------------------------------------- */
@@ -1436,7 +1431,7 @@ export default class CrucibleActor extends Actor {
    * Identify updates which should be made when equipping a weapon.
    * @param {CrucibleItem} weapon     A weapon being equipped
    * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
-   * @returns {{itemUpdates: object[], actionCost: number, actorUpdates: {}}}
+   * @returns {CrucibleAction|null}
    */
   #equipWeapon(weapon, slot) {
     const category = weapon.config.category;
@@ -1471,17 +1466,21 @@ export default class CrucibleActor extends Actor {
       type: game.i18n.localize(slots.label(slot))
     }));
 
-    // Mark the item update
-    const itemUpdates = [{_id: weapon.id, "system.equipped": true, "system.slot": slot}];
-    const actorUpdates = {};
+    // Create the action
+    const action = new CrucibleAction({
+      id: "equipWeapon",
+      name: "Equip Weapon",
+      img: weapon.img,
+      cost: {action: weapon.system.properties.has("ambush") ? 0 : 1},
+      description: `Equip the ${weapon.name}.`,
+      target: {type: "self", scope: 1}
+    }, {actor: this});
 
-    // Determine action cost
-    let actionCost = weapon.system.properties.has("ambush") ? 0 : 1;
-    if ( actionCost && this.talentIds.has("preparedness0000") && !this.system.status.hasMoved ) {
-      actionCost = 0;
-      foundry.utils.setProperty(actorUpdates, "system.status.hasMoved", true);
-    }
-    return {itemUpdates, actorUpdates, actionCost};
+    // Equip the weapon as a follow-up actor update
+    action.usage.actorUpdates ||= {};
+    action.usage.actorUpdates.items ||= [];
+    action.usage.actorUpdates.items.push({_id: weapon.id, "system.equipped": true, "system.slot": slot});
+    return action;
   }
 
   /* -------------------------------------------- */

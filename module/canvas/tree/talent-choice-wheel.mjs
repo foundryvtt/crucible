@@ -136,14 +136,16 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    */
   #getNodeTalents() {
     const actor = game.system.tree.actor;
-    const nodeTalents = this.node.node.talents;
-    const ownedTalents = actor.system.talentNodes[this.node.node.id].map(id => actor.items.get(id));
     const allTalents = [];
     const seen = new Set();
+
+    const nodeTalents = this.node.node.talents;
     for ( const t of nodeTalents ) {
       seen.add(t.id);
       allTalents.push(t);
     }
+
+    const ownedTalents = actor.system.talentNodes[this.node.node.id]?.map(id => actor.items.get(id)) || [];
     for ( const t of ownedTalents ) {
       if ( seen.has(t.id) ) continue;
       allTalents.push(t);

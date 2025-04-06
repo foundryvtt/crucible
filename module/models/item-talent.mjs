@@ -105,17 +105,14 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     if ( this.rune ) {
       const rune = SYSTEM.SPELL.RUNES[this.rune];
       rune.img = talent.img;
-      rune.description = this.description;
     }
     if ( this.gesture ) {
       const gesture = SYSTEM.SPELL.GESTURES[this.gesture];
       gesture.img = talent.img;
-      gesture.description = this.description;
     }
     if ( this.inflection ) {
       const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
       inflection.img = talent.img;
-      inflection.description = this.description;
     }
 
     // Teleport Node

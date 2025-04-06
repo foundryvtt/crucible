@@ -243,7 +243,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       this[name] ||= {};
       for ( const k in this[name] ) delete this[name][k];
     }
-    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "training", "skills", "status"];
+    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "training", "skills"];
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
@@ -256,6 +256,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.permanentTalentIds ||= new Set();
     this.permanentTalentIds.clear();
     Object.assign(this.rollBonuses, {damage: {}, boons: {}, banes: {}});
+    if ( this.status === null ) this.status = {};
   }
 
   /* -------------------------------------------- */
@@ -345,17 +346,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Compose Signature Name
     details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
-
-    // Warn if the Actor does not have a legal build
-    if ( this.type === "hero" ) {
-      const points = this.points.talent;
-      points.spent = this.talentIds.size - this.permanentTalentIds.size + this.advancement.talentNodes.size;
-      points.available = points.total - points.spent;
-      // FIXME this should not create a ui.notification directly, but should store the warning to render on the sheet
-      if ( points.available < 0) {
-        ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
-      }
-    }
   }
 
   /* -------------------------------------------- */

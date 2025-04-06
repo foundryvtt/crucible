@@ -258,9 +258,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    */
   getTags() {
     const tags = {};
-    tags.level = `Threat Level ${this.advancement.threatLevel}`;
-    tags.archetype = this.details.archetype?.name || "No Archetype";
     tags.taxonomy = this.details.taxonomy?.name || "No Taxonomy";
+    tags.archetype = this.details.archetype?.name || "No Archetype";
+    tags.level = `Threat Level ${this.advancement.threatLevel}`;
     return tags;
   }
 }

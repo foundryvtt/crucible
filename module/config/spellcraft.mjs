@@ -366,9 +366,11 @@ export const GESTURES = Object.seal({
 /**
  * The Metamagic Inflections which exist in the Crucible spellcraft system.
  * These config objects are instantiated as CrucibleSpellcraftInflection instances during system initialization.
- * @enum {object}
+ * Until that occurs, this object can be mutated by downstream modules to register additional inflection types.
+ * After initialization, this record becomes frozen and can no longer be extended.
+ * @type {Record<string, object>}
  */
-export const INFLECTIONS = Object.seal({
+export const INFLECTIONS = {
   compose: {
     id: "compose",
     name: "SPELL.INFLECTIONS.Compose",
@@ -441,7 +443,7 @@ export const INFLECTIONS = Object.seal({
       }
     }
   }
-});
+};
 
 
 export const CREATION_SUMMONS =  {
