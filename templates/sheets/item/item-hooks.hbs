@@ -1,18 +1,16 @@
 <section class="tab sheet-body flexcol {{tabs.hooks.cssClass}}" data-tab="{{tabs.hooks.id}}" data-group="{{tabs.hooks.group}}">
-
-
     {{#each actorHooks as |hook i|}}
-    <div class="hook">
-        <header class="flexrow">
-            <code>{{localize hook.label}}</code>
+    <fieldset class="hook">
+        <div class="form-group stacked">
+            <label class="flexrow"><code>{{localize hook.label}}</code></label>
             <button type="button" class="icon fa-solid fa-times frame-brown" data-action="hookDelete"
                     data-tooltip="TALENT.ACTIONS.HOOK_DELETE"></button>
             <input type="hidden" name="system.actorHooks.{{i}}.hook" value="{{hook.hook}}">
-        </header>
-        <code-mirror class="hook-editor" name="system.actorHooks.{{i}}.fn" language="javascript">
-            {{~hook.fn~}}
-        </code-mirror>
-    </div>
+            <code-mirror class="hook-editor" name="system.actorHooks.{{i}}.fn" language="javascript">
+                {{~hook.fn~}}
+            </code-mirror>
+        </div>
+    </fieldset>
     {{/each}}
 
     <fieldset>

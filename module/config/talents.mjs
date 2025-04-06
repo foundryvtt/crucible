@@ -26,7 +26,7 @@ export const NODE_TYPES = Object.freeze({
  */
 export const NODE_TIERS = Object.freeze({
   "root": {level: 0, ability: 0},
-  0: {level: 0, ability: 3},
+  0: {level: 0, ability: 2},
   1: {level: 1, ability: 4},
   2: {level: 2, ability: 4},
   3: {level: 3, ability: 5},

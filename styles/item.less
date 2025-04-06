@@ -6,6 +6,17 @@
 
 .crucible.item,
 .crucible.action {
+
+  /** Description */
+  prose-mirror.active {
+    min-height: 480px;
+  }
+
+  /** Hook Editor */
+  code-mirror.hook-editor {
+    font-size: 11px;
+  }
+
   .item-properties {
     display: grid;
     gap: 0.5rem 1rem;
@@ -27,10 +38,12 @@
   }
 
   /** Hooks */
-  .hook {
-    header {
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
+  fieldset.hook {
+    label {
+      flex: 1;
+    }
+    button {
+      flex: 0;
     }
   }
 }
@@ -124,17 +137,3 @@
   }
 }
 
-/** ----------------------------------------- *
- *  Action                                    *
- * ------------------------------------------ */
-
-.crucible.action {
-  fieldset.hook {
-    label {
-      flex: 1;
-    }
-    button {
-      flex: 0;
-    }
-  }
-}

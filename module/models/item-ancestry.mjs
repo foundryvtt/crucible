@@ -72,23 +72,25 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
    * @returns {CrucibleItem}
    */
   toTaxonomy() {
+    const {abilities, description, movement, resistances, talents} = this.toObject();
     const system = {
-      description: this.description,
-      size: this.movement.size,
-      stride: this.movement.stride,
+      description,
+      size: movement.size,
+      stride: movement.stride,
       category: "humanoid",
       abilities: Object.values(SYSTEM.ABILITIES).reduce((obj, {id}) => {
-        if ( id === this.abilities.primary ) obj[id] = 6;
-        else if ( id === this.abilities.secondary ) obj[id] = 4;
+        if ( id === abilities.primary ) obj[id] = 6;
+        else if ( id === abilities.secondary ) obj[id] = 4;
         else obj[id] = 2;
         return obj;
       }, {}),
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, {id}) => {
-        if ( id === this.resistances.resistance ) obj[id] = 2;
-        else if ( id === this.resistances.vulnerability ) obj[id] = -2;
+        if ( id === resistances.resistance ) obj[id] = 2;
+        else if ( id === resistances.vulnerability ) obj[id] = -2;
         else obj[id] = 0;
         return obj;
-      }, {})
+      }, {}),
+      talents
     };
     return this.parent.clone({type: "taxonomy", "==system": system}, {keepId: true, save: false});
   }
