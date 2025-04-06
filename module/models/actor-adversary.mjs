@@ -19,7 +19,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
     // Advancement
     schema.advancement = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 0, min: -5, max: 24, label: "ADVANCEMENT.Level"}),
+      level: new fields.NumberField({...requiredInteger, initial: 1, min: -5, max: 24, label: "ADVANCEMENT.Level"}),
       threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"})
     });
 

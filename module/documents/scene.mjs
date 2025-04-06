@@ -32,7 +32,7 @@ export default class CrucibleScene extends Scene {
     const {x: sx, y: sy, width: sw, height: sh} = sourceDimensions;
     Object.assign(dimensions, {
       rect: new PIXI.Rectangle(0, 0, sw, sh),
-      sceneRect: new PIXI.Rectangle(sx, sy, sw, sh),
+      sceneRect: new PIXI.Rectangle(sx, sy, width, height),
       sceneX: sx,
       sceneY: sy
     });
