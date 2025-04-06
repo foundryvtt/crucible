@@ -727,10 +727,6 @@
 .crucible .line-item .effects .effect {
   --icon-size: 24px;
 }
-.crucible .line-item.hook textarea {
-  font-family: monospace;
-  font-size: 12px;
-}
 /* ----------------------------------------- */
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
@@ -1663,6 +1659,7 @@
 .crucible.item,
 .crucible.action {
   /** Talent Progression Items */
+  /** Hooks */
 }
 .crucible.item .item-properties,
 .crucible.action .item-properties {
@@ -1684,6 +1681,11 @@
   border: 1px dashed var(--color-form-hint);
   border-radius: 0.5rem;
   cursor: pointer;
+}
+.crucible.item .hook header,
+.crucible.action .hook header {
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 /* ----------------------------------------- */
 /*  Armor and Weapons                        */

@@ -110,14 +110,12 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * @returns {Promise<void>}
    */
   async #drawTalents() {
-    const talents = this.node.node.talents;
-    const tier1 = new PIXI.Circle(0, 0, this.radius);
-    const a = (2 * Math.PI) / talents.size;
-
-    // Iterate over talents
+    const talents = this.#getNodeTalents();
+    const shape = new PIXI.Circle(0, 0, this.radius);
+    const a = (2 * Math.PI) / talents.length;
     let i = 0;
     for ( const talent of talents ) {
-      const position = tier1.pointAtAngle((i * a) - (Math.PI / 2) + (a/2));
+      const position = shape.pointAtAngle((i * a) - (Math.PI / 2) + (a/2));
       const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
         borderColor: this.node.node.color,
         texture: await foundry.canvas.loadTexture(talent.img)
@@ -128,6 +126,29 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       // Draw connecting line
       this.edges.moveTo(0, 0).lineTo(icon.x, icon.y);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get all the unique Talents which appear on this Node.
+   * @returns {CrucibleItem[]}
+   */
+  #getNodeTalents() {
+    const actor = game.system.tree.actor;
+    const nodeTalents = this.node.node.talents;
+    const ownedTalents = actor.system.talentNodes[this.node.node.id].map(id => actor.items.get(id));
+    const allTalents = [];
+    const seen = new Set();
+    for ( const t of nodeTalents ) {
+      seen.add(t.id);
+      allTalents.push(t);
+    }
+    for ( const t of ownedTalents ) {
+      if ( seen.has(t.id) ) continue;
+      allTalents.push(t);
+    }
+    return allTalents;
   }
 
   /* -------------------------------------------- */

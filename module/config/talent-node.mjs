@@ -278,17 +278,8 @@ export default class CrucibleTalentNode {
    * @returns {boolean}
    */
   isPurchased(actor) {
-
-    // Purchased as an empty node
-    if ( !this.talents.size ) {
-      return actor.system.advancement.talentNodes.has(this.id);
-    }
-
-    // Purchased via talents
-    for ( const t of this.talents ) {
-      if ( actor.talentIds.has(t.id) ) return true;
-    }
-    return false;
+    if ( actor.system.talentNodes[this.id]?.size ) return true; // Purchased via an owned talent
+    return actor.system.advancement.talentNodes.has(this.id);   // Purchased as an empty node
   }
 
   /* -------------------------------------------- */

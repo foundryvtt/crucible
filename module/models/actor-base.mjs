@@ -165,6 +165,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   talentIds = this["talentIds"];
 
   /**
+   * The Talents owned by this Actor, organized according to node of the talent tree.
+   * @type {Record<string, Set<string>>}
+   */
+  talentNodes = this["talentNodes"];
+
+  /**
    * Prepared training data for the Actor.
    * @type {Record<keyof TRAINING_TYPES, 0|1|2|3>}
    */
@@ -237,7 +243,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       this[name] ||= {};
       for ( const k in this[name] ) delete this[name][k];
     }
-    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "training", "skills", "status"];
+    const objects = ["actions", "actorHooks", "equipment", "rollBonuses", "talentNodes", "training", "skills", "status"];
     for ( const name of objects ) createOrEmpty(name);
     this.talentIds ||= new Set();
     this.talentIds.clear();
@@ -314,8 +320,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       // Register hooks
       for ( const hook of actorHooks ) this._registerActorHook(t, hook);
 
-      // Register signatures
-      if ( node?.type === "signature" ) signatureNames.push(t.name);
+      // Register nodes
+      if ( node ) {
+        this.talentNodes[node.id] ||= new Set();
+        this.talentNodes[node.id].add(t.id);
+        if ( node.type === "signature" ) signatureNames.push(t.name);
+      }
 
       // Register training ranks
       if ( training.type ) {

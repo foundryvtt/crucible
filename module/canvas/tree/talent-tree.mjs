@@ -476,13 +476,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
         // Traverse Outwards
         if ( (node.id === "origin") || s.purchased ) {
           next.push(...node.connected);
-
-          // Signature Teleport Nodes
-          if ( node.type === "signature" ) {
-            for ( const t of node.talents ) {
-              // next.push(t.system.teleportNode);
-            }
-          }
         }
       }
 
