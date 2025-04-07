@@ -111,6 +111,7 @@ export const TARGET_TYPES = Object.freeze({
  * @typedef ActionTag
  * @property {string} tag
  * @property {string} label
+ * @property {string[]} propagate     Propagate this tag to also apply other tags
  * @property {Function} [prepare]
  * @property {Function} [can]
  * @property {Function} [pre]
@@ -462,6 +463,7 @@ export const TAGS = {
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
     category: "attack",
+    propagate: ["attack"],
     prepare() {
       Object.assign(this.usage.context, {
         type: "spell",
@@ -579,6 +581,7 @@ export const TAGS = {
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
     category: "attack",
+    propagate: ["attack"],
     ...weaponAttack("mainhand")
   },
 
@@ -587,6 +590,7 @@ export const TAGS = {
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
     category: "attack",
+    propagate: ["attack"],
     ...weaponAttack("twoHanded")
   },
 
@@ -595,6 +599,7 @@ export const TAGS = {
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
     category: "attack",
+    propagate: ["attack"],
     ...weaponAttack("offhand")
   },
 
@@ -803,11 +808,20 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
 /*  Skill Attacks                               */
 /* -------------------------------------------- */
 
+// All Skill Attacks
+TAGS.skill = {
+  tag: "skill",
+  label: "Skill",
+  category: "skills"
+};
+
+// Specific Skills
 for ( const {id, name} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
     label: name,
     category: "skills",
+    propagate: ["skill", "attack"],
     prepare() {
       this.usage.skillId = id;
       const skill = this.actor.skills[id];

@@ -303,6 +303,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
 
+    // Propagate tags
+    for ( const t of this.tags ) {
+      const tag = SYSTEM.ACTION.TAGS[t];
+      if ( !tag ) {
+        console.warn(`Unrecognized tag "${t}" in Action "${this.id}"`);
+        continue;
+      }
+      if ( tag.propagate ) {
+        for ( const p of tag.propagate ) this.tags.add(p);
+      }
+    }
+
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
 
@@ -1006,6 +1018,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         await test.roll.call(this, target, rolls);
       }
     }
+    this.actor.callActorHooks("rollAction", this, target, rolls);
   }
 
   /* -------------------------------------------- */

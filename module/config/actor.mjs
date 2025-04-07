@@ -45,6 +45,14 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "targets"]
   },
+  rollAction: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "target", "rolls"]
+  },
+  confirmActionOutcome: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "outcome", "options"]
+  },
   prepareStandardCheck: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["rollData"]
@@ -69,9 +77,18 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
-  applyActionOutcome: {
+
+  prepareSkillCheck: {
     group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "outcome", "options"]
+    argNames: ["skill", "rollData"]
+  },
+  prepareSkillAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action", "target", "rollData"]
+  },
+  prepareSpellAttack: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["spell", "target", "rollData"]
   },
 
   // Data Preparation
@@ -98,18 +115,6 @@ export const HOOKS = Object.freeze({
   prepareResistances: {
     group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["resistances"]
-  },
-  prepareSkillCheck: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["skill", "rollData"]
-  },
-  prepareSkillAttack: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["action", "target", "rollData"]
-  },
-  prepareSpellAttack: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["spell", "target", "rollData"]
   },
   prepareTraining: {
     group: "TALENT.HOOKS.GROUP_PREPARATION",
