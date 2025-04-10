@@ -137,6 +137,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  _getAnimationMovementSpeed(_options) {
+    if ( this.actor ) return this.actor.system.movement.stride * 2;
+    return CONFIG.Token.movement.defaultSpeed;
+  }
+
+  /* -------------------------------------------- */
   /*  Engagement and Flanking                     */
   /* -------------------------------------------- */
 
@@ -354,13 +362,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
     if ( !canvas.scene.useMicrogrid ) return;
-
-    // Token movement speed
-    const positionChange = ("x" in data) || ("y" in data);
-    if ( positionChange && this.actor ) {
-      options.animation ||= {};
-      options.animation.movementSpeed = (this.actor.system.movement.stride * 2);
-    }
 
     // Flanking Updates
     const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
