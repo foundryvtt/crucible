@@ -89,43 +89,12 @@
     height: 100%;
     max-height: 600px;
     min-height: 200px;
-
-    // Toggled editors
-    &[toggled] {
-      position: relative;
-      padding: var(--margin-size);
-      margin: calc(-1 * var(--margin-size)); // Allow for limited overflow
-      button.toggle {
-        position: absolute;
-        top: 12px;
-        right: 4px;
-        width: 24px;
-        height: 24px;
-        padding: 0;
-        &:disabled {
-          visibility: hidden;
-        }
-      }
-    }
-
-    // Menu buttons
-    button {
+    font-size: var(--font-size-14);
+    menu button { // FIXME still a bit messy
       padding: revert;
       text-align: revert;
       opacity: revert;
     }
-
-    // Contents
-    .editor-container {
-      margin: 0;
-    }
-  }
-
-  prose-mirror .editor-content,
-  article.editor-content {
-    flex: 1;
-    overflow: hidden auto;
-    font-size: var(--font-size-14);
   }
 }
 

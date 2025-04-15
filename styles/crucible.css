@@ -531,36 +531,12 @@
   height: 100%;
   max-height: 600px;
   min-height: 200px;
+  font-size: var(--font-size-14);
 }
-.crucible.application prose-mirror[toggled] {
-  position: relative;
-  padding: var(--margin-size);
-  margin: calc(-1 * var(--margin-size));
-}
-.crucible.application prose-mirror[toggled] button.toggle {
-  position: absolute;
-  top: 12px;
-  right: 4px;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-}
-.crucible.application prose-mirror[toggled] button.toggle:disabled {
-  visibility: hidden;
-}
-.crucible.application prose-mirror button {
+.crucible.application prose-mirror menu button {
   padding: revert;
   text-align: revert;
   opacity: revert;
-}
-.crucible.application prose-mirror .editor-container {
-  margin: 0;
-}
-.crucible.application prose-mirror .editor-content,
-.crucible.application article.editor-content {
-  flex: 1;
-  overflow: hidden auto;
-  font-size: var(--font-size-14);
 }
 /* ----------------------------------------- */
 /*  DocumentSheet V2 Styles                  */
@@ -1444,11 +1420,12 @@
 }
 .crucible.sheet.actor .tab.biography .sheet-section {
   flex: 2;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .crucible.sheet.actor .tab.biography .sheet-section.appearance {
   align-items: flex-start;
   flex: 1;
+  gap: 1rem;
 }
 .crucible.sheet.actor .tab.biography .sheet-section.appearance fieldset {
   flex: 0 0 150px;
@@ -1459,7 +1436,6 @@
   padding: 0 1rem;
 }
 .crucible.sheet.actor .tab.biography prose-mirror {
-  flex: 1;
   width: 100%;
   min-height: unset;
 }
