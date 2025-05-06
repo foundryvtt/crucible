@@ -30,7 +30,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       label: "Ancestry",
       order: 1,
       numeral: "I",
-      template: "systems/crucible/templates/sheets/creation/ancestry.hbs"
+      template: "systems/crucible/templates/sheets/creation/ancestry.hbs",
+      prepare: this._prepareAncestries
     },
     background: {
       id: "background",
@@ -105,6 +106,26 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       tabs.push({id: s.id, label: s.label});
     }
     return {tabs, initial: tabs[0].id};
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  static async _prepareAncestries() {
+    const pack = game.packs.get("crucible.ancestry");
+    await pack.getDocuments();
+    const ancestries = [];
+    for ( const item of pack.documents ) {
+      if ( item.type !== "ancestry" ) continue;
+      ancestries.push({
+        item,
+        name: item.name,
+        img: item.img,
+        color: item.system.color
+      })
+    }
+    return ancestries;
   }
 
   /* -------------------------------------------- */

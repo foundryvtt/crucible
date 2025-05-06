@@ -305,6 +305,16 @@
     "talents": {
       "label": "Talent Progression",
       "hint": "Configure one or more Talents that this Ancestry receives automatically."
+    },
+    "ui": {
+      "color": {
+        "label": "Ancestry Color",
+        "hint": "A representative color for this Ancestry used when referring to them in the user interface."
+      },
+      "icon": {
+        "label": "Ancestry Icon",
+        "hint": "A small icon used to represent this ancestry in the user interface."
+      }
     }
   },
   "SHEET": {

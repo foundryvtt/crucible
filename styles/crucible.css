@@ -1811,10 +1811,24 @@
 /* ----------------------------------------- */
 .crucible.item,
 .crucible.action {
+  /** Scrollable Tabs */
+  /** Form Groups */
   /** Description */
   /** Hook Editor */
   /** Talent Progression Items */
   /** Hooks */
+}
+.crucible.item .sheet-body.scrollable,
+.crucible.action .sheet-body.scrollable {
+  flex: 1;
+  height: 0;
+  margin-right: 0.25rem;
+  padding-right: 0.25rem;
+  scrollbar-gutter: stable;
+}
+.crucible.item .form-group label,
+.crucible.action .form-group label {
+  flex: 2;
 }
 .crucible.item prose-mirror.active,
 .crucible.action prose-mirror.active {

@@ -28,7 +28,11 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         resistance: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES}),
         vulnerability: new fields.StringField({...reqChoice, choices: SYSTEM.DAMAGE_TYPES})
       }, {validate: CrucibleAncestryItem.#validateResistances}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      ui: new fields.SchemaField({
+        color: new fields.ColorField(),
+        icon: new fields.FilePathField({categories: ["IMAGE"]})
+      })
     };
   }
 

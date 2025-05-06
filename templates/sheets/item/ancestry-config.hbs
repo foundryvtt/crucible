@@ -1,6 +1,5 @@
-<section class="tab sheet-body flexcol {{tabs.config.cssClass}}"
+<section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
-
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.movement.label}}</legend>
         {{formField fields.movement.fields.size value=system.movement.size classes="slim"}}
@@ -9,14 +8,20 @@
 
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.abilities.label}}</legend>
-        {{formField fields.abilities.fields.primary value=system.abilities.primary classes="slim"}}
-        {{formField fields.abilities.fields.secondary value=system.abilities.secondary classes="slim"}}
+        {{formField fields.abilities.fields.primary value=system.abilities.primary}}
+        {{formField fields.abilities.fields.secondary value=system.abilities.secondary}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.resistances.label}}</legend>
         <p class="hint">{{localize fields.resistances.hint}}</p>
-        {{formField fields.resistances.fields.resistance value=system.resistances.resistance classes="slim"}}
-        {{formField fields.resistances.fields.vulnerability value=system.resistances.vulnerability classes="slim"}}
+        {{formField fields.resistances.fields.resistance value=system.resistances.resistance}}
+        {{formField fields.resistances.fields.vulnerability value=system.resistances.vulnerability}}
+    </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{fields.ui.label}}</legend>
+        {{formField fields.ui.fields.color value=system.ui.color}}
+        {{formField fields.ui.fields.icon value=system.ui.icon}}
     </fieldset>
 </section>
