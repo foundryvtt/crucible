@@ -105,7 +105,11 @@
       text-align: center;
       pointer-events: all;
       cursor: var(--cursor-pointer);
+      > * {
+        pointer-events: none;
+      }
       .step-title {
+        color: var(--color-text-secondary);
         white-space: nowrap;
       }
       .step-number {
@@ -118,8 +122,6 @@
         flex: 1;
         width: 104px;
         align-items: center;
-        pointer-events: all;
-        cursor: pointer;
         .step-icon {
           margin: 8px 0;
         }
@@ -127,6 +129,10 @@
           font-size: 12px;
           line-height: 1em;
         }
+      }
+      &.active .step-title {
+        color: var(--color-text-emphatic);
+        text-shadow: 0 0 6px var(--color-text-accent);
       }
     }
   }

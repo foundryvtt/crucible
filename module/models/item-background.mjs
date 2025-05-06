@@ -14,7 +14,11 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
       description: new fields.HTMLField({required: true, blank: true}),
       skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS}), {
         validate: CrucibleBackgroundItem.#validateSkills}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      ui: new fields.SchemaField({
+        color: new fields.ColorField(),
+        icon: new fields.FilePathField({categories: ["IMAGE"]})
+      })
     };
   }
 

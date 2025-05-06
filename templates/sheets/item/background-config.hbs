@@ -5,4 +5,10 @@
         {{formInput fields.skills value=source.system.skills input=skillsInput}}
         <p class="hint">{{fields.skills.hint}}</p>
     </fieldset>
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{fields.ui.label}}</legend>
+        {{formField fields.ui.fields.color value=system.ui.color}}
+        {{formField fields.ui.fields.icon value=system.ui.icon}}
+    </fieldset>
 </section>

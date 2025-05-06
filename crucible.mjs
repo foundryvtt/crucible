@@ -56,6 +56,12 @@ Hooks.once("init", async function() {
     }
   }
 
+  // System Configuration
+  game.system.CONFIG = {
+    ancestryPacks: new Set(["crucible.ancestry"]),
+    backgroundPacks: new Set(["crucible.background"])
+  };
+
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
   CONFIG.Actor.dataModels = {

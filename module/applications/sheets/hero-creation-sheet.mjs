@@ -31,7 +31,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       order: 1,
       numeral: "I",
       template: "systems/crucible/templates/sheets/creation/ancestry.hbs",
-      prepare: this._prepareAncestries
+      prepare: CrucibleHeroCreationSheet.#prepareAncestries
     },
     background: {
       id: "background",
@@ -112,20 +112,55 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
-  static async _prepareAncestries() {
-    const pack = game.packs.get("crucible.ancestry");
-    await pack.getDocuments();
-    const ancestries = [];
-    for ( const item of pack.documents ) {
-      if ( item.type !== "ancestry" ) continue;
-      ancestries.push({
-        item,
-        name: item.name,
-        img: item.img,
-        color: item.system.color
-      })
-    }
-    return ancestries;
+  /**
+   * Prepare data for each of the available Ancestry items which may be chosen.
+   * @this CrucibleHeroCreationSheet
+   * @param {object} context
+   * @param {object} options
+   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   */
+  static async #prepareAncestries(context, options) {
+    context.ancestries = await CrucibleHeroCreationSheet.#prepareItems("ancestry", crucible.CONFIG.ancestryPacks);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for each of the available Background items which may be chosen.
+   * @this CrucibleHeroCreationSheet
+   * @param {object} context
+   * @param {object} options
+   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   */
+  static async #prepareBackgrounds(context, options) {
+    context.backgrounds = await CrucibleHeroCreationSheet.#prepareItems("background", crucible.CONFIG.backgroundPacks);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for each of the available Background items which may be chosen.
+   * @this CrucibleHeroCreationSheet
+   * @param {string} itemType
+   * @param {Set<string>} packs
+   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   */
+  static async #prepareItems(itemType, packs) {
+    const options = [];
+    await Promise.allSettled(Array.from(packs).map(async packId => {
+      const pack = game.packs.get(packId);
+      if ( !pack ) {
+        console.warn(`crucible.CONFIG.ancestryPacks entry "${packId}" does not exist as a valid compendium ID`);
+        return;
+      }
+      const items = await pack.getDocuments({type: itemType});
+      for ( const item of items ) {
+        const {color, icon} = item.system.ui;
+        options.push({item, name: item.name, color, icon});
+      }
+    }));
+    options.sort((a, b) => a.name.localeCompare(b.name));
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -160,6 +195,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       activeStep: this.step,
       tabs: this._prepareHeaderTabs()
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _preparePartContext(partId, context, options) {
+    await super._preparePartContext(partId, context, options);
+    const step = this.constructor.STEPS[partId];
+    if ( step?.prepare instanceof Function ) await step.prepare.call(this, context, options);
+    return context;
   }
 
   /* -------------------------------------------- */

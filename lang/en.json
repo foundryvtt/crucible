@@ -307,13 +307,14 @@
       "hint": "Configure one or more Talents that this Ancestry receives automatically."
     },
     "ui": {
+      "label": "User Interface",
       "color": {
         "label": "Ancestry Color",
         "hint": "A representative color for this Ancestry used when referring to them in the user interface."
       },
       "icon": {
         "label": "Ancestry Icon",
-        "hint": "A small icon used to represent this ancestry in the user interface."
+        "hint": "A small icon used to represent this Ancestry in the user interface."
       }
     }
   },
@@ -516,6 +517,17 @@
     "talents": {
       "label": "Acquired Talents",
       "hint": "Configure one or more talents which this Background receives automatically."
+    },
+    "ui": {
+      "label": "User Interface",
+      "color": {
+        "label": "Background Color",
+        "hint": "A representative color for this Background used when referring to them in the user interface."
+      },
+      "icon": {
+        "label": "Background Icon",
+        "hint": "A small icon used to represent this Background in the user interface."
+      }
     }
   },
   "SHEET": {

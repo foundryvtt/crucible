@@ -1729,7 +1729,11 @@
   pointer-events: all;
   cursor: var(--cursor-pointer);
 }
+.crucible-fullscreen #hero-creation-nav li.step > * {
+  pointer-events: none;
+}
 .crucible-fullscreen #hero-creation-nav li.step .step-title {
+  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 .crucible-fullscreen #hero-creation-nav li.step .step-number {
@@ -1742,8 +1746,6 @@
   flex: 1;
   width: 104px;
   align-items: center;
-  pointer-events: all;
-  cursor: pointer;
 }
 .crucible-fullscreen #hero-creation-nav li.step .step-banner .step-icon {
   margin: 8px 0;
@@ -1751,6 +1753,10 @@
 .crucible-fullscreen #hero-creation-nav li.step .step-banner .step-selection {
   font-size: 12px;
   line-height: 1em;
+}
+.crucible-fullscreen #hero-creation-nav li.step.active .step-title {
+  color: var(--color-text-emphatic);
+  text-shadow: 0 0 6px var(--color-text-accent);
 }
 .crucible-fullscreen #hero-creation-name {
   flex: 0 0 60px;
