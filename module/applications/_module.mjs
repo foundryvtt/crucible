@@ -6,6 +6,7 @@ export {default as CrucibleBaseActorSheet} from "./sheets/base-actor-sheet.mjs";
 export {default as CrucibleGroupActorSheet} from "./sheets/actor-group-sheet.mjs";
 export {default as AdversarySheet} from "./sheets/adversary-sheet.mjs";
 export {default as HeroSheet} from "./sheets/hero-sheet.mjs";
+export {default as CrucibleHeroCreationSheet} from "./sheets/hero-creation-sheet.mjs";
 
 // Item Sheets
 export {default as CrucibleBaseItemSheet} from "./sheets/item-base-sheet.mjs";

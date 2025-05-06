@@ -1632,6 +1632,180 @@
   font-size: var(--font-size-13);
   font-family: var(--font-serif);
 }
+.crucible-fullscreen {
+  --max-width: 1600px;
+  --ui-scale: 1;
+  --gap-y: 32px;
+  position: fixed;
+  width: calc((100vw / var(--ui-scale)) + 1px);
+  height: calc((100vh / var(--ui-scale)) + 1px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: url("../ui/tree/creation-background.webp") no-repeat center;
+  background-size: cover;
+  color: var(--color-light-2);
+  z-index: var(--z-index-app);
+  transform-origin: top left;
+  transform: scale(var(--ui-scale));
+  /* -------------------------------------------- */
+  /*  Header                                      */
+  /* -------------------------------------------- */
+}
+.crucible-fullscreen::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, transparent 75%, rgba(178, 50, 53, 0.15) 100%);
+  z-index: -1000;
+}
+.crucible-fullscreen::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 10%;
+  opacity: 0.06;
+  z-index: -999;
+}
+.crucible-fullscreen .fullscreen-buttons {
+  position: absolute;
+  top: var(--gap-y);
+  right: 0;
+  align-items: flex-end;
+  font-size: var(--font-size-20);
+  pointer-events: all;
+  z-index: 1;
+  gap: 20px;
+}
+.crucible-fullscreen .fullscreen-buttons button {
+  --button-text-color: var(--color-light-3);
+  --button-focus-outline-color: transparent;
+  --button-hover-background-color: transparent;
+  --button-hover-border-color: transparent;
+  flex: none;
+  width: auto;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.crucible-fullscreen .fullscreen-buttons button > i {
+  font-size: 200%;
+  margin-right: 0.25rem;
+}
+.crucible-fullscreen .fullscreen-buttons button:hover {
+  text-shadow: 0 0 4px var(--color-active);
+  box-shadow: none;
+}
+.crucible-fullscreen .fullscreen-header {
+  flex: none;
+  position: relative;
+  width: 100%;
+  padding-top: calc(var(--gap-y) * 2);
+  gap: var(--gap-y);
+  max-width: var(--max-width);
+  align-items: center;
+}
+.crucible-fullscreen #hero-creation-nav {
+  width: 60%;
+  justify-content: space-between;
+}
+.crucible-fullscreen #hero-creation-nav li.step {
+  flex: none;
+  align-items: center;
+  width: 120px;
+  height: 160px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  pointer-events: all;
+  cursor: var(--cursor-pointer);
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-title {
+  white-space: nowrap;
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-number {
+  font-size: 24px;
+  color: var(--color-text-subtle);
+  font-weight: bold;
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-banner {
+  position: relative;
+  flex: 1;
+  width: 104px;
+  align-items: center;
+  pointer-events: all;
+  cursor: pointer;
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-banner .step-icon {
+  margin: 8px 0;
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-banner .step-selection {
+  font-size: 12px;
+  line-height: 1em;
+}
+.crucible-fullscreen #hero-creation-name {
+  flex: 0 0 60px;
+  width: 600px;
+  padding: 0;
+  background: linear-gradient(to bottom, rgba(150, 150, 150, 0.25) 25%, transparent 100%);
+  border: none;
+  border-radius: 8px;
+  color: var(--color-text-subtle);
+  font-family: var(--font-serif);
+  letter-spacing: 0.1em;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+.crucible-fullscreen #hero-creation-name::placeholder {
+  text-transform: uppercase;
+}
+@media (min-width: 2000px) {
+  .crucible-fullscreen {
+    --ui-scale: 1.1;
+  }
+}
+@media (max-width: 1660px) {
+  .crucible-fullscreen {
+    --max-width: 1400px;
+  }
+}
+@media (max-width: 1480px) {
+  .crucible-fullscreen {
+    --ui-scale: 0.9;
+  }
+}
+@media (max-width: 1340px) {
+  .crucible-fullscreen {
+    --ui-scale: 0.9;
+    --max-width: 1200px;
+  }
+}
+@media (max-width: 1200px) {
+  .crucible-fullscreen {
+    --ui-scale: 0.8;
+    --max-width: 1100px;
+  }
+}
+@media (max-height: 1040px) {
+  .crucible-fullscreen {
+    --ui-scale: 0.9;
+  }
+}
+@media (max-height: 900px) {
+  .crucible-fullscreen {
+    --ui-scale: 0.8;
+  }
+}
 /* ----------------------------------------- */
 /*  All Items                                */
 /* ----------------------------------------- */
