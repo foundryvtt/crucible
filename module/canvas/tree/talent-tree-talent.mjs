@@ -65,8 +65,9 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     event.stopPropagation();
     const tree = game.system.tree;
     const actor = tree.actor;
-    if ( !actor || !actor.talentIds.has(this.talent.id) || actor.permanentTalentIds.has(this.talent.id) ) return;
-    const talent = tree.actor.items.get(this.talent.id);
+    if ( !actor ) return;
+    if ( !actor.system.talentIds.has(this.talent.id) || actor.system.permanentTalentIds.has(this.talent.id) ) return;
+    const talent = actor.items.get(this.talent.id);
     const response = await talent.deleteDialog();
     if ( response ) tree.playClick();
   }

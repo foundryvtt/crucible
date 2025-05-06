@@ -848,6 +848,9 @@
 .crucible.sheet.actor .sheet-header header.title a.level-up {
   flex: none;
 }
+.crucible.sheet.actor .sheet-header header.title .level {
+  line-height: 1em;
+}
 .crucible.sheet.actor .sheet-header header.title a.level-up {
   opacity: 1;
   height: 28px;
@@ -1671,6 +1674,12 @@
 .crucible.item fieldset.hook label,
 .crucible.action fieldset.hook label {
   flex: 1;
+}
+.crucible.item fieldset.hook label code,
+.crucible.action fieldset.hook label code {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.5em;
 }
 .crucible.item fieldset.hook button,
 .crucible.action fieldset.hook button {

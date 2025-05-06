@@ -1093,7 +1093,7 @@ export default class CrucibleActor extends Actor {
 
     // Remove all non-permanent talents
     const deleteIds = this.items.reduce((arr, i) => {
-      if ( (i.type === "talent") && !this.permanentTalentIds.has(i.id) ) arr.push(i.id);
+      if ( (i.type === "talent") && !this.system.permanentTalentIds.has(i.id) ) arr.push(i.id);
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("Item", deleteIds);
