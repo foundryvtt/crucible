@@ -1,4 +1,5 @@
 import {SYSTEM} from "../config/system.mjs";
+import {ItemIdentifierField} from "./fields.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Ancestry type Items.
@@ -20,6 +21,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         secondary: new fields.StringField({...reqChoice, choices: SYSTEM.ABILITIES})
       }, {validate: CrucibleAncestryItem.#validateAbilities}),
       description: new fields.HTMLField(),
+      identifier: new ItemIdentifierField(),
       movement: new fields.SchemaField({
         size: new fields.NumberField({...reqInt, min: 1, initial: 4}),
         stride: new fields.NumberField({...reqInt, min: 1, initial: 10})

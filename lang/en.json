@@ -268,6 +268,10 @@
     "description": {
       "label": "Ancestry Description"
     },
+    "identifier": {
+      "label": "Identifier",
+      "hint": "A string identifier used to reference this Ancestry in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
+    },
     "movement": {
       "label": "Movement and Stature",
       "size": {
@@ -321,7 +325,8 @@
   "SHEET": {
     "BROWSE": "Browse Ancestries",
     "CHOOSE": "Choose Ancestry",
-    "CLEAR": "Clear Ancestry"
+    "CLEAR": "Clear Ancestry",
+    "IDENTITY": "Identity"
   },
   "WARNINGS": {
     "ABILITIES": "The primary and secondary Abilities for an Ancestry may not be the same.",
@@ -510,6 +515,10 @@
     "description": {
       "label": "Background Description"
     },
+    "identifier": {
+      "label": "Identifier",
+      "hint": "A string identifier used to reference this Background in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
+    },
     "skills": {
       "label": "Acquired Skills",
       "hint": "Choose up to four skills which were acquired as part of your Background, each of which will begin at Novice rank."
@@ -534,6 +543,7 @@
     "BROWSE": "Browse Backgrounds",
     "CLEAR": "Clear Background",
     "CHOOSE": "Choose Background",
+    "IDENTITY": "Identity",
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."

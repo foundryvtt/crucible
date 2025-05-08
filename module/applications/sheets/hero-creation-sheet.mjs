@@ -1,6 +1,28 @@
 const {ActorSheetV2} = foundry.applications.sheets;
 const {HandlebarsApplicationMixin} = foundry.applications.api;
 
+/**
+ * @typedef CrucibleHeroCreationState
+ * @property {string} name
+ * @property {Record<string, CrucibleHeroCreationItem>} ancestries
+ * @property {string} ancestryId
+ * @property {Record<string, CrucibleHeroCreationItem>} backgrounds
+ * @property {string} backgroundId
+ * @property {Set<string>} talents
+ */
+
+/**
+ * @typedef CrucibleHeroCreationItem
+ * @property {CrucibleItem} item
+ * @property {string} name
+ * @property {string} color
+ * @property {string} icon
+ */
+
+/**
+ * An Actor Sheet responsible for managing the Crucible character creation process.
+ * @template {CrucibleHeroCreationState} CreationState
+ */
 export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** @inheritDoc */
@@ -31,7 +53,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       order: 1,
       numeral: "I",
       template: "systems/crucible/templates/sheets/creation/ancestry.hbs",
-      prepare: CrucibleHeroCreationSheet.#prepareAncestries
+      initialize: CrucibleHeroCreationSheet.#initializeAncestries,
+      prepare: CrucibleHeroCreationSheet.#prepareAncestries,
     },
     background: {
       id: "background",
@@ -69,10 +92,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * The character name that has been chosen.
-   * @type {string}
+   * Data which persists the current state of character creation.
+   * @type {Partial<CreationState>}
+   * @protected
    */
-  #charname;
+  _state = {}
 
   /**
    * Track completed steps.
@@ -109,44 +133,59 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   }
 
   /* -------------------------------------------- */
-  /*  Data Preparation                            */
+  /*  Data Initialization                         */
   /* -------------------------------------------- */
 
   /**
-   * Prepare data for each of the available Ancestry items which may be chosen.
-   * @this CrucibleHeroCreationSheet
-   * @param {object} context
-   * @param {object} options
-   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   * Perform one-time initialization of context data that is performed upon the first render.
+   * @param context
+   * @param options
+   * @returns {Promise<void>}
+   * @private
    */
-  static async #prepareAncestries(context, options) {
-    context.ancestries = await CrucibleHeroCreationSheet.#prepareItems("ancestry", crucible.CONFIG.ancestryPacks);
+  async _initializeContext(context, options) {
+    const promises = [];
+    for ( const step of Object.values(this.constructor.STEPS) ) {
+      if ( step?.initialize instanceof Function ) promises.push(step.initialize.call(this));
+    }
+    await Promise.all(promises);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare data for each of the available Background items which may be chosen.
+   * Initialize data for each of the available Ancestry items which may be chosen.
    * @this CrucibleHeroCreationSheet
-   * @param {object} context
-   * @param {object} options
-   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
-  static async #prepareBackgrounds(context, options) {
-    context.backgrounds = await CrucibleHeroCreationSheet.#prepareItems("background", crucible.CONFIG.backgroundPacks);
+  static async #initializeAncestries(context) {
+    const {ancestryPacks} = crucible.CONFIG;
+    this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Prepare data for each of the available Background items which may be chosen.
+   * Initialize data for each of the available Background items which may be chosen.
+   * @this CrucibleHeroCreationSheet
+   * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
+   */
+  static async #initializeBackgrounds(context) {
+    const {backgroundPacks} = crucible.CONFIG;
+    this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Initialize data for each of the available Background items which may be chosen.
    * @this CrucibleHeroCreationSheet
    * @param {string} itemType
    * @param {Set<string>} packs
-   * @returns {Promise<{item: CrucibleItem, name: string, color: string, icon: string}[]>}
+   * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
-  static async #prepareItems(itemType, packs) {
-    const options = [];
+  static async #initializeItemOptions(itemType, packs) {
+    const options = {};
     await Promise.allSettled(Array.from(packs).map(async packId => {
       const pack = game.packs.get(packId);
       if ( !pack ) {
@@ -155,12 +194,40 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       }
       const items = await pack.getDocuments({type: itemType});
       for ( const item of items ) {
+        const identifier = item.system.identifier;
         const {color, icon} = item.system.ui;
-        options.push({item, name: item.name, color, icon});
+        options[identifier] = {item, name: item.name, color, icon};
       }
     }));
-    options.sort((a, b) => a.name.localeCompare(b.name));
     return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for rendering on the ancestry step.
+   * @this CrucibleHeroCreationSheet
+   * @returns {Promise<void>}
+   */
+  static async #prepareAncestries(context, options) {
+    const {ancestries, ancestryId} = this._state;
+    context.ancestries = ancestries;
+    if ( ancestryId ) {
+
+
+    }
+    else context.ancestry = null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare data for rendering on the background step.
+   * @this CrucibleHeroCreationSheet
+   * @returns {Promise<void>}
+   */
+  static async #prepareBackgrounds(context, options) {
+    context.backgrounds = this._state.ancestries;
   }
 
   /* -------------------------------------------- */
@@ -188,11 +255,13 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @override */
   async _prepareContext(options) {
+
+
     return {
-      charname: this.#charname,
       actor: this.actor,
       buttons: this._prepareHeaderButtons(),
       activeStep: this.step,
+      state: this._state,
       tabs: this._prepareHeaderTabs()
     }
   }

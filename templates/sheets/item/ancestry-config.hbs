@@ -1,5 +1,11 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "CRUCIBLE.ANCESTRY.SHEET.IDENTITY"}}</legend>
+        {{formField fields.identifier value=system.identifier}}
+    </fieldset>
+
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.movement.label}}</legend>
         {{formField fields.movement.fields.size value=system.movement.size classes="slim"}}

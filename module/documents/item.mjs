@@ -32,16 +32,19 @@ export default class CrucibleItem extends foundry.documents.Item {
   }
 
   /* -------------------------------------------- */
-  /*  Data Preparation                            */
-  /* -------------------------------------------- */
-
-  /* -------------------------------------------- */
   /*  Database Workflows                          */
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
+
+    // Create Identifier
+    if ( this.system.schema.has("identifier") && !data.system?.identifier ) {
+      this.system.updateSource({"identifier": crucible.api.methods.generateId(this.name ?? this._id)});
+    }
+
+    // Handle Owned Item Creation
     if ( this.isOwned ) {
       switch (data.type) {
         case "ancestry":

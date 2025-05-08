@@ -1,3 +1,6 @@
+// Fields
+export * as fields from "./fields.mjs";
+
 // Actions
 export {default as CrucibleAction} from "./action.mjs";
 export {default as CrucibleSpellAction} from "./spell-action.mjs";

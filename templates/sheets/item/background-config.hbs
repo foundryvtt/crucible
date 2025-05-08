@@ -1,5 +1,11 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "CRUCIBLE.BACKGROUND.SHEET.IDENTITY"}}</legend>
+        {{formField fields.identifier value=system.identifier}}
+    </fieldset>
+
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{fields.skills.label}}</legend>
         {{formInput fields.skills value=source.system.skills input=skillsInput}}
