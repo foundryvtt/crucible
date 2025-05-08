@@ -1635,7 +1635,7 @@
 .crucible-fullscreen {
   --max-width: 1600px;
   --ui-scale: 1;
-  --gap-y: 32px;
+  --gap: 32px;
   position: fixed;
   width: calc((100vw / var(--ui-scale)) + 1px);
   height: calc((100vh / var(--ui-scale)) + 1px);
@@ -1651,6 +1651,12 @@
   transform: scale(var(--ui-scale));
   /* -------------------------------------------- */
   /*  Header                                      */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
+  /*  Selection Tab                               */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
+  /*  Selection Menu                              */
   /* -------------------------------------------- */
 }
 .crucible-fullscreen::before {
@@ -1674,7 +1680,7 @@
 }
 .crucible-fullscreen .fullscreen-buttons {
   position: absolute;
-  top: var(--gap-y);
+  top: var(--gap);
   right: 0;
   align-items: flex-end;
   font-size: var(--font-size-20);
@@ -1707,8 +1713,8 @@
   flex: none;
   position: relative;
   width: 100%;
-  padding-top: calc(var(--gap-y) * 2);
-  gap: var(--gap-y);
+  padding-top: calc(var(--gap) * 2);
+  gap: var(--gap);
   max-width: var(--max-width);
   align-items: center;
 }
@@ -1717,6 +1723,7 @@
   justify-content: space-between;
 }
 .crucible-fullscreen #hero-creation-nav li.step {
+  --selection-color: #8a867c;
   flex: none;
   align-items: center;
   width: 120px;
@@ -1745,14 +1752,34 @@
   position: relative;
   flex: 1;
   width: 104px;
+  height: 100px;
   align-items: center;
+  padding: 8px 0;
+  gap: 8px;
+  border-top: 4px ridge var(--color-light-5);
+}
+.crucible-fullscreen #hero-creation-nav li.step .step-banner::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  margin: 0 2px;
+  background: linear-gradient(to bottom, var(--selection-color) 0%, transparent 100%);
+  border-radius: 0 0 30px 30px;
+  z-index: -1;
 }
 .crucible-fullscreen #hero-creation-nav li.step .step-banner .step-icon {
-  margin: 8px 0;
+  width: 60px;
+  height: 60px;
 }
 .crucible-fullscreen #hero-creation-nav li.step .step-banner .step-selection {
   font-size: 12px;
   line-height: 1em;
+}
+.crucible-fullscreen #hero-creation-nav li.step.incomplete .step-icon {
+  opacity: 0.1;
 }
 .crucible-fullscreen #hero-creation-nav li.step.active .step-title {
   color: var(--color-text-emphatic);
@@ -1774,6 +1801,90 @@
 }
 .crucible-fullscreen #hero-creation-name::placeholder {
   text-transform: uppercase;
+}
+.crucible-fullscreen section.tab.active {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 100%;
+  height: 0;
+  gap: calc(2 * var(--gap));
+  padding: var(--gap) 0;
+  max-width: var(--max-width);
+}
+.crucible-fullscreen .step-navigation {
+  flex: 0 0 440px;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden auto;
+}
+.crucible-fullscreen .selection-menu {
+  width: 100%;
+  height: min-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+.crucible-fullscreen .selection-menu .option {
+  --option-color: #FFFFFF;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 48px;
+  padding-left: 48px;
+  background: var(--color-cool-5-50);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.crucible-fullscreen .selection-menu .option .option-icon {
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  position: absolute;
+  left: -16px;
+  top: -8px;
+  background: linear-gradient(to bottom, var(--option-color) 0%, var(--color-cool-5) 100%);
+  border: 2px ridge var(--color-light-4);
+  border-radius: 100%;
+}
+.crucible-fullscreen .selection-menu .option h4 {
+  margin: 0;
+  padding: 8px;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-14);
+  text-transform: uppercase;
+  justify-content: center;
+  text-align: center;
+  line-height: 1em;
+}
+.crucible-fullscreen .selection-menu .option::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: calc(50% + 24px - 3px);
+  width: 6px;
+  height: 6px;
+  background: var(--color-light-4);
+  transform: rotate(45deg);
+}
+.crucible-fullscreen .selection-menu .option.active h4 {
+  color: var(--color-text-emphatic);
+}
+.crucible-fullscreen .selection-menu .option.active .option-icon {
+  border: 2px solid var(--color-warm-1);
+  filter: drop-shadow(0 0 4px var(--color-warm-1));
+}
+.crucible-fullscreen .selection-menu .option.active::after {
+  background: var(--color-light-1);
+  filter: drop-shadow(0 0 4px var(--color-warm-1));
+}
+.crucible-fullscreen .selection-menu .option.noicon {
+  padding: 0 0.5rem;
+}
+.crucible-fullscreen .selection-menu .option.noicon::after {
+  left: calc(50% - 3px);
 }
 @media (min-width: 2000px) {
   .crucible-fullscreen {

@@ -1,12 +1,13 @@
 <header class="fullscreen-header flexcol" style="--selection-color:{{activeStep.selectionColor}}">
     <menu id="hero-creation-nav" class="tabs flexrow" role="tablist">
         {{#each tabs as |step|}}
-        <li class="step flexcol {{step.cssClass}}" data-action="tab" data-group="header" data-tab="{{step.id}}">
+        <li class="step flexcol {{step.cssClass}}" data-action="tab" data-group="header" data-tab="{{step.id}}"
+            {{#if step.selectionColor}}style="--selection-color:{{step.selectionColor}}"{{/if}}>
             <span class="step-number">{{step.numeral}}</span>
             <span class="step-title">{{step.label}}</span>
-            <div class="step-banner flexcol" style="--selection-color:{{step.selectionColor}}">
-                {{#if step.completed}}
-                <img class="step-icon icon" src="{{step.selectionIcon}}">
+            <div class="step-banner flexcol">
+                <img class="step-icon icon" src="{{step.selectionIcon}}" alt="{{step.label}}">
+                {{#if step.selectionLabel}}
                 <span class="step-selection">{{step.selectionLabel}}</span>
                 {{/if}}
             </div>

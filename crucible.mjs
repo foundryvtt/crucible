@@ -18,6 +18,7 @@ import * as canvas from "./module/canvas/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import * as models from "./module/models/_module.mjs";
+import * as audio from "./module/audio.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -39,6 +40,7 @@ Hooks.once("init", async function() {
   // Expose the system API
   game.system.api = {
     applications,
+    audio,
     canvas,
     dice,
     models,

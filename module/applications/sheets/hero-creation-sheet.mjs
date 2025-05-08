@@ -35,6 +35,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       positioned: false
     },
     actions: {
+      chooseAncestry: CrucibleHeroCreationSheet.#onChooseAncestry,
+      restart: CrucibleHeroCreationSheet.#onRestart,
       // abilityIncrease: EmberCharacterCreationSheet.#onAbilityIncrease,
       // abilityDecrease: EmberCharacterCreationSheet.#onAbilityDecrease,
       // abilityBoostIncrease: EmberCharacterCreationSheet.#onAbilityBoostIncrease,
@@ -61,7 +63,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       label: "Background",
       order: 2,
       numeral: "II",
-      template: "systems/crucible/templates/sheets/creation/background.hbs"
+      template: "systems/crucible/templates/sheets/creation/background.hbs",
+      initialize: CrucibleHeroCreationSheet.#initializeBackgrounds,
+      prepare: CrucibleHeroCreationSheet.#prepareBackgrounds,
     },
     talents: {
       id: "talents",
@@ -138,12 +142,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /**
    * Perform one-time initialization of context data that is performed upon the first render.
-   * @param context
-   * @param options
    * @returns {Promise<void>}
    * @private
    */
-  async _initializeContext(context, options) {
+  async _initializeState() {
     const promises = [];
     for ( const step of Object.values(this.constructor.STEPS) ) {
       if ( step?.initialize instanceof Function ) promises.push(step.initialize.call(this));
@@ -196,10 +198,31 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       for ( const item of items ) {
         const identifier = item.system.identifier;
         const {color, icon} = item.system.ui;
-        options[identifier] = {item, name: item.name, color, icon};
+        options[identifier] = {
+          identifier,
+          item,
+          name: item.name,
+          color: color ?? "#8a867c",
+          icon: icon ?? "systems/crucible/ui/svg/unknown.svg"
+        };
       }
     }));
     return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Perform one-time initialization of context data that is performed upon the first render.
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _prepareSteps(context, options) {
+    const promises = [];
+    for ( const step of Object.values(this.constructor.STEPS) ) {
+      if ( step?.initialize instanceof Function ) promises.push(step.prepare.call(this, context, options));
+    }
+    await Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -211,10 +234,23 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #prepareAncestries(context, options) {
     const {ancestries, ancestryId} = this._state;
-    context.ancestries = ancestries;
+    const t = context.tabs.ancestry;
+
+    // Ancestry options
+    context.ancestries = Object.values(ancestries).sort((a, b) => a.name.localeCompare(b.name));
+    for ( const a of context.ancestries ) {
+      a.selected = a.identifier === ancestryId;
+      a.cssClass = a.selected ? "active" : "";
+    }
+
+    // Chosen ancestry
+    this.#completed.ancestry = ancestryId in ancestries;
     if ( ancestryId ) {
-
-
+      const a = context.ancestry = ancestries[ancestryId];
+      if ( a.color ) t.selectionColor = a.color;
+      if ( a.icon ) t.selectionIcon = a.icon;
+      t.selectionLabel = a.name;
+      t.complete = true;
     }
     else context.ancestry = null;
   }
@@ -227,7 +263,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #prepareBackgrounds(context, options) {
-    context.backgrounds = this._state.ancestries;
+    const {backgrounds, backgroundId} = this._state;
+    context.backgrounds = backgrounds;
+    if ( backgroundId ) {
+      const b = context.background = backgrounds[backgroundId];
+      const t = context.tabs.background;
+      if ( b.color ) t.selectionColor = b.color;
+      if ( b.icon ) t.selectionIcon = b.icon;
+      t.selectionLabel = b.name;
+    }
+    else context.background = null;
   }
 
   /* -------------------------------------------- */
@@ -256,23 +301,29 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /** @override */
   async _prepareContext(options) {
 
+    // One-time initialization
+    if ( options.isFirstRender || foundry.utils.isEmpty(this._state) ) await this._initializeState();
 
-    return {
+    // Base context preparation
+    const context = {
       actor: this.actor,
       buttons: this._prepareHeaderButtons(),
       activeStep: this.step,
+      charname: this._state.name,
       state: this._state,
       tabs: this._prepareHeaderTabs()
     }
-  }
 
-  /* -------------------------------------------- */
+    // Step-specific preparation
+    await this._prepareSteps(context, options);
 
-  /** @inheritDoc */
-  async _preparePartContext(partId, context, options) {
-    await super._preparePartContext(partId, context, options);
-    const step = this.constructor.STEPS[partId];
-    if ( step?.prepare instanceof Function ) await step.prepare.call(this, context, options);
+    // Finalize tab steps
+    for ( const tab of Object.values(context.tabs) ) {
+      tab.cssClass = [
+        tab.active ? "active" : "",
+        tab.complete ? "complete" : "incomplete"
+      ].filterJoin(" ")
+    }
     return context;
   }
 
@@ -290,6 +341,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( Object.values(this.#completed).every(v => v === true) ) {
       buttons.push({action: "complete", icon: "fa-light fa-circle-check", label: "Complete", tooltip: "Complete Creation"});
     }
+    buttons.push({action: "restart", icon: "fa-light fa-undo", label: "Restart", tooltip: "Restart Creation"});
     return buttons;
   }
 
@@ -300,9 +352,11 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const tabs = super._prepareTabs("header");
     for ( const tab of Object.values(tabs) ) {
       const step = this.constructor.STEPS[tab.id];
-      Object.assign(tab, step);
-      step.completed = !!this.#completed[tab.id];
-      if ( tab.completed ) tab.cssClass += ` completed`;
+      Object.assign(tab, step, {
+        selectionIcon: "systems/crucible/ui/svg/xmark.svg",
+        completed: false,
+        cssClass: "incomplete"
+      });
     }
     return tabs;
   }
@@ -312,6 +366,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /** @inheritDoc */
   changeTab(...args) {
     super.changeTab(...args);
+    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     this.render({parts: ["header", this.step]});
   }
 
@@ -319,7 +374,69 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   async close(options={}) {
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {
+        title: "Abandon Creation Progress?",
+        icon: "fa-solid fa-circle-x"
+      },
+      content: "Discard creation progress and exit the creator?",
+      modal: true
+    });
+    if ( !confirm ) return;
     options.animate = false;
     return super.close(options);
+  }
+
+  /* -------------------------------------------- */
+  /*  Public API                                  */
+  /* -------------------------------------------- */
+  /**
+   * Choose an ancestry.
+   * @param {string} ancestryId
+   * @returns {Promise<void>}
+   */
+  async chooseAncestry(ancestryId) {
+    this._state.ancestryId = ancestryId;
+    await this.render({parts: ["header", "ancestry"]});
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to choose an ancestry.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static #onChooseAncestry(event) {
+    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    const choice = event.target.closest(".option");
+    this.chooseAncestry(choice.dataset.ancestryId);
+    crucible.api.audio.playClick();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reset the creation process and restart from the beginning.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onRestart(event) {
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {
+        title: "Reset Creation Progress?",
+        icon: "fa-solid fa-undo"
+      },
+      content: "Discard creation progress and restart from the beginning?",
+      modal: true
+    });
+    if ( !confirm ) return;
+    this._state = {};
+    this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
+    await this.render();
   }
 }

@@ -1,4 +1,52 @@
 <section class="tab {{tabs.ancestry.id}} {{tabs.ancestry.cssClass}}"
          data-tab="{{tabs.ancestry.id}}" data-group="{{tabs.ancestry.group}}">
-    <p>Ancestry Tab</p>
+
+    <nav class="step-navigation">
+        <menu id="ancestry-selection" class="selection-menu">
+            {{#each ancestries as |ancestry|}}
+                <li class="option flexrow {{ancestry.cssClass}}" style="--option-color:{{ancestry.color}};"
+                    data-action="chooseAncestry" data-ancestry-id="{{ancestry.identifier}}">
+                    <div class="option-icon">
+                        <img class="icon" src="{{ancestry.icon}}" alt="{{ancestry.name}}">
+                    </div>
+                    <h4 class="option-name">{{ancestry.name}}</h4>
+                </li>
+            {{/each}}
+        </menu>
+    </nav>
+
+    {{#if ancestry}}
+    <div id="ancestry-details" class="selection-details flexcol scrollable">
+        <div class="details-section overview">
+            <h2 class="ember-header half">{{ancestry.name}}</h2>
+            <article class="summary">
+                {{{ancestry.summary}}}
+            </article>
+        </div>
+        {{#each ancestry.advancements as |adv|}}
+            <div class="details-section advancement">
+                <h3 class="ember-header">{{adv.header}}</h3>
+                {{#if adv.tags}}
+                    {{#each adv.tags as |group|}}
+                        <div class="tags">
+                            {{#each group as |tag|}}<p class="tag">{{{tag}}}</p>{{/each}}
+                        </div>
+                    {{/each}}
+                {{/if}}
+                {{#if adv.items}}
+                    <div class="items">
+                        {{#each adv.items as |item|}}{{{item}}}{{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+
+    {{#if ancestry.figure}}
+    <figure class="codex-figure flexcol {{ancestry.figure.sizeClass}}">
+        <img class="codex-image" src="{{ancestry.figure.src}}" alt="{{ancestry.figure.caption}}">
+        <figcaption>{{ancestry.figure.caption}}</figcaption>
+    </figure>
+    {{/if}}
+    {{/if}}
 </section>

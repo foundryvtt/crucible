@@ -56,7 +56,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     const tree = game.system.tree;
     if ( !tree.actor || tree.actor.talentIds.has(this.talent.id) ) return;
     const response = await tree.actor.addTalent(this.talent, {dialog: true});
-    if ( response ) tree.playClick();
+    if ( response ) crucible.api.audio.playClick();
   }
 
   /* -------------------------------------------- */
@@ -69,7 +69,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     if ( !actor.system.talentIds.has(this.talent.id) || actor.system.permanentTalentIds.has(this.talent.id) ) return;
     const talent = actor.items.get(this.talent.id);
     const response = await talent.deleteDialog();
-    if ( response ) tree.playClick();
+    if ( response ) crucible.api.audio.playClick();
   }
 
   /* -------------------------------------------- */
