@@ -24,6 +24,10 @@ const {HandlebarsApplicationMixin} = foundry.applications.api;
  * @template {CrucibleHeroCreationState} CreationState
  */
 export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+  constructor(options) {
+    super(options);
+    this.#clone = this.document.constructor.fromSource(this.document.toObject());
+  }
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -36,6 +40,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     },
     actions: {
       chooseAncestry: CrucibleHeroCreationSheet.#onChooseAncestry,
+      chooseBackground: CrucibleHeroCreationSheet.#onChooseBackground,
       restart: CrucibleHeroCreationSheet.#onRestart,
       // abilityIncrease: EmberCharacterCreationSheet.#onAbilityIncrease,
       // abilityDecrease: EmberCharacterCreationSheet.#onAbilityDecrease,
@@ -94,6 +99,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   };
 
   /* -------------------------------------------- */
+
+  /**
+   * A clone of the Actor which the character creation process operates upon.
+   * @type {CrucibleActor}
+   */
+  #clone;
 
   /**
    * Data which persists the current state of character creation.
@@ -243,7 +254,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       a.cssClass = a.selected ? "active" : "";
     }
 
-    // Chosen ancestry
+    // Chosen Ancestry
     this.#completed.ancestry = ancestryId in ancestries;
     if ( ancestryId ) {
       const a = context.ancestry = ancestries[ancestryId];
@@ -264,13 +275,22 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #prepareBackgrounds(context, options) {
     const {backgrounds, backgroundId} = this._state;
-    context.backgrounds = backgrounds;
+    const t = context.tabs.background;
+
+    // Background options
+    context.backgrounds = Object.values(backgrounds).sort((a, b) => a.name.localeCompare(b.name));
+    for ( const b of context.backgrounds ) {
+      b.selected = b.identifier === backgroundId;
+      b.cssClass = b.selected ? "active" : "";
+    }
+
+    // Chosen Background
     if ( backgroundId ) {
       const b = context.background = backgrounds[backgroundId];
-      const t = context.tabs.background;
       if ( b.color ) t.selectionColor = b.color;
       if ( b.icon ) t.selectionIcon = b.icon;
       t.selectionLabel = b.name;
+      t.complete = true;
     }
     else context.background = null;
   }
@@ -390,14 +410,80 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
   /*  Public API                                  */
   /* -------------------------------------------- */
+
   /**
-   * Choose an ancestry.
+   * Choose an Ancestry.
    * @param {string} ancestryId
    * @returns {Promise<void>}
    */
   async chooseAncestry(ancestryId) {
+    if ( !(ancestryId in this._state.ancestries) ) throw new Error(`Invalid Ancestry identifier "${ancestryId}"`);
     this._state.ancestryId = ancestryId;
+    const actor = this.#clone;
+
+    // Remove prior Ancestry talents
+    const existing = actor.system.details.ancestry;
+    if ( existing?.talents?.size ) {
+      for ( const uuid of existing.talents ) {
+        const documentId = foundry.utils.parseUuid(uuid);
+        actor.items.delete(documentId);
+      }
+    }
+
+    // Add new Ancestry data
+    const ancestryItem = this._state.ancestries[ancestryId].item;
+    actor.updateSource({
+      system: {
+        details: {
+          "==ancestry": {name: ancestryItem.name, img: ancestryItem.img, ...ancestryItem.system.toObject()}
+        }
+      }
+    });
+
+    // Add new Ancestry talents
+    for ( const uuid of ancestryItem.system.talents ) {
+      const talent = await fromUuid(uuid);
+      if ( talent ) actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
+    }
     await this.render({parts: ["header", "ancestry"]});
+  }
+
+  /* -------------------------------------------- */
+  /**
+   * Choose a Background.
+   * @param {string} backgroundId
+   * @returns {Promise<void>}
+   */
+  async chooseBackground(backgroundId) {
+    if ( !(backgroundId in this._state.backgrounds) ) throw new Error(`Invalid Background identifier "${backgroundId}"`);
+    this._state.backgroundId = backgroundId;
+    const actor = this.#clone;
+
+    // Clear prior Background talents
+    const existing = actor.system.details.background;
+    if ( existing?.talents?.size ) {
+      for ( const uuid of existing.talents ) {
+        const documentId = foundry.utils.parseUuid(uuid);
+        actor.items.delete(documentId);
+      }
+    }
+
+    // Add new Background data
+    const backgroundItem = this._state.backgrounds[backgroundId].item;
+    actor.updateSource({
+      system: {
+        details: {
+          "==background": {name: backgroundItem.name, img: backgroundItem.img, ...backgroundItem.system.toObject()}
+        }
+      }
+    });
+
+    // Add new Background talents
+    for ( const uuid of backgroundItem.system.talents ) {
+      const talent = await fromUuid(uuid);
+      if ( talent ) actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
+    }
+    await this.render({parts: ["header", "background"]});
   }
 
   /* -------------------------------------------- */
@@ -405,7 +491,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
-   * Handle click events to choose an ancestry.
+   * Handle click events to choose an Ancestry.
    * @this {CrucibleHeroCreationSheet}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
@@ -414,6 +500,21 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const choice = event.target.closest(".option");
     this.chooseAncestry(choice.dataset.ancestryId);
+    crucible.api.audio.playClick();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to choose a Background.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static #onChooseBackground(event) {
+    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    const choice = event.target.closest(".option");
+    this.chooseBackground(choice.dataset.backgroundId);
     crucible.api.audio.playClick();
   }
 
@@ -435,6 +536,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       modal: true
     });
     if ( !confirm ) return;
+    this.#clone = this.document.constructor.fromSource(this.document.toObject());
     this._state = {};
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
     await this.render();

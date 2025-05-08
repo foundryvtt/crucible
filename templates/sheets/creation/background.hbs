@@ -1,4 +1,52 @@
 <section class="tab {{tabs.background.id}} {{tabs.background.cssClass}}"
          data-tab="{{tabs.background.id}}" data-group="{{tabs.background.group}}">
-    <p>Background Tab</p>
+
+    <nav class="step-navigation">
+        <menu id="background-selection" class="selection-menu">
+            {{#each backgrounds as |background|}}
+                <li class="option flexrow {{background.cssClass}}" style="--option-color:{{background.color}};"
+                    data-action="chooseBackground" data-background-id="{{background.identifier}}">
+                    <div class="option-icon">
+                        <img class="icon" src="{{background.icon}}" alt="{{background.name}}">
+                    </div>
+                    <h4 class="option-name">{{background.name}}</h4>
+                </li>
+            {{/each}}
+        </menu>
+    </nav>
+
+    {{#if background}}
+    <div id="background-details" class="selection-details flexcol scrollable">
+        <div class="details-section overview">
+            <h2 class="ember-header half">{{background.name}}</h2>
+            <article class="summary">
+                {{{background.summary}}}
+            </article>
+        </div>
+        {{#each background.advancements as |adv|}}
+            <div class="details-section advancement">
+                <h3 class="ember-header">{{adv.header}}</h3>
+                {{#if adv.tags}}
+                    {{#each adv.tags as |group|}}
+                        <div class="tags">
+                            {{#each group as |tag|}}<p class="tag">{{{tag}}}</p>{{/each}}
+                        </div>
+                    {{/each}}
+                {{/if}}
+                {{#if adv.items}}
+                    <div class="items">
+                        {{#each adv.items as |item|}}{{{item}}}{{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+
+    {{#if background.figure}}
+    <figure class="codex-figure flexcol {{background.figure.sizeClass}}">
+        <img class="codex-image" src="{{background.figure.src}}" alt="{{background.figure.caption}}">
+        <figcaption>{{background.figure.caption}}</figcaption>
+    </figure>
+    {{/if}}
+    {{/if}}
 </section>
