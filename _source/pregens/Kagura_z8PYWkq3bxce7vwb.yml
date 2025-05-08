@@ -237,6 +237,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: 'Rune: Life'
     type: talent
@@ -259,7 +260,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -295,7 +296,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1676608867154
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -340,7 +341,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675017944331
       modifiedTime: 1687634078276
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -378,7 +379,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677293085873
       modifiedTime: 1686234338492
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -415,7 +416,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420024
       modifiedTime: 1686234346975
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -434,7 +435,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686232748166
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

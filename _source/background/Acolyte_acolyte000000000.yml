@@ -11,17 +11,18 @@ system:
     to others or in pursuit of a higher ideal.</p>
   skills:
     - awareness
+    - arcana
     - medicine
     - society
-    - arcana
   talents:
     - Compendium.crucible.talent.Item.runecourage00000
+  identifier: acolyte
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420032
-  modifiedTime: 1726428608375
+  modifiedTime: 1746715959020
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

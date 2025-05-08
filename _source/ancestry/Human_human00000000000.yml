@@ -18,12 +18,13 @@ system:
   vulnerability: ''
   size: 4
   stride: 10
+  identifier: human
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420025
-  modifiedTime: 1726325326496
+  modifiedTime: 1746715947087
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -55,7 +55,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: null
       modifiedTime: 1684894768806
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -145,7 +145,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684374120469
       modifiedTime: 1684893796895
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -157,7 +157,7 @@ pages:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '13.339'
+  coreVersion: '13.342'
   createdTime: 1684343824437
   modifiedTime: 1743873939774
   lastModifiedBy: AnoypGxxNIMOS0XY

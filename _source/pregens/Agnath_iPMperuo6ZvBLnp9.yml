@@ -237,6 +237,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: Martial Weapon Training
     type: talent
@@ -267,7 +268,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1682263814426
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -292,7 +293,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675008661147
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -327,7 +328,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634074681
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -366,7 +367,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420024
       modifiedTime: 1686231277752
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -405,7 +406,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420027
       modifiedTime: 1686231290834
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -424,7 +425,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686231111928
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

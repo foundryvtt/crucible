@@ -236,6 +236,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: 'Rune: Life'
     type: talent
@@ -258,7 +259,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -294,7 +295,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1676608867154
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -339,7 +340,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675017944331
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -389,7 +390,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1685214851183
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -422,7 +423,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -464,7 +465,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684686470274
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -496,7 +497,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1682181078484
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -525,7 +526,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -561,7 +562,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -602,7 +603,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675608839856
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -636,7 +637,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1685584801159
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -663,7 +664,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677356252137
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -698,7 +699,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675741049748
       modifiedTime: 1687634078072
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -734,7 +735,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677293085873
       modifiedTime: 1686234357371
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -771,7 +772,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420024
       modifiedTime: 1686234363446
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -793,7 +794,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1685740866723
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

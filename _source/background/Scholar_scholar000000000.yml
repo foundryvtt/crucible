@@ -11,18 +11,19 @@ system:
     focused on unravelling the mysteries of the world around you, and there are
     few theoretical subjects with which you are not already familiar.</p>
   skills:
+    - awareness
     - arcana
     - medicine
     - science
-    - awareness
   talents:
     - Compendium.crucible.talent.Item.intuitweakness00
+  identifier: scholar
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420028
-  modifiedTime: 1726428707316
+  modifiedTime: 1746715982545
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

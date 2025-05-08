@@ -238,6 +238,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - _id: inspireheroism00
     name: Inspire Heroism
@@ -279,7 +280,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420014
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -313,7 +314,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -352,7 +353,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1687634080451
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -391,7 +392,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677293085873
       modifiedTime: 1686234441745
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -428,7 +429,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420030
       modifiedTime: 1686234458321
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -447,7 +448,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686233123616
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

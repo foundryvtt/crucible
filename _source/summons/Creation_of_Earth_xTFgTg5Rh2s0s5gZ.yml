@@ -231,6 +231,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Elemental Armor
@@ -261,7 +262,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1677965883327
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -295,7 +296,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1677966182273
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -320,7 +321,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1677966243922
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -354,7 +355,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1675608839856
       modifiedTime: 1677966251264
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -371,7 +372,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1677963742821
   modifiedTime: 1727550268213
   lastModifiedBy: AnoypGxxNIMOS0XY

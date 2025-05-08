@@ -18,12 +18,13 @@ system:
     have inherited the strength of mountains.</p>
   size: 5
   stride: 10
+  identifier: giantkin
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420030
-  modifiedTime: 1726325310062
+  modifiedTime: 1746715934004
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

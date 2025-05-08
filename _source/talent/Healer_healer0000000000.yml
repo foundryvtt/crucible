@@ -58,7 +58,7 @@ flags:
 _stats:
   compendiumSource: Item.healer0000000000
   duplicateSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727311608001

@@ -237,6 +237,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - folder: 3KAfetslMjSVGaqx
     name: Deathly Armor
@@ -267,7 +268,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1686181459865
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -301,7 +302,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1686181629480
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -324,7 +325,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1686181711374
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -355,7 +356,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1686181719057
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -379,7 +380,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686181185927
   modifiedTime: 1727550485687
   lastModifiedBy: AnoypGxxNIMOS0XY

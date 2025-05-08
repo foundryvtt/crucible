@@ -6,20 +6,22 @@ pages:
     type: text
     _id: 5FU3galBRwerqm5Y
     title:
-      show: true
+      show: false
       level: 1
     image: {}
     text:
       format: 1
       content: >-
-        <p><strong>Crucible</strong> is an innovative and modern role-playing
-        game (RPG) system built exclusively for <strong>Foundry Virtual
-        Tabletop</strong> as a digital platform.</p><p>Crucible is designed from
-        the ground up to leverage the unique capabilities of Foundry Virtual
-        Tabletop to create exciting and fast-paced gameplay that allow
-        gamemasters and players to focus on what matters most: <em>telling a
-        compelling story</em>.</p><p>At the heart of Crucible is meaningful and
-        empowering character advancement through a class-less system with
+        <figure><img class="noborder"
+        src="systems/crucible/ui/crucible-text-dark.png"
+        /></figure><p><strong>Crucible</strong> is an innovative and modern
+        role-playing game (RPG) system built exclusively for <strong>Foundry
+        Virtual Tabletop</strong> as a digital platform.</p><p>Crucible is
+        designed from the ground up to leverage the unique capabilities of
+        Foundry Virtual Tabletop to create exciting and fast-paced gameplay that
+        allow gamemasters and players to focus on what matters most: <em>telling
+        a compelling story</em>.</p><p>At the heart of Crucible is meaningful
+        and empowering character advancement through a class-less system with
         multiple pillars of character progression. The system’s dice mechanics
         allow for crunchy and tactically rich encounters featuring combat,
         exploration, or social challenges.</p><p>Crucible is both a role-playing
@@ -76,9 +78,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684020732888
-      modifiedTime: 1727451007990
+      modifiedTime: 1743882693479
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -149,7 +151,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684020740713
       modifiedTime: 1686269235920
       lastModifiedBy: JMECHdsPmLGGi1RC
@@ -196,7 +198,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684020793428
       modifiedTime: 1727360755310
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -205,38 +207,6 @@ pages:
       exportSource: null
     category: null
     _key: '!journal.pages!5SgXrAKS2EnqVggJ.4Ggutuh9uzhcEXSK'
-  - sort: 0
-    name: Cover
-    type: image
-    _id: hQL7peZEfaAwWXAv
-    title:
-      show: false
-      level: 1
-    image:
-      caption: ''
-    text:
-      format: 1
-    video:
-      controls: true
-      volume: 0.5
-    src: systems/crucible/ui/crucible-text-dark.png
-    system: {}
-    ownership:
-      default: -1
-      AnoypGxxNIMOS0XY: 3
-    flags: {}
-    _stats:
-      systemId: crucible
-      systemVersion: 0.6.2
-      coreVersion: '13.338'
-      createdTime: 1684269584990
-      modifiedTime: 1684269625857
-      lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    category: null
-    _key: '!journal.pages!5SgXrAKS2EnqVggJ.hQL7peZEfaAwWXAv'
   - sort: 425000
     name: Credits
     type: text
@@ -278,7 +248,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684375157534
       modifiedTime: 1727360803282
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -322,7 +292,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1686266954300
       modifiedTime: 1686269380632
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -371,7 +341,7 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1743873856457
@@ -385,9 +355,9 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.339'
+  coreVersion: '13.342'
   createdTime: 1684020691763
-  modifiedTime: 1743873793125
+  modifiedTime: 1743882712510
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

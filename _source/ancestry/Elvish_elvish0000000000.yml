@@ -18,12 +18,13 @@ system:
     hundreds of years of tradition.</p>
   stride: 10
   size: 4
+  identifier: elvish
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420031
-  modifiedTime: 1726325304557
+  modifiedTime: 1746715929454
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

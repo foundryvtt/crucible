@@ -236,6 +236,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: Intimidator
     type: talent
@@ -277,7 +278,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1676839298208
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -314,7 +315,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1682263814426
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -342,7 +343,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677209859186
       modifiedTime: 1687634075600
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -379,7 +380,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420018
       modifiedTime: 1686233957370
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -416,7 +417,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420010
       modifiedTime: 1686233960189
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -453,7 +454,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420024
       modifiedTime: 1686233970989
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -472,7 +473,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686231927873
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

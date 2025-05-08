@@ -11,18 +11,19 @@ system:
     significant portion of your time learning the art of negotiation with people
     from all walks of life, and where the boundaries of the best deal lay.</p>
   skills:
+    - awareness
     - science
     - society
     - diplomacy
-    - awareness
   talents:
     - Compendium.crucible.talent.Item.preparedness0000
+  identifier: merchant
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420028
-  modifiedTime: 1726428664573
+  modifiedTime: 1746715966970
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -107,7 +107,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683472874811
       modifiedTime: 1743878948095
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -201,7 +201,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744125556
       modifiedTime: 1743878948108
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -305,7 +305,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744497135
       modifiedTime: 1743878948126
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -395,7 +395,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744529088
       modifiedTime: 1743878948144
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -483,7 +483,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744545423
       modifiedTime: 1743878948160
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -565,7 +565,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744558127
       modifiedTime: 1743878948173
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -654,7 +654,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744837421
       modifiedTime: 1743878948190
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -750,7 +750,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683744851575
       modifiedTime: 1743878948205
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -828,7 +828,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       createdTime: 1683892875812
       modifiedTime: 1743878948220
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -982,7 +982,7 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1684891180952
       modifiedTime: 1727451865056
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -1124,7 +1124,7 @@ pages:
       compendiumSource: null
       duplicateSource: >-
         Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.J0FXxjw8OKOQOtwT
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1726427583933
@@ -1211,7 +1211,7 @@ pages:
       compendiumSource: null
       duplicateSource: >-
         Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.gr6RsRxppPcIiKat
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1726427677634
@@ -1297,7 +1297,7 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.339'
+      coreVersion: '13.342'
       systemId: crucible
       systemVersion: 0.7.0-dev
       createdTime: 1726429303576
@@ -1314,7 +1314,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.339'
+  coreVersion: '13.342'
   createdTime: 1683472545451
   modifiedTime: 1743873962149
   lastModifiedBy: AnoypGxxNIMOS0XY

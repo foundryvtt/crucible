@@ -237,6 +237,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: Diversionist
     type: talent
@@ -279,7 +280,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1676837085147
       modifiedTime: 1687634074915
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -324,7 +325,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1676425968128
       modifiedTime: 1687634074915
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -363,7 +364,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.4
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1682260960299
       modifiedTime: 1687634074915
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -398,7 +399,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420023
       modifiedTime: 1686233878828
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -437,7 +438,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.3
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420023
       modifiedTime: 1687043944886
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -475,7 +476,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674942420015
       modifiedTime: 1686233890236
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -493,7 +494,7 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.4
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1686231753904
   modifiedTime: 1687636350891
   lastModifiedBy: AnoypGxxNIMOS0XY

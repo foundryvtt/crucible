@@ -18,12 +18,13 @@ system:
     - performance
   talents:
     - Compendium.crucible.talent.Item.diversionist0000
+  identifier: urchin
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420027
-  modifiedTime: 1726428756068
+  modifiedTime: 1746715991653
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

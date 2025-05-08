@@ -18,12 +18,13 @@ system:
     stone.</p>
   size: 4
   stride: 8
+  identifier: dwarven
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420012
-  modifiedTime: 1726325292651
+  modifiedTime: 1746715924479
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

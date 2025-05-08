@@ -17,12 +17,13 @@ system:
     - performance
   talents:
     - Compendium.crucible.talent.Item.inspireheroism00
+  identifier: performer
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '13.338'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.342'
   createdTime: 1674942420030
-  modifiedTime: 1684876104522
+  modifiedTime: 1746715970920
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

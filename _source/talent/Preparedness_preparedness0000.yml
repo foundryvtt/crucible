@@ -7,6 +7,15 @@ system:
     You seem to always be prepared for the moment at hand. You may sacrifice
     your free movement for the Round to instead equip an Item from your
     inventory without spending any Action points.
+  actorHooks:
+    - hook: preActivateAction
+      fn: >-
+        if ( (action.id !== "equipWeapon") || !action.cost.action ||
+        actor.system.status.hasMoved ) return;
+
+        action.cost.action = 0;
+
+        action.usage.actorStatus.hasMoved = true;
 effects: []
 ownership:
   default: 0
@@ -16,10 +25,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1677354662797
-  modifiedTime: 1742953984576
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1743967277804
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.preparedness0000
   duplicateSource: null
   exportSource: null

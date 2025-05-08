@@ -23,7 +23,7 @@ system:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.339'
+  coreVersion: '13.342'
   createdTime: 1674942420015
   modifiedTime: 1743871063334
   lastModifiedBy: AnoypGxxNIMOS0XY

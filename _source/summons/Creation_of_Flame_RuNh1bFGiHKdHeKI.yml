@@ -232,6 +232,7 @@ prototypeToken:
     animation: null
     src: null
     disposition: false
+  movementAction: null
 items:
   - name: 'Rune: Flame'
     type: talent
@@ -250,7 +251,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674698661050
       modifiedTime: 1677964976672
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -281,7 +282,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1674842056708
       modifiedTime: 1677964990283
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -321,7 +322,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965044710
       modifiedTime: 1677965120101
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -358,7 +359,7 @@ items:
     _stats:
       systemId: crucible
       systemVersion: 0.6.2
-      coreVersion: '13.338'
+      coreVersion: '13.342'
       createdTime: 1677965383866
       modifiedTime: 1677965883327
       lastModifiedBy: AnoypGxxNIMOS0XY
@@ -371,7 +372,7 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   createdTime: 1677963742821
   modifiedTime: 1727550278311
   lastModifiedBy: AnoypGxxNIMOS0XY

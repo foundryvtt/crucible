@@ -53,7 +53,7 @@ flags:
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727362018628

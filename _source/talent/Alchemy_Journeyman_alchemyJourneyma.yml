@@ -21,7 +21,7 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.338'
+  coreVersion: '13.342'
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742954600515
