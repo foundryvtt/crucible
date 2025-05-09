@@ -161,6 +161,9 @@
 
 "ACTOR": {
   "FIELDS": {
+    "abilities": {
+      "label": "Ability Scores"
+    },
     "details": {
       "biography": {
         "appearance": {
@@ -209,6 +212,9 @@
         "label": "Engagement Bonus",
         "hint": "An additive modifier to base engagement."
       }
+    },
+    "resistances": {
+      "label": "Resistances"
     }
   },
   "TABS": {
@@ -519,10 +525,6 @@
       "label": "Identifier",
       "hint": "A string identifier used to reference this Background in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
     },
-    "skills": {
-      "label": "Acquired Skills",
-      "hint": "Choose up to four skills which were acquired as part of your Background, each of which will begin at Novice rank."
-    },
     "talents": {
       "label": "Acquired Talents",
       "hint": "Configure one or more talents which this Background receives automatically."
@@ -550,8 +552,6 @@
   },
   "ERRORS": {
     "APPLY": "You may only apply a background to a level 0 character with no spent skill points.",
-    "SKILLS_NUMBER": "A Background must not provide more than four acquired Skills.",
-    "TALENT_NUMBER": "A Background may contain a maximum of one starting Talent.",
     "TALENT_TIER": "Backgrounds may only offer Tier 0 starting Talents."
   }
 },

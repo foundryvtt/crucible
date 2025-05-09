@@ -1,3 +1,5 @@
+import {SYSTEM} from "../../config/system.mjs";
+
 const {ActorSheetV2} = foundry.applications.sheets;
 const {HandlebarsApplicationMixin} = foundry.applications.api;
 
@@ -17,6 +19,14 @@ const {HandlebarsApplicationMixin} = foundry.applications.api;
  * @property {string} name
  * @property {string} color
  * @property {string} icon
+ * @property {string} summary
+ */
+
+/**
+ * @typedef CrucibleHeroCreationItemFeature
+ * @property {string} label
+ * @property {string[]} tags
+ * @property {CrucibleItem[]} items
  */
 
 /**
@@ -81,11 +91,18 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
   };
 
+  /**
+   * The partial template used to render a feature granted item/
+   * @type {string}
+   */
+  static FEATURE_ITEM_PARTIAL = "systems/crucible/templates/sheets/creation/feature-item.hbs";
+
   /** @override */
   static PARTS = {
     header: {
       id: "header",
-      template: "systems/crucible/templates/sheets/creation/header.hbs"
+      template: "systems/crucible/templates/sheets/creation/header.hbs",
+      templates: [this.FEATURE_ITEM_PARTIAL]
     }
     // PARTS from STEPS are defined dynamically in _configureRenderParts
   };
@@ -171,9 +188,51 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
-  static async #initializeAncestries(context) {
+  static async #initializeAncestries() {
     const {ancestryPacks} = crucible.CONFIG;
-    this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks);
+    const ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks);
+    for ( const ancestry of Object.values(ancestries) ) {
+      const {abilities, resistances, movement, talents, schema} = ancestry.item.system;
+
+      // Ability Bonuses
+      const primary = SYSTEM.ABILITIES[abilities.primary];
+      const secondary = SYSTEM.ABILITIES[abilities.secondary];
+      ancestry.features.push({
+        label: schema.getField("abilities").label,
+        tags: [
+          {text: `${primary.label} ${SYSTEM.ANCESTRIES.primaryAbilityStart}`},
+          {text: `${secondary.label} ${SYSTEM.ANCESTRIES.secondaryAbilityStart}`}
+        ]
+      });
+
+      // Resistances and Vulnerabilities
+      const res = SYSTEM.DAMAGE_TYPES[resistances.resistance];
+      const vuln = SYSTEM.DAMAGE_TYPES[resistances.vulnerability];
+      ancestry.features.push({
+        label: schema.getField("resistances").label,
+        tags: [
+          {text: res ? `Resistance: ${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : "Resistance: None"},
+          {text: res ? `Vulnerability: ${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : "Vulnerability: None"}
+        ]
+      });
+
+      // Movement
+      const {size, stride} = movement;
+      ancestry.features.push({
+        label: schema.getField("movement").label,
+        tags: [
+          {text: `Size ${size}ft`},
+          {text: `Stride ${stride}ft`}
+        ]
+      });
+
+      // Talents
+      ancestry.features.push({
+        label: schema.getField("talents").label,
+        items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+      });
+    }
+    this._state.ancestries = ancestries;
   }
 
   /* -------------------------------------------- */
@@ -183,9 +242,19 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
-  static async #initializeBackgrounds(context) {
+  static async #initializeBackgrounds() {
     const {backgroundPacks} = crucible.CONFIG;
-    this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks);
+    const backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks);
+    for ( const background of Object.values(backgrounds) ) {
+      const {talents, schema} = background.item.system;
+
+      // Talents
+      background.features.push({
+        label: schema.getField("talents").label,
+        items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+      });
+    }
+    this._state.backgrounds = backgrounds;
   }
 
   /* -------------------------------------------- */
@@ -214,11 +283,31 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
           item,
           name: item.name,
           color: color ?? "#8a867c",
-          icon: icon ?? "systems/crucible/ui/svg/unknown.svg"
+          icon: icon ?? item.img,
+          summary: await TextEditor.enrichHTML(item.system.description),
+          features: []
         };
       }
     }));
     return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render partial HTML for an item provided by a character creation feature.
+   * @param {string} uuid
+   * @returns {Promise<string>}
+   */
+  static async #renderFeatureItem(uuid) {
+    const item = await fromUuid(uuid);
+    if ( !item ) return "";
+    return foundry.applications.handlebars.renderTemplate(this.FEATURE_ITEM_PARTIAL, {
+      uuid: item.uuid,
+      name: item.name,
+      img: item.img,
+      tags: item.getTags()
+    });
   }
 
   /* -------------------------------------------- */
@@ -285,6 +374,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
 
     // Chosen Background
+    this.#completed.background = backgroundId in backgrounds;
     if ( backgroundId ) {
       const b = context.background = backgrounds[backgroundId];
       if ( b.color ) t.selectionColor = b.color;
@@ -387,6 +477,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   changeTab(...args) {
     super.changeTab(...args);
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+    this.element.dataset.step = this.step;
+    crucible.api.audio.playClick();
     this.render({parts: ["header", this.step]});
   }
 
@@ -408,6 +500,26 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    this.element.dataset.step = this.step;
+    // Activate talent tree
+    if ( this.step === "talents" ) {
+      await this.activateTalentTree();
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _onClose(options) {
+    await super._onClose(options);
+    await this.deactivateTalentTree();
+  }
+
+  /* -------------------------------------------- */
   /*  Public API                                  */
   /* -------------------------------------------- */
 
@@ -420,18 +532,23 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( !(ancestryId in this._state.ancestries) ) throw new Error(`Invalid Ancestry identifier "${ancestryId}"`);
     this._state.ancestryId = ancestryId;
     const actor = this.#clone;
+    const ancestryItem = this._state.ancestries[ancestryId].item;
 
     // Remove prior Ancestry talents
-    const existing = actor.system.details.ancestry;
-    if ( existing?.talents?.size ) {
-      for ( const uuid of existing.talents ) {
-        const documentId = foundry.utils.parseUuid(uuid);
-        actor.items.delete(documentId);
-      }
+    for ( const item of actor.items ) {
+      if ( (item.type === "talent") && item.flags.crucible?.ancestry ) actor.items.delete(item.id);
+    }
+
+    // Add new Ancestry talents
+    for ( const uuid of ancestryItem.system.talents ) {
+      const talent = await fromUuid(uuid);
+      if ( !talent ) continue;
+      const talentData = talent.toObject()
+      foundry.utils.mergeObject(talentData, {"flags.crucible.ancestry": ancestryId});
+      actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
     }
 
     // Add new Ancestry data
-    const ancestryItem = this._state.ancestries[ancestryId].item;
     actor.updateSource({
       system: {
         details: {
@@ -440,11 +557,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       }
     });
 
-    // Add new Ancestry talents
-    for ( const uuid of ancestryItem.system.talents ) {
-      const talent = await fromUuid(uuid);
-      if ( talent ) actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
-    }
     await this.render({parts: ["header", "ancestry"]});
   }
 
@@ -458,18 +570,23 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( !(backgroundId in this._state.backgrounds) ) throw new Error(`Invalid Background identifier "${backgroundId}"`);
     this._state.backgroundId = backgroundId;
     const actor = this.#clone;
+    const backgroundItem = this._state.backgrounds[backgroundId].item;
 
-    // Clear prior Background talents
-    const existing = actor.system.details.background;
-    if ( existing?.talents?.size ) {
-      for ( const uuid of existing.talents ) {
-        const documentId = foundry.utils.parseUuid(uuid);
-        actor.items.delete(documentId);
-      }
+    // Remove prior Background talents
+    for ( const item of actor.items ) {
+      if ( (item.type === "talent") && item.flags.crucible?.background ) actor.items.delete(item.id);
+    }
+
+    // Add new Background talents
+    for ( const uuid of backgroundItem.system.talents ) {
+      const talent = await fromUuid(uuid);
+      if ( !talent ) continue;
+      const talentData = talent.toObject()
+      foundry.utils.mergeObject(talentData, {"flags.crucible.background": backgroundId});
+      actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
     }
 
     // Add new Background data
-    const backgroundItem = this._state.backgrounds[backgroundId].item;
     actor.updateSource({
       system: {
         details: {
@@ -477,13 +594,31 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         }
       }
     });
-
-    // Add new Background talents
-    for ( const uuid of backgroundItem.system.talents ) {
-      const talent = await fromUuid(uuid);
-      if ( talent ) actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
-    }
     await this.render({parts: ["header", "background"]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Activate the talent tree by embedding it within the character creation application.
+   * @returns {Promise<void>}
+   */
+  async activateTalentTree() {
+    const tree = crucible.tree;
+    await tree.open(this.#clone);
+    const tab = this.element.querySelector(".tab[data-tab=talents]");
+    tab.replaceChildren(tree.canvas);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Deactivate the talent tree by removing it from the character creation interface.
+   * @returns {Promise<void>}
+   */
+  async deactivateTalentTree() {
+    if ( crucible.tree.actor === this.#clone ) await crucible.tree.close();
+    document.body.append(crucible.tree.canvas);
   }
 
   /* -------------------------------------------- */
@@ -536,6 +671,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       modal: true
     });
     if ( !confirm ) return;
+    await this.deactivateTalentTree();
     this.#clone = this.document.constructor.fromSource(this.document.toObject());
     this._state = {};
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;

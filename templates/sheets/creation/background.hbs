@@ -1,52 +1,52 @@
 <section class="tab {{tabs.background.id}} {{tabs.background.cssClass}}"
          data-tab="{{tabs.background.id}}" data-group="{{tabs.background.group}}">
 
-    <nav class="step-navigation">
+    <div class="step-selection">
         <menu id="background-selection" class="selection-menu">
             {{#each backgrounds as |background|}}
-                <li class="option flexrow {{background.cssClass}}" style="--option-color:{{background.color}};"
-                    data-action="chooseBackground" data-background-id="{{background.identifier}}">
-                    <div class="option-icon">
-                        <img class="icon" src="{{background.icon}}" alt="{{background.name}}">
-                    </div>
-                    <h4 class="option-name">{{background.name}}</h4>
-                </li>
+            <li class="option flexrow {{background.cssClass}}" style="--option-color:{{background.color}};"
+                data-action="chooseBackground" data-background-id="{{background.identifier}}">
+                <div class="option-icon">
+                    <img class="icon" src="{{background.icon}}" alt="{{background.name}}">
+                </div>
+                <h4 class="option-name">{{background.name}}</h4>
+            </li>
             {{/each}}
         </menu>
-    </nav>
+    </div>
 
     {{#if background}}
-    <div id="background-details" class="selection-details flexcol scrollable">
-        <div class="details-section overview">
-            <h2 class="ember-header half">{{background.name}}</h2>
-            <article class="summary">
-                {{{background.summary}}}
-            </article>
-        </div>
-        {{#each background.advancements as |adv|}}
-            <div class="details-section advancement">
-                <h3 class="ember-header">{{adv.header}}</h3>
-                {{#if adv.tags}}
-                    {{#each adv.tags as |group|}}
-                        <div class="tags">
-                            {{#each group as |tag|}}<p class="tag">{{{tag}}}</p>{{/each}}
-                        </div>
+    <div id="background-details" class="step-details flexcol">
+        <h1 class="step-header">{{background.name}}</h1>
+        <article class="step-summary">
+            {{{background.summary}}}
+        </article>
+        {{#each background.features as |feature|}}
+        <div class="step-feature">
+            <h4>{{feature.label}}</h4>
+            {{#if feature.tags}}
+                <div class="tags">
+                    {{#each feature.tags as |tag|}}
+                    <span class="tag" {{#if tag.tooltip}}data-tooltip aria-label="{{tab.tooltip}}"{{/if}}>{{tag.text}}</span>
                     {{/each}}
-                {{/if}}
-                {{#if adv.items}}
-                    <div class="items">
-                        {{#each adv.items as |item|}}{{{item}}}{{/each}}
-                    </div>
-                {{/if}}
-            </div>
+                </div>
+            {{/if}}
+            {{#if feature.items}}
+                <div class="items">
+                    {{#each feature.items as |item|}}
+                    {{{item}}}
+                    {{/each}}
+                </div>
+            {{/if}}
+        </div>
         {{/each}}
     </div>
 
+    <figure class="step-figure flexcol {{background.figure.sizeClass}}">
     {{#if background.figure}}
-    <figure class="codex-figure flexcol {{background.figure.sizeClass}}">
-        <img class="codex-image" src="{{background.figure.src}}" alt="{{background.figure.caption}}">
+        <img src="{{background.figure.src}}" alt="{{background.figure.caption}}">
         <figcaption>{{background.figure.caption}}</figcaption>
-    </figure>
     {{/if}}
+    </figure>
     {{/if}}
 </section>

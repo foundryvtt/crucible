@@ -1656,7 +1656,16 @@
   /*  Selection Tab                               */
   /* -------------------------------------------- */
   /* -------------------------------------------- */
-  /*  Selection Menu                              */
+  /*  Step Selection Menu                         */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
+  /*  Step Details                                */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
+  /*  Step Figure                                 */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
+  /*  Talent Selection Step                       */
   /* -------------------------------------------- */
 }
 .crucible-fullscreen::before {
@@ -1713,14 +1722,14 @@
   flex: none;
   position: relative;
   width: 100%;
-  padding-top: calc(var(--gap) * 2);
   gap: var(--gap);
   max-width: var(--max-width);
   align-items: center;
 }
 .crucible-fullscreen #hero-creation-nav {
-  width: 60%;
-  justify-content: space-between;
+  padding: 16px 32px;
+  gap: 100px;
+  z-index: 1;
 }
 .crucible-fullscreen #hero-creation-nav li.step {
   --selection-color: #8a867c;
@@ -1773,13 +1782,17 @@
 .crucible-fullscreen #hero-creation-nav li.step .step-banner .step-icon {
   width: 60px;
   height: 60px;
+  border: 2px ridge var(--color-light-4);
+  border-radius: 100%;
+  box-sizing: content-box;
 }
-.crucible-fullscreen #hero-creation-nav li.step .step-banner .step-selection {
+.crucible-fullscreen #hero-creation-nav li.step .step-banner .step-label {
   font-size: 12px;
   line-height: 1em;
 }
 .crucible-fullscreen #hero-creation-nav li.step.incomplete .step-icon {
   opacity: 0.1;
+  border-color: transparent;
 }
 .crucible-fullscreen #hero-creation-nav li.step.active .step-title {
   color: var(--color-text-emphatic);
@@ -1813,10 +1826,10 @@
   padding: var(--gap) 0;
   max-width: var(--max-width);
 }
-.crucible-fullscreen .step-navigation {
-  flex: 0 0 440px;
+.crucible-fullscreen .step-selection {
+  flex: 0 0 400px;
   height: 100%;
-  padding: 20px;
+  padding: 20px 0 0 20px;
   overflow: hidden auto;
 }
 .crucible-fullscreen .selection-menu {
@@ -1840,13 +1853,13 @@
 .crucible-fullscreen .selection-menu .option .option-icon {
   width: 64px;
   height: 64px;
-  padding: 6px;
   position: absolute;
   left: -16px;
   top: -8px;
   background: linear-gradient(to bottom, var(--option-color) 0%, var(--color-cool-5) 100%);
   border: 2px ridge var(--color-light-4);
   border-radius: 100%;
+  overflow: hidden;
 }
 .crucible-fullscreen .selection-menu .option h4 {
   margin: 0;
@@ -1885,6 +1898,75 @@
 }
 .crucible-fullscreen .selection-menu .option.noicon::after {
   left: calc(50% - 3px);
+}
+.crucible-fullscreen .step-details {
+  flex: 1;
+  height: 100%;
+  overflow: hidden auto;
+  gap: var(--gap);
+}
+.crucible-fullscreen .step-details .step-header {
+  margin: 0;
+  padding: 20px 0 60px;
+  font-size: var(--font-size-36);
+  text-align: center;
+  background: url("../ui/journal/h1-separator.png") no-repeat bottom center;
+}
+.crucible-fullscreen .step-details .step-summary {
+  font-size: var(--font-size-15);
+  text-align: justify;
+  line-height: 1.5em;
+}
+.crucible-fullscreen .step-details .step-feature > h4 {
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+.crucible-fullscreen .step-details .step-feature > .tags {
+  justify-content: flex-start;
+}
+.crucible-fullscreen .step-details .step-feature > .tags .tag {
+  font-size: var(--font-size-14);
+  padding: 2px 8px;
+}
+.crucible-fullscreen .step-details .step-feature > .items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.crucible-fullscreen .step-details .step-feature > .items img {
+  border-radius: 100%;
+  border: 2px ridge var(--color-light-4);
+}
+.crucible-fullscreen .step-figure {
+  flex: 0 0 400px;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+}
+.crucible-fullscreen[data-step="talents"] #hero-creation-nav {
+  background: var(--color-cool-5-75);
+  border-radius: 0 0 16px 16px;
+  border: 1px solid var(--color-frame);
+  border-top: none;
+}
+.crucible-fullscreen[data-step="talents"] #hero-creation-name {
+  display: none;
+}
+.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-tree {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud {
+  max-width: 320px;
+}
+.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .points {
+  flex: none;
+}
+.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .name,
+.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .controls {
+  display: none;
 }
 @media (min-width: 2000px) {
   .crucible-fullscreen {
@@ -2697,6 +2779,7 @@
 #crucible-talent-controls {
   position: fixed;
   width: 100%;
+  left: 0;
   bottom: 50px;
   justify-content: center;
   pointer-events: none;
@@ -2708,6 +2791,7 @@
   width: 100%;
   max-width: 960px;
   align-items: center;
+  justify-content: center;
   pointer-events: all;
   padding: 0.5rem 1rem;
 }

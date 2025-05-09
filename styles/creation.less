@@ -84,15 +84,16 @@
     flex: none;
     position: relative;
     width: 100%;
-    padding-top: calc(var(--gap) * 2);
     gap: var(--gap);
     max-width: var(--max-width);
     align-items: center;
   }
 
   #hero-creation-nav {
-    width: 60%;
-    justify-content: space-between;
+    padding: 16px 32px;
+    gap: 100px;
+    z-index: 1;
+
     li.step {
       --selection-color: #8a867c;
       flex: none;
@@ -142,8 +143,11 @@
         .step-icon {
           width: 60px;
           height: 60px;
+          border: 2px ridge var(--color-light-4);
+          border-radius: 100%;
+          box-sizing: content-box;
         }
-        .step-selection {
+        .step-label {
           font-size: 12px;
           line-height: 1em;
         }
@@ -152,9 +156,8 @@
       // Incomplete Steps
       &.incomplete .step-icon {
         opacity: 0.1;
+        border-color: transparent;
       }
-
-      // Complete Steps
 
       // Active Step
       &.active .step-title {
@@ -199,13 +202,13 @@
   }
 
   /* -------------------------------------------- */
-  /*  Selection Menu                              */
+  /*  Step Selection Menu                         */
   /* -------------------------------------------- */
 
-  .step-navigation {
-    flex: 0 0 440px;
+  .step-selection {
+    flex: 0 0 400px;
     height: 100%;
-    padding: 20px;
+    padding: 20px 0 0 20px; // For overflow icons and glow
     overflow: hidden auto;
   }
 
@@ -230,13 +233,13 @@
       .option-icon {
         width: 64px;
         height: 64px;
-        padding: 6px;
         position: absolute;
         left: -16px;
         top: -8px;
         background: linear-gradient(to bottom, var(--option-color) 0%, var(--color-cool-5) 100%);
         border: 2px ridge var(--color-light-4);
         border-radius: 100%;
+        overflow: hidden;
       }
       h4 {
         margin: 0;
@@ -282,6 +285,100 @@
         &::after {
           left: calc(50%  - 3px);
         }
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Step Details                                */
+  /* -------------------------------------------- */
+
+  .step-details {
+    flex: 1;
+    height: 100%;
+    overflow: hidden auto;
+    gap: var(--gap);
+
+    .step-header {
+      margin: 0;
+      padding: 20px 0 60px;
+      font-size: var(--font-size-36);
+      text-align: center;
+      background: url("../ui/journal/h1-separator.png") no-repeat bottom center;
+    }
+
+    .step-summary {
+      font-size: var(--font-size-15);
+      text-align: justify;
+      line-height: 1.5em;
+    }
+
+    .step-feature {
+      > h4 {
+        color: var(--color-text-primary);
+        margin-bottom: 0.5rem;
+      }
+      > .tags {
+        justify-content: flex-start;
+        .tag {
+          font-size: var(--font-size-14);
+          padding: 2px 8px;
+        }
+      }
+      > .items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        img {
+          border-radius: 100%;
+          border: 2px ridge var(--color-light-4);
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+  /*  Step Figure                                 */
+  /* -------------------------------------------- */
+
+  .step-figure {
+    flex: 0 0 400px;
+    height: 100%;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  /* -------------------------------------------- */
+  /*  Talent Selection Step                       */
+  /* -------------------------------------------- */
+
+  &[data-step="talents"] {
+    #hero-creation-nav {
+      background: var(--color-cool-5-75);
+      border-radius: 0 0 16px 16px;
+      border: 1px solid var(--color-frame);
+      border-top: none;
+    }
+    #hero-creation-name {
+      display: none;
+    }
+  }
+
+  #crucible-hero-creation-talents {
+    #crucible-talent-tree {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    #crucible-talent-controls nav.hud {
+      max-width: 320px;
+      .points {
+        flex: none;
+      }
+      .name,
+      .controls {
+        display: none;
       }
     }
   }

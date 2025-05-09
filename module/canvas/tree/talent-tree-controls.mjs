@@ -34,6 +34,20 @@ export default class CrucibleTalentTreeControls extends Application {
 
   /* -------------------------------------------- */
 
+  _replaceHTML(element, html) {
+    super._replaceHTML(element, html);
+    crucible.tree.canvas.insertAdjacentElement("afterend", this._element[0]);
+  }
+
+  /* -------------------------------------------- */
+
+  _injectHTML(html) {
+    this._element = html;
+    crucible.tree.canvas.insertAdjacentElement("afterend", this._element[0]);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   activateListeners(html) {
     html.find("button.reset").click(() => this.tree.actor.resetTalents({dialog: true}));
