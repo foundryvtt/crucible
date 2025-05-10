@@ -992,7 +992,11 @@
     "EXPERT": "Expert",
     "MASTER": "Master"
   },
-  "PointsAvailable": "Points Available"
+  "PointsAvailable": "Points Available",
+  "POINTS": {
+    "one": "Point",
+    "other": "Points"
+  }
 },
 
 "TAXONOMY": {

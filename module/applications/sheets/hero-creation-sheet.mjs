@@ -34,10 +34,6 @@ const {HandlebarsApplicationMixin} = foundry.applications.api;
  * @template {CrucibleHeroCreationState} CreationState
  */
 export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
-  constructor(options) {
-    super(options);
-    this.#clone = this.document.constructor.fromSource(this.document.toObject());
-  }
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -52,10 +48,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       chooseAncestry: CrucibleHeroCreationSheet.#onChooseAncestry,
       chooseBackground: CrucibleHeroCreationSheet.#onChooseBackground,
       restart: CrucibleHeroCreationSheet.#onRestart,
-      // abilityIncrease: EmberCharacterCreationSheet.#onAbilityIncrease,
-      // abilityDecrease: EmberCharacterCreationSheet.#onAbilityDecrease,
-      // abilityBoostIncrease: EmberCharacterCreationSheet.#onAbilityBoostIncrease,
-      // abilityBoostDecrease: EmberCharacterCreationSheet.#onAbilityBoostDecrease,
+      abilityIncrease: CrucibleHeroCreationSheet.#onAbilityIncrease,
+      abilityDecrease: CrucibleHeroCreationSheet.#onAbilityDecrease,
       // complete: EmberCharacterCreationSheet.#onComplete
     }
   };
@@ -121,7 +115,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * A clone of the Actor which the character creation process operates upon.
    * @type {CrucibleActor}
    */
-  #clone;
+  #clone = this.#createClone();
 
   /**
    * Data which persists the current state of character creation.
@@ -169,11 +163,24 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /**
+   * Create a clone of the true Actor which is managed by the character creation process.
+   * @returns {CrucibleActor}
+   */
+  #createClone() {
+    const actorData = this.document.toObject();
+    actorData._id = null;
+    return this.document.constructor.fromSource(actorData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Perform one-time initialization of context data that is performed upon the first render.
    * @returns {Promise<void>}
-   * @private
+   * @protected
    */
   async _initializeState() {
+    this._state.name = this.#clone.name;
     const promises = [];
     for ( const step of Object.values(this.constructor.STEPS) ) {
       if ( step?.initialize instanceof Function ) promises.push(step.initialize.call(this));
@@ -332,7 +339,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<void>}
    */
-  static async #prepareAncestries(context, options) {
+  static async #prepareAncestries(context, _options) {
     const {ancestries, ancestryId} = this._state;
     const t = context.tabs.ancestry;
 
@@ -362,7 +369,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @returns {Promise<void>}
    */
-  static async #prepareBackgrounds(context, options) {
+  static async #prepareBackgrounds(context, _options) {
     const {backgrounds, backgroundId} = this._state;
     const t = context.tabs.background;
 
@@ -392,13 +399,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /** @override */
   _canRender(_options) {
     super._canRender(_options);
-    // TODO verify that this character has not already completed creation
+    if ( (this.document.type !== "hero") || (this.document.level > 0) ) {
+      throw new Error("You may only use the CrucibleHeroCreationSheet for a hero Actor which is level zero.")
+    }
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  _configureRenderParts(options) {
+  _configureRenderParts(_options) {
     const parts = foundry.utils.deepClone(this.constructor.PARTS);
     for ( const step of Object.values(this.constructor.STEPS) ) {
       parts[step.id] = {id: step.id, template: step.template}
@@ -417,6 +426,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Base context preparation
     const context = {
       actor: this.actor,
+      abilities: this._prepareAbilityScores(),
       buttons: this._prepareHeaderButtons(),
       activeStep: this.step,
       charname: this._state.name,
@@ -446,12 +456,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   _prepareHeaderButtons() {
     const buttons = [
-      {action: "close", icon: "fa-light fa-circle-xmark", label: "Exit", tooltip: "Exit Creation"}
+      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "Exit", tooltip: "Exit Creation"},
+      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "Restart", tooltip: "Restart Creation"}
     ];
     if ( Object.values(this.#completed).every(v => v === true) ) {
-      buttons.push({action: "complete", icon: "fa-light fa-circle-check", label: "Complete", tooltip: "Complete Creation"});
+      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "Complete", tooltip: "Complete Creation"});
     }
-    buttons.push({action: "restart", icon: "fa-light fa-undo", label: "Restart", tooltip: "Restart Creation"});
     return buttons;
   }
 
@@ -462,13 +472,46 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const tabs = super._prepareTabs("header");
     for ( const tab of Object.values(tabs) ) {
       const step = this.constructor.STEPS[tab.id];
+      const completed = !!this.#completed[tab.id];
       Object.assign(tab, step, {
-        selectionIcon: "systems/crucible/ui/svg/xmark.svg",
-        completed: false,
-        cssClass: "incomplete"
+        selectionIcon: `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`,
+        completed: completed,
+        cssClass: completed ? "complete" : "incomplete"
       });
     }
+
+    // Talents specifically
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    const tp = this.#clone.points.talent.available;
+    tabs.talents.selectionLabel = tp > 0 ? `${tp} ${game.i18n.localize("TALENT.POINTS." + plurals.select(tp))}`
+        : "Completed";
     return tabs;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare ability score data.
+   * @returns {object}
+   * @protected
+   */
+  _prepareAbilityScores() {
+    const abilities = [];
+    for ( const [abilityId, cfg] of Object.entries(SYSTEM.ABILITIES) ) {
+      const {value, base} = this.#clone.system.abilities[abilityId];
+      abilities.push({
+        id: abilityId,
+        label: cfg.label,
+        group: cfg.group,
+        order: cfg.sheetOrder,
+        total: value,
+        increases: base ? base.signedString() : "",
+        canIncrease: this.#clone.canPurchaseAbility(abilityId, 1),
+        canDecrease: this.#clone.canPurchaseAbility(abilityId, -1)
+      });
+    }
+    abilities.sort((a, b) => a.order - b.order);
+    return {abilities, points: this.#clone.points.ability};
   }
 
   /* -------------------------------------------- */
@@ -476,9 +519,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /** @inheritDoc */
   changeTab(...args) {
     super.changeTab(...args);
-    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     this.element.dataset.step = this.step;
     crucible.api.audio.playClick();
+    crucible.tree.hud.close(); // Close open talent tooltip
     this.render({parts: ["header", this.step]});
   }
 
@@ -497,6 +540,14 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( !confirm ) return;
     options.animate = false;
     return super.close(options);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    if ( this.element ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
   }
 
   /* -------------------------------------------- */
@@ -583,7 +634,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( !talent ) continue;
       const talentData = talent.toObject()
       foundry.utils.mergeObject(talentData, {"flags.crucible.background": backgroundId});
-      actor.items.set(talent.id, new talent.constructor(talent.toObject(), {parent: actor}));
+      actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
     }
 
     // Add new Background data
@@ -605,7 +656,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async activateTalentTree() {
     const tree = crucible.tree;
-    await tree.open(this.#clone);
+    if ( tree.actor === this.#clone ) return;
+    await tree.open(this.#clone, {parentApp: this});
     const tab = this.element.querySelector(".tab[data-tab=talents]");
     tab.replaceChildren(tree.canvas);
   }
@@ -622,6 +674,17 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Callback logic invoked when the embedded talent tree is updated.
+   * @internal
+   */
+  async _onRefreshTalentTree() {
+    this.#completed.talents = this.#clone.points.talent.available === 0;
+    await this.render({parts: ["header"]});
+  }
+
+  /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
@@ -631,8 +694,36 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
+  static async #onAbilityIncrease(event) {
+    const ability = event.target.closest(".ability");
+    crucible.api.audio.playClick();
+    await this.#clone.purchaseAbility(ability.dataset.ability, 1);
+    await this.render({parts: [this.step]});
+  }
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to choose an Ancestry.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onAbilityDecrease(event) {
+    const ability = event.target.closest(".ability");
+    crucible.api.audio.playClick();
+    await this.#clone.purchaseAbility(ability.dataset.ability, -1);
+    await this.render({parts: [this.step]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle click events to choose an Ancestry.
+   * @this {CrucibleHeroCreationSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
   static #onChooseAncestry(event) {
-    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const choice = event.target.closest(".option");
     this.chooseAncestry(choice.dataset.ancestryId);
     crucible.api.audio.playClick();
@@ -647,7 +738,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static #onChooseBackground(event) {
-    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const choice = event.target.closest(".option");
     this.chooseBackground(choice.dataset.backgroundId);
     crucible.api.audio.playClick();
@@ -658,22 +748,22 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /**
    * Reset the creation process and restart from the beginning.
    * @this {CrucibleHeroCreationSheet}
-   * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onRestart(event) {
+  static async #onRestart() {
     const confirm = await foundry.applications.api.DialogV2.confirm({
       window: {
         title: "Reset Creation Progress?",
-        icon: "fa-solid fa-undo"
+        icon: "fa-solid fa-hexagon-exclamation"
       },
       content: "Discard creation progress and restart from the beginning?",
       modal: true
     });
     if ( !confirm ) return;
     await this.deactivateTalentTree();
-    this.#clone = this.document.constructor.fromSource(this.document.toObject());
+    this.#clone = this.#createClone();
     this._state = {};
+    await this._initializeState();
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
     await this.render();
   }

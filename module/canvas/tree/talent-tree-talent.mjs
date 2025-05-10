@@ -50,25 +50,35 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle left-click events on a Talent icon to add that talent to the Actor.
+   * @param {PIXI.InteractionEvent} event
+   * @returns {Promise<void>}
+   */
   async #onClickLeft(event) {
     event.stopPropagation();
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
-    if ( !tree.actor || tree.actor.talentIds.has(this.talent.id) ) return;
-    const response = await tree.actor.addTalent(this.talent, {dialog: true});
+    const actor = tree.actor;
+    if ( !actor ) return;
+    if ( !actor || actor.talentIds.has(this.talent.id) ) return;
+    const response = await actor.addTalent(this.talent, {dialog: true});
     if ( response ) crucible.api.audio.playClick();
   }
 
   /* -------------------------------------------- */
-
+  /**
+   * Handle right-click events on a Talent icon to remove that talent from the Actor.
+   * @param {PIXI.InteractionEvent} event
+   * @returns {Promise<void>}
+   */
   async #onClickRight(event) {
     event.stopPropagation();
     const tree = game.system.tree;
     const actor = tree.actor;
     if ( !actor ) return;
     if ( !actor.system.talentIds.has(this.talent.id) || actor.system.permanentTalentIds.has(this.talent.id) ) return;
-    const talent = actor.items.get(this.talent.id);
-    const response = await talent.deleteDialog();
+    const response = await actor.removeTalent(this.talent, {dialog: true});
     if ( response ) crucible.api.audio.playClick();
   }
 

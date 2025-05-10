@@ -1146,14 +1146,15 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
-      const confirm = await Dialog.confirm({
-        title: `Purchase Talent: ${talent.name}`,
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {title: `Purchase Talent: ${talent.name}`},
         content: `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`,
-        defaultYes: false
+        yes: {default: true},
+        no: {default: false}
       });
       if ( !confirm ) return null;
 
-      // Re-confirm after the dialog has been submitted to prevent queuing
+      // Re-confirm after the dialog has been submitted to prevent queuing up multiple additions
       try {
         talent.system.assertPrerequisites(this);
       } catch(err) {
@@ -1162,8 +1163,50 @@ export default class CrucibleActor extends Actor {
       }
     }
 
-    // Create the talent
+    // Add temporarily to an ephemeral Actor
+    if ( !this._id ) {
+      const talentCopy = talent.constructor.fromSource(talent.toObject(), {parent: this});
+      this.items.set(talentCopy.id, talentCopy);
+      this.reset();
+      if ( crucible.tree.actor === this ) crucible.tree.refresh();
+    }
+
+    // Add permanently to a persisted Actor
     return talent.constructor.create(talent.toObject(), {parent: this, keepId: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove a Talent from this Actor.
+   * @param {CrucibleItem} talent     The Talent item to remove from the Actor
+   * @param {object} [options]        Options which configure how the Talent is added
+   * @param {boolean} [options.dialog]    Prompt the user with a confirmation dialog?
+   * @returns {Promise<CrucibleItem|null>} The removed talent Item or null
+   */
+  async removeTalent(talent, {dialog=false}={}) {
+    const ownedTalent = this.items.get(talent.id);
+    if ( !ownedTalent ) throw new Error(`Talent "${ownedTalent.id}" is not owned by Actor "${this.id}"`);
+    if ( dialog ) {
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {title: `Remove Talent: ${ownedTalent.name}`},
+        content: `<p>Remove talent <strong>${ownedTalent.name}</strong>, reclaiming 1 Talent Point?</p>`,
+        yes: {default: true},
+        no: {default: false}
+      });
+      if ( !confirm ) return null;
+    }
+
+    // Remove temporarily from an ephemeral Actor
+    if ( !this._id ) {
+      this.items.delete(ownedTalent.id);
+      this.reset();
+      if ( crucible.tree.actor === this ) crucible.tree.refresh();
+    }
+
+    // Remove permanently from a persisted Actor
+    else await ownedTalent.delete();
+    return ownedTalent;
   }
 
   /* -------------------------------------------- */
@@ -1213,8 +1256,13 @@ export default class CrucibleActor extends Actor {
     }
 
     // Modify the ability
-    if ( this.isL0 ) return this.update({[`system.abilities.${ability}.base`]: Math.max(a.base + delta, 0)});
-    else return this.update({[`system.abilities.${ability}.increases`]: a.increases + delta});
+    let update;
+    if ( this.isL0 ) update = {[`system.abilities.${ability}.base`]: Math.max(a.base + delta, 0)};
+    else update = {[`system.abilities.${ability}.increases`]: a.increases + delta};
+
+    // Temporary modification for ephemeral Actor
+    if ( !this._id ) this.updateSource(update);
+    else await this.update(update);
   }
 
   /* -------------------------------------------- */
@@ -1531,18 +1579,24 @@ export default class CrucibleActor extends Actor {
   /** @inheritDoc */
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
+    const updates = {};
+
+    // Begin Character Creation
+    if ( !this.pack && (this.type === "hero") && (this.level === 0) ) {
+      foundry.utils.setProperty(updates, "flags.core.sheetClass", "crucible.CrucibleHeroCreationSheet");
+    }
 
     // Automatic Prototype Token configuration
-    const prototypeToken = {bar1: {attribute: "resources.health"}, bar2: {attribute: "resources.morale"}};
+    updates.prototypeToken = {bar1: {attribute: "resources.health"}, bar2: {attribute: "resources.morale"}};
     switch ( data.type ) {
       case "hero":
-        Object.assign(prototypeToken, {vision: true, actorLink: true, disposition: 1});
+        Object.assign(updates.prototypeToken, {vision: true, actorLink: true, disposition: 1});
         break;
       case "adversary":
-        Object.assign(prototypeToken, {vision: false, actorLink: false, disposition: -1});
+        Object.assign(updates.prototypeToken, {vision: false, actorLink: false, disposition: -1});
         break;
     }
-    this.updateSource({prototypeToken});
+    this.updateSource(updates);
   }
 
   /* -------------------------------------------- */

@@ -15,8 +15,8 @@
         </menu>
     </div>
 
-    {{#if background}}
     <div id="background-details" class="step-details flexcol">
+    {{#if background}}
         <h1 class="step-header">{{background.name}}</h1>
         <article class="step-summary">
             {{{background.summary}}}
@@ -40,13 +40,27 @@
             {{/if}}
         </div>
         {{/each}}
+    {{/if}}
     </div>
 
-    <figure class="step-figure flexcol {{background.figure.sizeClass}}">
-    {{#if background.figure}}
-        <img src="{{background.figure.src}}" alt="{{background.figure.caption}}">
-        <figcaption>{{background.figure.caption}}</figcaption>
-    {{/if}}
-    </figure>
-    {{/if}}
+    <section id="ability-scores" class="step-sidebar ability-scores flexcol">
+        <h2 class="step-sidebar-header">Ability Scores</h2>
+        <p id="ability-points"><span class="points">{{abilities.points.pool}}</span> Points</p>
+        {{#each abilities.abilities as |ability|}}
+        <div class="ability flexrow" data-ability="{{ability.id}}">
+            <h4>{{ability.label}}</h4>
+            <span class="score hex {{ability.group}}">{{ability.total}}</span>
+            <span class="increases">{{ability.increases}}</span>
+            <div class="buttons flexcol">
+                <button type="button" class="plain icon fa-solid fa-caret-up" data-action="abilityIncrease"
+                        data-tooltip="Increase Ability Score" {{#unless ability.canIncrease}}disabled{{/unless}}>
+                </button>
+                <button type="button" class="plain icon fa-solid fa-caret-down" data-action="abilityDecrease"
+                        data-tooltip="Decrease Ability Score" {{#unless ability.canDecrease}}disabled{{/unless}}>
+                </button>
+            </div>
+        </div>
+        {{/each}}
+        <p class="hint">Spend 9 points across 6 ability scores, allocating up to 3 points per ability.</p>
+    </section>
 </section>

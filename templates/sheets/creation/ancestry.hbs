@@ -15,8 +15,8 @@
         </menu>
     </div>
 
-    {{#if ancestry}}
     <div id="ancestry-details" class="step-details flexcol">
+    {{#if ancestry}}
         <h1 class="step-header">{{ancestry.name}}</h1>
         <article class="step-summary">
             {{{ancestry.summary}}}
@@ -41,12 +41,12 @@
         </div>
         {{/each}}
     </div>
+    {{/if}}
 
-    <figure class="step-figure flexcol {{ancestry.figure.sizeClass}}">
-    {{#if ancestry.figure}}
+    <figure class="step-sidebar step-figure flexcol {{ancestry.figure.sizeClass}}">
+        {{#if ancestry.figure}}
         <img src="{{ancestry.figure.src}}" alt="{{ancestry.figure.caption}}">
         <figcaption>{{ancestry.figure.caption}}</figcaption>
-    {{/if}}
+        {{/if}}
     </figure>
-    {{/if}}
 </section>

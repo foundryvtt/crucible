@@ -94,6 +94,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   spritesheet = {};
 
+  /**
+   * Is the talent tree currently embedded within some other Application?
+   * @type {CrucibleHeroCreationSheet|ApplicationV2|null}
+   */
+  #parentApp = null;
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -288,9 +294,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @param {object} [options]            Options which modify how the talent tree is opened
    * @param {boolean} [options.resetView]   Reset the view coordinates of the tree to the center?
    */
-  async open(actor, {resetView=true}={}) {
+  async open(actor, {parentApp=null, resetView=true}={}) {
     if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
     this.developmentMode = !!CONFIG.debug.talentTree;
+    this.#parentApp = parentApp;
 
     // Draw the tree (once only)
     await this.draw();
@@ -325,6 +332,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /** @override */
   async close() {
+    this.#parentApp = null;
 
     // Disassociate Actor
     const actor = this.actor;
@@ -374,7 +382,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.wheel.refresh();
 
     // Refresh controls
-    this.controls.render(true);
+    if ( !this.#parentApp ) this.controls.render(true);
+
+    // Refresh parent app
+    if ( this.#parentApp?._onRefreshTalentTree instanceof Function ) this.#parentApp._onRefreshTalentTree();
   }
 
   /* -------------------------------------------- */

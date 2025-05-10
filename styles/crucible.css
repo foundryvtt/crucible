@@ -1665,6 +1665,9 @@
   /*  Step Figure                                 */
   /* -------------------------------------------- */
   /* -------------------------------------------- */
+  /*  Background Ability Scores                   */
+  /* -------------------------------------------- */
+  /* -------------------------------------------- */
   /*  Talent Selection Step                       */
   /* -------------------------------------------- */
 }
@@ -1907,7 +1910,8 @@
 }
 .crucible-fullscreen .step-details .step-header {
   margin: 0;
-  padding: 20px 0 60px;
+  height: 120px;
+  line-height: 80px;
   font-size: var(--font-size-36);
   text-align: center;
   background: url("../ui/journal/h1-separator.png") no-repeat bottom center;
@@ -1937,11 +1941,95 @@
   border-radius: 100%;
   border: 2px ridge var(--color-light-4);
 }
-.crucible-fullscreen .step-figure {
+.crucible-fullscreen .step-sidebar {
   flex: 0 0 400px;
   height: 100%;
-  padding: 20px;
+  padding: 0 20px;
   overflow: hidden;
+}
+.crucible-fullscreen .step-sidebar h2 {
+  height: 120px;
+  line-height: 80px;
+  margin: 0;
+  font-size: var(--font-size-32);
+  text-align: center;
+  background: url("../ui/journal/h2-separator.png") no-repeat bottom center;
+}
+.crucible-fullscreen .ability-scores {
+  gap: 1rem;
+  pointer-events: all;
+}
+.crucible-fullscreen .ability-scores .ability {
+  flex: 0 0 48px;
+  gap: 0.5rem;
+  padding: 0 0 0 1rem;
+  border: 1px solid #262431;
+  border-radius: 8px;
+}
+.crucible-fullscreen .ability-scores .ability h4 {
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-14);
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.crucible-fullscreen .ability-scores .ability .score {
+  flex: 0 0 60px;
+  height: 60px;
+  margin: -6px 0;
+  font-family: var(--font-header);
+  font-size: var(--font-size-28);
+  line-height: 1em;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+.crucible-fullscreen .ability-scores .ability .score.power {
+  --hex-bg: url("../ui/elements/hex-fortitude.svg");
+}
+.crucible-fullscreen .ability-scores .ability .score.resilience {
+  --hex-bg: url("../ui/elements/hex-willpower.svg");
+}
+.crucible-fullscreen .ability-scores .ability .score.speed {
+  --hex-bg: url("../ui/elements/hex-reflex.svg");
+}
+.crucible-fullscreen .ability-scores .ability .increases {
+  flex: 0 0 32px;
+  color: var(--color-light-5);
+  background: var(--color-cool-5-75);
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-align: center;
+}
+.crucible-fullscreen .ability-scores .ability .buttons {
+  flex: 0 0 32px;
+  align-content: center;
+}
+.crucible-fullscreen .ability-scores .ability .buttons button {
+  --button-size: 20px;
+}
+.crucible-fullscreen .ability-scores .ability .buttons button:disabled {
+  opacity: 0.25;
+}
+.crucible-fullscreen .ability-scores #ability-points {
+  flex: none;
+  margin: 0;
+  text-align: center;
+}
+.crucible-fullscreen .ability-scores #ability-points .points {
+  background: var(--color-cool-5-75);
+  padding: 1px 10px;
+  margin-right: 0.25rem;
+  border: 1px solid var(--color-frame);
+  border-radius: 4px;
+  font-size: var(--font-size-20);
+  font-weight: bold;
+}
+.crucible-fullscreen .ability-scores .hint {
+  font-size: var(--font-size-13);
+  color: var(--color-text-subtle);
+  opacity: 0.5;
 }
 .crucible-fullscreen[data-step="talents"] #hero-creation-nav {
   background: var(--color-cool-5-75);
@@ -1957,16 +2045,6 @@
   top: 0;
   left: 0;
   z-index: 0;
-}
-.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud {
-  max-width: 320px;
-}
-.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .points {
-  flex: none;
-}
-.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .name,
-.crucible-fullscreen #crucible-hero-creation-talents #crucible-talent-controls nav.hud .controls {
-  display: none;
 }
 @media (min-width: 2000px) {
   .crucible-fullscreen {
