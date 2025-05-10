@@ -50,7 +50,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       restart: CrucibleHeroCreationSheet.#onRestart,
       abilityIncrease: CrucibleHeroCreationSheet.#onAbilityIncrease,
       abilityDecrease: CrucibleHeroCreationSheet.#onAbilityDecrease,
-      // complete: EmberCharacterCreationSheet.#onComplete
+      complete: CrucibleHeroCreationSheet.#onComplete
     }
   };
 
@@ -529,7 +529,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   async close(options={}) {
-    const confirm = await foundry.applications.api.DialogV2.confirm({
+    const confirm = (options.dialog === false) || await foundry.applications.api.DialogV2.confirm({
       window: {
         title: "Abandon Creation Progress?",
         icon: "fa-solid fa-circle-x"
@@ -766,5 +766,29 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     await this._initializeState();
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
     await this.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Conclude the character creation process.
+   * @this {CrucibleHeroCreationSheet}
+   * @returns {Promise<void>}
+   */
+  static async #onComplete() {
+
+    // Prepare creation data
+    const creationData = this.#clone.toObject();
+    creationData.name = this._state.name;
+    delete creationData.flags.core.sheetClass;
+    creationData.system.advancement.level = 1;
+
+    // Close the creation sheet
+    await this.close({dialog: false});
+    this.document._sheet = null;
+
+    // Update the actor and render the regular sheet
+    await this.document.update(creationData, {recursive: false, diff: false, noHook: true});
+    this.document.sheet.render({force: true});
   }
 }
