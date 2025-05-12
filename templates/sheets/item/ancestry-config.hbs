@@ -2,8 +2,9 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "CRUCIBLE.ANCESTRY.SHEET.IDENTITY"}}</legend>
+        <legend>{{localize "ANCESTRY.SHEET.IDENTITY"}}</legend>
         {{formField fields.identifier value=system.identifier}}
+        {{formField fields.ui.fields.color value=system.ui.color}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
@@ -23,11 +24,5 @@
         <p class="hint">{{localize fields.resistances.hint}}</p>
         {{formField fields.resistances.fields.resistance value=system.resistances.resistance}}
         {{formField fields.resistances.fields.vulnerability value=system.resistances.vulnerability}}
-    </fieldset>
-
-    <fieldset {{fieldDisabled}}>
-        <legend>{{fields.ui.label}}</legend>
-        {{formField fields.ui.fields.color value=system.ui.color}}
-        {{formField fields.ui.fields.icon value=system.ui.icon}}
     </fieldset>
 </section>

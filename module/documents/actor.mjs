@@ -1583,7 +1583,7 @@ export default class CrucibleActor extends Actor {
 
     // Begin Character Creation
     if ( !this.pack && (this.type === "hero") && (this.level === 0) ) {
-      foundry.utils.setProperty(updates, "flags.core.sheetClass", "crucible.CrucibleHeroCreationSheet");
+      foundry.utils.setProperty(updates, "flags.core.sheetClass", `crucible.${crucible.CONFIG.heroCreationSheet.name}`);
     }
 
     // Automatic Prototype Token configuration

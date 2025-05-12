@@ -197,49 +197,58 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #initializeAncestries() {
     const {ancestryPacks} = crucible.CONFIG;
-    const ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks);
-    for ( const ancestry of Object.values(ancestries) ) {
-      const {abilities, resistances, movement, talents, schema} = ancestry.item.system;
+    this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks,
+      this._initializeAncestry);
+  }
 
-      // Ability Bonuses
-      const primary = SYSTEM.ABILITIES[abilities.primary];
-      const secondary = SYSTEM.ABILITIES[abilities.secondary];
-      ancestry.features.push({
-        label: schema.getField("abilities").label,
-        tags: [
-          {text: `${primary.label} ${SYSTEM.ANCESTRIES.primaryAbilityStart}`},
-          {text: `${secondary.label} ${SYSTEM.ANCESTRIES.secondaryAbilityStart}`}
-        ]
-      });
+  /* -------------------------------------------- */
 
-      // Resistances and Vulnerabilities
-      const res = SYSTEM.DAMAGE_TYPES[resistances.resistance];
-      const vuln = SYSTEM.DAMAGE_TYPES[resistances.vulnerability];
-      ancestry.features.push({
-        label: schema.getField("resistances").label,
-        tags: [
-          {text: res ? `Resistance: ${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : "Resistance: None"},
-          {text: res ? `Vulnerability: ${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : "Vulnerability: None"}
-        ]
-      });
+  /**
+   * Initialize an ancestry option, augmenting it with further functionality.
+   * @param {CrucibleHeroCreationItem} ancestry
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _initializeAncestry(ancestry) {
+    const {abilities, resistances, movement, talents, schema} = ancestry.item.system;
 
-      // Movement
-      const {size, stride} = movement;
-      ancestry.features.push({
-        label: schema.getField("movement").label,
-        tags: [
-          {text: `Size ${size}ft`},
-          {text: `Stride ${stride}ft`}
-        ]
-      });
+    // Ability Bonuses
+    const primary = SYSTEM.ABILITIES[abilities.primary];
+    const secondary = SYSTEM.ABILITIES[abilities.secondary];
+    ancestry.features.push({
+      label: schema.getField("abilities").label,
+      tags: [
+        {text: `${primary.label} ${SYSTEM.ANCESTRIES.primaryAbilityStart}`},
+        {text: `${secondary.label} ${SYSTEM.ANCESTRIES.secondaryAbilityStart}`}
+      ]
+    });
 
-      // Talents
-      ancestry.features.push({
-        label: schema.getField("talents").label,
-        items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
-      });
-    }
-    this._state.ancestries = ancestries;
+    // Resistances and Vulnerabilities
+    const res = SYSTEM.DAMAGE_TYPES[resistances.resistance];
+    const vuln = SYSTEM.DAMAGE_TYPES[resistances.vulnerability];
+    ancestry.features.push({
+      label: schema.getField("resistances").label,
+      tags: [
+        {text: res ? `Resistance: ${res.label} +${SYSTEM.ANCESTRIES.resistanceAmount}` : "Resistance: None"},
+        {text: res ? `Vulnerability: ${vuln.label} -${SYSTEM.ANCESTRIES.resistanceAmount}` : "Vulnerability: None"}
+      ]
+    });
+
+    // Movement
+    const {size, stride} = movement;
+    ancestry.features.push({
+      label: schema.getField("movement").label,
+      tags: [
+        {text: `Size ${size}ft`},
+        {text: `Stride ${stride}ft`}
+      ]
+    });
+
+    // Talents
+    ancestry.features.push({
+      label: schema.getField("talents").label,
+      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+    });
   }
 
   /* -------------------------------------------- */
@@ -251,17 +260,24 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   static async #initializeBackgrounds() {
     const {backgroundPacks} = crucible.CONFIG;
-    const backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks);
-    for ( const background of Object.values(backgrounds) ) {
-      const {talents, schema} = background.item.system;
+    this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks,
+      this._initializeBackground);
+  }
 
-      // Talents
-      background.features.push({
-        label: schema.getField("talents").label,
-        items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
-      });
-    }
-    this._state.backgrounds = backgrounds;
+  /* -------------------------------------------- */
+
+  /**
+   * Initialize an ancestry option, augmenting it with further functionality.
+   * @param {CrucibleHeroCreationItem} background
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _initializeBackground(background) {
+    const {talents, schema} = background.item.system;
+    background.features.push({
+      label: schema.getField("talents").label,
+      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+    });
   }
 
   /* -------------------------------------------- */
@@ -271,9 +287,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @this CrucibleHeroCreationSheet
    * @param {string} itemType
    * @param {Set<string>} packs
+   * @param {Function} [fn]
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
-  static async #initializeItemOptions(itemType, packs) {
+  static async #initializeItemOptions(itemType, packs, fn) {
     const options = {};
     await Promise.allSettled(Array.from(packs).map(async packId => {
       const pack = game.packs.get(packId);
@@ -284,16 +301,17 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       const items = await pack.getDocuments({type: itemType});
       for ( const item of items ) {
         const identifier = item.system.identifier;
-        const {color, icon} = item.system.ui;
-        options[identifier] = {
+        const option = {
           identifier,
           item,
           name: item.name,
-          color: color ?? "#8a867c",
-          icon: icon ?? item.img,
+          color: item.system.ui.color ?? "#8a867c",
+          icon: item.img,
           summary: await TextEditor.enrichHTML(item.system.description),
           features: []
-        };
+        }
+        if ( fn instanceof Function ) await fn.call(this, option);
+        options[identifier] = option;
       }
     }));
     return options;
@@ -315,6 +333,107 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       img: item.img,
       tags: item.getTags()
     });
+  }
+
+  /* -------------------------------------------- */
+  /*  Context Preparation                         */
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _prepareContext(options) {
+
+    // One-time initialization
+    if ( options.isFirstRender || foundry.utils.isEmpty(this._state) ) await this._initializeState();
+
+    // Base context preparation
+    const context = {
+      actor: this.actor,
+      abilities: this._prepareAbilityScores(),
+      buttons: this._prepareHeaderButtons(),
+      activeStep: this.step,
+      charname: this._state.name,
+      state: this._state,
+      tabs: this._prepareHeaderTabs()
+    }
+
+    // Step-specific preparation
+    await this._prepareSteps(context, options);
+
+    // Finalize tab steps
+    for ( const tab of Object.values(context.tabs) ) {
+      tab.cssClass = [
+        tab.active ? "active" : "",
+        tab.complete ? "complete" : "incomplete"
+      ].filterJoin(" ")
+    }
+    return context;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare fullscreen control buttons displayed in the header.
+   * @returns {[{icon: string, tooltip: string, action: string, label: string}]}
+   * @protected
+   */
+  _prepareHeaderButtons() {
+    const buttons = [
+      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "Exit", tooltip: "Exit Creation"},
+      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "Restart", tooltip: "Restart Creation"}
+    ];
+    if ( Object.values(this.#completed).every(v => v === true) ) {
+      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "Complete", tooltip: "Complete Creation"});
+    }
+    return buttons;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareHeaderTabs() {
+    const tabs = super._prepareTabs("header");
+    for ( const tab of Object.values(tabs) ) {
+      const step = this.constructor.STEPS[tab.id];
+      const completed = !!this.#completed[tab.id];
+      Object.assign(tab, step, {
+        selectionIcon: `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`,
+        completed: completed,
+        cssClass: completed ? "complete" : "incomplete"
+      });
+    }
+
+    // Talents specifically
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    const tp = this.#clone.points.talent.available;
+    tabs.talents.selectionLabel = tp > 0 ? `${tp} ${game.i18n.localize("TALENT.POINTS." + plurals.select(tp))}`
+      : "Completed";
+    return tabs;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare ability score data.
+   * @returns {object}
+   * @protected
+   */
+  _prepareAbilityScores() {
+    const abilities = [];
+    for ( const [abilityId, cfg] of Object.entries(SYSTEM.ABILITIES) ) {
+      const {value, base} = this.#clone.system.abilities[abilityId];
+      abilities.push({
+        id: abilityId,
+        label: cfg.label,
+        group: cfg.group,
+        order: cfg.sheetOrder,
+        total: value,
+        increases: base ? base.signedString() : "",
+        canIncrease: this.#clone.canPurchaseAbility(abilityId, 1),
+        canDecrease: this.#clone.canPurchaseAbility(abilityId, -1)
+      });
+    }
+    abilities.sort((a, b) => a.order - b.order);
+    return {abilities, points: this.#clone.points.ability};
   }
 
   /* -------------------------------------------- */
@@ -413,105 +532,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       parts[step.id] = {id: step.id, template: step.template}
     }
     return parts;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  async _prepareContext(options) {
-
-    // One-time initialization
-    if ( options.isFirstRender || foundry.utils.isEmpty(this._state) ) await this._initializeState();
-
-    // Base context preparation
-    const context = {
-      actor: this.actor,
-      abilities: this._prepareAbilityScores(),
-      buttons: this._prepareHeaderButtons(),
-      activeStep: this.step,
-      charname: this._state.name,
-      state: this._state,
-      tabs: this._prepareHeaderTabs()
-    }
-
-    // Step-specific preparation
-    await this._prepareSteps(context, options);
-
-    // Finalize tab steps
-    for ( const tab of Object.values(context.tabs) ) {
-      tab.cssClass = [
-        tab.active ? "active" : "",
-        tab.complete ? "complete" : "incomplete"
-      ].filterJoin(" ")
-    }
-    return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare fullscreen control buttons displayed in the header.
-   * @returns {[{icon: string, tooltip: string, action: string, label: string}]}
-   * @protected
-   */
-  _prepareHeaderButtons() {
-    const buttons = [
-      {action: "close", icon: "fa-light fa-hexagon-xmark", label: "Exit", tooltip: "Exit Creation"},
-      {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "Restart", tooltip: "Restart Creation"}
-    ];
-    if ( Object.values(this.#completed).every(v => v === true) ) {
-      buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "Complete", tooltip: "Complete Creation"});
-    }
-    return buttons;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _prepareHeaderTabs() {
-    const tabs = super._prepareTabs("header");
-    for ( const tab of Object.values(tabs) ) {
-      const step = this.constructor.STEPS[tab.id];
-      const completed = !!this.#completed[tab.id];
-      Object.assign(tab, step, {
-        selectionIcon: `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`,
-        completed: completed,
-        cssClass: completed ? "complete" : "incomplete"
-      });
-    }
-
-    // Talents specifically
-    const plurals = new Intl.PluralRules(game.i18n.lang);
-    const tp = this.#clone.points.talent.available;
-    tabs.talents.selectionLabel = tp > 0 ? `${tp} ${game.i18n.localize("TALENT.POINTS." + plurals.select(tp))}`
-        : "Completed";
-    return tabs;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare ability score data.
-   * @returns {object}
-   * @protected
-   */
-  _prepareAbilityScores() {
-    const abilities = [];
-    for ( const [abilityId, cfg] of Object.entries(SYSTEM.ABILITIES) ) {
-      const {value, base} = this.#clone.system.abilities[abilityId];
-      abilities.push({
-        id: abilityId,
-        label: cfg.label,
-        group: cfg.group,
-        order: cfg.sheetOrder,
-        total: value,
-        increases: base ? base.signedString() : "",
-        canIncrease: this.#clone.canPurchaseAbility(abilityId, 1),
-        canDecrease: this.#clone.canPurchaseAbility(abilityId, -1)
-      });
-    }
-    abilities.sort((a, b) => a.order - b.order);
-    return {abilities, points: this.#clone.points.ability};
   }
 
   /* -------------------------------------------- */

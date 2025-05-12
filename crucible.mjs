@@ -33,12 +33,12 @@ const DEVELOPMENT_MODE = true;
 
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
-  globalThis.crucible = game.system;
-  game.system.CONST = SYSTEM;
+  const crucible = globalThis.crucible = game.system;
+  crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
 
   // Expose the system API
-  game.system.api = {
+  crucible.api = {
     applications,
     audio,
     canvas,
@@ -59,9 +59,10 @@ Hooks.once("init", async function() {
   }
 
   // System Configuration
-  game.system.CONFIG = {
+  crucible.CONFIG = {
     ancestryPacks: new Set(["crucible.ancestry"]),
-    backgroundPacks: new Set(["crucible.background"])
+    backgroundPacks: new Set(["crucible.background"]),
+    heroCreationSheet: applications.CrucibleHeroCreationSheet
   };
 
   // Actor document configuration
@@ -99,7 +100,6 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Actor, SYSTEM.id, applications.HeroSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.Hero", makeDefault: true});
   sheets.registerSheet(Actor, SYSTEM.id, applications.AdversarySheet, {types: ["adversary"], label: "CRUCIBLE.SHEETS.Adversary", makeDefault: true});
   sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
-  sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleHeroCreationSheet, {types: ["hero"], label: "CRUCIBLE.SHEETS.HeroCreation", makeDefault: false, canBeDefault: false, canConfigure: false});
 
   sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
@@ -178,7 +178,7 @@ Hooks.once("init", async function() {
    * Is animation enabled for the system?
    * @type {boolean}
    */
-  Object.defineProperty(game.system, "animationEnabled", {
+  Object.defineProperty(crucible, "animationEnabled", {
     value: game.settings.get("crucible", "actionAnimations")
       && game.modules.get("sequencer")?.active
       && ["JB2A_DnD5e", "jb2a_patreon"].some(id => game.modules.get(id)?.active),
@@ -297,11 +297,16 @@ function preLocalizeConfig() {
  */
 Hooks.once("setup", function() {
 
+  // Deferred registration of the hero creation sheet
+  const sheets = foundry.applications.apps.DocumentSheetConfig;
+  sheets.registerSheet(Actor, SYSTEM.id, crucible.CONFIG.heroCreationSheet, {types: ["hero"],
+    label: "CRUCIBLE.SHEETS.HeroCreation", makeDefault: false, canBeDefault: false, canConfigure: false});
+
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();
 
   // Create Talent Tree canvas
-  game.system.tree = new canvas.tree.CrucibleTalentTree();
+  crucible.tree = new canvas.tree.CrucibleTalentTree();
 
   // Activate window listeners
   // TODO v13 refactor
@@ -340,7 +345,7 @@ Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
  * Re-open the talent tree if it was previously open for a certain Actor.
  */
 Hooks.on("canvasReady", () => {
-  if ( game.system.tree.actor ) game.system.tree.open(game.system.tree.actor, {resetView: false});
+  if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
   for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
 });
 
@@ -453,7 +458,7 @@ function registerDevelopmentHooks() {
     const talentPacks = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
     if ( !talentPacks.includes(item.pack)  ) return;
     await CrucibleTalentNode.initialize();
-    game.system.tree.refresh();
+    crucible.tree.refresh();
   })
 }
 
@@ -471,7 +476,7 @@ async function syncTalents(force=false) {
   let synced = 0;
   for ( const actor of game.actors ) {
     n++;
-    if ( force || foundry.utils.isNewerVersion(game.system.version, actor._stats.systemVersion) ) {
+    if ( force || foundry.utils.isNewerVersion(crucible.version, actor._stats.systemVersion) ) {
       try {
         await actor.syncTalents();
         console.log(`Crucible | Synchronized talents for Actor "${actor.name}"`);
@@ -504,3 +509,17 @@ async function resetAllActorTalents() {
     await actor.deleteEmbeddedDocuments("Item", deleteIds);
   }
 }
+
+
+/* -------------------------------------------- */
+/*  ESModules API                               */
+/* -------------------------------------------- */
+
+export {SYSTEM} from "./module/config/system.mjs";
+export * as applications from "./module/applications/_module.mjs";
+export * as canvas from "./module/canvas/_module.mjs";
+export * as dice from "./module/dice/_module.mjs";
+export * as documents from "./module/documents/_module.mjs";
+export * as models from "./module/models/_module.mjs";
+export * as audio from "./module/audio.mjs";
+export * as chat from "./module/chat.mjs";

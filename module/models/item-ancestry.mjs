@@ -32,8 +32,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
       }, {validate: CrucibleAncestryItem.#validateResistances}),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       ui: new fields.SchemaField({
-        color: new fields.ColorField(),
-        icon: new fields.FilePathField({categories: ["IMAGE"]})
+        color: new fields.ColorField()
       })
     };
   }

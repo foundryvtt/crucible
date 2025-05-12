@@ -1929,7 +1929,7 @@
   justify-content: flex-start;
 }
 .crucible-fullscreen .step-details .step-feature > .tags .tag {
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-13);
   padding: 2px 8px;
 }
 .crucible-fullscreen .step-details .step-feature > .items {

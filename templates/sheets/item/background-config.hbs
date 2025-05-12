@@ -2,19 +2,14 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "CRUCIBLE.BACKGROUND.SHEET.IDENTITY"}}</legend>
+        <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
         {{formField fields.identifier value=system.identifier}}
+        {{formField fields.ui.fields.color value=system.ui.color}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{fields.skills.label}}</legend>
         {{formInput fields.skills value=source.system.skills input=skillsInput}}
         <p class="hint">{{fields.skills.hint}}</p>
-    </fieldset>
-
-    <fieldset {{fieldDisabled}}>
-        <legend>{{fields.ui.label}}</legend>
-        {{formField fields.ui.fields.color value=system.ui.color}}
-        {{formField fields.ui.fields.icon value=system.ui.icon}}
     </fieldset>
 </section>

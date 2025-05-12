@@ -17,8 +17,7 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
       identifier: new ItemIdentifierField(),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       ui: new fields.SchemaField({
-        color: new fields.ColorField(),
-        icon: new fields.FilePathField({categories: ["IMAGE"]})
+        color: new fields.ColorField()
       })
     };
   }
