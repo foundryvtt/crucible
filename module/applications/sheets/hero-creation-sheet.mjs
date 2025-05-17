@@ -1,4 +1,5 @@
 import {SYSTEM} from "../../config/system.mjs";
+import CrucibleItem from "../../documents/item.mjs";
 
 const {ActorSheetV2} = foundry.applications.sheets;
 const {HandlebarsApplicationMixin} = foundry.applications.api;
@@ -85,18 +86,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
   };
 
-  /**
-   * The partial template used to render a feature granted item/
-   * @type {string}
-   */
-  static FEATURE_ITEM_PARTIAL = "systems/crucible/templates/sheets/creation/feature-item.hbs";
-
   /** @override */
   static PARTS = {
     header: {
       id: "header",
       template: "systems/crucible/templates/sheets/creation/header.hbs",
-      templates: [this.FEATURE_ITEM_PARTIAL]
+      templates: [CrucibleItem.INLINE_TEMPLATE_PATH]
     }
     // PARTS from STEPS are defined dynamically in _configureRenderParts
   };
@@ -114,8 +109,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /**
    * A clone of the Actor which the character creation process operates upon.
    * @type {CrucibleActor}
+   * @protected
    */
-  #clone = this.#createClone();
+  _clone = this.#createClone();
 
   /**
    * Data which persists the current state of character creation.
@@ -127,8 +123,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /**
    * Track completed steps.
    * @type {Record<string, boolean>}
+   * @protected
    */
-  #completed = Object.seal(Object.values(this.constructor.STEPS).reduce((obj, s) => {
+  _completed = Object.seal(Object.values(this.constructor.STEPS).reduce((obj, s) => {
     obj[s.id] = false;
     return obj;
   }, {}));
@@ -180,7 +177,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeState() {
-    this._state.name = this.#clone.name;
+    this._state.name = this._clone.name;
     const promises = [];
     for ( const step of Object.values(this.constructor.STEPS) ) {
       if ( step?.initialize instanceof Function ) promises.push(step.initialize.call(this));
@@ -247,7 +244,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     // Talents
     ancestry.features.push({
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)))
     });
   }
 
@@ -276,7 +273,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const {talents, schema} = background.item.system;
     background.features.push({
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet.#renderFeatureItem(uuid)))
+      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)))
     });
   }
 
@@ -323,16 +320,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * Render partial HTML for an item provided by a character creation feature.
    * @param {string} uuid
    * @returns {Promise<string>}
+   * @protected
    */
-  static async #renderFeatureItem(uuid) {
+  static async _renderFeatureItem(uuid) {
     const item = await fromUuid(uuid);
     if ( !item ) return "";
-    return foundry.applications.handlebars.renderTemplate(this.FEATURE_ITEM_PARTIAL, {
-      uuid: item.uuid,
-      name: item.name,
-      img: item.img,
-      tags: item.getTags()
-    });
+    return item.renderInline();
   }
 
   /* -------------------------------------------- */
@@ -381,7 +374,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       {action: "close", icon: "fa-light fa-hexagon-xmark", label: "Exit", tooltip: "Exit Creation"},
       {action: "restart", icon: "fa-light fa-hexagon-exclamation", label: "Restart", tooltip: "Restart Creation"}
     ];
-    if ( Object.values(this.#completed).every(v => v === true) ) {
+    if ( Object.values(this._completed).every(v => v === true) ) {
       buttons.push({action: "complete", icon: "fa-light fa-hexagon-check", label: "Complete", tooltip: "Complete Creation"});
     }
     return buttons;
@@ -391,10 +384,13 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   _prepareHeaderTabs() {
-    const tabs = super._prepareTabs("header");
+    const tabs = this._prepareTabs("header");
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+
+    // Default icons and completion state
     for ( const tab of Object.values(tabs) ) {
       const step = this.constructor.STEPS[tab.id];
-      const completed = !!this.#completed[tab.id];
+      const completed = !!this._completed[tab.id];
       Object.assign(tab, step, {
         selectionIcon: `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`,
         completed: completed,
@@ -402,11 +398,19 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       });
     }
 
+    // Background specifically
+    if ( "background" in tabs ) {
+      const ap = this._clone.points.ability.pool;
+      tabs.background.selectionLabel = `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}`;
+    }
+
     // Talents specifically
-    const plurals = new Intl.PluralRules(game.i18n.lang);
-    const tp = this.#clone.points.talent.available;
-    tabs.talents.selectionLabel = tp > 0 ? `${tp} ${game.i18n.localize("TALENT.POINTS." + plurals.select(tp))}`
-      : "Completed";
+    if ( "talents" in tabs ) {
+      const tp = this._clone.points.talent.available;
+      tabs.talents.selectionLabel = tp > 0
+        ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
+        : "Completed";
+    }
     return tabs;
   }
 
@@ -420,7 +424,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   _prepareAbilityScores() {
     const abilities = [];
     for ( const [abilityId, cfg] of Object.entries(SYSTEM.ABILITIES) ) {
-      const {value, base} = this.#clone.system.abilities[abilityId];
+      const {value, base} = this._clone.system.abilities[abilityId];
       abilities.push({
         id: abilityId,
         label: cfg.label,
@@ -428,12 +432,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         order: cfg.sheetOrder,
         total: value,
         increases: base ? base.signedString() : "",
-        canIncrease: this.#clone.canPurchaseAbility(abilityId, 1),
-        canDecrease: this.#clone.canPurchaseAbility(abilityId, -1)
+        canIncrease: this._clone.canPurchaseAbility(abilityId, 1),
+        canDecrease: this._clone.canPurchaseAbility(abilityId, -1)
       });
     }
     abilities.sort((a, b) => a.order - b.order);
-    return {abilities, points: this.#clone.points.ability};
+    return {abilities, points: this._clone.points.ability};
   }
 
   /* -------------------------------------------- */
@@ -470,7 +474,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
 
     // Chosen Ancestry
-    this.#completed.ancestry = ancestryId in ancestries;
+    this._completed.ancestry = ancestryId in ancestries;
     if ( ancestryId ) {
       const a = context.ancestry = ancestries[ancestryId];
       if ( a.color ) t.selectionColor = a.color;
@@ -500,13 +504,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
 
     // Chosen Background
-    this.#completed.background = backgroundId in backgrounds;
+    this._completed.background = backgroundId in backgrounds;
     if ( backgroundId ) {
       const b = context.background = backgrounds[backgroundId];
       if ( b.color ) t.selectionColor = b.color;
       if ( b.icon ) t.selectionIcon = b.icon;
-      t.selectionLabel = b.name;
-      t.complete = true;
+      if ( this._clone.points.ability.pool === 0 ) {
+        t.selectionLabel = b.name;
+        t.complete = true;
+      }
     }
     else context.background = null;
   }
@@ -602,7 +608,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async chooseAncestry(ancestryId) {
     if ( !(ancestryId in this._state.ancestries) ) throw new Error(`Invalid Ancestry identifier "${ancestryId}"`);
     this._state.ancestryId = ancestryId;
-    const actor = this.#clone;
+    const actor = this._clone;
     const ancestryItem = this._state.ancestries[ancestryId].item;
 
     // Remove prior Ancestry talents
@@ -640,7 +646,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async chooseBackground(backgroundId) {
     if ( !(backgroundId in this._state.backgrounds) ) throw new Error(`Invalid Background identifier "${backgroundId}"`);
     this._state.backgroundId = backgroundId;
-    const actor = this.#clone;
+    const actor = this._clone;
     const backgroundItem = this._state.backgrounds[backgroundId].item;
 
     // Remove prior Background talents
@@ -676,8 +682,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async activateTalentTree() {
     const tree = crucible.tree;
-    if ( tree.actor === this.#clone ) return;
-    await tree.open(this.#clone, {parentApp: this});
+    if ( tree.actor === this._clone ) return;
+    await tree.open(this._clone, {parentApp: this});
     const tab = this.element.querySelector(".tab[data-tab=talents]");
     tab.replaceChildren(tree.canvas);
   }
@@ -689,7 +695,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   async deactivateTalentTree() {
-    if ( crucible.tree.actor === this.#clone ) await crucible.tree.close();
+    if ( crucible.tree.actor === this._clone ) await crucible.tree.close();
     document.body.append(crucible.tree.canvas);
   }
 
@@ -700,7 +706,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @internal
    */
   async _onRefreshTalentTree() {
-    this.#completed.talents = this.#clone.points.talent.available === 0;
+    this._completed.talents = this._clone.points.talent.available === 0;
     await this.render({parts: ["header"]});
   }
 
@@ -717,8 +723,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onAbilityIncrease(event) {
     const ability = event.target.closest(".ability");
     crucible.api.audio.playClick();
-    await this.#clone.purchaseAbility(ability.dataset.ability, 1);
-    await this.render({parts: [this.step]});
+    await this._clone.purchaseAbility(ability.dataset.ability, 1);
+    await this.render({parts: [this.step, "header"]});
   }
   /* -------------------------------------------- */
 
@@ -731,8 +737,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onAbilityDecrease(event) {
     const ability = event.target.closest(".ability");
     crucible.api.audio.playClick();
-    await this.#clone.purchaseAbility(ability.dataset.ability, -1);
-    await this.render({parts: [this.step]});
+    await this._clone.purchaseAbility(ability.dataset.ability, -1);
+    await this.render({parts: [this.step, "header"]});
   }
 
   /* -------------------------------------------- */
@@ -781,7 +787,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     });
     if ( !confirm ) return;
     await this.deactivateTalentTree();
-    this.#clone = this.#createClone();
+    this._clone = this.#createClone();
     this._state = {};
     await this._initializeState();
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
@@ -798,7 +804,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onComplete() {
 
     // Prepare creation data
-    const creationData = this.#clone.toObject();
+    const creationData = this._clone.toObject();
     creationData.name = this._state.name;
     delete creationData.flags.core.sheetClass;
     creationData.system.advancement.level = 1;

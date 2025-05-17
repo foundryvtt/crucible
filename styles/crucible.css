@@ -1825,7 +1825,7 @@
   flex-direction: row;
   width: 100%;
   height: 0;
-  gap: calc(2 * var(--gap));
+  gap: calc(3 * var(--gap));
   padding: var(--gap) 0;
   max-width: var(--max-width);
 }
@@ -1944,8 +1944,7 @@
 .crucible-fullscreen .step-sidebar {
   flex: 0 0 400px;
   height: 100%;
-  padding: 0 20px;
-  overflow: hidden;
+  overflow: visible;
 }
 .crucible-fullscreen .step-sidebar h2 {
   height: 120px;
@@ -1954,6 +1953,41 @@
   font-size: var(--font-size-32);
   text-align: center;
   background: url("../ui/journal/h2-separator.png") no-repeat bottom center;
+}
+.crucible-fullscreen .step-figure {
+  --figure-size: 400px;
+  width: var(--figure-size);
+  height: auto;
+  justify-content: flex-start;
+  max-height: 80%;
+  margin: 0 calc((400px - var(--figure-size)) / 2);
+  gap: 16px;
+  z-index: -1;
+}
+.crucible-fullscreen .step-figure img {
+  width: 100%;
+  height: auto;
+  object-position: bottom center;
+  border: none;
+  box-shadow: none;
+}
+.crucible-fullscreen .step-figure figcaption {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--color-light-5);
+}
+.crucible-fullscreen .step-figure.banner {
+  --figure-size: 460px;
+  width: var(--figure-size);
+  height: auto;
+}
+.crucible-fullscreen .step-figure.portrait {
+  --figure-size: 600px;
+  height: var(--figure-size);
+  width: var(--figure-size);
+}
+.crucible-fullscreen .step-figure.portrait img {
+  object-fit: contain;
 }
 .crucible-fullscreen .ability-scores {
   gap: 1rem;
@@ -2001,6 +2035,9 @@
   padding: 3px 6px;
   border-radius: 4px;
   text-align: center;
+}
+.crucible-fullscreen .ability-scores .ability .increases:empty {
+  visibility: hidden;
 }
 .crucible-fullscreen .ability-scores .ability .buttons {
   flex: 0 0 32px;

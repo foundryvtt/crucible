@@ -196,7 +196,7 @@
     flex-direction: row;
     width: 100%;
     height: 0; // Flex hack
-    gap: calc(2 * var(--gap));
+    gap: calc(3 * var(--gap));
     padding: var(--gap) 0;
     max-width: var(--max-width);
   }
@@ -345,8 +345,7 @@
   .step-sidebar {
     flex: 0 0 400px;
     height: 100%;
-    padding: 0 20px;
-    overflow: hidden;
+    overflow: visible;
     h2 {
       height: 120px;
       line-height: 80px;
@@ -354,6 +353,42 @@
       font-size: var(--font-size-32);
       text-align: center;
       background: url("../ui/journal/h2-separator.png") no-repeat bottom center;
+    }
+  }
+
+  .step-figure {
+    --figure-size: 400px;
+    width: var(--figure-size);
+    height: auto;
+    justify-content: flex-start;
+    max-height: 80%;
+    margin: 0 calc((400px - var(--figure-size)) / 2); // Overflow
+    gap: 16px;
+    z-index: -1; // Below content
+    img {
+      width: 100%;
+      height: auto;
+      object-position: bottom center;
+      border: none;
+      box-shadow: none;
+    }
+    figcaption {
+      margin: 0;
+      font-family: var(--font-serif);
+      color: var(--color-light-5);
+    }
+    &.banner {
+      --figure-size: 460px;
+      width: var(--figure-size);
+      height: auto;
+    }
+    &.portrait {
+      --figure-size: 600px;
+      height: var(--figure-size);
+      width: var(--figure-size);
+      img {
+        object-fit: contain;
+      }
     }
   }
 
@@ -399,6 +434,9 @@
         padding: 3px 6px;
         border-radius: 4px;
         text-align: center;
+        &:empty {
+          visibility: hidden;
+        }
       }
       .buttons {
         flex: 0 0 32px;

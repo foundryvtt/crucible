@@ -3,6 +3,12 @@
  */
 export default class CrucibleItem extends foundry.documents.Item {
 
+  /**
+   * The partial template used to render a feature granted item.
+   * @type {string}
+   */
+  static INLINE_TEMPLATE_PATH = "systems/crucible/templates/sheets/creation/feature-item.hbs";
+
   /* -------------------------------------------- */
   /*  Item Attributes                             */
   /* -------------------------------------------- */
@@ -94,6 +100,21 @@ export default class CrucibleItem extends foundry.documents.Item {
    */
   getTags(scope="full") {
     return this.system.getTags?.(scope) || {};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render partial HTML for displaying this item as a standard inline block.
+   * @returns {Promise<string>}
+   */
+  async renderInline() {
+    return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
+      uuid: this.uuid,
+      name: this.name,
+      img: this.img,
+      tags: this.getTags()
+    });
   }
 
   /* -------------------------------------------- */

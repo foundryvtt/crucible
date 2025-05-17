@@ -43,10 +43,12 @@
     </div>
     {{/if}}
 
-    <figure class="step-sidebar step-figure flexcol {{ancestry.figure.sizeClass}}">
+    <aside class="step-sidebar">
         {{#if ancestry.figure}}
-        <img src="{{ancestry.figure.src}}" alt="{{ancestry.figure.caption}}">
-        <figcaption>{{ancestry.figure.caption}}</figcaption>
+        <figure class="step-figure flexcol {{ancestry.figure.cssClass}}">
+            <img src="{{ancestry.figure.src}}" alt="{{ancestry.figure.caption}}">
+            <figcaption>{{ancestry.figure.caption}}</figcaption>
+        </figure>
         {{/if}}
-    </figure>
+    </aside>
 </section>

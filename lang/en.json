@@ -993,9 +993,15 @@
     "MASTER": "Master"
   },
   "PointsAvailable": "Points Available",
-  "POINTS": {
-    "one": "Point",
-    "other": "Points"
+  "LABELS": {
+    "Points": {
+      "one": "Point",
+      "other": "Points"
+    },
+    "Talents": {
+      "one": "Talent",
+      "other": "Talents"
+    }
   }
 },
 
