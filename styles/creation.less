@@ -91,7 +91,7 @@
 
   #hero-creation-nav {
     padding: 16px 32px;
-    gap: 100px;
+    gap: calc(var(--gap) * 2);
     z-index: 1;
 
     li.step {
@@ -171,18 +171,14 @@
     flex: 0 0 60px;
     width: 600px;
     padding: 0;
-    background: linear-gradient(to bottom, rgb(150 150 150 / 25%) 25%, transparent 100%);
+    background: var(--color-cool-5-50);
     border: none;
     border-radius: 8px;
-    color: var(--color-text-subtle);
-    font-family: var(--font-serif);
+    color: var(--color-text-emphatic);
+    font-family: var(--font-h1);
     letter-spacing: 0.1em;
     font-size: 36px;
-    font-weight: bold;
     text-align: center;
-    &::placeholder {
-      text-transform: uppercase;
-    }
   }
 
   /* -------------------------------------------- */
@@ -192,11 +188,11 @@
   section.tab.active {
     display: flex;
     flex: 1;
-    align-items: flex-start;
-    flex-direction: row;
     width: 100%;
     height: 0; // Flex hack
-    gap: calc(3 * var(--gap));
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     padding: var(--gap) 0;
     max-width: var(--max-width);
   }
@@ -206,9 +202,9 @@
   /* -------------------------------------------- */
 
   .step-selection {
-    flex: 0 0 400px;
+    flex: 0 0 440px;
     height: 100%;
-    padding: 20px 0 0 20px; // For overflow icons and glow
+    padding: 20px; // For overflow icons and scrollbars
     overflow: hidden auto;
   }
 
@@ -294,7 +290,7 @@
   /* -------------------------------------------- */
 
   .step-details {
-    flex: 1;
+    flex: 0 0 600px;
     height: 100%;
     overflow: hidden auto;
     gap: var(--gap);
@@ -343,7 +339,7 @@
   /* -------------------------------------------- */
 
   .step-sidebar {
-    flex: 0 0 400px;
+    flex: 0 0 440px;
     height: 100%;
     overflow: visible;
     h2 {
@@ -357,12 +353,12 @@
   }
 
   .step-figure {
-    --figure-size: 400px;
+    --figure-size: 440px;
     width: var(--figure-size);
     height: auto;
     justify-content: flex-start;
     max-height: 80%;
-    margin: 0 calc((400px - var(--figure-size)) / 2); // Overflow
+    margin: 0 calc((440px - var(--figure-size)) / 2); // Overflow
     gap: 16px;
     z-index: -1; // Below content
     img {
@@ -383,13 +379,17 @@
       height: auto;
     }
     &.portrait {
-      --figure-size: 600px;
       height: var(--figure-size);
       width: var(--figure-size);
       img {
+        height: 100%;
+        width: auto;
         object-fit: contain;
       }
     }
+    &.portrait-sm {--figure-size: 440px;}
+    &.portrait-med {--figure-size: 600px;}
+    &.portrait-lg {--figure-size: 760px;}
   }
 
   /* -------------------------------------------- */

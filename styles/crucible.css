@@ -1731,7 +1731,7 @@
 }
 .crucible-fullscreen #hero-creation-nav {
   padding: 16px 32px;
-  gap: 100px;
+  gap: calc(var(--gap) * 2);
   z-index: 1;
 }
 .crucible-fullscreen #hero-creation-nav li.step {
@@ -1805,34 +1805,30 @@
   flex: 0 0 60px;
   width: 600px;
   padding: 0;
-  background: linear-gradient(to bottom, rgba(150, 150, 150, 0.25) 25%, transparent 100%);
+  background: var(--color-cool-5-50);
   border: none;
   border-radius: 8px;
-  color: var(--color-text-subtle);
-  font-family: var(--font-serif);
+  color: var(--color-text-emphatic);
+  font-family: var(--font-h1);
   letter-spacing: 0.1em;
   font-size: 36px;
-  font-weight: bold;
   text-align: center;
-}
-.crucible-fullscreen #hero-creation-name::placeholder {
-  text-transform: uppercase;
 }
 .crucible-fullscreen section.tab.active {
   display: flex;
   flex: 1;
-  align-items: flex-start;
-  flex-direction: row;
   width: 100%;
   height: 0;
-  gap: calc(3 * var(--gap));
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   padding: var(--gap) 0;
   max-width: var(--max-width);
 }
 .crucible-fullscreen .step-selection {
-  flex: 0 0 400px;
+  flex: 0 0 440px;
   height: 100%;
-  padding: 20px 0 0 20px;
+  padding: 20px;
   overflow: hidden auto;
 }
 .crucible-fullscreen .selection-menu {
@@ -1903,7 +1899,7 @@
   left: calc(50% - 3px);
 }
 .crucible-fullscreen .step-details {
-  flex: 1;
+  flex: 0 0 600px;
   height: 100%;
   overflow: hidden auto;
   gap: var(--gap);
@@ -1942,7 +1938,7 @@
   border: 2px ridge var(--color-light-4);
 }
 .crucible-fullscreen .step-sidebar {
-  flex: 0 0 400px;
+  flex: 0 0 440px;
   height: 100%;
   overflow: visible;
 }
@@ -1955,12 +1951,12 @@
   background: url("../ui/journal/h2-separator.png") no-repeat bottom center;
 }
 .crucible-fullscreen .step-figure {
-  --figure-size: 400px;
+  --figure-size: 440px;
   width: var(--figure-size);
   height: auto;
   justify-content: flex-start;
   max-height: 80%;
-  margin: 0 calc((400px - var(--figure-size)) / 2);
+  margin: 0 calc((440px - var(--figure-size)) / 2);
   gap: 16px;
   z-index: -1;
 }
@@ -1982,12 +1978,22 @@
   height: auto;
 }
 .crucible-fullscreen .step-figure.portrait {
-  --figure-size: 600px;
   height: var(--figure-size);
   width: var(--figure-size);
 }
 .crucible-fullscreen .step-figure.portrait img {
+  height: 100%;
+  width: auto;
   object-fit: contain;
+}
+.crucible-fullscreen .step-figure.portrait-sm {
+  --figure-size: 440px;
+}
+.crucible-fullscreen .step-figure.portrait-med {
+  --figure-size: 600px;
+}
+.crucible-fullscreen .step-figure.portrait-lg {
+  --figure-size: 760px;
 }
 .crucible-fullscreen .ability-scores {
   gap: 1rem;

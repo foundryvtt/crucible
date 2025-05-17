@@ -555,15 +555,18 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   async close(options={}) {
-    const confirm = (options.dialog === false) || await foundry.applications.api.DialogV2.confirm({
-      window: {
-        title: "Abandon Creation Progress?",
-        icon: "fa-solid fa-circle-x"
-      },
-      content: "Discard creation progress and exit the creator?",
-      modal: true
-    });
-    if ( !confirm ) return;
+    if ( options.dialog !== false ) {
+      crucible.api.audio.playClick();
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {
+          title: "Abandon Creation Progress?",
+          icon: "fa-solid fa-circle-x"
+        },
+        content: "Discard creation progress and exit the creator?",
+        modal: true
+      });
+      if ( !confirm ) return;
+    }
     options.animate = false;
     return super.close(options);
   }
