@@ -356,7 +356,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const tab of Object.values(context.tabs) ) {
       tab.cssClass = [
         tab.active ? "active" : "",
-        tab.complete ? "complete" : "incomplete"
+        tab.completed ? "complete" : "incomplete"
       ].filterJoin(" ")
     }
     return context;
@@ -480,7 +480,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( a.color ) t.selectionColor = a.color;
       if ( a.icon ) t.selectionIcon = a.icon;
       t.selectionLabel = a.name;
-      t.complete = true;
+      t.completed = true;
     }
     else context.ancestry = null;
   }
@@ -511,7 +511,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( b.icon ) t.selectionIcon = b.icon;
       if ( this._clone.points.ability.pool === 0 ) {
         t.selectionLabel = b.name;
-        t.complete = true;
+        t.completed = true;
       }
     }
     else context.background = null;
@@ -519,6 +519,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    if ( !options.isFirstRender ) options.parts.findSplice(p => p === "talents"); // Never re-render talents
+    if ( this.element ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -547,8 +556,9 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     super.changeTab(...args);
     this.element.dataset.step = this.step;
     crucible.api.audio.playClick();
-    crucible.tree.hud.close(); // Close open talent tooltip
-    this.render({parts: ["header", this.step]});
+    this.deactivateTalentTree().then(() => {
+      this.render({parts: ["header", this.step]});
+    });
   }
 
   /* -------------------------------------------- */
@@ -574,14 +584,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _configureRenderOptions(options) {
-    super._configureRenderOptions(options);
-    if ( this.element ) this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
     this.element.dataset.step = this.step;
@@ -595,8 +597,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   async _onClose(options) {
+    await this._reset();
     await super._onClose(options);
-    await this.deactivateTalentTree();
   }
 
   /* -------------------------------------------- */
@@ -629,33 +631,41 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
 
     // Add new Ancestry data
-    actor.updateSource({
-      system: {
-        details: {
-          "==ancestry": {name: ancestryItem.name, img: ancestryItem.img, ...ancestryItem.system.toObject()}
-        }
-      }
-    });
-
-    await this.render({parts: ["header", "ancestry"]});
+    const ancestryData = {name: ancestryItem.name, img: ancestryItem.img, ...ancestryItem.system.toObject()};
+    actor.updateSource({system: {details: {"==ancestry": ancestryData}}});
+    await this.render({parts: ["header", this.step]});
   }
 
   /* -------------------------------------------- */
   /**
    * Choose a Background.
-   * @param {string} backgroundId
+   * @param {string|CrucibleItem} background
    * @returns {Promise<void>}
    */
-  async chooseBackground(backgroundId) {
-    if ( !(backgroundId in this._state.backgrounds) ) throw new Error(`Invalid Background identifier "${backgroundId}"`);
-    this._state.backgroundId = backgroundId;
+  async chooseBackground(background) {
     const actor = this._clone;
-    const backgroundItem = this._state.backgrounds[backgroundId].item;
+    let backgroundId;
+    let backgroundItem;
 
-    // Remove prior Background talents
-    for ( const item of actor.items ) {
-      if ( (item.type === "talent") && item.flags.crucible?.background ) actor.items.delete(item.id);
+    // Background ID
+    if ( typeof background === "string" ) {
+      backgroundId = background;
+      if ( !(backgroundId in this._state.backgrounds) ) {
+        throw new Error(`Invalid Background identifier "${backgroundId}"`);
+      }
+      backgroundItem = this._state.backgrounds[backgroundId].item;
     }
+
+    // Background Item
+    else if ( background instanceof CrucibleItem ) {
+      backgroundId = background.system.identifier;
+      backgroundItem = background;
+    }
+    else throw new Error("Invalid background provided to CrucibleHeroCreationSheet#chooseBackground");
+
+    // Remove prior background
+    this.removeBackground();
+    this._state.backgroundId = backgroundId;
 
     // Add new Background talents
     for ( const uuid of backgroundItem.system.talents ) {
@@ -674,7 +684,22 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         }
       }
     });
-    await this.render({parts: ["header", "background"]});
+    await this.render({parts: ["header", this.step]});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove a background item from the actor being created.
+   */
+  removeBackground() {
+    if ( !this._state.backgroundId ) return;
+    const actor = this._clone;
+    delete this._state.backgroundId;
+    for ( const item of actor.items ) {
+      if ( (item.type === "talent") && item.flags.crucible?.background ) actor.items.delete(item.id);
+    }
+    actor.updateSource({system: {details: {"==background": null}}});
   }
 
   /* -------------------------------------------- */
@@ -698,8 +723,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   async deactivateTalentTree() {
-    if ( crucible.tree.actor === this._clone ) await crucible.tree.close();
-    document.body.append(crucible.tree.canvas);
+    if ( crucible.tree.actor === this._clone ) {
+      await crucible.tree.close();
+      document.body.append(crucible.tree.canvas);
+    }
   }
 
   /* -------------------------------------------- */
@@ -789,11 +816,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       modal: true
     });
     if ( !confirm ) return;
-    await this.deactivateTalentTree();
-    this._clone = this.#createClone();
-    this._state = {};
-    await this._initializeState();
-    this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
+    await this._reset();
     await this.render();
   }
 
@@ -805,19 +828,46 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   static async #onComplete() {
-
-    // Prepare creation data
+    this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const creationData = this._clone.toObject();
-    creationData.name = this._state.name;
-    delete creationData.flags.core.sheetClass;
-    creationData.system.advancement.level = 1;
+    const creationOptions = {recursive: false, diff: false, noHook: true};
+    await this._finalizeCreationData(creationData, creationOptions);
 
     // Close the creation sheet
     await this.close({dialog: false});
     this.document._sheet = null;
 
     // Update the actor and render the regular sheet
-    await this.document.update(creationData, {recursive: false, diff: false, noHook: true});
+    await this.document.update(creationData, creationOptions);
     this.document.sheet.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Finalize the ActorData which will be applied at the end of character creation.
+   * @param {ActorData} creationData
+   * @param {Partial<DatabaseUpdateOperation>} creationOptions
+   * @protected
+   */
+  async _finalizeCreationData(creationData, creationOptions) {
+    creationData.name = this._state.name;
+    delete creationData.flags.core.sheetClass;
+    creationData.system.advancement.level = 1;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Reset the creation process. Used close and restart.
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _reset() {
+    await this.deactivateTalentTree();
+    this._clone = this.#createClone();
+    this._state = {};
+    await this._initializeState();
+    this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
   }
 }
