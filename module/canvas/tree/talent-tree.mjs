@@ -411,6 +411,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   activateNode(node) {
     if ( this.active ) this.deactivateNode({click: false});
+    this.hud.close();
     this.active = node;
     this.wheel.activate(node);
     this.darkenBackground(true);
@@ -422,6 +423,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   deactivateNode({click=true}={}) {
     if ( !this.active ) return;
     this.wheel.deactivate();
+    this.hud.close();
     this.active.scale.set(1.0, 1.0);
     this.active = null;
     this.darkenBackground(false);

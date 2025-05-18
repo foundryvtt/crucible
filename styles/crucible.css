@@ -1847,7 +1847,7 @@
   padding-left: 48px;
   background: var(--color-cool-5-50);
   border-radius: 12px;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .crucible-fullscreen .selection-menu .option .option-icon {
   width: 64px;
@@ -2177,7 +2177,7 @@
   padding: 0.5rem 1rem;
   border: 1px dashed var(--color-form-hint);
   border-radius: 0.5rem;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .crucible.item fieldset.hook label,
 .crucible.action fieldset.hook label {
