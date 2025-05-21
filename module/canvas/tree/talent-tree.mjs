@@ -100,6 +100,15 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #parentApp = null;
 
+  /**
+   * The dimensions of the talent tree
+   * @type {{width: number, height: number}}
+   */
+  #dimensions = {
+    width: 12000,
+    height: 12000
+  }
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -411,7 +420,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   activateNode(node) {
     if ( this.active ) this.deactivateNode({click: false});
-    this.hud.close();
+    this.hud.clear();
     this.active = node;
     this.wheel.activate(node);
     this.darkenBackground(true);
@@ -423,7 +432,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   deactivateNode({click=true}={}) {
     if ( !this.active ) return;
     this.wheel.deactivate();
-    this.hud.close();
+    this.hud.clear();
     this.active.scale.set(1.0, 1.0);
     this.active = null;
     this.darkenBackground(false);
@@ -434,7 +443,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   darkenBackground(fade=true) {
     this.background.darken.clear();
-    const w = 12000;
+    const w = this.#dimensions.width;
     if ( fade ) this.background.darken.beginFill(0x000000, 0.5).drawRect(-w/2, -w/2, w, w).endFill();
     this.background.blurFilter.enabled = fade;
   }
@@ -572,8 +581,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const hud = canvas.hud.element;
     const {x, y} = this.getGlobalPosition();
     const scale = this.stage.scale.x;
-    hud.style.left = `${x}px`;
-    hud.style.top = `${y}px`;
-    hud.style.transform = `scale(${scale})`;
+    const {width, height} = this.#dimensions;
+    Object.assign(hud.style, {
+      width: `${width}px`,
+      height: `${height}px`,
+      left: `${x}px`,
+      top: `${y}px`,
+      transform: `scale(${scale})`
+    });
   }
 }
