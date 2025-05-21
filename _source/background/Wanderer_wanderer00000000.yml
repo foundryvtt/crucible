@@ -18,14 +18,19 @@ system:
     - wilderness
     - medicine
   talents:
-    - Compendium.crucible.talent.Item.perspicacity0000
+    - Compendium.crucible.talent.Item.wildernessNovice
+    - Compendium.crucible.talent.Item.athleticsNovice0
+    - Compendium.crucible.talent.Item.projectileTraini
+    - Compendium.crucible.talent.Item.precisionshot000
   identifier: wanderer
+  ui:
+    color: '#98da62'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420012
-  modifiedTime: 1746715996336
+  modifiedTime: 1746803217793
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

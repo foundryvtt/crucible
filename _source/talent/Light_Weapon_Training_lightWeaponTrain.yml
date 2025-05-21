@@ -3,7 +3,7 @@ name: Light Weapon Training
 type: talent
 img: icons/weapons/swords/sword-simple-white.webp
 system:
-  node: dex0a
+  node: dex0b
   description: >-
     <p>You have a basic education in the use of finesse weaponry. You are no
     longer treated as <strong>Untrained</strong> with weapons in the
@@ -28,7 +28,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742951427779
-  modifiedTime: 1742951694050
+  modifiedTime: 1747841416845
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lightWeaponTrain
 _key: '!items!lightWeaponTrain'

@@ -5,7 +5,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: tou2b
+  node: tou2a
   description: >-
     <p>You are trained to transition between defending with your shield and a
     swift counter-attack.</p>
@@ -43,7 +43,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420025
-  modifiedTime: 1742938622076
+  modifiedTime: 1747841226422
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.counterstrike000
   duplicateSource: null

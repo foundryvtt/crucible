@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: dex3a
+  node: dextou1
   description: >-
     An unarmed technique where you launch yourself while running at an enemy in
     a leaping kick which is empowered to deal additional damage.
@@ -44,7 +44,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420022
-  modifiedTime: 1742936807851
+  modifiedTime: 1747841953709
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null

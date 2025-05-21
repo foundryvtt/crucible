@@ -15,8 +15,13 @@ system:
     - science
     - society
   talents:
+    - Compendium.crucible.talent.Item.medicineNovice00
+    - Compendium.crucible.talent.Item.scienceNovice000
+    - Compendium.crucible.talent.Item.talismanWeaponTr
     - Compendium.crucible.talent.Item.runelife00000000
   identifier: physician
+  ui:
+    color: '#fe4d4d'
 effects: []
 flags: {}
 _stats:
@@ -24,7 +29,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677350949941
-  modifiedTime: 1746715976637
+  modifiedTime: 1746803167902
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

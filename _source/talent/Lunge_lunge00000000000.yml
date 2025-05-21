@@ -2,7 +2,7 @@ name: Lunge
 type: talent
 img: icons/skills/melee/strike-polearm-light-orange.webp
 system:
-  node: dex0b
+  node: dex1b
   description: >-
     You dart forward nimbly, making a strike with sudden and unexpected
     swiftness.
@@ -45,10 +45,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677376322131
-  modifiedTime: 1727017887785
+  modifiedTime: 1747841463975
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.lunge00000000000
   duplicateSource: null

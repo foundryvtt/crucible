@@ -40,10 +40,10 @@ system:
   actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420032
-  modifiedTime: 1727144583115
+  modifiedTime: 1747840738150
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null

@@ -19,12 +19,16 @@ system:
   size: 5
   stride: 10
   identifier: giantkin
+  talents:
+    - Compendium.crucible.talent.Item.runeearth0000000
+  ui:
+    color: '#acd7dd'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420030
-  modifiedTime: 1746715934004
+  modifiedTime: 1746803315619
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

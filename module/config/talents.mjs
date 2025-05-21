@@ -4,20 +4,18 @@ import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
 
 /**
  * The types of talent nodes which are supported.
- * @type {Readonly<Record<
- *  "attack"|"defense"|"heal"|"spell"|"move"|"utility"|"signature"|"training",
- *  {label: string, style: string, icon: string}
- * >>}
+ * @type {Readonly<Record<string, {label: string, style: string, icon: string, [passive]: boolean}>>}
  */
 export const NODE_TYPES = Object.freeze({
-  attack: {label: "TALENT.NODES.ATTACK", style: "rect", icon: "attack"},
+  origin: {label: "TALENT.NODES.ORIGIN", style: "originHex", icon: "signature", passive: false},
+  attack: {label: "TALENT.NODES.ATTACK", style: "rect", icon: "attack", passive: false},
   defense: {label: "TALENT.NODES.DEFENSE", style: "rect", icon: "defense"},
   heal: {label: "TALENT.NODES.HEALING", style: "rect", icon: "heal"},
   spell: {label: "TALENT.NODES.SPELL", style: "rect", icon: "magic"},
   move: {label: "TALENT.NODES.MOVEMENT", style: "rect", icon: "move"},
   utility: {label: "TALENT.NODES.UTILITY", style: "rect", icon: "utility"},
-  signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "signature"},
-  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "utility"}
+  signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "signature", passive: false},
+  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "utility", passive: true}
 });
 
 /**

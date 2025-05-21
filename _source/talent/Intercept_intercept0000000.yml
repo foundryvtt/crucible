@@ -5,7 +5,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: tou0b
+  node: dextou1
   description: >-
     You protect your allies, intercepting blows that might otherwise be directed
     towards your companions.
@@ -50,7 +50,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674702266686
-  modifiedTime: 1742749209146
+  modifiedTime: 1747841296147
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

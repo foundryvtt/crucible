@@ -1,6 +1,7 @@
 import CrucibleTalentItem from "../models/item-talent.mjs";
 import {ABILITIES} from "./attributes.mjs";
 import {default as TREE_CONFIG} from "./tree.mjs";
+import {NODE_TYPES} from "./talents.mjs";
 
 /**
  * @typedef TalentNodeConfig
@@ -11,6 +12,7 @@ import {default as TREE_CONFIG} from "./tree.mjs";
  * @property {string[]} connected
  * @property {number} distance
  * @property {number} angle
+ * @property {string} [style]
  * @property {null|Record<string, {abilities: string[], teleport: string}>} [group=null]
  */
 
@@ -49,27 +51,14 @@ export default class CrucibleTalentNode {
    * @type {boolean}
    */
   get isPassive() {
-    if ( (this.type === "signature") || (this.type === "training") ) return false; // Never passive
+    const nodeType = NODE_TYPES[this.type];
+    if ( typeof nodeType.passive === "boolean" ) return nodeType.passive; // Never or always passive
     for ( const t of this.talents ) {
       if ( t.actions.length ) return false;
       const {rune, gesture, inflection} = t.system;
       if ( rune || gesture || inflection ) return false; // Spellcraft components count as active
     }
     return true;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Is this node a training node?
-   * @type {boolean}
-   */
-  get isTraining() {
-    if ( this.type === "training" ) return true;
-    for ( const t of this.talents ) {
-      if ( t.system.training.type ) return true;
-    }
-    return false;
   }
 
   /* -------------------------------------------- */
@@ -151,7 +140,7 @@ export default class CrucibleTalentNode {
    * Initialize configuration data for the node.
    * @param {TalentNodeConfig} config
    */
-  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, angle, distance}={}) {
+  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, angle, distance, style}={}) {
 
     // Node type and tier configuration
     const nodeType = SYSTEM.TALENT.NODE_TYPES[type];
@@ -186,7 +175,7 @@ export default class CrucibleTalentNode {
       tier: {value: tier, writable: false, enumerable: true},
       type: {value: type, writable: false, enumerable: true},
       typeLabel: {value: nodeType.label, writable: false, enumerable: true},
-      style: {value: nodeType.style, writable: false, enumerable: true},
+      style: {value: style || nodeType.style, writable: false, enumerable: true},
       iconPrefix: {value: nodeType.icon, writable: false, enumerable: true},
       abilities: {value: new Set(abilities), writable: false, enumerable: true},
       point: {value: point, writable: false, enumerable: true},
@@ -324,12 +313,19 @@ export default class CrucibleTalentNode {
   static preparePrerequisites(requirements={}) {
     return Object.entries(foundry.utils.flattenObject(requirements)).reduce((obj, r) => {
       const [k, v] = r;
-      const o = obj[k] = {value: v};
-      if ( k.startsWith("abilities.") ) o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;
-      else if ( k === "advancement.level" ) o.label = "Level"
+      const o = {value: v};
+      if ( k.startsWith("abilities.") ) {
+        if ( v <= 1 ) return obj;
+        o.label = SYSTEM.ABILITIES[k.split(".")[1]].label;
+      }
+      else if ( k === "advancement.level" ) {
+        if ( v <= 1 ) return obj;
+        o.label = "Level"
+      }
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
       else o.label = k;
       o.tag = `${o.label} ${o.value}`;
+      obj[k] = o;
       return obj;
     }, {});
   }

@@ -19,12 +19,16 @@ system:
   size: 4
   stride: 8
   identifier: dwarven
+  talents:
+    - Compendium.crucible.talent.Item.shieldbash000000
+  ui:
+    color: '#cb9943'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420012
-  modifiedTime: 1746715924479
+  modifiedTime: 1746803298302
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

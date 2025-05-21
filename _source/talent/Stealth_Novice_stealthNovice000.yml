@@ -4,7 +4,7 @@ type: talent
 _id: stealthNovice000
 img: systems/crucible/icons/skills/stealth.jpg
 system:
-  node: dex0a
+  node: dex0b
   description: >-
     <p><span style="font-family:Vollkorn, serif">You have received training in
     the basics of stealth, infiltration, and subterfuge. You gain the
@@ -36,7 +36,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742761878046
-  modifiedTime: 1742947368523
+  modifiedTime: 1747841505628
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!stealthNovice000'
 

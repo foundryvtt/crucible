@@ -16,14 +16,19 @@ system:
     - society
     - intimidation
   talents:
-    - Compendium.crucible.talent.Item.intimidator00000
+    - Compendium.crucible.talent.Item.awarenessNovice0
+    - Compendium.crucible.talent.Item.intimidationNovi
+    - Compendium.crucible.talent.Item.unarmedCombatTra
+    - Compendium.crucible.talent.Item.intercept0000000
   identifier: constable
+  ui:
+    color: '#1d2196'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420032
-  modifiedTime: 1746715963012
+  modifiedTime: 1746803129180
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

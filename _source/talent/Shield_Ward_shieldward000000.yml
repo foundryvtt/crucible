@@ -3,7 +3,7 @@ type: talent
 _id: shieldward000000
 img: icons/magic/defensive/shield-barrier-blue.webp
 system:
-  node: tou2a
+  node: tou2b
   description: >-
     <p>You have mastered a specialized technique to incorporate a physical
     shield into the <strong>Ward</strong> gesture. You may ignore the free-hand
@@ -22,7 +22,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1688925702301
-  modifiedTime: 1742938647255
+  modifiedTime: 1747841231896
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -3,7 +3,7 @@ type: talent
 _id: subtleextricatio
 img: icons/magic/air/wind-stream-blue-gray.webp
 system:
-  node: intdex4
+  node: intdex2
   description: >-
     <p>You understand how to move away from an opponent without exposing
     yourself to the worst attacks in return. Any <strong>Disengagement
@@ -23,7 +23,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1685584801159
-  modifiedTime: 1742937824122
+  modifiedTime: 1747842184874
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

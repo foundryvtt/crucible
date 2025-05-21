@@ -5,7 +5,7 @@ img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
 effects: []
 flags: {}
 system:
-  node: dex0b
+  node: dex1a
   description: >-
     You take time to steady your aim and target the weakest point of a foe. You
     may only get one shot, but you make it count.
@@ -37,10 +37,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420026
-  modifiedTime: 1727145776582
+  modifiedTime: 1747841473381
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -4,36 +4,9 @@ import CrucibleTalentTreeNode from "./talent-tree-node.mjs";
 import CrucibleTalentChoiceWheel from "./talent-choice-wheel.mjs";
 import CrucibleTalentHUD from "./talent-hud.mjs";
 
-
 /**
- * @typedef {Object} CrucibleTalentNodeState
- * @property {boolean} [accessible]
- * @property {boolean} unlocked
- * @property {boolean} purchased
- * @property {boolean} banned
+ * The Crucible Talent Tree, constructed as a subclass of PIXI.Container.
  */
-
-class CrucibleTalentNodeStates extends Map {
-
-  /**
-   * The default Talent node state.
-   * @type {CrucibleTalentNodeState}
-   */
-  static DEFAULT_STATE = Object.freeze({accessible: false, unlocked: false, purchased: false, banned: false});
-
-  /**
-   * @inheritDoc
-   * @returns {CrucibleTalentNodeState}
-   */
-  get(key) {
-    /** @type {CrucibleTalentNodeState} */
-    const state = super.get(key);
-    return state || CrucibleTalentNodeStates.DEFAULT_STATE;
-  }
-}
-
-/* -------------------------------------------- */
-
 export default class CrucibleTalentTree extends PIXI.Container {
   constructor() {
     super();
@@ -168,9 +141,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Draw Background
     this.backdrop = this.background.addChild(await this.#drawBackdrop());
 
-    // Draw Center
-    this.character = this.foreground.addChild(new PIXI.Sprite());
-
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
     this.edges.lineStyle({color: 0x000000, alpha: 0.6, width: 2, alignment: 0.5});
@@ -181,7 +151,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Draw Nodes and Edges
     this.nodes = this.background.addChild(new PIXI.Container());
     const origin = CrucibleTalentNode.nodes.get("origin");
-    await this.#drawNodes(origin.connected, new Set([origin]));
+    const seen = new Set();
+    await this.#drawNodes(new Set([origin]), seen);
     this.#drawCircles();
 
     // Background fade and filter
@@ -232,17 +203,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
-  #drawCharacter(texture) {
-    if ( !this.actor ) return this.character.visible = false;
-    if ( texture ) this.character.texture = texture;
-    this.character.height = 200;
-    this.character.scale.x = this.character.scale.y;
-    this.character.anchor.set(0.5, 0.5);
-    this.character.visible = true;
-  }
-
-  /* -------------------------------------------- */
-
   #drawConnections(node, seen) {
     for ( const c of node.connected ) {
       if ( seen.has(c) || (c.tier < 0) || !this.state.get(c).purchased ) continue;
@@ -278,6 +238,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   #drawEdges(node, seen) {
+    if ( node.id === "origin" ) return;
     for ( const c of node.connected ) {
       if ( seen.has(c) ) continue;
       this.edges.moveTo(node.point.x, node.point.y);
@@ -315,8 +276,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Associate Actor
     this.actor = actor;
-    const actorTexture = this.actor ? await foundry.canvas.loadTexture(this.actor.img) : undefined;
-    this.#drawCharacter(actorTexture);
     await actor.sheet.render({force: false, left: 20, top: 20});
     if ( actor.sheet.rendered ) {
       actor.sheet.setPosition({left: 20, top: 20});
@@ -589,5 +548,37 @@ export default class CrucibleTalentTree extends PIXI.Container {
       top: `${y}px`,
       transform: `scale(${scale})`
     });
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef CrucibleTalentNodeState
+ * @property {boolean} [accessible]
+ * @property {boolean} unlocked
+ * @property {boolean} purchased
+ * @property {boolean} banned
+ */
+
+/**
+ * A specialized subclass of Map which falls back for undefined node IDs to an inaccessible state.
+ */
+class CrucibleTalentNodeStates extends Map {
+
+  /**
+   * The default Talent node state.
+   * @type {CrucibleTalentNodeState}
+   */
+  static DEFAULT_STATE = Object.freeze({accessible: false, unlocked: false, purchased: false, banned: false});
+
+  /**
+   * @inheritDoc
+   * @returns {CrucibleTalentNodeState}
+   */
+  get(key) {
+    /** @type {CrucibleTalentNodeState} */
+    const state = super.get(key);
+    return state || CrucibleTalentNodeStates.DEFAULT_STATE;
   }
 }

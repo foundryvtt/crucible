@@ -19,12 +19,16 @@ system:
   stride: 10
   size: 4
   identifier: elvish
+  talents:
+    - Compendium.crucible.talent.Item.runemind00000000
+  ui:
+    color: '#51d277'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420031
-  modifiedTime: 1746715929454
+  modifiedTime: 1746803306150
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

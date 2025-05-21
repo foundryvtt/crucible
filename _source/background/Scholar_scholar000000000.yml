@@ -16,14 +16,19 @@ system:
     - medicine
     - science
   talents:
-    - Compendium.crucible.talent.Item.intuitweakness00
+    - Compendium.crucible.talent.Item.arcanaNovice0000
+    - Compendium.crucible.talent.Item.scienceNovice000
+    - Compendium.crucible.talent.Item.mechanicalTraini
+    - Compendium.crucible.talent.Item.runekinesis00000
   identifier: scholar
+  ui:
+    color: '#7ad6d0'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420028
-  modifiedTime: 1746715982545
+  modifiedTime: 1746803180345
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

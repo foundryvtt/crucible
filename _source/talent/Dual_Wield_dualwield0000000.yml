@@ -2,7 +2,7 @@ name: Dual Wield
 type: talent
 img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
 system:
-  node: dex0b
+  node: dex1b
   description: >-
     <p>You are adept at fighting with two weapons simultaneously. You can weave
     attacks together to strike more rapidly than possible with a single
@@ -43,10 +43,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1676425968128
-  modifiedTime: 1727291224452
+  modifiedTime: 1747841453639
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.dualwield0000000
   duplicateSource: null

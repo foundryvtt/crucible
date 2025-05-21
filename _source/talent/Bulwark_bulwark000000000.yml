@@ -2,7 +2,7 @@ name: Bulwark
 type: talent
 img: icons/equipment/shield/buckler-wooden-boss-glowing-blue.webp
 system:
-  node: tou1a
+  node: tou0a
   description: >-
     <p>You have expertise in using a <strong>Shield</strong> to defend yourself
     and others.</p><p>Once per Turn while you have a Shield equipped, you may
@@ -30,7 +30,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677209859186
-  modifiedTime: 1742763046392
+  modifiedTime: 1747840911416
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.bulwark000000000
   duplicateSource: null

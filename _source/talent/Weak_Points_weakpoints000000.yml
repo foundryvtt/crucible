@@ -3,7 +3,7 @@ type: talent
 _id: weakpoints000000
 img: icons/skills/melee/strike-sword-stabbed-brown.webp
 system:
-  node: dex1a
+  node: dex0b
   description: >-
     You identify moments of opportunity to strike at an enemy's weak points.
     When attacking a target that is <strong>Unaware</strong>,
@@ -14,10 +14,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.6
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1675006594889
-  modifiedTime: 1688234584724
+  modifiedTime: 1747841655360
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

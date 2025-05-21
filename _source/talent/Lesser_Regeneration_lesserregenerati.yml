@@ -3,7 +3,7 @@ type: talent
 _id: lesserregenerati
 img: icons/magic/life/crosses-trio-red.webp
 system:
-  node: tou1b
+  node: tou2c
   description: >-
     <p>Your prodigious hardiness conveys a supernatural capability to recover
     from wounds quickly. At the start of your turn if you are not Weakened you
@@ -13,10 +13,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674841031697
-  modifiedTime: 1727321776898
+  modifiedTime: 1747841126880
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

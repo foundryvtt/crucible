@@ -1,30 +1,30 @@
 
 const ORIGIN = [
-  {id: "origin", type: "training", tier: "root", abilities: ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"], connected: []}
+  {id: "origin", type: "origin", tier: "root", abilities: ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"], connected: []}
 ];
 
 const TIER_0 = [
   {id: "dex0a", abilities: ["dexterity"], type: "training", connected: ["origin"]},
-  {id: "dex0b", abilities: ["dexterity"], type: "attack", connected: ["origin"]},
+  {id: "dex0b", abilities: ["dexterity"], type: "utility", connected: ["origin"]},
   {id: "tou0a", abilities: ["toughness"], type: "training", connected: ["origin"]},
-  {id: "tou0b", abilities: ["toughness"], type: "defense", connected: ["origin"]},
-  {id: "str0a", abilities: ["strength"], type: "attack", connected: ["origin"]},
+  {id: "tou0b", abilities: ["toughness"], type: "utility", connected: ["origin"]},
+  {id: "str0a", abilities: ["strength"], type: "utility", connected: ["origin"]},
   {id: "str0b", abilities: ["strength"], type: "training", connected: ["origin"]},
   {id: "wis0a", abilities: ["wisdom"], type: "training", connected: ["origin"]},
-  {id: "wis0b", abilities: ["wisdom"], type: "spell", connected: ["origin"]},
+  {id: "wis0b", abilities: ["wisdom"], type: "spell", connected: ["origin"], style: "hex"},
   {id: "pre0a", abilities: ["presence"], type: "training", connected: ["origin"]},
-  {id: "pre0b", abilities: ["presence"], type: "spell", connected: ["origin"]},
-  {id: "int0a", abilities: ["intellect"], type: "spell", connected: ["origin"]},
+  {id: "pre0b", abilities: ["presence"], type: "spell", connected: ["origin"], style: "hex"},
+  {id: "int0a", abilities: ["intellect"], type: "spell", connected: ["origin"], style: "hex"},
   {id: "int0b", abilities: ["intellect"], type: "training", connected: ["origin"]}
 ];
 
 const TIER_1A = [
-  {id: "dex1a", abilities: ["dexterity"], type: "utility", connected: ["dex0a", "dex0b"]},
+  {id: "dex1a", abilities: ["dexterity"], type: "attack", connected: ["dex0a", "dex0b"]},
   {id: "dex1b", abilities: ["dexterity"], type: "attack", connected: ["dex0a", "dex0b", "dex1a"]},
-  {id: "tou1a", abilities: ["toughness"], type: "defense", connected: ["tou0a", "tou0b"]},
-  {id: "tou1b", abilities: ["toughness"], type: "heal", connected: ["tou0a", "tou0b", "tou1a"]},
+  {id: "tou1a", abilities: ["toughness"], type: "attack", connected: ["tou0a", "tou0b"]},
+  {id: "tou1b", abilities: ["toughness"], type: "defense", connected: ["tou0a", "tou0b", "tou1a"]},
   {id: "str1a", abilities: ["strength"], type: "attack", connected: ["str0a", "str0b"]},
-  {id: "str1b", abilities: ["strength"], type: "utility", connected: ["str0a", "str0b", "str1a"]},
+  {id: "str1b", abilities: ["strength"], type: "attack", connected: ["str0a", "str0b", "str1a"]},
   {id: "wis1a", abilities: ["wisdom"], type: "utility", connected: ["wis0a", "wis0b"]},
   {id: "wis1b", abilities: ["wisdom"], type: "spell", connected: ["wis0a", "wis0b", "wis1a"]},
   {id: "pre1a", abilities: ["presence"], type: "utility", connected: ["pre0a", "pre0b"]},
@@ -43,11 +43,11 @@ const TIER_1B = [
 ];
 
 const TIER_2A = [
-  {id: "dex2a", abilities: ["dexterity"], type: "spell", connected: ["dex1a"]},
-  {id: "dex2b", abilities: ["dexterity"], type: "attack", connected: ["dex1a", "dex1b", "dex2a"]},
-  {id: "dex2c", abilities: ["dexterity"], type: "utility", connected: ["dex1b", "dex2b"]},
-  {id: "tou2a", abilities: ["toughness"], type: "spell", connected: ["tou1a"]},
-  {id: "tou2b", abilities: ["toughness"], type: "attack", connected: ["tou1a", "tou1b", "tou2a"]},
+  {id: "dex2a", abilities: ["dexterity"], type: "utility", connected: ["dex1a"]},
+  {id: "dex2b", abilities: ["dexterity"], type: "spell", connected: ["dex1a", "dex1b", "dex2a"]},
+  {id: "dex2c", abilities: ["dexterity"], type: "attack", connected: ["dex1b", "dex2b"]},
+  {id: "tou2a", abilities: ["toughness"], type: "attack", connected: ["tou1a"]},
+  {id: "tou2b", abilities: ["toughness"], type: "spell", connected: ["tou1a", "tou1b", "tou2a"]},
   {id: "tou2c", abilities: ["toughness"], type: "utility", connected: ["tou1b", "tou2b"]},
   {id: "str2a", abilities: ["strength"], type: "utility", connected: ["str1a"]},
   {id: "str2b", abilities: ["strength"], type: "attack", connected: ["str1a", "str1b", "str2a"]},
@@ -76,7 +76,7 @@ const TIER_3A = [
   {id: "dex3a", type: "attack", abilities: ["dexterity"], tier: 6, connected: ["intdex2", "dex2a", "dex2b"]},
   {id: "dex3b", type: "move", abilities: ["dexterity"], tier: 6, connected: ["dex2b", "dex2c", "dextou2"]},
   {id: "tou3a", type: "defense", abilities: ["toughness"], tier: 6, connected: ["dextou2", "tou2a", "tou2b"]},
-  {id: "tou3b", type: "attack", abilities: ["toughness"], tier: 6, connected: ["tou2b", "tou2c", "toustr2"]},
+  {id: "tou3b", type: "defense", abilities: ["toughness"], tier: 6, connected: ["tou2b", "tou2c", "toustr2"]},
   {id: "str3a", type: "attack", abilities: ["strength"], tier: 6, connected: ["toustr2", "str2a", "str2b"]},
   {id: "str3b", type: "attack", abilities: ["strength"], tier: 6, connected: ["str2b", "str2c", "strwis2"]},
   {id: "wis3a", type: "attack", abilities: ["wisdom"], tier: 6, connected: ["strwis2", "wis2a", "wis2b"]},
@@ -139,7 +139,7 @@ const TIER_4B = [
 ];
 
 export default [
-  {nodes: ORIGIN, tier: "root", angleOffset: 0, angleDelta: 0, distance: 0},
+  {nodes: ORIGIN, tier: 0, angleOffset: 0, angleDelta: 0, distance: 0},
   {nodes: TIER_0, tier: 0, angleOffset: 15, angleDelta: 30, distance: 200},
   {nodes: TIER_1A, tier: 1, angleOffset: 20, angleDelta: 20, distance: 320},
   {nodes: TIER_1B, tier: 1, angleOffset: 0, angleDelta: 60, distance: 360},

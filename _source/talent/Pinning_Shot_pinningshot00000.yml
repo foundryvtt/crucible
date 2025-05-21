@@ -3,7 +3,7 @@ type: talent
 _id: pinningshot00000
 img: icons/skills/ranged/arrow-strike-glowing-teal.webp
 system:
-  node: intdex1
+  node: dex3a
   description: >-
     You fire a tactically placed shot to pin your target against a nearby
     surface.
@@ -45,10 +45,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674962141351
-  modifiedTime: 1727387896831
+  modifiedTime: 1747842146508
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

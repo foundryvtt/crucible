@@ -16,14 +16,19 @@ system:
     - society
     - diplomacy
   talents:
-    - Compendium.crucible.talent.Item.preparedness0000
+    - Compendium.crucible.talent.Item.diplomacyNovice0
+    - Compendium.crucible.talent.Item.societyNovice000
+    - Compendium.crucible.talent.Item.lightWeaponTrain
+    - Compendium.crucible.talent.Item.lunge00000000000
   identifier: merchant
+  ui:
+    color: '#dac372'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420028
-  modifiedTime: 1746715966970
+  modifiedTime: 1746803160481
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

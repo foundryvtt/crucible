@@ -17,14 +17,19 @@ system:
     - society
     - intimidation
   talents:
-    - Compendium.crucible.talent.Item.martialweapontra
+    - Compendium.crucible.talent.Item.athleticsNovice0
+    - Compendium.crucible.talent.Item.intimidationNovi
+    - Compendium.crucible.talent.Item.heavyWeaponTrain
+    - Compendium.crucible.talent.Item.heavystrike00000
   identifier: soldier
+  ui:
+    color: '#f08e4c'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420015
-  modifiedTime: 1746715986586
+  modifiedTime: 1746803193521
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

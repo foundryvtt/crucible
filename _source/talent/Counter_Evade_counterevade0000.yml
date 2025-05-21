@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: dex2b
+  node: dex2c
   description: >-
     <p>You are practiced in evasive fighting styles which use an enemy's missed
     attack to devise an opening to counter-attack.</p>
@@ -41,10 +41,10 @@ system:
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420019
-  modifiedTime: 1726367499297
+  modifiedTime: 1747841815416
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

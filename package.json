@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "compile": "npm run compilePacks && npm run compileCSS",
-    "compileCSS": "lessc styles/crucible.less styles/crucible.css",
-    "compilePacks": "node build.mjs compile",
-    "extractPacks": "node build.mjs extract"
+    "build": "npm run compilePacks && npm run compileCSS",
+    "less": "lessc styles/crucible.less styles/crucible.css",
+    "compile": "node build.mjs compile",
+    "extract": "node build.mjs extract"
   },
   "devDependencies": {
     "@foundryvtt/foundryvtt-cli": "^1.0.4",

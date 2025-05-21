@@ -3,7 +3,7 @@ name: Resilient
 type: talent
 img: icons/magic/life/cross-embers-glow-yellow-purple.webp
 system:
-  node: tou1b
+  node: tou0b
   description: >-
     <p>Your body responds eagerly to healing, demonstrating a remarkable ability
     to recover from wounds.</p>
@@ -22,10 +22,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1684358834488
-  modifiedTime: 1685211825115
+  modifiedTime: 1747841061832
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

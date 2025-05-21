@@ -973,11 +973,12 @@
     "ATTACK": "Attack",
     "DEFENSE": "Defense",
     "HEALING": "Healing",
-    "SPELL": "Spellcraft",
     "MOVE": "Movement",
-    "UTILITY": "Utility",
+    "ORIGIN": "Origin",
     "SIGNATURE": "Signature",
-    "TRAINING": "Training"
+    "SPELL": "Spellcraft",
+    "TRAINING": "Training",
+    "UTILITY": "Utility"
   },
   "TRAINING": {
     "SKILL": "Skill Training",

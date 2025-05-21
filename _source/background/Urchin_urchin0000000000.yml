@@ -17,14 +17,19 @@ system:
     - deception
     - performance
   talents:
-    - Compendium.crucible.talent.Item.diversionist0000
+    - Compendium.crucible.talent.Item.stealthNovice000
+    - Compendium.crucible.talent.Item.deceptionNovice0
+    - Compendium.crucible.talent.Item.lightWeaponTrain
+    - Compendium.crucible.talent.Item.lunge00000000000
   identifier: urchin
+  ui:
+    color: '#84d7b7'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420027
-  modifiedTime: 1746715991653
+  modifiedTime: 1746803210614
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

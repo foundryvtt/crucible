@@ -18,12 +18,18 @@ system:
   size: 3
   stride: 8
   identifier: halfling
+  abilities:
+    secondary: presence
+  talents:
+    - Compendium.crucible.talent.Item.runecourage00000
+  ui:
+    color: '#bff58a'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420028
-  modifiedTime: 1746715942887
+  modifiedTime: 1746803335137
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

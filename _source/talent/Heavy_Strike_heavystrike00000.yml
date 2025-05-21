@@ -2,7 +2,7 @@ name: Heavy Strike
 type: talent
 img: icons/skills/melee/strike-hammer-destructive-blue.webp
 system:
-  node: str0a
+  node: str1b
   description: >-
     <p>You know how to use a heavy weapon to deliver punishing blows, putting
     your entire strength behind every swing.</p>
@@ -42,10 +42,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677372287118
-  modifiedTime: 1727018604269
+  modifiedTime: 1747840751533
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.heavystrike00000
   duplicateSource: null

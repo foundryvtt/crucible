@@ -2,7 +2,7 @@ name: Leg Sweep
 type: talent
 img: icons/skills/melee/strike-sword-slashing-red.webp
 system:
-  node: str1a
+  node: str1b
   description: >-
     <p>You use a heavy weapon to sweep your enemy off balance, swinging low to
     knock them from their feet.</p>
@@ -52,10 +52,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677373689894
-  modifiedTime: 1727018512480
+  modifiedTime: 1747840761594
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.legsweep00000000
   duplicateSource: null

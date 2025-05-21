@@ -19,12 +19,16 @@ system:
   size: 4
   stride: 10
   identifier: devilkin
+  talents:
+    - Compendium.crucible.talent.Item.runevoid00000000
+  ui:
+    color: '#c72950'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420025
-  modifiedTime: 1746715916323
+  modifiedTime: 1746803369102
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

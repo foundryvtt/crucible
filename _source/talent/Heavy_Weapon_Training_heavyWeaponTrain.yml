@@ -3,7 +3,7 @@ name: Heavy Weapon Training
 type: talent
 img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
 system:
-  node: str0b
+  node: str0a
   description: >-
     <p>You have a basic education in the use of martial weaponry. You are no
     longer treated as <strong>Untrained</strong> with weapons in the
@@ -28,7 +28,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742951427779
-  modifiedTime: 1742951551718
+  modifiedTime: 1747840855127
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: heavyWeaponTrain
 _key: '!items!heavyWeaponTrain'

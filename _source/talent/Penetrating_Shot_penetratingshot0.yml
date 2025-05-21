@@ -3,7 +3,7 @@ type: talent
 _id: penetratingshot0
 img: icons/skills/ranged/projectile-explosion-black-orange.webp
 system:
-  node: dex1b
+  node: dex1a
   description: >-
     You load special ammunition which deals less damage but penetrates directly
     through a line of targets.
@@ -44,10 +44,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1687616511078
-  modifiedTime: 1727321506145
+  modifiedTime: 1747841433476
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -2,7 +2,7 @@ name: Shield Bash
 type: talent
 img: icons/skills/melee/shield-block-bash-blue.webp
 system:
-  node: tou0b
+  node: tou1a
   description: >-
     <p>You are practiced at fighting with shield, using it to slam into and
     imbalance your foes.</p>
@@ -50,10 +50,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1676759658894
-  modifiedTime: 1727291285571
+  modifiedTime: 1747841033123
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.shieldbash000000
   duplicateSource: null

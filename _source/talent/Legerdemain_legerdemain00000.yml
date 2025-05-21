@@ -2,7 +2,7 @@ name: Legerdemain
 type: talent
 img: icons/magic/light/hand-sparks-smoke-green.webp
 system:
-  node: dex2a
+  node: dex2b
   description: >-
     You can silently alter your spellcraft. You can apply Lesser Inflections
     using only your hands without the need for vocalization.
@@ -13,10 +13,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674964121869
-  modifiedTime: 1682387726333
+  modifiedTime: 1747841785633
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.legerdemain00000
   duplicateSource: null

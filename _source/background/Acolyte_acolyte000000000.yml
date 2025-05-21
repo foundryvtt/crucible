@@ -15,14 +15,19 @@ system:
     - medicine
     - society
   talents:
+    - Compendium.crucible.talent.Item.arcanaNovice0000
+    - Compendium.crucible.talent.Item.medicineNovice00
+    - Compendium.crucible.talent.Item.talismanWeaponTr
     - Compendium.crucible.talent.Item.runecourage00000
   identifier: acolyte
+  ui:
+    color: '#84c9e6'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420032
-  modifiedTime: 1746715959020
+  modifiedTime: 1746803121072
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

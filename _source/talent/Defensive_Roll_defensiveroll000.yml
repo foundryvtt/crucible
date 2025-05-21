@@ -6,7 +6,7 @@ effects: []
 flags:
   core: {}
 system:
-  node: dex3b
+  node: dex2a
   description: >-
     <p>You are a nimble skirmisher, always in movement to stay one step ahead of
     your enemies in combat.</p>
@@ -43,7 +43,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420027
-  modifiedTime: 1742939195812
+  modifiedTime: 1747842031958
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

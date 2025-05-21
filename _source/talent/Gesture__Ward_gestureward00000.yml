@@ -2,7 +2,7 @@ name: 'Gesture: Ward'
 type: talent
 img: icons/magic/defensive/shield-barrier-glowing-blue.webp
 system:
-  node: tou2a
+  node: tou2b
   description: >-
     <p>Focus the power of a Rune into a protective barrier, shielding yourselves
     and others from harmful effects. When used with the Kinesis rune the Ward
@@ -28,7 +28,7 @@ _stats:
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1675654257211
-  modifiedTime: 1742938632390
+  modifiedTime: 1747841236775
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.gestureward00000
   duplicateSource: null

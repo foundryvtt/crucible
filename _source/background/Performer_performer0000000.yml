@@ -16,14 +16,19 @@ system:
     - diplomacy
     - performance
   talents:
-    - Compendium.crucible.talent.Item.inspireheroism00
+    - Compendium.crucible.talent.Item.performanceNovic
+    - Compendium.crucible.talent.Item.deceptionNovice0
+    - Compendium.crucible.talent.Item.lightWeaponTrain
+    - Compendium.crucible.talent.Item.dualwield0000000
   identifier: performer
+  ui:
+    color: '#e26ce4'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420030
-  modifiedTime: 1746715970920
+  modifiedTime: 1746803145897
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -19,12 +19,16 @@ system:
   size: 4
   stride: 10
   identifier: human
+  talents:
+    - Compendium.crucible.talent.Item.intercept0000000
+  ui:
+    color: '#a985d6'
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674942420025
-  modifiedTime: 1746715947087
+  modifiedTime: 1746803343691
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

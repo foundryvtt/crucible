@@ -3,7 +3,7 @@ name: Natural Weapon Training
 type: talent
 img: icons/creatures/abilities/cougar-pounce-stalk-black.webp
 system:
-  node: tou0a
+  node: tou0b
   description: >-
     <p>You have a developed familiarity with using features of your own body as
     a natural weapons including claws, jaws, tails, or other mechanisms of
@@ -29,7 +29,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742951427779
-  modifiedTime: 1742951499753
+  modifiedTime: 1747840894684
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: naturalWeaponTra
 _key: '!items!naturalWeaponTra'

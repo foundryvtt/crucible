@@ -2,7 +2,7 @@ name: 'Gesture: Step'
 type: talent
 img: icons/magic/movement/chevrons-down-yellow.webp
 system:
-  node: dex2a
+  node: dex2b
   description: >-
     <p>Infuse runic power into a movement, crossing physical and spatial
     boundaries. Move 4 spaces in a straight line, dealing minor damage to
@@ -18,10 +18,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674842056708
-  modifiedTime: 1686253104890
+  modifiedTime: 1747841791140
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturestep00000
   duplicateSource: null

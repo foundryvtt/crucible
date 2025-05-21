@@ -4,7 +4,7 @@ type: talent
 _id: inflectionelude0
 img: icons/magic/movement/trail-streak-zigzag-teal.webp
 system:
-  node: dex2a
+  node: dex2b
   description: >-
     <p>Enhance a spell to make it more difficult for an enemy to retaliate
     against its casting. This spell does not provide any opportunity to make
@@ -22,10 +22,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1686255677273
-  modifiedTime: 1727211380364
+  modifiedTime: 1747841796555
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

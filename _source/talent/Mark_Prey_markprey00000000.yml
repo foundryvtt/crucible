@@ -2,7 +2,7 @@ name: Mark Prey
 type: talent
 img: icons/skills/targeting/crosshair-mark-rough-pink.webp
 system:
-  node: dex2b
+  node: dex2a
   description: >-
     You fire a special shot which deals reduced damage, but explodes in luminous
     powder clearly marking your target.
@@ -45,10 +45,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1674962663358
-  modifiedTime: 1727321489675
+  modifiedTime: 1747841806784
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null

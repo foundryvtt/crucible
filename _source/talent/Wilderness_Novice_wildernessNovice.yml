@@ -4,7 +4,7 @@ type: talent
 _id: wildernessNovice
 img: systems/crucible/icons/skills/wilderness.jpg
 system:
-  node: tou0a
+  node: tou0b
   description: >-
     <p><span style="font-family:Vollkorn, serif">You have received training in
     the basics of wilderness survival and traversal. You gain the
@@ -35,7 +35,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
   createdTime: 1742761908046
-  modifiedTime: 1742947368523
+  modifiedTime: 1747840902856
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!items!wildernessNovice'
 

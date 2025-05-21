@@ -2,7 +2,7 @@ name: Cadence
 type: talent
 img: icons/skills/melee/strikes-sword-triple-gray.webp
 system:
-  node: str1a
+  node: str1b
   description: >-
     <p>You are drilled in performing sequences of melee attacks with rhythmic
     precision. When you <strong>Strike</strong> multiple times in sequence using
@@ -34,10 +34,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1677208371269
-  modifiedTime: 1727057874097
+  modifiedTime: 1747840755794
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.cadence000000000
   duplicateSource: null

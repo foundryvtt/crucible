@@ -3,7 +3,7 @@ type: talent
 _id: strikefirst00000
 img: icons/skills/melee/sword-winged-holy-orange.webp
 system:
-  node: dex1a
+  node: intdex2
   description: >-
     Shoot first, ask questions later. You gain <strong>+1 Boon</strong> on any
     Strike or Spell attack against an enemy whose initiative score is lower than
@@ -30,10 +30,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
+  systemVersion: 0.7.0-dev
   coreVersion: '13.342'
   createdTime: 1675015905002
-  modifiedTime: 1687632292399
+  modifiedTime: 1747841741412
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

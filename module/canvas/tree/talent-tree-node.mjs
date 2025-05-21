@@ -26,7 +26,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // Configure based on node style
     let style = this.node.style;
-    if ( this.node.isPassive ) style = this.node.isTraining ? "hex" : "circle";
+    if ( (style === "rect") && this.node.isPassive ) style = "circle";
     switch (style ) {
       case "circle":
         config.shape = "circle";
@@ -44,9 +44,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
         break;
       case "largeHex":
         config.shape = "hex";
-        config.size = 80;
-        config.borderRadius = 80;
+        config.size = config.borderRadius = 80;
         break;
+      case "originHex":
+        config.shape = "hex";
+        config.size = config.borderRadius = 120;
     }
 
     // Is the node accessible or not?
