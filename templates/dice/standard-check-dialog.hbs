@@ -24,12 +24,6 @@
     <select name="rollMode">
         {{selectOptions rollModes selected=rollMode localize=true}}
     </select>
-    {{#if isGM}}
-        <button type="submit" class="action-button frame-brown" data-action="request">
-            <i class="fas fa-arrow-right"></i>
-            <label>Request</label>
-        </button>
-    {{/if}}
     <button type="submit" class="dialog-button frame-brown" data-action="roll">
         <i class="fas fa-dice"></i>
         <label>Roll</label>

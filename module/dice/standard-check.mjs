@@ -39,7 +39,7 @@ export default class StandardCheck extends Roll {
   constructor(formula, data) {
     if ( typeof formula === "object" ) {
       data = formula;
-      formula = "";
+      formula = "3d8"; // Replaced later
     }
     super(formula, data);
   }

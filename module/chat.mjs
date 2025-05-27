@@ -88,22 +88,24 @@ export async function onCreateChatMessage(message, data, options, userId) {
 /**
  * Custom alterations to apply when rendering chat message HTML
  */
-export function renderChatMessage(message, html, data, options) {
+export function renderChatMessageHTML(message, html, _messageData) {
   const flags = message.flags.crucible || {};
-  if ( flags.action || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) html.addClass("crucible");
+  if ( flags.action || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) html.classList.add("crucible");
 
   // Action Cards
   if ( flags.action ) {
+    const meta = html.querySelector(".message-metadata");
     if ( flags.confirmed ) {
-      html.find(".damage-result .target").addClass("applied");
-      html.find(".message-metadata").prepend(`<i class="confirmed fa-solid fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
+      const target = html.querySelector(".damage-result .target");
+      if ( target ) target.classList.add("applied");
+      if ( meta ) meta.insertAdjacentHTML("afterbegin", `<i class="confirmed fa-solid fa-hexagon-check" data-tooltip="ACTION.Confirmed"></i>`);
     }
     else {
-      html.find(".message-metadata").prepend(`<i class="unconfirmed fa-solid fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
+      if ( meta ) meta.insertAdjacentHTML("afterbegin", `<i class="unconfirmed fa-solid fa-hexagon-xmark" data-tooltip="ACTION.Unconfirmed"></i>`);
       if ( !game.user.isGM ) return;
-      const confirm = $(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`)
-      html.append(confirm);
-      confirm.click(event => {
+      const confirm = foundry.utils.parseHTML(`<button class="confirm frame-brown" type="button"><i class="fas fa-hexagon-check"></i>Confirm</button>`);
+      html.appendChild(confirm);
+      confirm.addEventListener("click", event => {
         const button = event.currentTarget;
         button.disabled = true;
         button.firstElementChild.className = "fa-solid fa-spinner fa-spin";
@@ -113,9 +115,7 @@ export function renderChatMessage(message, html, data, options) {
   }
 
   // Initiative Report
-  if ( flags.isInitiativeReport ) {
-    html.find(".dice-rolls").remove();
-  }
+  if ( flags.isInitiativeReport ) html.querySelector(".dice-rolls")?.remove();
 }
 
 /* -------------------------------------------- */

@@ -30,7 +30,7 @@ system:
         scope: 1
       effects: []
       tags:
-        - Reload
+        - reload
       actionHooks: []
 _stats:
   systemId: crucible

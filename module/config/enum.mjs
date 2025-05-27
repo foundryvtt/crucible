@@ -63,7 +63,6 @@ export function freezeEnum(record) {
   }
   Object.defineProperty(record, "choices", {
     get() {
-      debugger;
       Object.values(this).map(v => ({value: v.id, label: v.label, group: v.group}));
     }
   });

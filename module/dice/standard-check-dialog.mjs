@@ -57,7 +57,7 @@ export default class StandardCheckDialog extends DialogV2 {
     options = super._initializeApplicationOptions(options);
     options.buttons = {
       roll: {action: "roll", label: "Roll", icon: "fa-solid fa-dice", callback: this._onRoll.bind(this)},
-      request: {action: "request", label: "Request", callback: this._onRequest.bind(this)}
+      // request: {action: "request", label: "Request", callback: this._onRequest.bind(this)} TODO
     }
     return options;
   }
