@@ -88,17 +88,17 @@ const TIER_3A = [
 ];
 
 const TIER_3B = [
-  {id: "sig3.dexterity", type: "signature", abilities: ["dexterity"], teleport: true, connected: ["dex3a", "dex3b"], groups: {"sig3.dexterity.strength": {abilities: ["dexterity", "strength"], teleport: "sig3.strength"}, "sig3.dexterity.wisdom": {abilities: ["dexterity", "wisdom"], teleport: "sig3.wisdom"}, "sig3.dexterity.presence": {abilities: ["dexterity", "presence"], teleport: "sig3.presence"}}},
+  {id: "sig3.dexterity", type: "signature", abilities: ["dexterity"], teleport: true, connected: ["dex3a", "dex3b"]},
   {id: "sig3.dexterity.toughness", type: "signature", abilities: ["dexterity", "toughness"], connected: ["dex3b", "tou3a"]},
-  {id: "sig3.toughness", type: "signature", abilities: ["toughness"], teleport: true, connected: ["tou3a", "tou3b"], groups: {"sig3.toughness.wisdom": {abilities: ["toughness", "wisdom"], teleport: "sig3.wisdom"}, "sig3.toughness.presence": {abilities: ["toughness", "presence"], teleport: "sig3.presence"}, "sig3.toughness.intellect": {abilities: ["toughness", "intellect"], teleport: "sig3.intellect"}}},
+  {id: "sig3.toughness", type: "signature", abilities: ["toughness"], teleport: true, connected: ["tou3a", "tou3b"]},
   {id: "sig3.toughness.strength", type: "signature", abilities: ["toughness", "strength"], connected: ["tou3b", "str3a"]},
-  {id: "sig3.strength", type: "signature", abilities: ["strength"], connected: ["str3a", "str3b"], groups: {"sig3.strength.presence": {abilities: ["strength", "presence"], teleport: "sig3.presence"}, "sig3.strength.intellect": {abilities: ["strength", "intellect"], teleport: "sig3.intellect"}}},
+  {id: "sig3.strength", type: "signature", abilities: ["strength"], connected: ["str3a", "str3b"]},
   {id: "sig3.strength.wisdom", type: "signature", abilities: ["strength", "wisdom"], connected: ["str3b", "wis3a"]},
-  {id: "sig3.wisdom", type: "signature", abilities: ["wisdom"], connected: ["wis3a", "wis3b"], groups: {"sig3.wisdom.intellect": {abilities: ["wisdom", "intellect"], teleport: "sig3.intellect"},}},
+  {id: "sig3.wisdom", type: "signature", abilities: ["wisdom"], connected: ["wis3a", "wis3b"]},
   {id: "sig3.wisdom.presence", type: "signature", abilities: ["wisdom", "presence"], connected: ["wis3b", "pre3a"]},
-  {id: "sig3.presence", type: "signature", abilities: ["presence"], connected: ["pre3a", "pre3b"], groups: {}},
+  {id: "sig3.presence", type: "signature", abilities: ["presence"], connected: ["pre3a", "pre3b"]},
   {id: "sig3.presence.intellect", type: "signature", abilities: ["presence", "intellect"], connected: ["pre3b", "int3a"]},
-  {id: "sig3.intellect", type: "signature", abilities: ["intellect"], connected: ["int3a", "int3b"], groups: {}},
+  {id: "sig3.intellect", type: "signature", abilities: ["intellect"], connected: ["int3a", "int3b"]},
   {id: "sig3.intellect.dexterity", type: "signature", abilities: ["intellect", "dexterity"], connected: ["int3b", "dex3a"]}
 ];
 

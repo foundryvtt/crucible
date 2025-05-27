@@ -224,14 +224,16 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /**
    * Apply an Ancestry item to this Hero Actor.
-   * @param {CrucibleItem} ancestry     The ancestry Item to apply to the Actor.
+   * @param {CrucibleItem} ancestry         The ancestry Item to apply to the Actor.
+   * @param {object} options                Options which customize how the ancestry is applied
+   * @param {boolean} [options.force=false]   Force the ancestry to be applied even if criteria are not met
    * @returns {Promise<void>}
    */
-  async applyAncestry(ancestry) {
+  async applyAncestry(ancestry, {force=false}={}) {
     const actor = this.parent;
     await actor._applyDetailItem(ancestry, {
-      canApply: actor.isL0 && !actor.points.ability.spent,
-      canClear: actor.isL0
+      canApply: (actor.isL0 && !actor.points.ability.spent) || force,
+      canClear: actor.isL0 || force
     });
   }
 
@@ -239,14 +241,16 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /**
    * Apply a Background item to this Hero Actor.
-   * @param {CrucibleItem} background     The background Item to apply to the Actor.
+   * @param {CrucibleItem} background       The background Item to apply to the Actor.
+   * @param {object} options                Options which customize how the background is applied
+   * @param {boolean} [options.force=false]   Force the background to be applied even if criteria are not met
    * @returns {Promise<void>}
    */
-  async applyBackground(background) {
+  async applyBackground(background, {force=false}={}) {
     const actor = this.parent;
     await actor._applyDetailItem(background, {
-      canApply: actor.isL0,
-      canClear: actor.isL0
+      canApply: actor.isL0 || force,
+      canClear: actor.isL0 || force
     });
   }
 

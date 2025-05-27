@@ -65,7 +65,7 @@ export default class CrucibleTalentNode {
 
   /**
    * Get the valid node identifiers which can be referenced by a Talent.
-   * @returns {FormSelectOption[]}
+   * @returns {Record<string, string>}
    */
   static getChoices() {
     const choices = {};
@@ -140,7 +140,7 @@ export default class CrucibleTalentNode {
    * Initialize configuration data for the node.
    * @param {TalentNodeConfig} config
    */
-  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], groups=null, angle, distance, style}={}) {
+  #initializeNode({id, tier=0, type="utility", abilities=[], connected=[], angle, distance, style}={}) {
 
     // Node type and tier configuration
     const nodeType = SYSTEM.TALENT.NODE_TYPES[type];
@@ -179,7 +179,6 @@ export default class CrucibleTalentNode {
       iconPrefix: {value: nodeType.icon, writable: false, enumerable: true},
       abilities: {value: new Set(abilities), writable: false, enumerable: true},
       point: {value: point, writable: false, enumerable: true},
-      groups: {value: groups, writable: false, enumerable: true},
       color: {value: color, writable: false, enumerable: true},
     });
 
@@ -189,14 +188,7 @@ export default class CrucibleTalentNode {
 
     // Standard Nodes
     CrucibleTalentNode.#nodes.set(id, this);
-    if ( this.type === "signature" ) {
-      CrucibleTalentNode.#signature.add(this);
-      if ( this.groups ) {
-        for ( const groupId of Object.keys(this.groups) ) {
-          CrucibleTalentNode.#nodes.set(groupId, this);
-        }
-      }
-    }
+    if ( this.type === "signature" ) CrucibleTalentNode.#signature.add(this);
   }
 
   /* -------------------------------------------- */
@@ -204,7 +196,7 @@ export default class CrucibleTalentNode {
   #getRequirements() {
     const tierConfig = SYSTEM.TALENT.NODE_TIERS[this.tier];
     const reqs = {"advancement.level": tierConfig.level};
-    const discount = (this.abilities.size > 1) && !this.groups ? 1 : 0;
+    const discount = (this.abilities.size > 1) && (this.type !== "signature") ? 1 : 0;
     for ( const ability of this.abilities ) {
       reqs[`abilities.${ability}.value`] = Math.max(tierConfig.ability - discount, 1);
     }

@@ -576,6 +576,13 @@ export const TAGS = {
   /*  Attack Rolls                                */
   /* -------------------------------------------- */
 
+  attack: {
+    tag: "attack",
+    label: "ACTION.TagAttack",
+    tooltip: "ACTION.TagAttackTooltip",
+    category: "attack"
+  },
+
   mainhand: {
     tag: "mainhand",
     label: "ACTION.TagMainHand",

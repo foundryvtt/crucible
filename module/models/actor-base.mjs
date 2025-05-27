@@ -216,7 +216,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isInsane() {
-    return this.system.resources.madness.value === this.system.resources.madness.max;
+    return this.resources.madness.value === this.resources.madness.max;
   }
 
   /* -------------------------------------------- */
@@ -301,7 +301,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareTalents(talents) {
     const details = this.details;
-    const signatureNames = [];
+    const signatureNames = new Set();
 
     // Identify permanent talents from a background, taxonomy, archetype, etc...
     const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
@@ -316,16 +316,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Iterate over talents
     for ( const t of talents ) {
       this.talentIds.add(t.id);
-      const {actorHooks, node, training, gesture, inflection, rune, iconicSpells} = t.system;
+      const {actorHooks, nodes, training, gesture, inflection, rune, iconicSpells} = t.system;
 
       // Register hooks
       for ( const hook of actorHooks ) this._registerActorHook(t, hook);
 
       // Register nodes
-      if ( node ) {
+      for ( const node of nodes ) {
         this.talentNodes[node.id] ||= new Set();
         this.talentNodes[node.id].add(t.id);
-        if ( node.type === "signature" ) signatureNames.push(t.name);
+        if ( node.type === "signature" ) signatureNames.add(t.name);
       }
 
       // Register training ranks
@@ -345,7 +345,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Compose Signature Name
-    details.signatureName = signatureNames.sort((a, b) => a.localeCompare(b)).join(" ");
+    details.signatureName = Array.from(signatureNames).sort((a, b) => a.localeCompare(b)).join(" ");
   }
 
   /* -------------------------------------------- */

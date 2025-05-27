@@ -21,10 +21,34 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /** @override */
   async draw({state, ...config}={}) {
-    const variety = state.purchased ? this.node.abilities.first() : "inactive";
-    config.texture = game.system.tree.spritesheet[`${this.node.iconPrefix}-${variety}`];
+    const singleAbility = this.node.abilities.size === 1;
+    const variety = state.purchased && singleAbility ? this.node.abilities.first() : "inactive";
+    config.texture = crucible.tree.spritesheet[`${this.node.iconPrefix}-${variety}`];
 
-    // Configure based on node style
+    // Configure default colors
+    if ( state.accessible ) {
+      config.alpha = 0.4;
+      config.borderColor = 0x827f7d;
+    } else {
+      config.alpha = 0.1;
+      config.borderColor = 0x262322;
+    }
+
+    // Empty Nodes
+    if ( !this.node.talents.size ) config.borderColor = Color.from("#210d45");
+
+    // Purchased Nodes
+    if ( state.purchased ) {
+      config.alpha = 1.0;
+      config.borderColor = this.node.color;
+      config.borderWidth = 3;
+      if ( !singleAbility ) config.tint = this.node.color;
+    }
+
+    // Banned Nodes
+    else if ( state.banned ) config.borderColor = 0x330000;
+
+    // Further configuration based on node style
     let style = this.node.style;
     if ( (style === "rect") && this.node.isPassive ) style = "circle";
     switch (style ) {
@@ -49,38 +73,13 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
       case "originHex":
         config.shape = "hex";
         config.size = config.borderRadius = 120;
+        config.borderColor = crucible.tree.actor.ancestry.ui.color;
+        config.tint = crucible.tree.actor.ancestry.ui.color.multiply(2);
+        break;
     }
 
-    // Is the node accessible or not?
-    if ( state.accessible ) {
-      config.alpha = 0.4;
-      config.borderColor = 0x827f7d;
-    } else {
-      config.alpha = 0.1;
-      config.borderColor = 0x262322;
-    }
-
-    // Does the node contain no talents?
-    if ( !this.node.talents.size ) {
-      config.borderColor = Color.from("#210d45");
-    }
-
-    // Has the node been purchased?
-    if ( state.purchased ) {
-      config.alpha = 1.0;
-      config.borderColor = this.node.color;
-      config.borderWidth = 3;
-    }
-
-    // Has the node been banned?
-    else if ( state.banned ) {
-      config.borderColor = 0x330000;
-    }
-
-    // Draw Icon
+    // Draw icon and activate interactivity
     await super.draw(config);
-
-    // Node interaction
     this.#activateInteraction();
   }
 
@@ -101,11 +100,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     event.stopPropagation();
     if ( event.data.originalEvent.button !== 0 ) return; // Only support standard left-click
     const tree = game.system.tree;
+    const ownedTalents = tree.actor.system.talentNodes[this.node.id] || [];
+    const nodeTalents = new Set([...this.node.talents, ...ownedTalents])
 
     // Empty Nodes
-    if ( !this.node.talents.size ) {
-      return this.#onToggleEmptyNode();
-    }
+    if ( !nodeTalents.size ) return this.#onToggleEmptyNode();
 
     // Deactivate Node
     if ( this.isActive ) {

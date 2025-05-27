@@ -89,15 +89,16 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   #getTalentContext() {
     const actor = game.system.tree.actor;
     const talent = this.target.talent;
-    const node = talent.system.node;
 
     // Talent Tags
     const reqs = CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites);
-    const state = game.system.tree.state.get(node);
 
     // Banned Signature
-    if ( node.type === "signature" ) {
-      if ( state.banned && !state.purchased ) reqs.signature = {tag: "Banned", met: false};
+    if ( talent.system.isSignature ) {
+      for ( const node of talent.system.nodes ) {
+        const state = game.system.tree.state.get(node);
+        if ( state.banned && !state.purchased ) reqs.signature = {tag: "Banned", met: false};
+      }
     }
 
     // Return context

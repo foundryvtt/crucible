@@ -433,9 +433,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
         state.set(node, s);
 
         // Traverse Outwards
-        if ( (node.id === "origin") || s.purchased ) {
-          next.push(...node.connected);
-        }
+        if ( (node.id === "origin") || s.purchased ) next.push(...node.connected);
       }
 
       // Recursively test

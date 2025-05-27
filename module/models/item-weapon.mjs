@@ -154,10 +154,10 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const actor = this.parent.actor;
 
     // Populate equipped skill bonus
-    this.actionBonuses.skill = actor.training[category.training];
+    this.actionBonuses.skill = actor.system.training[category.training];
 
     // Populate current damage bonus
-    const actorBonuses = actor.rollBonuses.damage || {};
+    const actorBonuses = actor.system.rollBonuses.damage || {};
     let bonus = actorBonuses[this.damageType] ?? 0;
     if ( !category.ranged ) bonus += (actorBonuses.melee ?? 0);
     if ( category.ranged ) bonus += (actorBonuses.ranged ?? 0);

@@ -3,7 +3,7 @@ import CrucibleTalentNode from "../config/talent-node.mjs";
 
 /**
  * @typedef {Object} TalentData
- * @property {string} node
+ * @property {string[]} nodes
  * @property {string} description
  * @property {CrucibleAction[]} actions   The actions which have been unlocked by this talent
  * @property {string} [rune]
@@ -48,7 +48,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
-      node: new fields.StringField({required: true, blank: true, choices: () => CrucibleTalentNode.getChoices()}),
+      nodes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: () => CrucibleTalentNode.getChoices()})),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
       rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
@@ -73,18 +73,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * Is this a signature talent?
    * @type {boolean}
    */
-  get isSignature() {
-    return this.node?.type === "signature";
-  }
-
-  /**
-   * A talent tree node other than the primary one for this talent which is also unlocked.
-   * @type {CrucibleTalentNode|null}
-   */
-  get teleportNode() {
-    return this.#teleportNode;
-  }
-  #teleportNode = null;
+  isSignature = false;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -94,12 +83,11 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * Initialize this Talent as belonging to the Talent Tree.
    */
   initializeTree() {
-    const node = this.node;
     const talent = this.parent;
-    if ( !node ) throw new Error(`Talent "${talent.name}" does not configure a valid Talent Tree node "${this._source.node}".`);
+    if ( !this.nodes.size ) throw new Error(`Talent "${talent.name}" does not configure any valid tree nodes.`);
 
     // Register Talents
-    node.talents.add(talent);
+    for ( const node of this.nodes ) node.talents.add(talent);
 
     // Update Metadata
     if ( this.rune ) {
@@ -114,22 +102,18 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       const inflection = SYSTEM.SPELL.INFLECTIONS[this.inflection];
       inflection.img = talent.img;
     }
-
-    // Teleport Node
-    if ( node.type === "signature" ) {
-      const group = node.groups?.[this._source.node];
-      if ( group ) {
-        this.#teleportNode = CrucibleTalentNode.nodes.get(group.teleport);
-        this.#teleportNode.talents.add(talent);
-      }
-    }
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   prepareBaseData() {
-    this.node = CrucibleTalentNode.nodes.get(this._source.node);
+    this.nodes.clear();
+    for ( const id of this._source.nodes ) {
+      const node = CrucibleTalentNode.nodes.get(id);
+      if ( node ) this.nodes.add(node);
+      if ( node.type === "signature" ) this.isSignature = true;
+    }
     this.prerequisites = this.#preparePrerequisites();
   }
 
@@ -140,13 +124,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * @returns {AdvancementPrerequisites}
    */
   #preparePrerequisites() {
-    if ( !this.node ) return {};
-    const requirements = foundry.utils.deepClone(this.node.requirements);
-    const group = this.node.groups?.[this._source.node];
-    if ( group ) {
-      for ( const a of group.abilities ) {
-        requirements[`abilities.${a}.value`] = this.node.tier + 2;
-      }
+    if ( !this.nodes.size ) return {};
+    const requirements = {};
+    for ( const node of this.nodes ) {
+      Object.assign(requirements, foundry.utils.deepClone(node.requirements));
     }
     return CrucibleTalentNode.preparePrerequisites(requirements);
   }
@@ -196,7 +177,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
    * @param {CrucibleActor} actor         The Actor to test
    * @param {boolean} strict              Throw an error if prerequisites are not met, otherwise return a boolean
    * @returns {boolean}                   Only if testing is not strict
-   * @throws a formatted error message if the prerequisites are not met and testing is strict
+   * @throws {Error}                      A formatted error message if the prerequisites are unmet and testing is strict
    */
   assertPrerequisites(actor, strict=true) {
 
@@ -217,21 +198,19 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     }
 
     // Check Node state
-    const state = this.node.getState(actor);
-    state.accessible = (this.node.tier === 0) || this.node.isConnected(actor) || this.teleportNode?.isConnected(actor);
-
-    // Require a connected node
-    if ( !state.accessible ) {
-      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.Inaccessible", {
-        name: this.parent.name
-      }));
-      else return false;
+    const state = {};
+    for ( const node of this.nodes ) {
+      const s = node.getState(actor);
+      state.accessible ||= ((node.tier === 0) || node.isConnected(actor));
+      if ( s.banned && (state.banned !== false) ) state.banned = true;
     }
-
-    // Block banned nodes
     if ( state.banned ) {
       if ( strict ) throw new Error(game.i18n.localize("TALENT.WARNINGS.Banned"));
-      else return false;
+      return false;
+    }
+    if ( !state.accessible ) {
+      if ( strict ) throw new Error(game.i18n.format("TALENT.WARNINGS.Inaccessible", {name: this.parent.name}));
+      return false;
     }
 
     // Require prerequisite stats
@@ -248,5 +227,18 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       }
     }
     return true;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+    if ( (typeof source.node === "string") && !source.nodes ) {
+      source.nodes = source.node ? [source.node] : [];
+      delete source.node;
+    }
   }
 }

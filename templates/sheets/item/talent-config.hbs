@@ -3,7 +3,8 @@
 
     <fieldset>
         <legend>Talent Configuration</legend>
-        {{formGroup fields.node value=source.system.node options=nodes blank="" sort=true}}
+        {{log nodes}}
+        {{formGroup fields.nodes value=source.system.nodes options=nodes sort=true}}
     </fieldset>
 
     <fieldset>

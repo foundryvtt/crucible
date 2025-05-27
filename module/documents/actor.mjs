@@ -46,14 +46,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Talent hook functions which apply to this Actor based on their set of owned Talents.
-   */
-  get actorHooks() {
-    console.warn("Should CrucibleActor#actorHooks exist?");
-    return this.system.actorHooks;
-  }
-
-  /**
    * The background of the Actor.
    * @returns {*}
    */
@@ -129,14 +121,6 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Temporary roll bonuses this actor has outside the fields of its data model.
-   */
-  get rollBonuses() {
-    console.warn("Should CrucibleActor#rollBonuses exist?");
-    return this.system.rollBonuses;
-  }
-
-  /**
    * The prepared object of actor skills
    * @returns {object}
    */
@@ -161,18 +145,10 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
-   * Prepared training data for the Actor.
-   */
-  get training() {
-    console.warn("Should CrucibleActor#training exist?");
-    return this.system.training;
-  }
-
-  /**
    * The IDs of purchased talents.
+   * A convenience reference to CrucibleBaseActor#talentIds
    */
   get talentIds() {
-    console.warn("Should CrucibleActor#talentIds exist?");
     return this.system.talentIds;
   }
 
@@ -200,7 +176,7 @@ export default class CrucibleActor extends Actor {
   callActorHooks(hook, ...args) {
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
-    const hooks = this.actorHooks[hook] ||= [];
+    const hooks = this.system.actorHooks[hook] ||= [];
     for ( const {talent, fn} of hooks ) {
       console.debug(`Calling ${hook} hook for Talent ${talent.name}`);
       try {
@@ -233,7 +209,8 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleAction} action     The action being prepared
    */
   prepareAction(action) {
-    const {statuses, rollBonuses} = this;
+    const statuses = this.statuses;
+    const rollBonuses = this.system.rollBonuses;
     const {banes, boons} = action.usage;
     const isWeapon = ["mainhand", "offhand", "twohand"].some(t => action.tags.has(t));
     const isSpell = action.tags.has("spell");
@@ -496,7 +473,7 @@ export default class CrucibleActor extends Actor {
       overflow: roll.overflow,
       multiplier: spell.damage.multiplier ?? 1,
       base: spell.damage.base,
-      bonus: (spell.damage.bonus ?? 0) + (this.rollBonuses.damage?.[spell.damage.type] ?? 0),
+      bonus: (spell.damage.bonus ?? 0) + (this.system.rollBonuses.damage?.[spell.damage.type] ?? 0),
       resistance: target.getResistance(spell.rune.resource, spell.damage.type, spell.damage.restoration),
       resource: spell.rune.resource,
       type: spell.damage.type,
@@ -1310,17 +1287,17 @@ export default class CrucibleActor extends Actor {
    */
   async _applyDetailItem(item, {canApply=true, canClear=false}={}) {
     const type = item.type;
-    if ( !canApply ) {
-      throw new Error(`You are not allowed to apply this ${type} item to Actor type ${this.type}`);
-    }
-    if ( !(item.type in this.system.details) ) {
-      throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
-    }
     if ( !item && !canClear ) {
       throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
     }
     if ( item && !canApply ) {
       throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
+    }
+    if ( !(item.type in this.system.details) ) {
+      throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
+    }
+    if ( !canApply ) {
+      throw new Error(`You are not allowed to apply this ${type} item to Actor type ${this.type}`);
     }
 
     // Prepare data
