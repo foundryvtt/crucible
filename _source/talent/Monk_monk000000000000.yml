@@ -28,14 +28,17 @@ system:
         scope: 0
       effects: []
   requirements: {}
+  nodes:
+    - sig3.dexterity
+    - sig3.wisdom
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675136908649
-  modifiedTime: 1726705916467
+  modifiedTime: 1748358131562
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

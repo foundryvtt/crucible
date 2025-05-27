@@ -10,6 +10,9 @@ system:
   actions: []
   requirements: {}
   node: sig3.dexterity.presence
+  nodes:
+    - sig3.presence
+    - sig3.dexterity
 effects: []
 ownership:
   default: 0
@@ -18,10 +21,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675626189295
-  modifiedTime: 1726782838153
+  modifiedTime: 1748358176114
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.swashbuckler0000
   duplicateSource: null

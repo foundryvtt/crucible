@@ -29,14 +29,17 @@ system:
         scope: 0
       effects: []
   requirements: {}
+  nodes:
+    - sig3.presence
+    - sig3.strength
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675136660798
-  modifiedTime: 1726705886587
+  modifiedTime: 1748358119639
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

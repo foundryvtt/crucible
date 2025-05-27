@@ -28,6 +28,9 @@ system:
         scope: 3
       effects: []
   actorHooks: []
+  nodes:
+    - sig3.toughness
+    - sig3.intellect
 effects: []
 ownership:
   default: 0
@@ -36,10 +39,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1685204774844
-  modifiedTime: 1726783363940
+  modifiedTime: 1748358101900
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

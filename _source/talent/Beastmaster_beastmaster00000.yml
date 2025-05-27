@@ -8,15 +8,18 @@ system:
     companion may participate in encounters as an allied combatant.</p>
   actions: []
   requirements: {}
+  nodes:
+    - sig3.wisdom
+    - sig3.toughness
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675009666381
-  modifiedTime: 1726783336798
+  modifiedTime: 1748358064921
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.Item.beastmaster00000
   duplicateSource: null

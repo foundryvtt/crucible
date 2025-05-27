@@ -12,8 +12,13 @@ system:
     Action</strong>.</p>
   actions: []
   requirements: {}
-  node: sig3.strength.intellect
+  node:
+    - sig3.strength
+    - sig3.intellect
   iconicSpells: 1
+  nodes:
+    - sig3.intellect
+    - sig3.strength
 effects: []
 ownership:
   default: 0
@@ -22,10 +27,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1676174105935
-  modifiedTime: 1727382273396
+  modifiedTime: 1748358169773
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.spellblade000000
   duplicateSource: null

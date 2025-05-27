@@ -29,6 +29,9 @@ system:
         scope: 0
       effects: []
   requirements: {}
+  nodes:
+    - sig3.dexterity
+    - sig3.intellect
 effects: []
 ownership:
   default: 0
@@ -37,10 +40,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675561152244
-  modifiedTime: 1726705946513
+  modifiedTime: 1748359327037
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.overwatch0000000
   duplicateSource: null
