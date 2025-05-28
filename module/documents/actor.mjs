@@ -747,9 +747,9 @@ export default class CrucibleActor extends Actor {
     else if ( active ) {
       const createData = foundry.utils.mergeObject(effectData, {
         _id: SYSTEM.EFFECTS.getEffectId(statusId),
-        label: game.i18n.localize(effectData.label),
+        name: game.i18n.localize(effectData.name),
         statuses: [statusId]
-      });
+      }, {inplace: false});
       if ( overlay ) createData["flags.core.overlay"] = true;
       await ActiveEffect.create(createData, {parent: this, keepId: true});
     }

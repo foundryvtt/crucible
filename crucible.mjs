@@ -278,8 +278,6 @@ function preLocalizeConfig() {
       if ( freeze ) Object.freeze(o);
     }
   }
-
-  localizeConfigObject(CONFIG.statusEffects, ["label"]);
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);

@@ -45,12 +45,13 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
   /**
    * Validate that primary and secondary abilities are different.
    * @param {object} abilities    Ability choices
+   * @param {DataFieldValidationOptions} [options={}]  Options which affect validation
    * @throws {Error}              An error if the ability choices are invalid
    */
-  static #validateAbilities(abilities) {
+  static #validateAbilities(abilities, options) {
+    if ( options.partial === true ) return;
     const {primary, secondary} = abilities;
-    const isNew = !primary && !secondary;
-    if ( isNew ) return;
+    if ( !(primary && secondary) ) return;
     if ( primary === secondary ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.ABILITIES"));
   }
 
@@ -59,9 +60,11 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
   /**
    * Validate that resistances and vulnerabilities exist and are different.
    * @param {object} resistances  Resistance choices
+   * @param {DataFieldValidationOptions} [options={}]  Options which affect validation
    * @throws {Error}              An error if the resistance choices are invalid
    */
-  static #validateResistances(resistances) {
+  static #validateResistances(resistances, options) {
+    if ( options.partial === true ) return;
     const {resistance: res, vulnerability: vuln} = resistances;
     if ( !res && !vuln ) return;
     if ( res === vuln ) throw new Error(game.i18n.localize("ANCESTRY.WARNINGS.RESISTANCES_DIFFERENT"));
