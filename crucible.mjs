@@ -23,6 +23,7 @@ import * as audio from "./module/audio.mjs";
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
 import * as chat from "./module/chat.mjs";
+import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
 
 /* -------------------------------------------- */
@@ -43,6 +44,7 @@ Hooks.once("init", async function() {
     audio,
     canvas,
     dice,
+    interaction,
     models,
     documents,
     methods: {
@@ -327,6 +329,9 @@ Hooks.once("ready", async function() {
   }
   // FIXME bring this back with a migration version
   // if ( game.user === game.users.activeGM ) await syncTalents();
+
+  // System-specific interaction
+  document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
 });
 
 

@@ -90,8 +90,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static PARTS = {
     header: {
       id: "header",
-      template: "systems/crucible/templates/sheets/creation/header.hbs",
-      templates: [CrucibleItem.INLINE_TEMPLATE_PATH]
+      template: "systems/crucible/templates/sheets/creation/header.hbs"
     }
     // PARTS from STEPS are defined dynamically in _configureRenderParts
   };

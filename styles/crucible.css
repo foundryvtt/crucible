@@ -397,50 +397,10 @@
   --hex-bg: url("../ui/elements/hex-accent-2c.svg");
   --hex-rotation: 0;
 }
-/* Tooltips */
-#crucible-tooltip,
-.crucible .tooltip {
-  display: none;
-  width: max-content;
-  max-width: 320px;
-  line-height: 16px;
-  position: absolute;
-  top: 120%;
-  padding: 2px 5px;
-  background: rgba(0, 0, 0, 0.95);
-  font-family: "Signika", serif;
-  font-size: 12px;
-  font-weight: normal;
-  text-align: left;
-  text-shadow: none;
-  color: var(--color-primary);
-  border-radius: 3px;
-  box-shadow: 0 0 4px #000;
-  z-index: 999;
-}
-#crucible-tooltip.left,
-.crucible .tooltip.left {
-  left: 0;
-}
-#crucible-tooltip.right,
-.crucible .tooltip.right {
-  right: 0;
-}
-#crucible-tooltip.center,
-.crucible .tooltip.center {
-  left: calc(100% - 180px);
-}
-#crucible-tooltip {
-  position: absolute;
-}
-#crucible-tooltip.active {
-  display: block;
-}
-.crucible .tooltipped {
-  position: relative;
-}
-.crucible .tooltipped:hover > .tooltip {
-  display: block;
+.crucible.crucible-tooltip {
+  background: url("../ui/journal/background-texture.webp");
+  padding: 1rem 1.5rem;
+  border: 2px ridge var(--color-frame);
 }
 /* ----------------------------------------- */
 /*  Application V2 Styles                    */
@@ -631,6 +591,7 @@
   /** Description */
   /** Controls */
   /** Applied Effects */
+  /** Dividers in Cards */
 }
 .crucible .line-item img.icon {
   height: var(--icon-size);
@@ -702,6 +663,10 @@
 }
 .crucible .line-item .effects .effect {
   --icon-size: 24px;
+}
+.crucible .line-item h3.divider {
+  margin: 0.5rem 0;
+  font-size: var(--font-size-16);
 }
 /* ----------------------------------------- */
 /*  Actor Sheet                              */

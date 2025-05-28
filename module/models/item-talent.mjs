@@ -1,5 +1,6 @@
 import CrucibleAction from "./action.mjs";
 import CrucibleTalentNode from "../config/talent-node.mjs";
+import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 
 /**
  * @typedef {Object} TalentData
@@ -68,6 +69,18 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["TALENT"];
+
+  /**
+   * The partial template used to render a feature granted item.
+   * @type {string}
+   */
+  static INLINE_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/talent-inline.hbs";
+
+  /**
+   * The partial template used to render a feature granted item.
+   * @type {string}
+   */
+  static CARD_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/talent-card.hbs";
 
   /**
    * Is this a signature talent?
@@ -227,6 +240,59 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       }
     }
     return true;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /**
+   * Render this Talent as HTML for inline display.
+   * @returns {Promise<string>}
+   */
+  async renderInline() {
+    return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
+      talent: this,
+      uuid: this.parent.uuid,
+      name: this.parent.name,
+      img: this.parent.img,
+      tags: this.getTags()
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render this Talent as HTML for a tooltip card.
+   * @param {object} options
+   * @param {CrucibleActor} [options.actor]
+   * @returns {Promise<string>}
+   */
+  async renderCard({actor}={}) {
+
+    // Load necessary templates
+    await foundry.applications.handlebars.loadTemplates([
+      this.constructor.CARD_TEMPLATE_PATH,
+      "systems/crucible/templates/sheets/item/talent-summary.hbs"
+    ]);
+
+    // Prepare talent data
+    const talent = this.parent;
+    actor ||= talent.parent;
+    const reqs = actor ? CrucibleTalentItem.testPrerequisites(actor, talent.system.prerequisites)
+      : talent.system.prerequisites;
+
+    // Render the card
+    return foundry.applications.handlebars.renderTemplate(this.constructor.CARD_TEMPLATE_PATH, {
+      talent,
+      source: talent,
+      uuid: talent.uuid,
+      name: talent.name,
+      img: talent.img,
+      actions: CrucibleTalentItemSheet.prepareActions(this.actions),
+      tags: this.getTags(),
+      prerequisites: reqs
+    });
   }
 
   /* -------------------------------------------- */
