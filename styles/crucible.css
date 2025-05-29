@@ -2580,7 +2580,6 @@
   height: 48px;
 }
 .crucible.dice-roll .damage-result .result::before {
-  background-position-y: -4px;
   opacity: 0.2;
 }
 .crucible.dice-roll.success .check-result {

@@ -1118,8 +1118,11 @@ export default class CrucibleActor extends Actor {
     for ( const item of this._source.items ) {
       if ( item.type !== "talent" ) continue;
       for ( const pack of packs ) {
-        if ( !pack.index.has(item._id) ) continue;
-        const talent = await pack.getDocument(item._id);
+        let talent;
+        if ( pack.index.has(item._id) ) talent = await pack.getDocument(item._id);
+        else {
+          debugger;
+        }
         if ( talent ) updates.push(talent.toObject());
       }
     }
@@ -1352,8 +1355,12 @@ export default class CrucibleActor extends Actor {
       if ( detail.talents?.length ) {
         updateData.items = [];
         for ( const uuid of detail.talents ) {
-          const doc = await fromUuid(uuid);
-          if ( doc ) updateData.items.push(doc.toObject());
+          const talent = await fromUuid(uuid);
+          if ( talent ) {
+            const talentData = talent.toObject();
+            foundry.utils.setProperty(talentData, "_stats.compendiumSource", talent.uuid);
+            updateData.items.push(talentData);
+          }
         }
       }
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
@@ -1633,8 +1640,7 @@ export default class CrucibleActor extends Actor {
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
-      this.#updateSize();
-      // TODO update size of active tokens
+      if ( !options._crucibleUpdateSize ) this.#updateSize();
       this.#replenishResources(data);
       this.#applyResourceStatuses(data);
     }
@@ -1741,23 +1747,34 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Update the size of Tokens for this Actor.
+   * If the Actor is an unlinked ActorDelta, we only update it's specific Token.
+   * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
    * @returns {Promise<void>}
    */
   async #updateSize() {
 
-    // Prototype token size
-    if ( this.size !== this.prototypeToken.width ) {
-      await this.update({prototypeToken: {width: this.size, height: this.size}});
+    // Unlinked Token Actor
+    if ( this.isToken ) {
+      if ( this.size !== this.token.width ) {
+        await this.token.update({width: this.size, height: this.size});
+      }
+      return;
     }
 
-    // Active token sizes
-    if ( canvas.scene ) {
-      const tokens = this.getActiveTokens();
-      const updates = [];
-      for ( const token of tokens ) {
-        if ( token.width !== this.size ) updates.push({_id: token.id, width: this.size, height: this.size});
-      }
-      await canvas.scene.updateEmbeddedDocuments("Token", updates);
+    // Linked Actor
+    if ( this.size !== this.prototypeToken.width ) {
+      await this.update({prototypeToken: {width: this.size, height: this.size}}, {_crucibleUpdateSize: true});
+    }
+
+    // Update placed Tokens
+    const sceneUpdates = {};
+    for ( const token of this.getDependentTokens() ) {
+      sceneUpdates[token.parent.id] ||= [];
+      sceneUpdates[token.parent.id].push({_id: token.id, width: this.size, height: this.size});
+    }
+    for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
+      const scene = game.scenes.get(sceneId);
+      if ( scene ) await scene.updateEmbeddedDocuments("Token", updates);
     }
   }
 

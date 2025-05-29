@@ -3,20 +3,17 @@ import StandardCheck from "../dice/standard-check.mjs";
 
 export default class CrucibleChatMessage extends ChatMessage {
 
-  /** @inheritdoc */
-  async _renderRollContent(messageData) {
-    const data = messageData.message;
-    if ( this.rolls[0] instanceof StandardCheck ) {
-      const isPrivate = !this.isContentVisible;
-      const rollHTML = await this._renderRollHTML(isPrivate);
-      if ( isPrivate ) {
-        data.flavor = game.i18n.format("CHAT.PrivateRollContent", {user: this.user.name});
-        messageData.isWhisper = false;
-        messageData.alias = this.user.name;
+  /** @inheritDoc */
+  async renderHTML(options) {
+    const html = await super.renderHTML(options);
+    if ( (this.rolls[0] instanceof StandardCheck) && !html.querySelector(".dice-rolls") ) {
+      let rollHTML = [];
+      for ( const roll of this.rolls ) {
+        rollHTML.push(await roll.render({isPrivate: !this.isContentVisible, message: this}));
       }
-      data.content += `<section class="dice-rolls">${rollHTML}</section>`;
-      return;
+      const rolls = `<section class="dice-rolls">${rollHTML.join("")}</section>`;
+      html.querySelector(".message-content").insertAdjacentHTML("beforeend", rolls);
     }
-    return super._renderRollContent(messageData);
+    return html;
   }
 }
