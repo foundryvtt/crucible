@@ -589,6 +589,7 @@
   gap: 0.5rem;
   /** Optional Full-Width Header */
   /** Description */
+  /** Activation Condition */
   /** Controls */
   /** Applied Effects */
   /** Dividers in Cards */
@@ -643,6 +644,10 @@
 }
 .crucible .line-item .description > p:last-child {
   margin-bottom: 0;
+}
+.crucible .line-item p.condition {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-12);
 }
 .crucible .line-item .controls {
   flex: none;

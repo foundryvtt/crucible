@@ -304,7 +304,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
               mode: CONST.ACTIVE_EFFECT_MODES.ADD
             },
             {
-              key: `rollBonuses.damage.${this.damage.type}`,
+              key: `system.rollBonuses.damage.${this.damage.type}`,
               value: 2,
               mode: CONST.ACTIVE_EFFECT_MODES.ADD
             }

@@ -908,7 +908,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _prepare() {
     for ( const test of this._tests() ) {
-      if ( test.prepare instanceof Function ) test.prepare.call(this);
+      if ( test.prepare instanceof Function ) {
+        try {
+          test.prepare.call(this);
+        } catch(err) {
+          console.error(new Error(`Failed preparation for Action "${this.id}"`, {cause: err}));
+        }
+      }
     }
   }
 

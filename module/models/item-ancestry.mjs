@@ -127,17 +127,24 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
 
     /** @deprecated since 0.7.0 until 0.8.0 */
     const {primary, secondary, resistance, vulnerability, size, stride} = source;
-    if ( primary || secondary ) {
-      source.abilities ||= {};
-      Object.assign(source.abilities, {primary, secondary});
+    if ( !source.abilities && (primary || secondary) ) {
+      source.abilities = {primary: primary || "", secondary: secondary || ""};
+      delete source.primary;
+      delete source.secondary;
     }
-    if ( resistance || vulnerability ) {
-      source.resistances ||= {};
-      Object.assign(source.resistances, {resistance, vulnerability});
+
+    /** @deprecated since 0.7.0 until 0.8.0 */
+    if ( !source.resistances && (resistance || vulnerability) ) {
+      source.resistances = {resistance: resistance || "", vulnerability: vulnerability || ""};
+      delete source.resistance;
+      delete source.vulnerability;
     }
-    if ( size || stride ) {
-      source.movement ||= {};
-      Object.assign(source.movement, {size, stride});
+
+    /** @deprecated since 0.7.0 until 0.8.0 */
+    if ( !source.movement && (size || stride) ) {
+      source.movement = {size, stride};
+      delete source.size;
+      delete source.stride;
     }
   }
 }
