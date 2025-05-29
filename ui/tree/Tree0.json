@@ -9,6 +9,114 @@
 	"sourceSize": {"w":8000,"h":8000},
 	"anchor": {"x":0.5,"y":0.5}
 },
+"NodeDefense":
+{
+	"frame": {"x":237,"y":8002,"w":105,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":2,"w":105,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeHealing":
+{
+	"frame": {"x":8002,"y":750,"w":120,"h":115},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":120,"h":115},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeMagic":
+{
+	"frame": {"x":8002,"y":0,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeMelee":
+{
+	"frame": {"x":582,"y":8002,"w":115,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":6,"w":115,"h":117},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeMovement":
+{
+	"frame": {"x":8002,"y":626,"w":122,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":122,"h":122},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeOrigin":
+{
+	"frame": {"x":8002,"y":504,"w":124,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":5,"w":124,"h":120},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeRanged":
+{
+	"frame": {"x":344,"y":8002,"w":120,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":3,"w":120,"h":123},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeSignature":
+{
+	"frame": {"x":8002,"y":254,"w":126,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":126,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeSkill":
+{
+	"frame": {"x":138,"y":8002,"w":97,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":0,"w":97,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeSpellcraft":
+{
+	"frame": {"x":8002,"y":381,"w":126,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":4,"w":126,"h":121},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeTraining":
+{
+	"frame": {"x":8002,"y":127,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"NodeUtility":
+{
+	"frame": {"x":466,"y":8002,"w":114,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":4,"w":114,"h":122},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
 "SignatureFrame":
 {
 	"frame": {"x":0,"y":8002,"w":136,"h":158},
@@ -26,6 +134,6 @@
 	"size": {"w":8192,"h":8192},
 	"scale": "1",
 	"related_multi_packs": [ "Tree1.json" ],
-	"smartupdate": "$TexturePacker:SmartUpdate:73063be538c657a444fb3517c2431b1f:4d31773bb9cdd7eb1c7cccb878affa97:7c7c359800afeaa37927d7f5aaa3aac5$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f0d27392e99e4951b3a41711654cd57a:547c6e5fce4dcb85aca937effd337a7b:7c7c359800afeaa37927d7f5aaa3aac5$"
 }
 }

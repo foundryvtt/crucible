@@ -21,9 +21,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /** @override */
   async draw({state, ...config}={}) {
-    const singleAbility = this.node.abilities.size === 1;
-    const variety = state.purchased && singleAbility ? this.node.abilities.first() : "inactive";
-    config.texture = crucible.tree.spritesheet[`${this.node.iconPrefix}-${variety}`];
+    config.texture = crucible.tree.spritesheet[`${this.node.iconPrefix}`];
+    config.backgroundColor = this.node.color.multiply(0.05);
 
     // Configure default colors
     if ( state.accessible ) {
@@ -42,7 +41,6 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
       config.alpha = 1.0;
       config.borderColor = this.node.color;
       config.borderWidth = 3;
-      if ( !singleAbility ) config.tint = this.node.color;
     }
 
     // Banned Nodes
@@ -71,10 +69,11 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
         config.size = config.borderRadius = 80;
         break;
       case "originHex":
+        config.alpha = 1.0;
+        config.borderWidth = 4;
         config.shape = "hex";
         config.size = config.borderRadius = 120;
         config.borderColor = crucible.tree.actor.ancestry.ui.color;
-        config.tint = crucible.tree.actor.ancestry.ui.color.multiply(2);
         break;
     }
 

@@ -219,19 +219,6 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
   }
 
   /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  _onRender(context, options) {
-    super._onRender(context, options);
-    for ( const [i, hook] of context.actionHooks.entries() ) {
-      const textarea = this.element[`actionHooks.${i}.fn`];
-      // FIXME Why the hell does the textarea keep having excess whitespace inserted every time I render it?
-      // FIXME Is it because the hook template is rendered inside a partial?
-      textarea.textContent = hook.fn;
-    }
-  }
-
-  /* -------------------------------------------- */
   /*  Form Submission                             */
   /* -------------------------------------------- */
 

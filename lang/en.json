@@ -971,12 +971,16 @@
   },
   "NODES": {
     "ATTACK": "Attack",
+    "MELEE": "Melee",
+    "RANGED": "Ranged",
+    "MAGIC": "Magic",
     "DEFENSE": "Defense",
-    "HEALING": "Healing",
+    "HEAL": "Healing",
     "MOVE": "Movement",
     "ORIGIN": "Origin",
     "SIGNATURE": "Signature",
     "SPELL": "Spellcraft",
+    "SKILL": "Skill",
     "TRAINING": "Training",
     "UTILITY": "Utility"
   },

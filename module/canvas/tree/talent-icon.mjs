@@ -57,7 +57,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
 
     // Icon Shape
     this.shape = this._getShape();
-    this.bg.clear().beginFill(0x000000).drawShape(this.shape).endFill();
+    this.bg.clear().beginFill(this.config.backgroundColor).drawShape(this.shape).endFill();
 
     // Draw icon
     this.icon.texture = c.texture;

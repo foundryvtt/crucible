@@ -1120,9 +1120,7 @@ export default class CrucibleActor extends Actor {
       for ( const pack of packs ) {
         let talent;
         if ( pack.index.has(item._id) ) talent = await pack.getDocument(item._id);
-        else {
-          debugger;
-        }
+        else if ( item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
         if ( talent ) updates.push(talent.toObject());
       }
     }
