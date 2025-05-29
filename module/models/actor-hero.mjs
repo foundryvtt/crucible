@@ -84,20 +84,16 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   prepareBaseData() {
     this.#prepareAdvancement();
     super.prepareBaseData();
-    this.#prepareBaseMovement();
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare base movement attributes that are defined by the Hero's Ancestry and bonuses.
-   */
-  #prepareBaseMovement() {
+  /** @override */
+  _prepareBaseMovement() {
+    const {size=4, stride=8} = this.details.ancestry.movement;
     const m = this.movement;
-    const {size, stride} = this.details.ancestry.movement;
-    m.size = size + m.sizeBonus;
-    m.stride = stride + m.strideBonus;
-    this.size = m.size; // TODO this shouldn't exist maybe?
+    m.baseSize = size;
+    m.baseStride = stride;
   }
 
   /* -------------------------------------------- */

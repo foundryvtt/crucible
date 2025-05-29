@@ -605,6 +605,7 @@
 
 "ACTIVE_EFFECT": {
   "STATUSES": {
+    "Asleep": "Asleep",
     "Blind": "Blinded",
     "Broken": "Broken",
     "Dead": "Dead",

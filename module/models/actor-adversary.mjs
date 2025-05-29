@@ -74,21 +74,11 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /** @override */
-  prepareBaseData() {
-    this.#prepareBaseMovement();
-    super.prepareBaseData();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare base movement attributes that are defined by the Adversary's Taxonomy.
-   */
-  #prepareBaseMovement() {
+  _prepareBaseMovement() {
+    const {size=4, stride=8} = this.details.taxonomy || {};
     const m = this.movement;
-    const {size=3, stride=10} = this.details.taxonomy || {};
-    m.size = size + m.sizeBonus;
-    m.stride = stride + m.strideBonus;
+    m.baseSize = size;
+    m.baseStride = stride;
   }
 
   /* -------------------------------------------- */

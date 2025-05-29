@@ -117,6 +117,11 @@ export const statusEffects = [
     icon: "icons/svg/paralysis.svg"
   },
   {
+    id: "asleep",
+    name: "ACTIVE_EFFECT.STATUSES.Asleep",
+    icon: "icons/svg/sleep.svg"
+  },
+  {
     id: "incapacitated",
     name: "ACTIVE_EFFECT.STATUSES.Incapacitated",
     icon: "icons/svg/unconscious.svg"

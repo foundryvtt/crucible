@@ -668,7 +668,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( errorAll ) t.error = errorAll;
       targets.push(t);
       if ( !this.token ) continue;
-      if ( (token === this.token) && !this.damage.restoration ) {
+      if ( (token === this.token) && !this.damage?.restoration ) {
         t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
         continue;
       }
@@ -937,15 +937,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }))
     }
 
-    // Cannot afford action cost
-    if ( this.cost.action > r.action.value ) {
-      throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
-        name: this.actor.name,
-        resource: SYSTEM.RESOURCES.action.label,
-        action: this.name
-      }));
-    }
-
     // Cannot spend focus
     if ( this.cost.focus ) {
       let focusBlock = "";
@@ -957,11 +948,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }));
     }
 
+    // Cannot afford action cost
+    if ( this.cost.action > r.action.value ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
+        name: this.actor.name,
+        resource: SYSTEM.RESOURCES.action.label,
+        action: this.name
+      }));
+    }
+
     // Cannot afford focus cost
     if ( this.cost.focus > r.focus.value ) {
       throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
         name: this.actor.name,
         resource: SYSTEM.RESOURCES.focus.label,
+        action: this.name
+      }));
+    }
+
+    // Cannot afford heroism cost
+    if ( this.cost.heroism > r.heroism.value ) {
+      throw new Error(game.i18n.format("ACTION.WarningCannotAffordCost", {
+        name: this.actor.name,
+        resource: SYSTEM.RESOURCES.heroism.label,
         action: this.name
       }));
     }

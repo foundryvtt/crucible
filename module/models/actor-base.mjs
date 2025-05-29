@@ -231,6 +231,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.#clear();
     this._prepareDetails();
     this._prepareAbilities();
+    this._prepareBaseMovement();
   }
 
   /* -------------------------------------------- */
@@ -262,6 +263,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Prepare basic movement attributes for all Actor subtypes.
+   * @protected
+   */
+  _prepareBaseMovement() {}
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare creature details for all Actor subtypes.
    * @protected
    */
@@ -289,8 +298,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareTraining", this.training); // FIXME maybe delete this hook?
     this.#prepareSpells(items.spell);
     this.#prepareEquipment(items);
-    this.#prepareActions(items);
-    this.parent.callActorHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
@@ -564,63 +571,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Prepare Actions which this Actor may actively use.
-   */
-  #prepareActions(items) {
-    this.#prepareDefaultActions();
-    for ( const item of items.talent ) this.#registerItemActions(item);
-    for ( const item of items.weapon ) {
-      if ( item.system.equipped ) this.#registerItemActions(item);
-    }
-    for ( const item of items.armor ) {
-      if ( item.system.equipped ) this.#registerItemActions(item);
-    }
-    for ( const item of items.spell ) this.#registerItemActions(item);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the set of default actions that every Actor can perform.
-   */
-  #prepareDefaultActions() {
-    const w = this.equipment.weapons;
-    for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
-      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
-      if ( (ad.id === "reload") && !w.reload ) continue;
-      if ( (ad.id === "refocus") && !w.talisman ) continue;
-      ad = foundry.utils.deepClone(ad);
-      ad.tags ||= [];
-
-      // Customize strike tags
-      if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
-        if ( w.melee ) ad.tags.push("melee");
-        if ( w.ranged ) ad.tags.push("ranged");
-        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
-      }
-
-      // Create the action
-      const action = new CrucibleAction(ad, {actor: this.parent});
-      action._initialize({});
-      this.actions[action.id] = action;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Register and bind Actions provided by an Item.
-   * @param {CrucibleItem} item
-   */
-  #registerItemActions(item) {
-    for ( const action of item.actions ) {
-      this.actions[action.id] = action.bind(this.parent);
-    }
-  }
-
-  /* -------------------------------------------- */
   /*  Derived Data Preparation                    */
   /* -------------------------------------------- */
 
@@ -629,6 +579,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @override
    */
   prepareDerivedData() {
+
+    // Movement and Size
+    this._prepareMovement();
+    this.parent.callActorHooks("prepareMovement", this.resources);
 
     // Resource pools
     this._prepareResources();
@@ -643,9 +597,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareResistances", this.resistances);
     this.#prepareTotalResistances();
 
-    // Movement
-    this._prepareMovement();
-    this.parent.callActorHooks("prepareMovement", this.movement);
+    // Actions
+    this.#prepareActions();
+    this.parent.callActorHooks("prepareActions", this.actions);
   }
 
   /* -------------------------------------------- */
@@ -688,7 +642,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action
-    r.action.max = maxAction;
+    r.action.max = maxAction + (r.action.bonus || 0);
     if ( statuses.has("stunned") ) r.action.max -= 4;
     else if ( statuses.has("staggered") ) r.action.max -= 2;
     if ( this.status.impetus ) r.action.max += 1;
@@ -828,6 +782,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   _prepareMovement() {
     const m = this.movement;
+    m.size = m.baseSize + m.sizeBonus;
+    m.stride = m.baseStride + m.strideBonus;
     m.free = m.stride;
     m.engagement = 1; // Default engagement is size-2 with a minimum of 1.
     const {shield, offhand} = this.parent.equipment.weapons;
@@ -845,6 +801,64 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this._cachedResources.wasIncapacitated = this.parent.isIncapacitated;
     this._cachedResources.wasBroken = this.parent.isIncapacitated;
     return this._cachedResources;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Actions which this Actor may actively use.
+   */
+  #prepareActions() {
+    this.#prepareDefaultActions();
+    const items = this.parent.itemTypes;
+    for ( const item of items.talent ) this.#registerItemActions(item);
+    for ( const item of items.weapon ) {
+      if ( item.system.equipped ) this.#registerItemActions(item);
+    }
+    for ( const item of items.armor ) {
+      if ( item.system.equipped ) this.#registerItemActions(item);
+    }
+    for ( const item of items.spell ) this.#registerItemActions(item);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the set of default actions that every Actor can perform.
+   */
+  #prepareDefaultActions() {
+    const w = this.equipment.weapons;
+    for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
+      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+      if ( (ad.id === "reload") && !w.reload ) continue;
+      if ( (ad.id === "refocus") && !w.talisman ) continue;
+      ad = foundry.utils.deepClone(ad);
+      ad.tags ||= [];
+
+      // Customize strike tags
+      if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
+        if ( w.melee ) ad.tags.push("melee");
+        if ( w.ranged ) ad.tags.push("ranged");
+        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
+      }
+
+      // Create the action
+      const action = new CrucibleAction(ad, {actor: this.parent});
+      action._initialize({});
+      this.actions[action.id] = action;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Register and bind Actions provided by an Item.
+   * @param {CrucibleItem} item
+   */
+  #registerItemActions(item) {
+    for ( const action of item.actions ) {
+      this.actions[action.id] = action.bind(this.parent);
+    }
   }
 
   /* -------------------------------------------- */
