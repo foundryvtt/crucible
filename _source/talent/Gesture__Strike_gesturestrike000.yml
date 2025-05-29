@@ -14,15 +14,17 @@ system:
   actions: []
   gesture: strike
   actorHooks: []
+  nodes:
+    - str2b
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1674842056708
-  modifiedTime: 1686253964582
+  modifiedTime: 1748551939966
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.gesturearrowcopy
   duplicateSource: null

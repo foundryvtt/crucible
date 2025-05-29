@@ -9,14 +9,16 @@ system:
     Focus and you deal 2 additional damage to all spell attacks.
   actions: []
   requirements: {}
+  nodes:
+    - pre2b
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.2
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1674938709075
-  modifiedTime: 1684351750605
+  modifiedTime: 1748552528562
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

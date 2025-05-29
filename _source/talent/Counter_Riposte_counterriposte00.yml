@@ -39,12 +39,14 @@ system:
         maximum: 1
         weapon: true
         minimum: null
+  nodes:
+    - str2a
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1674942420020
-  modifiedTime: 1726368197835
+  modifiedTime: 1748552047632
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.V4stscWtnt2GFRY2
   duplicateSource: null

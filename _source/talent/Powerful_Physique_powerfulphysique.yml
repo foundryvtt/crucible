@@ -21,15 +21,17 @@ system:
 
         if ( armor.system.properties.has("bulky") && bulkyBanes )
         bulkyBanes.number -= 2;
+  nodes:
+    - str2c
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.4
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1675014203613
-  modifiedTime: 1687632194596
+  modifiedTime: 1748552015806
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.powerfulphysique
   duplicateSource: null

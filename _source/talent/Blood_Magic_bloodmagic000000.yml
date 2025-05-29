@@ -10,14 +10,16 @@ system:
     a spell each point of Focus costs 10 points of Health.</p>
   actions: []
   requirements: {}
+  nodes:
+    - str2b
 effects: []
 flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.344'
   createdTime: 1674957908610
-  modifiedTime: 1742939372299
+  modifiedTime: 1748551927422
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

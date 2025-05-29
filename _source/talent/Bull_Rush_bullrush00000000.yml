@@ -44,6 +44,8 @@ system:
         weapon: false
         minimum: null
       actionHooks: []
+  nodes:
+    - str2c
 effects: []
 folder: MqZKCMx5KrZQffGU
 sort: 200000
@@ -54,9 +56,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.344'
   createdTime: 1677968575791
-  modifiedTime: 1742939141792
+  modifiedTime: 1748552036218
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

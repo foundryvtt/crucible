@@ -26,6 +26,8 @@ system:
         // Apply stagger
         const stagger = SYSTEM.EFFECTS.staggered(actor, outcome.target);
         outcome.effects.push(stagger);
+  nodes:
+    - str3b
 effects: []
 folder: c0nl6X8tp4Of0Y4O
 sort: 0
@@ -35,10 +37,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.7
-  coreVersion: '13.342'
+  systemVersion: 0.7.0-dev
+  coreVersion: '13.344'
   createdTime: 1676756257189
-  modifiedTime: 1688827683206
+  modifiedTime: 1748551979581
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

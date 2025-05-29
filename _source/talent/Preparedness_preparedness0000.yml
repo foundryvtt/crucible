@@ -16,6 +16,8 @@ system:
         action.cost.action = 0;
 
         action.usage.actorStatus.hasMoved = true;
+  nodes:
+    - wis2b
 effects: []
 ownership:
   default: 0
@@ -25,10 +27,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.344'
   createdTime: 1677354662797
-  modifiedTime: 1743967277804
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1748552146412
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.preparedness0000
   duplicateSource: null
   exportSource: null
