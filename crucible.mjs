@@ -451,7 +451,14 @@ async function standardizeItemIds() {
 
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, _user) => {
-    if ( !item.parent && !item.id ) {
+
+    // Keep existing _id while exporting into a compendium pack
+    if ( item.pack && !item.parent && item.id ) {
+      options.keepId = true;
+    }
+
+    // Generate a new ID
+    else if ( !item.parent && !item.id && !options.keepId ) {
       item.updateSource({_id: generateId(item.name, 16)});
       options.keepId = true;
     }
