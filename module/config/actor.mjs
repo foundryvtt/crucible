@@ -119,5 +119,11 @@ export const HOOKS = Object.freeze({
   prepareTraining: {
     group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["training"]
+  },
+
+  // Turn Events
+  startTurn: {
+    group: "TALENT.HOOKS.GROUP_COMBAT",
+    argNames: ["turnStartConfig"]
   }
 });

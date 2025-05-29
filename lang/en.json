@@ -966,7 +966,8 @@
   "HOOKS": {
     "REGISTER": "Register Hook Function",
     "GROUP_PREPARATION": "Actor Data Preparation",
-    "GROUP_ACTION": "Action Usage"
+    "GROUP_ACTION": "Action Usage",
+    "GROUP_COMBAT": "Combat Turns"
   },
   "NODES": {
     "ATTACK": "Attack",

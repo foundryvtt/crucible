@@ -19,7 +19,7 @@ const {DialogV2} = foundry.applications.api;
 export default class CrucibleActor extends Actor {
   constructor(...args) {
     super(...args);
-    this.system._updateCachedResources?.();
+    this.#updateCachedResources();
   }
 
   /**
@@ -151,6 +151,14 @@ export default class CrucibleActor extends Actor {
   get talentIds() {
     return this.system.talentIds;
   }
+
+  /**
+   * Prior resource values that can be used to establish diffs.
+   * This is stored on the Actor because the system data object is reconstructed each time preparation occurs.
+   * @type {Record<string, number|boolean>}
+   * @internal
+   */
+  _cachedResources = {};
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -691,8 +699,16 @@ export default class CrucibleActor extends Actor {
       }
 
       // Frightened and Diseased
-      if ( (resourceName === "morale") && this.statuses.has("frightened") ) delta = Math.min(delta, 0);
-      else if ( (resourceName === "health") && this.statuses.has("diseased") ) delta = Math.min(delta, 0);
+      switch ( resourceName ) {
+        case "action":
+          if ( this.isIncapacitated ) delta = Math.min(delta, 0);
+          break;
+        case "health":
+          if ( this.statuses.has("diseased") ) delta = Math.min(delta, 0);
+          break;
+        case "morale":
+          if ( this.statuses.has("frightened") ) delta = Math.min(delta, 0);
+      }
 
       // Handle overflow
       const uncapped = resource.value + delta;
@@ -866,6 +882,11 @@ export default class CrucibleActor extends Actor {
   /**
    * Actions that occur at the beginning of an Actor's turn in Combat.
    * This method is only called for one User who has ownership permission over the Actor.
+   *
+   * Turn start workflows proceed in the following order:
+   * 1. Active Effects are expired or gained
+   * 2. Damage-Over-Time effects are applied
+   * 3. Resource recovery occurs
    * @returns {Promise<void>}
    */
   async onStartTurn() {
@@ -878,24 +899,29 @@ export default class CrucibleActor extends Actor {
     const {round, from, to} = this.flags.crucible?.delay || {};
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative === to) ) return;
 
-    // Clear system statuses
-    await this.update({"system.status": null});
+    // Plan actor changes
+    const resourceRecovery = {action: Infinity}; // Try to recover as much action as possible, in case your maximum increases
+    const actorUpdates = {system: {status: null}};
+    const damageOverTime = {};
+    const effectChanges = {};
+    const turnStartConfig = {resourceRecovery, actorUpdates, damageOverTime, effectChanges};
+
+    // Special recovery cases
+    // TODO these should move to the "startTurn" actor hook
+    if ( this.talentIds.has("lesserregenerati") && !this.system.isWeakened ) resourceRecovery.health = 1;
+    if ( this.talentIds.has("irrepressiblespi") && !this.system.isBroken ) resourceRecovery.morale = 1;
+
+    // Hook actions
+    this.callActorHooks("startTurn", turnStartConfig);
 
     // Remove Active Effects which expire at the start of a turn (round)
-    await this.expireEffects(true);
+    await this.expireEffects(true); // TODO pass planned effect changes
 
     // Apply damage-over-time before recovery
-    await this.applyDamageOverTime();
+    await this.applyDamageOverTime(); // TODO pass planned DoT
 
     // Recover resources
-    const resources = {};
-    const updates = {};
-    if ( !this.isIncapacitated ) {
-      resources.action = Infinity; // Try to recover as much action as possible, in case your maximum increases
-      if ( this.talentIds.has("lesserregenerati") && !this.system.isWeakened ) resources.health = 1;
-      if ( this.talentIds.has("irrepressiblespi") && !this.system.isBroken ) resources.morale = 1;
-    }
-    await this.alterResources(resources, updates);
+    await this.alterResources(resourceRecovery, actorUpdates);
   }
 
   /* -------------------------------------------- */
@@ -1614,15 +1640,15 @@ export default class CrucibleActor extends Actor {
     }
 
     // Update flanking
-    if ( this.system._cachedResources ) {
-      const {wasIncapacitated, wasBroken} = this.system._cachedResources || {};
+    if ( this._cachedResources ) {
+      const {wasIncapacitated, wasBroken} = this._cachedResources || {};
       if ( (this.isIncapacitated !== wasIncapacitated) || (this.system.isBroken !== wasBroken) ) {
         const tokens = this.getActiveTokens(true);
         const activeGM = game.users.activeGM;
         const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
         for ( const token of tokens ) token.refreshFlanking(commit);
       }
-      this.system._updateCachedResources?.();
+      this.#updateCachedResources();
     }
 
     // Refresh display of the active talent tree
@@ -1660,10 +1686,10 @@ export default class CrucibleActor extends Actor {
   #displayScrollingStatus(changed, {statusText}={}) {
     const resources = changed.system?.resources || {};
     const tokens = this.getActiveTokens(true);
-    if ( !tokens.length || !this.system._cachedResources ) return;
+    if ( !tokens.length || !this._cachedResources ) return;
 
     // Display resource changes
-    for ( let [resourceName, prior] of Object.entries(this.system._cachedResources ) ) {
+    for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
 
       // Get change data
@@ -1673,7 +1699,7 @@ export default class CrucibleActor extends Actor {
       if ( delta === 0 ) continue;
       const text = `${delta.signedString()} ${statusText ?? resource.label}`;
       const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
-      const fontSize = 36 + (36 * pct); // Range between [36, 64]
+      const fontSize = 32 + (64 * pct); // Range between [32, 64]
       const healSign = resource.type === "active" ? 1 : -1;
       const fillColor = resource.color[Math.sign(delta) === healSign ? "heal" : "high"];
 
@@ -1743,6 +1769,21 @@ export default class CrucibleActor extends Actor {
       return foundry.utils.hasProperty(data, `system.abilities.${k}`);
     });
     if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update cached resources for this Actor.
+   */
+  #updateCachedResources() {
+    this._cachedResources ||= {};
+    const resources = this.system.schema.get("resources");
+    if ( !resources ) return;
+    for ( const k in resources.fields ) this._cachedResources[k] = this._source.system.resources[k].value;
+    this._cachedResources.wasIncapacitated = this.isIncapacitated;
+    this._cachedResources.wasBroken = this.isIncapacitated;
+    return this._cachedResources;
   }
 
   /* -------------------------------------------- */

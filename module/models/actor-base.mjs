@@ -176,13 +176,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   training = this["training"];
 
-  /**
-   * Prior resource values that can be used to establish diffs.
-   * @type {Record<string, value>}
-   * @internal
-   */
-  _cachedResources = {};
-
   /* -------------------------------------------- */
   /*  Properties                                  */
   /* -------------------------------------------- */
@@ -788,19 +781,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     m.engagement = 1; // Default engagement is size-2 with a minimum of 1.
     const {shield, offhand} = this.parent.equipment.weapons;
     if ( shield && offhand.system.properties.has("engaging") ) m.engagement += 1;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Update cached resources for this Actor.
-   * @internal
-   */
-  _updateCachedResources() {
-    for ( const k in this.schema.fields.resources.fields ) this._cachedResources[k] = this._source.resources[k];
-    this._cachedResources.wasIncapacitated = this.parent.isIncapacitated;
-    this._cachedResources.wasBroken = this.parent.isIncapacitated;
-    return this._cachedResources;
   }
 
   /* -------------------------------------------- */
