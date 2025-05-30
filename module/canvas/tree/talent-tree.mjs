@@ -429,7 +429,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
         // Record Node state
         if ( state.has(node) ) continue;
         const s = node.getState(actor, signatures);
-        s.accessible = accessible;
+        s.accessible = accessible && s.unlocked;
         state.set(node, s);
 
         // Traverse Outwards
