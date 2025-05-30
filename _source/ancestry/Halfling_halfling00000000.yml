@@ -20,16 +20,17 @@ system:
   identifier: halfling
   abilities:
     secondary: presence
+    primary: dexterity
   talents:
     - Compendium.crucible.talent.Item.runecourage00000
   ui:
     color: '#bff58a'
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.0
+  coreVersion: '13.344'
   createdTime: 1674942420028
-  modifiedTime: 1746803335137
+  modifiedTime: 1748565190499
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
