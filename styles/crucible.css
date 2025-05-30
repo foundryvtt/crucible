@@ -2033,11 +2033,18 @@
   color: var(--color-text-subtle);
   opacity: 0.5;
 }
+.crucible-fullscreen[data-step="talents"] {
+  transform: none;
+  width: 100vw;
+  height: 100vh;
+}
 .crucible-fullscreen[data-step="talents"] #hero-creation-nav {
   background: var(--color-cool-5-75);
   border-radius: 0 0 16px 16px;
   border: 1px solid var(--color-frame);
   border-top: none;
+  transform: scale(var(--ui-scale));
+  transform-origin: top center;
 }
 .crucible-fullscreen[data-step="talents"] #hero-creation-name {
   display: none;

@@ -7,11 +7,11 @@ import CrucibleItem from "../../documents/item.mjs";
  * @extends {DocumentSheetV2}
  * @mixes {HandlebarsApplication}
  */
-export default class ActionConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
+export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
   constructor({action, ...options}={}) {
     const document = action.parent.parent;
     if ( !(document instanceof CrucibleItem) ) {
-      throw new Error("You may only use the ActionConfig sheet to configure an Action that belongs to an Item.");
+      throw new Error("You may only use the CrucibleActionConfig sheet to configure an Action that belongs to an Item.");
     }
     super({document, ...options});
     this.action = action;
@@ -26,10 +26,10 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
     tag: "form",
     position: {width: 600, height: "auto"},
     actions: {
-      addEffect: ActionConfig.#onAddEffect,
-      deleteEffect: ActionConfig.#onDeleteEffect,
-      addHook: ActionConfig.#onAddHook,
-      deleteHook: ActionConfig.#onDeleteHook
+      addEffect: CrucibleActionConfig.#onAddEffect,
+      deleteEffect: CrucibleActionConfig.#onDeleteEffect,
+      addHook: CrucibleActionConfig.#onAddHook,
+      deleteHook: CrucibleActionConfig.#onDeleteHook
     },
     form: {
       submitOnChange: true
@@ -74,12 +74,12 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
     effects: {
       id: "effects",
       template: "systems/crucible/templates/sheets/action/effects.hbs",
-      templates: [ActionConfig.ACTIVE_EFFECT_PARTIAL]
+      templates: [CrucibleActionConfig.ACTIVE_EFFECT_PARTIAL]
     },
     hooks: {
       id: "hooks",
       template: "systems/crucible/templates/sheets/action/hooks.hbs",
-      templates: [ActionConfig.HOOK_PARTIAL]
+      templates: [CrucibleActionConfig.HOOK_PARTIAL]
     }
   };
 
@@ -112,11 +112,21 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
   /*  Rendering                                   */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _preRender(context, options) {
+    await super._preRender(context, options);
+    const hookPartial = await foundry.applications.handlebars.getTemplate(this.constructor.HOOK_PARTIAL);
+    Handlebars.registerPartial(this.constructor.HOOK_PARTIAL, hookPartial, {preventIndent: true});
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   async _prepareContext(_options) {
     const action = this.action.toObject();
     action.name ||= this.document.name;
     action.img ||= this.document.img;
+    const disableHooks = !game.user.isGM;
     return {
       action,
       editable: this.isEditable,
@@ -124,8 +134,8 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
         obj[k] = k;
         return obj;
       }, {}),
-      disableHooks: !game.user.isGM,
-      actionHooks: this.#prepareActionHooks(),
+      disableHooks,
+      actionHooksHTML: await this.#renderActionHooksHTML(disableHooks),
       fields: this.action.constructor.schema.fields,
       tabs: this.#prepareTabs().sheet,
       headerTags: this.action.tags.map(t => SYSTEM.ACTION.TAGS[t]),
@@ -133,8 +143,8 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
       effects: this.#prepareEffects(),
-      effectPartial: ActionConfig.ACTIVE_EFFECT_PARTIAL,
-      hookPartial: ActionConfig.HOOK_PARTIAL
+      effectPartial: CrucibleActionConfig.ACTIVE_EFFECT_PARTIAL,
+      hookPartial: CrucibleActionConfig.HOOK_PARTIAL
     }
   }
 
@@ -200,15 +210,22 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
   /* -------------------------------------------- */
 
   /**
-   * Prepare data for defined action hooks attached to the Action.
-   * @returns {{label: string, hook: string, fn: string}[]}
+   * Render HTML used for the action hooks tab.
+   * We do this rendering in JavaScript and pass the rendered string into the template to avoid the undesirable
+   * auto-indenting caused by rendering this normally as a Handlebars Partial.
+   * See https://github.com/handlebars-lang/handlebars.js/issues/858
+   * @returns {Promise<string>}
    */
-  #prepareActionHooks() {
-    return this.action.actionHooks.map(h => {
+  async #renderActionHooksHTML(disableHooks) {
+    const hookHTML = [];
+    for ( const [i, h] of this.action.actionHooks.entries() ) {
       const cfg = SYSTEM.ACTION_HOOKS[h.hook];
       const label = this.#getHookLabel(h.hook, cfg);
-      return {label, ...h};
-    });
+      const ctx = {i, hook: {label, ...h}, disableHooks};
+      const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, ctx);
+      hookHTML.push(html);
+    }
+    return hookHTML.join("");
   }
 
   /* -------------------------------------------- */
@@ -231,12 +248,15 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
   /* -------------------------------------------- */
 
   /** @override */
-  _processFormData(event, form, formData) {
+  _prepareSubmitData(event, form, formData, updateData) {
+
+    // Construct action update
     const submitData = foundry.utils.expandObject(formData.object);
     submitData.actionHooks = Object.values(submitData.actionHooks || {});
     submitData.effects = Object.values(submitData.effects || {});
+    foundry.utils.mergeObject(submitData, updateData);
 
-    // Validate Action Data
+    // Validate action update
     let actionData;
     try {
       const a = this.action.clone();
@@ -246,26 +266,22 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
       throw new Error("Invalid Action Update", {cause: err});
     }
 
-    // Construct Database Update
-    const actions = this.document.system.toObject().actions;
-    actions.findSplice(a => a.id === this.action.id, actionData);
-    return {system: {actions}};
+    // Return the full action object
+    return actionData;
   }
 
   /* -------------------------------------------- */
 
-  /**
-   * Submit a document update based on the processed form data.
-   * @param {SubmitEvent} event                   The originating form submission event
-   * @param {HTMLFormElement} form                The form element that was submitted
-   * @param {object} submitData                   Processed and validated form data to be used for a document update
-   * @returns {Promise<void>}
-   * @protected
-   */
+  /** @override */
   async _processSubmitData(event, form, submitData) {
-    await this.document.update(submitData, {diff: false});
-    const actionData = submitData.system.actions.find(a => a.id === this.action.id);
-    this.action.updateSource(actionData);
+    const idx = this.document._source.system.actions.findIndex(a => a.id === this.action.id);
+    if ( idx === -1 ) {
+      throw new Error(`Action "${this.action.id}" not identified in the actions array for Item "${this.document.id}"`);
+    }
+    await this.document.update({[`system.actions.${idx}`]: submitData}, {diff: false});
+    // Updating the Item has re-constructed the CrucibleAction object
+    // For continuity of this sheet instance, we update the source of this.action so we can re-render accordingly.
+    this.action = this.document.actions[idx];
     await this.render();
   }
 
@@ -275,7 +291,7 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
 
   /**
    * Add a status effect to the Action.
-   * @this {ActionConfig}
+   * @this {CrucibleActionConfig}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
@@ -302,7 +318,7 @@ export default class ActionConfig extends api.HandlebarsApplicationMixin(api.Doc
 
   /**
    * Delete a status effect from the Action.
-   * @this {ActionConfig}
+   * @this {CrucibleActionConfig}
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */

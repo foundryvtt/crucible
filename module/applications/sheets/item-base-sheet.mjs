@@ -106,8 +106,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     if ( item.includesHooks ) {
       this.PARTS.hooks = {
         id: "hooks",
-        template: "systems/crucible/templates/sheets/item/item-hooks.hbs",
-        templates: ["systems/crucible/templates/sheets/action/hook.hbs"]
+        template: "systems/crucible/templates/sheets/item/item-hooks.hbs"
       }
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
     }

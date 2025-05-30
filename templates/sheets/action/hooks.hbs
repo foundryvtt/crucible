@@ -1,10 +1,6 @@
 <section class="tab sheet-body flexcol {{tabs.hooks.cssClass}}"
          data-group="{{tabs.hooks.group}}" data-tab="{{tabs.hooks.id}}">
-
-    {{#each actionHooks as |hook i|}}
-    {{> (lookup @root "hookPartial") hook=hook i=i disableHooks=@root.disableHooks}}
-    {{/each}}
-
+    {{{actionHooksHTML}}}
     {{#unless disableHooks}}
     <fieldset class="add-hook">
         <legend>{{fields.actionHooks.label}}</legend>

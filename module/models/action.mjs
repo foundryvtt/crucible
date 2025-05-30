@@ -1,6 +1,6 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
-import ActionConfig from "../applications/config/action.mjs";
+import CrucibleActionConfig from "../applications/config/action-config.mjs";
 
 
 /**
@@ -144,7 +144,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
       actionHooks: new fields.ArrayField(new fields.SchemaField({
         hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTION_HOOKS}),
-        fn: new fields.StringField({required: true, blank: false, nullable: false, gmOnly: true}),
+        fn: new fields.JavaScriptField({async: true, gmOnly: true})
       }))
     }
   }
@@ -178,7 +178,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {*}
    */
   get sheet() {
-    this.#sheet ||= new ActionConfig({action: this});
+    this.#sheet ||= new CrucibleActionConfig({action: this});
     return this.#sheet;
   }
 

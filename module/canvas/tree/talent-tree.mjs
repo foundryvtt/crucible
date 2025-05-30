@@ -82,6 +82,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
     height: 12000
   }
 
+  #hudAlignOriginal;
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -164,11 +166,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
     // Create Choice Wheel
     this.wheel = this.foreground.addChild(new CrucibleTalentChoiceWheel());
 
+    // Ensure the main Canvas HUD is rendered
+    this.#hudAlignOriginal = canvas.hud.align;
+    canvas.hud.align = () => {};
+    await canvas.hud.render({force: true});
+
     // Enable interactivity
     this.#activateInteractivity();
-
-    // Ensure the main Canvas HUD is rendered
-    canvas.hud.render(true);
 
     // Draw initial conditions
     this.refresh();
@@ -319,8 +323,11 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.stage.eventMode = "none";
     this.stage.interactiveChildren = false;
     canvas.stage.eventMode = "static";
+
+    // Restore HUD alignment
+    canvas.hud.align = this.#hudAlignOriginal;
     canvas.hud.element.style.zIndex = ""; // Move HUD back to normal
-    canvas.hud.align();
+    if ( canvas.ready ) canvas.hud.align();
   }
 
   /* -------------------------------------------- */
@@ -532,13 +539,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   /**
-   * Align the position of the HUD layer to the current position of the canvas
+   * Align the position of the HUD layer to the current position of the canvas.
    */
   #alignHUD() {
+    const {width, height} = this.#dimensions;
     const hud = canvas.hud.element;
     const {x, y} = this.getGlobalPosition();
     const scale = this.stage.scale.x;
-    const {width, height} = this.#dimensions;
     Object.assign(hud.style, {
       width: `${width}px`,
       height: `${height}px`,
