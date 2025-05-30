@@ -2,7 +2,6 @@ name: Dual Wield
 type: talent
 img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
 system:
-  node: dex1b
   description: >-
     <p>You are adept at fighting with two weapons simultaneously. You can weave
     attacks together to strike more rapidly than possible with a single
@@ -16,6 +15,7 @@ system:
         your <strong>offhand</strong> weapon.</p>
       tags:
         - afterStrike
+        - attack
         - offhand
       cost:
         action: -1
@@ -29,29 +29,45 @@ system:
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
-      actionHooks: []
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const {basicStrike, lastAction} = this.actor.system.status;
+            if ( !basicStrike || (lastAction !== "strike") ) {
+              throw new Error("You may only perform an Offhand Strike after a basic Strike which did not critically miss.");
+            }
+        - hook: displayOnSheet
+          fn: |-
+            const {lastAction} = this.actor.system.status;
+            return lastAction === "strike";
       range:
         maximum: 1
         weapon: true
         minimum: null
-  requirements: {}
+  actorHooks: []
+  nodes:
+    - dex1b
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
-  createdTime: 1676425968128
-  modifiedTime: 1747841453639
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Item.dualwield0000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: dualwield0000000
+  coreVersion: '13.344'
+  systemId: crucible
+  systemVersion: 0.7.0
+  createdTime: 1748638326991
+  modifiedTime: 1748638326991
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: cW6bwHXBB9pMcwva
-sort: 100000
-_key: '!items!dualwield0000000'
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: dualWield0000000
+sort: 0
+_key: '!items!dualWield0000000'

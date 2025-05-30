@@ -2,7 +2,6 @@ name: Shield Bash
 type: talent
 img: icons/skills/melee/shield-block-bash-blue.webp
 system:
-  node: tou1a
   description: >-
     <p>You are practiced at fighting with shield, using it to slam into and
     imbalance your foes.</p>
@@ -16,8 +15,9 @@ system:
       tags:
         - melee
         - shield
-        - offhand
         - afterStrike
+        - attack
+        - offhand
       cost:
         action: 0
         focus: 0
@@ -36,29 +36,41 @@ system:
             turns: 1
       name: Shield Bash
       img: icons/skills/melee/shield-block-bash-blue.webp
-      actionHooks: []
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const {basicStrike, lastAction} = this.actor.system.status;
+            if ( !basicStrike || (lastAction !== "strike") ) {
+              throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
+            }
       range:
         maximum: null
         weapon: true
         minimum: null
-  requirements: {}
+  nodes:
+    - tou1a
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 effects: []
-ownership:
-  default: 0
-  AnoypGxxNIMOS0XY: 3
 flags:
   core: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
-  createdTime: 1676759658894
-  modifiedTime: 1747841033123
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Item.shieldbash000000
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
-_id: shieldbash000000
+  coreVersion: '13.344'
+  systemId: crucible
+  systemVersion: 0.7.0
+  createdTime: 1748638592170
+  modifiedTime: 1748638596883
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: 08mOaWGw5rYKejer
-sort: 100000
-_key: '!items!shieldbash000000'
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: shieldBash000000
+sort: 300000
+_key: '!items!shieldBash000000'
