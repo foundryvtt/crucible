@@ -374,8 +374,8 @@ export const TAGS = {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare() {
-      const {equipment, statuses} = this.actor;
-      const {status, movement} = this.actor.system;
+      const {statuses} = this.actor;
+      const {hasFreeMove, status, movement} = this.actor.system;
       const stride = movement.stride;
 
       // Determine the distance traveled and apply distance modifiers
@@ -389,7 +389,7 @@ export const TAGS = {
       }
 
       // Determine the amount of movement that is free vs. paid
-      const prior = status.movement || {total: 0, last: 0, free: (equipment.canFreeMove && !status.hasMoved)};
+      const prior = status.movement || {total: 0, last: 0, free: hasFreeMove};
       const free = prior.free ? stride : 0;
       this.cost.action = Math.ceil(Math.max(distance - free, 0) / stride);
       this.usage.actorStatus = {

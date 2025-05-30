@@ -9,15 +9,16 @@
     {{#if distance.delta}}
     <span class="delta-measurement">({{distance.delta}})</span>
     {{/if}}
-    <span class="total-cost">[{{cost.total}}{{cost.units}}]</span>
 
-    {{#if hasElevation}}
-    <i class="icon fa-solid {{elevationIcon}}"></i>
-    <span class="total-elevation">{{totalElevation}} {{units}}</span>
-    {{#if deltaElevation}}
-    <span class="delta-elevation">({{deltaElevation}})</span>
+    {{#if displayElevation}}
+    <i class="icon fa-solid {{elevation.icon}}"></i>
+    <span class="total-elevation">{{elevation.total}}{{distance.units}}</span>
+    {{#if elevation.delta}}
+    <span class="delta-elevation">({{elevation.delta}})</span>
     {{/if}}
     {{/if}}
+
+    <span class="total-cost">[{{cost.total}}{{cost.units}}]</span>
     {{#if secret}}
     <i class="icon fa-solid fa-eye-slash"></i>
     {{/if}}

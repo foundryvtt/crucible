@@ -212,6 +212,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     return this.resources.madness.value === this.resources.madness.max;
   }
 
+  /**
+   * Does the Actor currently have a free move available?
+   * @returns {boolean}
+   */
+  get hasFreeMove() {
+    return this.equipment.canFreeMove && !this.parent.status.hasMoved;
+  }
+
   /* -------------------------------------------- */
   /*  Base Data Preparation                       */
   /* -------------------------------------------- */
