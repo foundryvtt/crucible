@@ -171,7 +171,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   #computeEngagement() {
     if ( this.isPreview || !this.actor || !canvas.grid.isSquare ) return {allies: new Set(), enemies: new Set()};
-    const {isIncapacitated, isBroken, movement} = this.actor.system;
+    const {isBroken, movement} = this.actor.system;
+    const {isIncapacitated} = this.actor;
     if ( isIncapacitated || isBroken ) return {allies: new Set(), enemies: new Set()};
     const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
     const {ally, enemy} = this.#getDispositions();
