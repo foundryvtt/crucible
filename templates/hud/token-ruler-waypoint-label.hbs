@@ -1,13 +1,16 @@
-<div class="waypoint-label {{cssClass}}" style="--position-x: {{position.x}}px; --position-y: {{position.y}}px; --ui-scale: {{uiScale}}">
+<div class="waypoint-label {{cssClass}}">
     {{#if action.icon}}
     <i class="icon {{action.icon}}"></i>
     {{else if action.label}}
     <label class="action-label">{{localize action.label}}</label>
     {{/if}}
-    <span class="total-cost">{{totalDistance}} {{units}} [{{totalCost}} {{costUnits}}]</span>
-    {{#if deltaCost}}
-    <span class="delta-cost">({{deltaDistance}} [{{deltaCost}}])</span>
+
+    <span class="total-measurement">{{distance.total}}{{distance.units}}</span>
+    {{#if distance.delta}}
+    <span class="delta-measurement">({{distance.delta}})</span>
     {{/if}}
+    <span class="total-cost">[{{cost.total}}{{cost.units}}]</span>
+
     {{#if hasElevation}}
     <i class="icon fa-solid {{elevationIcon}}"></i>
     <span class="total-elevation">{{totalElevation}} {{units}}</span>

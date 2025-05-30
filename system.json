@@ -19,7 +19,7 @@
     "maximum": 13
   },
   "license": "LICENSE",
-  "esmodules": ["crucible-compiled.mjs"],
+  "esmodules": ["crucible.mjs"],
   "styles": ["styles/crucible.css"],
   "packs": [
     {
