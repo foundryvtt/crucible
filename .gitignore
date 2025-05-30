@@ -12,3 +12,4 @@ node_modules/
 crucible.lock
 signature.json
 packs/
+crucible-compiled.mjs

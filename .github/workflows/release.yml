@@ -11,9 +11,7 @@
 name: System Release Build
 
 env:
-  node_version: 18
-  latest_manifest_url: "https://github.com/${{github.repository}}/releases/latest/download/system.json"
-  release_download_url: "https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip"
+  node_version: 20
 
 on:
   release:
@@ -32,7 +30,7 @@ jobs:
           node-version: ${{ env.node_version }}
 
       - name: Cache Node.js modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: .npm
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -43,19 +41,18 @@ jobs:
       - name: Install dependencies
         run: npm ci --cache .npm --prefer-offline
 
-      # Compile Database Packs and CSS
+      # Compile Database Packs, JavaScript, and CSS
       - name: Compile
-        run: npm run compile
+        run: npm run build
 
-      # Modify system.json with values specific to the release.
-      - name: Modify System Manifest
+      # Modify "system.json" with values specific to the release.
+      - name: Modify Module Manifest With Release-Specific Values
         id: sub_manifest_link_version
-        uses: cschleiden/replace-tokens@v1
+        uses: microsoft/variable-substitution@v1
         with:
-          files: 'system.json'
+          files: "system.json"
         env:
-          MANIFEST: ${{ env.latest_manifest_url }}
-          DOWNLOAD: ${{ env.release_download_url }}
+          esmodules.0: "crucible-compiled.mjs"
 
       # Create a "system.zip" archive containing all the system's required files.
       - name: Create System Archive
@@ -64,7 +61,7 @@ jobs:
             LICENSE                         \
             system.json                     \
             template.json                   \
-            crucible.mjs                    \
+            crucible-compiled.mjs           \
             assets/                         \
             audio/                          \
             fonts/                          \
