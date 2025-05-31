@@ -137,6 +137,32 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   }
 
   /* -------------------------------------------- */
+  /*  Movement                                    */
+  /* -------------------------------------------- */
+
+  /** @override */
+  _getMovementCostFunction(options) {
+    const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
+    const actor = this.actor;
+    return (from, to, distance, segment) => {
+
+      // Apply condition-based cost modifiers
+      const statuses = actor.statuses;
+      if ( statuses.has("slowed") ) distance *= 2;
+      if ( statuses.has("hastened") ) distance /= 2;
+      if ( statuses.has("prone") ) distance += 2;
+      if ( statuses.has("restrained") ) distance = Infinity;
+
+      // Apply difficult terrain
+      const terrainCost = calculateTerrainCost(from, to, distance, segment);
+
+      // Apply movement action
+      const calculateActionCost = segment.actionConfig.getCostFunction(this.document, options);
+      return calculateActionCost(terrainCost, from, to, distance, segment);
+    };
+  }
+
+  /* -------------------------------------------- */
 
   /** @override */
   _getAnimationMovementSpeed(_options) {

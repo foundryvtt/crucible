@@ -14,16 +14,9 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     const grid = canvas.scene?.grid;
     if ( !grid || (grid.distance !== 1) || (grid.units !== "ft") ) return;
 
-    // Segment Cost
-    const stride = actor.system.movement.stride ?? 8;
-    const totalCost = Math.ceil(waypoint.measurement.cost / stride);
+    const movement = actor.getMovementActionCost(waypoint.measurement.cost);
     context.distance.units = grid.units;
-    context.cost = {total: totalCost, units: "A"};
-
-    // Deduct Free Move
-    if ( actor.system.hasFreeMove ) context.cost.total -= 1;
-
-    // Configure whether to display elevation
+    context.cost = Number.isFinite(movement.cost) ? {total: movement.cost, units: "A"} : {total: "Impossible"};
     context.displayElevation = context.elevation && !context.elevation.hidden;
     return context;
   }

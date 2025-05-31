@@ -312,17 +312,7 @@ export default class CrucibleActor extends Actor {
    * @returns {{cost: number, useFreeMove: boolean}}
    */
   getMovementActionCost(costFeet, {useFreeMove=true}={}) {
-    if ( costFeet <= 0 ) return 0;
-
-    // Apply cost modifiers
-    // TODO this should happen further upstream
-    const statuses = this.statuses;
-    if ( statuses.has("slowed") ) costFeet *= 2;
-    if ( statuses.has("hastened") ) costFeet /= 2;
-    if ( statuses.has("prone") ) costFeet += 2;
-    if ( statuses.has("restrained") ) costFeet = Infinity;
-
-    // Compute Action cost
+    if ( costFeet <= 0 ) return {distance: costFeet, cost: 0, useFreeMove: false};
     const stride = this.system.movement.stride ?? 8;
     let ap = Math.ceil(costFeet / stride);
     const useFree = useFreeMove && this.system.hasFreeMove;
@@ -702,6 +692,7 @@ export default class CrucibleActor extends Actor {
     const updates = {};
     for ( let [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
+      if ( !cfg ) continue;
       updates[`system.resources.${id}.value`] = cfg.type === "reserve" ? 0 : resource.max;
     }
     updates["system.resources.heroism.value"] = 0;
