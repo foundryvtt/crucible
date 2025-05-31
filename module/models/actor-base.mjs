@@ -205,6 +205,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /**
+   * Is this Actor incapacitated and unable to act?
+   * @type {boolean}
+   */
+  get isIncapacitated() {
+    return this.isDead || this.parent.statuses.has("unconscious") || this.parent.statuses.has("paralyzed");
+  }
+
+  /**
    * Is this Actor insane?
    * @type {boolean}
    */

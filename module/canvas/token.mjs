@@ -7,11 +7,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * @typedef {Object} CrucibleTokenEngagement
-   * @property {Set<Token>} allies      Allied tokens which are adjacent
-   * @property {Set<Token>} enemies     Enemy tokens which are adjacent
-   * @property {PIXI.Rectangle} engagementBounds
-   * @property {PIXI.Polygon} movePolygon
-   * @property {number} allyBonus
+   * @property {Set<Token>} allies      Allied tokens which are engaged
+   * @property {Set<Token>} enemies     Enemy tokens which are engaged
+   * @property {Set<Token>} other       Other tokens which are engaged
+   * @property {PIXI.Rectangle} [engagementBounds] Your bounds of engagement
+   * @property {PIXI.Polygon} [movePolygon] Your current movement polygon
+   * @property {number} [flankers]      The number of enemy flankers
+   * @property {number} [allyBonus]     The engagement bonus provided by adjacent allies
+   * @property {number} [flanked]       The resulting flanked stage
    */
 
   /**
@@ -20,7 +23,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   engagement = {
     allies: new Set(),
-    enemies: new Set()
+    enemies: new Set(),
+    other: new Set()
   };
 
   /**
@@ -204,36 +208,38 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
-    if ( this.isPreview || !this.actor || !canvas.grid.isSquare ) return {allies: new Set(), enemies: new Set()};
-    const {isBroken, movement} = this.actor.system;
-    const {isIncapacitated} = this.actor;
-    if ( isIncapacitated || isBroken ) return {allies: new Set(), enemies: new Set()};
-    const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
-    const {ally, enemy} = this.#getDispositions();
     const enemies = new Set();
     const allies = new Set();
-    const value = movement.engagement;
-    const engagement = {allies, enemies, engagementBounds, movePolygon, value};
+    const other = new Set();
+    if ( !canvas.scene.useMicrogrid || !this.actor || this.isPreview ) {
+      return {allies, enemies, other};
+    }
+
+    // Prepare engagement data
+    const {ally, enemy} = this.#getDispositions();
+    const value = this.actor.system.movement.engagement;
+    const {engagementBounds, movePolygon} = this.#computeEngagementSquareGrid();
+    const engagement = {allies, enemies, other, engagementBounds, movePolygon, value};
+
+    // Identify engaged tokens as allies or enemies
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
-        if ( token.actor?.system.isBroken || token.actor?.isIncapacitated ) return false;
+        if ( !token.actor ) return false;         // Ignore non-actors
 
-        // Identify friend or foe
-        let targetSet;
-        if ( enemy.includes(token.document.disposition) ) targetSet = enemies;
-        else if ( ally.includes(token.document.disposition) ) targetSet = allies;
-        if ( !targetSet ) return false;
-
-        // Confirm collision against the hit rectangle
+        // Confirm the token can be reached
         const hit = token.getHitRectangle();
         const ix = movePolygon.intersectRectangle(hit); // TODO do something more efficient in the future
-        if (ix.points.length > 0) {
-          targetSet.add(token);
-          return true;
-        }
+        if ( !ix.points.length ) return false;
+
+        // Identify friend and foe
+        if ( ally.includes(token.document.disposition) ) allies.add(token);
+        else if ( enemy.includes(token.document.disposition) ) enemies.add(token);
+        else other.add(token);
       }
     });
+
+    // Compute the flanking stage
     this.constructor.computeFlanking(engagement);
     return engagement;
   }
@@ -247,39 +253,20 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @returns {Set<CrucibleTokenObject>}              The set of Tokens whose flanking status changed
    */
   #applyEngagementUpdates(oldEngagement, newEngagement) {
-    const updated = new Set();
-
-    // Prior engaged allies
-    for ( const ally of oldEngagement.allies ) {
-      updated.add(ally);
-      if ( newEngagement.allies.has(ally) ) continue;
-      ally.engagement.allies.delete(this);
+    const updates = new Set();
+    for ( const s of ["allies", "enemies", "other"] ) {
+      for ( const t of oldEngagement[s] ) {
+        if ( newEngagement[s].has(t) ) continue;
+        updates.add(t);
+        t.engagement[s].delete(this);
+      }
+      for ( const t of newEngagement[s] ) {
+        updates.add(t);
+        t.engagement[s].add(this);
+      }
     }
-
-    // Prior engaged enemies
-    for ( const enemy of oldEngagement.enemies ) {
-      updated.add(enemy);
-      if ( newEngagement.enemies.has(enemy) ) continue;
-      enemy.engagement.enemies.delete(this);
-    }
-
-    // New engaged allies
-    for ( const ally of newEngagement.allies ) {
-      updated.add(ally);
-      if ( oldEngagement.allies.has(ally) ) continue;
-      ally.engagement.allies.add(this);
-    }
-
-    // New engaged enemies
-    for ( const enemy of newEngagement.enemies ) {
-      updated.add(enemy);
-      if ( oldEngagement.enemies.has(enemy) ) continue;
-      enemy.engagement.enemies.add(this);
-    }
-
-    // Recompute flanked state
-    for ( const token of updated ) this.constructor.computeFlanking(token.engagement);
-    return updated;
+    for ( const token of updates ) this.constructor.computeFlanking(token.engagement);
+    return updates;
   }
 
   /* -------------------------------------------- */
@@ -359,16 +346,33 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /**
    * Compute the Flanked stage for a certain engagement state.
-   * @param {CrucibleTokenEngagement} engagement
+   * @param {CrucibleTokenEngagement} engagement      The current engagement
+   * @returns {number}                                The flanking level
    */
   static computeFlanking(engagement) {
-    engagement.allyBonus = engagement.allies.reduce((bonus, ally) => {
+    const selfEngage = engagement.value;
+
+    // Count the number of enemies who can flank
+    let flankers = 0;
+    for ( const enemy of engagement.enemies ) {
+      const {isBroken, isIncapacitated} = enemy.actor.system;
+      if ( !(isBroken || isIncapacitated) ) flankers++;
+    }
+    engagement.flankers = flankers;
+    if ( flankers <= selfEngage ) return engagement.flanked = 0;
+
+    // Determine the engagement bonus received from allies
+    let allyBonus = 0;
+    for ( const ally of engagement.allies ) {
+      const {isBroken, isIncapacitated} = ally.actor.system;
+      if ( isBroken || isIncapacitated ) continue;
       const mutual = ally.engagement.enemies.intersection(engagement.enemies);
-      if ( !mutual.size ) return bonus;
-      bonus += Math.min((ally?.actor.system.movement.engagement ?? 1), mutual.size);
-      return bonus;
-    }, 0);
-    engagement.flanked = Math.max(engagement.enemies.size - engagement.allyBonus - engagement.value, 0);
+      if ( !mutual.size ) continue;
+      const allyEngage = ally?.actor.system.movement.engagement ?? 1;
+      allyBonus += Math.min(allyEngage, mutual.size);
+    }
+    engagement.allyBonus = allyBonus;
+    return engagement.flanked = Math.max(flankers - allyBonus - selfEngage, 0);
   }
 
   /* -------------------------------------------- */

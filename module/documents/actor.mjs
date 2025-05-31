@@ -97,7 +97,7 @@ export default class CrucibleActor extends Actor {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return this.system.isDead || this.statuses.has("unconscious") || this.statuses.has("paralyzed");
+    return this.system.isIncapacitated;
   }
 
   /**
@@ -1830,8 +1830,8 @@ export default class CrucibleActor extends Actor {
     const resources = this.system.schema.get("resources");
     if ( !resources ) return;
     for ( const k in resources.fields ) this._cachedResources[k] = this._source.system.resources[k].value;
-    this._cachedResources.wasIncapacitated = this.isIncapacitated;
-    this._cachedResources.wasBroken = this.isIncapacitated;
+    this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
+    this._cachedResources.wasBroken = this.system.isBroken;
     return this._cachedResources;
   }
 
