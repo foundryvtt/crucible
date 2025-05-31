@@ -1,15 +1,23 @@
 <section class="sheet-header flexcol">
     <header class="title flexrow">
         <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
-        {{#if incomplete.level}}
-        <a class="button icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
-           data-tooltip="Level Up!"></a>
-        {{else if incomplete.creation}}
-        <a class="button icon level-up fa-solid fa-triangle-exclamation incomplete" data-action="levelUp"
-           data-tooltip="{{incomplete.creationTooltip}}" data-tooltip-class="creation-steps"></a>
-        {{/if}}
-        <label class="level">Level</label>
-        {{formInput fields.advancement.fields.level value=source.system.advancement.level type="number"
+        <div class="advancement flexrow" data-tooltip="{{advancementTooltip}}" data-tooltip-direction="UP">
+            {{#if incomplete.creation}}
+            <button type="button" class="icon level-up fa-solid fa-triangle-exclamation incomplete"
+                    data-action="levelUp" data-tooltip="{{incomplete.creationTooltip}}" data-tooltip-direction="DOWN"
+                    data-tooltip-class="creation-steps"></button>
+            {{else if incomplete.level}}
+            <button type="button" class="icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
+                    data-tooltip="Level Up!"></button>
+            {{/if}}
+            <span>Level</span>
+            <div class="milestones">
+                {{#if actor.system.advancement.progress}}
+                <span class="bar" style="width: {{actor.system.advancement.pct}}%"></span>
+                {{/if}}
+            </div>
+        </div>
+        {{formInput fields.advancement.fields.level value=source.system.advancement.level type="number" classes="level"
                     disabled=incomplete.isL0}}
     </header>
 
@@ -24,14 +32,6 @@
         </h2>
         {{#if actor.system.details.signatureName}}
         <h2 class="signature">{{actor.system.details.signatureName}}</h2>
-        {{/if}}
-        {{#if showMilestones}}
-        <div class="advancement flexrow" data-tooltip="WALKTHROUGH.NextLevel">
-            <div class="bar"><div class="fill" style="width:{{actor.system.advancement.pct}}%"></div></div>
-            <input type="number" name="system.advancement.progress" value="{{actor.system.advancement.progress}}">
-            <span class="slash"></span>
-            <span class="input">{{actor.system.advancement.next}}</span>
-        </div>
         {{/if}}
         <div class="metadata flexrow">
             <div class="size flexrow">

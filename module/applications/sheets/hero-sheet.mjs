@@ -46,9 +46,15 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       isL0: isL0
     });
     i.creation = i.ancestry || i.background || i.abilities || i.talents;
-    i.level = isL0 ? !i.creation : (a.system.advancement.pct === 100);
+
+    // Advancement
+    const adv = a.system.advancement;
+    i.level = isL0 ? !i.creation : (adv.pct === 100);
+    context.advancementTooltip = game.i18n.format("ADVANCEMENT.MilestoneTooltip", adv);
+
+    // Progression Steps
     if ( i.creation ) {
-      i.creationTooltip = "<p>Character Creation Incomplete!</p><ol>";
+      i.creationTooltip = "<p>Missing Character Progression</p><ol>";
       if ( i.ancestry ) i.creationTooltip += "<li>Select Ancestry</li>";
       if ( i.background ) i.creationTooltip += "<li>Select Background</li>";
       if ( i.abilities ) i.creationTooltip += "<li>Spend Ability Points</li>";

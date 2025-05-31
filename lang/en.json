@@ -448,6 +448,7 @@
 
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
+"ADVANCEMENT.MilestoneTooltip": "{progress} of {next} milestones until next level",
 
 "ARCHETYPE": {
   "FIELDS": {

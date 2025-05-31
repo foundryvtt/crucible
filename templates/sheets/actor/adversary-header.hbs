@@ -1,18 +1,16 @@
 <section class="sheet-header flexcol">
     <header class="title flexrow">
         <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
-        {{#if incomplete.level}}
-        <a class="button icon level-up fa-solid fa-plus" data-action="levelUp"
-           data-tooltip="{{incomplete.levelTooltip}}"></a>
-        {{/if}}
-        <label class="level"><i class="threat-icon {{threat.icon}}" data-tooltip="{{threat.label}}"></i> Level</label>
-        <div class="controls flexcol">
-            <a class="control icon fa-solid fa-caret-up {{#unless canLevelUp}}inactive{{/unless}}"
-               data-tooltip="Increase Level" data-action="levelIncrease"></a>
-            <a class="control icon fa-solid fa-caret-down {{#unless canLevelDown}}inactive{{/unless}}"
-               data-tooltip="Decrease Level" data-action="levelDecrease"></a>
+        <div class="advancement flexrow">
+            <span><i class="threat-icon {{threat.icon}}"></i> Level</span>
+            <div class="controls flexcol">
+                <button type="button" class="icon fa-solid fa-caret-up {{#unless canLevelUp}}inactive{{/unless}}"
+                        data-tooltip="Increase Level" data-action="levelIncrease"></button>
+                <button type="button" class="icon fa-solid fa-caret-down {{#unless canLevelDown}}inactive{{/unless}}"
+                        data-tooltip="Decrease Level" data-action="levelDecrease"></button>
+            </div>
         </div>
-        <input type="text" value="{{levelDisplay}}" disabled>
+        <input type="text" class="level" value="{{levelDisplay}}" disabled>
     </header>
 
     <div class="subtitle flexrow">

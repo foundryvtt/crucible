@@ -120,10 +120,11 @@
   /* ----------------------------------------- */
 
   .sheet-header {
+    --gap: 0.5rem;
     padding: 0;
 
     header.title {
-      gap: var(--margin-half);
+      gap: var(--gap);
       input {
         height: var(--sheet-header-height);
         background: var(--color-frame-bg-50);
@@ -135,27 +136,54 @@
         margin-right: 2rem;
         padding: 0 0.5rem;
       }
-      .level,
-      .controls,
-      a.level-up {
-        flex: none;
-      }
-      .level {
-        line-height: 1em;
-      }
-      a.level-up {
-        opacity: 1.0;
-        height: 28px;
-        border: 1px solid var(--color-warm-1);
-      }
-      input:last-child {
+      input.level {
         flex: 0 0 var(--sheet-header-height);
+        height: var(--sheet-header-height);
         padding: 0;
         text-align: center;
       }
     }
+
+    .advancement {
+      --advancement-height: 24px;
+      flex: 0 0 160px;
+      position: relative;
+      gap: 0 var(--gap);
+      padding: 6px 0 10px 0;
+      justify-content: flex-end;
+      > * {
+        flex: none;
+      }
+      > span {
+        line-height: 1em;
+      }
+      button.level-up {
+        --button-size: var(--advancement-height);
+        --button-border-color: var(--color-warm-1);
+        --button-hover-border-color: var(--color-warm-1);
+        opacity: 1.0;
+      }
+      .milestones {
+        position: absolute;
+        width: 100%;
+        height: 6px;
+        bottom: 0;
+        left: 0;
+        padding: 1px;
+        background: var(--color-frame-bg);
+        border: 1px solid var(--color-frame);
+        border-radius: 2px;
+        .bar {
+          display: block;
+          height: 2px;
+          background: #39b2ec;
+          border: 1px solid #7fd5ff;
+        }
+      }
+    }
+
     div.subtitle {
-      gap: var(--margin-half);
+      gap: var(--gap);
       h2 {
         flex: none;
         margin: 0;
@@ -190,6 +218,14 @@
           padding: 0.25rem 0.5rem;
         }
       }
+    }
+  }
+
+  &.adversary .sheet-header .advancement {
+    --advancement-height: 40px;
+    padding: 0;
+    .controls > button {
+      --button-size: 20px;
     }
   }
 
