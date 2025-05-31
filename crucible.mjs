@@ -343,23 +343,6 @@ Hooks.on("createChatMessage", chat.onCreateChatMessage);
 Hooks.on("renderChatMessageHTML", chat.renderChatMessageHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
-
-/**
- * Actions to take when the main game canvas is re-rendered.
- * Re-open the talent tree if it was previously open for a certain Actor.
- */
-Hooks.on("canvasReady", () => {
-  if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
-  for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
-});
-
-Hooks.on("hotbarDrop", async (bar, data, slot) => {
-  if ( data.type === "crucible.action" ) {
-    const macro = await Macro.create(data.macroData);
-    await game.user.assignHotbarMacro(macro, slot);
-  }
-});
-
 Hooks.on("getSceneControlButtons", controls => {
   const flankingTool = {
     name: "debugFlanking",
@@ -377,6 +360,28 @@ Hooks.on("getSceneControlButtons", controls => {
   }
   controls.tokens.tools.debugFlanking = flankingTool;
 });
+
+/* -------------------------------------------- */
+/*  Canvas Hooks                                */
+/* -------------------------------------------- */
+
+/**
+ * Actions to take when the main game canvas is re-rendered.
+ * Re-open the talent tree if it was previously open for a certain Actor.
+ */
+Hooks.on("canvasReady", () => {
+  if ( crucible.tree.actor ) crucible.tree.open(crucible.tree.actor, {resetView: false});
+  for ( const token of globalThis.canvas.tokens.placeables ) token.renderFlags.set({refreshFlanking: true}); // No commit
+});
+
+Hooks.on("hotbarDrop", async (bar, data, slot) => {
+  if ( data.type === "crucible.action" ) {
+    const macro = await Macro.create(data.macroData);
+    await game.user.assignHotbarMacro(macro, slot);
+  }
+});
+
+
 
 /* -------------------------------------------- */
 /*  Convenience Functions                       */

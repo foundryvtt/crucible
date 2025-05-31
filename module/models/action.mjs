@@ -80,6 +80,14 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
+ * @typedef CrucibleActionUsageOptions
+ * @property {CrucibleTokenObject} [token]  A specific Token which is performing the action
+ * @property {boolean} [chatMessage]        Automatically create a ChatMessage for the action?
+ * @property {boolean} [dialog]             Present the user with an action configuration dialog?
+ * @property {string} [rollMode]            Which roll mode to apply to the resulting message?
+ */
+
+/**
  * @typedef {Map<CrucibleActor,CrucibleActionOutcome>} CrucibleActionOutcomes
  */
 
@@ -406,11 +414,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Execute an Action.
    * The action is cloned so that its data may be transformed throughout the workflow.
-   * @param {object} [options]                      Options which modify action usage
-   * @param {CrucibleTokenObject} [options.token]     A specific Token which is performing the action
-   * @param {boolean} [options.chatMessage]           Automatically create a ChatMessage for the action?
-   * @param {boolean} [options.dialog]                Present the user with an action configuration dialog?
-   * @param {string} [options.rollMode]               Which roll mode to apply to the resulting message?
+   * @param {CrucibleActionUsageOptions} [options]    Options which modify action usage
    * @returns {Promise<CrucibleActionOutcomes|undefined>}
    */
   async use({token, ...options}={}) {

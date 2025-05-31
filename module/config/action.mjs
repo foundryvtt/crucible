@@ -374,28 +374,11 @@ export const TAGS = {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare() {
-      const {statuses} = this.actor;
-      const {hasFreeMove, status, movement} = this.actor.system;
-      const stride = movement.stride;
-
-      // Determine the distance traveled and apply distance modifiers
-      let distance = this.usage.distance ??= stride;
-      if ( statuses.has("slowed") ) distance *= 2;
-      if ( statuses.has("hastened") ) distance /= 2;
-      if ( statuses.has("prone") ) distance += 2;
-      if ( statuses.has("restrained") ) {
-        this.cost.action = Infinity;
-        return;
-      }
-
-      // Determine the amount of movement that is free vs. paid
-      const prior = status.movement || {total: 0, last: 0, free: hasFreeMove};
-      const free = prior.free ? stride : 0;
-      this.cost.action = Math.ceil(Math.max(distance - free, 0) / stride);
-      this.usage.actorStatus = {
-        hasMoved: true,
-        movement: {total: prior.total + distance, last: distance, free: false}
-      }
+      const stride = this.actor.system.movement.stride;
+      const movement = this.usage.movement || this.actor.getMovementActionCost(stride);
+      this.cost.action = movement.cost;
+      this.usage.actorStatus ||= {};
+      this.usage.actorStatus.hasMoved = true;
     },
     async confirm() {
       if ( this.actor.statuses.has("prone") ) {

@@ -305,6 +305,49 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Get the action cost of performing a certain movement.
+   * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
+   * @param {object} options      Options which modify cost calculation
+   * @param {boolean} [options.useFreeMove] Consume a free move, if available
+   * @returns {{cost: number, useFreeMove: boolean}}
+   */
+  getMovementActionCost(costFeet, {useFreeMove=true}={}) {
+    if ( costFeet <= 0 ) return 0;
+
+    // Apply cost modifiers
+    // TODO this should happen further upstream
+    const statuses = this.statuses;
+    if ( statuses.has("slowed") ) costFeet *= 2;
+    if ( statuses.has("hastened") ) costFeet /= 2;
+    if ( statuses.has("prone") ) costFeet += 2;
+    if ( statuses.has("restrained") ) costFeet = Infinity;
+
+    // Compute Action cost
+    const stride = this.system.movement.stride ?? 8;
+    let ap = Math.ceil(costFeet / stride);
+    const useFree = useFreeMove && this.system.hasFreeMove;
+    if ( useFree ) ap -= 1;
+    return {distance: costFeet, cost: ap, useFreeMove: useFree};
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Use the Movement action to travel a certain measured distance.
+   * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
+   * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
+   * @param {boolean} [options.useFreeMove]       Consume a free move, if available
+   * @returns {CrucibleAction}    The performed Action
+   */
+  async useMove(costFeet, {useFreeMove=true, ...useOptions}={}) {
+    const action = this.actions.move;
+    action.usage.movement = this.getMovementActionCost(costFeet, {useFreeMove});
+    await action.use(useOptions);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"

@@ -15,7 +15,7 @@ export default class CrucibleTokenRuler extends foundry.canvas.placeables.tokens
     if ( !grid || (grid.distance !== 1) || (grid.units !== "ft") ) return;
 
     // Segment Cost
-    const stride = actor?.system.movement.stride ?? 8;
+    const stride = actor.system.movement.stride ?? 8;
     const totalCost = Math.ceil(waypoint.measurement.cost / stride);
     context.distance.units = grid.units;
     context.cost = {total: totalCost, units: "A"};
