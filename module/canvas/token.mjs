@@ -21,11 +21,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * Current engagement status for the Token.
    * @type {CrucibleTokenEngagement}
    */
-  engagement = {
-    allies: new Set(),
-    enemies: new Set(),
-    other: new Set()
-  };
+  engagement = this.#initializeEngagement();
 
   /**
    * Should the next flanking update be responsible for committing Active Effect changes?
@@ -150,28 +146,35 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const actor = this.actor;
     return (from, to, distance, segment) => {
 
-      // Apply condition-based cost modifiers
+      // Step 1: Apply condition-based cost modifiers
       const statuses = actor.statuses;
       if ( statuses.has("slowed") ) distance *= 2;
       if ( statuses.has("hastened") ) distance /= 2;
       if ( statuses.has("prone") ) distance += 2;
       if ( statuses.has("restrained") ) distance = Infinity;
 
-      // Apply difficult terrain
+      // Step 2: Apply difficult terrain
       const terrainCost = calculateTerrainCost(from, to, distance, segment);
 
-      // Apply movement action
-      const calculateActionCost = segment.actionConfig.getCostFunction(this.document, options);
-      return calculateActionCost(terrainCost, from, to, distance, segment);
+      // Step 3: Apply movement action
+      return terrainCost * (segment.actionConfig.costMultiplier ?? 1);
     };
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  _getAnimationMovementSpeed(_options) {
-    if ( this.actor ) return this.actor.system.movement.stride * 2;
-    return CONFIG.Token.movement.defaultSpeed;
+  _getAnimationMovementSpeed(options) {
+    return this.actor ? this.actor.system.movement.stride * 2 : CONFIG.Token.movement.defaultSpeed;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _modifyAnimationMovementSpeed(speed, options) {
+    if ( options.terrain instanceof foundry.data.TerrainData ) speed /= options.terrain.difficulty;
+    const actionConfig = CONFIG.Token.movement.actions[options.action];
+    return speed * (actionConfig.speedMultiplier ?? 1);
   }
 
   /* -------------------------------------------- */
@@ -242,6 +245,12 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Compute the flanking stage
     this.constructor.computeFlanking(engagement);
     return engagement;
+  }
+
+  /* -------------------------------------------- */
+
+  #initializeEngagement() {
+    return {allies: new Set(), enemies: new Set(), other: new Set()};
   }
 
   /* -------------------------------------------- */
@@ -383,7 +392,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
     if ( !canvas.scene.useMicrogrid ) return;
-    this.engagement = {allies: new Set(), enemies: new Set()}; // "Prior" engagement
+    this.engagement = this.#initializeEngagement(); // "prior" engagement is nobody
     this.refreshFlanking();
   }
 
@@ -409,7 +418,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Apply flanking updates
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
-    const newEngagement = {allies: new Set(), enemies: new Set()};
+    const newEngagement = this.#initializeEngagement(); // "new" engagement is nobody
     const toUpdate = this.#applyEngagementUpdates(this.engagement, newEngagement);
     if ( commit ) {
       for ( const token of toUpdate ) token.actor.commitFlanking(token.engagement);

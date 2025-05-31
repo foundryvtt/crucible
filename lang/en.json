@@ -1125,6 +1125,14 @@
   }
 },
 
+"TOKEN": {
+  "MOVEMENT": {
+    "ACTIONS": {
+      "step.label": "Step"
+    }
+  }
+},
+
 "WARNING.AbilityCannotIncrease": "You cannot increase this Ability further.",
 "WARNING.AbilityCannotDecrease": "You cannot decrease this Ability further.",
 "WARNING.AbilityRequireAncestry": "You must assign an Ancestry before you can purchase Ability increases.",

@@ -90,7 +90,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /** @override */
   _prepareBaseMovement() {
-    const {size=4, stride=8} = this.details.ancestry.movement;
+    const {size=4, stride=10} = this.details.ancestry.movement;
     const m = this.movement;
     m.baseSize = size;
     m.baseStride = stride;
