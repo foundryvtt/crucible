@@ -337,7 +337,7 @@ pages:
       format: 1
       content: >-
         <p><strong>Movement</strong> is one of the most important actions that
-        characters in Crucible will perform in combat. </p><p>Movement and
+        characters in Crucible will perform in combat.</p><p>Movement and
         positioning in Crucible uses a fine-grained 1 foot grid which provides
         excellent features like tactically significant movement and positioning,
         meaningful differences in creature sizes and weapon ranges, and
@@ -357,28 +357,64 @@ pages:
         that it does not matter which direction your Token is facing on the map,
         your character is able to perceive and act in a full 360 degree radius
         unless otherwise limited by some special effect or condition.</p><h2
-        class="divider">Free Movement</h2><p>Each creature has the opportunity
-        to perform one free <strong>Movement</strong> action per round of
-        Combat. This means that the first Action performed each round which
-        involves the Movement tag is discounted at -1 Action cost. This will
-        typically make the action free to perform, but in some cases may simply
-        reduce its overall cost.</p><p>Free Movement is not available to
-        creatures wearing <strong>Heavy </strong>armor or those who are
-        <strong>Prone</strong>. Additionally, the <strong>Slowed</strong>
-        condition increases the cost of Movement actions, however the first such
-        movement per round is still discounted.</p><h2
-        class="divider">Terrain</h2><section class="construction"><p>Crucible
-        will eventually support declaring certain grid spaces as difficult
-        terrain which slow movement while traversing them. Movement costs are
-        doubled within difficult terrain. Until automation for this feature is
-        added, difficult terrain can be applied manually to movement costs
-        however the current Alpha Playtest ignores the presence of difficult
-        terrain.</p></section><h2 class="divider">Cover</h2><p>Certain terrain
-        or obstacles can be counted as Cover - providing additional protection
-        from incoming Spell or Weapon attacks. When a direct single-target
-        attack passes through such an obstacle, the target of the attack is in
-        Cover. Cover is classified according to the following
-        types:</p><table><thead><tr><th><p>Cover Type</p></th><th><p>Banes to
+        class="divider">Movement Cost Calculation</h2><p>The
+        <strong>Action</strong> cost of a given Movement is computed as
+        follows:</p><ol><li><p><strong>Distance</strong> is computed
+        center-point to center-point, where the distance of diagonal movement is
+        computed using the <strong>Exact √2</strong> diagonal measurement
+        mode.</p></li><li><p><strong>Effective Distance</strong> is compted by
+        applying the following modifiers in order:</p><ol
+        style="list-style-type:lower-alpha"><li><p><strong>Status
+        Conditions</strong> are applied first, as described
+        below.</p></li><li><p>The effects of <strong>Terrain</strong> are
+        applied second.</p></li><li><p>Modifiers resulting from the
+        <strong>Movement Type</strong> are applied.</p></li></ol></li><li><p>The
+        <strong>Action</strong> cost of the movement is computed
+        as:</p></li></ol><section class="formula"><p class="value">Action
+        Cost</p><p class="equals">=</p><p class="equation">ceil(Effective
+        Distance / Stride)</p></section><ol start="4"><li><p>If a <strong>Free
+        Move</strong> is available, the final Action Cost of the movement is
+        reduced by 1.</p></li></ol><h3 class="divider">Movement
+        Conditions</h3><p>The following <strong>Status Conditions
+        </strong>affect the measurement and cost of
+        movement.</p><h4>Slowed</h4><p>The <strong>Effective Distance</strong>
+        traveled by any movement is doubled.</p><h4>Hastened</h4><p>The
+        <strong>Effective Distance</strong> traveled by any movement is
+        halved.</p><h4>Restrained</h4><p>Movement is impossible.</p><h3
+        class="divider">Movement Types</h3><p>The following <strong>Movement
+        Types</strong> are supported:</p><h4>Walk</h4><p>No change to Effective
+        Distance.</p><h4>Step</h4><p>You move carefully and do not provoke
+        <strong>Disengagement</strong>, but your <strong>Effective
+        Distance</strong> traveled is doubled.</p><h4>Crawl</h4><p>You move
+        while <strong>Prone</strong> and your <strong>Effective
+        Distance</strong> traveled is doubled.</p><h4>Jump</h4><p>Equivalent to
+        <strong>Walk</strong>, but required by certain actions or to surmount
+        certain obstacles.</p><h4>Swim</h4><p>Used while moving in waist-deep or
+        deeper water, your <strong>Effective Distance</strong> traveled is
+        doubled.</p><h4>Fly</h4><p>Equivalent to <strong>Walk</strong>, but used
+        by creatures which can fly or hover.</p><h2 class="divider">Free
+        Movement</h2><p>Each creature has the opportunity to perform one free
+        <strong>Movement</strong> action per round of Combat. This means that
+        the first Action performed each round which involves the Movement tag is
+        discounted at -1 Action cost. This will typically make the action free
+        to perform, but in some cases may simply reduce its overall
+        cost.</p><p>Free Movement is not available to creatures wearing
+        <strong>Heavy </strong>armor or those who are <strong>Prone</strong>.
+        Additionally, the <strong>Slowed</strong> condition increases the cost
+        of Movement actions, however the first such movement per round is still
+        discounted.</p><h2 class="divider">Terrain</h2><section
+        class="construction"><p>Crucible will eventually support declaring
+        certain grid spaces as difficult terrain which slow movement while
+        traversing them. Movement costs are doubled within difficult terrain.
+        Until automation for this feature is added, difficult terrain can be
+        applied manually to movement costs however the current Alpha Playtest
+        ignores the presence of difficult terrain.</p></section><h2
+        class="divider">Cover</h2><p>Certain terrain or obstacles can be counted
+        as Cover - providing additional protection from incoming Spell or Weapon
+        attacks. When a direct single-target attack passes through such an
+        obstacle, the target of the attack is in Cover. Cover is classified
+        according to the following types:</p><table><thead><tr><th><p>Cover
+        Type</p></th><th><p>Banes to
         Attacks</p></th></tr></thead><tbody><tr><td><p>Complete
         Cover</p></td><td><p>Direct attacks not
         possible</p></td></tr><tr><td><p>Hard Cover</p></td><td><p>+4
@@ -402,9 +438,9 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '13.342'
+      coreVersion: '13.344'
       createdTime: 1684374473225
-      modifiedTime: 1727451640183
+      modifiedTime: 1748655571623
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -751,11 +787,11 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.342'
+      coreVersion: '13.344'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726930849493
-      modifiedTime: 1727453069118
+      modifiedTime: 1748655602680
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     category: null
