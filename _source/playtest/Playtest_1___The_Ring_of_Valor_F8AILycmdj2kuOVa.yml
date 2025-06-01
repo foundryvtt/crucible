@@ -22743,6 +22743,114 @@ scenes:
           disposition: false
         _movementHistory: []
         movementAction: null
+      - name: Baizaz
+        displayName: 30
+        actorLink: false
+        texture:
+          src: systems/crucible/assets/tokens/adversaries/Boar.webp
+          scaleX: 1
+          scaleY: 1
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 3
+        height: 3
+        lockRotation: false
+        rotation: 0
+        alpha: 1
+        disposition: -1
+        displayBars: 20
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: false
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 0
+          subject:
+            scale: 1
+            texture: null
+        turnMarker:
+          mode: 1
+          animation: null
+          src: null
+          disposition: false
+        movementAction: null
+        actorId: owg68yqumk7KxV9B
+        hidden: false
+        sort: 9
+        shape: 4
+        _id: 9X0nljpYE82FvYnt
+        delta:
+          _id: iUYfapJVMWQT7InB
+          system:
+            advancement:
+              threat: minion
+              level: -1
+            resources:
+              health:
+                value: 18
+              action:
+                value: 0
+              morale:
+                value: 6
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+          ownership: null
+        x: 4320
+        'y': 3400
+        elevation: 0
+        locked: false
+        _movementHistory: []
+        _regions: []
     lights: []
     notes: []
     sounds: []
@@ -24443,7 +24551,7 @@ scenes:
       systemVersion: 0.5.9
       coreVersion: '13.344'
       createdTime: 1685215895819
-      modifiedTime: 1748574889277
+      modifiedTime: 1748790832555
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -24489,7 +24597,90 @@ scenes:
         saturation: 0
         shadows: 0.2
 tables: []
-macros: []
+macros:
+  - type: script
+    scope: actor
+    name: Recover
+    img: icons/magic/life/cross-area-circle-green-white.webp
+    command: game.system.api.documents.CrucibleActor.macroAction(actor, "recover");
+    _id: 5cbkagcruoRlGa1S
+    author: AnoypGxxNIMOS0XY
+    folder: dlxNLw9tn5u3Mvgf
+    sort: 200000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: Macro.5cbkagcruoRlGa1S
+      duplicateSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.6.0
+      createdTime: 1726326326924
+      modifiedTime: 1748790785853
+      lastModifiedBy: AnoypGxxNIMOS0XY
+      exportSource: null
+  - name: Toggle Talent Tree
+    type: script
+    scope: global
+    _id: G7xze8yQapYUtx70
+    author: AnoypGxxNIMOS0XY
+    img: icons/svg/oak.svg
+    command: >-
+      if ( actor?.type !== "hero" ) return;
+
+      await actor.toggleTalentTree();
+
+      const pack = game.packs.get("crucible.talent");
+
+      pack.apps[0].render({force: true}, {left: window.innerWidth - 360, top:
+      10});
+    folder: dlxNLw9tn5u3Mvgf
+    sort: 150000
+    ownership:
+      default: 0
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.0
+      coreVersion: '13.344'
+      createdTime: 1684334968127
+      modifiedTime: 1748790893430
+      lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Macro.G7xze8yQapYUtx70
+      duplicateSource: null
+      exportSource: null
+  - _id: VhalTbPMAhmU32OD
+    name: Full Rest
+    type: script
+    author: AnoypGxxNIMOS0XY
+    img: icons/magic/life/cross-area-circle-green-white.webp
+    scope: global
+    command: >-
+      if ( !actor ) return;
+
+      await actor.deleteEmbeddedDocuments("ActiveEffect", [], {deleteAll:
+      true});
+
+      await actor.rest({}, {allowDead: true});
+    folder: dlxNLw9tn5u3Mvgf
+    sort: 100000
+    flags: {}
+    ownership:
+      default: 2
+      AnoypGxxNIMOS0XY: 3
+    _stats:
+      systemId: crucible
+      systemVersion: 0.5.3
+      coreVersion: '13.344'
+      createdTime: null
+      modifiedTime: 1748790808023
+      lastModifiedBy: AnoypGxxNIMOS0XY
+      compendiumSource: Macro.VhalTbPMAhmU32OD
+      duplicateSource: null
+      exportSource: null
 cards: []
 playlists: []
 folders:
@@ -24721,6 +24912,25 @@ folders:
       modifiedTime: 1727381800515
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
+  - type: Macro
+    folder: null
+    name: Crucible Playtest
+    color: '#561206'
+    sorting: a
+    _id: dlxNLw9tn5u3Mvgf
+    description: ''
+    sort: 100000
+    flags: {}
+    _stats:
+      compendiumSource: Folder.dlxNLw9tn5u3Mvgf
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0
+      createdTime: 1748790781391
+      modifiedTime: 1748790918868
+      lastModifiedBy: AnoypGxxNIMOS0XY
 _id: F8AILycmdj2kuOVa
 folder: null
 flags: {}
@@ -24728,7 +24938,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.0
   coreVersion: '13.344'
-  modifiedTime: 1748704187766
+  modifiedTime: 1748790922186
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

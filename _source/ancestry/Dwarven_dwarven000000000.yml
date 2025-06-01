@@ -20,15 +20,15 @@ system:
   stride: 8
   identifier: dwarven
   talents:
-    - Compendium.crucible.talent.Item.shieldbash000000
+    - Compendium.crucible.talent.Item.secondwind000000
   ui:
     color: '#cb9943'
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.0
+  coreVersion: '13.344'
   createdTime: 1674942420012
-  modifiedTime: 1746803298302
+  modifiedTime: 1748784732004
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
