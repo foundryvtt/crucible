@@ -206,7 +206,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
     // Record talent points spent
     const points = this.points.talent;
-    points.spent = this.talentIds.size - this.permanentTalentIds.size + this.advancement.talentNodes.size;
+    points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     points.available = points.total - points.spent;
     // FIXME this should not create a ui.notification directly, but should store the warning to render on the sheet
     if ( points.available < 0) {

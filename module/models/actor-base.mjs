@@ -321,17 +321,19 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Identify permanent talents from a background, taxonomy, archetype, etc...
     const permanentTalentSources = [details.ancestry, details.background, details.taxonomy, details.archetype];
+    const maybePermanentTalentIds = new Set();
     for ( const s of permanentTalentSources ) {
       if ( !s?.talents ) continue;
       for ( const uuid of s.talents ) {
         const {documentId} = foundry.utils.parseUuid(uuid);
-        if ( documentId ) this.permanentTalentIds.add(documentId);
+        maybePermanentTalentIds.add(documentId);
       }
     }
 
     // Iterate over talents
     for ( const t of talents ) {
       this.talentIds.add(t.id);
+      if ( maybePermanentTalentIds.has(t.id) ) this.permanentTalentIds.add(t.id);
       const {actorHooks, nodes, training, gesture, inflection, rune, iconicSpells} = t.system;
 
       // Register hooks

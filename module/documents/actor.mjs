@@ -1207,6 +1207,7 @@ export default class CrucibleActor extends Actor {
       this.items.set(talentCopy.id, talentCopy);
       this.reset();
       if ( crucible.tree.actor === this ) crucible.tree.refresh();
+      return talentCopy;
     }
 
     // Add permanently to a persisted Actor

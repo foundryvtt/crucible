@@ -56,9 +56,9 @@ export default class SpellCastDialog extends ActionUseDialog {
   /** @override */
   _onRoll(event, button, dialog) {
     const form = event.target;
-    const {rune, gesture, inflection} = (new FormDataExtended(form)).object;
+    const {rune, gesture, inflection, damageType} = (new FormDataExtended(form)).object;
     const composition = this.action.constructor.COMPOSITION_STATES.COMPOSED;
-    this.action.updateSource({composition, rune, gesture, inflection});
+    this.action.updateSource({composition, rune, gesture, inflection, damageType});
     return super._onRoll(event, button, dialog);
   }
 }
