@@ -730,6 +730,7 @@
   overflow: hidden;
 }
 .crucible.sheet.actor .sheet-body {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1598,6 +1599,12 @@
 }
 .crucible.sheet.actor-group .members {
   flex: 1;
+  height: 0;
+}
+.crucible.sheet.actor-group .members .items-list {
+  flex: 1;
+  height: 0;
+  margin-right: -1rem;
 }
 .crucible.sheet.actor-group .members .line-item {
   --icon-size: 48px;

@@ -26,14 +26,10 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
 
   /** @override */
   static PARTS = {
-    header: {
-      id: "header",
-      template: "systems/crucible/templates/sheets/group/header.hbs"
-    },
-    members:{
-      id: "actions",
-      template: "systems/crucible/templates/sheets/group/members.hbs"
-    },
+    main: {
+      root: true,
+      template: "systems/crucible/templates/sheets/group/group.hbs"
+    }
   };
 
   /* -------------------------------------------- */
@@ -95,14 +91,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
 
   /** @override */
   async _onDropActor(event, actor) {
-    if ( actor.pack ) throw new Error("Only world Actors can belong to a group.");
-    const actorIds = actor.type === "group" ? actor.system._source.members.map(m => m.actorId) : [actor.id];
-    const members = this.actor.system.toObject().members;
-    const memberIds = new Set(members.map(m => m.actor));
-    for ( const actorId of actorIds ) {
-      if ( !memberIds.has(actorId) ) members.push({actorId, quantity: 1});
-    }
-    await this.actor.update({"system.members": members});
+    await this.actor.system.addMember(actor);
   }
 
   /* -------------------------------------------- */
@@ -116,9 +105,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   static async #onMemberRemove(event, target) {
     const li = target.closest("li.member");
     const actorId = li.dataset.actorId;
-    const members = this.actor.system.toObject().members;
-    members.findSplice(m => m.actorId === actorId);
-    await this.actor.update({"system.members": members});
+    await this.actor.system.removeMember(actorId);
   }
 
   /* -------------------------------------------- */

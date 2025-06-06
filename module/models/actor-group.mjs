@@ -52,14 +52,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   medianLevel;
 
   /* -------------------------------------------- */
-  /*  Embedded Document Preparation               */
+  /*  Document Preparation                        */
   /* -------------------------------------------- */
 
   /** @override */
   prepareItems(items) {}
 
-  /* -------------------------------------------- */
-  /*  Data Preparation                            */
   /* -------------------------------------------- */
 
   /**
@@ -82,6 +80,90 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     this.medianLevel = medianLevel;
   }
 
+  /* -------------------------------------------- */
+  /*  Member Management                           */
+  /* -------------------------------------------- */
+
+  /**
+   * Add a new member to this group.
+   * If the new member is a single Actor (hero or adversary), the group gains `quantity` that Actor.
+   * If the new member is a group, this group is merged with the membership of the other group.
+   * @param {CrucibleActor} actor     The Actor to add
+   * @param {number} [quantity=1]     The quantity to add
+   * @returns {Promise<void>}         The updated group Actor
+   */
+  async addMember(actor, quantity=1) {
+    if ( !(actor instanceof Actor) || !!actor.pack ) throw new Error("You can only add a World Actor");
+    if ( actor === this.parent ) throw new Error("You cannot add your own group!");
+
+    // Prepare operation data
+    const toJoin = new Map();
+    if ( actor.type === "group" ) {
+      for ( const m of actor.system._source.members ) toJoin.set(m.actorId, m);
+    }
+    else toJoin.set(actor.id, {actorId: actor.id, quantity});
+    const operation = actor.type === "group" ? "merge" : "add";
+
+    // Update group members
+    const members = this.toObject().members;
+    for ( const m of members ) {
+      const j = toJoin.get(m.actorId);
+      if ( !j ) continue;
+      if ( operation === "merge" ) m.quantity = quantity;
+      else m.quantity += quantity;
+      toJoin.delete(m.actorId);
+    }
+
+    // Add new members
+    for ( const m of toJoin.values() ) members.push(m);
+
+    // Commit the update
+    await this.parent.update({"system.members": members});
+    return this.parent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Remove a member from this group.
+   * If the member to remove is a single Actor (hero or adversary), the group loses `quantity` of that Actor.
+   * If the member to remove is a group, the group loses `quantity` of each Actor in the other group.
+   * @param {CrucibleActor|string} actor  The Actor or ID to remove
+   * @param {number} [quantity=1]         The quantity to remove
+   * @returns {Promise<void>}             The updated group Actor
+   */
+  async removeMember(actor, quantity=1) {
+    if ( !((actor instanceof Actor) || (typeof actor === "string")) ) {
+      throw new Error("The Actor to remove must be an Actor document or string ID.")
+    }
+    if ( actor === this.parent ) throw new Error("You cannot remove your own group!");
+
+    // Prepare operation data
+    const toLeave = new Map();
+    if ( typeof actor === "string" ) toLeave.set(actor, {actorId: actor, quantity});
+    else if ( actor?.type === "group" ) {
+      for ( const m of actor.system._source.members ) toLeave.set(m.actorId, m);
+    }
+    else toLeave.set(actor.id, {actorId: actor.id, quantity});
+
+    // Remove group members
+    const members = this.toObject().members.reduce((arr, m) => {
+      const l = toLeave.get(m.actorId);
+      if ( l ) {
+        m.quantity = Math.max(m.quantity - l.quantity, 0);
+        if ( m.quantity === 0 ) return arr;
+      }
+      arr.push(m);
+      return arr;
+    }, [])
+
+    // Commit the update
+    await this.parent.update({"system.members": members});
+    return this.parent;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
   /* -------------------------------------------- */
 
   /**
