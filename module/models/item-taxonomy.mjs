@@ -36,9 +36,12 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
   /**
    * Validate that ability scaling for the Taxonomy is balanced.
-   * @param {Object<number>} abilities
+   * @param {object} abilities                          Ability choices
+   * @param {DataFieldValidationOptions} [options={}]   Options which affect validation
+   * @throws {Error}                                    An error if the ability choices are invalid
    */
-  static #validateAbilities(abilities) {
+  static #validateAbilities(abilities, options) {
+    if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
     if ( sum !== 18 ) throw new Error(`The sum of initial ability values must equal 18. Currently ${sum}`);
   }
@@ -47,9 +50,12 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
   /**
    * Validate that resistance scaling for the Taxonomy is balanced.
-   * @param {Object<number>} resistances
+   * @param {Object<number>} resistances                Resistance choices
+   * @param {DataFieldValidationOptions} [options={}]   Options which affect validation
+   * @throws {Error}                                    An error if the resistance choices are invalid
    */
-  static #validateResistances(resistances) {
+  static #validateResistances(resistances, options) {
+    if ( options.partial === true ) return;
     const sum = Object.values(resistances).reduce((t, n) => t + n, 0);
     if ( sum !== 0 ) throw new Error(`The sum of resistance scaling values must equal zero. Currently ${sum}`);
   }

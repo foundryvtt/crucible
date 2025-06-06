@@ -549,7 +549,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       for ( let i=iconicSpells.items.length; i<iconicSlots; i++ ) {
         const spell = {
           id: `iconicSlot${i}`,
-          name: "foo",
+          name: "Available Slot",
           img: "icons/magic/symbols/question-stone-yellow.webp",
           cssClass: "iconic-slot",
           tags: {},

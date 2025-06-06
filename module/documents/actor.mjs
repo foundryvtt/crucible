@@ -1525,6 +1525,35 @@ export default class CrucibleActor extends Actor {
    * @returns {CrucibleAction|null}
    */
   #equipWeapon(weapon, slot) {
+    slot = this.canEquipWeapon(weapon, slot);
+
+    // Create the action
+    const action = new CrucibleAction({
+      id: "equipWeapon",
+      name: "Equip Weapon",
+      img: weapon.img,
+      cost: {action: weapon.system.properties.has("ambush") ? 0 : 1},
+      description: `Equip the ${weapon.name}.`,
+      target: {type: "self", scope: 1}
+    }, {actor: this});
+
+    // Equip the weapon as a follow-up actor update
+    action.usage.actorUpdates ||= {};
+    action.usage.actorUpdates.items ||= [];
+    action.usage.actorUpdates.items.push({_id: weapon.id, "system.equipped": true, "system.slot": slot});
+    return action;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Assert that the Actor is able to currently equip a certain Weapon.
+   * @param {CrucibleItem} weapon     A weapon being equipped
+   * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
+   * @returns {number}                A numbered slot in SYSTEM.WEAPON.SLOTS where the weapon can be equipped.
+   * @throws {Error}                  An error explaining why the weapon cannot be equipped
+   */
+  canEquipWeapon(weapon, slot) {
     const category = weapon.config.category;
     const slots = SYSTEM.WEAPON.SLOTS;
     const {mainhand, offhand} = this.equipment.weapons;
@@ -1551,27 +1580,14 @@ export default class CrucibleActor extends Actor {
         else if ( mainhand.config.category.hands === 2 ) occupied = mainhand;
         break;
     }
+
+    // Throw an error if equipment is not possible
     if ( occupied ) throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
       actor: this.name,
       item: weapon.name,
       type: game.i18n.localize(slots.label(slot))
     }));
-
-    // Create the action
-    const action = new CrucibleAction({
-      id: "equipWeapon",
-      name: "Equip Weapon",
-      img: weapon.img,
-      cost: {action: weapon.system.properties.has("ambush") ? 0 : 1},
-      description: `Equip the ${weapon.name}.`,
-      target: {type: "self", scope: 1}
-    }, {actor: this});
-
-    // Equip the weapon as a follow-up actor update
-    action.usage.actorUpdates ||= {};
-    action.usage.actorUpdates.items ||= [];
-    action.usage.actorUpdates.items.push({_id: weapon.id, "system.equipped": true, "system.slot": slot});
-    return action;
+    return slot;
   }
 
   /* -------------------------------------------- */
@@ -1658,7 +1674,6 @@ export default class CrucibleActor extends Actor {
       const clone = this.clone();
       clone.updateSource(data);
       Object.assign(data, clone._getRestData());
-      if ( this.type === "hero" ) a1.progress = clone.level > this.level ? 0 : clone.system.advancement.next;
     }
   }
 

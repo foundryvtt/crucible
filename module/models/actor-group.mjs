@@ -13,6 +13,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const requiredInteger = {required: true, nullable: false, integer: true};
     const schema = {};
 
+    // Advancement
+    schema.advancement = new fields.SchemaField({
+      milestones: new fields.NumberField({...requiredInteger, min: 0, initial: 0})
+    });
+
     // Group Members
     schema.members = new fields.ArrayField(new fields.SchemaField({
       actorId: new fields.DocumentIdField({nullable: false}),
@@ -33,11 +38,6 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       })
-    });
-
-    // Advancement
-    schema.advancement = new fields.SchemaField({
-      milestones: new fields.NumberField({...requiredInteger, min: 0, initial: 0})
     });
     return schema;
   }
@@ -164,6 +164,69 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------- */
   /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  async awardMilestones(quantity, members) {
+
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Provide the Gamemaster with a Dialog to award milestone points to the group.
+   * @returns {Promise<void>}
+   */
+  async awardMilestoneDialog() {
+    if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to award milestones.");
+
+    // Prepare form data
+    const heroes = this.members.reduce((obj, {actor}) => {
+      if ( actor?.type === "hero" ) obj[actor.id] = actor.name;
+      return obj;
+    }, {});
+
+    // Render form HTML
+    const {SetField, StringField, NumberField} = foundry.data.fields;
+    const quantity = new NumberField({
+      integer: true,
+      initial: 1,
+      label: "ACTOR.GROUP.FIELDS.advancement.milestones.label",
+      hint: "ACTOR.GROUP.FIELDS.advancement.milestones.hint"
+    });
+    const quantityHTML = quantity.toFormGroup({classes: ["slim"], localize: true}, {name: "quantity"});
+    const recipients = new SetField(new StringField({required: true, blank: false, choices: heroes}), {
+      label: "Milestone Recipients",
+      hint: "Select one or more heroes to receive the milestone."
+    });
+    const recipientsHTML = recipients.toFormGroup({stacked: true}, {
+      name: "recipients",
+      type: "checkboxes",
+      value: Object.keys(heroes),
+      sort: true
+    });
+
+    // Create confirmation dialog
+    const response = await foundry.applications.api.DialogV2.input({
+      window: {title: game.i18n.localize("ADVANCEMENT.MilestoneAward"), icon: "fa-solid fa-arrow-up"},
+      ok: {label: "Award", icon: "fa-solid fa-star"},
+      content: `${quantityHTML.outerHTML}${recipientsHTML.outerHTML}`
+    });
+    if ( !response ) return;
+
+    // Process award
+    const updates = response.recipients.reduce((arr, id) => {
+      const actor = game.actors.get(id);
+      if ( !actor ) return arr;
+      const starting = actor.system._source.advancement.milestones;
+      const milestones = Math.max(starting + response.quantity, 0);
+      arr.push({_id: id, "system.advancement.milestones": milestones});
+      return arr;
+    }, []);
+    const groupMilestones = Math.max(this._source.advancement.milestones + response.quantity, 0);
+    updates.push({_id: this.parent.id, "system.advancement.milestones": groupMilestones});
+    await Actor.updateDocuments(updates);
+  }
+
   /* -------------------------------------------- */
 
   /**

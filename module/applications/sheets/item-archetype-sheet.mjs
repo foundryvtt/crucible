@@ -74,8 +74,6 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
       delete submitData.system.abilities;
     }
-    const talents = form.querySelectorAll(".talents .talent");
-    submitData.system.talents = Array.from(talents).map(t => t.dataset.uuid);
     return submitData;
   }
 

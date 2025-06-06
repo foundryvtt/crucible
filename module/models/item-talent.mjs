@@ -48,16 +48,17 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
     const fields = foundry.data.fields;
+    const blankString = {required: true, blank: true, initial: ""};
     return {
       nodes: new fields.SetField(new fields.StringField({required: true, blank: false, choices: () => CrucibleTalentNode.getChoices()})),
       description: new fields.HTMLField(),
       actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction)),
-      rune: new fields.StringField({required: false, choices: SYSTEM.SPELL.RUNES, initial: undefined}),
-      gesture: new fields.StringField({required: false, choices: SYSTEM.SPELL.GESTURES, initial: undefined}),
-      inflection: new fields.StringField({required: false, choices: SYSTEM.SPELL.INFLECTIONS, initial: undefined}),
+      rune: new fields.StringField({...blankString, choices: SYSTEM.SPELL.RUNES}),
+      gesture: new fields.StringField({...blankString, choices: SYSTEM.SPELL.GESTURES}),
+      inflection: new fields.StringField({...blankString, choices: SYSTEM.SPELL.INFLECTIONS}),
       iconicSpells: new fields.NumberField({required: true, nullable: false, initial: 0, integer: true, min: 0}),
       training: new fields.SchemaField({
-        type: new fields.StringField({required: true, blank: true, choices: SYSTEM.TALENT.TRAINING_TYPES, initial: ""}),
+        type: new fields.StringField({...blankString, choices: SYSTEM.TALENT.TRAINING_TYPES}),
         rank: new fields.NumberField({required: true, nullable: true, initial: null, integer: true, min: 1, max: 3})
       }),
       actorHooks: new fields.ArrayField(new fields.SchemaField({

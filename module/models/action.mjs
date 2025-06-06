@@ -458,6 +458,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     try {
       targets = this.acquireTargets({strict: false});
     } catch(err) {
+      console.warn(err);
       return ui.notifications.warn(err.message);
     }
 
@@ -465,6 +466,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     try {
       this._canUse(targets);
     } catch(err) {
+      console.warn(err);
       return ui.notifications.warn(err.message);
     }
 
@@ -493,7 +495,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       try {
         await this._roll(actor, rolls);
       } catch(err) {
-        return ui.notifications.warn(err.message);
+        return ui.notifications.warn(err);
       }
 
       // Create outcome for target
@@ -982,12 +984,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Test each action tag
     for ( const test of this._tests() ) {
       if ( !(test.canUse instanceof Function) ) continue;
-      const can = test.canUse.call(this, targets);
-      if ( can === false ) throw new Error(game.i18n.format("ACTION.WarningCannotUseTag", {
-        name: this.actor.name,
-        action: this.name,
-        tag: test.label || ""
-      }));
+      let errorReason;
+      try {
+        const can = test.canUse.call(this, targets);
+        if ( can === false ) errorReason = `with tag ${test.label}`;
+      } catch(err) {
+        errorReason = err.message;
+      }
+      if ( errorReason ) {
+        throw new Error(game.i18n.format("ACTION.WarningCannotUse", {
+          name: this.actor.name,
+          action: this.name,
+          reason: errorReason
+        }));
+      }
     }
   }
 
@@ -1244,7 +1254,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Custom Action confirmation steps
     for ( const test of this._tests() ) {
       if ( !(test.confirm instanceof Function) ) continue
-      await test.confirm.call(this);
+      try {
+        await test.confirm.call(this);
+      } catch(err) {
+        console.error(new Error(`"${this.id}" action confirmation failed`, {cause: err}));
+      }
     }
 
     // Additional Actor-specific consequences

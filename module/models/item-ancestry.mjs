@@ -93,8 +93,8 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         return obj;
       }, {}),
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, {id}) => {
-        if ( id === resistances.resistance ) obj[id] = 2;
-        else if ( id === resistances.vulnerability ) obj[id] = -2;
+        if ( id === resistances.resistance ) obj[id] = 1;
+        else if ( id === resistances.vulnerability ) obj[id] = -1;
         else obj[id] = 0;
         return obj;
       }, {}),

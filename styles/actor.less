@@ -94,9 +94,13 @@
     }
   }
 
-  h4.label {
+  h4.label,
+  span.label {
     flex: none;
+    font-family: var(--font-h1);
     font-size: var(--font-size-11);
+    font-weight: normal;
+    color: var(--color-h1);
     background: var(--color-frame-bg);
     padding: 2px 6px;
     margin: 0;
@@ -959,6 +963,7 @@
 
 .crucible.sheet.actor-group {
   --sheet-header-height: 80px;
+  --gap: 1.5rem 1rem;
 
   .window-content {
     flex-direction: column;
@@ -971,39 +976,46 @@
       border: none;
     }
   }
+  .sheet-details {
+    gap: var(--gap);
+  }
 
   /** Movement Speeds */
   .sheet-section.movement {
+    flex: 2;
+    height: 100%;
     align-items: flex-start;
     .movement-speed {
-      position: relative;
-      width: 60px;
-      height: 80px;
-      padding: 16px 0 0;
-      justify-content: center;
-      align-items: center;
-      background: var(--movement-icon) no-repeat bottom center;
-      background-size: auto 64px;
-      &.land {
-        --movement-icon: url("../ui/elements/hex-willpower.svg");
-      }
-      &.water {
-        --movement-icon: url("../ui/elements/hex-fortitude.svg");
-      }
-      &.air {
-        --movement-icon: url("../ui/elements/hex-reflex.svg");
-      }
-      .label {
-        position: absolute;
-        top: 0;
-      }
+      --hex-size: 64px;
+      &.land {--hex-bg: url("../ui/elements/hex-willpower.svg");}
+      &.water {--hex-bg: url("../ui/elements/hex-fortitude.svg");}
+      &.air {--hex-bg: url("../ui/elements/hex-reflex.svg");}
     }
-    .travel-pace {
+  }
+
+  /** Advancement Section */
+  .sheet-section.advancement {
+    flex: 1;
+    height: 100%;
+    .milestones button.value {
+      --button-text-color: var(--color-text-emphatic);
+      --button-hover-text-color: transparent;
+      --button-hover-background-color: transparent;
+      --button-hover-border-color: transparent;
       position: relative;
-      width: 60px;
-      height: 80px;
-      justify-content: space-between;
-      align-items: center;
+      text-align: center;
+      font-size: var(--font-size-24);
+      width: calc(var(--hex-size) * 0.6);
+      opacity: 1.0;
+      &:hover::before {
+        position: absolute;
+        inset: 0;
+        font-family: var(--font-awesome);
+        font-weight: 900;
+        content: "\f005";
+        font-size: var(--font-size-30);
+        color: var(--color-text-emphatic);
+      }
     }
   }
 

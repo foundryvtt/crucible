@@ -24,8 +24,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
     // Advancement
     schema.advancement = new fields.SchemaField({
-      level: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 24, label: "ADVANCEMENT.Level"}),
-      progress: new fields.NumberField({...requiredInteger, initial: 0, min: 0, label: "ADVANCEMENT.Progress"}),
+      level: new fields.NumberField({...requiredInteger, initial: 0, min: 0, max: 24}),
+      milestones: new fields.NumberField({...requiredInteger, initial: 0, min: 0}),
       talentNodes: new fields.SetField(new fields.StringField({required: true, blank: false})) // TODO temporary
     });
 
@@ -108,9 +108,12 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
       ability: {pool: 9, total: effectiveLevel, bought: 0, spent: 0, available: 0},
       talent: {total: 3 + (effectiveLevel*3), spent: 0, available: 0}
     };
-    adv.progress = adv.progress ?? 0;
-    adv.next = (2 * adv.level) + 1;
-    adv.pct = Math.clamp(Math.round(adv.progress * 100 / adv.next), 0, 100);
+    const level = SYSTEM.ACTOR.LEVELS[adv.level];
+    if ( !level ) throw new Error(`Invalid character level ${adv.level} not in SYSTEM.ACTOR.LEVELS`);
+    adv.progress = Math.max(adv.milestones - level.milestones.start, 0);
+    adv.next = level.milestones.next;
+    adv.required = level.milestones.required;
+    adv.pct = Math.clamp(Math.round(adv.progress * 100 / Math.max(adv.required, 1)), 0, 100);
   }
 
   /* -------------------------------------------- */

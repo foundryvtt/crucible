@@ -239,7 +239,11 @@
 "ACTOR.GROUP": {
   "FIELDS": {
     "advancement": {
-      "milestones.label": "Milestones Earned"
+      "label": "Advancement Progress",
+      "milestones": {
+        "label": "Milestones Earned",
+        "hint": "The number of milestones that have been earned by this group."
+      }
     },
     "details": {
       "biography": {
@@ -347,7 +351,7 @@
 "ACTION.TemplateTargets": "Template Targets",
 "ACTION.Confirmed": "Confirmed",
 "ACTION.Unconfirmed": "Unconfirmed",
-"ACTION.WarningCannotUseTag": "{name} cannot use action {action} which requires tag {tag}!",
+"ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}!",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",
 "ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
@@ -449,6 +453,8 @@
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 "ADVANCEMENT.MilestoneTooltip": "{progress} of {next} milestones until next level",
+"ADVANCEMENT.MilestoneAward": "Award Milestones",
+"ADVANCEMENT.ExpectedLevel": "Expected Level",
 
 "ARCHETYPE": {
   "FIELDS": {

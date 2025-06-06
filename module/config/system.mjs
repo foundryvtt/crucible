@@ -90,25 +90,31 @@ export const ACTION_HOOKS = Object.freeze({
     argNames: []
   },
   displayOnSheet: {
-    argNames: ["combatant"]
+    argNames: ["combatant"],
+    argLabels: ["combatant: boolean"],
   },
   canUse: {
-    argNames: ["targets"]
+    argNames: ["targets"],
+    argLabels: ["targets: ActionTarget[]"],
   },
   preActivate: {
     argNames: ["targets"],
+    argLabels: ["targets: ActionTarget[]"],
     async: true
   },
   roll: {
     argNames: ["target", "rolls"],
+    argLabels: ["target: ActionTarget", "rolls: StandardCheck[]"],
     async: true
   },
   postActivate: {
     argNames: ["outcome"],
+    argLabels: ["outcome: CrucibleActionOutcome"],
     async: true
   },
   confirm: {
     argNames: [],
+    argLabels: [],
     async: true
   }
 });

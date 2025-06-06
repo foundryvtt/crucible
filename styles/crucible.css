@@ -397,6 +397,28 @@
   --hex-bg: url("../ui/elements/hex-accent-2c.svg");
   --hex-rotation: 0;
 }
+.crucible .labeled-hex {
+  --hex-bg: url("../ui/elements/hex-plain.svg");
+  --hex-size: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: calc(1.25 * var(--hex-size));
+  padding: 1rem 0 0;
+  background: var(--hex-bg) no-repeat bottom center;
+  background-size: auto var(--hex-size);
+}
+.crucible .labeled-hex h4 {
+  position: absolute;
+  top: 0;
+}
+.crucible .labeled-hex .footer {
+  position: absolute;
+  top: unset;
+  bottom: -0.5rem;
+}
 .crucible.crucible-tooltip {
   background: url("../ui/journal/background-texture.webp");
   padding: 1rem 1.5rem;
@@ -778,9 +800,13 @@
   background: var(--color-frame-bg);
   border-radius: 3px;
 }
-.crucible.sheet.actor h4.label {
+.crucible.sheet.actor h4.label,
+.crucible.sheet.actor span.label {
   flex: none;
+  font-family: var(--font-h1);
   font-size: var(--font-size-11);
+  font-weight: normal;
+  color: var(--color-h1);
   background: var(--color-frame-bg);
   padding: 2px 6px;
   margin: 0;
@@ -1550,7 +1576,9 @@
 /* ----------------------------------------- */
 .crucible.sheet.actor-group {
   --sheet-header-height: 80px;
+  --gap: 1.5rem 1rem;
   /** Movement Speeds */
+  /** Advancement Section */
   /** Members List */
 }
 .crucible.sheet.actor-group .window-content {
@@ -1564,38 +1592,49 @@
 .crucible.sheet.actor-group .sheet-header img.profile {
   border: none;
 }
+.crucible.sheet.actor-group .sheet-details {
+  gap: var(--gap);
+}
 .crucible.sheet.actor-group .sheet-section.movement {
+  flex: 2;
+  height: 100%;
   align-items: flex-start;
 }
 .crucible.sheet.actor-group .sheet-section.movement .movement-speed {
-  position: relative;
-  width: 60px;
-  height: 80px;
-  padding: 16px 0 0;
-  justify-content: center;
-  align-items: center;
-  background: var(--movement-icon) no-repeat bottom center;
-  background-size: auto 64px;
+  --hex-size: 64px;
 }
 .crucible.sheet.actor-group .sheet-section.movement .movement-speed.land {
-  --movement-icon: url("../ui/elements/hex-willpower.svg");
+  --hex-bg: url("../ui/elements/hex-willpower.svg");
 }
 .crucible.sheet.actor-group .sheet-section.movement .movement-speed.water {
-  --movement-icon: url("../ui/elements/hex-fortitude.svg");
+  --hex-bg: url("../ui/elements/hex-fortitude.svg");
 }
 .crucible.sheet.actor-group .sheet-section.movement .movement-speed.air {
-  --movement-icon: url("../ui/elements/hex-reflex.svg");
+  --hex-bg: url("../ui/elements/hex-reflex.svg");
 }
-.crucible.sheet.actor-group .sheet-section.movement .movement-speed .label {
-  position: absolute;
-  top: 0;
+.crucible.sheet.actor-group .sheet-section.advancement {
+  flex: 1;
+  height: 100%;
 }
-.crucible.sheet.actor-group .sheet-section.movement .travel-pace {
+.crucible.sheet.actor-group .sheet-section.advancement .milestones button.value {
+  --button-text-color: var(--color-text-emphatic);
+  --button-hover-text-color: transparent;
+  --button-hover-background-color: transparent;
+  --button-hover-border-color: transparent;
   position: relative;
-  width: 60px;
-  height: 80px;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  font-size: var(--font-size-24);
+  width: calc(var(--hex-size) * 0.6);
+  opacity: 1;
+}
+.crucible.sheet.actor-group .sheet-section.advancement .milestones button.value:hover::before {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-awesome);
+  font-weight: 900;
+  content: "\f005";
+  font-size: var(--font-size-30);
+  color: var(--color-text-emphatic);
 }
 .crucible.sheet.actor-group .members {
   flex: 1;

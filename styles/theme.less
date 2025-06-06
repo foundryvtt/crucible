@@ -349,6 +349,30 @@
     }
   }
 
+  // Labeled Hex
+  .labeled-hex {
+    --hex-bg: url("../ui/elements/hex-plain.svg");
+    --hex-size: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: calc(1.25 * var(--hex-size));
+    padding: 1rem 0 0;
+    background: var(--hex-bg) no-repeat bottom center;
+    background-size: auto var(--hex-size);
+    h4 {
+      position: absolute;
+      top: 0;
+    }
+    .footer {
+      position: absolute;
+      top: unset;
+      bottom: -0.5rem;
+    }
+  }
+
   &.crucible-tooltip {
     background: url("../ui/journal/background-texture.webp");
     padding: 1rem 1.5rem;

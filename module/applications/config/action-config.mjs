@@ -231,8 +231,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   #getHookLabel(hookId, cfg) {
-    const args = ["action", ...cfg.argNames].join(", ");
-    return `${cfg.async ? "async " : ""}${hookId}(${args})`;
+    const argLabels = ["this: CrucibleAction", ...cfg.argLabels].join(", ");
+    return `${cfg.async ? "async " : ""}${hookId}(${argLabels})`;
   }
 
   /* -------------------------------------------- */
@@ -274,11 +274,17 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
 
   /** @override */
   async _processSubmitData(event, form, submitData) {
-    const idx = this.document._source.system.actions.findIndex(a => a.id === this.action.id);
+
+    // Prepare actions array
+    const actions = this.document.system.toObject().actions;
+    const idx = actions.findIndex(a => a.id === this.action.id);
     if ( idx === -1 ) {
       throw new Error(`Action "${this.action.id}" not identified in the actions array for Item "${this.document.id}"`);
     }
-    await this.document.update({[`system.actions.${idx}`]: submitData}, {diff: false});
+    actions[idx] = submitData;
+
+    // Update actions array
+    await this.document.update({[`system.actions`]: actions}, {diff: false});
     // Updating the Item has re-constructed the CrucibleAction object
     // For continuity of this sheet instance, we update the source of this.action so we can re-render accordingly.
     this.action = this.document.actions[idx];

@@ -16,6 +16,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       contentClasses: ["standard-form"]
     },
     actions: {
+      awardMilestone: CrucibleGroupActorSheet.#onAwardMilestone,
       memberRemove: CrucibleGroupActorSheet.#onMemberRemove,
       memberSheet: CrucibleGroupActorSheet.#onMemberSheet
     },
@@ -28,7 +29,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   static PARTS = {
     main: {
       root: true,
-      template: "systems/crucible/templates/sheets/group/group.hbs"
+      template: "systems/crucible/templates/sheets/group/group.hbs",
+      scrollable: [".items-list.scrollable"]
     }
   };
 
@@ -39,6 +41,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /** @override */
   async _prepareContext(options) {
     const system = this.actor.system;
+    const milestones = system.advancement.milestones;
+    const groupLevel = Object.values(SYSTEM.ACTOR.LEVELS).findLast(l => l.milestones.start <= milestones);
     return {
       actor: this.document,
       system,
@@ -47,7 +51,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       members: this.#prepareMembers(),
       systemFields: system.schema.fields,
       tags: this.actor.getTags(),
-      pace: SYSTEM.ACTOR.TRAVEL_PACES[system.movement.pace]
+      pace: SYSTEM.ACTOR.TRAVEL_PACES[system.movement.pace],
+      groupLevel
     };
   }
 
@@ -96,6 +101,17 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
 
   /* -------------------------------------------- */
   /*  Click Action Handlers                       */
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleGroupActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onAwardMilestone(_event, _target) {
+    if ( !game.user.isGM ) return;
+    await this.actor.system.awardMilestoneDialog();
+  }
+
   /* -------------------------------------------- */
 
   /**

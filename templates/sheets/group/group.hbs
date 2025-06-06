@@ -13,24 +13,36 @@
         </div>
     </section>
 
-    <div class="sheet-section movement flexrow">
-        <h3>{{systemFields.movement.label}}</h3>
-        <div class="movement-speed water flexcol">
-            <h4 class="label">{{systemFields.movement.fields.water.label}}</h4>
-            <span class="value">{{system.movement.water}}</span>
+    <div class="sheet-details flexrow">
+        <div class="sheet-section movement flexrow">
+            <h3>{{systemFields.movement.label}}</h3>
+            <div class="movement-speed water labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.water.label}}</h4>
+                <span class="value">{{system.movement.water}}</span>
+            </div>
+            <div class="movement-speed land labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.land.label}}</h4>
+                <span class="value">{{system.movement.land}}</span>
+            </div>
+            <div class="movement-speed air labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.air.label}}</h4>
+                <span class="value">{{system.movement.air}}</span>
+            </div>
+            <div class="travel-pace labeled-hex">
+                <h4 class="label">{{systemFields.movement.fields.pace.label}}</h4>
+                <i class="value fa-solid {{pace.icon}}"></i>
+                <span class="label footer">{{localize pace.label}}</span>
+            </div>
         </div>
-        <div class="movement-speed land flexcol">
-            <h4 class="label">{{systemFields.movement.fields.land.label}}</h4>
-            <span class="value">{{system.movement.land}}</span>
-        </div>
-        <div class="movement-speed air flexcol">
-            <h4 class="label">{{systemFields.movement.fields.air.label}}</h4>
-            <span class="value">{{system.movement.air}}</span>
-        </div>
-        <div class="travel-pace flexcol">
-            <h4 class="label">{{systemFields.movement.fields.pace.label}}</h4>
-            <i class="fa-solid {{pace.icon}}"></i>
-            <h4 class="label footer">{{localize pace.label}}</h4>
+        <div class="sheet-section advancement flexrow">
+            <h3>{{systemFields.advancement.label}}</h3>
+            <div class="milestones labeled-hex">
+                <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
+                <button class="value" data-action="awardMilestone" data-tooltip="ADVANCEMENT.MilestoneAward">
+                    {{system.advancement.milestones}}
+                </button>
+                <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{groupLevel.level}}</span>
+            </div>
         </div>
     </div>
 
