@@ -807,26 +807,44 @@
     padding: 1rem 0 0;
 
     .sheet-section {
-      flex: 2;
+      flex: 1;
       padding: 1rem;
-      &.appearance {
-        align-items: flex-start;
-        flex: 1;
-        gap: 1rem;
-        fieldset {
-          flex: 0 0 150px;
-          padding: 0.5rem 1rem;
-          font-size: var(--font-size-12);
-        }
-        > div {
-          padding: 0 1rem;
-        }
+    }
+
+    .appearance {
+      align-items: flex-start;
+      gap: 1rem;
+      fieldset {
+        flex: 0 0 150px;
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-12);
       }
+      > div {
+        padding: 0 1rem;
+      }
+    }
+
+    .private-biography {
+      flex: 2;
     }
 
     prose-mirror {
       width: 100%;
       min-height: unset;
+    }
+    .editor-content {
+      font-size: var(--font-size-13);
+      line-height: 1.25em;
+      > :first-child {
+        margin-top: 0;
+      }
+      > :last-child {
+        margin-bottom: 0;
+      }
+      h2.divider {
+        font-size: 1.5em;
+        margin: 1rem 0 0;
+      }
     }
   }
 

@@ -18,7 +18,9 @@ async function displayTalentTooltip(event) {
   delete element.dataset.crucibleTalentTooltip;
   const talent = await fromUuid(element.dataset.uuid);
   if ( !talent ) return;
+  event.stopImmediatePropagation();
   element.dataset.tooltipHtml = await talent.renderCard();
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }

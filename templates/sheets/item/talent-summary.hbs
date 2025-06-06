@@ -3,7 +3,7 @@
 </section>
 
 {{#if source.system.iconicSpells}}
-<p class="iconic-spells">
+<p class="condition iconic-spells">
     <strong>{{localize "SPELL.IconicPl"}}:</strong> {{source.name}} grants {{source.system.iconicSpells}} Iconic Spell slots.
 </p>
 {{/if}}
@@ -44,7 +44,7 @@
         {{/unless}}
 
         {{#if action.condition}}
-        <p class="condition">
+        <p class="condition activation">
             <strong>{{localize "ACTION.Condition"}}:</strong> <em>{{action.condition}}</em>
         </p>
         {{/if}}

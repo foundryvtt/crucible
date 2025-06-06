@@ -104,11 +104,19 @@
   // Blockquote
   blockquote {
     margin: 1rem 0;
+    padding: 0 1rem;
     border-left: 4px solid var(--color-secondary);
     font-family: var(--font-quote);
-    font-size: var(--font-size-18);
+    font-size: var(--font-size-16);
+    line-height: 1.2em;
     color: var(--color-secondary);
     letter-spacing: 0;
+    > :first-child {
+      margin-top: 0;
+    }
+    > :last-child {
+      margin-bottom: 0;
+    }
   }
 
   // Framed Elements
