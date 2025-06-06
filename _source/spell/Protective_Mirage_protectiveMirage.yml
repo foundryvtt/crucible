@@ -1,0 +1,110 @@
+name: Protective Mirage
+type: spell
+img: icons/magic/defensive/illusion-evasion-echo-purple.webp
+system:
+  description: >-
+    <p>You <strong>Aspect </strong>yourself in a mirage of shifting
+    <strong>Illumination</strong> and <strong>Shadow</strong> which mask your
+    current position and allow you to <strong>Elude</strong> incoming blows.</p>
+  actions:
+    - id: protectiveMirage
+      img: icons/magic/defensive/illusion-evasion-echo-purple.webp
+      cost:
+        action: 3
+        focus: 2
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+      effects:
+        - name: Mirage
+          scope: 1
+          statuses: []
+          duration:
+            turns: 10
+      tags:
+        - iconicSpell
+        - iconicSpell
+        - iconicSpell
+        - iconicSpell
+        - iconicSpell
+        - iconicSpell
+        - iconicSpell
+      actionHooks: []
+      name: Protective Mirage
+      condition: ''
+      description: >-
+        <p>You become surrounded by three illusory duplicates which last up to
+        10 Rounds. Any incoming <strong>Strike</strong> against you is made with
+        a number of <strong>Banes</strong> equal to two times your number of
+        duplicates remaining. Each time a Strike misses you, one of your
+        duplicates disappears.</p>
+  runes:
+    - illumination
+    - shadow
+  gestures:
+    - aspect
+  inflections:
+    - eluding
+  actorHooks:
+    - hook: defendWeaponAttack
+      fn: >-
+        const effect = actor.effects.get("protectiveMirage");
+
+        if ( !effect ) return;
+
+        const duplicates = effect.flags.crucible?.duplicates ?? 3;
+
+        rollData.banes.mirage = {label: "Protective Mirage", number: duplicates
+        * 2};
+    - hook: applyActionOutcome
+      fn: |-
+        const effect = actor.effects.get("protectiveMirage");
+        if ( !effect ) return;
+        let duplicates = effect.flags.crucible?.duplicates ?? 3;
+
+        // Verify the action targeted physical defense
+        let delta = options.reverse ? 1 : -1;
+        for ( const roll of outcome.rolls ) {
+         if ( !(roll instanceof crucible.api.dice.AttackRoll) ) continue;
+         if ( (roll.data.defenseType !== "physical") || roll.isSuccess ) continue;
+         duplicates += delta;
+        }
+
+        // Delete exhausted effect
+        if ( duplicates <= 0 ) {
+          outcome.effects.push({_id: effect.id, _delete: true});
+          return;
+        }
+
+        // Decrement effect
+        outcome.effects.push({
+          _id: effect.id,
+          name: `Mirage (${duplicates})`,
+          "flags.crucible.duplicates": duplicates
+        });
+effects: []
+folder: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '13.342'
+  systemId: crucible
+  systemVersion: 0.6.0
+  createdTime: 1727204769939
+  modifiedTime: 1727204769939
+  lastModifiedBy: AnoypGxxNIMOS0XY
+  exportSource: null
+_id: protectiveMirage
+sort: 0
+_key: '!items!protectiveMirage'

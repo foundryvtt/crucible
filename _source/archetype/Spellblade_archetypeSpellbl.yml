@@ -1,0 +1,37 @@
+name: Spellblade
+type: archetype
+_id: archetypeSpellbl
+img: icons/weapons/swords/sword-winged-pink.webp
+system:
+  description: >-
+    <p>Spellblades are magically empowered warriors who weave spellcraft into
+    their weapon attacks to create devastating strikes.</p>
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 4
+    strength: 5
+    toughness: 4
+    dexterity: 2
+  talents:
+    - Compendium.crucible.talent.Item.spellblade000000
+    - Compendium.crucible.talent.Item.gesturestrike000
+    - Compendium.crucible.talent.Item.opportunisticspe
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749246074533
+  modifiedTime: 1749246074533
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!archetypeSpellbl'

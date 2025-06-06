@@ -19,6 +19,7 @@ const CONFIG = {
     "playtest",
     "pregens",
     "rules",
+    "spell",
     "summons",
     "talent",
     "taxonomy",
@@ -78,6 +79,6 @@ startup
   .command('extract')
   .description('Unpacks binary databases into plain-text source files.')
   .action(extract);
-  
+
 /* Start program and parse commands */
 startup.parseAsync();

@@ -1,0 +1,118 @@
+name: Bind Armament
+type: spell
+_id: bindArmament0000
+img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
+system:
+  description: >-
+    <p>You bind the weapon currently equipped in your main-hand as your Bound
+    Armament.</p><p>While bound, you may conjure the weapon into a free hand
+    without any resource cost. You can conjure the weapon across any distance
+    including if it has been <strong>Disarmed</strong>.</p><p></p><p></p>
+  actions:
+    - id: bindArmament
+      name: Bind Armament
+      img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
+      condition: ''
+      description: >-
+        <p>You bind the weapon currently equipped in your main-hand as your
+        Bound Armament.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+      effects: []
+      tags:
+        - iconicSpell
+      actionHooks:
+        - hook: canUse
+          fn: >-
+            const boundArmamentId = this.actor.getFlag("crucible", this.id);
+
+            const mainhandId = this.actor.equipment.weapons.mainhand.id;
+
+            if ( !mainhandId ) throw new Error("no mainhand weapon");
+
+            else if ( mainhandId === boundArmamentId ) throw new Error("weapon
+            is already bound");
+        - hook: preActivate
+          fn: |-
+            const mainhandId = this.actor.equipment.weapons.mainhand.id;
+            if ( !mainhandId ) return;
+            foundry.utils.mergeObject(this.usage.actorUpdates, {
+              [`flags.crucible.${this.id}`]: mainhandId
+            })
+    - id: conjureArmament
+      name: Conjure Armament
+      img: icons/magic/fire/dagger-rune-enchant-blue-gray.webp
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+      effects: []
+      tags:
+        - iconicSpell
+      actionHooks:
+        - hook: canUse
+          fn: |-
+            const boundArmamentId = this.getFlag("crucible", this.id);
+            const weapon = this.items.get(boundArmamentId);
+            if ( !weapon || weapon.equipped ) return false;
+            this.canEquipWeapon(weapon);
+        - hook: displayOnSheet
+          fn: |-
+            try {
+              this.hooks.canUse.call(this, action);
+              return true;
+            } catch(err) {
+              return false;
+            }
+        - hook: confirm
+          fn: debugger;
+      condition: ''
+      description: >-
+        <p>You call your bound armament back into your grasp. As long as you
+        have sufficient free hands to hold it, the weapon returns
+        instantaneously to you and is no longer <strong>Disarmed</strong>.</p>
+  runes:
+    - stasis
+  gestures:
+    - strike
+  inflections:
+    - pull
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749247011452
+  modifiedTime: 1749247939403
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!bindArmament0000'
