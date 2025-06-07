@@ -85,6 +85,14 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * Actor resources.
+   * @returns {Record<string, {value: number, max: number}>}
+   */
+  get resources() {
+    return this.system.resources;
+  }
+
+  /**
    * Is this actor currently "level zero"
    * @returns {boolean}
    */

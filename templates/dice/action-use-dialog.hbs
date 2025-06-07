@@ -3,6 +3,10 @@
         {{> "systems/crucible/templates/dice/partials/action-use-header.hbs"}}
     </div>
 
+    {{#if weaponChoice}}
+    {{formGroup weaponChoice.field value=weaponChoice.value}}
+    {{/if}}
+
     {{#if hasDice}}
     <section class="roller flexcol">
         {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}

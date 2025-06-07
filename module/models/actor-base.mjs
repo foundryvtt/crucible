@@ -837,7 +837,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       if ( ["strike", "reactiveStrike"].includes(ad.id) ) {
         if ( w.melee ) ad.tags.push("melee");
         if ( w.ranged ) ad.tags.push("ranged");
-        ad.tags.push(w.twoHanded ? "twohand" : "mainhand");
       }
 
       // Create the action

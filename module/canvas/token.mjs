@@ -178,6 +178,20 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  _getShiftedPosition(dx, dy, dz) {
+    if ( !canvas.scene.useMicrogrid ) return super._getShiftedPosition(dx, dy, dz);
+    const initial = {...this.getSnappedPosition(), elevation: this.document.elevation};
+    const offset = canvas.grid.getOffset(initial);
+    const size = this.actor?.size || this.width;
+    offset.i += (size * Math.sign(dy));
+    offset.j += (size * Math.sign(dx));
+    offset.k += (size * Math.sign(dz));
+    return canvas.grid.getTopLeftPoint(offset);
+  }
+
+  /* -------------------------------------------- */
   /*  Engagement and Flanking                     */
   /* -------------------------------------------- */
 
@@ -404,7 +418,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !canvas.scene.useMicrogrid ) return;
 
     // Flanking Updates
-    const flankingChange = ["x", "y", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
+    const flankingChange = ["x", "y", "elevation", "width", "height", "disposition", "actorId", "actorLink"].some(k => k in data);
     if ( flankingChange ) this.refreshFlanking();
   }
 

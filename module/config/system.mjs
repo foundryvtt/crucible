@@ -87,7 +87,8 @@ export const THREAT_LEVELS = {
  */
 export const ACTION_HOOKS = Object.freeze({
   prepare: {
-    argNames: []
+    argNames: [],
+    argLabels: []
   },
   displayOnSheet: {
     argNames: ["combatant"],

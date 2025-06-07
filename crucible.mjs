@@ -8,6 +8,8 @@
 // Configuration
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
+import {default as ACTION_HOOKS} from "./module/hooks/actions.mjs";
+import {default as TALENT_HOOKS} from "./module/hooks/talents.mjs";
 
 import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
@@ -30,13 +32,12 @@ import Enum from "./module/config/enum.mjs";
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
 
-const DEVELOPMENT_MODE = true;
-
 Hooks.once("init", async function() {
   console.log(`Initializing Crucible Game System`);
   const crucible = globalThis.crucible = game.system;
   crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
+  crucible.developmentMode = game.data.options.debug;
 
   // Expose the system API
   crucible.api = {
@@ -57,6 +58,10 @@ Hooks.once("init", async function() {
     talents: {
       CrucibleTalentNode,
       nodes: CrucibleTalentNode.nodes
+    },
+    hooks: {
+      actions: ACTION_HOOKS,
+      talents: TALENT_HOOKS
     }
   }
 
@@ -193,7 +198,7 @@ Hooks.once("init", async function() {
   // System Debugging Flags
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
-  if ( DEVELOPMENT_MODE ) registerDevelopmentHooks();
+  if ( crucible.developmentMode ) registerDevelopmentHooks();
 });
 
 /* -------------------------------------------- */

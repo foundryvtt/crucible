@@ -262,7 +262,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   getTags() {
     const tags = {};
     tags.level = `Level ${this.advancement.level}`;
-    tags.signatureName = this.details.signatureName || "Unspecialized";
+    if ( this.details.signatureName ) tags.signatureName = this.details.signatureName;
     return tags;
   }
 

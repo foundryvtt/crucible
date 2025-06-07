@@ -212,17 +212,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  _initializeSource(source, options) {
-    if ( "_hooks" in source ) {
-      this._hooks = source._hooks;
-      delete source._hooks;
-    }
-    return super._initializeSource(source, options);
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * One-time configuration of the CrucibleAction as part of construction.
    * @param {object} [options]            Options passed to the constructor context
@@ -247,6 +236,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     /**
      * Dice roll bonuses which modify the usage of this action.
+     * Usage data is *shared* across all clones of the same Action owned by a certain Actor.
      * This object is only initialized once and retained through future initialization workflows.
      * @type {ActionUsage}
      */
@@ -272,29 +262,47 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this._prepareData();
 
     /**
-     * Configured hook functions invoked by the action
-     * @type {Object<string, {fn: Function}[]>}
+     * Configured hook functions invoked by the action.
+     * @type {Readonly<Record<string, AsyncFunction|Function>>}
      */
     Object.defineProperty(this, "hooks", {
-      value: this.actionHooks.reduce((obj, {hook, fn}) => {
-        const config = SYSTEM.ACTION_HOOKS[hook];
-        const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
-        if ( config ) obj[hook] = new fnClass(...config.argNames, fn);
-        else console.warn(`Invalid Action hook "${hook}" defined by Action "${this.id}"`)
-        return obj;
-      }, {}),
-      writable: false,
+      value: CrucibleAction.#prepareHooks(this.id, this.actionHooks),
       configurable: true
     });
-    if ( this._hooks ) {
-      for ( const [hook, fn] of Object.entries(this._hooks) ) this.hooks[hook] = fn;
-    }
 
     // Prepare action for actor
     if ( this.actor ) {
       this.actor.prepareAction(this);
       this._prepare();
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Hook functions for this Action.
+   * @param {string[]} inlineHooks
+   * @returns {Record<string, AsyncFunction|Function>}
+   */
+  static #prepareHooks(actionId, inlineHooks) {
+    const hooks = {};
+
+    // Inline script hooks
+    for ( const {hook, fn} of inlineHooks ) {
+      const config = SYSTEM.ACTION_HOOKS[hook];
+      const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
+      if ( config ) hooks[hook] = new fnClass(...config.argNames, fn);
+      else console.warn(`Invalid Action hook "${hook}" defined by Action "${this.id}"`)
+    }
+
+    // Pre-configured module hooks
+    const cfg = crucible.api.hooks.actions[actionId];
+    if ( cfg ) {
+      for ( const hookName in SYSTEM.ACTION_HOOKS ) {
+        if ( cfg[hookName] instanceof Function ) hooks[hookName] = cfg[hookName];
+      }
+    }
+    return Object.freeze(hooks);
   }
 
   /* -------------------------------------------- */
@@ -311,17 +319,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( !this.description && this.parent ) this.description = this.parent.description.public;
     }
 
-    // Propagate tags
+    // Propagate and sort tags
+    const TAGS = SYSTEM.ACTION.TAGS;
     for ( const t of this.tags ) {
-      const tag = SYSTEM.ACTION.TAGS[t];
+      const tag = TAGS[t];
       if ( !tag ) {
         console.warn(`Unrecognized tag "${t}" in Action "${this.id}"`);
+        this.tags.delete(t);
         continue;
       }
       if ( tag.propagate ) {
         for ( const p of tag.propagate ) this.tags.add(p);
       }
     }
+    this.tags = new Set(Array.from(this.tags).sort((a, b) => TAGS[a].priority - TAGS[b].priority));
 
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
@@ -369,7 +380,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       performDeletions: true,
       inplace: true
     });
-    actionData._hooks = this._hooks;
     Object.assign(context, {parent: this.parent, actor: this.actor, usage: this.usage});
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
@@ -1071,6 +1081,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
+   * Does this Action require a weapon to be chosen before it can be used?
+   * @returns {boolean}
+   */
+  get allowWeaponChoice() {
+    if ( !this.actor ) return false;
+    const original = this.actor.actions[this.id];
+    if ( !original ) return false;
+    const {cost, tags} = original._source;
+    if ( !cost.weapon ) return false;
+    if ( !this.actor?.equipment.weapons.dualWield ) return false;
+    return !["mainhand", "offhand", "twohand"].some(t => tags.includes(t));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Obtain an object of tags which describe the Action.
    * @returns {ActionTags}
    */
@@ -1105,7 +1131,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cost
     const cost = this._trueCost || this.cost;
     let ap = cost.action ?? 0;
-    if ( cost.weapon && !this.actor ) {  // Un-owned actions which include weapon cost
+    if ( !this.usage.weapon ) {  // Weapon not yet determined
       if ( ap > 0 ) tags.activation.ap = `W+${ap}A`;
       else if ( ap < 0 ) tags.activation.ap = `W${ap}A`;
       else tags.activation.ap = "W";

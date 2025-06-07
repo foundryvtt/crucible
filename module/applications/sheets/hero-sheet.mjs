@@ -154,8 +154,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         }
         break;
       case "talent":
-        ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
-        return;
+        if ( !crucible.developmentMode ) {
+          ui.notifications.error("Talents can only be added to a protagonist Actor via the Talent Tree.");
+          return;
+        }
     }
     return super._onDropItem(event, item);
   }

@@ -1114,8 +1114,10 @@
     "ReloadTooltip": "This weapon requires reloading in order to strike. When the weapon is not loaded, any actions which use the weapon cost +1 Action Points.",
     "Reliable": "Reliable",
     "ReliableTooltip": "This weapon is trustworthy and almost never produces spectacularly bad outcomes. The critical failure threshold of the weapon is reduced by 2 making it less likely that unsuccessful Strikes yield a critical miss.",
+    "Returning": "Returning",
+    "ReturningTooltip": "This weapon is magically or mechanically engineered to return to your hand after being thrown. Using the Throw Weapon action with this weapon does not result in it becoming Dropped.",
     "Thrown": "Thrown",
-    "ThrownTooltip": "This weapon can be thrown, making a normal Strike up to a range of four spaces.",
+    "ThrownTooltip": "This weapon is designed to be suitable for throwing and does not suffer the Banes penalty that is usually applied to the Throw Weapon action.",
     "Versatile": "Versatile",
     "VersatileTooltip": "This weapon can be wielded with either one or two hands, and switched between these modes without any Action Point cost. While wielded in two hands, the weapon gains an additional +2 base damage but incurs 1 additional Action cost to Strike.",
     "DamageTooltip": "A shorthand representation of the offensive capabilities of this weapon, expressed as Attack Bonus / Damage Bonus / Damage Multiplier."

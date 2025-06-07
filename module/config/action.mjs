@@ -112,6 +112,7 @@ export const TARGET_TYPES = Object.freeze({
  * @property {string} tag
  * @property {string} label
  * @property {string[]} propagate     Propagate this tag to also apply other tags
+ * @property {number} [priority]      A priority that this tag should be resolved in. Lower values are higher priority
  * @property {Function} [prepare]
  * @property {Function} [can]
  * @property {Function} [pre]
@@ -250,34 +251,13 @@ export const TAGS = {
     }
   },
 
-  // Requires a Melee Weapon
-  melee: {
-    tag: "melee",
-    label: "ACTION.TagMelee",
-    tooltip: "ACTION.TagMeleeTooltip",
-    category: "requirements",
-    canUse(_targets) {
-      return this.actor.equipment.weapons.melee;
-    }
-  },
-
-  // Requires a Ranged Weapon
-  ranged: {
-    tag: "ranged",
-    label: "ACTION.TagRanged",
-    tooltip: "ACTION.TagRangedTooltip",
-    category: "requirements",
-    canUse(_targets) {
-      return this.actor.equipment.weapons.ranged;
-    }
-  },
-
   // Requires a Projectile Weapon
   projectile: {
     tag: "projectile",
     label: "ACTION.TagProjectile",
     tooltip: "ACTION.TagProjectileTooltip",
     category: "requirements",
+    propagate: ["ranged"],
     canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return oh.config.category.training === "projectile";
@@ -291,6 +271,7 @@ export const TAGS = {
     label: "ACTION.TagMechanical",
     tooltip: "ACTION.TagMechanicalTooltip",
     category: "requirements",
+    propagate: ["ranged"],
     canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return oh.config.category.training === "mechanical";
@@ -315,6 +296,7 @@ export const TAGS = {
     label: "ACTION.TagUnarmed",
     tooltip: "ACTION.TagUnarmedTooltip",
     category: "requirements",
+    propagate: ["melee"],
     canUse(_targets) {
       return this.actor.equipment.weapons.unarmed;
     }
@@ -561,7 +543,50 @@ export const TAGS = {
 
   attack: {
     tag: "attack",
-    category: "attack"
+    category: "attack",
+    priority: 0
+  },
+
+  // Requires a Melee Weapon
+  melee: {
+    tag: "melee",
+    label: "ACTION.TagMelee",
+    tooltip: "ACTION.TagMeleeTooltip",
+    category: "attack",
+    propagate: ["attack"],
+    priority: 1,
+    canUse(_targets) {
+      return this.actor.equipment.weapons.melee;
+    },
+    prepare() {
+      this.usage.weapon = undefined;      // Reset weapon
+      const weapons = this.actor.equipment.weapons;
+      if ( weapons.dualWield ) return;    // Allow choice
+      if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
+        this.tags.add("mainhand");        // Default to mainhand
+      }
+    }
+  },
+
+  // Requires a Ranged Weapon
+  ranged: {
+    tag: "ranged",
+    label: "ACTION.TagRanged",
+    tooltip: "ACTION.TagRangedTooltip",
+    category: "attack",
+    propagate: ["attack"],
+    priority: 1,
+    canUse(_targets) {
+      return this.actor.equipment.weapons.ranged;
+    },
+    prepare() {
+      this.usage.weapon = undefined;      // Reset weapon
+      const weapons = this.actor.equipment.weapons;
+      if ( weapons.dualWield ) return;    // Allow choice
+      if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
+        this.tags.add("mainhand");        // Default to mainhand
+      }
+    }
   },
 
   mainhand: {
@@ -570,6 +595,7 @@ export const TAGS = {
     tooltip: "ACTION.TagMainHandTooltip",
     category: "attack",
     propagate: ["attack"],
+    priority: 2,
     ...weaponAttack("mainhand")
   },
 
@@ -579,6 +605,7 @@ export const TAGS = {
     tooltip: "ACTION.TagTwoHandedTooltip",
     category: "attack",
     propagate: ["attack"],
+    priority: 2,
     ...weaponAttack("twoHanded")
   },
 
@@ -588,6 +615,7 @@ export const TAGS = {
     tooltip: "ACTION.TagOffHandTooltip",
     category: "attack",
     propagate: ["attack"],
+    priority: 2,
     ...weaponAttack("offhand")
   },
 
@@ -897,41 +925,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
       scope: 1
-    },
-    _hooks: {
-      canUse(_targets) {
-        if ( game.combat?.combatant?.actor !== this.actor ) {
-          throw new Error("You may only use the Delay action on your own turn in combat.");
-        }
-        if ( this.actor.flags.crucible?.delay ) {
-          throw new Error("You may not delay your turn again this combat round.");
-        }
-      },
-      displayOnSheet(combatant) {
-        if ( !combatant || this.actor.flags.crucible?.delay || (game.combat.combatant !== combatant) ) return false;
-        return game.combat.turn < (game.combat.turns.length - 1); // Not already last
-      },
-      async preActivate(targets) {
-        const combatant = game.combat.getCombatantByActor(this.actor);
-        const maximum = combatant.getDelayMaximum();
-        const response = await Dialog.prompt({
-          title: "Delay Turn",
-          content: `<form class="delay-turn" autocomplete="off">
-            <div class="form-group">
-                <label>Delayed Initiative</label>
-                <input name="initiative" type="number" min="1" max="${maximum}" step="1">
-                <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
-            </div>
-        </form>`,
-          label: "Delay",
-          callback: dialog => dialog.find(`input[name="initiative"]`)[0].valueAsNumber,
-          rejectClose: false
-        });
-        if ( response ) this.usage.initiativeDelay = response;
-      },
-      async confirm() {
-        return this.actor.delay(this.usage.initiativeDelay);
-      }
     }
   },
 
@@ -955,13 +948,26 @@ export const DEFAULT_ACTIONS = Object.freeze([
       scope: 3
     },
     tags: ["reaction"], // Added to in #prepareDefaultActions
-    _hooks: {
-      canUse(_targets) {
-        for ( const s of ["unaware", "flanked"] ) {
-          if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
-        }
-      }
-    }
+  },
+
+  // Throw Weapon
+  {
+    id: "throwWeapon",
+    name: "Throw Weapon",
+    img: "icons/skills/ranged/dagger-thrown-jeweled-green.webp",
+    description: "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> unless the weapon has the <strong>Thrown</strong> property. The weapon becomes <strong>Dropped</strong> unless the weapon has the <strong>Returning</strong> property.",
+    cost: {
+      weapon: true
+    },
+    range: {
+      maximum: 10
+    },
+    target: {
+      type: "single",
+      number: 1,
+      scope: 3
+    },
+    tags: ["melee"]
   },
 
   // Recover
@@ -978,18 +984,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0
     },
-    tags: ["noncombat"],
-    _hooks: {
-      canUse(_targets) {
-        if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
-      },
-      displayOnSheet(combatant) {
-        return !combatant;
-      },
-      async confirm() {
-        await this.actor.rest();
-      }
-    }
+    tags: ["noncombat"]
   },
 
   // Refocus
@@ -1004,14 +999,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     },
     cost: {
       action: 2
-    },
-    _hooks: {
-      async confirm() {
-        const self = this.outcomes.get(this.actor);
-        const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons
-        const talisman = ["talisman1", "talisman2"].includes(mh.system.category) ? mh : oh;
-        self.resources.focus = (self.resources.focus || 0) + talisman.system.config.category.hands;
-      }
     }
   },
 
@@ -1027,16 +1014,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     tags: ["reload"],
     target: {
       type: "self",
-    },
-    _hooks: {
-      prepare() {
-        const a = this.actor;
-        const {reloaded} = a.system.status;
-        if ( a.talentIds.has("pistoleer0000000") && !reloaded ) this.cost.action = 0;
-      },
-      async postActivate() {
-        this.usage.actorStatus.reloaded = true;
-      }
     }
   },
 
@@ -1045,7 +1022,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     id: "strike",
     name: "Strike",
     img: "icons/skills/melee/blade-tip-orange.webp",
-    description: "Attack a single target creature or object with your main-hand weapon.",
+    description: "Attack a single creature or object with one of your equipped weapon.",
     range: {
       weapon: true
     },
@@ -1057,13 +1034,6 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       action: 0,
       weapon: true
-    },
-    _hooks: {
-      async postActivate(outcome) {
-        if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
-          this.usage.actorStatus.basicStrike = true;
-        }
-      }
     }
   }
 ]);

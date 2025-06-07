@@ -66,6 +66,12 @@ export default class ActionUseDialog extends StandardCheckDialog {
    */
   targets;
 
+  /**
+   * The current weapon choice made by the user
+   * @type {""|"mainhand"|"offhand"}
+   */
+  #weaponChoice = "";
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -91,8 +97,21 @@ export default class ActionUseDialog extends StandardCheckDialog {
       hasDice: this.action.usage.hasDice ?? false,
       hasTargets: !["self", "none"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,
+      weaponChoice: this.#prepareWeaponChoice(),
       targets: this.#prepareTargets()
     });
+  }
+
+  /* -------------------------------------------- */
+
+  #prepareWeaponChoice() {
+    if ( !this.action.allowWeaponChoice ) return null;
+    const weapon = new foundry.data.fields.StringField({blank: true, required: true, initial: "", choices: {
+      mainhand: SYSTEM.WEAPON.SLOTS.labels.MAINHAND,
+      offhand: SYSTEM.WEAPON.SLOTS.labels.OFFHAND
+    }, label: "Weapon", hint: "You may choose which weapon to use for this Action."});
+    weapon.name = "weapon";
+    return {field: weapon, value: this.#weaponChoice};
   }
 
   /* -------------------------------------------- */
@@ -123,6 +142,23 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
+    if ( event.target.name === "weapon" ) {
+      const tags = new Set(this.action._source.tags);
+      tags.delete("mainhand");
+      tags.delete("offhand");
+      tags.delete("twohand");
+      this.#weaponChoice = event.target.value;
+      if ( event.target.value ) tags.add(this.#weaponChoice);
+      this.action.updateSource({tags});
+      this.render();
+    }
+  }
+
   /* -------------------------------------------- */
 
   /**

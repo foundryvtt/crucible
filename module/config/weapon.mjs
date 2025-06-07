@@ -316,6 +316,10 @@ export const PROPERTIES = {
     label: "WEAPON.TAGS.Reliable",
     tooltip: "WEAPON.TAGS.ReliableTooltip"
   },
+  returning: {
+    label: "WEAPON.TAGS.Returning",
+    tooltip: "WEAPON.TAGS.ReturningTooltip"
+  },
   thrown: {
     label: "WEAPON.TAGS.Thrown",
     tooltip: "WEAPON.TAGS.ThrownTooltip"
