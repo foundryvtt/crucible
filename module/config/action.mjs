@@ -236,7 +236,7 @@ export const TAGS = {
     tooltip: "ACTION.TagFinesseTooltip",
     category: "requirements",
     canUse(_targets) {
-      return this.actor.equipment.weapons.mainhand.config.category.scaling.includes("dexterity");
+      return this.usage.weapon.config.category.scaling.includes("dexterity");
     }
   },
 
@@ -246,8 +246,9 @@ export const TAGS = {
     label: "ACTION.TagBrute",
     tooltip: "ACTION.TagBruteTooltip",
     category: "requirements",
+    priority: 5,
     canUse(_targets) {
-      return this.actor.equipment.weapons.mainhand.config.category.scaling.includes("strength");
+      return this.usage.weapon.config.category.scaling.includes("strength");
     }
   },
 

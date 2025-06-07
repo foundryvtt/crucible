@@ -341,7 +341,7 @@ Hooks.once("ready", async function() {
 /*  Rendering Hooks                             */
 /* -------------------------------------------- */
 
-Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("getChatMessageContextOptions", chat.addChatMessageContextOptions);
 Hooks.on("createChatMessage", chat.onCreateChatMessage);
 Hooks.on("renderChatMessageHTML", chat.renderChatMessageHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);

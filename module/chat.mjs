@@ -9,13 +9,13 @@ export function addChatMessageContextOptions(html, options)  {
     name: game.i18n.localize("DICE.SetDifficulty"),
     icon: '<i class="fas fa-bullseye"></i>',
     condition: li => {
-      const message = game.messages.get(li.data("messageId"));
+      const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return message.isRoll && flags.skill;
     },
     callback: li => {
-      const message = game.messages.get(li.data("messageId"));
-      Dialog.prompt({
+      const message = game.messages.get(li.dataset.messageId);
+      Dialog.prompt({ // TODO refactor DialogV2
         title: game.i18n.localize("DICE.SetDifficulty"),
         content: `<form><div class="form-group"><label>DC Target</label><input type="text" name="dc" value="15" data-dtype="Number"/></div></form>`,
         callback: html => {
@@ -33,12 +33,12 @@ export function addChatMessageContextOptions(html, options)  {
     name: game.i18n.localize("DICE.Confirm"),
     icon: '<i class="fas fa-hexagon-check"></i>',
     condition: li => {
-      const message = game.messages.get(li.data("messageId"));
+      const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && !flags.confirmed;
     },
     callback: async li => {
-      const message = game.messages.get(li.data("messageId"));
+      const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirm(message);
     }
   });
@@ -48,12 +48,12 @@ export function addChatMessageContextOptions(html, options)  {
     name: game.i18n.localize("DICE.Reverse"),
     icon: '<i class="fas fa-hexagon-xmark"></i>',
     condition: li => {
-      const message = game.messages.get(li.data("messageId"));
+      const message = game.messages.get(li.dataset.messageId);
       const flags = message.flags.crucible || {};
       return flags.action && flags.confirmed;
     },
     callback: async li => {
-      const message = game.messages.get(li.data("messageId"));
+      const message = game.messages.get(li.dataset.messageId);
       return CrucibleAction.confirm(message, {reverse: true});
     }
   });
