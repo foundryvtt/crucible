@@ -1,0 +1,18 @@
+type: Item
+folder: i7P1uwWcECj5KWfY
+name: General
+color: null
+sorting: a
+_id: k2H23tobHffCMQCj
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  lastModifiedBy: null
+_key: '!folders!k2H23tobHffCMQCj'

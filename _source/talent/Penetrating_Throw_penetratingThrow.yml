@@ -1,0 +1,61 @@
+name: Penetrating Throw
+type: talent
+img: icons/skills/ranged/shuriken-thrown-yellow.webp
+system:
+  nodes:
+    - str3b
+  description: >-
+    <p>You can hurl your weapon with such ferocity that it strikes all targets
+    in a direct line.</p>
+  actions:
+    - id: penetratingThrow
+      name: Penetrating Throw
+      img: icons/skills/ranged/shuriken-thrown-yellow.webp
+      condition: ''
+      description: >-
+        <p>You perform a <strong>Throw</strong> weapon strike which penetrates
+        to hit all enemies in a straight line.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: ray
+        number: 1
+        scope: 4
+      effects: []
+      tags:
+        - throw
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: YsZBvUcG9Oj4CH5Q
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749330068831
+  modifiedTime: 1749330068831
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: penetratingThrow
+sort: 0
+_key: '!items!penetratingThrow'

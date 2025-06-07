@@ -432,6 +432,8 @@
 "ACTION.TagSkillTooltip": "This action involves a targeted or opposed Skill check.",
 "ACTION.TagSummon": "Summon",
 "ACTION.TagSummonTooltip": "This action summons, calls, or otherwise creates a combatant which joins the encounter.",
+"ACTION.TagThrow": "Thrown",
+"ACTION.TagThrowTooltip": "This action involves performing a thrown weapon attack.",
 "ACTION.TagTwoHanded": "Two-Handed",
 "ACTION.TagTwoHandedTooltip": "This action requires wielding a two-handed weapon to perform.",
 "ACTION.TagOffHand": "Off-Hand",

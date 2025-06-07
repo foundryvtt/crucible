@@ -16,4 +16,14 @@ TALENT_HOOKS.bloodmagic000000 = {
 
 /* -------------------------------------------- */
 
+TALENT_HOOKS.powerfulThrow000 = {
+  prepareAction(actor, action) {
+    if ( action.tags.has("throw") ) {
+      action.range.maximum *= 2;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 export default TALENT_HOOKS;

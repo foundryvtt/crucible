@@ -1,0 +1,18 @@
+type: Item
+folder: i7P1uwWcECj5KWfY
+name: Thrown
+color: null
+sorting: a
+_id: YsZBvUcG9Oj4CH5Q
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  lastModifiedBy: null
+_key: '!folders!YsZBvUcG9Oj4CH5Q'

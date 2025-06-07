@@ -1,0 +1,18 @@
+type: Item
+folder: i7P1uwWcECj5KWfY
+name: Two-Handed
+color: null
+sorting: a
+_id: 2nepH1RWurpMYAjw
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  lastModifiedBy: null
+_key: '!folders!2nepH1RWurpMYAjw'

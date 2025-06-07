@@ -124,14 +124,4 @@ ACTION_HOOKS.strike = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.throwWeapon = {
-  prepare() {
-    const w = this.usage.weapon;
-    if ( !w ) return;
-    if ( !w.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2}
-  }
-}
-
-/* -------------------------------------------- */
-
 export default ACTION_HOOKS;

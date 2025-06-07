@@ -620,6 +620,25 @@ export const TAGS = {
     ...weaponAttack("offhand")
   },
 
+  throw: {
+    tag: "throw",
+    label: "ACTION.TagThrow",
+    tooltip: "ACTION.TagThrowTooltip",
+    category: "attack",
+    propagate: ["melee"],
+    canUse() {
+      if ( this.actor.equipment.weapons.unarmed ) {
+        throw new Error(`You must have an equipped weapon to throw.`);
+      }
+    },
+    prepare() {
+      this.range.maximum = 10;
+      const w = this.usage.weapon;
+      if ( !w ) return;
+      if ( !w.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2}
+    }
+  },
+
   /* -------------------------------------------- */
   /*  Ranged Attacks                              */
   /* -------------------------------------------- */
@@ -960,15 +979,12 @@ export const DEFAULT_ACTIONS = Object.freeze([
     cost: {
       weapon: true
     },
-    range: {
-      maximum: 10
-    },
     target: {
       type: "single",
       number: 1,
       scope: 3
     },
-    tags: ["melee"]
+    tags: ["throw"]
   },
 
   // Recover

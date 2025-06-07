@@ -36,8 +36,8 @@ system:
         minimum: null
       actionHooks: []
 effects: []
-folder: i7P1uwWcECj5KWfY
-sort: 37500
+folder: k2H23tobHffCMQCj
+sort: 200000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -47,8 +47,8 @@ _stats:
   systemVersion: 0.7.2
   coreVersion: '13.345'
   createdTime: 1687616511078
-  modifiedTime: 1749320182558
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1749329302327
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
