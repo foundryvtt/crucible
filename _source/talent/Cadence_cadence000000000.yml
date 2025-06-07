@@ -26,6 +26,8 @@ system:
 
         if ( status.cadence ) rollData.boons.cadence = {label: "Cadence",
         number: status.cadence};
+  nodes:
+    - str2c
 effects: []
 ownership:
   default: 0
@@ -34,11 +36,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1677208371269
-  modifiedTime: 1747840755794
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749310581139
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.cadence000000000
   duplicateSource: null
   exportSource: null

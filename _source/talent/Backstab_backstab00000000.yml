@@ -19,9 +19,9 @@ system:
         damage.</p>
       tags:
         - finesse
-        - melee
         - flanking
-        - mainhand
+        - attack
+        - melee
         - deadly
       cost:
         action: 0
@@ -42,11 +42,11 @@ system:
         minimum: null
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420011
-  modifiedTime: 1726971509688
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319765303
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
   exportSource: null

@@ -50,15 +50,17 @@ system:
         weapon: true
         minimum: null
   requirements: {}
+  nodes:
+    - str4b
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1675011742969
-  modifiedTime: 1727320533169
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749311737208
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

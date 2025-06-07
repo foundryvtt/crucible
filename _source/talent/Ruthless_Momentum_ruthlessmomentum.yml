@@ -6,11 +6,9 @@ effects: []
 flags:
   core: {}
 system:
-  node: toustr1
   description: >-
-    You relish the carnage you can cause with a two-handed weapon. After
-    defeating a foe, you continue your attack with ruthless momentum, moving to
-    strike another enemy at reduced cost.
+    <p>You relish the carnage you can cause in combat and continue to press the
+    fray as each enemy falls.</p>
   actions:
     - id: ruthlessMomentum
       name: Ruthless Momentum
@@ -34,28 +32,32 @@ system:
         scope: 3
       effects: []
       tags:
-        - melee
         - movement
-        - twohand
-      actionHooks:
-        - hook: prepare
-          fn: |-
-            if ( this.actor ) {
-              this.range.maximum = this.actor.system.movement.stride;
-            }
+        - attack
+        - melee
+      actionHooks: []
+  nodes:
+    - str1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
-  createdTime: 1674942420011
-  modifiedTime: 1727321351530
-  lastModifiedBy: AnoypGxxNIMOS0XY
-  compendiumSource: Item.pHRUZ8Zfv5E0TcH2
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
+  modifiedTime: 1749320089452
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+  compendiumSource: null
   duplicateSource: null
   exportSource: null
 folder: MqZKCMx5KrZQffGU
 sort: -300000
 ownership:
   default: 0
-  AnoypGxxNIMOS0XY: 3
+  QvBFYpRRXHRBcOfP: 3
 _key: '!items!ruthlessmomentum'

@@ -10,9 +10,9 @@ system:
   actions:
     - id: penetratingShot
       tags:
-        - ranged
         - mechanical
-        - mainhand
+        - attack
+        - ranged
         - weakened
       cost:
         action: 1
@@ -44,11 +44,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1687616511078
-  modifiedTime: 1747841433476
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320182558
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

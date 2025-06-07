@@ -20,9 +20,10 @@ system:
         target for 3 rounds. This attack is <strong>Difficult</strong> to
         perform and deals reduced damage.</p>
       tags:
+        - attack
         - melee
-        - mainhand
         - difficult
+        - brute
       cost:
         action: 0
         focus: 1
@@ -45,13 +46,15 @@ system:
         weapon: true
         minimum: null
   requirements: {}
+  nodes:
+    - str3a
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420034
-  modifiedTime: 1727028679201
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319986662
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null
   exportSource: null

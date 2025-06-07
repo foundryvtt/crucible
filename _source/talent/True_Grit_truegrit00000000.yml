@@ -12,6 +12,8 @@ system:
   actorHooks:
     - hook: prepareMovement
       fn: movement.engagement += 1;
+  nodes:
+    - tou1b
 effects: []
 folder: aB808IWOdgwmFCIF
 sort: 275000
@@ -21,11 +23,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1685824842320
-  modifiedTime: 1685825489875
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749311233289
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

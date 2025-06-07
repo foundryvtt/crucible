@@ -5,8 +5,8 @@ img: icons/magic/movement/portal-vortex-orange.webp
 system:
   node: toustr1
   description: >-
-    You leap powerfully into battle to deliver a punishing blow to a nearby
-    enemy.
+    <p>You leap powerfully into battle to deliver a punishing blow to a nearby
+    enemy with your mainhand weapon.</p>
   actions:
     - id: ferociousLeap
       description: >-
@@ -36,15 +36,17 @@ system:
         minimum: 4
       actionHooks: []
   requirements: {}
+  nodes:
+    - str3b
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674960403832
-  modifiedTime: 1727404644650
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320104571
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

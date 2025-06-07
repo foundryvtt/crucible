@@ -33,16 +33,18 @@ system:
         scope: 3
       effects: []
       tags:
+        - attack
         - ranged
         - difficult
+        - twohand
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420029
-  modifiedTime: 1747842083241
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320148389
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

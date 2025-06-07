@@ -19,8 +19,9 @@ system:
         you may expend <strong>Focus</strong> to retaliate with a reduced-cost
         <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
-        - melee
         - reaction
+        - attack
+        - melee
         - mainhand
       cost:
         action: -1
@@ -40,11 +41,11 @@ system:
   actorHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420025
-  modifiedTime: 1747841226422
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319647645
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.counterstrike000
   duplicateSource: null
   exportSource: null

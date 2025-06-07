@@ -14,8 +14,8 @@ system:
         <strong>Radiant</strong>.</p>
       tags:
         - brute
+        - attack
         - melee
-        - mainhand
         - deadly
         - radiant
       cost:
@@ -40,11 +40,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674952856305
-  modifiedTime: 1742939493032
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320004925
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

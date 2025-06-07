@@ -37,15 +37,17 @@ system:
           statuses:
             - restrained
   actorHooks: []
+  nodes:
+    - tou1a
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1675009069301
-  modifiedTime: 1747840825490
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749311250370
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

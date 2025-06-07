@@ -16,8 +16,8 @@ system:
         current position nor does this attack provoke any Disengagement.</p>
       tags:
         - finesse
+        - attack
         - melee
-        - mainhand
         - difficult
       cost:
         action: 0
@@ -45,11 +45,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1677376322131
-  modifiedTime: 1747841463975
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319778093
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.lunge00000000000
   duplicateSource: null
   exportSource: null

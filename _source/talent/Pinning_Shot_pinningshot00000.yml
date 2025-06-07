@@ -15,8 +15,8 @@ system:
         <strong>Difficult</strong>, however if your target is it it becomes
         <strong>Restrained</strong> until the end of their next Turn.</p>
       tags:
+        - attack
         - ranged
-        - mainhand
         - difficult
       cost:
         action: 0
@@ -45,11 +45,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674962141351
-  modifiedTime: 1747842146508
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320191749
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

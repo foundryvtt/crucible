@@ -8,10 +8,11 @@ system:
   actions:
     - id: twinnedShot
       tags:
-        - ranged
         - projectile
-        - mainhand
+        - attack
+        - ranged
         - difficult
+        - twohand
       cost:
         action: 1
         focus: 0
@@ -44,11 +45,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1687615283427
-  modifiedTime: 1747841484202
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320263716
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

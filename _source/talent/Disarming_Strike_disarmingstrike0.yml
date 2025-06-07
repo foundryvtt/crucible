@@ -22,8 +22,8 @@ system:
         that is not secured.</p><p><strong>TODO: Add automation for the Disarm
         effect.</strong></p>
       tags:
+        - attack
         - melee
-        - mainhand
         - difficult
         - weakened
         - reflex
@@ -44,14 +44,14 @@ system:
         minimum: null
   requirements: {}
   nodes:
-    - str2a
+    - str3a
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420033
-  modifiedTime: 1748552072209
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319804195
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

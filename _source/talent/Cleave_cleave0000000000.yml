@@ -38,13 +38,15 @@ system:
         minimum: null
       actionHooks: []
   actorHooks: []
+  nodes:
+    - str2a
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420032
-  modifiedTime: 1747840738150
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749310463124
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.pHRUZ8Zfv5E0TcH2
   duplicateSource: null
   exportSource: null

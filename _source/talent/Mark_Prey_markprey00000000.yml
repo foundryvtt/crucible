@@ -12,8 +12,8 @@ system:
         <p>You Strike using a special shot. If your attack is successful the
         target is <strong>Exposed</strong> for the next 3 Turns.</p>
       tags:
+        - attack
         - ranged
-        - mainhand
         - difficult
         - harmless
       cost:
@@ -45,11 +45,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674962663358
-  modifiedTime: 1747841806784
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320170107
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.markprey00000000
   duplicateSource: null
   exportSource: null

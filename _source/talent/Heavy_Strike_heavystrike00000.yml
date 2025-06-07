@@ -14,6 +14,7 @@ system:
         weapon. The attack is slower to execute, but is
         <strong>Empowered</strong> to deliver additional damage.</p>
       tags:
+        - attack
         - melee
         - mainhand
         - empowered
@@ -42,11 +43,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1677372287118
-  modifiedTime: 1747840751533
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319829504
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.heavystrike00000
   duplicateSource: null
   exportSource: null

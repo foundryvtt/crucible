@@ -30,8 +30,8 @@ system:
         scope: 3
       effects: []
       tags:
+        - attack
         - ranged
-        - mainhand
       actionHooks:
         - hook: roll
           fn: >-
@@ -48,11 +48,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1688235930869
-  modifiedTime: 1727321697271
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320225274
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

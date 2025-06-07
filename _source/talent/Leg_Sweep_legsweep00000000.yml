@@ -4,8 +4,8 @@ img: icons/skills/melee/strike-sword-slashing-red.webp
 system:
   node: str1b
   description: >-
-    <p>You use a heavy weapon to sweep your enemy off balance, swinging low to
-    knock them from their feet.</p>
+    <p>You use a weapon which scales using <strong>Strength </strong>to sweep
+    your enemy off balance, swinging low to knock them from their feet.</p>
   actions:
     - id: legSweep
       condition: ''
@@ -16,8 +16,8 @@ system:
         <strong>Prone</strong>.</p>
       tags:
         - brute
+        - attack
         - melee
-        - mainhand
         - difficult
         - weakened
       cost:
@@ -30,12 +30,12 @@ system:
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Leg Sweep
           scope: 3
-          duration:
-            turns: null
           statuses:
             - prone
+          duration:
+            turns: null
       name: Leg Sweep
       img: icons/skills/melee/strike-sword-slashing-red.webp
       actionHooks: []
@@ -52,11 +52,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1677373689894
-  modifiedTime: 1747840761594
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749319962132
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.legsweep00000000
   duplicateSource: null
   exportSource: null

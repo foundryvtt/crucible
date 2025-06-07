@@ -44,13 +44,15 @@ system:
         weapon: false
         minimum: null
   actorHooks: []
+  nodes:
+    - toustr2
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420012
-  modifiedTime: 1727301499929
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749311061728
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

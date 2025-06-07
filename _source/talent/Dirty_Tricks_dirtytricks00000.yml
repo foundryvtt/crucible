@@ -9,45 +9,49 @@ system:
   actions:
     - id: dirtyTricks
       description: >-
-        You fling debris into the eyes of an enemy. If the Strike is successful,
-        they are Blinded until the end of their next Turn.
+        <p>You fling debris into the eyes of an enemy. If the Strike is
+        successful, they are Blinded until the end of their next Turn.</p>
       tags:
         - freehand
+        - attack
         - harmless
         - reflex
+        - skill
         - deception
       cost:
         action: 3
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: single
         number: 1
         scope: 3
       effects:
-        - name: ''
+        - name: Dirty Tricks
           scope: 3
-          duration:
-            turns: null
           statuses:
             - blinded
-      name: ''
-      img: null
+          duration:
+            turns: null
+      name: Dirty Tricks
+      img: icons/magic/earth/projectile-boulder-dust.webp
       condition: ''
       range:
         maximum: 4
         weapon: false
+        minimum: null
       actionHooks: []
 effects: []
 flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.9
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674963544371
-  modifiedTime: 1696556312156
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320033331
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.dirtytricks00000
   duplicateSource: null
   exportSource: null

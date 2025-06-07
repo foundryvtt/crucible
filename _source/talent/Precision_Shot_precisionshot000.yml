@@ -14,8 +14,8 @@ system:
       condition: ''
       description: <p>You steady your aim and fire a single accurate shot.</p>
       tags:
+        - attack
         - ranged
-        - mainhand
         - deadly
         - accurate
       cost:
@@ -37,11 +37,11 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420026
-  modifiedTime: 1747841473381
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749320204723
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
