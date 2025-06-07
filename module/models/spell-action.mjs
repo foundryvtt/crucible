@@ -166,16 +166,10 @@ export default class CrucibleSpellAction extends CrucibleAction {
       this.cost.action += (w?.system.actionCost || 0);
     }
 
-    // Blood Magic
-    if ( this.actor.talentIds.has("bloodmagic000000") ) {
-      this.cost.health = (this.cost.focus * 10);
-      this.cost.focus = 0;
-    }
-
     // Zero cost for un-composed spells
     this._trueCost = {...this.cost};
     if ( this.composition !== CrucibleSpellAction.COMPOSITION_STATES.COMPOSED ) {
-      this.cost.action = this.cost.focus = 0;
+      this.cost.action = this.cost.focus = this.cost.health = 0;
     }
   }
 
@@ -237,7 +231,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
       /*  Gesture: Strike                             */
       /* -------------------------------------------- */
       case "strike":
-        this.tags.add("melee");
         this.scaling = new Set(mh.config.category.scaling.split("."));
         this.damage.bonus = mh.system.damage.bonus;
 

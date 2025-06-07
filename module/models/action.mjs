@@ -932,6 +932,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
     }
+    this.actor.callActorHooks("prepareAction", this);
   }
 
   /* -------------------------------------------- */
@@ -1131,7 +1132,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cost
     const cost = this._trueCost || this.cost;
     let ap = cost.action ?? 0;
-    if ( !this.usage.weapon ) {  // Weapon not yet determined
+    if ( this.cost.weapon && !this.usage.weapon ) {  // Weapon not yet determined
       if ( ap > 0 ) tags.activation.ap = `W+${ap}A`;
       else if ( ap < 0 ) tags.activation.ap = `W${ap}A`;
       else tags.activation.ap = "W";

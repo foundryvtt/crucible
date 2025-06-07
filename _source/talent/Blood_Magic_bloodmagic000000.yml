@@ -6,20 +6,25 @@ system:
   node: str2c
   description: >-
     <p>You rely upon occult techniques to transform physical pain into arcane
-    potential. You cast spells by spending Health instead of Focus. When casting
-    a spell each point of Focus costs 10 points of Health.</p>
+    potential. </p><p>You cast spells by spending <strong>Health</strong>
+    instead of <strong>Focus</strong>. When casting a spell each point of Focus
+    costs 10 points of Health instead. Spells you cast cannot restore your own
+    <strong>Health</strong>.</p>
   actions: []
   requirements: {}
   nodes:
     - str2b
+  actorHooks:
+    - hook: preActivateAction
+      fn: // Hook code here
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674957908610
-  modifiedTime: 1748551927422
+  modifiedTime: 1749326873828
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

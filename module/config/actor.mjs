@@ -74,6 +74,10 @@ export const TRAVEL_PACES = freezeEnum({
 export const HOOKS = Object.freeze({
 
   // Action Usage
+  prepareAction: {
+    group: "TALENT.HOOKS.GROUP_ACTION",
+    argNames: ["action"]
+  },
   preActivateAction: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "targets"]

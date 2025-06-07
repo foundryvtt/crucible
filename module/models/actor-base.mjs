@@ -338,6 +338,12 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
       // Register hooks
       for ( const hook of actorHooks ) this._registerActorHook(t, hook);
+      const cfg = crucible.api.hooks.talents[t.id];
+      if ( cfg ) {
+        for ( const [hook, fn] of Object.entries(cfg) ) {
+          if ( hook in SYSTEM.ACTOR.HOOKS ) this._registerActorHook(t, {hook, fn});
+        }
+      }
 
       // Register nodes
       for ( const node of nodes ) {
@@ -864,16 +870,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Register a hooked function declared by a Talent item.
-   * @param {CrucibleItem} talent   The Talent registering the hook
-   * @param {object} data           Registered hook data
-   * @param {string} data.hook        The hook name
-   * @param {string} data.fn          The hook function
+   * @param {CrucibleItem} talent       The Talent registering the hook
+   * @param {object} data               Registered hook data
+   * @param {string} data.hook          The hook name
+   * @param {string|Function} data.fn   The hook function
    * @internal
    */
   _registerActorHook(talent, {hook, fn}={}) {
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
     this.actorHooks[hook] ||= [];
-    this.actorHooks[hook].push({talent, fn: new Function("actor", ...hookConfig.argNames, fn)});
+    if ( typeof fn === "string" ) fn = new Function("actor", ...hookConfig.argNames, fn);
+    if ( !(fn instanceof Function) ) throw new Error(`Hook "${hook}" is not a function.`);
+    this.actorHooks[hook].push({talent, fn});
   }
 }
