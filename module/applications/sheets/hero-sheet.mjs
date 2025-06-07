@@ -85,12 +85,10 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
         return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, -1);
       case "abilityIncrease":
         return this.actor.purchaseAbility(target.closest(".ability").dataset.ability, 1);
-      case "skillRoll":
-        return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
       case "talentTree":
         return this.actor.toggleTalentTree();
-      // case "talentReset":
-      //   return this.actor.resetTalents();
+      case "talentReset":
+        return this.actor.resetTalents();
     }
   }
 

@@ -24,7 +24,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectCreate: CrucibleBaseActorSheet.#onEffectCreate,
       effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
-      effectToggle: CrucibleBaseActorSheet.#onEffectToggle
+      effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
+      skillRoll: CrucibleBaseActorSheet.#onSkillRoll
     },
     form: {
       submitOnChange: true
@@ -892,6 +893,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #getEventEffect(event) {
     const effectId = event.target.closest(".effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onSkillRoll(event) {
+    return this.actor.rollSkill(event.target.closest(".skill").dataset.skill, {dialog: true});
   }
 
   /* -------------------------------------------- */

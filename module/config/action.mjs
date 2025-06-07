@@ -956,7 +956,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     id: "throwWeapon",
     name: "Throw Weapon",
     img: "icons/skills/ranged/dagger-thrown-jeweled-green.webp",
-    description: "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> unless the weapon has the <strong>Thrown</strong> property. The weapon becomes <strong>Dropped</strong> unless the weapon has the <strong>Returning</strong> property.",
+    description: "Throw your equipped melee weapon to Strike at a nearby target. The attack suffers from +2 <strong>Banes</strong> and weapon becomes <strong>Dropped</strong>.",
     cost: {
       weapon: true
     },
