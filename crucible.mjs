@@ -327,9 +327,11 @@ Hooks.once("ready", async function() {
   const welcome = game.settings.get("crucible", "welcome");
   if ( !welcome ) {
     const entry = await fromUuid("Compendium.crucible.rules.JournalEntry.5SgXrAKS2EnqVggJ");
-    entry.sheet.render(true);
-    game.settings.set("crucible", "welcome", true);
+    await entry.sheet.render({force: true});
+    await game.settings.set("crucible", "welcome", true);
+    await _initializePrototypeTokenSettings();
   }
+
   // FIXME bring this back with a migration version
   // if ( game.user === game.users.activeGM ) await syncTalents();
 
@@ -337,6 +339,32 @@ Hooks.once("ready", async function() {
   document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
 });
 
+/* -------------------------------------------- */
+
+/**
+ * One time initialization of prototype token override preferences.
+ * @returns {Promise<void>}
+ */
+async function _initializePrototypeTokenSettings() {
+  const overrides = game.settings.get("core", foundry.data.PrototypeTokenOverrides.SETTING);
+  overrides.updateSource({
+    hero: {
+      displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      sight: {
+        enabled: true
+      }
+    },
+    adversary: {
+      displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      sight: {
+        enabled: false
+      }
+    }
+  });
+  await game.settings.set("core", foundry.data.PrototypeTokenOverrides.SETTING, overrides.toObject());
+}
 
 /* -------------------------------------------- */
 /*  Rendering Hooks                             */
