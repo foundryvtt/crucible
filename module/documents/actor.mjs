@@ -1490,12 +1490,14 @@ export default class CrucibleActor extends Actor {
    * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
    * @param {object} [options]    Options which configure how the weapon is equipped.
    * @param {number} [options.slot]       A specific equipment slot in SYSTEM.WEAPON.SLOTS
+   * @param {boolean} [options.dropped]   Has the weapon been dropped?
    * @param {boolean} [options.equipped]  Whether the weapon should be equipped (true) or unequipped (false)
    * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
    */
-  async equipWeapon(itemId, {slot, equipped=true}={}) {
+  async equipWeapon(itemId, {slot, dropped=false, equipped=true}={}) {
+    if ( dropped ) equipped = false;
     const weapon = this.items.get(itemId, {strict: true});
-    const action = equipped ? this.#equipWeapon(weapon, slot) : this.#unequipWeapon(weapon);
+    const action = equipped ? this.#equipWeapon(weapon, slot) : this.#unequipWeapon(weapon, dropped);
     // If in combat, use the action
     if ( this.inCombat ) await action.use();
     // Otherwise make the updates directly
@@ -1505,29 +1507,34 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Identify updates which should be made when un-equipping a weapon.
+   * Perform an action to un-equip or drop a weapon.
    * @param {CrucibleItem} [weapon]     A weapon being unequipped
+   * @param {boolean} [dropped]         Has the weapon been dropped?
    * @returns {CrucibleAction|null}
    */
-  #unequipWeapon(weapon) {
+  #unequipWeapon(weapon, dropped) {
     if ( !weapon.system.equipped ) return null;
+    let ap = dropped ? 0 : 1;
+    if ( weapon.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
     const action = new CrucibleAction({
       id: "equipWeapon",
-      name: "Unequip Weapon",
+      name: dropped ? "Drop Weapon" : "Unequip Weapon",
       img: weapon.img,
-      cost: {action: 0},
-      description: `Unequip the ${weapon.name}.`,
+      cost: {action: ap},
+      description: `${dropped ? "Drop" : "Un-equip"} the ${weapon.name}.`,
       target: {type: "self", scope: 1}
     }, {actor: this});
     Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
-    Object.assign(action.usage.actorUpdates, {items: [{_id: weapon.id, "system.equipped": false}]});
+    const update = {_id: weapon.id, system: {equipped: false}};
+    if ( dropped ) update.system.dropped = true;
+    Object.assign(action.usage.actorUpdates, {items: [update]});
     return action;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Identify updates which should be made when equipping a weapon.
+   * Perform an action to equip or recover a weapon.
    * @param {CrucibleItem} weapon     A weapon being equipped
    * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
    * @returns {CrucibleAction|null}
@@ -1535,20 +1542,25 @@ export default class CrucibleActor extends Actor {
   #equipWeapon(weapon, slot) {
     slot = this.canEquipWeapon(weapon, slot);
 
+    // Equip cost
+    let ap = 1;
+    if ( !weapon.system.dropped && weapon.system.properties.has("ambush") ) ap -= 1;
+
     // Create the action
     const action = new CrucibleAction({
       id: "equipWeapon",
-      name: "Equip Weapon",
+      name: weapon.system.dropped ? "Recover Weapon" : "Equip Weapon",
       img: weapon.img,
-      cost: {action: weapon.system.properties.has("ambush") ? 0 : 1},
-      description: `Equip the ${weapon.name}.`,
-      target: {type: "self", scope: 1}
+      cost: {action: ap},
+      description: `${weapon.system.dropped ? "Recover the dropped" : "Equip the"} ${weapon.name}.`,
+      target: {type: "self", scope: 1},
+      tags: ["freehand"]
     }, {actor: this});
 
     // Equip the weapon as a follow-up actor update
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
-    action.usage.actorUpdates.items.push({_id: weapon.id, "system.equipped": true, "system.slot": slot});
+    action.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: false, equipped: true, slot}});
     return action;
   }
 

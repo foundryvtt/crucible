@@ -27,6 +27,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const fields = foundry.data.fields;
     return foundry.utils.mergeObject(super.defineSchema(), {
       damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
+      dropped: new fields.BooleanField({required: true, initial: false}),
       loaded: new fields.BooleanField({required: false, initial: undefined}),
       slot: new fields.NumberField({required: true, choices: () => SYSTEM.WEAPON.SLOTS.choices, initial: 0}),
       animation: new fields.StringField({required: false, choices: SYSTEM.WEAPON.ANIMATION_TYPES, initial: undefined})
@@ -97,6 +98,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     this.rarity = quality.rarity + enchantment.rarity;
 
     // Equipment Slot
+    if ( this.dropped ) this.equipped = false;
     const allowedSlots = this.getAllowedEquipmentSlots();
     if ( !allowedSlots.includes(this.slot) ) this.slot = allowedSlots[0];
 
@@ -135,13 +137,16 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @inheritDoc */
   prepareDerivedData() {
+
+    // Weapon damage adjustments
     this.damage.weapon = this.damage.base + this.damage.quality;
     if ( this.broken ) {
       this.damage.weapon = Math.floor(this.damage.weapon / 2);
       this.rarity -= 2;
     }
-    this.price = this._preparePrice();
 
+    // Scaling price
+    this.price = this._preparePrice();
   }
 
   /* -------------------------------------------- */
@@ -285,26 +290,26 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   getTags(scope="full") {
     const tags = {};
 
-    // Damage
+    // Weapon Category
+    if ( scope === "full" ) tags.category = this.config.category.label;
+
+    // Damage and Range
     tags.damage = `${this.damage.weapon} Damage`;
     if ( this.config.category.reload && !this.loaded ) tags.damage = "Reload";
+    tags.range = `Range ${this.range}`;
     if ( scope === "short" ) return tags;
 
-    // Range
-    tags.range = `Range ${this.range}`;
-
-    // Weapon Category
-    const category = this.config.category;
-    tags.category = category.label;
-
-    // Equipment Slot
-    const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
-    tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
-
     // Weapon Properties
-    if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
     if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
+    if ( this.broken ) tags.broken = this.schema.fields.broken.label;
+
+    // Equipment Slot
+    if ( this.equipped ) {
+      const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
+      tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
+    }
+    if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
     return tags;
   }
 

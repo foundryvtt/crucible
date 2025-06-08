@@ -19,10 +19,11 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <a class="button icon equipped-state fa-solid fa-shield-alt" data-action="itemEquip"
-                       data-tooltip="Equip Item"></a>
-                    <a class="button icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></a>
-                    <a class="button icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Item"></a>
+                    {{#each item.actions as |button|}}
+                    <button type="button" class="icon {{button.icon}}" data-action="{{button.action}}" data-tooltip="{{button.tooltip}}"></button>
+                    {{/each}}
+                    <button type="button" class="icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></button>
+                    <button type="button" class="icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Item"></button>
                 </div>
             </li>
             {{else}}

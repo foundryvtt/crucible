@@ -1084,6 +1084,10 @@
       "label": "Damage Type",
       "hint": "Configure the type of damage dealt by this weapon."
     },
+    "dropped": {
+      "label": "Dropped",
+      "hint": "Has this weapon been thrown, disarmed, or otherwise dropped?"
+    },
     "loaded": {
       "label": "Loaded",
       "hint": "If this weapon requires loading, track whether it is currently loaded."

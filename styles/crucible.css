@@ -691,6 +691,11 @@
   font-size: var(--font-size-12);
   padding: 0.25rem;
 }
+.crucible .line-item button.icon {
+  --button-size: 24px;
+  font-size: var(--font-size-12);
+  padding: 0.25rem;
+}
 .crucible .line-item .effects {
   width: 100%;
   margin: 0;

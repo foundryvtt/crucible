@@ -18,6 +18,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       actionEdit: CrucibleBaseActorSheet.#onActionEdit,
       actionUse: CrucibleBaseActorSheet.#onActionUse,
       itemCreate: CrucibleBaseActorSheet.#onItemCreate,
+      itemDrop: CrucibleBaseActorSheet.#onItemDrop,
       itemEdit: CrucibleBaseActorSheet.#onItemEdit,
       itemEquip: CrucibleBaseActorSheet.#onItemEquip,
       itemDelete: CrucibleBaseActorSheet.#onItemDelete,
@@ -329,17 +330,41 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     };
 
     // Iterate over items and organize them
-    for ( let i of this.document.items ) {
-      const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid};
+    for ( const i of this.document.items ) {
+      const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: []};
       let section;
       switch(i.type) {
         case "armor":
-        case "weapon":
           Object.assign(d, {
+            equipped: i.system.equipped,
             quantity: i.system.quantity,
             showStack: i.system?.quantity && (i.system.quantity !== 1),
             cssClass: i.system.equipped ? "equipped" : "unequipped"
           })
+          if ( i.system.equipped ) d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Armor"});
+          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Armor"});
+          if ( i.system.equipped ) section = sections.inventory.equipment;
+          else section = sections.inventory.backpack;
+          break;
+        case "weapon":
+          Object.assign(d, {
+            dropped: i.system.dropped,
+            equipped: i.system.equipped,
+            quantity: i.system.quantity,
+            showStack: i.system?.quantity && (i.system.quantity !== 1),
+            cssClass: i.system.equipped ? "equipped" : "unequipped"
+          })
+          if ( i.system.dropped ) {
+            d.cssClass += " dropped";
+            d.actions.push({action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: "Recover Weapon"});
+          }
+          else if ( i.system.equipped ) {
+            d.actions.push(
+              {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Weapon"},
+              {action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"},
+            );
+          }
+          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Item"});
           if ( i.system.equipped ) section = sections.inventory.equipment;
           else section = sections.inventory.backpack;
           break;
@@ -782,6 +807,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   static async #onItemDelete(event) {
     const item = this.#getEventItem(event);
     await item.deleteDialog();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onItemDrop(event) {
+    const item = this.#getEventItem(event);
+    await this.actor.equipWeapon(item.id, {equipped: false, dropped: true});
   }
 
   /* -------------------------------------------- */
