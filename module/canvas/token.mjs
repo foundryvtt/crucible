@@ -240,10 +240,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const engagement = {allies, enemies, other, engagementBounds, movePolygon, value};
 
     // Identify engaged tokens as allies or enemies
+    const {elevation, size} = this.document;
     canvas.tokens.quadtree.getObjects(engagementBounds, {
       collisionTest: ({t: token}) => {
         if ( token.id === this.id ) return false; // Ignore yourself
         if ( !token.actor ) return false;         // Ignore non-actors
+
+        // Require elevation overlap
+        if ( (elevation + size) < token.document.elevation ) return false;
+        if ( elevation > (token.document.elevation + token.document.size) ) return false;
 
         // Confirm the token can be reached
         const hit = token.getHitRectangle();
@@ -473,7 +478,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       this.#engagementDebug.flanked = this.#engagementDebug.addChild(new PT("", PT.getTextStyle({fontSize: 32})));
       this.#engagementDebug.flanked.anchor.set(0.5, 0.5);
     }
-    const e = this.#engagementDebug.clear();
+    this._clearEngagementVisualization();
+    if ( canvas.tokens.controlled.length !== 1 ) return;
+    const e = this.#engagementDebug;
 
     // Movement polygon
     e.beginFill(0x00FFFF, 0.1).lineStyle({width: 3, color: 0x00FFFF, alpha: 1.0}).drawShape(engagement.movePolygon).endFill();

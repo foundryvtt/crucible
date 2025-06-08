@@ -29,18 +29,17 @@ export const ANCESTRIES = {
 
 /**
  * The compendium pack IDs which should be used as the source for character creation materials.
+ * Modules that want to configure base system behavior should define `crucible.CONFIG.packs` instead.
  * @enum {string}
  */
-export const COMPENDIUM_PACKS = {
+export const COMPENDIUM_PACKS = Object.freeze({
   ancestry: "crucible.ancestry",
   archetype: "crucible.archetype",
   background: "crucible.background",
   spell: "crucible.spells",
-  spellExtensions: null,
   talent: "crucible.talent",
-  talentExtensions: null,
   taxonomy: "crucible.taxonomy"
-}
+});
 
 /* -------------------------------------------- */
 

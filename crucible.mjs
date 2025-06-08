@@ -65,13 +65,28 @@ Hooks.once("init", async function() {
     }
   }
 
-  // System Configuration
+  /**
+   * Configurable properties of the system which affect its behavior.
+   */
   crucible.CONFIG = {
-    ancestryPacks: new Set(["crucible.ancestry"]),
-    backgroundPacks: new Set(["crucible.background"]),
-    talentPacks: new Set(), // TODO
-    heroCreationSheet: applications.CrucibleHeroCreationSheet
+    /**
+     * Configuration of compendium packs which are used as sources for system workflows.
+     * @type {Record<string, Set<string>>}
+     */
+    packs: {
+      ancestry: new Set([SYSTEM.COMPENDIUM_PACKS.ancestry]),
+      background: new Set([SYSTEM.COMPENDIUM_PACKS.background]),
+      spell: new Set([SYSTEM.COMPENDIUM_PACKS.spell]),
+      talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent]),
+    },
+    /**
+     * The character creation sheet class which should be registered
+     * @type {typeof applications.CrucibleHeroCreationSheet}
+     */
+    heroCreationSheet: applications.CrucibleHeroCreationSheet,
   };
+  /** @deprecated */
+  crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -514,11 +529,11 @@ function registerDevelopmentHooks() {
   });
 
   Hooks.on("updateItem", async (item, _change, _options, _user) => {
-    const talentPacks = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
-    if ( !talentPacks.includes(item.pack)  ) return;
-    await CrucibleTalentNode.initialize();
-    crucible.tree.refresh();
-  })
+    if ( crucible.CONFIG.packs.talent.has(item.pack) ) {
+      await CrucibleTalentNode.initialize();
+      crucible.tree.refresh();
+    }
+  });
 }
 
 /* -------------------------------------------- */

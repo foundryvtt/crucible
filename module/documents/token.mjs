@@ -1,5 +1,13 @@
 export default class CrucibleToken extends foundry.documents.TokenDocument {
 
+  /**
+   * Token size in grid squares.
+   * @type {number}
+   */
+  get size() {
+    return this.actor?.size ?? this.width;
+  }
+
   /** @override */
   static getTrackedAttributes(data, _path=[]) {
     return {

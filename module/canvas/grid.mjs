@@ -30,6 +30,7 @@ export function getTargetAreaOffsets(origin, shape) {
         const c = canvas.grid.getCenterPoint(o);
         if ( !shape.contains(c.x, c.y) ) break;
         offsets.push(o);
+        offsets.push(o);
         hit = true;
       }
       if ( !hit ) break;
@@ -37,18 +38,6 @@ export function getTargetAreaOffsets(origin, shape) {
   }
   return offsets;
 }
-
-
-/**
- * TODO
- * Express the target area as a consolidated polygon.
- * Idea: classify all offsets into quadrants in getTargetAreaOffsets. Go quadrant-by-quadrant adding the perimeter edges
- * @param origin
- * @param offsets
- */
-export function getTargetAreaPolygon(origin, offsets) {
-}
-
 
 /**
  * Test linear range between an attacker and a target.
@@ -58,11 +47,21 @@ export function getTargetAreaPolygon(origin, offsets) {
  */
 export function getLinearRangeCost(attacker, target) {
   const ab = attacker.bounds;
+  const {elevation: ae, size: as} = attacker.document;
   const tb = target.bounds;
-  if ( ab.overlaps(tb) ) return 0;
+  const {elevation: te, size: ts} = target.document;
+
+  // Overlapping bounds
+  if ( ab.overlaps(tb) ) {
+    if ( (ae + as) < te ) return te - (ae + as);
+    else if ( ae > (te + ts) ) return (te + ts) - ae;
+    else return 0;
+  }
+
+  // Measure non-overlapping distance
   const r = new Ray(attacker.center, target.center);
-  const xAttacker = ab.segmentIntersections(r.A, r.B)[0];
-  const xTarget = tb.segmentIntersections(r.A, r.B)[0];
-  return canvas.grid.measurePath([xAttacker, xTarget]).distance;
+  const xa = ab.segmentIntersections(r.A, r.B)[0];
+  const xt = tb.segmentIntersections(r.A, r.B)[0];
+  return canvas.grid.measurePath([{...xa, elevation: ae}, {...xt, elevation: te}]).distance;
 }
 

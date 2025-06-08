@@ -1154,11 +1154,11 @@ export default class CrucibleActor extends Actor {
    */
   async syncTalents() {
     const updates = [];
-    const packs = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions].reduce((arr, id) => {
-      const pack = game.packs.get(id);
-      if ( pack ) arr.push(pack);
-      return arr;
-    }, []);
+    const packs = [];
+    for ( const packId of crucible.CONFIG.packs.talent ) {
+      const pack = game.packs.get(packId);
+      if ( pack ) packs.push(pack);
+    }
     for ( const item of this._source.items ) {
       if ( item.type !== "talent" ) continue;
       for ( const pack of packs ) {
@@ -1685,17 +1685,32 @@ export default class CrucibleActor extends Actor {
   /** @inheritDoc */
   async _preUpdate(data, options, user) {
     await super._preUpdate(data, options, user);
+    if ( !["hero", "adversary"].includes(this.type) ) return;
 
-    // Restore resources when level changes
-    const a1 = data.system?.advancement;
-    if ( !a1 ) return;
-    const a0 = this._source.system.advancement;
-    const resetResourceKeys = this.type === "hero" ? ["level"] : ["level", "threat"];
-    const resetResources = resetResourceKeys.some(k => (k in a1) && (a1[k] !== a0[k]));
-    if ( resetResources ) {
+    // Level changes
+    const adv0 = this._source.system.advancement;
+    const adv1 = data.system?.advancement;
+    const levelChangeKeys = this.type === "hero" ? ["level"] : ["level", "threat"];
+    const levelChange = !!adv1 && levelChangeKeys.some(k => (k in adv1) && (adv1[k] !== adv0[k]));
+
+    // Ability score changes
+    const abl1 = data.system?.abilities;
+    const abilityChange = !!abl1 && Object.keys(SYSTEM.ABILITIES).some(k => !foundry.utils.isEmpty(abl1[k]));
+
+    // Pre-simulate the changes
+    if ( levelChange || abilityChange ) {
       const clone = this.clone();
       clone.updateSource(data);
-      Object.assign(data, clone._getRestData());
+
+      // Replenish resources
+      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone._getRestData());
+
+      // Constrain milestones
+      if ( levelChange && (this.type === "hero") ) {
+        const l = SYSTEM.ACTOR.LEVELS[clone.level];
+        if ( adv1.level > adv0.level ) adv1.milestones = l.milestones.start;
+        else if ( adv1.level < adv0.level ) adv1.milestones = l.milestones.next - 1;
+      }
     }
   }
 
@@ -1711,7 +1726,6 @@ export default class CrucibleActor extends Actor {
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
       if ( !options._crucibleUpdateSize ) this.#updateSize();
-      this.#replenishResources(data);
       this.#applyResourceStatuses(data);
     }
 

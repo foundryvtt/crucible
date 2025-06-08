@@ -118,10 +118,12 @@ export default class CrucibleTalentNode {
    */
   static async initialize() {
     for ( const node of this.nodes.values() ) node.talents.clear();
-    const packs = [SYSTEM.COMPENDIUM_PACKS.talent, SYSTEM.COMPENDIUM_PACKS.talentExtensions];
-    for ( const packId of packs ) {
-      if ( !packId ) continue;
+    for ( const packId of crucible.CONFIG.packs.talent ) {
       const pack = game.packs.get(packId);
+      if ( !pack ) {
+        console.warn(`Invalid compendium pack "${packId}" configured in crucible.CONFIG.packs.talent`);
+        continue;
+      }
       const talents = await pack.getDocuments();
       for ( const talent of talents ) {
         if ( talent.type !== "talent" ) continue;

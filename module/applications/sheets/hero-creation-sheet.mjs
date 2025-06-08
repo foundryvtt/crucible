@@ -192,8 +192,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
   static async #initializeAncestries() {
-    const {ancestryPacks} = crucible.CONFIG;
-    this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", ancestryPacks,
+    const packs = crucible.CONFIG.packs.ancestry;
+    this._state.ancestries = await CrucibleHeroCreationSheet.#initializeItemOptions("ancestry", packs,
       this._initializeAncestry);
   }
 
@@ -255,8 +255,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @returns {Promise<Record<string, CrucibleHeroCreationItem>>}
    */
   static async #initializeBackgrounds() {
-    const {backgroundPacks} = crucible.CONFIG;
-    this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", backgroundPacks,
+    const packs = crucible.CONFIG.packs.background;
+    this._state.backgrounds = await CrucibleHeroCreationSheet.#initializeItemOptions("background", packs,
       this._initializeBackground);
   }
 
@@ -291,7 +291,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     await Promise.allSettled(Array.from(packs).map(async packId => {
       const pack = game.packs.get(packId);
       if ( !pack ) {
-        console.warn(`crucible.CONFIG.ancestryPacks entry "${packId}" does not exist as a valid compendium ID`);
+        console.warn(`Compendium pack "${packId}" does not exist as a valid compendium ID`);
         return;
       }
       const items = await pack.getDocuments({type: itemType});

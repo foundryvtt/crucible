@@ -454,7 +454,7 @@
 
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
-"ADVANCEMENT.MilestoneTooltip": "{progress} of {next} milestones until next level",
+"ADVANCEMENT.MilestoneTooltip": "{progress} of {required} milestones until next level",
 "ADVANCEMENT.MilestoneAward": "Award Milestones",
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
 
