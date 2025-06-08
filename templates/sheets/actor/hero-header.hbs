@@ -2,9 +2,9 @@
     <header class="title flexrow">
         <input class="charname" name="name" type="text" value="{{source.name}}" placeholder="Actor Name">
         <div class="advancement flexrow" data-tooltip="{{advancementTooltip}}" data-tooltip-direction="UP">
-            {{#if incomplete.creation}}
+            {{#if incomplete.progress}}
             <button type="button" class="icon level-up fa-solid fa-triangle-exclamation incomplete"
-                    data-action="levelUp" data-tooltip="{{incomplete.creationTooltip}}" data-tooltip-direction="DOWN"
+                    data-action="levelUp" data-tooltip="{{incomplete.progressTooltip}}" data-tooltip-direction="DOWN"
                     data-tooltip-class="creation-steps"></button>
             {{else if incomplete.level}}
             <button type="button" class="icon level-up fa-solid fa-plus incomplete" data-action="levelUp"

@@ -206,15 +206,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   /** @inheritDoc */
   prepareItems(items) {
     super.prepareItems(items);
-
-    // Record talent points spent
     const points = this.points.talent;
     points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     points.available = points.total - points.spent;
-    // FIXME this should not create a ui.notification directly, but should store the warning to render on the sheet
-    if ( points.available < 0) {
-      ui.notifications?.warn(`Actor ${this.name} has more Talents unlocked than they have talent points available.`);
-    }
   }
 
   /* -------------------------------------------- */

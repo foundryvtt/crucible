@@ -944,26 +944,20 @@ export default class CrucibleActor extends Actor {
     // Plan actor changes
     const resourceRecovery = {action: Infinity}; // Try to recover as much action as possible, in case your maximum increases
     const actorUpdates = {system: {status: null}};
-    const damageOverTime = {};
-    const effectChanges = {};
-    const turnStartConfig = {resourceRecovery, actorUpdates, damageOverTime, effectChanges};
-
-    // Special recovery cases
-    // TODO these should move to the "startTurn" actor hook
-    if ( this.talentIds.has("lesserregenerati") && !this.system.isWeakened ) resourceRecovery.health = 1;
-    if ( this.talentIds.has("irrepressiblespi") && !this.system.isBroken ) resourceRecovery.morale = 1;
-
-    // Hook actions
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
+    const statusText = [];
+    const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
     this.callActorHooks("startTurn", turnStartConfig);
 
     // Remove Active Effects which expire at the start of a turn (round)
-    await this.expireEffects(true); // TODO pass planned effect changes
+    await this.applyActiveEffectChanges(true, effectChanges);
 
     // Apply damage-over-time before recovery
-    await this.applyDamageOverTime(); // TODO pass planned DoT
+    await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
 
     // Recover resources
-    await this.alterResources(resourceRecovery, actorUpdates);
+    await this.alterResources(resourceRecovery, actorUpdates, {statusText});
+    // TODO turn start summary of resource changes and their sources?
   }
 
   /* -------------------------------------------- */
@@ -971,6 +965,10 @@ export default class CrucibleActor extends Actor {
   /**
    * Actions that occur at the end of an Actor's turn in Combat.
    * This method is only called for one User who has ownership permission over the Actor.
+   *
+   * Turn end workflows proceed in the following order:
+   * 1. Active Effects are expired or gained
+   * 2. Resource recovery occurs
    * @returns {Promise<void>}
    */
   async onEndTurn() {
@@ -983,17 +981,21 @@ export default class CrucibleActor extends Actor {
     const {round, from, to} = this.flags.crucible?.delay || {};
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
-    // Conserve Effort
-    if ( this.talentIds.has("conserveeffort00") && this.system.resources.action.value ) { // TODO refactor elsewhere
-      const status = {text: "Conserve Effort", fillColor: SYSTEM.RESOURCES.focus.color.css};
-      await this.alterResources({focus: 1}, {}, {statusText: [status]});
-    }
+    // Plan actor changes
+    const resourceRecovery = {};
+    const actorUpdates = {};
+    if ( this.flags.crucible?.delay ) foundry.utils.mergeObject(actorUpdates, {"flags.crucible.-=delay": null});
+    const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
+    const statusText = [];
+    const turnEndConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
+    this.callActorHooks("endTurn", turnEndConfig);
 
     // Remove active effects which expire at the end of a turn
-    await this.expireEffects(false);
+    await this.applyActiveEffectChanges(false, effectChanges);
 
-    // Clear delay flags
-    if ( this.flags.crucible?.delay ) await this.update({"flags.crucible.-=delay": null});
+    // Recover resources
+    await this.alterResources(resourceRecovery, actorUpdates, {statusText});
+    // TODO turn end summary of resource changes and their sources?
   }
 
   /* -------------------------------------------- */
@@ -1043,15 +1045,20 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Expire active effects whose durations have concluded at the end of the Actor's turn.
-   * @param {boolean} start       Is it the start of the turn (true) or the end of the turn (false)
+   * @param {boolean} start         Is it the start of the turn (true) or the end of the turn (false)
+   * @param {{toCreate: object[], toUpdate: object[], toDelete: string[]}} [effectChanges]
    * @returns {Promise<void>}
    */
-  async expireEffects(start=true) {
-    const toDelete = [];
+  async applyActiveEffectChanges(start=true, effectChanges) {
+    const toCreate = effectChanges.toCreate || [];
+    const toUpdate = effectChanges.toUpdate || [];
+    const toDelete = effectChanges.toDelete || [];
     for ( const effect of this.effects ) {
       if ( this.#isEffectExpired(effect, start) ) toDelete.push(effect.id);
     }
-    await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
+    if ( toDelete.length ) await this.deleteEmbeddedDocuments("ActiveEffect", toDelete);
+    if ( toUpdate.length ) await this.updateEmbeddedDocuments("ActiveEffect", toUpdate);
+    if ( toCreate.length ) await this.createEmbeddedDocuments("ActiveEffect", toCreate);
   }
 
   /* -------------------------------------------- */

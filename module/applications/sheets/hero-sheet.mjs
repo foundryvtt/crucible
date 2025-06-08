@@ -27,6 +27,9 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     const {actor: a, source: s, incomplete: i} = context;
+    const {isL0} = a;
+    const points = context.points = a.system.points;
+    Object.assign(i, {isL0});
 
     // Expand Context
     Object.assign(context, {
@@ -35,31 +38,23 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree"
     });
 
-    // Incomplete Tasks
-    const {isL0} = a;
-    context.points = a.system.points;
-    Object.assign(i, {
-      ancestry: !s.system.details.ancestry?.name,
-      background: !s.system.details.background?.name,
-      abilities: context.points.ability.requireInput,
-      talents: context.points.talent.available,
-      isL0: isL0
-    });
-    i.creation = i.ancestry || i.background || i.abilities || i.talents;
-
     // Advancement
     const adv = a.system.advancement;
-    i.level = isL0 ? !i.creation : (adv.pct === 100);
+    i.level = isL0 ? !i.progress : (adv.pct === 100);
     context.advancementTooltip = game.i18n.format("ADVANCEMENT.MilestoneTooltip", adv);
 
-    // Progression Steps
-    if ( i.creation ) {
-      i.creationTooltip = "<p>Missing Character Progression</p><ol>";
-      if ( i.ancestry ) i.creationTooltip += "<li>Select Ancestry</li>";
-      if ( i.background ) i.creationTooltip += "<li>Select Background</li>";
-      if ( i.abilities ) i.creationTooltip += "<li>Spend Ability Points</li>";
-      if ( i.talents ) i.creationTooltip += "<li>Spend Talent Points</li>";
-      i.creationTooltip += "</ol>";
+    // Progression Issues
+    const issues = [];
+    if ( !s.system.details.ancestry?.name ) issues.push("Choose an Ancestry");
+    if ( !s.system.details.background?.name ) issues.push("Choose a Background");
+    if ( points.ability.available < 0 ) issues.push("Too many Ability points have been spent");
+    else if ( points.ability.requireInput ) issues.push("Spend Ability points");
+    if ( points.talent.available < 0 ) issues.push("Too many Talents have been taken");
+    else if ( points.talent.available ) issues.push("Spend Talent points");
+    i.progress = !!issues.length;
+    if ( i.progress ) {
+      const items = issues.reduce((s, text) => s + `<li>${text}</li>`, "");
+      i.progressTooltip = `<p>Character Progression Issues:</p><ol>${items}</ol>`;
     }
     return context;
   }

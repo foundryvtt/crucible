@@ -38,7 +38,7 @@ export default class AttackRoll extends StandardCheck {
     result: undefined,
     damage: undefined,
     index: undefined,
-    newTarget: false  // FIXME it would be good to handle this a different way
+    newTarget: false  // TODO it would be good to handle this a different way
   });
 
   /**
