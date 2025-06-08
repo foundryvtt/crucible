@@ -142,8 +142,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       tags: this.#prepareTags(),
       targetTypes: SYSTEM.ACTION.TARGET_TYPES,
       targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices,
-      effects: this.#prepareEffects(),
-      effectPartial: CrucibleActionConfig.ACTIVE_EFFECT_PARTIAL,
+      effectsHTML: await this.#renderEffectsHTML(),
       hookPartial: CrucibleActionConfig.HOOK_PARTIAL
     }
   }
@@ -188,28 +187,6 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   /* -------------------------------------------- */
 
   /**
-   * Prepare effects data attached to the action.
-   * @returns {ActionEffect[]}
-   */
-  #prepareEffects() {
-    return this.action.effects.map(effect => {
-      effect.statuses ||= [];
-      return {...effect,
-        placeholder: this.action.name,
-        statuses: CONFIG.statusEffects.map(s => {
-          return {
-            id: s.id,
-            label: s.label,
-            selected: effect.statuses.includes(s.id) ? "selected" : ""
-          }
-        })
-      }
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Render HTML used for the action hooks tab.
    * We do this rendering in JavaScript and pass the rendered string into the template to avoid the undesirable
    * auto-indenting caused by rendering this normally as a Handlebars Partial.
@@ -226,6 +203,34 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
       hookHTML.push(html);
     }
     return hookHTML.join("");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare effects data attached to the action.
+   * @returns {Promise<string>}
+   */
+  async #renderEffectsHTML() {
+    const effectHTML = [];
+    for ( const [i, e] of this.action.effects.entries() ) {
+      const html = await this.#renderEffectHTML(i, e);
+      effectHTML.push(html);
+    }
+    return effectHTML.join("");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render HTML for a single effect.
+   * @param {number} i
+   * @param {ActiveEffectData} effect
+   * @returns {Promise<string>}
+   */
+  async #renderEffectHTML(i, effect) {
+    const ctx = {i, effect, statuses: CONFIG.statusEffects, targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices};
+    return foundry.applications.handlebars.renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, ctx);
   }
 
   /* -------------------------------------------- */
@@ -302,17 +307,12 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @returns {Promise<void>}
    */
   static async #onAddEffect(event) {
-    const html = await renderTemplate(this.constructor.ACTIVE_EFFECT_PARTIAL, {
-      i: foundry.utils.randomID(), // Could be anything
-      effect: {
-        scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
-        placeholder: this.action.name,
-        duration: {
-          turns: 1
-        },
-        statuses: CONFIG.statusEffects
+    const html = await this.#renderEffectHTML(foundry.utils.randomID(), {
+      scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
+      placeholder: this.action.name,
+      duration: {
+        turns: 1
       },
-      targetScopes: SYSTEM.ACTION.TARGET_SCOPES.choices
     });
     const section = event.target.parentElement;
     section.insertAdjacentHTML("beforeend", html);

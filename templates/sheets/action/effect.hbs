@@ -19,9 +19,7 @@
         <label>Statuses</label>
         <div class="form-fields">
             <multi-select name="effects.{{i}}.statuses">
-                {{#each effect.statuses as |status|}}
-                    <option value="{{status.id}}" {{status.selected}}>{{status.label}}</option>
-                {{/each}}
+                {{selectOptions statuses selected=effect.statuses valueAttr="id" labelAttr="name" localize=true}}
             </multi-select>
         </div>
     </div>

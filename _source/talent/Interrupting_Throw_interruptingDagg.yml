@@ -1,0 +1,67 @@
+name: Interrupting Throw
+type: talent
+_id: interruptingDagg
+img: icons/skills/melee/strike-dagger-arcane-pink.webp
+system:
+  nodes:
+    - dex4a
+  description: >-
+    <p>You are alert and prepared to use your equipped weapon to interrupt enemy
+    spellcraft.</p>
+  actions:
+    - id: interruptingThrow
+      name: Interrupting Throw
+      img: icons/skills/melee/strike-dagger-arcane-pink.webp
+      condition: An enemy you can see casts a Spell which costs 3 Action or greater.
+      description: >-
+        <p>When an enemy that you can see casts a <strong>Spell</strong> which
+        costs <strong>3 Action</strong> or greater, you can make a
+        <strong>Reaction</strong> to perform a <strong>Thrown</strong> weapon
+        attack against the caster. If your attack results in a <strong>Critical
+        Hit</strong> the spell is interrupted and its magic is lost.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+      effects: []
+      tags:
+        - reaction
+        - attack
+        - melee
+        - throw
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: YsZBvUcG9Oj4CH5Q
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749341304398
+  modifiedTime: 1749342592213
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 100000
+_key: '!items!interruptingDagg'
