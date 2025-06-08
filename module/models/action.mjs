@@ -77,6 +77,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {boolean} [incapacitated]    Did the target become incapacitated?
  * @property {boolean} [criticalSuccess]  Did the damage contain a Critical Hit
  * @property {boolean} [criticalFailure]  Did the damage contain a Critical Miss
+ * @property {object[]} [statusText]      Optional status text displayed above the outcome target
  */
 
 /**
@@ -768,7 +769,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       target: actor,
       rolls: rolls,
       resources: {},
-      actorUpdates: {}
+      actorUpdates: {},
+      statusText: []
     }
     outcome.effects = effects ? this.#attachEffects(actor, outcome) : [];
     return outcome;

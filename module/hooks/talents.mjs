@@ -2,6 +2,19 @@ const TALENT_HOOKS = {};
 
 /* -------------------------------------------- */
 
+TALENT_HOOKS.armoredShell0000 = {
+  prepareDefenses(actor, defenses) {
+    if ( !actor.statuses.has("guarded") ) return;
+    const offhand = actor.equipment.weapons.offhand;
+    if ( offhand.category !== "shieldHeavy" ) return;
+    const halfArmor = Math.ceil(defenses.armor.base / 2);
+    defenses.armor.base -= halfArmor;
+    defenses.block.bonus += halfArmor;
+  }
+};
+
+/* -------------------------------------------- */
+
 TALENT_HOOKS.bloodmagic000000 = {
   prepareAction(actor, action) {
     if ( !action.tags.has("spell") ) return;
@@ -12,7 +25,7 @@ TALENT_HOOKS.bloodmagic000000 = {
     if ( action.target !== this ) return;
     outcome.resources.health = Math.min(outcome.resources.health, -action.cost.health);
   }
-}
+};
 
 /* -------------------------------------------- */
 
@@ -22,7 +35,7 @@ TALENT_HOOKS.powerfulThrow000 = {
       action.range.maximum *= 2;
     }
   }
-}
+};
 
 /* -------------------------------------------- */
 

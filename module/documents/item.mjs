@@ -8,6 +8,14 @@ export default class CrucibleItem extends foundry.documents.Item {
   /* -------------------------------------------- */
 
   /**
+   * If this item belongs to a configured category, report the category identifier.
+   * @returns {string}
+   */
+  get category() {
+    return this.system.config?.category?.id || "";
+  }
+
+  /**
    * Item-specific configuration data which is constructed before any additional data preparation steps.
    * @type {object}
    */

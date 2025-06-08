@@ -58,6 +58,21 @@ ACTION_HOOKS.delay = {
 
 /* -------------------------------------------- */
 
+ACTION_HOOKS.disarmingStrike = {
+  postActivate(outcome) {
+    if ( outcome.target === this.actor ) return;
+    if ( outcome.rolls.every(r => r.isSuccess) ) {
+      const {mainhand} = outcome.target.equipment.weapons;
+      if ( !mainhand.id ) return;
+      outcome.actorUpdates.items ||= [];
+      outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
+      outcome.statusText.push({text: "Disarmed!", fontSize: 64});
+    }
+  }
+};
+
+/* -------------------------------------------- */
+
 ACTION_HOOKS.reactiveStrike = {
   canUse(_targets) {
     for ( const s of ["unaware", "flanked"] ) {
@@ -101,6 +116,21 @@ ACTION_HOOKS.reload = {
   },
   async postActivate() {
     this.usage.actorStatus.reloaded = true;
+  }
+}
+
+/* -------------------------------------------- */
+
+ACTION_HOOKS.repercussiveBlock = {
+  postActivate(outcome) {
+    if ( outcome.target === this.actor ) return;
+    if ( outcome.rolls.every(r => r.isSuccess) ) {
+      const {mainhand} = outcome.target.equipment.weapons; // TODO - react to the prior action?
+      if ( !mainhand.id ) return;
+      outcome.actorUpdates.items ||= [];
+      outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
+      outcome.statusText.push({text: "Disarmed!", fontSize: 64});
+    }
   }
 }
 

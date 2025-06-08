@@ -716,7 +716,7 @@ export default class CrucibleActor extends Actor {
    * @param {object} [updates]                    Other Actor updates to make as part of the same transaction
    * @param {object} [options]                    Options which are forwarded to the update method
    * @param {boolean} [options.reverse]             Reverse the direction of change?
-   * @param {string} [options.statusText]           Custom status text displayed on the Token.
+   * @param {object[]} [options.statusText]         Custom status text displayed alongside the update
    * @returns {Promise<CrucibleActor>}            The updated Actor document
    */
   async alterResources(deltas, updates={}, {reverse=false, statusText}={}) {
@@ -837,7 +837,7 @@ export default class CrucibleActor extends Actor {
     this.callActorHooks("confirmActionOutcome", action, outcome, {reverse});
 
     // Apply changes to the Actor
-    await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse});
+    await this.alterResources(outcome.resources, outcome.actorUpdates, {reverse, statusText: outcome.statusText});
     await this.#applyOutcomeEffects(outcome, reverse);
     await this.#trackHeroismDamage(outcome.resources, reverse);
 
@@ -1704,7 +1704,7 @@ export default class CrucibleActor extends Actor {
     super._onUpdate(data, options, userId);
 
     // Locally display scrolling status updates
-    this.#displayScrollingStatus(data, options);
+    if ( options.statusText ) this.#displayUpdateScrollingStatus(data, options.statusText);
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
@@ -1755,39 +1755,63 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Display changes to the Actor as scrolling combat text.
+   * Display status text updates above each Token for this Actor upon update.
+   * @param {Partial<ActorData>} changed      Data for the Actor which changed
+   * @param {Array<object>} statusText        Status text passed as part of updates
    */
-  #displayScrollingStatus(changed, {statusText}={}) {
+  #displayUpdateScrollingStatus(changed, statusText) {
     const resources = changed.system?.resources || {};
-    const tokens = this.getActiveTokens(true);
-    if ( !tokens.length || !this._cachedResources ) return;
+    if ( !this._cachedResources ) return;
+    const texts = [];
 
     // Display resource changes
     for ( let [resourceName, prior] of Object.entries(this._cachedResources ) ) {
       if ( resources[resourceName]?.value === undefined ) continue;
-
-      // Get change data
       const resource = SYSTEM.RESOURCES[resourceName];
       const attr = this.system.resources[resourceName];
       const delta = attr.value - prior;
       if ( delta === 0 ) continue;
-      const text = `${delta.signedString()} ${statusText ?? resource.label}`;
+      const text = `${delta.signedString()} ${resource.label}`;
       const pct = Math.clamp(Math.abs(delta) / attr.max, 0, 1);
       const fontSize = 32 + (64 * pct); // Range between [32, 64]
       const healSign = resource.type === "active" ? 1 : -1;
-      const fillColor = resource.color[Math.sign(delta) === healSign ? "heal" : "high"];
+      const colorVariant = Math.sign(delta) === healSign ? "heal" : "high";
+      const fillColor = resource.color instanceof Color ? resource.color : resource.color[colorVariant];
+      texts.push({text, fontSize, fillColor});
+    }
 
-      // Display for all tokens
-      for ( let token of tokens ) {
-        canvas.interface.createScrollingText(token.center, text, {
+    // Add custom messages last
+    if ( Array.isArray(statusText) ) texts.push(...statusText);
+    else if ( statusText ) texts.push(statusText);
+
+    // Display scrolling statuses
+    this.displayScrollingText(texts);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Display scrolling text above all Tokens for this Actor.
+   */
+  async displayScrollingText(texts, {delayMS=250, jitter=0.5}={}) {
+    const tokens = this.getActiveTokens(true);
+    if ( !tokens.length ) return;
+    if ( !Array.isArray(texts) ) texts = [texts];
+    for ( let text of texts ) {
+      if ( typeof text === "string" ) text = {text};
+      if ( !text.text ) continue;
+      for ( const token of tokens ) {
+        // noinspection ES6MissingAwait
+        canvas.interface.createScrollingText(token.center, text.text, {
           anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
-          fontSize: fontSize,
-          fill: fillColor,
+          fontSize: text.fontSize || 32,
+          fill: text.fillColor || 0xFFFFFF,
           stroke: 0x000000,
           strokeThickness: 4,
-          jitter: 0.5
+          jitter
         });
       }
+      if ( delayMS ) await new Promise(resolve => window.setTimeout(resolve, delayMS));
     }
   }
 
