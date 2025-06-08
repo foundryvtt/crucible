@@ -1,0 +1,40 @@
+name: Armored Shell
+type: talent
+_id: armoredShell0000
+img: icons/equipment/shield/Scutum-steel-worn.webp
+system:
+  nodes:
+    - tou3a
+  description: >-
+    <p>You are expert in using your armor in combination with your shield to
+    create a defensive shell.</p><p>When you have the <strong>Guarded</strong>
+    condition and have a <strong>Heavy Shield</strong> equipped, your base
+    <strong>Armor</strong> defense is reduced by half but your
+    <strong>Block</strong> defense increases by a corresponding amount.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 8Vb0F5R7DMUrvhfw
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749392849847
+  modifiedTime: 1749394164821
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+_key: '!items!armoredShell0000'

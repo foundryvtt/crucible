@@ -1,0 +1,67 @@
+name: Repercussive Block
+type: talent
+_id: repercussiveBloc
+img: icons/magic/defensive/shield-barrier-deflect-teal.webp
+system:
+  nodes:
+    - tou4a
+  description: >-
+    <p>You can channel explosive force into a counter-bash which can disarm your
+    opponent when blocking with your shield.</p>
+  actions:
+    - id: repercussiveBlock
+      name: Repercussive Block
+      img: icons/magic/defensive/shield-barrier-deflect-teal.webp
+      condition: You Block a Melee attack with an equipped shield.
+      description: >-
+        <p>When you <strong>Block</strong> a <strong>Melee</strong> attack, you
+        can react to counter-attack with your equipped shield. This technique is
+        <strong>Harmless</strong> but, if successful, will disarm your opponent
+        forcing their weapon to be <strong>Dropped</strong>.</p>
+      cost:
+        action: -1
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 4
+      effects: []
+      tags:
+        - shield
+        - reaction
+        - attack
+        - melee
+        - offhand
+        - harmless
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 8Vb0F5R7DMUrvhfw
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  modifiedTime: 1749397382086
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 0
+_key: '!items!repercussiveBloc'

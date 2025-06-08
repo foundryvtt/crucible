@@ -11,6 +11,8 @@ system:
   actorHooks:
     - hook: prepareResistances
       fn: resistances.poison.base += 5;
+  nodes:
+    - tou3b
 effects: []
 ownership:
   default: 0
@@ -19,10 +21,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1676170092902
-  modifiedTime: 1742938905498
+  modifiedTime: 1749393715621
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.snakeblood000000
   duplicateSource: null

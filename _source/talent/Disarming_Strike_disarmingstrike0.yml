@@ -5,7 +5,6 @@ img: icons/skills/melee/hand-grip-staff-teal.webp
 effects: []
 flags: {}
 system:
-  node: str2b
   description: >-
     <p>A martial technique designed to disarm your opponent, forcing them to
     drop an object held in one of their hands.</p>
@@ -18,9 +17,8 @@ system:
         <p>You make a <strong>Strike </strong>against a the
         <strong>Reflex</strong> defense of a single target. The technique is
         <strong>Difficult</strong> to perform and deals reduced damage. If
-        successful, the target is forced to unqeuip a held item of your choosing
-        that is not secured.</p><p><strong>TODO: Add automation for the Disarm
-        effect.</strong></p>
+        successful, the target's mainhand weapon is
+        <strong>Dropped</strong>.</p>
       tags:
         - attack
         - melee
@@ -42,22 +40,29 @@ system:
         maximum: null
         weapon: true
         minimum: null
-  requirements: {}
   nodes:
     - str3a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
 _stats:
-  systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
-  createdTime: 1674942420033
-  modifiedTime: 1749319804195
-  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.2
+  createdTime: 1749391871615
+  modifiedTime: 1749391871615
+  lastModifiedBy: AnoypGxxNIMOS0XY
 folder: ePNIUQxdOsY7GSKo
-sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!items!disarmingstrike0'
