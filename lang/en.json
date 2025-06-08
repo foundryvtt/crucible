@@ -810,7 +810,7 @@
   "CantAfford": "You cannot afford to increase this skill. The next rank costs {cost} points and you have {points} skill points available.",
   "RollFlavor": "{name} rolls a {skill} check",
   "RollTitle": "[{name}] {skill} Skill Check",
-  "TooltipCheck": "[({a1} + {a2}) / 4] + Bonus + Enchantment",
+  "TooltipCheck": "[({a1} + {a2}) / 4] + Skill Bonus + Enchantment Bonus",
   "TooltipPassive": "12 + Score"
 },
 

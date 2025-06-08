@@ -69,6 +69,7 @@ Hooks.once("init", async function() {
   crucible.CONFIG = {
     ancestryPacks: new Set(["crucible.ancestry"]),
     backgroundPacks: new Set(["crucible.background"]),
+    talentPacks: new Set(), // TODO
     heroCreationSheet: applications.CrucibleHeroCreationSheet
   };
 

@@ -984,8 +984,9 @@ export default class CrucibleActor extends Actor {
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative > to) ) return;
 
     // Conserve Effort
-    if ( this.talentIds.has("conserveeffort00") && this.system.resources.action.value ) {
-      await this.alterResources({focus: 1}, {}, {statusText: "Conserve Effort"});
+    if ( this.talentIds.has("conserveeffort00") && this.system.resources.action.value ) { // TODO refactor elsewhere
+      const status = {text: "Conserve Effort", fillColor: SYSTEM.RESOURCES.focus.color.css};
+      await this.alterResources({focus: 1}, {}, {statusText: [status]});
     }
 
     // Remove active effects which expire at the end of a turn
@@ -1033,7 +1034,8 @@ export default class CrucibleActor extends Actor {
         damage[r] ||= 0;
         damage[r] -= v;
       }
-      await this.alterResources(damage, {}, {statusText: effect.label});
+      const status = {text: effect.label, fillColor: SYSTEM.RESOURCES.health.color.high.css};
+      await this.alterResources(damage, {}, {statusText: [status]});
     }
   }
 

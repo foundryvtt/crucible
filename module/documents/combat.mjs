@@ -126,15 +126,16 @@ export default class CrucibleCombat extends Combat {
       firstCombatant.updateResource();
     }
 
-    // Focused Anticipation
+    // Focused Anticipation TODO refactor elsewhere
     if ( firstActor?.talentIds.has("focusedanticipat") ) {
-      await firstActor.alterResources({focus: 1}, {}, {statusText: "Focused Anticipation"});
+      const status = {text: "Focused Anticipation", fillColor: SYSTEM.RESOURCES.focus.color.css};
+      await firstActor.alterResources({focus: 1}, {}, {statusText: [status]});
     }
 
     // Morale Escalation
     if ( this.round > 6 ) {
-      await firstActor?.alterResources({morale: this.round}, {}, {statusText: "Escalation"});
-      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: "Escalation"});
+      await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: "Escalation"}]});
+      await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: "Escalation"}]});
     }
 
     // Award Heroism!
@@ -182,7 +183,8 @@ export default class CrucibleCombat extends Combat {
     // Award
     for ( const c of this.combatants ) {
       if ( c.actor?.type !== "hero" ) continue;
-      await c.actor.alterResources({heroism: toAward}, {}, {statusText: "Heroism!"});
+      const status = {text: "Heroism!", fillColor: SYSTEM.RESOURCES.heroism.color.css};
+      await c.actor.alterResources({heroism: toAward}, {}, {statusText: [status]});
     }
   }
 

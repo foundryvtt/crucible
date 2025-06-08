@@ -221,7 +221,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /**
-   * Update the flanking status of the Token.
+   * Compute the current engagement of a Token.
+   * This does not update Flanking stage, which is handled later by CrucibleTokenObject.computeFlanking.
    * @returns {CrucibleTokenEngagement}
    */
   #computeEngagement() {
@@ -255,9 +256,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         else other.add(token);
       }
     });
-
-    // Compute the flanking stage
-    this.constructor.computeFlanking(engagement);
     return engagement;
   }
 
@@ -275,11 +273,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @param {CrucibleTokenEngagement} newEngagement   New engagement for this Token
    * @returns {Set<CrucibleTokenObject>}              The set of Tokens whose flanking status changed
    */
-  #applyEngagementUpdates(oldEngagement, newEngagement) {
+  #propagateEngagementUpdates(oldEngagement, newEngagement) {
     const updates = new Set();
     for ( const s of ["allies", "enemies", "other"] ) {
       for ( const t of oldEngagement[s] ) {
-        if ( newEngagement[s].has(t) ) continue;
         updates.add(t);
         t.engagement[s].delete(this);
       }
@@ -288,7 +285,6 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
         t.engagement[s].add(this);
       }
     }
-    for ( const token of updates ) this.constructor.computeFlanking(token.engagement);
     return updates;
   }
 
@@ -347,9 +343,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   #updateFlanking() {
     if ( !this.actor || (this.actor.type === "group") ) return;
+
+    // Step 1: Update engagement of this token
     const engagement = this.#computeEngagement();
-    const toUpdate = this.#applyEngagementUpdates(this.engagement, engagement);
-    this.engagement = engagement; // Save the new state
+
+    // Step 2: Update engagement of all engaged tokens
+    const toUpdate = this.#propagateEngagementUpdates(this.engagement, engagement);
+
+    // Step 3: Compute flanking of this token
+    this.engagement = this.constructor.computeFlanking(engagement);
+
+    // Step 4: Compute flanking stage of all engaged tokens
+    for ( const t of toUpdate ) t.engagement = this.constructor.computeFlanking(t.engagement);
 
     // Debug visualize enemies
     this._visualizeEngagement(engagement);
@@ -370,10 +375,10 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /**
    * Compute the Flanked stage for a certain engagement state.
    * @param {CrucibleTokenEngagement} engagement      The current engagement
-   * @returns {number}                                The flanking level
+   * @returns {CrucibleTokenEngagement}               Updated engagement with computed flanking stage
    */
   static computeFlanking(engagement) {
-    const selfEngage = engagement.value;
+    engagement.allyBonus = 0;
 
     // Count the number of enemies who can flank
     let flankers = 0;
@@ -382,20 +387,18 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       if ( !(isBroken || isIncapacitated) ) flankers++;
     }
     engagement.flankers = flankers;
-    if ( flankers <= selfEngage ) return engagement.flanked = 0;
 
     // Determine the engagement bonus received from allies
-    let allyBonus = 0;
     for ( const ally of engagement.allies ) {
       const {isBroken, isIncapacitated} = ally.actor.system;
       if ( isBroken || isIncapacitated ) continue;
       const mutual = ally.engagement.enemies.intersection(engagement.enemies);
       if ( !mutual.size ) continue;
       const allyEngage = ally?.actor.system.movement.engagement ?? 1;
-      allyBonus += Math.min(allyEngage, mutual.size);
+      engagement.allyBonus += Math.min(allyEngage, mutual.size);
     }
-    engagement.allyBonus = allyBonus;
-    return engagement.flanked = Math.max(flankers - allyBonus - selfEngage, 0);
+    engagement.flanked = Math.max(engagement.flankers - engagement.allyBonus - engagement.value, 0);
+    return engagement;
   }
 
   /* -------------------------------------------- */
@@ -432,12 +435,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     // Apply flanking updates
     const activeGM = game.users.activeGM;
     const commit = (activeGM === game.user) && (activeGM?.viewedScene === canvas.id);
+
+    // Remove engagement from the deleted token
     const newEngagement = this.#initializeEngagement(); // "new" engagement is nobody
-    const toUpdate = this.#applyEngagementUpdates(this.engagement, newEngagement);
-    if ( commit ) {
-      for ( const token of toUpdate ) token.actor.commitFlanking(token.engagement);
+    const toUpdate = this.#propagateEngagementUpdates(this.engagement, newEngagement);
+    this.engagement = this.constructor.computeFlanking(newEngagement);
+    for ( const t of toUpdate ) {
+      t.engagement = this.constructor.computeFlanking(t.engagement);
+      if ( commit ) t.actor.commitFlanking(t.engagement);
     }
-    this.engagement = newEngagement;
   }
 
   /* -------------------------------------------- */
@@ -450,7 +456,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * @internal
    */
   _visualizeEngagement(engagement) {
-    if ( !CONFIG.debug.flanking || !this.parent.useMicrogrid ) return;
+    if ( !CONFIG.debug.flanking || !canvas.scene?.useMicrogrid ) return;
     const PT = foundry.canvas.containers.PreciseText;
     if ( !this.#engagementDebug ) {
       this.#engagementDebug = canvas.controls.debug.addChild(new PIXI.Graphics());
