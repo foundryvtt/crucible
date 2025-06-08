@@ -29,8 +29,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       damageType: new fields.StringField({required: true, choices: SYSTEM.DAMAGE_TYPES, initial: "bludgeoning"}),
       dropped: new fields.BooleanField({required: true, initial: false}),
       loaded: new fields.BooleanField({required: false, initial: undefined}),
-      slot: new fields.NumberField({required: true, choices: () => SYSTEM.WEAPON.SLOTS.choices, initial: 0}),
-      animation: new fields.StringField({required: false, choices: SYSTEM.WEAPON.ANIMATION_TYPES, initial: undefined})
+      slot: new fields.NumberField({required: true, choices: () => SYSTEM.WEAPON.SLOTS.choices, initial: 0})
     });
   }
 
@@ -311,57 +310,5 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     }
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
     return tags;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare the Sequencer animation configuration for this Weapon.
-   * @returns {{src: string}|null}
-   */
-  getAnimationConfiguration() {
-    if ( !this.animation ) return null;
-    let animation = `jb2a.${this.animation}`;
-
-    // Implement some special hacky overrides
-    const overrides = {
-      katana: "jb2a.melee_attack.04.katana"
-    }
-    if ( this.animation in overrides ) animation = overrides[this.animation];
-
-    // Restrict to melee animations
-    else if ( !this.config.category.ranged ) {
-      const paths = Sequencer.Database.searchFor(animation);
-      if ( !paths.length ) return null;
-      const preferredFlavors = ["melee", "standard", "200px"];
-      let usage = paths.find(path => {
-        const flavor = path.slice(animation.length + 1);
-        return preferredFlavors.some(f => flavor.startsWith(f));
-      });
-      animation = usage ?? paths[0];
-    }
-
-    // Damage type
-    const paths = Sequencer.Database.searchFor(animation);
-    const damageColors = {
-      bludgeoning: "white",
-      corruption: "green",
-      piercing: "white",
-      slashing: "white",
-      poison: "green",
-      acid: "green",
-      fire: "orange",
-      cold: "blue",
-      electricity: "blue",
-      psychic: "purple",
-      radiant: "yellow",
-      void: "purple"
-    }
-    const typePaths = [this.damageType, damageColors[this.damageType], SYSTEM.DAMAGE_TYPES[this.damageType].type];
-    const typeSuffix = typePaths.find(p => paths.includes(p));
-    if ( typeSuffix ) animation += `.${typeSuffix}`;
-
-    // Return animation config
-    return {src: animation, wait: -500};
   }
 }

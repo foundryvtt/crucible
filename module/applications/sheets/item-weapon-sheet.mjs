@@ -38,11 +38,7 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
       }, []),
       usesReload: this.document.config.category.reload,
       propertiesWidget: this.#propertiesWidget.bind(this),
-      scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")}),
-      animations: SYSTEM.WEAPON.ANIMATION_TYPES.reduce((obj, v) => {
-        obj[v] = v;
-        return obj;
-      }, {})
+      scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")})
     });
     return context;
   }

@@ -1095,10 +1095,6 @@
     "slot": {
       "label": "Equipped Slot",
       "hint": "Specify which equipment slot this weapon is equipped in."
-    },
-    "animation": {
-      "label": "Weapon Animation Prefix",
-      "hint": "If using Crucible with JB2A animation integration, specify which animation prefix is used for this weapon."
     }
   },
   "TAGS": {

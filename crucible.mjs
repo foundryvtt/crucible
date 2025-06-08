@@ -149,16 +149,6 @@ Hooks.once("init", async function() {
   // Canvas Configuration
   canvas.configure();
 
-  // Register settings
-  game.settings.register("crucible", "actionAnimations", {
-    name: "Enable Action Animations",
-    hint: "Enable automatic action animations using Sequencer and JB2A. Both modules must be installed and enabled for this feature to work.",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true
-  });
-
   game.settings.register("crucible", "autoConfirm", {
     name: "SETTINGS.AutoConfirmName",
     hint: "SETTINGS.AutoConfirmHint",
@@ -194,18 +184,6 @@ Hooks.once("init", async function() {
     config: false,
     type: Number,
     default: 0
-  });
-
-  /**
-   * Is animation enabled for the system?
-   * @type {boolean}
-   */
-  Object.defineProperty(crucible, "animationEnabled", {
-    value: game.settings.get("crucible", "actionAnimations")
-      && game.modules.get("sequencer")?.active
-      && ["JB2A_DnD5e", "jb2a_patreon"].some(id => game.modules.get(id)?.active),
-    writable: false,
-    configurable: true
   });
 
   // Activate socket handler

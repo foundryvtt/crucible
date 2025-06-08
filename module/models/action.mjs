@@ -1293,12 +1293,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Additional Actor-specific consequences
     this.actor.onDealDamage(this, this.outcomes);
 
-    // Play animation
-    if ( game.system.animationEnabled && !reverse ) {
-      const animation = this.getAnimationSequence(this.outcomes);
-      if ( animation ) await animation.play();
-    }
-
     // Delete any Measured Template that was placed
     if ( this.template ) await this.template.delete();
 
@@ -1322,76 +1316,5 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !template ) return;
     const templateDoc = await fromUuid(template);
     if ( templateDoc ) await templateDoc.delete();
-  }
-
-  /* -------------------------------------------- */
-  /*  Animation                                   */
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare a Sequencer animation.
-   * @returns {null}
-   */
-  getAnimationSequence() {
-
-    // Confirm that animation paths exist
-    const config = this._getAnimationConfiguration();
-    if ( !config?.src ) return null;
-    const paths = Sequencer.Database.searchFor(config.src);
-    if ( !paths.length ) return null;
-
-    // Get the origin token
-    const originToken = CrucibleAction.#getTargetToken(this.actor);
-    if ( !originToken ) return null;
-
-    // Create the Sequence and configure it based on the gesture used
-    const sequence = new Sequence();
-
-    // Single target
-    if ( this.target.type === "single" ) {
-      for ( const outcome of this.outcomes.values() ) {
-        if ( !outcome.rolls.length ) continue;
-        const targetToken = CrucibleAction.#getTargetToken(outcome.target);
-        const hit = outcome.rolls.some(r => r.isSuccess || (r.data.damage?.total > 0));
-        const wait = config.wait ?? 0;
-        if ( config.sequence instanceof Function ) {
-          config.sequence(sequence, config, {originToken, targetToken, hit});
-        }
-        else sequence.effect()
-          .file(config.src)
-          .atLocation(originToken)
-          .stretchTo(targetToken)
-          .missed(!hit)
-          .waitUntilFinished(wait);
-        if ( config.scale ) sequence.scale(config.scale);
-      }
-    }
-    return sequence;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the animation configuration for this Action.
-   * @protected
-   */
-  _getAnimationConfiguration() {
-    const isMainhandAttack = ["mainhand", "twohand"].some(t => this.tags.has(t));
-    const isOffhandAttack = this.tags.has("offhand");
-    if ( isMainhandAttack || isOffhandAttack ) {
-      const weapon = this.actor.equipment.weapons[isMainhandAttack ? "mainhand" : "offhand"];
-      return weapon.system.getAnimationConfiguration();
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the placeable Token location for a CrucibleActor in the current Scene, if any.
-   * @param {CrucibleActor} actor       The Actor being targeted
-   * @returns {Token|null}
-   */
-  static #getTargetToken(actor) {
-    return (actor.isToken ? actor.token?.object: actor.getActiveTokens(true)[0]) || null;
   }
 }
