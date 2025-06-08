@@ -52,8 +52,24 @@ export default class CrucibleSpellAction extends CrucibleAction {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _initializeSource(data, options) {
+    data = super._initializeSource(data, options);
+    data.id = this.getSpellId(data);
+    return data;
+  }
 
+  /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  updateSource(changes, options) {
+    if ( ("rune" in changes) || ("gesture" in changes) || ("inflection" in changes) ) {
+      changes.id = this.getSpellId(changes);
+    }
+    return super.updateSource(changes, options);
+  }
+
+  /* -------------------------------------------- */
 
   /** @inheritDoc */
   _prepareData() {
@@ -66,7 +82,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
 
     // Composed Spell
     if ( this.composition >= CrucibleSpellAction.COMPOSITION_STATES.COMPOSING ) {
-      this.id = ["spell", this.rune.id, this.gesture.id, this.inflection?.id].filterJoin(".");
       this.nameFormat = this.gesture.nameFormat ?? this.rune.nameFormat;
       this.name = CrucibleSpellAction.#getName(this);
       this.img = this.rune.img;
@@ -80,6 +95,22 @@ export default class CrucibleSpellAction extends CrucibleAction {
     this.damage = CrucibleSpellAction.#prepareDamage.call(this);
     this.target = {...this.gesture.target};
     this.range = this.gesture.range;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the unique identifier that represents this spell as a combination of rune, gesture, and inflection.
+   * @param rune
+   * @param gesture
+   * @param inflection
+   * @returns {*}
+   */
+  getSpellId({rune, gesture, inflection}={}) {
+    rune ??= (this.rune?.id || "none");
+    gesture ??= (this.gesture?.id || "none");
+    inflection ??= (this.inflection?.id || "none");
+    return ["spell", rune, gesture, inflection].filterJoin(".");
   }
 
   /* -------------------------------------------- */
@@ -353,7 +384,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     const rune = runes.first()?.id;
     const gesture = gestures.first()?.id;
     Object.assign(spellData, {
-      id: `spell.${rune}.${gesture}`,
       rune,
       gesture,
       inflection: undefined,
@@ -372,7 +402,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
    * @returns {CrucibleSpellAction}   The constructed spell instance
    */
   static fromId(spellId, context={}) {
-    const [spell, rune, gesture, inflection] = spellId.split(".");
+    const [spell, rune, gesture, inflection] = spellId.split(".").map(p => p === "none" ? "" : p);
     if ( spell !== "spell" ) throw new Error(`Invalid Spell ID: "${spellId}"`);
     return new this({
       id: spellId,
