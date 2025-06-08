@@ -22,10 +22,10 @@ system:
   actions: []
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.2
+  coreVersion: '13.345'
   createdTime: 1674942420026
-  modifiedTime: 1726930318516
+  modifiedTime: 1749410925746
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

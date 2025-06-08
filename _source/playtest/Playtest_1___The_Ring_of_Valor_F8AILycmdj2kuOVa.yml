@@ -148,7 +148,7 @@ actors:
         engagementBonus: 0
     prototypeToken:
       name: Baizaz
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -283,12 +283,12 @@ actors:
           properties:
             - parrying
           damageType: piercing
-          animation: claws
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -353,6 +353,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -525,7 +528,7 @@ actors:
         engagementBonus: 0
     prototypeToken:
       name: Huiana
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -621,12 +624,12 @@ actors:
           equipped: true
           properties: []
           damageType: piercing
-          animation: bite
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -700,6 +703,9 @@ actors:
                   rollData.boons.packHunter = {label: "Pack Hunter", number: 1};
                 }
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           iconicSpells: 0
           training:
             type: ''
@@ -884,7 +890,7 @@ actors:
         - defend
     prototypeToken:
       name: Anvil
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -906,7 +912,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -934,7 +940,7 @@ actors:
         negative: false
         priority: 0
       sight:
-        enabled: true
+        enabled: false
         range: 0
         angle: 360
         visionMode: basic
@@ -1025,9 +1031,9 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          animation: greatclub
           slot: 0
           actions: []
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -1071,6 +1077,9 @@ actors:
             rank: null
           nodes:
             - str2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -1140,6 +1149,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -1207,6 +1219,9 @@ actors:
             rank: null
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -1258,6 +1273,9 @@ actors:
             rank: null
           nodes:
             - str2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: c0nl6X8tp4Of0Y4O
         sort: 0
@@ -1291,6 +1309,9 @@ actors:
             rank: null
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -1346,6 +1367,9 @@ actors:
           iconicSpells: 0
           actorHooks: []
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -1407,6 +1431,9 @@ actors:
             rank: null
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -1443,6 +1470,9 @@ actors:
           actorHooks: []
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 150000
         ownership:
@@ -1626,7 +1656,7 @@ actors:
         - offhandStrike
     prototypeToken:
       name: Hammer
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -1648,7 +1678,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -1676,7 +1706,7 @@ actors:
         negative: false
         priority: 0
       sight:
-        enabled: true
+        enabled: false
         range: 0
         angle: 360
         visionMode: basic
@@ -1729,9 +1759,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: handaxe
           slot: 0
           actions: []
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -1769,9 +1799,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: sword
           slot: 0
           actions: []
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -1842,6 +1872,9 @@ actors:
             rank: null
           nodes:
             - dex3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -1905,6 +1938,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
           duplicateSource: null
@@ -1975,6 +2011,9 @@ actors:
             rank: null
           nodes:
             - str3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -2009,6 +2048,9 @@ actors:
           actorHooks: []
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 150000
         ownership:
@@ -2080,6 +2122,9 @@ actors:
           training:
             type: ''
             rank: null
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2264,7 +2309,7 @@ actors:
         - strike
     prototypeToken:
       name: Orivech
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -2286,7 +2331,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -2314,7 +2359,7 @@ actors:
         negative: false
         priority: 0
       sight:
-        enabled: true
+        enabled: false
         range: 0
         angle: 360
         visionMode: basic
@@ -2361,12 +2406,12 @@ actors:
           properties:
             - blocking
           damageType: radiant
-          animation: quarterstaff
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -2443,6 +2488,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2494,6 +2541,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2533,6 +2582,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -2575,6 +2626,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2611,6 +2664,8 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
         effects: []
         ownership:
           default: 0
@@ -2654,6 +2709,8 @@ actors:
             rank: null
           nodes:
             - wis1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2693,6 +2750,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -2727,6 +2786,9 @@ actors:
             rank: null
           nodes:
             - sig3.wisdom.presence
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -2763,6 +2825,8 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
         effects: []
         flags:
           core: {}
@@ -2799,6 +2863,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -3004,7 +3071,7 @@ actors:
         threat: minion
     prototypeToken:
       name: Skeletal Archer
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -3026,7 +3093,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -3144,9 +3211,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: arrow
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -3182,6 +3249,9 @@ actors:
           iconicSpells: 0
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -3244,6 +3314,9 @@ actors:
             rank: null
           nodes:
             - dex1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -3283,6 +3356,9 @@ actors:
             rank: null
           nodes:
             - dex3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -3457,7 +3533,7 @@ actors:
         - defend
     prototypeToken:
       name: Skeletal Spearman
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -3479,7 +3555,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -3599,9 +3675,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: spear
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -3638,6 +3714,9 @@ actors:
           iconicSpells: 0
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -3684,6 +3763,9 @@ actors:
             rank: null
           nodes:
             - tou0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -3718,6 +3800,9 @@ actors:
             rank: null
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -3787,6 +3872,9 @@ actors:
             rank: null
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -3968,7 +4056,7 @@ actors:
         - intimidate
     prototypeToken:
       name: Koy Rent
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -3990,7 +4078,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -4018,7 +4106,7 @@ actors:
         negative: false
         priority: 0
       sight:
-        enabled: true
+        enabled: false
         range: 0
         angle: 360
         visionMode: basic
@@ -4105,12 +4193,12 @@ actors:
             - ambush
             - keen
           damageType: slashing
-          animation: claws
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -4146,12 +4234,12 @@ actors:
             - ambush
             - keen
           damageType: slashing
-          animation: claws
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -4189,6 +4277,9 @@ actors:
             rank: null
           nodes:
             - tou2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: SMe30RkoLutLr4ef
         ownership:
@@ -4256,6 +4347,9 @@ actors:
           iconicSpells: 0
           actorHooks: []
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -4322,6 +4416,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
           duplicateSource: null
@@ -4379,6 +4476,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -4438,6 +4538,9 @@ actors:
             rank: null
           nodes:
             - str4a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -4472,6 +4575,9 @@ actors:
             rank: null
           nodes:
             - tou2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -4527,6 +4633,9 @@ actors:
             rank: null
           nodes:
             - dex4c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -4588,6 +4697,9 @@ actors:
             rank: null
           nodes:
             - toustr1
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -4622,6 +4734,9 @@ actors:
           actorHooks: []
           nodes:
             - tou4b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -4791,7 +4906,7 @@ actors:
         - defend
     prototypeToken:
       name: Harbinger of Disease
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -4813,7 +4928,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -4893,6 +5008,7 @@ actors:
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -4931,6 +5047,7 @@ actors:
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -5034,6 +5151,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -5078,6 +5198,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -5120,6 +5242,8 @@ actors:
             rank: null
           nodes:
             - pre2b
+          rune: ''
+          inflection: ''
         effects: []
         folder: D14x9AJ0TgXKtnzu
         sort: 1000000
@@ -5157,6 +5281,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -5196,6 +5322,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -5232,6 +5360,8 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
         effects: []
         flags:
           core: {}
@@ -5402,7 +5532,7 @@ actors:
         - defend
     prototypeToken:
       name: Harbinger of Fear
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -5424,7 +5554,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -5452,7 +5582,7 @@ actors:
         negative: false
         priority: 0
       sight:
-        enabled: true
+        enabled: false
         range: 0
         angle: 360
         visionMode: basic
@@ -5498,12 +5628,12 @@ actors:
           equipped: true
           properties: []
           damageType: psychic
-          animation: bite
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -5607,6 +5737,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -5664,6 +5797,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -5837,7 +5973,7 @@ actors:
         - devourThoughts
     prototypeToken:
       name: Harbinger of Madness
-      displayName: 30
+      displayName: 20
       actorLink: false
       appendNumber: false
       prependAdjective: false
@@ -5859,7 +5995,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: -1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -5934,12 +6070,12 @@ actors:
           properties:
             - reach
           damageType: bludgeoning
-          animation: claws
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         sort: 0
         ownership:
@@ -6041,6 +6177,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -6107,6 +6246,9 @@ actors:
           actorHooks: []
           iconicSpells: 0
           nodes: []
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -6176,7 +6318,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -6302,7 +6444,7 @@ actors:
         - cast
     prototypeToken:
       name: Zarajah
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -6324,7 +6466,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -6399,12 +6541,12 @@ actors:
           properties:
             - blocking
           damageType: radiant
-          animation: quarterstaff
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -6509,6 +6651,9 @@ actors:
             rank: null
           nodes:
             - pre1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -6544,6 +6689,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -6586,6 +6733,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -6625,6 +6774,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -6668,6 +6819,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 280000
         ownership:
@@ -6707,6 +6861,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 120000
         ownership:
@@ -6740,6 +6897,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -6799,6 +6959,9 @@ actors:
           actorHooks: []
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -6869,7 +7032,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -6995,7 +7158,7 @@ actors:
         - ruthlessMomentum
     prototypeToken:
       name: Agnath
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -7017,7 +7180,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -7135,6 +7298,9 @@ actors:
             rank: 1
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: FQAUMNkcagdBLURJ
         sort: 125000
@@ -7172,6 +7338,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -7222,6 +7390,9 @@ actors:
             rank: null
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -7261,6 +7432,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -7314,6 +7487,9 @@ actors:
             rank: null
           nodes:
             - int4b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: BevAJzzLeFbSaVic
         sort: -50000
@@ -7351,6 +7527,9 @@ actors:
           nodes:
             - sig3.intellect
             - sig3.strength
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -7385,6 +7564,9 @@ actors:
             rank: null
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -7422,6 +7604,8 @@ actors:
             rank: null
           nodes:
             - str2c
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -7469,6 +7653,9 @@ actors:
             rank: null
           nodes:
             - str2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -7535,6 +7722,9 @@ actors:
             rank: null
           nodes:
             - str2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -7601,6 +7791,9 @@ actors:
             rank: null
           nodes:
             - toustr1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -7632,6 +7825,9 @@ actors:
             rank: null
           nodes:
             - tou2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -7670,9 +7866,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: glaive
           actions: []
           slot: 3
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.glaive0000000000
           duplicateSource: null
@@ -7708,6 +7904,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -7768,6 +7966,9 @@ actors:
           actorHooks: []
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -7810,6 +8011,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 40000
         ownership:
@@ -7848,6 +8052,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -7881,6 +8088,9 @@ actors:
           actorHooks: []
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 150000
         ownership:
@@ -7928,6 +8138,9 @@ actors:
             rank: null
           nodes:
             - int3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -7964,6 +8177,9 @@ actors:
             rank: null
           nodes:
             - int2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: aB808IWOdgwmFCIF
         sort: 300000
@@ -8005,6 +8221,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 80000
         ownership:
@@ -8038,6 +8257,9 @@ actors:
           actorHooks: []
           nodes:
             - int4c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 90000
         ownership:
@@ -8072,6 +8294,9 @@ actors:
           actorHooks: []
           nodes:
             - str4c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 50000
         ownership:
@@ -8140,7 +8365,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -8270,7 +8495,7 @@ actors:
         - backstab
     prototypeToken:
       name: Belladonna
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -8292,7 +8517,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -8374,9 +8599,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: dagger
           actions: []
           slot: 0
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.dagger0000000000
           duplicateSource: null
@@ -8415,9 +8640,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: dagger
           actions: []
           slot: 0
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.dagger0000000000
           duplicateSource: null
@@ -8523,6 +8748,9 @@ actors:
             rank: null
           nodes:
             - int2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: 0
@@ -8582,6 +8810,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -8647,6 +8878,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
           duplicateSource: null
@@ -8700,6 +8934,9 @@ actors:
             rank: null
           nodes:
             - dex4c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -8765,6 +9002,9 @@ actors:
             rank: null
           nodes:
             - dex2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -8812,6 +9052,9 @@ actors:
             rank: null
           nodes:
             - intdex2
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -8848,6 +9091,9 @@ actors:
             rank: null
           nodes:
             - intdex4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -8909,6 +9155,9 @@ actors:
             rank: null
           nodes:
             - dex2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -8941,6 +9190,9 @@ actors:
             rank: null
           nodes:
             - dex3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -9005,6 +9257,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -9037,6 +9292,9 @@ actors:
             rank: null
           nodes:
             - intdex4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: BevAJzzLeFbSaVic
         sort: -75000
@@ -9072,6 +9330,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -9139,6 +9400,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -9180,6 +9444,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 400000
         ownership:
@@ -9219,6 +9486,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 120000
         ownership:
@@ -9279,6 +9549,9 @@ actors:
           actorHooks: []
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -9348,7 +9621,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -9477,7 +9750,7 @@ actors:
         - defend
     prototypeToken:
       name: Duurath
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -9499,7 +9772,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -9580,9 +9853,9 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          animation: warhammer
           actions: []
           slot: 1
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
           duplicateSource: null
@@ -9622,6 +9895,7 @@ actors:
           broken: false
           actions: []
           slot: 0
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.heatershield0000
           duplicateSource: null
@@ -9717,6 +9991,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -9782,6 +10059,9 @@ actors:
             rank: null
           nodes:
             - tou1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -9848,6 +10128,9 @@ actors:
             rank: null
           nodes:
             - tou1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -9889,6 +10172,8 @@ actors:
             rank: null
           nodes:
             - tou2b
+          rune: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -9977,6 +10262,9 @@ actors:
             rank: null
           nodes:
             - toustr2
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -10037,6 +10325,9 @@ actors:
             rank: null
           nodes:
             - tou2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Compendium.crucible.talent.counterstrike000
           duplicateSource: null
@@ -10082,6 +10373,9 @@ actors:
           nodes:
             - sig3.wisdom
             - sig3.toughness
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -10150,6 +10444,9 @@ actors:
           nodes:
             - sig3.presence
             - sig3.toughness
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -10190,6 +10487,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -10254,6 +10553,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -10299,6 +10601,9 @@ actors:
             rank: null
           nodes:
             - tou0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -10340,6 +10645,9 @@ actors:
             rank: null
           nodes:
             - tou0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -10375,6 +10683,9 @@ actors:
             rank: null
           nodes:
             - tou3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: aB808IWOdgwmFCIF
         sort: 100000
@@ -10413,9 +10724,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: dagger
           actions: []
           slot: 1
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.sai0000000000000
           duplicateSource: null
@@ -10452,7 +10763,6 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          animation: warhammer
           slot: 1
           actions:
             - id: breakEarth
@@ -10489,6 +10799,7 @@ actors:
                 - reflex
                 - melee
               actionHooks: []
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.warhammer0000000
           duplicateSource: null
@@ -10528,6 +10839,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 80000
         ownership:
@@ -10566,6 +10880,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -10599,6 +10916,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -10667,6 +10987,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -10733,7 +11056,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -10863,7 +11186,7 @@ actors:
         - combatMedicine
     prototypeToken:
       name: Eliorwen
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -10885,7 +11208,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -10966,9 +11289,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: arrow
           slot: 3
           actions: []
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.longbow000000000
           duplicateSource: null
@@ -11005,9 +11328,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: scimitar
           actions: []
           slot: 1
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.scimitar00000000
           duplicateSource: null
@@ -11077,6 +11400,9 @@ actors:
             rank: null
           nodes:
             - int2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -275000
@@ -11114,6 +11440,9 @@ actors:
           iconicSpells: 0
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -11183,6 +11512,9 @@ actors:
             rank: null
           nodes:
             - dex3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -11216,6 +11548,9 @@ actors:
             rank: null
           nodes:
             - intdex4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: BevAJzzLeFbSaVic
         sort: -75000
@@ -11278,6 +11613,9 @@ actors:
             rank: null
           nodes:
             - wis2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -11314,6 +11652,9 @@ actors:
             rank: null
           nodes:
             - sig3.intellect.dexterity
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -11376,6 +11717,9 @@ actors:
             rank: null
           nodes:
             - intdex4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -11410,6 +11754,9 @@ actors:
             rank: null
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -11475,6 +11822,9 @@ actors:
             rank: null
           nodes:
             - dex2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -11518,6 +11868,9 @@ actors:
             rank: null
           nodes:
             - dex3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -11555,6 +11908,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -11594,6 +11949,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -11655,6 +12012,9 @@ actors:
             rank: null
           nodes:
             - dex1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -11690,6 +12050,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -11733,6 +12095,9 @@ actors:
           actorHooks: []
           nodes:
             - tou0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 440000
         ownership:
@@ -11772,6 +12137,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 40000
         ownership:
@@ -11804,6 +12172,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 300000
         ownership:
@@ -11871,7 +12242,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -11998,7 +12369,7 @@ actors:
         - refocus
     prototypeToken:
       name: Fizzit
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -12020,7 +12391,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -12137,6 +12508,7 @@ actors:
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -12173,6 +12545,7 @@ actors:
             public: ''
             private: ''
           actions: []
+          dropped: false
         effects: []
         folder: SQH4h6ujibkpGCUF
         ownership:
@@ -12235,6 +12608,9 @@ actors:
             rank: null
           nodes:
             - int1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -12272,6 +12648,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -12311,6 +12689,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -12350,6 +12730,8 @@ actors:
             rank: null
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -12393,6 +12775,8 @@ actors:
             rank: null
           nodes:
             - wis1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -12427,6 +12811,9 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12463,6 +12850,8 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
         effects: []
         ownership:
           default: 0
@@ -12497,6 +12886,9 @@ actors:
             rank: null
           nodes:
             - sig3.wisdom.presence
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12536,6 +12928,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -12584,6 +12978,9 @@ actors:
             rank: null
           nodes:
             - wis3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12641,6 +13038,9 @@ actors:
             rank: null
           nodes:
             - int3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: c0nl6X8tp4Of0Y4O
         sort: -300000
@@ -12674,6 +13074,9 @@ actors:
             rank: null
           nodes:
             - int2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12747,6 +13150,9 @@ actors:
             rank: null
           nodes:
             - preint4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12796,6 +13202,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -12838,6 +13247,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 320000
         ownership:
@@ -12871,6 +13283,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -12909,6 +13324,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -12943,6 +13360,9 @@ actors:
             type: ''
             rank: null
           actorHooks: []
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13013,8 +13433,8 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
         talentNodes: []
+        milestones: 0
       defenses:
         armor:
           bonus: 0
@@ -13141,7 +13561,7 @@ actors:
         - fontOfLife
     prototypeToken:
       name: Kagura
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -13163,7 +13583,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -13238,12 +13658,12 @@ actors:
           properties:
             - blocking
           damageType: radiant
-          animation: quarterstaff
           description:
             public: ''
             private: ''
           actions: []
           slot: 1
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -13319,6 +13739,8 @@ actors:
             rank: null
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -13370,6 +13792,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -13412,6 +13836,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -13453,6 +13879,8 @@ actors:
             rank: null
           nodes:
             - wis1b
+          rune: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13487,6 +13915,9 @@ actors:
             rank: null
           nodes:
             - wis2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13521,6 +13952,9 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13594,6 +14028,8 @@ actors:
             rank: null
           nodes:
             - sig3.wisdom.presence
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13632,6 +14068,9 @@ actors:
             rank: null
           nodes:
             - pre2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13667,6 +14106,8 @@ actors:
             rank: null
           nodes:
             - wispre2
+          rune: ''
+          gesture: ''
         effects: []
         ownership:
           default: 0
@@ -13707,6 +14148,8 @@ actors:
             rank: null
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -13762,6 +14205,9 @@ actors:
             rank: null
           nodes:
             - wis3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13805,6 +14251,9 @@ actors:
           actorHooks: []
           nodes:
             - wis0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 240000
         ownership:
@@ -13847,6 +14296,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 320000
         ownership:
@@ -13880,6 +14332,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -13926,6 +14381,9 @@ actors:
           training:
             type: ''
             rank: null
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -13996,7 +14454,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -14125,7 +14583,7 @@ actors:
         - ruthlessMomentum
     prototypeToken:
       name: Ulfen
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -14147,7 +14605,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -14265,9 +14723,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: greataxe
           actions: []
           slot: 0
+          dropped: false
         _stats:
           compendiumSource: Compendium.crucible.weapon.Item.greataxe00000000
           duplicateSource: null
@@ -14325,6 +14783,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -14387,6 +14848,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -14447,6 +14911,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -14490,6 +14957,9 @@ actors:
             rank: null
           nodes:
             - str2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -14557,6 +15027,9 @@ actors:
             rank: null
           nodes:
             - sig3.toughness.strength
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -14592,6 +15065,9 @@ actors:
             rank: null
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -14659,6 +15135,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -14723,6 +15202,9 @@ actors:
             rank: null
           nodes:
             - str2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -14780,6 +15262,9 @@ actors:
             rank: null
           nodes:
             - str4a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -14854,6 +15339,9 @@ actors:
             rank: null
           nodes:
             - str3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -14886,6 +15374,9 @@ actors:
             rank: null
           nodes:
             - tou3b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -14956,6 +15447,9 @@ actors:
             rank: null
           nodes:
             - toustr1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -15018,6 +15512,9 @@ actors:
             rank: null
           nodes:
             - tou1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -15085,6 +15582,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -15125,6 +15625,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 80000
         ownership:
@@ -15163,6 +15666,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -15196,6 +15702,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -15263,7 +15772,7 @@ actors:
           bonus: 0
       advancement:
         level: 6
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -15389,7 +15898,7 @@ actors:
         - cast
     prototypeToken:
       name: Zarajah
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -15411,7 +15920,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -15486,12 +15995,12 @@ actors:
           properties:
             - blocking
           damageType: radiant
-          animation: quarterstaff
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -15596,6 +16105,9 @@ actors:
             rank: null
           nodes:
             - pre1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -15631,6 +16143,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -15673,6 +16187,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -15709,6 +16225,8 @@ actors:
             rank: null
           nodes:
             - preint2
+          rune: ''
+          gesture: ''
         effects: []
         sort: 0
         ownership:
@@ -15742,6 +16260,9 @@ actors:
             rank: null
           nodes:
             - sig3.presence.intellect
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -15781,6 +16302,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -15816,6 +16339,9 @@ actors:
             rank: null
           nodes:
             - intdex4
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: BevAJzzLeFbSaVic
         sort: -75000
@@ -15867,6 +16393,9 @@ actors:
             rank: null
           nodes:
             - int4b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: BevAJzzLeFbSaVic
         sort: -50000
@@ -15901,6 +16430,9 @@ actors:
             rank: null
           nodes:
             - int2b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: aB808IWOdgwmFCIF
         sort: 300000
@@ -15946,6 +16478,9 @@ actors:
             rank: null
           nodes:
             - int3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -15988,6 +16523,8 @@ actors:
             rank: null
           nodes:
             - pre2b
+          rune: ''
+          inflection: ''
         effects: []
         folder: D14x9AJ0TgXKtnzu
         sort: 1000000
@@ -16026,6 +16563,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -16065,6 +16604,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -16104,6 +16645,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -16147,6 +16690,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 280000
         ownership:
@@ -16186,6 +16732,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 120000
         ownership:
@@ -16219,6 +16768,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -16278,6 +16830,9 @@ actors:
           actorHooks: []
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -16348,7 +16903,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -16472,7 +17027,7 @@ actors:
         - defend
     prototypeToken:
       name: Agnath
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -16494,7 +17049,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -16574,9 +17129,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: greatsword
           actions: []
           slot: 3
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.6.0
@@ -16652,6 +17207,9 @@ actors:
           iconicSpells: 0
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -16692,6 +17250,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -16742,6 +17302,9 @@ actors:
             rank: null
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -16802,6 +17365,9 @@ actors:
           actorHooks: []
           nodes:
             - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -16844,6 +17410,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 40000
         ownership:
@@ -16882,6 +17451,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -16915,6 +17487,9 @@ actors:
           actorHooks: []
           nodes:
             - str0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 150000
         ownership:
@@ -16983,7 +17558,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -17109,7 +17684,7 @@ actors:
         - reactiveStrike
     prototypeToken:
       name: Belladonna
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -17131,7 +17706,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -17213,9 +17788,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: dagger
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -17254,9 +17829,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: dagger
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.3
@@ -17362,6 +17937,9 @@ actors:
             rank: null
           nodes:
             - int2a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: 0
@@ -17421,6 +17999,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -17486,6 +18067,9 @@ actors:
             rank: null
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
           duplicateSource: null
@@ -17552,6 +18136,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -17593,6 +18180,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 400000
         ownership:
@@ -17632,6 +18222,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 120000
         ownership:
@@ -17665,6 +18258,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -17726,6 +18322,9 @@ actors:
           actorHooks: []
           nodes:
             - dex1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -17795,7 +18394,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -17915,7 +18514,7 @@ actors:
         - strike
     prototypeToken:
       name: Duurath
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -17937,7 +18536,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -18018,9 +18617,9 @@ actors:
             private: ''
           damageType: bludgeoning
           broken: false
-          animation: warhammer
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -18060,6 +18659,7 @@ actors:
           broken: false
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -18155,6 +18755,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -18220,6 +18823,9 @@ actors:
             rank: null
           nodes:
             - tou1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -18286,6 +18892,9 @@ actors:
             rank: null
           nodes:
             - tou1b
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -18326,6 +18935,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 80000
         ownership:
@@ -18364,6 +18976,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -18397,6 +19012,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -18465,6 +19083,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -18507,6 +19128,9 @@ actors:
             rank: null
           nodes:
             - tou0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -18576,7 +19200,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -18702,7 +19326,7 @@ actors:
         - move
     prototypeToken:
       name: Eliorwen
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -18724,7 +19348,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -18805,9 +19429,9 @@ actors:
             private: ''
           damageType: piercing
           broken: false
-          animation: arrow
           slot: 3
           actions: []
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.6.0
@@ -18844,9 +19468,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: scimitar
           actions: []
           slot: 1
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.6.0
@@ -18916,6 +19540,9 @@ actors:
             rank: null
           nodes:
             - int2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -275000
@@ -18953,6 +19580,9 @@ actors:
           iconicSpells: 0
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
           training:
             type: ''
             rank: null
@@ -19022,6 +19652,9 @@ actors:
             rank: null
           nodes:
             - dex3a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         flags: {}
         _stats:
@@ -19059,6 +19692,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -19102,6 +19737,9 @@ actors:
           actorHooks: []
           nodes:
             - tou0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 440000
         ownership:
@@ -19141,6 +19779,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 40000
         ownership:
@@ -19173,6 +19814,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 300000
         ownership:
@@ -19232,6 +19876,9 @@ actors:
           actorHooks: []
           nodes:
             - dex1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: null
           duplicateSource: null
@@ -19297,7 +19944,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -19421,7 +20068,7 @@ actors:
         - cast
     prototypeToken:
       name: Fizzit
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -19443,7 +20090,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -19560,6 +20207,7 @@ actors:
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -19596,6 +20244,7 @@ actors:
             public: ''
             private: ''
           actions: []
+          dropped: false
         effects: []
         folder: SQH4h6ujibkpGCUF
         ownership:
@@ -19636,6 +20285,8 @@ actors:
             rank: null
           nodes:
             - int0a
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -19675,6 +20326,8 @@ actors:
             rank: null
           nodes:
             - int1a
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -19724,6 +20377,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -19766,6 +20422,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 320000
         ownership:
@@ -19799,6 +20458,9 @@ actors:
           actorHooks: []
           nodes:
             - dex0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -19837,6 +20499,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -19876,6 +20540,8 @@ actors:
           actorHooks: []
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -19919,6 +20585,8 @@ actors:
             rank: null
           nodes:
             - wis1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -19989,7 +20657,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -20113,7 +20781,7 @@ actors:
         - cast
     prototypeToken:
       name: Kagura
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -20135,7 +20803,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -20210,12 +20878,12 @@ actors:
           properties:
             - blocking
           damageType: radiant
-          animation: quarterstaff
           description:
             public: ''
             private: ''
           actions: []
           slot: 0
+          dropped: false
         effects: []
         flags:
           core: {}
@@ -20291,6 +20959,8 @@ actors:
             rank: null
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -20342,6 +21012,8 @@ actors:
             rank: null
           nodes:
             - pre0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -20384,6 +21056,8 @@ actors:
             rank: null
           nodes:
             - pre1b
+          rune: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -20424,6 +21098,8 @@ actors:
             rank: null
           nodes:
             - wis0b
+          gesture: ''
+          inflection: ''
         effects: []
         flags:
           core: {}
@@ -20467,6 +21143,9 @@ actors:
           actorHooks: []
           nodes:
             - wis0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 240000
         ownership:
@@ -20509,6 +21188,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 320000
         ownership:
@@ -20542,6 +21224,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -20581,6 +21266,8 @@ actors:
             rank: null
           nodes:
             - wis1b
+          rune: ''
+          inflection: ''
         effects: []
         ownership:
           default: 0
@@ -20651,7 +21338,7 @@ actors:
           bonus: 0
       advancement:
         level: 1
-        progress: 0
+        milestones: 0
         talentNodes: []
       defenses:
         armor:
@@ -20778,7 +21465,7 @@ actors:
         - intimidate
     prototypeToken:
       name: Ulfen
-      displayName: 30
+      displayName: 20
       actorLink: true
       appendNumber: false
       prependAdjective: false
@@ -20800,7 +21487,7 @@ actors:
       rotation: 0
       alpha: 1
       disposition: 1
-      displayBars: 40
+      displayBars: 20
       bar1:
         attribute: resources.health
       bar2:
@@ -20918,9 +21605,9 @@ actors:
             private: ''
           damageType: slashing
           broken: false
-          animation: greataxe
           actions: []
           slot: 0
+          dropped: false
         _stats:
           systemId: crucible
           systemVersion: 0.5.0
@@ -20978,6 +21665,9 @@ actors:
             rank: null
           nodes:
             - pre2c
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         folder: 2MFixpDJ379KOogE
         sort: -100000
@@ -21040,6 +21730,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -21100,6 +21793,9 @@ actors:
             rank: null
           nodes:
             - str1a
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.pHRUZ8Zfv5E0TcH2
           duplicateSource: null
@@ -21166,6 +21862,9 @@ actors:
           actorHooks: []
           nodes:
             - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
         _stats:
           compendiumSource: Item.V4stscWtnt2GFRY2
           duplicateSource: null
@@ -21206,6 +21905,9 @@ actors:
           actorHooks: []
           nodes:
             - int0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 80000
         ownership:
@@ -21244,6 +21946,9 @@ actors:
           actorHooks: []
           nodes:
             - pre0a
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 200000
         ownership:
@@ -21277,6 +21982,9 @@ actors:
           actorHooks: []
           nodes:
             - str0b
+          rune: ''
+          gesture: ''
+          inflection: ''
         effects: []
         sort: 0
         ownership:
@@ -22057,104 +22765,6 @@ scenes:
           disposition: false
         _movementHistory: []
         movementAction: null
-      - name: Eliorwen
-        displayName: 30
-        actorLink: true
-        texture:
-          src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
-          scaleX: 1
-          scaleY: 1
-          offsetX: 0
-          offsetY: 0
-          rotation: 0
-          tint: '#ffffff'
-          anchorX: 0.5
-          anchorY: 0.5
-          fit: contain
-          alphaThreshold: 0.75
-        width: 4
-        height: 4
-        lockRotation: false
-        rotation: 180
-        alpha: 1
-        disposition: 1
-        displayBars: 40
-        bar1:
-          attribute: resources.health
-        bar2:
-          attribute: resources.morale
-        light:
-          alpha: 0.75
-          angle: 360
-          bright: 0
-          color: '#ff8800'
-          coloration: 1
-          dim: 0
-          attenuation: 0.5
-          luminosity: 0.5
-          saturation: 0.2
-          contrast: 0.1
-          shadows: 0
-          animation:
-            type: torch
-            speed: 2
-            intensity: 2
-            reverse: false
-          darkness:
-            min: 0
-            max: 1
-          negative: false
-          priority: 0
-        sight:
-          enabled: true
-          range: 0
-          angle: 360
-          visionMode: basic
-          color: null
-          attenuation: 0.1
-          brightness: 0
-          saturation: 0
-          contrast: 0
-        detectionModes: []
-        flags: {}
-        occludable:
-          radius: 0
-        ring:
-          enabled: false
-          colors:
-            ring: null
-            background: null
-          effects: 1
-          subject:
-            scale: 1
-            texture: null
-        actorId: 2lvTCCOj4dnBI774
-        hidden: false
-        sort: 1
-        _id: 5vyeeBeZbZo2R4On
-        delta:
-          _id: Q5rX4XE6f2h2mTYq
-          system: {}
-          items: []
-          effects: []
-          flags: {}
-          name: null
-          type: null
-          img: null
-          ownership: null
-        x: 5160
-        'y': 4400
-        elevation: 0
-        locked: false
-        _regions: []
-        shape: 0
-        turnMarker:
-          mode: 1
-          animation: null
-          src: null
-          disposition: false
-        _movementHistory: []
-        movementAction: null
       - name: Kagura
         displayName: 30
         actorLink: true
@@ -22743,13 +23353,112 @@ scenes:
           disposition: false
         _movementHistory: []
         movementAction: null
-      - name: Baizaz
-        displayName: 30
-        actorLink: false
+      - name: My Hero
+        displayName: 20
+        actorLink: true
+        width: 4
+        height: 4
         texture:
-          src: systems/crucible/assets/tokens/adversaries/Boar.webp
+          src: >-
+            tokens/Caeora/Heroes/Humans/Class%20Tokens/Wizard%20Male/with-shadows/WizM9.png
+          anchorX: 0.5
+          anchorY: 0.5
+          offsetX: 0
+          offsetY: 0
+          fit: contain
           scaleX: 1
           scaleY: 1
+          rotation: 0
+          tint: '#ffffff'
+          alphaThreshold: 0.75
+        lockRotation: false
+        rotation: 0
+        alpha: 1
+        disposition: 0
+        displayBars: 20
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          negative: false
+          priority: 0
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+        sight:
+          enabled: true
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 0
+          subject:
+            scale: 1
+            texture: null
+        flags: {}
+        turnMarker:
+          mode: 1
+          animation: null
+          src: null
+          disposition: false
+        movementAction: null
+        actorId: k6gt3j3ysh4TUfGI
+        hidden: false
+        sort: 9
+        shape: 4
+        _id: 4oLfoni6Gsx6B6NN
+        delta:
+          _id: ksFjfrN8DMeZfWdR
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+          ownership: null
+        x: 4720
+        'y': 3320
+        elevation: 4
+        locked: false
+        _movementHistory: []
+        _regions: []
+      - name: Skeletal Spearman
+        displayName: 20
+        actorLink: false
+        texture:
+          src: systems/crucible/assets/tokens/adversaries/SkeletonSoldier.webp
+          scaleX: 0.9
+          scaleY: 0.9
           offsetX: 0
           offsetY: 0
           rotation: 0
@@ -22758,8 +23467,8 @@ scenes:
           anchorY: 0.5
           fit: contain
           alphaThreshold: 0.75
-        width: 3
-        height: 3
+        width: 4
+        height: 4
         lockRotation: false
         rotation: 0
         alpha: 1
@@ -22810,7 +23519,7 @@ scenes:
           colors:
             ring: null
             background: null
-          effects: 0
+          effects: 1
           subject:
             scale: 1
             texture: null
@@ -22820,24 +23529,19 @@ scenes:
           src: null
           disposition: false
         movementAction: null
-        actorId: owg68yqumk7KxV9B
+        actorId: aQkmEcwfImmdUINF
         hidden: false
-        sort: 9
+        sort: 10
         shape: 4
-        _id: 9X0nljpYE82FvYnt
+        _id: zU8O4GdNsrgGmDeX
         delta:
-          _id: iUYfapJVMWQT7InB
+          _id: 0AmgV5Y9J1wk2pZR
           system:
-            advancement:
-              threat: minion
-              level: -1
             resources:
               health:
-                value: 18
-              action:
-                value: 0
+                value: 15
               morale:
-                value: 6
+                value: 11
           items: []
           effects: []
           flags: {}
@@ -22845,12 +23549,208 @@ scenes:
           type: null
           img: null
           ownership: null
-        x: 4320
-        'y': 3400
+        x: 4600
+        'y': 3480
         elevation: 0
         locked: false
         _movementHistory: []
         _regions: []
+      - name: Skeletal Spearman
+        displayName: 20
+        actorLink: false
+        texture:
+          src: systems/crucible/assets/tokens/adversaries/SkeletonSoldier.webp
+          scaleX: 0.9
+          scaleY: 0.9
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 4
+        height: 4
+        lockRotation: false
+        rotation: 90
+        alpha: 1
+        disposition: -1
+        displayBars: 20
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: false
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 1
+          subject:
+            scale: 1
+            texture: null
+        turnMarker:
+          mode: 1
+          animation: null
+          src: null
+          disposition: false
+        movementAction: null
+        actorId: aQkmEcwfImmdUINF
+        hidden: false
+        sort: 10
+        shape: 4
+        delta:
+          _id: 0AmgV5Y9J1wk2pZR
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+          ownership: null
+        x: 4880
+        'y': 3320
+        elevation: 12
+        locked: false
+        _movementHistory: []
+        _regions: []
+        _id: 2O0Ezsj1sjskTKeM
+      - name: Skeletal Spearman
+        displayName: 20
+        actorLink: false
+        texture:
+          src: systems/crucible/assets/tokens/adversaries/SkeletonSoldier.webp
+          scaleX: 0.9
+          scaleY: 0.9
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 4
+        height: 4
+        lockRotation: false
+        rotation: 0
+        alpha: 1
+        disposition: -1
+        displayBars: 20
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: false
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 1
+          subject:
+            scale: 1
+            texture: null
+        turnMarker:
+          mode: 1
+          animation: null
+          src: null
+          disposition: false
+        movementAction: null
+        actorId: aQkmEcwfImmdUINF
+        hidden: false
+        sort: 10
+        shape: 4
+        delta:
+          _id: 0AmgV5Y9J1wk2pZR
+          system: {}
+          items: []
+          effects: []
+          flags: {}
+          name: null
+          type: null
+          img: null
+          ownership: null
+        x: 4720
+        'y': 3160
+        elevation: 0
+        locked: false
+        _movementHistory: []
+        _regions: []
+        _id: Iq70Xs8lU5JiHauJ
     lights: []
     notes: []
     sounds: []
@@ -24612,7 +25512,7 @@ macros:
       AnoypGxxNIMOS0XY: 3
     flags: {}
     _stats:
-      compendiumSource: Macro.5cbkagcruoRlGa1S
+      compendiumSource: null
       duplicateSource: null
       coreVersion: '13.344'
       systemId: crucible
@@ -24649,7 +25549,7 @@ macros:
       createdTime: 1684334968127
       modifiedTime: 1748790893430
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Macro.G7xze8yQapYUtx70
+      compendiumSource: null
       duplicateSource: null
       exportSource: null
   - _id: VhalTbPMAhmU32OD
@@ -24678,7 +25578,7 @@ macros:
       createdTime: null
       modifiedTime: 1748790808023
       lastModifiedBy: AnoypGxxNIMOS0XY
-      compendiumSource: Macro.VhalTbPMAhmU32OD
+      compendiumSource: null
       duplicateSource: null
       exportSource: null
 cards: []
@@ -24922,7 +25822,7 @@ folders:
     sort: 100000
     flags: {}
     _stats:
-      compendiumSource: Folder.dlxNLw9tn5u3Mvgf
+      compendiumSource: null
       duplicateSource: null
       exportSource: null
       coreVersion: '13.344'
@@ -24936,9 +25836,9 @@ folder: null
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0
-  coreVersion: '13.344'
-  modifiedTime: 1748790922186
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
+  modifiedTime: 1749414346383
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
