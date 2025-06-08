@@ -40,7 +40,7 @@ system:
       tags:
         - attack
         - melee
-        - throw
+        - thrown
       actionHooks: []
   rune: ''
   gesture: ''

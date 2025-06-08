@@ -30,7 +30,7 @@ system:
         scope: 4
       effects: []
       tags:
-        - throw
+        - thrown
       actionHooks: []
   rune: ''
   gesture: ''

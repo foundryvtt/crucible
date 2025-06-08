@@ -620,10 +620,10 @@ export const TAGS = {
     ...weaponAttack("offhand")
   },
 
-  throw: {
-    tag: "throw",
-    label: "ACTION.TagThrow",
-    tooltip: "ACTION.TagThrowTooltip",
+  thrown: {
+    tag: "thrown",
+    label: "ACTION.TagThrown",
+    tooltip: "ACTION.TagThrownTooltip",
     category: "attack",
     propagate: ["melee"],
     canUse() {
@@ -984,7 +984,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
       number: 1,
       scope: 3
     },
-    tags: ["throw"]
+    tags: ["thrown"]
   },
 
   // Recover
