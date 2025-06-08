@@ -281,7 +281,7 @@ export const CATEGORIES = Object.freeze({
 
 /**
  * The boolean properties which a Weapon may have.
- * @enum {object}
+ * @enum {{label: string, tooltip: string, [rarity]: number}}
  */
 export const PROPERTIES = {
   ambush: {
@@ -298,7 +298,8 @@ export const PROPERTIES = {
   },
   keen: {
     label: "WEAPON.TAGS.Keen",
-    tooltip: "WEAPON.TAGS.KeenTooltip"
+    tooltip: "WEAPON.TAGS.KeenTooltip",
+    rarity: 1
   },
   oversized: {
     label: "WEAPON.TAGS.Oversized",
@@ -314,11 +315,13 @@ export const PROPERTIES = {
   },
   reliable: {
     label: "WEAPON.TAGS.Reliable",
-    tooltip: "WEAPON.TAGS.ReliableTooltip"
+    tooltip: "WEAPON.TAGS.ReliableTooltip",
+    rarity: 1
   },
   returning: {
     label: "WEAPON.TAGS.Returning",
-    tooltip: "WEAPON.TAGS.ReturningTooltip"
+    tooltip: "WEAPON.TAGS.ReturningTooltip",
+    rarity: 1
   },
   thrown: {
     label: "WEAPON.TAGS.Thrown",

@@ -121,7 +121,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     // Weapon Properties
     for ( let p of this.properties ) {
       const prop = SYSTEM.WEAPON.PROPERTIES[p];
-      if ( prop.actionCost ) this.actionCost += prop.actionCost;
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
 

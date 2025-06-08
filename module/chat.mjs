@@ -116,6 +116,12 @@ export function renderChatMessageHTML(message, html, _messageData) {
 
   // Initiative Report
   if ( flags.isInitiativeReport ) html.querySelector(".dice-rolls")?.remove();
+
+  // Target Hover
+  for ( const el of html.querySelectorAll(".target-link") ) {
+    el.addEventListener("pointerover", onChatTargetLinkHover);
+    el.addEventListener("pointerout", onChatTargetLinkHover);
+  }
 }
 
 /* -------------------------------------------- */
@@ -127,7 +133,7 @@ export function renderChatMessageHTML(message, html, _messageData) {
  */
 export async function onChatTargetLinkHover(event) {
   const link = event.currentTarget;
-  const isActive = event.type === "mouseenter";
+  const isActive = event.type === "pointerover";
 
   // Get the target Token object;
   const target = await fromUuid(link.dataset.uuid);

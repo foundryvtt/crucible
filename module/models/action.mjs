@@ -1203,7 +1203,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       context: this.usage.context,
       hasActionTags: !foundry.utils.isEmpty(tags.action),
       outcomes: this.outcomes,
-      showTargets: this.target.type !== "self",
+      hasTargets: !["self", "none"].includes(this.target.type),
       targets,
       template: this.template
     });

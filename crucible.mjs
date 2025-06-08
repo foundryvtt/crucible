@@ -305,10 +305,6 @@ Hooks.once("setup", function() {
 
   // Create Talent Tree canvas
   crucible.tree = new canvas.tree.CrucibleTalentTree();
-
-  // Activate window listeners
-  // TODO v13 refactor
-  $("#chat-log").on("mouseenter mouseleave", ".crucible.action .target-link", chat.onChatTargetLinkHover);
 });
 
 /* -------------------------------------------- */
