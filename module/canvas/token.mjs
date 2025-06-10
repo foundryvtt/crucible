@@ -147,11 +147,13 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     return (from, to, distance, segment) => {
 
       // Step 1: Apply condition-based cost modifiers
-      const statuses = actor.statuses;
-      if ( statuses.has("slowed") ) distance *= 2;
-      if ( statuses.has("hastened") ) distance /= 2;
-      if ( statuses.has("prone") ) distance += 2;
-      if ( statuses.has("restrained") ) distance = Infinity;
+      if ( actor ) {
+        const statuses = actor.statuses;
+        if ( statuses.has("slowed") ) distance *= 2;
+        if ( statuses.has("hastened") ) distance /= 2;
+        if ( statuses.has("prone") ) distance += 2;
+        if ( statuses.has("restrained") ) distance = Infinity;
+      }
 
       // Step 2: Apply difficult terrain
       const terrainCost = calculateTerrainCost(from, to, distance, segment);
