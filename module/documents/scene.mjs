@@ -38,4 +38,23 @@ export default class CrucibleScene extends Scene {
     });
     return dimensions;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Assign the default Crucible grid configuration.
+   * @returns {Promise<void>}
+   */
+  async configureDefaultGrid() {
+    await this.update({
+      grid: {
+        distance: 5,
+        units: "ft",
+        style: "diamondPoints",
+        thickness: 4,
+        color: "#000000",
+        opacity: 0.5
+      }
+    });
+  }
 }

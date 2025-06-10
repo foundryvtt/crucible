@@ -17,12 +17,6 @@ export default class CrucibleSelectiveGridShader extends foundry.canvas.renderin
    */
   static MAX_POSITIONS = this.MAX_CONTROLLED * 2;
 
-  /**
-   * Stride fallback (in grid units) for tokens without an actor.
-   * @type {number}
-   */
-  static #FALLBACK_STRIDE = 4;
-
   /** @override */
   static defaultUniforms = {
     ...super.defaultUniforms,
@@ -89,22 +83,21 @@ export default class CrucibleSelectiveGridShader extends foundry.canvas.renderin
     for ( const t of tokens ) {
       if ( posCount >= this.constructor.MAX_POSITIONS ) break;
 
-      // Stride in grid units
-      const aSize = t.actor?.system.movement.size ?? 0;
-      const aStride = t.actor?.system.movement.stride;
-      const stride = Math.max((aSize / 2) + aStride, CrucibleSelectiveGridShader.#FALLBACK_STRIDE);
+      // Determine grid reveal radius
+      const {size=4, stride=10} = t.actor?.system.movement || {};
+      const radius = (size / 2) + stride;
 
       // Controlled token center
       u.positions[posCount * 2] = t.center.x / gs;
       u.positions[posCount * 2 + 1] = t.center.y / gs;
-      u.strides[posCount] = stride;
+      u.strides[posCount] = radius;
       posCount++;
 
       // Preview center, if any
       if ( t.hasPreview && t._preview && (posCount < this.constructor.MAX_POSITIONS) ) {
         u.positions[posCount * 2] = t._preview.center.x / gs;
         u.positions[posCount * 2 + 1] = t._preview.center.y / gs;
-        u.strides[posCount] = stride;
+        u.strides[posCount] = radius;
         posCount++;
       }
     }
