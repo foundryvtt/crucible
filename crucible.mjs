@@ -13,6 +13,7 @@ import {default as TALENT_HOOKS} from "./module/hooks/talents.mjs";
 
 import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
+import CrucibleSelectiveGridShader from "./module/canvas/shaders/grid-shader.mjs";
 
 // Import Modules
 import * as applications from "./module/applications/_module.mjs";
@@ -95,6 +96,11 @@ Hooks.once("init", async function() {
     hero: models.CrucibleHeroActor,
     group: models.CrucibleGroupActor
   };
+
+  // Custom grid shader class for all grid types
+  for ( const gridType in CONFIG.Canvas.gridStyles ) {
+    CONFIG.Canvas.gridStyles[gridType].shaderClass = CrucibleSelectiveGridShader;
+  }
 
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
