@@ -167,6 +167,11 @@
         "htmlFields": ["details.biography.public", "details.biography.private"]
       }
     },
+    "Combat": {
+      "combat": {},
+      "exploration": {},
+      "social": {}
+    },
     "Item": {
       "ancestry": {
         "htmlFields": ["description"]

@@ -1,11 +1,7 @@
-export default class CrucibleCombat extends Combat {
-
-  /**
-   * The prior amount of Heroism that has already been awarded.
-   * TODO this needs to move to be a combat flag, but it cannot until I fix a bug with combat audio alerts
-   * @type {number}
-   */
-  #priorHeroism = game.settings.get("crucible", "heroism") || 0;
+/**
+ * A specialized subclass of the Combat document which implements system-specific mechanics.
+ */
+export default class CrucibleCombat extends foundry.documents.Combat {
 
   /* -------------------------------------------- */
   /*  Document Methods                            */
@@ -35,32 +31,40 @@ export default class CrucibleCombat extends Combat {
   /*  Database Update Workflows                   */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _preCreate(data, options, user) {
+    await super._preCreate(data, options, user);
+    if ( !("type" in data) ) this.updateSource({type: "combat", "==system": {}});
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   async _preUpdate(data, options, user) {
     const advanceRound = ("round" in data) && (data.round > this.current.round);
     await super._preUpdate(data, options, user);
-
-    // Update Initiative scores for all Combatants
     if ( !advanceRound ) return;
-    data.combatants = [];
-    const results = [];
-    for ( const c of this.combatants ) {
-      const roll = c.getInitiativeRoll();
-      await roll.evaluate();
-      if ( c.actor.isIncapacitated ) roll._total = 0;
-      data.combatants.push({_id: c.id, initiative: roll.total});
-      results.push({
-        id: c.id,
-        name: c.name,
-        combatant: c,
-        initiative: roll.total,
-        roll
-      });
-    }
-    data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
 
-    // Post new round Initiative summary
-    await this.#postInitiativeMessage(data.round, results);
+    // TODO move to "combat" subtype
+    if ( this.type === "combat" ) {
+      data.combatants = [];
+      const results = [];
+      for ( const c of this.combatants ) {
+        const roll = c.getInitiativeRoll();
+        await roll.evaluate();
+        if ( c.actor?.isIncapacitated ) roll._total = 0;
+        data.combatants.push({_id: c.id, initiative: roll.total});
+        results.push({
+          id: c.id,
+          name: c.name,
+          combatant: c,
+          initiative: roll.total,
+          roll
+        });
+      }
+      data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
+      await this.system.postInitiativeMessage(data.round, results);
+    }
   }
 
   /* -------------------------------------------- */
@@ -69,10 +73,7 @@ export default class CrucibleCombat extends Combat {
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     for ( const c of this.combatants ) {
-      if ( c.actor ) {
-        c.actor.reset();
-        c.actor._sheet?.render(false);
-      }
+      if ( c.actor ) c.actor.render(false);
     }
   }
 
@@ -81,14 +82,15 @@ export default class CrucibleCombat extends Combat {
   /** @override */
   async _onStartTurn(combatant) {
     await super._onStartTurn(combatant);
+    // TODO forward turn events to the system subtype
     return combatant.actor.onStartTurn();
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async _onStartRound() {
-    await super._onStartRound();
+  async _onStartRound(context) {
+    await super._onStartRound(context);
     if ( this.turns.length < 2 ) return;
 
     // Identify the first combatant to act in the round
@@ -138,8 +140,8 @@ export default class CrucibleCombat extends Combat {
       await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: "Escalation"}]});
     }
 
-    // Award Heroism!
-    await this.#awardHeroism();
+    // Award Heroism
+    if ( this.type === "combat" ) await this.system.awardHeroism();
   }
 
   /* -------------------------------------------- */
@@ -148,83 +150,8 @@ export default class CrucibleCombat extends Combat {
   async _onEndTurn(combatant) {
     await super._onEndTurn(combatant);
     await combatant.actor.onEndTurn();
+    // FIXME determine whether these lines are still required
     combatant.updateResource();
     this.debounceSetup(); // TODO wish this wasn't needed
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * As a Gamemaster, award Heroism points to the party, if applicable.
-   * @returns {Promise<void>}
-   */
-  async #awardHeroism() {
-
-    // Reset Heroism
-    if ( this.round === 1 ) {
-      this.#priorHeroism = 0;
-      return game.settings.set("crucible", "heroism", 0);
-    }
-
-    const protagonistLevels = this.combatants.reduce((arr, c) => {
-      if ( c.actor?.type === "hero" ) arr.push(c.actor.level);
-      return arr;
-    }, []);
-    const heroismRequired = protagonistLevels.reduce((h, l) => h + l * 12, 0);
-    const priorAwarded = Math.floor(this.#priorHeroism / heroismRequired);
-
-    const heroism = game.settings.get("crucible", "heroism") || 0;
-    this.#priorHeroism = heroism;
-    const earned = Math.floor(heroism / heroismRequired);
-
-    const toAward = earned - priorAwarded;
-    if ( toAward <= 0 ) return;
-
-    // Award
-    for ( const c of this.combatants ) {
-      if ( c.actor?.type !== "hero" ) continue;
-      const status = {text: "Heroism!", fillColor: SYSTEM.RESOURCES.heroism.color.css};
-      await c.actor.alterResources({heroism: toAward}, {}, {statusText: [status]});
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  #postInitiativeMessage(round, results) {
-    results.sort(this._sortCombatants);
-    const rolls = results.map(e => e.roll);
-
-    // Format table rows
-    const rows = results.map(i => {
-      const rd = i.roll.data;
-      const modifiers = [
-        rd.ability.signedString(),
-        rd.boons > 0 ? `${rd.boons} Boons` : "",
-        rd.banes > 0 ? `${rd.banes} Banes` : ""
-      ].filterJoin(", ");
-      return `<tr><td>${i.name}</td><td>${modifiers}</td><td>${i.initiative}</td></tr>`;
-    }).join("");
-
-    // Create the Chat Message
-    return ChatMessage.create({
-      content: `
-      <section class="crucible dice-roll initiative">
-      <table class="initiative-table">
-        <thead>
-          <tr>
-              <th>Combatant</th>
-              <th>Modifiers</th>
-              <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-            ${rows}
-        </tbody>
-      </table>
-      </section>`,
-      rolls,
-      speaker: {user: game.user, alias: `Initiative - Round ${round}`},
-      "flags.crucible.isInitiativeReport": true
-    });
   }
 }

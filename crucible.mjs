@@ -97,6 +97,14 @@ Hooks.once("init", async function() {
     group: models.CrucibleGroupActor
   };
 
+  // Combat document configuration
+  CONFIG.Combat.documentClass = documents.CrucibleCombat;
+  CONFIG.Combat.dataModels = {
+    combat: models.CrucibleCombatChallenge,
+    exploration: models.CrucibleExplorationChallenge,
+    social: models.CrucibleSocialChallenge
+  };
+
   // Custom grid shader class for all grid types
   for ( const gridType in CONFIG.Canvas.gridStyles ) {
     CONFIG.Canvas.gridStyles[gridType].shaderClass = CrucibleSelectiveGridShader;
@@ -117,7 +125,6 @@ Hooks.once("init", async function() {
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
-  CONFIG.Combat.documentClass = documents.CrucibleCombat;
   CONFIG.Combatant.documentClass = documents.CrucibleCombatant;
   CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;
@@ -182,14 +189,6 @@ Hooks.once("init", async function() {
     editable: [{key: "KeyX"}],
     restricted: true,
     onDown: chat.onKeyboardConfirmAction
-  });
-
-  // TODO this needs to change to a Combat flag
-  game.settings.register("crucible", "heroism", {
-    scope: "world",
-    config: false,
-    type: Number,
-    default: 0
   });
 
   // Activate socket handler

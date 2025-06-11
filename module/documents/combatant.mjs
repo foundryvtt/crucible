@@ -9,38 +9,33 @@ export default class CrucibleCombatant extends Combatant {
     if ( this.parent.round === 0 ) this.initiative = null;
   }
 
+  /* -------------------------------------------- */
+
   /** @override */
   getInitiativeRoll(formula) {
-    const actor = this.actor;
-    const {weapons, armor} = actor.equipment;
-
-    // Initiative boons and banes
     const boons = {};
     const banes = {};
-    const action = this.actor.system.resources.action.value;
-    if ( this.parent.round && action ) {
-      boons.action = {label: "Reserved Action", number: action};
+    const rollData = {ability: 0, skill: 0, enchantment: 0, boons, banes}
+
+    // Actor preparation
+    if ( this.actor ) {
+
+      // Ability bonus
+      rollData.ability = this.actor.getAbilityBonus(["dexterity", "intellect"]);
+
+      // Boons and Banes
+      const action = this.actor.system.resources.action.value;
+      if ( this.parent.round && action ) boons.action = {label: "Reserved Action", number: action};
+      const {weapons, armor} = this.actor.equipment;
+      if ( weapons.slow ) banes.slow = {label: "Slow Weaponry", number: weapons.slow};
+      if ( this.actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
+      if ( armor.system.properties.has("bulky") ) banes.bulky = {label: "Bulky Armor", number: 2};
+
+      // Actor Hooks
+      this.actor.callActorHooks("prepareStandardCheck", rollData);
+      this.actor.callActorHooks("prepareInitiativeCheck", rollData);
     }
-    if ( weapons.slow ) banes.slow = {label: "Slow Weaponry", number: weapons.slow};
-    if ( actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
-    if ( armor.system.properties.has("bulky") ) banes.bulky = {label: "Bulky Armor", number: 2};
-
-    // Prepare roll data
-    const rollData = {
-      ability: this.actor.getAbilityBonus(["dexterity", "intellect"]),
-      skill: 0,
-      enchantment: 0,
-      boons: boons,
-      banes: banes
-    }
-
-    // Call talent hooks
-    actor.callActorHooks("prepareStandardCheck", rollData);
-    actor.callActorHooks("prepareInitiativeCheck", rollData);
-
-    // Construct Initiative Check
-    // TODO this needs to be an InitiativeCheck with custom rendering
-    return new StandardCheck(rollData);
+    return new StandardCheck(rollData); // TODO this needs to be an InitiativeCheck with custom rendering
   }
 
   /* -------------------------------------------- */

@@ -11,6 +11,11 @@ export {default as CrucibleAdversaryActor} from "./actor-adversary.mjs";
 export {default as CrucibleHeroActor} from "./actor-hero.mjs";
 export {default as CrucibleGroupActor} from "./actor-group.mjs";
 
+// Combat
+export {default as CrucibleCombatChallenge} from "./combat-combat.mjs";
+export {default as CrucibleExplorationChallenge} from "./combat-exploration.mjs";
+export {default as CrucibleSocialChallenge} from "./combat-social.mjs";
+
 // Item
 export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
 export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";
