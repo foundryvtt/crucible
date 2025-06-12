@@ -191,7 +191,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
         this.resistances[r].base = 0;
         continue;
       }
-      const factor = tr > 0 ? (tr / 3) : ((tr+1) / 3);
+      const factor = tr < 0 ? (tr / 3) : (tr * 2 / 3);
       this.resistances[r].base = Math.floor(this.advancement.threatLevel * perLevel * factor);
     }
   }

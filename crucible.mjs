@@ -386,6 +386,7 @@ Hooks.on("getSceneControlButtons", controls => {
   }
   controls.tokens.tools.debugFlanking = flankingTool;
 });
+Hooks.on("renderCombatTracker", models.CrucibleCombatChallenge.onRenderCombatTracker);
 
 /* -------------------------------------------- */
 /*  Canvas Hooks                                */

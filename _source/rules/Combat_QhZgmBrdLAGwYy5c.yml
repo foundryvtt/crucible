@@ -787,11 +787,11 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.345'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726930849493
-      modifiedTime: 1748655602680
+      modifiedTime: 1749694519485
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     category: null
@@ -839,6 +839,72 @@ pages:
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.1fAJeBGIEaMnsi5A'
+  - sort: 800000
+    name: Heroism
+    type: text
+    _id: 4rapfbyanVHveRme
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Actions taken during Combat generate <strong>Heroism</strong> which
+        accumulates until it reaches a threshold at which point every
+        <strong>Hero</strong> in the Combat encounter gains a <strong>Heroism
+        Point</strong>. Heroism is a resource that allows protagonists to
+        perform legendary or iconic feats of power or resilience.</p><p>Heroism
+        is accumulated by any Action which applies healing, damage, or effects
+        to some other character. Actions which only target yourself, like
+        <strong>Move</strong> or <strong>Defend</strong> do not contribute
+        towards Heroism. The actions of both allies and adversaries count
+        towards Heroism accumulation. The amount of Heroism accumulated by each
+        Action is equal to its<strong> Action</strong> cost.</p><section
+        class="foundryvtt"><p>The progress of Heroism accumulation is visualized
+        at the top of the Combat Tracker. A customizable game setting exists to
+        configure whether this progress bar is visible to all players or only to
+        Gamemasters. If you are new to the Crucible system, we encourage you to
+        allow this progress bar to be visible to everyone, but once you are used
+        to the rules of the system concealing it from players can help reduce
+        metagaming that may occur from players trying to precisely anticipate
+        the award of their next Heroism point.</p></section><p>The number of
+        <strong>Action Points</strong> that need to be spent in order to yield a
+        <strong>Heroism Point</strong> depends on the number of Hero characters
+        in the Combat encounter:</p><section class="formula"><p
+        class="value">Action per Heroism</p><p class="equals">=</p><p
+        class="equation">Number of Heroes × 6 × 3</p></section><section
+        class="gameplay"><h4>Example: Ray of Life</h4><p>Suppose Kagura, a
+        powerful Healer, casts a spell <strong>Composed Ray of Life</strong>
+        which heals two of her allies and costs <strong>5 Action</strong> to
+        cast. Since this spell heals other characters, this action contributes 5
+        Action towards Heroism accumulation. If this accumulation were enough to
+        fill the Heroism meter, then Kagura and each of her allies would
+        immediately gain <strong>+1 Heroism</strong>.</p><p>With her remaining
+        Action for the turn, Kagura uses <strong>Defend</strong> which
+        costs<strong> 1 Action</strong>. Since this Action only affects herself,
+        it does not contribute towards Heroism accumulation.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      createdTime: 1749693502753
+      modifiedTime: 1749694870194
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.4rapfbyanVHveRme'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6

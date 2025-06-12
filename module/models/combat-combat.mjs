@@ -6,10 +6,22 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     const fields = foundry.data.fields;
     return {
       heroism: new fields.SchemaField({
-        actions: new fields.NumberField({required: true, integer: true, min: 0}),
-        awarded: new fields.NumberField({required: true, integer: true, min: 0})
+        actions: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
+        awarded: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0})
       })
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  prepareDerivedData() {
+    const h = this.heroism;
+    const nHeroes = Math.max(this.parent.combatants.filter(c => c.actor?.type === "hero")?.length, 3);
+    h.required = nHeroes * 6 * 3;
+    h.previous = Math.floor(h.actions / h.required) * h.required;
+    h.next = h.previous + h.required;
+    h.pct = (h.actions - h.previous) / h.required;
   }
 
   /* -------------------------------------------- */
@@ -94,5 +106,35 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   }
 
   /* -------------------------------------------- */
+  /*  Combat Tracker Rendering                    */
+  /* -------------------------------------------- */
 
+  /**
+   * When the CombatTracker is rendered, add a heroism progress bar.
+   */
+  static onRenderCombatTracker(app, _html, _options) {
+    if ( game.combat?.type !== "combat" ) return;
+    const header = app.element.querySelector(".combat-tracker-header");
+    const bar = `<div class="heroism-meter"><span class="heroism-bar"></span></div>`
+    header.insertAdjacentHTML("beforeend", bar);
+    CrucibleCombatChallenge.refreshCombatTracker();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Refresh display of the CombatTracker to update the heroism progress bar.
+   */
+  static refreshCombatTracker() {
+    if ( game.combat?.type !== "combat" ) return;
+    const bars = [ui.combat.element.querySelector(".heroism-bar")]
+    if ( ui.combat.popout ) bars.push(ui.combat.popout.element.querySelector(".heroism-bar"));
+    const heroism = game.combat.system.heroism;
+    const pct = `${Math.round(heroism.pct * 100)}%`
+    for ( const bar of bars ) {
+      if ( !bar ) continue;
+      bar.style.width = pct;
+      bar.parentElement.dataset.tooltip = `Heroism Point: ${pct}`;
+    }
+  }
 }

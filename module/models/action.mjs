@@ -1170,7 +1170,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Prepare action data
     const actionData = {
       actor: this.actor.uuid,
-      action: this.toObject(),
+      action: this.toObject(false), // Finalized action data rather than source
       confirmed,
       outcomes: [],
     };
@@ -1253,6 +1253,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     else if ( actionId in actor.actions ) action = actor.actions[actionId].clone();
     else action = new this(actionData, {actor});
+    foundry.utils.mergeObject(action, actionData); // Re-apply prepared data
 
     // Load a MeasuredTemplate associated with this action
     if ( templateId ) action.template = fromUuidSync(templateId);
@@ -1300,6 +1301,67 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const outcome of this.outcomes.values() ) {
       await outcome.target.applyActionOutcome(this, outcome, {reverse});
     }
+
+    // Record heroism
+    try {
+      await this.#recordHeroism(reverse);
+    } catch(err) {
+      console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
+    }
+
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record actions which generate heroism.
+   * @param {boolean} reverse
+   */
+  async #recordHeroism(reverse) {
+    if ( !this.#canGenerateHeroism() ) return;
+    const h = game.combat.system.heroism;
+    const delta = this.cost.action * (reverse ? -1 : 1);
+    const actions = h.actions + delta;
+
+    // Update Combat
+    const combatUpdate = {system: {heroism: {actions}}};
+    let award = 0;
+    if ( (actions >= h.next) && (actions > h.awarded) ) {
+      combatUpdate.system.heroism.awarded = actions;
+      award = 1;
+    }
+    else if ( (actions < h.previous) && (actions < h.awarded) ) {
+      combatUpdate.system.heroism.awarded = actions;
+      award = -1;
+    }
+    await game.combat.update(combatUpdate);
+
+    // Award Heroism
+    if ( award === 0 ) return;
+    for ( const {actor} of game.combat.combatants ) {
+      if ( actor?.type !== "hero" ) continue;
+      await actor.alterResources({heroism: award})
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this Action generate heroism?
+   * @returns {boolean}
+   */
+  #canGenerateHeroism() {
+    if ( !this.actor.inCombat ) return false;
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.target === this.actor ) continue;
+      if ( outcome.effects.length ) return true;
+      for ( const [k, v] of Object.entries(outcome.resources) ) {
+        if ( !(k in SYSTEM.RESOURCES) ) continue;
+        if ( this.damage.restoration && (v > 0) ) return true;
+        else if ( !this.damage.restoration && (v < 0) ) return true;
+      }
+    }
+    return false;
   }
 
   /* -------------------------------------------- */

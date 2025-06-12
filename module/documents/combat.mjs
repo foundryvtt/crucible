@@ -70,6 +70,15 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
+  _onUpdate(change, options, userId) {
+    super._onUpdate(change, options, userId);
+    if ( this.type === "combat" ) this.system.constructor.refreshCombatTracker();
+  }
+
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     for ( const c of this.combatants ) {
@@ -139,9 +148,6 @@ export default class CrucibleCombat extends foundry.documents.Combat {
       await firstActor?.alterResources({morale: this.round}, {}, {statusText: [{text: "Escalation"}]});
       await lastActor?.alterResources({morale: -this.round}, {}, {statusText: [{text: "Escalation"}]});
     }
-
-    // Award Heroism
-    if ( this.type === "combat" ) await this.system.awardHeroism();
   }
 
   /* -------------------------------------------- */
