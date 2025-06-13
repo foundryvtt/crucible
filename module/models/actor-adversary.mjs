@@ -103,6 +103,11 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     else if ( level < 0 ) threatLevel = Math.floor(level / this.advancement.threatFactor);
     this.advancement.threatLevel = threatLevel;
 
+    // Threat scale
+    let threatScale = level;
+    if ( level < 0 ) threatScale = 1 / Math.abs(level - 1);
+    this.advancement.threatScale = threatScale * this.advancement.threatFactor;
+
     // TODO: Automatic skill progression rank (temporary)
     this.advancement._autoSkillRank = Math.clamp(Math.ceil(threatLevel / 6), 0, 5);
     this.advancement.maxAction = threatConfig.actionMax;
@@ -184,15 +189,15 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @param taxonomy
    */
   #scaleResistances(taxonomy) {
-    const perLevel = SYSTEM.ANCESTRIES.resistanceAmount;
     for ( const r of Object.keys(this.resistances) ) {
       const tr = taxonomy.resistances[r] || 0;
       if ( tr === 0 ) {
         this.resistances[r].base = 0;
         continue;
       }
-      const factor = tr < 0 ? (tr / 3) : (tr * 2 / 3);
-      this.resistances[r].base = Math.floor(this.advancement.threatLevel * perLevel * factor);
+      const perLevel = tr < 0 ? (tr / 3) : (tr * 2 / 3);
+      const base = this.advancement.threatScale * perLevel;
+      this.resistances[r].base = base < 0 ? Math.floor(base) : Math.ceil(base);
     }
   }
 

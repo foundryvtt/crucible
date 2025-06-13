@@ -134,7 +134,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     this.details.background ||= this.schema.getField("details.background").initialize({});
 
     // Threat level
-    this.advancement.threatLevel = this.advancement.level;
+    this.advancement.threatLevel = this.advancement.threatScale = this.advancement.level;
     this.advancement.threatFactor = 1;
 
     // Base Resistances
