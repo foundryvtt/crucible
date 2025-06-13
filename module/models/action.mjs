@@ -1,6 +1,7 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
+import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
 
 
 /**
@@ -163,6 +164,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {string[]}
    */
   static LOCALIZATION_PREFIXES = ["ACTION"];
+
+  /**
+   * The Handlebars template used to render this Action as a line item for tooltips or as a partial.
+   * @type {string}
+   */
+  static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-action.hbs";
 
   /**
    * A temporary MeasuredTemplate object used to establish targets for this action.
@@ -1080,6 +1087,100 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Confirm action outcomes, applying actor and active effect changes as a result.
+   * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
+   * @param {object} [options]                  Options which affect the confirmation workflow
+   * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
+   * @returns {Promise<void>}
+   */
+  async confirm({reverse=false}={}) {
+    if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`)
+
+    // Custom Action confirmation steps
+    for ( const test of this._tests() ) {
+      if ( !(test.confirm instanceof Function) ) continue
+      try {
+        await test.confirm.call(this);
+      } catch(err) {
+        console.error(new Error(`"${this.id}" action confirmation failed`, {cause: err}));
+      }
+    }
+
+    // Additional Actor-specific consequences
+    this.actor.onDealDamage(this, this.outcomes);
+
+    // Delete any Measured Template that was placed
+    if ( this.template ) await this.template.delete();
+
+    // Apply outcomes
+    for ( const outcome of this.outcomes.values() ) {
+      await outcome.target.applyActionOutcome(this, outcome, {reverse});
+    }
+
+    // Record heroism
+    try {
+      await this.#recordHeroism(reverse);
+    } catch(err) {
+      console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record actions which generate heroism.
+   * @param {boolean} reverse
+   */
+  async #recordHeroism(reverse) {
+    if ( !this.#canGenerateHeroism() ) return;
+    const h = game.combat.system.heroism;
+    const delta = this.cost.action * (reverse ? -1 : 1);
+    const actions = h.actions + delta;
+
+    // Update Combat
+    const combatUpdate = {system: {heroism: {actions}}};
+    let award = 0;
+    if ( (actions >= h.next) && (actions > h.awarded) ) {
+      combatUpdate.system.heroism.awarded = actions;
+      award = 1;
+    }
+    else if ( (actions < h.previous) && (actions < h.awarded) ) {
+      combatUpdate.system.heroism.awarded = actions;
+      award = -1;
+    }
+    await game.combat.update(combatUpdate);
+
+    // Award Heroism
+    if ( award === 0 ) return;
+    for ( const {actor} of game.combat.combatants ) {
+      if ( actor?.type !== "hero" ) continue;
+      await actor.alterResources({heroism: award})
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Can this Action generate heroism?
+   * @returns {boolean}
+   */
+  #canGenerateHeroism() {
+    if ( !this.actor.inCombat ) return false;
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.target === this.actor ) continue;
+      if ( outcome.effects.length ) return true;
+      for ( const [k, v] of Object.entries(outcome.resources) ) {
+        if ( !(k in SYSTEM.RESOURCES) ) continue;
+        if ( this.damage.restoration && (v > 0) ) return true;
+        else if ( !this.damage.restoration && (v < 0) ) return true;
+      }
+    }
+    return false;
+  }
+
+  /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
@@ -1153,6 +1254,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     if ( duration ) tags.action.duration = `${duration}R`;
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render this Action as HTML for a tooltip card.
+   * @returns {Promise<string>}
+   */
+  async renderCard() {
+    await foundry.applications.handlebars.loadTemplates([this.constructor.TOOLTIP_TEMPLATE]);
+    return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_TEMPLATE, {
+      action: this,
+      tags: this.getTags()
+    });
   }
 
   /* -------------------------------------------- */
@@ -1267,101 +1382,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       action.outcomes.set(target, outcome);
     }
     return action;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Confirm action outcomes, applying actor and active effect changes as a result.
-   * This method is factored out so that it may be called directly in cases where the action can be auto-confirmed.
-   * @param {object} [options]                  Options which affect the confirmation workflow
-   * @param {boolean} [options.reverse]           Reverse the action instead of applying it?
-   * @returns {Promise<void>}
-   */
-  async confirm({reverse=false}={}) {
-    if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`)
-
-    // Custom Action confirmation steps
-    for ( const test of this._tests() ) {
-      if ( !(test.confirm instanceof Function) ) continue
-      try {
-        await test.confirm.call(this);
-      } catch(err) {
-        console.error(new Error(`"${this.id}" action confirmation failed`, {cause: err}));
-      }
-    }
-
-    // Additional Actor-specific consequences
-    this.actor.onDealDamage(this, this.outcomes);
-
-    // Delete any Measured Template that was placed
-    if ( this.template ) await this.template.delete();
-
-    // Apply outcomes
-    for ( const outcome of this.outcomes.values() ) {
-      await outcome.target.applyActionOutcome(this, outcome, {reverse});
-    }
-
-    // Record heroism
-    try {
-      await this.#recordHeroism(reverse);
-    } catch(err) {
-      console.error(new Error(`Failed to record Heroism from Action "${this.id}"`, {cause: err}));
-    }
-
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Record actions which generate heroism.
-   * @param {boolean} reverse
-   */
-  async #recordHeroism(reverse) {
-    if ( !this.#canGenerateHeroism() ) return;
-    const h = game.combat.system.heroism;
-    const delta = this.cost.action * (reverse ? -1 : 1);
-    const actions = h.actions + delta;
-
-    // Update Combat
-    const combatUpdate = {system: {heroism: {actions}}};
-    let award = 0;
-    if ( (actions >= h.next) && (actions > h.awarded) ) {
-      combatUpdate.system.heroism.awarded = actions;
-      award = 1;
-    }
-    else if ( (actions < h.previous) && (actions < h.awarded) ) {
-      combatUpdate.system.heroism.awarded = actions;
-      award = -1;
-    }
-    await game.combat.update(combatUpdate);
-
-    // Award Heroism
-    if ( award === 0 ) return;
-    for ( const {actor} of game.combat.combatants ) {
-      if ( actor?.type !== "hero" ) continue;
-      await actor.alterResources({heroism: award})
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Can this Action generate heroism?
-   * @returns {boolean}
-   */
-  #canGenerateHeroism() {
-    if ( !this.actor.inCombat ) return false;
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.target === this.actor ) continue;
-      if ( outcome.effects.length ) return true;
-      for ( const [k, v] of Object.entries(outcome.resources) ) {
-        if ( !(k in SYSTEM.RESOURCES) ) continue;
-        if ( this.damage.restoration && (v > 0) ) return true;
-        else if ( !this.damage.restoration && (v < 0) ) return true;
-      }
-    }
-    return false;
   }
 
   /* -------------------------------------------- */

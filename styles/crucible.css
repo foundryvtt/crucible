@@ -431,6 +431,7 @@
   background: url("../ui/journal/background-texture.webp");
   padding: 1rem 1.5rem;
   border: 2px ridge var(--color-frame);
+  text-align: left;
 }
 /* ----------------------------------------- */
 /*  Application V2 Styles                    */

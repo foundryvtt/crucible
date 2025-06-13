@@ -331,6 +331,7 @@ Hooks.once("ready", async function() {
 
   // System-specific interaction
   document.body.addEventListener("pointerenter", interaction.onPointerEnter, true);
+  document.body.addEventListener("pointerleave", interaction.onPointerLeave, true);
 });
 
 /* -------------------------------------------- */

@@ -1,15 +1,15 @@
-import {data} from "/scripts/foundry.mjs";
 import CrucibleAction from "./action.mjs";
 import {SYSTEM} from "../config/system.mjs";
+const {fields} = foundry.data;
 
 /* -------------------------------------------- */
 
 /**
  * A standardized ArrayField used when an Item contains Actions.
  */
-export class ItemActionsField extends data.fields.ArrayField {
+export class ItemActionsField extends fields.ArrayField {
   constructor(options, context) {
-    super(new data.fields.EmbeddedDataField(CrucibleAction), options, context);
+    super(new fields.EmbeddedDataField(CrucibleAction), options, context);
   }
 }
 
@@ -18,11 +18,11 @@ export class ItemActionsField extends data.fields.ArrayField {
 /**
  * A standardized ArrayField used when an Item contains Actor Hooks.
  */
-export class ItemActorHooks extends data.fields.ArrayField {
+export class ItemActorHooks extends fields.ArrayField {
   constructor(options, context) {
-    const hookSchema = new data.fields.SchemaField({
-      hook: new data.fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
-      fn: new data.fields.JavaScriptField({async: true, gmOnly: true})
+    const hookSchema = new fields.SchemaField({
+      hook: new fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
+      fn: new fields.JavaScriptField({async: true, gmOnly: true})
     });
     super(hookSchema, options, context);
   }
@@ -33,7 +33,7 @@ export class ItemActorHooks extends data.fields.ArrayField {
 /**
  * A special StringField subclass used for item identifiers.
  */
-export class ItemIdentifierField extends data.fields.StringField {
+export class ItemIdentifierField extends fields.StringField {
 
   /** @inheritdoc */
   static get _defaults() {
