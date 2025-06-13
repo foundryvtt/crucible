@@ -974,4 +974,15 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Set data transfer
     if ( dragData ) event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDropItem(event, item) {
+    if ( !this.actor.isOwner ) return;
+    if ( this.actor.uuid === item.parent?.uuid ) return this._onSortItem(event, item);
+    const keepId = !(item.system instanceof crucible.api.models.CruciblePhysicalItem);
+    const itemData = this.actor._cleanItemData(item);
+    await Item.implementation.create(itemData, {parent: this.actor, keepId});
+  }
 }

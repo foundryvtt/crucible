@@ -341,23 +341,18 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const context = {
       actor: this.actor,
       abilities: this._prepareAbilityScores(),
-      buttons: this._prepareHeaderButtons(),
       activeStep: this.step,
       charname: this._state.name,
       state: this._state,
-      tabs: this._prepareHeaderTabs()
+      tabs: this._prepareTabs("header")
     }
 
     // Step-specific preparation
     await this._prepareSteps(context, options);
 
-    // Finalize tab steps
-    for ( const tab of Object.values(context.tabs) ) {
-      tab.cssClass = [
-        tab.active ? "active" : "",
-        tab.completed ? "complete" : "incomplete"
-      ].filterJoin(" ")
-    }
+    // Header Buttons and Tabs
+    context.buttons = this._prepareHeaderButtons();
+    this._finalizeHeaderTabs(context);
     return context;
   }
 
@@ -381,36 +376,41 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
-  _prepareHeaderTabs() {
-    const tabs = this._prepareTabs("header");
+  /**
+   * Finalize the state of each tab on the header navigation based on creation completion state.
+   */
+  _finalizeHeaderTabs(context) {
     const plurals = new Intl.PluralRules(game.i18n.lang);
 
     // Default icons and completion state
-    for ( const tab of Object.values(tabs) ) {
+    for ( const tab of Object.values(context.tabs) ) {
       const step = this.constructor.STEPS[tab.id];
       const completed = !!this._completed[tab.id];
+      tab.selectionIcon ||= `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`;
       Object.assign(tab, step, {
-        selectionIcon: `systems/crucible/ui/svg/hexagon-${completed ? "checkmark" : "xmark"}.svg`,
-        completed: completed,
-        cssClass: completed ? "complete" : "incomplete"
+        completed,
+        cssClass: [
+          tab.active ? "active" : "",
+          completed ? "complete" : "incomplete"
+        ].filterJoin(" ")
       });
-    }
 
-    // Background specifically
-    if ( "background" in tabs ) {
-      const ap = this._clone.points.ability.pool;
-      tabs.background.selectionLabel = `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}`;
-    }
+      // Background
+      if ( tab.id === "background" ) {
+        const ap = this._clone.points.ability.pool;
+        tab.selectionLabel = (ap || !context.background)
+          ? `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}`
+          : context.background.name
+      }
 
-    // Talents specifically
-    if ( "talents" in tabs ) {
-      const tp = this._clone.points.talent.available;
-      tabs.talents.selectionLabel = tp > 0
-        ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
-        : "Completed";
+      // Talents
+      if ( tab.id === "talents" ) {
+        const tp = this._clone.points.talent.available;
+        tab.selectionLabel = tp > 0
+          ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
+          : "Completed";
+      }
     }
-    return tabs;
   }
 
   /* -------------------------------------------- */
@@ -479,7 +479,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       if ( a.color ) t.selectionColor = a.color;
       if ( a.icon ) t.selectionIcon = a.icon;
       t.selectionLabel = a.name;
-      t.completed = true;
     }
     else context.ancestry = null;
   }
@@ -503,15 +502,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
 
     // Chosen Background
-    this._completed.background = backgroundId in backgrounds;
+    const spentPoints = this._clone.points.ability.pool === 0;
+    this._completed.background = (backgroundId in backgrounds) && spentPoints;
     if ( backgroundId ) {
       const b = context.background = backgrounds[backgroundId];
       if ( b.color ) t.selectionColor = b.color;
       if ( b.icon ) t.selectionIcon = b.icon;
-      if ( this._clone.points.ability.pool === 0 ) {
-        t.selectionLabel = b.name;
-        t.completed = true;
-      }
     }
     else context.background = null;
   }
@@ -624,7 +620,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const uuid of ancestryItem.system.talents ) {
       const talent = await fromUuid(uuid);
       if ( !talent ) continue;
-      const talentData = talent.toObject()
+      const talentData = actor._cleanItemData(talent);
       foundry.utils.mergeObject(talentData, {"flags.crucible.ancestry": ancestryId});
       actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
     }
@@ -670,7 +666,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     for ( const uuid of backgroundItem.system.talents ) {
       const talent = await fromUuid(uuid);
       if ( !talent ) continue;
-      const talentData = talent.toObject()
+      const talentData = actor._cleanItemData(talent);
       foundry.utils.mergeObject(talentData, {"flags.crucible.background": backgroundId});
       actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
     }
@@ -852,6 +848,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
+    delete creationData.ownership;
     delete creationData.flags.core.sheetClass;
     creationData.flags.core["-=sheetClass"] = null;
     creationData.system.advancement.level = 1;
@@ -868,7 +865,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     await this.deactivateTalentTree();
     this._clone = this.#createClone();
     this._state = {};
-    await this._initializeState();
+    for ( const k in this._completed ) this._completed[k] = false;
     this.tabGroups.header = Object.values(this.constructor.STEPS).find(s => s.order === 1).id;
   }
 }

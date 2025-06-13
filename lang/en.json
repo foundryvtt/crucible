@@ -1059,6 +1059,11 @@
     },
     "stride": {
       "label": "Stride"
+    },
+    "characteristics": {
+      "label": "Taxonomy Characteristics",
+      "equipment.label": "Can Use Equipment",
+      "spells.label": "Can Cast Spells"
     }
   },
   "CATEGORIES": {

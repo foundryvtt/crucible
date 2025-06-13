@@ -4,8 +4,8 @@
         <div class="advancement flexrow" data-tooltip="{{advancementTooltip}}" data-tooltip-direction="UP">
             {{#if incomplete.progress}}
             <button type="button" class="icon level-up fa-solid fa-triangle-exclamation incomplete"
-                    data-action="levelUp" data-tooltip="{{incomplete.progressTooltip}}" data-tooltip-direction="DOWN"
-                    data-tooltip-class="creation-steps"></button>
+                    data-tooltip-html="{{incomplete.progressTooltip}}" data-tooltip-direction="DOWN"
+                    data-tooltip-class="crucible crucible-tooltip incomplete"></button>
             {{else if incomplete.level}}
             <button type="button" class="icon level-up fa-solid fa-plus incomplete" data-action="levelUp"
                     data-tooltip="Level Up!"></button>

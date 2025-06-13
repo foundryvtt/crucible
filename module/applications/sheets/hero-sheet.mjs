@@ -47,14 +47,14 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     const issues = [];
     if ( !s.system.details.ancestry?.name ) issues.push("Choose an Ancestry");
     if ( !s.system.details.background?.name ) issues.push("Choose a Background");
-    if ( points.ability.available < 0 ) issues.push("Too many Ability points have been spent");
-    else if ( points.ability.requireInput ) issues.push("Spend Ability points");
+    if ( points.ability.available < 0 ) issues.push("Too many Ability Points have been spent");
+    else if ( points.ability.requireInput ) issues.push("Spend Ability Points");
     if ( points.talent.available < 0 ) issues.push("Too many Talents have been taken");
-    else if ( points.talent.available ) issues.push("Spend Talent points");
+    else if ( points.talent.available ) issues.push("Spend Talent Points");
     i.progress = !!issues.length;
     if ( i.progress ) {
       const items = issues.reduce((s, text) => s + `<li>${text}</li>`, "");
-      i.progressTooltip = `<p>Character Progression Issues:</p><ol>${items}</ol>`;
+      i.progressTooltip = `<h4>Progression Requirements</h4><ol>${items}</ol>`;
     }
     return context;
   }

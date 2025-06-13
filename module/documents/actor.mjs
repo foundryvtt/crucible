@@ -1153,7 +1153,7 @@ export default class CrucibleActor extends Actor {
         let talent;
         if ( pack.index.has(item._id) ) talent = await pack.getDocument(item._id);
         else if ( item._stats.compendiumSource ) talent = await fromUuid(item._stats.compendiumSource);
-        if ( talent ) updates.push(talent.toObject());
+        if ( talent ) updates.push(this._cleanItemData(talent));
       }
     }
     await this.updateEmbeddedDocuments("Item", updates, {diff: false, recursive: false, noHook: true});
@@ -1200,8 +1200,9 @@ export default class CrucibleActor extends Actor {
     }
 
     // Add temporarily to an ephemeral Actor
+    const talentData = this._cleanItemData(talent);
     if ( !this._id ) {
-      const talentCopy = talent.constructor.fromSource(talent.toObject(), {parent: this});
+      const talentCopy = talent.constructor.fromSource(talentData, {parent: this});
       this.items.set(talentCopy.id, talentCopy);
       this.reset();
       if ( crucible.tree.actor === this ) crucible.tree.refresh();
@@ -1209,7 +1210,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Add permanently to a persisted Actor
-    return talent.constructor.create(talent.toObject(), {parent: this, keepId: true});
+    return talent.constructor.create(talentData, {parent: this, keepId: true});
   }
 
   /* -------------------------------------------- */
@@ -1387,11 +1388,9 @@ export default class CrucibleActor extends Actor {
         updateData.items = [];
         for ( const uuid of detail.talents ) {
           const talent = await fromUuid(uuid);
-          if ( talent ) {
-            const talentData = talent.toObject();
-            foundry.utils.setProperty(talentData, "_stats.compendiumSource", talent.uuid);
-            updateData.items.push(talentData);
-          }
+          if ( !talent ) continue;
+          const talentData = this._cleanItemData(talent);
+          updateData.items.push(talentData);
         }
       }
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
@@ -1437,6 +1436,19 @@ export default class CrucibleActor extends Actor {
       const pack = game.packs.get(SYSTEM.COMPENDIUM_PACKS[type]);
       pack.render(true);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Clean data for an Item that is being added to this Actor.
+   * @param {CrucibleItem} item
+   * @internal
+   */
+  _cleanItemData(item) {
+    const itemData = game.items.fromCompendium(item, {clearFolder: true, clearOwnership: true, keepId: true});
+    delete itemData.ownership;
+    return itemData;
   }
 
   /* -------------------------------------------- */
@@ -1530,6 +1542,7 @@ export default class CrucibleActor extends Actor {
    * @throws {Error}              An Error if the Item cannot be equipped
    */
   async #equipWeapon(item, {slot, dropped, equipped}) {
+    if ( dropped && (item.category === "natural") ) return;
     const action = equipped ? this.#equipWeaponAction(item, slot) : this.#unequipWeaponAction(item, dropped);
     if ( this.inCombat ) await action.use();
     else await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);

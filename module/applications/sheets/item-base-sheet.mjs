@@ -219,7 +219,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const hooks = {};
     for ( const h of this.document.system.actorHooks ) {
       const cfg = SYSTEM.ACTOR.HOOKS[h.hook];
-      const label = `${h.hook}(actor, ${cfg.argNames.join(", ")})`;
+      const label = `${h.hook}(item, ${cfg.argNames.join(", ")})`;
       hooks[h.hook] = {label, ...h};
     }
     return hooks;

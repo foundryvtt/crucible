@@ -386,5 +386,19 @@
     padding: 1rem 1.5rem;
     border: 2px ridge var(--color-frame);
     text-align: left; // always left, regardless of tooltip position
+    &.locked-tooltip {
+      border-color: var(--color-warm-2);
+    }
+    &.incomplete {
+      h4 {
+        text-align: center;
+        font-size: var(--font-size-14);
+        margin: 0.25rem 0;
+      }
+      ol {
+        font-size: var(--font-size-13);
+        margin: 0.25rem 0;
+      }
+    }
   }
 }

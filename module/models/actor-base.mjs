@@ -414,7 +414,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Register actor hooks for equipped items
     this.#registerActorHooks(armor);
-    this.#registerActorHooks(weapons.mainhand);
+    if ( weapons.mainhand ) this.#registerActorHooks(weapons.mainhand);
     if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
     for ( const a of accessories ) this.#registerActorHooks(a);
   }
@@ -533,17 +533,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Final weapon preparation
-    if ( !weapons.mainhand ) weapons.mainhand = this.#getUnarmedWeapon();
+    if ( !weapons.mainhand && mhOpen ) weapons.mainhand = this._getUnarmedWeapon();
     const mh = weapons.mainhand;
-    const mhCategory = mh.config.category;
-    if ( !weapons.offhand ) weapons.offhand =  mhCategory.hands < 2 ? this.#getUnarmedWeapon() : null;
+    const mhCategory = mh?.config.category || {};
+    if ( !weapons.offhand && ohOpen ) weapons.offhand =  mhCategory.hands < 2 ? this._getUnarmedWeapon() : null;
     const oh = weapons.offhand;
     const ohCategory = oh?.config.category || {};
-    mh.system.prepareEquippedData();
+    mh?.system.prepareEquippedData();
     oh?.system.prepareEquippedData();
 
     // Range
-    const ranges = [mh.system.range];
+    const ranges = [1];
+    if ( mh ) ranges.push(mh.system.range);
     if ( oh ) ranges.push(oh.system.range);
     weapons.maxRange = Math.max(...ranges);
 
@@ -568,20 +569,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
 
     // Two-Handed
-    weapons.twoHanded = weapons.mainhand.system.slot === slots.TWOHAND;
+    weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
 
     // Melee vs. Ranged
     weapons.melee = !mhCategory.ranged;
     weapons.ranged = !!mhCategory.ranged;
 
     // Dual Wielding
-    weapons.dualWield = weapons.unarmed || ((mhCategory.hands === 1) && mh.id && (oh.id && !weapons.shield));
-    weapons.dualMelee = weapons.dualWield && !(mhCategory.ranged || ohCategory.ranged);
-    weapons.dualRanged = (mhCategory.hands === 1) && mhCategory.ranged && ohCategory.ranged;
+    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
+    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
+    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
-    weapons.slow = mh.system.properties.has("oversized") ? 1 : 0;
+    weapons.slow = mh?.system.properties.has("oversized") ? 1 : 0;
     weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
 
     // Strong Grip
@@ -598,7 +599,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Get the default unarmed weapon used by this Actor if they do not have other weapons equipped.
    * @returns {CrucibleItem}
    */
-  #getUnarmedWeapon() {
+  _getUnarmedWeapon() {
     const itemCls = getDocumentClass("Item");
     const data = foundry.utils.deepClone(SYSTEM.WEAPON.UNARMED_DATA);
     if ( this.talentIds.has("martialartist000") ) data.system.quality = "fine";
@@ -727,8 +728,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
 
     // Block and Parry from equipped Weapons
-    const weaponData = [equipment.weapons.mainhand.system];
-    if ( !equipment.weapons.twoHanded ) weaponData.push(equipment.weapons.offhand.system);
+    const weaponData = [];
+    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
+    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
     defenses.block = {base: 0, bonus: 0};
     defenses.parry = {base: 0, bonus: 0};
     for ( let wd of weaponData ) {

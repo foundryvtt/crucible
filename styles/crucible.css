@@ -433,6 +433,18 @@
   border: 2px ridge var(--color-frame);
   text-align: left;
 }
+.crucible.crucible-tooltip.locked-tooltip {
+  border-color: var(--color-warm-2);
+}
+.crucible.crucible-tooltip.incomplete h4 {
+  text-align: center;
+  font-size: var(--font-size-14);
+  margin: 0.25rem 0;
+}
+.crucible.crucible-tooltip.incomplete ol {
+  font-size: var(--font-size-13);
+  margin: 0.25rem 0;
+}
 /* ----------------------------------------- */
 /*  Application V2 Styles                    */
 /* ----------------------------------------- */
@@ -2361,6 +2373,11 @@
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {
   gap: 1rem;
+}
+.crucible.archetype .characteristics,
+.crucible.taxonomy .characteristics {
+  font-size: var(--font-size-13);
+  grid-template-columns: repeat(2, 1fr);
 }
 /** ----------------------------------------- *
  *  Background Sheet                          *

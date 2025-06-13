@@ -222,6 +222,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getUnarmedWeapon() {
+    if ( !this.details.taxonomy?.characteristics.equipment ) return null;
+    return super._getUnarmedWeapon();
+  }
+
+  /* -------------------------------------------- */
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 

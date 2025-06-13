@@ -25,7 +25,11 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         obj[damageType.id] = new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3});
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateResistances}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      characteristics: new fields.SchemaField({
+        equipment: new fields.BooleanField(),
+        spells: new fields.BooleanField()
+      }),
     }
   }
 

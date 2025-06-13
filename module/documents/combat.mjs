@@ -81,9 +81,15 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /** @inheritDoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
+    const isGM = game.user.isActiveGM;
+    const actorUpdates = [];
     for ( const c of this.combatants ) {
-      if ( c.actor ) c.actor.render(false);
+      if ( c.actor ) {
+        if ( isGM ) actorUpdates.push({_id: c.actor.id, "system.resources.heroism.value": 0});
+        c.actor.render(false);
+      }
     }
+    if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
   }
 
   /* -------------------------------------------- */
