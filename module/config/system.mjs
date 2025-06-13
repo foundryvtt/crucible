@@ -7,6 +7,7 @@ import * as EFFECTS from "./effects.mjs";
 import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
 import * as WEAPON from "./weapon.mjs";
+import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
 
@@ -128,6 +129,7 @@ export const ACTION_HOOKS = Object.freeze({
 export const SYSTEM = {
   id: SYSTEM_ID,
   ABILITIES: ATTRIBUTES.ABILITIES,
+  ACCESSORY,
   ACTION,
   ACTOR,
   ACTION_HOOKS,

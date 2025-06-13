@@ -1,9 +1,30 @@
 /**
- * @typedef {Object} ItemQualityTier
+ * @typedef CrucibleItemCategory            A category of weapon which can exist in the system
+ * @property {string} id            The category id
+ * @property {string} label         The localized label for the category
+ */
+
+/**
+ * @typedef ItemQualityTier
  * @property {string} id            The quality tier id
  * @property {string} label         A localized label for the quality tier
  * @property {number} bonus         The numeric bonus for this quality tier
  * @property {number} rarity        The rarity modifier for this quality tier
+ */
+
+/**
+ * @typedef ItemEnchantmentTier
+ * @property {string} id            The enchantment tier id
+ * @property {string} label         A localized label for the enchantment tier
+ * @property {number} bonus         The numeric bonus for this enchantment tier
+ * @property {number} rarity        The rarity modifier for this enchantment tier
+ */
+
+/**
+ * @typedef ItemProperty
+ * @property {string} id            The category id
+ * @property {string} label         The localized label for the category
+ * @property {number} [rarity]      A rarity modifier that this property adds
  */
 
 /**
@@ -44,14 +65,6 @@ export const QUALITY_TIERS = {
 }
 
 /**
- * @typedef {Object} ItemEnchantmentTier
- * @property {string} id            The enchantment tier id
- * @property {string} label         A localized label for the enchantment tier
- * @property {number} bonus         The numeric bonus for this enchantment tier
- * @property {number} rarity        The rarity modifier for this enchantment tier
- */
-
-/**
  * The possible enchantment tiers that a physical item can possess.
  * @enum {ItemEnchantmentTier}
  */
@@ -81,3 +94,10 @@ export const ENCHANTMENT_TIERS = {
     rarity: 6
   }
 }
+
+export const PROPERTIES = Object.freeze({
+  investment: {
+    id: "investment",
+    label: "ITEM.PROPERTIES.INVESTMENT"
+  }
+});

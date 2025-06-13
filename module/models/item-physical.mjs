@@ -1,4 +1,9 @@
-import CrucibleAction from "./action.mjs";
+import {SYSTEM} from "../config/system.mjs";
+import * as crucibleFields from "./fields.mjs";
+
+/**
+ * @import {CrucibleItemCategory, ItemProperty} from "../config/items.mjs";
+ */
 
 /**
  * A data structure which is shared by all physical items.
@@ -15,20 +20,22 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       broken: new fields.BooleanField({initial: false}),
       enchantment: new fields.StringField({required: true, choices: SYSTEM.ENCHANTMENT_TIERS, initial: "mundane"}),
       equipped: new fields.BooleanField(),
+      invested: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
       description: new fields.SchemaField({
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      actions: new fields.ArrayField(new fields.EmbeddedDataField(CrucibleAction))
+      actions: new crucibleFields.ItemActionsField(),
+      actorHooks: new crucibleFields.ItemActorHooks()
     }
   }
 
   /**
    * Allowed categories for this item type.
-   * @type {Record<string, {id: string, label: string}>}
+   * @type {Record<string, CrucibleItemCategory>}
    */
-  static ITEM_CATEGORIES;
+  static ITEM_CATEGORIES = {};
 
   /**
    * The default category for new items of this type
@@ -38,12 +45,83 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
 
   /**
    * Define the set of property tags which can be applied to this item type.
-   * @type {string[]}
+   * @type {Record<string, ItemProperty>}
    */
-  static ITEM_PROPERTIES = [];
+  static ITEM_PROPERTIES = {};
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ITEM"];
 
   /* -------------------------------------------- */
 
+  /**
+   * Item configuration data.
+   * @type {{category: CrucibleItemCategory, quality: ItemQualityTier, enchantment: ItemEnchantmentTier}}
+   */
+  config;
+
+  /**
+   * Item rarity score.
+   * @type {number}
+   */
+  rarity;
+
+  /**
+   * Does this item require investment?
+   * @type {boolean}
+   */
+  get requiresInvestment() {
+    return this.properties.has("investment");
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Preparation                            */
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare base data used by all physical items.
+   */
+  prepareBaseData() {
+
+    // Item Category
+    const categories = this.constructor.ITEM_CATEGORIES;
+    const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
+
+    // Item Quality
+    const qualities = SYSTEM.QUALITY_TIERS;
+    const quality = qualities[this.quality] || qualities.standard;
+
+    // Enchantment Level
+    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
+    const enchantment = enchantments[this.enchantment] || enchantments.mundane;
+
+    // Item Properties
+    for ( let p of this.properties ) {
+      const prop = this.constructor.ITEM_PROPERTIES[p];
+      if ( prop.rarity ) this.rarity += prop.rarity;
+    }
+
+    // Item Configuration
+    this.config = {category, quality, enchantment};
+    this.rarity = quality.rarity + enchantment.rarity;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare derived data used by all physical items.
+   */
+  prepareDerivedData() {
+    this.price = this._preparePrice();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the price that would be charged for the item based on its base price and rarity.
+   * @returns {number}
+   * @protected
+   */
   _preparePrice() {
     const rarity = this.rarity;
     if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));

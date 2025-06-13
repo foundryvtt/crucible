@@ -113,6 +113,7 @@ Hooks.once("init", async function() {
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
+    accessory: models.CrucibleAccessoryItem,
     ancestry: models.CrucibleAncestryItem,
     archetype: models.CrucibleArchetypeItem,
     armor: models.CrucibleArmorItem,
@@ -138,6 +139,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Actor, SYSTEM.id, applications.CrucibleGroupActorSheet, {types: ["group"], label: "CRUCIBLE.SHEETS.Group", makeDefault: true});
 
   sheets.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAccessoryItemSheet, {types: ["accessory"], label: "CRUCIBLE.SHEETS.Accessory", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleAncestryItemSheet, {types: ["ancestry"], label: "CRUCIBLE.SHEETS.Ancestry", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArchetypeItemSheet, {types: ["archetype"], label: "CRUCIBLE.SHEETS.Archetype", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
@@ -209,6 +211,7 @@ Hooks.once("i18nInit", function() {
   // Apply localizations
   const toLocalize = [
     ["ABILITIES", ["abbreviation", "label"]],
+    "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",

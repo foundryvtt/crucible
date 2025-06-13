@@ -576,6 +576,7 @@
   border-color: var(--color-cool-4);
   font-family: var(--font-h1);
   color: var(--color-secondary);
+  gap: 0.5rem;
 }
 .crucible.sheet .sheet-body {
   padding: var(--sheet-body-gap);
@@ -2278,33 +2279,33 @@
 .crucible.action fieldset.hook button {
   flex: 0;
 }
+.crucible.item .item-equipment,
+.crucible.action .item-equipment {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+}
+.crucible.item .item-equipment label,
+.crucible.action .item-equipment label {
+  font-size: var(--font-size-12);
+  font-weight: normal;
+  color: var(--color-secondary);
+}
 /* ----------------------------------------- */
-/*  Armor and Weapons                        */
+/*  Armor                                    */
 /* ----------------------------------------- */
-.crucible.weapon .form-group.defense .form-fields,
 .crucible.armor .form-group.defense .form-fields {
   flex: 8;
   display: grid;
   grid-template-columns: 1fr 64px 1fr 64px;
 }
-.crucible.weapon .item-equipment,
-.crucible.armor .item-equipment {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem 1rem;
-}
-.crucible.weapon .item-equipment label,
-.crucible.armor .item-equipment label {
-  font-size: var(--font-size-12);
-  font-weight: normal;
-  color: var(--color-secondary);
-}
-.crucible.weapon .item-equipment .slot,
-.crucible.armor .item-equipment .slot {
+/* ----------------------------------------- */
+/*  Weapon                                   */
+/* ----------------------------------------- */
+.crucible.weapon .item-equipment .slot {
   grid-column: 1 / span 2;
 }
-.crucible.weapon .item-equipment .reload,
-.crucible.armor .item-equipment .reload {
+.crucible.weapon .item-equipment .reload {
   grid-column: 2;
 }
 /** ----------------------------------------- *

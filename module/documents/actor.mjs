@@ -193,12 +193,12 @@ export default class CrucibleActor extends Actor {
     const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
-    for ( const {talent, fn} of hooks ) {
-      console.debug(`Calling ${hook} hook for Talent ${talent.name}`);
+    for ( const {item, fn} of hooks ) {
+      console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
         fn.call(this, this, ...args);
       } catch(err) {
-        const msg = `The "${hook}" hook defined for Talent "${talent.name}" failed evaluation in Actor [${this.id}]`;
+        const msg = `The "${hook}" hook defined for Talent "${item.name}" failed evaluation in Actor [${this.id}]`;
         console.error(msg, err);
       }
     }
@@ -1444,53 +1444,94 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Equip an owned armor Item.
-   * @param {string} itemId       The owned Item id of the Armor to equip
-   * @param {object} [options]    Options which configure how armor is equipped
-   * @param {boolean} [options.equipped]  Is the armor being equipped (true), or unequipped (false)
-   * @return {Promise}            A Promise which resolves once the armor has been equipped or un-equipped
+   * @typedef CrucibleEquipItemOptions
+   * @property {boolean} [dropped]          Has the Item been dropped?
+   * @property {boolean} [equipped]         Whether the Item should be equipped (true) or unequipped (false)
+   * @property {number} [slot]              A specific equipment slot in SYSTEM.WEAPON.SLOTS
    */
-  async equipArmor(itemId, {equipped=true}={}) {
-    const current = this.equipment.armor;
-    const item = this.items.get(itemId);
 
-    // Modify the currently equipped armor
-    if ( current === item ) {
-      if ( equipped ) return current;
-      else return current.update({"system.equipped": false});
+  /**
+   * A generic wrapper around various equip methods.
+   * @param {CrucibleItem|string} item      The owned Item id to equip
+   * @param {CrucibleEquipItemOptions} [options] Options which configure how the Item is equipped
+   * @return {Promise}                      A Promise which resolves once the Item has been equipped or un-equipped
+   * @throws {Error}                        An Error if the Item cannot be equipped
+   */
+  async equipItem(item, {slot, dropped=false, equipped=true}={}) {
+    if ( typeof item === "string" ) item = this.items.get(itemId);
+    if ( !(item instanceof foundry.documents.Item) || (item.parent !== this) ) {
+      throw new Error(`Invalid Item "${item?.uuid}" cannot be equipped`);
     }
-
-    // Cannot equip armor
-    if ( current.id ) {
-      return ui.notifications.warn(game.i18n.format("WARNING.CannotEquipSlotInUse", {
-        actor: this.name,
-        item: item.name,
-        type: game.i18n.localize("TYPES.Item.armor")
-      }));
+    if ( dropped ) equipped = false;
+    switch ( item.type ) {
+      case "accessory":
+        return this.#equipAccessory(item, {equipped});
+      case "armor":
+        return this.#equipArmor(item, {equipped});
+      case "weapon":
+        return this.#equipWeapon(item, {slot, dropped, equipped});
     }
-
-    // Equip new armor
-    return item.update({"system.equipped": true});
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Equip an owned weapon Item.
-   * @param {string} itemId       The owned Item id of the Weapon to equip. The slot is automatically determined.
-   * @param {object} [options]    Options which configure how the weapon is equipped.
-   * @param {number} [options.slot]       A specific equipment slot in SYSTEM.WEAPON.SLOTS
-   * @param {boolean} [options.dropped]   Has the weapon been dropped?
-   * @param {boolean} [options.equipped]  Whether the weapon should be equipped (true) or unequipped (false)
-   * @return {Promise}            A Promise which resolves once the weapon has been equipped or un-equipped
+   * Equip an accessory Item.
+   * @param {CrucibleItem} item   The accessory Item to equip
+   * @param {CrucibleEquipItemOptions} [options]  Options which configure how the Item is equipped
+   * @return {Promise}            A Promise which resolves once the Item has been equipped or un-equipped
+   * @throws {Error}              An Error if the Item cannot be equipped
    */
-  async equipWeapon(itemId, {slot, dropped=false, equipped=true}={}) {
-    if ( dropped ) equipped = false;
-    const weapon = this.items.get(itemId, {strict: true});
-    const action = equipped ? this.#equipWeapon(weapon, slot) : this.#unequipWeapon(weapon, dropped);
-    // If in combat, use the action
+  async #equipAccessory(item, {equipped}) {
+    const current = this.equipment.accessories;
+    if ( !equipped ) return item.update({system: {equipped: false}});
+    if ( current.length === 3 ) {
+      throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+        actor: this.name,
+        item: item.name,
+        type: game.i18n.localize("TYPES.Item.accessory")
+      }));
+    }
+    return item.update({system: {equipped: true}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Equip an armor Item.
+   * @param {CrucibleItem} item   The accessory Item to equip
+   * @param {CrucibleEquipItemOptions} [options]  Options which configure how the Item is equipped
+   * @return {Promise}            A Promise which resolves once the Item has been equipped or un-equipped
+   * @throws {Error}              An Error if the Item cannot be equipped
+   */
+  async #equipArmor(item, {equipped}) {
+    const current = this.equipment.armor;
+    if ( !equipped ) {
+      if ( current === item ) await item.update({system: {equipped: false}});
+      return;
+    }
+    if ( current.id ) {
+      throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+        actor: this.name,
+        item: item.name,
+        type: game.i18n.localize("TYPES.Item.armor")
+      }));
+    }
+    return item.update({system: {equipped: true}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Equip a weapon Item.
+   * @param {CrucibleItem} item   The accessory Item to equip
+   * @param {CrucibleEquipItemOptions} [options]  Options which configure how the Item is equipped
+   * @return {Promise}            A Promise which resolves once the Item has been equipped or un-equipped
+   * @throws {Error}              An Error if the Item cannot be equipped
+   */
+  async #equipWeapon(item, {slot, dropped, equipped}) {
+    const action = equipped ? this.#equipWeaponAction(item, slot) : this.#unequipWeaponAction(item, dropped);
     if ( this.inCombat ) await action.use();
-    // Otherwise make the updates directly
     else await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
   }
 
@@ -1502,7 +1543,7 @@ export default class CrucibleActor extends Actor {
    * @param {boolean} [dropped]         Has the weapon been dropped?
    * @returns {CrucibleAction|null}
    */
-  #unequipWeapon(weapon, dropped) {
+  #unequipWeaponAction(weapon, dropped) {
     if ( !weapon.system.equipped ) return null;
     let ap = dropped ? 0 : 1;
     if ( weapon.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
@@ -1529,7 +1570,7 @@ export default class CrucibleActor extends Actor {
    * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
    * @returns {CrucibleAction|null}
    */
-  #equipWeapon(weapon, slot) {
+  #equipWeaponAction(weapon, slot) {
     slot = this.canEquipWeapon(weapon, slot);
 
     // Equip cost

@@ -1,5 +1,11 @@
+import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
+
 /**
- * @typedef {Object} CrucibleArmorCategory
+ * @import {CrucibleItemCategory} from "./items.mjs";
+ */
+
+/**
+ * @typedef {CrucibleItemCategory} CrucibleArmorCategory
  * @property {string} id
  * @property {string} label
  * @property {{min: number, max: number}} armor
@@ -48,6 +54,7 @@ export const CATEGORIES = {
  * @type {Record<string, {label: string, [rarity]: number}>}
  */
 export const PROPERTIES = {
+  ...foundry.utils.deepClone(ITEM_PROPERTIES),
   bulky: {
     label: "ARMOR.PROPERTIES.BULKY"
   },

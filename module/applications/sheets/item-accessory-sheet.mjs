@@ -1,18 +1,23 @@
 import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
 
 /**
- * A CrucibleBaseItemSheet subclass used to configure Items of the "armor" type.
+ * A CrucibleBaseItemSheet subclass used to configure Items of the "accessory" type.
  */
-export default class CrucibleArmorItemSheet extends CrucibleBaseItemSheet {
+export default class CrucibleAccessoryItemSheet extends CrucibleBaseItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     item: {
-      type: "armor",
+      type: "accessory",
       includesActions: true,
       includesHooks: true,
       hasAdvancedDescription: true
     }
+  };
+
+  /** @inheritDoc */
+  static PARTS = {
+    ...super.PARTS,
   };
 
   // Initialize subclass options

@@ -10,6 +10,7 @@ export {default as CrucibleHeroCreationSheet} from "./sheets/hero-creation-sheet
 
 // Item Sheets
 export {default as CrucibleBaseItemSheet} from "./sheets/item-base-sheet.mjs";
+export {default as CrucibleAccessoryItemSheet} from "./sheets/item-accessory-sheet.mjs";
 export {default as CrucibleAncestryItemSheet} from "./sheets/item-ancestry-sheet.mjs";
 export {default as CrucibleArchetypeItemSheet} from "./sheets/item-archetype-sheet.mjs";
 export {default as CrucibleArmorItemSheet} from "./sheets/item-armor-sheet.mjs";

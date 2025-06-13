@@ -1,4 +1,5 @@
 const {api, sheets} = foundry.applications;
+import CruciblePhysicalItem from "../../models/item-physical.mjs";
 
 /**
  * A base ItemSheet built on top of ApplicationV2 and the Handlebars rendering backend.
@@ -135,7 +136,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
   async _prepareContext(options) {
     const tabGroups = this._getTabs();
     const source = this.document.toObject();
-    return {
+    const context = {
       item: this.document,
       source,
       system: source.system,
@@ -147,6 +148,14 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       tabsPartial: this.constructor.PARTS.tabs.template,
       tags: this.document.getTags()
     };
+
+    // Physical Items
+    if ( this.document.system instanceof CruciblePhysicalItem ) {
+      context.propertiesWidget = this.#propertiesWidget.bind(this);
+      context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.SCALED_PRICE")});
+      context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
+    }
+    return context;
   }
 
   /* -------------------------------------------- */
@@ -214,6 +223,20 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       hooks[h.hook] = {label, ...h};
     }
     return hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render the properties field as a multi-checkboxes element.
+   * @returns {HTMLMultiCheckboxElement}
+   */
+  #propertiesWidget(field, groupConfig, inputConfig) {
+    inputConfig.name = field.fieldPath;
+    const PROPERTIES = this.document.system.constructor.ITEM_PROPERTIES;
+    inputConfig.options = Object.entries(PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
+    inputConfig.type = "checkboxes";
+    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 
   /* -------------------------------------------- */

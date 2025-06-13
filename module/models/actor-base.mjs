@@ -1,3 +1,6 @@
+import CrucibleAction from "./action.mjs";
+import CruciblePhysicalItem from "./item-physical.mjs";
+
 /**
  * @typedef CrucibleActorEquipment
  * @property {CrucibleItem} armor
@@ -40,8 +43,6 @@
  * @property {number} iconicSlots
  * @property {CrucibleItem[]} iconicSpells
  */
-
-import CrucibleAction from "./action.mjs";
 
 /**
  * This class defines data schema, methods, and properties shared by all Actor subtypes in the Crucible system.
@@ -123,8 +124,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   actions = this["actions"];
 
   /**
-   * Talent hook functions which apply to this Actor based on their set of owned Talents.
-   * @type {Object<string, {talent: CrucibleItem, fn: Function}[]>}
+   * Actor hook functions which apply to this Actor.
+   * @type {Object<string, {item: CrucibleItem, fn: Function}[]>}
    */
   actorHooks = this["actorHooks"];
 
@@ -334,16 +335,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const t of talents ) {
       this.talentIds.add(t.id);
       if ( maybePermanentTalentIds.has(t.id) ) this.permanentTalentIds.add(t.id);
-      const {actorHooks, nodes, training, gesture, inflection, rune, iconicSpells} = t.system;
+      const {nodes, training, gesture, inflection, rune, iconicSpells} = t.system;
 
       // Register hooks
-      for ( const hook of actorHooks ) this._registerActorHook(t, hook);
-      const cfg = crucible.api.hooks.talents[t.id];
-      if ( cfg ) {
-        for ( const [hook, fn] of Object.entries(cfg) ) {
-          if ( hook in SYSTEM.ACTOR.HOOKS ) this._registerActorHook(t, {hook, fn});
-        }
-      }
+      this.#registerActorHooks(t);
 
       // Register nodes
       for ( const node of nodes ) {
@@ -393,7 +388,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( const spell of spells ) {
       spell.system.isKnown = spell.system.canKnowSpell(this.grimoire);
       this.grimoire.iconicSpells.push(spell);
-      for ( const hook of spell.system.actorHooks ) this._registerActorHook(spell, hook);
+      this.#registerActorHooks(spell);
     }
   }
 
@@ -408,12 +403,37 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @returns {CrucibleActorEquipment}
    */
   #prepareEquipment({armor: armorItems, weapon: weaponItems, accessory: accessoryItems}={}) {
+
+    // Prepare and configure equipment
     const armor = this._prepareArmor(armorItems);
     const weapons = this._prepareWeapons(weaponItems);
-    const accessories = []; // TODO Equipped Accessories
+    const accessories = this._prepareAccessories(accessoryItems);
     const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
     Object.assign(this.equipment, {armor, weapons, accessories, canFreeMove, unarmored});
+
+    // Register actor hooks for equipped items
+    this.#registerActorHooks(armor);
+    this.#registerActorHooks(weapons.mainhand);
+    if ( weapons.offhand ) this.#registerActorHooks(weapons.offhand);
+    for ( const a of accessories ) this.#registerActorHooks(a);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the accessory Items that this Actor has equipped.
+   * @param {CrucibleItem[]} accessoryItems   The accessory type Items in the Actor's inventory
+   * @returns {CrucibleItem[]}                The accessory Items which are equipped
+   * @protected
+   */
+  _prepareAccessories(accessoryItems) {
+    let equipped = accessoryItems.filter(i => i.system.equipped);
+    if ( equipped.length > 3 ) {
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than three equipped accessories.`);
+      equipped = equipped.slice(0, 3);
+    }
+    return equipped;
   }
 
   /* -------------------------------------------- */
@@ -814,15 +834,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareActions() {
     this.#prepareDefaultActions();
-    const items = this.parent.itemTypes;
-    for ( const item of items.talent ) this.#registerItemActions(item);
-    for ( const item of items.weapon ) {
-      if ( item.system.equipped ) this.#registerItemActions(item);
+    for ( const item of this.parent.items ) {
+      if ( item.system instanceof CruciblePhysicalItem ) this.#registerItemActions(item);
+      else if ( (item.type === "talent") || (item.type === "spell") ) this.#registerItemActions(item);
     }
-    for ( const item of items.armor ) {
-      if ( item.system.equipped ) this.#registerItemActions(item);
-    }
-    for ( const item of items.spell ) this.#registerItemActions(item);
   }
 
   /* -------------------------------------------- */
@@ -859,6 +874,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem} item
    */
   #registerItemActions(item) {
+    if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
       this.actions[action.id] = action.bind(this.parent);
     }
@@ -869,19 +885,35 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Register a hooked function declared by a Talent item.
-   * @param {CrucibleItem} talent       The Talent registering the hook
-   * @param {object} data               Registered hook data
-   * @param {string} data.hook          The hook name
-   * @param {string|Function} data.fn   The hook function
-   * @internal
+   * Register actor hooks for a given Item.
+   * @param {CrucibleItem} item         The Item registering the hook
    */
-  _registerActorHook(talent, {hook, fn}={}) {
-    const hookConfig = SYSTEM.ACTOR.HOOKS[hook];
-    if ( !hookConfig ) throw new Error(`Invalid Actor hook name "${hook}" defined by Talent "${talent.id}"`);
-    this.actorHooks[hook] ||= [];
-    if ( typeof fn === "string" ) fn = new Function("actor", ...hookConfig.argNames, fn);
-    if ( !(fn instanceof Function) ) throw new Error(`Hook "${hook}" is not a function.`);
-    this.actorHooks[hook].push({talent, fn});
+  #registerActorHooks(item) {
+    const H = SYSTEM.ACTOR.HOOKS;
+    if ( item.system.requiresInvestment && !item.system.invested ) return;
+
+    // First register inline hooks
+    for ( let {hook, fn} of item.system.actorHooks ) {
+      const cfg = H[hook];
+      if ( !cfg ) {
+        console.error(new Error(`Invalid Actor hook name "${hook}" defined by Talent "${item.id}"`));
+        continue;
+      }
+      this.actorHooks[hook] ||= [];
+      if ( typeof fn === "string" ) fn = new Function("actor", ...cfg.argNames, fn);
+      if ( !(fn instanceof Function) ) throw new Error(`Hook "${hook}" is not a function.`);
+      this.actorHooks[hook].push({item, fn});
+    }
+
+    // Next register custom module hooks
+    const hooks = crucible.api.hooks[item.type]?.[item.id];
+    if ( hooks ) {
+      for ( const [hook, fn] of Object.entries(hooks) ) {
+        if ( hook in SYSTEM.ACTOR.HOOKS ) {
+          this.actorHooks[hook] ||= [];
+          this.actorHooks[hook].push({item, fn});
+        }
+      }
+    }
   }
 }

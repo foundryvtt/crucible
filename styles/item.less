@@ -67,21 +67,6 @@
       flex: 0;
     }
   }
-}
-
-/* ----------------------------------------- */
-/*  Armor and Weapons                        */
-/* ----------------------------------------- */
-
-.crucible.weapon,
-.crucible.armor {
-  .form-group.defense {
-    .form-fields {
-      flex: 8;
-      display: grid;
-      grid-template-columns: 1fr 64px 1fr 64px;
-    }
-  }
 
   // Equipment Attributes
   .item-equipment {
@@ -93,6 +78,29 @@
       font-weight: normal;
       color: var(--color-secondary);
     }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Armor                                    */
+/* ----------------------------------------- */
+
+.crucible.armor {
+  .form-group.defense {
+    .form-fields {
+      flex: 8;
+      display: grid;
+      grid-template-columns: 1fr 64px 1fr 64px;
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Weapon                                   */
+/* ----------------------------------------- */
+
+.crucible.weapon {
+  .item-equipment {
     .slot {
       grid-column: 1 / span 2;
     }

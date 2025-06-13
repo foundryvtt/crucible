@@ -1,13 +1,19 @@
+import {PROPERTIES as ITEM_PROPERTIES} from "./items.mjs";
+
 /**
- * @typedef {Object} WeaponCategory       A category of weapon which can exist in the system
- * @property {string} id                  The category id
- * @property {string} label               The localized label for the category
- * @property {number} hands               The number of hands required, 1 or 2
- * @property {boolean} main               Can this weapon be used in the main-hand
- * @property {boolean} off                Can this weapon be used in the off-hand
- * @property {string} scaling             What scaling formula does this weapon use?
- * @property {number} damage              Base damage for the weapon category
- * @property {number} actionCost          The action point cost to strike with this weapon
+ * @import {CrucibleItemCategory} from "./items.mjs";
+ */
+
+/**
+ * @typedef {CrucibleItemCategory} WeaponCategory     A category of weapon which can exist in the system
+ * @property {string} id                      The category id
+ * @property {string} label                   The localized label for the category
+ * @property {number} hands                   The number of hands required, 1 or 2
+ * @property {boolean} main                   Can this weapon be used in the main-hand
+ * @property {boolean} off                    Can this weapon be used in the off-hand
+ * @property {string} scaling                 What scaling formula does this weapon use?
+ * @property {number} damage                  Base damage for the weapon category
+ * @property {number} actionCost              The action point cost to strike with this weapon
  * @property {WeaponTrainingTypes[]} training Training categories which apply skill bonuses to this weapon category
  */
 
@@ -284,6 +290,7 @@ export const CATEGORIES = Object.freeze({
  * @enum {{label: string, tooltip: string, [rarity]: number}}
  */
 export const PROPERTIES = {
+  ...foundry.utils.deepClone(ITEM_PROPERTIES),
   ambush: {
     label: "WEAPON.TAGS.Ambush",
     tooltip: "WEAPON.TAGS.AmbushTooltip"

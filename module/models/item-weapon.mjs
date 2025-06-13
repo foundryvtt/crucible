@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import { SYSTEM } from "../config/system.mjs";
+import {SYSTEM} from "../config/system.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -49,11 +49,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   actionCost;
 
-  /**
-   * Weapon configuration data.
-   * @type {{category: WeaponCategory, quality: ItemQualityTier, enchantment: ItemEnchantmentTier}}
-   */
-  config;
 
   /**
    * Weapon damage data.
@@ -67,34 +62,14 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   defense;
 
-  /**
-   * Item rarity score.
-   * @type {number}
-   */
-  rarity;
-
   /* -------------------------------------------- */
 
   /**
    * Prepare derived data specific to the weapon type.
    */
   prepareBaseData() {
-
-    // Weapon Category
-    const categories = SYSTEM.WEAPON.CATEGORIES;
-    const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
-
-    // Weapon Quality
-    const qualities = SYSTEM.QUALITY_TIERS;
-    const quality = qualities[this.quality] || qualities.standard;
-
-    // Enchantment Level
-    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
-    const enchantment = enchantments[this.enchantment] || enchantments.mundane;
-
-    // Weapon Configuration
-    this.config = {category, quality, enchantment};
-    this.rarity = quality.rarity + enchantment.rarity;
+    super.prepareBaseData();
+    const {category, enchantment} = this.config;
 
     // Equipment Slot
     if ( this.dropped ) this.equipped = false;
@@ -118,12 +93,6 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     } : {}
     this.actionCost = category.actionCost;
 
-    // Weapon Properties
-    for ( let p of this.properties ) {
-      const prop = SYSTEM.WEAPON.PROPERTIES[p];
-      if ( prop.rarity ) this.rarity += prop.rarity;
-    }
-
     // Versatile Two-Handed
     if ( this.properties.has("versatile") && this.slot === SYSTEM.WEAPON.SLOTS.TWOHAND ) {
       this.damage.base += 2;
@@ -135,16 +104,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /** @inheritDoc */
   prepareDerivedData() {
-
-    // Weapon damage adjustments
     this.damage.weapon = this.damage.base + this.damage.quality;
     if ( this.broken ) {
       this.damage.weapon = Math.floor(this.damage.weapon / 2);
       this.rarity -= 2;
     }
-
-    // Scaling price
-    this.price = this._preparePrice();
+    super.prepareDerivedData();
   }
 
   /* -------------------------------------------- */
@@ -308,6 +273,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
       tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
     }
     if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
+    if ( this.invested ) tags.invested = this.schema.fields.invested.label;
     return tags;
   }
 }

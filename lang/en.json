@@ -6,6 +6,7 @@
     "group": "Group"
   },
   "Item": {
+    "accessory": "Accessory",
     "ancestry": "Ancestry",
     "archetype": "Archetype",
     "armor": "Armor",
@@ -156,6 +157,15 @@
     "TARGET": "Target",
     "EFFECTS": "Effects",
     "HOOKS": "Hooks"
+  }
+},
+
+"ACCESSORY": {
+  "CATEGORIES": {
+    "CLOTHING": "Clothing",
+    "JEWELRY": "Jewelry",
+    "TRINKET": "Trinket",
+    "OTHER": "Other"
   }
 },
 
@@ -496,13 +506,10 @@
   },
   "SHEET": {
     "DEFENSES": "Armor Defenses",
-    "EQUIPMENT": "Equipment Details",
     "ARMOR_BONUS": "Armor Bonus",
     "DODGE": "Dodge",
     "DODGE_BASE": "Base Dodge",
-    "DODGE_SCALING": "Scaling Threshold",
-    "SCALED_PRICE": "Scaled Price",
-    "TYPE": "Armor Type"
+    "DODGE_SCALING": "Scaling Threshold"
   },
   "PROPERTIES": {
     "BULKY": "Bulky",
@@ -669,6 +676,9 @@
     "equipped": {
       "label": "Equipped"
     },
+    "invested": {
+      "label": "Invested"
+    },
     "properties": {
       "label": "Item Properties"
     },
@@ -697,7 +707,13 @@
   "SHEET": {
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
-    "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area."
+    "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
+    "EQUIPMENT": "Equipment Details",
+    "TYPE": "Equipment Type",
+    "SCALED_PRICE": "Scaled Price"
+  },
+  "PROPERTIES": {
+    "INVESTMENT": "Investment"
   }
 },
 

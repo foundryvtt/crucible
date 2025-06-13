@@ -10,6 +10,7 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
     item: {
       type: "weapon",
       includesActions: true,
+      includesHooks: true,
       hasAdvancedDescription: true
     }
   };
@@ -37,22 +38,7 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
         return arr;
       }, []),
       usesReload: this.document.config.category.reload,
-      propertiesWidget: this.#propertiesWidget.bind(this),
-      scaledPrice: new foundry.data.fields.StringField({label: game.i18n.localize("ARMOR.SHEET.SCALED_PRICE")})
     });
     return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render the properties field as a multi-checkboxes element.
-   * @returns {HTMLMultiCheckboxElement}
-   */
-  #propertiesWidget(field, groupConfig, inputConfig) {
-    inputConfig.name = field.fieldPath;
-    inputConfig.options = Object.entries(SYSTEM.WEAPON.PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
-    inputConfig.type = "checkboxes";
-    return foundry.applications.fields.createMultiSelectInput(inputConfig);
   }
 }

@@ -22,6 +22,9 @@
         {{formField fields.quantity value=source.system.quantity classes="slim"}}
         {{formField fields.weight value=source.system.weight classes="slim"}}
         {{formField fields.price value=source.system.price classes="slim"}}
-        {{formField scaledPrice value=item.system.price classes="slim" disabled=true}}
+        {{formField scaledPriceField value=item.system.price classes="slim" disabled=true}}
+        {{#if requiresInvestment}}
+        {{formField fields.invested value=source.system.invested}}
+        {{/if}}
     </fieldset>
 </section>

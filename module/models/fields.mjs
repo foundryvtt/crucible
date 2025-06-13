@@ -1,4 +1,34 @@
 import {data} from "/scripts/foundry.mjs";
+import CrucibleAction from "./action.mjs";
+import {SYSTEM} from "../config/system.mjs";
+
+/* -------------------------------------------- */
+
+/**
+ * A standardized ArrayField used when an Item contains Actions.
+ */
+export class ItemActionsField extends data.fields.ArrayField {
+  constructor(options, context) {
+    super(new data.fields.EmbeddedDataField(CrucibleAction), options, context);
+  }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * A standardized ArrayField used when an Item contains Actor Hooks.
+ */
+export class ItemActorHooks extends data.fields.ArrayField {
+  constructor(options, context) {
+    const hookSchema = new data.fields.SchemaField({
+      hook: new data.fields.StringField({required: true, blank: false, choices: SYSTEM.ACTOR.HOOKS}),
+      fn: new data.fields.JavaScriptField({async: true, gmOnly: true})
+    });
+    super(hookSchema, options, context);
+  }
+}
+
+/* -------------------------------------------- */
 
 /**
  * A special StringField subclass used for item identifiers.

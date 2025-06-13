@@ -331,20 +331,32 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Iterate over items and organize them
     for ( const i of this.document.items ) {
-      const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: []};
+      const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: [], sort: Infinity};
       let section;
       switch(i.type) {
+        case "accessory":
+          Object.assign(d, {
+            equipped: i.system.equipped,
+            quantity: i.system.quantity,
+            showStack: i.system?.quantity && (i.system.quantity !== 1),
+            cssClass: i.system.equipped ? "equipped" : "unequipped",
+            sort: 3,
+          })
+          if ( i.system.equipped ) d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Accessory"});
+          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Acccessory"});
+          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
+          break;
         case "armor":
           Object.assign(d, {
             equipped: i.system.equipped,
             quantity: i.system.quantity,
             showStack: i.system?.quantity && (i.system.quantity !== 1),
-            cssClass: i.system.equipped ? "equipped" : "unequipped"
+            cssClass: i.system.equipped ? "equipped" : "unequipped",
+            sort: 2,
           })
           if ( i.system.equipped ) d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Armor"});
           else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Armor"});
-          if ( i.system.equipped ) section = sections.inventory.equipment;
-          else section = sections.inventory.backpack;
+          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
           break;
         case "weapon":
           Object.assign(d, {
@@ -352,7 +364,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
             equipped: i.system.equipped,
             quantity: i.system.quantity,
             showStack: i.system?.quantity && (i.system.quantity !== 1),
-            cssClass: i.system.equipped ? "equipped" : "unequipped"
+            cssClass: i.system.equipped ? "equipped" : "unequipped",
+            sort: 1
           })
           if ( i.system.dropped ) {
             d.cssClass += " dropped";
@@ -365,8 +378,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
             );
           }
           else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Item"});
-          if ( i.system.equipped ) section = sections.inventory.equipment;
-          else section = sections.inventory.backpack;
+          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
           break;
         case "base":
         case "loot":
@@ -396,7 +408,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Sort inventory
     for ( const heading of Object.values(sections.inventory) ) {
-      heading.items.sort((a, b) => a.name.localeCompare(b.name));
+      heading.items.sort((a, b) => (a.sort - b.sort) || a.name.localeCompare(b.name));
     }
 
     // Sort talents
@@ -818,7 +830,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onItemDrop(event) {
     const item = this.#getEventItem(event);
-    await this.actor.equipWeapon(item.id, {equipped: false, dropped: true});
+    await this.actor.equipItem(item.id, {equipped: false, dropped: true});
   }
 
   /* -------------------------------------------- */
@@ -842,21 +854,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onItemEquip(event) {
     const item = this.#getEventItem(event);
-    switch ( item.type ) {
-      case "armor":
-        try {
-          await this.actor.equipArmor(item.id, {equipped: !item.system.equipped});
-        } catch(err) {
-          ui.notifications.warn(err.message);
-        }
-        break;
-      case "weapon":
-        try {
-          await this.actor.equipWeapon(item.id, {equipped: !item.system.equipped});
-        } catch(err) {
-          ui.notifications.warn(err.message);
-        }
-        break;
+    try {
+      await this.actor.equipItem(item, {equipped: !item.system.equipped});
+    } catch(err) {
+      ui.notifications.warn(err.message);
     }
   }
 

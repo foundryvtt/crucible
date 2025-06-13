@@ -1,6 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {CATEGORIES, PROPERTIES, UNARMORED_DATA} from "../config/armor.mjs";
-import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "../config/items.mjs";
+import * as ARMOR from "../config/armor.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Armor type Items.
@@ -8,13 +7,13 @@ import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "../config/items.mjs";
 export default class CrucibleArmorItem extends CruciblePhysicalItem {
 
   /** @override */
-  static ITEM_CATEGORIES = CATEGORIES;
+  static ITEM_CATEGORIES = ARMOR.CATEGORIES;
 
   /** @override */
   static DEFAULT_CATEGORY = "medium";
 
   /** @override */
-  static ITEM_PROPERTIES = PROPERTIES;
+  static ITEM_PROPERTIES = ARMOR.PROPERTIES;
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "ARMOR"];
@@ -55,22 +54,8 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
    * Prepare derived data specific to the weapon type.
    */
   prepareBaseData() {
-
-    // Armor Category
-    const categoryId = this.category in CATEGORIES ? this.category : this.constructor.DEFAULT_CATEGORY;
-    const category = CATEGORIES[categoryId];
-
-    // Armor Quality
-    const qualities = QUALITY_TIERS;
-    const quality = qualities[this.quality] || qualities.standard;
-
-    // Enchantment Level
-    const enchantments = ENCHANTMENT_TIERS;
-    const enchantment = enchantments[this.enchantment] || enchantments.mundane;
-
-    // Armor Configuration
-    this.config = {category, quality, enchantment};
-    this.rarity = quality.rarity + enchantment.rarity;
+    super.prepareBaseData();
+    const {category, quality, enchantment} = this.config;
 
     // Armor Defense
     this.armor.base = Math.clamp(this.armor.base, category.armor.min, category.armor.max);
@@ -80,12 +65,6 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     this.dodge ||= {};
     this.dodge.base = category.dodge.base(this.armor.base) + enchantment.bonus;
     this.dodge.scaling = category.dodge.scaling;
-
-    // Armor Properties
-    for ( let p of this.properties ) {
-      const prop = PROPERTIES[p];
-      if ( prop.rarity ) this.rarity += prop.rarity;
-    }
   }
 
   /* -------------------------------------------- */
@@ -97,7 +76,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       this.armor.bonus = Math.floor(this.armor.bonus / 2);
       this.rarity -= 2;
     }
-    this.price = this._preparePrice();
+    super.prepareDerivedData();
   }
 
   /* -------------------------------------------- */
@@ -112,7 +91,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
     const tags = {};
     tags.category = this.config.category.label;
     for ( let p of this.properties ) {
-      tags[p] = PROPERTIES[p].label;
+      tags[p] = ARMOR.PROPERTIES[p].label;
     }
     tags.armor = `${this.armor.base + this.armor.bonus} Armor`;
     const actor = this.parent.parent;
@@ -122,6 +101,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
       tags.dodge = `${this.dodge.base + dodgeBonus} Dodge`;
       tags.total = `${this.armor.base + this.armor.bonus + this.dodge.base + dodgeBonus} Defense`;
     }
+    if ( this.invested ) tags.invested = this.schema.fields.invested.label;
     return tags;
   }
 
@@ -134,7 +114,7 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
    */
   static getUnarmoredArmor(actor) {
     const itemCls = /** @type Constructor<CrucibleItem> */ getDocumentClass("Item");
-    const armor = new itemCls(UNARMORED_DATA, {parent: actor});
+    const armor = new itemCls(ARMOR.UNARMORED_DATA, {parent: actor});
     armor.prepareData(); // Needs to be explicitly called since we may be in the midst of Actor preparation.
     return armor;
   }
