@@ -12,14 +12,14 @@ system:
   actorHooks:
     - hook: prepareWeaponAttack
       fn: >-
-        const ac = this.combatant;
-        const tc = target.combatant;
-        if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: "Strike First", number: 1};
+        const ac = this.combatant; const tc = target.combatant; if (
+        ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label:
+        "Strike First", number: 1};
     - hook: prepareSpellAttack
       fn: >-
-        const ac = this.combatant;
-        const tc = target.combatant;
-        if ( ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label: "Strike First", number: 1};
+        const ac = this.combatant; const tc = target.combatant; if (
+        ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst = {label:
+        "Strike First", number: 1};
 effects: []
 flags: {}
 _stats:

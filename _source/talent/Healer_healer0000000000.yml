@@ -45,7 +45,8 @@ system:
   actorHooks:
     - hook: prepareSpellAttack
       fn: >-
-        if ( spell.rune.id === "life" ) rollData.boons.healer = {label: "Healer", number: 2};
+        if ( spell.rune.id === "life" ) rollData.boons.healer = {label:
+        "Healer", number: 2};
   iconicSpells: 1
   rune: life
 effects: []

@@ -12,18 +12,16 @@ system:
   actorHooks:
     - hook: applyCriticalEffects
       fn: >-
-        // Must damage health
-        const damageHealth = outcome.resources.health < 0;
+        // Must damage health const damageHealth = outcome.resources.health < 0;
         if ( !damageHealth ) return;
 
-        // Can only happen once per round
-        const updates = self.actorUpdates;
-        const hasStatus = this.status.bloodFrenzy || updates.system?.status?.bloodFrenzy;
-        if ( hasStatus ) return;
+        // Can only happen once per round const updates = self.actorUpdates;
+        const hasStatus = this.status.bloodFrenzy ||
+        updates.system?.status?.bloodFrenzy; if ( hasStatus ) return;
 
-        // Increase Action
-        self.resources.action = (self.resources.action || 0) + 1;
-        foundry.utils.setProperty(updates, "system.status.bloodFrenzy", true);
+        // Increase Action self.resources.action = (self.resources.action || 0)
+        + 1; foundry.utils.setProperty(updates, "system.status.bloodFrenzy",
+        true);
 effects: []
 ownership:
   default: 0

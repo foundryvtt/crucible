@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 6
-    progress: 0
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -159,7 +159,7 @@ system:
     - ruthlessMomentum
 prototypeToken:
   name: Ulfen
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -181,7 +181,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -262,6 +262,9 @@ items:
         base: 13
       broken: false
       actions: []
+      identifier: 4me8X9t7Ju
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -297,9 +300,12 @@ items:
         private: ''
       damageType: slashing
       broken: false
-      animation: greataxe
       actions: []
       slot: 0
+      identifier: exOx2s4vEq
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -354,6 +360,9 @@ items:
         rank: null
       nodes:
         - pre2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: 2MFixpDJ379KOogE
     sort: -100000
@@ -391,6 +400,7 @@ items:
           tags:
             - melee
             - afterStrike
+            - attack
             - twohand
           cost:
             action: -2
@@ -402,7 +412,13 @@ items:
             number: 1
             scope: 3
           effects: []
-          actionHooks: []
+          actionHooks:
+            - hook: canUse
+              fn: |-
+                const {basicStrike, lastAction} = this.actor.system.status;
+                if ( !basicStrike || (lastAction !== "strike") ) {
+                  throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
+                }
           range:
             maximum: null
             weapon: true
@@ -414,6 +430,9 @@ items:
         rank: null
       nodes:
         - str1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -424,7 +443,7 @@ items:
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
-    sort: -50000
+    sort: 0
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.uppercut00000000'
@@ -472,7 +491,10 @@ items:
         type: ''
         rank: null
       nodes:
-        - str1a
+        - str2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -497,23 +519,20 @@ items:
       actorHooks:
         - hook: prepareInitiativeCheck
           fn: >-
-            const {weapons, armor} = actor.equipment;
-
-            const slowBanes = rollData.banes.slow;
-
-            if ( weapons.slow && slowBanes ) slowBanes.number -= weapons.slow;
-
-
-            const bulkyBanes = rollData.banes.bulky;
-
-            if ( armor.system.properties.has("bulky") && bulkyBanes )
-            bulkyBanes.number -= 2;
+            const {weapons, armor} = this.equipment; const slowBanes =
+            rollData.banes.slow; if ( weapons.slow && slowBanes )
+            slowBanes.number -= weapons.slow; const bulkyBanes =
+            rollData.banes.bulky; if ( armor.system.properties.has("bulky") &&
+            bulkyBanes ) bulkyBanes.number -= 2;
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str2a
+        - str2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -580,6 +599,9 @@ items:
         rank: null
       nodes:
         - sig3.toughness.strength
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -614,6 +636,9 @@ items:
         rank: null
       nodes:
         - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -679,7 +704,10 @@ items:
         type: ''
         rank: null
       nodes:
-        - str1a
+        - tou1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -728,9 +756,9 @@ items:
             scope: 0
           effects: []
           tags:
-            - melee
             - reaction
-            - mainhand
+            - attack
+            - melee
           actionHooks: []
           range:
             maximum: 1
@@ -742,7 +770,10 @@ items:
         type: ''
         rank: null
       nodes:
-        - str2b
+        - str2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -770,35 +801,25 @@ items:
       actorHooks:
         - hook: applyCriticalEffects
           fn: >-
-            // Must damage health
+            // Must damage health const damageHealth = outcome.resources.health
+            < 0; if ( !damageHealth ) return;
 
-            const damageHealth = outcome.resources.health < 0;
+            // Can only happen once per round const updates = self.actorUpdates;
+            const hasStatus = this.status.bloodFrenzy ||
+            updates.system?.status?.bloodFrenzy; if ( hasStatus ) return;
 
-            if ( !damageHealth ) return;
-
-
-            // Can only happen once per round
-
-            const updates = self.actorUpdates;
-
-            const hasStatus = actor.status.bloodFrenzy ||
-            updates.system?.status?.bloodFrenzy;
-
-            if ( hasStatus ) return;
-
-
-            // Increase Action
-
-            self.resources.action = (self.resources.action || 0) + 1;
-
-            foundry.utils.setProperty(updates, "system.status.bloodFrenzy",
-            true);
+            // Increase Action self.resources.action = (self.resources.action ||
+            0) + 1; foundry.utils.setProperty(updates,
+            "system.status.bloodFrenzy", true);
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
         - str4a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -871,7 +892,10 @@ items:
         type: ''
         rank: null
       nodes:
-        - str3a
+        - str4b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -903,6 +927,9 @@ items:
         rank: null
       nodes:
         - tou3b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -929,9 +956,8 @@ items:
       core: {}
     system:
       description: >-
-        You relish the carnage you can cause with a two-handed weapon. After
-        defeating a foe, you continue your attack with ruthless momentum, moving
-        to strike another enemy at reduced cost.
+        <p>You relish the carnage you can cause in combat and continue to press
+        the fray as each enemy falls.</p>
       actions:
         - id: ruthlessMomentum
           name: Ruthless Momentum
@@ -956,22 +982,20 @@ items:
             scope: 3
           effects: []
           tags:
-            - melee
             - movement
-            - twohand
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+            - attack
+            - melee
+          actionHooks: []
       iconicSpells: 0
       actorHooks: []
       training:
         type: ''
         rank: null
       nodes:
-        - toustr1
+        - str1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -1019,7 +1043,6 @@ items:
             - hook: confirm
               fn: >-
                 const self = this.outcomes.get(this.actor);
-
                 self.resources.health = (self.resources.health || 0) +
                 this.actor.system.abilities.toughness.value;
           range:
@@ -1033,6 +1056,9 @@ items:
         rank: null
       nodes:
         - tou1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -1099,6 +1125,9 @@ items:
       actorHooks: []
       nodes:
         - dextou1
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -1137,6 +1166,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 80000
     flags: {}
@@ -1174,6 +1206,9 @@ items:
       actorHooks: []
       nodes:
         - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 200000
     flags: {}
@@ -1205,6 +1240,9 @@ items:
       actorHooks: []
       nodes:
         - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 0
     flags: {}
@@ -1228,11 +1266,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 sort: 0

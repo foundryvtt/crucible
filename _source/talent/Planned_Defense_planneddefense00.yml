@@ -19,9 +19,9 @@ system:
           rollData.banes.plannedDefense = {label: "Planned Defense", number: 1};
     - hook: defendSpellAttack
       fn: >-
-        const ac = this.combatant;
-        const oc = origin.combatant;
-        if ( ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense = {label: "Planned Defense", number: 1};
+        const ac = this.combatant; const oc = origin.combatant; if (
+        ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense =
+        {label: "Planned Defense", number: 1};
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: 50000

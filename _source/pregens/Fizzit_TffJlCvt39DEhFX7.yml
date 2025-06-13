@@ -1,4 +1,4 @@
-folder: aoXDBsBdhTAww10u
+folder: 2tdnCBbxNPNuhxzT
 name: Fizzit
 type: hero
 img: systems/crucible/assets/tokens/heroes/GnomeWizard.webp
@@ -6,15 +6,15 @@ system:
   abilities:
     wisdom:
       base: 3
-      increases: 0
+      increases: 2
       bonus: 0
     presence:
       base: 3
-      increases: 0
+      increases: 1
       bonus: 0
     intellect:
       base: 1
-      increases: 0
+      increases: 2
       bonus: 0
     strength:
       base: 0
@@ -29,8 +29,8 @@ system:
       increases: 0
       bonus: 0
   advancement:
-    level: 1
-    progress: 0
+    level: 6
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -128,17 +128,17 @@ system:
       bonus: 0
   resources:
     health:
-      value: 20
+      value: 50
     wounds:
       value: 0
     morale:
-      value: 30
+      value: 68
     madness:
       value: 0
     action:
       value: 6
     focus:
-      value: 6
+      value: 9
     heroism:
       value: 0
   movement:
@@ -148,12 +148,15 @@ system:
   status: null
   favorites:
     - defend
-    - refocus
     - strike
     - cast
+    - counterSpell
+    - reactiveStrike
+    - intuitWeakness
+    - refocus
 prototypeToken:
   name: Fizzit
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -175,7 +178,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -245,7 +248,7 @@ items:
       quantity: 1
       weight: 30
       price: 60
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -256,6 +259,9 @@ items:
         base: 9
       broken: false
       actions: []
+      identifier: dTEJw4ECRA
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -279,7 +285,7 @@ items:
       quantity: 1
       weight: 3
       price: 60
-      quality: standard
+      quality: fine
       broken: false
       enchantment: mundane
       equipped: true
@@ -290,6 +296,10 @@ items:
         private: ''
       actions: []
       slot: 0
+      identifier: 6XwrFz0UDk
+      invested: false
+      actorHooks: []
+      dropped: false
     effects: []
     flags:
       core: {}
@@ -313,7 +323,7 @@ items:
       quantity: 1
       weight: 4
       price: 40
-      quality: standard
+      quality: fine
       broken: false
       enchantment: mundane
       equipped: true
@@ -324,6 +334,10 @@ items:
         public: ''
         private: ''
       actions: []
+      identifier: pTN4NVU0cg
+      invested: false
+      actorHooks: []
+      dropped: false
     effects: []
     folder: SQH4h6ujibkpGCUF
     flags:
@@ -341,6 +355,67 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.ncji9G3g4WqBffUK'
+  - name: Intuit Weakness
+    type: talent
+    _id: intuitweakness00
+    img: icons/magic/perception/orb-eye-scrying.webp
+    system:
+      description: >-
+        <p>You calm your mind and study the physiology of your foe, seeking a
+        vulnerability in its defenses.</p><p>Perform a <strong>Knowledge
+        Test</strong> using an appropriate Skill chosen by the Gamemaster. On a
+        success, you learn the Damage type that the creature has the greatest
+        vulnerability towards, if any. On a Critical Success you learn the two
+        Damage types which have the largest vulnerability.</p>
+      actions:
+        - id: intuitWeakness
+          description: >-
+            <p>You still your mind and study the physiology of your foe,
+            attempting to identify a vulnerability in its defenses.</p>
+          tags: []
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+          effects: []
+          name: Intuit Weakness
+          img: icons/magic/perception/orb-eye-scrying.webp
+          condition: ''
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          actionHooks: []
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int1b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: 2MFixpDJ379KOogE
+    sort: -50000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.intuitweakness00'
   - name: 'Rune: Lightning'
     type: talent
     img: icons/magic/lightning/bolt-strike-blue.webp
@@ -362,6 +437,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -400,6 +477,8 @@ items:
         rank: null
       nodes:
         - int1a
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -417,163 +496,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.gesturearrow0000'
-  - folder: ghRKqdzq279SH1lt
-    name: Arcana Novice
-    type: talent
-    _id: arcanaNovice0000
-    img: systems/crucible/icons/skills/arcana.jpg
-    system:
-      description: >-
-        <p><span style="font-family:Vollkorn, serif">Your education covered the
-        fundamentals of metaphysics and magical theory, the relationship between
-        the runes, the opposing nature of order and chaos, and a cursory
-        introduction to spiritual beings including the most commonly known
-        deified and demonized figures of worship. You gain the
-        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
-        are no longer considered <strong>Untrained</strong> in that
-        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
-        rudimentary understanding of the principle grammar of magic is
-        sufficient to identify which lesser rune a spell or ritual may be using,
-        as well as the gesture used (if not the inflection). You can identify
-        whether a figure is influenced more by chaos or by order, and can spot
-        the signs of common spirits (both lesser and greater). You know enough
-        about religious customs to communicate with those who worship a
-        particular spirit or deity without embarrassing yourself.</span></p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: arcana
-        rank: 1
-      actorHooks: []
-      nodes:
-        - pre0a
-    effects: []
-    sort: 0
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.arcanaNovice0000'
-  - folder: ghRKqdzq279SH1lt
-    name: Science Novice
-    type: talent
-    _id: scienceNovice000
-    img: systems/crucible/icons/skills/science.jpg
-    system:
-      description: >-
-        <p><span style="font-family:Vollkorn, serif">You've learned to study the
-        world around you through structured observation, mathematics, physics,
-        chemistry, and other disciplines. You gain the <strong>Novice</strong>
-        rank in the <strong>Science </strong>skill and are no longer considered
-        <strong>Untrained</strong> in that skill.</span></p><p><span
-        style="font-family:Vollkorn, serif">You are familiar with the basic
-        principles of mathematics, physics, chemistry, or other scientific
-        studies. You know how to construct and use simple machines for the
-        purposes of making physical tasks easier. You know some of the more
-        commonly understood scientific theories, and given suitable time to
-        study more complex machines you might be able to at least operate
-        them.</span></p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: science
-        rank: 1
-      actorHooks: []
-      nodes:
-        - int0b
-    effects: []
-    sort: 320000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.scienceNovice000'
-  - folder: i7WposibCJ94XpuD
-    name: Mechanical Weapon Training
-    type: talent
-    img: icons/weapons/crossbows/crossbow-white.webp
-    system:
-      description: >-
-        <p>You have a basic education in crossbows, firearms, and other
-        mechanical weapons. You are no longer treated as
-        <strong>Untrained</strong> with weapons in the <strong>Mechanical
-        </strong>category.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: mechanical
-        rank: 1
-      actorHooks: []
-      nodes:
-        - dex0a
-    effects: []
-    sort: 0
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    _id: mechanicalTraini
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.mechanicalTraini'
-  - name: 'Rune: Kinesis'
-    type: talent
-    img: icons/magic/movement/pinwheel-turning-blue.webp
-    system:
-      description: >-
-        <p>The chaotic force of space and physical movement. The Kinesis rune
-        governs all things related to the act of movement and physicality. It is
-        opposed by the orderly rune of Stasis.</p>
-
-        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
-        <strong>Physical</strong> defense, and deals
-        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
-        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
-      actions: []
-      rune: kinesis
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - pre0b
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    _id: runekinesis00000
-    folder: Dy9HnwadNE3kSZ4f
-    sort: 700000
-    ownership:
-      default: 0
-    _key: '!actors.items!TffJlCvt39DEhFX7.runekinesis00000'
   - name: 'Rune: Frost'
     type: talent
     img: icons/magic/water/snowflake-ice-snow-white.webp
@@ -589,12 +511,14 @@ items:
       actions: []
       rune: frost
       iconicSpells: 0
+      actorHooks: []
       training:
         type: ''
         rank: null
-      actorHooks: []
       nodes:
         - wis0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -637,6 +561,8 @@ items:
         rank: null
       nodes:
         - wis1b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -654,20 +580,580 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!TffJlCvt39DEhFX7.gesturecreate000'
+  - name: Conserve Effort
+    type: talent
+    img: icons/magic/time/arrows-circling-pink.webp
+    system:
+      description: >-
+        <p>You find calmness and focus in conserving your effort in battle. When
+        you end your <strong>Turn</strong> with un-spent Action you gain
+        <strong>+1 Focus</strong>.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wispre2
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: conserveeffort00
+    folder: qHUCrqkzuPHtBkbG
+    sort: 150000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.conserveeffort00'
+  - name: 'Inflection: Compose'
+    type: talent
+    img: icons/magic/symbols/arrowhead-green.webp
+    system:
+      description: >-
+        <p>Enhance a spell by taking extra time in its formation, reducing other
+        resource costs in exchange. The Compose inflection reduces the
+        <strong>Focus</strong> cost of a spell by 1 while increasing its
+        <strong>Action</strong> cost by 1 in exchange.</p>
+      actions: []
+      inflection: compose
+      actorHooks: []
+      iconicSpells: 1
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wispre2
+      rune: ''
+      gesture: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: inflectioncompos
+    folder: mFfsius4gpT45Q2R
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.inflectioncompos'
+  - name: Conjurer
+    type: talent
+    img: icons/magic/symbols/runes-star-orange-purple.webp
+    system:
+      description: >-
+        <p>You are a master of Conjuration and the Gesture of Creation to
+        manifest arcane energy as physical form. You can maintain up to 3 such
+        creations simultaneously rather than only one.</p>
+      actions: []
+      iconicSpells: 2
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - sig3.wisdom.presence
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: conjurer00000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.conjurer00000000'
+  - name: 'Rune: Control'
+    type: talent
+    img: icons/magic/control/hypnosis-mesmerism-eye.webp
+    system:
+      description: >-
+        <p>The orderly force of discipline and the mind. The Control rune
+        governs thought, logic and reason. It is opposed by the chaotic rune of
+        Spirit.</p>
+
+        <p>The Control rune scales using <strong>Intellect</strong>, targets
+        <strong>Willpower</strong>, and deals <strong>Psychic</strong> damage to
+        <strong>Morale</strong>.</p>
+      actions: []
+      rune: control
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runemind00000000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.runemind00000000'
+  - name: Rimecaller
+    type: talent
+    img: icons/magic/water/orb-ice-web.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Frost. Spells which use
+        this Rune cause the Chilled condition on Critical Hits.</p><p>The
+        Chilled effect lasts for 1 Round, deals half your Wisdom score as Frost
+        damage to Health, and applies the Slowed condition.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Frost rune
+            if ( action.rune?.id !== "frost" ) return;
+
+            // Require damage to Health
+            const damageHealth = outcome.resources.health < 0;
+            if ( !damageHealth ) return;
+
+            // Apply Chilled effect
+            const chilled  = SYSTEM.EFFECTS.chilled(this, outcome.target);
+            outcome.effects.push(chilled);
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wis3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: rimecaller000000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: -225000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.rimecaller000000'
+  - name: Mesmer
+    type: talent
+    _id: mesmer0000000000
+    img: icons/magic/air/air-burst-spiral-pink.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Control. Spells which
+        use this Rune cause the Confusion condition on Critical Hits.</p><p>The
+        Confusion effect lasts for 1 Round, deals half your Intellect score as
+        Psychic damage to Morale, and applies the Disoriented condition.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Control rune
+            if ( action.rune?.id !== "control" ) return;
+
+            // Require damage to Morale
+            const damageMorale = outcome.resources.morale < 0;
+            if ( !damageMorale ) return;
+
+            // Apply Confused effect
+            const confused = SYSTEM.EFFECTS.confusion(this, outcome.target);
+            outcome.effects.push(confused);
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: c0nl6X8tp4Of0Y4O
+    sort: -300000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.mesmer0000000000'
+  - name: Recognize Spellcraft
+    type: talent
+    img: icons/magic/perception/hand-eye-fire-blue.webp
+    system:
+      description: >-
+        You can interpret the arcane incantations of others to discern the
+        nature of their spellcraft. When an enemy within 10 spaces that you can
+        see and hear begins casting a spell, you can identify its Rune if you
+        have mastered that Rune.
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int2b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: recognizespellcr
+    folder: Uk4FgmLsNJc62zCJ
+    sort: 50000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.recognizespellcr'
+  - name: Counter Spell
+    type: talent
+    img: icons/skills/melee/strike-blade-hooked-orange-blue.webp
+    system:
+      description: >-
+        <p>You can attempt to unravel and negate the spellcraft of other
+        mages.</p>
+
+        <section class="construction">
+
+        <p>Counter-Spell mechanics are preliminary and not implemented in
+        Playtest 1. You may test the <em>intention</em> of this talent by
+        working with your GM, but this process will not be refined or automated
+        until a later Playtest phase.</p>
+
+        </section>
+      actions:
+        - id: counterSpell
+          condition: Another creature which you can see is casting a spell.
+          description: >-
+            You form arcane energy into a countervailing spellcraft. Designate a
+            Rune and Gesture which you know to attempt to counter the spell. You
+            must be able to hit your target with your chosen Gesture. Choosing a
+            Rune which is opposed to the Rune being cast adds +3 Boons to your
+            roll. Choosing the same Gesture as the one being cast adds +3 Boons
+            to your roll. Perform an <strong>Opposed Test</strong> against the
+            caster of the spell using the Ability, Skill, and Enchantment
+            bonuses of the respective spells being cast. If your roll exceeds
+            theirs, the spell is countered and its magic is nullified.
+          tags:
+            - reaction
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+          effects: []
+          img: null
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          actionHooks: []
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - preint4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: counterspell0000
+    folder: gCqKVVNjLmIaU7vj
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.counterspell0000'
+  - folder: ghRKqdzq279SH1lt
+    name: Arcana Novice
+    type: talent
+    _id: arcanaNovice0000
+    img: systems/crucible/icons/skills/arcana.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">Your education covered the
+        fundamentals of metaphysics and magical theory, the relationship between
+        the runes, the opposing nature of order and chaos, and a cursory
+        introduction to spiritual beings including the most commonly known
+        deified and demonized figures of worship. You gain the
+        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
+        rudimentary understanding of the principle grammar of magic is
+        sufficient to identify which lesser rune a spell or ritual may be using,
+        as well as the gesture used (if not the inflection). You can identify
+        whether a figure is influenced more by chaos or by order, and can spot
+        the signs of common spirits (both lesser and greater). You know enough
+        about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: arcana
+        rank: 1
+      actorHooks: []
+      nodes:
+        - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.arcanaNovice0000'
+  - folder: ghRKqdzq279SH1lt
+    name: Science Novice
+    type: talent
+    _id: scienceNovice000
+    img: systems/crucible/icons/skills/science.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You've learned to study the
+        world around you through structured observation, mathematics, physics,
+        chemistry, and other disciplines. You gain the <strong>Novice</strong>
+        rank in the <strong>Science </strong>skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</span></p><p><span
+        style="font-family:Vollkorn, serif">You are familiar with the basic
+        principles of mathematics, physics, chemistry, or other scientific
+        studies. You know how to construct and use simple machines for the
+        purposes of making physical tasks easier. You know some of the more
+        commonly understood scientific theories, and given suitable time to
+        study more complex machines you might be able to at least operate
+        them.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: science
+        rank: 1
+      actorHooks: []
+      nodes:
+        - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    sort: 320000
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.scienceNovice000'
+  - folder: i7WposibCJ94XpuD
+    name: Mechanical Weapon Training
+    type: talent
+    img: icons/weapons/crossbows/crossbow-white.webp
+    system:
+      description: >-
+        <p>You have a basic education in crossbows, firearms, and other
+        mechanical weapons. You are no longer treated as
+        <strong>Untrained</strong> with weapons in the <strong>Mechanical
+        </strong>category.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: mechanical
+        rank: 1
+      actorHooks: []
+      nodes:
+        - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    _id: mechanicalTraini
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.mechanicalTraini'
+  - name: 'Rune: Kinesis'
+    type: talent
+    img: icons/magic/movement/pinwheel-turning-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and physicality. It is
+        opposed by the orderly rune of Stasis.</p>
+
+        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
+        <strong>Physical</strong> defense, and deals
+        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+      actions: []
+      rune: kinesis
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    _id: runekinesis00000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 700000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.runekinesis00000'
+  - name: Irrepressible Spirit
+    type: talent
+    img: icons/magic/light/projectile-smoke-pink.webp
+    system:
+      description: >-
+        Your tenacity gives you an irrepressible spirit which resists the onset
+        of despair. At the start of your turn if you are not Broken you gain 1
+        Morale.
+      actions: []
+      nodes:
+        - wis2c
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: irrepressiblespi
+    folder: 4Ll3b4Q4us2mp4Fu
+    sort: -100000
+    ownership:
+      default: 0
+    _key: '!actors.items!TffJlCvt39DEhFX7.irrepressiblespi'
 effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.lightning.arrow
+    lastSpell: spell.frost.create
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 sort: 0

@@ -10,12 +10,11 @@ system:
   actorHooks:
     - hook: prepareInitiativeCheck
       fn: >-
-        const {weapons, armor} = this.equipment;
-        const slowBanes = rollData.banes.slow;
-        if ( weapons.slow && slowBanes ) slowBanes.number -= weapons.slow;
-        const bulkyBanes = rollData.banes.bulky;
-        if ( armor.system.properties.has("bulky") && bulkyBanes )
-        bulkyBanes.number -= 2;
+        const {weapons, armor} = this.equipment; const slowBanes =
+        rollData.banes.slow; if ( weapons.slow && slowBanes ) slowBanes.number
+        -= weapons.slow; const bulkyBanes = rollData.banes.bulky; if (
+        armor.system.properties.has("bulky") && bulkyBanes ) bulkyBanes.number
+        -= 2;
   nodes:
     - str2c
 effects: []

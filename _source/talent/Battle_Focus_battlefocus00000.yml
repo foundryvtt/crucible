@@ -12,19 +12,18 @@ system:
   actorHooks:
     - hook: applyCriticalEffects
       fn: >-
-        // Must damage health or morale
-        const damageHealth = outcome.resources.health < 0;
-        const damageMorale = outcome.resources.morale < 0;
-        if ( !(damageHealth || damageMorale) ) return;
+        // Must damage health or morale const damageHealth =
+        outcome.resources.health < 0; const damageMorale =
+        outcome.resources.morale < 0; if ( !(damageHealth || damageMorale) )
+        return;
 
-        // Can only happen once per round
-        const updates = self.actorUpdates;
-        const hasStatus = this.status.battleFocus || updates.system?.status?.battleFocus;
-        if ( hasStatus ) return;
+        // Can only happen once per round const updates = self.actorUpdates;
+        const hasStatus = this.status.battleFocus ||
+        updates.system?.status?.battleFocus; if ( hasStatus ) return;
 
-        // Increase Focus
-        self.resources.focus = (self.resources.focus || 0) + 1;
-        foundry.utils.setProperty(updates, "system.status.battleFocus", true);
+        // Increase Focus self.resources.focus = (self.resources.focus || 0) +
+        1; foundry.utils.setProperty(updates, "system.status.battleFocus",
+        true);
 effects: []
 flags: {}
 _stats:

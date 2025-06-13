@@ -30,8 +30,8 @@ system:
       bonus: 0
   advancement:
     level: 6
-    progress: 0
     talentNodes: []
+    milestones: 0
   defenses:
     armor:
       bonus: 0
@@ -136,7 +136,7 @@ system:
     madness:
       value: 0
     action:
-      value: 0
+      value: 6
     focus:
       value: 7
     heroism:
@@ -145,10 +145,7 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status:
-    lastAction: spell.life.touch.compose
-    basicStrike: false
-    hasCast: true
+  status: null
   favorites:
     - defend
     - refocus
@@ -157,7 +154,7 @@ system:
     - fontOfLife
 prototypeToken:
   name: Kagura
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -179,7 +176,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -254,12 +251,15 @@ items:
       properties:
         - blocking
       damageType: radiant
-      animation: quarterstaff
       description:
         public: ''
         private: ''
       actions: []
       slot: 1
+      identifier: o9psqTrBXz
+      invested: false
+      actorHooks: []
+      dropped: false
     effects: []
     flags:
       core: {}
@@ -298,6 +298,9 @@ items:
         base: 13
       broken: false
       actions: []
+      identifier: 9hMWykidwg
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -331,6 +334,8 @@ items:
         rank: null
       nodes:
         - wis0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -372,7 +377,7 @@ items:
             if ( !restoreMorale ) return;
 
             // Apply Inspired effect
-            const inspired = SYSTEM.EFFECTS.inspired(actor, outcome.target);
+            const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
             outcome.effects.push(inspired);
       iconicSpells: 0
       training:
@@ -380,6 +385,8 @@ items:
         rank: null
       nodes:
         - pre0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -421,6 +428,8 @@ items:
         rank: null
       nodes:
         - pre1b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -461,6 +470,8 @@ items:
         rank: null
       nodes:
         - wis1b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -494,6 +505,9 @@ items:
         rank: null
       nodes:
         - wis2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -527,6 +541,9 @@ items:
         rank: null
       nodes:
         - wispre2
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -599,6 +616,8 @@ items:
         rank: null
       nodes:
         - sig3.wisdom.presence
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -636,6 +655,9 @@ items:
         rank: null
       nodes:
         - pre2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -670,6 +692,8 @@ items:
         rank: null
       nodes:
         - wispre2
+      rune: ''
+      gesture: ''
     effects: []
     flags:
       core: {}
@@ -708,6 +732,8 @@ items:
         rank: null
       nodes:
         - wis0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -746,7 +772,7 @@ items:
             if ( !damageHealth ) return;
 
             // Apply Corroding effect
-            const corroding = SYSTEM.EFFECTS.corroding(actor, outcome.target);
+            const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
             outcome.effects.push(corroding);
       iconicSpells: 0
       training:
@@ -754,6 +780,9 @@ items:
         rank: null
       nodes:
         - wis3b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -796,6 +825,9 @@ items:
       actorHooks: []
       nodes:
         - wis0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 240000
     flags: {}
@@ -837,6 +869,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 320000
     flags: {}
@@ -869,6 +904,9 @@ items:
       actorHooks: []
       nodes:
         - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 0
     flags: {}
@@ -901,8 +939,8 @@ items:
           fn: |-
             for ( const [id, r] of Object.entries(resistances) ) {
               if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-              if ( actor.grimoire.runes.find(r => r.damageType === id) )  {
-                r.base += Math.ceil(actor.abilities.wisdom.value / 2);
+              if ( this.grimoire.runes.find(r => r.damageType === id) )  {
+                r.base += Math.ceil(this.abilities.wisdom.value / 2);
               }
             }
       iconicSpells: 1
@@ -912,6 +950,9 @@ items:
       training:
         type: ''
         rank: null
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -933,16 +974,15 @@ effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.life.touch.compose
+    lastSpell: spell.life.ray.compose
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
 sort: 0

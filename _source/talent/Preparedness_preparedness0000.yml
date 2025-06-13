@@ -11,8 +11,7 @@ system:
     - hook: preActivateAction
       fn: >-
         if ( (action.id !== "equipWeapon") || !action.cost.action ||
-        this.system.status.hasMoved ) return;
-        action.cost.action = 0;
+        this.system.status.hasMoved ) return; action.cost.action = 0;
         action.usage.actorStatus.hasMoved = true;
   nodes:
     - wis2b

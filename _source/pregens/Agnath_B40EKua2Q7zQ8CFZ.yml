@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 6
-    progress: 0
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -155,7 +155,7 @@ system:
     - ruthlessMomentum
 prototypeToken:
   name: Agnath
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -177,7 +177,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -260,6 +260,9 @@ items:
         base: 16
       broken: false
       actions: []
+      identifier: bIS6jIVvLH
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -292,6 +295,9 @@ items:
         rank: 1
       nodes:
         - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: FQAUMNkcagdBLURJ
     sort: 125000
@@ -328,6 +334,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -358,25 +366,19 @@ items:
       actorHooks:
         - hook: prepareWeaponAttack
           fn: >-
-            // Increment Cadence Count
-
-            const status = actor.status;
-
-            const {actorStatus, boons} = action.usage;
-
-            actorStatus.cadence = (status.cadence ?? 0) + 1;
-
-
-            // Add Boons
-
-            if ( status.cadence ) rollData.boons.cadence = {label: "Cadence",
-            number: status.cadence};
+            const {cadence} = this.status; const {actorStatus, boons} =
+            action.usage; actorStatus.cadence = (cadence ?? 0) + 1; if ( cadence
+            ) rollData.boons.cadence = {label: "Cadence", number:
+            status.cadence};
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str1b
+        - str2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -415,6 +417,8 @@ items:
         rank: null
       nodes:
         - int1a
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -445,20 +449,14 @@ items:
       actorHooks:
         - hook: prepareWeaponAttack
           fn: >-
-            const ac = actor.combatant;
-
-            const tc = target.combatant;
-
-            if ( ac?.initiative > tc?.initiative )
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
             rollData.boons.intellectualSuperiority = {label: "Intellectual
             Superiority", number: 1};
         - hook: prepareSpellAttack
           fn: >-
-            const ac = actor.combatant;
-
-            const tc = target.combatant;
-
-            if ( ac?.initiative > tc?.initiative )
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
             rollData.boons.intellectualSuperiority = {label: "Intellectual
             Superiority", number: 1};
       iconicSpells: 0
@@ -467,6 +465,9 @@ items:
         rank: null
       nodes:
         - int4b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: BevAJzzLeFbSaVic
     sort: -50000
@@ -503,6 +504,9 @@ items:
       nodes:
         - sig3.intellect
         - sig3.strength
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -536,6 +540,9 @@ items:
         rank: null
       nodes:
         - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -571,7 +578,9 @@ items:
         type: ''
         rank: null
       nodes:
-        - str2c
+        - str2b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -600,23 +609,20 @@ items:
       actorHooks:
         - hook: prepareInitiativeCheck
           fn: >-
-            const {weapons, armor} = actor.equipment;
-
-            const slowBanes = rollData.banes.slow;
-
-            if ( weapons.slow && slowBanes ) slowBanes.number -= weapons.slow;
-
-
-            const bulkyBanes = rollData.banes.bulky;
-
-            if ( armor.system.properties.has("bulky") && bulkyBanes )
-            bulkyBanes.number -= 2;
+            const {weapons, armor} = this.equipment; const slowBanes =
+            rollData.banes.slow; if ( weapons.slow && slowBanes )
+            slowBanes.number -= weapons.slow; const bulkyBanes =
+            rollData.banes.bulky; if ( armor.system.properties.has("bulky") &&
+            bulkyBanes ) bulkyBanes.number -= 2;
       iconicSpells: 0
       training:
         type: ''
         rank: null
       nodes:
-        - str2a
+        - str2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -667,9 +673,9 @@ items:
             scope: 0
           effects: []
           tags:
-            - melee
             - reaction
-            - mainhand
+            - attack
+            - melee
           actionHooks: []
           range:
             maximum: 1
@@ -681,7 +687,10 @@ items:
         type: ''
         rank: null
       nodes:
-        - str2b
+        - str2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -704,9 +713,8 @@ items:
       core: {}
     system:
       description: >-
-        You relish the carnage you can cause with a two-handed weapon. After
-        defeating a foe, you continue your attack with ruthless momentum, moving
-        to strike another enemy at reduced cost.
+        <p>You relish the carnage you can cause in combat and continue to press
+        the fray as each enemy falls.</p>
       actions:
         - id: ruthlessMomentum
           name: Ruthless Momentum
@@ -731,22 +739,20 @@ items:
             scope: 3
           effects: []
           tags:
-            - melee
             - movement
-            - twohand
-          actionHooks:
-            - hook: prepare
-              fn: |-
-                if ( this.actor ) {
-                  this.range.maximum = this.actor.system.movement.stride;
-                }
+            - attack
+            - melee
+          actionHooks: []
       iconicSpells: 0
       actorHooks: []
       training:
         type: ''
         rank: null
       nodes:
-        - toustr1
+        - str1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -777,6 +783,9 @@ items:
         rank: null
       nodes:
         - tou2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -814,9 +823,12 @@ items:
         private: ''
       damageType: slashing
       broken: false
-      animation: glaive
       actions: []
       slot: 3
+      identifier: ttTojhBdCj
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -850,6 +862,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -882,6 +896,7 @@ items:
             weapon. The attack is slower to execute, but is
             <strong>Empowered</strong> to deliver additional damage.</p>
           tags:
+            - attack
             - melee
             - mainhand
             - empowered
@@ -909,6 +924,9 @@ items:
       actorHooks: []
       nodes:
         - str1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -950,6 +968,9 @@ items:
       actorHooks: []
       nodes:
         - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 40000
     flags: {}
@@ -987,6 +1008,9 @@ items:
       actorHooks: []
       nodes:
         - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 200000
     flags: {}
@@ -1018,6 +1042,9 @@ items:
       actorHooks: []
       nodes:
         - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 150000
     flags: {}
@@ -1055,7 +1082,7 @@ items:
             if ( !(damageHealth || damageMorale) ) return;
 
             // Apply Shocked effect
-            const shocked  = SYSTEM.EFFECTS.shocked(actor, outcome.target);
+            const shocked  = SYSTEM.EFFECTS.shocked(this, outcome.target);
             outcome.effects.push(shocked);
       iconicSpells: 0
       training:
@@ -1063,6 +1090,9 @@ items:
         rank: null
       nodes:
         - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -1097,6 +1127,9 @@ items:
         rank: null
       nodes:
         - int2b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: aB808IWOdgwmFCIF
     sort: 300000
@@ -1136,6 +1169,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 80000
     flags: {}
@@ -1167,6 +1203,9 @@ items:
       actorHooks: []
       nodes:
         - int4c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 90000
     flags: {}
@@ -1199,6 +1238,9 @@ items:
       actorHooks: []
       nodes:
         - str4c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 50000
     flags: {}
@@ -1223,11 +1265,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 sort: 0

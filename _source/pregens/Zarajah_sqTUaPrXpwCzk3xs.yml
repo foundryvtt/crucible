@@ -1,4 +1,4 @@
-folder: aoXDBsBdhTAww10u
+folder: 2tdnCBbxNPNuhxzT
 name: Zarajah
 type: hero
 img: systems/crucible/assets/tokens/heroes/DevilkinSorcerer.webp
@@ -6,15 +6,15 @@ system:
   abilities:
     wisdom:
       base: 0
-      increases: 0
+      increases: 1
       bonus: 0
     presence:
       base: 2
-      increases: 0
+      increases: 1
       bonus: 0
     intellect:
       base: 3
-      increases: 0
+      increases: 2
       bonus: 0
     strength:
       base: 0
@@ -26,11 +26,11 @@ system:
       bonus: 0
     dexterity:
       base: 2
-      increases: 0
+      increases: 1
       bonus: 0
   advancement:
-    level: 1
-    progress: 0
+    level: 6
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -129,17 +129,17 @@ system:
       bonus: 0
   resources:
     health:
-      value: 24
+      value: 54
     wounds:
       value: 0
     morale:
-      value: 24
+      value: 60
     madness:
       value: 0
     action:
       value: 6
     focus:
-      value: 5
+      value: 7
     heroism:
       value: 0
   movement:
@@ -155,7 +155,7 @@ system:
     - cast
 prototypeToken:
   name: Zarajah
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -177,7 +177,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -245,19 +245,22 @@ items:
       quantity: 1
       weight: 0
       price: 60
-      quality: standard
+      quality: fine
       broken: false
       enchantment: mundane
       equipped: true
       properties:
         - blocking
       damageType: radiant
-      animation: quarterstaff
       description:
         public: ''
         private: ''
       actions: []
       slot: 0
+      identifier: S5XOfjWvlE
+      invested: false
+      actorHooks: []
+      dropped: false
     effects: []
     flags:
       core: {}
@@ -285,7 +288,7 @@ items:
       quantity: 1
       weight: 30
       price: 60
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -296,6 +299,9 @@ items:
         base: 9
       broken: false
       actions: []
+      identifier: RYH3223yDZ
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -358,6 +364,9 @@ items:
         rank: null
       nodes:
         - pre1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -391,6 +400,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -432,6 +443,8 @@ items:
         rank: null
       nodes:
         - pre1b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -449,6 +462,404 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!sqTUaPrXpwCzk3xs.gestureinfluence'
+  - folder: mFfsius4gpT45Q2R
+    name: 'Inflection: Determine'
+    type: talent
+    _id: inflectiondeterm
+    img: icons/magic/symbols/runes-triangle-orange-purple.webp
+    system:
+      description: >-
+        <p>Enhance a spell to make it more difficult to counter. Any attempt to
+        Counter-Spell this spell is made with +2 Banes.</p>
+      actions: []
+      inflection: determine
+      actorHooks: []
+      iconicSpells: 1
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - preint2
+      rune: ''
+      gesture: ''
+    effects: []
+    sort: 0
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.inflectiondeterm'
+  - name: War Mage
+    type: talent
+    img: icons/magic/defensive/barrier-shield-dome-deflect-teal.webp
+    system:
+      description: >-
+        <p>Your spellcraft is honed as a weapon of war to thwart the
+        incantations of other magi. You may ask the Gamemaster if you know a
+        Rune capable of countering an enemy spell, even if you do not recognize
+        the spell being cast. You gain +2 Boons to any Counterspell attempt.</p>
+      actions: []
+      iconicSpells: 2
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - sig3.presence.intellect
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: warmage000000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 237500
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.warmage000000000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      description: >-
+        <p>Hurl a projectile of magical power at a distant target. This might
+        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
+        hurl a ball of devouring darkness.</p>
+
+        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
+        a <strong>single</strong> creature up to a distance of 10 spaces,
+        dealing 10 base damage on a successful attack.</p>
+      actions: []
+      gesture: arrow
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int1a
+      rune: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: gesturearrow0000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturearrow0000'
+  - name: Impetus
+    type: talent
+    _id: impetus000000000
+    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+    system:
+      description: >-
+        <p>You are gifted at exploiting the slowness with which others think. If
+        you are first in Initiative order during a round of Combat, you gain +1
+        current and maximum Action.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -75000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.impetus000000000'
+  - name: Intellectual Superiority
+    type: talent
+    _id: intellectualsupe
+    img: icons/magic/light/projectile-smoke-blue-light.webp
+    system:
+      description: >-
+        It is sometimes a marvel how slowly others around you think. You gain
+        <strong>+1 Boon</strong> on any Strike or Spell attack against an enemy
+        lower than you in Initiative order.
+      actions: []
+      actorHooks:
+        - hook: prepareWeaponAttack
+          fn: >-
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
+            rollData.boons.intellectualSuperiority = {label: "Intellectual
+            Superiority", number: 1};
+        - hook: prepareSpellAttack
+          fn: >-
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
+            rollData.boons.intellectualSuperiority = {label: "Intellectual
+            Superiority", number: 1};
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int4b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -50000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.intellectualsupe'
+  - name: Opportunistic Spellcraft
+    type: talent
+    _id: opportunisticspe
+    img: icons/magic/unholy/strike-hand-glow-pink.webp
+    system:
+      description: >-
+        <p>Your quick thinking can weave magic to exploit brief windows of
+        opportunity. You may make a <strong>Disengagement Attack</strong> using
+        the <strong>Touch</strong> Gesture instead of a melee weapon attack.</p>
+      actions: []
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int2b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: aB808IWOdgwmFCIF
+    sort: 300000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.opportunisticspe'
+  - name: Pyromancer
+    type: talent
+    img: icons/magic/fire/projectile-smoke-swirl-red.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Flame. Spells which use
+        this Rune cause Burning on Critical Hits.</p><p>The Burning effect lasts
+        for 1 Round and deals your Intellect score as Fire damage to both Health
+        and Morale.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Flame rune
+            if ( action.rune?.id !== "flame" ) return;
+
+            // Require damage to Health
+            const damageHealth = outcome.resources.health < 0;
+            if ( !damageHealth ) return;
+
+            // Apply Burning effect
+            const burning = SYSTEM.EFFECTS.burning(this, outcome.target);
+            outcome.effects.push(burning);
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: pyromancer000000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: -400000
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.pyromancer000000'
+  - name: 'Gesture: Pulse'
+    type: talent
+    _id: gesturepulse0000
+    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+    system:
+      description: >-
+        <p>Emit a burst of Runic power in a circular wave that travels outward,
+        with you at its center. A Pulse of Spirit might be used to bolster
+        Morale for your allies, while a Death pulse might be used to deal
+        Corruption damage to a group of enemies gathered around you.</p>
+
+        <p>The Pulse gesture scales using <strong>Presence</strong> and targets
+        a 360 degree radius with distance 1, dealing 6 base damage on a
+        successful attack.</p>
+      actions: []
+      gesture: pulse
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - pre2b
+      rune: ''
+      inflection: ''
+    effects: []
+    folder: D14x9AJ0TgXKtnzu
+    sort: 1000000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.gesturepulse0000'
+  - name: 'Rune: Kinesis'
+    type: talent
+    img: icons/magic/movement/pinwheel-turning-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of space and physical movement. The Kinesis rune
+        governs all things related to the act of movement and physicality. It is
+        opposed by the orderly rune of Stasis.</p>
+
+        <p>The Kinesis rune scales using <strong>Presence</strong>, targets
+        <strong>Physical</strong> defense, and deals
+        <strong>Bludgeoning</strong>, <strong>Piercing</strong>, or
+        <strong>Slashing</strong> damage to <strong>Health</strong>.</p>
+      actions: []
+      rune: kinesis
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runekinesis00000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 700000
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.runekinesis00000'
+  - name: 'Rune: Illumination'
+    type: talent
+    img: icons/magic/light/projectile-beam-yellow.webp
+    system:
+      description: >-
+        <p>The chaotic force of light and positive energy. The Illumination rune
+        governs light and all of its properties. It is opposed by the orderly
+        rune of Shadow.</p>
+
+        <p>The Illumination rune scales using <strong>Presence</strong>, targets
+        <strong>Willpower</strong>, and deals <strong>Radiant</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: illumination
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - pre0b
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runeradiance0000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 600000
+    ownership:
+      default: 0
+    _key: '!actors.items!sqTUaPrXpwCzk3xs.runeradiance0000'
   - name: 'Rune: Shadow'
     type: talent
     img: icons/magic/unholy/orb-rays-blue.webp
@@ -470,6 +881,8 @@ items:
         rank: null
       nodes:
         - pre0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -511,6 +924,9 @@ items:
       actorHooks: []
       nodes:
         - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 280000
     flags: {}
@@ -549,6 +965,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 120000
     flags: {}
@@ -580,6 +999,9 @@ items:
       actorHooks: []
       nodes:
         - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 200000
     flags: {}
@@ -637,6 +1059,9 @@ items:
       actorHooks: []
       nodes:
         - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -663,11 +1088,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: sqTUaPrXpwCzk3xs
 sort: 0

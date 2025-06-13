@@ -34,12 +34,10 @@ system:
       actionHooks:
         - hook: prepare
           fn: >-
-            const cls = getDocumentClass("Item");
-            const bite = new cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent:
-            this.actor});
-            this.usage.weapon = bite;
-            this.usage.context.tags.add("Vampiric Bite");
-            foundry.utils.mergeObject(this.usage.bonuses,
+            const cls = getDocumentClass("Item"); const bite = new
+            cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent: this.actor});
+            this.usage.weapon = bite; this.usage.context.tags.add("Vampiric
+            Bite"); foundry.utils.mergeObject(this.usage.bonuses,
             bite.system.actionBonuses);
             foundry.utils.mergeObject(this.usage.context, {
               type: "weapons",

@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 6
-    progress: 0
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -160,7 +160,7 @@ system:
     - combatMedicine
 prototypeToken:
   name: Eliorwen
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -182,7 +182,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -263,9 +263,12 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      animation: arrow
       slot: 3
       actions: []
+      identifier: pmpsp0kThM
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -300,9 +303,12 @@ items:
         private: ''
       damageType: slashing
       broken: false
-      animation: scimitar
       actions: []
       slot: 1
+      identifier: YJSFH6TcaK
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -339,6 +345,9 @@ items:
         base: 7
       broken: false
       actions: []
+      identifier: oGf2LhSCet
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -368,6 +377,9 @@ items:
         rank: null
       nodes:
         - int2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: 2MFixpDJ379KOogE
     sort: -275000
@@ -403,6 +415,9 @@ items:
       iconicSpells: 0
       nodes:
         - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
       training:
         type: ''
         rank: null
@@ -437,8 +452,8 @@ items:
             <strong>Difficult</strong>, however if your target is it it becomes
             <strong>Restrained</strong> until the end of their next Turn.</p>
           tags:
+            - attack
             - ranged
-            - mainhand
             - difficult
           cost:
             action: 0
@@ -470,6 +485,9 @@ items:
         rank: null
       nodes:
         - dex3a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -480,8 +498,8 @@ items:
       systemId: crucible
       systemVersion: 0.7.0-dev
       lastModifiedBy: null
-    folder: i7P1uwWcECj5KWfY
-    sort: 50000
+    folder: k2H23tobHffCMQCj
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.pinningshot00000'
@@ -502,6 +520,9 @@ items:
         rank: null
       nodes:
         - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: BevAJzzLeFbSaVic
     sort: -75000
@@ -563,6 +584,9 @@ items:
         rank: null
       nodes:
         - wis2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -597,6 +621,9 @@ items:
         rank: null
       nodes:
         - sig3.intellect.dexterity
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -658,6 +685,9 @@ items:
         rank: null
       nodes:
         - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -691,6 +721,9 @@ items:
         rank: null
       nodes:
         - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -719,9 +752,8 @@ items:
             <p>You Strike using a special shot. If your attack is successful the
             target is <strong>Exposed</strong> for the next 3 Turns.</p>
           tags:
-            - ranged
             - attack
-            - mainhand
+            - ranged
             - difficult
             - harmless
           cost:
@@ -755,6 +787,9 @@ items:
         rank: null
       nodes:
         - dex2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -766,9 +801,9 @@ items:
       systemId: crucible
       systemVersion: 0.7.0-dev
       lastModifiedBy: null
-    folder: i7P1uwWcECj5KWfY
+    folder: k2H23tobHffCMQCj
     _id: markprey00000000
-    sort: 0
+    sort: 100000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.markprey00000000'
@@ -786,8 +821,8 @@ items:
           fn: |-
             const status = action.usage.actorStatus;
             if ( !status.rangedAttack ) return;
-            const move = actor.system.status.movement;
-            const stride = actor.system.movement.stride;
+            const move = this.system.status.movement;
+            const stride = this.system.movement.stride;
             const bonus = (move.bonus ?? 0) + stride;
             foundry.utils.setProperty(status, "movement.bonus", bonus);
       actions: []
@@ -797,6 +832,9 @@ items:
         rank: null
       nodes:
         - dex3a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -833,6 +871,8 @@ items:
         rank: null
       nodes:
         - int1a
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -871,6 +911,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -903,8 +945,8 @@ items:
           condition: ''
           description: <p>You steady your aim and fire a single accurate shot.</p>
           tags:
+            - attack
             - ranged
-            - mainhand
             - deadly
             - accurate
           cost:
@@ -931,6 +973,9 @@ items:
         rank: null
       nodes:
         - dex1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -939,8 +984,8 @@ items:
       systemId: crucible
       systemVersion: 0.7.0-dev
       lastModifiedBy: null
-    folder: i7P1uwWcECj5KWfY
-    sort: -100000
+    folder: k2H23tobHffCMQCj
+    sort: 150000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.precisionshot000'
@@ -965,6 +1010,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -1006,6 +1053,9 @@ items:
       actorHooks: []
       nodes:
         - tou0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 440000
     flags: {}
@@ -1044,6 +1094,9 @@ items:
       actorHooks: []
       nodes:
         - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 40000
     flags: {}
@@ -1075,6 +1128,9 @@ items:
       actorHooks: []
       nodes:
         - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 300000
     flags: {}
@@ -1098,11 +1154,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1749830804111
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 sort: 0

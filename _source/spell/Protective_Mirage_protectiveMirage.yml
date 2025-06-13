@@ -55,10 +55,10 @@ system:
   actorHooks:
     - hook: defendWeaponAttack
       fn: >-
-        const effect = this.effects.get("protectiveMirage");
-        if ( !effect ) return;
-        const duplicates = effect.flags.crucible?.duplicates ?? 3;
-        rollData.banes.mirage = {label: "Protective Mirage", number: duplicates * 2};
+        const effect = this.effects.get("protectiveMirage"); if ( !effect )
+        return; const duplicates = effect.flags.crucible?.duplicates ?? 3;
+        rollData.banes.mirage = {label: "Protective Mirage", number: duplicates
+        * 2};
     - hook: applyActionOutcome
       fn: |-
         const effect = this.effects.get("protectiveMirage");
