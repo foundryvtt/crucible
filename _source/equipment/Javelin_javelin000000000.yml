@@ -1,0 +1,46 @@
+name: Javelin
+type: weapon
+img: icons/weapons/polearms/spear-flared-worn.webp
+system:
+  identifier: javelin
+  category: simple1
+  quantity: 1
+  weight: 2
+  price: 16
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - thrown
+  description:
+    public: >-
+      <p>With a sharp metal head mounted atop a long pole, the javelin is light
+      enough to be thrown but sturdy enough to remain useful in close
+      quarters.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: piercing
+  dropped: false
+  slot: 0
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826164719
+  modifiedTime: 1749826164719
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: javelin000000000
+sort: 0
+_key: '!items!javelin000000000'

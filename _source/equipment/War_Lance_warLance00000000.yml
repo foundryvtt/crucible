@@ -1,0 +1,47 @@
+name: War Lance
+type: weapon
+img: icons/weapons/polearms/spear-hooked-double-jeweled.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: heavy2
+  quantity: 1
+  weight: 10
+  price: 80
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - oversized
+    - reach
+  description:
+    public: >-
+      <p>Designed for mounted combat, the war lance is a long, tapered weapon
+      used to shatter armor with the momentum of a charging steed, its shaft
+      reinforced for devastating impact.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: warlance
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826776111
+  modifiedTime: 1749826776111
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: warLance00000000
+sort: 0
+_key: '!items!warLance00000000'

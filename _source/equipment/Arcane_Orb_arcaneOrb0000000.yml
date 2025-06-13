@@ -1,0 +1,45 @@
+folder: uvvY6c0nbJBhAjM6
+name: Arcane Orb
+type: weapon
+img: icons/commodities/materials/glass-orb-blue-gold.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 2
+  price: 32
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: electricity
+  identifier: arcaneOrb
+  invested: false
+  description:
+    public: >-
+      <p>A sphere of crystal or glass that — in the palm of a capable
+      spellcaster — becomes a conduit for their power. It gathers voltaic energy
+      within its orb before blasting a target with electrifying force.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827823251
+  modifiedTime: 1749828473037
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: arcaneOrb0000000
+sort: 100000
+_key: '!items!arcaneOrb0000000'

@@ -1,0 +1,47 @@
+folder: 3BDkyJ5nPk8nVa81
+name: Stiletto
+type: weapon
+img: icons/weapons/daggers/dagger-straight-thin-black.webp
+system:
+  category: light1
+  quantity: 1
+  weight: 1
+  price: 8
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+    - keen
+  damageType: piercing
+  identifier: stiletto
+  invested: false
+  description:
+    public: >-
+      <p>Thin, tapered, and made for piercing, the stiletto is a killer’s weapon
+      — designed to slide between ribs or gaps in armor and leave barely a
+      trace.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825790504
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: stiletto00000000
+sort: 100000
+_key: '!items!stiletto00000000'

@@ -1,0 +1,46 @@
+folder: uvvY6c0nbJBhAjM6
+name: Ceremonial Dagger
+type: weapon
+img: icons/weapons/daggers/dagger-jeweled-black.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 2
+  price: 32
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: piercing
+  identifier: ceremonialDagger
+  invested: false
+  description:
+    public: >-
+      <p>This blade is less functional and more ornamented than a regular
+      dagger. Its inscriptions and craftsmanship are purposeful for use as a
+      tool for spellcraft. In combat, it projects piercing blasts of arcane
+      energy.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827941374
+  modifiedTime: 1749828473037
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: ceremonialDagger
+sort: 200000
+_key: '!items!ceremonialDagger'

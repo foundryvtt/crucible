@@ -1,0 +1,47 @@
+name: Plate Mail
+type: armor
+img: icons/equipment/chest/breastplate-cuirass-steel-grey.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: heavy
+  quantity: 1
+  weight: 60
+  price: 720
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - bulky
+    - noisy
+  description:
+    public: >-
+      <p>The pinnacle of personal protection, plate mail encases the body in
+      carefully fitted steel plates, offering near-complete protection while
+      allowing impressive mobility for a trained wearer.</p>
+    private: ''
+  armor:
+    base: 18
+  broken: false
+  identifier: plateMail
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749829305383
+  modifiedTime: 1749829355369
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: amO0X74IO8uQIox5
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: plateMail0000000
+sort: 200000
+_key: '!items!plateMail0000000'

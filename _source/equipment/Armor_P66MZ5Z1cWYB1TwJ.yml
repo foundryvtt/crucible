@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Armor
+color: '#380d05'
+sorting: a
+_id: P66MZ5Z1cWYB1TwJ
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828632926
+  modifiedTime: 1749828638078
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!folders!P66MZ5Z1cWYB1TwJ'

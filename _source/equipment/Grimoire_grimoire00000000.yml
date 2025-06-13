@@ -1,0 +1,46 @@
+name: Grimoire
+type: weapon
+img: icons/sundries/books/book-symbol-spiral-silver-blue.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 3
+  price: 48
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: bludgeoning
+  slot: 0
+  identifier: grimoire
+  invested: false
+  description:
+    public: >-
+      <p>This heavy tome is used as a repository of knowledge as well as an
+      implement for spellcraft. In the hands of an arcane practitioner, it can
+      project concussive blasts of force towards a target.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+effects: []
+folder: uvvY6c0nbJBhAjM6
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828071604
+  modifiedTime: 1749828473037
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: grimoire00000000
+sort: 700000
+_key: '!items!grimoire00000000'

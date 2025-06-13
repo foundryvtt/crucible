@@ -1,0 +1,46 @@
+name: Buckler
+type: weapon
+img: icons/equipment/shield/buckler-wooden-boss-brown.webp
+effects: []
+folder: pibeFfUJ9FFbWkoY
+flags:
+  core: {}
+system:
+  category: shieldLight
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>A small, round metal shield roughly the size of a dinner plate, the
+      buckler is a duelist’s tool for deflecting blades and controlling space,
+      worn on the forearm or gripped like a weapon.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: buckler
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827513114
+  modifiedTime: 1749827628902
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: buckler000000000
+sort: 100000
+_key: '!items!buckler000000000'

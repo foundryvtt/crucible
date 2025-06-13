@@ -1,0 +1,44 @@
+name: Scimitar
+type: weapon
+img: icons/weapons/swords/scimitar-worn-blue.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>With its wide, curved blade and deadly arc, the scimitar dances through
+      battle, its edge carving through foes in sweeping, elegant strikes.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: scimitar
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825530780
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: scimitar00000000
+sort: 900000
+_key: '!items!scimitar00000000'

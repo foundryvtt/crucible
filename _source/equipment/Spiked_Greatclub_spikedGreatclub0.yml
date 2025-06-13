@@ -1,0 +1,46 @@
+name: Spiked Greatclub
+type: weapon
+img: icons/weapons/clubs/club-heavy-barbed-black.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: simple2
+  quantity: 1
+  weight: 12
+  price: 48
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - oversized
+  description:
+    public: >-
+      <p>The gnarled length of heavy wood has been embedded with vicious
+      protruding spikes, making it even more formidable and savage in the blows
+      it delivers at the expense of its excess bulk.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: spikedGreatclub
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826535522
+  modifiedTime: 1749826714844
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: spikedGreatclub0
+sort: 100000
+_key: '!items!spikedGreatclub0'

@@ -1,0 +1,18 @@
+type: Item
+folder: fqtkBZ47aF32jY4Q
+name: Ranged
+color: null
+sorting: a
+_id: NNHjWBS5AM148J20
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  lastModifiedBy: null
+_key: '!folders!NNHjWBS5AM148J20'

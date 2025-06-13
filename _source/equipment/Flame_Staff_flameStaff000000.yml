@@ -1,0 +1,44 @@
+name: Flame Staff
+type: weapon
+img: icons/weapons/staves/staff-engraved-red.webp
+system:
+  identifier: flameStaff
+  category: talisman2
+  quantity: 1
+  weight: 4
+  price: 64
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>This mage staff is a talisman to assist with spellcraft or hurl gouts
+      of arcane flame at enemies.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: fire
+  dropped: false
+  slot: 0
+effects: []
+folder: uvvY6c0nbJBhAjM6
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828244078
+  modifiedTime: 1749828473037
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: flameStaff000000
+sort: 300000
+_key: '!items!flameStaff000000'

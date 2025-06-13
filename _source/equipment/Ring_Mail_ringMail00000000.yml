@@ -1,0 +1,46 @@
+name: Ring Mail
+type: armor
+img: icons/equipment/chest/breastplate-layered-leather-studded-black.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: medium
+  quantity: 1
+  weight: 20
+  price: 80
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - noisy
+  description:
+    public: >-
+      <p>Ring mail features metal rings sewn onto a padded base, offering a
+      compromise of less protection than heavier mail options in exchange for
+      greater mobility.</p>
+    private: ''
+  armor:
+    base: 10
+  broken: false
+  identifier: ringMail
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828993033
+  modifiedTime: 1749829161781
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: gQTZ7J9hqDpVTtPb
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: ringMail00000000
+sort: 300000
+_key: '!items!ringMail00000000'

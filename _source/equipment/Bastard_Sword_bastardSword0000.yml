@@ -1,0 +1,47 @@
+name: Bastard Sword
+type: weapon
+img: icons/weapons/swords/greatsword-crossguard-silver.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: heavy1
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - versatile
+  description:
+    public: >-
+      <p>A bastard sword, also known as a hand-and-a-half sword, is a versatile
+      weapon with a straight, double-edged blade around 40 inches long. This
+      weapon is forged for both single-handed agility and two-handed power.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  actions: []
+  identifier: bastardSword
+  invested: false
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749823904295
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: 3BDkyJ5nPk8nVa81
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: bastardSword0000
+sort: 1100000
+_key: '!items!bastardSword0000'

@@ -1,0 +1,46 @@
+name: Katar
+type: weapon
+img: icons/weapons/fist/fist-katar-triple-engraved.webp
+effects: []
+folder: lGF14ntdvbicThxI
+flags: {}
+system:
+  category: unarmed
+  quantity: 1
+  weight: 2
+  price: 16
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+  description:
+    public: >-
+      <p>A punch-dagger with a straight blade and horizontal grip, the katar
+      drives forward with brutal force, designed to pierce armor and guts with a
+      single, direct thrust.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: katar
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827714595
+  modifiedTime: 1749827745011
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: katar00000000000
+sort: 300000
+_key: '!items!katar00000000000'

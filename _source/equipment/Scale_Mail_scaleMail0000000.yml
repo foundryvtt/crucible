@@ -1,0 +1,46 @@
+name: Scale Mail
+type: armor
+img: icons/equipment/chest/breastplate-banded-steel-studded.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: medium
+  quantity: 1
+  weight: 30
+  price: 240
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - noisy
+  description:
+    public: >-
+      <p>Overlapping metal plates sewn or riveted onto a leather or cloth
+      backing, scale mail resembles the hide of a dragon and protects well
+      against cuts and stabs—though it's noisy and inflexible.</p>
+    private: ''
+  armor:
+    base: 13
+  broken: false
+  identifier: scaleMail
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749829137973
+  modifiedTime: 1749829137989
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: gQTZ7J9hqDpVTtPb
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: scaleMail0000000
+sort: 200000
+_key: '!items!scaleMail0000000'

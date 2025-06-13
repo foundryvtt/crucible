@@ -1,0 +1,47 @@
+name: Sling
+type: weapon
+img: icons/weapons/slings/slingshot-wood.webp
+system:
+  category: projectile1
+  quantity: 1
+  weight: 1
+  price: 8
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reliable
+  damageType: bludgeoning
+  slot: 0
+  identifier: sling
+  invested: false
+  description:
+    public: >-
+      <p>A deceptively simple length of cord or leather used to hurl stones at
+      high velocity, the sling is one of the oldest weapons in history—requiring
+      skill, but deadly in trained hands.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+effects: []
+folder: NNHjWBS5AM148J20
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827224394
+  modifiedTime: 1749827224394
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: sling00000000000
+sort: 0
+_key: '!items!sling00000000000'

@@ -1,0 +1,47 @@
+name: Dart Gun
+type: weapon
+img: icons/weapons/ammunition/arrow-simple-grey.webp
+system:
+  category: projectile1
+  quantity: 1
+  weight: 2
+  price: 16
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+  damageType: piercing
+  slot: 0
+  identifier: dartgun
+  invested: false
+  description:
+    public: >-
+      <p>A compact, tubular weapon designed to silently launch small, often
+      poisoned projectiles, the dart gun is favored by assassins, beast
+      handlers, and shadowy alchemists.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+effects: []
+folder: NNHjWBS5AM148J20
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826922567
+  modifiedTime: 1749826922567
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dartGun000000000
+sort: 0
+_key: '!items!dartGun000000000'

@@ -1,0 +1,46 @@
+name: Heavy Crossbow
+type: weapon
+img: icons/weapons/crossbows/crossbow-purple.webp
+effects: []
+folder: NNHjWBS5AM148J20
+flags: {}
+system:
+  category: mechanical2
+  quantity: 1
+  weight: 14
+  price: 168
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>A powerful, steel-limbed crossbow requiring a crank or lever to draw,
+      it delivers devastating bolts capable of punching through armor or pinning
+      enemies to walls.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  loaded: true
+  identifier: heavyCrossbow
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827016588
+  modifiedTime: 1749827016602
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: heavyCrossbow000
+sort: 100000
+_key: '!items!heavyCrossbow000'

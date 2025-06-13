@@ -1,0 +1,47 @@
+name: Katana
+type: weapon
+img: icons/weapons/swords/sword-katana.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - keen
+    - versatile
+  description:
+    public: >-
+      <p>Forged with painstaking precision, the katana is a single-edged, curved
+      blade of folded steel, its deadly grace a reflection of its wielder's
+      discipline.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: katana
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825013041
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: katana0000000000
+sort: 500000
+_key: '!items!katana0000000000'

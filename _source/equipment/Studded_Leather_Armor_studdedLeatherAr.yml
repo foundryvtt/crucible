@@ -1,0 +1,44 @@
+name: Studded Leather Armor
+type: armor
+img: icons/equipment/chest/breastplate-layered-leather-studded-brown.webp
+effects: []
+folder: fLJrHfDuvr4Z8bXK
+flags: {}
+system:
+  category: light
+  quantity: 1
+  weight: 16
+  price: 64
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>A base of leather reinforced with small metal studs or riveted plates,
+      this armor strikes a balance between mobility and modest protection
+      against slashes.</p>
+    private: ''
+  armor:
+    base: 8
+  broken: false
+  identifier: studdedLeatherArmor
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828855179
+  modifiedTime: 1749828855179
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: studdedLeatherAr
+sort: 0
+_key: '!items!studdedLeatherAr'

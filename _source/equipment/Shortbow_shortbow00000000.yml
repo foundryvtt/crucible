@@ -1,0 +1,45 @@
+name: Shortbow
+type: weapon
+img: icons/weapons/bows/shortbow-leather.webp
+effects: []
+folder: NNHjWBS5AM148J20
+flags: {}
+system:
+  category: projectile2
+  quantity: 1
+  weight: 2
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>Compact and quick to draw, the shortbow excels in rapid, close-quarters
+      archery and skirmishes, favored by scouts, hunters, and swift-footed
+      raiders.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: shortbow
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827194611
+  modifiedTime: 1749827194611
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: shortbow00000000
+sort: 0
+_key: '!items!shortbow00000000'

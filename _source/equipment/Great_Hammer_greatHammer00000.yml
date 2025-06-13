@@ -1,0 +1,45 @@
+name: Great Hammer
+type: weapon
+img: icons/weapons/hammers/hammer-double-steel.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: heavy2
+  quantity: 1
+  weight: 12
+  price: 96
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - oversized
+  description:
+    public: >-
+      <p>This two-handed behemoth features a massive head of iron or stone, used
+      to crush armor, bone, and will alike with every thunderous blow.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: greathammer
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826348767
+  modifiedTime: 1749826714844
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: greatHammer00000
+sort: 700000
+_key: '!items!greatHammer00000'

@@ -1,0 +1,46 @@
+name: Battle Axe
+type: weapon
+img: icons/weapons/axes/axe-battle-black.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: heavy1
+  quantity: 1
+  weight: 4
+  price: 32
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - versatile
+  description:
+    public: >-
+      <p>A heavy, crescent-bladed weapon built for cleaving through armor and
+      bone alike. Its haft is marked from countless blows. This weapon can be
+      gripped either in one hand or two. </p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: battleAxe
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749824115076
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: battleAxe0000000
+sort: 1500000
+_key: '!items!battleAxe0000000'

@@ -1,0 +1,45 @@
+name: Glaive
+type: weapon
+img: icons/weapons/polearms/glaive-simple.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: balanced2
+  quantity: 1
+  weight: 7
+  price: 56
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reach
+  description:
+    public: >-
+      <p>A polearm with a curved, sword-like blade affixed to the end of a long
+      shaft, the glaive sweeps through foes in broad, arcing strikes.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: glaive
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826278446
+  modifiedTime: 1749826714844
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: glaive0000000000
+sort: 600000
+_key: '!items!glaive0000000000'

@@ -14,8 +14,8 @@ const CONFIG = {
     "adversary-talents",
     "ancestry",
     "archetype",
-    "armor",
     "background",
+    "equipment",
     "playtest",
     "pregens",
     "rules",
@@ -23,7 +23,6 @@ const CONFIG = {
     "summons",
     "talent",
     "taxonomy",
-    "weapon"
   ],
   yaml: true
 };

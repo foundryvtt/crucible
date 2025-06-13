@@ -1,0 +1,46 @@
+name: Heater Shield
+type: weapon
+img: icons/equipment/shield/heater-steel-worn.webp
+effects: []
+folder: pibeFfUJ9FFbWkoY
+flags:
+  core: {}
+system:
+  category: shieldLight
+  quantity: 1
+  weight: 6
+  price: 48
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - engaging
+  description:
+    public: >-
+      <p>Named for its iron shape resembling the base of a clothes iron, the
+      heater shield offers a balance of coverage and mobility.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: heaterShield
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827542064
+  modifiedTime: 1749827628902
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: heaterShield0000
+sort: 200000
+_key: '!items!heaterShield0000'

@@ -1,0 +1,46 @@
+name: Hand Crossbow
+type: weapon
+img: icons/weapons/crossbows/crossbow-loaded-black.webp
+effects: []
+folder: NNHjWBS5AM148J20
+flags: {}
+system:
+  category: mechanical1
+  quantity: 1
+  weight: 3
+  price: 36
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>This palm-sized crossbow trades power for concealability, perfect for
+      close-quarters surprise shots or the desperate last bolt of a cornered
+      rogue.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  loaded: true
+  identifier: handCrossbow
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826971047
+  modifiedTime: 1749826971047
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: handCrossbow0000
+sort: 0
+_key: '!items!handCrossbow0000'

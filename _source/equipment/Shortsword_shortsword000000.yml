@@ -1,0 +1,46 @@
+name: Shortsword
+type: weapon
+img: icons/weapons/swords/sword-guard.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - parrying
+  description:
+    public: >-
+      <p>Tthe shortsword is a straight-bladed weapon which is nimble to wield
+      and quick to strike in close combat. It features a crossguard ideal for
+      parrying incoming blows.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: shortsword
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825636698
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: shortsword000000
+sort: 1000000
+_key: '!items!shortsword000000'

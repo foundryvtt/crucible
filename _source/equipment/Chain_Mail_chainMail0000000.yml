@@ -1,0 +1,45 @@
+name: Chain Mail
+type: armor
+img: icons/equipment/chest/breastplate-scale-grey.webp
+effects: []
+folder: amO0X74IO8uQIox5
+flags: {}
+system:
+  category: heavy
+  quantity: 1
+  weight: 40
+  price: 320
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - noisy
+  description:
+    public: >-
+      <p>A mesh of interlinked steel rings worn over padding, chain mail
+      provides excellent protection against cuts and decent defense against
+      thrusts, though it distributes weight across the whole body.</p>
+    private: ''
+  armor:
+    base: 14
+  broken: false
+  identifier: chainMail
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749829216801
+  modifiedTime: 1749829305399
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: chainMail0000000
+sort: 100000
+_key: '!items!chainMail0000000'

@@ -1,0 +1,46 @@
+name: Heavy Hides
+type: armor
+img: icons/equipment/chest/vest-leather-tattered-white.webp
+effects: []
+flags:
+  core: {}
+system:
+  category: medium
+  quantity: 1
+  weight: 20
+  price: 40
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - bulky
+  description:
+    public: >-
+      <p>Toughened skins from large beasts or monsters, these rugged armors are
+      worn by hunters and wildfolk, offering durable—but crude—defense in the
+      field.</p>
+    private: ''
+  armor:
+    base: 9
+  broken: false
+  identifier: heavyHides
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828917776
+  modifiedTime: 1749829137989
+  lastModifiedBy: AnoypGxxNIMOS0XY
+folder: gQTZ7J9hqDpVTtPb
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: heavyHides000000
+sort: 100000
+_key: '!items!heavyHides000000'

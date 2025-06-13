@@ -1,0 +1,45 @@
+name: Claws
+type: weapon
+img: icons/weapons/fist/claw-gauntlet-gray.webp
+effects: []
+folder: lGF14ntdvbicThxI
+flags: {}
+system:
+  category: unarmed
+  quantity: 1
+  weight: 3
+  price: 24
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>Worn over the hands like a second set of talons, claw weapons—be they
+      steel extensions or bone-forged monstrosities—rip and tear in savage,
+      rapid slashes.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: claws
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827676833
+  modifiedTime: 1749827745011
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: claws00000000000
+sort: 100000
+_key: '!items!claws00000000000'

@@ -1,0 +1,47 @@
+name: Dagger
+type: weapon
+img: icons/weapons/daggers/dagger-straight-blue.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: light1
+  quantity: 1
+  weight: 1
+  price: 8
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - ambush
+    - thrown
+  description:
+    public: >-
+      <p>Small, swift, and deadly, the dagger slips between ribs or into gaps in
+      armor with ease, its wicked edge favored by assassins, thieves, and those
+      who prefer a silent kill.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: dagger
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749824389920
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: dagger0000000000
+sort: 1200000
+_key: '!items!dagger0000000000'

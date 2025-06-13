@@ -1,0 +1,48 @@
+name: Tower Shield
+type: weapon
+img: icons/equipment/shield/wardoor-wooden-boss-brown.webp
+effects: []
+folder: pibeFfUJ9FFbWkoY
+flags:
+  core: {}
+system:
+  category: shieldHeavy
+  quantity: 1
+  weight: 12
+  price: 96
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - engaging
+    - oversized
+  description:
+    public: >-
+      <p>A massive, rectangular wall of wood and metal, the tower shield turns
+      its bearer into a walking fortress, ideal for holding choke points—but at
+      the cost of speed and vision.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: towerShield
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749827628885
+  modifiedTime: 1749827628902
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: towerShield00000
+sort: 300000
+_key: '!items!towerShield00000'

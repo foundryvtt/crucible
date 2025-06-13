@@ -1,0 +1,46 @@
+name: Longsword
+type: weapon
+img: icons/weapons/swords/greatsword-crossguard-steel.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: balanced2
+  quantity: 1
+  weight: 4
+  price: 32
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - parrying
+  description:
+    public: >-
+      <p>The longsword is a double-edged blade wielded with two hands for
+      balance and strength, usually featuring a large crossguard used for
+      parrying blows.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: longsword
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825260190
+  modifiedTime: 1749826714844
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: longsword0000000
+sort: 500000
+_key: '!items!longsword0000000'

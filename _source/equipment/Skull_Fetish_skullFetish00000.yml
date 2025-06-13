@@ -1,0 +1,44 @@
+folder: uvvY6c0nbJBhAjM6
+name: Skull Fetish
+type: weapon
+img: icons/equipment/neck/necklace-simple-bone-skull.webp
+system:
+  category: talisman1
+  quantity: 1
+  weight: 2
+  price: 32
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  properties: []
+  damageType: corruption
+  identifier: skullFetish
+  invested: false
+  description:
+    public: >-
+      <p>This macabre talisman invokes the fear and energies of death to aid
+      spellcaft or afflict enemies with corrupting influence.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+effects: []
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828183431
+  modifiedTime: 1749828473037
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: skullFetish00000
+sort: 600000
+_key: '!items!skullFetish00000'

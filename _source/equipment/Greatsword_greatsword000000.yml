@@ -1,0 +1,46 @@
+name: Greatsword
+type: weapon
+img: icons/weapons/swords/greatsword-crossguard-flanged-red.webp
+effects: []
+folder: mmJSa1xhCb4ILfT7
+flags: {}
+system:
+  category: heavy2
+  quantity: 1
+  weight: 8
+  price: 96
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reach
+  description:
+    public: >-
+      <p>Longer and heavier than a standard longsword, the greatsword is a
+      two-handed blade meant for powerful sweeping strikes, its length
+      commanding both reach and awe.</p>
+    private: ''
+  damageType: slashing
+  broken: false
+  identifier: greatsword
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749826599677
+  modifiedTime: 1749826714844
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: greatsword000000
+sort: 200000
+_key: '!items!greatsword000000'

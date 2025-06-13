@@ -1,0 +1,44 @@
+name: Leather Armor
+type: armor
+img: icons/equipment/chest/vest-leather-brown.webp
+effects: []
+folder: fLJrHfDuvr4Z8bXK
+flags: {}
+system:
+  category: light
+  quantity: 1
+  weight: 12
+  price: 48
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>Crafted from thick, boiled leather hardened into panels or a cuirass,
+      leather armor offers lightweight protection ideal for scouts, rogues, and
+      lightly armed skirmishers.</p>
+    private: ''
+  armor:
+    base: 6
+  broken: false
+  identifier: leatherArmor
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749828820604
+  modifiedTime: 1749828820604
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: leatherArmor0000
+sort: 0
+_key: '!items!leatherArmor0000'

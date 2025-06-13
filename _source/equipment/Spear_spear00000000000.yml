@@ -1,0 +1,47 @@
+name: Spear
+type: weapon
+img: icons/weapons/polearms/spear-flared-blue.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: balanced1
+  quantity: 1
+  weight: 4
+  price: 32
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - reach
+    - versatile
+  description:
+    public: >-
+      <p>A weapon of reach and rhythm, the spear features a long shaft tipped
+      with steel, perfect for holding the line or launching with deadly force
+      from behind a shield wall.</p>
+    private: ''
+  damageType: piercing
+  broken: false
+  identifier: spear
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749825705429
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: spear00000000000
+sort: 700000
+_key: '!items!spear00000000000'

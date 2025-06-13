@@ -1,0 +1,45 @@
+name: Claw Hammer
+type: weapon
+img: icons/weapons/hammers/hammer-war-spiked.webp
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+flags: {}
+system:
+  category: simple1
+  quantity: 1
+  weight: 1
+  price: 8
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties:
+    - thrown
+  description:
+    public: >-
+      <p>A seemingly humble tool with a flat striking face and curved claw, the
+      claw hammer can become a savage weapon in determined hands.</p>
+    private: ''
+  damageType: bludgeoning
+  broken: false
+  identifier: clawHammer
+  invested: false
+  actions: []
+  actorHooks: []
+  dropped: false
+  slot: 0
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749824288758
+  modifiedTime: 1749825973277
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: clawHammer000000
+sort: 1400000
+_key: '!items!clawHammer000000'

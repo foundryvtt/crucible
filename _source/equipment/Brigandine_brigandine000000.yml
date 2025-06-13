@@ -1,0 +1,44 @@
+name: Brigandine
+type: armor
+img: icons/equipment/chest/breastplate-banded-leather-brown.webp
+effects: []
+folder: gQTZ7J9hqDpVTtPb
+flags: {}
+system:
+  category: medium
+  quantity: 1
+  weight: 25
+  price: 200
+  quality: standard
+  enchantment: mundane
+  equipped: false
+  properties: []
+  description:
+    public: >-
+      <p>A coat or vest of cloth or leather lined with small, riveted steel
+      plates hidden inside, brigandine is favored by mercenaries and guards for
+      its impressive mix of flexibility and solid defense.</p>
+    private: ''
+  armor:
+    base: 11
+  broken: false
+  identifier: brigandine
+  invested: false
+  actions: []
+  actorHooks: []
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749829114401
+  modifiedTime: 1749829137989
+  lastModifiedBy: AnoypGxxNIMOS0XY
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+_id: brigandine000000
+sort: 400000
+_key: '!items!brigandine000000'
