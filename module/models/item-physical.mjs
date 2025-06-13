@@ -12,6 +12,7 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
+      identifier: new crucibleFields.ItemIdentifierField(),
       category: new fields.StringField({required: true, choices: this.ITEM_CATEGORIES, initial: this.DEFAULT_CATEGORY}),
       quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 0}),
       weight: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
@@ -95,15 +96,15 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const enchantments = SYSTEM.ENCHANTMENT_TIERS;
     const enchantment = enchantments[this.enchantment] || enchantments.mundane;
 
+    // Item Configuration
+    this.config = {category, quality, enchantment};
+    this.rarity = quality.rarity + enchantment.rarity;
+
     // Item Properties
     for ( let p of this.properties ) {
       const prop = this.constructor.ITEM_PROPERTIES[p];
       if ( prop.rarity ) this.rarity += prop.rarity;
     }
-
-    // Item Configuration
-    this.config = {category, quality, enchantment};
-    this.rarity = quality.rarity + enchantment.rarity;
   }
 
   /* -------------------------------------------- */

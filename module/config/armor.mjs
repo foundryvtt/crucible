@@ -60,6 +60,9 @@ export const PROPERTIES = {
   },
   organic: {
     label: "ARMOR.PROPERTIES.ORGANIC"
+  },
+  noisy: {
+    label: "ARMOR.PROPERTIES.NOISY"
   }
 };
 

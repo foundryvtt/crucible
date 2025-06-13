@@ -2,6 +2,7 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.TYPE"}}</legend>
+        {{formField fields.identifier value=source.system.identifier}}
         {{formField fields.category value=source.system.category}}
         {{formField fields.quality value=source.system.quality}}
         {{formField fields.enchantment value=source.system.enchantment}}

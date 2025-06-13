@@ -196,7 +196,7 @@ export default class CrucibleActor extends Actor {
     for ( const {item, fn} of hooks ) {
       console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
-        fn.call(this, this, ...args);
+        fn.call(this, item, ...args);
       } catch(err) {
         const msg = `The "${hook}" hook defined for Talent "${item.name}" failed evaluation in Actor [${this.id}]`;
         console.error(msg, err);

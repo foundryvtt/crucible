@@ -896,17 +896,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     for ( let {hook, fn} of item.system.actorHooks ) {
       const cfg = H[hook];
       if ( !cfg ) {
-        console.error(new Error(`Invalid Actor hook name "${hook}" defined by Talent "${item.id}"`));
+        console.error(new Error(`Invalid Actor hook name "${hook}" defined by Item "${item.id}"`));
         continue;
       }
       this.actorHooks[hook] ||= [];
-      if ( typeof fn === "string" ) fn = new Function("actor", ...cfg.argNames, fn);
+      if ( typeof fn === "string" ) fn = new Function("item", ...cfg.argNames, fn);
       if ( !(fn instanceof Function) ) throw new Error(`Hook "${hook}" is not a function.`);
       this.actorHooks[hook].push({item, fn});
     }
 
     // Next register custom module hooks
-    const hooks = crucible.api.hooks[item.type]?.[item.id];
+    const identifier = item.system.identifier || item.id;
+    const hooks = crucible.api.hooks[item.type]?.[identifier];
     if ( hooks ) {
       for ( const [hook, fn] of Object.entries(hooks) ) {
         if ( hook in SYSTEM.ACTOR.HOOKS ) {

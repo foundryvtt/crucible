@@ -513,7 +513,8 @@
   },
   "PROPERTIES": {
     "BULKY": "Bulky",
-    "ORGANIC": "Organic"
+    "ORGANIC": "Organic",
+    "NOISY": "Noisy"
   }
 },
 
@@ -652,6 +653,10 @@
 
 "ITEM": {
   "FIELDS": {
+    "identifier": {
+      "label": "Identifier",
+      "hint": "A unique string identifier used to reference this Item. Multiple copies of this same item all share the same identifier."
+    },
     "category": {
       "label": "Category"
     },

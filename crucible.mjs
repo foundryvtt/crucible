@@ -8,8 +8,7 @@
 // Configuration
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
-import {default as ACTION_HOOKS} from "./module/hooks/actions.mjs";
-import {default as TALENT_HOOKS} from "./module/hooks/talents.mjs";
+
 
 import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
@@ -22,6 +21,7 @@ import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import * as models from "./module/models/_module.mjs";
 import * as audio from "./module/audio.mjs";
+import * as hooks from "./module/hooks/_module.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
@@ -60,10 +60,7 @@ Hooks.once("init", async function() {
       CrucibleTalentNode,
       nodes: CrucibleTalentNode.nodes
     },
-    hooks: {
-      actions: ACTION_HOOKS,
-      talents: TALENT_HOOKS
-    }
+    hooks
   }
 
   /**

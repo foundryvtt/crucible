@@ -53,6 +53,12 @@
       "type": "Item"
     },
     {
+      "name": "equipment",
+      "label": "Equipment",
+      "path": "packs/equipment",
+      "type": "Item"
+    },
+    {
       "name": "rules",
       "label": "System Rules",
       "path": "packs/rules",
@@ -134,11 +140,10 @@
           ]
         },
         {
-          "name": "Equipment",
+          "name": "Items",
           "color": "#380d05",
           "packs": [
-            "armor",
-            "weapon"
+            "equipment"
           ]
         }
       ],

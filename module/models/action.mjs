@@ -297,7 +297,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Pre-configured module hooks
-    const cfg = crucible.api.hooks.actions[actionId];
+    const cfg = crucible.api.hooks.action[actionId];
     if ( cfg ) {
       for ( const hookName in SYSTEM.ACTION_HOOKS ) {
         if ( cfg[hookName] instanceof Function ) hooks[hookName] = cfg[hookName];
