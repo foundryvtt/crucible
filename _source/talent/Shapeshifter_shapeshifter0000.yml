@@ -56,7 +56,6 @@ system:
           fn: >-
             const effect =
             this.actor.effects.get(SYSTEM.EFFECTS.getEffectId("beastShape"));
-
             await effect.delete();
   requirements: {}
   nodes:

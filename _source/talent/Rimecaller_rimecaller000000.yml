@@ -20,7 +20,7 @@ system:
         if ( !damageHealth ) return;
 
         // Apply Chilled effect
-        const chilled  = SYSTEM.EFFECTS.chilled(actor, outcome.target);
+        const chilled  = SYSTEM.EFFECTS.chilled(this, outcome.target);
         outcome.effects.push(chilled);
 effects: []
 ownership:

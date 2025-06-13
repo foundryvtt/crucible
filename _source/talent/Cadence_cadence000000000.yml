@@ -13,19 +13,10 @@ system:
   actorHooks:
     - hook: prepareWeaponAttack
       fn: >-
-        // Increment Cadence Count
-
-        const status = actor.status;
-
+        const {cadence} = this.status;
         const {actorStatus, boons} = action.usage;
-
-        actorStatus.cadence = (status.cadence ?? 0) + 1;
-
-
-        // Add Boons
-
-        if ( status.cadence ) rollData.boons.cadence = {label: "Cadence",
-        number: status.cadence};
+        actorStatus.cadence = (cadence ?? 0) + 1;
+        if ( cadence ) rollData.boons.cadence = {label: "Cadence", number: status.cadence};
   nodes:
     - str2c
 effects: []

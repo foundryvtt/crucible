@@ -3,9 +3,9 @@ const TALENT_HOOKS = {};
 /* -------------------------------------------- */
 
 TALENT_HOOKS.armoredShell0000 = {
-  prepareDefenses(actor, defenses) {
-    if ( !actor.statuses.has("guarded") ) return;
-    const offhand = actor.equipment.weapons.offhand;
+  prepareDefenses(item, defenses) {
+    if ( !this.statuses.has("guarded") ) return;
+    const offhand = this.equipment.weapons.offhand;
     if ( offhand.category !== "shieldHeavy" ) return;
     const halfArmor = Math.ceil(defenses.armor.base / 2);
     defenses.armor.base -= halfArmor;
@@ -16,12 +16,12 @@ TALENT_HOOKS.armoredShell0000 = {
 /* -------------------------------------------- */
 
 TALENT_HOOKS.bloodmagic000000 = {
-  prepareAction(actor, action) {
+  prepareAction(item, action) {
     if ( !action.tags.has("spell") ) return;
     action.cost.health = action.cost.focus * 10;
     action.cost.focus = 0;
   },
-  confirmActionOutcome(actor, action, outcome, _options) {
+  confirmActionOutcome(item, action, outcome, _options) {
     if ( action.target !== this ) return;
     outcome.resources.health = Math.min(outcome.resources.health, -action.cost.health);
   }
@@ -30,7 +30,7 @@ TALENT_HOOKS.bloodmagic000000 = {
 /* -------------------------------------------- */
 
 TALENT_HOOKS.conserveeffort00 = {
-  endTurn(actor, {resourceRecovery, statusText}) {
+  endTurn(item, {resourceRecovery, statusText}) {
     if ( this.resources.action.value ) {
       resourceRecovery.focus = (resourceRecovery.focus || 0) + 1;
       statusText.push({text: "Conserve Effort", fillColor: SYSTEM.RESOURCES.focus.color.css});
@@ -41,7 +41,7 @@ TALENT_HOOKS.conserveeffort00 = {
 /* -------------------------------------------- */
 
 TALENT_HOOKS.irrepressiblespi = {
-  startTurn(actor, {resourceRecovery}) {
+  startTurn(item, {resourceRecovery}) {
     if ( !this.system.isBroken ) resourceRecovery.morale = (resourceRecovery.morale || 0) + 1;
   }
 }
@@ -49,7 +49,7 @@ TALENT_HOOKS.irrepressiblespi = {
 /* -------------------------------------------- */
 
 TALENT_HOOKS.lesserregenerati = {
-  startTurn(actor, {resourceRecovery}) {
+  startTurn(item, {resourceRecovery}) {
     if ( !this.system.isWeakened ) resourceRecovery.health = (resourceRecovery.health || 0) + 1;
   }
 }
@@ -57,7 +57,7 @@ TALENT_HOOKS.lesserregenerati = {
 /* -------------------------------------------- */
 
 TALENT_HOOKS.powerfulThrow000 = {
-  prepareAction(actor, action) {
+  prepareAction(item, action) {
     if ( action.tags.has("thrown") ) {
       action.range.maximum *= 2;
     }

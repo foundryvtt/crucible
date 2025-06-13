@@ -15,15 +15,11 @@ system:
   actorHooks:
     - hook: prepareStandardCheck
       fn: >-
-        if ( !actor.inCombat || !game.combat.started || actor.isIncapacitated )
-        return;
-
-        const health = actor.system.resources.health;
-
+        if ( !this.inCombat || !game.combat.started || this.isIncapacitated ) return;
+        const health = this.system.resources.health;
         if ( health.value < Math.ceil(health.max * 0.25) ) {
           rollData.boons.operator= {label: "Operator", number: 2};
         }
-
         else if ( health.value < Math.ceil(health.max * 0.5) ) {
           rollData.boons.operator= {label: "Operator", number: 1};
         }

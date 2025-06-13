@@ -12,12 +12,9 @@ system:
     - hook: prepareActions
       fn: >-
         const defend = actions.defend;
-
-        if ( !defend || !actor.equipment.weapons.shield ||
-        actor.system.status.bulwark ) return;
-
+        if ( !defend || !this.equipment.weapons.shield ||
+        this.system.status.bulwark ) return;
         defend.cost.action -= 1;
-
         defend.usage.actorUpdates["system.status.bulwark"] = true;
 effects: []
 ownership:

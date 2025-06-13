@@ -20,7 +20,7 @@ system:
         if ( !damageHealth ) return;
 
         // Apply Burning effect
-        const burning = SYSTEM.EFFECTS.burning(actor, outcome.target);
+        const burning = SYSTEM.EFFECTS.burning(this, outcome.target);
         outcome.effects.push(burning);
 effects: []
 ownership:

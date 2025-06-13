@@ -37,33 +37,20 @@ system:
     - hook: applyCriticalEffects
       fn: >-
         // Must damage health
-
         const damageHealth = outcome.resources.health < 0;
-
         if ( !damageHealth ) return;
 
-
         // Active effect must be active
-
-        const hasEffect =
-        actor.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"));
-
+        const hasEffect = this.effects.get(SYSTEM.EFFECTS.getEffectId("poisonBlades"));
         if ( !hasEffect ) return;
 
-
         // Requires piercing or slashing damage with a melee action
-
         if ( !action.tags.has("melee") ) return;
-
         const dt = action.usage.weapon?.system.damageType;
-
         if ( !["piercing", "slashing"].includes(dt) ) return;
 
-
         // Apply the poisoned condition
-
-        const poisoned = SYSTEM.EFFECTS.poisoned(actor, outcome.target);
-
+        const poisoned = SYSTEM.EFFECTS.poisoned(this, outcome.target);
         outcome.effects.push(poisoned);
   nodes:
     - sig3.toughness

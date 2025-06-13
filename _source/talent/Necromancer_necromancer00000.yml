@@ -21,7 +21,7 @@ system:
         if ( !damageHealth ) return;
 
         // Apply Decay effect
-        const decay = SYSTEM.EFFECTS.decay(actor, outcome.target);
+        const decay = SYSTEM.EFFECTS.decay(this, outcome.target);
         outcome.effects.push(decay);
 effects: []
 folder: c0nl6X8tp4Of0Y4O

@@ -11,8 +11,7 @@ system:
   actorHooks:
     - hook: prepareInitiativeCheck
       fn: >-
-        rollData.boons.preternaturalInstinct = {label: "Preternatural Instinct",
-        number: 2};
+        rollData.boons.preternaturalInstinct = {label: "Preternatural Instinct", number: 2};
 effects: []
 flags: {}
 _stats:

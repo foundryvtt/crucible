@@ -24,7 +24,7 @@ system:
         if ( dt !== "bludgeoning" ) return;
 
         // Apply stagger
-        const stagger = SYSTEM.EFFECTS.staggered(actor, outcome.target);
+        const stagger = SYSTEM.EFFECTS.staggered(this, outcome.target);
         outcome.effects.push(stagger);
   nodes:
     - str4a

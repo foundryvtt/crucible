@@ -21,7 +21,7 @@ system:
         if ( !damageMorale ) return;
 
         // Apply Confused effect
-        const confused = SYSTEM.EFFECTS.confusion(actor, outcome.target);
+        const confused = SYSTEM.EFFECTS.confusion(this, outcome.target);
         outcome.effects.push(confused);
 effects: []
 folder: c0nl6X8tp4Of0Y4O

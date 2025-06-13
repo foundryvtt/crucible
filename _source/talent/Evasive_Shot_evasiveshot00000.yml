@@ -13,8 +13,8 @@ system:
       fn: |-
         const status = action.usage.actorStatus;
         if ( !status.rangedAttack ) return;
-        const move = actor.system.status.movement;
-        const stride = actor.system.movement.stride;
+        const move = this.system.status.movement;
+        const stride = this.system.movement.stride;
         const bonus = (move.bonus ?? 0) + stride;
         foundry.utils.setProperty(status, "movement.bonus", bonus);
 effects: []

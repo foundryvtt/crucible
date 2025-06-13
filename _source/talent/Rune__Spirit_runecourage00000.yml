@@ -23,7 +23,7 @@ system:
         if ( !restoreMorale ) return;
 
         // Apply Inspired effect
-        const inspired = SYSTEM.EFFECTS.inspired(actor, outcome.target);
+        const inspired = SYSTEM.EFFECTS.inspired(this, outcome.target);
         outcome.effects.push(inspired);
 effects: []
 flags:

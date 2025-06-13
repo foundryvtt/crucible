@@ -18,8 +18,8 @@ system:
       fn: |-
         for ( const [id, r] of Object.entries(resistances) ) {
           if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
-          if ( actor.grimoire.runes.find(r => r.damageType === id) )  {
-            r.base += Math.ceil(actor.abilities.wisdom.value / 2);
+          if ( this.grimoire.runes.find(r => r.damageType === id) )  {
+            r.base += Math.ceil(this.abilities.wisdom.value / 2);
           }
         }
   iconicSpells: 1

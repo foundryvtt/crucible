@@ -37,7 +37,6 @@ system:
           fn: >-
             const boons = this.actor.applyTargetBoons(target, this, "weapon",
             false).boons;
-
             if ( boons.flanked ) rolls[0].data.boons.flanked = boons.flanked;
 effects: []
 folder: k2H23tobHffCMQCj

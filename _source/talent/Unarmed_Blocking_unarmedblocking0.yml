@@ -12,9 +12,9 @@ system:
   actorHooks:
     - hook: prepareDefenses
       fn: |-
-        const weapons = actor.equipment.weapons;
+        const weapons = this.equipment.weapons;
         if ( weapons.unarmed ) {
-          const toughness = actor.system.abilities.toughness.value;
+          const toughness = this.system.abilities.toughness.value;
           defenses.block.bonus += Math.ceil(toughness / 2);
         }
 effects: []

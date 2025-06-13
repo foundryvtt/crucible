@@ -22,7 +22,7 @@ system:
         if ( !(damageHealth || damageMorale) ) return;
 
         // Apply Entropy effect
-        const entropy = SYSTEM.EFFECTS.entropy(actor, outcome.target);
+        const entropy = SYSTEM.EFFECTS.entropy(this, outcome.target);
         outcome.effects.push(entropy);
 effects: []
 folder: c0nl6X8tp4Of0Y4O

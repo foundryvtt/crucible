@@ -12,7 +12,7 @@ system:
   actorHooks:
     - hook: defendWeaponAttack
       fn: >-
-        if ( actor.statuses.has("guarded") && actor.equipment.weapons.shield )
+        if ( this.statuses.has("guarded") && this.equipment.weapons.shield )
         rollData.banes.testudo = {label: "Testudo", number: 1};
 effects: []
 flags: {}

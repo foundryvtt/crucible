@@ -20,7 +20,7 @@ system:
         if ( !restoreHealth ) return;
 
         // Apply Mending effect
-        const mending = SYSTEM.EFFECTS.mending(actor, outcome.target);
+        const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
         outcome.effects.push(mending);
 effects: []
 folder: c0nl6X8tp4Of0Y4O

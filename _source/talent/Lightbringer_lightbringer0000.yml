@@ -21,7 +21,7 @@ system:
         if ( !(damageHealth || damageMorale) ) return;
 
         // Apply Irradiated effect
-        const irradiated = SYSTEM.EFFECTS.irradiated(actor, outcome.target);
+        const irradiated = SYSTEM.EFFECTS.irradiated(this, outcome.target);
         outcome.effects.push(irradiated);
 effects: []
 ownership:
