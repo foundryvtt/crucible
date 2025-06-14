@@ -91,25 +91,18 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
     // Initialize default archetype and taxonomy data
     let {archetype, taxonomy} = this.details;
-    let {level, threat} = this.advancement;
+    const adv = this.advancement;
     archetype ||= CrucibleArchetypeItem.cleanData();
     taxonomy ||= CrucibleTaxonomyItem.cleanData();
 
     // Compute threat level
-    const threatConfig = SYSTEM.THREAT_LEVELS[threat];
-    this.advancement.threatFactor = threatConfig?.scaling || 1;
-    let threatLevel = Math.floor(level * this.advancement.threatFactor);
-    if ( level === 0 ) threatLevel = -6;
-    else if ( level < 0 ) threatLevel = Math.floor(level / this.advancement.threatFactor);
-    this.advancement.threatLevel = threatLevel;
+    const threatConfig = SYSTEM.THREAT_LEVELS[adv.threat];
+    adv.threatFactor = threatConfig?.scaling || 1;
+    adv.threatLevel = adv.level < 0 ? 1 / Math.abs(adv.level - 1) : adv.level;
+    adv.threat = adv.threatLevel * adv.threatFactor;
 
-    // Threat scale
-    let threatScale = level;
-    if ( level < 0 ) threatScale = 1 / Math.abs(level - 1);
-    this.advancement.threatScale = threatScale * this.advancement.threatFactor;
-
-    // TODO: Automatic skill progression rank (temporary)
-    this.advancement._autoSkillRank = Math.clamp(Math.ceil(threatLevel / 6), 0, 4);
+    // TODO Temporary automatic skill progression
+    this.advancement._autoSkillRank = Math.clamp(Math.ceil(adv.threatLevel / 6), 0, 4);
     this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes
@@ -125,6 +118,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @param archetype
    */
   #scaleAbilities(taxonomy, archetype) {
+    const {level, threat} = this.advancement;
+    let toSpend = level > 0 ? 5 + level : Math.ceil(6 * threat);
 
     // Assign base Taxonomy ability scores
     for ( const k in SYSTEM.ABILITIES ) {
@@ -133,10 +128,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       a.increases = 0;
       a.value = a.base;
     }
-
-    // Identify points to spend
-    let toSpend = Math.max(this.advancement.level, 0);
-    if ( toSpend === 0 ) return;
 
     // Compute Archetype scaling
     const abilities = {};
@@ -216,7 +207,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
         continue;
       }
       const perLevel = tr < 0 ? (tr / 3) : (tr * 2 / 3);
-      const base = this.advancement.threatScale * perLevel;
+      const base = this.advancement.threat * perLevel;
       this.resistances[r].base = base < 0 ? Math.floor(base) : Math.ceil(base);
     }
   }
@@ -276,14 +267,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare tags displayed about this Hero Actor.
+   * Prepare tags displayed about this adversary Actor.
    * @returns {Record<string, string>}
    */
   getTags() {
     const tags = {};
     tags.taxonomy = this.details.taxonomy?.name || "No Taxonomy";
     tags.archetype = this.details.archetype?.name || "No Archetype";
-    tags.level = `Threat Level ${this.advancement.threatLevel}`;
+    tags.level = `Threat Level ${this.advancement.threat}`;
     return tags;
   }
 

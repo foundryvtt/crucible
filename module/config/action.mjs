@@ -514,7 +514,7 @@ export const TAGS = {
               "focus.value": 9e99
             },
             details: {
-              level: Math.ceil(this.actor.system.details.threatLevel / 2)
+              level: Math.ceil(this.actor.system.details.threat / 2)
             }
           }
         }
