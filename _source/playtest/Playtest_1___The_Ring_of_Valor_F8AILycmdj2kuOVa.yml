@@ -53,11 +53,11 @@ actors:
             <p>Beasts that fight using their own mass, momentum, and sharpened
             tusks.</p>
           abilities:
-            wisdom: 1
-            presence: 3
-            intellect: 1
+            wisdom: 0
+            presence: 0
+            intellect: 0
             strength: 5
-            toughness: 5
+            toughness: 4
             dexterity: 3
           talents:
             - Compendium.crucible.adversary-talents.Item.tuskCharge000000
@@ -65,16 +65,16 @@ actors:
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
         taxonomy:
           description: >-
-            Mammals with thick hide, dangerous tusks, and a powerful low-seated
-            center of mass.
+            <p>Mammals with thick hide, dangerous tusks, and a powerful
+            low-seated center of mass.</p>
           category: beast
           abilities:
             wisdom: 1
-            presence: 2
+            presence: 1
             intellect: 1
-            strength: 6
-            toughness: 5
-            dexterity: 3
+            strength: 4
+            toughness: 4
+            dexterity: 1
           resistances:
             bludgeoning: 2
             corruption: 0
@@ -88,11 +88,14 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          name: Boar
-          img: icons/creatures/abilities/fang-tooth-blood-red.webp
           size: 3
           stride: 10
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Boar
+          img: icons/creatures/abilities/fang-tooth-blood-red.webp
         biography:
           public: ''
           private: ''
@@ -124,9 +127,9 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 18
+          value: 17
         morale:
-          value: 6
+          value: 5
         action:
           value: 4
         focus:
@@ -249,7 +252,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: Ww8YIAckfw
+          identifier: 4QhRBLp7i3
           invested: false
           actorHooks: []
         effects: []
@@ -291,7 +294,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 3uvkorlcbT
+          identifier: dBn1K1xK4d
           invested: false
           actorHooks: []
           dropped: false
@@ -372,7 +375,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.adversary-talents.Item.tuskCharge000000
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
@@ -391,10 +394,10 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685230780675
-      modifiedTime: 1749830416669
+      modifiedTime: 1749915135805
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -440,9 +443,9 @@ actors:
         archetype:
           description: Beasts that hunt in packs.
           abilities:
-            wisdom: 2
-            presence: 2
-            intellect: 4
+            wisdom: 0
+            presence: 0
+            intellect: 2
             strength: 3
             toughness: 3
             dexterity: 4
@@ -457,10 +460,10 @@ actors:
           category: beast
           abilities:
             wisdom: 1
-            presence: 2
+            presence: 1
             intellect: 2
-            strength: 5
-            toughness: 4
+            strength: 2
+            toughness: 2
             dexterity: 4
           resistances:
             bludgeoning: 0
@@ -475,11 +478,14 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          name: Hyena
-          img: icons/creatures/abilities/paw-glowing-yellow.webp
           size: 3
           stride: 10
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Hyena
+          img: icons/creatures/abilities/paw-glowing-yellow.webp
         biography:
           public: ''
           private: ''
@@ -511,15 +517,15 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 13
+          value: 10
         morale:
-          value: 6
+          value: 5
         action:
           value: 4
         focus:
           value: 2
         heroism:
-          value: 3
+          value: 0
       status: null
       advancement:
         level: -1
@@ -635,7 +641,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: Uz6zqZW49B
+          identifier: mWEYEsrmH3
           invested: false
           actorHooks: []
           dropped: false
@@ -678,7 +684,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: TB2245QQzk
+          identifier: h96MC5hS7N
           invested: false
           actorHooks: []
         effects: []
@@ -730,7 +736,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.adversary-talents.Item.packhunter000000
           duplicateSource: null
           coreVersion: '13.342'
           systemId: crucible
@@ -750,10 +756,10 @@ actors:
     flags: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685217604062
-      modifiedTime: 1749830417120
+      modifiedTime: 1749915139524
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -802,11 +808,11 @@ actors:
             and rendering them susceptible to further attacks.
           abilities:
             wisdom: 2
-            presence: 2
-            intellect: 2
-            strength: 4
+            presence: 0
+            intellect: 0
+            strength: 5
             toughness: 4
-            dexterity: 4
+            dexterity: 1
           talents:
             - Compendium.crucible.talent.Item.powerfulphysique
             - Compendium.crucible.talent.Item.wrestler00000000
@@ -820,12 +826,12 @@ actors:
             direct problem-solving approach.</p>
           category: giant
           abilities:
-            wisdom: 3
-            presence: 2
+            wisdom: 1
+            presence: 1
             intellect: 1
             strength: 5
-            toughness: 5
-            dexterity: 2
+            toughness: 3
+            dexterity: 1
           resistances:
             bludgeoning: 2
             corruption: 0
@@ -839,11 +845,14 @@ actors:
             psychic: -2
             radiant: 0
             void: 0
-          name: Ogre
-          img: icons/creatures/unholy/demon-fire-horned-mask.webp
           size: 6
           stride: 10
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Ogre
+          img: icons/creatures/unholy/demon-fire-horned-mask.webp
         biography:
           public: ''
           private: ''
@@ -875,13 +884,13 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 81
+          value: 90
         morale:
-          value: 48
+          value: 39
         action:
           value: 8
         focus:
-          value: 3
+          value: 2
         heroism:
           value: 0
       movement:
@@ -1004,7 +1013,7 @@ actors:
             base: 11
           broken: false
           actions: []
-          identifier: Qhrtfcg1ip
+          identifier: dOh4PomDUG
           invested: false
           actorHooks: []
         _stats:
@@ -1048,7 +1057,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: ezYxQbbZxX
+          identifier: KRiCWALEUr
           invested: false
           actorHooks: []
           dropped: false
@@ -1095,7 +1104,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.powerfulphysique
+          compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -1166,7 +1175,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.talent.Item.wrestler00000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -1241,7 +1250,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.legsweep00000000
+          compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -1296,7 +1305,7 @@ actors:
           AnoypGxxNIMOS0XY: 3
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.talent.Item.concussiveblows0
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -1512,10 +1521,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685831615922
-      modifiedTime: 1749830416656
+      modifiedTime: 1749915117261
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -1568,11 +1577,11 @@ actors:
             A relentless and determined melee combatant that uses a mix of
             agility and power to subdue foes.
           abilities:
-            wisdom: 2
-            presence: 2
+            wisdom: 0
+            presence: 0
             intellect: 2
-            strength: 4
-            toughness: 4
+            strength: 3
+            toughness: 3
             dexterity: 4
           talents:
             - Compendium.crucible.talent.Item.dualwield0000000
@@ -1582,35 +1591,41 @@ actors:
           img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
         taxonomy:
           description: >-
-            <p>Savage and warlike humanoids which generally form clan-like
-            warbands. What Orcs lack in cunning they make up for with
-            determination, grit, and prudent judgment.</p>
+            <p>Your birth was marked by the stars and traditions of a proud and
+            enduring people. Your tall and well-toned body and natural
+            propensity for toughness has origins amid a people exposed to the
+            relentless struggle of a harsh northern clime. Your people are known
+            for their strength and resilience above all else.</p>
+          size: 4
+          stride: 10
           category: humanoid
           abilities:
-            wisdom: 3
-            presence: 2
+            wisdom: 1
+            presence: 1
             intellect: 2
             strength: 4
-            toughness: 4
-            dexterity: 3
+            toughness: 3
+            dexterity: 1
           resistances:
             bludgeoning: 0
             corruption: 0
             piercing: 0
             slashing: 0
-            poison: 2
+            poison: 0
             acid: 0
-            fire: -2
-            cold: 2
+            fire: -1
+            cold: 1
             electricity: 0
-            psychic: -2
+            psychic: 0
             radiant: 0
             void: 0
-          name: Orc
-          img: icons/creatures/unholy/demon-fire-horned-mask.webp
-          size: 4
-          stride: 10
-          talents: []
+          characteristics:
+            equipment: true
+            spells: true
+          talents:
+            - Compendium.crucible.talent.Item.heavystrike00000
+          name: Orcish
+          img: icons/creatures/magical/construct-iron-stomping-yellow.webp
         biography:
           public: ''
           private: ''
@@ -1773,7 +1788,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: MpL9AQXGkP
+          identifier: 9JT4Ddxz3A
           invested: false
           actorHooks: []
           dropped: false
@@ -1816,7 +1831,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: 7rB0BsYqWw
+          identifier: vF4UuWvYIY
           invested: false
           actorHooks: []
           dropped: false
@@ -1857,7 +1872,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: sCT0ABUDtn
+          identifier: 4KyleRMSFq
           invested: false
           actorHooks: []
         _stats:
@@ -1899,7 +1914,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -1963,7 +1978,7 @@ actors:
           gesture: ''
           inflection: ''
         _stats:
-          compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
+          compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -2163,6 +2178,68 @@ actors:
           AnoypGxxNIMOS0XY: 3
         _id: dualWield0000000
         sort: 0
+      - name: Heavy Strike
+        type: talent
+        img: icons/skills/melee/strike-hammer-destructive-blue.webp
+        system:
+          description: >-
+            <p>You know how to use a heavy weapon to deliver punishing blows,
+            putting your entire strength behind every swing.</p>
+          actions:
+            - id: heavyStrike
+              condition: ''
+              description: >-
+                <p>You unleash a powerful <strong>Strike</strong> with your
+                mainhand weapon. The attack is slower to execute, but is
+                <strong>Empowered</strong> to deliver additional damage.</p>
+              tags:
+                - attack
+                - melee
+                - mainhand
+                - empowered
+              cost:
+                action: 1
+                focus: 0
+                weapon: true
+                heroism: 0
+              target:
+                type: single
+                number: 1
+                scope: 3
+              effects: []
+              name: Heavy Strike
+              img: icons/skills/melee/strike-hammer-destructive-blue.webp
+              actionHooks: []
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+          nodes:
+            - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.345'
+          systemId: crucible
+          systemVersion: 0.7.3
+          lastModifiedBy: null
+        _id: heavystrike00000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: yhNxctruag3MRzdB
     sort: 200000
@@ -2173,10 +2250,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.7.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685830625262
-      modifiedTime: 1749830416996
+      modifiedTime: 1749862777254
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2230,11 +2307,11 @@ actors:
             forces.
           abilities:
             wisdom: 4
-            presence: 5
-            intellect: 4
-            strength: 1
+            presence: 3
+            intellect: 3
+            strength: 0
             toughness: 2
-            dexterity: 2
+            dexterity: 0
           talents:
             - Compendium.crucible.talent.Item.runedeath0000000
             - Compendium.crucible.talent.Item.runecourage00000
@@ -2244,15 +2321,22 @@ actors:
           name: Occultist
           img: icons/magic/death/skull-cattle-totem-glow-red.webp
         taxonomy:
-          description: <p>Humans are adaptable, determined, and versatile.</p>
+          description: >-
+            <p>Found amid countless conditions and far-flung places, you were
+            born an ever-adaptable human. Tall or short, thin, muscular, or
+            rotund, your physical appearance is nothing if not varied. Humans
+            are most known for a genetic predisposition toward determination,
+            with traditions that drive a stubborn will to survive.</p>
+          size: 4
+          stride: 10
           category: humanoid
           abilities:
-            wisdom: 3
-            presence: 3
-            intellect: 3
-            strength: 3
-            toughness: 3
-            dexterity: 3
+            wisdom: 1
+            presence: 4
+            intellect: 1
+            strength: 1
+            toughness: 4
+            dexterity: 1
           resistances:
             bludgeoning: 0
             corruption: 0
@@ -2266,11 +2350,13 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
+          characteristics:
+            equipment: true
+            spells: true
+          talents:
+            - Compendium.crucible.talent.Item.intercept0000000
           name: Human
-          img: icons/skills/social/wave-halt-stop.webp
-          size: 4
-          stride: 10
-          talents: []
+          img: icons/skills/social/diplomacy-handshake.webp
         biography:
           public: ''
           private: ''
@@ -2430,7 +2516,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: TJkDJbYcXM
+          identifier: 9WbFSQseOD
           invested: false
           actorHooks: []
           dropped: false
@@ -2475,7 +2561,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: qxsp09laLX
+          identifier: ydhyRz3rm2
           invested: false
           actorHooks: []
         _stats:
@@ -2519,7 +2605,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.runedeath0000000
+          compendiumSource: Compendium.crucible.talent.Item.runedeath0000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -2572,7 +2658,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.runecourage00000
+          compendiumSource: Compendium.crucible.talent.Item.runecourage00000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -2616,7 +2702,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.runevoid00000000
+          compendiumSource: Compendium.crucible.talent.Item.runevoid00000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -2657,7 +2743,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Compendium.crucible.talent.gestureinfluence
+          compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -2907,6 +2993,115 @@ actors:
           modifiedTime: 1749830417199
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: talismanWeaponTr
+      - name: Intercept
+        type: talent
+        img: icons/skills/melee/shield-block-gray-orange.webp
+        effects: []
+        flags:
+          core: {}
+        system:
+          description: >-
+            You protect your allies, intercepting blows that might otherwise be
+            directed towards your companions.
+          actions:
+            - id: intercept
+              condition: An enemy moves into or through your Engagement radius.
+              description: >-
+                <p>You intercept the path of an enemy which enters your
+                <strong>Engagement</strong> radius, immediatly moving up to your
+                <strong>Stride</strong> to interpose yourself and block their
+                path.</p><p>If the enemy moves out of your Engagement radius or
+                attacks any other creature during their turn, you may make a
+                <strong>Disengagement Strike</strong> against them.</p>
+              tags:
+                - movement
+                - reaction
+              cost:
+                action: 0
+                focus: 1
+                weapon: false
+                heroism: 0
+              target:
+                type: single
+                number: 1
+                scope: 3
+              effects: []
+              name: Intercept
+              img: icons/skills/melee/shield-block-gray-orange.webp
+              range:
+                maximum: 4
+                weapon: false
+                minimum: null
+              actionHooks:
+                - hook: prepare
+                  fn: |-
+                    if ( this.actor ) {
+                      this.range.maximum = this.actor.system.movement.stride;
+                    }
+          nodes:
+            - dextou1
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.intercept0000000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.345'
+          systemId: crucible
+          systemVersion: 0.7.3
+          lastModifiedBy: null
+        _id: intercept0000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: 'Gesture: Ray'
+        type: talent
+        img: icons/magic/light/beam-rays-orange.webp
+        system:
+          description: >-
+            <p>Focus the power of a Rune into a single point, expelling its
+            energy into a ranged beam which rapidly travels a short distance to
+            a targeted area. If used with Life this might restore the HP of a
+            distant ally steadily over time, while Frost might emit a beam that
+            freezes a target in place.</p>
+
+            <p>The Ray gesture scales using <strong>Wisdom</strong> and targets
+            a line emanating from the caster at distance 6, dealing 6 base
+            damage on a successful attack.</p>
+          actions: []
+          gesture: ray
+          actorHooks: []
+          nodes:
+            - wis1b
+          rune: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.gestureray000000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.345'
+          systemId: crucible
+          systemVersion: 0.7.3
+          lastModifiedBy: null
+        _id: gestureray000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects:
       - _id: conjurercreate10
         description: Weave arcana to create a work of spellcraft.
@@ -2952,10 +3147,10 @@ actors:
         lastSpell: spell.death.create
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686183305269
-      modifiedTime: 1749830417212
+      modifiedTime: 1749862932193
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -3000,12 +3195,12 @@ actors:
         archetype:
           description: Ranged combatants with training is the use of bows.
           abilities:
-            wisdom: 2
-            presence: 2
-            intellect: 3
-            strength: 4
+            wisdom: 1
+            presence: 1
+            intellect: 1
+            strength: 3
             toughness: 2
-            dexterity: 5
+            dexterity: 4
           talents:
             - Compendium.crucible.talent.Item.archerytraining0
             - Compendium.crucible.talent.Item.precisionshot000
@@ -3016,9 +3211,9 @@ actors:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
           category: undead
           abilities:
-            wisdom: 3
-            presence: 3
-            intellect: 2
+            wisdom: 1
+            presence: 0
+            intellect: 1
             strength: 4
             toughness: 4
             dexterity: 2
@@ -3035,11 +3230,14 @@ actors:
             psychic: 0
             radiant: -2
             void: 0
-          name: Skeleton
-          img: icons/magic/death/undead-skeleton-worn-blue.webp
           size: 4
           stride: 8
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Skeleton
+          img: icons/magic/death/undead-skeleton-worn-blue.webp
         biography:
           public: ''
           private: ''
@@ -3071,13 +3269,13 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 15
+          value: 19
         morale:
-          value: 11
+          value: 4
         action:
           value: 4
         focus:
-          value: 4
+          value: 1
         heroism:
           value: 0
       movement:
@@ -3196,7 +3394,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 1kEncoFGYK
+          identifier: cBCZQBjtUW
           invested: false
           actorHooks: []
         effects: []
@@ -3240,7 +3438,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: jIl2TLbI7G
+          identifier: wCYggTh5z8
           invested: false
           actorHooks: []
           dropped: false
@@ -3348,7 +3546,7 @@ actors:
           gesture: ''
           inflection: ''
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -3392,7 +3590,7 @@ actors:
         effects: []
         flags: {}
         _stats:
-          compendiumSource: null
+          compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -3415,10 +3613,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686181185927
-      modifiedTime: 1749830417241
+      modifiedTime: 1749915105663
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -3467,11 +3665,11 @@ actors:
             Hardened melee combatants expert at weilding one-handed weaponry,
             shield, and heavy armor.
           abilities:
-            wisdom: 2
-            presence: 3
-            intellect: 2
-            strength: 4
-            toughness: 4
+            wisdom: 1
+            presence: 1
+            intellect: 1
+            strength: 3
+            toughness: 3
             dexterity: 3
           talents:
             - Compendium.crucible.talent.Item.martialweapontra
@@ -3484,9 +3682,9 @@ actors:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
           category: undead
           abilities:
-            wisdom: 3
-            presence: 3
-            intellect: 2
+            wisdom: 1
+            presence: 0
+            intellect: 1
             strength: 4
             toughness: 4
             dexterity: 2
@@ -3503,11 +3701,14 @@ actors:
             psychic: 0
             radiant: -2
             void: 0
-          name: Skeleton
-          img: icons/magic/death/undead-skeleton-worn-blue.webp
           size: 4
           stride: 8
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Skeleton
+          img: icons/magic/death/undead-skeleton-worn-blue.webp
         biography:
           public: ''
           private: ''
@@ -3539,13 +3740,13 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 30
+          value: 21
         morale:
-          value: 18
+          value: 4
         action:
-          value: 6
+          value: 4
         focus:
-          value: 3
+          value: 1
         heroism:
           value: 0
       movement:
@@ -3554,8 +3755,8 @@ actors:
         engagementBonus: 0
       status: null
       advancement:
-        level: -3
-        threat: normal
+        level: 1
+        threat: minion
       favorites:
         - strike
         - legSweep
@@ -3664,7 +3865,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: D9ILmO8mDi
+          identifier: rSb1ZyHMEe
           invested: false
           actorHooks: []
         effects: []
@@ -3710,7 +3911,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: IywaBV7zp5
+          identifier: ZYBz3SdJte
           invested: false
           actorHooks: []
           dropped: false
@@ -3805,7 +4006,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.bulwark000000000
+          compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -3842,7 +4043,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.armoredefficienc
+          compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -3915,7 +4116,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.legsweep00000000
+          compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -3939,7 +4140,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686181185927
-      modifiedTime: 1749776814961
+      modifiedTime: 1749915101129
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -3989,11 +4190,11 @@ actors:
             A rage-fueled warrior which prefers two-handed attacks using Heavy
             weapons.
           abilities:
-            wisdom: 2
-            presence: 3
-            intellect: 1
-            strength: 5
-            toughness: 5
+            wisdom: 1
+            presence: 1
+            intellect: 0
+            strength: 4
+            toughness: 4
             dexterity: 2
           talents:
             - Compendium.crucible.talent.Item.heavystrike00000
@@ -4007,12 +4208,12 @@ actors:
             form.</p>
           category: humanoid
           abilities:
-            wisdom: 2
-            presence: 2
-            intellect: 2
-            strength: 4
-            toughness: 4
-            dexterity: 4
+            wisdom: 1
+            presence: 1
+            intellect: 1
+            strength: 3
+            toughness: 3
+            dexterity: 3
           resistances:
             bludgeoning: 1
             corruption: -1
@@ -4026,11 +4227,14 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          name: Werewolf
-          img: icons/creatures/mammals/wolf-shadow-black.webp
           size: 6
           stride: 12
           talents: []
+          characteristics:
+            equipment: false
+            spells: false
+          name: Werewolf
+          img: icons/creatures/mammals/wolf-shadow-black.webp
         biography:
           public: ''
           private: ''
@@ -4191,7 +4395,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 30KdOjIFO6
+          identifier: 6yEMsMAPr9
           invested: false
           actorHooks: []
         effects: []
@@ -4234,7 +4438,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: XLlCrIyWev
+          identifier: QrfcR1jDYX
           invested: false
           actorHooks: []
           dropped: false
@@ -4278,7 +4482,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: UlmoTBxm41
+          identifier: 0QQEkIJSth
           invested: false
           actorHooks: []
           dropped: false
@@ -4330,7 +4534,7 @@ actors:
         flags:
           core: {}
         _stats:
-          compendiumSource: Item.thickskin0000000
+          compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
           duplicateSource: null
           coreVersion: '13.345'
           systemId: crucible
@@ -4771,6 +4975,136 @@ actors:
           modifiedTime: 1749830417160
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: naturalWeaponPro
+      - name: Heavy Strike
+        type: talent
+        img: icons/skills/melee/strike-hammer-destructive-blue.webp
+        system:
+          description: >-
+            <p>You know how to use a heavy weapon to deliver punishing blows,
+            putting your entire strength behind every swing.</p>
+          actions:
+            - id: heavyStrike
+              condition: ''
+              description: >-
+                <p>You unleash a powerful <strong>Strike</strong> with your
+                mainhand weapon. The attack is slower to execute, but is
+                <strong>Empowered</strong> to deliver additional damage.</p>
+              tags:
+                - attack
+                - melee
+                - mainhand
+                - empowered
+              cost:
+                action: 1
+                focus: 0
+                weapon: true
+                heroism: 0
+              target:
+                type: single
+                number: 1
+                scope: 3
+              effects: []
+              name: Heavy Strike
+              img: icons/skills/melee/strike-hammer-destructive-blue.webp
+              actionHooks: []
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+          nodes:
+            - str1b
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.345'
+          systemId: crucible
+          systemVersion: 0.7.3
+          lastModifiedBy: null
+        _id: heavystrike00000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Berserker
+        type: talent
+        img: icons/magic/unholy/silhouette-evil-horned-giant.webp
+        system:
+          description: >-
+            <p>You revel in the thrill of combat, hurling yourself into the fray
+            with reckless abandon.</p>
+          actions:
+            - id: berserkerRage
+              name: Berserker Rage
+              condition: >-
+                You have suffered damage to your Health pool since your last
+                turn in Combat.
+              description: >-
+                You become Enraged. While Enraged you deal 4 additional damage
+                on all melee attacks. You may attempt to end the effect on your
+                own turn by succeeding on a Willpower test against a DC of 20.
+                The effect ends automatically when Combat is concluded.
+              tags: []
+              cost:
+                action: 1
+                focus: 0
+                heroism: 0
+                weapon: false
+              target:
+                type: self
+                scope: 1
+                number: 1
+              effects:
+                - scope: 1
+                  changes:
+                    - key: rollBonuses.damage.melee
+                      value: 4
+                      mode: 2
+                  statuses:
+                    - enraged
+              img: null
+              range:
+                minimum: null
+                maximum: null
+                weapon: false
+              actionHooks: []
+          nodes:
+            - sig3.toughness.strength
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        effects: []
+        flags:
+          core: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.berserker0000000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.345'
+          systemId: crucible
+          systemVersion: 0.7.3
+          lastModifiedBy: null
+        _id: berserker0000000
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
     effects: []
     folder: 5RIhvyZe3N99ckET
     sort: 100000
@@ -4781,10 +5115,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685839607073
-      modifiedTime: 1749830417173
+      modifiedTime: 1749863037314
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -4832,24 +5166,26 @@ actors:
           description: <p>Bringers of pestilence and decay.</p>
           abilities:
             wisdom: 2
-            presence: 1
-            intellect: 1
-            strength: 6
-            toughness: 6
+            presence: 2
+            intellect: 2
+            strength: 2
+            toughness: 2
             dexterity: 2
           talents: []
           name: Plaguebearer
           img: icons/magic/acid/dissolve-vomit-green-brown.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
+          size: 5
+          stride: 10
           category: outsider
           abilities:
-            wisdom: 3
+            wisdom: 1
             presence: 4
-            intellect: 4
+            intellect: 1
             strength: 2
             toughness: 3
-            dexterity: 2
+            dexterity: 1
           resistances:
             bludgeoning: 0
             corruption: 1
@@ -4863,11 +5199,12 @@ actors:
             psychic: 1
             radiant: -2
             void: 2
+          talents: []
+          characteristics:
+            equipment: false
+            spells: true
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          size: 5
-          stride: 10
-          talents: []
         biography:
           public: ''
           private: ''
@@ -5025,7 +5362,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: cRlz07YFfv
+          identifier: ObiRJeMXUI
           invested: false
           actorHooks: []
           dropped: false
@@ -5067,7 +5404,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 81XhSv3f6O
+          identifier: zAHZ7BHK9J
           invested: false
           actorHooks: []
           dropped: false
@@ -5110,7 +5447,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: k2OIHyIA3Q
+          identifier: KrByktE9mO
           invested: false
           actorHooks: []
         effects: []
@@ -5414,10 +5751,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686148548654
-      modifiedTime: 1749830417027
+      modifiedTime: 1749863180396
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5465,24 +5802,26 @@ actors:
           description: <p>Bringers of terror and despair.</p>
           abilities:
             wisdom: 2
-            presence: 3
+            presence: 2
             intellect: 2
-            strength: 4
-            toughness: 3
-            dexterity: 4
+            strength: 2
+            toughness: 2
+            dexterity: 2
           talents: []
           name: Fearmonger
           img: icons/magic/death/skull-energy-light-purple.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
+          size: 5
+          stride: 10
           category: outsider
           abilities:
-            wisdom: 3
+            wisdom: 1
             presence: 4
-            intellect: 4
+            intellect: 1
             strength: 2
             toughness: 3
-            dexterity: 2
+            dexterity: 1
           resistances:
             bludgeoning: 0
             corruption: 1
@@ -5496,11 +5835,12 @@ actors:
             psychic: 1
             radiant: -2
             void: 2
+          talents: []
+          characteristics:
+            equipment: false
+            spells: true
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          size: 5
-          stride: 10
-          talents: []
         biography:
           public: ''
           private: ''
@@ -5658,7 +5998,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: QUjZE6ph6a
+          identifier: mfESAkTSla
           invested: false
           actorHooks: []
           dropped: false
@@ -5701,7 +6041,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: Y1p1ET8POM
+          identifier: ypUyCwnAYA
           invested: false
           actorHooks: []
         effects: []
@@ -5857,10 +6197,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686151649800
-      modifiedTime: 1749830417044
+      modifiedTime: 1749863237314
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5909,25 +6249,27 @@ actors:
             A hulking creature that destroys the sanity of those which behold
             it.
           abilities:
-            wisdom: 1
-            presence: 4
-            intellect: 1
-            strength: 6
-            toughness: 4
+            wisdom: 2
+            presence: 2
+            intellect: 2
+            strength: 2
+            toughness: 2
             dexterity: 2
           talents: []
           name: Mindwarper
           img: icons/magic/unholy/strike-body-explode-disintegrate.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
+          size: 5
+          stride: 10
           category: outsider
           abilities:
-            wisdom: 3
+            wisdom: 1
             presence: 4
-            intellect: 4
+            intellect: 1
             strength: 2
             toughness: 3
-            dexterity: 2
+            dexterity: 1
           resistances:
             bludgeoning: 0
             corruption: 1
@@ -5941,11 +6283,12 @@ actors:
             psychic: 1
             radiant: -2
             void: 2
+          talents: []
+          characteristics:
+            equipment: false
+            spells: true
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          size: 5
-          stride: 10
-          talents: []
         biography:
           public: ''
           private: ''
@@ -6104,7 +6447,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: lvscj5zgbX
+          identifier: UwJSkyKsWC
           invested: false
           actorHooks: []
           dropped: false
@@ -6148,7 +6491,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: 0HJULmYdpz
+          identifier: dgvcLUx9X8
           invested: false
           actorHooks: []
         effects: []
@@ -6309,10 +6652,10 @@ actors:
       crucible: {}
     _stats:
       systemId: crucible
-      systemVersion: 0.6.0
+      systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686151655811
-      modifiedTime: 1749830417061
+      modifiedTime: 1749863258803
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6577,7 +6920,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: yUIMYwgPed
+          identifier: hrsQLOl4d3
           invested: false
           actorHooks: []
           dropped: false
@@ -6621,7 +6964,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: C2UNmi1Dit
+          identifier: omg4h5adxl
           invested: false
           actorHooks: []
         _stats:
@@ -7300,7 +7643,7 @@ actors:
             base: 16
           broken: false
           actions: []
-          identifier: bIS6jIVvLH
+          identifier: Fm9rJgmUfT
           invested: false
           actorHooks: []
         _stats:
@@ -7880,7 +8223,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: ttTojhBdCj
+          identifier: VL1eKJzz6g
           invested: false
           actorHooks: []
           dropped: false
@@ -8617,7 +8960,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: VsiJdZurBD
+          identifier: KPiJUINGo5
           invested: false
           actorHooks: []
           dropped: false
@@ -8661,7 +9004,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: Iqf0k8dsLH
+          identifier: oqbXNk0rIW
           invested: false
           actorHooks: []
           dropped: false
@@ -8703,7 +9046,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: QjwukhlvsR
+          identifier: Jvdi7FuQzU
           invested: false
           actorHooks: []
         _stats:
@@ -9863,7 +10206,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: ePdlnlbn1R
+          identifier: UZbcmbFdG4
           invested: false
           actorHooks: []
           dropped: false
@@ -9906,7 +10249,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: W5e9GZH3Au
+          identifier: kfKdbu2uob
           invested: false
           actorHooks: []
           dropped: false
@@ -9947,7 +10290,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: iO6kFw4nhT
+          identifier: SDv2iaYDBc
           invested: false
           actorHooks: []
         _stats:
@@ -10739,7 +11082,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: KAHuHnTiE0
+          identifier: IJbUjM173n
           invested: false
           actorHooks: []
           dropped: false
@@ -10815,7 +11158,7 @@ actors:
                 - reflex
                 - melee
               actionHooks: []
-          identifier: ImNOmpPnLy
+          identifier: xTXECl63Sz
           invested: false
           actorHooks: []
           dropped: false
@@ -11310,7 +11653,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: pmpsp0kThM
+          identifier: K7fRdcpgE0
           invested: false
           actorHooks: []
           dropped: false
@@ -11352,7 +11695,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: YJSFH6TcaK
+          identifier: 91NXtDeMLh
           invested: false
           actorHooks: []
           dropped: false
@@ -11394,7 +11737,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: oGf2LhSCet
+          identifier: kBpmajX1p0
           invested: false
           actorHooks: []
         _stats:
@@ -12499,7 +12842,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: dTEJw4ECRA
+          identifier: RkLzlLqgax
           invested: false
           actorHooks: []
         _stats:
@@ -12538,7 +12881,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 6XwrFz0UDk
+          identifier: 3RseacZvZW
           invested: false
           actorHooks: []
           dropped: false
@@ -12578,7 +12921,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: pTN4NVU0cg
+          identifier: urH2ZBmLZu
           invested: false
           actorHooks: []
           dropped: false
@@ -13691,7 +14034,7 @@ actors:
             private: ''
           actions: []
           slot: 1
-          identifier: o9psqTrBXz
+          identifier: KkzCuhdGNc
           invested: false
           actorHooks: []
           dropped: false
@@ -13735,7 +14078,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 9hMWykidwg
+          identifier: C09HX0e9XY
           invested: false
           actorHooks: []
         _stats:
@@ -14720,7 +15063,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 4me8X9t7Ju
+          identifier: JJgWcZAWLk
           invested: false
           actorHooks: []
         _stats:
@@ -14762,7 +15105,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: exOx2s4vEq
+          identifier: Vg1Fh3ZKno
           invested: false
           actorHooks: []
           dropped: false
@@ -16021,7 +16364,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: S5XOfjWvlE
+          identifier: gyFg1jcq5q
           invested: false
           actorHooks: []
           dropped: false
@@ -16065,7 +16408,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: RYH3223yDZ
+          identifier: PiIziOpQEQ
           invested: false
           actorHooks: []
         _stats:
@@ -17152,7 +17495,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: IUDAXmbjdQ
+          identifier: NL6JpVsCrD
           invested: false
           actorHooks: []
           dropped: false
@@ -17195,7 +17538,7 @@ actors:
             base: 17
           broken: false
           actions: []
-          identifier: pLsOWRCNU8
+          identifier: wNNVlOOfXN
           invested: false
           actorHooks: []
         _stats:
@@ -17821,7 +18164,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: rJhKNihMHp
+          identifier: xteWxLgfVv
           invested: false
           actorHooks: []
           dropped: false
@@ -17865,7 +18208,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: ZRngjffX6q
+          identifier: KzWqrguTMR
           invested: false
           actorHooks: []
           dropped: false
@@ -17907,7 +18250,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: w1xdz9aQTi
+          identifier: Za4yLGWiMr
           invested: false
           actorHooks: []
         _stats:
@@ -18659,7 +19002,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: sKSsdzzIVf
+          identifier: HhgvRV49dr
           invested: false
           actorHooks: []
           dropped: false
@@ -18702,7 +19045,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: JmkyJ5vv3a
+          identifier: RqmM4htKfm
           invested: false
           actorHooks: []
           dropped: false
@@ -18743,7 +19086,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 6bdcIzjqBJ
+          identifier: yAjIeB1ZuV
           invested: false
           actorHooks: []
         _stats:
@@ -19475,7 +19818,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: J0RA6H4wbX
+          identifier: LcIanDsvJF
           invested: false
           actorHooks: []
           dropped: false
@@ -19517,7 +19860,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: fMiuAeFcqa
+          identifier: j6w3VQa4L0
           invested: false
           actorHooks: []
           dropped: false
@@ -19559,7 +19902,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: GRYgWVquHs
+          identifier: iLLGPC5a0B
           invested: false
           actorHooks: []
         _stats:
@@ -20224,7 +20567,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: GJ3PbbJTJQ
+          identifier: SqaYMwMKS4
           invested: false
           actorHooks: []
         _stats:
@@ -20263,7 +20606,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: U0W6CBp8VD
+          identifier: GPjd1jx3gc
           invested: false
           actorHooks: []
           dropped: false
@@ -20303,7 +20646,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: fOXljUxvh8
+          identifier: NzSUxvewp3
           invested: false
           actorHooks: []
           dropped: false
@@ -20945,7 +21288,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: bIgj4ESFPX
+          identifier: j8Uh4GrmMI
           invested: false
           actorHooks: []
           dropped: false
@@ -20989,7 +21332,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: TuTmDBFxRx
+          identifier: FTZkhboFh7
           invested: false
           actorHooks: []
         _stats:
@@ -21636,7 +21979,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: Jcr7KsZ3UM
+          identifier: dmMEP8gdH4
           invested: false
           actorHooks: []
         _stats:
@@ -21678,7 +22021,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: V1yBbAAlAF
+          identifier: Zb98twARuo
           invested: false
           actorHooks: []
           dropped: false
@@ -23434,6 +23777,104 @@ scenes:
           disposition: false
         _movementHistory: []
         movementAction: null
+      - name: Eliorwen
+        displayName: 20
+        actorLink: true
+        texture:
+          src: systems/crucible/assets/tokens/heroes/ElfRanger.webp
+          scaleX: 1
+          scaleY: 1
+          offsetX: 0
+          offsetY: 0
+          rotation: 0
+          tint: '#ffffff'
+          anchorX: 0.5
+          anchorY: 0.5
+          fit: contain
+          alphaThreshold: 0.75
+        width: 4
+        height: 4
+        lockRotation: false
+        rotation: 180
+        alpha: 1
+        disposition: 1
+        displayBars: 40
+        bar1:
+          attribute: resources.health
+        bar2:
+          attribute: resources.morale
+        light:
+          alpha: 0.75
+          angle: 360
+          bright: 0
+          color: '#ff8800'
+          coloration: 1
+          dim: 0
+          attenuation: 0.5
+          luminosity: 0.5
+          saturation: 0.2
+          contrast: 0.1
+          shadows: 0
+          animation:
+            type: torch
+            speed: 2
+            intensity: 2
+            reverse: false
+          darkness:
+            min: 0
+            max: 1
+          negative: false
+          priority: 0
+        sight:
+          enabled: true
+          range: 0
+          angle: 360
+          visionMode: basic
+          color: null
+          attenuation: 0.1
+          brightness: 0
+          saturation: 0
+          contrast: 0
+        detectionModes: []
+        flags: {}
+        occludable:
+          radius: 0
+        ring:
+          enabled: false
+          colors:
+            ring: null
+            background: null
+          effects: 0
+          subject:
+            scale: 1
+            texture: null
+        turnMarker:
+          mode: 1
+          animation: null
+          src: null
+          disposition: false
+        movementAction: null
+        actorId: 2lvTCCOj4dnBI774
+        hidden: false
+        sort: 8
+        shape: 4
+        _id: MndNelKUCSPSmp4x
+        delta:
+          _id: MndNelKUCSPSmp4x
+          name: null
+          type: null
+          img: null
+          system: {}
+          items: []
+          effects: []
+          ownership: null
+          flags: {}
+        x: 5160
+        'y': 4400
+        elevation: 0
+        locked: false
+        _movementHistory: []
+        _regions: []
     lights: []
     notes: []
     sounds: []
@@ -25523,7 +25964,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.345'
-  modifiedTime: 1749830827499
+  modifiedTime: 1749915490534
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

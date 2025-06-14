@@ -10,9 +10,9 @@ system:
   abilities:
     wisdom: 1
     presence: 1
-    intellect: 1
-    strength: 5
-    toughness: 3
+    intellect: 2
+    strength: 2
+    toughness: 2
     dexterity: 4
   resistances:
     bludgeoning: 0
@@ -39,7 +39,7 @@ _stats:
   systemVersion: 0.7.3
   coreVersion: '13.345'
   createdTime: 1685216953220
-  modifiedTime: 1749862311901
+  modifiedTime: 1749913554102
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
