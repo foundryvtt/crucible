@@ -48,14 +48,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1675607983807
-  modifiedTime: 1748358086956
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.dervish000000000
   duplicateSource: null
   exportSource: null
 _id: dervish000000000
 folder: fOYHlZJEWUukD7yr
-sort: 375000
+sort: 2400000
 _key: '!items!dervish000000000'

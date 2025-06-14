@@ -22,14 +22,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1675626189295
-  modifiedTime: 1748358176114
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.swashbuckler0000
   duplicateSource: null
   exportSource: null
 _id: swashbuckler0000
 folder: fOYHlZJEWUukD7yr
-sort: 303125
+sort: 1300000
 _key: '!items!swashbuckler0000'

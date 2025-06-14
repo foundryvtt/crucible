@@ -70,13 +70,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1676157758719
-  modifiedTime: 1726783512928
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null
 _id: nosferatu0000000
-sort: 325000
+sort: 1700000
 _key: '!items!nosferatu0000000'

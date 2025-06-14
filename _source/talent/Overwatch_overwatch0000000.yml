@@ -41,14 +41,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1675561152244
-  modifiedTime: 1748359327037
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.overwatch0000000
   duplicateSource: null
   exportSource: null
 _id: overwatch0000000
 folder: fOYHlZJEWUukD7yr
-sort: 360938
+sort: 2200000
 _key: '!items!overwatch0000000'

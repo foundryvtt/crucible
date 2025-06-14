@@ -219,8 +219,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @override
    */
   _prepareSkill(config) {
+    this.training[config.id] ??= this.advancement._autoSkillRank; // TODO temporary, remove later
     const skill = super._prepareSkill(config);
-    skill.rank = this.advancement._autoSkillRank; // TODO verify or remove this
     return skill;
   }
 

@@ -63,14 +63,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1675734757901
-  modifiedTime: 1748358147155
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.poisoner00000000
   duplicateSource: null
   exportSource: null
 _id: poisoner00000000
 folder: fOYHlZJEWUukD7yr
-sort: 312500
+sort: 1600000
 _key: '!items!poisoner00000000'

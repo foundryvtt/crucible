@@ -28,13 +28,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1676174105935
-  modifiedTime: 1748358169773
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.spellblade000000
   duplicateSource: null
   exportSource: null
 _id: spellblade000000
-sort: 250000
+sort: 1000000
 _key: '!items!spellblade000000'

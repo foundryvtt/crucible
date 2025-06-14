@@ -41,10 +41,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1674936288328
-  modifiedTime: 1726705804307
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Compendium.crucible.talent.berserker0000000
   duplicateSource: null
   exportSource: null
@@ -53,5 +53,5 @@ ownership:
   AnoypGxxNIMOS0XY: 3
 _id: berserker0000000
 folder: fOYHlZJEWUukD7yr
-sort: 400000
+sort: 2500000
 _key: '!items!berserker0000000'

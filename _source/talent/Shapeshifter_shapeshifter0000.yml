@@ -70,13 +70,13 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   createdTime: 1676167347186
-  modifiedTime: 1748358161680
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.shapeshifter0000
   duplicateSource: null
   exportSource: null
 _id: shapeshifter0000
-sort: 353125
+sort: 1900000
 _key: '!items!shapeshifter0000'

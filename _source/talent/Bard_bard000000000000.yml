@@ -1,0 +1,83 @@
+name: Bard
+type: talent
+img: icons/tools/instruments/harp-red.webp
+system:
+  nodes:
+    - sig3.presence.intellect
+  description: >-
+    <p>You practice the oral and musical traditions of heroic storytelling to
+    inspire courage in your allies, demoralize your foes, and be quick with
+    unconventional solutions to problems.</p><p>You learn <strong>Rune: Spirit
+    </strong>if you do not already know it. When restoring the morale of allies
+    using the Rune of Spirit you gain <strong>+2 Boons</strong> to your
+    roll.</p>
+  actions:
+    - id: laughingMatter
+      name: Laughing Matter
+      img: icons/tools/instruments/harp-red.webp
+      condition: An enemy fails to affect you or any ally with an attack.
+      description: >-
+        <p>When an enemy uses an attack that fails to affect you or any ally,
+        you construct a cutting jest or pantomime which makes a fool of their
+        feeble effort.</p><p>You make an <strong>Performance</strong> skill
+        attack against the target's <strong>Fortitude</strong>, dealing
+        <strong>Psychic</strong> damage to <strong>Morale</strong> upon a
+        success. Furthermore, upon a success, the target suffers 1
+        <strong>Bane</strong> to all rolls until the start of their next
+        turn.</p><p>The target must be able to see and understand you to be
+        affected by this ability.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 30
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+      effects:
+        - name: Laughing Matter
+          scope: 3
+          statuses: []
+          duration:
+            turns: 1
+      tags:
+        - attack
+        - fortitude
+        - psychic
+        - morale
+        - skill
+        - performance
+        - reaction
+      actionHooks: []
+  rune: spirit
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: fOYHlZJEWUukD7yr
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749922227050
+  modifiedTime: 1749922522951
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: bard000000000000
+sort: 0
+_key: '!items!bard000000000000'

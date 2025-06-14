@@ -20,14 +20,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1675644340947
-  modifiedTime: 1727211418296
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.warmage000000000
   duplicateSource: null
   exportSource: null
 _id: warmage000000000
 folder: fOYHlZJEWUukD7yr
-sort: 237500
+sort: 900000
 _key: '!items!warmage000000000'

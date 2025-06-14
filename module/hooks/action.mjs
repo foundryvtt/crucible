@@ -1,8 +1,8 @@
-const ACTION_HOOKS = {};
+const HOOKS = {};
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.berserkStrike = {
+HOOKS.berserkStrike = {
   preActivate(_targets) {
     const health = this.actor.resources.health;
     const pct = health.value / health.max;
@@ -20,7 +20,7 @@ ACTION_HOOKS.berserkStrike = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.delay = {
+HOOKS.delay = {
   canUse(_targets) {
     if ( game.combat?.combatant?.actor !== this.actor ) {
       throw new Error("You may only use the Delay action on your own turn in combat.");
@@ -58,7 +58,7 @@ ACTION_HOOKS.delay = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.disarmingStrike = {
+HOOKS.disarmingStrike = {
   postActivate(outcome) {
     if ( outcome.target === this.actor ) return;
     if ( outcome.rolls.every(r => r.isSuccess) ) {
@@ -73,7 +73,21 @@ ACTION_HOOKS.disarmingStrike = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.reactiveStrike = {
+HOOKS.laughingMatter = {
+  postActivate(outcome) {
+    if ( outcome.target === this.actor ) return;
+    const effect = outcome.effects[0];
+    effect.changes ||= [];
+    effect.changes.push(
+      {key: "system.rollBonuses.banes.laughingMatter.number", mode: 5, value: 1},
+      {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name},
+    );
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.reactiveStrike = {
   canUse(_targets) {
     for ( const s of ["unaware", "flanked"] ) {
       if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
@@ -83,7 +97,7 @@ ACTION_HOOKS.reactiveStrike = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.recover = {
+HOOKS.recover = {
   canUse(_targets) {
     if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
   },
@@ -97,7 +111,7 @@ ACTION_HOOKS.recover = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.refocus = {
+HOOKS.refocus = {
   async confirm() {
     const self = this.outcomes.get(this.actor);
     const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons
@@ -108,7 +122,7 @@ ACTION_HOOKS.refocus = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.reload = {
+HOOKS.reload = {
   prepare() {
     const a = this.actor;
     const {reloaded} = a.system.status;
@@ -121,7 +135,7 @@ ACTION_HOOKS.reload = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.repercussiveBlock = {
+HOOKS.repercussiveBlock = {
   postActivate(outcome) {
     if ( outcome.target === this.actor ) return;
     if ( outcome.rolls.every(r => r.isSuccess) ) {
@@ -136,7 +150,7 @@ ACTION_HOOKS.repercussiveBlock = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.ruthlessMomentum = {
+HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;
   }
@@ -144,7 +158,7 @@ ACTION_HOOKS.ruthlessMomentum = {
 
 /* -------------------------------------------- */
 
-ACTION_HOOKS.strike = {
+HOOKS.strike = {
   async postActivate(outcome) {
     if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
       this.usage.actorStatus.basicStrike = true;
@@ -154,4 +168,4 @@ ACTION_HOOKS.strike = {
 
 /* -------------------------------------------- */
 
-export default ACTION_HOOKS;
+export default HOOKS;

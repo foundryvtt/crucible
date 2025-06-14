@@ -19,14 +19,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.6.0
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1675740927729
-  modifiedTime: 1727211443317
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1749921041418
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.conjurer00000000
   duplicateSource: null
   exportSource: null
 _id: conjurer00000000
 folder: fOYHlZJEWUukD7yr
-sort: 0
+sort: 200000
 _key: '!items!conjurer00000000'
