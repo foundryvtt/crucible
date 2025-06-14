@@ -14,13 +14,15 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
     const requiredInteger = {required: true, nullable: false, integer: true};
     return {
       description: new fields.HTMLField(),
-      size: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 3}),
-      stride: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 10}),
       category: new fields.StringField({choices: SYSTEM.ADVERSARY.TAXONOMY_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateAbilities}),
+      movement: new fields.SchemaField({
+        size: new fields.NumberField({...requiredInteger, min: 1, initial: 4}),
+        stride: new fields.NumberField({...requiredInteger, min: 1, initial: 10})
+      }),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
         obj[damageType.id] = new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3});
         return obj;
@@ -91,5 +93,19 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       obj[a] = 2;
       return obj;
     }, {});
+
+    /** @deprecated since 0.7.3 */
+    if ( source.size && !source.movement?.size ) {
+      source.movement ||= {};
+      source.movement.size = source.size;
+      delete source.size;
+    }
+
+    /** @deprecated since 0.7.3 */
+    if ( source.stride && !source.movement?.stride ) {
+      source.movement ||= {};
+      source.movement.stride = source.stride;
+      delete source.stride;
+    }
   }
 }

@@ -24,11 +24,13 @@ system:
     psychic: 0
     radiant: -2
     void: 0
-  size: 4
-  stride: 8
   characteristics:
     equipment: true
     spells: true
+  movement:
+    size: 4
+    stride: 8
+  talents: []
 effects: []
 folder: REYz7fzLYEdBX3A2
 ownership:
@@ -40,8 +42,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.345'
-  createdTime: 1686180658805
-  modifiedTime: 1749863188435
+  modifiedTime: 1749916767512
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

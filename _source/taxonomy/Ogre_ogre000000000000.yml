@@ -27,11 +27,13 @@ system:
     psychic: -2
     radiant: 0
     void: 0
-  size: 6
-  stride: 10
   characteristics:
     spells: true
     equipment: true
+  movement:
+    size: 6
+    stride: 10
+  talents: []
 effects: []
 ownership:
   default: 0
@@ -42,8 +44,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.345'
-  createdTime: 1684855210087
-  modifiedTime: 1749863204585
+  modifiedTime: 1749916767482
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

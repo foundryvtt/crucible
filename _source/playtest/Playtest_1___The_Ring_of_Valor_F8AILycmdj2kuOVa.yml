@@ -88,8 +88,9 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          size: 3
-          stride: 10
+          movement:
+            size: 4
+            stride: 10
           talents: []
           characteristics:
             equipment: false
@@ -167,8 +168,8 @@ actors:
         anchorY: 0.5
         fit: contain
         alphaThreshold: 0.75
-      width: 3
-      height: 3
+      width: 4
+      height: 4
       lockRotation: false
       rotation: 0
       alpha: 1
@@ -252,7 +253,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 4QhRBLp7i3
+          identifier: Dd7uT1XCu2
           invested: false
           actorHooks: []
         effects: []
@@ -294,7 +295,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: dBn1K1xK4d
+          identifier: 2ORGG54BzI
           invested: false
           actorHooks: []
           dropped: false
@@ -397,7 +398,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685230780675
-      modifiedTime: 1749915135805
+      modifiedTime: 1749916651078
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -478,8 +479,9 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          size: 3
-          stride: 10
+          movement:
+            size: 3
+            stride: 10
           talents: []
           characteristics:
             equipment: false
@@ -641,7 +643,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: mWEYEsrmH3
+          identifier: 1nkIuzy9Jg
           invested: false
           actorHooks: []
           dropped: false
@@ -684,7 +686,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: h96MC5hS7N
+          identifier: 2ZMMdIsHTm
           invested: false
           actorHooks: []
         effects: []
@@ -759,7 +761,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685217604062
-      modifiedTime: 1749915139524
+      modifiedTime: 1749916603277
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -845,12 +847,13 @@ actors:
             psychic: -2
             radiant: 0
             void: 0
-          size: 6
-          stride: 10
-          talents: []
           characteristics:
-            equipment: false
-            spells: false
+            spells: true
+            equipment: true
+          movement:
+            size: 6
+            stride: 10
+          talents: []
           name: Ogre
           img: icons/creatures/unholy/demon-fire-horned-mask.webp
         biography:
@@ -1013,7 +1016,7 @@ actors:
             base: 11
           broken: false
           actions: []
-          identifier: dOh4PomDUG
+          identifier: y77w3pTu44
           invested: false
           actorHooks: []
         _stats:
@@ -1057,7 +1060,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: KRiCWALEUr
+          identifier: 2zntqGbcq9
           invested: false
           actorHooks: []
           dropped: false
@@ -1524,7 +1527,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685831615922
-      modifiedTime: 1749915117261
+      modifiedTime: 1749916624489
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -1596,8 +1599,6 @@ actors:
             propensity for toughness has origins amid a people exposed to the
             relentless struggle of a harsh northern clime. Your people are known
             for their strength and resilience above all else.</p>
-          size: 4
-          stride: 10
           category: humanoid
           abilities:
             wisdom: 1
@@ -1624,6 +1625,9 @@ actors:
             spells: true
           talents:
             - Compendium.crucible.talent.Item.heavystrike00000
+          movement:
+            size: 4
+            stride: 10
           name: Orcish
           img: icons/creatures/magical/construct-iron-stomping-yellow.webp
         biography:
@@ -1788,7 +1792,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: 9JT4Ddxz3A
+          identifier: VCrnUhVbfN
           invested: false
           actorHooks: []
           dropped: false
@@ -1831,7 +1835,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: vF4UuWvYIY
+          identifier: qDKfjPhuq4
           invested: false
           actorHooks: []
           dropped: false
@@ -1872,7 +1876,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 4KyleRMSFq
+          identifier: 9CykjvhAvq
           invested: false
           actorHooks: []
         _stats:
@@ -2253,7 +2257,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685830625262
-      modifiedTime: 1749862777254
+      modifiedTime: 1749916675177
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2327,8 +2331,6 @@ actors:
             rotund, your physical appearance is nothing if not varied. Humans
             are most known for a genetic predisposition toward determination,
             with traditions that drive a stubborn will to survive.</p>
-          size: 4
-          stride: 10
           category: humanoid
           abilities:
             wisdom: 1
@@ -2355,6 +2357,9 @@ actors:
             spells: true
           talents:
             - Compendium.crucible.talent.Item.intercept0000000
+          movement:
+            size: 4
+            stride: 10
           name: Human
           img: icons/skills/social/diplomacy-handshake.webp
         biography:
@@ -2516,7 +2521,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 9WbFSQseOD
+          identifier: YAOk2leyrX
           invested: false
           actorHooks: []
           dropped: false
@@ -2561,7 +2566,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: ydhyRz3rm2
+          identifier: COTGw0fZDr
           invested: false
           actorHooks: []
         _stats:
@@ -3150,7 +3155,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686183305269
-      modifiedTime: 1749862932193
+      modifiedTime: 1749916684970
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -3230,12 +3235,13 @@ actors:
             psychic: 0
             radiant: -2
             void: 0
-          size: 4
-          stride: 8
-          talents: []
           characteristics:
-            equipment: false
-            spells: false
+            equipment: true
+            spells: true
+          movement:
+            size: 4
+            stride: 8
+          talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
         biography:
@@ -3394,7 +3400,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: cBCZQBjtUW
+          identifier: gR49uPzOEX
           invested: false
           actorHooks: []
         effects: []
@@ -3438,7 +3444,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: wCYggTh5z8
+          identifier: biu1Z20Vx9
           invested: false
           actorHooks: []
           dropped: false
@@ -3616,7 +3622,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686181185927
-      modifiedTime: 1749915105663
+      modifiedTime: 1749916695844
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -3701,12 +3707,13 @@ actors:
             psychic: 0
             radiant: -2
             void: 0
-          size: 4
-          stride: 8
-          talents: []
           characteristics:
-            equipment: false
-            spells: false
+            equipment: true
+            spells: true
+          movement:
+            size: 4
+            stride: 8
+          talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
         biography:
@@ -3865,7 +3872,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: rSb1ZyHMEe
+          identifier: VtlC9n33rL
           invested: false
           actorHooks: []
         effects: []
@@ -3911,7 +3918,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: ZYBz3SdJte
+          identifier: 6g90CTbpFZ
           invested: false
           actorHooks: []
           dropped: false
@@ -4140,7 +4147,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686181185927
-      modifiedTime: 1749915101129
+      modifiedTime: 1749916700267
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -4227,8 +4234,9 @@ actors:
             psychic: 0
             radiant: 0
             void: 0
-          size: 6
-          stride: 12
+          movement:
+            size: 6
+            stride: 12
           talents: []
           characteristics:
             equipment: false
@@ -4395,7 +4403,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 6yEMsMAPr9
+          identifier: UxlqL9UauG
           invested: false
           actorHooks: []
         effects: []
@@ -4438,7 +4446,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: QrfcR1jDYX
+          identifier: H7rmtMkYV1
           invested: false
           actorHooks: []
           dropped: false
@@ -4482,7 +4490,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 0QQEkIJSth
+          identifier: 6VbqFQfRKA
           invested: false
           actorHooks: []
           dropped: false
@@ -5118,7 +5126,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1685839607073
-      modifiedTime: 1749863037314
+      modifiedTime: 1749916713692
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5176,8 +5184,6 @@ actors:
           img: icons/magic/acid/dissolve-vomit-green-brown.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
-          size: 5
-          stride: 10
           category: outsider
           abilities:
             wisdom: 1
@@ -5203,6 +5209,9 @@ actors:
           characteristics:
             equipment: false
             spells: true
+          movement:
+            size: 5
+            stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
         biography:
@@ -5362,7 +5371,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: ObiRJeMXUI
+          identifier: pgfARw3ltS
           invested: false
           actorHooks: []
           dropped: false
@@ -5404,7 +5413,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: zAHZ7BHK9J
+          identifier: 7f3gfF2Xl4
           invested: false
           actorHooks: []
           dropped: false
@@ -5447,7 +5456,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: KrByktE9mO
+          identifier: FCxFWSbOfc
           invested: false
           actorHooks: []
         effects: []
@@ -5754,7 +5763,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686148548654
-      modifiedTime: 1749863180396
+      modifiedTime: 1749916720010
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5812,8 +5821,6 @@ actors:
           img: icons/magic/death/skull-energy-light-purple.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
-          size: 5
-          stride: 10
           category: outsider
           abilities:
             wisdom: 1
@@ -5839,6 +5846,9 @@ actors:
           characteristics:
             equipment: false
             spells: true
+          movement:
+            size: 5
+            stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
         biography:
@@ -5998,7 +6008,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: mfESAkTSla
+          identifier: HKiwzHNUxb
           invested: false
           actorHooks: []
           dropped: false
@@ -6041,7 +6051,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: ypUyCwnAYA
+          identifier: NbcE8q62x2
           invested: false
           actorHooks: []
         effects: []
@@ -6200,7 +6210,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686151649800
-      modifiedTime: 1749863237314
+      modifiedTime: 1749916723359
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6260,8 +6270,6 @@ actors:
           img: icons/magic/unholy/strike-body-explode-disintegrate.webp
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
-          size: 5
-          stride: 10
           category: outsider
           abilities:
             wisdom: 1
@@ -6287,6 +6295,9 @@ actors:
           characteristics:
             equipment: false
             spells: true
+          movement:
+            size: 5
+            stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
         biography:
@@ -6447,7 +6458,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: UwJSkyKsWC
+          identifier: pdcA2nqbcR
           invested: false
           actorHooks: []
           dropped: false
@@ -6491,7 +6502,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: dgvcLUx9X8
+          identifier: Fq1LJYrA2v
           invested: false
           actorHooks: []
         effects: []
@@ -6655,7 +6666,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.345'
       createdTime: 1686151655811
-      modifiedTime: 1749863258803
+      modifiedTime: 1749916726757
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6920,7 +6931,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: hrsQLOl4d3
+          identifier: lfflJJcell
           invested: false
           actorHooks: []
           dropped: false
@@ -6964,7 +6975,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: omg4h5adxl
+          identifier: X5sZgqwmf2
           invested: false
           actorHooks: []
         _stats:
@@ -7643,7 +7654,7 @@ actors:
             base: 16
           broken: false
           actions: []
-          identifier: Fm9rJgmUfT
+          identifier: ECDh0rZpsD
           invested: false
           actorHooks: []
         _stats:
@@ -8223,7 +8234,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: VL1eKJzz6g
+          identifier: KMqfED6Gkl
           invested: false
           actorHooks: []
           dropped: false
@@ -8960,7 +8971,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: KPiJUINGo5
+          identifier: io3McbONuM
           invested: false
           actorHooks: []
           dropped: false
@@ -9004,7 +9015,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: oqbXNk0rIW
+          identifier: 2ketXGQwd8
           invested: false
           actorHooks: []
           dropped: false
@@ -9046,7 +9057,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: Jvdi7FuQzU
+          identifier: DWIGGwskl9
           invested: false
           actorHooks: []
         _stats:
@@ -10206,7 +10217,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: UZbcmbFdG4
+          identifier: n5o8ICA26L
           invested: false
           actorHooks: []
           dropped: false
@@ -10249,7 +10260,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: kfKdbu2uob
+          identifier: 2UcZpFZhlg
           invested: false
           actorHooks: []
           dropped: false
@@ -10290,7 +10301,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: SDv2iaYDBc
+          identifier: VGmU5ffkIX
           invested: false
           actorHooks: []
         _stats:
@@ -11082,7 +11093,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: IJbUjM173n
+          identifier: zpYxxc7Uy2
           invested: false
           actorHooks: []
           dropped: false
@@ -11158,7 +11169,7 @@ actors:
                 - reflex
                 - melee
               actionHooks: []
-          identifier: xTXECl63Sz
+          identifier: G4CYH2y2LO
           invested: false
           actorHooks: []
           dropped: false
@@ -11653,7 +11664,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: K7fRdcpgE0
+          identifier: eh3tn08rsS
           invested: false
           actorHooks: []
           dropped: false
@@ -11695,7 +11706,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: 91NXtDeMLh
+          identifier: boYeEr3a7x
           invested: false
           actorHooks: []
           dropped: false
@@ -11737,7 +11748,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: kBpmajX1p0
+          identifier: 6RXGFpUa1J
           invested: false
           actorHooks: []
         _stats:
@@ -12842,7 +12853,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: RkLzlLqgax
+          identifier: AYy7W6BB5f
           invested: false
           actorHooks: []
         _stats:
@@ -12881,7 +12892,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 3RseacZvZW
+          identifier: QL7czinDTO
           invested: false
           actorHooks: []
           dropped: false
@@ -12921,7 +12932,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: urH2ZBmLZu
+          identifier: sJuhJTsCvI
           invested: false
           actorHooks: []
           dropped: false
@@ -14034,7 +14045,7 @@ actors:
             private: ''
           actions: []
           slot: 1
-          identifier: KkzCuhdGNc
+          identifier: EDRnRedv5v
           invested: false
           actorHooks: []
           dropped: false
@@ -14078,7 +14089,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: C09HX0e9XY
+          identifier: ReSFTErAjv
           invested: false
           actorHooks: []
         _stats:
@@ -15063,7 +15074,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: JJgWcZAWLk
+          identifier: 9vS3Id7kbM
           invested: false
           actorHooks: []
         _stats:
@@ -15105,7 +15116,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: Vg1Fh3ZKno
+          identifier: pd2F7Jfxu5
           invested: false
           actorHooks: []
           dropped: false
@@ -16364,7 +16375,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: gyFg1jcq5q
+          identifier: 6shx4CoyAu
           invested: false
           actorHooks: []
           dropped: false
@@ -16408,7 +16419,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: PiIziOpQEQ
+          identifier: nXah286R0N
           invested: false
           actorHooks: []
         _stats:
@@ -17495,7 +17506,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: NL6JpVsCrD
+          identifier: Cu1ZoTjQYd
           invested: false
           actorHooks: []
           dropped: false
@@ -17538,7 +17549,7 @@ actors:
             base: 17
           broken: false
           actions: []
-          identifier: wNNVlOOfXN
+          identifier: CusLloUy5V
           invested: false
           actorHooks: []
         _stats:
@@ -18164,7 +18175,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: xteWxLgfVv
+          identifier: u8PNUX9KB7
           invested: false
           actorHooks: []
           dropped: false
@@ -18208,7 +18219,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: KzWqrguTMR
+          identifier: gMrUZGfSzo
           invested: false
           actorHooks: []
           dropped: false
@@ -18250,7 +18261,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: Za4yLGWiMr
+          identifier: xCz9h8I6JX
           invested: false
           actorHooks: []
         _stats:
@@ -19002,7 +19013,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: HhgvRV49dr
+          identifier: fbbYBbDciR
           invested: false
           actorHooks: []
           dropped: false
@@ -19045,7 +19056,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: RqmM4htKfm
+          identifier: NOVF3QlHKE
           invested: false
           actorHooks: []
           dropped: false
@@ -19086,7 +19097,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: yAjIeB1ZuV
+          identifier: tOXaRPMApf
           invested: false
           actorHooks: []
         _stats:
@@ -19818,7 +19829,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: LcIanDsvJF
+          identifier: cmMKSQQsze
           invested: false
           actorHooks: []
           dropped: false
@@ -19860,7 +19871,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: j6w3VQa4L0
+          identifier: MJL9ImjFgQ
           invested: false
           actorHooks: []
           dropped: false
@@ -19902,7 +19913,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: iLLGPC5a0B
+          identifier: B8RXECSzD6
           invested: false
           actorHooks: []
         _stats:
@@ -20567,7 +20578,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: SqaYMwMKS4
+          identifier: MlTx1QicZu
           invested: false
           actorHooks: []
         _stats:
@@ -20606,7 +20617,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: GPjd1jx3gc
+          identifier: oWIBJ6T93L
           invested: false
           actorHooks: []
           dropped: false
@@ -20646,7 +20657,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: NzSUxvewp3
+          identifier: vjHBBStRsj
           invested: false
           actorHooks: []
           dropped: false
@@ -21288,7 +21299,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: j8Uh4GrmMI
+          identifier: aEtOcxNaiS
           invested: false
           actorHooks: []
           dropped: false
@@ -21332,7 +21343,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: FTZkhboFh7
+          identifier: mPMCSE0rx7
           invested: false
           actorHooks: []
         _stats:
@@ -21979,7 +21990,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: dmMEP8gdH4
+          identifier: VOqQLaBAHw
           invested: false
           actorHooks: []
         _stats:
@@ -22021,7 +22032,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: Zb98twARuo
+          identifier: uFhFnZ4mpr
           invested: false
           actorHooks: []
           dropped: false
@@ -25964,7 +25975,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.345'
-  modifiedTime: 1749915490534
+  modifiedTime: 1749916809038
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

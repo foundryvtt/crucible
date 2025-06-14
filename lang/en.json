@@ -241,8 +241,7 @@
     "CURRENT_EQUIPMENT": "Current Equipment",
     "FAVORITE_ACTIONS": "Favorite Actions",
     "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
-    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs.",
-    "SIZE": "Size"
+    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
   }
 },
 
@@ -1054,11 +1053,16 @@
       "label": "Resistance Scaling",
       "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. The total across all resistances must sum to zero."
     },
-    "size": {
-      "label": "Size"
-    },
-    "stride": {
-      "label": "Stride"
+    "movement": {
+      "label": "Movement",
+      "size": {
+        "label": "Size",
+        "hint": "The size of this adversary in grid spaces."
+      },
+      "stride": {
+        "label": "Stride",
+        "tooltip": "Movement distance per spent Action Point."
+      }
     },
     "characteristics": {
       "label": "Taxonomy Characteristics",

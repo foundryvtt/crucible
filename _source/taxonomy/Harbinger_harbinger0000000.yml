@@ -3,8 +3,6 @@ type: taxonomy
 img: icons/magic/unholy/orb-swirling-pink.webp
 system:
   description: <p>Otherworldly beings from the void beyond.</p>
-  size: 5
-  stride: 10
   category: outsider
   abilities:
     wisdom: 1
@@ -30,6 +28,9 @@ system:
   characteristics:
     equipment: false
     spells: true
+  movement:
+    size: 5
+    stride: 10
 effects: []
 folder: xG3ennqrizR0LskO
 ownership:
@@ -43,8 +44,7 @@ _stats:
   coreVersion: '13.345'
   systemId: crucible
   systemVersion: 0.7.3
-  createdTime: 1749863149425
-  modifiedTime: 1749863165469
+  modifiedTime: 1749916767534
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: harbinger0000000
 sort: 0

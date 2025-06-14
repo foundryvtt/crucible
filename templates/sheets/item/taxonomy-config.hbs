@@ -4,8 +4,8 @@
     <fieldset class="form-group physical">
         <legend>Physiology</legend>
         {{formGroup fields.category value=source.system.category hint=null}}
-        {{formGroup fields.size value=source.system.size classes="slim"}}
-        {{formGroup fields.stride value=source.system.stride classes="slim"}}
+        {{formGroup fields.movement.fields.size value=source.system.movement.size classes="slim"}}
+        {{formGroup fields.movement.fields.stride value=source.system.movement.stride classes="slim"}}
         {{formGroup fields.characteristics.fields.equipment value=source.system.characteristics.equipment}}
         {{formGroup fields.characteristics.fields.spells value=source.system.characteristics.spells}}
     </fieldset>

@@ -31,6 +31,10 @@ system:
   characteristics:
     equipment: true
     spells: true
+  movement:
+    size: 4
+    stride: 10
+  talents: []
 effects: []
 folder: XE2BjE0vCGKPdZU7
 sort: 100000
@@ -42,8 +46,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.345'
-  createdTime: 1684888260461
-  modifiedTime: 1749863194252
+  modifiedTime: 1749916767574
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
