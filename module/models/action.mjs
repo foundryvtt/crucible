@@ -398,6 +398,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  toObject(source) {
+    const obj = super.toObject();
+    // Preserve final tags
+    if ( source === false ) obj.tags = Array.from(this.tags);
+    return obj;
+  }
+
+  /* -------------------------------------------- */
   /*  Action Execution Methods                    */
   /* -------------------------------------------- */
 
@@ -1366,9 +1376,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( actionId.startsWith("spell.") ) {
       action = game.system.api.models.CrucibleSpellAction.fromId(actionId, {actor});
     }
-    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone();
+    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone({tags: actionData.tags});
     else action = new this(actionData, {actor});
-    foundry.utils.mergeObject(action, actionData); // Re-apply prepared data
 
     // Load a MeasuredTemplate associated with this action
     if ( templateId ) action.template = fromUuidSync(templateId);

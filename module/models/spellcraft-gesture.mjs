@@ -26,7 +26,7 @@ export default class CrucibleSpellcraftGesture extends foundry.abstract.DataMode
   }
 
   /* -------------------------------------------- */
-
+1
   /** @inheritDoc */
   _initialize() {
     super._initialize();

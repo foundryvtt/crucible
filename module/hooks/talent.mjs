@@ -82,4 +82,18 @@ HOOKS.powerfulThrow000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.spellmute0000000 = {
+  defendSpellAttack(item, spell, origin, rollData) {
+    rollData.banes.spellmute = {label: item.name, number: 2};
+  },
+  prepareActions(item, actions) {
+    for ( const [id, action] of Object.entries(actions) ) {
+      if ( action.tags.has("spell") ) delete actions[id];
+    }
+    delete actions.cast;
+  }
+}
+
+/* -------------------------------------------- */
+
 export default HOOKS;

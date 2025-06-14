@@ -437,6 +437,7 @@ export const TAGS = {
         icon: "fa-solid fa-sparkles"
       });
       this.usage.context.tags.clear();
+      if ( this.composition === 0 ) return;
       this.usage.context.tags.add(`Rune: ${this.rune.name}`);
       this.usage.context.tags.add(`Gesture: ${this.gesture.name}`);
       if ( this.inflection ) this.usage.context.tags.add(this.inflection.name);
@@ -514,7 +515,7 @@ export const TAGS = {
               "focus.value": 9e99
             },
             details: {
-              level: Math.ceil(this.actor.system.details.threat / 2)
+              level: Math.ceil(this.actor.system.details.threatLevel / 2)
             }
           }
         }
