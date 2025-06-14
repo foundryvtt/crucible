@@ -7,11 +7,11 @@ system:
     A relentless and determined melee combatant that uses a mix of agility and
     power to subdue foes.
   abilities:
-    wisdom: 2
-    presence: 2
+    wisdom: 0
+    presence: 0
     intellect: 2
-    strength: 4
-    toughness: 4
+    strength: 3
+    toughness: 3
     dexterity: 4
   talents:
     - Compendium.crucible.talent.Item.dualwield0000000
@@ -26,10 +26,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1686145201526
-  modifiedTime: 1686145392340
+  modifiedTime: 1749862524643
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

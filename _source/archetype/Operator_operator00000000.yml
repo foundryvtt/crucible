@@ -1,0 +1,38 @@
+name: Operator
+type: archetype
+img: icons/magic/water/water-drop-swirl-blue.webp
+system:
+  description: >-
+    <p>Operators are experts at maneuvering in tense situations, able to balance
+    shrewd political sense with cunning and decisive action.</p>
+  abilities:
+    wisdom: 0
+    presence: 2
+    intellect: 4
+    strength: 0
+    toughness: 2
+    dexterity: 4
+  talents:
+    - Compendium.crucible.talent.Item.operator00000000
+    - Compendium.crucible.talent.Item.strategicreposit
+    - Compendium.crucible.talent.Item.subtleextricatio
+    - Compendium.crucible.talent.Item.weakpoints000000
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749849741883
+  modifiedTime: 1749862501482
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: operator00000000
+sort: 0
+_key: '!items!operator00000000'

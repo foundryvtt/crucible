@@ -6,12 +6,12 @@ system:
   description: <p>Lycanthropic shapeshifters who walk as men but take wolven form.</p>
   category: humanoid
   abilities:
-    wisdom: 2
-    presence: 2
-    intellect: 2
-    strength: 4
-    toughness: 4
-    dexterity: 4
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 3
+    dexterity: 3
   resistances:
     bludgeoning: 1
     corruption: -1
@@ -36,10 +36,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685839711891
-  modifiedTime: 1727403977261
+  modifiedTime: 1749861587430
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

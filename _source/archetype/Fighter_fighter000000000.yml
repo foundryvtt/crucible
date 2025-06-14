@@ -6,11 +6,11 @@ system:
     Hardened melee combatants expert at weilding one-handed weaponry, shield,
     and heavy armor.
   abilities:
-    wisdom: 2
-    presence: 3
-    intellect: 2
-    strength: 4
-    toughness: 4
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 3
     dexterity: 3
   talents:
     - Compendium.crucible.talent.Item.martialweapontra
@@ -26,10 +26,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1684889541198
-  modifiedTime: 1685738018324
+  modifiedTime: 1749861758228
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -6,9 +6,9 @@ img: icons/creatures/abilities/paw-glowing-yellow.webp
 system:
   description: Beasts that hunt in packs.
   abilities:
-    wisdom: 2
-    presence: 2
-    intellect: 4
+    wisdom: 0
+    presence: 0
+    intellect: 2
     strength: 3
     toughness: 3
     dexterity: 4
@@ -22,10 +22,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685217713904
-  modifiedTime: 1685286430521
+  modifiedTime: 1749862436016
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

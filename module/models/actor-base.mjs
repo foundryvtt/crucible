@@ -666,17 +666,18 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   _prepareResources() {
     const {isIncapacitated, isWeakened, statuses} = this.parent;
-    const {level: l, threatFactor, maxAction=6} = this.advancement;
+    const {level: l, threatScale, threatFactor, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;
 
     // Health
-    let levelBase = Math.max(Math.ceil(6 * l), 6);
-    r.health.max = (levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * threatFactor;
+    let levelBase = Math.max(l, 1) * 6;
+    const multiplier = l < 1 ? threatScale : threatFactor;
+    r.health.max = Math.ceil((levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * multiplier);
     r.health.value = Math.clamp(r.health.value, 0, r.health.max);
 
     // Morale
-    r.morale.max = (levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * threatFactor;
+    r.morale.max = Math.ceil((levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * multiplier);
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action

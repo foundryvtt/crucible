@@ -14,7 +14,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     return {
       description: new fields.HTMLField(),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 8})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
@@ -35,7 +35,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
   static #validateAbilities(abilities, options) {
     if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    if ( sum !== 18 ) throw new Error(`The sum of ability scaling values must equal 18. Currently ${sum}`);
+    if ( sum !== 12 ) throw new Error(`The sum of ability scaling values must equal 12. Currently ${sum}`);
   }
 
   /* -------------------------------------------- */
@@ -48,5 +48,22 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
    */
   get actor() {
     return this.parent.parent;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+
+    const abilities = source.abilities;
+    const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
+    /** @deprecated since 0.7.3 */
+    if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
+      obj[a] = 2;
+      return obj;
+    }, {});
   }
 }

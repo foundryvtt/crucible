@@ -9,11 +9,11 @@ system:
   category: beast
   abilities:
     wisdom: 1
-    presence: 2
+    presence: 1
     intellect: 1
-    strength: 6
-    toughness: 5
-    dexterity: 3
+    strength: 4
+    toughness: 4
+    dexterity: 1
   resistances:
     bludgeoning: 2
     corruption: 0
@@ -36,10 +36,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685230545477
-  modifiedTime: 1727364800894
+  modifiedTime: 1749861418023
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

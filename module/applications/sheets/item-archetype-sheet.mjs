@@ -58,7 +58,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const abilities = this.element.querySelector(".abilities");
     const inputs = abilities.querySelectorAll("input[type=number]");
     const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, 0);
-    const valid = total === 18;
+    const valid = total === 12;
     const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
     const span = abilities.querySelector(".sum");
     span.innerHTML = `${total} <i class="${icon}"></i>`;
@@ -71,9 +71,10 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
-    if ( fields.abilities.validate(submitData.system.abilities) !== undefined ) {
-      delete submitData.system.abilities;
+    if ( fields.abilities.validate(submitData.system.abilities) === undefined ) {
+      submitData.system["==abilities"] = submitData.system.abilities;
     }
+    delete submitData.system.abilities;
     return submitData;
   }
 

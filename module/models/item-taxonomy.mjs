@@ -18,7 +18,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       stride: new fields.NumberField({required: true, integer: true, nullable: false, min: 1, initial: 10}),
       category: new fields.StringField({choices: SYSTEM.ADVERSARY.TAXONOMY_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
-        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 3, min: 0, max: 6})
+        obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateAbilities}),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
@@ -47,7 +47,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
   static #validateAbilities(abilities, options) {
     if ( options.partial === true ) return;
     const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
-    if ( sum !== 18 ) throw new Error(`The sum of initial ability values must equal 18. Currently ${sum}`);
+    if ( sum !== 12 ) throw new Error(`The sum of initial ability values must equal 12. Currently ${sum}`);
   }
 
   /* -------------------------------------------- */
@@ -74,5 +74,22 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
    */
   get actor() {
     return this.parent.parent;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+
+    const abilities = source.abilities;
+    const sum = Object.values(abilities).reduce((t, n) => t + n, 0);
+    /** @deprecated since 0.7.3 */
+    if ( sum === 18 ) source.abilities = Object.keys(SYSTEM.ABILITIES).reduce((obj, a) => {
+      obj[a] = 2;
+      return obj;
+    }, {});
   }
 }

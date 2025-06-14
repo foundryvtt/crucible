@@ -7,12 +7,12 @@ system:
     <p>A magically fashioned and conjured creation corresponding to a particular
     arcane essence.</p>
   abilities:
-    wisdom: 1
+    wisdom: 2
     presence: 2
-    intellect: 3
-    strength: 4
-    toughness: 4
-    dexterity: 4
+    intellect: 2
+    strength: 2
+    toughness: 2
+    dexterity: 2
   talents: []
 effects: []
 ownership:
@@ -22,11 +22,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.3
   createdTime: 1727549793472
-  modifiedTime: 1727549793472
+  modifiedTime: 1749862560567
   lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: creation00000000

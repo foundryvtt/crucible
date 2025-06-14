@@ -7,16 +7,17 @@ system:
     <p>Spellblades are magically empowered warriors who weave spellcraft into
     their weapon attacks to create devastating strikes.</p>
   abilities:
-    wisdom: 1
-    presence: 2
+    wisdom: 0
+    presence: 0
     intellect: 4
-    strength: 5
-    toughness: 4
-    dexterity: 2
+    strength: 4
+    toughness: 3
+    dexterity: 1
   talents:
     - Compendium.crucible.talent.Item.spellblade000000
     - Compendium.crucible.talent.Item.gesturestrike000
     - Compendium.crucible.talent.Item.opportunisticspe
+    - Compendium.crucible.talent.Item.stronggrip000000
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -29,9 +30,9 @@ _stats:
   exportSource: null
   coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.7.3
   createdTime: 1749246074533
-  modifiedTime: 1749246074533
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1749862536757
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 0
 _key: '!items!archetypeSpellbl'

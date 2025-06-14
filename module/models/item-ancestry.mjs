@@ -81,15 +81,27 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
    */
   toTaxonomy() {
     const {abilities, description, movement, resistances, talents} = this.toObject();
+
+    // Determine ability allocation
+    const {primary, secondary} = abilities;
+    let tertiary;
+    if ( ![primary, secondary].includes("toughness") ) tertiary = "toughness";
+    else {
+      const opposites = {strength: "intellect", wisdom: "dexterity", intellect: "strength", dexterity: "wisdom"};
+      tertiary = opposites[primary === "toughness" ? secondary : primary];
+    }
+
+    // Prepare system data
     const system = {
       description,
       size: movement.size,
       stride: movement.stride,
       category: "humanoid",
       abilities: Object.values(SYSTEM.ABILITIES).reduce((obj, {id}) => {
-        if ( id === abilities.primary ) obj[id] = 6;
-        else if ( id === abilities.secondary ) obj[id] = 4;
-        else obj[id] = 2;
+        if ( id === primary ) obj[id] = 4;
+        else if ( id === secondary ) obj[id] = tertiary ? 3: 4;
+        else if ( id === tertiary ) obj[id] = 2;
+        else obj[id] = 1;
         return obj;
       }, {}),
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, {id}) => {
@@ -98,6 +110,10 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
         else obj[id] = 0;
         return obj;
       }, {}),
+      characteristics: {
+        equipment: true,
+        spells: true
+      },
       talents
     };
     return this.parent.clone({type: "taxonomy", "==system": system}, {keepId: true, save: false});

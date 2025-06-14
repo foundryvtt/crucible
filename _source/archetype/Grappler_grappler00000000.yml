@@ -8,11 +8,11 @@ system:
     rendering them susceptible to further attacks.
   abilities:
     wisdom: 2
-    presence: 2
-    intellect: 2
-    strength: 4
+    presence: 0
+    intellect: 0
+    strength: 5
     toughness: 4
-    dexterity: 4
+    dexterity: 1
   talents:
     - Compendium.crucible.talent.Item.powerfulphysique
     - Compendium.crucible.talent.Item.wrestler00000000
@@ -27,10 +27,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685831675455
-  modifiedTime: 1685831720999
+  modifiedTime: 1749862471574
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

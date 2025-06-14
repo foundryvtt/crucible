@@ -8,11 +8,11 @@ system:
     <p>Beasts that fight using their own mass, momentum, and sharpened
     tusks.</p>
   abilities:
-    wisdom: 1
-    presence: 3
-    intellect: 1
+    wisdom: 0
+    presence: 0
+    intellect: 0
     strength: 5
-    toughness: 5
+    toughness: 4
     dexterity: 3
   talents:
     - Compendium.crucible.adversary-talents.Item.tuskCharge000000
@@ -24,10 +24,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685230805102
-  modifiedTime: 1727362224291
+  modifiedTime: 1749862242626
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

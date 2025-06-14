@@ -8,12 +8,12 @@ system:
     problem-solving approach.</p>
   category: giant
   abilities:
-    wisdom: 3
-    presence: 2
+    wisdom: 1
+    presence: 1
     intellect: 1
     strength: 5
-    toughness: 5
-    dexterity: 2
+    toughness: 3
+    dexterity: 1
   resistances:
     bludgeoning: 2
     corruption: 0
@@ -29,6 +29,9 @@ system:
     void: 0
   size: 6
   stride: 10
+  characteristics:
+    spells: true
+    equipment: true
 effects: []
 ownership:
   default: 0
@@ -37,10 +40,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1684855210087
-  modifiedTime: 1727364997635
+  modifiedTime: 1749863204585
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

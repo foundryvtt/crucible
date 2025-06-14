@@ -5,9 +5,9 @@ system:
   description: <p>Undeathly denizens fashioned of bone and sinew.</p>
   category: undead
   abilities:
-    wisdom: 3
-    presence: 3
-    intellect: 2
+    wisdom: 1
+    presence: 0
+    intellect: 1
     strength: 4
     toughness: 4
     dexterity: 2
@@ -26,6 +26,9 @@ system:
     void: 0
   size: 4
   stride: 8
+  characteristics:
+    equipment: true
+    spells: true
 effects: []
 folder: REYz7fzLYEdBX3A2
 ownership:
@@ -35,10 +38,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1686180658805
-  modifiedTime: 1727379008614
+  modifiedTime: 1749863188435
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

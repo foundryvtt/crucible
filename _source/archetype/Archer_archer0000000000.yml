@@ -5,12 +5,12 @@ img: icons/weapons/bows/shortbow-white.webp
 system:
   description: Ranged combatants with training is the use of bows.
   abilities:
-    wisdom: 2
-    presence: 2
-    intellect: 3
-    strength: 4
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 3
     toughness: 2
-    dexterity: 5
+    dexterity: 4
   talents:
     - Compendium.crucible.talent.Item.archerytraining0
     - Compendium.crucible.talent.Item.precisionshot000
@@ -24,10 +24,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685738036284
-  modifiedTime: 1685738623416
+  modifiedTime: 1749861721679
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

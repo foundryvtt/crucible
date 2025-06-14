@@ -5,11 +5,11 @@ system:
   description: A magic user which wields flame and electricity in battle.
   abilities:
     wisdom: 3
-    presence: 4
-    intellect: 5
-    strength: 2
+    presence: 3
+    intellect: 4
+    strength: 0
     toughness: 2
-    dexterity: 2
+    dexterity: 0
   talents:
     - Compendium.crucible.talent.Item.runeflame0000000
     - Compendium.crucible.talent.Item.runelightning000
@@ -26,10 +26,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685656712818
-  modifiedTime: 1685738625970
+  modifiedTime: 1749861798304
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

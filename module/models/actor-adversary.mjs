@@ -109,7 +109,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     this.advancement.threatScale = threatScale * this.advancement.threatFactor;
 
     // TODO: Automatic skill progression rank (temporary)
-    this.advancement._autoSkillRank = Math.clamp(Math.ceil(threatLevel / 6), 0, 5);
+    this.advancement._autoSkillRank = Math.clamp(Math.ceil(threatLevel / 6), 0, 4);
     this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes
@@ -135,50 +135,70 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     }
 
     // Identify points to spend
-    let toSpend = this.advancement.threatLevel - 1;
+    let toSpend = Math.max(this.advancement.level, 0);
+    if ( toSpend === 0 ) return;
 
-    // Compute Archetype scaling weights
-    const weights = {};
-    let wTotal = 0;
-    const maxA = this.advancement.threatLevel <= 0 ? Math.max(...Object.values(archetype.abilities)) : undefined;
+    // Compute Archetype scaling
+    const abilities = {};
+    const total = {points: 0, points2: 0};
     for ( const k in SYSTEM.ABILITIES ) {
-      const w = this.advancement.threatLevel > 0 ? archetype.abilities[k] : (maxA + 1 - archetype.abilities[k]);
-      weights[k] = Math.pow(w, 2);
-      wTotal += weights[k];
+      const ability = {points: taxonomy.abilities[k] > 0 ? archetype.abilities[k] : 0};
+      abilities[k] = ability;
+      total.points += ability.points;
     }
+    for ( const k in abilities ) abilities[k].weight = abilities[k].points / total.points;
 
     // Pass 1: Unconstrained Increases
-    let spent = 0;
-    for ( const k in SYSTEM.ABILITIES ) {
-      weights[k] /= wTotal;
-      const a = this.abilities[k];
-      a.desired = a.base + (toSpend * weights[k]);
-      let d = Math.round(Math.abs(toSpend) * weights[k]) * Math.sign(toSpend);
-      a.increases = Math.clamp(d, 1 - a.value, 18 - a.value);
-      a.value = a.base + a.increases;
-      spent += a.increases;
+    const nFull = Math.floor(toSpend / total.points);
+    if ( nFull > 0 ) {
+      for ( const [k, abl] of Object.entries(abilities) ) {
+        const a = this.abilities[k];
+        a.increases += (abl.points * nFull);
+        a.value = a.base + a.increases;
+      }
+      toSpend -= (nFull * total.points);
     }
-    if ( spent === toSpend ) return;
+    if ( toSpend === 0 ) return;
 
     // Pass 2: Iterative Assignment
-    const delta = Math.sign(toSpend - spent);
-    const order = [];
-    for ( const k in SYSTEM.ABILITIES ) {
-      const a = this.abilities[k];
-      const capped = delta > 0 ? a.value === 18 : a.value === 1;
-      if ( !capped ) order.push([k, a.desired, a.value]);
+    const allocation = {};
+    for ( const k in abilities ) {
+      const w = abilities[k].weight;
+      const v0 = toSpend * w;
+      const t0 = Math.min(v0, (18 - this.abilities[k].value), abilities[k].points);
+      const p0 = Math.floor(t0);
+
+      // How many more points are needed to get another +1?
+      const t1 = Math.min(v0 + 1, (18 - this.abilities[k].value), abilities[k].points);
+      const p1 = Math.floor(t1);
+      const needed = (p1 - t0) / w;
+      allocation[k] = {w, v0, t0, p0, t1, p1, needed};
     }
-    while ( spent !== toSpend ) {
-      if ( !order.length ) break;                                           // No uncapped abilities remaining
-      if ( delta > 0 ) order.sort((a, b) => (b[1] - b[2]) - (a[1] - a[2]))  // Increase farthest below desired value
-      else order.sort((a, b) => (a[1] - a[2]) - (b[1] - b[2]));             // Reduce farthest above desired value
-      const target = order[0];
-      const a = this.abilities[target[0]];
-      a.increases += delta;
-      target[2] = a.value += delta;
-      const capped = delta > 0 ? a.value === 18 : a.value === 1;
-      if ( capped ) order.shift();
-      spent += delta;
+
+    // Unambiguous allocation
+    const remainder = [];
+    for ( const k in allocation ) {
+      const {p0, p1, needed} = allocation[k];
+      const a = this.abilities[k];
+      a.increases += p0;
+      toSpend -= p0;
+      a.value = a.base + a.increases;
+      if ( (p1 > p0) && Number.isFinite(needed) ) remainder.push({ability: k, needed});
+    }
+    if ( toSpend === 0 ) return;
+
+    // Sort remainder
+    const tiebreaker = {toughness: 1, strength: 2, dexterity: 3, presence: 4, intellect: 5, wisdom: 6};
+    remainder.sort((a, b) => {
+      return (a.needed - b.needed) ||                                               // Fewest points needed
+             (taxonomy.abilities[b.ability] - taxonomy.abilities[a.ability]) ||     // Taxonomy preference
+             (tiebreaker[a.ability] - tiebreaker[b.ability]);                       // Heuristic tiebreaker
+    });
+    for ( const {ability} of remainder.slice(0, toSpend) ) {
+      const a = this.abilities[ability];
+      a.increases += 1;
+      toSpend -= 1;
+      a.value = a.base + a.increases;
     }
   }
 
@@ -265,5 +285,18 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     tags.archetype = this.details.archetype?.name || "No Archetype";
     tags.level = `Threat Level ${this.advancement.threatLevel}`;
     return tags;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+    /** @deprecated since 0.7.3 */
+    if ( source.details.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
+    /** @deprecated since 0.7.3 */
+    if ( source.details.taxonomy ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.taxonomy);
   }
 }

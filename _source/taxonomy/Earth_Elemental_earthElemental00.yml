@@ -8,12 +8,12 @@ system:
   stride: 10
   category: elemental
   abilities:
-    wisdom: 2
-    presence: 2
-    intellect: 3
-    strength: 5
-    toughness: 4
-    dexterity: 2
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 3
+    toughness: 5
+    dexterity: 1
   resistances:
     bludgeoning: 2
     corruption: -3
@@ -27,6 +27,8 @@ system:
     psychic: -3
     radiant: 0
     void: -3
+  characteristics:
+    spells: true
 effects: []
 ownership:
   default: 0
@@ -35,11 +37,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.3
   createdTime: 1727550052597
-  modifiedTime: 1727550411670
+  modifiedTime: 1749863210560
   lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: earthElemental00

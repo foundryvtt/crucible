@@ -10,10 +10,10 @@ system:
   abilities:
     wisdom: 3
     presence: 1
-    intellect: 3
-    strength: 4
-    toughness: 5
-    dexterity: 2
+    intellect: 1
+    strength: 3
+    toughness: 3
+    dexterity: 1
   resistances:
     bludgeoning: -1
     corruption: 0
@@ -27,6 +27,8 @@ system:
     psychic: 0
     radiant: -2
     void: 1
+  characteristics:
+    spells: true
 effects: []
 ownership:
   default: 0
@@ -35,11 +37,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.3
   createdTime: 1727550247100
-  modifiedTime: 1727550411670
+  modifiedTime: 1749863216852
   lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: frostElemental00

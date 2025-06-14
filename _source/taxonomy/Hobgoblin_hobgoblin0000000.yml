@@ -9,12 +9,12 @@ system:
     uncompromising, making dangerous foes or powerful allies.
   category: humanoid
   abilities:
-    wisdom: 2
-    presence: 2
-    intellect: 4
-    strength: 4
-    toughness: 4
-    dexterity: 2
+    wisdom: 1
+    presence: 1
+    intellect: 3
+    strength: 3
+    toughness: 3
+    dexterity: 1
   resistances:
     bludgeoning: 0
     corruption: 0
@@ -28,6 +28,9 @@ system:
     psychic: -2
     radiant: 0
     void: 0
+  characteristics:
+    equipment: true
+    spells: true
 effects: []
 folder: XE2BjE0vCGKPdZU7
 sort: 100000
@@ -37,10 +40,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1684888260461
-  modifiedTime: 1685230535494
+  modifiedTime: 1749863194252
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -4,11 +4,11 @@ img: icons/magic/unholy/silhouette-evil-horned-giant.webp
 system:
   description: A rage-fueled warrior which prefers two-handed attacks using Heavy weapons.
   abilities:
-    wisdom: 2
-    presence: 3
-    intellect: 1
-    strength: 5
-    toughness: 5
+    wisdom: 1
+    presence: 1
+    intellect: 0
+    strength: 4
+    toughness: 4
     dexterity: 2
   talents:
     - Compendium.crucible.talent.Item.heavystrike00000
@@ -23,10 +23,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.8.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1684888350310
-  modifiedTime: 1685217691170
+  modifiedTime: 1749861737879
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

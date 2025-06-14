@@ -6,11 +6,11 @@ system:
   description: Magic users who practice spellcraft using otherworldly and eldritch forces.
   abilities:
     wisdom: 4
-    presence: 5
-    intellect: 4
-    strength: 1
+    presence: 3
+    intellect: 3
+    strength: 0
     toughness: 2
-    dexterity: 2
+    dexterity: 0
   talents:
     - Compendium.crucible.talent.Item.runedeath0000000
     - Compendium.crucible.talent.Item.runecourage00000
@@ -26,10 +26,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1685738637867
-  modifiedTime: 1685830841369
+  modifiedTime: 1749861856036
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
