@@ -1,9 +1,9 @@
 type: Item
 folder: null
-name: Accessories
-color: '#b32919'
+name: Consumables
+color: '#62160e'
 sorting: a
-_id: 35paE0gSxlbefy7n
+_id: 28lvOLF0NPxRjMta
 description: ''
 sort: 0
 flags: {}
@@ -14,7 +14,7 @@ _stats:
   coreVersion: '13.345'
   systemId: crucible
   systemVersion: 0.7.3
-  createdTime: 1749821886723
-  modifiedTime: 1750001267938
+  createdTime: 1750001199401
+  modifiedTime: 1750001334778
   lastModifiedBy: AnoypGxxNIMOS0XY
-_key: '!folders!35paE0gSxlbefy7n'
+_key: '!folders!28lvOLF0NPxRjMta'

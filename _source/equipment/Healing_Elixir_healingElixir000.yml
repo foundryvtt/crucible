@@ -1,0 +1,78 @@
+name: Healing Elixir
+type: consumable
+img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+system:
+  identifier: healingElixir
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 40
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>This potion contains a specialized alchemical formula to rapidly close
+      wounds and improve bodily health.</p>
+    private: ''
+  actions:
+    - id: healingElixir
+      name: Healing Elixir
+      img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+      condition: ''
+      description: >-
+        <p>Immediately recover an amount of <strong>Health</strong> dependant on
+        the quality of the elixir.</p><ul><li><p><strong>Shoddy</strong> -
+        Immediately heals 6
+        <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
+        Immediately heals 12
+        <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
+        Immediately heals 24
+        <strong>Health</strong>.</p></li><li><p><strong>Superior</strong> -
+        Immediately heals 48
+        <strong>Health</strong>.</p></li><li><p><strong>Masterwork</strong> -
+        Immediately heals 96 <strong>Health</strong>.</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: true
+      effects: []
+      tags:
+        - consume
+        - healing
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: WqUGvC0ubhjrpvz9
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750025332318
+  modifiedTime: 1750025332318
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: healingElixir000
+sort: 0
+_key: '!items!healingElixir000'

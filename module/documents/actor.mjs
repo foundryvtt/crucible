@@ -907,8 +907,8 @@ export default class CrucibleActor extends Actor {
    * This method is only called for one User who has ownership permission over the Actor.
    *
    * Turn start workflows proceed in the following order:
-   * 1. Active Effects are expired or gained
-   * 2. Damage-Over-Time effects are applied
+   * 1. Damage-Over-Time effects are applied
+   * 2. Active Effects are expired or gained
    * 3. Resource recovery occurs
    * @returns {Promise<void>}
    */
@@ -930,11 +930,11 @@ export default class CrucibleActor extends Actor {
     const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
     this.callActorHooks("startTurn", turnStartConfig);
 
+    // Apply damage-over-time
+    await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+
     // Remove Active Effects which expire at the start of a turn (round)
     await this.applyActiveEffectChanges(true, effectChanges);
-
-    // Apply damage-over-time before recovery
-    await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
 
     // Recover resources
     await this.alterResources(resourceRecovery, actorUpdates, {statusText});
@@ -1052,7 +1052,7 @@ export default class CrucibleActor extends Actor {
    */
   #isEffectExpired(effect, start=true) {
     const {startRound, rounds, turns} = effect.duration;
-    const elapsed = game.combat.round - startRound + 1;
+    const elapsed = game.combat.round - startRound;
 
     // Turn-based effects expire at the end of the turn
     if ( turns > 0 ) {
@@ -1063,7 +1063,7 @@ export default class CrucibleActor extends Actor {
     // Round-based effects expire at the start of the turn
     else if ( rounds > 0 ) {
       if ( !start ) return false;
-      return elapsed > rounds;
+      return elapsed >= rounds;
     }
   }
 

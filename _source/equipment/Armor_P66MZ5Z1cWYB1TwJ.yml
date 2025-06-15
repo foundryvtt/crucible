@@ -1,7 +1,7 @@
 type: Item
 folder: null
 name: Armor
-color: '#380d05'
+color: '#861f13'
 sorting: a
 _id: P66MZ5Z1cWYB1TwJ
 description: ''
@@ -15,6 +15,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749828632926
-  modifiedTime: 1749828638078
+  modifiedTime: 1750001313658
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!folders!P66MZ5Z1cWYB1TwJ'

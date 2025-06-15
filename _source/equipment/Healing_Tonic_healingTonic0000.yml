@@ -1,0 +1,84 @@
+name: Healing Tonic
+type: consumable
+img: icons/consumables/potions/potion-tube-corked-red.webp
+system:
+  identifier: healingTonic
+  category: flask
+  quantity: 1
+  weight: 0
+  price: 60
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>This potion contains a specialized alchemical formula to gradually
+      close wounds and improve bodily health.</p>
+    private: ''
+  actions:
+    - id: healingTonic
+      name: Healing Tonic
+      img: icons/consumables/potions/potion-tube-corked-red.webp
+      condition: ''
+      description: >-
+        <p>Immediately, and at the beginning of each of the next 5
+        <strong>Rounds</strong>, recover an amount of <strong>Health</strong>
+        dependent on the quality of the
+        tonic.</p><ul><li><p><strong>Shoddy</strong> - Heals 2
+        <strong>Health</strong> each
+        Round</p></li><li><p><strong>Standard</strong> - Heals 4 <strong>Health
+        </strong>each Round</p></li><li><p><strong>Fine </strong>- Heals 8
+        <strong>Health </strong>each
+        Round</p></li><li><p><strong>Superior</strong> - Heals 16 <strong>Health
+        </strong>each Round</p></li><li><p><strong>Masterwork</strong> - Heals
+        32 <strong>Health </strong>each Round</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: true
+      effects:
+        - name: Healing Tonic
+          scope: 4
+          statuses: []
+          duration:
+            turns: null
+            rounds: 5
+      tags:
+        - consume
+        - healing
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: WqUGvC0ubhjrpvz9
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750025333808
+  modifiedTime: 1750025333808
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: healingTonic0000
+sort: 0
+_key: '!items!healingTonic0000'

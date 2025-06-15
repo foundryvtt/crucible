@@ -1,0 +1,40 @@
+name: Spellmute
+type: talent
+img: icons/magic/air/air-pressure-shield-blue.webp
+system:
+  nodes:
+    - tou2b
+  description: >-
+    <p>Currents of magic flow strangely around you, as if unaware of your
+    presence.</p><p>You cannot perform any action with the
+    <strong>Spell</strong> tag. Spells which target you suffer +2
+    <strong>Banes</strong> regardless of whether they impose harmful or
+    beneficial effects.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: Uk4FgmLsNJc62zCJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1749944001745
+  modifiedTime: 1749944001745
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: spellmute0000000
+sort: 0
+_key: '!items!spellmute0000000'

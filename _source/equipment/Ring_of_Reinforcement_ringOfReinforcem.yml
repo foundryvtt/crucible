@@ -34,7 +34,7 @@ system:
   actorHooks: []
   identifier: reinforcement
 effects: []
-folder: 35paE0gSxlbefy7n
+folder: dNk8eE87Ep8GtNse
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -47,8 +47,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749823360454
-  modifiedTime: 1749823360454
+  modifiedTime: 1750001365528
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: ringOfReinforcem
-sort: 0
+sort: 200000
 _key: '!items!ringOfReinforcem'

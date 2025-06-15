@@ -28,6 +28,9 @@
         <div class="form-fields">
             <input type="number" name="effects.{{i}}.duration.turns" min="1" step="1" value="{{effect.duration.turns}}">
             <label>Turns</label>
+            <input type="number" name="effects.{{i}}.duration.rounds" min="1" step="1" value="{{effect.duration.rounds}}">
+            <label>Rounds</label>
         </div>
+        <p class="hint">Effects with duration in Turns expire at the end of the Actor's turn. Effects with duration in Rounds expire at the beginning of the Actor's turn.</p>
     </div>
 </fieldset>

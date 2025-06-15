@@ -1,9 +1,9 @@
 type: Item
-folder: null
-name: Accessories
-color: '#b32919'
+folder: 28lvOLF0NPxRjMta
+name: Flasks
+color: null
 sorting: a
-_id: 35paE0gSxlbefy7n
+_id: WqUGvC0ubhjrpvz9
 description: ''
 sort: 0
 flags: {}
@@ -14,7 +14,5 @@ _stats:
   coreVersion: '13.345'
   systemId: crucible
   systemVersion: 0.7.3
-  createdTime: 1749821886723
-  modifiedTime: 1750001267938
-  lastModifiedBy: AnoypGxxNIMOS0XY
-_key: '!folders!35paE0gSxlbefy7n'
+  lastModifiedBy: null
+_key: '!folders!WqUGvC0ubhjrpvz9'

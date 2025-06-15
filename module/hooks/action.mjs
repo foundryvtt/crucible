@@ -1,3 +1,5 @@
+import {getEffectId} from "../config/effects.mjs";
+
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -76,8 +78,22 @@ HOOKS.disarmingStrike = {
 HOOKS.healingElixir = {
   postActivate(outcome) {
     const quality = this.usage.consumable.config.quality;
-    let amount = 4;
+    let amount = 6;
     for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
+    outcome.resources.health = (outcome.resources.health || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.healingTonic = {
+  postActivate(outcome) {
+    const quality = this.usage.consumable.config.quality;
+    let amount = 2;
+    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
+    const effect = outcome.effects[0];
+    effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
+    foundry.utils.setProperty(effect, "flags.crucible.dot.health", -amount);
     outcome.resources.health = (outcome.resources.health || 0) + amount;
   }
 }
@@ -93,6 +109,31 @@ HOOKS.laughingMatter = {
       {key: "system.rollBonuses.banes.laughingMatter.number", mode: 5, value: 1},
       {key: "system.rollBonuses.banes.laughingMatter.label", mode: 5, value: this.name},
     );
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rallyingElixir = {
+  postActivate(outcome) {
+    const quality = this.usage.consumable.config.quality;
+    let amount = 6;
+    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
+    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rallyingTonic = {
+  postActivate(outcome) {
+    const quality = this.usage.consumable.config.quality;
+    let amount = 2;
+    for ( let i=1; i<=(quality.bonus+1); i++ ) amount *= 2;
+    const effect = outcome.effects[0];
+    effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
+    foundry.utils.setProperty(effect, "flags.crucible.dot.morale", -amount);
+    outcome.resources.morale = (outcome.resources.morale || 0) + amount;
   }
 }
 

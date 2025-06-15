@@ -514,7 +514,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       // Round-based duration
       else if ( Number.isFinite(rounds) ) {
         section = "temporary";
-        const remaining = rounds - elapsed + 1;
+        const remaining = rounds - elapsed;
         t = 1000000 * remaining;
         tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
       }
