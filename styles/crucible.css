@@ -1560,6 +1560,9 @@
   bottom: 0;
   right: 0;
 }
+.crucible.sheet.actor .tab.inventory .items-list .hint {
+  font-size: var(--font-size-12);
+}
 .crucible.sheet.actor .tab.talents .header-section {
   margin: -1rem 0;
 }

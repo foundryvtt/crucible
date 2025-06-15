@@ -19,9 +19,10 @@
         <legend>{{fields.target.label}}</legend>
         {{formGroup fields.target.fields.scope value=action.target.scope}}
         {{formGroup fields.target.fields.type value=action.target.type}}
-        {{formGroup fields.target.fields.number value=action.target.number}}
-        {{formGroup fields.target.fields.size value=action.target.size}}
-        {{formGroup fields.target.fields.limit value=action.target.limit}}
-        {{formGroup fields.target.fields.multiple value=action.target.multiple}}
+        {{formGroup fields.target.fields.number value=action.target.number classes="slim"}}
+        {{formGroup fields.target.fields.size value=action.target.size classes="slim"}}
+        {{formGroup fields.target.fields.limit value=action.target.limit classes="slim"}}
+        {{formGroup fields.target.fields.multiple value=action.target.multiple classes="slim"}}
+        {{formGroup fields.target.fields.self value=action.target.self}}
     </fieldset>
 </section>

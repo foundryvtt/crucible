@@ -1470,7 +1470,7 @@ export default class CrucibleActor extends Actor {
    * @throws {Error}                        An Error if the Item cannot be equipped
    */
   async equipItem(item, {slot, dropped=false, equipped=true}={}) {
-    if ( typeof item === "string" ) item = this.items.get(itemId);
+    if ( typeof item === "string" ) item = this.items.get(item);
     if ( !(item instanceof foundry.documents.Item) || (item.parent !== this) ) {
       throw new Error(`Invalid Item "${item?.uuid}" cannot be equipped`);
     }
@@ -1480,6 +1480,8 @@ export default class CrucibleActor extends Actor {
         return this.#equipAccessory(item, {equipped});
       case "armor":
         return this.#equipArmor(item, {equipped});
+      case "consumable":
+        return this.#equipConsumable(item, {equipped});
       case "weapon":
         return this.#equipWeapon(item, {slot, dropped, equipped});
     }
@@ -1495,9 +1497,9 @@ export default class CrucibleActor extends Actor {
    * @throws {Error}              An Error if the Item cannot be equipped
    */
   async #equipAccessory(item, {equipped}) {
-    const current = this.equipment.accessories;
+    const {accessories, accessorySlots} = this.equipment;
     if ( !equipped ) return item.update({system: {equipped: false}});
-    if ( current.length === 3 ) {
+    if ( accessories.length === accessorySlots ) {
       throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: item.name,
@@ -1527,6 +1529,28 @@ export default class CrucibleActor extends Actor {
         actor: this.name,
         item: item.name,
         type: game.i18n.localize("TYPES.Item.armor")
+      }));
+    }
+    return item.update({system: {equipped: true}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Equip a consumable Item.
+   * @param {CrucibleItem} item   The accessory Item to equip
+   * @param {CrucibleEquipItemOptions} [options]  Options which configure how the Item is equipped
+   * @return {Promise}            A Promise which resolves once the Item has been equipped or un-equipped
+   * @throws {Error}              An Error if the Item cannot be equipped
+   */
+  async #equipConsumable(item, {equipped}) {
+    const {consumables, consumableSlots} = this.equipment;
+    if ( !equipped ) return item.update({system: {equipped: false}});
+    if ( consumables.length === consumableSlots ) {
+      throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
+        actor: this.name,
+        item: item.name,
+        type: game.i18n.localize("TYPES.Item.accessory")
       }));
     }
     return item.update({system: {equipped: true}});

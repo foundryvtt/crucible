@@ -115,8 +115,8 @@ export const ACTION_HOOKS = Object.freeze({
     async: true
   },
   confirm: {
-    argNames: [],
-    argLabels: [],
+    argNames: ["reverse"],
+    argLabels: ["reverse: boolean"],
     async: true
   }
 });

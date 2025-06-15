@@ -9,7 +9,7 @@ import CrucibleItem from "../../documents/item.mjs";
  */
 export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin(api.DocumentSheetV2) {
   constructor({action, ...options}={}) {
-    const document = action.parent.parent;
+    const document = action.item;
     if ( !(document instanceof CrucibleItem) ) {
       throw new Error("You may only use the CrucibleActionConfig sheet to configure an Action that belongs to an Item.");
     }

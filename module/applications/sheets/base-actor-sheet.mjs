@@ -316,6 +316,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Prepare rendering data for items owned by the Actor.
    */
   #prepareItems() {
+    const {accessorySlots, consumableSlots} = this.actor.equipment;
     const sections = {
       talents: {
         signature: {label: "Signature Talents", items: []},
@@ -325,7 +326,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         spell: {label: "Spellcraft Talents", items: []}
       },
       inventory: {
-        equipment: {label: "Equipment", items: [], empty: game.i18n.localize("ACTOR.LABELS.EQUIPMENT_HINT")},
+        weapon: {label: "Weapons", items: [], empty: game.i18n.localize("ACTOR.LABELS.WEAPONS_HINT")},
+        armor: {label: "Armor", items: [], empty: game.i18n.localize("ACTOR.LABELS.ARMOR_HINT")},
+        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {number: accessorySlots})},
+        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {number: consumableSlots})},
         backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
       },
       iconicSpells: {label: game.i18n.localize("SPELL.IconicPl"), items: []}
@@ -337,50 +341,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       let section;
       switch(i.type) {
         case "accessory":
-          Object.assign(d, {
-            equipped: i.system.equipped,
-            quantity: i.system.quantity,
-            showStack: i.system?.quantity && (i.system.quantity !== 1),
-            cssClass: i.system.equipped ? "equipped" : "unequipped",
-            sort: 3,
-          })
-          if ( i.system.equipped ) d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Accessory"});
-          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Acccessory"});
-          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
-          break;
         case "armor":
-          Object.assign(d, {
-            equipped: i.system.equipped,
-            quantity: i.system.quantity,
-            showStack: i.system?.quantity && (i.system.quantity !== 1),
-            cssClass: i.system.equipped ? "equipped" : "unequipped",
-            sort: 2,
-          })
-          if ( i.system.equipped ) d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Armor"});
-          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Armor"});
-          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
+        case "consumable":
+          this.#preparePhysicalItem(i, d);
+          section = i.system.equipped ? sections.inventory[i.type] : sections.inventory.backpack;
           break;
         case "weapon":
-          Object.assign(d, {
-            dropped: i.system.dropped,
-            equipped: i.system.equipped,
-            quantity: i.system.quantity,
-            showStack: i.system?.quantity && (i.system.quantity !== 1),
-            cssClass: i.system.equipped ? "equipped" : "unequipped",
-            sort: 1
-          })
-          if ( i.system.dropped ) {
-            d.cssClass += " dropped";
-            d.actions.push({action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: "Recover Weapon"});
+          this.#preparePhysicalItem(i, d);
+          if ( !i.system.dropped ) {
+            d.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
           }
-          else if ( i.system.equipped ) {
-            d.actions.push(
-              {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: "Un-equip Weapon"},
-              {action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"},
-            );
-          }
-          else d.actions.push({action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: "Equip Item"});
-          section = i.system.equipped ? sections.inventory.equipment : sections.inventory.backpack;
+          section = i.system.equipped ? sections.inventory.weapon : sections.inventory.backpack;
           break;
         case "base":
         case "loot":
@@ -410,6 +381,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Sort inventory
     for ( const heading of Object.values(sections.inventory) ) {
+      if ( heading.counter ) heading.label += ` (${heading.items.length}/${heading.counter})`;
       heading.items.sort((a, b) => (a.sort - b.sort) || a.name.localeCompare(b.name));
     }
 
@@ -419,6 +391,35 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       heading.items.sort((a, b) => (a.tier - b.tier) || a.name.localeCompare(b.name));
     }
     return sections;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Standard preparation steps for all physical item types.
+   * @param {CrucibleItem} item
+   * @param {object} config
+   */
+  #preparePhysicalItem(item, config) {
+    const sortOrder = {weapon: 1, armor: 2, accessory: 3, consumable: 4};
+    config.dropped = item.system.dropped;
+    config.equipped = item.system.equipped;
+    config.quantity = item.system.quantity;
+    config.showStack = item.system.isStacked;
+    config.cssClass = item.system.equipped ? "equipped" : "unequipped";
+    config.sort = sortOrder[item.type] ?? Infinity;
+
+    // Equip/Unequip/Recover action
+    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
+    let equipAction;
+    if ( item.system.dropped ) {
+      config.cssClass += " dropped";
+      equipAction = {action: "itemEquip", icon: "fa-solid fa-hand-back-fist", tooltip: `Recover ${typeLabel}`};
+    }
+    else equipAction = item.system.equipped ?
+      {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: `Un-equip ${typeLabel}`} :
+      {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: `Equip ${typeLabel}`};
+    config.actions.push(equipAction);
   }
 
   /* -------------------------------------------- */
@@ -439,9 +440,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const favorites = [];
 
     // Iterate over all Actions
-    for ( const action of Object.values(this.actor.actions) ) {
+    for ( const [actionId, action] of Object.entries(this.actor.actions) ) {
       const a = {
-        id: action.id,
+        id: actionId,
         name: action.name,
         img: action.img,
         tags: action.getTags().activation,
@@ -781,9 +782,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   static async #onActionFavorite(event) {
     const actionId = event.target.closest(".action").dataset.actionId;
-    const favorites = this.actor.system.favorites.filter(id => (id in this.actor.actions));
-    if ( favorites.has(actionId) ) favorites.delete(actionId);
-    else favorites.add(actionId);
+    const action = this.actor.actions[actionId];
+    if ( !action ) return;
+
+    // Restrict favorites to actions which still exist
+    const priorFavorites = this.actor.system.favorites;
+    const favorites = new Set();
+    for ( const action of Object.values(this.actor.actions) ) {
+      if ( priorFavorites.has(action.id) ) favorites.add(action.id);
+    }
+
+    // Toggle favorite state for this action
+    if ( favorites.has(action.id) ) favorites.delete(action.id);
+    else favorites.add(action.id);
     await this.actor.update({"system.favorites": favorites});
   }
 

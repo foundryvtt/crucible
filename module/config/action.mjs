@@ -426,12 +426,21 @@ export const TAGS = {
     label: "ACTION.TagConsume",
     tooltip: "ACTION.TagConsumeTooltip",
     category: "special",
+    prepare() {
+      if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
+    },
+    displayOnSheet(_combatant) {
+      return this.usage.consumable?.system.isDepleted === false;
+    },
     canUse(_targets) {
       const item = this.usage.consumable;
-      if ( item?.type !== "consumable" ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
-      if ( item.isDepleted ) {
+      if ( !item ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
+      if ( item.system.isDepleted ) {
         throw new Error(`Consumable item "${item.name}" has no uses remaining for Action "${this.id}"`);
       }
+    },
+    async confirm(reverse) {
+      await this.usage.consumable.system.consume(reverse ? -1 : 1);
     }
   },
 

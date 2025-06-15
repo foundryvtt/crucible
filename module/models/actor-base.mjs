@@ -397,20 +397,21 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /**
    * Classify the Items in the Actor's inventory to identify current equipment.
    * @param {Record<string, CrucibleItem[]>} items
-   * @param {CrucibleItem[]} items.armor
-   * @param {CrucibleItem[]} items.weapon
-   * @param {CrucibleItem[]} items.accessory
    * @returns {CrucibleActorEquipment}
    */
-  #prepareEquipment({armor: armorItems, weapon: weaponItems, accessory: accessoryItems}={}) {
+  #prepareEquipment(items) {
+    const accessorySlots = 3;  // TODO allow this to be modified by talents
+    const consumableSlots = 3; // TODO allow this to be modified by talents
 
     // Prepare and configure equipment
-    const armor = this._prepareArmor(armorItems);
-    const weapons = this._prepareWeapons(weaponItems);
-    const accessories = this._prepareAccessories(accessoryItems);
+    const armor = this._prepareArmor(items.armor);
+    const weapons = this._prepareWeapons(items.weapon);
+    const accessories = this._prepareAccessories(items.accessory, accessorySlots);
+    const consumables = this._prepareConsumables(items.consumable, consumableSlots);
     const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
-    Object.assign(this.equipment, {armor, weapons, accessories, canFreeMove, unarmored});
+    Object.assign(this.equipment, {armor, weapons, accessories, consumables, canFreeMove, unarmored,
+      accessorySlots, consumableSlots});
 
     // Register actor hooks for equipped items
     this.#registerActorHooks(armor);
@@ -424,14 +425,15 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /**
    * Prepare the accessory Items that this Actor has equipped.
    * @param {CrucibleItem[]} accessoryItems   The accessory type Items in the Actor's inventory
+   * @param {number} slots                    The maximum allowed accessory slots
    * @returns {CrucibleItem[]}                The accessory Items which are equipped
    * @protected
    */
-  _prepareAccessories(accessoryItems) {
+  _prepareAccessories(accessoryItems, slots) {
     let equipped = accessoryItems.filter(i => i.system.equipped);
-    if ( equipped.length > 3 ) {
-      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than three equipped accessories.`);
-      equipped = equipped.slice(0, 3);
+    if ( equipped.length > slots ) {
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than ${slots} equipped accessories.`);
+      equipped = equipped.slice(0, slots);
     }
     return equipped;
   }
@@ -451,6 +453,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       armors = armors[0];
     }
     return armors[0] || crucible.api.models.CrucibleArmorItem.getUnarmoredArmor(this.parent);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the consumable Items that this Actor has equipped.
+   * @param {CrucibleItem[]} consumableItems  The consumable type Items in the Actor's inventory
+   * @param {number} slots                    The maximum allowed consumable slots
+   * @returns {CrucibleItem[]}                The consumable Items which are equipped
+   * @protected
+   */
+  _prepareConsumables(consumableItems, slots) {
+    let equipped = consumableItems.filter(i => i.system.equipped);
+    if ( equipped.length > slots ) {
+      console.warn(`Crucible | Actor [${this.parent.uuid}] ${this.name} has more than ${slots} equipped consumables.`);
+      equipped = equipped.slice(0, slots);
+    }
+    return equipped;
   }
 
   /* -------------------------------------------- */
@@ -878,7 +898,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #registerItemActions(item) {
     if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
-      this.actions[action.id] = action.bind(this.parent);
+      const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;
+      this.actions[actionId] = action.bind(this.parent);
     }
   }
 

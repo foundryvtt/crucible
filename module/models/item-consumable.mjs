@@ -51,6 +51,23 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 
+  /**
+   * Consume a certain number of uses of the consumable.
+   * @param {number} [uses=1]           A number of uses to consume. A negative number will restore uses of the item
+   * @returns {Promise<CrucibleItem>}   The updated item
+   */
+  async consume(uses=1) {
+    let {value, max} = this.uses;
+    let quantity = this.quantity;
+    const currentUses = (max * (quantity - 1)) + value;
+    const newUses = Math.max(currentUses - uses, 0);
+    const targetQuantity = this.properties.has("stackable") ? Math.ceil(newUses / max) : 1;
+    const targetUses = Math.clamp(newUses - (max * (targetQuantity - 1)), 0, max);
+    await this.parent.update({system: {quantity: targetQuantity, uses: {value: targetUses}}});
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   getTags(scope="full") {
     const tags = super.getTags(scope);

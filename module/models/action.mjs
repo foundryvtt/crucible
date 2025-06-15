@@ -40,8 +40,10 @@ import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mj
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
  * @property {string} [rollMode]            A dice roll mode to apply to the message
  * @property {string} [defenseType]         A special defense type being targeted
- * @property {string} [skillId]             The skill ID being used.
+ * @property {string} [skillId]             A skill ID that is being used
  * @property {CrucibleItem} [weapon]        A specific weapon item being used
+ * @property {CrucibleItem} [consumable]    A specific consumable item being used
+ * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
  */
 
 /**
@@ -148,7 +150,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         multiple: new fields.NumberField({required: false, nullable: false, integer: true, min: 1, initial: undefined}),
         scope: new fields.NumberField({required: true, initial: SYSTEM.ACTION.TARGET_SCOPES.ALL,
           choices: SYSTEM.ACTION.TARGET_SCOPES.choices}),
-        limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1})
+        limit: new fields.NumberField({required: false, nullable: false, initial: undefined, integer: true, min: 1}),
+        self: new fields.BooleanField()
       }),
       effects: new fields.ArrayField(new fields.ObjectField()),
       tags: new fields.SetField(new fields.StringField({required: true, blank: false})),
@@ -172,6 +175,34 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   static TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-action.hbs";
 
   /**
+   * Configure the Dialog class that provides the user with an interface to configure this Action.
+   * @type {typeof ActionUseDialog}
+   */
+  static dialogClass = ActionUseDialog;
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * The specific Actor to whom this Action is bound. May be undefined if the Action is unbound.
+   * @type {CrucibleActor}
+   */
+  actor = this.actor; // Defined during constructor
+
+  /**
+   * The specific Item which contributed this Action. May be undefined if the Action did not originate from an Item.
+   * @type {CrucibleItem}
+   */
+  item = this.item; // Defined during constructor
+
+  /**
+   * A specific Token that is performing this Action in the context of a Scene.
+   * @type {CrucibleToken}
+   */
+  token = this.token; // Defined during constructor
+
+  /**
    * A temporary MeasuredTemplate object used to establish targets for this action.
    * @type {MeasuredTemplate|null}
    */
@@ -182,12 +213,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @type {undefined|CrucibleActionOutcomes}
    */
   outcomes;
-
-  /**
-   * Configure the Dialog class that provides the user with an interface to configure this Action.
-   * @type {typeof ActionUseDialog}
-   */
-  static dialogClass = ActionUseDialog;
 
   /**
    * A sheet used to configure this Action.
@@ -223,23 +248,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * One-time configuration of the CrucibleAction as part of construction.
    * @param {object} [options]            Options passed to the constructor context
-   * @param {CrucibleActor} [options.actor]   A specific actor to whom this action is bound
+   * @param {CrucibleActor} [options.actor]   A specific Actor to whom this Action is bound
+   * @param {CrucibleItem} [options.item]     A specific Item that provided this Action
    * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
    * @param {ActionUsage} [options.usage]     Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, token=null, usage, ...options}) {
+  _configure({actor=null, item=null, token=null, usage, ...options}) {
     super._configure(options);
-
-    /**
-     * Is this Action owned and prepared for a specific Actor?
-     * @type {CrucibleActor}
-     */
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
-
-    /**
-     * A specific Token which is performing the Action.
-     * @type {CrucibleTokenObject}
-     */
+    Object.defineProperty(this, "item", {value: this.parent?.parent, writable: false, configurable: true});
     Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
 
     /**
@@ -320,7 +337,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepareData() {
-    const talent = this.parent?.parent;
+    const talent = this.item;
     if ( talent ) {
       this.name ||= talent.name;
       this.img ||= talent.img;
@@ -369,8 +386,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Bind an Action to a specific Actor.
-   * @param {CrucibleActor} actor     The Actor to which the action should be attached
+   * Bind an existing Action to a specific Actor.
+   * This is an alternative to constructing a new Action instance in cases where the existing instance can be reused.
+   * @param {CrucibleActor} actor     A specific Actor to whom this Action is bound
    * @returns {CrucibleAction}        This action, for chaining
    */
   bind(actor) {
@@ -388,7 +406,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       performDeletions: true,
       inplace: true
     });
-    Object.assign(context, {parent: this.parent, actor: this.actor, usage: this.usage});
+    Object.assign(context, {parent: this.parent, actor: this.actor, token: this.token, usage: this.usage});
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
 
@@ -583,24 +601,27 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {ActionUseTarget[]}
    */
   acquireTargets({strict=true}={}) {
-    if ( !canvas.ready ) return [];
     let targets;
 
     // Acquire Template Targets
     if ( this.requiresTemplate ) {
-      targets = this.#acquireTargetsFromTemplate();
+      targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
     }
 
     // Other Target Types
     else {
-      switch ( this.target.type ) {
+      let targetType = this.target.type;
+      if ( (targetType === "single") && this.target.self && !game.user.targets.size ) targetType = "self";
+      switch ( targetType ) {
         case "none": case "summon":
           return []
         case "self":
-          targets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
+          targets = canvas.ready ?
+            this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken) :
+            [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
         case "single":
-          targets = this.#acquireSingleTargets(strict);
+          targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
           break;
         default:
           ui.notifications.warn(`Automation for target type ${this.target.type} for action ${this.name} is not 
@@ -1112,7 +1133,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const test of this._tests() ) {
       if ( !(test.confirm instanceof Function) ) continue
       try {
-        await test.confirm.call(this);
+        await test.confirm.call(this, reverse);
       } catch(err) {
         console.error(new Error(`"${this.id}" action confirmation failed`, {cause: err}));
       }

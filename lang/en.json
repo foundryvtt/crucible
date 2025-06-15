@@ -128,6 +128,10 @@
       "multiple": {
         "label": "Multiple Applications",
         "hint": "Apply the effects of this action multiple times per target? By default, the action will apply once per target."
+      },
+      "self": {
+        "label": "Target Self",
+        "hint": "Automatically target yourself if appropriate for the configured action target scope and type."
       }
     },
     "range": {
@@ -241,8 +245,11 @@
   "LABELS": {
     "CURRENT_EQUIPMENT": "Current Equipment",
     "FAVORITE_ACTIONS": "Favorite Actions",
-    "EQUIPMENT_HINT": "Equip weapons and armor from your Backpack toggling the shield icon.",
-    "BACKPACK_HINT": "Add Armor or Weapons by dropping them from the provided Crucible system compendium packs."
+    "WEAPONS_HINT": "Equip weapons from your Backpack toggling the shield icon.",
+    "ARMOR_HINT": "Equip armor from your Backpack toggling the shield icon.",
+    "ACCESSORIES_HINT": "Equip up to {slots} accessories from your Backpack toggling the shield icon.",
+    "CONSUMABLES_HINT": "Equip up to {slots} consumables from your Backpack toggling the shield icon.",
+    "BACKPACK_HINT": "Add items by dropping them from the provided Crucible system compendium packs."
   }
 },
 
