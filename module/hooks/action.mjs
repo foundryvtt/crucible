@@ -114,6 +114,16 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
+HOOKS.spellband = {
+  postActivate(outcome) {
+    const enchantment = this.usage.consumable.config.enchantment;
+    const amount = 2 + (2 * enchantment.bonus);
+    outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.rallyingElixir = {
   postActivate(outcome) {
     const quality = this.usage.consumable.config.quality;

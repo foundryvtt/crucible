@@ -70,7 +70,12 @@ export default class CrucibleConsumableItem extends CruciblePhysicalItem {
 
   /** @inheritDoc */
   getTags(scope="full") {
-    const tags = super.getTags(scope);
+    const {category, ...parentTags} = super.getTags(scope);
+    const tags = {
+      category,
+      quality: this.config.quality.label,
+      ...parentTags
+    };
     if ( this.isDepleted ) tags.uses = "Depleted";
     else {
       const {value, max} = this.uses;

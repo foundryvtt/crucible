@@ -1498,15 +1498,17 @@ export default class CrucibleActor extends Actor {
    */
   async #equipAccessory(item, {equipped}) {
     const {accessories, accessorySlots} = this.equipment;
-    if ( !equipped ) return item.update({system: {equipped: false}});
-    if ( accessories.length === accessorySlots ) {
+    if ( equipped === item.system.equipped ) return;
+    if ( equipped && (accessories.length === accessorySlots) ) {
       throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: item.name,
         type: game.i18n.localize("TYPES.Item.accessory")
       }));
     }
-    return item.update({system: {equipped: true}});
+    const action = equipped ? this.#equipItemAction(item) : this.#unequipItemAction(item);
+    if ( this.inCombat ) await action.use();
+    else await item.update({system: {equipped}});
   }
 
   /* -------------------------------------------- */
@@ -1520,18 +1522,21 @@ export default class CrucibleActor extends Actor {
    */
   async #equipArmor(item, {equipped}) {
     const current = this.equipment.armor;
-    if ( !equipped ) {
-      if ( current === item ) await item.update({system: {equipped: false}});
-      return;
-    }
-    if ( current.id ) {
+    if ( equipped === item.system.equipped ) return;
+    if ( equipped && current.id ) {
       throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: item.name,
         type: game.i18n.localize("TYPES.Item.armor")
       }));
     }
-    return item.update({system: {equipped: true}});
+    if ( this.inCombat ) {
+      throw new Error(game.i18n.format("WARNING.CannotEquipInCombat", {
+        actor: this.name,
+        item: item.name
+      }));
+    }
+    return item.update({system: {equipped}});
   }
 
   /* -------------------------------------------- */
@@ -1545,15 +1550,17 @@ export default class CrucibleActor extends Actor {
    */
   async #equipConsumable(item, {equipped}) {
     const {consumables, consumableSlots} = this.equipment;
-    if ( !equipped ) return item.update({system: {equipped: false}});
-    if ( consumables.length === consumableSlots ) {
+    if ( equipped === item.system.equipped ) return;
+    if ( equipped && (consumables.length === consumableSlots) ) {
       throw new Error(game.i18n.format("WARNING.CannotEquipSlotInUse", {
         actor: this.name,
         item: item.name,
         type: game.i18n.localize("TYPES.Item.accessory")
       }));
     }
-    return item.update({system: {equipped: true}});
+    const action = equipped ? this.#equipItemAction(item) : this.#unequipItemAction(item);
+    if ( this.inCombat ) await action.use();
+    else await item.update({system: {equipped}});
   }
 
   /* -------------------------------------------- */
@@ -1567,7 +1574,8 @@ export default class CrucibleActor extends Actor {
    */
   async #equipWeapon(item, {slot, dropped, equipped}) {
     if ( dropped && (item.category === "natural") ) return;
-    const action = equipped ? this.#equipWeaponAction(item, slot) : this.#unequipWeaponAction(item, dropped);
+    slot = equipped ? this.canEquipWeapon(item, slot) : undefined;
+    const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
     else await this.updateEmbeddedDocuments("Item", action.usage.actorUpdates.items);
   }
@@ -1576,25 +1584,27 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform an action to un-equip or drop a weapon.
-   * @param {CrucibleItem} [weapon]     A weapon being unequipped
+   * @param {CrucibleItem} item         An item being equipped
    * @param {boolean} [dropped]         Has the weapon been dropped?
    * @returns {CrucibleAction|null}
    */
-  #unequipWeaponAction(weapon, dropped) {
-    if ( !weapon.system.equipped ) return null;
+  #unequipItemAction(item, dropped) {
+    if ( !item.system.equipped ) return null;
     let ap = dropped ? 0 : 1;
-    if ( weapon.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
+    if ( item.system.properties.has("ambush") ) ap = Math.max(ap - 1, 0);
+    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
-      id: "equipWeapon",
-      name: dropped ? "Drop Weapon" : "Unequip Weapon",
-      img: weapon.img,
+      id: "equipItem",
+      name: dropped ? `Drop ${typeLabel}` : `Un-equip ${typeLabel}`,
+      img: item.img,
       cost: {action: ap},
-      description: `${dropped ? "Drop" : "Un-equip"} the ${weapon.name}.`,
+      description: `${dropped ? "Drop" : "Un-equip"} the ${item.name}.`,
       target: {type: "self", scope: 1}
     }, {actor: this});
-    Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
-    const update = {_id: weapon.id, system: {equipped: false}};
+
+    const update = {_id: item.id, system: {equipped: false}};
     if ( dropped ) update.system.dropped = true;
+    if ( item.type === "weapon" ) Object.assign(action.usage.actorStatus, {unequippedWeapon: true});
     Object.assign(action.usage.actorUpdates, {items: [update]});
     return action;
   }
@@ -1602,25 +1612,23 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Perform an action to equip or recover a weapon.
-   * @param {CrucibleItem} weapon     A weapon being equipped
-   * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
+   * Perform an action to equip or recover an Item.
+   * @param {CrucibleItem} item       An item being equipped
+   * @param {number} [slot]           A requested equipment slot in SYSTEM.WEAPON.SLOTS
    * @returns {CrucibleAction|null}
    */
-  #equipWeaponAction(weapon, slot) {
-    slot = this.canEquipWeapon(weapon, slot);
-
-    // Equip cost
+  #equipItemAction(item, slot) {
     let ap = 1;
-    if ( !weapon.system.dropped && weapon.system.properties.has("ambush") ) ap -= 1;
+    if ( !item.system.dropped && item.system.properties.has("ambush") ) ap -= 1;
 
     // Create the action
+    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
     const action = new CrucibleAction({
-      id: "equipWeapon",
-      name: weapon.system.dropped ? "Recover Weapon" : "Equip Weapon",
-      img: weapon.img,
+      id: "equipItem",
+      name: item.system.dropped ? `Recover ${typeLabel}` : `Equip ${typeLabel}`,
+      img: item.img,
       cost: {action: ap},
-      description: `${weapon.system.dropped ? "Recover the dropped" : "Equip the"} ${weapon.name}.`,
+      description: `${item.system.dropped ? "Recover the dropped" : "Equip the"} ${item.name}.`,
       target: {type: "self", scope: 1},
       tags: ["freehand"]
     }, {actor: this});
@@ -1628,7 +1636,9 @@ export default class CrucibleActor extends Actor {
     // Equip the weapon as a follow-up actor update
     action.usage.actorUpdates ||= {};
     action.usage.actorUpdates.items ||= [];
-    action.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: false, equipped: true, slot}});
+    const update = {_id: item.id, system: {dropped: false, equipped: true}}
+    if ( slot !== undefined ) update.slot = slot;
+    action.usage.actorUpdates.items.push(update);
     return action;
   }
 

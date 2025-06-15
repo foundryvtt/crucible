@@ -72,6 +72,19 @@ HOOKS.lesserregenerati = {
 
 /* -------------------------------------------- */
 
+HOOKS.preparedness0000 = {
+  preActivateAction(item, action, _targets) {
+    if ( action.id !== "equipWeapon" ) return;
+    if ( action.cost.action && !this.system.status.hasMoved ) {
+      action.cost.action = 0;
+      action.usage.actorStatus.hasMoved = true;
+    }
+  }
+}
+
+
+/* -------------------------------------------- */
+
 HOOKS.powerfulThrow000 = {
   prepareAction(item, action) {
     if ( action.tags.has("thrown") ) {
