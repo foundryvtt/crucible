@@ -83,26 +83,26 @@ export default class CrucibleArmorItem extends CruciblePhysicalItem {
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 
-  /**
-   * Return an object of string formatted tag data which describes this item type.
-   * @returns {Record<string, string>}    The tags which describe this weapon
-   */
-  getTags() {
-    const tags = {};
-    tags.category = this.config.category.label;
-    for ( let p of this.properties ) {
-      tags[p] = ARMOR.PROPERTIES[p].label;
-    }
-    tags.armor = `${this.armor.base + this.armor.bonus} Armor`;
+  /** @inheritDoc */
+  getTags(scope="full") {
+    const tags = super.getTags(scope);
     const actor = this.parent.parent;
+
+    // Defenses
+    tags.armor = `${this.armor.base + this.armor.bonus} Armor`;
     if ( !actor ) tags.dodge = `${this.dodge.base}+ Dodge`;
     else {
       const dodgeBonus = Math.max(actor.system.abilities.dexterity.value - this.dodge.scaling, 0);
       tags.dodge = `${this.dodge.base + dodgeBonus} Dodge`;
       tags.total = `${this.armor.base + this.armor.bonus + this.dodge.base + dodgeBonus} Defense`;
     }
-    if ( this.invested ) tags.invested = this.schema.fields.invested.label;
-    return tags;
+
+    // Armor Properties
+    for ( let p of this.properties ) {
+      if ( p === "investment" ) continue;
+      tags[p] = ARMOR.PROPERTIES[p].label;
+    }
+    return scope === "short" ? {armor: tags.armor, dodge: tags.dodge} : tags;
   }
 
   /* -------------------------------------------- */

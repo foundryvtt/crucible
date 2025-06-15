@@ -41,12 +41,6 @@
       "type": "Item"
     },
     {
-      "name": "armor",
-      "label": "Armor",
-      "path": "packs/armor",
-      "type": "Item"
-    },
-    {
       "name": "background",
       "label": "Backgrounds",
       "path": "packs/background",
@@ -98,12 +92,6 @@
       "name": "taxonomy",
       "label": "Taxonomies",
       "path": "packs/taxonomy",
-      "type": "Item"
-    },
-    {
-      "name": "weapon",
-      "label": "Weapons",
-      "path": "packs/weapon",
       "type": "Item"
     }
   ],
@@ -192,6 +180,9 @@
       },
       "background": {
         "htmlFields": ["description"]
+      },
+      "consumable": {
+        "htmlFields": ["description.public", "description.secret"]
       },
       "loot": {
         "htmlFields": ["description"]

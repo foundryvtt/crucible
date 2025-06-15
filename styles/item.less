@@ -18,7 +18,7 @@
 
   /** Form Groups */
   .form-group {
-    label {
+    > label {
       flex: 2; // Wider labels
     }
   }
@@ -78,6 +78,9 @@
       font-weight: normal;
       color: var(--color-secondary);
     }
+    .form-group.double {
+      grid-column: 1 / span 2;
+    }
   }
 }
 
@@ -101,9 +104,6 @@
 
 .crucible.weapon {
   .item-equipment {
-    .slot {
-      grid-column: 1 / span 2;
-    }
     .reload {
       grid-column: 2;
     }

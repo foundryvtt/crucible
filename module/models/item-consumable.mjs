@@ -1,0 +1,66 @@
+import CruciblePhysicalItem from "./item-physical.mjs";
+import * as CONSUMABLE from "../config/consumable.mjs";
+
+/**
+ * Data schema, attributes, and methods specific to "consumable" type Items.
+ */
+export default class CrucibleConsumableItem extends CruciblePhysicalItem {
+
+  /** @override */
+  static ITEM_CATEGORIES = CONSUMABLE.CATEGORIES;
+
+  /** @override */
+  static DEFAULT_CATEGORY = "flask";
+
+  /** @override */
+  static ITEM_PROPERTIES = CONSUMABLE.PROPERTIES;
+
+  /** @override */
+  static LOCALIZATION_PREFIXES = ["ITEM", "CONSUMABLE"];
+
+  /* -------------------------------------------- */
+  /*  Data Schema                                 */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static defineSchema() {
+    const schema = super.defineSchema();
+    delete schema.actorHooks; // Consumables don't have actor hooks
+    const fields = foundry.data.fields;
+    return foundry.utils.mergeObject(schema, {
+      uses: new fields.SchemaField({
+        value: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 1}),
+        max: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1})
+      })
+    });
+  }
+
+  /* -------------------------------------------- */
+  /*  Properties                                  */
+  /* -------------------------------------------- */
+
+  /**
+   * Is this consumable or consumable stack depleted?
+   * @type {boolean}
+   */
+  get isDepleted() {
+    return !this.uses.value || !this.quantity;
+  }
+
+  /* -------------------------------------------- */
+  /*  Helper Methods                              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getTags(scope="full") {
+    const tags = super.getTags(scope);
+    if ( this.isDepleted ) tags.uses = "Depleted";
+    else {
+      const {value, max} = this.uses;
+      const plurals = new Intl.PluralRules(game.i18n.lang);
+      const usesLabel = {one: "Use", other: "Uses"}[plurals.select(max)];
+      tags.uses = value === max ? `${value} ${usesLabel}` : `${value}/${max} ${usesLabel}`;
+    }
+    return tags;
+  }
+}

@@ -1,5 +1,6 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
 import {SYSTEM} from "../config/system.mjs";
+import * as ARMOR from "../config/armor.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -245,35 +246,25 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
 
   /* -------------------------------------------- */
 
-  /**
-   * Return an object of string formatted tag data which describes this item type.
-   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
-   * @returns {Object<string, string>}    The tags which describe this weapon
-   */
+  /** @inheritDoc */
   getTags(scope="full") {
-    const tags = {};
-
-    // Weapon Category
-    if ( scope === "full" ) tags.category = this.config.category.label;
-
-    // Damage and Range
-    tags.damage = `${this.damage.weapon} Damage`;
-    if ( this.config.category.reload && !this.loaded ) tags.damage = "Reload";
-    tags.range = `Range ${this.range}`;
-    if ( scope === "short" ) return tags;
-
-    // Weapon Properties
-    if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
-    if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
-    if ( this.broken ) tags.broken = this.schema.fields.broken.label;
+    const tags = super.getTags(scope);
 
     // Equipment Slot
     if ( this.equipped ) {
       const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
       tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
     }
-    if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
-    if ( this.invested ) tags.invested = this.schema.fields.invested.label;
-    return tags;
+
+    // Damage and Range
+    tags.damage = `${this.damage.weapon} Damage`;
+    if ( this.config.category.reload && !this.loaded ) tags.damage = "Reload";
+    tags.range = `Range ${this.range}`;
+
+    // Weapon Properties
+    if ( this.defense.block ) tags.block = `Block ${this.defense.block}`;
+    if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
+    if ( this.broken ) tags.broken = this.schema.fields.broken.label;
+    return scope === "short" ? {damage: tags.damage, range: tags.range} : tags;
   }
 }

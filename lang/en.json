@@ -11,6 +11,7 @@
     "archetype": "Archetype",
     "armor": "Armor",
     "background": "Background",
+    "consumable": "Consumable",
     "spell": "Iconic Spell",
     "taxonomy": "Taxonomy",
     "talent": "Talent",
@@ -387,6 +388,8 @@
 
 "ACTION.TagAfterStrike": "After Strike",
 "ACTION.TagAfterStrikeTooltip": "This action may only be performed immediately after a basic Strike attack which did not critically miss.",
+"ACTION.TagConsume": "Consume",
+"ACTION.TagConsumeTooltip": "This action involves and requires consumption of a specific consumable item",
 "ACTION.TagDeadly": "Deadly",
 "ACTION.TagDeadlyTooltip":  "This action has the potential to deal a tremendous amount of damage, increasing the damage multiplier for any damage dealt by x1.",
 "ACTION.TagDifficult": "Difficult",
@@ -572,6 +575,24 @@
 
 "COMBAT.WarningCannotChangeRound": "Only a Gamemaster user may change the Combat round.",
 
+"CONSUMABLE": {
+  "CATEGORIES": {
+    "AMMUNITION": "Ammunition",
+    "BOMB": "Bomb",
+    "FLASK": "Flask",
+    "KIT": "Kit",
+    "OTHER": "Other"
+  },
+  "FIELDS": {
+    "uses": {
+      "label": "Uses",
+      "hint": "Configure a limited number of uses of this consumable item before it becomes depleted.",
+      "value.label": "Value",
+      "max.label": "Maximum"
+    }
+  }
+},
+
 "DAMAGE.Damage": "Damage",
 "DAMAGE.Restoration": "Restoration",
 "DAMAGE.Acid": "Acid",
@@ -717,7 +738,8 @@
     "SCALED_PRICE": "Scaled Price"
   },
   "PROPERTIES": {
-    "INVESTMENT": "Investment"
+    "INVESTMENT": "Investment",
+    "STACKABLE": "Stackable"
   }
 },
 

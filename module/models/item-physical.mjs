@@ -76,6 +76,16 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Is this item currently a stack of multiples?
+   * @type {boolean}
+   */
+  get isStacked() {
+    return this.properties.has("stackable") && (this.quantity > 1);
+  }
+
+  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
@@ -127,5 +137,21 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const rarity = this.rarity;
     if ( rarity < 0 ) return Math.floor(this.price / Math.abs(rarity - 1));
     else return this.price * Math.pow(rarity + 1, 3);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Return an object of string formatted tag data which describes this item type.
+   * @param {string} [scope="full"]       The scope of tags being retrieved, "full" or "short"
+   * @returns {Object<string, string>}    The tags which describe this weapon
+   */
+  getTags(scope="full") {
+    const tags = {};
+    tags.category = this.config.category.label;
+    if ( this.equipped ) tags.equipped = this.schema.fields.equipped.label;
+    if ( this.dropped ) tags.dropped = this.schema.fields.dropped.label;
+    if ( this.requiresInvestment ) tags.invested = this.invested ? this.schema.fields.invested.label : "Not Invested";
+    return tags;
   }
 }

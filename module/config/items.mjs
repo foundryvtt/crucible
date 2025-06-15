@@ -99,5 +99,9 @@ export const PROPERTIES = Object.freeze({
   investment: {
     id: "investment",
     label: "ITEM.PROPERTIES.INVESTMENT"
+  },
+  stackable: {
+    id: "stackable",
+    label: "ITEM.PROPERTIES.STACKABLE"
   }
 });

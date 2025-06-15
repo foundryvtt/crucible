@@ -420,6 +420,21 @@ export const TAGS = {
     },
   },
 
+  // Consumables
+  consume: {
+    tag: "consume",
+    label: "ACTION.TagConsume",
+    tooltip: "ACTION.TagConsumeTooltip",
+    category: "special",
+    canUse(_targets) {
+      const item = this.usage.consumable;
+      if ( item?.type !== "consumable" ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
+      if ( item.isDepleted ) {
+        throw new Error(`Consumable item "${item.name}" has no uses remaining for Action "${this.id}"`);
+      }
+    }
+  },
+
   /* -------------------------------------------- */
   /*  Spellcasting Tags                           */
   /* -------------------------------------------- */

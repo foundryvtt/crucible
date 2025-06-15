@@ -2245,8 +2245,8 @@
   padding-right: 0.25rem;
   scrollbar-gutter: stable;
 }
-.crucible.item .form-group label,
-.crucible.action .form-group label {
+.crucible.item .form-group > label,
+.crucible.action .form-group > label {
   flex: 2;
 }
 .crucible.item prose-mirror.active,
@@ -2304,6 +2304,10 @@
   font-weight: normal;
   color: var(--color-secondary);
 }
+.crucible.item .item-equipment .form-group.double,
+.crucible.action .item-equipment .form-group.double {
+  grid-column: 1 / span 2;
+}
 /* ----------------------------------------- */
 /*  Armor                                    */
 /* ----------------------------------------- */
@@ -2315,9 +2319,6 @@
 /* ----------------------------------------- */
 /*  Weapon                                   */
 /* ----------------------------------------- */
-.crucible.weapon .item-equipment .slot {
-  grid-column: 1 / span 2;
-}
 .crucible.weapon .item-equipment .reload {
   grid-column: 2;
 }

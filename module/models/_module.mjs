@@ -22,6 +22,7 @@ export {default as CrucibleAncestryItem} from "./item-ancestry.mjs";
 export {default as CrucibleArchetypeItem} from "./item-archetype.mjs";
 export {default as CrucibleArmorItem} from "./item-armor.mjs";
 export {default as CrucibleBackgroundItem} from "./item-background.mjs";
+export {default as CrucibleConsumableItem} from "./item-consumable.mjs";
 export {default as CruciblePhysicalItem} from "./item-physical.mjs"
 export {default as CrucibleSpellItem} from "./item-spell.mjs";
 export {default as CrucibleTalentItem} from "./item-talent.mjs";
