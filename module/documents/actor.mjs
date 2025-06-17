@@ -346,6 +346,47 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Create a skill check for the Actor.
+   * @param {string} skillId
+   * @param {object} options
+   * @param [options.banes]
+   * @param [options.boons]
+   * @param [options.dc]
+   * @param [options.passive]
+   * @returns {PassiveCheck|StandardCheck}
+   */
+  getSkillCheck(skillId, {banes=0, boons=0, dc=12, passive=false}={}) {
+    const skill = this.system.skills[skillId];
+    if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
+    const {boons: systemBoons={}, banes: systemBanes={}} = this.system.rollBonuses;
+
+    // Prepare check data
+    const rollData = {
+      passive,
+      actorId: this.id,
+      banes: {...systemBanes},
+      boons: {...systemBoons},
+      dc: dc,
+      ability: skill.abilityBonus,
+      skill: skill.skillBonus,
+      enchantment: skill.enchantmentBonus,
+      type: skillId
+    };
+    if ( boons ) rollData.boons.special = {label: "Special", number: boons};
+    if ( banes ) rollData.banes.special = {label: "Special", number: banes};
+
+    // Apply talent hooks
+    this.callActorHooks("prepareStandardCheck", rollData);
+    this.callActorHooks("prepareSkillCheck", skill, rollData);
+
+    // Create Roll
+    const rollCls = passive ? crucible.api.dice.PassiveCheck : crucible.api.dice.StandardCheck;
+    return new rollCls(rollData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"
@@ -358,42 +399,19 @@ export default class CrucibleActor extends Actor {
    * @return {StandardCheck}      The StandardCheck roll instance which was produced.
    */
   async rollSkill(skillId, {banes=0, boons=0, dc, rollMode, dialog=false}={}) {
-    const skill = this.system.skills[skillId];
-    if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
-
-    // Prepare check data
-    const rollData = {
-      actorId: this.id,
-      banes: {},
-      boons: {},
-      dc: dc,
-      ability: skill.abilityBonus,
-      skill: skill.skillBonus,
-      enchantment: skill.enchantmentBonus,
-      type: skillId,
-      rollMode: rollMode,
-    };
-    if ( boons ) rollData.boons.special = {label: "Special", number: boons};
-    if ( banes ) rollData.banes.special = {label: "Special", number: banes};
-
-    // Apply talent hooks
-    this.callActorHooks("prepareStandardCheck", rollData);
-    this.callActorHooks("prepareSkillCheck", skill, rollData);
-
-    // Create the check roll
-    const sc = new StandardCheck(rollData);
+    const check = this.getSkillCheck(skillId, {banes, boons, dc, passive: false});
 
     // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ){
       const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
-      const response = await sc.dialog({title, flavor, rollMode});
+      const response = await check.dialog({title, flavor, rollMode});
       if ( response === null ) return null;
     }
 
     // Execute the roll to chat
-    await sc.toMessage({flavor, flags: {crucible: {skill: skillId}}});
-    return sc;
+    await check.toMessage({flavor, flags: {crucible: {skill: skillId}}});
+    return check;
   }
 
   /* -------------------------------------------- */

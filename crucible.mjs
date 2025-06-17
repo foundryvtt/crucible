@@ -121,6 +121,7 @@ Hooks.once("init", async function() {
     taxonomy: models.CrucibleTaxonomyItem,
     weapon: models.CrucibleWeaponItem
   };
+  CONFIG.Item.compendiumIndexFields = ["system.identifier"];
 
   // Other Document Configuration
   CONFIG.ChatMessage.documentClass = documents.CrucibleChatMessage;
@@ -346,16 +347,17 @@ Hooks.once("ready", async function() {
 async function _initializePrototypeTokenSettings() {
   const overrides = game.settings.get("core", foundry.data.PrototypeTokenOverrides.SETTING);
   overrides.updateSource({
+    base: {
+      displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+    },
     hero: {
       displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       sight: {
         enabled: true
       }
     },
     adversary: {
       displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       sight: {
         enabled: false
       }

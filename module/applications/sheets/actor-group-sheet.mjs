@@ -65,27 +65,38 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   #prepareMembers() {
     const members = [];
     for ( const member of this.actor.system.members ) {
-      const {health, morale} = member.actor.system.resources;
-      const hc = SYSTEM.RESOURCES.health.color;
-      const mc = SYSTEM.RESOURCES.morale.color;
-      members.push({
+      const a = member.actor;
+      const m = {
+        actorId: member.actorId,
         actor: member.actor,
+        name: a?.name ?? "[MISSING]",
+        img: a?.img ?? CONST.DEFAULT_TOKEN,
         quantity: member.quantity,
         hasQuantity: member.quantity > 1,
-        tags: member.actor.getTags(),
-        health: {
-          value: health.value,
-          max: health.max,
-          color: hc.low.mix(hc.high, health.value / health.max),
-          cssPct: `${Math.round(health.value * 100 / health.max)}%`
-        },
-        morale: {
-          value: morale.value,
-          max: morale.max,
-          color: mc.low.mix(mc.high, health.value / health.max),
-          cssPct: `${Math.round(morale.value * 100 / morale.max)}%`
-        }
-      });
+        hasResources: false,
+        tags: a?.getTags() || {},
+      };
+      if ( member.actor ) {
+        const {health, morale} = member.actor.system.resources;
+        const hc = SYSTEM.RESOURCES.health.color;
+        const mc = SYSTEM.RESOURCES.morale.color;
+        Object.assign(m, {
+          hasResources: true,
+          health: {
+            value: health.value,
+            max: health.max,
+            color: hc.low.mix(hc.high, health.value / health.max),
+            cssPct: `${Math.round(health.value * 100 / health.max)}%`
+          },
+          morale: {
+            value: morale.value,
+            max: morale.max,
+            color: mc.low.mix(mc.high, health.value / health.max),
+            cssPct: `${Math.round(morale.value * 100 / morale.max)}%`
+          }
+        });
+      }
+      members.push(m);
     }
     return members;
   }

@@ -94,6 +94,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    * Draw resource pips as part of the token bars.
    */
   #drawResources() {
+    if ( !["hero", "adversary"].includes(this.actor?.type) ) return;
     if ( !this.bars.resources ) {
       this.bars.resources = this.bars.addChild(new PIXI.Graphics());
       this.bars.resources.position.set(0, 0);

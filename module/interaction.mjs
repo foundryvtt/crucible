@@ -67,3 +67,50 @@ async function displayActionTooltip(event) {
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }
+
+/* -------------------------------------------- */
+
+/**
+ * @typedef CrucibleGroupTooltipResult
+ * @property {StandardCheck} [roll]
+ * @property {boolean} [success]
+ */
+
+/**
+ * Create a group check tooltip
+ * @param {CrucibleActor} group
+ * @param {function(group: CrucibleActor, member: CrucibleActor): CrucibleGroupTooltipResult} check
+ * @returns {Promise<void>}
+ */
+export async function createGroupTooltip() {
+  const results = [];
+  for ( const member of group.system.members ) {
+    if ( !member.actor ) continue;
+    let {roll, success} = check(group, member.actor);
+    const result = {actor: member.actor, name: member.actor.name, tags: member.actor.getTags()};
+
+    // Roll-based results
+    if ( roll ) Object.assign(result, {
+      total: roll.total,
+      dc: roll.data.dc,
+      isSuccess: roll.isSuccess,
+      isFailure:  roll.isFailure,
+      isCriticalSuccess: roll.isCriticalSuccess,
+      isCriticalFailure: roll.isCriticalFailure,
+      icon: roll.isSuccess ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
+      hasValue: true
+    });
+
+    // Binary checks
+    else if ( typeof success === "boolean" ) Object.assign(result, {
+      isSuccess: success,
+      isFailure: !success,
+      icon: success ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
+      hasValue: false
+    });
+    else throw new Error("A CrucibleGroupTooltipResult must either provide a roll or a binary success");
+    results.push(result);
+  }
+
+
+}

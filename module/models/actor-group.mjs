@@ -1,3 +1,5 @@
+import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
+
 /**
  * Data schema, attributes, and methods specific to Group type Actors.
  */
@@ -46,10 +48,22 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   static LOCALIZATION_PREFIXES = ["ACTOR.GROUP"];
 
   /**
+   * The Handlebars template used to render this Action as a line item for tooltips or as a partial.
+   * @type {string}
+   */
+  static TOOLTIP_CHECK_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-group-check.hbs";
+
+  /**
    * The median level of the group
    * @type {number}
    */
   medianLevel;
+
+  /**
+   * The IDs of current group members
+   * @type {Set<string>}
+   */
+  memberIds = new Set();
 
   /* -------------------------------------------- */
   /*  Document Preparation                        */
@@ -66,10 +80,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   prepareDerivedData() {
     const levels = [];
+    this.memberIds.clear();
     for ( const m of this.members ) {
       m.actor = game.actors.get(m.actorId);
       if ( !m.actor ) continue;
       for ( let i=0; i<m.quantity; i++ ) levels.push(m.actor.level);
+      this.memberIds.add(m.actorId);
     }
 
     // Median member level
@@ -78,6 +94,9 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     let medianLevel = levels[Math.floor((nl-1) / 2)];
     if ( levels.length % 2 !== 0 ) medianLevel = (medianLevel + levels[Math.ceil((nl-1) / 2)]) / 2;
     this.medianLevel = medianLevel;
+
+    // Member IDs
+    Object.defineProperty(this.members, "ids", {value: this.memberIds, enumerable: false, configurable: true});
   }
 
   /* -------------------------------------------- */
@@ -166,12 +185,6 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /*  Helper Methods                              */
   /* -------------------------------------------- */
 
-  async awardMilestones(quantity, members) {
-
-  }
-
-  /* -------------------------------------------- */
-
   /**
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
    * @returns {Promise<void>}
@@ -246,5 +259,65 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       tags.level = `${game.i18n.localize("ACTOR.GROUP.LABELS.medianLevel")} ${this.medianLevel}`;
     }
     return tags;
+  }
+  /* -------------------------------------------- */
+
+  /**
+   * @typedef CrucibleGroupTooltipResult
+   * @property {StandardCheck} [roll]
+   * @property {boolean} [success]
+   */
+
+  /**
+   * Create a group check tooltip.
+   * @param {function(group: CrucibleActor, member: CrucibleActor): CrucibleGroupTooltipResult|null} check
+   * @param {object} options
+   * @param {string} [options.title]
+   * @returns {Promise<string>}
+   */
+  async renderGroupCheckTooltip(check, {title}={}) {
+
+    // Prepare check results
+    const results = [];
+    for ( const member of this.members ) {
+      if ( !member.actor ) continue;
+      const r = check(this.parent, member.actor);
+      if ( r === null ) continue;
+      const {roll, success} = r;
+      const result = {actor: member.actor, name: member.actor.name, tags: member.actor.getTags()};
+
+      // Roll-based results
+      if ( roll ) Object.assign(result, {
+        total: roll.total,
+        dc: roll.data.dc,
+        isSuccess: roll.isSuccess,
+        isFailure: roll.isFailure,
+        isCriticalSuccess: roll.isCriticalSuccess,
+        isCriticalFailure: roll.isCriticalFailure,
+        icon: roll.isSuccess ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
+        hasValue: true,
+      });
+
+      // Binary checks
+      else if ( typeof success === "boolean" ) Object.assign(result, {
+        isSuccess: success,
+        isFailure: !success,
+        icon: success ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
+        hasValue: false
+      });
+      else throw new Error("A CrucibleGroupTooltipResult must either provide a roll or a binary success");
+
+      // Common rules
+      result.cssClass = [
+        result.isSuccess ? "success" : "",
+        result.isFailure ? "failure" : "",
+        result.isCriticalSuccess ? "critical-success": "",
+        result.isCriticalFailure ? "critical-failure" : ""
+      ].filterJoin(" ");
+      results.push(result);
+    }
+
+    // Render
+    return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_CHECK_TEMPLATE, {title, results});
   }
 }

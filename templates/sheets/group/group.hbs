@@ -50,20 +50,21 @@
         <h3>{{systemFields.members.label}}</h3>
         <ol class="items-list scrollable">
             {{#each members as |member|}}
-                <li class="line-item member" data-actor-id="{{member.actor.id}}">
-                    <img class="icon" src="{{member.actor.img}}">
+                <li class="line-item member" data-actor-id="{{member.actorId}}">
+                    <img class="icon" src="{{member.img}}">
                     <div class="title">
                         <h4>
-                            <a data-action="memberSheet">{{member.actor.name}}</a>
+                            <a data-action="memberSheet">{{member.name}}</a>
                             {{#if hasQuantity}}<span class="quantity">({{member.quantity}})</span>{{/if}}
                         </h4>
                         <div class="tags">
                             {{#each member.tags as |label tag|}}
-                                <span class="tag">{{label}}</span>
+                            <span class="tag">{{label}}</span>
                             {{/each}}
                         </div>
                     </div>
                     <div class="resources flexcol">
+                        {{#if member.hasResources}}
                         <div class="resource health flexrow">
                             <span class="label">{{member.health.value}}</span>
                             <div class="bar">
@@ -78,10 +79,11 @@
                             </div>
                             <span class="label">{{member.morale.max}}</span>
                         </div>
+                        {{/if}}
                     </div>
                     <div class="controls">
                         {{#if @root.isEditable}}
-                            <a class="control icon fa-solid fa-times" data-tooltip="Remove Member" data-action="memberRemove"></a>
+                        <a class="control icon fa-solid fa-times" data-tooltip="Remove Member" data-action="memberRemove"></a>
                         {{/if}}
                     </div>
                 </li>

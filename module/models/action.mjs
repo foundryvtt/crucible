@@ -369,9 +369,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       effect.tags = {
         scope: `Affects ${SYSTEM.ACTION.TARGET_SCOPES.label(effect.scope || this.target.scope)}`
       }
-      if ( effect.duration.turns ) effect.tags.duration = `${effect.duration.turns}T`;
-      else if ( effect.duration.rounds ) effect.tags.duration = `${effect.duration.rounds}R`;
-      else effect.tags.duration = "Until Ended";
+      if ( effect.duration ) {
+        if ( effect.duration.turns ) effect.tags.duration = `${effect.duration.turns}T`;
+        else if ( effect.duration.rounds ) effect.tags.duration = `${effect.duration.rounds}R`;
+        else effect.tags.duration = "Until Ended";
+      }
     }
 
     // Reset bonuses

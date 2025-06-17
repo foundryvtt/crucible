@@ -346,8 +346,11 @@
 .crucible .hex {
   --hex-bg: url("../ui/elements/hex-plain.svg");
   --hex-rotation: 0;
+  --hex-size: 64px;
   position: relative;
   display: flex;
+  height: calc(1.25 * var(--hex-size));
+  width: var(--hex-size);
   justify-content: center;
   align-items: center;
   z-index: 0;
@@ -358,7 +361,7 @@
   width: 100%;
   height: 100%;
   background: var(--hex-bg) no-repeat center;
-  background-size: auto 100%;
+  background-size: auto var(--hex-size);
   transform: rotate(var(--hex-rotation));
   z-index: -1;
 }
@@ -427,11 +430,15 @@
   top: unset;
   bottom: -0.5rem;
 }
+/** ----------------------------------------- *
+ *  Tooltips                                  *
+ * ------------------------------------------ */
 .crucible.crucible-tooltip {
   background: url("../ui/journal/background-texture.webp");
   padding: 1rem 1.5rem;
   border: 2px ridge var(--color-frame);
   text-align: left;
+  max-width: unset;
 }
 .crucible.crucible-tooltip.locked-tooltip {
   border-color: var(--color-warm-2);
@@ -444,6 +451,27 @@
 .crucible.crucible-tooltip.incomplete ol {
   font-size: var(--font-size-13);
   margin: 0.25rem 0;
+}
+.crucible.crucible-tooltip .tooltip-title {
+  margin: 0 0 0.5rem;
+}
+.crucible.crucible-tooltip .group-check {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  gap: 0.5rem 1rem;
+}
+.crucible.crucible-tooltip .group-check .group-member {
+  --title-font-size: var(--font-size-18);
+  --icon-size: 40px;
+  width: 200px;
+  height: var(--icon-size);
+}
+.crucible.crucible-tooltip .group-check .group-member.failure .icon {
+  opacity: 0.2;
+}
+.crucible.crucible-tooltip .group-check .group-member .hex {
+  --hex-size: 32px;
+  font-size: var(--title-font-size);
 }
 /* ----------------------------------------- */
 /*  Application V2 Styles                    */
@@ -643,6 +671,14 @@
   width: var(--icon-size);
   flex: none;
   object-fit: contain;
+}
+.crucible .line-item i.icon {
+  display: block;
+  height: var(--icon-size);
+  width: var(--icon-size);
+  flex: none;
+  font-size: calc(var(--icon-size) * 0.8);
+  line-height: var(--icon-size);
 }
 .crucible .line-item .title {
   flex: 1;
@@ -939,14 +975,9 @@
   gap: 0.25rem;
   margin-right: 0.5rem;
 }
-.crucible.sheet.actor .sheet-header div.metadata div.size span.value {
-  flex: none;
-  width: 24px;
-  background: url("../ui/elements/hex-plain.svg") no-repeat center;
-  background-size: 24px;
+.crucible.sheet.actor .sheet-header div.metadata div.size span.hex {
+  --hex-size: 24px;
   font-family: var(--font-h1);
-  font-size: var(--font-size-16);
-  padding: 0.25rem 0.5rem;
 }
 .crucible.sheet.actor.adversary .sheet-header .advancement {
   --advancement-height: 40px;
@@ -2098,14 +2129,10 @@
   letter-spacing: 0.1em;
 }
 .crucible-fullscreen .ability-scores .ability .score {
-  flex: 0 0 60px;
-  height: 60px;
+  --hex-size: 60px;
+  flex: none;
   margin: -6px 0;
-  font-family: var(--font-header);
   font-size: var(--font-size-28);
-  line-height: 1em;
-  text-align: center;
-  color: var(--color-text-primary);
 }
 .crucible-fullscreen .ability-scores .ability .score.power {
   --hex-bg: url("../ui/elements/hex-fortitude.svg");

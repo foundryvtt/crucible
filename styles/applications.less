@@ -206,12 +206,24 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 
+  // Image Icon
   img.icon {
     height: var(--icon-size);
     width: var(--icon-size);
     flex: none;
     object-fit: contain;
   }
+
+  // FA Icon
+  i.icon {
+    display: block;
+    height: var(--icon-size);
+    width: var(--icon-size);
+    flex: none;
+    font-size: calc(var(--icon-size) * 0.8);
+    line-height: var(--icon-size);
+  }
+
   .title {
     flex: 1;
     display: flex;

@@ -400,14 +400,10 @@
         letter-spacing: 0.1em;
       }
       .score {
-        flex: 0 0 60px;
-        height: 60px;
+        --hex-size: 60px;
+        flex: none;
         margin: -6px 0;
-        font-family: var(--font-header);
         font-size: var(--font-size-28);
-        line-height: 1em;
-        text-align: center;
-        color: var(--color-text-primary);
         &.power {--hex-bg: url("../ui/elements/hex-fortitude.svg")}
         &.resilience {--hex-bg: url("../ui/elements/hex-willpower.svg")}
         &.speed {--hex-bg: url("../ui/elements/hex-reflex.svg")}

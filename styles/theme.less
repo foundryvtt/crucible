@@ -297,8 +297,11 @@
   .hex {
     --hex-bg: url("../ui/elements/hex-plain.svg");
     --hex-rotation: 0;
+    --hex-size: 64px;
     position: relative;
     display: flex;
+    height: calc(1.25 * var(--hex-size));
+    width: var(--hex-size);
     justify-content: center;
     align-items: center;
     z-index: 0;
@@ -308,7 +311,7 @@
       width: 100%;
       height: 100%;
       background: var(--hex-bg) no-repeat center;
-      background-size: auto 100%;
+      background-size: auto var(--hex-size);
       transform: rotate(var(--hex-rotation));
       z-index: -1;
     }
@@ -380,24 +383,53 @@
       bottom: -0.5rem;
     }
   }
+}
 
-  &.crucible-tooltip {
-    background: url("../ui/journal/background-texture.webp");
-    padding: 1rem 1.5rem;
-    border: 2px ridge var(--color-frame);
-    text-align: left; // always left, regardless of tooltip position
-    &.locked-tooltip {
-      border-color: var(--color-warm-2);
+/** ----------------------------------------- *
+ *  Tooltips                                  *
+ * ------------------------------------------ */
+
+.crucible.crucible-tooltip {
+  background: url("../ui/journal/background-texture.webp");
+  padding: 1rem 1.5rem;
+  border: 2px ridge var(--color-frame);
+  text-align: left; // always left, regardless of tooltip position
+  max-width: unset;
+
+  &.locked-tooltip {
+    border-color: var(--color-warm-2);
+  }
+  &.incomplete {
+    h4 {
+      text-align: center;
+      font-size: var(--font-size-14);
+      margin: 0.25rem 0;
     }
-    &.incomplete {
-      h4 {
-        text-align: center;
-        font-size: var(--font-size-14);
-        margin: 0.25rem 0;
+    ol {
+      font-size: var(--font-size-13);
+      margin: 0.25rem 0;
+    }
+  }
+
+  .tooltip-title {
+    margin: 0 0 0.5rem;
+  }
+
+  .group-check {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    gap: 0.5rem 1rem;
+    .group-member {
+      --title-font-size: var(--font-size-18);
+      --icon-size: 40px;
+      width: 200px;
+      height: var(--icon-size);
+      &.failure .icon {
+        opacity: 0.2;
       }
-      ol {
-        font-size: var(--font-size-13);
-        margin: 0.25rem 0;
+      .hex {
+        --hex-size: 32px;
+        font-size: var(--title-font-size);
       }
     }
   }
