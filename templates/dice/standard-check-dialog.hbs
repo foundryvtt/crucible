@@ -1,31 +1,62 @@
-<section class="roller flexcol">
-    {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
-</section>
+<div class="roll-form standard-form">
+    <section class="roller flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-roll.hbs"}}
+    </section>
 
-{{#if isGM}}
-<section class="difficulty form-group">
-    <div class="form-fields">
-        <select name="difficultyTier">
-            {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Custom Difficulty"}}
-        </select>
-        <label>DC</label>
-        {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
+    {{#if isGM}}
+    <section class="difficulty form-group">
+        <div class="form-fields">
+            <select name="difficultyTier">
+                {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Custom Difficulty"}}
+            </select>
+            <label>DC</label>
+            {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if showDetails}}
+    <section class="details flexcol">
+        {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
+    </section>
+    {{/if}}
+</div>
+
+{{#if request}}
+<aside class="request-form standard-form">
+    <h3 class="divider">Requested Actors</h3>
+    <div class="requested-actors flexcol droppable scrollable">
+        {{#each request.actors as |actor|}}
+        <div class="line-item member" data-actor-id="{{actor.id}}">
+            <img class="icon" src="{{actor.img}}">
+            <div class="title">
+                <h4>{{actor.name}}</h4>
+                <div class="tags">
+                    {{#each actor.tags as |label tag|}}
+                    <span class="tag">{{label}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="controls">
+                <button type="button" class="icon fa-solid fa-times" data-tooltip="Remove Actor"
+                        data-action="requestRemove"></button>
+            </div>
+        </div>
+        {{else}}
+        <p class="hint">Drag individual Actors or groups here to request they participate in this roll.</p>
+        {{/each}}
     </div>
-</section>
-{{/if}}
-
-{{#if showDetails}}
-<section class="details flexcol">
-    {{> "systems/crucible/templates/dice/partials/standard-check-details.hbs"}}
-</section>
+</aside>
 {{/if}}
 
 <footer class="form-footer">
     <select name="rollMode">
         {{selectOptions rollModes selected=rollMode localize=true}}
     </select>
-    <button type="submit" class="dialog-button frame-brown" data-action="roll">
-        <i class="fas fa-dice"></i>
-        <label>Roll</label>
-    </button>
+    {{#each buttons as |button|}}
+        <button type="{{button.type}}" class="dialog-button frame-brown {{button.cssClass}}" data-action="{{button.action}}" data-tooltip-text="{{button.tooltip}}">
+            {{#if button.icon}}<i class="{{button.icon}}"></i>{{/if}}
+            {{#if button.label}}<span>{{button.label}}</span>{{/if}}
+        </button>
+    {{/each}}
 </footer>

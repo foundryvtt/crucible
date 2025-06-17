@@ -5,10 +5,12 @@ const {DialogV2} = foundry.applications.api;
  * @extends {DialogV2}
  */
 export default class StandardCheckDialog extends DialogV2 {
-  constructor({roll, rollMode, ...options}={}) {
+  constructor({request=false, roll, rollMode, ...options}={}) {
     super(options);
+    this.request = request && game.user.isGM;
     this.roll = roll;
     this.rollMode = rollMode;
+    if ( this.roll.actor ) this.#requestActors.add(this.roll.actor);
   }
 
   /** @inheritDoc */
@@ -16,10 +18,17 @@ export default class StandardCheckDialog extends DialogV2 {
     classes: ["crucible", "dialog", "dice-roll"],
     window: {
       contentTag: "form",
-      contentClasses: ["standard-form", "standard-check"]
+      contentClasses: ["standard-check", "standard-form"]
+    },
+    actions: {
+      requestToggle: StandardCheckDialog.#onRequestToggle,
+      requestClear: StandardCheckDialog.#onRequestClear,
+      requestParty: StandardCheckDialog.#onRequestParty,
+      requestRemove: StandardCheckDialog.#onRequestRemove
     },
     position: {
-      width: 360
+      width: "auto",
+      height: "auto"
     }
   };
 
@@ -28,6 +37,18 @@ export default class StandardCheckDialog extends DialogV2 {
    * @type {string}
    */
   static TEMPLATE = "systems/crucible/templates/dice/standard-check-dialog.hbs";
+
+  /**
+   * Display the dialog in request mode.
+   * @type {boolean}
+   */
+  request;
+
+  /**
+   * The actors who will be requested to roll.
+   * @type {Set<CrucibleActor>}
+   */
+  #requestActors = new Set();
 
   /**
    * A StandardCheck dice pool instance which organizes the data for this dialog
@@ -46,18 +67,21 @@ export default class StandardCheckDialog extends DialogV2 {
     if ( this.options.window.title ) return this.options.window.title;
     const type = this.roll.data.type;
     const skill = SYSTEM.SKILLS[type];
-    if ( skill ) return `${skill.label} Skill Check`;
-    return "Generic Dice Check";
+    let label = skill ? `${skill.label} Skill Check` : "Standard Check";
+    const actor = this.#requestActors.first();
+    if ( actor && (this.#requestActors.size === 1) ) label += `: ${actor.name}`;
+    else if ( this.request ) label += `: Request Rolls`;
+    return label;
   }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   _initializeApplicationOptions(options) {
+    delete options.position?.width; // Ignore default dialog width
     options = super._initializeApplicationOptions(options);
     options.buttons = {
-      roll: {action: "roll", label: "Roll", icon: "fa-solid fa-dice", callback: this._onRoll.bind(this)},
-      // request: {action: "request", label: "Request", callback: this._onRequest.bind(this)} TODO
+      roll: {action: "roll", label: "Roll", icon: "fa-solid fa-dice-d8", callback: this._onRoll.bind(this)},
     }
     return options;
   }
@@ -76,10 +100,12 @@ export default class StandardCheckDialog extends DialogV2 {
   async _prepareContext(options) {
     const data = this.roll.data;
     return Object.assign({}, data, {
+      buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
       difficulty: this._getDifficulty(data.dc),
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       isGM: game.user.isGM,
+      request: this.#prepareRequest(),
       rollMode: this.rollMode || game.settings.get("core", "rollMode"),
       rollModes: CONFIG.Dice.rollModes,
       showDetails: data.totalBoons + data.totalBanes > 0,
@@ -88,6 +114,31 @@ export default class StandardCheckDialog extends DialogV2 {
       canIncreaseBanes: data.totalBanes < SYSTEM.dice.MAX_BOONS,
       canDecreaseBanes: data.totalBanes > 0
     });
+  }
+
+  /* -------------------------------------------- */
+
+  #prepareButtons() {
+    const buttons = [];
+    for ( const b of Object.values(this.options.buttons) ) buttons.push({type: "submit", ...b});
+    if ( this.request ) buttons.push(
+      {type: "button", action: "requestSubmit", icon: "fa-solid fa-dice-d8", label: "Request"},
+      {type: "button", action: "requestClear", cssClass: "icon fa-solid fa-ban", tooltip: "Clear Request"},
+      {type: "button", action: "requestParty", cssClass: "icon fa-solid fa-users", tooltip: "Add Party"},
+    )
+    else buttons.push({type: "button", action: "requestToggle", cssClass: "icon fa-solid fa-chevrons-right", tooltip: "Request Rolls"});
+    return buttons;
+  }
+
+  /* -------------------------------------------- */
+
+  #prepareRequest() {
+    if ( !this.request ) return null;
+    const actors = [];
+    for ( const actor of this.#requestActors ) {
+      actors.push({id: actor.id, name: actor.name, img: actor.img, tags: actor.getTags("short")});
+    }
+    return {actors};
   }
 
   /* -------------------------------------------- */
@@ -131,6 +182,11 @@ export default class StandardCheckDialog extends DialogV2 {
   _onRender(_context, _options) {
     const form = this.element.querySelector("form.window-content");
     form.addEventListener("submit", event => this._onSubmit(event.submitter, event));
+    form.classList.toggle("roll-request", this.request);
+    if ( this.request ) {
+      const dropZone = this.element.querySelector(".requested-actors");
+      dropZone?.addEventListener("drop", this.#onDropActor.bind(this));
+    }
   }
 
   /* -------------------------------------------- */
@@ -149,13 +205,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  /**
-   * Resolve dialog submission to request a Roll.
-   * @returns {StandardCheck}
-   * @protected
-   */
-  _onRequest(_event, _button, _dialog) {
-    return null; // TODO implement this
+  async _submitRequest() {
+    debugger;
   }
 
   /* -------------------------------------------- */
@@ -201,15 +252,6 @@ export default class StandardCheckDialog extends DialogV2 {
       case "bane-subtract":
         this.roll.initialize({banes: StandardCheckDialog.#modifyBoons(rollData.banes, -1)});
         return this.render(false, {height: "auto"});
-      case "request": // TODO
-        this._updatePool(form);
-        this.roll.request({
-          title: this.title,
-          flavor: this.options.flavor
-        });
-        const actor = game.actors.get(rollData.actorId);
-        ui.notifications.info(`Requested a ${rollData.type} check be made by ${actor.name}.`);
-        return this.close();
     }
   }
 
@@ -255,6 +297,59 @@ export default class StandardCheckDialog extends DialogV2 {
     const fd = new FormDataExtended(form);
     updates = foundry.utils.mergeObject(fd.object, updates);
     this.roll.initialize(updates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle dropping an Actor in the roll request drop-zone.
+   * @param {DragEvent} event
+   * @returns {Promise<void>}
+   */
+  async #onDropActor(event) {
+    const data = TextEditor.getDragEventData(event);
+    if ( data.type !== "Actor" ) return;
+    const actor = await fromUuid(data.uuid);
+    if ( actor.pack ) return;
+    const toAdd = actor.type === "group" ? actor.system.members.map(m => m.actor) : [actor];
+    for ( const actor of toAdd ) {
+      if ( actor.pack ) continue;
+      this.#requestActors.add(actor);
+    }
+    await this.render({window: {title: this.title}});
+  }
+
+  /* -------------------------------------------- */
+
+  static async #onRequestToggle(event) {
+    this.request = game.user.isGM;
+    await this.render({window: {title: this.title}});
+  }
+
+  /* -------------------------------------------- */
+
+  static async #onRequestClear(event) {
+    this.#requestActors.clear();
+    await this.render({window: {title: this.title}});
+  }
+
+  /* -------------------------------------------- */
+
+  static async #onRequestParty(event) {
+    if ( !crucible.party ) return;
+    for ( const member of crucible.party.system.members ) {
+      if ( member.actor ) this.#requestActors.add(member.actor);
+    }
+    await this.render({window: {title: this.title}});
+  }
+
+  /* -------------------------------------------- */
+
+  static async #onRequestRemove(event) {
+    const actorId = event.target.closest(".line-item").dataset.actorId;
+    const actor = game.actors.get(actorId);
+    this.#requestActors.delete(actor);
+    await this.render({window: {title: this.title}});
   }
 
   /* -------------------------------------------- */

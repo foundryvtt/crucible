@@ -1,5 +1,3 @@
-
-
 /* ----------------------------------------- */
 /*  Dice Roll                                */
 /* ----------------------------------------- */
@@ -10,6 +8,46 @@
   .standard-check {
     padding: 1rem;
     gap: 1rem;
+    .roll-form {
+      width: 360px;
+    }
+  }
+
+  /** Requested Rolls */
+  .standard-check.roll-request {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 660px; // Force wrapping
+    .roll-form {
+      flex: none;
+    }
+    .request-form {
+      flex: 0 0 220px;
+      h3.divider {
+        margin: 0 0 -0.5rem 0;
+        font-size: var(--font-size-16);
+      }
+      .requested-actors {
+        flex: 1;
+        height: 0;
+        max-height: 300px;
+        padding: 0.5rem;
+        gap: 0.5rem;
+        border: 1px dashed var(--color-form-hint);
+        border-radius: 0.5rem;
+        cursor: var(--cursor-pointer);
+        scrollbar-gutter: unset;
+        .hint {
+          padding: 1rem;
+          font-size: var(--font-size-12);
+          text-align: center;
+        }
+      }
+    }
+    .form-footer {
+      flex: 0 0 100%;
+      width: 0;
+    }
   }
 
   /** Expanded Tooltip */
@@ -96,9 +134,8 @@
     border: 1px solid var(--check-border-color);
     .result {
       --hex-bg: url("../ui/elements/hex-plain-filled-flat.svg");
+      --hex-size: 32px;
       font-size: var(--font-size-16);
-      flex: 0 0 32px;
-      height: 32px;
     }
   }
 
@@ -174,9 +211,7 @@
       justify-content: center;
       align-items: center;
       .hex {
-        flex: 0 0 48px;
-        height: 48px;
-        margin: 0;
+        --hex-size: 48px;
         gap: 1rem;
         .value {
           font-family: var(--font-h1);
@@ -246,13 +281,7 @@
     justify-content: space-evenly;
     padding: 0 0 1rem;
     .bonus {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex: 0 0 48px;
-      height: 48px;
-      line-height: 48px;
+      --hex-size: 48px;
     }
     .value {
       font-size: var(--font-size-20);
@@ -310,9 +339,10 @@
     button {
       opacity: 1.0;
     }
-  }
-  .standard-form .form-footer {
-    flex-wrap: wrap; // FIXME fight core style specificity
+    button.icon {
+      --button-size: 32px;
+      flex: none;
+    }
   }
 
   // Template placement prompt

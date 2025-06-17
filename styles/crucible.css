@@ -438,6 +438,8 @@
   padding: 1rem 1.5rem;
   border: 2px ridge var(--color-frame);
   text-align: left;
+}
+.crucible.crucible-tooltip.wide {
   max-width: unset;
 }
 .crucible.crucible-tooltip.locked-tooltip {
@@ -516,6 +518,8 @@
 }
 .crucible.application .window-content {
   padding: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .crucible.application button,
 .crucible.application .button,
@@ -801,8 +805,6 @@
   flex-wrap: nowrap;
   gap: var(--margin-size);
   padding: 0 var(--margin-size) var(--margin-size);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 .crucible.sheet.actor.minimized,
 .crucible.sheet.actor.minimizing,
@@ -2438,10 +2440,6 @@
   opacity: 0.75;
   z-index: -1;
 }
-.crucible.journal-sheet .window-content {
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
 .crucible.journal-sheet .journal-entry-content {
   border: none;
   background: none;
@@ -2536,6 +2534,56 @@
   width: 200px;
   height: 200px;
   border-radius: 6px;
+}
+/* ----------------------------------------- */
+/*  Text Enrichers                           */
+/* ----------------------------------------- */
+enriched-content.skill-check {
+  --color-background: #000000;
+  --color-background-hover: #000000;
+  --color-border: #000000;
+  --color-border-hover: #000000;
+  background: var(--color-background);
+  color: var(--color-text-emphatic);
+  line-height: 1em;
+  padding: 3px 4px 1px;
+  margin: -2px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-size: 90%;
+  cursor: var(--cursor-pointer);
+}
+enriched-content.skill-check:before {
+  content: "\f6d2";
+  font-family: var(--font-awesome);
+  opacity: 0.5;
+  margin-right: 4px;
+  font-size: 80%;
+}
+enriched-content.skill-check:hover {
+  background: var(--color-background-hover);
+  border-color: var(--color-border-hover);
+}
+enriched-content.skill-check:hover:before {
+  opacity: 1;
+}
+enriched-content.skill-check.exp {
+  --color-background: #284315;
+  --color-background-hover: #355a17;
+  --color-border: #5b9e26;
+  --color-border-hover: #81cc44;
+}
+enriched-content.skill-check.kno {
+  --color-background: #1a1a37;
+  --color-background-hover: #242453;
+  --color-border: #4848ac;
+  --color-border-hover: #6c6cff;
+}
+enriched-content.skill-check.soc {
+  --color-background: #3a184a;
+  --color-background-hover: #4d2368;
+  --color-border: #752f9f;
+  --color-border-hover: #ab3fe8;
 }
 .crucible.sheet.skill {
   --sheet-header-height: 48px;
@@ -2652,6 +2700,7 @@
 /* ----------------------------------------- */
 .crucible.dice-roll {
   margin: 0;
+  /** Requested Rolls */
   /** Expanded Tooltip */
   /** Boons and Banes */
   /** Dice Pool Visualization */
@@ -2662,6 +2711,44 @@
 .crucible.dice-roll .standard-check {
   padding: 1rem;
   gap: 1rem;
+}
+.crucible.dice-roll .standard-check .roll-form {
+  width: 360px;
+}
+.crucible.dice-roll .standard-check.roll-request {
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 660px;
+}
+.crucible.dice-roll .standard-check.roll-request .roll-form {
+  flex: none;
+}
+.crucible.dice-roll .standard-check.roll-request .request-form {
+  flex: 0 0 220px;
+}
+.crucible.dice-roll .standard-check.roll-request .request-form h3.divider {
+  margin: 0 0 -0.5rem 0;
+  font-size: var(--font-size-16);
+}
+.crucible.dice-roll .standard-check.roll-request .request-form .requested-actors {
+  flex: 1;
+  height: 0;
+  max-height: 300px;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 1px dashed var(--color-form-hint);
+  border-radius: 0.5rem;
+  cursor: var(--cursor-pointer);
+  scrollbar-gutter: unset;
+}
+.crucible.dice-roll .standard-check.roll-request .request-form .requested-actors .hint {
+  padding: 1rem;
+  font-size: var(--font-size-12);
+  text-align: center;
+}
+.crucible.dice-roll .standard-check.roll-request .form-footer {
+  flex: 0 0 100%;
+  width: 0;
 }
 .crucible.dice-roll .dice-tooltip {
   display: none;
@@ -2742,9 +2829,8 @@
 }
 .crucible.dice-roll .check-result .result {
   --hex-bg: url("../ui/elements/hex-plain-filled-flat.svg");
+  --hex-size: 32px;
   font-size: var(--font-size-16);
-  flex: 0 0 32px;
-  height: 32px;
 }
 .crucible.dice-roll .damage-result {
   z-index: 0;
@@ -2806,9 +2892,7 @@
 }
 .crucible.dice-roll .modifiers .boons .hex,
 .crucible.dice-roll .modifiers .banes .hex {
-  flex: 0 0 48px;
-  height: 48px;
-  margin: 0;
+  --hex-size: 48px;
   gap: 1rem;
 }
 .crucible.dice-roll .modifiers .boons .hex .value,
@@ -2886,13 +2970,7 @@
   padding: 0 0 1rem;
 }
 .crucible.dice-roll .bonuses .bonus {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 0 0 48px;
-  height: 48px;
-  line-height: 48px;
+  --hex-size: 48px;
 }
 .crucible.dice-roll .bonuses .value {
   font-size: var(--font-size-20);
@@ -2957,8 +3035,9 @@
 .crucible.dice-roll .form-footer button {
   opacity: 1;
 }
-.crucible.dice-roll .standard-form .form-footer {
-  flex-wrap: wrap;
+.crucible.dice-roll .form-footer button.icon {
+  --button-size: 32px;
+  flex: none;
 }
 .crucible.dice-roll button.place-template {
   flex: 0 0 140px;

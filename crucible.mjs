@@ -25,6 +25,7 @@ import * as hooks from "./module/hooks/_module.mjs";
 
 // Helpers
 import {handleSocketEvent} from "./module/socket.mjs";
+import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
@@ -153,6 +154,9 @@ Hooks.once("init", async function() {
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
+
+  // Rich Text Enrichers
+  registerEnrichers();
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll);

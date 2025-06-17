@@ -394,8 +394,10 @@
   padding: 1rem 1.5rem;
   border: 2px ridge var(--color-frame);
   text-align: left; // always left, regardless of tooltip position
-  max-width: unset;
 
+  &.wide {
+    max-width: unset;
+  }
   &.locked-tooltip {
     border-color: var(--color-warm-2);
   }

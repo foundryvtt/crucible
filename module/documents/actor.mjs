@@ -355,7 +355,7 @@ export default class CrucibleActor extends Actor {
    * @param [options.passive]
    * @returns {PassiveCheck|StandardCheck}
    */
-  getSkillCheck(skillId, {banes=0, boons=0, dc=12, passive=false}={}) {
+  getSkillCheck(skillId, {banes=0, boons=0, dc=20, passive=false}={}) {
     const skill = this.system.skills[skillId];
     if ( !skill ) throw new Error(`Invalid skill ID ${skillId}`);
     const {boons: systemBoons={}, banes: systemBanes={}} = this.system.rollBonuses;
@@ -404,8 +404,7 @@ export default class CrucibleActor extends Actor {
     // Prompt the user with a roll dialog
     const flavor = game.i18n.format("SKILL.RollFlavor", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
     if ( dialog ){
-      const title = game.i18n.format("SKILL.RollTitle", {name: this.name, skill: SYSTEM.SKILLS[skillId].label});
-      const response = await check.dialog({title, flavor, rollMode});
+      const response = await check.dialog({flavor, rollMode});
       if ( response === null ) return null;
     }
 
@@ -2011,9 +2010,10 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Prepare tags displayed about this Actor.
+   * @param {"short"|"full"} scope
    * @returns {Record<string, string>}
    */
-  getTags() {
-    return this.system.getTags?.() || {};
+  getTags(scope="full") {
+    return this.system.getTags?.(scope) || {};
   }
 }

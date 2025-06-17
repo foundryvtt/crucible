@@ -270,11 +270,12 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * Prepare tags displayed about this adversary Actor.
    * @returns {Record<string, string>}
    */
-  getTags() {
+  getTags(scope="full") {
     const tags = {};
+    tags.level = `Threat Level ${this.advancement.threat}`;
+    if ( scope === "short" ) return tags;
     tags.taxonomy = this.details.taxonomy?.name || "No Taxonomy";
     tags.archetype = this.details.archetype?.name || "No Archetype";
-    tags.level = `Threat Level ${this.advancement.threat}`;
     return tags;
   }
 

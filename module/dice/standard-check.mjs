@@ -42,6 +42,7 @@ export default class StandardCheck extends Roll {
       formula = ""; // Replaced later
     }
     super(formula, data);
+    this.actor = game.actors.get(this.data.actorId);
   }
 
   /* -------------------------------------------- */
@@ -79,6 +80,14 @@ export default class StandardCheck extends Roll {
    * @type {string}
    */
   static CHAT_TEMPLATE = "systems/crucible/templates/dice/standard-check-chat.hbs";
+
+  /* -------------------------------------------- */
+
+  /**
+   * The Actor performing the check.
+   * @type {CrucibleActor}
+   */
+  actor;
 
   /* -------------------------------------------- */
 
@@ -281,13 +290,15 @@ export default class StandardCheck extends Roll {
    * Present a Dialog instance for this pool
    * @param {string} title      The title of the roll request
    * @param {string} flavor     Any flavor text attached to the roll
+   * @param {boolean} request   Display the request tray
    * @param {string} rollMode   The requested roll mode
    * @returns {Promise<{roll:StandardCheck, rollMode: string}|null>}
    */
-  async dialog({title, flavor, rollMode}={}) {
+  async dialog({title, flavor, request, rollMode}={}) {
     return this.constructor.dialogClass.prompt({
       window: {title},
       flavor,
+      request,
       rollMode,
       roll: this
     });
