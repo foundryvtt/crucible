@@ -2547,7 +2547,7 @@ enriched-content.skill-check {
   color: var(--color-text-emphatic);
   line-height: 1em;
   padding: 3px 4px 1px;
-  margin: -2px 0;
+  margin: -3px -1px;
   border: 1px solid var(--color-border);
   border-radius: 2px;
   font-size: 90%;
@@ -2568,8 +2568,8 @@ enriched-content.skill-check:hover:before {
   opacity: 1;
 }
 enriched-content.skill-check.exp {
-  --color-background: #284315;
-  --color-background-hover: #355a17;
+  --color-background: #2c3921;
+  --color-background-hover: #365021;
   --color-border: #5b9e26;
   --color-border-hover: #81cc44;
 }
