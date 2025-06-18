@@ -45,6 +45,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
         appearance: new fields.HTMLField(),
         age: new fields.StringField(),
         height: new fields.StringField(),
+        pronouns: new fields.StringField(),
         weight: new fields.StringField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()

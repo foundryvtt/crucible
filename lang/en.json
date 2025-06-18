@@ -190,15 +190,10 @@
         "private": {
           "label": "Private Biography"
         },
-        "age": {
-          "label": "Age"
-        },
-        "height": {
-          "label": "Height"
-        },
-        "weight": {
-          "label": "Weight"
-        }
+        "age.label": "Age",
+        "height.label": "Height",
+        "pronouns.label": "Pronouns",
+        "weight.label": "Weight"
       }
     },
     "movement": {
