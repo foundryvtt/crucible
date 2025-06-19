@@ -1358,6 +1358,7 @@ export default class CrucibleActor extends Actor {
    * This is an internal helper method not intended for external use.
    * @param {CrucibleItem|null} item          An Item document, object of Item data, or null to clear data
    * @param {object} [options]                Options which affect how details are applied
+   * @param {string} [options.type]             Assert a particular type of detail item. Required when clearing
    * @param {boolean} [options.canApply]        Allow new detail data to be applied?
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
    * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
@@ -1365,23 +1366,17 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {canApply=true, canClear=false, local=false, notify=true}={}) {
-    const type = item.type;
-    if ( !item && !canClear ) {
-      throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
+  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true}={}) {
+    type ??= item?.type;
+    if ( item ) {
+      if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
+      const validType = (type === item.type) && (type in this.system.details);
+      if ( !validType ) throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
     }
-    if ( item && !canApply ) {
-      throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
+    else {
+      if ( !type ) throw new Error("You must specify the type of detail item to clear.");
+      if ( !canClear ) throw new Error(`You are not allowed to clear the ${type} item from Actor ${this.name}`);
     }
-    if ( !(item.type in this.system.details) ) {
-      throw new Error(`Incorrect detail item type ${type} for Actor type ${this.type}`);
-    }
-    if ( !canApply ) {
-      throw new Error(`You are not allowed to apply this ${type} item to Actor type ${this.type}`);
-    }
-
-    // Prepare data
-    const key = `system.details.==${type}`;
 
     // Remove existing talents
     const existing = this.system.details[type];
@@ -1397,10 +1392,11 @@ export default class CrucibleActor extends Actor {
     }
 
     // Clear the detail data
+    const key = `system.details.==${type}`;
     const updateData = {};
     let message;
     if ( !item ) {
-      updateData[`==${key}`] = null;
+      updateData[key] = null;
       message = game.i18n.format("ACTOR.ClearedDetailItem", {type, actor: this.name});
     }
 

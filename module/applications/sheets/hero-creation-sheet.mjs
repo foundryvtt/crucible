@@ -76,13 +76,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       template: "systems/crucible/templates/sheets/creation/background.hbs",
       initialize: CrucibleHeroCreationSheet.#initializeBackgrounds,
       prepare: CrucibleHeroCreationSheet.#prepareBackgrounds,
+      abilities: true
     },
     talents: {
       id: "talents",
       label: "Talents",
       order: 3,
       numeral: "III",
-      template: "systems/crucible/templates/sheets/creation/talents.hbs"
+      template: "systems/crucible/templates/sheets/creation/talents.hbs",
+      talents: true
     }
   };
 
@@ -271,30 +273,32 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _initializeBackground(background) {
     const {knowledge, skills, talents, schema} = background.item.system;
 
-    // Skills
-    background.features.push({
-      label: schema.getField("skills").label,
-      items: await Promise.all(skills.map(skillId => {
-        const uuid = SYSTEM.SKILLS[skillId].talents[1];
-        return CrucibleHeroCreationSheet._renderFeatureItem(uuid)
-      }))
+    // Knowledge Areas
+    const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
+      const k = crucible.CONFIG.knowledge[knowledgeId]
+      return {text: `Knowledge: ${k?.label || k}`};
+    }));
+    if ( knowledgeTags.length ) background.features.push({
+      label: schema.getField("knowledge").label,
+      tags: knowledgeTags
     });
 
-    // Knowledge Areas
-    background.features.push({
-      label: schema.getField("knowledge").label,
-      tags: Array.from(knowledge.map(knowledgeId => {
-        const k = crucible.CONFIG.knowledge[knowledgeId]
-        return {text: `Knowledge: ${k?.label || k}`};
-      }))
+    // Skills
+    const skillItems = await Promise.all(skills.map(skillId => {
+      const uuid = SYSTEM.SKILLS[skillId].talents[1];
+      return CrucibleHeroCreationSheet._renderFeatureItem(uuid)
+    }));
+    if ( skillItems.length ) background.features.push({
+      label: schema.getField("skills").label,
+      items: skillItems
     });
 
     // Talents
-    background.features.push({
+    const talentItems = await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)));
+    if ( talentItems.length ) background.features.push({
       label: schema.getField("talents").label,
-      items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)))
+      items: talentItems
     });
-
   }
 
   /* -------------------------------------------- */
@@ -416,16 +420,17 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
         ].filterJoin(" ")
       });
 
-      // Background
-      if ( tab.id === "background" ) {
+      // Ability Step
+      if ( step.abilities ) {
         const ap = this._clone.points.ability.pool;
-        tab.selectionLabel = (ap || !context.background)
-          ? `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}`
-          : context.background.name
+        const chosen = context[step.id];
+        tab.selectionLabel = (ap || !chosen) ?
+          `${ap} ${game.i18n.localize("TALENT.LABELS.Points." + plurals.select(ap))}` :
+          chosen.name;
       }
 
       // Talents
-      if ( tab.id === "talents" ) {
+      if ( step.talents ) {
         const tp = this._clone.points.talent.available;
         tab.selectionLabel = tp > 0
           ? `${tp} ${game.i18n.localize("TALENT.LABELS.Talents." + plurals.select(tp))}`
@@ -632,7 +637,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const ancestryItem = this._state.ancestries[ancestryId].item;
 
     // Update the Actor clone
-    await actor._applyDetailItem(ancestryItem, {local: true, notify: false});
+    await actor._applyDetailItem(ancestryItem, {type: "ancestry", local: true, notify: false});
     this._state.ancestryId = ancestryId;
     await this.render({parts: ["header", this.step]});
   }
@@ -662,10 +667,15 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
       backgroundId = background.system.identifier;
       backgroundItem = background;
     }
-    else throw new Error("Invalid background provided to CrucibleHeroCreationSheet#chooseBackground");
+
+    // Remove background
+    else {
+      backgroundItem = null;
+      backgroundId = undefined;
+    }
 
     // Update the Actor clone
-    await actor._applyDetailItem(backgroundItem, {local: true, notify: false});
+    await actor._applyDetailItem(backgroundItem, {type: "background", local: true, notify: false, canClear: true});
     this._state.backgroundId = backgroundId;
     await this.render({parts: ["header", this.step]});
   }

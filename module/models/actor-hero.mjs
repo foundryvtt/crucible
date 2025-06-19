@@ -226,6 +226,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   async applyAncestry(ancestry, {force=false}={}) {
     const actor = this.parent;
     await actor._applyDetailItem(ancestry, {
+      type: "ancestry",
       canApply: (actor.isL0 && !actor.points.ability.spent) || force,
       canClear: actor.isL0 || force
     });
@@ -243,6 +244,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   async applyBackground(background, {force=false}={}) {
     const actor = this.parent;
     await actor._applyDetailItem(background, {
+      type: "background",
       canApply: actor.isL0 || force,
       canClear: actor.isL0 || force
     });

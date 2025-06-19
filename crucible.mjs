@@ -88,7 +88,7 @@ Hooks.once("init", async function() {
      * The knowledge topics configured for the system.
      * @type {Record<string, CrucibleKnowledgeConfig>}
      */
-    knowledge: SYSTEM.SKILL.DEFAULT_KNOWLEDGE
+    knowledge: {...SYSTEM.SKILL.DEFAULT_KNOWLEDGE}
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;

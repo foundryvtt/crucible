@@ -10,6 +10,6 @@
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "BACKGROUND.SHEET.SKILLS"}}</legend>
         {{formGroup fields.skills value=source.system.skills stacked=true type="checkboxes"}}
-        {{formGroup fields.knowledge value=source.system.knowledge}}
+        {{formGroup fields.knowledge value=source.system.knowledge sort=true}}
     </fieldset>
 </section>

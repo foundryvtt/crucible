@@ -250,7 +250,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @returns {Promise<void>}
    */
   async applyArchetype(item) {
-    return this.parent._applyDetailItem(item, {canApply: true, canClear: true});
+    return this.parent._applyDetailItem(item, {type: "archetype", canApply: true, canClear: true});
   }
 
   /* -------------------------------------------- */
@@ -261,7 +261,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @returns {Promise<void>}
    */
   async applyTaxonomy(item) {
-    return this.parent._applyDetailItem(item, {canApply: true, canClear: true});
+    return this.parent._applyDetailItem(item, {type: "taxonomy", canApply: true, canClear: true});
   }
 
   /* -------------------------------------------- */
