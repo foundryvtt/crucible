@@ -11,25 +11,24 @@ system:
     remain vigilant to your surroundings, work within complex social structures,
     and affect an imposing presence.</p>
   skills:
-    - athletics
     - awareness
-    - society
     - intimidation
   talents:
-    - Compendium.crucible.talent.Item.awarenessNovice0
-    - Compendium.crucible.talent.Item.intimidationNovi
     - Compendium.crucible.talent.Item.unarmedCombatTra
     - Compendium.crucible.talent.Item.intercept0000000
   identifier: constable
   ui:
     color: '#1d2196'
+  knowledge:
+    - forensics
+    - crime
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420032
-  modifiedTime: 1746803129180
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750349922571
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

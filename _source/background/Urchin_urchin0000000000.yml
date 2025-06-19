@@ -12,25 +12,24 @@ system:
     disloyalty, to avoid the attention of others, scavenging for scraps of food
     on the streets of some urban sprawl.</p>
   skills:
-    - awareness
     - stealth
     - deception
-    - performance
   talents:
-    - Compendium.crucible.talent.Item.stealthNovice000
-    - Compendium.crucible.talent.Item.deceptionNovice0
     - Compendium.crucible.talent.Item.lightWeaponTrain
     - Compendium.crucible.talent.Item.lunge00000000000
   identifier: urchin
   ui:
     color: '#84d7b7'
+  knowledge:
+    - crime
+    - tracking
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420027
-  modifiedTime: 1746803210614
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350255020
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

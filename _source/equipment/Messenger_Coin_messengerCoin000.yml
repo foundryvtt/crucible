@@ -1,0 +1,56 @@
+name: Messenger Coin
+type: consumable
+img: icons/commodities/currency/coin-engraved-sun-smile-copper.webp
+system:
+  identifier: messengerCoin
+  category: other
+  quantity: 1
+  weight: 1
+  price: 1
+  quality: standard
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>A small brass coin with a broad, grinning face and little red garnet
+      eyes. The coin is stamped with a specific sequence of sigils that link it
+      with a sibling coin, allowing the two holders to communicate over vast
+      distances.</p><p>If you hold the coin and speak to it, the coin
+      immediately connects its sibling and begins speaking loudly, relaying what
+      you're saying and what is said back. The connection lasts for up to 1
+      minute before the connection breaks. Each coin can be used once per long
+      rest.</p><p>The coin may be used 5 times after which its magic fades,
+      becoming nearly worthless.</p>
+    private: ''
+  actions: []
+  uses:
+    value: 5
+    max: 5
+effects: []
+folder: B6n3Q73Jl36TvWlr
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750031538348
+  modifiedTime: 1750031538348
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: messengerCoin000
+sort: 0
+_key: '!items!messengerCoin000'

@@ -548,15 +548,15 @@
     },
     "knowledge": {
       "label": "Knowledge Areas",
-      "hint": "Configure knowledge areas that this Background provides automatically."
+      "hint": "Configure knowledge areas that this Background provides automatically. Typically, a Background features two knowledge areas."
     },
     "skills": {
       "label": "Granted Skills",
-      "hint": "Configure skills which this Background provides automatically with novice training."
+      "hint": "Configure skills which this Background provides automatically with novice training. Typically, a Background has training in two skills."
     },
     "talents": {
       "label": "Acquired Talents",
-      "hint": "Configure one or more talents which this Background receives automatically."
+      "hint": "Configure one or more talents which this Background receives automatically. Typically, a Background receives two granted talents."
     },
     "ui": {
       "label": "User Interface",

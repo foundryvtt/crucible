@@ -11,25 +11,24 @@ system:
     variety of social functions, how to play to your audience, embellishing
     details of your performance to evoke particular emotional responses.
   skills:
-    - society
     - deception
-    - diplomacy
     - performance
   talents:
-    - Compendium.crucible.talent.Item.performanceNovic
-    - Compendium.crucible.talent.Item.deceptionNovice0
     - Compendium.crucible.talent.Item.lightWeaponTrain
     - Compendium.crucible.talent.Item.inspireheroism00
   identifier: performer
   ui:
     color: '#e26ce4'
+  knowledge:
+    - arts
+    - rituals
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0
-  coreVersion: '13.344'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420030
-  modifiedTime: 1748784780929
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350081665
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

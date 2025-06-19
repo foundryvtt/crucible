@@ -1,0 +1,18 @@
+type: Item
+folder: 35paE0gSxlbefy7n
+name: Clothing
+color: null
+sorting: a
+_id: GVbpo5LtAY44QZPD
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  lastModifiedBy: null
+_key: '!folders!GVbpo5LtAY44QZPD'

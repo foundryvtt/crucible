@@ -14,24 +14,23 @@ system:
     can find.</p>
   skills:
     - athletics
-    - awareness
     - wilderness
-    - medicine
   talents:
-    - Compendium.crucible.talent.Item.wildernessNovice
-    - Compendium.crucible.talent.Item.athleticsNovice0
     - Compendium.crucible.talent.Item.projectileTraini
     - Compendium.crucible.talent.Item.precisionshot000
   identifier: wanderer
   ui:
     color: '#98da62'
+  knowledge:
+    - tracking
+    - plants
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420012
-  modifiedTime: 1746803217793
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350283190
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

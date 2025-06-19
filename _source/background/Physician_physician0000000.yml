@@ -10,27 +10,26 @@ system:
     for noticing illness in others. You know how to treat wounds, diseases, and
     how to identify their sources.</p>
   skills:
-    - awareness
     - medicine
     - science
-    - society
   talents:
-    - Compendium.crucible.talent.Item.medicineNovice00
-    - Compendium.crucible.talent.Item.scienceNovice000
     - Compendium.crucible.talent.Item.talismanWeaponTr
     - Compendium.crucible.talent.Item.runelife00000000
   identifier: physician
   ui:
     color: '#fe4d4d'
+  knowledge:
+    - alchemy
+    - undeath
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1677350949941
-  modifiedTime: 1746803167902
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350265194
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

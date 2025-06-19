@@ -13,24 +13,23 @@ system:
     marching taught you how to handle all manner of terrain.</p>
   skills:
     - athletics
-    - wilderness
-    - society
     - intimidation
   talents:
-    - Compendium.crucible.talent.Item.athleticsNovice0
-    - Compendium.crucible.talent.Item.intimidationNovi
     - Compendium.crucible.talent.Item.heavyWeaponTrain
     - Compendium.crucible.talent.Item.heavystrike00000
   identifier: soldier
   ui:
     color: '#f08e4c'
+  knowledge:
+    - warfare
+    - machines
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420015
-  modifiedTime: 1746803193521
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350231178
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

@@ -1,0 +1,74 @@
+name: Spellband
+type: accessory
+img: icons/equipment/finger/ring-stone-leaves-grey.webp
+system:
+  identifier: spellband
+  category: jewelry
+  quantity: 1
+  weight: 1
+  price: 20
+  quality: fine
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties:
+    - investment
+  description:
+    public: >-
+      <p>This ring made of an opaque stone that has been carefully carved with
+      graceful, sweeping layers evoking an ancient aesthetic. The ring serves as
+      a powerful spellcasting focus for the <strong>Invested</strong>
+      wearer.</p>
+    private: ''
+  actions:
+    - id: spellband
+      name: Spellband
+      img: icons/equipment/finger/ring-stone-leaves-grey.webp
+      condition: ''
+      description: >-
+        <p>In moments of duress you can withdraw an additional reserve of
+        <strong>Focus</strong> from this band. The amount of Focus restored
+        depends on the enchantment bonus of the
+        ring.</p><ul><li><p><strong>Minor </strong>enchantment: <strong>4
+        Focus</strong></p></li><li><p><strong>Major </strong>enchantment:
+        <strong>6 Focus</strong></p></li><li><p><strong>Legendary
+        </strong>enchantment: <strong>8 Focus</strong></p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 1
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - focus
+      actionHooks: []
+  actorHooks: []
+effects: []
+folder: dNk8eE87Ep8GtNse
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750030928424
+  modifiedTime: 1750030928424
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: spellband0000000
+sort: 0
+_key: '!items!spellband0000000'

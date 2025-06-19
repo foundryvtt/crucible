@@ -11,25 +11,24 @@ system:
     focused on unravelling the mysteries of the world around you, and there are
     few theoretical subjects with which you are not already familiar.</p>
   skills:
-    - awareness
     - arcana
-    - medicine
     - science
   talents:
-    - Compendium.crucible.talent.Item.arcanaNovice0000
-    - Compendium.crucible.talent.Item.scienceNovice000
     - Compendium.crucible.talent.Item.mechanicalTraini
     - Compendium.crucible.talent.Item.runekinesis00000
   identifier: scholar
   ui:
     color: '#7ad6d0'
+  knowledge:
+    - artifacts
+    - legends
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420028
-  modifiedTime: 1746803180345
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750350200707
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

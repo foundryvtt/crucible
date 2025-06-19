@@ -11,25 +11,24 @@ system:
     significant portion of your time learning the art of negotiation with people
     from all walks of life, and where the boundaries of the best deal lay.</p>
   skills:
-    - awareness
-    - science
     - society
     - diplomacy
   talents:
-    - Compendium.crucible.talent.Item.diplomacyNovice0
-    - Compendium.crucible.talent.Item.societyNovice000
     - Compendium.crucible.talent.Item.lightWeaponTrain
     - Compendium.crucible.talent.Item.lunge00000000000
   identifier: merchant
   ui:
     color: '#dac372'
+  knowledge:
+    - trade
+    - crafts
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.3
+  coreVersion: '13.345'
   createdTime: 1674942420028
-  modifiedTime: 1746803160481
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750349966227
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
