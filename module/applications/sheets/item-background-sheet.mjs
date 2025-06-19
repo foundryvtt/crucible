@@ -16,29 +16,4 @@ export default class CrucibleBackgroundItemSheet extends CrucibleActorDetailsIte
   static {
     this._initializeItemSheetClass()
   }
-
-  /* -------------------------------------------- */
-  /*  Rendering                                   */
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _prepareContext(options) {
-    const context = await super._prepareContext(options);
-    context.skillsInput = this.#skillsInput.bind(this);
-    return context;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Render the skills as a multi-checkbox element.
-   * @returns {HTMLMultiCheckboxElement}
-   */
-  #skillsInput(field, inputConfig) {
-    const skills = foundry.utils.deepClone(SYSTEM.SKILLS);
-    inputConfig.name = field.fieldPath;
-    inputConfig.options = Object.entries(skills).map(([id, s]) => ({value: id, label: s.name}));
-    inputConfig.type = "checkboxes";
-    return foundry.applications.fields.createMultiSelectInput(inputConfig);
-  }
 }

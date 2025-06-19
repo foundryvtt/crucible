@@ -2,15 +2,15 @@
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.TYPE"}}</legend>
-        {{formField fields.identifier value=source.system.identifier}}
-        {{formField fields.category value=source.system.category}}
-        {{formField fields.quality value=source.system.quality}}
-        {{formField fields.enchantment value=source.system.enchantment}}
+        {{formGroup fields.identifier value=source.system.identifier}}
+        {{formGroup fields.category value=source.system.category}}
+        {{formGroup fields.quality value=source.system.quality}}
+        {{formGroup fields.enchantment value=source.system.enchantment}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>
         <legend>{{fields.properties.label}}</legend>
-        {{formField fields.properties value=item.system.properties widget=propertiesWidget}}
+        {{formGroup fields.properties value=item.system.properties widget=propertiesWidget}}
     </fieldset>
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
@@ -23,12 +23,12 @@
                 {{formInput fields.uses.fields.max value=source.system.uses.max}}
             </div>
         </div>
-        {{formField fields.equipped value=source.system.equipped}}
-        {{formField fields.broken value=source.system.broken}}
-        {{formField fields.quantity value=source.system.quantity classes="slim"}}
-        {{formField fields.weight value=source.system.weight classes="slim"}}
-        {{formField fields.price value=source.system.price classes="slim"}}
-        {{formField scaledPriceField value=item.system.price classes="slim" disabled=true}}
-        {{#if requiresInvestment}}{{formField fields.invested value=source.system.invested}}{{/if}}
+        {{formGroup fields.equipped value=source.system.equipped}}
+        {{formGroup fields.broken value=source.system.broken}}
+        {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
+        {{formGroup fields.weight value=source.system.weight classes="slim"}}
+        {{formGroup fields.price value=source.system.price classes="slim"}}
+        {{formGroup scaledPriceField value=item.system.price classes="slim" disabled=true}}
+        {{#if requiresInvestment}}{{formGroup fields.invested value=source.system.invested}}{{/if}}
     </fieldset>
 </section>

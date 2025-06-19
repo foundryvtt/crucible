@@ -14,7 +14,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
     const requiredInteger = {required: true, nullable: false, integer: true};
     return {
       description: new fields.HTMLField(),
-      category: new fields.StringField({choices: SYSTEM.ADVERSARY.TAXONOMY_CATEGORIES, initial: "humanoid"}),
+      category: new fields.StringField({choices: SYSTEM.ACTOR.CREATURE_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;

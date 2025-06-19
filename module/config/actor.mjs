@@ -1,6 +1,20 @@
 import {freezeEnum} from "./enum.mjs";
 
 /**
+ * Creature types supported by the system.
+ * @type {Record<string, string>}
+ */
+export const CREATURE_CATEGORIES = {
+  beast: "TAXONOMY.CATEGORIES.BEAST",
+  celestial: "TAXONOMY.CATEGORIES.CELESTIAL",
+  elemental: "TAXONOMY.CATEGORIES.ELEMENTAL",
+  giant: "TAXONOMY.CATEGORIES.GIANT",
+  humanoid: "TAXONOMY.CATEGORIES.HUMANOID",
+  outsider: "TAXONOMY.CATEGORIES.OUTSIDER",
+  undead: "TAXONOMY.CATEGORIES.UNDEAD"
+};
+
+/**
  * Level advancement
  * @type {Record<number, {level: number, milestones: {start: number, required: number, next: number}}>}
  */

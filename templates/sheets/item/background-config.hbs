@@ -3,13 +3,13 @@
 
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
-        {{formField fields.identifier value=system.identifier}}
-        {{formField fields.ui.fields.color value=system.ui.color}}
+        {{formGroup fields.identifier value=system.identifier}}
+        {{formGroup fields.ui.fields.color value=system.ui.color}}
     </fieldset>
 
-    <fieldset class="item-properties" {{fieldDisabled}}>
-        <legend>{{fields.skills.label}}</legend>
-        {{formInput fields.skills value=source.system.skills input=skillsInput}}
-        <p class="hint">{{fields.skills.hint}}</p>
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "BACKGROUND.SHEET.SKILLS"}}</legend>
+        {{formGroup fields.skills value=source.system.skills stacked=true type="checkboxes"}}
+        {{formGroup fields.knowledge value=source.system.knowledge}}
     </fieldset>
 </section>

@@ -1,6 +1,5 @@
 import * as ATTRIBUTES from "./attributes.mjs";
 import * as ACTION from "./action.mjs";
-import * as ADVERSARY from "./adversaries.mjs";
 import * as ARMOR from "./armor.mjs";
 import * as CONSUMABLE from "./consumable.mjs";
 import * as dice from "./dice.mjs";
@@ -134,7 +133,6 @@ export const SYSTEM = {
   ACTION,
   ACTOR,
   ACTION_HOOKS,
-  ADVERSARY,
   ANCESTRIES,
   ARMOR,
   COMPENDIUM_PACKS,

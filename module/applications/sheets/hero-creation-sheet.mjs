@@ -269,11 +269,32 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeBackground(background) {
-    const {talents, schema} = background.item.system;
+    const {knowledge, skills, talents, schema} = background.item.system;
+
+    // Skills
+    background.features.push({
+      label: schema.getField("skills").label,
+      items: await Promise.all(skills.map(skillId => {
+        const uuid = SYSTEM.SKILLS[skillId].talents[1];
+        return CrucibleHeroCreationSheet._renderFeatureItem(uuid)
+      }))
+    });
+
+    // Knowledge Areas
+    background.features.push({
+      label: schema.getField("knowledge").label,
+      tags: Array.from(knowledge.map(knowledgeId => {
+        const k = crucible.CONFIG.knowledge[knowledgeId]
+        return {text: `Knowledge: ${k?.label || k}`};
+      }))
+    });
+
+    // Talents
     background.features.push({
       label: schema.getField("talents").label,
       items: await Promise.all(talents.map(uuid => CrucibleHeroCreationSheet._renderFeatureItem(uuid)))
     });
+
   }
 
   /* -------------------------------------------- */
@@ -607,27 +628,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async chooseAncestry(ancestryId) {
     if ( !(ancestryId in this._state.ancestries) ) throw new Error(`Invalid Ancestry identifier "${ancestryId}"`);
-    this._state.ancestryId = ancestryId;
     const actor = this._clone;
     const ancestryItem = this._state.ancestries[ancestryId].item;
 
-    // Remove prior Ancestry talents
-    for ( const item of actor.items ) {
-      if ( (item.type === "talent") && item.flags.crucible?.ancestry ) actor.items.delete(item.id);
-    }
-
-    // Add new Ancestry talents
-    for ( const uuid of ancestryItem.system.talents ) {
-      const talent = await fromUuid(uuid);
-      if ( !talent ) continue;
-      const talentData = actor._cleanItemData(talent);
-      foundry.utils.mergeObject(talentData, {"flags.crucible.ancestry": ancestryId});
-      actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
-    }
-
-    // Add new Ancestry data
-    const ancestryData = {name: ancestryItem.name, img: ancestryItem.img, ...ancestryItem.system.toObject()};
-    actor.updateSource({system: {details: {"==ancestry": ancestryData}}});
+    // Update the Actor clone
+    await actor._applyDetailItem(ancestryItem, {local: true, notify: false});
+    this._state.ancestryId = ancestryId;
     await this.render({parts: ["header", this.step]});
   }
 
@@ -658,43 +664,10 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     }
     else throw new Error("Invalid background provided to CrucibleHeroCreationSheet#chooseBackground");
 
-    // Remove prior background
-    this.removeBackground();
+    // Update the Actor clone
+    await actor._applyDetailItem(backgroundItem, {local: true, notify: false});
     this._state.backgroundId = backgroundId;
-
-    // Add new Background talents
-    for ( const uuid of backgroundItem.system.talents ) {
-      const talent = await fromUuid(uuid);
-      if ( !talent ) continue;
-      const talentData = actor._cleanItemData(talent);
-      foundry.utils.mergeObject(talentData, {"flags.crucible.background": backgroundId});
-      actor.items.set(talent.id, new talent.constructor(talentData, {parent: actor}));
-    }
-
-    // Add new Background data
-    actor.updateSource({
-      system: {
-        details: {
-          "==background": {name: backgroundItem.name, img: backgroundItem.img, ...backgroundItem.system.toObject()}
-        }
-      }
-    });
     await this.render({parts: ["header", this.step]});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Remove a background item from the actor being created.
-   */
-  removeBackground() {
-    if ( !this._state.backgroundId ) return;
-    const actor = this._clone;
-    delete this._state.backgroundId;
-    for ( const item of actor.items ) {
-      if ( (item.type === "talent") && item.flags.crucible?.background ) actor.items.delete(item.id);
-    }
-    actor.updateSource({system: {details: {"==background": null}}});
   }
 
   /* -------------------------------------------- */

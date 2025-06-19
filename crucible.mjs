@@ -83,6 +83,12 @@ Hooks.once("init", async function() {
      * @type {typeof applications.CrucibleHeroCreationSheet}
      */
     heroCreationSheet: applications.CrucibleHeroCreationSheet,
+
+    /**
+     * The knowledge topics configured for the system.
+     * @type {Record<string, CrucibleKnowledgeConfig>}
+     */
+    knowledge: SYSTEM.SKILL.DEFAULT_KNOWLEDGE
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
@@ -216,12 +222,12 @@ Hooks.once("i18nInit", function() {
   const toLocalize = [
     ["ABILITIES", ["abbreviation", "label"]],
     "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
+    "ACTOR.CREATURE_CATEGORIES",
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
     "RESOURCES", "THREAT_LEVELS",
     "QUALITY_TIERS", "ENCHANTMENT_TIERS",
-    "ADVERSARY.TAXONOMY_CATEGORIES",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
   for ( let c of toLocalize ) {

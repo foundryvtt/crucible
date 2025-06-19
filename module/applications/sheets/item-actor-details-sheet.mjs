@@ -93,6 +93,20 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _processSubmitData(event, form, submitData, options) {
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      const item = this.document.clone(submitData);
+      await this.document.parent._applyDetailItem(item);
+      this.document.updateSource(item.toObject());
+      await this.render();
+      return;
+    }
+    return super._processSubmitData(event, form, submitData, options);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Handle drop events for a talent added to this sheet.
    * @param {DragEvent} event
@@ -107,7 +121,13 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
     }
-    await this.document.update({"system.talents": [...talents, data.uuid]});
+
+    // Update Actor detail or permanent Item
+    const updateData = {system: {talents: [...talents, data.uuid]}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
   }
 
   /* -------------------------------------------- */
@@ -121,6 +141,12 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
     talents.delete(uuid);
-    await this.document.update({"system.talents": [...talents]});
+
+    // Update Actor detail or permanent Item
+    const updateData = {system: {talents: [...talents]}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
   }
 }

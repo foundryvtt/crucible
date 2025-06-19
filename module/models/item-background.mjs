@@ -15,6 +15,8 @@ export default class CrucibleBackgroundItem extends foundry.abstract.TypeDataMod
     return {
       description: new fields.HTMLField({required: true, blank: true}),
       identifier: new ItemIdentifierField(),
+      knowledge: new fields.SetField(new fields.StringField({choices: () => crucible.CONFIG.knowledge})),
+      skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
       ui: new fields.SchemaField({
         color: new fields.ColorField()

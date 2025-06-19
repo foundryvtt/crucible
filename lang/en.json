@@ -285,6 +285,7 @@
 },
 
 "ACTOR.AppliedDetailItem": "Applied the {name} {type} to {actor}.",
+"ACTOR.ClearedDetailItem": "Removed the {type} from {actor}.",
 
 "ANCESTRY": {
   "FIELDS": {
@@ -545,6 +546,14 @@
       "label": "Identifier",
       "hint": "A string identifier used to reference this Background in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
     },
+    "knowledge": {
+      "label": "Knowledge Areas",
+      "hint": "Configure knowledge areas that this Background provides automatically."
+    },
+    "skills": {
+      "label": "Granted Skills",
+      "hint": "Configure skills which this Background provides automatically with novice training."
+    },
     "talents": {
       "label": "Acquired Talents",
       "hint": "Configure one or more talents which this Background receives automatically."
@@ -566,6 +575,7 @@
     "CLEAR": "Clear Background",
     "CHOOSE": "Choose Background",
     "IDENTITY": "Identity",
+    "SKILLS": "Skills",
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent to this Background by dragging and dropping from the Talents compendium pack."
@@ -1097,6 +1107,7 @@
   },
   "CATEGORIES": {
     "BEAST": "Beast",
+    "CELESTIAL": "Celestial",
     "ELEMENTAL": "Elemental",
     "GIANT": "Giant",
     "HUMANOID": "Humanoid",

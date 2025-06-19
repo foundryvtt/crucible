@@ -1356,14 +1356,16 @@ export default class CrucibleActor extends Actor {
   /**
    * Apply actor detail data.
    * This is an internal helper method not intended for external use.
-   * @param {CrucibleItem} item               An Item document, object of Item data, or null to clear data
+   * @param {CrucibleItem|null} item          An Item document, object of Item data, or null to clear data
    * @param {object} [options]                Options which affect how details are applied
    * @param {boolean} [options.canApply]        Allow new detail data to be applied?
    * @param {boolean} [options.canClear]        Allow the prior data to be cleared if null is passed?
+   * @param {boolean} [options.local=false]     Apply the item locally without saving changes to the database
+   * @param {boolean} [options.notify=true]     Display a notification about the application result?
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {canApply=true, canClear=false}={}) {
+  async _applyDetailItem(item, {canApply=true, canClear=false, local=false, notify=true}={}) {
     const type = item.type;
     if ( !item && !canClear ) {
       throw new Error(`You are not allowed to clear ${type} data from Actor ${this.name}`);
@@ -1380,42 +1382,56 @@ export default class CrucibleActor extends Actor {
 
     // Prepare data
     const key = `system.details.==${type}`;
-    const updateData = {};
-    let message;
 
     // Remove existing talents
     const existing = this.system.details[type];
-    if ( existing?.talents?.size ) {
-      const deleteIds = Array.from(existing.talents).reduce((arr, uuid) => {
-        const documentId = foundry.utils.parseUuid(uuid);
-        if ( this.items.has(documentId) ) arr.push(documentId);
-        return arr;
-      }, []);
-      await this.deleteEmbeddedDocuments("Item", deleteIds);
+    let deleteItemIds = new Set();
+    for ( const uuid of (existing?.talents || []) ) {
+      const talentId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
+    }
+    for ( const skillId of (existing?.skills || []) ) {
+      const uuid = SYSTEM.SKILLS[skillId]?.talents[1];
+      const talentId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
     // Clear the detail data
-    if ( !item ) updateData[key] = null;
+    const updateData = {};
+    let message;
+    if ( !item ) {
+      updateData[`==${key}`] = null;
+      message = game.i18n.format("ACTOR.ClearedDetailItem", {type, actor: this.name});
+    }
 
     // Add new detail data
     else {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
-      if ( detail.talents?.length ) {
-        updateData.items = [];
-        for ( const uuid of detail.talents ) {
-          const talent = await fromUuid(uuid);
-          if ( !talent ) continue;
-          const talentData = this._cleanItemData(talent);
-          updateData.items.push(talentData);
-        }
+      const talents = [];
+      for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
+      for ( const skillId of (detail.skills || []) ) talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
+      const updateItems = [];
+      for ( const talent of talents ) {
+        if ( !talent ) continue;
+        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
+        else updateItems.push(this._cleanItemData(talent));
       }
+      if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
 
-    // Perform the update
+    // Update locally (for example during character creation)
+    if ( local ) {
+      for ( const itemId of deleteItemIds ) this.items.delete(itemId);
+      this.updateSource(updateData);
+      return;
+    }
+
+    // Commit the update
+    await this.deleteEmbeddedDocuments("Item", Array.from(deleteItemIds));
     await this.update(updateData, {keepEmbeddedIds: true});
-    if ( message ) ui.notifications.info(message);
+    if ( message && notify ) ui.notifications.info(message);
   }
 
   /* -------------------------------------------- */
@@ -1953,7 +1969,7 @@ export default class CrucibleActor extends Actor {
    * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
    */
   async #updateSize(data, options) {
-    if ( !("size" in data.system?.movement) || (this.type === "group") || options._crucibleRelatedUpdate ) return;
+    if ( !data.system?.movement?.size || (this.type === "group") || options._crucibleRelatedUpdate ) return;
 
     // Unlinked Token Actor
     if ( this.isToken ) {
@@ -1986,7 +2002,7 @@ export default class CrucibleActor extends Actor {
    * If the travel pace of a group actor changed, update its token placements.
    */
   async #updatePace(data, options) {
-    if ( !("pace" in data.system?.movement) || (this.type !== "group") || options._crucibleRelatedUpdate ) return;
+    if ( !data.system?.movement?.pace || (this.type !== "group") || options._crucibleRelatedUpdate ) return;
     const pace = this.system.movement.pace;
     const sceneUpdates = {};
     for ( const token of this.getDependentTokens() ) {

@@ -3,26 +3,26 @@
 
     <fieldset {{fieldDisabled}}>
         <legend>{{localize "ANCESTRY.SHEET.IDENTITY"}}</legend>
-        {{formField fields.identifier value=system.identifier}}
-        {{formField fields.ui.fields.color value=system.ui.color}}
+        {{formGroup fields.identifier value=system.identifier}}
+        {{formGroup fields.ui.fields.color value=system.ui.color}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.movement.label}}</legend>
-        {{formField fields.movement.fields.size value=system.movement.size classes="slim"}}
-        {{formField fields.movement.fields.stride value=system.movement.stride classes="slim"}}
+        {{formGroup fields.movement.fields.size value=system.movement.size classes="slim"}}
+        {{formGroup fields.movement.fields.stride value=system.movement.stride classes="slim"}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.abilities.label}}</legend>
-        {{formField fields.abilities.fields.primary value=system.abilities.primary}}
-        {{formField fields.abilities.fields.secondary value=system.abilities.secondary}}
+        {{formGroup fields.abilities.fields.primary value=system.abilities.primary}}
+        {{formGroup fields.abilities.fields.secondary value=system.abilities.secondary}}
     </fieldset>
 
     <fieldset {{fieldDisabled}}>
         <legend>{{fields.resistances.label}}</legend>
         <p class="hint">{{localize fields.resistances.hint}}</p>
-        {{formField fields.resistances.fields.resistance value=system.resistances.resistance}}
-        {{formField fields.resistances.fields.vulnerability value=system.resistances.vulnerability}}
+        {{formGroup fields.resistances.fields.resistance value=system.resistances.resistance}}
+        {{formGroup fields.resistances.fields.vulnerability value=system.resistances.vulnerability}}
     </fieldset>
 </section>
