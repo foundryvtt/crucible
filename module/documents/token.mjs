@@ -8,6 +8,14 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     return this.actor?.size ?? this.width;
   }
 
+  /**
+   * Does this Token represent a Group actor?
+   * @type {boolean}
+   */
+  get isGroup() {
+    return this.actor?.type === "group";
+  }
+
   /** @override */
   static getTrackedAttributes(data, _path=[]) {
     return {
@@ -18,6 +26,25 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
         ["resources", "focus"]
       ],
       value: []
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _inferMovementAction() {
+    return this.isGroup ? "normal" : "walk";
+  }
+
+  /* -------------------------------------------- */
+  /*  Database Operations                         */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onUpdate(change, options, userId) {
+    super._onUpdate(change, options, userId);
+    if ( this.isGroup && ("movementAction" in change) && (game.userId === userId) && !options._crucibleRelatedUpdate ) {
+      this.actor.update({"system.movement.pace": change.movementAction}, {_crucibleRelatedUpdate: true});
     }
   }
 

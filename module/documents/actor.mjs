@@ -1818,7 +1818,8 @@ export default class CrucibleActor extends Actor {
 
     // Apply follow-up database changes only as the initiating user
     if ( game.userId === userId ) {
-      if ( !options._crucibleUpdateSize ) this.#updateSize();
+      this.#updateSize(data, options);
+      this.#updatePace(data, options);
       this.#applyResourceStatuses(data);
     }
 
@@ -1950,9 +1951,9 @@ export default class CrucibleActor extends Actor {
    * Update the size of Tokens for this Actor.
    * If the Actor is an unlinked ActorDelta, we only update it's specific Token.
    * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
-   * @returns {Promise<void>}
    */
-  async #updateSize() {
+  async #updateSize(data, options) {
+    if ( !("size" in data.system?.movement) || (this.type === "group") || options._crucibleRelatedUpdate ) return;
 
     // Unlinked Token Actor
     if ( this.isToken ) {
@@ -1964,7 +1965,7 @@ export default class CrucibleActor extends Actor {
 
     // Linked Actor
     if ( this.size !== this.prototypeToken.width ) {
-      await this.update({prototypeToken: {width: this.size, height: this.size}}, {_crucibleUpdateSize: true});
+      await this.update({prototypeToken: {width: this.size, height: this.size}}, {_crucibleRelatedUpdate: true});
     }
 
     // Update placed Tokens
@@ -1975,18 +1976,27 @@ export default class CrucibleActor extends Actor {
     }
     for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
       const scene = game.scenes.get(sceneId);
-      if ( scene ) await scene.updateEmbeddedDocuments("Token", updates);
+      if ( scene ) await scene.updateEmbeddedDocuments("Token", updates, {_crucibleRelatedUpdate: true});
     }
   }
 
   /* -------------------------------------------- */
 
-  #replenishResources(data) {
-    const levelChange = foundry.utils.hasProperty(data, "system.advancement.level");
-    const attributeChange = Object.keys(SYSTEM.ABILITIES).some(k => {
-      return foundry.utils.hasProperty(data, `system.abilities.${k}`);
-    });
-    if ( this.isOwner && (levelChange || attributeChange) ) this.rest();
+  /**
+   * If the travel pace of a group actor changed, update its token placements.
+   */
+  async #updatePace(data, options) {
+    if ( !("pace" in data.system?.movement) || (this.type !== "group") || options._crucibleRelatedUpdate ) return;
+    const pace = this.system.movement.pace;
+    const sceneUpdates = {};
+    for ( const token of this.getDependentTokens() ) {
+      sceneUpdates[token.parent.id] ||= [];
+      sceneUpdates[token.parent.id].push({_id: token.id, movementAction: pace});
+    }
+    for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
+      const scene = game.scenes.get(sceneId);
+      if ( scene ) await scene.updateEmbeddedDocuments("Token", updates, {_crucibleRelatedUpdate: true});
+    }
   }
 
   /* -------------------------------------------- */

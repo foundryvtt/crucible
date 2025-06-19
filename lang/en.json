@@ -279,7 +279,8 @@
     }
   },
   "LABELS": {
-    "medianLevel": "Median Level"
+    "medianLevel": "Median Level",
+    "cyclePace": "Cycle Pace"
   }
 },
 
@@ -1193,7 +1194,10 @@
 "TOKEN": {
   "MOVEMENT": {
     "ACTIONS": {
-      "step.label": "Step"
+      "step.label": "Step",
+      "slow.label": "Cautious",
+      "normal.label": "Normal",
+      "fast.label": "Hurried"
     }
   }
 },

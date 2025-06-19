@@ -35,33 +35,43 @@ foundry.utils.deepFreeze(LEVELS);
 
 /**
  * The travel paces which are possible for group actors.
- * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", {id: string, label: string, modifier: number, icon: string}>}
+ * @type {Record<"hidden"|"slow"|"normal"|"fast"|"reckless", Partial<TokenMovementActionConfig>>}
  */
 export const TRAVEL_PACES = freezeEnum({
   hidden: {
+    order: 1,
     label: "TRAVEL_PACES.HIDDEN",
-    modifier: -1,
-    icon: "fa-backward-fast"
+    costMultiplier: 4,
+    speedMultiplier: 0.25,
+    icon: "fa-solid fa-backward-fast"
   },
   slow: {
+    order: 2,
     label: "TRAVEL_PACES.SLOW",
-    modifier: -0.5,
-    icon: "fa-backward"
+    costMultiplier: 2,
+    speedMultiplier: 0.5,
+    icon: "fa-solid fa-backward"
   },
   normal: {
+    order: 3,
     label: "TRAVEL_PACES.NORMAL",
-    modifier: 0,
-    icon: "fa-equals"
+    costMultiplier: 1,
+    speedMultiplier: 1,
+    icon: "fa-solid fa-equals"
   },
   fast: {
+    order: 4,
     label: "TRAVEL_PACES.FAST",
-    modifier: 0.5,
-    icon: "fa-forward"
+    costMultiplier: 0.66,
+    speedMultiplier: 1.5,
+    icon: "fa-solid fa-forward"
   },
   reckless: {
+    order: 5,
     label: "TRAVEL_PACES.RECKLESS",
-    modifier: 1,
-    icon: "fa-forward-fast"
+    costMultiplier: 0.5,
+    speedMultiplier: 2,
+    icon: "fa-solid fa-forward-fast"
   }
 });
 

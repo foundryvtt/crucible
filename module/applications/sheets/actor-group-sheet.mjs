@@ -18,7 +18,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
     actions: {
       awardMilestone: CrucibleGroupActorSheet.#onAwardMilestone,
       memberRemove: CrucibleGroupActorSheet.#onMemberRemove,
-      memberSheet: CrucibleGroupActorSheet.#onMemberSheet
+      memberSheet: CrucibleGroupActorSheet.#onMemberSheet,
+      cyclePace: CrucibleGroupActorSheet.#onCyclePace,
     },
     form: {
       submitOnChange: true
@@ -146,5 +147,18 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
     const actorId = li.dataset.actorId;
     const actor = game.actors.get(actorId);
     actor?.sheet?.render({force: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleGroupActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onCyclePace(_event, _target) {
+    const paces = SYSTEM.ACTOR.TRAVEL_PACES;
+    const current = paces[this.actor.system.movement.pace];
+    const next = Object.values(paces).find(p => p.order === current.order + 1) || paces.hidden;
+    await this.actor.update({"system.movement.pace": next.id});
   }
 }

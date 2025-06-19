@@ -30,7 +30,8 @@
             </div>
             <div class="travel-pace labeled-hex">
                 <h4 class="label">{{systemFields.movement.fields.pace.label}}</h4>
-                <i class="value fa-solid {{pace.icon}}"></i>
+                <button type="button" class="value icon {{pace.icon}}" data-action="cyclePace"
+                        data-tooltip="ACTOR.GROUP.LABELS.cyclePace" data-tooltip-direction="RIGHT"></button>
                 <span class="label footer">{{localize pace.label}}</span>
             </div>
         </div>
@@ -38,7 +39,8 @@
             <h3>{{systemFields.advancement.label}}</h3>
             <div class="milestones labeled-hex">
                 <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
-                <button class="value" data-action="awardMilestone" data-tooltip="ADVANCEMENT.MilestoneAward">
+                <button type="button" class="value" data-action="awardMilestone"
+                        data-tooltip="ADVANCEMENT.MilestoneAward" data-tooltip-direction="RIGHT">
                     {{system.advancement.milestones}}
                 </button>
                 <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{groupLevel.level}}</span>

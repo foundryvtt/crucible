@@ -1690,6 +1690,13 @@
 .crucible.sheet.actor-group .sheet-section.movement .movement-speed.air {
   --hex-bg: url("../ui/elements/hex-reflex.svg");
 }
+.crucible.sheet.actor-group .sheet-section.movement button.value {
+  --button-text-color: var(--color-text-emphatic);
+  --button-hover-text-color: var(--color-text-emphatic);
+  --button-hover-background-color: transparent;
+  --button-hover-border-color: transparent;
+  opacity: 1;
+}
 .crucible.sheet.actor-group .sheet-section.advancement {
   flex: 1;
   height: 100%;
