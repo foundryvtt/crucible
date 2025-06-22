@@ -253,7 +253,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
    * @param {ActionUsage} [options.usage]     Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, token=null, usage, ...options}) {
+  _configure({actor=null, item=null, token=null, usage={}, ...options}) {
     super._configure(options);
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
     Object.defineProperty(this, "item", {value: this.parent?.parent, writable: false, configurable: true});
@@ -265,7 +265,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
      * This object is only initialized once and retained through future initialization workflows.
      * @type {ActionUsage}
      */
-    Object.defineProperty(this, "usage", {value: usage || {
+    Object.defineProperty(this, "usage", {value: foundry.utils.mergeObject(usage, {
       actorFlags: {},
       actorStatus: {},
       actorUpdates: {},
@@ -274,7 +274,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       banes: {},
       context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
       hasDice: false
-    }});
+    }, {inplace: true, overwrite: false})});
   }
 
   /* -------------------------------------------- */
@@ -620,9 +620,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "none": case "summon":
           return []
         case "self":
-          targets = canvas.ready ?
-            this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken) :
-            [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
+          const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
+          targets = tokenTargets.length
+            ? tokenTargets
+            : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
         case "single":
           targets = canvas.ready ? this.#acquireSingleTargets(strict) : [];
@@ -976,7 +977,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         }
       }
     }
-    this.actor.callActorHooks("prepareAction", this);
+    this.actor?.callActorHooks("prepareAction", this);
   }
 
   /* -------------------------------------------- */
@@ -1432,5 +1433,29 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !template ) return;
     const templateDoc = await fromUuid(template);
     if ( templateDoc ) await templateDoc.delete();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create an environmental hazard action.
+   * @param {CrucibleActor} actor
+   * @param {object} actionData
+   * @param {string[]} tags
+   * @param {number} [hazard=0]
+   * @returns {CrucibleAction}
+   */
+  static createHazard(actor, {hazard=0, tags, ...actionData}={}) {
+    tags = Array.isArray(tags) ? tags : [];
+    tags.unshift("hazard");
+    return new this({
+      id: "environmentAttack",
+      name: "Environmental Hazard",
+      img: "icons/skills/wounds/injury-body-pain-gray.webp",
+      description: "",
+      target: {type: "single", scope: 4, self: true},
+      ...actionData,
+      tags
+    }, {actor, usage: {hazard}});
   }
 }

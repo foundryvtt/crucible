@@ -664,6 +664,24 @@ export const TAGS = {
     }
   },
 
+  hazard: {
+    tag: "hazard",
+    category: "attack",
+    priority: 0,
+    propagate: ["attack"],
+    prepare() {
+      Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
+      this.usage.bonuses.ability = this.usage.hazard;
+    },
+    async roll(target, rolls) {
+      const n = this.target.multiple ?? 1;
+      for ( let i=0; i<n; i++ ) {
+        const r = await target.receiveAttack(this);
+        rolls.push(r);
+      }
+    }
+  },
+
   /* -------------------------------------------- */
   /*  Ranged Attacks                              */
   /* -------------------------------------------- */

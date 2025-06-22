@@ -3,11 +3,11 @@
  */
 export function registerEnrichers() {
   CONFIG.TextEditor.enrichers.push(
-    { // D&D5e Skill Checks
-      id: "dnd5eSkill",
-      pattern: /\[\[\/skill ([\w\s]+)]]/g,
-      enricher: enrichDND5ESkill,
-      onRender: renderSkillCheck
+    { // Crucible Hazards
+      id: "crucibleHazard",
+      pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
+      enricher: enrichHazard,
+      onRender: renderHazard
     },
     { // Crucible Skill Checks
       id: "crucibleSkill",
@@ -20,6 +20,12 @@ export function registerEnrichers() {
       pattern: /\[\[\/knowledge (\w+)]]/g,
       enricher: enrichKnowledge
     },
+    { // D&D5e Skill Checks
+      id: "dnd5eSkill",
+      pattern: /\[\[\/skill ([\w\s]+)]]/g,
+      enricher: enrichDND5ESkill,
+      onRender: renderSkillCheck
+    }
   )
 }
 
@@ -76,6 +82,103 @@ function enrichDND5ESkill([match, terms]) {
   return tag;
 }
 
+/* -------------------------------------------- */
+/*  Hazard Tests                                */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a hazard test with the format [[/hazard {level} {...tags}]]
+ * @param {string} match
+ * @param {string} terms
+ * @param {string} name
+ */
+function enrichHazard([match, terms, name]) {
+  const [hazard, ...tags] = terms.split(" ");
+  const action = crucible.api.models.CrucibleAction.createHazard(undefined, {hazard: Number(hazard), tags});
+  action._prepare();
+
+  // Construct label
+  const hazardRank = `Hazard ${hazard}`;
+  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing 
+  ${SYSTEM.DAMAGE_TYPES[action.usage.damageType]?.label} damage to ${SYSTEM.RESOURCES[action.usage.resource]?.label}`;
+
+  // Return the enriched content tag
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("hazard-check");
+  tag.dataset.hazard = hazard;
+  tag.dataset.tags = tags;
+  tag.innerHTML = name ? `${name} (${hazardRank})` : hazardRank;
+  tag.dataset.tooltip = tooltip;
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered hazard enrichment.
+ * @param {HTMLElement} element
+ */
+function renderHazard(element) {
+  element.addEventListener("click", onClickHazard);
+}
+
+/* -------------------------------------------- */
+
+async function onClickHazard(event) {
+  event.preventDefault();
+
+  // Select a target
+  let actor = inferEnricherActor();
+  if ( !actor ) {
+    const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
+      name: "partyMember",
+      type: "checkboxes",
+      options: crucible.party.system.members.reduce((arr, m) => {
+        if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name});
+        return arr;
+      }, [])
+    })
+    const partyMember = foundry.applications.fields.createFormGroup({
+      label: "Party Members",
+      hint: "Choose characters in the active party.",
+      stacked: true,
+      input: partyMemberInput
+    });
+    const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+      type: "Actor",
+      name: "anyActor",
+    });
+    const anyActor = foundry.applications.fields.createFormGroup({
+      label: "Any Actor",
+      hint: "Alternatively, choose any Actors.",
+      input: anyActorInput
+    });
+    const response = await foundry.applications.api.DialogV2.input({
+      window: {title: "Choose Target", icon: "fa-solid fa-bullseye"},
+      content: `\
+      ${partyMember.outerHTML}${anyActor.outerHTML}
+      `,
+    });
+
+    // Iterate over actor targets
+    const element = event.target;
+    const {hazard, tags} = element.dataset;
+    const targets = new Set([...response.partyMember, ...response.anyActor]);
+    for ( const actorId of targets ) {
+      const actor = game.actors.get(actorId);
+      const action = crucible.api.models.CrucibleAction.createHazard(actor, {
+        name: element.innerText,
+        hazard: Number(hazard),
+        tags: tags.split(",")
+      });
+      // noinspection ES6MissingAwait
+      action.use();
+    }
+  }
+}
+
+/* -------------------------------------------- */
+/*  Skill Checks                                */
 /* -------------------------------------------- */
 
 function enrichSkillCheck([match, terms]) {
@@ -153,7 +256,7 @@ function onClickSkillCheck(event) {
 function inferEnricherActor() {
   if ( canvas.ready && (canvas.tokens.controlled.length === 1) ) {
     const controlledToken = canvas.tokens.controlled[0];
-    if ( controlledToken.actor?.isOwner ) return controlledToken.actor;
+    if ( controlledToken.actor?.isOwner && !controlledToken.document.isGroup ) return controlledToken.actor;
   }
   else if ( !game.user.isGM && game.user.character ) {
     if ( game.user.character?.isOwner ) return game.user.character;

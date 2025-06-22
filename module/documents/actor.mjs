@@ -301,9 +301,9 @@ export default class CrucibleActor extends Actor {
    * Get a creature's effective resistance against a certain damage type dealt to a certain resource.
    * @param {string} resource       The resource targeted in SYSTEM.RESOURCES
    * @param {string} damageType     The damage type dealt in SYSTEM.DAMAGE_TYPES
-   * @param {boolean} restoration   Does the ability cause restoration?
+   * @param {boolean} [restoration=false] Does the ability cause restoration?
    */
-  getResistance(resource, damageType, restoration) {
+  getResistance(resource, damageType, restoration=false) {
     if ( restoration ) return 0;
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
@@ -566,6 +566,57 @@ export default class CrucibleActor extends Actor {
       resource: spell.rune.resource,
       type: spell.damage.type,
       restoration: spell.damage.restoration
+    };
+    roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+    return roll;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Cause this Actor to be the recipient of an environmental hazard attack.
+   * @param {object} hazardData
+   * @returns {Promise<CrucibleAction>}
+   */
+  async hazardAttack(hazardData) {
+    const action = CrucibleAction.createHazard(this, hazardData);
+    return action.use();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Cause this actor to receive the effects of an Action.
+   * This is used for cases like environmental hazards where the incoming action is not caused by a specific Actor.
+   * @param {CrucibleAction} action
+   * @returns {Promise<AttackRoll>}
+   */
+  async receiveAttack(action) {
+    if ( !(action instanceof CrucibleAction) ) throw new Error("The provided action must be a CrucibleAction instance");
+    const {bonuses, damageType, defenseType, resource} = action.usage;
+    const roll = new AttackRoll({
+      actorId: this.id,
+      target: this.uuid,
+      ability: bonuses.ability,
+      skill: bonuses.skill,
+      enchantment: bonuses.enchantment,
+      defenseType,
+      dc: this.defenses[defenseType].total
+    });
+    await roll.evaluate({async: true});
+
+    // Structure damage result
+    const r = roll.data.result = this.testDefense(defenseType, roll);
+    if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
+    roll.data.damage = {
+      overflow: roll.overflow,
+      multiplier: 1,
+      base: 0,
+      bonus: 0,
+      resistance: this.getResistance(resource, damageType),
+      type: damageType,
+      resource: resource,
+      restoration: false
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     return roll;
