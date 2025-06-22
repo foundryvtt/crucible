@@ -116,6 +116,15 @@ export default class CrucibleActor extends Actor {
     return this.system.advancement.level;
   }
 
+  /**
+   * Adjusted threat level of this Actor.
+   * @type {number}
+   */
+  get threat() {
+    return this.system.advancement.threat;
+  }
+
+
   get points() {
     return this.system.points;
   }
@@ -382,6 +391,19 @@ export default class CrucibleActor extends Actor {
     // Create Roll
     const rollCls = passive ? crucible.api.dice.PassiveCheck : crucible.api.dice.StandardCheck;
     return new rollCls(rollData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether an Actor has a specific knowledge type.
+   * @param {string} knowledgeId
+   * @returns {boolean}
+   */
+  hasKnowledge(knowledgeId) {
+    if ( this.type !== "hero" ) return false;
+    // TODO eventually allow knowledge to come from more than just your background
+    return this.system.details.background.knowledge.has(knowledgeId);
   }
 
   /* -------------------------------------------- */
@@ -2037,5 +2059,12 @@ export default class CrucibleActor extends Actor {
    */
   getTags(scope="full") {
     return this.system.getTags?.(scope) || {};
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  onEmbed(element) {
+    Hooks.callAll("crucible.embedActor", this, element);
   }
 }

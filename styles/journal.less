@@ -138,7 +138,8 @@
 /*  Text Enrichers                           */
 /* ----------------------------------------- */
 
-enriched-content.skill-check {
+enriched-content.skill-check,
+enriched-content.passive-check {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
@@ -187,5 +188,22 @@ enriched-content.skill-check {
     --color-background-hover: #4d2368;
     --color-border: #752f9f;
     --color-border-hover: #ab3fe8;
+  }
+
+  // Passive Checks
+  &.passive-check {
+    cursor: var(--cursor-help, help);
+  }
+
+  // Knowledge Checks
+  &.knowledge-check {
+    --color-background: #1a1a37;
+    --color-background-hover: #242453;
+    --color-border: #4848ac;
+    --color-border-hover: #6c6cff;
+    &:before {
+      content: "\e0c0";
+      font-weight: 900;
+    }
   }
 }

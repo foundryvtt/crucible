@@ -14,7 +14,12 @@ export function registerEnrichers() {
       pattern: /\[\[\/skillCheck ([\w\s]+)]]/g,
       enricher: enrichSkillCheck,
       onRender: renderSkillCheck
-    }
+    },
+    { // Knowledge Test
+      id: "crucibleKnowledge",
+      pattern: /\[\[\/knowledge (\w+)]]/g,
+      enricher: enrichKnowledge
+    },
   )
 }
 
@@ -61,7 +66,7 @@ const DND5E_SKILL_MAPPING = {
 
 function enrichDND5ESkill([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
-  if ( !(skillId in DND5E_SKILL_MAPPING) ) return match;
+  if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
   // Scale difficulty for the translation between D&D and crucible
   dc = 12 + Math.round((dc - 10) * 1.5);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
@@ -77,7 +82,7 @@ function enrichSkillCheck([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
   if ( skillId in DND5E_SKILL_MAPPING ) skillId = DND5E_SKILL_MAPPING[skillId];
   const skill = SYSTEM.SKILLS[skillId];
-  if ( !skill ) return match;
+  if ( !skill ) return new Text(match);
   const passive = rest.includes("passive");
   const group = rest.includes("group");
   return createSkillCheckElement(skill, dc, {passive, group});
@@ -105,6 +110,27 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   return tag;
 }
 
+/* -------------------------------------------- */
+
+/**
+ * Enrich a knowledge check with format [[/knowledge {knowledgeId}]]
+ * @param {string} match              The full matched string
+ * @param {string} knowledgeId        The matched knowledge ID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichKnowledge([match, knowledgeId]) {
+  const knowledge = crucible.CONFIG.knowledge[knowledgeId];
+  if ( !knowledge ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("knowledge-check", "passive-check", "group-check");
+  tag.toggleAttribute("data-crucible-knowledge-check", true);
+  tag.dataset.knowledgeId = knowledgeId;
+  tag.innerHTML = `Knowledge: ${knowledge.label}`;
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Helpers                                     */
 /* -------------------------------------------- */
 
 function renderSkillCheck(element) {

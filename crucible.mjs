@@ -9,7 +9,6 @@
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
-
 import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
 import CrucibleSelectiveGridShader from "./module/canvas/shaders/grid-shader.mjs";
@@ -29,6 +28,9 @@ import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
+
+// Party
+let party = null;
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -92,6 +94,16 @@ Hooks.once("init", async function() {
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
+
+  /**
+   * The primary party of player characters.
+   * @type {CrucibleActor|null}
+   */
+  Object.defineProperty(crucible, "party", {
+    get() {
+      return party;
+    }
+  });
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -185,6 +197,15 @@ Hooks.once("init", async function() {
       1: "SETTINGS.AutoConfirmSelf",
       2: "SETTINGS.AutoConfirmAll"
     },
+  });
+
+  // Primary party
+  game.settings.register("crucible", "party", {
+    scope: "world",
+    config: false,
+    type: new foundry.data.fields.DocumentIdField(),
+    default: null,
+    onChange: actorId => party = game.actors.get(actorId)
   });
 
   game.settings.register("crucible", "welcome", {
@@ -318,6 +339,9 @@ Hooks.once("setup", function() {
   const sheets = foundry.applications.apps.DocumentSheetConfig;
   sheets.registerSheet(Actor, SYSTEM.id, crucible.CONFIG.heroCreationSheet, {types: ["hero"],
     label: "CRUCIBLE.SHEETS.HeroCreation", makeDefault: false, canBeDefault: false, canConfigure: false});
+
+  // Initialize Party
+  party = game.actors.get(game.settings.get("crucible", "party")) || null;
 
   // Initialize Talent tree data
   CrucibleTalentNode.initialize();

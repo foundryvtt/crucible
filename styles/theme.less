@@ -33,6 +33,7 @@
     justify-content: center;
     align-items: center;
     white-space: nowrap;
+    font-weight: normal; // This should be core
   }
   h1.divider::before,
   h2.divider::before,
@@ -415,6 +416,7 @@
 
   .tooltip-title {
     margin: 0 0 0.5rem;
+    font-size: var(--font-size-16);
   }
 
   .group-check {
@@ -422,12 +424,16 @@
     grid-template-columns: 200px 200px;
     gap: 0.5rem 1rem;
     .group-member {
-      --title-font-size: var(--font-size-18);
+      --title-font-size: var(--font-size-16);
       --icon-size: 40px;
       width: 200px;
       height: var(--icon-size);
+      &.success .icon {
+        color: var(--color-result-verygood);
+      }
       &.failure .icon {
-        opacity: 0.2;
+        opacity: 0.75;
+        color: var(--color-result-bad);
       }
       .hex {
         --hex-size: 32px;

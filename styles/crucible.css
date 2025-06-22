@@ -34,13 +34,15 @@
   --color-accent: #cf9356;
   --color-link-text: #f36739;
   --color-border-highlight: var(--color-accent);
-  --color-damage-vulnerability: #641010;
-  --color-damage-vulnerability-border: #dc3232;
-  --color-damage-resistance: #236212;
-  --color-damage-resistance-border: #51c433;
-  --color-result-bad: #641010;
+  --color-result-verybad: #450808;
+  --color-result-bad: #851414;
   --color-result-good: #236212;
+  --color-result-verygood: #51c433;
   --color-result-warn: #a98d0b;
+  --color-damage-vulnerability: var(--color-result-bad);
+  --color-damage-vulnerability-border: var(--color-result-verybad);
+  --color-damage-resistance: var(--color-result-good);
+  --color-damage-resistance-border: var(--color-result-verygood);
   --font-h1: "AwerySmallcaps", serif;
   --font-h2: "AwerySmallcaps", serif;
   --font-h3: "AwerySmallcaps", serif;
@@ -111,6 +113,7 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  font-weight: normal;
 }
 .crucible h1.divider::before,
 .crucible h2.divider::before,
@@ -456,6 +459,7 @@
 }
 .crucible.crucible-tooltip .tooltip-title {
   margin: 0 0 0.5rem;
+  font-size: var(--font-size-16);
 }
 .crucible.crucible-tooltip .group-check {
   display: grid;
@@ -463,13 +467,17 @@
   gap: 0.5rem 1rem;
 }
 .crucible.crucible-tooltip .group-check .group-member {
-  --title-font-size: var(--font-size-18);
+  --title-font-size: var(--font-size-16);
   --icon-size: 40px;
   width: 200px;
   height: var(--icon-size);
 }
+.crucible.crucible-tooltip .group-check .group-member.success .icon {
+  color: var(--color-result-verygood);
+}
 .crucible.crucible-tooltip .group-check .group-member.failure .icon {
-  opacity: 0.2;
+  opacity: 0.75;
+  color: var(--color-result-bad);
 }
 .crucible.crucible-tooltip .group-check .group-member .hex {
   --hex-size: 32px;
@@ -2546,7 +2554,8 @@
 /* ----------------------------------------- */
 /*  Text Enrichers                           */
 /* ----------------------------------------- */
-enriched-content.skill-check {
+enriched-content.skill-check,
+enriched-content.passive-check {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
@@ -2561,37 +2570,59 @@ enriched-content.skill-check {
   font-size: 90%;
   cursor: var(--cursor-pointer);
 }
-enriched-content.skill-check:before {
+enriched-content.skill-check:before,
+enriched-content.passive-check:before {
   content: "\f6d2";
   font-family: var(--font-awesome);
   opacity: 0.5;
   margin-right: 4px;
   font-size: 80%;
 }
-enriched-content.skill-check:hover {
+enriched-content.skill-check:hover,
+enriched-content.passive-check:hover {
   background: var(--color-background-hover);
   border-color: var(--color-border-hover);
 }
-enriched-content.skill-check:hover:before {
+enriched-content.skill-check:hover:before,
+enriched-content.passive-check:hover:before {
   opacity: 1;
 }
-enriched-content.skill-check.exp {
+enriched-content.skill-check.exp,
+enriched-content.passive-check.exp {
   --color-background: #2c3921;
   --color-background-hover: #365021;
   --color-border: #5b9e26;
   --color-border-hover: #81cc44;
 }
-enriched-content.skill-check.kno {
+enriched-content.skill-check.kno,
+enriched-content.passive-check.kno {
   --color-background: #1a1a37;
   --color-background-hover: #242453;
   --color-border: #4848ac;
   --color-border-hover: #6c6cff;
 }
-enriched-content.skill-check.soc {
+enriched-content.skill-check.soc,
+enriched-content.passive-check.soc {
   --color-background: #3a184a;
   --color-background-hover: #4d2368;
   --color-border: #752f9f;
   --color-border-hover: #ab3fe8;
+}
+enriched-content.skill-check.passive-check,
+enriched-content.passive-check.passive-check {
+  cursor: var(--cursor-help, help);
+}
+enriched-content.skill-check.knowledge-check,
+enriched-content.passive-check.knowledge-check {
+  --color-background: #1a1a37;
+  --color-background-hover: #242453;
+  --color-border: #4848ac;
+  --color-border-hover: #6c6cff;
+}
+enriched-content.skill-check.knowledge-check:before,
+enriched-content.passive-check.knowledge-check:before {
+  content: "\e0c0";
+  font-weight: 900;
 }
 .crucible.sheet.skill {
   --sheet-header-height: 48px;

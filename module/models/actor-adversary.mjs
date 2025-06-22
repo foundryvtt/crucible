@@ -55,6 +55,11 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     return schema;
   }
 
+  /**
+   * The Handlebars template path used to render an @Embed block for adversaries.
+   */
+  static EMBED_TEMPLATE = "systems/crucible/templates/embeds/actor-adversary.hbs";
+
   /* -------------------------------------------- */
   /*  Properties                                  */
   /* -------------------------------------------- */
@@ -277,6 +282,34 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     tags.taxonomy = this.details.taxonomy?.name || "No Taxonomy";
     tags.archetype = this.details.archetype?.name || "No Archetype";
     return tags;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, _options) {
+    const block = new foundry.applications.elements.HTMLDocumentEmbedElement();
+    block.className = "block actor";
+    config.inline ??= false; // Never use figures
+
+    // Prepare actor data
+    const actor = this.parent;
+    const context = {
+      name: actor.name,
+      img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
+      link: actor.toAnchor().outerHTML,
+      count: config.count,
+      threat: actor.threat,
+      subtitle: [this.details.taxonomy.name, this.details.archetype.name].filterJoin(" "),
+      readaloud: await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.details.biography.appearance, {
+        relativeTo: actor,
+        secrets: actor.isOwner
+      })
+    };
+
+    // Render the Embed
+    block.innerHTML = await foundry.applications.handlebars.renderTemplate(this.constructor.EMBED_TEMPLATE, context);
+    return block;
   }
 
   /* -------------------------------------------- */

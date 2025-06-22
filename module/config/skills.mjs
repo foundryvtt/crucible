@@ -220,8 +220,6 @@ export let JOURNAL_ID = "Compendium.crucible.rules.JournalEntry.CrucibleSkills00
  * @type {Record<string, CrucibleKnowledgeConfig>}
  */
 export const DEFAULT_KNOWLEDGE = Object.freeze({
-  // abyss: {label: "Abyssals", skill: "arcana"},
-  // aedir: {label: "Aedir", skill: "society"},
   alchemy: {label: "Alchemy", skill: "arcana"},
   ancients: {label: "Ancients", skill: "society"},
   artifacts: {label: "Artifacts", skill: "society"},
@@ -239,17 +237,13 @@ export const DEFAULT_KNOWLEDGE = Object.freeze({
   gods: {label: "Gods", skill: "arcana"},
   intrigue: {label: "Intrigue", skill: "deception"},
   legends: {label: "Legends", skill: "society"},
-  // leviathans: {label: "Leviathans", skill: "medicine"},
-  // luxarum: {label: "Luxarum", skill: "arcana"},
   machines: {label: "Machines", skill: "science"},
   monsters: {label: "Monsters", skill: "medicine"},
+  outsiders: {label: "Outsiders", skill: "arcana"},
   plants: {label: "Plants", skill: "wilderness"},
   politics: {label: "Politics", skill: "diplomacy"},
-  // primordis: {label: "Primordis", skill: "arcana"},
   rituals: {label: "Rituals", skill: "arcana"},
   seafaring: {label: "Seafaring", skill: "wilderness"},
-  // shent: {label: "Shent", skill: "society"},
-  // signara: {label: "Signara", skill: "arcana"},
   souls: {label: "Souls", skill: "arcana"},
   subterranea: {label: "Subterranea", skill: "wilderness"},
   tracking: {label: "Tracking", skill: "awareness"},
