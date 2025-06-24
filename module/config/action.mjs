@@ -534,9 +534,10 @@ export const TAGS = {
       const n = this.target.multiple ?? 1;
       let weaponRange = 0;
       const contextTags = {};
-      for ( const weapon of strikes ) {
+      for ( const [i, weapon] of strikes.entries() ) {
         if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
         if ( this.range.weapon ) weaponRange = Math.min(weaponRange, weapon.system.range);
+        if ( i === 0 ) Object.assign(this.usage.bonuses, weapon.system.actionBonuses);
         contextTags[weapon.id] ||= {id: weapon.id, name: weapon.name, count: 0};
         contextTags[weapon.id].count += n;
       }
@@ -719,6 +720,7 @@ export const TAGS = {
     label: "ACTION.TagNatural",
     tooltip: "ACTION.TagNaturalTooltip",
     propagate: ["melee"],
+    priority: 2,
     canUse() {
       if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
         throw new Error("This action requires use of a natural weapon.");
@@ -726,7 +728,7 @@ export const TAGS = {
     },
     prepare() {
       this.usage.strikes ||= [];
-      const w = this.usage.weapon || this.actor.equipment.weapons.natural[0];
+      const w = this.actor.equipment.weapons.natural[0];
       if ( w ) this.usage.strikes.push(w);
     }
   },

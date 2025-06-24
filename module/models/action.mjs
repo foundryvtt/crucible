@@ -1293,7 +1293,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !original ) return false;
     const {cost, tags} = original._source;
     if ( !cost.weapon ) return false;
-    if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
+    if ( ["mainhand", "offhand", "twohand", "natural"].some(t => tags.includes(t)) ) return false;
     return this.actor?.equipment.weapons.hasChoice;
   }
 

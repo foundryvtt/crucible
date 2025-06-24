@@ -2,6 +2,28 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.acidSpit = {
+  postActivate(outcome) {
+    if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
+      const dot = this.actor.abilities.toughness.value;
+      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, outcome.target, {health: dot}));
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.acidSpray = {
+  postActivate(outcome) {
+    if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
+      const dot = this.actor.abilities.toughness.value;
+      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, outcome.target, {health: dot}));
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.berserkStrike = {
   preActivate(_targets) {
     const health = this.actor.resources.health;

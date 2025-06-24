@@ -45,7 +45,7 @@ export const CATEGORIES = {
     id: "natural",
     label: "ARMOR.CATEGORIES.NATURAL",
     armor: {min: 4, max: 18},
-    dodge: {scaling: 0, base: a => 10 - Math.floor(a / 2)}
+    dodge: {scaling: 2, base: a => 10 - Math.floor(a / 2)}
   }
 };
 

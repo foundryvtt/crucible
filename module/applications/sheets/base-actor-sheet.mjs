@@ -297,15 +297,28 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #prepareFeaturedEquipment() {
     const featuredEquipment = [];
     const {armor, weapons} = this.actor.equipment;
-    const {mainhand: mh, offhand: oh, twoHanded: th} = weapons;
+    const {mainhand: mh, offhand: oh, natural} = weapons;
+
+    // Up to three weapons
     if ( mh ) {
-      const mhTags = mh.getTags();
+      const mhTags = mh.getTags("short");
       featuredEquipment.push({name: mh.name, img: mh.img, tags: [mhTags.damage, mhTags.range]});
     }
-    if ( oh?.id && !th ) {
-      const ohTags = oh.getTags();
+    if ( oh?.id ) {
+      const ohTags = oh.getTags("short");
       featuredEquipment.push({name: oh.name, img: oh.img, tags: [ohTags.damage, ohTags.range]})
     }
+    if ( natural.length ) {
+      for ( let i=featuredEquipment.length; i<=3; i++ ) {
+        const n = natural[i];
+        if ( n ) {
+          const tags = n.getTags("short");
+          featuredEquipment.push({name: n.name, img: n.img, tags: [tags.damage, tags.range]});
+        }
+      }
+    }
+
+    // Equipped Armor
     const armorTags = armor.getTags();
     featuredEquipment.push({name: armor.name, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
     return featuredEquipment;

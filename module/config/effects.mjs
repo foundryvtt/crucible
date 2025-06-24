@@ -82,19 +82,16 @@ export function confusion(actor, target) {
   }
 }
 
-export function corroding(actor, target) {
+export function corroding(actor, target, {health=1, turns=3}={}) {
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
     icon: "icons/magic/earth/orb-stone-smoke-teal.webp",
-    duration: {turns: 3},
+    duration: {turns},
     origin: actor.uuid,
     flags: {
       crucible: {
-        dot: {
-          health: actor.system.abilities.wisdom.value,
-          damageType: "acid"
-        }
+        dot: {health, damageType: "acid"}
       }
     }
   }
