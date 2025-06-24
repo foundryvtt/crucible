@@ -6,9 +6,9 @@ import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mj
 
 /**
  * @typedef {Object} ActionContext
- * @property {string} type                  The type of context provided, i.e. "weapon", "spell", etc...
  * @property {string} label                 A string label providing context info
- * @property {string[]} tags                An array of tags which describe the context
+ * @property {string} icon                  A font awesome icon used to annotate the context
+ * @property {Record<string, string>} tags  A record of tags which describe the context
  */
 
 /**
@@ -110,6 +110,79 @@ class ActionTagGroup {
     return foundry.utils.isEmpty(this);
   }
 }
+
+/* -------------------------------------------- */
+
+/**
+ * A special Set that sorts action tags in priority order.
+ */
+class CrucibleActionTags extends Set {
+  constructor(values, action) {
+    super();
+    this.#action = action;
+    if ( values ) {
+      for ( const v of values ) this.add(v);
+    }
+    this.#sorted = [];
+    this.#sort();
+  }
+
+  /**
+   * The action that owns this set of tags.
+   * @type {CrucibleAction}
+   */
+  #action;
+
+  /**
+   * The set tags in sorted order.
+   * @type {string[]}
+   */
+  #sorted;
+
+  /** @override */
+  *tags() {
+    for ( const tag of this.#sorted ) yield SYSTEM.ACTION.TAGS[tag];
+  }
+
+  /* -------------------------------------------- */
+
+  #sort() {
+    if ( !this.#sorted ) return;
+    const TAGS = SYSTEM.ACTION.TAGS;
+    this.#sorted = Array.from(this).sort((a, b) => TAGS[a].priority - TAGS[b].priority);
+  }
+
+  /* -------------------------------------------- */
+
+  add(value) {
+    const tag = SYSTEM.ACTION.TAGS[value]
+    if ( !tag ) {
+      console.warn(`Unrecognized tag "${value}" in Action "${this.#action.id}"`);
+      return;
+    }
+    super.add(value);
+    if ( tag.propagate ) {
+      for ( const p of tag.propagate ) super.add(p);
+    }
+    this.#sort();
+  }
+
+  /* -------------------------------------------- */
+
+  delete(value) {
+    super.delete(value);
+    this.#sort();
+  }
+
+  /* -------------------------------------------- */
+
+  clear() {
+    super.clear();
+    this.#sort();
+  }
+}
+
+/* -------------------------------------------- */
 
 /**
  * The data schema used for an Action within a talent Item
@@ -272,7 +345,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       bonuses: {ability: 0, skill: 0, enchantment: 0, damageBonus: 0, multiplier: 1},
       boons: {},
       banes: {},
-      context: {type: undefined, label: undefined, icon: undefined, tags: new Set()},
+      context: {label: undefined, icon: undefined, tags: {}},
       hasDice: false
     }, {inplace: true, overwrite: false})});
   }
@@ -345,19 +418,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Propagate and sort tags
-    const TAGS = SYSTEM.ACTION.TAGS;
-    for ( const t of this.tags ) {
-      const tag = TAGS[t];
-      if ( !tag ) {
-        console.warn(`Unrecognized tag "${t}" in Action "${this.id}"`);
-        this.tags.delete(t);
-        continue;
-      }
-      if ( tag.propagate ) {
-        for ( const p of tag.propagate ) this.tags.add(p);
-      }
-    }
-    this.tags = new Set(Array.from(this.tags).sort((a, b) => TAGS[a].priority - TAGS[b].priority));
+    this.tags = new CrucibleActionTags(this._source.tags, this);
 
     // Prepare Cost
     this.cost.hands = 0; // Number of free hands required
@@ -520,15 +581,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       return ui.notifications.warn(err.message);
     }
 
-    // Pre-execution steps
-    await this._preActivate(targets)
-
     // Prompt for action configuration
     if ( dialog ) {
       const configuration = await this.configure(targets);
       if ( configuration === null ) return null;  // Dialog closed
       if ( configuration.targets ) targets = configuration.targets;
     }
+
+    // Pre-execution steps
+    await this._preActivate(targets)
 
     /**
      * Outcomes of the action, arranged by target.
@@ -955,11 +1016,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   * _tests() {
-    for ( const t of this.tags ) {
-      const tag = SYSTEM.ACTION.TAGS[t];
-      if ( !tag ) continue;
-      yield tag;
-    }
+    yield* this.tags.tags();
     yield this.hooks;
   }
 
@@ -1081,6 +1138,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Pre-activation steps which happen before the action is evaluated.
    * This could be used to mutate the array of targets which are affected by the action.
+   * Pre-activation happens *after* dialog configuration of the action.
    * @param {ActionUseTarget[]} targets       The array of targets affected by the action
    * @protected
    */
@@ -1252,8 +1310,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Action Tags
     for (let t of this.tags) {
       const tag = SYSTEM.ACTION.TAGS[t];
-      if ( !tag?.label ) continue;
+      if ( tag.internal ) continue;
       else tags.action[tag.tag] = game.i18n.localize(tag.label);
+    }
+
+    // Context Tags
+    const ctx = this.usage.context;
+    tags.context = new ActionTagGroup({icon: ctx.icon || "fa-solid fa-bullseye", tooltip: ctx.label || "Context Tags"});
+    for ( const [k, v] of Object.entries(ctx.tags) ) {
+      tags.context[k] = v;
     }
 
     // Target
@@ -1273,7 +1338,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Cost
     const cost = this._trueCost || this.cost;
     let ap = cost.action ?? 0;
-    if ( this.cost.weapon && !this.usage.weapon ) {  // Weapon not yet determined
+    if ( this.cost.weapon && !this.usage.strikes?.length ) { // Strike sequence not yet determined
       if ( ap > 0 ) tags.activation.ap = `W+${ap}A`;
       else if ( ap < 0 ) tags.activation.ap = `W${ap}A`;
       else tags.activation.ap = "W";
@@ -1287,10 +1352,19 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Duration
     let duration = 0;
+    let durationTag = "";
     for ( const effect of this.effects ) {
-      if ( effect.duration?.rounds ) duration = Math.max(effect.duration?.rounds);
+      const {rounds=0, turns=0} = effect.duration || {};
+      if ( rounds > duration ) {
+        duration = rounds;
+        durationTag = `${duration}R`;
+      }
+      else if ( turns > duration ) {
+        duration = turns;
+        durationTag = `${duration}T`;
+      }
     }
-    if ( duration ) tags.action.duration = `${duration}R`;
+    if ( durationTag ) tags.action.duration = durationTag;
     return tags;
   }
 
@@ -1378,8 +1452,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Confirm the result of an Action that was recorded as a ChatMessage.
+   * @param {CrucibleChatMessage} message
+   * @param {object} options
+   * @param {CrucibleAction} [options.action]
+   * @param {boolean} [options.reverse=false]
    */
-  static async confirm(message, {action, reverse=false}={}) {
+  static async confirmMessage(message, {action, reverse=false}={}) {
     action ||= this.fromChatMessage(message);
     const flagsUpdate = {confirmed: !reverse};
     await action.confirm({reverse});

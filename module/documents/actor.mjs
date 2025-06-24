@@ -1,4 +1,3 @@
-import StandardCheck from "../dice/standard-check.mjs"
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
@@ -689,12 +688,11 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
    */
   async weaponAttack(action, target, weapon) {
-    weapon ||= action.usage.weapon;
-    const {boons, banes} = this.applyTargetBoons(target, action, "weapon", !!weapon.config.category.ranged);
-    const defenseType = action.usage.defenseType || "physical";
-    if ( weapon?.type !== "weapon") {
+    if ( !(weapon instanceof crucible.api.documents.CrucibleItem) || (weapon?.type !== "weapon") ) {
       throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
     }
+    const {boons, banes} = this.applyTargetBoons(target, action, "weapon", !!weapon.config.category.ranged);
+    const defenseType = action.usage.defenseType || "physical";
 
     // Compose roll data
     const {ability, skill, enchantment} = weapon.system.actionBonuses;

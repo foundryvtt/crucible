@@ -42,7 +42,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.dataset.messageId);
-      return CrucibleAction.confirm(message);
+      return CrucibleAction.confirmMessage(message);
     }
   });
 
@@ -57,7 +57,7 @@ export function addChatMessageContextOptions(html, options)  {
     },
     callback: async li => {
       const message = game.messages.get(li.dataset.messageId);
-      return CrucibleAction.confirm(message, {reverse: true});
+      return CrucibleAction.confirmMessage(message, {reverse: true});
     }
   });
   return options;

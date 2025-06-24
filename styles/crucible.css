@@ -2705,6 +2705,16 @@ enriched-content.hazard-check.hazard-check {
   font-size: var(--font-size-12);
   color: var(--color-tertiary);
 }
+.crucible.chat-message .message-metadata {
+  display: flex;
+  align-items: center;
+}
+.crucible.chat-message .message-metadata .confirmed {
+  color: var(--colorSuccess);
+}
+.crucible.chat-message .message-metadata .unconfirmed {
+  color: var(--colorError);
+}
 .crucible.chat-message .flavor-text {
   font-size: var(--font-size-12);
   color: var(--color-secondary);
@@ -2754,12 +2764,6 @@ enriched-content.hazard-check.hazard-check {
   color: var(--colorOlive);
   line-height: 20px;
   margin-top: 0.25rem;
-}
-.message-metadata .confirmed {
-  color: var(--colorSuccess);
-}
-.message-metadata .unconfirmed {
-  color: var(--colorError);
 }
 /* ----------------------------------------- */
 /*  Dice Roll                                */

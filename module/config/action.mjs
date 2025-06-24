@@ -121,64 +121,6 @@ export const TARGET_TYPES = Object.freeze({
  */
 
 /**
- * A generalized helper which populates tags for mainhand, offhand, and twoHanded tags.
- * @param {"mainhand"|"offhand"|"twoHanded"} type
- * @returns {Partial<ActionTag>}
- */
-function weaponAttack(type="mainhand") {
-  return {
-    prepare() {
-      const w = this.actor.equipment.weapons[type === "offhand" ? "offhand" : "mainhand"];
-      if ( !w ) return;
-
-      // Increase action cost
-      if ( this.cost.weapon ) this.cost.action += (w?.system.actionCost || 0);
-
-      // Increase action range
-      if ( this.range.weapon ) {
-        const baseMaximum = this._source.range.maximum ?? 0;
-        this.range.maximum = Math.max(this.range.maximum, baseMaximum + w.system.range);
-      }
-
-      // Configure usage data
-      Object.assign(this.usage, {weapon: w, hasDice: true, defenseType: "physical"});
-      Object.assign(this.usage.bonuses, w.system.actionBonuses);
-      Object.assign(this.usage.context, {type: "weapons", label: "Weapon Tags", icon: "fa-solid fa-swords"});
-      this.usage.context.tags.add(w.name);
-    },
-    canUse(_targets) {
-      if ( (type === "twoHanded") && !this.actor.equipment.weapons.twoHanded ) {
-        throw new Error("You must have a two-handed weapon equipped")
-      }
-      const w = this.usage.weapon;
-      if ( !w ) return false;
-      if ( w.config.category.reload && !w.system.loaded && !this.tags.has("reload") ) {
-        throw new Error("Your weapon requires reloading in order to attack")
-      }
-    },
-    async roll(target, rolls) {
-      const w = this.usage.weapon;
-      this.usage.actorStatus.hasAttacked = true;
-      if ( w.config.category.ranged ) {
-        this.usage.actorStatus.rangedAttack = true;
-        if ( w.config.category.reload ) {
-          this.usage.actorUpdates.items ||= [];
-          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
-        }
-      }
-      else this.usage.actorStatus.meleeAttack = true;
-      const n = this.target.multiple ?? 1;
-      for ( let i=0; i<n; i++ ) {
-        const r = await this.actor.weaponAttack(this, target);
-        rolls.push(r);
-      }
-    }
-  }
-}
-
-/* -------------------------------------------- */
-
-/**
  * Categories of action tags which are supported by the system.
  * @type {Readonly<Object<string, {label: string}>>}
  */
@@ -236,7 +178,9 @@ export const TAGS = {
     tooltip: "ACTION.TagFinesseTooltip",
     category: "requirements",
     canUse(_targets) {
-      return this.usage.weapon.config.category.scaling.includes("dexterity");
+      if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
+        throw new Error("Every weapon used in this action must scale using dexterity.");
+      }
     }
   },
 
@@ -248,7 +192,9 @@ export const TAGS = {
     category: "requirements",
     priority: 5,
     canUse(_targets) {
-      return this.usage.weapon.config.category.scaling.includes("strength");
+      if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
+        throw new Error("Every weapon used in this action must scale using strength.");
+      }
     }
   },
 
@@ -459,13 +405,13 @@ export const TAGS = {
       Object.assign(this.usage.context, {
         type: "spell",
         label: "Spell Tags",
-        icon: "fa-solid fa-sparkles"
+        icon: "fa-solid fa-sparkles",
+        tags: {}
       });
-      this.usage.context.tags.clear();
       if ( this.composition === 0 ) return;
-      this.usage.context.tags.add(`Rune: ${this.rune.name}`);
-      this.usage.context.tags.add(`Gesture: ${this.gesture.name}`);
-      if ( this.inflection ) this.usage.context.tags.add(this.inflection.name);
+      this.usage.context.tags.rune = `Rune: ${this.rune.name}`;
+      this.usage.context.tags.gesture = `Gesture: ${this.gesture.name}`;
+      if ( this.inflection ) this.usage.context.tags.gesture = this.inflection.name;
       this.usage.actorFlags.lastSpell = this.id;
     },
     canUse(_targets) {
@@ -568,10 +514,53 @@ export const TAGS = {
   /*  Attack Rolls                                */
   /* -------------------------------------------- */
 
-  attack: {
-    tag: "attack",
-    category: "attack",
-    priority: 0
+  // Perform a Strike sequence
+  strike: {
+    tag: "strike",
+    priority: Infinity, // Last
+    internal: true,
+    prepare() {
+      this.usage.strikes ||= [];
+      const strikes = this.usage.strikes;
+      if ( !strikes?.length ) return;
+
+      // Record usage properties
+      this.usage.actorStatus.hasAttacked = true;
+      this.usage.hasDice = true;
+      this.usage.defenseType ??= "physical";
+
+      // Prepare every configured strike
+      const n = this.target.multiple ?? 1;
+      let weaponRange = 0;
+      const contextTags = {};
+      for ( const weapon of strikes ) {
+        if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
+        if ( this.range.weapon ) weaponRange = Math.min(weaponRange, weapon.system.range);
+        contextTags[weapon.id] ||= {id: weapon.id, name: weapon.name, count: 0};
+        contextTags[weapon.id].count += n;
+      }
+
+      // Context tags
+      Object.assign(this.usage.context, {label: "Strikes", icon: "fa-solid fa-swords", tags: {}});
+      for ( const v of Object.values(contextTags) ) {
+        this.usage.context.tags[`weapon.${v.id}`] = v.count > 1 ? `${v.name} (x${v.count})` : v.name;
+      }
+
+      // Configure action range
+      if ( this.range.weapon ) {
+        const baseMaximum = this._source.range.maximum ?? 0;
+        this.range.maximum = Math.max(this.range.maximum, baseMaximum + weaponRange);
+      }
+    },
+    async roll(target, rolls) {
+      const n = this.target.multiple ?? 1;
+      for ( let i=0; i<n; i++ ) {
+      }
+      for ( const weapon of this.usage.strikes ) {
+        const r = await this.actor.weaponAttack(this, target, weapon);
+        rolls.push(r);
+      }
+    }
   },
 
   // Requires a Melee Weapon
@@ -580,17 +569,21 @@ export const TAGS = {
     label: "ACTION.TagMelee",
     tooltip: "ACTION.TagMeleeTooltip",
     category: "attack",
-    propagate: ["attack"],
+    propagate: ["strike"],
     priority: 1,
     canUse(_targets) {
-      return this.actor.equipment.weapons.melee;
+      if ( !this.actor.equipment.weapons.melee ) {
+        throw new Error("You must have melee weapons equipped to use this action.");
+      }
     },
     prepare() {
-      this.usage.weapon = undefined;      // Reset weapon
+      this.usage.strikes = [];            // Reset strike sequence
+      this.usage.actorStatus.meleeAttack = true;
       const weapons = this.actor.equipment.weapons;
       if ( weapons.dualWield ) return;    // Allow choice
       if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
         this.tags.add("mainhand");        // Default to mainhand
+        TAGS.mainhand.prepare.call(this);
       }
     }
   },
@@ -601,17 +594,32 @@ export const TAGS = {
     label: "ACTION.TagRanged",
     tooltip: "ACTION.TagRangedTooltip",
     category: "attack",
-    propagate: ["attack"],
+    propagate: ["strike"],
     priority: 1,
     canUse(_targets) {
-      return this.actor.equipment.weapons.ranged;
+      if ( !this.actor.equipment.weapons.ranged ) {
+        throw new Error("This action requires a ranged weapon equipped.");
+      }
+      if ( this.usage.strikes.some(w => w.config.category.reload && !w.system.loaded && !this.tags.has("reload")) ) {
+        throw new Error("Your weapon requires reloading in order to use this action.");
+      }
     },
     prepare() {
-      this.usage.weapon = undefined;      // Reset weapon
+      this.usage.strikes = [];            // Reset strike sequence
+      this.usage.actorStatus.rangedAttack = true;
       const weapons = this.actor.equipment.weapons;
       if ( weapons.dualWield ) return;    // Allow choice
       if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
         this.tags.add("mainhand");        // Default to mainhand
+        TAGS.mainhand.prepare.call(this);
+      }
+    },
+    roll(_target, _rolls) {
+      for ( const w of this.usage.strikes ) {
+        if ( w.config.category.reload ) {
+          this.usage.actorUpdates.items ||= [];
+          this.usage.actorUpdates.items.push({_id: w.id, "system.loaded": false});
+        }
       }
     }
   },
@@ -621,9 +629,13 @@ export const TAGS = {
     label: "ACTION.TagMainHand",
     tooltip: "ACTION.TagMainHandTooltip",
     category: "attack",
-    propagate: ["attack"],
+    propagate: ["strike"],
     priority: 2,
-    ...weaponAttack("mainhand")
+    prepare() {
+      this.usage.strikes ||= [];
+      const mh = this.actor.equipment.weapons.mainhand;
+      if ( mh ) this.usage.strikes.push(mh);
+    }
   },
 
   twohand: {
@@ -631,9 +643,18 @@ export const TAGS = {
     label: "ACTION.TagTwoHanded",
     tooltip: "ACTION.TagTwoHandedTooltip",
     category: "attack",
-    propagate: ["attack"],
+    propagate: ["strike"],
     priority: 2,
-    ...weaponAttack("twoHanded")
+    prepare() {
+      this.usage.strikes ||= [];
+      const mh = this.actor.equipment.weapons.mainhand;
+      if ( mh ) this.usage.strikes.push(mh);
+    },
+    canUse(_targets) {
+      if ( !this.actor.equipment.weapons.twoHanded ) {
+        throw new Error("This action requires a two-handed weapon equipped.");
+      }
+    }
   },
 
   offhand: {
@@ -641,9 +662,18 @@ export const TAGS = {
     label: "ACTION.TagOffHand",
     tooltip: "ACTION.TagOffHandTooltip",
     category: "attack",
-    propagate: ["attack"],
+    propagate: ["strike"],
     priority: 2,
-    ...weaponAttack("offhand")
+    prepare() {
+      this.usage.strikes ||= [];
+      const oh = this.actor.equipment.weapons.offhand;
+      if ( oh ) this.usage.strikes.push(oh);
+    },
+    canUse(_targets) {
+      if ( !this.actor.equipment.weapons.offhand ) {
+        throw new Error("This action requires an offhand weapon equipped.");
+      }
+    }
   },
 
   thrown: {
@@ -653,15 +683,18 @@ export const TAGS = {
     category: "attack",
     propagate: ["melee"],
     canUse() {
-      if ( this.actor.equipment.weapons.unarmed ) {
-        throw new Error(`You must have an equipped weapon to throw.`);
+      for ( const w of this.usage.strikes ) {
+        if ( w.category === "unarmed" ) throw new Error("You cannot throw an unarmed weapon.");
+        else if ( w.category === "natural" ) throw new Error("You cannot throw a natural weapon.");
       }
     },
     prepare() {
-      this.range.maximum = 10;
-      const w = this.usage.weapon;
-      if ( !w ) return;
-      if ( !w.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2}
+      if ( !this.usage.strikes ) return; // Not yet configured
+      this.range.maximum ??= 10;
+      this.range.weapon = false;
+      if ( !this.usage.strikes.every(w => w.system.properties.has("thrown")) ) {
+        this.usage.banes[this.id] = {label: this.name, number: 2};
+      }
     }
   },
 
@@ -669,7 +702,6 @@ export const TAGS = {
     tag: "hazard",
     category: "attack",
     priority: 0,
-    propagate: ["attack"],
     prepare() {
       Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
       this.usage.bonuses.ability = this.usage.hazard;
@@ -784,7 +816,6 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "fortitude";
-      this.usage.context.tags.add("Fortitude");
     },
   },
 
@@ -795,7 +826,6 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "reflex";
-      this.usage.context.tags.add("Reflex");
     },
   },
 
@@ -806,7 +836,6 @@ export const TAGS = {
     category: "defenses",
     prepare() {
       this.usage.defenseType = "willpower";
-      this.usage.context.tags.add("Willpower");
     },
   },
 
@@ -901,7 +930,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
     tag: id,
     label: name,
     category: "skills",
-    propagate: ["skill", "attack"],
+    propagate: ["skill"],
     prepare() {
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
@@ -912,7 +941,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
         enchantment: skill.enchantmentBonus
       });
       Object.assign(this.usage.context, {type: "skill", label: "Skill Tags", icon: "fa-solid fa-cogs"});
-      this.usage.context.tags.add(SKILLS[id].label);
+      this.usage.context.tags.skill = SKILLS[id].label;
     },
     async roll(target, rolls) {
       const attack = await this.actor.skillAttack(this, target);

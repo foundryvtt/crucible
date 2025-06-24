@@ -90,10 +90,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     return foundry.utils.mergeObject(context, {
       action: this.action,
       actor: this.actor,
-      activationTags: tags.activation,
-      actionTags: tags.action,
-      hasActionTags: !foundry.utils.isEmpty(tags.action),
-      hasContextTags: this.action.usage.context?.tags.size > 0,
+      tags,
+      hasActionTags: !tags.action.empty,
+      hasContextTags: !tags.context.empty,
       hasDice: this.action.usage.hasDice ?? false,
       hasTargets: !["self", "none"].includes(this.action.target.type),
       requiresTemplate: this.#requiresTemplate,

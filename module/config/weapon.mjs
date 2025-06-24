@@ -308,6 +308,10 @@ export const PROPERTIES = {
     tooltip: "WEAPON.TAGS.KeenTooltip",
     rarity: 1
   },
+  natural: {
+    label: "WEAPON.TAGS.Natural",
+    tooltip: "WEAPON.TAGS.NaturalTooltip",
+  },
   oversized: {
     label: "WEAPON.TAGS.Oversized",
     tooltip: "WEAPON.TAGS.OversizedTooltip"

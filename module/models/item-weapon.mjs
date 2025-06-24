@@ -1,6 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
 import {SYSTEM} from "../config/system.mjs";
-import * as ARMOR from "../config/armor.mjs";
 
 /**
  * Data schema, attributes, and methods specific to Weapon type Items.
@@ -123,7 +122,8 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const actor = this.parent.actor;
 
     // Populate equipped skill bonus
-    this.actionBonuses.skill = actor.system.training[category.training];
+    const trainingTypes = this.properties.has("natural") ? ["natural"] : category.training;
+    this.actionBonuses.skill = Math.max(...trainingTypes.map(t => actor.system.training[t] || 0));
 
     // Populate current damage bonus
     const actorBonuses = actor.system.rollBonuses.damage || {};
@@ -251,11 +251,12 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const parentTags = super.getTags(scope);
     const tags = {};
 
-    // Equipment Slot
+    // Equipment Slot and Type
     if ( this.equipped ) {
       const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
       tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
     }
+    if ( this.properties.has("natural") ) tags.natural = SYSTEM.WEAPON.PROPERTIES.natural.label;
     Object.assign(tags, parentTags);
 
     // Damage and Range

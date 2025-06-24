@@ -1173,6 +1173,8 @@
     "EngagingTooltip": "Weapons in this category allow you to better combat multiple foes, increasing your Engagement by +1.",
     "Keen": "Keen",
     "KeenTooltip": "This weapon is particularly deadly when it achieves a critical hit. IMPORTANT NOTE - the keen property is not yet implemented in the playtest.",
+    "Natural": "Natural",
+    "NaturalTooltip": "Natural weapons benefit from Natural Weapon Training rather than training from their actual category. Natural weapons cannot be dropped.",
     "Oversized": "Oversized",
     "OversizedTooltip": "This item is over-sized or otherwise cumbersome to wield, preventing you from acting quickly. You have +2 banes to Initiative while this item is equipped.",
     "Parrying": "Parrying",

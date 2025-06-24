@@ -3,7 +3,7 @@
     <div class="title">
         <h4>{{action.name}}</h4>
         <div class="tags" data-tag-type="activation">
-            {{#each activationTags as |label tag|}}
+            {{#each tags.activation as |label tag|}}
             <span class="tag" data-tag="{{tag}}">{{label}}</span>
             {{/each}}
         </div>
@@ -16,21 +16,21 @@
         <i class="fa-solid fa-bolt"></i>
     </label>
     <div class="tags" data-tag-type="action">
-        {{#each actionTags as |label tag|}}
+        {{#each tags.action as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </div>
 </div>
 {{/if}}
 
-{{#if context.tags.size}}
+{{#if hasContextTags}}
 <div class="context-tags full-tags">
-    <label class="tag-icon" data-tooltip="{{action.context.label}}" data-tooltip-direction="LEFT">
-        <i class="{{context.icon}}"></i>
+    <label class="tag-icon" data-tooltip="{{tags.context.label}}" data-tooltip-direction="LEFT">
+        <i class="{{tags.context.icon}}"></i>
     </label>
-    <div class="tags" data-tag-type="{{context.type}}">
-        {{#each context.tags as |label|}}
-        <span class="tag">{{label}}</span>
+    <div class="tags" data-tag-type="context">
+        {{#each tags.context as |label tag|}}
+        <span class="tag" data-tag="{{tag}}">{{label}}</span>
         {{/each}}
     </div>
 </div>

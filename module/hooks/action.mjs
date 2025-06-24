@@ -1,5 +1,3 @@
-import {getEffectId} from "../config/effects.mjs";
-
 const HOOKS = {};
 
 /* -------------------------------------------- */
@@ -35,9 +33,11 @@ HOOKS.delay = {
     if ( !combatant || this.actor.flags.crucible?.delay || (game.combat.combatant !== combatant) ) return false;
     return game.combat.turn < (game.combat.turns.length - 1); // Not already last
   },
+  // TODO refactor to roll()?
   async preActivate(targets) {
     const combatant = game.combat.getCombatantByActor(this.actor);
     const maximum = combatant.getDelayMaximum();
+    // TODO refactor DialogV2.input
     const response = await Dialog.prompt({
       title: "Delay Turn",
       content: `<form class="delay-turn" autocomplete="off">

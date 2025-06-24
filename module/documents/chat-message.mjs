@@ -79,7 +79,7 @@ export default class CrucibleChatMessage extends ChatMessage {
           const button = event.currentTarget;
           button.disabled = true;
           button.firstElementChild.className = "fa-solid fa-spinner fa-spin";
-          CrucibleAction.confirm(this);
+          CrucibleAction.confirmMessage(message);
         })
       }
     }

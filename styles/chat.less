@@ -16,6 +16,17 @@
     color: var(--color-tertiary);
   }
 
+  .message-metadata {
+    display: flex;
+    align-items: center;
+    .confirmed {
+      color: var(--colorSuccess);
+    }
+    .unconfirmed {
+      color: var(--colorError);
+    }
+  }
+
   .flavor-text {
     font-size: var(--font-size-12);
     color: var(--color-secondary);
@@ -80,11 +91,3 @@
   margin-top: 0.25rem;
 }
 
-.message-metadata {
-  .confirmed {
-    color: var(--colorSuccess);
-  }
-  .unconfirmed {
-    color: var(--colorError);
-  }
-}
