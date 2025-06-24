@@ -629,7 +629,6 @@ items:
             mainhand weapon.</p>
           tags:
             - reaction
-            - attack
             - melee
           cost:
             action: -2
@@ -869,7 +868,6 @@ items:
           tags:
             - finesse
             - flanking
-            - attack
             - melee
             - deadly
           cost:
@@ -1153,7 +1151,6 @@ items:
             current position nor does this attack provoke any Disengagement.</p>
           tags:
             - finesse
-            - attack
             - melee
             - difficult
           cost:

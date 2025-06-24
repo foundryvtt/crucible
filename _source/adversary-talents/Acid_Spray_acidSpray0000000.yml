@@ -1,0 +1,73 @@
+name: Acid Spray
+type: talent
+img: icons/magic/acid/projectile-beams-salvo-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The creature has salivary glands which produce a caustic acidic
+    spray.</p>
+  actions:
+    - id: acidSpray
+      name: Acid Spray
+      img: icons/magic/acid/projectile-smoke-glowing.webp
+      condition: ''
+      description: >-
+        <p>The creature spits a spray of acidic bile in a 10 foot fan. On a
+        Critical Hit, this attack causes the <strong>Corroding</strong>
+        condition.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 10
+        weapon: false
+      target:
+        type: cone
+        number: 1
+        scope: 4
+        self: false
+      effects: []
+      tags:
+        - mainhand
+        - reflex
+        - acid
+      actionHooks:
+        - hook: postActivate
+          fn: |-
+            // Require damage to Health
+            const damageHealth = outcome.resources.health < 0;
+            if ( !damageHealth ) return;
+
+            // Apply Corroding effect
+            const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
+            outcome.effects.push(corroding);
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: pfqBQPVP2KV9fQFs
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750726617612
+  modifiedTime: 1750728761482
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: acidSpray0000000
+sort: 100000
+_key: '!items!acidSpray0000000'

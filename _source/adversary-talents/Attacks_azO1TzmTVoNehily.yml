@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Attacks
+color: null
+sorting: a
+_id: azO1TzmTVoNehily
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750726612736
+  modifiedTime: 1750726612736
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!azO1TzmTVoNehily'

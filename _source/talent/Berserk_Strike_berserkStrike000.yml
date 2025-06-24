@@ -37,7 +37,6 @@ system:
         scope: 3
       effects: []
       tags:
-        - attack
         - melee
       actionHooks: []
   rune: ''

@@ -1,0 +1,61 @@
+name: Drake
+type: taxonomy
+img: icons/creatures/reptiles/dragon-winged-blue.webp
+system:
+  description: >-
+    <p>Serpentine creatures which are lesser kin of dragons. Drakes generally
+    live and hunt in packs, unlike more solitary full dragons. Drakes range from
+    younger and smaller varieties often called "Drakelings" to huge specimens
+    sometimes referred to as "Ultra Drakes".</p><p>Observed size variations
+    include:</p><ul><li><p><strong>Drakeling</strong>: Size 3, Stride
+    10</p></li><li><p><strong>Drake</strong>: Size 6, Stride
+    16</p></li><li><p><strong>Ultra Drake</strong>: Size 9, Stride
+    12</p></li></ul><p>Different types of Drakes feature a different range of
+    damage resistances and vulnerabilities depending on their sub-species.</p>
+  category: dragon
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 2
+    strength: 3
+    toughness: 3
+    dexterity: 2
+  movement:
+    size: 6
+    stride: 16
+  resistances:
+    bludgeoning: 0
+    corruption: 0
+    piercing: -1
+    slashing: 1
+    poison: 0
+    acid: 0
+    fire: 0
+    cold: 0
+    electricity: 0
+    psychic: 0
+    radiant: 0
+    void: 0
+  talents: []
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: 31EVHmb8A4SDd23W
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750730886197
+  modifiedTime: 1750730886197
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: drake00000000000
+sort: 0
+_key: '!items!drake00000000000'

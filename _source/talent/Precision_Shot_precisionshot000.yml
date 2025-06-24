@@ -14,7 +14,6 @@ system:
       condition: ''
       description: <p>You steady your aim and fire a single accurate shot.</p>
       tags:
-        - attack
         - ranged
         - deadly
         - accurate

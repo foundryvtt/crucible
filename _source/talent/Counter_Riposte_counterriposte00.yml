@@ -32,7 +32,6 @@ system:
       effects: []
       tags:
         - reaction
-        - attack
         - melee
       actionHooks: []
       range:

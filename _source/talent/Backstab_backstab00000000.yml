@@ -20,7 +20,6 @@ system:
       tags:
         - finesse
         - flanking
-        - attack
         - melee
         - deadly
       cost:

@@ -15,7 +15,6 @@ system:
         your <strong>offhand</strong> weapon.</p>
       tags:
         - afterStrike
-        - attack
         - offhand
       cost:
         action: -1

@@ -14,7 +14,6 @@ system:
         weapon. The attack is slower to execute, but is
         <strong>Empowered</strong> to deliver additional damage.</p>
       tags:
-        - attack
         - melee
         - mainhand
         - empowered

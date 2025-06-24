@@ -702,7 +702,6 @@ items:
             mainhand weapon.</p>
           tags:
             - reaction
-            - attack
             - melee
             - mainhand
           cost:

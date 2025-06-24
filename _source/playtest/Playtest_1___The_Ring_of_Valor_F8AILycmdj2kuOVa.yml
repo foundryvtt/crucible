@@ -1209,7 +1209,6 @@ actors:
                 <strong>Prone</strong>.</p>
               tags:
                 - brute
-                - attack
                 - melee
                 - difficult
                 - weakened
@@ -1428,7 +1427,6 @@ actors:
                 mainhand weapon. The attack is slower to execute, but is
                 <strong>Empowered</strong> to deliver additional damage.</p>
               tags:
-                - attack
                 - melee
                 - mainhand
                 - empowered
@@ -2012,7 +2010,6 @@ actors:
                 <strong>Slowed</strong> condition for <strong>3
                 Rounds</strong>.</p>
               tags:
-                - attack
                 - melee
                 - difficult
               cost:
@@ -2125,7 +2122,6 @@ actors:
                 weapon.</p>
               tags:
                 - afterStrike
-                - attack
                 - offhand
               cost:
                 action: -1
@@ -2197,7 +2193,6 @@ actors:
                 mainhand weapon. The attack is slower to execute, but is
                 <strong>Empowered</strong> to deliver additional damage.</p>
               tags:
-                - attack
                 - melee
                 - mainhand
                 - empowered
@@ -3520,7 +3515,6 @@ actors:
               condition: ''
               description: <p>You steady your aim and fire a single accurate shot.</p>
               tags:
-                - attack
                 - ranged
                 - deadly
                 - accurate
@@ -4079,7 +4073,6 @@ actors:
                 <strong>Prone</strong>.</p>
               tags:
                 - brute
-                - attack
                 - melee
                 - difficult
                 - weakened
@@ -4998,7 +4991,6 @@ actors:
                 mainhand weapon. The attack is slower to execute, but is
                 <strong>Empowered</strong> to deliver additional damage.</p>
               tags:
-                - attack
                 - melee
                 - mainhand
                 - empowered
@@ -8080,7 +8072,6 @@ actors:
               effects: []
               tags:
                 - reaction
-                - attack
                 - melee
               actionHooks: []
               range:
@@ -8147,7 +8138,6 @@ actors:
               effects: []
               tags:
                 - movement
-                - attack
                 - melee
               actionHooks: []
           iconicSpells: 0
@@ -8308,7 +8298,6 @@ actors:
                 mainhand weapon. The attack is slower to execute, but is
                 <strong>Empowered</strong> to deliver additional damage.</p>
               tags:
-                - attack
                 - melee
                 - mainhand
                 - empowered
@@ -9346,7 +9335,6 @@ actors:
                 mainhand weapon.</p>
               tags:
                 - reaction
-                - attack
                 - melee
               cost:
                 action: -2
@@ -9592,7 +9580,6 @@ actors:
               tags:
                 - finesse
                 - flanking
-                - attack
                 - melee
                 - deadly
               cost:
@@ -9884,7 +9871,6 @@ actors:
                 provoke any Disengagement.</p>
               tags:
                 - finesse
-                - attack
                 - melee
                 - difficult
               cost:
@@ -10671,7 +10657,6 @@ actors:
                 mainhand weapon.</p>
               tags:
                 - reaction
-                - attack
                 - melee
                 - mainhand
               cost:
@@ -11861,7 +11846,6 @@ actors:
                 becomes <strong>Restrained</strong> until the end of their next
                 Turn.</p>
               tags:
-                - attack
                 - ranged
                 - difficult
               cost:
@@ -12168,7 +12152,6 @@ actors:
                 <p>You Strike using a special shot. If your attack is successful
                 the target is <strong>Exposed</strong> for the next 3 Turns.</p>
               tags:
-                - attack
                 - ranged
                 - difficult
                 - harmless
@@ -12365,7 +12348,6 @@ actors:
               condition: ''
               description: <p>You steady your aim and fire a single accurate shot.</p>
               tags:
-                - attack
                 - ranged
                 - deadly
                 - accurate
@@ -15219,7 +15201,6 @@ actors:
               tags:
                 - melee
                 - afterStrike
-                - attack
                 - twohand
               cost:
                 action: -2
@@ -15582,7 +15563,6 @@ actors:
               effects: []
               tags:
                 - reaction
-                - attack
                 - melee
               actionHooks: []
               range:
@@ -15813,7 +15793,6 @@ actors:
               effects: []
               tags:
                 - movement
-                - attack
                 - melee
               actionHooks: []
           iconicSpells: 0
@@ -20026,7 +20005,6 @@ actors:
                 becomes <strong>Restrained</strong> until the end of their next
                 Turn.</p>
               tags:
-                - attack
                 - ranged
                 - difficult
               cost:
@@ -20255,7 +20233,6 @@ actors:
               condition: ''
               description: <p>You steady your aim and fire a single accurate shot.</p>
               tags:
-                - attack
                 - ranged
                 - deadly
                 - accurate
@@ -22135,7 +22112,6 @@ actors:
               tags:
                 - melee
                 - afterStrike
-                - attack
                 - twohand
               cost:
                 action: -2

@@ -1,0 +1,18 @@
+type: Item
+folder: azO1TzmTVoNehily
+name: Breath
+color: null
+sorting: a
+_id: pfqBQPVP2KV9fQFs
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  lastModifiedBy: null
+_key: '!folders!pfqBQPVP2KV9fQFs'

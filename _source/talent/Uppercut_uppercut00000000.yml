@@ -20,7 +20,6 @@ system:
       tags:
         - melee
         - afterStrike
-        - attack
         - twohand
       cost:
         action: -2

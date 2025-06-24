@@ -9,7 +9,6 @@ system:
     - id: twinnedShot
       tags:
         - projectile
-        - attack
         - ranged
         - difficult
         - twohand

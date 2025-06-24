@@ -400,7 +400,6 @@ items:
           tags:
             - melee
             - afterStrike
-            - attack
             - twohand
           cost:
             action: -2
@@ -757,7 +756,6 @@ items:
           effects: []
           tags:
             - reaction
-            - attack
             - melee
           actionHooks: []
           range:
@@ -983,7 +981,6 @@ items:
           effects: []
           tags:
             - movement
-            - attack
             - melee
           actionHooks: []
       iconicSpells: 0

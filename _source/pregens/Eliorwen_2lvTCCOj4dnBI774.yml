@@ -452,7 +452,6 @@ items:
             <strong>Difficult</strong>, however if your target is it it becomes
             <strong>Restrained</strong> until the end of their next Turn.</p>
           tags:
-            - attack
             - ranged
             - difficult
           cost:
@@ -752,7 +751,6 @@ items:
             <p>You Strike using a special shot. If your attack is successful the
             target is <strong>Exposed</strong> for the next 3 Turns.</p>
           tags:
-            - attack
             - ranged
             - difficult
             - harmless
@@ -945,7 +943,6 @@ items:
           condition: ''
           description: <p>You steady your aim and fire a single accurate shot.</p>
           tags:
-            - attack
             - ranged
             - deadly
             - accurate

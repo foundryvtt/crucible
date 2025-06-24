@@ -21,7 +21,6 @@ system:
         <strong>Strike</strong> using your mainhand weapon.</p>
       tags:
         - reaction
-        - attack
         - melee
       cost:
         action: -2

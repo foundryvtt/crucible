@@ -33,7 +33,6 @@ system:
       effects: []
       tags:
         - movement
-        - attack
         - melee
       actionHooks: []
   nodes:

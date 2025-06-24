@@ -20,7 +20,6 @@ system:
         target for 3 rounds. This attack is <strong>Difficult</strong> to
         perform and deals reduced damage.</p>
       tags:
-        - attack
         - melee
         - difficult
         - brute

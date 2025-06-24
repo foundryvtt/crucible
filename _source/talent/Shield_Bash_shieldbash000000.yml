@@ -16,7 +16,6 @@ system:
         - melee
         - shield
         - afterStrike
-        - attack
         - offhand
       cost:
         action: 0

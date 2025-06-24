@@ -33,7 +33,6 @@ system:
         scope: 3
       effects: []
       tags:
-        - attack
         - ranged
         - difficult
         - twohand

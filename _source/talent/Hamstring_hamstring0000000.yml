@@ -14,7 +14,6 @@ system:
         <strong>Difficult</strong>, but if successful, inflicts the
         <strong>Slowed</strong> condition for <strong>3 Rounds</strong>.</p>
       tags:
-        - attack
         - melee
         - difficult
       cost:

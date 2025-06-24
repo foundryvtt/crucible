@@ -12,7 +12,6 @@ system:
         <p>You Strike using a special shot. If your attack is successful the
         target is <strong>Exposed</strong> for the next 3 Turns.</p>
       tags:
-        - attack
         - ranged
         - difficult
         - harmless

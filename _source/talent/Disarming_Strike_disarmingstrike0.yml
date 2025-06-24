@@ -20,7 +20,6 @@ system:
         successful, the target's mainhand weapon is
         <strong>Dropped</strong>.</p>
       tags:
-        - attack
         - melee
         - difficult
         - weakened

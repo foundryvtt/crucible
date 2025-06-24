@@ -15,7 +15,6 @@ system:
         <strong>Difficult</strong>, however if your target is it it becomes
         <strong>Restrained</strong> until the end of their next Turn.</p>
       tags:
-        - attack
         - ranged
         - difficult
       cost:

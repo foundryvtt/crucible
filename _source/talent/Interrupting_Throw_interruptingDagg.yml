@@ -35,7 +35,6 @@ system:
       effects: []
       tags:
         - reaction
-        - attack
         - melee
         - thrown
       actionHooks: []
