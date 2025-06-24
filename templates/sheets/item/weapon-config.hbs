@@ -16,7 +16,7 @@
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "WEAPON.SHEET.EQUIPMENT"}}</legend>
-        {{#if source.system.equipped}}{{formGroup fields.slot value=source.system.slot options=equipmentSlots classes="double" hint=false}}{{/if}}
+        {{#if showSlots}}{{formGroup fields.slot value=source.system.slot options=equipmentSlots classes="double" hint=false}}{{/if}}
         {{formGroup fields.equipped value=source.system.equipped}}
         {{formGroup fields.broken value=source.system.broken}}
         {{#if usesReload}}{{formGroup fields.loaded value=source.system.loaded hint=false classes="reload"}}{{/if}}

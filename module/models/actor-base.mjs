@@ -509,19 +509,21 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     }
 
     // Identify equipped weapons which may populate weapon slots
-    const equippedWeapons = {mh: [], oh: [], either: []};
+    const equippedWeapons = {mh: [], oh: [], either: [], natural: []};
     const slots = SYSTEM.WEAPON.SLOTS;
     for ( let w of weaponItems ) {
-      const {equipped, slot} = w.system;
+      const {equipped, slot, properties} = w.system;
       if ( !equipped ) continue;
-      if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
+      if ( properties.has("natural") ) equippedWeapons.natural.unshift(w);
+      else if ( [slots.MAINHAND, slots.TWOHAND].includes(slot) ) equippedWeapons.mh.unshift(w);
       else if ( slot === slots.OFFHAND ) equippedWeapons.oh.unshift(w);
       else if ( slot === slots.EITHER ) equippedWeapons.either.unshift(w);
     }
     equippedWeapons.either.sort((a, b) => b.system.damage.base - a.system.damage.base);
+    equippedWeapons.natural.sort((a, b) => b.system.damage.base - a.system.damage.base);
 
     // Assign weapons to equipment slots
-    const weapons = {};
+    const weapons = {natural: equippedWeapons.natural};
     let mhOpen = true;
     let ohOpen = true;
 
@@ -568,16 +570,11 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     const ohCategory = oh?.config.category || {};
     mh?.system.prepareEquippedData();
     oh?.system.prepareEquippedData();
-
-    // Range
-    const ranges = [1];
-    if ( mh ) ranges.push(mh.system.range);
-    if ( oh ) ranges.push(oh.system.range);
-    weapons.maxRange = Math.max(...ranges);
+    for ( const n of weapons.natural ) n.system.prepareEquippedData();
 
     // Free Hand or Unarmed
-    const mhFree = ["unarmed", "natural"].includes(mhCategory.id);
-    const ohFree = ["unarmed", "natural"].includes(ohCategory.id);
+    const mhFree = mhCategory.id === "unarmed";
+    const ohFree = ohCategory.id === "unarmed";
     weapons.freehand = mhFree || ohFree;
     weapons.unarmed = mhFree && ohFree;
 
@@ -606,6 +603,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
     weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
     weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
+    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0);
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;

@@ -1674,7 +1674,7 @@ export default class CrucibleActor extends Actor {
    * @throws {Error}              An Error if the Item cannot be equipped
    */
   async #equipWeapon(item, {slot, dropped, equipped}) {
-    if ( dropped && (item.category === "natural") ) return;
+    if ( dropped && item.system.properties.has("natural") ) return; // Cannot drop
     slot = equipped ? this.canEquipWeapon(item, slot) : undefined;
     const action = equipped ? this.#equipItemAction(item, slot) : this.#unequipItemAction(item, dropped);
     if ( this.inCombat ) await action.use();
@@ -1715,7 +1715,7 @@ export default class CrucibleActor extends Actor {
   /**
    * Perform an action to equip or recover an Item.
    * @param {CrucibleItem} item       An item being equipped
-   * @param {number} [slot]           A requested equipment slot in SYSTEM.WEAPON.SLOTS
+   * @param {number|null} [slot]      A requested equipment slot in SYSTEM.WEAPON.SLOTS or null for natural weapons
    * @returns {CrucibleAction|null}
    */
   #equipItemAction(item, slot) {
@@ -1749,13 +1749,16 @@ export default class CrucibleActor extends Actor {
    * Assert that the Actor is able to currently equip a certain Weapon.
    * @param {CrucibleItem} weapon     A weapon being equipped
    * @param {number} slot             A requested equipment slot in SYSTEM.WEAPON.SLOTS
-   * @returns {number}                A numbered slot in SYSTEM.WEAPON.SLOTS where the weapon can be equipped.
+   * @returns {number|null}           A numbered slot in SYSTEM.WEAPON.SLOTS where the weapon can be equipped.
    * @throws {Error}                  An error explaining why the weapon cannot be equipped
    */
   canEquipWeapon(weapon, slot) {
     const category = weapon.config.category;
     const slots = SYSTEM.WEAPON.SLOTS;
     const {mainhand, offhand} = this.equipment.weapons;
+
+    // Natural weapons don't require any slot
+    if ( weapon.system.properties.has("natural") ) return null;
 
     // Identify the target equipment slot
     if ( slot === undefined ) {

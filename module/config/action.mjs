@@ -521,7 +521,8 @@ export const TAGS = {
     internal: true,
     prepare() {
       this.usage.strikes ||= [];
-      const strikes = this.usage.strikes;
+      const {strikes, weapon} = this.usage;
+      if ( !strikes.length && weapon ) strikes.push(weapon);
       if ( !strikes?.length ) return;
 
       // Record usage properties
@@ -577,13 +578,20 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.usage.strikes = [];            // Reset strike sequence
+      this.usage.strikes = []; // Reset strike sequence
       this.usage.actorStatus.meleeAttack = true;
-      const weapons = this.actor.equipment.weapons;
-      if ( weapons.dualWield ) return;    // Allow choice
-      if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
-        this.tags.add("mainhand");        // Default to mainhand
-        TAGS.mainhand.prepare.call(this);
+      if ( !this.usage.weapon ) {
+        const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+        if ( mh && !mh.system.config.category.ranged ) this.usage.weapon = mh;
+        else if ( oh && !oh.system.config.category.ranged ) this.usage.weapon = oh;
+        else {
+          for ( const n of natural ) {
+            if ( !n.system.config.category.ranged ) {
+              this.usage.weapon = n;
+              break;
+            }
+          }
+        }
       }
     }
   },
@@ -607,11 +615,18 @@ export const TAGS = {
     prepare() {
       this.usage.strikes = [];            // Reset strike sequence
       this.usage.actorStatus.rangedAttack = true;
-      const weapons = this.actor.equipment.weapons;
-      if ( weapons.dualWield ) return;    // Allow choice
-      if ( !["mainhand", "offhand", "twohand"].some(k => this.tags.has(k)) ) {
-        this.tags.add("mainhand");        // Default to mainhand
-        TAGS.mainhand.prepare.call(this);
+      if ( !this.usage.weapon ) {
+        const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
+        if ( mh && mh.system.config.category.ranged ) this.usage.weapon = mh;
+        else if ( oh && oh.system.config.category.ranged ) this.usage.weapon = oh;
+        else {
+          for ( const n of natural ) {
+            if ( n.system.config.category.ranged ) {
+              this.usage.weapon = n;
+              break;
+            }
+          }
+        }
       }
     },
     roll(_target, _rolls) {
@@ -685,7 +700,7 @@ export const TAGS = {
     canUse() {
       for ( const w of this.usage.strikes ) {
         if ( w.category === "unarmed" ) throw new Error("You cannot throw an unarmed weapon.");
-        else if ( w.category === "natural" ) throw new Error("You cannot throw a natural weapon.");
+        else if ( w.system.properties.has("natural") ) throw new Error("You cannot throw a natural weapon.");
       }
     },
     prepare() {
@@ -698,10 +713,29 @@ export const TAGS = {
     }
   },
 
+  natural: {
+    tag: "natural",
+    category: "attack",
+    label: "ACTION.TagNatural",
+    tooltip: "ACTION.TagNaturalTooltip",
+    propagate: ["melee"],
+    canUse() {
+      if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
+        throw new Error("This action requires use of a natural weapon.");
+      }
+    },
+    prepare() {
+      this.usage.strikes ||= [];
+      const w = this.usage.weapon || this.actor.equipment.weapons.natural[0];
+      if ( w ) this.usage.strikes.push(w);
+    }
+  },
+
   hazard: {
     tag: "hazard",
     category: "attack",
     priority: 0,
+    internal: true,
     prepare() {
       Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
       this.usage.bonuses.ability = this.usage.hazard;

@@ -65,7 +65,7 @@ HOOKS.disarmingStrike = {
     if ( outcome.target === this.actor ) return;
     if ( outcome.rolls.every(r => r.isSuccess) ) {
       const {mainhand} = outcome.target.equipment.weapons;
-      if ( !mainhand?.id || (mainhand.category === "natural") ) return;
+      if ( !mainhand?.id || mainhand.properties.has("natural") ) return;
       outcome.actorUpdates.items ||= [];
       outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
       outcome.statusText.push({text: "Disarmed!", fontSize: 64});
@@ -202,7 +202,7 @@ HOOKS.repercussiveBlock = {
     if ( outcome.target === this.actor ) return;
     if ( outcome.rolls.every(r => r.isSuccess) ) {
       const {mainhand} = outcome.target.equipment.weapons; // TODO - react to the prior action?
-      if ( !mainhand?.id || (mainhand.category === "natural") ) return;
+      if ( !mainhand?.id || mainhand.properties.has("natural") ) return;
       outcome.actorUpdates.items ||= [];
       outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
       outcome.statusText.push({text: "Disarmed!", fontSize: 64});

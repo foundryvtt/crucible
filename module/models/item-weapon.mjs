@@ -234,6 +234,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const SLOTS = SYSTEM.WEAPON.SLOTS;
     const category = this.config.category;
     const slots = [];
+    if ( this.properties.has("natural") ) return slots;
     if ( category.main ) {
       if ( category.hands === 2 ) return [SLOTS.TWOHAND];
       if ( category.off ) slots.unshift(SLOTS.EITHER);
@@ -252,11 +253,11 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     const tags = {};
 
     // Equipment Slot and Type
-    if ( this.equipped ) {
-      const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([k, v]) => v === this.slot)[0];
+    if ( this.properties.has("natural") ) tags.natural = SYSTEM.WEAPON.PROPERTIES.natural.label;
+    else if ( this.equipped ) {
+      const slotKey = Object.entries(SYSTEM.WEAPON.SLOTS).find(([_k, v]) => v === this.slot)[0];
       tags.slot = game.i18n.localize(`WEAPON.SLOTS.${slotKey}`);
     }
-    if ( this.properties.has("natural") ) tags.natural = SYSTEM.WEAPON.PROPERTIES.natural.label;
     Object.assign(tags, parentTags);
 
     // Damage and Range
@@ -269,5 +270,21 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
     if ( this.defense.parry ) tags.parry = `Parry ${this.defense.parry}`;
     if ( this.broken ) tags.broken = this.schema.fields.broken.label;
     return scope === "short" ? {damage: tags.damage, range: tags.range} : tags;
+  }
+
+  /* -------------------------------------------- */
+  /*  Deprecations and Compatibility              */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(source) {
+    super.migrateData(source);
+
+    /** @deprecated since 0.7.3 */
+    if ( source.category === "natural" ) {
+      source.category = "simple1";
+      source.properties ||= [];
+      source.properties.push("natural");
+    }
   }
 }

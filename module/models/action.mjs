@@ -155,6 +155,7 @@ class CrucibleActionTags extends Set {
   /* -------------------------------------------- */
 
   add(value) {
+    if ( this.has(value) ) return;
     const tag = SYSTEM.ACTION.TAGS[value]
     if ( !tag ) {
       console.warn(`Unrecognized tag "${value}" in Action "${this.#action.id}"`);
@@ -162,7 +163,7 @@ class CrucibleActionTags extends Set {
     }
     super.add(value);
     if ( tag.propagate ) {
-      for ( const p of tag.propagate ) super.add(p);
+      for ( const p of tag.propagate ) this.add(p);
     }
     this.#sort();
   }
@@ -1100,18 +1101,20 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const test of this._tests() ) {
       if ( !(test.canUse instanceof Function) ) continue;
       let errorReason;
+      let errorOptions = {};
       try {
         const can = test.canUse.call(this, targets);
         if ( can === false ) errorReason = `with tag ${test.label}`;
       } catch(err) {
         errorReason = err.message;
+        errorOptions = {cause: err};
       }
       if ( errorReason ) {
         throw new Error(game.i18n.format("ACTION.WarningCannotUse", {
           name: this.actor.name,
           action: this.name,
           reason: errorReason
-        }));
+        }, errorOptions));
       }
     }
   }
@@ -1290,8 +1293,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( !original ) return false;
     const {cost, tags} = original._source;
     if ( !cost.weapon ) return false;
-    if ( !this.actor?.equipment.weapons.dualWield ) return false;
-    return !["mainhand", "offhand", "twohand"].some(t => tags.includes(t));
+    if ( ["mainhand", "offhand", "twohand"].some(t => tags.includes(t)) ) return false;
+    return this.actor?.equipment.weapons.hasChoice;
   }
 
   /* -------------------------------------------- */
@@ -1437,7 +1440,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create chat message
     const messageData = {
-      type: CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL": "OTHER"],
       content: content,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       rolls: rolls,

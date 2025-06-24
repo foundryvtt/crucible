@@ -56,7 +56,7 @@ export default class CrucibleChatMessage extends ChatMessage {
 
   /**
    * Custom alterations to apply when rendering chat message HTML.
-   * Currently applied via the renderChatMessage hook
+   * Currently applied via the renderChatMessageHTML hook
    */
   static onRenderHTML(message, html, _messageData) {
     const flags = message.flags.crucible || {};

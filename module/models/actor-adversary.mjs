@@ -320,8 +320,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   static migrateData(source) {
     super.migrateData(source);
     /** @deprecated since 0.7.3 */
-    if ( source.details.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
+    if ( source.details?.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
     /** @deprecated since 0.7.3 */
-    if ( source.details.taxonomy ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.taxonomy);
+    if ( source.details?.taxonomy ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.taxonomy);
   }
 }

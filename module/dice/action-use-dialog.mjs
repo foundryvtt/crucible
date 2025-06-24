@@ -10,6 +10,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.action = action;
     this.actor = actor;
     this.targets = targets;
+    this.#weaponChoice = action.usage.weapon?.id || "";
   }
 
   /** @inheritDoc */
@@ -68,9 +69,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /**
    * The current weapon choice made by the user
-   * @type {""|"mainhand"|"offhand"}
+   * @type {string}
    */
-  #weaponChoice = "";
+  #weaponChoice;
 
   /* -------------------------------------------- */
 
@@ -103,12 +104,27 @@ export default class ActionUseDialog extends StandardCheckDialog {
 
   /* -------------------------------------------- */
 
+  /**
+   * Prepare the field and value for choosing which weapon to use if the action supports weapon choice.
+   * @returns {{field: StringField, value: string}|null}
+   */
   #prepareWeaponChoice() {
     if ( !this.action.allowWeaponChoice ) return null;
-    const weapon = new foundry.data.fields.StringField({blank: true, required: true, initial: "", choices: {
-      mainhand: SYSTEM.WEAPON.SLOTS.labels.MAINHAND,
-      offhand: SYSTEM.WEAPON.SLOTS.labels.OFFHAND
-    }, label: "Weapon", hint: "You may choose which weapon to use for this Action."});
+    const {mainhand: mh, offhand: oh, natural} = this.action.actor.equipment.weapons;
+    const choices = {};
+    if ( mh ) {
+      const mainhandId = mh.id || "mainhandUnarmed";
+      choices[mainhandId] = `${mh.name} (${SYSTEM.WEAPON.SLOTS.labels.MAINHAND})`;
+    }
+    if ( oh ) {
+      const offhandId = oh.id || "mainhandUnarmed";
+      choices[offhandId] = `${oh.name} (${SYSTEM.WEAPON.SLOTS.labels.OFFHAND})`;
+    }
+    for ( const n of natural ) {
+      choices[n.id] = `${n.name} (${SYSTEM.WEAPON.PROPERTIES.natural.label})`;
+    }
+    const weapon = new foundry.data.fields.StringField({blank: true, required: true, choices,
+      label: "Weapon", hint: "You may choose which weapon to use for this Action."});
     weapon.name = "weapon";
     return {field: weapon, value: this.#weaponChoice};
   }
@@ -147,13 +163,14 @@ export default class ActionUseDialog extends StandardCheckDialog {
   _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     if ( event.target.name === "weapon" ) {
-      const tags = new Set(this.action._source.tags);
-      tags.delete("mainhand");
-      tags.delete("offhand");
-      tags.delete("twohand");
-      this.#weaponChoice = event.target.value;
-      if ( event.target.value ) tags.add(this.#weaponChoice);
-      this.action.updateSource({tags});
+      const weapons = this.action.actor.equipment.weapons;
+      const c = this.#weaponChoice = event.target.value;
+      let weapon;
+      if ( c === "mainhandUnarmed" ) weapon = weapons.mainhand;
+      else if ( c === "offhandUnarmed" ) weapon = weapons.offhand;
+      else weapon = this.action.actor.items.get(c);
+      this.action.usage.weapon = weapon;
+      this.action.reset();
       this.render();
     }
   }

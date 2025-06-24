@@ -448,8 +448,8 @@
 "ACTION.TagSkillTooltip": "This action involves a targeted or opposed Skill check.",
 "ACTION.TagSummon": "Summon",
 "ACTION.TagSummonTooltip": "This action summons, calls, or otherwise creates a combatant which joins the encounter.",
-"ACTION.TagThrow": "Thrown",
-"ACTION.TagThrowTooltip": "This action involves performing a thrown weapon attack.",
+"ACTION.TagThrown": "Thrown",
+"ACTION.TagThrownTooltip": "This action involves performing a thrown weapon attack.",
 "ACTION.TagTwoHanded": "Two-Handed",
 "ACTION.TagTwoHandedTooltip": "This action requires wielding a two-handed weapon to perform.",
 "ACTION.TagOffHand": "Off-Hand",
@@ -508,7 +508,7 @@
     "LIGHT": "Light Armor",
     "MEDIUM": "Medium Armor",
     "HEAVY": "Heavy Armor",
-    "NATURAL": "Natural Armor"
+    "NATURAL": "Natural"
   },
   "SHEET": {
     "DEFENSES": "Armor Defenses",
@@ -1139,7 +1139,6 @@
     "HEAVY": "Heavy",
     "PROJECTILE": "Projectile",
     "MECHANICAL": "Mechanical",
-    "NATURAL": "Natural",
     "UNARMED": "Unarmed",
     "SHIELD": "Shield",
     "SHIELD_LIGHT": "Light Shield",

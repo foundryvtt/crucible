@@ -32,7 +32,7 @@ export const TRAINING = Object.freeze({
   heavy: {label: "WEAPON.CATEGORIES.HEAVY"},
   light: {label: "WEAPON.CATEGORIES.LIGHT"},
   mechanical: {label: "WEAPON.CATEGORIES.MECHANICAL"},
-  natural: {label: "WEAPON.CATEGORIES.NATURAL"},
+  natural: {label: "WEAPON.TAGS.Natural"},
   projectile: {label: "WEAPON.CATEGORIES.PROJECTILE"},
   shield: {label: "WEAPON.CATEGORIES.SHIELD"},
   simple: {label: "WEAPON.CATEGORIES.SIMPLE"},
@@ -51,20 +51,6 @@ const label = (category, hands) => {
  * @type {Record<string, WeaponCategory>}
  */
 export const CATEGORIES = Object.freeze({
-
-  // Natural Attacks
-  natural: {
-    id: "natural",
-    label: "WEAPON.CATEGORIES.NATURAL",
-    hands: 0,
-    main: true,
-    off: true,
-    scaling: "strength.toughness",
-    actionCost: 2,
-    damage: 3,
-    range: 1,
-    training: ["natural"]
-  },
 
   // One-Handed Melee
   unarmed: {
@@ -380,9 +366,10 @@ export const VAMPIRE_BITE = {
   type: "weapon",
   img: "icons/magic/death/mouth-bite-fangs-vampire.webp",
   system: {
-    category: "natural",
+    category: "balanced1",
     quality: "superior",
     enchantment: "mundane",
-    damageType: "piercing"
+    damageType: "piercing",
+    properties: ["natural"]
   }
 }

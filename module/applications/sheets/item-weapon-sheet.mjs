@@ -33,6 +33,7 @@ export default class CrucibleWeaponItemSheet extends CrucibleBaseItemSheet {
     const context = await super._prepareContext(options);
     const allowedSlots = this.document.system.getAllowedEquipmentSlots();
     Object.assign(context, {
+      showSlots: this.document.system.equipped && allowedSlots.length,
       equipmentSlots: Object.entries(SYSTEM.WEAPON.SLOTS.choices).reduce((arr, [value, label]) => {
         arr.push({value, label, disabled: !allowedSlots.includes(Number(value))});
         return arr;
