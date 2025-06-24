@@ -555,10 +555,10 @@ export const TAGS = {
     async roll(target, rolls) {
       const n = this.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
-      }
-      for ( const weapon of this.usage.strikes ) {
-        const r = await this.actor.weaponAttack(this, target, weapon);
-        rolls.push(r);
+        for ( const weapon of this.usage.strikes ) {
+          const r = await this.actor.weaponAttack(this, target, weapon);
+          rolls.push(r);
+        }
       }
     }
   },

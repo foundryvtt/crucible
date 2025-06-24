@@ -2908,9 +2908,8 @@ enriched-content.hazard-check.hazard-check {
   margin: -2px 0 1rem;
 }
 .crucible.dice-roll .damage-result .result {
+  --hex-size: 48px;
   font-size: var(--font-size-20);
-  flex: 0 0 48px;
-  height: 48px;
 }
 .crucible.dice-roll .damage-result .result::before {
   opacity: 0.2;

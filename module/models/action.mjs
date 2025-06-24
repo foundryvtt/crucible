@@ -1424,13 +1424,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const tags = this.getTags();
     const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.hbs", {
       action: this,
-      actionTags: tags.action,
-      activationTags: tags.activation,
       actor: this.actor,
       context: this.usage.context,
-      hasActionTags: !foundry.utils.isEmpty(tags.action),
-      outcomes: this.outcomes,
+      hasActionTags: !tags.action.empty,
+      hasContextTags: !tags.context.empty,
       hasTargets: !["self", "none"].includes(this.target.type),
+      outcomes: this.outcomes,
+      tags,
       targets,
       template: this.template
     });
