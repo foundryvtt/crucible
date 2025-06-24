@@ -2009,26 +2009,30 @@ export default class CrucibleActor extends Actor {
    * Otherwise, we update the Actor's prototype token as well as all placed instances of the Actor's token.
    */
   async #updateSize(data, options) {
-    if ( !data.system?.movement?.size || (this.type === "group") || options._crucibleRelatedUpdate ) return;
+    if ( options._crucibleRelatedUpdate || (this.type === "group") ) return;
+    const size = this.size;
 
     // Unlinked Token Actor
     if ( this.isToken ) {
-      if ( this.size !== this.token.width ) {
-        await this.token.update({width: this.size, height: this.size});
+      const token = this.token;
+      if ( (token.width !== size) || (token.height !== size) ) {
+        await token.update({width: size, height: size}, {_crucibleRelatedUpdate: true});
       }
       return;
     }
 
     // Linked Actor
-    if ( this.size !== this.prototypeToken.width ) {
-      await this.update({prototypeToken: {width: this.size, height: this.size}}, {_crucibleRelatedUpdate: true});
-    }
+    const pt = this.prototypeToken;
+    if ( (pt.width === size) && (pt.height === size) ) return;
+    await this.update({prototypeToken: {width: size, height: size}}, {_crucibleRelatedUpdate: true});
 
     // Update placed Tokens
     const sceneUpdates = {};
     for ( const token of this.getDependentTokens() ) {
-      sceneUpdates[token.parent.id] ||= [];
-      sceneUpdates[token.parent.id].push({_id: token.id, width: this.size, height: this.size});
+      if ( (token.width !== size) || (token.height !== size) ) {
+        sceneUpdates[token.parent.id] ||= [];
+        sceneUpdates[token.parent.id].push({_id: token.id, width: size, height: size});
+      }
     }
     for ( const [sceneId, updates] of Object.entries(sceneUpdates) ) {
       const scene = game.scenes.get(sceneId);
