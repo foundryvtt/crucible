@@ -1,9 +1,9 @@
-import CrucibleBaseItemSheet from "./item-base-sheet.mjs";
+import CrucibleActorDetailsItemSheet from "./item-actor-details-sheet.mjs";
 
 /**
  * A CrucibleBaseItemSheet subclass used to configure Items of the "taxonomy" type.
  */
-export default class CrucibleTaxonomyItemSheet extends CrucibleBaseItemSheet {
+export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemSheet {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {

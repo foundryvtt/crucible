@@ -344,11 +344,12 @@ export default class CrucibleActor extends Actor {
    * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
    * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
    * @param {boolean} [options.useFreeMove]       Consume a free move, if available
+   * @param {string} [options.movementId]         A recorded movement ID in Token movement history
    * @returns {CrucibleAction}    The performed Action
    */
-  async useMove(costFeet, {useFreeMove=true, ...useOptions}={}) {
+  async useMove(costFeet, {useFreeMove=true, movementId, ...useOptions}={}) {
     const action = this.actions.move;
-    action.usage.movement = this.getMovementActionCost(costFeet, {useFreeMove});
+    action.usage.movement = {id: movementId, ...this.getMovementActionCost(costFeet, {useFreeMove})};
     await action.use(useOptions);
   }
 

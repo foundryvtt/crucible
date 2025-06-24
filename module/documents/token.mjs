@@ -55,6 +55,6 @@ export default class CrucibleToken extends foundry.documents.TokenDocument {
     if ( !user.isSelf || !this.actor ) return;
     if ( movement.method !== "dragging" ) return; // Only auto-create Move actions for drag+drop
     if ( !this.actor.inCombat ) return;           // Only create movement actions while in turn order
-    this.actor.useMove(movement.passed.cost, {dialog: false});
+    this.actor.useMove(movement.passed.cost, {dialog: false, movementId: movement.id});
   }
 }

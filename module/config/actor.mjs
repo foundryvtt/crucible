@@ -7,6 +7,7 @@ import {freezeEnum} from "./enum.mjs";
 export const CREATURE_CATEGORIES = {
   beast: "TAXONOMY.CATEGORIES.BEAST",
   celestial: "TAXONOMY.CATEGORIES.CELESTIAL",
+  dragon: "TAXONOMY.CATEGORIES.DRAGON",
   elemental: "TAXONOMY.CATEGORIES.ELEMENTAL",
   giant: "TAXONOMY.CATEGORIES.GIANT",
   humanoid: "TAXONOMY.CATEGORIES.HUMANOID",

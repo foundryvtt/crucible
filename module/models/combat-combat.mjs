@@ -115,7 +115,7 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   static onRenderCombatTracker(app, _html, _options) {
     if ( game.combat?.type !== "combat" ) return;
     const header = app.element.querySelector(".combat-tracker-header");
-    const bar = `<div class="heroism-meter"><span class="heroism-bar"></span></div>`
+    const bar = `<div class="heroism-meter"><span class="heroism-bar"></span><span class="heroism-label"></span></div>`
     header.insertAdjacentHTML("beforeend", bar);
     CrucibleCombatChallenge.refreshCombatTracker();
   }
@@ -127,14 +127,15 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
    */
   static refreshCombatTracker() {
     if ( game.combat?.type !== "combat" ) return;
-    const bars = [ui.combat.element.querySelector(".heroism-bar")]
-    if ( ui.combat.popout ) bars.push(ui.combat.popout.element.querySelector(".heroism-bar"));
+    const meters = [ui.combat.element.querySelector(".heroism-meter")]
+    if ( ui.combat.popout ) meters.push(ui.combat.popout.element.querySelector(".heroism-meter"));
     const heroism = game.combat.system.heroism;
     const pct = `${Math.round(heroism.pct * 100)}%`
-    for ( const bar of bars ) {
-      if ( !bar ) continue;
+    for ( const meter of meters ) {
+      const [bar, label] = meter.children;
       bar.style.width = pct;
-      bar.parentElement.dataset.tooltip = `Heroism Point: ${pct}`;
+      label.innerText = `Heroism ${pct}`;
+      meter.dataset.tooltip = "Progress to next Heroism point";
     }
   }
 }

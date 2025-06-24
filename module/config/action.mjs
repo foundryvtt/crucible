@@ -362,6 +362,7 @@ export const TAGS = {
       this.cost.action = movement.cost;
       this.usage.actorStatus ||= {};
       this.usage.actorStatus.hasMoved = true;
+      this.usage.actorStatus.lastMovementId = movement.id || null;
     },
     async confirm() {
       if ( this.actor.statuses.has("prone") ) {

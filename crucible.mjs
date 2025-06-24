@@ -405,8 +405,7 @@ async function _initializePrototypeTokenSettings() {
 /* -------------------------------------------- */
 
 Hooks.on("getChatMessageContextOptions", chat.addChatMessageContextOptions);
-Hooks.on("createChatMessage", chat.onCreateChatMessage);
-Hooks.on("renderChatMessageHTML", chat.renderChatMessageHTML);
+Hooks.on("renderChatMessageHTML", documents.CrucibleChatMessage.onRenderHTML);
 Hooks.on("targetToken", dice.ActionUseDialog.debounceChangeTarget);
 Hooks.on("preDeleteChatMessage", models.CrucibleAction.onDeleteChatMessage);
 Hooks.on("getSceneControlButtons", controls => {

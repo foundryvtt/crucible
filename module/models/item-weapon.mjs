@@ -208,7 +208,7 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
    */
   getDamage(actor, action, target, roll) {
     const resource = action.usage.resouce || "health";
-    const type = this.damageType;
+    const type = action.usage.damageType || this.damageType;
     let {weapon: base, bonus} = this.damage;
     const multiplier = action.usage.bonuses.multiplier ?? 1;
     bonus += (action.usage.bonuses.damageBonus ?? 0);

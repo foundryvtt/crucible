@@ -556,8 +556,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Track the outcome for the original actor
-    outcomes.set(this.actor, this.#createSelfOutcome());
-    const confirmed = !chatMessage || this.canAutoConfirm();
+    const self = this.#createSelfOutcome();
+    outcomes.set(this.actor, self);
+
+    // Determine whether a chat message and confirmation is required
+    const canConfirm = this.canAutoConfirm();
+    if ( !canConfirm ) chatMessage = true;
 
     // Create any Measured Template for the action
     if ( this.template ) {
@@ -571,19 +575,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Record the action as a chat message
     const message = chatMessage && await this.toMessage(targets, {
       ...chatMessageOptions,
-      confirmed,
+      confirmed: false,
       rollMode: this.usage.rollMode
     });
+    self.actorUpdates.system.status.lastActionMessage = message?.id || null;
 
     // Apply action usage flags (immediately)
+    // TODO record a queue of action history on actor flags?
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
 
-    // Auto-confirm the action?
-    // TODO move auto-confirm to be a GM action on chat message creation
-    if ( confirmed ) {
-      if ( message?.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(message.id);
-      await this.confirm();
-    }
+    // Immediately confirm the action only if no chat message is transacted
+    if ( !message ) await this.confirm();
     return outcomes;
   }
 
