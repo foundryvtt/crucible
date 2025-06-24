@@ -1,11 +1,11 @@
 <section class="tab secondary flexcol scrollable {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
          data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
     {{#each inventory as |section s|}}
-    <div class="sheet-section item-section flexcol">
+    <div class="sheet-section item-section flexcol" data-inventory-section="{{s}}">
         <h3>{{section.label}}</h3>
         <ol class="items-list scrollable">
             {{#each section.items as |item id|}}
-            <li class="line-item {{item.cssClass}}" data-item-id="{{item.id}}">
+            <li class="line-item {{item.cssClass}} draggable" data-item-id="{{item.id}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
                 <div class="title">
                     <h4 >

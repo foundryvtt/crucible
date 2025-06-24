@@ -175,7 +175,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             tab: context.tabs.description,
             field: context.fields.description.fields.public,
             value: src,
-            html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+            html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
           }
         } else {
           const src = context.source.system.description;
@@ -183,7 +183,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             tab: context.tabs.description,
             field: context.fields.description,
             value: src,
-            html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+            html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
           }
         }
         break;
@@ -193,7 +193,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
           tab: context.tabs.secrets,
           field: context.fields.description.fields.private,
           value: src,
-          html: await TextEditor.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+          html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
         }
         break;
       case "hooks":

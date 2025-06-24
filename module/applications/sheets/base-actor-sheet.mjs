@@ -217,10 +217,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   async #prepareBiography() {
     const biography = this.document.system.details.biography;
     const context = {relativeTo: this.document, secrets: this.document.isOwner};
+    const editorCls = foundry.applications.ux.TextEditor.implementation;
     return {
-      appearance: await TextEditor.enrichHTML(biography.appearance, context),
-      public: await TextEditor.enrichHTML(biography.public, context),
-      private: await TextEditor.enrichHTML(biography.private, context)
+      appearance: await editorCls.enrichHTML(biography.appearance, context),
+      public: await editorCls.enrichHTML(biography.public, context),
+      private: await editorCls.enrichHTML(biography.private, context)
     }
   }
 
@@ -993,8 +994,45 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /** @override */
   async _onDropItem(event, item) {
     if ( !this.actor.isOwner ) return;
-    if ( this.actor.uuid === item.parent?.uuid ) return this._onSortItem(event, item);
+    const section = event.target.closest("[data-inventory-section]")?.dataset.inventorySection;
+
+    // Moving already owned items
+    if ( this.actor.uuid === item.parent?.uuid ) {
+      switch ( section ) {
+        case "backpack":
+          if ( item.system.equipped ) {
+            try {
+              await this.actor.equipItem(item, {equipped: false});
+            } catch(err) {
+              ui.notifications.warn(err.message);
+            }
+          }
+          else await this._onSortItem(event, item);
+          break;
+        default:
+          if ( item.type === section ) {
+            try {
+              await this.actor.equipItem(item, {equipped: true});
+            } catch(err) {
+              ui.notifications.warn(err.message);
+            }
+          }
+          break;
+      }
+      return;
+    }
+
+    // Create a new item
     const keepId = !(item.system instanceof crucible.api.models.CruciblePhysicalItem);
+    item = item.clone({system: {equipped: false}}, {keepId});
+    if ( section === item.type ) { // Attempt equipment
+      try {
+        const equipResult = this.actor.canEquipItem(item);
+        item.updateSource({system: equipResult});
+      } catch(err) {
+        return ui.notifications.warn(err.message);
+      }
+    }
     const itemData = this.actor._cleanItemData(item);
     await Item.implementation.create(itemData, {parent: this.actor, keepId});
   }

@@ -1425,7 +1425,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Render HTML template
     const tags = this.getTags();
-    const content = await renderTemplate("systems/crucible/templates/dice/action-use-chat.hbs", {
+    const templatePath = "systems/crucible/templates/dice/action-use-chat.hbs";
+    const content = await foundry.applications.handlebars.renderTemplate(templatePath, {
       action: this,
       actor: this.actor,
       context: this.usage.context,

@@ -176,6 +176,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
   #prepareTags() {
     const tags = [];
     for ( const t of Object.values(SYSTEM.ACTION.TAGS) ) {
+      if ( t.internal ) continue;
       const cat = SYSTEM.ACTION.TAG_CATEGORIES[t.category];
       const group = cat?.label;
       const selected = this.action.tags.has(t.tag);
@@ -345,7 +346,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    */
   static async #onAddHook(event) {
     const hookId = event.target.previousElementSibling.value;
-    const html = await renderTemplate(this.constructor.HOOK_PARTIAL, {
+    const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, {
       i: foundry.utils.randomID(), // Could be anything
       hook: {
         label: this.#getHookLabel(hookId, SYSTEM.ACTION_HOOKS[hookId]),

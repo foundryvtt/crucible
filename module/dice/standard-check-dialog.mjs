@@ -90,7 +90,7 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   async _preFirstRender(context, options) {
-    await getTemplate(this.constructor.TEMPLATE);
+    await foundry.applications.handlebars.getTemplate(this.constructor.TEMPLATE);
     await super._preFirstRender(context, options);
   }
 
@@ -145,7 +145,7 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @override */
   async _renderHTML(context, _options) {
-    return renderTemplate(this.constructor.TEMPLATE, context);
+    return foundry.applications.handlebars.renderTemplate(this.constructor.TEMPLATE, context);
   }
 
   /* -------------------------------------------- */

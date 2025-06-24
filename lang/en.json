@@ -426,6 +426,8 @@
 "ACTION.TagMainHandTooltip": "This action utilizes your main-hand weapon to make an attack.",
 "ACTION.TagMovement": "Movement",
 "ACTION.TagMovementTooltip": "This action allows you to move as part of its activation, including a reduced action point cost for a free movement action per round.",
+"ACTION.TagNatural": "Natural Attack",
+"ACTION.TagNaturalTooltip": "This action involves performing a natural weapon attack.",
 "ACTION.TagNonCombat": "Non-Combat",
 "ACTION.TagNonCombatTooltip": "Actions which can only be performed outside of a Combat encounter.",
 "ACTION.TagOneHand": "One-Handed",
