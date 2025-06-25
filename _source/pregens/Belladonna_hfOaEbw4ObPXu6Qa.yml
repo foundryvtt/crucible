@@ -1,4 +1,4 @@
-folder: aoXDBsBdhTAww10u
+folder: 2tdnCBbxNPNuhxzT
 name: Belladonna
 type: hero
 img: systems/crucible/assets/tokens/heroes/HumanAssassin.webp
@@ -14,7 +14,7 @@ system:
       bonus: 0
     intellect:
       base: 3
-      increases: 0
+      increases: 1
       bonus: 0
     strength:
       base: 1
@@ -22,15 +22,15 @@ system:
       bonus: 0
     toughness:
       base: 1
-      increases: 0
+      increases: 1
       bonus: 0
     dexterity:
       base: 3
-      increases: 0
+      increases: 3
       bonus: 0
   advancement:
-    level: 1
-    progress: 0
+    level: 6
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -91,6 +91,8 @@ system:
         color: '#84d7b7'
       name: Urchin
       img: icons/skills/social/theft-pickpocket-bribery-brown.webp
+      knowledge: []
+      skills: []
     biography:
       public: >-
         <p>Belladonna is a cunning rogue who fights with two daggers, dealing a
@@ -128,15 +130,15 @@ system:
       bonus: 0
   resources:
     health:
-      value: 22
+      value: 56
     wounds:
       value: 0
     morale:
-      value: 22
+      value: 52
     madness:
       value: 0
     action:
-      value: 4
+      value: 6
     focus:
       value: 5
     heroism:
@@ -153,9 +155,13 @@ system:
     - flurry
     - defend
     - reactiveStrike
+    - counterEvade
+    - defensiveRoll
+    - poisonBlades
+    - backstab
 prototypeToken:
   name: Belladonna
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -177,7 +183,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -248,7 +254,7 @@ items:
       quantity: 1
       weight: 1
       price: 5
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties:
@@ -259,9 +265,12 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      animation: dagger
       actions: []
       slot: 0
+      identifier: cYdLMc6lpc
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -287,9 +296,9 @@ items:
       quantity: 1
       weight: 1
       price: 5
-      quality: standard
+      quality: fine
       enchantment: mundane
-      equipped: true
+      equipped: false
       properties:
         - ambush
         - thrown
@@ -298,9 +307,12 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      animation: dagger
       actions: []
       slot: 0
+      identifier: 5YOERtHHio
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -326,7 +338,7 @@ items:
       quantity: 1
       weight: 10
       price: 45
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -337,6 +349,9 @@ items:
         base: 7
       broken: false
       actions: []
+      identifier: S3USClOyMZ
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -379,6 +394,7 @@ items:
             type: single
             number: 1
             scope: 0
+            self: false
           effects: []
           img: icons/skills/social/peace-luck-insult.webp
           actionHooks:
@@ -402,6 +418,9 @@ items:
         rank: null
       nodes:
         - int2a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: 2MFixpDJ379KOogE
     sort: 0
@@ -444,6 +463,7 @@ items:
             type: single
             number: 1
             scope: 0
+            self: false
           effects: []
           img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
           condition: ''
@@ -459,6 +479,9 @@ items:
         rank: null
       nodes:
         - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -510,6 +533,7 @@ items:
             number: 1
             scope: 0
             multiple: 2
+            self: false
           effects: []
           actionHooks: []
           range:
@@ -523,6 +547,9 @@ items:
         rank: null
       nodes:
         - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -536,6 +563,432 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.flurry0000000000'
+  - name: Bloodletter
+    type: talent
+    img: icons/skills/wounds/blood-spurt-spray-red.webp
+    system:
+      description: >-
+        <p>Your precision with weapons which deal Slashing or Piercing damage
+        can cause the Bleeding condition on Critical Hits which deal damage to
+        Health.</p><p>The Bleeding effect lasts for 1 round and deals your
+        Dexterity score as additional damage to Health.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: >-
+            // Must damage health const damageHealth = outcome.resources.health
+            < 0; if ( !damageHealth ) return;
+
+            // Must deal slashing or piercing damage const dt =
+            action.usage.weapon?.system.damageType; if ( !["piercing",
+            "slashing"].includes(dt) ) return;
+
+            // Bleeding effect const bleed = SYSTEM.EFFECTS.bleeding(this,
+            outcome.target, {damageType: dt}); outcome.effects.push(bleed);
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex4d
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: bloodletter00000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.bloodletter00000'
+  - _id: counterevade0000
+    name: Counter Evade
+    type: talent
+    img: icons/skills/melee/maneuver-greatsword-yellow.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You are practiced in evasive fighting styles which use an enemy's
+        missed attack to devise an opening to counter-attack.</p>
+      actions:
+        - id: counterEvade
+          name: Counter Evade
+          img: icons/skills/melee/maneuver-greatsword-yellow.webp
+          condition: You Dodge an incoming melee Strike.
+          description: >-
+            <p>When you defend against a melee attack with a
+            <strong>Dodge</strong>, you may expend <strong>Focus</strong> to
+            retaliate with a reduced-cost <strong>Strike</strong> using your
+            mainhand weapon.</p>
+          tags:
+            - reaction
+            - melee
+          cost:
+            action: -2
+            focus: 1
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          actionHooks: []
+          range:
+            maximum: 1
+            weapon: true
+            minimum: null
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex2c
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: JzAnF4yKIgvElwCJ
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.counterevade0000'
+  - name: Strike First
+    type: talent
+    _id: strikefirst00000
+    img: icons/skills/melee/sword-winged-holy-orange.webp
+    system:
+      description: >-
+        Shoot first, ask questions later. You gain <strong>+1 Boon</strong> on
+        any Strike or Spell attack against an enemy whose initiative score is
+        lower than your own.
+      actions: []
+      actorHooks:
+        - hook: prepareWeaponAttack
+          fn: >-
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst =
+            {label: "Strike First", number: 1};
+        - hook: prepareSpellAttack
+          fn: >-
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative ) rollData.boons.strikeFirst =
+            {label: "Strike First", number: 1};
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex2
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: BevAJzzLeFbSaVic
+    sort: -100000
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.strikefirst00000'
+  - name: Preternatural Instinct
+    type: talent
+    _id: preternaturalins
+    img: icons/magic/movement/trail-streak-zigzag-teal.webp
+    system:
+      description: >-
+        Your quickness of mind and body are equally impressive. You gain +2
+        Boons to all Initiative checks.
+      actions: []
+      actorHooks:
+        - hook: prepareInitiativeCheck
+          fn: >-
+            rollData.boons.preternaturalInstinct = {label: "Preternatural
+            Instinct", number: 2};
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: BevAJzzLeFbSaVic
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.preternaturalins'
+  - _id: defensiveroll000
+    name: Defensive Roll
+    type: talent
+    img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You are a nimble skirmisher, always in movement to stay one step
+        ahead of your enemies in combat.</p>
+      actions:
+        - id: defensiveRoll
+          name: Defensive Roll
+          img: icons/skills/movement/feet-winged-boots-glowing-yellow.webp
+          condition: You Dodge an incoming melee Strike.
+          description: >-
+            <p>When you <strong>Dodge</strong> a melee attack you can expend
+            <strong>Focus</strong> to leap into a defensive roll, moving up to
+            your <strong>Size</strong> in any direction.</p>
+          tags:
+            - movement
+            - reaction
+          cost:
+            action: 0
+            focus: 1
+            weapon: false
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          actionHooks: []
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex2a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: JzAnF4yKIgvElwCJ
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.defensiveroll000'
+  - name: Skirmisher
+    type: talent
+    _id: skirmisher000000
+    img: icons/skills/movement/arrow-upward-yellow.webp
+    system:
+      description: >-
+        <p>You are adept at entering and exiting the fray. When moving out of
+        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
+        Banes to any <strong>Disengagement Strike</strong> against you.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: MqZKCMx5KrZQffGU
+    sort: 106250
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.skirmisher000000'
+  - name: Backstab
+    type: talent
+    img: icons/skills/melee/strike-dagger-white-orange.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You focus your cunning instincts on exploiting the weak points of a
+        flanked target. You identify an opportunity and strike with deadly
+        efficiency.</p>
+      actions:
+        - id: backstab
+          condition: You are attacking a target with the Flanked condition.
+          description: >-
+            <p>You <strong>Strike</strong> with your mainhand weapon against a
+            <strong>Flanked</strong> target, dealing <strong>Deadly</strong>
+            damage.</p>
+          tags:
+            - finesse
+            - flanking
+            - melee
+            - deadly
+          cost:
+            action: 0
+            focus: 0
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Backstab
+          img: icons/skills/melee/strike-dagger-white-orange.webp
+          actionHooks: []
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: backstab00000000
+    folder: Xg1Jww0K0CK7vUo1
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.backstab00000000'
+  - name: Impetus
+    type: talent
+    _id: impetus000000000
+    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+    system:
+      description: >-
+        <p>You are gifted at exploiting the slowness with which others think. If
+        you are first in Initiative order during a round of Combat, you gain +1
+        current and maximum Action.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -75000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.impetus000000000'
+  - folder: i7WposibCJ94XpuD
+    name: Light Weapon Training
+    type: talent
+    img: icons/weapons/swords/sword-simple-white.webp
+    system:
+      description: >-
+        <p>You have a basic education in the use of finesse weaponry. You are no
+        longer treated as <strong>Untrained</strong> with weapons in the
+        <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: light
+        rank: 1
+      actorHooks: []
+      nodes:
+        - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    sort: 200000
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    _id: lightWeaponTrain
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.lightWeaponTrain'
   - name: Intercept
     type: talent
     img: icons/skills/melee/shield-block-gray-orange.webp
@@ -568,6 +1021,7 @@ items:
             type: single
             number: 1
             scope: 3
+            self: false
           effects: []
           name: Intercept
           img: icons/skills/melee/shield-block-gray-orange.webp
@@ -588,6 +1042,9 @@ items:
       actorHooks: []
       nodes:
         - dextou1
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -628,6 +1085,9 @@ items:
       actorHooks: []
       nodes:
         - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 400000
     flags: {}
@@ -666,6 +1126,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 120000
     flags: {}
@@ -680,38 +1143,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.deceptionNovice0'
-  - folder: i7WposibCJ94XpuD
-    name: Light Weapon Training
-    type: talent
-    img: icons/weapons/swords/sword-simple-white.webp
-    system:
-      description: >-
-        <p>You have a basic education in the use of finesse weaponry. You are no
-        longer treated as <strong>Untrained</strong> with weapons in the
-        <strong>Light</strong> and <strong>Balanced</strong> categories.</p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: light
-        rank: 1
-      actorHooks: []
-      nodes:
-        - dex0b
-    effects: []
-    sort: 200000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    _id: lightWeaponTrain
-    ownership:
-      default: 0
-    _key: '!actors.items!hfOaEbw4ObPXu6Qa.lightWeaponTrain'
   - name: Lunge
     type: talent
     img: icons/skills/melee/strike-polearm-light-orange.webp
@@ -730,7 +1161,6 @@ items:
           tags:
             - finesse
             - melee
-            - mainhand
             - difficult
           cost:
             action: 0
@@ -741,6 +1171,7 @@ items:
             type: single
             number: 1
             scope: 3
+            self: false
           effects: []
           name: Lunge
           img: icons/skills/melee/strike-polearm-light-orange.webp
@@ -756,6 +1187,9 @@ items:
       actorHooks: []
       nodes:
         - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -773,6 +1207,50 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!hfOaEbw4ObPXu6Qa.lunge00000000000'
+  - name: Stiletto
+    type: weapon
+    img: icons/weapons/daggers/dagger-straight-thin-black.webp
+    system:
+      category: light1
+      quantity: 1
+      weight: 1
+      price: 8
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      properties:
+        - ambush
+        - keen
+      damageType: piercing
+      identifier: stiletto
+      invested: false
+      description:
+        public: >-
+          <p>Thin, tapered, and made for piercing, the stiletto is a killer’s
+          weapon — designed to slide between ribs or gaps in armor and leave
+          barely a trace.</p>
+        private: ''
+      actions: []
+      actorHooks: []
+      dropped: false
+      slot: 0
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: ot5RNLZzivbxcMTH
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!hfOaEbw4ObPXu6Qa.ot5RNLZzivbxcMTH'
 effects: []
 flags:
   core: {}
@@ -781,11 +1259,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1750814452193
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: hfOaEbw4ObPXu6Qa
 sort: 0

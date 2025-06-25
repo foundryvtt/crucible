@@ -18,7 +18,7 @@ system:
           };
         }
 effects: []
-folder: null
+folder: 9Ej4QwUt1yVpv4Wn
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -29,8 +29,8 @@ _stats:
   systemVersion: 0.7.3
   coreVersion: '13.345'
   createdTime: 1685286272355
-  modifiedTime: 1750725959343
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1750791583014
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

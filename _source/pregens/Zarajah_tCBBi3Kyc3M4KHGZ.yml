@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 6
-    progress: 0
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -92,6 +92,8 @@ system:
         color: '#e26ce4'
       name: Performer
       img: icons/skills/movement/ball-spinning-blue.webp
+      knowledge: []
+      skills: []
     biography:
       public: >-
         <p>Zarajah is a spirited Devilkin with a penchant for pyromancy who
@@ -155,7 +157,7 @@ system:
     - cast
 prototypeToken:
   name: Zarajah
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -177,7 +179,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -252,12 +254,15 @@ items:
       properties:
         - blocking
       damageType: radiant
-      animation: quarterstaff
       description:
         public: ''
         private: ''
       actions: []
       slot: 0
+      identifier: vb5ufQpSrJ
+      invested: false
+      actorHooks: []
+      dropped: false
     effects: []
     flags:
       core: {}
@@ -296,6 +301,9 @@ items:
         base: 9
       broken: false
       actions: []
+      identifier: Wp7tJev5gO
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -340,6 +348,7 @@ items:
             number: 1
             scope: 2
             size: 10
+            self: false
           effects:
             - name: Inspire Heroism
               scope: 0
@@ -358,6 +367,9 @@ items:
         rank: null
       nodes:
         - pre1a
+      rune: ''
+      gesture: ''
+      inflection: ''
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -391,6 +403,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -432,6 +446,8 @@ items:
         rank: null
       nodes:
         - pre1b
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -467,17 +483,19 @@ items:
         rank: null
       nodes:
         - preint2
+      rune: ''
+      gesture: ''
     effects: []
     sort: 0
     flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectiondeterm'
@@ -498,17 +516,20 @@ items:
         rank: null
       nodes:
         - sig3.presence.intellect
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     _id: warmage000000000
     folder: fOYHlZJEWUukD7yr
     sort: 237500
@@ -536,17 +557,19 @@ items:
         rank: null
       nodes:
         - int1a
+      rune: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
     sort: 100000
@@ -570,18 +593,21 @@ items:
         rank: null
       nodes:
         - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: BevAJzzLeFbSaVic
     sort: -75000
     flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.impetus000000000'
@@ -598,20 +624,14 @@ items:
       actorHooks:
         - hook: prepareWeaponAttack
           fn: >-
-            const ac = actor.combatant;
-
-            const tc = target.combatant;
-
-            if ( ac?.initiative > tc?.initiative )
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
             rollData.boons.intellectualSuperiority = {label: "Intellectual
             Superiority", number: 1};
         - hook: prepareSpellAttack
           fn: >-
-            const ac = actor.combatant;
-
-            const tc = target.combatant;
-
-            if ( ac?.initiative > tc?.initiative )
+            const ac = this.combatant; const tc = target.combatant; if (
+            ac?.initiative > tc?.initiative )
             rollData.boons.intellectualSuperiority = {label: "Intellectual
             Superiority", number: 1};
       iconicSpells: 0
@@ -620,18 +640,21 @@ items:
         rank: null
       nodes:
         - int4b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: BevAJzzLeFbSaVic
     sort: -50000
     flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.intellectualsupe'
@@ -652,18 +675,21 @@ items:
         rank: null
       nodes:
         - int2b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: aB808IWOdgwmFCIF
     sort: 300000
     flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunisticspe'
@@ -688,7 +714,7 @@ items:
             if ( !damageHealth ) return;
 
             // Apply Burning effect
-            const burning = SYSTEM.EFFECTS.burning(actor, outcome.target);
+            const burning = SYSTEM.EFFECTS.burning(this, outcome.target);
             outcome.effects.push(burning);
       iconicSpells: 0
       training:
@@ -696,17 +722,20 @@ items:
         rank: null
       nodes:
         - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     _id: pyromancer000000
     folder: c0nl6X8tp4Of0Y4O
     sort: -400000
@@ -736,18 +765,20 @@ items:
         rank: null
       nodes:
         - pre2b
+      rune: ''
+      inflection: ''
     effects: []
     folder: D14x9AJ0TgXKtnzu
     sort: 1000000
     flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturepulse0000'
@@ -773,17 +804,19 @@ items:
         rank: null
       nodes:
         - pre0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
     sort: 700000
@@ -811,17 +844,19 @@ items:
         rank: null
       nodes:
         - pre0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
     _id: runeradiance0000
     folder: Dy9HnwadNE3kSZ4f
     sort: 600000
@@ -849,6 +884,8 @@ items:
         rank: null
       nodes:
         - pre0b
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -890,6 +927,9 @@ items:
       actorHooks: []
       nodes:
         - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 280000
     flags: {}
@@ -928,6 +968,9 @@ items:
       actorHooks: []
       nodes:
         - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 120000
     flags: {}
@@ -959,6 +1002,9 @@ items:
       actorHooks: []
       nodes:
         - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 200000
     flags: {}
@@ -1001,6 +1047,7 @@ items:
             type: single
             number: 1
             scope: 0
+            self: false
           effects: []
           img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
           condition: ''
@@ -1016,6 +1063,9 @@ items:
       actorHooks: []
       nodes:
         - dex1b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -1042,11 +1092,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1750814452193
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 sort: 0

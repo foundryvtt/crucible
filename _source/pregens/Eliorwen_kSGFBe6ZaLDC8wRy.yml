@@ -1,4 +1,4 @@
-folder: aoXDBsBdhTAww10u
+folder: 2tdnCBbxNPNuhxzT
 name: Eliorwen
 type: hero
 img: systems/crucible/assets/tokens/heroes/ElfRanger.webp
@@ -14,7 +14,7 @@ system:
       bonus: 0
     intellect:
       base: 0
-      increases: 0
+      increases: 2
       bonus: 0
     strength:
       base: 2
@@ -22,15 +22,15 @@ system:
       bonus: 0
     toughness:
       base: 2
-      increases: 0
+      increases: 1
       bonus: 0
     dexterity:
       base: 3
-      increases: 0
+      increases: 2
       bonus: 0
   advancement:
-    level: 1
-    progress: 0
+    level: 6
+    milestones: 18
     talentNodes: []
   defenses:
     armor:
@@ -92,6 +92,8 @@ system:
         color: '#98da62'
       name: Wanderer
       img: icons/environment/wilderness/portal.webp
+      knowledge: []
+      skills: []
     biography:
       public: >-
         <p>Eliorwen is a nimble skirmisher who uses archery and spellcraft to
@@ -130,17 +132,17 @@ system:
       bonus: 0
   resources:
     health:
-      value: 24
+      value: 58
     wounds:
       value: 0
     morale:
-      value: 18
+      value: 48
     madness:
       value: 0
     action:
       value: 6
     focus:
-      value: 4
+      value: 5
     heroism:
       value: 0
   movement:
@@ -153,9 +155,14 @@ system:
     - pinningShot
     - strike
     - reactiveStrike
+    - markPrey
+    - precisionShot
+    - anticipateHarm
+    - cast
+    - combatMedicine
 prototypeToken:
   name: Eliorwen
-  displayName: 30
+  displayName: 20
   actorLink: true
   appendNumber: false
   prependAdjective: false
@@ -177,7 +184,7 @@ prototypeToken:
   rotation: 0
   alpha: 1
   disposition: 1
-  displayBars: 40
+  displayBars: 20
   bar1:
     attribute: resources.health
   bar2:
@@ -248,7 +255,7 @@ items:
       quantity: 1
       weight: 6
       price: 50
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties:
@@ -258,9 +265,12 @@ items:
         private: ''
       damageType: piercing
       broken: false
-      animation: arrow
       slot: 3
       actions: []
+      identifier: AxoiLyZNoT
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -286,7 +296,7 @@ items:
       quantity: 1
       weight: 6
       price: 40
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: false
       properties: []
@@ -295,9 +305,12 @@ items:
         private: ''
       damageType: slashing
       broken: false
-      animation: scimitar
       actions: []
       slot: 1
+      identifier: yWblFqCa5A
+      invested: false
+      actorHooks: []
+      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -323,7 +336,7 @@ items:
       quantity: 1
       weight: 10
       price: 45
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -334,6 +347,9 @@ items:
         base: 7
       broken: false
       actions: []
+      identifier: iapDIKUaMi
+      invested: false
+      actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -363,6 +379,9 @@ items:
         rank: null
       nodes:
         - int2c
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     folder: 2MFixpDJ379KOogE
     sort: -275000
@@ -378,44 +397,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.perspicacity0000'
-  - name: Archery Training
-    type: talent
-    _id: archerytraining0
-    img: icons/weapons/bows/shortbow-white.webp
-    system:
-      description: >-
-        <p>You are educated and trained in the arts of projectile weaponry like
-        bows, crossbows, firearms, and slings.</p>
-
-        <p>You gain a +1 Skill bonus to attacks using ranged weapons in the
-        <strong>Projectile</strong> or <strong>Mechanical</strong> category.</p>
-      actions: []
-      actorHooks:
-        - hook: prepareTraining
-          fn: |-
-            training.projectile += 1;
-            training.mechanical += 1;
-      iconicSpells: 0
-      nodes:
-        - dex0a
-      training:
-        type: ''
-        rank: null
-    effects: []
-    folder: FQAUMNkcagdBLURJ
-    sort: 25000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.archerytraining0'
   - name: Pinning Shot
     type: talent
     _id: pinningshot00000
@@ -433,7 +414,6 @@ items:
             <strong>Restrained</strong> until the end of their next Turn.</p>
           tags:
             - ranged
-            - mainhand
             - difficult
           cost:
             action: 0
@@ -444,6 +424,7 @@ items:
             type: single
             number: 1
             scope: 3
+            self: false
           effects:
             - name: Pinning Shot
               scope: 3
@@ -465,6 +446,9 @@ items:
         rank: null
       nodes:
         - dex3a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     flags: {}
     _stats:
@@ -475,11 +459,499 @@ items:
       systemId: crucible
       systemVersion: 0.7.0-dev
       lastModifiedBy: null
-    folder: i7P1uwWcECj5KWfY
-    sort: 50000
+    folder: k2H23tobHffCMQCj
+    sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.pinningshot00000'
+  - name: Impetus
+    type: talent
+    _id: impetus000000000
+    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
+    system:
+      description: >-
+        <p>You are gifted at exploiting the slowness with which others think. If
+        you are first in Initiative order during a round of Combat, you gain +1
+        current and maximum Action.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    folder: BevAJzzLeFbSaVic
+    sort: -75000
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.impetus000000000'
+  - name: Combat Medicine
+    type: talent
+    img: icons/magic/life/heart-glowing-red.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        Your knowledge and skill in Medicine covers the rapid triage, diagnosis,
+        and treatment of wounds.
+      actions:
+        - id: combatMedicine
+          condition: ''
+          description: >-
+            <p>You rapidly treat the wounds of an ally within 4 feet. Perform a
+            <strong>Medicine Check</strong> against the target's Wounds
+            Threshold. Your ally's Health is increased by the amount of the Roll
+            in excess of the threshold.</p>
+          tags:
+            - healing
+            - health
+            - medicine
+          cost:
+            action: 3
+            focus: 0
+            weapon: false
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 2
+            self: false
+          effects: []
+          name: Combat Medicine
+          img: icons/magic/life/heart-glowing-red.webp
+          range:
+            maximum: 4
+            weapon: false
+            minimum: null
+          actionHooks: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wis2c
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: combatmedicine00
+    folder: qrB8E2SHs322zTil
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.combatmedicine00'
+  - name: Arcane Archer
+    type: talent
+    img: icons/skills/ranged/arrows-flying-salvo-blue-light.webp
+    system:
+      description: >-
+        <p>Your skill with archery can shape your spellcraft, partially
+        substituting for the somatic gestures of traditional spellcasting. With
+        a ranged weapon equipped you ignore the free-hand requirement for
+        casting spells that use the <strong>Arrow</strong> gesture.</p><p>After
+        performing a <strong>Strike</strong> with a projectile weapon, you may
+        cast a spell using the <strong>Arrow</strong> gesture during the same
+        Turn with Action Cost reduced by 1.</p>
+      actions: []
+      iconicSpells: 1
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - sig3.intellect.dexterity
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: arcanearcher0000
+    folder: fOYHlZJEWUukD7yr
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.arcanearcher0000'
+  - name: Anticipate Harm
+    type: talent
+    _id: anticipateharm00
+    img: icons/magic/movement/trail-streak-impact-blue.webp
+    system:
+      description: >-
+        Your keen reflexes and acuity allow you to anticipate imminent danger
+        and react to avoid it.
+      actions:
+        - id: anticipateHarm
+          condition: >-
+            You are targeted by an area-of-effect attack, the source of which
+            you can see.
+          description: >-
+            You may immediately Move 1 space after the area-of-effect of the
+            attack is declared. If this movement escapes the area of the attack,
+            you are unaffected.
+          tags:
+            - movement
+            - reaction
+          cost:
+            action: 1
+            focus: 1
+            weapon: false
+            heroism: 0
+          target:
+            type: self
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          name: ''
+          img: null
+          range:
+            maximum: 1
+            weapon: false
+            minimum: null
+          actionHooks: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - intdex4
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: MqZKCMx5KrZQffGU
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.anticipateharm00'
+  - name: Weak Points
+    type: talent
+    _id: weakpoints000000
+    img: icons/skills/melee/strike-sword-stabbed-brown.webp
+    system:
+      description: >-
+        You identify moments of opportunity to strike at an enemy's weak points.
+        When attacking a target that is <strong>Unaware</strong>,
+        <strong>Flanked</strong>, or <strong>Exposed</strong> using Finesse
+        weaponry, you gain +2 damage to any Strike.
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: F5y85kE9ocaa5R4R
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.weakpoints000000'
+  - name: Mark Prey
+    type: talent
+    img: icons/skills/targeting/crosshair-mark-rough-pink.webp
+    system:
+      description: >-
+        You fire a special shot which deals reduced damage, but explodes in
+        luminous powder clearly marking your target.
+      actions:
+        - id: markPrey
+          description: >-
+            <p>You Strike using a special shot. If your attack is successful the
+            target is <strong>Exposed</strong> for the next 3 Turns.</p>
+          tags:
+            - ranged
+            - difficult
+            - harmless
+          cost:
+            action: 0
+            focus: 1
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Marked
+              scope: 3
+              duration:
+                turns: 3
+              statuses:
+                - exposed
+          name: Mark Prey
+          img: icons/skills/targeting/crosshair-mark-rough-pink.webp
+          condition: ''
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          actionHooks: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex2a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: k2H23tobHffCMQCj
+    _id: markprey00000000
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.markprey00000000'
+  - name: Evasive Shot
+    type: talent
+    _id: evasiveshot00000
+    img: icons/skills/ranged/person-archery-bow-attack-orange.webp
+    system:
+      description: >-
+        <p>You are an expert at firing shots with ranged weaponry while evading
+        enemy attacks. After performing a ranged weapon attack, you gain your
+        <strong>Stride</strong> in additional free movement.</p>
+      actorHooks:
+        - hook: prepareWeaponAttack
+          fn: |-
+            const status = action.usage.actorStatus;
+            if ( !status.rangedAttack ) return;
+            const move = this.system.status.movement;
+            const stride = this.system.movement.stride;
+            const bonus = (move.bonus ?? 0) + stride;
+            foundry.utils.setProperty(status, "movement.bonus", bonus);
+      actions: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: MqZKCMx5KrZQffGU
+    sort: 150000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.evasiveshot00000'
+  - name: 'Gesture: Arrow'
+    type: talent
+    img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+    system:
+      description: >-
+        <p>Hurl a projectile of magical power at a distant target. This might
+        use the Lightning Rune to hurl a lightning bolt, or the Shadow rune to
+        hurl a ball of devouring darkness.</p>
+
+        <p>The Arrow gesture scales using <strong>Intellect</strong> and targets
+        a <strong>single</strong> creature up to a distance of 10 spaces,
+        dealing 10 base damage on a successful attack.</p>
+      actions: []
+      gesture: arrow
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int1a
+      rune: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: gesturearrow0000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.gesturearrow0000'
+  - name: 'Rune: Lightning'
+    type: talent
+    img: icons/magic/lightning/bolt-strike-blue.webp
+    system:
+      description: >-
+        <p>The chaotic force of raw, electrical energy. The Lightning rune
+        governs sources of electrical energy and electrical discharge. It is
+        opposed by the orderly rune of Earth.</p>
+
+        <p>The Lightning rune scales using <strong>Intellect</strong>, targets
+        <strong>Reflex</strong>, and deals <strong>Electrical</strong> damage to
+        <strong>Health</strong>.</p>
+      actions: []
+      rune: lightning
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - int0a
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    _id: runelightning000
+    folder: Dy9HnwadNE3kSZ4f
+    sort: 900000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.runelightning000'
+  - _id: precisionshot000
+    name: Precision Shot
+    type: talent
+    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+    effects: []
+    flags: {}
+    system:
+      description: >-
+        You take time to steady your aim and target the weakest point of a foe.
+        You may only get one shot, but you make it count.
+      actions:
+        - id: precisionShot
+          condition: ''
+          description: <p>You steady your aim and fire a single accurate shot.</p>
+          tags:
+            - ranged
+            - deadly
+            - accurate
+          cost:
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          name: Precision Shot
+          img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          actionHooks: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - dex1a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.344'
+      systemId: crucible
+      systemVersion: 0.7.0-dev
+      lastModifiedBy: null
+    folder: k2H23tobHffCMQCj
+    sort: 150000
+    ownership:
+      default: 0
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.precisionshot000'
   - name: 'Rune: Control'
     type: talent
     img: icons/magic/control/hypnosis-mesmerism-eye.webp
@@ -501,6 +973,8 @@ items:
         rank: null
       nodes:
         - int0a
+      gesture: ''
+      inflection: ''
     effects: []
     flags:
       core: {}
@@ -542,6 +1016,9 @@ items:
       actorHooks: []
       nodes:
         - tou0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 440000
     flags: {}
@@ -580,6 +1057,9 @@ items:
       actorHooks: []
       nodes:
         - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 40000
     flags: {}
@@ -611,6 +1091,9 @@ items:
       actorHooks: []
       nodes:
         - dex0a
+      rune: ''
+      gesture: ''
+      inflection: ''
     effects: []
     sort: 300000
     flags: {}
@@ -626,62 +1109,49 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!kSGFBe6ZaLDC8wRy.projectileTraini'
-  - _id: precisionshot000
-    name: Precision Shot
+  - name: Stealth Novice
     type: talent
-    img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
-    effects: []
-    flags: {}
+    _id: stealthNovice000
+    img: systems/crucible/icons/skills/stealth.jpg
     system:
       description: >-
-        You take time to steady your aim and target the weakest point of a foe.
-        You may only get one shot, but you make it count.
-      actions:
-        - id: precisionShot
-          condition: ''
-          description: <p>You steady your aim and fire a single accurate shot.</p>
-          tags:
-            - ranged
-            - mainhand
-            - deadly
-            - accurate
-          cost:
-            action: 1
-            focus: 0
-            weapon: true
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-          effects: []
-          name: Precision Shot
-          img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          actionHooks: []
+        <p><span style="font-family:Vollkorn, serif">You have received training
+        in the basics of stealth, infiltration, and subterfuge. You gain the
+        <strong>Novice</strong> rank in the <strong>Stealth </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</span></p><p><span style="font-family:Vollkorn, serif">You know
+        how to use light and shadow to mask your presence, to distribute your
+        weight when walking in order to move more quietly, and you have learned
+        a few tricks of disguise in order to blend into a crowd. You can appear
+        unsuspicious when surrounded by others, hide in a darkened room, and can
+        move silently enough to avoid detection by the average
+        person.</span></p>
+      actions: []
       iconicSpells: 0
       training:
-        type: ''
-        rank: null
+        type: stealth
+        rank: 1
       actorHooks: []
       nodes:
-        - dex1a
+        - dex0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
     _stats:
+      coreVersion: '13.345'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
-      systemId: crucible
-      systemVersion: 0.7.0-dev
-      lastModifiedBy: null
-    folder: i7P1uwWcECj5KWfY
-    sort: -100000
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!kSGFBe6ZaLDC8wRy.precisionshot000'
+    _key: '!actors.items!kSGFBe6ZaLDC8wRy.stealthNovice000'
 effects: []
 flags:
   core: {}
@@ -690,11 +1160,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  createdTime: 1748563150584
-  modifiedTime: 1748563150584
+  systemVersion: 0.7.3
+  modifiedTime: 1750814452193
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 sort: 0

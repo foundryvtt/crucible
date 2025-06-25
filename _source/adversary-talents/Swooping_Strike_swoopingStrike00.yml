@@ -39,7 +39,7 @@ system:
             rounds: null
       tags:
         - melee
-        - mainhand
+        - natural
       actionHooks:
         - hook: postActivate
           fn: >-
@@ -67,7 +67,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1750728541887
-  modifiedTime: 1750728878278
+  modifiedTime: 1750793309925
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: swoopingStrike00
 sort: 0

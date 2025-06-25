@@ -1,4 +1,4 @@
-folder: null
+folder: 7OugQFMnRfIZEXcY
 name: Tusk Charge
 type: talent
 img: icons/skills/movement/arrow-upward-blue.webp
@@ -14,7 +14,8 @@ system:
         Prone.</p>
       tags:
         - melee
-        - mainhand
+        - strike
+        - natural
       cost:
         action: 1
         focus: 0
@@ -24,6 +25,7 @@ system:
         type: ray
         number: 1
         scope: 3
+        self: false
       effects:
         - name: Tusk Charge
           scope: 3
@@ -31,6 +33,7 @@ system:
             - prone
           duration:
             turns: null
+            rounds: null
       name: Tusk Charge
       img: icons/skills/movement/arrow-upward-blue.webp
       condition: ''
@@ -55,11 +58,11 @@ _stats:
   duplicateSource: null
   coreVersion: '13.345'
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.7.3
   createdTime: 1727362018628
-  modifiedTime: 1750725959343
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1750791575640
+  lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: tuskCharge000000
-sort: 300000
+sort: 100000
 _key: '!items!tuskCharge000000'

@@ -12,14 +12,14 @@ system:
       img: icons/magic/acid/projectile-smoke-glowing.webp
       condition: ''
       description: >-
-        <p>The creature spits a spray of acidic bile in a 10 foot fan. On a
+        <p>The creature expels a spray of acidic bile in a 10 foot fan. On a
         Critical Hit, this attack causes the <strong>Corroding</strong>
         condition.</p>
       cost:
-        action: 3
+        action: 1
         focus: 1
         heroism: 0
-        weapon: false
+        weapon: true
       range:
         minimum: null
         maximum: 10
@@ -31,19 +31,11 @@ system:
         self: false
       effects: []
       tags:
-        - mainhand
+        - melee
+        - natural
         - reflex
         - acid
-      actionHooks:
-        - hook: postActivate
-          fn: |-
-            // Require damage to Health
-            const damageHealth = outcome.resources.health < 0;
-            if ( !damageHealth ) return;
-
-            // Apply Corroding effect
-            const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
-            outcome.effects.push(corroding);
+      actionHooks: []
   rune: ''
   gesture: ''
   inflection: ''
@@ -66,7 +58,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1750726617612
-  modifiedTime: 1750728761482
+  modifiedTime: 1750801053401
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: acidSpray0000000
 sort: 100000
