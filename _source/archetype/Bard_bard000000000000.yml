@@ -18,6 +18,11 @@ system:
     - Compendium.crucible.talent.Item.inspireheroism00
     - Compendium.crucible.talent.Item.extolldeeds00000
     - Compendium.crucible.talent.Item.inspirator000000
+  skills:
+    - society
+    - diplomacy
+    - performance
+    - deception
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -32,7 +37,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749922573051
-  modifiedTime: 1749922573051
+  modifiedTime: 1750815263779
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: bard000000000000
 sort: 0

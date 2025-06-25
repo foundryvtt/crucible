@@ -121,8 +121,15 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   _prepareTraining() {
 
     // Automatic natural weapon training if the taxonomy does not use equipment
-    if ( !this.details.taxonomy.characteristics.equipment ) {
-      this.training.natural = this.advancement.autoTrainingRank;
+    const usesEquipment = this.details.taxonomy?.characteristics.equipment;
+    if ( usesEquipment === false ) {
+      this.training.natural = Math.max(this.training.natural || 0, this.advancement.autoTrainingRank);
+    }
+
+    // Automatic skill progression
+    const skills = this.details.archetype?.skills || [];
+    for ( const skillId of skills ) {
+      this.training[skillId] = Math.max(this.training[skillId] || 0, this.advancement.autoTrainingRank);
     }
   }
 
@@ -230,18 +237,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare a single skill for the Adversary subtype specifically.
-   * @override
-   */
-  _prepareSkill(config) {
-    this.training[config.id] ??= this.advancement.autoTrainingRank; // TODO only for certain archetype skills
-    const skill = super._prepareSkill(config);
-    return skill;
-  }
-
-  /* -------------------------------------------- */
-
   /** @inheritDoc */
   _prepareMovement() {
     super._prepareMovement();
@@ -266,7 +261,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @returns {Promise<void>}
    */
   async applyArchetype(item) {
-    return this.parent._applyDetailItem(item, {type: "archetype", canApply: true, canClear: true});
+    return this.parent._applyDetailItem(item, {type: "archetype", canApply: true, canClear: true, skillTalents: false});
   }
 
   /* -------------------------------------------- */

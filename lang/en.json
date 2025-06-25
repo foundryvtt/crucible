@@ -485,11 +485,16 @@
     "talents": {
       "label": "Granted Talents",
       "hint": "Configure one or more talents which this Archetype receives automatically."
+    },
+    "skills": {
+      "label": "Favored Skills",
+      "hint": "Configure a selection of skills that will automatically progress their training rank for this Archetype."
     }
   },
   "SHEET": {
     "CHOOSE": "Choose Archetype",
-    "CLEAR": "Clear Archetype"
+    "CLEAR": "Clear Archetype",
+    "SKILLS": "Skill Progression"
   }
 },
 

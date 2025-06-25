@@ -1,0 +1,39 @@
+name: Trader
+type: archetype
+img: icons/skills/trades/academics-merchant-scribe.webp
+system:
+  description: >-
+    <p>Your expertise is in traveling the world and facilitating the exchange of
+    goods.</p>
+  abilities:
+    wisdom: 2
+    presence: 4
+    intellect: 3
+    strength: 1
+    toughness: 1
+    dexterity: 1
+  talents: []
+  skills:
+    - awareness
+    - society
+    - diplomacy
+    - deception
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750816338739
+  modifiedTime: 1750816338739
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: trader0000000000
+sort: 0
+_key: '!items!trader0000000000'

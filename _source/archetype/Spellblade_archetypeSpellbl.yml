@@ -18,6 +18,10 @@ system:
     - Compendium.crucible.talent.Item.gesturestrike000
     - Compendium.crucible.talent.Item.opportunisticspe
     - Compendium.crucible.talent.Item.stronggrip000000
+  skills:
+    - athletics
+    - arcana
+    - intimidation
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -32,7 +36,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749246074533
-  modifiedTime: 1749862536757
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750816030947
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!archetypeSpellbl'

@@ -17,6 +17,11 @@ system:
     - Compendium.crucible.talent.Item.strategicreposit
     - Compendium.crucible.talent.Item.subtleextricatio
     - Compendium.crucible.talent.Item.weakpoints000000
+  skills:
+    - awareness
+    - stealth
+    - deception
+    - society
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -31,8 +36,8 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749849741883
-  modifiedTime: 1749862501482
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750816408294
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: operator00000000
 sort: 0
 _key: '!items!operator00000000'

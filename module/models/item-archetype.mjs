@@ -17,7 +17,8 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;
       }, {}), {validate: CrucibleArchetypeItem.#validateAbilities}),
-      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"}))
+      talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
+      skills: new fields.SetField(new fields.StringField({required: true, choices: SYSTEM.SKILLS})),
     }
   }
 

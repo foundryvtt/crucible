@@ -389,7 +389,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #prepareSkills() {
     for ( const [skillId, config] of Object.entries(SYSTEM.SKILLS) ) {
-      this.skills[skillId] = this._prepareSkill(config);
+      this.skills[skillId] = this.#prepareSkill(config);
     }
   }
 
@@ -679,9 +679,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Prepare a single Skill.
    * @param {CrucibleSkillConfig} config    System configuration data of the skill being configured
    * @returns {CrucibleActorSkill}
-   * @protected
    */
-  _prepareSkill(config) {
+  #prepareSkill(config) {
     const rank = this.training[config.id] ?? 0;
     const abilityBonus = this.parent.getAbilityBonus(config.abilities);
     const skillBonus = SYSTEM.TALENT.TRAINING_RANK_VALUES[rank].bonus;

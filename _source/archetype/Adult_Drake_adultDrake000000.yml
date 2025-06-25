@@ -14,6 +14,11 @@ system:
     - Compendium.crucible.adversary-talents.Item.packhunter000000
     - Compendium.crucible.adversary-talents.Item.swoopingStrike00
     - Compendium.crucible.adversary-talents.Item.acidSpray0000000
+  skills:
+    - awareness
+    - wilderness
+    - deception
+    - stealth
 effects: []
 folder: EzdzEWVNHF3sCVco
 ownership:
@@ -28,7 +33,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1750730657141
-  modifiedTime: 1750730657141
+  modifiedTime: 1750814814857
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: adultDrake000000
 sort: 0

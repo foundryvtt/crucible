@@ -18,6 +18,11 @@ system:
     - Compendium.crucible.talent.Item.naturalWeaponTra
     - Compendium.crucible.talent.Item.assessstrength00
     - Compendium.crucible.talent.Item.steadfast0000000
+  skills:
+    - athletics
+    - awareness
+    - stealth
+    - wilderness
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -32,7 +37,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   createdTime: 1749917418749
-  modifiedTime: 1749917418749
+  modifiedTime: 1750816511476
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: shapeshifter0000
 sort: 0

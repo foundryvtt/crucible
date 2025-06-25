@@ -77,16 +77,4 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     delete submitData.system.abilities;
     return submitData;
   }
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  async _processSubmitData(event, form, submitData) {
-    if ( this.document.parent instanceof Actor ) {
-      const diff = this.document.updateSource(submitData, {dryRun: true});
-      if ( !foundry.utils.isEmpty(diff) ) await this.actor.system.applyArchetype(this.document);
-      return;
-    }
-    return super._processSubmitData(event, form, submitData);
-  }
 }

@@ -1438,7 +1438,7 @@ export default class CrucibleActor extends Actor {
    * @returns {Promise<void>}
    * @internal
    */
-  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true}={}) {
+  async _applyDetailItem(item, {type, canApply=true, canClear=false, local=false, notify=true, skillTalents=true}={}) {
     type ??= item?.type;
     if ( item ) {
       if ( !canApply ) throw new Error(`You are not allowed to apply ${type} data to Actor ${this.name}`);
@@ -1457,10 +1457,14 @@ export default class CrucibleActor extends Actor {
       const talentId = foundry.utils.parseUuid(uuid)?.documentId;
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
-    for ( const skillId of (existing?.skills || []) ) {
-      const uuid = SYSTEM.SKILLS[skillId]?.talents[1];
-      const talentId = foundry.utils.parseUuid(uuid)?.documentId;
-      if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
+
+    // Remove skill talents
+    if ( skillTalents ) {
+      for ( const skillId of (existing?.skills || []) ) {
+        const uuid = SYSTEM.SKILLS[skillId]?.talents[1];
+        const talentId = foundry.utils.parseUuid(uuid)?.documentId;
+        if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
+      }
     }
 
     // Clear the detail data
@@ -1476,9 +1480,17 @@ export default class CrucibleActor extends Actor {
     else {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
+
+      // Register talents to grant
       const talents = [];
       for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
-      for ( const skillId of (detail.skills || []) ) talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
+      if ( skillTalents ) {
+        for ( const skillId of (detail.skills || []) ) {
+          talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
+        }
+      }
+
+      // Add granted talents
       const updateItems = [];
       for ( const talent of talents ) {
         if ( !talent ) continue;
