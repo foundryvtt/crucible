@@ -572,8 +572,6 @@
 }
 .crucible.application prose-mirror {
   height: 100%;
-  max-height: 600px;
-  min-height: 200px;
 }
 .crucible.application prose-mirror menu button {
   padding: revert;
@@ -590,6 +588,12 @@
   --sheet-header-height: 80px;
   --sheet-header-gap: 0.5rem 0.5rem;
   --sheet-body-gap: 0.5rem 1rem;
+  /* ----------------------------------------- */
+  /*  Sheet Sections                           */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Actor and Item Biographies               */
+  /* ----------------------------------------- */
 }
 .crucible.sheet .sheet-header {
   gap: var(--sheet-header-gap);
@@ -637,6 +641,65 @@
   padding: var(--sheet-body-gap);
   gap: var(--sheet-body-gap);
 }
+.crucible.sheet .sheet-section {
+  background: var(--color-frame-bg-50);
+  border-radius: 6px;
+  position: relative;
+  padding: 1.5rem 1rem 1rem;
+}
+.crucible.sheet .sheet-section.flexcol {
+  width: 100%;
+  align-items: center;
+}
+.crucible.sheet .sheet-section.flexrow {
+  justify-content: center;
+}
+.crucible.sheet .sheet-section > h3 {
+  box-sizing: content-box;
+  position: absolute;
+  margin: 0;
+  padding: 0 1rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  top: -0.75rem;
+  font-size: var(--font-size-14);
+  color: var(--color-primary);
+  background: var(--color-frame-bg);
+  border-radius: 3px;
+}
+.crucible.sheet .sheet-section > h3 > i {
+  font-size: 10px;
+  color: var(--color-text-subtle);
+}
+.crucible.sheet .sheet-section.expandable {
+  flex: 1;
+  padding: 1rem;
+  transition: flex-grow 0.25s;
+}
+.crucible.sheet .sheet-section.empty {
+  flex: none;
+}
+.crucible.sheet .sheet-section.collapsed {
+  flex: 0 0 0.5rem;
+  padding: 0;
+  background: none;
+}
+.crucible.sheet .sheet-section.collapsed > * {
+  display: none;
+}
+.crucible.sheet .sheet-section.collapsed h3 {
+  display: block;
+  opacity: 0.5;
+}
+.crucible.sheet .sheet-section.collapsed h3 > i {
+  transform: rotate(-90deg);
+}
+.crucible.sheet .sheet-section.expanded {
+  flex: 99;
+}
+.crucible.sheet .sheet-section.expanded h3 > i {
+  transform: rotate(90deg);
+}
 .crucible.sheet fieldset {
   display: flex;
   flex-direction: column;
@@ -660,6 +723,30 @@
 }
 .crucible.sheet .form-group.slim .form-fields input {
   text-align: center;
+}
+.crucible.sheet .tab.biography prose-mirror {
+  width: 100%;
+}
+.crucible.sheet .tab.biography .editor-content {
+  font-size: var(--font-size-13);
+  line-height: 1.25em;
+}
+.crucible.sheet .tab.biography .editor-content > :first-child {
+  margin-top: 0;
+}
+.crucible.sheet .tab.biography .editor-content > :last-child {
+  margin-bottom: 0;
+}
+.crucible.sheet .tab.biography .editor-content h2.divider {
+  font-size: 1.5em;
+  margin: 1rem 0 0;
+}
+.crucible.sheet .tab.biography .editor-content h3.divider {
+  font-size: 1.25em;
+  margin: 1rem 0 0;
+}
+.crucible.sheet .tab.biography .sheet-section.empty prose-mirror.inactive {
+  --min-height: 32px;
 }
 /* ----------------------------------------- */
 /*  Line Items: Actions, Talents, etc...     */
@@ -848,32 +935,6 @@
 .crucible.sheet.actor a.button.icon {
   flex: none;
   font-size: var(--font-size-12);
-}
-.crucible.sheet.actor .sheet-section {
-  background: var(--color-frame-bg-50);
-  border-radius: 6px;
-  position: relative;
-  padding: 1.5rem 1rem 1rem;
-}
-.crucible.sheet.actor .sheet-section.flexcol {
-  width: 100%;
-  align-items: center;
-}
-.crucible.sheet.actor .sheet-section.flexrow {
-  justify-content: center;
-}
-.crucible.sheet.actor .sheet-section > h3 {
-  box-sizing: content-box;
-  position: absolute;
-  margin: 0;
-  padding: 0 1rem;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  top: -0.75rem;
-  font-size: var(--font-size-14);
-  color: var(--color-primary);
-  background: var(--color-frame-bg);
-  border-radius: 3px;
 }
 .crucible.sheet.actor h4.label,
 .crucible.sheet.actor span.label {
@@ -1521,70 +1582,19 @@
   flex: 1;
   padding: 1rem 0 0;
 }
-.crucible.sheet.actor .tab.biography .sheet-section {
-  flex: 1;
-  padding: 1rem;
-  transition: flex-grow 0.25s;
-}
-.crucible.sheet.actor .tab.biography .sheet-section h3 > i {
-  font-size: 12px;
-  color: var(--color-text-subtle);
-}
-.crucible.sheet.actor .tab.biography .sheet-section.expanded h3 > i {
-  transform: rotate(90deg);
-}
-.crucible.sheet.actor .tab.biography .sheet-section.collapsed {
-  flex: 0 0 0.5rem;
-  padding: 0;
-  background: none;
-}
-.crucible.sheet.actor .tab.biography .sheet-section.collapsed .editor {
-  display: none;
-}
-.crucible.sheet.actor .tab.biography .sheet-section.collapsed h3 {
-  opacity: 0.5;
-}
-.crucible.sheet.actor .tab.biography .sheet-section.collapsed h3 > i {
-  transform: rotate(-90deg);
-}
 .crucible.sheet.actor .tab.biography .appearance {
   align-items: flex-start;
   gap: 1rem;
 }
 .crucible.sheet.actor .tab.biography .appearance fieldset {
   flex: 0 0 180px;
-  padding: 0 6px 6px;
+  padding: 0 1rem 0.5rem;
   margin: -0.5rem;
   gap: 0.5rem;
   font-size: var(--font-size-12);
 }
 .crucible.sheet.actor .tab.biography .appearance > div {
   padding: 0 1rem;
-}
-.crucible.sheet.actor .tab.biography .private-biography {
-  flex: 2;
-}
-.crucible.sheet.actor .tab.biography prose-mirror {
-  width: 100%;
-  min-height: unset;
-}
-.crucible.sheet.actor .tab.biography .editor-content {
-  font-size: var(--font-size-13);
-  line-height: 1.25em;
-}
-.crucible.sheet.actor .tab.biography .editor-content > :first-child {
-  margin-top: 0;
-}
-.crucible.sheet.actor .tab.biography .editor-content > :last-child {
-  margin-bottom: 0;
-}
-.crucible.sheet.actor .tab.biography .editor-content h2.divider {
-  font-size: 1.5em;
-  margin: 1rem 0 0;
-}
-.crucible.sheet.actor .tab.biography .editor-content h3.divider {
-  font-size: 1.25em;
-  margin: 1rem 0 0;
 }
 .crucible.sheet.actor .tab.secondary .header-section {
   justify-content: space-between;
@@ -2334,9 +2344,18 @@
 .crucible.action .form-group > label {
   flex: 2;
 }
-.crucible.item prose-mirror.active,
-.crucible.action prose-mirror.active {
-  min-height: 480px;
+.crucible.item .tab.description prose-mirror,
+.crucible.action .tab.description prose-mirror {
+  --min-height: 240px;
+}
+.crucible.item .tab.description-advanced,
+.crucible.action .tab.description-advanced {
+  gap: 1.5rem;
+  padding: 1.5rem 1rem 1rem;
+}
+.crucible.item .tab.description-advanced prose-mirror,
+.crucible.action .tab.description-advanced prose-mirror {
+  --min-height: 150px;
 }
 .crucible.item code-mirror.hook-editor,
 .crucible.action code-mirror.hook-editor {

@@ -328,7 +328,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
           name: item.name,
           color: item.system.ui.color ?? "#8a867c",
           icon: item.img,
-          summary: await TextEditor.foundry.applications.ux.TextEditor.implementation(item.system.description),
+          summary: await CONFIG.ux.TextEditor.enrichHTML(item.system.description),
           features: []
         }
         if ( fn instanceof Function ) await fn.call(this, option);

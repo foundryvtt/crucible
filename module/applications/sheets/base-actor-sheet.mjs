@@ -213,16 +213,26 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Prepare enriched biography HTML for the actor.
-   * @returns {Promise<{private: string, public: string}>}
+   * @returns {Promise<{object}>}
    */
   async #prepareBiography() {
-    const biography = this.document.system.details.biography;
+    const fields = this.document.system.schema.fields.details.fields.biography.fields;
+    const {appearance: appearanceSrc, public: publicSrc, private: privateSrc} = this.document.system.details.biography;
     const context = {relativeTo: this.document, secrets: this.document.isOwner};
-    const editorCls = foundry.applications.ux.TextEditor.implementation;
+    const editorCls = CONFIG.ux.TextEditor;
     return {
-      appearance: await editorCls.enrichHTML(biography.appearance, context),
-      public: await editorCls.enrichHTML(biography.public, context),
-      private: await editorCls.enrichHTML(biography.private, context)
+      appearanceField: fields.appearance,
+      appearanceSrc,
+      appearanceHTML: await editorCls.enrichHTML(appearanceSrc, context),
+      appearanceClass: appearanceSrc ? "appearance" : "appearance empty",
+      publicField: fields.public,
+      publicSrc,
+      publicHTML: await editorCls.enrichHTML(publicSrc, context),
+      publicClass: publicSrc ? "public-biography" : "public-biography empty",
+      privateField: fields.private,
+      privateSrc,
+      privateHTML: await editorCls.enrichHTML(privateSrc, context),
+      privateClass: privateSrc ? "private-biography" : "private-biography empty"
     }
   }
 
@@ -978,7 +988,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const s of section.parentElement.children ) {
       s.classList.toggle("expanded", s === section);
       s.classList.toggle("collapsed", s !== section);
-
     }
   }
 

@@ -307,7 +307,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
       count: config.count,
       threat: actor.threat,
       subtitle: [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"].join(" "),
-      readaloud: await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.details.biography.appearance, {
+      readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
         relativeTo: actor,
         secrets: actor.isOwner
       })

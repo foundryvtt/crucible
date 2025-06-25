@@ -24,8 +24,17 @@
   }
 
   /** Description */
-  prose-mirror.active {
-    min-height: 480px;
+  .tab.description {
+    prose-mirror {
+      --min-height: 240px;
+    }
+  }
+  .tab.description-advanced {
+    gap: 1.5rem;
+    padding: 1.5rem 1rem 1rem;
+    prose-mirror {
+      --min-height: 150px;
+    }
   }
 
   /** Hook Editor */

@@ -1,9 +1,27 @@
 <section class="tab sheet-body flexcol {{description.tab.cssClass}}"
          data-tab="{{description.tab.id}}" data-group="{{description.tab.group}}">
-    {{#if isEditable}}
-    {{formInput description.field value=description.value enriched=description.html toggled=true}}
-    <p class="hint">{{description.field.hint}}</p>
+
+    {{#if hasAdvancedDescription}}
+    <div class="sheet-section flexcol expandable {{description.publicClass}}">
+        <h3 data-action="expandSection" data-tooltip="{{description.fields.public.hint}}">
+            {{description.fields.public.label}}
+            <i class="fa-solid fa-chevron-right" inert></i>
+        </h3>
+        {{formInput description.fields.public value=description.publicSrc enriched=description.publicHTML toggled=true}}
+    </div>
+    <div class="sheet-section flexcol expandable {{description.privateClass}}">
+        <h3 data-action="expandSection" data-tooltip="{{description.fields.private.hint}}">
+            {{description.fields.private.label}}
+            <i class="fa-solid fa-chevron-right" inert></i>
+        </h3>
+        {{formInput description.fields.private value=description.privateSrc enriched=description.privateHTML toggled=true}}
+    </div>
+
     {{else}}
-    <article class="editor-content scrollable">{{{description.html}}}</article>
+    {{#if isEditable}}
+    {{formInput description.field value=description.publicSrc enriched=description.publicHTML toggled=true}}
+    {{else}}
+    <article class="editor-content scrollable">{{{description.publicHTML}}}</article>
+    {{/if}}
     {{/if}}
 </section>

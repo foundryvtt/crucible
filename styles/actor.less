@@ -62,36 +62,6 @@
   /*  General Styles                           */
   /* ----------------------------------------- */
 
-  .sheet-section {
-    background: var(--color-frame-bg-50);
-    border-radius: 6px;
-    position: relative;
-    padding: 1.5rem 1rem 1rem;
-
-    &.flexcol {
-      width: 100%;
-      align-items: center;
-    }
-
-    &.flexrow {
-      justify-content: center;
-    }
-
-    > h3 {
-      box-sizing: content-box;
-      position: absolute;
-      margin: 0;
-      padding: 0 1rem;
-      height: 1.5rem;
-      line-height: 1.5rem;
-      top: -0.75rem;
-      font-size: var(--font-size-14);
-      color: var(--color-primary);
-      background: var(--color-frame-bg);
-      border-radius: 3px;
-    }
-  }
-
   h4.label,
   span.label {
     flex: none;
@@ -798,76 +768,18 @@
   .tab.biography {
     flex: 1;
     padding: 1rem 0 0;
-
-    // Collapsing biography sections
-    .sheet-section {
-      flex: 1;
-      padding: 1rem;
-      transition: flex-grow 0.25s;
-      h3 > i {
-        font-size: 12px;
-        color: var(--color-text-subtle);
-      }
-      &.expanded {
-        h3 > i {
-          transform: rotate(90deg);
-        }
-      }
-      &.collapsed {
-        flex: 0 0 0.5rem;
-        padding: 0;
-        background: none;
-        .editor {
-          display: none;
-        }
-        h3 {
-          opacity: 0.5;
-          > i {
-            transform: rotate(-90deg);
-          }
-        }
-      }
-    }
-
     .appearance {
       align-items: flex-start;
       gap: 1rem;
       fieldset {
         flex: 0 0 180px;
-        padding: 0 6px 6px;
+        padding: 0 1rem 0.5rem;
         margin: -0.5rem;
         gap: 0.5rem;
         font-size: var(--font-size-12);
       }
       > div {
         padding: 0 1rem;
-      }
-    }
-
-    .private-biography {
-      flex: 2;
-    }
-
-    prose-mirror {
-      width: 100%;
-      min-height: unset;
-    }
-    .editor-content {
-      font-size: var(--font-size-13);
-      line-height: 1.25em;
-      > :first-child {
-        margin-top: 0;
-      }
-      > :last-child {
-        margin-bottom: 0;
-      }
-      h2.divider {
-        font-size: 1.5em;
-        margin: 1rem 0 0;
-      }
-      h3.divider {
-        font-size: 1.25em;
-        margin: 1rem 0 0;
       }
     }
   }

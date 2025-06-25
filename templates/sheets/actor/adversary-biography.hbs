@@ -1,27 +1,24 @@
-<section class="tab flexcol {{tabs.biography.id}} {{tabs.biography.cssClass}}"
-         data-tab="{{tabs.biography.id}}" data-group="{{tabs.biography.group}}">
-    <div class="sheet-section flexrow appearance">
-        <h3 data-action="expandSection">
-            {{fields.details.fields.biography.fields.appearance.label}}
+<section class="tab flexcol {{tabs.biography.id}} {{tabs.biography.cssClass}}" data-tab="{{tabs.biography.id}}"
+         data-group="{{tabs.biography.group}}" data-tooltip-direction="UP">
+    <div class="sheet-section flexrow expandable {{biography.appearanceClass}}">
+        <h3 data-action="expandSection" data-tooltip="{{biography.appearanceField.hint}}">
+            {{biography.appearanceField.label}}
             <i class="fa-solid fa-chevron-right" inert></i>
         </h3>
-        {{formInput fields.details.fields.biography.fields.appearance value=source.system.details.biography.appearance
-                    enriched=biography.appearance toggled=true}}
+        {{formInput biography.appearanceField value=biography.appearanceSrc enriched=biography.appearanceHTML toggled=true}}
     </div>
-    <div class="sheet-section flexcol public-biography">
-        <h3 data-action="expandSection">
-            {{fields.details.fields.biography.fields.public.label}}
+    <div class="sheet-section flexcol expandable {{biography.publicClass}}">
+        <h3 data-action="expandSection" data-tooltip="{{biography.publicField.hint}}">
+            {{biography.publicField.label}}
             <i class="fa-solid fa-chevron-right" inert></i>
         </h3>
-        {{formInput fields.details.fields.biography.fields.public value=source.system.details.biography.public
-                    enriched=biography.public toggled=true}}
+        {{formInput biography.publicField value=biography.publicSrc enriched=biography.publicHTML toggled=true}}
     </div>
-    <div class="sheet-section flexcol private-biography">
-        <h3 data-action="expandSection">
-            {{fields.details.fields.biography.fields.private.label}}
+    <div class="sheet-section flexcol expandable {{biography.privateClass}}">
+        <h3 data-action="expandSection" data-tooltip="{{biography.privateField.hint}}">
+            {{biography.privateField.label}}
             <i class="fa-solid fa-chevron-right" inert></i>
         </h3>
-        {{formInput fields.details.fields.biography.fields.private value=source.system.details.biography.private
-                    enriched=biography.private toggled=true}}
+        {{formInput biography.privateField value=biography.privateSrc enriched=biography.privateHTML toggled=true}}
     </div>
 </section>

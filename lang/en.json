@@ -182,13 +182,16 @@
     "details": {
       "biography": {
         "appearance": {
-          "label": "Appearance"
+          "label": "Appearance",
+          "hint": "Descriptive information about the outward appearance of this actor which is visible to anyone with at least Limited permission."
         },
         "public": {
-          "label": "Public Biography"
+          "label": "Public Biography",
+          "hint": "Biographical information about this actor which is visible to anyone with at least limited permission."
         },
         "private": {
-          "label": "Private Biography"
+          "label": "Private Biography",
+          "hint": "Private information about this actor which is only visible to owners of the actor."
         },
         "age.label": "Age",
         "height.label": "Height",

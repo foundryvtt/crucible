@@ -19,7 +19,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       actionDelete: CrucibleBaseItemSheet.#onActionDelete,
       actionEdit: CrucibleBaseItemSheet.#onActionEdit,
       hookAdd: CrucibleBaseItemSheet.#onHookAdd,
-      hookDelete: CrucibleBaseItemSheet.#onHookDelete
+      hookDelete: CrucibleBaseItemSheet.#onHookDelete,
+      expandSection: CrucibleBaseItemSheet.#onExpandSection
     },
     form: {
       submitOnChange: true
@@ -50,10 +51,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     },
     description: {
       id: "description",
-      template: "systems/crucible/templates/sheets/item/item-description.hbs"
-    },
-    secrets: { // Used by hasAdvancedDescription
-      id: "secrets",
       template: "systems/crucible/templates/sheets/item/item-description.hbs"
     },
     config: {
@@ -111,13 +108,6 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       }
       this.TABS.sheet.push({id: "hooks", group: "sheet", icon: "fa-solid fa-cogs", label: "ITEM.TABS.HOOKS"});
     }
-
-    // Advanced description
-    if ( item.hasAdvancedDescription ) {
-      this.TABS.sheet.splice(this.TABS.sheet.findIndex(t => t.id === "description") + 1, 0,
-        {id: "secrets", group: "sheet", icon: "fa-solid fa-user-secret", label: "ITEM.TABS.SECRETS"})
-    }
-    else delete this.PARTS.secrets;
   }
 
   /* -------------------------------------------- */
@@ -143,6 +133,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       isEditable: this.isEditable,
       fieldDisabled: this.isEditable ? "" : "disabled",
       fields: this.document.system.schema.fields,
+      hasAdvancedDescription: this.options.item.hasAdvancedDescription,
       tabGroups,
       tabs: tabGroups.sheet,
       tabsPartial: this.constructor.PARTS.tabs.template,
@@ -169,31 +160,28 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
         context.actions = this.constructor.prepareActions(actions);
         break;
       case "description":
+        const editorCls = CONFIG.ux.TextEditor;
+        const editorOptions = {relativeTo: this.document, secrets: this.document.isOwner};
         if ( this.options.item.hasAdvancedDescription ) {
-          const src = context.source.system.description.public;
+          const {public: publicSrc, private: privateSrc} = context.source.system.description;
           context.description = {
             tab: context.tabs.description,
-            field: context.fields.description.fields.public,
-            value: src,
-            html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+            fields: context.fields.description.fields,
+            publicSrc,
+            publicHTML: await editorCls.enrichHTML(publicSrc, editorOptions),
+            publicClass: publicSrc ? "" : "empty",
+            privateSrc,
+            privateHTML: await editorCls.enrichHTML(privateSrc, editorOptions),
+            privateClass: privateSrc ? "" : "empty"
           }
         } else {
           const src = context.source.system.description;
           context.description = {
             tab: context.tabs.description,
             field: context.fields.description,
-            value: src,
-            html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
+            publicSrc: src,
+            publicHTML: await CONFIG.ux.TextEditor.enrichHTML(src, editorOptions)
           }
-        }
-        break;
-      case "secrets":
-        const src = context.source.system.description.private;
-        context.description = {
-          tab: context.tabs.secrets,
-          field: context.fields.description.fields.private,
-          value: src,
-          html: await foundry.applications.ux.TextEditor.implementation.enrichHTML(src, {relativeTo: this.document, secrets: this.document.isOwner})
         }
         break;
       case "hooks":
@@ -257,7 +245,16 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
       tabs[groupId] = group;
     }
 
-    // Suppress GM access to hooks
+    // Description style
+    const adv = this.options.item.hasAdvancedDescription;
+    tabs.sheet.description.cssClass = [
+      tabs.sheet.description.cssClass,
+      "biography",
+      "description",
+      adv ? "description-advanced" : ""
+    ].filterJoin(" ");
+
+    // Restrict access to hooks
     if ( !game.user.isGM ) delete tabs.sheet.hooks;
     return tabs;
   }
@@ -401,6 +398,26 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     const actionId = button.closest(".action").dataset.actionId;
     const action = this.document.system.actions.find(a => a.id === actionId);
     await action.sheet.render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseItemSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onExpandSection(event) {
+    const section = event.target.closest(".sheet-section");
+    const wasExpanded = section.classList.contains("expanded");
+    if ( wasExpanded ) {
+      for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
+      return;
+    }
+    for ( const s of section.parentElement.children ) {
+      s.classList.toggle("expanded", s === section);
+      s.classList.toggle("collapsed", s !== section);
+    }
   }
 
   /* -------------------------------------------- */
