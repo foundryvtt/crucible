@@ -106,13 +106,24 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     adv.threatLevel = adv.level < 0 ? 1 / Math.abs(adv.level - 1) : adv.level;
     adv.threat = adv.threatLevel * adv.threatFactor;
 
-    // TODO Temporary automatic skill progression
-    this.advancement._autoSkillRank = Math.clamp(Math.ceil(adv.threatLevel / 6), 0, 4);
+    // Automatic training and maximum action configuration
+    this.advancement.autoTrainingRank = Math.clamp(Math.ceil(adv.threatLevel / 6), 0, 4);
     this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes
     this.#scaleAbilities(taxonomy, archetype);
     this.#scaleResistances(taxonomy);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _prepareTraining() {
+
+    // Automatic natural weapon training if the taxonomy does not use equipment
+    if ( !this.details.taxonomy.characteristics.equipment ) {
+      this.training.natural = this.advancement.autoTrainingRank;
+    }
   }
 
   /* -------------------------------------------- */
@@ -224,7 +235,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
    * @override
    */
   _prepareSkill(config) {
-    this.training[config.id] ??= this.advancement._autoSkillRank; // TODO temporary, remove later
+    this.training[config.id] ??= this.advancement.autoTrainingRank; // TODO only for certain archetype skills
     const skill = super._prepareSkill(config);
     return skill;
   }

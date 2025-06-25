@@ -304,6 +304,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   prepareItems(items) {
     this.#prepareTalents(items.talent);
+    this._prepareTraining();
     this.#prepareSkills();
     this.parent.callActorHooks("prepareTraining", this.training); // FIXME maybe delete this hook?
     this.#prepareSpells(items.spell);
@@ -373,6 +374,14 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Compose Signature Name
     details.signatureName = Array.from(signatureNames).sort((a, b) => a.localeCompare(b)).join(" ");
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare training ranks granted by owned talents or other features.
+   * @protected
+   */
+  _prepareTraining() {}
 
   /* -------------------------------------------- */
 
