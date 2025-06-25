@@ -136,11 +136,27 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
+HOOKS.pouncingStrike = {
+  postActivate(outcome) {
+    if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.spellband = {
   postActivate(outcome) {
     const enchantment = this.usage.consumable.config.enchantment;
     const amount = 2 + (2 * enchantment.bonus);
     outcome.resources.focus = (outcome.resources.focus || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.swoopingStrike = {
+  postActivate(outcome) {
+    if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;
   }
 }
 

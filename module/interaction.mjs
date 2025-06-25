@@ -5,6 +5,7 @@
 export function onPointerEnter(event) {
   if ( "crucibleTalentTooltip" in event.target.dataset ) return displayTalentTooltip(event);
   else if ( "crucibleActionTooltip" in event.target.dataset ) return displayActionTooltip(event);
+  else if ( "cruciblePassiveCheck" in event.target.dataset ) return displayPassiveCheck(event);
   else if ( "crucibleKnowledgeCheck" in event.target.dataset ) return displayKnowledgeCheck(event);
 }
 
@@ -65,6 +66,36 @@ async function displayActionTooltip(event) {
   element.dataset.tooltipHtml = await action.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   element.dataset.crucibleTooltip = "crucibleActionTooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * On pointerenter, display a dynamic tooltip for the group passive check.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayPassiveCheck(event) {
+  if ( !crucible.party ) return;
+  const element = event.target;
+  delete element.dataset.cruciblePassiveCheck;
+  event.stopImmediatePropagation();
+
+  // Define the passive check
+  const skillId = element.dataset.skillId;
+  const dc = Number(element.dataset.dc);
+  const check = async (_group, actor) => {
+    const roll = actor.getSkillCheck(skillId, {dc, passive: true});
+    await roll.evaluate();
+    return {roll};
+  }
+
+  // Construct the tooltip
+  element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
+  element.dataset.tooltipClass = "crucible crucible-tooltip wide";
+  element.dataset.crucibleTooltip = "cruciblePassiveCheck";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }

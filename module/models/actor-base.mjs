@@ -882,9 +882,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   #prepareDefaultActions() {
     const w = this.equipment.weapons;
     for ( let ad of SYSTEM.ACTION.DEFAULT_ACTIONS ) {
-      if ( (ad.id === "cast") && !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
-      if ( (ad.id === "reload") && !w.reload ) continue;
-      if ( (ad.id === "refocus") && !w.talisman ) continue;
+
+      // Some actions are only conditionally added
+      switch ( ad.id ) {
+        case "cast":
+          if ( !(this.grimoire.gestures.size && this.grimoire.runes.size) ) continue;
+          break;
+        case "reload":
+          if ( !w.reload ) continue;
+          break;
+        case "refocus":
+          if ( !w.talisman ) continue;
+          break;
+        case "throwWeapon":
+          if ( !(w.mainhand?.id || w.offhand?.id) ) continue;
+          break;
+      }
+
+      // Action data
       ad = foundry.utils.deepClone(ad);
       ad.tags ||= [];
 

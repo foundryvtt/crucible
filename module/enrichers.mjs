@@ -196,20 +196,24 @@ function enrichSkillCheck([match, terms]) {
 function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("skill-check", skill.category);
-  if ( passive ) tag.classList.add("passive-check");
   if ( group ) tag.classList.add("group-check");
   tag.dataset.skillId = skill.id;
   tag.dataset.dc = dc;
-  tag.toggleAttribute("passive", !!passive);
+
+  // Passive checks only
+  if ( passive ) {
+    tag.classList.add("passive-check");
+    tag.toggleAttribute("data-crucible-passive-check", true);
+  }
+
+  // Active checks only
+  else tag.dataset.tooltipText = `${skill.label} Skill Check`;
 
   // Create label
   const label = [skill.label, `(DC ${dc})`];
   if ( group ) label.push("Group");
   if ( passive ) label.push("Passive");
   tag.innerHTML = label.join(" ");
-
-  // Create tooltip
-  tag.dataset.tooltipText = `${skill.label} Skill Check`;
   return tag;
 }
 
@@ -237,6 +241,7 @@ function enrichKnowledge([match, knowledgeId]) {
 /* -------------------------------------------- */
 
 function renderSkillCheck(element) {
+  if ( element.dataset.cruciblePassiveCheck ) return;
   element.addEventListener("click", onClickSkillCheck);
 }
 

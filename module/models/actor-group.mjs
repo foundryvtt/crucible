@@ -281,7 +281,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const results = [];
     for ( const member of this.members ) {
       if ( !member.actor ) continue;
-      const r = check(this.parent, member.actor);
+      const r = await check(this.parent, member.actor);
       if ( r === null ) continue;
       const {roll, success} = r;
       const result = {actor: member.actor, name: member.actor.name, tags: member.actor.getTags()};
