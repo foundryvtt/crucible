@@ -26,6 +26,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       effectEdit: CrucibleBaseActorSheet.#onEffectEdit,
       effectDelete: CrucibleBaseActorSheet.#onEffectDelete,
       effectToggle: CrucibleBaseActorSheet.#onEffectToggle,
+      expandSection: CrucibleBaseActorSheet.#onExpandSection,
       skillRoll: CrucibleBaseActorSheet.#onSkillRoll
     },
     form: {
@@ -958,6 +959,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   #getEventEffect(event) {
     const effectId = event.target.closest(".effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleBaseActorSheet}
+   * @param {PointerEvent} event
+   * @returns {Promise<void>}
+   */
+  static async #onExpandSection(event) {
+    const section = event.target.closest(".sheet-section");
+    const wasExpanded = section.classList.contains("expanded");
+    if ( wasExpanded ) {
+      for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
+      return;
+    }
+    for ( const s of section.parentElement.children ) {
+      s.classList.toggle("expanded", s === section);
+      s.classList.toggle("collapsed", s !== section);
+
+    }
   }
 
   /* -------------------------------------------- */

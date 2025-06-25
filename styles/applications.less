@@ -91,11 +91,13 @@
     height: 100%;
     max-height: 600px;
     min-height: 200px;
-    font-size: var(--font-size-14);
-    menu button { // FIXME still a bit messy
+    menu button { // Reset crucible button styles
       padding: revert;
       text-align: revert;
       opacity: revert;
+    }
+    code-mirror {
+      height: calc(100% - 70px); // FIXME fight core style
     }
   }
 }

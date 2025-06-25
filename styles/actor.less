@@ -799,9 +799,34 @@
     flex: 1;
     padding: 1rem 0 0;
 
+    // Collapsing biography sections
     .sheet-section {
       flex: 1;
       padding: 1rem;
+      transition: flex-grow 0.25s;
+      h3 > i {
+        font-size: 12px;
+        color: var(--color-text-subtle);
+      }
+      &.expanded {
+        h3 > i {
+          transform: rotate(90deg);
+        }
+      }
+      &.collapsed {
+        flex: 0 0 0.5rem;
+        padding: 0;
+        background: none;
+        .editor {
+          display: none;
+        }
+        h3 {
+          opacity: 0.5;
+          > i {
+            transform: rotate(-90deg);
+          }
+        }
+      }
     }
 
     .appearance {
@@ -838,6 +863,10 @@
       }
       h2.divider {
         font-size: 1.5em;
+        margin: 1rem 0 0;
+      }
+      h3.divider {
+        font-size: 1.25em;
         margin: 1rem 0 0;
       }
     }
