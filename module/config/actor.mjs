@@ -178,10 +178,6 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_PREPARATION",
     argNames: ["resistances"]
   },
-  prepareTraining: {
-    group: "TALENT.HOOKS.GROUP_PREPARATION",
-    argNames: ["training"]
-  },
 
   // Turn Events
   startTurn: {

@@ -306,7 +306,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.#prepareTalents(items.talent);
     this._prepareTraining();
     this.#prepareSkills();
-    this.parent.callActorHooks("prepareTraining", this.training); // FIXME maybe delete this hook?
     this.#prepareSpells(items.spell);
     this.#prepareEquipment(items);
   }
