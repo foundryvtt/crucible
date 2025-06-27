@@ -472,7 +472,10 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       performDeletions: true,
       inplace: true
     });
-    Object.assign(context, {parent: this.parent, actor: this.actor, token: this.token, usage: this.usage});
+    context.parent = this.parent;
+    context.usage = this.usage;
+    context.actor ??= this.actor;
+    context.token ??= this.token;
     const clone = new this.constructor(actionData, context);
     clone.template = this.template;
 
@@ -679,7 +682,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Other Target Types
     else {
       let targetType = this.target.type;
-      if ( (targetType === "single") && this.target.self && !game.user.targets.size ) targetType = "self";
+      if ( (targetType === "single") && this.target.self && !game.user.targets.some(t => t !== this.token) ) {
+        targetType = "self";
+      }
       switch ( targetType ) {
         case "none": case "summon":
           return []

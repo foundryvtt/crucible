@@ -105,3 +105,22 @@ export const PROPERTIES = Object.freeze({
     label: "ITEM.PROPERTIES.STACKABLE"
   }
 });
+
+/**
+ * The categories of "loot" items which are allowed.
+ * @enum {CrucibleItemCategory}
+ */
+export const LOOT_CATEGORIES = {
+  treasure: {
+    id: "treasure",
+    label: "LOOT.CATEGORIES.TREASURE"
+  },
+  ingredient: {
+    id: "ingredient",
+    label: "LOOT.CATEGORIES.INGREDIENT"
+  },
+  other: {
+    id: "other",
+    label: "LOOT.CATEGORIES.OTHER"
+  }
+};

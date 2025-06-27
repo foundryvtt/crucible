@@ -185,7 +185,7 @@
         "htmlFields": ["description.public", "description.secret"]
       },
       "loot": {
-        "htmlFields": ["description"]
+        "htmlFields": ["description.public", "description.secret"]
       },
       "spell": {
         "htmlFields": ["description"]

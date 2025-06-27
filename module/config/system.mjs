@@ -3,6 +3,7 @@ import * as ACTION from "./action.mjs";
 import * as ARMOR from "./armor.mjs";
 import * as CONSUMABLE from "./consumable.mjs";
 import * as dice from "./dice.mjs";
+import * as ITEM from "./items.mjs";
 import * as EFFECTS from "./effects.mjs";
 import * as SKILL from "./skills.mjs"
 import * as SPELL from "./spellcraft.mjs";
@@ -11,7 +12,6 @@ import * as ACCESSORY from "./accessory.mjs";
 import * as ACTOR from "./actor.mjs";
 import * as TALENT from "./talents.mjs";
 
-import {QUALITY_TIERS, ENCHANTMENT_TIERS} from "./items.mjs";
 export const SYSTEM_ID = "crucible";
 
 /* -------------------------------------------- */
@@ -141,9 +141,8 @@ export const SYSTEM = {
   DAMAGE_TYPES: ATTRIBUTES.DAMAGE_TYPES,
   DEFENSES: ATTRIBUTES.DEFENSES,
   EFFECTS,
-  ENCHANTMENT_TIERS,
+  ITEM,
   PASSIVE_BASE: ATTRIBUTES.PASSIVE_BASE,
-  QUALITY_TIERS,
   RESOURCES: ATTRIBUTES.RESOURCES,
   SKILL,
   SKILLS: SKILL.SKILLS, // alias

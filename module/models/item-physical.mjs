@@ -17,9 +17,9 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
       quantity: new fields.NumberField({required: true, nullable: false, integer: true, initial: 1, min: 0}),
       weight: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
       price: new fields.NumberField({required: true, nullable: false, integer: true, initial: 0, min: 0}),
-      quality: new fields.StringField({required: true, choices: SYSTEM.QUALITY_TIERS, initial: "standard"}),
+      quality: new fields.StringField({required: true, choices: SYSTEM.ITEM.QUALITY_TIERS, initial: "standard"}),
       broken: new fields.BooleanField({initial: false}),
-      enchantment: new fields.StringField({required: true, choices: SYSTEM.ENCHANTMENT_TIERS, initial: "mundane"}),
+      enchantment: new fields.StringField({required: true, choices: SYSTEM.ITEM.ENCHANTMENT_TIERS, initial: "mundane"}),
       equipped: new fields.BooleanField(),
       invested: new fields.BooleanField(),
       properties: new fields.SetField(new fields.StringField({required: true, choices: this.ITEM_PROPERTIES})),
@@ -99,11 +99,11 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
     const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
 
     // Item Quality
-    const qualities = SYSTEM.QUALITY_TIERS;
+    const qualities = SYSTEM.ITEM.QUALITY_TIERS;
     const quality = qualities[this.quality] || qualities.standard;
 
     // Enchantment Level
-    const enchantments = SYSTEM.ENCHANTMENT_TIERS;
+    const enchantments = SYSTEM.ITEM.ENCHANTMENT_TIERS;
     const enchantment = enchantments[this.enchantment] || enchantments.mundane;
 
     // Item Configuration

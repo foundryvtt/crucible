@@ -16,6 +16,7 @@ export {default as CrucibleArchetypeItemSheet} from "./sheets/item-archetype-she
 export {default as CrucibleArmorItemSheet} from "./sheets/item-armor-sheet.mjs";
 export {default as CrucibleBackgroundItemSheet} from "./sheets/item-background-sheet.mjs";
 export {default as CrucibleConsumableItemSheet} from "./sheets/item-consumable-sheet.mjs";
+export {default as CrucibleLootItemSheet} from "./sheets/item-loot-sheet.mjs";
 export {default as CrucibleSpellItemSheet} from "./sheets/item-spell-sheet.mjs";
 export {default as CrucibleTalentItemSheet} from "./sheets/item-talent-sheet.mjs";
 export {default as CrucibleTaxonomyItemSheet} from "./sheets/item-taxonomy-sheet.mjs";

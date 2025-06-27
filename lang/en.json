@@ -12,6 +12,7 @@
     "armor": "Armor",
     "background": "Background",
     "consumable": "Consumable",
+    "loot": "Loot",
     "spell": "Iconic Spell",
     "taxonomy": "Taxonomy",
     "talent": "Talent",
@@ -779,6 +780,14 @@
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
+
+"LOOT": {
+  "CATEGORIES": {
+    "TREASURE": "Treasure",
+    "INGREDIENT": "Ingredient",
+    "OTHER": "Miscellaneous"
+  }
+},
 
 "RESOURCES": {
   "HEALTH": "Health",

@@ -236,9 +236,9 @@ export default class CrucibleActor extends Actor {
     const statuses = this.statuses;
     const rollBonuses = this.system.rollBonuses;
     const {banes, boons} = action.usage;
-    const isWeapon = ["mainhand", "offhand", "twohand"].some(t => action.tags.has(t));
+    const isWeapon = ["mainhand", "offhand", "twohand", "natural"].some(t => action.tags.has(t));
     const isSpell = action.tags.has("spell");
-    const isAttack = isWeapon || isSpell;
+    const isAttack = action.tags.has("strike") || isWeapon || isSpell;
 
     // Actor status effects
     if ( statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
@@ -272,6 +272,9 @@ export default class CrucibleActor extends Actor {
     const banes = foundry.utils.deepClone(action.usage.banes);
     ranged ??= (action.range.maximum > 3);
     const isAttack = (actionType !== "skill") && !action.damage?.restoration;
+
+    // Blinded
+    if ( target.statuses.has("blinded") && isAttack ) boons.blind = {label: "Blinded", number: 2};
 
     // Guarded
     if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};

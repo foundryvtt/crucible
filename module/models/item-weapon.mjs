@@ -199,6 +199,18 @@ export default class CrucibleWeaponItem extends CruciblePhysicalItem {
   /* -------------------------------------------- */
 
   /**
+   * Can this weapon be thrown?
+   * @returns {boolean}
+   */
+  canThrow() {
+    const category = this.config.category;
+    if ( (category.id === "unarmed") || category.ranged || this.properties.has("natural") ) return false;
+    return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare the effective weapon damage resulting from a weapon attack.
    * @param {CrucibleActor} actor       The actor performing the attack action
    * @param {CrucibleAction} action     The attack action being performed

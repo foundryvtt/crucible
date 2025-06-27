@@ -700,8 +700,7 @@ export const TAGS = {
     propagate: ["melee"],
     canUse() {
       for ( const w of this.usage.strikes ) {
-        if ( w.category === "unarmed" ) throw new Error("You cannot throw an unarmed weapon.");
-        else if ( w.system.properties.has("natural") ) throw new Error("You cannot throw a natural weapon.");
+        if ( !w.system.canThrow() ) throw new Error("You cannot throw this weapon.");
       }
     },
     prepare() {

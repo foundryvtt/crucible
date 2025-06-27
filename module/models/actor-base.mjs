@@ -895,7 +895,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
           if ( !w.talisman ) continue;
           break;
         case "throwWeapon":
-          if ( !(w.mainhand?.id || w.offhand?.id) ) continue;
+          if ( !(w.mainhand?.system.canThrow() || w.offhand?.system.canThrow()) ) continue;
           break;
       }
 
@@ -923,6 +923,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @param {CrucibleItem} item
    */
   #registerItemActions(item) {
+    if ( !item.system.schema.has("actions") ) return;
     if ( item.system.requiresInvestment && !item.system.invested ) return;
     for ( const action of item.actions ) {
       const actionId = item.type === "consumable" ? `${action.id}.${item.id}` : action.id;

@@ -135,6 +135,7 @@ Hooks.once("init", async function() {
     armor: models.CrucibleArmorItem,
     background: models.CrucibleBackgroundItem,
     consumable: models.CrucibleConsumableItem,
+    loot: models.CrucibleLootItem,
     spell: models.CrucibleSpellItem,
     talent: models.CrucibleTalentItem,
     taxonomy: models.CrucibleTaxonomyItem,
@@ -163,6 +164,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleArmorItemSheet, {types: ["armor"], label: "CRUCIBLE.SHEETS.Armor", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleBackgroundItemSheet, {types: ["background"], label: "CRUCIBLE.SHEETS.Background", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleConsumableItemSheet, {types: ["consumable"], label: "CRUCIBLE.SHEETS.Consumable", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
@@ -247,8 +249,8 @@ Hooks.once("i18nInit", function() {
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
+    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES",
     "RESOURCES", "THREAT_LEVELS",
-    "QUALITY_TIERS", "ENCHANTMENT_TIERS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
   for ( let c of toLocalize ) {
