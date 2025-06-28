@@ -541,7 +541,10 @@ export const TAGS = {
       const contextTags = {};
       for ( const [i, weapon] of strikes.entries() ) {
         if ( this.cost.weapon ) this.cost.action += (weapon.system.actionCost || 0);
-        if ( this.range.weapon ) weaponRange = Math.min(weaponRange, weapon.system.range);
+        if ( this.range.weapon ) {
+          if ( !weaponRange ) weaponRange = weapon.system.range;
+          else weaponRange = Math.min(weaponRange, weapon.system.range);
+        }
         if ( i === 0 ) Object.assign(this.usage.bonuses, weapon.system.actionBonuses);
         contextTags[weapon.id] ||= {id: weapon.id, name: weapon.name, count: 0};
         contextTags[weapon.id].count += n;
@@ -556,7 +559,7 @@ export const TAGS = {
       // Configure action range
       if ( this.range.weapon ) {
         const baseMaximum = this._source.range.maximum ?? 0;
-        this.range.maximum = Math.max(this.range.maximum, baseMaximum + weaponRange);
+        this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
       }
     },
     async roll(target, rolls) {

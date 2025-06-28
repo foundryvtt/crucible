@@ -61,10 +61,15 @@
 "ABILITIES.Wisdom": "Wisdom",
 "ABILITIES.WisdomAbbr": "Wis",
 
-"ADVERSARY.ThreatMinion": "Minion",
-"ADVERSARY.ThreatNormal": "Normal",
-"ADVERSARY.ThreatElite": "Elite",
-"ADVERSARY.ThreatBoss": "Boss",
+"ADVERSARY": {
+  "THREAT_RANKS": {
+    "MINION": "Minion",
+    "NORMAL": "Normal",
+    "ELITE": "Elite",
+    "BOSS": "Boss"
+  }
+},
+
 
 "ACTION": {
   "FIELDS": {

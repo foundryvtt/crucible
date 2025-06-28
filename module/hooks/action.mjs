@@ -250,6 +250,14 @@ HOOKS.repercussiveBlock = {
 
 /* -------------------------------------------- */
 
+HOOKS.restrainingChomp = {
+  postActivate(outcome) {
+    if ( outcome.target.size > this.actor.size ) outcome.effects.length = 0;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.ruthlessMomentum = {
   prepare() {
     if ( this.actor ) this.range.maximum = this.actor.system.movement.stride;
@@ -262,6 +270,16 @@ HOOKS.strike = {
   async postActivate(outcome) {
     if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
       this.usage.actorStatus.basicStrike = true;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.thrash = {
+  canUse(targets) {
+    if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
+      throw new Error("You can only perform Thrash against a target that you have Restrained.");
     }
   }
 }

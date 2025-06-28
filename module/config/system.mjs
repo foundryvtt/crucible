@@ -45,35 +45,35 @@ export const COMPENDIUM_PACKS = Object.freeze({
 /* -------------------------------------------- */
 
 /**
- * The threat levels that an adversary may have.
+ * The threat ranks that an adversary may have.
  * @enum {number}
  */
-export const THREAT_LEVELS = {
+export const THREAT_RANKS = {
   minion: {
     id: "minion",
     actionMax: 4,
-    label: "ADVERSARY.ThreatMinion",
+    label: "ADVERSARY.THREAT_RANKS.MINION",
     scaling: 0.5,
     icon: "fa-solid fa-chevron-down"
   },
   normal: {
     id: "normal",
     actionMax: 6,
-    label: "ADVERSARY.ThreatNormal",
+    label: "ADVERSARY.THREAT_RANKS.NORMAL",
     scaling: 1.0,
     icon: "fa-solid fa-chevron-up"
   },
   elite: {
     id: "elite",
     actionMax: 8,
-    label: "ADVERSARY.ThreatElite",
+    label: "ADVERSARY.THREAT_RANKS.ELITE",
     scaling: 1.5,
     icon: "fa-solid fa-chevrons-up"
   },
   boss: {
     id: "boss",
     actionMax: 10,
-    label: "ADVERSARY.ThreatBoss",
+    label: "ADVERSARY.THREAT_RANKS.BOSS",
     scaling: 2.0,
     icon: "fa-solid fa-skull"
   }
@@ -148,7 +148,7 @@ export const SYSTEM = {
   SKILLS: SKILL.SKILLS, // alias
   SPELL,
   TALENT,
-  THREAT_LEVELS,
+  THREAT_RANKS,
   WEAPON,
   activeCheckFormula: "3d8",
   dice: dice

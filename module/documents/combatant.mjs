@@ -30,6 +30,13 @@ export default class CrucibleCombatant extends Combatant {
       if ( this.actor.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
       if ( armor.system.properties.has("bulky") ) banes.bulky = {label: "Bulky Armor", number: 2};
 
+      // Adversary Ranks
+      if ( this.actor.type === "adversary" ) {
+        const r = this.actor.system.advancement.rank;
+        if ( r === "elite" ) boons.rank = {label: "Elite", number: 2};
+        else if ( r === "boss" ) boons.rank = {label: "Boss", number: 4};
+      }
+
       // Actor Hooks
       this.actor.callActorHooks("prepareStandardCheck", rollData);
       this.actor.callActorHooks("prepareInitiativeCheck", rollData);

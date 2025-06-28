@@ -23,7 +23,7 @@
             <a>{{#if incomplete.archetype}}<i class="fa-solid fa-circle-plus"></i> {{/if}}{{archetypeName}}</a>
         </h2>
         <div class="metadata flexrow">
-            {{formInput fields.advancement.fields.threat value=source.system.advancement.threat labelAttr="label"}}
+            {{formInput fields.advancement.fields.rank value=source.system.advancement.rank labelAttr="label"}}
             <div class="size flexrow">
                 <span class="label" data-tooltip="TAXONOMY.FIELDS.movement.size.hint">{{localize "TAXONOMY.FIELDS.movement.size.label"}}</span>
                 <span class="hex">{{actor.size}}</span>

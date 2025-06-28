@@ -250,6 +250,7 @@ export default class CrucibleActor extends Actor {
     if ( statuses.has("blinded") && isAttack ) banes.blind = {label: "Blinded", number: 2};
     if ( statuses.has("disoriented") && action.cost.focus ) action.cost.focus += 1;
     if ( statuses.has("prone") && isAttack ) banes.prone = {label: "Prone", number: 1};
+    if ( statuses.has("restrained") && isAttack ) banes.restrained = {label: "Restrained", number: 2};
 
     // Temporary boons and banes stored as Actor rollBonuses
     for ( const [id, boon] of Object.entries(rollBonuses.boons) ) {

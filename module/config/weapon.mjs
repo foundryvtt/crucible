@@ -96,7 +96,7 @@ export const CATEGORIES = Object.freeze({
     main: true,
     off: true,
     scaling: "strength.dexterity",
-    damage: 4,
+    damage: 5,
     actionCost: 2,
     range: 2,
     training: ["heavy", "light"]
@@ -134,7 +134,7 @@ export const CATEGORIES = Object.freeze({
     main: true,
     off: false,
     scaling: "strength.dexterity",
-    damage: 6,
+    damage: 7,
     actionCost: 3,
     range: 3,
     training: ["light", "heavy"]

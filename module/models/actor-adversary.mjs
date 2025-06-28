@@ -20,7 +20,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Advancement
     schema.advancement = new fields.SchemaField({
       level: new fields.NumberField({...requiredInteger, initial: 1, min: -5, max: 24, label: "ADVANCEMENT.Level"}),
-      threat: new fields.StringField({required: true, choices: SYSTEM.THREAT_LEVELS, initial: "normal"})
+      rank: new fields.StringField({required: true, choices: SYSTEM.THREAT_RANKS, initial: "normal"})
     });
 
     // Details
@@ -101,7 +101,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     taxonomy ||= CrucibleTaxonomyItem.cleanData();
 
     // Compute threat level
-    const threatConfig = SYSTEM.THREAT_LEVELS[adv.threat];
+    const threatConfig = SYSTEM.THREAT_RANKS[adv.rank];
     adv.threatFactor = threatConfig?.scaling || 1;
     adv.threatLevel = adv.level < 0 ? 1 / Math.abs(adv.level - 1) : adv.level;
     adv.threat = adv.threatLevel * adv.threatFactor;
@@ -329,5 +329,10 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     if ( source.details?.archetype ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.archetype);
     /** @deprecated since 0.7.3 */
     if ( source.details?.taxonomy ) crucible.api.models.CrucibleArchetypeItem.migrateData(source.details.taxonomy);
+    /** @deprecated since 0.7.4 */
+    if ( source.advancement?.threat ) {
+      source.advancement.rank = source.advancement.threat;
+      delete source.advancement.threat;
+    }
   }
 }
