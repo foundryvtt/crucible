@@ -90,9 +90,12 @@ pages:
         creature that is <strong>Staggered</strong> temporarily has 1 fewer
         Action Point available than normal.</p><h4>Stunned</h4><p>A creature
         that is <strong>Stunned</strong> temporarily has 2 fewer Action Points
-        available than normal.</p><h4>Paralyzed</h4><p>A creature that is
-        <strong>Paralyzed</strong> is unable to perform Actions until the
-        paralysis is ended. During this time the target is
+        available than normal.</p><h4>Surprised</h4><p>A creature that is
+        <strong>Surprised</strong> begins their turn in Combat with zero
+        <strong>Action</strong>. They may still perform a free move or other
+        actions which they have resources to afford.</p><h4>Paralyzed</h4><p>A
+        creature that is <strong>Paralyzed</strong> is unable to perform Actions
+        until the paralysis is ended. During this time the target is
         <strong>Incapacitated</strong>.</p><h4>Slowed</h4><p>A creature that is
         <strong>Slowed</strong> pays a +1 Action cost for any Action that
         involves Movement, including the free Move action each Turn which costs
@@ -138,10 +141,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.6
-      coreVersion: '13.342'
+      coreVersion: '13.346'
       createdTime: null
-      modifiedTime: 1688232584608
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1751128093967
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
@@ -196,14 +199,22 @@ pages:
         maintain a satisfying pace to combat encounters.</p><h4>Incapacitated
         Combatants</h4><p>Combatants who are <strong>Incapacitated</strong> or
         <strong>Dead</strong> are automatically placed at Initiative 0 and their
-        turns come last in each Round.</p><h2 class="divider">Escalation and
-        Morale</h2><p>As the tension of combat escalates - so too do the
-        consequences on <strong>Morale</strong> for combatants. After 6 Rounds
-        of Combat at the start of each subsequent round, the combatant with the
-        highest <strong>Initiative</strong> result gains additional Morale equal
-        to the numbered <strong>Round</strong> of combat. The combatant with the
-        lowest Initiative result (excluding Incapacitated and Dead combatants)
-        loses Morale equal to the numbered Round of combat.</p>
+        turns come last in each Round.</p><h4>Tiebreaking Procedures</h4><p>Ties
+        in initiative are resolved by applying the following tiebreaking
+        criteria in order:</p><ol><li><p>Combatants with a higher passive
+        <strong>Initiative</strong> bonus.</p></li><li><p>Combatants with more
+        maximum
+        <strong>Action</strong>.</p></li><li><p><strong>Adversaries</strong> act
+        before <strong>Heroes</strong>.</p></li><li><p>Any remaining ties are
+        placed in alphabetical order.</p></li></ol><h2
+        class="divider">Escalation and Morale</h2><p>As the tension of combat
+        escalates - so too do the consequences on <strong>Morale</strong> for
+        combatants. After 6 Rounds of Combat at the start of each subsequent
+        round, the combatant with the highest <strong>Initiative</strong> result
+        gains additional Morale equal to the numbered <strong>Round</strong> of
+        combat. The combatant with the lowest Initiative result (excluding
+        Incapacitated and Dead combatants) loses Morale equal to the numbered
+        Round of combat.</p>
       markdown: ''
     _id: DPrsFbPo3tD7TJ5g
     image: {}
@@ -220,10 +231,10 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.8.0
-      coreVersion: '13.342'
+      coreVersion: '13.346'
       createdTime: null
-      modifiedTime: 1727451419065
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1751122914999
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: JournalEntry.PJyL1BtYpx7ikDxT.JournalEntryPage.DPrsFbPo3tD7TJ5g
       duplicateSource: null
       exportSource: null
@@ -808,17 +819,21 @@ pages:
     text:
       format: 1
       content: >-
-        <p>The <strong>Stealth</strong> skill, paired with concealment from
-        terrain are mechanics which allow creatures to be undetected by their
-        enemies. Enemies may be <strong>Unaware</strong>, a status condition
-        which render them more vulnerable to attacks. Creatures that are Unaware
-        act at Initiative 1 in Combat, last aside for Incapacitated creatures.
-        Once a creature is no longer Unaware, they roll Initiative and act as
-        normal for subsequent rounds of combat.</p><section
-        class="construction"><p>Complete mechanics, status conditions, and
-        automation for stealth, concealment, unaware opponents, and surprise
-        will be developed and added in future phases of
-        development.</p></section>
+        <p>The
+        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.O2jmcYabEbqgxgLm]{Stealth}
+        skill, paired with concealment from terrain are mechanics which allow
+        creatures to be undetected by their enemies. Identification of hidden
+        enemies is generally performed using an opposed
+        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00.JournalEntryPage.tBFTQMxT6xTPg8TS]{Awareness}
+        test or a passive Awareness check.</p><p>A character or adversary may be
+        <strong>Unaware</strong>, a status condition which render them more
+        vulnerable to attacks. Creatures that are Unaware act at Initiative 1 in
+        Combat, last aside for Incapacitated creatures. Once a creature is no
+        longer Unaware, they roll Initiative and act as normal for subsequent
+        rounds of combat.</p><section class="construction"><p>Complete
+        mechanics, status conditions, and automation for stealth, concealment,
+        unaware opponents, and surprise will be developed and added in future
+        phases of development.</p></section>
     video:
       controls: true
       volume: 0.5
@@ -830,12 +845,12 @@ pages:
     _stats:
       compendiumSource: null
       duplicateSource: null
-      coreVersion: '13.342'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.6.0
       createdTime: 1726931005153
-      modifiedTime: 1726931008942
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1751137603535
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       exportSource: null
     category: null
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.1fAJeBGIEaMnsi5A'
@@ -905,6 +920,38 @@ pages:
       modifiedTime: 1749694870194
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.4rapfbyanVHveRme'
+  - sort: 900000
+    name: Balance and Difficulty
+    type: text
+    _id: ALBdjCHkJcK5eKTI
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: "<p>Crucible is designed to be a challenging combat experience which will require players to think tactically, work together, and effectively develop their characters' powers. Encounter balance in Crucible is managed using several fundamental levers.</p><ol><li><p>Convenient scaling of Adversary <strong>Level</strong> and <strong>Threat</strong> rating which makes adjusting difficulty for differing party levels or sizes relatively easy to do.</p></li><li><p>The secondary <strong>Wounds</strong> and <strong>Morale</strong> pools that hero characters uniquely have which accumulate and absorb variance due to bad luck.</p></li><li><p>The <strong>Gamemaster</strong>, who plays a pivotal role in interpreting the storytelling needs for each combat moment.</p></li></ol><h2 class=\"divider\">Balancing Encounters</h2><p>Encounters in Crucible are typically balanced such that the cumulative <strong>Threat</strong> of all enemies is equal to the cumulative <strong>Threat</strong> of hero characters plus any allied non-player characters. The ease of adjusting the <strong>Level</strong> or <strong>Threat</strong> of an @UUID[Compendium.crucible.rules.JournalEntry.v1dqTT3NI35lFNxM.JournalEntryPage.WH0YSVcYo09aHNZ2]{adversary } makes it easy to adjust an encounter to this point of balance ahead of time. </p><p>Encounters balanced in this way have an approximately 50% chance of going in the party's favor and a 50% chance of going in the enemies' favor. This does not mean that the party \"loses\" or \"dies\" half the time, but rather in 50% of balanced encounters the party will suffer some number of <strong>Wounds</strong>.</p><h2 class=\"divider\">Wounds Regulate Luck\_</h2><p> The accumulation of these <strong>Wounds</strong> is something that the heroes must manage over the course of multiple encounters or days. Since adversaries do not have <strong>Wounds</strong>, only <strong>Health</strong> this is an intentional advantage in favor of Hero characters.</p><p>In any single balanced encounter if the heroes get lucky or play well, they will win without suffering any <strong>Wounds</strong>. If the heroes play poorly or experience bad luck, they will probably still win but suffer <strong>Wounds</strong> in the process. Wounds are a mechanism to regulate swings in luck while also requiring the party to be effective combatants most of the time.</p><h2 class=\"divider\">The Role of the Gamemaster</h2><p>Lastly, the <strong>Gamemaster</strong> plays a pivotal role in ensuring the fun and balance of combat. Enemies in Crucible are generally optimized such that they can be very effective at their main combat style. This is done because we assume that player characters are also designed and progressed with — to at least some extent — combat effectiveness in mind.</p><p>It is not a goal of Crucible to <em>require</em> that every player character be maximally optimized or that every decision in combat be one that optimizes for victory rather than advancing the story being told. It is therefore important that the Gamemaster to calibrate the optimization of their own play to match the party and the needs of the storytelling moment.</p><p>Adversaries in Crucible can and should be fallible in the decisions that they make. Enemies can, and often should, spend their Action and Focus in combat on actions that maintain tension and stakes while prioritizing the needs of the story rather than actions that specifically optimize to defeat the heroes.</p>"
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      createdTime: 1751066429982
+      modifiedTime: 1751074420400
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.ALBdjCHkJcK5eKTI'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6

@@ -1,0 +1,63 @@
+name: Thrash
+type: talent
+img: icons/skills/wounds/bone-broken-marrow-red.webp
+system:
+  nodes: []
+  description: >-
+    <p>Once this creature has an enemy restrained, it will thrash violently
+    dealing terrible blows to the grasped victim.</p>
+  actions:
+    - id: thrash
+      name: Thrash
+      img: icons/skills/wounds/bone-broken-marrow-red.webp
+      condition: The target is Restrained by this creature.
+      description: >-
+        <p>The creature deals <strong>Deadly</strong> damage to a target that it
+        currently has <strong>Restrained</strong>.</p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - melee
+        - natural
+        - deadly
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 9uAW3eV4LNZ2lQ0V
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1751142391801
+  modifiedTime: 1751143091179
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: thrash0000000000
+sort: 0
+_key: '!items!thrash0000000000'

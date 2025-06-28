@@ -1,0 +1,37 @@
+name: Chomper
+type: archetype
+img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
+system:
+  description: <p>Beasts that rely on vicious bites from their oversized mouths.</p>
+  abilities:
+    wisdom: 1
+    presence: 0
+    intellect: 0
+    strength: 5
+    toughness: 4
+    dexterity: 2
+  talents:
+    - Compendium.crucible.adversary-talents.Item.restrainingChomp
+  skills:
+    - athletics
+    - stealth
+    - awareness
+effects: []
+folder: qAL3mvNAtEIemAia
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1751142941491
+  modifiedTime: 1751142960912
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: chomper000000000
+sort: 200000
+_key: '!items!chomper000000000'

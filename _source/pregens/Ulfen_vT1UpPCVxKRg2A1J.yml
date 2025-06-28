@@ -1,4 +1,4 @@
-folder: 2tdnCBbxNPNuhxzT
+folder: aoXDBsBdhTAww10u
 name: Ulfen
 type: hero
 img: systems/crucible/assets/tokens/heroes/HumanBarbarian.webp
@@ -6,7 +6,7 @@ system:
   abilities:
     wisdom:
       base: 1
-      increases: 1
+      increases: 0
       bonus: 0
     presence:
       base: 0
@@ -18,7 +18,7 @@ system:
       bonus: 0
     strength:
       base: 3
-      increases: 3
+      increases: 0
       bonus: 0
     toughness:
       base: 3
@@ -26,11 +26,11 @@ system:
       bonus: 0
     dexterity:
       base: 1
-      increases: 1
+      increases: 0
       bonus: 0
   advancement:
-    level: 6
-    milestones: 18
+    level: 1
+    milestones: 1
     talentNodes: []
   defenses:
     armor:
@@ -130,11 +130,11 @@ system:
       bonus: 0
   resources:
     health:
-      value: 70
+      value: 34
     wounds:
       value: 0
     morale:
-      value: 54
+      value: 22
     madness:
       value: 0
     action:
@@ -155,10 +155,6 @@ system:
     - reactiveStrike
     - defend
     - intimidate
-    - executionersStrike
-    - grapple
-    - counterRiposte
-    - ruthlessMomentum
 prototypeToken:
   name: Ulfen
   displayName: 20
@@ -253,7 +249,7 @@ items:
       quantity: 1
       weight: 40
       price: 100
-      quality: fine
+      quality: standard
       enchantment: mundane
       equipped: true
       properties: []
@@ -264,7 +260,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: DI6Wy1QnIt
+      identifier: gZ59kZyPiW
       invested: false
       actorHooks: []
     _stats:
@@ -293,9 +289,9 @@ items:
       quantity: 1
       weight: 10
       price: 80
-      quality: fine
+      quality: standard
       enchantment: mundane
-      equipped: false
+      equipped: true
       properties: []
       description:
         public: ''
@@ -304,7 +300,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: DoNQQLXJns
+      identifier: 7idgCr6Ull
       invested: false
       actorHooks: []
       dropped: false
@@ -401,8 +397,8 @@ items:
             you <strong>Strike</strong> the same target again with the backswing
             of your weapon at reduced <strong>Action</strong> cost.</p>
           tags:
-            - melee
             - afterStrike
+            - melee
             - twohand
           cost:
             action: -2
@@ -415,13 +411,7 @@ items:
             scope: 3
             self: false
           effects: []
-          actionHooks:
-            - hook: canUse
-              fn: |-
-                const {basicStrike, lastAction} = this.actor.system.status;
-                if ( !basicStrike || (lastAction !== "strike") ) {
-                  throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
-                }
+          actionHooks: []
           range:
             maximum: null
             weapon: true
@@ -512,575 +502,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!vT1UpPCVxKRg2A1J.cleave0000000000'
-  - name: Powerful Physique
-    type: talent
-    img: icons/skills/social/intimidation-impressing.webp
-    system:
-      description: >-
-        You can wield weapons with the Slow trait and wear Armor with the Bulky
-        trait without suffering Banes to your Initiative rolls.
-      actions: []
-      actorHooks:
-        - hook: prepareInitiativeCheck
-          fn: >-
-            const {weapons, armor} = this.equipment; const slowBanes =
-            rollData.banes.slow; if ( weapons.slow && slowBanes )
-            slowBanes.number -= weapons.slow; const bulkyBanes =
-            rollData.banes.bulky; if ( armor.system.properties.has("bulky") &&
-            bulkyBanes ) bulkyBanes.number -= 2;
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str2c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: powerfulphysique
-    folder: p4F0SmUoKJr0riBd
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.powerfulphysique'
-  - name: Berserker
-    type: talent
-    img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-    system:
-      description: >-
-        <p>You revel in the thrill of combat, hurling yourself into the fray
-        with reckless abandon.</p>
-      actions:
-        - id: berserkerRage
-          name: Berserker Rage
-          condition: >-
-            You have suffered damage to your Health pool since your last turn in
-            Combat.
-          description: >-
-            You become Enraged. While Enraged you deal 4 additional damage on
-            all melee attacks. You may attempt to end the effect on your own
-            turn by succeeding on a Willpower test against a DC of 20. The
-            effect ends automatically when Combat is concluded.
-          tags: []
-          cost:
-            action: 1
-            focus: 0
-            heroism: 0
-            weapon: false
-          target:
-            type: self
-            scope: 1
-            number: 1
-            self: false
-          effects:
-            - scope: 1
-              changes:
-                - key: rollBonuses.damage.melee
-                  value: 4
-                  mode: 2
-              statuses:
-                - enraged
-          img: null
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          actionHooks: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - sig3.toughness.strength
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: berserker0000000
-    folder: fOYHlZJEWUukD7yr
-    sort: 400000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.berserker0000000'
-  - name: Strong Grip
-    type: talent
-    _id: stronggrip000000
-    img: icons/skills/melee/hand-grip-sword-orange.webp
-    system:
-      description: >-
-        Your grasp of your weaponry is firm and unyielding. You can perform
-        Actions which require a free hand while wielding a two-handed weapon.
-        Attempts to Disarm you are made with +2 Banes.
-      actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: yQPNpmhq761VzMZe
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.stronggrip000000'
-  - name: Wrestler
-    type: talent
-    _id: wrestler00000000
-    img: icons/magic/control/buff-strength-muscle-damage.webp
-    system:
-      description: You are able to subdue opponents using your physical Strength.
-      actions:
-        - id: grapple
-          name: Grapple
-          description: >-
-            Perform a melee attack against an adjacent target. If successful,
-            both you and your target are Restrained for 1 Round.
-          tags:
-            - melee
-            - freehand
-            - mainhand
-            - difficult
-            - harmless
-          cost:
-            action: 0
-            focus: 0
-            heroism: 0
-            weapon: false
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects:
-            - duration:
-                rounds: 1
-              scope: 3
-              statuses:
-                - restrained
-            - duration:
-                rounds: 1
-              scope: 1
-              statuses:
-                - restrained
-          img: null
-          range:
-            minimum: null
-            maximum: null
-            weapon: false
-          actionHooks: []
-      actorHooks: []
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - tou1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: 2MFixpDJ379KOogE
-    sort: -250000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.wrestler00000000'
-  - _id: counterriposte00
-    name: Counter Riposte
-    type: talent
-    img: icons/skills/melee/strike-polearm-glowing-white.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You are expert in translating a parried attack into a swift counter
-        against your exposed enemy.</p>
-      actions:
-        - id: counterRiposte
-          name: Counter Riposte
-          img: icons/skills/melee/strike-polearm-glowing-white.webp
-          condition: You Parry an incoming melee Strike.
-          description: >-
-            <p>When you defend against a melee attack with a
-            <strong>Parry</strong>, you may react and expend
-            <strong>Focus</strong> to retaliate with a reduced-cost
-            <strong>Strike</strong> which benefits from the
-            <strong>Exposed</strong> condition.</p>
-          cost:
-            action: -1
-            focus: 1
-            weapon: true
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          tags:
-            - reaction
-            - melee
-          actionHooks: []
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str2a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: iD0N4Q5xDZqsf354
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.counterriposte00'
-  - folder: pvclaELBSimFnNMJ
-    name: Blood Frenzy
-    type: talent
-    img: icons/skills/wounds/injury-eyes-blood-red-pink.webp
-    system:
-      description: >-
-        <p>Your battle lust spurs you to feats of heightened action. When you
-        achieve a <strong>Critical Hit</strong> that deals damage to Health you
-        immediately gain +1 Action. This benefit may only happen once per
-        Round.</p>
-      actions: []
-      actorHooks:
-        - hook: applyCriticalEffects
-          fn: >-
-            // Must damage health const damageHealth = outcome.resources.health
-            < 0; if ( !damageHealth ) return;
-
-            // Can only happen once per round const updates = self.actorUpdates;
-            const hasStatus = this.status.bloodFrenzy ||
-            updates.system?.status?.bloodFrenzy; if ( hasStatus ) return;
-
-            // Increase Action self.resources.action = (self.resources.action ||
-            0) + 1; foundry.utils.setProperty(updates,
-            "system.status.bloodFrenzy", true);
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str4a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: bloodfrenzy00000
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.bloodfrenzy00000'
-  - name: Executioner's Strike
-    type: talent
-    _id: executionersstri
-    img: icons/skills/melee/strike-axe-blood-red.webp
-    system:
-      description: <p>You deliver a single decisive strike against a wounded enemy.</p>
-      actions:
-        - id: executionersStrike
-          condition: Your target is Bloodied.
-          description: >-
-            <p>You deliver a Deadly Strike with a two-handed heavy weapon. If
-            your attack is successful, your opponent also suffers the Bleeding
-            condition for 3 Rounds, taking additional damage each Round equal to
-            your Strength score.</p>
-          tags:
-            - melee
-            - twohand
-            - deadly
-          cost:
-            action: 0
-            focus: 1
-            weapon: true
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects:
-            - name: Executioner's Strike
-              scope: 3
-              statuses: []
-              duration:
-                turns: null
-          name: Executioner's Strike
-          img: icons/skills/melee/strike-axe-blood-red.webp
-          actionHooks:
-            - hook: prepare
-              fn: >-
-                const w = this.actor.equipment.weapons.mainhand;
-
-                this.effects[0] =
-                foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor,
-                undefined, {
-                  ability: "strength",
-                  damageType: w.system.damageType,
-                }), this.effects[0]);
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str4b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: yQPNpmhq761VzMZe
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.executionersstri'
-  - name: Unshakeable Stance
-    type: talent
-    img: icons/magic/earth/construct-stone.webp
-    system:
-      description: >-
-        You cannot be unvoluntarily Moved or knocked Prone by any action that is
-        not a Critical Success rolled by an enemy or a Critical Failure rolled
-        by yourself.
-      actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - tou3b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: unshakeablestanc
-    folder: SMe30RkoLutLr4ef
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.unshakeablestanc'
-  - _id: ruthlessmomentum
-    name: Ruthless Momentum
-    type: talent
-    img: icons/skills/melee/strikes-sword-scimitar.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You relish the carnage you can cause in combat and continue to press
-        the fray as each enemy falls.</p>
-      actions:
-        - id: ruthlessMomentum
-          name: Ruthless Momentum
-          img: icons/skills/melee/strikes-sword-scimitar.webp
-          condition: You incapacitate an enemy with a melee attack.
-          description: >-
-            <p>After defeating an enemy, you may move up to your
-            <strong>Stride</strong> and attack another foe within melee
-            range.</p>
-          cost:
-            action: -1
-            focus: 1
-            weapon: true
-            heroism: 0
-          range:
-            maximum: null
-            weapon: true
-            minimum: null
-          target:
-            type: single
-            number: 1
-            scope: 3
-            self: false
-          effects: []
-          tags:
-            - movement
-            - melee
-          actionHooks: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str1a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: MqZKCMx5KrZQffGU
-    sort: -300000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.ruthlessmomentum'
-  - name: Second Wind
-    type: talent
-    img: icons/magic/life/cross-area-circle-green-white.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        Your physical hardiness allows you to push yourself beyond conventional
-        limits.
-      actions:
-        - id: secondWind
-          name: Second Wind
-          condition: ''
-          description: >-
-            <p>You focus your energy and recover your Toughness score in
-            Health.</p>
-          tags:
-            - healing
-          cost:
-            action: 2
-            focus: 1
-            weapon: false
-            heroism: 0
-          target:
-            type: self
-            number: 0
-            scope: 1
-            self: false
-          effects: []
-          img: icons/magic/life/cross-area-circle-green-white.webp
-          actionHooks:
-            - hook: confirm
-              fn: >-
-                const self = this.outcomes.get(this.actor);
-                self.resources.health = (self.resources.health || 0) +
-                this.actor.system.abilities.toughness.value;
-          range:
-            maximum: null
-            weapon: false
-            minimum: null
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - tou1b
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    folder: qrB8E2SHs322zTil
-    _id: secondwind000000
-    sort: -100000
-    ownership:
-      default: 0
-    _key: '!actors.items!vT1UpPCVxKRg2A1J.secondwind000000'
   - name: Intercept
     type: talent
     img: icons/skills/melee/shield-block-gray-orange.webp
@@ -1275,10 +696,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
   systemVersion: 0.7.3
-  modifiedTime: 1750814452193
+  modifiedTime: 1751148758697
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: vT1UpPCVxKRg2A1J
 sort: 0

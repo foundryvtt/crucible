@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 6
-    milestones: 18
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -261,7 +261,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: A5qOLIRrhl
+      identifier: T6F4SD2jn5
       invested: false
       actorHooks: []
     _stats:
@@ -298,7 +298,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: ZyYSTpuIAv
+      identifier: dA9nb4kdQl
       invested: false
       actorHooks: []
       dropped: false
@@ -336,7 +336,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: 9abe0nAAfV
+      identifier: NvzhaNBFJ3
       invested: false
       actorHooks: []
       dropped: false
@@ -407,7 +407,7 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -606,7 +606,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -643,7 +643,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -679,7 +679,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -719,7 +719,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -768,7 +768,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -819,7 +819,7 @@ items:
     sort: -300000
     flags: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -853,7 +853,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -928,7 +928,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -1132,7 +1132,7 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       lastModifiedBy: null
@@ -1154,10 +1154,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
   systemVersion: 0.7.3
-  modifiedTime: 1750814452193
+  modifiedTime: 1751148758697
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 sort: 0

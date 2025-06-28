@@ -1,4 +1,4 @@
-folder: aoXDBsBdhTAww10u
+folder: 2tdnCBbxNPNuhxzT
 name: Kagura
 type: hero
 img: systems/crucible/assets/tokens/heroes/GiantkinDruid.webp
@@ -6,15 +6,15 @@ system:
   abilities:
     wisdom:
       base: 1
-      increases: 0
+      increases: 2
       bonus: 0
     presence:
       base: 3
-      increases: 0
+      increases: 1
       bonus: 0
     intellect:
       base: 1
-      increases: 0
+      increases: 1
       bonus: 0
     strength:
       base: 1
@@ -22,16 +22,16 @@ system:
       bonus: 0
     toughness:
       base: 2
-      increases: 0
+      increases: 1
       bonus: 0
     dexterity:
       base: 1
       increases: 0
       bonus: 0
   advancement:
-    level: 1
-    milestones: 1
+    level: 6
     talentNodes: []
+    milestones: 0
   defenses:
     armor:
       bonus: 0
@@ -130,17 +130,17 @@ system:
       bonus: 0
   resources:
     health:
-      value: 26
+      value: 60
     wounds:
       value: 0
     morale:
-      value: 30
+      value: 68
     madness:
       value: 0
     action:
       value: 6
     focus:
-      value: 5
+      value: 7
     heroism:
       value: 0
   movement:
@@ -153,6 +153,7 @@ system:
     - refocus
     - strike
     - cast
+    - fontOfLife
 prototypeToken:
   name: Kagura
   displayName: 20
@@ -245,7 +246,7 @@ items:
       quantity: 1
       weight: 0
       price: 60
-      quality: standard
+      quality: fine
       broken: false
       enchantment: mundane
       equipped: true
@@ -256,8 +257,8 @@ items:
         public: ''
         private: ''
       actions: []
-      slot: 0
-      identifier: fRpDHQFGmq
+      slot: 1
+      identifier: RByik5IYmw
       invested: false
       actorHooks: []
       dropped: false
@@ -268,14 +269,14 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.teHqGUKkPcrk8Pvm'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.teHqGUKkPcrk8Pvm'
   - _id: Jucaft0kqe7QBfgY
     name: Scale Mail
     type: armor
@@ -288,7 +289,7 @@ items:
       quantity: 1
       weight: 40
       price: 100
-      quality: standard
+      quality: fine
       enchantment: mundane
       equipped: true
       properties: []
@@ -299,22 +300,22 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: s8vuCLf3as
+      identifier: XJNONu53T0
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.Jucaft0kqe7QBfgY'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.Jucaft0kqe7QBfgY'
   - name: 'Rune: Life'
     type: talent
     img: icons/magic/life/heart-shadow-red.webp
@@ -344,16 +345,16 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     _id: runelife00000000
     folder: Dy9HnwadNE3kSZ4f
     sort: 800000
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.runelife00000000'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runelife00000000'
   - name: 'Rune: Spirit'
     type: talent
     img: icons/magic/control/silhouette-hold-beam-blue.webp
@@ -395,16 +396,16 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     _id: runecourage00000
     folder: Dy9HnwadNE3kSZ4f
     sort: 1100000
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.runecourage00000'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runecourage00000'
   - name: 'Gesture: Influence'
     type: talent
     img: icons/magic/light/orbs-firefly-hand-yellow.webp
@@ -438,16 +439,277 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
     sort: 500000
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.gestureinfluence'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureinfluence'
+  - name: 'Gesture: Ray'
+    type: talent
+    img: icons/magic/light/beam-rays-orange.webp
+    system:
+      description: >-
+        <p>Focus the power of a Rune into a single point, expelling its energy
+        into a ranged beam which rapidly travels a short distance to a targeted
+        area. If used with Life this might restore the HP of a distant ally
+        steadily over time, while Frost might emit a beam that freezes a target
+        in place.</p>
+
+        <p>The Ray gesture scales using <strong>Wisdom</strong> and targets a
+        line emanating from the caster at distance 6, dealing 6 base damage on a
+        successful attack.</p>
+      actions: []
+      gesture: ray
+      actorHooks: []
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wis1b
+      rune: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: gestureray000000
+    folder: D14x9AJ0TgXKtnzu
+    sort: 600000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gestureray000000'
+  - name: Irrepressible Spirit
+    type: talent
+    img: icons/magic/light/projectile-smoke-pink.webp
+    system:
+      description: >-
+        Your tenacity gives you an irrepressible spirit which resists the onset
+        of despair. At the start of your turn if you are not Broken you gain 1
+        Morale.
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wis2c
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: irrepressiblespi
+    folder: 4Ll3b4Q4us2mp4Fu
+    sort: -100000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.irrepressiblespi'
+  - name: Conserve Effort
+    type: talent
+    img: icons/magic/time/arrows-circling-pink.webp
+    system:
+      description: >-
+        <p>You find calmness and focus in conserving your effort in battle. When
+        you end your <strong>Turn</strong> with un-spent Action you gain
+        <strong>+1 Focus</strong>.</p>
+      actions: []
+      iconicSpells: 0
+      actorHooks: []
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wispre2
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: conserveeffort00
+    folder: qHUCrqkzuPHtBkbG
+    sort: 150000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.conserveeffort00'
+  - name: Healer
+    type: talent
+    img: icons/magic/life/heart-hand-gold-green-light.webp
+    system:
+      description: >-
+        <p>You are unparalleled at manipulating vital arcana to treat injuries.
+        You learn <strong>Rune: Life</strong> if you do not already know it.
+        When healing allies using the Rune of Life you gain <strong>+2
+        Boons</strong> to your roll.</p>
+      actions:
+        - id: fontOfLife
+          img: icons/magic/life/heart-hand-gold-green-light.webp
+          cost:
+            action: 2
+            focus: 0
+            heroism: 1
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: pulse
+            number: 1
+            scope: 2
+            size: 20
+            self: false
+          effects:
+            - name: Font of Life
+              scope: 1
+              statuses: []
+              duration:
+                turns: 3
+          tags:
+            - healing
+            - health
+          actionHooks: []
+          name: Font of Life
+          condition: ''
+          description: >-
+            <p>You bring forth an aura of life-giving magic. Immediately upon
+            activation and at the start of your turn for <strong>3
+            Rounds</strong> every ally within 20 feet heals for an amount equal
+            to your <strong>Wisdom</strong> score.</p>
+      actorHooks: []
+      iconicSpells: 1
+      rune: life
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - sig3.wisdom.presence
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    folder: fOYHlZJEWUukD7yr
+    _id: healer0000000000
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.healer0000000000'
+  - folder: Md0gbb0qzKkjEDju
+    name: Mental Fortress
+    type: talent
+    img: icons/magic/holy/barrier-shield-winged-blue.webp
+    system:
+      description: >-
+        Your strong will makes you exceedingly difficult to influence. You gain
+        +1 to your Willpower defense and +5 Psychic resistance.
+      actions: []
+      actorHooks:
+        - hook: prepareResistances
+          fn: resistances.psychic.base += 5;
+        - hook: prepareDefenses
+          fn: defenses.willpower.bonus += 1;
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - pre2a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: mentalfortress00
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mentalfortress00'
+  - name: 'Inflection: Compose'
+    type: talent
+    img: icons/magic/symbols/arrowhead-green.webp
+    system:
+      description: >-
+        <p>Enhance a spell by taking extra time in its formation, reducing other
+        resource costs in exchange. The Compose inflection reduces the
+        <strong>Focus</strong> cost of a spell by 1 while increasing its
+        <strong>Action</strong> cost by 1 in exchange.</p>
+      actions: []
+      inflection: compose
+      actorHooks: []
+      iconicSpells: 1
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wispre2
+      rune: ''
+      gesture: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: inflectioncompos
+    folder: mFfsius4gpT45Q2R
+    sort: 100000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.inflectioncompos'
   - name: 'Rune: Earth'
     type: talent
     img: icons/magic/earth/projectile-boulder-debris.webp
@@ -478,16 +740,65 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     _id: runeearth0000000
     folder: Dy9HnwadNE3kSZ4f
     sort: 300000
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.runeearth0000000'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runeearth0000000'
+  - name: Dustbinder
+    type: talent
+    img: icons/magic/earth/orb-stone-smoke-teal.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Earth. Spells which use
+        this Rune cause the Corroding condition on Critical Hits.</p><p>The
+        Corroding effect lasts for 3 Rounds and deals your Wisdom score as Acid
+        damage to Health each Round.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Earth rune
+            if ( action.rune?.id !== "earth" ) return;
+
+            // Require damage to Health
+            const damageHealth = outcome.resources.health < 0;
+            if ( !damageHealth ) return;
+
+            // Apply Corroding effect
+            const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
+            outcome.effects.push(corroding);
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      nodes:
+        - wis3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.3
+      lastModifiedBy: null
+    _id: dustbinder000000
+    folder: c0nl6X8tp4Of0Y4O
+    sort: -100000
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.dustbinder000000'
   - folder: ghRKqdzq279SH1lt
     name: Medicine Novice
     type: talent
@@ -523,13 +834,13 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.medicineNovice00'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.medicineNovice00'
   - folder: ghRKqdzq279SH1lt
     name: Science Novice
     type: talent
@@ -567,13 +878,13 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.scienceNovice000'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.scienceNovice000'
   - folder: i7WposibCJ94XpuD
     name: Talisman Weapon Training
     type: talent
@@ -602,38 +913,44 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.talismanWeaponTr'
-  - name: 'Gesture: Ray'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.talismanWeaponTr'
+  - name: Runewarden
     type: talent
-    img: icons/magic/light/beam-rays-orange.webp
+    img: icons/magic/defensive/shield-barrier-flaming-diamond-purple-orange.webp
     system:
       description: >-
-        <p>Focus the power of a Rune into a single point, expelling its energy
-        into a ranged beam which rapidly travels a short distance to a targeted
-        area. If used with Life this might restore the HP of a distant ally
-        steadily over time, while Frost might emit a beam that freezes a target
-        in place.</p>
-
-        <p>The Ray gesture scales using <strong>Wisdom</strong> and targets a
-        line emanating from the caster at distance 6, dealing 6 base damage on a
-        successful attack.</p>
+        <p>Your mastery of the arcane makes you more resilient to elemental and
+        spiritual harm. You gain a bonus to <strong>Resistance</strong> equal to
+        half your Wisdom for each Elemental or Spiritual damage type where you
+        know the Arcane Rune attuned to that damage type.</p><p>When you use the
+        <strong>Ward</strong> gesture, the Resistance provided by your Ward also
+        increases by half your Wisdom.</p>
       actions: []
-      gesture: ray
-      actorHooks: []
-      iconicSpells: 0
+      actorHooks:
+        - hook: prepareResistances
+          fn: |-
+            for ( const [id, r] of Object.entries(resistances) ) {
+              if ( SYSTEM.DAMAGE_TYPES[id].type === "physical" ) continue;
+              if ( this.grimoire.runes.find(r => r.damageType === id) )  {
+                r.base += Math.ceil(this.abilities.wisdom.value / 2);
+              }
+            }
+      iconicSpells: 1
+      nodes:
+        - sig3.wisdom
+        - sig3.toughness
       training:
         type: ''
         rank: null
-      nodes:
-        - wis1b
       rune: ''
+      gesture: ''
       inflection: ''
     effects: []
     flags:
@@ -642,21 +959,21 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.346'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.3
       lastModifiedBy: null
-    _id: gestureray000000
-    folder: D14x9AJ0TgXKtnzu
-    sort: 600000
+    _id: runewarden000000
+    folder: fOYHlZJEWUukD7yr
+    sort: 306250
     ownership:
       default: 0
-    _key: '!actors.items!z8PYWkq3bxce7vwb.gestureray000000'
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.runewarden000000'
 effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.life.influence
+    lastSpell: spell.life.ray.compose
 _stats:
   compendiumSource: null
   duplicateSource: null
@@ -664,11 +981,12 @@ _stats:
   coreVersion: '13.346'
   systemId: crucible
   systemVersion: 0.7.3
-  modifiedTime: 1751148758697
+  createdTime: 1751148758927
+  modifiedTime: 1751148758927
   lastModifiedBy: AnoypGxxNIMOS0XY
-_id: z8PYWkq3bxce7vwb
+_id: Il4NDaNBdHNcjJ9d
 sort: 0
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-_key: '!actors!z8PYWkq3bxce7vwb'
+_key: '!actors!Il4NDaNBdHNcjJ9d'

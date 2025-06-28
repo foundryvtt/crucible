@@ -30,7 +30,7 @@ system:
   requirements: {}
 effects: []
 folder: 2MFixpDJ379KOogE
-sort: -100000
+sort: 400000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -38,10 +38,10 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1676839298208
-  modifiedTime: 1742949970828
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750875661750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

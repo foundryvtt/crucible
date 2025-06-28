@@ -55,14 +55,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1677347458957
-  modifiedTime: 1742935500296
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750875661750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null
 _id: clarifyintent000
 folder: 2MFixpDJ379KOogE
-sort: 100000
+sort: 1000000
 _key: '!items!clarifyintent000'

@@ -19,7 +19,7 @@ system:
     - wilderness
     - awareness
 effects: []
-sort: 0
+sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -27,9 +27,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.3
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   createdTime: 1685217713904
-  modifiedTime: 1750814780123
+  modifiedTime: 1751142941526
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null

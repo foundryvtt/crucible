@@ -1,59 +1,79 @@
 name: Wrestler
 type: talent
-_id: wrestler00000000
 img: icons/magic/control/buff-strength-muscle-damage.webp
 system:
-  node: str1a
   description: You are able to subdue opponents using your physical Strength.
   actions:
     - id: grapple
       name: Grapple
       description: >-
-        Perform a melee attack against an adjacent target. If successful, both
-        you and your target are Restrained for 1 Round.
+        <p>Perform a <strong>Athletics</strong> skill attack against an adjacent
+        target. If successful, both you and your target are Restrained for 1
+        Round.</p>
       tags:
-        - melee
         - freehand
-        - mainhand
         - difficult
         - harmless
+        - skill
+        - athletics
       cost:
-        action: 0
+        action: 3
         focus: 0
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 3
+        self: false
       effects:
-        - duration:
-            rounds: 1
+        - name: Grapple
           scope: 3
           statuses:
             - restrained
-        - duration:
+          duration:
+            turns: null
             rounds: 1
+        - name: Grapple
           scope: 1
           statuses:
             - restrained
+          duration:
+            turns: null
+            rounds: 1
+      img: icons/magic/control/buff-strength-muscle-damage.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   actorHooks: []
   nodes:
     - tou1a
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
 effects: []
 flags: {}
 _stats:
-  systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
-  createdTime: 1675009069301
-  modifiedTime: 1749311250370
-  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750875661713
+  modifiedTime: 1750875661750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 folder: 2MFixpDJ379KOogE
-sort: -250000
 ownership:
   default: 0
-  AnoypGxxNIMOS0XY: 3
+  QvBFYpRRXHRBcOfP: 3
+_id: wrestler00000000
+sort: 800000
 _key: '!items!wrestler00000000'

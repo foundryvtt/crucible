@@ -1,0 +1,72 @@
+name: Restraining Chomp
+type: talent
+img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>The creature uses its powerful jaws to bite and hold a target with a
+    powerful chomp.</p>
+  actions:
+    - id: restrainingChomp
+      name: Restraining Chomp
+      img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
+      condition: ''
+      description: >-
+        <p>The creature chomps down upon its target. If the attack is successful
+        and the target is equal or lesser in <strong>Size</strong>, the target
+        is also <strong>Restrained</strong> until this creature chooses to
+        release it or the restraint is otherwise broken. Only one target may be
+        restrained by this action at a given time.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects:
+        - name: Restraining Chomp
+          scope: 3
+          statuses:
+            - restrained
+          duration:
+            turns: null
+            rounds: null
+      tags:
+        - melee
+        - natural
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 9uAW3eV4LNZ2lQ0V
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1751142389739
+  modifiedTime: 1751142389739
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: restrainingChomp
+sort: 0
+_key: '!items!restrainingChomp'

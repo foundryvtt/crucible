@@ -1,0 +1,63 @@
+name: Acid Spit
+type: talent
+img: icons/magic/acid/projectile-smoke-glowing.webp
+system:
+  nodes: []
+  description: <p>The creature has salivary glands which produce a caustic acid.</p>
+  actions:
+    - id: acidSpit
+      name: Acid Spit
+      img: icons/magic/acid/projectile-smoke-glowing.webp
+      condition: ''
+      description: >-
+        <p>The creature spits a glob of acidic bile at a target within 20 feet.
+        On a Critical Hit, this attack causes the <strong>Corroding</strong>
+        condition.</p>
+      cost:
+        action: 0
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - melee
+        - natural
+        - reflex
+        - acid
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: pfqBQPVP2KV9fQFs
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.345'
+  systemId: crucible
+  systemVersion: 0.7.3
+  createdTime: 1750875988956
+  modifiedTime: 1750875988956
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: acidSpit00000000
+sort: 0
+_key: '!items!acidSpit00000000'

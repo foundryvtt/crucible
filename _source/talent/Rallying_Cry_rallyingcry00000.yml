@@ -40,14 +40,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1675737507781
-  modifiedTime: 1742937653347
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750875661750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.rallyingcry00000
   duplicateSource: null
   exportSource: null
 _id: rallyingcry00000
 folder: 2MFixpDJ379KOogE
-sort: -75000
+sort: 500000
 _key: '!items!rallyingcry00000'

@@ -44,14 +44,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  coreVersion: '13.345'
   createdTime: 1676927134720
-  modifiedTime: 1742949997922
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1750875661750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: Item.provocateur00000
   duplicateSource: null
   exportSource: null
 _id: provocateur00000
 folder: 2MFixpDJ379KOogE
-sort: -200000
+sort: 300000
 _key: '!items!provocateur00000'

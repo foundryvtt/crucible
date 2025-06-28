@@ -18,8 +18,8 @@ system:
         <strong>Strike</strong> the same target again with the backswing of your
         weapon at reduced <strong>Action</strong> cost.</p>
       tags:
-        - melee
         - afterStrike
+        - melee
         - twohand
       cost:
         action: -2
@@ -30,14 +30,9 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const {basicStrike, lastAction} = this.actor.system.status;
-            if ( !basicStrike || (lastAction !== "strike") ) {
-              throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
-            }
+      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -53,12 +48,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.0
+  systemVersion: 0.7.3
   createdTime: 1748638744301
-  modifiedTime: 1748638744301
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751120010327
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 folder: yQPNpmhq761VzMZe
 ownership:
   default: 0
