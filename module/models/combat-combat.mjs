@@ -28,6 +28,24 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   /*  Initiative and Turn Events                  */
   /* -------------------------------------------- */
 
+  async preUpdateRoundInitiative(data) {
+    data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
+    data.combatants = [];
+    const results = [];
+    for ( const c of this.parent.combatants ) {
+      const roll = c.getInitiativeRoll();
+      await roll.evaluate();
+      if ( c.actor?.isIncapacitated ) roll._total = 0;
+      data.combatants.push({_id: c.id, initiative: roll.total});
+      const r = c.clone({initiative: roll.total}, {keepId: true});
+      r.roll = roll;
+      results.push(r);
+    }
+    await this.postInitiativeMessage(data.round, results);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Post a chat message with a summary of initiative rolls for the round.
    * @param {number} round
@@ -35,30 +53,36 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
    * @returns {Promise<ChatMessage>}
    */
   postInitiativeMessage(round, results) {
-    results.sort(this._sortCombatants);
-    const rolls = results.map(e => e.roll);
+    results.sort(this.parent._sortCombatants);
 
     // Format table rows
+    const rolls = [];
     const rows = results.map(i => {
+      rolls.push(i.roll);
       const rd = i.roll.data;
+      const boons = Object.values(rd.boons).reduce((t, b) => t + b.number, 0);
+      const banes = Object.values(rd.banes).reduce((t, b) => t + b.number, 0);
       const modifiers = [
-        rd.ability.signedString(),
-        rd.boons > 0 ? `${rd.boons} Boons` : "",
-        rd.banes > 0 ? `${rd.banes} Banes` : ""
-      ].filterJoin(", ");
-      return `<tr><td>${i.name}</td><td>${modifiers}</td><td>${i.initiative}</td></tr>`;
+        boons > 0 ? `<span class="boons"><i class="fa-solid fa-caret-up" inert></i> ${boons}</span>` : "",
+        banes > 0 ? `<span class="banes"><i class="fa-solid fa-caret-down" inert></i> ${banes}</span>` : "",
+        `(${rd.ability.signedString()})`
+      ].filterJoin(" ");
+      return `<tr class="combatant" data-combatant-id="${i.id}">
+        <td class="initiative-name">${i.name}</td>
+        <td class="initiative-modifiers">${modifiers}</td>
+        <td class="initiative-value">${i.initiative}</td>
+      </tr>`;
     }).join("");
 
     // Create the Chat Message
     return ChatMessage.create({
       content: `
       <section class="crucible dice-roll initiative">
-      <table class="initiative-table">
+      <table class="initiative-table" data-combat-id="${this.parent.id}">
         <thead>
           <tr>
-              <th>Combatant</th>
-              <th>Modifiers</th>
-              <th>Result</th>
+              <th class="initiative-name">Combatant</th>
+              <th class="initiative-value" colspan="2">Result</th>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +94,27 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
       speaker: {user: game.user, alias: `Initiative - Round ${round}`},
       "flags.crucible.isInitiativeReport": true
     });
+  }
+
+  /* -------------------------------------------- */
+
+  static onRenderInitiativeReport(message, html) {
+
+    // Remove rolls
+    html.querySelector(".dice-rolls")?.remove();
+
+    // Hide combatants which are not visible
+    const table = html.querySelector(".initiative-table");
+    const combat = game.combats.get(table?.dataset.combatId);
+    if ( !combat ) return;
+
+    // Iterate combatants
+    for ( const tr of html.querySelectorAll("tr.combatant") ) {
+      const c = combat.combatants.get(tr.dataset.combatantId);
+      if ( !c ) continue;
+      if ( !game.user.isGM ) tr.remove();
+      else if ( c.hidden ) tr.classList.add("secret");
+    }
   }
 
   /* -------------------------------------------- */

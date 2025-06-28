@@ -496,7 +496,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @returns {boolean}             Can the Actor use a free move?
    */
   #canFreeMove(armor) {
-    if ( this.parent.isWeakened ) return false;
+    if ( this.isWeakened ) return false;
     if ( this.parent.statuses.has("prone") ) return false;
     return (armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
   }
@@ -697,7 +697,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @protected
    */
   _prepareResources() {
-    const {isIncapacitated, isWeakened, statuses} = this.parent;
+    const {isIncapacitated, isWeakened} = this;
+    const statuses = this.parent.statuses;
     const {threatLevel, threatFactor, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;

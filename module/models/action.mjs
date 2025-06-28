@@ -278,7 +278,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * A temporary MeasuredTemplate object used to establish targets for this action.
-   * @type {MeasuredTemplate|null}
+   * @type {MeasuredTemplateDocument|null}
    */
   template = null;
 
@@ -324,14 +324,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {object} [options]            Options passed to the constructor context
    * @param {CrucibleActor} [options.actor]   A specific Actor to whom this Action is bound
    * @param {CrucibleItem} [options.item]     A specific Item that provided this Action
+   * @param {MeasuredTemplateDocument} [options.template] A specific MeasuredTemplate that belongs to this Action
    * @param {CrucibleTokenObject} [options.token]  A specific token performing this Action
    * @param {ActionUsage} [options.usage]     Pre-configured action usage data
    * @inheritDoc */
-  _configure({actor=null, item=null, token=null, usage={}, ...options}) {
+  _configure({actor=null, item=null, template=null, token=null, usage={}, ...options}) {
     super._configure(options);
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
-    Object.defineProperty(this, "item", {value: this.parent?.parent, writable: false, configurable: true});
+    Object.defineProperty(this, "item", {value: item ?? this.parent?.parent, writable: false, configurable: true});
     Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
+    this.template = template;
 
     /**
      * Dice roll bonuses which modify the usage of this action.
@@ -476,8 +478,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     context.usage = this.usage;
     context.actor ??= this.actor;
     context.token ??= this.token;
+    context.template ??= this.template;
     const clone = new this.constructor(actionData, context);
-    clone.template = this.template;
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
     if ( this.actor ) this.actor.callActorHooks("prepareActions", {[clone.id]: clone});
@@ -1277,8 +1279,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( outcome.effects.length ) return true;
       for ( const [k, v] of Object.entries(outcome.resources) ) {
         if ( !(k in SYSTEM.RESOURCES) ) continue;
-        if ( this.damage.restoration && (v > 0) ) return true;
-        else if ( !this.damage.restoration && (v < 0) ) return true;
+        const isRestoration = !!this.damage?.restoration;
+        if ( isRestoration && (v > 0) ) return true;
+        else if ( !isRestoration && (v < 0) ) return true;
       }
     }
     return false;
@@ -1409,9 +1412,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       confirmed,
       outcomes: [],
     };
-
-    // Record template reference
+    if ( this.item ) actionData.item = this.item.uuid;
     if ( this.template ) actionData.template = this.template.uuid;
+    if ( this.token ) actionData.token = this.token.uuid;
 
     // Record outcomes
     const rolls = [];
@@ -1480,21 +1483,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleAction|null}   The reconstituted Action instance
    */
   static fromChatMessage(message) {
-    const {action: actionData, template: templateId, outcomes} = message.flags.crucible || {};
+    const {
+      actor: actorUuid,
+      item: itemUuid,
+      token: tokenUuid,
+      action: actionData,
+      template: templateUuid,
+      outcomes
+    } = message.flags.crucible || {};
     if ( !actionData ) throw new Error(`ChatMessage ${message.id} does not contain CrucibleAction data`);
-    const actor = ChatMessage.getSpeakerActor(message.speaker);
+
+    const actor = fromUuidSync(actorUuid) || ChatMessage.getSpeakerActor(message.speaker);
+    const item = fromUuidSync(itemUuid);
+    const template = fromUuidSync(templateUuid);
+    const token = fromUuidSync(tokenUuid);
 
     // Rebuild action from explicit data
+    const actionContext = {parent: item?.system, actor, item, token, template};
     let action;
     const actionId = actionData.id;
     if ( actionId.startsWith("spell.") ) {
-      action = game.system.api.models.CrucibleSpellAction.fromId(actionId, {actor});
+      action = game.system.api.models.CrucibleSpellAction.fromId(actionId, actionContext);
     }
-    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone({tags: actionData.tags});
-    else action = new this(actionData, {actor});
-
-    // Load a MeasuredTemplate associated with this action
-    if ( templateId ) action.template = fromUuidSync(templateId);
+    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone(actionContext);
+    else action = new this(actionData, actionContext);
 
     // Re-prepare Action outcomes
     action.outcomes = new Map();

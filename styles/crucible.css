@@ -34,7 +34,7 @@
   --color-accent: #cf9356;
   --color-link-text: #f36739;
   --color-border-highlight: var(--color-accent);
-  --color-result-verybad: #450808;
+  --color-result-verybad: #d52727;
   --color-result-bad: #851414;
   --color-result-good: #236212;
   --color-result-verygood: #51c433;
@@ -3188,6 +3188,27 @@ enriched-content.hazard-check.hazard-check {
 /* ----------------------------------------- */
 .crucible.dice-roll.initiative .initiative-table {
   margin: 0;
+}
+.crucible.dice-roll.initiative .initiative-table td,
+.crucible.dice-roll.initiative .initiative-table th {
+  font-size: 12px;
+}
+.crucible.dice-roll.initiative .initiative-table .initiative-modifiers {
+  text-align: right;
+}
+.crucible.dice-roll.initiative .initiative-table .initiative-modifiers .boons i {
+  font-size: 10px;
+  color: var(--color-result-verygood);
+}
+.crucible.dice-roll.initiative .initiative-table .initiative-modifiers .banes i {
+  font-size: 10px;
+  color: var(--color-result-verybad);
+}
+.crucible.dice-roll.initiative .initiative-table .initiative-value {
+  text-align: right;
+}
+.crucible.dice-roll.initiative .initiative-table tr.combatant.secret {
+  color: #8e80ff;
 }
 /* -------------------------------------------- */
 /*  Talent Tree Canvas                          */

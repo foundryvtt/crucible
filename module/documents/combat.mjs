@@ -7,6 +7,20 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   /*  Document Methods                            */
   /* -------------------------------------------- */
 
+  /**
+   * @override
+   * FIXME bugfix for core https://github.com/foundryvtt/foundryvtt/issues/13095
+   * This can be deleted when that bug is closed.
+   */
+  getCombatantsByActor(actor) {
+    const isActor = actor instanceof foundry.documents.Actor;
+    if ( isActor && actor.isToken ) return this.getCombatantsByToken(actor.token);
+    const actorId = isActor ? actor.id : actor;
+    return this.combatants.filter(c => c.actor?.id === actorId);
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   async previousRound() {
     if ( !game.user.isGM ) {
@@ -28,6 +42,32 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   }
 
   /* -------------------------------------------- */
+
+  /** @override */
+  _sortCombatants(a, b) {
+
+    // Initiative first
+    const aValue = Number.isNumeric(a.initiative) ? a.initiative : -Infinity;
+    const bValue = Number.isNumeric(b.initiative) ? b.initiative : -Infinity;
+    if ( aValue !== bValue ) return bValue - aValue;
+
+    // Modifier second
+    const aBonus = a.abilityBonus;
+    const bBonus = b.abilityBonus;
+    if ( aBonus !== bBonus ) return bBonus - aBonus;
+
+    // Maximum Action
+    const aMax = a.actor?.resources.action.max || 0;
+    const bMax = b.actor?.resources.action.max || 0;
+    if ( aMax !== bMax) return bMax - aMax;
+
+    // Type
+    const aType = a.actor?.type === "adversary" ? 1 : 0;
+    const bType = b.actor?.type === "adversary" ? 1 : 0;
+    return (bType - aType) || a.name.compare(b.name) || a._id.localeCompare(b._id);
+  }
+
+  /* -------------------------------------------- */
   /*  Database Update Workflows                   */
   /* -------------------------------------------- */
 
@@ -43,28 +83,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
   async _preUpdate(data, options, user) {
     const advanceRound = ("round" in data) && (data.round > this.current.round);
     await super._preUpdate(data, options, user);
-    if ( !advanceRound ) return;
-
-    // TODO move to "combat" subtype
-    if ( this.type === "combat" ) {
-      data.combatants = [];
-      const results = [];
-      for ( const c of this.combatants ) {
-        const roll = c.getInitiativeRoll();
-        await roll.evaluate();
-        if ( c.actor?.isIncapacitated ) roll._total = 0;
-        data.combatants.push({_id: c.id, initiative: roll.total});
-        results.push({
-          id: c.id,
-          name: c.name,
-          combatant: c,
-          initiative: roll.total,
-          roll
-        });
-      }
-      data.turn = 0; // Force starting at the top of the round, ignoring defeated combatant adjustments
-      await this.system.postInitiativeMessage(data.round, results);
-    }
+    if ( advanceRound && (this.type === "combat") ) await this.system.preUpdateRoundInitiative(data);
   }
 
   /* -------------------------------------------- */

@@ -3,10 +3,12 @@ import StandardCheck from "../dice/standard-check.mjs";
 
 export default class CrucibleCombatant extends Combatant {
 
-  /** @inheritDoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-    if ( this.parent.round === 0 ) this.initiative = null;
+  /**
+   * Conveniently retrieve the ability bonus that modifies a combatant's initiative.
+   * @type {number}
+   */
+  get abilityBonus() {
+    return this.actor?.getAbilityBonus(["dexterity", "intellect"]) || 0;
   }
 
   /* -------------------------------------------- */
@@ -15,13 +17,8 @@ export default class CrucibleCombatant extends Combatant {
   getInitiativeRoll(formula) {
     const boons = {};
     const banes = {};
-    const rollData = {ability: 0, skill: 0, enchantment: 0, boons, banes}
-
-    // Actor preparation
+    const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes}
     if ( this.actor ) {
-
-      // Ability bonus
-      rollData.ability = this.actor.getAbilityBonus(["dexterity", "intellect"]);
 
       // Boons and Banes
       const action = this.actor.system.resources.action.value;

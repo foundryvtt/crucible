@@ -125,5 +125,10 @@ export const statusEffects = [
     id: "incapacitated",
     name: "ACTIVE_EFFECT.STATUSES.Incapacitated",
     icon: "icons/svg/unconscious.svg"
+  },
+  {
+    id: "surprised",
+    name: "ACTIVE_EFFECT.STATUSES.Surprised",
+    icon: "systems/crucible/icons/statuses/surprised.svg"
   }
 ]

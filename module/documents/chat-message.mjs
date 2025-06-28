@@ -85,7 +85,9 @@ export default class CrucibleChatMessage extends ChatMessage {
     }
 
     // Initiative Report
-    if ( flags.isInitiativeReport ) html.querySelector(".dice-rolls")?.remove();
+    if ( flags.isInitiativeReport ) {
+      crucible.api.models.CrucibleCombatChallenge.onRenderInitiativeReport(message, html);
+    }
 
     // Target Hover
     for ( const el of html.querySelectorAll(".target-link") ) {

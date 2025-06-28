@@ -268,4 +268,15 @@ HOOKS.strike = {
 
 /* -------------------------------------------- */
 
+HOOKS.uppercut = {
+  canUse(_targets) {
+    const {basicStrike, lastAction} = this.actor.system.status;
+    if ( !basicStrike || (lastAction !== "strike") ) {
+      throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 export default HOOKS;

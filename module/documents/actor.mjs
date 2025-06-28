@@ -91,6 +91,11 @@ export default class CrucibleActor extends Actor {
     return this.system.resources;
   }
 
+  /** @inheritDoc */
+  get inCombat() {
+    return super.inCombat && game.combat.started;
+  }
+
   /**
    * Is this actor currently "level zero"
    * @returns {boolean}
@@ -310,11 +315,9 @@ export default class CrucibleActor extends Actor {
     let r = this.resistances[damageType]?.total ?? 0;
     switch ( resource ) {
       case "health":
-        if ( this.isBroken ) r -= 2;
         if ( this.statuses.has("invulnerable") ) r = Infinity
         break;
       case "morale":
-        if ( this.isWeakened ) r -= 2;
         if ( this.statuses.has("resolute") ) r = Infinity;
         break;
     }
@@ -1015,10 +1018,14 @@ export default class CrucibleActor extends Actor {
     if ( from && (round === game.combat.round) && (game.combat.combatant?.initiative === to) ) return;
 
     // Plan actor changes
-    const resourceRecovery = {action: Infinity}; // Try to recover as much action as possible, in case your maximum increases
+    const statusText = [];
+    const resourceRecovery = {action: Infinity};
+    if ( this.statuses.has("surprised") ) {
+      resourceRecovery.action = -Infinity;
+      statusText.push(game.i18n.localize("ACTIVE_EFFECT.STATUSES.Surprised"));
+    }
     const actorUpdates = {system: {status: null}};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
-    const statusText = [];
     const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
     this.callActorHooks("startTurn", turnStartConfig);
 
@@ -1140,11 +1147,14 @@ export default class CrucibleActor extends Actor {
    * Test whether an ActiveEffect is expired.
    * @param {ActiveEffect} effect       The effect being tested
    * @param {boolean} start             Is it the start of the turn (true) or the end of the turn (false)
-   * @returns {boolean}
+   * @returns {boolean}                 Is the effect expired?
    */
   #isEffectExpired(effect, start=true) {
     const {startRound, rounds, turns} = effect.duration;
     const elapsed = game.combat.round - startRound;
+
+    // Remove surprised status
+    if ( (effect.id === "surprised0000000") && !start ) return true;
 
     // Turn-based effects expire at the end of the turn
     if ( turns > 0 ) {

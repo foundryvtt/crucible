@@ -389,5 +389,25 @@
 .crucible.dice-roll.initiative {
   .initiative-table {
     margin: 0;
+    td, th {
+      font-size: 12px;
+    }
+    .initiative-modifiers {
+      text-align: right;
+      .boons i {
+        font-size: 10px;
+        color: var(--color-result-verygood);
+      }
+      .banes i {
+        font-size: 10px;
+        color: var(--color-result-verybad);
+      }
+    }
+    .initiative-value {
+      text-align: right;
+    }
+    tr.combatant.secret {
+      color: #8e80ff;
+    }
   }
 }
