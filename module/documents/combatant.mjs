@@ -1,4 +1,4 @@
-import StandardCheck from "../dice/standard-check.mjs";
+import InitiativeCheck from "../dice/initiative-check.mjs";
 
 
 export default class CrucibleCombatant extends Combatant {
@@ -19,6 +19,8 @@ export default class CrucibleCombatant extends Combatant {
     const banes = {};
     const rollData = {ability: this.abilityBonus, skill: 0, enchantment: 0, boons, banes}
     if ( this.actor ) {
+      if ( this.actor.isIncapacitated ) rollData.incapacitated = true;
+      else if ( this.actor.statuses.has("unaware") ) rollData.unaware = true;
 
       // Boons and Banes
       const action = this.actor.system.resources.action.value;
@@ -32,7 +34,7 @@ export default class CrucibleCombatant extends Combatant {
       this.actor.callActorHooks("prepareStandardCheck", rollData);
       this.actor.callActorHooks("prepareInitiativeCheck", rollData);
     }
-    return new StandardCheck(rollData); // TODO this needs to be an InitiativeCheck with custom rendering
+    return new InitiativeCheck(rollData);
   }
 
   /* -------------------------------------------- */

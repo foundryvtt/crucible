@@ -35,7 +35,6 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     for ( const c of this.parent.combatants ) {
       const roll = c.getInitiativeRoll();
       await roll.evaluate();
-      if ( c.actor?.isIncapacitated ) roll._total = 0;
       data.combatants.push({_id: c.id, initiative: roll.total});
       const r = c.clone({initiative: roll.total}, {keepId: true});
       r.roll = roll;
@@ -173,7 +172,7 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   static refreshCombatTracker() {
     if ( game.combat?.type !== "combat" ) return;
     const meters = [ui.combat.element.querySelector(".heroism-meter")]
-    if ( ui.combat.popout ) meters.push(ui.combat.popout.element.querySelector(".heroism-meter"));
+    if ( ui.combat.popout?.rendered ) meters.push(ui.combat.popout.element.querySelector(".heroism-meter"));
     const heroism = game.combat.system.heroism;
     const pct = `${Math.round(heroism.pct * 100)}%`
     for ( const meter of meters ) {

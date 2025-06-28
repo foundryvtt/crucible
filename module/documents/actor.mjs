@@ -1020,10 +1020,10 @@ export default class CrucibleActor extends Actor {
     // Plan actor changes
     const statusText = [];
     const resourceRecovery = {action: Infinity};
-    if ( this.statuses.has("surprised") ) {
-      resourceRecovery.action = -Infinity;
-      statusText.push(game.i18n.localize("ACTIVE_EFFECT.STATUSES.Surprised"));
-    }
+    if ( this.statuses.has("unaware") ) statusText.push({
+      text: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Unaware"),
+      fillColor: SYSTEM.RESOURCES.action.color.css
+    });
     const actorUpdates = {system: {status: null}};
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
     const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
@@ -1153,8 +1153,8 @@ export default class CrucibleActor extends Actor {
     const {startRound, rounds, turns} = effect.duration;
     const elapsed = game.combat.round - startRound;
 
-    // Remove surprised status
-    if ( (effect.id === "surprised0000000") && !start ) return true;
+    // Remove unaware status
+    if ( (effect.id === "unaware000000000") && !start ) return true;
 
     // Turn-based effects expire at the end of the turn
     if ( turns > 0 ) {
@@ -1793,6 +1793,7 @@ export default class CrucibleActor extends Actor {
    * @param {CrucibleTokenEngagement} engagement      The enemies and allies which this Actor currently has engaged.
    */
   async commitFlanking(engagement) {
+    engagement ||= {flanked: 0};
     const flankedId = SYSTEM.EFFECTS.getEffectId("flanked");
     const flankedStage = engagement.flanked;
     const current = this.effects.get(flankedId);

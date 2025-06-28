@@ -325,9 +325,14 @@ export const TAGS = {
     category: "context",
     displayOnSheet(combatant) {
       if ( !combatant ) return false;
-      return this.actor !== game.combat.combatant?.actor;
+      try {
+        return TAGS.reaction.canUse.call(this);
+      } catch(err) {
+        return false;
+      }
     },
     canUse(_targets) {
+      if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
       return this.actor !== game.combat?.combatant?.actor;
     },
     prepare() {

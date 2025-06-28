@@ -102,13 +102,17 @@ export default class CrucibleCombat extends foundry.documents.Combat {
     super._onDelete(options, userId);
     const isGM = game.user.isActiveGM;
     const actorUpdates = [];
-    for ( const c of this.combatants ) {
-      if ( c.actor ) {
-        if ( isGM ) actorUpdates.push({_id: c.actor.id, "system.resources.heroism.value": 0});
-        c.actor.render(false);
+    const removeFlanking = [];
+    for ( const {actor} of this.combatants ) {
+      if ( !actor ) continue;
+      if ( isGM ) {
+        actorUpdates.push({_id: actor.id, "system.resources.heroism.value": 0});
+        if ( actor.statuses.has("flanked") ) removeFlanking.push(actor);
       }
+      actor.render(false);
     }
     if ( actorUpdates.length ) Actor.updateDocuments(actorUpdates);
+    Promise.allSettled(removeFlanking.map(a => a.commitFlanking()));
   }
 
   /* -------------------------------------------- */

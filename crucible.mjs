@@ -179,7 +179,7 @@ Hooks.once("init", async function() {
   registerEnrichers();
 
   // Dice system configuration
-  CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll);
+  CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;

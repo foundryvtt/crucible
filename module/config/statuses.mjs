@@ -127,8 +127,8 @@ export const statusEffects = [
     icon: "icons/svg/unconscious.svg"
   },
   {
-    id: "surprised",
-    name: "ACTIVE_EFFECT.STATUSES.Surprised",
-    icon: "systems/crucible/icons/statuses/surprised.svg"
+    id: "unaware",
+    name: "ACTIVE_EFFECT.STATUSES.Unaware",
+    icon: "systems/crucible/icons/statuses/unaware.svg"
   }
 ]

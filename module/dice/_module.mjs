@@ -1,5 +1,6 @@
 export {default as ActionUseDialog} from "./action-use-dialog.mjs";
 export {default as AttackRoll} from "./attack-roll.mjs";
+export {default as InitiativeCheck} from "./initiative-check.mjs";
 export {default as PassiveCheck} from "./passive-check.mjs";
 export {default as SpellCastDialog} from "./spell-cast-dialog.mjs";
 export {default as StandardCheck} from "./standard-check.mjs"
