@@ -52,27 +52,33 @@ system:
       description: <p>Elemental creatures corresponding to the element of Fire.</p>
       category: elemental
       abilities:
-        strength: 4
-        toughness: 4
-        dexterity: 4
-        intellect: 3
-        presence: 2
         wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 3
+        dexterity: 3
       resistances:
         bludgeoning: 0
+        corruption: -1
         piercing: 0
         slashing: 0
         poison: 0
         acid: -2
         fire: 3
+        cold: -2
+        electricity: 0
         psychic: 0
         radiant: 2
         void: 0
-        cold: -2
-        corruption: -1
-        electricity: 0
+      characteristics:
+        spells: true
+        equipment: false
+      movement:
+        size: 4
+        stride: 10
+      talents: []
       name: Fire Elemental
-      size: 4
       img: icons/magic/fire/elemental-fire-flying.webp
     threat: minion
     biography:
@@ -108,7 +114,7 @@ system:
     health:
       value: 15
     morale:
-      value: 6
+      value: 9
     action:
       value: 4
     focus:
@@ -148,7 +154,7 @@ system:
       rank: 0
   status: null
   movement:
-    sizeBonus: -2
+    sizeBonus: -1
   advancement:
     level: 1
     threat: minion
@@ -170,8 +176,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 2
-  height: 2
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -371,10 +377,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1677963742821
-  modifiedTime: 1727550278311
+  modifiedTime: 1751216196436
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

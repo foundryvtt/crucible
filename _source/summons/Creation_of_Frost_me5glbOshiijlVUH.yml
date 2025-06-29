@@ -51,27 +51,33 @@ system:
       description: <p>Elemental creatures corresponding to the element of Frost.</p>
       category: elemental
       abilities:
-        strength: 4
-        toughness: 5
-        dexterity: 2
-        intellect: 3
-        presence: 1
         wisdom: 3
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 3
+        dexterity: 1
       resistances:
         bludgeoning: -1
+        corruption: 0
         piercing: 0
         slashing: 1
         poison: 0
         acid: 0
         fire: -2
+        cold: 3
+        electricity: 0
         psychic: 0
         radiant: -2
         void: 1
-        cold: 3
-        corruption: 0
-        electricity: 0
+      characteristics:
+        spells: true
+        equipment: false
+      movement:
+        size: 4
+        stride: 10
+      talents: []
       name: Frost Elemental
-      size: 4
       img: icons/magic/water/elemental-water.webp
     threat: minion
     biography:
@@ -105,13 +111,13 @@ system:
       bonus: 0
   resources:
     health:
-      value: 17
+      value: 15
     morale:
-      value: 7
+      value: 11
     action:
       value: 4
     focus:
-      value: 3
+      value: 4
   skills:
     acrobatics:
       rank: 0
@@ -147,7 +153,7 @@ system:
       rank: 0
   status: null
   movement:
-    sizeBonus: -2
+    sizeBonus: -1
   advancement:
     level: 1
     threat: minion
@@ -169,8 +175,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 2
-  height: 2
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -373,10 +379,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1677963742821
-  modifiedTime: 1727550299311
+  modifiedTime: 1751216208716
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

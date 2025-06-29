@@ -49,29 +49,35 @@ system:
       name: Creation
     taxonomy:
       description: <p>Elemental creatures corresponding to the element of Earth.</p>
-      category: humanoid
+      category: elemental
       abilities:
-        strength: 5
-        toughness: 4
-        dexterity: 2
-        intellect: 3
-        presence: 2
-        wisdom: 2
+        wisdom: 1
+        presence: 1
+        intellect: 1
+        strength: 3
+        toughness: 5
+        dexterity: 1
       resistances:
         bludgeoning: 2
+        corruption: -3
         piercing: 3
         slashing: 3
         poison: 2
         acid: 2
         fire: 0
+        cold: -3
+        electricity: 0
         psychic: -3
         radiant: 0
         void: -3
-        cold: -3
-        corruption: -3
-        electricity: 0
+      characteristics:
+        spells: true
+        equipment: false
+      movement:
+        size: 4
+        stride: 10
+      talents: []
       name: Earth Elemental
-      size: 4
       img: icons/magic/earth/construct-stone-long-arms.webp
     threat: minion
     biography:
@@ -105,7 +111,7 @@ system:
       bonus: 0
   resources:
     health:
-      value: 16
+      value: 19
     morale:
       value: 8
     action:
@@ -147,7 +153,7 @@ system:
       rank: 0
   status: null
   movement:
-    sizeBonus: -2
+    sizeBonus: -1
   advancement:
     level: 1
     threat: minion
@@ -169,8 +175,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 2
-  height: 2
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -371,10 +377,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1677963742821
-  modifiedTime: 1727550268213
+  modifiedTime: 1751216182014
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

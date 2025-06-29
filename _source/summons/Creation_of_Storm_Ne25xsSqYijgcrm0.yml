@@ -51,27 +51,33 @@ system:
       description: <p>Elemental creatures corresponding to the element of Lightning.</p>
       category: elemental
       abilities:
-        strength: 2
-        toughness: 3
-        dexterity: 4
-        intellect: 5
-        presence: 2
-        wisdom: 2
+        wisdom: 3
+        presence: 3
+        intellect: 3
+        strength: 1
+        toughness: 1
+        dexterity: 1
       resistances:
         bludgeoning: 2
+        corruption: -2
         piercing: 2
         slashing: 2
         poison: 0
         acid: -2
         fire: 0
+        cold: -2
+        electricity: 3
         psychic: 0
         radiant: -2
         void: -1
-        cold: -2
-        electricity: 3
-        corruption: -2
+      characteristics:
+        spells: true
+        equipment: false
+      movement:
+        size: 4
+        stride: 10
+      talents: []
       name: Storm Elemental
-      size: 4
       img: icons/magic/lightning/bolt-strike-clouds-blue.webp
     threat: minion
     biography:
@@ -105,13 +111,13 @@ system:
       bonus: 0
   resources:
     health:
-      value: 11
+      value: 9
     morale:
-      value: 8
+      value: 15
     action:
       value: 4
     focus:
-      value: 4
+      value: 6
   skills:
     acrobatics:
       rank: 0
@@ -150,7 +156,7 @@ system:
     level: 1
     threat: minion
   movement:
-    sizeBonus: -2
+    sizeBonus: -1
 prototypeToken:
   name: Creation of Storm
   displayName: 30
@@ -169,8 +175,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 2
-  height: 2
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -374,10 +380,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1677963742821
-  modifiedTime: 1727550434117
+  modifiedTime: 1751216218459
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

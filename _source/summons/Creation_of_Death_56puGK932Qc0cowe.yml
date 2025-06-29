@@ -55,9 +55,9 @@ system:
       description: <p>Undeathly denizens fashioned of bone and sinew.</p>
       category: undead
       abilities:
-        wisdom: 3
-        presence: 3
-        intellect: 2
+        wisdom: 1
+        presence: 0
+        intellect: 1
         strength: 4
         toughness: 4
         dexterity: 2
@@ -74,10 +74,15 @@ system:
         psychic: 0
         radiant: -2
         void: 0
+      characteristics:
+        equipment: true
+        spells: true
+      movement:
+        size: 4
+        stride: 8
+      talents: []
       name: Skeleton
       img: icons/magic/death/undead-skeleton-worn-blue.webp
-      size: 4
-      stride: 8
     threat: minion
     biography:
       public: ''
@@ -109,13 +114,13 @@ system:
       bonus: 0
   resources:
     health:
-      value: 15
+      value: 20
     morale:
-      value: 11
+      value: 5
     action:
       value: 4
     focus:
-      value: 4
+      value: 2
   skills:
     awareness:
       rank: 0
@@ -152,7 +157,7 @@ system:
   movement:
     stride: 4
     engagement: 1
-    sizeBonus: -2
+    sizeBonus: -1
   status: null
   advancement:
     level: 1
@@ -175,8 +180,8 @@ prototypeToken:
     anchorY: 0.5
     fit: contain
     alphaThreshold: 0.75
-  width: 2
-  height: 2
+  width: 3
+  height: 3
   lockRotation: false
   rotation: 0
   alpha: 1
@@ -379,10 +384,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1686181185927
-  modifiedTime: 1727550485687
+  modifiedTime: 1751216165797
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

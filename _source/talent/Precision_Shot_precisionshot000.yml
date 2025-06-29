@@ -15,7 +15,6 @@ system:
       description: <p>You steady your aim and fire a single accurate shot.</p>
       tags:
         - ranged
-        - deadly
         - accurate
       cost:
         action: 1
@@ -26,6 +25,7 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       name: Precision Shot
       img: icons/skills/ranged/target-bullseye-arrow-glowing.webp
@@ -36,10 +36,10 @@ system:
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1674942420026
-  modifiedTime: 1749329305693
+  modifiedTime: 1751214445368
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

@@ -280,7 +280,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * A temporary MeasuredTemplate object used to establish targets for this action.
    * @type {MeasuredTemplateDocument|null}
    */
-  template = null;
+  template = this.template; // Defined during constructor
 
   /**
    * A mapping of outcomes which occurred from this action, arranged by target.
@@ -333,7 +333,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     Object.defineProperty(this, "actor", {value: actor, writable: false, configurable: true});
     Object.defineProperty(this, "item", {value: item ?? this.parent?.parent, writable: false, configurable: true});
     Object.defineProperty(this, "token", {value: token, writable: false, configurable: true});
-    this.template = template;
+    this.template = template instanceof foundry.documents.MeasuredTemplateDocument ? template : null;
 
     /**
      * Dice roll bonuses which modify the usage of this action.
