@@ -525,8 +525,10 @@ async function standardizeItemIds() {
 
 function registerDevelopmentHooks() {
   Hooks.on("preCreateItem", (item, data, options, _user) => {
+    if ( options.keepId === false ) return;
 
     // Maintain IDs when importing from a compendium
+    // TODO this can be removed in V14
     if ( options.fromCompendium ) {
       const {id} = foundry.utils.parseUuid(item._stats.compendiumSource);
       if ( id ) {
@@ -537,13 +539,14 @@ function registerDevelopmentHooks() {
     }
 
     // Keep existing _id while exporting into a compendium pack
+    // TODO this can be removed in V14
     if ( item.pack && !item.parent && item.id ) {
       options.keepId = true;
       return;
     }
 
     // Generate a new ID
-    if ( !item.parent && !item.id && !options.keepId ) {
+    if ( !item.parent && !item.id ) {
       item.updateSource({_id: generateId(item.name, 16)});
       options.keepId = true;
     }

@@ -16,13 +16,13 @@ export function onPointerEnter(event) {
  * @param {PointerEvent} event
  */
 export function onPointerLeave(event) {
-  if ( "crucibleTooltip" in event.target.dataset ) {
+  const element = event.target;
+  if ( "crucibleTooltip" in element.dataset ) {
     window.setTimeout(() => {
-      if ( game.tooltip.element !== event.target ) {
-        event.target.dataset[event.target.dataset.crucibleTooltip] = true;
-        delete event.target.dataset.crucibleTooltip;
-        delete event.target.dataset.tooltipHtml;
-      }
+      if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
+      element.dataset[element.dataset.crucibleTooltip] = true;
+      delete element.dataset.crucibleTooltip;
+      delete element.dataset.tooltipHtml;
     }, 2000);
   }
 }
@@ -114,6 +114,7 @@ async function displayKnowledgeCheck(event) {
   const knowledge = crucible.CONFIG.knowledge[knowledgeId];
   if ( !knowledge || !crucible.party ) return;
   event.stopImmediatePropagation();
+
   const check = (group, actor) => ({success: actor.hasKnowledge(knowledgeId)});
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
   element.dataset.tooltipClass = "crucible crucible-tooltip wide";
