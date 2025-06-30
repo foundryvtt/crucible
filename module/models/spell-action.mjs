@@ -238,24 +238,39 @@ export default class CrucibleSpellAction extends CrucibleAction {
       /* -------------------------------------------- */
       case "create":
         this.tags.add("summon");
+        this.usage.hasDice = false;
 
-        // Identify summoned Actor
+        // Configure summon data
         const summonUUIDs = SYSTEM.SPELL.CREATION_SUMMONS;
-        this.usage.summon = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+        const actorUuid = summonUUIDs[this.rune.id] || summonUUIDs.fallback;
+        const tokenData = {
+          delta: {
+            system: {
+              details: {
+                level: Math.ceil(this.actor.system.advancement.threatLevel / 2),
+                rank: "minion"
+              }
+            }
+          }
+        };
 
-        // Add summon effect
-        let effectId = SYSTEM.EFFECTS.getEffectId("create")
+        // Configure summon effect
+        let effectId = SYSTEM.EFFECTS.getEffectId("create");
+
+        // TODO move this to conjurer talent
         if ( t.has("conjurer00000000") ) {
           const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));
           effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
         }
-        this.effects.push({
+        const effectData = {
           _id: effectId,
           icon: this.img,
           duration: {rounds: 10},
           origin: this.actor.uuid
-        });
-        this.usage.hasDice = false;
+        }
+
+        // Configure the summons
+        this.usage.summons = [{actorUuid, tokenData, effectData}];
         break;
 
       /* -------------------------------------------- */

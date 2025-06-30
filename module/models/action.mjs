@@ -44,6 +44,17 @@ import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mj
  * @property {CrucibleItem} [weapon]        A specific weapon item being used
  * @property {CrucibleItem} [consumable]    A specific consumable item being used
  * @property {boolean} [selfTarget]         Default to self-target if no other targets are selected
+ * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
+ */
+
+/**
+ * @typedef ActionSummonConfiguration
+ * @property {string} actorUuid
+ * @property {string} [templateUuid]
+ * @property {object} [tokenData={}]
+ * @property {boolean} [combatant=true]
+ * @property {number} [initiative=1]
+ * @property {object} [effectData={}]
  */
 
 /**
@@ -546,8 +557,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Infer the Token performing the Action
     if ( !token ) {
       let tokens = this.actor.getActiveTokens();
-      if ( tokens.length > 1 ) tokens = tokens.filter(t => t.controlled);
-      if ( tokens.length === 1 ) token = tokens[0];
+      if ( tokens.length > 1 ) tokens = tokens.filter(t => t.controlled)?.document;
+      if ( tokens.length === 1 ) token = tokens[0]?.document;
       if ( tokens.length > 1 ) {
         throw new Error(`Multiple tokens controlled for Actor "${this.actor.name}"`);
       }

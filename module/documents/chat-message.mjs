@@ -30,7 +30,7 @@ export default class CrucibleChatMessage extends ChatMessage {
     const canConfirm = action?.canAutoConfirm();
     if ( !canConfirm ) return;
     if ( this.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(this.id);
-    await CrucibleAction.confirm(this, {action});
+    await CrucibleAction.confirmMessage(this, {action});
   }
 
   /* -------------------------------------------- */

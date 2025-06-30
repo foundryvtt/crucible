@@ -117,6 +117,11 @@ export const ACTION_HOOKS = Object.freeze({
     argNames: ["reverse"],
     argLabels: ["reverse: boolean"],
     async: true
+  },
+  summon: {
+    argNames: ["reverse"],
+    argLabels: ["reverse: boolean"],
+    async: true
   }
 });
 

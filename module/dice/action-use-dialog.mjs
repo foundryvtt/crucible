@@ -226,9 +226,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     const activeLayer = canvas.activeLayer;
 
     // TODO find a better place for this?
-    if ( target.type === "summon" ) {
-      const summon = await fromUuid(this.action.usage.summon);
-      if ( summon ) target.size = summon.size;
+    if ( (target.type === "summon") && this.action.usage.summons.length ) {
+      const summon1 = await fromUuid(this.action.usage.summons[0].actorUuid);
+      if ( summon1 ) target.size = summon1.size;
     }
 
     // Create a temporary Measured Template document and PlaceableObject

@@ -1139,6 +1139,7 @@
     "ELEMENTAL": "Elemental",
     "GIANT": "Giant",
     "HUMANOID": "Humanoid",
+    "OOZE": "Ooze",
     "OUTSIDER": "Outsider",
     "UNDEAD": "Undead"
   },

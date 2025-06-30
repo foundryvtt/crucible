@@ -81,5 +81,5 @@ export async function onKeyboardConfirmAction(context) {
     const {action, confirmed} = message.flags.crucible || {};
     if ( action && !confirmed ) toConfirm.unshift(message);
   }
-  if ( toConfirm.length ) return CrucibleAction.confirm(toConfirm[0]);
+  if ( toConfirm.length ) return CrucibleAction.confirmMessage(toConfirm[0]);
 }

@@ -458,60 +458,63 @@ export const TAGS = {
     label: "ACTION.TagSummon",
     tooltip: "ACTION.TagSummonTooltip",
     category: "special",
-    async confirm() {
-      const {x, y} = this.template;
+    async confirm(reverse) {
+      if ( reverse ) return; // TODO support reverse
+      if ( !this.usage.summons.length ) return; // No summons defined
+      if ( !this.token ) return; // No token acting
+      const summonedTokens = [];
+      for ( const summon of this.usage.summons ) {
 
-      // Import or reference the Actor to summon
-      let summonActor = await fromUuid(this.usage.summon);
-      const ownership = game.users.reduce((obj, u) => {
-        if ( u.isGM || !this.actor.testUserPermission(u, "OWNER") ) return obj;
-        obj[u.id] = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
-        return obj;
-      }, {});
-      if ( game.actors.has(summonActor.id) ) {
-        summonActor = game.actors.get(summonActor.id);
-        await summonActor.update({ownership});
-      }
-      else {
-        const summonData = game.actors.fromCompendium(summonActor, {keepId: true, clearOwnership: true});
-        summonData.ownership = ownership;
-        summonActor = await summonActor.constructor.create(summonData, {keepId: true});
-      }
+        // Get or create a world level Actor for the summons
+        const sourceActor = await fromUuid(summon.actorUuid);
+        const ownership = this.actor.hasPlayerOwner ? {default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER} : {};
+        let worldActor = game.actors.get(sourceActor.id);
+        if ( !worldActor ) {
+          const toImport = sourceActor.clone({ownership}, {keepId: true});
+          worldActor = await game.actors.importDocument(toImport, {keepId: true});
+        }
+        else await worldActor.update({ownership});
 
-      // Create a Token
-      let token = await summonActor.getTokenDocument({x, y,
-        name: `${this.actor.name} ${summonActor.name}`,
-        disposition: this.actor.prototypeToken.disposition,
-        delta: {
-          system: {
-            resources: {
-              "health.value": 9e99,
-              "morale.value": 9e99,
-              "action.value": 9e99,
-              "focus.value": 9e99
-            },
-            details: {
-              level: Math.ceil(this.actor.system.details.threatLevel / 2)
+        // Create Token
+        const position = this.tempalte ?? this.token;
+        const tokenName = `${this.actor.name} ${worldActor.name}`;
+        const tokenData = foundry.utils.mergeObject({
+          x: position.x,
+          y: position.y,
+          name: tokenName,
+          disposition: this.actor.prototypeToken.disposition,
+          delta: {
+            name: tokenName,
+            system: {
+              resources: {
+                "health.value": 9e99,
+                "morale.value": 9e99,
+                "action.value": 9e99,
+                "focus.value": 9e99
+              },
             }
           }
-        }
-      });
-      token = await token.constructor.create(token, {parent: canvas.scene});
+        }, summon.tokenData || {});
+        Object.assign(tokenData, {actorId: worldActor.id, actorLink: false});
+        const preparedToken = await worldActor.getTokenDocument(tokenData, {parent: this.token.parent});
+        const token = await TokenDocument.implementation.create(preparedToken, {parent: this.token.parent});
+        summonedTokens.push(token.uuid);
 
-      // Record summon ID on the active effect
+        // Create a Combatant
+        if ( this.actor.inCombat ) {
+          await game.combat.createEmbeddedDocuments("Combatant", [{
+            tokenId: token.id,
+            sceneId: canvas.scene.id,
+            actorId: worldActor.id,
+            initiative: 1
+          }]);
+        }
+      }
+
+      // Update Active Effect
       const self = this.outcomes.get(this.actor);
       const ae = self.effects?.[0];
-      if ( ae ) foundry.utils.setProperty(ae, "flags.crucible.summon",  token.uuid);
-
-      // Create a Combatant
-      if ( this.actor.inCombat ) {
-        await game.combat.createEmbeddedDocuments("Combatant", [{
-          tokenId: token.id,
-          sceneId: canvas.scene.id,
-          actorId: summonActor.id,
-          initiative: 1
-        }]);
-      }
+      if ( ae ) foundry.utils.setProperty(ae, "flags.crucible.summons",  summonedTokens);
     }
   },
 
