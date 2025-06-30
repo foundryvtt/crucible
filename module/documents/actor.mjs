@@ -350,12 +350,39 @@ export default class CrucibleActor extends Actor {
    * @param {number} costFeet     The cost of the movement in feet, inclusive of difficult terrain and other modifiers.
    * @param {CrucibleActionUsageOptions} options  Options passed to CrucibleAction#use
    * @param {boolean} [options.useFreeMove]       Consume a free move, if available
-   * @param {string} [options.movementId]         A recorded movement ID in Token movement history
+   * @param {TokenMovementOperation} [options.movement] A recorded movement ID in Token movement history
+   * @param {Set<string>} [options.actions]       The movement actions used as part of this move
    * @returns {CrucibleAction}    The performed Action
    */
-  async useMove(costFeet, {useFreeMove=true, movementId, ...useOptions}={}) {
-    const action = this.actions.move;
-    action.usage.movement = {id: movementId, ...this.getMovementActionCost(costFeet, {useFreeMove})};
+  async useMove(costFeet, {useFreeMove=true, movement, actions, ...useOptions}={}) {
+
+    // Annotate movement actions.
+    actions ||= new Set(["walk"]);
+    const actionLabels = [];
+    const actionDescriptions = [];
+    for ( const a of actions ) {
+      const cfg = CONFIG.Token.movement.actions[a];
+      if ( !cfg ) continue;
+      const label = game.i18n.localize(cfg.label);
+      const desc = game.i18n.localize(`TOKEN.MOVEMENT.ACTIONS.${a}.description`);
+      actionLabels.push(label);
+      actionDescriptions.push(`<p><strong>${label}:</strong> ${desc}</p>`);
+    }
+
+    // Record movement usage
+    const usage = {
+      id: movement?.id || null,
+      actions,
+      ...this.getMovementActionCost(costFeet, {useFreeMove})
+    };
+
+    // Adjust action name and description
+    const move = this.actions.move;
+    const action = move.clone({
+      name: `${move._source.name} (${actionLabels.join(", ")})`,
+      description: `<p>${move._source.description}</p>${actionDescriptions.join("")}`
+    });
+    action.usage.movement = usage;
     await action.use(useOptions);
   }
 

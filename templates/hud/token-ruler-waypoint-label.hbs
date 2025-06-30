@@ -18,7 +18,11 @@
     {{/if}}
     {{/if}}
 
-    <span class="total-cost">[{{cost.total}}{{cost.units}}]</span>
+    <span class="total-measurement delta-cost">{{cost.delta}}{{cost.units}}</span>
+    {{#if cost.showTotal}}
+    <span class="delta-measurement sep">=</span>
+    <span class="total-measurement total-cost">[{{cost.total}}{{cost.units}}]</span>
+    {{/if}}
     {{#if secret}}
     <i class="icon fa-solid fa-eye-slash"></i>
     {{/if}}

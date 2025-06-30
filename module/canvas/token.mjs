@@ -151,8 +151,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       if ( actor ) {
         const statuses = actor.statuses;
         if ( statuses.has("slowed") ) distance *= 2;
+        if ( statuses.has("prone") ) distance *= 2;
         if ( statuses.has("hastened") ) distance /= 2;
-        if ( statuses.has("prone") ) distance += 2;
         if ( statuses.has("restrained") ) distance = Infinity;
       }
 

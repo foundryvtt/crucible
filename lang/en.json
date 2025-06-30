@@ -376,6 +376,7 @@
 "ACTION.Unconfirmed": "Unconfirmed",
 "ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}!",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
+"ACTION.WarningCannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",
 "ACTION.WarningCannotSpendFocus": "{name} cannot spend Focus because they are currently {status}!",
 "ACTION.WarningInvalidTarget": "You must designate at least one {type} target for {action}!",
@@ -1232,7 +1233,35 @@
 "TOKEN": {
   "MOVEMENT": {
     "ACTIONS": {
-      "step.label": "Step",
+      "walk": {
+        "label": "Walk",
+        "description": "Move a distance up to your Stride attribute per Action."
+      },
+      "step": {
+        "label": "Step",
+        "description": "Move cautiously a distance up to half your Stride attribute per Action. This movement does not provoke disengagement."
+      },
+      "crawl": {
+        "label": "Crawl",
+        "description": "Move while Prone a distance up to half your Stride attribute per Action."
+      },
+      "jump": {
+        "label": "Jump",
+        "description": "Leap to traverse a distance up to half your Stride attribute per Action."
+      },
+      "climb": {
+        "label": "Climb",
+        "description": "Climb or descend a surface, a distance or elevation up to half your Stride attribute per Action. Creatures with an explicit Climb speed instead use this speed instead of half their Stride."
+      },
+      "swim": {
+        "label": "Swim",
+        "description": "Move through water that is waist-deep or deeper a distance up to half your Stride attribute per Action. Creatures with an explicit Swim speed instead use this speed instead of half their Stride."
+      },
+      "fly": {
+        "label": "Fly",
+        "description": "Move through the air a distance up to your Fly attribute per Action. Only creatures with a Fly speed can use this movement mode."
+      },
+
       "slow.label": "Cautious",
       "normal.label": "Normal",
       "fast.label": "Hurried"

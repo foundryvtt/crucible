@@ -1018,7 +1018,7 @@ export const DEFAULT_ACTIONS = Object.freeze([
     id: "move",
     name: "Move",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
-    description: "Move quickly up to 4 spaces in any direction, or move cautiously one space in any direction.",
+    description: "Move a distance by spending an amount of Action that depends on your Stride and which movement action is used.",
     target: {
       type: "none",
       number: 0,
