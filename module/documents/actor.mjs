@@ -319,7 +319,7 @@ export default class CrucibleActor extends Actor {
         if ( this.statuses.has("invulnerable") ) r = Infinity
         break;
       case "morale":
-        if ( this.statuses.has("resolute") ) r = Infinity;
+        if ( this.statuses.has("resolute") || this.statuses.has("asleep") ) r = Infinity;
         break;
     }
     return r;

@@ -44,10 +44,10 @@ export function burning(actor, target) {
   }
 }
 
-export function chilled(actor, target) {
+export function freezing(actor, target) {
   return {
-    _id: getEffectId("Chilled"),
-    name: "Chilled",
+    _id: getEffectId("Freezing"),
+    name: "Freezing",
     icon: "icons/magic/water/orb-ice-web.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -63,10 +63,17 @@ export function chilled(actor, target) {
   }
 }
 
+/** @deprecated since 0.7.4 */
+export function chilled(actor, target) {
+  return frozen(actor, target);
+}
+
+
+// TODO should be confused()
 export function confusion(actor, target) {
   return {
-    _id: getEffectId("Confusion"),
-    name: "Confusion",
+    _id: getEffectId("Confused"),
+    name: "Confused",
     icon: "icons/magic/air/air-burst-spiral-pink.webp",
     duration: {turns: 1},
     origin: actor.uuid,
@@ -99,8 +106,8 @@ export function corroding(actor, target, {health=1, turns=3}={}) {
 
 export function decay(actor, target) {
   return {
-    _id: getEffectId("Decay"),
-    name: "Decay",
+    _id: getEffectId("Decaying"),
+    name: "Decaying",
     icon: "icons/magic/unholy/strike-beam-blood-red-purple.webp",
     duration: {turns: 3},
     origin: actor.uuid,

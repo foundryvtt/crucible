@@ -210,7 +210,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isIncapacitated() {
-    return this.isDead || this.parent.statuses.has("unconscious") || this.parent.statuses.has("paralyzed");
+    const statuses = this.parent.statuses;
+    return this.isDead || statuses.has("unconscious") || statuses.has("paralyzed") || statuses.has("asleep");
   }
 
   /**
@@ -497,7 +498,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    */
   #canFreeMove(armor) {
     if ( this.isWeakened ) return false;
-    if ( this.parent.statuses.has("prone") ) return false;
+    const statuses = this.parent.statuses;
+    if ( statuses.has("prone") || statuses.has("slowed") ) return false;
     return (armor.system.category !== "heavy") || this.talentIds.has("armoredefficienc");
   }
 
@@ -716,7 +718,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     r.action.max = maxAction + (r.action.bonus || 0);
     if ( statuses.has("stunned") ) r.action.max -= 4;
     else if ( statuses.has("staggered") ) r.action.max -= 2;
-    if ( this.status.impetus ) r.action.max += 1;
+    if ( statuses.has("hastened") ) r.action.max += 1;
+    if ( this.status.impetus ) r.action.max += 1; // TODO impetus should just give the hastened condition
     if ( isWeakened ) r.action.max -= 2;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
@@ -828,6 +831,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
 
     // Cannot parry or block while enraged
     if ( statuses.has("enraged") ) defenses.parry.total = defenses.block.total = 0;
+    if ( statuses.has("exhausted") ) {
+      defenses.dodge.total = Math.ceil(defenses.dodge.total / 2);
+      defenses.reflex.total = Math.ceil(defenses.reflex.total / 2);
+    }
 
     // Cannot dodge, block, or parry while incapacitated
     if ( isIncapacitated ) defenses.dodge.total = defenses.parry.total = defenses.block.total = 0;

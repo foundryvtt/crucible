@@ -25,6 +25,11 @@ export function registerEnrichers() {
       pattern: /\[\[\/skill ([\w\s]+)]]/g,
       enricher: enrichDND5ESkill,
       onRender: renderSkillCheck
+    },
+    {
+      id: "crucibleCondition",
+      pattern: /@Condition\[(\w+)]/g,
+      enricher: enrichCondition
     }
   )
 }
@@ -175,6 +180,21 @@ async function onClickHazard(event) {
       action.use();
     }
   }
+}
+
+/* -------------------------------------------- */
+/*  Conditions                                  */
+/* -------------------------------------------- */
+
+function enrichCondition([match, conditionId]) {
+  const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
+  if ( !cfg ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = game.i18n.localize(cfg.name);
+  tag.dataset.crucibleTooltip2 = "condition";
+  tag.dataset.condition = conditionId;
+  tag.classList.add("condition");
+  return tag;
 }
 
 /* -------------------------------------------- */

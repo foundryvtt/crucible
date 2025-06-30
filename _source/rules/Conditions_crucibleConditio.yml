@@ -1,0 +1,1460 @@
+_id: crucibleConditio
+name: Conditions
+pages:
+  - sort: 100000
+    name: Conditions Overview
+    type: text
+    _id: conditionsOvervi
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Conditions</strong> are temporary status effects which apply
+        to a character. These conditions modify what actions the character can
+        take, its resource pools, or the way that certain rules are applied to
+        that character. This page separates Conditions into two categories;
+        Statuses which describe the character's state of being and
+        Damage-Over-Time which are detrimental or ameliorating effects which
+        apply at the beginning of the character's <strong>Turn</strong> in
+        Combat.</p><p></p><h2 class="divider">Damage Over Time</h2><p>Some types
+        of damage deal additional delayed damage. These conditions cause damage
+        (or healing) that occurs at the start of a character's turn.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: 5rP6WfVYTY7yZlqe
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302615865
+      modifiedTime: 1751303679699
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.conditionsOvervi'
+  - sort: 500000
+    name: Weakened
+    type: text
+    category: fO2oboVFGaNDqh8K
+    _id: weakened00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Weakened</strong> is vulnerable to taking
+        deadly wounds. Protagonists become Weakened when they reach zero Health.
+        Any further damage to Health taken while Weakened increases
+        Wounds.</p><p>While a creature is Weakened, it suffers -1 to maximum
+        Action, loses access to a free Movement action, and suffers an
+        additional <strong>2 Vulnerability</strong> to any
+        <strong>Morale</strong> damage sustained.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302878260
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.weakened00000000'
+  - sort: 200000
+    name: Dead
+    type: text
+    category: fO2oboVFGaNDqh8K
+    _id: dead000000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>When a protagonist's Wounds reach their maximum value, or when an
+        adversary's Health reaches zero, that character is
+        <strong>Dead</strong>. A creature which is Dead is also treated as
+        <strong>Incapacitated</strong>, can no longer Rest, and cannot be
+        revived except by magical means.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302896661
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.dead000000000000'
+  - sort: 300000
+    name: Diseased
+    type: text
+    category: fO2oboVFGaNDqh8K
+    _id: diseased00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Diseased</strong> cannot recover Health or
+        heal Wounds for the duration of the Diseased effect.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302917151
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.diseased00000000'
+  - sort: 400000
+    name: Invulnerable
+    type: text
+    category: fO2oboVFGaNDqh8K
+    _id: invulnerable0000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Invulnerable</strong> is temporarily
+        immune to Health or Wounds damage.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302934912
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.invulnerable0000'
+  - sort: 600000
+    name: Broken
+    type: text
+    category: 84aHmNQvMBk7qXMZ
+    _id: broken0000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Broken</strong> is vulnerable to
+        psychological trauma. Protagonists become Broken when they reach zero
+        Morale. Any further damage to Morale taken while Broken increases
+        Madness.</p><p>While a creature is Broken it cannot expend
+        <strong>Focus</strong>, actions it takes suffer from <strong>+2
+        Banes</strong>, and it suffers an additional <strong>2
+        Vulnerability</strong> to any <strong>Health</strong> damage
+        sustained.</p><p>Creatures which are Broken cannot contribute towards
+        Flanking. Non-player Adversaries which become Broken will attempt to
+        flee the battle unless they lack instincts of self-preservation or
+        escape seems impossible.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302966644
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.broken0000000000'
+  - sort: 800000
+    name: Insane
+    type: text
+    category: 84aHmNQvMBk7qXMZ
+    _id: insane0000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>When a protagonist's Madness reaches its maximum value, that
+        character is <strong>Insane</strong>. A character which is Insane may no
+        longer be controlled by its player and is controlled by the Gamemaster.
+        This condition cannot be healed or cured except by magical means.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302983321
+      modifiedTime: 1751302984310
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.insane0000000000'
+  - sort: 700000
+    name: Frightened
+    type: text
+    category: 84aHmNQvMBk7qXMZ
+    _id: frightened000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Frightened</strong> cannot recover Morale
+        or heal Madness for the duration of the Frightened effect.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302992459
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.frightened000000'
+  - sort: 900000
+    name: Resolute
+    type: text
+    category: 84aHmNQvMBk7qXMZ
+    _id: resolute00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is <strong>Resolute</strong> is temporarily immune
+        to Morale or Madness damage.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303009031
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.resolute00000000'
+  - sort: 1000000
+    name: Enraged
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: enraged000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>When a creature is <strong>Enraged</strong>, it behaves recklessly
+        and is less able to defend itself. An <strong>Enraged</strong>
+        creature's Block and Parry defenses become zero and that creature cannot
+        expend Focus.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303064320
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.enraged000000000'
+  - sort: 1100000
+    name: Exposed
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: exposed000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Some attacks can leave an enemy temporarily vulnerable. When a
+        creature is <strong>Exposed</strong> attacks against it gain +2
+        <strong>Boons</strong>.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303080477
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.exposed000000000'
+  - sort: 1200000
+    name: Flanked
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: flanked000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>When a creature is <strong>Engaged</strong> by multiple foes which
+        are its own size or larger and those foes are located on opposite sides
+        of its square, the creature is considered to be
+        <strong>Flanked</strong>.</p><p>When attacking a creature that is your
+        size or smaller that is currently <strong>Flanked</strong>, you gain a
+        number of <strong>Boons</strong> to Attack abilities equal to the number
+        of flanking allies (excluding yourself).</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303094730
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.flanked000000000'
+  - sort: 1300000
+    name: Incapacitated
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: incapacitated000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>When a creature is entirely unable to act, it is
+        <strong>Inacapacitated</strong>. When a target is Incapacitated, its
+        <strong>Dodge, Block, </strong>and<strong> Parry</strong> defenses
+        become zero and it no longer benefits from <strong>Ability
+        Score</strong> bonuses to <strong>Fortitude, Willpower, </strong>or
+        Reflex defense. It cannot contribute to Flanking or otherwise aid
+        allies.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303109061
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.incapacitated000'
+  - sort: 1400000
+    name: Prone
+    type: text
+    category: BuMJalJaEUNCX29d
+    _id: prone00000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that has been knocked to the ground, or has voluntarily
+        thrown itself to the ground is considered <strong>Prone</strong>. While
+        Prone, melee attacks against the target benefit from +1 Boon while
+        ranged attacks against the target suffer from +1 Bane. Returning to your
+        feet from a Prone position requires the use of a Movement action.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303121316
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.prone00000000000'
+  - sort: 1500000
+    name: Staggered
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: staggered0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Staggered</strong> has their maximum
+        <strong>Action</strong> reduced by 1.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303132599
+      modifiedTime: 1751311604822
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.staggered0000000'
+  - sort: 1700000
+    name: Stunned
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: stunned000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Staggered</strong> has their maximum
+        <strong>Action</strong> reduced by 2.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303144422
+      modifiedTime: 1751311611638
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.stunned000000000'
+  - sort: 1462500
+    name: Paralyzed
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: paralyzed0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Paralyzed</strong> is unable to perform
+        Actions until the paralysis is ended. During this time the target is
+        <strong>Incapacitated</strong>.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303164623
+      modifiedTime: 1751303584292
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.paralyzed0000000'
+  - sort: 1475000
+    name: Slowed
+    type: text
+    category: BuMJalJaEUNCX29d
+    _id: slowed0000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Slowed</strong> treats distance as doubled
+        for the purposes of determining the cost of the <strong>Move</strong>
+        action. Additionally, a Slowed creature cannot benefit from a free
+        Move.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303181775
+      modifiedTime: 1751304899440
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.slowed0000000000'
+  - sort: 2000000
+    name: Restrained
+    type: text
+    category: BuMJalJaEUNCX29d
+    _id: restrained000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Restrained</strong> is unable to perform
+        any Action which involves Movement.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303541755
+      modifiedTime: 1751303576609
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.restrained000000'
+  - sort: 1450000
+    name: Disoriented
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: disoriented00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Disoriented </strong>incurs a +1 Focus
+        cost to all Actions which require Focus.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303555754
+      modifiedTime: 1751303578000
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.disoriented00000'
+  - sort: 1400000
+    name: Guarded
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: guarded000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>Some terrain or abilities may temporarily harden a creature's
+        defenses. When a creature is <strong>Guarded </strong>attacks against it
+        suffer +1 Banes.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303594649
+      modifiedTime: 1751303595801
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.guarded000000000'
+  - sort: 1850000
+    name: Unaware
+    type: text
+    category: NJl3nJduFtxh3ijV
+    _id: unaware000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Unaware</strong> acts in combat at
+        Initiative 1 and cannot perform Reactions.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303608036
+      modifiedTime: 1751305828438
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.unaware000000000'
+  - sort: 1500000
+    name: Bleeding
+    type: text
+    category: rpL70eBEekWih461
+    _id: bleeding00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Bleeding </strong>creature suffers additional Piercing or
+        Slashing damage, depending on the triggering damage type, at the start
+        of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303698656
+      modifiedTime: 1751303702587
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.bleeding00000000'
+  - sort: 1600000
+    name: Poisoned
+    type: text
+    category: rpL70eBEekWih461
+    _id: poisoned00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Poisoned</strong> creature suffers additional Poison damage
+        at the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303714296
+      modifiedTime: 1751303715447
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.poisoned00000000'
+  - sort: 1700000
+    name: Corroding
+    type: text
+    category: rpL70eBEekWih461
+    _id: corroding0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Corroding</strong> creature suffers additional Acid damage
+        at the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303721856
+      modifiedTime: 1751303722991
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.corroding0000000'
+  - sort: 1800000
+    name: Burning
+    type: text
+    category: rpL70eBEekWih461
+    _id: burning000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Burning</strong> creature suffers additional Fire damage at
+        the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303729701
+      modifiedTime: 1751303730870
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.burning000000000'
+  - sort: 1900000
+    name: Freezing
+    type: text
+    category: rpL70eBEekWih461
+    _id: freezing00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Freezing</strong> creature suffers additional Cold damage
+        at the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303737573
+      modifiedTime: 1751303738804
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.freezing00000000'
+  - sort: 2000000
+    name: Irradiated
+    type: text
+    category: rpL70eBEekWih461
+    _id: irradiated000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>An <strong>Irradiated</strong> creature suffers additional Radiant
+        damage at the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303746850
+      modifiedTime: 1751303748125
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.irradiated000000'
+  - sort: 2100000
+    name: Decaying
+    type: text
+    category: rpL70eBEekWih461
+    _id: decaying00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Decaying </strong>creature suffers additional Corruption
+        damage at the start of its subsequent turns.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303754005
+      modifiedTime: 1751303755094
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.decaying00000000'
+  - sort: 1350000
+    name: Hastened
+    type: text
+    category: BuMJalJaEUNCX29d
+    _id: hastened00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Hastened </strong>treats distance as
+        halved for the purposes of determining the cost of the
+        <strong>Move</strong> action. Additionally, a creature that is Hastened
+        has +1 maximum <strong>Action</strong> available each turn.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751304864883
+      modifiedTime: 1751304995314
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.hastened00000000'
+  - sort: 2200000
+    name: Blinded
+    type: text
+    category: NJl3nJduFtxh3ijV
+    _id: blinded000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Blinded</strong> may not see using
+        light-based perception and cannot use any Action which requires the
+        target to be seen.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305034705
+      modifiedTime: 1751305062630
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.blinded000000000'
+  - sort: 2200000
+    name: Deafened
+    type: text
+    category: NJl3nJduFtxh3ijV
+    _id: deafened00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is <strong>Deafened</strong> is unable to utilize
+        any sound-based perception and cannot be affected by any action with the
+        <strong>Vocal</strong> trait.</p><p>TODO: Implementation of the Vocal
+        trait still to come.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305076560
+      modifiedTime: 1751305454132
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.deafened00000000'
+  - sort: 2200000
+    name: Silenced
+    type: text
+    category: NJl3nJduFtxh3ijV
+    _id: silenced00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is <strong>Silenced </strong>is unable to perform
+        any action with the <strong>Vocal</strong> trait or to cast a Spell
+        which includes a metamagic <strong>Inflection</strong>.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305324362
+      modifiedTime: 1751305363859
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.silenced00000000'
+  - sort: 2200000
+    name: Invisible
+    type: text
+    category: NJl3nJduFtxh3ijV
+    _id: invisible0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature which is <strong>Inivisible</strong> cannot be detected
+        using sight-based perception.</p><p>TODO: More advanced rules for
+        invisibility still to come.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305405054
+      modifiedTime: 1751305442595
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.invisible0000000'
+  - sort: 2200000
+    name: Asleep
+    type: text
+    category: J59YYFEcyNdGNrGQ
+    _id: asleep0000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Asleep</strong> is treated as
+        incapacitated, it cannot sustain <strong>Morale</strong> damage, and any
+        damage to <strong>Health</strong> causes it to immediately
+        awaken.</p><p>TODO: damage needs to automatically remove asleep.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305675265
+      modifiedTime: 1751305757390
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.asleep0000000000'
+  - sort: 2200000
+    name: Shocked
+    type: text
+    category: rpL70eBEekWih461
+    _id: shocked000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A <strong>Shocked</strong> creature suffers
+        <strong>Electricity</strong> damage to <strong>Morale</strong> at the
+        start of each turn.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751311370990
+      modifiedTime: 1751311425848
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.shocked000000000'
+  - sort: 2300000
+    name: Exhausted
+    type: text
+    category: SIxXwOOANW4yoN1D
+    _id: exhausted0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>A creature that is <strong>Exhausted</strong> can no longer actively
+        defend itself. It's <strong>Dodge</strong> and <strong>Reflex
+        </strong>defenses are reduced by half.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751311776222
+      modifiedTime: 1751311943055
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!crucibleConditio.exhausted0000000'
+folder: MMeWpMmsLOblp07U
+categories:
+  - name: Health
+    sort: 200000
+    _id: fO2oboVFGaNDqh8K
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302633786
+      modifiedTime: 1751302633786
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.fO2oboVFGaNDqh8K'
+  - name: Morale
+    sort: 300000
+    _id: 84aHmNQvMBk7qXMZ
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302649244
+      modifiedTime: 1751302649244
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.84aHmNQvMBk7qXMZ'
+  - name: Movement
+    sort: 400000
+    _id: BuMJalJaEUNCX29d
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302652292
+      modifiedTime: 1751302652292
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.BuMJalJaEUNCX29d'
+  - name: Actions
+    sort: 500000
+    _id: J59YYFEcyNdGNrGQ
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302667312
+      modifiedTime: 1751302667312
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.J59YYFEcyNdGNrGQ'
+  - name: Damage Over Time
+    sort: 800000
+    _id: rpL70eBEekWih461
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302670470
+      modifiedTime: 1751302670470
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.rpL70eBEekWih461'
+  - name: Overview
+    sort: 100000
+    _id: 5rP6WfVYTY7yZlqe
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751302683970
+      modifiedTime: 1751302683970
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.5rP6WfVYTY7yZlqe'
+  - name: Defenses
+    sort: 600000
+    _id: SIxXwOOANW4yoN1D
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751303035041
+      modifiedTime: 1751303035041
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.SIxXwOOANW4yoN1D'
+  - name: Perception
+    sort: 700000
+    _id: NJl3nJduFtxh3ijV
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.4
+      createdTime: 1751305021813
+      modifiedTime: 1751305021813
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!crucibleConditio.NJl3nJduFtxh3ijV'
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalEntrySheet
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751302467753
+  modifiedTime: 1751305027655
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!journal!crucibleConditio'

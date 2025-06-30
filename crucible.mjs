@@ -558,6 +558,14 @@ function registerDevelopmentHooks() {
       crucible.tree.refresh();
     }
   });
+
+  // Standardized IDs for Rules journal entry pages
+  Hooks.on("preCreateJournalEntryPage", (page, data, options, _user) => {
+    if ( (page.parent?.pack === "crucible.rules") && (options.keepId !== false) ) {
+      page.updateSource({_id: generateId(page.name, 16)});
+      options.keepId = true;
+    }
+  });
 }
 
 /* -------------------------------------------- */

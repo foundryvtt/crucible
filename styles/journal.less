@@ -45,6 +45,15 @@
 
   /** Journal Sidebar TOC */
   .journal-sidebar {
+
+    // Category Labels
+    .toc li.category strong {
+      font-weight: normal;
+      font-size: var(--font-size-14);
+      line-height: 2rem;
+    }
+
+    // Action Buttons
     .action-buttons {
       margin: 1rem 0;
       button.next, button.previous {
@@ -217,3 +226,22 @@ enriched-content.hazard-check {
   }
 }
 
+/* ----------------------------------------- */
+
+enriched-content.condition {
+  font-size: 90%;
+  color: var(--color-text-emphatic);
+  font-weight: bold;
+  border: 1px dashed var(--color-border);
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin: -1px 0;
+  cursor: var(--cursor-help);
+  &:before {
+    content: "\f02e";
+    font-family: var(--font-awesome);
+    opacity: 0.5;
+    margin-right: 4px;
+    font-size: 80%;
+  }
+}
