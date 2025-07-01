@@ -330,8 +330,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     }
 
     // Equipped Armor
-    const armorTags = armor.getTags();
-    featuredEquipment.push({name: armor.name, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
+    if ( armor.id || (this.actor.system.usesEquipment !== false) ) {
+      const armorTags = armor.getTags();
+      featuredEquipment.push({name: armor.name, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
+    }
     return featuredEquipment;
   }
 
@@ -402,6 +404,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
           break;
       }
       if ( section ) section.items.push(d);
+    }
+
+    // Remove unused sections
+    if ( this.actor.system.usesEquipment === false ) {
+      if ( !sections.inventory.accessory.items.length ) delete sections.inventory.accessory;
+      if ( !sections.inventory.consumable.items.length ) delete sections.inventory.consumable;
     }
 
     // Sort inventory

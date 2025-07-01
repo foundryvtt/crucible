@@ -30,6 +30,11 @@ export function registerEnrichers() {
       id: "crucibleCondition",
       pattern: /@Condition\[(\w+)]/g,
       enricher: enrichCondition
+    },
+    {
+      id: "reference",
+      pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
+      enricher: enrichRef
     }
   )
 }
@@ -134,11 +139,12 @@ async function onClickHazard(event) {
 
   // Select a target
   let actor = inferEnricherActor();
+  const partyMembers = crucible.party?.system.members || [];
   if ( !actor ) {
     const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
       name: "partyMember",
       type: "checkboxes",
-      options: crucible.party.system.members.reduce((arr, m) => {
+      options: partyMembers.reduce((arr, m) => {
         if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name});
         return arr;
       }, [])
@@ -285,4 +291,15 @@ function inferEnricherActor() {
     if ( game.user.character?.isOwner ) return game.user.character;
   }
   return null;
+}
+
+/* -------------------------------------------- */
+/*  Journal Helpers                             */
+/* -------------------------------------------- */
+
+function enrichRef([match, path, fallback], options) {
+  const doc = options.relativeTo;
+  if ( !doc ) return new Text(fallback || match);
+  const attr = foundry.utils.getProperty(doc, path);
+  return new Text(attr || fallback || match);
 }

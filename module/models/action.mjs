@@ -686,20 +686,30 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   acquireTargets({strict=true}={}) {
     let targets;
+    let targetType = this.target.type;
+    const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
 
     // Acquire Template Targets
-    if ( this.requiresTemplate ) {
+    if ( !!targetCfg.template ) {
       targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
+
+      // Summon position
+      if ( (targetType === "summon") && this.usage.summons.length ) {
+        let position;
+        if ( this.template ) position = {x: this.template.x, y: this.template.y};
+        else if ( this.token ) position = {x: this.token.x, y: this.token.y};
+        this.usage.summonPosition = position; // TODO better generalize this with other template data
+      }
     }
 
     // Other Target Types
     else {
-      let targetType = this.target.type;
       if ( (targetType === "single") && this.target.self && !game.user.targets.some(t => t !== this.token) ) {
         targetType = "self";
       }
       switch ( targetType ) {
-        case "none": case "summon":
+        case "none":
+        case "summon":
           return []
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
@@ -814,7 +824,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         t.error = game.i18n.localize("ACTION.WarningCannotTargetSelf");
         continue;
       }
-      const range = crucible.api.canvas.grid.getLinearRangeCost(this.token, token);
+      const range = crucible.api.canvas.grid.getLinearRangeCost(this.token.object, token);
       if ( this.range.minimum && (range < this.range.minimum) ) {
         t.error ||= game.i18n.format("ACTION.WarningMinimumRange", {min: this.range.minimum});
       }
@@ -1516,7 +1526,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( actionId.startsWith("spell.") ) {
       action = game.system.api.models.CrucibleSpellAction.fromId(actionId, actionContext);
     }
-    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone(actionContext);
+    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else action = new this(actionData, actionContext);
 
     // Re-prepare Action outcomes

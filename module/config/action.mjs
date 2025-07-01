@@ -476,21 +476,20 @@ export const TAGS = {
         else await worldActor.update({ownership});
 
         // Create Token
-        const position = this.tempalte ?? this.token;
-        const tokenName = `${this.actor.name} ${worldActor.name}`;
+        const tokenName = worldActor.name;
         const tokenData = foundry.utils.mergeObject({
-          x: position.x,
-          y: position.y,
+          x: this.usage.summonPosition?.x,
+          y: this.usage.summonPosition?.y,
           name: tokenName,
           disposition: this.actor.prototypeToken.disposition,
           delta: {
             name: tokenName,
             system: {
               resources: {
-                "health.value": 9e99,
-                "morale.value": 9e99,
-                "action.value": 9e99,
-                "focus.value": 9e99
+                "health.value": worldActor.resources.health.max,
+                "morale.value": worldActor.resources.morale.max,
+                "action.value": worldActor.resources.action.max,
+                "focus.value": worldActor.resources.focus.max
               },
             }
           }

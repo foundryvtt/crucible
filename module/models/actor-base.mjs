@@ -6,6 +6,10 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @property {CrucibleItem} armor
  * @property {CrucibleActorEquippedWeapons} weapons
  * @property {CrucibleItem[]} accessories
+ * @property {number} accessorySlots
+ * @property {number} consumableSlots
+ * @property {boolean} canFreeMove
+ * @property {boolean} unarmored
  */
 
 /**
@@ -308,7 +312,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this._prepareTraining();
     this.#prepareSkills();
     this.#prepareSpells(items.spell);
-    this.#prepareEquipment(items);
+    this._prepareEquipment(items);
   }
 
   /* -------------------------------------------- */
@@ -413,21 +417,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /**
    * Classify the Items in the Actor's inventory to identify current equipment.
    * @param {Record<string, CrucibleItem[]>} items
-   * @returns {CrucibleActorEquipment}
+   * @protected
    */
-  #prepareEquipment(items) {
-    const accessorySlots = 3;  // TODO allow this to be modified by talents
-    const consumableSlots = 3; // TODO allow this to be modified by talents
+  _prepareEquipment(items) {
+    this.equipment.accessorySlots ??= 3;
+    this.equipment.consumableSlots ??= 3;
 
     // Prepare and configure equipment
     const armor = this._prepareArmor(items.armor);
     const weapons = this._prepareWeapons(items.weapon);
-    const accessories = this._prepareAccessories(items.accessory, accessorySlots);
-    const consumables = this._prepareConsumables(items.consumable, consumableSlots);
+    const accessories = this._prepareAccessories(items.accessory, this.equipment.accessorySlots);
+    const consumables = this._prepareConsumables(items.consumable, this.equipment.consumableSlots);
     const canFreeMove = this.#canFreeMove(armor);
     const unarmored = armor.system.category === "unarmored";
-    Object.assign(this.equipment, {armor, weapons, accessories, consumables, canFreeMove, unarmored,
-      accessorySlots, consumableSlots});
+    Object.assign(this.equipment, {armor, weapons, accessories, consumables, canFreeMove, unarmored});
 
     // Register actor hooks for equipped items
     this.#registerActorHooks(armor);
@@ -701,17 +704,16 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   _prepareResources() {
     const {isIncapacitated, isWeakened} = this;
     const statuses = this.parent.statuses;
-    const {threatLevel, threatFactor, maxAction=6} = this.advancement;
+    const {level, threat, threatFactor, maxAction=6} = this.advancement;
     const r = this.resources;
     const a = this.abilities;
 
-    // Health
-    let levelBase = Math.ceil(threatLevel * 6);
-    r.health.max = Math.ceil((levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * threatFactor);
+    // Health and Morale
+    const levelBase = Math.max(level, 1) * 6;
+    const levelMultiplier = level < 1 ? threat : threatFactor;
+    r.health.max = Math.ceil((levelBase + (4 * a.toughness.value) + (2 * a.strength.value)) * levelMultiplier);
     r.health.value = Math.clamp(r.health.value, 0, r.health.max);
-
-    // Morale
-    r.morale.max = Math.ceil((levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * threatFactor);
+    r.morale.max = Math.ceil((levelBase + (4 * a.presence.value) + (2 * a.wisdom.value)) * levelMultiplier);
     r.morale.value = Math.clamp(r.morale.value, 0, r.morale.max);
 
     // Action

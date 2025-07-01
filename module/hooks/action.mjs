@@ -136,6 +136,55 @@ HOOKS.laughingMatter = {
 
 /* -------------------------------------------- */
 
+HOOKS.oozeMultiply = {
+  postActivate(outcome) {
+    outcome.actorUpdates ||= {};
+    const newSizeBonus = this.actor.system.movement.sizeBonus + 1;
+    const healthAmount = this.actor.abilities.toughness.value;
+    foundry.utils.setProperty(outcome.actorUpdates, "system.movement.sizeBonus", newSizeBonus);
+    outcome.resources.health = (outcome.resources.health || 0) + healthAmount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.oozeSubdivide = {
+  prepare() {
+    const newHealth = Math.ceil(this.actor.system.resources.health.value / 2);
+    const newSize = this.actor.system.movement.sizeBonus - 1;
+    const systemData = {
+      movement: {
+        sizeBonus: newSize
+      },
+      resources: {
+        health: {
+          value: newHealth
+        }
+      }
+    };
+
+    // Configure summon
+    this.usage.summons = [{
+      actorUuid: this.actor.uuid,
+      tokenData: {
+        width: this.actor.size - 1,
+        height: this.actor.size - 1,
+        delta: {
+          system: systemData
+        }
+      }
+    }];
+
+    // Actor change
+    foundry.utils.mergeObject(this.usage.actorUpdates, {system: systemData});
+  },
+  canUse() {
+    if ( this.actor.size < 3 ) throw new Error(`You must be at least size 3 to use ${this.name}`);
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.pouncingStrike = {
   postActivate(outcome) {
     if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;

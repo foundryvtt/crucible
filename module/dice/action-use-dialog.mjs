@@ -401,7 +401,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     // Update the pending template and re-render
     if ( config.directionDelta ) update.direction = Math.toDegrees(ray.angle).toNearest(config.directionDelta);
     object.document.updateSource(update);
-    object.renderFlags.set({refreshShape: true});
+    object.renderFlags.set({refresh: true});
   }
 
   /* -------------------------------------------- */

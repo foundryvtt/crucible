@@ -74,6 +74,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     return false;
   }
 
+  /**
+   * Does this Adversary use physical equipment?
+   * @type {boolean}
+   */
+  get usesEquipment() {
+    return !!this.details.taxonomy?.characteristics.equipment;
+  }
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -121,8 +129,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
   _prepareTraining() {
 
     // Automatic natural weapon training if the taxonomy does not use equipment
-    const usesEquipment = this.details.taxonomy?.characteristics.equipment;
-    if ( usesEquipment === false ) {
+    if ( !this.usesEquipment ) {
       this.training.natural = Math.max(this.training.natural || 0, this.advancement.autoTrainingRank);
     }
 
@@ -131,6 +138,17 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     for ( const skillId of skills ) {
       this.training[skillId] = Math.max(this.training[skillId] || 0, this.advancement.autoTrainingRank);
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareEquipment(items) {
+    if ( !this.usesEquipment ) {
+      this.equipment.accessorySlots = 0;
+      this.equipment.consumableSlots = 0;
+    }
+    return super._prepareEquipment(items);
   }
 
   /* -------------------------------------------- */

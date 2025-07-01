@@ -286,6 +286,10 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     // Render the card
     return foundry.applications.handlebars.renderTemplate(this.constructor.CARD_TEMPLATE_PATH, {
       talent,
+      descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {
+        relativeTo: talent,
+        secrets: talent.isOwner
+      }),
       source: talent,
       uuid: talent.uuid,
       name: talent.name,

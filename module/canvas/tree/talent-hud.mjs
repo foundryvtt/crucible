@@ -59,9 +59,9 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /**
    * Prepare rendering context data for a Node.
-   * @returns {object}
+   * @returns {Promise<object>}
    */
-  #getNodeContext() {
+  async #getNodeContext() {
     const actor = game.system.tree.actor;
     const node = this.target.node;
     const state = game.system.tree.state.get(node);
@@ -84,9 +84,9 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /**
    * Prepare rendering context data for a Talent.
-   * @returns {object}
+   * @returns {Promise<object>}
    */
-  #getTalentContext() {
+  async #getTalentContext() {
     const actor = game.system.tree.actor;
     const talent = this.target.talent;
 
@@ -104,6 +104,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     // Return context
     return {
       source: talent.toObject(),
+      descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
       actions: CrucibleTalentItemSheet.prepareActions(talent.system.actions),
       prerequisites: reqs
     }

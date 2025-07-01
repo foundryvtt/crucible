@@ -531,7 +531,7 @@ export default class CrucibleActor extends Actor {
   async useAction(actionId, options={}) {
     const action = this.actions[actionId];
     if ( !action ) throw new Error(`Action ${actionId} does not exist in Actor ${this.id}`);
-    return action.use({dialog: true, ...options});
+    return action.use({dialog: true, ...options, token: this.token});
   }
 
   /* -------------------------------------------- */
