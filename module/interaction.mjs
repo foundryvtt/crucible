@@ -3,17 +3,19 @@
  * @param {PointerEvent} event
  */
 export function onPointerEnter(event) {
-  if ( "crucibleTalentTooltip" in event.target.dataset ) return displayTalentTooltip(event);
-  else if ( "crucibleActionTooltip" in event.target.dataset ) return displayActionTooltip(event);
-  else if ( "cruciblePassiveCheck" in event.target.dataset ) return displayPassiveCheck(event);
-  else if ( "crucibleKnowledgeCheck" in event.target.dataset ) return displayKnowledgeCheck(event);
-
-  // TODO new way
-  if ( !("crucibleTooltip2" in event.target.dataset) ) return;
+  if ( !("crucibleTooltip" in event.target.dataset) ) return;
   if ( "tooltipHtml" in event.target.dataset ) return; // Don't double-render
-  switch ( event.target.dataset.crucibleTooltip2 ) {
+  switch ( event.target.dataset.crucibleTooltip ) {
+    case "action":
+      return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "knowledgeCheck":
+      return displayKnowledgeCheck(event);
+    case "passiveCheck":
+      return displayPassiveCheck(event);
+    case "talent":
+      return displayTalentTooltip(event);
   }
 }
 
@@ -25,17 +27,16 @@ export function onPointerEnter(event) {
  */
 export function onPointerLeave(event) {
   const element = event.target;
+  // TODO delete
+  // if ( "crucibleTooltip" in element.dataset ) {
+  //   window.setTimeout(() => {
+  //     if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
+  //     element.dataset[element.dataset.crucibleTooltip] = true;
+  //     delete element.dataset.crucibleTooltip;
+  //     delete element.dataset.tooltipHtml;
+  //   }, 2000);
+  // }
   if ( "crucibleTooltip" in element.dataset ) {
-    window.setTimeout(() => {
-      if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
-      element.dataset[element.dataset.crucibleTooltip] = true;
-      delete element.dataset.crucibleTooltip;
-      delete element.dataset.tooltipHtml;
-    }, 2000);
-  }
-
-  // TODO new way
-  if ( "crucibleTooltip2" in element.dataset ) {
     window.setTimeout(() => {
       if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
       delete element.dataset.tooltipHtml;
@@ -52,13 +53,13 @@ export function onPointerLeave(event) {
  */
 async function displayTalentTooltip(event) {
   const element = event.target;
-  delete element.dataset.crucibleTalentTooltip;
   const talent = await fromUuid(element.dataset.uuid);
   if ( !talent ) return;
   event.stopImmediatePropagation();
+
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
   element.dataset.tooltipHtml = await talent.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
-  element.dataset.crucibleTooltip = "crucibleTalentTooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }
@@ -72,16 +73,16 @@ async function displayTalentTooltip(event) {
  */
 async function displayActionTooltip(event) {
   const element = event.target;
-  delete element.dataset.crucibleActionTooltip;
   const owner = await fromUuid(element.dataset.uuid);
   let action;
   if ( owner instanceof Actor ) action = owner.actions[element.dataset.actionId];
   else if ( owner instanceof Item ) action = owner.actions.find(a => a.id === element.dataset.actionId);
   if ( !action ) return;
   event.stopImmediatePropagation();
+
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
   element.dataset.tooltipHtml = await action.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
-  element.dataset.crucibleTooltip = "crucibleActionTooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }
@@ -96,8 +97,8 @@ async function displayActionTooltip(event) {
 async function displayPassiveCheck(event) {
   if ( !crucible.party ) return;
   const element = event.target;
-  delete element.dataset.cruciblePassiveCheck;
   event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
   // Define the passive check
   const skillId = element.dataset.skillId;
@@ -111,7 +112,6 @@ async function displayPassiveCheck(event) {
   // Construct the tooltip
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
   element.dataset.tooltipClass = "crucible crucible-tooltip wide";
-  element.dataset.crucibleTooltip = "cruciblePassiveCheck";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }
@@ -125,18 +125,15 @@ async function displayPassiveCheck(event) {
  */
 async function displayKnowledgeCheck(event) {
   const element = event.target;
-  delete element.dataset.crucibleKnowledgeCheck;
   const knowledgeId = element.dataset.knowledgeId;
   const knowledge = crucible.CONFIG.knowledge[knowledgeId];
   if ( !knowledge || !crucible.party ) return;
   event.stopImmediatePropagation();
-  if ( element.dataset.tooltipHtml ) return;
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
-
-  const check = (group, actor) => ({success: actor.hasKnowledge(knowledgeId)});
+  const check = async (group, actor) => ({success: actor.hasKnowledge(knowledgeId)});
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
   element.dataset.tooltipClass = "crucible crucible-tooltip wide";
-  element.dataset.crucibleTooltip = "crucibleKnowledgeCheck";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
 }
@@ -153,7 +150,7 @@ async function displayCondition(event) {
   const cfg = CONFIG.statusEffects.find(c => c.id === element.dataset.condition);
   if ( !cfg ) return;
   event.stopImmediatePropagation();
-  element.dataset.tooltipHtml = "";
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
   const page = await fromUuid(cfg.page);
   if ( !page ) return;

@@ -5,8 +5,8 @@ const HOOKS = {};
 HOOKS.acidSpit = {
   postActivate(outcome) {
     if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
-      const dot = this.actor.abilities.toughness.value;
-      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, outcome.target, {health: dot}));
+      const amount = this.actor.abilities.toughness.value;
+      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, {amount}));
     }
   }
 }
@@ -16,8 +16,8 @@ HOOKS.acidSpit = {
 HOOKS.acidSpray = {
   postActivate(outcome) {
     if ( outcome.rolls.some(r => r.isCriticalSuccess) ) {
-      const dot = this.actor.abilities.toughness.value;
-      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, outcome.target, {health: dot}));
+      const amount = this.actor.abilities.toughness.value;
+      outcome.effects.push(SYSTEM.EFFECTS.corroding(this.actor, {amount}));
     }
   }
 }
@@ -82,21 +82,6 @@ HOOKS.delay = {
 
 /* -------------------------------------------- */
 
-HOOKS.disarmingStrike = {
-  postActivate(outcome) {
-    if ( outcome.target === this.actor ) return;
-    if ( outcome.rolls.every(r => r.isSuccess) ) {
-      const {mainhand} = outcome.target.equipment.weapons;
-      if ( !mainhand?.id || mainhand.properties.has("natural") ) return;
-      outcome.actorUpdates.items ||= [];
-      outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
-      outcome.statusText.push({text: "Disarmed!", fontSize: 64});
-    }
-  }
-};
-
-/* -------------------------------------------- */
-
 HOOKS.healingElixir = {
   postActivate(outcome) {
     const quality = this.usage.consumable.config.quality;
@@ -153,6 +138,9 @@ HOOKS.oozeSubdivide = {
     const newHealth = Math.ceil(this.actor.system.resources.health.value / 2);
     const newSize = this.actor.system.movement.sizeBonus - 1;
     const systemData = {
+      advancement: {
+        rank: this.actor.system.advancement.rank === "minion" ? "minion" : "normal",
+      },
       movement: {
         sizeBonus: newSize
       },

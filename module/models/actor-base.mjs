@@ -728,7 +728,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     r.action.value = Math.clamp(r.action.value, 0, r.action.max);
 
     // Focus
-    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2);
+    const threatFocus = {1.5: 1, 2: 2}[threatFactor] || 0;
+    r.focus.max = Math.ceil((a.wisdom.value + a.presence.value + a.intellect.value) / 2) + threatFocus;
     r.focus.value = Math.clamp(r.focus.value, 0, r.focus.max);
 
     // Heroism

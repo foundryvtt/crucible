@@ -1381,22 +1381,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( Number.isFinite(cost.health) && (cost.health !== 0) ) tags.activation.health = `${cost.health}HP`; // e.g. Blood Magic
     if ( !(tags.activation.ap || tags.activation.fp || tags.activation.hp || tags.activation.health) ) tags.activation.ap = "Free";
     if ( cost.hands ) tags.activation.hands = cost.hands > 1 ? `${cost.hands} Hands` : `1 Hand`;
-
-    // Duration
-    let duration = 0;
-    let durationTag = "";
-    for ( const effect of this.effects ) {
-      const {rounds=0, turns=0} = effect.duration || {};
-      if ( rounds > duration ) {
-        duration = rounds;
-        durationTag = `${duration}R`;
-      }
-      else if ( turns > duration ) {
-        duration = turns;
-        durationTag = `${duration}T`;
-      }
-    }
-    if ( durationTag ) tags.action.duration = durationTag;
     return tags;
   }
 

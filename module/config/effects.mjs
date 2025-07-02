@@ -89,7 +89,8 @@ export function confusion(actor, target) {
   }
 }
 
-export function corroding(actor, target, {health=1, turns=3}={}) {
+export function corroding(actor, {target, amount, turns=3}={}) {
+  amount ??= actor.abilities.wisdom.value;
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
@@ -213,18 +214,19 @@ export function poisoned(actor, target) {
   }
 }
 
-export function shocked(actor, target) {
+export function shocked(actor, {target, amount, turns=2}={}) {
+  amount ??= actor.abilities.intellect.value;
   return {
     _id: getEffectId("Shocked"),
     name: "Shocked",
     icon: "icons/magic/lightning/bolt-strike-forked-blue.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
-    statuses: ["staggered"],
+    statuses: ["shocked"],
     flags: {
       crucible: {
         dot: {
-          morale: Math.floor(actor.system.abilities.intellect.value / 2),
+          morale: amount,
           damageType: "electricity"
         }
       }

@@ -263,14 +263,15 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * @typedef CrucibleGroupTooltipResult
-   * @property {StandardCheck} [roll]
-   * @property {boolean} [success]
+   * @callback CrucibleGroupCheckCriteria
+   * @param {CrucibleActor} group
+   * @param {CrucibleActor} member
+   * @returns {Promise<{[roll]: StandardCheck, [success]: boolean}|null>}
    */
 
   /**
    * Create a group check tooltip.
-   * @param {function(group: CrucibleActor, member: CrucibleActor): CrucibleGroupTooltipResult|null} check
+   * @param {CrucibleGroupCheckCriteria} check
    * @param {object} options
    * @param {string} [options.title]
    * @returns {Promise<string>}
@@ -305,7 +306,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
         icon: success ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
         hasValue: false
       });
-      else throw new Error("A CrucibleGroupTooltipResult must either provide a roll or a binary success");
+      else throw new Error("A group check result must either provide a roll or a binary success");
 
       // Common rules
       result.cssClass = [

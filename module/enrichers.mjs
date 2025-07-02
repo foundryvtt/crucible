@@ -197,7 +197,7 @@ function enrichCondition([match, conditionId]) {
   if ( !cfg ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.innerHTML = game.i18n.localize(cfg.name);
-  tag.dataset.crucibleTooltip2 = "condition";
+  tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
   tag.classList.add("condition");
   return tag;
@@ -231,7 +231,7 @@ function createSkillCheckElement(skill, dc, {passive=false, group=false}={}) {
   if ( passive ) {
     dcLabel += `, Passive`;
     tag.classList.add("passive-check");
-    tag.toggleAttribute("data-crucible-passive-check", true);
+    tag.dataset.crucibleTooltip = "passiveCheck";
   }
 
   // Group checks only
@@ -255,7 +255,7 @@ function enrichKnowledge([match, knowledgeId]) {
   if ( !knowledge ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("knowledge-check", "passive-check", "group-check");
-  tag.toggleAttribute("data-crucible-knowledge-check", true);
+  tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
   tag.innerHTML = `Knowledge: ${knowledge.label}`;
   return tag;

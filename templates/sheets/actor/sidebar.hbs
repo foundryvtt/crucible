@@ -22,7 +22,7 @@
     <h2 class="section-header divider">{{localize "ACTOR.LABELS.FAVORITE_ACTIONS"}}</h2>
     <div class="item-list actions" data-tooltip-direction="RIGHT">
         {{#each favoriteActions as |action|}}
-        <div class="action line-item" data-action-id="{{action.id}}" data-crucible-action-tooltip data-uuid="{{@root.actor.uuid}}">
+        <div class="action line-item" data-action-id="{{action.id}}" data-crucible-tooltip="action" data-uuid="{{@root.actor.uuid}}">
             <img class="icon draggable action-drag" src="{{action.img}}" alt="{{action.name}}" draggable="true">
             <div class="title">
                 <h4 data-action="actionUse"><a>{{action.name}}</a></h4>

@@ -1,6 +1,8 @@
 import {SKILLS} from "./skills.mjs";
 import {ABILITIES, DAMAGE_TYPES, RESOURCES} from "./attributes.mjs";
 import Enum from "./enum.mjs";
+import AttackRoll from "../dice/attack-roll.mjs";
+import CrucibleAction from "../models/action.mjs";
 
 /**
  * The scope of creatures affected by an action.
@@ -656,7 +658,7 @@ export const TAGS = {
     tooltip: "ACTION.TagMainHandTooltip",
     category: "attack",
     propagate: ["strike"],
-    priority: 2,
+    priority: 9,
     prepare() {
       this.usage.strikes ||= [];
       const mh = this.actor.equipment.weapons.mainhand;
@@ -670,7 +672,7 @@ export const TAGS = {
     tooltip: "ACTION.TagTwoHandedTooltip",
     category: "attack",
     propagate: ["strike"],
-    priority: 2,
+    priority: 9,
     prepare() {
       this.usage.strikes ||= [];
       const mh = this.actor.equipment.weapons.mainhand;
@@ -689,7 +691,7 @@ export const TAGS = {
     tooltip: "ACTION.TagOffHandTooltip",
     category: "attack",
     propagate: ["strike"],
-    priority: 2,
+    priority: 9,
     prepare() {
       this.usage.strikes ||= [];
       const oh = this.actor.equipment.weapons.offhand;
@@ -729,7 +731,7 @@ export const TAGS = {
     label: "ACTION.TagNatural",
     tooltip: "ACTION.TagNaturalTooltip",
     propagate: ["melee"],
-    priority: 2,
+    priority: 9,
     canUse() {
       if ( !this.usage.strikes.every(w => w.system.properties.has("natural")) ) {
         throw new Error("This action requires use of a natural weapon.");
@@ -761,7 +763,54 @@ export const TAGS = {
   },
 
   /* -------------------------------------------- */
-  /*  Ranged Attacks                              */
+  /*  Special Actions                             */
+  /* -------------------------------------------- */
+
+  generic: {
+    tag: "Generic",
+    label: "ACTION.TagGeneric",
+    tooltip: "ACTION.TagGenericTooltip",
+    category: "special",
+    priority: 9,
+    prepare() {
+      this.usage.hasDice = true;
+      this.usage.bonuses.enchantment = this.item.system.config?.enchantment.bonus || 0;
+      this.usage.defenseType ??= "physical";
+      this.usage.resource ??= "health";
+      this.usage.damageType ??= "void";
+    },
+    async roll(target, rolls) {
+      const {bonuses, damageType, defenseType, resource} = this.usage;
+
+      // Create and evaluate a generic roll
+      const roll = new AttackRoll({
+        actorId: this.id,
+        target: target.uuid,
+        ability: bonuses.ability ?? 0,
+        skill: bonuses.skill ?? 0,
+        enchantment: bonuses.enchantment,
+        defenseType,
+        dc: this.defenses[defenseType].total
+      });
+      await roll.evaluate();
+
+      const r = roll.data.result = this.testDefense(defenseType, roll);
+      if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
+      roll.data.damage = {
+        overflow: roll.overflow,
+        multiplier: 1,
+        base: 0,
+        bonus: 0,
+        resistance: this.getResistance(resource, damageType),
+        type: damageType,
+        resource: resource,
+        restoration: false
+      };
+      roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+      rolls.push(roll);
+    }
+  },
+
   /* -------------------------------------------- */
 
   reload: {
@@ -783,6 +832,25 @@ export const TAGS = {
       }
       else if (o?.config.category.reload && !o.system.loaded) {
         this.usage.actorUpdates.items.push({_id: o.id, "system.loaded": true});
+      }
+    }
+  },
+
+  /* -------------------------------------------- */
+
+  disarm: {
+    tag: "disarm",
+    label: "ACTION.TagDisarm",
+    tooltip: "ACTION.TagDisarmTooltip",
+    category: "special",
+    postActivate(outcome) {
+      if ( outcome.target === this.actor ) return;
+      if ( outcome.rolls.every(r => r.isSuccess) ) {
+        const {mainhand} = outcome.target.equipment.weapons; // TODO - allow usage customization?
+        if ( !mainhand?.id ) return;
+        outcome.actorUpdates.items ||= [];
+        outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
+        outcome.statusText.push({text: "Disarmed!", fontSize: 64});
       }
     }
   },
@@ -922,6 +990,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     tag: id,
     label: label,
     category: "damage",
+    priority: 3,
     prepare() {
       this.usage.damageType = id;
     }
@@ -937,6 +1006,7 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
     tag: id,
     label,
     category: "scaling",
+    priority: 3,
     prepare() {
       this.usage.bonuses.ability = this.actor.getAbilityBonus([id]);
     }
@@ -952,6 +1022,7 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
     tag: id,
     label: label,
     category: "resources",
+    priority: 3,
     prepare() {
       this.usage.resource = id;
     }
