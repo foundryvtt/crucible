@@ -1,0 +1,71 @@
+name: Corrode Weapon
+type: talent
+_id: oozeCorrodeWeapo
+img: icons/skills/wounds/blood-cells-disease-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The internal corrosive metabolism of the @ref[actor.name]{ooze} threatens
+    to dissolve metal weapons that strike it.</p>
+  actions:
+    - id: oozeCorrodeWeapon
+      name: Corrode Weapon
+      img: icons/skills/wounds/blood-cells-disease-green.webp
+      condition: Struck in melee by a weapon made of metal.
+      description: >-
+        <p>When struck by a melee weapon made of metal, the ooze attempts to
+        consume the weapon itself, potentially breaking it.</p><p>This attack is
+        <strong>Harmless</strong>, but if successful the
+        <strong>Quality</strong> of the weapon used in the attack is downgraded
+        by one tier. On a Critical Success or if the weapon is already
+        <strong>Shoddy</strong>, the weapon becomes entirely
+        <strong>Broken</strong>. Enchanted weapons are protected against this
+        effect.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - reaction
+        - melee
+        - natural
+        - harmless
+        - reflex
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 68HWinwhrVQnILl5
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751370252375
+  modifiedTime: 1751375141925
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!oozeCorrodeWeapo'

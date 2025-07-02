@@ -1,0 +1,66 @@
+name: Subdivide
+type: talent
+_id: oozeSubdivide000
+img: icons/creatures/slimes/slime-movement-pseudopods-blue.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{ooze} can divide itself into multiple parts, each an
+    independent copy of the original.</p>
+  actions:
+    - id: oozeSubdivide
+      name: Subdivide
+      img: icons/creatures/slimes/slime-movement-pseudopods-blue.webp
+      condition: ''
+      description: >-
+        <p>The ooze's cells rapidly divide and the creature splits in two! The
+        original creature and its clone equally divide its remaining
+        <strong>Health</strong>. The <strong>Size</strong> of each resulting
+        creature is decreased by 1.</p><p>If in combat, the new creature acts as
+        a <strong>Summon</strong> and joins at <strong>Initiative</strong> 1.
+        This Action may only be used if the creature has Size larger than 2. The
+        created ooze never has rank superior to <strong>Normal</strong>.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 3
+        weapon: false
+      target:
+        type: summon
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - summon
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 68HWinwhrVQnILl5
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751364855030
+  modifiedTime: 1751419846490
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!oozeSubdivide000'

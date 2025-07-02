@@ -1,0 +1,63 @@
+name: Multiply
+type: talent
+_id: oozeMultiply0000
+img: icons/creatures/slimes/slime-blob-pseudopods-green.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{ooze} grows rapidly, increasing in health and
+    size.</p>
+  actions:
+    - id: oozeMultiply
+      name: Multiply
+      img: icons/creatures/slimes/slime-blob-pseudopods-green.webp
+      condition: ''
+      description: >-
+        <p>The ooze's cells rapidly multiply as the creature grows. Its
+        <strong>Size</strong> increases by 1 and its <strong>Health</strong>
+        increases by its <strong>Toughness</strong> value.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - healing
+        - health
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: 68HWinwhrVQnILl5
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751364853575
+  modifiedTime: 1751364853575
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!oozeMultiply0000'

@@ -31,6 +31,7 @@ system:
         type: single
         number: 1
         scope: 4
+        self: false
       effects: []
       tags:
         - shield
@@ -38,6 +39,7 @@ system:
         - melee
         - offhand
         - harmless
+        - disarm
       actionHooks: []
   rune: ''
   gesture: ''
@@ -57,10 +59,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.2
-  modifiedTime: 1749397382086
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  modifiedTime: 1751385819234
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!repercussiveBloc'

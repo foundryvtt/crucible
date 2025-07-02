@@ -24,6 +24,7 @@ system:
         - difficult
         - weakened
         - reflex
+        - disarm
       cost:
         action: 0
         focus: 1
@@ -33,6 +34,7 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       actionHooks: []
       range:
@@ -53,12 +55,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.7.4
   createdTime: 1749391871615
-  modifiedTime: 1749391871615
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751385845355
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 folder: ePNIUQxdOsY7GSKo
 ownership:
   default: 0

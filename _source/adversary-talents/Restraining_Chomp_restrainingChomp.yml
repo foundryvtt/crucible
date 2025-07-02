@@ -4,8 +4,8 @@ img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
 system:
   nodes: []
   description: >-
-    <p>The creature uses its powerful jaws to bite and hold a target with a
-    powerful chomp.</p>
+    <p>The @ref[actor.name]{creature} uses its powerful jaws to bite and hold a
+    target with a powerful chomp.</p>
   actions:
     - id: restrainingChomp
       name: Restraining Chomp
@@ -63,9 +63,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751142389739
-  modifiedTime: 1751142389739
+  modifiedTime: 1751397933776
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: restrainingChomp
 sort: 0

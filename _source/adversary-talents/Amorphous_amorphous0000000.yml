@@ -1,0 +1,37 @@
+name: Amorphous
+type: talent
+_id: amorphous0000000
+img: icons/creatures/slimes/slime-movement-dripping-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} may move through a space as narrow as 1
+    inch in diameter without any penalty to its <strong>Stride</strong>. It is
+    immune to the @Condition[restrained] condition.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751364846819
+  modifiedTime: 1751364886901
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!amorphous0000000'

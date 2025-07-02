@@ -1,0 +1,60 @@
+name: Slime
+type: taxonomy
+_id: taxonomySlime000
+img: icons/creatures/slimes/slime-movement-pseudopods-teal.webp
+system:
+  description: >-
+    <p>Creatures made primarily of gelatinous material. They are generally slow,
+    small in size, and incapable of spellcasting or speech. Some exceptions have
+    been documented with variations of slimes which are large, fast, or capable
+    of communication.</p>
+  category: ooze
+  abilities:
+    wisdom: 1
+    presence: 0
+    intellect: 1
+    strength: 3
+    toughness: 4
+    dexterity: 3
+  movement:
+    size: 3
+    stride: 6
+  resistances:
+    bludgeoning: 0
+    corruption: 0
+    piercing: 2
+    slashing: 0
+    poison: 0
+    acid: 2
+    fire: -2
+    cold: -2
+    electricity: -2
+    psychic: 2
+    radiant: 0
+    void: 0
+  talents:
+    - Compendium.crucible.adversary-talents.Item.amorphous0000000
+    - Compendium.crucible.adversary-talents.Item.oozeSubdivide000
+    - Compendium.crucible.adversary-talents.Item.oozeMultiply0000
+    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: zo1Egh9MIjBCmv7C
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751365562637
+  modifiedTime: 1751383514659
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!taxonomySlime000'

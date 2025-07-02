@@ -4,8 +4,8 @@ img: icons/skills/wounds/bone-broken-marrow-red.webp
 system:
   nodes: []
   description: >-
-    <p>Once this creature has an enemy restrained, it will thrash violently
-    dealing terrible blows to the grasped victim.</p>
+    <p>Once the @ref[actor.name]{creature} has an enemy restrained, it will
+    thrash violently dealing terrible blows to the grasped victim.</p>
   actions:
     - id: thrash
       name: Thrash
@@ -54,9 +54,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751142391801
-  modifiedTime: 1751143091179
+  modifiedTime: 1751397927619
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: thrash0000000000
 sort: 0

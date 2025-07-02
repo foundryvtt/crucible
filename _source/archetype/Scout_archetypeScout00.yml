@@ -1,0 +1,43 @@
+name: Scout
+type: archetype
+_id: archetypeScout00
+img: icons/environment/wilderness/terrain-river-road-gray.webp
+system:
+  description: >-
+    <p>Individuals trained in reconnaissance and advance exploration of unknown
+    areas.</p>
+  abilities:
+    wisdom: 3
+    presence: 1
+    intellect: 1
+    strength: 1
+    toughness: 3
+    dexterity: 3
+  talents:
+    - Compendium.crucible.talent.Item.preparedness0000
+    - Compendium.crucible.talent.Item.assessstrength00
+    - Compendium.crucible.talent.Item.precisionshot000
+    - Compendium.crucible.talent.Item.lunge00000000000
+  skills:
+    - athletics
+    - awareness
+    - wilderness
+    - stealth
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751388804848
+  modifiedTime: 1751388804848
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!archetypeScout00'

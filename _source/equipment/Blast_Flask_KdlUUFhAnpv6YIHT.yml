@@ -1,0 +1,85 @@
+name: Blast Flask
+type: consumable
+_id: KdlUUFhAnpv6YIHT
+img: icons/weapons/thrown/bomb-fuse-red-black.webp
+system:
+  identifier: blastFlask
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 5
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A flask filled with a reddish liquid explodes when it breaks open,
+      creating a small explosive fire that quickly dissipates.</p>
+    private: >-
+      <p></p><p>Primarily used to break apart large pieces of ore, these
+      alchemical flasks pack a concentrated punch. If combined in a large enough
+      quantity, they can also be used to create a chain reaction that results in
+      larger explosions.</p>
+  actions:
+    - id: blastFlask
+      name: Blast Flask
+      img: icons/weapons/thrown/bomb-fuse-red-black.webp
+      condition: ''
+      description: >-
+        <p>You light and throw the Blast flask, dealing <strong>Fire
+        </strong>damage to enemies in a 4 foot radius
+        <strong>Blast</strong>.</p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      effects: []
+      tags:
+        - Generic
+        - fire
+        - dexterity
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: WqUGvC0ubhjrpvz9
+ownership:
+  default: 0
+  mRyoRp6afxulGiE1: 3
+  QvBFYpRRXHRBcOfP: 3
+flags:
+  dnd5e:
+    riders:
+      activity: []
+      effect: []
+  ember:
+    crucibleOverride: true
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751422081513
+  modifiedTime: 1751422081544
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 300000
+_key: '!items!KdlUUFhAnpv6YIHT'
