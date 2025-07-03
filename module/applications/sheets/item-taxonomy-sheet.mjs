@@ -95,14 +95,8 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
     const {abilities, resistances} = submitData.system;
-    if ( fields.abilities.validate(abilities) === undefined ) {
-      submitData.system["==abilities"] = abilities;
-      delete submitData.system.abilities;
-    }
-    if ( fields.resistances.validate(resistances) !== undefined ) {
-      submitData.system["==resistances"] = resistances;
-      delete submitData.system.resistances;
-    }
+    if ( fields.abilities.validate(abilities) !== undefined ) return {};
+    if ( fields.resistances.validate(resistances) !== undefined ) return {};
     return submitData;
   }
 }

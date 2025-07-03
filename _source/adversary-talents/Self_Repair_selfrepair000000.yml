@@ -1,0 +1,61 @@
+name: Self-Repair
+type: talent
+_id: selfrepair000000
+img: icons/tools/hand/wrench-iron-grey.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{construct} activates internal repairing mechanisms
+    to mitigate damage it has taken.</p>
+  actions:
+    - id: selfRepair
+      name: Self-Repair
+      img: icons/tools/hand/wrench-iron-grey.webp
+      condition: ''
+      description: >-
+        <p>The construct recovers its <strong>Toughness</strong> value in
+        <strong>Health</strong> and immediately ends a single status condition
+        of its choice that is currently affecting it.</p>
+      cost:
+        action: 3
+        focus: 1
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags: []
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: By2dpEkYQSuee47b
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751505811166
+  modifiedTime: 1751505811166
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!selfrepair000000'

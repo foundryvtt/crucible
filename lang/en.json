@@ -1139,10 +1139,12 @@
   "CATEGORIES": {
     "BEAST": "Beast",
     "CELESTIAL": "Celestial",
+    "CONSTRUCT": "Construct",
     "DRAGON": "Dragon",
     "ELEMENTAL": "Elemental",
     "GIANT": "Giant",
     "HUMANOID": "Humanoid",
+    "MONSTROSITY": "Monstrosity",
     "OOZE": "Ooze",
     "OUTSIDER": "Outsider",
     "UNDEAD": "Undead"

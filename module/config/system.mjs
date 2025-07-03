@@ -86,6 +86,10 @@ export const THREAT_RANKS = {
  * @enum {Readonly<Object<{argNames: string[]}>>}
  */
 export const ACTION_HOOKS = Object.freeze({
+  configure: {
+    argNames: [],
+    argLabels: []
+  },
   prepare: {
     argNames: [],
     argLabels: []

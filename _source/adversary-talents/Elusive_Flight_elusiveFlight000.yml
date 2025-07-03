@@ -1,0 +1,38 @@
+name: Elusive Flight
+type: talent
+_id: elusiveFlight000
+img: icons/creatures/mammals/bats-movement-flying-purple.webp
+system:
+  nodes: []
+  description: >-
+    <p>This @ref[actor.name]{creature} is especially elusive while in flight,
+    able to swoop in and out of combat without provoking any
+    <strong>Disengagement</strong>. It can be engaged if it lands upon the
+    ground and Disengagement may apply if it attempts to return to flight.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: cIS6eiJYaMi1oZQJ
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751480506797
+  modifiedTime: 1751480506797
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!elusiveFlight000'

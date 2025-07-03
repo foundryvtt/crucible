@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Construct
+color: null
+sorting: a
+_id: aQTavGHQfHKY6NVw
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751491128750
+  modifiedTime: 1751491128750
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!aQTavGHQfHKY6NVw'

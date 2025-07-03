@@ -1,0 +1,55 @@
+name: Winged Terror
+type: taxonomy
+_id: wingedTerror0000
+img: icons/creatures/magical/spirit-undead-winged-ghost.webp
+system:
+  description: <p>Monstrous creatures that rule the skies and prey upon those bel0w.</p>
+  category: monstrosity
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 1
+    strength: 4
+    toughness: 2
+    dexterity: 3
+  movement:
+    size: 6
+    stride: 16
+  resistances:
+    bludgeoning: 0
+    corruption: 0
+    piercing: 0
+    slashing: 0
+    poison: 0
+    acid: 0
+    fire: 0
+    cold: 0
+    electricity: 0
+    psychic: 0
+    radiant: 0
+    void: 0
+  talents:
+    - Compendium.crucible.adversary-talents.Item.swoopingStrike00
+    - Compendium.crucible.adversary-talents.Item.elusiveFlight000
+    - Compendium.crucible.adversary-talents.Item.rakingTalons0000
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: NzDhqa3mUb9TQ7ub
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751479684955
+  modifiedTime: 1751481345809
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!wingedTerror0000'

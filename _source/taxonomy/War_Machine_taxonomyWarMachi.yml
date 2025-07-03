@@ -1,0 +1,56 @@
+name: War Machine
+type: taxonomy
+_id: taxonomyWarMachi
+img: icons/creatures/magical/construct-iron-stomping-yellow.webp
+system:
+  description: >-
+    <p>Constructs built for the purpose of being instruments of war or
+    formidable guardians.</p>
+  category: construct
+  abilities:
+    wisdom: 1
+    presence: 0
+    intellect: 1
+    strength: 4
+    toughness: 4
+    dexterity: 2
+  movement:
+    size: 10
+    stride: 12
+  resistances:
+    bludgeoning: 0
+    corruption: 2
+    piercing: 0
+    slashing: 0
+    poison: 2
+    acid: -3
+    fire: 1
+    cold: -1
+    electricity: -3
+    psychic: 2
+    radiant: 0
+    void: 0
+  talents:
+    - Compendium.crucible.adversary-talents.Item.immuntableForm00
+    - Compendium.crucible.adversary-talents.Item.selfrepair000000
+  characteristics:
+    equipment: false
+    spells: false
+effects: []
+folder: aQTavGHQfHKY6NVw
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751491375477
+  modifiedTime: 1751505825101
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!taxonomyWarMachi'

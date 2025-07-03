@@ -380,7 +380,7 @@ export const TAGS = {
     label: "ACTION.TagConsume",
     tooltip: "ACTION.TagConsumeTooltip",
     category: "special",
-    prepare() {
+    configure() {
       if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
     },
     displayOnSheet(_combatant) {
@@ -408,7 +408,7 @@ export const TAGS = {
     tooltip: "ACTION.TagSpellTooltip",
     category: "attack",
     propagate: ["attack"],
-    prepare() {
+    configure() {
       Object.assign(this.usage.context, {
         type: "spell",
         label: "Spell Tags",
@@ -739,7 +739,7 @@ export const TAGS = {
     },
     prepare() {
       this.usage.strikes ||= [];
-      const w = this.actor.equipment.weapons.natural[0];
+      const w = this.usage.weapon ?? this.actor.equipment.weapons.natural[0];
       if ( w ) this.usage.strikes.push(w);
     }
   },
@@ -749,7 +749,7 @@ export const TAGS = {
     category: "attack",
     priority: 0,
     internal: true,
-    prepare() {
+    configure() {
       Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
       this.usage.bonuses.ability = this.usage.hazard;
     },
@@ -990,8 +990,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     tag: id,
     label: label,
     category: "damage",
-    priority: 3,
-    prepare() {
+    configure() {
       this.usage.damageType = id;
     }
   }
@@ -1006,8 +1005,7 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
     tag: id,
     label,
     category: "scaling",
-    priority: 3,
-    prepare() {
+    configure() {
       this.usage.bonuses.ability = this.actor.getAbilityBonus([id]);
     }
   }
@@ -1022,8 +1020,7 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
     tag: id,
     label: label,
     category: "resources",
-    priority: 3,
-    prepare() {
+    configure() {
       this.usage.resource = id;
     }
   }
@@ -1047,7 +1044,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
     label: name,
     category: "skills",
     propagate: ["skill"],
-    prepare() {
+    configure() {
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
       this.usage.hasDice = true;

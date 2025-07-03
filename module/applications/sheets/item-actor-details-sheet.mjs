@@ -96,8 +96,19 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /** @inheritDoc */
   async _processSubmitData(event, form, submitData, options) {
     if ( this.document.parent instanceof foundry.documents.Actor ) {
+      try {
+        const diff = this.document.updateSource(submitData, {dryRun: true, validate: true});
+        if ( foundry.utils.isEmpty(diff) ) return;
+      } catch(err) {
+        ui.notifications.warn(err.message);
+        return;
+      }
+
+      // Apply the updated detail item
       const item = this.document.clone(submitData);
       await this.document.parent._applyDetailItem(item, {skillTalents: this.document.parent.type === "hero"});
+
+      // Update this document and re-render the sheet
       this.document.updateSource(item.toObject());
       await this.render();
       return;

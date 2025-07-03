@@ -320,7 +320,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       featuredEquipment.push({name: oh.name, img: oh.img, tags: [ohTags.damage, ohTags.range]})
     }
     if ( natural.length ) {
-      for ( let i=featuredEquipment.length; i<=3; i++ ) {
+      for ( let i=0; i<3-featuredEquipment.length; i++ ) {
         const n = natural[i];
         if ( n ) {
           const tags = n.getTags("short");

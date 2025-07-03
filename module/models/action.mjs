@@ -384,6 +384,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Prepare action for actor
     if ( this.actor ) {
+      this._configureUsage();
       this.actor.prepareAction(this);
       this._prepare();
     }
@@ -1047,6 +1048,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   * _tests() {
     yield* this.tags.tags();
     yield this.hooks;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Configure aspects of action usage before the action is prepared.
+   * @protected
+   */
+  _configureUsage() {
+    for ( const test of this._tests() ) {
+      if ( test.configure instanceof Function ) {
+        try {
+          test.configure.call(this);
+        } catch(err) {
+          console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
+        }
+      }
+    }
   }
 
   /* -------------------------------------------- */

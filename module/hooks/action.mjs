@@ -181,6 +181,14 @@ HOOKS.pouncingStrike = {
 
 /* -------------------------------------------- */
 
+HOOKS.selfRepair = {
+  postActivate(outcome) {
+    outcome.resources.health = this.actor.abilities.toughness.value;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.spellband = {
   postActivate(outcome) {
     const enchantment = this.usage.consumable.config.enchantment;
@@ -195,6 +203,19 @@ HOOKS.swoopingStrike = {
   postActivate(outcome) {
     if ( !outcome.rolls.every(r => r.isCriticalSuccess) ) outcome.effects.length = 0;
   }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rakingTalons = {
+  configure() {
+    this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "talons");
+  },
+  canUse() {
+    if ( this.usage.weapon?.system.identifier !== "talons" ) {
+      throw new Error("Must have a natural weapon identified as \"talons\" to use this action.");
+    }
+  },
 }
 
 /* -------------------------------------------- */

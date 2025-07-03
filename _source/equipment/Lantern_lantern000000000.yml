@@ -1,0 +1,41 @@
+name: Lantern
+type: accessory
+_id: lantern000000000
+img: icons/sundries/lights/lantern-iron-yellow.webp
+system:
+  identifier: lantern
+  category: other
+  quantity: 1
+  weight: 2
+  price: 3
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <p>An oil-burning or magically illuminated lantern that sheds bright light
+      in a 20 foot radius and dim light in a 40 foot radius.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+effects: []
+folder: ERyTk53PP4zlzaHq
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751469366019
+  modifiedTime: 1751469366019
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!lantern000000000'

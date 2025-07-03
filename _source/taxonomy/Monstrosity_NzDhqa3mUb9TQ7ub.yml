@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Monstrosity
+color: null
+sorting: a
+_id: NzDhqa3mUb9TQ7ub
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751479681981
+  modifiedTime: 1751479681981
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!NzDhqa3mUb9TQ7ub'

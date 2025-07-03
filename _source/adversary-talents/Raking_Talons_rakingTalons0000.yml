@@ -1,0 +1,63 @@
+name: Raking Talons
+type: talent
+_id: rakingTalons0000
+img: icons/skills/wounds/injury-triple-slash-bleed.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} attacks rapidly with its talons, dealing
+    multiple raking blows against a single target.</p>
+  actions:
+    - id: rakingTalons
+      name: Raking Talons
+      img: icons/skills/wounds/injury-triple-slash-bleed.webp
+      condition: ''
+      description: >-
+        <p>The creature attacks swiftly with both talons. On a Critical Success,
+        inflicts the @Condition[bleeding] condition.</p>
+      cost:
+        action: 1
+        focus: 0
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+        multiple: 2
+      effects: []
+      tags:
+        - melee
+        - natural
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: jPlehJgYr7sjtA8J
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751481339795
+  modifiedTime: 1751481339795
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!rakingTalons0000'
