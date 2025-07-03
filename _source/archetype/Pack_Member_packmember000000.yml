@@ -15,9 +15,10 @@ system:
   talents:
     - Compendium.crucible.adversary-talents.Item.packhunter000000
   skills:
+    - awareness
     - stealth
     - wilderness
-    - awareness
+  identifier: packMember
 effects: []
 sort: 100000
 ownership:
@@ -26,10 +27,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   coreVersion: '13.346'
   createdTime: 1685217713904
-  modifiedTime: 1751142941526
+  modifiedTime: 1751554935859
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null

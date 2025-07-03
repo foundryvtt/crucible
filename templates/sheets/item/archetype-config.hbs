@@ -1,5 +1,11 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
+
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
+        {{formGroup fields.identifier value=system.identifier}}
+    </fieldset>
+
     <fieldset class="form-group abilities" {{fieldDisabled}}>
         <legend>{{fields.abilities.label}} <span class="sum"></span></legend>
         <div class="form-fields">

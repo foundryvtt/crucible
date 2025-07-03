@@ -22,6 +22,7 @@ system:
     - athletics
     - arcana
     - intimidation
+  identifier: spellblade
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -32,11 +33,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1749246074533
-  modifiedTime: 1750816030947
+  modifiedTime: 1751555003525
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!archetypeSpellbl'

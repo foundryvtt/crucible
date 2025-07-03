@@ -21,8 +21,9 @@ system:
   skills:
     - athletics
     - awareness
-    - wilderness
     - stealth
+    - wilderness
+  identifier: scout
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -37,7 +38,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751388804848
-  modifiedTime: 1751388804848
+  modifiedTime: 1751554987371
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!archetypeScout00'

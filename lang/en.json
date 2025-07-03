@@ -303,7 +303,7 @@
     },
     "identifier": {
       "label": "Identifier",
-      "hint": "A string identifier used to reference this Ancestry in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
+      "hint": "A string identifier used to uniquely reference this Ancestry in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
     },
     "movement": {
       "label": "Movement and Stature",
@@ -496,6 +496,10 @@
       "label": "Ability Scaling",
       "hint": "Define how the ability scores for creatures of this Archetype scale as they advance in level. Allocate 12 points across all Ability scores. Each ability score must be between zero and 6. Adversaries will increase their abilities by 1 point each level. Scores with a higher value advance more frequently. Scores which are zero will not ever advance from their base value."
     },
+    "identifier": {
+      "label": "Identifier",
+      "hint": "A string identifier used to uniquely reference this Archetype in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
+    },
     "talents": {
       "label": "Granted Talents",
       "hint": "Configure one or more talents which this Archetype receives automatically."
@@ -565,7 +569,7 @@
     },
     "identifier": {
       "label": "Identifier",
-      "hint": "A string identifier used to reference this Background in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
+      "hint": "A string identifier used to uniquely reference this Background in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
     },
     "knowledge": {
       "label": "Knowledge Areas",
@@ -1114,6 +1118,10 @@
     "category": {
       "label": "Category",
       "hint": "The category of creature that this Taxonomy belongs to."
+    },
+    "identifier": {
+      "label": "Identifier",
+      "hint": "A string identifier used to uniquely reference this Taxonomy in tags, actions, or other UI elements. This identifier must be alphanumeric with no spaces or special characters."
     },
     "resistances": {
       "label": "Resistance Scaling",

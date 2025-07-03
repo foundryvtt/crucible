@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.runevoid00000000
     - Compendium.crucible.talent.Item.gestureinfluence
     - Compendium.crucible.talent.Item.gestureray000000
+  identifier: occultist
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 50000
@@ -26,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1685738637867
-  modifiedTime: 1749861856036
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751554978937
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

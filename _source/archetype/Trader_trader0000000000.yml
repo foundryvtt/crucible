@@ -16,8 +16,9 @@ system:
   skills:
     - awareness
     - society
-    - diplomacy
     - deception
+    - diplomacy
+  identifier: trader
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -28,11 +29,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1750816338739
-  modifiedTime: 1750816338739
+  modifiedTime: 1751555007475
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: trader0000000000
 sort: 0

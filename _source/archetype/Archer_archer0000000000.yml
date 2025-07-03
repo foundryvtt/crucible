@@ -15,6 +15,7 @@ system:
     - Compendium.crucible.talent.Item.archerytraining0
     - Compendium.crucible.talent.Item.precisionshot000
     - Compendium.crucible.talent.Item.evasiveshot00000
+  identifier: archer
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 300000
@@ -24,11 +25,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1685738036284
-  modifiedTime: 1749861721679
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751554953355
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

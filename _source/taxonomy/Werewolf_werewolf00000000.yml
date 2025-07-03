@@ -32,6 +32,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: werewolf
 effects: []
 folder: XE2BjE0vCGKPdZU7
 sort: 150000
@@ -41,10 +42,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
-  modifiedTime: 1749916767520
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
+  modifiedTime: 1751554900537
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

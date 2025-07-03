@@ -80,7 +80,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
    * @returns {CrucibleItem}
    */
   toTaxonomy() {
-    const {abilities, description, movement, resistances, talents} = this.toObject();
+    const {abilities, description, identifier, movement, resistances, talents} = this.toObject();
 
     // Determine ability allocation
     const {primary, secondary} = abilities;
@@ -94,6 +94,7 @@ export default class CrucibleAncestryItem extends foundry.abstract.TypeDataModel
     // Prepare system data
     const system = {
       description,
+      identifier,
       size: movement.size,
       stride: movement.stride,
       category: "humanoid",

@@ -32,6 +32,7 @@ system:
     size: 4
     stride: 10
   talents: []
+  identifier: fireElemental
 effects: []
 ownership:
   default: 0
@@ -40,11 +41,11 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1749916767554
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  modifiedTime: 1751554872718
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: fireElemental000
 sort: 200000

@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.dualwield0000000
     - Compendium.crucible.talent.Item.flurry0000000000
     - Compendium.crucible.talent.Item.skirmisher000000
+  identifier: skirmisher
 effects: []
 folder: 6Up7ddrphLept3RW
 sort: 25000
@@ -26,11 +27,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1686145201526
-  modifiedTime: 1749862524643
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751554997488
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

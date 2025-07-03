@@ -40,6 +40,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: drake
 effects: []
 folder: 31EVHmb8A4SDd23W
 ownership:
@@ -50,11 +51,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1750730886197
-  modifiedTime: 1750730886197
+  modifiedTime: 1751554860555
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: drake00000000000
 sort: 0

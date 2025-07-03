@@ -40,6 +40,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: slime
 effects: []
 folder: zo1Egh9MIjBCmv7C
 ownership:
@@ -54,7 +55,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751365562637
-  modifiedTime: 1751383514659
+  modifiedTime: 1751554912330
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!taxonomySlime000'

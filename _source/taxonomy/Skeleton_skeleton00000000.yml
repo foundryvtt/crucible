@@ -31,6 +31,7 @@ system:
     size: 4
     stride: 8
   talents: []
+  identifier: skeleton
 effects: []
 folder: REYz7fzLYEdBX3A2
 ownership:
@@ -40,10 +41,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
-  modifiedTime: 1749916767512
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
+  modifiedTime: 1751554922432
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

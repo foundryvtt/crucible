@@ -1,3 +1,5 @@
+import {ItemIdentifierField} from "./fields.mjs";
+
 /**
  * Define the data schema and functionality of an Archetype applied to Adversary creatures.
  */
@@ -13,6 +15,7 @@ export default class CrucibleArchetypeItem extends foundry.abstract.TypeDataMode
     const nullableInteger = {required: true, nullable: true, integer: true};
     return {
       description: new fields.HTMLField(),
+      identifier: new ItemIdentifierField(),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})
         return obj;

@@ -1,6 +1,11 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
 
+    <fieldset {{fieldDisabled}}>
+        <legend>{{localize "BACKGROUND.SHEET.IDENTITY"}}</legend>
+        {{formGroup fields.identifier value=system.identifier}}
+    </fieldset>
+
     <fieldset class="form-group physical">
         <legend>Physiology</legend>
         {{formGroup fields.category value=source.system.category hint=null}}

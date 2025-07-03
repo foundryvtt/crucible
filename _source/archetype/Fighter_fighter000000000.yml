@@ -17,6 +17,7 @@ system:
     - Compendium.crucible.talent.Item.bulwark000000000
     - Compendium.crucible.talent.Item.armoredefficienc
     - Compendium.crucible.talent.Item.legsweep00000000
+  identifier: fighter
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -26,11 +27,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
   createdTime: 1684889541198
-  modifiedTime: 1749861758228
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751554966320
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

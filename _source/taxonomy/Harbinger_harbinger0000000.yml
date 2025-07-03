@@ -31,6 +31,7 @@ system:
   movement:
     size: 5
     stride: 10
+  identifier: harbinger
 effects: []
 folder: xG3ennqrizR0LskO
 ownership:
@@ -41,11 +42,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1749916767534
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  modifiedTime: 1751554917788
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: harbinger0000000
 sort: 0
 _key: '!items!harbinger0000000'

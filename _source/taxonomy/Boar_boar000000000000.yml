@@ -34,6 +34,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: boar
 effects: []
 folder: wTcQjW37uAKhpMQL
 sort: 200000
@@ -43,10 +44,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
-  modifiedTime: 1749916767494
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  systemVersion: 0.7.4
+  coreVersion: '13.346'
+  modifiedTime: 1751554845730
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null

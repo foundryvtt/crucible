@@ -35,6 +35,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: wingedTerror
 effects: []
 folder: NzDhqa3mUb9TQ7ub
 ownership:
@@ -49,7 +50,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751479684955
-  modifiedTime: 1751481345809
+  modifiedTime: 1751554907913
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!wingedTerror0000'

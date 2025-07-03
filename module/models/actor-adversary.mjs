@@ -318,12 +318,14 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
 
     // Prepare actor data
     const actor = this.parent;
+    const rank = actor.system.advancement.rank || "normal";
+    const rankName = rank !== "normal" ? SYSTEM.THREAT_RANKS[rank]?.label : "";
     const context = {
       name: actor.name,
       img: config.image === "token" ? actor.prototypeToken.texture.src : actor.img,
       link: actor.toAnchor().outerHTML,
       count: config.count,
-      threat: actor.threat,
+      threat: [actor.threat, rankName ? `(${rankName})` : ""].filterJoin(" "),
       subtitle: [this.details.taxonomy?.name || "Unknown", this.details.archetype?.name || "Unknown"].join(" "),
       readaloud: await CONFIG.ux.TextEditor.enrichHTML(this.details.biography.appearance, {
         relativeTo: actor,

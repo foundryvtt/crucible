@@ -36,6 +36,7 @@ system:
   characteristics:
     equipment: false
     spells: false
+  identifier: warMachine
 effects: []
 folder: aQTavGHQfHKY6NVw
 ownership:
@@ -50,7 +51,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751491375477
-  modifiedTime: 1751505825101
+  modifiedTime: 1751554855585
   lastModifiedBy: QvBFYpRRXHRBcOfP
 sort: 0
 _key: '!items!taxonomyWarMachi'

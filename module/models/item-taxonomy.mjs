@@ -1,3 +1,5 @@
+import {ItemIdentifierField} from "./fields.mjs";
+
 /**
  * Define the data schema and functionality of a Taxonomy applied to Adversary creatures.
  */
@@ -14,6 +16,7 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
     const requiredInteger = {required: true, nullable: false, integer: true};
     return {
       description: new fields.HTMLField(),
+      identifier: new ItemIdentifierField(),
       category: new fields.StringField({choices: SYSTEM.ACTOR.CREATURE_CATEGORIES, initial: "humanoid"}),
       abilities: new fields.SchemaField(Object.values(SYSTEM.ABILITIES).reduce((obj, ability) => {
         obj[ability.id] = new fields.NumberField({...nullableInteger, initial: 2, min: 0, max: 6})

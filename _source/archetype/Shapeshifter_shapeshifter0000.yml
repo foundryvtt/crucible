@@ -23,6 +23,7 @@ system:
     - awareness
     - stealth
     - wilderness
+  identifier: shapeshifter
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -33,11 +34,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1749917418749
-  modifiedTime: 1750816511476
+  modifiedTime: 1751554991980
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: shapeshifter0000
 sort: 0
