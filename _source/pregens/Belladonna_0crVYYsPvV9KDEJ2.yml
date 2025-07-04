@@ -267,7 +267,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: 5Wteq3yXHy
+      identifier: ihw9UyOR6r
       invested: false
       actorHooks: []
       dropped: false
@@ -309,7 +309,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: r3s9D3ekaS
+      identifier: 1ix5lg6yA6
       invested: false
       actorHooks: []
       dropped: false
@@ -349,7 +349,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: pQJj8M5vmh
+      identifier: IAeNlIkGRE
       invested: false
       actorHooks: []
     _stats:
@@ -583,8 +583,8 @@ items:
             action.usage.weapon?.system.damageType; if ( !["piercing",
             "slashing"].includes(dt) ) return;
 
-            // Bleeding effect const bleed = SYSTEM.EFFECTS.bleeding(this,
-            outcome.target, {damageType: dt}); outcome.effects.push(bleed);
+            // Bleeding effect  const bleed = SYSTEM.EFFECTS.bleeding(this,
+            {damageType: dt});  outcome.effects.push(bleed);
       iconicSpells: 0
       training:
         type: ''
@@ -1261,9 +1261,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 0crVYYsPvV9KDEJ2
 sort: 0

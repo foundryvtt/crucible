@@ -258,7 +258,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: eSwQX4n9iG
+      identifier: vOrSm4lo3t
       invested: false
       actorHooks: []
     _stats:
@@ -295,7 +295,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: ZI3zT9qTm9
+      identifier: PWCNpmF3Sw
       invested: false
       actorHooks: []
       dropped: false
@@ -333,7 +333,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: 0Xvf9WNjHf
+      identifier: Yrj2HC7Ezq
       invested: false
       actorHooks: []
       dropped: false
@@ -697,9 +697,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: TffJlCvt39DEhFX7
 sort: 0

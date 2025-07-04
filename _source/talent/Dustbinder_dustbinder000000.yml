@@ -20,8 +20,7 @@ system:
         if ( !damageHealth ) return;
 
         // Apply Corroding effect
-        const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
-        outcome.effects.push(corroding);
+        outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
 effects: []
 ownership:
   default: 0

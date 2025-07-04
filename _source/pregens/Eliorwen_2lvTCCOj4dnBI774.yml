@@ -267,7 +267,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: mfBJZp9iOk
+      identifier: weMi9nozLE
       invested: false
       actorHooks: []
       dropped: false
@@ -307,7 +307,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: I5C0nNEbLG
+      identifier: tqkIR1yrAQ
       invested: false
       actorHooks: []
       dropped: false
@@ -347,7 +347,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: iJJhfifFsb
+      identifier: KE00gOcyJI
       invested: false
       actorHooks: []
     _stats:
@@ -909,7 +909,6 @@ items:
           description: <p>You steady your aim and fire a single accurate shot.</p>
           tags:
             - ranged
-            - deadly
             - accurate
           cost:
             action: 1
@@ -1162,9 +1161,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 sort: 0

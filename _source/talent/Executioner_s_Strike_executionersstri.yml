@@ -37,11 +37,8 @@ system:
       actionHooks:
         - hook: prepare
           fn: >-
-            const w = this.actor.equipment.weapons.mainhand;
-
-            this.effects[0] =
-            foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor,
-            undefined, {
+            const w = this.actor.equipment.weapons.mainhand; this.effects[0] =
+            foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor, {
               ability: "strength",
               damageType: w.system.damageType,
             }), this.effects[0]);

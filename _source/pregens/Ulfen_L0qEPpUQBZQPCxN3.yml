@@ -264,7 +264,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: t5pV5RW9kS
+      identifier: 7smUYoamPX
       invested: false
       actorHooks: []
     _stats:
@@ -304,7 +304,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: uAmzsOXamZ
+      identifier: gkgNrWAJg6
       invested: false
       actorHooks: []
       dropped: false
@@ -881,11 +881,9 @@ items:
           actionHooks:
             - hook: prepare
               fn: >-
-                const w = this.actor.equipment.weapons.mainhand;
-
-                this.effects[0] =
-                foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor,
-                undefined, {
+                const w = this.actor.equipment.weapons.mainhand; this.effects[0]
+                = foundry.utils.mergeObject(SYSTEM.EFFECTS.bleeding(this.actor,
+                {
                   ability: "strength",
                   damageType: w.system.damageType,
                 }), this.effects[0]);
@@ -1277,9 +1275,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 sort: 0

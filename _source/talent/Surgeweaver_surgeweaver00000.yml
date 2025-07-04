@@ -21,8 +21,7 @@ system:
         if ( !(damageHealth || damageMorale) ) return;
 
         // Apply Shocked effect
-        const shocked  = SYSTEM.EFFECTS.shocked(this, outcome.target);
-        outcome.effects.push(shocked);
+        outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
 effects: []
 ownership:
   default: 0

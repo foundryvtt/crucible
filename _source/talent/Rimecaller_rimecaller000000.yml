@@ -19,9 +19,8 @@ system:
         const damageHealth = outcome.resources.health < 0;
         if ( !damageHealth ) return;
 
-        // Apply Chilled effect
-        const chilled  = SYSTEM.EFFECTS.chilled(this, outcome.target);
-        outcome.effects.push(chilled);
+        // Apply Freezing effect
+        outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
 effects: []
 ownership:
   default: 0

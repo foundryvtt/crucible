@@ -1,9 +1,9 @@
 /**
  * @typedef CrucibleDoTConfig
- * @property {number} [ability]
+ * @property {string} [ability]
  * @property {number} [amount]
  * @property {string} [damageType]
- * @property {number} [turns=1]
+ * @property {number} [turns=3]
  * @property {CrucibleActor} [target]
  */
 
@@ -23,7 +23,7 @@ export function getEffectId(label) {
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function bleeding(actor, {ability="dexterity", amount, turns=1, damageType="piercing"}={}) {
+export function bleeding(actor, {ability="dexterity", amount, turns=3, damageType="piercing"}={}) {
   amount ??= actor.system.abilities[ability].value;
   return {
     _id: getEffectId("Bleeding"),
@@ -50,7 +50,7 @@ export function bleeding(actor, {ability="dexterity", amount, turns=1, damageTyp
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
  */
-export function burning(actor, {ability="intellect", amount, turns=1}={}) {
+export function burning(actor, {ability="intellect", amount, turns=3}={}) {
   amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
   return {
     _id: getEffectId("Burning"),
@@ -84,7 +84,7 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
     _id: getEffectId("Freezing"),
     name: "Freezing",
     icon: "icons/magic/water/orb-ice-web.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
     statuses: ["freezing", "slowed"],
     flags: {
@@ -98,14 +98,8 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   }
 }
 
-/** @deprecated since 0.7.4 */
-export function chilled(actor, options) {
-  return freezing(actor, options);
-}
-
-
-// TODO should be confused()
-export function confusion(actor, target) {
+// TODO as above
+export function confused(actor, options) {
   return {
     _id: getEffectId("Confused"),
     name: "Confused",
@@ -124,8 +118,15 @@ export function confusion(actor, target) {
   }
 }
 
-export function corroding(actor, {target, amount, turns=3}={}) {
-  amount ??= actor.abilities.wisdom.value;
+/**
+ * Generate a standardized corroding effect.
+ * Freezing deals half wisdom in damage to Health.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function corroding(actor, {ability="wisdom", amount, turns=3}={}) {
+  amount ??= actor.system.abilities[ability].value;
   return {
     _id: getEffectId("Corroding"),
     name: "Corroding",
@@ -134,13 +135,14 @@ export function corroding(actor, {target, amount, turns=3}={}) {
     origin: actor.uuid,
     flags: {
       crucible: {
-        dot: {health, damageType: "acid"}
+        dot: {health: amount, damageType: "acid"}
       }
     }
   }
 }
 
-export function decay(actor, target) {
+// TODO as above
+export function decay(actor) {
   return {
     _id: getEffectId("Decaying"),
     name: "Decaying",
@@ -158,7 +160,8 @@ export function decay(actor, target) {
   }
 }
 
-export function entropy(actor, target) {
+// TODO as above
+export function entropy(actor) {
   return {
     _id: getEffectId("Entropy"),
     name: "Entropy",
@@ -177,7 +180,8 @@ export function entropy(actor, target) {
   }
 }
 
-export function irradiated(actor, target) {
+// TODO as above
+export function irradiated(actor) {
   return {
     _id: getEffectId("Irradiated"),
     name: "Irradiated",
@@ -196,6 +200,7 @@ export function irradiated(actor, target) {
   }
 }
 
+// TODO as above
 export function mending(actor, target) {
   return {
     _id: getEffectId("Mending"),
@@ -213,6 +218,7 @@ export function mending(actor, target) {
   }
 }
 
+// TODO as above
 export function inspired(actor, target) {
   return {
     _id: getEffectId("Inspired"),
@@ -230,7 +236,7 @@ export function inspired(actor, target) {
   }
 }
 
-
+// TODO as above
 export function poisoned(actor, target) {
   return {
     _id: getEffectId("Poisoned"),
@@ -249,8 +255,15 @@ export function poisoned(actor, target) {
   }
 }
 
-export function shocked(actor, {target, amount, turns=2}={}) {
-  amount ??= actor.abilities.intellect.value;
+/**
+ * Generate a standardized shocked effect.
+ * Freezing deals half wisdom in damage to Health.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function shocked(actor, {ability="intellect", amount, turns=3}={}) {
+  amount ??= actor.system.abilities[ability].value;
   return {
     _id: getEffectId("Shocked"),
     name: "Shocked",
@@ -269,6 +282,7 @@ export function shocked(actor, {target, amount, turns=2}={}) {
   }
 }
 
+// TODO as above
 export function staggered(actor, target) {
   return {
     _id: getEffectId("Staggered"),

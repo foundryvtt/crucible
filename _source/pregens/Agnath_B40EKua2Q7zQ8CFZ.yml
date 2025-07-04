@@ -262,7 +262,7 @@ items:
         base: 16
       broken: false
       actions: []
-      identifier: nWfmE3igWh
+      identifier: 9H26cIVNtU
       invested: false
       actorHooks: []
     _stats:
@@ -789,7 +789,7 @@ items:
       broken: false
       actions: []
       slot: 3
-      identifier: u6n5opQ5LX
+      identifier: n996G2lcmo
       invested: false
       actorHooks: []
       dropped: false
@@ -1046,8 +1046,7 @@ items:
             if ( !(damageHealth || damageMorale) ) return;
 
             // Apply Shocked effect
-            const shocked  = SYSTEM.EFFECTS.shocked(this, outcome.target);
-            outcome.effects.push(shocked);
+            outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
       iconicSpells: 0
       training:
         type: ''
@@ -1267,9 +1266,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
 sort: 0

@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 1
-    milestones: 1
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -102,8 +102,8 @@ system:
       age: ''
       height: ''
       weight: ''
-      appearance: ''
       pronouns: ''
+      appearance: ''
   resistances:
     bludgeoning:
       bonus: 0
@@ -264,7 +264,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: vGhLbuCA49
+      identifier: xWITRTUcsc
       invested: false
       actorHooks: []
       dropped: false
@@ -306,7 +306,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: SsMhXLQoeG
+      identifier: JluAkwnrKA
       invested: false
       actorHooks: []
       dropped: false
@@ -346,7 +346,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: FRWtjEqQEq
+      identifier: miIQaa5ov4
       invested: false
       actorHooks: []
     _stats:
@@ -823,8 +823,8 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1751148758697
+  systemVersion: 0.7.4
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: hfOaEbw4ObPXu6Qa
 sort: 0

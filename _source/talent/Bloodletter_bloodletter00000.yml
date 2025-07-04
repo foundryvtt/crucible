@@ -19,8 +19,8 @@ system:
         action.usage.weapon?.system.damageType; if ( !["piercing",
         "slashing"].includes(dt) ) return;
 
-        // Bleeding effect const bleed = SYSTEM.EFFECTS.bleeding(this,
-        outcome.target, {damageType: dt}); outcome.effects.push(bleed);
+        // Bleeding effect  const bleed = SYSTEM.EFFECTS.bleeding(this,
+        {damageType: dt});  outcome.effects.push(bleed);
   nodes:
     - dex4d
 effects: []

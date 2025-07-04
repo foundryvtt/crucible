@@ -261,7 +261,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: T6F4SD2jn5
+      identifier: ZsImrAuYSb
       invested: false
       actorHooks: []
     _stats:
@@ -298,7 +298,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: dA9nb4kdQl
+      identifier: QoH7myAZ66
       invested: false
       actorHooks: []
       dropped: false
@@ -336,7 +336,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: NvzhaNBFJ3
+      identifier: hBjq0bckgK
       invested: false
       actorHooks: []
       dropped: false
@@ -752,9 +752,8 @@ items:
             const damageHealth = outcome.resources.health < 0;
             if ( !damageHealth ) return;
 
-            // Apply Chilled effect
-            const chilled  = SYSTEM.EFFECTS.chilled(this, outcome.target);
-            outcome.effects.push(chilled);
+            // Apply Freezing effect
+            outcome.effects.push(SYSTEM.EFFECTS.freezing(this));
       iconicSpells: 0
       training:
         type: ''
@@ -803,7 +802,7 @@ items:
             if ( !damageMorale ) return;
 
             // Apply Confused effect
-            const confused = SYSTEM.EFFECTS.confusion(this, outcome.target);
+            const confused = SYSTEM.EFFECTS.confused(this);
             outcome.effects.push(confused);
       iconicSpells: 0
       training:
@@ -1156,8 +1155,8 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1751148758697
+  systemVersion: 0.7.4
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 sort: 0

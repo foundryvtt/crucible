@@ -30,7 +30,7 @@ system:
       bonus: 0
   advancement:
     level: 1
-    milestones: 1
+    milestones: 0
     talentNodes: []
   defenses:
     armor:
@@ -263,7 +263,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: BEr8BkhsIS
+      identifier: NwsGXu2anP
       invested: false
       actorHooks: []
       dropped: false
@@ -303,7 +303,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: PoUOPxyAxA
+      identifier: 6EZsZdiQHp
       invested: false
       actorHooks: []
       dropped: false
@@ -343,7 +343,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: h8sI97Y4WS
+      identifier: jqcOk7z4X7
       invested: false
       actorHooks: []
     _stats:
@@ -633,7 +633,6 @@ items:
           description: <p>You steady your aim and fire a single accurate shot.</p>
           tags:
             - ranged
-            - deadly
             - accurate
           cost:
             action: 1
@@ -729,8 +728,8 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1751148758697
+  systemVersion: 0.7.4
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
 sort: 0

@@ -258,7 +258,7 @@ items:
         private: ''
       actions: []
       slot: 1
-      identifier: RByik5IYmw
+      identifier: tyzSIh6ynJ
       invested: false
       actorHooks: []
       dropped: false
@@ -300,7 +300,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: XJNONu53T0
+      identifier: QJBiRKjlxs
       invested: false
       actorHooks: []
     _stats:
@@ -771,8 +771,7 @@ items:
             if ( !damageHealth ) return;
 
             // Apply Corroding effect
-            const corroding = SYSTEM.EFFECTS.corroding(this, outcome.target);
-            outcome.effects.push(corroding);
+            outcome.effects.push(SYSTEM.EFFECTS.corroding(this));
       iconicSpells: 0
       training:
         type: ''
@@ -980,9 +979,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.4
   createdTime: 1751148758927
-  modifiedTime: 1751148758927
+  modifiedTime: 1751642422180
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
 sort: 0
