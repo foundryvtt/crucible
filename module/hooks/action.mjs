@@ -24,6 +24,22 @@ HOOKS.acidSpray = {
 
 /* -------------------------------------------- */
 
+HOOKS.alchemistsFire = {
+  prepare() {
+    const tiers = {
+      shoddy: {duration: 2, amount: 2},
+      standard: {duration: 3, amount: 3},
+      fine: {duration: 4, amount: 4},
+      superior: {duration: 5, amount: 6},
+      masterwork: {duration: 6, amount: 8},
+    };
+    const burning = SYSTEM.EFFECTS.burning(this.actor, tiers[this.item.system.quality]);
+    foundry.utils.mergeObject(this.effects[0], burning);
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.berserkStrike = {
   preActivate(_targets) {
     const health = this.actor.resources.health;
@@ -37,6 +53,14 @@ HOOKS.berserkStrike = {
       this.usage.bonuses.damageBonus ||= 0;
       this.usage.bonuses.damageBonus += damageBonus;
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.blastFlask = {
+  prepare() {
+    this.target.size = {shoddy: 3, standard: 4, fine: 6, superior: 8, masterwork: 10}[this.item.system.quality];
   }
 }
 

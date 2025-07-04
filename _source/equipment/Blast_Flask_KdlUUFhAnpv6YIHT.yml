@@ -4,7 +4,7 @@ _id: KdlUUFhAnpv6YIHT
 img: icons/weapons/thrown/bomb-fuse-red-black.webp
 system:
   identifier: blastFlask
-  category: flask
+  category: bomb
   quantity: 1
   weight: 1
   price: 5
@@ -32,8 +32,13 @@ system:
       condition: ''
       description: >-
         <p>You light and throw the Blast flask, dealing <strong>Fire
-        </strong>damage to enemies in a 4 foot radius
-        <strong>Blast</strong>.</p>
+        </strong>damage to all enemies in the radius of the explosion. The
+        radius of the <strong>Blast</strong> depends on the quality of the
+        bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
+        feet</p></li><li><p><strong>Standard</strong> - 4
+        feet</p></li><li><p><strong>Fine</strong> - 6
+        feet</p></li><li><p><strong>Superior</strong> - 8
+        feet</p></li><li><p><strong>Masterwork</strong> - 10 feet</p></li></ul>
       cost:
         action: 2
         focus: 0
@@ -51,15 +56,18 @@ system:
         size: 4
       effects: []
       tags:
-        - Generic
+        - reflex
         - fire
         - dexterity
+        - skill
+        - athletics
+        - freehand
       actionHooks: []
   uses:
     value: 1
     max: 1
 effects: []
-folder: WqUGvC0ubhjrpvz9
+folder: 9u3lR2Lbhj3cdjQk
 ownership:
   default: 0
   mRyoRp6afxulGiE1: 3
@@ -79,7 +87,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751422081513
-  modifiedTime: 1751422081544
+  modifiedTime: 1751641463671
   lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 300000
+sort: 200000
 _key: '!items!KdlUUFhAnpv6YIHT'

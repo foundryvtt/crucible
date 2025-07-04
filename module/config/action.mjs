@@ -407,7 +407,6 @@ export const TAGS = {
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
     category: "attack",
-    propagate: ["attack"],
     configure() {
       Object.assign(this.usage.context, {
         type: "spell",

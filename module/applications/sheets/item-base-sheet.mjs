@@ -156,8 +156,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     switch ( partId ) {
       case "actions":
         context.actionPartial = this.constructor.ACTION_PARTIAL;
-        const actions = this.document.system.actions;
-        context.actions = this.constructor.prepareActions(actions);
+        context.actions = await this.constructor.prepareActions(this.document);
         break;
       case "description":
         const editorCls = CONFIG.ux.TextEditor;
@@ -263,19 +262,21 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
 
   /**
    * Prepare an array of actions for sheet rendering.
-   * @param {CrucibleAction[]} actions    The actions being rendered
-   * @returns {object[]}                  An object of data suitable for sheet rendering
+   * @param {CrucibleItem} item         An Item that provides actions
+   * @returns {Promise<object[]>}       An object of data suitable for sheet rendering
    */
-  static prepareActions(actions) {
-    return actions.map(action => ({
+  static async prepareActions(item) {
+    const editorCls = CONFIG.ux.TextEditor;
+    const editorOptions = {relativeTo: item, secrets: item.isOwner};
+    return Promise.all(item.system.actions.map(async action => ({
       id: action.id,
       name: action.name,
       img: action.img,
       condition: action.condition,
-      description: action.description,
+      description: await editorCls.enrichHTML(action.description, editorOptions),
       tags: action.getTags(),
       effects: action.effects
-    }));
+    })));
   }
 
   /* -------------------------------------------- */

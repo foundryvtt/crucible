@@ -1,0 +1,36 @@
+name: Commonfolk
+type: archetype
+_id: archetypeCommonf
+img: icons/environment/people/group.webp
+system:
+  description: >-
+    <p>Ordinary citizens of the world who have no exceptional adventuring skills
+    or abilities.</p>
+  identifier: commonfolk
+  abilities:
+    wisdom: 2
+    presence: 2
+    intellect: 2
+    strength: 2
+    toughness: 2
+    dexterity: 2
+  talents: []
+  skills: []
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751632014391
+  modifiedTime: 1751632014391
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!archetypeCommonf'

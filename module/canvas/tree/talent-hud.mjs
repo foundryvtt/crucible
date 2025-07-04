@@ -105,7 +105,7 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
     return {
       source: talent.toObject(),
       descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(talent.system.description, {relativeTo: talent}),
-      actions: CrucibleTalentItemSheet.prepareActions(talent.system.actions),
+      actions: await CrucibleTalentItemSheet.prepareActions(talent),
       prerequisites: reqs
     }
   }

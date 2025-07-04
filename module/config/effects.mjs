@@ -1,4 +1,13 @@
 /**
+ * @typedef CrucibleDoTConfig
+ * @property {number} [ability]
+ * @property {number} [amount]
+ * @property {string} [damageType]
+ * @property {number} [turns=1]
+ * @property {CrucibleActor} [target]
+ */
+
+/**
  * Get a standardized 16 character ID that can be used for the ActiveEffect.
  * @param {string} label    The active effect label
  * @returns {string}        The standardized ID
@@ -7,17 +16,26 @@ export function getEffectId(label) {
   return label.slugify({replacement: "", lowercase: false, strict: true}).slice(0, 16).padEnd(16, "0");
 }
 
-export function bleeding(actor, target, {ability="dexterity", damageType="piercing"}={}) {
+/**
+ * Generate a standardized bleeding effect.
+ * Bleeding deals dexterity in damage to Health.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function bleeding(actor, {ability="dexterity", amount, turns=1, damageType="piercing"}={}) {
+  amount ??= actor.system.abilities[ability].value;
   return {
     _id: getEffectId("Bleeding"),
     name: "Bleeding",
     icon: "icons/skills/wounds/blood-spurt-spray-red.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
+    statuses: ["bleeding"],
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities[ability].value,
+          health: amount,
           damageType
         }
       }
@@ -25,18 +43,27 @@ export function bleeding(actor, target, {ability="dexterity", damageType="pierci
   }
 }
 
-export function burning(actor, target) {
+/**
+ * Generate a standardized burning effect.
+ * Burning deals half intellect in damage to both Health and Morale.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function burning(actor, {ability="intellect", amount, turns=1}={}) {
+  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
   return {
     _id: getEffectId("Burning"),
     name: "Burning",
     icon: "icons/magic/fire/projectile-smoke-swirl-red.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
+    statuses: ["burning"],
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.intellect.value,
-          morale: actor.system.abilities.intellect.value,
+          health: amount,
+          morale: amount,
           damageType: "fire"
         }
       }
@@ -44,18 +71,26 @@ export function burning(actor, target) {
   }
 }
 
-export function freezing(actor, target) {
+/**
+ * Generate a standardized freezing effect.
+ * Freezing deals half wisdom in damage to Health and also causes slowed.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
+  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
   return {
     _id: getEffectId("Freezing"),
     name: "Freezing",
     icon: "icons/magic/water/orb-ice-web.webp",
     duration: {turns: 1},
     origin: actor.uuid,
-    statuses: ["slowed"],
+    statuses: ["freezing", "slowed"],
     flags: {
       crucible: {
         dot: {
-          health: Math.floor(actor.system.abilities.wisdom.value / 2),
+          health: amount,
           damageType: "cold"
         }
       }
@@ -64,8 +99,8 @@ export function freezing(actor, target) {
 }
 
 /** @deprecated since 0.7.4 */
-export function chilled(actor, target) {
-  return frozen(actor, target);
+export function chilled(actor, options) {
+  return freezing(actor, options);
 }
 
 

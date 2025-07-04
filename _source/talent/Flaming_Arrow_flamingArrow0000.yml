@@ -1,0 +1,67 @@
+name: Flaming Arrow
+type: talent
+_id: flamingArrow0000
+img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+system:
+  nodes:
+    - intdex1
+  description: >-
+    <p>You take time to light and loose an arrow covered in flammable pitch.
+    This shot takes longer but is very damaging to either creatures or
+    structures.</p>
+  actions:
+    - id: flamingArrow
+      name: Flaming Arrow
+      img: icons/magic/fire/projectile-arrow-fire-red-yellow.webp
+      condition: ''
+      description: >-
+        <p>You loose a <strong>Empowered</strong> ranged strike using a
+        <strong>Projectile</strong> weapon which deals <strong>Fire</strong>
+        damage upon impact.</p>
+      cost:
+        action: 1
+        focus: 1
+        heroism: 0
+        weapon: true
+      range:
+        minimum: null
+        maximum: null
+        weapon: true
+      target:
+        type: single
+        number: 1
+        scope: 3
+        self: false
+      effects: []
+      tags:
+        - projectile
+        - ranged
+        - empowered
+        - fire
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: zksJqmFhNaGTWekG
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751636168488
+  modifiedTime: 1751636224215
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!flamingArrow0000'

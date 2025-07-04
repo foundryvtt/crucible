@@ -1,6 +1,6 @@
 import {shocked} from "./effects.mjs";
 
-const nonGroupTypes = {actorTypes: ["hero", "antagonist"]};
+const nonGroupTypes = {actorTypes: ["hero", "adversary"]};
 
 
 export const statusEffects = [

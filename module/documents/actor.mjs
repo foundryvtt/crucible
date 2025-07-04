@@ -1893,7 +1893,7 @@ export default class CrucibleActor extends Actor {
     // Level changes
     const adv0 = this._source.system.advancement;
     const adv1 = data.system?.advancement;
-    const levelChangeKeys = this.type === "hero" ? ["level"] : ["level", "threat"];
+    const levelChangeKeys = this.type === "hero" ? ["level"] : ["level", "rank"];
     const levelChange = !!adv1 && levelChangeKeys.some(k => (k in adv1) && (adv1[k] !== adv0[k]));
 
     // Ability score changes

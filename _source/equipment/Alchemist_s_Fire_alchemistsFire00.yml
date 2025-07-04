@@ -1,0 +1,91 @@
+name: Alchemist's Fire
+type: consumable
+_id: alchemistsFire00
+img: icons/consumables/potions/bottle-round-corked-yellow.webp
+system:
+  identifier: alchemistsFire
+  category: bomb
+  quantity: 1
+  weight: 1
+  price: 5
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>A flammable concoction that ignites upon impact and burns intensely for
+      a short time.</p>
+    private: ''
+  actions:
+    - id: alchemistsFire
+      name: Alchemist's Fire
+      img: icons/consumables/potions/bottle-round-corked-yellow.webp
+      condition: ''
+      description: >-
+        <p>You hurl the Alchemist's Fire, dealing <strong>Weakened</strong>
+        immediate damage but causing the @Condition[burning] condition to all
+        enemies in a 4 foot radius <strong>Blast</strong> who fail to avoid the
+        attack.</p><p>The amount of burning damage and its duration is dependant
+        on the quality of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 2
+        damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3 damage
+        for 3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
+        rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
+        rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
+        rounds</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      effects:
+        - name: Alchemist's Fire
+          scope: 3
+          statuses:
+            - burning
+          duration:
+            turns: 3
+            rounds: null
+      tags:
+        - weakened
+        - reflex
+        - dexterity
+        - skill
+        - athletics
+        - freehand
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751637580701
+  modifiedTime: 1751641319054
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 100000
+_key: '!items!alchemistsFire00'

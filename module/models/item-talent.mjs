@@ -294,7 +294,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
       uuid: talent.uuid,
       name: talent.name,
       img: talent.img,
-      actions: CrucibleTalentItemSheet.prepareActions(this.actions),
+      actions: await CrucibleTalentItemSheet.prepareActions(talent),
       tags: this.getTags(),
       prerequisites: reqs
     });

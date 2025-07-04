@@ -1,0 +1,45 @@
+name: Brigand
+type: archetype
+_id: archetypeBrigand
+img: icons/skills/melee/strike-dagger-skull-white.webp
+system:
+  description: >-
+    <p>Villainous lawbreakers whether they be bandits, pirates, ruffians, or
+    other knaves.</p>
+  identifier: brigand
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 2
+    strength: 2
+    toughness: 3
+    dexterity: 3
+  talents:
+    - Compendium.crucible.talent.Item.dualWield0000000
+    - Compendium.crucible.talent.Item.backstab00000000
+    - Compendium.crucible.talent.Item.pinningshot00000
+    - Compendium.crucible.talent.Item.opportunist00000
+    - Compendium.crucible.talent.Item.weakpoints000000
+  skills:
+    - athletics
+    - stealth
+    - deception
+    - intimidation
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.4
+  createdTime: 1751635335541
+  modifiedTime: 1751635335541
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+sort: 0
+_key: '!items!archetypeBrigand'
