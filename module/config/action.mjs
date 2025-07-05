@@ -471,16 +471,19 @@ export const TAGS = {
         const ownership = this.actor.hasPlayerOwner ? {default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER} : {};
         let worldActor = game.actors.get(sourceActor.id);
         if ( !worldActor ) {
-          const toImport = sourceActor.clone({ownership}, {keepId: true});
-          worldActor = await game.actors.importDocument(toImport, {keepId: true});
+          worldActor = await game.actors.importFromCompendium(sourceActor.collection, sourceActor.id, {ownership},
+            {keepId: true});
         }
         else await worldActor.update({ownership});
+
+        // Determine the summon position
+        const position = this.usage.summonPosition || this.template || this.token;
 
         // Create Token
         const tokenName = worldActor.name;
         const tokenData = foundry.utils.mergeObject({
-          x: this.usage.summonPosition?.x,
-          y: this.usage.summonPosition?.y,
+          x: position.x,
+          y: position.y,
           name: tokenName,
           disposition: this.actor.prototypeToken.disposition,
           delta: {

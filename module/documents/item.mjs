@@ -48,7 +48,7 @@ export default class CrucibleItem extends foundry.documents.Item {
     await super._preCreate(data, options, user);
 
     // Create Identifier
-    if ( this.system.schema.has("identifier") && !data.system?.identifier ) {
+    if ( this.system.schema?.has("identifier") && !data.system?.identifier ) {
       this.system.updateSource({"identifier": crucible.api.methods.generateId(this.name ?? this._id)});
     }
 

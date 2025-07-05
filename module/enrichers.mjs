@@ -110,7 +110,6 @@ function enrichDND5ESkill([match, terms]) {
 function enrichHazard([match, terms, name]) {
   const [hazard, ...tags] = terms.split(" ");
   const action = crucible.api.models.CrucibleAction.createHazard(undefined, {hazard: Number(hazard), tags});
-  action._prepare();
 
   // Construct label
   const hazardRank = `Hazard ${hazard}`;

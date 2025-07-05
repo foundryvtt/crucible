@@ -1,8 +1,6 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
-import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
-
 
 /**
  * @typedef {Object} ActionContext
@@ -1572,6 +1570,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleAction}
    */
   static createHazard(actor, {hazard=0, tags, ...actionData}={}) {
+    actor ||= new Actor.implementation({name: "Environment", type: "adversary"});
     tags = Array.isArray(tags) ? tags : [];
     tags.unshift("hazard");
     return new this({
