@@ -766,7 +766,7 @@ export const TAGS = {
   /* -------------------------------------------- */
 
   generic: {
-    tag: "Generic",
+    tag: "generic",
     label: "ACTION.TagGeneric",
     tooltip: "ACTION.TagGenericTooltip",
     category: "special",
@@ -789,18 +789,18 @@ export const TAGS = {
         skill: bonuses.skill ?? 0,
         enchantment: bonuses.enchantment,
         defenseType,
-        dc: this.defenses[defenseType].total
+        dc: target.defenses[defenseType].total
       });
       await roll.evaluate();
 
-      const r = roll.data.result = this.testDefense(defenseType, roll);
+      const r = roll.data.result = target.testDefense(defenseType, roll);
       if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
       roll.data.damage = {
         overflow: roll.overflow,
         multiplier: 1,
         base: 0,
         bonus: 0,
-        resistance: this.getResistance(resource, damageType),
+        resistance: target.getResistance(resource, damageType),
         type: damageType,
         resource: resource,
         restoration: false
@@ -813,7 +813,7 @@ export const TAGS = {
   /* -------------------------------------------- */
 
   reload: {
-    tag: "Reload",
+    tag: "reload",
     label: "ACTION.TagReload",
     tooltip: "ACTION.TagReloadTooltip",
     category: "special",

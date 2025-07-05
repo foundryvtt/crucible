@@ -1,22 +1,18 @@
-name: Restraining Chomp
+name: Venomous Bite
 type: talent
-img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
+_id: venomousBite0000
+img: icons/creatures/abilities/fang-tooth-poison-green.webp
 system:
   nodes: []
-  description: >-
-    <p>The @ref[actor.name]{creature} uses its powerful jaws to bite and hold a
-    target with a powerful chomp.</p>
+  description: <p>The @ref[actor.name]{creature} injects toxin with their bite.</p>
   actions:
-    - id: restrainingChomp
-      name: Restraining Chomp
-      img: icons/creatures/abilities/mouth-teeth-crooked-blue.webp
+    - id: venomousBite
+      name: Venomous Bite
+      img: icons/creatures/abilities/fang-tooth-poison-green.webp
       condition: ''
       description: >-
-        <p>The creature chomps down upon its target. If the attack is successful
-        and the target is equal or lesser in <strong>Size</strong>, the target
-        is also <strong>Restrained</strong> until this creature chooses to
-        release it or the restraint is otherwise broken. Only one target may be
-        restrained by this action at a given time.</p>
+        <p>This attack injects toxin, inflicting the @Condition[poisoned]
+        condition if successful.</p>
       cost:
         action: 0
         focus: 1
@@ -32,12 +28,12 @@ system:
         scope: 3
         self: false
       effects:
-        - name: Restraining Chomp
+        - name: Venomous Bite
           scope: 3
           statuses:
-            - restrained
+            - poisoned
           duration:
-            turns: null
+            turns: 6
             rounds: null
       tags:
         - melee
@@ -64,9 +60,8 @@ _stats:
   coreVersion: '13.346'
   systemId: crucible
   systemVersion: 0.7.4
-  createdTime: 1751142389739
+  createdTime: 1751678418780
   modifiedTime: 1751678418815
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_id: restrainingChomp
-sort: 100000
-_key: '!items!restrainingChomp'
+sort: 200000
+_key: '!items!venomousBite0000'

@@ -32,6 +32,11 @@ export function registerEnrichers() {
       enricher: enrichCondition
     },
     {
+      id: "crucibleSpell",
+      pattern: /@Spell\[([\w.]+)]/g,
+      enricher: enrichSpell
+    },
+    {
       id: "reference",
       pattern: /@ref\[([\w.]+)](?:{([^}]+)})?/g,
       enricher: enrichRef
@@ -200,6 +205,26 @@ function enrichCondition([match, conditionId]) {
   tag.dataset.crucibleTooltip = "condition";
   tag.dataset.condition = conditionId;
   tag.classList.add("condition");
+  return tag;
+}
+
+/* -------------------------------------------- */
+/*  Spells                                      */
+/* -------------------------------------------- */
+
+function enrichSpell([match, spellId]) {
+  let spell;
+  if ( !spellId.startsWith("spell.") ) spellId = `spell.${spellId}`;
+  try {
+    spell = crucible.api.models.CrucibleSpellAction.fromId(spellId);
+  } catch(err) {
+    return new Text(match);
+  }
+  const tag = document.createElement("enriched-content");
+  tag.innerHTML = spell.name;
+  tag.dataset.spellId = spell.id;
+  tag.classList.add("spell");
+  tag.dataset.tooltip = "Spell tooltips are still TO-DO."; // TODO
   return tag;
 }
 

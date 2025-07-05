@@ -169,7 +169,9 @@ class CrucibleActionTags extends Set {
     if ( this.has(value) ) return;
     const tag = SYSTEM.ACTION.TAGS[value]
     if ( !tag ) {
-      console.warn(`Unrecognized tag "${value}" in Action "${this.#action.id}"`);
+      let msg = `Unrecognized tag "${value}" in Action "${this.#action.id}"`;
+      if ( this.#action.actor ) msg += ` for Actor "${this.#action.actor.name}" [${this.#action.actor.uuid}]`;
+      console.warn(msg);
       return;
     }
     super.add(value);

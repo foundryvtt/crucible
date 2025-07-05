@@ -207,7 +207,7 @@ export default class CrucibleActor extends Actor {
     if ( !hookConfig ) throw new Error(`Invalid Actor hook function "${hook}"`);
     const hooks = this.system.actorHooks[hook] ||= [];
     for ( const {item, fn} of hooks ) {
-      console.debug(`Calling ${hook} hook for Item ${item.name}`);
+      if ( CONFIG.debug.crucibleHooks ) console.debug(`Calling ${hook} hook for Item ${item.name}`);
       try {
         fn.call(this, item, ...args);
       } catch(err) {

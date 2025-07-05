@@ -115,7 +115,7 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     adv.threat = adv.threatLevel * adv.threatFactor;
 
     // Automatic training and maximum action configuration
-    this.advancement.autoTrainingRank = Math.clamp(Math.ceil(adv.threatLevel / 6), 0, 4);
+    this.advancement.autoTrainingRank = Math.clamp(1 + Math.floor(adv.threatLevel / 6), 0, 4);
     this.advancement.maxAction = threatConfig.actionMax;
 
     // Scale attributes

@@ -2721,6 +2721,24 @@ enriched-content.condition:before {
   margin-right: 4px;
   font-size: 80%;
 }
+/* ----------------------------------------- */
+enriched-content.spell {
+  font-size: 90%;
+  color: var(--color-text-emphatic);
+  font-weight: bold;
+  border: 1px dashed var(--color-border);
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin: -1px 0;
+  cursor: var(--cursor-help);
+}
+enriched-content.spell:before {
+  content: "\f890";
+  font-family: var(--font-awesome);
+  opacity: 0.5;
+  margin-right: 4px;
+  font-size: 80%;
+}
 .crucible.sheet.skill {
   --sheet-header-height: 48px;
 }

@@ -14,8 +14,8 @@ system:
         weapon, you make a reduced-cost fullow-up <strong>Strike</strong> with
         your <strong>offhand</strong> weapon.</p>
       tags:
-        - afterStrike
         - offhand
+        - afterStrike
       cost:
         action: -1
         focus: 0
@@ -25,6 +25,7 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
       condition: ''
@@ -57,12 +58,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.0
+  systemVersion: 0.7.4
   createdTime: 1748638326991
-  modifiedTime: 1748638326991
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1751643902309
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 folder: cW6bwHXBB9pMcwva
 ownership:
   default: 0

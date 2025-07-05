@@ -379,4 +379,13 @@ HOOKS.uppercut = {
 
 /* -------------------------------------------- */
 
+HOOKS.venomousBite = {
+  postActivate(outcome) {
+    if ( outcome.target === this.actor ) return;
+    foundry.utils.mergeObject(outcome.effects[0], SYSTEM.EFFECTS.poisoned(this.actor));
+  }
+}
+
+/* -------------------------------------------- */
+
 export default HOOKS;

@@ -98,19 +98,26 @@ export function freezing(actor, {ability="wisdom", amount, turns=1}={}) {
   }
 }
 
-// TODO as above
-export function confused(actor, options) {
+/**
+ * Generate a standardized confused effect.
+ * Confused deals half intellect in damage to Morale and inflicts the Disoriented condition.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function confused(actor, {ability="intellect", amount, turns=2}={}) {
+  amount ??= Math.ceil(actor.system.abilities[ability].value / 2);
   return {
     _id: getEffectId("Confused"),
     name: "Confused",
     icon: "icons/magic/air/air-burst-spiral-pink.webp",
-    duration: {turns: 1},
+    duration: {turns},
     origin: actor.uuid,
-    statuses: ["disoriented"],
+    statuses: ["confused", "disoriented"],
     flags: {
       crucible: {
         dot: {
-          morale: Math.floor(actor.system.abilities.intellect.value / 2),
+          morale: amount,
           damageType: "psychic"
         }
       }
@@ -120,7 +127,7 @@ export function confused(actor, options) {
 
 /**
  * Generate a standardized corroding effect.
- * Freezing deals half wisdom in damage to Health.
+ * Corroding deals half wisdom in damage to Health.
  * @param {CrucibleActor} actor
  * @param {CrucibleDoTConfig} options
  * @returns {Partial<ActiveEffectData>}
@@ -236,18 +243,26 @@ export function inspired(actor, target) {
   }
 }
 
-// TODO as above
-export function poisoned(actor, target) {
+/**
+ * Generate a standardized poisoned effect.
+ * Poisoned deals the creatures toughness value in damage to Health.
+ * @param {CrucibleActor} actor
+ * @param {CrucibleDoTConfig} options
+ * @returns {Partial<ActiveEffectData>}
+ */
+export function poisoned(actor, {ability="toughness", amount, turns=6}={}) {
+  amount ??= actor.system.abilities[ability].value;
   return {
     _id: getEffectId("Poisoned"),
     name: "Poisoned",
     icon: "icons/magic/unholy/orb-smoking-green.webp",
-    duration: {turns: 6},
+    duration: {turns},
     origin: actor.uuid,
+    statuses: ["poisoned"],
     flags: {
       crucible: {
         dot: {
-          health: actor.system.abilities.intellect.value,
+          health: amount,
           damageType: "poison"
         }
       }
