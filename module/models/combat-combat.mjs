@@ -111,8 +111,10 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
     for ( const tr of html.querySelectorAll("tr.combatant") ) {
       const c = combat.combatants.get(tr.dataset.combatantId);
       if ( !c ) continue;
-      if ( !game.user.isGM ) tr.remove();
-      else if ( c.hidden ) tr.classList.add("secret");
+      if ( c.hidden ) {
+        if ( game.user.isGM ) tr.classList.add("secret");
+        else tr.remove();
+      }
     }
   }
 

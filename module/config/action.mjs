@@ -223,8 +223,8 @@ export const TAGS = {
     propagate: ["ranged"],
     canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-      if ( this.tags.has("offhand") ) return oh.config.category.training === "mechanical";
-      else return mh.config.category.training === "mechanical";
+      if ( this.tags.has("offhand") ) return ["mechanical1", "mechanical2"].includes(oh.category);
+      else return ["mechanical1", "mechanical2"].includes(mh.category);
     }
   },
 
