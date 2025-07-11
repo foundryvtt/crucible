@@ -215,7 +215,7 @@ HOOKS.selfRepair = {
 
 HOOKS.spellband = {
   postActivate(outcome) {
-    const enchantment = this.usage.consumable.config.enchantment;
+    const enchantment = this.item.config.enchantment;
     const amount = 2 + (2 * enchantment.bonus);
     outcome.resources.focus = (outcome.resources.focus || 0) + amount;
   }
