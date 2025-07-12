@@ -2,6 +2,27 @@ const HOOKS = {};
 
 /* -------------------------------------------- */
 
+HOOKS.arcanearcher0000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("spell") ) return;
+    const mh = this.equipment.weapons.mainhand;
+    if ( !["projectile1", "projectile2"].includes(mh.category) ) return;
+
+    // Ignore hands for Gesture: Arrow
+    if ( action.gesture.id === "arrow" ) {
+      action.cost.hands = 0;
+      action.range.weapon = true;
+      action.range.maximum = mh.system.range;
+    }
+
+    // Reduce cost of spell following strike
+    const lastAction = this.lastConfirmedAction;
+    if ( lastAction?.tags.has("strike") ) action.cost.action -= 1;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.armoredShell0000 = {
   prepareDefenses(item, defenses) {
     if ( !this.statuses.has("guarded") ) return;
@@ -92,6 +113,25 @@ HOOKS.powerfulThrow000 = {
     }
   }
 };
+
+/* -------------------------------------------- */
+
+HOOKS.spellblade000000 = {
+  prepareAction(item, action) {
+    if ( !action.tags.has("spell") ) return;
+    const mh = this.equipment.weapons.mainhand;
+    if ( mh.config.category.ranged ) return;
+
+    // Add weapon damage bonus to Strike gesture
+    if ( action.gesture.id === "strike" ) {
+      action.damage.bonus = (action.damage.bonus ?? 0) + mh.system.damage.bonus;
+    }
+
+    // Reduce cost of spell following strike
+    const lastAction = this.lastConfirmedAction;
+    if ( lastAction?.tags.has("strike") ) action.cost.action -= 1;
+  }
+}
 
 /* -------------------------------------------- */
 

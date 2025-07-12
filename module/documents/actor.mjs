@@ -174,6 +174,39 @@ export default class CrucibleActor extends Actor {
   }
 
   /**
+   * The tracked action history for this Actor.
+   * The array is ordered with most-recent first.
+   * @returns {CrucibleActionHistoryEntry[]}
+   */
+  get actionHistory() {
+    return this.flags.crucible?.actionHistory || [];
+  }
+
+  /**
+   * The last confirmed action used by this Actor.
+   * @type {CrucibleAction|null}
+   */
+  get lastConfirmedAction() {
+    const history = this.flags.crucible?.actionHistory || [];
+    for ( const record of history ) {
+      const message = game.messages.get(record.messageId);
+      if ( !message ) continue;
+      const {action, confirmed} = message.flags.crucible;
+      if ( action && confirmed ) {
+        if ( this.#lastConfirmedAction.messageId !== message.id ) {
+          this.#lastConfirmedAction.messageId = message.id;
+          this.#lastConfirmedAction
+           = {messageId: message.id, action: CrucibleAction.fromChatMessage(message)};
+        }
+        return this.#lastConfirmedAction.action;
+      }
+    }
+    return null;
+  }
+
+  #lastConfirmedAction = {messageId: null, action: null};
+
+  /**
    * Prior resource values that can be used to establish diffs.
    * This is stored on the Actor because the system data object is reconstructed each time preparation occurs.
    * @type {Record<string, number|boolean>}
@@ -1052,20 +1085,37 @@ export default class CrucibleActor extends Actor {
       text: game.i18n.localize("ACTIVE_EFFECT.STATUSES.Unaware"),
       fillColor: SYSTEM.RESOURCES.action.color.css
     });
-    const actorUpdates = {system: {status: null}};
+    const actorUpdates = {
+      system: {status: null},
+      flags: {
+        crucible: {
+          actionHistory: []
+        }
+      }
+    };
+
+    // Actor turn start configuration hook
     const effectChanges = {toCreate: [], toUpdate: [], toDelete: []};
     const turnStartConfig = {resourceRecovery, actorUpdates, effectChanges, statusText};
     this.callActorHooks("startTurn", turnStartConfig);
 
     // Apply damage-over-time
-    await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+    try {
+      await this.applyDamageOverTime(); // TODO integrate this with resourceRecovery?
+    } catch(cause) {
+      console.warn(new Error("Failed to apply turn start damage-over-time effects.", {cause}));
+    }
 
     // Remove Active Effects which expire at the start of a turn (round)
-    await this.applyActiveEffectChanges(true, effectChanges);
+    try {
+      await this.applyActiveEffectChanges(true, effectChanges);
+    } catch(cause) {
+      console.warn(new Error("Failed to apply turn start active effect changes.", {cause}));
+    }
 
     // Recover resources
     await this.alterResources(resourceRecovery, actorUpdates, {statusText});
-    // TODO turn start summary of resource changes and their sources?
+    // TODO log a turn start summary of resource changes and their sources?
   }
 
   /* -------------------------------------------- */

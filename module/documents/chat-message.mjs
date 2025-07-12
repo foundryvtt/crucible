@@ -110,6 +110,9 @@ async function onChatTargetLinkHover(event) {
 
   // Get the target Token object;
   const target = await fromUuid(link.dataset.uuid);
+  if ( !target ) return; // Target no longer exists
+
+  // Identify the token
   let token;
   if ( target instanceof TokenDocument ) {
     if ( !target.parent.isView ) return;

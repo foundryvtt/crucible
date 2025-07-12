@@ -95,10 +95,24 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef CrucibleActionUsageOptions
  * @property {CrucibleTokenObject} [token]  A specific Token which is performing the action
- * @property {boolean} [chatMessage]        Automatically create a ChatMessage for the action?
  * @property {boolean} [dialog]             Present the user with an action configuration dialog?
  * @property {string} [rollMode]            Which roll mode to apply to the resulting message?
  */
+
+
+/**
+ * @typedef CrucibleActionHistoryEntry      A logged Action within the Actor's action history flag
+ * @property {string} id                    The Action ID that was performed
+ * @property {string|null} messageId        The ChatMessage ID that contains full action details
+ * @property {({id: string}|CombatHistoryData)|null} combat The Combat state at the time the action occurred
+ */
+
+/**
+ * @typedef CrucibleActionData
+ */
+
+
+
 
 /**
  * @typedef {Map<CrucibleActor,CrucibleActionOutcome>} CrucibleActionOutcomes
@@ -311,6 +325,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #sheet;
 
   /**
+   * Has this action been prepared for a given Actor to use?
+   * @internal
+   */
+  _prepared = this._prepared ?? false;
+
+  /**
    * Is this Action a favorite of the Actor which owns it?
    * @type {boolean}
    */
@@ -367,7 +387,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _initialize(options) {
+  _initialize(options={}) {
     super._initialize(options);
 
     // Prepare base data
@@ -383,11 +403,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     });
 
     // Prepare action for actor
-    if ( this.actor ) {
-      this._configureUsage();
-      this.actor.prepareAction(this);
-      this._prepare();
-    }
+    if ( !options.lazy ) this.prepare();
   }
 
   /* -------------------------------------------- */
@@ -453,7 +469,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
 
     // Reset bonuses
-    this.usage.actorStatus.basicStrike = false; // Set later, if true
     Object.assign(this.usage.bonuses, {
       ability: 0,
       skill: 0,
@@ -494,8 +509,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const clone = new this.constructor(actionData, context);
 
     // When cloning a single action, we need to run through "prepareActions" actor hooks on the clone
-    if ( this.actor ) this.actor.callActorHooks("prepareActions", {[clone.id]: clone});
+    if ( this.actor && !context.lazy ) this.actor.callActorHooks("prepareActions", {[clone.id]: clone});
     return clone;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the Action to be used by an Actor.
+   * Happens automatically in _initialize unless the document is being constructed lazily.
+   */
+  prepare() {
+    if ( !this.actor ) return;
+    this._configureUsage();
+    this.actor.prepareAction(this);
+    this._prepare();
+    this._prepared = true;
   }
 
   /* -------------------------------------------- */
@@ -547,7 +576,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<CrucibleActionOutcomes|undefined>}
    */
   async use({token, ...options}={}) {
-    if ( !this.actor ) throw new Error("A CrucibleAction may not be used unless it is bound to an Actor");
+    if ( !this._prepared ) throw new Error("A CrucibleAction must be prepared for an Actor before it can be used.");
 
     // Redirect to spellcasting
     if ( this.id === "cast" ) {
@@ -558,7 +587,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Infer the Token performing the Action
     if ( !token ) {
       let tokens = this.actor.getActiveTokens();
-      if ( tokens.length > 1 ) tokens = tokens.filter(t => t.controlled)?.document;
+      if ( tokens.length > 1 ) tokens = tokens.filter(t => t.controlled);
       if ( tokens.length === 1 ) token = tokens[0]?.document;
       if ( tokens.length > 1 ) {
         throw new Error(`Multiple tokens controlled for Actor "${this.actor.name}"`);
@@ -575,12 +604,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Execute the cloned action.
    * @param {object} [options]                      Options which modify action usage
-   * @param {boolean} [options.chatMessage]         Automatically create a ChatMessage for the action?
    * @param {boolean} [options.dialog]              Present the user with an action configuration dialog?
-   * @param {string} [options.rollMode]             Which roll mode to apply to the resulting message?
+   * @param {object} [options.chatMessageOptions]   Options which are passed to Action#toMessage
    * @returns {Promise<CrucibleActionOutcomes|null>}
    */
-  async #use({chatMessage=true, chatMessageOptions={}, dialog=true}={}) {
+  async #use({chatMessageOptions={}, dialog=true}={}) {
 
     // Acquire initially designated targets
     let targets = [];
@@ -638,10 +666,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const self = this.#createSelfOutcome();
     outcomes.set(this.actor, self);
 
-    // Determine whether a chat message and confirmation is required
-    const canConfirm = this.canAutoConfirm();
-    if ( !canConfirm ) chatMessage = true;
-
     // Create any Measured Template for the action
     if ( this.template ) {
       const templateData = this.template.toObject();
@@ -651,21 +675,36 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       await this.template.object.draw();
     }
 
-    // Record the action as a chat message
-    const message = chatMessage && await this.toMessage(targets, {
+    // Record action history and create a ChatMessage to confirm the action
+    const message = await this.toMessage(targets, {
       ...chatMessageOptions,
       confirmed: false,
       rollMode: this.usage.rollMode
     });
-    self.actorUpdates.system.status.lastActionMessage = message?.id || null;
 
-    // Apply action usage flags (immediately)
-    // TODO record a queue of action history on actor flags?
+    // Persist action usage flags immediately rather than waiting for action confirmation
+    this.#recordActionHistory(message);
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
-
-    // Immediately confirm the action only if no chat message is transacted
-    if ( !message ) await this.confirm();
     return outcomes;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Record this action usage to action history for the Actor.
+   * @param {ChatMessage} message           The created ChatMessage that records the Action
+   * @returns {CrucibleActionHistoryEntry}
+   */
+  #recordActionHistory(message) {
+    const lastAction = {
+      id: this.id,
+      messageId: message?.id || null,
+      combat: this.actor.inCombat ? {id: game.combat.id, ...game.combat.current} : null
+    };
+    const history = (this.actor.flags.crucible.actionHistory || []).slice(0, 99); // Maximum 100 history items
+    history.unshift(lastAction);
+    this.usage.actorFlags.actionHistory = history;
+    return lastAction;
   }
 
   /* -------------------------------------------- */
@@ -1424,10 +1463,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {ActionUseTarget[]} targets           Targets affected by this action usage
    * @param {object} options                      Context options for ChatMessage creation
    * @param {boolean} [options.confirmed]           Were the outcomes auto-confirmed?
-   * @param {boolean} [options.temporary]           Create only a temporary in-memory message
    * @returns {Promise<ChatMessage>}              The created ChatMessage document
    */
-  async toMessage(targets, {confirmed=false, temporary=false, ...options}={}) {
+  async toMessage(targets, {confirmed=false, ...options}={}) {
 
     // Prepare action data
     const actionData = {
@@ -1472,15 +1510,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     });
 
     // Create chat message
-    const messageData = {
+    return ChatMessage.create({
       content: content,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       rolls: rolls,
-      flags: {
-        crucible: actionData
-      }
-    }
-    return temporary ? new ChatMessage(messageData) : ChatMessage.create(messageData, options);
+      flags: {crucible: actionData}
+    }, options);
   }
 
   /* -------------------------------------------- */
@@ -1503,6 +1538,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Reconstitute an Action from a ChatMessage which contains it.
+   * The reconstituted Action is constructed lazily and has not been prepared for a particular Actor.
    * @param {ChatMessage} message     The ChatMessage instance containing a used Action
    * @returns {CrucibleAction|null}   The reconstituted Action instance
    */
@@ -1523,16 +1559,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     const token = fromUuidSync(tokenUuid);
 
     // Rebuild action from explicit data
-    const actionContext = {parent: item?.system, actor, item, token, template};
-    let action;
     const actionId = actionData.id;
-    if ( actionId.startsWith("spell.") ) {
-      action = game.system.api.models.CrucibleSpellAction.fromId(actionId, actionContext);
+    const actionContext = {parent: item?.system, actor, item, token, template, lazy: true};
+    let action;
+    if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
+    else if ( actionId.startsWith("spell.") ) {
+      action = new game.system.api.models.CrucibleSpellAction(actionData, actionContext);
     }
-    else if ( actionId in actor.actions ) action = actor.actions[actionId].clone({}, actionContext);
     else action = new this(actionData, actionContext);
 
-    // Re-prepare Action outcomes
+    // Reconstruct outcomes
     action.outcomes = new Map();
     for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of outcomes ) {
       let target = fromUuidSync(targetUuid);

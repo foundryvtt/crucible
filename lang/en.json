@@ -374,7 +374,7 @@
 "ACTION.TemplateTargets": "Template Targets",
 "ACTION.Confirmed": "Confirmed",
 "ACTION.Unconfirmed": "Unconfirmed",
-"ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}!",
+"ACTION.WarningCannotUse": "{name} does not satisfy the prerequisites to use {action}: {reason}",
 "ACTION.WarningCannotAffordCost": "{name} has insufficient {resource} to use {action}!",
 "ACTION.WarningCannotAffordMove": "{name} has insufficient action to move this distance which requires {cost}A!",
 "ACTION.WarningCannotSpendAction": "{name} cannot spend Action because they are Paralyzed!",

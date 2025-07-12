@@ -348,16 +348,6 @@ HOOKS.ruthlessMomentum = {
 
 /* -------------------------------------------- */
 
-HOOKS.strike = {
-  async postActivate(outcome) {
-    if ( outcome.rolls.some(r => !r.isCriticalFailure) ) {
-      this.usage.actorStatus.basicStrike = true;
-    }
-  }
-}
-
-/* -------------------------------------------- */
-
 HOOKS.thrash = {
   canUse(targets) {
     if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
@@ -369,10 +359,10 @@ HOOKS.thrash = {
 /* -------------------------------------------- */
 
 HOOKS.uppercut = {
-  canUse(_targets) {
-    const {basicStrike, lastAction} = this.actor.system.status;
-    if ( !basicStrike || (lastAction !== "strike") ) {
-      throw new Error("You can only perform Uppercut after a basic Strike which did not critically miss.");
+  canUse(targets) {
+    const lastAction = this.actor.lastConfirmedAction;
+    if ( !lastAction.outcomes.has(targets[0].actor) ) {
+      throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);
     }
   }
 }

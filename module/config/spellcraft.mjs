@@ -311,9 +311,7 @@ export const GESTURES = Object.seal({
       focus: 1,
       weapon: true
     },
-    damage: {
-      base: 12
-    },
+    damage: {},
     hands: 0,
     range: {
       weapon: true

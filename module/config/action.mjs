@@ -209,8 +209,8 @@ export const TAGS = {
     propagate: ["ranged"],
     canUse(_targets) {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
-      if ( this.tags.has("offhand") ) return oh.config.category.training === "projectile";
-      else return mh.config.category.training === "projectile";
+      if ( this.tags.has("offhand") ) return ["projectile1", "projectile2"].includes(oh.category);
+      else return ["projectile1", "projectile2"].includes(mh.category);
     }
   },
 
@@ -282,12 +282,24 @@ export const TAGS = {
     tooltip: "ACTION.TagActorStrikeTooltip",
     category: "requirements",
     canUse(_targets) {
-      if ( !this.actor.system.status.basicStrike ) {
-        throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
+      const lastAction = this.actor.lastConfirmedAction;
+      if ( lastAction.id !== "strike" ) {
+        throw new Error(`You may only perform the ${this.name} action after a basic Strike action.`);
+      }
+      for ( const outcome of lastAction.outcomes.values() ) {
+        if ( outcome.target === this.actor ) continue;
+        if ( outcome.rolls.some(r => r.isCriticalFailure) ) {
+          throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
+        }
       }
     },
     displayOnSheet(_combatant) {
-      return !!this.actor.system.status.basicStrike;
+      try {
+        TAGS.afterStrike.canUse.call(this);
+        return true;
+      } catch(err) {
+        return false;
+      }
     }
   },
 

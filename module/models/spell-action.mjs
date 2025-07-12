@@ -220,20 +220,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
     switch ( this.gesture.id ) {
 
       /* -------------------------------------------- */
-      /*  Gesture: Arrow                              */
-      /* -------------------------------------------- */
-      case "arrow":
-        if ( t.has("arcanearcher0000") && mh.config.category.ranged ) {
-          this.range.weapon = true;
-          this.cost.hands = 0;
-          if ( s.rangedAttack && !s.arcaneArcher ) {
-            this.cost.action -= 1;
-            this.usage.actorStatus.arcaneArcher = true;
-          }
-        }
-        break;
-
-      /* -------------------------------------------- */
       /*  Gesture: Create                             */
       /* -------------------------------------------- */
       case "create":
@@ -278,13 +264,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
       /* -------------------------------------------- */
       case "strike":
         this.scaling = new Set(mh.config.category.scaling.split("."));
-        this.damage.bonus = mh.system.damage.bonus;
-
-        // Spellblade Signature
-        if ( t.has("spellblade000000") && s.meleeAttack && !s.spellblade ) {
-          this.cost.action -= 1;
-          this.usage.actorStatus.spellblade = true;
-        }
+        this.damage.base = mh.system.damage.base;
         break;
 
       /* -------------------------------------------- */
