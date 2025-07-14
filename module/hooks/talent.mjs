@@ -161,4 +161,16 @@ HOOKS.stronggrip000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.evasiveshot00000 = {
+  prepareWeaponAttack(item, action, _target, _rollData) {
+    const isRanged = action.usage.strikes.some(w => w.system.config.category.ranged);
+    if ( isRanged ) {
+      const movementBonus = (this.system.status.movement?.bonus ?? 0) + Math.ceil(this.system.movement.stride / 2);
+      foundry.utils.setProperty(action.usage.actorStatus, "movement.bonus", movementBonus);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 export default HOOKS;

@@ -58,10 +58,29 @@ export function getLinearRangeCost(attacker, target) {
     else return 0;
   }
 
-  // Measure non-overlapping distance
-  const r = new Ray(attacker.center, target.center);
-  const xa = ab.segmentIntersections(r.A, r.B)[0];
-  const xt = tb.segmentIntersections(r.A, r.B)[0];
-  return canvas.grid.measurePath([{...xa, elevation: ae}, {...xt, elevation: te}]).distance;
+  // Determine origin and target points of the ray
+  const A = {elevation: ae}; // attacker
+  const T = {elevation: te}; // target
+  if ( ab.bottom < tb.top ) {
+    A.y = ab.bottom;
+    T.y = tb.top;
+  }
+  else if ( ab.top > tb.bottom ) {
+    A.y = ab.top;
+    T.y = tb.bottom;
+  }
+  else A.y = T.y = (Math.max(ab.top, tb.top) + Math.min(ab.bottom, tb.bottom)) / 2;
+  if ( ab.right < tb.left ) {
+    A.x = ab.right;
+    T.x = tb.left;
+  }
+  else if ( ab.left > tb.right ) {
+    A.x = ab.left;
+    T.x = tb.right;
+  }
+  else A.x = T.x = (Math.max(ab.left, tb.left) + Math.min(ab.right, tb.right)) / 2;
+
+  // Measure distance
+  return canvas.grid.measurePath([A, T]).distance;
 }
 
