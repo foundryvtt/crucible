@@ -23,6 +23,7 @@ system:
         - melee
         - mainhand
         - offhand
+        - difficult
       cost:
         action: 1
         focus: 0
@@ -33,6 +34,7 @@ system:
         number: 1
         scope: 0
         multiple: 2
+        self: false
       effects: []
       actionHooks: []
       range:
@@ -42,10 +44,10 @@ system:
   requirements: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.6
+  coreVersion: '13.346'
   createdTime: 1674942420020
-  modifiedTime: 1727142969047
+  modifiedTime: 1752525480135
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Compendium.crucible.talent.CANFHQxFjIJwgEYK
   duplicateSource: null

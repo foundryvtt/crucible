@@ -103,6 +103,7 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
   resistances:
     bludgeoning:
       bonus: 0
@@ -264,7 +265,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 7smUYoamPX
+      identifier: uqC6pRnyzj
       invested: false
       actorHooks: []
     _stats:
@@ -295,7 +296,7 @@ items:
       price: 80
       quality: fine
       enchantment: mundane
-      equipped: false
+      equipped: true
       properties: []
       description:
         public: ''
@@ -304,7 +305,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: gkgNrWAJg6
+      identifier: MG4xRxFYbM
       invested: false
       actorHooks: []
       dropped: false
@@ -1268,16 +1269,41 @@ items:
 effects: []
 flags:
   core: {}
-  crucible: {}
+  crucible:
+    actionHistory:
+      - id: strike
+        messageId: SdsY1EWKyKPSa9Cx
+        combat:
+          id: s9ijfMNbMJNoTwNL
+          round: 1
+          turn: 0
+          combatantId: vP5igD83nQtZYfJQ
+          tokenId: Z8nlumO1xwXFFsak
+      - id: equipItem
+        messageId: WrdbHrLtuy6YeQos
+        combat:
+          id: s9ijfMNbMJNoTwNL
+          round: 1
+          turn: 0
+          combatantId: vP5igD83nQtZYfJQ
+          tokenId: Z8nlumO1xwXFFsak
+      - id: strike
+        messageId: zgMxGviN2iRJSNzT
+        combat:
+          id: s9ijfMNbMJNoTwNL
+          round: 1
+          turn: 0
+          combatantId: vP5igD83nQtZYfJQ
+          tokenId: Z8nlumO1xwXFFsak
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.6
   createdTime: 1751148758927
-  modifiedTime: 1751642422180
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 sort: 0

@@ -261,7 +261,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: ZsImrAuYSb
+      identifier: Tam8U0ZCQn
       invested: false
       actorHooks: []
     _stats:
@@ -298,7 +298,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: QoH7myAZ66
+      identifier: T4KFu4rjXf
       invested: false
       actorHooks: []
       dropped: false
@@ -336,7 +336,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: hBjq0bckgK
+      identifier: fAbl36kTpg
       invested: false
       actorHooks: []
       dropped: false
@@ -1149,14 +1149,57 @@ flags:
   core: {}
   crucible:
     lastSpell: spell.frost.create
+    actionHistory:
+      - id: spell.frost.create
+        messageId: wy0qe23OKYKKesJj
+        combat: null
+      - id: spell.frost.create
+        messageId: 0SMj89baACVUwmXR
+        combat: null
+      - id: spell.lightning.create
+        messageId: FH19aAUDTdL6oHd8
+        combat: null
+      - id: spell.lightning.create
+        messageId: j68WhJjZdJ5jvIEy
+        combat: null
+      - id: spell.lightning.create
+        messageId: hgR2Y8hCwGZu98Hl
+        combat: null
+      - id: spell.lightning.create
+        messageId: g2yemA6PJd1BZRti
+        combat: null
+      - id: spell.lightning.create
+        messageId: 9w5hAHLckbHmIstg
+        combat: null
+      - id: spell.lightning.create
+        messageId: 0kcVLuaberUAEFpv
+        combat: null
+      - id: spell.lightning.create
+        messageId: gvAjorfeoKeO78Aj
+        combat: null
+      - id: spell.lightning.create
+        messageId: xsb5NV0QhZBJpe4y
+        combat: null
+      - id: spell.lightning.create
+        messageId: EccF6C0JsX5qSUO6
+        combat: null
+      - id: spell.frost.create
+        messageId: K8Mxy7TZZJZNkRaK
+        combat: null
+      - id: spell.frost.create
+        messageId: C4Z35LJ8kyfz2cHD
+        combat: null
+      - id: spell.frost.create
+        messageId: t3WM9HAg9PzUI3c7
+        combat: null
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
-  modifiedTime: 1751642422180
+  systemVersion: 0.7.6
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 sort: 0

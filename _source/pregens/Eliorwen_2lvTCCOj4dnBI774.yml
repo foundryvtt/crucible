@@ -105,6 +105,7 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
   resistances:
     bludgeoning:
       bonus: 0
@@ -267,7 +268,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: weMi9nozLE
+      identifier: 4zDlvzIYLO
       invested: false
       actorHooks: []
       dropped: false
@@ -307,7 +308,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: tqkIR1yrAQ
+      identifier: tITLYt7ZGt
       invested: false
       actorHooks: []
       dropped: false
@@ -347,7 +348,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: KE00gOcyJI
+      identifier: R1VP0Hxktn
       invested: false
       actorHooks: []
     _stats:
@@ -569,12 +570,13 @@ items:
     system:
       description: >-
         <p>Your skill with archery can shape your spellcraft, partially
-        substituting for the somatic gestures of traditional spellcasting. With
-        a ranged weapon equipped you ignore the free-hand requirement for
-        casting spells that use the <strong>Arrow</strong> gesture.</p><p>After
-        performing a <strong>Strike</strong> with a projectile weapon, you may
-        cast a spell using the <strong>Arrow</strong> gesture during the same
-        Turn with Action Cost reduced by 1.</p>
+        substituting for the somatic gestures of traditional
+        spellcasting.</p><p>While using a <strong>Projectile </strong>weapon as
+        your mainhand weapon, you ignore the free-hand requirement for casting
+        spells using the <strong>Arrow</strong> gesture and the range of those
+        spells becomes your weapon range.</p><p>Immediately after performing a
+        <strong>Strike</strong> with a projectile weapon, you may cast a spell
+        with its <strong>Action</strong> cost reduced by 1.</p>
       actions: []
       iconicSpells: 1
       actorHooks: []
@@ -777,17 +779,9 @@ items:
     system:
       description: >-
         <p>You are an expert at firing shots with ranged weaponry while evading
-        enemy attacks. After performing a ranged weapon attack, you gain your
-        <strong>Stride</strong> in additional free movement.</p>
-      actorHooks:
-        - hook: prepareWeaponAttack
-          fn: |-
-            const status = action.usage.actorStatus;
-            if ( !status.rangedAttack ) return;
-            const move = this.system.status.movement;
-            const stride = this.system.movement.stride;
-            const bonus = (move.bonus ?? 0) + stride;
-            foundry.utils.setProperty(status, "movement.bonus", bonus);
+        enemy attacks. After performing a ranged weapon attack, you gain half
+        your <strong>Stride</strong> in additional free movement.</p>
+      actorHooks: []
       actions: []
       iconicSpells: 0
       training:
@@ -1154,16 +1148,66 @@ items:
 effects: []
 flags:
   core: {}
-  crucible: {}
+  crucible:
+    lastSpell: spell.lightning.arrow
+    actionHistory:
+      - id: strike
+        messageId: NpizgVYrCFLk4Ll6
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
+      - id: strike
+        messageId: Q9LJUxh7bTkr1d2R
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
+      - id: spell.lightning.arrow
+        messageId: VK80wJQiurW29zzS
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
+      - id: precisionShot
+        messageId: jb6IN5bPIlJhZown
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
+      - id: spell.lightning.arrow
+        messageId: Z6MAjpbjXMYbpEtd
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
+      - id: strike
+        messageId: 5k1aG0ZDwDGXQwHe
+        combat:
+          id: J7Hw9RkYTGs5UHLr
+          round: 1
+          turn: 0
+          combatantId: 4TBnXs1Dwyn6kMy3
+          tokenId: MndNelKUCSPSmp4x
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.6
   createdTime: 1751148758927
-  modifiedTime: 1751642422180
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 sort: 0

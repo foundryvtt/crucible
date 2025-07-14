@@ -104,6 +104,7 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
   resistances:
     bludgeoning:
       bonus: 0
@@ -259,7 +260,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: 6vp7RXOHrS
+      identifier: KpTdndlhLc
       invested: false
       actorHooks: []
       dropped: false
@@ -301,7 +302,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: lNqbChzU5j
+      identifier: B0n4wPLn8r
       invested: false
       actorHooks: []
     _stats:
@@ -1094,8 +1095,8 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
-  modifiedTime: 1751642422180
+  systemVersion: 0.7.6
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 sort: 0

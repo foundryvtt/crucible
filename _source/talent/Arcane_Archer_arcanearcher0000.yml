@@ -5,12 +5,13 @@ system:
   node: sig3.intellect.dexterity
   description: >-
     <p>Your skill with archery can shape your spellcraft, partially substituting
-    for the somatic gestures of traditional spellcasting. With a ranged weapon
-    equipped you ignore the free-hand requirement for casting spells that use
-    the <strong>Arrow</strong> gesture.</p><p>After performing a
-    <strong>Strike</strong> with a projectile weapon, you may cast a spell using
-    the <strong>Arrow</strong> gesture during the same Turn with Action Cost
-    reduced by 1.</p>
+    for the somatic gestures of traditional spellcasting.</p><p>While using a
+    <strong>Projectile </strong>weapon as your mainhand weapon, you ignore the
+    free-hand requirement for casting spells using the <strong>Arrow</strong>
+    gesture and the range of those spells becomes your weapon
+    range.</p><p>Immediately after performing a <strong>Strike</strong> with a
+    projectile weapon, you may cast a spell with its <strong>Action</strong>
+    cost reduced by 1.</p>
   actions: []
   iconicSpells: 1
 effects: []
@@ -21,11 +22,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.345'
+  systemVersion: 0.7.6
+  coreVersion: '13.346'
   createdTime: 1676830120357
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1752287103390
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.arcanearcher0000
   duplicateSource: null
   exportSource: null

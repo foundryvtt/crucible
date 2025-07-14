@@ -148,16 +148,16 @@ system:
     engagementBonus: 0
   status: null
   favorites:
-    - counterStrike
+    - defend
     - reactiveStrike
-    - bodyBlock
     - strike
-    - shieldBash
-    - formidablePresence
-    - rallyingCry
     - intimidate
     - secondWind
-    - defend
+    - bodyBlock
+    - counterStrike
+    - formidablePresence
+    - rallyingCry
+    - shieldBash
 prototypeToken:
   name: Duurath
   displayName: 20
@@ -265,7 +265,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: rqo8X4laSy
+      identifier: lPhCL2uPhB
       invested: false
       actorHooks: []
       dropped: false
@@ -306,7 +306,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: drJdFyNMdW
+      identifier: bDDDpJx2ws
       invested: false
       actorHooks: []
       dropped: false
@@ -345,7 +345,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 90riYUlv2g
+      identifier: 4OPaoxKFjb
       invested: false
       actorHooks: []
     _stats:
@@ -437,10 +437,9 @@ items:
             <strong>Strike</strong> with your shield, causing the
             <strong>Staggered</strong> condition for one Round.</p>
           tags:
-            - melee
             - shield
-            - offhand
             - afterStrike
+            - offhand
           cost:
             action: 0
             focus: 0
@@ -458,6 +457,7 @@ items:
                 - staggered
               duration:
                 turns: 1
+                rounds: null
           name: Shield Bash
           img: icons/skills/melee/shield-block-bash-blue.webp
           actionHooks: []
@@ -1119,7 +1119,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: DOxqh7Fcmy
+      identifier: FDfkOs23h3
       invested: false
       actorHooks: []
       dropped: false
@@ -1194,7 +1194,7 @@ items:
             - reflex
             - melee
           actionHooks: []
-      identifier: QHFZwOFM3A
+      identifier: 47fs3b89Hi
       invested: false
       actorHooks: []
       dropped: false
@@ -1399,16 +1399,26 @@ items:
 effects: []
 flags:
   core: {}
-  crucible: {}
+  crucible:
+    actionHistory:
+      - id: shieldBash
+        messageId: 7p0OLsfavBELTWuT
+        combat: null
+      - id: shieldBash
+        messageId: E3wc7kcewNByhebL
+        combat: null
+      - id: strike
+        messageId: oW4eHj6GOQkS2Ast
+        combat: null
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.6
   createdTime: 1751148758927
-  modifiedTime: 1751642422180
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 sort: 0

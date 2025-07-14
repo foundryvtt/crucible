@@ -157,6 +157,11 @@ system:
   advancement:
     level: 1
     threat: minion
+  favorites:
+    - cast
+    - reactiveStrike
+    - strike
+    - defend
 prototypeToken:
   name: Creation of Frost
   displayName: 30
@@ -165,8 +170,8 @@ prototypeToken:
   prependAdjective: false
   texture:
     src: systems/crucible/assets/tokens/creations/Frost.webp
-    scaleX: 0.7
-    scaleY: 0.7
+    scaleX: 1
+    scaleY: 1
     offsetX: 0
     offsetY: 0
     rotation: 0
@@ -228,7 +233,7 @@ prototypeToken:
     colors:
       ring: null
       background: null
-    effects: 1
+    effects: 0
     subject:
       scale: 1
       texture: null
@@ -379,10 +384,10 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.6
   coreVersion: '13.346'
   createdTime: 1677963742821
-  modifiedTime: 1751216208716
+  modifiedTime: 1752525011442
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

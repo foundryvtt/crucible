@@ -13,7 +13,6 @@ system:
         <strong>Strike</strong> with your shield, causing the
         <strong>Staggered</strong> condition for one Round.</p>
       tags:
-        - melee
         - shield
         - afterStrike
         - offhand
@@ -26,6 +25,7 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects:
         - name: Shield Bash
           scope: 3
@@ -33,6 +33,7 @@ system:
             - staggered
           duration:
             turns: 1
+            rounds: null
       name: Shield Bash
       img: icons/skills/melee/shield-block-bash-blue.webp
       actionHooks:
@@ -60,11 +61,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.344'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.0
+  systemVersion: 0.7.6
   createdTime: 1748638592170
-  modifiedTime: 1748638596883
+  modifiedTime: 1752520296246
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: 08mOaWGw5rYKejer
 ownership:

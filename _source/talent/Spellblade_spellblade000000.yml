@@ -7,9 +7,11 @@ system:
     <p>You are an arcane warrior who can weave together Strike and Spell relying
     on both martial and arcane techniques in battle. The physical strikes of
     your weaponry partially substitute for the somatic gestures of traditional
-    spellcraft.</p><p>After performing a <strong>Strike</strong> attack, the
-    cost of the next Spell you cast during the same Turn is reduced by <strong>1
-    Action</strong>.</p>
+    spellcraft.</p><p>While wielding a <strong>Melee</strong> weapon as your
+    mainhand weapon, spells you cast using <strong>Gesture: Strike</strong>
+    benefit from your weapon's damage bonus.</p><p>Immediately after performing
+    a <strong>Strike</strong> with a melee weapon, you may cast a spell with its
+    <strong>Action</strong> cost reduced by 1.</p>
   actions: []
   requirements: {}
   node:
@@ -27,11 +29,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.7.6
+  coreVersion: '13.346'
   createdTime: 1676174105935
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1752287404534
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.spellblade000000
   duplicateSource: null
   exportSource: null

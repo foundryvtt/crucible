@@ -6,25 +6,17 @@ system:
   node: dex3a
   description: >-
     <p>You are an expert at firing shots with ranged weaponry while evading
-    enemy attacks. After performing a ranged weapon attack, you gain your
+    enemy attacks. After performing a ranged weapon attack, you gain half your
     <strong>Stride</strong> in additional free movement.</p>
-  actorHooks:
-    - hook: prepareWeaponAttack
-      fn: |-
-        const status = action.usage.actorStatus;
-        if ( !status.rangedAttack ) return;
-        const move = this.system.status.movement;
-        const stride = this.system.movement.stride;
-        const bonus = (move.bonus ?? 0) + stride;
-        foundry.utils.setProperty(status, "movement.bonus", bonus);
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.6
+  coreVersion: '13.346'
   createdTime: 1674960395033
-  modifiedTime: 1742939220839
+  modifiedTime: 1752526050246
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

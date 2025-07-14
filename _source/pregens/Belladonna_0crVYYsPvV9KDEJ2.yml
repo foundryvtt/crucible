@@ -149,16 +149,15 @@ system:
     engagementBonus: 0
   status: null
   favorites:
-    - strike
-    - offhandStrike
-    - distract
-    - flurry
     - defend
     - reactiveStrike
+    - strike
+    - distract
+    - flurry
     - counterEvade
     - defensiveRoll
-    - poisonBlades
     - backstab
+    - offhandStrike
 prototypeToken:
   name: Belladonna
   displayName: 20
@@ -267,7 +266,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: ihw9UyOR6r
+      identifier: Kmm3JK1aZh
       invested: false
       actorHooks: []
       dropped: false
@@ -309,7 +308,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: 1ix5lg6yA6
+      identifier: NRkmhHrp7g
       invested: false
       actorHooks: []
       dropped: false
@@ -349,7 +348,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: IAeNlIkGRE
+      identifier: 170krjr2HU
       invested: false
       actorHooks: []
     _stats:
@@ -523,6 +522,7 @@ items:
             - melee
             - mainhand
             - offhand
+            - difficult
           cost:
             action: 1
             focus: 0
@@ -1254,16 +1254,29 @@ items:
 effects: []
 flags:
   core: {}
-  crucible: {}
+  crucible:
+    actionHistory:
+      - id: offhandStrike
+        messageId: HCZUshrDIYGhUwNT
+        combat: null
+      - id: offhandStrike
+        messageId: kY5EfzaZ7iv5JxlF
+        combat: null
+      - id: strike
+        messageId: CXmU2sUq8YcxqThe
+        combat: null
+      - id: flurry
+        messageId: Q3ej3mojsy78jrnP
+        combat: null
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.6
   createdTime: 1751148758927
-  modifiedTime: 1751642422180
+  modifiedTime: 1752530807730
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 0crVYYsPvV9KDEJ2
 sort: 0
