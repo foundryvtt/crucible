@@ -271,7 +271,7 @@ export const TAGS = {
     canUse(_targets) {
       const weapons = this.actor.equipment.weapons;
       if ( weapons.twoHanded && this.actor.talentIds.has("stronggrip000000") ) return true;
-      return weapons.freehand;
+      return weapons.freeHands > 0;
     }
   },
 
@@ -283,7 +283,7 @@ export const TAGS = {
     category: "requirements",
     canUse(_targets) {
       const lastAction = this.actor.lastConfirmedAction;
-      if ( lastAction.id !== "strike" ) {
+      if ( lastAction?.id !== "strike" ) {
         throw new Error(`You may only perform the ${this.name} action after a basic Strike action.`);
       }
       for ( const outcome of lastAction.outcomes.values() ) {
@@ -471,12 +471,26 @@ export const TAGS = {
     label: "ACTION.TagSummon",
     tooltip: "ACTION.TagSummonTooltip",
     category: "special",
+    async postActivate(outcome) {
+      if ( (outcome.target !== this.actor) || !outcome.summons?.length ) return;
+      for ( const summon of outcome.summons ) {
+        const position = this.template || this.token;
+        summon.tokenData ||= {};
+        summon.tokenData.x ??= position.x;
+        summon.tokenData.y ??= position.y;
+        if ( (summon.permanent === false) && !outcome.effects.length ) throw new Error(`ActiveEffect data must be 
+          defined to track the non-permanent summon created by the action "${this.id}"`);
+      }
+    },
     async confirm(reverse) {
       if ( reverse ) return; // TODO support reverse
-      if ( !this.usage.summons.length ) return; // No summons defined
-      if ( !this.token ) return; // No token acting
+      if ( !this.token ) return; // No token acting  TODO eventually this shouldn't be required?
+      const self = this.outcomes.get(this.actor);
+      if ( !self.summons?.length ) return;
+
+      // Create summoned tokens
       const summonedTokens = [];
-      for ( const summon of this.usage.summons ) {
+      for ( const summon of self.summons ) {
 
         // Get or create a world level Actor for the summons
         const sourceActor = await fromUuid(summon.actorUuid);
@@ -488,14 +502,9 @@ export const TAGS = {
         }
         else await worldActor.update({ownership});
 
-        // Determine the summon position
-        const position = this.usage.summonPosition || this.template || this.token;
-
         // Create Token
         const tokenName = worldActor.name;
         const tokenData = foundry.utils.mergeObject({
-          x: position.x,
-          y: position.y,
           name: tokenName,
           disposition: this.actor.prototypeToken.disposition,
           delta: {
@@ -527,7 +536,6 @@ export const TAGS = {
       }
 
       // Update Active Effect
-      const self = this.outcomes.get(this.actor);
       const ae = self.effects?.[0];
       if ( ae ) foundry.utils.setProperty(ae, "flags.crucible.summons",  summonedTokens);
     }
@@ -542,8 +550,10 @@ export const TAGS = {
     tag: "strike",
     priority: Infinity, // Last
     internal: true,
+    configure() {
+      this.usage.strikes = []; // Reset strike sequence
+    },
     prepare() {
-      this.usage.strikes ||= [];
       const {strikes, weapon} = this.usage;
       if ( !strikes.length && weapon ) strikes.push(weapon);
       if ( !strikes?.length ) return;
@@ -605,8 +615,6 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.usage.strikes = []; // Reset strike sequence
-      this.usage.actorStatus.meleeAttack = true;
       if ( !this.usage.weapon ) {
         const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;
         if ( mh && !mh.system.config.category.ranged ) this.usage.weapon = mh;
@@ -640,7 +648,6 @@ export const TAGS = {
       }
     },
     prepare() {
-      this.usage.strikes = [];            // Reset strike sequence
       this.usage.actorStatus.rangedAttack = true;
       if ( !this.usage.weapon ) {
         const {mainhand: mh, offhand: oh, natural} = this.actor.equipment.weapons;

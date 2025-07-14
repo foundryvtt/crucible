@@ -16,7 +16,7 @@ import CruciblePhysicalItem from "./item-physical.mjs";
  * @typedef CrucibleActorEquippedWeapons
  * @property {CrucibleItem} mainhand
  * @property {CrucibleItem} offhand
- * @property {boolean} freehand
+ * @property {number} freeHands
  * @property {number} spellHands
  * @property {boolean} unarmed
  * @property {boolean} shield
@@ -585,14 +585,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     oh?.system.prepareEquippedData();
     for ( const n of weapons.natural ) n.system.prepareEquippedData();
 
-    // Free Hand or Unarmed
-    const mhFree = mhCategory.id === "unarmed";
-    const ohFree = ohCategory.id === "unarmed";
-    weapons.freehand = mhFree || ohFree;
-    weapons.unarmed = mhFree && ohFree;
+    // Weapon Set Metadata
+    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
+    weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
+    weapons.melee = !mhCategory.ranged;
+    weapons.ranged = !!mhCategory.ranged;
+    weapons.talisman = false;
+    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
+    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
+    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
+    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0);
 
-    // Hands available for spellcasting
-    weapons.spellHands = mhFree + ohFree;
+    // Free Hand or Unarmed
+    weapons.unarmed = (mhCategory?.id === "unarmed") && (ohCategory?.id === "unarmed");
+    weapons.freeHands = weapons.spellHands = mhOpen + ohOpen;
     if ( ["talisman1", "talisman2"].includes(mhCategory.id) ) {
       weapons.spellHands += mhCategory.hands;
       weapons.talisman = true;
@@ -602,32 +608,10 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       weapons.talisman = true;
     }
 
-    // Shield
-    weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
-
-    // Two-Handed
-    weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
-
-    // Melee vs. Ranged
-    weapons.melee = !mhCategory.ranged;
-    weapons.ranged = !!mhCategory.ranged;
-
-    // Dual Wielding
-    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
-    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
-    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
-    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0);
-
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
     weapons.slow = mh?.system.properties.has("oversized") ? 1 : 0;
     weapons.slow += oh?.system.properties.has("oversized") ? 1 : 0;
-
-    // Strong Grip
-    if ( this.talentIds.has("stronggrip000000") && weapons.twoHanded ) {
-      weapons.freehand = true;
-      if ( mhCategory.id !== "talisman2" ) weapons.spellHands += 1;
-    }
     return weapons;
   }
 

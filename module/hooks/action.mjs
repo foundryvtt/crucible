@@ -184,7 +184,8 @@ HOOKS.oozeSubdivide = {
         delta: {
           system: systemData
         }
-      }
+      },
+      permanent: true
     }];
 
     // Actor change

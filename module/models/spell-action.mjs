@@ -214,7 +214,6 @@ export default class CrucibleSpellAction extends CrucibleAction {
   static #prepareGesture() {
     const e = this.actor.equipment;
     const mh = e.weapons.mainhand;
-    const s = this.actor.system.status;
     const t = this.actor.talentIds;
     this.usage.hasDice = true; // Spells involve dice rolls by default
     switch ( this.gesture.id ) {
@@ -225,6 +224,14 @@ export default class CrucibleSpellAction extends CrucibleAction {
       case "create":
         this.tags.add("summon");
         this.usage.hasDice = false;
+
+        // Configure summon active effect
+        let effectId = SYSTEM.EFFECTS.getEffectId("create");
+        if ( t.has("conjurer00000000") ) { // TODO move this to conjurer talent
+          const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));
+          effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
+        }
+        this.effects.push({_id: effectId, icon: this.img, duration: {rounds: 6}});
 
         // Configure summon data
         const summonUUIDs = SYSTEM.SPELL.CREATION_SUMMONS;
@@ -239,24 +246,7 @@ export default class CrucibleSpellAction extends CrucibleAction {
             }
           }
         };
-
-        // Configure summon effect
-        let effectId = SYSTEM.EFFECTS.getEffectId("create");
-
-        // TODO move this to conjurer talent
-        if ( t.has("conjurer00000000") ) {
-          const effectIds = ["conjurercreate1", "conjurercreate2", "conjurercreate3"].map(id => SYSTEM.EFFECTS.getEffectId(id));
-          effectId = effectIds.find(id => !this.actor.effects.has(id)) || effectIds[0];
-        }
-        const effectData = {
-          _id: effectId,
-          icon: this.img,
-          duration: {rounds: 10},
-          origin: this.actor.uuid
-        }
-
-        // Configure the summons
-        this.usage.summons = [{actorUuid, tokenData, effectData}];
+        this.usage.summons = [{actorUuid, tokenData, effectId}];
         break;
 
       /* -------------------------------------------- */

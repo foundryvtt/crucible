@@ -139,11 +139,23 @@ HOOKS.spellmute0000000 = {
   defendSpellAttack(item, spell, origin, rollData) {
     rollData.banes.spellmute = {label: item.name, number: 2};
   },
-  prepareActions(item, actions) {
+  prepareActions(actions) {
     for ( const [id, action] of Object.entries(actions) ) {
       if ( action.tags.has("spell") ) delete actions[id];
     }
     delete actions.cast;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.stronggrip000000 = {
+  prepareActions(_actions) {
+    const weapons = this.equipment.weapons;
+    if ( weapons.twoHanded ) {
+      weapons.freeHands += 1;
+      weapons.spellHands += 1;
+    }
   }
 }
 

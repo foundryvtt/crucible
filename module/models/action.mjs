@@ -52,7 +52,8 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {object} [tokenData={}]
  * @property {boolean} [combatant=true]
  * @property {number} [initiative=1]
- * @property {object} [effectData={}]
+ * @property {boolean} [permanent=true]     Is this summoned creature permanent until killed? Otherwise, a corresponding
+ *                                          active effect must exist to track its duration.
  */
 
 /**
@@ -84,6 +85,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
  * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
+ * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {boolean} [weakened]         Did the target become weakened?
  * @property {boolean} [broken]           Did the target become broken?
  * @property {boolean} [incapacitated]    Did the target become incapacitated?
@@ -657,14 +659,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
       // Create outcome for target
       const outcome = this.#createOutcome(actor, rolls);
-      await this._post(outcome);
-      this.#finalizeOutcome(outcome);
       outcomes.set(actor, outcome);
     }
 
     // Track the outcome for the original actor
     const self = this.#createSelfOutcome();
     outcomes.set(this.actor, self);
+
+    // Finalize all outcomes
+    for ( const outcome of outcomes.values() ) {
+      await this._post(outcome);
+      this.#finalizeOutcome(outcome);
+    }
 
     // Create any Measured Template for the action
     if ( this.template ) {
@@ -728,18 +734,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     let targets;
     let targetType = this.target.type;
     const targetCfg = SYSTEM.ACTION.TARGET_TYPES[targetType];
+    if ( targetType === "summon" ) return [];
 
     // Acquire Template Targets
     if ( !!targetCfg.template ) {
       targets = canvas.ready ? this.#acquireTargetsFromTemplate() : [];
-
-      // Summon position
-      if ( (targetType === "summon") && this.usage.summons.length ) {
-        let position;
-        if ( this.template ) position = {x: this.template.x, y: this.template.y};
-        else if ( this.token ) position = {x: this.token.x, y: this.token.y};
-        this.usage.summonPosition = position; // TODO better generalize this with other template data
-      }
     }
 
     // Other Target Types
@@ -749,7 +748,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
       switch ( targetType ) {
         case "none":
-        case "summon":
           return []
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
@@ -1029,6 +1027,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     }
     u.system.status = Object.assign(u.system.status || {}, {lastAction: this.id},
       foundry.utils.expandObject(this.usage.actorStatus));
+
+    // Attach summons to the self-outcome
+    if ( Array.isArray(this.usage.summons) ) self.summons = this.usage.summons;
 
     // Incur resource cost
     for ( const [k, v] of Object.entries(this.cost) ) {
