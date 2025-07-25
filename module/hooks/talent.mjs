@@ -58,6 +58,17 @@ HOOKS.bloodmagic000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.bloodSense000000 = {
+  prepareWeaponAttack(_item, _action, target, rollData) {
+    if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
+  },
+  prepareSkillAttack(_item, _action, target, rollData) {
+    if ( target.resources.health.value < target.resources.health.max ) delete rollData.banes.blind;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceRecovery, statusText}) {
     if ( this.resources.action.value ) {

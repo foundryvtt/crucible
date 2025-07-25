@@ -157,7 +157,7 @@ export const TAGS = {
     label: "ACTION.TagDualWield",
     tooltip: "ACTION.TagDualWieldTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       return this.actor.equipment.weapons.dualWield;
     }
   },
@@ -168,7 +168,7 @@ export const TAGS = {
     label: "ACTION.TagOneHand",
     tooltip: "ACTION.TagOneHandTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       return !this.actor.equipment.weapons.twoHanded;
     }
   },
@@ -179,7 +179,7 @@ export const TAGS = {
     label: "ACTION.TagFinesse",
     tooltip: "ACTION.TagFinesseTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("dexterity")) ) {
         throw new Error("Every weapon used in this action must scale using dexterity.");
       }
@@ -193,7 +193,7 @@ export const TAGS = {
     tooltip: "ACTION.TagBruteTooltip",
     category: "requirements",
     priority: 5,
-    canUse(_targets) {
+    canUse() {
       if ( !this.usage.strikes.every(w => w.config.category.scaling.includes("strength")) ) {
         throw new Error("Every weapon used in this action must scale using strength.");
       }
@@ -207,7 +207,7 @@ export const TAGS = {
     tooltip: "ACTION.TagProjectileTooltip",
     category: "requirements",
     propagate: ["ranged"],
-    canUse(_targets) {
+    canUse() {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return ["projectile1", "projectile2"].includes(oh.category);
       else return ["projectile1", "projectile2"].includes(mh.category);
@@ -221,7 +221,7 @@ export const TAGS = {
     tooltip: "ACTION.TagMechanicalTooltip",
     category: "requirements",
     propagate: ["ranged"],
-    canUse(_targets) {
+    canUse() {
       const {mainhand: mh, offhand: oh} = this.actor.equipment.weapons;
       if ( this.tags.has("offhand") ) return ["mechanical1", "mechanical2"].includes(oh.category);
       else return ["mechanical1", "mechanical2"].includes(mh.category);
@@ -234,7 +234,7 @@ export const TAGS = {
     label: "ACTION.TagShield",
     tooltip: "ACTION.TagShieldTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       return this.actor.equipment.weapons.shield;
     }
   },
@@ -246,7 +246,7 @@ export const TAGS = {
     tooltip: "ACTION.TagUnarmedTooltip",
     category: "requirements",
     propagate: ["melee"],
-    canUse(_targets) {
+    canUse() {
       return this.actor.equipment.weapons.unarmed;
     }
   },
@@ -257,7 +257,7 @@ export const TAGS = {
     label: "ACTION.TagUnarmored",
     tooltip: "ACTION.TagUnarmoredTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       return this.actor.equipment.unarmored;
     }
   },
@@ -268,7 +268,7 @@ export const TAGS = {
     label: "ACTION.TagFreehand",
     tooltip: "ACTION.TagFreehandTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       const weapons = this.actor.equipment.weapons;
       if ( weapons.twoHanded && this.actor.talentIds.has("stronggrip000000") ) return true;
       return weapons.freeHands > 0;
@@ -281,7 +281,7 @@ export const TAGS = {
     label: "ACTION.TagAfterStrike",
     tooltip: "ACTION.TagActorStrikeTooltip",
     category: "requirements",
-    canUse(_targets) {
+    canUse() {
       const lastAction = this.actor.lastConfirmedAction;
       if ( lastAction?.id !== "strike" ) {
         throw new Error(`You may only perform the ${this.name} action after a basic Strike action.`);
@@ -313,7 +313,7 @@ export const TAGS = {
     label: "ACTION.TagMovement",
     tooltip: "ACTION.TagMovementTooltip",
     category: "context",
-    canUse(_targets) {
+    canUse() {
       if ( this.actor.statuses.has("restrained") ) throw new Error("You may not move while Restrained!");
     },
     prepare() {
@@ -345,7 +345,7 @@ export const TAGS = {
         return false;
       }
     },
-    canUse(_targets) {
+    canUse() {
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
       return this.actor !== game.combat?.combatant?.actor;
     },
@@ -377,7 +377,7 @@ export const TAGS = {
     label: "ACTION.TagFlanking",
     tooltip: "ACTION.TagFlankingTooltip",
     category: "context",
-    canUse(targets) {
+    preActivate(targets) {
       for ( const {actor} of targets ) {
         if ( !actor.statuses.has("flanked") ) {
           throw new Error(`${this.name} requires a flanked target. Target "${actor.name}" is not flanked.`);
@@ -398,7 +398,7 @@ export const TAGS = {
     displayOnSheet(_combatant) {
       return this.usage.consumable?.system.isDepleted === false;
     },
-    canUse(_targets) {
+    canUse() {
       const item = this.usage.consumable;
       if ( !item ) throw new Error(`No consumable Item identified for Action "${this.id}"`);
       if ( item.system.isDepleted ) {
@@ -432,7 +432,7 @@ export const TAGS = {
       if ( this.inflection ) this.usage.context.tags.gesture = this.inflection.name;
       this.usage.actorFlags.lastSpell = this.id;
     },
-    canUse(_targets) {
+    canUse() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
       }
@@ -456,7 +456,7 @@ export const TAGS = {
         this.cost.hands = Math.max(this.cost.hands, gesture.hands);
       }
     },
-    canUse(_targets) {
+    canUse() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`The ${this.name} spell requires ${this.cost.hands} free hands for spellcraft.`);
       }
@@ -609,7 +609,7 @@ export const TAGS = {
     category: "attack",
     propagate: ["strike"],
     priority: 1,
-    canUse(_targets) {
+    canUse() {
       if ( !this.actor.equipment.weapons.melee ) {
         throw new Error("You must have melee weapons equipped to use this action.");
       }
@@ -639,7 +639,7 @@ export const TAGS = {
     category: "attack",
     propagate: ["strike"],
     priority: 1,
-    canUse(_targets) {
+    canUse() {
       if ( !this.actor.equipment.weapons.ranged ) {
         throw new Error("This action requires a ranged weapon equipped.");
       }
@@ -699,7 +699,7 @@ export const TAGS = {
       const mh = this.actor.equipment.weapons.mainhand;
       if ( mh ) this.usage.strikes.push(mh);
     },
-    canUse(_targets) {
+    canUse() {
       if ( !this.actor.equipment.weapons.twoHanded ) {
         throw new Error("This action requires a two-handed weapon equipped.");
       }
@@ -718,7 +718,7 @@ export const TAGS = {
       const oh = this.actor.equipment.weapons.offhand;
       if ( oh ) this.usage.strikes.push(oh);
     },
-    canUse(_targets) {
+    canUse() {
       if ( !this.actor.equipment.weapons.offhand ) {
         throw new Error("This action requires an offhand weapon equipped.");
       }
@@ -839,7 +839,7 @@ export const TAGS = {
     label: "ACTION.TagReload",
     tooltip: "ACTION.TagReloadTooltip",
     category: "special",
-    canUse(_targets) {
+    canUse() {
       const {mainhand: m, offhand: o, reload} = this.actor.equipment.weapons;
       if ( !reload || (m.system.loaded && (!o || o.system.loaded)) ) {
         throw new Error("Your weapons do not require reloading");

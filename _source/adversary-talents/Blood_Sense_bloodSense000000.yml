@@ -1,0 +1,68 @@
+name: Blood Sense
+type: talent
+img: icons/skills/wounds/injury-hand-blood-red.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name] is permanently <strong>Blinded</strong>, but can
+    precisely sense any blooded creature within 20 feet which does not have all
+    its hit points.</p><p>Any weapon or skill attack against a wounded creature
+    does not suffer <strong>Banes</strong> that would normally apply when
+    <strong>Blinded</strong>.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects:
+  - _id: blinded000000000
+    name: Blinded
+    img: icons/svg/blind.svg
+    statuses:
+      - blinded
+    type: base
+    system: {}
+    changes: []
+    disabled: false
+    duration:
+      startTime: 78484762800
+      combat: null
+      startRound: 2
+      startTurn: 0
+    description: ''
+    origin: null
+    tint: '#ffffff'
+    transfer: true
+    sort: 0
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.7
+      lastModifiedBy: null
+    _key: '!items.effects!bloodSense000000.blinded000000000'
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.7
+  createdTime: 1753449068132
+  modifiedTime: 1753449068132
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+folder: qmA72jUC4FASsfvS
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+_id: bloodSense000000
+sort: 0
+_key: '!items!bloodSense000000'

@@ -67,7 +67,7 @@ HOOKS.blastFlask = {
 /* -------------------------------------------- */
 
 HOOKS.delay = {
-  canUse(_targets) {
+  canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
       throw new Error("You may only use the Delay action on your own turn in combat.");
     }
@@ -271,7 +271,7 @@ HOOKS.rallyingTonic = {
 /* -------------------------------------------- */
 
 HOOKS.reactiveStrike = {
-  canUse(_targets) {
+  canUse() {
     for ( const s of ["unaware", "flanked"] ) {
       if ( this.actor.statuses.has(s) ) throw new Error(`You may not perform a Reactive Strike while ${s}.`);
     }
@@ -281,7 +281,7 @@ HOOKS.reactiveStrike = {
 /* -------------------------------------------- */
 
 HOOKS.recover = {
-  canUse(_targets) {
+  canUse() {
     if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
   },
   displayOnSheet(combatant) {
@@ -350,7 +350,7 @@ HOOKS.ruthlessMomentum = {
 /* -------------------------------------------- */
 
 HOOKS.thrash = {
-  canUse(targets) {
+  preActivate(targets) {
     if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
       throw new Error("You can only perform Thrash against a target that you have Restrained.");
     }
@@ -360,7 +360,7 @@ HOOKS.thrash = {
 /* -------------------------------------------- */
 
 HOOKS.uppercut = {
-  canUse(targets) {
+  preActivate(targets) {
     const lastAction = this.actor.lastConfirmedAction;
     if ( !lastAction.outcomes.has(targets[0].actor) ) {
       throw new Error(`${this.name} must attack the same target as the Strike which it follows.`);

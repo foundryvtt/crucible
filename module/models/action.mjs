@@ -561,7 +561,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Re-verify eligibility and targets after configuration
     try {
       targets = this.acquireTargets({strict: true});
-      this._canUse(targets);
     } catch(err) {
       ui.notifications.warn(err.message);
       return null;
@@ -612,18 +611,18 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   async #use({chatMessageOptions={}, dialog=true}={}) {
 
-    // Acquire initially designated targets
-    let targets = [];
+    // Assert that the action could possibly be used based on its tags
     try {
-      targets = this.acquireTargets({strict: false});
+      this._canUse();
     } catch(err) {
       console.warn(err);
       return ui.notifications.warn(err.message);
     }
 
-    // Assert that the action can be used based on its tags
+    // Acquire initially designated targets
+    let targets = [];
     try {
-      this._canUse(targets);
+      targets = this.acquireTargets({strict: false});
     } catch(err) {
       console.warn(err);
       return ui.notifications.warn(err.message);
@@ -636,8 +635,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( configuration.targets ) targets = configuration.targets;
     }
 
-    // Pre-execution steps
-    await this._preActivate(targets)
+    // Pre-execution steps, possibly preventing activation
+    // TODO configure outcomes before this so that outcomes can be modified here.
+    // The idea is that we would call `_preActivate` every time the configuration of the action changes in the dialog
+    // This would recreate outcomes cleanly every time, then call hooks that can modify those outcomes
+    // This would allow different outcomes to have different boons/banes for example
+    // Once all outcomes are configured, rolls happen for each outcome one at a time
+    // Once all outcomes have been rolled, post roll workflows happen for each outcome, or maybe the _post hook
+    // becomes something that collectively operates on the map of all outcomes
+
+    try {
+      await this._preActivate(targets);
+    } catch(err) {
+      console.warn(err);
+      return ui.notifications.warn(err.message);
+    }
 
     /**
      * Outcomes of the action, arranged by target.
@@ -1130,12 +1142,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Test whether an action can be performed.
-   * @param {ActionUseTarget[]} targets       The array of targets designated for the action
+   * Test whether an action can be performed before it has been fully configured.
+   * This test should provide an early rejection that prevents the configuration dialog from being presented.
+   * This test can only rely on initially known tags, for example preventing a reaction from occurring on your own turn.
    * @throws {Error}                          An error if the action cannot be taken
    * @protected
    */
-  _canUse(targets=[]) {
+  _canUse() {
     const r = this.actor.system.resources;
     const statuses = this.actor.statuses;
 
@@ -1190,7 +1203,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       let errorReason;
       let errorOptions = {};
       try {
-        const can = test.canUse.call(this, targets);
+        const can = test.canUse.call(this);
         if ( can === false ) errorReason = `with tag ${test.label}`;
       } catch(err) {
         errorReason = err.message;
@@ -1221,6 +1234,24 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       if ( test.displayOnSheet.call(this, combatant) === false ) return false;
     }
     return true;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * An action hook that fires whenever the targets of the action change.
+   * This happens immediately when the action is designated for use and again when targets change during configuration.
+   * It happens a final time after configuration is confirmed and targets are finalized.
+   * Workflows performed in this hook must be idempotent since the hook can be called multiple times.
+   *
+   * @param {ActionUseTarget[]} targets       The array of targets affected by the action
+   * @protected
+   */
+  async _acquireTargets(targets) {
+    for ( const test of this._tests() ) {
+      if ( test.preActivate instanceof Function ) await test.acquireTargets.call(this, targets);
+    }
+    this.actor.callActorHooks("acquireActionTargets", this, targets);
   }
 
   /* -------------------------------------------- */

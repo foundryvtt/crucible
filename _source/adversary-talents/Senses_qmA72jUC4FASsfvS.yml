@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Senses
+color: null
+sorting: a
+_id: qmA72jUC4FASsfvS
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.346'
+  systemId: crucible
+  systemVersion: 0.7.7
+  createdTime: 1753449051230
+  modifiedTime: 1753449051230
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!qmA72jUC4FASsfvS'
