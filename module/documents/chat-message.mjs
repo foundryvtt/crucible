@@ -60,7 +60,10 @@ export default class CrucibleChatMessage extends ChatMessage {
    */
   static onRenderHTML(message, html, _messageData) {
     const flags = message.flags.crucible || {};
-    if ( flags.action || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) html.classList.add("crucible");
+    if ( flags.action || (message.rolls[0] instanceof crucible.api.dice.StandardCheck) ) {
+      html.classList.add("crucible");
+      html.querySelector(".message-content").classList.add("themed", "theme-dark");
+    }
 
     // Action Cards
     if ( flags.action ) {

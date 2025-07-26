@@ -987,19 +987,22 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return effects;
       }
 
-      // Offset effect start round for initiative order
-      effectData.duration ||= {};
-      if ( game.combat ) {
-        effectData.duration.startRound = game.combat.round;
-        effectData.duration.startTurn = 0;
-        const c0 = game.combat.getCombatantByActor(this.actor);
-        const c1 = game.combat.getCombatantByActor(target);
-        if ( c0 && c1 ) {
-          const t0 = c0 && game.combat.turns.indexOf(c0);
-          const t1 = c1 && game.combat.turns.indexOf(c1);
-          if ( t1 < t0 ) effectData.duration.startRound += 1;
-        }
-      }
+      // For turn-based effects, if the current actor comes after the target in initiative order
+
+      // TODO delete
+      // // Offset effect start round for initiative order
+      // effectData.duration ||= {};
+      // if ( game.combat ) {
+      //   effectData.duration.startRound = game.combat.round;
+      //   effectData.duration.startTurn = 0;
+      //   const c0 = game.combat.getCombatantByActor(this.actor);
+      //   const c1 = game.combat.getCombatantByActor(target);
+      //   if ( c0 && c1 ) {
+      //     const t0 = c0 && game.combat.turns.indexOf(c0);
+      //     const t1 = c1 && game.combat.turns.indexOf(c1);
+      //     if ( t1 < t0 ) effectData.duration.startRound += 1;
+      //   }
+      // }
 
       // Add effect
       effects.push(foundry.utils.mergeObject({
@@ -1313,6 +1316,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {Promise<void>}
    */
   async confirm({reverse=false}={}) {
+    if ( !this._prepared ) throw new Error("A CrucibleAction must be prepared for an Actor before it can be confirmed.");
     if ( !this.outcomes ) throw new Error(`Cannot confirm Action ${this.id} which has no configured outcomes.`)
 
     // Custom Action confirmation steps
@@ -1599,6 +1603,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       action = new game.system.api.models.CrucibleSpellAction(actionData, actionContext);
     }
     else action = new this(actionData, actionContext);
+    action.prepare();
 
     // Reconstruct outcomes
     action.outcomes = new Map();

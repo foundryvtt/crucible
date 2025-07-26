@@ -17,8 +17,8 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
   /** @override */
   prepareDerivedData() {
     const h = this.heroism;
-    const nHeroes = Math.max(this.parent.combatants.filter(c => c.actor?.type === "hero")?.length, 3);
-    h.required = nHeroes * 6 * 3;
+    const nHeroes = this.parent.combatants.filter(c => c.actor?.type === "hero")?.length || 1;
+    h.required = nHeroes * 4 * 3; // Generation rate: 4A per hero over 3 rounds
     h.previous = Math.floor(h.actions / h.required) * h.required;
     h.next = h.previous + h.required;
     h.pct = (h.actions - h.previous) / h.required;
@@ -116,39 +116,6 @@ export default class CrucibleCombatChallenge extends foundry.abstract.TypeDataMo
         else tr.remove();
       }
     }
-  }
-
-  /* -------------------------------------------- */
-  /*  Heroism                                     */
-  /* -------------------------------------------- */
-
-  /**
-   * Award heroism points to hero actors participating in the Combat.
-   * @returns {Promise<void>}
-   */
-  async awardHeroism() {
-    const combatants = this.parent.combatants;
-    const heroes = [];
-
-    // Scale based on hero level
-    const heroLevels = combatants.reduce((arr, c) => {
-      if ( c.actor?.type === "hero" ) {
-        heroes.push(c.actor);
-        arr.push(c.actor.level);
-      }
-      return arr;
-    }, []);
-    const actionsRequired = heroLevels.reduce((h, l) => h + l * 12, 0); // TODO maybe shouldn't depend on level
-    const earned = Math.floor(this.heroism.actions / actionsRequired);
-    const toAward = earned - this.heroism.awarded;
-    if ( toAward <= 0 ) return;
-
-    // Award
-    for ( const actor of heroes ) {
-      const status = {text: "Heroism!", fillColor: SYSTEM.RESOURCES.heroism.color.css};
-      await actor.alterResources({heroism: toAward}, {}, {statusText: [status]});
-    }
-    await this.parent.update({"system.heroism.awarded": earned});
   }
 
   /* -------------------------------------------- */

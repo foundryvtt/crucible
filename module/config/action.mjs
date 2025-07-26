@@ -737,11 +737,16 @@ export const TAGS = {
       }
     },
     prepare() {
-      if ( !this.usage.strikes ) return; // Not yet configured
       this.range.maximum ??= 10;
       this.range.weapon = false;
-      if ( !this.usage.strikes.every(w => w.system.properties.has("thrown")) ) {
-        this.usage.banes[this.id] = {label: this.name, number: 2};
+    },
+    preActivate(_targets) {
+      if ( !this.usage.strikes?.length ) return;
+      for ( const weapon of this.usage.strikes ) {
+        if ( !weapon.system.canThrow() ) throw new Error("You cannot throw this weapon.");
+        this.usage.actorUpdates.items ||= [];
+        this.usage.actorUpdates.items.push({_id: weapon.id, system: {dropped: true, equipped: false}});
+        if ( !weapon.system.properties.has("thrown") ) this.usage.banes[this.id] = {label: this.name, number: 2};
       }
     }
   },
