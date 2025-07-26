@@ -392,7 +392,7 @@ export const TAGS = {
     label: "ACTION.TagConsume",
     tooltip: "ACTION.TagConsumeTooltip",
     category: "special",
-    configure() {
+    initialize() {
       if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
     },
     displayOnSheet(_combatant) {
@@ -419,7 +419,7 @@ export const TAGS = {
     label: "ACTION.TagSpell",
     tooltip: "ACTION.TagSpellTooltip",
     category: "attack",
-    configure() {
+    initialize() {
       Object.assign(this.usage.context, {
         type: "spell",
         label: "Spell Tags",
@@ -431,17 +431,16 @@ export const TAGS = {
       this.usage.context.tags.gesture = `Gesture: ${this.gesture.name}`;
       if ( this.inflection ) this.usage.context.tags.gesture = this.inflection.name;
       this.usage.actorFlags.lastSpell = this.id;
+      this.usage.actorStatus.hasCast = true;
     },
     canUse() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
       }
     },
-    async roll(target, rolls) {
-      this.usage.actorStatus.hasCast = true;
-      this.usage.actorFlags.lastSpell = this.id;
-      const cast = await this.actor.castSpell(this, target);
-      if ( cast ) rolls.push(cast);
+    async roll(outcome) {
+      const roll = await this.actor.castSpell(this, outcome.target);
+      if ( roll ) outcome.rolls.push(roll);
     }
   },
 
@@ -455,14 +454,12 @@ export const TAGS = {
         const gesture = SYSTEM.SPELL.GESTURES[gestureId];
         this.cost.hands = Math.max(this.cost.hands, gesture.hands);
       }
+      this.usage.actorStatus.hasCast = true;
     },
     canUse() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`The ${this.name} spell requires ${this.cost.hands} free hands for spellcraft.`);
       }
-    },
-    async roll(target, rolls) {
-      this.usage.actorStatus.hasCast = true;
     }
   },
 
@@ -550,7 +547,7 @@ export const TAGS = {
     tag: "strike",
     priority: Infinity, // Last
     internal: true,
-    configure() {
+    initialize() {
       this.usage.strikes = []; // Reset strike sequence
     },
     prepare() {
@@ -590,12 +587,12 @@ export const TAGS = {
         this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
       }
     },
-    async roll(target, rolls) {
+    async roll(outcome) {
       const n = this.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
         for ( const weapon of this.usage.strikes ) {
-          const r = await this.actor.weaponAttack(this, target, weapon);
-          rolls.push(r);
+          const roll = await this.actor.weaponAttack(this, outcome.target, weapon);
+          outcome.rolls.push(roll);
         }
       }
     }
@@ -663,7 +660,7 @@ export const TAGS = {
         }
       }
     },
-    roll(_target, _rolls) {
+    preActivate(_targets) {
       for ( const w of this.usage.strikes ) {
         if ( w.config.category.reload ) {
           this.usage.actorUpdates.items ||= [];
@@ -775,15 +772,15 @@ export const TAGS = {
     category: "attack",
     priority: 0,
     internal: true,
-    configure() {
+    initialize() {
       Object.assign(this.usage, {hasDice: true, defenseType: "physical", resource: "health"});
       this.usage.bonuses.ability = this.usage.hazard;
     },
-    async roll(target, rolls) {
+    async roll(outcome) {
       const n = this.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
-        const r = await target.receiveAttack(this);
-        rolls.push(r);
+        const roll = await outcome.target.receiveAttack(this);
+        outcome.rolls.push(roll);
       }
     }
   },
@@ -805,8 +802,9 @@ export const TAGS = {
       this.usage.resource ??= "health";
       this.usage.damageType ??= "void";
     },
-    async roll(target, rolls) {
-      const {bonuses, damageType, defenseType, resource} = this.usage;
+    async roll(outcome) {
+      const {bonuses, damageType, defenseType, resource} = this.usage; // TODO outcome.usage?
+      const target = outcome.target;
 
       // Create and evaluate a generic roll
       const roll = new AttackRoll({
@@ -820,6 +818,7 @@ export const TAGS = {
       });
       await roll.evaluate();
 
+      // Compute the final result against defenses
       const r = roll.data.result = target.testDefense(defenseType, roll);
       if ( r < AttackRoll.RESULT_TYPES.GLANCE ) return roll;
       roll.data.damage = {
@@ -833,7 +832,7 @@ export const TAGS = {
         restoration: false
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
-      rolls.push(roll);
+      outcome.rolls.push(roll);
     }
   },
 
@@ -1016,7 +1015,7 @@ for ( const {id, label} of Object.values(DAMAGE_TYPES) ) {
     tag: id,
     label: label,
     category: "damage",
-    configure() {
+    initialize() {
       this.usage.damageType = id;
     }
   }
@@ -1031,7 +1030,7 @@ for ( const {id, label} of Object.values(ABILITIES) ) {
     tag: id,
     label,
     category: "scaling",
-    configure() {
+    initialize() {
       this.usage.bonuses.ability = this.actor.getAbilityBonus([id]);
     }
   }
@@ -1046,7 +1045,7 @@ for ( const {id, label} of Object.values(RESOURCES) ) {
     tag: id,
     label: label,
     category: "resources",
-    configure() {
+    initialize() {
       this.usage.resource = id;
     }
   }
@@ -1070,7 +1069,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
     label: name,
     category: "skills",
     propagate: ["skill"],
-    configure() {
+    initialize() {
       this.usage.skillId = id;
       const skill = this.actor.skills[id];
       this.usage.hasDice = true;
@@ -1082,9 +1081,9 @@ for ( const {id, name} of Object.values(SKILLS) ) {
       Object.assign(this.usage.context, {type: "skill", label: "Skill Tags", icon: "fa-solid fa-cogs"});
       this.usage.context.tags.skill = SKILLS[id].label;
     },
-    async roll(target, rolls) {
-      const attack = await this.actor.skillAttack(this, target);
-      rolls.push(attack);
+    async roll(outcome) {
+      const roll = await this.actor.skillAttack(this, outcome.target);
+      outcome.rolls.push(roll);
     }
   }
 }

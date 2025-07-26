@@ -113,9 +113,6 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @typedef CrucibleActionData
  */
 
-
-
-
 /**
  * @typedef {Map<CrucibleActor,CrucibleActionOutcome>} CrucibleActionOutcomes
  */
@@ -311,9 +308,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * A mapping of outcomes which occurred from this action, arranged by target.
-   * @type {undefined|CrucibleActionOutcomes}
+   * @type {CrucibleActionOutcomes}
    */
-  outcomes;
+  outcomes = new Map();
 
   /**
    * A sheet used to configure this Action.
@@ -548,7 +545,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {object[]} targets            Currently selected targets
    * @returns {Promise<object|null>}      The results of the configuration dialog
    */
-  async configure(targets) {
+  async configureDialog(targets) {
     const roll = StandardCheck.fromAction(this);
     const response = await this.constructor.dialogClass.prompt({
       action: this,
@@ -556,16 +553,35 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       roll,
       targets
     });
-    if ( !response ) return null;
+    return response || null;
+  }
 
-    // Re-verify eligibility and targets after configuration
-    try {
-      targets = this.acquireTargets({strict: true});
-    } catch(err) {
-      ui.notifications.warn(err.message);
-      return null;
+  /* -------------------------------------------- */
+
+  /**
+   * Configure the outcomes requested for the Action.
+   * Invoke the configure Action hook, updating the usage or roll data for each individual outcome.
+   * This method is tolerant, it captures errors in hooks and allows the rest of the action workflow to proceed.
+   *
+   * @param {ActionUseTarget[]} targets       The array of targets designated for the action
+   */
+  configureOutcomes(targets) {
+
+    // Clear and recreate outcomes for targets and for self
+    this.outcomes.clear();
+    for ( const target of targets ) this.outcomes.set(target.actor, this.#createOutcome(target.actor));
+    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor));
+
+    // Configure outcomes
+    for ( const test of this._tests() ) {
+      if ( test.configure instanceof Function ) {
+        try {
+          test.configure.call(this);
+        } catch(err) {
+          console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
+        }
+      }
     }
-    return {action: this, targets};
   }
 
   /* -------------------------------------------- */
@@ -615,71 +631,52 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     try {
       this._canUse();
     } catch(err) {
-      console.warn(err);
-      return ui.notifications.warn(err.message);
+      ui.notifications.warn(err);
+      return null;
     }
 
-    // Acquire initially designated targets
-    let targets = [];
-    try {
-      targets = this.acquireTargets({strict: false});
-    } catch(err) {
-      console.warn(err);
-      return ui.notifications.warn(err.message);
-    }
+    // TODO this.usage should be frozen from this point onwards and everything from here onwards uses outcome.usage
+    // TODO wrap this.usage as a getter around this.#usage which warns if it is accessed after this point?
+
+    // Acquire initial targets non-strictly and set up initial outcomes
+    let targets = this.acquireTargets({strict: false});
+    this.configureOutcomes(targets);
 
     // Prompt for action configuration
     if ( dialog ) {
-      const configuration = await this.configure(targets);
+      const configuration = await this.configureDialog(targets);
       if ( configuration === null ) return null;  // Dialog closed
-      if ( configuration.targets ) targets = configuration.targets;
+      try {
+        targets = this.acquireTargets({strict: true});  // Reacquire configured targets, strictly
+      } catch(err) {
+        ui.notifications.warn(err);
+        return null;
+      }
+      this.configureOutcomes(targets);
     }
 
     // Pre-execution steps, possibly preventing activation
-    // TODO configure outcomes before this so that outcomes can be modified here.
-    // The idea is that we would call `_preActivate` every time the configuration of the action changes in the dialog
-    // This would recreate outcomes cleanly every time, then call hooks that can modify those outcomes
-    // This would allow different outcomes to have different boons/banes for example
-    // Once all outcomes are configured, rolls happen for each outcome one at a time
-    // Once all outcomes have been rolled, post roll workflows happen for each outcome, or maybe the _post hook
-    // becomes something that collectively operates on the map of all outcomes
-
     try {
       await this._preActivate(targets);
     } catch(err) {
-      console.warn(err);
-      return ui.notifications.warn(err.message);
+      ui.notifications.warn(err);
+      return null;
     }
-
-    /**
-     * Outcomes of the action, arranged by target.
-     * @type {CrucibleActionOutcomes}
-     */
-    const outcomes = this.outcomes = new Map();
 
     // Iterate over designated targets
     for ( const target of targets ) {
-      const actor = target.actor;
-
-      // Perform dice rolls for the action
-      const rolls = [];
+      const outcome = this.outcomes.get(target.actor);
       try {
-        await this._roll(actor, rolls);
+        await this._roll(outcome);
       } catch(err) {
-        return ui.notifications.warn(err);
+        ui.notifications.warn(err);
+        return null;
       }
-
-      // Create outcome for target
-      const outcome = this.#createOutcome(actor, rolls);
-      outcomes.set(actor, outcome);
     }
 
-    // Track the outcome for the original actor
-    const self = this.#createSelfOutcome();
-    outcomes.set(this.actor, self);
-
     // Finalize all outcomes
-    for ( const outcome of outcomes.values() ) {
+    for ( const outcome of this.outcomes.values() ) {
+      this.#updateOutcome(outcome);
       await this._post(outcome);
       this.#finalizeOutcome(outcome);
     }
@@ -703,7 +700,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Persist action usage flags immediately rather than waiting for action confirmation
     this.#recordActionHistory(message);
     await this.actor.update({"flags.crucible": this.usage.actorFlags});
-    return outcomes;
+    return this.outcomes;
   }
 
   /* -------------------------------------------- */
@@ -945,31 +942,79 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Translate the action usage result into an outcome to be persisted.
    * @param {CrucibleActor} actor
-   * @param {AttackRoll[]} [rolls]
-   * @param {boolean} [effects]
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor, rolls=[], effects=true) {
-    const outcome = {
+  #createOutcome(actor, ) {
+    return {
       target: actor,
-      rolls: rolls,
+      rolls: [],
+      effects: [],
       resources: {},
       actorUpdates: {},
       statusText: []
     }
-    outcome.effects = effects ? this.#attachEffects(actor, outcome) : [];
-    return outcome;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Create the outcome object that applies to the Actor who performed the Action.
+   * @returns {CrucibleActionOutcome}           The outcome for the Actor
+   */
+  #createSelfOutcome() {
+    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor);
+    return self;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update a target outcome to apply rolls and effects attributed to that outcome.
+   * @param {CrucibleActionOutcome} outcome
+   */
+  #updateOutcome(outcome) {
+    if ( outcome.target === this.actor ) return this.#updateSelfOutcome(outcome);
+    outcome.effects = this.#attachOutcomeEffects(outcome);
+  }
+
+  /* -------------------------------------------- */
+
+  #updateSelfOutcome(outcome) {
+    const u = outcome.actorUpdates;
+    foundry.utils.mergeObject(u, foundry.utils.expandObject(this.usage.actorUpdates));
+    u.system ||= {};
+    if ( u.system.status ) {
+      console.error(`Crucible | "system.status" key present in action.usage.actorUpdates: ${this.name}`);
+    }
+    u.system.status = Object.assign(u.system.status || {}, {lastAction: this.id},
+      foundry.utils.expandObject(this.usage.actorStatus));
+
+    // Attach summons to the self-outcome
+    if ( Array.isArray(this.usage.summons) ) outcome.summons = this.usage.summons;
+
+    // Incur resource cost
+    for ( const [k, v] of Object.entries(this.cost) ) {
+      outcome.resources[k] = (outcome.resources[k] || 0) - v;
+    }
+
+    // Determine whether to apply effects
+    let applyEffects = Array.from(this.outcomes.keys()).length === 1; // Only self-outcome
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.target === this.actor ) continue;
+      if ( !outcome.rolls.length || outcome.rolls.some(r => r.isSuccess) ) applyEffects = true;
+    }
+    if ( applyEffects ) this.#attachOutcomeEffects(outcome);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Apply the effects caused by an Action to targeted Actors when the result is confirmed.
-   * @param {CrucibleActor} target              The target actor
-   * @param {CrucibleActionOutcomes} outcome    The outcome being prepared
+   * @param {CrucibleActionOutcome} outcome     The outcome being prepared
    * @returns {object[]}                        An array of Active Effect data to attach to the outcome
    */
-  #attachEffects(target, outcome) {
+  #attachOutcomeEffects(outcome) {
+    const target = outcome.target;
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
     return this.effects.reduce((effects, {scope, ...effectData}) => {
       scope ??= this.target.scope;
@@ -987,23 +1032,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return effects;
       }
 
-      // For turn-based effects, if the current actor comes after the target in initiative order
-
-      // TODO delete
-      // // Offset effect start round for initiative order
-      // effectData.duration ||= {};
-      // if ( game.combat ) {
-      //   effectData.duration.startRound = game.combat.round;
-      //   effectData.duration.startTurn = 0;
-      //   const c0 = game.combat.getCombatantByActor(this.actor);
-      //   const c1 = game.combat.getCombatantByActor(target);
-      //   if ( c0 && c1 ) {
-      //     const t0 = c0 && game.combat.turns.indexOf(c0);
-      //     const t1 = c1 && game.combat.turns.indexOf(c1);
-      //     if ( t1 < t0 ) effectData.duration.startRound += 1;
-      //   }
-      // }
-
       // Add effect
       effects.push(foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
@@ -1013,44 +1041,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }, effectData));
       return effects;
     }, []);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Create the outcome object that applies to the Actor who performed the Action.
-   * @returns {CrucibleActionOutcome}           The outcome for the Actor
-   */
-  #createSelfOutcome() {
-
-    // Determine whether to apply effects
-    let applySelfEffects = Array.from(this.outcomes.keys()).length === 0;
-    for ( const outcome of this.outcomes.values() ) {
-      if ( outcome.target === this.actor ) continue;
-      if ( !outcome.rolls.length || outcome.rolls.some(r => r.isSuccess) ) applySelfEffects = true;
-    }
-
-    // Create the outcome
-    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor, [], applySelfEffects);
-
-    // Record actor updates to apply
-    const u = self.actorUpdates;
-    foundry.utils.mergeObject(u, foundry.utils.expandObject(this.usage.actorUpdates));
-    u.system ||= {};
-    if ( u.system.status ) {
-      console.error(`Crucible | "system.status" key present in action.usage.actorUpdates: ${this.name}`);
-    }
-    u.system.status = Object.assign(u.system.status || {}, {lastAction: this.id},
-      foundry.utils.expandObject(this.usage.actorStatus));
-
-    // Attach summons to the self-outcome
-    if ( Array.isArray(this.usage.summons) ) self.summons = this.usage.summons;
-
-    // Incur resource cost
-    for ( const [k, v] of Object.entries(this.cost) ) {
-      self.resources[k] = (self.resources[k] || 0) - v;
-    }
-    return self;
   }
 
   /* -------------------------------------------- */
@@ -1113,11 +1103,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   _configureUsage() {
     for ( const test of this._tests() ) {
-      if ( test.configure instanceof Function ) {
+      if ( test.initialize instanceof Function ) {
         try {
-          test.configure.call(this);
+          test.initialize.call(this);
         } catch(err) {
-          console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
+          console.error(new Error(`Failed initialize hook for Action "${this.id}"`, {cause: err}));
         }
       }
     }
@@ -1135,7 +1125,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         try {
           test.prepare.call(this);
         } catch(err) {
-          console.error(new Error(`Failed preparation for Action "${this.id}"`, {cause: err}));
+          console.error(new Error(`Failed prepare hook for Action "${this.id}"`, {cause: err}));
         }
       }
     }
@@ -1231,7 +1221,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @private
    */
   _displayOnSheet(combatant) {
-    combatant ||= game.combat?.getCombatantByActor(this.actor);
+    combatant ||= this.actor.combatant;
     for ( const test of this._tests() ) {
       if ( !(test.displayOnSheet instanceof Function) ) continue;
       if ( test.displayOnSheet.call(this, combatant) === false ) return false;
@@ -1260,10 +1250,14 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Pre-activation steps which happen before the action is evaluated.
+   * Pre-activation steps which happen after dialog configuration of the action but before the action is evaluated.
    * This could be used to mutate the array of targets which are affected by the action.
-   * Pre-activation happens *after* dialog configuration of the action.
+   *
+   * This is also the ideal lifecycle event within which to throw an error which prevents action usage conditional
+   * on the selected array of targets.
+   *
    * @param {ActionUseTarget[]} targets       The array of targets affected by the action
+   * @throws {Error}                          An error which prevents action activation
    * @protected
    */
   async _preActivate(targets) {
@@ -1277,17 +1271,16 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Handle execution of dice rolls associated with the Action.
-   * @param {CrucibleActor} target
-   * @param {StandardCheck[]} rolls
+   * @param {CrucibleActionOutcome} outcome
    * @protected
    */
-  async _roll(target, rolls) {
+  async _roll(outcome) {
     for ( const test of this._tests() ) {
       if ( test.roll instanceof Function ) {
-        await test.roll.call(this, target, rolls);
+        await test.roll.call(this, outcome);
       }
     }
-    this.actor.callActorHooks("rollAction", this, target, rolls);
+    this.actor.callActorHooks("rollAction", this, outcome);
   }
 
   /* -------------------------------------------- */
@@ -1606,7 +1599,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     action.prepare();
 
     // Reconstruct outcomes
-    action.outcomes = new Map();
     for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of outcomes ) {
       let target = fromUuidSync(targetUuid);
       if ( target instanceof TokenDocument ) target = target.actor;

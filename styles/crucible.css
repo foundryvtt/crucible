@@ -2798,10 +2798,10 @@ enriched-content.spell:before {
   align-items: center;
 }
 .crucible.chat-message .message-metadata .confirmed {
-  color: var(--colorSuccess);
+  color: var(--color-result-verygood);
 }
 .crucible.chat-message .message-metadata .unconfirmed {
-  color: var(--colorError);
+  color: var(--color-result-verybad);
 }
 .crucible.chat-message .flavor-text {
   font-size: var(--font-size-12);

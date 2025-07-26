@@ -86,7 +86,7 @@ export const THREAT_RANKS = {
  * @enum {Readonly<Object<{argNames: string[]}>>}
  */
 export const ACTION_HOOKS = Object.freeze({
-  configure: {
+  initialize: {
     argNames: [],
     argLabels: []
   },
@@ -99,8 +99,12 @@ export const ACTION_HOOKS = Object.freeze({
     argLabels: ["combatant: boolean"],
   },
   canUse: {
-    argNames: ["targets"],
-    argLabels: ["targets: ActionTarget[]"],
+    argNames: [],
+    argLabels: [],
+  },
+  configure: {
+    argNames: [],
+    argLabels: []
   },
   preActivate: {
     argNames: ["targets"],
@@ -108,8 +112,8 @@ export const ACTION_HOOKS = Object.freeze({
     async: true
   },
   roll: {
-    argNames: ["target", "rolls"],
-    argLabels: ["target: ActionTarget", "rolls: StandardCheck[]"],
+    argNames: ["outcome"],
+    argLabels: ["outcome: CrucibleActionOutcome"],
     async: true
   },
   postActivate: {

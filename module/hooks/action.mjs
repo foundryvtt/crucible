@@ -41,14 +41,15 @@ HOOKS.alchemistsFire = {
 /* -------------------------------------------- */
 
 HOOKS.berserkStrike = {
-  preActivate(_targets) {
+  prepare() {
     const health = this.actor.resources.health;
     const pct = health.value / health.max;
     let damageBonus = 0;
     if ( pct < 0.25 ) damageBonus = 3;
     else if ( pct < 0.5 ) damageBonus = 2;
     else if ( pct < 0.75 ) damageBonus = 1;
-    if ( this.actor.equipment.weapons.twoHanded ) damageBonus *= 2;
+    const weapon = this.usage.strikes[0];
+    if ( weapon.config.category.hands === 2 ) damageBonus *= 2;
     if ( damageBonus ) {
       this.usage.bonuses.damageBonus ||= 0;
       this.usage.bonuses.damageBonus += damageBonus;
@@ -233,7 +234,7 @@ HOOKS.swoopingStrike = {
 /* -------------------------------------------- */
 
 HOOKS.rakingTalons = {
-  configure() {
+  initialize() {
     this.usage.weapon = this.actor.equipment.weapons.natural.find(w => w.system.identifier === "talons");
   },
   canUse() {
@@ -310,8 +311,6 @@ HOOKS.reload = {
     const a = this.actor;
     const {reloaded} = a.system.status;
     if ( a.talentIds.has("pistoleer0000000") && !reloaded ) this.cost.action = 0; // TODO generalize
-  },
-  async postActivate() {
     this.usage.actorStatus.reloaded = true;
   }
 }
