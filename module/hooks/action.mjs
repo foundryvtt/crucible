@@ -76,10 +76,6 @@ HOOKS.delay = {
       throw new Error("You may not delay your turn again this combat round.");
     }
   },
-  displayOnSheet(combatant) {
-    if ( !combatant || this.actor.flags.crucible?.delay || (game.combat.combatant !== combatant) ) return false;
-    return game.combat.turn < (game.combat.turns.length - 1); // Not already last
-  },
   // TODO refactor to roll()?
   async preActivate(targets) {
     const combatant = game.combat.getCombatantByActor(this.actor);
@@ -102,6 +98,24 @@ HOOKS.delay = {
   },
   async confirm() {
     return this.actor.delay(this.usage.initiativeDelay);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.feintingStrike = {
+  async roll(outcome) {
+    this.usage.defenseType = "reflex";
+    const deception = await this.actor.skillAttack(this, outcome.target);
+    if ( deception.data.damage ) deception.data.damage.total = 0;
+    if ( deception.isSuccess ) {
+      this.usage.boons.feintingStrike = {label: "Feinting Strike", number: 2};
+      this.usage.bonuses.damageBonus += 6;
+    }
+    const offhand = this.actor.equipment.weapons.offhand;
+    this.usage.defenseType = "physical";
+    const attack = await this.actor.weaponAttack(this, outcome.target, offhand);
+    outcome.rolls.push(deception, attack);
   }
 }
 
@@ -285,9 +299,6 @@ HOOKS.recover = {
   canUse() {
     if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
   },
-  displayOnSheet(combatant) {
-    return !combatant;
-  },
   async confirm() {
     await this.actor.rest();
   }
@@ -352,6 +363,17 @@ HOOKS.thrash = {
   preActivate(targets) {
     if ( targets.some(target => !target.actor?.statuses.has("restrained")) ) {
       throw new Error("You can only perform Thrash against a target that you have Restrained.");
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.threadTheNeedle = {
+  preActivate(targets) {
+    for ( const target of targets ) {
+      const meleeBoons = this.actor.applyTargetBoons(target, this, "weapon", false).boons;
+      if ( meleeBoons.flanked ) this.usage.boons.flanked = meleeBoons.flanked;
     }
   }
 }

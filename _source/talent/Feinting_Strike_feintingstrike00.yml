@@ -16,6 +16,7 @@ system:
         - dualwield
         - melee
         - offhand
+        - skill
         - deception
       cost:
         action: 1
@@ -26,6 +27,7 @@ system:
         type: single
         number: 1
         scope: 3
+        self: false
       effects: []
       name: Feinting Strike
       img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
@@ -38,31 +40,17 @@ system:
         weapon.</p><p>If your Deception was successful, you gain <strong>+2
         Boons</strong> to your Strike and it deals an additional <strong>+6
         Damage</strong>.</p>
-      actionHooks:
-        - hook: roll
-          fn: |-
-            this.usage.defenseType = "reflex";
-            const deception = await this.actor.skillAttack(this, target);
-            if ( deception.data.damage ) deception.data.damage.total = 0;
-            if ( deception.isSuccess ) {
-              this.usage.boons.feintingStrike = {label: "Feinting Strike", number: 2};
-              this.usage.bonuses.damageBonus += 6;
-            }
-            const offhand = this.actor.equipment.weapons.offhand;
-            this.usage.defenseType = "physical";
-            const attack = await this.actor.weaponAttack(this, target, offhand);
-            rolls[0] = deception;
-            rolls[1] = attack;
+      actionHooks: []
       range:
         maximum: null
         weapon: true
         minimum: null
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.7
+  coreVersion: '13.346'
   createdTime: 1674942420023
-  modifiedTime: 1726967621841
+  modifiedTime: 1753556694800
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.vIhvItiKYuiqaSp9
   duplicateSource: null

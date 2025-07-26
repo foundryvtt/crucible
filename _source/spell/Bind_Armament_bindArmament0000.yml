@@ -29,6 +29,7 @@ system:
         type: self
         number: 1
         scope: 1
+        self: false
       effects: []
       tags:
         - iconicSpell
@@ -66,6 +67,7 @@ system:
         type: self
         number: 1
         scope: 1
+        self: false
       effects: []
       tags:
         - iconicSpell
@@ -76,16 +78,6 @@ system:
             const weapon = this.items.get(boundArmamentId);
             if ( !weapon || weapon.equipped ) return false;
             this.canEquipWeapon(weapon);
-        - hook: displayOnSheet
-          fn: |-
-            try {
-              this.hooks.canUse.call(this, action);
-              return true;
-            } catch(err) {
-              return false;
-            }
-        - hook: confirm
-          fn: debugger;
       condition: ''
       description: >-
         <p>You call your bound armament back into your grasp. As long as you
@@ -108,11 +100,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.2
+  systemVersion: 0.7.7
   createdTime: 1749247011452
-  modifiedTime: 1749247939403
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1753556369992
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 0
 _key: '!items!bindArmament0000'

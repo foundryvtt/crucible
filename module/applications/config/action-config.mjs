@@ -130,8 +130,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
     return {
       action,
       editable: this.isEditable,
-      actionHookChoices: Object.keys(SYSTEM.ACTION_HOOKS).reduce((obj, k) => {
-        obj[k] = k;
+      actionHookChoices: Object.entries(SYSTEM.ACTION_HOOKS).reduce((obj, [k, v]) => {
+        if ( !v.deprecated ) obj[k] = k;
         return obj;
       }, {}),
       disableHooks,

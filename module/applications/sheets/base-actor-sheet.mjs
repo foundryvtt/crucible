@@ -469,7 +469,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       movement: {label: "Movement Actions", actions: []},
       general: {label: "General Actions", actions: []}
     };
-    const combatant = game.combat?.getCombatantByActor(this.actor);
     const favorites = [];
 
     // Iterate over all Actions
@@ -502,7 +501,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       sections[section].actions.push(a);
 
       // Favorite actions which are able to be currently used
-      if ( action.isFavorite && action._displayOnSheet(combatant) ) favorites.push(a);
+      if ( action.isFavorite && action._displayOnSheet() ) favorites.push(a);
     }
 
     // Sort each section

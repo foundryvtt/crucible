@@ -11,7 +11,6 @@ system:
         - projectile
         - ranged
         - difficult
-        - twohand
       cost:
         action: 1
         focus: 0
@@ -22,6 +21,7 @@ system:
         number: 1
         multiple: 2
         scope: 3
+        self: false
       effects: []
       name: Twinned Shot
       img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
@@ -44,10 +44,10 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.7.7
+  coreVersion: '13.346'
   createdTime: 1687615283427
-  modifiedTime: 1749329288405
+  modifiedTime: 1753534728617
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

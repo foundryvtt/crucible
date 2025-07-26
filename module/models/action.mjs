@@ -409,6 +409,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Prepare Hook functions for this Action.
+   * @param {string} actionId
    * @param {string[]} inlineHooks
    * @returns {Record<string, AsyncFunction|Function>}
    */
@@ -418,9 +419,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     // Inline script hooks
     for ( const {hook, fn} of inlineHooks ) {
       const config = SYSTEM.ACTION_HOOKS[hook];
+      if ( config.deprecated ) {
+        console.warn(`Deprecated Action hook "${hook}" used by Action "${actionId}"`);
+        continue;
+      };
       const fnClass = config.async ? foundry.utils.AsyncFunction : Function;
       if ( config ) hooks[hook] = new fnClass(...config.argNames, fn);
-      else console.warn(`Invalid Action hook "${hook}" defined by Action "${this.id}"`)
+      else console.warn(`Invalid Action hook "${hook}" defined by Action "${actionId}"`)
     }
 
     // Pre-configured module hooks
@@ -1216,15 +1221,17 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * Should this Action be displayed on a character sheet as available for use?
-   * @param {Combatant} [combatant]     The Combatant associated with this actor, if any
    * @returns {boolean}                 Should the action be displayed?
-   * @private
+   * @internal
    */
-  _displayOnSheet(combatant) {
-    combatant ||= this.actor.combatant;
-    for ( const test of this._tests() ) {
-      if ( !(test.displayOnSheet instanceof Function) ) continue;
-      if ( test.displayOnSheet.call(this, combatant) === false ) return false;
+  _displayOnSheet() {
+    try {
+      for ( const test of this._tests() ) {
+        if ( !(test.canUse instanceof Function) ) continue;
+        if ( test.canUse.call(this) === false ) return false;
+      }
+    } catch(err) {
+      return false;
     }
     return true;
   }
@@ -1558,9 +1565,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   static async confirmMessage(message, {action, reverse=false}={}) {
     action ||= this.fromChatMessage(message);
-    const flagsUpdate = {confirmed: !reverse};
-    await action.confirm({reverse});
-    return message.update({flags: {crucible: flagsUpdate}});
+    await message.update({flags: {crucible: {confirmed: !reverse}}}); // Mark the message as confirmed *first*
+    await action.confirm({reverse}); // Then perform the confirmation effects
   }
 
   /* -------------------------------------------- */

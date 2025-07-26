@@ -15,20 +15,22 @@ system:
       name: Vampiric Bite
       condition: Your target is a living creature.
       description: >-
-        You grasp an enemy and bite it with sharp incisors, rapidly draining its
-        blood to heal your own wounds. This attack requires a free hand to grasp
-        your target while you feed.
+        <p>You grasp an enemy and bite it with sharp incisors, rapidly draining
+        its blood to heal your own wounds. This attack requires a free hand to
+        grasp your target while you feed.</p>
       tags:
-        - melee
         - freehand
+        - melee
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
       img: icons/magic/death/mouth-bite-fangs-vampire.webp
       actionHooks:
@@ -36,8 +38,10 @@ system:
           fn: >-
             const cls = getDocumentClass("Item"); const bite = new
             cls(SYSTEM.WEAPON.VAMPIRE_BITE, {parent: this.actor});
-            this.usage.weapon = bite; this.usage.context.tags.add("Vampiric
-            Bite"); foundry.utils.mergeObject(this.usage.bonuses,
+            this.usage.weapon = bite; 
+
+            this.usage.context.tags.add("Vampiric Bite");
+            foundry.utils.mergeObject(this.usage.bonuses,
             bite.system.actionBonuses);
             foundry.utils.mergeObject(this.usage.context, {
               type: "weapons",
@@ -45,10 +49,6 @@ system:
               icon: "fa-solid fa-swords",
               hasDice: true
             });
-        - hook: roll
-          fn: |-
-            const bite = await this.actor.weaponAttack(this, target);
-            rolls.push(bite);
         - hook: confirm
           fn: |-
             const self = this.outcomes.get(this.actor);
@@ -58,6 +58,10 @@ system:
                 self.resources.health = (self.resources.health || 0) + this.actor.system.abilities.toughness.value;
               }
             }
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
   actorHooks:
     - hook: prepareResistances
       fn: resistances.radiant.base -= 10;
@@ -69,11 +73,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.345'
+  systemVersion: 0.7.7
+  coreVersion: '13.346'
   createdTime: 1676157758719
-  modifiedTime: 1749921041418
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1753556827482
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.nosferatu0000000
   duplicateSource: null
   exportSource: null

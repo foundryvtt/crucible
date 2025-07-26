@@ -747,7 +747,7 @@ pages:
         <strong>Heroism Point</strong> depends on the number of Hero characters
         in the Combat encounter:</p><section class="formula"><p
         class="value">Action per Heroism</p><p class="equals">=</p><p
-        class="equation">Number of Heroes × 6 × 3</p></section><section
+        class="equation">Number of Heroes × 12</p></section><section
         class="gameplay"><h4>Example: Ray of Life</h4><p>Suppose Kagura, a
         powerful Healer, casts a spell <strong>Composed Ray of Life</strong>
         which heals two of her allies and costs <strong>5 Action</strong> to
@@ -771,11 +771,11 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.345'
+      coreVersion: '13.346'
       systemId: crucible
       systemVersion: 0.7.3
       createdTime: 1749693502753
-      modifiedTime: 1749694870194
+      modifiedTime: 1753540966957
       lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.4rapfbyanVHveRme'
   - sort: 900000

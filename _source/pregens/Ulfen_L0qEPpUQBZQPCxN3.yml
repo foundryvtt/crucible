@@ -265,7 +265,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: uqC6pRnyzj
+      identifier: ZPAKJ2idiA
       invested: false
       actorHooks: []
     _stats:
@@ -305,7 +305,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: MG4xRxFYbM
+      identifier: yyVJICKhgg
       invested: false
       actorHooks: []
       dropped: false
@@ -1266,11 +1266,92 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.unarmedCombatTra'
+  - name: Berserk Strike
+    type: talent
+    _id: berserkStrike000
+    img: icons/skills/melee/strike-weapons-orange.webp
+    system:
+      nodes:
+        - str2a
+      description: >-
+        <p>You channel your lust for combat into an adrenaline-fueled strike
+        which increases in power as you become more wounded.</p>
+      actions:
+        - id: berserkStrike
+          name: Berserk Strike
+          img: icons/skills/melee/strike-weapons-orange.webp
+          condition: ''
+          description: >-
+            <p>You imbue your strike with momentum and intensity, increasing the
+            <strong>Damage Bonus</strong> of your strike according to your
+            missing <strong>Health</strong>.</p><ul><li><p>If your Health is
+            below 75%, your Strike deals <strong>+1
+            Damage</strong></p></li><li><p>If your Health is below 50%, your
+            Strike deals <strong>+2 Damage</strong></p></li><li><p>If your
+            Health is below 25%, your Strike deals <strong>+3
+            Damage</strong></p></li></ul><p>This damage bonus is doubled if you
+            are using a <strong>Two-Handed</strong> weapon.</p>
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: true
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - melee
+          actionHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.7
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.berserkStrike000'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory:
+      - id: throwWeapon
+        messageId: RNcBbzZWI4GGDdhy
+        combat: null
+      - id: throwWeapon
+        messageId: X6JvltY7x0NBLjgG
+        combat: null
+      - id: berserkStrike
+        messageId: j4pv88x1geTAZ5Yo
+        combat: null
+      - id: berserkStrike
+        messageId: dHqE8ITbO0iMBgHr
+        combat: null
+      - id: berserkStrike
+        messageId: Jni1iXLzrue2SbLW
+        combat: null
       - id: strike
         messageId: SdsY1EWKyKPSa9Cx
         combat:
@@ -1301,9 +1382,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.6
+  systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1752530807730
+  modifiedTime: 1753556905692
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 sort: 0

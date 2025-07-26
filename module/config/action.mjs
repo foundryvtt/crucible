@@ -292,14 +292,6 @@ export const TAGS = {
           throw new Error(`You may only perform ${this.name} after a basic Strike which did not critically miss.`);
         }
       }
-    },
-    displayOnSheet(_combatant) {
-      try {
-        TAGS.afterStrike.canUse.call(this);
-        return true;
-      } catch(err) {
-        return false;
-      }
     }
   },
 
@@ -337,14 +329,6 @@ export const TAGS = {
     label: "ACTION.TagReaction",
     tooltip: "ACTION.TagReactionTooltip",
     category: "context",
-    displayOnSheet(combatant) {
-      if ( !combatant ) return false;
-      try {
-        return TAGS.reaction.canUse.call(this);
-      } catch(err) {
-        return false;
-      }
-    },
     canUse() {
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
       return this.actor !== game.combat?.combatant?.actor;
@@ -365,10 +349,7 @@ export const TAGS = {
     tag: "noncombat",
     label: "ACTION.TagNonCombat",
     tooltip: "ACTION.TagNonCombatTooltip",
-    category: "context",
-    displayOnSheet(combatant) {
-      return !combatant;
-    }
+    category: "context"
   },
 
   // Requires a Flanked Opponent
@@ -394,9 +375,6 @@ export const TAGS = {
     category: "special",
     initialize() {
       if ( this.item?.type === "consumable" ) this.usage.consumable = this.item;
-    },
-    displayOnSheet(_combatant) {
-      return this.usage.consumable?.system.isDepleted === false;
     },
     canUse() {
       const item = this.usage.consumable;

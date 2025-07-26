@@ -102,6 +102,7 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
   resistances:
     bludgeoning:
       bonus: 0
@@ -265,7 +266,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: lPhCL2uPhB
+      identifier: TYGZjpkEeM
       invested: false
       actorHooks: []
       dropped: false
@@ -306,7 +307,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: bDDDpJx2ws
+      identifier: A8sGqDi2Ld
       invested: false
       actorHooks: []
       dropped: false
@@ -345,7 +346,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 4OPaoxKFjb
+      identifier: puKAQy1wJb
       invested: false
       actorHooks: []
     _stats:
@@ -435,7 +436,7 @@ items:
           description: >-
             <p>Following a basic Strike with your mainhand weapon, you
             <strong>Strike</strong> with your shield, causing the
-            <strong>Staggered</strong> condition for one Round.</p>
+            @Condition[staggered] condition for one Round.</p>
           tags:
             - shield
             - afterStrike
@@ -1119,7 +1120,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: FDfkOs23h3
+      identifier: V45BOtpvl8
       invested: false
       actorHooks: []
       dropped: false
@@ -1194,10 +1195,10 @@ items:
             - reflex
             - melee
           actionHooks: []
-      identifier: 47fs3b89Hi
+      dropped: false
+      identifier: Ornz61Ed28
       invested: false
       actorHooks: []
-      dropped: false
     _stats:
       compendiumSource: null
       duplicateSource: null
@@ -1401,24 +1402,143 @@ flags:
   core: {}
   crucible:
     actionHistory:
-      - id: shieldBash
-        messageId: 7p0OLsfavBELTWuT
-        combat: null
-      - id: shieldBash
-        messageId: E3wc7kcewNByhebL
-        combat: null
+      - id: move
+        messageId: Nl7ENKdcA38THVDU
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
       - id: strike
-        messageId: oW4eHj6GOQkS2Ast
-        combat: null
+        messageId: mDySuyODUnuCzw6h
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: strike
+        messageId: TzDJ02c01xEgbZ1H
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: strike
+        messageId: tgPtHkXLR8E7AV9E
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: strike
+        messageId: txgHdB5FoNx15Zt6
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: equipItem
+        messageId: 6FysB5QSyJ1n8s5U
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: throwWeapon
+        messageId: 7FFA3VuNmlRJ8I8l
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: throwWeapon
+        messageId: 1QY0BjOYEMxwLCjT
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: shieldBash
+        messageId: OchrYLps3BYDpgXZ
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: shieldBash
+        messageId: skmZZw1uydxQD92l
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: shieldBash
+        messageId: Cb7ejpY3Thmc6oFr
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: shieldBash
+        messageId: 4GJQGhIzHefWdzAp
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: shieldBash
+        messageId: MdEhqcLHfhofKkld
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: strike
+        messageId: EaV9wvlkcVp1jJcp
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: move
+        messageId: ZDD7NqO8Nx59HwMB
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
+      - id: move
+        messageId: N3KcXcJkRb3ALtMr
+        combat:
+          id: fCUmSw8KzJUjKEDg
+          round: 1
+          turn: 1
+          combatantId: YCiu0tCG2r2sDgBJ
+          tokenId: wVFqwoorT9aOxftx
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.6
+  systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1752530807730
+  modifiedTime: 1753556905692
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 sort: 0

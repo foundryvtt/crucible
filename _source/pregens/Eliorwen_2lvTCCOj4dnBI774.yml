@@ -268,7 +268,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: 4zDlvzIYLO
+      identifier: Avozjonkcm
       invested: false
       actorHooks: []
       dropped: false
@@ -308,7 +308,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: tITLYt7ZGt
+      identifier: uK2F5YMdE5
       invested: false
       actorHooks: []
       dropped: false
@@ -348,7 +348,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: R1VP0Hxktn
+      identifier: MrH6KpY8rx
       invested: false
       actorHooks: []
     _stats:
@@ -1151,6 +1151,9 @@ flags:
   crucible:
     lastSpell: spell.lightning.arrow
     actionHistory:
+      - id: recover
+        messageId: 1SU4X5Xpd4uZ0vKG
+        combat: null
       - id: strike
         messageId: NpizgVYrCFLk4Ll6
         combat:
@@ -1205,9 +1208,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.6
+  systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1752530807730
+  modifiedTime: 1753556905692
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 sort: 0

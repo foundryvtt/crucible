@@ -95,8 +95,9 @@ export const ACTION_HOOKS = Object.freeze({
     argLabels: []
   },
   displayOnSheet: {
-    argNames: ["combatant"],
-    argLabels: ["combatant: boolean"],
+    argNames: [],
+    argLabels: [],
+    deprecated: true /** @deprecated */
   },
   canUse: {
     argNames: [],

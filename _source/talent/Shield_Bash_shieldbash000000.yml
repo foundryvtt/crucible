@@ -11,7 +11,7 @@ system:
       description: >-
         <p>Following a basic Strike with your mainhand weapon, you
         <strong>Strike</strong> with your shield, causing the
-        <strong>Staggered</strong> condition for one Round.</p>
+        @Condition[staggered] condition for one Round.</p>
       tags:
         - shield
         - afterStrike
@@ -36,13 +36,7 @@ system:
             rounds: null
       name: Shield Bash
       img: icons/skills/melee/shield-block-bash-blue.webp
-      actionHooks:
-        - hook: canUse
-          fn: |-
-            const {basicStrike, lastAction} = this.actor.system.status;
-            if ( !basicStrike || (lastAction !== "strike") ) {
-              throw new Error("You can only perform Shield Bash after a basic Strike which did not critically miss.");
-            }
+      actionHooks: []
       range:
         maximum: null
         weapon: true
@@ -63,9 +57,9 @@ _stats:
   exportSource: null
   coreVersion: '13.346'
   systemId: crucible
-  systemVersion: 0.7.6
+  systemVersion: 0.7.7
   createdTime: 1748638592170
-  modifiedTime: 1752520296246
+  modifiedTime: 1753535710850
   lastModifiedBy: AnoypGxxNIMOS0XY
 folder: 08mOaWGw5rYKejer
 ownership:
