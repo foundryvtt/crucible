@@ -63,7 +63,7 @@ actors:
             - Compendium.crucible.adversary-talents.Item.tuskCharge000000
           name: Tusker
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: kikXuNJ3Z3
+          identifier: 1M9rl4nHby
           skills: []
         taxonomy:
           description: >-
@@ -99,7 +99,7 @@ actors:
             spells: false
           name: Boar
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: l9lbU3xznB
+          identifier: rGHcs5xq6G
         biography:
           public: ''
           private: ''
@@ -256,7 +256,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: znPVzaVr8A
+          identifier: uwh5hSok6C
           invested: false
           actorHooks: []
         effects: []
@@ -382,7 +382,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852256
+          modifiedTime: 1753648538824
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: tuskCharge000000
@@ -397,7 +397,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1685230780675
-      modifiedTime: 1753556852261
+      modifiedTime: 1753648538831
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -455,7 +455,7 @@ actors:
             - Compendium.crucible.adversary-talents.Item.packhunter000000
           name: Pack Member
           img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: oSG53lZg2x
+          identifier: rRRfa5jJRO
           skills: []
         taxonomy:
           description: >-
@@ -491,7 +491,7 @@ actors:
             spells: false
           name: Hyena
           img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: 0eBGgNsVIG
+          identifier: NHnAwrGxnA
         biography:
           public: ''
           private: ''
@@ -648,7 +648,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: nAQpLaNQKE
+          identifier: RE9N2mSlD1
           invested: false
           actorHooks: []
           dropped: false
@@ -690,7 +690,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: SAs3G1ZxmV
+          identifier: AER2d37U3b
           invested: false
           actorHooks: []
         effects: []
@@ -746,7 +746,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852581
+          modifiedTime: 1753648539177
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: packhunter000000
@@ -762,7 +762,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1685217604062
-      modifiedTime: 1753556852585
+      modifiedTime: 1753648539181
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -825,7 +825,7 @@ actors:
             - Compendium.crucible.talent.Item.concussiveblows0
           name: Grappler
           img: icons/magic/control/buff-strength-muscle-damage.webp
-          identifier: 1ykRHXVzpK
+          identifier: e5dDFXT3YO
           skills: []
         taxonomy:
           description: >-
@@ -861,7 +861,7 @@ actors:
           talents: []
           name: Ogre
           img: icons/creatures/unholy/demon-fire-horned-mask.webp
-          identifier: chDqB3OjZ9
+          identifier: 5tRkoAb3FG
         biography:
           public: ''
           private: ''
@@ -893,9 +893,9 @@ actors:
           bonus: 0
       resources:
         health:
-          value: 82
+          value: 56
         morale:
-          value: 39
+          value: 38
         action:
           value: 8
         focus:
@@ -1022,7 +1022,7 @@ actors:
             base: 11
           broken: false
           actions: []
-          identifier: IsqSOH2ErF
+          identifier: 7O7haVBCZg
           invested: false
           actorHooks: []
         _stats:
@@ -1065,7 +1065,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: XmPEY8pSzk
+          identifier: zOtAvKBS1X
           invested: false
           actorHooks: []
           dropped: false
@@ -1116,7 +1116,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -1193,7 +1193,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -1264,7 +1264,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: legsweep00000000
@@ -1318,7 +1318,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -1351,7 +1351,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -1474,7 +1474,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: heavystrike00000
@@ -1513,7 +1513,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852236
+          modifiedTime: 1753648538800
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
         ownership:
@@ -1529,7 +1529,7 @@ actors:
       systemVersion: 0.7.7
       coreVersion: '13.346'
       createdTime: 1685831615922
-      modifiedTime: 1753556211789
+      modifiedTime: 1753557036196
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -1596,7 +1596,7 @@ actors:
             - Compendium.crucible.talent.Item.skirmisher000000
           name: Skirmisher
           img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
-          identifier: 172mSnSJXl
+          identifier: FlCAH8YiPf
           skills: []
         taxonomy:
           description: >-
@@ -1636,7 +1636,7 @@ actors:
             stride: 10
           name: Orcish
           img: icons/creatures/magical/construct-iron-stomping-yellow.webp
-          identifier: Q5iy3iTPRL
+          identifier: iK0QI720Dd
         biography:
           public: ''
           private: ''
@@ -1799,7 +1799,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: 3Kbdu1nHmR
+          identifier: c9LGFs0WYY
           invested: false
           actorHooks: []
           dropped: false
@@ -1841,7 +1841,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: D6jkMAOYqK
+          identifier: c0pu7KBQ6i
           invested: false
           actorHooks: []
           dropped: false
@@ -1881,7 +1881,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: bzG0A44hH4
+          identifier: GjgMsHJAAG
           invested: false
           actorHooks: []
         _stats:
@@ -1927,7 +1927,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -1992,7 +1992,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -2066,7 +2066,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: hamstring0000000
@@ -2104,7 +2104,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
         ownership:
@@ -2172,7 +2172,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: cW6bwHXBB9pMcwva
         _id: dualWield0000000
@@ -2236,7 +2236,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852524
+          modifiedTime: 1753648539112
         _id: heavystrike00000
         folder: null
         sort: 0
@@ -2252,7 +2252,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1685830625262
-      modifiedTime: 1753556852535
+      modifiedTime: 1753648539125
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2321,7 +2321,7 @@ actors:
             - Compendium.crucible.talent.Item.gestureray000000
           name: Occultist
           img: icons/magic/death/skull-cattle-totem-glow-red.webp
-          identifier: Z2XVV21X2Y
+          identifier: XHiYSZlty9
           skills: []
         taxonomy:
           description: >-
@@ -2361,7 +2361,7 @@ actors:
             stride: 10
           name: Human
           img: icons/skills/social/diplomacy-handshake.webp
-          identifier: EszdPm2ZdS
+          identifier: RWAxTmy9Lk
         biography:
           public: ''
           private: ''
@@ -2521,7 +2521,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: hhXVpY4KxO
+          identifier: KOsN2KNzEH
           invested: false
           actorHooks: []
           dropped: false
@@ -2565,7 +2565,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: 8hluHf5a9l
+          identifier: I5826ZxdES
           invested: false
           actorHooks: []
         _stats:
@@ -2613,7 +2613,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -2665,7 +2665,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -2705,7 +2705,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runevoid00000000
@@ -2748,7 +2748,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -2785,7 +2785,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -2829,7 +2829,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturecreate000
@@ -2869,7 +2869,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -2905,7 +2905,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conjurer00000000
@@ -2942,7 +2942,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectionpush00
@@ -2981,7 +2981,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: talismanWeaponTr
         ownership:
@@ -3050,7 +3050,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
         _id: intercept0000000
         folder: null
         sort: 0
@@ -3092,7 +3092,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852693
+          modifiedTime: 1753648539299
         _id: gestureray000000
         folder: null
         sort: 0
@@ -3109,7 +3109,7 @@ actors:
       systemVersion: 0.7.4
       coreVersion: '13.346'
       createdTime: 1686183305269
-      modifiedTime: 1753556852706
+      modifiedTime: 1753648539311
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -3168,7 +3168,7 @@ actors:
             - Compendium.crucible.talent.Item.evasiveshot00000
           name: Archer
           img: icons/weapons/bows/shortbow-white.webp
-          identifier: Ouo0iwZqsc
+          identifier: zPZrV2CLmc
           skills: []
         taxonomy:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
@@ -3202,7 +3202,7 @@ actors:
           talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: zXRykKhyeD
+          identifier: EGKn2kssLD
         biography:
           public: ''
           private: ''
@@ -3359,7 +3359,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: Wx3vpJAocJ
+          identifier: fXATLfhJdi
           invested: false
           actorHooks: []
         effects: []
@@ -3402,7 +3402,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: kzpGGvTVn2
+          identifier: nmKlfkZq4K
           invested: false
           actorHooks: []
           dropped: false
@@ -3470,7 +3470,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852725
+          modifiedTime: 1753648539329
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -3506,7 +3506,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852725
+          modifiedTime: 1753648539329
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -3542,7 +3542,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814250047
-          modifiedTime: 1753556852725
+          modifiedTime: 1753648539329
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: projectileTraini
         folder: null
@@ -3559,7 +3559,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686181185927
-      modifiedTime: 1753556852731
+      modifiedTime: 1753648539335
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -3623,7 +3623,7 @@ actors:
             - Compendium.crucible.talent.Item.legsweep00000000
           name: Fighter
           img: icons/skills/melee/sword-shield-stylized-white.webp
-          identifier: b7WzFckmWt
+          identifier: iv18oHZi3E
           skills: []
         taxonomy:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
@@ -3657,7 +3657,7 @@ actors:
           talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: rOMcdt5wvK
+          identifier: ecShaPi2jb
         biography:
           public: ''
           private: ''
@@ -3814,7 +3814,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: EhrlLi0MOK
+          identifier: KZZLacmWgV
           invested: false
           actorHooks: []
         effects: []
@@ -3859,7 +3859,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: tfO2qz9h6U
+          identifier: SiUE1fuhCH
           invested: false
           actorHooks: []
           dropped: false
@@ -3911,7 +3911,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852743
+          modifiedTime: 1753648539347
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bulwark000000000
@@ -3947,7 +3947,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852743
+          modifiedTime: 1753648539347
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: armoredefficienc
@@ -4019,7 +4019,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852743
+          modifiedTime: 1753648539347
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: legsweep00000000
@@ -4057,7 +4057,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814366658
-          modifiedTime: 1753556852743
+          modifiedTime: 1753648539347
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: lightWeaponTrain
         folder: null
@@ -4074,7 +4074,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686181185927
-      modifiedTime: 1753556852750
+      modifiedTime: 1753648539355
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -4138,7 +4138,7 @@ actors:
             - Compendium.crucible.talent.Item.berserker0000000
           name: Berserker
           img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-          identifier: aRFV7RZ7Et
+          identifier: PmqpH3QouB
           skills: []
         taxonomy:
           description: >-
@@ -4174,7 +4174,7 @@ actors:
             spells: false
           name: Werewolf
           img: icons/creatures/mammals/wolf-shadow-black.webp
-          identifier: USVqGVgYxi
+          identifier: jT88OjRGZu
         biography:
           public: ''
           private: ''
@@ -4335,7 +4335,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: EWqLTGSEJx
+          identifier: E9kuBcXS6N
           invested: false
           actorHooks: []
         effects: []
@@ -4378,7 +4378,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: ySISf1XWbv
+          identifier: J6bYyrale3
           invested: false
           actorHooks: []
           dropped: false
@@ -4422,7 +4422,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 60DwSya6SI
+          identifier: uKSqhdgSv0
           invested: false
           actorHooks: []
           dropped: false
@@ -4475,7 +4475,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: thickskin0000000
@@ -4610,7 +4610,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -4674,7 +4674,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -4722,7 +4722,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodfrenzy00000
@@ -4757,7 +4757,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -4804,7 +4804,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodletter00000
@@ -4867,7 +4867,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -4905,7 +4905,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: naturalWeaponPro
         ownership:
@@ -4967,7 +4967,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
         _id: heavystrike00000
         folder: null
         sort: 0
@@ -5037,7 +5037,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852663
+          modifiedTime: 1753648539267
         _id: berserker0000000
         folder: null
         sort: 0
@@ -5053,7 +5053,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1685839607073
-      modifiedTime: 1753556852676
+      modifiedTime: 1753648539281
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5111,7 +5111,7 @@ actors:
           talents: []
           name: Plaguebearer
           img: icons/magic/acid/dissolve-vomit-green-brown.webp
-          identifier: dzvXv1rx3r
+          identifier: ormR5BuVZA
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -5145,7 +5145,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: nw31jQPRQ1
+          identifier: xUkiXymGE3
         biography:
           public: ''
           private: ''
@@ -5304,7 +5304,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: WtbxFUiCUo
+          identifier: esCFvAEn8r
           invested: false
           actorHooks: []
           dropped: false
@@ -5346,7 +5346,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: NSoj8nGm0d
+          identifier: LdM26ljLtB
           invested: false
           actorHooks: []
           dropped: false
@@ -5388,7 +5388,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: JWDwpyRURo
+          identifier: AODspmUbQn
           invested: false
           actorHooks: []
         effects: []
@@ -5511,7 +5511,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852547
+          modifiedTime: 1753648539139
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -5555,7 +5555,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852547
+          modifiedTime: 1753648539139
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -5592,7 +5592,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852547
+          modifiedTime: 1753648539139
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runevoid00000000
@@ -5632,7 +5632,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852547
+          modifiedTime: 1753648539139
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -5669,7 +5669,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852547
+          modifiedTime: 1753648539139
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectionpull00
@@ -5686,7 +5686,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686148548654
-      modifiedTime: 1753556852555
+      modifiedTime: 1753648539147
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5744,7 +5744,7 @@ actors:
           talents: []
           name: Fearmonger
           img: icons/magic/death/skull-energy-light-purple.webp
-          identifier: juU0xZQV11
+          identifier: 45ouBUYO8P
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -5778,7 +5778,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: EAEyOU46aA
+          identifier: dv9MXUrKEK
         biography:
           public: ''
           private: ''
@@ -5937,7 +5937,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: KseMkfNT3V
+          identifier: zfEtqUUbzY
           invested: false
           actorHooks: []
           dropped: false
@@ -5979,7 +5979,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: 5mUhsdhpCc
+          identifier: PRBqMSYkK4
           invested: false
           actorHooks: []
         effects: []
@@ -6134,7 +6134,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686151649800
-      modifiedTime: 1753556852564
+      modifiedTime: 1753648539156
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6194,7 +6194,7 @@ actors:
           talents: []
           name: Mindwarper
           img: icons/magic/unholy/strike-body-explode-disintegrate.webp
-          identifier: ocqYMr61yA
+          identifier: a86KbmdcTQ
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -6228,7 +6228,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: 0yrYCLKiXY
+          identifier: 1XNJqTcEkm
         biography:
           public: ''
           private: ''
@@ -6388,7 +6388,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 6FznyL3cSG
+          identifier: 6JGGDk7GZ4
           invested: false
           actorHooks: []
           dropped: false
@@ -6430,7 +6430,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: QV0wocFriF
+          identifier: uzXroN0Dz5
           invested: false
           actorHooks: []
         effects: []
@@ -6590,7 +6590,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686151655811
-      modifiedTime: 1753556852570
+      modifiedTime: 1753648539164
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6859,7 +6859,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: mFaQzgCKtW
+          identifier: dtCnCNv1ow
           invested: false
           actorHooks: []
           dropped: false
@@ -6902,7 +6902,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: dsIXD14QO5
+          identifier: v53fy2JdhT
           invested: false
           actorHooks: []
         _stats:
@@ -6978,7 +6978,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 4Ll3b4Q4us2mp4Fu
@@ -7017,7 +7017,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeflame0000000
@@ -7060,7 +7060,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -7102,7 +7102,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
         _id: runevoid00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 1000000
@@ -7147,7 +7147,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -7188,7 +7188,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -7223,7 +7223,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852853
+          modifiedTime: 1753648539470
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -7301,7 +7301,7 @@ actors:
       systemVersion: 0.7.0-dev
       coreVersion: '13.346'
       createdTime: 1686233123616
-      modifiedTime: 1753556852862
+      modifiedTime: 1753648539479
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.YAA8Vb6h2kAAmg8d
       duplicateSource: null
@@ -7575,7 +7575,7 @@ actors:
             base: 16
           broken: false
           actions: []
-          identifier: UyQSkGwtLI
+          identifier: ZNILW6XLvi
           invested: false
           actorHooks: []
         _stats:
@@ -7623,7 +7623,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -7666,7 +7666,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: cadence000000000
@@ -7706,7 +7706,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -7756,7 +7756,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -7797,7 +7797,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: spellblade000000
@@ -7832,7 +7832,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -7871,7 +7871,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturestrike000
@@ -7913,7 +7913,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -7978,7 +7978,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: iD0N4Q5xDZqsf354
@@ -8040,7 +8040,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -8075,7 +8075,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -8106,7 +8106,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: yCe922PpNT
+          identifier: Te9On1lH47
           invested: false
           actorHooks: []
           dropped: false
@@ -8155,7 +8155,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -8220,7 +8220,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
         _id: heavystrike00000
         folder: tRHknqOEBLR808Cb
         sort: 100000
@@ -8264,7 +8264,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -8304,7 +8304,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -8339,7 +8339,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
         _id: heavyWeaponTrain
         ownership:
           default: 0
@@ -8386,7 +8386,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: surgeweaver00000
         folder: c0nl6X8tp4Of0Y4O
@@ -8425,7 +8425,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -8467,7 +8467,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -8502,7 +8502,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: awarenessJourney
         ownership:
@@ -8538,7 +8538,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: athleticsJourney
         ownership:
@@ -8574,7 +8574,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814171577
-          modifiedTime: 1753556852158
+          modifiedTime: 1753648538716
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponProfi
         folder: null
@@ -8597,7 +8597,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.6
       createdTime: 1727381797456
-      modifiedTime: 1753556852189
+      modifiedTime: 1753648538747
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 100000
@@ -8873,7 +8873,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: g3bV2N0w4Y
+          identifier: 4IibmL9TUO
           invested: false
           actorHooks: []
           dropped: false
@@ -8916,7 +8916,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 3oo6erDO0s
+          identifier: YshyFVbXpH
           invested: false
           actorHooks: []
           dropped: false
@@ -8957,7 +8957,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: gsSlj3I2xV
+          identifier: nI5y1Z4lAZ
           invested: false
           actorHooks: []
         _stats:
@@ -9040,7 +9040,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -9167,7 +9167,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -9214,7 +9214,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodletter00000
@@ -9278,7 +9278,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: JzAnF4yKIgvElwCJ
@@ -9323,7 +9323,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: BevAJzzLeFbSaVic
@@ -9361,7 +9361,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: BevAJzzLeFbSaVic
@@ -9423,7 +9423,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: JzAnF4yKIgvElwCJ
@@ -9459,7 +9459,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -9523,7 +9523,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: backstab00000000
@@ -9561,7 +9561,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -9598,7 +9598,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -9666,7 +9666,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -9712,7 +9712,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -9753,7 +9753,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
         ownership:
           default: 0
       - name: Lunge
@@ -9815,7 +9815,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852278
+          modifiedTime: 1753648538848
         _id: lunge00000000000
         folder: Xg1Jww0K0CK7vUo1
         sort: 0
@@ -9890,7 +9890,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.6
       createdTime: 1727453878928
-      modifiedTime: 1753556852298
+      modifiedTime: 1753648538870
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 50000
@@ -10166,7 +10166,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: TYGZjpkEeM
+          identifier: bfpGkSMguC
           invested: false
           actorHooks: []
           dropped: false
@@ -10208,7 +10208,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: A8sGqDi2Ld
+          identifier: DVnKV6kAGV
           invested: false
           actorHooks: []
           dropped: false
@@ -10248,7 +10248,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: puKAQy1wJb
+          identifier: pZVeRdCqPj
           invested: false
           actorHooks: []
         _stats:
@@ -10322,7 +10322,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -10454,7 +10454,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -10499,7 +10499,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureward00000
@@ -10587,7 +10587,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 8Vb0F5R7DMUrvhfw
@@ -10650,7 +10650,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: counterstrike000
@@ -10700,7 +10700,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runewarden000000
@@ -10771,7 +10771,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: dreadlord0000000
@@ -10812,7 +10812,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runekinesis00000
@@ -10879,7 +10879,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: rallyingcry00000
@@ -10922,7 +10922,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bulwark000000000
@@ -10964,7 +10964,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 8Vb0F5R7DMUrvhfw
@@ -11003,7 +11003,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -11032,7 +11032,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: V45BOtpvl8
+          identifier: iXgFXI29yu
           invested: false
           actorHooks: []
           dropped: false
@@ -11109,7 +11109,7 @@ actors:
                 - melee
               actionHooks: []
           dropped: false
-          identifier: Ornz61Ed28
+          identifier: 9kLDyxL14P
           invested: false
           actorHooks: []
         _stats:
@@ -11164,7 +11164,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -11204,7 +11204,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -11239,7 +11239,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -11307,7 +11307,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852351
+          modifiedTime: 1753648538930
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -11730,7 +11730,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: Avozjonkcm
+          identifier: P0txOr1kJk
           invested: false
           actorHooks: []
           dropped: false
@@ -11771,7 +11771,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: uK2F5YMdE5
+          identifier: OiRh1XN7Ff
           invested: false
           actorHooks: []
           dropped: false
@@ -11812,7 +11812,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: MrH6KpY8rx
+          identifier: VkDcoWX8KJ
           invested: false
           actorHooks: []
         _stats:
@@ -11858,7 +11858,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -11924,7 +11924,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -11961,7 +11961,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -12022,7 +12022,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: combatmedicine00
@@ -12064,7 +12064,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: arcanearcher0000
@@ -12128,7 +12128,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -12164,7 +12164,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: F5y85kE9ocaa5R4R
@@ -12231,7 +12231,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -12268,7 +12268,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -12307,7 +12307,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -12347,7 +12347,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -12406,7 +12406,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -12447,7 +12447,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
         _id: runemind00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 100000
@@ -12492,7 +12492,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -12533,7 +12533,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -12567,7 +12567,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
         _id: projectileTraini
         ownership:
           default: 0
@@ -12609,7 +12609,133 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814216884
-          modifiedTime: 1753556852416
+          modifiedTime: 1753648538993
+          lastModifiedBy: AnoypGxxNIMOS0XY
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - _id: fanofarrows00000
+        name: Fan of Arrows
+        type: talent
+        img: icons/skills/ranged/bow-arrows-blue.webp
+        effects: []
+        flags: {}
+        system:
+          description: >-
+            This difficult ranged weaponry technique allows you to fire a
+            multiple shots with your weapon in a sweeping cone, each targeting a
+            different enemy in the area of effect.
+          actions:
+            - id: fanOfArrows
+              name: Fan of Arrows
+              img: icons/skills/ranged/bow-arrows-blue.webp
+              condition: ''
+              description: >-
+                <p>You fire multiple projectiles from your ranged weapon in an
+                arc, striking all enemy targets within a 40 foot cone.</p>
+              cost:
+                action: 2
+                focus: 1
+                weapon: true
+                heroism: 0
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+              target:
+                type: cone
+                number: 1
+                scope: 3
+                self: false
+              effects: []
+              tags:
+                - ranged
+                - difficult
+              actionHooks: []
+          nodes:
+            - dex3a
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.fanofarrows00000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.346'
+          systemId: crucible
+          systemVersion: 0.7.7
+          createdTime: 1753646572762
+          modifiedTime: 1753648538993
+          lastModifiedBy: AnoypGxxNIMOS0XY
+        folder: null
+        sort: 0
+        ownership:
+          default: 0
+      - name: Twinned Shot
+        type: talent
+        _id: twinnedshot00000
+        img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
+        system:
+          description: >-
+            <p>You prepare two shots to fire simultaneously at a single
+            target.</p>
+          actions:
+            - id: twinnedShot
+              tags:
+                - projectile
+                - ranged
+                - difficult
+              cost:
+                action: 1
+                focus: 0
+                weapon: true
+                heroism: 0
+              target:
+                type: single
+                number: 1
+                multiple: 2
+                scope: 3
+                self: false
+              effects: []
+              name: Twinned Shot
+              img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
+              condition: ''
+              description: >-
+                <p>Using this <strong>Difficult</strong> technique, you fire two
+                projectiles at once making two <strong>Strike</strong> attacks
+                against the same target.</p>
+              range:
+                maximum: null
+                weapon: true
+                minimum: null
+              actionHooks: []
+          nodes:
+            - dex1a
+          rune: ''
+          gesture: ''
+          inflection: ''
+          iconicSpells: 0
+          training:
+            type: ''
+            rank: null
+          actorHooks: []
+        effects: []
+        flags: {}
+        _stats:
+          compendiumSource: Compendium.crucible.talent.Item.twinnedshot00000
+          duplicateSource: null
+          exportSource: null
+          coreVersion: '13.346'
+          systemId: crucible
+          systemVersion: 0.7.7
+          createdTime: 1753647573747
+          modifiedTime: 1753648538993
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -12621,6 +12747,75 @@ actors:
       crucible:
         lastSpell: spell.lightning.arrow
         actionHistory:
+          - id: twinnedShot
+            messageId: XRAuahOEMELBqqPE
+            combat: null
+          - id: twinnedShot
+            messageId: eeEuby44h9an2kWb
+            combat: null
+          - id: twinnedShot
+            messageId: ZNwLWtWDHOE6Hp7X
+            combat: null
+          - id: twinnedShot
+            messageId: SIt2j7AfCd0nG2jE
+            combat: null
+          - id: fanOfArrows
+            messageId: lMe7FEhE5UAR1KO3
+            combat: null
+          - id: fanOfArrows
+            messageId: 3A4I5AyJvuj2chEY
+            combat: null
+          - id: fanOfArrows
+            messageId: XNbu2zxP8DFSeaI7
+            combat: null
+          - id: precisionShot
+            messageId: 5ZylwVFGsoo2lwC8
+            combat: null
+          - id: strike
+            messageId: tbTtKjscumjKSccr
+            combat: null
+          - id: strike
+            messageId: mDBxoxZ5rcfJZVZT
+            combat: null
+          - id: strike
+            messageId: GiAeax1AAKrYghf5
+            combat: null
+          - id: strike
+            messageId: lYYKnK8H96cf7n4Z
+            combat: null
+          - id: strike
+            messageId: DXDa5BXyydotUZem
+            combat: null
+          - id: strike
+            messageId: pWk3TZQYNTZkNwOk
+            combat: null
+          - id: strike
+            messageId: lahdW4Lt16CtQuMm
+            combat: null
+          - id: strike
+            messageId: XP7iHK2X6sKqefHa
+            combat: null
+          - id: strike
+            messageId: 3KqLwP3PGoI0SuBT
+            combat: null
+          - id: strike
+            messageId: jQYYNgQx2F7CaHnE
+            combat: null
+          - id: strike
+            messageId: oWzjMeHLSl0KJAL5
+            combat: null
+          - id: strike
+            messageId: rApTpobD8TXERkqg
+            combat: null
+          - id: strike
+            messageId: VLWToVCdRfRQg9H7
+            combat: null
+          - id: strike
+            messageId: QaijYrHwdq3w8h7k
+            combat: null
+          - id: strike
+            messageId: xj8mUHEotwt7C6cj
+            combat: null
           - id: recover
             messageId: 1SU4X5Xpd4uZ0vKG
             combat: null
@@ -12679,7 +12874,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727454160495
-      modifiedTime: 1753556878253
+      modifiedTime: 1753648408243
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 25000
@@ -12950,7 +13145,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: JtjIqcl7Fp
+          identifier: RRKL7rC58O
           invested: false
           actorHooks: []
         _stats:
@@ -12988,7 +13183,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: jWAU7ff8WJ
+          identifier: 5Vdd94Pd1Y
           invested: false
           actorHooks: []
           dropped: false
@@ -13027,7 +13222,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: Wm1M7ABLa6
+          identifier: 1c3sgzgTYZ
           invested: false
           actorHooks: []
           dropped: false
@@ -13104,7 +13299,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -13143,7 +13338,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -13183,7 +13378,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -13223,7 +13418,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runefrost0000000
@@ -13267,7 +13462,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturecreate000
@@ -13303,7 +13498,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conserveeffort00
@@ -13340,7 +13535,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -13376,7 +13571,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conjurer00000000
@@ -13416,7 +13611,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runemind00000000
@@ -13465,7 +13660,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: rimecaller000000
@@ -13517,7 +13712,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -13551,7 +13746,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: recognizespellcr
@@ -13627,7 +13822,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: counterspell0000
@@ -13680,7 +13875,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -13724,7 +13919,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -13759,7 +13954,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
         _id: mechanicalTraini
         ownership:
           default: 0
@@ -13798,7 +13993,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
         _id: runekinesis00000
         folder: Dy9HnwadNE3kSZ4f
         sort: 700000
@@ -13833,7 +14028,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852491
+          modifiedTime: 1753648539076
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: irrepressiblespi
         folder: 4Ll3b4Q4us2mp4Fu
@@ -13895,7 +14090,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.6
       createdTime: 1727455170340
-      modifiedTime: 1753556852508
+      modifiedTime: 1753648539095
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 12500
@@ -14163,7 +14358,7 @@ actors:
             private: ''
           actions: []
           slot: 1
-          identifier: UDQlO3oAMc
+          identifier: pEBMNQBDuL
           invested: false
           actorHooks: []
           dropped: false
@@ -14206,7 +14401,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: ZKHTD3Nve5
+          identifier: hCPtgATIl0
           invested: false
           actorHooks: []
         _stats:
@@ -14254,7 +14449,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelife00000000
@@ -14306,7 +14501,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -14349,7 +14544,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -14391,7 +14586,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureray000000
@@ -14427,7 +14622,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: irrepressiblespi
@@ -14463,7 +14658,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conserveeffort00
@@ -14534,7 +14729,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: fOYHlZJEWUukD7yr
@@ -14574,7 +14769,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: mentalfortress00
@@ -14610,7 +14805,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -14651,7 +14846,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeearth0000000
@@ -14699,7 +14894,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: dustbinder000000
@@ -14746,7 +14941,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -14790,7 +14985,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -14825,7 +15020,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
         _id: talismanWeaponTr
         ownership:
           default: 0
@@ -14872,7 +15067,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852598
+          modifiedTime: 1753648539198
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runewarden000000
         folder: fOYHlZJEWUukD7yr
@@ -14891,7 +15086,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.3
       createdTime: 1727455326708
-      modifiedTime: 1753556852616
+      modifiedTime: 1753648539215
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -100000
@@ -15165,7 +15360,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: ZPAKJ2idiA
+          identifier: GzyILZIdIB
           invested: false
           actorHooks: []
         _stats:
@@ -15206,7 +15401,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: yyVJICKhgg
+          identifier: 0BuAKMpgQP
           invested: false
           actorHooks: []
           dropped: false
@@ -15280,7 +15475,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -15341,7 +15536,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15404,7 +15599,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15445,7 +15640,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -15515,7 +15710,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: berserker0000000
@@ -15551,7 +15746,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15627,7 +15822,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -15691,7 +15886,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: iD0N4Q5xDZqsf354
@@ -15741,7 +15936,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodfrenzy00000
@@ -15816,7 +16011,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15851,7 +16046,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: unshakeablestanc
@@ -15914,7 +16109,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -15978,7 +16173,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -16050,7 +16245,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -16095,7 +16290,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -16135,7 +16330,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -16170,7 +16365,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -16235,7 +16430,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1753551442689
-          modifiedTime: 1753556852804
+          modifiedTime: 1753648539411
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -16246,45 +16441,86 @@ actors:
       core: {}
       crucible:
         actionHistory:
-          - id: throwWeapon
-            messageId: RNcBbzZWI4GGDdhy
-            combat: null
-          - id: throwWeapon
-            messageId: X6JvltY7x0NBLjgG
-            combat: null
-          - id: berserkStrike
-            messageId: j4pv88x1geTAZ5Yo
-            combat: null
-          - id: berserkStrike
-            messageId: dHqE8ITbO0iMBgHr
-            combat: null
-          - id: berserkStrike
-            messageId: Jni1iXLzrue2SbLW
-            combat: null
           - id: strike
-            messageId: SdsY1EWKyKPSa9Cx
+            messageId: xHZjzBRNDAxZvcSf
             combat:
-              id: s9ijfMNbMJNoTwNL
-              round: 1
+              id: aMZW0tDX8iqQUFLr
+              round: 2
               turn: 0
-              combatantId: vP5igD83nQtZYfJQ
-              tokenId: Z8nlumO1xwXFFsak
-          - id: equipItem
-            messageId: WrdbHrLtuy6YeQos
-            combat:
-              id: s9ijfMNbMJNoTwNL
-              round: 1
-              turn: 0
-              combatantId: vP5igD83nQtZYfJQ
-              tokenId: Z8nlumO1xwXFFsak
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
           - id: strike
-            messageId: zgMxGviN2iRJSNzT
+            messageId: oawUXnzhHxidIUKC
             combat:
-              id: s9ijfMNbMJNoTwNL
-              round: 1
+              id: aMZW0tDX8iqQUFLr
+              round: 2
               turn: 0
-              combatantId: vP5igD83nQtZYfJQ
-              tokenId: Z8nlumO1xwXFFsak
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: M3adexfNhhEmMzWs
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: h2CUF45LYAXawJao
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: fYbY1ob4TDLMY4jV
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: kcBFxPSKh7J0qG9P
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: KH1glLCeCPXEXv6x
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: zuXaY8uqJGhGyiHm
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: uppercut
+            messageId: KVNAopa9qyn3iWwc
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
+          - id: strike
+            messageId: WjqgnhorJogMnjda
+            combat:
+              id: aMZW0tDX8iqQUFLr
+              round: 2
+              turn: 0
+              combatantId: 0H2mmcCEWlgzIuqa
+              tokenId: S0OUibvJlsQz6m1W
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.RwnRYbNJvvnAltwC
       duplicateSource: Actor.vT1UpPCVxKRg2A1J
@@ -16292,7 +16528,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727455458694
-      modifiedTime: 1753556877888
+      modifiedTime: 1753579079668
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -200000
@@ -16562,7 +16798,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: wEQWk6HF7d
+          identifier: 5vcfqpRtVf
           invested: false
           actorHooks: []
           dropped: false
@@ -16605,7 +16841,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: eiINXE8TSj
+          identifier: PejpFG8esk
           invested: false
           actorHooks: []
         _stats:
@@ -16681,7 +16917,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 4Ll3b4Q4us2mp4Fu
@@ -16720,7 +16956,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeflame0000000
@@ -16763,7 +16999,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -16800,7 +17036,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -16835,7 +17071,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: warmage000000000
@@ -16875,7 +17111,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -16913,7 +17149,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -16960,7 +17196,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -16996,7 +17232,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17042,7 +17278,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: pyromancer000000
@@ -17086,7 +17322,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17124,7 +17360,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runekinesis00000
@@ -17164,7 +17400,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeradiance0000
@@ -17206,7 +17442,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
         _id: runevoid00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 1000000
@@ -17251,7 +17487,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -17292,7 +17528,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -17327,7 +17563,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852876
+          modifiedTime: 1753648539496
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -17399,7 +17635,14 @@ actors:
     flags:
       core: {}
       crucible:
-        lastSpell: spell.flame.influence
+        lastSpell: spell.flame.arrow
+        actionHistory:
+          - id: spell.flame.arrow
+            messageId: HtZQhJKfrMyZ5xxP
+            combat: null
+          - id: spell.flame.arrow
+            messageId: aMWi6qHLJl2mIwRQ
+            combat: null
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.YAA8Vb6h2kAAmg8d
       duplicateSource: Actor.sqTUaPrXpwCzk3xs
@@ -17407,7 +17650,7 @@ actors:
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727455582423
-      modifiedTime: 1753556878606
+      modifiedTime: 1753579187476
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -300000
@@ -17677,7 +17920,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: bKIg0n1qz0
+          identifier: zqbkT8v3YA
           invested: false
           actorHooks: []
           dropped: false
@@ -17719,7 +17962,7 @@ actors:
             base: 17
           broken: false
           actions: []
-          identifier: neqvNq3nrf
+          identifier: 9jFLpf3qVh
           invested: false
           actorHooks: []
         _stats:
@@ -17767,7 +18010,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -17810,7 +18053,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: cadence000000000
@@ -17875,7 +18118,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
         _id: heavystrike00000
         folder: tRHknqOEBLR808Cb
         sort: 100000
@@ -17919,7 +18162,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -17959,7 +18202,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -17994,7 +18237,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
         _id: heavyWeaponTrain
         ownership:
           default: 0
@@ -18032,7 +18275,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814138642
-          modifiedTime: 1753556852211
+          modifiedTime: 1753648538768
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gesturearrow0000
         folder: null
@@ -18049,7 +18292,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686231111928
-      modifiedTime: 1753556852222
+      modifiedTime: 1753648538783
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.96imiRuZum6nQpnM
       duplicateSource: null
@@ -18325,7 +18568,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 4cNqfctv3R
+          identifier: u3aeqjxZx8
           invested: false
           actorHooks: []
           dropped: false
@@ -18368,7 +18611,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: lmCS2kHWCG
+          identifier: T0vJf58Pzz
           invested: false
           actorHooks: []
           dropped: false
@@ -18409,7 +18652,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: w7dNVdohPj
+          identifier: WQIGLSbbH6
           invested: false
           actorHooks: []
         _stats:
@@ -18492,7 +18735,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -18619,7 +18862,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -18690,7 +18933,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -18736,7 +18979,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -18777,7 +19020,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -18812,7 +19055,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -18875,7 +19118,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852317
+          modifiedTime: 1753648538892
         _id: lunge00000000000
         folder: Xg1Jww0K0CK7vUo1
         sort: 0
@@ -18890,7 +19133,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686231753904
-      modifiedTime: 1753556852329
+      modifiedTime: 1753648538907
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.OUuxlqpD2DrSxkCx
       duplicateSource: null
@@ -19158,7 +19401,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: Bq3xQIhUz2
+          identifier: oaUCLFnObj
           invested: false
           actorHooks: []
           dropped: false
@@ -19200,7 +19443,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 7BMnPiYa8M
+          identifier: nVkxdFyk1J
           invested: false
           actorHooks: []
           dropped: false
@@ -19240,7 +19483,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: qvksATLTK1
+          identifier: 5UCMTeywca
           invested: false
           actorHooks: []
         _stats:
@@ -19314,7 +19557,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -19446,7 +19689,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -19493,7 +19736,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -19533,7 +19776,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -19568,7 +19811,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -19636,7 +19879,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -19678,7 +19921,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852382
+          modifiedTime: 1753648538960
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: bulwark000000000
         folder: 8Vb0F5R7DMUrvhfw
@@ -19694,7 +19937,7 @@ actors:
       systemVersion: 0.7.0-dev
       coreVersion: '13.346'
       createdTime: 1686231927873
-      modifiedTime: 1753556852394
+      modifiedTime: 1753648538972
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.BckoBMBnF2relFpA
       duplicateSource: null
@@ -19968,7 +20211,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: 9Bp01ewKJr
+          identifier: I5u9MbyGE4
           invested: false
           actorHooks: []
           dropped: false
@@ -20009,7 +20252,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: DBtvynnTRC
+          identifier: TDShYKcege
           invested: false
           actorHooks: []
           dropped: false
@@ -20050,7 +20293,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: AJuFp4cVKX
+          identifier: pl8Cv6MKBo
           invested: false
           actorHooks: []
         _stats:
@@ -20096,7 +20339,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -20162,7 +20405,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -20203,7 +20446,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
         _id: runemind00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 100000
@@ -20248,7 +20491,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -20289,7 +20532,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -20323,7 +20566,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
         _id: projectileTraini
         ownership:
           default: 0
@@ -20380,7 +20623,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
         folder: k2H23tobHffCMQCj
         sort: 150000
         ownership:
@@ -20423,7 +20666,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           createdTime: 1750814202401
-          modifiedTime: 1753556852441
+          modifiedTime: 1753648539020
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -20438,7 +20681,7 @@ actors:
       systemVersion: 0.7.0
       coreVersion: '13.346'
       createdTime: 1686232354753
-      modifiedTime: 1753556852451
+      modifiedTime: 1753648539031
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.A4FnvlxT8yKR7t1X
       duplicateSource: null
@@ -20708,7 +20951,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: JpiyXdd8hW
+          identifier: hABH3DLNOR
           invested: false
           actorHooks: []
         _stats:
@@ -20746,7 +20989,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: sdqUIY0GIQ
+          identifier: Mwe2gnyNJY
           invested: false
           actorHooks: []
           dropped: false
@@ -20785,7 +21028,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 8YmSr3zWCC
+          identifier: tU9xGNE00e
           invested: false
           actorHooks: []
           dropped: false
@@ -20839,7 +21082,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -20879,7 +21122,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -20932,7 +21175,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -20976,7 +21219,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -21011,7 +21254,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
         _id: mechanicalTraini
         ownership:
           default: 0
@@ -21050,7 +21293,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
         _id: runekinesis00000
         folder: Dy9HnwadNE3kSZ4f
         sort: 700000
@@ -21089,7 +21332,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runefrost0000000
         folder: Dy9HnwadNE3kSZ4f
@@ -21133,7 +21376,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852463
+          modifiedTime: 1753648539046
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gesturecreate000
         folder: D14x9AJ0TgXKtnzu
@@ -21150,7 +21393,7 @@ actors:
       systemVersion: 0.7.0-dev
       coreVersion: '13.346'
       createdTime: 1686232488381
-      modifiedTime: 1753556852473
+      modifiedTime: 1753648539057
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.KPz0rV5N33tNGM7Q
       duplicateSource: null
@@ -21419,7 +21662,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: CdmCWlADrJ
+          identifier: S8aWIEMkNK
           invested: false
           actorHooks: []
           dropped: false
@@ -21462,7 +21705,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: aCZCbV0NLe
+          identifier: exz5zgOov9
           invested: false
           actorHooks: []
         _stats:
@@ -21510,7 +21753,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelife00000000
@@ -21562,7 +21805,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -21605,7 +21848,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -21648,7 +21891,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
         _id: runeearth0000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 300000
@@ -21693,7 +21936,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -21737,7 +21980,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -21772,7 +22015,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
         _id: talismanWeaponTr
         ownership:
           default: 0
@@ -21811,7 +22054,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852637
+          modifiedTime: 1753648539241
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gestureray000000
         folder: D14x9AJ0TgXKtnzu
@@ -21828,7 +22071,7 @@ actors:
       systemVersion: 0.7.0-dev
       coreVersion: '13.346'
       createdTime: 1686232748166
-      modifiedTime: 1753556852648
+      modifiedTime: 1753648539252
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.KUUvQxrd7q6wwrBi
       duplicateSource: null
@@ -22099,7 +22342,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 2TCcvY1Xkf
+          identifier: WdNMkG8nX7
           invested: false
           actorHooks: []
         _stats:
@@ -22140,7 +22383,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 46lEWGGZOq
+          identifier: N10oIHo2gs
           invested: false
           actorHooks: []
           dropped: false
@@ -22214,7 +22457,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -22275,7 +22518,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -22338,7 +22581,7 @@ actors:
           coreVersion: '13.346'
           systemId: crucible
           systemVersion: 0.7.7
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -22409,7 +22652,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -22454,7 +22697,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -22494,7 +22737,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -22529,7 +22772,7 @@ actors:
           systemId: crucible
           systemVersion: 0.7.7
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753556852831
+          modifiedTime: 1753648539440
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -22542,7 +22785,7 @@ actors:
       systemVersion: 0.7.3
       coreVersion: '13.346'
       createdTime: 1686232920753
-      modifiedTime: 1753556852840
+      modifiedTime: 1753648539455
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.RwnRYbNJvvnAltwC
       duplicateSource: null
@@ -26057,7 +26300,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.3
   coreVersion: '13.346'
-  modifiedTime: 1753556887589
+  modifiedTime: 1753648569682
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

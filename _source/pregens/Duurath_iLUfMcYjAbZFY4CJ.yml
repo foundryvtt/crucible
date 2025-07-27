@@ -266,7 +266,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: TYGZjpkEeM
+      identifier: bfpGkSMguC
       invested: false
       actorHooks: []
       dropped: false
@@ -307,7 +307,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: A8sGqDi2Ld
+      identifier: DVnKV6kAGV
       invested: false
       actorHooks: []
       dropped: false
@@ -346,7 +346,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: puKAQy1wJb
+      identifier: pZVeRdCqPj
       invested: false
       actorHooks: []
     _stats:
@@ -1120,7 +1120,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: V45BOtpvl8
+      identifier: iXgFXI29yu
       invested: false
       actorHooks: []
       dropped: false
@@ -1196,7 +1196,7 @@ items:
             - melee
           actionHooks: []
       dropped: false
-      identifier: Ornz61Ed28
+      identifier: 9kLDyxL14P
       invested: false
       actorHooks: []
     _stats:
@@ -1538,7 +1538,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1753556905692
+  modifiedTime: 1753648558605
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
 sort: 0

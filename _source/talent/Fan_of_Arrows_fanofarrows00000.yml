@@ -31,18 +31,18 @@ system:
         type: cone
         number: 1
         scope: 3
+        self: false
       effects: []
       tags:
         - ranged
         - difficult
-        - twohand
       actionHooks: []
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.7.7
+  coreVersion: '13.346'
   createdTime: 1674942420029
-  modifiedTime: 1749329284391
+  modifiedTime: 1753646668186
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

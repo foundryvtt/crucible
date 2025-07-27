@@ -260,7 +260,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: wEQWk6HF7d
+      identifier: 5vcfqpRtVf
       invested: false
       actorHooks: []
       dropped: false
@@ -302,7 +302,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: eiINXE8TSj
+      identifier: PejpFG8esk
       invested: false
       actorHooks: []
     _stats:
@@ -1088,7 +1088,14 @@ effects: []
 flags:
   core: {}
   crucible:
-    lastSpell: spell.flame.influence
+    lastSpell: spell.flame.arrow
+    actionHistory:
+      - id: spell.flame.arrow
+        messageId: HtZQhJKfrMyZ5xxP
+        combat: null
+      - id: spell.flame.arrow
+        messageId: aMWi6qHLJl2mIwRQ
+        combat: null
 _stats:
   compendiumSource: null
   duplicateSource: null
@@ -1096,7 +1103,7 @@ _stats:
   coreVersion: '13.346'
   systemId: crucible
   systemVersion: 0.7.7
-  modifiedTime: 1753556905692
+  modifiedTime: 1753648558605
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
 sort: 0

@@ -265,7 +265,7 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: ZPAKJ2idiA
+      identifier: GzyILZIdIB
       invested: false
       actorHooks: []
     _stats:
@@ -305,7 +305,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: yyVJICKhgg
+      identifier: 0BuAKMpgQP
       invested: false
       actorHooks: []
       dropped: false
@@ -1337,45 +1337,86 @@ flags:
   core: {}
   crucible:
     actionHistory:
-      - id: throwWeapon
-        messageId: RNcBbzZWI4GGDdhy
-        combat: null
-      - id: throwWeapon
-        messageId: X6JvltY7x0NBLjgG
-        combat: null
-      - id: berserkStrike
-        messageId: j4pv88x1geTAZ5Yo
-        combat: null
-      - id: berserkStrike
-        messageId: dHqE8ITbO0iMBgHr
-        combat: null
-      - id: berserkStrike
-        messageId: Jni1iXLzrue2SbLW
-        combat: null
       - id: strike
-        messageId: SdsY1EWKyKPSa9Cx
+        messageId: xHZjzBRNDAxZvcSf
         combat:
-          id: s9ijfMNbMJNoTwNL
-          round: 1
+          id: aMZW0tDX8iqQUFLr
+          round: 2
           turn: 0
-          combatantId: vP5igD83nQtZYfJQ
-          tokenId: Z8nlumO1xwXFFsak
-      - id: equipItem
-        messageId: WrdbHrLtuy6YeQos
-        combat:
-          id: s9ijfMNbMJNoTwNL
-          round: 1
-          turn: 0
-          combatantId: vP5igD83nQtZYfJQ
-          tokenId: Z8nlumO1xwXFFsak
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
       - id: strike
-        messageId: zgMxGviN2iRJSNzT
+        messageId: oawUXnzhHxidIUKC
         combat:
-          id: s9ijfMNbMJNoTwNL
-          round: 1
+          id: aMZW0tDX8iqQUFLr
+          round: 2
           turn: 0
-          combatantId: vP5igD83nQtZYfJQ
-          tokenId: Z8nlumO1xwXFFsak
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: M3adexfNhhEmMzWs
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: h2CUF45LYAXawJao
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: fYbY1ob4TDLMY4jV
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: kcBFxPSKh7J0qG9P
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: KH1glLCeCPXEXv6x
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: zuXaY8uqJGhGyiHm
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: uppercut
+        messageId: KVNAopa9qyn3iWwc
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
+      - id: strike
+        messageId: WjqgnhorJogMnjda
+        combat:
+          id: aMZW0tDX8iqQUFLr
+          round: 2
+          turn: 0
+          combatantId: 0H2mmcCEWlgzIuqa
+          tokenId: S0OUibvJlsQz6m1W
 _stats:
   compendiumSource: null
   duplicateSource: null
@@ -1384,7 +1425,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1753556905692
+  modifiedTime: 1753648558605
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
 sort: 0

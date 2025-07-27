@@ -268,7 +268,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: Avozjonkcm
+      identifier: P0txOr1kJk
       invested: false
       actorHooks: []
       dropped: false
@@ -308,7 +308,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: uK2F5YMdE5
+      identifier: OiRh1XN7Ff
       invested: false
       actorHooks: []
       dropped: false
@@ -348,7 +348,7 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: MrH6KpY8rx
+      identifier: VkDcoWX8KJ
       invested: false
       actorHooks: []
     _stats:
@@ -1145,12 +1145,203 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.stealthNovice000'
+  - _id: fanofarrows00000
+    name: Fan of Arrows
+    type: talent
+    img: icons/skills/ranged/bow-arrows-blue.webp
+    effects: []
+    flags: {}
+    system:
+      description: >-
+        This difficult ranged weaponry technique allows you to fire a multiple
+        shots with your weapon in a sweeping cone, each targeting a different
+        enemy in the area of effect.
+      actions:
+        - id: fanOfArrows
+          name: Fan of Arrows
+          img: icons/skills/ranged/bow-arrows-blue.webp
+          condition: ''
+          description: >-
+            <p>You fire multiple projectiles from your ranged weapon in an arc,
+            striking all enemy targets within a 40 foot cone.</p>
+          cost:
+            action: 2
+            focus: 1
+            weapon: true
+            heroism: 0
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          target:
+            type: cone
+            number: 1
+            scope: 3
+            self: false
+          effects: []
+          tags:
+            - ranged
+            - difficult
+          actionHooks: []
+      nodes:
+        - dex3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    _stats:
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.7
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.fanofarrows00000'
+  - name: Twinned Shot
+    type: talent
+    _id: twinnedshot00000
+    img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
+    system:
+      description: <p>You prepare two shots to fire simultaneously at a single target.</p>
+      actions:
+        - id: twinnedShot
+          tags:
+            - projectile
+            - ranged
+            - difficult
+          cost:
+            action: 1
+            focus: 0
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            multiple: 2
+            scope: 3
+            self: false
+          effects: []
+          name: Twinned Shot
+          img: icons/skills/ranged/arrows-flying-salvo-yellow.webp
+          condition: ''
+          description: >-
+            <p>Using this <strong>Difficult</strong> technique, you fire two
+            projectiles at once making two <strong>Strike</strong> attacks
+            against the same target.</p>
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+          actionHooks: []
+      nodes:
+        - dex1a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      coreVersion: '13.346'
+      systemId: crucible
+      systemVersion: 0.7.7
+      lastModifiedBy: null
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.twinnedshot00000'
 effects: []
 flags:
   core: {}
   crucible:
     lastSpell: spell.lightning.arrow
     actionHistory:
+      - id: twinnedShot
+        messageId: XRAuahOEMELBqqPE
+        combat: null
+      - id: twinnedShot
+        messageId: eeEuby44h9an2kWb
+        combat: null
+      - id: twinnedShot
+        messageId: ZNwLWtWDHOE6Hp7X
+        combat: null
+      - id: twinnedShot
+        messageId: SIt2j7AfCd0nG2jE
+        combat: null
+      - id: fanOfArrows
+        messageId: lMe7FEhE5UAR1KO3
+        combat: null
+      - id: fanOfArrows
+        messageId: 3A4I5AyJvuj2chEY
+        combat: null
+      - id: fanOfArrows
+        messageId: XNbu2zxP8DFSeaI7
+        combat: null
+      - id: precisionShot
+        messageId: 5ZylwVFGsoo2lwC8
+        combat: null
+      - id: strike
+        messageId: tbTtKjscumjKSccr
+        combat: null
+      - id: strike
+        messageId: mDBxoxZ5rcfJZVZT
+        combat: null
+      - id: strike
+        messageId: GiAeax1AAKrYghf5
+        combat: null
+      - id: strike
+        messageId: lYYKnK8H96cf7n4Z
+        combat: null
+      - id: strike
+        messageId: DXDa5BXyydotUZem
+        combat: null
+      - id: strike
+        messageId: pWk3TZQYNTZkNwOk
+        combat: null
+      - id: strike
+        messageId: lahdW4Lt16CtQuMm
+        combat: null
+      - id: strike
+        messageId: XP7iHK2X6sKqefHa
+        combat: null
+      - id: strike
+        messageId: 3KqLwP3PGoI0SuBT
+        combat: null
+      - id: strike
+        messageId: jQYYNgQx2F7CaHnE
+        combat: null
+      - id: strike
+        messageId: oWzjMeHLSl0KJAL5
+        combat: null
+      - id: strike
+        messageId: rApTpobD8TXERkqg
+        combat: null
+      - id: strike
+        messageId: VLWToVCdRfRQg9H7
+        combat: null
+      - id: strike
+        messageId: QaijYrHwdq3w8h7k
+        combat: null
+      - id: strike
+        messageId: xj8mUHEotwt7C6cj
+        combat: null
       - id: recover
         messageId: 1SU4X5Xpd4uZ0vKG
         combat: null
@@ -1210,7 +1401,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.7
   createdTime: 1751148758927
-  modifiedTime: 1753556905692
+  modifiedTime: 1753648558605
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
 sort: 0
