@@ -106,7 +106,7 @@ HOOKS.delay = {
 HOOKS.feintingStrike = {
   async roll(outcome) {
     this.usage.defenseType = "reflex";
-    const deception = await this.actor.skillAttack(this, outcome.target);
+    const deception = await this.actor.skillAttack(this, outcome);
     if ( deception.data.damage ) deception.data.damage.total = 0;
     if ( deception.isSuccess ) {
       this.usage.boons.feintingStrike = {label: "Feinting Strike", number: 2};
@@ -114,7 +114,7 @@ HOOKS.feintingStrike = {
     }
     const offhand = this.actor.equipment.weapons.offhand;
     this.usage.defenseType = "physical";
-    const attack = await this.actor.weaponAttack(this, outcome.target, offhand);
+    const attack = await this.actor.weaponAttack(this, offhand, outcome);
     outcome.rolls.push(deception, attack);
   }
 }
@@ -370,10 +370,14 @@ HOOKS.thrash = {
 /* -------------------------------------------- */
 
 HOOKS.threadTheNeedle = {
-  preActivate(targets) {
-    for ( const target of targets ) {
-      const meleeBoons = this.actor.applyTargetBoons(target, this, "weapon", false).boons;
-      if ( meleeBoons.flanked ) this.usage.boons.flanked = meleeBoons.flanked;
+  configure(targets) {
+    for ( const {actor: target} of targets ) {
+      const outcome = this.outcomes.get(target);
+      outcome.usage.boons ||= {};
+      if ( target.statuses.has("flanked") ) {
+        const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
+        outcome.usage.boons.flanked = {label: "Flanked", number: ae?.getFlag("crucible", "flanked") ?? 1};
+      }
     }
   }
 }

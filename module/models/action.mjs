@@ -27,12 +27,12 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {Object} ActionUsage
+ * @typedef ActionUsage
  * @property {object} actorStatus           Actor status updates applied when the action is confirmed
  * @property {object} actorUpdates          Other non-status actor data updates applied when this action is confirmed
  * @property {object} actorFlags            Actor flag updates applied when this action is used (not confirmed)
- * @property {Object<DiceBoon>} boons       Boons applied to this action
- * @property {Object<DiceBoon>} banes       Banes applied to this action
+ * @property {Record<string, DiceBoon>} boons  Boons applied to this action
+ * @property {Record<string, DiceBoon>} banes  Banes applied to this action
  * @property {DiceCheckBonuses} bonuses     Roll bonuses applied to this action
  * @property {ActionContext} context        Action usage context
  * @property {boolean} hasDice              Does this action involve the rolling a dice check?
@@ -81,6 +81,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef {Object} CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
+ * @property {ActionUsage} [usage]        Outcome-specific usage data
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
@@ -581,7 +582,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const test of this._tests() ) {
       if ( test.configure instanceof Function ) {
         try {
-          test.configure.call(this);
+          test.configure.call(this, targets);
         } catch(err) {
           console.error(new Error(`Failed usage configuration for Action "${this.id}"`, {cause: err}));
         }
@@ -950,25 +951,21 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @returns {CrucibleActionOutcome}
    */
   #createOutcome(actor, ) {
-    return {
+    const outcome = {
       target: actor,
       rolls: [],
       effects: [],
       resources: {},
       actorUpdates: {},
-      statusText: []
-    }
-  }
+      statusText: [],
+    };
 
-  /* -------------------------------------------- */
-
-  /**
-   * Create the outcome object that applies to the Actor who performed the Action.
-   * @returns {CrucibleActionOutcome}           The outcome for the Actor
-   */
-  #createSelfOutcome() {
-    const self = this.outcomes.get(this.actor) || this.#createOutcome(this.actor);
-    return self;
+    // Non-enumerable outcome specific usage
+    Object.defineProperty(outcome, "usage", {value: {
+      boons: {},
+      banes: {}
+    }});
+    return outcome;
   }
 
   /* -------------------------------------------- */

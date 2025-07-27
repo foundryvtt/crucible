@@ -416,8 +416,16 @@ export const TAGS = {
         throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
       }
     },
+    configure(targets) {
+      for ( const {actor: target} of targets ) {
+        const outcome = this.outcomes.get(target);
+        const {boons, banes} = outcome.usage;
+        const isRanged = this.range.maximum > 3;
+        target._configureTargetBoons(boons, banes, {isAttack: true, isRanged});
+      }
+    },
     async roll(outcome) {
-      const roll = await this.actor.castSpell(this, outcome.target);
+      const roll = await this.actor.spellAttack(this, outcome);
       if ( roll ) outcome.rolls.push(roll);
     }
   },
@@ -565,11 +573,19 @@ export const TAGS = {
         this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
       }
     },
+    configure(targets) {
+      for ( const {actor: target} of targets ) {
+        const outcome = this.outcomes.get(target);
+        const {boons, banes} = outcome.usage;
+        const isRanged = this.tags.has("ranged") || this.usage.strikes.every(w => w.config.category.ranged);
+        target._configureTargetBoons(boons, banes, {isAttack: true, isRanged});
+      }
+    },
     async roll(outcome) {
       const n = this.target.multiple ?? 1;
       for ( let i=0; i<n; i++ ) {
         for ( const weapon of this.usage.strikes ) {
-          const roll = await this.actor.weaponAttack(this, outcome.target, weapon);
+          const roll = await this.actor.weaponAttack(this, weapon, outcome);
           outcome.rolls.push(roll);
         }
       }
@@ -1060,7 +1076,7 @@ for ( const {id, name} of Object.values(SKILLS) ) {
       this.usage.context.tags.skill = SKILLS[id].label;
     },
     async roll(outcome) {
-      const roll = await this.actor.skillAttack(this, outcome.target);
+      const roll = await this.actor.skillAttack(this, outcome);
       outcome.rolls.push(roll);
     }
   }

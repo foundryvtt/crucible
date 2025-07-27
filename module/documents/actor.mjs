@@ -299,41 +299,24 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Get the number of additional boons or banes you have when attacking a target.
-   * @param {CrucibleActor} target    The target being attacked
-   * @param {CrucibleAction} action   The action being performed
-   * @param {string} actionType       The type of action being performed: "weapon", "spell", or "skill
-   * @param {boolean} [ranged]        Does this action count as a ranged attack?
-   * @returns {{boons: Object<DiceBoon>, banes: Object<DiceBoon>}}  Configuration of boons and banes
+   * Configure a standard set of boons and banes which applies to a target.
+   * @internal
    */
-  applyTargetBoons(target, action, actionType, ranged) {
-    const boons = foundry.utils.deepClone(action.usage.boons);
-    const banes = foundry.utils.deepClone(action.usage.banes);
-    ranged ??= (action.range.maximum > 3);
-    const isAttack = (actionType !== "skill") && !action.damage?.restoration;
+  _configureTargetBoons(boons, banes, {isAttack, isRanged}={}) {
 
-    // Blinded
-    if ( target.statuses.has("blinded") && isAttack ) boons.blind = {label: "Blinded", number: 2};
-
-    // Guarded
-    if ( target.statuses.has("guarded") && isAttack ) banes.guarded = {label: "Guarded", number: 1};
-
-    // Prone
-    if ( target.statuses.has("prone") && isAttack ) {
-      if ( ranged ) {
-        if ( "prone" in banes ) banes.prone.number += 1;
-        else banes.prone = {label: "Prone", number: 1};
+    // Attack-related conditions
+    if ( isAttack ) {
+      if ( this.statuses.has("blinded") ) boons.blind = {label: "Blinded", number: 2};
+      if ( this.statuses.has("guarded") ) banes.guarded = {label: "Guarded", number: 1};
+      if ( this.statuses.has("prone") ) {
+        if ( isRanged ) banes.prone = {label: "Prone", number: 1};
+        else boons.prone = {label: "Prone", number: 1};
       }
-      else boons.prone = {label: "Prone", number: 1};
+      if ( this.statuses.has("flanked") && !isRanged ) {
+        const ae = this.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
+        boons.flanked = {label: "Flanked", number: ae?.getFlag("crucible", "flanked") ?? 1};
+      }
     }
-
-    // Flanked
-    if ( target.statuses.has("flanked") && isAttack && !ranged ) {
-      const ae = target.effects.get(SYSTEM.EFFECTS.getEffectId("flanked"));
-      if ( ae ) boons.flanked = {label: "Flanked", number: ae.getFlag("crucible", "flanked") ?? 1};
-      else console.warn(`Missing expected Flanked effect on Actor ${target.id} with flanked status`);
-    }
-    return {boons, banes};
   }
 
   /* -------------------------------------------- */
@@ -530,7 +513,7 @@ export default class CrucibleActor extends Actor {
       if ( roll.total > dc ) return results.HIT;
 
       // Dodge
-      const r = twist.random() * d.physical.total;
+      const r = foundry.dice.MersenneTwister.random() * d.physical.total;
       const dodge = d.dodge.total;
       if ( r <= dodge ) return results.DODGE;
 
@@ -586,18 +569,22 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Cast a certain spell against a target.
+   * Perform a spell attack as part of an action outcome.
    * @param {CrucibleSpellAction} spell
-   * @param {CrucibleActor} target
+   * @param {CrucibleActionOutcome} outcome
    * @returns {Promise<AttackRoll|null>}
    */
-  async castSpell(spell, target) {
-    if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
+  async spellAttack(spell, outcome) {
     if ( !spell.usage.hasDice ) return null;
+    const target = outcome.target;
+    if ( !(target instanceof CrucibleActor) ) throw new Error("You must define a target Actor for the spell.");
+
+    // TODO get rid of action.usage here in favor of outcome.usage
+    const boons = {...spell.usage.boons, ...outcome.usage.boons};
+    const banes = {...spell.usage.banes, ...outcome.usage.banes};
+    const defenseType = outcome.usage.defenseType || spell.defense;
 
     // Prepare Roll Data
-    const defenseType = spell.defense;
-    const {boons, banes} = this.applyTargetBoons(target, spell, "spell");
     const rollData = {
       actorId: this.id,
       spellId: spell.id,
@@ -693,21 +680,26 @@ export default class CrucibleActor extends Actor {
 
   /**
    * Perform a Skill Attack targeting a specific creature.
-   * @param {CrucibleAction} action       The Skill Attack action being performed
-   * @param {CrucibleActor} target        The target Actor
-   * @returns {Promise<AttackRoll|null>}  A created AttackRoll instance if the action involves a roll, otherwise null
+   * @param {CrucibleAction} action           The Skill Attack action being performed
+   * @param {CrucibleActionOutcome} outcome   The outcome this attack belongs to
+   * @returns {Promise<AttackRoll|null>}      A created AttackRoll instance or null
    */
-  async skillAttack(action, target) {
+  async skillAttack(action, outcome) {
+    const target = outcome.target;
 
-    // Prepare Roll Data
-    let {bonuses, damageType, defenseType, restoration, resource, skillId} = action.usage;
-    const {boons, banes} = this.applyTargetBoons(target, action, "skill");
+    // TODO get rid of action.usage here in favor of outcome.usage
+    let {bonuses, damageType, restoration, resource, skillId} = action.usage;
+    const boons = {...spell.usage.boons, ...outcome.usage.boons};
+    const banes = {...spell.usage.banes, ...outcome.usage.banes};
+    let defenseType = outcome.usage.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
     else {
       defenseType = skillId;
       dc = target.skills[skillId].passive
     }
+
+    // Prepare Roll data
     const rollData = Object.assign({}, bonuses, {
       actorId: this.id,
       type: skillId,
@@ -750,16 +742,19 @@ export default class CrucibleActor extends Actor {
   /**
    * Perform an Action which makes an attack using a Weapon.
    * @param {CrucibleAction} action         The action being performed
-   * @param {CrucibleActor} target          The target being attacked
    * @param {CrucibleItem} [weapon]         The weapon used in the attack
+   * @param {CrucibleActionOutcome} outcome The action outcome this attack belongs to
    * @returns {Promise<AttackRoll|null>}    An evaluated attack roll, or null if no attack is performed
    */
-  async weaponAttack(action, target, weapon) {
+  async weaponAttack(action, weapon, outcome) {
     if ( !(weapon instanceof crucible.api.documents.CrucibleItem) || (weapon?.type !== "weapon") ) {
       throw new Error(`Weapon attack Action "${action.name}" did not specify which weapon is used in the attack`);
     }
-    const {boons, banes} = this.applyTargetBoons(target, action, "weapon", !!weapon.config.category.ranged);
-    const defenseType = action.usage.defenseType || "physical";
+    const target = outcome.target;
+    // TODO get rid of action.usage here in favor of outcome.usage
+    const boons = {...action.usage.boons, ...outcome.usage.boons};
+    const banes = {...action.usage.banes, ...outcome.usage.banes};
+    const defenseType = outcome.usage.defenseType || action.usage.defenseType || "physical";
 
     // Compose roll data
     const {ability, skill, enchantment} = weapon.system.actionBonuses;
