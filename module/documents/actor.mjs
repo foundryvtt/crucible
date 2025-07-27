@@ -267,42 +267,48 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare an Action to be used by this Actor.
-   * @param {CrucibleAction} action     The action being prepared
+   * Configure a standard set of boons and banes conditional on the actor of an Action.
+   * @param {CrucibleAction} action
+   * @param {CrucibleActionOutcome} outcome
+   * @internal
    */
-  prepareAction(action) {
-    const statuses = this.statuses;
-    const rollBonuses = this.system.rollBonuses;
-    const {banes, boons} = action.usage;
-    const isWeapon = ["mainhand", "offhand", "twohand", "natural"].some(t => action.tags.has(t));
-    const isSpell = action.tags.has("spell");
-    const isAttack = action.tags.has("strike") || isWeapon || isSpell;
+  _configureActorOutcome(action, outcome) {
+    const {boons, banes} = outcome.usage;
+    const {isAttack=false} = action.usage;
 
-    // Actor status effects
-    if ( statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
-    if ( statuses.has("blinded") && isAttack ) banes.blind = {label: "Blinded", number: 2};
-    if ( statuses.has("disoriented") && action.cost.focus ) action.cost.focus += 1;
-    if ( statuses.has("prone") && isAttack ) banes.prone = {label: "Prone", number: 1};
-    if ( statuses.has("restrained") && isAttack ) banes.restrained = {label: "Restrained", number: 2};
+    // Global conditions
+    if ( this.statuses.has("broken") ) banes.broken = {label: "Broken", number: 2};
+
+    // Attack-related conditions
+    if ( isAttack ) {
+      if ( this.statuses.has("blinded") ) banes.blind = {label: "Blinded", number: 2};
+      if ( this.statuses.has("prone") ) banes.prone = {label: "Prone", number: 1};
+      if ( this.statuses.has("restrained") ) banes.restrained = {label: "Restrained", number: 2};
+    }
 
     // Temporary boons and banes stored as Actor rollBonuses
+    const rollBonuses = this.system.rollBonuses;
     for ( const [id, boon] of Object.entries(rollBonuses.boons) ) {
-      if ( id in boons ) continue;
-      boons[id] = boon;
+      if ( id in boons ) boons[id].number = Math.max(boons[id].number, boon.number);
+      else boons[id] = boon;
     }
     for ( const [id, bane] of Object.entries(rollBonuses.banes) ) {
-      if ( id in banes ) continue;
-      banes[id] = bane;
+      if ( id in banes ) banes[id].number = Math.max(banes[id].number, bane.number);
+      else banes[id] = bane;
     }
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Configure a standard set of boons and banes which applies to a target.
+   * Configure a standard set of boons and banes conditional on the target of an Action.
+   * @param {CrucibleAction} action
+   * @param {CrucibleActionOutcome} outcome
    * @internal
    */
-  _configureTargetBoons(boons, banes, {isAttack, isRanged}={}) {
+  _configureTargetOutcome(action, outcome) {
+    const {boons, banes} = outcome.usage;
+    const {isAttack=false, isRanged=false} = action.usage;
 
     // Attack-related conditions
     if ( isAttack ) {

@@ -380,6 +380,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       boons: {},
       banes: {},
       context: {label: undefined, icon: undefined, tags: {}},
+      isAttack: false,
+      isRanged: false,
+      isMelee: false,
       hasDice: false
     }, {inplace: true, overwrite: false})});
   }
@@ -527,7 +530,6 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   prepare() {
     if ( !this.actor ) return;
     this._configureUsage();
-    this.actor.prepareAction(this);
     this._prepare();
     this._prepared = true;
   }
@@ -572,10 +574,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {ActionUseTarget[]} targets       The array of targets designated for the action
    */
   configureOutcomes(targets) {
-
-    // Clear and recreate outcomes for targets and for self
     this.outcomes.clear();
-    for ( const target of targets ) this.outcomes.set(target.actor, this.#createOutcome(target.actor));
+
+    // Create outcomes for each target and for self
+    for ( const {actor: target} of targets ) {
+      const outcome = this.#createOutcome(target);
+      this.outcomes.set(outcome.target, outcome);
+      this.actor._configureActorOutcome(this, outcome);
+      target._configureTargetOutcome(this, outcome);
+    }
     if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor));
 
     // Configure outcomes
@@ -732,8 +739,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
   /**
    * @typedef {Object} ActionUseTarget
-   * @property {Token} token
-   * @property {Actor} actor
+   * @property {CrucibleToken} token
+   * @property {CrucibleActor} actor
    * @property {string} name
    * @property {string} uuid
    * @property {string} [error]
@@ -950,7 +957,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @param {CrucibleActor} actor
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor, ) {
+  #createOutcome(actor) {
     const outcome = {
       target: actor,
       rolls: [],
@@ -1122,6 +1129,11 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    * @protected
    */
   _prepare() {
+
+    // Global preparation rules
+    if ( this.actor.statuses.has("disoriented") && this.cost.focus ) this.cost.focus += 1;
+
+    // Action-specific preparation
     for ( const test of this._tests() ) {
       if ( test.prepare instanceof Function ) {
         try {

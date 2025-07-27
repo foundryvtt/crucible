@@ -410,18 +410,12 @@ export const TAGS = {
       if ( this.inflection ) this.usage.context.tags.gesture = this.inflection.name;
       this.usage.actorFlags.lastSpell = this.id;
       this.usage.actorStatus.hasCast = true;
+      this.usage.isAttack = true;
+      this.usage.isRanged = (this.gesture.target.type !== "self") && (this.range.maximum > 1);
     },
     canUse() {
       if ( this.cost.hands > this.actor.equipment.weapons.spellHands ) {
         throw new Error(`A Spell using the ${this.gesture.name} gesture requires ${this.cost.hands} free hands for spellcraft.`);
-      }
-    },
-    configure(targets) {
-      for ( const {actor: target} of targets ) {
-        const outcome = this.outcomes.get(target);
-        const {boons, banes} = outcome.usage;
-        const isRanged = this.range.maximum > 3;
-        target._configureTargetBoons(boons, banes, {isAttack: true, isRanged});
       }
     },
     async roll(outcome) {
@@ -544,6 +538,9 @@ export const TAGS = {
       // Record usage properties
       this.usage.actorStatus.hasAttacked = true;
       this.usage.hasDice = true;
+      this.usage.isAttack = true;
+      this.usage.isRanged = this.tags.has("ranged") || strikes.every(w => w.config.category.ranged);
+      this.usage.isMelee = this.tags.has("melee") || strikes.every(w => !w.config.category.ranged);
       this.usage.defenseType ??= "physical";
 
       // Prepare every configured strike
@@ -571,14 +568,6 @@ export const TAGS = {
       if ( this.range.weapon ) {
         const baseMaximum = this._source.range.maximum ?? 0;
         this.range.maximum = Math.max(this.range.maximum ?? 0, baseMaximum + weaponRange);
-      }
-    },
-    configure(targets) {
-      for ( const {actor: target} of targets ) {
-        const outcome = this.outcomes.get(target);
-        const {boons, banes} = outcome.usage;
-        const isRanged = this.tags.has("ranged") || this.usage.strikes.every(w => w.config.category.ranged);
-        target._configureTargetBoons(boons, banes, {isAttack: true, isRanged});
       }
     },
     async roll(outcome) {
