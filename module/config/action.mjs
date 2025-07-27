@@ -330,6 +330,7 @@ export const TAGS = {
     tooltip: "ACTION.TagReactionTooltip",
     category: "context",
     canUse() {
+      if ( !this.actor.inCombat ) return false;
       if ( this.actor.statuses.has("unaware") ) throw new Error("You may not use a reaction while Unaware!");
       return this.actor !== game.combat?.combatant?.actor;
     },

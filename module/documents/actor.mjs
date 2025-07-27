@@ -219,10 +219,11 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  prepareEmbeddedDocuments() {
-    super.prepareEmbeddedDocuments();
+  applyActiveEffects() {
+    // Before applying active effects, apply data based on prepared embedded Item documents
     const items = this.itemTypes;
     this.system.prepareItems(items);
+    super.applyActiveEffects();
   };
 
   /* -------------------------------------------- */

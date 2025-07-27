@@ -660,7 +660,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       const configuration = await this.configureDialog(targets);
       if ( configuration === null ) return null;  // Dialog closed
       try {
-        targets = this.acquireTargets({strict: true});  // Reacquire configured targets, strictly
+        targets = this.acquireTargets({strict: true});  // Re-acquire configured targets, strictly
       } catch(err) {
         ui.notifications.warn(err);
         return null;
@@ -729,7 +729,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       messageId: message?.id || null,
       combat: this.actor.inCombat ? {id: game.combat.id, ...game.combat.current} : null
     };
-    const history = (this.actor.flags.crucible.actionHistory || []).slice(0, 99); // Maximum 100 history items
+    const history = (this.actor.flags.crucible?.actionHistory || []).slice(0, 99); // Maximum 100 history items
     history.unshift(lastAction);
     this.usage.actorFlags.actionHistory = history;
     return lastAction;
@@ -983,7 +983,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
    */
   #updateOutcome(outcome) {
     if ( outcome.target === this.actor ) return this.#updateSelfOutcome(outcome);
-    outcome.effects = this.#attachOutcomeEffects(outcome);
+    this.#attachOutcomeEffects(outcome);
   }
 
   /* -------------------------------------------- */
@@ -1025,31 +1025,31 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   #attachOutcomeEffects(outcome) {
     const target = outcome.target;
     const scopes = SYSTEM.ACTION.TARGET_SCOPES;
-    return this.effects.reduce((effects, {scope, ...effectData}) => {
+    for ( let {scope, ...effectData} of this.effects ) {
       scope ??= this.target.scope;
-      if ( scope === scopes.NONE ) return effects;
+      if ( scope === scopes.NONE ) continue;
       effectData.name ||= this.name;
 
       // Self target
       if ( target === this.actor ) {
-        if ( ![scopes.SELF, scopes.ALL].includes(scope) ) return effects;
+        if ( ![scopes.SELF, scopes.ALL].includes(scope) ) continue;
       }
 
       // Target other
       else {
-        if ( scope === scopes.SELF ) return effects;
-        if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) return effects;
+        if ( scope === scopes.SELF ) continue;
+        if ( outcome.rolls.length && !outcome.rolls.some(r => r.isSuccess) ) continue;
       }
 
       // Add effect
-      effects.push(foundry.utils.mergeObject({
+      const effect = foundry.utils.mergeObject({
         _id: SYSTEM.EFFECTS.getEffectId(this.id),
         description: this.description,
         icon: this.img,
         origin: this.actor.uuid
-      }, effectData));
-      return effects;
-    }, []);
+      }, effectData);
+      outcome.effects.push(effect);
+    }
   }
 
   /* -------------------------------------------- */

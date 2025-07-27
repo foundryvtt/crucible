@@ -304,15 +304,24 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Prepare embedded Item documents for this Actor subtype.
+   * Prepare data which depends on prepared embedded Item documents for this Actor subtype.
    * @param {Record<string, CrucibleItem[]>} items
    */
   prepareItems(items) {
+
+    // Acquired talents, training, skills, and spellcraft
     this.#prepareTalents(items.talent);
     this._prepareTraining();
     this.#prepareSkills();
     this.#prepareSpells(items.spell);
+
+    // Current equipment
     this._prepareEquipment(items);
+
+    // Defenses based on current equipment
+    this.#preparePhysicalDefenses();
+    this.#prepareSaveDefenses();
+    this.#prepareHealingThresholds();
   }
 
   /* -------------------------------------------- */
@@ -631,6 +640,70 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Prepare Physical Defenses.
+   */
+  #preparePhysicalDefenses() {
+    const {equipment} = this.parent;
+    const {abilities, defenses} = this;
+
+    // Armor and Dodge from equipped Armor
+    const armorData = equipment.armor.system;
+    defenses.armor.base = armorData.armor.base;
+    defenses.armor.bonus = armorData.armor.bonus;
+    defenses.dodge.base = armorData.dodge.base;
+    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
+    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
+
+    // Block and Parry from equipped Weapons
+    const weaponData = [];
+    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
+    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
+    defenses.block = {base: 0, bonus: 0};
+    defenses.parry = {base: 0, bonus: 0};
+    for ( let wd of weaponData ) {
+      for ( let d of ["block", "parry"] ) {
+        defenses[d].base += wd.defense[d];
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare non-physical defenses.
+   */
+  #prepareSaveDefenses() {
+    const {equipment, talentIds} = this.parent;
+
+    // Defense base is the system passive base of 12
+    const base = SYSTEM.PASSIVE_BASE;
+    const penalty = Math.min(this.advancement.level, 0);
+
+    // Prepare save defenses
+    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
+      if ( sd.type !== "save" ) continue;
+      let d = this.defenses[k];
+      d.base = base;
+      if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
+      d.bonus = penalty;
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare healing thresholds for Wounds and Madness.
+   */
+  #prepareHealingThresholds() {
+    const defenses = this.defenses;
+    defenses.wounds = {base: SYSTEM.PASSIVE_BASE, bonus: 0};
+    defenses.madness = {base: SYSTEM.PASSIVE_BASE, bonus: 0};
+  }
+
+  /* -------------------------------------------- */
   /*  Derived Data Preparation                    */
   /* -------------------------------------------- */
 
@@ -649,7 +722,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     this.parent.callActorHooks("prepareResources", this.resources);
 
     // Defenses
-    this.#prepareDefenses();
     this.parent.callActorHooks("prepareDefenses", this.defenses);
     this.#prepareTotalDefenses();
 
@@ -724,92 +796,20 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Preparation of defenses for all Actor subtypes.
-   * @private
-   */
-  #prepareDefenses() {
-    this.#preparePhysicalDefenses();
-    this.#prepareSaveDefenses();
-    this.#prepareHealingThresholds();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare Physical Defenses.
-   */
-  #preparePhysicalDefenses() {
-    const {equipment, statuses} = this.parent;
-    const {abilities, defenses} = this;
-
-    // Armor and Dodge from equipped Armor
-    const armorData = equipment.armor.system;
-    defenses.armor.base = armorData.armor.base;
-    defenses.armor.bonus = armorData.armor.bonus;
-    defenses.dodge.base = armorData.dodge.base;
-    defenses.dodge.bonus = Math.max(abilities.dexterity.value - armorData.dodge.scaling, 0);
-    defenses.dodge.max = defenses.dodge.base + (12 - armorData.dodge.scaling);
-
-    // Block and Parry from equipped Weapons
-    const weaponData = [];
-    if ( equipment.weapons.mainhand ) weaponData.push(equipment.weapons.mainhand.system);
-    if ( equipment.weapons.offhand ) weaponData.push(equipment.weapons.offhand.system);
-    defenses.block = {base: 0, bonus: 0};
-    defenses.parry = {base: 0, bonus: 0};
-    for ( let wd of weaponData ) {
-      for ( let d of ["block", "parry"] ) {
-        defenses[d].base += wd.defense[d];
-      }
-    }
-
-    // Status Conditions
-    if ( statuses.has("exposed") ) defenses.armor.base = Math.max(defenses.armor.base - 2, 0);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare non-physical defenses.
-   */
-  #prepareSaveDefenses() {
-    const {equipment, talentIds} = this.parent;
-
-    // Defense base is the system passive base of 12
-    const base = SYSTEM.PASSIVE_BASE;
-    const penalty = Math.min(this.advancement.level, 0);
-
-    // Prepare save defenses
-    for ( let [k, sd] of Object.entries(SYSTEM.DEFENSES) ) {
-      if ( sd.type !== "save" ) continue;
-      let d = this.defenses[k];
-      d.base = base;
-      if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
-      d.bonus = penalty;
-      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Prepare healing thresholds for Wounds and Madness.
-   */
-  #prepareHealingThresholds() {
-    const { defenses, resources } = this;
-    const wounds = resources.wounds?.value ?? ((resources.health.max - resources.health.value) * 2);
-    defenses.wounds = {base: SYSTEM.PASSIVE_BASE + Math.floor(wounds / 10), bonus: 0};
-    const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
-    defenses.madness = {base: SYSTEM.PASSIVE_BASE + Math.floor(madness / 10), bonus: 0};
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Compute total defenses as base + bonus.
    */
   #prepareTotalDefenses() {
-    const defenses = this.defenses;
+    const {defenses, resources} = this;
     const {isIncapacitated, statuses} = this.parent;
+
+    // Healing thresholds based on wounds and madness
+    const wounds = resources.wounds?.value ?? ((resources.health.max - resources.health.value) * 2);
+    const madness = resources.madness?.value ?? ((resources.morale.max - resources.morale.value) * 2);
+    defenses.wounds.base += Math.floor(wounds / 10);
+    defenses.madness.base += Math.floor(madness / 10);
+
+    // Status effects which affect defenses
+    if ( statuses.has("exposed") ) defenses.armor.base = Math.max(defenses.armor.base - 2, 0);
 
     // Compute defense totals
     for ( const defense of Object.values(defenses) ) {
