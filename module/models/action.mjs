@@ -1,6 +1,7 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
+import {configureStrikeVFXEffect} from "../canvas/vfx/strikes.mjs";
 
 /**
  * @typedef {Object} ActionContext
@@ -79,7 +80,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  */
 
 /**
- * @typedef {Object} CrucibleActionOutcome
+ * @typedef CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
  * @property {ActionUsage} [usage]        Outcome-specific usage data
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
@@ -577,13 +578,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     this.outcomes.clear();
 
     // Create outcomes for each target and for self
-    for ( const {actor: target} of targets ) {
-      const outcome = this.#createOutcome(target);
-      this.outcomes.set(outcome.target, outcome);
+    for ( const {actor, token} of targets ) {
+      const outcome = this.#createOutcome(actor, token.document);
+      this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
-      target._configureTargetOutcome(this, outcome);
+      actor._configureTargetOutcome(this, outcome);
     }
-    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor));
+    if ( !this.outcomes.has(this.actor) ) this.outcomes.set(this.actor, this.#createOutcome(this.actor, this.token));
 
     // Configure outcomes
     for ( const test of this._tests() ) {
@@ -955,11 +956,13 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   /**
    * Translate the action usage result into an outcome to be persisted.
    * @param {CrucibleActor} actor
+   * @param {CrucibleToken} token
    * @returns {CrucibleActionOutcome}
    */
-  #createOutcome(actor) {
+  #createOutcome(actor, token) {
     const outcome = {
       target: actor,
+      token: token,
       rolls: [],
       effects: [],
       resources: {},
@@ -1412,6 +1415,55 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
   }
 
   /* -------------------------------------------- */
+  /*  VFX Integration                             */
+  /* -------------------------------------------- */
+
+  /**
+   * Configure a VFXEffect instance for this Action.
+   * @returns {foundry.vfx.VFXEffect|null}
+   */
+  configureVFXEffect() {
+    if ( !crucible.vfxEnabled ) return null;
+    if ( this.tags.has("strike") ) return crucible.api.canvas.vfx.strikes.configureStrikeVFXEffect(this);
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Construct and play a configured VFXEffect on every client after the Action is confirmed.
+   * @param {VFXEffectConfig} vfxConfig
+   * @param {Record<string, any>} references
+   * @returns {Promise<void>}
+   */
+  async playVFXEffect(vfxConfig, references) {
+    if ( !crucible.vfxEnabled ) return;
+    if ( !this.token?.parent.isView ) return;
+
+    // Construct the VFXEffect instance
+    let vfxEffect;
+    try {
+      vfxEffect = new foundry.vfx.VFXEffect(vfxConfig);
+    } catch(cause) {
+      console.warn(new Error(`Failed to construct provided Action VFX config for Action "${action.id}"`));
+      return;
+    }
+
+    // Resolve references
+    references.actor = this.actor;
+    references.token = this.token;
+    for ( const [k, v] of Object.entries(references) ) {
+      if ( typeof v === "string" ) {
+        const uuid = foundry.utils.parseUuid(v);
+        if ( uuid ) references[k] = fromUuidSync(v);
+      }
+    }
+
+    // Play the effect
+    return vfxEffect.play(references);
+  }
+
+  /* -------------------------------------------- */
   /*  Display and Formatting Methods              */
   /* -------------------------------------------- */
 
@@ -1522,13 +1574,15 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     if ( this.item ) actionData.item = this.item.uuid;
     if ( this.template ) actionData.template = this.template.uuid;
     if ( this.token ) actionData.token = this.token.uuid;
+    actionData.vfxConfig = this.configureVFXEffect();
 
     // Record outcomes
     const rolls = [];
     const hasMultipleTargets = Array.from(this.outcomes.values()).filter(o => o.rolls.length).length > 1;
     for ( const outcome of this.outcomes.values() ) {
-      const {target, rolls: outcomeRolls, ...outcomeData} = outcome;
+      const {target, token, rolls: outcomeRolls, ...outcomeData} = outcome;
       outcomeData.target = target.uuid;
+      outcomeData.token = token.uuid;
       outcomeData.rolls = outcomeRolls.map((roll, i) => {
         roll.data.newTarget = hasMultipleTargets && (i === 0);
         roll.data.index = rolls.length;
@@ -1614,11 +1668,12 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     action.prepare();
 
     // Reconstruct outcomes
-    for ( const {target: targetUuid, rolls: outcomeRolls, ...outcomeData} of outcomes ) {
-      let target = fromUuidSync(targetUuid);
-      if ( target instanceof TokenDocument ) target = target.actor;
-      const outcome = {target, rolls: outcomeRolls.map(i => message.rolls[i]), ...outcomeData};
-      action.outcomes.set(target, outcome);
+    for ( const {target: targetUuid, token: tokenUuid, rolls: outcomeRolls, ...outcome} of outcomes ) {
+      outcome.target = fromUuidSync(targetUuid);
+      if ( outcome.target.isToken ) outcome.token = outcome.target.token;
+      else outcome.token = fromUuidSync(tokenUuid);
+      outcome.rolls = outcomeRolls.map(i => message.rolls[i]);
+      action.outcomes.set(outcome.target, outcome);
     }
     return action;
   }

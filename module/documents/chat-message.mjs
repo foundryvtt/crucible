@@ -18,6 +18,28 @@ export default class CrucibleChatMessage extends ChatMessage {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  _onUpdate(data, options, userId) {
+    super._onUpdate(data, options, userId);
+    const flags = this.flags.crucible || {};
+    if ( flags.action && flags.vfxConfig && (data.flags.crucible.confirmed === true) ) this.#playVFXEffect();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Play a VFX animation using data provided by this ChatMessage
+   * @returns {Promise<void>}
+   */
+  async #playVFXEffect() {
+    const action = CrucibleAction.fromChatMessage(this);
+    if ( this.rolls.length && ("dice3d" in game) ) await game.dice3d.waitFor3DAnimationByMessageID(this.id);
+    const {references, ...vfxConfig} = this.flags.crucible.vfxConfig;
+    await action.playVFXEffect(vfxConfig, references);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * As the active GM, auto-confirm a CrucibleAction contained in a ChatMessage.
    * @returns {Promise<void>}

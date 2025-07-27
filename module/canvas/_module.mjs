@@ -4,6 +4,7 @@ import {TRAVEL_PACES} from "../config/actor.mjs";
 
 export * as tree from "./tree/_module.mjs";
 export * as grid from "./grid.mjs";
+export * as vfx from "./vfx/_module.mjs";
 export {default as CrucibleTokenObject} from "./token.mjs";
 export {default as CrucibleTokenRuler} from "./token-ruler.mjs";
 

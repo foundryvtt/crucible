@@ -42,6 +42,7 @@ Hooks.once("init", async function() {
   crucible.CONST = SYSTEM;
   CrucibleTalentNode.defineTree();
   crucible.developmentMode = game.data.options.debug;
+  crucible.vfxEnabled = !!game.modules.get("foundryvtt-vfx")?.active;
 
   // Expose the system API
   crucible.api = {

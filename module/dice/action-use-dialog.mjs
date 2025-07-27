@@ -218,11 +218,9 @@ export default class ActionUseDialog extends StandardCheckDialog {
     this.#deactivateTemplate(event);
 
     // Reference required data
-    const {actor, range, target} = this.action;
+    const {range, token, target} = this.action;
     const targetConfig = SYSTEM.ACTION.TARGET_TYPES[target.type]?.template;
     if ( !targetConfig ) return;
-    const tokens = actor.getActiveTokens();
-    const token = tokens[0] || null;
     const activeLayer = canvas.activeLayer;
 
     // TODO find a better place for this?
@@ -232,7 +230,7 @@ export default class ActionUseDialog extends StandardCheckDialog {
     }
 
     // Create a temporary Measured Template document and PlaceableObject
-    const templateData = await this.#getTemplateData(token, range, target, targetConfig);
+    const templateData = await this.#getTemplateData(token.object, range, target, targetConfig);
     const template = await canvas.templates._createPreview(templateData, {renderSheet: false});
     template.document._object = template; // FIXME this is a bit of a hack
 
