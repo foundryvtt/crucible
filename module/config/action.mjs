@@ -533,6 +533,8 @@ export const TAGS = {
     },
     prepare() {
       const {strikes, weapon} = this.usage;
+
+      // Default weapon-based strikes
       if ( !strikes.length && weapon ) strikes.push(weapon);
       if ( !strikes?.length ) return;
 
@@ -544,8 +546,7 @@ export const TAGS = {
       this.usage.isMelee = this.tags.has("melee") || strikes.every(w => !w.config.category.ranged);
       this.usage.defenseType ??= "physical";
 
-      // Prepare every configured strike
-      const n = this.target.multiple ?? 1;
+      // Prepare cost and range for the base strike sequence
       let weaponRange = 0;
       const contextTags = {};
       for ( const [i, weapon] of strikes.entries() ) {
@@ -555,8 +556,15 @@ export const TAGS = {
           else weaponRange = Math.min(weaponRange, weapon.system.range);
         }
         if ( i === 0 ) Object.assign(this.usage.bonuses, weapon.system.actionBonuses);
-        contextTags[weapon.id] ||= {id: weapon.id, name: weapon.name, count: 0};
-        contextTags[weapon.id].count += n;
+      }
+
+      // Repeat the sequence if multiple attacks are performed
+      const n = this.target.multiple ?? 1;
+      if ( n > 1 ) {
+        const baseSequence = [...strikes];
+        for ( let i=1; i<n; i++ ) {
+          strikes.push(...baseSequence);
+        }
       }
 
       // Context tags
@@ -572,12 +580,9 @@ export const TAGS = {
       }
     },
     async roll(outcome) {
-      const n = this.target.multiple ?? 1;
-      for ( let i=0; i<n; i++ ) {
-        for ( const weapon of this.usage.strikes ) {
-          const roll = await this.actor.weaponAttack(this, weapon, outcome);
-          outcome.rolls.push(roll);
-        }
+      for ( const weapon of this.usage.strikes ) {
+        const roll = await this.actor.weaponAttack(this, weapon, outcome);
+        outcome.rolls.push(roll);
       }
     }
   },
