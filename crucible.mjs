@@ -70,16 +70,97 @@ Hooks.once("init", async function() {
   /**
    * Configurable properties of the system which affect its behavior.
    */
+  game.settings.register("crucible", "usedAncestries", {
+    name: "SETTINGS.UsedAncestriesName",
+    hint: "SETTINGS.UsedAncestriesHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => {
+      let potentialPacks = {};
+      for (const pack of game.packs) {
+        if (pack.metadata.type !== "Item") continue;
+        for (const item of pack.index) {
+          if (item.type === "ancestry") {
+            potentialPacks[pack.metadata.id] = pack.metadata.id;
+          }
+        }
+      }
+      return potentialPacks;
+    }})),
+    default: [SYSTEM.COMPENDIUM_PACKS.ancestry],
+    requiresReload: true,
+  });
+  game.settings.register("crucible", "usedBackgrounds", {
+    name: "SETTINGS.UsedBackgroundsName",
+    hint: "SETTINGS.UsedBackgroundsHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => {
+      let potentialPacks = {};
+      for (const pack of game.packs) {
+        if (pack.metadata.type !== "Item") continue;
+        for (const item of pack.index) {
+          if (item.type === "background") {
+            potentialPacks[pack.metadata.id] = pack.metadata.id;
+          }
+        }
+      }
+      return potentialPacks;
+    }})),
+    default: [SYSTEM.COMPENDIUM_PACKS.background],
+    requiresReload: true,
+  });
+  game.settings.register("crucible", "usedSpells", {
+    name: "SETTINGS.UsedSpellsName",
+    hint: "SETTINGS.UsedSpellsHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => {
+      let potentialPacks = {};
+      for (const pack of game.packs) {
+        if (pack.metadata.type !== "Item") continue;
+        for (const item of pack.index) {
+          if (item.type === "spell") {
+            potentialPacks[pack.metadata.id] = pack.metadata.id;
+          }
+        }
+      }
+      return potentialPacks;
+    }})),
+    default: [SYSTEM.COMPENDIUM_PACKS.spell],
+    requiresReload: true,
+  });
+  game.settings.register("crucible", "usedTalents", {
+    name: "SETTINGS.UsedTalentsName",
+    hint: "SETTINGS.UsedTalentsHint",
+    scope: "world",
+    config: true,
+    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => {
+      let potentialPacks = {};
+      for (const pack of game.packs) {
+        if (pack.metadata.type !== "Item") continue;
+        for (const item of pack.index) {
+          if (item.type === "talent") {
+            potentialPacks[pack.metadata.id] = pack.metadata.id;
+          }
+        }
+      }
+      return potentialPacks;
+    }})),
+    default: [SYSTEM.COMPENDIUM_PACKS.talent],
+    requiresReload: true,
+  });
+  
   crucible.CONFIG = {
     /**
      * Configuration of compendium packs which are used as sources for system workflows.
      * @type {Record<string, Set<string>>}
      */
     packs: {
-      ancestry: new Set([SYSTEM.COMPENDIUM_PACKS.ancestry]),
-      background: new Set([SYSTEM.COMPENDIUM_PACKS.background]),
-      spell: new Set([SYSTEM.COMPENDIUM_PACKS.spell]),
-      talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent]),
+      ancestry: game.settings.get("crucible", "usedAncestries"),
+      background: game.settings.get("crucible", "usedBackgrounds"),
+      spell: game.settings.get("crucible", "usedSpells"),
+      talent: game.settings.get("crucible", "usedTalents"),
     },
     /**
      * The character creation sheet class which should be registered
