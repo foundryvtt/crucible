@@ -83,6 +83,7 @@ Hooks.once("init", async function() {
               folder = folder.folder;
             }
             potentialPacks[pack.metadata.id] = name;
+            break;
           }
         }
       }
