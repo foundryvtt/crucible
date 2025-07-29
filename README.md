@@ -6,14 +6,5 @@ Crucible is an innovative and modern tabletop role-playing game system built exc
 
 See https://foundryvtt.com/packages/crucible
 
-# Local Development Process
-```
-cd {FOUNDRY_VTT_DATA_DIR}/systems
-git clone https://github.com/foundryvtt/crucible.git
-cd crucible
-npm install
-npm run compile
-```
-
 # Contribution Policy
-The Crucible game system is in early development and does not offer an open-source license or contribution policy at this time. Such a policy will be added as the system progresses.
+Code contributions to `foundryvtt/crucible` are accepted subject to the conditions and expectations documented in the [Contribution Guidelines](CONTRIBUTING.md).
