@@ -76,7 +76,13 @@ Hooks.once("init", async function() {
         if (pack.metadata.type !== "Item") continue;
         for (const item of pack.index) {
           if (item.type === type) {
-            potentialPacks[pack.metadata.id] = pack.metadata.id;
+            let name = pack.metadata.label;
+            let folder = pack.folder;
+            while (folder) {
+              name = `${folder.name} -> ${name}`
+              folder = folder.folder;
+            }
+            potentialPacks[pack.metadata.id] = name;
           }
         }
       }
