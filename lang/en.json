@@ -823,6 +823,15 @@
 "SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
 "SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
 
+"SETTINGS.AncestrySourcesName": "Ancestry Sources",
+"SETTINGS.AncestrySourcesHint": "Which packs will be used as sources of ancestries during character creation.",
+"SETTINGS.BackgroundSourcesName": "Background Sources",
+"SETTINGS.BackgroundSourcesHint": "Which packs will be used as sources of backgrounds during character creation.",
+"SETTINGS.SpellSourcesName": "Spell Sources",
+"SETTINGS.SpellSourcesHint": "Which packs will be used as sources of iconic spells.",
+"SETTINGS.TalentSourcesName": "Talent Sources",
+"SETTINGS.TalentSourcesHint": "Which packs will be used as sources of talents for the talent tree.",
+
 "SKILL": {
   "CATEGORY": {
     "EXPLORATION": {
