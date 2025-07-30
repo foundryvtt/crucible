@@ -1060,7 +1060,9 @@
     "Banned": "You cannot purchase additional Signature talents at this node or tier.",
     "CannotAfford": "You do not have sufficient Talent points to purchase {name} which costs {cost} points.",
     "Inaccessible": "You are unable to acquire \"{name}\" because you have not unlocked this talent tree node.",
-    "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}."
+    "Locked": "You do not satisfy the requirements to acquire \"{name}\" which requires {requires} {requirement}.",
+    "RequiresRuneGesture": "You must know a Rune in order to use a Gesture.",
+    "RequiresRuneInflection": "You must know a Rune in order to use an Inflection."
   },
   "HOOKS": {
     "REGISTER": "Register Hook Function",
