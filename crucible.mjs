@@ -84,8 +84,8 @@ Hooks.once("init", async function() {
       return potentialPacks;
   }
   game.settings.register("crucible", "ancestrySources", {
-    name: "SETTINGS.AncestrySourcesName",
-    hint: "SETTINGS.AncestrySourcesHint",
+    name: "SETTINGS.COMPENDIUM_SOURCES.ancestry.label",
+    hint: "SETTINGS.COMPENDIUM_SOURCES.ancestry.hint",
     scope: "world",
     config: true,
     type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("ancestry")})),
@@ -93,8 +93,8 @@ Hooks.once("init", async function() {
     requiresReload: true,
   });
   game.settings.register("crucible", "backgroundSources", {
-    name: "SETTINGS.BackgroundSourcesName",
-    hint: "SETTINGS.BackgroundSourcesHint",
+    name: "SETTINGS.COMPENDIUM_SOURCES.background.label",
+    hint: "SETTINGS.COMPENDIUM_SOURCES.background.hint",
     scope: "world",
     config: true,
     type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("background")})),
@@ -102,8 +102,8 @@ Hooks.once("init", async function() {
     requiresReload: true,
   });
   game.settings.register("crucible", "spellSources", {
-    name: "SETTINGS.SpellSourcesName",
-    hint: "SETTINGS.SpellSourcesHint",
+    name: "SETTINGS.COMPENDIUM_SOURCES.spell.label",
+    hint: "SETTINGS.COMPENDIUM_SOURCES.spell.hint",
     scope: "world",
     config: true,
     type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("spell")})),
@@ -111,8 +111,8 @@ Hooks.once("init", async function() {
     requiresReload: true,
   });
   game.settings.register("crucible", "talentSources", {
-    name: "SETTINGS.TalentSourcesName",
-    hint: "SETTINGS.TalentSourcesHint",
+    name: "SETTINGS.COMPENDIUM_SOURCES.talent.label",
+    hint: "SETTINGS.COMPENDIUM_SOURCES.talent.hint",
     scope: "world",
     config: true,
     type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("talent")})),

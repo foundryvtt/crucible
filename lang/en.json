@@ -817,20 +817,31 @@
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
-"SETTINGS.AutoConfirmName": "Action Auto-Confirmation",
-"SETTINGS.AutoConfirmHint": "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
-"SETTINGS.AutoConfirmNone": "No Auto-Confirmation",
-"SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
-"SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
-
-"SETTINGS.AncestrySourcesName": "Ancestry Sources",
-"SETTINGS.AncestrySourcesHint": "Which packs will be used as sources of ancestries during character creation.",
-"SETTINGS.BackgroundSourcesName": "Background Sources",
-"SETTINGS.BackgroundSourcesHint": "Which packs will be used as sources of backgrounds during character creation.",
-"SETTINGS.SpellSourcesName": "Spell Sources",
-"SETTINGS.SpellSourcesHint": "Which packs will be used as sources of iconic spells.",
-"SETTINGS.TalentSourcesName": "Talent Sources",
-"SETTINGS.TalentSourcesHint": "Which packs will be used as sources of talents for the talent tree.",
+"SETTINGS": {
+  "AutoConfirmName": "Action Auto-Confirmation",
+  "AutoConfirmHint": "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
+  "AutoConfirmNone": "No Auto-Confirmation",
+  "AutoConfirmSelf": "Self-Target Actions Only",
+  "AutoConfirmAll": "Auto-Confirm All Actions",
+  "COMPENDIUM_SOURCES": {
+    "ancestry": {
+      "label": "Ancestry Sources",
+      "hint": "Which packs will be used as sources of ancestries during character creation."
+    },
+    "background": {
+      "label": "Background Sources",
+      "hint": "Which packs will be used as sources of backgrounds during character creation."
+    },
+    "spell": {
+      "label": "Spell Sources",
+      "hint": "Which packs will be used as sources of iconic spells."
+    },
+    "talent": {
+      "label": "Talent Sources",
+      "hint": "Which packs will be used as sources of talents for the talent tree."
+    }
+  }
+},
 
 "SKILL": {
   "CATEGORY": {
