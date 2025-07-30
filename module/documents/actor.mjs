@@ -1562,6 +1562,12 @@ export default class CrucibleActor extends Actor {
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
+    // Remove existing equipment
+    for ( const uuid of (existing?.equipment || []) ) {
+      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
+    }
+
     // Remove skill talents
     if ( skillTalents ) {
       for ( const skillId of (existing?.skills || []) ) {
@@ -1585,21 +1591,22 @@ export default class CrucibleActor extends Actor {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
 
-      // Register talents to grant
-      const talents = [];
-      for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
+      // Register items to grant
+      const items = [];
+      for ( const uuid of (detail.talents || []) ) items.push(await fromUuid(uuid));
+      for ( const uuid of (detail.equipment || []) ) items.push(await fromUuid(uuid));
       if ( skillTalents ) {
         for ( const skillId of (detail.skills || []) ) {
-          talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
+          items.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
         }
       }
 
-      // Add granted talents
+      // Add granted items
       const updateItems = [];
-      for ( const talent of talents ) {
-        if ( !talent ) continue;
-        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
-        else updateItems.push(this._cleanItemData(talent));
+      for ( const item of items ) {
+        if ( !item ) continue;
+        if ( this.items.has(item.id) ) deleteItemIds.delete(item.id);
+        else updateItems.push(this._cleanItemData(item));
       }
       if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});

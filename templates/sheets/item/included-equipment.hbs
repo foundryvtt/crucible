@@ -1,0 +1,18 @@
+<div class="equipment line-item" data-uuid="{{equipment.uuid}}">
+    <img class="icon" src="{{equipment.img}}" alt="{{equipment.name}}">
+    <div class="title">
+        <h4>{{equipment.name}}</h4>
+        <div class="tags">
+            {{#each equipment.tags as |tag type|}}
+            <span class="tag" data-tag="{{type}}">{{tag}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{#if isEditable}}
+    <div class="controls">
+        <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
+           data-tooltip="ITEM.SHEET.EQUIPMENT_REMOVE"></a>
+    </div>
+    {{/if}}
+    <div class="description">{{{equipment.description}}}</div>
+</div>

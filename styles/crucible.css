@@ -2370,6 +2370,7 @@
 .crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.item .equipment-list,
 .crucible.item .talents-list,
 .crucible.action .talents-list {
   max-height: 600px;
@@ -2475,6 +2476,7 @@
 .crucible.taxonomy .resistances .form-fields {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.archetype .equipment,
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {
   gap: 1rem;
