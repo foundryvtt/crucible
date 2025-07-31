@@ -40,6 +40,22 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.assessStrength = {
+  configure() {
+    const targetCategory = this.acquireTargets({strict: false})[0]?.actor.system.details.taxonomy?.category;
+    const skill = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory]?.knowledgeSkill;
+    if (!skill) return;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+  },
+  async roll(outcome) {
+    const skill = this.usage.skillId;
+    if (!skill) return;
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.berserkStrike = {
   prepare() {
     const health = this.actor.resources.health;
@@ -141,6 +157,22 @@ HOOKS.healingTonic = {
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
     foundry.utils.setProperty(effect, "flags.crucible.dot.health", -amount);
     outcome.resources.health = (outcome.resources.health || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.intuitWeakness = {
+  configure() {
+    const targetCategory = this.acquireTargets({strict: false})[0]?.actor.system.details.taxonomy?.category;
+    const skill = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory]?.knowledgeSkill;
+    if (!skill) return;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+  },
+  async roll(outcome) {
+    const skill = this.usage.skillId;
+    if (!skill) return;
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
 }
 

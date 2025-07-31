@@ -2,20 +2,53 @@ import {freezeEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, string>}
+ * @type {Record<string, {label: string, knowledgeSkill: string}>}
  */
 export const CREATURE_CATEGORIES = {
-  beast: "TAXONOMY.CATEGORIES.BEAST",
-  celestial: "TAXONOMY.CATEGORIES.CELESTIAL",
-  construct: "TAXONOMY.CATEGORIES.CONSTRUCT",
-  dragon: "TAXONOMY.CATEGORIES.DRAGON",
-  elemental: "TAXONOMY.CATEGORIES.ELEMENTAL",
-  giant: "TAXONOMY.CATEGORIES.GIANT",
-  humanoid: "TAXONOMY.CATEGORIES.HUMANOID",
-  monstrosity: "TAXONOMY.CATEGORIES.MONSTROSITY",
-  ooze: "TAXONOMY.CATEGORIES.OOZE",
-  outsider: "TAXONOMY.CATEGORIES.OUTSIDER",
-  undead: "TAXONOMY.CATEGORIES.UNDEAD"
+  beast: {
+    label: "TAXONOMY.CATEGORIES.BEAST",
+    knowledgeSkill: "medicine"
+  },
+  celestial: {
+    label: "TAXONOMY.CATEGORIES.CELESTIAL",
+    knowledgeSkill: "arcana"
+  },
+  construct: {
+    label: "TAXONOMY.CATEGORIES.CONSTRUCT",
+    knowledgeSkill: "science"
+  },
+  dragon: {
+    label: "TAXONOMY.CATEGORIES.DRAGON",
+    knowledgeSkill: "arcana"
+  },
+  elemental: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL",
+    knowledgeSkill: "arcana"
+  },
+  giant: {
+    label: "TAXONOMY.CATEGORIES.GIANT",
+    knowledgeSkill: "medicine"
+  },
+  humanoid: {
+    label: "TAXONOMY.CATEGORIES.HUMANOID",
+    knowledgeSkill: "medicine"
+  },
+  monstrosity: {
+    label: "TAXONOMY.CATEGORIES.MONSTROSITY",
+    knowledgeSkill: "science"
+  },
+  ooze: {
+    label: "TAXONOMY.CATEGORIES.OOZE",
+    knowledgeSkill: "arcana"
+  },
+  outsider: {
+    label: "TAXONOMY.CATEGORIES.OUTSIDER",
+    knowledgeSkill: "arcana"
+  },
+  undead: {
+    label: "TAXONOMY.CATEGORIES.UNDEAD",
+    knowledgeSkill: "science"
+  }
 };
 
 /**
