@@ -2329,7 +2329,7 @@
   /** Form Groups */
   /** Description */
   /** Hook Editor */
-  /** Talent Progression Items */
+  /** Talent Progression Items & Initial Equipment */
   /** Hooks */
 }
 .crucible.item .sheet-body.scrollable,
@@ -2371,6 +2371,7 @@
   grid-template-columns: repeat(4, 1fr);
 }
 .crucible.item .equipment-list,
+.crucible.action .equipment-list,
 .crucible.item .talents-list,
 .crucible.action .talents-list {
   max-height: 600px;
@@ -2477,6 +2478,7 @@
   grid-template-columns: repeat(4, 1fr);
 }
 .crucible.archetype .equipment,
+.crucible.taxonomy .equipment,
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {
   gap: 1rem;
