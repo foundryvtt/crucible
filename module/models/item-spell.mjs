@@ -1,4 +1,5 @@
 import CrucibleAction from "./action.mjs";
+import CrucibleSpellItemSheet from "../applications/sheets/item-spell-sheet.mjs";
 
 /**
  * An Item subtype that defines an Iconic Spell composition.
@@ -23,6 +24,18 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
 
   /** @override */
   static LOCALIZATION_PREFIXES = ["ITEM", "SPELL"];
+
+  /**
+   * The partial template used to render a feature granted item.
+   * @type {string}
+   */
+  static INLINE_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/spell-inline.hbs";
+
+  /**
+   * The partial template used to render a feature granted item.
+   * @type {string}
+   */
+  static CARD_TEMPLATE_PATH = "systems/crucible/templates/sheets/item/spell-card.hbs";
 
   /**
    * Is this Iconic Spell currently known by the Actor which owns it?
@@ -93,5 +106,69 @@ export default class CrucibleSpellItem extends foundry.abstract.TypeDataModel {
       tags[inflectionId] = inflection.name;
     }
     return tags;
+  }
+
+  /**
+   * Render this Iconic Spell as HTML for inline display.
+   * @returns {Promise<string>}
+   */
+  async renderInline() {
+    return foundry.applications.handlebars.renderTemplate(this.constructor.INLINE_TEMPLATE_PATH, {
+      spell: this,
+      uuid: this.parent.uuid,
+      name: this.parent.name,
+      img: this.parent.img,
+      tags: this.getTags()
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render this Iconic Spell as HTML for a tooltip card.
+   * @param {object} options
+   * @param {CrucibleActor} [options.actor]
+   * @returns {Promise<string>}
+   */
+  async renderCard({actor}={}) {
+
+    // Load necessary templates
+    await foundry.applications.handlebars.loadTemplates([
+      this.constructor.CARD_TEMPLATE_PATH,
+      "systems/crucible/templates/sheets/item/spell-summary.hbs"
+    ]);
+
+    // Prepare spell data
+    const spell = this.parent;
+    actor ||= spell.parent;
+
+    const runeReqs = [...this.runes].map(req => ({
+      tag: SYSTEM.SPELL.RUNES[req]?.name ?? req,
+      met: actor.itemTypes.talent.some(i => i.system.rune === req)
+    }));
+    const gestureReqs = [...this.gestures].map(req => ({
+      tag: SYSTEM.SPELL.GESTURES[req]?.name ?? req,
+      met: actor.itemTypes.talent.some(i => i.system.gesture === req)
+    }));
+    const inflectionReqs = [...this.inflections].map(req => ({
+      tag: SYSTEM.SPELL.INFLECTIONS[req]?.name ?? req,
+      met: actor.itemTypes.talent.some(i => i.system.inflection === req)
+    }));
+
+    // Render the card
+    return foundry.applications.handlebars.renderTemplate(this.constructor.CARD_TEMPLATE_PATH, {
+      spell,
+      descriptionHTML: await CONFIG.ux.TextEditor.enrichHTML(spell.system.description, {
+        relativeTo: spell,
+        secrets: spell.isOwner
+      }),
+      source: spell,
+      uuid: spell.uuid,
+      name: spell.name,
+      img: spell.img,
+      actions: await CrucibleSpellItemSheet.prepareActions(spell),
+      tags: this.getTags(),
+      prerequisites: [...runeReqs, ...gestureReqs, ...inflectionReqs]
+    });
   }
 }

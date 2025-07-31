@@ -10,6 +10,8 @@ export function onPointerEnter(event) {
       return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "spell":
+      return displaySpell(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
     case "passiveCheck":
@@ -156,6 +158,26 @@ async function displayCondition(event) {
   if ( !page ) return;
   const html = `<h3 class="tooltip-title divider">${page.name}</h3>${page.text.content}`;
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Display an Iconic Spell's card as a tooltip.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>} 
+ */
+async function displaySpell(event) {
+  const element = event.target;
+  const spell = await fromUuid(element.dataset.uuid);
+  if ( !spell ) return;
+  event.stopImmediatePropagation();
+
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+  element.dataset.tooltipHtml = await spell.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
