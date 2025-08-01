@@ -580,8 +580,9 @@ export const TAGS = {
       }
     },
     async roll(outcome) {
-      for ( const weapon of this.usage.strikes ) {
+      for ( const [i, weapon] of this.usage.strikes.entries() ) {
         const roll = await this.actor.weaponAttack(this, weapon, outcome);
+        roll.data.strike = i; // TODO handle this better?
         outcome.rolls.push(roll);
       }
     }

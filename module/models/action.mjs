@@ -1,7 +1,6 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
-import {configureStrikeVFXEffect} from "../canvas/vfx/strikes.mjs";
 
 /**
  * @typedef {Object} ActionContext
