@@ -1563,7 +1563,7 @@ export default class CrucibleActor extends Actor {
     }
 
     // Remove existing equipment
-    for ( const uuid of (existing?.equipment || []) ) {
+    for ( const {item: uuid} of (existing?.equipment || []) ) {
       const itemId = foundry.utils.parseUuid(uuid)?.documentId;
       if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
     }
@@ -1591,23 +1591,34 @@ export default class CrucibleActor extends Actor {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
 
-      // Register items to grant
-      const items = [];
-      for ( const uuid of (detail.talents || []) ) items.push(await fromUuid(uuid));
-      for ( const uuid of (detail.equipment || []) ) items.push(await fromUuid(uuid));
+      // Register talents to grant
+      const talents = [];
+      for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
       if ( skillTalents ) {
         for ( const skillId of (detail.skills || []) ) {
-          items.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
+          talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
         }
       }
-
-      // Add granted items
+      
+      // Register equipment to grant
+      const equipment = [];
+      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) equipment.push({item: await fromUuid(uuid), quantity, equipped});
+      
+      // Add granted talents
       const updateItems = [];
-      for ( const item of items ) {
+      for ( const item of talents ) {
         if ( !item ) continue;
         if ( this.items.has(item.id) ) deleteItemIds.delete(item.id);
         else updateItems.push(this._cleanItemData(item));
       }
+
+      // Add granted equipment
+      for ( const {item, quantity, equipped} of equipment) {
+        if ( !item ) continue;
+        if ( this.items.has(item.id) ) deleteItemIds.delete(item.id);
+        updateItems.push({...this._cleanItemData(item), system: {equipped, quantity}});
+      }
+
       if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }

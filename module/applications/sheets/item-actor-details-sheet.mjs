@@ -12,6 +12,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     actions: {
+      removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
+      toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
       removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent
     }
   };
@@ -155,6 +157,47 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
 
     // Update Actor detail or permanent Item
     const updateData = {system: {talents: [...talents]}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
+  }
+  
+  /* -------------------------------------------- */
+  
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #toggleEquipped(event) {
+    const item = event.target.closest(".equipment");
+    const equipment = this.document.system.equipment;
+    const uuid = item.dataset.uuid;
+    const existingItem = equipment.find(i => i.item === uuid);
+    existingItem.equipped = !existingItem.equipped;
+
+    // Update Actor detail or permanent Item
+    const updateData = {system: {equipment}};
+    if ( this.document.parent instanceof foundry.documents.Actor ) {
+      return this._processSubmitData(event, this.form, updateData);
+    }
+    return this.document.update(updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRemoveEquipment(event) {
+    const item = event.target.closest(".equipment");
+    const equipment = this.document.system.equipment;
+    const uuid = item.dataset.uuid;
+    equipment.findSplice(i => i.item === uuid);
+
+    // Update Actor detail or permanent Item
+    const updateData = {system: {equipment}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {
       return this._processSubmitData(event, this.form, updateData);
     }

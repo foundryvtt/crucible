@@ -10,6 +10,10 @@
     </div>
     {{#if isEditable}}
     <div class="controls">
+        <a class="button icon fa-solid fa-shield" data-action="toggleEquipped"
+            data-tooltip="ITEM.FIELDS.equipped.label"{{#if equipment.equipped}}style="opacity: 1; color: var(--button-hover-text-color);"{{/if}}></a>
+        <input type="number" name="system.equipment.{{@index}}.quantity" min="1" step="1" value="{{equipment.quantity}}"
+            style="width: 3rem;" data-tooltip="ITEM.FIELDS.quantity.label">
         <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
            data-tooltip="ITEM.SHEET.EQUIPMENT_REMOVE"></a>
     </div>

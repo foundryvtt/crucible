@@ -9,9 +9,6 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   static DEFAULT_OPTIONS = {
     item: {
       type: "archetype"
-    },
-    actions: {
-      removeEquipment: CrucibleArchetypeItemSheet.#onRemoveEquipment
     }
   };
 
@@ -64,21 +61,23 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /**
    * Retrieve equipment and prepare for rendering.
-   * @returns {Promise<object[]>}
+   * @returns {Promise<{uuid: string, name: string, img: string, description: string, tags: object[], quantity: number, equipped: boolean}>}
    * @protected
    */
   async _prepareEquipment() {
-    const uuids = this.document.system.equipment;
+    const equipment = this.document.system.equipment;
     const promises = [];
-    for ( const uuid of uuids ) {
+    for ( const {item: uuid, quantity, equipped} of equipment ) {
       promises.push(fromUuid(uuid).then(item => {
-        if ( !item ) return {uuid, name: "INVALID", img: "", description: "", tags: {}};
+        if ( !item ) return {uuid, name: "INVALID", img: "", description: "", tags: {}, quantity: 1, equipped: false};
         return {
           uuid,
           name: item.name,
           img: item.img,
           description: item.system.description.public,
-          tags: item.getTags()
+          tags: item.getTags(),
+          quantity,
+          equipped
         }
       }));
     }
@@ -131,33 +130,12 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   async #onDropEquipment(event) {
     const data = foundry.applications.ux.TextEditor.getDragEventData(event);
     const equipment = this.document.system.equipment;
-    if ( (data.type !== "Item") || equipment.has(data.uuid) ) return;
+    if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
     const item = await fromUuid(data.uuid);
     if ( !["armor", "accessory", "consumable", "weapon"].includes(item?.type) ) return;
 
     // Update Actor detail or permanent Item
-    const updateData = {system: {equipment: [...equipment, data.uuid]}};
-    if ( this.document.parent instanceof foundry.documents.Actor ) {
-      return this._processSubmitData(event, this.form, updateData);
-    }
-    return this.document.update(updateData);
-  }
-
-  
-  /* -------------------------------------------- */
-
-  /**
-   * @this {CrucibleArchetypeItemSheet}
-   * @type {ApplicationClickAction}
-   */
-  static async #onRemoveEquipment(event) {
-    const item = event.target.closest(".equipment");
-    const equipment = new Set(this.document.system.equipment);
-    const uuid = item.dataset.uuid;
-    equipment.delete(uuid);
-
-    // Update Actor detail or permanent Item
-    const updateData = {system: {equipment: [...equipment]}};
+    const updateData = {system: {equipment: [...equipment, {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped}]}};
     if ( this.document.parent instanceof foundry.documents.Actor ) {
       return this._processSubmitData(event, this.form, updateData);
     }
@@ -169,6 +147,16 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   /** @inheritDoc */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
+
+    // Handle equipment quantity changes
+    if (submitData.system.equipment) {
+      const updatedEquipment = [...this.document.system.equipment];
+      for (const [idx, changes] of Object.entries(submitData.system.equipment)) {
+        foundry.utils.mergeObject(updatedEquipment[idx], changes);
+      }
+      submitData.system.equipment = updatedEquipment;
+    }
+    
     const fields = this.document.system.schema.fields;
     if ( fields.abilities.validate(submitData.system.abilities) === undefined ) {
       submitData.system["==abilities"] = submitData.system.abilities;
