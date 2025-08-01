@@ -7,47 +7,58 @@ import {freezeEnum} from "./enum.mjs";
 export const CREATURE_CATEGORIES = {
   beast: {
     label: "TAXONOMY.CATEGORIES.BEAST",
-    knowledgeSkill: "medicine"
+    knowledgeSkill: "medicine",
+    knowledge: "beasts"
   },
   celestial: {
     label: "TAXONOMY.CATEGORIES.CELESTIAL",
-    knowledgeSkill: "arcana"
+    knowledgeSkill: "arcana",
+    knowledge: "celestials"
   },
   construct: {
     label: "TAXONOMY.CATEGORIES.CONSTRUCT",
-    knowledgeSkill: "science"
+    knowledgeSkill: "science",
+    knowledge: "machines"
   },
   dragon: {
     label: "TAXONOMY.CATEGORIES.DRAGON",
-    knowledgeSkill: "arcana"
+    knowledgeSkill: "arcana",
+    knowledge: "dragons"
   },
   elemental: {
     label: "TAXONOMY.CATEGORIES.ELEMENTAL",
-    knowledgeSkill: "arcana"
+    knowledgeSkill: "arcana",
+    knowledge: "elementals"
   },
   giant: {
     label: "TAXONOMY.CATEGORIES.GIANT",
-    knowledgeSkill: "medicine"
+    knowledgeSkill: "society",
+    knowledge: "legends"
   },
   humanoid: {
     label: "TAXONOMY.CATEGORIES.HUMANOID",
-    knowledgeSkill: "medicine"
+    knowledgeSkill: "society",
+    knowledge: null
   },
   monstrosity: {
     label: "TAXONOMY.CATEGORIES.MONSTROSITY",
-    knowledgeSkill: "science"
+    knowledgeSkill: "medicine",
+    knowledge: "monsters"
   },
   ooze: {
     label: "TAXONOMY.CATEGORIES.OOZE",
-    knowledgeSkill: "arcana"
+    knowledgeSkill: "science",
+    knowledge: null
   },
   outsider: {
     label: "TAXONOMY.CATEGORIES.OUTSIDER",
-    knowledgeSkill: "arcana"
+    knowledgeSkill: "arcana",
+    knowledge: "outsiders"
   },
   undead: {
     label: "TAXONOMY.CATEGORIES.UNDEAD",
-    knowledgeSkill: "science"
+    knowledgeSkill: "arcana",
+    knowledge: "undeath"
   }
 };
 

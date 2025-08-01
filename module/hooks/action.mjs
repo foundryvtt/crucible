@@ -41,15 +41,19 @@ HOOKS.alchemistsFire = {
 /* -------------------------------------------- */
 
 HOOKS.assessStrength = {
-  configure() {
-    const targetCategory = this.acquireTargets({strict: false})[0]?.actor.system.details.taxonomy?.category;
-    const skill = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory]?.knowledgeSkill;
-    if (!skill) return;
-    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+  configure(targets) {
+    const targetCategory = targets[0]?.actor.system.details.taxonomy?.category;
+    const {knowledgeSkill, knowledge} = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory] ?? {};
+    if ( !knowledgeSkill ) return;
+    SYSTEM.ACTION.TAGS[knowledgeSkill]?.initialize.call(this);
+    if ( this.actor.hasKnowledge(knowledge) ) {
+      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
+      this.usage.boons.assessStrength = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+    }
   },
   async roll(outcome) {
     const skill = this.usage.skillId;
-    if (!skill) return;
+    if ( !skill ) return;
     await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
 }
@@ -164,14 +168,18 @@ HOOKS.healingTonic = {
 
 HOOKS.intuitWeakness = {
   configure() {
-    const targetCategory = this.acquireTargets({strict: false})[0]?.actor.system.details.taxonomy?.category;
-    const skill = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory]?.knowledgeSkill;
-    if (!skill) return;
-    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+    const targetCategory = targets[0]?.actor.system.details.taxonomy?.category;
+    const {knowledgeSkill, knowledge} = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory] ?? {};
+    if ( !knowledgeSkill ) return;
+    SYSTEM.ACTION.TAGS[knowledgeSkill]?.initialize.call(this);
+    if ( this.actor.hasKnowledge(knowledge) ) {
+      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
+      this.usage.boons.intuitWeakness = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+    }
   },
   async roll(outcome) {
     const skill = this.usage.skillId;
-    if (!skill) return;
+    if ( !skill ) return;
     await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
 }
