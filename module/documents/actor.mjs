@@ -1606,10 +1606,10 @@ export default class CrucibleActor extends Actor {
       
       // Add granted talents
       const updateItems = [];
-      for ( const item of talents ) {
-        if ( !item ) continue;
-        if ( this.items.has(item.id) ) deleteItemIds.delete(item.id);
-        else updateItems.push(this._cleanItemData(item));
+      for ( const talent of talents ) {
+        if ( !talent ) continue;
+        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
+        else updateItems.push(this._cleanItemData(talent));
       }
 
       // Add granted equipment
