@@ -1376,14 +1376,15 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
-      let content = `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`;
-
-      if ( warnUnusable ) {
-        // Add warning to content if acquiring Gesture or Inflection without Rune
-        if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
-          content += `<div class="notification warning">
-            ${game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`)}
-          </div>`;
+      let content = game.i18n.format("TALENT.Purchase", {name: talent.name});
+      try {
+        const canUse = this.canUtilizeTalent(talent);
+        if ( (canUse === false) && warnUnusable ) {
+          content += `<div class="notification warning">You cannot use this talent.</div>`;
+        }
+      } catch(err) {
+        if ( warnUnusable ) {
+          content += `<div class="notification warning">${err.message}</div>`;
         }
       }
       const confirm = await foundry.applications.api.DialogV2.confirm({
@@ -1449,6 +1450,22 @@ export default class CrucibleActor extends Actor {
     // Remove permanently from a persisted Actor
     else await ownedTalent.delete();
     return ownedTalent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor would be able to use a Talent once purchased
+   * @param {CrucibleItem} talent   The Talent item
+   * @returns {boolean}             Whether the Talent would be usable
+   */
+  canUtilizeTalent(talent) {
+    // Can't use a Gesture or Inflection without a Rune
+    if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
+      throw new Error(game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+    }
+
+    return true;
   }
 
   /* -------------------------------------------- */
