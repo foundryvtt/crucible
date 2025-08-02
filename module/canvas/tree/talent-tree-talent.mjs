@@ -62,7 +62,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     const actor = tree.actor;
     if ( !actor ) return;
     if ( !actor || actor.talentIds.has(this.talent.id) ) return;
-    const response = await actor.addTalent(this.talent, {dialog: true});
+    const response = await actor.addTalent(this.talent, {dialog: true, warnUnusable: true});
     if ( response ) crucible.api.audio.playClick();
   }
 
