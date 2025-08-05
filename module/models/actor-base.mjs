@@ -777,7 +777,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( statuses.has("stunned") ) r.action.max -= 4;
     else if ( statuses.has("staggered") ) r.action.max -= 2;
     if ( statuses.has("hastened") ) r.action.max += 1;
-    if ( this.status.impetus ) r.action.max += 1; // TODO impetus should just give the hastened condition
     if ( isWeakened ) r.action.max -= 2;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);

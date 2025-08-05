@@ -152,11 +152,12 @@ export default class CrucibleCombat extends foundry.documents.Combat {
         _id: impetusId,
         name: "Impetus",
         icon: "icons/magic/movement/trail-streak-zigzag-yellow.webp",
-        changes: [{key: "system.status.impetus", value: 1, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE}],
+        statuses: ["hastened"],
         duration: {
           combat: this.id,
           rounds: 0,
-          turns: 1
+          turns: 1,
+          startRound: this.round
         }
       }
       if ( firstActor.effects.has(impetusId) ) await firstActor.updateEmbeddedDocuments("ActiveEffect", [impetus]);
