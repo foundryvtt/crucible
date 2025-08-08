@@ -51,13 +51,9 @@
     {{/if}}
 
     <footer class="form-footer">
-        <div class="roll-modes flexrow">
-            {{#each rollModes as |mode key|}}
-            <input type='radio' id="{{../rootId}}_{{key}}" name='rollMode' value='{{key}}' {{checked (eq key ../rollMode)}} />
-            <label for="{{../rootId}}_{{key}}" class='button ui-control icon {{mode.icon}}' aria-pressed="{{eq key ../rollMode}}" data-tooltip
-                aria-label="{{localize mode.label}}"></label>
-            {{/each}}
-        </div>
+        <select name="rollMode">
+            {{selectOptions rollModes selected=rollMode localize=true}}
+        </select>
         <button type="submit" class="dialog-button frame-brown" data-action="roll">
             <i class="fas fa-dice"></i>
             <label>Cast Spell</label>

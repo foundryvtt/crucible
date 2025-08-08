@@ -112,8 +112,7 @@ export default class StandardCheckDialog extends DialogV2 {
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
       canIncreaseBanes: data.totalBanes < SYSTEM.dice.MAX_BOONS,
-      canDecreaseBanes: data.totalBanes > 0,
-      rootId: this.id,
+      canDecreaseBanes: data.totalBanes > 0
     });
   }
 
