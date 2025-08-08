@@ -24,7 +24,8 @@ export default class StandardCheckDialog extends DialogV2 {
       requestToggle: StandardCheckDialog.#onRequestToggle,
       requestClear: StandardCheckDialog.#onRequestClear,
       requestParty: StandardCheckDialog.#onRequestParty,
-      requestRemove: StandardCheckDialog.#onRequestRemove
+      requestRemove: StandardCheckDialog.#onRequestRemove,
+      rollMode: StandardCheckDialog.#onChangeRollMode,
     },
     position: {
       width: "auto",
@@ -99,6 +100,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
+    const rollMode = this.rollMode || game.settings.get("core", "rollMode")
     return Object.assign({}, data, {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
@@ -106,8 +108,9 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
-      rollMode: this.rollMode || game.settings.get("core", "rollMode"),
-      rollModes: CONFIG.Dice.rollModes,
+      rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
+        return {icon, label, action, active: action === rollMode};
+      }),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
@@ -213,10 +216,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
-    if ( event.target.name === "rollMode" ) this.rollMode = event.target.value;
-
     // Difficulty Tier
-    else if ( event.target.name === "difficultyTier" ) {
+    if ( event.target.name === "difficultyTier" ) {
       const dc = Number(event.target.value) || null;
       if ( Number.isNumeric(dc) ) {
         event.target.parentElement.querySelector(`input[name="dc"]`).value = dc;
@@ -351,6 +352,19 @@ export default class StandardCheckDialog extends DialogV2 {
     this.#requestActors.delete(actor);
     await this.render({window: {title: this.title}});
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle clicks on a roll mode selection button.
+   * @this {StandardCheckDialog)
+   */
+  static async #onChangeRollMode(_event, target) {
+    this.rollMode = target.dataset.rollMode;
+    for ( const button of target.parentElement.children ) {
+      button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
+    }
+  }  
 
   /* -------------------------------------------- */
   /*  Factory Methods                             */

@@ -19,9 +19,13 @@
     {{/if}}
 
     <footer class="form-footer">
-        <select name="rollMode">
-            {{selectOptions rollModes selected=rollMode localize=true}}
-        </select>
+        <div class="split-button">
+            {{#each rollModes as |mode|}}
+            <button type="button" class="ui-control icon {{mode.icon}}" data-action="rollMode"
+                    data-roll-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
+                    data-tooltip aria-label="{{localize mode.label}}"></button>
+            {{/each}}
+        </div>
         <button type="submit" class="dialog-button frame-brown" data-action="roll">
             <i class="fas fa-dice"></i>
             <label>Use Action</label>
