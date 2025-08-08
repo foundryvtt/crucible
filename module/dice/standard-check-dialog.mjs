@@ -308,7 +308,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @returns {Promise<void>}
    */
   async #onDropActor(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = CONFIG.ux.TextEditor.getDragEventData(event);
     if ( data.type !== "Actor" ) return;
     const actor = await fromUuid(data.uuid);
     if ( actor.pack ) return;
