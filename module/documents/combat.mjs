@@ -155,9 +155,7 @@ export default class CrucibleCombat extends foundry.documents.Combat {
         statuses: ["hastened"],
         duration: {
           combat: this.id,
-          rounds: 0,
-          turns: 1,
-          startRound: this.round
+          rounds: 1,
         }
       }
       if ( firstActor.effects.has(impetusId) ) await firstActor.updateEmbeddedDocuments("ActiveEffect", [impetus]);
