@@ -124,7 +124,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @returns {Promise<*>}
    */
   async #onDropTalent(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
     if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
     const talent = await fromUuid(data.uuid);

@@ -179,7 +179,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             tab: context.tabs.description,
             field: context.fields.description,
             publicSrc: src,
-            publicHTML: await CONFIG.ux.TextEditor.enrichHTML(src, editorOptions)
+            publicHTML: await editorCls.enrichHTML(src, editorOptions)
           }
         }
         break;
