@@ -109,10 +109,7 @@ export default class StandardCheckDialog extends DialogV2 {
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
       rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
-        return {
-          icon, label, action,
-          active: action === rollMode
-        };
+        return {icon, label, action, active: action === rollMode};
       }),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
@@ -358,12 +355,15 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle clicks on a roll mode selection button.
+   * @this {StandardCheckDialog)
+   */
   static async #onChangeRollMode(_event, target) {
-    const mode = target.dataset.rollMode;
-    this.rollMode = mode;
-    this.element.querySelectorAll('[data-action="rollMode"]').forEach(button => {
-      button.setAttribute("aria-pressed", button.dataset.rollMode === mode);
-    });
+    this.rollMode = target.dataset.rollMode;
+    for ( const button of target.parentElement.children ) {
+      button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
+    }
   }  
 
   /* -------------------------------------------- */
