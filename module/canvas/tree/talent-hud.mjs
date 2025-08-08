@@ -138,8 +138,8 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _onRender(options) {
-    super._onRender(options);
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     this.element.classList.remove("hidden");
   }
 

@@ -40,8 +40,8 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _onRender(context, options) {
-    super._onRender(context, options);
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     this.#updateAbilitySum();
     this.#updateResistanceSum();
   }

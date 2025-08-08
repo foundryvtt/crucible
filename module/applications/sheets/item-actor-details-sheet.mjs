@@ -82,8 +82,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _onRender(context, options) {
-    super._onRender(context, options);
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     if ( !this.isEditable ) return;
     const dropZone = this.element.querySelector(".talent-drop");
     dropZone?.addEventListener("drop", this.#onDropTalent.bind(this));
