@@ -56,7 +56,6 @@
                 data-roll-mode="{{mode.action}}" aria-pressed="{{mode.active}}"
                 data-tooltip aria-label="{{localize mode.label}}"></button>
         {{/each}}
-        <input type="hidden" name="rollMode" value="{{rollMode}}" />
     </div>
     {{#each buttons as |button|}}
         <button type="{{button.type}}" class="dialog-button frame-brown {{button.cssClass}}" data-action="{{button.action}}" data-tooltip-text="{{button.tooltip}}">
