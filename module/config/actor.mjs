@@ -2,20 +2,64 @@ import {freezeEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, string>}
+ * @type {Record<string, {label: string, knowledgeSkill: string}>}
  */
 export const CREATURE_CATEGORIES = {
-  beast: "TAXONOMY.CATEGORIES.BEAST",
-  celestial: "TAXONOMY.CATEGORIES.CELESTIAL",
-  construct: "TAXONOMY.CATEGORIES.CONSTRUCT",
-  dragon: "TAXONOMY.CATEGORIES.DRAGON",
-  elemental: "TAXONOMY.CATEGORIES.ELEMENTAL",
-  giant: "TAXONOMY.CATEGORIES.GIANT",
-  humanoid: "TAXONOMY.CATEGORIES.HUMANOID",
-  monstrosity: "TAXONOMY.CATEGORIES.MONSTROSITY",
-  ooze: "TAXONOMY.CATEGORIES.OOZE",
-  outsider: "TAXONOMY.CATEGORIES.OUTSIDER",
-  undead: "TAXONOMY.CATEGORIES.UNDEAD"
+  beast: {
+    label: "TAXONOMY.CATEGORIES.BEAST",
+    knowledgeSkill: "medicine",
+    knowledge: "beasts"
+  },
+  celestial: {
+    label: "TAXONOMY.CATEGORIES.CELESTIAL",
+    knowledgeSkill: "arcana",
+    knowledge: "celestials"
+  },
+  construct: {
+    label: "TAXONOMY.CATEGORIES.CONSTRUCT",
+    knowledgeSkill: "science",
+    knowledge: "machines"
+  },
+  dragon: {
+    label: "TAXONOMY.CATEGORIES.DRAGON",
+    knowledgeSkill: "arcana",
+    knowledge: "dragons"
+  },
+  elemental: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL",
+    knowledgeSkill: "arcana",
+    knowledge: "elementals"
+  },
+  giant: {
+    label: "TAXONOMY.CATEGORIES.GIANT",
+    knowledgeSkill: "society",
+    knowledge: "legends"
+  },
+  humanoid: {
+    label: "TAXONOMY.CATEGORIES.HUMANOID",
+    knowledgeSkill: "society",
+    knowledge: null
+  },
+  monstrosity: {
+    label: "TAXONOMY.CATEGORIES.MONSTROSITY",
+    knowledgeSkill: "medicine",
+    knowledge: "monsters"
+  },
+  ooze: {
+    label: "TAXONOMY.CATEGORIES.OOZE",
+    knowledgeSkill: "science",
+    knowledge: null
+  },
+  outsider: {
+    label: "TAXONOMY.CATEGORIES.OUTSIDER",
+    knowledgeSkill: "arcana",
+    knowledge: "outsiders"
+  },
+  undead: {
+    label: "TAXONOMY.CATEGORIES.UNDEAD",
+    knowledgeSkill: "arcana",
+    knowledge: "undeath"
+  }
 };
 
 /**
