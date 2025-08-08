@@ -321,6 +321,26 @@
     }
   }
 
+  .roll-modes {
+    height: 32px;
+    flex: 1;
+    gap: 0;
+
+    label {
+      border: 1px solid var(--color-frame);
+      cursor: var(--cursor-pointer);
+    }
+
+    input[type='radio'] {
+      display: none;
+    }
+
+    input[type='radio']:checked + label {
+      border-color: var(--control-active-border-color);
+      color: var(--control-active-border-color);
+    }
+  }
+
   // GM Difficulty Selection
   .difficulty .form-fields {
     gap: 0.5rem;
