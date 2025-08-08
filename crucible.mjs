@@ -227,6 +227,13 @@ Hooks.once("init", async function() {
     onDown: chat.onKeyboardConfirmAction
   });
 
+  // Patch door sound radius - can we do this better elsewhere?
+  Object.defineProperty(foundry.canvas.placeables.Wall.prototype, "soundRadius", {
+    get() {
+      return canvas.scene.useMicrogrid ? 60 : canvas.dimensions.distance * 12;
+    }
+  });
+
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 
@@ -382,6 +389,7 @@ Hooks.once("ready", async function() {
  * @returns {Promise<void>}
  */
 async function _initializePrototypeTokenSettings() {
+  if ( !game.user.isGM ) return;
   const overrides = game.settings.get("core", foundry.data.PrototypeTokenOverrides.SETTING);
   overrides.updateSource({
     base: {

@@ -15,7 +15,7 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["crucible", "dialog", "dice-roll"],
+    classes: ["crucible", "dialog", "dice-roll", "themed", "theme-dark"],
     window: {
       contentTag: "form",
       contentClasses: ["standard-check", "standard-form"]
@@ -364,7 +364,7 @@ export default class StandardCheckDialog extends DialogV2 {
     for ( const button of target.parentElement.children ) {
       button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
     }
-  }  
+  }
 
   /* -------------------------------------------- */
   /*  Factory Methods                             */

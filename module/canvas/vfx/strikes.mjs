@@ -6,7 +6,7 @@
 export function configureStrikeVFXEffect(action) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const components = {};
-  const timeline = {sequence: []};
+  const timeline = [];
   const references = {
     token: action.token.uuid,
     actor: action.actor.uuid
@@ -31,15 +31,15 @@ export function configureStrikeVFXEffect(action) {
       const projectileName = `arrowProjectile_${j}_${i}`;
       components[projectileName] = {
         type: "arrow",
-        texture: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
+        src: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
         path: {
           origin: {reference: "token", property: "object.center"},
           destination: impactPosition
         },
         elevation: {reference: "token", property: "elevation", delta: 1},
-        scale: 0.25
+        scale: {x: 0.25, y: 0.25}
       };
-      timeline.sequence.push({play: projectileName, position: 0});
+      timeline.push({component: projectileName, position: 0});
 
       // Add an attack sound
       const soundName = `arrowSound_${j}_${i}`;
@@ -48,31 +48,32 @@ export function configureStrikeVFXEffect(action) {
         src: "modules/foundryvtt-vfx/assets/sounds/BowAttack1.ogg",
         channel: "environment"
       }
-      timeline.sequence.push({play: soundName, position: `${projectileName}.drawStart`});
+      timeline.push({component: soundName, position: `${projectileName}.drawStart`});
 
       // Add an impact effect
-      const impactName = `arrowImpact_${j}_${i}`;
-      components[impactName] = {
-        type: "impact",
-        position: impactPosition,
-        sound: {src: getImpactSoundEffect(roll)},
-        sprite: {src: getImpactTexture(roll)}
-      }
-      timeline.sequence.push({play: impactName, position: `${projectileName}.preImpact`});
+      // const impactName = `arrowImpact_${j}_${i}`;
+      // components[impactName] = {
+      //   type: "impact",
+      //   position: impactPosition,
+      //   sound: {src: getImpactSoundEffect(roll)},
+      //   sprite: {src: getImpactTexture(roll)}
+      // }
+      // timeline.push({component: impactName, position: `${projectileName}.preImpact`});
       i++;
     }
     j++;
   }
-  if ( !timeline.sequence.length ) return null;
+  if ( !timeline.length ) return null;
 
   // Validate that the effect data parses correctly
-  const vfxConfig = {name: action.id, components, timeline};
+  let vfxConfig;
   try {
-    new foundry.vfx.VFXEffect(vfxConfig);
+    const effect = new foundry.vfx.VFXEffect({name: action.id, components, timeline});
+    vfxConfig = effect.toObject();
+    vfxConfig.references = references;
   } catch(cause) {
-    console.warn(new Error(`Strike VFX configuration failed for Action "${this.id}"`, {cause}));
+    console.error(new Error(`Strike VFX configuration failed for Action "${this.id}"`, {cause}));
   }
-  vfxConfig.references = references;
   return vfxConfig;
 }
 
