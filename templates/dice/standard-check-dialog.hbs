@@ -7,7 +7,7 @@
     <section class="difficulty form-group">
         <div class="form-fields">
             <select name="difficultyTier">
-                {{selectOptions difficulties selected=difficulty.dc nameAttr="dc" labelAttr="label" blank="Custom Difficulty"}}
+                {{selectOptions difficulties selected=difficulty.dc valueAttr="dc" labelAttr="label" blank="Custom Difficulty"}}
             </select>
             <label>DC</label>
             {{numberInput difficulty.dc class="dc" name="dc" min=0 max=50}}

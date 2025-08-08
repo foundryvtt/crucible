@@ -7,7 +7,7 @@
         <label>{{localize "SPELL.COMPONENTS.Rune"}}</label>
         <div class="form-fields">
             <select name="rune" class="component">
-                {{selectOptions runes selected=action.rune.id nameAttr="id" labelAttr="name"}}
+                {{selectOptions runes selected=action.rune.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <label>{{localize "SPELL.COMPONENTS.Gesture"}}</label>
         <div class="form-fields">
             <select name="gesture" class="component">
-                {{selectOptions gestures selected=action.gesture.id nameAttr="id" labelAttr="name"}}
+                {{selectOptions gestures selected=action.gesture.id valueAttr="id" labelAttr="name"}}
             </select>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <label>{{localize "SPELL.COMPONENTS.Inflection"}}</label>
         <div class="form-fields">
             <select name="inflection" class="component">
-                {{selectOptions inflections selected=action.inflection.id blank="" nameAttr="id" labelAttr="name"}}
+                {{selectOptions inflections selected=action.inflection.id blank="" valueAttr="id" labelAttr="name"}}
             </select>
         </div>
     </div>
