@@ -696,8 +696,8 @@ export default class CrucibleActor extends Actor {
 
     // TODO get rid of action.usage here in favor of outcome.usage
     let {bonuses, damageType, restoration, resource, skillId} = action.usage;
-    const boons = {...spell.usage.boons, ...outcome.usage.boons};
-    const banes = {...spell.usage.banes, ...outcome.usage.banes};
+    const boons = {...action.usage.boons, ...outcome.usage.boons};
+    const banes = {...action.usage.banes, ...outcome.usage.banes};
     let defenseType = outcome.usage.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
