@@ -7,10 +7,7 @@ export function configureStrikeVFXEffect(action) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const components = {};
   const timeline = [];
-  const references = {
-    token: action.token.uuid,
-    actor: action.actor.uuid
-  };
+  const references = {tokenMesh: "#token.object.mesh"};
 
   // Prepare each weapon strike
   let j=1; // Target
@@ -18,47 +15,43 @@ export function configureStrikeVFXEffect(action) {
     if ( outcome.target === action.actor ) continue;
     const token = outcome.token;
     const targetTokenReference = `outcome_${j}_token`;
-    references[targetTokenReference] = token.uuid;
+    const targetMeshReference = `outcome_${j}_mesh`;
+    Object.assign(references, {
+      [targetTokenReference]: `@${token.uuid}`,
+      [targetMeshReference]: `#${targetTokenReference}.object.mesh`
+    })
     let i=1; // Roll
     for ( const roll of outcome.rolls ) {
       const weapon = action.usage.strikes[outcome.rolls[0].data.strike];
       if ( !["projectile1", "projectile2"].includes(weapon?.category) ) continue;
 
       // Identify impact location
-      const impactPosition = getImpactPositionReference(outcome, roll, targetTokenReference);
+      const impact = configureImpact(outcome, roll, targetMeshReference);
 
       // Add the arrow projectile
       const projectileName = `arrowProjectile_${j}_${i}`;
       components[projectileName] = {
-        type: "arrow",
-        src: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
-        path: {
-          origin: {reference: "token", property: "object.center"},
-          destination: impactPosition
+        type: "singleAttack",
+        path: [{reference: "tokenMesh", deltas: {sort: 1}}, impact.position],
+        charge: {
+          duration: 1000,
+          sound: {
+            src: "modules/foundryvtt-vfx/assets/sounds/BowAttack1.ogg",
+            align: 2
+          }
         },
-        elevation: {reference: "token", property: "elevation", delta: 1},
-        scale: {x: 0.25, y: 0.25}
+        projectile: {
+          texture: "modules/foundryvtt-vfx/assets/arrow/arrow-wood.png",
+          size: 3, // feet
+          speed: 150 // feet-per-second
+        },
+        impact: {
+          texture: impact.texture,
+          duration: 2000,
+          sound: impact.sound ? {src: impact.sound, align: 1} : null
+        }
       };
       timeline.push({component: projectileName, position: 0});
-
-      // Add an attack sound
-      const soundName = `arrowSound_${j}_${i}`;
-      components[soundName] = {
-        type: "sound",
-        src: "modules/foundryvtt-vfx/assets/sounds/BowAttack1.ogg",
-        channel: "environment"
-      }
-      timeline.push({component: soundName, position: `${projectileName}.drawStart`});
-
-      // Add an impact effect
-      // const impactName = `arrowImpact_${j}_${i}`;
-      // components[impactName] = {
-      //   type: "impact",
-      //   position: impactPosition,
-      //   sound: {src: getImpactSoundEffect(roll)},
-      //   sprite: {src: getImpactTexture(roll)}
-      // }
-      // timeline.push({component: impactName, position: `${projectileName}.preImpact`});
       i++;
     }
     j++;
@@ -83,81 +76,51 @@ export function configureStrikeVFXEffect(action) {
  * Get a referenced impact position for a target Token and a given AttackRoll.
  * @param {CrucibleActionOutcome} outcome
  * @param {AttackRoll} roll
- * @param {string} targetTokenReference
- * @returns {{reference: string, property: string, deltaX: number, deltaY: number}}
+ * @param {string} targetMeshReference
+ * @returns {{position: {reference: string, deltas: Record<string, number>}, sound: string|null, texture: string|null}}
  * @internal
  */
-function getImpactPositionReference(outcome, roll, targetTokenReference) {
-  const impactPosition = {reference: targetTokenReference, property: "object.center", deltaX: 0, deltaY: 0};
+function configureImpact(outcome, roll, targetMeshReference) {
+  const position = {reference: targetMeshReference, deltas: {sort: 1}};
+  let sound = null;
+  let texture = null;
   const w = outcome.token.width * canvas.dimensions.size;
   const h = outcome.token.height * canvas.dimensions.size;
   const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  switch ( roll.data.result ) {
+  const randomEntry = arr => arr[Math.floor(Math.random() * arr.length)];
 
-    // HIT, BLOCK, or ARMOR between [0, 0.25] of hit-box center
+  // Customize the impact depending on the roll result
+  let hitRange;
+  switch ( roll.data.result ) {
     case T.HIT:
+      hitRange = [0, 0.1];
+      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.hit)}`;
+      texture = "modules/foundryvtt-vfx/assets/impact/BloodSplatter1.png";
+      break;
     case T.ARMOR:
     case T.BLOCK:
-      impactPosition.deltaX = (Math.random() * w / 8) * (Math.random() > 0.5 ? 1 : -1);
-      impactPosition.deltaY = (Math.random() * h / 8) * (Math.random() > 0.5 ? 1 : -1);
+      hitRange = [0, 0.25];
+      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.block)}`;
       break;
-
-    // PARRY or GLANCE between [0.25, 0.5] of hit-box center
-    case T.PARRY:
     case T.GLANCE:
-      impactPosition.deltaX = ((w / 4) + (Math.random() * w / 8)) * (Math.random() > 0.5 ? 1 : -1);
-      impactPosition.deltaY = ((h / 4) + (Math.random() * h / 8)) * (Math.random() > 0.5 ? 1 : -1);
+      hitRange = [0.25, 0.5];
+      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.hit)}`;
+      texture = "modules/foundryvtt-vfx/assets/impact/BloodSplatter1.png";
       break;
-
-    // MISS or DODGE between (1.0, 1.5] of hit-box center
+    case T.PARRY:
+      hitRange = [0.25, 0.5];
+      sound = `modules/foundryvtt-vfx/assets/sounds/${randomEntry(ATTACK_SOUNDS.projectile.block)}`;
+      break;
     case T.DODGE:
     case T.MISS:
-      impactPosition.deltaX = ((w / 2) + (Math.random() * w / 2)) * (Math.random() > 0.5 ? 1 : -1);
-      impactPosition.deltaY = ((h / 2) + (Math.random() * h / 2)) * (Math.random() > 0.5 ? 1 : -1);
+      hitRange = [0.5, 1.0];
       break;
   }
-  return impactPosition;
-}
 
-/* -------------------------------------------- */
-
-/**
- * Randomize the sound effect used for a projectile impact.
- * @param {AttackRoll} roll
- * @returns {string|null}
- * @internal
- */
-function getImpactSoundEffect(roll) {
-  const T = crucible.api.dice.AttackRoll.RESULT_TYPES;
-  let soundFile;
-  switch ( roll.data.result ) {
-    case T.BLOCK:
-      const blockSounds = ATTACK_SOUNDS.projectile.block;
-      soundFile = blockSounds[Math.floor(Math.random() * blockSounds.length)];
-      break;
-    case T.GLANCE:
-    case T.HIT:
-      const hitSounds = ATTACK_SOUNDS.projectile.block;
-      soundFile = hitSounds[Math.floor(Math.random() * hitSounds.length)];
-      break;
-    default:
-      const missSounds = ATTACK_SOUNDS.projectile.miss;
-      soundFile = missSounds[Math.floor(Math.random() * missSounds.length)];
-      break;
-  }
-  return soundFile ? `modules/foundryvtt-vfx/assets/sounds/${soundFile}` : null;
-}
-
-/* -------------------------------------------- */
-
-/**
- * Randomize and configure the texture used for a projectile impact.
- * @param {AttackRoll} roll
- * @returns {string|null}
- * @internal
- */
-function getImpactTexture(roll) {
-  return roll.data.damage?.total ? "modules/foundryvtt-vfx/assets/impact/BloodSplatter1.png" : null;
+  // Determine position based on hit range
+  position.deltas.x = Math.mix(w * hitRange[0], w * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
+  position.deltas.y = Math.mix(h * hitRange[0], h * hitRange[1], Math.random()) * (Math.random() > 0.5 ? 1 : -1);
+  return {position, sound, texture};
 }
 
 /* -------------------------------------------- */

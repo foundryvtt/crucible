@@ -1444,17 +1444,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     try {
       vfxEffect = new foundry.vfx.VFXEffect(vfxConfig);
     } catch(cause) {
-      console.warn(new Error(`Failed to construct provided Action VFX config for Action "${action.id}"`));
+      console.warn(new Error(`Failed to construct provided Action VFX config for Action "${this.id}"`));
       return;
     }
 
-    // Resolve references
-    references.actor = this.actor;
-    references.token = this.token;
+    // Always include the action actor and token
+    references.actor ??= this.actor;
+    references.token ??= this.token;
+
+    // Pass 1 - resolve UUID references that start with @
     for ( const [k, v] of Object.entries(references) ) {
-      if ( typeof v === "string" ) {
-        const uuid = foundry.utils.parseUuid(v);
-        if ( uuid ) references[k] = fromUuidSync(v);
+      if ( (typeof v === "string") && (v[0] === "@") ) {
+        references[k] = fromUuidSync(v.slice(1));
+      }
+    }
+
+    // Pass 2 - resolve indirect references that start with #
+    for ( const [k, v] of Object.entries(references) ) {
+      if ( (typeof v === "string") && (v[0] === "#") ) {
+        references[k] = foundry.utils.getProperty(references, v.slice(1)) ?? null;
       }
     }
 
