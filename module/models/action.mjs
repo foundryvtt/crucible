@@ -1459,9 +1459,9 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       }
     }
 
-    // Pass 2 - resolve indirect references that start with #
+    // Pass 2 - resolve indirect references that start with ^
     for ( const [k, v] of Object.entries(references) ) {
-      if ( (typeof v === "string") && (v[0] === "#") ) {
+      if ( (typeof v === "string") && (v[0] === "^") ) {
         references[k] = foundry.utils.getProperty(references, v.slice(1)) ?? null;
       }
     }

@@ -7,7 +7,7 @@ export function configureStrikeVFXEffect(action) {
   if ( !action.tags.has("strike") ) throw new Error(`The Action ${action.id} does not use the strike tag.`);
   const components = {};
   const timeline = [];
-  const references = {tokenMesh: "#token.object.mesh"};
+  const references = {tokenMesh: "^token.object.mesh"};
 
   // Prepare each weapon strike
   let j=1; // Target
@@ -15,10 +15,10 @@ export function configureStrikeVFXEffect(action) {
     if ( outcome.target === action.actor ) continue;
     const token = outcome.token;
     const targetTokenReference = `outcome_${j}_token`;
-    const targetMeshReference = `outcome_${j}_mesh`;
+    const targetMeshReference = `outcome_${j}_tokenMesh`;
     Object.assign(references, {
       [targetTokenReference]: `@${token.uuid}`,
-      [targetMeshReference]: `#${targetTokenReference}.object.mesh`
+      [targetMeshReference]: `^${targetTokenReference}.object.mesh`
     })
     let i=1; // Roll
     for ( const roll of outcome.rolls ) {
