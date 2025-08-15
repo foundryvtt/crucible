@@ -85,15 +85,13 @@ async function displaySkillTooltip(event) {
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
   const skillData = owner.sheet.prepareSkill(SYSTEM.SKILLS[skill], owner.system.skills);
-
   skillData.knowledge = Object.entries(crucible.CONFIG.knowledge).reduce((acc, [key, knowledge]) => {
     if(knowledge.skill == skill && owner.hasKnowledge(key)) acc.push(knowledge.label);
     return acc;
   }, []);
-
-  const tooltipTemplate = "systems/crucible/templates/tooltips/tooltip-skill.hbs";
-  await foundry.applications.handlebars.loadTemplates([tooltipTemplate]);
-  const html = await foundry.applications.handlebars.renderTemplate(tooltipTemplate, skillData);
+  
+  await foundry.applications.handlebars.loadTemplates([SYSTEM.SKILL.TOOLTIP_TEMPLATE]);
+  const html = await foundry.applications.handlebars.renderTemplate(SYSTEM.SKILL.TOOLTIP_TEMPLATE, skillData);
 
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
   element.dataset.tooltipClass = "crucible crucible-tooltip";

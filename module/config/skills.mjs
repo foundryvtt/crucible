@@ -203,6 +203,12 @@ export const SKILLS = Object.freeze({
 });
 
 /**
+ * The template used for skill tooltips.
+ * @type {string}
+ */
+export let TOOLTIP_TEMPLATE = "systems/crucible/templates/tooltips/tooltip-skill.hbs";
+
+/**
  * The UUID of the journal entry which provides skill definitions to the system.
  * @type {string}
  */
