@@ -733,6 +733,22 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     return categories;
   }
 
+  /**
+   * Prepare a single skill for rendering.
+   * @return {Record<string, {
+   *   label: string,
+   *   defaultIcon: string,
+   *   color: Color,
+   *   abilityAbbrs: [string, string],
+   *   pips: [string, string, string, string, string],
+   *   css: string,
+   *   canIncrease: boolean,
+   *   canDecrease: boolean,
+   *   rankName: string,
+   *   pathName: string,
+   *   tooltips: {value: string, passive: string},
+   * }>}
+   */
   prepareSkill(skill, skills) {
       const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
 
