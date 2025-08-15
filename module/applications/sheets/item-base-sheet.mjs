@@ -408,8 +408,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onExpandSection(event) {
-    const section = event.target.closest(".sheet-section");
+  static async #onExpandSection(_event, target) {
+    const section = target.closest(".sheet-section");
     const wasExpanded = section.classList.contains("expanded");
     if ( wasExpanded ) {
       for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
@@ -429,8 +429,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onHookAdd(event) {
-    const hook = event.target.previousElementSibling.value
+  static async #onHookAdd(event, target) {
+    const hook = target.previousElementSibling.value
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks ||= [];
     if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {
@@ -449,8 +449,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onHookDelete(event) {
-    const hook = event.target.closest(".hook").querySelector("input[type=hidden]").value;
+  static async #onHookDelete(event, target) {
+    const hook = target.closest(".hook").querySelector("input[type=hidden]").value;
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks.findSplice(h => h.hook === hook);
     await this.document.update(submitData);
