@@ -346,8 +346,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  static async #onRequestRemove(event) {
-    const actorId = event.target.closest(".line-item").dataset.actorId;
+  static async #onRequestRemove(_event, target) {
+    const actorId = target.closest(".line-item").dataset.actorId;
     const actor = game.actors.get(actorId);
     this.#requestActors.delete(actor);
     await this.render({window: {title: this.title}});

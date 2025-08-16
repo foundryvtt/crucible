@@ -797,8 +797,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionEdit(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionEdit(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     const action = this.actor.actions[actionId];
     if ( !action.parent ) return;
     await action.sheet.render({force: true});
@@ -811,8 +811,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionFavorite(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionFavorite(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     const action = this.actor.actions[actionId];
     if ( !action ) return;
 
@@ -836,8 +836,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionUse(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionUse(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     await this.actor.useAction(actionId);
   }
 
@@ -860,8 +860,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemDelete(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemDelete(event, target) {
+    const item = this.#getEventItem(event, target);
     await item.deleteDialog();
   }
 
@@ -872,8 +872,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemDrop(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemDrop(event, target) {
+    const item = this.#getEventItem(event, target);
     await this.actor.equipItem(item.id, {equipped: false, dropped: true});
   }
 
@@ -884,8 +884,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemEdit(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemEdit(event, target) {
+    const item = this.#getEventItem(event, target);
     await item.sheet.render({force: true});
   }
 
@@ -896,8 +896,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemEquip(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemEquip(event, target) {
+    const item = this.#getEventItem(event, target);
     try {
       await this.actor.equipItem(item, {equipped: !item.system.equipped});
     } catch(err) {
@@ -912,8 +912,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {CrucibleItem}
    */
-  #getEventItem(event) {
-    const itemId = event.target.closest(".line-item")?.dataset.itemId;
+  #getEventItem(_event, target) {
+    const itemId = target.closest(".line-item")?.dataset.itemId;
     return this.actor.items.get(itemId, {strict: true});
   }
 
@@ -936,8 +936,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectDelete(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectDelete(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.deleteDialog();
   }
 
@@ -948,8 +948,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectEdit(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectEdit(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.sheet.render({force: true});
   }
 
@@ -960,8 +960,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectToggle(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectToggle(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.update({disabled: !effect.disabled});
   }
 
@@ -972,8 +972,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {ActiveEffect}
    */
-  #getEventEffect(event) {
-    const effectId = event.target.closest(".effect")?.dataset.effectId;
+  #getEventEffect(_event, target) {
+    const effectId = target.closest(".effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
   }
 
@@ -984,8 +984,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onExpandSection(event) {
-    const section = event.target.closest(".sheet-section");
+  static async #onExpandSection(_event, target) {
+    const section = target.closest(".sheet-section");
     const wasExpanded = section.classList.contains("expanded");
     if ( wasExpanded ) {
       for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
@@ -1004,8 +1004,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onSkillRoll(event) {
-    return this.actor.rollSkill(event.target.closest(".skill").dataset.skill, {dialog: true});
+  static async #onSkillRoll(_event, target) {
+    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
   }
 
   /* -------------------------------------------- */

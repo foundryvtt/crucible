@@ -307,7 +307,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAddEffect(event) {
+  static async #onAddEffect(_event, target) {
     const html = await this.#renderEffectHTML(foundry.utils.randomID(), {
       scope: SYSTEM.ACTION.TARGET_SCOPES.ENEMIES,
       placeholder: this.action.name,
@@ -315,7 +315,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
         turns: 1
       },
     });
-    const section = event.target.parentElement;
+    const section = target.parentElement;
     section.insertAdjacentHTML("beforeend", html);
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
@@ -329,8 +329,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onDeleteEffect(event) {
-    const fieldset = event.target.closest("fieldset.effect");
+  static async #onDeleteEffect(_event, target) {
+    const fieldset = target.closest("fieldset.effect");
     fieldset.remove();
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
@@ -344,8 +344,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAddHook(event) {
-    const hookId = event.target.previousElementSibling.value;
+  static async #onAddHook(_event, target) {
+    const hookId = target.previousElementSibling.value;
     const html = await foundry.applications.handlebars.renderTemplate(this.constructor.HOOK_PARTIAL, {
       i: foundry.utils.randomID(), // Could be anything
       hook: {
@@ -354,7 +354,7 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
         fn: "// Hook code here"
       }
     });
-    const section = event.target.closest("fieldset");
+    const section = target.closest("fieldset");
     section.insertAdjacentHTML("beforebegin", html);
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
@@ -368,8 +368,8 @@ export default class CrucibleActionConfig extends api.HandlebarsApplicationMixin
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onDeleteHook(event) {
-    const hook = event.target.closest(".hook");
+  static async #onDeleteHook(_event, target) {
+    const hook = target.closest(".hook");
     hook.remove();
     const submit = new Event("submit");
     this.element.dispatchEvent(submit);
