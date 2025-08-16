@@ -3,12 +3,12 @@
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
         <h3 class="section-header">{{category.label}} Skills</h3>
-        <ol class="items-list" style="--skill-color:{{category.color.css}}">
+        <ol class="items-list" style="--skill-color:{{category.color.css}}" data-tooltip-direction="LEFT">
             {{#each category.skills as |skill skillId|}}
-            <li class="skill line-item" data-skill="{{skillId}}">
+            <li class="skill line-item" data-skill="{{skillId}}" data-uuid="{{@root.actor.uuid}}" data-crucible-tooltip="skill" data-tooltip-class="crucible crucible-tooltip">
                 <img class="icon" src="{{skill.icon}}" alt="{{skill.label}}">
                 <div class="title">
-                    <h4 data-tooltip="Roll Check" data-action="skillRoll"><a>{{skill.label}}</a></h4>
+                    <h4 data-action="skillRoll"><a>{{skill.label}}</a></h4>
                 </div>
                 <div class="tags abilities">
                     {{#each skill.abilityAbbrs}}
