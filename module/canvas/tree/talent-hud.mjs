@@ -167,7 +167,6 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
       position.left += target.node.x;
       position.top += target.node.y;
     }
-    console.log(position);
     return this.render({force: true, position});
   }
 
