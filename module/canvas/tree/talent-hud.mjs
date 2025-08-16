@@ -124,8 +124,13 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    content.replaceChildren(); // Always clear
-    super._replaceHTML(result, content, options);
+    const existing = document.getElementById(content.id);
+    if ( existing ) {
+      content.replaceChildren(); // Always clear
+      return super._replaceHTML(result, content, options);
+    }
+    const hud = document.getElementById("hud");
+    hud.appendChild(content);
   }
 
   /* -------------------------------------------- */
