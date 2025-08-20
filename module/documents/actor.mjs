@@ -1360,10 +1360,11 @@ export default class CrucibleActor extends Actor {
    * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
    * @param {CrucibleItem} talent     The Talent item to add to the Actor
    * @param {object} [options]        Options which configure how the Talent is added
-   * @param {boolean} [options.dialog]    Prompt the user with a confirmation dialog?
+   * @param {boolean} [options.dialog]        Prompt the user with a confirmation dialog?
+   * @param {boolean} [options.warnUnusable]  Warn the user in-dialog if the talent would be currently unusable
    * @returns {Promise<CrucibleItem|null>} The created talent Item or null if no talent was added
    */
-  async addTalent(talent, {dialog=false}={}) {
+  async addTalent(talent, {dialog=false, warnUnusable=false}={}) {
 
     // Confirm that the Actor meets the requirements to add the Talent
     try {
@@ -1375,9 +1376,20 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
+      let content = game.i18n.format("TALENT.Purchase", {name: talent.name});
+      try {
+        const canUse = this.canUtilizeTalent(talent);
+        if ( (canUse === false) && warnUnusable ) {
+          content += `<div class="notification warning">You cannot use this talent.</div>`;
+        }
+      } catch(err) {
+        if ( warnUnusable ) {
+          content += `<div class="notification warning">${err.message}</div>`;
+        }
+      }
       const confirm = await foundry.applications.api.DialogV2.confirm({
         window: {title: `Purchase Talent: ${talent.name}`},
-        content: `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`,
+        content,
         yes: {default: true},
         no: {default: false}
       });
@@ -1438,6 +1450,22 @@ export default class CrucibleActor extends Actor {
     // Remove permanently from a persisted Actor
     else await ownedTalent.delete();
     return ownedTalent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor would be able to use a Talent once purchased
+   * @param {CrucibleItem} talent   The Talent item
+   * @returns {boolean}             Whether the Talent would be usable
+   */
+  canUtilizeTalent(talent) {
+    // Can't use a Gesture or Inflection without a Rune
+    if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
+      throw new Error(game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+    }
+
+    return true;
   }
 
   /* -------------------------------------------- */
