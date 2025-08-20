@@ -42,10 +42,13 @@ HOOKS.alchemistsFire = {
 
 HOOKS.assessStrength = {
   configure(targets) {
-    const targetCategory = targets[0]?.actor.system.details.taxonomy?.category;
-    const {knowledgeSkill, knowledge} = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory] ?? {};
-    if ( !knowledgeSkill ) return;
-    SYSTEM.ACTION.TAGS[knowledgeSkill]?.initialize.call(this);
+    const target = targets[0]?.actor;
+    if ( !target ) return;
+    const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
+    if ( !targetCategory ) return;
+    const {skill, knowledge} = targetCategory;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+    this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
       const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
       this.usage.boons.assessStrength = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
@@ -167,11 +170,14 @@ HOOKS.healingTonic = {
 /* -------------------------------------------- */
 
 HOOKS.intuitWeakness = {
-  configure() {
-    const targetCategory = targets[0]?.actor.system.details.taxonomy?.category;
-    const {knowledgeSkill, knowledge} = SYSTEM.ACTOR.CREATURE_CATEGORIES[targetCategory] ?? {};
-    if ( !knowledgeSkill ) return;
-    SYSTEM.ACTION.TAGS[knowledgeSkill]?.initialize.call(this);
+  configure(targets) {
+    const target = targets[0]?.actor;
+    if ( !target ) return;
+    const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
+    if ( !targetCategory ) return;
+    const {skill, knowledge} = targetCategory;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+    this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
     if ( this.actor.hasKnowledge(knowledge) ) {
       const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
       this.usage.boons.intuitWeakness = {label: `Knowledge: ${knowledgeLabel}`, number: 2};

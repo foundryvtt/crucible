@@ -703,7 +703,7 @@ export default class CrucibleActor extends Actor {
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
     else {
       defenseType = skillId;
-      dc = target.skills[skillId].passive
+      dc = action.usage.dc ?? target.skills[skillId].passive;
     }
 
     // Prepare Roll data
