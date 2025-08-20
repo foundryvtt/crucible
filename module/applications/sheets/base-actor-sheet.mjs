@@ -559,12 +559,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       // Disabled Effects
       if ( effect.disabled ) section = "disabled";
 
+      // Status tooltip tags
+      const statuses = effect.statuses.reduce((obj, conditionId) => {
+        const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
+        if (cfg) obj[conditionId] = game.i18n.localize(cfg.name);
+        return obj;
+      }, {});
+
       // Add effect to section
       const e = {
         id: effect.id,
         icon: effect.icon,
         name: effect.name,
         tags: tags,
+        statuses: statuses,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "Enable Effect"}
           : {icon: "fa-solid fa-toggle-on", tooltip: "Disable Effect"},
         t
