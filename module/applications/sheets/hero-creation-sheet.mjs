@@ -728,8 +728,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAbilityIncrease(event) {
-    const ability = event.target.closest(".ability");
+  static async #onAbilityIncrease(_event, target) {
+    const ability = target.closest(".ability");
     crucible.api.audio.playClick();
     await this._clone.purchaseAbility(ability.dataset.ability, 1);
     await this.render({parts: [this.step, "header"]});
@@ -742,8 +742,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAbilityDecrease(event) {
-    const ability = event.target.closest(".ability");
+  static async #onAbilityDecrease(_event, target) {
+    const ability = target.closest(".ability");
     crucible.api.audio.playClick();
     await this._clone.purchaseAbility(ability.dataset.ability, -1);
     await this.render({parts: [this.step, "header"]});
@@ -757,8 +757,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static #onChooseAncestry(event) {
-    const choice = event.target.closest(".option");
+  static #onChooseAncestry(_event, target) {
+    const choice = target.closest(".option");
     this.chooseAncestry(choice.dataset.ancestryId);
     crucible.api.audio.playClick();
   }
@@ -771,8 +771,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static #onChooseBackground(event) {
-    const choice = event.target.closest(".option");
+  static #onChooseBackground(_event, target) {
+    const choice = target.closest(".option");
     this.chooseBackground(choice.dataset.backgroundId);
     crucible.api.audio.playClick();
   }

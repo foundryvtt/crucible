@@ -147,8 +147,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
-  static async #onRemoveTalent(event) {
-    const talent = event.target.closest(".talent");
+  static async #onRemoveTalent(event, target) {
+    const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
     talents.delete(uuid);
