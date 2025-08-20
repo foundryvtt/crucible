@@ -63,7 +63,7 @@ actors:
             - Compendium.crucible.adversary-talents.Item.tuskCharge000000
           name: Tusker
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: 1M9rl4nHby
+          identifier: rE8KsixVAT
           skills: []
         taxonomy:
           description: >-
@@ -99,7 +99,7 @@ actors:
             spells: false
           name: Boar
           img: icons/creatures/abilities/fang-tooth-blood-red.webp
-          identifier: rGHcs5xq6G
+          identifier: Rdp1OW4x6p
         biography:
           public: ''
           private: ''
@@ -256,7 +256,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: uwh5hSok6C
+          identifier: gDTGIMGiJ5
           invested: false
           actorHooks: []
         effects: []
@@ -379,10 +379,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.adversary-talents.Item.tuskCharge000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538824
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350524
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: tuskCharge000000
@@ -395,9 +395,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1685230780675
-      modifiedTime: 1753648538831
+      modifiedTime: 1755706350532
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -455,7 +455,7 @@ actors:
             - Compendium.crucible.adversary-talents.Item.packhunter000000
           name: Pack Member
           img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: rRRfa5jJRO
+          identifier: XjiCS8OgMC
           skills: []
         taxonomy:
           description: >-
@@ -491,7 +491,7 @@ actors:
             spells: false
           name: Hyena
           img: icons/creatures/abilities/paw-glowing-yellow.webp
-          identifier: NHnAwrGxnA
+          identifier: 1saqQA28zJ
         biography:
           public: ''
           private: ''
@@ -648,7 +648,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: RE9N2mSlD1
+          identifier: rVrP9NmQbN
           invested: false
           actorHooks: []
           dropped: false
@@ -690,7 +690,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: AER2d37U3b
+          identifier: zIcystFodR
           invested: false
           actorHooks: []
         effects: []
@@ -743,10 +743,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.adversary-talents.Item.packhunter000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539177
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350946
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: packhunter000000
@@ -760,9 +760,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1685217604062
-      modifiedTime: 1753648539181
+      modifiedTime: 1755706350953
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -825,7 +825,7 @@ actors:
             - Compendium.crucible.talent.Item.concussiveblows0
           name: Grappler
           img: icons/magic/control/buff-strength-muscle-damage.webp
-          identifier: e5dDFXT3YO
+          identifier: Asiwlgi75Z
           skills: []
         taxonomy:
           description: >-
@@ -861,7 +861,7 @@ actors:
           talents: []
           name: Ogre
           img: icons/creatures/unholy/demon-fire-horned-mask.webp
-          identifier: 5tRkoAb3FG
+          identifier: N1NhpD3aFR
         biography:
           public: ''
           private: ''
@@ -1022,7 +1022,7 @@ actors:
             base: 11
           broken: false
           actions: []
-          identifier: 7O7haVBCZg
+          identifier: quc669QaFL
           invested: false
           actorHooks: []
         _stats:
@@ -1065,7 +1065,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: zOtAvKBS1X
+          identifier: c12fIvObOd
           invested: false
           actorHooks: []
           dropped: false
@@ -1113,10 +1113,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -1190,10 +1190,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.wrestler00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -1261,10 +1261,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: legsweep00000000
@@ -1315,10 +1315,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.concussiveblows0
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -1348,10 +1348,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -1471,10 +1471,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: heavystrike00000
@@ -1510,10 +1510,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538800
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350492
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
         ownership:
@@ -1527,9 +1527,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.7
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1685831615922
-      modifiedTime: 1753557036196
+      modifiedTime: 1755706350504
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -1596,7 +1596,7 @@ actors:
             - Compendium.crucible.talent.Item.skirmisher000000
           name: Skirmisher
           img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
-          identifier: FlCAH8YiPf
+          identifier: 1qCTfKA83H
           skills: []
         taxonomy:
           description: >-
@@ -1636,7 +1636,7 @@ actors:
             stride: 10
           name: Orcish
           img: icons/creatures/magical/construct-iron-stomping-yellow.webp
-          identifier: iK0QI720Dd
+          identifier: lMbAc4sgkB
         biography:
           public: ''
           private: ''
@@ -1799,7 +1799,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: c9LGFs0WYY
+          identifier: pzrEFbUuy3
           invested: false
           actorHooks: []
           dropped: false
@@ -1841,7 +1841,7 @@ actors:
           broken: false
           slot: 0
           actions: []
-          identifier: c0pu7KBQ6i
+          identifier: LH4M1iuA3Y
           invested: false
           actorHooks: []
           dropped: false
@@ -1881,7 +1881,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: GjgMsHJAAG
+          identifier: jO49HMoxF9
           invested: false
           actorHooks: []
         _stats:
@@ -1924,10 +1924,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539112
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350867
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -1989,10 +1989,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539112
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350867
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -2063,10 +2063,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.hamstring0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539112
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350867
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: hamstring0000000
@@ -2101,10 +2101,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539112
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350867
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponTrain
         ownership:
@@ -2169,10 +2169,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.dualWield0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539112
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350867
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: cW6bwHXBB9pMcwva
         _id: dualWield0000000
@@ -2232,11 +2232,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539112
+          modifiedTime: 1755706350867
         _id: heavystrike00000
         folder: null
         sort: 0
@@ -2250,9 +2250,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1685830625262
-      modifiedTime: 1753648539125
+      modifiedTime: 1755706350880
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -2321,7 +2321,7 @@ actors:
             - Compendium.crucible.talent.Item.gestureray000000
           name: Occultist
           img: icons/magic/death/skull-cattle-totem-glow-red.webp
-          identifier: XHiYSZlty9
+          identifier: lUbDbcep0Q
           skills: []
         taxonomy:
           description: >-
@@ -2361,7 +2361,7 @@ actors:
             stride: 10
           name: Human
           img: icons/skills/social/diplomacy-handshake.webp
-          identifier: RWAxTmy9Lk
+          identifier: ff4dAVfplM
         biography:
           public: ''
           private: ''
@@ -2521,7 +2521,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: KOsN2KNzEH
+          identifier: hZXyjV1oCi
           invested: false
           actorHooks: []
           dropped: false
@@ -2565,7 +2565,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: I5826ZxdES
+          identifier: 2ojRcUmKyN
           invested: false
           actorHooks: []
         _stats:
@@ -2610,10 +2610,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runedeath0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -2662,10 +2662,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runecourage00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -2702,10 +2702,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runevoid00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runevoid00000000
@@ -2745,10 +2745,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -2782,10 +2782,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -2826,10 +2826,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturecreate000
@@ -2866,10 +2866,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -2902,10 +2902,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conjurer00000000
@@ -2939,10 +2939,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectionpush00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectionpush00
@@ -2978,10 +2978,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539299
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351065
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: talismanWeaponTr
         ownership:
@@ -3046,11 +3046,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539299
+          modifiedTime: 1755706351065
         _id: intercept0000000
         folder: null
         sort: 0
@@ -3088,11 +3088,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539299
+          modifiedTime: 1755706351065
         _id: gestureray000000
         folder: null
         sort: 0
@@ -3107,9 +3107,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.4
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686183305269
-      modifiedTime: 1753648539311
+      modifiedTime: 1755706351083
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -3168,7 +3168,7 @@ actors:
             - Compendium.crucible.talent.Item.evasiveshot00000
           name: Archer
           img: icons/weapons/bows/shortbow-white.webp
-          identifier: zPZrV2CLmc
+          identifier: okxCxfKM8g
           skills: []
         taxonomy:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
@@ -3202,7 +3202,7 @@ actors:
           talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: EGKn2kssLD
+          identifier: hUTXrJKUUD
         biography:
           public: ''
           private: ''
@@ -3359,7 +3359,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: fXATLfhJdi
+          identifier: FQ4gaVlZq1
           invested: false
           actorHooks: []
         effects: []
@@ -3402,7 +3402,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: nmKlfkZq4K
+          identifier: ZwagX1QQMF
           invested: false
           actorHooks: []
           dropped: false
@@ -3467,10 +3467,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539329
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351101
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -3503,10 +3503,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539329
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351101
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -3538,11 +3538,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileTraini
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814250047
-          modifiedTime: 1753648539329
+          modifiedTime: 1755706351101
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: projectileTraini
         folder: null
@@ -3557,9 +3557,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686181185927
-      modifiedTime: 1753648539335
+      modifiedTime: 1755706351114
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -3623,7 +3623,7 @@ actors:
             - Compendium.crucible.talent.Item.legsweep00000000
           name: Fighter
           img: icons/skills/melee/sword-shield-stylized-white.webp
-          identifier: iv18oHZi3E
+          identifier: rrq5ya2lkG
           skills: []
         taxonomy:
           description: <p>Undeathly denizens fashioned of bone and sinew.</p>
@@ -3657,7 +3657,7 @@ actors:
           talents: []
           name: Skeleton
           img: icons/magic/death/undead-skeleton-worn-blue.webp
-          identifier: ecShaPi2jb
+          identifier: Xk7KQBmMtc
         biography:
           public: ''
           private: ''
@@ -3814,7 +3814,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: KZZLacmWgV
+          identifier: 8hbP4XxArV
           invested: false
           actorHooks: []
         effects: []
@@ -3859,7 +3859,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: SiUE1fuhCH
+          identifier: G2hbel66wT
           invested: false
           actorHooks: []
           dropped: false
@@ -3908,10 +3908,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539347
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bulwark000000000
@@ -3944,10 +3944,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.armoredefficienc
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539347
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: armoredefficienc
@@ -4016,10 +4016,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.legsweep00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539347
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351133
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: legsweep00000000
@@ -4053,11 +4053,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814366658
-          modifiedTime: 1753648539347
+          modifiedTime: 1755706351133
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: lightWeaponTrain
         folder: null
@@ -4072,9 +4072,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686181185927
-      modifiedTime: 1753648539355
+      modifiedTime: 1755706351141
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.summons.Actor.56puGK932Qc0cowe
       duplicateSource: null
@@ -4138,7 +4138,7 @@ actors:
             - Compendium.crucible.talent.Item.berserker0000000
           name: Berserker
           img: icons/magic/unholy/silhouette-evil-horned-giant.webp
-          identifier: PmqpH3QouB
+          identifier: kZjKN3O4Xn
           skills: []
         taxonomy:
           description: >-
@@ -4174,7 +4174,7 @@ actors:
             spells: false
           name: Werewolf
           img: icons/creatures/mammals/wolf-shadow-black.webp
-          identifier: jT88OjRGZu
+          identifier: 4DHEyqW8bn
         biography:
           public: ''
           private: ''
@@ -4335,7 +4335,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: E9kuBcXS6N
+          identifier: 5lPI00zXgs
           invested: false
           actorHooks: []
         effects: []
@@ -4378,7 +4378,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: J6bYyrale3
+          identifier: tFZBsilSaB
           invested: false
           actorHooks: []
           dropped: false
@@ -4422,7 +4422,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: uKSqhdgSv0
+          identifier: wn2LKpIzL9
           invested: false
           actorHooks: []
           dropped: false
@@ -4472,10 +4472,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.thickskin0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: thickskin0000000
@@ -4607,10 +4607,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -4671,10 +4671,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -4719,10 +4719,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodfrenzy00000
@@ -4754,10 +4754,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -4801,10 +4801,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodletter00000
@@ -4864,10 +4864,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ferociousleap000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -4902,10 +4902,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.naturalWeaponPro
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539267
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351033
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: naturalWeaponPro
         ownership:
@@ -4963,11 +4963,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539267
+          modifiedTime: 1755706351033
         _id: heavystrike00000
         folder: null
         sort: 0
@@ -5033,11 +5033,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.berserker0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539267
+          modifiedTime: 1755706351033
         _id: berserker0000000
         folder: null
         sort: 0
@@ -5051,9 +5051,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1685839607073
-      modifiedTime: 1753648539281
+      modifiedTime: 1755706351046
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5111,7 +5111,7 @@ actors:
           talents: []
           name: Plaguebearer
           img: icons/magic/acid/dissolve-vomit-green-brown.webp
-          identifier: ormR5BuVZA
+          identifier: K5GgUjJTsT
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -5145,7 +5145,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: xUkiXymGE3
+          identifier: TTSj43r2AH
         biography:
           public: ''
           private: ''
@@ -5304,7 +5304,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: esCFvAEn8r
+          identifier: ADOB7RnDWl
           invested: false
           actorHooks: []
           dropped: false
@@ -5346,7 +5346,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: LdM26ljLtB
+          identifier: xeSv0ZkR46
           invested: false
           actorHooks: []
           dropped: false
@@ -5388,7 +5388,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: AODspmUbQn
+          identifier: v9MtGmea3V
           invested: false
           actorHooks: []
         effects: []
@@ -5508,10 +5508,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539139
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -5552,10 +5552,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539139
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -5589,10 +5589,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runevoid00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539139
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runevoid00000000
@@ -5629,10 +5629,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runedeath0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539139
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -5666,10 +5666,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectionpull00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539139
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350893
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectionpull00
@@ -5684,9 +5684,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686148548654
-      modifiedTime: 1753648539147
+      modifiedTime: 1755706350909
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -5744,7 +5744,7 @@ actors:
           talents: []
           name: Fearmonger
           img: icons/magic/death/skull-energy-light-purple.webp
-          identifier: 45ouBUYO8P
+          identifier: 6oSS0sr0Fl
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -5778,7 +5778,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: dv9MXUrKEK
+          identifier: mFnPLGu2rH
         biography:
           public: ''
           private: ''
@@ -5937,7 +5937,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: zfEtqUUbzY
+          identifier: SL5NWD5dvr
           invested: false
           actorHooks: []
           dropped: false
@@ -5979,7 +5979,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: PRBqMSYkK4
+          identifier: zYGaBvI77c
           invested: false
           actorHooks: []
         effects: []
@@ -6132,9 +6132,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686151649800
-      modifiedTime: 1753648539156
+      modifiedTime: 1755706350925
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6194,7 +6194,7 @@ actors:
           talents: []
           name: Mindwarper
           img: icons/magic/unholy/strike-body-explode-disintegrate.webp
-          identifier: a86KbmdcTQ
+          identifier: eeprstjRvs
           skills: []
         taxonomy:
           description: <p>Otherworldly beings from the void beyond.</p>
@@ -6228,7 +6228,7 @@ actors:
             stride: 10
           name: Harbinger
           img: icons/magic/unholy/orb-swirling-pink.webp
-          identifier: 1XNJqTcEkm
+          identifier: YUoVtNqtEB
         biography:
           public: ''
           private: ''
@@ -6388,7 +6388,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 6JGGDk7GZ4
+          identifier: Ijv707U2kA
           invested: false
           actorHooks: []
           dropped: false
@@ -6430,7 +6430,7 @@ actors:
           description:
             public: <p>Some void chitin description.</p>
             private: ''
-          identifier: uzXroN0Dz5
+          identifier: HnAKbIXicL
           invested: false
           actorHooks: []
         effects: []
@@ -6588,9 +6588,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686151655811
-      modifiedTime: 1753648539164
+      modifiedTime: 1755706350933
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: null
       duplicateSource: null
@@ -6859,7 +6859,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: dtCnCNv1ow
+          identifier: x8xIkYBGK6
           invested: false
           actorHooks: []
           dropped: false
@@ -6902,7 +6902,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: v53fy2JdhT
+          identifier: TM9rezbpTB
           invested: false
           actorHooks: []
         _stats:
@@ -6975,10 +6975,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539470
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351257
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 4Ll3b4Q4us2mp4Fu
@@ -7014,10 +7014,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runeflame0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539470
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351257
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeflame0000000
@@ -7057,10 +7057,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539470
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351257
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -7098,11 +7098,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runevoid00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539470
+          modifiedTime: 1755706351257
         _id: runevoid00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 1000000
@@ -7143,11 +7143,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.performanceNovic
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539470
+          modifiedTime: 1755706351257
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -7184,11 +7184,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539470
+          modifiedTime: 1755706351257
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -7219,11 +7219,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539470
+          modifiedTime: 1755706351257
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -7299,9 +7299,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686233123616
-      modifiedTime: 1753648539479
+      modifiedTime: 1755706351267
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.YAA8Vb6h2kAAmg8d
       duplicateSource: null
@@ -7575,7 +7575,7 @@ actors:
             base: 16
           broken: false
           actions: []
-          identifier: ZNILW6XLvi
+          identifier: OwxbAC2V5o
           invested: false
           actorHooks: []
         _stats:
@@ -7620,10 +7620,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runedeath0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -7663,10 +7663,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cadence000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: cadence000000000
@@ -7703,10 +7703,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -7753,10 +7753,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intellectualsupe
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -7794,10 +7794,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.spellblade000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: spellblade000000
@@ -7829,10 +7829,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -7868,10 +7868,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturestrike000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturestrike000
@@ -7910,10 +7910,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -7975,10 +7975,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterriposte00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: iD0N4Q5xDZqsf354
@@ -8037,10 +8037,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -8072,10 +8072,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.lesserregenerati
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -8106,7 +8106,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: Te9On1lH47
+          identifier: 3Kx7v0jx1n
           invested: false
           actorHooks: []
           dropped: false
@@ -8152,10 +8152,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelightning000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -8216,11 +8216,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538716
+          modifiedTime: 1755706350395
         _id: heavystrike00000
         folder: tRHknqOEBLR808Cb
         sort: 100000
@@ -8260,11 +8260,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538716
+          modifiedTime: 1755706350395
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -8300,11 +8300,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538716
+          modifiedTime: 1755706350395
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -8335,11 +8335,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538716
+          modifiedTime: 1755706350395
         _id: heavyWeaponTrain
         ownership:
           default: 0
@@ -8383,10 +8383,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.surgeweaver00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: surgeweaver00000
         folder: c0nl6X8tp4Of0Y4O
@@ -8422,10 +8422,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -8464,10 +8464,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -8499,10 +8499,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessJourney
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: awarenessJourney
         ownership:
@@ -8535,10 +8535,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsJourney
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538716
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: athleticsJourney
         ownership:
@@ -8570,11 +8570,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponProfi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814171577
-          modifiedTime: 1753648538716
+          modifiedTime: 1755706350395
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: heavyWeaponProfi
         folder: null
@@ -8593,11 +8593,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.96imiRuZum6nQpnM
       duplicateSource: Actor.iPMperuo6ZvBLnp9
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.6
       createdTime: 1727381797456
-      modifiedTime: 1753648538747
+      modifiedTime: 1755706350435
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 100000
@@ -8873,7 +8873,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 4IibmL9TUO
+          identifier: Hd9mu3381A
           invested: false
           actorHooks: []
           dropped: false
@@ -8916,7 +8916,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: YshyFVbXpH
+          identifier: AeOKfi9TGL
           invested: false
           actorHooks: []
           dropped: false
@@ -8957,7 +8957,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: nI5y1Z4lAZ
+          identifier: AFW4KWvGOM
           invested: false
           actorHooks: []
         _stats:
@@ -9037,10 +9037,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.diversionist0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -9164,10 +9164,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -9211,10 +9211,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodletter00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodletter00000
@@ -9275,10 +9275,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterevade0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: JzAnF4yKIgvElwCJ
@@ -9320,10 +9320,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.strikefirst00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: BevAJzzLeFbSaVic
@@ -9358,10 +9358,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.preternaturalins
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: BevAJzzLeFbSaVic
@@ -9420,10 +9420,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.defensiveroll000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: JzAnF4yKIgvElwCJ
@@ -9456,10 +9456,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.skirmisher000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -9520,10 +9520,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.backstab00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: backstab00000000
@@ -9558,10 +9558,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.impetus000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -9595,10 +9595,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538848
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350550
           lastModifiedBy: AnoypGxxNIMOS0XY
         ownership:
           default: 0
@@ -9662,11 +9662,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538848
+          modifiedTime: 1755706350550
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -9708,11 +9708,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538848
+          modifiedTime: 1755706350550
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -9749,11 +9749,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538848
+          modifiedTime: 1755706350550
         ownership:
           default: 0
       - name: Lunge
@@ -9811,11 +9811,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538848
+          modifiedTime: 1755706350550
         _id: lunge00000000000
         folder: Xg1Jww0K0CK7vUo1
         sort: 0
@@ -9886,11 +9886,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.OUuxlqpD2DrSxkCx
       duplicateSource: Actor.hfOaEbw4ObPXu6Qa
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.6
       createdTime: 1727453878928
-      modifiedTime: 1753648538870
+      modifiedTime: 1755706350573
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 50000
@@ -10166,7 +10166,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: bfpGkSMguC
+          identifier: oOamGC95nd
           invested: false
           actorHooks: []
           dropped: false
@@ -10208,7 +10208,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: DVnKV6kAGV
+          identifier: gnngvGLwsy
           invested: false
           actorHooks: []
           dropped: false
@@ -10248,7 +10248,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: pZVeRdCqPj
+          identifier: 9mXSk8wpue
           invested: false
           actorHooks: []
         _stats:
@@ -10319,10 +10319,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -10451,10 +10451,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -10496,10 +10496,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureward00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureward00000
@@ -10584,10 +10584,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bodyblock0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 8Vb0F5R7DMUrvhfw
@@ -10647,10 +10647,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterstrike000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: counterstrike000
@@ -10697,10 +10697,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runewarden000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runewarden000000
@@ -10768,10 +10768,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.dreadlord0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: dreadlord0000000
@@ -10809,10 +10809,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runekinesis00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runekinesis00000
@@ -10876,10 +10876,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.rallyingcry00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: rallyingcry00000
@@ -10919,10 +10919,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bulwark000000000
@@ -10961,10 +10961,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.testudo000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 8Vb0F5R7DMUrvhfw
@@ -11000,10 +11000,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.holdfast00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538930
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350630
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -11032,7 +11032,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: iXgFXI29yu
+          identifier: w29Df7EzHW
           invested: false
           actorHooks: []
           dropped: false
@@ -11109,7 +11109,7 @@ actors:
                 - melee
               actionHooks: []
           dropped: false
-          identifier: 9kLDyxL14P
+          identifier: y1A49egcdh
           invested: false
           actorHooks: []
         _stats:
@@ -11160,11 +11160,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538930
+          modifiedTime: 1755706350630
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -11200,11 +11200,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538930
+          modifiedTime: 1755706350630
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -11235,11 +11235,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538930
+          modifiedTime: 1755706350630
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -11303,11 +11303,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538930
+          modifiedTime: 1755706350630
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -11449,11 +11449,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.BckoBMBnF2relFpA
       duplicateSource: Actor.nPOVNsOFhqA7SUud
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727400179378
-      modifiedTime: 1753556867025
+      modifiedTime: 1755706350655
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 0
@@ -11603,7 +11603,7 @@ actors:
         madness:
           value: 0
         action:
-          value: 6
+          value: 3
         focus:
           value: 5
         heroism:
@@ -11612,7 +11612,12 @@ actors:
         sizeBonus: 0
         strideBonus: 0
         engagementBonus: 0
-      status: null
+      status:
+        lastAction: strike
+        rangedAttack: true
+        hasAttacked: true
+        movement:
+          bonus: 5
       favorites:
         - defend
         - pinningShot
@@ -11730,7 +11735,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: P0txOr1kJk
+          identifier: 2qG3tv3SzN
           invested: false
           actorHooks: []
           dropped: false
@@ -11771,7 +11776,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: OiRh1XN7Ff
+          identifier: iiGwfOiuUG
           invested: false
           actorHooks: []
           dropped: false
@@ -11812,7 +11817,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: VkDcoWX8KJ
+          identifier: cTWDaE6Qwh
           invested: false
           actorHooks: []
         _stats:
@@ -11855,10 +11860,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -11921,10 +11926,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pinningshot00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -11958,10 +11963,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.impetus000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -12019,10 +12024,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.combatmedicine00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: combatmedicine00
@@ -12061,10 +12066,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.arcanearcher0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: arcanearcher0000
@@ -12125,10 +12130,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.anticipateharm00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -12161,10 +12166,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.weakpoints000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: F5y85kE9ocaa5R4R
@@ -12228,10 +12233,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.markprey00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -12265,10 +12270,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.evasiveshot00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -12304,10 +12309,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -12344,10 +12349,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelightning000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -12403,10 +12408,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538993
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -12443,11 +12448,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runemind00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
         _id: runemind00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 100000
@@ -12488,11 +12493,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.wildernessNovice
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -12529,11 +12534,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -12563,11 +12568,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileTraini
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
         _id: projectileTraini
         ownership:
           default: 0
@@ -12605,11 +12610,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814216884
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -12667,11 +12672,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.fanofarrows00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1753646572762
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -12731,11 +12736,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.twinnedshot00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1753647573747
-          modifiedTime: 1753648538993
+          modifiedTime: 1755706350717
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -12747,6 +12752,12 @@ actors:
       crucible:
         lastSpell: spell.lightning.arrow
         actionHistory:
+          - id: strike
+            messageId: o1IvbeTHyz26tFP4
+            combat: null
+          - id: strike
+            messageId: tirIu3Vlv0vCM5s6
+            combat: null
           - id: twinnedShot
             messageId: XRAuahOEMELBqqPE
             combat: null
@@ -12870,11 +12881,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.A4FnvlxT8yKR7t1X
       duplicateSource: Actor.kSGFBe6ZaLDC8wRy
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727454160495
-      modifiedTime: 1753648408243
+      modifiedTime: 1755706350739
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 25000
@@ -13145,7 +13156,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: RRKL7rC58O
+          identifier: 96jfR1A1d6
           invested: false
           actorHooks: []
         _stats:
@@ -13183,7 +13194,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 5Vdd94Pd1Y
+          identifier: C9JoHt2k8i
           invested: false
           actorHooks: []
           dropped: false
@@ -13222,7 +13233,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: 1c3sgzgTYZ
+          identifier: ruehKf7bYg
           invested: false
           actorHooks: []
           dropped: false
@@ -13261,7 +13272,8 @@ actors:
               description: >-
                 <p>You still your mind and study the physiology of your foe,
                 attempting to identify a vulnerability in its defenses.</p>
-              tags: []
+              tags:
+                - harmless
               cost:
                 action: 1
                 focus: 1
@@ -13296,10 +13308,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intuitweakness00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -13335,10 +13347,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelightning000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -13375,10 +13387,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -13415,10 +13427,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runefrost0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runefrost0000000
@@ -13459,10 +13471,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturecreate000
@@ -13495,10 +13507,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conserveeffort00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conserveeffort00
@@ -13532,10 +13544,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -13568,10 +13580,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conjurer00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conjurer00000000
@@ -13608,10 +13620,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runemind00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runemind00000000
@@ -13657,10 +13669,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.rimecaller000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: rimecaller000000
@@ -13709,10 +13721,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.mesmer0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -13743,10 +13755,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.recognizespellcr
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: recognizespellcr
@@ -13819,10 +13831,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterspell0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: counterspell0000
@@ -13871,11 +13883,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.arcanaNovice0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539076
+          modifiedTime: 1755706350819
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -13915,11 +13927,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.scienceNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539076
+          modifiedTime: 1755706350819
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -13950,11 +13962,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mechanicalTraini
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539076
+          modifiedTime: 1755706350819
         _id: mechanicalTraini
         ownership:
           default: 0
@@ -13989,11 +14001,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runekinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539076
+          modifiedTime: 1755706350819
         _id: runekinesis00000
         folder: Dy9HnwadNE3kSZ4f
         sort: 700000
@@ -14025,10 +14037,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.irrepressiblespi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539076
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350819
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: irrepressiblespi
         folder: 4Ll3b4Q4us2mp4Fu
@@ -14041,6 +14053,27 @@ actors:
       crucible:
         lastSpell: spell.frost.create
         actionHistory:
+          - id: intuitWeakness
+            messageId: jqWeWslzVrEZqjij
+            combat: null
+          - id: intuitWeakness
+            messageId: t8Wr2uA0XTGoFMbG
+            combat: null
+          - id: intuitWeakness
+            messageId: Nj2bc6JhWhSVlu6N
+            combat: null
+          - id: intuitWeakness
+            messageId: vDZw5x4xDErvfMzz
+            combat: null
+          - id: intuitWeakness
+            messageId: cUpuUscY2No7HrjU
+            combat: null
+          - id: intuitWeakness
+            messageId: bCo6kFJbct2ILtlS
+            combat: null
+          - id: intuitWeakness
+            messageId: c8dxq0nbd40uBhm7
+            combat: null
           - id: spell.frost.create
             messageId: wy0qe23OKYKKesJj
             combat: null
@@ -14086,11 +14119,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.KPz0rV5N33tNGM7Q
       duplicateSource: Actor.TffJlCvt39DEhFX7
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
-      systemVersion: 0.7.6
+      systemVersion: 0.7.7
       createdTime: 1727455170340
-      modifiedTime: 1753648539095
+      modifiedTime: 1755706350841
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: 12500
@@ -14358,7 +14391,7 @@ actors:
             private: ''
           actions: []
           slot: 1
-          identifier: pEBMNQBDuL
+          identifier: 5T741f6AVM
           invested: false
           actorHooks: []
           dropped: false
@@ -14401,7 +14434,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: hCPtgATIl0
+          identifier: 3vtiItmQbp
           invested: false
           actorHooks: []
         _stats:
@@ -14446,10 +14479,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelife00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelife00000000
@@ -14498,10 +14531,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runecourage00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -14541,10 +14574,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -14583,10 +14616,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureray000000
@@ -14619,10 +14652,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.irrepressiblespi
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: irrepressiblespi
@@ -14655,10 +14688,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.conserveeffort00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: conserveeffort00
@@ -14726,10 +14759,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.healer0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: fOYHlZJEWUukD7yr
@@ -14766,10 +14799,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.mentalfortress00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: mentalfortress00
@@ -14802,10 +14835,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectioncompos
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: inflectioncompos
@@ -14843,10 +14876,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runeearth0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeearth0000000
@@ -14891,10 +14924,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.dustbinder000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: dustbinder000000
@@ -14937,11 +14970,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.medicineNovice00
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539198
+          modifiedTime: 1755706350969
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -14981,11 +15014,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.scienceNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539198
+          modifiedTime: 1755706350969
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -15016,11 +15049,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539198
+          modifiedTime: 1755706350969
         _id: talismanWeaponTr
         ownership:
           default: 0
@@ -15064,10 +15097,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runewarden000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539198
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350969
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runewarden000000
         folder: fOYHlZJEWUukD7yr
@@ -15082,11 +15115,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.KUUvQxrd7q6wwrBi
       duplicateSource: Actor.z8PYWkq3bxce7vwb
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.3
       createdTime: 1727455326708
-      modifiedTime: 1753648539215
+      modifiedTime: 1755706350987
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -100000
@@ -15360,7 +15393,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: GzyILZIdIB
+          identifier: v3uOj3k8Jf
           invested: false
           actorHooks: []
         _stats:
@@ -15401,7 +15434,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: 0BuAKMpgQP
+          identifier: Wi9oElIy6H
           invested: false
           actorHooks: []
           dropped: false
@@ -15472,10 +15505,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -15533,10 +15566,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15596,10 +15629,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15637,10 +15670,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.powerfulphysique
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: powerfulphysique
@@ -15707,10 +15740,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.berserker0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: berserker0000000
@@ -15743,10 +15776,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.stronggrip000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -15819,10 +15852,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.wrestler00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 2MFixpDJ379KOogE
@@ -15883,10 +15916,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.counterriposte00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: iD0N4Q5xDZqsf354
@@ -15933,10 +15966,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.bloodfrenzy00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: bloodfrenzy00000
@@ -16008,10 +16041,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.executionersstri
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -16043,10 +16076,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.unshakeablestanc
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: unshakeablestanc
@@ -16106,10 +16139,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.ruthlessmomentum
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: MqZKCMx5KrZQffGU
@@ -16170,10 +16203,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539411
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -16241,11 +16274,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539411
+          modifiedTime: 1755706351195
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -16286,11 +16319,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539411
+          modifiedTime: 1755706351195
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -16326,11 +16359,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539411
+          modifiedTime: 1755706351195
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -16361,11 +16394,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539411
+          modifiedTime: 1755706351195
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -16426,11 +16459,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.berserkStrike000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1753551442689
-          modifiedTime: 1753648539411
+          modifiedTime: 1755706351195
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -16524,11 +16557,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.RwnRYbNJvvnAltwC
       duplicateSource: Actor.vT1UpPCVxKRg2A1J
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727455458694
-      modifiedTime: 1753579079668
+      modifiedTime: 1755706351215
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -200000
@@ -16798,7 +16831,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: 5vcfqpRtVf
+          identifier: Bg05HLo5Kz
           invested: false
           actorHooks: []
           dropped: false
@@ -16841,7 +16874,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: PejpFG8esk
+          identifier: Ltb1RhMyTR
           invested: false
           actorHooks: []
         _stats:
@@ -16914,10 +16947,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inspireheroism00
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: 4Ll3b4Q4us2mp4Fu
@@ -16953,10 +16986,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runeflame0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeflame0000000
@@ -16996,10 +17029,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -17033,10 +17066,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.inflectiondeterm
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17068,10 +17101,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.warmage000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: warmage000000000
@@ -17108,10 +17141,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -17146,10 +17179,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.impetus000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17193,10 +17226,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intellectualsupe
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17229,10 +17262,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.opportunisticspe
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17275,10 +17308,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pyromancer000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: pyromancer000000
@@ -17319,10 +17352,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturepulse0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -17357,10 +17390,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runekinesis00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runekinesis00000
@@ -17397,10 +17430,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runeradiance0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539496
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351283
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runeradiance0000
@@ -17438,11 +17471,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runevoid00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539496
+          modifiedTime: 1755706351283
         _id: runevoid00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 1000000
@@ -17483,11 +17516,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.performanceNovic
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539496
+          modifiedTime: 1755706351283
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -17524,11 +17557,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539496
+          modifiedTime: 1755706351283
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -17559,11 +17592,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539496
+          modifiedTime: 1755706351283
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -17646,11 +17679,11 @@ actors:
     _stats:
       compendiumSource: Compendium.crucible.pregens.Actor.YAA8Vb6h2kAAmg8d
       duplicateSource: Actor.sqTUaPrXpwCzk3xs
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       systemId: crucible
       systemVersion: 0.7.7
       createdTime: 1727455582423
-      modifiedTime: 1753579187476
+      modifiedTime: 1755706351299
       lastModifiedBy: AnoypGxxNIMOS0XY
       exportSource: null
     sort: -300000
@@ -17920,7 +17953,7 @@ actors:
           broken: false
           actions: []
           slot: 3
-          identifier: zqbkT8v3YA
+          identifier: Q3MtBAQswy
           invested: false
           actorHooks: []
           dropped: false
@@ -17962,7 +17995,7 @@ actors:
             base: 17
           broken: false
           actions: []
-          identifier: 9jFLpf3qVh
+          identifier: MixhrwJmIG
           invested: false
           actorHooks: []
         _stats:
@@ -18007,10 +18040,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runedeath0000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538768
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350461
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runedeath0000000
@@ -18050,10 +18083,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cadence000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538768
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350461
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: cadence000000000
@@ -18114,11 +18147,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavystrike00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538768
+          modifiedTime: 1755706350461
         _id: heavystrike00000
         folder: tRHknqOEBLR808Cb
         sort: 100000
@@ -18158,11 +18191,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538768
+          modifiedTime: 1755706350461
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -18198,11 +18231,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538768
+          modifiedTime: 1755706350461
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -18233,11 +18266,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.heavyWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538768
+          modifiedTime: 1755706350461
         _id: heavyWeaponTrain
         ownership:
           default: 0
@@ -18271,11 +18304,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814138642
-          modifiedTime: 1753648538768
+          modifiedTime: 1755706350461
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gesturearrow0000
         folder: null
@@ -18290,9 +18323,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686231111928
-      modifiedTime: 1753648538783
+      modifiedTime: 1755706350473
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.96imiRuZum6nQpnM
       duplicateSource: null
@@ -18568,7 +18601,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: u3aeqjxZx8
+          identifier: UjvXnPoDZo
           invested: false
           actorHooks: []
           dropped: false
@@ -18611,7 +18644,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: T0vJf58Pzz
+          identifier: EWgIN5yc6R
           invested: false
           actorHooks: []
           dropped: false
@@ -18652,7 +18685,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: WQIGLSbbH6
+          identifier: IaJEmzjQMP
           invested: false
           actorHooks: []
         _stats:
@@ -18732,10 +18765,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.diversionist0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538892
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350593
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -18859,10 +18892,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.flurry0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538892
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350593
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: cW6bwHXBB9pMcwva
@@ -18929,11 +18962,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538892
+          modifiedTime: 1755706350593
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -18975,11 +19008,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538892
+          modifiedTime: 1755706350593
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -19016,11 +19049,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.deceptionNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538892
+          modifiedTime: 1755706350593
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -19051,11 +19084,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lightWeaponTrain
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538892
+          modifiedTime: 1755706350593
         _id: lightWeaponTrain
         ownership:
           default: 0
@@ -19114,11 +19147,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.lunge00000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538892
+          modifiedTime: 1755706350593
         _id: lunge00000000000
         folder: Xg1Jww0K0CK7vUo1
         sort: 0
@@ -19131,9 +19164,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686231753904
-      modifiedTime: 1753648538907
+      modifiedTime: 1755706350607
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.OUuxlqpD2DrSxkCx
       duplicateSource: null
@@ -19401,7 +19434,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: oaUCLFnObj
+          identifier: fxuUJEaMbS
           invested: false
           actorHooks: []
           dropped: false
@@ -19443,7 +19476,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: nVkxdFyk1J
+          identifier: xnlT01QZPQ
           invested: false
           actorHooks: []
           dropped: false
@@ -19483,7 +19516,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: 5UCMTeywca
+          identifier: GR6mSD1978
           invested: false
           actorHooks: []
         _stats:
@@ -19554,10 +19587,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538960
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350681
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -19686,10 +19719,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.secondwind000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538960
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350681
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: qrB8E2SHs322zTil
@@ -19732,11 +19765,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538960
+          modifiedTime: 1755706350681
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -19772,11 +19805,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538960
+          modifiedTime: 1755706350681
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -19807,11 +19840,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538960
+          modifiedTime: 1755706350681
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -19875,11 +19908,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648538960
+          modifiedTime: 1755706350681
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -19918,10 +19951,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.bulwark000000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648538960
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350681
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: bulwark000000000
         folder: 8Vb0F5R7DMUrvhfw
@@ -19935,9 +19968,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686231927873
-      modifiedTime: 1753648538972
+      modifiedTime: 1755706350696
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.BckoBMBnF2relFpA
       duplicateSource: null
@@ -20211,7 +20244,7 @@ actors:
           broken: false
           slot: 3
           actions: []
-          identifier: I5u9MbyGE4
+          identifier: TT1ksKKTdC
           invested: false
           actorHooks: []
           dropped: false
@@ -20252,7 +20285,7 @@ actors:
           broken: false
           actions: []
           slot: 1
-          identifier: TDShYKcege
+          identifier: xe44Nak2RG
           invested: false
           actorHooks: []
           dropped: false
@@ -20293,7 +20326,7 @@ actors:
             base: 7
           broken: false
           actions: []
-          identifier: pl8Cv6MKBo
+          identifier: qkmEbjwCsv
           invested: false
           actorHooks: []
         _stats:
@@ -20336,10 +20369,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.perspicacity0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539020
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350759
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -20402,10 +20435,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.pinningshot00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539020
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350759
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: k2H23tobHffCMQCj
@@ -20442,11 +20475,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runemind00000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
         _id: runemind00000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 100000
@@ -20487,11 +20520,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.wildernessNovice
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -20528,11 +20561,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.athleticsNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -20562,11 +20595,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.projectileTraini
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
         _id: projectileTraini
         ownership:
           default: 0
@@ -20619,11 +20652,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.precisionshot000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
         folder: k2H23tobHffCMQCj
         sort: 150000
         ownership:
@@ -20662,11 +20695,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.stealthNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           createdTime: 1750814202401
-          modifiedTime: 1753648539020
+          modifiedTime: 1755706350759
           lastModifiedBy: AnoypGxxNIMOS0XY
         folder: null
         sort: 0
@@ -20679,9 +20712,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686232354753
-      modifiedTime: 1753648539031
+      modifiedTime: 1755706350771
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.A4FnvlxT8yKR7t1X
       duplicateSource: null
@@ -20951,7 +20984,7 @@ actors:
             base: 9
           broken: false
           actions: []
-          identifier: hABH3DLNOR
+          identifier: c4KtESP1fX
           invested: false
           actorHooks: []
         _stats:
@@ -20989,7 +21022,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: Mwe2gnyNJY
+          identifier: DJLy0DRmVo
           invested: false
           actorHooks: []
           dropped: false
@@ -21028,7 +21061,7 @@ actors:
             public: ''
             private: ''
           actions: []
-          identifier: tU9xGNE00e
+          identifier: jPYwjiOZho
           invested: false
           actorHooks: []
           dropped: false
@@ -21079,10 +21112,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelightning000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539046
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350787
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelightning000
@@ -21119,10 +21152,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gesturearrow0000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539046
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350787
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gesturearrow0000
@@ -21171,11 +21204,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.arcanaNovice0000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539046
+          modifiedTime: 1755706350787
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -21215,11 +21248,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.scienceNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539046
+          modifiedTime: 1755706350787
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -21250,11 +21283,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.mechanicalTraini
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539046
+          modifiedTime: 1755706350787
         _id: mechanicalTraini
         ownership:
           default: 0
@@ -21289,11 +21322,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runekinesis00000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539046
+          modifiedTime: 1755706350787
         _id: runekinesis00000
         folder: Dy9HnwadNE3kSZ4f
         sort: 700000
@@ -21329,10 +21362,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runefrost0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539046
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350787
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: runefrost0000000
         folder: Dy9HnwadNE3kSZ4f
@@ -21373,10 +21406,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gesturecreate000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539046
+          systemVersion: 0.7.8
+          modifiedTime: 1755706350787
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gesturecreate000
         folder: D14x9AJ0TgXKtnzu
@@ -21391,9 +21424,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686232488381
-      modifiedTime: 1753648539057
+      modifiedTime: 1755706350799
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.KPz0rV5N33tNGM7Q
       duplicateSource: null
@@ -21662,7 +21695,7 @@ actors:
             private: ''
           actions: []
           slot: 0
-          identifier: S8aWIEMkNK
+          identifier: admH3OYBgL
           invested: false
           actorHooks: []
           dropped: false
@@ -21705,7 +21738,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: exz5zgOov9
+          identifier: 25WnKZXHVg
           invested: false
           actorHooks: []
         _stats:
@@ -21750,10 +21783,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runelife00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539241
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351003
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runelife00000000
@@ -21802,10 +21835,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.runecourage00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539241
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351003
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: runecourage00000
@@ -21845,10 +21878,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.gestureinfluence
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539241
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351003
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         _id: gestureinfluence
@@ -21887,11 +21920,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.runeearth0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539241
+          modifiedTime: 1755706351003
         _id: runeearth0000000
         folder: Dy9HnwadNE3kSZ4f
         sort: 300000
@@ -21932,11 +21965,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.medicineNovice00
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539241
+          modifiedTime: 1755706351003
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -21976,11 +22009,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.scienceNovice000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539241
+          modifiedTime: 1755706351003
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -22011,11 +22044,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.talismanWeaponTr
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539241
+          modifiedTime: 1755706351003
         _id: talismanWeaponTr
         ownership:
           default: 0
@@ -22051,10 +22084,10 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.gestureray000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539241
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351003
           lastModifiedBy: AnoypGxxNIMOS0XY
         _id: gestureray000000
         folder: D14x9AJ0TgXKtnzu
@@ -22069,9 +22102,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.0-dev
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686232748166
-      modifiedTime: 1753648539252
+      modifiedTime: 1755706351018
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.KUUvQxrd7q6wwrBi
       duplicateSource: null
@@ -22342,7 +22375,7 @@ actors:
             base: 13
           broken: false
           actions: []
-          identifier: WdNMkG8nX7
+          identifier: 5gVwyAekG5
           invested: false
           actorHooks: []
         _stats:
@@ -22383,7 +22416,7 @@ actors:
           broken: false
           actions: []
           slot: 0
-          identifier: N10oIHo2gs
+          identifier: vFpd0UHr5d
           invested: false
           actorHooks: []
           dropped: false
@@ -22454,10 +22487,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.intimidator00000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539440
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351234
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         ownership:
@@ -22515,10 +22548,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.uppercut00000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539440
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351234
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -22578,10 +22611,10 @@ actors:
         _stats:
           compendiumSource: Compendium.crucible.talent.Item.cleave0000000000
           duplicateSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
-          modifiedTime: 1753648539440
+          systemVersion: 0.7.8
+          modifiedTime: 1755706351234
           lastModifiedBy: AnoypGxxNIMOS0XY
           exportSource: null
         folder: yQPNpmhq761VzMZe
@@ -22648,11 +22681,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intercept0000000
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539440
+          modifiedTime: 1755706351234
         _id: intercept0000000
         folder: MqZKCMx5KrZQffGU
         sort: -100000
@@ -22693,11 +22726,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.awarenessNovice0
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539440
+          modifiedTime: 1755706351234
         ownership:
           default: 0
       - folder: ghRKqdzq279SH1lt
@@ -22733,11 +22766,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.intimidationNovi
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539440
+          modifiedTime: 1755706351234
         ownership:
           default: 0
       - folder: i7WposibCJ94XpuD
@@ -22768,11 +22801,11 @@ actors:
           compendiumSource: Compendium.crucible.talent.Item.unarmedCombatTra
           duplicateSource: null
           exportSource: null
-          coreVersion: '13.346'
+          coreVersion: '13.347'
           systemId: crucible
-          systemVersion: 0.7.7
+          systemVersion: 0.7.8
           lastModifiedBy: AnoypGxxNIMOS0XY
-          modifiedTime: 1753648539440
+          modifiedTime: 1755706351234
         _id: unarmedCombatTra
         ownership:
           default: 0
@@ -22783,9 +22816,9 @@ actors:
     _stats:
       systemId: crucible
       systemVersion: 0.7.3
-      coreVersion: '13.346'
+      coreVersion: '13.347'
       createdTime: 1686232920753
-      modifiedTime: 1753648539455
+      modifiedTime: 1755706351245
       lastModifiedBy: AnoypGxxNIMOS0XY
       compendiumSource: Compendium.crucible.pregens.Actor.RwnRYbNJvvnAltwC
       duplicateSource: null
@@ -26299,8 +26332,8 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.7.3
-  coreVersion: '13.346'
-  modifiedTime: 1753648569682
+  coreVersion: '13.347'
+  modifiedTime: 1755706420078
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null

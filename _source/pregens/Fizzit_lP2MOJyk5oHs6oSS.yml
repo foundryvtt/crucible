@@ -261,7 +261,7 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: RRKL7rC58O
+      identifier: 96jfR1A1d6
       invested: false
       actorHooks: []
     _stats:
@@ -298,7 +298,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: 5Vdd94Pd1Y
+      identifier: C9JoHt2k8i
       invested: false
       actorHooks: []
       dropped: false
@@ -336,7 +336,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: 1c3sgzgTYZ
+      identifier: ruehKf7bYg
       invested: false
       actorHooks: []
       dropped: false
@@ -374,7 +374,8 @@ items:
           description: >-
             <p>You still your mind and study the physiology of your foe,
             attempting to identify a vulnerability in its defenses.</p>
-          tags: []
+          tags:
+            - harmless
           cost:
             action: 1
             focus: 1
@@ -1150,6 +1151,27 @@ flags:
   crucible:
     lastSpell: spell.frost.create
     actionHistory:
+      - id: intuitWeakness
+        messageId: jqWeWslzVrEZqjij
+        combat: null
+      - id: intuitWeakness
+        messageId: t8Wr2uA0XTGoFMbG
+        combat: null
+      - id: intuitWeakness
+        messageId: Nj2bc6JhWhSVlu6N
+        combat: null
+      - id: intuitWeakness
+        messageId: vDZw5x4xDErvfMzz
+        combat: null
+      - id: intuitWeakness
+        messageId: cUpuUscY2No7HrjU
+        combat: null
+      - id: intuitWeakness
+        messageId: bCo6kFJbct2ILtlS
+        combat: null
+      - id: intuitWeakness
+        messageId: c8dxq0nbd40uBhm7
+        combat: null
       - id: spell.frost.create
         messageId: wy0qe23OKYKKesJj
         combat: null
@@ -1196,10 +1218,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.347'
   systemId: crucible
-  systemVersion: 0.7.7
-  modifiedTime: 1753648558605
+  systemVersion: 0.7.8
+  modifiedTime: 1755706393686
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
 sort: 0
