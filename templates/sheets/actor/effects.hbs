@@ -2,7 +2,7 @@
          data-tab="{{tabs.effects.id}}" data-group="{{tabs.effects.group}}">
 
     {{#each effects as |section|}}
-    <div class="sheet-section item-section flexcol">
+    <div class="sheet-section item-section flexcol" data-tooltip-direction="LEFT">
         <h3 class="section-header">{{section.label}}</h3>
         <ol class="items-list">
             {{#each section.effects as |effect|}}
@@ -13,6 +13,9 @@
                     <div class="tags">
                         {{#each effect.tags as |label tag|}}
                         <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                        {{/each}}
+                        {{#each effect.statuses as |label id|}}
+                        <span class="tag" data-tag="{{id}}" data-crucible-tooltip="condition" data-condition="{{id}}" data-tooltip-class="crucible crucible-tooltip">{{label}}</span>
                         {{/each}}
                     </div>
                 </div>
