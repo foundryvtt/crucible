@@ -688,7 +688,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       d.base = base;
       if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
       d.bonus = penalty;
-      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2; // TODO move to talent hooks
     }
   }
 

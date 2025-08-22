@@ -295,21 +295,21 @@ export const DEFENSES = {
     id: "fortitude",
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "wisdom"],
-    tooltip: `${PASSIVE_BASE} + ((Strength + Wisdom) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Strength + Wisdom) / 4)`,
     type: "save"
   },
   willpower: {
     id: "willpower",
     label: "DEFENSES.Willpower",
     abilities: ["toughness", "presence"],
-    tooltip: `${PASSIVE_BASE} + ((Toughness + Presence) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Toughness + Presence) / 4)`,
     type: "save"
   },
   reflex: {
     id: "reflex",
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
-    tooltip: `${PASSIVE_BASE} + ((Dexterity + Intellect) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Dexterity + Intellect) / 4)`,
     type: "save"
   },
   wounds: {
