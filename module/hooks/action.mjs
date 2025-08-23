@@ -118,10 +118,10 @@ HOOKS.delay = {
       },
       rejectClose: false
     });
-    if ( response ) this.outcomes.get(this.actor).initiativeDelay = response;
+    if ( response ) this.outcomes.get(this.actor).metadata.initiativeDelay = response;
   },
   async confirm() {
-    return this.actor.delay(this.outcomes.get(this.actor).initiativeDelay);
+    return this.actor.delay(this.outcomes.get(this.actor).metadata.initiativeDelay);
   }
 }
 

@@ -85,6 +85,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
+ * @property {object} metadata            Fallback storage for miscellaneous data that persists throughout the action lifecycle
  * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {boolean} [weakened]         Did the target become weakened?
@@ -966,6 +967,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       effects: [],
       resources: {},
       actorUpdates: {},
+      metadata: {},
       statusText: [],
     };
 
