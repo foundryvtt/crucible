@@ -1,0 +1,44 @@
+name: Priest
+type: archetype
+img: icons/magic/holy/prayer-hands-glowing-yellow-green.webp
+system:
+  description: >-
+    <p>Devout servants of the gods who derive their power through their faith
+    and devotion to their deity.</p>
+  identifier: priest
+  abilities:
+    wisdom: 3
+    presence: 3
+    intellect: 2
+    strength: 1
+    toughness: 2
+    dexterity: 1
+  talents:
+    - Compendium.crucible.talent.Item.gestureinfluence
+    - Compendium.crucible.talent.Item.gestureray000000
+    - Compendium.crucible.talent.Item.gestureaspect000
+    - Compendium.crucible.talent.Item.steadfast0000000
+  skills:
+    - arcana
+    - medicine
+    - society
+    - diplomacy
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.347'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1755978438338
+  modifiedTime: 1755979243347
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: priest0000000000
+sort: 500000
+_key: '!items!priest0000000000'

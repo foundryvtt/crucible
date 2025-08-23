@@ -1,0 +1,46 @@
+name: Mace
+type: weapon
+img: icons/weapons/maces/mace-flanged-steel-grey.webp
+system:
+  identifier: mace
+  category: simple1
+  quantity: 1
+  weight: 4
+  price: 32
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - reliable
+  description:
+    public: >-
+      <p>A one-handed blunt weapon that features a heavy head, typically forged
+      of metal, which converts the momentum of its wielder's swing into a
+      bone-shattering impact.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.347'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1755978590613
+  modifiedTime: 1755978693238
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: mace000000000000
+sort: 0
+_key: '!items!mace000000000000'

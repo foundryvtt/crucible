@@ -5,18 +5,19 @@ img: icons/sundries/misc/lock-open-yellow.webp
 system:
   node: dex4c
   description: >-
-    You are skilled in the arts of disarming traps and picking locks. You gain
-    +1 Boon on Crafting checks to disable a device or open a lock.
+    <p>You are skilled in the arts of disarming traps and picking locks. You
+    gain +1 Boon on <strong>Stealth</strong> checks to disable a device or open
+    a lock.</p>
   actions: []
   requirements: {}
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1675021250520
-  modifiedTime: 1750875661750
+  modifiedTime: 1755979561411
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null

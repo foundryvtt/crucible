@@ -1,0 +1,43 @@
+name: Thief
+type: archetype
+img: icons/magic/perception/silhouette-stealth-shadow.webp
+system:
+  description: >-
+    <p>Rogueish characters who are adept in infiltrating areas they are not
+    supposed to enter and taking things they are not supposed to have.</p>
+  identifier: thief
+  abilities:
+    wisdom: 1
+    presence: 1
+    intellect: 3
+    strength: 1
+    toughness: 2
+    dexterity: 4
+  talents:
+    - Compendium.crucible.talent.Item.safecracker00000
+    - Compendium.crucible.talent.Item.diversionist0000
+    - Compendium.crucible.talent.Item.skirmisher000000
+    - Compendium.crucible.talent.Item.preternaturalins
+  skills:
+    - awareness
+    - stealth
+    - deception
+effects: []
+folder: 6Up7ddrphLept3RW
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.347'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1755979621108
+  modifiedTime: 1755979621108
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: thief00000000000
+sort: 0
+_key: '!items!thief00000000000'

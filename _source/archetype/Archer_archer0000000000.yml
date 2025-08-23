@@ -18,7 +18,7 @@ system:
   identifier: archer
 effects: []
 folder: 6Up7ddrphLept3RW
-sort: 300000
+sort: 1600000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
@@ -26,9 +26,9 @@ flags: {}
 _stats:
   systemId: crucible
   systemVersion: 0.7.4
-  coreVersion: '13.346'
+  coreVersion: '13.347'
   createdTime: 1685738036284
-  modifiedTime: 1751554953355
+  modifiedTime: 1755978438372
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
