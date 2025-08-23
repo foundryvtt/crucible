@@ -103,24 +103,25 @@ HOOKS.delay = {
   async preActivate(targets) {
     const combatant = game.combat.getCombatantByActor(this.actor);
     const maximum = combatant.getDelayMaximum();
-    // TODO refactor DialogV2.input
-    const response = await Dialog.prompt({
-      title: "Delay Turn",
+    const response = await foundry.applications.api.DialogV2.prompt({
+      window: { title: "Delay Turn" },
       content: `<form class="delay-turn" autocomplete="off">
             <div class="form-group">
                 <label>Delayed Initiative</label>
-                <input name="initiative" type="number" min="1" max="${maximum}" step="1">
+                <input name="initiative" type="number" min="1" value="${maximum - 1}" max="${maximum}" step="1">
                 <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
             </div>
         </form>`,
-      label: "Delay",
-      callback: dialog => dialog.find(`input[name="initiative"]`)[0].valueAsNumber,
+      ok: {
+        label: "Delay",
+        callback: (event, button, dialog) => button.form.elements.initiative.valueAsNumber
+      },
       rejectClose: false
     });
-    if ( response ) this.usage.initiativeDelay = response;
+    if ( response ) this.outcomes.get(this.actor).initiativeDelay = response;
   },
   async confirm() {
-    return this.actor.delay(this.usage.initiativeDelay);
+    return this.actor.delay(this.outcomes.get(this.actor).initiativeDelay);
   }
 }
 
