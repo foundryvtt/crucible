@@ -150,6 +150,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fields: this.document.system.schema.fields,
       incomplete: {},
       inventory,
+      languages: this.#prepareLanguages(),
       isEditable: this.isEditable,
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
@@ -639,6 +640,20 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       }
     }
     return spells;
+  }
+
+  /* -------------------------------------------- */
+
+  #prepareLanguages() {
+    const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
+    const options = [];
+    for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
+      const currOption = { value, label };
+      if ( category && categories[category] ) currOption.group = categories[category];
+      options.push(currOption);
+    }
+    const groups = options.reduce((acc, {group}) => (group && !acc.includes(group)) ? acc.concat(group) : acc, []);
+    return { options, groups };
   }
 
   /* -------------------------------------------- */

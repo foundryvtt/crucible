@@ -205,6 +205,9 @@
         "weight.label": "Weight"
       }
     },
+    "languages": {
+      "label": "Known Languages"
+    },
     "movement": {
       "size": {
         "label": "Size",
@@ -796,6 +799,10 @@
 
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
+
+"LANGUAGES": {
+  "COMMON": "Common"
+},
 
 "LOOT": {
   "CATEGORIES": {
