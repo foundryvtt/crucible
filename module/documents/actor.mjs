@@ -1,9 +1,12 @@
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
+import {CURRENCY_DENOMINATIONS} from "../config/actor.mjs";
 const {DialogV2} = foundry.applications.api;
 
-/** @import {TRAINING_TYPES} from "../config/talents.mjs"; */
+/**
+ * @import {TRAINING_TYPES} from "../config/talents.mjs";
+ */
 
 /**
  * @typedef {Object}   ActorRoundStatus
@@ -1906,6 +1909,8 @@ export default class CrucibleActor extends Actor {
   }
 
   /* -------------------------------------------- */
+  /*  Flanking and Engagement                     */
+  /* -------------------------------------------- */
 
   /**
    * Update the Flanking state of this Actor given a set of engaged Tokens.
@@ -1945,6 +1950,64 @@ export default class CrucibleActor extends Actor {
 
     // Remove flanked effect
     else if ( current )  await current.delete();
+  }
+
+  /* -------------------------------------------- */
+  /*  Currency Management                         */
+  /* -------------------------------------------- */
+
+  /**
+   * Convert an amount of currency expressed in CURRENCY_DENOMINATIONS into a numeric amount for data storage.
+   * @param {Record<keyof CURRENCY_DENOMINATIONS, number>} amounts
+   * @returns {number}
+   */
+  static convertCurrency(amounts={}) {
+    if ( typeof amounts !== "object" ) {
+      throw new Error("The amounts passed to CrucibleActor#convertCurrency must be an object");
+    }
+    let amount = 0;
+    for ( const [k, v] of Object.entries(amounts) ) {
+      if ( !(k in CURRENCY_DENOMINATIONS) ) continue;
+      const m = CURRENCY_DENOMINATIONS[k].multiplier;
+      amount += Math.round(v * m);
+    }
+    return amount;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Allocate an amount of currency into configured CURRENCY_DENOMINATIONS, favoring larger denominations over smaller.
+   * This function does not guarantee that the entire input amount is allocated. Depending on the configured
+   * denominations which are available, there might be some unallocated remainder.
+   * @param {number} amount
+   * @returns {Record<keyof CURRENCY_DENOMINATIONS, number>}
+   */
+  static allocateCurrency(amount=0) {
+    const allocated = {};
+    const denominations = Object.entries(CURRENCY_DENOMINATIONS).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
+    for ( const [k, v] of denominations ) {
+      allocated[k] = Math.floor(amount / v.multiplier);
+      amount = (amount % v.multiplier);
+    }
+    return allocated;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Modify the amount of currency owned by this actor by a certain amount.
+   * The input amount can be provided either as a raw integer or as an object of currency denominations.
+   * Returns the amount of currency that was added or subtracted.
+   * @param {number|Record<keyof CURRENCY_DENOMINATIONS, number>} amounts
+   * @returns {number}
+   */
+  async modifyCurrency(amounts) {
+    const priorAmount = this.system.currency;
+    const delta = typeof amounts === "number" ? amounts : this.constructor.convertCurrency(amounts);
+    const currency = Math.max(priorAmount + delta, 0);
+    await this.update({system: {currency}});
+    return currency - priorAmount;
   }
 
   /* -------------------------------------------- */

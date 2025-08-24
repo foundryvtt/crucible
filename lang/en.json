@@ -185,6 +185,10 @@
     "abilities": {
       "label": "Ability Scores"
     },
+    "currency": {
+      "label": "Currency Amount",
+      "hint": "The amount of currency possessed by this Actor."
+    },
     "details": {
       "biography": {
         "appearance": {
@@ -631,6 +635,25 @@
       "value.label": "Value",
       "max.label": "Maximum"
     }
+  }
+},
+
+"CURRENCY_DENOMINATIONS": {
+  "CP": {
+    "abbreviation": "CP",
+    "label": "Copper Pieces"
+  },
+  "SP": {
+    "abbreviation": "SP",
+    "label": "Silver Pieces"
+  },
+  "GP": {
+    "abbreviation": "GP",
+    "label": "Gold Pieces"
+  },
+  "PP": {
+    "abbreviation": "PP",
+    "label": "Platinum Pieces"
   }
 },
 
