@@ -648,12 +648,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
     const options = [];
     for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
-      const currOption = { value, label };
-      if ( category && categories[category] ) currOption.group = categories[category];
-      options.push(currOption);
+      options.push({value, label, group: categories[category]?.label});
     }
-    const groups = options.reduce((acc, {group}) => (group && !acc.includes(group)) ? acc.concat(group) : acc, []);
-    return { options, groups };
+    return options;
   }
 
   /* -------------------------------------------- */

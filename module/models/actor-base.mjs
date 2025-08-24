@@ -111,9 +111,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
     schema.favorites = new fields.SetField(new fields.StringField({blank: false}));
-
-    // Languages
-    schema.languages = new fields.SetField(new fields.StringField({blank: false}));
     return schema;
   }
 

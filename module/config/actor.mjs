@@ -139,9 +139,16 @@ export const TRAVEL_PACES = freezeEnum({
 
 /**
  * Categories a language can (optionally) belong to
- * @type {Record<string, string>}
+ * @type {Record<string, {label: string}>}
  */
-export const LANGUAGE_CATEGORIES = {};
+export const LANGUAGE_CATEGORIES = {
+  nonSpoken: {
+    label: "LANGUAGE_CATEGORIES.NONSPOKEN"
+  },
+  spoken: {
+    label: "LANGUAGE_CATEGORIES.SPOKEN"
+  }
+};
 
 /**
  * Languages a creature can know
@@ -149,7 +156,12 @@ export const LANGUAGE_CATEGORIES = {};
  */
 export const LANGUAGES = {
   common: {
-    label: "LANGUAGES.COMMON"
+    label: "LANGUAGES.COMMON",
+    category: "spoken"
+  },
+  sign: {
+    label: "LANGUAGES.SIGN",
+    category: "nonSpoken"
   }
 };
 

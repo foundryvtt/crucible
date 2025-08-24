@@ -203,10 +203,10 @@
         "height.label": "Height",
         "pronouns.label": "Pronouns",
         "weight.label": "Weight"
+      },
+      "languages": {
+        "label": "Known Languages"
       }
-    },
-    "languages": {
-      "label": "Known Languages"
     },
     "movement": {
       "size": {
@@ -800,8 +800,14 @@
 "KEYBINDINGS.ConfirmAction": "Confirm Action",
 "KEYBINDINGS.ConfirmActionHint": "Confirm actions recorded within the last 60 seconds in the order in which they were taken.",
 
+"LANGUAGE_CATEGORIES": {
+  "NONSPOKEN": "Non-Spoken Languages",
+  "SPOKEN": "Spoken Languages"
+},
+
 "LANGUAGES": {
-  "COMMON": "Common"
+  "COMMON": "Common",
+  "SIGN": "Sign"
 },
 
 "LOOT": {
