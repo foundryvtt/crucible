@@ -578,6 +578,10 @@
       "label": "Knowledge Areas",
       "hint": "Configure knowledge areas that this Background provides automatically. Typically, a Background features two knowledge areas."
     },
+    "languages": {
+      "label": "Known Languages",
+      "hint": "Configure languages that this Background provides automatically."
+    },
     "skills": {
       "label": "Granted Skills",
       "hint": "Configure skills which this Background provides automatically with novice training. Typically, a Background has training in two skills."

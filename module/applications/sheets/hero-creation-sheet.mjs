@@ -271,7 +271,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeBackground(background) {
-    const {knowledge, skills, talents, schema} = background.item.system;
+    const {knowledge, skills, talents, schema, languages} = background.item.system;
 
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
@@ -281,6 +281,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( knowledgeTags.length ) background.features.push({
       label: schema.getField("knowledge").label,
       tags: knowledgeTags
+    });
+
+    // Languages
+    const languageTags = Array.from(languages.map(languageId => {
+      const l = SYSTEM.ACTOR.LANGUAGES[languageId];
+      return {text: `Language: ${l?.label || l}`};
+    }))
+    if ( languageTags.length ) background.features.push({
+      label: schema.getField("languages").label,
+      tags: languageTags
     });
 
     // Skills

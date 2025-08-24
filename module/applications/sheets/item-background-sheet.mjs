@@ -16,4 +16,25 @@ export default class CrucibleBackgroundItemSheet extends CrucibleActorDetailsIte
   static {
     this._initializeItemSheetClass()
   }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    return Object.assign(context, {
+      languages: this.#prepareLanguages()
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  #prepareLanguages() {
+    const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
+    const options = [];
+    for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
+      options.push({value, label, group: categories[category]?.label});
+    }
+    return options;
+  }
 }
