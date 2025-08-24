@@ -23,13 +23,13 @@ export default class CrucibleBackgroundItemSheet extends CrucibleActorDetailsIte
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     return Object.assign(context, {
-      languages: this.#prepareLanguages()
+      languages: this.#prepareLanguageOptions()
     });
   }
 
   /* -------------------------------------------- */
 
-  #prepareLanguages() {
+  #prepareLanguageOptions() {
     const categories = crucible.CONFIG.languageCategories;
     const options = [];
     for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
