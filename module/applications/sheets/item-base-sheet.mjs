@@ -143,6 +143,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     // Physical Items
     if ( this.document.system instanceof CruciblePhysicalItem ) {
       context.propertiesWidget = this.#propertiesWidget.bind(this);
+      context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.SCALED_PRICE")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
     }
@@ -224,6 +225,16 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     inputConfig.options = Object.entries(PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
     inputConfig.type = "checkboxes";
     return foundry.applications.fields.createMultiSelectInput(inputConfig);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render a price field using a HTMLCrucibleCurrencyElement element.
+   * @returns {HTMLCrucibleCurrencyElement}
+   */
+  #currencyInput(field, inputConfig) {
+    return crucible.api.applications.elements.HTMLCrucibleCurrencyElement.create(inputConfig);
   }
 
   /* -------------------------------------------- */

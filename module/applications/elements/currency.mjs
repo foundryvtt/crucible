@@ -31,7 +31,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
       // Number input
       const i = document.createElement("input");
-      i.id = `${this.id}-${k}`;
+      if ( this.id ) i.id = `${this.id}-${k}`;
       i.type = "text"; // Use text so we can support delta values like "+12"
       i.placeholder = v.abbreviation;
       i.dataset.denomination = k;
@@ -58,9 +58,16 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
   /** @override */
   _refresh() {
+    const isReadonly = this.hasAttribute("readonly");
     const amounts = crucible.api.documents.CrucibleActor.allocateCurrency(this._value);
     for ( const [k, v] of Object.entries(amounts) ) {
-      this.#inputs[k].value = v;
+      const i = this.#inputs[k];
+      i.value = v;
+      // Hide zero inputs for readonly elements
+      i.toggleAttribute("readonly", isReadonly);
+      const isHidden = isReadonly && (v === 0);
+      i.classList.toggle("hidden", isHidden);
+      i.previousElementSibling.classList.toggle("hidden", isHidden);
     }
   }
 
@@ -94,7 +101,7 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
     const amounts = crucible.api.documents.CrucibleActor.allocateCurrency(this._value);
 
     // Support signed delta values like "+12" or "-5"
-    let value;
+    let value = Number(input.value);
     let delta;
     if ( input.value[0] === "=" ) value = Number(input.value.substr(1));
     else if ( input.value[0] === "+" ) delta = Number(input.value.substr(1));
@@ -102,6 +109,10 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
     // Apply delta
     if ( delta ) {
+      if ( !Number.isFinite(delta) ) {
+        input.value = amounts[d];
+        return;
+      }
       const d = crucible.api.documents.CrucibleActor.convertCurrency({[input.dataset.denomination]: delta});
       if ( (this._value + d) < 0 ) {
         ui.notifications.warn(`Insufficient currency to deduct ${delta} ${cfg.label}.`);
@@ -113,6 +124,10 @@ export default class HTMLCrucibleCurrencyElement extends foundry.applications.el
 
     // Apply total
     else {
+      if ( !Number.isFinite(value) ) {
+        input.value = amounts[d];
+        return;
+      }
       amounts[d] = value;
       this._value = crucible.api.documents.CrucibleActor.convertCurrency(amounts);
     }
