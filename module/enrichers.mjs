@@ -25,6 +25,12 @@ export function registerEnrichers() {
       pattern: /\[\[\/language (\w+)]]/g,
       enricher: enrichLanguage
     },
+    {
+      id: "dnd5eAward",
+      pattern: /\[\[\/award ([\w\s]+)]]/g,
+      enricher: enrichAward,
+      onRender: renderAward
+    },
     { // D&D5e Skill Checks
       id: "dnd5eSkill",
       pattern: /\[\[\/skill ([\w\s]+)]]/g,
@@ -100,6 +106,150 @@ function enrichDND5ESkill([match, terms]) {
   const tag = createSkillCheckElement(skill, dc, {passive, group: false});
   tag.classList.add("dnd5e-skill-check");
   return tag;
+}
+
+/* -------------------------------------------- */
+/*  Awards                                      */
+/* -------------------------------------------- */
+
+/**
+ * Parse an award's terms into an object representing what should be gained
+ * @param {string} terms
+ * @returns {Record<string, number>}
+ */
+function parseAwardTerms(terms) {
+  const pattern = new RegExp(/^(.+?)(\D+)$/);
+  const currency = {};
+  const invalid = [];
+  let milestones;
+  for ( const part of terms.split(" ") ) {
+    if ( !part ) continue;
+    let [, amount, label] = part.match(pattern) ?? [];
+    label = label?.toLowerCase();
+    try {
+      new Roll(amount);
+      if ( label in crucible.CONFIG.currency ) currency[label] = amount;
+      else if ( ["xp", "milestone", "milestones"].includes(label) ) milestones = Number(amount);
+      else throw new Error();
+    } catch (err) {
+      invalid.push(part);
+    }
+  }
+
+  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.InvalidWarning", {
+    terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
+  }));
+
+  return { currency, milestones }
+}
+
+/**
+ * Enrich an Award with the format [[/award {...awards}]]
+ * @param {string} match
+ * @param {string} terms
+ */
+function enrichAward([match, terms]) {
+  const { currency, milestones } = parseAwardTerms(terms);
+  const entries = [];
+  for ( let [currencyKey, amount] of Object.entries(currency) ) {
+    const {label, icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
+    const textOrIcon = icon ? `<i class="currency ${currencyKey}" data-tooltip aria-label="${label}" style="background-image: url(${icon});"></i>` : abbreviation;
+    entries.push(`
+      <span class="award-entry">
+        ${amount} ${textOrIcon}
+      </span>
+    `);
+  }
+  if ( milestones ) {
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+
+    entries.push(`
+      <span class="award-entry">
+        ${milestones} ${game.i18n.localize("AWARD.Milestone." + plurals.select(milestones))}
+      </span>
+  `);
+  }
+  // Return the enriched content tag
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("award");
+  tag.dataset.terms = terms;
+  tag.innerHTML = entries.join(", ");
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered hazard enrichment.
+ * @param {HTMLElement} element
+ */
+function renderAward(element) {
+  element.addEventListener("click", onClickAward);
+}
+
+/* -------------------------------------------- */
+
+async function onClickAward(event) {
+  event.preventDefault();
+  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.NotGMWarning", { localize: true })
+
+  const terms = event.currentTarget.dataset.terms;
+  const { currency, milestones } = parseAwardTerms(terms);
+
+  for ( const [key, formula] of Object.entries(currency) ) {
+    const roll = await new Roll(`${formula}`).evaluate();
+    currency[key] = roll.total;
+  }
+
+  const netCurrency = crucible.api.documents.CrucibleActor.convertCurrency(currency);
+
+  // TODO: Consider pulling this logic out and using it for both hazard & award
+  const partyMembers = crucible.party?.system.members || [];
+  const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
+    name: "partyMember",
+    type: "checkboxes",
+    options: partyMembers.reduce((arr, m) => {
+      if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name, selected: true});
+      return arr;
+    }, [])
+  })
+  const partyMember = foundry.applications.fields.createFormGroup({
+    label: "Party Members",
+    hint: "Choose characters in the active party.",
+    stacked: true,
+    input: partyMemberInput
+  });
+  const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+    type: "Actor",
+    name: "anyActor",
+  });
+  const anyActor = foundry.applications.fields.createFormGroup({
+    label: "Any Actor",
+    hint: "Alternatively, choose any Actors.",
+    input: anyActorInput
+  });
+  const response = await foundry.applications.api.DialogV2.input({
+    window: {title: "Choose Recipient(s)", icon: "fa-solid fa-trophy"},
+    content: `\
+    ${partyMember.outerHTML}${anyActor.outerHTML}
+    `,
+  });
+
+  if (!response) return;
+
+  // Iterate over actor targets
+  const targets = new Set([...response.partyMember, ...response.anyActor]);
+  for ( const actorId of targets ) {
+    const actor = game.actors.get(actorId);
+    const startingCurrency = actor.system.currency;
+    const newCurrency = Math.max(startingCurrency + netCurrency, 0);
+    const startingMilestones = actor.system._source.advancement.milestones;
+    const newMilestones = Math.max(startingMilestones + milestones, 0);
+    actor.update({
+      "system.advancement.milestones": newMilestones,
+      "system.currency": newCurrency
+    });
+  }
 }
 
 /* -------------------------------------------- */
