@@ -63,6 +63,55 @@ export const CREATURE_CATEGORIES = {
 };
 
 /**
+ * @typedef CrucibleCurrencyDenomination
+ * @property {string} label                 A human-readable and localized label for the denomination
+ * @property {string} abbreviation          A short abbreviation for the denomination
+ * @property {number} multiplier            A numerical multiplier that quantifies the value of this denomination
+ *                                          relative to base currency units
+ * @property {string} [icon]                An optional image icon for the denomination.
+ *                                          Recommended size is 48px square or smaller
+ */
+
+/**
+ * Configure the set of currency denominations that are supported by the system.
+ * The keys of this object are unique abbreviations which are used to parse currency strings.
+ *
+ * Each denomination specifies a multiplier which defines how valuable that denomination is.
+ * Currency is stored as an integer value of the lowest denomination (multiplier=1).
+ *
+ * There should be at least one denomination which has a multiplier of 1 to ensure that a raw currency amount can be
+ * fully allocated.
+ *
+ * @type {Record{string, CrucibleCurrencyDenomination}
+ */
+export const CURRENCY_DENOMINATIONS = {
+  cp: {
+    label: "CURRENCY_DENOMINATIONS.CP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.CP.abbreviation",
+    icon: "systems/crucible/icons/currency/cp.webp",
+    multiplier: 1
+  },
+  sp: {
+    label: "CURRENCY_DENOMINATIONS.SP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.SP.abbreviation",
+    icon: "systems/crucible/icons/currency/sp.webp",
+    multiplier: 10
+  },
+  gp: {
+    label: "CURRENCY_DENOMINATIONS.GP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.GP.abbreviation",
+    icon: "systems/crucible/icons/currency/gp.webp",
+    multiplier: 100
+  },
+  pp: {
+    label: "CURRENCY_DENOMINATIONS.PP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.PP.abbreviation",
+    icon: "systems/crucible/icons/currency/pp.webp",
+    multiplier: 1000
+  }
+};
+
+/**
  * Level advancement
  * @type {Record<number, {level: number, milestones: {start: number, required: number, next: number}}>}
  */

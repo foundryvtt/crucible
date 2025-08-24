@@ -72,6 +72,13 @@ Hooks.once("init", async function() {
    */
   crucible.CONFIG = {
     /**
+     * Configured setting-specific currency denominations.
+     * @type {Record{string, CrucibleCurrencyDenomination}
+     * @see @link{SYSTEM.ACTOR.CURRENCY_DENOMINATIONS}
+     */
+    currency: foundry.utils.deepClone(SYSTEM.ACTOR.CURRENCY_DENOMINATIONS),
+
+    /**
      * Configuration of compendium packs which are used as sources for system workflows.
      * @type {Record<string, Set<string>>}
      */
@@ -187,6 +194,11 @@ Hooks.once("init", async function() {
 
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
+
+  // Custom HTML Elements
+  for ( const element of Object.values(applications.elements) ) {
+    window.customElements.define(element.tagName, element);
+  }
 
   // Rich Text Enrichers
   registerEnrichers();
@@ -346,6 +358,9 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+
+  // Config objects
+  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
 }
 
 /* -------------------------------------------- */

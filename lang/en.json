@@ -185,6 +185,10 @@
     "abilities": {
       "label": "Ability Scores"
     },
+    "currency": {
+      "label": "Currency Amount",
+      "hint": "The amount of currency possessed by this Actor."
+    },
     "details": {
       "biography": {
         "appearance": {
@@ -250,6 +254,7 @@
     "BIOGRAPHY": "Biography"
   },
   "LABELS": {
+    "CURRENCY": "Currency",
     "CURRENT_EQUIPMENT": "Current Equipment",
     "FAVORITE_ACTIONS": "Favorite Actions",
     "WEAPONS_HINT": "Equip weapons from your Backpack toggling the shield icon.",
@@ -635,6 +640,25 @@
       "value.label": "Value",
       "max.label": "Maximum"
     }
+  }
+},
+
+"CURRENCY_DENOMINATIONS": {
+  "CP": {
+    "abbreviation": "CP",
+    "label": "Copper Pieces"
+  },
+  "SP": {
+    "abbreviation": "SP",
+    "label": "Silver Pieces"
+  },
+  "GP": {
+    "abbreviation": "GP",
+    "label": "Gold Pieces"
+  },
+  "PP": {
+    "abbreviation": "PP",
+    "label": "Platinum Pieces"
   }
 },
 

@@ -32,5 +32,9 @@
         </ol>
     </div>
     {{/each}}
+    <div class="sheet-section currency-section flexcol">
+        <h3>{{localize "ACTOR.LABELS.CURRENCY"}}</h3>
+        <crucible-currency name="system.currency" value="{{source.system.currency}}"></crucible-currency>
+    </div>
     <button type="button" class="icon frame-brown fa-solid fa-plus inventory-create" data-action="itemCreate" data-tooltip="Create Item"></button>
 </section>
