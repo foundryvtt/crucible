@@ -1,7 +1,6 @@
 import AttackRoll from "../dice/attack-roll.mjs";
 import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
-import {CURRENCY_DENOMINATIONS} from "../config/actor.mjs";
 const {DialogV2} = foundry.applications.api;
 
 /**
@@ -1957,8 +1956,8 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Convert an amount of currency expressed in CURRENCY_DENOMINATIONS into a numeric amount for data storage.
-   * @param {Record<keyof CURRENCY_DENOMINATIONS, number>} amounts
+   * Convert an amount of currency expressed in configured denominations into a numeric amount for data storage.
+   * @param {Record<keyof crucible.CONFIG.currency, number>} amounts
    * @returns {number}
    */
   static convertCurrency(amounts={}) {
@@ -1967,9 +1966,9 @@ export default class CrucibleActor extends Actor {
     }
     let amount = 0;
     for ( const [k, v] of Object.entries(amounts) ) {
-      if ( !(k in CURRENCY_DENOMINATIONS) ) continue;
-      const m = CURRENCY_DENOMINATIONS[k].multiplier;
-      amount += Math.round(v * m);
+      const d = crucible.CONFIG.currency[k];
+      if ( !d ) continue;
+      amount += Math.round(v * d.multiplier);
     }
     return amount;
   }
@@ -1977,16 +1976,16 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Allocate an amount of currency into configured CURRENCY_DENOMINATIONS, favoring larger denominations over smaller.
+   * Allocate an amount of currency into configured denominations, favoring larger denominations over smaller.
    * This function does not guarantee that the entire input amount is allocated. Depending on the configured
    * denominations which are available, there might be some unallocated remainder.
    * @param {number} amount
-   * @returns {Record<keyof CURRENCY_DENOMINATIONS, number>}
+   * @returns {Record<keyof crucible.CONFIG.currency, number>}
    */
   static allocateCurrency(amount=0) {
     const allocated = {};
-    const denominations = Object.entries(CURRENCY_DENOMINATIONS).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
-    for ( const [k, v] of denominations ) {
+    const ds = Object.entries(crucible.CONFIG.currency).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
+    for ( const [k, v] of ds ) {
       allocated[k] = Math.floor(amount / v.multiplier);
       amount = (amount % v.multiplier);
     }
@@ -1999,7 +1998,7 @@ export default class CrucibleActor extends Actor {
    * Modify the amount of currency owned by this actor by a certain amount.
    * The input amount can be provided either as a raw integer or as an object of currency denominations.
    * Returns the amount of currency that was added or subtracted.
-   * @param {number|Record<keyof CURRENCY_DENOMINATIONS, number>} amounts
+   * @param {number|Record<keyof crucible.CONFIG.currency, number>} amounts
    * @returns {number}
    */
   async modifyCurrency(amounts) {

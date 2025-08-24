@@ -72,6 +72,13 @@ Hooks.once("init", async function() {
    */
   crucible.CONFIG = {
     /**
+     * Configured setting-specific currency denominations.
+     * @type {Record{string, CrucibleCurrencyDenomination}
+     * @see @link{SYSTEM.ACTOR.CURRENCY_DENOMINATIONS}
+     */
+    currency: foundry.utils.deepClone(SYSTEM.ACTOR.CURRENCY_DENOMINATIONS),
+
+    /**
      * Configuration of compendium packs which are used as sources for system workflows.
      * @type {Record<string, Set<string>>}
      */
@@ -328,6 +335,7 @@ function preLocalizeConfig() {
   }
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
+  localizeConfigObject(SYSTEM.ACTOR.CURRENCY_DENOMINATIONS, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
   localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
