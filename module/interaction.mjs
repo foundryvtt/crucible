@@ -14,6 +14,8 @@ export function onPointerEnter(event) {
       return displaySpell(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
+    case "languageCheck":
+      return displayLanguageCheck(event);
     case "passiveCheck":
       return displayPassiveCheck(event);
     case "talent":
@@ -134,6 +136,28 @@ async function displayKnowledgeCheck(event) {
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
 
   const check = async (group, actor) => ({success: actor.hasKnowledge(knowledgeId)});
+  element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
+  element.dataset.tooltipClass = "crucible crucible-tooltip wide";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * On pointerenter, display a dynamic tooltip for the group language check.
+ * @param {PointerEvent} event 
+ * @returns {Promise<void>}
+ */
+async function displayLanguageCheck(event) {
+  const element = event.target;
+  const languageId = element.dataset.languageId;
+  const language = SYSTEM.ACTOR.LANGUAGES[languageId];
+  if ( !language || !crucible.party ) return;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const check = async (group, actor) => ({success: actor.system.details.languages.has(languageId)});
   element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
   element.dataset.tooltipClass = "crucible crucible-tooltip wide";
   const pointerover = new event.constructor(event.type, event);

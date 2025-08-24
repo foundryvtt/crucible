@@ -20,6 +20,11 @@ export function registerEnrichers() {
       pattern: /\[\[\/knowledge (\w+)]]/g,
       enricher: enrichKnowledge
     },
+    { // Language Test
+      id: "crucibleLanguage",
+      pattern: /\[\[\/language (\w+)]]/g,
+      enricher: enrichLanguage
+    },
     { // D&D5e Skill Checks
       id: "dnd5eSkill",
       pattern: /\[\[\/skill ([\w\s]+)]]/g,
@@ -282,6 +287,25 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
   tag.innerHTML = `Knowledge: ${knowledge.label}`;
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a language check with format [[/language {languageId}]]
+ * @param {string} match              The full matched string
+ * @param {string} knowledgeId        The matched knowledge ID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichLanguage([match, languageId]) {
+  const language = SYSTEM.ACTOR.LANGUAGES[languageId];
+  if ( !language ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("language-check", "passive-check", "group-check");
+  tag.dataset.crucibleTooltip = "languageCheck";
+  tag.dataset.languageId = languageId;
+  tag.innerHTML = `Language: ${language.label}`;
   return tag;
 }
 

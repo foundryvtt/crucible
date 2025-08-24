@@ -2695,6 +2695,20 @@ enriched-content.hazard-check.knowledge-check:before {
   content: "\e0c0";
   font-weight: 900;
 }
+enriched-content.skill-check.language-check,
+enriched-content.passive-check.language-check,
+enriched-content.hazard-check.language-check {
+  --color-background: #3a184a;
+  --color-background-hover: #4d2368;
+  --color-border: #752f9f;
+  --color-border-hover: #ab3fe8;
+}
+enriched-content.skill-check.language-check:before,
+enriched-content.passive-check.language-check:before,
+enriched-content.hazard-check.language-check:before {
+  content: "\f086";
+  font-weight: 900;
+}
 enriched-content.skill-check.hazard-check,
 enriched-content.passive-check.hazard-check,
 enriched-content.hazard-check.hazard-check {
