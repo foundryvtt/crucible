@@ -299,7 +299,7 @@ function enrichKnowledge([match, knowledgeId]) {
  * @returns {HTMLSpanElement|string}
  */
 function enrichLanguage([match, languageId]) {
-  const language = SYSTEM.ACTOR.LANGUAGES[languageId];
+  const language = crucible.CONFIG.languages[languageId];
   if ( !language ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("language-check", "passive-check", "group-check");

@@ -285,7 +285,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
     // Languages
     const languageTags = Array.from(languages.map(languageId => {
-      const l = SYSTEM.ACTOR.LANGUAGES[languageId];
+      const l = crucible.CONFIG.languages[languageId];
       return {text: `Language: ${l?.label || l}`};
     }))
     if ( languageTags.length ) background.features.push({

@@ -30,9 +30,9 @@ export default class CrucibleBackgroundItemSheet extends CrucibleActorDetailsIte
   /* -------------------------------------------- */
 
   #prepareLanguages() {
-    const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
+    const categories = crucible.CONFIG.languageCategories;
     const options = [];
-    for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
+    for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
       options.push({value, label, group: categories[category]?.label});
     }
     return options;
