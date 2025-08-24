@@ -183,6 +183,11 @@ Hooks.once("init", async function() {
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
 
+  // Custom HTML Elements
+  for ( const element of Object.values(applications.elements) ) {
+    window.customElements.define(element.tagName, element);
+  }
+
   // Rich Text Enrichers
   registerEnrichers();
 
@@ -335,13 +340,15 @@ function preLocalizeConfig() {
   }
   localizeConfigObject(SYSTEM.ACTION.TAGS, ["label", "tooltip"]);
   localizeConfigObject(SYSTEM.ACTION.TAG_CATEGORIES, ["label"]);
-  localizeConfigObject(SYSTEM.ACTOR.CURRENCY_DENOMINATIONS, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.DAMAGE_TYPES, ["label", "abbreviation"]);
   localizeConfigObject(SYSTEM.SKILL.CATEGORIES, ["label", "hint"]);
   localizeConfigObject(SYSTEM.SKILL.SKILLS, ["label"], false);
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+
+  // Config objects
+  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
 }
 
 /* -------------------------------------------- */

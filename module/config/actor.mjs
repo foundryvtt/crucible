@@ -68,7 +68,8 @@ export const CREATURE_CATEGORIES = {
  * @property {string} abbreviation          A short abbreviation for the denomination
  * @property {number} multiplier            A numerical multiplier that quantifies the value of this denomination
  *                                          relative to base currency units
- * @property {string} [icon]                An image icon for the denomination, currently unused
+ * @property {string} [icon]                An optional image icon for the denomination.
+ *                                          Recommended size is 48px square or smaller
  */
 
 /**
@@ -87,21 +88,25 @@ export const CURRENCY_DENOMINATIONS = {
   cp: {
     label: "CURRENCY_DENOMINATIONS.CP.label",
     abbreviation: "CURRENCY_DENOMINATIONS.CP.abbreviation",
+    icon: "systems/crucible/icons/currency/cp.webp",
     multiplier: 1
   },
   sp: {
     label: "CURRENCY_DENOMINATIONS.SP.label",
     abbreviation: "CURRENCY_DENOMINATIONS.SP.abbreviation",
+    icon: "systems/crucible/icons/currency/sp.webp",
     multiplier: 10
   },
   gp: {
     label: "CURRENCY_DENOMINATIONS.GP.label",
     abbreviation: "CURRENCY_DENOMINATIONS.GP.abbreviation",
+    icon: "systems/crucible/icons/currency/gp.webp",
     multiplier: 100
   },
   pp: {
     label: "CURRENCY_DENOMINATIONS.PP.label",
     abbreviation: "CURRENCY_DENOMINATIONS.PP.abbreviation",
+    icon: "systems/crucible/icons/currency/pp.webp",
     multiplier: 1000
   }
 };
