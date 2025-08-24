@@ -39,7 +39,8 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
         appearance: new fields.HTMLField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
-      })
+      }),
+      languages: new fields.SetField(new fields.StringField({blank: false}))
     });
 
     // Adversaries do not track ability advancement

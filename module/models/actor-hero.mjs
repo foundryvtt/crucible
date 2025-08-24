@@ -49,7 +49,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
         weight: new fields.StringField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
-      })
+      }),
+      languages: new fields.SetField(new fields.StringField({blank: false}))
     });
     return schema;
   }
