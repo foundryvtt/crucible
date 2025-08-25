@@ -796,7 +796,8 @@ export default class CrucibleActor extends Actor {
     roll.data.damage = weapon.system.getDamage(this, action, target, roll);
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
 
-    // TODO "rollWeaponAttack" hook for final damage adjustments?
+    // Finalize the attack and return
+    target.callActorHooks("receiveWeaponAttack", action, roll);
     return roll;
   }
 
