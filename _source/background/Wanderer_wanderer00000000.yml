@@ -22,15 +22,17 @@ system:
   ui:
     color: '#98da62'
   knowledge:
-    - tracking
     - plants
+    - tracking
+  languages:
+    - common
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1674942420012
-  modifiedTime: 1750350283190
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1756084022044
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

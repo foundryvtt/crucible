@@ -19,15 +19,17 @@ system:
   ui:
     color: '#84c9e6'
   knowledge:
-    - souls
     - gods
+    - souls
+  languages:
+    - common
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1674942420032
-  modifiedTime: 1750349899376
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1756083979406
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
