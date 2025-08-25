@@ -317,6 +317,7 @@ export default class CrucibleTalentNode {
         o.label = "Level"
       }
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
+      else if ( k.startsWith("training.") ) o.label = SYSTEM.TALENT.TRAINING_TYPES[k.split(".")[1]].label;
       else o.label = k;
       o.tag = `${o.label} ${o.value}`;
       obj[k] = o;
