@@ -143,6 +143,9 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
     for ( const node of this.nodes ) {
       Object.assign(requirements, foundry.utils.deepClone(node.requirements));
     }
+    if ( this.training.rank > 1 ) {
+      foundry.utils.setProperty(requirements, `training.${this.training.type}`, this.training.rank - 1);
+    }
     return CrucibleTalentNode.preparePrerequisites(requirements);
   }
 
@@ -229,7 +232,7 @@ export default class CrucibleTalentItem extends foundry.abstract.TypeDataModel {
 
     // Require prerequisite stats
     for ( let [k, v] of Object.entries(this.prerequisites) ) {
-      const current = foundry.utils.getProperty(actor.system, k);
+      const current = foundry.utils.getProperty(actor.system, k) ?? 0;
       if ( current < v.value ) {
         const err = game.i18n.format("TALENT.WARNINGS.Locked", {
           name: this.parent.name,
