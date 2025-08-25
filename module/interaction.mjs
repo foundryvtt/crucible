@@ -20,6 +20,8 @@ export function onPointerEnter(event) {
       return displayPassiveCheck(event);
     case "talent":
       return displayTalentTooltip(event);
+    case "skill":
+      return displaySkillTooltip(event);
   }
 }
 
@@ -63,6 +65,37 @@ async function displayTalentTooltip(event) {
 
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
   element.dataset.tooltipHtml = await talent.renderCard();
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Display a skill card as a tooltip.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displaySkillTooltip(event) {
+  const element = event.target;
+  const skill = element.dataset.skill;
+  const owner = await fromUuid(element.dataset.uuid);
+  if ( !skill || !owner ) return;
+  event.stopImmediatePropagation();
+
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const skillData = owner.sheet.prepareSkill(SYSTEM.SKILLS[skill], owner.system.skills);
+  skillData.knowledge = Object.entries(crucible.CONFIG.knowledge).reduce((acc, [key, knowledge]) => {
+    if(knowledge.skill == skill && owner.hasKnowledge(key)) acc.push(knowledge.label);
+    return acc;
+  }, []);
+  
+  await foundry.applications.handlebars.loadTemplates([SYSTEM.SKILL.TOOLTIP_TEMPLATE]);
+  const html = await foundry.applications.handlebars.renderTemplate(SYSTEM.SKILL.TOOLTIP_TEMPLATE, skillData);
+
+  element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);
