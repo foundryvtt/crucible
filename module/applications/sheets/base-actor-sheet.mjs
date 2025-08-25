@@ -150,7 +150,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fields: this.document.system.schema.fields,
       incomplete: {},
       inventory,
-      languages: this.#prepareLanguages(),
+      languages: this.#prepareLanguageOptions(),
       isEditable: this.isEditable,
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
@@ -644,10 +644,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
 
-  #prepareLanguages() {
-    const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
+  #prepareLanguageOptions() {
+    const categories = crucible.CONFIG.languageCategories;
     const options = [];
-    for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
+    for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
       options.push({value, label, group: categories[category]?.label});
     }
     return options;

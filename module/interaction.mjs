@@ -152,7 +152,7 @@ async function displayKnowledgeCheck(event) {
 async function displayLanguageCheck(event) {
   const element = event.target;
   const languageId = element.dataset.languageId;
-  const language = SYSTEM.ACTOR.LANGUAGES[languageId];
+  const language = crucible.CONFIG.languages[languageId];
   if ( !language || !crucible.party ) return;
   event.stopImmediatePropagation();
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
