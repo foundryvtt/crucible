@@ -928,7 +928,6 @@ crucible-currency > input {
   overflow: hidden;
 }
 .crucible.sheet.actor .sheet-body {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1647,6 +1646,9 @@ crucible-currency > input {
 }
 .crucible.sheet.actor .tab.secondary .item-section .notes {
   color: var(--color-tertiary);
+}
+.crucible.sheet.actor .tab.secondary .multiselect-section .form-group {
+  align-items: flex-end;
 }
 .crucible.sheet.actor .tab.inventory .inventory-create {
   position: absolute;

@@ -261,7 +261,9 @@
     "ARMOR_HINT": "Equip armor from your Backpack toggling the shield icon.",
     "ACCESSORIES_HINT": "Equip up to {slots} accessories from your Backpack toggling the shield icon.",
     "CONSUMABLES_HINT": "Equip up to {slots} consumables from your Backpack toggling the shield icon.",
-    "BACKPACK_HINT": "Add items by dropping them from the provided Crucible system compendium packs."
+    "BACKPACK_HINT": "Add items by dropping them from the provided Crucible system compendium packs.",
+    "KNOWLEDGE": "Knowledge Areas",
+    "LANGUAGES": "Known Languages"
   }
 },
 
