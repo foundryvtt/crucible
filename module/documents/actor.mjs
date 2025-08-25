@@ -1593,6 +1593,12 @@ export default class CrucibleActor extends Actor {
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
+    // Remove existing equipment
+    for ( const {item: uuid} of (existing?.equipment || []) ) {
+      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
+    }
+
     // Remove skill talents
     if ( skillTalents ) {
       for ( const skillId of (existing?.skills || []) ) {
@@ -1624,7 +1630,11 @@ export default class CrucibleActor extends Actor {
           talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
         }
       }
-
+      
+      // Register equipment to grant
+      const equipment = [];
+      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) equipment.push({item: await fromUuid(uuid), quantity, equipped});
+      
       // Add granted talents
       const updateItems = [];
       for ( const talent of talents ) {
@@ -1632,6 +1642,14 @@ export default class CrucibleActor extends Actor {
         if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
         else updateItems.push(this._cleanItemData(talent));
       }
+
+      // Add granted equipment
+      for ( const {item, quantity, equipped} of equipment) {
+        if ( !item ) continue;
+        if ( this.items.has(item.id) ) deleteItemIds.delete(item.id);
+        updateItems.push({...this._cleanItemData(item), system: {equipped, quantity}});
+      }
+
       if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
