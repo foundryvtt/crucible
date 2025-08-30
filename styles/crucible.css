@@ -2792,9 +2792,8 @@ enriched-content.skill-check.award .award-entry .currency,
 enriched-content.passive-check.award .award-entry .currency,
 enriched-content.hazard-check.award .award-entry .currency,
 enriched-content.award.award .award-entry .currency {
-  height: var(--font-size-14);
   width: var(--font-size-14);
-  background-position: center;
+  background-size: cover;
 }
 /* ----------------------------------------- */
 enriched-content.condition {
