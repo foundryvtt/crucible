@@ -254,6 +254,7 @@ Hooks.once("init", async function() {
   // Patch door sound radius - can we do this better elsewhere?
   Object.defineProperty(foundry.canvas.placeables.Wall.prototype, "soundRadius", {
     get() {
+      if ( !canvas.scene ) return 0;
       return canvas.scene.useMicrogrid ? 60 : canvas.dimensions.distance * 12;
     }
   });
