@@ -491,7 +491,7 @@ crucible-currency {
 }
 crucible-currency > label {
   flex: none;
-  margin-right: -8px;
+  margin-right: -4px;
 }
 crucible-currency > input {
   flex: 0 0 48px;
