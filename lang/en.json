@@ -499,12 +499,15 @@
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
 
 "AWARD": {
-  "InvalidWarning": "Unable to parse {terms} as valid award terms.",
+  "Each": "{award} each",
   "Milestone": {
     "one": "Milestone",
     "other": "Milestones"
   },
-  "NotGMWarning": "You must be a Gamemaster to use Award enrichers."
+  "WARNINGS": {
+    "InvalidTerms": "Unable to parse {terms} as valid award terms.",
+    "RequiresGM": "You must be a Gamemaster to use Award enrichers."
+  }
 },
 
 "ARCHETYPE": {

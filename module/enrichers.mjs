@@ -3,6 +3,12 @@
  */
 export function registerEnrichers() {
   CONFIG.TextEditor.enrichers.push(
+    {
+      id: "award",
+      pattern: /\[\[\/award ([\w\s]+)]]/g,
+      enricher: enrichAward,
+      onRender: renderAward
+    },
     { // Crucible Hazards
       id: "crucibleHazard",
       pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
@@ -24,12 +30,6 @@ export function registerEnrichers() {
       id: "crucibleLanguage",
       pattern: /\[\[\/language (\w+)]]/g,
       enricher: enrichLanguage
-    },
-    {
-      id: "dnd5eAward",
-      pattern: /\[\[\/award ([\w\s]+)]]/g,
-      enricher: enrichAward,
-      onRender: renderAward
     },
     { // D&D5e Skill Checks
       id: "dnd5eSkill",
@@ -115,13 +115,15 @@ function enrichDND5ESkill([match, terms]) {
 /**
  * Parse an award's terms into an object representing what should be gained
  * @param {string} terms
- * @returns {Record<string, number>}
+ * @returns {{currency: Record<string, string>, milestones: number | undefined, each: boolean}}
+ * @throws {Error}
  */
 function parseAwardTerms(terms) {
   const pattern = new RegExp(/^(.+?)(\D+)$/);
   const currency = {};
   const invalid = [];
   let milestones;
+  let each = false;
   for ( const part of terms.split(" ") ) {
     if ( !part ) continue;
     let [, amount, label] = part.match(pattern) ?? [];
@@ -129,18 +131,19 @@ function parseAwardTerms(terms) {
     try {
       new Roll(amount);
       if ( label in crucible.CONFIG.currency ) currency[label] = amount;
-      else if ( ["xp", "milestone", "milestones"].includes(label) ) milestones = Number(amount);
+      else if ( ["milestone", "milestones"].includes(label) ) milestones = Number(amount);
+      else if ( part === "each" ) each = true;
       else throw new Error();
-    } catch (err) {
+    } catch(err) {
       invalid.push(part);
     }
   }
 
-  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.InvalidWarning", {
+  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
-  return { currency, milestones }
+  return { currency, milestones, each }
 }
 
 /**
@@ -149,16 +152,27 @@ function parseAwardTerms(terms) {
  * @param {string} terms
  */
 function enrichAward([match, terms]) {
-  const { currency, milestones } = parseAwardTerms(terms);
-  const entries = [];
+  let currency, milestones, each;
+  try {
+    ({ currency, milestones, each } = parseAwardTerms(terms));
+  } catch(err) {
+    currency = {};
+    milestones = 0;
+    each = false;
+    ui.notifications.error(err.message)
+  }
+  let entries = [];
   for ( let [currencyKey, amount] of Object.entries(currency) ) {
     const {label, icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
     const textOrIcon = icon ? `<i class="currency ${currencyKey}" data-tooltip aria-label="${label}" style="background-image: url(${icon});"></i>` : abbreviation;
     entries.push(`
       <span class="award-entry">
-        ${amount} ${textOrIcon}
+      ${amount} ${textOrIcon}
       </span>
     `);
+  }
+  if ( entries.length && each ) {
+    entries = [game.i18n.format("AWARD.Each", {award: entries.join(", ")})];
   }
   if ( milestones ) {
     const plurals = new Intl.PluralRules(game.i18n.lang);
@@ -172,7 +186,11 @@ function enrichAward([match, terms]) {
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("award");
-  tag.dataset.terms = terms;
+  for ( let [currKey, currValue] of Object.entries(currency) ) {
+    tag.dataset[`currency.${currKey}`] = currValue;
+  }
+  tag.dataset.milestones = milestones ?? 0;
+  tag.dataset.each = each;
   tag.innerHTML = entries.join(", ");
   return tag;
 }
@@ -191,17 +209,16 @@ function renderAward(element) {
 
 async function onClickAward(event) {
   event.preventDefault();
-  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.NotGMWarning", { localize: true })
+  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true })
 
-  const terms = event.currentTarget.dataset.terms;
-  const { currency, milestones } = parseAwardTerms(terms);
+  const { currency, milestones, each } = foundry.utils.expandObject({...event.currentTarget.dataset});
 
   for ( const [key, formula] of Object.entries(currency) ) {
     const roll = await new Roll(`${formula}`).evaluate();
     currency[key] = roll.total;
   }
 
-  const netCurrency = crucible.api.documents.CrucibleActor.convertCurrency(currency);
+  let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
 
   // TODO: Consider pulling this logic out and using it for both hazard & award
   const partyMembers = crucible.party?.system.members || [];
@@ -239,12 +256,13 @@ async function onClickAward(event) {
 
   // Iterate over actor targets
   const targets = new Set([...response.partyMember, ...response.anyActor]);
+  if ( each !== "true" ) currencyEach = Math.floor(currencyEach / targets.size);
   for ( const actorId of targets ) {
     const actor = game.actors.get(actorId);
     const startingCurrency = actor.system.currency;
-    const newCurrency = Math.max(startingCurrency + netCurrency, 0);
+    const newCurrency = Math.max(startingCurrency + currencyEach, 0);
     const startingMilestones = actor.system._source.advancement.milestones;
-    const newMilestones = Math.max(startingMilestones + milestones, 0);
+    const newMilestones = Math.max(startingMilestones + Number(milestones), 0);
     actor.update({
       "system.advancement.milestones": newMilestones,
       "system.currency": newCurrency
