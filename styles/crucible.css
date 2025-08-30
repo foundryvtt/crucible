@@ -2345,7 +2345,7 @@ crucible-currency > input {
   /** Form Groups */
   /** Description */
   /** Hook Editor */
-  /** Talent Progression Items */
+  /** Talent Progression Items & Initial Equipment */
   /** Hooks */
 }
 .crucible.item .sheet-body.scrollable,
@@ -2386,6 +2386,8 @@ crucible-currency > input {
 .crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.item .equipment-list,
+.crucible.action .equipment-list,
 .crucible.item .talents-list,
 .crucible.action .talents-list {
   max-height: 600px;
@@ -2499,9 +2501,19 @@ crucible-currency > input {
 .crucible.taxonomy .resistances .form-fields {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.archetype .equipment,
+.crucible.taxonomy .equipment,
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {
   gap: 1rem;
+}
+.crucible.archetype .equipment input.quantity,
+.crucible.taxonomy .equipment input.quantity,
+.crucible.archetype .talents input.quantity,
+.crucible.taxonomy .talents input.quantity {
+  flex: 0 0 32px;
+  font-size: 0.8em;
+  text-align: center;
 }
 .crucible.archetype .characteristics,
 .crucible.taxonomy .characteristics {

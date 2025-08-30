@@ -50,7 +50,8 @@
     }
   }
 
-  /** Talent Progression Items */
+  /** Talent Progression Items & Initial Equipment */
+  .equipment-list,
   .talents-list {
     max-height: 600px;
     gap: 1.5rem;
@@ -166,8 +167,14 @@
   .resistances .form-fields {
     grid-template-columns: repeat(4, 1fr);
   }
+  .equipment,
   .talents {
     gap: 1rem;
+    input.quantity {
+      flex:  0 0 32px;
+      font-size: 0.8em;
+      text-align: center;
+    }
   }
   .characteristics {
     font-size: var(--font-size-13);

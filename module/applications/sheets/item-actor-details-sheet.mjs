@@ -12,6 +12,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     actions: {
+      removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
+      toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
       removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent
     }
   };
@@ -132,13 +134,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
     }
-
-    // Update Actor detail or permanent Item
     const updateData = {system: {talents: [...talents, data.uuid]}};
-    if ( this.document.parent instanceof foundry.documents.Actor ) {
-      return this._processSubmitData(event, this.form, updateData);
-    }
-    return this.document.update(updateData);
+    return this._processSubmitData(event, this.form, updateData);
   }
 
   /* -------------------------------------------- */
@@ -152,12 +149,37 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
     talents.delete(uuid);
-
-    // Update Actor detail or permanent Item
     const updateData = {system: {talents: [...talents]}};
-    if ( this.document.parent instanceof foundry.documents.Actor ) {
-      return this._processSubmitData(event, this.form, updateData);
-    }
-    return this.document.update(updateData);
+    return this._processSubmitData(event, this.form, updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #toggleEquipped(event) {
+    const item = event.target.closest(".equipment");
+    const equipment = this.document.system.equipment;
+    const uuid = item.dataset.uuid;
+    const existingItem = equipment.find(i => i.item === uuid);
+    existingItem.equipped = !existingItem.equipped;
+    const updateData = {system: {equipment}};
+    return this._processSubmitData(event, this.form, updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRemoveEquipment(event) {
+    const item = event.target.closest(".equipment");
+    const uuid = item.dataset.uuid || null;
+    const equipment = this.document.system._source.equipment.filter(i => i.item !== uuid);
+    const updateData = {system: {equipment}};
+    return this._processSubmitData(event, this.form, updateData);
   }
 }

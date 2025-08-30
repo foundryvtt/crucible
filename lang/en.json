@@ -514,6 +514,10 @@
       "label": "Granted Talents",
       "hint": "Configure one or more talents which this Archetype receives automatically."
     },
+    "equipment": {
+      "label": "Granted Equipment",
+      "hint": "Configure equipment which this Archetype receives automatically."
+    },
     "skills": {
       "label": "Favored Skills",
       "hint": "Configure a selection of skills that will automatically progress their training rank for this Archetype."
@@ -800,13 +804,16 @@
     "DESCRIPTION": "Description",
     "HOOKS": "Hooks",
     "SECRETS": "Secrets",
-    "TALENTS": "Talents"
+    "TALENTS": "Talents",
+    "EQUIPMENT": "Equipment"
   },
   "SHEET": {
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
     "EQUIPMENT": "Equipment Details",
+    "EQUIPMENT_REMOVE": "Remove Equipment",
+    "EQUIPMENT_DROP": "Add starting equipment by dragging and dropping items into this area.",
     "TYPE": "Equipment Type",
     "SCALED_PRICE": "Scaled Price"
   },
