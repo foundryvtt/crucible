@@ -21,15 +21,17 @@ system:
   ui:
     color: '#f08e4c'
   knowledge:
-    - warfare
     - machines
+    - warfare
+  languages:
+    - common
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1674942420015
-  modifiedTime: 1750350231178
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1756084010605
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

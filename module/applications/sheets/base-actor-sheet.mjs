@@ -150,7 +150,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       fields: this.document.system.schema.fields,
       incomplete: {},
       inventory,
-      languages: this.#prepareLanguages(),
+      languages: this.#prepareLanguageOptions(),
+      knowledge: this.#prepareKnowledgeOptions(),
       isEditable: this.isEditable,
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
@@ -644,11 +645,31 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /* -------------------------------------------- */
 
-  #prepareLanguages() {
-    const categories = SYSTEM.ACTOR.LANGUAGE_CATEGORIES;
+  /**
+   * Prepare options provided to a multi-select element for which languages the character may know.
+   * @returns {FormSelectOption[]}
+   */
+  #prepareLanguageOptions() {
+    const categories = crucible.CONFIG.languageCategories;
     const options = [];
-    for ( const [value, {label, category}] of Object.entries(SYSTEM.ACTOR.LANGUAGES) ) {
+    for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
       options.push({value, label, group: categories[category]?.label});
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare options provided to a multi-select element for which knowledge areas the character may know.
+   * TODO - allow all actors to have specific knowledge areas in addition to those provided by a Background
+   * @returns {FormSelectOption[]}
+   */
+  #prepareKnowledgeOptions() {
+    const options = [];
+    for ( const [value, {label, skill}] of Object.entries(crucible.CONFIG.knowledge) ) {
+      const s = SYSTEM.SKILLS[skill];
+      options.push({value, label, group: s?.label});
     }
     return options;
   }

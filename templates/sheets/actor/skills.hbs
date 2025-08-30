@@ -1,4 +1,4 @@
-<section class="tab secondary {{tabs.skills.id}} flexcol {{tabs.skills.cssClass}}"
+<section class="tab secondary {{tabs.skills.id}} scrollable flexcol {{tabs.skills.cssClass}}"
          data-tab="{{tabs.skills.id}}" data-group="{{tabs.skills.group}}">
     {{#each skillCategories as |category catId|}}
     <div class="sheet-section item-section flexcol">
@@ -32,4 +32,12 @@
         </ol>
     </div>
     {{/each}}
+    <div class="sheet-section multiselect-section flexcol">
+        <h3>{{localize "ACTOR.LABELS.KNOWLEDGE"}}</h3>
+        <p>TO DO</p>
+    </div>
+    <div class="sheet-section multiselect-section flexcol">
+        <h3>{{localize "ACTOR.LABELS.LANGUAGES"}}</h3>
+        {{formGroup fields.details.fields.languages value=source.system.details.languages options=languages}}
+    </div>
 </section>

@@ -98,7 +98,19 @@ Hooks.once("init", async function() {
      * The knowledge topics configured for the system.
      * @type {Record<string, CrucibleKnowledgeConfig>}
      */
-    knowledge: {...SYSTEM.SKILL.DEFAULT_KNOWLEDGE}
+    knowledge: foundry.utils.deepClone(SYSTEM.SKILL.DEFAULT_KNOWLEDGE),
+
+    /**
+     * The categories a language can belong to.
+     * @type {Record<string, {label: string}}
+     */
+    languageCategories: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGE_CATEGORIES),
+
+    /**
+     * The languages a creature can know.
+     * @type {Record<string, {label: string, category?: string}>}
+     */
+    languages: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGES)
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
@@ -242,6 +254,7 @@ Hooks.once("init", async function() {
   // Patch door sound radius - can we do this better elsewhere?
   Object.defineProperty(foundry.canvas.placeables.Wall.prototype, "soundRadius", {
     get() {
+      if ( !canvas.scene ) return 0;
       return canvas.scene.useMicrogrid ? 60 : canvas.dimensions.distance * 12;
     }
   });
@@ -265,7 +278,7 @@ Hooks.once("i18nInit", function() {
   const toLocalize = [
     ["ABILITIES", ["abbreviation", "label"]],
     "ACCESSORY.CATEGORIES", "ACCESSORY.PROPERTIES",
-    "ACTOR.CREATURE_CATEGORIES", "ACTOR.LANGUAGE_CATEGORIES", "ACTOR.LANGUAGES",
+    "ACTOR.CREATURE_CATEGORIES",
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
@@ -349,6 +362,8 @@ function preLocalizeConfig() {
 
   // Config objects
   localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
+  localizeConfigObject(crucible.CONFIG.languageCategories, ["label"]);
+  localizeConfigObject(crucible.CONFIG.languages, ["label"]);
 }
 
 /* -------------------------------------------- */

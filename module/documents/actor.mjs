@@ -796,7 +796,8 @@ export default class CrucibleActor extends Actor {
     roll.data.damage = weapon.system.getDamage(this, action, target, roll);
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
 
-    // TODO "rollWeaponAttack" hook for final damage adjustments?
+    // Finalize the attack and return
+    target.callActorHooks("receiveWeaponAttack", action, roll);
     return roll;
   }
 
@@ -1592,6 +1593,12 @@ export default class CrucibleActor extends Actor {
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
+    // Remove existing equipment
+    for ( const {item: uuid} of (existing?.equipment || []) ) {
+      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
+    }
+
     // Remove skill talents
     if ( skillTalents ) {
       for ( const skillId of (existing?.skills || []) ) {
@@ -1614,23 +1621,31 @@ export default class CrucibleActor extends Actor {
     else {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
-
-      // Register talents to grant
-      const talents = [];
-      for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
-      if ( skillTalents ) {
-        for ( const skillId of (detail.skills || []) ) {
-          talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
-        }
-      }
-
-      // Add granted talents
       const updateItems = [];
-      for ( const talent of talents ) {
+
+      // Grant Talents
+      const talentUuids = [
+        ...(detail.talents || []),
+        ...(skillTalents ? (detail.skills || []).map(skillId => SYSTEM.SKILLS[skillId]?.talents[1]) : [])
+      ];
+      for ( const uuid of talentUuids ) {
+        const talent = await fromUuid(uuid);
         if ( !talent ) continue;
-        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
-        else updateItems.push(this._cleanItemData(talent));
+        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id); // Talent already owned
+        else updateItems.push(this._cleanItemData(talent));               // Add new Talent
       }
+
+      // Grant Equipment
+      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) {
+        const item = await fromUuid(uuid);
+        if ( !item ) continue;
+        const itemData = this._cleanItemData(item);
+        Object.assign(itemData.system, {quantity, equipped});
+        if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        updateItems.push(itemData); // Always update equipment, even if already owned
+      }
+
+      // Include granted items in Actor update
       if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
@@ -1886,11 +1901,11 @@ export default class CrucibleActor extends Actor {
     let occupied;
     switch ( slot ) {
       case slots.TWOHAND:
-        if ( mainhand.id ) occupied = mainhand;
-        else if ( offhand.id ) occupied = offhand;
+        if ( mainhand?.id ) occupied = mainhand;
+        else if ( offhand?.id ) occupied = offhand;
         break;
       case slots.MAINHAND:
-        if ( mainhand.id ) occupied = mainhand;
+        if ( mainhand?.id ) occupied = mainhand;
         break;
       case slots.OFFHAND:
         if ( offhand?.id ) occupied = offhand;

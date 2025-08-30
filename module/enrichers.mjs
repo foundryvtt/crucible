@@ -99,8 +99,6 @@ const DND5E_SKILL_MAPPING = {
 function enrichDND5ESkill([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
   if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
-  // Scale difficulty for the translation between D&D and crucible
-  dc = 12 + Math.round((dc - 10) * 1.5);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
   const passive = rest.includes("passive");
   const tag = createSkillCheckElement(skill, dc, {passive, group: false});
@@ -467,7 +465,7 @@ function enrichKnowledge([match, knowledgeId]) {
  * @returns {HTMLSpanElement|string}
  */
 function enrichLanguage([match, languageId]) {
-  const language = SYSTEM.ACTOR.LANGUAGES[languageId];
+  const language = crucible.CONFIG.languages[languageId];
   if ( !language ) return new Text(match);
   const tag = document.createElement("enriched-content");
   tag.classList.add("language-check", "passive-check", "group-check");

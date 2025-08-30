@@ -21,15 +21,17 @@ system:
   knowledge:
     - alchemy
     - undeath
+  languages:
+    - common
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1677350949941
-  modifiedTime: 1750350265194
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1756083997933
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

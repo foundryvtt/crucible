@@ -135,6 +135,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     // Default Background data
     this.details.background ||= this.schema.getField("details.background").initialize({});
 
+    // Add Background languages
+    this.details.languages = this.details.languages.union(this.details.background.languages ?? new Set());
+
     // Threat level
     const adv = this.advancement;
     Object.assign(adv, {threatFactor: 1, threatLevel: adv.level, threat: adv.level});

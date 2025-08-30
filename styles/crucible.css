@@ -491,7 +491,7 @@ crucible-currency {
 }
 crucible-currency > label {
   flex: none;
-  margin-right: -8px;
+  margin-right: -4px;
 }
 crucible-currency > input {
   flex: 0 0 48px;
@@ -928,7 +928,6 @@ crucible-currency > input {
   overflow: hidden;
 }
 .crucible.sheet.actor .sheet-body {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1648,6 +1647,9 @@ crucible-currency > input {
 .crucible.sheet.actor .tab.secondary .item-section .notes {
   color: var(--color-tertiary);
 }
+.crucible.sheet.actor .tab.secondary .multiselect-section .form-group {
+  align-items: flex-end;
+}
 .crucible.sheet.actor .tab.inventory .inventory-create {
   position: absolute;
   width: 32px;
@@ -2343,7 +2345,7 @@ crucible-currency > input {
   /** Form Groups */
   /** Description */
   /** Hook Editor */
-  /** Talent Progression Items */
+  /** Talent Progression Items & Initial Equipment */
   /** Hooks */
 }
 .crucible.item .sheet-body.scrollable,
@@ -2384,6 +2386,8 @@ crucible-currency > input {
 .crucible.action .item-properties multi-checkbox {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.item .equipment-list,
+.crucible.action .equipment-list,
 .crucible.item .talents-list,
 .crucible.action .talents-list {
   max-height: 600px;
@@ -2497,9 +2501,19 @@ crucible-currency > input {
 .crucible.taxonomy .resistances .form-fields {
   grid-template-columns: repeat(4, 1fr);
 }
+.crucible.archetype .equipment,
+.crucible.taxonomy .equipment,
 .crucible.archetype .talents,
 .crucible.taxonomy .talents {
   gap: 1rem;
+}
+.crucible.archetype .equipment input.quantity,
+.crucible.taxonomy .equipment input.quantity,
+.crucible.archetype .talents input.quantity,
+.crucible.taxonomy .talents input.quantity {
+  flex: 0 0 32px;
+  font-size: 0.8em;
+  text-align: center;
 }
 .crucible.archetype .characteristics,
 .crucible.taxonomy .characteristics {
