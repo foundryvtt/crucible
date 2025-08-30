@@ -76,6 +76,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
           img: item.img,
           description: item.system.description.public,
           tags: item.getTags(),
+          cssClass: [item.type, equipped ? "equipped" : ""].filterJoin(" "),
           quantity,
           equipped
         }
@@ -124,7 +125,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
 
   /**
    * Handle drop events for an equipment item added to this sheet.
-   * @param {DragEvent} event 
+   * @param {DragEvent} event
    * @returns {Promise<*>}
    */
   async #onDropEquipment(event) {
@@ -132,7 +133,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
     const equipment = this.document.system.equipment;
     if ( (data.type !== "Item") || equipment.map(e => e.item).includes(data.uuid) ) return;
     const item = await fromUuid(data.uuid);
-    if ( !["armor", "accessory", "consumable", "weapon"].includes(item?.type) ) return;
+    if ( !(item?.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
 
     // Update Actor detail or permanent Item
     const updateData = {system: {equipment: [...equipment, {item: data.uuid, quantity: item.system.quantity ?? 1, equipped: !!item.system.equipped}]}};
@@ -147,6 +148,7 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
   /** @inheritDoc */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
+    const fields = this.document.system.schema.fields;
 
     // Handle equipment quantity changes
     if (submitData.system.equipment) {
@@ -156,8 +158,8 @@ export default class CrucibleArchetypeItemSheet extends CrucibleBackgroundItemSh
       }
       submitData.system.equipment = updatedEquipment;
     }
-    
-    const fields = this.document.system.schema.fields;
+
+    // Force replace ability progression
     if ( fields.abilities.validate(submitData.system.abilities) === undefined ) {
       submitData.system["==abilities"] = submitData.system.abilities;
     }

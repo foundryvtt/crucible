@@ -2483,6 +2483,14 @@
 .crucible.taxonomy .talents {
   gap: 1rem;
 }
+.crucible.archetype .equipment input.quantity,
+.crucible.taxonomy .equipment input.quantity,
+.crucible.archetype .talents input.quantity,
+.crucible.taxonomy .talents input.quantity {
+  flex: 0 0 32px;
+  font-size: 0.8em;
+  text-align: center;
+}
 .crucible.archetype .characteristics,
 .crucible.taxonomy .characteristics {
   font-size: var(--font-size-13);
