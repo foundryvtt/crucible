@@ -1228,7 +1228,7 @@ pages:
         <p>A creature that is <strong>Asleep</strong> is treated as
         incapacitated, it cannot sustain <strong>Morale</strong> damage, and any
         damage to <strong>Health</strong> causes it to immediately
-        awaken.</p>
+        awaken.</p><p>TODO: damage needs to automatically remove asleep.</p>
     video:
       controls: true
       volume: 0.5

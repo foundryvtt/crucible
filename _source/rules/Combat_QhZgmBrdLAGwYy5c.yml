@@ -810,6 +810,53 @@ pages:
       modifiedTime: 1751074420400
       lastModifiedBy: QvBFYpRRXHRBcOfP
     _key: '!journal.pages!QhZgmBrdLAGwYy5c.ALBdjCHkJcK5eKTI'
+  - sort: 850000
+    name: Rest and Recovery
+    type: text
+    _id: restAndRecovery0
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>After expending resources in combat or via other types of challenges,
+        characters will need to replenish their reserves. There are two special
+        Actions that are used for this
+        purpose:</p><dl><dt><p>Recover</p></dt><dd><p>A short rest that requires
+        10 minutes during which time resources of Health, Morale, Action, and
+        Focus are fully replenished. Any existing Heroism is removed. Certain
+        special Actions can be performed during a Recovery. Unless otherwise
+        stated, only one such Action may be performed per
+        character.</p></dd><dt><p>Rest</p></dt><dd><p>A long rest that requires
+        10 hours during which the characters have time to eat, sleep, recover,
+        and perform other downtime actions. Rest delivers all the benefits of
+        Recover, but also any accumulated Wounds or Madness are reduced by an
+        amount equal to the character's level. Certain special Actions can be
+        performed during a Rest. Unless otherwise stated, only one such Action
+        may be performed per character.</p></dd></dl>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.348'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1756671678424
+      modifiedTime: 1756671915883
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!QhZgmBrdLAGwYy5c.restAndRecovery0'
 _stats:
   systemId: crucible
   systemVersion: 0.5.6
