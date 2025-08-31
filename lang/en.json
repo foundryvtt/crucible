@@ -501,7 +501,12 @@
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
 
 "AWARD": {
-  "Each": "{award} each",
+  "TOOLTIPS": {
+    "Currency": "Award Currency",
+    "Milestone": "Award Milestone",
+    "CurrencyMilestone": "Award Currency and Milestone"
+  },
+  "Each": "each",
   "Milestone": {
     "one": "Milestone",
     "other": "Milestones"

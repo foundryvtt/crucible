@@ -150,46 +150,49 @@ function parseAwardTerms(terms) {
  * @param {string} terms
  */
 function enrichAward([match, terms]) {
-  let currency, milestones, each;
+  let parsed;
   try {
-    ({ currency, milestones, each } = parseAwardTerms(terms));
+    parsed = parseAwardTerms(terms);
   } catch(err) {
-    currency = {};
-    milestones = 0;
-    each = false;
-    ui.notifications.error(err.message)
+    return new Text(match);
   }
-  let entries = [];
-  for ( let [currencyKey, amount] of Object.entries(currency) ) {
-    const {label, icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
-    const textOrIcon = icon ? `<i class="currency ${currencyKey}" data-tooltip aria-label="${label}" style="background-image: url(${icon});"></i>` : abbreviation;
-    entries.push(`
-      <span class="award-entry">
-      ${amount} ${textOrIcon}
-      </span>
-    `);
-  }
-  if ( entries.length && each ) {
-    entries = [game.i18n.format("AWARD.Each", {award: entries.join(", ")})];
-  }
-  if ( milestones ) {
-    const plurals = new Intl.PluralRules(game.i18n.lang);
+  const {currency, milestones, each} = parsed;
+  const entries = [];
+  const dataset = {};
+  let tooltip;
 
-    entries.push(`
-      <span class="award-entry">
-        ${milestones} ${game.i18n.localize("AWARD.Milestone." + plurals.select(milestones))}
-      </span>
-  `);
+  // Award Currency
+  for ( const [currencyKey, amount] of Object.entries(currency) ) {
+    const {icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
+    if ( icon ) {
+      const i = `<i class="currency ${currencyKey}" style="background-image: url(${icon});"></i>`;
+      entries.push(i, amount);
+    }
+    else entries.push(amount, abbreviation);
+    tooltip = "AWARD.TOOLTIPS.Currency";
   }
+  if ( entries.length && each ) entries.push(game.i18n.localize("AWARD.Each"));
+
+  // Award Milestones
+  if ( milestones ) {
+    if ( entries.length ) {
+      entries.push(game.i18n.localize("and"));
+      tooltip = "AWARD.TOOLTIPS.CurrencyMilestone";
+    }
+    else tooltip = "AWARD.TOOLTIPS.Milestone";
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    const label = game.i18n.localize("AWARD.Milestone." + plurals.select(milestones));
+    entries.push(milestones, label);
+    dataset.milestones = milestones;
+  }
+
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("award");
-  for ( let [currKey, currValue] of Object.entries(currency) ) {
-    tag.dataset[`currency.${currKey}`] = currValue;
-  }
-  tag.dataset.milestones = milestones ?? 0;
-  tag.dataset.each = each;
-  tag.innerHTML = entries.join(", ");
+  Object.assign(tag.dataset, dataset);
+  tag.innerHTML = entries.join(" ");
+  tag.setAttribute("aria-label", game.i18n.localize(tooltip));
+  tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
 
@@ -284,7 +287,7 @@ function enrichHazard([match, terms, name]) {
 
   // Construct label
   const hazardRank = `Hazard ${hazard}`;
-  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing 
+  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing
   ${SYSTEM.DAMAGE_TYPES[action.usage.damageType]?.label} damage to ${SYSTEM.RESOURCES[action.usage.resource]?.label}`;
 
   // Return the enriched content tag

@@ -156,14 +156,18 @@ enriched-content.award {
   --color-border: #000000;
   --color-border-hover: #000000;
 
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  padding: 0 4px;
+  margin: -3px -1px;
+  align-items: center;
+  font-size: 90%;
   background: var(--color-background);
   color: var(--color-text-emphatic);
-  line-height: 1em;
-  padding: 3px 4px 1px; // Asymmetric to counter-act font appearance
-  margin: -3px -1px;
   border: 1px solid var(--color-border);
   border-radius: 2px;
-  font-size: 90%;
   cursor: var(--cursor-pointer);
 
   &:before {
@@ -240,22 +244,18 @@ enriched-content.award {
 
   // Awards
   &.award {
-    --color-background: #18444a;
-    --color-background-hover: #235a68;
-    --color-border: #2f8e9f;
-    --color-border-hover: #3fc6e8;
+    --color-background: #243437;
+    --color-background-hover: #163037;
+    --color-border: #9ea5a7;
+    --color-border-hover: #dae7eb;
     &:before {
       content: "\f091";
       font-weight: 900;
     }
-
-    .award-entry {
-      display: inline-flex;
-
-      .currency {
-        width: var(--font-size-14);
-        background-size: cover;
-      }
+    i.currency {
+      width: 16px;
+      height: 16px;
+      margin-right: -4px;
     }
   }
 }
