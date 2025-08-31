@@ -579,7 +579,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token.document);
+      const outcome = this.#createOutcome(actor, token?.document || null);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
@@ -1591,7 +1591,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const outcome of this.outcomes.values() ) {
       const {target, token, rolls: outcomeRolls, ...outcomeData} = outcome;
       outcomeData.target = target.uuid;
-      outcomeData.token = token.uuid;
+      outcomeData.token = token?.uuid || null;
       outcomeData.rolls = outcomeRolls.map((roll, i) => {
         roll.data.newTarget = hasMultipleTargets && (i === 0);
         roll.data.index = rolls.length;

@@ -170,6 +170,9 @@ Hooks.once("init", async function() {
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
 
+  // Time
+  CONFIG.time.roundTime = SYSTEM.TIME.roundSeconds;
+
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
   sheets.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);

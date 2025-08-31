@@ -137,6 +137,18 @@ export const ACTION_HOOKS = Object.freeze({
 /* -------------------------------------------- */
 
 /**
+ * Configuration how long certain actions in Crucible take to perform.
+ * @type {{restSeconds: number, roundSeconds: number, recoverSeconds: number}}
+ */
+export const TIME = Object.freeze({
+  roundSeconds: 10,
+  recoverSeconds: 60 * 10,
+  restSeconds: 60 * 60 * 10
+});
+
+/* -------------------------------------------- */
+
+/**
  * Include all constant definitions within the SYSTEM global export
  * @type {Object}
  */
@@ -163,6 +175,7 @@ export const SYSTEM = {
   SPELL,
   TALENT,
   THREAT_RANKS,
+  TIME,
   WEAPON,
   activeCheckFormula: "3d8",
   dice: dice

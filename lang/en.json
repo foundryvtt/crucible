@@ -270,7 +270,7 @@
 "ACTOR.GROUP": {
   "FIELDS": {
     "advancement": {
-      "label": "Advancement Progress",
+      "label": "Advancement",
       "milestones": {
         "label": "Milestones Earned",
         "hint": "The number of milestones that have been earned by this group."
@@ -299,7 +299,9 @@
   },
   "LABELS": {
     "medianLevel": "Median Level",
-    "cyclePace": "Cycle Pace"
+    "cyclePace": "Cycle Pace",
+    "recover": "Recover",
+    "rest": "Rest"
   }
 },
 

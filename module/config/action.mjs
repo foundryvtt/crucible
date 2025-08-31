@@ -350,7 +350,10 @@ export const TAGS = {
     tag: "noncombat",
     label: "ACTION.TagNonCombat",
     tooltip: "ACTION.TagNonCombatTooltip",
-    category: "context"
+    category: "context",
+    canUse() {
+      if ( this.actor.inCombat ) throw new Error(`You may not use ${this.name} during Combat.`);
+    },
   },
 
   // Requires a Flanked Opponent
@@ -1233,6 +1236,23 @@ export const DEFAULT_ACTIONS = Object.freeze([
     target: {
       type: "self",
     }
+  },
+
+  // Rest
+  {
+    id: "rest",
+    name: "Rest",
+    img: "icons/magic/time/arrows-circling-green.webp",
+    description: "Spend ten hours to fully rest, including time to eat, sleep, tend to wounds, and recover resources.",
+    target: {
+      type: "self",
+      number: 0,
+      scope: 1
+    },
+    cost: {
+      action: 0
+    },
+    tags: ["noncombat"]
   },
 
   // Basic Strike

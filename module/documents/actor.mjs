@@ -209,6 +209,14 @@ export default class CrucibleActor extends Actor {
   #lastConfirmedAction = {messageId: null, action: null};
 
   /**
+   * Track any groups that this Actor belongs to.
+   * This is populated during data preparation of group actors.
+   * @type {Set<CrucibleActor>}
+   * @internal
+   */
+  _groups = new Set();
+
+  /**
    * Prior resource values that can be used to establish diffs.
    * This is stored on the Actor because the system data object is reconstructed each time preparation occurs.
    * @type {Record<string, number|boolean>}
@@ -828,6 +836,32 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Perform the Recover action, restoring resource pools.
+   * @param {object} [updateData={}]      Additional update data to include in the recover operation
+   * @param {object} [options={}]         Options which modify the recover
+   * @param {boolean} [options.allowDead=false]   Allow dead actors to recover?
+   * @returns {Promise<void>}
+   */
+  async recover(updateData={}, {allowDead=false}={}) {
+    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
+
+    // Expire Active Effects
+    const toDeleteEffects = this.effects.reduce((arr, effect) => {
+      const s = effect.duration.seconds;
+      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
+      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
+      else if ( !s || (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
+      return arr;
+    }, []);
+    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
+
+    // Recover Resources
+    await this.update(foundry.utils.mergeObject(this.#getRecoveryData(), updateData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Restore all resource pools to their maximum value.
    * @param {object} [updateData={}]      Additional update data to include in the rest operation
    * @param {object} [options={}]         Options which modify the rest
@@ -837,35 +871,42 @@ export default class CrucibleActor extends Actor {
   async rest(updateData={}, {allowDead=false}={}) {
     if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
 
+    // Prepare Rest data
+    const restData = this.#getRecoveryData();
+    if ( this.type === "hero" ) {
+      const {wounds, madness} = this.system.resources;
+      restData.system.resources.wounds = {value: Math.max(wounds.value - this.level, 0)};
+      restData.system.resources.madness = {value: Math.max(madness.value - this.level, 0)};
+    }
+
     // Expire Active Effects
     const toDeleteEffects = this.effects.reduce((arr, effect) => {
+      const s = effect.duration.seconds;
       if ( effect.id === "weakened00000000" ) arr.push(effect.id);
       else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
+      else if ( !s || (s <= SYSTEM.TIME.restSeconds) ) arr.push(effect.id);
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
 
     // Recover Resources
-    await this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
+    await this.update(foundry.utils.mergeObject(restData, updateData));
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare an object that replenishes all resource pools to their current maximum level
-   * @returns {{}}
-   * @private
+   * @returns {object}
    */
-  _getRestData() {
-    const updates = {};
+  #getRecoveryData() {
+    const updates = {system: {resources: {}, status: null}};
     for ( let [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
       if ( !cfg || (cfg.type === "reserve") ) continue;
-      updates[`system.resources.${id}.value`] = resource.max;
+      updates.system.resources[id] = {value: resource.max};
     }
-    updates["system.resources.heroism.value"] = 0;
-    updates["system.status"] = null;
+    updates.system.resources.heroism = {value: 0};
     return updates;
   }
 
@@ -2074,7 +2115,7 @@ export default class CrucibleActor extends Actor {
       clone.updateSource(data);
 
       // Replenish resources
-      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone._getRestData());
+      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone.#getRecoveryData());
 
       // Constrain milestones
       if ( levelChange && (this.type === "hero") ) {
@@ -2111,6 +2152,7 @@ export default class CrucibleActor extends Actor {
         for ( const token of tokens ) token.refreshFlanking(commit);
       }
       this.#updateCachedResources();
+      this.#updateGroups();
     }
 
     // Refresh display of the active talent tree
@@ -2294,6 +2336,21 @@ export default class CrucibleActor extends Actor {
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
     return this._cachedResources;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update data for groups this Actor belongs to.
+   */
+  #updateGroups() {
+    for ( const group of this._groups ) {
+      if ( !group.system.actors.has(this) ) {
+        this._groups.delete(group);
+        continue;
+      }
+      group.sheet.render({force: false});
+    }
   }
 
   /* -------------------------------------------- */

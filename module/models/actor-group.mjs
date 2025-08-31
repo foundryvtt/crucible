@@ -1,5 +1,3 @@
-import CrucibleTalentItemSheet from "../applications/sheets/item-talent-sheet.mjs";
-
 /**
  * Data schema, attributes, and methods specific to Group type Actors.
  */
@@ -65,6 +63,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   memberIds = new Set();
 
+  /**
+   * The distinct Actors which belong to this group.
+   * @type {Set<CrucibleActor>}
+   */
+  actors = new Set();
+
   /* -------------------------------------------- */
   /*  Document Preparation                        */
   /* -------------------------------------------- */
@@ -80,12 +84,15 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   prepareDerivedData() {
     const levels = [];
+    this.actors.clear();
     this.memberIds.clear();
     for ( const m of this.members ) {
       m.actor = game.actors.get(m.actorId);
       if ( !m.actor ) continue;
+      m.actor._groups.add(this.parent);
       for ( let i=0; i<m.quantity; i++ ) levels.push(m.actor.level);
       this.memberIds.add(m.actorId);
+      this.actors.add(m.actor);
     }
 
     // Median member level
@@ -97,6 +104,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Member IDs
     Object.defineProperty(this.members, "ids", {value: this.memberIds, enumerable: false, configurable: true});
+    Object.defineProperty(this.members, "actors", {value: this.actors, enumerable: false, configurable: true});
   }
 
   /* -------------------------------------------- */
@@ -186,6 +194,29 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
+   * Award milestones to the members of this group.
+   * @param {number} quantity
+   * @param {string[]} recipientIds
+   * @returns {Promise<void>}
+   */
+  async awardMilestones(quantity, recipientIds) {
+    recipientIds ||= Array.from(this.memberIds);
+    const updates = recipientIds.reduce((arr, id) => {
+      const actor = game.actors.get(id);
+      if ( !actor ) return arr;
+      const starting = actor.system._source.advancement.milestones;
+      const milestones = Math.max(starting + response.quantity, 0);
+      arr.push({_id: id, "system.advancement.milestones": milestones});
+      return arr;
+    }, []);
+    const groupMilestones = Math.max(this._source.advancement.milestones + response.quantity, 0);
+    updates.push({_id: this.parent.id, "system.advancement.milestones": groupMilestones});
+    await Actor.updateDocuments(updates);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
    * @returns {Promise<void>}
    */
@@ -225,19 +256,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       content: `${quantityHTML.outerHTML}${recipientsHTML.outerHTML}`
     });
     if ( !response ) return;
-
-    // Process award
-    const updates = response.recipients.reduce((arr, id) => {
-      const actor = game.actors.get(id);
-      if ( !actor ) return arr;
-      const starting = actor.system._source.advancement.milestones;
-      const milestones = Math.max(starting + response.quantity, 0);
-      arr.push({_id: id, "system.advancement.milestones": milestones});
-      return arr;
-    }, []);
-    const groupMilestones = Math.max(this._source.advancement.milestones + response.quantity, 0);
-    updates.push({_id: this.parent.id, "system.advancement.milestones": groupMilestones});
-    await Actor.updateDocuments(updates);
+    await this.awardMilestones(response.quantity, response.recipients);
   }
 
   /* -------------------------------------------- */
@@ -260,6 +279,40 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     }
     return tags;
   }
+  /* -------------------------------------------- */
+
+  /**
+   * Perform a group recovery where every member of the group uses the Recovery action and time advances.
+   * @fires {preGroupRecover}
+   * @returns {Promise<void>}
+   */
+  async recover() {
+    if ( Hooks.call("crucible.preGroupRecover", this) === false ) return;
+    const promises = [];
+    for ( const actor of this.actors ) {
+      promises.push(actor.useAction("recover", {dialog: false}));
+    }
+    promises.push(game.time.advance(SYSTEM.TIME.recoverSeconds));
+    await Promise.allSettled(promises);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Perform a group rest where every member of the group uses the Rest action and time advances.
+   * @fires {preGroupRest}
+   * @returns {Promise<void>}
+   */
+  async rest() {
+    if ( Hooks.call("crucible.preGroupRest", this) === false ) return;
+    const promises = [];
+    for ( const actor of this.actors ) {
+      promises.push(actor.useAction("rest", {dialog: false}));
+    }
+    promises.push(game.time.advance(SYSTEM.TIME.restSeconds));
+    await Promise.allSettled(promises);
+  }
+
   /* -------------------------------------------- */
 
   /**

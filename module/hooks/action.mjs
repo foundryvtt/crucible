@@ -343,11 +343,8 @@ HOOKS.reactiveStrike = {
 /* -------------------------------------------- */
 
 HOOKS.recover = {
-  canUse() {
-    if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
-  },
   async confirm() {
-    await this.actor.rest();
+    await this.actor.recover();
   }
 }
 
@@ -385,6 +382,14 @@ HOOKS.repercussiveBlock = {
       outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
       outcome.statusText.push({text: "Disarmed!", fontSize: 64});
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rest = {
+  async confirm() {
+    await this.actor.rest();
   }
 }
 

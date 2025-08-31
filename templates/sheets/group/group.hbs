@@ -37,6 +37,8 @@
         </div>
         <div class="sheet-section advancement flexrow">
             <h3>{{systemFields.advancement.label}}</h3>
+            <button type="button" class="icon fa-solid fa-bolt" data-action="recover"
+                    aria-label="{{localize 'ACTOR.GROUP.LABELS.recover'}}" data-tooltip></button>
             <div class="milestones labeled-hex">
                 <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
                 <button type="button" class="value" data-action="awardMilestone"
@@ -45,6 +47,8 @@
                 </button>
                 <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{groupLevel.level}}</span>
             </div>
+            <button type="button" class="icon fa-solid fa-campfire" data-action="rest"
+                    aria-label="{{localize 'ACTOR.GROUP.LABELS.rest'}}" data-tooltip></button>
         </div>
     </div>
 
