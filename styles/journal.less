@@ -149,7 +149,8 @@
 
 enriched-content.skill-check,
 enriched-content.passive-check,
-enriched-content.hazard-check {
+enriched-content.hazard-check,
+enriched-content.award {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
@@ -235,6 +236,27 @@ enriched-content.hazard-check {
     --color-background-hover: #681212;
     --color-border: #9c1212;
     --color-border-hover: #d11515;
+  }
+
+  // Awards
+  &.award {
+    --color-background: #18444a;
+    --color-background-hover: #235a68;
+    --color-border: #2f8e9f;
+    --color-border-hover: #3fc6e8;
+    &:before {
+      content: "\f091";
+      font-weight: 900;
+    }
+
+    .award-entry {
+      display: inline-flex;
+
+      .currency {
+        width: var(--font-size-14);
+        background-size: cover;
+      }
+    }
   }
 }
 

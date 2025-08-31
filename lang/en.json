@@ -500,6 +500,18 @@
 "ADVANCEMENT.MilestoneAward": "Award Milestones",
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
 
+"AWARD": {
+  "Each": "{award} each",
+  "Milestone": {
+    "one": "Milestone",
+    "other": "Milestones"
+  },
+  "WARNINGS": {
+    "InvalidTerms": "Unable to parse {terms} as valid award terms.",
+    "RequiresGM": "You must be a Gamemaster to use Award enrichers."
+  }
+},
+
 "ARCHETYPE": {
   "FIELDS": {
     "abilities": {
