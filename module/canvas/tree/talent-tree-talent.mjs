@@ -85,6 +85,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   #onPointerOver(event) {
+    if ( document.elementFromPoint(event.globalX, event.globalY)?.id !== "crucible-talent-tree" ) return;
     event.stopPropagation();
     this.scale.set(1.2, 1.2);
     game.system.tree.hud.activate(this);
