@@ -476,6 +476,18 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Tests whether or not the Actor has a specific talent.
+   * @param {string} talentId
+   * @returns {boolean}
+   */
+  hasTalent(talentId) {
+    const item = this.items.get(talentId);
+    return Boolean(item && item.type === "talent");
+  };
+
+  /* -------------------------------------------- */
+
+  /**
    * Roll a skill check for a given skill ID.
    *
    * @param {string} skillId      The ID of the skill to roll a check for, for example "stealth"

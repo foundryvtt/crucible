@@ -38,6 +38,11 @@ export function registerEnrichers() {
       onRender: renderSkillCheck
     },
     {
+      id: `crucibleTalent`,
+      pattern: /\[\[\/talent (\w+)]]/g,
+      enricher: enrichTalent
+    },
+    {
       id: "crucibleCondition",
       pattern: /@Condition\[(\w+)]/g,
       enricher: enrichCondition
@@ -458,6 +463,39 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.innerHTML = `Knowledge: ${knowledge.label}`;
   return tag;
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a talent check with format [[/talent {talentId}]]
+ * @param {string} match       The full matched string
+ * @param {string} talentId    The matched talent ID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichTalent([match, talentId]) {
+  let talentName = null;
+
+  for ( const pack of crucible.CONFIG.packs.talent ) {
+    const talent = fromUuidSync(foundry.utils.buildUuid({
+      id: talentId,
+      pack,
+      documentName: `Item`
+    }));
+
+    if ( talent ) {
+      talentName = talent.name;
+      break;
+    };
+  };
+
+  if ( !talentName || !talentId ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("talent-check", "passive-check", "group-check");
+  tag.dataset.crucibleTooltip = "talentCheck";
+  tag.dataset.talentId = talentId;
+  tag.innerHTML = `Talent: ${talentName}`;
+  return tag;
+};
 
 /* -------------------------------------------- */
 
