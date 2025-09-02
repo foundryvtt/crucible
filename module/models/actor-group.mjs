@@ -197,30 +197,48 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    * Award milestones to the members of this group.
    * @param {number} quantity
    * @param {string[]} recipientIds
+   * @param {boolean} [createMessage=true]
    * @returns {Promise<void>}
    */
-  async awardMilestones(quantity, recipientIds) {
+  async awardMilestones(quantity, recipientIds, createMessage=true) {
     recipientIds ||= Array.from(this.memberIds);
+    const recipientNames = [];
     const updates = recipientIds.reduce((arr, id) => {
       const actor = game.actors.get(id);
       if ( !actor ) return arr;
+      recipientNames.push(actor.name);
       const starting = actor.system._source.advancement.milestones;
-      const milestones = Math.max(starting + response.quantity, 0);
+      const milestones = Math.max(starting + quantity, 0);
       arr.push({_id: id, "system.advancement.milestones": milestones});
       return arr;
     }, []);
-    const groupMilestones = Math.max(this._source.advancement.milestones + response.quantity, 0);
+    const groupMilestones = Math.max(this._source.advancement.milestones + quantity, 0);
     updates.push({_id: this.parent.id, "system.advancement.milestones": groupMilestones});
     await Actor.updateDocuments(updates);
+    if ( !createMessage ) return;
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    const awardText = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
+    await ChatMessage.implementation.create({
+      content: `
+      <section class="crucible">
+        ${game.i18n.format("AWARD.SUMMARIES.Gain", {award: awardText})}
+        <ul><li>${recipientNames.join("</li><li>")}</li></ul>
+      </section>
+      `,
+      speaker: ChatMessage.implementation.getSpeaker({actor: this.parent}),
+      flags: {crucible: {isAwardSummary: true}}
+    });
   }
 
   /* -------------------------------------------- */
 
   /**
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
+   * @param {number} [baseQuantity=1]       Quantity of milestones to pre-populate the dialog with
+   * @param {boolean} [createMessage=true]  Whether to create a chat message summarizing the award
    * @returns {Promise<void>}
    */
-  async awardMilestoneDialog() {
+  async awardMilestoneDialog(baseQuantity=1, createMessage=true) {
     if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to award milestones.");
 
     // Prepare form data
@@ -233,7 +251,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     const {SetField, StringField, NumberField} = foundry.data.fields;
     const quantity = new NumberField({
       integer: true,
-      initial: 1,
+      initial: baseQuantity,
       label: "ACTOR.GROUP.FIELDS.advancement.milestones.label",
       hint: "ACTOR.GROUP.FIELDS.advancement.milestones.hint"
     });
@@ -256,7 +274,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       content: `${quantityHTML.outerHTML}${recipientsHTML.outerHTML}`
     });
     if ( !response ) return;
-    await this.awardMilestones(response.quantity, response.recipients);
+    await this.awardMilestones(response.quantity, response.recipients, createMessage);
   }
 
   /* -------------------------------------------- */

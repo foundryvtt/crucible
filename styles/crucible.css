@@ -2654,7 +2654,8 @@ crucible-currency > input {
 enriched-content.skill-check,
 enriched-content.passive-check,
 enriched-content.hazard-check,
-enriched-content.award {
+enriched-content.award,
+enriched-content.milestone {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
@@ -2676,7 +2677,8 @@ enriched-content.award {
 enriched-content.skill-check:before,
 enriched-content.passive-check:before,
 enriched-content.hazard-check:before,
-enriched-content.award:before {
+enriched-content.award:before,
+enriched-content.milestone:before {
   content: "\f6d2";
   font-family: var(--font-awesome);
   opacity: 0.5;
@@ -2686,20 +2688,23 @@ enriched-content.award:before {
 enriched-content.skill-check:hover,
 enriched-content.passive-check:hover,
 enriched-content.hazard-check:hover,
-enriched-content.award:hover {
+enriched-content.award:hover,
+enriched-content.milestone:hover {
   background: var(--color-background-hover);
   border-color: var(--color-border-hover);
 }
 enriched-content.skill-check:hover:before,
 enriched-content.passive-check:hover:before,
 enriched-content.hazard-check:hover:before,
-enriched-content.award:hover:before {
+enriched-content.award:hover:before,
+enriched-content.milestone:hover:before {
   opacity: 1;
 }
 enriched-content.skill-check.exp,
 enriched-content.passive-check.exp,
 enriched-content.hazard-check.exp,
-enriched-content.award.exp {
+enriched-content.award.exp,
+enriched-content.milestone.exp {
   --color-background: #2c3921;
   --color-background-hover: #365021;
   --color-border: #5b9e26;
@@ -2708,7 +2713,8 @@ enriched-content.award.exp {
 enriched-content.skill-check.kno,
 enriched-content.passive-check.kno,
 enriched-content.hazard-check.kno,
-enriched-content.award.kno {
+enriched-content.award.kno,
+enriched-content.milestone.kno {
   --color-background: #1a1a37;
   --color-background-hover: #242453;
   --color-border: #4848ac;
@@ -2717,7 +2723,8 @@ enriched-content.award.kno {
 enriched-content.skill-check.soc,
 enriched-content.passive-check.soc,
 enriched-content.hazard-check.soc,
-enriched-content.award.soc {
+enriched-content.award.soc,
+enriched-content.milestone.soc {
   --color-background: #3a184a;
   --color-background-hover: #4d2368;
   --color-border: #752f9f;
@@ -2726,13 +2733,15 @@ enriched-content.award.soc {
 enriched-content.skill-check.passive-check,
 enriched-content.passive-check.passive-check,
 enriched-content.hazard-check.passive-check,
-enriched-content.award.passive-check {
+enriched-content.award.passive-check,
+enriched-content.milestone.passive-check {
   cursor: var(--cursor-help, help);
 }
 enriched-content.skill-check.knowledge-check,
 enriched-content.passive-check.knowledge-check,
 enriched-content.hazard-check.knowledge-check,
-enriched-content.award.knowledge-check {
+enriched-content.award.knowledge-check,
+enriched-content.milestone.knowledge-check {
   --color-background: #1a1a37;
   --color-background-hover: #242453;
   --color-border: #4848ac;
@@ -2741,14 +2750,16 @@ enriched-content.award.knowledge-check {
 enriched-content.skill-check.knowledge-check:before,
 enriched-content.passive-check.knowledge-check:before,
 enriched-content.hazard-check.knowledge-check:before,
-enriched-content.award.knowledge-check:before {
+enriched-content.award.knowledge-check:before,
+enriched-content.milestone.knowledge-check:before {
   content: "\e0c0";
   font-weight: 900;
 }
 enriched-content.skill-check.language-check,
 enriched-content.passive-check.language-check,
 enriched-content.hazard-check.language-check,
-enriched-content.award.language-check {
+enriched-content.award.language-check,
+enriched-content.milestone.language-check {
   --color-background: #3a184a;
   --color-background-hover: #4d2368;
   --color-border: #752f9f;
@@ -2757,14 +2768,16 @@ enriched-content.award.language-check {
 enriched-content.skill-check.language-check:before,
 enriched-content.passive-check.language-check:before,
 enriched-content.hazard-check.language-check:before,
-enriched-content.award.language-check:before {
+enriched-content.award.language-check:before,
+enriched-content.milestone.language-check:before {
   content: "\f086";
   font-weight: 900;
 }
 enriched-content.skill-check.hazard-check,
 enriched-content.passive-check.hazard-check,
 enriched-content.hazard-check.hazard-check,
-enriched-content.award.hazard-check {
+enriched-content.award.hazard-check,
+enriched-content.milestone.hazard-check {
   --color-background: #2b0606;
   --color-background-hover: #681212;
   --color-border: #9c1212;
@@ -2773,7 +2786,13 @@ enriched-content.award.hazard-check {
 enriched-content.skill-check.award,
 enriched-content.passive-check.award,
 enriched-content.hazard-check.award,
-enriched-content.award.award {
+enriched-content.award.award,
+enriched-content.milestone.award,
+enriched-content.skill-check.milestone,
+enriched-content.passive-check.milestone,
+enriched-content.hazard-check.milestone,
+enriched-content.award.milestone,
+enriched-content.milestone.milestone {
   --color-background: #243437;
   --color-background-hover: #163037;
   --color-border: #9ea5a7;
@@ -2782,14 +2801,26 @@ enriched-content.award.award {
 enriched-content.skill-check.award:before,
 enriched-content.passive-check.award:before,
 enriched-content.hazard-check.award:before,
-enriched-content.award.award:before {
+enriched-content.award.award:before,
+enriched-content.milestone.award:before,
+enriched-content.skill-check.milestone:before,
+enriched-content.passive-check.milestone:before,
+enriched-content.hazard-check.milestone:before,
+enriched-content.award.milestone:before,
+enriched-content.milestone.milestone:before {
   content: "\f091";
   font-weight: 900;
 }
 enriched-content.skill-check.award i.currency,
 enriched-content.passive-check.award i.currency,
 enriched-content.hazard-check.award i.currency,
-enriched-content.award.award i.currency {
+enriched-content.award.award i.currency,
+enriched-content.milestone.award i.currency,
+enriched-content.skill-check.milestone i.currency,
+enriched-content.passive-check.milestone i.currency,
+enriched-content.hazard-check.milestone i.currency,
+enriched-content.award.milestone i.currency,
+enriched-content.milestone.milestone i.currency {
   width: 16px;
   height: 16px;
   margin-right: -4px;
@@ -2914,6 +2945,19 @@ enriched-content.spell:before {
 }
 .crucible.chat-message button.confirm {
   margin-top: 0.5rem;
+}
+.crucible.chat-message .award-chat {
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  margin: -3px -1px;
+  align-items: center;
+}
+.crucible.chat-message .award-chat i.currency {
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
 }
 /* -------------------------------------------- */
 /*  Chat Actions                                */

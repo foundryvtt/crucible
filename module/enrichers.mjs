@@ -5,7 +5,7 @@ export function registerEnrichers() {
   CONFIG.TextEditor.enrichers.push(
     {
       id: "award",
-      pattern: /\[\[\/award ([\w\s]+)]]/g,
+      pattern: /\[\[\/award ([-\w\s]+)]]/g,
       enricher: enrichAward,
       onRender: renderAward
     },
@@ -46,6 +46,12 @@ export function registerEnrichers() {
       id: "crucibleSpell",
       pattern: /@Spell\[([\w.]+)]/g,
       enricher: enrichSpell
+    },
+    {
+      id: "milestone",
+      pattern: /\[\[\/milestone( \d+)?\]\]/g,
+      enricher: enrichMilestone,
+      onRender: renderMilestone
     },
     {
       id: "reference",
@@ -113,14 +119,13 @@ function enrichDND5ESkill([match, terms]) {
 /**
  * Parse an award's terms into an object representing what should be gained
  * @param {string} terms
- * @returns {{currency: Record<string, string>, milestones: number | undefined, each: boolean}}
+ * @returns {{currency: Record<string, string>, each: boolean}}
  * @throws {Error}
  */
 function parseAwardTerms(terms) {
   const pattern = new RegExp(/^(.+?)(\D+)$/);
   const currency = {};
   const invalid = [];
-  let milestones;
   let each = false;
   for ( const part of terms.split(" ") ) {
     if ( !part ) continue;
@@ -129,7 +134,6 @@ function parseAwardTerms(terms) {
     try {
       new Roll(amount);
       if ( label in crucible.CONFIG.currency ) currency[label] = amount;
-      else if ( ["milestone", "milestones"].includes(label) ) milestones = Number(amount);
       else if ( part === "each" ) each = true;
       else throw new Error();
     } catch(err) {
@@ -141,7 +145,25 @@ function parseAwardTerms(terms) {
     terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
   }));
 
-  return { currency, milestones, each }
+  return { currency, each }
+}
+
+/**
+ * Transform a currency object (currency key to amount) into a list of HTML entries for well-formatted display
+ * @param {Record<string, string>} currency Currency object
+ * @param {boolean} [forcePositive=false]   Whether to return positive-formatted text (to avoid double-negatives)
+ * @returns 
+ */
+function formatAwardEntries(currency, forcePositive=false) {
+  const entries = [];
+  for ( const [currencyKey, amount] of Object.entries(currency) ) {
+    const {icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
+    if ( icon ) {
+      const i = `<i class="currency ${currencyKey}" style="background-image: url(${icon});"></i>`;
+      entries.push(i, forcePositive ? Math.abs(amount) : amount);
+    } else entries.push(forcePositive ? Math.abs(amount) : amount, abbreviation);
+  }
+  return entries;
 }
 
 /**
@@ -156,42 +178,21 @@ function enrichAward([match, terms]) {
   } catch(err) {
     return new Text(match);
   }
-  const {currency, milestones, each} = parsed;
-  const entries = [];
+  const {currency, each} = parsed;
   const dataset = {};
-  let tooltip;
 
   // Award Currency
-  for ( const [currencyKey, amount] of Object.entries(currency) ) {
-    const {icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
-    if ( icon ) {
-      const i = `<i class="currency ${currencyKey}" style="background-image: url(${icon});"></i>`;
-      entries.push(i, amount);
-    }
-    else entries.push(amount, abbreviation);
-    tooltip = "AWARD.TOOLTIPS.Currency";
-  }
+  for ( const [currencyKey, amount] of Object.entries(currency) ) dataset[`currency.${currencyKey}`] = amount;
+  dataset.each = each;
+  const entries = formatAwardEntries(currency);
   if ( entries.length && each ) entries.push(game.i18n.localize("AWARD.Each"));
-
-  // Award Milestones
-  if ( milestones ) {
-    if ( entries.length ) {
-      entries.push(game.i18n.localize("and"));
-      tooltip = "AWARD.TOOLTIPS.CurrencyMilestone";
-    }
-    else tooltip = "AWARD.TOOLTIPS.Milestone";
-    const plurals = new Intl.PluralRules(game.i18n.lang);
-    const label = game.i18n.localize("AWARD.Milestone." + plurals.select(milestones));
-    entries.push(milestones, label);
-    dataset.milestones = milestones;
-  }
 
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("award");
   Object.assign(tag.dataset, dataset);
   tag.innerHTML = entries.join(" ");
-  tag.setAttribute("aria-label", game.i18n.localize(tooltip));
+  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Currency"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
 }
@@ -199,7 +200,7 @@ function enrichAward([match, terms]) {
 /* -------------------------------------------- */
 
 /**
- * Add interactivity to a rendered hazard enrichment.
+ * Add interactivity to a rendered award enrichment.
  * @param {HTMLElement} element
  */
 function renderAward(element) {
@@ -210,13 +211,17 @@ function renderAward(element) {
 
 async function onClickAward(event) {
   event.preventDefault();
-  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true })
+  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true });
 
-  const { currency, milestones, each } = foundry.utils.expandObject({...event.currentTarget.dataset});
+  const { currency, each: eachString } = foundry.utils.expandObject({...event.currentTarget.dataset});
+  const each = eachString === "true";
+
+  const rolls = [];
 
   for ( const [key, formula] of Object.entries(currency) ) {
     const roll = await new Roll(`${formula}`).evaluate();
     currency[key] = roll.total;
+    if ( !roll.isDeterministic ) rolls.push({roll, formula, label: crucible.CONFIG.currency[key]?.label ?? key});
   }
 
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
@@ -247,7 +252,7 @@ async function onClickAward(event) {
     input: anyActorInput
   });
   const response = await foundry.applications.api.DialogV2.input({
-    window: {title: "Choose Recipient(s)", icon: "fa-solid fa-trophy"},
+    window: {title: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Gain"}`), icon: "fa-solid fa-trophy"},
     content: `\
     ${partyMember.outerHTML}${anyActor.outerHTML}
     `,
@@ -257,18 +262,98 @@ async function onClickAward(event) {
 
   // Iterate over actor targets
   const targets = new Set([...response.partyMember, ...response.anyActor]);
-  if ( each !== "true" ) currencyEach = Math.floor(currencyEach / targets.size);
+  if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
+  if ( currencyEach < 0 ) {
+    const cannotAfford = targets.map(id => game.actors.get(id)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
+    if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
+  }
   for ( const actorId of targets ) {
     const actor = game.actors.get(actorId);
     const startingCurrency = actor.system.currency;
     const newCurrency = Math.max(startingCurrency + currencyEach, 0);
-    const startingMilestones = actor.system._source.advancement.milestones;
-    const newMilestones = Math.max(startingMilestones + Number(milestones), 0);
     actor.update({
-      "system.advancement.milestones": newMilestones,
       "system.currency": newCurrency
     });
   }
+
+  const currencyEntries = formatAwardEntries(currency, true);
+  await ChatMessage.implementation.create({
+    content: `
+    <section class="crucible">
+      <div class="award-chat">
+        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Gain"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
+      </div>
+      <ul><li>${Array.from(targets.map(t => game.actors.get(t).name)).join("</li><li>")}</li></ul>
+      ${rolls.length ? `
+      <table class="award-summary-table">
+        <thead>
+          <tr>
+            <th class="award-summary-label">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Label")}</th>
+            <th class="award-summary-formula">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Formula")}</th>
+            <th class="award-summary-total">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Total")}</th>
+          </tr>
+        </thead>
+        <tbody>
+        ${rolls.map(({roll, label, formula}) => `
+          <tr class="award-summary-row">
+            <td class="award-summary-label">${label}</td>
+            <td class="award-summary-formula">${formula}</td>
+            <td class="award-summary-total">${roll.total}</td>
+          </tr>
+        `
+        )}
+        </tbody>
+      </table>
+      ` : ""}
+    </section>
+    `,
+    rolls: rolls.map(r => r.roll),
+    speaker: {user: game.user},
+    flags: {crucible: {isAwardSummary: true}}
+  });
+}
+
+/* -------------------------------------------- */
+/*  Milestones                                  */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a Milestone award with the format [[/milestone]] or [[/milestone {quantity}]]
+ * @param {string} match
+ * @param {string} terms 
+ * @returns 
+ */
+function enrichMilestone([match, term]) {
+  const quantity = Number.isNumeric(term) ? Number(term) : 1;
+  const plurals = new Intl.PluralRules(game.i18n.lang);
+
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("milestone");
+  tag.dataset.quantity = quantity;
+  tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
+  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
+  tag.toggleAttribute("data-tooltip", true);
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered milestone enrichment.
+ * @param {HTMLElement} element 
+ */
+function renderMilestone(element) {
+  element.addEventListener("click", onClickMilestone);
+}
+
+/* -------------------------------------------- */
+
+async function onClickMilestone(event) {
+  event.preventDefault();
+  if ( !crucible.party ) return ui.notifications.warn("AWARD.WARNINGS.NoParty", { localize: true });
+
+  const quantity = event.currentTarget.dataset.quantity;
+  await crucible.party.system.awardMilestoneDialog(quantity);
 }
 
 /* -------------------------------------------- */
