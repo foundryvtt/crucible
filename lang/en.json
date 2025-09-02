@@ -505,15 +505,28 @@
 "AWARD": {
   "TOOLTIPS": {
     "Currency": "Award Currency",
-    "Milestone": "Award Milestone",
-    "CurrencyMilestone": "Award Currency and Milestone"
+    "Milestone": "Award Milestone(s)"
   },
   "Each": "each",
   "Milestone": {
     "one": "Milestone",
     "other": "Milestones"
   },
+  "SUMMARIES": {
+    "Cost": "{award} cost paid by:",
+    "CostSplit": "{award} cost split between:",
+    "Gain": "{award} granted to:",
+    "GainSplit": "{award} split between:",
+    "TABLE": {
+      "Label": "Currency",
+      "Formula": "Formula",
+      "Total": "Total"
+    }
+  },
+  "TitleCost": "Choose Contributor(s)",
+  "TitleGain": "Choose Recipient(s)",
   "WARNINGS": {
+    "CannotAfford": "The following actors cannot afford the cost of this enricher: {actors}",
     "InvalidTerms": "Unable to parse {terms} as valid award terms.",
     "RequiresGM": "You must be a Gamemaster to use Award enrichers."
   }
