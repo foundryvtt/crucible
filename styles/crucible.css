@@ -2745,6 +2745,22 @@ enriched-content.award.knowledge-check:before {
   content: "\e0c0";
   font-weight: 900;
 }
+enriched-content.skill-check.talent-check,
+enriched-content.passive-check.talent-check,
+enriched-content.hazard-check.talent-check,
+enriched-content.award.talent-check {
+  --color-background: #333375;
+  --color-background-hover: #3d3d8a;
+  --color-border: #6a6abe;
+  --color-border-hover: #adaddb;
+}
+enriched-content.skill-check.talent-check:before,
+enriched-content.passive-check.talent-check:before,
+enriched-content.hazard-check.talent-check:before,
+enriched-content.award.talent-check:before {
+  content: "\e4e2";
+  font-weight: 900;
+}
 enriched-content.skill-check.language-check,
 enriched-content.passive-check.language-check,
 enriched-content.hazard-check.language-check,
