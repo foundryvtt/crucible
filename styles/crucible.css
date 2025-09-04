@@ -235,6 +235,9 @@
   border-color: darkred;
   color: red;
 }
+.crucible .tags .tag.larger {
+  font-size: var(--font-size-12);
+}
 .crucible .tags:empty {
   display: none;
 }
