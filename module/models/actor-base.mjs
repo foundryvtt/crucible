@@ -111,9 +111,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Currency
     schema.currency = new fields.NumberField({...requiredInteger, min: 0, initial: 0});
 
-    // Knowledge
-    schema.knowledge = new fields.SetField(new fields.StringField({choices: () => crucible.CONFIG.knowledge}));
-
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
     schema.favorites = new fields.SetField(new fields.StringField({blank: false}));

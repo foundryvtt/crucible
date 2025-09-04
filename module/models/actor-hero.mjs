@@ -50,6 +50,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
+      knowledges: new fields.SetField(new fields.StringField({choices: () => crucible.CONFIG.knowledge})),
       languages: new fields.SetField(new fields.StringField({blank: false}))
     });
     return schema;
@@ -137,6 +138,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
     // Add Background languages
     this.details.languages = this.details.languages.union(this.details.background.languages ?? new Set());
+
+    // Add Background knowledge
+    this.details.knowledges = this.details.knowledges.union(this.details.background.knowledge ?? new Set());
 
     // Threat level
     const adv = this.advancement;
