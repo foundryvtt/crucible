@@ -152,6 +152,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       inventory,
       isEditable: this.isEditable,
       knowledge: this.#prepareKnowledgeOptions(),
+      knownKnowledge: this.#prepareKnownKnowledge(),
       languages: this.#prepareLanguageOptions(),
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
@@ -662,7 +663,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /**
    * Prepare options provided to a multi-select element for which knowledge areas the character may know.
-   * TODO - allow all actors to have specific knowledge areas in addition to those provided by a Background
    * @returns {FormSelectOption[]}
    */
   #prepareKnowledgeOptions() {
@@ -673,6 +673,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     }
     return options;
   }
+
+  /**
+   * Prepare the user-friendly list of knowledge areas that the actor has.
+   * @returns {string[]}
+   */
+  #prepareKnownKnowledge() {
+    return [...this.actor.system.details.knowledges].map(id => crucible.CONFIG.knowledge[id]?.label);
+  };
 
   /* -------------------------------------------- */
 
