@@ -123,6 +123,9 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Scale attributes
     this.#scaleAbilities(taxonomy, archetype);
     this.#scaleResistances(taxonomy);
+
+    // Add Background knowledges
+    this.details.knowledges = this.details.knowledges.union(this.details.background.knowledge ?? new Set());
   }
 
   /* -------------------------------------------- */
