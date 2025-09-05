@@ -121,10 +121,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
   /* -------------------------------------------- */
 
   #onPointerOver(event) {
-    const tree = game.system.tree;
-    // TODO why are these safeguards necessary?
-    if ( !tree.app.renderer.enabled ) return;
-    if ( document.elementFromPoint(event.globalX, event.globalY)?.id !== "crucible-talent-tree" ) return;
+    const tree = crucible.tree;
+    if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.activate(this);
     this.scale.set(1.2, 1.2);
   }
@@ -133,9 +131,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   #onPointerOut(event) {
     const tree = game.system.tree;
-    // TODO why are these safeguards necessary?
-    if ( !tree.app.renderer.enabled ) return;
-    if ( document.elementFromPoint(event.globalX, event.globalY)?.id !== "crucible-talent-tree" ) return;
+    if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
