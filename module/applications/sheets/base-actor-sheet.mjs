@@ -766,8 +766,33 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const skills = this.document.system.skills;
     const categories = foundry.utils.deepClone(SYSTEM.SKILL.CATEGORIES);
     for ( const skill of Object.values(SYSTEM.SKILLS) ) {
-      const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
+      // Add to category
       const category = categories[skill.category];
+      category.skills ||= {};
+      category.skills[skill.id] = this.prepareSkill(skill, skills);
+    }
+    return categories;
+  }
+
+  /**
+   * Prepare a single skill for rendering.
+   * @return {Record<string, {
+   *   label: string,
+   *   defaultIcon: string,
+   *   color: Color,
+   *   abilityAbbrs: [string, string],
+   *   pips: [string, string, string, string, string],
+   *   css: string,
+   *   canIncrease: boolean,
+   *   canDecrease: boolean,
+   *   rankName: string,
+   *   pathName: string,
+   *   tooltips: {value: string, passive: string},
+   * }>}
+   */
+  prepareSkill(skill, skills) {
+      const s = foundry.utils.mergeObject(skill, skills[skill.id], {inplace: false});
+
       const a1 = SYSTEM.ABILITIES[skill.abilities[0]];
       const a2 = SYSTEM.ABILITIES[skill.abilities[1]];
 
@@ -785,12 +810,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         value: game.i18n.format("SKILL.TooltipCheck", {a1: a1.label, a2: a2.label}),
         passive: game.i18n.localize("SKILL.TooltipPassive")
       }
-
-      // Add to category
-      category.skills ||= {};
-      category.skills[skill.id] = s;
-    }
-    return categories;
+      return s;
   }
 
   /* -------------------------------------------- */
