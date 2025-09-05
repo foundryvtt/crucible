@@ -886,11 +886,15 @@
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
 
-"SETTINGS.AutoConfirmName": "Action Auto-Confirmation",
-"SETTINGS.AutoConfirmHint": "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
-"SETTINGS.AutoConfirmNone": "No Auto-Confirmation",
-"SETTINGS.AutoConfirmSelf": "Self-Target Actions Only",
-"SETTINGS.AutoConfirmAll": "Auto-Confirm All Actions",
+"SETTINGS": {
+  "AutoConfirmName": "Action Auto-Confirmation",
+  "AutoConfirmHint": "Enable auto-confirmation of actions in combat which do not deal damage or cause active effects. This can speed things up but is not recommended during play-testing.",
+  "AutoConfirmNone": "No Auto-Confirmation",
+  "AutoConfirmSelf": "Self-Target Actions Only",
+  "AutoConfirmAll": "Auto-Confirm All Actions",
+  "CruciblePartyLabel": "Primary Adventuring Party",
+  "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists."
+},
 
 "SKILL": {
   "CATEGORY": {

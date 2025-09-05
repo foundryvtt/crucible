@@ -2699,36 +2699,27 @@ enriched-content.award:hover:before {
 enriched-content.skill-check.exp,
 enriched-content.passive-check.exp,
 enriched-content.hazard-check.exp,
-enriched-content.award.exp {
+enriched-content.award.exp,
+enriched-content.skill-check.talent-check,
+enriched-content.passive-check.talent-check,
+enriched-content.hazard-check.talent-check,
+enriched-content.award.talent-check {
   --color-background: #2c3921;
   --color-background-hover: #365021;
   --color-border: #5b9e26;
   --color-border-hover: #81cc44;
 }
+enriched-content.skill-check.talent-check:before,
+enriched-content.passive-check.talent-check:before,
+enriched-content.hazard-check.talent-check:before,
+enriched-content.award.talent-check:before {
+  content: "\e4e2";
+  font-weight: 900;
+}
 enriched-content.skill-check.kno,
 enriched-content.passive-check.kno,
 enriched-content.hazard-check.kno,
-enriched-content.award.kno {
-  --color-background: #1a1a37;
-  --color-background-hover: #242453;
-  --color-border: #4848ac;
-  --color-border-hover: #6c6cff;
-}
-enriched-content.skill-check.soc,
-enriched-content.passive-check.soc,
-enriched-content.hazard-check.soc,
-enriched-content.award.soc {
-  --color-background: #3a184a;
-  --color-background-hover: #4d2368;
-  --color-border: #752f9f;
-  --color-border-hover: #ab3fe8;
-}
-enriched-content.skill-check.passive-check,
-enriched-content.passive-check.passive-check,
-enriched-content.hazard-check.passive-check,
-enriched-content.award.passive-check {
-  cursor: var(--cursor-help, help);
-}
+enriched-content.award.kno,
 enriched-content.skill-check.knowledge-check,
 enriched-content.passive-check.knowledge-check,
 enriched-content.hazard-check.knowledge-check,
@@ -2745,6 +2736,10 @@ enriched-content.award.knowledge-check:before {
   content: "\e0c0";
   font-weight: 900;
 }
+enriched-content.skill-check.soc,
+enriched-content.passive-check.soc,
+enriched-content.hazard-check.soc,
+enriched-content.award.soc,
 enriched-content.skill-check.language-check,
 enriched-content.passive-check.language-check,
 enriched-content.hazard-check.language-check,
@@ -2760,6 +2755,12 @@ enriched-content.hazard-check.language-check:before,
 enriched-content.award.language-check:before {
   content: "\f086";
   font-weight: 900;
+}
+enriched-content.skill-check.passive-check,
+enriched-content.passive-check.passive-check,
+enriched-content.hazard-check.passive-check,
+enriched-content.award.passive-check {
+  cursor: var(--cursor-help, help);
 }
 enriched-content.skill-check.hazard-check,
 enriched-content.passive-check.hazard-check,

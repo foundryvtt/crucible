@@ -38,6 +38,11 @@ export function registerEnrichers() {
       onRender: renderSkillCheck
     },
     {
+      id: `crucibleTalent`,
+      pattern: /\[\[\/talent ([\w.]+)]]/g,
+      enricher: enrichTalent
+    },
+    {
       id: "crucibleCondition",
       pattern: /@Condition\[(\w+)]/g,
       enricher: enrichCondition
@@ -458,6 +463,25 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.innerHTML = `Knowledge: ${knowledge.label}`;
   return tag;
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a talent check with format [[/talent {talentUuid}]]
+ * @param {string} match        The full matched string
+ * @param {string} talentUuid   The matched talent UUID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichTalent([match, talentUuid]) {
+  const talentIndex = fromUuidSync(talentUuid); // We only need the index
+  if ( !talentIndex ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("talent-check", "passive-check", "group-check");
+  tag.dataset.crucibleTooltip = "talentCheck";
+  tag.dataset.talentUuid = talentUuid;
+  tag.innerHTML = `Talent: ${talentIndex.name}`;
+  return tag;
+};
 
 /* -------------------------------------------- */
 
