@@ -357,8 +357,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       inventory: {
         weapon: {label: "Weapons", items: [], empty: game.i18n.localize("ACTOR.LABELS.WEAPONS_HINT")},
         armor: {label: "Armor", items: [], empty: game.i18n.localize("ACTOR.LABELS.ARMOR_HINT")},
-        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {number: accessorySlots})},
-        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {number: consumableSlots})},
+        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {slots: accessorySlots})},
+        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {slots: consumableSlots})},
         backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
       },
       iconicSpells: {label: game.i18n.localize("SPELL.IconicPl"), items: []}
