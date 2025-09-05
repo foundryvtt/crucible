@@ -28,6 +28,8 @@ import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
+import CrucibleHitBoxShader from "./module/canvas/shaders/hit-box-shader.mjs";
+import CrucibleHitboxLayer from "./module/canvas/hit-box.mjs";
 
 // Party
 let party = null;
@@ -276,6 +278,21 @@ Hooks.once("init", async function() {
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
   if ( crucible.developmentMode ) registerDevelopmentHooks();
+
+  // Add Hit Box layer
+  CONFIG.Canvas.layers.crucibleHitBoxes = {
+    group: "interface",
+    layerClass: CrucibleHitboxLayer
+  };
+});
+
+/* -------------------------------------------- */
+/*  Config                                      */
+/* -------------------------------------------- */
+
+Hooks.once("canvasConfig", canvas => {
+  // Register the hitbox batched shader
+  CrucibleHitBoxShader.registerPlugin();
 });
 
 /* -------------------------------------------- */
