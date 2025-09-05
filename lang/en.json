@@ -263,6 +263,7 @@
     "CONSUMABLES_HINT": "Equip up to {slots} consumables from your Backpack toggling the shield icon.",
     "BACKPACK_HINT": "Add items by dropping them from the provided Crucible system compendium packs.",
     "KNOWLEDGE": "Knowledge Areas",
+    "KNOWLEDGE_HINT": "Learn some Knowledge Areas from your Background or edit your Hero to gain some.",
     "LANGUAGES": "Known Languages"
   }
 },
