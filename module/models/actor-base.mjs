@@ -603,10 +603,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     weapons.melee = !(mhCategory.ranged && ohCategory.ranged);
     weapons.ranged = mhCategory.ranged || ohCategory.ranged;
     weapons.talisman = false;
-    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
-    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
-    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
-    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0);
 
     // Free Hand or Unarmed
     weapons.unarmed = (mhCategory?.id === "unarmed") && (ohCategory?.id === "unarmed");
@@ -619,6 +615,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       weapons.spellHands += 1;
       weapons.talisman = true;
     }
+
+    // Multi weapon properties
+
+    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
+    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
+    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
+    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0) || (weapons.melee && weapons.ranged);
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
