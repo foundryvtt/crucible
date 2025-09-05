@@ -35,6 +35,37 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   #engagementDebug;
 
+  /**
+   * Cached hitbox data in screen-space coordinates.
+   * Values are recomputed only when token, scene, or camera state changes.
+   * @type {{
+   *   abgr: number,                // Token disposition color in little endian
+   *   hitboxCenterX: number,       // Screen-space center X
+   *   hitboxCenterY: number,       // Screen-space center Y
+   *   hitboxHalfWidth: number,     // Screen-space half width
+   *   hitboxHalfHeight: number,    // Screen-space half height
+   *   stageWorldID: number,        // PIXI stage worldID
+   *   gridSize: number,            // Scene grid size
+   *   sizeUnits: number,           // Actor movement size
+   *   centerX: number,             // Token world center X
+   *   centerY: number,             // Token world center Y
+   *   colorRaw: number             // Raw RGBA color
+   * }}
+   */
+  #hbCache = {
+    abgr: 0,
+    hitboxCenterX: 0,
+    hitboxCenterY: 0,
+    hitboxHalfWidth: 0,
+    hitboxHalfHeight: 0,
+    stageWorldID: -1,
+    gridSize: -1,
+    sizeUnits: -1,
+    centerX: NaN,
+    centerY: NaN,
+    colorRaw: NaN
+  };
+
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
@@ -407,6 +438,80 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     }
     engagement.flanked = Math.max(engagement.flankers - engagement.allyBonus - engagement.value, 0);
     return engagement;
+  }
+
+  /* -------------------------------------------- */
+  /*  Hitbox                                      */
+  /* -------------------------------------------- */
+
+  /**
+   * Return cached hitbox data, recomputing only when its necessary.
+   * @returns {{
+   *   abgr: number,
+   *   hitboxCenterX: number,
+   *   hitboxCenterY: number,
+   *   hitboxHalfWidth: number,
+   *   hitboxHalfHeight: number
+   * }}
+   */
+  getHitboxCache() {
+    const stage = canvas?.stage;
+    const grid = canvas?.grid;
+    if ( !stage || !grid ) return this.#hbCache;
+
+    const stageWorldID = stage.transform._worldID;
+    const gridSize = grid.size || 100;
+    const sizeUnits = this.actor?.system?.movement?.size ?? 4;
+
+    const c = this.center;
+    const centerX = c.x;
+    const centerY = c.y;
+
+    const colorRaw = (this.getDispositionColor?.() >>> 0) || 0;
+
+    const same =
+      (this.#hbCache.stageWorldID === stageWorldID) &&
+      (this.#hbCache.gridSize === gridSize) &&
+      (this.#hbCache.sizeUnits === sizeUnits) &&
+      (this.#hbCache.centerX === centerX) &&
+      (this.#hbCache.centerY === centerY) &&
+      (this.#hbCache.colorRaw === colorRaw);
+
+    if ( same ) return this.#hbCache;
+
+    const st = stage.worldTransform;
+    const zoomX = stage.scale.x || 1.0;
+    const zoomY = stage.scale.y || 1.0;
+
+    const halfWorld = (sizeUnits * gridSize) * 0.5;
+    const hitboxHalfWidth  = halfWorld * zoomX;
+    const hitboxHalfHeight = halfWorld * zoomY;
+
+    const hitboxCenterX = st.a * centerX + st.c * centerY + st.tx;
+    const hitboxCenterY = st.b * centerX + st.d * centerY + st.ty;
+
+    const rgba = (colorRaw <= 0xFFFFFF ? ((colorRaw << 8) | 0xFF) : colorRaw) >>> 0;
+    const abgr = (
+      ((rgba & 0x000000FF) << 24) |
+      ((rgba & 0x0000FF00) <<  8) |
+      ((rgba & 0x00FF0000) >>> 8) |
+      ((rgba & 0xFF000000) >>> 24)
+    ) >>> 0;
+
+    this.#hbCache = {
+      abgr,
+      hitboxCenterX,
+      hitboxCenterY,
+      hitboxHalfWidth,
+      hitboxHalfHeight,
+      stageWorldID,
+      gridSize,
+      sizeUnits,
+      centerX,
+      centerY,
+      colorRaw
+    };
+    return this.#hbCache;
   }
 
   /* -------------------------------------------- */
