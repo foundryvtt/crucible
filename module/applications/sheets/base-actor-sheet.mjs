@@ -680,7 +680,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    */
   #prepareKnowledge() {
     const knowledgeNames = [];
-    for ( const knowledgeId of this.actor.system.details.knowledges ) {
+    for ( const knowledgeId of this.actor.system.details.knowledge ) {
       if ( crucible.CONFIG.knowledge[knowledgeId] ) {
         knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
       };

@@ -137,8 +137,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     this.details.background ||= this.schema.getField("details.background").initialize({});
 
     // Add the background data into the main details
-    for ( const language of this.details.background.languages ) this.details.languages.push(language);
-    for ( const knowledge of this.details.background.knowledge ) this.details.knowledge.push(knowledge);
+    for ( const language of this.details.background.languages ) this.details.languages.add(language);
+    for ( const knowledge of this.details.background.knowledge ) this.details.knowledge.add(knowledge);
 
     // Threat level
     const adv = this.advancement;
