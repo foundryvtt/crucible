@@ -196,11 +196,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /**
    * Award milestones to the members of this group.
    * @param {number} quantity
-   * @param {string[]} recipientIds
-   * @param {boolean} [createMessage=true]
+   * @param {object} options
+   * @param {boolean} [options.createMessage=true]
+   * @param {string[]} [options.recipientIds]
    * @returns {Promise<void>}
    */
-  async awardMilestones(quantity, recipientIds, createMessage=true) {
+  async awardMilestones(quantity, {createMessage=true, recipientIds}={}) {
     recipientIds ||= Array.from(this.memberIds);
     const recipientNames = [];
     const updates = recipientIds.reduce((arr, id) => {
@@ -221,7 +222,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     await ChatMessage.implementation.create({
       content: `
       <section class="crucible">
-        ${game.i18n.format("AWARD.SUMMARIES.Gain", {award: awardText})}
+        ${game.i18n.format("AWARD.SUMMARIES.Reward", {award: awardText})}
         <ul><li>${recipientNames.join("</li><li>")}</li></ul>
       </section>
       `,
@@ -234,11 +235,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
-   * @param {number} [baseQuantity=1]       Quantity of milestones to pre-populate the dialog with
-   * @param {boolean} [createMessage=true]  Whether to create a chat message summarizing the award
+   * @param {number} [baseQuantity=1]               Quantity of milestones to pre-populate the dialog with
+   * @param {object} [options]
+   * @param {boolean} [options.createMessage=true]  Whether to create a chat message summarizing the award
    * @returns {Promise<void>}
    */
-  async awardMilestoneDialog(baseQuantity=1, createMessage=true) {
+  async awardMilestoneDialog(baseQuantity=1, options={}) {
     if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to award milestones.");
 
     // Prepare form data
@@ -274,7 +276,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       content: `${quantityHTML.outerHTML}${recipientsHTML.outerHTML}`
     });
     if ( !response ) return;
-    await this.awardMilestones(response.quantity, response.recipients, createMessage);
+    await this.awardMilestones(response.quantity, {...options, recipientIds: response.recipients});
   }
 
   /* -------------------------------------------- */

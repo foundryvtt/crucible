@@ -132,9 +132,9 @@ function parseAwardTerms(terms) {
     let [, amount, label] = part.match(pattern) ?? [];
     label = label?.toLowerCase();
     try {
-      new Roll(amount);
-      if ( label in crucible.CONFIG.currency ) currency[label] = amount;
-      else if ( part === "each" ) each = true;
+      if ( part === "each" ) each = true;
+      else if ( !Roll.validate(amount) ) throw new Error();
+      else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
       else throw new Error();
     } catch(err) {
       invalid.push(part);
@@ -147,6 +147,8 @@ function parseAwardTerms(terms) {
 
   return { currency, each }
 }
+
+/* -------------------------------------------- */
 
 /**
  * Transform a currency object (currency key to amount) into a list of HTML entries for well-formatted display
@@ -165,6 +167,8 @@ function formatAwardEntries(currency, forcePositive=false) {
   }
   return entries;
 }
+
+/* -------------------------------------------- */
 
 /**
  * Enrich an Award with the format [[/award {...awards}]]
@@ -190,6 +194,7 @@ function enrichAward([match, terms]) {
   // Return the enriched content tag
   const tag = document.createElement("enriched-content");
   tag.classList.add("award");
+  tag.classList.add("currencies-inline");
   Object.assign(tag.dataset, dataset);
   tag.innerHTML = entries.join(" ");
   tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Currency"));
@@ -219,9 +224,9 @@ async function onClickAward(event) {
   const rolls = [];
 
   for ( const [key, formula] of Object.entries(currency) ) {
-    const roll = await new Roll(`${formula}`).evaluate();
+    const roll = await new Roll(`${formula}[${crucible.CONFIG.currency[key]?.label ?? key}]`).evaluate();
     currency[key] = roll.total;
-    if ( !roll.isDeterministic ) rolls.push({roll, formula, label: crucible.CONFIG.currency[key]?.label ?? key});
+    if ( !roll.isDeterministic ) rolls.push(roll);
   }
 
   let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
@@ -252,7 +257,7 @@ async function onClickAward(event) {
     input: anyActorInput
   });
   const response = await foundry.applications.api.DialogV2.input({
-    window: {title: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Gain"}`), icon: "fa-solid fa-trophy"},
+    window: {title: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`), icon: "fa-solid fa-trophy"},
     content: `\
     ${partyMember.outerHTML}${anyActor.outerHTML}
     `,
@@ -277,37 +282,17 @@ async function onClickAward(event) {
   }
 
   const currencyEntries = formatAwardEntries(currency, true);
+  const rollsHTML = await Promise.all(rolls.map(r => r.render()));
   await ChatMessage.implementation.create({
     content: `
     <section class="crucible">
-      <div class="award-chat">
-        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Gain"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
+      <div class="currencies-inline">
+        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
       <ul><li>${Array.from(targets.map(t => game.actors.get(t).name)).join("</li><li>")}</li></ul>
-      ${rolls.length ? `
-      <table class="award-summary-table">
-        <thead>
-          <tr>
-            <th class="award-summary-label">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Label")}</th>
-            <th class="award-summary-formula">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Formula")}</th>
-            <th class="award-summary-total">${game.i18n.localize("AWARD.SUMMARIES.TABLE.Total")}</th>
-          </tr>
-        </thead>
-        <tbody>
-        ${rolls.map(({roll, label, formula}) => `
-          <tr class="award-summary-row">
-            <td class="award-summary-label">${label}</td>
-            <td class="award-summary-formula">${formula}</td>
-            <td class="award-summary-total">${roll.total}</td>
-          </tr>
-        `
-        )}
-        </tbody>
-      </table>
-      ` : ""}
     </section>
-    `,
-    rolls: rolls.map(r => r.roll),
+    `.concat(rollsHTML.join("")),
+    rolls,
     speaker: {user: game.user},
     flags: {crucible: {isAwardSummary: true}}
   });
@@ -350,7 +335,7 @@ function renderMilestone(element) {
 
 async function onClickMilestone(event) {
   event.preventDefault();
-  if ( !crucible.party ) return ui.notifications.warn("AWARD.WARNINGS.NoParty", { localize: true });
+  if ( !crucible.party ) return ui.notifications.warn("WARNING.NoParty", { localize: true });
 
   const quantity = event.currentTarget.dataset.quantity;
   await crucible.party.system.awardMilestoneDialog(quantity);

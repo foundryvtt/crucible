@@ -2811,20 +2811,6 @@ enriched-content.milestone.milestone:before {
   content: "\f091";
   font-weight: 900;
 }
-enriched-content.skill-check.award i.currency,
-enriched-content.passive-check.award i.currency,
-enriched-content.hazard-check.award i.currency,
-enriched-content.award.award i.currency,
-enriched-content.milestone.award i.currency,
-enriched-content.skill-check.milestone i.currency,
-enriched-content.passive-check.milestone i.currency,
-enriched-content.hazard-check.milestone i.currency,
-enriched-content.award.milestone i.currency,
-enriched-content.milestone.milestone i.currency {
-  width: 16px;
-  height: 16px;
-  margin-right: -4px;
-}
 /* ----------------------------------------- */
 enriched-content.condition {
   font-size: 90%;
@@ -2860,6 +2846,22 @@ enriched-content.spell:before {
   opacity: 0.5;
   margin-right: 4px;
   font-size: 80%;
+}
+/* ----------------------------------------- */
+/*  Currency Display                         */
+/* ----------------------------------------- */
+.currencies-inline {
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  margin: -3px -1px;
+  align-items: center;
+}
+.currencies-inline i.currency {
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
 }
 .crucible.sheet.skill {
   --sheet-header-height: 48px;
@@ -2945,19 +2947,6 @@ enriched-content.spell:before {
 }
 .crucible.chat-message button.confirm {
   margin-top: 0.5rem;
-}
-.crucible.chat-message .award-chat {
-  display: inline-flex;
-  height: 1.5em;
-  line-height: 0;
-  gap: 4px;
-  margin: -3px -1px;
-  align-items: center;
-}
-.crucible.chat-message .award-chat i.currency {
-  width: 16px;
-  height: 16px;
-  margin-right: -4px;
 }
 /* -------------------------------------------- */
 /*  Chat Actions                                */

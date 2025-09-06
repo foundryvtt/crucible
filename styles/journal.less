@@ -254,11 +254,6 @@ enriched-content.milestone {
       content: "\f091";
       font-weight: 900;
     }
-    i.currency {
-      width: 16px;
-      height: 16px;
-      margin-right: -4px;
-    }
   }
 }
 
@@ -299,5 +294,23 @@ enriched-content.spell {
     opacity: 0.5;
     margin-right: 4px;
     font-size: 80%;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Currency Display                         */
+/* ----------------------------------------- */
+.currencies-inline {
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  margin: -3px -1px;
+  align-items: center;
+
+  i.currency {
+    width: 16px;
+    height: 16px;
+    margin-right: -4px;
   }
 }
