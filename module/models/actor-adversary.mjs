@@ -40,7 +40,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
       }),
-      knowledges: new fields.SetField(new fields.StringField({choices: () => crucible.CONFIG.knowledge})),
       languages: new fields.SetField(new fields.StringField({blank: false}))
     });
 
@@ -123,9 +122,6 @@ export default class CrucibleAdversaryActor extends CrucibleBaseActor {
     // Scale attributes
     this.#scaleAbilities(taxonomy, archetype);
     this.#scaleResistances(taxonomy);
-
-    // Add Background knowledges
-    this.details.knowledges = this.details.knowledges.union(this.details.background.knowledge ?? new Set());
   }
 
   /* -------------------------------------------- */
