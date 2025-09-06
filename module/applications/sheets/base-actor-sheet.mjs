@@ -151,8 +151,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       incomplete: {},
       inventory,
       isEditable: this.isEditable,
-      knowledge: this.#prepareKnowledgeOptions(),
-      knownKnowledge: this.#prepareKnownKnowledge(),
+      knowledgeOptions: this.#prepareKnowledgeOptions(),
+      knowledge: this.#prepareKnowledge(),
       languages: this.#prepareLanguageOptions(),
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
@@ -678,8 +678,14 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Prepare the user-friendly list of knowledge areas that the actor has.
    * @returns {string[]}
    */
-  #prepareKnownKnowledge() {
-    return [...this.actor.system.details.knowledges].map(id => crucible.CONFIG.knowledge[id]?.label);
+  #prepareKnowledge() {
+    const knowledgeNames = [];
+    for ( const knowledgeId of this.actor.system.details.knowledges ) {
+      if ( crucible.CONFIG.knowledge[knowledgeId] ) {
+        knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
+      };
+    };
+    return knowledgeNames;
   };
 
   /* -------------------------------------------- */
