@@ -203,11 +203,11 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   async awardMilestones(quantity, {createMessage=true, recipientIds}={}) {
     recipientIds ||= Array.from(this.memberIds);
-    const recipientNames = [];
+    const recipientHTML = [];
     const updates = recipientIds.reduce((arr, id) => {
       const actor = game.actors.get(id);
       if ( !actor ) return arr;
-      recipientNames.push(actor.name);
+      recipientHTML.push(`<li>${actor.name}</li>`);
       const starting = actor.system._source.advancement.milestones;
       const milestones = Math.max(starting + quantity, 0);
       arr.push({_id: id, "system.advancement.milestones": milestones});
@@ -223,7 +223,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       content: `
       <section class="crucible">
         ${game.i18n.format("AWARD.SUMMARIES.Reward", {award: awardText})}
-        <ul><li>${recipientNames.join("</li><li>")}</li></ul>
+        <ul class="plain">${recipientHTML.join("")}</ul>
       </section>
       `,
       speaker: ChatMessage.implementation.getSpeaker({actor: this.parent}),

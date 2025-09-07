@@ -159,7 +159,7 @@ function parseAwardTerms(terms) {
  * Transform a currency object (currency key to amount) into a list of HTML entries for well-formatted display
  * @param {Record<string, string>} currency Currency object
  * @param {boolean} [forcePositive=false]   Whether to return positive-formatted text (to avoid double-negatives)
- * @returns 
+ * @returns
  */
 function formatAwardEntries(currency, forcePositive=false) {
   const entries = [];
@@ -294,7 +294,7 @@ async function onClickAward(event) {
       <div class="currencies-inline">
         ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
       </div>
-      <ul><li>${Array.from(targets.map(t => game.actors.get(t).name)).join("</li><li>")}</li></ul>
+      <ul class="plain">${Array.from(targets.map(t => `<li>${game.actors.get(t).name}</li>`)).join("")}</ul>
     </section>
     `.concat(rollsHTML.join("")),
     rolls,
@@ -308,18 +308,16 @@ async function onClickAward(event) {
 /* -------------------------------------------- */
 
 /**
- * Enrich a Milestone award with the format [[/milestone]] or [[/milestone {quantity}]]
- * @param {string} match
- * @param {string} terms 
- * @returns 
+ * Enrich a Milestone award with the format [[/milestone]] or [[/milestone {quantity}]].
+ * @param {RegExpMatchArray} terms
+ * @returns {HTMLEnrichedContentElement}
  */
-function enrichMilestone([match, term]) {
+function enrichMilestone([_match, term]) {
   const quantity = Number.isNumeric(term) ? Number(term) : 1;
   const plurals = new Intl.PluralRules(game.i18n.lang);
-
   const tag = document.createElement("enriched-content");
-  tag.classList.add("milestone");
-  tag.dataset.quantity = quantity;
+  tag.classList.add("award", "milestone");
+  tag.dataset.quantity = String(quantity);
   tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
   tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
@@ -330,7 +328,7 @@ function enrichMilestone([match, term]) {
 
 /**
  * Add interactivity to a rendered milestone enrichment.
- * @param {HTMLElement} element 
+ * @param {HTMLElement} element
  */
 function renderMilestone(element) {
   element.addEventListener("click", onClickMilestone);
