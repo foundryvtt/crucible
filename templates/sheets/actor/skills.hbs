@@ -34,7 +34,13 @@
     {{/each}}
     <div class="sheet-section multiselect-section flexcol">
         <h3>{{localize "ACTOR.LABELS.KNOWLEDGE"}}</h3>
-        <p>TO DO</p>
+        <div class="tags flexrow">
+            {{#each knowledge}}
+            <span class="larger tag knowledge-area">{{this}}</span>
+            {{else}}
+            <p class="hint">{{localize "ACTOR.LABELS.KNOWLEDGE_HINT"}}</p>
+            {{/each}}
+        </div>
     </div>
     <div class="sheet-section multiselect-section flexcol">
         <h3>{{localize "ACTOR.LABELS.LANGUAGES"}}</h3>
