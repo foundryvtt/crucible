@@ -838,7 +838,7 @@ pages:
     category: null
     _key: '!journal.pages!CrucibleSkills00.WUZTmZFkysEiHU2T'
   - sort: 0
-    name: Skills Overview
+    name: Skill Progression
     type: text
     _id: QQaQfv1cakIKltNz
     title:
@@ -856,13 +856,12 @@ pages:
         class="construction"><p>We intend to refactor the skills list and expect
         significant changes to skill progression, as well as their
         specializations and bonuses. You may notice some Skills have indicators
-        of intended changes left in place. Skills presented in Playtest 1 should
-        not be considered final.</p></section><h2 class="divider">Skill
-        Progression</h2><p>Each Skill begins at a rank of Untrained, and has a
-        maximum value of Master. As player characters advance in level, they
-        earn additional points that can be spent to advance their training in
-        particular skills. Each Skill follows the same progression
-        path:</p><table><tbody><tr><th
+        of intended changes left in place.</p></section><h2
+        class="divider">Skill Progression</h2><p>Each Skill begins at a rank of
+        Untrained, and has a maximum value of Master. As player characters
+        advance in level, they earn additional points that can be spent to
+        advance their training in particular skills. Each Skill follows the same
+        progression path:</p><table><tbody><tr><th
         data-colwidth="50"><p>Bonus</p></th><th><p>Rank</p></th><th><p>Scale</p></th></tr><tr><td
         data-colwidth="50"><p>0</p></td><td><p>Untrained</p></td><td><p>You are
         decidedly as good at this skill as the average person who has absolutely
@@ -885,36 +884,7 @@ pages:
         data-colwidth="50"><p>5</p></td><td><p>Master</p></td><td><p>You have
         mastered this skill. There is nothing more to learn about it, and your
         specialization grants you additional
-        benefits.</p></td></tr></tbody></table><h2 class="divider">Skill
-        Checks</h2><p>There are often situations that require a character to
-        confirm their capabilities. At any time GM may call for a S<strong>kill
-        Check</strong>- a simple roll to test whether you have sufficient skill
-        to perform an action or recall some piece of information. Each skill is
-        associated with two
-        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}.</p><section
-        class="foundryvtt"><p>You can roll a skill check at any time from the
-        skill tab of your character sheet, simply by clicking on the skill
-        name.</p></section><p>Skill checks use the same equation for calculation
-        that a
-        @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
-        Check} does.</p><section class="formula"><p class="value">Skill
-        Check</p><p class="equals">=</p><p class="equation">3d8[Boons,Banes] +
-        Average of Ability Bonuses (Round Up) + Skill Bonus + Enchantment
-        Bonus</p></section><section class="gameplay"><h4>Example: Rolling a
-        Skill Check</h4><p>Albert, our storied naval captain from a previous
-        example, is faced with a dilemma. His ship is about to be imperilled by
-        a storm, and his crew is looking to him to safely navigate out of the
-        harbour. As a Master Cartographer, Albert taps into his extremely strong
-        knowledge of long-distance travel. This will be a Challenging (DC 25)
-        roll; Albert rolls his Skill check. Unluckily, Albert's dice total turn
-        up <strong>6</strong>, <strong>4</strong>, and <strong>7</strong>— a
-        total of <strong>17</strong> and a far cry from the needed 25. However,
-        Albert's ability score for Strength is quite high at <strong>8</strong>,
-        and his Dexterity is <strong>6, </strong>so the average of the two
-        abilities adds an Ability bonus of <strong>7</strong>. Albert also
-        happens to have a magical set of nautical charts which grant a +2
-        enchantment bonus, pushing the result of the roll to
-        <strong>26</strong>.</p></section><h2 class="divider">Table:
+        benefits.</p></td></tr></tbody></table><h2 class="divider">Table:
         Skills</h2><table><tbody><tr><th
         data-colwidth="285"><p>Skill</p></th><th
         data-colwidth="91"><p>Category</p></th><th data-colwidth="74"><p>Ability
@@ -982,14 +952,14 @@ pages:
     _stats:
       systemId: crucible
       systemVersion: 0.5.0
-      coreVersion: '13.342'
+      coreVersion: '13.348'
       createdTime: 1684891180952
-      modifiedTime: 1727451865056
-      lastModifiedBy: AnoypGxxNIMOS0XY
+      modifiedTime: 1757002238659
+      lastModifiedBy: QvBFYpRRXHRBcOfP
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-    category: null
+    category: INUG7vZjywLaRsBv
     _key: '!journal.pages!CrucibleSkills00.QQaQfv1cakIKltNz'
   - sort: 50000
     name: Athletics
@@ -1306,6 +1276,70 @@ pages:
       exportSource: null
     category: null
     _key: '!journal.pages!CrucibleSkills00.vhbFWUXxWUdiODJn'
+  - sort: 1500000
+    name: Skill Checks
+    type: text
+    category: INUG7vZjywLaRsBv
+    _id: skillChecks00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p>There are often situations that require a character to confirm their
+        capabilities. At any time GM may call for a S<strong>kill
+        Check</strong>- a simple roll to test whether you have sufficient skill
+        to perform an action or recall some piece of information. Each skill is
+        associated with two
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6.JournalEntryPage.RHCy135mF4EN1mWZ]{Abilities}.</p><h2
+        class="divider">Standard Skill Checks</h2><section
+        class="foundryvtt"><p>You can roll a skill check at any time from the
+        skill tab of your character sheet, simply by clicking on the skill
+        name.</p></section><p>Skill checks use the same equation for calculation
+        that a
+        @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.WpBewuNfFJp1ZJRt#standard-check]{Standard
+        Check} does.</p><section class="formula"><p class="value">Skill
+        Check</p><p class="equals">=</p><p class="equation">3d8[Boons,Banes] +
+        Average of Ability Bonuses (Round Up) + Skill Bonus + Enchantment
+        Bonus</p></section><section class="gameplay"><h4>Example: Rolling a
+        Skill Check</h4><p>Albert, our storied naval captain from a previous
+        example, is faced with a dilemma. His ship is about to be imperilled by
+        a storm, and his crew is looking to him to safely navigate out of the
+        harbour. As a Master Cartographer, Albert taps into his extremely strong
+        knowledge of long-distance travel. This will be a Challenging (DC 25)
+        roll; Albert rolls his Skill check. Unluckily, Albert's dice total turn
+        up <strong>6</strong>, <strong>4</strong>, and <strong>7</strong>— a
+        total of <strong>17</strong> and a far cry from the needed 25. However,
+        Albert's ability score for Strength is quite high at <strong>8</strong>,
+        and his Dexterity is <strong>6, </strong>so the average of the two
+        abilities adds an Ability bonus of <strong>7</strong>. Albert also
+        happens to have a magical set of nautical charts which grant a +2
+        enchantment bonus, pushing the result of the roll to
+        <strong>26</strong>.</p></section><h2 class="divider">Passive Skill
+        Checks</h2><p>TO WRITE.</p><h2 class="divider">Group Skill
+        Checks</h2><p>TO WRITE.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      QvBFYpRRXHRBcOfP: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.348'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1757002143243
+      modifiedTime: 1757002317199
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.pages!CrucibleSkills00.skillChecks00000'
 flags:
   crucible:
     rulesEntry: true
@@ -1314,10 +1348,10 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.342'
+  coreVersion: '13.348'
   createdTime: 1683472545451
-  modifiedTime: 1743873962149
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757002119227
+  lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource:
@@ -1330,5 +1364,35 @@ sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3
-categories: []
+categories:
+  - name: Overview
+    sort: 100000
+    _id: INUG7vZjywLaRsBv
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.348'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1757002092255
+      modifiedTime: 1757002092255
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!CrucibleSkills00.INUG7vZjywLaRsBv'
+  - name: Skills
+    sort: 200000
+    _id: rs6Nf1zrnDnOc67o
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.348'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1757002098329
+      modifiedTime: 1757002098329
+      lastModifiedBy: QvBFYpRRXHRBcOfP
+    _key: '!journal.categories!CrucibleSkills00.rs6Nf1zrnDnOc67o'
 _key: '!journal!CrucibleSkills00'

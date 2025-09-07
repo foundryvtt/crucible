@@ -2257,6 +2257,7 @@ export default class CrucibleActor extends Actor {
     if ( ("health" in r) || ("wounds" in r) ) {
       await this.toggleStatusEffect("weakened", {active: this.system.isWeakened && !this.system.isDead });
       await this.toggleStatusEffect("dead", {active: this.system.isDead});
+      await this.toggleStatusEffect("asleep", {active: false});
     }
     if ( ("morale" in r) || ("madness" in r) ) {
       await this.toggleStatusEffect("broken", {active: this.system.isBroken && !this.system.isInsane });
