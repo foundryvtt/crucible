@@ -84,14 +84,24 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle pointer-over events entering a talent icon within an expanded wheel.
+   * @param {PIXI.InteractionEvent} event
+   */
   #onPointerOver(event) {
+    const tree = crucible.tree;
+    if ( event.nativeEvent.target !== tree.canvas ) return;
     event.stopPropagation();
     this.scale.set(1.2, 1.2);
-    game.system.tree.hud.activate(this);
+    tree.hud.activate(this);
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle pointer-out events leaving a talent icon within an expanded wheel.
+   * @param {PIXI.InteractionEvent} event
+   */
   #onPointerOut(event) {
     event.stopPropagation();
     this.scale.set(1.0, 1.0);

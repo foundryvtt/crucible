@@ -14,6 +14,8 @@ export function onPointerEnter(event) {
       return displaySpell(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
+    case "talentCheck":
+      return displayTalentCheck(event);
     case "languageCheck":
       return displayLanguageCheck(event);
     case "passiveCheck":
@@ -31,15 +33,6 @@ export function onPointerEnter(event) {
  */
 export function onPointerLeave(event) {
   const element = event.target;
-  // TODO delete
-  // if ( "crucibleTooltip" in element.dataset ) {
-  //   window.setTimeout(() => {
-  //     if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
-  //     element.dataset[element.dataset.crucibleTooltip] = true;
-  //     delete element.dataset.crucibleTooltip;
-  //     delete element.dataset.tooltipHtml;
-  //   }, 2000);
-  // }
   if ( "crucibleTooltip" in element.dataset ) {
     window.setTimeout(() => {
       if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
@@ -145,8 +138,30 @@ async function displayKnowledgeCheck(event) {
 /* -------------------------------------------- */
 
 /**
+ * On pointerenter, display a tooltip for which group members have a specific talent.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayTalentCheck(event) {
+  const element = event.target;
+  if ( !crucible.party ) return;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const parsed = foundry.utils.parseUuid(element.dataset.talentUuid);
+  if ( !parsed?.id ) return;
+  const check = async (group, actor) => ({success: actor.talentIds.has(parsed.id)});
+  element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
+  element.dataset.tooltipClass = "crucible crucible-tooltip wide";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
  * On pointerenter, display a dynamic tooltip for the group language check.
- * @param {PointerEvent} event 
+ * @param {PointerEvent} event
  * @returns {Promise<void>}
  */
 async function displayLanguageCheck(event) {
@@ -192,7 +207,7 @@ async function displayCondition(event) {
 /**
  * Display an Iconic Spell's card as a tooltip.
  * @param {PointerEvent} event
- * @returns {Promise<void>} 
+ * @returns {Promise<void>}
  */
 async function displaySpell(event) {
   const element = event.target;

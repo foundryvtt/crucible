@@ -468,8 +468,7 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}
    */
   hasKnowledge(knowledgeId) {
-    if ( this.type !== "hero" ) return false;
-    // TODO eventually allow knowledge to come from more than just your background
+    if ( this.type !== "hero" ) return false; // Relax this assumption eventually?
     return this.system.details.background.knowledge.has(knowledgeId);
   }
 

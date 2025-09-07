@@ -231,9 +231,16 @@ Hooks.once("init", async function() {
 
   // Primary party
   game.settings.register("crucible", "party", {
+    name: "SETTINGS.CruciblePartyLabel",
+    hint: "SETTINGS.CruciblePartyHint",
     scope: "world",
-    config: false,
-    type: new foundry.data.fields.DocumentIdField(),
+    config: true,
+    type: new foundry.data.fields.ForeignDocumentField(documents.CrucibleActor,
+      {required: false, idOnly: true, choices: () => game.actors.reduce((obj, a) => {
+        if ( a.type === "group" ) obj[a.id] = a.name;
+        return obj;
+      }, {"": "-- None -- "})
+    }),
     default: null,
     onChange: actorId => party = game.actors.get(actorId)
   });

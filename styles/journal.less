@@ -187,52 +187,49 @@ enriched-content.milestone {
     }
   }
 
-  &.exp {
+  // Exploration and Talent checks
+  &.exp,
+  &.talent-check {
     --color-background: #2c3921;
     --color-background-hover: #365021;
     --color-border: #5b9e26;
     --color-border-hover: #81cc44;
   }
-  &.kno {
-    --color-background: #1a1a37;
-    --color-background-hover: #242453;
-    --color-border: #4848ac;
-    --color-border-hover: #6c6cff;
-  }
-  &.soc {
-    --color-background: #3a184a;
-    --color-background-hover: #4d2368;
-    --color-border: #752f9f;
-    --color-border-hover: #ab3fe8;
-  }
-
-  // Passive Checks
-  &.passive-check {
-    cursor: var(--cursor-help, help);
+  &.talent-check:before {
+    content: "\e4e2";
+    font-weight: 900;
   }
 
   // Knowledge Checks
+  &.kno,
   &.knowledge-check {
     --color-background: #1a1a37;
     --color-background-hover: #242453;
     --color-border: #4848ac;
     --color-border-hover: #6c6cff;
-    &:before {
-      content: "\e0c0";
-      font-weight: 900;
-    }
   }
 
-  // Language Checks
+  &.knowledge-check:before {
+    content: "\e0c0";
+    font-weight: 900;
+  }
+
+  // Social and Language checks
+  &.soc,
   &.language-check {
     --color-background: #3a184a;
     --color-background-hover: #4d2368;
     --color-border: #752f9f;
     --color-border-hover: #ab3fe8;
-    &:before {
-      content: "\f086";
-      font-weight: 900;
-    }
+  }
+  &.language-check:before {
+    content: "\f086";
+    font-weight: 900;
+  }
+
+  // Passive Checks
+  &.passive-check {
+    cursor: var(--cursor-help, help);
   }
 
   // Hazard Checks
