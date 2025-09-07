@@ -506,15 +506,28 @@
 "AWARD": {
   "TOOLTIPS": {
     "Currency": "Award Currency",
-    "Milestone": "Award Milestone",
-    "CurrencyMilestone": "Award Currency and Milestone"
+    "Milestone": "Award Milestone(s)"
   },
   "Each": "each",
   "Milestone": {
     "one": "Milestone",
     "other": "Milestones"
   },
+  "SUMMARIES": {
+    "Cost": "{award} cost paid by:",
+    "CostSplit": "{award} cost split between:",
+    "Reward": "{award} granted to:",
+    "RewardSplit": "{award} split between:",
+    "TABLE": {
+      "Label": "Currency",
+      "Formula": "Formula",
+      "Total": "Total"
+    }
+  },
+  "TitleCost": "Choose Contributor(s)",
+  "TitleReward": "Choose Recipient(s)",
   "WARNINGS": {
+    "CannotAfford": "The following actors cannot afford the cost of this enricher: {actors}",
     "InvalidTerms": "Unable to parse {terms} as valid award terms.",
     "RequiresGM": "You must be a Gamemaster to use Award enrichers."
   }
@@ -1369,6 +1382,7 @@
 "WARNING.CannotEquipInCombat": "Actor {actor} cannot equip or un-equip {item} during a combat encounter.",
 "WARNING.CannotEquipActionCost": "You cannot equip weaponry because you have no Action points available.",
 "WARNING.CannotEquipInvalidCategory": "Actor {actor} cannot use {item} in the {type} equipment slot.",
+"WARNING.NoParty": "You must have a primary party configured for this.",
 "WARNING.SkillRequireAncestryBackground": "You must assign both Ancestry and Background before you can purchase Skill ranks.",
 
 "WALKTHROUGH.AddAncestry": "Choose an Ancestry from the Compendium or Items sidebar and add it via drag-and-drop.",
