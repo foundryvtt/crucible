@@ -1,0 +1,31 @@
+<div class="action line-item" data-action-id="{{action.id}}">
+    <header class="action-header">
+        <img class="icon" src="{{icon}}" alt="{{label}}">
+        <div class="title">
+            <h4>{{label}}</h4>
+            <div class="tags">
+                {{#each abilityAbbrs}}
+                    <span class="tag" data-tag="{{this}}">{{this}}</span>
+                {{/each}}
+                {{#each rankTags}}
+                    <span class="tag" data-tag="{{this}}">{{this}}</span>
+                {{/each}}
+            </div>
+        </div>
+    </header>
+
+    <section class="description">
+        {{{localize (concat 'SKILL.DESCRIPTIONS.' id)}}}
+    </section>
+
+    {{#if knowledge.length}}
+    <section class="effects title">
+        <h3 class="divider">{{localize 'SKILL.CATEGORY.KNOWLEDGE.label'}}</h3>       
+        <div class="tags">
+            {{#each knowledge}}
+                <span class="tag" data-tag="{{this}}">{{this}}</span>
+            {{/each}}
+        </div>       
+    </section>
+    {{/if}}
+</div>
