@@ -7,10 +7,10 @@ flags: {}
 system:
   node: toustr1
   description: >-
-    A defensive technique in which you drive forward, slamming and pushing foes
-    out of your path. You charge up to 6 spaces in a straight line and perform
-    an offhand shield <strong>Strike</strong> against each successive foe along
-    your path.
+    <p>A defensive technique in which you drive forward, slamming and pushing
+    foes out of your path. You charge up to 20 feet in a straight line and
+    perform an offhand shield <strong>Strike</strong> against each successive
+    foe along your path.</p>
   actions:
     - id: shieldCharge
       description: >-
@@ -48,11 +48,11 @@ system:
     - toustr2
 _stats:
   systemId: crucible
-  systemVersion: 0.7.2
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1674942420012
-  modifiedTime: 1749311061728
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1757529410227
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

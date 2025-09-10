@@ -11,22 +11,32 @@ system:
     - id: intimidate
       name: Intimidate
       description: >-
-        You physically intimidate an enemy that is within your engagement range,
-        performing an Intimidation skill attack against your target. On a
-        success they sustain Void damage to Morale.
+        <p>You physically intimidate an enemy that is within your engagement
+        range, performing an Intimidation skill attack against your target. On a
+        success they sustain Void damage to Morale.</p>
       tags:
-        - intimidation
         - void
         - morale
+        - skill
+        - intimidation
       cost:
         action: 1
         focus: 1
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 1
         scope: 0
+        self: false
       effects: []
+      img: icons/magic/death/skull-humanoid-crown-white-blue.webp
+      condition: ''
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      actionHooks: []
   requirements: {}
 effects: []
 folder: 2MFixpDJ379KOogE
@@ -37,11 +47,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1676839298208
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1757527711369
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

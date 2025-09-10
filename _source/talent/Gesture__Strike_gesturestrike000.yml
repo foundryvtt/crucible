@@ -6,10 +6,9 @@ system:
   description: >-
     <p>Empower a close-range attack with the essence of a Rune. This rune
     performs a melee weapon attack targeting the defense and dealing damage of
-    the Rune used in the spell.</p>
-
-    <p>The Strike gesture scales using <strong>Strength</strong> and targets a
-    <strong>single</strong> adjacent creature, dealing 12 base damage on a
+    the Rune used in the spell.</p><p>The Strike gesture scales using
+    <strong>Strength</strong> and targets a <strong>single</strong> adjacent
+    creature, dealing base damage according to your equipped weapon on a
     successful attack.</p>
   actions: []
   gesture: strike
@@ -21,11 +20,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1674842056708
-  modifiedTime: 1748551939966
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757525105226
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Compendium.crucible.talent.gesturearrowcopy
   duplicateSource: null
   exportSource: null

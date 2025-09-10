@@ -6,9 +6,9 @@ system:
   description: >-
     <p>You are always thinking ahead about where to position yourself should
     danger loom. Before <strong>Turn 1</strong> of a Combat encounter, provided
-    that you are not Unaware, you may immediately move <strong>1 Space</strong>
-    in any permitted direction.</p><p>If multiple combatants have this feature,
-    repositioning occurs in reverse order of Initiative.</p>
+    that you are not Unaware, you may immediately move 4 feet<strong>
+    </strong>in any permitted direction.</p><p>If multiple combatants have this
+    feature, repositioning occurs in reverse order of Initiative.</p>
   actions: []
   requirements: {}
 effects: []
@@ -19,11 +19,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1675741470187
-  modifiedTime: 1742937126583
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757529178135
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Item.strategicreposit
   duplicateSource: null
   exportSource: null
