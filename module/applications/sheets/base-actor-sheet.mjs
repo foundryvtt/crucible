@@ -533,7 +533,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       // Add effect to section
       const e = {
         id: effect.id,
-        icon: effect.icon,
+        icon: effect.img,
         name: effect.name,
         tags: tags,
         uuid: effect.uuid,
