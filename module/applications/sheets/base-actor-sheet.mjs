@@ -528,43 +528,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Categorize and prepare effects
     for ( const effect of this.actor.effects ) {
-      const {startRound, rounds, turns} = effect.duration;
-      const elapsed = game.combat ? game.combat.round - startRound : 0;
-      const tags = {};
-      let section = "persistent";
-      let t;
-
-      // Turn-based duration
-      if ( Number.isFinite(turns) ) {
-        section = "temporary";
-        const remaining = turns - elapsed;
-        t = remaining;
-        tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
-      }
-
-      // Round-based duration
-      else if ( Number.isFinite(rounds) ) {
-        section = "temporary";
-        const remaining = rounds - elapsed;
-        t = 1000000 * remaining;
-        tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
-      }
-
-      // Persistent
-      else {
-        t = Infinity;
-        tags.duration = "∞";
-      }
-
-      // Disabled Effects
-      if ( effect.disabled ) section = "disabled";
-
-      // Status tooltip tags
-      const statuses = effect.statuses.reduce((obj, conditionId) => {
-        const cfg = CONFIG.statusEffects.find(c => c.id === conditionId);
-        if (cfg) obj[conditionId] = game.i18n.localize(cfg.name);
-        return obj;
-      }, {});
+      const tags = effect.getTags();
 
       // Add effect to section
       const e = {
@@ -572,18 +536,17 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         icon: effect.icon,
         name: effect.name,
         tags: tags,
-        statuses: statuses,
+        uuid: effect.uuid,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "Enable Effect"}
           : {icon: "fa-solid fa-toggle-on", tooltip: "Disable Effect"},
-        t
       };
-      sections[section].effects.push(e);
+      sections[tags.context.section].effects.push(e);
     }
 
     // Sort
     for ( const [k, section] of Object.entries(sections) ) {
       if ( !section.effects.length ) delete sections[k];
-      else section.effects.sort((a, b) => (a.t - b.t) || (a.name.localeCompare(b.name)));
+      else section.effects.sort((a, b) => (a.tags.context.t - b.tags.context.t) || (a.name.localeCompare(b.name)));
     }
     return sections;
   }
