@@ -811,11 +811,6 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     const creationOptions = {recursive: false, diff: false, noHook: true};
     await this._finalizeCreationData(creationData, creationOptions);
 
-    // Close the creation sheet and remove it from cache
-    await this.close({dialog: false});
-    this.document._sheet = null;
-    delete this.document.apps[this.id];
-
     // Update the actor and render the regular sheet
     await this.document.update(creationData, creationOptions);
     this.document.sheet.render({force: true});
@@ -832,8 +827,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
     delete creationData.ownership;
-    delete creationData.flags.core.sheetClass;
-    creationData.flags.core["-=sheetClass"] = null;
+    creationData.flags.core.sheetClass = '';
     creationData.system.advancement.level = 1;
   }
 
