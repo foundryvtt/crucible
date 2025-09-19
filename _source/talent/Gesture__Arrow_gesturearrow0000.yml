@@ -6,11 +6,9 @@ system:
   description: >-
     <p>Hurl a projectile of magical power at a distant target. This might use
     the Lightning Rune to hurl a lightning bolt, or the Shadow rune to hurl a
-    ball of devouring darkness.</p>
-
-    <p>The Arrow gesture scales using <strong>Intellect</strong> and targets a
-    <strong>single</strong> creature up to a distance of 10 spaces, dealing 10
-    base damage on a successful attack.</p>
+    ball of devouring darkness.</p><p>The Arrow gesture scales using
+    <strong>Intellect</strong> and targets a <strong>single</strong> creature up
+    to a distance of 60 feet, dealing 8 base damage on a successful attack.</p>
   actions: []
   gesture: arrow
   actorHooks: []
@@ -19,11 +17,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1674842056708
-  modifiedTime: 1686252060235
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757523613913
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Compendium.crucible.talent.gesturearrow0000
   duplicateSource: null
   exportSource: null

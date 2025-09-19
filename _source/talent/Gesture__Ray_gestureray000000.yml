@@ -7,10 +7,9 @@ system:
     <p>Focus the power of a Rune into a single point, expelling its energy into
     a ranged beam which rapidly travels a short distance to a targeted area. If
     used with Life this might restore the HP of a distant ally steadily over
-    time, while Frost might emit a beam that freezes a target in place.</p>
-
-    <p>The Ray gesture scales using <strong>Wisdom</strong> and targets a line
-    emanating from the caster at distance 6, dealing 6 base damage on a
+    time, while Frost might emit a beam that freezes a target in
+    place.</p><p>The Ray gesture scales using <strong>Wisdom</strong> and
+    targets a 30 foot line emanating from the caster, dealing 6 base damage on a
     successful attack.</p>
   actions: []
   gesture: ray
@@ -23,11 +22,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1675608839856
-  modifiedTime: 1686252836131
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757524355911
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Item.gestureray000000
   duplicateSource: null
   exportSource: null

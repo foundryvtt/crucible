@@ -5,15 +5,12 @@ system:
   node: wis1b
   description: >-
     <p>Coalesce arcane power into tangible form, conjuring a
-    <strong>Creation</strong> which appears in an adjacent space and joins
-    Combat at Initiative 1.</p>
-
-    <p>Your Creation is a Minion of half your own Level chosen from the Summoned
-    Creatures compendium pack corresponding to the Rune used in the spell.</p>
-
-    <p>The Creation lasts for <strong>10 Rounds</strong>. You may only have one
-    active Creation, casting another spell using the Create gesture replaces
-    your previous Creation.</p>
+    <strong>Creation</strong> which appears within 10 feet and joins Combat at
+    Initiative 1.</p><p>Your Creation is a Minion of half your own Level chosen
+    from the Summoned Creatures compendium pack corresponding to the Rune used
+    in the spell.</p><p>The Creation lasts for <strong>10 Rounds</strong>. You
+    may only have one active Creation, casting another spell using the Create
+    gesture replaces your previous Creation.</p>
   actions: []
   gesture: create
   actorHooks: []
@@ -22,11 +19,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.5.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1674842056708
-  modifiedTime: 1686255844919
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757523775093
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Compendium.crucible.talent.gesturecreate000
   duplicateSource: null
   exportSource: null

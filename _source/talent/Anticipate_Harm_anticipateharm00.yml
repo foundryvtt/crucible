@@ -13,9 +13,9 @@ system:
         You are targeted by an area-of-effect attack, the source of which you
         can see.
       description: >-
-        You may immediately Move 1 space after the area-of-effect of the attack
-        is declared. If this movement escapes the area of the attack, you are
-        unaffected.
+        <p>You may immediately move 4 feet after the area-of-effect of the
+        attack is declared. If this movement escapes the area of the attack, you
+        are unaffected.</p>
       tags:
         - movement
         - reaction
@@ -23,27 +23,30 @@ system:
         action: 1
         focus: 1
         weapon: false
+        heroism: 0
       target:
         type: self
         number: 1
         scope: 0
+        self: false
       effects: []
-      name: ''
-      img: null
+      name: Anticipate Harm
+      img: icons/magic/movement/trail-streak-impact-blue.webp
       range:
-        maximum: 0
+        maximum: 4
         weapon: false
+        minimum: null
       actionHooks: []
   requirements: {}
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1674961306089
-  modifiedTime: 1742936603324
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757529139242
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
