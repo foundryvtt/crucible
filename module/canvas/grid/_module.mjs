@@ -1,3 +1,7 @@
+export {default as CrucibleSelectiveGridShader} from "./grid-shader.mjs";
+export {default as CrucibleGridLayer} from "./grid-layer.mjs";
+export {default as CrucibleHitBoxShader} from "./hit-box-shader.mjs";
+
 /**
  * Get the grid offsets of an AOE template shape.
  * @param {Point} origin
@@ -83,4 +87,3 @@ export function getLinearRangeCost(attacker, target) {
   // Measure distance
   return canvas.grid.measurePath([A, T]).distance;
 }
-
