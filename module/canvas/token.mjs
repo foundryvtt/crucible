@@ -553,9 +553,15 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( (dirty === false) || !stage || !grid ) return this.#hbCache;
 
     cache.gridSize = grid.size || 100;
-    cache.sizeUnits = this.actor?.system?.movement?.size ?? 4;
+    const s = cache.sizeUnits = this.actor?.system?.movement?.size ?? 4;
+    const uneven = (s % 2 > 0);
 
-    const c = this.center;
+    const M = CONST.GRID_SNAPPING_MODES;
+    const c = !this.animationContexts.size ? canvas.grid.getSnappedPoint(this.center, {
+      mode: uneven ? M.CENTER : M.VERTEX,
+      resolution: 1
+    }) : this.center;
+
     cache.centerX = c.x;
     cache.centerY = c.y;
 
