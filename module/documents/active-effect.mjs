@@ -22,6 +22,8 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     });
   }
 
+/* -------------------------------------------- */
+
   /**
    * Obtain an object of tags which describe the Effect.
    * @returns {EffectTags}
@@ -31,9 +33,7 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
     const elapsed = game.combat ? game.combat.round - startRound : 0;
     const pluralRules = new Intl.PluralRules(game.i18n.lang);
     const tags = {
-      context: {
-        section: "persistent",
-      },
+      context: {section: "persistent"},
       activation: {}
     };
     // Status tooltip tags
@@ -67,7 +67,6 @@ export default class CrucibleActiveEffect extends foundry.documents.ActiveEffect
 
     // Disabled Effects
     if ( this.disabled ) tags.context.section = "disabled";
-
     return tags;
   }
 }

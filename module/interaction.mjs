@@ -153,7 +153,7 @@ async function displayCondition(event) {
 async function displayFromUuid(event) {
   const element = event.target;
   const item = await fromUuid(element.dataset.uuid);
-  if ( !item ) return;
+  if ( typeof !item?.renderCard === "function" ) return;
   event.stopImmediatePropagation();
 
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation

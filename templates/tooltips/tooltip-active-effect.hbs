@@ -6,7 +6,7 @@
             {{#unless tags.activation.empty}}
             <div class="tags">
                 {{#each tags.activation as |label tag|}}
-                    <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                <span class="tag" data-tag="{{tag}}">{{label}}</span>
                 {{/each}}
             </div>
             {{/unless}}
@@ -15,9 +15,9 @@
 
     {{#unless tags.statuses.empty}}
     <div class="tags" data-tag-type="status">
-    {{#each tags.statuses as |label tag|}}
+        {{#each tags.statuses as |label tag|}}
         <span class="tag" data-tag="{{tag}}">{{label}}</span>
-    {{/each}}
+        {{/each}}
     </div>
     {{/unless}}
 
