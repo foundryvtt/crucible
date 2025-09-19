@@ -9,9 +9,6 @@
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
-import CrucibleTalentNode from "./module/config/talent-node.mjs";
-import {statusEffects} from "./module/config/statuses.mjs";
-
 // Import Modules
 import * as applications from "./module/applications/_module.mjs";
 import * as canvas from "./module/canvas/_module.mjs";
@@ -27,13 +24,8 @@ import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
-
-// Grid classes
-import {
-  CrucibleGridLayer,
-  CrucibleHitBoxShader,
-  CrucibleSelectiveGridShader
-} from "./module/canvas/grid/_module.mjs";
+import CrucibleTalentNode from "./module/config/talent-node.mjs";
+import {statusEffects} from "./module/config/statuses.mjs";
 
 // Party
 let party = null;
@@ -146,11 +138,6 @@ Hooks.once("init", async function() {
     exploration: models.CrucibleExplorationChallenge,
     social: models.CrucibleSocialChallenge
   };
-
-  // Custom grid shader class for all grid types
-  for ( const gridType in CONFIG.Canvas.gridStyles ) {
-    CONFIG.Canvas.gridStyles[gridType].shaderClass = CrucibleSelectiveGridShader;
-  }
 
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
@@ -285,16 +272,15 @@ Hooks.once("init", async function() {
   if ( crucible.developmentMode ) registerDevelopmentHooks();
 
   // Replace core layer class with custom grid layer class
-  CONFIG.Canvas.layers.grid.layerClass = CrucibleGridLayer;
+  CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
 });
 
 /* -------------------------------------------- */
 /*  Config                                      */
 /* -------------------------------------------- */
 
-Hooks.once("canvasConfig", canvas => {
-  // Register the hitbox batched shader
-  CrucibleHitBoxShader.registerPlugin();
+Hooks.once("canvasConfig", () => {
+  canvas.grid.CrucibleHitBoxShader.registerPlugin();
 });
 
 /* -------------------------------------------- */

@@ -1,6 +1,19 @@
 import CrucibleTokenObject from "../token.mjs";
+import CrucibleSelectiveGridShader from "./grid-shader.mjs";
 
 export default class CrucibleGridLayer extends foundry.canvas.layers.GridLayer {
+
+  /** @override */
+  initializeMesh({style, ...options}={}) {
+    if ( !canvas.scene.useMicrogrid ) return super.initializeMesh({style, ...options});
+    const {shaderClass, shaderOptions} = CONFIG.Canvas.gridStyles[style] ?? {};
+    this.mesh.initialize(options);
+    const defaultShader = shaderClass === foundry.canvas.rendering.shaders.GridShader;
+    this.mesh.setShaderClass(defaultShader ? CrucibleSelectiveGridShader : shaderClass);
+    this.mesh.shader.configure(shaderOptions ?? {});
+  }
+
+  /* -------------------------------------------- */
 
   /** @override */
   render(renderer) {

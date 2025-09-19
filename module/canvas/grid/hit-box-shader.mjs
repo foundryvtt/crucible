@@ -53,7 +53,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
   static STATES = {
     hovered: false,      // 0x01
     controlled: false,   // 0x02
-    targetted: false,    // 0x04
+    targeted: false,     // 0x04
     solidFill: false,    // 0x08
     cellFadeFill: false, // 0x10
     gridRipples: false,  // 0x20
@@ -392,7 +392,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float aaClip = max(fwidth(sdClip), 1e-4);
       float insideBox = smoothstep(0.0, aaClip, -sdClip);
 
-      bool targetted = ((vAnimationTypes & TARGETTED) != 0U);
+      bool targeted = ((vAnimationTypes & TARGETED) != 0U);
       bool hovered = ((vAnimationTypes & HOVERED) != 0U);
       bool controlled= ((vAnimationTypes & CONTROLLED) != 0U);
     
@@ -400,7 +400,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float borderPx = max(dashBorderPixels * zoomScale, 0.0);
       
       float deltaPx = vDashOffsetPx * zoomScale;
-      if ( targetted ) {
+      if ( targeted ) {
         float k = (hoverPulsePx * cos(TWOPI * hoverPulseHz * time) + 1.0) * 0.5 * zoomScale;
         deltaPx += k;
       }
@@ -454,7 +454,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       }
 
       // CELL FADING OPTION
-      if ( (vAnimationTypes & CELLFADEFILL) != 0U || ((hovered && !controlled) || targetted) ){
+      if ( (vAnimationTypes & CELLFADEFILL) != 0U || ((hovered && !controlled) || targeted) ){
         float cA = cellFade(vNormGrid) * fxMask;
         accumulateOver(outColor, vVertexColor.rgb, vVertexColor.a * cA);
       }

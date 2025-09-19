@@ -95,32 +95,35 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _refreshBorder() {}
-
-  /* -------------------------------------------- */
-
-  _refreshState() {
-    super._refreshState();
-    this.#hbCache.animationTypes.toggleState("controlled", this.controlled);
-    this.#hbCache.animationTypes.toggleState("hovered", this.hover);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _drawTargetArrows({margin: m=0, alpha=1, size, color, border: {width=2, color: lineColor=0}={}}={}) {
-    size ??= CONFIG.Canvas.targeting.size;
-    const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
-    this.#hbCache.animationTypes.toggleState("targetted", isTargetedByUser);
-  }
-
-  /* -------------------------------------------- */
-
   /** @inheritDoc */
   _applyRenderFlags(flags) {
     super._applyRenderFlags(flags);
     if ( flags.refreshFlanking ) this.#updateFlanking();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _refreshBorder() {} // no-op
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _refreshVisibility() {
+    super._refreshVisibility();
+    this.#hbCache.animationTypes.toggleState("controlled", this.controlled);
+    this.#hbCache.animationTypes.toggleState("hovered", this.hover || this.layer.highlightObjects);
+    if ( this.isVisible ) CrucibleTokenObject.visibleTokens.add(this);
+    else CrucibleTokenObject.visibleTokens.delete(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _refreshTarget() {
+    this._drawTargetPips();
+    const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
+    this.#hbCache.animationTypes.toggleState("targeted", isTargetedByUser);
   }
 
   /* -------------------------------------------- */
@@ -143,11 +146,12 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _drawBar(number, bar, data) {
     const val = Number(data.value);
     const pct = Math.clamp(val, 0, data.max) / data.max;
+    const p = 8;
 
     // Determine sizing
     const {width, height} = this.document.getSize();
-    const bw = width;
-    const bh = number === 0 ? 8 : 6;
+    const bw = width - (p * 2);
+    const bh = number === 0 ? 10 : 8;
     const bs = 1;
 
     // Determine the color to use
@@ -161,8 +165,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     bar.beginFill(color, 1.0).drawRect(0, 0, pct * bw, bh, 2);
 
     // Set position
-    const posY = number === 0 ? height - 8: height - 14;
-    bar.position.set(0, posY);
+    const posY = (height - p) - (number === 0 ? 10 : 18);
+    bar.position.set(p, posY);
     return true;
   }
 
@@ -177,6 +181,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       this.bars.resources = this.bars.addChild(new PIXI.Graphics());
       this.bars.resources.position.set(0, 0);
     }
+    const p = 8;
     const r = this.bars.resources;
     r.clear();
     const {action, focus} = this.actor.system.resources;
@@ -186,7 +191,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const ac = SYSTEM.RESOURCES.action.color;
     r.beginFill(ac, 1.0).lineStyle({color: 0x000000, width: 1});
     for ( let i=0; i<action.value; i++ ) {
-      r.drawCircle(6 + (i * 10), height - 8, 3);
+      r.drawCircle((2 * p) + (i * 10), height - p - 10, 3);
     }
     r.endFill();
 
@@ -194,7 +199,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const fc = SYSTEM.RESOURCES.focus.color;
     r.beginFill(fc, 1.0).lineStyle({color: 0x000000, width: 1});
     for ( let i=0; i<focus.value; i++ ) {
-      r.drawCircle(width - 6 - (i * 10), height - 14, 3);
+      r.drawCircle(width - (2 * p) - (i * 10), height - p - 18, 3);
     }
     r.endFill();
   }
@@ -488,24 +493,14 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   }
 
   /* -------------------------------------------- */
-  /*  Hitbox                                      */
+  /*  Animated Hitbox                             */
   /* -------------------------------------------- */
 
   /**
-   * The set of visible tokens
+   * The set of visible tokens.
    * @type {Set<CrucibleTokenObject>}
    */
   static visibleTokens = new Set();
-
-  /* -------------------------------------------- */
-
-  /** @inheritDoc */
-  get isVisible() {
-    const isVisible = super.isVisible;
-    if ( isVisible ) CrucibleTokenObject.visibleTokens.add(this);
-    else CrucibleTokenObject.visibleTokens.delete(this);
-    return isVisible;
-  }
 
   /* -------------------------------------------- */
 
@@ -620,6 +615,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     if ( !canvas.scene.useMicrogrid ) return;
+    CrucibleTokenObject.visibleTokens.delete(this);
 
     // Apply flanking updates
     const activeGM = game.users.activeGM;
