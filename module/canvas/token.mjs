@@ -1,3 +1,5 @@
+import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
+
 export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
   /** @inheritDoc */
@@ -44,30 +46,75 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    *   hitboxCenterY: number,       // Screen-space center Y
    *   hitboxHalfWidth: number,     // Screen-space half width
    *   hitboxHalfHeight: number,    // Screen-space half height
-   *   stageWorldID: number,        // PIXI stage worldID
+   *   trLocalID: number,           // Transform local ID
+   *   trParentID: number,          // Transform parent ID
    *   gridSize: number,            // Scene grid size
    *   sizeUnits: number,           // Actor movement size
    *   centerX: number,             // Token world center X
    *   centerY: number,             // Token world center Y
+   *   abgr: number,                // Token disposition color in little endian
    *   colorRaw: number             // Raw RGBA color
+   *   dashOffsetPx: number         // The hitbox offset for this token
+   *   animationTypes: number       // A bitmask holding all the animation types active for this token
    * }}
    */
   #hbCache = {
-    abgr: 0,
     hitboxCenterX: 0,
     hitboxCenterY: 0,
     hitboxHalfWidth: 0,
     hitboxHalfHeight: 0,
-    stageWorldID: -1,
+    trLocalID: -1,
+    trParentID: -1,
     gridSize: -1,
     sizeUnits: -1,
     centerX: NaN,
     centerY: NaN,
-    colorRaw: NaN
+    abgr: 0,
+    colorRaw: NaN,
+    dashOffsetPx: -6,
+    animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
   };
+
+  /**
+   * Container to "store" some unused graphics in Crucible.
+   * @type {PIXI.Container}
+   */
+  #voidContainer = new PIXI.Container();
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _draw(options){
+    await super._draw(options);
+    this.#voidContainer.visible = false;
+    this.#voidContainer.addChild(this.border);
+    this.#voidContainer.addChild(this.targetArrows);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _refreshBorder() {}
+
+  /* -------------------------------------------- */
+
+  _refreshState() {
+    super._refreshState();
+    this.#hbCache.animationTypes.toggleState("controlled", this.controlled);
+    this.#hbCache.animationTypes.toggleState("hovered", this.hover);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _drawTargetArrows({margin: m=0, alpha=1, size, color, border: {width=2, color: lineColor=0}={}}={}) {
+    size ??= CONFIG.Canvas.targeting.size;
+    const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
+    this.#hbCache.animationTypes.toggleState("radarSweep", isTargetedByUser);
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -445,73 +492,96 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /**
-   * Return cached hitbox data, recomputing only when its necessary.
-   * @returns {{
-   *   abgr: number,
-   *   hitboxCenterX: number,
-   *   hitboxCenterY: number,
-   *   hitboxHalfWidth: number,
-   *   hitboxHalfHeight: number
-   * }}
+   * The set of visible tokens
+   * @type {Set<CrucibleTokenObject>}
    */
-  getHitboxCache() {
-    const stage = canvas?.stage;
-    const grid = canvas?.grid;
-    if ( !stage || !grid ) return this.#hbCache;
+  static visibleTokens = new Set();
 
-    const stageWorldID = stage.transform._worldID;
-    const gridSize = grid.size || 100;
-    const sizeUnits = this.actor?.system?.movement?.size ?? 4;
+  /* -------------------------------------------- */
 
-    const c = this.center;
-    const centerX = c.x;
-    const centerY = c.y;
+  /** @inheritDoc */
+  get isVisible() {
+    const isVisible = super.isVisible;
+    if ( isVisible ) CrucibleTokenObject.visibleTokens.add(this);
+    else CrucibleTokenObject.visibleTokens.delete(this);
+    return isVisible;
+  }
 
-    const colorRaw = (this.getDispositionColor?.() >>> 0) || 0;
+  /* -------------------------------------------- */
 
-    const same =
-      (this.#hbCache.stageWorldID === stageWorldID) &&
-      (this.#hbCache.gridSize === gridSize) &&
-      (this.#hbCache.sizeUnits === sizeUnits) &&
-      (this.#hbCache.centerX === centerX) &&
-      (this.#hbCache.centerY === centerY) &&
-      (this.#hbCache.colorRaw === colorRaw);
+  /**
+   * Get the hitbox border color in little endian format
+   * @returns {number}
+   */
+  getHitBoxBorderColor() {
+    const colorRaw = this._getBorderColor();
+    const cache = this.#hbCache;
+    const same = (cache.colorRaw === colorRaw);
+    if ( same ) return cache.abgr;
 
-    if ( same ) return this.#hbCache;
+    // Convert disposition color to little endian
+    const cr = (colorRaw >>> 0) || 0;
+    const rgba = (cr <= 0xFFFFFF ? ((cr << 8) | 0xFF) : cr) >>> 0;
 
-    const st = stage.worldTransform;
-    const zoomX = stage.scale.x || 1.0;
-    const zoomY = stage.scale.y || 1.0;
-
-    const halfWorld = (sizeUnits * gridSize) * 0.5;
-    const hitboxHalfWidth  = halfWorld * zoomX;
-    const hitboxHalfHeight = halfWorld * zoomY;
-
-    const hitboxCenterX = st.a * centerX + st.c * centerY + st.tx;
-    const hitboxCenterY = st.b * centerX + st.d * centerY + st.ty;
-
-    const rgba = (colorRaw <= 0xFFFFFF ? ((colorRaw << 8) | 0xFF) : colorRaw) >>> 0;
-    const abgr = (
+    // Save and return
+    cache.abgr = (
       ((rgba & 0x000000FF) << 24) |
       ((rgba & 0x0000FF00) <<  8) |
       ((rgba & 0x00FF0000) >>> 8) |
       ((rgba & 0xFF000000) >>> 24)
     ) >>> 0;
+    cache.colorRaw = colorRaw;
+    return cache.abgr;
+  }
 
-    this.#hbCache = {
-      abgr,
-      hitboxCenterX,
-      hitboxCenterY,
-      hitboxHalfWidth,
-      hitboxHalfHeight,
-      stageWorldID,
-      gridSize,
-      sizeUnits,
-      centerX,
-      centerY,
-      colorRaw
-    };
-    return this.#hbCache;
+  /* -------------------------------------------- */
+
+  /**
+   * Get the hit box data (which is updated lazily if necessary)
+   * @returns {{abgr: number, hitboxCenterX: number, hitboxCenterY: number, hitboxHalfWidth: number, hitboxHalfHeight: number,
+   * trLocalID: number, trParentID: number, gridSize: number, sizeUnits: number, centerX: number, centerY: number, colorRaw: number}}
+   */
+  getHitBoxData() {
+    const stage = canvas?.stage;
+    const grid = canvas?.grid;
+    const cache = this.#hbCache;
+
+    // Verify local ID and parent ID to know if the hitbox data must be recomputed
+    const trLocalID = this.transform._localID;
+    const trParentID = this.transform._parentID;
+    const dirty = (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID);
+    if ( (dirty === false) || !stage || !grid ) return this.#hbCache;
+
+    cache.gridSize = grid.size || 100;
+    cache.sizeUnits = this.actor?.system?.movement?.size ?? 4;
+
+    const c = this.center;
+    cache.centerX = c.x;
+    cache.centerY = c.y;
+
+    const st = stage.worldTransform;
+    const zoomX = stage.scale.x || 1.0;
+    const zoomY = stage.scale.y || 1.0;
+    const halfWorld = (cache.sizeUnits * cache.gridSize) * 0.5;
+
+    cache.hitboxHalfWidth  = halfWorld * zoomX;
+    cache.hitboxHalfHeight = halfWorld * zoomY;
+    cache.hitboxCenterX = st.a * cache.centerX + st.c * cache.centerY + st.tx;
+    cache.hitboxCenterY = st.b * cache.centerX + st.d * cache.centerY + st.ty;
+    cache.trParentID = trParentID;
+    cache.trLocalID = trLocalID;
+
+    return cache;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * To know whether this token has an active hit box state or can have.
+   * @returns {boolean}
+   */
+  hasNoActiveHitBoxState() {
+    return this.#hbCache.animationTypes.valueOf() === 0;
   }
 
   /* -------------------------------------------- */

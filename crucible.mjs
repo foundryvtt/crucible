@@ -11,7 +11,6 @@ globalThis.SYSTEM = SYSTEM;
 
 import CrucibleTalentNode from "./module/config/talent-node.mjs";
 import {statusEffects} from "./module/config/statuses.mjs";
-import CrucibleSelectiveGridShader from "./module/canvas/shaders/grid-shader.mjs";
 
 // Import Modules
 import * as applications from "./module/applications/_module.mjs";
@@ -28,8 +27,13 @@ import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
-import CrucibleHitBoxShader from "./module/canvas/shaders/hit-box-shader.mjs";
-import CrucibleHitboxLayer from "./module/canvas/hit-box.mjs";
+
+// Grid classes
+import {
+  CrucibleGridLayer,
+  CrucibleHitBoxShader,
+  CrucibleSelectiveGridShader
+} from "./module/canvas/grid/_module.mjs";
 
 // Party
 let party = null;
@@ -279,11 +283,8 @@ Hooks.once("init", async function() {
   CONFIG.debug.flanking = false;
   if ( crucible.developmentMode ) registerDevelopmentHooks();
 
-  // Add Hit Box layer
-  CONFIG.Canvas.layers.crucibleHitBoxes = {
-    group: "interface",
-    layerClass: CrucibleHitboxLayer
-  };
+  // Replace core layer class with custom grid layer class
+  CONFIG.Canvas.layers.grid.layerClass = CrucibleGridLayer;
 });
 
 /* -------------------------------------------- */
