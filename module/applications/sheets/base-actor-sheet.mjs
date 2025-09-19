@@ -39,6 +39,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @override */
   static PARTS = {
+    main: {
+      id: "main",
+      template: "systems/crucible/templates/sheets/actor/main.hbs",
+      root: true
+    },
     sidebar: {
       id: "sidebar",
       template: "systems/crucible/templates/sheets/actor/sidebar.hbs"
@@ -46,10 +51,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     tabs: {
       id: "tabs",
       template: "systems/crucible/templates/sheets/actor/tabs.hbs"
-    },
-    body: {
-      id: "body",
-      template: "systems/crucible/templates/sheets/actor/body.hbs"
     },
     header: {
       id: "header",
