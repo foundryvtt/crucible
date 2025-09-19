@@ -8,6 +8,12 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   });
 
   /**
+   * Container to "store" some unused graphics in Crucible.
+   * @type {PIXI.Container}
+   */
+  static #voidContainer = new PIXI.Container();
+
+  /**
    * @typedef {Object} CrucibleTokenEngagement
    * @property {Set<Token>} allies      Allied tokens which are engaged
    * @property {Set<Token>} enemies     Enemy tokens which are engaged
@@ -71,15 +77,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     centerY: NaN,
     abgr: 0,
     colorRaw: NaN,
-    dashOffsetPx: -6,
+    dashOffsetPx: 0,
     animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
   };
-
-  /**
-   * Container to "store" some unused graphics in Crucible.
-   * @type {PIXI.Container}
-   */
-  #voidContainer = new PIXI.Container();
 
   /* -------------------------------------------- */
   /*  Rendering                                   */
@@ -88,9 +88,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   async _draw(options){
     await super._draw(options);
-    this.#voidContainer.visible = false;
-    this.#voidContainer.addChild(this.border);
-    this.#voidContainer.addChild(this.targetArrows);
+    this.constructor.#voidContainer.visible = false;
+    this.constructor.#voidContainer.addChild(this.border);
+    this.constructor.#voidContainer.addChild(this.targetArrows);
   }
 
   /* -------------------------------------------- */
@@ -112,7 +112,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _drawTargetArrows({margin: m=0, alpha=1, size, color, border: {width=2, color: lineColor=0}={}}={}) {
     size ??= CONFIG.Canvas.targeting.size;
     const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
-    this.#hbCache.animationTypes.toggleState("radarSweep", isTargetedByUser);
+    this.#hbCache.animationTypes.toggleState("targetted", isTargetedByUser);
   }
 
   /* -------------------------------------------- */

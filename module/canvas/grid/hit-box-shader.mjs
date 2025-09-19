@@ -40,7 +40,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       dashBlur: 0,
       dashCyclePerSecond: 1,
       dashBorderPixels: 2,
-      hoverPulseAmp: 0.40,
+      hoverPulsePx: -10,
       hoverPulseHz:  1.0,
       perimPhasePx: 35 // TODO to refine later
     };
@@ -53,10 +53,11 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
   static STATES = {
     hovered: false,      // 0x01
     controlled: false,   // 0x02
-    solidFill: false,    // 0x04
-    cellFadeFill: false, // 0x08
-    gridRipples: false,  // 0x10
-    radarSweep: false,   // 0x20
+    targetted: false,    // 0x04
+    solidFill: false,    // 0x08
+    cellFadeFill: false, // 0x10
+    gridRipples: false,  // 0x20
+    radarSweep: false,   // 0x40
   };
 
   /* -------------------------------------------- */
@@ -218,7 +219,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
     uniform float perimPhasePx;
     
     uniform vec4 targetIndicatorColor;
-    uniform float hoverPulseAmp;
+    uniform float hoverPulsePx;
     uniform float hoverPulseHz;
     
     // FIXME: Use a dedicated shader generator to avoid this hack
@@ -391,6 +392,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float aaClip = max(fwidth(sdClip), 1e-4);
       float insideBox = smoothstep(0.0, aaClip, -sdClip);
 
+      bool targetted = ((vAnimationTypes & TARGETTED) != 0U);
       bool hovered = ((vAnimationTypes & HOVERED) != 0U);
       bool controlled= ((vAnimationTypes & CONTROLLED) != 0U);
     
@@ -398,12 +400,11 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float borderPx = max(dashBorderPixels * zoomScale, 0.0);
       
       float deltaPx = vDashOffsetPx * zoomScale;
-      if ( hovered && !controlled ) {
-        float k = 1.0 + hoverPulseAmp * sin(TWOPI * hoverPulseHz * time);
-        deltaPx *= k;
+      if ( targetted ) {
+        float k = (hoverPulsePx * cos(TWOPI * hoverPulseHz * time) + 1.0) * 0.5 * zoomScale;
+        deltaPx += k;
       }
       
-    
       float aaDash = max(fwidth(sdDash), 1e-4);
       float eps = aaDash * 0.5;
       float aAll = -deltaPx - thicknessPx;
@@ -426,11 +427,11 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       float phase = perimPhasePx - time * dashCyclePerSecond * period;
       float blur = clamp(dashBlur, 0.0, 0.25) * period;
        
-      float tAll = controlled ? 1.0 : stripeMask(uv.s, period, halfOn, phase, uv.aa, blur);
+      float tAll = (controlled || hovered) ? 1.0 : stripeMask(uv.s, period, halfOn, phase, uv.aa, blur);
     
       float shrink = clamp(dashNormLength - (2.0 * borderPx) / max(period, 1e-4), 0.0, 1.0);
       float halfOnFill = 0.5 * shrink * period;
-      float tFill = controlled ? 1.0 : (halfOnFill > 0.0 ? stripeMask(uv.s, period, halfOnFill, phase, uv.aa, blur) : 0.0);
+      float tFill = (controlled || hovered) ? 1.0 : (halfOnFill > 0.0 ? stripeMask(uv.s, period, halfOnFill, phase, uv.aa, blur) : 0.0);
     
       float dashAll = bandAll * tAll;
       float dashFill = bandFill * tFill;
@@ -453,7 +454,7 @@ export default class CrucibleHitBoxShader extends foundry.canvas.rendering.shade
       }
 
       // CELL FADING OPTION
-      if ( (vAnimationTypes & CELLFADEFILL) != 0U || (hovered && !controlled) ){
+      if ( (vAnimationTypes & CELLFADEFILL) != 0U || ((hovered && !controlled) || targetted) ){
         float cA = cellFade(vNormGrid) * fxMask;
         accumulateOver(outColor, vVertexColor.rgb, vVertexColor.a * cA);
       }
