@@ -10,8 +10,10 @@ export function onPointerEnter(event) {
       return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "activeEffect":
     case "spell":
-      return displaySpell(event);
+    case "talent":
+      return displayFromUuid(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
     case "talentCheck":
@@ -20,8 +22,6 @@ export function onPointerEnter(event) {
       return displayLanguageCheck(event);
     case "passiveCheck":
       return displayPassiveCheck(event);
-    case "talent":
-      return displayTalentTooltip(event);
   }
 }
 
@@ -39,26 +39,6 @@ export function onPointerLeave(event) {
       delete element.dataset.tooltipHtml;
     }, 2000);
   }
-}
-
-/* -------------------------------------------- */
-
-/**
- * Display a talent card as a tooltip.
- * @param {PointerEvent} event
- * @returns {Promise<void>}
- */
-async function displayTalentTooltip(event) {
-  const element = event.target;
-  const talent = await fromUuid(element.dataset.uuid);
-  if ( !talent ) return;
-  event.stopImmediatePropagation();
-
-  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
-  element.dataset.tooltipHtml = await talent.renderCard();
-  element.dataset.tooltipClass = "crucible crucible-tooltip";
-  const pointerover = new event.constructor(event.type, event);
-  element.dispatchEvent(pointerover);
 }
 
 /* -------------------------------------------- */
@@ -205,18 +185,18 @@ async function displayCondition(event) {
 /* -------------------------------------------- */
 
 /**
- * Display an Iconic Spell's card as a tooltip.
+ * Display any element retrievable by an uuid which exposes a renderCard function.
  * @param {PointerEvent} event
  * @returns {Promise<void>}
  */
-async function displaySpell(event) {
+async function displayFromUuid(event) {
   const element = event.target;
-  const spell = await fromUuid(element.dataset.uuid);
-  if ( !spell ) return;
+  const item = await fromUuid(element.dataset.uuid);
+  if ( typeof !item?.renderCard === "function" ) return;
   event.stopImmediatePropagation();
 
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
-  element.dataset.tooltipHtml = await spell.renderCard();
+  element.dataset.tooltipHtml = await item.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);

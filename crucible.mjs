@@ -123,6 +123,9 @@ Hooks.once("init", async function() {
     }
   });
 
+  // Active Effect document configuration
+  CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
+
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
   CONFIG.Actor.dataModels = {
