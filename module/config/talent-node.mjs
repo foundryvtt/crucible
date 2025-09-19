@@ -1,4 +1,3 @@
-import CrucibleTalentItem from "../models/item-talent.mjs";
 import {ABILITIES} from "./attributes.mjs";
 import {default as TREE_CONFIG} from "./tree.mjs";
 import {NODE_TYPES} from "./talents.mjs";
@@ -221,7 +220,8 @@ export default class CrucibleTalentNode {
     signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
     const purchased = this.isPurchased(actor);
     const banned = this.#isBanned(actor, signatures);
-    const unlocked = Object.values(CrucibleTalentItem.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    const reqs = crucible.api.models.CrucibleTalentItem.testPrerequisites(actor, this.prerequisites);
+    const unlocked = Object.values(reqs).every(r => r.met);
     return {accessible: undefined, purchased, banned, unlocked};
   }
 
