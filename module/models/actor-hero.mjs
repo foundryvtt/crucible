@@ -134,7 +134,7 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     }
 
     // Default Background data
-    this.details.background ||= this.schema.getField("details.background").initialize({});
+    this.details.background ||= this.schema.getField("details.background").clean({});
 
     // Add the background data into the main details
     for ( const language of this.details.background.languages ) this.details.languages.add(language);

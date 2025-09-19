@@ -35,7 +35,9 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     Object.assign(context, {
       ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.CHOOSE"),
       backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.CHOOSE"),
-      talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree"
+      knowledgeOptions: this.#prepareKnowledgeOptions(),
+      knowledge: this.#prepareKnowledge(),
+      talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree",
     });
 
     // Advancement
@@ -58,6 +60,35 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     }
     return context;
   }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare options provided to a multi-select element for which knowledge areas the character may know.
+   * @returns {FormSelectOption[]}
+   */
+  #prepareKnowledgeOptions() {
+    const options = [];
+    for ( const [value, {label, skill}] of Object.entries(crucible.CONFIG.knowledge) ) {
+      const s = SYSTEM.SKILLS[skill];
+      options.push({value, label, group: s?.label});
+    }
+    return options;
+  }
+
+  /**
+   * Prepare the user-friendly list of knowledge areas that the actor has.
+   * @returns {string[]}
+   */
+  #prepareKnowledge() {
+    const knowledgeNames = [];
+    for ( const knowledgeId of this.actor.system.details.knowledge ) {
+      if ( crucible.CONFIG.knowledge[knowledgeId] ) {
+        knowledgeNames.push(crucible.CONFIG.knowledge[knowledgeId].label);
+      };
+    };
+    return knowledgeNames;
+  };
 
   /* -------------------------------------------- */
 
