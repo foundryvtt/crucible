@@ -64,7 +64,6 @@ jobs:
           zip --recurse-paths ./system.zip  \
             LICENSE                         \
             system.json                     \
-            template.json                   \
             crucible-compiled.mjs           \
             assets/                         \
             audio/                          \
