@@ -3,10 +3,10 @@ type: talent
 img: icons/magic/perception/hand-eye-fire-blue.webp
 system:
   description: >-
-    You can interpret the arcane incantations of others to discern the nature of
-    their spellcraft. When an enemy within 10 spaces that you can see and hear
+    <p>You can interpret the arcane incantations of others to discern the nature
+    of their spellcraft. When an enemy within 40 feet that you can see and hear
     begins casting a spell, you can identify its Rune if you have mastered that
-    Rune.
+    Rune.</p>
   actions: []
   requirements: {}
   node: int2b
@@ -18,11 +18,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1675644092055
-  modifiedTime: 1742935853662
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757527335735
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Item.recognizespellcr
   duplicateSource: null
   exportSource: null

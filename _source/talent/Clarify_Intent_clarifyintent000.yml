@@ -9,43 +9,40 @@ system:
   actions:
     - id: clarifyIntent
       description: >-
-        You explain your intentions to an ally within 3 spaces. Make an
+        <p>You explain your intentions to an ally within 12 feet. Make an
         <strong>Diplomacy</strong> skill attack against your ally's Madness
         Threshold. If successful they gain +1 <strong>Focus</strong> and +1
-        <strong>Boon</strong> to actions made within the next Round.
+        <strong>Boon</strong> to actions made within the next Round.</p>
       tags:
         - rallying
         - focus
+        - skill
         - diplomacy
       cost:
         action: 2
         focus: 0
+        heroism: 0
+        weapon: false
       target:
         type: single
         number: 1
-        distance: 3
         scope: 2
+        self: false
       effects:
-        - duration:
+        - name: Clarify Intent
+          scope: 2
+          statuses: []
+          duration:
+            turns: null
             rounds: 1
-          changes:
-            - key: rollBonuses.boons.clarifyIntent.number
-              value: 1
-              mode: 5
-            - key: rollBonuses.boons.clarifyIntent.label
-              value: Clarify Intent
-              mode: 5
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp
       condition: ''
-      actionHooks:
-        - hook: postActivate
-          fn: |-
-            const roll = outcome.rolls[0];
-            if ( roll.isSuccess ) {
-              roll.data.damage.multiplier = 0;
-              roll.data.damage.base = roll.data.damage.total = 1;
-            }
+      actionHooks: []
+      range:
+        minimum: null
+        maximum: 12
+        weapon: false
 effects: []
 ownership:
   default: 0
@@ -54,11 +51,11 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1677347458957
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1758550799744
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Item.clarifyintent000
   duplicateSource: null
   exportSource: null
