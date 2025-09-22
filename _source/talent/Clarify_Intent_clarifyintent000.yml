@@ -30,7 +30,7 @@ system:
         self: false
       effects:
         - name: Clarify Intent
-          scope: 0
+          scope: 2
           statuses: []
           duration:
             turns: null
@@ -38,14 +38,7 @@ system:
       name: Clarify Intent
       img: icons/skills/targeting/crosshair-arrowhead-blue.webp
       condition: ''
-      actionHooks:
-        - hook: postActivate
-          fn: |-
-            const roll = outcome.rolls[0];
-            if ( roll.isSuccess ) {
-              roll.data.damage.multiplier = 0;
-              roll.data.damage.base = roll.data.damage.total = 1;
-            }
+      actionHooks: []
       range:
         minimum: null
         maximum: 12
@@ -61,7 +54,7 @@ _stats:
   systemVersion: 0.7.8
   coreVersion: '13.348'
   createdTime: 1677347458957
-  modifiedTime: 1757527542265
+  modifiedTime: 1758550799744
   lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: Item.clarifyintent000
   duplicateSource: null

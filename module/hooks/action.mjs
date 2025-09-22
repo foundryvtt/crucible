@@ -90,6 +90,27 @@ HOOKS.blastFlask = {
 
 /* -------------------------------------------- */
 
+HOOKS.clarifyIntent = {
+  async postActivate(outcome) {
+    const roll = outcome.rolls[0];
+    if ( roll?.isSuccess ) {
+      roll.data.damage.multiplier = 0;
+      roll.data.damage.base = roll.data.damage.total = 1;
+      roll.data.damage.resource = "focus";
+    }
+
+    const effect = outcome.effects[0];
+    if ( !effect ) return;
+    effect.changes ||= [];
+    effect.changes.push(
+      {key: "system.rollBonuses.boons.clarifyIntent.number", mode: 5, value: 1},
+      {key: "system.rollBonuses.boons.clarifyIntent.label", mode: 5, value: this.name}
+    );
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
