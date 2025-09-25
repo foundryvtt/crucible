@@ -360,7 +360,7 @@ export default class StandardCheckDialog extends DialogV2 {
     const activeUsers = game.users.filter(u => u.active && !u.isSelf);
     const promises = Array.from(this.#requestActors, actor => {
       const user = activeUsers.find(u => actor.testUserPermission(u, "OWNER")) ?? game.user;
-      return this.roll.request({user, title: "muh"});
+      return this.roll.request({user});
     });
     this.close();
 
