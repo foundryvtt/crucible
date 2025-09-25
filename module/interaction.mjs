@@ -13,6 +13,7 @@ export function onPointerEnter(event) {
     case "activeEffect":
     case "spell":
     case "talent":
+    case "weapon":
       return displayFromUuid(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
@@ -192,7 +193,7 @@ async function displayCondition(event) {
 async function displayFromUuid(event) {
   const element = event.target;
   const item = await fromUuid(element.dataset.uuid);
-  if ( typeof !item?.renderCard === "function" ) return;
+  if ( typeof item?.renderCard !== "function" ) return;
   event.stopImmediatePropagation();
 
   element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation

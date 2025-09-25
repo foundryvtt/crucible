@@ -111,7 +111,7 @@ export default class CrucibleItem extends foundry.documents.Item {
    * @returns {Promise<string>}
    */
   async renderCard() {
-    if ( this.system.renderInline instanceof Function ) return this.system.renderCard();
+    if ( this.system.renderCard instanceof Function ) return this.system.renderCard();
     return "";
   }
 

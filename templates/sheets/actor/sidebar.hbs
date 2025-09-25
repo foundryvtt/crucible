@@ -4,9 +4,9 @@
 
     {{!-- Current Equipment --}}
     <h2 class="section-header divider">{{localize "ACTOR.LABELS.CURRENT_EQUIPMENT"}}</h2>
-    <div class="item-list equipped">
+    <div class="item-list equipped" data-tooltip-direction="LEFT">
         {{#each featuredEquipment as |e|}}
-        <div class="equipped line-item">
+        <div class="equipped line-item" data-crucible-tooltip="{{e.type}}" data-uuid="{{e.uuid}}">
             <img class="icon" src="{{e.img}}" alt="{{e.name}}">
             <div class="title">
                 <h4>{{this.name}}</h4>
