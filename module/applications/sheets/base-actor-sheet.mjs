@@ -315,18 +315,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Up to three weapons
     if ( mh ) {
       const mhTags = mh.getTags("short");
-      featuredEquipment.push({name: mh.name, img: mh.img, tags: [mhTags.damage, mhTags.range]});
+      featuredEquipment.push({name: mh.name, type: mh.type, uuid: mh.uuid, img: mh.img, tags: [mhTags.damage, mhTags.range]});
     }
     if ( oh?.id ) {
       const ohTags = oh.getTags("short");
-      featuredEquipment.push({name: oh.name, img: oh.img, tags: [ohTags.damage, ohTags.range]})
+      featuredEquipment.push({name: oh.name, type: oh.type, uuid: oh.uuid, img: oh.img, tags: [ohTags.damage, ohTags.range]});
     }
     if ( natural.length ) {
       for ( let i=0; i<3-featuredEquipment.length; i++ ) {
         const n = natural[i];
         if ( n ) {
           const tags = n.getTags("short");
-          featuredEquipment.push({name: n.name, img: n.img, tags: [tags.damage, tags.range]});
+          featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img, tags: [tags.damage, tags.range]});
         }
       }
     }
@@ -334,7 +334,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Equipped Armor
     if ( armor.id || (this.actor.system.usesEquipment !== false) ) {
       const armorTags = armor.getTags();
-      featuredEquipment.push({name: armor.name, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
+      featuredEquipment.push({name: armor.name, type: armor.type, uuid: armor.uuid, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
     }
     return featuredEquipment;
   }
