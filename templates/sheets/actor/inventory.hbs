@@ -3,9 +3,9 @@
     {{#each inventory as |section s|}}
     <div class="sheet-section item-section flexcol" data-inventory-section="{{s}}">
         <h3>{{section.label}}</h3>
-        <ol class="items-list scrollable">
+        <ol class="items-list scrollable" data-tooltip-direction="LEFT">
             {{#each section.items as |item id|}}
-            <li class="line-item {{item.cssClass}} draggable" data-item-id="{{item.id}}">
+            <li class="line-item {{item.cssClass}} draggable" data-crucible-tooltip="{{s}}" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
                 <img class="icon" src="{{item.img}}" alt="{{item.name}}">
                 <div class="title">
                     <h4 >
