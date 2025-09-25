@@ -363,9 +363,13 @@ export default class StandardCheck extends Roll {
    * Dispatch a request to perform a roll
    * @param {string} title      The title of the roll request
    * @param {string} flavor     Any flavor text attached to the roll
+   * @param {User} user         The user making the request
+   * @param {User} actorId      The actor ID for whom the check is being requested (defaults to the current roll actor)
    */
-  request({user, title, flavor}={}) {
-    return user.query('rollSkillRequest', { title, flavor, check: this });
+  request({user, title, flavor, actorId}={}) {
+    const data = foundry.utils.deepClone(this.data);
+    if ( actorId ) data.actorId = actorId;
+    return user.query('rollSkillRequest', { title, flavor, check: data });
   }
 
   /* -------------------------------------------- */
@@ -376,10 +380,10 @@ export default class StandardCheck extends Roll {
    * @param {string} flavor             Any flavor text attached to the roll
    * @param {StandardCheckData} check   Data for the handled check request
    */
-  static async handle({title, flavor, check}={}) {
-    const actor = game.actors.get(check.data.actorId);
+  static handle = async({title, flavor, check}={}) => {
+    const actor = game.actors.get(check.actorId);
     if ( actor.testUserPermission(game.user, "OWNER", {exact: true}) ) {
-      const pool = new StandardCheck(check);
+      const pool = new this(check);
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;
       return pool.toMessage({flavor});
