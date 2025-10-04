@@ -1,0 +1,55 @@
+name: Amulet of Nimbleness
+type: accessory
+img: icons/equipment/neck/necklace-runed-sowelu-teal.webp
+system:
+  identifier: nimbleness
+  category: jewelry
+  quantity: 1
+  weight: 0
+  price: 2000
+  quality: fine
+  broken: false
+  enchantment: minor
+  equipped: false
+  invested: false
+  properties:
+    - investment
+  description:
+    public: >-
+      <blockquote><p>This brightly colored necklace holds a stone amulet that
+      glows with a rune that crackles faintly with electrical resonance. While
+      holding it you have the surreal sensation of the world around you slowing
+      down ever so slightly.</p></blockquote><p>This amulet provides a bonus to
+      <strong>Reflex</strong> defense equal to the minimum of its
+      <strong>Quality</strong> and <strong>Enchantment</strong>
+      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
+      </strong>enchantment: <strong>+1
+      Reflex</strong></p></li><li><p><strong>Superior </strong>quality and
+      <strong>Major </strong>enchantment: <strong>+2
+      Reflex</strong></p></li><li><p><strong>Masterwork </strong>quality and
+      <strong>Legendary </strong>enchantment: <strong>+3
+      Reflex</strong></p></li></ul>
+    private: >-
+      <p>This item is presented as an amulet, but it can be any type of
+      accessory like a ring, cloak, bracers, or other type of trinket.</p>
+  actions: []
+  actorHooks: []
+effects: []
+folder: dNk8eE87Ep8GtNse
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1759603295903
+  modifiedTime: 1759603295903
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: amuletOfNimblene
+sort: 0
+_key: '!items!amuletOfNimblene'
