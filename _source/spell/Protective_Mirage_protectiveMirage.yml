@@ -94,13 +94,13 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.6.0
   createdTime: 1727204769939
-  modifiedTime: 1727204769939
+  modifiedTime: 1759877572783
   lastModifiedBy: AnoypGxxNIMOS0XY
   exportSource: null
 _id: protectiveMirage
-sort: 0
+sort: 300000
 _key: '!items!protectiveMirage'

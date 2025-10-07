@@ -100,11 +100,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.7.7
   createdTime: 1749247011452
-  modifiedTime: 1753556369992
+  modifiedTime: 1759877572783
   lastModifiedBy: AnoypGxxNIMOS0XY
-sort: 0
+sort: 100000
 _key: '!items!bindArmament0000'
