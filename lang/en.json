@@ -13,6 +13,7 @@
     "background": "Background",
     "consumable": "Consumable",
     "loot": "Loot",
+    "schematic": "Crafting Schematic",
     "spell": "Iconic Spell",
     "taxonomy": "Taxonomy",
     "talent": "Talent",
@@ -899,6 +900,56 @@
 },
 
 "RULER.CannotAffordMove": "You cannot afford to move {distance} spaces which costs {action} Action points.",
+
+"SCHEMATIC": {
+  "CATEGORIES": {
+    "ALCHEMY": "Alchemy Formula",
+    "COOKING": "Cooking Recipe",
+    "ENCHANTING": "Enchanting Glyph",
+    "FLETCHING": "Fletching Draft",
+    "JEWELCRAFT": "Jewelers Graph",
+    "RUNEWEAVING": "Runeweave Arcanum",
+    "SMITHING": "Smithing Blueprint",
+    "TAILORING": "Tailoring Pattern"
+  },
+  "FIELDS": {
+    "dc": {
+      "label": "Difficulty Challenge",
+      "hint": "Assign the value which must be exceeded on a crafting skill check to succeed on crafting this schematic."
+    },
+    "hours": {
+      "label": "Hours",
+      "hint": "The amount of time, in hours, that attempted crafting requires."
+    },
+    "inputs": {
+      "label": "Schematic Inputs",
+      "ingredients": {
+        "label": "Ingredients",
+        "consumed": {
+          "label": "Consumed",
+          "hint": "Are these ingredients consumed in the process of attempted crafting?"
+        },
+        "currency": {
+          "label": "Currency",
+          "hint": "Crafting this schematic may require some amount of currency used to represent required supplies or minor ingredients which are not explicitly modeled as items."
+        },
+        "items.element.label": "Ingredient UUID",
+        "mode.label": "Mode"
+      },
+      "mode.label": "Mode"
+    },
+    "outputs": {
+      "label": "Schematic Outputs",
+      "element": {
+        "items.element.label": "Created Item UUID",
+        "mode": "Mode"
+      }
+    }
+  },
+  "PROPERTIES": {
+    "COMMON": "Commonly Known"
+  }
+},
 
 "SETTINGS": {
   "AutoConfirmName": "Action Auto-Confirmation",

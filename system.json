@@ -187,6 +187,9 @@
       "loot": {
         "htmlFields": ["description.public", "description.secret"]
       },
+      "schematic": {
+        "htmlFields": ["description.public", "description.secret"]
+      },
       "spell": {
         "htmlFields": ["description"]
       },

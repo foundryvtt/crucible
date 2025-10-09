@@ -95,6 +95,10 @@ export const ENCHANTMENT_TIERS = {
   }
 }
 
+/**
+ * Standard physical item properties
+ * @type {Record<string, ItemProperty>}
+ */
 export const PROPERTIES = Object.freeze({
   investment: {
     id: "investment",
@@ -124,3 +128,27 @@ export const LOOT_CATEGORIES = {
     label: "LOOT.CATEGORIES.OTHER"
   }
 };
+
+/**
+ * The categories of "schematic" items which are allowed.
+ * These categories map 1:1 to the tradecraft skills which are available in the system.
+ * @enum {CrucibleItemCategory}
+ */
+export const SCHEMATIC_CATEGORIES = {
+  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.alchemy"},
+  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.cooking"},
+  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.enchanting"},
+  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.fletching"},
+  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.jewelcraft"},
+  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.runeweaving"},
+  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.smithing"},
+  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.tailoring"}
+}
+
+/**
+ * The boolean properties that a "schematic" is able to have.
+ * @type {Record<string, ItemProperty>}
+ */
+export const SCHEMATIC_PROPERTIES = {
+  common: {id: "common", label: "SCHEMATIC.PROPERTIES.COMMON"}
+}
