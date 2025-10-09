@@ -18,13 +18,17 @@ import {PASSIVE_BASE} from "../config/attributes.mjs";
  *     public: "A commonly known recipe for creating a basic healing potion.",
  *     private: "You can turn particular healing herbs found in the wild into a bottled elixir using Alchemists Tools.",
  *   },
- *   inputs: {
- *     ingredients: [
- *       {items: [healingHerbsUUID, glassVialUUID], consumed: true, currency: 100, quality: "standard", mode: "AND"},
- *       {items: [alchemistsToolsUUID], consumed: false, currency: 0, quality: "", mode: "AND"}
- *     ],
- *     mode: "AND"
- *   },
+ *   inputs: [
+ *    {
+ *      ingredients: [
+ *        {item: healingHerbsUUID, consumed: true, quantity: 1, quality: "standard"},
+ *        {item: glassVialUUID, consumed: true, quantity: 1, quality: ""},
+ *        {item: alchemistsToolsUUID, consumed: false, quantity: 1, quality: "standard"}
+ *      ],
+ *      currency: 150,
+ *      mode: "AND"
+ *    },
+*    ],
  *   outputs: [{
  *     items: [healingElixirUUID],
  *     mode: "AND"
@@ -72,22 +76,23 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
     const fields = foundry.data.fields;
     const mode = {required: true, blank: false, choices: CrucibleSchematicItem.#MODES, initial: "AND"};
     Object.assign(schema, {
-      inputs: new fields.SchemaField({
+      inputs: new fields.ArrayField(new fields.SchemaField({
         ingredients: new fields.ArrayField(new fields.SchemaField({
-          items: new fields.ArrayField(new fields.DocumentUUIDField({type: "Item", embedded: false})),
+          item: new fields.DocumentUUIDField({type: "Item", embedded: false}),
           consumed: new fields.BooleanField({initial: true}),
-          currency: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
+          quantity: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1}),
           quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS}),
-          mode: new fields.StringField({...mode})
         })),
+        currency: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
         mode: new fields.StringField({...mode})
-      }),
+      })),
+      mode: new fields.StringField({...mode}),
+      dc: new fields.NumberField({required: true, nullable: false, min: 1, integer: true, initial: PASSIVE_BASE}),
+      hours: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0}),
       outputs: new fields.ArrayField(new fields.SchemaField({
         items: new fields.ArrayField(new fields.DocumentUUIDField({type: "Item", embedded: false})),
         mode: new fields.StringField({...mode})
-      })),
-      dc: new fields.NumberField({required: true, nullable: false, min: 1, integer: true, initial: PASSIVE_BASE}),
-      hours: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0})
+      }))
     });
     return schema;
   }

@@ -1,0 +1,11 @@
+<fieldset>
+    <legend>Input 1</legend>
+    {{#each input.items as |item|}}
+        {{> (lookup @root "itemPartial") equipment=item isEditable=@root.isEditable}}
+    {{/each}}
+    {{#if isEditable}}
+    <div class="input-drop droppable">
+        <p class="hint">{{localize "SCHEMATIC.SHEET.INPUT_DROP"}}</p>
+    </div>
+    {{/if}}
+</fieldset>

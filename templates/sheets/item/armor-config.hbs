@@ -37,12 +37,12 @@
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.EQUIPMENT"}}</legend>
-        {{formGroup fields.equipped value=source.system.equipped}}
-        {{formGroup fields.broken value=source.system.broken}}
-        {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
-        {{formGroup fields.weight value=source.system.weight classes="slim"}}
-        {{formGroup fields.price value=source.system.price input=currencyInput classes="currency double"}}
-        {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency double" readonly=true disabled=true}}
+        {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
+        {{formGroup fields.weight value=source.system.weight classes="slim half"}}
+        {{formGroup fields.equipped value=source.system.equipped classes="half"}}
+        {{formGroup fields.broken value=source.system.broken classes="half"}}
+        {{formGroup fields.price value=source.system.price input=currencyInput classes="currency"}}
+        {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency" readonly=true disabled=true}}
         {{#if requiresInvestment}}
         {{formGroup fields.invested value=source.system.invested}}
         {{/if}}

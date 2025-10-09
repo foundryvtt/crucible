@@ -135,14 +135,14 @@ export const LOOT_CATEGORIES = {
  * @enum {CrucibleItemCategory}
  */
 export const SCHEMATIC_CATEGORIES = {
-  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.alchemy"},
-  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.cooking"},
-  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.enchanting"},
-  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.fletching"},
-  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.jewelcraft"},
-  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.runeweaving"},
-  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.smithing"},
-  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.tailoring"}
+  alchemy: {id: "alchemy", label: "SCHEMATIC.CATEGORIES.ALCHEMY"},
+  cooking: {id: "cooking", label: "SCHEMATIC.CATEGORIES.COOKING"},
+  enchanting: {id: "enchanting", label: "SCHEMATIC.CATEGORIES.ENCHANTING"},
+  fletching: {id: "fletching", label: "SCHEMATIC.CATEGORIES.FLETCHING"},
+  jewelcraft: {id: "jewelcraft", label: "SCHEMATIC.CATEGORIES.JEWELCRAFT"},
+  runeweaving: {id: "runeweaving", label: "SCHEMATIC.CATEGORIES.RUNEWEAVING"},
+  smithing: {id: "smithing", label: "SCHEMATIC.CATEGORIES.SMITHING"},
+  tailoring: {id: "tailoring", label: "SCHEMATIC.CATEGORIES.TAILORING"}
 }
 
 /**

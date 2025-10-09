@@ -1,11 +1,10 @@
 <section class="tab sheet-body standard-form scrollable {{tabs.config.cssClass}}"
          data-tab="{{tabs.config.id}}" data-group="{{tabs.config.group}}">
     <fieldset {{fieldDisabled}}>
-        <legend>{{localize "ITEM.SHEET.TYPE"}}</legend>
+        <legend>{{localize "ITEM.SHEET.DETAILS"}}</legend>
         {{formGroup fields.identifier value=source.system.identifier}}
         {{formGroup fields.category value=source.system.category}}
         {{formGroup fields.quality value=source.system.quality}}
-        {{formGroup fields.enchantment value=source.system.enchantment}}
     </fieldset>
 
     <fieldset class="item-properties" {{fieldDisabled}}>
@@ -15,20 +14,9 @@
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.EQUIPMENT"}}</legend>
-        {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
-        {{formGroup fields.weight value=source.system.weight classes="slim half"}}
-        {{formGroup fields.equipped value=source.system.equipped classes="half"}}
-        {{formGroup fields.broken value=source.system.broken classes="half"}}
-        <div class="form-group slim">
-            <label>Uses</label>
-            <div class="form-fields">
-                {{formInput fields.uses.fields.value value=source.system.uses.value}}
-                <label>of</label>
-                {{formInput fields.uses.fields.max value=source.system.uses.max}}
-            </div>
-        </div>
+        {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
+        {{formGroup fields.weight value=source.system.weight classes="slim"}}
         {{formGroup fields.price value=source.system.price input=currencyInput classes="currency"}}
         {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency" readonly=true disabled=true}}
-        {{#if requiresInvestment}}{{formGroup fields.invested value=source.system.invested}}{{/if}}
     </fieldset>
 </section>

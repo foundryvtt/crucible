@@ -41,6 +41,7 @@
     "Hero": "Crucible Hero Sheet",
     "HeroCreation": "Crucible Hero Creation Sheet",
     "Journal": "Crucible Journal Sheet",
+    "Schematic": "Crucible Schematic Sheet",
     "Skill": "Crucible Skill Sheet",
     "Spell": "Crucible Spell Sheet",
     "Talent": "Crucible Talent Sheet",
@@ -842,6 +843,7 @@
     "EQUIPMENT": "Equipment"
   },
   "SHEET": {
+    "DETAILS": "Item Details",
     "TALENT_ADD": "Add Talent",
     "TALENT_REMOVE": "Remove Talent",
     "TALENT_DROP": "Add a talent by dragging and dropping a Talent item into this area.",
@@ -952,6 +954,11 @@
   },
   "PROPERTIES": {
     "COMMON": "Commonly Known"
+  },
+  "SHEET": {
+    "COMPONENTS": "Components",
+    "INPUT_DROP": "Drop Input Item",
+    "OUTPUT_DROP": "Drop Output Item"
   }
 },
 
