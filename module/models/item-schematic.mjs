@@ -1,5 +1,5 @@
 import CruciblePhysicalItem from "./item-physical.mjs";
-import {SCHEMATIC_CATEGORIES, SCHEMATIC_PROPERTIES} from "../config/items.mjs";
+import {QUALITY_TIERS, SCHEMATIC_CATEGORIES, SCHEMATIC_PROPERTIES} from "../config/items.mjs";
 import {PASSIVE_BASE} from "../config/attributes.mjs";
 
 /**
@@ -20,8 +20,8 @@ import {PASSIVE_BASE} from "../config/attributes.mjs";
  *   },
  *   inputs: {
  *     ingredients: [
- *       {items: [healingHerbsUUID, glassVialUUID], consumed: true, currency: 100, mode: "AND"},
- *       {items: [alchemistsToolsUUID], consumed: false, currency: 0, mode: "AND"}
+ *       {items: [healingHerbsUUID, glassVialUUID], consumed: true, currency: 100, quality: "standard", mode: "AND"},
+ *       {items: [alchemistsToolsUUID], consumed: false, currency: 0, quality: "", mode: "AND"}
  *     ],
  *     mode: "AND"
  *   },
@@ -77,6 +77,7 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
           items: new fields.ArrayField(new fields.DocumentUUIDField({type: "Item", embedded: false})),
           consumed: new fields.BooleanField({initial: true}),
           currency: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
+          quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS}),
           mode: new fields.StringField({...mode})
         })),
         mode: new fields.StringField({...mode})

@@ -47,6 +47,12 @@
       "type": "Item"
     },
     {
+      "name": "crafting",
+      "label": "Crafting",
+      "path": "packs/crafting",
+      "type": "Item"
+    },
+    {
       "name": "equipment",
       "label": "Equipment",
       "path": "packs/equipment",
@@ -131,6 +137,7 @@
           "name": "Items",
           "color": "#380d05",
           "packs": [
+            "crafting",
             "equipment"
           ]
         }

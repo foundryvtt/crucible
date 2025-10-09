@@ -16,8 +16,8 @@ system:
     - parrying
   description:
     public: >-
-      <p>Tthe shortsword is a straight-bladed weapon which is nimble to wield
-      and quick to strike in close combat. It features a crossguard ideal for
+      <p>The shortsword is a straight-bladed weapon which is nimble to wield and
+      quick to strike in close combat. It features a crossguard ideal for
       parrying incoming blows.</p>
     private: ''
   damageType: slashing
@@ -36,7 +36,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.8
   createdTime: 1749825636698
-  modifiedTime: 1759602090859
+  modifiedTime: 1759882959799
   lastModifiedBy: QvBFYpRRXHRBcOfP
 ownership:
   default: 0

@@ -934,6 +934,10 @@
           "hint": "Crafting this schematic may require some amount of currency used to represent required supplies or minor ingredients which are not explicitly modeled as items."
         },
         "items.element.label": "Ingredient UUID",
+        "quality": {
+          "label": "Required Quality",
+          "hint": "Must the ingredients used in this component have a certain minimum quality?"
+        },
         "mode.label": "Mode"
       },
       "mode.label": "Mode"

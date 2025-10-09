@@ -119,6 +119,25 @@
     }
   }
 
+  // Definition Lists
+  dl {
+    dt {
+      font-family: var(--font-h1);
+      color: var(--color-h1);
+      > p {
+        margin: 0;
+      }
+    }
+    dd {
+      > :first-child {
+        margin-top: 0;
+      }
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   // Framed Elements
   .frame-brown {
     background: var(--color-frame);

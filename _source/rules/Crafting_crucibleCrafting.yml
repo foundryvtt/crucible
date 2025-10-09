@@ -1,0 +1,534 @@
+_id: crucibleCrafting
+name: Crafting
+pages:
+  - sort: 100000
+    name: Alchemy
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: alchemy000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019612404
+      modifiedTime: 1760019615892
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.alchemy000000000'
+  - sort: 200000
+    name: Cooking
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: cooking000000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019624267
+      modifiedTime: 1760023497873
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.cooking000000000'
+  - sort: 300000
+    name: Enchanting
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: enchanting000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019631366
+      modifiedTime: 1760023501545
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.enchanting000000'
+  - sort: 400000
+    name: Fletching
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: fletching0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019636916
+      modifiedTime: 1760023504407
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.fletching0000000'
+  - sort: 500000
+    name: Jewelcraft
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: jewelcraft000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019645799
+      modifiedTime: 1760023507064
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.jewelcraft000000'
+  - sort: 600000
+    name: Runeweaving
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: runeweaving00000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019652880
+      modifiedTime: 1760023510388
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.runeweaving00000'
+  - sort: 700000
+    name: Smithing
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: smithing00000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019659133
+      modifiedTime: 1760023513210
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.smithing00000000'
+  - sort: 800000
+    name: Tailoring
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: tailoring0000000
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019666038
+      modifiedTime: 1760023516113
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.tailoring0000000'
+  - sort: 900000
+    name: Schematics
+    type: text
+    category: UbGiQAlGSH8iwZhE
+    _id: schematicDefinit
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Schematics</strong> are items in Crucible which define the
+        rules by which input items (often called "ingredients") are transformed
+        into output items (often called "products") using the crafting system
+        and its set of Trades@UUID[.tradeskillsOverv]{Tradeskills}.</p><h2
+        class="divider">Schematic Definition</h2><p>Schematics have the
+        following components:</p><dl><dt><p>Category</p></dt><dd><p>The category
+        of a schematic defines which Tradeskill is required to manufacture
+        it.</p></dd><dt><p>Inputs</p></dt><dd><p>Schematic inputs define a set
+        of ingredients which are required in order to manufacture it.
+        Ingredients can be specified in groups, with each group having a
+        specific mode that customizes whether all ingredients in that group are
+        required or only one of several options.</p><p>Additionally, each input
+        group can require a certain amount of currency which represents minor
+        ingredients or supplies inherent in the crafting attempt which are not
+        individually enumerated as ingredient items.</p><p>Lastly, each input
+        group specifies whether the ingredients in that group are consumed in
+        the process of crafting or not. Note that even ingredients which are not
+        ordinarily consumed during the process of crafting can become broken if
+        the attempt results in a critical
+        failure.</p></dd><dt><p>Outputs</p></dt><dd><p>Schematic outputs define
+        the products which result from successful manufacturing of the
+        schematic. A schematic can produce one or multiple outputs. In the event
+        that multiple outputs are produced, the schematic can configure whether
+        all of the outputs are obtained or only one of them.</p><p>If only one
+        output is obtained, the schematic must define a number of alternative
+        input groups which maps to the number of potential products. The input
+        group used during crafting determines which product is
+        obtained.</p></dd><dt><p>Quality</p></dt><dd><p>Schematics have a
+        quality which defines the initial quality of outputs resulting from
+        manufacture of the schematic. The final quality of outputs is also
+        determined by the quality of ingredients used as well as the success
+        tier on the corresponding crafting
+        check.</p></dd><dt><p>Difficulty</p></dt><dd><p>Schematics define a
+        difficulty threshold (DC) which specifies the value that a crafting
+        check must exceed in order to result in a successful
+        outcome.</p></dd><dt><p>Hours</p></dt><dd><p>Schematics specify the
+        number of hours required to complete manufacture. These hours must be
+        performed consecutively without interruption. For especially
+        long-duration crafting endeavors any amount of required resting time
+        should be included in this number.</p></dd></dl><h2
+        class="divider">Obtaining Schematics</h2><p>Schematics are generally
+        obtained during the course of adventure by finding them within the world
+        or obtaining them from other characters. Each schematic, like all
+        physical items, has a base price which is further scaled according to
+        its quality level. This price is used when purchasing or selling
+        schematics in trade with non-player characters.</p><section
+        class="foundryvtt"><p>There are a number of schematics provided by the
+        core Crucible system. These system-provided schematics can be found in
+        the <strong>Crucible ➤ Items ➤ Schematics</strong> compendium
+        pack.</p><p>Gamemasters can define their own schematics which can be
+        awarded to characters directly or placed into an ancillary compendium
+        pack which makes them available for use in
+        crafting.</p></section><section class="construction"><p>Custom
+        compendium packs of schematics will eventually be able to be assigned
+        under <strong>Configure Settings ➤ Crucible ➤ Compendium
+        Configuration</strong> but this layer of game settings configuration has
+        not yet been implemented.</p></section><h2 class="divider">Learning
+        Schematics</h2><p>Schematics provide detailed instructions for the
+        creation process of their outputs. Manufacturing an item requires the
+        crafter to either physically possess the schematic, have mastered it, or
+        for the schematic to be classified as "common knowledge".
+        </p><p>Schematics are mastered by completing their crafting process with
+        a result of a critical success. Once a schematic has been mastered it is
+        no longer physically required in order to repeat its process.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019713826
+      modifiedTime: 1760025703441
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.schematicDefinit'
+  - sort: 1000000
+    name: The Crafting Process
+    type: text
+    category: UbGiQAlGSH8iwZhE
+    _id: usingSchematics0
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019729031
+      modifiedTime: 1760025428288
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.usingSchematics0'
+  - sort: 950000
+    name: Ingredients
+    type: text
+    category: UbGiQAlGSH8iwZhE
+    _id: obtainingIngredi
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: <p>TO DO.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019753021
+      modifiedTime: 1760025419090
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.obtainingIngredi'
+  - sort: 0
+    name: Tradeskills Overview
+    type: text
+    category: UaoYAtq1fyu6uiPf
+    _id: tradeskillsOverv
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Crafting</strong> in Crucible is performed using a set of
+        <strong>Tradeskills</strong> which, similar to adventuring
+        @UUID[Compendium.crucible.rules.JournalEntry.CrucibleSkills00]{Skills},
+        are invested aspects of your character's identity obtained through
+        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok]{Talent}
+        progression and through the accumulation of knowledge in the form of
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleCrafting.JournalEntryPage.schematicDefinit]{Schematics}.</p><section
+        class="gameplay"><p>It is not required for any character to invest into
+        mastery of a tradeskill, however it is generally recommended to select
+        at least one tradeskill to pursue in order to enjoy a well-rounded
+        experience playing Crucible, particularly if your game is a long-form
+        campaign.</p></section><p>The information in this journal describes each
+        of the tradeskills, how schematics are defined and obtained, and how the
+        crafting process functions when using a schematic to turn input
+        ingredients into produced items.</p><h2 class="divider">Tradeskills
+        Table</h2><table><tbody><tr><th><p>Skill</p></th><th><p>Primary
+        Ability</p></th><th><p>Secondary Ability</p></th><th><p>General
+        Usage</p></th></tr><tr><td><p>@UUID[.alchemy000000000]</p></td><td><p>Intellect</p></td><td><p>Toughness</p></td><td><p>Potions,
+        elixirs, oils, and
+        salves</p></td></tr><tr><td><p>@UUID[.cooking000000000]</p></td><td><p>Wisdom</p></td><td><p>Toughness</p></td><td><p>Food
+        and
+        drink</p></td></tr><tr><td><p>@UUID[.enchanting000000]</p></td><td><p>Intellect</p></td><td><p>Presence</p></td><td><p>Applying
+        Runes to
+        equipment</p></td></tr><tr><td><p>@UUID[.fletching0000000]</p></td><td><p>Strength</p></td><td><p>Wisdom</p></td><td><p>Bows,
+        staves, and
+        ammunition</p></td></tr><tr><td><p>@UUID[.jewelcraft000000]</p></td><td><p>Wisdom</p></td><td><p>Strength</p></td><td><p>Jewelry
+        and other
+        accessories</p></td></tr><tr><td><p>@UUID[.runeweaving00000]</p></td><td><p>Presence</p></td><td><p>Dexterity</p></td><td><p>Runes
+        used to
+        enchant</p></td></tr><tr><td><p>@UUID[.smithing00000000]</p></td><td><p>Strength</p></td><td><p>Intellect</p></td><td><p>Metal
+        arms and
+        armor</p></td></tr><tr><td><p>@UUID[.tailoring0000000]</p></td><td><p>Dexterity</p></td><td><p>Presence</p></td><td><p>Clothing
+        and light armor</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    ownership:
+      default: -1
+      AnoypGxxNIMOS0XY: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019765630
+      modifiedTime: 1760023425577
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.pages!crucibleCrafting.tradeskillsOverv'
+folder: MMeWpMmsLOblp07U
+categories:
+  - name: Tradeskills
+    sort: 100000
+    _id: UaoYAtq1fyu6uiPf
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019545362
+      modifiedTime: 1760019545362
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.categories!crucibleCrafting.UaoYAtq1fyu6uiPf'
+  - name: Crafting
+    sort: 300000
+    _id: UbGiQAlGSH8iwZhE
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.8
+      createdTime: 1760019559657
+      modifiedTime: 1760019559657
+      lastModifiedBy: AnoypGxxNIMOS0XY
+    _key: '!journal.categories!crucibleCrafting.UbGiQAlGSH8iwZhE'
+sort: 200000
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalEntrySheet
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1760019529125
+  modifiedTime: 1760019743652
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!journal!crucibleCrafting'
