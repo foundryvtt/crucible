@@ -1,0 +1,34 @@
+<fieldset class="schematic-output" {{@root.fieldDisabled}} data-field="outputs" data-index="{{index}}">
+    <legend>
+        <span>Outputs</span>
+        <button type="button" class="icon fa-solid fa-times" data-action="outputRemove"
+                aria-label="{{localize 'SCHEMATIC.SHEET.OUTPUT_REMOVE'}}" data-tooltip></button>
+    </legend>
+    {{#each output as |o|}}
+    <div class="ingredient line-item" data-uuid="{{o.uuid}}">
+        {{formInput @root.outputFields.quantity name=(concat o.fieldPath ".quantity") value=o.quantity
+                    classes="quantity"}}
+        <img class="icon" src="{{o.img}}" alt="{{o.name}}">
+        <div class="title">
+            <h4>{{o.name}}</h4>
+            <div class="tags">
+                {{#each o.tags as |tag type|}}
+                <span class="tag" data-tag="{{type}}">{{tag}}</span>
+                {{/each}}
+            </div>
+        </div>
+        {{#if @root.isEditable}}
+        <input type="hidden" name="{{o.fieldPath}}.item" value="{{o.uuid}}">
+        <div class="controls">
+            <a class="button icon fa-solid fa-times" data-action="itemRemove"
+               aria-label="{{localize 'SCHEMATIC.SHEET.ITEM_REMOVE'}}" data-tooltip></a>
+        </div>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{#if @root.isEditable}}
+    <div class="output-drop droppable">
+        <p class="hint">{{localize "SCHEMATIC.SHEET.OUTPUT_DROP"}}</p>
+    </div>
+    {{/if}}
+</fieldset>

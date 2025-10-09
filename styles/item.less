@@ -94,13 +94,15 @@
     .form-group.half {
       grid-column: auto;
     }
-    .form-group.currency {
-      > label {
-        flex: 1;
-      }
-      crucible-currency {
-        justify-content: flex-end;
-      }
+  }
+
+  // Currency Fields
+  .form-group.currency {
+    > label {
+      flex: 1;
+    }
+    crucible-currency {
+      justify-content: flex-end;
     }
   }
 }
@@ -173,11 +175,6 @@
   .equipment,
   .talents {
     gap: 1rem;
-    input.quantity {
-      flex:  0 0 32px;
-      font-size: 0.8em;
-      text-align: center;
-    }
   }
   .characteristics {
     font-size: var(--font-size-13);
@@ -194,6 +191,48 @@
     .talent .tags {
       flex: none;
     }
+  }
+}
+
+/* ----------------------------------------- */
+/*  Schematic                                */
+/* ----------------------------------------- */
+
+.crucible.schematic {
+  fieldset.schematic-input {
+    position: relative;
+    legend {
+      button {
+        --button-size: 24px;
+        margin-left: 0.5rem;
+      }
+    }
+    select.input-mode {
+      position: absolute;
+      height: 20px;
+      right: 12px;
+      top: -22px;
+      width: 100px;
+      font-size: 0.8em;
+    }
+    .ingredient {
+      .form-group {
+        flex: none;
+        width: auto;
+        gap: 0;
+        font-size: 0.8em;
+      }
+      select {
+        flex: 0 0 100px;
+        font-size: 0.8em;
+      }
+    }
+    .input-drop {
+      flex: 0 0 100%;
+    }
+  }
+  fieldset + .add-group {
+    margin-top: -0.5rem; // Undo gap
   }
 }
 

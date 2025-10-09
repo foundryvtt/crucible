@@ -1,18 +1,16 @@
-<section class="tab sheet-body flexcol {{tabs.components.cssClass}}" data-tab="{{tabs.components.id}}"
+<section class="tab sheet-body flexcol scrollable {{tabs.components.cssClass}}" data-tab="{{tabs.components.id}}"
          data-group="{{tabs.components.group}}">
     {{#each inputs as |input|}}
-    {{> (lookup @root "inputPartial") input=input itemPartial=@root.itemPartial isEditable=@root.isEditable}}
+    {{> (lookup @root "inputPartial") input=input index=@index}}
     {{/each}}
-    <hr>
-    <fieldset class="outputs">
-        <legend>Outputs</legend>
-        {{#each outputs as |output|}}
-        {{> (lookup @root "itemPartial") equipment=output isEditable=@root.isEditable}}
-        {{/each}}
-        {{#if isEditable}}
-        <div class="output-drop droppable">
-            <p class="hint">{{localize "SCHEMATIC.SHEET.OUTPUT_DROP"}}</p>
-        </div>
-        {{/if}}
-    </fieldset>
+    <button type="button" class="add-group" data-action="inputAdd">
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.INPUT_ADD"}}
+    </button>
+    {{#if multiInput}}{{formGroup fields.mode value=system.mode localize=true}}{{/if}}
+    {{#each outputs as |output|}}
+    {{> (lookup @root "outputPartial") output=output index=@index}}
+    {{/each}}
+    <button type="button" class="add-group" data-action="outputAdd">
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.OUTPUT_ADD"}}
+    </button>
 </section>

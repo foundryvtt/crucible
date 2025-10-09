@@ -925,25 +925,32 @@
     },
     "inputs": {
       "label": "Schematic Inputs",
-      "ingredients": {
-        "label": "Ingredients",
-        "consumed": {
-          "label": "Consumed",
-          "hint": "Are these ingredients consumed in the process of attempted crafting?"
+      "element": {
+        "ingredients": {
+          "label": "Ingredients",
+          "element": {
+            "item.label": "Ingredient Item UUID",
+            "consumed": {
+              "label": "Consumed",
+              "hint": "Are these ingredients consumed in the process of attempted crafting?"
+            },
+            "quality": {
+              "label": "Required Quality",
+              "hint": "A minimum quality of this ingredient that is required."
+            },
+            "quantity": {
+              "label": "Required Quantity"
+            }
+          }
         },
         "currency": {
           "label": "Currency",
           "hint": "Crafting this schematic may require some amount of currency used to represent required supplies or minor ingredients which are not explicitly modeled as items."
         },
-        "items.element.label": "Ingredient UUID",
-        "quality": {
-          "label": "Required Quality",
-          "hint": "Must the ingredients used in this component have a certain minimum quality?"
-        },
-        "mode.label": "Mode"
-      },
-      "mode.label": "Mode"
+        "mode.label": "Combination Mode"
+      }
     },
+    "mode.label": "Combination Mode",
     "outputs": {
       "label": "Schematic Outputs",
       "element": {
@@ -952,13 +959,21 @@
       }
     }
   },
+  "MODES": {
+    "ANY": "Any",
+    "ALL": "All"
+  },
   "PROPERTIES": {
     "COMMON": "Commonly Known"
   },
   "SHEET": {
     "COMPONENTS": "Components",
+    "INPUT_ADD": "Add Input Group",
     "INPUT_DROP": "Drop Input Item",
-    "OUTPUT_DROP": "Drop Output Item"
+    "INPUT_REMOVE": "Remove Input Group",
+    "OUTPUT_ADD": "Add Output Group",
+    "OUTPUT_DROP": "Drop Output Item",
+    "OUTPUT_REMOVE": "Remove Output Group"
   }
 },
 

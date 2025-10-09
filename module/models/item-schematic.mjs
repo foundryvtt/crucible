@@ -7,7 +7,7 @@ import {PASSIVE_BASE} from "../config/attributes.mjs";
  *
  * @example Example Schematic System Data
  * {
- *   identifier: "healingPotionRecipe",
+ *   identifier: "healingElixirRecipe",
  *   category: "alchemy",
  *   quantity: 1,
  *   weight: 1,
@@ -29,10 +29,9 @@ import {PASSIVE_BASE} from "../config/attributes.mjs";
  *      mode: "AND"
  *    },
 *    ],
- *   outputs: [{
- *     items: [healingElixirUUID],
- *     mode: "AND"
- *   }],
+ *   outputs: [
+ *    [{item: healingElixirUUID, quantity: 1}]
+*    ],
  *   dc: 15,
  *   hours: 4
  * }
@@ -53,8 +52,9 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
 
   /**
    * The operator modes supported for ingredient combination.
+   * @type {Record<string, string>}
    */
-  static #MODES = ["AND", "OR"];
+  static #MODES = {ALL: "SCHEMATIC.MODES.ALL", ANY: "SCHEMATIC.MODES.ANY"};
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -74,11 +74,11 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
 
     // Add fields
     const fields = foundry.data.fields;
-    const mode = {required: true, blank: false, choices: CrucibleSchematicItem.#MODES, initial: "AND"};
+    const mode = {required: true, blank: false, choices: CrucibleSchematicItem.#MODES, initial: "ALL"};
     Object.assign(schema, {
       inputs: new fields.ArrayField(new fields.SchemaField({
         ingredients: new fields.ArrayField(new fields.SchemaField({
-          item: new fields.DocumentUUIDField({type: "Item", embedded: false}),
+          item: new fields.DocumentUUIDField({type: "Item", embedded: false, nullable: false}),
           consumed: new fields.BooleanField({initial: true}),
           quantity: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1}),
           quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS}),
@@ -89,10 +89,10 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
       mode: new fields.StringField({...mode}),
       dc: new fields.NumberField({required: true, nullable: false, min: 1, integer: true, initial: PASSIVE_BASE}),
       hours: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0}),
-      outputs: new fields.ArrayField(new fields.SchemaField({
-        items: new fields.ArrayField(new fields.DocumentUUIDField({type: "Item", embedded: false})),
-        mode: new fields.StringField({...mode})
-      }))
+      outputs: new fields.ArrayField(new fields.ArrayField(new fields.SchemaField({
+        item: new fields.DocumentUUIDField({type: "Item", embedded: false, nullable: false}),
+        quantity: new fields.NumberField({required: true, nullable: false, integer: true, min: 1, initial: 1})
+      })))
     });
     return schema;
   }
