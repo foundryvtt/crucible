@@ -87,6 +87,8 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   prepareBaseData() {
     this.#prepareAdvancement();
     super.prepareBaseData();
+
+    this._prepareCapacity();
   }
 
   /* -------------------------------------------- */
@@ -210,12 +212,34 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
+  /** Prepares the total capacity that this actor can carry */
+  _prepareCapacity() {
+    this.capacity = {
+      value: 0, // Placeholder for after prepareItems
+      max: this.abilities.strength.value * 20,
+    };
+  };
+
+  /* -------------------------------------------- */
+
   /** @inheritDoc */
   prepareItems(items) {
     super.prepareItems(items);
     const points = this.points.talent;
     points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     points.available = points.total - points.spent;
+
+    // Inventory capacity, calculated based on item weights
+    this.capacity.value = this.parent.items.reduce(
+      (total, item) => total + (item.system.weight ?? 0),
+      0
+    );
+    this.capacity.pct = Math.clamp(
+      0,
+      Math.floor((this.capacity.value / this.capacity.max) * 100),
+      100
+    );
+    this.capacity.overflow = Math.max(0, this.capacity.value - this.capacity.max);
   }
 
   /* -------------------------------------------- */
