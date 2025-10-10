@@ -1,5 +1,23 @@
 <section class="tab secondary flexcol scrollable {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
          data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
+    <div class="capacity-section">
+        <div class="detailed sheet-section {{#if actor.system.capacity.overflow}}overflow{{/if}}"
+             data-tooltip="ACTOR.LABELS.CAPACITY"
+        >
+            {{#if actor.system.capacity.overflow}}
+            <span class="fa-solid fa-triangle-exclamation"
+                  data-tooltip="ACTOR.LABELS.OVER_CAPACITY"
+                  aria-label="{{localize "ACTOR.LABELS.OVER_CAPACITY"}}"></span>
+            {{/if}}
+            {{actor.system.capacity.value}} / {{actor.system.capacity.max}}
+        </div>
+        <div class="capacity" aria-hidden="true">
+            {{#if actor.system.capacity.pct}}
+            <div class="bar"
+                style="clip-path: polygon(0 0, {{actor.system.capacity.pct}}% 0, {{actor.system.capacity.pct}}% 100%, 0% 100%)"></div>
+            {{/if}}
+        </div>
+    </div>
     {{#each inventory as |section s|}}
     <div class="sheet-section item-section flexcol" data-inventory-section="{{s}}">
         <h3>{{section.label}}</h3>
