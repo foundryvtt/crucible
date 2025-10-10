@@ -842,6 +842,36 @@
     .items-list .hint {
       font-size: var(--font-size-12);
     }
+    .capacity-section {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 8px;
+      .detailed {
+        padding: 0.25rem 0.5rem;
+        color: var(--color-text);
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        &.overflow {
+          border-color: var(--color-warm-1);
+        }
+        span {
+          color: var(--color-tertiary);
+        }
+      }
+      .capacity {
+        height: 12px;
+        width: 100%;
+        padding: 1px;
+        background: var(--color-frame-bg);
+        border: 1px solid var(--color-frame);
+        border-radius: 2px;
+        .bar {
+          height: 100%;
+          background: linear-gradient(90deg,rgba(0, 99, 12, 1) 0%, rgba(217, 183, 11, 1) 50%, rgba(207, 0, 0, 1) 100%);
+        }
+      }
+    }
   }
 
   .tab.talents {

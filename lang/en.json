@@ -257,6 +257,9 @@
   },
   "LABELS": {
     "CURRENCY": "Currency",
+    "CAPACITY": "Carrying Capacity",
+    "CURRENT_CAPACITY": "Current Capacity",
+    "OVER_CAPACITY": "Over Capacity",
     "CURRENT_EQUIPMENT": "Current Equipment",
     "FAVORITE_ACTIONS": "Favorite Actions",
     "WEAPONS_HINT": "Equip weapons from your Backpack toggling the shield icon.",
