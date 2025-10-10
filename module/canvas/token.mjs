@@ -88,6 +88,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @inheritDoc */
   async _draw(options){
     await super._draw(options);
+    if ( !canvas.scene.useMicrogrid ) return;
     this.constructor.#voidContainer.visible = false;
     this.constructor.#voidContainer.addChild(this.border);
     this.constructor.#voidContainer.addChild(this.targetArrows);
@@ -104,13 +105,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
-  _refreshBorder() {} // no-op
+  _refreshBorder() {
+    if ( !canvas.scene.useMicrogrid ) super._refreshBorder();
+  }
 
   /* -------------------------------------------- */
 
   /** @inheritDoc */
   _refreshVisibility() {
     super._refreshVisibility();
+    if ( !canvas.scene.useMicrogrid ) return;
     this.#hbCache.animationTypes.toggleState("controlled", this.controlled);
     this.#hbCache.animationTypes.toggleState("hovered", this.hover || this.layer.highlightObjects);
     if ( this.isVisible ) CrucibleTokenObject.visibleTokens.add(this);
@@ -121,6 +125,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /** @override */
   _refreshTarget() {
+    if ( !canvas.scene.useMicrogrid ) return super._refreshTarget();
     this._drawTargetPips();
     const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
     this.#hbCache.animationTypes.toggleState("targeted", isTargetedByUser);
