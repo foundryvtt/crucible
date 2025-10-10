@@ -54,7 +54,7 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
    * The operator modes supported for ingredient combination.
    * @type {Record<string, string>}
    */
-  static #MODES = {ALL: "SCHEMATIC.MODES.ALL", ANY: "SCHEMATIC.MODES.ANY"};
+  static #MODES = {ALL: "SCHEMATIC.MODES.ALL", ANY: "SCHEMATIC.MODES.ANY", TEMPLATE: "SCHEMATIC.MODES.TEMPLATE"};
 
   /* -------------------------------------------- */
   /*  Data Schema                                 */
@@ -74,7 +74,6 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
 
     // Add fields
     const fields = foundry.data.fields;
-    const mode = {required: true, blank: false, choices: CrucibleSchematicItem.#MODES, initial: "ALL"};
     Object.assign(schema, {
       inputs: new fields.ArrayField(new fields.SchemaField({
         ingredients: new fields.ArrayField(new fields.SchemaField({
@@ -84,9 +83,9 @@ export default class CrucibleSchematicItem extends CruciblePhysicalItem {
           quality: new fields.StringField({required: true, blank: true, choices: QUALITY_TIERS}),
         })),
         currency: new fields.NumberField({required: true, nullable: false, integer: true, min: 0, initial: 0}),
-        mode: new fields.StringField({...mode})
+        mode: new fields.StringField({required: true, blank: false, choices: CrucibleSchematicItem.#MODES,
+          initial: "ALL"})
       })),
-      mode: new fields.StringField({...mode}),
       dc: new fields.NumberField({required: true, nullable: false, min: 1, integer: true, initial: PASSIVE_BASE}),
       hours: new fields.NumberField({required: true, nullable: false, min: 0, initial: 0}),
       outputs: new fields.ArrayField(new fields.ArrayField(new fields.SchemaField({

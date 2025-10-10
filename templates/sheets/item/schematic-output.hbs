@@ -1,13 +1,15 @@
-<fieldset class="schematic-output" {{@root.fieldDisabled}} data-field="outputs" data-index="{{index}}">
+<fieldset class="schematic-output" {{@root.fieldDisabled}} {{#unless template}}data-field="outputs" data-index="{{index}}"{{/unless}}>
     <legend>
         <span>Outputs</span>
+        {{#if output.editable}}
         <button type="button" class="icon fa-solid fa-times" data-action="outputRemove"
                 aria-label="{{localize 'SCHEMATIC.SHEET.OUTPUT_REMOVE'}}" data-tooltip></button>
+        {{/if}}
     </legend>
-    {{#each output as |o|}}
+    {{#each output.products as |o|}}
     <div class="ingredient line-item" data-uuid="{{o.uuid}}">
         {{formInput @root.outputFields.quantity name=(concat o.fieldPath ".quantity") value=o.quantity
-                    classes="quantity"}}
+                    classes="quantity" disabled=(not output.editable)}}
         <img class="icon" src="{{o.img}}" alt="{{o.name}}">
         <div class="title">
             <h4>{{o.name}}</h4>
@@ -17,7 +19,7 @@
                 {{/each}}
             </div>
         </div>
-        {{#if @root.isEditable}}
+        {{#if output.editable}}
         <input type="hidden" name="{{o.fieldPath}}.item" value="{{o.uuid}}">
         <div class="controls">
             <a class="button icon fa-solid fa-times" data-action="itemRemove"
@@ -26,7 +28,7 @@
         {{/if}}
     </div>
     {{/each}}
-    {{#if @root.isEditable}}
+    {{#if output.editable}}
     <div class="output-drop droppable">
         <p class="hint">{{localize "SCHEMATIC.SHEET.OUTPUT_DROP"}}</p>
     </div>

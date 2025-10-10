@@ -134,7 +134,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
     this.#drawResources();
     if ( !this.bars.alphaFilter ) {
-      this.bars.alphaFilter = new PIXI.filters.AlphaFilter();
+      this.bars.alphaFilter = new PIXI.AlphaFilter();
       this.bars.filters = [this.bars.alphaFilter];
     }
     this.bars.alphaFilter.alpha = 0.6;

@@ -159,7 +159,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Background fade and filter
     this.background.darken = this.background.addChild(new PIXI.Graphics());
-    this.background.blurFilter = new PIXI.filters.BlurFilter(1);
+    this.background.blurFilter = new PIXI.BlurFilter(1);
     this.background.filters = [this.background.blurFilter];
     this.background.blurFilter.enabled = false;
 

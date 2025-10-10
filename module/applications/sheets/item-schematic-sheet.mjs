@@ -13,6 +13,9 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
       includesHooks: false,
       hasAdvancedDescription: true
     },
+    position: {
+      width: 640
+    },
     actions: {
       inputAdd: CrucibleSchematicItemSheet.#onAddInput,
       inputRemove: CrucibleSchematicItemSheet.#onRemoveInput,
@@ -56,7 +59,6 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
     context.inputFields = context.fields.inputs.element.fields;
     context.ingredientFields = context.inputFields.ingredients.element.fields;
     context.outputFields = context.fields.outputs.element.element.fields;
-    context.multiInput = inputs.length > 1;
     return context;
   }
 
@@ -78,14 +80,31 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
 
     // Prepare Inputs
     inputs = foundry.utils.deepClone(inputs);
+    const templates = [];
     for ( const [i, input] of inputs.entries() ) {
       input.fieldPath = `system.inputs.${i}`;
       input.ingredients = input.ingredients.map((ingredient, j) => this.#prepareIngredient(ingredient, i, j));
+      if ( input.mode === "TEMPLATE" ) {
+        for ( const i of input.ingredients ) {
+          templates.push({...i, name: `${i.name} + ${this.document.name}`, fieldPath: ""})
+        }
+      }
     }
 
     // Prepare Outputs
     outputs = foundry.utils.deepClone(outputs).map((outputGroup, i) => {
-      return outputGroup.map((output, j) => this.#prepareOutput(output, i, j));
+      return {
+        products: outputGroup.map((output, j) => this.#prepareOutput(output, i, j)),
+        template: false,
+        editable: this.isEditable
+      }
+    });
+
+    // Include Templates
+    if ( templates.length ) outputs.unshift({
+      products: templates,
+      template: true,
+      editable: false
     })
     return {inputs, outputs};
   }
@@ -121,22 +140,18 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
    */
   #prepareIngredient(ingredient, i, j) {
     const item = fromUuidSync(ingredient.item);
-    const tags = item.getTags();
+    const tags = item.getTags("short");
     delete tags.uses;
-    const d = {
+    return {
       fieldPath: `system.inputs.${i}.ingredients.${j}`,
       uuid: ingredient.item,
       name: item.name,
       img: item.img,
       tags,
-      quantity: ingredient.quantity
-    }
-    if ( ingredient.quality ) {
-      const q = SYSTEM.ITEM.QUALITY_TIERS[ingredient.quality].label;
-      tags.quality = q  + (ingredient.quality === "masterwork" ? "" : "+");
-    }
-    else tags.quality = "Any Quality";
-    return d;
+      quantity: ingredient.quantity,
+      quality: ingredient.quality,
+      consumed: ingredient.consumed
+    };
   }
 
   /* -------------------------------------------- */
@@ -166,6 +181,19 @@ export default class CrucibleSchematicItemSheet extends CrucibleBaseItemSheet {
     if ( !this.isEditable ) return;
     const components = this.element.querySelector("section.tab[data-tab=components]");
     components.addEventListener("drop", this.#onDropComponents.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _processFormData(event, form, updateData) {
+    const submitData = super._processFormData(event, form, updateData);
+    submitData.system.inputs = Object.values(submitData.system.inputs || {}).map(input => {
+      input.ingredients = Object.values(input.ingredients || {});
+      return input;
+    });
+    submitData.system.outputs = Object.values(submitData.system.outputs || {}).map(o => Object.values(o));
+    return submitData;
   }
 
   /* -------------------------------------------- */

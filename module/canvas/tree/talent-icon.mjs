@@ -43,7 +43,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * The shared filter instance used by all inaccessible icons
    * @type {PIXI.filters.ColorMatrixFilter}
    */
-  static greyscaleFilter = new PIXI.filters.ColorMatrixFilter();
+  static greyscaleFilter = new PIXI.ColorMatrixFilter();
 
   /* -------------------------------------------- */
 

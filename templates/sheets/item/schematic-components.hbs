@@ -6,7 +6,6 @@
     <button type="button" class="add-group" data-action="inputAdd">
         <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.INPUT_ADD"}}
     </button>
-    {{#if multiInput}}{{formGroup fields.mode value=system.mode localize=true}}{{/if}}
     {{#each outputs as |output|}}
     {{> (lookup @root "outputPartial") output=output index=@index}}
     {{/each}}
