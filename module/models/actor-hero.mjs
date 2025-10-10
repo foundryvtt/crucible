@@ -87,7 +87,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   prepareBaseData() {
     this.#prepareAdvancement();
     super.prepareBaseData();
-
     this._prepareCapacity();
   }
 
