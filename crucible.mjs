@@ -207,6 +207,9 @@ Hooks.once("init", async function() {
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
 
+  // Queries
+  CONFIG.queries.rollSkillRequest = dice.StandardCheck.handle;
+
   // Status Effects
   CONFIG.statusEffects = statusEffects;
   CONFIG.specialStatusEffects.BLIND = "blinded";

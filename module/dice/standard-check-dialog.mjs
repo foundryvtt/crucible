@@ -26,6 +26,7 @@ export default class StandardCheckDialog extends DialogV2 {
       requestParty: StandardCheckDialog.#onRequestParty,
       requestRemove: StandardCheckDialog.#onRequestRemove,
       rollMode: StandardCheckDialog.#onChangeRollMode,
+      requestSubmit: StandardCheckDialog.#requestSubmit,
     },
     position: {
       width: "auto",
@@ -355,9 +356,24 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
+  static async #requestSubmit(event, target) {
+    const activeUsers = game.users.filter(u => u.active && !u.isSelf);
+    const promises = Array.from(this.#requestActors, actor => {
+      const user = activeUsers.find(u => actor.testUserPermission(u, "OWNER")) ?? game.user;
+      return this.roll.request({user, title: this.title, actorId: actor.id});
+    });
+    this.close();
+
+    await Promise.all(promises);
+    console.log("StandardCheckDialog | Submitted roll requests to users");
+    // we could await these rolls, and then update or create a message on each roll
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Handle clicks on a roll mode selection button.
-   * @this {StandardCheckDialog)
+   * @this {StandardCheckDialog}
    */
   static async #onChangeRollMode(_event, target) {
     this.rollMode = target.dataset.rollMode;
