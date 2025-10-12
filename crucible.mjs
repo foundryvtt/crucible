@@ -208,7 +208,7 @@ Hooks.once("init", async function() {
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
 
   // Queries
-  CONFIG.queries.rollSkillRequest = dice.StandardCheck.handle;
+  CONFIG.queries.rollSkillRequest = dice.StandardCheck.handle.bind(dice.StandardCheck);
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;

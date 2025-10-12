@@ -356,17 +356,45 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  static async #requestSubmit(event, target) {
+  /**
+   * Handle clicks to request rolls made by other players.
+   * @this {StandardCheckDialog}
+   */
+  static async #requestSubmit(_event, _target) {
     const activeUsers = game.users.filter(u => u.active && !u.isSelf);
-    const promises = Array.from(this.#requestActors, actor => {
-      const user = activeUsers.find(u => actor.testUserPermission(u, "OWNER")) ?? game.user;
-      return this.roll.request({user, title: this.title, actorId: actor.id});
-    });
-    this.close();
+    const requested = {};
+    const unrequested = [];
+    const promises = [];
+    for ( const actor of this.#requestActors ) {
+      let user = activeUsers.find(u => !u.isSelf && (u.character === actor) );
+      user ||= activeUsers.find(u => !u.isSelf && actor.testUserPermission(u, "OWNER"));
+      if ( user ) {
+        requested[actor.name] = user.name;
+        promises.push(this.roll.request({user, title: this.title, actorId: actor.id}));
+      }
+      else unrequested.push(actor.name);
+    }
 
+    // Notify
+    if ( !foundry.utils.isEmpty(requested) ) {
+      let n = "<div><p>Sent roll requests to the following users:<p><ul>";
+      for ( const [actorName, userName] of Object.entries(requested) ) {
+        n += `<li>Roll for <strong>${actorName}</strong> requested from <strong>${userName}</strong>`;
+      }
+      n += "<ul></div>";
+      // Display as a progress bar as requests are completed?
+      ui.notifications.info(n, {clean: false, console: true, permanent: true});
+    }
+    if ( unrequested.length ) {
+      let n = "<div><p>No users present who can handle rolls for the following actors:</p><ul>";
+      for ( const actorName of unrequested ) n += `<li><strong>${actorName}</strong></li>`;
+      n += "</ul></div>";
+      ui.notifications.error(n, {clean: false, console: true, permanent: true});
+    }
+
+    // Wait for results - for now do nothing else
+    // TODO await all rolls and then confirm their chat messages in bulk
     await Promise.all(promises);
-    console.log("StandardCheckDialog | Submitted roll requests to users");
-    // we could await these rolls, and then update or create a message on each roll
   }
 
   /* -------------------------------------------- */
