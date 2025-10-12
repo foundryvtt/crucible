@@ -1056,10 +1056,10 @@ TAGS.skill = {
 };
 
 // Specific Skills
-for ( const {id, name} of Object.values(SKILLS) ) {
+for ( const {id, label} of Object.values(SKILLS) ) {
   TAGS[id] = {
     tag: id,
-    label: name,
+    label,
     category: "skills",
     propagate: ["skill"],
     initialize() {

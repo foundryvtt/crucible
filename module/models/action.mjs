@@ -775,7 +775,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
-            ? tokenTargets
+            ? [tokenTargets[0]]
             : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
         case "single":

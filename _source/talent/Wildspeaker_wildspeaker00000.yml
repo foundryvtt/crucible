@@ -1,0 +1,72 @@
+name: Wildspeaker
+type: talent
+img: icons/skills/social/diplomacy-peace-alliance.webp
+system:
+  nodes:
+    - wis1a
+  description: >-
+    <p>You have a preternatural knack for communicating with animals. Through
+    body language and sounds, you are capable of interpreting and communicating
+    in the language of the wilderness.</p>
+  actions:
+    - id: wildspeak
+      name: Wildspeak
+      img: icons/skills/social/diplomacy-peace-alliance.webp
+      condition: ''
+      description: >-
+        <p>If you succeed on a [[/skillCheck wilderness 14]] check, you may pose
+        simple questions to a <strong>Beast</strong> which can perceive you. As
+        long as the creature is not hostile it will respond accurately within
+        the limits of its own knowledge.</p><ul><li><p>Beasts with an
+        <strong>Intellect</strong> score of zero are incapable of understanding
+        you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score of 1
+        can only respond with "yes" or "no" responses.</p></li><li><p>Beasts
+        with an <strong>Intellect</strong> score greater than 1 can provide
+        simple multi-word responses.</p></li></ul>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: self
+        number: 1
+        scope: 1
+        self: false
+      effects: []
+      tags:
+        - noncombat
+        - skill
+        - wilderness
+      actionHooks: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: F5y85kE9ocaa5R4R
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1760232452583
+  modifiedTime: 1760233244639
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: wildspeaker00000
+sort: 0
+_key: '!items!wildspeaker00000'
