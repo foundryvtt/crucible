@@ -130,6 +130,18 @@ export const LOOT_CATEGORIES = {
 };
 
 /**
+ * The item types which are physical items.
+ * @type {Set<string>}
+ */
+export const PHYSICAL_ITEM_TYPES = new Set(["accessory", "armor", "consumable", "loot", "schematic", "weapon"]);
+
+/**
+ * The item types which can be equipped.
+ * @type {Set<string>}
+ */
+export const EQUIPABLE_ITEM_TYPES = new Set(["accessory", "armor", "consumable", "weapon"]);
+
+/**
  * The categories of "schematic" items which are allowed.
  * These categories map 1:1 to the tradecraft skills which are available in the system.
  * @enum {CrucibleItemCategory}

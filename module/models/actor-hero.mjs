@@ -79,6 +79,12 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    */
   points;
 
+  /**
+   * Carrying capacity for physical equipment.
+   * @type {{value: number, max: number}}
+   */
+  capacity;
+
   /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
@@ -87,7 +93,6 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
   prepareBaseData() {
     this.#prepareAdvancement();
     super.prepareBaseData();
-    this._prepareCapacity();
   }
 
   /* -------------------------------------------- */
@@ -211,34 +216,47 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
 
   /* -------------------------------------------- */
 
-  /** Prepares the total capacity that this actor can carry */
-  _prepareCapacity() {
-    this.capacity = {
-      value: 0, // Placeholder for after prepareItems
-      max: this.abilities.strength.value * 20,
-    };
-  };
-
-  /* -------------------------------------------- */
-
   /** @inheritDoc */
   prepareItems(items) {
     super.prepareItems(items);
     const points = this.points.talent;
     points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     points.available = points.total - points.spent;
+  }
 
-    // Inventory capacity, calculated based on item weights
-    this.capacity.value = this.parent.items.reduce(
-      (total, item) => total + (item.system.weight ?? 0),
-      0
-    );
-    this.capacity.pct = Math.clamp(
-      0,
-      Math.floor((this.capacity.value / this.capacity.max) * 100),
-      100
-    );
-    this.capacity.overflow = Math.max(0, this.capacity.value - this.capacity.max);
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareEquipment(items) {
+    super._prepareEquipment(items);
+    this._prepareCapacity(items);
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Accumulates the current carrying weight of the character.
+   * Total capacity is determined later after active effects are applied.
+   * @protected
+   */
+  _prepareCapacity(items) {
+    this.capacity = {value: 0, max: 0};
+    for ( const type of SYSTEM.ITEM.PHYSICAL_ITEM_TYPES ) {
+      for ( const item of items[type] ) {
+        this.capacity.value += (item.system.weight * item.system.quantity);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareMovement() {
+    super._prepareMovement();
+    const c = this.capacity;
+    c.max = this.abilities.strength.value * 30;
+    c.overflow = c.max - c.value;
+    c.pct = Math.clamp(c.value / c.max, 0, 1);
   }
 
   /* -------------------------------------------- */

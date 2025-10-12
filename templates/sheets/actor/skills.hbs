@@ -32,18 +32,21 @@
         </ol>
     </div>
     {{/each}}
-    <div class="sheet-section multiselect-section flexcol">
-        <h3>{{localize "ACTOR.LABELS.KNOWLEDGE"}}</h3>
-        <div class="tags flexrow">
-            {{#each knowledge}}
-            <span class="larger tag knowledge-area">{{this}}</span>
-            {{else}}
-            <p class="hint">{{localize "ACTOR.LABELS.KNOWLEDGE_HINT"}}</p>
-            {{/each}}
+    <footer class="tab-footer skills-footer flexrow">
+        <div class="sheet-section flexcol">
+            <h3>{{localize "ACTOR.LABELS.KNOWLEDGE"}}</h3>
+            <div class="tags flexrow">
+                {{#each knowledge}}
+                <span class="larger tag knowledge-area">{{this}}</span>
+                {{else}}
+                <p class="hint">{{localize "ACTOR.LABELS.KNOWLEDGE_HINT"}}</p>
+                {{/each}}
+            </div>
         </div>
-    </div>
-    <div class="sheet-section multiselect-section flexcol">
-        <h3>{{localize "ACTOR.LABELS.LANGUAGES"}}</h3>
-        {{formGroup fields.details.fields.languages value=source.system.details.languages options=languages}}
-    </div>
+        <div class="sheet-section flexcol">
+            <h3>{{localize "ACTOR.LABELS.LANGUAGES"}}</h3>
+            {{formInput fields.details.fields.languages value=source.system.details.languages
+                        options=languages classes="languages"}}
+        </div>
+    </footer>
 </section>

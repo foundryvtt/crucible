@@ -35,6 +35,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     Object.assign(context, {
       ancestryName: s.system.details.ancestry?.name || game.i18n.localize("ANCESTRY.SHEET.CHOOSE"),
       backgroundName: s.system.details.background?.name || game.i18n.localize("BACKGROUND.SHEET.CHOOSE"),
+      capacity: a.system.capacity,
       knowledgeOptions: this.#prepareKnowledgeOptions(),
       knowledge: this.#prepareKnowledge(),
       talentTreeButtonText: game.system.tree.actor === a ? "Close Talent Tree" : "Open Talent Tree",

@@ -4,7 +4,7 @@ import {PROPERTIES, LOOT_CATEGORIES} from "../config/items.mjs";
 /**
  * Data schema, attributes, and methods specific to "consumable" type Items.
  */
-export default class CrucibleConsumableItem extends CruciblePhysicalItem {
+export default class CrucibleLootItem extends CruciblePhysicalItem {
 
   /** @override */
   static ITEM_CATEGORIES = LOOT_CATEGORIES;

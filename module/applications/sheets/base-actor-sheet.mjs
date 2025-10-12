@@ -368,23 +368,16 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const i of this.document.items ) {
       const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: [], sort: Infinity};
       let section;
-      switch(i.type) {
-        case "accessory":
-        case "armor":
-        case "consumable":
-          this.#preparePhysicalItem(i, d);
-          section = i.system.equipped ? sections.inventory[i.type] : sections.inventory.backpack;
-          break;
-        case "weapon":
-          this.#preparePhysicalItem(i, d);
-          if ( !i.system.dropped ) {
-            d.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
-          }
-          section = i.system.equipped ? sections.inventory.weapon : sections.inventory.backpack;
-          break;
+      let category = SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(i.type) ? "physical" : i.type;
+      switch ( category ) {
         case "base":
-        case "loot":
           section = sections.inventory.backpack;
+          break;
+        case "physical":
+          const canEquip = SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(i.type);
+          this.#preparePhysicalItem(i, d, canEquip);
+          if ( canEquip && i.system.equipped ) section = sections.inventory[i.type];
+          else section = sections.inventory.backpack;
           break;
         case "talent":
           d.tier = i.system.node?.tier || 0;
@@ -434,17 +427,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Standard preparation steps for all physical item types.
    * @param {CrucibleItem} item
    * @param {object} config
+   * @param {boolean} canEquip
    */
-  #preparePhysicalItem(item, config) {
+  #preparePhysicalItem(item, config, canEquip) {
     const sortOrder = {weapon: 1, armor: 2, accessory: 3, consumable: 4};
+    config.quantity = item.system.quantity;
+    config.showStack = item.system.quantity > 1;
+    config.sort = sortOrder[item.type] ?? Infinity;
+    if ( canEquip ) this.#prepareEquipableItem(item, config);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Additional preparation for items that can be equipped.
+   * @param {CrucibleItem} item
+   * @param {object} config
+   */
+  #prepareEquipableItem(item, config) {
     config.dropped = item.system.dropped;
     config.equipped = item.system.equipped;
-    config.quantity = item.system.quantity;
-    config.showStack = item.system.isStacked;
     config.cssClass = item.system.equipped ? "equipped" : "unequipped";
-    config.sort = sortOrder[item.type] ?? Infinity;
-
-    // Equip/Unequip/Recover action
     const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
     let equipAction;
     if ( item.system.dropped ) {
@@ -455,6 +458,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: `Un-equip ${typeLabel}`} :
       {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: `Equip ${typeLabel}`};
     config.actions.push(equipAction);
+    if ( (item.type === "weapon") && !item.system.dropped ) {
+      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
+    }
   }
 
   /* -------------------------------------------- */

@@ -822,9 +822,10 @@
     }
 
     .item-section {
-      padding: 1rem;
-      .notes {
-        color: var(--color-tertiary);
+      padding: 0.5rem;
+      .items-list .hint {
+        margin: 0.5rem 0;
+        font-size: var(--font-size-12);
       }
     }
     .multiselect-section .form-group {
@@ -832,43 +833,40 @@
     }
   }
 
+  .tab-footer {
+    align-content: center;
+    gap: var(--sheet-body-gap);
+  }
+
   .tab.inventory {
-    .inventory-create {
-      position: absolute;
-      width: 32px;
-      bottom: 0;
-      right: 0;
+    height: 100%;
+    overflow: hidden;
+    margin-right: -0.75rem; // Scrollbar in gutter
+    padding: 0;
+
+    // Scrolling inventory container
+    .inventory-sections {
+      width: 100%;
+      flex: 1;
+      padding: 1rem 0.25rem 0 0;
+      gap: var(--sheet-body-gap);
     }
-    .items-list .hint {
-      font-size: var(--font-size-12);
-    }
-    .capacity-section {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 8px;
-      .detailed {
-        padding: 0.25rem 0.5rem;
-        color: var(--color-text);
-        border: 1px solid transparent;
-        box-sizing: border-box;
-        &.overflow {
-          border-color: var(--color-warm-1);
-        }
-        span {
-          color: var(--color-tertiary);
-        }
-      }
-      .capacity {
-        height: 12px;
-        width: 100%;
-        padding: 1px;
-        background: var(--color-frame-bg);
-        border: 1px solid var(--color-frame);
-        border-radius: 2px;
-        .bar {
-          height: 100%;
-          background: linear-gradient(90deg,rgba(0, 99, 12, 1) 0%, rgba(217, 183, 11, 1) 50%, rgba(207, 0, 0, 1) 100%);
+
+    .inventory-footer {
+      flex: 0 0 80px;
+      padding-right: var(--sheet-body-gap);
+      .carrying-capacity {
+        --capacity-pct: 0;
+        flex: 0 0 130px;
+        &::before {
+          content: "";
+          position: absolute;
+          width: 54px;
+          height: 80px;
+          background: url(../ui/resources/health-fill.png) no-repeat center;
+          background-size: 60px;
+          clip-path: inset(calc(60px * var(--capacity-pct)) 0px 0px 0px);
+          z-index: -1;
         }
       }
     }
@@ -939,6 +937,20 @@
 
     .tags.training {
       justify-content: flex-start;
+    }
+  }
+
+  .skills-footer {
+    .sheet-section {
+      height: 100%;
+      justify-content: center;
+      .hint {
+        font-size: var(--font-size-12);
+        text-align: center;
+      }
+      multi-select.languages {
+        width: 100%;
+      }
     }
   }
 }
