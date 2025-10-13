@@ -89,9 +89,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   async _draw(options){
     await super._draw(options);
     if ( !canvas.scene.useMicrogrid ) return;
-    this.constructor.#voidContainer.visible = false;
-    this.constructor.#voidContainer.addChild(this.border);
-    this.constructor.#voidContainer.addChild(this.targetArrows);
+    CrucibleTokenObject.#voidContainer.visible = false;
+    CrucibleTokenObject.#voidContainer.addChild(this.border);
+    CrucibleTokenObject.#voidContainer.addChild(this.targetArrows);
   }
 
   /* -------------------------------------------- */

@@ -9,7 +9,7 @@ export default class CrucibleScene extends Scene {
   prepareBaseData() {
     if ( !(this.grid instanceof foundry.grid.BaseGrid) ) {
       const g = this._source.grid;
-      if ( (g.units === "ft") && (g.distance === 5) ) {
+      if ( (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5) ) {
         this.useMicrogrid = true;
         this.grid.size = g.size / 5;
         this.grid.distance = 1;
