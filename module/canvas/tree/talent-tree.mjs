@@ -84,6 +84,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   #hudAlignOriginal;
 
+  static #SEXTANT_ABILITIES = ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"];
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -141,7 +143,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     await this.#loadTextures();
 
     // Draw Background
-    this.backdrop = this.background.addChild(await this.#drawBackdrop());
+    await this.#drawBackground();
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
@@ -201,8 +203,67 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
-  async #drawBackdrop() {
-    return new PIXI.Sprite(this.spritesheet.Background);
+  async #drawBackground() {
+
+    // Repeating slate texture
+    const {width, height} = this.#dimensions;
+    const backdrop = new PIXI.TilingSprite(this.spritesheet.BackgroundSlate, width, height);
+    backdrop.position.set(-width/2, -height/2);
+    this.background.backdrop = this.background.addChild(backdrop);
+
+    // Core Gradient
+    const cg = new PIXI.Sprite(this.spritesheet.CoreGradient);
+    cg.scale.set(1.5, 1.5);
+    cg.alpha = 0.15;
+    this.background.coreGradient = this.background.addChild(cg);
+
+    // Sextant Overlay
+    this.background.overlay = this.background.addChild(this.#drawSextantsOverlay());
+
+    // Origin Tattoo
+    const originTattoo = new PIXI.Sprite(this.spritesheet.TattooOrigin);
+    originTattoo.alpha = 0.4;
+    this.background.originTattoo = this.background.addChild(originTattoo);
+
+    // Spokes
+    this.background.spokes = [];
+    for ( let i=0; i<6; i++ ) {
+      const angle = 60 * i;
+      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 830);
+      const spoke = new PIXI.Sprite(this.spritesheet.TattooSpoke);
+      spoke.alpha = 0.4;
+      spoke.angle = angle;
+      spoke.position.set(r.B.x, r.B.y);
+      this.background.spokes.push(this.background.addChild(spoke));
+    }
+
+    // Molten Core
+    const mc = new PIXI.Sprite(this.spritesheet.CoreMolten);
+    this.background.coreMolten = this.background.addChild(mc);
+
+    // Core
+    const core = new PIXI.Sprite(this.spritesheet.Core);
+    this.background.core = this.background.addChild(core);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Draw a graphics overlay for the six sextants of the tree.
+   * TODO this could perhaps be replaced by a pure shader approach if we need to squeeze performance.
+   */
+  #drawSextantsOverlay() {
+    const overlay = new PIXI.Graphics();
+    for ( const [i, ability] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
+      const color = SYSTEM.ABILITIES[ability].color;
+      const r0 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 8000);
+      const r1 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 30), 10000);
+      const r2 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 60), 8000);
+      const polygon = new PIXI.Polygon([0, 0, r0.B.x, r0.B.y, r1.B.x, r1.B.y, r2.B.x, r2.B.y]);
+      overlay.beginFill(color, 1.0).drawShape(polygon).endFill();
+    }
+    overlay.alpha = 0.025;
+    return overlay;
   }
 
   /* -------------------------------------------- */
@@ -253,6 +314,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   #drawCircles() {
+    // TODO update radii
     // this.edges.drawCircle(0, 0, 800);
     this.edges.drawCircle(0, 0, 1400);
     this.edges.drawCircle(0, 0, 2000);
@@ -463,7 +525,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.background.eventMode = "passive";
     this.background.children.forEach(c => c.eventMode = "none");
     this.nodes.eventMode = "passive";       // Capture hover/click events on nodes
-    this.backdrop.eventMode = "static";     // Capture drag events on the backdrop
+    this.background.backdrop.eventMode = "static"; // Capture drag events on the backdrop
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager

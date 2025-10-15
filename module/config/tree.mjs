@@ -140,13 +140,13 @@ const TIER_4B = [
 
 export default [
   {nodes: ORIGIN, tier: 0, angleOffset: 0, angleDelta: 0, distance: 0},
-  {nodes: TIER_0, tier: 0, angleOffset: 15, angleDelta: 30, distance: 200},
-  {nodes: TIER_1A, tier: 1, angleOffset: 20, angleDelta: 20, distance: 320},
-  {nodes: TIER_1B, tier: 1, angleOffset: 0, angleDelta: 60, distance: 360},
-  {nodes: TIER_2A, tier: 2, angleOffset: 15, angleDelta: 15, distance: 440},
-  {nodes: TIER_2B, tier: 2, angleOffset: 0, angleDelta: 60, distance: 480},
-  {nodes: TIER_3A, tier: 3, angleOffset: 15, angleDelta: 30, distance: 560},
-  {nodes: TIER_3B, tier: 3, angleOffset: 30, angleDelta: 30, distance: 600},
-  {nodes: TIER_4A, tier: 4, angleOffset: 9, angleDelta: 14, distance: 700},
-  {nodes: TIER_4B, tier: 4, angleOffset: 0, angleDelta: 60, distance: 760}
+  {nodes: TIER_0, tier: 0, angleOffset: 15, angleDelta: 30, distance: 360},
+  {nodes: TIER_1A, tier: 1, angleOffset: 20, angleDelta: 20, distance: 480},
+  {nodes: TIER_1B, tier: 1, angleOffset: 0, angleDelta: 60, distance: 490},
+  {nodes: TIER_2A, tier: 2, angleOffset: 15, angleDelta: 15, distance: 600},
+  {nodes: TIER_2B, tier: 2, angleOffset: 0, angleDelta: 60, distance: 660},
+  {nodes: TIER_3A, tier: 3, angleOffset: 15, angleDelta: 30, distance: 760},
+  {nodes: TIER_3B, tier: 3, angleOffset: 30, angleDelta: 30, distance: 820},
+  {nodes: TIER_4A, tier: 4, angleOffset: 9, angleDelta: 14, distance: 900},
+  {nodes: TIER_4B, tier: 4, angleOffset: 0, angleDelta: 60, distance: 960}
 ];

@@ -70,9 +70,9 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
         break;
       case "originHex":
         config.alpha = 1.0;
-        config.borderWidth = 4;
+        config.borderWidth = 8;
         config.shape = "hex";
-        config.size = config.borderRadius = 120;
+        config.size = config.borderRadius = 200;
         config.borderColor = crucible.tree.actor.ancestry.ui.color;
         break;
     }
