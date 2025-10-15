@@ -157,7 +157,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const origin = CrucibleTalentNode.nodes.get("origin");
     const seen = new Set();
     await this.#drawNodes(new Set([origin]), seen);
-    this.#drawCircles();
 
     // Background fade and filter
     this.background.darken = this.background.addChild(new PIXI.Graphics());
@@ -229,7 +228,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.background.spokes = [];
     for ( let i=0; i<6; i++ ) {
       const angle = 60 * i;
-      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 830);
+      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 820);
       const spoke = new PIXI.Sprite(this.spritesheet.TattooSpoke);
       spoke.alpha = 0.4;
       spoke.angle = angle;
@@ -254,15 +253,28 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #drawSextantsOverlay() {
     const overlay = new PIXI.Graphics();
+    const rays = [];
     for ( const [i, ability] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
       const color = SYSTEM.ABILITIES[ability].color;
       const r0 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 8000);
       const r1 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 30), 10000);
       const r2 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 60), 8000);
       const polygon = new PIXI.Polygon([0, 0, r0.B.x, r0.B.y, r1.B.x, r1.B.y, r2.B.x, r2.B.y]);
-      overlay.beginFill(color, 1.0).drawShape(polygon).endFill();
+      overlay.beginFill(color, 0.025).drawShape(polygon).endFill();
+      rays.push(r0);
     }
-    overlay.alpha = 0.025;
+
+    // Section Dividers
+    overlay.lineStyle({width: 8, color: 0x000000, alpha: 0.25});
+    for ( const ray of rays ) {
+      const a = ray.project(0.15);
+      overlay.moveTo(a.x, a.y).lineTo(ray.B.x, ray.B.y);
+    }
+
+    // Tier Circles
+    overlay.drawCircle(0, 0, 1200);
+    overlay.drawCircle(0, 0, 2400);
+    overlay.drawCircle(0, 0, 3600);
     return overlay;
   }
 
@@ -309,15 +321,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
       this.edges.moveTo(node.point.x, node.point.y);
       this.edges.lineTo(c.point.x, c.point.y);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  #drawCircles() {
-    // TODO update radii
-    // this.edges.drawCircle(0, 0, 800);
-    this.edges.drawCircle(0, 0, 1400);
-    this.edges.drawCircle(0, 0, 2000);
   }
 
   /* -------------------------------------------- */

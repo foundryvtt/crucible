@@ -156,9 +156,8 @@ export default class CrucibleTalentNode {
       n.connect(this);
     }
 
-    // Determine the point
-    const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), distance);
-    const point = ray.B;
+    // Determine the node position on its hexagonal edge segment
+    const point = this.#getPosition(angle, distance);
 
     // Node color
     let color;
@@ -190,6 +189,24 @@ export default class CrucibleTalentNode {
     // Standard Nodes
     CrucibleTalentNode.#nodes.set(id, this);
     if ( this.type === "signature" ) CrucibleTalentNode.#signature.add(this);
+  }
+
+  /* -------------------------------------------- */
+
+  #getPosition(angle, distance) {
+    const w = 1;
+    const h = Math.SQRT3 / 2;
+    const points = [{x: w, y: 0}, {x: w/2, y: h}, {x: -w/2, y: h}, {x: -w, y: 0}, {x: -w/2, y: -h}, {x: w/2, y: -h}];
+    const a0 = angle.toNearest(60, "floor");
+    const i = (a0 / 60) % points.length;
+    const p0 = points[i];
+    const p1 = points[(i+1) % points.length];
+    const r = new foundry.canvas.geometry.Ray(
+      {x: p0.x * distance, y: p0.y * distance},
+      {x: p1.x * distance, y: p1.y * distance}
+    );
+    const t = (angle - a0) / 60;
+    return r.project(t);
   }
 
   /* -------------------------------------------- */
