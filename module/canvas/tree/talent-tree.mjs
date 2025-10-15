@@ -429,14 +429,29 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Pan the visual position of the talent tree canvas.
-   * @param {number} x
-   * @param {number} y
-   * @param {number} scale
+   * @param {number} [x]
+   * @param {number} [y]
+   * @param {number} [scale]
    */
   pan({x, y, scale}={}) {
+
+    // Preserve current values for any unspecified inputs
     x ??= this.stage.pivot.x;
     y ??= this.stage.pivot.y;
     scale ??= this.stage.scale.x;
+
+    // Constrain view
+    const {width, height} = this.#dimensions;
+    const w2 = width / 2;
+    const h2 = height / 2;
+    const {innerWidth, innerHeight} = window;
+    scale = Math.clamp(scale, innerWidth / width, 1.0);
+    const tx = (innerWidth / scale) / 2;
+    x = Math.clamp(x, -w2 + tx, w2 - tx);
+    const ty = (innerHeight / scale) / 2;
+    y = Math.clamp(y, -h2 + ty, h2 - ty);
+
+    // Set scale and pivot
     this.stage.pivot.set(x, y);
     this.stage.scale.set(scale, scale);
     this.#alignHUD();
