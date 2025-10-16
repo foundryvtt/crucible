@@ -147,10 +147,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
-    this.edges.lineStyle({color: 0x000000, alpha: 0.6, width: 2, alignment: 0.5});
 
     // Active connections
     this.connections = this.background.addChild(new PIXI.Graphics());
+
+    // Draw Ability Scores
+    this.abilities = await this.#drawAbilityScores();
 
     // Draw Nodes and Edges
     this.nodes = this.background.addChild(new PIXI.Container());
@@ -202,12 +204,42 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
+  async #drawAbilityScores() {
+    const scores = {};
+    const textStyle = CONFIG.canvasTextStyle.clone();
+    textStyle.fontFamily = "AwerySmallcaps";
+    for ( const [i, abilityId] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
+      const text = this.addChild(new PreciseText("12", textStyle));
+      text.anchor.set(0.5, 0.5);
+      const angle = 30 + (i * 60);
+      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), 220);
+      text.position.set(r.B.x, r.B.y);
+      this.background.addChild(text);
+      scores[abilityId] = text;
+    }
+    return scores;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Refresh the text labels of ability scores when the Actor changes.
+   */
+  #refreshAbilityScores() {
+    for ( const abilityId of CrucibleTalentTree.#SEXTANT_ABILITIES ) {
+      this.abilities[abilityId].text = this.actor.abilities[abilityId].value;
+    }
+  }
+
+  /* -------------------------------------------- */
+
   async #drawBackground() {
 
     // Repeating slate texture
     const {width, height} = this.#dimensions;
     const backdrop = new PIXI.TilingSprite(this.spritesheet.BackgroundSlate, width, height);
     backdrop.position.set(-width/2, -height/2);
+    backdrop.tileScale.set(0.5, 0.5);
     this.background.backdrop = this.background.addChild(backdrop);
 
     // Core Gradient
@@ -281,11 +313,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   #drawConnections(node, seen) {
+    if ( node.id === "origin" ) return; // No connection lines from the origin
     for ( const c of node.connected ) {
       if ( seen.has(c) || (c.tier < 0) || !this.state.get(c).purchased ) continue;
-      this.connections.lineStyle({color: c.color, width: 3, alpha: 1.0})
-        .moveTo(node.point.x, node.point.y)
-        .lineTo(c.point.x, c.point.y);
+      this.connections.moveTo(node.point.x, node.point.y)
+      this.connections.lineStyle({color: "#0e0906", width: 12, alpha: 1.0}).lineTo(c.point.x, c.point.y);
+      this.connections.lineStyle({color: c.color, width: 6, alpha: 1.0}).lineTo(node.point.x, node.point.y);
     }
   }
 
@@ -293,6 +326,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   async #drawNodes(nodes, seen=new Set()) {
     const next = [];
+    this.edges.lineStyle({color: 0x000000, alpha: 0.25, width: 4, alignment: 0.5});
     for ( const node of nodes ) {
       if ( seen.has(node) ) continue;
       await this.#drawNode(node);
@@ -337,14 +371,14 @@ export default class CrucibleTalentTree extends PIXI.Container {
     if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
     this.developmentMode = !!CONFIG.debug.talentTree;
     this.#parentApp = parentApp;
+    this.actor = actor;
 
     // Draw the tree (once only)
     await this.draw();
     for ( const layer of canvas.layers ) layer.hud?.close();
     this.darkenBackground(false);
 
-    // Associate Actor
-    this.actor = actor;
+    // Show Actor sheet
     await actor.sheet.render({force: false, left: 20, top: 20});
     if ( actor.sheet.rendered ) {
       actor.sheet.setPosition({left: 20, top: 20});
@@ -418,6 +452,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
       seen.add(node);
     }
 
+    // Refresh ability scores
+    this.#refreshAbilityScores();
+
     // Refresh talent wheel
     this.wheel.refresh();
 
@@ -464,10 +501,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /*  Talent Management                           */
   /* -------------------------------------------- */
 
-  activateNode(node) {
-    if ( this.active ) this.deactivateNode({click: false});
-    this.hud.clear();
+  activateNode(node, {event}={}) {
+    if ( this.active ) this.deactivateNode({click: false, event});
     this.active = node;
+    this.hud.clear();
     this.wheel.activate(node);
     this.darkenBackground(true);
     crucible.api.audio.playClick();
@@ -475,12 +512,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
-  deactivateNode({click=true}={}) {
-    if ( !this.active ) return;
-    this.wheel.deactivate();
-    this.hud.clear();
-    this.active.scale.set(1.0, 1.0);
+  deactivateNode({click=true, event, hover=true}={}) {
+    const node = this.active;
+    if ( !node ) return;
     this.active = null;
+    if ( hover ) node._onPointerOut(event);
+    this.wheel.deactivate();
     this.darkenBackground(false);
     if ( click ) crucible.api.audio.playClick();
   }
@@ -572,7 +609,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #onClickLeft(event) {
     event.stopPropagation();
-    this.deactivateNode();
+    this.deactivateNode({event});
   }
 
   /* -------------------------------------------- */

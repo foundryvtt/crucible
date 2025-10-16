@@ -278,6 +278,7 @@ export default class CrucibleTalentNode {
    * @returns {boolean}
    */
   isPurchased(actor) {
+    if ( this.id === "origin" ) return true;                    // The origin is always purchased
     if ( actor.system.talentNodes[this.id]?.size ) return true; // Purchased via an owned talent
     return actor.system.advancement.talentNodes.has(this.id);   // Purchased as an empty node
   }

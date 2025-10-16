@@ -201,6 +201,12 @@ Hooks.once("init", async function() {
     window.customElements.define(element.tagName, element);
   }
 
+  // Font Definitions
+  CONFIG.fontDefinitions["AwerySmallcaps"] = {
+    editor: true,
+    fonts: [{urls: ["systems/crucible/fonts/AwerySmallcaps/AwerySmallcaps.ttf"]}]
+  };
+
   // Rich Text Enrichers
   registerEnrichers();
 

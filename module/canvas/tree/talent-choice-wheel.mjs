@@ -10,9 +10,10 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
 
     /**
      * Background graphics for the wheel
+     * TODO convert back to sprite
      * @type {PIXI.Sprite}
      */
-    this.bg = this.addChild(new PIXI.Sprite());
+    this.bg = this.addChild(new PIXI.Graphics());
 
     /**
      * Edges for showing connections
@@ -52,7 +53,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
 
     // Set position
     this.position.set(node.x, node.y);
-    this.radius = node.config.size + 40;
+    this.radius = node.config.size + 64;
     this.#drawBackground();
     this.#drawEdges();
     await this.#drawTalents();
@@ -83,9 +84,14 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.texture = crucible.tree.spritesheet.wheel;
-    this.bg.anchor.set(0.5, 0.5);
-    this.bg.width = this.bg.height = this.radius * 2;
+    this.bg.clear();
+    this.bg.beginFill(0x000000, 1.0).drawCircle(0, 0, this.radius).endFill();
+
+
+    // TODO
+    // this.bg.texture = crucible.tree.spritesheet.wheel;
+    // this.bg.anchor.set(0.5, 0.5);
+    // this.bg.width = this.bg.height = this.radius * 2;
   }
 
   /* -------------------------------------------- */
@@ -94,13 +100,7 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw connecting edges within the wheel
    */
   #drawEdges() {
-    this.edges.clear()
-      .lineStyle({color: this.node.config.borderColor, width: 3})
-      .drawCircle(0, 0, this.radius)
-      .endFill();
-
-    // Set line style for later connecting lines
-    this.edges.lineStyle({color: 0x444444, width: 4});
+    this.edges.clear().lineStyle({color: "#24160f", width: 4}).drawCircle(0, 0, this.radius).endFill();
   }
 
   /* -------------------------------------------- */
@@ -114,17 +114,21 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     const shape = new PIXI.Circle(0, 0, this.radius);
     const a = (2 * Math.PI) / talents.length;
     let i = 0;
+    const color = this.node.node.color;
     for ( const talent of talents ) {
+      const isOwned = crucible.tree.actor.talentIds.has(talent.id);
       const position = shape.pointAtAngle((i * a) - (Math.PI / 2) + (a/2));
       const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
-        borderColor: this.node.node.color,
+        borderColor: color,
         texture: await foundry.canvas.loadTexture(talent.img)
       });
       this.talents.addChild(icon);
       i++;
 
       // Draw connecting line
-      this.edges.moveTo(0, 0).lineTo(icon.x, icon.y);
+      this.edges.moveTo(0, 0)
+        .lineStyle({color: "#502c1a", width: 12}).lineTo(icon.x, icon.y)
+        .lineStyle({color: isOwned ? color : "#24160f", width: 6}).lineTo(0, 0)
     }
   }
 
@@ -139,12 +143,14 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     const allTalents = [];
     const seen = new Set();
 
+    // Talents configured for the node
     const nodeTalents = this.node.node.talents;
     for ( const t of nodeTalents ) {
       seen.add(t.id);
       allTalents.push(t);
     }
 
+    // Talents that are owned but not ordinarily configured for the node
     const ownedTalents = actor.system.talentNodes[this.node.node.id]?.map(id => actor.items.get(id)) || [];
     for ( const t of ownedTalents ) {
       if ( seen.has(t.id) ) continue;

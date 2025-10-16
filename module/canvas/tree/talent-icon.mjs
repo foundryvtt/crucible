@@ -1,22 +1,64 @@
 
 export default class CrucibleTalentIcon extends PIXI.Container {
   constructor(config) {
-    super(config);
+    super();
+    Object.assign(this.config, config);
+    this.sortableChildren = true;
+  }
 
-    /**
-     * Configuration for this icon
-     * @type {object}
-     */
-    this.config = Object.assign({
-      alpha: 1.0,
-      backgroundColor: 0x000000,
-      size: 48,
-      text: undefined,
-      texture: undefined,
-      frameTexture: undefined,
-      frameTint: 0xFFFFFF,
-      tint: 0xFFFFFF
-    }, config);
+  /* -------------------------------------------- */
+
+  /**
+   * The shared filter instance used by all inaccessible icons
+   * @type {PIXI.filters.ColorMatrixFilter}
+   */
+  static greyscaleFilter = new PIXI.ColorMatrixFilter();
+
+  /* -------------------------------------------- */
+
+  /**
+   * Talent icon configuration
+   * @type {object}
+   */
+  config = {
+    alpha: 1.0,
+    backgroundColor: 0x000000,
+    size: 48,
+    text: undefined,
+    texture: undefined,
+    frameTexture: undefined,
+    frameTint: 0xFFFFFF,
+    tint: 0xFFFFFF,
+    splooshColor: null,
+    underglowColor: null
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Customize configuration values for the icon being drawn.
+   * @param {object} config
+   * @returns {Object}
+   * @protected
+   */
+  _configure(config) {
+    Object.assign(this.config, config);
+    return this.config;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Draw the talent tree icon
+   * @param {object} config     New configuration values to apply
+   * @returns {Promise<void>}
+   */
+  async draw(config={}) {
+    const c = this._configure(config);
+    const spritesheet = crucible.tree.spritesheet
+
+    // Icon Shape
+    this.shape = this._getShape();
 
     // Background
     this.underglow = this.addChild(new PIXI.Sprite());
@@ -36,49 +78,31 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.number = this.addChild(new foundry.canvas.containers.PreciseText("", textStyle));
     this.number.anchor.set(0.5, 0.5);
     this.number.position.set(this.config.size / 3, -this.config.size / 3);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * The shared filter instance used by all inaccessible icons
-   * @type {PIXI.filters.ColorMatrixFilter}
-   */
-  static greyscaleFilter = new PIXI.ColorMatrixFilter();
-
-  /* -------------------------------------------- */
-
-  /**
-   * Draw the talent tree icon
-   * @param config
-   * @returns {Promise<void>}
-   */
-  async draw(config={}) {
-    const c = Object.assign(this.config, config);
-
-    // Icon Shape
-    this.shape = this._getShape();
 
     // Under glow
-    this.underglow.texture = crucible.tree.spritesheet.BackgroundGradient;
+    this.underglow.texture = spritesheet.BackgroundGradient;
     this.underglow.width = this.underglow.height = c.size * 2;
     this.underglow.anchor.set(0.5, 0.5);
-    this.underglow.tint = c.splooshColor;
-    this.underglow.alpha = 0.75
-    this.underglow.visible = config.underglow;
+    this.underglow.tint = c.underglowColor || 0xFFFFFF;
+    this.underglow.alpha = 0.75;
+    this.underglow.visible = !!c.underglowColor;
 
     // Background fill
     this.bg.clear().beginFill(this.config.backgroundColor).drawShape(this.shape).endFill();
 
     // Sploosh
-    this.sploosh.texture = crucible.tree.spritesheet.BackgroundGradient;
-    this.sploosh.width = this.sploosh.height = c.size;
-    this.sploosh.anchor.set(0.5, 0.5);
-    this.sploosh.tint = c.splooshColor;
+    if ( c.splooshColor ) {
+      this.sploosh.texture = spritesheet.BackgroundGradient;
+      this.sploosh.width = this.sploosh.height = c.size;
+      this.sploosh.anchor.set(0.5, 0.5);
+      this.sploosh.tint = c.splooshColor;
+      this.sploosh.visible = true;
+    }
+    else this.sploosh.visible = false;
 
     // Draw icon
     this.icon.texture = c.texture;
-    this.icon.width = this.icon.height = c.size * 0.75;
+    this.icon.width = this.icon.height = c.size;
     this.icon.tint = c.tint ?? 0xFFFFFF;
 
     this._drawFrame();

@@ -9,30 +9,66 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     this.position.set(position.x, position.y);
   }
 
-  /** @override */
-  async draw({active, accessible, ...config}={}) {
+  /* -------------------------------------------- */
 
-    // Style
+  /** @inheritDoc */
+  _configure({active, accessible, ...config}={}) {
+    config = super._configure(config);
+    const spritesheet = crucible.tree.spritesheet;
     const {actions, rune, gesture, inflection, iconicSpells, training} = this.talent.system;
+    const nodeColor = this.node.node.color;
+
+    // Defaults
+    config.alpha = active ? 1.0 : 0.6;
+    config.underglowColor = active ? nodeColor : null;
+
+    // Active Talents
     if ( actions.length ) {
       this.config.shape = "rect";
       this.config.borderRadius = this.config.size / 6;
     }
+
+    // Spellcraft Talents
     else if ( rune || gesture || inflection || iconicSpells ) {
       this.config.shape = "hex";
     }
+
+    // Training Talents
     else if ( training.type && training.rank ) {
       this.config.shape = "hex";
     }
+
+    // Passive Talents
     else this.config.shape = "circle";
 
-    // Talent State
-    config.borderColor = active ? this.node.node.color : 0x444444;
-    config.alpha = active ? 1.0 : 0.6;
+    // Further configuration based on shape
+    let shape = this.config.shape;
+    switch (shape ) {
+      case "circle":
+        config.shape = "circle";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameCircleSmallBronze;
+        break;
+      case "hex":
+        config.shape = "hex";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameHexSmallBronze;
+        break;
+      case "rect":
+        config.shape = "rect";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameSquareSmallBronze;
+        break;
+    }
+    return config;
+  }
 
-    // Draw Icon
+  /* -------------------------------------------- */
+
+  /** @override */
+  async draw(config) {
     await super.draw(config);
-    this.icon.filters = accessible ? [] : [this.constructor.greyscaleFilter];
+    this.icon.filters = config.accessible ? [] : [this.constructor.greyscaleFilter];
     this.#activateInteraction();
   }
 
