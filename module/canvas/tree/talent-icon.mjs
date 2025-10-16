@@ -10,17 +10,18 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.config = Object.assign({
       alpha: 1.0,
       backgroundColor: 0x000000,
-      borderColor: undefined,
-      borderWidth: 2,
-      borderRadius: undefined,
       size: 48,
       text: undefined,
       texture: undefined,
+      frameTexture: undefined,
+      frameTint: 0xFFFFFF,
       tint: 0xFFFFFF
     }, config);
 
     // Background
+    this.underglow = this.addChild(new PIXI.Sprite());
     this.bg = this.addChild(new PIXI.Graphics());
+    this.sploosh = this.addChild(new PIXI.Sprite());
 
     // Icon
     this.icon = this.addChild(new PIXI.Sprite());
@@ -28,7 +29,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     this.icon.mask = this.addChild(new PIXI.Graphics());
 
     // Border
-    this.border = this.addChild(new PIXI.Graphics());
+    this.frame = this.addChild(new PIXI.Sprite());
 
     // Number
     const textStyle = foundry.canvas.containers.PreciseText.getTextStyle({fontSize: 24});
@@ -57,19 +58,31 @@ export default class CrucibleTalentIcon extends PIXI.Container {
 
     // Icon Shape
     this.shape = this._getShape();
+
+    // Under glow
+    this.underglow.texture = crucible.tree.spritesheet.BackgroundGradient;
+    this.underglow.width = this.underglow.height = c.size * 2;
+    this.underglow.anchor.set(0.5, 0.5);
+    this.underglow.tint = c.splooshColor;
+    this.underglow.alpha = 0.75
+    this.underglow.visible = config.underglow;
+
+    // Background fill
     this.bg.clear().beginFill(this.config.backgroundColor).drawShape(this.shape).endFill();
+
+    // Sploosh
+    this.sploosh.texture = crucible.tree.spritesheet.BackgroundGradient;
+    this.sploosh.width = this.sploosh.height = c.size;
+    this.sploosh.anchor.set(0.5, 0.5);
+    this.sploosh.tint = c.splooshColor;
 
     // Draw icon
     this.icon.texture = c.texture;
-    this.icon.width = this.icon.height = c.size;
-    this.icon.alpha = c.alpha ?? 1.0;
+    this.icon.width = this.icon.height = c.size * 0.75;
     this.icon.tint = c.tint ?? 0xFFFFFF;
 
-    // Draw mask
+    this._drawFrame();
     this._drawMask();
-
-    // Active icons have a colorful border
-    this._drawBorder();
 
     // Number
     this.number.text = c.text ?? "";
@@ -125,9 +138,13 @@ export default class CrucibleTalentIcon extends PIXI.Container {
    * Draw border graphics for the node.
    * @protected
    */
-  _drawBorder() {
-    const {borderColor, borderWidth} = this.config;
-    this.border.clear().lineStyle({alignment: 0.5, color: borderColor, width: borderWidth}).drawShape(this.shape);
+  _drawFrame() {
+    this.frame.anchor.set(0.5, 0.5);
+    const scale = this.config.size / this.config.frameTexture.height;
+    this.frame.scale.set(scale, scale);
+    this.frame.texture = this.config.frameTexture;
+    this.frame.tint = this.config.frameTint;
+
   }
 }
 CrucibleTalentIcon.greyscaleFilter.desaturate();

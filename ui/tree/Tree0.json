@@ -2,7 +2,7 @@
 
 "BackgroundGradient":
 {
-	"frame": {"x":1732,"y":702,"w":249,"h":250},
+	"frame": {"x":1732,"y":960,"w":249,"h":250},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":3,"w":249,"h":250},
@@ -11,28 +11,19 @@
 },
 "BackgroundSlate":
 {
-	"frame": {"x":902,"y":2353,"w":880,"h":880},
+	"frame": {"x":0,"y":2404,"w":880,"h":880},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":880,"h":880},
 	"sourceSize": {"w":880,"h":880},
 	"anchor": {"x":0,"y":0}
 },
-"CircleSmall":
-{
-	"frame": {"x":1880,"y":1188,"w":128,"h":128},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
 "Core":
 {
-	"frame": {"x":902,"y":1502,"w":808,"h":849},
+	"frame": {"x":902,"y":1502,"w":821,"h":849},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":20,"y":0,"w":808,"h":849},
+	"spriteSourceSize": {"x":14,"y":0,"w":821,"h":849},
 	"sourceSize": {"w":850,"h":850},
 	"anchor": {"x":0.5,"y":0.5}
 },
@@ -47,131 +38,32 @@
 },
 "CoreMolten":
 {
-	"frame": {"x":0,"y":3235,"w":500,"h":500},
+	"frame": {"x":882,"y":2452,"w":500,"h":500},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
 	"sourceSize": {"w":500,"h":500},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"GlyphDefense":
+"FrameCircleSmallBronze":
 {
-	"frame": {"x":1712,"y":1941,"w":105,"h":125},
+	"frame": {"x":1725,"y":1576,"w":128,"h":128},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":11,"y":2,"w":105,"h":125},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"GlyphHealing":
+"FrameCircleSmallPale":
 {
-	"frame": {"x":1834,"y":1819,"w":120,"h":115},
+	"frame": {"x":1855,"y":1576,"w":128,"h":128},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":7,"w":120,"h":115},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"GlyphMagic":
-{
-	"frame": {"x":1862,"y":1318,"w":128,"h":125},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphMelee":
-{
-	"frame": {"x":1712,"y":1822,"w":115,"h":117},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":6,"w":115,"h":117},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphMovement":
-{
-	"frame": {"x":1838,"y":1695,"w":122,"h":122},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":4,"w":122,"h":122},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphOrigin":
-{
-	"frame": {"x":1712,"y":1575,"w":124,"h":120},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":5,"w":124,"h":120},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphOrigin256":
-{
-	"frame": {"x":1732,"y":954,"w":245,"h":232},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":12,"w":245,"h":232},
-	"sourceSize": {"w":256,"h":256},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphRanged":
-{
-	"frame": {"x":1712,"y":1697,"w":120,"h":123},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":3,"w":120,"h":123},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphSignature":
-{
-	"frame": {"x":1732,"y":1448,"w":126,"h":125},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":2,"w":126,"h":125},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphSkill":
-{
-	"frame": {"x":1945,"y":1936,"w":97,"h":128},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":15,"y":0,"w":97,"h":128},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphSpellcraft":
-{
-	"frame": {"x":1860,"y":1572,"w":126,"h":121},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":4,"w":126,"h":121},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphTraining":
-{
-	"frame": {"x":1862,"y":1445,"w":128,"h":125},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"GlyphUtility":
-{
-	"frame": {"x":1829,"y":1936,"w":114,"h":122},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":6,"y":4,"w":114,"h":122},
-	"sourceSize": {"w":128,"h":128},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"HexLarge":
+"FrameHexLargeBronze":
 {
 	"frame": {"x":1732,"y":0,"w":294,"h":256},
 	"rotated": false,
@@ -180,39 +72,183 @@
 	"sourceSize": {"w":294,"h":256},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"HexOrigin":
+"FrameHexLargePale":
 {
-	"frame": {"x":1732,"y":258,"w":257,"h":220},
+	"frame": {"x":1732,"y":258,"w":294,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":294,"h":256},
+	"sourceSize": {"w":294,"h":256},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"FrameHexOriginBronze":
+{
+	"frame": {"x":1732,"y":516,"w":257,"h":220},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":257,"h":220},
 	"sourceSize": {"w":257,"h":220},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"HexOriginHeated":
+"FrameHexOriginHeated":
 {
-	"frame": {"x":1732,"y":480,"w":257,"h":220},
+	"frame": {"x":1732,"y":738,"w":257,"h":220},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":257,"h":220},
 	"sourceSize": {"w":257,"h":220},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"HexSmall":
+"FrameHexSmallBronze":
 {
-	"frame": {"x":1732,"y":1188,"w":146,"h":128},
+	"frame": {"x":1732,"y":1446,"w":146,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":146,"h":128},
 	"sourceSize": {"w":146,"h":128},
 	"anchor": {"x":0.5,"y":0.5}
 },
-"SquareSmall":
+"FrameHexSmallPale":
 {
-	"frame": {"x":1732,"y":1318,"w":128,"h":128},
+	"frame": {"x":1880,"y":1446,"w":146,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":146,"h":128},
+	"sourceSize": {"w":146,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"FrameSquareSmallBronze":
+{
+	"frame": {"x":1725,"y":1706,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"FrameSquareSmallPale":
+{
+	"frame": {"x":1855,"y":1706,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphDefense":
+{
+	"frame": {"x":1590,"y":2353,"w":105,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":2,"w":105,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphHealing":
+{
+	"frame": {"x":1725,"y":2214,"w":120,"h":115},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":120,"h":115},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphMagic":
+{
+	"frame": {"x":1725,"y":1836,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphMelee":
+{
+	"frame": {"x":1725,"y":2331,"w":115,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":6,"w":115,"h":117},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphMovement":
+{
+	"frame": {"x":1725,"y":2090,"w":122,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":122,"h":122},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphOrigin":
+{
+	"frame": {"x":1853,"y":2086,"w":124,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":5,"w":124,"h":120},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphOrigin256":
+{
+	"frame": {"x":1732,"y":1212,"w":245,"h":232},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":12,"w":245,"h":232},
+	"sourceSize": {"w":256,"h":256},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphRanged":
+{
+	"frame": {"x":1849,"y":2208,"w":120,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":3,"w":120,"h":123},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphSignature":
+{
+	"frame": {"x":1725,"y":1963,"w":126,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":126,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphSkill":
+{
+	"frame": {"x":1697,"y":2450,"w":97,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":0,"w":97,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphSpellcraft":
+{
+	"frame": {"x":1853,"y":1963,"w":126,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":4,"w":126,"h":121},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphTraining":
+{
+	"frame": {"x":1855,"y":1836,"w":128,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":128,"h":125},
+	"sourceSize": {"w":128,"h":128},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"GlyphUtility":
+{
+	"frame": {"x":1842,"y":2333,"w":114,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":4,"w":114,"h":122},
 	"sourceSize": {"w":128,"h":128},
 	"anchor": {"x":0.5,"y":0.5}
 },
@@ -227,7 +263,7 @@
 },
 "TattooSpoke":
 {
-	"frame": {"x":0,"y":2404,"w":686,"h":97},
+	"frame": {"x":902,"y":2353,"w":686,"h":97},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":686,"h":97},
@@ -241,6 +277,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":4096},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:566fd00b98010512286fbb5cfc4ad800:ef35796bf02196424aed342b6566cb47:01e5b1a355d82c3da2c91081f177b67c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:aa2903cd3c7385507c7e65e6cedde13c:c1bdd632aaf0a32d8f64b5d1fe5f7428:01e5b1a355d82c3da2c91081f177b67c$"
 }
 }

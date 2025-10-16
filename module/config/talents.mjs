@@ -7,19 +7,19 @@ import {TRAINING as CRAFTING_TRAINING} from "./crafting.mjs";
  * @type {Readonly<Record<string, {label: string, style: string, icon: string, [passive]: boolean}>>}
  */
 export const NODE_TYPES = Object.freeze({
-  origin: {label: "TALENT.NODES.ORIGIN", style: "originHex", icon: "NodeOrigin", passive: false},
-  attack: {label: "TALENT.NODES.ATTACK", style: "rect", icon: "NodeMelee", passive: false},
-  melee: {label: "TALENT.NODES.MELEE", style: "rect", icon: "NodeMelee", passive: false},
-  ranged: {label: "TALENT.NODES.RANGED", style: "rect", icon: "NodeRanged", passive: false},
-  magic: {label: "TALENT.NODES.MAGIC", style: "rect", icon: "NodeMagic", passive: false},
-  defense: {label: "TALENT.NODES.DEFENSE", style: "rect", icon: "NodeDefense"},
-  heal: {label: "TALENT.NODES.HEAL", style: "rect", icon: "NodeHealing"},
-  spell: {label: "TALENT.NODES.SPELL", style: "rect", icon: "NodeSpellcraft"},
-  move: {label: "TALENT.NODES.MOVEMENT", style: "rect", icon: "NodeMovement"},
-  utility: {label: "TALENT.NODES.UTILITY", style: "rect", icon: "NodeUtility"},
-  skill: {label: "TALENT.NODES.SKILL", style: "rect", icon: "NodeSkill"},
-  signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "NodeSignature", passive: false},
-  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "NodeTraining", passive: true}
+  origin: {label: "TALENT.NODES.ORIGIN", style: "originHex", icon: "GlyphOrigin", passive: false},
+  attack: {label: "TALENT.NODES.ATTACK", style: "rect", icon: "GlyphMelee", passive: false},
+  melee: {label: "TALENT.NODES.MELEE", style: "rect", icon: "GlyphMelee", passive: false},
+  ranged: {label: "TALENT.NODES.RANGED", style: "rect", icon: "GlyphRanged", passive: false},
+  magic: {label: "TALENT.NODES.MAGIC", style: "rect", icon: "GlyphMagic", passive: false},
+  defense: {label: "TALENT.NODES.DEFENSE", style: "rect", icon: "GlyphDefense"},
+  heal: {label: "TALENT.NODES.HEAL", style: "rect", icon: "GlyphHealing"},
+  spell: {label: "TALENT.NODES.SPELL", style: "rect", icon: "GlyphSpellcraft"},
+  move: {label: "TALENT.NODES.MOVEMENT", style: "rect", icon: "GlyphMovement"},
+  utility: {label: "TALENT.NODES.UTILITY", style: "rect", icon: "GlyphUtility"},
+  skill: {label: "TALENT.NODES.SKILL", style: "rect", icon: "GlyphSkill"},
+  signature: {label: "TALENT.NODES.SIGNATURE", style: "largeHex", icon: "GlyphSignature", passive: false},
+  training: {label: "TALENT.NODES.TRAINING", style: "hex", icon: "GlyphTraining", passive: true}
 });
 
 /**

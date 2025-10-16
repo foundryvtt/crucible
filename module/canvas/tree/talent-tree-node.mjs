@@ -21,16 +21,27 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /** @override */
   async draw({state, ...config}={}) {
-    config.texture = crucible.tree.spritesheet[`${this.node.iconPrefix}`];
-    config.backgroundColor = this.node.color.multiply(0.05);
+    const spritesheet = crucible.tree.spritesheet;
+    config.texture = spritesheet[`${this.node.iconPrefix}`];
+    config.backgroundColor = 0x000000;
+    config.underglow = false;
 
-    // Configure default colors
+    // Accessible Nodes
     if ( state.accessible ) {
       config.alpha = 0.4;
       config.borderColor = 0x827f7d;
-    } else {
+      config.tint = 0xFFFFFF;
+      config.frameTint = 0xFFFFFF;
+      config.splooshColor = this.node.color;
+    }
+
+    // Inaccessible Nodes
+    else {
       config.alpha = 0.1;
       config.borderColor = 0x262322;
+      config.tint = Color.fromHSL([this.node.color.hsl[0], 0.2, 0.15]);
+      config.frameTint = Color.from(0xFFFFFF).multiply(0.25);
+      config.splooshColor = Color.fromHSL([this.node.color.hsl[0], 0.33, 0.15]);
     }
 
     // Empty Nodes
@@ -39,8 +50,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     // Purchased Nodes
     if ( state.purchased ) {
       config.alpha = 1.0;
-      config.borderColor = this.node.color;
-      config.borderWidth = 3;
+      config.underglow = true;
     }
 
     // Banned Nodes
@@ -52,28 +62,29 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     switch (style ) {
       case "circle":
         config.shape = "circle";
-        config.size = 48;
-        config.borderRadius = config.size / 2;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameCircleSmallBronze;
         break;
       case "hex":
         config.shape = "hex";
-        config.size = 48;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameHexSmallBronze;
         break;
       case "rect":
         config.shape = "rect";
-        config.size = 48;
-        config.borderRadius = config.size / 6;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameSquareSmallBronze;
         break;
       case "largeHex":
         config.shape = "hex";
-        config.size = config.borderRadius = 80;
+        config.size = config.borderRadius = 130;
+        config.frameTexture = spritesheet.FrameHexLargeBronze;
         break;
       case "originHex":
         config.alpha = 1.0;
-        config.borderWidth = 8;
         config.shape = "hex";
         config.size = config.borderRadius = 200;
-        config.borderColor = crucible.tree.actor.ancestry.ui.color;
+        config.frameTexture = spritesheet.FrameHexOriginHeated;
         break;
     }
 
