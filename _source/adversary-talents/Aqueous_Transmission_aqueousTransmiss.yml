@@ -1,19 +1,19 @@
-name: Slippery Form
+name: Aqueous Transmission
 type: talent
-img: icons/environment/creatures/bug-worm-purple-blue.webp
+img: icons/magic/water/wave-water-teal.webp
 system:
   nodes: []
-  description: >-
-    <p>This creature is permanently slippery, giving it the ability to elude
-    capture by physical restraints.</p>
+  description: <p>The @ref[name] is able to move instantaneously through water.</p>
   actions:
-    - id: slipperyEscape
-      name: Slippery Escape
-      img: icons/environment/creatures/bug-worm-purple-blue.webp
+    - id: aqueousTransmission
+      name: Aqueous Transmission
+      img: icons/magic/water/wave-water-teal.webp
       condition: ''
       description: >-
-        <p>The creature uses it slippery form to escape restraints, immediately
-        ending the <strong>Restrained</strong> condition.</p>
+        <p>When the @ref[name] is within water, it can instantaneously transport
+        itself to any unoccupied space within the same body of water up to 120
+        feet away. It does not need to be able to see the destination to make
+        this <strong>Move</strong>.</p>
       cost:
         action: 0
         focus: 1
@@ -21,10 +21,10 @@ system:
         weapon: false
       range:
         minimum: null
-        maximum: null
+        maximum: 120
         weapon: false
       target:
-        type: single
+        type: self
         number: 1
         scope: 1
         self: false
@@ -52,10 +52,10 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.3
-  createdTime: 1751140970355
+  systemVersion: 0.7.9
+  createdTime: 1760804485204
   modifiedTime: 1760804485230
   lastModifiedBy: QvBFYpRRXHRBcOfP
-_id: slipperyForm0000
-sort: 400000
-_key: '!items!slipperyForm0000'
+_id: aqueousTransmiss
+sort: 300000
+_key: '!items!aqueousTransmiss'

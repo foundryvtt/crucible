@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Elementals
+color: null
+sorting: a
+_id: aM53nJVqmTrIHXyE
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760803466111
+  modifiedTime: 1760803466111
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!aM53nJVqmTrIHXyE'

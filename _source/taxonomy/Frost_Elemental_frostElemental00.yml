@@ -31,7 +31,11 @@ system:
   movement:
     size: 4
     stride: 10
-  talents: []
+  talents:
+    - Compendium.crucible.adversary-talents.Item.coldAbsorption00
+    - Compendium.crucible.adversary-talents.Item.amorphous0000000
+    - Compendium.crucible.talent.Item.runefrost0000000
+    - Compendium.crucible.adversary-talents.Item.aqueousTransmiss
   identifier: frostElemental
 effects: []
 ownership:
@@ -41,10 +45,10 @@ flags: {}
 _stats:
   compendiumSource: null
   duplicateSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
-  modifiedTime: 1751554878298
+  systemVersion: 0.7.9
+  modifiedTime: 1760804503243
   lastModifiedBy: QvBFYpRRXHRBcOfP
   exportSource: null
 _id: frostElemental00

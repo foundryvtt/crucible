@@ -69,6 +69,21 @@ HOOKS.bloodSense000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.coldAbsorption00 = {
+  prepareResistances(_item, resistances) {
+    resistances.cold.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "cold") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceRecovery, statusText}) {
     if ( this.resources.action.value ) {

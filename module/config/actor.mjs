@@ -263,7 +263,7 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
-  receiveWeaponAttack: {
+  receiveAttack: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "roll"]
   },

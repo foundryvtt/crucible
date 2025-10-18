@@ -1,9 +1,8 @@
-name: Alchemist's Fire
+name: Caustic Phial
 type: consumable
-_id: alchemistsFire00
-img: icons/consumables/potions/bottle-round-corked-yellow.webp
+img: icons/consumables/potions/bottle-conical-fumes-green.webp
 system:
-  identifier: alchemistsFire
+  identifier: causticPhial
   category: bomb
   quantity: 1
   weight: 1
@@ -18,18 +17,19 @@ system:
     - thrown
   description:
     public: >-
-      <p>A flammable concoction that ignites upon impact and burns intensely for
-      a short time.</p>
+      <p>Corrosive liquid swirls within this vial of intentionally thin glass,
+      designed to shatter on impact and spill the caustic substance upon a
+      target.</p>
     private: ''
   actions:
-    - id: alchemistsFire
-      name: Alchemist's Fire
-      img: icons/consumables/potions/bottle-round-corked-yellow.webp
+    - id: causticPhial
+      name: Caustic Phial
+      img: icons/consumables/potions/bottle-conical-fumes-green.webp
       condition: ''
       description: >-
-        <p>You hurl the @ref[name], dealing <strong>Weakened</strong> immediate
-        damage but causing the @Condition[burning] condition to all enemies in a
-        4 foot radius <strong>Blast</strong> who fail to avoid the
+        <p>You fling the @ref[name], dealing <strong>Weakened</strong> immediate
+        damage but causing the @Condition[corroding] condition to all enemies in
+        a 4 foot radius <strong>Blast</strong> who fail to avoid the
         attack.</p><p>The amount of burning damage and its duration is dependent
         on the quality of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 2
         damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3 damage
@@ -38,35 +38,21 @@ system:
         rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
         rounds</p></li></ul>
       cost:
-        action: 2
+        action: 0
         focus: 0
         heroism: 0
         weapon: false
       range:
         minimum: null
-        maximum: 20
+        maximum: null
         weapon: false
       target:
-        type: blast
+        type: single
         number: 1
         scope: 4
         self: false
-        size: 4
-      effects:
-        - name: Alchemist's Fire
-          scope: 3
-          statuses:
-            - burning
-          duration:
-            turns: 3
-            rounds: null
-      tags:
-        - freehand
-        - weakened
-        - reflex
-        - dexterity
-        - skill
-        - athletics
+      effects: []
+      tags: []
       actionHooks: []
   uses:
     value: 1
@@ -84,8 +70,9 @@ _stats:
   coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.7.9
-  createdTime: 1751637580701
-  modifiedTime: 1760799374801
+  createdTime: 1760799532842
+  modifiedTime: 1760799532842
   lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 100000
-_key: '!items!alchemistsFire00'
+_id: causticPhial0000
+sort: 0
+_key: '!items!causticPhial0000'

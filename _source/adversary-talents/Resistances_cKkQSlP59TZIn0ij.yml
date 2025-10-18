@@ -1,0 +1,20 @@
+type: Item
+folder: null
+name: Resistances
+color: null
+sorting: a
+_id: cKkQSlP59TZIn0ij
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760801416973
+  modifiedTime: 1760801416973
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!folders!cKkQSlP59TZIn0ij'
