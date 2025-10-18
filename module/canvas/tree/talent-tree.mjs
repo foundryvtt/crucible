@@ -189,17 +189,16 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @returns {Promise<void[]>}
    */
   async #loadTextures() {
-    const toLoad = ["systems/crucible/ui/tree/Tree0.json"];
+    const toLoad = ["systems/crucible/ui/tree/Tree0.json", "systems/crucible/ui/tree/BackgroundSlate.png"];
     await foundry.canvas.TextureLoader.loader.load(toLoad);
-    for ( const path of toLoad ) {
-      const spritesheet = foundry.canvas.getTexture(path);
-      const spritesheets = [spritesheet, ...spritesheet.linkedSheets];
-      for ( const sheet of spritesheets ) {
-        for ( const [asset, texture] of Object.entries(sheet.textures) ) {
-          this.spritesheet[asset] = texture;
-        }
+    const spritesheet = foundry.canvas.getTexture(toLoad[0]);
+    const spritesheets = [spritesheet, ...spritesheet.linkedSheets];
+    for ( const sheet of spritesheets ) {
+      for ( const [asset, texture] of Object.entries(sheet.textures) ) {
+        this.spritesheet[asset] = texture;
       }
     }
+    this.spritesheet.BackgroundSlate = foundry.canvas.getTexture(toLoad[1]);
   }
 
   /* -------------------------------------------- */
@@ -239,7 +238,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
     const {width, height} = this.#dimensions;
     const backdrop = new PIXI.TilingSprite(this.spritesheet.BackgroundSlate, width, height);
     backdrop.position.set(-width/2, -height/2);
-    backdrop.tileScale.set(0.5, 0.5);
     this.background.backdrop = this.background.addChild(backdrop);
 
     // Core Gradient
@@ -285,7 +283,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #drawSextantsOverlay() {
     const overlay = new PIXI.Graphics();
-    const rays = [];
     for ( const [i, ability] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
       const color = SYSTEM.ABILITIES[ability].color;
       const r0 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 8000);
@@ -293,20 +290,13 @@ export default class CrucibleTalentTree extends PIXI.Container {
       const r2 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 60), 8000);
       const polygon = new PIXI.Polygon([0, 0, r0.B.x, r0.B.y, r1.B.x, r1.B.y, r2.B.x, r2.B.y]);
       overlay.beginFill(color, 0.025).drawShape(polygon).endFill();
-      rays.push(r0);
-    }
-
-    // Section Dividers
-    overlay.lineStyle({width: 8, color: 0x000000, alpha: 0.25});
-    for ( const ray of rays ) {
-      const a = ray.project(0.15);
-      overlay.moveTo(a.x, a.y).lineTo(ray.B.x, ray.B.y);
     }
 
     // Tier Circles
-    overlay.drawCircle(0, 0, 1200);
-    overlay.drawCircle(0, 0, 2400);
-    overlay.drawCircle(0, 0, 3600);
+    overlay.lineStyle({width: 8, color: 0x000000, alpha: 0.25});
+    overlay.drawCircle(0, 0, 1600);
+    overlay.drawCircle(0, 0, 3200);
+    overlay.drawCircle(0, 0, 4800);
     return overlay;
   }
 
@@ -340,9 +330,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawNode(node) {
-    const config = {};
-    config.borderColor = node.color;
-    const icon = node.icon = new CrucibleTalentTreeNode(node, config);
+    const icon = node.icon = new CrucibleTalentTreeNode(node);
     this.nodes.addChild(icon);
   }
 

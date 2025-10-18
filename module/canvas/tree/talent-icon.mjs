@@ -1,12 +1,19 @@
+/**
+ * @typedef CrucibleTalentIconConfig
+ * @property {number} alpha
+ * @property {PIXI.ColorSource} backgroundColor
+ * @property {number} size
+ * @property {string} [text]
+ * @property {PIXI.Texture} [texture]
+ * @property {PIXI.Texture} [frameTexture]
+ * @property {PIXI.ColorSource} frameTint
+ * @property {PIXI.ColorSource} iconTint
+ * @property {PIXI.ColorSource|null} splooshColor
+ * @property {PIXI.ColorSource|null} underglowColor
+ * @property {number} underglowSize
+ */
 
 export default class CrucibleTalentIcon extends PIXI.Container {
-  constructor(config) {
-    super();
-    Object.assign(this.config, config);
-    this.sortableChildren = true;
-  }
-
-  /* -------------------------------------------- */
 
   /**
    * The shared filter instance used by all inaccessible icons
@@ -18,44 +25,50 @@ export default class CrucibleTalentIcon extends PIXI.Container {
 
   /**
    * Talent icon configuration
-   * @type {object}
+   * @type {CrucibleTalentIconConfig}
    */
-  config = {
+  static DEFAULT_CONFIG = {
     alpha: 1.0,
     backgroundColor: 0x000000,
-    size: 48,
+    size: 64,
     text: undefined,
     texture: undefined,
     frameTexture: undefined,
     frameTint: 0xFFFFFF,
-    tint: 0xFFFFFF,
+    iconTint: 0xFFFFFF,
     splooshColor: null,
-    underglowColor: null
+    underglowColor: null,
+    underglowSize: 128
   };
+
+  /**
+   * The current configuration of the icon. Defined at draw-time.
+   */
+  config;
 
   /* -------------------------------------------- */
 
   /**
    * Customize configuration values for the icon being drawn.
-   * @param {object} config
-   * @returns {Object}
+   * @param {Partial<CrucibleTalentIconConfig>} config
+   * @returns {CrucibleTalentIconConfig}
    * @protected
    */
   _configure(config) {
-    Object.assign(this.config, config);
-    return this.config;
+    return this.config = {...this.constructor.DEFAULT_CONFIG, config};
   }
 
   /* -------------------------------------------- */
 
   /**
    * Draw the talent tree icon
-   * @param {object} config     New configuration values to apply
+   * @param {Partial<CrucibleTalentIconConfig>} config     New configuration values to apply
    * @returns {Promise<void>}
    */
   async draw(config={}) {
     const c = this._configure(config);
-    const spritesheet = crucible.tree.spritesheet
+    const spritesheet = crucible.tree.spritesheet;
+    this.removeChildren().forEach(c => c.destroy());
 
     // Icon Shape
     this.shape = this._getShape();
@@ -81,7 +94,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
 
     // Under glow
     this.underglow.texture = spritesheet.BackgroundGradient;
-    this.underglow.width = this.underglow.height = c.size * 2;
+    this.underglow.width = this.underglow.height = c.underglowSize;
     this.underglow.anchor.set(0.5, 0.5);
     this.underglow.tint = c.underglowColor || 0xFFFFFF;
     this.underglow.alpha = 0.75;
@@ -103,7 +116,7 @@ export default class CrucibleTalentIcon extends PIXI.Container {
     // Draw icon
     this.icon.texture = c.texture;
     this.icon.width = this.icon.height = c.size;
-    this.icon.tint = c.tint ?? 0xFFFFFF;
+    this.icon.tint = c.iconTint ?? 0xFFFFFF;
 
     this._drawFrame();
     this._drawMask();

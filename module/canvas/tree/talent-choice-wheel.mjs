@@ -10,10 +10,9 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
 
     /**
      * Background graphics for the wheel
-     * TODO convert back to sprite
      * @type {PIXI.Sprite}
      */
-    this.bg = this.addChild(new PIXI.Graphics());
+    this.bg = this.addChild(new PIXI.Sprite());
 
     /**
      * Edges for showing connections
@@ -55,7 +54,6 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     this.position.set(node.x, node.y);
     this.radius = node.config.size + 64;
     this.#drawBackground();
-    this.#drawEdges();
     await this.#drawTalents();
     this.refresh(); // Set initial display
     this.visible = true;
@@ -84,23 +82,9 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.clear();
-    this.bg.beginFill(0x000000, 1.0).drawCircle(0, 0, this.radius).endFill();
-
-
-    // TODO
-    // this.bg.texture = crucible.tree.spritesheet.wheel;
-    // this.bg.anchor.set(0.5, 0.5);
-    // this.bg.width = this.bg.height = this.radius * 2;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Draw connecting edges within the wheel
-   */
-  #drawEdges() {
-    this.edges.clear().lineStyle({color: "#24160f", width: 4}).drawCircle(0, 0, this.radius).endFill();
+    this.bg.texture = crucible.tree.spritesheet.Wheel;
+    this.bg.anchor.set(0.5, 0.5);
+    this.bg.width = this.bg.height = ((this.radius + 40) * 2); // 40px padding for drop shadow
   }
 
   /* -------------------------------------------- */
@@ -118,10 +102,8 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
     for ( const talent of talents ) {
       const isOwned = crucible.tree.actor.talentIds.has(talent.id);
       const position = shape.pointAtAngle((i * a) - (Math.PI / 2) + (a/2));
-      const icon = new CrucibleTalentTreeTalent(this.node, talent, position, {
-        borderColor: color,
-        texture: await foundry.canvas.loadTexture(talent.img)
-      });
+      await foundry.canvas.loadTexture(talent.img);
+      const icon = new CrucibleTalentTreeTalent(this.node, talent, position);
       this.talents.addChild(icon);
       i++;
 

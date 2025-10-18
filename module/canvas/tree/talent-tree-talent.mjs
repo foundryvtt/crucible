@@ -2,8 +2,8 @@ import CrucibleTalentIcon from "./talent-icon.mjs";
 
 
 export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
-  constructor(node, talent, position, config) {
-    super(config);
+  constructor(node, talent, position) {
+    super();
     this.node = node;
     this.talent = talent;
     this.position.set(position.x, position.y);
@@ -19,27 +19,30 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     const nodeColor = this.node.node.color;
 
     // Defaults
+    config.texture = foundry.canvas.getTexture(this.talent.img);
     config.alpha = active ? 1.0 : 0.6;
     config.underglowColor = active ? nodeColor : null;
+    config.frameTint = active ? 0xFFFFFF : 0x7f7f7f; // 50%
+    config.iconTint = active ? 0xFFFFFF : Color.fromHSL([nodeColor.hsl[0], 0.05, 0.4]);
 
     // Active Talents
     if ( actions.length ) {
-      this.config.shape = "rect";
-      this.config.borderRadius = this.config.size / 6;
+      config.shape = "rect";
+      config.borderRadius = this.config.size / 6;
     }
 
     // Spellcraft Talents
     else if ( rune || gesture || inflection || iconicSpells ) {
-      this.config.shape = "hex";
+      config.shape = "hex";
     }
 
     // Training Talents
     else if ( training.type && training.rank ) {
-      this.config.shape = "hex";
+      config.shape = "hex";
     }
 
     // Passive Talents
-    else this.config.shape = "circle";
+    else config.shape = "circle";
 
     // Further configuration based on shape
     let shape = this.config.shape;
@@ -47,17 +50,17 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
       case "circle":
         config.shape = "circle";
         config.size = 64;
-        config.frameTexture = spritesheet.FrameCircleSmallBronze;
+        config.frameTexture = spritesheet.FrameCircleSmallBronzeShadow;
         break;
       case "hex":
         config.shape = "hex";
         config.size = 64;
-        config.frameTexture = spritesheet.FrameHexSmallBronze;
+        config.frameTexture = spritesheet.FrameHexSmallBronzeShadow;
         break;
       case "rect":
         config.shape = "rect";
         config.size = 64;
-        config.frameTexture = spritesheet.FrameSquareSmallBronze;
+        config.frameTexture = spritesheet.FrameSquareSmallBronzeShadow;
         break;
     }
     return config;

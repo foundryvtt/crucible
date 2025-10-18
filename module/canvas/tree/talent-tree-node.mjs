@@ -1,8 +1,8 @@
 import CrucibleTalentIcon from "./talent-icon.mjs";
 
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
-  constructor(node, config) {
-    super(config);
+  constructor(node) {
+    super();
     this.node = node;
     this.position.set(node.point.x, node.point.y);
   }
@@ -37,16 +37,15 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
     // Accessible Nodes
     else if ( state.accessible ) {
-      config.tint = Color.fromHSL([this.node.color.hsl[0], 0.05, 0.4]);
-      config.frameTint = Color.from(0xFFFFFF).multiply(0.5);
+      config.iconTint = Color.fromHSL([this.node.color.hsl[0], 0.05, 0.4]);
+      config.frameTint = 0x7f7f7f; // 50%
       config.splooshColor = this.node.color.multiply(0.5);
     }
 
     // Inaccessible Nodes
     else {
-      config.borderColor = 0x262322;
-      config.tint = Color.fromHSL([this.node.color.hsl[0], 0.1, 0.2]);
-      config.frameTint = Color.from(0xFFFFFF).multiply(0.25);
+      config.iconTint = Color.fromHSL([this.node.color.hsl[0], 0.1, 0.2]);
+      config.frameTint = 0x3f3f3f; // 25%
       config.splooshColor = Color.fromHSL([this.node.color.hsl[0], 0.33, 0.15]);
     }
 
@@ -71,8 +70,9 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
         break;
       case "largeHex":
         config.shape = "hex";
-        config.size = config.borderRadius = 130;
+        config.size = 128;
         config.frameTexture = spritesheet.FrameHexLargeBronze;
+        config.underglowSize = 200;
         break;
       case "originHex":
         config.alpha = 1.0;
