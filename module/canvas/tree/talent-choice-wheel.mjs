@@ -71,9 +71,10 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
       tree.foreground.removeChild(this.node);
       tree.nodes.addChild(this.node);
     }
+    this.edges.clear();
+    this.talents.removeChildren().forEach(t => t.destroy());
     this.visible = false;
     this.node = null;
-    this.talents.removeChildren().forEach(t => t.destroy());
   }
 
   /* -------------------------------------------- */
@@ -82,9 +83,9 @@ export default class CrucibleTalentChoiceWheel extends PIXI.Container {
    * Draw the wheel background.
    */
   #drawBackground() {
-    this.bg.texture = crucible.tree.spritesheet.Wheel;
+    this.bg.texture = crucible.tree.spritesheet.WheelMinimal;
     this.bg.anchor.set(0.5, 0.5);
-    this.bg.width = this.bg.height = ((this.radius + 40) * 2); // 40px padding for drop shadow
+    this.bg.width = this.bg.height = this.radius * 2.7; // 2.7 accounts for 35% wheel texture padding
   }
 
   /* -------------------------------------------- */
