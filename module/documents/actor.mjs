@@ -851,7 +851,7 @@ export default class CrucibleActor extends Actor {
       const s = effect.duration.seconds;
       if ( effect.id === "weakened00000000" ) arr.push(effect.id);
       else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( !s || (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
+      else if ( s && (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
