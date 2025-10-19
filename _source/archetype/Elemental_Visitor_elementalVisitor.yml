@@ -1,0 +1,44 @@
+folder: aM53nJVqmTrIHXyE
+name: Elemental Visitor
+type: archetype
+_id: elementalVisitor
+img: icons/magic/symbols/elements-air-earth-fire-water.webp
+system:
+  description: >-
+    <p>Visitors are embodiments of raw elemental energy that assume forms that
+    are vaguely humanoid in shape. Unlike their lesser kin, Elemental Visitors
+    are are capable of communication and understanding, although their
+    motivations are seldom aligned with those of mortals.</p>
+  identifier: elementalVisitor
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 2
+    strength: 3
+    toughness: 3
+    dexterity: 1
+  talents:
+    - Compendium.crucible.talent.Item.gesturefan000000
+    - Compendium.crucible.talent.Item.gestureaspect000
+  skills:
+    - athletics
+    - intimidation
+    - performance
+  equipment: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760894903350
+  modifiedTime: 1760895066202
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!items!elementalVisitor'

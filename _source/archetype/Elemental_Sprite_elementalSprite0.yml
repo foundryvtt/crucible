@@ -22,8 +22,8 @@ system:
     - performance
   equipment: []
 effects: []
-folder: null
-sort: 0
+folder: aM53nJVqmTrIHXyE
+sort: 100000
 ownership:
   default: 0
   QvBFYpRRXHRBcOfP: 3
@@ -36,6 +36,6 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.9
   createdTime: 1760803475184
-  modifiedTime: 1760804135873
+  modifiedTime: 1760894285257
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _key: '!items!elementalSprite0'

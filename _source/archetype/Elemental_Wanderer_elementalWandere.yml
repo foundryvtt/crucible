@@ -1,0 +1,47 @@
+folder: aM53nJVqmTrIHXyE
+name: Elemental Wanderer
+type: archetype
+_id: elementalWandere
+img: icons/magic/symbols/elements-air-earth-fire-water.webp
+system:
+  description: >-
+    <p>Wanderers are significant manifestations of elemental energy that assume
+    a form that is imposing or majestic. They are self-aware, sapient, and
+    understand that they unnatural interlopers when outside of their typical
+    realm. They are often driven by some instinctive or premeditated purpose
+    which has drawn them forth.</p>
+  identifier: elementalWanderer
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 3
+    toughness: 3
+    dexterity: 2
+  talents:
+    - Compendium.crucible.talent.Item.gestureaspect000
+    - Compendium.crucible.talent.Item.gesturestep00000
+    - Compendium.crucible.talent.Item.gesturestrike000
+    - Compendium.crucible.talent.Item.gesturepulse0000
+  skills:
+    - athletics
+    - intimidation
+    - performance
+  equipment: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760896169436
+  modifiedTime: 1760896468001
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!items!elementalWandere'
