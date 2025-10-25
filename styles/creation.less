@@ -497,42 +497,27 @@
   }
 }
 
-// Dynamic scaling
-// The fullscreen UI is designed for 1920x1080. Smaller or larger screens must adapt
-@media (min-width: 2000px) {
-  .crucible-fullscreen {
-    --ui-scale: 1.1;
-  }
-}
-@media (max-width: 1660px) {
-  .crucible-fullscreen {
+/* -------------------------------------------- */
+/*  Dynamic Scaling                             */
+/*  Designed for base 1920x1080                 */
+/* -------------------------------------------- */
+
+.crucible-fullscreen {
+  @media (min-width: 2000px) { --ui-scale: 1.1; }
+  @media (max-width: 1660px) {
+    --ui-scale: 1.0;
     --max-width: 1400px;
   }
-}
-@media (max-width: 1480px) {
-  .crucible-fullscreen {
+  @media (max-width: 1480px) {
     --ui-scale: 0.9;
+    --max-width: calc(100% - (2 * var(--gap)));
   }
-}
-@media (max-width: 1340px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.9;
-    --max-width: 1200px;
-  }
-}
-@media (max-width: 1200px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.8;
-    --max-width: 1100px;
-  }
-}
-@media (max-height: 1040px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.9;
-  }
-}
-@media (max-height: 900px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.8;
-  }
+  @media (max-width: 1340px) { --ui-scale: 0.9; }
+  @media (max-width: 1200px) { --ui-scale: 0.8; }
+
+  // Height Scaling
+  @media (max-height: 1200px) { --ui-scale: 1.0; }
+  @media (max-height: 1040px) { --ui-scale: 0.9; }
+  @media (max-height: 920px) { --ui-scale: 0.8; }
+  @media (max-height: 800px) { --ui-scale: 0.7; }
 }
