@@ -62,6 +62,7 @@ system:
         - dexterity
         - skill
         - athletics
+        - consume
       actionHooks: []
   uses:
     value: 1
@@ -87,7 +88,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.9
   createdTime: 1751422081513
-  modifiedTime: 1760799347437
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1761413874238
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 200000
 _key: '!items!KdlUUFhAnpv6YIHT'

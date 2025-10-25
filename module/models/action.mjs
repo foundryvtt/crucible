@@ -81,6 +81,7 @@ import CrucibleActionConfig from "../applications/config/action-config.mjs";
 /**
  * @typedef CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
+ * @property {boolean} self               Is this outcome target the action actor?
  * @property {ActionUsage} [usage]        Outcome-specific usage data
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
@@ -968,6 +969,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       resources: {},
       actorUpdates: {},
       metadata: {},
+      self: actor === this.actor,
       statusText: [],
     };
 

@@ -40,6 +40,28 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.antitoxin = {
+  async confirm(reverse) {
+    if ( reverse ) return; // Eventually would be nice to store the removed toxin effects so this can be reversible
+    const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
+    const neutralizeAmount = tiers[this.item.system.quality];
+    const targetSelf = this.outcomes.size === 1;
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.self && !targetSelf ) continue;
+      const effectsToDelete = [];
+      for ( const effect of outcome.target.effects ) {
+        if ( !effect.statuses.has("poisoned") || !effect.flags.crucible?.dot ) continue;
+        const dot = effect.flags.crucible.dot;
+        const poisonAmount = (dot.health || 0) + (dot.morale || 0);
+        if ( poisonAmount <= neutralizeAmount ) effectsToDelete.push(effect.id);
+      }
+      if ( effectsToDelete.length ) await outcome.target.deleteEmbeddedDocuments("ActiveEffect", effectsToDelete);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.assessStrength = {
   configure(targets) {
     const target = targets[0]?.actor;
@@ -292,6 +314,22 @@ HOOKS.oozeSubdivide = {
   },
   canUse() {
     if ( this.actor.size < 3 ) throw new Error(`You must be at least size 3 to use ${this.name}`);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.poisonIngest = {
+  prepare() {
+    const tiers = {
+      shoddy: {amount: 2, duration: 4},
+      standard: {amount: 4, duration: 6},
+      fine: {amount: 6, duration: 8},
+      superior: {amount: 8, duration: 10},
+      masterwork: {amount: 10, duration: 12},
+    };
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
+    foundry.utils.mergeObject(this.effects[0], poisoned);
   }
 }
 

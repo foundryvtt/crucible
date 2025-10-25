@@ -1,0 +1,120 @@
+folder: jbap2z8839rf6CuO
+name: Poison Vial
+type: consumable
+_id: poisonVial000000
+img: icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+system:
+  identifier: poisonVial
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 2500
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>This small vial contains murky liquid that is noticeably thicker than
+      water. It emits a disconcerting scent that evokes a sense of
+      wrongness.</p>
+    private: ''
+  actions:
+    - id: poisonIngest
+      name: Ingest Poison
+      img: >-
+        icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+      condition: ''
+      description: >-
+        <p>When this toxin is ingested or otherwise enters the bloodstream of a
+        creature, it is initially <strong>Harmless</strong>, but the target must
+        defend an attack against its <strong>Fortitude</strong> or become
+        @Condition[poisoned].</p><p>The amount of poison damage and its duration
+        is dependent on the quality of the
+        @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 4
+        rounds</p></li><li><p><strong>Standard</strong> - 4 damage for 6
+        rounds</p></li><li><p><strong>Fine</strong> - 6 damage for 8
+        rounds</p></li><li><p><strong>Superior</strong> - 8 damage for 10
+        rounds</p></li><li><p><strong>Masterwork</strong> - 10 damage for 12
+        rounds</p></li></ul><p><em>This action should be used when the poison is
+        ingested rather than when it is first applied.</em></p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: false
+      effects:
+        - name: Poisoned
+          scope: 4
+          statuses:
+            - poisoned
+          duration:
+            turns: 6
+            rounds: null
+      tags:
+        - harmless
+        - fortitude
+        - skill
+        - medicine
+      actionHooks: []
+    - id: poisonApply
+      name: Apply Poison
+      img: >-
+        icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+      condition: ''
+      description: >-
+        <p>The contents of this vial can be added to food, drink, smeared upon a
+        bladed weapon, or combined with some alternative delivery
+        mechanism.</p><p><em>This action, which consumes the available usage of
+        the poison, should be used when it is first applied.</em></p>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: none
+        number: 1
+        scope: 0
+        self: false
+      effects: []
+      tags:
+        - freehand
+        - consume
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1761412685983
+  modifiedTime: 1761416179647
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!poisonVial000000'

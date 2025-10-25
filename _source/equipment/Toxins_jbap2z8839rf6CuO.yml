@@ -1,0 +1,18 @@
+type: Item
+folder: 28lvOLF0NPxRjMta
+name: Toxins
+color: null
+sorting: a
+_id: jbap2z8839rf6CuO
+description: ''
+sort: 0
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  lastModifiedBy: null
+_key: '!folders!jbap2z8839rf6CuO'

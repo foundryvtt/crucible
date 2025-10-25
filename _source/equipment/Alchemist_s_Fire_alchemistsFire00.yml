@@ -31,10 +31,10 @@ system:
         damage but causing the @Condition[burning] condition to all enemies in a
         4 foot radius <strong>Blast</strong> who fail to avoid the
         attack.</p><p>The amount of burning damage and its duration is dependent
-        on the quality of the bomb:</p><ul><li><p><strong>Shoddy</strong> - 2
-        damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3 damage
-        for 3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for 4
-        rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
+        on the quality of the @ref[name]:</p><ul><li><p><strong>Shoddy</strong>
+        - 2 damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3
+        damage for 3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for
+        4 rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
         rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
         rounds</p></li></ul>
       cost:
@@ -64,9 +64,9 @@ system:
         - freehand
         - weakened
         - reflex
-        - dexterity
         - skill
         - athletics
+        - consume
       actionHooks: []
   uses:
     value: 1
@@ -85,7 +85,7 @@ _stats:
   systemId: crucible
   systemVersion: 0.7.9
   createdTime: 1751637580701
-  modifiedTime: 1760799374801
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1761413882122
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 100000
 _key: '!items!alchemistsFire00'
