@@ -30,8 +30,9 @@ system:
       bonus: 0
   advancement:
     level: 6
+    talentNodes:
+      - wis4a
     milestones: 0
-    talentNodes: []
   defenses:
     armor:
       bonus: 0
@@ -91,6 +92,7 @@ system:
       name: Scholar
       img: icons/magic/symbols/star-inverted-yellow.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +105,8 @@ system:
       height: ''
       weight: ''
       appearance: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -156,6 +160,7 @@ system:
     - reactiveStrike
     - intuitWeakness
     - refocus
+  currency: 0
 prototypeToken:
   name: Fizzit
   displayName: 20
@@ -261,16 +266,16 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: 96jfR1A1d6
+      identifier: 71dlFfUI5E
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -298,7 +303,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: C9JoHt2k8i
+      identifier: bfpXEHazoN
       invested: false
       actorHooks: []
       dropped: false
@@ -309,9 +314,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -336,7 +341,7 @@ items:
         public: ''
         private: ''
       actions: []
-      identifier: ruehKf7bYg
+      identifier: TTZ87bSxMs
       invested: false
       actorHooks: []
       dropped: false
@@ -348,9 +353,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: ncji9G3g4WqBffUK
     sort: 200000
@@ -408,13 +413,13 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -50000
     ownership:
@@ -450,9 +455,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -490,9 +495,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -530,9 +535,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runefrost0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -574,9 +579,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gesturecreate000
     folder: D14x9AJ0TgXKtnzu
@@ -584,42 +589,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.gesturecreate000'
-  - name: Conserve Effort
-    type: talent
-    img: icons/magic/time/arrows-circling-pink.webp
-    system:
-      description: >-
-        <p>You find calmness and focus in conserving your effort in battle. When
-        you end your <strong>Turn</strong> with un-spent Action you gain
-        <strong>+1 Focus</strong>.</p>
-      actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - wispre2
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags:
-      core: {}
-    _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-    _id: conserveeffort00
-    folder: qHUCrqkzuPHtBkbG
-    sort: 150000
-    ownership:
-      default: 0
-    _key: '!actors.items!lP2MOJyk5oHs6oSS.conserveeffort00'
   - name: 'Inflection: Compose'
     type: talent
     img: icons/magic/symbols/arrowhead-green.webp
@@ -644,13 +613,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
     sort: 100000
@@ -680,13 +649,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: conjurer00000000
     folder: fOYHlZJEWUukD7yr
     sort: 0
@@ -720,13 +689,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: runemind00000000
     folder: Dy9HnwadNE3kSZ4f
     sort: 100000
@@ -768,13 +737,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: rimecaller000000
     folder: c0nl6X8tp4Of0Y4O
     sort: -225000
@@ -819,13 +788,13 @@ items:
     sort: -300000
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.mesmer0000000000'
@@ -853,13 +822,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: recognizespellcr
     folder: Uk4FgmLsNJc62zCJ
     sort: 50000
@@ -928,13 +897,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: counterspell0000
     folder: gCqKVVNjLmIaU7vj
     sort: 100000
@@ -981,9 +950,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1025,9 +994,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1060,9 +1029,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: mechanicalTraini
     ownership:
@@ -1099,9 +1068,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -1132,19 +1101,262 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: irrepressiblespi
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -100000
     ownership:
       default: 0
     _key: '!actors.items!lP2MOJyk5oHs6oSS.irrepressiblespi'
+  - name: Tactician
+    type: talent
+    _id: tactician0000000
+    img: icons/sundries/flags/banner-symbol-axe-red.webp
+    system:
+      description: >-
+        <p>You are a cunning battlefield tactician, able to organize and direct
+        your allies to act with increased effectiveness.</p>
+      actions:
+        - id: tacticalPlan
+          name: Tactical Plan
+          description: >-
+            Using 10 words or fewer, describe a course of action to an ally who
+            acts after you in Initiative order. If that ally carries out your
+            described plan later in the same Round, they gain +2 Boons on any
+            dice rolls associated with that plan. The Gamemaster may arbitrate
+            whether or not the plan was followed.
+          tags: []
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          img: null
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          actionHooks: []
+      nodes:
+        - sig3.presence.intellect
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.tactician0000000'
+  - name: Wildspeaker
+    type: talent
+    img: icons/skills/social/diplomacy-peace-alliance.webp
+    system:
+      nodes:
+        - wis1a
+      description: >-
+        <p>You have a preternatural knack for communicating with animals.
+        Through body language and sounds, you are capable of interpreting and
+        communicating in the language of the wilderness.</p>
+      actions:
+        - id: wildspeak
+          name: Wildspeak
+          img: icons/skills/social/diplomacy-peace-alliance.webp
+          condition: ''
+          description: >-
+            <p>If you succeed on a [[/skillCheck wilderness 14]] check, you may
+            pose simple questions to a <strong>Beast</strong> which can perceive
+            you. As long as the creature is not hostile it will respond
+            accurately within the limits of its own
+            knowledge.</p><ul><li><p>Beasts with an <strong>Intellect</strong>
+            score of zero are incapable of understanding
+            you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score
+            of 1 can only respond with "yes" or "no"
+            responses.</p></li><li><p>Beasts with an <strong>Intellect</strong>
+            score greater than 1 can provide simple multi-word
+            responses.</p></li></ul>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - noncombat
+            - skill
+            - wilderness
+          actionHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: wildspeaker00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.wildspeaker00000'
+  - name: Mental Fortress
+    type: talent
+    img: icons/magic/holy/barrier-shield-winged-blue.webp
+    system:
+      description: >-
+        Your strong will makes you exceedingly difficult to influence. You gain
+        +1 to your Willpower defense and +5 Psychic resistance.
+      actions: []
+      actorHooks:
+        - hook: prepareResistances
+          fn: resistances.psychic.base += 5;
+        - hook: prepareDefenses
+          fn: defenses.willpower.bonus += 1;
+      nodes:
+        - pre2a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: mentalfortress00
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.mentalfortress00'
+  - name: Focused Anticipation
+    type: talent
+    _id: focusedanticipat
+    img: icons/magic/light/circle-window-clock-blue.webp
+    system:
+      description: >-
+        Anticipation leads to decisive action. When you have the highest
+        <strong>Initiative</strong> score for a Round of combat, you gain
+        <strong>+1 Focus</strong>.<p></p>
+      nodes:
+        - int4b
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.focusedanticipat'
+  - name: 'Gesture: Pulse'
+    type: talent
+    _id: gesturepulse0000
+    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+    system:
+      description: >-
+        <p>Emit a burst of Runic power in a circular wave that travels outward,
+        with you at its center. A Pulse of Spirit might be used to bolster
+        Morale for your allies, while a Death pulse might be used to deal
+        Corruption damage to a group of enemies gathered around you.</p><p>The
+        Pulse gesture scales using <strong>Presence</strong> and targets a 360
+        degree, 6 foot radius, dealing 6 base damage on a successful attack.</p>
+      actions: []
+      gesture: pulse
+      actorHooks: []
+      nodes:
+        - pre2b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!lP2MOJyk5oHs6oSS.gesturepulse0000'
 effects: []
 flags:
   core: {}
@@ -1218,14 +1430,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: lP2MOJyk5oHs6oSS
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!lP2MOJyk5oHs6oSS'

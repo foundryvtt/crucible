@@ -93,6 +93,7 @@ system:
       name: Performer
       img: icons/skills/movement/ball-spinning-blue.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -104,6 +105,8 @@ system:
       height: ''
       weight: ''
       appearance: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -155,6 +158,7 @@ system:
     - refocus
     - strike
     - cast
+  currency: 0
 prototypeToken:
   name: Zarajah
   displayName: 20
@@ -259,7 +263,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: x8xIkYBGK6
+      identifier: rN9OWMO4sG
       invested: false
       actorHooks: []
       dropped: false
@@ -270,9 +274,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -301,16 +305,16 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: TM9rezbpTB
+      identifier: R6PzDLy9GO
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -374,9 +378,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
@@ -412,9 +416,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runeflame0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -455,9 +459,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -495,9 +499,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runevoid00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -539,9 +543,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -580,9 +584,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -614,9 +618,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
@@ -675,9 +679,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
@@ -694,15 +698,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1751148758927
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: sqTUaPrXpwCzk3xs
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!sqTUaPrXpwCzk3xs'

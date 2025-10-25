@@ -92,6 +92,7 @@ system:
       name: Physician
       img: icons/magic/life/cross-flared-green.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +104,10 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
+    languages:
+      - common
+    knowledge: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -154,6 +159,7 @@ system:
     - strike
     - cast
     - fontOfLife
+  currency: 0
 prototypeToken:
   name: Kagura
   displayName: 20
@@ -258,10 +264,10 @@ items:
         private: ''
       actions: []
       slot: 1
-      identifier: 5T741f6AVM
+      dropped: false
+      identifier: nDMzrO4gBM
       invested: false
       actorHooks: []
-      dropped: false
     effects: []
     flags:
       core: {}
@@ -269,9 +275,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -300,16 +306,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 3vtiItmQbp
+      identifier: 6Y8kgNEswY
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -345,9 +351,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runelife00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -396,9 +402,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runecourage00000
     folder: Dy9HnwadNE3kSZ4f
@@ -439,9 +445,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -481,9 +487,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -517,9 +523,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: irrepressiblespi
     folder: 4Ll3b4Q4us2mp4Fu
@@ -553,9 +559,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: conserveeffort00
     folder: qHUCrqkzuPHtBkbG
@@ -624,9 +630,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: fOYHlZJEWUukD7yr
     _id: healer0000000000
@@ -664,9 +670,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: mentalfortress00
     sort: 100000
@@ -700,9 +706,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: inflectioncompos
     folder: mFfsius4gpT45Q2R
@@ -740,9 +746,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runeearth0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -788,9 +794,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: dustbinder000000
     folder: c0nl6X8tp4Of0Y4O
@@ -833,9 +839,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -877,9 +883,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -912,9 +918,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -958,9 +964,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -968,24 +974,658 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!Il4NDaNBdHNcjJ9d.runewarden000000'
+  - name: Wildspeaker
+    type: talent
+    img: icons/skills/social/diplomacy-peace-alliance.webp
+    system:
+      nodes:
+        - wis1a
+      description: >-
+        <p>You have a preternatural knack for communicating with animals.
+        Through body language and sounds, you are capable of interpreting and
+        communicating in the language of the wilderness.</p>
+      actions:
+        - id: wildspeaker
+          name: Wildspeaker
+          img: icons/skills/social/diplomacy-peace-alliance.webp
+          condition: ''
+          description: >-
+            <p>If you succeed on a [[/skillCheck wilderness 14]] check, you may
+            pose simple questions to a <strong>Beast</strong> which can perceive
+            you. As long as the creature is not hostile it will respond
+            accurately within the limits of its own
+            knowledge.</p><ul><li><p>Beasts with an <strong>Intellect</strong>
+            score of zero are incapable of understanding
+            you.</p></li><li><p>Beasts with an <strong>Intellect</strong> score
+            of 1 can only respond with "yes" or "no"
+            responses.</p></li><li><p>Beasts with an <strong>Intellect</strong>
+            score greater than 1 can provide simple multi-word
+            responses.</p></li></ul>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: self
+            number: 1
+            scope: 1
+            self: false
+          effects: []
+          tags:
+            - noncombat
+            - harmless
+            - skill
+            - wilderness
+          actionHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: wildspeaker00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.wildspeaker00000'
+  - name: Healing Elixir Formula
+    type: schematic
+    system:
+      identifier: healingElixirRecipe
+      category: alchemy
+      quantity: 1
+      weight: 1
+      price: 7500
+      quality: standard
+      properties:
+        - common
+      description:
+        public: A commonly known recipe for creating a basic healing potion.
+        private: >-
+          You can turn particular healing herbs found in the wild into a bottled
+          elixir using Alchemists Tools.
+      inputs:
+        - mode: ANY
+          ingredients:
+            - quantity: 1
+              item: Item.healingHerbs0000
+              quality: ''
+              consumed: true
+            - quantity: 1
+              item: Item.alchemicalVial00
+              quality: ''
+              consumed: true
+            - quantity: 1
+              item: Item.alchemistsTools0
+              quality: standard
+              consumed: false
+          currency: 1500
+      outputs:
+        - - quantity: 1
+            item: Compendium.crucible.equipment.Item.healingElixir000
+      dc: 15
+      hours: 4
+    img: icons/sundries/documents/document-symbol-person-brown.webp
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: JRqc3sRONMGAfSZ0
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.JRqc3sRONMGAfSZ0'
+  - name: Healing Elixir Formula
+    type: schematic
+    system:
+      identifier: healingElixirRecipe
+      category: alchemy
+      quantity: 1
+      weight: 1
+      price: 7500
+      quality: standard
+      properties:
+        - common
+      description:
+        public: A commonly known recipe for creating a basic healing potion.
+        private: >-
+          You can turn particular healing herbs found in the wild into a bottled
+          elixir using Alchemists Tools.
+      inputs:
+        - mode: ANY
+          ingredients:
+            - quantity: 1
+              item: Item.healingHerbs0000
+              quality: ''
+              consumed: true
+            - quantity: 1
+              item: Item.alchemicalVial00
+              quality: ''
+              consumed: true
+            - quantity: 1
+              item: Item.alchemistsTools0
+              quality: standard
+              consumed: false
+          currency: 1500
+      outputs:
+        - - quantity: 1
+            item: Compendium.crucible.equipment.Item.healingElixir000
+      dc: 15
+      hours: 4
+    img: icons/sundries/documents/document-symbol-person-brown.webp
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: 7Gh7o63Ny3uN81vM
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.7Gh7o63Ny3uN81vM'
+  - name: Alchemical Vial
+    type: loot
+    img: icons/consumables/potions/bottle-corked-empty.webp
+    system:
+      identifier: alchemicalVial
+      category: ingredient
+      quantity: 3
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      properties: []
+      description:
+        public: ''
+        private: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: qvJkd2n69GcdvQSD
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.qvJkd2n69GcdvQSD'
+  - name: Alchemists Tools
+    type: loot
+    img: icons/tools/laboratory/vials-blue-pink.webp
+    system:
+      identifier: alchemistsTools
+      category: ingredient
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      properties: []
+      description:
+        public: ''
+        private: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: rqy8F6OgvWeftNTw
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.rqy8F6OgvWeftNTw'
+  - name: Healing Herbs
+    type: loot
+    img: icons/commodities/flowers/buds-red-green.webp
+    system:
+      identifier: healingHerbs
+      category: ingredient
+      quantity: 1
+      weight: 0
+      price: 0
+      quality: standard
+      broken: false
+      enchantment: mundane
+      properties: []
+      description:
+        public: ''
+        private: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: 3pHRBTGvfLngjRJ9
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.3pHRBTGvfLngjRJ9'
+  - name: Versatile Translator
+    type: talent
+    img: icons/skills/trades/academics-book-study-runes.webp
+    system:
+      nodes:
+        - int1b
+      description: >-
+        <p>You have a scholarly background in linguistics or an intuitive knack
+        for languages. Your capabilities enable you to decipher the basic
+        meaning of text written in a variety of languages.</p><p>You can
+        translate text of a language you do not know that is written using a
+        common set of glyphs or characters to a language that you do know.
+        Creating such a translation requires spending one minute per word to
+        transcribe the text into a language which you understand.</p><p>Your
+        translations are rudimentary and often lack nuance, but they do contain
+        all essential points of the text.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: versatileTransla
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.versatileTransla'
+  - name: Soothe
+    type: talent
+    _id: soothe0000000000
+    img: icons/magic/life/heart-cross-strong-blue.webp
+    system:
+      description: >-
+        You administer a soothing Performance which rallies your allies,
+        restoring Morale.
+      actions:
+        - id: soothe
+          description: >-
+            <p>You perform a calming verse, benefiting all allies who can
+            perceive you within 12 feet. Make a <strong>Performance
+            Check</strong> against the Madness threshold of each ally. On
+            success, each ally's Morale is restored.</p>
+          tags:
+            - rallying
+            - morale
+            - performance
+          cost:
+            action: 3
+            focus: 1
+            weapon: false
+            heroism: 0
+          target:
+            type: pulse
+            number: 1
+            scope: 2
+            size: 12
+            self: false
+          effects: []
+          name: Soothe
+          img: icons/magic/life/heart-cross-strong-blue.webp
+          condition: ''
+          range:
+            maximum: null
+            weapon: false
+            minimum: null
+          actionHooks: []
+      nodes:
+        - pre2c
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.soothe0000000000'
+  - name: Eye of the Storm
+    type: talent
+    _id: eyeofthestorm000
+    img: icons/magic/water/wave-water-explosion.webp
+    system:
+      description: >-
+        <p>After you Delay your Turn, gain +2 Boons on any Strike or Spell
+        attack against an enemy that you allowed to act before you that
+        Round.</p><p>TODO: Needs automation. For now apply boons manually.</p>
+      actions: []
+      nodes:
+        - wis4c
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.eyeofthestorm000'
+  - name: 'Gesture: Pulse'
+    type: talent
+    _id: gesturepulse0000
+    img: icons/magic/air/wind-vortex-swirl-blue-purple.webp
+    system:
+      description: >-
+        <p>Emit a burst of Runic power in a circular wave that travels outward,
+        with you at its center. A Pulse of Spirit might be used to bolster
+        Morale for your allies, while a Death pulse might be used to deal
+        Corruption damage to a group of enemies gathered around you.</p><p>The
+        Pulse gesture scales using <strong>Presence</strong> and targets a 360
+        degree, 6 foot radius, dealing 6 base damage on a successful attack.</p>
+      actions: []
+      gesture: pulse
+      actorHooks: []
+      nodes:
+        - pre2b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.gesturepulse0000'
+  - name: Inspirator
+    type: talent
+    _id: inspirator000000
+    img: icons/magic/light/explosion-star-glow-silhouette.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Spirit. Spells which
+        use this Rune cause the Inspired condition on Critical Hits.</p><p>The
+        Inspired effect lasts for 1 Round and deals your Presence score as
+        restoration to Morale.</p>
+      actions: []
+      nodes:
+        - pre3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.inspirator000000'
+  - name: Mender
+    type: talent
+    _id: mender0000000000
+    img: icons/magic/life/cross-beam-green.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Life. Spells which use
+        this Rune cause the Mending condition on Critical Hits.</p><p>The
+        Mending effect lasts for 1 Round and deals your Wisdom score as
+        restoration to Health.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Life rune
+            if ( action.rune?.id !== "life" ) return;
+
+            // Require restoration to Health
+            const restoreHealth = outcome.resources.health > 0;
+            if ( !restoreHealth ) return;
+
+            // Apply Mending effect
+            const mending = SYSTEM.EFFECTS.mending(this, outcome.target);
+            outcome.effects.push(mending);
+      nodes:
+        - wis3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.mender0000000000'
+  - name: Arcana Novice
+    type: talent
+    _id: arcanaNovice0000
+    img: systems/crucible/icons/skills/arcana.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">Your education covered the
+        fundamentals of metaphysics and magical theory, the relationship between
+        the runes, the opposing nature of order and chaos, and a cursory
+        introduction to spiritual beings including the most commonly known
+        deified and demonized figures of worship. You gain the
+        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
+        rudimentary understanding of the principle grammar of magic is
+        sufficient to identify which lesser rune a spell or ritual may be using,
+        as well as the gesture used (if not the inflection). You can identify
+        whether a figure is influenced more by chaos or by order, and can spot
+        the signs of common spirits (both lesser and greater). You know enough
+        about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: arcana
+        rank: 1
+      actorHooks: []
+      nodes:
+        - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!Il4NDaNBdHNcjJ9d.arcanaNovice0000'
 effects: []
 flags:
   core: {}
   crucible:
     lastSpell: spell.life.ray.compose
+    actionHistory:
+      - id: wildspeaker
+        messageId: tMoWq4UN9zguhNFO
+        combat: null
+      - id: wildspeaker
+        messageId: Z6PfWww7YDvmRw3n
+        combat: null
+      - id: wildspeaker
+        messageId: rjxnQ9wfAccJvYd1
+        combat: null
+      - id: wildspeaker
+        messageId: E2CBnIgETR9PStib
+        combat: null
+      - id: wildspeaker
+        messageId: sLjbXLoCym7axWKd
+        combat: null
+      - id: wildspeaker
+        messageId: Vkk9AywK49Te75q9
+        combat: null
+      - id: wildspeaker
+        messageId: HG68qgX0iH4k1dl1
+        combat: null
+      - id: wildspeaker
+        messageId: uKDGlDUK605TANkW
+        combat: null
+      - id: wildspeaker
+        messageId: MbrGobBBy8XH7Tlg
+        combat: null
+      - id: wildspeaker
+        messageId: 5xLTQr3KJj5jsLoM
+        combat: null
+      - id: wildspeaker
+        messageId: ZgPSZlpNveZx07iX
+        combat: null
+      - id: wildspeaker
+        messageId: DoQ7s8qm4XklGXxM
+        combat: null
+      - id: wildspeaker
+        messageId: 1LeCQ9mLcd5FocFl
+        combat: null
+      - id: wildspeaker
+        messageId: DW2hqpxo6Q7894ta
+        combat: null
+      - id: wildspeaker
+        messageId: WR4ioEJ4cWCs2S1J
+        combat: null
+      - id: wildspeaker
+        messageId: OhEmh4Wf2BjFDsk2
+        combat: null
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1751148758927
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: Il4NDaNBdHNcjJ9d
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!Il4NDaNBdHNcjJ9d'

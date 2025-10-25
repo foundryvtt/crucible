@@ -11,9 +11,10 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.3
-  modifiedTime: 1755706393311
+  systemVersion: 0.7.9
+  createdTime: 1761424864698
+  modifiedTime: 1761424864698
   lastModifiedBy: AnoypGxxNIMOS0XY
 _key: '!folders!2tdnCBbxNPNuhxzT'

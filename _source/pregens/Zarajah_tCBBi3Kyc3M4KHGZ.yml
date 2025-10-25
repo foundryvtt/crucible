@@ -86,14 +86,14 @@ system:
         - Compendium.crucible.talent.Item.performanceNovic
         - Compendium.crucible.talent.Item.deceptionNovice0
         - Compendium.crucible.talent.Item.lightWeaponTrain
-        - Compendium.crucible.talent.Item.dualwield0000000
       identifier: performer
       ui:
         color: '#e26ce4'
+      knowledge: []
+      languages: []
+      skills: []
       name: Performer
       img: icons/skills/movement/ball-spinning-blue.webp
-      knowledge: []
-      skills: []
     biography:
       public: >-
         <p>Zarajah is a spirited Devilkin with a penchant for pyromancy who
@@ -105,6 +105,8 @@ system:
       weight: ''
       appearance: ''
       pronouns: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -156,6 +158,7 @@ system:
     - refocus
     - strike
     - cast
+  currency: 0
 prototypeToken:
   name: Zarajah
   displayName: 20
@@ -260,7 +263,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: Bg05HLo5Kz
+      identifier: fakuwQBr8T
       invested: false
       actorHooks: []
       dropped: false
@@ -271,9 +274,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -302,16 +305,16 @@ items:
         base: 9
       broken: false
       actions: []
-      identifier: Ltb1RhMyTR
+      identifier: dP0IBlIrYg
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -375,9 +378,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: 4Ll3b4Q4us2mp4Fu
     sort: -300000
@@ -413,9 +416,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runeflame0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -456,9 +459,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -490,13 +493,13 @@ items:
     sort: 0
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.inflectiondeterm'
@@ -524,13 +527,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: warmage000000000
     folder: fOYHlZJEWUukD7yr
     sort: 237500
@@ -564,13 +567,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
     sort: 100000
@@ -602,13 +605,13 @@ items:
     sort: -75000
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.impetus000000000'
@@ -649,13 +652,13 @@ items:
     sort: -50000
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.intellectualsupe'
@@ -684,13 +687,13 @@ items:
     sort: 300000
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.opportunisticspe'
@@ -730,13 +733,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: pyromancer000000
     folder: c0nl6X8tp4Of0Y4O
     sort: -400000
@@ -773,13 +776,13 @@ items:
     sort: 1000000
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.gesturepulse0000'
@@ -811,13 +814,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
     sort: 700000
@@ -851,13 +854,13 @@ items:
     flags:
       core: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     _id: runeradiance0000
     folder: Dy9HnwadNE3kSZ4f
     sort: 600000
@@ -894,9 +897,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runevoid00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -938,9 +941,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -979,9 +982,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1013,60 +1016,82 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: lightWeaponTrain
     ownership:
       default: 0
     _key: '!actors.items!tCBBi3Kyc3M4KHGZ.lightWeaponTrain'
-  - name: Dual Wield
+  - name: Arcana Novice
     type: talent
-    img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
+    _id: arcanaNovice0000
+    img: systems/crucible/icons/skills/arcana.jpg
     system:
       description: >-
-        <p>You are adept at fighting with two weapons simultaneously. You can
-        weave attacks together to strike more rapidly than possible with a
-        single weapon.</p>
-      actions:
-        - id: offhandStrike
-          name: Offhand Strike
-          description: >-
-            <p>Immediately after you perform a basic Strike with your mainhand
-            weapon, you make a reduced-cost fullow-up <strong>Strike</strong>
-            with your <strong>offhand</strong> weapon.</p>
-          tags:
-            - afterStrike
-            - offhand
-          cost:
-            action: -1
-            focus: 0
-            weapon: true
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          img: icons/skills/melee/weapons-crossed-swords-black-gray.webp
-          condition: ''
-          actionHooks: []
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
+        <p><span style="font-family:Vollkorn, serif">Your education covered the
+        fundamentals of metaphysics and magical theory, the relationship between
+        the runes, the opposing nature of order and chaos, and a cursory
+        introduction to spiritual beings including the most commonly known
+        deified and demonized figures of worship. You gain the
+        <strong>Novice</strong> rank in the <strong>Arcana </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</span></p><p><span style="font-family:Vollkorn, serif">Your
+        rudimentary understanding of the principle grammar of magic is
+        sufficient to identify which lesser rune a spell or ritual may be using,
+        as well as the gesture used (if not the inflection). You can identify
+        whether a figure is influenced more by chaos or by order, and can spot
+        the signs of common spirits (both lesser and greater). You know enough
+        about religious customs to communicate with those who worship a
+        particular spirit or deity without embarrassing yourself.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: arcana
+        rank: 1
+      actorHooks: []
+      nodes:
+        - pre0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.arcanaNovice0000'
+  - name: Strategic Repositioning
+    type: talent
+    img: icons/sundries/gaming/chess-knight-white.webp
+    system:
+      description: >-
+        <p>You are always thinking ahead about where to position yourself should
+        danger loom. Before <strong>Turn 1</strong> of a Combat encounter,
+        provided that you are not Unaware, you may immediately move 4 feet in
+        any permitted direction.</p><p>If multiple combatants have this feature,
+        repositioning occurs in reverse order of Initiative.</p>
+      actions: []
+      nodes:
+        - int2c
+      rune: ''
+      gesture: ''
+      inflection: ''
       iconicSpells: 0
       training:
         type: ''
         rank: null
       actorHooks: []
-      nodes:
-        - dex1b
-      rune: ''
-      gesture: ''
-      inflection: ''
     effects: []
     flags:
       core: {}
@@ -1074,16 +1099,148 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
-    _id: dualwield0000000
-    folder: cW6bwHXBB9pMcwva
-    sort: 100000
+    _id: strategicreposit
+    folder: null
+    sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.dualwield0000000'
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.strategicreposit'
+  - name: Lightbringer
+    type: talent
+    img: icons/magic/light/beams-rays-orange-purple-large.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Illumination. Spells
+        which use this Rune cause the Irradiated condition on Critical
+        Hits.</p><p>The Irradiated effect lasts for 1 Round and deals your
+        Presence score as Radiant damage to both Health and Morale.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Illumination rune
+            if ( action.rune?.id !== "illumination" ) return;
+
+            // Require damage to Health or Morale
+            const damageHealth = outcome.resources.health < 0;
+            const damageMorale = outcome.resources.morale < 0;
+            if ( !(damageHealth || damageMorale) ) return;
+
+            // Apply Irradiated effect
+            const irradiated = SYSTEM.EFFECTS.irradiated(this, outcome.target);
+            outcome.effects.push(irradiated);
+      nodes:
+        - pre3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: lightbringer0000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.lightbringer0000'
+  - name: Awareness Novice
+    type: talent
+    _id: awarenessNovice0
+    img: systems/crucible/icons/skills/awareness.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You have been trained in
+        the basics of situational awareness, and are able to notice important
+        details about your environment. You gain the <strong>Novice</strong>
+        rank in the <strong>Awareness </strong>skill and are no longer
+        considered <strong>Untrained</strong> in that skill.</span></p><p><span
+        style="font-family:Vollkorn, serif">You know to check for exits when you
+        enter a room, and how to look for concealed weapons, hidden traps, and
+        other threats. You know how to spot when you are being followed, and how
+        to search for common hiding places.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: awareness
+        rank: 1
+      actorHooks: []
+      nodes:
+        - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.awarenessNovice0'
+  - name: Versatile Translator
+    type: talent
+    img: icons/skills/trades/academics-book-study-runes.webp
+    system:
+      nodes:
+        - int1b
+      description: >-
+        <p>You have a scholarly background in linguistics or an intuitive knack
+        for languages. Your capabilities enable you to decipher the basic
+        meaning of text written in a variety of languages.</p><p>You can
+        translate text of a language you do not know that is written using a
+        common set of glyphs or characters to a language that you do know.
+        Creating such a translation requires spending one minute per word to
+        transcribe the text into a language which you understand.</p><p>Your
+        translations are rudimentary and often lack nuance, but they do contain
+        all essential points of the text.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: versatileTransla
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!tCBBi3Kyc3M4KHGZ.versatileTransla'
 effects: []
 flags:
   core: {}
@@ -1100,14 +1257,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: tCBBi3Kyc3M4KHGZ
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!tCBBi3Kyc3M4KHGZ'

@@ -91,6 +91,7 @@ system:
       name: Constable
       img: icons/tools/scribal/magnifying-glass.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +104,8 @@ system:
       weight: ''
       appearance: ''
       pronouns: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -159,6 +162,7 @@ system:
     - formidablePresence
     - rallyingCry
     - shieldBash
+  currency: 4473
 prototypeToken:
   name: Duurath
   displayName: 20
@@ -266,7 +270,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: oOamGC95nd
+      identifier: AjfPDgCvrE
       invested: false
       actorHooks: []
       dropped: false
@@ -274,9 +278,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -307,7 +311,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: gnngvGLwsy
+      identifier: h74aXnP8p9
       invested: false
       actorHooks: []
       dropped: false
@@ -315,9 +319,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -346,16 +350,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: 9mXSk8wpue
+      identifier: 2YHka6all5
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -416,9 +420,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -483,9 +487,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: shieldbash000000
     folder: 08mOaWGw5rYKejer
@@ -548,9 +552,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -592,9 +596,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureward00000
     folder: D14x9AJ0TgXKtnzu
@@ -678,9 +682,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: 100000
@@ -741,9 +745,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: counterstrike000
     folder: 8Vb0F5R7DMUrvhfw
@@ -789,9 +793,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runewarden000000
     folder: fOYHlZJEWUukD7yr
@@ -860,9 +864,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: dreadlord0000000
     folder: fOYHlZJEWUukD7yr
@@ -901,9 +905,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runekinesis00000
     folder: Dy9HnwadNE3kSZ4f
@@ -967,9 +971,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: rallyingcry00000
     folder: 2MFixpDJ379KOogE
@@ -1010,9 +1014,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: bulwark000000000
     folder: 8Vb0F5R7DMUrvhfw
@@ -1050,9 +1054,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: 8Vb0F5R7DMUrvhfw
     sort: -25000
@@ -1089,9 +1093,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1120,7 +1124,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: w29Df7EzHW
+      identifier: ft73ULt9ba
       invested: false
       actorHooks: []
       dropped: false
@@ -1128,9 +1132,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -1196,16 +1200,16 @@ items:
             - melee
           actionHooks: []
       dropped: false
-      identifier: y1A49egcdh
+      identifier: 1nI6glDTdm
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 100000
     ownership:
@@ -1245,9 +1249,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1285,9 +1289,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1319,9 +1323,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
@@ -1387,9 +1391,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1397,6 +1401,226 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.intercept0000000'
+  - name: Shield Ward
+    type: talent
+    _id: shieldward000000
+    img: icons/magic/defensive/shield-barrier-blue.webp
+    system:
+      description: >-
+        <p>You have mastered a specialized technique to incorporate a physical
+        shield into the <strong>Ward</strong> gesture. You may ignore the
+        free-hand requirement for spells using the Ward gesture while you have a
+        <strong>Shield</strong> equipped.</p>
+      actions: []
+      nodes:
+        - tou2b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldward000000'
+  - name: Heavy Weapon Training
+    type: talent
+    img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+    system:
+      description: >-
+        <p>You have a basic education in the use of martial weaponry. You are no
+        longer treated as <strong>Untrained</strong> with weapons in the
+        <strong>Heavy</strong>, or <strong>Balanced</strong> categories.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: heavy
+        rank: 1
+      actorHooks: []
+      nodes:
+        - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: heavyWeaponTrain
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.heavyWeaponTrain'
+  - name: Athletics Novice
+    type: talent
+    _id: athleticsNovice0
+    img: systems/crucible/icons/skills/athletics.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You have received training
+        in basic athletics. You gain the <strong>Novice</strong> rank in the
+        <strong>Athletics</strong> skill and are no longer considered
+        <strong>Untrained</strong> in that skill.</span></p><p><span
+        style="font-family:Vollkorn, serif">You know whether a surface can
+        support your weight or not, how to find handholds while climbing, and
+        how to distribute your weight for buoyancy when swimming. You know how
+        to run for distance, and how to pace yourself to avoid
+        exhaustion.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: athletics
+        rank: 1
+      actorHooks: []
+      nodes:
+        - str0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.athleticsNovice0'
+  - name: Armored Shell
+    type: talent
+    _id: armoredShell0000
+    img: icons/equipment/shield/Scutum-steel-worn.webp
+    system:
+      nodes:
+        - tou3a
+      description: >-
+        <p>You are expert in using your armor in combination with your shield to
+        create a defensive shell.</p><p>When you have the
+        <strong>Guarded</strong> condition and have a <strong>Heavy
+        Shield</strong> equipped, your base <strong>Armor</strong> defense is
+        reduced by half but your <strong>Block</strong> defense increases by a
+        corresponding amount.</p>
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.armoredShell0000'
+  - name: Shield Combat Training
+    type: talent
+    img: icons/equipment/shield/buckler-wooden-boss-lightning.webp
+    system:
+      description: >-
+        <p>You have a basic education in the usage of shields in combat. You are
+        no longer treated as <strong>Untrained</strong> with weapons in the
+        <strong>Shield </strong>category.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: shield
+        rank: 1
+      actorHooks: []
+      nodes:
+        - tou0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: shieldCombatTrai
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldCombatTrai'
+  - name: Shield Combat Proficiency
+    type: talent
+    img: icons/equipment/shield/buckler-wooden-boss-lightning.webp
+    system:
+      description: >-
+        <p>You have a fluent education in the use of shields in combat. You gain
+        the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
+        Bonus</strong> with weapons in the <strong>Shield </strong>category.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: shield
+        rank: 2
+      actorHooks: []
+      nodes:
+        - tou4b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: shieldCombatProf
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldCombatProf'
 effects: []
 flags:
   core: {}
@@ -1534,15 +1758,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1751148758927
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: iLUfMcYjAbZFY4CJ
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!iLUfMcYjAbZFY4CJ'

@@ -91,6 +91,7 @@ system:
       name: Constable
       img: icons/tools/scribal/magnifying-glass.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -104,6 +105,8 @@ system:
       weight: ''
       appearance: ''
       pronouns: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -160,6 +163,7 @@ system:
     - grapple
     - counterRiposte
     - ruthlessMomentum
+  currency: 0
 prototypeToken:
   name: Ulfen
   displayName: 20
@@ -265,16 +269,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: v3uOj3k8Jf
+      identifier: r4Y5aixJII
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -305,7 +309,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: Wi9oElIy6H
+      identifier: fdOJ4iWIWT
       invested: false
       actorHooks: []
       dropped: false
@@ -313,9 +317,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -375,9 +379,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -435,9 +439,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     _id: uppercut00000000
@@ -498,9 +502,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 100000
@@ -539,9 +543,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -609,9 +613,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: berserker0000000
     folder: fOYHlZJEWUukD7yr
@@ -645,9 +649,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -721,79 +725,15 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: 2MFixpDJ379KOogE
     sort: -250000
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.wrestler00000000'
-  - _id: counterriposte00
-    name: Counter Riposte
-    type: talent
-    img: icons/skills/melee/strike-polearm-glowing-white.webp
-    effects: []
-    flags:
-      core: {}
-    system:
-      description: >-
-        <p>You are expert in translating a parried attack into a swift counter
-        against your exposed enemy.</p>
-      actions:
-        - id: counterRiposte
-          name: Counter Riposte
-          img: icons/skills/melee/strike-polearm-glowing-white.webp
-          condition: You Parry an incoming melee Strike.
-          description: >-
-            <p>When you defend against a melee attack with a
-            <strong>Parry</strong>, you may react and expend
-            <strong>Focus</strong> to retaliate with a reduced-cost
-            <strong>Strike</strong> which benefits from the
-            <strong>Exposed</strong> condition.</p>
-          cost:
-            action: -1
-            focus: 1
-            weapon: true
-            heroism: 0
-          target:
-            type: single
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          tags:
-            - reaction
-            - melee
-          actionHooks: []
-          range:
-            maximum: 1
-            weapon: true
-            minimum: null
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - str2a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-    folder: iD0N4Q5xDZqsf354
-    sort: 0
-    ownership:
-      default: 0
-    _key: '!actors.items!L0qEPpUQBZQPCxN3.counterriposte00'
   - folder: pvclaELBSimFnNMJ
     name: Blood Frenzy
     type: talent
@@ -834,9 +774,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: bloodfrenzy00000
     sort: 100000
@@ -908,9 +848,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: 0
@@ -943,9 +883,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: unshakeablestanc
     folder: SMe30RkoLutLr4ef
@@ -1006,9 +946,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -1070,9 +1010,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     _id: secondwind000000
@@ -1140,9 +1080,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1184,9 +1124,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1224,9 +1164,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1258,56 +1198,265 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: unarmedCombatTra
     ownership:
       default: 0
     _key: '!actors.items!L0qEPpUQBZQPCxN3.unarmedCombatTra'
-  - name: Berserk Strike
+  - name: Sundering Strike
     type: talent
-    _id: berserkStrike000
-    img: icons/skills/melee/strike-weapons-orange.webp
+    img: icons/skills/melee/shield-damaged-broken-gold.webp
+    effects: []
+    flags:
+      core: {}
     system:
-      nodes:
-        - str2a
       description: >-
-        <p>You channel your lust for combat into an adrenaline-fueled strike
-        which increases in power as you become more wounded.</p>
+        <p>You know a martial technique to exploit the weakest points of an
+        enemy's defenses, exposing them to further harm.</p>
       actions:
-        - id: berserkStrike
-          name: Berserk Strike
-          img: icons/skills/melee/strike-weapons-orange.webp
+        - id: sunderingStrike
+          name: Sundering Strike
+          img: icons/skills/melee/shield-damaged-broken-gold.webp
           condition: ''
           description: >-
-            <p>You imbue your strike with momentum and intensity, increasing the
-            <strong>Damage Bonus</strong> of your strike according to your
-            missing <strong>Health</strong>.</p><ul><li><p>If your Health is
-            below 75%, your Strike deals <strong>+1
-            Damage</strong></p></li><li><p>If your Health is below 50%, your
-            Strike deals <strong>+2 Damage</strong></p></li><li><p>If your
-            Health is below 25%, your Strike deals <strong>+3
-            Damage</strong></p></li></ul><p>This damage bonus is doubled if you
-            are using a <strong>Two-Handed</strong> weapon.</p>
+            <p>You make a <strong>Strike</strong> with your mainhand weapon
+            which, if successful, applies the <strong>Exposed </strong>condition
+            to your target for 3 rounds. This attack is
+            <strong>Difficult</strong> to perform and deals reduced damage.</p>
+          tags:
+            - melee
+            - difficult
+            - brute
           cost:
             action: 0
+            focus: 1
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects:
+            - name: Sundered Armor
+              scope: 3
+              statuses:
+                - exposed
+              duration:
+                turns: 3
+          actionHooks: []
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+      nodes:
+        - str3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: sunderingstrike0
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.sunderingstrike0'
+  - name: Heavy Weapon Training
+    type: talent
+    img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+    system:
+      description: >-
+        <p>You have a basic education in the use of martial weaponry. You are no
+        longer treated as <strong>Untrained</strong> with weapons in the
+        <strong>Heavy</strong>, or <strong>Balanced</strong> categories.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: heavy
+        rank: 1
+      actorHooks: []
+      nodes:
+        - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: heavyWeaponTrain
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.heavyWeaponTrain'
+  - name: Heavy Weapon Proficiency
+    type: talent
+    img: icons/skills/melee/weapons-crossed-poleaxes-white.webp
+    system:
+      description: >-
+        <p>You have a fluent education in the use of martial weaponry. You gain
+        the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
+        Bonus</strong> with weapons in the <strong>Simple</strong>,
+        <strong>Heavy</strong>, and <strong>Balanced</strong> categories.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: heavy
+        rank: 2
+      actorHooks: []
+      nodes:
+        - str4c
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: heavyWeaponProfi
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.heavyWeaponProfi'
+  - name: Thick Skin
+    type: talent
+    img: icons/magic/defensive/armor-stone-skin.webp
+    system:
+      description: >-
+        Your physical toughness makes you more resistant to harm. You gain +2
+        Resistance to Bludgeoning, Slashing, and Piercing damage.
+      actions: []
+      actorHooks:
+        - hook: prepareResistances
+          fn: |-
+            resistances.bludgeoning.base += 2;
+            resistances.slashing.base += 2;
+            resistances.piercing.base += 2;
+      nodes:
+        - tou2c
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: thickskin0000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.thickskin0000000'
+  - name: Armored Efficiency
+    type: talent
+    img: icons/equipment/chest/breastplate-helmet-metal.webp
+    system:
+      description: >-
+        <p>You are trained in wearing the heaviest types of armor while still
+        retaining mobility. You are able to use a free Movement action once per
+        Turn while wearing Heavy armor.</p>
+      actions: []
+      nodes:
+        - str0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: armoredefficienc
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.armoredefficienc'
+  - name: Penetrating Throw
+    type: talent
+    img: icons/skills/ranged/shuriken-thrown-yellow.webp
+    system:
+      nodes:
+        - str3b
+      description: >-
+        <p>You can hurl your weapon with such ferocity that it strikes all
+        targets in a direct line.</p>
+      actions:
+        - id: penetratingThrow
+          name: Penetrating Throw
+          img: icons/skills/ranged/shuriken-thrown-yellow.webp
+          condition: ''
+          description: >-
+            <p>You perform a <strong>Throw</strong> weapon strike which
+            penetrates to hit all enemies in a straight line.</p>
+          cost:
+            action: 1
             focus: 1
             heroism: 0
             weapon: true
           range:
             minimum: null
             maximum: null
-            weapon: true
+            weapon: false
           target:
-            type: single
+            type: ray
             number: 1
-            scope: 3
+            scope: 4
             self: false
           effects: []
           tags:
-            - melee
+            - thrown
           actionHooks: []
       rune: ''
       gesture: ''
@@ -1320,18 +1469,19 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.7
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: penetratingThrow
     folder: null
     sort: 0
     ownership:
       default: 0
-    _key: '!actors.items!L0qEPpUQBZQPCxN3.berserkStrike000'
+    _key: '!actors.items!L0qEPpUQBZQPCxN3.penetratingThrow'
 effects: []
 flags:
   core: {}
@@ -1421,15 +1571,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1751148758927
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: L0qEPpUQBZQPCxN3
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!L0qEPpUQBZQPCxN3'

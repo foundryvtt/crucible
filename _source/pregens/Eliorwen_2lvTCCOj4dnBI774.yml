@@ -93,6 +93,7 @@ system:
       name: Wanderer
       img: icons/environment/wilderness/portal.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -106,6 +107,8 @@ system:
       weight: ''
       appearance: ''
       pronouns: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -141,7 +144,7 @@ system:
     madness:
       value: 0
     action:
-      value: 6
+      value: 3
     focus:
       value: 5
     heroism:
@@ -150,7 +153,12 @@ system:
     sizeBonus: 0
     strideBonus: 0
     engagementBonus: 0
-  status: null
+  status:
+    lastAction: strike
+    rangedAttack: true
+    hasAttacked: true
+    movement:
+      bonus: 5
   favorites:
     - defend
     - pinningShot
@@ -161,6 +169,7 @@ system:
     - anticipateHarm
     - cast
     - combatMedicine
+  currency: 0
 prototypeToken:
   name: Eliorwen
   displayName: 20
@@ -268,7 +277,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: 2qG3tv3SzN
+      identifier: OV3LkO27yo
       invested: false
       actorHooks: []
       dropped: false
@@ -276,9 +285,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -308,7 +317,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: iiGwfOiuUG
+      identifier: fgeQ4QwyQr
       invested: false
       actorHooks: []
       dropped: false
@@ -316,9 +325,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -348,16 +357,16 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: cTWDaE6Qwh
+      identifier: njHntGdLvD
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -391,9 +400,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -456,50 +465,15 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.pinningshot00000'
-  - name: Impetus
-    type: talent
-    _id: impetus000000000
-    img: icons/magic/movement/trail-streak-zigzag-yellow.webp
-    system:
-      description: >-
-        <p>You are gifted at exploiting the slowness with which others think. If
-        you are first in Initiative order during a round of Combat, you gain +1
-        current and maximum Action.</p>
-      actions: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - intdex4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    folder: BevAJzzLeFbSaVic
-    sort: -75000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.impetus000000000'
   - name: Combat Medicine
     type: talent
     img: icons/magic/life/heart-glowing-red.webp
@@ -554,9 +528,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: combatmedicine00
     folder: qrB8E2SHs322zTil
@@ -595,9 +569,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: arcanearcher0000
     folder: fOYHlZJEWUukD7yr
@@ -605,69 +579,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.arcanearcher0000'
-  - name: Anticipate Harm
-    type: talent
-    _id: anticipateharm00
-    img: icons/magic/movement/trail-streak-impact-blue.webp
-    system:
-      description: >-
-        Your keen reflexes and acuity allow you to anticipate imminent danger
-        and react to avoid it.
-      actions:
-        - id: anticipateHarm
-          condition: >-
-            You are targeted by an area-of-effect attack, the source of which
-            you can see.
-          description: >-
-            You may immediately Move 1 space after the area-of-effect of the
-            attack is declared. If this movement escapes the area of the attack,
-            you are unaffected.
-          tags:
-            - movement
-            - reaction
-          cost:
-            action: 1
-            focus: 1
-            weapon: false
-            heroism: 0
-          target:
-            type: self
-            number: 1
-            scope: 0
-            self: false
-          effects: []
-          name: ''
-          img: null
-          range:
-            maximum: 1
-            weapon: false
-            minimum: null
-          actionHooks: []
-      iconicSpells: 0
-      actorHooks: []
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - intdex4
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-    folder: MqZKCMx5KrZQffGU
-    sort: 100000
-    ownership:
-      default: 0
-    _key: '!actors.items!2lvTCCOj4dnBI774.anticipateharm00'
   - name: Weak Points
     type: talent
     _id: weakpoints000000
@@ -695,9 +606,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: F5y85kE9ocaa5R4R
     sort: 0
@@ -762,9 +673,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     _id: markprey00000000
@@ -798,9 +709,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 150000
@@ -837,9 +748,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -877,9 +788,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -936,9 +847,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -975,9 +886,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runemind00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -1019,9 +930,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1060,9 +971,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1094,9 +1005,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -1136,9 +1047,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: null
     sort: 0
@@ -1194,13 +1105,13 @@ items:
         rank: null
       actorHooks: []
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.7
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -1255,18 +1166,289 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.7
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
       default: 0
     _key: '!actors.items!2lvTCCOj4dnBI774.twinnedshot00000'
+  - name: Projectile Weapon Proficiency
+    type: talent
+    img: icons/weapons/bows/shortbow-white.webp
+    system:
+      description: >-
+        <p>You have a fluent education in the use of projectile weaponry. You
+        gain the <strong>Journeyman</strong> training rank and a <strong>+1
+        Skill Bonus</strong> with weapons in the <strong>Projectile</strong>
+        category.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: projectile
+        rank: 2
+      actorHooks: []
+      nodes:
+        - dex4b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: projectileProfic
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.projectileProfic'
+  - name: 'Gesture: Step'
+    type: talent
+    img: icons/magic/movement/chevrons-down-yellow.webp
+    system:
+      description: >-
+        <p>Infuse runic power into a movement, crossing physical and spatial
+        boundaries. Move 20 feet in a straight line, dealing minor damage to
+        enemies or applying restoration to allies in your path.</p><p>The Step
+        gesture scales with <strong>Dexterity</strong> and targets a 20 foot
+        line, dealing 2 base damage on a successful attack.</p>
+      actions: []
+      gesture: step
+      actorHooks: []
+      nodes:
+        - dex2b
+      rune: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: gesturestep00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.gesturestep00000'
+  - name: Skirmisher
+    type: talent
+    _id: skirmisher000000
+    img: icons/skills/movement/arrow-upward-yellow.webp
+    system:
+      description: >-
+        <p>You are adept at entering and exiting the fray. When moving out of
+        the <strong>Engagement</strong> radius of an enemy, that enemy has 2
+        Banes to any <strong>Disengagement Strike</strong> against you.</p>
+      nodes:
+        - dex3b
+      actions: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.skirmisher000000'
+  - name: Diversionist
+    type: talent
+    _id: diversionist0000
+    img: icons/skills/social/peace-luck-insult.webp
+    system:
+      description: >-
+        <p>You specialize in using subterfuge to distract or trick your opponent
+        during combat.</p>
+      actions:
+        - id: distract
+          name: Distract
+          condition: ''
+          description: >-
+            <p>You make a <strong>Deception</strong> based <strong>Skill
+            Attack</strong> against the <strong>Willpower </strong>defense of a
+            target within 30 feet which can see or hear you. On a success, the
+            target loses <strong>1 Focus</strong>.</p>
+          tags:
+            - void
+            - focus
+            - deception
+          cost:
+            action: 1
+            focus: 1
+            heroism: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          img: icons/skills/social/peace-luck-insult.webp
+          actionHooks:
+            - hook: postActivate
+              fn: |-
+                for ( const r of outcome.rolls ) {
+                  if ( r.isSuccess ) {
+                    r.data.damage.multiplier = 0;
+                    r.data.damage.base = 1;
+                    r.data.damage.total = 1;
+                  }
+                }
+          range:
+            minimum: null
+            maximum: 30
+            weapon: false
+      nodes:
+        - int2a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.diversionist0000'
+  - name: Surgeweaver
+    type: talent
+    img: icons/magic/lightning/bolt-strike-forked-blue.webp
+    system:
+      description: >-
+        <p>You are highly skilled in weaving the Rune of Lightning. Spells which
+        use this Rune cause the Shocked condition on Critical Hits.</p><p>The
+        Shocked effect lasts for 1 Round, deals half your Intellect score as
+        Lightning damage to Morale, and applies the Staggered condition.</p>
+      actions: []
+      actorHooks:
+        - hook: applyCriticalEffects
+          fn: |-
+            // Require Lightning rune
+            if ( action.rune?.id !== "lightning" ) return;
+
+            // Require damage to Health or Morale
+            const damageHealth = outcome.resources.health < 0;
+            const damageMorale = outcome.resources.morale < 0;
+            if ( !(damageHealth || damageMorale) ) return;
+
+            // Apply Shocked effect
+            outcome.effects.push(SYSTEM.EFFECTS.shocked(this));
+      nodes:
+        - int3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: surgeweaver00000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.surgeweaver00000'
+  - name: Awareness Novice
+    type: talent
+    _id: awarenessNovice0
+    img: systems/crucible/icons/skills/awareness.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You have been trained in
+        the basics of situational awareness, and are able to notice important
+        details about your environment. You gain the <strong>Novice</strong>
+        rank in the <strong>Awareness </strong>skill and are no longer
+        considered <strong>Untrained</strong> in that skill.</span></p><p><span
+        style="font-family:Vollkorn, serif">You know to check for exits when you
+        enter a room, and how to look for concealed weapons, hidden traps, and
+        other threats. You know how to spot when you are being followed, and how
+        to search for common hiding places.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: awareness
+        rank: 1
+      actorHooks: []
+      nodes:
+        - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!2lvTCCOj4dnBI774.awarenessNovice0'
 effects: []
 flags:
   core: {}
@@ -1403,15 +1585,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.347'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
-  createdTime: 1751148758927
-  modifiedTime: 1755706393686
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 2lvTCCOj4dnBI774
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!2lvTCCOj4dnBI774'
