@@ -84,6 +84,8 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   #hudAlignOriginal;
 
+  static #SEXTANT_ABILITIES = ["dexterity", "toughness", "strength", "wisdom", "presence", "intellect"];
+
   /* -------------------------------------------- */
 
   get tree() {
@@ -141,21 +143,22 @@ export default class CrucibleTalentTree extends PIXI.Container {
     await this.#loadTextures();
 
     // Draw Background
-    this.backdrop = this.background.addChild(await this.#drawBackdrop());
+    await this.#drawBackground();
 
     // Background connections
     this.edges = this.background.addChild(new PIXI.Graphics());
-    this.edges.lineStyle({color: 0x000000, alpha: 0.6, width: 2, alignment: 0.5});
 
     // Active connections
     this.connections = this.background.addChild(new PIXI.Graphics());
+
+    // Draw Ability Scores
+    this.abilities = await this.#drawAbilityScores();
 
     // Draw Nodes and Edges
     this.nodes = this.background.addChild(new PIXI.Container());
     const origin = CrucibleTalentNode.nodes.get("origin");
     const seen = new Set();
     await this.#drawNodes(new Set([origin]), seen);
-    this.#drawCircles();
 
     // Background fade and filter
     this.background.darken = this.background.addChild(new PIXI.Graphics());
@@ -186,33 +189,126 @@ export default class CrucibleTalentTree extends PIXI.Container {
    * @returns {Promise<void[]>}
    */
   async #loadTextures() {
-    const toLoad = ["systems/crucible/ui/tree/Tree0.json"];
+    const toLoad = ["systems/crucible/ui/tree/Tree0.json", "systems/crucible/ui/tree/BackgroundSlate.png"];
     await foundry.canvas.TextureLoader.loader.load(toLoad);
-    for ( const path of toLoad ) {
-      const spritesheet = foundry.canvas.getTexture(path);
-      const spritesheets = [spritesheet, ...spritesheet.linkedSheets];
-      for ( const sheet of spritesheets ) {
-        for ( const [asset, texture] of Object.entries(sheet.textures) ) {
-          this.spritesheet[asset] = texture;
-        }
+    const spritesheet = foundry.canvas.getTexture(toLoad[0]);
+    const spritesheets = [spritesheet, ...spritesheet.linkedSheets];
+    for ( const sheet of spritesheets ) {
+      for ( const [asset, texture] of Object.entries(sheet.textures) ) {
+        this.spritesheet[asset] = texture;
       }
+    }
+    this.spritesheet.BackgroundSlate = foundry.canvas.getTexture(toLoad[1]);
+  }
+
+  /* -------------------------------------------- */
+
+  async #drawAbilityScores() {
+    const scores = {};
+    const textStyle = CONFIG.canvasTextStyle.clone();
+    textStyle.fontFamily = "AwerySmallcaps";
+    for ( const [i, abilityId] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
+      const text = this.addChild(new PreciseText("12", textStyle));
+      text.anchor.set(0.5, 0.5);
+      const angle = 30 + (i * 60);
+      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), 220);
+      text.position.set(r.B.x, r.B.y);
+      this.background.addChild(text);
+      scores[abilityId] = text;
+    }
+    return scores;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Refresh the text labels of ability scores when the Actor changes.
+   */
+  #refreshAbilityScores() {
+    for ( const abilityId of CrucibleTalentTree.#SEXTANT_ABILITIES ) {
+      this.abilities[abilityId].text = this.actor.abilities[abilityId].value;
     }
   }
 
   /* -------------------------------------------- */
 
-  async #drawBackdrop() {
-    return new PIXI.Sprite(this.spritesheet.Background);
+  async #drawBackground() {
+
+    // Repeating slate texture
+    const {width, height} = this.#dimensions;
+    const backdrop = new PIXI.TilingSprite(this.spritesheet.BackgroundSlate, width, height);
+    backdrop.position.set(-width/2, -height/2);
+    this.background.backdrop = this.background.addChild(backdrop);
+
+    // Core Gradient
+    const cg = new PIXI.Sprite(this.spritesheet.CoreGradient);
+    cg.scale.set(1.5, 1.5);
+    cg.alpha = 0.15;
+    this.background.coreGradient = this.background.addChild(cg);
+
+    // Sextant Overlay
+    this.background.overlay = this.background.addChild(this.#drawSextantsOverlay());
+
+    // Origin Tattoo
+    const originTattoo = new PIXI.Sprite(this.spritesheet.TattooOrigin);
+    originTattoo.alpha = 0.4;
+    this.background.originTattoo = this.background.addChild(originTattoo);
+
+    // Spokes
+    this.background.spokes = [];
+    for ( let i=0; i<6; i++ ) {
+      const angle = 60 * i;
+      const r = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 820);
+      const spoke = new PIXI.Sprite(this.spritesheet.TattooSpoke);
+      spoke.alpha = 0.4;
+      spoke.angle = angle;
+      spoke.position.set(r.B.x, r.B.y);
+      this.background.spokes.push(this.background.addChild(spoke));
+    }
+
+    // Molten Core
+    const mc = new PIXI.Sprite(this.spritesheet.CoreMolten);
+    this.background.coreMolten = this.background.addChild(mc);
+
+    // Core
+    const core = new PIXI.Sprite(this.spritesheet.Core);
+    this.background.core = this.background.addChild(core);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Draw a graphics overlay for the six sextants of the tree.
+   * TODO this could perhaps be replaced by a pure shader approach if we need to squeeze performance.
+   */
+  #drawSextantsOverlay() {
+    const overlay = new PIXI.Graphics();
+    for ( const [i, ability] of CrucibleTalentTree.#SEXTANT_ABILITIES.entries() ) {
+      const color = SYSTEM.ABILITIES[ability].color;
+      const r0 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(60 * i), 8000);
+      const r1 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 30), 10000);
+      const r2 = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians((60 * i) + 60), 8000);
+      const polygon = new PIXI.Polygon([0, 0, r0.B.x, r0.B.y, r1.B.x, r1.B.y, r2.B.x, r2.B.y]);
+      overlay.beginFill(color, 0.025).drawShape(polygon).endFill();
+    }
+
+    // Tier Circles
+    overlay.lineStyle({width: 8, color: 0x000000, alpha: 0.25});
+    overlay.drawCircle(0, 0, 1600);
+    overlay.drawCircle(0, 0, 3200);
+    overlay.drawCircle(0, 0, 4800);
+    return overlay;
   }
 
   /* -------------------------------------------- */
 
   #drawConnections(node, seen) {
+    if ( node.id === "origin" ) return; // No connection lines from the origin
     for ( const c of node.connected ) {
       if ( seen.has(c) || (c.tier < 0) || !this.state.get(c).purchased ) continue;
-      this.connections.lineStyle({color: c.color, width: 3, alpha: 1.0})
-        .moveTo(node.point.x, node.point.y)
-        .lineTo(c.point.x, c.point.y);
+      this.connections.moveTo(node.point.x, node.point.y)
+      this.connections.lineStyle({color: "#0e0906", width: 12, alpha: 1.0}).lineTo(c.point.x, c.point.y);
+      this.connections.lineStyle({color: c.color, width: 6, alpha: 1.0}).lineTo(node.point.x, node.point.y);
     }
   }
 
@@ -220,6 +316,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   async #drawNodes(nodes, seen=new Set()) {
     const next = [];
+    this.edges.lineStyle({color: 0x000000, alpha: 0.25, width: 4, alignment: 0.5});
     for ( const node of nodes ) {
       if ( seen.has(node) ) continue;
       await this.#drawNode(node);
@@ -233,9 +330,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /* -------------------------------------------- */
 
   async #drawNode(node) {
-    const config = {};
-    config.borderColor = node.color;
-    const icon = node.icon = new CrucibleTalentTreeNode(node, config);
+    const icon = node.icon = new CrucibleTalentTreeNode(node);
     this.nodes.addChild(icon);
   }
 
@@ -248,14 +343,6 @@ export default class CrucibleTalentTree extends PIXI.Container {
       this.edges.moveTo(node.point.x, node.point.y);
       this.edges.lineTo(c.point.x, c.point.y);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  #drawCircles() {
-    // this.edges.drawCircle(0, 0, 800);
-    this.edges.drawCircle(0, 0, 1400);
-    this.edges.drawCircle(0, 0, 2000);
   }
 
   /* -------------------------------------------- */
@@ -272,14 +359,14 @@ export default class CrucibleTalentTree extends PIXI.Container {
     if ( !(actor instanceof Actor) ) throw new Error("You must provide an actor to bind to the Talent Tree.");
     this.developmentMode = !!CONFIG.debug.talentTree;
     this.#parentApp = parentApp;
+    this.actor = actor;
 
     // Draw the tree (once only)
     await this.draw();
     for ( const layer of canvas.layers ) layer.hud?.close();
     this.darkenBackground(false);
 
-    // Associate Actor
-    this.actor = actor;
+    // Show Actor sheet
     await actor.sheet.render({force: false, left: 20, top: 20});
     if ( actor.sheet.rendered ) {
       actor.sheet.setPosition({left: 20, top: 20});
@@ -353,6 +440,9 @@ export default class CrucibleTalentTree extends PIXI.Container {
       seen.add(node);
     }
 
+    // Refresh ability scores
+    this.#refreshAbilityScores();
+
     // Refresh talent wheel
     this.wheel.refresh();
 
@@ -367,14 +457,29 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /**
    * Pan the visual position of the talent tree canvas.
-   * @param {number} x
-   * @param {number} y
-   * @param {number} scale
+   * @param {number} [x]
+   * @param {number} [y]
+   * @param {number} [scale]
    */
   pan({x, y, scale}={}) {
+
+    // Preserve current values for any unspecified inputs
     x ??= this.stage.pivot.x;
     y ??= this.stage.pivot.y;
     scale ??= this.stage.scale.x;
+
+    // Constrain view
+    const {width, height} = this.#dimensions;
+    const w2 = width / 2;
+    const h2 = height / 2;
+    const {innerWidth, innerHeight} = window;
+    scale = Math.clamp(scale, innerWidth / width, 1.0);
+    const tx = (innerWidth / scale) / 2;
+    x = Math.clamp(x, -w2 + tx, w2 - tx);
+    const ty = (innerHeight / scale) / 2;
+    y = Math.clamp(y, -h2 + ty, h2 - ty);
+
+    // Set scale and pivot
     this.stage.pivot.set(x, y);
     this.stage.scale.set(scale, scale);
     this.#alignHUD();
@@ -384,10 +489,10 @@ export default class CrucibleTalentTree extends PIXI.Container {
   /*  Talent Management                           */
   /* -------------------------------------------- */
 
-  activateNode(node) {
-    if ( this.active ) this.deactivateNode({click: false});
-    this.hud.clear();
+  activateNode(node, {event}={}) {
+    if ( this.active ) this.deactivateNode({click: false, event});
     this.active = node;
+    this.hud.clear();
     this.wheel.activate(node);
     this.darkenBackground(true);
     crucible.api.audio.playClick();
@@ -395,12 +500,12 @@ export default class CrucibleTalentTree extends PIXI.Container {
 
   /* -------------------------------------------- */
 
-  deactivateNode({click=true}={}) {
-    if ( !this.active ) return;
-    this.wheel.deactivate();
-    this.hud.clear();
-    this.active.scale.set(1.0, 1.0);
+  deactivateNode({click=true, event, hover=true}={}) {
+    const node = this.active;
+    if ( !node ) return;
     this.active = null;
+    if ( hover ) node._onPointerOut(event);
+    this.wheel.deactivate();
     this.darkenBackground(false);
     if ( click ) crucible.api.audio.playClick();
   }
@@ -463,7 +568,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
     this.background.eventMode = "passive";
     this.background.children.forEach(c => c.eventMode = "none");
     this.nodes.eventMode = "passive";       // Capture hover/click events on nodes
-    this.backdrop.eventMode = "static";     // Capture drag events on the backdrop
+    this.background.backdrop.eventMode = "static"; // Capture drag events on the backdrop
     this.foreground.eventMode = "passive";  // Capture hover/click events on the wheel
 
     // Mouse Interaction Manager
@@ -492,7 +597,7 @@ export default class CrucibleTalentTree extends PIXI.Container {
    */
   #onClickLeft(event) {
     event.stopPropagation();
-    this.deactivateNode();
+    this.deactivateNode({event});
   }
 
   /* -------------------------------------------- */

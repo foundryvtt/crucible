@@ -29,14 +29,38 @@
   text-align: left;
   font-size: var(--font-size-14);
   pointer-events: all;
+  border: 12px solid transparent;
+  border-image: url("../ui/frames/tooltip-frame.webp") 20 stretch;
+  box-sizing: content-box;
+
   > .line-item {
     --title-font-size: var(--font-size-18);
     --icon-size: 60px;
+    header {
+      gap: 1rem;
+    }
     .title h2 {
       white-space: normal; // Allow wrapping
     }
     h3.divider {
       font-size: var(--title-font-size);
+    }
+    .icon-frame {
+      position: relative;
+      width: calc(var(--icon-size) + 6px);
+      height: calc(var(--icon-size) + 6px);
+      flex: none;
+      img.icon {
+        margin: 3px;
+      }
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: url("../ui/frames/square-small.webp") no-repeat center;
+        background-size: 100%;
+      }
     }
   }
 }

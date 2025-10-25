@@ -1,8 +1,8 @@
 import CrucibleTalentIcon from "./talent-icon.mjs";
 
 export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
-  constructor(node, config) {
-    super(config);
+  constructor(node) {
+    super();
     this.node = node;
     this.position.set(node.point.x, node.point.y);
   }
@@ -19,66 +19,80 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async draw({state, ...config}={}) {
-    config.texture = crucible.tree.spritesheet[`${this.node.iconPrefix}`];
-    config.backgroundColor = this.node.color.multiply(0.05);
+  /** @inheritDoc */
+  _configure(config) {
+    const state = config.state;
+    config = super._configure(config);
+    const spritesheet = crucible.tree.spritesheet;
 
-    // Configure default colors
-    if ( state.accessible ) {
-      config.alpha = 0.4;
-      config.borderColor = 0x827f7d;
-    } else {
-      config.alpha = 0.1;
-      config.borderColor = 0x262322;
-    }
-
-    // Empty Nodes
-    if ( !this.node.talents.size ) config.borderColor = Color.from("#210d45");
+    // Defaults
+    config.texture = spritesheet[`${this.node.iconPrefix}`];
+    config.splooshColor = this.node.color;
+    config.underglowColor = null;
 
     // Purchased Nodes
     if ( state.purchased ) {
-      config.alpha = 1.0;
-      config.borderColor = this.node.color;
-      config.borderWidth = 3;
+      config.underglowColor = this.node.color;
     }
 
-    // Banned Nodes
-    else if ( state.banned ) config.borderColor = 0x330000;
+    // Accessible Nodes
+    else if ( state.accessible ) {
+      config.iconTint = Color.fromHSL([this.node.color.hsl[0], 0.05, 0.4]);
+      config.frameTint = 0x7f7f7f; // 50%
+      config.splooshColor = this.node.color.multiply(0.5);
+    }
+
+    // Inaccessible Nodes
+    else {
+      config.iconTint = Color.fromHSL([this.node.color.hsl[0], 0.1, 0.2]);
+      config.frameTint = 0x3f3f3f; // 25%
+      config.splooshColor = Color.fromHSL([this.node.color.hsl[0], 0.33, 0.15]);
+    }
 
     // Further configuration based on node style
     let style = this.node.style;
     if ( (style === "rect") && this.node.isPassive ) style = "circle";
-    switch (style ) {
+    switch ( style ) {
       case "circle":
         config.shape = "circle";
-        config.size = 48;
-        config.borderRadius = config.size / 2;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameCircleSmallBronze;
         break;
       case "hex":
         config.shape = "hex";
-        config.size = 48;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameHexSmallBronze;
         break;
       case "rect":
         config.shape = "rect";
-        config.size = 48;
-        config.borderRadius = config.size / 6;
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameSquareSmallBronze;
         break;
       case "largeHex":
         config.shape = "hex";
-        config.size = config.borderRadius = 80;
+        config.size = 128;
+        config.frameTexture = spritesheet.FrameHexLargeBronze;
+        config.underglowSize = 200;
         break;
       case "originHex":
         config.alpha = 1.0;
-        config.borderWidth = 4;
         config.shape = "hex";
-        config.size = config.borderRadius = 120;
-        config.borderColor = crucible.tree.actor.ancestry.ui.color;
+        config.size = config.borderRadius = 200;
+        config.frameTexture = spritesheet.FrameHexOriginHeated;
+        config.underglowColor = null;
         break;
     }
+    return config;
+  }
 
-    // Draw icon and activate interactivity
+  /* -------------------------------------------- */
+
+  /** @override */
+  async draw(config={}) {
     await super.draw(config);
+
+    // Smaller icons
+    this.icon.width = this.icon.height = this.config.size * 0.75;
     this.#activateInteraction();
   }
 
@@ -86,8 +100,8 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
 
   #activateInteraction() {
     this.removeAllListeners();
-    this.on("pointerover", this.#onPointerOver.bind(this));
-    this.on("pointerout", this.#onPointerOut.bind(this));
+    this.on("pointerover", this._onPointerOver.bind(this));
+    this.on("pointerout", this._onPointerOut.bind(this));
     this.on("pointerdown", this.#onClickLeft.bind(this));
     this.eventMode = "static";
     this.cursor = "pointer";
@@ -102,39 +116,37 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
     const ownedTalents = tree.actor.system.talentNodes[this.node.id] || [];
     const nodeTalents = new Set([...this.node.talents, ...ownedTalents])
 
-    // Empty Nodes
+    // Toggle node active state
     if ( !nodeTalents.size ) return this.#onToggleEmptyNode();
-
-    // Deactivate Node
-    if ( this.isActive ) {
-      tree.deactivateNode();
-      this.#onPointerOut(event);
-    }
-
-    // Activate Node
-    else {
-      this.#onPointerOver(event);
-      tree.activateNode(this);
-    }
+    if ( this.isActive ) tree.deactivateNode({event, hover: false});
+    else tree.activateNode(this, {event});
   }
 
   /* -------------------------------------------- */
 
-  #onPointerOver(event) {
+  /** @internal */
+  _onPointerOver(event) {
     const tree = crucible.tree;
     if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.activate(this);
-    this.scale.set(1.2, 1.2);
+    const s = (this.config.size + 8) / this.config.size;
+    this.scale.set(s, s);
+    if ( this.node.id !== "origin" ) {
+      this.underglow.tint = this.node.color;
+      this.underglow.visible = true;
+    }
   }
 
   /* -------------------------------------------- */
 
-  #onPointerOut(event) {
+  /** @internal */
+  _onPointerOut(event) {
     const tree = game.system.tree;
     if ( !tree.app.renderer.enabled || (event.nativeEvent.target !== tree.canvas) ) return;
     tree.hud.clear();
     if ( this.isActive ) return; // Don't un-hover an active node
     this.scale.set(1.0, 1.0);
+    this.underglow.visible = !!this.config.underglowColor;
   }
 
   /* -------------------------------------------- */
@@ -144,6 +156,7 @@ export default class CrucibleTalentTreeNode extends CrucibleTalentIcon {
    * @returns {Promise<void>}
    */
   async #onToggleEmptyNode() {
+    if ( this.node.id === "origin" ) return;
     const actor = game.system.tree.actor;
     const purchased = this.node.isPurchased(actor);
     if ( !purchased && !actor.points.talent.available ) return;

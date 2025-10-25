@@ -17,7 +17,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.WisdomAbbr",
     type: "mental",
     group: "power",
-    color: Color.from("#FF00FF"),
+    color: Color.from("#e420fb"),
     sheetOrder: 2,
     nodeId: "wis"
   },
@@ -27,7 +27,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.PresenceAbbr",
     type: "mental",
     group: "resilience",
-    color: Color.from("#0000FF"),
+    color: Color.from("#5977fd"),
     sheetOrder: 4,
     nodeId: "pre"
   },
@@ -37,7 +37,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.IntellectAbbr",
     type: "mental",
     group: "speed",
-    color: Color.from("#00FFFF"),
+    color: Color.from("#0aedec"),
     sheetOrder: 6,
     nodeId: "int"
   },
@@ -47,7 +47,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.StrengthAbbr",
     type: "physical",
     group: "power",
-    color: Color.from("#FF0000"),
+    color: Color.from("#da1206"),
     sheetOrder: 1,
     nodeId: "str"
   },
@@ -57,7 +57,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.ToughnessAbbr",
     type: "physical",
     group: "resilience",
-    color: Color.from("#FFFF00"),
+    color: Color.from("#f4b71e"),
     sheetOrder: 3,
     nodeId: "tou"
   },
@@ -67,7 +67,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.DexterityAbbr",
     type: "physical",
     group: "speed",
-    color: Color.from("#00FF00"),
+    color: Color.from("#56eb09"),
     sheetOrder: 5,
     nodeId: "dex"
   }
