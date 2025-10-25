@@ -12,15 +12,16 @@ system:
       condition: ''
       description: >-
         <p>You create a sphere of magical darkness around your current position
-        which remains in place for 6 rounds or until dispelled.</p><p>Within the
-        area of this darkness all non-magical light sources are quenched and
-        creatures are treated as @Condition[blinded].</p><p>The area of this
-        sphere is constrained by solid walls. Creatures outside this area cannot
-        see into it and the effective area of light sources outside this area
-        ends at its perimeter.</p><p><strong>WIP: The effects of this spell are
-        not yet automated. It will rely on Foundry VTT version 14 to automate
-        the creation of a light source from the placed spell
-        template.</strong></p>
+        with 20 foot radius which remains in place for 6 rounds or until
+        dispelled.</p><p>Within the area of this darkness all non-magical light
+        sources are quenched and creatures are treated as
+        @Condition[blinded].</p><p>The area of this sphere is constrained by
+        solid walls. Creatures outside this area cannot see into it and the
+        effective area of light sources outside this area ends at its
+        perimeter.</p><p><strong>WIP: This spell does not yet automatically
+        create a darkness source, which must be done manually for now.
+        Eventually this will be automated using a new Foundry VTT version 14
+        framework for template placement.</strong></p>
       cost:
         action: 4
         focus: 2
@@ -41,12 +42,12 @@ system:
         - iconicSpell
       actionHooks: []
   runes:
-    - illumination
     - shadow
+    - control
   gestures:
     - pulse
   inflections:
-    - negate
+    - push
   actorHooks: []
 effects: []
 folder: null
@@ -60,9 +61,9 @@ _stats:
   exportSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.8
+  systemVersion: 0.7.9
   createdTime: 1759877572761
-  modifiedTime: 1759877572783
+  modifiedTime: 1761412270775
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: engulfingDarknes
 sort: 200000
