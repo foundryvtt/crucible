@@ -242,7 +242,15 @@
       }
     },
     "resistances": {
-      "label": "Resistances"
+      "label": "Resistances",
+      "bonus": {
+        "label": "Resistance Bonus",
+        "hint": "An additive modifier to the base resistance of the creature defined by Ancestry or Taxonomy."
+      },
+      "immune": {
+        "label": "Immunity",
+        "hint": "Indicate whether this Actor is immune to this damage type."
+      }
     }
   },
   "TABS": {

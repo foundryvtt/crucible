@@ -731,6 +731,18 @@
             display: none;
           }
         }
+        &.immunity {
+          .value {
+            background: url("../ui/elements/hex-immunity.svg") no-repeat center;
+            background-size: auto 24px;
+          }
+          .bar {
+            left: 0;
+            min-width: 100%;
+            background: var(--color-damage-immunity);
+            border: 1px solid var(--color-damage-immunity-border);
+          }
+        }
         &.res {
           .value {
             background: url("../ui/elements/hex-resistance.svg") no-repeat center;
