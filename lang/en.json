@@ -242,7 +242,15 @@
       }
     },
     "resistances": {
-      "label": "Resistances"
+      "label": "Resistances",
+      "bonus": {
+        "label": "Resistance Bonus",
+        "hint": "An additive modifier to the base resistance of the creature defined by Ancestry or Taxonomy."
+      },
+      "immune": {
+        "label": "Immunity",
+        "hint": "If immune to a damage type, damage of that type is reduced to 1."
+      }
     }
   },
   "TABS": {
