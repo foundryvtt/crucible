@@ -249,7 +249,7 @@
       },
       "immune": {
         "label": "Immunity",
-        "hint": "If immune to a damage type, damage of that type is reduced to 1."
+        "hint": "Indicate whether this Actor is immune to this damage type."
       }
     }
   },
