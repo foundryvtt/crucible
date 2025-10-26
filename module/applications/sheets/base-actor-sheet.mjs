@@ -640,9 +640,10 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const barCap = Math.max(this.document.level, 3);
     for ( const [id, d] of Object.entries(SYSTEM.DAMAGE_TYPES) ) {
       const r = Object.assign({}, d, rs[id]);
-      r.cssClass = r.total < 0 ? "vuln" : (r.total > 0 ? "res" : "none");
+      r.cssClass = r.immune ? "imm" : (r.total < 0 ? "vuln" : (r.total > 0 ? "res" : "none"));
       const p = Math.clamp(Math.abs(r.total) / barCap, 0, 1);
       r.barPct = `${p * 50}%`;
+      if ( r.immune ) r.total = "∞";
       resistances[d.type].resistances.push(r);
     }
     return resistances;

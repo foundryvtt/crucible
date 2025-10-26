@@ -88,7 +88,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Resistances
     schema.resistances = new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
       obj[damageType.id] = new fields.SchemaField({
-        bonus: new fields.NumberField({...requiredInteger, initial: 0})
+        bonus: new fields.NumberField({...requiredInteger, initial: 0}),
+        immune: new fields.BooleanField()
       }, {label: damageType.label});
       return obj;
     }, {}));
@@ -843,7 +844,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Preparation of resistances for all Actor subtypes.
    */
   #prepareTotalResistances() {
-    for ( const r of Object.values(this.resistances) ) r.total = r.base + r.bonus;
+    for ( const r of Object.values(this.resistances) ) r.total = r.immune ? Infinity : (r.base + r.bonus);
   }
 
   /* -------------------------------------------- */
