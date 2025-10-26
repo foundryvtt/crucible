@@ -21,6 +21,39 @@ export default class CrucibleScene extends Scene {
   /* -------------------------------------------- */
 
   /** @override */
+  async _preUpdate(changed, options, userId) {
+    const allowed = await super._preUpdate(changed, options, userId);
+    if ( allowed === false ) return false;
+    if ( !changed._stats ) return;
+    if ( (changed._stats.systemId ?? changed._stats.exportSource?.systemId) === SYSTEM.id ) return;
+    const g = changed.grid;
+    if ( (g.type !== CONST.GRID_TYPES.SQUARE) || (g.units !== "ft") || (g.distance !== 5) ) return;
+    for ( const token of changed.tokens ?? [] ) {
+      token.height *= 5;
+      token.width *= 5;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _preCreate(data, options, userId) {
+    const allowed = await super._preUpdate(data, options, userId);
+    if ( allowed === false ) return false;
+    if ( !data._stats ) return;
+    if ( (data._stats.systemId ?? data._stats.exportSource?.systemId) === SYSTEM.id ) return;
+    const g = data.grid;
+    if ( (g.type !== CONST.GRID_TYPES.SQUARE) || (g.units !== "ft") || (g.distance !== 5) ) return;
+    for ( const token of data.tokens ?? [] ) {
+      token.height *= 5;
+      token.width *= 5;
+    }
+    this.updateSource({tokens: data.tokens});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   getDimensions() {
     const dimensions = super.getDimensions();
     if ( !this.useMicrogrid ) return dimensions;
