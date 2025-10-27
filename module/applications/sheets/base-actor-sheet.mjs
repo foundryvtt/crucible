@@ -1070,8 +1070,13 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     }
 
     // Create a new item
-    const keepId = !(item.system instanceof crucible.api.models.CruciblePhysicalItem);
-    item = item.clone({system: {equipped: false}}, {keepId});
+    const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
+    if ( isPhysical && item.system.properties.has("stackable") ) {
+      const existingItem = this.actor.itemTypes[item.type].find(i => i.system.identifier === item.system.identifier
+        && i.system.properties.has("stackable"));
+      if ( existingItem ) return existingItem.update({ "system.quantity": existingItem.system.quantity + 1 });
+    }
+    item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
     if ( section === item.type ) { // Attempt equipment
       try {
         const equipResult = this.actor.canEquipItem(item);
@@ -1081,6 +1086,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       }
     }
     const itemData = this.actor._cleanItemData(item);
-    await Item.implementation.create(itemData, {parent: this.actor, keepId});
+    await Item.implementation.create(itemData, {parent: this.actor, keepId: !isPhysical});
   }
 }
