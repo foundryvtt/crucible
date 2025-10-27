@@ -616,7 +616,7 @@ export default class CrucibleActor extends Actor {
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareSpellAttack", spell, target, rollData);
-    target.callActorHooks("defendSpellAttack", spell, this, rollData); // TODO migrate to defendAttack
+    target.callActorHooks("defendAttack", spell, this, rollData);
 
     // Create the Attack Roll instance
     const roll = new AttackRoll(rollData);
@@ -730,7 +730,7 @@ export default class CrucibleActor extends Actor {
     // Apply talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareSkillAttack", action, target, rollData);
-    target.callActorHooks("defendSkillAttack", action, this, rollData); // TODO migrate to "defendAttack"
+    target.callActorHooks("defendAttack", action, this, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);
@@ -793,7 +793,7 @@ export default class CrucibleActor extends Actor {
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareWeaponAttack", action, target, rollData);
-    target.callActorHooks("defendWeaponAttack", action, this, rollData); // TODO migrate to "defendAttack"
+    target.callActorHooks("defendAttack", action, this, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
