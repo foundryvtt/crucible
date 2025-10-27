@@ -53,13 +53,14 @@ system:
   inflections:
     - eluding
   actorHooks:
-    - hook: defendWeaponAttack
-      fn: >-
-        const effect = this.effects.get("protectiveMirage"); if ( !effect )
-        return; const duplicates = effect.flags.crucible?.duplicates ?? 3;
-        rollData.banes.mirage = {label: "Protective Mirage", number: duplicates
-        * 2};
-    - hook: applyActionOutcome
+    - hook: defendAttack
+      fn: |-
+        if ( !action.tags.has("strike") ) return;
+        const effect = this.effects.get("protectiveMirage");
+        if ( !effect ) return;
+        const duplicates = effect.flags.crucible?.duplicates ?? 3;
+        rollData.banes.mirage = {label: item.name, number: duplicates * 2};
+    - hook: confirmActionOutcome
       fn: |-
         const effect = this.effects.get("protectiveMirage");
         if ( !effect ) return;
@@ -96,10 +97,10 @@ _stats:
   duplicateSource: null
   coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.6.0
+  systemVersion: 0.8.0
   createdTime: 1727204769939
-  modifiedTime: 1759877572783
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1761594127724
+  lastModifiedBy: p3lgSv60AK7ndmAK
   exportSource: null
 _id: protectiveMirage
 sort: 300000

@@ -9,20 +9,16 @@ system:
     gain double the benefit of the <strong>Guarded</strong> condition against
     <strong>Weapon Attacks</strong> while wielding a shield.
   actions: []
-  actorHooks:
-    - hook: defendWeaponAttack
-      fn: >-
-        if ( this.statuses.has("guarded") && this.equipment.weapons.shield )
-        rollData.banes.testudo = {label: "Testudo", number: 1};
+  actorHooks: []
 effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.0
+  coreVersion: '13.350'
   createdTime: 1674840825101
-  modifiedTime: 1747840922166
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1761594314378
+  lastModifiedBy: p3lgSv60AK7ndmAK
   compendiumSource: null
   duplicateSource: null
   exportSource: null

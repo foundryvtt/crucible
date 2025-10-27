@@ -1024,45 +1024,6 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.bulwark000000000'
-  - name: Testudo
-    type: talent
-    _id: testudo000000000
-    img: icons/skills/melee/shield-block-gray-yellow.webp
-    system:
-      description: >-
-        You are highly skilled in using shields to adopt a defensive posture.
-        You gain double the benefit of the <strong>Guarded</strong> condition
-        against <strong>Weapon Attacks</strong> while wielding a shield.
-      actions: []
-      actorHooks:
-        - hook: defendWeaponAttack
-          fn: >-
-            if ( this.statuses.has("guarded") && this.equipment.weapons.shield )
-            rollData.banes.testudo = {label: "Testudo", number: 1};
-      iconicSpells: 0
-      training:
-        type: ''
-        rank: null
-      nodes:
-        - tou0a
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.350'
-      systemId: crucible
-      systemVersion: 0.7.9
-      lastModifiedBy: null
-    folder: 8Vb0F5R7DMUrvhfw
-    sort: -25000
-    ownership:
-      default: 0
-    _key: '!actors.items!iLUfMcYjAbZFY4CJ.testudo000000000'
   - name: Hold Fast
     type: talent
     _id: holdfast00000000
@@ -1621,6 +1582,44 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!iLUfMcYjAbZFY4CJ.shieldCombatProf'
+  - name: Testudo
+    type: talent
+    _id: testudo000000000
+    img: icons/skills/melee/shield-block-gray-yellow.webp
+    system:
+      description: >-
+        You are highly skilled in using shields to adopt a defensive posture.
+        You gain double the benefit of the <strong>Guarded</strong> condition
+        against <strong>Weapon Attacks</strong> while wielding a shield.
+      actions: []
+      actorHooks: []
+      nodes:
+        - tou0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: Compendium.crucible.talent.Item.testudo000000000
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      createdTime: 1761595030572
+      modifiedTime: 1761595030572
+      lastModifiedBy: p3lgSv60AK7ndmAK
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+      p3lgSv60AK7ndmAK: 3
+    _key: '!actors.items!iLUfMcYjAbZFY4CJ.testudo000000000'
 effects: []
 flags:
   core: {}
