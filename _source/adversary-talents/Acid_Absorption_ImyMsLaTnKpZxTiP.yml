@@ -1,0 +1,38 @@
+folder: cKkQSlP59TZIn0ij
+name: Acid Absorption
+type: talent
+_id: acidAbsorption00
+img: icons/magic/acid/dissolve-drip-droplet-smoke.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} has an exceptional ability to thrive
+    within acidic environments. Its <strong>Acid</strong> resistance is doubled
+    and if that resistance would reduce an amount of damage below zero, the
+    negative amount is received as <strong>Healing</strong> instead.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  p3lgSv60AK7ndmAK: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.0
+  createdTime: 1761588550149
+  modifiedTime: 1761588957439
+  lastModifiedBy: p3lgSv60AK7ndmAK
+_key: '!items!acidAbsorption00'

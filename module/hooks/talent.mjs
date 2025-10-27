@@ -69,6 +69,21 @@ HOOKS.bloodSense000000 = {
 
 /* -------------------------------------------- */
 
+HOOKS.acidAbsorption00 = {
+  prepareResistances(_item, resistances) {
+    resistances.acid.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "acid") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.coldAbsorption00 = {
   prepareResistances(_item, resistances) {
     resistances.cold.base *= 2;
@@ -76,6 +91,96 @@ HOOKS.coldAbsorption00 = {
   receiveAttack(_item, _action, roll) {
     const dmg = roll.data.damage;
     if ( (dmg.type !== "cold") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.corruptionAbsorp = {
+  prepareResistances(_item, resistances) {
+    resistances.corruption.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "corruption") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.electricityAbsor = {
+  prepareResistances(_item, resistances) {
+    resistances.electricity.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "electricity") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.fireAbsorption00 = {
+  prepareResistances(_item, resistances) {
+    resistances.fire.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "fire") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.psychicAbsorptio = {
+  prepareResistances(_item, resistances) {
+    resistances.psychic.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "psychic") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.radiantAbsorptio = {
+  prepareResistances(_item, resistances) {
+    resistances.radiant.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "radiant") || dmg.restoration || (dmg.total > 0) ) return;
+    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+    dmg.restoration = true;
+    dmg.total = dmg.resistance - unmitigatedTotal;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.voidAbsorption00 = {
+  prepareResistances(_item, resistances) {
+    resistances.void.base *= 2;
+  },
+  receiveAttack(_item, _action, roll) {
+    const dmg = roll.data.damage;
+    if ( (dmg.type !== "void") || dmg.restoration || (dmg.total > 0) ) return;
     const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
     dmg.restoration = true;
     dmg.total = dmg.resistance - unmitigatedTotal;
