@@ -2111,7 +2111,7 @@ export default class CrucibleActor extends Actor {
     const abilityChange = !!abl1 && Object.keys(SYSTEM.ABILITIES).some(k => !foundry.utils.isEmpty(abl1[k]));
 
     // Pre-simulate the changes
-    if ( levelChange || abilityChange ) {
+    if ( (options.recursive !== false) && (levelChange || abilityChange) ) {
       const clone = this.clone();
       clone.updateSource(data);
 
