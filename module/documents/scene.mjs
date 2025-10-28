@@ -43,8 +43,8 @@ export default class CrucibleScene extends Scene {
     if ( allowed === false ) return false;
     const sceneSystem = data._stats?.systemId ?? data._stats?.exportSource?.systemId;
     if ( !sceneSystem || (sceneSystem === SYSTEM.id) ) return;
-    if ( this.constructor.useMicrogrid(data) ) {
-      for ( const token of data.tokens ?? [] ) {
+    if ( this.constructor.useMicrogrid(data) && data.tokens?.length ) {
+      for ( const token of data.tokens ) {
         token.height *= 5;
         token.width *= 5;
       }
