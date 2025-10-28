@@ -23,7 +23,7 @@ export default class CrucibleScene extends Scene {
   async _preUpdate(changed, options, userId) {
     const allowed = await super._preUpdate(changed, options, userId);
     if ( allowed === false ) return false;
-    if ( !changed._stats ) return;
+    if ( !changed._stats || !changed.tokens?.length ) return;
     const systemChanged = (changed._stats.systemId ?? changed._stats.exportSource?.systemId) !== SYSTEM.id;
     if ( systemChanged && (options.recursive === false) && changed.tokens.length ) {
       if ( this.constructor.useMicrogrid(changed) ) {
