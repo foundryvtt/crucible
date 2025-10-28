@@ -8,10 +8,9 @@ export default class CrucibleScene extends Scene {
   /** @inheritDoc */
   prepareBaseData() {
     if ( !(this.grid instanceof foundry.grid.BaseGrid) ) {
-      const g = this._source.grid;
-      if ( (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5) ) {
+      if ( this.constructor.useMicrogrid(this._source) ) {
         this.useMicrogrid = true;
-        this.grid.size = g.size / 5;
+        this.grid.size = this._source.grid.size / 5;
         this.grid.distance = 1;
       }
     }
@@ -25,12 +24,14 @@ export default class CrucibleScene extends Scene {
     const allowed = await super._preUpdate(changed, options, userId);
     if ( allowed === false ) return false;
     if ( !changed._stats ) return;
-    if ( (changed._stats.systemId ?? changed._stats.exportSource?.systemId) === SYSTEM.id ) return;
-    const g = changed.grid;
-    if ( (g.type !== CONST.GRID_TYPES.SQUARE) || (g.units !== "ft") || (g.distance !== 5) ) return;
-    for ( const token of changed.tokens ?? [] ) {
-      token.height *= 5;
-      token.width *= 5;
+    const systemChanged = (changed._stats.systemId ?? changed._stats.exportSource?.systemId) !== SYSTEM.id;
+    if ( systemChanged && (options.recursive === false) && changed.tokens.length ) {
+      if ( this.constructor.useMicrogrid(changed) ) {
+        for ( const token of changed.tokens ?? [] ) {
+          token.height *= 5;
+          token.width *= 5;
+        }
+      }
     }
   }
 
@@ -40,15 +41,15 @@ export default class CrucibleScene extends Scene {
   async _preCreate(data, options, userId) {
     const allowed = await super._preUpdate(data, options, userId);
     if ( allowed === false ) return false;
-    if ( !data._stats ) return;
-    if ( (data._stats.systemId ?? data._stats.exportSource?.systemId) === SYSTEM.id ) return;
-    const g = data.grid;
-    if ( (g.type !== CONST.GRID_TYPES.SQUARE) || (g.units !== "ft") || (g.distance !== 5) ) return;
-    for ( const token of data.tokens ?? [] ) {
-      token.height *= 5;
-      token.width *= 5;
+    const sceneSystem = data._stats?.systemId ?? data._stats?.exportSource?.systemId;
+    if ( !sceneSystem || (sceneSystem === SYSTEM.id) ) return;
+    if ( this.constructor.useMicrogrid(data) ) {
+      for ( const token of data.tokens ?? [] ) {
+        token.height *= 5;
+        token.width *= 5;
+      }
+      this.updateSource({tokens: data.tokens});
     }
-    this.updateSource({tokens: data.tokens});
   }
 
   /* -------------------------------------------- */
@@ -89,5 +90,19 @@ export default class CrucibleScene extends Scene {
         opacity: 0.5
       }
     });
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers                                     */
+  /* -------------------------------------------- */
+
+  /**
+   * Determine whether input scene data will be made to use the microgrid automatically
+   * @param {object} sceneData  The scene data to check
+   * @returns {Boolean}
+   */
+  static useMicrogrid(sceneData) {
+    const g = sceneData.grid;
+    return (g.type === CONST.GRID_TYPES.SQUARE) && (g.units === "ft") && (g.distance === 5);
   }
 }
