@@ -232,6 +232,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _getMovementCostFunction(options) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
+    const actionCostFunctions = {};
     const actor = this.actor;
     return (from, to, distance, segment) => {
 
@@ -248,7 +249,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       const terrainCost = calculateTerrainCost(from, to, distance, segment);
 
       // Step 3: Apply movement action
-      return terrainCost * (segment.actionConfig.costMultiplier ?? 1);
+      const calculateActionCost = actionCostFunctions[segment.action]
+        ??= segment.actionConfig.getCostFunction(this.document, options);
+      return calculateActionCost(terrainCost, from, to, distance, segment);
     };
   }
 
@@ -261,11 +264,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _modifyAnimationMovementSpeed(speed, options) {
-    if ( options.terrain instanceof foundry.data.TerrainData ) speed /= options.terrain.difficulty;
-    const actionConfig = CONFIG.Token.movement.actions[options.action];
-    return speed * (actionConfig.speedMultiplier ?? 1);
+  /** @inheritDoc */
+  _modifyAnimationMovementSpeed(speed, options={}) {
+    speed = super._modifyAnimationMovementSpeed(speed, options);
+    
+    // TODO this can be removed in V14
+    if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
+      const actionConfig = CONFIG.Token.movement.actions[options.action];
+      return speed * (actionConfig.speedMultiplier ?? 1);
+    }
+
+    return speed;
   }
 
   /* -------------------------------------------- */

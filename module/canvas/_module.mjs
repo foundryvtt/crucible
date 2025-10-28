@@ -15,8 +15,6 @@ export function configure() {
 
   // Movement Actions
   const coreActions = CONFIG.Token.movement.actions;
-  const walkTerrain = ({walk}) => walk;
-  const noTerrain = () => 1;
   const groupOnly = token => token.actor?.type === "group";
   const notGroup = token => token.actor?.type !== "group";
   CONFIG.Token.movement.actions = {
@@ -36,7 +34,7 @@ export function configure() {
       img: "icons/svg/hazard.svg",
       costMultiplier: 2,
       speedMultiplier: 0.5,
-      deriveTerrainDifficulty: walkTerrain,
+      terrainAction: "walk",
       canSelect: notGroup
     },
     crawl: {
@@ -46,7 +44,7 @@ export function configure() {
       img: coreActions.crawl.img,
       costMultiplier: 2,
       speedMultiplier: 0.25,
-      deriveTerrainDifficulty: walkTerrain,
+      terrainAction: "walk",
       canSelect: notGroup
     },
     jump: {
@@ -66,7 +64,7 @@ export function configure() {
       img: coreActions.climb.img,
       costMultiplier: 2,
       speedMultiplier: 0.25,
-      deriveTerrainDifficulty: walkTerrain,
+      terrainAction: "walk",
       canSelect: notGroup
     },
     swim: {
@@ -93,7 +91,7 @@ export function configure() {
       img: coreActions.blink.img,
       teleport: true,
       speedMultiplier: Infinity,
-      deriveTerrainDifficulty: noTerrain,
+      terrainAction: null,
       canSelect: notGroup
     },
 
@@ -108,13 +106,34 @@ export function configure() {
       visualize: false,
       costMultiplier: 0,
       speedMultiplier: Infinity,
-      canSelect: () => false,
-      deriveTerrainDifficulty: noTerrain
+      canSelect: false,
+      terrainAction: null,
     }
   };
 
   // Add party travel options
   for ( const [id, cfg] of Object.entries(TRAVEL_PACES) ) {
     CONFIG.Token.movement.actions[id] = {...cfg, canSelect: groupOnly};
+  }
+
+  // TODO this can be removed in V14
+  if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
+    const doubleCost = () => cost => cost * 2;
+    const noCost = () => () => 0;
+    const walkTerrain = ({walk}) => walk;
+    const noTerrain = () => 1;
+    const actions = CONFIG.Token.movement.actions;
+    actions.step.getCostFunction = doubleCost;
+    actions.step.deriveTerrainDifficulty = walkTerrain;
+    actions.crawl.getCostFunction = doubleCost;
+    actions.crawl.deriveTerrainDifficulty = walkTerrain;
+    actions.jump.getCostFunction = doubleCost;
+    actions.climb.getCostFunction = doubleCost;
+    actions.climb.deriveTerrainDifficulty = walkTerrain;
+    actions.swim.getCostFunction = doubleCost;
+    actions.blink.deriveTerrainDifficulty = noTerrain;
+    actions.displace.deriveTerrainDifficulty = noTerrain;
+    actions.displace.getCostFunction = noCost;
+    actions.displace.canSelect = () => false;
   }
 }
