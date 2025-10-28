@@ -1069,7 +1069,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       return;
     }
 
-    // Create a new item
+    // Expand the stack of an existing stackable item
     const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
     if ( isPhysical && item.system.properties.has("stackable") ) {
       const existingItem = this.actor.itemTypes[item.type].find(i => (i.system.identifier === item.system.identifier)
