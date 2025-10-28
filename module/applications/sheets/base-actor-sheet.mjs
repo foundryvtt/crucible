@@ -1072,9 +1072,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Create a new item
     const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
     if ( isPhysical && item.system.properties.has("stackable") ) {
-      const existingItem = this.actor.itemTypes[item.type].find(i => i.system.identifier === item.system.identifier
+      const existingItem = this.actor.itemTypes[item.type].find(i => (i.system.identifier === item.system.identifier)
         && i.system.properties.has("stackable"));
-      if ( existingItem ) return existingItem.update({ "system.quantity": existingItem.system.quantity + 1 });
+      if ( existingItem ) return existingItem.update({ "system.quantity": existingItem.system.quantity + item.system.quantity});
     }
     item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
     if ( section === item.type ) { // Attempt equipment
