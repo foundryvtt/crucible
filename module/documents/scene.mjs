@@ -99,7 +99,7 @@ export default class CrucibleScene extends Scene {
   /**
    * Determine whether input scene data will be made to use the microgrid automatically
    * @param {object} sceneData  The scene data to check
-   * @returns {Boolean}
+   * @returns {boolean}
    */
   static useMicrogrid(sceneData) {
     const g = sceneData.grid;
