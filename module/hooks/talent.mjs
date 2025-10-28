@@ -69,16 +69,29 @@ HOOKS.bloodSense000000 = {
 
 /* -------------------------------------------- */
 
-HOOKS.coldAbsorption00 = {
-  prepareResistances(_item, resistances) {
-    resistances.cold.base *= 2;
-  },
-  receiveAttack(_item, _action, roll) {
-    const dmg = roll.data.damage;
-    if ( (dmg.type !== "cold") || dmg.restoration || (dmg.total > 0) ) return;
-    const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
-    dmg.restoration = true;
-    dmg.total = dmg.resistance - unmitigatedTotal;
+const absorptionTalents = {
+  acidAbsorption00: "acid",
+  coldAbsorption00: "cold",
+  corruptionAbsorp: "corruption",
+  electricityAbsor: "electricity",
+  fireAbsorption00: "fire",
+  psychicAbsorptio: "psychic",
+  radiantAbsorptio: "radiant",
+  voidAbsorption00: "void"
+};
+
+for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
+  HOOKS[talentId] = {
+    prepareResistances(_item, resistances) {
+      resistances[damageType].base *= 2;
+    },
+    receiveAttack(_item, _action, roll) {
+      const dmg = roll.data.damage;
+      if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
+      const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+      dmg.restoration = true;
+      dmg.total = dmg.resistance - unmitigatedTotal;
+    }
   }
 }
 
