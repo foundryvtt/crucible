@@ -29,11 +29,15 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
         value: context.source.system.abilities[ability.id]
       })),
       resistances: Object.values(SYSTEM.DAMAGE_TYPES).map(damage => ({
-        field: context.fields.resistances.fields[damage.id],
+        field: context.fields.resistances.fields[damage.id].fields.value,
         id: damage.id,
         label: damage.label,
-        value: context.source.system.resistances[damage.id]
-      }))
+        value: context.source.system.resistances[damage.id].immune ? 4 : context.source.system.resistances[damage.id].value
+      })),
+      immunities: {
+        damageTypes: SYSTEM.DAMAGE_TYPES,
+        immune: Object.entries(context.source.system.resistances).filter(([_, {immune}]) => immune).map(([id]) => id)
+      }
     });
   }
 
@@ -53,7 +57,10 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     super._onChangeForm(formConfig, event);
     const group = event.target.closest(".form-group");
     if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
-    else if ( group?.classList.contains("resistances") ) this.#updateResistanceSum();
+    else if ( group?.classList.contains("resistances") ) {
+      if ( event.target.name === "immunities" ) this.#handleImmunities(event.target.value);
+      this.#updateResistanceSum();
+    }
   }
 
   /* -------------------------------------------- */
@@ -70,6 +77,22 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     const span = abilities.querySelector(".sum");
     span.innerHTML = `${total} <i class="${icon}"></i>`;
     span.classList.toggle("invalid", !valid);
+  }
+
+  /* -------------------------------------------- */
+
+  #handleImmunities(selected) {
+    const resistances = this.element.querySelector(".resistances");
+    const inputs = resistances.querySelectorAll("input[type=number]");
+    for ( const input of inputs ) {
+      if ( selected.includes(input.dataset.damageType) ) {
+        input.disabled = true;
+        input.value = 4;
+      } else {
+        input.disabled = false;
+        input.value = foundry.utils.getProperty(this.document, input.name);
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -95,6 +118,12 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     const submitData = super._processFormData(event, form, formData);
     const fields = this.document.system.schema.fields;
     const {abilities, resistances} = submitData.system;
+    for ( const resType of Object.keys(SYSTEM.DAMAGE_TYPES) ) {
+      resistances[resType] ??= {};
+      resistances[resType].value ??= this.document.system.resistances[resType].value;
+      resistances[resType].immune = submitData.immunities.includes(resType);
+    }
+    delete submitData.immunities;
     if ( fields.abilities.validate(abilities) !== undefined ) return {};
     if ( fields.resistances.validate(resistances) !== undefined ) return {};
     return submitData;

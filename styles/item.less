@@ -158,6 +158,18 @@
         font-size: var(--font-size-18);
         text-align: center;
       }
+      .immunities {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 0.25rem;
+        align-items: end;
+        label {
+          margin-bottom: 2px;
+        }
+        multi-select {
+          flex-grow: 1;
+        }
+      }
     }
     .sum {
       margin-left: 0.25rem;
