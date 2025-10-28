@@ -1079,6 +1079,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
         return;
       }
     }
+
+    // Create a new item
     item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
     if ( section === item.type ) { // Attempt equipment
       try {
