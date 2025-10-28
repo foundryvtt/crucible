@@ -81,6 +81,11 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
 
   /* -------------------------------------------- */
 
+  /**
+   * Update the resistance numerical inputs when a change is made to selected immunities,
+   * disabling the corresponding inputs and overriding their visual value as 4.
+   * @param {string[]} selected The ids of the damage types which are currently selected as immunities
+   */
   #handleImmunities(selected) {
     const resistances = this.element.querySelector(".resistances");
     const inputs = resistances.querySelectorAll("input[type=number]");
