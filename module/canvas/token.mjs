@@ -264,16 +264,16 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
-  /** @inheritDoc */
+  /** 
+   * TODO This method extension can be removed in V14 as it will be handled by Foundry core.
+   * @inheritDoc
+   */
   _modifyAnimationMovementSpeed(speed, options={}) {
     speed = super._modifyAnimationMovementSpeed(speed, options);
-    
-    // TODO this can be removed in V14
     if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
       const actionConfig = CONFIG.Token.movement.actions[options.action];
       return speed * (actionConfig.speedMultiplier ?? 1);
     }
-
     return speed;
   }
 
