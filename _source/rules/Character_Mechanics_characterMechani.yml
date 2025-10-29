@@ -1,0 +1,295 @@
+_id: characterMechani
+name: Character Mechanics
+pages:
+  - _id: Defenses00000000
+    name: Defenses
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Defenses</strong> are a set of attributes for each character
+        which define how difficult certain actions are to take against that
+        character. The higher a defense value, the harder it is to perform an
+        action which targets that defense. Success on a test against a defense
+        target requires the roll to exceed the defense value, the defender is
+        successful on a tie.</p><p>The defense types in the Crucible system
+        are:</p><h2 class="divider">Physical Defense</h2><p><strong>Physical
+        Defense</strong> describes how difficult the creature is to hit with
+        physical attacks, typically melee or ranged weapon strikes. Physical
+        Defense is composed of four components. Total Physical Defense is equal
+        to:</p><section class="formula"><p class="value">Physical Defense</p><p
+        class="equals">=</p><p class="equation">Armor + Dodge + Parry +
+        Block</p></section><p>When an attack misses because it is less than or
+        equal to the Physical Defense total, it is assigned a type of miss based
+        on the proportional mixture of Physical Defense
+        components.</p><h4>Armor</h4><p>Protection offered by worn equipment or
+        organic attributes like scales or chitin. Strikes which fail to hit and
+        are defended by Armor assume the <strong>Deflected</strong> outcome.
+        Unlike other physical defense outcomes, Deflection still results in some
+        damage as long as the attack roll was not a Critical Failure; more than
+        6 less than the Physical Defense target. The residual damage dealt from
+        a Deflection is also called a <strong>Glancing
+        Blow.</strong></p><h4>Dodge</h4><p>Protection offered by physical
+        quickness and agility. Strikes which fail to hit and are defended by the
+        Dodge defense assume the <strong>Dodged</strong> outcome. Dodged attacks
+        deal no damage and provide opportunity for dodge-based
+        reactions.</p><h4>Parry</h4><p>Protection offered by guarding against an
+        attack using an equipped weapon. Strikes which fail to hit and are
+        defended by the Parry defense assume the <strong>Parried</strong>
+        outcome. Parried attacks deal no damage and provide opportunity for
+        parry-based reactions.</p><h4>Block</h4><p>Protection offered by
+        guarding against an attack using an equipped shield or blocking weapon.
+        Strikes which fail to hit and are defended by the Block defense assume
+        the <strong>Blocked </strong>outcome. Blocked attacks deal no damage and
+        provide opportunity for block-based reactions.</p><h2
+        class="divider">Non-Physical Defenses</h2><p>The three non-physical
+        defenses are used to protect against spells or other abilities which are
+        non-corporeal or intangible in
+        nature.</p><h4>Fortitude</h4><p><strong>Fortitude Defense</strong>
+        describes a character's ability to withstand bodily harm. Fortitude is
+        modified by <strong>Strength</strong> and <strong>Wisdom</strong> which
+        represent physical resistance and mental resilience respectively.
+        Fortitude defense is calculated as:</p><section class="formula"><p
+        class="value">Fortitude Defense</p><p class="equals">=</p><p
+        class="equation">12 + ((Strength + Wisdom) / 2) + Fortitude
+        Bonus</p></section><h4>Willpower</h4><p><strong>Willpower
+        Defense</strong> describes a character's ability to withstand mental or
+        emotional attacks. Willpower is modified by <strong>Toughness</strong>
+        and <strong>Presence</strong> which represent physical grit and mental
+        determination respectively. Willpower defense is calculated
+        as:</p><section class="formula"><p class="value">Willpower Defense</p><p
+        class="equals">=</p><p class="equation">12 + ((Toughness + Presence) /
+        2) + Willpower Bonus</p></section><h4>Reflex</h4><p><strong>Reflex
+        Defense</strong> describes a character's ability to avoid harm that
+        would otherwise occur in a specific area. Reflex is modified by
+        <strong>Dexterity</strong> and <strong>Intellect</strong> which
+        represent quickness of body and rapidity of thought respectively. Reflex
+        defense is calculated as:</p><section class="formula"><p
+        class="value">Reflex Defense</p><p class="equals">=</p><p
+        class="equation">12 + ((Dexterity + Intellect) / 2) + Reflex
+        Bonus</p></section><p>Note that Reflex is typically used as the defense
+        type for intangible - but otherwise physical - sources of harm, while
+        Physical Defense is used to defend against tangible
+        attacks.</p><h4>Defense Bonuses</h4><p>Bonuses to these non-physical
+        defenses may be obtained through Talents or magical Equipment.</p><h2
+        class="divider">Restoration Thresholds</h2><p><strong>Restoration
+        Thresholds</strong> describe a pair of defenses which dictate how
+        challenging it is to restore a creature's resources through healing or
+        rallying actions.</p><h4>Healing Threshold</h4><p><strong>Healing
+        Threshold</strong> describes how difficult it is to restore the Health
+        of a creature. As creatures become more severely wounded, they grow more
+        difficult to heal. This provides a measure of attrition which requires
+        adventures to carefully manage their accumulation of <strong>Wounds
+        </strong>over time. Healing threshold is calculated as:</p><section
+        class="formula"><p class="value">Healing Threshold</p><p
+        class="equals">=</p><p class="equation">12 + (Wounds / 10) -
+        Bonus</p></section><h4>Rallying Threshold</h4><p><strong>Rallying
+        Threshold</strong> describes how difficult it is to restore the Morale
+        of a creature. As creatures become more psychologically damaged they
+        become more difficult to rally. This provides a measure of attrition
+        which requires adventurers to carefully manage their accumulation of
+        <strong>Madness</strong> over time. Rallying threshold is calculated
+        as:</p><section class="formula"><p class="value">Rallying
+        Threshold</p><p class="equals">=</p><p class="equation">12 + (Madness /
+        10) - Bonus</p></section><h4>Threshold Bonuses</h4><p>Bonuses to these
+        Restoration Threshold defenses may be obtained through Talents or
+        magical Equipment. Since higher thresholds make a character more
+        difficult to heal, bonuses to these defenses lower the threshold instead
+        of increasing it.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    sort: 0
+    ownership:
+      default: -1
+      vke929uLgNzbrY41: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      createdTime: 1761697191065
+      modifiedTime: 1761697296282
+      lastModifiedBy: vke929uLgNzbrY41
+    _key: '!journal.pages!characterMechani.Defenses00000000'
+  - _id: Resources0000000
+    name: Resources
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Resources </strong>refers to the family of attributes which
+        represent a character's wellbeing and ability to act. Each resource is a
+        "pool", featuring a current and maximum value. The minimum value for all
+        resources is zero.</p><h2 class="divider">Physical and Mental
+        Health</h2><p>Maintaining the physical and mental health of your
+        character is an ever-present challenge. Crucible uses two separate pools
+        to represent the hero's state of wellbeing.</p><h4>Health and
+        Wounds</h4><p>The physical health of a character is modeled using two
+        resource pools. <strong>Health</strong> is a temporary resource which
+        begins full and is decreased when a character sustains damage in combat.
+        <strong>Wounds</strong> are a permanent resource which increase when a
+        character suffers grievous injury.</p><p>If the Health pool is reduced
+        to zero, the character becomes <strong>Incapacitated</strong> and begins
+        to suffer Wounds. If the Wounds meter reaches its maximum, the character
+        becomes <strong>Dead</strong>.</p><h4>Morale and Madness</h4><p>The
+        mental health of a character is similarly modeled using two resource
+        pools. <strong>Morale</strong> is a temporary resource which begins full
+        and is decreased as the character suffers stress or trauma.
+        <strong>Madness</strong> is a permanent resource which increases when a
+        character suffers grievous mental strain.</p><p>If the Morale pool is
+        reduced to zero, the character becomes <strong>Broken</strong> and
+        begins to suffer Madness. If the Madness meter reaches its maximum, the
+        character becomes <strong>Insane</strong>.</p><h2
+        class="divider">Capacity for Action</h2><p>Two resource pools define a
+        character's ability to take action during game
+        situations.</p><h4>Action</h4><p><strong>Action </strong>describes a
+        character's capacity for rapid action during each round of a combat
+        encounter. Characters typically have a pool of 6 Action, all six of
+        which replenish at the start of their turn in
+        combat.</p><h4>Focus</h4><p><strong>Focus</strong> describes a
+        character's capacity for extraordinary feats of heroism or magic. A
+        character's Focus is replenished when they successfully rest, but during
+        the midst of combat Focus must be used thoughtfully as it will not
+        naturally replenish.</p><h4>Heroism</h4><p><strong>Heroism</strong> is a
+        special generated resource that allows you to perform spectacular feats
+        of magic or heroic prowess. Heroism is earned over the course of —
+        typically longer — combat encounters allowing you to narratively unleash
+        your most powerful abilities once the tension of battle has
+        peaked!</p><h2 class="divider">Recovering Resources</h2><p>During
+        Combat, Health and Morale may only be recovered by Actions or Talents
+        which provide <strong>Restoration</strong>. Outside of Combat, it is
+        possible to use the <strong>Recover</strong> action which consumes 10
+        minutes of time and fully replenishes your Health, Morale, Action, and
+        Focus pools.</p><p>In order to reduce the accumulation of Wounds or
+        Madness, long-term <strong>Rest</strong> is required. Rest mechanics are
+        not implemented in Playtest One. The means and rate at which Wounds and
+        Madness are reduced will be more fully articulated in a later phase of
+        development.</p>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    sort: 0
+    ownership:
+      default: -1
+      vke929uLgNzbrY41: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      createdTime: 1761697210522
+      modifiedTime: 1761697367281
+      lastModifiedBy: vke929uLgNzbrY41
+    _key: '!journal.pages!characterMechani.Resources0000000'
+  - _id: Resistances00000
+    name: Resistances and Vulnerability
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Damage Resistance</strong> allows a character in Crucible to
+        shrug off or succumb to more damage than normal. Specific creature types
+        may be vulnerable to certain types of damage, conversely some of the
+        most terrifying adversaries are ones that can ignore significant
+        portions of damage that they take.</p><blockquote><p>Most creatures
+        which are resistant to a certain damage type are vulnerable to some
+        other damage type - if you encounter a creature which is overly
+        effective at withstanding your blows - switch
+        tactics!</p></blockquote><h2>Damage Types</h2><p>The Crucible system
+        uses the following 12 <strong>Damage Types</strong>, each of which has a
+        corresponding <strong>Resistance</strong> or
+        <strong>Vulnerability</strong>. Additionally, each damage type has an
+        associated
+        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.USjhhuOGsLTXQM9v]{Condition}
+        which can be caused as a consequence of that damage type, usually as a
+        result of a <strong>Critical
+        Hit</strong>.</p><table><thead><tr><th><p>Physical Damage
+        Types</p></th><th><p>Related
+        Conditions</p></th></tr></thead><tbody><tr><td><p>Bludgeoning</p></td><td><p>Concussed</p></td></tr><tr><td><p>Piercing</p></td><td><p>Bleeding</p></td></tr><tr><td><p>Slashing</p></td><td><p>Bleeding</p></td></tr><tr><td><p>Poison</p></td><td><p>Poisoned</p></td></tr><tr><th><p>Elemental
+        Damage Types</p></th><th><p>Related
+        Conditions</p></th></tr><tr><td><p>Acid</p></td><td><p>Corroding</p></td></tr><tr><td><p>Fire</p></td><td><p>Burning</p></td></tr><tr><td><p>Cold</p></td><td><p>Chilled</p></td></tr><tr><td><p>Electricity</p></td><td><p>Shocked</p></td></tr><tr><th><p>Spiritual
+        Damage Types</p></th><th><p>Related
+        Conditions</p></th></tr><tr><td><p>Corruption</p></td><td><p>Decaying</p></td></tr><tr><td><p>Psychic</p></td><td><p>Shaken</p></td></tr><tr><td><p>Radiant</p></td><td><p>Irradiated</p></td></tr><tr><td><p>Void</p></td><td><p>Entropy</p></td></tr></tbody></table><h2>Minimum
+        and Maximum Damage</h2><p>When an Action deals damage as an immediate
+        consequence (called "direct damage") the minimum amount of damage that
+        can be dealt is 1, even if the creature has Resistance that exceeds the
+        amount of damage dealt.</p><p>Some actions cause a downstream effect
+        which deals damage upon a later Turn of combat (called "damage over
+        time"). Damage over time can be completely negated by resistance; the
+        minimum damage in such cases is zero.</p><p>When a creature is
+        vulnerable to a type of damage dealt, the amount of damage dealt is
+        increased by the amount of the vulnerability. This increase in damage is
+        limited by the base amount of damage dealt; maximum damage against a
+        vulnerable target is two times the amount of damage dealt.</p><section
+        class="gameplay"><h4>Example: Damage Vulnerability</h4><p>Suppose a
+        volatile Fire Elemental has vulnerability of <strong>-20</strong> to
+        Cold damage. If the elemental is dealt <strong>7</strong> Cold damage
+        before vulnerability is applied, the total result will be
+        <strong>14</strong> Cold damage.</p></section>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    sort: 0
+    ownership:
+      default: -1
+      vke929uLgNzbrY41: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      createdTime: 1761697235112
+      modifiedTime: 1761697482152
+      lastModifiedBy: vke929uLgNzbrY41
+    _key: '!journal.pages!characterMechani.Resistances00000'
+folder: MMeWpMmsLOblp07U
+categories: []
+sort: 150000
+ownership:
+  default: 0
+  vke929uLgNzbrY41: 3
+flags:
+  core:
+    sheetClass: crucible.CrucibleJournalEntrySheet
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.0
+  createdTime: 1761697111327
+  modifiedTime: 1761697321659
+  lastModifiedBy: vke929uLgNzbrY41
+_key: '!journal!characterMechani'
