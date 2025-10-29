@@ -19,77 +19,31 @@ pages:
         <p>The first step in character creation is selecting an
         <strong>Ancestry</strong>, which classifies the biology and physiology
         of a character in Crucible, and grants the newly created hero specific
-        starting traits.</p><p>Each Ancestry includes:</p><ul><li><p>A
-        <strong>Primary Ability</strong> Score (which begins at
-        3)</p></li><li><p>A <strong>Secondary Ability</strong> Score (which
-        begins at 2)</p></li><li><p>A <strong>Size</strong> value in grid spaces
-        (typically 4)</p></li><li><p>A <strong>Stride</strong> value in grid
-        spaces that determines the starting movement speed (typically
-        10)</p></li><li><p>Optional: A <strong>Damage Resistance</strong> to a
-        certain type of damage (+3 resistance) — If a Damage Resistance is
-        selected, a Damage Vulnerability MUST be
-        selected.</p></li><li><p>Optional: A <strong>Damage
-        Vulnerability</strong> to a certain type of damage (-3 vulnerability) —
-        If a Damage Vulnerability is selected, a Damage Resistance MUST be
-        selected.</p></li><li><p>An <strong>Ancestral Talent </strong>which
-        grants a specific special ability or knowledge to a character of that
-        ancestry.</p></li></ul><p>You can change your character's Ancestry at
-        any point during the character creation, but be aware that doing so may
+        starting traits.</p><p>You can change your character's Ancestry at any
+        point during the character creation, but be aware that doing so may
         impact your currently assigned Ability Scores if you have already chosen
         them and that may require re-selecting them before completing your
-        character creation.</p><h4>Damage Resistance and
-        Vulnerability</h4><p>Ancestries may optionally add both a Damage
+        character creation.</p><p>For more information see:
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.ancestry00000000]</p><p>Each
+        Ancestry includes:</p><ul><li><p>A <strong>Primary Ability</strong>
+        Score (which begins at 3)</p></li><li><p>A <strong>Secondary
+        Ability</strong> Score (which begins at 2)</p></li><li><p>A
+        <strong>Size</strong> value in grid spaces (typically
+        4)</p></li><li><p>A <strong>Stride</strong> value in grid spaces that
+        determines the starting movement speed (typically 10)</p></li><li><p>An
+        <strong>Ancestral Talent </strong>which grants a specific special
+        ability or knowledge to a character of that
+        ancestry.</p></li></ul><dl><dt><p>Damage Resistance and
+        Vulnerability</p></dt><dd><p>Ancestries may optionally add both a Damage
         Resistance (<strong>+3</strong>) and a Damage Vulnerability
         (<strong>-3</strong>) to two different damage types. Some Ancestries
-        have neither Resistance nor Vulnerability to any damage
-        type.</p><h2>Creating Ancestries</h2><section
+        have neither Resistance nor Vulnerability to any damage type.</p><p>For
+        more information see:
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.Resistances00000]</p></dd></dl><section
         class="foundryvtt"><p>While Crucible includes a number of example
         Ancestries, future versions will include a convenient way for
         Gamemasters to create and use their own custom Ancestries as part of the
-        basic character creation workflow.</p></section><p>Crucible is not
-        designed for a specific game setting. Gamemasters are encouraged to
-        create or modify Ancestries to fit the lore of their own worlds. To
-        configure an Ancestry in Crucible, create a new <strong>Item</strong>
-        with the <strong>Ancestry</strong> type. Fill out the Ancestry
-        configuration sheet to select a primary Ability score, a secondary
-        Ability score, and optionally Resistance and Vulnerability to two
-        different damage types. Every Ancestry may either have both a Resistance
-        and a Vulnerability, or neither.</p><h2>Example
-        Ancestries</h2><p>Crucible provides the following Ancestries for the
-        purposes of playtesting which are familiar to typical fantasy
-        role-playing settings. A collection of sample ancestries which are
-        provided for the initial playtest are presented in the following
-        table:</p><p></p><table><thead><tr><th>Ancestry</th><th>Primary Ability
-        (+3)</th><th>Secondary Ability (+2)</th><th>Damage
-        Resistance</th><th>Damage
-        Vulnerability</th><td>Size</td><td>Stride</td><td>Ancestral
-        Talent</td></tr></thead><tbody><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.human00000000000]{Human}</p></td><td><p>Presence</p></td><td><p>Toughness</p></td><td><p>None</p></td><td><p>None</p></td><td>4</td><td>10</td><td>@UUID[Compendium.crucible.talent.Item.intercept0000000]{Intercept}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.elvish0000000000]{Elvish}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Radiant</p></td><td><p>Corruption</p></td><td>4</td><td>10</td><td>@UUID[Compendium.crucible.talent.Item.runemind00000000]{Rune:
-        Control}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.dwarven000000000]{Dwarven}</p></td><td><p>Toughness</p></td><td><p>Wisdom</p></td><td><p>Acid</p></td><td><p>Psychic</p></td><td>4</td><td>8</td><td>@UUID[Compendium.crucible.talent.Item.secondwind000000]{Second
-        Wind}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.orcish0000000000]{Orcish}</p></td><td><p>Strength</p></td><td><p>Toughness</p></td><td><p>Cold</p></td><td><p>Fire</p></td><td>4</td><td>10</td><td>@UUID[Compendium.crucible.talent.Item.heavystrike00000]{Heavy
-        Strike}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.giantkin00000000]{Giantkin}</p></td><td><p>Wisdom</p></td><td><p>Toughness</p></td><td><p>Acid</p></td><td><p>Electricity</p></td><td>5</td><td>10</td><td>@UUID[Compendium.crucible.talent.Item.runeearth0000000]{Rune:
-        Earth}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.gnome00000000000]{Gnome}</p></td><td><p>Intellect</p></td><td><p>Dexterity</p></td><td><p>Electricity</p></td><td><p>Acid</p></td><td>3</td><td>8</td><td>@UUID[Compendium.crucible.talent.Item.runelightning000]{Rune:
-        Lightning}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.halfling00000000]{Halfling}</p></td><td><p>Dexterity</p></td><td><p>Wisdom</p></td><td><p>Psychic</p></td><td><p>Cold</p></td><td>3</td><td>8</td><td>@UUID[Compendium.crucible.talent.Item.runecourage00000]{Rune:
-        Spirit}</td></tr><tr><td><p>@UUID[Compendium.crucible.ancestry.Item.devilkin00000000]{Devilkin}</p></td><td><p>Strength</p></td><td><p>Presence</p></td><td><p>Fire</p></td><td><p>Radiant</p></td><td>4</td><td>10</td><td>@UUID[Compendium.crucible.talent.Item.runevoid00000000]{Rune:
-        Shadow}</td></tr></tbody></table><h2 class="divider">Flexible
-        Ancestry</h2><section class="foundryvtt"><p>While Crucible will allow
-        use of custom ancestries in a future version, there is no convenient way
-        to modify an ancestry for this purpose at this as part of the character
-        creation workflow at this time.</p></section><p>Role-playing games
-        inspire and thrill us with tales of heroes who are exceptional and
-        unique. Biological traits do not guarantee physical attributes, nor are
-        species meant to be homogenous or monolithic (unless narratively
-        intended). Gamemasters are empowered and encouraged to modify or
-        customize Ancestries to suit the stories they and their players wish to
-        tell. Consider Ancestral traits as suggestions rather than
-        requirements.</p><section class="gameplay"><p>Alex (a player) intends to
-        roleplay as an Orc who, at the beginning of their journey, is not
-        particularly tough but instead unusually wise. In such cases the initial
-        Ability Scores of <strong>3 Strength</strong> and <strong>2
-        Toughness</strong> that the example Orcish Ancestry provides are at odds
-        with the character development Alex desires. The Gamemaster can work
-        with Alex to create a variation of the Orcish ancestry which offers
-        different starting Ability Scores, for example by swapping the Primary
-        Ability from Strength to Wisdom.</p></section>
+        basic character creation workflow.</p><p></p></section>
       markdown: ''
     _id: ovqgeiXHPrdiUXci
     image: {}
@@ -108,7 +62,7 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1761693856479
+      modifiedTime: 1761773847103
       lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: JournalEntry.ufNQdK2ZfNU6R05g.JournalEntryPage.ovqgeiXHPrdiUXci
       duplicateSource: null
@@ -130,127 +84,32 @@ pages:
         includes:</p><ul><li><p>Novice Skills (typically
         2)</p></li><li><p>Knowledge Areas (typically 2)</p></li><li><p>Known
         Languages</p></li><li><p>Talents (typically at least one weapon training
-        talent and one additional talent)</p></li></ul><section
+        talent and one additional talent)</p></li></ul><p>For more information
+        see:
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]</p><section
         class="foundryvtt"><p>While Crucible includes a number of example
         Backgrounds, future versions will include a convenient way for
         Gamemasters to create and use their own custom backgrounds as part of
-        the basic character creation workflow.</p></section><h2>Creating a
-        Background</h2><p>Crucible is not designed for a specific game setting.
-        Gamemasters are encouraged to create or modify Backgrounds to fit the
-        lore of their own worlds. To configure a Background in Crucible, create
-        a new <strong>Item</strong> with the <strong>Background </strong>type.
-        Fill out the Background configuration sheet to select four acquired
-        Skills which begin at Novice tier and one acquired
-        Talent.</p><h2>Example Backgrounds</h2><p>The table below presents some
-        example Backgrounds which will be familiar for many fantasy RPG
-        settings.</p><table><thead><tr><th>Background</th><td>Knowledge</td><td>Language</td><th>Skills</th><th>Talents</th></tr></thead><tbody><tr><td>@UUID[Compendium.crucible.background.Item.acolyte000000000]{Acolyte}</td><td>Gods,
-        Souls</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.arcanaNovice0000]{Arcana
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.medicineNovice00]{Medicine
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.runecourage00000]{Rune:
-        Spirit}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.constable0000000]{Constable}</td><td>Crime,
-        Forensics</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.awarenessNovice0]{Awareness
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.intimidationNovi]{Intimidation
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.unarmedCombatTra]{Unarmed
-        Combat Training},
-        @UUID[Compendium.crucible.talent.Item.intercept0000000]{Intercept}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.merchant00000000]{Merchant}</td><td>Crafts,
-        Trade</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.societyNovice000]{Society
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.diplomacyNovice0]{Diplomacy
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.performer0000000]{Performer}</td><td>Arts,
-        Rituals</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.deceptionNovice0]{Deception
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.performanceNovic]{Performance
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
-        Weapon Training}, 
-        @UUID[Compendium.crucible.talent.Item.inspireheroism00]{Inspire
-        Heroism}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.physician0000000]{Physician}</td><td>Alchemy,
-        Undeath</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.medicineNovice00]{Medicine
-        Novice}, @UUID[Compendium.crucible.talent.Item.scienceNovice000]{Science
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.talismanWeaponTr]{Talisman
-        Weapon Training}, 
-        @UUID[Compendium.crucible.talent.Item.runelife00000000]{Rune:
-        Life}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.scholar000000000]{Scholar}</td><td>Artifacts,
-        Legends</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.arcanaNovice0000]{Arcana
-        Novice}, 
-        @UUID[Compendium.crucible.talent.Item.scienceNovice000]{Science
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.mechanicalTraini]{Mechanical
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.runekinesis00000]{Rune:
-        Kinesis}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.soldier000000000]{Soldier}</td><td>Machines,
-        Warfare</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.athleticsNovice0]{Athletics
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.intimidationNovi]{Intimidation
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.heavyWeaponTrain]{Heavy
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.heavystrike00000]{Heavy
-        Strike}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.urchin0000000000]{Urchin}</td><td>Crime,
-        Tracking</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.stealthNovice000]{Stealth
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.deceptionNovice0]{Deception
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.lightWeaponTrain]{Light
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.lunge00000000000]{Lunge}</td></tr><tr><td>@UUID[Compendium.crucible.background.Item.wanderer00000000]{Wanderer}</td><td>Plants,
-        Tracking</td><td>Common</td><td>@UUID[Compendium.crucible.talent.Item.athleticsNovice0]{Athletics
-        Novice},
-        @UUID[Compendium.crucible.talent.Item.wildernessNovice]{Wilderness
-        Novice}</td><td>@UUID[Compendium.crucible.talent.Item.projectileTraini]{Projectile
-        Weapon Training},
-        @UUID[Compendium.crucible.talent.Item.precisionshot000]{Precision
-        Shot}</td></tr></tbody></table><p>As a Game Master and storyteller, you
-        should work with your players to create backgrounds which are suitable
-        for their personal stories.</p><h2>Ability Scores</h2><p>After you have
-        selected your background, it is time to spend Ability
-        Points!</p><p><strong>Ability Scores</strong> approximate facets of a
-        character's physical and mental capability. All dice checks in the
-        Crucible system are modified by at least one ability score of the
-        character performing the test. Ability Scores are also used to calculate
-        a number of secondary attributes for your character, such as
-        @UUID[.alkVSDmt0ec5HBfE]{Defenses} and
-        @UUID[.FmmADsI9qo1uIIT3]{Resource} pools.</p><p>Each Ancestry provides a
-        Primary Ability Score which begins at <strong>3</strong>, and a
-        Secondary Ability Score which begins at <strong>2</strong>. All other
-        ability scores begin at <strong>1</strong>. The values of each Ability
-        Score range from <strong>1</strong> to <strong>12</strong>, where the
-        typical value of this attribute for a non-remarkable Human is
-        <strong>2</strong>. </p><p>A score of 1 typically indicates an area of
-        weakness compared to peers while an ability score of 12 is reserved for
-        supernatural entities, great beasts, or heroes who are unparalleled in
-        their power. Some adversaries may have a score of 0 in a particular
-        ability score. This convention is used when a particular ability is not
-        applicable for that particular creature. </p><p>In addition to starting
-        Ability Score values provided by your Ancestry, each character begins
-        with <strong>9 Ability Points</strong> which can be allocated towards
-        any of the six Ability Scores. To spend Ability Points click the up or
-        down arrows to the right of the desired Ability.</p><p>You may only
-        increase a single Ability Score a maximum of 3 times during character
-        creation. A counter at the top of the Ability Scores section displays
-        how many points you have remaining to spend.</p><p>The ability scores
-        used in the Crucible system are:</p><h4>Strength</h4><p>Describes
-        physical potency, brawn and might. Strength affects Health, use of melee
-        weaponry, Fortitude defense, and carrying
-        capacity.</p><h4>Dexterity</h4><p>Describes physical agility and
-        precision. Dexterity affects the use of precision weapons, Dodge
-        defense, Initiative in taking action, and Reflex
-        defense.</p><h4>Toughness</h4><p>Describes physical hardiness and
-        resilience. Toughness affects Health and Fortitude
-        defense.</p><h4>Wisdom</h4><p>Describes mental potency, depth and
-        breadth of knowledge. Wisdom influences Morale, Focus Points, and
-        Willpower Defense.</p><h4>Intellect</h4><p>Describes mental flexibility,
-        swiftness, and precision of thought. Intellect influences Initiative in
-        taking action and Reflex defense.</p><h4>Presence</h4><p>Describes
-        mental hardiness, emotional hardiness, charm, and personality. Presence
-        influences Morale, Willpower defense, and Focus Points.</p><section
-        class="foundryvtt"><p></p></section><p>Once you have completed character
-        creation and advanced your character to <strong>Level 1</strong> the
-        starting Ability Scores which you purchased can no longer be changed,
-        but these ability scores may still be increased over time as you
-        continue to level up.</p>
+        the basic character creation workflow.</p></section><h2>Ability
+        Scores</h2><p>After you have selected your background, it is time to
+        spend Ability Points!</p><p>Each Ancestry provides a Primary Ability
+        Score which begins at <strong>3</strong>, and a Secondary Ability Score
+        which begins at <strong>2</strong>. All other ability scores begin at
+        <strong>1</strong>. The values of each Ability Score range from
+        <strong>1</strong> to <strong>12</strong>, where the typical value of
+        this attribute for a non-remarkable Human is
+        <strong>2</strong>.</p><p>In addition to starting Ability Score values
+        provided by your Ancestry, each character begins with <strong>9 Ability
+        Points</strong> which can be allocated towards any of the six Ability
+        Scores. To spend Ability Points click the up or down arrows to the right
+        of the desired Ability.</p><p>You may only increase a single Ability
+        Score a maximum of 3 times during character creation. A counter at the
+        top of the Ability Scores section displays how many points you have
+        remaining to spend.</p><p>Once you have completed character creation and
+        advanced your character to <strong>Level 1</strong> the starting Ability
+        Scores which you purchased can no longer be changed, but these ability
+        scores may still be increased over time as you continue to level
+        up.</p><p>For more information see: </p>
     _id: uCwStnXHoUCV2TrK
     image: {}
     video:
@@ -268,7 +127,7 @@ pages:
       systemVersion: 0.5.0
       coreVersion: '13.350'
       createdTime: null
-      modifiedTime: 1761697539723
+      modifiedTime: 1761775116050
       lastModifiedBy: vke929uLgNzbrY41
       compendiumSource: JournalEntry.jchD3mslTLxDCwhT.JournalEntryPage.uCwStnXHoUCV2TrK
       duplicateSource: null
@@ -433,12 +292,15 @@ pages:
     text:
       format: 1
       content: >-
-        <p>Each new character has 3 initial
-        @UUID[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok.JournalEntryPage.OmJNyYrgeaTwYE7L]{Talent}
-        points which can be used to select unique Skills and Abilities. Talents
-        are a roadmap for your character's development, allowing you to invest
-        into unique paths that provide powerful
-        abilities.</p><p>@Embed[Compendium.crucible.rules.JournalEntry.veKSDiOWHLaF7Gok.JournalEntryPage.OmJNyYrgeaTwYE7L]</p><p>After
+        <p><strong>Talents</strong> are unique abilities or skills that your
+        character has gained over the course of their life, and as the game
+        progresses are expanded upon as you gain levels. </p><p>In addition to
+        the talents you gained when you selected an Ancestry and Background,
+        each new character has 3 initial Talent points which can be used to
+        select unique Skills and Abilities. Talents are a roadmap for your
+        character's development, allowing you to invest into unique paths that
+        provide powerful abilities.</p><p>For more information see:
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.talents000000000]</p><p>After
         you have chosen your talents, the "Complete" button will appear in the
         top right of the character creation window. After you have completed
         creation, your character is complete and your selections are final, and
@@ -463,7 +325,7 @@ pages:
       systemId: crucible
       systemVersion: 0.8.0
       createdTime: 1761693852797
-      modifiedTime: 1761694525512
+      modifiedTime: 1761779207317
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!gszlBVQ5fGh3y0I6.creationTalents0'
   - _id: FinishingTouches
