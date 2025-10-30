@@ -96,7 +96,6 @@ export default class CrucibleItem extends foundry.documents.Item {
     if ( isStackable ) return;
     const currQuantity = data.system?.quantity ?? this.system.quantity;
     foundry.utils.setProperty(data, "system.quantity", Math.clamp(currQuantity, 0, 1));
-    this.sheet?.render();
   }
 
   /* -------------------------------------------- */
