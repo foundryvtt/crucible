@@ -271,7 +271,7 @@ Hooks.once("init", async function() {
             let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
             if ( pack.metadata.packageType === "system" ) group += game.system.title; 
             else if ( pack.metadata.packageType === "world" ) group += game.world.title;
-            else group += game.modules.get(pack.metadata.packageName).title
+            else group += game.modules.get(pack.metadata.packageName).title;
             potentialPacks[pack.metadata.id] = {
               label: `${pack.metadata.label} (${pack.metadata.id})`,
               group
