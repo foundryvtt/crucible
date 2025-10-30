@@ -86,6 +86,22 @@ export default class CrucibleItem extends foundry.documents.Item {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
+  async _preUpdate(data, options, user) {
+    const allowed = await super._preUpdate(data, options, user);
+    if ( allowed === false ) return false;
+
+    // If physical item without stackable, clamp quantity to [0, 1]
+    if ( !(this.system instanceof crucible.api.models.CruciblePhysicalItem) ) return;
+    const isStackable = (data.system?.properties && data.system.properties.includes("stackable")) ?? this.system.properties.has("stackable");
+    if ( isStackable ) return;
+    const currQuantity = data.system?.quantity ?? this.system.quantity;
+    foundry.utils.setProperty(data, "system.quantity", Math.clamp(currQuantity, 0, 1));
+    this.sheet?.render();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
   _onUpdate(data, options, userId) {
     this._displayScrollingStatus(data);
     return super._onUpdate(data, options, userId);
