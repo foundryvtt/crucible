@@ -68,56 +68,6 @@ Hooks.once("init", async function() {
   /**
    * Configurable properties of the system which affect its behavior.
    */
-  function itemPacksByType(type) {
-      let potentialPacks = {};
-      for (const pack of game.packs) {
-        if (pack.metadata.type !== "Item") continue;
-        for (const item of pack.index) {
-          if (item.type === type) {
-            potentialPacks[pack.metadata.id] = `${pack.metadata.label} (${pack.metadata.id})`;
-            break;
-          }
-        }
-      }
-      return potentialPacks;
-  }
-  game.settings.register("crucible", "ancestrySources", {
-    name: "SETTINGS.COMPENDIUM_SOURCES.ancestry.label",
-    hint: "SETTINGS.COMPENDIUM_SOURCES.ancestry.hint",
-    scope: "world",
-    config: true,
-    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("ancestry")})),
-    default: [SYSTEM.COMPENDIUM_PACKS.ancestry],
-    requiresReload: true,
-  });
-  game.settings.register("crucible", "backgroundSources", {
-    name: "SETTINGS.COMPENDIUM_SOURCES.background.label",
-    hint: "SETTINGS.COMPENDIUM_SOURCES.background.hint",
-    scope: "world",
-    config: true,
-    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("background")})),
-    default: [SYSTEM.COMPENDIUM_PACKS.background],
-    requiresReload: true,
-  });
-  game.settings.register("crucible", "spellSources", {
-    name: "SETTINGS.COMPENDIUM_SOURCES.spell.label",
-    hint: "SETTINGS.COMPENDIUM_SOURCES.spell.hint",
-    scope: "world",
-    config: true,
-    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("spell")})),
-    default: [SYSTEM.COMPENDIUM_PACKS.spell],
-    requiresReload: true,
-  });
-  game.settings.register("crucible", "talentSources", {
-    name: "SETTINGS.COMPENDIUM_SOURCES.talent.label",
-    hint: "SETTINGS.COMPENDIUM_SOURCES.talent.hint",
-    scope: "world",
-    config: true,
-    type: new foundry.data.fields.SetField(new foundry.data.fields.StringField({ required: true, choices: () => itemPacksByType("talent")})),
-    default: [SYSTEM.COMPENDIUM_PACKS.talent],
-    requiresReload: true,
-  });
-  
   crucible.CONFIG = {
     /**
      * Configured setting-specific currency denominations.
@@ -131,11 +81,12 @@ Hooks.once("init", async function() {
      * @type {Record<string, Set<string>>}
      */
     packs: {
-      ancestry: game.settings.get("crucible", "ancestrySources"),
-      background: game.settings.get("crucible", "backgroundSources"),
-      spell: game.settings.get("crucible", "spellSources"),
-      talent: game.settings.get("crucible", "talentSources"),
+      ancestry: new Set([SYSTEM.COMPENDIUM_PACKS.ancestry]),
+      background: new Set([SYSTEM.COMPENDIUM_PACKS.background]),
+      spell: new Set([SYSTEM.COMPENDIUM_PACKS.spell]),
+      talent: new Set([SYSTEM.COMPENDIUM_PACKS.talent]),
     },
+
     /**
      * The character creation sheet class which should be registered
      * @type {typeof applications.CrucibleHeroCreationSheet}
@@ -309,6 +260,57 @@ Hooks.once("init", async function() {
     default: false
   });
 
+  const fields = foundry.data.fields;
+  function fieldForType(type) {
+    const getPacks = (type) => {
+      const potentialPacks = {};
+      for (const pack of game.packs) {
+        if (pack.metadata.type !== "Item") continue;
+        for (const item of pack.index) {
+          if (item.type === type) {
+            potentialPacks[pack.metadata.id] = `${pack.metadata.label} (${pack.metadata.id})`;
+            break;
+          }
+        }
+      }
+      return potentialPacks;
+    };
+    return new fields.SetField(new fields.StringField({ required: true, choices: () => getPacks(type)}), {
+      label: `SETTINGS.COMPENDIUM_SOURCES.${type}.label`,
+      hint: `SETTINGS.COMPENDIUM_SOURCES.${type}.hint`
+    });
+  }
+
+  game.settings.register("crucible", "compendiumSources", {
+    name: "SETTINGS.CompendiumSources.label",
+    hint: "SETTINGS.CompendiumSources.hint",
+    scope: "world",
+    config: false,
+    type: new fields.SchemaField({
+      ancestry: fieldForType("ancestry"),
+      background: fieldForType("background"),
+      spell: fieldForType("spell"),
+      talent: fieldForType("talent")
+    }),
+    default: {
+      ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
+      background: [SYSTEM.COMPENDIUM_PACKS.background],
+      spell: [SYSTEM.COMPENDIUM_PACKS.spell],
+      talent: [SYSTEM.COMPENDIUM_PACKS.talent],
+    },
+    requiresReload: true
+  });
+
+  // Register settings menus
+  game.settings.registerMenu("crucible", "compendiumSourcesConfig", {
+    name: "SETTINGS.COMPENDIUM_SOURCES.name",
+    label: "SETTINGS.COMPENDIUM_SOURCES.label",
+    hint: "SETTINGS.COMPENDIUM_SOURCES.hint",
+    icon: "fa-solid fa-book-open",
+    type: applications.CompendiumSourcesConfig,
+    restricted: true
+  });
+
   // Register keybindings
   game.keybindings.register("crucible", "confirm", {
     name: "KEYBINDINGS.ConfirmAction",
@@ -454,6 +456,14 @@ function preLocalizeConfig() {
  * On game setup, configure document data.
  */
 Hooks.once("setup", function() {
+
+  // Update compendium sources from settings
+  const currSources = Object.entries(game.settings.get("crucible", "compendiumSources")).reduce((acc, [type, sources]) => {
+    acc[type] = sources.filter(p => game.packs.has(p));
+    if ( !acc[type].size ) acc[type] = crucible.CONFIG.packs[type];
+    return acc;
+  }, {});
+  crucible.CONFIG.packs = currSources;
 
   // Deferred registration of the hero creation sheet
   const sheets = foundry.applications.apps.DocumentSheetConfig;
