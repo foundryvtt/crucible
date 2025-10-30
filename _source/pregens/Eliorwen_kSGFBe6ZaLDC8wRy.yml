@@ -93,6 +93,7 @@ system:
       name: Wanderer
       img: icons/environment/wilderness/portal.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -105,6 +106,8 @@ system:
       height: ''
       weight: ''
       appearance: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -156,6 +159,7 @@ system:
     - strike
     - reactiveStrike
     - move
+  currency: 0
 prototypeToken:
   name: Eliorwen
   displayName: 20
@@ -263,7 +267,7 @@ items:
       broken: false
       slot: 3
       actions: []
-      identifier: I5u9MbyGE4
+      identifier: 53XeNwzl7P
       invested: false
       actorHooks: []
       dropped: false
@@ -271,9 +275,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -303,7 +307,7 @@ items:
       broken: false
       actions: []
       slot: 1
-      identifier: TDShYKcege
+      identifier: DTrxz4urz5
       invested: false
       actorHooks: []
       dropped: false
@@ -311,9 +315,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -343,16 +347,16 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: pl8Cv6MKBo
+      identifier: Ri2sSaVxSU
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -386,9 +390,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -451,9 +455,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 300000
@@ -490,9 +494,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runemind00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -534,9 +538,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -575,9 +579,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -609,9 +613,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: projectileTraini
     ownership:
@@ -666,9 +670,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: k2H23tobHffCMQCj
     sort: 150000
@@ -706,13 +710,13 @@ items:
     effects: []
     flags: {}
     _stats:
-      coreVersion: '13.345'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
       compendiumSource: null
       duplicateSource: null
       exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
     folder: null
     sort: 0
     ownership:
@@ -726,14 +730,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.7
-  modifiedTime: 1753648558605
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: kSGFBe6ZaLDC8wRy
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!kSGFBe6ZaLDC8wRy'

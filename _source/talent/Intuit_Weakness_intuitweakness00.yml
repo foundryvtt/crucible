@@ -16,7 +16,8 @@ system:
       description: >-
         <p>You still your mind and study the physiology of your foe, attempting
         to identify a vulnerability in its defenses.</p>
-      tags: []
+      tags:
+        - harmless
       cost:
         action: 1
         focus: 1
@@ -26,6 +27,7 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       name: Intuit Weakness
       img: icons/magic/perception/orb-eye-scrying.webp
@@ -40,11 +42,11 @@ effects: []
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.345'
+  systemVersion: 0.7.7
+  coreVersion: '13.347'
   createdTime: 1674696771693
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1755698847324
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

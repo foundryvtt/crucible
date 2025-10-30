@@ -10,12 +10,19 @@ export function onPointerEnter(event) {
       return displayActionTooltip(event);
     case "condition":
       return displayCondition(event);
+    case "activeEffect":
+    case "spell":
+    case "talent":
+    case "weapon":
+      return displayFromUuid(event);
     case "knowledgeCheck":
       return displayKnowledgeCheck(event);
+    case "talentCheck":
+      return displayTalentCheck(event);
+    case "languageCheck":
+      return displayLanguageCheck(event);
     case "passiveCheck":
       return displayPassiveCheck(event);
-    case "talent":
-      return displayTalentTooltip(event);
   }
 }
 
@@ -27,41 +34,12 @@ export function onPointerEnter(event) {
  */
 export function onPointerLeave(event) {
   const element = event.target;
-  // TODO delete
-  // if ( "crucibleTooltip" in element.dataset ) {
-  //   window.setTimeout(() => {
-  //     if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
-  //     element.dataset[element.dataset.crucibleTooltip] = true;
-  //     delete element.dataset.crucibleTooltip;
-  //     delete element.dataset.tooltipHtml;
-  //   }, 2000);
-  // }
   if ( "crucibleTooltip" in element.dataset ) {
     window.setTimeout(() => {
       if ( (game.tooltip.element === element) || element.matches(":hover") ) return;
       delete element.dataset.tooltipHtml;
     }, 2000);
   }
-}
-
-/* -------------------------------------------- */
-
-/**
- * Display a talent card as a tooltip.
- * @param {PointerEvent} event
- * @returns {Promise<void>}
- */
-async function displayTalentTooltip(event) {
-  const element = event.target;
-  const talent = await fromUuid(element.dataset.uuid);
-  if ( !talent ) return;
-  event.stopImmediatePropagation();
-
-  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
-  element.dataset.tooltipHtml = await talent.renderCard();
-  element.dataset.tooltipClass = "crucible crucible-tooltip";
-  const pointerover = new event.constructor(event.type, event);
-  element.dispatchEvent(pointerover);
 }
 
 /* -------------------------------------------- */
@@ -141,6 +119,50 @@ async function displayKnowledgeCheck(event) {
 /* -------------------------------------------- */
 
 /**
+ * On pointerenter, display a tooltip for which group members have a specific talent.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayTalentCheck(event) {
+  const element = event.target;
+  if ( !crucible.party ) return;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const parsed = foundry.utils.parseUuid(element.dataset.talentUuid);
+  if ( !parsed?.id ) return;
+  const check = async (group, actor) => ({success: actor.talentIds.has(parsed.id)});
+  element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
+  element.dataset.tooltipClass = "crucible crucible-tooltip wide";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * On pointerenter, display a dynamic tooltip for the group language check.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayLanguageCheck(event) {
+  const element = event.target;
+  const languageId = element.dataset.languageId;
+  const language = crucible.CONFIG.languages[languageId];
+  if ( !language || !crucible.party ) return;
+  event.stopImmediatePropagation();
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+
+  const check = async (group, actor) => ({success: actor.system.details.languages.has(languageId)});
+  element.dataset.tooltipHtml = await crucible.party.system.renderGroupCheckTooltip(check, {title: element.innerText});
+  element.dataset.tooltipClass = "crucible crucible-tooltip wide";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
  * Display condition tooltip descriptions.
  * @param {PointerEvent} event
  * @returns {Promise<void>}
@@ -156,6 +178,26 @@ async function displayCondition(event) {
   if ( !page ) return;
   const html = `<h3 class="tooltip-title divider">${page.name}</h3>${page.text.content}`;
   element.dataset.tooltipHtml = await CONFIG.ux.TextEditor.enrichHTML(html);
+  element.dataset.tooltipClass = "crucible crucible-tooltip";
+  const pointerover = new event.constructor(event.type, event);
+  element.dispatchEvent(pointerover);
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Display any element retrievable by an uuid which exposes a renderCard function.
+ * @param {PointerEvent} event
+ * @returns {Promise<void>}
+ */
+async function displayFromUuid(event) {
+  const element = event.target;
+  const item = await fromUuid(element.dataset.uuid);
+  if ( typeof item?.renderCard !== "function" ) return;
+  event.stopImmediatePropagation();
+
+  element.dataset.tooltipHtml = ""; // Placeholder to prevent double-activation
+  element.dataset.tooltipHtml = await item.renderCard();
   element.dataset.tooltipClass = "crucible crucible-tooltip";
   const pointerover = new event.constructor(event.type, event);
   element.dispatchEvent(pointerover);

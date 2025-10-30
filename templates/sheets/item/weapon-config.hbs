@@ -16,16 +16,14 @@
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "WEAPON.SHEET.EQUIPMENT"}}</legend>
-        {{#if showSlots}}{{formGroup fields.slot value=source.system.slot options=equipmentSlots classes="double" hint=false}}{{/if}}
-        {{formGroup fields.equipped value=source.system.equipped}}
-        {{formGroup fields.broken value=source.system.broken}}
-        {{#if usesReload}}{{formGroup fields.loaded value=source.system.loaded hint=false classes="reload"}}{{/if}}
-        {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
-        {{formGroup fields.weight value=source.system.weight classes="slim"}}
-        {{formGroup fields.price value=source.system.price classes="slim"}}
-        {{formGroup scaledPriceField value=item.system.price classes="slim" disabled=true}}
-        {{#if requiresInvestment}}
-        {{formGroup fields.invested value=source.system.invested}}
-        {{/if}}
+        {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
+        {{formGroup fields.weight value=source.system.weight classes="slim half"}}
+        {{#if showSlots}}{{formGroup fields.slot value=source.system.slot options=equipmentSlots hint=false}}{{/if}}
+        {{formGroup fields.equipped value=source.system.equipped classes="half"}}
+        {{formGroup fields.broken value=source.system.broken classes="half"}}
+        {{#if usesReload}}{{formGroup fields.loaded value=source.system.loaded hint=false classes="reload half"}}{{/if}}
+        {{#if requiresInvestment}}{{formGroup fields.invested value=source.system.invested classes="half"}}{{/if}}
+        {{formGroup fields.price value=source.system.price input=currencyInput classes="currency"}}
+        {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency" readonly=true disabled=true}}
     </fieldset>
 </section>

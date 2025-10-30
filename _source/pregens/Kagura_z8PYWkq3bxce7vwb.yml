@@ -92,6 +92,7 @@ system:
       name: Physician
       img: icons/magic/life/cross-flared-green.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +104,8 @@ system:
       height: ''
       weight: ''
       appearance: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -153,6 +156,7 @@ system:
     - refocus
     - strike
     - cast
+  currency: 0
 prototypeToken:
   name: Kagura
   displayName: 20
@@ -257,7 +261,7 @@ items:
         private: ''
       actions: []
       slot: 0
-      identifier: S8aWIEMkNK
+      identifier: J9foLoRYll
       invested: false
       actorHooks: []
       dropped: false
@@ -268,9 +272,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -299,16 +303,16 @@ items:
         base: 13
       broken: false
       actions: []
-      identifier: exz5zgOov9
+      identifier: xJFmXZZeoo
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: HVRX1hdeNtvlHbQs
     sort: 0
@@ -344,9 +348,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runelife00000000
     folder: Dy9HnwadNE3kSZ4f
@@ -395,9 +399,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runecourage00000
     folder: Dy9HnwadNE3kSZ4f
@@ -438,9 +442,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureinfluence
     folder: D14x9AJ0TgXKtnzu
@@ -478,9 +482,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runeearth0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -523,9 +527,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -567,9 +571,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -602,9 +606,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: talismanWeaponTr
     ownership:
@@ -642,9 +646,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.344'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.0-dev
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gestureray000000
     folder: D14x9AJ0TgXKtnzu
@@ -661,14 +665,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.7
-  modifiedTime: 1753648558605
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: z8PYWkq3bxce7vwb
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!z8PYWkq3bxce7vwb'

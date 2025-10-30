@@ -39,6 +39,11 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
   /** @override */
   static PARTS = {
+    main: {
+      id: "main",
+      template: "systems/crucible/templates/sheets/actor/main.hbs",
+      root: true
+    },
     sidebar: {
       id: "sidebar",
       template: "systems/crucible/templates/sheets/actor/sidebar.hbs"
@@ -46,10 +51,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     tabs: {
       id: "tabs",
       template: "systems/crucible/templates/sheets/actor/tabs.hbs"
-    },
-    body: {
-      id: "body",
-      template: "systems/crucible/templates/sheets/actor/body.hbs"
     },
     header: {
       id: "header",
@@ -151,6 +152,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       incomplete: {},
       inventory,
       isEditable: this.isEditable,
+      languages: this.#prepareLanguageOptions(),
       resistances: this.#prepareResistances(),
       resources: this.#prepareResources(),
       skillCategories: this.#prepareSkills(),
@@ -168,7 +170,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   _attachFrameListeners() {
     super._attachFrameListeners();
     this.element.addEventListener("focusin", this.#onFocusIn.bind(this));
-  }W
+  }
 
   /* -------------------------------------------- */
 
@@ -313,18 +315,18 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Up to three weapons
     if ( mh ) {
       const mhTags = mh.getTags("short");
-      featuredEquipment.push({name: mh.name, img: mh.img, tags: [mhTags.damage, mhTags.range]});
+      featuredEquipment.push({name: mh.name, type: mh.type, uuid: mh.uuid, img: mh.img, tags: [mhTags.damage, mhTags.range]});
     }
     if ( oh?.id ) {
       const ohTags = oh.getTags("short");
-      featuredEquipment.push({name: oh.name, img: oh.img, tags: [ohTags.damage, ohTags.range]})
+      featuredEquipment.push({name: oh.name, type: oh.type, uuid: oh.uuid, img: oh.img, tags: [ohTags.damage, ohTags.range]});
     }
     if ( natural.length ) {
       for ( let i=0; i<3-featuredEquipment.length; i++ ) {
         const n = natural[i];
         if ( n ) {
           const tags = n.getTags("short");
-          featuredEquipment.push({name: n.name, img: n.img, tags: [tags.damage, tags.range]});
+          featuredEquipment.push({name: n.name, type: n.type, uuid: n.uuid, img: n.img, tags: [tags.damage, tags.range]});
         }
       }
     }
@@ -332,7 +334,7 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     // Equipped Armor
     if ( armor.id || (this.actor.system.usesEquipment !== false) ) {
       const armorTags = armor.getTags();
-      featuredEquipment.push({name: armor.name, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
+      featuredEquipment.push({name: armor.name, type: armor.type, uuid: armor.uuid, img: armor.img, tags: [armorTags.armor, armorTags.dodge]});
     }
     return featuredEquipment;
   }
@@ -355,8 +357,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       inventory: {
         weapon: {label: "Weapons", items: [], empty: game.i18n.localize("ACTOR.LABELS.WEAPONS_HINT")},
         armor: {label: "Armor", items: [], empty: game.i18n.localize("ACTOR.LABELS.ARMOR_HINT")},
-        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {number: accessorySlots})},
-        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {number: consumableSlots})},
+        accessory: {label: "Accessories", items: [], counter: accessorySlots, empty: game.i18n.format("ACTOR.LABELS.ACCESSORIES_HINT", {slots: accessorySlots})},
+        consumable: {label: "Consumables", items: [], counter: consumableSlots, empty: game.i18n.format("ACTOR.LABELS.CONSUMABLES_HINT", {slots: consumableSlots})},
         backpack: {label: "Backpack", items: [], empty: game.i18n.localize("ACTOR.LABELS.BACKPACK_HINT")}
       },
       iconicSpells: {label: game.i18n.localize("SPELL.IconicPl"), items: []}
@@ -366,23 +368,16 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     for ( const i of this.document.items ) {
       const d = {id: i.id, name: i.name, img: i.img, tags: i.getTags(), uuid: i.uuid, actions: [], sort: Infinity};
       let section;
-      switch(i.type) {
-        case "accessory":
-        case "armor":
-        case "consumable":
-          this.#preparePhysicalItem(i, d);
-          section = i.system.equipped ? sections.inventory[i.type] : sections.inventory.backpack;
-          break;
-        case "weapon":
-          this.#preparePhysicalItem(i, d);
-          if ( !i.system.dropped ) {
-            d.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
-          }
-          section = i.system.equipped ? sections.inventory.weapon : sections.inventory.backpack;
-          break;
+      let category = SYSTEM.ITEM.PHYSICAL_ITEM_TYPES.has(i.type) ? "physical" : i.type;
+      switch ( category ) {
         case "base":
-        case "loot":
           section = sections.inventory.backpack;
+          break;
+        case "physical":
+          const canEquip = SYSTEM.ITEM.EQUIPABLE_ITEM_TYPES.has(i.type);
+          this.#preparePhysicalItem(i, d, canEquip);
+          if ( canEquip && i.system.equipped ) section = sections.inventory[i.type];
+          else section = sections.inventory.backpack;
           break;
         case "talent":
           d.tier = i.system.node?.tier || 0;
@@ -432,17 +427,27 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * Standard preparation steps for all physical item types.
    * @param {CrucibleItem} item
    * @param {object} config
+   * @param {boolean} canEquip
    */
-  #preparePhysicalItem(item, config) {
+  #preparePhysicalItem(item, config, canEquip) {
     const sortOrder = {weapon: 1, armor: 2, accessory: 3, consumable: 4};
+    config.quantity = item.system.quantity;
+    config.showStack = item.system.quantity > 1;
+    config.sort = sortOrder[item.type] ?? Infinity;
+    if ( canEquip ) this.#prepareEquipableItem(item, config);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Additional preparation for items that can be equipped.
+   * @param {CrucibleItem} item
+   * @param {object} config
+   */
+  #prepareEquipableItem(item, config) {
     config.dropped = item.system.dropped;
     config.equipped = item.system.equipped;
-    config.quantity = item.system.quantity;
-    config.showStack = item.system.isStacked;
     config.cssClass = item.system.equipped ? "equipped" : "unequipped";
-    config.sort = sortOrder[item.type] ?? Infinity;
-
-    // Equip/Unequip/Recover action
     const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[item.type]);
     let equipAction;
     if ( item.system.dropped ) {
@@ -453,6 +458,9 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       {action: "itemEquip", icon: "fa-solid fa-shield-minus", tooltip: `Un-equip ${typeLabel}`} :
       {action: "itemEquip", icon: "fa-solid fa-shield-plus", tooltip: `Equip ${typeLabel}`};
     config.actions.push(equipAction);
+    if ( (item.type === "weapon") && !item.system.dropped ) {
+      config.actions.unshift({action: "itemDrop", icon: "fa-solid fa-hand-point-down", tooltip: "Drop Weapon"});
+    }
   }
 
   /* -------------------------------------------- */
@@ -528,54 +536,25 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
 
     // Categorize and prepare effects
     for ( const effect of this.actor.effects ) {
-      const {startRound, rounds, turns} = effect.duration;
-      const elapsed = game.combat ? game.combat.round - startRound : 0;
-      const tags = {};
-      let section = "persistent";
-      let t;
-
-      // Turn-based duration
-      if ( Number.isFinite(turns) ) {
-        section = "temporary";
-        const remaining = turns - elapsed;
-        t = remaining;
-        tags.duration = `${remaining} ${remaining === 1 ? "Turn" : "Turns"}`;
-      }
-
-      // Round-based duration
-      else if ( Number.isFinite(rounds) ) {
-        section = "temporary";
-        const remaining = rounds - elapsed;
-        t = 1000000 * remaining;
-        tags.duration = `${remaining} ${remaining === 1 ? "Round" : "Rounds"}`;
-      }
-
-      // Persistent
-      else {
-        t = Infinity;
-        tags.duration = "∞";
-      }
-
-      // Disabled Effects
-      if ( effect.disabled ) section = "disabled";
+      const tags = effect.getTags();
 
       // Add effect to section
       const e = {
         id: effect.id,
-        icon: effect.icon,
+        icon: effect.img,
         name: effect.name,
         tags: tags,
+        uuid: effect.uuid,
         disabled: effect.disabled ? {icon: "fa-solid fa-toggle-off", tooltip: "Enable Effect"}
           : {icon: "fa-solid fa-toggle-on", tooltip: "Disable Effect"},
-        t
       };
-      sections[section].effects.push(e);
+      sections[tags.context.section].effects.push(e);
     }
 
     // Sort
     for ( const [k, section] of Object.entries(sections) ) {
       if ( !section.effects.length ) delete sections[k];
-      else section.effects.sort((a, b) => (a.t - b.t) || (a.name.localeCompare(b.name)));
+      else section.effects.sort((a, b) => (a.tags.context.t - b.tags.context.t) || (a.name.localeCompare(b.name)));
     }
     return sections;
   }
@@ -636,6 +615,21 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
   /* -------------------------------------------- */
 
   /**
+   * Prepare options provided to a multi-select element for which languages the character may know.
+   * @returns {FormSelectOption[]}
+   */
+  #prepareLanguageOptions() {
+    const categories = crucible.CONFIG.languageCategories;
+    const options = [];
+    for ( const [value, {label, category}] of Object.entries(crucible.CONFIG.languages) ) {
+      options.push({value, label, group: categories[category]?.label});
+    }
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Prepare and format resistance data for rendering.
    * @return {{physical: object[], elemental: object[], spiritual: object[]}}
    */
@@ -646,9 +640,12 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
     const barCap = Math.max(this.document.level, 3);
     for ( const [id, d] of Object.entries(SYSTEM.DAMAGE_TYPES) ) {
       const r = Object.assign({}, d, rs[id]);
-      r.cssClass = r.total < 0 ? "vuln" : (r.total > 0 ? "res" : "none");
+      if ( r.immune ) r.cssClass = "immunity";
+      else if ( r.total === 0 ) r.cssClass = "none";
+      else r.cssClass = r.total < 0 ? "vuln" : "res";
       const p = Math.clamp(Math.abs(r.total) / barCap, 0, 1);
       r.barPct = `${p * 50}%`;
+      if ( r.immune ) r.total = "∞";
       resistances[d.type].resistances.push(r);
     }
     return resistances;
@@ -797,8 +794,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionEdit(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionEdit(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     const action = this.actor.actions[actionId];
     if ( !action.parent ) return;
     await action.sheet.render({force: true});
@@ -811,8 +808,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionFavorite(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionFavorite(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     const action = this.actor.actions[actionId];
     if ( !action ) return;
 
@@ -836,8 +833,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onActionUse(event) {
-    const actionId = event.target.closest(".action").dataset.actionId;
+  static async #onActionUse(_event, target) {
+    const actionId = target.closest(".action").dataset.actionId;
     await this.actor.useAction(actionId);
   }
 
@@ -860,8 +857,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemDelete(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemDelete(event, target) {
+    const item = this.#getEventItem(event, target);
     await item.deleteDialog();
   }
 
@@ -872,8 +869,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemDrop(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemDrop(event, target) {
+    const item = this.#getEventItem(event, target);
     await this.actor.equipItem(item.id, {equipped: false, dropped: true});
   }
 
@@ -884,8 +881,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemEdit(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemEdit(event, target) {
+    const item = this.#getEventItem(event, target);
     await item.sheet.render({force: true});
   }
 
@@ -896,8 +893,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onItemEquip(event) {
-    const item = this.#getEventItem(event);
+  static async #onItemEquip(event, target) {
+    const item = this.#getEventItem(event, target);
     try {
       await this.actor.equipItem(item, {equipped: !item.system.equipped});
     } catch(err) {
@@ -912,8 +909,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {CrucibleItem}
    */
-  #getEventItem(event) {
-    const itemId = event.target.closest(".line-item")?.dataset.itemId;
+  #getEventItem(_event, target) {
+    const itemId = target.closest(".line-item")?.dataset.itemId;
     return this.actor.items.get(itemId, {strict: true});
   }
 
@@ -936,8 +933,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectDelete(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectDelete(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.deleteDialog();
   }
 
@@ -948,8 +945,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectEdit(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectEdit(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.sheet.render({force: true});
   }
 
@@ -960,8 +957,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onEffectToggle(event) {
-    const effect = this.#getEventEffect(event);
+  static async #onEffectToggle(event, target) {
+    const effect = this.#getEventEffect(event, target);
     await effect.update({disabled: !effect.disabled});
   }
 
@@ -972,8 +969,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {ActiveEffect}
    */
-  #getEventEffect(event) {
-    const effectId = event.target.closest(".effect")?.dataset.effectId;
+  #getEventEffect(_event, target) {
+    const effectId = target.closest(".effect")?.dataset.effectId;
     return this.actor.effects.get(effectId, {strict: true});
   }
 
@@ -984,8 +981,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onExpandSection(event) {
-    const section = event.target.closest(".sheet-section");
+  static async #onExpandSection(_event, target) {
+    const section = target.closest(".sheet-section");
     const wasExpanded = section.classList.contains("expanded");
     if ( wasExpanded ) {
       for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
@@ -1004,8 +1001,8 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onSkillRoll(event) {
-    return this.actor.rollSkill(event.target.closest(".skill").dataset.skill, {dialog: true});
+  static async #onSkillRoll(_event, target) {
+    return this.actor.rollSkill(target.closest(".skill").dataset.skill, {dialog: true});
   }
 
   /* -------------------------------------------- */
@@ -1072,9 +1069,19 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       return;
     }
 
+    // Expand the stack of an existing stackable item
+    const isPhysical = item.system instanceof crucible.api.models.CruciblePhysicalItem;
+    if ( isPhysical && item.system.properties.has("stackable") ) {
+      const existingItem = this.actor.itemTypes[item.type].find(i => (i.system.identifier === item.system.identifier)
+        && i.system.properties.has("stackable"));
+      if ( existingItem ) {
+        await existingItem.update({ "system.quantity": existingItem.system.quantity + item.system.quantity});
+        return;
+      }
+    }
+
     // Create a new item
-    const keepId = !(item.system instanceof crucible.api.models.CruciblePhysicalItem);
-    item = item.clone({system: {equipped: false}}, {keepId});
+    item = item.clone({system: {equipped: false}}, {keepId: !isPhysical});
     if ( section === item.type ) { // Attempt equipment
       try {
         const equipResult = this.actor.canEquipItem(item);
@@ -1084,6 +1091,6 @@ export default class CrucibleBaseActorSheet extends api.HandlebarsApplicationMix
       }
     }
     const itemData = this.actor._cleanItemData(item);
-    await Item.implementation.create(itemData, {parent: this.actor, keepId});
+    await Item.implementation.create(itemData, {parent: this.actor, keepId: !isPhysical});
   }
 }

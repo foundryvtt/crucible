@@ -76,16 +76,6 @@ export default class CruciblePhysicalItem extends foundry.abstract.TypeDataModel
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Is this item currently a stack of multiples?
-   * @type {boolean}
-   */
-  get isStacked() {
-    return this.properties.has("stackable") && (this.quantity > 1);
-  }
-
-  /* -------------------------------------------- */
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 

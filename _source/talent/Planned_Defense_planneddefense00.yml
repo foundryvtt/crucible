@@ -10,18 +10,7 @@ system:
     <strong>Initiative</strong> order suffers 1 Bane to their spell or weapon
     attacks against you.
   actions: []
-  actorHooks:
-    - hook: defendWeaponAttack
-      fn: |-
-        const ac = this.combatant;
-        const oc = origin.combatant;
-        if ( ac?.initiative > oc?.initiative ) 
-          rollData.banes.plannedDefense = {label: "Planned Defense", number: 1};
-    - hook: defendSpellAttack
-      fn: >-
-        const ac = this.combatant; const oc = origin.combatant; if (
-        ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense =
-        {label: "Planned Defense", number: 1};
+  actorHooks: []
 effects: []
 folder: BevAJzzLeFbSaVic
 sort: 50000
@@ -31,11 +20,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.8.0
+  coreVersion: '13.350'
   createdTime: 1685214851183
-  modifiedTime: 1742935786344
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1761593546972
+  lastModifiedBy: p3lgSv60AK7ndmAK
   compendiumSource: null
   duplicateSource: null
   exportSource: null

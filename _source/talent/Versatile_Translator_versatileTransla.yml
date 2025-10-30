@@ -1,0 +1,43 @@
+name: Versatile Translator
+type: talent
+img: icons/skills/trades/academics-book-study-runes.webp
+system:
+  nodes:
+    - int1b
+  description: >-
+    <p>You have a scholarly background in linguistics or an intuitive knack for
+    languages. Your capabilities enable you to decipher the basic meaning of
+    text written in a variety of languages.</p><p>You can translate text of a
+    language you do not know that is written using a common set of glyphs or
+    characters to a language that you do know. Creating such a translation
+    requires spending one minute per word to transcribe the text into a language
+    which you understand.</p><p>Your translations are rudimentary and often lack
+    nuance, but they do contain all essential points of the text.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+folder: F5y85kE9ocaa5R4R
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1760233944014
+  modifiedTime: 1760234050047
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: versatileTransla
+sort: 0
+_key: '!items!versatileTransla'

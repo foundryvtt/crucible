@@ -40,6 +40,51 @@ HOOKS.alchemistsFire = {
 
 /* -------------------------------------------- */
 
+HOOKS.antitoxin = {
+  async confirm(reverse) {
+    if ( reverse ) return; // Eventually would be nice to store the removed toxin effects so this can be reversible
+    const tiers = {shoddy: 3, standard: 5, fine: 7, superior: 9, masterwork: 11};
+    const neutralizeAmount = tiers[this.item.system.quality];
+    const targetSelf = this.outcomes.size === 1;
+    for ( const outcome of this.outcomes.values() ) {
+      if ( outcome.self && !targetSelf ) continue;
+      const effectsToDelete = [];
+      for ( const effect of outcome.target.effects ) {
+        if ( !effect.statuses.has("poisoned") || !effect.flags.crucible?.dot ) continue;
+        const dot = effect.flags.crucible.dot;
+        const poisonAmount = (dot.health || 0) + (dot.morale || 0);
+        if ( poisonAmount <= neutralizeAmount ) effectsToDelete.push(effect.id);
+      }
+      if ( effectsToDelete.length ) await outcome.target.deleteEmbeddedDocuments("ActiveEffect", effectsToDelete);
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.assessStrength = {
+  configure(targets) {
+    const target = targets[0]?.actor;
+    if ( !target ) return;
+    const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
+    if ( !targetCategory ) return;
+    const {skill, knowledge} = targetCategory;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+    this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
+    if ( this.actor.hasKnowledge(knowledge) ) {
+      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
+      this.usage.boons.assessStrength = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+    }
+  },
+  async roll(outcome) {
+    const skill = this.usage.skillId;
+    if ( !skill ) return;
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.berserkStrike = {
   prepare() {
     const health = this.actor.resources.health;
@@ -67,6 +112,43 @@ HOOKS.blastFlask = {
 
 /* -------------------------------------------- */
 
+HOOKS.causticPhial = {
+  prepare() {
+    const tiers = {
+      shoddy: {duration: 2, amount: 2},
+      standard: {duration: 3, amount: 3},
+      fine: {duration: 4, amount: 4},
+      superior: {duration: 5, amount: 6},
+      masterwork: {duration: 6, amount: 8},
+    };
+    const corroding = SYSTEM.EFFECTS.corroding(this.actor, tiers[this.item.system.quality]);
+    foundry.utils.mergeObject(this.effects[0], corroding);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.clarifyIntent = {
+  async postActivate(outcome) {
+    const roll = outcome.rolls[0];
+    if ( roll?.isSuccess ) {
+      roll.data.damage.multiplier = 0;
+      roll.data.damage.base = roll.data.damage.total = 1;
+      roll.data.damage.resource = "focus";
+    }
+
+    const effect = outcome.effects[0];
+    if ( !effect ) return;
+    effect.changes ||= [];
+    effect.changes.push(
+      {key: "system.rollBonuses.boons.clarifyIntent.number", mode: 5, value: 1},
+      {key: "system.rollBonuses.boons.clarifyIntent.label", mode: 5, value: this.name}
+    );
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.delay = {
   canUse() {
     if ( game.combat?.combatant?.actor !== this.actor ) {
@@ -80,24 +162,25 @@ HOOKS.delay = {
   async preActivate(targets) {
     const combatant = game.combat.getCombatantByActor(this.actor);
     const maximum = combatant.getDelayMaximum();
-    // TODO refactor DialogV2.input
-    const response = await Dialog.prompt({
-      title: "Delay Turn",
+    const response = await foundry.applications.api.DialogV2.prompt({
+      window: { title: "Delay Turn" },
       content: `<form class="delay-turn" autocomplete="off">
             <div class="form-group">
                 <label>Delayed Initiative</label>
-                <input name="initiative" type="number" min="1" max="${maximum}" step="1">
+                <input name="initiative" type="number" min="1" value="${maximum - 1}" max="${maximum}" step="1">
                 <p class="hint">Choose an initiative value between 1 and ${maximum} when you wish to act.</p>
             </div>
         </form>`,
-      label: "Delay",
-      callback: dialog => dialog.find(`input[name="initiative"]`)[0].valueAsNumber,
+      ok: {
+        label: "Delay",
+        callback: (event, button, dialog) => button.form.elements.initiative.valueAsNumber
+      },
       rejectClose: false
     });
-    if ( response ) this.usage.initiativeDelay = response;
+    if ( response ) this.outcomes.get(this.actor).metadata.initiativeDelay = response;
   },
   async confirm() {
-    return this.actor.delay(this.usage.initiativeDelay);
+    return this.actor.delay(this.outcomes.get(this.actor).metadata.initiativeDelay);
   }
 }
 
@@ -141,6 +224,29 @@ HOOKS.healingTonic = {
     effect._id = SYSTEM.EFFECTS.getEffectId(this.id);
     foundry.utils.setProperty(effect, "flags.crucible.dot.health", -amount);
     outcome.resources.health = (outcome.resources.health || 0) + amount;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.intuitWeakness = {
+  configure(targets) {
+    const target = targets[0]?.actor;
+    if ( !target ) return;
+    const targetCategory = SYSTEM.ACTOR.CREATURE_CATEGORIES[target.system.details.taxonomy?.category];
+    if ( !targetCategory ) return;
+    const {skill, knowledge} = targetCategory;
+    SYSTEM.ACTION.TAGS[skill]?.initialize.call(this);
+    this.usage.dc = SYSTEM.PASSIVE_BASE + target.level;
+    if ( this.actor.hasKnowledge(knowledge) ) {
+      const knowledgeLabel = SYSTEM.SKILL.DEFAULT_KNOWLEDGE[knowledge].label;
+      this.usage.boons.intuitWeakness = {label: `Knowledge: ${knowledgeLabel}`, number: 2};
+    }
+  },
+  async roll(outcome) {
+    const skill = this.usage.skillId;
+    if ( !skill ) return;
+    await SYSTEM.ACTION.TAGS[skill]?.roll.call(this, outcome);
   }
 }
 
@@ -208,6 +314,22 @@ HOOKS.oozeSubdivide = {
   },
   canUse() {
     if ( this.actor.size < 3 ) throw new Error(`You must be at least size 3 to use ${this.name}`);
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.poisonIngest = {
+  prepare() {
+    const tiers = {
+      shoddy: {amount: 2, duration: 4},
+      standard: {amount: 4, duration: 6},
+      fine: {amount: 6, duration: 8},
+      superior: {amount: 8, duration: 10},
+      masterwork: {amount: 10, duration: 12},
+    };
+    const poisoned = SYSTEM.EFFECTS.poisoned(this.actor, tiers[this.item.system.quality]);
+    foundry.utils.mergeObject(this.effects[0], poisoned);
   }
 }
 
@@ -296,11 +418,8 @@ HOOKS.reactiveStrike = {
 /* -------------------------------------------- */
 
 HOOKS.recover = {
-  canUse() {
-    if ( this.actor.inCombat ) throw new Error("You may not Recover during Combat.");
-  },
   async confirm() {
-    await this.actor.rest();
+    await this.actor.recover();
   }
 }
 
@@ -338,6 +457,14 @@ HOOKS.repercussiveBlock = {
       outcome.actorUpdates.items.push({_id: mainhand.id, system: {dropped: true, equipped: false}});
       outcome.statusText.push({text: "Disarmed!", fontSize: 64});
     }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.rest = {
+  async confirm() {
+    await this.actor.rest();
   }
 }
 

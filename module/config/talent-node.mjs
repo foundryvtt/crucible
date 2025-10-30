@@ -1,4 +1,3 @@
-import CrucibleTalentItem from "../models/item-talent.mjs";
 import {ABILITIES} from "./attributes.mjs";
 import {default as TREE_CONFIG} from "./tree.mjs";
 import {NODE_TYPES} from "./talents.mjs";
@@ -157,9 +156,8 @@ export default class CrucibleTalentNode {
       n.connect(this);
     }
 
-    // Determine the point
-    const ray = foundry.canvas.geometry.Ray.fromAngle(0, 0, Math.toRadians(angle), distance);
-    const point = ray.B;
+    // Determine the node position on its hexagonal edge segment
+    const point = this.#getPosition(angle, distance);
 
     // Node color
     let color;
@@ -195,6 +193,24 @@ export default class CrucibleTalentNode {
 
   /* -------------------------------------------- */
 
+  #getPosition(angle, distance) {
+    const w = 1;
+    const h = Math.SQRT3 / 2;
+    const points = [{x: w, y: 0}, {x: w/2, y: h}, {x: -w/2, y: h}, {x: -w, y: 0}, {x: -w/2, y: -h}, {x: w/2, y: -h}];
+    const a0 = angle.toNearest(60, "floor");
+    const i = (a0 / 60) % points.length;
+    const p0 = points[i];
+    const p1 = points[(i+1) % points.length];
+    const r = new foundry.canvas.geometry.Ray(
+      {x: p0.x * distance, y: p0.y * distance},
+      {x: p1.x * distance, y: p1.y * distance}
+    );
+    const t = (angle - a0) / 60;
+    return r.project(t);
+  }
+
+  /* -------------------------------------------- */
+
   #getRequirements() {
     const tierConfig = SYSTEM.TALENT.NODE_TIERS[this.tier];
     const reqs = {"advancement.level": tierConfig.level};
@@ -221,7 +237,8 @@ export default class CrucibleTalentNode {
     signatures ||= CrucibleTalentNode.getSignatureTalents(actor);
     const purchased = this.isPurchased(actor);
     const banned = this.#isBanned(actor, signatures);
-    const unlocked = Object.values(CrucibleTalentItem.testPrerequisites(actor, this.prerequisites)).every(r => r.met);
+    const reqs = crucible.api.models.CrucibleTalentItem.testPrerequisites(actor, this.prerequisites);
+    const unlocked = Object.values(reqs).every(r => r.met);
     return {accessible: undefined, purchased, banned, unlocked};
   }
 
@@ -261,6 +278,7 @@ export default class CrucibleTalentNode {
    * @returns {boolean}
    */
   isPurchased(actor) {
+    if ( this.id === "origin" ) return true;                    // The origin is always purchased
     if ( actor.system.talentNodes[this.id]?.size ) return true; // Purchased via an owned talent
     return actor.system.advancement.talentNodes.has(this.id);   // Purchased as an empty node
   }
@@ -317,6 +335,7 @@ export default class CrucibleTalentNode {
         o.label = "Level"
       }
       else if ( k.startsWith("skills.") ) o.label = SYSTEM.SKILLS[k.split(".")[1]].label;
+      else if ( k.startsWith("training.") ) o.label = SYSTEM.TALENT.TRAINING_TYPES[k.split(".")[1]].label;
       else o.label = k;
       o.tag = `${o.label} ${o.value}`;
       obj[k] = o;

@@ -15,7 +15,7 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
-    classes: ["crucible", "dialog", "dice-roll"],
+    classes: ["crucible", "dialog", "dice-roll", "themed", "theme-dark"],
     window: {
       contentTag: "form",
       contentClasses: ["standard-check", "standard-form"]
@@ -24,7 +24,9 @@ export default class StandardCheckDialog extends DialogV2 {
       requestToggle: StandardCheckDialog.#onRequestToggle,
       requestClear: StandardCheckDialog.#onRequestClear,
       requestParty: StandardCheckDialog.#onRequestParty,
-      requestRemove: StandardCheckDialog.#onRequestRemove
+      requestRemove: StandardCheckDialog.#onRequestRemove,
+      rollMode: StandardCheckDialog.#onChangeRollMode,
+      requestSubmit: StandardCheckDialog.#requestSubmit,
     },
     position: {
       width: "auto",
@@ -99,6 +101,7 @@ export default class StandardCheckDialog extends DialogV2 {
   /** @override */
   async _prepareContext(options) {
     const data = this.roll.data;
+    const rollMode = this.rollMode || game.settings.get("core", "rollMode")
     return Object.assign({}, data, {
       buttons: this.#prepareButtons(),
       dice: this.roll.dice.map(d => `d${d.faces}`),
@@ -106,8 +109,9 @@ export default class StandardCheckDialog extends DialogV2 {
       difficulties: Object.entries(SYSTEM.dice.checkDifficulties).map(d => ({dc: d[0], label: `${d[1]} (DC ${d[0]})`})),
       isGM: game.user.isGM,
       request: this.#prepareRequest(),
-      rollMode: this.rollMode || game.settings.get("core", "rollMode"),
-      rollModes: CONFIG.Dice.rollModes,
+      rollModes:  Object.entries(CONFIG.Dice.rollModes).map(([action, { label, icon }]) => {
+        return {icon, label, action, active: action === rollMode};
+      }),
       showDetails: data.totalBoons + data.totalBanes > 0,
       canIncreaseBoons: data.totalBoons < SYSTEM.dice.MAX_BOONS,
       canDecreaseBoons: data.totalBoons > 0,
@@ -213,10 +217,8 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /** @inheritDoc */
   _onChangeForm(formConfig, event) {
-    if ( event.target.name === "rollMode" ) this.rollMode = event.target.value;
-
     // Difficulty Tier
-    else if ( event.target.name === "difficultyTier" ) {
+    if ( event.target.name === "difficultyTier" ) {
       const dc = Number(event.target.value) || null;
       if ( Number.isNumeric(dc) ) {
         event.target.parentElement.querySelector(`input[name="dc"]`).value = dc;
@@ -307,7 +309,7 @@ export default class StandardCheckDialog extends DialogV2 {
    * @returns {Promise<void>}
    */
   async #onDropActor(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = CONFIG.ux.TextEditor.getDragEventData(event);
     if ( data.type !== "Actor" ) return;
     const actor = await fromUuid(data.uuid);
     if ( actor.pack ) return;
@@ -345,11 +347,67 @@ export default class StandardCheckDialog extends DialogV2 {
 
   /* -------------------------------------------- */
 
-  static async #onRequestRemove(event) {
-    const actorId = event.target.closest(".line-item").dataset.actorId;
+  static async #onRequestRemove(_event, target) {
+    const actorId = target.closest(".line-item").dataset.actorId;
     const actor = game.actors.get(actorId);
     this.#requestActors.delete(actor);
     await this.render({window: {title: this.title}});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle clicks to request rolls made by other players.
+   * @this {StandardCheckDialog}
+   */
+  static async #requestSubmit(_event, _target) {
+    const activeUsers = game.users.filter(u => u.active && !u.isSelf);
+    const requested = {};
+    const unrequested = [];
+    const promises = [];
+    for ( const actor of this.#requestActors ) {
+      let user = activeUsers.find(u => !u.isSelf && (u.character === actor) );
+      user ||= activeUsers.find(u => !u.isSelf && actor.testUserPermission(u, "OWNER"));
+      if ( user ) {
+        requested[actor.name] = user.name;
+        promises.push(this.roll.request({user, title: this.title, actorId: actor.id}));
+      }
+      else unrequested.push(actor.name);
+    }
+
+    // Notify
+    if ( !foundry.utils.isEmpty(requested) ) {
+      let n = "<div><p>Sent roll requests to the following users:<p><ul>";
+      for ( const [actorName, userName] of Object.entries(requested) ) {
+        n += `<li>Roll for <strong>${actorName}</strong> requested from <strong>${userName}</strong>`;
+      }
+      n += "<ul></div>";
+      // Display as a progress bar as requests are completed?
+      ui.notifications.info(n, {clean: false, console: true, permanent: true});
+    }
+    if ( unrequested.length ) {
+      let n = "<div><p>No users present who can handle rolls for the following actors:</p><ul>";
+      for ( const actorName of unrequested ) n += `<li><strong>${actorName}</strong></li>`;
+      n += "</ul></div>";
+      ui.notifications.error(n, {clean: false, console: true, permanent: true});
+    }
+
+    // Wait for results - for now do nothing else
+    // TODO await all rolls and then confirm their chat messages in bulk
+    await Promise.all(promises);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle clicks on a roll mode selection button.
+   * @this {StandardCheckDialog}
+   */
+  static async #onChangeRollMode(_event, target) {
+    this.rollMode = target.dataset.rollMode;
+    for ( const button of target.parentElement.children ) {
+      button.setAttribute("aria-pressed", button.dataset.rollMode === this.rollMode);
+    }
   }
 
   /* -------------------------------------------- */

@@ -9,10 +9,6 @@
 import {SYSTEM} from "./module/config/system.mjs";
 globalThis.SYSTEM = SYSTEM;
 
-import CrucibleTalentNode from "./module/config/talent-node.mjs";
-import {statusEffects} from "./module/config/statuses.mjs";
-import CrucibleSelectiveGridShader from "./module/canvas/shaders/grid-shader.mjs";
-
 // Import Modules
 import * as applications from "./module/applications/_module.mjs";
 import * as canvas from "./module/canvas/_module.mjs";
@@ -28,6 +24,8 @@ import {registerEnrichers} from "./module/enrichers.mjs";
 import * as chat from "./module/chat.mjs";
 import * as interaction from "./module/interaction.mjs";
 import Enum from "./module/config/enum.mjs";
+import CrucibleTalentNode from "./module/config/talent-node.mjs";
+import {statusEffects} from "./module/config/statuses.mjs";
 
 // Party
 let party = null;
@@ -122,6 +120,13 @@ Hooks.once("init", async function() {
   
   crucible.CONFIG = {
     /**
+     * Configured setting-specific currency denominations.
+     * @type {Record{string, CrucibleCurrencyDenomination}
+     * @see @link{SYSTEM.ACTOR.CURRENCY_DENOMINATIONS}
+     */
+    currency: foundry.utils.deepClone(SYSTEM.ACTOR.CURRENCY_DENOMINATIONS),
+
+    /**
      * Configuration of compendium packs which are used as sources for system workflows.
      * @type {Record<string, Set<string>>}
      */
@@ -141,7 +146,19 @@ Hooks.once("init", async function() {
      * The knowledge topics configured for the system.
      * @type {Record<string, CrucibleKnowledgeConfig>}
      */
-    knowledge: {...SYSTEM.SKILL.DEFAULT_KNOWLEDGE}
+    knowledge: foundry.utils.deepClone(SYSTEM.SKILL.DEFAULT_KNOWLEDGE),
+
+    /**
+     * The categories a language can belong to.
+     * @type {Record<string, {label: string}}
+     */
+    languageCategories: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGE_CATEGORIES),
+
+    /**
+     * The languages a creature can know.
+     * @type {Record<string, {label: string, category?: string}>}
+     */
+    languages: foundry.utils.deepClone(SYSTEM.ACTOR.LANGUAGES)
   };
   /** @deprecated */
   crucible.CONFIG.ancestryPacks = crucible.CONFIG.packs.ancestry;
@@ -155,6 +172,9 @@ Hooks.once("init", async function() {
       return party;
     }
   });
+
+  // Active Effect document configuration
+  CONFIG.ActiveEffect.documentClass = documents.CrucibleActiveEffect;
 
   // Actor document configuration
   CONFIG.Actor.documentClass = documents.CrucibleActor;
@@ -172,11 +192,6 @@ Hooks.once("init", async function() {
     social: models.CrucibleSocialChallenge
   };
 
-  // Custom grid shader class for all grid types
-  for ( const gridType in CONFIG.Canvas.gridStyles ) {
-    CONFIG.Canvas.gridStyles[gridType].shaderClass = CrucibleSelectiveGridShader;
-  }
-
   // Item document configuration
   CONFIG.Item.documentClass = documents.CrucibleItem;
   CONFIG.Item.dataModels = {
@@ -187,6 +202,7 @@ Hooks.once("init", async function() {
     background: models.CrucibleBackgroundItem,
     consumable: models.CrucibleConsumableItem,
     loot: models.CrucibleLootItem,
+    schematic: models.CrucibleSchematicItem,
     spell: models.CrucibleSpellItem,
     talent: models.CrucibleTalentItem,
     taxonomy: models.CrucibleTaxonomyItem,
@@ -200,6 +216,9 @@ Hooks.once("init", async function() {
   CONFIG.Scene.documentClass = documents.CrucibleScene;
   CONFIG.Token.documentClass = documents.CrucibleToken;
   CONFIG.Token.objectClass = canvas.CrucibleTokenObject;
+
+  // Time
+  CONFIG.time.roundTime = SYSTEM.TIME.roundSeconds;
 
   // Sheet Registrations
   const sheets = foundry.applications.apps.DocumentSheetConfig;
@@ -218,6 +237,7 @@ Hooks.once("init", async function() {
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleLootItemSheet, {types: ["loot"], label: "CRUCIBLE.SHEETS.Loot", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTaxonomyItemSheet, {types: ["taxonomy"], label: "CRUCIBLE.SHEETS.Taxonomy", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleWeaponItemSheet, {types: ["weapon"], label: "CRUCIBLE.SHEETS.Weapon", makeDefault: true});
+  sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSchematicItemSheet, {types: ["schematic"], label: "CRUCIBLE.SHEETS.Schematic", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleSpellItemSheet, {types: ["spell"], label: "CRUCIBLE.SHEETS.Spell", makeDefault: true});
   sheets.registerSheet(Item, SYSTEM.id, applications.CrucibleTalentItemSheet, {types: ["talent"], label: "CRUCIBLE.SHEETS.Talent", makeDefault: true});
 
@@ -226,11 +246,25 @@ Hooks.once("init", async function() {
   // Core Application Overrides
   CONFIG.ui.combat = applications.CrucibleCombatTracker;
 
+  // Custom HTML Elements
+  for ( const element of Object.values(applications.elements) ) {
+    window.customElements.define(element.tagName, element);
+  }
+
+  // Font Definitions
+  CONFIG.fontDefinitions["AwerySmallcaps"] = {
+    editor: true,
+    fonts: [{urls: ["systems/crucible/fonts/AwerySmallcaps/AwerySmallcaps.ttf"]}]
+  };
+
   // Rich Text Enrichers
   registerEnrichers();
 
   // Dice system configuration
   CONFIG.Dice.rolls.push(dice.StandardCheck, dice.AttackRoll, dice.PassiveCheck, dice.InitiativeCheck);
+
+  // Queries
+  CONFIG.queries.rollSkillRequest = dice.StandardCheck.handle.bind(dice.StandardCheck);
 
   // Status Effects
   CONFIG.statusEffects = statusEffects;
@@ -254,9 +288,16 @@ Hooks.once("init", async function() {
 
   // Primary party
   game.settings.register("crucible", "party", {
+    name: "SETTINGS.CruciblePartyLabel",
+    hint: "SETTINGS.CruciblePartyHint",
     scope: "world",
-    config: false,
-    type: new foundry.data.fields.DocumentIdField(),
+    config: true,
+    type: new foundry.data.fields.ForeignDocumentField(documents.CrucibleActor,
+      {required: false, idOnly: true, choices: () => game.actors.reduce((obj, a) => {
+        if ( a.type === "group" ) obj[a.id] = a.name;
+        return obj;
+      }, {"": "-- None -- "})
+    }),
     default: null,
     onChange: actorId => party = game.actors.get(actorId)
   });
@@ -277,6 +318,15 @@ Hooks.once("init", async function() {
     onDown: chat.onKeyboardConfirmAction
   });
 
+  // Patch door sound radius - can we do this better elsewhere?
+  Object.defineProperty(foundry.canvas.placeables.Wall.prototype, "soundRadius", {
+    get() {
+      const scene = globalThis.canvas.scene;
+      if ( !scene ) return 0;
+      return scene.useMicrogrid ? 60 : globalThis.canvas.dimensions.distance * 12;
+    }
+  });
+
   // Activate socket handler
   game.socket.on(`system.${SYSTEM.id}`, handleSocketEvent);
 
@@ -284,6 +334,17 @@ Hooks.once("init", async function() {
   CONFIG.debug.talentTree = false;
   CONFIG.debug.flanking = false;
   if ( crucible.developmentMode ) registerDevelopmentHooks();
+
+  // Replace core layer class with custom grid layer class
+  CONFIG.Canvas.layers.grid.layerClass = canvas.grid.CrucibleGridLayer;
+});
+
+/* -------------------------------------------- */
+/*  Config                                      */
+/* -------------------------------------------- */
+
+Hooks.once("canvasConfig", () => {
+  canvas.grid.CrucibleHitBoxShader.registerPlugin();
 });
 
 /* -------------------------------------------- */
@@ -300,7 +361,8 @@ Hooks.once("i18nInit", function() {
     "ARMOR.CATEGORIES", "ARMOR.PROPERTIES",
     "CONSUMABLE.CATEGORIES", "CONSUMABLE.PROPERTIES",
     "DAMAGE_CATEGORIES", "DEFENSES",
-    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES",
+    "ITEM.QUALITY_TIERS", "ITEM.ENCHANTMENT_TIERS", "ITEM.LOOT_CATEGORIES", "ITEM.SCHEMATIC_CATEGORIES",
+    "ITEM.SCHEMATIC_PROPERTIES",
     "RESOURCES", "THREAT_RANKS",
     "WEAPON.CATEGORIES", "WEAPON.PROPERTIES", "WEAPON.TRAINING", "WEAPON.SLOTS"
   ];
@@ -377,6 +439,11 @@ function preLocalizeConfig() {
   localizeConfigObject(SYSTEM.TALENT.NODE_TYPES, ["label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_TYPES, ["group", "label"]);
   localizeConfigObject(SYSTEM.TALENT.TRAINING_RANKS, ["label"]);
+
+  // Config objects
+  localizeConfigObject(crucible.CONFIG.currency, ["label", "abbreviation"], false);
+  localizeConfigObject(crucible.CONFIG.languageCategories, ["label"]);
+  localizeConfigObject(crucible.CONFIG.languages, ["label"]);
 }
 
 /* -------------------------------------------- */
@@ -432,6 +499,7 @@ Hooks.once("ready", async function() {
  * @returns {Promise<void>}
  */
 async function _initializePrototypeTokenSettings() {
+  if ( !game.user.isGM ) return;
   const overrides = game.settings.get("core", foundry.data.PrototypeTokenOverrides.SETTING);
   overrides.updateSource({
     base: {

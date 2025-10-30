@@ -1,0 +1,92 @@
+name: Caustic Phial
+type: consumable
+img: icons/consumables/potions/bottle-conical-fumes-green.webp
+system:
+  identifier: causticPhial
+  category: bomb
+  quantity: 1
+  weight: 1
+  price: 2500
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+    - thrown
+  description:
+    public: >-
+      <p>Corrosive liquid swirls within this vial of intentionally thin glass,
+      designed to shatter on impact and spill the caustic substance upon a
+      target.</p>
+    private: ''
+  actions:
+    - id: causticPhial
+      name: Caustic Phial
+      img: icons/consumables/potions/bottle-conical-fumes-green.webp
+      condition: ''
+      description: >-
+        <p>You fling the @ref[name], dealing <strong>Weakened</strong> immediate
+        damage but causing the @Condition[corroding] condition to all enemies in
+        a 4 foot radius <strong>Blast</strong> who fail to avoid the
+        attack.</p><p>The amount of burning damage and its duration is dependent
+        on the quality of the @ref[name]:</p><ul><li><p><strong>Shoddy</strong>
+        - 2 damage for 2 rounds</p></li><li><p><strong>Standard</strong> - 3
+        damage for 3 rounds</p></li><li><p><strong>Fine</strong> - 4 damage for
+        4 rounds</p></li><li><p><strong>Superior</strong> - 6 damage for 5
+        rounds</p></li><li><p><strong>Masterwork</strong> - 8 damage for 6
+        rounds</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 20
+        weapon: false
+      target:
+        type: blast
+        number: 1
+        scope: 4
+        self: false
+        size: 4
+      effects:
+        - name: Caustic Phial
+          scope: 3
+          statuses:
+            - corroding
+          duration:
+            turns: 3
+            rounds: null
+      tags:
+        - freehand
+        - weakened
+        - reflex
+        - skill
+        - athletics
+        - consume
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+folder: 9u3lR2Lbhj3cdjQk
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760799532842
+  modifiedTime: 1761413891947
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: causticPhial0000
+sort: 0
+_key: '!items!causticPhial0000'

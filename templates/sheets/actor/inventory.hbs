@@ -1,36 +1,50 @@
-<section class="tab secondary flexcol scrollable {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
+<section class="tab secondary flexcol {{tabs.inventory.id}} {{tabs.inventory.cssClass}}"
          data-tab="{{tabs.inventory.id}}" data-group="{{tabs.inventory.group}}">
-    {{#each inventory as |section s|}}
-    <div class="sheet-section item-section flexcol" data-inventory-section="{{s}}">
-        <h3>{{section.label}}</h3>
-        <ol class="items-list scrollable">
-            {{#each section.items as |item id|}}
-            <li class="line-item {{item.cssClass}} draggable" data-item-id="{{item.id}}">
-                <img class="icon" src="{{item.img}}" alt="{{item.name}}">
-                <div class="title">
-                    <h4 >
-                        {{#if item.showStack}}<span class="stack">({{item.quantity}}) </span>{{/if}}
-                        {{~item.name~}}
-                    </h4>
-                    <div class="tags">
-                        {{#each item.tags}}
-                        {{#if this}}<span class="tag">{{this}}</span>{{/if}}
-                        {{/each}}
+    <section class="inventory-sections scrollable flexcol">
+        {{#each inventory as |section s|}}
+        <div class="sheet-section item-section flexcol" data-inventory-section="{{s}}">
+            <h3>{{section.label}}</h3>
+            <ol class="items-list scrollable" data-tooltip-direction="LEFT">
+                {{#each section.items as |item id|}}
+                <li class="line-item {{item.cssClass}} draggable" data-crucible-tooltip="{{s}}" data-item-id="{{item.id}}" data-uuid="{{item.uuid}}">
+                    <img class="icon" src="{{item.img}}" alt="{{item.name}}">
+                    <div class="title">
+                        <h4 >
+                            {{#if item.showStack}}<span class="stack">({{item.quantity}}) </span>{{/if}}
+                            {{~item.name~}}
+                        </h4>
+                        <div class="tags">
+                            {{#each item.tags}}
+                            {{#if this}}<span class="tag">{{this}}</span>{{/if}}
+                            {{/each}}
+                        </div>
                     </div>
-                </div>
-                <div class="controls">
-                    {{#each item.actions as |button|}}
-                    <button type="button" class="icon {{button.icon}}" data-action="{{button.action}}" data-tooltip="{{button.tooltip}}"></button>
-                    {{/each}}
-                    <button type="button" class="icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></button>
-                    <button type="button" class="icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Item"></button>
-                </div>
-            </li>
-            {{else}}
-            <li class="hint">{{section.empty}}</li>
-            {{/each}}
-        </ol>
-    </div>
-    {{/each}}
-    <button type="button" class="icon frame-brown fa-solid fa-plus inventory-create" data-action="itemCreate" data-tooltip="Create Item"></button>
+                    <div class="controls">
+                        {{#each item.actions as |button|}}
+                        <button type="button" class="icon {{button.icon}}" data-action="{{button.action}}" data-tooltip="{{button.tooltip}}"></button>
+                        {{/each}}
+                        <button type="button" class="icon fa-solid fa-edit" data-action="itemEdit" data-tooltip="Edit Item"></button>
+                        <button type="button" class="icon fa-solid fa-trash" data-action="itemDelete" data-tooltip="Delete Item"></button>
+                    </div>
+                </li>
+                {{else}}
+                <li class="hint">{{section.empty}}</li>
+                {{/each}}
+            </ol>
+        </div>
+        {{/each}}
+    </section>
+    <footer class="tab-footer inventory-footer flexrow">
+        <div class="sheet-section currency-section flexcol">
+            <h3>{{localize "ACTOR.LABELS.CURRENCY"}}</h3>
+            <crucible-currency name="system.currency" value="{{source.system.currency}}"></crucible-currency>
+        </div>
+        {{#if capacity}}
+        <div class="carrying-capacity labeled-hex" style="--capacity-pct: {{capacity.pct}}">
+            <h4 class="label">{{localize "ACTOR.LABELS.CAPACITY"}}</h4>
+            <span class="value">{{capacity.value}} / {{capacity.max}}</span>
+        </div>
+        {{/if}}
+        <button type="button" class="icon frame-brown fa-solid fa-plus inventory-create" data-action="itemCreate" data-tooltip="Create Item"></button>
+    </footer>
 </section>

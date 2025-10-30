@@ -143,6 +143,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     // Physical Items
     if ( this.document.system instanceof CruciblePhysicalItem ) {
       context.propertiesWidget = this.#propertiesWidget.bind(this);
+      context.currencyInput = this.#currencyInput.bind(this);
       context.scaledPriceField = new foundry.data.fields.StringField({label: game.i18n.localize("ITEM.SHEET.SCALED_PRICE")});
       context.requiresInvestment = source.system.equipped && this.document.system.properties.has("investment");
     }
@@ -179,7 +180,7 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
             tab: context.tabs.description,
             field: context.fields.description,
             publicSrc: src,
-            publicHTML: await CONFIG.ux.TextEditor.enrichHTML(src, editorOptions)
+            publicHTML: await editorCls.enrichHTML(src, editorOptions)
           }
         }
         break;
@@ -224,6 +225,16 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
     inputConfig.options = Object.entries(PROPERTIES).map(([k, v]) => ({value: k, label: v.label}));
     inputConfig.type = "checkboxes";
     return foundry.applications.fields.createMultiSelectInput(inputConfig);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Render a price field using a HTMLCrucibleCurrencyElement element.
+   * @returns {HTMLCrucibleCurrencyElement}
+   */
+  #currencyInput(field, inputConfig) {
+    return crucible.api.applications.elements.HTMLCrucibleCurrencyElement.create(inputConfig);
   }
 
   /* -------------------------------------------- */
@@ -408,8 +419,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onExpandSection(event) {
-    const section = event.target.closest(".sheet-section");
+  static async #onExpandSection(_event, target) {
+    const section = target.closest(".sheet-section");
     const wasExpanded = section.classList.contains("expanded");
     if ( wasExpanded ) {
       for ( const s of section.parentElement.children ) s.classList.remove("expanded", "collapsed");
@@ -429,8 +440,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onHookAdd(event) {
-    const hook = event.target.previousElementSibling.value
+  static async #onHookAdd(event, target) {
+    const hook = target.previousElementSibling.value
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks ||= [];
     if ( submitData.system.actorHooks.find(h => h.hook === hook ) ) {
@@ -449,8 +460,8 @@ export default class CrucibleBaseItemSheet extends api.HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onHookDelete(event) {
-    const hook = event.target.closest(".hook").querySelector("input[type=hidden]").value;
+  static async #onHookDelete(event, target) {
+    const hook = target.closest(".hook").querySelector("input[type=hidden]").value;
     const submitData = this._getSubmitData(event);
     submitData.system.actorHooks.findSplice(h => h.hook === hook);
     await this.document.update(submitData);

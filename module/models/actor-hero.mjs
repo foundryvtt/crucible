@@ -49,7 +49,9 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
         weight: new fields.StringField(),
         public: new fields.HTMLField(),
         private: new fields.HTMLField()
-      })
+      }),
+      knowledge: new fields.SetField(new fields.StringField({blank: false})),
+      languages: new fields.SetField(new fields.StringField({blank: false}))
     });
     return schema;
   }
@@ -76,6 +78,12 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
    * }}
    */
   points;
+
+  /**
+   * Carrying capacity for physical equipment.
+   * @type {{value: number, max: number}}
+   */
+  capacity;
 
   /* -------------------------------------------- */
   /*  Data Preparation                            */
@@ -132,7 +140,11 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     }
 
     // Default Background data
-    this.details.background ||= this.schema.getField("details.background").initialize({});
+    this.details.background ||= this.schema.getField("details.background").clean({});
+
+    // Add the background data into the main details
+    for ( const language of this.details.background.languages ) this.details.languages.add(language);
+    for ( const knowledge of this.details.background.knowledge ) this.details.knowledge.add(knowledge);
 
     // Threat level
     const adv = this.advancement;
@@ -210,6 +222,41 @@ export default class CrucibleHeroActor extends CrucibleBaseActor {
     const points = this.points.talent;
     points.spent = Math.max(this.talentIds.size - this.permanentTalentIds.size, 0) + this.advancement.talentNodes.size;
     points.available = points.total - points.spent;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareEquipment(items) {
+    super._prepareEquipment(items);
+    this._prepareCapacity(items);
+  };
+
+  /* -------------------------------------------- */
+
+  /**
+   * Accumulates the current carrying weight of the character.
+   * Total capacity is determined later after active effects are applied.
+   * @protected
+   */
+  _prepareCapacity(items) {
+    this.capacity = {value: 0, max: 0};
+    for ( const type of SYSTEM.ITEM.PHYSICAL_ITEM_TYPES ) {
+      for ( const item of items[type] ) {
+        this.capacity.value += (item.system.weight * item.system.quantity);
+      }
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _prepareMovement() {
+    super._prepareMovement();
+    const c = this.capacity;
+    c.max = this.abilities.strength.value * 30;
+    c.overflow = c.max - c.value;
+    c.pct = Math.clamp(c.value / c.max, 0, 1);
   }
 
   /* -------------------------------------------- */

@@ -1,0 +1,22 @@
+<div class="equipment line-item {{equipment.cssClass}}" data-uuid="{{equipment.uuid}}">
+    <input type="number" class="quantity" name="system.equipment.{{@index}}.quantity" value="{{equipment.quantity}}"
+           min="1" step="1" aria-label="{{localize 'ITEM.FIELDS.quantity.label'}}" data-tooltip>
+    <img class="icon" src="{{equipment.img}}" alt="{{equipment.name}}">
+    <div class="title">
+        <h4>{{equipment.name}}</h4>
+        <div class="tags">
+            {{#each equipment.tags as |tag type|}}
+            <span class="tag" data-tag="{{type}}">{{tag}}</span>
+            {{/each}}
+        </div>
+    </div>
+    {{#if isEditable}}
+    <div class="controls">
+        <a class="button icon fa-solid fa-shield" data-action="toggleEquipped"
+            aria-label="{{localize 'ITEM.FIELDS.equipped.label'}}" data-tooltip></a>
+        <a class="button icon fa-solid fa-times remove-equipment" data-action="removeEquipment"
+           aria-label="{{localize 'ITEM.SHEET.EQUIPMENT_REMOVE'}}" data-tooltip></a>
+    </div>
+    {{/if}}
+    <div class="description">{{{equipment.description}}}</div>
+</div>

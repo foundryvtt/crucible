@@ -15,7 +15,8 @@ system:
       description: >-
         <p>You observe a creature you can see to assess it's notable areas of
         strength.</p>
-      tags: []
+      tags:
+        - harmless
       cost:
         action: 1
         focus: 1
@@ -25,6 +26,7 @@ system:
         type: single
         number: 1
         scope: 0
+        self: false
       effects: []
       name: Assess Strength
       img: icons/magic/fire/flame-burning-eye.webp
@@ -48,11 +50,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.347'
   systemId: crucible
-  systemVersion: 0.7.2
-  modifiedTime: 1750875661750
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  systemVersion: 0.7.7
+  modifiedTime: 1755698836108
+  lastModifiedBy: AnoypGxxNIMOS0XY
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

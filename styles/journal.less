@@ -84,6 +84,7 @@
     position: relative;
     padding-bottom: 40px;
     margin-bottom: 20px;
+    margin-right: -1rem; // Counteract scrollable padding to ensure h2-separator graphic is centered
     background-image: url("../ui/journal/h2-separator.png"); // TODO convert SVG
     background-repeat: no-repeat;
     background-position: bottom center;
@@ -149,20 +150,26 @@
 
 enriched-content.skill-check,
 enriched-content.passive-check,
-enriched-content.hazard-check {
+enriched-content.hazard-check,
+enriched-content.award,
+enriched-content.milestone {
   --color-background: #000000;
   --color-background-hover: #000000;
   --color-border: #000000;
   --color-border-hover: #000000;
 
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  padding: 0 4px;
+  margin: -3px 0;
+  align-items: center;
+  font-size: 90%;
   background: var(--color-background);
   color: var(--color-text-emphatic);
-  line-height: 1em;
-  padding: 3px 4px 1px; // Asymmetric to counter-act font appearance
-  margin: -3px -1px;
   border: 1px solid var(--color-border);
   border-radius: 2px;
-  font-size: 90%;
   cursor: var(--cursor-pointer);
 
   &:before {
@@ -181,40 +188,49 @@ enriched-content.hazard-check {
     }
   }
 
-  &.exp {
+  // Exploration and Talent checks
+  &.exp,
+  &.talent-check {
     --color-background: #2c3921;
     --color-background-hover: #365021;
     --color-border: #5b9e26;
     --color-border-hover: #81cc44;
   }
-  &.kno {
-    --color-background: #1a1a37;
-    --color-background-hover: #242453;
-    --color-border: #4848ac;
-    --color-border-hover: #6c6cff;
-  }
-  &.soc {
-    --color-background: #3a184a;
-    --color-background-hover: #4d2368;
-    --color-border: #752f9f;
-    --color-border-hover: #ab3fe8;
-  }
-
-  // Passive Checks
-  &.passive-check {
-    cursor: var(--cursor-help, help);
+  &.talent-check:before {
+    content: "\e4e2";
+    font-weight: 900;
   }
 
   // Knowledge Checks
+  &.kno,
   &.knowledge-check {
     --color-background: #1a1a37;
     --color-background-hover: #242453;
     --color-border: #4848ac;
     --color-border-hover: #6c6cff;
-    &:before {
-      content: "\e0c0";
-      font-weight: 900;
-    }
+  }
+
+  &.knowledge-check:before {
+    content: "\e0c0";
+    font-weight: 900;
+  }
+
+  // Social and Language checks
+  &.soc,
+  &.language-check {
+    --color-background: #3a184a;
+    --color-background-hover: #4d2368;
+    --color-border: #752f9f;
+    --color-border-hover: #ab3fe8;
+  }
+  &.language-check:before {
+    content: "\f086";
+    font-weight: 900;
+  }
+
+  // Passive Checks
+  &.passive-check {
+    cursor: var(--cursor-help, help);
   }
 
   // Hazard Checks
@@ -223,6 +239,19 @@ enriched-content.hazard-check {
     --color-background-hover: #681212;
     --color-border: #9c1212;
     --color-border-hover: #d11515;
+  }
+
+  // Awards
+  &.award,
+  &.milestone {
+    --color-background: #243437;
+    --color-background-hover: #163037;
+    --color-border: #9ea5a7;
+    --color-border-hover: #dae7eb;
+    &:before {
+      content: "\f091";
+      font-weight: 900;
+    }
   }
 }
 
@@ -263,5 +292,21 @@ enriched-content.spell {
     opacity: 0.5;
     margin-right: 4px;
     font-size: 80%;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Currency Display                         */
+/* ----------------------------------------- */
+.currencies-inline {
+  display: inline-flex;
+  height: 1.5em;
+  line-height: 0;
+  gap: 4px;
+  align-items: center;
+  i.currency {
+    width: 16px;
+    height: 16px;
+    margin-right: -4px;
   }
 }

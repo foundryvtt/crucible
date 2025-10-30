@@ -115,7 +115,7 @@ pages:
         <strong>3d8</strong> dice pool twice, from a <strong>d8</strong> to a
         <strong>d12</strong>, resulting in a dice pool of <strong>1d12 + 1d8 +
         1d8</strong>.</p></section><p>Boons or banes resulting from
-        @UUID[Compendium.crucible.rules.JournalEntry.QhZgmBrdLAGwYy5c.JournalEntryPage.USjhhuOGsLTXQM9v]{Conditions}
+        @UUID[Compendium.crucible.rules.JournalEntry.crucibleConditio]{Conditions}
         like <strong>Prone</strong> will be handled automatically by layers of
         automation in the Crucible software, but additional boons may always be
         awarded by the Gamemaster prior to any roll as ways to reward players
@@ -157,14 +157,14 @@ pages:
 _stats:
   systemId: crucible
   systemVersion: 0.8.0
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   createdTime: 1684343824437
-  modifiedTime: 1743873939774
+  modifiedTime: 1760019535362
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 0
+sort: 100000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

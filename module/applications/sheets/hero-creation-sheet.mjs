@@ -131,6 +131,12 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     return obj;
   }, {}));
 
+  /**
+   * Record when the entire process is complete so we can avoid displaying warnings on close.
+   * @type {boolean}
+   */
+  #complete = false;
+
   /* -------------------------------------------- */
 
   get steps() {
@@ -179,6 +185,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    */
   async _initializeState() {
     this._state.name = this._clone.name;
+    this.#complete = false;
     const promises = [];
     for ( const step of Object.values(this.constructor.STEPS) ) {
       if ( step?.initialize instanceof Function ) promises.push(step.initialize.call(this));
@@ -271,7 +278,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @protected
    */
   async _initializeBackground(background) {
-    const {knowledge, skills, talents, schema} = background.item.system;
+    const {knowledge, skills, talents, schema, languages} = background.item.system;
 
     // Knowledge Areas
     const knowledgeTags = Array.from(knowledge.map(knowledgeId => {
@@ -281,6 +288,16 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
     if ( knowledgeTags.length ) background.features.push({
       label: schema.getField("knowledge").label,
       tags: knowledgeTags
+    });
+
+    // Languages
+    const languageTags = Array.from(languages.map(languageId => {
+      const l = crucible.CONFIG.languages[languageId];
+      return {text: `Language: ${l?.label || l}`};
+    }))
+    if ( languageTags.length ) background.features.push({
+      label: schema.getField("languages").label,
+      tags: languageTags
     });
 
     // Skills
@@ -554,7 +571,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   /** @override */
   _canRender(_options) {
     super._canRender(_options);
-    if ( (this.document.type !== "hero") || (this.document.level > 0) ) {
+    if ( !this.#complete && ((this.document.type !== "hero") || (this.document.level > 0)) ) {
       throw new Error("You may only use the CrucibleHeroCreationSheet for a hero Actor which is level zero.")
     }
   }
@@ -586,7 +603,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
 
   /** @inheritDoc */
   async close(options={}) {
-    if ( options.dialog !== false ) {
+    if ( (options.dialog !== false) && !this.#complete ) {
       crucible.api.audio.playClick();
       const confirm = await foundry.applications.api.DialogV2.confirm({
         window: {
@@ -728,8 +745,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAbilityIncrease(event) {
-    const ability = event.target.closest(".ability");
+  static async #onAbilityIncrease(_event, target) {
+    const ability = target.closest(".ability");
     crucible.api.audio.playClick();
     await this._clone.purchaseAbility(ability.dataset.ability, 1);
     await this.render({parts: [this.step, "header"]});
@@ -742,8 +759,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static async #onAbilityDecrease(event) {
-    const ability = event.target.closest(".ability");
+  static async #onAbilityDecrease(_event, target) {
+    const ability = target.closest(".ability");
     crucible.api.audio.playClick();
     await this._clone.purchaseAbility(ability.dataset.ability, -1);
     await this.render({parts: [this.step, "header"]});
@@ -757,8 +774,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static #onChooseAncestry(event) {
-    const choice = event.target.closest(".option");
+  static #onChooseAncestry(_event, target) {
+    const choice = target.closest(".option");
     this.chooseAncestry(choice.dataset.ancestryId);
     crucible.api.audio.playClick();
   }
@@ -771,8 +788,8 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
    * @param {PointerEvent} event
    * @returns {Promise<void>}
    */
-  static #onChooseBackground(event) {
-    const choice = event.target.closest(".option");
+  static #onChooseBackground(_event, target) {
+    const choice = target.closest(".option");
     this.chooseBackground(choice.dataset.backgroundId);
     crucible.api.audio.playClick();
   }
@@ -808,17 +825,13 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   static async #onComplete() {
     this._state.name = this.element.querySelector("#hero-creation-name").value.trim();
     const creationData = this._clone.toObject();
-    const creationOptions = {recursive: false, diff: false, noHook: true};
+    const creationOptions = {recursive: false, diff: false, noHook: true, render: false};
     await this._finalizeCreationData(creationData, creationOptions);
 
-    // Close the creation sheet and remove it from cache
-    await this.close({dialog: false});
-    this.document._sheet = null;
-    delete this.document.apps[this.id];
-
     // Update the actor and render the regular sheet
+    this.#complete = true;
     await this.document.update(creationData, creationOptions);
-    this.document.sheet.render({force: true});
+    await this.close({dialog: false});
   }
 
   /* -------------------------------------------- */
@@ -832,8 +845,7 @@ export default class CrucibleHeroCreationSheet extends HandlebarsApplicationMixi
   async _finalizeCreationData(creationData, creationOptions) {
     creationData.name = this._state.name;
     delete creationData.ownership;
-    delete creationData.flags.core.sheetClass;
-    creationData.flags.core["-=sheetClass"] = null;
+    creationData.flags.core.sheetClass = '';
     creationData.system.advancement.level = 1;
   }
 

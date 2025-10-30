@@ -5,7 +5,7 @@ system:
   category: projectile1
   quantity: 1
   weight: 1
-  price: 8
+  price: 800
   quality: standard
   broken: false
   enchantment: mundane
@@ -36,12 +36,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.8
   createdTime: 1749827224394
-  modifiedTime: 1749827224394
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1759602090859
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: sling00000000000
 sort: 0
 _key: '!items!sling00000000000'

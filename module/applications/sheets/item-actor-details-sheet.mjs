@@ -12,6 +12,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     actions: {
+      removeEquipment: CrucibleActorDetailsItemSheet.#onRemoveEquipment,
+      toggleEquipped: CrucibleActorDetailsItemSheet.#toggleEquipped,
       removeTalent: CrucibleActorDetailsItemSheet.#onRemoveTalent
     }
   };
@@ -82,8 +84,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _onRender(context, options) {
-    super._onRender(context, options);
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     if ( !this.isEditable ) return;
     const dropZone = this.element.querySelector(".talent-drop");
     dropZone?.addEventListener("drop", this.#onDropTalent.bind(this));
@@ -124,7 +126,7 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @returns {Promise<*>}
    */
   async #onDropTalent(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = CONFIG.ux.TextEditor.getDragEventData(event);
     const talents = this.document.system.talents;
     if ( (data.type !== "Item") || talents.has(data.uuid) ) return;
     const talent = await fromUuid(data.uuid);
@@ -132,13 +134,8 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
     if ( talent.system.node?.tier && (talent.system.node.tier !== 0 ) ) {
       return ui.notifications.error("BACKGROUND.ERRORS.TALENT_TIER", {localize: true});
     }
-
-    // Update Actor detail or permanent Item
     const updateData = {system: {talents: [...talents, data.uuid]}};
-    if ( this.document.parent instanceof foundry.documents.Actor ) {
-      return this._processSubmitData(event, this.form, updateData);
-    }
-    return this.document.update(updateData);
+    return this._processSubmitData(event, this.form, updateData);
   }
 
   /* -------------------------------------------- */
@@ -147,17 +144,42 @@ export default class CrucibleActorDetailsItemSheet extends CrucibleBaseItemSheet
    * @this {CrucibleActorDetailsItemSheet}
    * @type {ApplicationClickAction}
    */
-  static async #onRemoveTalent(event) {
-    const talent = event.target.closest(".talent");
+  static async #onRemoveTalent(event, target) {
+    const talent = target.closest(".talent");
     const talents = new Set(this.document.system.talents);
     const uuid = talent.dataset.uuid;
     talents.delete(uuid);
-
-    // Update Actor detail or permanent Item
     const updateData = {system: {talents: [...talents]}};
-    if ( this.document.parent instanceof foundry.documents.Actor ) {
-      return this._processSubmitData(event, this.form, updateData);
-    }
-    return this.document.update(updateData);
+    return this._processSubmitData(event, this.form, updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #toggleEquipped(event) {
+    const item = event.target.closest(".equipment");
+    const equipment = this.document.system.equipment;
+    const uuid = item.dataset.uuid;
+    const existingItem = equipment.find(i => i.item === uuid);
+    existingItem.equipped = !existingItem.equipped;
+    const updateData = {system: {equipment}};
+    return this._processSubmitData(event, this.form, updateData);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleActorDetailsItemSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRemoveEquipment(event) {
+    const item = event.target.closest(".equipment");
+    const uuid = item.dataset.uuid || null;
+    const equipment = this.document.system._source.equipment.filter(i => i.item !== uuid);
+    const updateData = {system: {equipment}};
+    return this._processSubmitData(event, this.form, updateData);
   }
 }

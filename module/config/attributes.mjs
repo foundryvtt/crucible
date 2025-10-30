@@ -17,7 +17,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.WisdomAbbr",
     type: "mental",
     group: "power",
-    color: Color.from("#FF00FF"),
+    color: Color.from("#e420fb"),
     sheetOrder: 2,
     nodeId: "wis"
   },
@@ -27,7 +27,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.PresenceAbbr",
     type: "mental",
     group: "resilience",
-    color: Color.from("#0000FF"),
+    color: Color.from("#5977fd"),
     sheetOrder: 4,
     nodeId: "pre"
   },
@@ -37,7 +37,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.IntellectAbbr",
     type: "mental",
     group: "speed",
-    color: Color.from("#00FFFF"),
+    color: Color.from("#0aedec"),
     sheetOrder: 6,
     nodeId: "int"
   },
@@ -47,7 +47,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.StrengthAbbr",
     type: "physical",
     group: "power",
-    color: Color.from("#FF0000"),
+    color: Color.from("#da1206"),
     sheetOrder: 1,
     nodeId: "str"
   },
@@ -57,7 +57,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.ToughnessAbbr",
     type: "physical",
     group: "resilience",
-    color: Color.from("#FFFF00"),
+    color: Color.from("#f4b71e"),
     sheetOrder: 3,
     nodeId: "tou"
   },
@@ -67,7 +67,7 @@ export const ABILITIES = Object.freeze({
     abbreviation: "ABILITIES.DexterityAbbr",
     type: "physical",
     group: "speed",
-    color: Color.from("#00FF00"),
+    color: Color.from("#56eb09"),
     sheetOrder: 5,
     nodeId: "dex"
   }
@@ -295,21 +295,21 @@ export const DEFENSES = {
     id: "fortitude",
     label: "DEFENSES.Fortitude",
     abilities: ["strength", "wisdom"],
-    tooltip: `${PASSIVE_BASE} + ((Strength + Wisdom) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Strength + Wisdom) / 4)`,
     type: "save"
   },
   willpower: {
     id: "willpower",
     label: "DEFENSES.Willpower",
     abilities: ["toughness", "presence"],
-    tooltip: `${PASSIVE_BASE} + ((Toughness + Presence) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Toughness + Presence) / 4)`,
     type: "save"
   },
   reflex: {
     id: "reflex",
     label: "DEFENSES.Reflex",
     abilities: ["dexterity", "intellect"],
-    tooltip: `${PASSIVE_BASE} + ((Dexterity + Intellect) / 2)`,
+    tooltip: `${PASSIVE_BASE} + ((Dexterity + Intellect) / 4)`,
     type: "save"
   },
   wounds: {

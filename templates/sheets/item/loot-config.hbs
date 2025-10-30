@@ -17,7 +17,8 @@
         <legend>{{localize "ITEM.SHEET.EQUIPMENT"}}</legend>
         {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
         {{formGroup fields.weight value=source.system.weight classes="slim"}}
-        {{formGroup fields.price value=source.system.price classes="slim"}}
-        {{formGroup scaledPriceField value=item.system.price classes="slim" disabled=true}}
+        {{formGroup fields.broken value=source.system.broken classes="half"}}
+        {{formGroup fields.price value=source.system.price input=currencyInput classes="currency"}}
+        {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency" readonly=true disabled=true}}
     </fieldset>
 </section>

@@ -1,0 +1,47 @@
+name: Chain Hook
+type: weapon
+img: icons/tools/fishing/hook-multi-steel-grey.webp
+system:
+  identifier: chainHook
+  category: balanced1
+  quantity: 1
+  weight: 4
+  price: 3200
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - returning
+    - thrown
+  description:
+    public: >-
+      <p>A sturdy and flexible chain affixed with a barbed hook at its end. In
+      the hands of a skilled combatant the chain can be thrown towards a target,
+      tearing at their flesh or equipment.</p>
+    private: ''
+  actions: []
+  actorHooks: []
+  damageType: bludgeoning
+  dropped: false
+  slot: 0
+effects: []
+folder: 3BDkyJ5nPk8nVa81
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760798134135
+  modifiedTime: 1760798134135
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: chainHook0000000
+sort: 0
+_key: '!items!chainHook0000000'

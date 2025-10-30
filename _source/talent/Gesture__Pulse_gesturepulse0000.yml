@@ -8,11 +8,9 @@ system:
     <p>Emit a burst of Runic power in a circular wave that travels outward, with
     you at its center. A Pulse of Spirit might be used to bolster Morale for
     your allies, while a Death pulse might be used to deal Corruption damage to
-    a group of enemies gathered around you.</p>
-
-    <p>The Pulse gesture scales using <strong>Presence</strong> and targets a
-    360 degree radius with distance 1, dealing 6 base damage on a successful
-    attack.</p>
+    a group of enemies gathered around you.</p><p>The Pulse gesture scales using
+    <strong>Presence</strong> and targets a 360 degree, 6 foot radius, dealing 6
+    base damage on a successful attack.</p>
   actions: []
   gesture: pulse
   actorHooks: []
@@ -25,11 +23,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.342'
+  systemVersion: 0.7.8
+  coreVersion: '13.348'
   createdTime: 1684686470274
-  modifiedTime: 1742935338540
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1757524309684
+  lastModifiedBy: R0gVyyuhVNAYjuaY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

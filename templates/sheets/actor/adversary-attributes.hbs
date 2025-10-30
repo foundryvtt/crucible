@@ -119,7 +119,7 @@
                 <h4 class="label">{{r.label}}</h4>
                 <div class="resistance-bar">
                     <span class="value">{{r.total}}</span>
-                    <span class="bar" style="width:{{r.barPct}}"></span>
+                    <span class="bar"{{#unless r.immune}} style="width:{{r.barPct}}"{{/unless}}></span>
                 </div>
             </div>
             {{/each}}

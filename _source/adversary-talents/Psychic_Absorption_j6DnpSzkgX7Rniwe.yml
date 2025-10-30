@@ -1,0 +1,38 @@
+folder: cKkQSlP59TZIn0ij
+name: Psychic Absorption
+type: talent
+_id: psychicAbsorptio
+img: icons/magic/control/hypnosis-mesmerism-swirl.webp
+system:
+  nodes: []
+  description: >-
+    <p>The @ref[actor.name]{creature} is exceptionally unyielding to attacks on
+    its mind. Its <strong>Psychic</strong> resistance is doubled and if that
+    resistance would reduce an amount of damage below zero, the negative amount
+    is received as <strong>Healing</strong> instead.</p>
+  actions: []
+  rune: ''
+  gesture: ''
+  inflection: ''
+  iconicSpells: 0
+  training:
+    type: ''
+    rank: null
+  actorHooks: []
+effects: []
+sort: 0
+ownership:
+  default: 0
+  p3lgSv60AK7ndmAK: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.8.0
+  createdTime: 1761588601469
+  modifiedTime: 1761590117277
+  lastModifiedBy: p3lgSv60AK7ndmAK
+_key: '!items!psychicAbsorptio'

@@ -10,11 +10,7 @@ system:
     against you from any of the <strong>Social</strong> skills are made with
     <strong>2 Banes</strong>.</p>
   actions: []
-  actorHooks:
-    - hook: defendSkillAttack
-      fn: >-
-        if ( CONFIG.SYSTEM.SKILLS[action.usage.skillId].category === "soc" )
-        rollData.banes.stillLake = {label: "Still Lake", number: 2};
+  actorHooks: []
   nodes:
     - wis2b
 effects: []
@@ -26,11 +22,11 @@ ownership:
 flags: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.0-dev
-  coreVersion: '13.344'
+  systemVersion: 0.8.0
+  coreVersion: '13.350'
   createdTime: 1685821347312
-  modifiedTime: 1748552160638
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1761594725063
+  lastModifiedBy: p3lgSv60AK7ndmAK
   compendiumSource: null
   duplicateSource: null
   exportSource: null

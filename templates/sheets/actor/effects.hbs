@@ -2,17 +2,20 @@
          data-tab="{{tabs.effects.id}}" data-group="{{tabs.effects.group}}">
 
     {{#each effects as |section|}}
-    <div class="sheet-section item-section flexcol">
+    <div class="sheet-section item-section flexcol" data-tooltip-direction="LEFT">
         <h3 class="section-header">{{section.label}}</h3>
-        <ol class="items-list">
+        <ol class="items-list" data-tooltip-direction="LEFT">
             {{#each section.effects as |effect|}}
-            <li class="line-item effect" data-effect-id="{{effect.id}}">
+            <li class="line-item effect" data-effect-id="{{effect.id}}" data-crucible-tooltip="activeEffect" data-uuid="{{effect.uuid}}">
                 <img class="icon" src="{{effect.icon}}" alt="{{effect.label}}">
                 <div class="title">
                     <h4>{{effect.name}}</h4>
                     <div class="tags">
-                        {{#each effect.tags as |label tag|}}
+                        {{#each effect.tags.activation as |label tag|}}
                         <span class="tag" data-tag="{{tag}}">{{label}}</span>
+                        {{/each}}
+                        {{#each effect.tags.statuses as |label id|}}
+                        <span class="tag" data-tag="{{id}}" data-crucible-tooltip="condition" data-condition="{{id}}" data-tooltip-class="crucible crucible-tooltip">{{label}}</span>
                         {{/each}}
                     </div>
                 </div>

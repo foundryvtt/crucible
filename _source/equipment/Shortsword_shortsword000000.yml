@@ -8,7 +8,7 @@ system:
   category: balanced1
   quantity: 1
   weight: 3
-  price: 24
+  price: 2400
   quality: standard
   enchantment: mundane
   equipped: false
@@ -16,8 +16,8 @@ system:
     - parrying
   description:
     public: >-
-      <p>Tthe shortsword is a straight-bladed weapon which is nimble to wield
-      and quick to strike in close combat. It features a crossguard ideal for
+      <p>The shortsword is a straight-bladed weapon which is nimble to wield and
+      quick to strike in close combat. It features a crossguard ideal for
       parrying incoming blows.</p>
     private: ''
   damageType: slashing
@@ -32,12 +32,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.345'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.3
+  systemVersion: 0.7.8
   createdTime: 1749825636698
-  modifiedTime: 1749825973277
-  lastModifiedBy: AnoypGxxNIMOS0XY
+  modifiedTime: 1759882959799
+  lastModifiedBy: QvBFYpRRXHRBcOfP
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

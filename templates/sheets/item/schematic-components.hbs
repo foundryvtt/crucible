@@ -1,0 +1,15 @@
+<section class="tab sheet-body flexcol scrollable {{tabs.components.cssClass}}" data-tab="{{tabs.components.id}}"
+         data-group="{{tabs.components.group}}">
+    {{#each inputs as |input|}}
+    {{> (lookup @root "inputPartial") input=input index=@index}}
+    {{/each}}
+    <button type="button" class="add-group" data-action="inputAdd">
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.INPUT_ADD"}}
+    </button>
+    {{#each outputs as |output|}}
+    {{> (lookup @root "outputPartial") output=output index=@index}}
+    {{/each}}
+    <button type="button" class="add-group" data-action="outputAdd">
+        <i class="fa-solid fa-plus"></i> {{localize "SCHEMATIC.SHEET.OUTPUT_ADD"}}
+    </button>
+</section>

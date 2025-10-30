@@ -34,11 +34,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.347'
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751388804848
-  modifiedTime: 1751554987371
+  modifiedTime: 1755978438372
   lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 0
+sort: 300000
 _key: '!items!archetypeScout00'

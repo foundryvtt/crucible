@@ -25,6 +25,7 @@ export {default as CrucibleBackgroundItem} from "./item-background.mjs";
 export {default as CrucibleConsumableItem} from "./item-consumable.mjs";
 export {default as CrucibleLootItem} from "./item-loot.mjs"
 export {default as CruciblePhysicalItem} from "./item-physical.mjs"
+export {default as CrucibleSchematicItem} from "./item-schematic.mjs";
 export {default as CrucibleSpellItem} from "./item-spell.mjs";
 export {default as CrucibleTalentItem} from "./item-talent.mjs";
 export {default as CrucibleTaxonomyItem} from "./item-taxonomy.mjs";

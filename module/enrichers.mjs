@@ -3,6 +3,12 @@
  */
 export function registerEnrichers() {
   CONFIG.TextEditor.enrichers.push(
+    {
+      id: "award",
+      pattern: /\[\[\/award ([-\w\s]+)]]/g,
+      enricher: enrichAward,
+      onRender: renderAward
+    },
     { // Crucible Hazards
       id: "crucibleHazard",
       pattern: /\[\[\/hazard ([\w\s]+)]](?:{([^}]+)})?/g,
@@ -20,11 +26,21 @@ export function registerEnrichers() {
       pattern: /\[\[\/knowledge (\w+)]]/g,
       enricher: enrichKnowledge
     },
+    { // Language Test
+      id: "crucibleLanguage",
+      pattern: /\[\[\/language (\w+)]]/g,
+      enricher: enrichLanguage
+    },
     { // D&D5e Skill Checks
       id: "dnd5eSkill",
       pattern: /\[\[\/skill ([\w\s]+)]]/g,
       enricher: enrichDND5ESkill,
       onRender: renderSkillCheck
+    },
+    {
+      id: `crucibleTalent`,
+      pattern: /\[\[\/talent ([\w.]+)]]/g,
+      enricher: enrichTalent
     },
     {
       id: "crucibleCondition",
@@ -35,6 +51,12 @@ export function registerEnrichers() {
       id: "crucibleSpell",
       pattern: /@Spell\[([\w.]+)]/g,
       enricher: enrichSpell
+    },
+    {
+      id: "milestone",
+      pattern: /\[\[\/milestone( \d+)?\]\]/g,
+      enricher: enrichMilestone,
+      onRender: renderMilestone
     },
     {
       id: "reference",
@@ -88,13 +110,238 @@ const DND5E_SKILL_MAPPING = {
 function enrichDND5ESkill([match, terms]) {
   let [skillId, dc, ...rest] = terms.split(" ");
   if ( !(skillId in DND5E_SKILL_MAPPING) ) return new Text(match);
-  // Scale difficulty for the translation between D&D and crucible
-  dc = 12 + Math.round((dc - 10) * 1.5);
   const skill = SYSTEM.SKILLS[DND5E_SKILL_MAPPING[skillId]];
   const passive = rest.includes("passive");
   const tag = createSkillCheckElement(skill, dc, {passive, group: false});
   tag.classList.add("dnd5e-skill-check");
   return tag;
+}
+
+/* -------------------------------------------- */
+/*  Awards                                      */
+/* -------------------------------------------- */
+
+/**
+ * Parse an award's terms into an object representing what should be gained
+ * @param {string} terms
+ * @returns {{currency: Record<string, string>, each: boolean}}
+ * @throws {Error}
+ */
+function parseAwardTerms(terms) {
+  const pattern = new RegExp(/^(.+?)(\D+)$/);
+  const currency = {};
+  const invalid = [];
+  let each = false;
+  for ( const part of terms.split(" ") ) {
+    if ( !part ) continue;
+    let [, amount, label] = part.match(pattern) ?? [];
+    label = label?.toLowerCase();
+    try {
+      if ( part === "each" ) each = true;
+      else if ( !Roll.validate(amount) ) throw new Error();
+      else if ( label in crucible.CONFIG.currency ) currency[label] = amount;
+      else throw new Error();
+    } catch(err) {
+      invalid.push(part);
+    }
+  }
+
+  if ( invalid.length ) throw new Error(game.i18n.format("AWARD.WARNINGS.InvalidTerms", {
+    terms: game.i18n.getListFormatter().format(invalid.map(i => `"${i}"`))
+  }));
+
+  return { currency, each }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Transform a currency object (currency key to amount) into a list of HTML entries for well-formatted display
+ * @param {Record<string, string>} currency Currency object
+ * @param {boolean} [forcePositive=false]   Whether to return positive-formatted text (to avoid double-negatives)
+ * @returns
+ */
+function formatAwardEntries(currency, forcePositive=false) {
+  const entries = [];
+  for ( const [currencyKey, amount] of Object.entries(currency) ) {
+    const {icon, abbreviation} = crucible.CONFIG.currency[currencyKey];
+    if ( icon ) {
+      const i = `<i class="currency ${currencyKey}" style="background-image: url(${icon});"></i>`;
+      entries.push(i, forcePositive ? Math.abs(amount) : amount);
+    } else entries.push(forcePositive ? Math.abs(amount) : amount, abbreviation);
+  }
+  return entries;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich an Award with the format [[/award {...awards}]]
+ * @param {string} match
+ * @param {string} terms
+ */
+function enrichAward([match, terms]) {
+  let parsed;
+  try {
+    parsed = parseAwardTerms(terms);
+  } catch(err) {
+    return new Text(match);
+  }
+  const {currency, each} = parsed;
+  const dataset = {};
+
+  // Award Currency
+  for ( const [currencyKey, amount] of Object.entries(currency) ) dataset[`currency.${currencyKey}`] = amount;
+  dataset.each = each;
+  const entries = formatAwardEntries(currency);
+  if ( entries.length && each ) entries.push(game.i18n.localize("AWARD.Each"));
+
+  // Return the enriched content tag
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("award");
+  tag.classList.add("currencies-inline");
+  Object.assign(tag.dataset, dataset);
+  tag.innerHTML = entries.join(" ");
+  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Currency"));
+  tag.toggleAttribute("data-tooltip", true);
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered award enrichment.
+ * @param {HTMLElement} element
+ */
+function renderAward(element) {
+  element.addEventListener("click", onClickAward);
+}
+
+/* -------------------------------------------- */
+
+async function onClickAward(event) {
+  event.preventDefault();
+  if ( !game.user.isGM ) return ui.notifications.warn("AWARD.WARNINGS.RequiresGM", { localize: true });
+
+  const { currency, each: eachString } = foundry.utils.expandObject({...event.currentTarget.dataset});
+  const each = eachString === "true";
+
+  const rolls = [];
+
+  for ( const [key, formula] of Object.entries(currency) ) {
+    const roll = await new Roll(`${formula}[${crucible.CONFIG.currency[key]?.label ?? key}]`).evaluate();
+    currency[key] = roll.total;
+    if ( !roll.isDeterministic ) rolls.push(roll);
+  }
+
+  let currencyEach = crucible.api.documents.CrucibleActor.convertCurrency(currency);
+
+  // TODO: Consider pulling this logic out and using it for both hazard & award
+  const partyMembers = crucible.party?.system.members || [];
+  const partyMemberInput = foundry.applications.fields.createMultiSelectInput({
+    name: "partyMember",
+    type: "checkboxes",
+    options: partyMembers.reduce((arr, m) => {
+      if ( m.actor ) arr.push({value: m.actorId, label: m.actor.name, selected: true});
+      return arr;
+    }, [])
+  })
+  const partyMember = foundry.applications.fields.createFormGroup({
+    label: "Party Members",
+    hint: "Choose characters in the active party.",
+    stacked: true,
+    input: partyMemberInput
+  });
+  const anyActorInput = foundry.applications.elements.HTMLDocumentTagsElement.create({
+    type: "Actor",
+    name: "anyActor",
+  });
+  const anyActor = foundry.applications.fields.createFormGroup({
+    label: "Any Actor",
+    hint: "Alternatively, choose any Actors.",
+    input: anyActorInput
+  });
+  const response = await foundry.applications.api.DialogV2.input({
+    window: {title: game.i18n.localize(`AWARD.Title${currencyEach < 0 ? "Cost" : "Reward"}`), icon: "fa-solid fa-trophy"},
+    content: `\
+    ${partyMember.outerHTML}${anyActor.outerHTML}
+    `,
+  });
+
+  if (!response) return;
+
+  // Iterate over actor targets
+  const targets = new Set([...response.partyMember, ...response.anyActor]);
+  if ( !each ) currencyEach = Math.floor(currencyEach / targets.size);
+  if ( currencyEach < 0 ) {
+    const cannotAfford = targets.map(id => game.actors.get(id)).filter(a => a.system.currency < -currencyEach).map(a => a.name);
+    if ( cannotAfford.size ) return ui.notifications.warn(game.i18n.format("AWARD.WARNINGS.CannotAfford", {actors: Array.from(cannotAfford).join(", ")}));
+  }
+  for ( const actorId of targets ) {
+    const actor = game.actors.get(actorId);
+    const startingCurrency = actor.system.currency;
+    const newCurrency = Math.max(startingCurrency + currencyEach, 0);
+    actor.update({
+      "system.currency": newCurrency
+    });
+  }
+
+  const currencyEntries = formatAwardEntries(currency, true);
+  const rollsHTML = await Promise.all(rolls.map(r => r.render()));
+  await ChatMessage.implementation.create({
+    content: `
+    <section class="crucible">
+      <div class="currencies-inline">
+        ${game.i18n.format(`AWARD.SUMMARIES.${(currencyEach < 0) ? "Cost" : "Reward"}${each ? "" : "Split"}`, {award: currencyEntries.join(" ")})}
+      </div>
+      <ul class="plain">${Array.from(targets.map(t => `<li>${game.actors.get(t).name}</li>`)).join("")}</ul>
+    </section>
+    `.concat(rollsHTML.join("")),
+    rolls,
+    speaker: {user: game.user},
+    flags: {crucible: {isAwardSummary: true}}
+  });
+}
+
+/* -------------------------------------------- */
+/*  Milestones                                  */
+/* -------------------------------------------- */
+
+/**
+ * Enrich a Milestone award with the format [[/milestone]] or [[/milestone {quantity}]].
+ * @param {RegExpMatchArray} terms
+ * @returns {HTMLEnrichedContentElement}
+ */
+function enrichMilestone([_match, term]) {
+  const quantity = Number.isNumeric(term) ? Number(term) : 1;
+  const plurals = new Intl.PluralRules(game.i18n.lang);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("award", "milestone");
+  tag.dataset.quantity = String(quantity);
+  tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
+  tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
+  tag.toggleAttribute("data-tooltip", true);
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Add interactivity to a rendered milestone enrichment.
+ * @param {HTMLElement} element
+ */
+function renderMilestone(element) {
+  element.addEventListener("click", onClickMilestone);
+}
+
+/* -------------------------------------------- */
+
+async function onClickMilestone(event) {
+  event.preventDefault();
+  if ( !crucible.party ) return ui.notifications.warn("WARNING.NoParty", { localize: true });
+
+  const quantity = event.currentTarget.dataset.quantity;
+  await crucible.party.system.awardMilestoneDialog(quantity);
 }
 
 /* -------------------------------------------- */
@@ -113,7 +360,7 @@ function enrichHazard([match, terms, name]) {
 
   // Construct label
   const hazardRank = `Hazard ${hazard}`;
-  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing 
+  const tooltip = `${hazardRank} vs. ${SYSTEM.DEFENSES[action.usage.defenseType]?.label} dealing
   ${SYSTEM.DAMAGE_TYPES[action.usage.damageType]?.label} damage to ${SYSTEM.RESOURCES[action.usage.resource]?.label}`;
 
   // Return the enriched content tag
@@ -282,6 +529,44 @@ function enrichKnowledge([match, knowledgeId]) {
   tag.dataset.crucibleTooltip = "knowledgeCheck";
   tag.dataset.knowledgeId = knowledgeId;
   tag.innerHTML = `Knowledge: ${knowledge.label}`;
+  return tag;
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a talent check with format [[/talent {talentUuid}]]
+ * @param {string} match        The full matched string
+ * @param {string} talentUuid   The matched talent UUID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichTalent([match, talentUuid]) {
+  const talentIndex = fromUuidSync(talentUuid); // We only need the index
+  if ( !talentIndex ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("talent-check", "passive-check", "group-check");
+  tag.dataset.crucibleTooltip = "talentCheck";
+  tag.dataset.talentUuid = talentUuid;
+  tag.innerHTML = `Talent: ${talentIndex.name}`;
+  return tag;
+};
+
+/* -------------------------------------------- */
+
+/**
+ * Enrich a language check with format [[/language {languageId}]]
+ * @param {string} match              The full matched string
+ * @param {string} knowledgeId        The matched knowledge ID
+ * @returns {HTMLSpanElement|string}
+ */
+function enrichLanguage([match, languageId]) {
+  const language = crucible.CONFIG.languages[languageId];
+  if ( !language ) return new Text(match);
+  const tag = document.createElement("enriched-content");
+  tag.classList.add("language-check", "passive-check", "group-check");
+  tag.dataset.crucibleTooltip = "languageCheck";
+  tag.dataset.languageId = languageId;
+  tag.innerHTML = `Language: ${language.label}`;
   return tag;
 }
 

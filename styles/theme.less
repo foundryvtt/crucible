@@ -8,7 +8,6 @@
   // General Typography
   font-family: var(--font-body);
   color: var(--color-text);
-  font-size: 0.9375rem; // 15px
   letter-spacing: 0.5px;
 
   // Standard Headers
@@ -120,6 +119,25 @@
     }
   }
 
+  // Definition Lists
+  dl {
+    dt {
+      font-family: var(--font-h1);
+      color: var(--color-h1);
+      > p {
+        margin: 0;
+      }
+    }
+    dd {
+      > :first-child {
+        margin-top: 0;
+      }
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   // Framed Elements
   .frame-brown {
     background: var(--color-frame);
@@ -168,6 +186,9 @@
       &.unmet {
         border-color: darkred;
         color: red;
+      }
+      &.larger {
+        font-size: 1em;
       }
     }
     &:empty {

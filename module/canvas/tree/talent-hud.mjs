@@ -124,8 +124,13 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    content.replaceChildren(); // Always clear
-    super._replaceHTML(result, content, options);
+    const existing = document.getElementById(content.id);
+    if ( existing ) {
+      content.replaceChildren(); // Always clear
+      return super._replaceHTML(result, content, options);
+    }
+    const hud = document.getElementById("hud");
+    hud.appendChild(content);
   }
 
   /* -------------------------------------------- */
@@ -138,8 +143,8 @@ export default class CrucibleTalentHUD extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  _onRender(options) {
-    super._onRender(options);
+  async _onRender(context, options) {
+    await super._onRender(context, options);
     this.element.classList.remove("hidden");
   }
 

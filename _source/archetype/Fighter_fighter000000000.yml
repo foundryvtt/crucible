@@ -13,11 +13,15 @@ system:
     toughness: 3
     dexterity: 3
   talents:
-    - Compendium.crucible.talent.Item.martialweapontra
-    - Compendium.crucible.talent.Item.bulwark000000000
     - Compendium.crucible.talent.Item.armoredefficienc
     - Compendium.crucible.talent.Item.legsweep00000000
+    - Compendium.crucible.talent.Item.heavyWeaponTrain
+    - Compendium.crucible.talent.Item.bulwark000000000
   identifier: fighter
+  skills:
+    - athletics
+    - intimidation
+    - awareness
 effects: []
 folder: 6Up7ddrphLept3RW
 ownership:
@@ -27,14 +31,14 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.7.4
-  coreVersion: '13.346'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1684889541198
-  modifiedTime: 1751554966320
+  modifiedTime: 1755980720225
   lastModifiedBy: QvBFYpRRXHRBcOfP
   compendiumSource: null
   duplicateSource: null
   exportSource: null
 _id: fighter000000000
-sort: 200000
+sort: 1500000
 _key: '!items!fighter000000000'

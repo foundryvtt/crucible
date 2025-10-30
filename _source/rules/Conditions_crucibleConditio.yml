@@ -1226,9 +1226,10 @@ pages:
       format: 1
       content: >-
         <p>A creature that is <strong>Asleep</strong> is treated as
-        incapacitated, it cannot sustain <strong>Morale</strong> damage, and any
-        damage to <strong>Health</strong> causes it to immediately
-        awaken.</p><p>TODO: damage needs to automatically remove asleep.</p>
+        incapacitated. Any damage to <strong>Health</strong> or
+        <strong>Wounds</strong> causes it to immediately awaken. The creature is
+        immune to <strong>Morale</strong> damage while sleeping unless otherwise
+        stated.</p>
     video:
       controls: true
       volume: 0.5
@@ -1241,12 +1242,12 @@ pages:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.348'
       systemId: crucible
       systemVersion: 0.7.4
       createdTime: 1751305675265
-      modifiedTime: 1751305757390
-      lastModifiedBy: QvBFYpRRXHRBcOfP
+      modifiedTime: 1757260597509
+      lastModifiedBy: AnoypGxxNIMOS0XY
     _key: '!journal.pages!crucibleConditio.asleep0000000000'
   - sort: 2200000
     name: Shocked
@@ -1450,11 +1451,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
   systemVersion: 0.7.4
   createdTime: 1751302467753
-  modifiedTime: 1751305027655
-  lastModifiedBy: QvBFYpRRXHRBcOfP
-sort: 0
+  modifiedTime: 1760019535362
+  lastModifiedBy: AnoypGxxNIMOS0XY
+sort: 300000
 _key: '!journal!crucibleConditio'

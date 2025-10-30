@@ -92,6 +92,7 @@ system:
       name: Soldier
       img: icons/environment/people/infantry.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +104,8 @@ system:
       height: ''
       weight: ''
       appearance: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -155,6 +158,7 @@ system:
     - defend
     - counterRiposte
     - ruthlessMomentum
+  currency: 0
 prototypeToken:
   name: Agnath
   displayName: 20
@@ -262,16 +266,16 @@ items:
         base: 16
       broken: false
       actions: []
-      identifier: ZNILW6XLvi
+      identifier: VjxgheKUeH
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -307,9 +311,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runedeath0000000
     folder: Dy9HnwadNE3kSZ4f
@@ -350,9 +354,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: cadence000000000
     folder: SAZROgHuRagTzjCu
@@ -390,9 +394,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gesturearrow0000
     folder: D14x9AJ0TgXKtnzu
@@ -440,9 +444,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -481,9 +485,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: spellblade000000
     sort: 250000
@@ -516,9 +520,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: yQPNpmhq761VzMZe
     sort: -100000
@@ -555,9 +559,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: gesturestrike000
     folder: D14x9AJ0TgXKtnzu
@@ -597,9 +601,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: powerfulphysique
     folder: p4F0SmUoKJr0riBd
@@ -662,9 +666,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: iD0N4Q5xDZqsf354
     sort: 0
@@ -724,9 +728,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: -300000
@@ -759,9 +763,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: qrB8E2SHs322zTil
     sort: 0
@@ -792,7 +796,7 @@ items:
       broken: false
       actions: []
       slot: 3
-      identifier: Te9On1lH47
+      identifier: JJZkX0bLJR
       invested: false
       actorHooks: []
       dropped: false
@@ -800,9 +804,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -838,9 +842,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: runelightning000
     folder: Dy9HnwadNE3kSZ4f
@@ -901,9 +905,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: heavystrike00000
     folder: tRHknqOEBLR808Cb
@@ -945,9 +949,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -985,9 +989,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1019,9 +1023,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: heavyWeaponTrain
     ownership:
@@ -1066,9 +1070,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: surgeweaver00000
     folder: c0nl6X8tp4Of0Y4O
@@ -1104,9 +1108,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1145,48 +1149,13 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.awarenessNovice0'
-  - folder: ghRKqdzq279SH1lt
-    name: Awareness Journeyman
-    type: talent
-    img: systems/crucible/icons/skills/awareness.jpg
-    system:
-      description: >-
-        <p><span style="font-family:Vollkorn, serif">You gain the
-        <strong>Journeyman </strong>rank in the <strong>Awareness
-        </strong>skill, providing a <strong>+1 Skill Bonus</strong>.</span></p>
-      actions: []
-      iconicSpells: 0
-      training:
-        type: awareness
-        rank: 2
-      actorHooks: []
-      nodes:
-        - int4c
-      rune: ''
-      gesture: ''
-      inflection: ''
-    effects: []
-    sort: 90000
-    flags: {}
-    _stats:
-      compendiumSource: null
-      duplicateSource: null
-      exportSource: null
-      coreVersion: '13.346'
-      systemId: crucible
-      systemVersion: 0.7.3
-      lastModifiedBy: null
-    _id: awarenessJourney
-    ownership:
-      default: 0
-    _key: '!actors.items!B40EKua2Q7zQ8CFZ.awarenessJourney'
   - folder: ghRKqdzq279SH1lt
     name: Athletics Journeyman
     type: talent
@@ -1214,9 +1183,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: athleticsJourney
     ownership:
@@ -1248,9 +1217,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: heavyWeaponProfi
     folder: null
@@ -1258,6 +1227,76 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!B40EKua2Q7zQ8CFZ.heavyWeaponProfi'
+  - name: Sundering Strike
+    type: talent
+    img: icons/skills/melee/shield-damaged-broken-gold.webp
+    effects: []
+    flags:
+      core: {}
+    system:
+      description: >-
+        <p>You know a martial technique to exploit the weakest points of an
+        enemy's defenses, exposing them to further harm.</p>
+      actions:
+        - id: sunderingStrike
+          name: Sundering Strike
+          img: icons/skills/melee/shield-damaged-broken-gold.webp
+          condition: ''
+          description: >-
+            <p>You make a <strong>Strike</strong> with your mainhand weapon
+            which, if successful, applies the <strong>Exposed </strong>condition
+            to your target for 3 rounds. This attack is
+            <strong>Difficult</strong> to perform and deals reduced damage.</p>
+          tags:
+            - melee
+            - difficult
+            - brute
+          cost:
+            action: 0
+            focus: 1
+            weapon: true
+            heroism: 0
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects:
+            - name: Sundered Armor
+              scope: 3
+              statuses:
+                - exposed
+              duration:
+                turns: 3
+          actionHooks: []
+          range:
+            maximum: null
+            weapon: true
+            minimum: null
+      nodes:
+        - str3a
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: sunderingstrike0
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!B40EKua2Q7zQ8CFZ.sunderingstrike0'
 effects: []
 flags:
   core: {}
@@ -1271,15 +1310,15 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.7
-  createdTime: 1751148758927
-  modifiedTime: 1753648558605
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: B40EKua2Q7zQ8CFZ
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!B40EKua2Q7zQ8CFZ'

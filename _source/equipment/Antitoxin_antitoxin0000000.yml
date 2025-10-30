@@ -1,0 +1,81 @@
+folder: jbap2z8839rf6CuO
+name: Antitoxin
+type: consumable
+_id: antitoxin0000000
+img: icons/consumables/potions/potion-vial-tube-yellow.webp
+system:
+  identifier: antitoxin
+  category: flask
+  quantity: 1
+  weight: 1
+  price: 2500
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties:
+    - stackable
+  description:
+    public: >-
+      <p>A slender phial that contains a slightly golden-colored liquid. It
+      smells foul, but contains the alchemical agents necessary to neutralize a
+      wide variety of toxins.</p>
+    private: ''
+  actions:
+    - id: antitoxin
+      name: Antitoxin
+      img: icons/consumables/potions/potion-vial-tube-yellow.webp
+      condition: ''
+      description: >-
+        <p>Consuming this @ref[name] is able to neutralize any
+        @Condition[poisoned] conditions affecting the target. Stronger poisons
+        require a stronger antitoxin to neutralize.</p><p>The category of poison
+        negated by this @ref[name] depends on its
+        quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons dealing 3
+        damage or less per round</p></li><li><p><strong>Standard</strong> -
+        Poisons dealing 5 damage or less per
+        round</p></li><li><p><strong>Fine</strong> - Poisons dealing 7 damage or
+        less per round</p></li><li><p><strong>Superior</strong> - Poisons
+        dealing 9 damage or less per
+        round</p></li><li><p><strong>Masterwork</strong> - Poisons dealing 11
+        damage or less per round</p></li></ul>
+      cost:
+        action: 2
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: 1
+        weapon: false
+      target:
+        type: single
+        number: 1
+        scope: 4
+        self: true
+      effects: []
+      tags:
+        - consume
+        - healing
+      actionHooks: []
+  uses:
+    value: 1
+    max: 1
+effects: []
+sort: 0
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1761415385598
+  modifiedTime: 1761415730246
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_key: '!items!antitoxin0000000'

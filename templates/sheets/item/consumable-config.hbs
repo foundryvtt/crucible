@@ -15,7 +15,11 @@
 
     <fieldset class="item-equipment" {{fieldDisabled}}>
         <legend>{{localize "ITEM.SHEET.EQUIPMENT"}}</legend>
-        <div class="form-group slim double">
+        {{formGroup fields.quantity value=source.system.quantity classes="slim half"}}
+        {{formGroup fields.weight value=source.system.weight classes="slim half"}}
+        {{formGroup fields.equipped value=source.system.equipped classes="half"}}
+        {{formGroup fields.broken value=source.system.broken classes="half"}}
+        <div class="form-group slim">
             <label>Uses</label>
             <div class="form-fields">
                 {{formInput fields.uses.fields.value value=source.system.uses.value}}
@@ -23,12 +27,8 @@
                 {{formInput fields.uses.fields.max value=source.system.uses.max}}
             </div>
         </div>
-        {{formGroup fields.equipped value=source.system.equipped}}
-        {{formGroup fields.broken value=source.system.broken}}
-        {{formGroup fields.quantity value=source.system.quantity classes="slim"}}
-        {{formGroup fields.weight value=source.system.weight classes="slim"}}
-        {{formGroup fields.price value=source.system.price classes="slim"}}
-        {{formGroup scaledPriceField value=item.system.price classes="slim" disabled=true}}
+        {{formGroup fields.price value=source.system.price input=currencyInput classes="currency"}}
+        {{formGroup scaledPriceField value=item.system.price input=currencyInput classes="currency" readonly=true disabled=true}}
         {{#if requiresInvestment}}{{formGroup fields.invested value=source.system.invested}}{{/if}}
     </fieldset>
 </section>

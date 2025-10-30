@@ -13,3 +13,4 @@ crucible.lock
 signature.json
 packs/
 crucible-compiled.mjs
+styles/crucible.css

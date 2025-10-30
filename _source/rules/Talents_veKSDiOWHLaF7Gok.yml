@@ -87,14 +87,14 @@ flags:
 _stats:
   systemId: crucible
   systemVersion: 0.5.0
-  coreVersion: '13.342'
+  coreVersion: '13.350'
   createdTime: 1684372575644
-  modifiedTime: 1743873970949
+  modifiedTime: 1760019535362
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-sort: 106250
+sort: 600000
 ownership:
   default: 0
   AnoypGxxNIMOS0XY: 3

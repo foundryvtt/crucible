@@ -88,7 +88,8 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Resistances
     schema.resistances = new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
       obj[damageType.id] = new fields.SchemaField({
-        bonus: new fields.NumberField({...requiredInteger, initial: 0})
+        bonus: new fields.NumberField({...requiredInteger, initial: 0}),
+        immune: new fields.BooleanField()
       }, {label: damageType.label});
       return obj;
     }, {}));
@@ -107,6 +108,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       strideBonus: new fields.NumberField({...requiredInteger, initial: 0}),
       engagementBonus: new fields.NumberField({...requiredInteger, initial: 0})
     });
+
+    // Currency
+    schema.currency = new fields.NumberField({...requiredInteger, min: 0, initial: 0});
 
     // Status
     schema.status = new fields.ObjectField({nullable: true, initial: null});
@@ -597,13 +601,9 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     // Weapon Set Metadata
     weapons.shield = (ohCategory.id === "shieldLight") || (ohCategory.id === "shieldHeavy");
     weapons.twoHanded = weapons.mainhand?.system.slot === slots.TWOHAND;
-    weapons.melee = !mhCategory.ranged;
-    weapons.ranged = !!mhCategory.ranged;
+    weapons.melee = !(mhCategory.ranged && ohCategory.ranged);
+    weapons.ranged = mhCategory.ranged || ohCategory.ranged;
     weapons.talisman = false;
-    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
-    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
-    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
-    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0);
 
     // Free Hand or Unarmed
     weapons.unarmed = (mhCategory?.id === "unarmed") && (ohCategory?.id === "unarmed");
@@ -616,6 +616,13 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       weapons.spellHands += 1;
       weapons.talisman = true;
     }
+
+    // Multi weapon properties
+
+    weapons.dualWield = weapons.unarmed || (mh?.id && oh?.id && !weapons.shield);
+    weapons.dualMelee = weapons.dualWield && !mhCategory.ranged && !ohCategory.ranged;
+    weapons.dualRanged = weapons.dualWield && mhCategory.ranged && ohCategory.ranged;
+    weapons.hasChoice = weapons.dualWield || (weapons.natural.length > 0) || (weapons.melee && weapons.ranged);
 
     // Special Properties
     weapons.reload = mhCategory.reload || ohCategory.reload;
@@ -688,7 +695,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
       d.base = base;
       if ( !this.parent.isIncapacitated ) d.base += this.parent.getAbilityBonus(sd.abilities);
       d.bonus = penalty;
-      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2;
+      if ( (k !== "fortitude") && talentIds.has("monk000000000000") && equipment.unarmored ) d.bonus += 2; // TODO move to talent hooks
     }
   }
 
@@ -777,7 +784,6 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
     if ( statuses.has("stunned") ) r.action.max -= 4;
     else if ( statuses.has("staggered") ) r.action.max -= 2;
     if ( statuses.has("hastened") ) r.action.max += 1;
-    if ( this.status.impetus ) r.action.max += 1; // TODO impetus should just give the hastened condition
     if ( isWeakened ) r.action.max -= 2;
     if ( isIncapacitated ) r.action.max = 0;
     r.action.max = Math.max(r.action.max, 0);
@@ -838,7 +844,7 @@ export default class CrucibleBaseActor extends foundry.abstract.TypeDataModel {
    * Preparation of resistances for all Actor subtypes.
    */
   #prepareTotalResistances() {
-    for ( const r of Object.values(this.resistances) ) r.total = r.base + r.bonus;
+    for ( const r of Object.values(this.resistances) ) r.total = r.immune ? Infinity : (r.base + r.bonus);
   }
 
   /* -------------------------------------------- */

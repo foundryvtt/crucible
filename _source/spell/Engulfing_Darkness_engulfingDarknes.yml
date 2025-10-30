@@ -1,0 +1,70 @@
+name: Engulfing Darkness
+type: spell
+img: icons/magic/unholy/barrier-shield-glowing-pink.webp
+system:
+  description: >-
+    <p>You conjure an oppressive sphere of magical darkness that shrouds vision
+    and suffocates light within its area.</p>
+  actions:
+    - id: engulfingDarkness
+      name: Engulfing Darkness
+      img: icons/magic/unholy/barrier-shield-glowing-pink.webp
+      condition: ''
+      description: >-
+        <p>You create a sphere of magical darkness around your current position
+        with 20 foot radius which remains in place for 6 rounds or until
+        dispelled.</p><p>Within the area of this darkness all non-magical light
+        sources are quenched and creatures are treated as
+        @Condition[blinded].</p><p>The area of this sphere is constrained by
+        solid walls. Creatures outside this area cannot see into it and the
+        effective area of light sources outside this area ends at its
+        perimeter.</p><p><strong>WIP: This spell does not yet automatically
+        create a darkness source, which must be done manually for now.
+        Eventually this will be automated using a new Foundry VTT version 14
+        framework for template placement.</strong></p>
+      cost:
+        action: 4
+        focus: 2
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 1
+        self: false
+        size: 20
+      effects: []
+      tags:
+        - iconicSpell
+      actionHooks: []
+  runes:
+    - shadow
+    - control
+  gestures:
+    - pulse
+  inflections:
+    - push
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1759877572761
+  modifiedTime: 1761412270775
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: engulfingDarknes
+sort: 200000
+_key: '!items!engulfingDarknes'

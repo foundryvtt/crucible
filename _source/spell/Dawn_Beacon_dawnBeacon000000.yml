@@ -1,0 +1,79 @@
+name: Dawn Beacon
+type: spell
+img: icons/magic/light/beam-horizon-strike-yellow.webp
+system:
+  description: >-
+    <p>You call forth the piercing light of dawn that penetrates the darkness
+    around you, revealing the area and dispelling sources of magical
+    darkness.</p>
+  actions:
+    - id: dawnBeacon
+      name: Dawn Beacon
+      img: icons/magic/light/beam-horizon-strike-yellow.webp
+      condition: ''
+      description: >-
+        <p>You create a pillar of magical light centered upon your current
+        position which creates a cylinder of light creating 30 feet of bright
+        light and an additional 30 feet of dim light. The pillar remains in
+        place for 6 rounds or until dispelled.</p><p>This magical light
+        counteracts magical darkness and destroys any source of magical darkness
+        whose origin is contained within its area.</p><p>Enemies within the area
+        when the light is first created must resist an attack against their
+        <strong>Fortitude</strong> or be @Condition[blinded] for one
+        round.</p><p><strong>WIP: This spell does not yet automatically create a
+        light source, which must be done manually for now. Eventually this will
+        be automated using a new Foundry VTT version 14 framework for template
+        placement.</strong></p>
+      cost:
+        action: 0
+        focus: 0
+        heroism: 0
+        weapon: false
+      range:
+        minimum: null
+        maximum: null
+        weapon: false
+      target:
+        type: pulse
+        number: 1
+        scope: 1
+        self: false
+        size: 60
+      effects:
+        - name: Dawn Beacon
+          scope: 3
+          statuses:
+            - blinded
+          duration:
+            turns: 1
+            rounds: null
+      tags:
+        - iconicSpell
+      actionHooks: []
+  runes:
+    - illumination
+    - control
+  gestures:
+    - create
+  inflections:
+    - pull
+  actorHooks: []
+effects: []
+folder: null
+ownership:
+  default: 0
+  AnoypGxxNIMOS0XY: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1761412330344
+  modifiedTime: 1761412330344
+  lastModifiedBy: AnoypGxxNIMOS0XY
+_id: dawnBeacon000000
+sort: 0
+_key: '!items!dawnBeacon000000'

@@ -267,7 +267,7 @@ export default class StandardCheck extends Roll {
     // Damage Resistance or Vulnerability
     if ( Number.isNumeric(this.data.damage?.total) ) {
       cardData.resistanceLabel = this.data.damage.resistance < 0 ? "DICE.DamageVulnerability": "DICE.DamageResistance";
-      cardData.resistanceValue = Math.abs(this.data.damage.resistance);
+      cardData.resistanceValue = (this.data.damage.resistance ?? Infinity) === Infinity ? "∞" : Math.abs(this.data.damage.resistance);
     }
     cardData.cssClass = cardData.cssClass.join(" ");
     return cardData;
@@ -363,16 +363,13 @@ export default class StandardCheck extends Roll {
    * Dispatch a request to perform a roll
    * @param {string} title      The title of the roll request
    * @param {string} flavor     Any flavor text attached to the roll
+   * @param {User} user         The user making the request
+   * @param {User} actorId      The actor ID for whom the check is being requested (defaults to the current roll actor)
    */
-  request({title, flavor}={}) {
-    game.socket.emit(`system.${SYSTEM.id}`, {
-      action: "diceCheck",
-      data: {
-        title: title,
-        flavor: flavor,
-        check: this.data
-      }
-    });
+  request({user, title, flavor, actorId}={}) {
+    const data = foundry.utils.deepClone(this.data);
+    if ( actorId ) data.actorId = actorId;
+    return user.query('rollSkillRequest', {title, flavor, check: data});
   }
 
   /* -------------------------------------------- */
@@ -385,7 +382,7 @@ export default class StandardCheck extends Roll {
    */
   static async handle({title, flavor, check}={}) {
     const actor = game.actors.get(check.actorId);
-    if ( actor.testUserPermission(game.user, "OWNER", {exact: true}) ) {
+    if ( actor.testUserPermission(game.user, "OBSERVER") ) {
       const pool = new this(check);
       const response = await pool.dialog({title, flavor});
       if ( response === null ) return;

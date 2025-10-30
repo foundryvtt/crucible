@@ -3,7 +3,9 @@ import CrucibleAction from "../models/action.mjs";
 import CrucibleSpellAction from "../models/spell-action.mjs";
 const {DialogV2} = foundry.applications.api;
 
-/** @import {TRAINING_TYPES} from "../config/talents.mjs"; */
+/**
+ * @import {TRAINING_TYPES} from "../config/talents.mjs";
+ */
 
 /**
  * @typedef {Object}   ActorRoundStatus
@@ -205,6 +207,14 @@ export default class CrucibleActor extends Actor {
   }
 
   #lastConfirmedAction = {messageId: null, action: null};
+
+  /**
+   * Track any groups that this Actor belongs to.
+   * This is populated during data preparation of group actors.
+   * @type {Set<CrucibleActor>}
+   * @internal
+   */
+  _groups = new Set();
 
   /**
    * Prior resource values that can be used to establish diffs.
@@ -458,8 +468,7 @@ export default class CrucibleActor extends Actor {
    * @returns {boolean}
    */
   hasKnowledge(knowledgeId) {
-    if ( this.type !== "hero" ) return false;
-    // TODO eventually allow knowledge to come from more than just your background
+    if ( this.type !== "hero" ) return false; // Relax this assumption eventually?
     return this.system.details.background.knowledge.has(knowledgeId);
   }
 
@@ -607,7 +616,7 @@ export default class CrucibleActor extends Actor {
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareSpellAttack", spell, target, rollData);
-    target.callActorHooks("defendSpellAttack", spell, this, rollData);
+    target.callActorHooks("defendAttack", spell, this, rollData);
 
     // Create the Attack Roll instance
     const roll = new AttackRoll(rollData);
@@ -629,6 +638,7 @@ export default class CrucibleActor extends Actor {
       restoration: spell.damage.restoration
     };
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
+    target.callActorHooks("receiveAttack", spell, roll);
     return roll;
   }
 
@@ -696,14 +706,14 @@ export default class CrucibleActor extends Actor {
 
     // TODO get rid of action.usage here in favor of outcome.usage
     let {bonuses, damageType, restoration, resource, skillId} = action.usage;
-    const boons = {...spell.usage.boons, ...outcome.usage.boons};
-    const banes = {...spell.usage.banes, ...outcome.usage.banes};
+    const boons = {...action.usage.boons, ...outcome.usage.boons};
+    const banes = {...action.usage.banes, ...outcome.usage.banes};
     let defenseType = outcome.usage.defenseType || action.usage.defenseType;
     let dc;
     if ( defenseType in target.defenses ) dc = target.defenses[defenseType].total;
     else {
       defenseType = skillId;
-      dc = target.skills[skillId].passive
+      dc = action.usage.dc ?? target.skills[skillId].passive;
     }
 
     // Prepare Roll data
@@ -720,7 +730,7 @@ export default class CrucibleActor extends Actor {
     // Apply talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareSkillAttack", action, target, rollData);
-    target.callActorHooks("defendSkillAttack", action, this, rollData);
+    target.callActorHooks("defendAttack", action, this, rollData);
 
     // Create and evaluate the skill attack roll
     const roll = new game.system.api.dice.AttackRoll(rollData);
@@ -741,6 +751,7 @@ export default class CrucibleActor extends Actor {
       };
       roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
     }
+    target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
@@ -782,7 +793,7 @@ export default class CrucibleActor extends Actor {
     // Call talent hooks
     this.callActorHooks("prepareStandardCheck", rollData);
     this.callActorHooks("prepareWeaponAttack", action, target, rollData);
-    target.callActorHooks("defendWeaponAttack", action, this, rollData);
+    target.callActorHooks("defendAttack", action, this, rollData);
 
     // Create and evaluate the AttackRoll instance
     const roll = new AttackRoll(rollData);
@@ -794,7 +805,8 @@ export default class CrucibleActor extends Actor {
     roll.data.damage = weapon.system.getDamage(this, action, target, roll);
     roll.data.damage.total = CrucibleAction.computeDamage(roll.data.damage);
 
-    // TODO "rollWeaponAttack" hook for final damage adjustments?
+    // Finalize the attack and return
+    target.callActorHooks("receiveAttack", action, roll);
     return roll;
   }
 
@@ -825,6 +837,32 @@ export default class CrucibleActor extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Perform the Recover action, restoring resource pools.
+   * @param {object} [updateData={}]      Additional update data to include in the recover operation
+   * @param {object} [options={}]         Options which modify the recover
+   * @param {boolean} [options.allowDead=false]   Allow dead actors to recover?
+   * @returns {Promise<void>}
+   */
+  async recover(updateData={}, {allowDead=false}={}) {
+    if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
+
+    // Expire Active Effects
+    const toDeleteEffects = this.effects.reduce((arr, effect) => {
+      const s = effect.duration.seconds;
+      if ( effect.id === "weakened00000000" ) arr.push(effect.id);
+      else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
+      else if ( s && (s <= SYSTEM.TIME.recoverSeconds) ) arr.push(effect.id);
+      return arr;
+    }, []);
+    await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
+
+    // Recover Resources
+    await this.update(foundry.utils.mergeObject(this.#getRecoveryData(), updateData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Restore all resource pools to their maximum value.
    * @param {object} [updateData={}]      Additional update data to include in the rest operation
    * @param {object} [options={}]         Options which modify the rest
@@ -834,35 +872,42 @@ export default class CrucibleActor extends Actor {
   async rest(updateData={}, {allowDead=false}={}) {
     if ( (this.system.isDead || this.system.isInsane) && !allowDead ) return;
 
+    // Prepare Rest data
+    const restData = this.#getRecoveryData();
+    if ( this.type === "hero" ) {
+      const {wounds, madness} = this.system.resources;
+      restData.system.resources.wounds = {value: Math.max(wounds.value - this.level, 0)};
+      restData.system.resources.madness = {value: Math.max(madness.value - this.level, 0)};
+    }
+
     // Expire Active Effects
     const toDeleteEffects = this.effects.reduce((arr, effect) => {
+      const s = effect.duration.seconds;
       if ( effect.id === "weakened00000000" ) arr.push(effect.id);
       else if ( effect.id === "broken0000000000" ) arr.push(effect.id);
-      else if ( !effect.duration.seconds || (effect.duration.seconds <= 600) ) arr.push(effect.id);
+      else if ( !s || (s <= SYSTEM.TIME.restSeconds) ) arr.push(effect.id);
       return arr;
     }, []);
     await this.deleteEmbeddedDocuments("ActiveEffect", toDeleteEffects);
 
     // Recover Resources
-    await this.update(foundry.utils.mergeObject(this._getRestData(), updateData));
+    await this.update(foundry.utils.mergeObject(restData, updateData));
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare an object that replenishes all resource pools to their current maximum level
-   * @returns {{}}
-   * @private
+   * @returns {object}
    */
-  _getRestData() {
-    const updates = {};
+  #getRecoveryData() {
+    const updates = {system: {resources: {}, status: null}};
     for ( let [id, resource] of Object.entries(this.system.resources) ) {
       const cfg = SYSTEM.RESOURCES[id];
       if ( !cfg || (cfg.type === "reserve") ) continue;
-      updates[`system.resources.${id}.value`] = resource.max;
+      updates.system.resources[id] = {value: resource.max};
     }
-    updates["system.resources.heroism.value"] = 0;
-    updates["system.status"] = null;
+    updates.system.resources.heroism = {value: 0};
     return updates;
   }
 
@@ -1360,10 +1405,11 @@ export default class CrucibleActor extends Actor {
    * Confirm that the Actor meets the requirements to add the Talent, and if so create it on the Actor
    * @param {CrucibleItem} talent     The Talent item to add to the Actor
    * @param {object} [options]        Options which configure how the Talent is added
-   * @param {boolean} [options.dialog]    Prompt the user with a confirmation dialog?
+   * @param {boolean} [options.dialog]        Prompt the user with a confirmation dialog?
+   * @param {boolean} [options.warnUnusable]  Warn the user in-dialog if the talent would be currently unusable
    * @returns {Promise<CrucibleItem|null>} The created talent Item or null if no talent was added
    */
-  async addTalent(talent, {dialog=false}={}) {
+  async addTalent(talent, {dialog=false, warnUnusable=false}={}) {
 
     // Confirm that the Actor meets the requirements to add the Talent
     try {
@@ -1375,9 +1421,20 @@ export default class CrucibleActor extends Actor {
 
     // Confirmation dialog
     if ( dialog ) {
+      let content = game.i18n.format("TALENT.Purchase", {name: talent.name});
+      try {
+        const canUse = this.canUtilizeTalent(talent);
+        if ( (canUse === false) && warnUnusable ) {
+          content += `<div class="notification warning">You cannot use this talent.</div>`;
+        }
+      } catch(err) {
+        if ( warnUnusable ) {
+          content += `<div class="notification warning">${err.message}</div>`;
+        }
+      }
       const confirm = await foundry.applications.api.DialogV2.confirm({
         window: {title: `Purchase Talent: ${talent.name}`},
-        content: `<p>Spend 1 Talent Point to purchase <strong>${talent.name}</strong>?</p>`,
+        content,
         yes: {default: true},
         no: {default: false}
       });
@@ -1438,6 +1495,22 @@ export default class CrucibleActor extends Actor {
     // Remove permanently from a persisted Actor
     else await ownedTalent.delete();
     return ownedTalent;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Test whether this Actor would be able to use a Talent once purchased
+   * @param {CrucibleItem} talent   The Talent item
+   * @returns {boolean}             Whether the Talent would be usable
+   */
+  canUtilizeTalent(talent) {
+    // Can't use a Gesture or Inflection without a Rune
+    if ( (talent.system.gesture || talent.system.inflection) && !this.items.find(i => (i.type === "talent" && i.system.rune)) ) {
+      throw new Error(game.i18n.localize(`TALENT.WARNINGS.RequiresRune${talent.system.inflection ? "Inflection" : "Gesture"}`));
+    }
+
+    return true;
   }
 
   /* -------------------------------------------- */
@@ -1562,6 +1635,12 @@ export default class CrucibleActor extends Actor {
       if ( this.items.has(talentId) ) deleteItemIds.add(talentId);
     }
 
+    // Remove existing equipment
+    for ( const {item: uuid} of (existing?.equipment || []) ) {
+      const itemId = foundry.utils.parseUuid(uuid)?.documentId;
+      if ( this.items.has(itemId) ) deleteItemIds.add(itemId);
+    }
+
     // Remove skill talents
     if ( skillTalents ) {
       for ( const skillId of (existing?.skills || []) ) {
@@ -1584,23 +1663,31 @@ export default class CrucibleActor extends Actor {
     else {
       const itemData = item.toObject();
       const detail = updateData[key] = Object.assign(itemData.system, {name: itemData.name, img: itemData.img});
-
-      // Register talents to grant
-      const talents = [];
-      for ( const uuid of (detail.talents || []) ) talents.push(await fromUuid(uuid));
-      if ( skillTalents ) {
-        for ( const skillId of (detail.skills || []) ) {
-          talents.push(await fromUuid(SYSTEM.SKILLS[skillId]?.talents[1]));
-        }
-      }
-
-      // Add granted talents
       const updateItems = [];
-      for ( const talent of talents ) {
+
+      // Grant Talents
+      const talentUuids = [
+        ...(detail.talents || []),
+        ...(skillTalents ? (detail.skills || []).map(skillId => SYSTEM.SKILLS[skillId]?.talents[1]) : [])
+      ];
+      for ( const uuid of talentUuids ) {
+        const talent = await fromUuid(uuid);
         if ( !talent ) continue;
-        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id);
-        else updateItems.push(this._cleanItemData(talent));
+        if ( this.items.has(talent.id) ) deleteItemIds.delete(talent.id); // Talent already owned
+        else updateItems.push(this._cleanItemData(talent));               // Add new Talent
       }
+
+      // Grant Equipment
+      for ( const {item: uuid, quantity, equipped} of (detail.equipment || []) ) {
+        const item = await fromUuid(uuid);
+        if ( !item ) continue;
+        const itemData = this._cleanItemData(item);
+        Object.assign(itemData.system, {quantity, equipped});
+        if ( item.system.requiresInvestment && equipped ) itemData.system.invested = true;
+        updateItems.push(itemData); // Always update equipment, even if already owned
+      }
+
+      // Include granted items in Actor update
       if ( updateItems.length ) updateData.items = updateItems;
       message = game.i18n.format("ACTOR.AppliedDetailItem", {name: detail.name, type, actor: this.name});
     }
@@ -1856,11 +1943,11 @@ export default class CrucibleActor extends Actor {
     let occupied;
     switch ( slot ) {
       case slots.TWOHAND:
-        if ( mainhand.id ) occupied = mainhand;
-        else if ( offhand.id ) occupied = offhand;
+        if ( mainhand?.id ) occupied = mainhand;
+        else if ( offhand?.id ) occupied = offhand;
         break;
       case slots.MAINHAND:
-        if ( mainhand.id ) occupied = mainhand;
+        if ( mainhand?.id ) occupied = mainhand;
         break;
       case slots.OFFHAND:
         if ( offhand?.id ) occupied = offhand;
@@ -1877,6 +1964,8 @@ export default class CrucibleActor extends Actor {
     return slot;
   }
 
+  /* -------------------------------------------- */
+  /*  Flanking and Engagement                     */
   /* -------------------------------------------- */
 
   /**
@@ -1917,6 +2006,64 @@ export default class CrucibleActor extends Actor {
 
     // Remove flanked effect
     else if ( current )  await current.delete();
+  }
+
+  /* -------------------------------------------- */
+  /*  Currency Management                         */
+  /* -------------------------------------------- */
+
+  /**
+   * Convert an amount of currency expressed in configured denominations into a numeric amount for data storage.
+   * @param {Record<keyof crucible.CONFIG.currency, number>} amounts
+   * @returns {number}
+   */
+  static convertCurrency(amounts={}) {
+    if ( typeof amounts !== "object" ) {
+      throw new Error("The amounts passed to CrucibleActor#convertCurrency must be an object");
+    }
+    let amount = 0;
+    for ( const [k, v] of Object.entries(amounts) ) {
+      const d = crucible.CONFIG.currency[k];
+      if ( !d ) continue;
+      amount += Math.round(v * d.multiplier);
+    }
+    return amount;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Allocate an amount of currency into configured denominations, favoring larger denominations over smaller.
+   * This function does not guarantee that the entire input amount is allocated. Depending on the configured
+   * denominations which are available, there might be some unallocated remainder.
+   * @param {number} amount
+   * @returns {Record<keyof crucible.CONFIG.currency, number>}
+   */
+  static allocateCurrency(amount=0) {
+    const allocated = {};
+    const ds = Object.entries(crucible.CONFIG.currency).toSorted((a, b) => b[1].multiplier - a[1].multiplier);
+    for ( const [k, v] of ds ) {
+      allocated[k] = Math.floor(amount / v.multiplier);
+      amount = (amount % v.multiplier);
+    }
+    return allocated;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Modify the amount of currency owned by this actor by a certain amount.
+   * The input amount can be provided either as a raw integer or as an object of currency denominations.
+   * Returns the amount of currency that was added or subtracted.
+   * @param {number|Record<keyof crucible.CONFIG.currency, number>} amounts
+   * @returns {number}
+   */
+  async modifyCurrency(amounts) {
+    const priorAmount = this.system.currency;
+    const delta = typeof amounts === "number" ? amounts : this.constructor.convertCurrency(amounts);
+    const currency = Math.max(priorAmount + delta, 0);
+    await this.update({system: {currency}});
+    return currency - priorAmount;
   }
 
   /* -------------------------------------------- */
@@ -1964,12 +2111,12 @@ export default class CrucibleActor extends Actor {
     const abilityChange = !!abl1 && Object.keys(SYSTEM.ABILITIES).some(k => !foundry.utils.isEmpty(abl1[k]));
 
     // Pre-simulate the changes
-    if ( levelChange || abilityChange ) {
+    if ( (options.recursive !== false) && (levelChange || abilityChange) ) {
       const clone = this.clone();
       clone.updateSource(data);
 
       // Replenish resources
-      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone._getRestData());
+      if ( !this.inCombat ) foundry.utils.mergeObject(data, clone.#getRecoveryData());
 
       // Constrain milestones
       if ( levelChange && (this.type === "hero") ) {
@@ -2006,6 +2153,7 @@ export default class CrucibleActor extends Actor {
         for ( const token of tokens ) token.refreshFlanking(commit);
       }
       this.#updateCachedResources();
+      this.#updateGroups();
     }
 
     // Refresh display of the active talent tree
@@ -2111,6 +2259,7 @@ export default class CrucibleActor extends Actor {
     if ( ("health" in r) || ("wounds" in r) ) {
       await this.toggleStatusEffect("weakened", {active: this.system.isWeakened && !this.system.isDead });
       await this.toggleStatusEffect("dead", {active: this.system.isDead});
+      await this.toggleStatusEffect("asleep", {active: false});
     }
     if ( ("morale" in r) || ("madness" in r) ) {
       await this.toggleStatusEffect("broken", {active: this.system.isBroken && !this.system.isInsane });
@@ -2189,6 +2338,21 @@ export default class CrucibleActor extends Actor {
     this._cachedResources.wasIncapacitated = this.system.isIncapacitated;
     this._cachedResources.wasBroken = this.system.isBroken;
     return this._cachedResources;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Update data for groups this Actor belongs to.
+   */
+  #updateGroups() {
+    for ( const group of this._groups ) {
+      if ( !group.system.actors.has(this) ) {
+        this._groups.delete(group);
+        continue;
+      }
+      group.sheet.render({force: false});
+    }
   }
 
   /* -------------------------------------------- */

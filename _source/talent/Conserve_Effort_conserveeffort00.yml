@@ -9,6 +9,8 @@ system:
     Focus</strong>.</p>
   actions: []
   requirements: {}
+  nodes:
+    - wis4a
 effects: []
 ownership:
   default: 0
@@ -17,10 +19,10 @@ flags:
   core: {}
 _stats:
   systemId: crucible
-  systemVersion: 0.6.0
-  coreVersion: '13.342'
+  systemVersion: 0.7.9
+  coreVersion: '13.350'
   createdTime: 1677356252137
-  modifiedTime: 1727321743087
+  modifiedTime: 1761424503340
   lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: Item.conserveeffort00
   duplicateSource: null

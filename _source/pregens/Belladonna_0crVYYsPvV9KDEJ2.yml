@@ -92,6 +92,7 @@ system:
       name: Urchin
       img: icons/skills/social/theft-pickpocket-bribery-brown.webp
       knowledge: []
+      languages: []
       skills: []
     biography:
       public: >-
@@ -103,6 +104,9 @@ system:
       height: ''
       weight: ''
       appearance: ''
+      pronouns: ''
+    knowledge: []
+    languages: []
   resistances:
     bludgeoning:
       bonus: 0
@@ -153,11 +157,15 @@ system:
     - reactiveStrike
     - strike
     - distract
+    - offhandStrike
     - flurry
     - counterEvade
     - defensiveRoll
     - backstab
-    - offhandStrike
+    - healingElixir
+    - poisonIngest
+    - antitoxin
+  currency: 0
 prototypeToken:
   name: Belladonna
   displayName: 20
@@ -266,7 +274,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: 4IibmL9TUO
+      identifier: O0DdG2iYfJ
       invested: false
       actorHooks: []
       dropped: false
@@ -274,9 +282,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -308,7 +316,7 @@ items:
       broken: false
       actions: []
       slot: 0
-      identifier: YshyFVbXpH
+      identifier: WcRwi8zFIX
       invested: false
       actorHooks: []
       dropped: false
@@ -316,9 +324,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -348,16 +356,16 @@ items:
         base: 7
       broken: false
       actions: []
-      identifier: nI5y1Z4lAZ
+      identifier: I3c7TLFtEs
       invested: false
       actorHooks: []
     _stats:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     sort: 0
     ownership:
@@ -428,9 +436,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -488,9 +496,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: dualwield0000000
     folder: cW6bwHXBB9pMcwva
@@ -554,9 +562,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: cW6bwHXBB9pMcwva
     sort: 300000
@@ -601,9 +609,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: bloodletter00000
     folder: c0nl6X8tp4Of0Y4O
@@ -665,9 +673,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: JzAnF4yKIgvElwCJ
     sort: 100000
@@ -710,9 +718,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: BevAJzzLeFbSaVic
     sort: -100000
@@ -748,9 +756,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: BevAJzzLeFbSaVic
     sort: 0
@@ -810,9 +818,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: JzAnF4yKIgvElwCJ
     sort: 0
@@ -845,9 +853,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     folder: MqZKCMx5KrZQffGU
     sort: 106250
@@ -909,9 +917,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: backstab00000000
     folder: Xg1Jww0K0CK7vUo1
@@ -947,9 +955,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -982,9 +990,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1049,9 +1057,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: intercept0000000
     folder: MqZKCMx5KrZQffGU
@@ -1095,9 +1103,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1136,9 +1144,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     ownership:
       default: 0
@@ -1197,9 +1205,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: lunge00000000000
     folder: Xg1Jww0K0CK7vUo1
@@ -1241,9 +1249,9 @@ items:
       compendiumSource: null
       duplicateSource: null
       exportSource: null
-      coreVersion: '13.346'
+      coreVersion: '13.350'
       systemId: crucible
-      systemVersion: 0.7.3
+      systemVersion: 0.7.9
       lastModifiedBy: null
     _id: ot5RNLZzivbxcMTH
     folder: null
@@ -1251,36 +1259,681 @@ items:
     ownership:
       default: 0
     _key: '!actors.items!0crVYYsPvV9KDEJ2.ot5RNLZzivbxcMTH'
+  - name: Healing Elixir
+    type: consumable
+    img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+    system:
+      identifier: healingElixir
+      category: flask
+      quantity: 1
+      weight: 1
+      price: 4000
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties: []
+      description:
+        public: >-
+          <p>This potion contains a specialized alchemical formula to rapidly
+          close wounds and improve bodily health.</p>
+        private: ''
+      actions:
+        - id: healingElixir
+          name: Healing Elixir
+          img: icons/consumables/potions/bottle-bulb-corked-glowing-red.webp
+          condition: ''
+          description: >-
+            <p>Immediately recover an amount of <strong>Health</strong>
+            dependant on the quality of the
+            elixir.</p><ul><li><p><strong>Shoddy</strong> - Immediately heals 6
+            <strong>Health</strong>.</p></li><li><p><strong>Standard</strong> -
+            Immediately heals 12
+            <strong>Health</strong>.</p></li><li><p><strong>Fine</strong> -
+            Immediately heals 24
+            <strong>Health</strong>.</p></li><li><p><strong>Superior</strong> -
+            Immediately heals 48
+            <strong>Health</strong>.</p></li><li><p><strong>Masterwork</strong>
+            - Immediately heals 96 <strong>Health</strong>.</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: true
+          effects: []
+          tags:
+            - consume
+            - healing
+          actionHooks: []
+      uses:
+        value: 0
+        max: 1
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: xAsUuqGIEB5i6bL0
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.xAsUuqGIEB5i6bL0'
+  - name: Antitoxin
+    type: consumable
+    img: icons/consumables/potions/potion-vial-tube-yellow.webp
+    system:
+      identifier: antitoxin
+      category: flask
+      quantity: 0
+      weight: 1
+      price: 2500
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      description:
+        public: >-
+          <p>A slender phial that contains a slightly golden-colored liquid. It
+          smells foul, but contains the alchemical agents necessary to
+          neutralize a wide variety of toxins.</p>
+        private: ''
+      actions:
+        - id: antitoxin
+          name: Antitoxin
+          img: icons/consumables/potions/potion-vial-tube-yellow.webp
+          condition: ''
+          description: >-
+            <p>Consuming this @ref[name] is able to neutralize any
+            @Condition[poisoned] conditions affecting the target. Stronger
+            poisons require a stronger antitoxin to neutralize.</p><p>The
+            category of poison negated by this @ref[name] depends on its
+            quality:</p><ul><li><p><strong>Shoddy</strong> - Poisons dealing 3
+            damage or less per round</p></li><li><p><strong>Standard</strong> -
+            Poisons dealing 5 damage or less per
+            round</p></li><li><p><strong>Fine</strong> - Poisons dealing 7
+            damage or less per round</p></li><li><p><strong>Superior</strong> -
+            Poisons dealing 9 damage or less per
+            round</p></li><li><p><strong>Masterwork</strong> - Poisons dealing
+            11 damage or less per round</p></li></ul>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: true
+          effects: []
+          tags:
+            - consume
+            - healing
+          actionHooks: []
+      uses:
+        value: 1
+        max: 1
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: obqSWKWIYSOhAMVb
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.obqSWKWIYSOhAMVb'
+  - name: Poison Vial
+    type: consumable
+    img: icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+    system:
+      identifier: poisonVial
+      category: flask
+      quantity: 1
+      weight: 1
+      price: 2500
+      quality: standard
+      broken: false
+      enchantment: mundane
+      equipped: true
+      invested: false
+      properties:
+        - stackable
+      description:
+        public: >-
+          <p>This small vial contains murky liquid that is noticeably thicker
+          than water. It emits a disconcerting scent that evokes a sense of
+          wrongness.</p>
+        private: ''
+      actions:
+        - id: poisonIngest
+          name: Ingest Poison
+          img: >-
+            icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+          condition: ''
+          description: >-
+            <p>When this toxin is ingested or otherwise enters the bloodstream
+            of a creature, it is initially <strong>Harmless</strong>, but the
+            target must defend an attack against its <strong>Fortitude</strong>
+            or become @Condition[poisoned].</p><p>The amount of poison damage
+            and its duration is dependent on the quality of the
+            @ref[name]:</p><ul><li><p><strong>Shoddy</strong> - 2 damage for 4
+            rounds</p></li><li><p><strong>Standard</strong> - 4 damage for 6
+            rounds</p></li><li><p><strong>Fine</strong> - 6 damage for 8
+            rounds</p></li><li><p><strong>Superior</strong> - 8 damage for 10
+            rounds</p></li><li><p><strong>Masterwork</strong> - 10 damage for 12
+            rounds</p></li></ul><p><em>This action should be used when the
+            poison is ingested rather than when it is first applied.</em></p>
+          cost:
+            action: 0
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects:
+            - name: Poisoned
+              scope: 4
+              statuses:
+                - poisoned
+              duration:
+                turns: 6
+                rounds: null
+          tags:
+            - harmless
+            - fortitude
+            - skill
+            - medicine
+          actionHooks: []
+        - id: poisonApply
+          name: Apply Poison
+          img: >-
+            icons/consumables/potions/potion-jug-corked-skull-poison-brown-green.webp
+          condition: ''
+          description: >-
+            <p>The contents of this vial can be added to food, drink, smeared
+            upon a bladed weapon, or combined with some alternative delivery
+            mechanism.</p><p><em>This action, which consumes the available usage
+            of the poison, should be used when it is first applied.</em></p>
+          cost:
+            action: 2
+            focus: 0
+            heroism: 0
+            weapon: false
+          range:
+            minimum: null
+            maximum: 1
+            weapon: false
+          target:
+            type: none
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          tags:
+            - freehand
+            - consume
+          actionHooks: []
+      uses:
+        value: 1
+        max: 1
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: C2nqdDmFeaYv6E7m
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.C2nqdDmFeaYv6E7m'
+  - name: Medicine Novice
+    type: talent
+    _id: medicineNovice00
+    img: systems/crucible/icons/skills/medicine.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You have a basic education
+        in anatomy, physiology, and medicine. You gain the
+        <strong>Novice</strong> rank in the <strong>Medicine </strong>skill and
+        are no longer considered <strong>Untrained</strong> in that
+        skill.</span></p><p><span style="font-family:Vollkorn, serif">You’ve
+        learned the basics of treating common wounds and illnesses, and keep a
+        running list of known alchemical and herbal compounds that can be used
+        for treating particular illnesses. With a little time studying an
+        injured, diseased, or otherwise ill individual you can perform a basic
+        diagnosis and treat accordingly.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: medicine
+        rank: 1
+      actorHooks: []
+      nodes:
+        - wis0a
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.medicineNovice00'
+  - name: Flash of Steel
+    type: talent
+    _id: flashOfSteel0000
+    img: icons/skills/melee/spear-tips-double-purple.webp
+    system:
+      nodes:
+        - dex1a
+      description: >-
+        <p>You are an expert in using a thrown weapon to imbalance or expose
+        your target for follow-up strikes.</p>
+      actions:
+        - id: flashOfSteel
+          name: Flash of Steel
+          img: icons/skills/melee/spear-tips-double-purple.webp
+          condition: ''
+          description: >-
+            <p>You make a <strong>Thrown </strong>weapon attack, targeting a
+            weak point in your enemy's defences. If the attack hits, the target
+            becomes <strong>Exposed</strong> until the start of their next
+            Turn.</p>
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 3
+            self: false
+          effects:
+            - name: Flash of Steel
+              scope: 3
+              statuses:
+                - exposed
+              duration:
+                turns: 1
+          tags:
+            - melee
+            - thrown
+          actionHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.flashOfSteel0000'
+  - name: Anticipate Harm
+    type: talent
+    _id: anticipateharm00
+    img: icons/magic/movement/trail-streak-impact-blue.webp
+    system:
+      description: >-
+        Your keen reflexes and acuity allow you to anticipate imminent danger
+        and react to avoid it.
+      actions:
+        - id: anticipateHarm
+          condition: >-
+            You are targeted by an area-of-effect attack, the source of which
+            you can see.
+          description: >-
+            <p>You may immediately move 4 feet after the area-of-effect of the
+            attack is declared. If this movement escapes the area of the attack,
+            you are unaffected.</p>
+          tags:
+            - movement
+            - reaction
+          cost:
+            action: 1
+            focus: 1
+            weapon: false
+            heroism: 0
+          target:
+            type: self
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          name: Anticipate Harm
+          img: icons/magic/movement/trail-streak-impact-blue.webp
+          range:
+            maximum: 4
+            weapon: false
+            minimum: null
+          actionHooks: []
+      nodes:
+        - int3b
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.anticipateharm00'
+  - name: Assassin
+    type: talent
+    img: icons/magic/death/skull-humanoid-white-blue.webp
+    system:
+      description: >-
+        <p>You specialize in bringing death the the unwary. Any Strike or Spell
+        attack against an <strong>Unaware</strong> target becomes
+        <strong>Deadly</strong>.</p><p>An Unaware creature hit by your attack
+        may not alert its allies until its own turn in Combat.</p>
+      actions:
+        - id: markForDeath
+          name: Mark For Death
+          img: icons/magic/death/skull-humanoid-white-blue.webp
+          condition: You are unobserved.
+          description: >-
+            You spend 1 minute studying a creature. Perform a Knowledge Test
+            about your target. If successful, you learn all damage types against
+            which the target is Vulnerable. Your minimum Initiative during the
+            first round of Combat becomes one greater than the Initiative of
+            your marked target.</p>
+          tags: []
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 0
+            self: false
+          effects: []
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          actionHooks: []
+      actorHooks: []
+      nodes:
+        - sig3.intellect.dexterity
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+    effects: []
+    flags:
+      core: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: assassin00000000
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.assassin00000000'
+  - name: Interrupting Throw
+    type: talent
+    _id: interruptingDagg
+    img: icons/skills/melee/strike-dagger-arcane-pink.webp
+    system:
+      nodes:
+        - dex4a
+      description: >-
+        <p>You are alert and prepared to use your equipped weapon to interrupt
+        enemy spellcraft.</p>
+      actions:
+        - id: interruptingThrow
+          name: Interrupting Throw
+          img: icons/skills/melee/strike-dagger-arcane-pink.webp
+          condition: An enemy you can see casts a Spell which costs 3 Action or greater.
+          description: >-
+            <p>When an enemy that you can see casts a <strong>Spell</strong>
+            which costs <strong>3 Action</strong> or greater, you can make a
+            <strong>Reaction</strong> to perform a <strong>Thrown</strong>
+            weapon attack against the caster. If your attack results in a
+            <strong>Critical Hit</strong> the spell is interrupted and its magic
+            is lost.</p>
+          cost:
+            action: 0
+            focus: 1
+            heroism: 0
+            weapon: true
+          range:
+            minimum: null
+            maximum: null
+            weapon: false
+          target:
+            type: single
+            number: 1
+            scope: 4
+            self: false
+          effects: []
+          tags:
+            - reaction
+            - melee
+            - thrown
+          actionHooks: []
+      rune: ''
+      gesture: ''
+      inflection: ''
+      iconicSpells: 0
+      training:
+        type: ''
+        rank: null
+      actorHooks: []
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.interruptingDagg'
+  - name: Light Weapon Proficiency
+    type: talent
+    img: icons/weapons/swords/sword-simple-white.webp
+    system:
+      description: >-
+        <p>You have a fluent education in the use of martial weaponry. You gain
+        the <strong>Journeyman</strong> training rank and a <strong>+1 Skill
+        Bonus</strong> with weapons in the <strong>Light</strong> and
+        <strong>Balanced</strong> categories.</p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: light
+        rank: 2
+      actorHooks: []
+      nodes:
+        - dex4b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    _id: lightWeaponProfi
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.lightWeaponProfi'
+  - name: Awareness Novice
+    type: talent
+    _id: awarenessNovice0
+    img: systems/crucible/icons/skills/awareness.jpg
+    system:
+      description: >-
+        <p><span style="font-family:Vollkorn, serif">You have been trained in
+        the basics of situational awareness, and are able to notice important
+        details about your environment. You gain the <strong>Novice</strong>
+        rank in the <strong>Awareness </strong>skill and are no longer
+        considered <strong>Untrained</strong> in that skill.</span></p><p><span
+        style="font-family:Vollkorn, serif">You know to check for exits when you
+        enter a room, and how to look for concealed weapons, hidden traps, and
+        other threats. You know how to spot when you are being followed, and how
+        to search for common hiding places.</span></p>
+      actions: []
+      iconicSpells: 0
+      training:
+        type: awareness
+        rank: 1
+      actorHooks: []
+      nodes:
+        - int0b
+      rune: ''
+      gesture: ''
+      inflection: ''
+    effects: []
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.7.9
+      lastModifiedBy: null
+    folder: null
+    sort: 0
+    ownership:
+      default: 0
+    _key: '!actors.items!0crVYYsPvV9KDEJ2.awarenessNovice0'
 effects: []
 flags:
   core: {}
   crucible:
     actionHistory:
-      - id: offhandStrike
-        messageId: HCZUshrDIYGhUwNT
-        combat: null
-      - id: offhandStrike
-        messageId: kY5EfzaZ7iv5JxlF
-        combat: null
-      - id: strike
-        messageId: CXmU2sUq8YcxqThe
-        combat: null
-      - id: flurry
-        messageId: Q3ej3mojsy78jrnP
-        combat: null
+      - id: antitoxin
+        messageId: zO8SfVYabHrrMhUc
+        combat:
+          id: mgfBuBjXu6yOBX1p
+          round: 2
+          turn: 0
+          combatantId: dmtTChuG0gxecxnE
+          tokenId: f8nsQ0MBay7Cfkyy
 _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.7
-  createdTime: 1751148758927
-  modifiedTime: 1753648558605
+  systemVersion: 0.7.9
+  createdTime: 1761424864827
+  modifiedTime: 1761424864827
   lastModifiedBy: AnoypGxxNIMOS0XY
 _id: 0crVYYsPvV9KDEJ2
-sort: 0
 ownership:
-  default: 0
+  default: 2
   AnoypGxxNIMOS0XY: 3
+sort: 0
 _key: '!actors!0crVYYsPvV9KDEJ2'

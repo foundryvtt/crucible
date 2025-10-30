@@ -112,7 +112,7 @@ export const SKILLS = Object.freeze({
     label: "SKILL.LABELS.medicine",
     icon: "systems/crucible/icons/skills/medicine.jpg",
     category: "kno",
-    abilities: ["wisdom", "toughness"],
+    abilities: ["wisdom", "intellect"],
     talents: {
       1: "Compendium.crucible.talent.Item.medicineNovice00",
       2: "Compendium.crucible.talent.Item.medicineJourneym",

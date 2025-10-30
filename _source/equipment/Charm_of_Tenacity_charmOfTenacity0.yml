@@ -1,0 +1,52 @@
+name: Charm of Tenacity
+type: accessory
+img: icons/equipment/neck/necklace-carved-stone-spiral.webp
+system:
+  identifier: tenacity
+  category: jewelry
+  quantity: 1
+  weight: 0
+  price: 0
+  quality: standard
+  broken: false
+  enchantment: mundane
+  equipped: false
+  invested: false
+  properties: []
+  description:
+    public: >-
+      <blockquote><p>This charm-covered necklace looks rustic, but upon close
+      inspection you notice a delicate craft imbued within its workmanship.
+      While holding it you feel your breaths deepen and the minor aches within
+      your muscles dissipate.</p></blockquote><p>This amulet provides a bonus to
+      <strong>Fortitude</strong> defense equal to the minimum of its
+      <strong>Quality</strong> and <strong>Enchantment</strong>
+      bonuses.</p><ul><li><p><strong>Fine</strong> quality and <strong>Minor
+      </strong>enchantment: <strong>+1
+      Fortitude</strong></p></li><li><p><strong>Superior </strong>quality and
+      <strong>Major </strong>enchantment: <strong>+2
+      Fortitude</strong></p></li><li><p><strong>Masterwork </strong>quality and
+      <strong>Legendary </strong>enchantment: <strong>+3
+      Fortitude</strong></p></li></ul>
+    private: ''
+  actions: []
+  actorHooks: []
+effects: []
+folder: dNk8eE87Ep8GtNse
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.8
+  createdTime: 1759603481772
+  modifiedTime: 1759603481772
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_id: charmOfTenacity0
+sort: 0
+_key: '!items!charmOfTenacity0'

@@ -69,6 +69,34 @@ HOOKS.bloodSense000000 = {
 
 /* -------------------------------------------- */
 
+const absorptionTalents = {
+  acidAbsorption00: "acid",
+  coldAbsorption00: "cold",
+  corruptionAbsorp: "corruption",
+  electricityAbsor: "electricity",
+  fireAbsorption00: "fire",
+  psychicAbsorptio: "psychic",
+  radiantAbsorptio: "radiant",
+  voidAbsorption00: "void"
+};
+
+for ( const [talentId, damageType] of Object.entries(absorptionTalents) ) {
+  HOOKS[talentId] = {
+    prepareResistances(_item, resistances) {
+      resistances[damageType].base *= 2;
+    },
+    receiveAttack(_item, _action, roll) {
+      const dmg = roll.data.damage;
+      if ( (dmg.type !== damageType) || dmg.restoration || (dmg.total > 0) ) return;
+      const unmitigatedTotal = crucible.api.models.CrucibleAction.computeDamage({...dmg, resistance: 0});
+      dmg.restoration = true;
+      dmg.total = dmg.resistance - unmitigatedTotal;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
 HOOKS.conserveeffort00 = {
   endTurn(item, {resourceRecovery, statusText}) {
     if ( this.resources.action.value ) {
@@ -99,6 +127,17 @@ HOOKS.healer0000000000 = {
 HOOKS.lesserregenerati = {
   startTurn(item, {resourceRecovery}) {
     if ( !this.system.isWeakened ) resourceRecovery.health = (resourceRecovery.health || 0) + 1;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.planneddefense00 = {
+  defendAttack(item, action, origin, rollData) {
+    if ( !["spell", "strike"].some(tag => action.tags.has(tag)) ) return;
+    const ac = this.combatant;
+    const oc = origin.combatant;
+    if ( ac?.initiative > oc?.initiative ) rollData.banes.plannedDefense = {label: item.name, number: 1};
   }
 }
 
@@ -147,14 +186,24 @@ HOOKS.spellblade000000 = {
 /* -------------------------------------------- */
 
 HOOKS.spellmute0000000 = {
-  defendSpellAttack(item, spell, origin, rollData) {
-    rollData.banes.spellmute = {label: item.name, number: 2};
+  defendAttack(item, action, origin, rollData) {
+    if ( action.tags.has("spell") ) rollData.banes.spellmute = {label: item.name, number: 2};
   },
-  prepareActions(actions) {
+  prepareActions(_item, actions) {
     for ( const [id, action] of Object.entries(actions) ) {
       if ( action.tags.has("spell") ) delete actions[id];
     }
     delete actions.cast;
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.stilllake0000000 = {
+  defendAttack(item, action, _origin, rollData) {
+    if ( !action.tags.has("skill") ) return;
+    if ( CONFIG.SYSTEM.SKILLS[action.usage.skillId].category !== "soc" ) return;
+    rollData.banes.stillLake = {label: item.name, number: 2};
   }
 }
 
@@ -166,6 +215,16 @@ HOOKS.stronggrip000000 = {
     if ( weapons.twoHanded ) {
       weapons.freeHands += 1;
       weapons.spellHands += 1;
+    }
+  }
+}
+
+/* -------------------------------------------- */
+
+HOOKS.testudo000000000 = {
+  defendAttack(item, action, _origin, rollData) {
+    if ( action.tags.has("strike") && this.statuses.has("guarded") && this.equipment.weapons.shield ) {
+      rollData.banes.testudo = {label: item.name, number: 1};
     }
   }
 }

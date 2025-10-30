@@ -1,0 +1,41 @@
+name: Elemental Sprite
+type: archetype
+_id: elementalSprite0
+img: icons/magic/symbols/elements-air-earth-fire-water.webp
+system:
+  description: >-
+    <p>Sprites are lesser elementals which are embodiments of their raw element,
+    but lack the sapience of their greater kin.</p>
+  identifier: elementalSprite
+  abilities:
+    wisdom: 1
+    presence: 2
+    intellect: 1
+    strength: 2
+    toughness: 3
+    dexterity: 3
+  talents:
+    - Compendium.crucible.adversary-talents.Item.falseAppearance0
+    - Compendium.crucible.talent.Item.gesturefan000000
+  skills:
+    - stealth
+    - performance
+  equipment: []
+effects: []
+folder: aM53nJVqmTrIHXyE
+sort: 100000
+ownership:
+  default: 0
+  QvBFYpRRXHRBcOfP: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  exportSource: null
+  coreVersion: '13.350'
+  systemId: crucible
+  systemVersion: 0.7.9
+  createdTime: 1760803475184
+  modifiedTime: 1760894285257
+  lastModifiedBy: QvBFYpRRXHRBcOfP
+_key: '!items!elementalSprite0'

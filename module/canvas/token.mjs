@@ -1,9 +1,17 @@
+import CrucibleHitBoxShader from "./grid/hit-box-shader.mjs";
+
 export default class CrucibleTokenObject extends foundry.canvas.placeables.Token {
 
   /** @inheritDoc */
   static RENDER_FLAGS = Object.assign({}, super.RENDER_FLAGS, {
     refreshFlanking: {}
   });
+
+  /**
+   * Container to "store" some unused graphics in Crucible.
+   * @type {PIXI.Container}
+   */
+  static #voidContainer = new PIXI.Container();
 
   /**
    * @typedef {Object} CrucibleTokenEngagement
@@ -35,8 +43,57 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
    */
   #engagementDebug;
 
+  /**
+   * Cached hitbox data in screen-space coordinates.
+   * Values are recomputed only when token, scene, or camera state changes.
+   * @type {{
+   *   abgr: number,                // Token disposition color in little endian
+   *   hitboxCenterX: number,       // Screen-space center X
+   *   hitboxCenterY: number,       // Screen-space center Y
+   *   hitboxHalfWidth: number,     // Screen-space half width
+   *   hitboxHalfHeight: number,    // Screen-space half height
+   *   trLocalID: number,           // Transform local ID
+   *   trParentID: number,          // Transform parent ID
+   *   gridSize: number,            // Scene grid size
+   *   sizeUnits: number,           // Actor movement size
+   *   centerX: number,             // Token world center X
+   *   centerY: number,             // Token world center Y
+   *   abgr: number,                // Token disposition color in little endian
+   *   colorRaw: number             // Raw RGBA color
+   *   dashOffsetPx: number         // The hitbox offset for this token
+   *   animationTypes: number       // A bitmask holding all the animation types active for this token
+   * }}
+   */
+  #hbCache = {
+    hitboxCenterX: 0,
+    hitboxCenterY: 0,
+    hitboxHalfWidth: 0,
+    hitboxHalfHeight: 0,
+    trLocalID: -1,
+    trParentID: -1,
+    gridSize: -1,
+    sizeUnits: -1,
+    centerX: NaN,
+    centerY: NaN,
+    abgr: 0,
+    colorRaw: NaN,
+    dashOffsetPx: 0,
+    animationTypes: new foundry.utils.BitMask(CrucibleHitBoxShader.STATES)
+  };
+
   /* -------------------------------------------- */
   /*  Rendering                                   */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  async _draw(options){
+    await super._draw(options);
+    if ( !canvas.scene.useMicrogrid ) return;
+    CrucibleTokenObject.#voidContainer.visible = false;
+    CrucibleTokenObject.#voidContainer.addChild(this.border);
+    CrucibleTokenObject.#voidContainer.addChild(this.targetArrows);
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritDoc */
@@ -48,12 +105,41 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /* -------------------------------------------- */
 
   /** @override */
+  _refreshBorder() {
+    if ( !canvas.scene.useMicrogrid ) super._refreshBorder();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _refreshVisibility() {
+    super._refreshVisibility();
+    if ( !canvas.scene.useMicrogrid ) return;
+    this.#hbCache.animationTypes.toggleState("controlled", this.controlled);
+    this.#hbCache.animationTypes.toggleState("hovered", this.hover || this.layer.highlightObjects);
+    if ( this.isVisible ) CrucibleTokenObject.visibleTokens.add(this);
+    else CrucibleTokenObject.visibleTokens.delete(this);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  _refreshTarget() {
+    if ( !canvas.scene.useMicrogrid ) return super._refreshTarget();
+    this._drawTargetPips();
+    const isTargetedByUser = (this.targeted.size > 0) && this.targeted.has(game.user);
+    this.#hbCache.animationTypes.toggleState("targeted", isTargetedByUser);
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   drawBars() {
     super.drawBars();
     if ( !this.actor || (this.document.displayBars === CONST.TOKEN_DISPLAY_MODES.NONE) ) return;
     this.#drawResources();
     if ( !this.bars.alphaFilter ) {
-      this.bars.alphaFilter = new PIXI.filters.AlphaFilter();
+      this.bars.alphaFilter = new PIXI.AlphaFilter();
       this.bars.filters = [this.bars.alphaFilter];
     }
     this.bars.alphaFilter.alpha = 0.6;
@@ -65,11 +151,12 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _drawBar(number, bar, data) {
     const val = Number(data.value);
     const pct = Math.clamp(val, 0, data.max) / data.max;
+    const p = 8;
 
     // Determine sizing
     const {width, height} = this.document.getSize();
-    const bw = width;
-    const bh = number === 0 ? 8 : 6;
+    const bw = width - (p * 2);
+    const bh = number === 0 ? 10 : 8;
     const bs = 1;
 
     // Determine the color to use
@@ -83,8 +170,8 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     bar.beginFill(color, 1.0).drawRect(0, 0, pct * bw, bh, 2);
 
     // Set position
-    const posY = number === 0 ? height - 8: height - 14;
-    bar.position.set(0, posY);
+    const posY = (height - p) - (number === 0 ? 10 : 18);
+    bar.position.set(p, posY);
     return true;
   }
 
@@ -99,6 +186,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       this.bars.resources = this.bars.addChild(new PIXI.Graphics());
       this.bars.resources.position.set(0, 0);
     }
+    const p = 8;
     const r = this.bars.resources;
     r.clear();
     const {action, focus} = this.actor.system.resources;
@@ -108,7 +196,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const ac = SYSTEM.RESOURCES.action.color;
     r.beginFill(ac, 1.0).lineStyle({color: 0x000000, width: 1});
     for ( let i=0; i<action.value; i++ ) {
-      r.drawCircle(6 + (i * 10), height - 8, 3);
+      r.drawCircle((2 * p) + (i * 10), height - p - 10, 3);
     }
     r.endFill();
 
@@ -116,7 +204,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
     const fc = SYSTEM.RESOURCES.focus.color;
     r.beginFill(fc, 1.0).lineStyle({color: 0x000000, width: 1});
     for ( let i=0; i<focus.value; i++ ) {
-      r.drawCircle(width - 6 - (i * 10), height - 14, 3);
+      r.drawCircle(width - (2 * p) - (i * 10), height - p - 18, 3);
     }
     r.endFill();
   }
@@ -144,6 +232,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   /** @override */
   _getMovementCostFunction(options) {
     const calculateTerrainCost = CONFIG.Token.movement.TerrainData.getMovementCostFunction(this.document, options);
+    const actionCostFunctions = {};
     const actor = this.actor;
     return (from, to, distance, segment) => {
 
@@ -160,7 +249,9 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
       const terrainCost = calculateTerrainCost(from, to, distance, segment);
 
       // Step 3: Apply movement action
-      return terrainCost * (segment.actionConfig.costMultiplier ?? 1);
+      const calculateActionCost = actionCostFunctions[segment.action]
+        ??= segment.actionConfig.getCostFunction(this.document, options);
+      return calculateActionCost(terrainCost, from, to, distance, segment);
     };
   }
 
@@ -173,11 +264,17 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
 
   /* -------------------------------------------- */
 
-  /** @override */
-  _modifyAnimationMovementSpeed(speed, options) {
-    if ( options.terrain instanceof foundry.data.TerrainData ) speed /= options.terrain.difficulty;
-    const actionConfig = CONFIG.Token.movement.actions[options.action];
-    return speed * (actionConfig.speedMultiplier ?? 1);
+  /** 
+   * TODO This method extension can be removed in V14 as it will be handled by Foundry core.
+   * @inheritDoc
+   */
+  _modifyAnimationMovementSpeed(speed, options={}) {
+    speed = super._modifyAnimationMovementSpeed(speed, options);
+    if ( foundry.utils.isNewerVersion("14.351", game.release.version) ) {
+      const actionConfig = CONFIG.Token.movement.actions[options.action];
+      return speed * (actionConfig.speedMultiplier ?? 1);
+    }
+    return speed;
   }
 
   /* -------------------------------------------- */
@@ -410,6 +507,99 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   }
 
   /* -------------------------------------------- */
+  /*  Animated Hitbox                             */
+  /* -------------------------------------------- */
+
+  /**
+   * The set of visible tokens.
+   * @type {Set<CrucibleTokenObject>}
+   */
+  static visibleTokens = new Set();
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the hitbox border color in little endian format
+   * @returns {number}
+   */
+  getHitBoxBorderColor() {
+    const colorRaw = this._getBorderColor();
+    const cache = this.#hbCache;
+    const same = (cache.colorRaw === colorRaw);
+    if ( same ) return cache.abgr;
+
+    // Convert disposition color to little endian
+    const cr = (colorRaw >>> 0) || 0;
+    const rgba = (cr <= 0xFFFFFF ? ((cr << 8) | 0xFF) : cr) >>> 0;
+
+    // Save and return
+    cache.abgr = (
+      ((rgba & 0x000000FF) << 24) |
+      ((rgba & 0x0000FF00) <<  8) |
+      ((rgba & 0x00FF0000) >>> 8) |
+      ((rgba & 0xFF000000) >>> 24)
+    ) >>> 0;
+    cache.colorRaw = colorRaw;
+    return cache.abgr;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the hit box data (which is updated lazily if necessary)
+   * @returns {{abgr: number, hitboxCenterX: number, hitboxCenterY: number, hitboxHalfWidth: number, hitboxHalfHeight: number,
+   * trLocalID: number, trParentID: number, gridSize: number, sizeUnits: number, centerX: number, centerY: number, colorRaw: number}}
+   */
+  getHitBoxData() {
+    const stage = canvas?.stage;
+    const grid = canvas?.grid;
+    const cache = this.#hbCache;
+
+    // Verify local ID and parent ID to know if the hitbox data must be recomputed
+    const trLocalID = this.transform._localID;
+    const trParentID = this.transform._parentID;
+    const dirty = (trParentID !== cache.trParentID) || (trLocalID !== cache.trLocalID);
+    if ( (dirty === false) || !stage || !grid ) return this.#hbCache;
+
+    cache.gridSize = grid.size || 100;
+    const s = cache.sizeUnits = this.actor?.system?.movement?.size ?? this.document?.width ?? 4;
+    const uneven = (s % 2 > 0);
+
+    const M = CONST.GRID_SNAPPING_MODES;
+    const c = !this.animationContexts.size ? canvas.grid.getSnappedPoint(this.center, {
+      mode: uneven ? M.CENTER : M.VERTEX,
+      resolution: 1
+    }) : this.center;
+
+    cache.centerX = c.x;
+    cache.centerY = c.y;
+
+    const st = stage.worldTransform;
+    const zoomX = stage.scale.x || 1.0;
+    const zoomY = stage.scale.y || 1.0;
+    const halfWorld = (cache.sizeUnits * cache.gridSize) * 0.5;
+
+    cache.hitboxHalfWidth  = halfWorld * zoomX;
+    cache.hitboxHalfHeight = halfWorld * zoomY;
+    cache.hitboxCenterX = st.a * cache.centerX + st.c * cache.centerY + st.tx;
+    cache.hitboxCenterY = st.b * cache.centerX + st.d * cache.centerY + st.ty;
+    cache.trParentID = trParentID;
+    cache.trLocalID = trLocalID;
+
+    return cache;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * To know whether this token has an active hit box state or can have.
+   * @returns {boolean}
+   */
+  hasNoActiveHitBoxState() {
+    return this.#hbCache.animationTypes.valueOf() === 0;
+  }
+
+  /* -------------------------------------------- */
   /*  Socket Listeners and Handlers               */
   /* -------------------------------------------- */
 
@@ -439,6 +629,7 @@ export default class CrucibleTokenObject extends foundry.canvas.placeables.Token
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     if ( !canvas.scene.useMicrogrid ) return;
+    CrucibleTokenObject.visibleTokens.delete(this);
 
     // Apply flanking updates
     const activeGM = game.users.activeGM;

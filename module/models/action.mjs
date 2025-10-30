@@ -1,7 +1,6 @@
 import StandardCheck from "../dice/standard-check.mjs";
 import ActionUseDialog from "../dice/action-use-dialog.mjs";
 import CrucibleActionConfig from "../applications/config/action-config.mjs";
-import {configureStrikeVFXEffect} from "../canvas/vfx/strikes.mjs";
 
 /**
  * @typedef {Object} ActionContext
@@ -82,10 +81,12 @@ import {configureStrikeVFXEffect} from "../canvas/vfx/strikes.mjs";
 /**
  * @typedef CrucibleActionOutcome
  * @property {CrucibleActor} target       The outcome target
+ * @property {boolean} self               Is this outcome target the action actor?
  * @property {ActionUsage} [usage]        Outcome-specific usage data
  * @property {AttackRoll[]} rolls         Any AttackRoll instances which apply to this outcome
  * @property {object} resources           Resource changes to apply to the target Actor in the form of deltas
  * @property {object} actorUpdates        Data updates to apply to the target Actor
+ * @property {object} metadata            Fallback storage for miscellaneous data that persists throughout the action lifecycle
  * @property {ActionEffect[]} effects     ActiveEffect data to create on the target Actor
  * @property {ActionSummonConfiguration[]} [summons]  Creatures summoned by this action
  * @property {boolean} [weakened]         Did the target become weakened?
@@ -579,7 +580,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
 
     // Create outcomes for each target and for self
     for ( const {actor, token} of targets ) {
-      const outcome = this.#createOutcome(actor, token.document);
+      const outcome = this.#createOutcome(actor, token?.document || null);
       this.outcomes.set(actor, outcome);
       this.actor._configureActorOutcome(this, outcome);
       actor._configureTargetOutcome(this, outcome);
@@ -775,7 +776,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
         case "self":
           const tokenTargets = this.actor.getActiveTokens(true).map(CrucibleAction.#getTargetFromToken);
           targets = tokenTargets.length
-            ? tokenTargets
+            ? [tokenTargets[0]]
             : [{actor: this.actor, uuid: this.actor.uuid, name: this.actor.name, token: null}];
           break;
         case "single":
@@ -967,6 +968,8 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
       effects: [],
       resources: {},
       actorUpdates: {},
+      metadata: {},
+      self: actor === this.actor,
       statusText: [],
     };
 
@@ -1445,17 +1448,25 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     try {
       vfxEffect = new foundry.vfx.VFXEffect(vfxConfig);
     } catch(cause) {
-      console.warn(new Error(`Failed to construct provided Action VFX config for Action "${action.id}"`));
+      console.warn(new Error(`Failed to construct provided Action VFX config for Action "${this.id}"`));
       return;
     }
 
-    // Resolve references
-    references.actor = this.actor;
-    references.token = this.token;
+    // Always include the action actor and token
+    references.actor ??= this.actor;
+    references.token ??= this.token;
+
+    // Pass 1 - resolve UUID references that start with @
     for ( const [k, v] of Object.entries(references) ) {
-      if ( typeof v === "string" ) {
-        const uuid = foundry.utils.parseUuid(v);
-        if ( uuid ) references[k] = fromUuidSync(v);
+      if ( (typeof v === "string") && (v[0] === "@") ) {
+        references[k] = fromUuidSync(v.slice(1));
+      }
+    }
+
+    // Pass 2 - resolve indirect references that start with ^
+    for ( const [k, v] of Object.entries(references) ) {
+      if ( (typeof v === "string") && (v[0] === "^") ) {
+        references[k] = foundry.utils.getProperty(references, v.slice(1)) ?? null;
       }
     }
 
@@ -1582,7 +1593,7 @@ export default class CrucibleAction extends foundry.abstract.DataModel {
     for ( const outcome of this.outcomes.values() ) {
       const {target, token, rolls: outcomeRolls, ...outcomeData} = outcome;
       outcomeData.target = target.uuid;
-      outcomeData.token = token.uuid;
+      outcomeData.token = token?.uuid || null;
       outcomeData.rolls = outcomeRolls.map((roll, i) => {
         roll.data.newTarget = hasMultipleTargets && (i === 0);
         roll.data.index = rolls.length;

@@ -2,20 +2,113 @@ import {freezeEnum} from "./enum.mjs";
 
 /**
  * Creature types supported by the system.
- * @type {Record<string, string>}
+ * @type {Record<string, {label: string, skill: string, knowledge: string}>}
  */
 export const CREATURE_CATEGORIES = {
-  beast: "TAXONOMY.CATEGORIES.BEAST",
-  celestial: "TAXONOMY.CATEGORIES.CELESTIAL",
-  construct: "TAXONOMY.CATEGORIES.CONSTRUCT",
-  dragon: "TAXONOMY.CATEGORIES.DRAGON",
-  elemental: "TAXONOMY.CATEGORIES.ELEMENTAL",
-  giant: "TAXONOMY.CATEGORIES.GIANT",
-  humanoid: "TAXONOMY.CATEGORIES.HUMANOID",
-  monstrosity: "TAXONOMY.CATEGORIES.MONSTROSITY",
-  ooze: "TAXONOMY.CATEGORIES.OOZE",
-  outsider: "TAXONOMY.CATEGORIES.OUTSIDER",
-  undead: "TAXONOMY.CATEGORIES.UNDEAD"
+  beast: {
+    label: "TAXONOMY.CATEGORIES.BEAST",
+    skill: "medicine",
+    knowledge: "beasts"
+  },
+  celestial: {
+    label: "TAXONOMY.CATEGORIES.CELESTIAL",
+    skill: "arcana",
+    knowledge: "celestials"
+  },
+  construct: {
+    label: "TAXONOMY.CATEGORIES.CONSTRUCT",
+    skill: "science",
+    knowledge: "machines"
+  },
+  dragon: {
+    label: "TAXONOMY.CATEGORIES.DRAGON",
+    skill: "arcana",
+    knowledge: "dragons"
+  },
+  elemental: {
+    label: "TAXONOMY.CATEGORIES.ELEMENTAL",
+    skill: "arcana",
+    knowledge: "elementals"
+  },
+  giant: {
+    label: "TAXONOMY.CATEGORIES.GIANT",
+    skill: "society",
+    knowledge: "legends"
+  },
+  humanoid: {
+    label: "TAXONOMY.CATEGORIES.HUMANOID",
+    skill: "society",
+    knowledge: null
+  },
+  monstrosity: {
+    label: "TAXONOMY.CATEGORIES.MONSTROSITY",
+    skill: "medicine",
+    knowledge: "monsters"
+  },
+  ooze: {
+    label: "TAXONOMY.CATEGORIES.OOZE",
+    skill: "science",
+    knowledge: null
+  },
+  outsider: {
+    label: "TAXONOMY.CATEGORIES.OUTSIDER",
+    skill: "arcana",
+    knowledge: "outsiders"
+  },
+  undead: {
+    label: "TAXONOMY.CATEGORIES.UNDEAD",
+    skill: "arcana",
+    knowledge: "undeath"
+  }
+};
+
+/**
+ * @typedef CrucibleCurrencyDenomination
+ * @property {string} label                 A human-readable and localized label for the denomination
+ * @property {string} abbreviation          A short abbreviation for the denomination
+ * @property {number} multiplier            A numerical multiplier that quantifies the value of this denomination
+ *                                          relative to base currency units
+ * @property {string} [icon]                An optional image icon for the denomination.
+ *                                          Recommended size is 48px square or smaller
+ */
+
+/**
+ * Configure the set of currency denominations that are supported by the system.
+ * The keys of this object are unique abbreviations which are used to parse currency strings.
+ *
+ * Each denomination specifies a multiplier which defines how valuable that denomination is.
+ * Currency is stored as an integer value of the lowest denomination (multiplier=1).
+ *
+ * There should be at least one denomination which has a multiplier of 1 to ensure that a raw currency amount can be
+ * fully allocated.
+ *
+ * @type {Record{string, CrucibleCurrencyDenomination}
+ */
+export const CURRENCY_DENOMINATIONS = {
+  cp: {
+    label: "CURRENCY_DENOMINATIONS.CP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.CP.abbreviation",
+    icon: "systems/crucible/icons/currency/cp.webp",
+    multiplier: 1
+  },
+  sp: {
+    label: "CURRENCY_DENOMINATIONS.SP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.SP.abbreviation",
+    icon: "systems/crucible/icons/currency/sp.webp",
+    multiplier: 10
+  },
+  gp: {
+    label: "CURRENCY_DENOMINATIONS.GP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.GP.abbreviation",
+    icon: "systems/crucible/icons/currency/gp.webp",
+    multiplier: 100
+  },
+  pp: {
+    label: "CURRENCY_DENOMINATIONS.PP.label",
+    abbreviation: "CURRENCY_DENOMINATIONS.PP.abbreviation",
+    icon: "systems/crucible/icons/currency/pp.webp",
+    multiplier: 1000
+  }
 };
 
 /**
@@ -93,6 +186,34 @@ export const TRAVEL_PACES = freezeEnum({
   }
 });
 
+/**
+ * Categories a language can (optionally) belong to
+ * @type {Record<string, {label: string}>}
+ */
+export const LANGUAGE_CATEGORIES = {
+  nonSpoken: {
+    label: "LANGUAGE_CATEGORIES.NONSPOKEN"
+  },
+  spoken: {
+    label: "LANGUAGE_CATEGORIES.SPOKEN"
+  }
+};
+
+/**
+ * Languages a creature can know
+ * @type {Record<string, {label: string, category?: string}>}}
+ */
+export const LANGUAGES = {
+  common: {
+    label: "LANGUAGES.COMMON",
+    category: "spoken"
+  },
+  sign: {
+    label: "LANGUAGES.SIGN",
+    category: "nonSpoken"
+  }
+};
+
 /* -------------------------------------------- */
 
 /**
@@ -130,17 +251,13 @@ export const HOOKS = Object.freeze({
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "outcome", "self"]
   },
-  defendSkillAttack: {
+  defendAttack: {
     group: "TALENT.HOOKS.GROUP_ACTION",
     argNames: ["action", "origin", "rollData"]
   },
-  defendSpellAttack: {
+  receiveAttack: {
     group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["spell", "origin", "rollData"]
-  },
-  defendWeaponAttack: {
-    group: "TALENT.HOOKS.GROUP_ACTION",
-    argNames: ["action", "origin", "rollData"]
+    argNames: ["action", "roll"]
   },
 
   prepareSkillCheck: {

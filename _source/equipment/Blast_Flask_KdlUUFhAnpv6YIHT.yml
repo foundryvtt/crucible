@@ -7,7 +7,7 @@ system:
   category: bomb
   quantity: 1
   weight: 1
-  price: 5
+  price: 2500
   quality: standard
   broken: false
   enchantment: mundane
@@ -31,7 +31,7 @@ system:
       img: icons/weapons/thrown/bomb-fuse-red-black.webp
       condition: ''
       description: >-
-        <p>You light and throw the Blast flask, dealing <strong>Fire
+        <p>You light and throw the @ref[name], dealing <strong>Fire
         </strong>damage to all enemies in the radius of the explosion. The
         radius of the <strong>Blast</strong> depends on the quality of the
         bomb:</p><ul><li><p><strong>Shoddy</strong> - 3
@@ -56,12 +56,13 @@ system:
         size: 4
       effects: []
       tags:
+        - freehand
         - reflex
         - fire
         - dexterity
         - skill
         - athletics
-        - freehand
+        - consume
       actionHooks: []
   uses:
     value: 1
@@ -83,11 +84,11 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.9
   createdTime: 1751422081513
-  modifiedTime: 1751641463671
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1761413874238
+  lastModifiedBy: AnoypGxxNIMOS0XY
 sort: 200000
 _key: '!items!KdlUUFhAnpv6YIHT'

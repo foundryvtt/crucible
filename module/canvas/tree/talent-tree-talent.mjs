@@ -2,37 +2,76 @@ import CrucibleTalentIcon from "./talent-icon.mjs";
 
 
 export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
-  constructor(node, talent, position, config) {
-    super(config);
+  constructor(node, talent, position) {
+    super();
     this.node = node;
     this.talent = talent;
     this.position.set(position.x, position.y);
   }
 
-  /** @override */
-  async draw({active, accessible, ...config}={}) {
+  /* -------------------------------------------- */
 
-    // Style
+  /** @inheritDoc */
+  _configure({active, accessible, ...config}={}) {
+    config = super._configure(config);
+    const spritesheet = crucible.tree.spritesheet;
     const {actions, rune, gesture, inflection, iconicSpells, training} = this.talent.system;
-    if ( actions.length ) {
-      this.config.shape = "rect";
-      this.config.borderRadius = this.config.size / 6;
-    }
-    else if ( rune || gesture || inflection || iconicSpells ) {
-      this.config.shape = "hex";
-    }
-    else if ( training.type && training.rank ) {
-      this.config.shape = "hex";
-    }
-    else this.config.shape = "circle";
+    const nodeColor = this.node.node.color;
 
-    // Talent State
-    config.borderColor = active ? this.node.node.color : 0x444444;
+    // Defaults
+    config.texture = foundry.canvas.getTexture(this.talent.img);
     config.alpha = active ? 1.0 : 0.6;
+    config.underglowColor = active ? nodeColor : null;
+    config.frameTint = active ? 0xFFFFFF : 0x7f7f7f; // 50%
+    config.iconTint = active ? 0xFFFFFF : Color.fromHSL([nodeColor.hsl[0], 0.05, 0.4]);
 
-    // Draw Icon
+    // Active Talents
+    if ( actions.length ) {
+      config.shape = "rect";
+      config.borderRadius = this.config.size / 6;
+    }
+
+    // Spellcraft Talents
+    else if ( rune || gesture || inflection || iconicSpells ) {
+      config.shape = "hex";
+    }
+
+    // Training Talents
+    else if ( training.type && training.rank ) {
+      config.shape = "hex";
+    }
+
+    // Passive Talents
+    else config.shape = "circle";
+
+    // Further configuration based on shape
+    let shape = this.config.shape;
+    switch (shape ) {
+      case "circle":
+        config.shape = "circle";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameCircleSmallBronzeShadow;
+        break;
+      case "hex":
+        config.shape = "hex";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameHexSmallBronzeShadow;
+        break;
+      case "rect":
+        config.shape = "rect";
+        config.size = 64;
+        config.frameTexture = spritesheet.FrameSquareSmallBronzeShadow;
+        break;
+    }
+    return config;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async draw(config) {
     await super.draw(config);
-    this.icon.filters = accessible ? [] : [this.constructor.greyscaleFilter];
+    this.icon.filters = config.accessible ? [] : [this.constructor.greyscaleFilter];
     this.#activateInteraction();
   }
 
@@ -62,7 +101,7 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
     const actor = tree.actor;
     if ( !actor ) return;
     if ( !actor || actor.talentIds.has(this.talent.id) ) return;
-    const response = await actor.addTalent(this.talent, {dialog: true});
+    const response = await actor.addTalent(this.talent, {dialog: true, warnUnusable: true});
     if ( response ) crucible.api.audio.playClick();
   }
 
@@ -84,14 +123,24 @@ export default class CrucibleTalentTreeTalent extends CrucibleTalentIcon {
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle pointer-over events entering a talent icon within an expanded wheel.
+   * @param {PIXI.InteractionEvent} event
+   */
   #onPointerOver(event) {
+    const tree = crucible.tree;
+    if ( event.nativeEvent.target !== tree.canvas ) return;
     event.stopPropagation();
     this.scale.set(1.2, 1.2);
-    game.system.tree.hud.activate(this);
+    tree.hud.activate(this);
   }
 
   /* -------------------------------------------- */
 
+  /**
+   * Handle pointer-out events leaving a talent icon within an expanded wheel.
+   * @param {PIXI.InteractionEvent} event
+   */
   #onPointerOut(event) {
     event.stopPropagation();
     this.scale.set(1.0, 1.0);

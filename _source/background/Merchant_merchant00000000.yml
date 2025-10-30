@@ -20,15 +20,17 @@ system:
   ui:
     color: '#dac372'
   knowledge:
-    - trade
     - crafts
+    - trade
+  languages:
+    - common
 _stats:
   systemId: crucible
-  systemVersion: 0.7.3
-  coreVersion: '13.345'
+  systemVersion: 0.7.8
+  coreVersion: '13.347'
   createdTime: 1674942420028
-  modifiedTime: 1750349966227
-  lastModifiedBy: QvBFYpRRXHRBcOfP
+  modifiedTime: 1756083988003
+  lastModifiedBy: AnoypGxxNIMOS0XY
   compendiumSource: null
   duplicateSource: null
   exportSource: null

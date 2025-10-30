@@ -12,7 +12,11 @@ system:
     strength: 1
     toughness: 1
     dexterity: 1
-  talents: []
+  talents:
+    - Compendium.crucible.talent.Item.mnemonicrealizat
+    - Compendium.crucible.talent.Item.preparedness0000
+    - Compendium.crucible.talent.Item.diversionist0000
+    - Compendium.crucible.talent.Item.provocateur00000
   skills:
     - awareness
     - society
@@ -29,12 +33,12 @@ _stats:
   compendiumSource: null
   duplicateSource: null
   exportSource: null
-  coreVersion: '13.346'
+  coreVersion: '13.350'
   systemId: crucible
-  systemVersion: 0.7.4
+  systemVersion: 0.7.8
   createdTime: 1750816338739
-  modifiedTime: 1751555007475
+  modifiedTime: 1759601260397
   lastModifiedBy: QvBFYpRRXHRBcOfP
 _id: trader0000000000
-sort: 0
+sort: 1000000
 _key: '!items!trader0000000000'

@@ -20,6 +20,8 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       memberRemove: CrucibleGroupActorSheet.#onMemberRemove,
       memberSheet: CrucibleGroupActorSheet.#onMemberSheet,
       cyclePace: CrucibleGroupActorSheet.#onCyclePace,
+      recover: CrucibleGroupActorSheet.#onRecover,
+      rest: CrucibleGroupActorSheet.#onRest
     },
     form: {
       submitOnChange: true
@@ -160,5 +162,25 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
     const current = paces[this.actor.system.movement.pace];
     const next = Object.values(paces).find(p => p.order === current.order + 1) || paces.hidden;
     await this.actor.update({"system.movement.pace": next.id});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleGroupActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRecover(_event, _target) {
+    await this.document.system.recover();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @this {CrucibleGroupActorSheet}
+   * @type {ApplicationClickAction}
+   */
+  static async #onRest(_event, _target) {
+    await this.document.system.rest();
   }
 }

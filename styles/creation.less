@@ -2,6 +2,7 @@
   --max-width: 1600px;
   --ui-scale: 1.0;
   --gap: 32px; // 2rem
+  --icon-size: 64px;
 
   position: fixed;
   width: calc((100vw / var(--ui-scale)) + 1px); // FIXME +1px because round(up) isn't compiling in LESS
@@ -75,7 +76,7 @@
   }
 
   #hero-creation-nav {
-    padding: 16px var(--gap);
+    padding-top: var(--gap);
     gap: calc(var(--gap) * 2);
     z-index: 1;
 
@@ -100,9 +101,7 @@
         white-space: nowrap;
       }
       .step-number {
-        font-size: 24px;
         color: var(--color-text-subtle);
-        font-weight: bold;
       }
       .step-banner {
         position: relative;
@@ -126,8 +125,8 @@
           z-index: -1;
         }
         .step-icon {
-          width: 60px;
-          height: 60px;
+          width: var(--icon-size);
+          height: var(--icon-size);
           border: 2px ridge var(--color-light-4);
           border-radius: 100%;
           box-sizing: content-box;
@@ -145,9 +144,14 @@
       }
 
       // Active Step
-      &.active .step-title {
-        color: var(--color-text-emphatic);
-        text-shadow: 0 0 6px var(--color-text-accent);
+      &.active {
+        .step-banner {
+          border-top: 4px ridge var(--color-light-3);
+        }
+        .step-title {
+          color: var(--color-text-emphatic);
+          text-shadow: 0 0 6px var(--color-text-accent);
+        }
       }
     }
   }
@@ -212,14 +216,15 @@
 
       // Option Icon
       .option-icon {
-        width: 64px;
-        height: 64px;
+        width: var(--icon-size);
+        height: var(--icon-size);
         position: absolute;
-        left: -16px;
-        top: -8px;
+        left: calc(-0.25 * var(--icon-size));
+        top: calc(-0.125 * var(--icon-size));
         background: linear-gradient(to bottom, var(--option-color) 0%, var(--color-cool-5) 100%);
         border: 2px ridge var(--color-light-4);
         border-radius: 100%;
+        box-sizing: content-box;
         overflow: hidden;
       }
       h4 {
@@ -246,6 +251,7 @@
         transform: rotate(45deg);
       }
 
+      // Active selection
       &.active {
         h4 {
           color: var(--color-text-emphatic);
@@ -265,6 +271,16 @@
         padding: 0 0.5rem;
         &::after {
           left: calc(50%  - 3px);
+        }
+      }
+
+      // Special Option
+      &.special {
+        --icon-size: 56px;
+        grid-column: 1 / span 2;
+        margin: 2rem 4rem 0;
+        h4 {
+          font-size: var(--font-size-12);
         }
       }
     }
@@ -481,42 +497,27 @@
   }
 }
 
-// Dynamic scaling
-// The fullscreen UI is designed for 1920x1080. Smaller or larger screens must adapt
-@media (min-width: 2000px) {
-  .crucible-fullscreen {
-    --ui-scale: 1.1;
-  }
-}
-@media (max-width: 1660px) {
-  .crucible-fullscreen {
+/* -------------------------------------------- */
+/*  Dynamic Scaling                             */
+/*  Designed for base 1920x1080                 */
+/* -------------------------------------------- */
+
+.crucible-fullscreen {
+  @media (min-width: 2000px) { --ui-scale: 1.1; }
+  @media (max-width: 1660px) {
+    --ui-scale: 1.0;
     --max-width: 1400px;
   }
-}
-@media (max-width: 1480px) {
-  .crucible-fullscreen {
+  @media (max-width: 1480px) {
     --ui-scale: 0.9;
+    --max-width: calc(100% - (2 * var(--gap)));
   }
-}
-@media (max-width: 1340px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.9;
-    --max-width: 1200px;
-  }
-}
-@media (max-width: 1200px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.8;
-    --max-width: 1100px;
-  }
-}
-@media (max-height: 1040px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.9;
-  }
-}
-@media (max-height: 900px) {
-  .crucible-fullscreen {
-    --ui-scale: 0.8;
-  }
+  @media (max-width: 1340px) { --ui-scale: 0.9; }
+  @media (max-width: 1200px) { --ui-scale: 0.8; }
+
+  // Height Scaling
+  @media (max-height: 1200px) { --ui-scale: 1.0; }
+  @media (max-height: 1040px) { --ui-scale: 0.9; }
+  @media (max-height: 920px) { --ui-scale: 0.8; }
+  @media (max-height: 800px) { --ui-scale: 0.7; }
 }

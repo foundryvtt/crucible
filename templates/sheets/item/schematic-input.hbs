@@ -1,0 +1,39 @@
+<fieldset class="schematic-input" {{@root.fieldDisabled}} data-field="inputs" data-index="{{index}}">
+    <legend>
+        <span>Inputs</span>
+        <button type="button" class="icon fa-solid fa-times" data-action="inputRemove"
+                aria-label="{{localize 'SCHEMATIC.SHEET.INPUT_REMOVE'}}" data-tooltip></button>
+    </legend>
+    {{formInput @root.inputFields.mode name=(concat input.fieldPath ".mode") value=input.mode classes="input-mode" localize=true}}
+    {{#each input.ingredients as |i|}}
+    <div class="ingredient line-item" data-uuid="{{i.uuid}}" data-index="{{@index}}">
+        {{formInput @root.ingredientFields.quantity name=(concat i.fieldPath ".quantity") value=i.quantity
+                    classes="quantity"}}
+        <img class="icon" src="{{i.img}}" alt="{{i.name}}">
+        <div class="title">
+            <h4>{{i.name}}</h4>
+            <div class="tags">
+                {{#each i.tags as |tag type|}}
+                <span class="tag" data-tag="{{type}}">{{tag}}</span>
+                {{/each}}
+            </div>
+        </div>
+        {{#if @root.isEditable}}
+        <input type="hidden" name="{{i.fieldPath}}.item" value="{{i.uuid}}">
+        {{formInput @root.ingredientFields.quality name=(concat i.fieldPath ".quality") value=i.quality blank="Any Quality"}}
+        {{formGroup @root.ingredientFields.consumed name=(concat i.fieldPath ".consumed") value=i.consumed classes="slim" hint=""}}
+        <div class="controls">
+            <a class="button icon fa-solid fa-times" data-action="itemRemove"
+               aria-label="{{localize 'SCHEMATIC.SHEET.ITEM_REMOVE'}}" data-tooltip></a>
+        </div>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{formGroup @root.inputFields.currency name=(concat input.fieldPath ".currency") value=input.currency
+                input=@root.currencyInput classes="currency" hint=""}}
+    {{#if @root.isEditable}}
+    <div class="ingredient-drop droppable">
+        <p class="hint">{{localize "SCHEMATIC.SHEET.INPUT_DROP"}}</p>
+    </div>
+    {{/if}}
+</fieldset>
