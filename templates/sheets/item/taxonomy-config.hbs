@@ -33,10 +33,11 @@
         <div class="form-fields">
             {{#each resistances as |r|}}
             <label>
-                {{formInput r.field value=r.value type="number"}}
+                {{formInput r.field value=r.value type="number" dataset=r.dataset}}
                 {{r.label}}
             </label>
             {{/each}}
+            {{formGroup immunities.field value=immunities.immune classes="immunities" name="immunities"  localize=true}}
         </div>
         <p class="hint">{{fields.resistances.hint}}</p>
     </fieldset>

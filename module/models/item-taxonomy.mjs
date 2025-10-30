@@ -27,7 +27,10 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
         stride: new fields.NumberField({...requiredInteger, min: 1, initial: 10})
       }),
       resistances: new fields.SchemaField(Object.values(SYSTEM.DAMAGE_TYPES).reduce((obj, damageType) => {
-        obj[damageType.id] = new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3});
+        obj[damageType.id] = new fields.SchemaField({
+          value: new fields.NumberField({...requiredInteger, initial: 0, min: -3, max: 3}),
+          immune: new fields.BooleanField()
+        });
         return obj;
       }, {}), {validate: CrucibleTaxonomyItem.#validateResistances}),
       talents: new fields.SetField(new fields.DocumentUUIDField({type: "Item"})),
@@ -59,13 +62,13 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
 
   /**
    * Validate that resistance scaling for the Taxonomy is balanced.
-   * @param {Object<number>} resistances                Resistance choices
+   * @param {Object<string, {value: number; immune: boolean}>} resistances                Resistance choices
    * @param {DataFieldValidationOptions} [options={}]   Options which affect validation
    * @throws {Error}                                    An error if the resistance choices are invalid
    */
   static #validateResistances(resistances, options) {
     if ( options.partial === true ) return;
-    const sum = Object.values(resistances).reduce((t, n) => t + n, 0);
+    const sum = Object.values(resistances).reduce((t, n) => t + (n.immune ? 4 : n.value), 0);
     if ( sum !== 0 ) throw new Error(`The sum of resistance scaling values must equal zero. Currently ${sum}`);
   }
 
@@ -109,6 +112,16 @@ export default class CrucibleTaxonomyItem extends foundry.abstract.TypeDataModel
       source.movement ||= {};
       source.movement.stride = source.stride;
       delete source.stride;
+    }
+
+    /** @deprecated since 0.8.1 */
+    for ( const damageType of Object.values(SYSTEM.DAMAGE_TYPES) ) {
+      if ( Number.isNumeric(source.resistances[damageType.id]) ) {
+        source.resistances[damageType.id] = {
+          value: source.resistances[damageType.id],
+          immune: false
+        } 
+      }
     }
   }
 }
