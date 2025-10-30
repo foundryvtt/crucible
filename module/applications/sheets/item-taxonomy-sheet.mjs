@@ -40,7 +40,10 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
       })),
       immunities: {
         field: new SetField(new StringField({choices: SYSTEM.DAMAGE_TYPES}), {label: "TAXONOMY.FIELDS.resistances.immune.label"}),
-        immune: Object.entries(context.source.system.resistances).filter(([_, {immune}]) => immune).map(([id]) => id)
+        immune: Object.entries(context.source.system.resistances).reduce((arr, [k, {immune}]) => {
+          if ( immune ) arr.push(k);
+          return arr;
+        }, [])
       }
     });
   }
