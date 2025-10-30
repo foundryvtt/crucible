@@ -36,11 +36,23 @@ export default class CompendiumSourcesConfig extends api.HandlebarsApplicationMi
     const context = await super._prepareContext(options);
     context.sources = [];
     const settingSchema = game.settings.settings.get("crucible.compendiumSources").type;
+    const systemString = game.i18n.localize("PACKAGE.Type.system");
+    const worldString = game.i18n.localize("PACKAGE.Type.world");
     for ( const [type, sources] of Object.entries(crucible.CONFIG.packs) ) {
+      const choices = settingSchema.fields[type].element.choices();
+      const allGroups = Array.from(new Set(Object.values(choices).map(i => i.group)));
+      allGroups.sort((a, b) => {
+        if ( a.startsWith(systemString) ) return -1;
+        if ( b.startsWith(systemString) ) return 1;
+        if ( a.startsWith(worldString) ) return -1;
+        if ( b.startsWith(worldString) ) return 1;
+        return a.localeCompare(b);
+      });
       context.sources.push({
         type,
         field: settingSchema.fields[type],
-        value: sources
+        value: sources,
+        groups: allGroups
       });
     }
     context.buttons = [{ type: "submit", icon: "fa-solid fa-save", label: "Save Changes"}];

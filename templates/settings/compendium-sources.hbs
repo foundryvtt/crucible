@@ -1,6 +1,6 @@
 <fieldset>
   <legend>{{localize "SETTINGS.COMPENDIUM_SOURCES.name"}}</legend>
   {{#each sources as |s|}}
-    {{ formGroup s.field value=s.value localize=true }}
+    {{ formGroup s.field value=s.value groups=s.groups localize=true }}
   {{/each}}
 </fieldset>

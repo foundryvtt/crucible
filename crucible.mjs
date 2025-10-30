@@ -261,21 +261,28 @@ Hooks.once("init", async function() {
   });
 
   const fields = foundry.data.fields;
-  function fieldForType(type) {
-    const getPacks = (type) => {
+  function fieldForType(documentType, type) {
+    const getPacks = (documentType, type) => {
       const potentialPacks = {};
       for (const pack of game.packs) {
-        if (pack.metadata.type !== "Item") continue;
+        if (pack.metadata.type !== documentType) continue;
         for (const item of pack.index) {
           if (item.type === type) {
-            potentialPacks[pack.metadata.id] = `${pack.metadata.label} (${pack.metadata.id})`;
+            let group = `${game.i18n.localize(`PACKAGE.Type.${pack.metadata.packageType}`)}: `;
+            if ( pack.metadata.packageType === "system" ) group += game.system.title; 
+            else if ( pack.metadata.packageType === "world" ) group += game.world.title;
+            else group += game.modules.get(pack.metadata.packageName).title
+            potentialPacks[pack.metadata.id] = {
+              label: `${pack.metadata.label} (${pack.metadata.id})`,
+              group
+            };
             break;
           }
         }
       }
       return potentialPacks;
     };
-    return new fields.SetField(new fields.StringField({ required: true, choices: () => getPacks(type)}), {
+    return new fields.SetField(new fields.StringField({ required: true, choices: () => getPacks(documentType, type)}), {
       label: `SETTINGS.COMPENDIUM_SOURCES.${type}.label`,
       hint: `SETTINGS.COMPENDIUM_SOURCES.${type}.hint`
     });
@@ -287,10 +294,10 @@ Hooks.once("init", async function() {
     scope: "world",
     config: false,
     type: new fields.SchemaField({
-      ancestry: fieldForType("ancestry"),
-      background: fieldForType("background"),
-      spell: fieldForType("spell"),
-      talent: fieldForType("talent")
+      ancestry: fieldForType("Item", "ancestry"),
+      background: fieldForType("Item", "background"),
+      spell: fieldForType("Item", "spell"),
+      talent: fieldForType("Item", "talent")
     }),
     default: {
       ancestry: [SYSTEM.COMPENDIUM_PACKS.ancestry],
@@ -460,7 +467,7 @@ Hooks.once("setup", function() {
   // Update compendium sources from settings
   const currSources = Object.entries(game.settings.get("crucible", "compendiumSources")).reduce((acc, [type, sources]) => {
     acc[type] = sources.filter(p => game.packs.has(p));
-    if ( !acc[type].size ) acc[type] = crucible.CONFIG.packs[type];
+    if ( !acc[type].size ) acc[type] = crucible.CONST.COMPENDIUM_PACKS[type];
     return acc;
   }, {});
   crucible.CONFIG.packs = currSources;
