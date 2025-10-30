@@ -1304,7 +1304,7 @@
     },
     "resistances": {
       "label": "Resistance Scaling",
-      "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. Granting immunity to a damage type will automatically set the value to +4. The total across all resistances must sum to zero.",
+      "hint": "Define how the resistances and vulnerabilities for creatures of this Taxonomy scale as they advance in level. Assign values to each resistance between -3 (most vulnerable) and +3 (most resistant). Damage types set to zero are neither resistant nor vulnerable. Granting immunity to a damage type will is equivalent to a \"+4\" resistance. The total across all resistances & immunities must sum to zero.",
       "value": {
         "label": "Resistance Scaling Value",
         "hint": "Numerical resistance to a this damage type, value between -3 (most vulnerable) and 3 (most resistant). Scales as a creature of this Taxonomy advances in level."

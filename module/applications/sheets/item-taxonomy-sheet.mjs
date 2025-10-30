@@ -21,6 +21,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    const {SetField, StringField} = foundry.data.fields;
     return Object.assign(context, {
       abilities: Object.values(SYSTEM.ABILITIES).map(ability => ({
         field: context.fields.abilities.fields[ability.id],
@@ -32,10 +33,13 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
         field: context.fields.resistances.fields[damage.id].fields.value,
         id: damage.id,
         label: damage.label,
-        value: context.source.system.resistances[damage.id].immune ? 4 : context.source.system.resistances[damage.id].value
+        value: context.source.system.resistances[damage.id].value,
+        dataset: {
+          damageType: damage.id
+        }
       })),
       immunities: {
-        damageTypes: SYSTEM.DAMAGE_TYPES,
+        field: new SetField(new StringField({choices: SYSTEM.DAMAGE_TYPES}), {label: "TAXONOMY.FIELDS.resistances.immune.label"}),
         immune: Object.entries(context.source.system.resistances).filter(([_, {immune}]) => immune).map(([id]) => id)
       }
     });
@@ -46,6 +50,7 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
+    this.#handleImmunities(context.immunities.immune);
     this.#updateAbilitySum();
     this.#updateResistanceSum();
   }
@@ -58,7 +63,9 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
     const group = event.target.closest(".form-group");
     if ( group?.classList.contains("abilities") )  this.#updateAbilitySum();
     else if ( group?.classList.contains("resistances") ) {
-      if ( event.target.name === "immunities" ) this.#handleImmunities(event.target.value);
+      this.#updateResistanceSum();
+    } else if ( group?.classList.contains("immunities") ) {
+      this.#handleImmunities(event.target.value);
       this.#updateResistanceSum();
     }
   }
@@ -88,13 +95,15 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
    */
   #handleImmunities(selected) {
     const resistances = this.element.querySelector(".resistances");
-    const inputs = resistances.querySelectorAll("input[type=number]");
+    const inputs = resistances.querySelectorAll("input[type=number],input[type=text]");
     for ( const input of inputs ) {
       if ( selected.includes(input.dataset.damageType) ) {
         input.disabled = true;
-        input.value = 4;
+        input.type = "text"
+        input.value = "∞";
       } else {
         input.disabled = false;
+        input.type = "number";
         input.value = foundry.utils.getProperty(this.document, input.name);
       }
     }
@@ -108,7 +117,8 @@ export default class CrucibleTaxonomyItemSheet extends CrucibleActorDetailsItemS
   #updateResistanceSum() {
     const resistances = this.element.querySelector(".resistances");
     const inputs = resistances.querySelectorAll("input[type=number]");
-    const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, 0);
+    const immuneTotal = resistances.querySelector("[name='immunities']").value.length * 4;
+    const total = Array.from(inputs).reduce((t, input) => t + input.valueAsNumber, immuneTotal);
     const valid = total === 0;
     const icon = valid ? "fa-solid fa-check" : "fa-solid fa-times";
     const span = resistances.querySelector(".sum");
