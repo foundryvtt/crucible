@@ -603,6 +603,120 @@ pages:
       modifiedTime: 1761777695482
       lastModifiedBy: vke929uLgNzbrY41
     _key: '!journal.pages!characterMechani.backgrounds00000'
+  - _id: knowledges000000
+    name: Knowledges
+    type: text
+    system: {}
+    title:
+      show: true
+      level: 1
+    image: {}
+    text:
+      format: 1
+      content: >-
+        <p><strong>Knowledge </strong>areas are specific enhancements that
+        reflect notable areas of a hero's understanding of some specialized
+        training. While most knowledge areas come as a result of a
+        @UUID[Compendium.crucible.rules.JournalEntry.characterMechani.JournalEntryPage.backgrounds00000]{Background}
+        selected during
+        @UUID[Compendium.crucible.rules.JournalEntry.gszlBVQ5fGh3y0I6]{Character
+        Creation}, it is possible to attain knowledge areas in other ways during
+        character progression.</p><section class="foundryvtt"><p>Knowledge areas
+        are still being implemented and developed as a mechanical aspect of
+        Crucible and may change over the course of the next several
+        iterations.</p></section><p>While knowledge areas do not grant a
+        specific mechanical bonus, they are often used in combination with skill
+        checks. Certain checks might require a specific knowledge to allow a
+        roll to be made, or, in some cases, a knowledge area may be used as a
+        substitute to the skill check that can provide an automatic success. In
+        some cases a GM may wish to allow a knowledge area to provide
+        @UUID[Compendium.crucible.rules.JournalEntry.KBDiQbnSfnRYG7mi.JournalEntryPage.Qme1mM71Jn950Zsf]{Boons}
+        to specific checks.</p><p>The knowledge areas currently supported by
+        Crucible are:</p><table><tbody><tr><th data-colwidth="185"><p>Knowledge
+        Area</p></th><th><p>Skill</p></th></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        alchemy]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        celestials]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        elementals]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        fey]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        fiends]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        gods]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        outsiders]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        rituals]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        souls]]</p></td><td><p>Arcana</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        forensics]]</p></td><td><p>Awareness</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        tracking]]</p></td><td><p>Awareness</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        intrigue]]</p></td><td><p>Deception</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        politics]]</p></td><td><p>Diplomacy</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        warfare]]</p></td><td><p>Intimidation</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        dragons]]</p></td><td><p>Medicine</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        monsters]]</p></td><td><p>Medicine</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        undeath]]</p></td><td><p>Medicine</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        arts]]</p></td><td><p>Performance</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        cosmology]]</p></td><td><p>Science</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        machines]]</p></td><td><p>Science</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        weather]]</p></td><td><p>Science</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        ancients]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        artifacts]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        crafts]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        crime]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        legends]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        trade]]</p></td><td><p>Society</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        beasts]]</p></td><td><p>Wilderness</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        plants]]</p></td><td><p>Wilderness</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        seafaring]]</p></td><td><p>Wilderness</p></td></tr><tr><td
+        data-colwidth="185"><p>[[/knowledge
+        subterranea]]</p></td><td><p>Wilderness</p></td></tr></tbody></table>
+    video:
+      controls: true
+      volume: 0.5
+    src: null
+    category: null
+    sort: 0
+    ownership:
+      default: -1
+      vke929uLgNzbrY41: 3
+    flags: {}
+    _stats:
+      compendiumSource: null
+      duplicateSource: null
+      exportSource: null
+      coreVersion: '13.350'
+      systemId: crucible
+      systemVersion: 0.8.0
+      createdTime: 1761937467527
+      modifiedTime: 1761939424177
+      lastModifiedBy: vke929uLgNzbrY41
+    _key: '!journal.pages!characterMechani.knowledges000000'
 folder: MMeWpMmsLOblp07U
 categories: []
 sort: 150000
