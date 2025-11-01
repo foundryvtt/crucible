@@ -1012,7 +1012,28 @@
   "AutoConfirmSelf": "Self-Target Actions Only",
   "AutoConfirmAll": "Auto-Confirm All Actions",
   "CruciblePartyLabel": "Primary Adventuring Party",
-  "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists."
+  "CruciblePartyHint": "Configure which which Group Actor is the primary group of protagonists.",
+  "COMPENDIUM_SOURCES": {
+    "name": "Compendium Sources",
+    "label": "Configure Compendium Sources",
+    "hint": "Configure which compendium packs can be used as sources during character creation.",
+    "ancestry": {
+      "label": "Ancestry Sources",
+      "hint": "Which packs will be used as sources of ancestries during character creation."
+    },
+    "background": {
+      "label": "Background Sources",
+      "hint": "Which packs will be used as sources of backgrounds during character creation."
+    },
+    "spell": {
+      "label": "Spell Sources",
+      "hint": "Which packs will be used as sources of iconic spells."
+    },
+    "talent": {
+      "label": "Talent Sources",
+      "hint": "Which packs will be used as sources of talents for the talent tree."
+    }
+  }
 },
 
 "SKILL": {
