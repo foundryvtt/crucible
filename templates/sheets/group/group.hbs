@@ -43,9 +43,9 @@
                 <h4 class="label">{{systemFields.advancement.fields.milestones.label}}</h4>
                 <button type="button" class="value" data-action="awardMilestone"
                         data-tooltip="ADVANCEMENT.MilestoneAward" data-tooltip-direction="RIGHT">
-                    {{system.advancement.milestones}}
+                    {{system.advancement.totalMilestones}}
                 </button>
-                <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{groupLevel.level}}</span>
+                <span class="label footer">{{localize "ADVANCEMENT.ExpectedLevel"}} {{system.advancement.expectedLevel}}</span>
             </div>
             <button type="button" class="icon fa-solid fa-campfire" data-action="rest"
                     aria-label="{{localize 'ACTOR.GROUP.LABELS.rest'}}" data-tooltip></button>

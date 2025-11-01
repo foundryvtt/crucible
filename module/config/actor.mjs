@@ -142,6 +142,7 @@ for ( const l of Object.values(LEVELS) ) {
   l.milestones.start = p.milestones.next;
   l.milestones.next = l.milestones.start + l.milestones.required;
 }
+LEVELS[18].milestones.next = Infinity;
 foundry.utils.deepFreeze(LEVELS);
 
 /**

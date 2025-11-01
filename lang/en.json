@@ -287,7 +287,11 @@
       "label": "Advancement",
       "milestones": {
         "label": "Milestones Earned",
-        "hint": "The number of milestones that have been earned by this group."
+        "hint": "A record of milestones that have been earned by this group.",
+        "element": {
+          "number.label": "Award Number",
+          "reason.label": "Award Reason"
+        }
       }
     },
     "details": {
@@ -513,18 +517,30 @@
 "ADVANCEMENT.Level": "Level",
 "ADVANCEMENT.Progress": "Milestone Progress",
 "ADVANCEMENT.MilestoneTooltip": "{progress} of {required} milestones until next level",
-"ADVANCEMENT.MilestoneAward": "Award Milestones",
+
 "ADVANCEMENT.ExpectedLevel": "Expected Level",
 
 "AWARD": {
+  "LABELS": {
+    "Award": "Award",
+    "Revoke": "Revoke"
+  },
   "TOOLTIPS": {
     "Currency": "Award Currency",
     "Milestone": "Award Milestone(s)"
   },
   "Each": "each",
-  "Milestone": {
+  "MILESTONE": {
     "one": "Milestone",
-    "other": "Milestones"
+    "other": "Milestones",
+    "Identifier": "Identifier",
+    "IdentifierHint": "A unique identifier for the milestone award, must be a slug (no spaces or special characters).",
+    "Award": "Award Milestones",
+    "Revoke": "Revoke Milestones",
+    "GroupAward": "Awarded {number} {label} to group {name} and the following members:",
+    "GroupRevoke": "Revoked {number} {label} from group {name} and the following members:",
+    "Recipients": "Milestone Recipients",
+    "RecipientsHint": "Designate one or more heroes to receive the milestone."
   },
   "SUMMARIES": {
     "Cost": "{award} cost paid by:",

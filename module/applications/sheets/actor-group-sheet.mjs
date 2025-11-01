@@ -16,7 +16,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       contentClasses: ["standard-form"]
     },
     actions: {
-      awardMilestone: CrucibleGroupActorSheet.#onAwardMilestone,
+      awardMilestone: {handler: CrucibleGroupActorSheet.#onAwardMilestone, buttons: [0, 2]},
       memberRemove: CrucibleGroupActorSheet.#onMemberRemove,
       memberSheet: CrucibleGroupActorSheet.#onMemberSheet,
       cyclePace: CrucibleGroupActorSheet.#onCyclePace,
@@ -44,8 +44,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
   /** @override */
   async _prepareContext(options) {
     const system = this.actor.system;
-    const milestones = system.advancement.milestones;
-    const groupLevel = Object.values(SYSTEM.ACTOR.LEVELS).findLast(l => l.milestones.start <= milestones);
+    const {milestones, expectedLevel, medianLevel} = system.advancement.milestones;
     return {
       actor: this.document,
       system,
@@ -55,7 +54,7 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
       systemFields: system.schema.fields,
       tags: this.actor.getTags(),
       pace: SYSTEM.ACTOR.TRAVEL_PACES[system.movement.pace],
-      groupLevel
+      expectedLevel
     };
   }
 
@@ -121,9 +120,10 @@ export default class CrucibleGroupActorSheet extends api.HandlebarsApplicationMi
    * @this {CrucibleGroupActorSheet}
    * @type {ApplicationClickAction}
    */
-  static async #onAwardMilestone(_event, _target) {
+  static async #onAwardMilestone(event, _target) {
     if ( !game.user.isGM ) return;
-    await this.actor.system.awardMilestoneDialog();
+    if ( event.button === 0 ) await this.actor.system.awardMilestoneDialog();
+    else if ( event.button === 2 ) await this.actor.system.revokeMilestoneDialog();
   }
 
   /* -------------------------------------------- */

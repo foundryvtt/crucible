@@ -1,4 +1,10 @@
 /**
+ * @typedef CrucibleGroupMilestoneAward
+ * @property {number} number
+ * @property {string} [reason]
+ */
+
+/**
  * Data schema, attributes, and methods specific to Group type Actors.
  */
 export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
@@ -15,7 +21,10 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Advancement
     schema.advancement = new fields.SchemaField({
-      milestones: new fields.NumberField({...requiredInteger, min: 0, initial: 0})
+      milestones: new fields.TypedObjectField(new fields.SchemaField({
+        number: new fields.NumberField({required: true, integer: true, min: 1}),
+        reason: new fields.StringField()
+      }))
     });
 
     // Group Members
@@ -84,6 +93,14 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
    */
   prepareDerivedData() {
     const levels = [];
+
+    // Expected party level
+    const a = this.advancement;
+    a.totalMilestones = Object.values(a.milestones).reduce((t, a) => t + a.number, 0);
+    const l = Object.values(SYSTEM.ACTOR.LEVELS).find(l => l.milestones.next > a.totalMilestones);
+    a.expectedLevel = l?.level ?? 0;
+
+    // Prepare members
     this.actors.clear();
     this.memberIds.clear();
     for ( const m of this.members ) {
@@ -100,7 +117,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     levels.sort();
     let medianLevel = levels[Math.floor((nl-1) / 2)];
     if ( levels.length % 2 !== 0 ) medianLevel = (medianLevel + levels[Math.ceil((nl-1) / 2)]) / 2;
-    this.medianLevel = medianLevel;
+    a.medianLevel = medianLevel;
 
     // Member IDs
     Object.defineProperty(this.members, "ids", {value: this.memberIds, enumerable: false, configurable: true});
@@ -194,38 +211,112 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------- */
 
   /**
-   * Award milestones to the members of this group.
-   * @param {number} quantity
-   * @param {object} options
-   * @param {boolean} [options.createMessage=true]
-   * @param {string[]} [options.recipientIds]
+   * Award a milestone to the members of this group.
+   * @param {string} identifier                       A unique string identifier for this milestone. Ideally a slug
+   * @param {number} number                           The number of milestone points attached to this award
+   * @param {object} options                          Options which modify how the milestone is awarded
+   * @param {boolean} [options.createMessage=true]      Create a ChatMessage logging the award?
+   * @param {string} [options.reason]                   An optional plain-text reason which describes the event
+   * @param {string[]} [options.recipientIds]           Customize the set of Actors who should receive the award
    * @returns {Promise<void>}
    */
-  async awardMilestones(quantity, {createMessage=true, recipientIds}={}) {
-    recipientIds ||= Array.from(this.memberIds);
+  async awardMilestone(identifier, number, {createMessage=true, reason="", recipientIds}={}) {
+    const actorUpdates = [];
     const recipientHTML = [];
-    const updates = recipientIds.reduce((arr, id) => {
-      const actor = game.actors.get(id);
-      if ( !actor ) return arr;
-      recipientHTML.push(`<li>${actor.name}</li>`);
-      const starting = actor.system._source.advancement.milestones;
-      const milestones = Math.max(starting + quantity, 0);
-      arr.push({_id: id, "system.advancement.milestones": milestones});
-      return arr;
-    }, []);
-    const groupMilestones = Math.max(this._source.advancement.milestones + quantity, 0);
-    updates.push({_id: this.parent.id, "system.advancement.milestones": groupMilestones});
-    await Actor.updateDocuments(updates);
-    if ( !createMessage ) return;
+
+    // Verify inputs
+    if ( !Number.isInteger(number) || (number < 1) ) throw new Error("The number of milestones awarded must be a " +
+      "positive integer");
+    const milestones = foundry.utils.deepClone(this._source.advancement.milestones);
+    if ( identifier in milestones ) throw new Error(`A milestone with identifier "${identifier}" has already 
+    been awarded to group "${this.parent.name}"`);
+
+    // Configure group award
+    milestones[identifier] = {number, reason};
+    actorUpdates.push({_id: this.parent.id, system: {advancement: {milestones}}});
+
+    // Prepare ChatMessage
     const plurals = new Intl.PluralRules(game.i18n.lang);
-    const awardText = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
+    const label = game.i18n.localize("AWARD.MILESTONE." + plurals.select(number));
+    const groupText = game.i18n.format("AWARD.MILESTONE.GroupAward", {number, label, name: this.parent.name});
+    recipientHTML.push(`
+    <div class="hex labeled-hex">
+      <span class="value large">${number}</span>
+      <h4 class="label footer">${label}</h4>
+    </div>
+    <p>${groupText}</p>
+    <ul class="plain">`);
+
+    // Configure member awards
+    recipientIds ||= Array.from(this.memberIds);
+    for ( const id of recipientIds ) {
+      const actor = game.actors.get(id);
+      if ( !actor || (actor.type !== "hero") ) throw new Error(`Actor ID "${id}" cannot be awarded a milestone`);
+      recipientHTML.push(`<li>${actor.name}</li>`);
+      const actorMilestones = actor.system._source.advancement.milestones + number;
+      actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});
+    }
+
+    // Perform Actor updates
+    await Actor.updateDocuments(actorUpdates);
+
+    // Create ChatMessage
+    if ( !createMessage ) return;
+    recipientHTML.push("</ul>");
+    if ( reason ) recipientHTML.push(`<blockquote class="milestone-reason">${reason}</blockquote>`);
     await ChatMessage.implementation.create({
-      content: `
-      <section class="crucible">
-        ${game.i18n.format("AWARD.SUMMARIES.Reward", {award: awardText})}
-        <ul class="plain">${recipientHTML.join("")}</ul>
-      </section>
-      `,
+      content: `<section class="milestone-award">${recipientHTML.filterJoin("")}</section>`,
+      speaker: ChatMessage.implementation.getSpeaker({actor: this.parent}),
+      flags: {crucible: {isAwardSummary: true}}
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Revoke a milestone to the members of this group.
+   * @param {string} identifier                       The string identifier for a previous milestone award
+   * @param {object} options                          Options which modify how the milestone is revoked
+   * @param {boolean} [options.createMessage=true]      Create a ChatMessage logging the award?
+   * @param {string[]} [options.recipientIds]           Customize the set of Actors who should receive the award
+   * @returns {Promise<void>}
+   */
+  async revokeMilestone(identifier, {createMessage=false, recipientIds}={}) {
+    const actorUpdates = [];
+    const recipientHTML = [];
+
+    // Configure group award
+    const milestones = foundry.utils.deepClone(this._source.advancement.milestones);
+    if ( !(identifier in milestones) ) throw new Error(`There is no milestone award with identifier 
+    "${identifier}" on group "${this.parent.name}"`);
+    const number = milestones[identifier].number;
+    delete milestones[identifier];
+    actorUpdates.push({_id: this.parent.id, system: {advancement: {"==milestones": milestones}}}); // ForcedDeletion
+
+    // Prepare ChatMessage
+    const plurals = new Intl.PluralRules(game.i18n.lang);
+    const label = game.i18n.localize("AWARD.MILESTONE." + plurals.select(number));
+    const groupText = game.i18n.format("AWARD.MILESTONE.GroupRevoke", {number, label, name: this.parent.name});
+    recipientHTML.push(`<p>${groupText}</p>`, `<ul class="plain">`);
+
+    // Configure member awards
+    recipientIds ||= Array.from(this.memberIds);
+    for ( const id of recipientIds ) {
+      const actor = game.actors.get(id);
+      if ( !actor || (actor.type !== "hero") ) throw new Error(`Actor ID "${id}" have a milestone revoked`);
+      recipientHTML.push(`<li>${actor.name}</li>`);
+      const actorMilestones = Math.max(actor.system._source.advancement.milestones - number, 0);
+      actorUpdates.push({_id: id, system: {advancement: {milestones: actorMilestones}}});
+    }
+
+    // Perform Actor updates
+    await Actor.updateDocuments(actorUpdates);
+
+    // Create ChatMessage
+    if ( !createMessage ) return;
+    recipientHTML.push("</ul>");
+    await ChatMessage.implementation.create({
+      content: `<section class="crucible">${recipientHTML.join("")}</section>`,
       speaker: ChatMessage.implementation.getSpeaker({actor: this.parent}),
       flags: {crucible: {isAwardSummary: true}}
     });
@@ -235,12 +326,12 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
   /**
    * Provide the Gamemaster with a Dialog to award milestone points to the group.
-   * @param {number} [baseQuantity=1]               Quantity of milestones to pre-populate the dialog with
    * @param {object} [options]
    * @param {boolean} [options.createMessage=true]  Whether to create a chat message summarizing the award
+   * @param {boolean} [options.number=1]            A number of milestones as the default option
    * @returns {Promise<void>}
    */
-  async awardMilestoneDialog(baseQuantity=1, options={}) {
+  async awardMilestoneDialog(options={}) {
     if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to award milestones.");
 
     // Prepare form data
@@ -250,33 +341,94 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     }, {});
 
     // Render form HTML
-    const {SetField, StringField, NumberField} = foundry.data.fields;
-    const quantity = new NumberField({
-      integer: true,
-      initial: baseQuantity,
-      label: "ACTOR.GROUP.FIELDS.advancement.milestones.label",
-      hint: "ACTOR.GROUP.FIELDS.advancement.milestones.hint"
+    const {SetField, StringField} = foundry.data.fields;
+    const content = document.createElement("div");
+    const identifier = new StringField({
+      label: game.i18n.localize("AWARD.MILESTONE.Identifier"),
+      hint: game.i18n.localize("AWARD.MILESTONE.IdentifierHint")
     });
-    const quantityHTML = quantity.toFormGroup({classes: ["slim"], localize: true}, {name: "quantity"});
+    const number = this.schema.getField("advancement.milestones.element.number");
+    const reason = this.schema.getField("advancement.milestones.element.reason");
     const recipients = new SetField(new StringField({required: true, blank: false, choices: heroes}), {
-      label: "Milestone Recipients",
-      hint: "Select one or more heroes to receive the milestone."
+      label: game.i18n.localize("AWARD.MILESTONE.Recipients"),
+      hint: game.i18n.localize("AWARD.MILESTONE.RecipientsHint")
     });
-    const recipientsHTML = recipients.toFormGroup({stacked: true}, {
-      name: "recipients",
-      type: "checkboxes",
-      value: Object.keys(heroes),
-      sort: true
-    });
+    const identifierPlaceholder = `milestone${Object.keys(this.advancement.milestones).length+1}`;
+    content.append(
+      identifier.toFormGroup({}, {name: "identifier", placeholder: identifierPlaceholder}),
+      number.toFormGroup({classes: ["slim"]}, {name: "number", value: options.number || 1, placeholder: "1"}),
+      reason.toFormGroup({stacked: true}, {name: "reason", placeholder: "An optional award reason."}),
+      recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
+        sort: true})
+    );
 
     // Create confirmation dialog
     const response = await foundry.applications.api.DialogV2.input({
-      window: {title: game.i18n.localize("ADVANCEMENT.MilestoneAward"), icon: "fa-solid fa-arrow-up"},
-      ok: {label: "Award", icon: "fa-solid fa-star"},
-      content: `${quantityHTML.outerHTML}${recipientsHTML.outerHTML}`
+      window: {title: game.i18n.localize("AWARD.MILESTONE.Award"), icon: "fa-solid fa-star"},
+      ok: {label: game.i18n.localize("AWARD.LABELS.Award"), icon: "fa-solid fa-arrow-up"},
+      content
     });
     if ( !response ) return;
-    await this.awardMilestones(response.quantity, {...options, recipientIds: response.recipients});
+    response.identifier ||= identifierPlaceholder;
+    response.number ||= 1;
+
+    // Perform the award
+    await this.awardMilestone(response.identifier, response.number, {
+      ...options,
+      recipientIds: response.recipients,
+      reason: response.reason
+    });
+  }
+
+  /* -------------------------------------------- */
+
+
+  /**
+   * Provide the Gamemaster with a Dialog to revoke milestone points from the group.
+   * @returns {Promise<void>}
+   */
+  async revokeMilestoneDialog() {
+    if ( !game.user.isGM ) throw new Error("You must be a Gamemaster user to revoke milestones.");
+
+    // Prepare form data
+    const heroes = this.members.reduce((obj, {actor}) => {
+      if ( actor?.type === "hero" ) obj[actor.id] = actor.name;
+      return obj;
+    }, {});
+    const identifiers = Object.entries(this.advancement.milestones).reduce((obj, [identifier, {reason, number}]) => {
+      obj[identifier] = `(+${number}) ${reason || identifier}`;
+      return obj;
+    }, {});
+
+    // Render form HTML
+    const {SetField, StringField} = foundry.data.fields;
+    const content = document.createElement("div");
+    const identifier = new StringField({
+      label: game.i18n.localize("AWARD.MILESTONE.Identifier"),
+      hint: game.i18n.localize("AWARD.MILESTONE.IdentifierHint"),
+      choices: identifiers,
+      blank: true
+    });
+    const recipients = new SetField(new StringField({required: true, blank: false, choices: heroes}), {
+      label: game.i18n.localize("AWARD.MILESTONE.Recipients"),
+      hint: game.i18n.localize("AWARD.MILESTONE.RecipientsHint")
+    });
+    content.append(
+      identifier.toFormGroup({}, {name: "identifier"}),
+      recipients.toFormGroup({stacked: true}, {name: "recipients", type: "checkboxes", value: Object.keys(heroes),
+        sort: true})
+    );
+
+    // Create confirmation dialog
+    const response = await foundry.applications.api.DialogV2.input({
+      window: {title: game.i18n.localize("AWARD.MILESTONE.Revoke"), icon: "fa-solid fa-star"},
+      ok: {label: game.i18n.localize("AWARD.LABELS.Revoke"), icon: "fa-solid fa-arrow-down"},
+      content
+    });
+    if ( !response?.identifier ) return;
+
+    // Perform the revocation
+    await this.revokeMilestone(response.identifier, {recipientIds: response.recipients});
   }
 
   /* -------------------------------------------- */
@@ -295,7 +447,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Median Level
     if ( this.members.length ) {
-      tags.level = `${game.i18n.localize("ACTOR.GROUP.LABELS.medianLevel")} ${this.medianLevel}`;
+      tags.level = `${game.i18n.localize("ACTOR.GROUP.LABELS.medianLevel")} ${this.advancement.medianLevel}`;
     }
     return tags;
   }
@@ -393,5 +545,13 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
 
     // Render
     return foundry.applications.handlebars.renderTemplate(this.constructor.TOOLTIP_CHECK_TEMPLATE, {title, results});
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  static migrateData(data) {
+    if ( typeof data.advancement?.milestones === "number" ) data.advancement.milestones = {};
+    return super.migrateData(data);
   }
 }

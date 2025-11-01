@@ -318,7 +318,7 @@ function enrichMilestone([_match, term]) {
   const tag = document.createElement("enriched-content");
   tag.classList.add("award", "milestone");
   tag.dataset.quantity = String(quantity);
-  tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.Milestone." + plurals.select(quantity))}`;
+  tag.innerHTML = `${quantity} ${game.i18n.localize("AWARD.MILESTONE." + plurals.select(quantity))}`;
   tag.setAttribute("aria-label", game.i18n.localize("AWARD.TOOLTIPS.Milestone"));
   tag.toggleAttribute("data-tooltip", true);
   return tag;
