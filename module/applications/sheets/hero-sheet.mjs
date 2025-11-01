@@ -61,7 +61,7 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
     }
 
     // Allow extension of sheet context
-    Hooks.callAll("crucible.prepareHeroSheetContext", context, options);
+    Hooks.callAll("crucible.prepareHeroSheetContext", this, context, options);
     return context;
   }
 
