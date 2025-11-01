@@ -122,6 +122,14 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
     // Member IDs
     Object.defineProperty(this.members, "ids", {value: this.memberIds, enumerable: false, configurable: true});
     Object.defineProperty(this.members, "actors", {value: this.actors, enumerable: false, configurable: true});
+
+    // Movement pace
+    const m = this.movement;
+    const pace = SYSTEM.ACTOR.TRAVEL_PACES[m.pace];
+    for ( const [k, v] of Object.entries(m) ) {
+      if ( k === "pace" ) continue;
+      m[k] = (v * pace.speedMultiplier).toNearest(0.5);
+    }
   }
 
   /* -------------------------------------------- */

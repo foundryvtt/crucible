@@ -59,6 +59,9 @@ export default class HeroSheet extends CrucibleBaseActorSheet {
       const items = issues.reduce((s, text) => s + `<li>${text}</li>`, "");
       i.progressTooltip = `<h4>Progression Requirements</h4><ol>${items}</ol>`;
     }
+
+    // Allow extension of sheet context
+    Hooks.callAll("crucible.prepareHeroSheetContext", context, options);
     return context;
   }
 
