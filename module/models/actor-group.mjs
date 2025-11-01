@@ -517,7 +517,7 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
       if ( !member.actor ) continue;
       const r = await check(this.parent, member.actor);
       if ( r === null ) continue;
-      const {roll, success} = r;
+      const {roll, success, passive} = r;
       const result = {actor: member.actor, name: member.actor.name, tags: member.actor.getTags()};
 
       // Roll-based results
@@ -532,14 +532,22 @@ export default class CrucibleGroupActor extends foundry.abstract.TypeDataModel {
         hasValue: true,
       });
 
-      // Binary checks
-      else if ( typeof success === "boolean" ) Object.assign(result, {
-        isSuccess: success,
-        isFailure: !success,
-        icon: success ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
-        hasValue: false
-      });
-      else throw new Error("A group check result must either provide a roll or a binary success");
+      // Static checks
+      else {
+        if ( typeof success === "boolean" ) Object.assign(result, {
+          isSuccess: success,
+          isFailure: !success,
+          icon: success ? "fa-light fa-hexagon-check" : "fa-light fa-hexagon-xmark",
+          hasValue: false
+        });
+        if ( Number.isNumeric(passive) ) Object.assign(result, {
+          total: passive,
+          hasValue: true
+        });
+      }
+      if ( result.isSuccess === undefined ) {
+        throw new Error("A group check result must either provide a roll or a binary success");
+      }
 
       // Common rules
       result.cssClass = [
